@@ -371,8 +371,8 @@ if ($_COOKIE["AURSID"]) {
 
 				# add upload history
 				#
-				$q = "INSERT INTO PackageUploadHistory ";
-				$q.= "(PackageID, UsersID, Comments, UploadTS) VALUES (";
+				$q = "INSERT INTO PackageComments ";
+				$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
 				$q.= $pdata["ID"] . ", " . uid_from_sid($_COOKIE['AURSID']);
 				$q.= ", '" . mysql_escape_string($_REQUEST["comments"]);
 				$q.= "', UNIX_TIMESTAMP())";
@@ -434,8 +434,8 @@ if ($_COOKIE["AURSID"]) {
 
 				# add upload history
 				#
-				$q = "INSERT INTO PackageUploadHistory ";
-				$q.= "(PackageID, UsersID, Comments, UploadTS) VALUES (";
+				$q = "INSERT INTO PackageComments ";
+				$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
 				$q.= $packageID . ", " . uid_from_sid($_COOKIE["AURSID"]) . ", '";
 				$q.= mysql_escape_string($_REQUEST["comments"]);
 				$q.= "', UNIX_TIMESTAMP())";

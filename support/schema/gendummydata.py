@@ -1,4 +1,7 @@
 #!/usr/bin/python
+"""
+usage: gendummydata.py outputfilename.sql
+"""
 #
 # This script seeds the AUR database with dummy data for
 # use during development/testing.  It uses random entries
@@ -22,16 +25,25 @@ MAX_PKGS  = 2500       # how many packages to load
 PKG_FILES = (8, 30)    # min/max number of files in a package
 PKG_DEPS  = (1, 5)     # min/max depends a package has
 PKG_SRC   = (1, 3)     # min/max sources a package has
+PKG_CMNTS = (1, 5)     # min/max number of comments a package has
 VOTING    = (0, .30)   # percentage range for package voting
-RANDOM_PATHS = [       # random path locations for package files
+RANDOM_PATHS = (       # random path locations for package files
 	"/usr/bin", "/usr/lib", "/etc", "/etc/rc.d", "/usr/share", "/lib",
 	"/var/spool", "/var/log", "/usr/sbin", "/opt", "/usr/X11R6/bin",
 	"/usr/X11R6/lib", "/usr/libexec", "/usr/man/man1", "/usr/man/man3",
 	"/usr/man/man5", "/usr/X11R6/man/man1", "/etc/profile.d"
-]
-RANDOM_TLDS = ["edu", "com", "org", "net", "tw", "ru", "pl", "de", "es"]
-RANDOM_URL = ["http://www.", "ftp://ftp.", "http://", "ftp://"]
-RANDOM_LOCS = ["pub", "release", "files", "downloads", "src"]
+)
+RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
+RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
+RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
+FORTUNE_FILES = ("computers", "fortunes", "literature", "science",
+  "songs-poems", "startrek", "wisdom", "work", "buffy", "calvin",
+  "futurama", "jargon", "matrix", "starwars", "tao", "chalkboard",
+  "dune", "dune-messiah", "children-of-dune", "god-emperor", "definitions",
+  "drugs", "education", "food", "humorists", "kids", "law", "news",
+  "people", "pets", "politics", "platitudes", "zippy", "riddles"
+)
+FORTUNE_CMD = "/usr/bin/fortune -l " + " ".join(FORTUNE_FILES)
 
 
 import random
@@ -39,6 +51,8 @@ import time
 import os
 import sys
 import cStringIO
+import commands
+
 
 if len(sys.argv) != 2:
 	sys.stderr.write("Missing output filename argument");
@@ -70,6 +84,8 @@ try:
 except:
 	sys.stderr.write("Could not connect to database\n");
 	raise SystemExit
+
+esc = db.escape_string
 
 
 # track what users/package names have been used
@@ -226,6 +242,7 @@ if DBUG:
 if DBUG: print "Creating SQL statements for packages.",
 count = 0
 for p in seen_pkgs.keys():
+	NOW = int(time.time())
 	if count % 2 == 0:
 		muid = developers[random.randrange(0,len(developers))]
 	else:
@@ -240,11 +257,20 @@ for p in seen_pkgs.keys():
 	uuid = genUID() # the submitter/user
 
 	s = "INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, AURMaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d, %d);\n" % (seen_pkgs[p], p, genVersion(location_id),
-			genCategory(), location_id, long(time.time()), uuid, uuid, muid)
+			genCategory(), location_id, NOW, uuid, uuid, muid)
 	out.write(s)
 	if count % 100 == 0:
 		if DBUG: print ".",
 	count += 1
+
+	# create random comments for this package
+	#
+	num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
+	for i in range(0, num_comments):
+		fortune = esc(commands.getoutput(FORTUNE_CMD).replace("'","").replace("\n"," "))
+		now = NOW + random.randrange(400, 86400*3)
+		s = "INSERT INTO PackageComments (PackageID, UsersID, Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n" % (seen_pkgs[p], uuid, fortune, now)
+		out.write(s)
 
 	if location_id == 1: # Unsupported - just a PKGBUILD and maybe other stuff
 		others = random.randrange(0,3)

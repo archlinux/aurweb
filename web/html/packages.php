@@ -209,7 +209,7 @@ if (isset($_REQUEST["do_Flag"])) {
 					}
 				}
 				if (!empty($ids_to_delete)) {
-					# TODO These are the packages that are safe to delete
+					# These are the packages that are safe to delete
 					#
 				  foreach ($ids_to_delete as $id) {
 						# 1) delete from PackageVotes
@@ -228,8 +228,8 @@ if (isset($_REQUEST["do_Flag"])) {
 						$q = "DELETE FROM PackageSources WHERE PackageID = " . $id;
 						$result = db_query($q, $dbh);
 
-						# 5) delete from PackageUploadHistory
-						$q = "DELETE FROM PackageUploadHistory WHERE PackageID = " . $id;
+						# 5) delete from PackageComments
+						$q = "DELETE FROM PackageComments WHERE PackageID = " . $id;
 						$result = db_query($q, $dbh);
 
 						# 6) delete from Packages
@@ -239,6 +239,7 @@ if (isset($_REQUEST["do_Flag"])) {
 						# TODO question: Now that the package as been deleted, does
 						#                the unsupported repo need to be regenerated?
 					  # ANSWER: No, there is no actual repo for unsupported, so no worries! (PJM)
+						# TODO question: What about regenerating the AUR repo? (EJ)
 
 						# Print the success message
 						print "<p>\n";
@@ -353,6 +354,12 @@ if (isset($_REQUEST["do_Flag"])) {
 
 			$q = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES ";
 			$q.= $vote_clauses;
+			db_query($q, $dbh);
+
+			# Update the LastVoted field for this user
+			#
+			$q = "UPDATE Users SET LastVoted = UNIX_TIMESTAMP() ";
+			$q.= "WHERE ID = ".$uid;
 			db_query($q, $dbh);
 
 			print "<p>\n";

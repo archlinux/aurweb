@@ -180,13 +180,13 @@ CREATE TABLE PackageContents (
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
 );
 
--- Record comments for users submitting packages to AUR/unsupported
+-- Record comments for packages
 --
-CREATE TABLE PackageUploadHistory (
+CREATE TABLE PackageComments (
 	PackageID INTEGER UNSIGNED NOT NULL,
 	UsersID INTEGER UNSIGNED NOT NULL,
 	Comments TEXT NOT NULl DEFAULT '',
-	UploadTS BIGINT UNSIGNED NOT NULL DEFAULT 0,
+	CommentTS BIGINT UNSIGNED NOT NULL DEFAULT 0,
 	INDEX (UsersID),
 	INDEX (PackageID),
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
