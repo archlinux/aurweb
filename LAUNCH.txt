@@ -9,12 +9,16 @@ TIER 1 (critical)
 * a package should be made of tupkg client tool
 
 TIER 2 (pretty important)
-* when aur takes over a package, it should reset maintainer - Paul
 * tupkg and tupkgs should not output unhashed passwords
 * config file capability for tupkg client in user's homedir
 * email notification of errors in tupkgupdate - Paul
 * move config options for php code to separate file and make that file
   a ".proto" file in svn
+* add foreign key constraints with on delete cascade to make sure
+  entries are not orphaned in PackageSources and PackageDepends
 
 TIER 3 (noncritical)
 * tupkgupdate should use updatesync instead of gensync - Paul
+* error message when a non TU tries to adopt packages
+* add method from the web for setting/changing package category
+* only allow the maintainer to tupkg upload packages he owns (in tupkgs)
