@@ -332,9 +332,16 @@ if ($_COOKIE["AURSID"]) {
         $q .= "WHERE ID = " . $pdata["ID"];
         $result = db_query($q, $dbh);
 
-        # TODO Need to contents
-
-#        while (list($k, $line) = each($lines)) {
+        # update package contents
+        #
+        while (list($k, $v) = each($pkg_contents)) {
+          $q = "INSERT INTO PackageContents (PackageID, FSPath, URLPath, FileSize) VALUES (";
+          $q.= $pdata['ID'].", ";
+          $q.= "'".$INCOMING_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
+          $q.= "'".$URL_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
+          $q.= $v.")";
+          db_query($q);
+        }
 
 				# update package depends
 				#
@@ -370,7 +377,16 @@ if ($_COOKIE["AURSID"]) {
 
 				$packageID = mysql_insert_id($dbh);
 
-        # TODO Need to contents
+        # update package contents
+        #
+        while (list($k, $v) = each($pkg_contents)) {
+          $q = "INSERT INTO PackageContents (PackageID, FSPath, URLPath, FileSize) VALUES (";
+          $q.= $packageID.", ";
+          $q.= "'".$INCOMING_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
+          $q.= "'".$URL_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
+          $q.= $v.")";
+          db_query($q);
+        }
 
 				# update package depends
 				#
