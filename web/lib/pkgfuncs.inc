@@ -103,7 +103,7 @@ function package_dependencies($pkgid=0) {
 	$deps = array();
 	if ($pkgid) {
 		$dbh = db_connect();
-		$q = "SELECT DepPkgID, Name FROM PackageDepends, Packages ";
+		$q = "SELECT DepPkgID, Name, DummyPkg FROM PackageDepends, Packages ";
 		$q.= "WHERE PackageDepends.DepPkgID = Packages.ID ";
 		$q.= "AND PackageDepends.PackageID = ".mysql_escape_string($pkgid);
 		$q.= " ORDER BY Name";
@@ -131,9 +131,9 @@ function create_dummy($pname="", $sid="") {
 			# Insert the dummy
 			#
 			$q = "INSERT INTO Packages (Name, Description, URL, SubmittedTS, ";
-			$q.= "SubmitterUID) VALUES ('";
+			$q.= "SubmitterUID, DummyPkg) VALUES ('";
 			$q.= mysql_escape_string($pname)."', 'A dummy package', '/#', ";
-			$q.= "UNIX_TIMESTAMP(), ".$uid.")";
+			$q.= "UNIX_TIMESTAMP(), ".$uid.", 1)";
 			$result = db_query($q, $dbh);
 			if (!$result) {
 				return NULL;
@@ -197,7 +197,7 @@ function package_details($id=0) {
 	$q.= "FROM Packages,PackageLocations,PackageCategories ";
  	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
 	$q.= "AND Packages.CategoryID = PackageCategories.ID ";
-	$q.= "ANd Packages.ID = ".intval($_REQUEST["ID"]);
+	$q.= "AND Packages.ID = ".intval($_REQUEST["ID"]);
 	$dbh = db_connect();
 	$results = db_query($q, $dbh);
 	if (!$results) {
@@ -262,7 +262,7 @@ function package_details($id=0) {
 			print "<tr><td class='boxSoftTitle'><span class='f3'>";
 			print "Dependencies</span></td></tr>\n";
 			print "<tr><td class='boxSoft'>";
-			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name');
+			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name', 'dummy');
 			while (list($k, $darr) = each($deps)) {
 				$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
 				while(list($k, $var) = each($pkgsearch_vars)) {
@@ -273,7 +273,8 @@ function package_details($id=0) {
 					}
 				}
 				reset($pkgsearch_vars);
-				print $url."'>".$darr[1]."</a><br />\n";
+				if ($darr[2] == 0) print $url."'>".$darr[1]."</a><br />\n";
+				else print "<a href='#'>".$darr[1]."</a><br />\n";
 			}
 			print "</td></tr>\n";
 			print "</table></td>";
@@ -466,7 +467,9 @@ function pkg_search_page($SID="") {
 #	$q.= "FROM Packages LEFT JOIN PackageVotes ";
 #	$q.= "ON Packages.ID = PackageVotes.PackageID ";
 	$q = "SELECT * FROM Packages ";
-	$has_where = 0;
+	$q.= "WHERE DummyPkg != 1 ";
+	$has_where = 1;
+
 	if (intval($_REQUEST["L"])) {
 		$q.= "WHERE LocationID = ".intval($_REQUEST["L"])." ";
 		$has_where = 1;

@@ -196,4 +196,9 @@ $_t["en"]["You must supply a comment for this upload/change."] = "You must suppl
 # $_t["fr"]["You must supply a comment for this upload/change."] = "--> Traduction française ici. <--";
 # $_t["de"]["You must supply a comment for this upload/change."] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Package upload successful"] = "Package upload successful";
+# $_t["es"]["Package upload successful"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Package upload successful"] = "--> Traduction française ici. <--";
+# $_t["de"]["Package upload successful"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

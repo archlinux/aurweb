@@ -488,7 +488,9 @@ if ($_COOKIE["AURSID"]) {
 			print __("Sorry, uploads are not permitted by this server.");
 			print "<br />\n";
 		}
-	}
+	} else {
+    print __("Package upload successful");
+  }
 
 } else {
 	# visitor is not logged in
