@@ -254,6 +254,13 @@ function package_details($id=0) {
 			print $maintainer . "</span></td>";
 			print "</tr>\n";
 			print "<tr>\n";
+			print "  <td colspan='2'><img src='/images/pad.gif' height='15'></td>";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><span class='f3'>";
+			print "<a href='".$row['URLPath']."'>Tarball</a> :: <a href='".$row['URLPath']."/".$row['Name']."'>Files</a></span></td>";
+			print "</tr>\n";
+			print "<tr>\n";
 			print "  <td colspan='2'><img src='/images/pad.gif' height='30'></td>";
 			print "</tr>\n";
 			print "<tr>\n";
@@ -675,8 +682,8 @@ function pkg_search_page($SID="") {
 			$managed = 1;
 			if (isset($devs[$row["AURMaintainerUID"]])) {
 				print $devs[$row["AURMaintainerUID"]]["Username"];
-			} elseif (isset($tus[$row["AURMaintainerUID"]])) {
-				print $tus[$row["AURMaintainerUID"]]["Username"];
+			} elseif (isset($tus[$row["MaintainerUID"]])) {
+				print $tus[$row["MaintainerUID"]]["Username"];
 			} else {
 				print "None";
 				$managed = 0;
