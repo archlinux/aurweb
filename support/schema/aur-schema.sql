@@ -67,6 +67,7 @@ CREATE TABLE PackageCategories (
 	Category CHAR(32) NOT NULL,
 	PRIMARY KEY (ID)
 );
+INSERT INTO PackageCategories (ID, Category) VALUES (0, 'none');
 INSERT INTO PackageCategories (Category) VALUES ('daemons');
 INSERT INTO PackageCategories (Category) VALUES ('devel');
 INSERT INTO PackageCategories (Category) VALUES ('editors');
@@ -93,6 +94,7 @@ CREATE TABLE PackageLocations (
 	Location CHAR(32) NOT NULL,
 	PRIMARY KEY (ID)
 );
+INSERT INTO PackageLocations (ID, Location) VALUES (0, 'none');
 INSERT INTO PackageLocations (ID, Location) VALUES (1, 'Unsupported');
 INSERT INTO PackageLocations (ID, Location) VALUES (2, 'AUR');
 INSERT INTO PackageLocations (ID, Location) VALUES (3, 'Current');
@@ -109,6 +111,9 @@ CREATE TABLE Packages (
 	CategoryID TINYINT UNSIGNED NOT NULL,
 	Description CHAR(128) NOT NULL DEFAULT "An Arch Package",
 	URL CHAR(255) NOT NULL DEFAULT "http://www.archlinux.org",
+	DummyPkg TINYINT UNSIGNED NOT NULL DEFAULT 0,         -- 1=>dummy
+	FSPath CHAR(255) NOT NULL DEFAULT '',
+	URLPath CHAR(255) NOT NULL DEFAULT '',
 	LocationID TINYINT UNSIGNED NOT NULL,
 	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
 	OutOfDate TINYINT UNSIGNED DEFAULT 0,
@@ -122,6 +127,7 @@ CREATE TABLE Packages (
 	UNIQUE (Name),
 	INDEX (CategoryID),
 	INDEX (LocationID),
+	INDEX (DummyPkg),
 	INDEX (OutOfDate),
 	INDEX (NumVotes),
 	INDEX (SubmitterUID),
@@ -169,8 +175,8 @@ CREATE TABLE PackageVotes (
 --
 CREATE TABLE PackageContents (
 	PackageID INTEGER UNSIGNED NOT NULL,
-	FSPath CHAR(256) NOT NULL,
-	URLPath CHAR(255) NOT NULL,
+	FSPath CHAR(255) NOT NULL DEFAULT '',
+	URLPath CHAR(255) NOT NULL DEFAULT '',
 	FileSize BIGINT UNSIGNED NOT NULL default 0,
 	INDEX (PackageID),
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE

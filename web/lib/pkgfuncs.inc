@@ -83,6 +83,20 @@ function pkgLocations() {
 	return $locs;
 }
 
+# check to see if the package name exists
+#
+function package_exists($name="") {
+	if (!$name) {return NULL;}
+	$dbh = db_connect();
+	$q = "SELECT ID FROM Packages ";
+	$q.= "WHERE Name = '".mysql_escape_string($name)."' ";
+	$q.= "AND DummyPkg = 0";
+	$result = db_query($q, $dbh);
+	if (!$result) {return NULL;}
+	$row = mysql_fetch_row($result);
+	return $row[0];
+}
+
 # grab package dependencies
 #
 function package_dependencies($pkgid=0) {
@@ -100,6 +114,39 @@ function package_dependencies($pkgid=0) {
 		}
 	}
 	return $deps;
+}
+
+# create a dummy package and return it's Packages.ID  if it already exists,
+# return the existing ID
+#
+function create_dummy($pname="", $sid="") {
+	if ($pname && $sid) {
+		$uid = uid_from_sid($sid);
+		if (!$uid) {return NULL};
+		$dbh = db_connect();
+		$q = "SELECT ID FROM Packages WHERE Name = '";
+		$q.= mysql_escape_string($pname)."'";
+		$result = db_query($q, $dbh);
+		if (!$result) {
+			# Insert the dummy
+			#
+			$q = "INSERT INTO Packages (Name, CategoryID, Description, ";
+			$q.= "URL, LocationID, SubmittedTS, SubmitterUID) VALUES ('";
+			$q.= mysql_escape_string($pname)."', 0, ";
+			$q.= "'A dummy package', '/#', 0, UNIX_TIMESTAMP(), ";
+			$q.= $uid.")";
+			$result = db_query($q, $dbh);
+			if (!$result) {
+				return NULL;
+			}
+			return mysql_insert_id($result);
+		} else {
+			$data = mysql_fetch_row($result);
+			return $data['ID'];
+		}
+	}
+	return NULL;
+
 }
 
 # grab package sources

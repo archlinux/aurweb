@@ -12,8 +12,8 @@ $DBUG = 1;
 
 # this is the directory that new packages will be uploaded to
 #
-$UPLOAD_DIR = "/tmp/aur/temp/";
-$INCOMING_DIR = "/tmp/aur/incoming/";
+$UPLOAD_DIR = "/aur/temp/";
+$INCOMING_DIR = "/aur/incoming/";
 
 
 if ($_COOKIE["AURSID"]) {
