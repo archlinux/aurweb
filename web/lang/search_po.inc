@@ -36,4 +36,19 @@ $_t["en"]["You do not have access to adopt packages."] = "You do not have access
 # $_t["fr"]["You do not have access to adopt packages."] = "--> Traduction française ici. <--";
 # $_t["de"]["You do not have access to adopt packages."] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["You must be logged in before you can disown packages."] = "You must be logged in before you can disown packages.";
+# $_t["es"]["You must be logged in before you can disown packages."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You must be logged in before you can disown packages."] = "--> Traduction française ici. <--";
+# $_t["de"]["You must be logged in before you can disown packages."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Error trying to retrieve package details."] = "Error trying to retrieve package details.";
+# $_t["es"]["Error trying to retrieve package details."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Error trying to retrieve package details."] = "--> Traduction française ici. <--";
+# $_t["de"]["Error trying to retrieve package details."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You must be logged in before you can adopt packages."] = "You must be logged in before you can adopt packages.";
+# $_t["es"]["You must be logged in before you can adopt packages."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You must be logged in before you can adopt packages."] = "--> Traduction française ici. <--";
+# $_t["de"]["You must be logged in before you can adopt packages."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

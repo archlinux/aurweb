@@ -365,7 +365,8 @@ function html_header() {
 
 	# XXX Can I scale a PNG like this?
 	#
-	print "<img src='/images/AUR-logo-80.png' width='85' height='45' border='0' /></a></td>\n";
+	print "<img src='/images/AUR-logo-80.png' width='85' height='45' ";
+	print "alt='AUR' border='0' /></a></td>\n";
 	print "                <td class='headerDisplay' valign='top' align='right'>";
 	print "<span class='preHeader'>ArchLinux User-community Repository</span><br />";
 

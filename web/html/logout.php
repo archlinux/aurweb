@@ -12,6 +12,7 @@ if (isset($_COOKIE["AURSID"])) {
 	$dbh = db_connect();
 	db_query($q, $dbh);
 	setcookie("AURSID", "", time() - (60*60*24*30), "/");
+	setcookie("AURLANG", "", time() - (60*60*24*30), "/");
 }
 
 html_header();              # print out the HTML header

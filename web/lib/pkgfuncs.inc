@@ -1,6 +1,49 @@
 <?
 include_once("pkgfuncs_po.inc");
 
+# print out the 'return to search results' link
+#
+function pkgsearch_results_link() {
+	global $pkgsearch_vars;
+
+	$url_data = "<a href='/pkgsearch.php?do_Search=1";
+	while (list($k, $var) = each($pkgsearch_vars)) {
+		if ($var == "do_MyPackages") {
+			$url_data.="&".$var."=1";
+		} else {
+			$url_data.="&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+		}
+	}
+	$url_data .= "'>";
+	print __("Go back to %hsearch results%h.",
+		array($url_data, "</a>"));
+
+	return;
+}
+
+
+# see if this Users.ID can manage the package
+#
+function canManagePackage($uid=0,$AURMUID=0, $MUID=0, $SUID=0, $managed=0) {
+	if (!$uid) {return 0;}
+
+	# The uid of the TU/Dev that manages the package
+	#
+	if ($uid == $AURMUID) {return 1;}
+
+	# If the package isn't maintained by a TU/Dev, is this the user-maintainer?
+	#
+	if ($uid == $MUID && !$managed) {return 1;}
+
+	# If the package isn't maintained by a TU/Dev, is this the user-submitter?
+	#
+	if ($uid == $SUID && !$managed) {return 1;}
+
+	# otherwise, no right to manage this package
+	#
+	return 0;
+}
+
 # grab the current list of PackageCategories
 #
 function pkgCategories() {
@@ -197,21 +240,22 @@ function pkg_search_page($SID="") {
 
 	# determine paging variables
 	#
-	isset($_REQUEST["PP"]) ? $PP = intval($_REQUEST["PP"]) : $PP = 25;
+	$_REQUEST["PP"] ? $PP = intval($_REQUEST["PP"]) : $PP = 25;
 	if ($PP < 25) {$PP = 25;}
 	if ($PP > 100) {$PP = 100;}
-	isset($_REQUEST["O"]) ? $O = intval($_REQUEST["O"]) : $O = 0;
-	if (isset($_REQUEST["do_More"])) {
+	$_REQUEST["O"] ? $O = intval($_REQUEST["O"]) : $O = 0;
+	if ($_REQUEST["do_More"]) {
 		$O += $PP;
-	} elseif (isset($_REQUEST["do_Less"])) {
+	} elseif ($_REQUEST["do_Less"]) {
 		$O -= $PP;
 	}
 	if ($O < 0) {
 		$O = 0;
 	}
-	if (isset($_REQUEST["do_Search"]) || isset($_REQUEST["do_MyPackages"])) {
+	if ($_REQUEST["do_Search"]) {
 		# reset the offset to zero if they hit Go/My Packages
 		#
+		$_REQUEST["do_MyPackages"] = 0;
 		$O = 0;
 	}
 
@@ -341,11 +385,11 @@ function pkg_search_page($SID="") {
 #	$q.= "ON Packages.ID = PackageVotes.PackageID ";
 	$q = "SELECT * FROM Packages ";
 	$has_where = 0;
-	if (isset($_REQUEST["L"]) && intval($_REQUEST["L"])) {
+	if (intval($_REQUEST["L"])) {
 		$q.= "WHERE LocationID = ".intval($_REQUEST["L"])." ";
 		$has_where = 1;
 	}
-	if (isset($_REQUEST["C"]) && intval($_REQUEST["C"])) {
+	if (intval($_REQUEST["C"])) {
 		if (!$has_where) {
 			$q.= "WHERE CategoryID = ".intval($_REQUEST["C"])." ";
 			$has_where = 1;
@@ -363,18 +407,18 @@ function pkg_search_page($SID="") {
 			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
 		}
 	}
-	if (isset($_REQUEST["do_MyPackages"]) && $SID) {
+	if ($_REQUEST["do_MyPackages"] && $SID) {
 		# list packages that the user is a AUR Maintainer of, or if it the
 		# vistior is a registered user, if they are the Maintainer.
 		#
 		if ($myuid) {
 			if (!$has_where) {
 				$q.= "WHERE (AURMaintainerUID = ".$myuid." OR ";
-				$q.= "MaintainerUID = " . $myuid.") ";
+				$q.= "MaintainerUID = ".$myuid." OR SubmitterUID = ".$myuid.") ";
 				$has_where = 1;
 			} else {
 				$q.= "AND (AURMaintainerUID = ".$myuid." OR ";
-				$q.= "MaintainerUID = " . $myuid.") ";
+				$q.= "MaintainerUID = ".$myuid." OR SubmitterUID = ".$myuid.") ";
 			}
 		}
 	}
@@ -394,10 +438,10 @@ function pkg_search_page($SID="") {
 			break;
 	}
 	$q.= "LIMIT ".$O.", ".$PP;
-	#print $q."<br />\n";
-	#print "<pre>\n";
-	#print_r($_REQUEST);
-	#print "</pre>\n";
+	print $q."<br />\n";
+	print "<pre>\n";
+	print_r($_REQUEST);
+	print "</pre>\n";
 
 	$result = db_query($q, $dbh);
 	if (!$result) {
@@ -502,41 +546,43 @@ function pkg_search_page($SID="") {
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			print $cats[$row["CategoryID"]]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f4'>";
-			$details_url = "<a href='/pkgsearch.php?";
-			$url_data = "do_Details=1&ID=";
-			$url_data.= $row["ID"];
+			$url = "<a href='/pkgsearch.php?";
+			$url .= "do_Details=1&ID=";
+			$url .= $row["ID"];
 			while (list($k, $var) = each($pkgsearch_vars)) {
 				# I'm never convinced how to do this encoding/decoding properly.
 				# php.net recommends htmlentities(urlencode(data)), but that
 				# doesn't work!
 				#
-				$url_data .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+				$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
 			}
-			$details_url.= $url_data;
-			$details_url.= "'><span class='black'>".$row["Name"];
-			$details_url.= "-".$row["Version"]."</span></a>";
-			print $details_url."</span></td>\n";
+			reset($pkgsearch_vars);
+			$url.= "'><span class='black'>".$row["Name"];
+			$url.= "-".$row["Version"]."</span></a>";
+			print $url."</span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			print "&nbsp;&nbsp;&nbsp;".$row["NumVotes"]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f4'><span class='blue'>";
 			print $row["Description"]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-			$not_managed = 0;
+
+			# print the package manager, also determine if it is managed
+			#
+			$managed = 1;
 			if (isset($devs[$row["AURMaintainerUID"]])) {
 				print $devs[$row["AURMaintainerUID"]]["Username"];
 			} elseif (isset($tus[$row["AURMaintainerUID"]])) {
 				print $tus[$row["AURMaintainerUID"]]["Username"];
 			} else {
 				print "None";
-				$not_managed = 1;
+				$managed = 0;
 			}
 			print "</span></span></td>\n";
-			if ($myuid == $row["AURMaintainerUID"] || $not_managed ||
-					($myuid == $row["MaintainerUID"] && $not_managed)) {
-				# Only allow TUs/Devs to manage packages, or if it is a regular
-				# user and the package has not been adopted by a TU/Dev, then the
-				# regular user (most likely the submitter) can manage it.
-				#
+
+			# print the managed link if applicable
+			#
+			if (canManagePackage($myuid, $row["AURMaintainerUID"],
+					$row["MaintainerUID"], $row["SubmitterUID"], $managed)) {
 				$manage_url = "<a href='/pkgmgmnt.php?ID=";
 				$manage_url.= $row["ID"]."'><span class='black'>Manage</span></a>";
 				print "  <td class='".$c."'><span class='f4'>";
@@ -553,6 +599,9 @@ function pkg_search_page($SID="") {
 		print "</tr>\n";
 		print "</table>\n";
 		print "<input type='hidden' name='All_IDs' value='".$all_ids."'>\n";
+		if ($_REQUEST["do_MyPackages"]) {
+			print "<input type='hidden' name='do_MyPackages' value='1'>\n";
+		}
 
 		print "<table width='90%' cellspacing='0' cellpadding='2'>\n";
 		print "<tr>\n";

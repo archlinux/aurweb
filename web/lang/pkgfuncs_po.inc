@@ -116,4 +116,29 @@ $_t["en"]["Vote"] = "Vote";
 # $_t["fr"]["Vote"] = "--> Traduction française ici. <--";
 # $_t["de"]["Vote"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Error retrieving package details."] = "Error retrieving package details.";
+# $_t["es"]["Error retrieving package details."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Error retrieving package details."] = "--> Traduction française ici. <--";
+# $_t["de"]["Error retrieving package details."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Package details could not be found."] = "Package details could not be found.";
+# $_t["es"]["Package details could not be found."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Package details could not be found."] = "--> Traduction française ici. <--";
+# $_t["de"]["Package details could not be found."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Error retrieving package list."] = "Error retrieving package list.";
+# $_t["es"]["Error retrieving package list."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Error retrieving package list."] = "--> Traduction française ici. <--";
+# $_t["de"]["Error retrieving package list."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Go back to %hsearch results%h."] = "Go back to %hsearch results%h.";
+# $_t["es"]["Go back to %hsearch results%h."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Go back to %hsearch results%h."] = "--> Traduction française ici. <--";
+# $_t["de"]["Go back to %hsearch results%h."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Manage"] = "Manage";
+# $_t["es"]["Manage"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Manage"] = "--> Traduction française ici. <--";
+# $_t["de"]["Manage"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

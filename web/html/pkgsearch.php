@@ -8,22 +8,9 @@ html_header();              # print out the HTML header
 
 # define variables used during pkgsearch
 #
-$pkgsearch_vars = array("O", "L", "C", "K", "SB", "PP");
+$pkgsearch_vars = array("O", "L", "C", "K", "SB", "PP", "do_MyPackages");
 
 	
-function pkgsearch_results_link() {
-	global $pkgsearch_vars;
-
-	print "Go back to <a href='/pkgsearch.php?";
-	$url_data = "do_Search=1";
-	while (list($k, $var) = each($pkgsearch_vars)) {
-		$url_data.="&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
-	}
-	print $url_data . "'>search results</a>.<br />\n";
-	return;
-}
-
-
 # get login privileges
 #
 if (isset($_COOKIE["AURSID"])) {
