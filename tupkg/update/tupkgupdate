@@ -1,8 +1,8 @@
 #!/usr/bin/python -O
 
-import re
-import os
-import sys
+import re, os, sys, pacman
+
+############################################################
 
 # Define some classes we need
 class Version:
@@ -16,7 +16,10 @@ class Package:
     self.old = None
     self.new = None
 
-# And a few convenience functions
+############################################################
+# Functions for walking the file trees
+############################################################
+
 def filesForRegexp(topdir, regexp):
   retval = []
   def matchfile(regexp, dirpath, namelist):
@@ -32,69 +35,45 @@ def packagesInTree(topdir):
 def pkgbuildsInTree(topdir):
   return filesForRegexp(topdir, re.compile("^PKGBUILD$"))
 
-def parseAssignLine(line):
-  if (line == None):
-    return None
-  defline_re = re.compile("^\s*(?P<key>\w+)\s*=\s*(?P<value>.+)\s*$")
-  quote_re = re.compile("[\"']")
-  match = defline_re.match(line)
-  if (match != None):
-    key = match.group("key")
-    value = match.group("value")
-    value = quote_re.sub('', value)
-    return key, value
-  else:
-    return None
-
-def infoFromPkgbuild(filename):
-  fobj = file(filename)
-  lines = fobj.readlines()
-  fobj.close()
-
-  pkgname = None
-  pkgver = None
-  pkgrel = None
-
-  for line in lines:
-     result = parseAssignLine(line)
-     if (result != None):
-      key, value = result
-      if (key == "pkgname"):
-        pkgname = value
-      elif (key == "pkgver"):
-        pkgver = value
-      elif (key == "pkgrel"):
-        pkgrel = value
-  if (pkgname != None and pkgver != None and pkgrel != None):
-    return pkgname, pkgver + "-" + pkgrel
-  return None
+############################################################
+# Function for fetching info from PKGBUILDs and packages
+############################################################
 
 def infoFromPackageFile(filename):
-  regexp = re.compile("^(?P<pkgname>[^-]+)-(?P<version>[^-]+-[^\.]+)\.pkg\.tar\.gz$")
-  match = regexp.match(filename)
-  if (match != None):
-    return match.group("pkgname"), match.group("version")
-  return None
+  pkgbuild = pacman.load(filename)
+  return pkgbuild.name, pkgbuild.version + "-" + pkgbuild.release
+
+############################################################
+# Functions for doing the final steps of execution
+############################################################
 
 def copyFileToRepo(filename, repodir):
   destfile = os.path.join(repodir, os.path.basename(filename))
-  command = "cp '" + filename + "' '" + destfile + "'"
-  print(command + "\n")
+  command = "cp -p '" + filename + "' '" + destfile + "'"
+  print(command)
 
 def deleteFile(filename):
   command = "rm '" + filename + "'"
-  print(command + "\n")
+  print(command)
 
 def runGensync(repo, pkgbuild):
   target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
   command = "gensync '" + pkgbuild_dir + "' '" + target + "'"
-  print(command + "\n")
+  print(command)
+
+############################################################
+# Functions for error handling
+############################################################
 
 had_error = 0
 def error(string):
   global had_error
   print >>sys.stderr, string + "\n"
   had_error = 1
+
+############################################################
+# MAIN
+############################################################
 
 # ARGUMENTS
 #
@@ -114,11 +93,12 @@ delete = list()
 # PASS 1: PARSING/LOCATING
 #  
 # A) Go through the PKGBUILD tree
-#    For each PKGBUILD, create a Package with new Version containing parsed version and and None for file
+#    For each PKGBUILD, create a Package with new Version containing
+#    parsed version and and None for file
 
 a_files = pkgbuildsInTree(pkgbuild_dir)
 for a_file in a_files:
-  pkgname, ver = infoFromPkgbuild(a_file)
+  pkgname, ver = infoFromPackageFile(a_file)
 
   # Error (and skip) if we encounter any invalid PKGBUILD files
   if (pkgname == None or ver == None):
@@ -141,7 +121,8 @@ for a_file in a_files:
   packages[pkgname] = package
 
 # B) Go through the old repo dir
-#    For each package file we encounter, create a Package with old Version containing parsed version and filepath
+#    For each package file we encounter, create a Package with old
+#    Version containing parsed version and filepath
 
 b_files = packagesInTree(repo_dir)
 for b_file in b_files:
@@ -163,7 +144,7 @@ for b_file in b_files:
 #      1 - look up the package name; if it fails, ignore the file (no error)
 #      2 - if package.new = None, ignore the package (no error)
 #      3 - if package.new.version doesn't match, then skip (no error)
-#      4 - if package.new.file = None, set the new version to point to that file
+#      4 - if package.new.file = None, new should point to this file
 #          otherwise, log an error (and skip)
 
 c_files = packagesInTree(build_dir)
@@ -194,30 +175,45 @@ for c_file in c_files:
 # PASS 2: CHECKING
 #
 # Go through the package collection
-#   1 - if package has no new, place its file on the "delete" list
+#   1 - if package has no new, place its old file on the "delete" list
 #   2 - if package has a new but no new.file, error and skip
 #   3 - if package has no old, add new file to "copy" list into repo dir
 #   4 - if old > new, error and skip
-#
-#   if new and old are the same version, do nothing
-#   otherwise, add entry to "delete" list for old file and "copy" list for new file into repo dir with obvious name
+#   5 - if new == old, compare them and error and skip if files not the same
+#   6 - add entry to "delete" list for old file and "copy" list for
+#       new file into repo dir
 
 for package in packages.values():
+  # 1
   if (package.new == None):
     delete.append(package.old.file)
     continue
+
+  # 2
   if (package.new.file == None):
     error("No new package supplied for " + package.name + " " + package.new.version + "!")
     continue
+
+  # 3
   if (package.old == None):
     copy.append(package.new.file)
-  if (package.old.ver > package.new.ver):
-    error("Old package " + package.name + " " + package.old.version + " is newer than new version " + package.new.version + "!")
     continue
+
+  # 4
   if (package.old.ver < package.new.ver):
     delete.append(package.old.file)
     copy.append(package.new.file)
-  # do nothing if the packages are equal in version
+    continue
+
+  # 5
+  if (package.old.ver == package.new.ver): 
+    # TODO: implement checking that package files are identical
+    continue
+
+  # 6
+  delete.append(package.old.file)
+  copy.append(package.new.file)
+  continue  
 
 ## IF WE HAVE HAD ANY ERRORS AT THIS POINT, ABORT! ##
 if (had_error == 1):
