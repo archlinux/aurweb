@@ -164,11 +164,17 @@ class ClientSocket(threading.Thread):
 		print self.readMsg()
 
 	def run(self):
-		if not self.auth():
-			self.close()
-			return
-		self.readFileMeta()
-		self.readFiles()
+		try:
+			if not self.auth():
+				self.close()
+				return
+			self.readFileMeta()
+			self.readFiles()
+		except RuntimeError, err:
+			if err.__str__() == "socket connection broken":
+				print "Client disconnected, cleaning up"
+				self.close()
+				return
 
 class ServerSocket(threading.Thread):
 	def __init__(self, db, port, maxqueue, **other):
