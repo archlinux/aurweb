@@ -5,7 +5,24 @@ include("search_po.inc");   # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
+
+# define variables used during pkgsearch
+#
+$pkgsearch_vars = array("O", "L", "C", "K", "SB", "PP");
+
 	
+function pkgsearch_results_link() {
+	global $pkgsearch_vars;
+
+	print "Go back to <a href='/pkgsearch.php?";
+	$url_data = "do_Search=1";
+	while (list($k, $var) = each($pkgsearch_vars)) {
+		$url_data.="&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+	}
+	print $url_data . "'>search results</a>.<br />\n";
+	return;
+}
+
 
 # get login privileges
 #
@@ -35,18 +52,14 @@ if (isset($_REQUEST["do_Flag"])) {
 		#
 		print "flagging<br />\n";
 
-		# After flagging, show the search page again (or maybe print out
-		# a message and give the user a link to resume where they were
-		# in the search
-		#
-		pkg_search_page($_COOKIE["AURSID"]);
+		pkgsearch_results_link();
 				
 	}
 
 
 } elseif (isset($_REQUEST["do_Disown"])) {
-	if ($atype == "User" || $atype == "") {
-		print __("You do not have access to disown packages.");
+	if (!$atype) {
+		print __("You must be logged in before you can disown packages.");
 		print "<br />\n";
 
 	} else {
@@ -54,18 +67,14 @@ if (isset($_REQUEST["do_Flag"])) {
 		#
 		print "disowning<br />\n";
 
-		# After disowning, show the search page again (or maybe print out
-		# a message and give the user a link to resume where they were
-		# in the search
-		#
-		pkg_search_page($_COOKIE["AURSID"]);
+		pkgsearch_results_link();
 
 	}
 
 
 } elseif (isset($_REQUEST["do_Adopt"])) {
-	if ($atype == "User" || $atype == "") {
-		print __("You do not have access to adopt packages.");
+	if (!$atype) {
+		print __("You must be logged in before you can adopt packages.");
 		print "<br />\n";
 
 	} else {
@@ -73,11 +82,7 @@ if (isset($_REQUEST["do_Flag"])) {
 		#
 		print "adopting<br />\n";
 
-		# After adopting, show the search page again (or maybe print out
-		# a message and give the user a link to resume where they were
-		# in the search
-		#
-		pkg_search_page($_COOKIE["AURSID"]);
+		pkgsearch_results_link();
 
 	}
 
@@ -93,20 +98,24 @@ if (isset($_REQUEST["do_Flag"])) {
 		#
 		print "voting<br />\n";
 
-		# After voting, show the search page again (or maybe print out
-		# a message and give the user a link to resume where they were
-		# in the search
-		#
-		pkg_search_page($_COOKIE["AURSID"]);
+		pkgsearch_results_link();
 
 	}
 
 
 } elseif (isset($_REQUEST["do_Details"])) {
-	# give a link to 'manage', and another to return to search
-	# results.
-	#
-	print "details for package<br />\n";
+
+	if (!isset($_REQUEST["ID"]) || !intval($_REQUEST["ID"])) {
+		print __("Error trying to retrieve package details.")."<br />\n";
+
+	} else {
+		
+	}
+
+	print "<br />\n";
+	pkgsearch_results_link();
+	print "</center>\n";
+	print "<br />\n";
 
 
 } else {

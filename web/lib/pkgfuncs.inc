@@ -33,10 +33,56 @@ function pkgLocations() {
 	return $locs;
 }
 
+# display package details
+#
+function package_details($id=0) {
+	$q = "SELECT * FROM Packages WHERE ID = ".intval($_REQUEST["ID"]);
+	$dbh = db_connect();
+	$results = db_query($q, $dbh);
+	if (!$results) {
+		print __("Error retrieving package details.")."<br />\n";
+
+	} else {
+		$row = mysql_fetch_assoc($results);
+		if (empty($row)) {
+			print __("Package details could not be found.")."<br />\n";
+
+		} else {
+
+			# print out package details
+			#
+			print "<br />\n";
+			print "<center>\n";
+			print "<table cellspacing='3' class='boxSoft'>\n";
+			print "<tr>\n";
+			print "  <td class='boxSoftTitle' align='right'>";
+			print "<span class='f3'>Package Details</span></td>\n";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td class='boxSoft'>\n";
+			print "<center>\n";
+			print "<table>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><span class='f2'>NAME</span></td>\n";
+			print "</tr>\n";
+
+			print "</table>\n";
+			print "</center>\n";
+			print "  </td>\n";
+			print "</tr>\n";
+
+			print "</table>\n";
+		}
+	}
+	return;
+}
+
+
 # display the search form in a boxSoft style
 #
 function pkg_search_page($SID="") {
 	global $_REQUEST;
+	global $pkgsearch_vars;
 	# SID: session id cookie
 
 	$locs = pkgLocations();
@@ -215,12 +261,17 @@ function pkg_search_page($SID="") {
 		}
 	}
 	if (isset($_REQUEST["do_MyPackages"]) && $SID) {
+		# list packages that the user is a AUR Maintainer of, or if it the
+		# vistior is a registered user, if they are the Maintainer.
+		#
 		if ($myuid) {
 			if (!$has_where) {
-				$q.= "WHERE MaintainerUID = ".$myuid." ";
+				$q.= "WHERE (AURMaintainerUID = ".$myuid." OR ";
+				$q.= "MaintainerUID = " . $myuid.") ";
 				$has_where = 1;
 			} else {
-				$q.= "AND MaintainerUID = ".$myuid." ";
+				$q.= "AND (AURMaintainerUID = ".$myuid." OR ";
+				$q.= "MaintainerUID = " . $myuid.") ";
 			}
 		}
 	}
@@ -241,6 +292,9 @@ function pkg_search_page($SID="") {
 	}
 	$q.= "LIMIT ".$O.", ".$PP;
 	print $q."<br />\n";
+	print "<pre>\n";
+	print_r($_REQUEST);
+	print "</pre>\n";
 
 	$result = db_query($q, $dbh);
 	if (!$result) {
@@ -345,8 +399,18 @@ function pkg_search_page($SID="") {
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			print $cats[$row["CategoryID"]]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f4'>";
-			$details_url = "<a href='/pkgsearch.php?do_Details=1&ID=";
-			$details_url.= $row["ID"]."'><span class='black'>".$row["Name"];
+			$details_url = "<a href='/pkgsearch.php?";
+			$url_data = "do_Details=1&ID=";
+			$url_data.= $row["ID"];
+			while (list($k, $var) = each($pkgsearch_vars)) {
+				# I'm never convinced how to do this encoding/decoding properly.
+				# php.net recommends htmlentities(urlencode(data)), but that
+				# doesn't work!
+				#
+				$url_data .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+			}
+			$details_url.= $url_data;
+			$details_url.= "'><span class='black'>".$row["Name"];
 			$details_url.= "-".$row["Version"]."</span></a>";
 			print $details_url."</span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
@@ -355,16 +419,21 @@ function pkg_search_page($SID="") {
 			print $row["Description"]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			$not_managed = 0;
-			if (isset($devs[$row["MaintainerUID"]])) {
-				print $devs[$row["MaintainerUID"]]["Username"];
-			} elseif (isset($tus[$row["MaintainerUID"]])) {
-				print $tus[$row["MaintainerUID"]]["Username"];
+			if (isset($devs[$row["AURMaintainerUID"]])) {
+				print $devs[$row["AURMaintainerUID"]]["Username"];
+			} elseif (isset($tus[$row["AURMaintainerUID"]])) {
+				print $tus[$row["AURMaintainerUID"]]["Username"];
 			} else {
 				print "None";
 				$not_managed = 1;
 			}
 			print "</span></span></td>\n";
-			if ($myuid == $row["MaintainerUID"] || $not_managed) {
+			if ($myuid == $row["AURMaintainerUID"] || $not_managed ||
+					($myuid == $row["MaintainerUID"] && $not_managed)) {
+				# Only allow TUs/Devs to manage packages, or if it is a regular
+				# user and the package has not been adopted by a TU/Dev, then the
+				# regular user (most likely the submitter) can manage it.
+				#
 				$manage_url = "<a href='/pkgmgmnt.php?ID=";
 				$manage_url.= $row["ID"]."'><span class='black'>Manage</span></a>";
 				print "  <td class='".$c."'><span class='f4'>";
