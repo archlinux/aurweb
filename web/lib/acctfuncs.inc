@@ -280,7 +280,6 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			#
 
 			#md5 hash the password
-			$P = md5($P);
 			$q = "UPDATE Users SET ";
 			$q.= "Username = '".mysql_escape_string($U)."'";
 			if ($T) {
@@ -293,7 +292,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			}
 			$q.= ", Email = '".mysql_escape_string($E)."'";
 			if ($P) {
-				$q.= ", Passwd = '".mysql_escape_string($P)."'";
+				$q.= ", Passwd = '".mysql_escape_string(md5($P))."'";
 			}
 			$q.= ", RealName = '".mysql_escape_string($R)."'";
 			$q.= ", LangPreference = '".mysql_escape_string($L)."'";
