@@ -8,7 +8,7 @@ html_header();              # print out the HTML header
 print "<center>\n";
 
 # Debugging
-$DBUG = 1;
+$DBUG = 0;
 
 # this is the directory that new packages will be uploaded to
 #
