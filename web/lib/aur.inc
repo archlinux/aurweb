@@ -62,7 +62,7 @@ function check_sid() {
 	global $_COOKIE;
 	global $LOGIN_TIMEOUT;
 
-	if (isset($_COOKIE["AURSID"])) {
+	if ($_COOKIE["AURSID"]) {
 		$failed = 0;
 		# the visitor is logged in, try and update the session
 		#
@@ -290,18 +290,18 @@ function set_lang() {
 	global $SUPPORTED_LANGS;
 
 	$update_cookie = 0;
-	if (isset($_REQUEST['setlang'])) {
+	if ($_REQUEST['setlang']) {
 		# visitor is requesting a language change
 		#
 		$LANG = $_REQUEST['setlang'];
 		$update_cookie = 1;
 
-	} elseif (isset($_COOKIE['AURLANG'])) {
+	} elseif ($_COOKIE['AURLANG']) {
 		# If a cookie is set, use that
 		#
 		$LANG = $_COOKIE['AURLANG'];
 
-	} elseif (isset($_COOKIE["AURSID"])) {
+	} elseif ($_COOKIE["AURSID"]) {
 		$dbh = db_connect();
 		$q = "SELECT LangPreference FROM Users, Sessions ";
 		$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -392,16 +392,12 @@ function html_header() {
 	print "              <span class='black'> - </span> ";
 	print "            <a href='/account.php'>".__("Accounts")."</a> ";
 	print "               <span class='black'> - </span> ";
-	print "            <a href='/pkgsearch.php'>".__("Packages")."</a> ";
-	if (isset($_COOKIE["AURSID"])) {
+	print "            <a href='/packages.php'>".__("Packages")."</a> ";
+	if ($_COOKIE["AURSID"]) {
 		# Only display these items if the visitor is logged in.  This should
 		# be a safe check because check_sid() has been called prior to
 		# html_header().
 		#
-		print "               <span class='black'> - </span> ";
-		print "            <a href='/pkgvote.php'>".__("Vote")."</a> ";
-		print "               <span class='black'> - </span> ";
-		print "            <a href='/pkgmgmnt.php'>".__("Manage")."</a> ";
 		print "               <span class='black'> - </span> ";
 		print "            <a href='/pkgsubmit.php'>".__("Submit")."</a> ";
 		print "               <span class='black'> - </span> ";

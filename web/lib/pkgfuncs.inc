@@ -12,7 +12,7 @@ function pkgsearch_results_link() {
 	global $_REQUEST;
 	global $pkgsearch_vars;
 
-	$url_data = "<a href='/pkgsearch.php?do_Search=1";
+	$url_data = "<a href='/packages.php?do_Search=1";
 	while (list($k, $var) = each($pkgsearch_vars)) {
 		if ($var == "do_MyPackages" && $_REQUEST[$var]) {
 			$url_data.="&".$var."=1";
@@ -218,7 +218,7 @@ function package_details($id=0) {
 			print "<tr><td class='boxSoft'>";
 			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name');
 			while (list($k, $darr) = each($deps)) {
-				$url = "<a href='/pkgsearch.php?do_Details=1&ID=".$darr[0];
+				$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
 				while(list($k, $var) = each($pkgsearch_vars)) {
 					if ($var == "do_MyPackages" && $_REQUEST[$var]) {
 						$url .= "&".$var."=1";
@@ -305,7 +305,7 @@ function pkg_search_page($SID="") {
 
 	# The search form
 	#
-	print "<form action='/pkgsearch.php' method='post'>\n";
+	print "<form action='/packages.php' method='post'>\n";
 	print "<input type='hidden' name='O' value='".$O."'>\n";
 
 	print "<center>\n";
@@ -588,7 +588,7 @@ function pkg_search_page($SID="") {
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			print $cats[$row["CategoryID"]]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f4'>";
-			$url = "<a href='/pkgsearch.php?";
+			$url = "<a href='/packages.php?";
 			$url .= "do_Details=1&ID=";
 			$url .= $row["ID"];
 			while (list($k, $var) = each($pkgsearch_vars)) {

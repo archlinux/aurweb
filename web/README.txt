@@ -93,35 +93,21 @@ Scripts:
   packages are orphaned (the Users.ID field in the UnsupportedPackages
   table is set to Null).
 
-- html/pkgsearch.php
+- html/packages.php
   PHP script to search the package database.  It should support
   searching by location ("unsupported", "AUR", "extra"), name,
   category, maintainer, popularity, etc.  It should resemble the
   packages.php script on archlinux.org.  A checkbox should be
   included next to each package to allow users to flag a package
-  out of date.
-
-- html/pkgvote.php
-  The PHP script that handles voting for packages.  It works like
-  the search script above to provide a list of packages (maybe by
-  location only?) with a checkbox for the user to register their
-  'yes' vote.  It should probably only list 50-ish packages per page
-  and allow the user to vote a page at a time.  Each page contains a
-  'Continue' button to advance to the next list of packages.  At the
-  final page, a summary is presented with a 'Cast Vote' button.  Once
-  the vote is cast, the PackageVotes table is first cleared for that
-  User and then all new entries are added for the new vote (this will
-  be easier than trying to figure out if the vote has changed for a
-  particular package).
+  out of date, adopt it, and vote for it (and reverse operations).
 
 - html/pkgmgmnt.php
-  The PHP script for managing packages.  It provides a list of
-  packages under the management of the logged in user (normal or
-  TU).  The user can edit the package information stored in the
-  database such as the description, url, category, and location
-  (a TU can move it to/from "unsupported" and the "AUR").  This
-  is where TUs can adopt packages that are in the "unsupported"
-  area.
+  This script is not accessed directly, but is invoked when a
+  visitor clicks the 'manage' link from the 'packages.php' script.
+  The user can edit the package information stored in the database
+  such as the description, url, category, and location (a TU can move
+  it to/from "unsupported" and the "AUR").  This is where TUs can
+  adopt packages that are in the "unsupported" area.
 
 - html/pkgsubmit.php
   This is the PHP script that allows users to upload a new package.
