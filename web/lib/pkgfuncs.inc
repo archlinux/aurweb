@@ -296,11 +296,16 @@ function package_details($id=0) {
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>";
-			$edit_cat = "<a href='/pkgedit.php?change_Category=1&ID=";
-			$edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
-			$edit_cat .= " &nbsp;<span class='fix'>(";
-			$edit_cat .= __("change category").")</span>";
+			if ($row["Location"] == "unsupported") {
+			  $edit_cat = "<a href='/pkgedit.php?change_Category=1&ID=";
+			  $edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
+			  $edit_cat .= " &nbsp;<span class='fix'>(";
+			  $edit_cat .= __("change category").")</span>";
+			} else {
+				$edit_cat = $row["Category"];
+			}
 			print $row["Location"]." :: ".$edit_cat."</span></td>";
+
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>".__("Maintainer").": ";

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>AUR User Documentation</title>
+</head>
+<body>
+<h2>Arch User Repository (AUR)</h2>
+The Arch User Repository (AUR) is ready! This release
+does not contain every feature everyone wanted, but at this stage we
+think we've implemented the most important features, and we need you to
+help us make sure they are working properly and reliably. A few months
+after the initial release, we'll start to prioritize
+features necessary for the next revision. We'll weigh the suggestions
+given and decide what additional features to add.<br>
+<h3><a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">Leave your feedback in Flyspray!</a></h3>
+<h3>Introduction to the AUR<br>
+</h3>
+The AUR is a place for community members and TUs (Trusted Users) to
+work together to bring new packages to Arch Linux users. A TU is a
+special community member who has earned the trust of the core
+Arch developers and who wants to help build, test, and debug new Arch
+packages contributed by members of the community. Only a TU can build a
+binary package and add it to the "community"
+repository, which is then accessible via pacman -S.<br>
+<span style="font-weight: bold;"><br>
+</span>Any community member may upload new PKGBUILD directory tarballs
+from the AUR
+web interface. Those packages will appear in the unsupported
+repository, and
+can be viewed and built by other community members, even though they
+are not yet available in binary form via pacman -S.<br>
+<br>
+The AUR system
+incorporates a voting system which allows members to vote for the
+packages in the unsupported repo that they think are useful or interesting. If
+a TU thinks a package is interesting or has received enough votes,
+the TU may choose to adopt the package. The TU builds the package,
+performs some rudimentary testing, and adds it
+to the community repository, where it can be accessed by any user subscribing
+to the AUR repository by running pacman -S. From that point on, the TU
+will maintain the
+package in the community repository, and all updates for the package must go
+through a TU.<br>
+<br>
+If a package gets enough votes or is otherwise deemed interesting by
+the core Arch development team, the package may be
+promoted into the extra or current repository. At that point, the
+package is removed from the AUR and is maintained by the core Arch
+developers. Alternately, if a TU loses interest in a package, the TU
+may abandon the package or remove it from the AUR altogether.<br>
+<br>
+<h3>Feedback</h3>
+We will need your feedback. There is a <a
+ href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">project
+set up in Flyspray</a> for the AUR. Please leave your feedback there.
+Though it will be tempting to email the AUR developers, remember that
+they will get a lot of email and they won't be able to find yours later
+when they're going through the feedback. If you put your bugs,
+comments, and suggestions in Flyspray, they are guaranteed not to get
+lost.<br>
+<br>
+Flyspray is incredibly easy to use. Take a moment to create an account
+as soon as you can.<br>
+<br>
+<h3>Using the AUR Repository</h3>
+To access the AUR repository from pacman, add the following to your
+pacman.conf:<br>
+<br>
+<code>[community]<br>
+	Server = ftp://ftp.archlinux.org/community</code><br>
+<br>
+<h3>What The AUR Means to a Community Member</h3>
+If you're an Arch Linux community member, the AUR represents a giant
+step forward in your ability to effectively contribute your work in
+building Arch packages to the rest of the Arch Linux community. The
+following steps must ye take to get started:<br>
+<ol>
+  <li>Set yourself up to access the community repository, if desired, by
+adding the above lines to your pacman.conf.<br>
+  </li>
+  <li>Visit the <a href="http://aur.archlinux.org">AUR Site</a>.</li>
+  <li>Create a new user account.</li>
+  <li>Begin uploading packages you have created. You should upload a
+.tar.gz file containing the PKGBUILD directory. You should not include
+a binary package file in your upload, just the PKGBUILD and related
+necessary files for building the package. (Imagine your package had
+been accepted into current or extra; we want just the files that would
+be fetched by abs in /var/abs.)<br>
+  </li>
+  <li>Review the other packages in the repository, and vote for the
+ones you find most interesting. If you're especially interested, browse
+the package contents and build other packages yourself.</li>
+</ol>
+<h3>What The AUR Means to a Trusted User (TU) or an Arch Developer<br>
+</h3>
+If you are an Arch Linux Trusted User (TU) or an Arch developer, and
+you want to get started on the beta, do the following:<br>
+<ol>
+  <li>Set your machine up to access the community repository.</li>
+  <li>Run <code>pacman -S tupkg</code> to download the TU package
+download tool.<br>
+  </li>
+  <li>Visit the <a href="http://aur.archlinux.org">AUR Site</a>.</li>
+  <li>Create a new user account, using your usual user id.<br>
+  </li>
+  <li>Email on the TU or developer email list list and ask to have your login modified to modified to have TU/developer status.<br>
+This
+step is necessary so we can make sure that the right people are getting the right access.<br>
+  </li>
+  <li>Check out the CVS tree for the community repository. To do this,
+execute the following commands:<br>
+    <br>
+    <code># export
+CVSROOT=":pserver:&lt;userid&gt;@cvs.archlinux.org:/home/cvs-community"<br>
+# cvs login<br>
+# cvs co community</code><br>
+    <br>
+If you're
+a TU, you should already have an account in this new
+repository. If you are a developer, email Jason (jason at archlinux dot
+org) and he'll set up access for you.<br>
+  </li>
+  <li>Build binary packages for things you wish to place in the community repo,
+and add the PKGBUILD and accompanying necessary files to the CVS
+repository. You can do this with:<br>
+    <br>
+    <code>cvs add &lt;directory&gt;<br>
+cd &lt;directory&gt;<br>
+cvs add PKGBUILD<br>
+.<br>
+.<br>
+cvs commit</code><br>
+    <br>
+  </li>
+  <li>Upload the binary packages using the "tupkg" tool. Run<span
+ style="font-family: monospace;">:<br>
+    </span><code><br>
+tupkg
+--host
+subzero.elys.com --user &lt;userid&gt; --password &lt;password&gt;
+&lt;packagefile.pkg.tar.gz&gt;</code><br>
+    <br>
+Note that this is your <span style="font-weight: bold;">AUR login
+password</span> -- the one you assign when you create your account, not
+your CVS password, in case they are different.<br>
+  </li>
+  <li>Once your packages are uploaded successfully, tag the newly
+created package files with the CURRENT tag in cvs. You can do this with:<br>
+    <code><br>
+cvs tag -cFR CURRENT &lt;newpackagebuilddir&gt;</code> <br>
+    <br>
+  </li>
+  <li>In 5-10 minutes, the automated script will add them to the community
+repository. Verify that they appear both in the web interface and
+become
+available via <code>pacman -Sy &lt;package&gt;</code> from the community
+repository.</li>
+<li>Select the newly added or updated package in the AUR web
+interface and set yourself as the maintainer.<br>
+  </li>
+</ol>
+</body>
+</html>

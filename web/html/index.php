@@ -77,10 +77,13 @@ html_header();
 print "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
 print "<tr>\n";
 print "  <td align='left' valign='top'>";
-print __("This is where the intro text will go.");
-print __("For now, it's just a place holder.");
-print __("It's more important to get the login functionality finished.");
-print __("After that, this can be filled in with more meaningful text.");
+?>
+Welcome to the AUR! If you're a newcomer, you may want to read the <a href="user_docs.html">User Documentation</a>.
+<?php
+#print __("This is where the intro text will go.");
+#print __("For now, it's just a place holder.");
+#print __("It's more important to get the login functionality finished.");
+#print __("After that, this can be filled in with more meaningful text.");
 print "  </td>";
 # XXX Is this the proper way to add some spacing between table cells?
 #

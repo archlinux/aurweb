@@ -330,7 +330,8 @@ if ($_COOKIE["AURSID"]) {
 				#
 				$q = "UPDATE Packages SET ";
 				$q.="Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', ";
-				$q.="Version='".mysql_escape_string($new_pkgbuild['pkgver'])."',";
+				$q.="Version='".mysql_escape_string($new_pkgbuild['pkgver'])."-".
+				  mysql_escape_string($new_pkgbuild['pkgrel'])."',";
 				$q.="CategoryID=".mysql_escape_string($_REQUEST['category']).", ";
 				$q.="Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', ";
 				$q.="URL='".mysql_escape_string($new_pkgbuild['url'])."', ";
@@ -389,7 +390,8 @@ if ($_COOKIE["AURSID"]) {
 				$q.= " SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) ";
 				$q.= "VALUES ('";
 				$q.= mysql_escape_string($new_pkgbuild['pkgname'])."', '";
-				$q.= mysql_escape_string($new_pkgbuild['pkgver'])."', ";
+				$q.= mysql_escape_string($new_pkgbuild['pkgver'])."-".
+				  mysql_escape_string($new_pkgbuild['pkgrel'])."', ";
 				$q.= mysql_escape_string($_REQUEST['category']).", '";
 				$q.= mysql_escape_string($new_pkgbuild['pkgdesc'])."', '";
 				$q.= mysql_escape_string($new_pkgbuild['url']);
@@ -478,7 +480,7 @@ if ($_COOKIE["AURSID"]) {
 			print __("Package Category").":</td>\n";
 			print "	<td span='f4' align='left'>";
 			print "<select name='category'>";
-			print "<option value='0'> " . __("Select Category") . "</option>";
+			print "<option value='19'> " . __("Select Category") . "</option>";
 			while (list($k, $v) = each($pkg_categories)) {
 				print "<option value='".$k."'> " . $v . "</option>";
 			}

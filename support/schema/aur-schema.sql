@@ -95,11 +95,11 @@ CREATE TABLE PackageLocations (
 	PRIMARY KEY (ID)
 );
 INSERT INTO PackageLocations (Location) VALUES ('none');
-INSERT INTO PackageLocations (Location) VALUES ('Unsupported');
-INSERT INTO PackageLocations (Location) VALUES ('AUR');
-INSERT INTO PackageLocations (Location) VALUES ('Current');
-INSERT INTO PackageLocations (Location) VALUES ('Extra');
-INSERT INTO PackageLocations (Location) VALUES ('Unstable');
+INSERT INTO PackageLocations (Location) VALUES ('unsupported');
+INSERT INTO PackageLocations (Location) VALUES ('community');
+INSERT INTO PackageLocations (Location) VALUES ('current');
+INSERT INTO PackageLocations (Location) VALUES ('extra');
+INSERT INTO PackageLocations (Location) VALUES ('unstable');
 
 
 -- Information about the actual packages

@@ -198,7 +198,7 @@ if (isset($_REQUEST["do_Flag"])) {
 				$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
 				$q.= "WHERE Packages.ID IN (" . $delete . ") ";
 				$q.= "AND Packages.LocationID = PackageLocations.ID ";
-				$q.= "AND PackageLocations.Location = 'Unsupported' ";
+				$q.= "AND PackageLocations.Location = 'unsupported' ";
 				$q.= "AND AURMaintainerUID IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
 				$result = db_query($q, $dbh);
 				if ($result != Null && mysql_num_rows($result) > 0) {
