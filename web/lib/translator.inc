@@ -25,22 +25,7 @@ include_once("common_po.inc");
 
 function __($tag, $args=array()) {
 	global $_t;
-	global $_REQUEST;
 	global $LANG;
-
-	$supported_langs = array(
-		"en" => 1, # English
-		"es" => 1, # Español
-		"de" => 1, # Deutsch
-		"fr" => 1, # Français
-	);
-
-	# default to English if the lang hasn't been provided or isn't supported
-	#
-	$LANG = $_REQUEST['LANG'];
-	if (!$LANG || !array_key_exists($LANG, $supported_langs)) {
-		$LANG = "en";
-	}
 
 	# create the translation, if it doesn't exist, highlight it
 	#

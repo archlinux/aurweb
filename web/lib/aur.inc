@@ -3,6 +3,13 @@ include_once("aur_po.inc");
 
 # Define global variables
 #
+$PASS_PHRASE = "Dustyissocool";
+$SUPPORTED_LANGS = array(
+	"en" => 1, # English
+	"es" => 1, # Español
+	"de" => 1, # Deutsch
+	"fr" => 1, # Français
+);
 
 
 # connect to the database
@@ -24,6 +31,43 @@ function db_connect() {
 		die("Error selecting AUR database: " . mysql_error());
 
 	return $handle;
+}
+
+# set up the visitor's language
+#
+function set_lang() {
+	global $_REQUEST;
+	global $_COOKIE;
+	global $LANG;
+	global $SUPPORTED_LANGS;
+
+	$update_cookie = 0;
+	if (isset($_REQUEST['setlang'])) {
+		# visitor is requesting a language change
+		#
+		$LANG = $_REQUEST['setlang'];
+		$update_cookie = 1;
+
+	} elseif (isset($_COOKIE['AURLANG'])) {
+		# If a cookie is set, use that
+		#
+		$LANG = $_COOKIE['AURLANG'];
+
+	} # TODO query the database if the user is logged in
+
+	if (!$LANG || !array_key_exists($LANG, $SUPPORTED_LANGS)) {
+		$LANG = "en"; # default to English
+	}
+
+	if ($update_cookie) {
+		# TODO do we need to set the domain too?  I seem to remember some
+		# security concerns about not using domains - but it's not like
+		# we really care if another site can see what language our visitor
+		# was using....
+		#
+		setcookie("AURLANG", $LANG, 0, "/");
+	}
+	return;
 }
 
 
@@ -49,11 +93,22 @@ function html_header() {
 	print "        <td class='headerFill'>\n";
 	print "            <table width='100%'>\n";
 	print "            <tr>\n";
-	print "                <td class='headerDisplay'><a href='";
-	print $_SERVER['PHP_SELF']."'>";
-	print "<img src='/images/AUR-logo-80.png' border='0'></a></td>\n";
+	print "                <td class='headerDisplay'><a href='/index.php'>";
+
+	# XXX Can I scale a PNG like this?
+	#
+	print "<img src='/images/AUR-logo-80.png' width='85' height='45' border='0'></a></td>\n";
 	print "                <td class='headerDisplay' valign='top' align='right'>";
-	print "<span class='fix'>ArchLinux User-community Repository</span></td>\n";
+	print "<span class='preHeader'>ArchLinux User-community Repository</span><br/>";
+
+	# XXX CSS help - a:link, a:visited, etc are defined, but I don't want to
+	# use the defaults.  Is this the way to override them?
+	#
+	print "<a href='/index.php?setlang=en'><span class='sideBarSmallHeader'>English</span></a> ";
+	print "<a href='/index.php?setlang=es'><span class='sideBarSmallHeader'>Español</span></a> ";
+	print "<a href='/index.php?setlang=de'><span class='sideBarSmallHeader'>Deutsch</span></a> ";
+	print "<a href='/index.php?setlang=fr'><span class='sideBarSmallHeader'>Français</span></a>";
+	print "                </td>\n";
 	print "            </tr>\n";
 	print "            </table>\n";
 	print "    </tr>\n";
