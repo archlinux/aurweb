@@ -160,7 +160,7 @@ if ($_COOKIE["AURSID"]) {
 			$lines = array();
 			$continuation_line = 0;
 			$current_line = "";
-			while (!$feof($fp)) {
+			while (!feof($fp)) {
 				$line = trim(fgets($fp));
 				if (substr($line, strlen($line)-1) == "\\") {
 					# continue appending onto existing line_no
@@ -192,9 +192,10 @@ if ($_COOKIE["AURSID"]) {
 
 				$lparts = explode("=", $line);
 				if (count($lparts) == 2) {
-					# this is a variable/value pair
+					# this is a variable/value pair, strip out
+					# array parens and any quoting
 					#
-					$pkgbuild[$lparts[0]] = $lparts[1];
+					$pkgbuild[$lparts[0]] = str_replace(array("(",")","\"","'"), "", $lparts[1]);
 				} else {
 					# either a comment, blank line, continued line, or build function
 					#
@@ -232,6 +233,10 @@ if ($_COOKIE["AURSID"]) {
 			}
 			if (!array_key_exists("pkgname", $pkgbuild)) {
 				$error = __("Missing pkgname variable in PKGBUILD.");
+			} else {
+				if ($pkgbuild["pkgname"] != $pkg_name) {
+					$error = __("Package names do not match.");
+				}
 			}
 		}
 
