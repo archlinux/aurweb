@@ -311,7 +311,7 @@ if ($_COOKIE["AURSID"]) {
         # purged.
         #
         $q = "SELECT * FROM Packages ";
-        $q.= "WHERE Name = '".mysql_escape_string($_FILES["pfile"]["name"])."'";
+        $q.= "WHERE Name = '".mysql_escape_string($new_pkgbuild['pkgname'])."'";
         $result = db_query($q, $dbh);
         $pdata = mysql_fetch_assoc($result);
 
@@ -326,7 +326,13 @@ if ($_COOKIE["AURSID"]) {
 
         # TODO
         # $q = "UPDATE Packages ..."
+        $q = "UPDATE Packages SET Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', Version='".mysql_escape_string($new_pkgbuild['pkgver'])."', CategoryID=".mysql_escape_string($_REQUEST['category']).", Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', URL='".mysql_escape_string($new_pkgbuild['url'])."', LocationID=".mysql_escape_string($_REQUEST['location'])." ";
+        $q .= "WHERE ID = " . $pdata["ID"];
+        $result = db_query($q, $dbh);
 
+        $q = "INSERT INTO PackageUploadHistory (PackageID, UsersID, Comments, UploadTS) VALUES (";
+        $q .= $pdata["ID"] . ", " . uid_from_sid($_COOKIE['AURSID']) . ", '" . mysql_escape_string($_REQUEST["comments"]) . "', UNIX_TIMESTAMP())";
+        db_query($q);
         # $q = "INSERT INTO PackageUploadHistory ..."
 
       } else {
@@ -334,6 +340,14 @@ if ($_COOKIE["AURSID"]) {
         #
         # TODO
         # $q = "INSERT ..."
+        $q = "INSERT INTO Packages (Name, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID) ";
+        $q .= "VALUES ('".mysql_escape_string($new_pkgbuild['pkgname'])."', '".mysql_escape_string($new_pkgbuild['pkgver'])."', ".mysql_escape_string($_REQUEST['category']).", '".mysql_escape_string($new_pkgbuild['pkgdesc'])."', '".mysql_escape_string($new_pkgbuild['url'])."', ".mysql_escape_string($_REQUEST['location']).", UNIX_TIMESTAMP(), ".uid_from_sid($_COOKIE["AURSID"]).", ".uid_from_sid($_COOKIE["AURSID"]).")";
+        $result = db_query($q, $dbh);
+#        print $result . "<br>";
+
+        $q = "INSERT INTO PackageUploadHistory (PackageID, UsersID, Comments, UploadTS) VALUES (";
+        $q .= mysql_insert_id($dbh) . ", " . uid_from_sid($_COOKIE["AURSID"]) . ", '" . mysql_escape_string($_REQUEST["comments"]) . "', UNIX_TIMESTAMP())";
+        db_query($q, $dbh);
       }
     }
 	}
