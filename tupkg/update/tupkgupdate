@@ -228,7 +228,8 @@ for c_file in c_files:
 #
 # Go through the package collection
 #   1 - if package has no new, place its old file on the "delete" list
-#   2 - if package has a new but no new.file, error and skip
+#   2 - if package has a new but no new.file, and old file doesn't
+#       have the same version, then error and skip
 #   3 - if package has no old, add new file to "copy" list into repo dir
 #   4 - if old > new, error and skip
 #   5 - if new == old, compare them and error and skip if files not the same
@@ -243,8 +244,9 @@ for package in packages.values():
 
   # 2
   if (package.new.file == None):
-    error("No new package supplied for " + package.name + " " + package.new.version + "!")
-    continue
+    if (package.old.file == None or package.old.version != package.new.version):
+      error("No new package supplied for " + package.name + " " + package.new.version + "!")
+      continue
 
   # 3
   if (package.old == None):
