@@ -245,6 +245,9 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		if ($TYPE == "new") {
 			# no errors, go ahead and create the unprivileged user
 			#
+			
+			#md5hash the password
+			$P = md5($P);
 			$q = "INSERT INTO Users (AccountTypeID, Suspended, Username, Email, ";
 			$q.= "Passwd, RealName, LangPreference, IRCNick, NewPkgNotify) ";
 			$q.= "VALUES (1, 0, '".mysql_escape_string($U)."'";
@@ -275,6 +278,9 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		} else {
 			# no errors, go ahead and modify the user account
 			#
+
+			#md5 hash the password
+			$P = md5($P);
 			$q = "UPDATE Users SET ";
 			$q.= "Username = '".mysql_escape_string($U)."'";
 			if ($T) {

@@ -19,7 +19,10 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 	if (!$login_error) {
 		# Try and authenticate the user
 		#
-		$dbh = db_connect();
+    
+    #md5 hash it
+		$_REQUEST["pass"] = md5($_REQUEST["pass"]);
+    $dbh = db_connect();
 		$q = "SELECT ID, Suspended FROM Users ";
 		$q.= "WHERE Username = '" . mysql_escape_string($_REQUEST["user"]) . "' ";
 		$q.= "AND Passwd = '" . mysql_escape_string($_REQUEST["pass"]) . "'";
