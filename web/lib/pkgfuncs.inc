@@ -122,7 +122,7 @@ function package_dependencies($pkgid=0) {
 function create_dummy($pname="", $sid="") {
 	if ($pname && $sid) {
 		$uid = uid_from_sid($sid);
-		if (!$uid) {return NULL};
+		if (!$uid) {return NULL;}
 		$dbh = db_connect();
 		$q = "SELECT ID FROM Packages WHERE Name = '";
 		$q.= mysql_escape_string($pname)."'";
