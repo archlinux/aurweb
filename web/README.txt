@@ -1,3 +1,48 @@
+Setup on ArchLinux:
+===================
+1) Install Apache, MySQL, PHP, and Subversion
+  # pacman -Sy apache mysql php subversion
+
+2) Set a local 'hostname' of 'aur'
+ - Edit /etc/hosts and append 'aur' to loopback address
+   127.0.0.1    localhost aur
+
+3) Configure Apache
+ - Edit /etc/httpd/conf/httpd.conf and append the following:
+   Replace MYUSER with your username.
+
+   <VirtualHost aur:80>
+   Servername    aur
+   DocumentRoot    /home/MYUSER/aur/web/html
+   ErrorLog    /var/log/httpd/aur-error.log
+   CustomLog   /var/log/httpd/aur-access.log combined
+     <Directory /home/MYUSER/aur/web/html>
+       Options Indexes FollowSymLinks
+       AllowOverride All
+     </Directory>
+   </VirtualHost>
+
+4) Configure PHP
+ - Edit /etc/php.ini and uncomment the mysql extension line:
+   extension=mysql.so
+
+5) Configure MySQL
+ - Connect to the mysql client
+   # mysql -uroot
+
+ - Issue the following commands to the mysql client
+   mysql> create database AUR;
+   mysql> grant all privileges on AUR.* to aur@localhost identified by 'aur';
+   mysql> flush privileges;
+   mysql> quit
+
+6) Check out the AUR project (using the MYUSER from above)
+   $ cd
+   $ svn co https://xentac.net/svn/aur/trunk aur
+
+7) Point your browser to http://aur
+
+
 Web Interface:
 ==============
 

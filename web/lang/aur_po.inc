@@ -61,4 +61,19 @@ $_t["en"]["Packages"] = "Packages";
 # $_t["fr"]["Packages"] = "--> Traduction française ici. <--";
 # $_t["de"]["Packages"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Trusted user"] = "Trusted user";
+# $_t["es"]["Trusted user"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Trusted user"] = "--> Traduction française ici. <--";
+# $_t["de"]["Trusted user"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["User"] = "User";
+# $_t["es"]["User"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["User"] = "--> Traduction française ici. <--";
+# $_t["de"]["User"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Developer"] = "Developer";
+# $_t["es"]["Developer"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Developer"] = "--> Traduction française ici. <--";
+# $_t["de"]["Developer"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

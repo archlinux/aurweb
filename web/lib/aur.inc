@@ -3,12 +3,12 @@ include_once("aur_po.inc");
 
 # Define global variables
 #
-$LOGIN_TIMEOUT = 10;             # number of idle seconds before timeout
+$LOGIN_TIMEOUT = 1800;           # number of idle seconds before timeout
 $SUPPORTED_LANGS = array(        # what languages we have translations for
-	"en" => 1, # English
-	"es" => 1, # Español
-	"de" => 1, # Deutsch
-	"fr" => 1, # Français
+	"en" => "English",
+	"es" => "Español",
+	"de" => "Deutsch",
+	"fr" => "Français",
 );
 
 # debugging variables
@@ -71,6 +71,12 @@ function check_sid() {
 	return;
 }
 
+# verify that an email address looks like it is legitimate
+#
+function valid_email($addy) {
+	return eregi("^[a-z0-9\._-]+@+[a-z0-9\._-]+\.+[a-z]{2,3}$", $addy);
+}
+
 # a new seed value for mt_srand()
 #
 function make_seed() {
@@ -93,6 +99,18 @@ function new_sid() {
 	return strtoupper(md5($id));
 }
 
+# obtain the user type from its database ID
+#
+function user_type($id=0) {
+	if ($id == 3) {
+		return __("Developer");
+	} elseif ($id == 2) {
+		return __("Trusted user");
+	} else {
+		return __("User");
+	}
+}
+
 # obtain the username if given their current SID
 #
 function username_from_sid($sid="") {
@@ -100,10 +118,52 @@ function username_from_sid($sid="") {
 		return "";
 	}
 	$dbh = db_connect();
+	$q = "SELECT Username ";
+	$q.= "FROM Users, Sessions ";
+	$q.= "WHERE Users.ID = Sessions.UsersID ";
+	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
+	$result = db_query($q, $dbh);
+	if (!$result) {
+		return "";
+	}
+	$row = mysql_fetch_row($result);
+
+	return $row[0];
+}
+
+# obtain the email address if given their current SID
+#
+function email_from_sid($sid="") {
+	if (!$sid) {
+		return "";
+	}
+	$dbh = db_connect();
 	$q = "SELECT Email ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND SessionID = '" . mysql_escape_string($sid) . "'";
+	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
+	$result = db_query($q, $dbh);
+	if (!$result) {
+		return "";
+	}
+	$row = mysql_fetch_row($result);
+
+	return $row[0];
+}
+
+# obtain the account type if given their current SID
+# Return either "", "User", "Trusted User", "Developer"
+#
+function account_from_sid($sid="") {
+	if (!$sid) {
+		return "";
+	}
+	$dbh = db_connect();
+	$q = "SELECT AccountType ";
+	$q.= "FROM Users, AccountTypes, Sessions ";
+	$q.= "WHERE Users.ID = Sessions.UsersID ";
+	$q.= "AND AccountTypes.ID = Users.AccountTypesID ";
+	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		return "";
@@ -150,7 +210,7 @@ function db_query($query="", $db_handle="") {
 		fwrite($fp, $query . "\n");
 		fclose($fp);
 	}
-	$result = mysql_query($query, $db_handle);
+	$result = @mysql_query($query, $db_handle);
 	return $result;
 }
 
@@ -268,6 +328,7 @@ function html_header() {
 	print "    </tr>";
 	print "    <tr>\n";
 	print "        <td class='contentDisplay'>\n";
+	print "        &nbsp;<br/>\n";
 	print "<!-- Start of main content -->\n\n";
 
 	return;
@@ -277,7 +338,7 @@ function html_header() {
 # common footer
 #
 function html_footer($ver="") {
-	print "\n\n<!-- End of main content -->";
+	print "\n\n<!-- End of main content -->\n";
 	print "        </td>\n";
 	print "    </tr>\n";
 	print "</table>\n";

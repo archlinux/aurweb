@@ -11,7 +11,7 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 	# Attempting to log in
 	#
 	if (!isset($_REQUEST['user'])) {
-		$login_error = __("You must supply a username.");
+		$login_error = __("You must supply an email address.");
 	}
 	if (!isset($_REQUEST['pass'])) {
 		$login_error = __("You must supply a password.");
@@ -21,11 +21,11 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 		#
 		$dbh = db_connect();
 		$q = "SELECT ID, Suspended FROM Users ";
-		$q.= "WHERE Email = '" . mysql_escape_string($_REQUEST["user"]) . "' ";
+		$q.= "WHERE Username = '" . mysql_escape_string($_REQUEST["user"]) . "' ";
 		$q.= "AND Passwd = '" . mysql_escape_string($_REQUEST["pass"]) . "'";
 		$result = db_query($q, $dbh);
 		if (!$result) {
-			$login_error = __("Incorrect password for username %s.",
+			$login_error = __("Incorrect password for email address, %s.",
 						array($_REQUEST["user"]));
 		} else {
 			$row = mysql_fetch_row($result);
@@ -70,13 +70,16 @@ html_header();
 
 print "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
 print "<tr>\n";
-print "  <td align='left' valign='top'>&nbsp;<br/>";
+print "  <td align='left' valign='top'>";
 print __("This is where the intro text will go.");
 print __("For now, it's just a place holder.");
 print __("It's more important to get the login functionality finished.");
 print __("After that, this can be filled in with more meaningful text.");
 print "  </td>";
-print "  <td align='right'>&nbsp;<br/>\n";
+# XXX Is this the proper way to add some spacing between table cells?
+#
+print "  <td>&nbsp;&nbsp;</td>";
+print "  <td align='right'>\n";
 if (!isset($_COOKIE["AURSID"])) {
 	# the user is not logged in, give them login widgets
 	#

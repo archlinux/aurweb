@@ -81,4 +81,19 @@ $_t["en"]["Login"] = "Login";
 # $_t["fr"]["Login"] = "--> Traduction française ici. <--";
 # $_t["de"]["Login"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Email Address:"] = "Email Address:";
+# $_t["es"]["Email Address:"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Email Address:"] = "--> Traduction française ici. <--";
+# $_t["de"]["Email Address:"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You must supply an email address."] = "You must supply an email address.";
+# $_t["es"]["You must supply an email address."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You must supply an email address."] = "--> Traduction française ici. <--";
+# $_t["de"]["You must supply an email address."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Incorrect password for email address, %s."] = "Incorrect password for email address, %s.";
+# $_t["es"]["Incorrect password for email address, %s."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Incorrect password for email address, %s."] = "--> Traduction française ici. <--";
+# $_t["de"]["Incorrect password for email address, %s."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
