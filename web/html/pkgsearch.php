@@ -38,7 +38,7 @@ if ($atype && $_REQUEST["Action"] == "Something") {
 	#
 	pkg_search_page();
 }
-print __("Under construction...")."<br/>\n";
+print __("Under construction...")."<br />\n";
 
 
 html_footer("\$Id$");

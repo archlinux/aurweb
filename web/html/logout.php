@@ -15,7 +15,7 @@ if (isset($_COOKIE["AURSID"])) {
 }
 
 html_header();              # print out the HTML header
-print __("You have been successfully logged out.")."<br/>\n";
+print __("You have been successfully logged out.")."<br />\n";
 
 
 html_footer("\$Id$");

@@ -85,7 +85,7 @@ if (!isset($_COOKIE["AURSID"])) {
 	#
 	print "<form action='/index.php' method='post'>\n";
 	if ($login_error) {
-		print "<span class='error'>" . $login_error . "</span><br/>\n";
+		print "<span class='error'>" . $login_error . "</span><br />\n";
 	}
 	print "<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
 	print "<tr>\n";
@@ -97,7 +97,7 @@ if (!isset($_COOKIE["AURSID"])) {
 	print "<td><input type='password' name='pass' size='30' maxlength='32'></td>";
 	print "</tr>\n";
 	print "<tr>\n";
-	print "<td colspan='2' align='right'>&nbsp;<br/>";
+	print "<td colspan='2' align='right'>&nbsp;<br />";
 	print "<input type='submit' class='button'";
 	print " value='".__("Login")."'></td>";
 	print "</tr>\n";

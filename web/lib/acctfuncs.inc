@@ -139,7 +139,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 		print "<input type='submit' class='button'";
 		print " value='".__("Create")."'> &nbsp; ";
 	}
-	print "<input type='reset' value='".__("Reset")."'>";
+	print "<input type='reset' class='button' value='".__("Reset")."'>";
 	print "</td>";
 	print "</tr>\n";
 

@@ -9,7 +9,7 @@ html_header();              # print out the HTML header
 # Any text you print out to the visitor, use the __() function
 # for i18n support.  See 'testpo.php' for more details.
 #
-print __("Under construction...")."<br/>\n";
+print __("Under construction...")."<br />\n";
 
 
 html_footer("\$Id$");

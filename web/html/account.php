@@ -29,7 +29,7 @@ if (isset($_COOKIE["AURSID"])) {
 		} else {
 			# a non-privileged user is trying to access the search page
 			#
-			print __("You are not allowed to access this area.")."<br/>\n";
+			print __("You are not allowed to access this area.")."<br />\n";
 		}
 
 	} elseif ($_REQUEST["Action"] == "DisplayAccount") {
@@ -73,7 +73,7 @@ if (isset($_COOKIE["AURSID"])) {
 		if ($atype == "Trusted User" || $atype == "Developer") {
 			# display the search page if they're a TU/dev
 			#
-			print __("Use this form to search existing accounts.")."<br/>\n";
+			print __("Use this form to search existing accounts.")."<br />\n";
 			search_accounts_form();
 
 		} else {
@@ -96,7 +96,7 @@ if (isset($_COOKIE["AURSID"])) {
 				# normal user editing themselves.
 				#
 				print __("Use this form to update your account.");
-				print "<br/>";
+				print "<br />";
 				print __("Leave the password fields blank to keep your same password.");
 				display_account_form($atype, "UpdateAccount", $row["Username"],
 						$row["AccountType"], $row["Suspended"], $row["Email"],

@@ -35,14 +35,18 @@ function pkgLocations() {
 
 # display the search form in a boxSoft style
 #
-function pkg_search_page($L="",$C="",$K="",$SB="",$PP="") {
+function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 	# L: PackageLocations.ID
 	# C: PackageCategories.ID
 	# K: Keywords
 	# SB: Sort by
+	# O: Row offset
 	# PP: Per page
 	$locs = pkgLocations();
 	$cats = pkgCategories();
+	$devs = getDevelopers();
+	$tus = getTrustedUsers();
+	$dbh = db_connect();
 
 	print "<center>\n";
 	print "<table cellspacing='3' class='boxSoft'>\n";
@@ -60,7 +64,7 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$PP="") {
 	print "<tr>\n";
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Location");
-	print "</span></span><br>\n";
+	print "</span></span><br />\n";
 	print "  <select name='L'>\n";
 	print "  <option value=0> ".__("Any")."\n";
 	while (list($id, $loc) = each($locs)) {
@@ -75,7 +79,7 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$PP="") {
 
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Category");
-	print "</span></span><br>\n";
+	print "</span></span><br />\n";
 	print "  <select name='C'>\n";
 	print "  <option value=0> ".__("Any")."\n";
 	while (list($id, $cat) = each($cats)) {
@@ -90,27 +94,24 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$PP="") {
 
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Keywords");
-	print "</span></span><br>\n";
+	print "</span></span><br />\n";
 	print "  <input type='text' name='K' size='35'";
 	print " value='".$K."' maxlength='35'>\n";
 	print "</td>\n";
 
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Sort by");
-	print "</span></span><br>\n";
+	print "</span></span><br />\n";
 	print "  <select name='SB'>\n";
+	print "  <option value=n";
+	$SB == "n" ? print "selected> " : print "> ";
+	print __("Name")."\n";
 	print "  <option value=c";
 	$SB == "c" ? print "selected> " : print "> ";
 	print __("Category")."\n";
 	print "  <option value=l";
 	$SB == "l" ? print "selected> " : print "> ";
 	print __("Location")."\n";
-	print "  <option value=m";
-	$SB == "m" ? print "selected> " : print "> ";
-	print __("Maintainer")."\n";
-	print "  <option value=n";
-	$SB == "n" ? print "selected> " : print "> ";
-	print __("Name")."\n";
 	print "  <option value=p";
 	$SB == "p" ? print "selected> " : print "> ";
 	print __("Popularity")."\n";
@@ -119,7 +120,7 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$PP="") {
 
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Per page");
-	print "</span></span><br>\n";
+	print "</span></span><br />\n";
 	print "  <select name='PP'>\n";
 	print "  <option value=25";
 	$PP == 25 ? print "selected> 25\n" : print "> 25\n";
@@ -138,7 +139,96 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$PP="") {
 
 	print "</tr>\n";
 	print "</table>\n";
+
 	print "</form>\n";
+	print "  </td>\n";
+	print "</tr>\n";
+	print "</table>\n";
+	print "</center>\n";
+	print "<br />\n";
+
+	print "<center>\n";
+	print "<table cellspacing='3' class='boxSoft'>\n";
+	print "<tr>\n";
+	print "  <td class='boxSoftTitle' align='right'>\n";
+	print "    <span class='f3'Package Listing</span>\n";
+	print "  </td>\n";
+	print "  <td class='boxSoft'>\n";
+
+	# query to pull out package info
+	#
+	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Popularity ";
+	$q.= "FROM Packages LEFT JOIN PackageVotes ";
+	$q.= "ON Packages.ID = PackageVotes.PackageID ";
+	$has_where = 0;
+	if ($L) {
+		$q.= "WHERE LocationID = ".intval($L)." ";
+		$has_where = 1;
+	}
+	if ($C) {
+		if (!$has_where) {
+			$q.= "WHERE CategoryID = ".intval($C)." ";
+			$has_where = 1;
+		} else {
+			$q.= "AND CategoryID = ".intval($C)." ";
+		}
+	}
+	if ($K) {
+		if (!$has_where) {
+			$q.= "WHERE (Name LIKE '".mysql_escape_string($K)."%' OR ";
+			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
+			$has_where = 1;
+		} else {
+			$q.= "AND (Name LIKE '".mysql_escape_string($K)."%' OR ";
+			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
+		}
+	}
+
+	$q.= "GROUP BY PackageID ";
+	switch ($SB) {
+		case 'c':
+			$q.= "ORDER BY CategoryID ASC, Name ASC, LocationID ASC ";
+			break;
+		case 'l':
+			$q.= "ORDER BY LocationID ASC, Name ASC, CategoryID ASC ";
+			break;
+		default:
+			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID ASC ";
+			break;
+	}
+	$q.= "LIMIT ".intval($O).", ".intval($PP);
+	$result = db_query($q, $dbh);
+	if (!$result) {
+		print $q."<br />\n";
+		print __("No packages matched your search criteria.");
+	} else {
+
+		# print out package search results
+		#
+		print "<center>\n";
+		print "<table cellspacing='3' class='boxSoft'>\n";
+		print "<tr>\n";
+		print "  <td class='boxSoftTitle' align='right'>\n";
+		print "    <span class='f3'Package Listing</span>\n";
+		print "  </td>\n";
+		print "  <td class='boxSoft'>\n";
+
+#		for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
+#			(($i % 2) == 0) ? $c = "data1" : $c = "data2";
+#			print "<tr>\n";
+#			print "<td ";
+#			print "</tr>\n";
+#
+#		}
+		print "Yippie!  You found some packages!";
+
+		print "  </td>\n";
+		print "</tr>\n";
+		print "</table>\n";
+		print "</center>\n";
+	}
+
+
 	print "  </td>\n";
 	print "</tr>\n";
 	print "</table>\n";

@@ -22,6 +22,40 @@ $SUPPORTED_LANGS = array(        # what languages we have translations for
 $QBUG = 1;                       # toggle query logging to /tmp/aurq.log
 $DBUG = 1;                       # use dbug($msg) to log to /tmp/aurd.log
 
+
+# return an array of info for each Trusted user
+#
+function getTrustedUsers() {
+	$tus = array();
+	$dbh = db_connect();
+	$q = "SELECT * FROM Users WHERE AccountTypeID = 2 ";
+	$q.= "ORDER BY Username ASC";
+	$result = db_query($q, $dbh);
+	if ($result) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$tus[] = $row;
+		}
+	}
+	return $tus;
+}
+
+
+# return an array of info for each Developer
+#
+function getDevelopers() {
+	$devs = array();
+	$dbh = db_connect();
+	$q = "SELECT * FROM Users WHERE AccountTypeID = 3 ";
+	$q.= "ORDER BY Username ASC";
+	$result = db_query($q, $dbh);
+	if ($result) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$devs[] = $row;
+		}
+	}
+	return $devs;
+}
+
 # see if the visitor is already logged in
 #
 function check_sid() {
@@ -261,15 +295,19 @@ function set_lang() {
 #
 function html_header() {
 	global $_COOKIE;
+	global $LANG;
 	print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
-	print "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">";
+	print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"";
+	print " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+	print "<html xmlns=\"http://www.w3.org/1999/xhtml\"";
+	print " xml:lang=\"".$LANG."\" lang=\"".$LANG."\">\n";
 	print "<head>\n";
-	print "<title>AUR</title>\n";
+	print "<title>AUR (".$LANG.")</title>\n";
 	print "<link rel='stylesheet' type='text/css' href='/css/fonts.css'/>\n";
 	print "<link rel='stylesheet' type='text/css' href='/css/containers.css'/>\n";
 	print "<link rel='shortcut icon' href='/images/favicon.ico'/>\n";
-	print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
+	print "<meta http-equiv=\"Content-Type\"";
+	print " content=\"text/html; charset=UTF-8\" />\n";
 	print "</head>\n";
 	print "<body bgcolor='white'>\n";
 	print "<table cellspacing='0' ";
@@ -287,9 +325,9 @@ function html_header() {
 
 	# XXX Can I scale a PNG like this?
 	#
-	print "<img src='/images/AUR-logo-80.png' width='85' height='45' border='0'></a></td>\n";
+	print "<img src='/images/AUR-logo-80.png' width='85' height='45' border='0' /></a></td>\n";
 	print "                <td class='headerDisplay' valign='top' align='right'>";
-	print "<span class='preHeader'>ArchLinux User-community Repository</span><br/>";
+	print "<span class='preHeader'>ArchLinux User-community Repository</span><br />";
 
 	# XXX CSS help - a:link, a:visited, etc are defined, but I don't want to
 	# use the defaults.  Is this the way to override them?
@@ -333,7 +371,7 @@ function html_header() {
 	print "    </tr>";
 	print "    <tr>\n";
 	print "        <td class='contentDisplay'>\n";
-	print "        &nbsp;<br/>\n";
+	print "        &nbsp;<br />\n";
 	print "<!-- Start of main content -->\n\n";
 
 	return;

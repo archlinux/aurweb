@@ -34,8 +34,8 @@ print __("My current language tag is: '%s'.", array($LANG));
 print "</p>\n";
 
 print "<ul>\n";
-print __("Hello, world!")."<br/>\n";
-print __("Hello, again!")."<br/>\n";
+print __("Hello, world!")."<br />\n";
+print __("Hello, again!")."<br />\n";
 print "</ul>\n";
 print "</body>\n</html>";
 
