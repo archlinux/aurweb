@@ -107,9 +107,9 @@ if (isset($_REQUEST["do_Flag"])) {
 
 	if (!isset($_REQUEST["ID"]) || !intval($_REQUEST["ID"])) {
 		print __("Error trying to retrieve package details.")."<br />\n";
-
-	} else {
 		
+	} else {
+		package_details($_REQUEST["ID"]);
 	}
 
 	print "<br />\n";
