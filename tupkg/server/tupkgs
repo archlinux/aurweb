@@ -36,7 +36,7 @@ config = ConfigParser.ConfigParser()
 
 class ClientFile:
 	def __init__(self, filename, actual_size, actual_md5):
-		self.pathname = confdict['incomingdir'] + filename
+		self.pathname = os.path.join(confdict['incomingdir'], filename)
 		self.filename = filename
 		self.fd = open(self.pathname, "a+b")
 		self.actual_size = actual_size
@@ -62,7 +62,7 @@ class ClientFile:
 
 	def finishDownload(self):
 		self.fd.close()
-		newpathname = confdict['cachedir'] + self.filename
+		newpathname = os.path.join(confdict['cachedir'], self.filename)
 		os.rename(self.pathname, newpathname)
 		self.pathname = newpathname
 		self.fd = open(self.pathname, "a+b")
