@@ -144,8 +144,11 @@ CREATE TABLE PackageVotes (
 --
 CREATE TABLE PackageContents (
 	PackageID INTEGER UNSIGNED NOT NULL,
+	FileName CHAR(32) NOT NULL,
 	Path CHAR(255) NOT NULL,
+	FileSize BIGINT UNSIGNED NOT NULL default 0,
 	INDEX (PackageID),
+	INDEX (FileName),
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
 );
 
