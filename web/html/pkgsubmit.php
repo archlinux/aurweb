@@ -2,6 +2,7 @@
 include("aur.inc");         # access AUR common functions
 include("submit_po.inc");   # use some form of this for i18n support
 include("pkgfuncs.inc");    # package functions
+include("config.inc");      # configuration file with dir locations
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
@@ -9,12 +10,6 @@ print "<center>\n";
 
 # Debugging
 $DBUG = 0;
-
-# this is the directory that new packages will be uploaded to
-#
-$UPLOAD_DIR = "/aur/temp/";
-$INCOMING_DIR = "/aur/incoming/";
-$URL_DIR = "/packages/";
 
 if ($_COOKIE["AURSID"]) {
 	# track upload errors

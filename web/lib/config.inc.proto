@@ -1,0 +1,6 @@
+<?php
+# Configuration of directories where things live
+$UPLOAD_DIR = "/aur/temp/";
+$INCOMING_DIR = "/aur/incoming/";
+$URL_DIR = "/packages/";
+?>
