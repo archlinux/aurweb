@@ -267,9 +267,9 @@ for p in seen_pkgs.keys():
 	#
 	num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
 	for i in range(0, num_comments):
-		fortune = esc(commands.getoutput(FORTUNE_CMD).replace("'","").replace("\n"," "))
+		fortune = esc(commands.getoutput(FORTUNE_CMD).replace("'",""))
 		now = NOW + random.randrange(400, 86400*3)
-		s = "INSERT INTO PackageComments (PackageID, UsersID, Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n" % (seen_pkgs[p], uuid, fortune, now)
+		s = "INSERT INTO PackageComments (PackageID, UsersID, Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n" % (seen_pkgs[p], genUID(), fortune, now)
 		out.write(s)
 
 	if location_id == 1: # Unsupported - just a PKGBUILD and maybe other stuff

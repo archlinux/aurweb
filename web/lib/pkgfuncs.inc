@@ -148,6 +148,27 @@ function create_dummy($pname="", $sid="") {
 
 }
 
+# grab package comments
+#
+function package_comments($pkgid=0) {
+	$comments = array();
+	if ($pkgid) {
+		$dbh = db_connect();
+		$q = "SELECT UserName, Comments, CommentTS ";
+		$q.= "FROM PackageComments, Users ";
+		$q.= "WHERE PackageComments.UsersID = Users.ID";
+		$q.= " AND PackageID = ".mysql_escape_string($pkgid);
+		$q.= " AND DelUsersID = 0"; # only display non-deleted comments
+		$q.= " ORDER BY CommentTS ASC";
+		$result = db_query($q, $dbh);
+		if (!$result) {return array();}
+		while ($row = mysql_fetch_assoc($result)) {
+			$comments[] = $row;
+		}
+	}
+	return $comments;
+}
+
 # grab package sources
 #
 function package_sources($pkgid=0) {
@@ -217,7 +238,7 @@ function package_details($id=0) {
 			print "<table cellspacing='3' class='boxSoft'>\n";
 			print "<tr>\n";
 			print "  <td class='boxSoftTitle' align='right'>";
-			print "<span class='f3'>Package Details</span></td>\n";
+			print "<span class='f3'>".__("Package Details")."</span></td>\n";
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td class='boxSoft'>\n";
@@ -267,7 +288,7 @@ function package_details($id=0) {
 			print "  <td valign='top' style='padding-right: 10'>";
 			print "<table class='boxSoft' style='width: 200px'>";
 			print "<tr><td class='boxSoftTitle'><span class='f3'>";
-			print "Dependencies</span></td></tr>\n";
+			print __("Dependencies")."</span></td></tr>\n";
 			print "<tr><td class='boxSoft'>";
 			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name', 'dummy');
 			while (list($k, $darr) = each($deps)) {
@@ -289,7 +310,7 @@ function package_details($id=0) {
 			print "  <td valign='top'>";
 			print "<table class='boxSoft' style='width: 200px'>";
 			print "<tr><td class='boxSoftTitle'><span class='f3'>";
-			print "Sources</span></td></tr>\n";
+			print __("Sources")."</span></td></tr>\n";
 			print "<tr><td class='boxSoft'>";
 			$sources = package_sources($row["ID"]); # $sources[0] = 'src';
 			while (list($k, $src) = each($sources)) {
@@ -302,12 +323,53 @@ function package_details($id=0) {
 				else 
 				{
 					//It is presumably an internal source
-					print "<a href='".dirname($row['URLPath'])."/".$row['Name']."/".$src."'>".$src."</a><br />\n";
+					print "<a href='".dirname($row['URLPath'])."/".$row['Name'];
+					print "/".$src."'>".$src."</a><br />\n";
 				}
 			}
 			print "</td></tr>\n";
 			print "</table></td>";
+			print "</tr>\n";
 
+			# Display package comments
+			#
+			$comments = package_comments($row["ID"]);
+			if (!empty($comments)) {
+				while (list($indx, $carr) = each($comments)) {
+					print "<tr>\n";
+					print "  <td colspan='2'>";
+					print "<img src='/images/pad.gif' height='2'></td></tr>\n";
+
+					print "<tr>\n";
+					print "  <td valign='top' style='padding-right: 10' colspan='2'>";
+					print "<table class='boxSoft' width='100%'>";
+					print "<tr><td class='boxSoftTitle'><span class='f3'>";
+					print __("Comment by: %h%s%h on %h%s%h",
+							array("<b>",$carr["UserName"],"</b>",
+							      "<i>",date("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
+					print "</span></td></tr>\n";
+					print "<tr><td class='boxSoft'>";
+					print "<pre>\n";
+					print str_replace('"',"&quot;", stripslashes($carr["Comments"]));
+					print "</pre>\n";
+					print "</td></tr>\n";
+					print "</table>\n";
+					print "  </td>\n";
+					print "</tr>\n";
+				}
+			}
+
+			print "<tr>\n";
+			print "  <td colspan='2'><img src='/images/pad.gif' height='2'>";
+			print "</td></tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'>";
+			print "<form action='/pkgedit.php' method='post'>\n";
+			print "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+			print "<input type='submit' class='button' name='add_Comment' value=\"";
+			print __("Add Comment")."\">";
+			print "</form>\n";
+			print "  </td>";
 			print "</tr>\n";
 
 			print "</table>\n";

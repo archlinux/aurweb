@@ -133,7 +133,6 @@ if (isset($_REQUEST["do_Flag"])) {
 					$disown .= ", ".$pid;
 				}
 			}
-			$atype = account_from_sid($_COOKIE["AURSID"]);
 			if ($atype == "Trusted User" || $atype == "Developer") {
 				$field = "AURMaintainerUID";
 			} elseif ($atype == "User") {
@@ -185,7 +184,6 @@ if (isset($_REQUEST["do_Flag"])) {
 					$delete .= ", ".$pid;
 				}
 			}
-			$atype = account_from_sid($_COOKIE["AURSID"]);
 			if ($atype == "Trusted User" || $atype == "Developer") {
 				$field = "AURMaintainerUID";
 			} elseif ($atype == "User") {
@@ -282,7 +280,6 @@ if (isset($_REQUEST["do_Flag"])) {
 					$adopt .= ", ".$pid;
 				}
 			}
-			$atype = account_from_sid($_COOKIE["AURSID"]);
 			if ($atype == "Trusted User" || $atype == "Developer") {
 				$field = "AURMaintainerUID";
 			} elseif ($atype == "User") {
