@@ -225,7 +225,7 @@ function package_details($id=0) {
 			print "<table>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f2'>";
-			print $row["Name"] . "-" . $row["Version"]."</span></td>\n";
+			print $row["Name"] . " " . $row["Version"]."</span></td>\n";
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>";
@@ -654,7 +654,7 @@ function pkg_search_page($SID="") {
 			}
 			reset($pkgsearch_vars);
 			$url.= "'><span class='black'>".$row["Name"];
-			$url.= "-".$row["Version"]."</span></a>";
+			$url.= " ".$row["Version"]."</span></a>";
 			print $url."</span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			print "&nbsp;&nbsp;&nbsp;".$row["NumVotes"]."</span></span></td>\n";
