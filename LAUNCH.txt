@@ -1,0 +1,7 @@
+This is the list of things we need to get done by 2/15 in order to make a
+3/1 launch happen. Feel free to add items to it as they come up, and put "DONE" next to things as you finish them.
+
+* password crypt in php code - DONE
+* handle crypt passwords correctly in tupkgs - Jason?
+* db code in tupkgupdate for package updates/additions - Paul - partially done
+* functionality to delete unsupported packages (but not AUR ones) - Eric
