@@ -8,12 +8,146 @@
 #
 # Python Indentation:
 # -------------------
+# For a vim: line to be effective, it must be at the end of the
+# file.  See the end of the file for more information.
+#
+
+import sys
+import socket
+import os
+import struct
+import os.path
+import cgi
+import urllib
+import md5
+
+class ClientFile:
+	def __init__(self, pathname):
+		self.pathname = pathname
+		self.filename = os.path.basename(pathname)
+		self.fd = open(pathname, "rb")
+		self.fd.seek(0, 2)
+		self.size = self.fd.tell()
+		self.fd.seek(0)
+		self.makeMd5()
+
+	def makeMd5(self):
+		md5sum = md5.new()
+		while self.fd.tell() != self.size:
+			md5sum.update(self.fd.read(1024))
+		self.md5 = md5sum.hexdigest()
+
+class ClientSocket:
+	def __init__(self, files, host, port, username, password):
+		self.files = files
+		self.host = host
+		self.port = port
+		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.username = username
+		self.password = password
+
+	def connect(self):
+		self.socket.connect((self.host, self.port))
+
+	def reliableRead(self, size):
+		totalread = ""
+		while len(totalread) < size:
+			read = self.socket.recv(size-len(totalread))
+			if read == 0:
+				raise RuntimeError, "socket connection broken"
+			totalread += read
+		return totalread
+
+	def sendMsg(self, msg):
+		if type(msg) == dict:
+			msg = urllib.unquote(urllib.urlencode(msg,1))
+		length = struct.pack("H", socket.htons(len(msg)))
+		self.socket.sendall(length)
+		self.socket.sendall(msg)
+
+	def readMsg(self, format=0):
+		initsize = self.reliableRead(2)
+		(length,) = struct.unpack("H", initsize)
+		length = socket.ntohs(length)
+		data = self.reliableRead(length)
+		if format == 1:
+			qs = cgi.parse_qs(data)
+			return qs
+		else:
+			return data
+
+	def close(self):
+		self.socket.close()
+
+	def auth(self):
+		msg = {'username': self.username, 'password': self.password}
+		self.sendMsg(msg)
+		reply = self.readMsg(1)
+		if reply['result'] == ["PASS"]:
+			return 1
+		else:
+			return 0
+
+	def sendFileMeta(self):
+		msg = {'numpkgs': len(self.files)}
+		for i, v in enumerate(self.files):
+			msg['name'+str(i)] = v.filename
+			msg['size'+str(i)] = v.size
+			msg['md5sum'+str(i)] = v.md5
+		self.sendMsg(msg)
+		reply = self.readMsg(1)
+		print reply
+		for i in reply:
+			if i[:4] == 'size':
+				self.files[int(i[4:])].cur_done = int(reply[i][0])
+
+	def sendFiles(self):
+		for i in self.files:
+			i.fd.seek(i.cur_done)
+			while i.fd.tell() < i.size:
+				self.socket.sendall(i.fd.read(1024))
+		reply = self.readMsg(1)
+		print reply
+		self.sendMsg("ack")
+
+def usage():
+	print "usage: tupkg <package file>"
+
+def main(argv=None):
+	if argv is None:
+		argv = sys.argv
+
+	if len(argv) == 1:
+		usage()
+		return 1
+
+	try:
+		fil = ClientFile(argv[1])
+	except IOError, err:
+		print "Error: " + err.strerror + ": '" + err.filename + "'"
+		usage()
+		return 1
+
+	cs = ClientSocket([fil], 'localhost', 1034, "bfinch@example.net", "B0b")
+	cs.connect()
+
+	if not cs.auth():
+		print "Error authenticating you, you bastard"
+
+	cs.sendFileMeta()
+
+	cs.sendFiles()
+
+	cs.close()
+
+	return 0
+
+if __name__ == "__main__":
+	sys.exit(main())
+
+# Python Indentation:
+# -------------------
 # Use tabs not spaces.  If you use vim, the following comment will
 # configure it to use tabs.
-# vim: ts=2 sw=2 noet ft=python
 #
-
-
-
-# TODO write the code
-#
+# vim:noet:ts=2 sw=2 ft=python

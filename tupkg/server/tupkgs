@@ -18,25 +18,119 @@ import sys
 import socket
 import threading
 import select
+import struct
+import cgi
+import urllib
+import md5
+
+CACHEDIR = '/var/cache/tupkgs/'
+
+class ClientFile:
+	def __init__(self, filename, actual_size, actual_md5):
+		self.pathname = CACHEDIR + filename
+		self.filename = filename
+		self.fd = open(self.pathname, "w+b")
+		self.actual_size = actual_size
+		self.actual_md5 = actual_md5
+
+	def getSize(self):
+		cur = self.fd.tell()
+		self.fd.seek(0,2)
+		self.size = self.fd.tell()
+		self.fd.seek(cur)
+
+	def makeMd5(self):
+		md5sum = md5.new()
+		cur = self.fd.tell()
+		self.getSize()
+		self.fd.seek(0)
+		while self.fd.tell() != self.size:
+			md5sum.update(self.fd.read(1024))
+		self.fd.seek(cur)
+		self.md5 = md5sum.hexdigest()
 
 class ClientSocket(threading.Thread):
-	def __init__(self, socket, **other):
+	def __init__(self, sock, **other):
 		threading.Thread.__init__(self, *other)
-		self.socket = socket
+		self.socket = sock
+		self.running = 1
+		self.files = []
 
 	def close(self):
-		pass
+		self.running = 0
+
+	def reliableRead(self, size):
+		totalread = ""
+		while len(totalread) < size:
+			read = self.socket.recv(size-len(totalread))
+			if read == 0:
+				raise RuntimeError, "socket connection broken"
+			totalread += read
+		return totalread
+
+	def sendMsg(self, msg):
+		if type(msg) == dict:
+			msg = urllib.unquote(urllib.urlencode(msg,1))
+		length = struct.pack("H", socket.htons(len(msg)))
+		self.socket.sendall(length)
+		self.socket.sendall(msg)
+
+	def readMsg(self, format=0):
+		initsize = self.reliableRead(2)
+		(length,) = struct.unpack("H", initsize)
+		length = socket.ntohs(length)
+		data = self.reliableRead(length)
+		if format == 1:
+			qs = cgi.parse_qs(data)
+			return qs
+		else:
+			return data
+
+	def auth(self):
+		authdata = self.readMsg()
+		print authdata
+		# Do auth stuff here
+		self.sendMsg("result=PASS")
+
+	def readFileMeta(self):
+		files = self.readMsg(1)
+		print files
+		# Actually do file checking, et al
+		for i in range(int(files['numpkgs'][0])):
+			self.files.append(ClientFile(files['name'+str(i)][0], int(files['size'+str(i)][0]), files['md5sum'+str(i)][0]))
+		new_files = files.copy()
+		for i in files:
+			if i[:4] == 'size':
+				new_files[i] = '0'
+			if i[:6] == 'md5sum':
+				del new_files[i]
+		self.sendMsg(new_files)
+
+	def readFiles(self):
+		for i in self.files:
+			i.fd.write(self.reliableRead(i.actual_size))
+			i.fd.flush()
+		reply = {'numpkgs': len(self.files)}
+		for i, v in enumerate(self.files):
+			v.makeMd5()
+			if v.actual_md5 == v.md5:
+				reply['md5sum'+str(i)] = "PASS"
+			else:
+				reply['md5sum'+str(i)] = "FAIL"
+		self.sendMsg(reply)
+		print self.readMsg()
 
 	def run(self):
-		while len(self.socket.recv(1)) != 0:
-			pass
+		self.auth()
+		self.readFileMeta()
+		self.readFiles()
 
 class ServerSocket(threading.Thread):
 	def __init__(self, port=1034, maxqueue=5, **other):
 		threading.Thread.__init__(self, *other)
 		self.running = 1
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		self.socket.bind((socket.gethostname(), port))
+		self.socket.bind(('', port))
 		self.socket.listen(maxqueue)
 		self.clients = []
 
@@ -47,6 +141,7 @@ class ServerSocket(threading.Thread):
 
 	def close(self):
 		self.socket.close()
+		self.running = 0
 
 	def run(self):
 		while self.running:
@@ -82,7 +177,7 @@ def main(argv=None):
 
 	print "Just cleaning up stuff"
 
-	servsock.running = 0
+	servsock.close()
 
 	servsock.join()
 
