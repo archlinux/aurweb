@@ -82,7 +82,7 @@ class ClientSocket(threading.Thread):
 		totalread = ""
 		while len(totalread) < size:
 			read = self.socket.recv(size-len(totalread))
-			if read == 0:
+			if len(read) == 0:
 				raise RuntimeError, "socket connection broken"
 			totalread += read
 		return totalread
