@@ -289,15 +289,15 @@ if ($_COOKIE["AURSID"]) {
     # substituions.
     #
     if (!$error) {
-      $pkgname_var = $pkgbuild["pkgname"];
-      $pkgver_var = $pkgbuild["pkgver"];
-      $new_pkgbuild = array();
-      while (list($k, $v) = each($pkgbuild)) {
-        $v = str_replace("\$pkgname", $pkgname_var, $v);
-        $v = str_replace("\${pkgname}", $pkgname_var, $v);
-        $v = str_replace("\$pkgver", $pkgver_var, $v);
-        $v = str_replace("\${pkgver}", $pkgver_var, $v);
-        $new_pkgbuild[$k] = $v;
+      $new_pkgbuild = $pkgbuild;
+      print_r($new_pkgbuild);
+      while (list($j, $w) = each($pkgbuild)) {
+        while (list($k, $v) = each($new_pkgbuild)) {
+#          if (array_key_exists($k, $new_pkgbuild)) $v = $new_pkgbuild[$k];
+          $v = str_replace("\$".$j."", $w, $v);
+          $v = str_replace("\${".$j."}", $w, $v);
+          $new_pkgbuild[$k] = $v;
+        }
       }
     }
 
