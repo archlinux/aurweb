@@ -406,13 +406,14 @@ function html_footer($ver="") {
 	print "        </td>\n";
 	print "    </tr>\n";
 	print "</table>\n";
-	print "<p>\n";
 	if ($ver) {
+		print "<p>\n";
 		print "<table border='0' cellpadding='0' cellspacing='0' width='97%'>\n";
 		print "<tr><td align='right'><span class='fix'>".$ver."</span></td></tr>\n";
 		print "</table>\n";
+		print "</p>\n";
 	}
-	print "</p>\n";
+	print "<br />\n";
 	print "</body>\n</html>";
 	return;
 }

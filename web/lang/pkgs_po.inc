@@ -91,4 +91,29 @@ $_t["en"]["Out-of-date"] = "Out-of-date";
 # $_t["fr"]["Out-of-date"] = "--> Traduction française ici. <--";
 # $_t["de"]["Out-of-date"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Flag Out-of-date"] = "Flag Out-of-date";
+# $_t["es"]["Flag Out-of-date"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Flag Out-of-date"] = "--> Traduction française ici. <--";
+# $_t["de"]["Flag Out-of-date"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Actions"] = "Actions";
+# $_t["es"]["Actions"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Actions"] = "--> Traduction française ici. <--";
+# $_t["de"]["Actions"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Adopt Packages"] = "Adopt Packages";
+# $_t["es"]["Adopt Packages"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Adopt Packages"] = "--> Traduction française ici. <--";
+# $_t["de"]["Adopt Packages"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Disown Packages"] = "Disown Packages";
+# $_t["es"]["Disown Packages"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Disown Packages"] = "--> Traduction française ici. <--";
+# $_t["de"]["Disown Packages"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Vote"] = "Vote";
+# $_t["es"]["Vote"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Vote"] = "--> Traduction française ici. <--";
+# $_t["de"]["Vote"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

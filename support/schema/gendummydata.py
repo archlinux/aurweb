@@ -15,10 +15,10 @@ DB_USER   = "aur"
 DB_PASS   = "aur"
 USER_ID   = 5        # Users.ID of first user
 PKG_ID    = 1        # Packages.ID of first package
-MAX_USERS = 100      # how many users to 'register'
+MAX_USERS = 200      # how many users to 'register'
 MAX_DEVS  = .1       # what percentage of MAX_USERS are Developers
 MAX_TUS   = .2       # what percentage of MAX_USERS are Trusted Users
-MAX_PKGS  = 250      # how many packages to load
+MAX_PKGS  = 2500     # how many packages to load
 PKG_FILES = (8, 30)  # min/max number of files in a package
 VOTING    = (.3, .8) # percentage range for package voting
 RANDOM_PATHS = [     # random path locations for package files
@@ -78,13 +78,16 @@ user_keys = []
 
 # some functions to generate random data
 #
-def genVersion():
-	major = random.randrange(0,10)
-	minor = random.randrange(0,20)
+def genVersion(location_id=0):
+	ver = []
+	ver.append("%d" % random.randrange(0,10))
+	ver.append("%d" % random.randrange(0,20))
 	if random.randrange(0,2) == 0:
-		revision = random.randrange(0,100)
-		return "%d.%d.%d" % (major, minor, revision)
-	return "%d.%d" % (major, minor)
+		ver.append("%d" % random.randrange(0,100))
+	if location_id == 2: # the package is in the AUR
+		return ".".join(ver) + "-u%d" % random.randrange(1,11)
+	else:
+		return ".".join(ver) + "%d" % random.randrange(1,11)
 def genCategory():
 	return categories[category_keys[random.randrange(0,len(category_keys))]]
 def genLocation():
@@ -194,10 +197,7 @@ for u in user_keys:
 			#
 			pass
 	
-	s = """\
-INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd)
-    VALUES (%d, %d, '%s', '%s@example.com', '%s');
-	""" % (seen_users[u], account_type, u, u, u)
+	s = "INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (%d, %d, '%s', '%s@example.com', '%s');\n" % (seen_users[u], account_type, u, u, u)
 	out.write(s)
 	if count % 10 == 0:
 		if DBUG: print ".",
@@ -225,12 +225,8 @@ for p in seen_pkgs.keys():
 	if location_id == 1: # unsupported pkgs don't have a maintainer
 		muid = 0
 
-	s = """\
-INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID,
-    SubmittedTS, SubmitterUID, MaintainerUID)
-    VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d);
-	""" % (seen_pkgs[p], p, genVersion(), genCategory(), location_id,
-			long(time.time()), genUID(), muid)
+	s = "INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID, SubmittedTS, SubmitterUID, MaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d);\n" % (seen_pkgs[p], p, genVersion(location_id), genCategory(),
+			location_id, long(time.time()), genUID(), muid)
 	out.write(s)
 	if count % 100 == 0:
 		if DBUG: print ".",
@@ -238,56 +234,35 @@ INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID,
 
 	if location_id == 1: # Unsupported - just a PKGBUILD and maybe other stuff
 		others = random.randrange(0,3)
-		s = """\
-INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-		VALUES (%d, '%s', '%s', %d);
-		""" % (seen_pkgs[p], "PKGBUILD", "/home/aur/incoming/%s/PKGBUILD" % p,
+		s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "PKGBUILD", "/home/aur/incoming/%s/PKGBUILD" % p,
 				random.randrange(0,999))
 		out.write(s)
 		if others == 0:
-			s = """\
-INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-		VALUES (%d, '%s', '%s', %d);
-			""" % (seen_pkgs[p], "%s.patch" % p,
+			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
 					"/home/aur/incoming/%s/%s.patch" % (p,p),
 					random.randrange(0,999))
 			out.write(s)
 
 		elif others == 1:
-			s = """\
-INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-		VALUES (%d, '%s', '%s', %d);
-			""" % (seen_pkgs[p], "%s.patch" % p,
+			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
 					"/home/aur/incoming/%s/%s.patch" % (p,p),
 					random.randrange(0,999))
 			out.write(s)
-			s = """\
-INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-		VALUES (%d, '%s', '%s', %d);
-			""" % (seen_pkgs[p], "arch.patch",
+			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "arch.patch",
 					"/home/aur/incoming/%s/arch.patch" % p,
 					random.randrange(0,999))
 			out.write(s)
 
 		elif others == 2:
-			s = """\
-INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-		VALUES (%d, '%s', '%s', %d);
-			""" % (seen_pkgs[p], "%s.patch" % p,
+			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
 					"/home/aur/incoming/%s/%s.patch" % (p,p),
 					random.randrange(0,999))
 			out.write(s)
-			s = """\
-INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-		VALUES (%d, '%s', '%s', %d);
-			""" % (seen_pkgs[p], "arch.patch",
+			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "arch.patch",
 					"/home/aur/incoming/%s/arch.patch" % p,
 					random.randrange(0,999))
 			out.write(s)
-			s = """\
-INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-		VALUES (%d, '%s', '%s', %d);
-			""" % (seen_pkgs[p], "%s.install" % p,
+			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.install" % p,
 					"/home/aur/incoming/%s/%s.install" % (p,p),
 					random.randrange(0,999))
 			out.write(s)
@@ -317,10 +292,7 @@ INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
 				path = loc + "/" + p
 			if not files.has_key(path):
 				files[path] = 1
-				s = """\
-INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-		VALUES (%d, '%s', '%s', %d);
-				""" % (seen_pkgs[p], os.path.basename(path), path,
+				s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], os.path.basename(path), path,
 						random.randrange(0,99999999))
 				out.write(s)
 if DBUG: print "."
@@ -336,9 +308,7 @@ for u in user_keys:
 	for v in range(num_votes):
 		pkg = random.randrange(0, len(seen_pkgs))
 		if not pkgvote.has_key(pkg):
-			s = """\
-INSERT INTO PackageVotes (UsersID, PackageID) VALUES (%d, %d);
-			""" % (seen_users[u], pkg)
+			s = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES (%d, %d);\n" % (seen_users[u], pkg)
 			pkgvote[pkg] = 1
 			out.write(s)
 			if count % 100 == 0:

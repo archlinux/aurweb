@@ -181,6 +181,41 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 	# name will be a link that goes to 'details'.  There should also be
 	# a column for 'manage/edit'
 
+	if ($SID) {
+		print "<center>\n";
+		print "<form action='/pkgsearch.php' method='post'>\n";
+		print "<table cellspacing='3' class='boxSoft'>\n";
+		print "<tr>\n";
+		print "  <td class='boxSoftTitle' align='right'>\n";
+		print "    <span class='f3'>".__("Actions")."</span>\n";
+		print "  </td>\n";
+		print "</tr>\n";
+		print "<tr>\n";
+		print "  <td class='boxSoft'>\n";
+		print "<input type='hidden' name='Action' value='DoSomething'>\n";
+		print "<table style='width: 100%' align='center'>\n";
+		print "<tr>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Flag'";
+		print "	value='".__("Flag Out-of-date")."'></td>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Disown'";
+		print "	value='".__("Disown Packages")."'></td>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Adopt'";
+		print "	value='".__("Adopt Packages")."'></td>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Vote'";
+		print "	value='".__("Vote")."'></td>\n";
+		print "</tr>\n";
+		print "</table>\n";
+		print "  </td>\n";
+		print "</tr>\n";
+		print "</table>\n";
+		print "</form>\n";
+		print "</center>\n";
+		print "<br />\n";
+	}
 
 	# query to pull out package info
 	#
