@@ -82,6 +82,7 @@ function html_header() {
 	print "<link rel='stylesheet' type='text/css' href='/css/fonts.css'/>\n";
 	print "<link rel='stylesheet' type='text/css' href='/css/containers.css'/>\n";
 	print "<link rel='shortcut icon' href='/images/favicon.ico'/>\n";
+	print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
 	print "</head>\n";
 	print "<body bgcolor='white'>\n";
 	print "<table cellspacing='0' ";
