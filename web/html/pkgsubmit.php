@@ -43,11 +43,11 @@ if ($_COOKIE["AURSID"]) {
 			# the uploaded package file.
 			#
 
-			$upload_file = $UPLOAD_DIR . $pkg_name
+			$upload_file = $UPLOAD_DIR . $pkg_name;
 			if (move_uploaded_file($_FILES["pfile"]["tmp_name"], $upload_file)) {
 				# ok, we can proceed
 				#
-				if (file_exists($INCOMING_DIR . $pkg_name) {
+				if (file_exists($INCOMING_DIR . $pkg_name)) {
 					# blow away the existing file/dir and contents
 					#
 					rm_rf($INCOMING_DIR . $pkg_name);
@@ -73,11 +73,11 @@ if ($_COOKIE["AURSID"]) {
 			} else {
 				# try .gz first
 				#
-				exec("/bin/sh -c 'tar xzf ".$upload_file."'",, $retval);
+				exec("/bin/sh -c 'tar xzf ".$upload_file."'", $retval);
 				if (!$retval) {
 					# now try .bz2 format
 					#
-					exec("/bin/sh -c 'tar xjf ".$upload_file."'",, $retval);
+					exec("/bin/sh -c 'tar xjf ".$upload_file."'", $retval);
 				}
 				if (!$retval) {
 					$error = __("Unknown file format for uploaded file.");
