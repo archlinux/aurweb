@@ -34,7 +34,7 @@
 		font-family:		trebuchet ms, tahoma, verdana;
 		font-size:			11px;
 	}
-	span.fixed /* Monospace fixed-font */
+	span.fix /* Monospace fixed-font */
 	{
 		color:				#000;
 		font-family:		monospace, fixed, terminal;
