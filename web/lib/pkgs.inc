@@ -48,6 +48,15 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 	$tus = getTrustedUsers();
 	$dbh = db_connect();
 
+	if ($O) {
+		$OFFSET = intval($O);
+	} else {
+		$OFFSET = 0;
+	}
+	if ($OFFSET < 0) {
+		$OFFSET = 0;
+	}
+
 	print "<center>\n";
 	print "<table cellspacing='3' class='boxSoft'>\n";
 	print "<tr>\n";
@@ -191,13 +200,15 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID ASC ";
 			break;
 	}
-	$q.= "LIMIT ".intval($O).", ".intval($PP);
+	$q.= "LIMIT ".$OFFSET.", ".intval($PP);
 	$result = db_query($q, $dbh);
 	if (!$result) {
-		print $q."<br />\n";
 		print __("No packages matched your search criteria.");
-	} else {
 
+	} elseif (!mysql_num_rows($result)) {
+		print __("No packages matched your search criteria.");
+
+	} else {
 		# print out package search results
 		#
 		print "<center>\n";
@@ -252,7 +263,44 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 
 		}
 		print "</table>\n";
+		print "  </td>\n";
+		print "</tr>\n";
+		print "</table>\n";
 
+		print "<br />\n";
+		print "<table width='90%' cellspacing='0' cellpadding='2'>\n";
+		print "<tr>\n";
+		print "  <td>\n";
+		print "  <table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
+		print "  <tr>\n";
+		print "    <td align='left'>";
+		print "    <form action='/pkgsearch.php' method='post'>\n";
+		print "    <input type='hidden' name='Action' value='SearchPkgs'>\n";
+		print "    <input type='hidden' name='O' value='".($OFFSET-intval($PP))."'>\n";
+		print "    <input type='hidden' name='L' value='".$L."'>\n";
+		print "    <input type='hidden' name='C' value='".$C."'>\n";
+		print "    <input type='hidden' name='K' value='".$K."'>\n";
+		print "    <input type='hidden' name='SB' value='".$SB."'>\n";
+		print "    <input type='hidden' name='PP' value='".$PP."'>\n";
+		print "    <input type='submit' class='button'";
+		print " value='&lt;-- ".__("Less")."'>\n";
+		print "    </form>\n";
+		print "    </td>\n";
+		print "    <td align='right'>";
+		print "    <form action='/pkgsearch.php' method='post'>\n";
+		print "    <input type='hidden' name='Action' value='SearchPkgs'>\n";
+		print "    <input type='hidden' name='O' value='".($OFFSET+intval($PP))."'>\n";
+		print "    <input type='hidden' name='L' value='".$L."'>\n";
+		print "    <input type='hidden' name='C' value='".$C."'>\n";
+		print "    <input type='hidden' name='K' value='".$K."'>\n";
+		print "    <input type='hidden' name='SB' value='".$SB."'>\n";
+		print "    <input type='hidden' name='PP' value='".$PP."'>\n";
+		print "    <input type='submit' class='button'";
+		print " value='".__("More")." --&gt;'>\n";
+		print "    </form>\n";
+		print "    </td>\n";
+		print "  </tr>\n";
+		print "  </table>\n";
 		print "  </td>\n";
 		print "</tr>\n";
 		print "</table>\n";
