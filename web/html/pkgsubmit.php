@@ -21,11 +21,11 @@ if ($_COOKIE["AURSID"]) {
 
 		# first, see if this package already exists, and if it can be overwritten
 	 	#	
-		if (package_exists($_FILES["pfile"]["name"])) { # TODO write function
+		$pkg_exists = package_exists($_FILES["pfile"]["name"]);
+		if ($pkg_exists) {
 			# ok, it exists - should it be overwritten, and does the user have
 			# the permissions to do so?
 			#
-			# TODO write 'can_overwrite_pkg' function
 			if (can_overwrite_pkg($_FILES["pfile"]["name"], $_COOKIE["AURSID"])) {
 				if (!$_REQUEST["overwrite"]) {
 					$error = __("You did not tag the 'overwrite' checkbox.");
@@ -36,7 +36,7 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
-		if (!$error)) {
+		if (!$error) {
 			# no errors checking upload permissions, go ahead and try to process
 			# the uploaded package file.
 			#
@@ -58,10 +58,48 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
+		# at this point, we can safely create the directories, and update
+		# the database with the new package
+		#
+		# TODO extract the package contents and parse the included files
+		#
+
+
+		# update the backend database
+		#
+		$dbh = db_connect();
+		if ($pkg_exists) {
+
+			# this is an overwrite of an existing package, the database ID
+			# needs to be preserved so that any votes are retained.  However,
+			# PackageDepends, PackageSources, and PackageContents can be
+			# purged.
+			#
+			$q = "SELECT * FROM Packages ";
+			$q.= "WHERE Name = '".mysql_escape_string($_FILES["pfile"]["name"])."'";
+			$result = db_query($q, $dbh);
+			$pdata = mysql_fetch_assoc($result);
+
+			# flush out old data that will be replaced with new data
+			#
+			$q = "DELETE FROM PackageContents WHERE PackageID = ".$pdata["ID"];
+			db_query($q, $dbh);
+			$q = "DELETE FROM PackageDepends WHERE PackageID = ".$pdata["ID"];
+			db_query($q, $dbh);
+			$q = "DELETE FROM PackageSources WHERE PackageID = ".$pdata["ID"];
+			db_query($q, $dbh);
+
+
+		} else {
+			# this is a brand new package
+			#
+		}
+
+
 	}
 
 
-	if (!$_REQUEST["pkgsubmit"] || !$error)) {
+	if (!$_REQUEST["pkgsubmit"] || $error) {
 		# give the visitor the default upload form
 		#
 		if (ini_get("file_uploads")) {
@@ -93,15 +131,12 @@ if ($_COOKIE["AURSID"]) {
 			print __("No");
 			print "  </td>\n";
 			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td align='center' colspan='2'>&nbsp;</td>\n";
-			print "</tr>\n";
 
 			print "<tr>\n";
-			print "  <td align='right'>";
+			print "  <td>&nbsp;</td>\n";
+			print "  <td align='left'>";
 			print "<input class='button' type='submit' value='".__("Upload")."' />\n";
 			print "</td>\n";
-			print "  <td>&nbsp;</td>\n";
 			print "</tr>\n";
 			print "</table>\n";
 

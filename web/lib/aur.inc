@@ -444,6 +444,45 @@ function dbug($msg) {
 	return;
 }
 
+# check to see if the package name exists
+#
+function package_exists($name="") {
+	if (!$name) {return 0;}
+	$dbh = db_connect();
+	$q = "SELECT COUNT(*) FROM Packages ";
+	$q.= "WHERE Name = '".mysql_escape_string($name)."'";
+	$result = db_query($q, $dbh);
+	if (!$result) {return 0;}
+	$row = mysql_fetch_row($result);
+	return $row[0];
+}
+
+# check to see if the user can overwrite an existing package
+#
+function can_overwrite_pkg($name="", $sid="") {
+	if (!$name || !$sid) {return 0;}
+	$dbh = db_connect();
+	$q = "SELECT SubmitterUID, MaintainerUID, AURMaintainerUID ";
+	$q.= "FROM Packages WHERE Name = '".mysql_escape_string($name)."'";
+	$result = db_query($q, $dbh);
+	if (!$result) {return 0;}
+	$row = mysql_fetch_row($result);
+	$my_uid = uid_from_sid($sid);
+
+	# user is a dev and maintains the package
+	#
+	if ($my_uid == $row[2]) {return 1;}
+
+	# user is a TU and there is no dev
+	#
+	if (!$row[2] && $my_uid == $row[1]) {return 1;}
+
+	# user is a user and there is no TU or dev
+	#
+	if (!$row[2] && !$row[1] && $my_uid == $row[0]) {return 1;}
+	return 0;
+}
+
 # convert an ini_get number to a real integer - stupid PHP!
 #
 function initeger($inival="0", $isbytes=1) {
