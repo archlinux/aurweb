@@ -56,7 +56,7 @@ function canManagePackage($uid=0,$AURMUID=0, $MUID=0, $SUID=0, $managed=0) {
 function pkgCategories() {
 	$cats = array();
 	$dbh = db_connect();
-	$q = "SELECT * FROM PackageCategories ";
+	$q = "SELECT * FROM PackageCategories WHERE ID != 1 ";
 	$q.= "ORDER BY Category ASC";
 	$result = db_query($q, $dbh);
 	if ($result) {
@@ -72,7 +72,7 @@ function pkgCategories() {
 function pkgLocations() {
 	$locs = array();
 	$dbh = db_connect();
-	$q = "SELECT * FROM PackageLocations ";
+	$q = "SELECT * FROM PackageLocations WHERE ID != 1 ";
 	$q.= "ORDER BY Location ASC";
 	$result = db_query($q, $dbh);
 	if ($result) {
@@ -130,11 +130,10 @@ function create_dummy($pname="", $sid="") {
 		if (!$result) {
 			# Insert the dummy
 			#
-			$q = "INSERT INTO Packages (Name, CategoryID, Description, ";
-			$q.= "URL, LocationID, SubmittedTS, SubmitterUID) VALUES ('";
-			$q.= mysql_escape_string($pname)."', 0, ";
-			$q.= "'A dummy package', '/#', 0, UNIX_TIMESTAMP(), ";
-			$q.= $uid.")";
+			$q = "INSERT INTO Packages (Name, Description, URL, SubmittedTS, ";
+			$q.= "SubmitterUID) VALUES ('";
+			$q.= mysql_escape_string($pname)."', 'A dummy package', '/#', ";
+			$q.= "UNIX_TIMESTAMP(), ".$uid.")";
 			$result = db_query($q, $dbh);
 			if (!$result) {
 				return NULL;

@@ -67,7 +67,7 @@ CREATE TABLE PackageCategories (
 	Category CHAR(32) NOT NULL,
 	PRIMARY KEY (ID)
 );
-INSERT INTO PackageCategories (ID, Category) VALUES (0, 'none');
+INSERT INTO PackageCategories (Category) VALUES ('none');
 INSERT INTO PackageCategories (Category) VALUES ('daemons');
 INSERT INTO PackageCategories (Category) VALUES ('devel');
 INSERT INTO PackageCategories (Category) VALUES ('editors');
@@ -94,12 +94,12 @@ CREATE TABLE PackageLocations (
 	Location CHAR(32) NOT NULL,
 	PRIMARY KEY (ID)
 );
-INSERT INTO PackageLocations (ID, Location) VALUES (0, 'none');
-INSERT INTO PackageLocations (ID, Location) VALUES (1, 'Unsupported');
-INSERT INTO PackageLocations (ID, Location) VALUES (2, 'AUR');
-INSERT INTO PackageLocations (ID, Location) VALUES (3, 'Current');
-INSERT INTO PackageLocations (ID, Location) VALUES (4, 'Extra');
-INSERT INTO PackageLocations (ID, Location) VALUES (5, 'Unstable');
+INSERT INTO PackageLocations (Location) VALUES ('none');
+INSERT INTO PackageLocations (Location) VALUES ('Unsupported');
+INSERT INTO PackageLocations (Location) VALUES ('AUR');
+INSERT INTO PackageLocations (Location) VALUES ('Current');
+INSERT INTO PackageLocations (Location) VALUES ('Extra');
+INSERT INTO PackageLocations (Location) VALUES ('Unstable');
 
 
 -- Information about the actual packages
@@ -108,13 +108,13 @@ CREATE TABLE Packages (
 	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 	Name CHAR(32) NOT NULL,
 	Version CHAR(32) NOT NULL DEFAULT '',
-	CategoryID TINYINT UNSIGNED NOT NULL,
+	CategoryID TINYINT UNSIGNED NOT NULL DEFAULT 1,
 	Description CHAR(128) NOT NULL DEFAULT "An Arch Package",
 	URL CHAR(255) NOT NULL DEFAULT "http://www.archlinux.org",
 	DummyPkg TINYINT UNSIGNED NOT NULL DEFAULT 0,         -- 1=>dummy
 	FSPath CHAR(255) NOT NULL DEFAULT '',
 	URLPath CHAR(255) NOT NULL DEFAULT '',
-	LocationID TINYINT UNSIGNED NOT NULL,
+	LocationID TINYINT UNSIGNED NOT NULL DEFAULT 1,
 	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
 	OutOfDate TINYINT UNSIGNED DEFAULT 0,
 	SubmittedTS BIGINT UNSIGNED NOT NULL,
