@@ -488,7 +488,11 @@ function pkg_search_page($SID="") {
 	$has_where = 1;
 
 	if (intval($_REQUEST["L"])) {
-		$q.= "WHERE LocationID = ".intval($_REQUEST["L"])." ";
+		if (!$has_where) {
+		  $q.= "WHERE LocationID = ".intval($_REQUEST["L"])." ";
+		} else {
+			$q .= "AND LocationID = ".intval($_REQUEST["L"])." ";
+		}
 		$has_where = 1;
 	}
 	if (intval($_REQUEST["C"])) {
