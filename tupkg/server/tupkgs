@@ -40,9 +40,11 @@ class ClientFile:
 	def __init__(self, filename, actual_size, actual_md5):
 		self.pathname = INCOMINGDIR + filename
 		self.filename = filename
-		self.fd = open(self.pathname, "w+b")
+		self.fd = open(self.pathname, "a+b")
 		self.actual_size = actual_size
 		self.actual_md5 = actual_md5
+		self.getSize()
+		self.orig_size = self.size
 
 	def getSize(self):
 		cur = self.fd.tell()
@@ -61,11 +63,15 @@ class ClientFile:
 		self.md5 = md5sum.hexdigest()
 
 	def finishDownload(self):
-		self.fd.close();
+		self.fd.close()
 		newpathname = CACHEDIR + self.filename
 		os.rename(self.pathname, newpathname)
 		self.pathname = newpathname
 		self.fd = open(self.pathname, "a+b")
+
+	def delete(self):
+		self.fd.close()
+		os.remove(self.pathname)
 
 class ClientSocket(threading.Thread):
 	def __init__(self, sock, db, **other):
@@ -136,14 +142,15 @@ class ClientSocket(threading.Thread):
 		new_files = files.copy()
 		for i in files:
 			if i[:4] == 'size':
-				new_files[i] = '0'
+				clientfile = self.files[int(i[4:])]
+				new_files[i] = str(clientfile.orig_size)
 			if i[:6] == 'md5sum':
 				del new_files[i]
 		self.sendMsg(new_files)
 
 	def readFiles(self):
 		for i in self.files:
-			count = 0
+			count = i.orig_size
 			while count != i.actual_size:
 				if count + 1024 > i.actual_size:
 					i.fd.write(self.reliableRead(i.actual_size - count))
@@ -152,14 +159,15 @@ class ClientSocket(threading.Thread):
 					i.fd.write(self.reliableRead(1024))
 					count += 1024
 			i.fd.flush()
-			i.finishDownload()
 		reply = {'numpkgs': len(self.files)}
 		for i, v in enumerate(self.files):
 			v.makeMd5()
 			if v.actual_md5 == v.md5:
 				reply['md5sum'+str(i)] = "PASS"
+				v.finishDownload()
 			else:
 				reply['md5sum'+str(i)] = "FAIL"
+				v.delete()
 		self.sendMsg(reply)
 		print self.readMsg()
 
