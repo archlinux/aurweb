@@ -160,7 +160,7 @@ class ClientSocket(threading.Thread):
 		self.readFiles()
 
 class ServerSocket(threading.Thread):
-	def __init__(self, db, port=1034, maxqueue=5, **other):
+	def __init__(self, db, port, maxqueue, **other):
 		threading.Thread.__init__(self, *other)
 		self.running = 1
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -199,9 +199,19 @@ def usage(name):
 	print "  -c, --config       Specify an alternate config file (default " + CONFIGFILE + ")"
 	sys.exit(2)
 
+def getDefaultConfig():
+	confdict = {}
+	confdict['port'] = 1034
+	confdict['maxqueue'] = 5
+
+	return confdict
+
+
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv
+
+	confdict = getDefaultConfig()
 
 	try:
 		optlist, args = getopt.getopt(argv[1:], "c:", ["config="])
@@ -222,6 +232,13 @@ def main(argv=None):
 
 	running = 1
 
+	print "Parsing config file"
+	if config.has_section('tupkgs'):
+		if config.has_option('tupkgs', 'port'):
+			confdict['port'] = config.getint('tupkgs', 'port')
+		if config.has_option('tupkgs', 'maxqueue'):
+			confdict['maxqueue'] = config.getint('tupkgs', 'maxqueue')
+
 	print "Connecting to MySQL database"
 	dbconn = MySQLdb.connect(host=config.get('mysql', 'host'),
 	                         user=config.get('mysql', 'username'),
@@ -229,7 +246,7 @@ def main(argv=None):
 	                         db=config.get('mysql', 'db'))
 
 	print "Starting ServerSocket"
-	servsock = ServerSocket(dbconn)
+	servsock = ServerSocket(dbconn, confdict['port'], confdict['maxqueue'])
 	servsock.start()
 
 	try:
