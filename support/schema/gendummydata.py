@@ -16,6 +16,8 @@ DB_PASS   = "aur"
 USER_ID   = 5        # Users.ID of first user
 PKG_ID    = 1        # Packages.ID of first package
 MAX_USERS = 100      # how many users to 'register'
+MAX_DEVS  = .1       # what percentage of MAX_USERS are Developers
+MAX_TUS   = .2       # what percentage of MAX_USERS are Trusted Users
 MAX_PKGS  = 250      # how many packages to load
 PKG_FILES = (8, 30)  # min/max number of files in a package
 VOTING    = (.3, .8) # percentage range for package voting
@@ -160,67 +162,167 @@ location_keys = locations.keys()
 dbc.close()
 db.close()
 
+# developer/tu IDs
+#
+developers = []
+trustedusers = []
+has_devs = 0
+has_tus = 0
+
 # Begin by creating the User statements
 #
 if DBUG: print "Creating SQL statements for users.",
 count = 0
 for u in user_keys:
+	account_type = 1  # default to normal user
+	if not has_devs or not has_tus:
+		account_type = random.randrange(1, 4)
+		if account_type == 3 and not has_devs:
+			# this will be a dev account
+			#
+			developers.append(seen_users[u])
+			if len(developers) >= MAX_DEVS * MAX_USERS:
+				has_devs = 1
+		elif account_type == 2 and not has_tus:
+			# this will be a trusted user account
+			#
+			trustedusers.append(seen_users[u])
+			if len(trustedusers) >= MAX_TUS * MAX_USERS:
+				has_tus = 1
+		else:
+			# a normal user account
+			#
+			pass
+	
 	s = """\
 INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd)
-    VALUES (%d, 1, '%s', '%s@example.com', '%s');
-	""" % (seen_users[u], u, u, u)
+    VALUES (%d, %d, '%s', '%s@example.com', '%s');
+	""" % (seen_users[u], account_type, u, u, u)
 	out.write(s)
 	if count % 10 == 0:
 		if DBUG: print ".",
 	count += 1
 if DBUG: print "."
+if DBUG:
+	print "Number of developers:", len(developers)
+	print "Number of trusted users:", len(trustedusers)
+	print "Number of users:", (MAX_USERS-len(developers)-len(trustedusers))
+	print "Number of packages:", MAX_PKGS
 
 # Create the package statements
 #
 if DBUG: print "Creating SQL statements for packages.",
 count = 0
 for p in seen_pkgs.keys():
+	if count % 2 == 0:
+		muid = developers[random.randrange(0,len(developers))]
+	else:
+		muid = trustedusers[random.randrange(0,len(trustedusers))]
+	if count % 20 == 0: # every so often, there are orphans...
+		muid = 0
+
+	location_id = genLocation()
+	if location_id == 1: # unsupported pkgs don't have a maintainer
+		muid = 0
+
 	s = """\
 INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID,
     SubmittedTS, SubmitterUID, MaintainerUID)
-    VALUES (%d, '%s', '%s', %d, %d, %d, %d, 1);
-	""" % (seen_pkgs[p], p, genVersion(), genCategory(), genLocation(),
-			long(time.time()), genUID())
+    VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d);
+	""" % (seen_pkgs[p], p, genVersion(), genCategory(), location_id,
+			long(time.time()), genUID(), muid)
 	out.write(s)
 	if count % 100 == 0:
 		if DBUG: print ".",
 	count += 1
 
-	# Create package contents
-	#
-	num_files = random.randrange(PKG_FILES[0], PKG_FILES[1])
-	files = {}
-	for f in range(num_files):
-		loc = RANDOM_PATHS[random.randrange(len(RANDOM_PATHS))]
-		if "lib" in loc:
-			path = loc + "/lib" + p + ".so"
-		elif "man" in loc:
-			path = loc + "/" + p + "." + loc[-1] + ".gz"
-		elif "share" in loc:
-			path = loc + "/" + p + "/sounds/" + p + ".wav"
-		elif "profile" in loc:
-			path = loc + "/" + p + ".sh"
-		elif "rc.d" in loc:
-			path = loc + "/" + p
-		elif "etc" in loc:
-			path = loc + "/" + p + ".conf"
-		elif "opt" in loc:
-			path = loc + "/" + p + "/bin/" + p
-		else:
-			path = loc + "/" + p
-		if not files.has_key(path):
-			files[path] = 1
+	if location_id == 1: # Unsupported - just a PKGBUILD and maybe other stuff
+		others = random.randrange(0,3)
+		s = """\
+INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
+		VALUES (%d, '%s', '%s', %d);
+		""" % (seen_pkgs[p], "PKGBUILD", "/home/aur/incoming/%s/PKGBUILD" % p,
+				random.randrange(0,999))
+		out.write(s)
+		if others == 0:
 			s = """\
 INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
-    VALUES (%d, '%s', '%s', %d);
-			""" % (seen_pkgs[p], os.path.basename(path), path,
-					random.randrange(0,99999999))
+		VALUES (%d, '%s', '%s', %d);
+			""" % (seen_pkgs[p], "%s.patch" % p,
+					"/home/aur/incoming/%s/%s.patch" % (p,p),
+					random.randrange(0,999))
 			out.write(s)
+
+		elif others == 1:
+			s = """\
+INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
+		VALUES (%d, '%s', '%s', %d);
+			""" % (seen_pkgs[p], "%s.patch" % p,
+					"/home/aur/incoming/%s/%s.patch" % (p,p),
+					random.randrange(0,999))
+			out.write(s)
+			s = """\
+INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
+		VALUES (%d, '%s', '%s', %d);
+			""" % (seen_pkgs[p], "arch.patch",
+					"/home/aur/incoming/%s/arch.patch" % p,
+					random.randrange(0,999))
+			out.write(s)
+
+		elif others == 2:
+			s = """\
+INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
+		VALUES (%d, '%s', '%s', %d);
+			""" % (seen_pkgs[p], "%s.patch" % p,
+					"/home/aur/incoming/%s/%s.patch" % (p,p),
+					random.randrange(0,999))
+			out.write(s)
+			s = """\
+INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
+		VALUES (%d, '%s', '%s', %d);
+			""" % (seen_pkgs[p], "arch.patch",
+					"/home/aur/incoming/%s/arch.patch" % p,
+					random.randrange(0,999))
+			out.write(s)
+			s = """\
+INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
+		VALUES (%d, '%s', '%s', %d);
+			""" % (seen_pkgs[p], "%s.install" % p,
+					"/home/aur/incoming/%s/%s.install" % (p,p),
+					random.randrange(0,999))
+			out.write(s)
+
+	else:
+		# Create package contents
+		#
+		num_files = random.randrange(PKG_FILES[0], PKG_FILES[1])
+		files = {}
+		for f in range(num_files):
+			loc = RANDOM_PATHS[random.randrange(len(RANDOM_PATHS))]
+			if "lib" in loc:
+				path = loc + "/lib" + p + ".so"
+			elif "man" in loc:
+				path = loc + "/" + p + "." + loc[-1] + ".gz"
+			elif "share" in loc:
+				path = loc + "/" + p + "/sounds/" + p + ".wav"
+			elif "profile" in loc:
+				path = loc + "/" + p + ".sh"
+			elif "rc.d" in loc:
+				path = loc + "/" + p
+			elif "etc" in loc:
+				path = loc + "/" + p + ".conf"
+			elif "opt" in loc:
+				path = loc + "/" + p + "/bin/" + p
+			else:
+				path = loc + "/" + p
+			if not files.has_key(path):
+				files[path] = 1
+				s = """\
+INSERT INTO PackageContents (PackageID, FileName, Path, FileSize)
+		VALUES (%d, '%s', '%s', %d);
+				""" % (seen_pkgs[p], os.path.basename(path), path,
+						random.randrange(0,99999999))
+				out.write(s)
 if DBUG: print "."
 
 # Cast votes

@@ -104,16 +104,16 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 	print "</span></span><br />\n";
 	print "  <select name='SB'>\n";
 	print "  <option value=n";
-	$SB == "n" ? print "selected> " : print "> ";
+	$SB == "n" ? print " selected> " : print "> ";
 	print __("Name")."\n";
 	print "  <option value=c";
-	$SB == "c" ? print "selected> " : print "> ";
+	$SB == "c" ? print " selected> " : print "> ";
 	print __("Category")."\n";
 	print "  <option value=l";
-	$SB == "l" ? print "selected> " : print "> ";
+	$SB == "l" ? print " selected> " : print "> ";
 	print __("Location")."\n";
-	print "  <option value=p";
-	$SB == "p" ? print "selected> " : print "> ";
+	print "  <option value=v";
+	$SB == "v" ? print " selected> " : print "> ";
 	print __("Votes")."\n";
 	print "  </select>\n";
 	print "</td>\n";
@@ -123,13 +123,13 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 	print "</span></span><br />\n";
 	print "  <select name='PP'>\n";
 	print "  <option value=25";
-	$PP == 25 ? print "selected> 25\n" : print "> 25\n";
+	$PP == 25 ? print " selected> 25\n" : print "> 25\n";
 	print "  <option value=50";
-	$PP == 50 ? print "selected> 50\n" : print "> 50\n";
+	$PP == 50 ? print " selected> 50\n" : print "> 50\n";
 	print "  <option value=75";
-	$PP == 75 ? print "selected> 75\n" : print "> 75\n";
+	$PP == 75 ? print " selected> 75\n" : print "> 75\n";
 	print "  <option value=100";
-	$PP == 100 ? print "selected> 100\n" : print "> 100\n";
+	$PP == 100 ? print " selected> 100\n" : print "> 100\n";
 	print "  </select>\n";
 	print "</td>\n";
 
@@ -183,6 +183,9 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 			break;
 		case 'l':
 			$q.= "ORDER BY LocationID ASC, Name ASC, CategoryID ASC ";
+			break;
+		case 'v':
+			$q.= "ORDER BY Votes DESC, Name ASC, CategoryID ASC ";
 			break;
 		default:
 			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID ASC ";
