@@ -239,7 +239,10 @@ if ($_COOKIE["AURSID"]) {
 						$seen_build_function = 1;
 					}
 				}
-				if ($seen_build_function) {break;}
+				# XXX: closes bug #2280?  Might as well let the loop complete rather
+				# than break after the build() function.
+				#
+				#if ($seen_build_function) {break;}
 			}
 
 			# some error checking on PKGBUILD contents - just make sure each
@@ -534,7 +537,7 @@ if ($_COOKIE["AURSID"]) {
 			print "<br />\n";
 		}
 	} else {
-		print __("Package upload successful");
+		print __("Package upload successful.");
 	}
 
 } else {

@@ -11,6 +11,26 @@
 include_once("translator.inc");
 global $_t;
 
+$_t["en"]["Go back to %hpackage details view%h."] = "Go back to %hpackage details view%h.";
+# $_t["es"]["Category"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Category"] = "--> Traduction française ici. <--";
+# $_t["de"]["Category"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["None"] = "None";
+# $_t["es"]["Category"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Category"] = "--> Traduction française ici. <--";
+# $_t["de"]["Category"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["change category"] = "change category";
+# $_t["es"]["Category"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Category"] = "--> Traduction française ici. <--";
+# $_t["de"]["Category"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Delete comment"] = "Delete comment";
+# $_t["es"]["Category"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Category"] = "--> Traduction française ici. <--";
+# $_t["de"]["Category"] = "--> Deutsche Übersetzung hier. <--";
+
 $_t["en"]["Comment by: %h%s%h on %h%s%h"] = "Comment by: %h%s%h on %h%s%h";
 # $_t["es"]["Category"] = "--> Traducción española aquí. <--";
 # $_t["fr"]["Category"] = "--> Traduction française ici. <--";

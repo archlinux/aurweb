@@ -6,6 +6,17 @@ include_once("pkgfuncs_po.inc");
 $pkgsearch_vars = array("O", "L", "C", "K", "SB", "PP", "do_MyPackages");
 
 
+# print out the 'return to package details' link
+#
+function pkgdetails_link($id=0) {
+	$url_data = "<a href='/packages.php?do_Details=1&ID=".intval($id)."'>";
+	print __("Go back to %hpackage details view%h.",
+		array($url_data, "</a>"));
+	print "\n<br />\n";
+	return;
+}
+
+
 # print out the 'return to search results' link
 #
 function pkgsearch_results_link() {
@@ -28,6 +39,30 @@ function pkgsearch_results_link() {
 	return;
 }
 
+# Make sure this visitor can delete the requested package comment
+# They can delete if they were the comment submitter, or if they are a TU/Dev
+#
+function canDeleteComment($comment_id=0, $atype="", $SID="") {
+	if ($atype == "Trusted User" || $atype == "Developer") {
+		# A TU/Dev can delete any comment
+		#
+		return TRUE;
+	}
+	$uid = uid_from_sid($SID);
+	$dbh = db_connect();
+	$q = "SELECT COUNT(ID) AS CNT ";
+	$q.= "FROM PackageComments ";
+	$q.= "WHERE ID = " . intval($comment_id);
+	$q.= " AND UsersID = " . $uid;
+	$result = db_query($q, $dbh);
+	if ($result != NULL) {
+		$row = mysql_fetch_assoc($result);
+		if ($row['CNT'] > 0) {
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
 
 # see if this Users.ID can manage the package
 #
@@ -154,7 +189,7 @@ function package_comments($pkgid=0) {
 	$comments = array();
 	if ($pkgid) {
 		$dbh = db_connect();
-		$q = "SELECT UserName, Comments, CommentTS ";
+		$q = "SELECT PackageComments.ID, UserName, Comments, CommentTS ";
 		$q.= "FROM PackageComments, Users ";
 		$q.= "WHERE PackageComments.UsersID = Users.ID";
 		$q.= " AND PackageID = ".mysql_escape_string($pkgid);
@@ -261,7 +296,11 @@ function package_details($id=0) {
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>";
-			print $row["Location"]." :: ".$row["Category"]."</span></td>";
+			$edit_cat = "<a href='/pkgedit.php?change_Category=1&ID=";
+			$edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
+			$edit_cat .= " &nbsp;<span class='fix'>(";
+			$edit_cat .= __("change category").")</span>";
+			print $row["Location"]." :: ".$edit_cat."</span></td>";
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>".__("Maintainer").": ";
@@ -344,10 +383,15 @@ function package_details($id=0) {
 					print "  <td valign='top' style='padding-right: 10' colspan='2'>";
 					print "<table class='boxSoft' width='100%'>";
 					print "<tr><td class='boxSoftTitle'><span class='f3'>";
+					$durl = "<a href='/pkgedit.php?del_Comment=1";
+					$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
+					$durl.= "'><img src='/images/x.png' border='0'";
+					$durl.= " alt=\"".__("Delete comment")."\"></a>";
+					print $durl . "&nbsp;&nbsp;";
 					print __("Comment by: %h%s%h on %h%s%h",
 							array("<b>",$carr["UserName"],"</b>",
 							      "<i>",date("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
-					print "</span></td></tr>\n";
+					print "</span>";
 					print "<tr><td class='boxSoft'>";
 					print "<pre>\n";
 					print str_replace('"',"&quot;", stripslashes($carr["Comments"]));
@@ -783,7 +827,7 @@ function pkg_search_page($SID="") {
 			} elseif (isset($tus[$row["MaintainerUID"]])) {
 				print $tus[$row["MaintainerUID"]]["Username"];
 			} else {
-				print "None";
+				print __("None");
 				$managed = 0;
 			}
 			print "</span></span></td>\n";
