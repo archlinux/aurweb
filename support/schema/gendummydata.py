@@ -209,7 +209,7 @@ for u in user_keys:
 			#
 			pass
 	
-	s = "INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (%d, %d, '%s', '%s@example.com', '%s');\n" % (seen_users[u], account_type, u, u, u)
+	s = "INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (%d, %d, '%s', '%s@example.com', MD5('%s'));\n" % (seen_users[u], account_type, u, u, u)
 	out.write(s)
 	if count % 10 == 0:
 		if DBUG: print ".",
@@ -248,35 +248,35 @@ for p in seen_pkgs.keys():
 
 	if location_id == 1: # Unsupported - just a PKGBUILD and maybe other stuff
 		others = random.randrange(0,3)
-		s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "PKGBUILD", "/home/aur/incoming/%s/PKGBUILD" % p,
+		s = "INSERT INTO PackageContents (PackageID, URLPath, FSPath, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "PKGBUILD", "/home/aur/incoming/%s/PKGBUILD" % p,
 				random.randrange(0,999))
 		out.write(s)
 		if others == 0:
-			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
+			s = "INSERT INTO PackageContents (PackageID, URLPath, FSPath, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
 					"/home/aur/incoming/%s/%s.patch" % (p,p),
 					random.randrange(0,999))
 			out.write(s)
 
 		elif others == 1:
-			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
+			s = "INSERT INTO PackageContents (PackageID, URLPath, FSPath, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
 					"/home/aur/incoming/%s/%s.patch" % (p,p),
 					random.randrange(0,999))
 			out.write(s)
-			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "arch.patch",
+			s = "INSERT INTO PackageContents (PackageID, URLPath, FSPath, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "arch.patch",
 					"/home/aur/incoming/%s/arch.patch" % p,
 					random.randrange(0,999))
 			out.write(s)
 
 		elif others == 2:
-			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
+			s = "INSERT INTO PackageContents (PackageID, URLPath, FSPath, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.patch" % p,
 					"/home/aur/incoming/%s/%s.patch" % (p,p),
 					random.randrange(0,999))
 			out.write(s)
-			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "arch.patch",
+			s = "INSERT INTO PackageContents (PackageID, URLPath, FSPath, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "arch.patch",
 					"/home/aur/incoming/%s/arch.patch" % p,
 					random.randrange(0,999))
 			out.write(s)
-			s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.install" % p,
+			s = "INSERT INTO PackageContents (PackageID, URLPath, FSPath, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], "%s.install" % p,
 					"/home/aur/incoming/%s/%s.install" % (p,p),
 					random.randrange(0,999))
 			out.write(s)
@@ -306,7 +306,7 @@ for p in seen_pkgs.keys():
 				path = loc + "/" + p
 			if not files.has_key(path):
 				files[path] = 1
-				s = "INSERT INTO PackageContents (PackageID, FileName, Path, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], os.path.basename(path), path,
+				s = "INSERT INTO PackageContents (PackageID, URLPath, FSPath, FileSize) VALUES (%d, '%s', '%s', %d);\n" % (seen_pkgs[p], os.path.basename(path), path,
 						random.randrange(0,99999999))
 				out.write(s)
 if DBUG: print "."
