@@ -38,8 +38,8 @@ CREATE TABLE Users (
 	FOREIGN KEY (AccountTypeID) REFERENCES AccountTypes(ID) ON DELETE NO ACTION
 );
 -- A default developer account for testing purposes
-INSERT INTO Users (ID, AccountTypeID, Email, Passwd) VALUES (
-	1, 3, 'root@localhost', 'changeme');
+INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
+	1, 3, 'root', 'root@localhost', 'changeme');
 
 
 -- Track Users logging in/out of AUR web site.

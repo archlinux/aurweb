@@ -99,17 +99,6 @@ function new_sid() {
 	return strtoupper(md5($id));
 }
 
-# obtain the user type from its database ID
-#
-function user_type($id=0) {
-	if ($id == 3) {
-		return __("Developer");
-	} elseif ($id == 2) {
-		return __("Trusted user");
-	} else {
-		return __("User");
-	}
-}
 
 # obtain the username if given their current SID
 #
@@ -162,7 +151,7 @@ function account_from_sid($sid="") {
 	$q = "SELECT AccountType ";
 	$q.= "FROM Users, AccountTypes, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND AccountTypes.ID = Users.AccountTypesID ";
+	$q.= "AND AccountTypes.ID = Users.AccountTypeID ";
 	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
 	$result = db_query($q, $dbh);
 	if (!$result) {

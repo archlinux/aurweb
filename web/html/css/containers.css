@@ -185,6 +185,11 @@
 	{
 		text-align: left;
 	}
+	th.header
+	{
+		border-bottom: #666 1px solid;
+		vertical-align: bottom;
+	}
 
 	input,textarea,select
 	{

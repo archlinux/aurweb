@@ -201,4 +201,49 @@ $_t["en"]["Username:"] = "Username:";
 # $_t["fr"]["Username:"] = "--> Traduction française ici. <--";
 # $_t["de"]["Username:"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Sort by"] = "Sort by";
+# $_t["es"]["Sort by"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Sort by"] = "--> Traduction française ici. <--";
+# $_t["de"]["Sort by"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Account Type"] = "Account Type";
+# $_t["es"]["Account Type"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Account Type"] = "--> Traduction française ici. <--";
+# $_t["de"]["Account Type"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Account Suspended"] = "Account Suspended";
+# $_t["es"]["Account Suspended"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Account Suspended"] = "--> Traduction française ici. <--";
+# $_t["de"]["Account Suspended"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Email address"] = "Email address";
+# $_t["es"]["Email address"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Email address"] = "--> Traduction française ici. <--";
+# $_t["de"]["Email address"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Last vote"] = "Last vote";
+# $_t["es"]["Last vote"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Last vote"] = "--> Traduction française ici. <--";
+# $_t["de"]["Last vote"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Regular users can edit their own account."] = "Regular users can edit their own account.";
+# $_t["es"]["Regular users can edit their own account."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Regular users can edit their own account."] = "--> Traduction française ici. <--";
+# $_t["de"]["Regular users can edit their own account."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Edit Account"] = "Edit Account";
+# $_t["es"]["Edit Account"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Edit Account"] = "--> Traduction française ici. <--";
+# $_t["de"]["Edit Account"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Use this form to search existing accounts."] = "Use this form to search existing accounts.";
+# $_t["es"]["Use this form to search existing accounts."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Use this form to search existing accounts."] = "--> Traduction française ici. <--";
+# $_t["de"]["Use this form to search existing accounts."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You are not allowed to access this area."] = "You are not allowed to access this area.";
+# $_t["es"]["You are not allowed to access this area."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You are not allowed to access this area."] = "--> Traduction française ici. <--";
+# $_t["de"]["You are not allowed to access this area."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
