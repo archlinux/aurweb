@@ -22,8 +22,16 @@ import struct
 import cgi
 import urllib
 import md5
+import MySQLdb
+import MySQLdb.connections
+import ConfigParser
+import getopt
+import os.path
 
 CACHEDIR = '/var/cache/tupkgs/'
+CONFIGFILE = '/etc/tupkgs.conf'
+
+config = ConfigParser.ConfigParser()
 
 class ClientFile:
 	def __init__(self, filename, actual_size, actual_md5):
@@ -155,23 +163,46 @@ class ServerSocket(threading.Thread):
 			sread, swrite, serror = select.select([self.socket],[self.socket],[self.socket],5)
 			if sread:
 				(clientsocket, address) = self.socket.accept()
+				print "New connection from " + str(address)
 				ct = ClientSocket(clientsocket)
 				ct.start()
 				self.clients.append(ct)
 
-			print len(self.clients)
 			self.clients = filter(self._clean, self.clients)
-			print len(self.clients)
 		self.socket.close()
 		[x.close() for x in self.clients]
 		[x.join() for x in self.clients]
+
+def usage(name):
+	print "usage: " + name + " [options]"
+	print "options:"
+	print "  -c, --config       Specify an alternate config file (default " + CONFIGFILE + ")"
+	sys.exit(2)
 
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv
 
+	try:
+		optlist, args = getopt.getopt(argv[1:], "c:", ["config="])
+	except getopt.GetoptError:
+		usage(argv[0])
+
+	conffile = CONFIGFILE
+
+	for i, k in optlist:
+		if i in ('-c', '--config'):
+			conffile = k
+
+	if not os.path.isfile(conffile):
+		print "Error: cannot access config file ("+conffile+")"
+		usage(argv[0])
+
+	config.read(conffile)
+
 	running = 1
 
+	print "Starting ServerSocket"
 	servsock = ServerSocket()
 	servsock.start()
 
@@ -182,7 +213,7 @@ def main(argv=None):
 	except KeyboardInterrupt:
 		running = 0
 
-	print "Just cleaning up stuff"
+	print "Cleaning up stuff"
 
 	servsock.close()
 
