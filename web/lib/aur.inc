@@ -1,6 +1,12 @@
 <?
 include_once("aur_po.inc");
 
+# TODO do we need to set the domain on cookies?  I seem to remember some
+# security concerns about not using domains - but it's not like
+# we really care if another site can see what language/SID a user
+# is using...
+#
+
 # Define global variables
 #
 $LOGIN_TIMEOUT = 1800;           # number of idle seconds before timeout
@@ -223,18 +229,28 @@ function set_lang() {
 		#
 		$LANG = $_COOKIE['AURLANG'];
 
-	} # TODO query the database if the user is logged in
+	} elseif (isset($_COOKIE["AURSID"])) {
+		$dbh = db_connect();
+		$q = "SELECT LangPreference FROM Users, Sessions ";
+		$q.= "WHERE Users.ID = Sessions.UsersID ";
+		$q.= "AND Sessions.SessionID = '";
+		$q.= mysql_escape_string($_COOKIE["AURSID"])."'";
+		$result = db_query($q, $dbh);
+		if (!$result) {
+			$LANG = "en";
+		} else {
+			$row = mysql_fetch_array($result);
+			$LANG = $row[0];
+		}
+	} else {
+		$LANG = "en";
+	}
 
-	if (!$LANG || !array_key_exists($LANG, $SUPPORTED_LANGS)) {
+	if (!array_key_exists($LANG, $SUPPORTED_LANGS)) {
 		$LANG = "en"; # default to English
 	}
 
 	if ($update_cookie) {
-		# TODO do we need to set the domain too?  I seem to remember some
-		# security concerns about not using domains - but it's not like
-		# we really care if another site can see what language our visitor
-		# was using....
-		#
 		setcookie("AURLANG", $LANG, 0, "/");
 	}
 	return;
