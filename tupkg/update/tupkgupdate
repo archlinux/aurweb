@@ -105,7 +105,7 @@ class PackageDatabase:
       "(Name, Description, LocationID, DummyPkg) " +
       "VALUES ('" +
       MySQLdb.escape_string(packagename) + "', '" +
-      MySQLdb.escape_string("A dummy package") + "', 1)")
+      MySQLdb.escape_string("A dummy package") + "', 1, 1)")
     return self.lookup(packagename)
   def insertNewInfo(self, package, id, locationId):
     q = self.cursor()
