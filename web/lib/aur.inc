@@ -74,7 +74,9 @@ function set_lang() {
 # common header
 #
 function html_header() {
-	print "<html>\n";
+	print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+	print "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">";
 	print "<head>\n";
 	print "<title>AUR</title>\n";
 	print "<link rel='stylesheet' type='text/css' href='/css/fonts.css'/>\n";
@@ -111,6 +113,7 @@ function html_header() {
 	print "                </td>\n";
 	print "            </tr>\n";
 	print "            </table>\n";
+	print "        </td>\n";
 	print "    </tr>\n";
 
 	# Menu items
@@ -155,6 +158,7 @@ function html_footer($ver="") {
 		print "<tr><td align='right'><span class='fix'>".$ver."</span></td></tr>\n";
 		print "</table>\n";
 	}
+	print "<\p>\n";
 	print "</body>\n</html>";
 	return;
 }
