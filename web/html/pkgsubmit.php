@@ -4,18 +4,32 @@ include("submit_po.inc");   # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
-
 print "<center>\n";
+
+# Debugging
+$DBUG = 1;
 
 # this is the directory that new packages will be uploaded to
 #
 $UPLOAD_DIR = "/tmp/aur/temp/";
 $INCOMING_DIR = "/tmp/aur/incoming/";
 
+function exitError($msg) {
+  print "<span class='error'>" . $msg . "</span><br />\n";
+  print "</center>\n";
+  html_footer("\$Id$");
+  exit();
+}
+
 if ($_COOKIE["AURSID"]) {
 	# track upload errors
 	#
 	$error = "";
+  if ($DBUG) {
+    print "</center><pre>\n";
+    print_r($_REQUEST);
+    print "</pre><center>\n";
+  }
 
 	if ($_REQUEST["pkgsubmit"]) {
 		# If this var is set, then the visitor is uploading a file...
@@ -32,8 +46,10 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
-    if (!$_REQUEST["comments"] && !$error) {
+    if (!$error && (!$_REQUEST["comments"] || $_REQUEST["comments"] == '')) {
       $error = __("You must supply a comment.");
+    } else {
+      print exitError($error);
     }
 
 		if (!$error) {
@@ -53,7 +69,9 @@ if ($_COOKIE["AURSID"]) {
 							array("<b>", $pkg_name, "</b>"));
 				}
 			}
-		}
+		} else {
+      print exitError($error);
+    }
 
 		if (!$error) {
 			# no errors checking upload permissions, go ahead and try to process
@@ -75,16 +93,18 @@ if ($_COOKIE["AURSID"]) {
 				#
 				$error = __("Error trying to upload file - please try again.");
 			}
-		}
+		} else {
+      print exitError($error);
+    }
 
 		# at this point, we can safely unpack the uploaded file and parse
 		# its contents.
 		#
-		if (!mkdir($INCOMING_DIR.$pkg_name)) {
+		if (!@mkdir($INCOMING_DIR.$pkg_name)) {
 			$error = __("Could not create incoming directory: %s.",
 					array($INCOMING_DIR.$pkg_name));
 		} else {
-			if (!chdir($INCOMING_DIR.$pkg_name)) {
+			if (!@chdir($INCOMING_DIR.$pkg_name)) {
 				$error = __("Could not change directory to %s.",
 						array($INCOMING_DIR.$pkg_name));
 			} else {
@@ -101,6 +121,9 @@ if ($_COOKIE["AURSID"]) {
 				}
 			}
 		}
+    if ($error) {
+      print exitError($error);
+    }
 
 		# At this point, if no error exists, the package has been extracted
 		# There should be a $INCOMING_DIR.$pkg_name."/".$pkg_name directory
@@ -122,7 +145,7 @@ if ($_COOKIE["AURSID"]) {
 			# try and create $INCOMING_DIR.$pkg_name."/".$pkg_name and
 			# move package contents into the new dir
 			#
-			if (!mkdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+			if (!@mkdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
 				$error = __("Could not create directory %s.",
 						array($INCOMING_DIR.$pkg_name."/".$pkg_name));
 			} else {
@@ -131,7 +154,7 @@ if ($_COOKIE["AURSID"]) {
 					$error = __("Error exec'ing the mv command.");
 				}
 			}
-			if (!chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+			if (!@chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
 				$error = __("Could not change to directory %s.",
 						array($INCOMING_DIR.$pkg_name."/".$pkg_name));
 			}
@@ -191,6 +214,10 @@ if ($_COOKIE["AURSID"]) {
 			}
 			fclose($fp);
 
+      # Now process the lines and put any var=val lines into the
+      # 'pkgbuild' array.  Also check to make sure it has the build()
+      # function.
+      #
 			$seen_build_function = 0;
 			while (list($k, $line) = each($lines)) {
 
@@ -243,7 +270,15 @@ if ($_COOKIE["AURSID"]) {
 					$error = __("Package names do not match.");
 				}
 			}
-		}
+    }
+    if ($error) {
+      print exitError($error);
+    }
+
+    print "Groovy!!! - We're all set to populate the database!!<br />\n";
+    print "</center>\n";
+    html_footer("\$Id$");
+    exit();
 
 		# update the backend database if there are no errors
 		#

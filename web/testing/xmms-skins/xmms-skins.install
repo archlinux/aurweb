@@ -1,0 +1,29 @@
+# arg 1:  the new package version
+post_install() {
+	echo "=> If you are upgrading from SpamAssassin 2.x, please see the notes"
+	echo "=> at http://spamassassin.apache.org/full/3.0.x/dist/UPGRADE"
+	echo "=> In particular, you may need to update your bayes db with:"
+	echo "=>   sa-learn --sync"
+	echo "=> Also, you may want to set your LANG environment variable to"
+	echo "=> a non-utf8 value such as LANG=en_US prior to calling SA"
+}
+
+# arg 1:  the new package version
+# arg 2:  the old package version
+post_upgrade() {
+	/bin/true
+}
+
+# arg 1:  the old package version
+pre_remove() {
+  /bin/true
+}
+
+# arg 1:  the old package version
+post_remove() {
+  /bin/true
+}
+
+op=$1
+shift
+$op $*

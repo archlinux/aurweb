@@ -8,8 +8,13 @@ Setup on ArchLinux:
    127.0.0.1    localhost aur
 
 3) Configure Apache
- - Edit /etc/httpd/conf/httpd.conf and append the following:
-   Replace MYUSER with your username.
+
+ - Edit /etc/httpd/conf/httpd.conf and make sure that PHP
+   support is enabled by uncommenting the LoadModule line
+   that specifies the PHP module.
+
+ - Also append the following snippet to enable the aur
+   Virtual Host (Replace MYUSER with your username).
 
    <VirtualHost aur:80>
    Servername    aur
