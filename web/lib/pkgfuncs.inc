@@ -1,14 +1,20 @@
 <?
 include_once("pkgfuncs_po.inc");
 
+# define variables used during pkgsearch
+#
+$pkgsearch_vars = array("O", "L", "C", "K", "SB", "PP", "do_MyPackages");
+
+
 # print out the 'return to search results' link
 #
 function pkgsearch_results_link() {
+	global $_REQUEST;
 	global $pkgsearch_vars;
 
 	$url_data = "<a href='/pkgsearch.php?do_Search=1";
 	while (list($k, $var) = each($pkgsearch_vars)) {
-		if ($var == "do_MyPackages") {
+		if ($var == "do_MyPackages" && $_REQUEST[$var]) {
 			$url_data.="&".$var."=1";
 		} else {
 			$url_data.="&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
@@ -17,6 +23,7 @@ function pkgsearch_results_link() {
 	$url_data .= "'>";
 	print __("Go back to %hsearch results%h.",
 		array($url_data, "</a>"));
+	print "\n<br />\n";
 
 	return;
 }
@@ -113,9 +120,32 @@ function package_sources($pkgid=0) {
 	return $sources;
 }
 
+
+# grab array of Package.IDs that I've voted for: $pkgs[1234] = 1, ...
+#
+function pkgvotes_from_sid($sid="") {
+	$pkgs = array();
+	if (!$sid) {return $pkgs;}
+	$dbh = db_connect();
+	$q = "SELECT PackageID ";
+	$q.= "FROM PackageVotes, Users, Sessions ";
+	$q.= "WHERE Users.ID = Sessions.UsersID ";
+	$q.= "AND Users.ID = PackageVotes.UsersID ";
+	$q.= "AND Sessions.SessionID = '".mysql_escape_string($sid)."'";
+	$result = db_query($q, $dbh);
+	if ($result) {
+		while ($row = mysql_fetch_row($result)) {
+			$pkgs[$row[0]] = 1;
+		}
+	}
+	return $pkgs;
+}
+
+
 # display package details
 #
 function package_details($id=0) {
+	global $_REQUEST;
 	global $pkgsearch_vars;
 	$q = "SELECT *,Location,Category ";
 	$q.= "FROM Packages,PackageLocations,PackageCategories ";
@@ -190,7 +220,11 @@ function package_details($id=0) {
 			while (list($k, $darr) = each($deps)) {
 				$url = "<a href='/pkgsearch.php?do_Details=1&ID=".$darr[0];
 				while(list($k, $var) = each($pkgsearch_vars)) {
-					$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+					if ($var == "do_MyPackages" && $_REQUEST[$var]) {
+						$url .= "&".$var."=1";
+					} else {
+						$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+					}
 				}
 				reset($pkgsearch_vars);
 				print $url."'>".$darr[1]."</a><br />\n";
@@ -252,12 +286,13 @@ function pkg_search_page($SID="") {
 	if ($O < 0) {
 		$O = 0;
 	}
-	if ($_REQUEST["do_Search"]) {
-		# reset the offset to zero if they hit Go/My Packages
+	if ($_REQUEST["do_Search"] && $_REQUEST["do_Search"] != 1) {
+		# reset the offset to zero if they hit Go
 		#
 		$_REQUEST["do_MyPackages"] = 0;
 		$O = 0;
 	}
+	$_REQUEST["O"] = $O; # so that pkg_search_results() works
 
 
 	# grab info for user if they're logged in
@@ -265,6 +300,7 @@ function pkg_search_page($SID="") {
 	if ($SID) {
 		$myuid = uid_from_sid($SID);
 		$acct = account_from_sid($SID);
+		$my_votes = pkgvotes_from_sid($SID);
 	}
 
 	# The search form
@@ -438,10 +474,6 @@ function pkg_search_page($SID="") {
 			break;
 	}
 	$q.= "LIMIT ".$O.", ".$PP;
-	print $q."<br />\n";
-	print "<pre>\n";
-	print_r($_REQUEST);
-	print "</pre>\n";
 
 	$result = db_query($q, $dbh);
 	if (!$result) {
@@ -470,6 +502,9 @@ function pkg_search_page($SID="") {
 			print "<input type='submit' class='button' name='do_Flag'";
 			print "	value='".__("Flag Out-of-date")."'></td>\n";
 			print "  <td align='center'>";
+			print "<input type='submit' class='button' name='do_UnFlag'";
+			print "	value='".__("Unflag Out-of-date")."'></td>\n";
+			print "  <td align='center'>";
 			print "<input type='submit' class='button' name='do_Adopt'";
 			print "	value='".__("Adopt Packages")."'></td>\n";
 			print "  <td align='center'>";
@@ -478,6 +513,9 @@ function pkg_search_page($SID="") {
 			print "  <td align='center'>";
 			print "<input type='submit' class='button' name='do_Vote'";
 			print "	value='".__("Vote")."'></td>\n";
+			print "  <td align='center'>";
+			print "<input type='submit' class='button' name='do_UnVote'";
+			print "	value='".__("Un-Vote")."'></td>\n";
 			print "</tr>\n";
 			print "</table>\n";
 			print "  </td>\n";
@@ -512,6 +550,10 @@ function pkg_search_page($SID="") {
 		print " bottom'><span class='f2'>".__("Name")."</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>".__("Votes")."</span></th>\n";
+		if ($SID) {
+			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+			print " bottom'><span class='f2'>".__("Vote")."</span></th>\n";
+		}
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>".__("Description")."</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
@@ -530,12 +572,12 @@ function pkg_search_page($SID="") {
 				if ($row["OutOfDate"]) {
 					print "<span style='background-color: red'>";
 				}
-				print "<input type='checkbox' name='IDs[]' value='".$row["ID"]."'>";
-				if ($i == 0) {
-					$all_ids = $row["ID"];
-				} else {
-					$all_ids .= ":".$row["ID"];
-				}
+				print "<input type='checkbox' name='IDs[".$row["ID"]."]' value='1'>";
+#				if ($i == 0) {
+#					$all_ids = $row["ID"];
+#				} else {
+#					$all_ids .= ":".$row["ID"];
+#				}
 				if ($row["OutOfDate"]) {
 					print "</span>";
 				}
@@ -554,7 +596,11 @@ function pkg_search_page($SID="") {
 				# php.net recommends htmlentities(urlencode(data)), but that
 				# doesn't work!
 				#
-				$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+				if ($var == "do_MyPackages" && $_REQUEST[$var]) {
+					$url .= "&".$var."=1";
+				} else {
+					$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+				}
 			}
 			reset($pkgsearch_vars);
 			$url.= "'><span class='black'>".$row["Name"];
@@ -562,6 +608,14 @@ function pkg_search_page($SID="") {
 			print $url."</span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			print "&nbsp;&nbsp;&nbsp;".$row["NumVotes"]."</span></span></td>\n";
+			if ($SID) {
+				print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+				if (isset($my_votes[$row["ID"]])) {
+					print "&nbsp;&nbsp;".__("Yes")."</span></td>\n";
+				} else {
+					print "&nbsp;</span></td>\n";
+				}
+			}
 			print "  <td class='".$c."'><span class='f4'><span class='blue'>";
 			print $row["Description"]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
@@ -598,7 +652,7 @@ function pkg_search_page($SID="") {
 		print "  </td>\n";
 		print "</tr>\n";
 		print "</table>\n";
-		print "<input type='hidden' name='All_IDs' value='".$all_ids."'>\n";
+#		print "<input type='hidden' name='All_IDs' value='".$all_ids."'>\n";
 		if ($_REQUEST["do_MyPackages"]) {
 			print "<input type='hidden' name='do_MyPackages' value='1'>\n";
 		}

@@ -423,6 +423,7 @@ function html_header() {
 #
 function html_footer($ver="") {
 	print "\n\n<!-- End of main content -->\n";
+	print "        <br />\n";
 	print "        </td>\n";
 	print "    </tr>\n";
 	print "</table>\n";

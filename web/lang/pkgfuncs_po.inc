@@ -141,4 +141,24 @@ $_t["en"]["Manage"] = "Manage";
 # $_t["fr"]["Manage"] = "--> Traduction française ici. <--";
 # $_t["de"]["Manage"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Un-flag Out-of-date"] = "Un-flag Out-of-date";
+# $_t["es"]["Un-flag Out-of-date"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Un-flag Out-of-date"] = "--> Traduction française ici. <--";
+# $_t["de"]["Un-flag Out-of-date"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Unflag Out-of-date"] = "Unflag Out-of-date";
+# $_t["es"]["Unflag Out-of-date"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Unflag Out-of-date"] = "--> Traduction française ici. <--";
+# $_t["de"]["Unflag Out-of-date"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Un-Vote"] = "Un-Vote";
+# $_t["es"]["Un-Vote"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Un-Vote"] = "--> Traduction française ici. <--";
+# $_t["de"]["Un-Vote"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Yes"] = "Yes";
+# $_t["es"]["Yes"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Yes"] = "--> Traduction française ici. <--";
+# $_t["de"]["Yes"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

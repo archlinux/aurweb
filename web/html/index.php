@@ -86,11 +86,11 @@ print "  <td align='left' valign='top' nowrap>\n";
 if (!isset($_COOKIE["AURSID"])) {
 	# the user is not logged in, give them login widgets
 	#
-	print "<form action='/index.php' method='post'>\n";
 	if ($login_error) {
 		print "<span class='error'>" . $login_error . "</span><br />\n";
 	}
 	print "<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
+	print "<form action='/index.php' method='post'>\n";
 	print "<tr>\n";
 	print "<td>".__("Username:")."</td>";
 	print "<td><input type='text' name='user' size='30' maxlength='64'></td>";
@@ -104,8 +104,8 @@ if (!isset($_COOKIE["AURSID"])) {
 	print "<input type='submit' class='button'";
 	print " value='".__("Login")."'></td>";
 	print "</tr>\n";
-	print "</table>\n";
 	print "</form>\n";
+	print "</table>\n";
 
 } else {
 	print __("Logged-in as: %h%s%h",
