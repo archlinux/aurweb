@@ -1,6 +1,22 @@
 #!/usr/bin/python -O
 
 import re, os, sys, pacman, getopt
+import MySQLdb, MySQLdb.connections
+import ConfigParser
+
+###########################################################
+# Deal with configuration
+###########################################################
+
+conffile = '/home/aur/tupkgs.conf'
+
+if not os.path.isfile(conffile):
+  print "Error: cannot access config file ("+conffile+")"
+  usage(argv[0])
+  sys.exit(1)
+
+config = ConfigParser.ConfigParser()
+config.read(conffile)
 
 ############################################################
 
@@ -15,6 +31,94 @@ class Package:
     self.name = None
     self.old = None
     self.new = None
+    self.desc = None
+    self.url = None
+    self.depends = None
+    self.sources = None
+
+class PackageDatabase:
+  def __init__(self, host, user, password, dbname):
+    self.host = host
+    self.user = user
+    self.password = password
+    self.dbname = dbname
+    self.connection = MySQLdb.connect(host=host, user=user, passwd=password, db=dbname)
+  def cursor(self):
+    return self.connection.cursor()
+  def lookup(self, packagename):
+    warning("DB: Looking up package: " + packagename)
+    q = self.cursor()
+    q.execute("SELECT ID FROM Packages WHERE Name = '" + MySQLdb.escape_string(packagename) + "'")
+    if (q.rowcount != 0):
+      row = q.fetchone()
+      return row[0]
+    return None
+  def insert(self, package, locationId):
+    global repo_dir
+    warning("DB: Inserting package: " + package.name)
+    q = self.cursor()
+    q.execute("INSERT INTO Packages (Name, Version, FSPath, LocationID, Description, URL) VALUES ('" +
+      MySQLdb.escape_string(package.name) + "', '" +
+      MySQLdb.escape_string(package.new.version) + "', '" +
+      MySQLdb.escape_string(os.path.join(repo_dir, os.path.basename(package.new.file))) + "', '" +
+      MySQLdb.escape_string(str(package.desc)) + "', '" +
+      MySQLdb.escape_string(str(package.url)) + "', 3)")
+    id = self.lookup(package.name)
+    self.insertNewInfo(package, id, locationId)    
+  def update(self, id, package, locationId):
+    global repo_dir
+    warning("DB: Updating package: " + package.name)
+    q = self.cursor()
+    q.execute("UPDATE Packages SET " +
+      "Version = '" + MySQLdb.escape_string(package.new.version) + "', " +
+      "FSPath = '" + MySQLdb.escape_string(os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
+      "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
+      "URL = '" + MySQLdb.escape_string(str(package.url)) + "', " +
+      "LocationID = " + str(locationId) + " " +
+      "WHERE ID = " + str(id))
+    self.clearOldInfo(id)
+    self.insertNewInfo(package, id, locationId)
+  def remove(self, id, locationId):
+    warning("DB: Removing package with id: " + str(id))
+    q = self.cursor()
+    q.execute("DELETE FROM Packages WHERE " +
+      "LocationID = " + str(locationId) + " AND ID = " + str(id))
+  def clearOldInfo(self, id):
+    warning("DB: Clearing old info for package with id : " + str(id))
+    q = self.cursor()
+    q.execute("DELETE FROM PackageContents WHERE PackageID = " + str(id))
+    q.execute("DELETE FROM PackageDepends WHERE PackageID = " + str(id))
+    q.execute("DELETE FROM PackageSources WHERE PackageID = " + str(id))
+  def lookupOrDummy(self, packagename, locationId):
+    retval = self.lookup(packagename)
+    if (retval != None):
+      return retval
+    self.createDummy(packagename, locationId)
+  def createDummy(self, packagename, locationId):
+    q = self.cursor()
+    q.execute("INSERT INTO Packages " +
+      "(Name, Description, LocationID, DummyPkg) " +
+      "VALUES ('" +
+      MySQLdb.escape_string(packagename) + "', '" +
+      MySQLdb.escape_string("A dummy package") + "', " +
+      str(locationId) + ", " +
+      "1" +
+      ")")
+    return self.lookup(packagename)
+  def insertNewInfo(self, package, id, locationId):
+    warning("DB: Inserting new package info for: " + package.name)
+    q = self.cursor()
+
+    # PackageContents (punt for now)
+    # PackageSources
+    for source in package.sources:
+      q.execute("INSERT INTO PackageSources (PackageID, Source) " + 
+        "VALUES (" + str(id) + ", '" + source + "')")
+    # PackageDepends
+    for dep in package.depends:
+      depid = self.lookupOrDummy(dep, locationId)
+      q.execute("INSERT INTO PackageDepends (PackageID, DepPkgID) " +
+        "VALUES (" + str(id) + ", " + str(depid) + ")")
 
 ############################################################
 # Functions for walking the file trees
@@ -54,7 +158,7 @@ def infoFromPackageFile(filename):
   pkg = pacman.load(filename)
   return pkg.name, pkg.version + "-" + pkg.release
 
-def infoFromPkgbuildFile(filename):
+def infoFromPkgbuildFileOld(filename):
   # open and source the file
   pf_stdin, pf_stdout = os.popen2("/bin/bash", 't', 0)
   print >>pf_stdin, ". " + filename
@@ -76,6 +180,11 @@ def infoFromPkgbuildFile(filename):
   pf_stdout.close()
 
   return pkgname, pkgver + "-" + pkgrel
+
+def infoFromPkgbuildFile(filename):
+  # load the file with pacman library
+  pkg = pacman.load(filename)
+  return pkg.name, pkg.version + "-" + pkg.release, pkg.desc, pkg.url, pkg.depends, pkg.source
   
 ############################################################
 # Functions for doing the final steps of execution
@@ -106,7 +215,7 @@ def runGensync(repo, pkgbuild):
 ############################################################
 
 def warning(string):
-  print >>sys.stderr, string + "\n"
+  print >>sys.stderr, string
 
 had_error = 0
 def error(string):
@@ -120,26 +229,35 @@ def error(string):
 
 # ARGUMENTS
 #
-# tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_dir> <build_dir>
+# tupkgupdate [-n] [--delete] [--paranoid] [--complete] <repo_dir> <pkgbuild_dir> <build_dir>
 
 # First call getopt
 switch_list,args_proper = getopt.getopt(sys.argv[1:], 'n',
-		                        [ "delete", "paranoid" ])
+                          [ "delete", "paranoid", "complete" ])
 switches = {}
 for switch in switch_list:
   switches[switch[0]] = 1
 
 # Then handle the remaining arguments
 if (len(args_proper) < 3):
-  print >>sys.stderr, "syntax: tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_tree> <build_tree>"
+  print >>sys.stderr, "syntax: tupkgupdate [-n] [--delete] [--paranoid] [--complete] <repo_dir> <pkgbuild_tree> <build_tree>"
   sys.exit(-1)
 
 repo_dir, pkgbuild_dir, build_dir = args_proper
+
+# Open the database so we find out now if we can't!
+db = PackageDatabase(config.get('mysql', 'host'),
+  config.get('mysql', 'username'),
+  config.get('mysql', 'password'),
+  config.get('mysql', 'db'))
 
 # Set up the lists and tables
 packages = dict()
 copy = list()
 delete = list()
+
+dbremove = list()
+dbmodify = list()
 
 # PASS 1: PARSING/LOCATING
 #  
@@ -149,7 +267,7 @@ delete = list()
 
 a_files = pkgbuildsInTree(pkgbuild_dir)
 for a_file in a_files:
-  pkgname, ver = infoFromPkgbuildFile(a_file)
+  pkgname, ver, desc, url, depends, sources = infoFromPkgbuildFile(a_file)
 
   # Error (and skip) if we encounter any invalid PKGBUILD files
   if (pkgname == None or ver == None):
@@ -168,6 +286,10 @@ for a_file in a_files:
 
   package = Package()
   package.name = pkgname
+  package.desc = desc
+  package.url = url
+  package.depends = depends
+  package.sources = sources
   package.new = version
 
   packages[pkgname] = package
@@ -227,30 +349,36 @@ for c_file in c_files:
 # PASS 2: CHECKING
 #
 # Go through the package collection
-#   1 - if package has no new, place its old file on the "delete" list
+#   1 - if package has no new, place its old file on the "delete" list (and package on "dbremove")
 #   2 - if package has a new but no new.file, and old file doesn't
-#       have the same version, then error and skip
-#   3 - if package has no old, add new file to "copy" list into repo dir
-#   4 - if old > new, error and skip
+#       have the same version, then ignore (or error and skip if 'complete' set)
+#   3 - if package has no old, add new file to "copy" list into repo dir (and package on "dbmodify")
+#   4 - if old > new, error and skip (no db change)
 #   5 - if new == old, compare them and error and skip if files not the same
 #   6 - add entry to "delete" list for old file and "copy" list for
-#       new file into repo dir
+#       new file into repo dir (and package to "dbmodify")
 
 for package in packages.values():
   # 1
   if (package.new == None):
     delete.append(package.old.file)
+    dbremove.append(package)
     continue
 
   # 2
   if (package.new.file == None):
-    if (package.old.file == None or package.old.version != package.new.version):
-      error("No new package supplied for " + package.name + " " + package.new.version + "!")
+    if (package.old == None or package.old.file == None or package.old.version != package.new.version):
+      errstr = "No new package supplied for " + package.name + " " + package.new.version + "!"
+      if (switches.get("--complete") == True):
+        error(errstr)
+      else:
+        warning("warning: " + errstr)
       continue
 
   # 3
   if (package.old == None):
     copy.append(package.new.file)
+    dbmodify.append(package)
     continue
 
   # 4
@@ -274,6 +402,7 @@ for package in packages.values():
   # 6
   delete.append(package.old.file)
   copy.append(package.new.file)
+  dbmodify.append(package)
   continue  
 
 ## IF WE HAVE HAD ANY ERRORS AT THIS POINT, ABORT! ##
@@ -283,6 +412,23 @@ if (had_error == 1):
 
 # PASS 3: EXECUTION
 #
+
+# First, do all the database updates
+for package in dbremove:
+  id = db.lookup(package.name)
+  # Note: this could remove a package from unsupported; probably want to restrict to locationId and/or non-dummy
+  if (id != None):
+    db.clearOldInfo(id)
+    db.remove(id, 3)
+
+for package in dbmodify:
+  warning("DB: Package in dbmodify: " + package.name)
+  id = db.lookup(package.name)
+  if (id == None):
+    db.insert(package, 3)
+  else:
+    db.update(id, package, 3)
+
 # Copy
 for file in copy:
   copyFileToRepo(file, repo_dir)
