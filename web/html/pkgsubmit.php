@@ -19,20 +19,22 @@ if ($_COOKIE["AURSID"]) {
 
 	if ($_REQUEST["pkgsubmit"]) {
 
+		$pkg_name = escapeshellarg($_FILES["pfile"]["name"]);
+
 		# first, see if this package already exists, and if it can be overwritten
 	 	#	
-		$pkg_exists = package_exists($_FILES["pfile"]["name"]);
+		$pkg_exists = package_exists($pkg_name);
 		if ($pkg_exists) {
 			# ok, it exists - should it be overwritten, and does the user have
 			# the permissions to do so?
 			#
-			if (can_overwrite_pkg($_FILES["pfile"]["name"], $_COOKIE["AURSID"])) {
+			if (can_overwrite_pkg($pkg_name, $_COOKIE["AURSID"])) {
 				if (!$_REQUEST["overwrite"]) {
 					$error = __("You did not tag the 'overwrite' checkbox.");
 				}
 			} else {
 				$error = __("You are not allowed to overwrite the %h%s%h package.",
-						array("<b>", $_FILES["pfile"]["name"], "</b>"));
+						array("<b>", $pkg_name, "</b>"));
 			}
 		}
 
@@ -41,14 +43,14 @@ if ($_COOKIE["AURSID"]) {
 			# the uploaded package file.
 			#
 
-			$upload_file = $UPLOAD_DIR . $_FILES["pfile"]["name"];
+			$upload_file = $UPLOAD_DIR . $pkg_name
 			if (move_uploaded_file($_FILES["pfile"]["tmp_name"], $upload_file)) {
 				# ok, we can proceed
 				#
-				if (file_exists($INCOMING_DIR . $_FILES["pfile"]["name"])) {
+				if (file_exists($INCOMING_DIR . $pkg_name) {
 					# blow away the existing file/dir and contents
 					#
-					rm_rf($INCOMING_DIR . $_FILES["pfile"]["name"]);
+					rm_rf($INCOMING_DIR . $pkg_name);
 				}
 
 			} else {
@@ -58,43 +60,177 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
-		# at this point, we can safely create the directories, and update
-		# the database with the new package
+		# at this point, we can safely unpack the uploaded file and parse
+		# its contents.
 		#
-		# TODO extract the package contents and parse the included files
-		#
-
-
-		# update the backend database
-		#
-		$dbh = db_connect();
-		if ($pkg_exists) {
-
-			# this is an overwrite of an existing package, the database ID
-			# needs to be preserved so that any votes are retained.  However,
-			# PackageDepends, PackageSources, and PackageContents can be
-			# purged.
-			#
-			$q = "SELECT * FROM Packages ";
-			$q.= "WHERE Name = '".mysql_escape_string($_FILES["pfile"]["name"])."'";
-			$result = db_query($q, $dbh);
-			$pdata = mysql_fetch_assoc($result);
-
-			# flush out old data that will be replaced with new data
-			#
-			$q = "DELETE FROM PackageContents WHERE PackageID = ".$pdata["ID"];
-			db_query($q, $dbh);
-			$q = "DELETE FROM PackageDepends WHERE PackageID = ".$pdata["ID"];
-			db_query($q, $dbh);
-			$q = "DELETE FROM PackageSources WHERE PackageID = ".$pdata["ID"];
-			db_query($q, $dbh);
-
-
+		if (!mkdir($INCOMING_DIR.$pkg_name)) {
+			$error = __("Could not create incoming directory: %s.",
+					array($INCOMING_DIR.$pkg_name));
 		} else {
-			# this is a brand new package
-			#
+			if (!chdir($INCOMING_DIR.$pkg_name)) {
+				$error = __("Could not change directory to %s.",
+						array($INCOMING_DIR.$pkg_name));
+			} else {
+				# try .gz first
+				#
+				exec("/bin/sh -c 'tar xzf ".$upload_file."'",, $retval);
+				if (!$retval) {
+					# now try .bz2 format
+					#
+					exec("/bin/sh -c 'tar xjf ".$upload_file."'",, $retval);
+				}
+				if (!$retval) {
+					$error = __("Unknown file format for uploaded file.");
+				}
+			}
 		}
 
+		# At this point, if no error exists, the package has been extracted
+		# There should be a $INCOMING_DIR.$pkg_name."/".$pkg_name directory
+		# if the user packaged it correctly.  However, the final sub-directory
+		# may not exist, in which case, the files will live in,
+		# $INCOMING_DIR.$pkg_name.
+		#
+		if (is_dir($INCOMING_DIR.$pkg_name."/".$pkg_name) &&
+				is_file($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
+			# the files were packaged correctly
+			#
+			if (!chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+				$error = __("Could not change to directory %s.",
+						array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+			}
+			$pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
+		} elseif (is_file($INCOMING_DIR.$pkg_name."/PKGBUILD")) {
+			# not packaged correctly, but recovery is possible
+			#
+			if (!mkdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+				$error = __("Could not create directory %s.",
+						array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+			} else {
+				exec("/bin/sh -c 'mv * ".$pkg_name."'");
+				if (!file_exists($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
+					$error = __("Error exec'ing the mv command.");
+				}
+			}
+			if (!chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+				$error = __("Could not change to directory %s.",
+						array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+			}
+			$pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
+		} else {
+			# some wierd packaging/extraction error - baal
+			#
+			$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
+		}
+
+		# if no error, get list of directory contents and process PKGBUILD
+		#
+		if (!$error) {
+			# get list of files
+			#
+			$d = dir($pkg_dir);
+			$pkg_contents = array();
+			while ($f = $d->read()) {
+				if ($f != "." && $f != "..") {
+					$pkg_contents[$f] = filesize($f);
+				}
+			}
+			$d->close();
+
+			# process PKGBIULD
+			#
+			$pkgbuild = array();
+			$fp = fopen($pkg_dir."/PKGBUILD", "r");
+			$seen_build = 0;
+			while (!feof($fp)) {
+				$line = trim(fgets($fp));
+				$lparts = explode("=", $line);
+				if (count($lparts) == 2) {
+					# this is a variable/value pair
+					#
+					$pkgbuild[$lparts[0]] = $lparts[1];
+				} else {
+					# either a comment, blank line, or build function
+					#
+					if (substr($lparts[0], 0, 5) == "build") {
+						$seen_build = 1;
+					}
+				}
+				if ($seen_build) {break;}
+			}
+			fclose($fp);
+
+			# some error checking on PKGBUILD contents
+			#
+			if (!$seen_build) {
+				$error = __("Missing build function in PKGBUILD.");
+			}
+			if (!array_key_exists("md5sums", $pkgbuild)) {
+				$error = __("Missing md5sums variable in PKGBUILD.");
+			}
+			if (!array_key_exists("source", $pkgbuild)) {
+				$error = __("Missing source variable in PKGBUILD.");
+			}
+			if (!array_key_exists("url", $pkgbuild)) {
+				$error = __("Missing url variable in PKGBUILD.");
+			}
+			if (!array_key_exists("pkgdesc", $pkgbuild)) {
+				$error = __("Missing pkgdesc variable in PKGBUILD.");
+			}
+			if (!array_key_exists("pkgrel", $pkgbuild)) {
+				$error = __("Missing pkgrel variable in PKGBUILD.");
+			}
+			if (!array_key_exists("pkgver", $pkgbuild)) {
+				$error = __("Missing pkgver variable in PKGBUILD.");
+			}
+			if (!array_key_exists("pkgname", $pkgbuild)) {
+				$error = __("Missing pkgname variable in PKGBUILD.");
+			}
+		}
+
+
+		# update the backend database if there are no errors
+		#
+		if (!$error) {
+			$dbh = db_connect();
+			if ($pkg_exists) {
+
+				# this is an overwrite of an existing package, the database ID
+				# needs to be preserved so that any votes are retained.  However,
+				# PackageDepends, PackageSources, and PackageContents can be
+				# purged.
+				#
+				$q = "SELECT * FROM Packages ";
+				$q.= "WHERE Name = '".mysql_escape_string($_FILES["pfile"]["name"])."'";
+				$result = db_query($q, $dbh);
+				$pdata = mysql_fetch_assoc($result);
+
+				# flush out old data that will be replaced with new data
+				#
+				$q = "DELETE FROM PackageContents WHERE PackageID = ".$pdata["ID"];
+				db_query($q, $dbh);
+				$q = "DELETE FROM PackageDepends WHERE PackageID = ".$pdata["ID"];
+				db_query($q, $dbh);
+				$q = "DELETE FROM PackageSources WHERE PackageID = ".$pdata["ID"];
+				db_query($q, $dbh);
+
+				# TODO
+				# $q = "UPDATE Packages ..."
+
+			} else {
+				# this is a brand new package
+				#
+				# TODO
+				# $q = "INSERT ..."
+			}
+		}
+
+		# TODO clean up on error?  How much cleaning to do?
+		#
+		if ($error) {
+			# TODO clean house (filesystem/database)
+			#
+		}
 
 	}
 
@@ -103,7 +239,7 @@ if ($_COOKIE["AURSID"]) {
 		# give the visitor the default upload form
 		#
 		if (ini_get("file_uploads")) {
-			if (!$error) {
+			if ($error) {
 				print "<span class='error'>".$error."</span><br />\n";
 				print "<br />&nbsp;<br />\n";
 			}
