@@ -115,10 +115,13 @@ class ClientSocket(threading.Thread):
 		authdata = self.readMsg(1)
 		print authdata
 		q = self.db.cursor()
+		m = md5.new()
+		m.update(authdata['password'][0])
+		encpw = m.hexdigest()
 		q.execute("SELECT ID, Suspended, AccountTypeID FROM Users WHERE Username = '"+
 		          MySQLdb.escape_string(authdata['username'][0])+
 		          "' AND Passwd = '"+
-		          MySQLdb.escape_string(authdata['password'][0])+
+		          MySQLdb.escape_string(encpw)+
 		          "'")
 		if q.rowcount == 0:
 			self.sendMsg("result=FAIL")
