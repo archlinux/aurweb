@@ -16,4 +16,9 @@ $_t["en"]["Under construction..."] = "Under construction...";
 # $_t["fr"]["Under construction..."] = "--> Traduction française ici. <--";
 # $_t["de"]["Under construction..."] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["You have been successfully logged out."] = "You have been successfully logged out.";
+# $_t["es"]["You have been successfully logged out."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You have been successfully logged out."] = "--> Traduction française ici. <--";
+# $_t["de"]["You have been successfully logged out."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

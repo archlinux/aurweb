@@ -2,6 +2,7 @@
 include("aur.inc");         # access AUR common functions
 include("template_po.inc"); # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
+check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
 
 

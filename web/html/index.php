@@ -4,7 +4,7 @@ include("aur.inc");
 set_lang();
 check_sid();
 
-# Need to do the authentication prior to sending HTML
+# Need to do the authentication prior to sending any HTML (including header)
 #
 $login_error = "";
 if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
@@ -23,14 +23,15 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 		$q = "SELECT ID, Suspended FROM Users ";
 		$q.= "WHERE Email = '" . mysql_escape_string($_REQUEST["user"]) . "' ";
 		$q.= "AND Passwd = '" . mysql_escape_string($_REQUEST["pass"]) . "'";
-		$result = mysql_query($q, $dbh);
+		$result = db_query($q, $dbh);
 		if (!$result) {
 			$login_error = __("Incorrect password for username %s.",
 						array($_REQUEST["user"]));
-		}
-		$row = mysql_fetch_row($result);
-		if ($row[1]) {
-			$login_error = __("Your account has been suspended.");
+		} else {
+			$row = mysql_fetch_row($result);
+			if ($row[1]) {
+				$login_error = __("Your account has been suspended.");
+			}
 		}
 
 		if (!$login_error) {
@@ -42,7 +43,7 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 				$new_sid = new_sid();
 				$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS) ";
 				$q.="VALUES (". $row[0]. ", '" . $new_sid . "', UNIX_TIMESTAMP())";
-				$result = mysql_query($q, $dbh);
+				$result = db_query($q, $dbh);
 				# Query will fail if $new_sid is not unique
 				#
 				if ($result) {
@@ -69,19 +70,19 @@ html_header();
 
 print "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
 print "<tr>\n";
-print "  <td align='left'>";
+print "  <td align='left' valign='top'>&nbsp;<br/>";
 print __("This is where the intro text will go.");
 print __("For now, it's just a place holder.");
 print __("It's more important to get the login functionality finished.");
 print __("After that, this can be filled in with more meaningful text.");
 print "  </td>";
-print "  <td align='right'>";
+print "  <td align='right'>&nbsp;<br/>\n";
 if (!isset($_COOKIE["AURSID"])) {
 	# the user is not logged in, give them login widgets
 	#
 	print "<form action='/index.php' method='post'>\n";
 	if ($login_error) {
-		print $login_error . "<br/>\n";
+		print "<span class='error'>" . $login_error . "</span><br/>\n";
 	}
 	print "<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
 	print "<tr>\n";

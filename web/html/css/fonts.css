@@ -40,6 +40,12 @@
 		font-family:		monospace, fixed, terminal;
 		font-size:			12px;
 	}
+	span.error /* Content Text */
+	{
+		color:				#900;
+		font-family:		verdana;
+		font-size:			12px;
+	}
 
 /* Font Attribute Change (#6c83b0)*/
 	span.blue

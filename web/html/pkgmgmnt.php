@@ -2,6 +2,7 @@
 include("aur.inc");         # access AUR common functions
 include("mgmnt_po.inc");    # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
+check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
 
 
@@ -11,8 +12,5 @@ html_header();              # print out the HTML header
 print __("Under construction...")."<br/>\n";
 
 
-html_footer("\$Id$");      # Use the $Id$ keyword
-                           # NOTE: when checking in a new file, use
-                           # 'svn propset svn:keywords "Id" filename.php'
-                           # to tell svn to expand the "Id" keyword.
+html_footer("\$Id$");
 ?>

@@ -3,18 +3,24 @@ include_once("aur_po.inc");
 
 # Define global variables
 #
-$PASS_PHRASE = "Dustyissocool";
-$SUPPORTED_LANGS = array(
+$LOGIN_TIMEOUT = 10;             # number of idle seconds before timeout
+$SUPPORTED_LANGS = array(        # what languages we have translations for
 	"en" => 1, # English
 	"es" => 1, # Español
 	"de" => 1, # Deutsch
 	"fr" => 1, # Français
 );
 
+# debugging variables
+#
+$QBUG = 1;                       # toggle query logging to /tmp/aurq.log
+$DBUG = 1;                       # use dbug($msg) to log to /tmp/aurd.log
+
 # see if the visitor is already logged in
 #
 function check_sid() {
 	global $_COOKIE;
+	global $LOGIN_TIMEOUT;
 
 	if (isset($_COOKIE["AURSID"])) {
 		$failed = 0;
@@ -23,28 +29,45 @@ function check_sid() {
 		$dbh = db_connect();
 		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
 		$q.= "WHERE SessionID = '" . mysql_escape_string($_COOKIE["AURSID"]) . "'";
-		$result = mysql_query($q, $dbh);
+		$result = db_query($q, $dbh);
 		if (!$result) {
+			# Invalid SessionID - hacker alert!
+			#
 			$failed = 1;
 		} else {
-			if ($row[0] + 10 >= $row[1]) {
-				$failed = 1;
+			$row = mysql_fetch_row($result);
+			if ($row[0] + $LOGIN_TIMEOUT <= $row[1]) {
+				dbug("login timeout reached");
+				$failed = 2;
 			}
 		}
-		if ($failed) {
+		if ($failed == 1) {
+			# clear out the hacker's cookie, and send them to a naughty page
+			#
+			setcookie("AURSID", "", time() - (60*60*24*30), "/");
+			header("Location: /hacker.php");
+
+		} elseif ($failed == 2) {
 			# visitor's session id either doesn't exist, or the timeout
 			# was reached and they must login again, send them back to
 			# the main page where they can log in again.
 			#
 			$q = "DELETE FROM Sessions WHERE SessionID = '";
 			$q.= mysql_escape_string($_COOKIE["AURSID"]) . "'";
-			mysql_query($q, $dbh);
+			db_query($q, $dbh);
 
 			setcookie("AURSID", "", time() - (60*60*24*30), "/");
 			header("Location: /timeout.php");
+
+		} else {
+			# still logged in and haven't reached the timeout, go ahead
+			# and update the idle timestamp
+			#
+			$q = "UPDATE Sessions SET LastUpdateTS = UNIX_TIMESTAMP() ";
+			$q.= "WHERE SessionID = '".mysql_escape_string($_COOKIE["AURSID"])."'";
+			db_query($q, $dbh);
 		}
 	}
-
 	return;
 }
 
@@ -81,7 +104,7 @@ function username_from_sid($sid="") {
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND SessionID = '" . mysql_escape_string($sid) . "'";
-	$result = mysql_query($q, $dbh);
+	$result = db_query($q, $dbh);
 	if (!$result) {
 		return "";
 	}
@@ -109,6 +132,26 @@ function db_connect() {
 		die("Error selecting AUR database: " . mysql_error());
 
 	return $handle;
+}
+
+# wrapper function around db_query in case we want to put
+# query logging/debuggin in.
+#
+function db_query($query="", $db_handle="") {
+	global $QBUG;
+	if (!$query) {
+		return FALSE;
+	}
+	if (!$db_handle) {
+		$db_handle = db_connect();
+	}
+	if ($QBUG) {
+		$fp = fopen("/tmp/aurq.log", "a");
+		fwrite($fp, $query . "\n");
+		fclose($fp);
+	}
+	$result = mysql_query($query, $db_handle);
+	return $result;
 }
 
 # set up the visitor's language
@@ -152,6 +195,7 @@ function set_lang() {
 # common header
 #
 function html_header() {
+	global $_COOKIE;
 	print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
 	print "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">";
@@ -205,14 +249,20 @@ function html_header() {
 	print "            <a href='/account.php'>".__("Accounts")."</a> ";
 	print "               <span class='black'> - </span> ";
 	print "            <a href='/pkgsearch.php'>".__("Packages")."</a> ";
-	print "               <span class='black'> - </span> ";
-	print "            <a href='/pkgvote.php'>".__("Vote")."</a> ";
-	print "               <span class='black'> - </span> ";
-	print "            <a href='/pkgmgmnt.php'>".__("Manage")."</a> ";
-	print "               <span class='black'> - </span> ";
-	print "            <a href='/pkgsubmit.php'>".__("Submit")."</a> ";
-	print "               <span class='black'> - </span> ";
-	print "            <a href='/logout.php'>".__("Logout")."</a> ";
+	if (isset($_COOKIE["AURSID"])) {
+		# Only display these items if the visitor is logged in.  This should
+		# be a safe check because check_sid() has been called prior to
+		# html_header().
+		#
+		print "               <span class='black'> - </span> ";
+		print "            <a href='/pkgvote.php'>".__("Vote")."</a> ";
+		print "               <span class='black'> - </span> ";
+		print "            <a href='/pkgmgmnt.php'>".__("Manage")."</a> ";
+		print "               <span class='black'> - </span> ";
+		print "            <a href='/pkgsubmit.php'>".__("Submit")."</a> ";
+		print "               <span class='black'> - </span> ";
+		print "            <a href='/logout.php'>".__("Logout")."</a> ";
+	}
 	print "                <span class='black'>:.</span></span>";
 	print "        </td>";
 	print "    </tr>";
@@ -237,8 +287,17 @@ function html_footer($ver="") {
 		print "<tr><td align='right'><span class='fix'>".$ver."</span></td></tr>\n";
 		print "</table>\n";
 	}
-	print "<\p>\n";
+	print "</p>\n";
 	print "</body>\n</html>";
+	return;
+}
+
+# debug logging
+#
+function dbug($msg) {
+	$fp = fopen("/tmp/aurd.log", "a");
+	fwrite($fp, $msg . "\n");
+	fclose($fp);
 	return;
 }
 
