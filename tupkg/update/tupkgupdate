@@ -1,6 +1,6 @@
 #!/usr/bin/python -O
 
-import re, os, sys, pacman
+import re, os, sys, pacman, getopt
 
 ############################################################
 
@@ -36,6 +36,17 @@ def pkgbuildsInTree(topdir):
   return filesForRegexp(topdir, re.compile("^PKGBUILD$"))
 
 ############################################################
+# Function for testing if two files are identical 
+############################################################
+
+def areFilesIdentical(file_a, file_b):
+  command = "cmp '" + file_a + "' '" + file_b + "' >/dev/null"
+  retval = os.system(command)
+  if (retval == 0):
+    return True
+  return False
+
+############################################################
 # Function for fetching info from PKGBUILDs and packages
 ############################################################
 
@@ -47,28 +58,37 @@ def infoFromPackageFile(filename):
 # Functions for doing the final steps of execution
 ############################################################
 
+def execute(command):
+  global switches
+  print(command)
+  if not (switches.get("-n") == True):
+    os.system(command)
+
 def copyFileToRepo(filename, repodir):
   destfile = os.path.join(repodir, os.path.basename(filename))
   command = "cp -p '" + filename + "' '" + destfile + "'"
-  print(command)
+  execute(command)
 
 def deleteFile(filename):
   command = "rm '" + filename + "'"
-  print(command)
+  execute(command)
 
 def runGensync(repo, pkgbuild):
   target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
   command = "gensync '" + pkgbuild_dir + "' '" + target + "'"
-  print(command)
+  execute(command)
 
 ############################################################
 # Functions for error handling
 ############################################################
 
+def warning(string):
+  print >>sys.stderr, string + "\n"
+
 had_error = 0
 def error(string):
   global had_error
-  print >>sys.stderr, string + "\n"
+  warning(string)
   had_error = 1
 
 ############################################################
@@ -77,13 +97,21 @@ def error(string):
 
 # ARGUMENTS
 #
-# tupkgupdate <repo_dir> <pkgbuild_dir> <build_dir>
+# tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_dir> <build_dir>
 
-if (len(sys.argv) < 4):
-  print >>sys.stderr, "syntax: update-repository <repo_dir> <pkgbuild_tree> <build_tree>"
+# First call getopt
+switch_list,args_proper = getopt.getopt(sys.argv[1:], 'n',
+		                        [ "delete", "paranoid" ])
+switches = {}
+for switch in switch_list:
+  switches[switch[0]] = 1
+
+# Then handle the remaining arguments
+if (len(args_proper) < 3):
+  print >>sys.stderr, "syntax: tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_tree> <build_tree>"
   sys.exit(-1)
 
-repo_dir, pkgbuild_dir, build_dir = sys.argv[1:]
+repo_dir, pkgbuild_dir, build_dir = args_proper
 
 # Set up the lists and tables
 packages = dict()
@@ -106,6 +134,7 @@ for a_file in a_files:
     continue
 
   # Error (and skip) if we encounter any duplicate package names
+  # in the PKGBUILDs
   if (packages.get(pkgname)):
     error("Pkgbuild '" + a_file + "' is a duplicate!")
     continue
@@ -142,9 +171,9 @@ for b_file in b_files:
 # C) Go through the build tree
 #    For each package file we encounter:
 #      1 - look up the package name; if it fails, ignore the file (no error)
-#      2 - if package.new = None, ignore the package (no error)
+#      2 - if package.new == None, ignore the package (no error)
 #      3 - if package.new.version doesn't match, then skip (no error)
-#      4 - if package.new.file = None, new should point to this file
+#      4 - if package.new.file == None, point it to this file
 #          otherwise, log an error (and skip)
 
 c_files = packagesInTree(build_dir)
@@ -200,14 +229,21 @@ for package in packages.values():
     continue
 
   # 4
-  if (package.old.ver < package.new.ver):
+  if (package.old.version < package.new.version):
     delete.append(package.old.file)
     copy.append(package.new.file)
     continue
 
   # 5
-  if (package.old.ver == package.new.ver): 
-    # TODO: implement checking that package files are identical
+  if (package.old.version == package.new.version): 
+    if (switches.get("--paranoid") == True):
+      if not (areFilesIdentical(package.old.file, package.new.file)):
+        warning("New package file with identical version '" + 
+	  package.new.file + "' is different than the old one:")
+	if (switches.get("--delete") == True):
+          warning("  Deleting the new file.")
+	else:
+          warning("  Ignoring the new file.")
     continue
 
   # 6
