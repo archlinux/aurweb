@@ -63,9 +63,10 @@ class PackageDatabase:
       MySQLdb.escape_string(package.name) + "', '" +
       MySQLdb.escape_string(package.new.version) + "', '" +
       MySQLdb.escape_string(
-        os.path.join(repo_dir, os.path.basename(package.new.file))) + "', '" +
+        os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
+      str(locationId) + ", '" +
       MySQLdb.escape_string(str(package.desc)) + "', '" +
-      MySQLdb.escape_string(str(package.url)) + "', 3)")
+      MySQLdb.escape_string(str(package.url)) + "')")
     id = self.lookup(package.name)
     self.insertNewInfo(package, id, locationId)    
   def update(self, id, package, locationId):
@@ -97,6 +98,8 @@ class PackageDatabase:
     if (retval != None):
       return retval
     self.createDummy(packagename, locationId)
+    retval = self.lookup(packagename)
+    return retval
   def createDummy(self, packagename, locationId):
     warning("DB: Creating dummy package for: " + packagename)
     q = self.cursor()
@@ -170,26 +173,32 @@ def infoFromPkgbuildFile(filename):
   # open and source the file
   pf_stdin, pf_stdout = os.popen2("/bin/bash", 't', 0)
   print >>pf_stdin, ". " + filename
+  #print "PKGBUILD: " + filename
 
   # get pkgname
   print >>pf_stdin, 'echo $pkgname'
   pkgname = pf_stdout.readline().strip()
+  #print "PKGBUILD: pkgname: " + pkgname
 
   # get pkgver
   print >>pf_stdin, 'echo $pkgver'
   pkgver = pf_stdout.readline().strip()
+  #print "PKGBUILD: pkgver: " + pkgver
 
   # get pkgrel
   print >>pf_stdin, 'echo $pkgrel'
   pkgrel = pf_stdout.readline().strip()
+  #print "PKGBUILD: pkgrel: " + pkgrel
 
   # get url
   print >>pf_stdin, 'echo $url'
   url = pf_stdout.readline().strip()
+  #print "PKGBUILD: url: " + url
 
   # get desc
   print >>pf_stdin, 'echo $pkgdesc'
-  desc = pf_stdout.readline().strip()
+  pkgdesc = pf_stdout.readline().strip()
+  #print "PKGBUILD: pkgdesc: " + pkgdesc
 
   # get source array
   print >>pf_stdin, 'echo ${source[*]}'
@@ -203,7 +212,7 @@ def infoFromPkgbuildFile(filename):
   pf_stdin.close()
   pf_stdout.close()
 
-  return pkgname, pkgver + "-" + pkgrel, desc, url, depends, source
+  return pkgname, pkgver + "-" + pkgrel, pkgdesc, url, depends, source
 
 def infoFromPkgbuildFileWorse(filename):
   # load the file with pacman library
@@ -316,6 +325,8 @@ for a_file in a_files:
   package.depends = depends
   package.sources = sources
   package.new = version
+
+#  print "Package: desc " + desc
 
   packages[pkgname] = package
 
