@@ -73,6 +73,7 @@ function package_sources($pkgid=0) {
 # display package details
 #
 function package_details($id=0) {
+	global $pkgsearch_vars;
 	$q = "SELECT *,Location,Category ";
 	$q.= "FROM Packages,PackageLocations,PackageCategories ";
  	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
@@ -124,9 +125,9 @@ function package_details($id=0) {
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>".__("Maintainer").": ";
-			if (isset($row["AURMaintainerUID"])) {
+			if ($row["AURMaintainerUID"]) {
 				$maintainer = username_from_id($row["AURMaintainerUID"]);
-			} elseif (isset($row["MaintainerUID"])) {
+			} elseif ($row["MaintainerUID"]) {
 				$maintainer = username_from_id($row["MaintainerUID"]);
 			} else {
 				$maintainer = "None";
@@ -144,7 +145,12 @@ function package_details($id=0) {
 			print "<tr><td class='boxSoft'>";
 			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name');
 			while (list($k, $darr) = each($deps)) {
-				print $darr[0]." - ".$darr[1]."<br />\n";
+				$url = "<a href='/pkgsearch.php?do_Details=1&ID=".$darr[0];
+				while(list($k, $var) = each($pkgsearch_vars)) {
+					$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+				}
+				reset($pkgsearch_vars);
+				print $url."'>".$darr[1]."</a><br />\n";
 			}
 			print "</td></tr>\n";
 			print "</table></td>";
@@ -156,8 +162,7 @@ function package_details($id=0) {
 			print "<tr><td class='boxSoft'>";
 			$sources = package_sources($row["ID"]); # $sources[0] = 'src';
 			while (list($k, $src) = each($sources)) {
-				# TODO left off here... URLify
-				print $src."<br />\n";
+				print "<a href='".$src."'>".$src."</a><br />\n";
 			}
 			print "</td></tr>\n";
 			print "</table></td>";
@@ -389,10 +394,10 @@ function pkg_search_page($SID="") {
 			break;
 	}
 	$q.= "LIMIT ".$O.", ".$PP;
-	print $q."<br />\n";
-	print "<pre>\n";
-	print_r($_REQUEST);
-	print "</pre>\n";
+	#print $q."<br />\n";
+	#print "<pre>\n";
+	#print_r($_REQUEST);
+	#print "</pre>\n";
 
 	$result = db_query($q, $dbh);
 	if (!$result) {
