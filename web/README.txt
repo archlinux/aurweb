@@ -26,7 +26,11 @@ Setup on ArchLinux:
  - Edit /etc/php.ini and uncomment the mysql extension line:
    extension=mysql.so
 
-5) Configure MySQL
+5) Check out the AUR project (using the MYUSER from above)
+   $ cd
+   $ svn co https://xentac.net/svn/aur/trunk aur
+
+6) Configure MySQL
  - Connect to the mysql client
    # mysql -uroot
 
@@ -38,12 +42,12 @@ Setup on ArchLinux:
    mysql> quit
 
  - Load the schema file
-   # mysql -uaur -p AUR < aur/support/schema/aur-schema.sql
+   # mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
    (give password 'aur' at the prompt)
 
-6) Check out the AUR project (using the MYUSER from above)
-   $ cd
-   $ svn co https://xentac.net/svn/aur/trunk aur
+ - Optionally load some test data for development purposes.
+   # bzcat ~/aur/support/schema/dummy-data.sql.bz2 | mysql -uaur -p AUR
+   (give password 'aur' at the prompt)
 
 7) Point your browser to http://aur
 
