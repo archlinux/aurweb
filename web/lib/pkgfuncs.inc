@@ -293,7 +293,17 @@ function package_details($id=0) {
 			print "<tr><td class='boxSoft'>";
 			$sources = package_sources($row["ID"]); # $sources[0] = 'src';
 			while (list($k, $src) = each($sources)) {
-				print "<a href='".$src."'>".$src."</a><br />\n";
+				$parsed_url = parse_url($src);
+				if ($parsed_url['scheme'])
+				{
+					//It is an external source
+					print "<a href='".$src."'>".$src."</a><br />\n";
+				}
+				else 
+				{
+					//It is presumably an internal source
+					print "<a href='".dirname($row['URLPath'])."/".$row['Name']."/".$src."'>".$src."</a><br />\n";
+				}
 			}
 			print "</td></tr>\n";
 			print "</table></td>";

@@ -159,17 +159,21 @@ def main(argv=None):
 			return 1
 
 	cs = ClientSocket(files, confdict['host'], confdict['port'], confdict['user'], confdict['password'])
-	cs.connect()
+	try:
+		cs.connect()
 
-	if not cs.auth():
-		print "Error authenticating you, you bastard"
-		return 1
+		if not cs.auth():
+			print "Error authenticating you, you bastard"
+			return 1
 
-	cs.sendFileMeta()
+		cs.sendFileMeta()
 
-	cs.sendFiles()
+		cs.sendFiles()
 
-	cs.close()
+		cs.close()
+	except KeyboardInterrupt:
+		print "Cancelling"
+		cs.close()
 
 	return 0
 
