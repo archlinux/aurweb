@@ -166,7 +166,7 @@ def infoFromPackageFile(filename):
   pkg = pacman.load(filename)
   return pkg.name, pkg.version + "-" + pkg.release
 
-def infoFromPkgbuildFileOld(filename):
+def infoFromPkgbuildFile(filename):
   # open and source the file
   pf_stdin, pf_stdout = os.popen2("/bin/bash", 't', 0)
   print >>pf_stdin, ". " + filename
@@ -183,13 +183,29 @@ def infoFromPkgbuildFileOld(filename):
   print >>pf_stdin, 'echo $pkgrel'
   pkgrel = pf_stdout.readline().strip()
 
+  # get url
+  print >>pf_stdin, 'echo $url'
+  url = pf_stdout.readline().strip()
+
+  # get desc
+  print >>pf_stdin, 'echo $pkgdesc'
+  desc = pf_stdout.readline().strip()
+
+  # get source array
+  print >>pf_stdin, 'echo ${source[*]}'
+  source = (pf_stdout.readline().strip()).split(" ")
+
+  # get depends array
+  print >>pf_stdin, 'echo ${depends[*]}'
+  depends = (pf_stdout.readline().strip()).split(" ")
+
   # clean up
   pf_stdin.close()
   pf_stdout.close()
 
-  return pkgname, pkgver + "-" + pkgrel
+  return pkgname, pkgver + "-" + pkgrel, desc, url, depends, source
 
-def infoFromPkgbuildFile(filename):
+def infoFromPkgbuildFileWorse(filename):
   # load the file with pacman library
   pkg = pacman.load(filename)
   return (pkg.name, pkg.version + "-" + pkg.release, pkg.desc,
@@ -370,14 +386,12 @@ for c_file in c_files:
 
 for package in packages.values():
   # 1
-  print "TYPE 1"
   if (package.new == None):
     delete.append(package.old.file)
     dbremove.append(package)
     continue
 
   # 2
-  print "TYPE 2"
   if (package.new.file == None):
     if (package.old == None or package.old.file == None or 
       package.old.version != package.new.version):
@@ -386,16 +400,14 @@ for package in packages.values():
       continue
 
   # 3 
-  print "TYPE 3"
   if (package.old == None):
     copy.append(package.new.file)
     dbmodify.append(package)
     continue
 
   # 4
-  print "TYPE 4"
   if (package.old.version == package.new.version): 
-    if (switches.get("--paranoid") == True):
+    if (switches.get("--paranoid") == True and package.new.file != None):
       if not (areFilesIdentical(package.old.file, package.new.file)):
         warning("New package file with identical version '" + 
 	  package.new.file + "' is different than the old one:")
@@ -407,7 +419,6 @@ for package in packages.values():
     continue
 
   # 5
-  print "TYPE 5"
   delete.append(package.old.file)
   copy.append(package.new.file)
   dbmodify.append(package)
