@@ -444,6 +444,7 @@ function pkg_search_page($SID="") {
 	$cats = pkgCategories();
 	$devs = getDevelopers();
 	$tus = getTrustedUsers();
+	$users = getUsers();
 	$dbh = db_connect();
 
 
@@ -827,10 +828,13 @@ function pkg_search_page($SID="") {
 			# print the package manager, also determine if it is managed
 			#
 			$managed = 1;
-			if (isset($devs[$row["AURMaintainerUID"]])) {
-				print $devs[$row["AURMaintainerUID"]]["Username"];
-			} elseif (isset($tus[$row["MaintainerUID"]])) {
-				print $tus[$row["MaintainerUID"]]["Username"];
+			#			if (isset($devs[$row["AURMaintainerUID"]])) {
+			#				print $devs[$row["AURMaintainerUID"]]["Username"];
+			# } else
+			#			if (isset($tus[$row["MaintainerUID"]])) {
+			#				print $tus[$row["MaintainerUID"]]["Username"];
+			if (isset($users[$row["MaintainerUID"]])) {
+				print $users[$row["MaintainerUID"]]["Username"];
 			} else {
 				print __("None");
 				$managed = 0;

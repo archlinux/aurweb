@@ -56,6 +56,20 @@ function getDevelopers() {
 	return $devs;
 }
 
+# return an array of info for each user
+function getUsers() {
+	$users = array();
+	$dbh = db_connect();
+	$q = "SELECT * FROM Users ORDER BY Username ASC";
+	$result = db_query($q, $dbh);
+	if ($result) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$users[$row["ID"]] = $row;
+		}
+	}
+	return $users;
+}
+
 # see if the visitor is already logged in
 #
 function check_sid() {

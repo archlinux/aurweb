@@ -133,14 +133,16 @@ if (isset($_REQUEST["do_Flag"])) {
 					$disown .= ", ".$pid;
 				}
 			}
-			if ($atype == "Trusted User" || $atype == "Developer") {
-				$field = "AURMaintainerUID";
-			} elseif ($atype == "User") {
-				$field = "MaintainerUID";
-			} else {
-				$field = "";
-			}
-
+			# Removed for now since we will have 1 maintainer
+			# PJM - 5 April 2005
+			#			if ($atype == "Trusted User" || $atype == "Developer") {
+			#				$field = "AURMaintainerUID";
+			#			} elseif ($atype == "User") {
+			#				$field = "MaintainerUID";
+			#			} else {
+			#				$field = "";
+			#			}
+			$field = "MaintainerUID";
 			if ($field) {
 				$q = "UPDATE Packages ";
 				$q.= "SET ".$field." = 0 ";
@@ -184,13 +186,14 @@ if (isset($_REQUEST["do_Flag"])) {
 					$delete .= ", ".$pid;
 				}
 			}
-			if ($atype == "Trusted User" || $atype == "Developer") {
-				$field = "AURMaintainerUID";
-			} elseif ($atype == "User") {
-				$field = "MaintainerUID";
-			} else {
-				$field = "";
-			}
+			#			if ($atype == "Trusted User" || $atype == "Developer") {
+			#				$field = "AURMaintainerUID";
+			#			} elseif ($atype == "User") {
+			#				$field = "MaintainerUID";
+			#			} else {
+			#				$field = "";
+			#				}
+			$field = "MaintainerUID";
 			if ($field) {
 				# Only grab Unsupported packages that "we" own or are not owned at all
 				#
@@ -199,7 +202,7 @@ if (isset($_REQUEST["do_Flag"])) {
 				$q.= "WHERE Packages.ID IN (" . $delete . ") ";
 				$q.= "AND Packages.LocationID = PackageLocations.ID ";
 				$q.= "AND PackageLocations.Location = 'unsupported' ";
-				$q.= "AND AURMaintainerUID IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
+				$q.= "AND $field IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
 				$result = db_query($q, $dbh);
 				if ($result != Null && mysql_num_rows($result) > 0) {
 					while ($row = mysql_fetch_assoc($result)) {
@@ -280,14 +283,14 @@ if (isset($_REQUEST["do_Flag"])) {
 					$adopt .= ", ".$pid;
 				}
 			}
-			if ($atype == "Trusted User" || $atype == "Developer") {
-				$field = "AURMaintainerUID";
-			} elseif ($atype == "User") {
-				$field = "MaintainerUID";
-			} else {
-				$field = "";
-			}
-
+			#			if ($atype == "Trusted User" || $atype == "Developer") {
+			#				$field = "AURMaintainerUID";
+			#			} elseif ($atype == "User") {
+			#$field = "MaintainerUID";
+			#} else {
+			#	$field = "";
+			#	}
+		  $field = "MaintainerUID";
 			if ($field) {
 				# NOTE: Only "orphaned" packages can be adopted at a particular
 				#       user class (TU/Dev or User).
