@@ -344,7 +344,6 @@ if ($_COOKIE["AURSID"]) {
           $deppkgname = preg_replace("/[<>]?=.*/", "", $v);
 					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
           $q .= $pdata["ID"].", ".$deppkgid.")";
-					print $q;
 					db_query($q, $dbh);
         }
 
@@ -352,7 +351,6 @@ if ($_COOKIE["AURSID"]) {
         while (list($k, $v) = each($sources)) {
           $q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
           $q .= $pdata["ID"].", '".mysql_escape_string($v)."')";
-					print $q;
 					db_query($q, $dbh);
         }
 
