@@ -467,7 +467,7 @@ if ($_COOKIE["AURSID"]) {
 			print "	<td span='f4' align='right'>";
 			print __("Package name").":</td>\n";
 			print "	<td span='f4' align='left'>";
-			print "<input type='text' name='pkgname' size='30' maxlength='15' />\n";
+			print "<input type='text' name='pkgname' size='30' maxlength='32' />\n";
 			print "	</td>\n";
 			print "</tr>\n";
 			print "<tr>\n";
