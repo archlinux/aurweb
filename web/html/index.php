@@ -4,8 +4,8 @@ include("aur.inc");
 html_header();
 
 
-print "Hi, this is worth reading!<br>\n";
-
+#$dbh = db_connect();
+print "Connected...<br>\n";
 
 
 html_footer("\$Id$");

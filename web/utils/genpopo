@@ -3,7 +3,7 @@
 
 # this script iterates through the 'html' and 'lib' directories
 # looking for php scripts that contain a include_once("xxx_po.inc")
-# line and _() functions.  It creates/appends to the corresponding
+# line and __() functions.  It creates/appends to the corresponding
 # "xxx_po.inc" file in the 'lang' subdirectory and places the
 # i18n strings into the file in the proper format.
 #

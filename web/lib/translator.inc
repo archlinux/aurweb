@@ -3,7 +3,7 @@
 #
 
 # usage:
-#   use the _() function for returning translated strings of
+#   use the __() function for returning translated strings of
 #   text.  The string can contain escape codes %h for HTML
 #   and %s for regular text.
 #
@@ -17,12 +17,13 @@
 #     $_t["es"]["My cat is large."] = "Mi gato esta grande.";
 #
 # examples:
-#   print _("%s has %s apples.", array("Bill", "5"));
-#   print _("This is a %h%s%h problem!", array("<b>","major","</b>"));
+#   print __("%s has %s apples.", array("Bill", "5"));
+#   print __("This is a %h%s%h problem!", array("<b>","major","</b>"));
 
 include_once("common_po.inc");
 
-function _($tag, $args=array()) {
+
+function __($tag, $args=array()) {
 	global $_t;
 	global $_REQUEST;
 	global $LANG;

@@ -11,7 +11,7 @@ Directory Layout:
 
 Scripts:
 --------
-- lib/funcs.inc
+- lib/aur.inc
   This is where we can stick functions that can be shared
   between the various scripts.  Also a good place to put the
   MySQL authentication variables since it should live outside

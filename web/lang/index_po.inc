@@ -11,4 +11,9 @@
 include_once("translator.inc");
 global $_t;
 
+$_t["en"]["Hi, this is worth reading!"] = "Hi, this is worth reading!";
+# $_t["es"]["Hi, this is worth reading!"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Hi, this is worth reading!"] = "--> Traduction française ici. <--";
+# $_t["de"]["Hi, this is worth reading!"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
