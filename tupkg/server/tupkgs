@@ -1,0 +1,22 @@
+#!/usr/bin/python -O
+#
+# Description:
+# ------------
+# This is the server-side portion of the Trusted User package
+# manager.  This program will receive uploads from its client-side
+# couterpart, tupkg.  Once a package is received and verified, it
+# is placed in a specified temporary incoming directory where
+# a separate script will handle migrating it to the AUR.  For
+# more information, see the ../README.txt file.
+#
+# Python Indentation:
+# -------------------
+# Use tabs not spaces.  If you use vim, the following comment will
+# configure it to use tabs.
+# vim: ts=2 sw=2 noet ft=python
+#
+
+
+
+# TODO write the code
+#
