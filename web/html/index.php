@@ -1,9 +1,12 @@
 <?
-include_once("index_po.inc");
+include("index_po.inc");
+include("aur.inc");
+html_header();
 
-print _("Hello, world!")."<br/>\n";
-print _("Hello, again!")."<br/>\n";
-print _("Julie was here!")."<br/>\n";
-print _("Abernathy was here!")."<br/>\n";
 
+print "Hi, this is worth reading!<br>\n";
+
+
+
+html_footer("\$Id$");
 ?>

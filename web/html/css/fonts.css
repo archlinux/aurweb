@@ -34,7 +34,13 @@
 		font-family:		trebuchet ms, tahoma, verdana;
 		font-size:			11px;
 	}
-	
+	span.fixed /* Monospace fixed-font */
+	{
+		color:				#000;
+		font-family:		monospace, fixed, terminal;
+		font-size:			12px;
+	}
+
 /* Font Attribute Change (#6c83b0)*/
 	span.blue
 	{

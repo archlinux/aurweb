@@ -12,6 +12,22 @@
 #        -f: force, overwrite existing translated files, otherwise append
 #
 
+INC_HEADER = """\
+<?
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User-community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with the backslash character (\).
+#
+
+include_once("translator.inc");
+global $_t;
+"""
+
+
 import sys
 print_dupes = '-v' in sys.argv
 force = '-f' in sys.argv
@@ -107,7 +123,7 @@ for dir in ['../html', '../lib', 'html', 'lib']:
 
 		os.chdir(current_dir)
 
-# TODO Now generate all the .inc files if they don't already exist.
+# Now generate all the .inc files if they don't already exist.
 # if they do exist, only append new stuff to the end.  If the 'force'
 # option is passed, just overwrite the entire thing.
 #
@@ -119,17 +135,14 @@ if force:
 		print "Generating %s..." % po
 
 		f = open(po,'w')
-		f.write("<?\n")
-		f.write("""# INSTRUCTIONS TO TRANSLATORS:
-# blah blah blah....
-	""")
+		f.write(INC_HEADER)
 
 		for term in lang[po].keys():
-			f.write("\n");
+			f.write("\n")
 			f.write('$_t["en"]["%s"] = "%s";\n' % (term, term))
-			f.write('# $_t["es"]["%s"] = "--> Spanish translation here. <--";\n' % term)
-			f.write('# $_t["fr"]["%s"] = "--> French translation here. <--";\n' % term)
-			f.write('# $_t["de"]["%s"] = "--> German translation here. <--";\n' % term)
+			f.write('# $_t["es"]["%s"] = "--> Traducción española aquí. <--";\n' % term)
+			f.write('# $_t["fr"]["%s"] = "--> Traduction française ici. <--";\n' % term)
+			f.write('# $_t["de"]["%s"] = "--> Deutsche Übersetzung hier. <--";\n' % term)
 
 		f.write("\n");
 		f.write("?>");
@@ -153,21 +166,11 @@ else:
 			contents = f.readlines()
 			f.close()
 
-			# remove PHP tags
-			#
-			stripped_contents = []
-			for line in contents:
-				if line.strip() not in ["<?", "?>"]:
-					stripped_contents.append(line)
-			contents = stripped_contents
-
 			# strip off beginning/ending empty lines
 			#
 			while contents[0] == '':
 				del contents[0]
-			while contents[-1] == '':
-				del contents[-1]
-			if contents[-1] == "\n":
+			while contents[-1] in ['', "\n", "?>", "?>\n", "\n?>"]:
 				del contents[-1]
 
 			# next, collect existing terms
@@ -180,17 +183,18 @@ else:
 		# now append any new terms to EOF
 		#
 		f = open(po, 'w')
-		f.write("<?\n")
 		if not new_file:
 			f.write("".join(contents))
+		else:
+			f.write(INC_HEADER)
 
 		for term in lang[po].keys():
 			if term not in existing_terms:
 				f.write("\n");
 				f.write('$_t["en"]["%s"] = "%s";\n' % (term, term))
-				f.write('# $_t["es"]["%s"] = "--> Spanish translation here. <--";\n' % term)
-				f.write('# $_t["fr"]["%s"] = "--> French translation here. <--";\n' % term)
-				f.write('# $_t["de"]["%s"] = "--> German translation here. <--";\n' % term)
+				f.write('# $_t["es"]["%s"] = "--> Traducción española aquí. <--";\n' % term)
+				f.write('# $_t["fr"]["%s"] = "--> Traduction française ici. <--";\n' % term)
+				f.write('# $_t["de"]["%s"] = "--> Deutsche Übersetzung hier. <--";\n' % term)
 		f.write("\n?>");
 		f.close()
 
