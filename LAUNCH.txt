@@ -1,7 +1,20 @@
 This is the list of things we need to get done by 2/15 in order to make a
 3/1 launch happen. Feel free to add items to it as they come up, and put "DONE" next to things as you finish them.
 
+TIER 1 (critical)
 * password crypt in php code - DONE
-* handle crypt passwords correctly in tupkgs - Jason?
-* db code in tupkgupdate for package updates/additions - Paul - partially done
-* functionality to delete unsupported packages (but not AUR ones) - Eric
+* handle crypt passwords correctly in tupkgs - DONE
+* db code in tupkgupdate for package updates/additions - Paul - DONE
+* functionality to delete packages in unsupported (but not in AUR) - Eric
+* a package should be made of tupkg client tool
+
+TIER 2 (pretty important)
+* when aur takes over a package, it should reset maintainer - Paul
+* tupkg and tupkgs should not output unhashed passwords
+* config file capability for tupkg client in user's homedir
+* email notification of errors in tupkgupdate - Paul
+* move config options for php code to separate file and make that file
+  a ".proto" file in svn
+
+TIER 3 (noncritical)
+* tupkgupdate should use updatesync instead of gensync - Paul
