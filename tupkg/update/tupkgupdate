@@ -93,24 +93,19 @@ class PackageDatabase:
     q.execute("DELETE FROM PackageContents WHERE PackageID = " + str(id))
     q.execute("DELETE FROM PackageDepends WHERE PackageID = " + str(id))
     q.execute("DELETE FROM PackageSources WHERE PackageID = " + str(id))
-  def lookupOrDummy(self, packagename, locationId):
+  def lookupOrDummy(self, packagename):
     retval = self.lookup(packagename)
     if (retval != None):
       return retval
-    self.createDummy(packagename, locationId)
-    retval = self.lookup(packagename)
-    return retval
-  def createDummy(self, packagename, locationId):
+    return self.createDummy(packagename)
+  def createDummy(self, packagename):
     warning("DB: Creating dummy package for: " + packagename)
     q = self.cursor()
     q.execute("INSERT INTO Packages " +
       "(Name, Description, LocationID, DummyPkg) " +
       "VALUES ('" +
       MySQLdb.escape_string(packagename) + "', '" +
-      MySQLdb.escape_string("A dummy package") + "', " +
-      str(locationId) + ", " +
-      "1" +
-      ")")
+      MySQLdb.escape_string("A dummy package") + "', 1)")
     return self.lookup(packagename)
   def insertNewInfo(self, package, id, locationId):
     q = self.cursor()
