@@ -168,7 +168,6 @@ if (isset($_REQUEST["do_Flag"])) {
 	if (!$atype) {
 		print __("You must be logged in before you can disown packages.");
 		print "<br />\n";
-
 	} else {
 		# Delete the packages in $ids array (but only if they are Unsupported)
 		#
@@ -194,53 +193,71 @@ if (isset($_REQUEST["do_Flag"])) {
 			} else {
 				$field = "";
 			}
-
 			if ($field) {
 				# Only grab Unsupported packages that "we" own or are not owned at all
 				#
 				$ids_to_delete = array();
 				$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
 				$q.= "WHERE Packages.ID IN (" . $delete . ") ";
-				$q.= "AND Packages.LocationsID = PackageLocations.ID ";
+				$q.= "AND Packages.LocationID = PackageLocations.ID ";
 				$q.= "AND PackageLocations.Location = 'Unsupported' ";
-				$q.= "AND (".$field." = ".uid_from_sid($_COOKIE["AURSID"]);
-				$q.= "OR (AURMaintainerUID = 0 AND MaintainerUID = 0))";
+				$q.= "AND AURMaintainerUID IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
 				$result = db_query($q, $dbh);
-				while ($row = mysql_fetch_assoc($result)) {
-					$ids_to_delete[] = $row['ID'];
+				if ($result != Null && mysql_num_rows($result) > 0) {
+					while ($row = mysql_fetch_assoc($result)) {
+						$ids_to_delete[] = $row['ID'];
+					}
 				}
-
 				if (!empty($ids_to_delete)) {
 					# TODO These are the packages that are safe to delete
 					#
-					# 1) delete from PackageVotes
-					# 2) delete from PackageContents
-					# 3) delete from PackageDepends
-					# 4) delete from PackageSources
-					# 5) delete from PackageUploadHistory
-					# 6) delete from Packages
-					# TODO question: Now that the package as been deleted, does
-					#                the unsupported repo need to be regenerated?
+				  foreach ($ids_to_delete as $id) {
+						# 1) delete from PackageVotes
+						$q = "DELETE FROM PackageVotes WHERE PackageID = " . $id;
+						$result = db_query($q, $dbh);
+
+						# 2) delete from PackageContents
+						$q = "DELETE FROM PackageContents WHERE PackageID = " . $id;
+						$result = db_query($q, $dbh);
+
+						# 3) delete from PackageDepends
+						$q = "DELETE FROM PackageDepends WHERE PackageID = " . $id;
+						$result = db_query($q, $dbh);
+
+						# 4) delete from PackageSources
+						$q = "DELETE FROM PackageSources WHERE PackageID = " . $id;
+						$result = db_query($q, $dbh);
+
+						# 5) delete from PackageUploadHistory
+						$q = "DELETE FROM PackageUploadHistory WHERE PackageID = " . $id;
+						$result = db_query($q, $dbh);
+
+						# 6) delete from Packages
+						$q = "DELETE FROM Packages WHERE ID = " . $id;
+						$result = db_query($q, $dbh);
+
+						# TODO question: Now that the package as been deleted, does
+						#                the unsupported repo need to be regenerated?
+					  # ANSWER: No, there is no actual repo for unsupported, so no worries! (PJM)
+
+						# Print the success message
+						print "<p>\n";
+			      print __("The selected packages have been deleted.");
+			      print "</p>\n";
+					}
 				} else {
 					print "<p>\n";
 					print __("None of the selected packages could be deleted.");
 					print "</p>\n";
-				}
-			}
-
-			print "<p>\n";
-			print __("The selected packages have been deleted.");
-			print "</p>\n";
+				} # end if (!empty($ids_to_delete))
+			} # end if ($field)
 		} else {
 			print "<p>\n";
 			print __("You did not select any packages to delete.");
 			print "</p>\n";
-		}
-
+		} # end if (!empty($ids))
 		pkgsearch_results_link();
-
-	}
-
+	} # end if (!atype)
 
 } elseif (isset($_REQUEST["do_Adopt"])) {
 	if (!$atype) {

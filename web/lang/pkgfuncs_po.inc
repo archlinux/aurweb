@@ -111,6 +111,17 @@ $_t["en"]["Disown Packages"] = "Disown Packages";
 # $_t["fr"]["Disown Packages"] = "--> Traduction française ici. <--";
 # $_t["de"]["Disown Packages"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Delete Packages"] = "Delete Packages";
+# $_t["es"]["Delete Packages"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Delete Packages"] = "--> Traduction française ici. <--";
+# $_t["de"]["Delete Packages"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You did not select any packages to delete."] = "You did not select any packages to delete.";
+
+$_t["en"]["None of the selected packages could be deleted."] = "None of the selected packages could be deleted.";
+
+$_t["en"]["The selected packages have been deleted."] = "The selected packages have been deleted.";
+
 $_t["en"]["Vote"] = "Vote";
 # $_t["es"]["Vote"] = "--> Traducción española aquí. <--";
 # $_t["fr"]["Vote"] = "--> Traduction française ici. <--";
