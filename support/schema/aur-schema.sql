@@ -3,6 +3,7 @@
 --
 DROP DATABASE AUR;
 CREATE DATABASE AUR;
+use AUR;
 
 -- Define the Account Types for the AUR.
 --
