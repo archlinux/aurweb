@@ -76,4 +76,19 @@ $_t["en"]["No packages matched your search criteria."] = "No packages matched yo
 # $_t["fr"]["No packages matched your search criteria."] = "--> Traduction française ici. <--";
 # $_t["de"]["No packages matched your search criteria."] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["My Packages"] = "My Packages";
+# $_t["es"]["My Packages"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["My Packages"] = "--> Traduction française ici. <--";
+# $_t["de"]["My Packages"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Go"] = "Go";
+# $_t["es"]["Go"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Go"] = "--> Traduction française ici. <--";
+# $_t["de"]["Go"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Out-of-date"] = "Out-of-date";
+# $_t["es"]["Out-of-date"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Out-of-date"] = "--> Traduction française ici. <--";
+# $_t["de"]["Out-of-date"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

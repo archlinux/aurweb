@@ -35,11 +35,13 @@ function pkgLocations() {
 
 # display the search form in a boxSoft style
 #
-function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
+function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
+	# SID: session id cookie
 	# L: PackageLocations.ID
 	# C: PackageCategories.ID
 	# K: Keywords
 	# SB: Sort by
+	# M: search "my packages"
 	# O: Row offset
 	# PP: Per page
 	$locs = pkgLocations();
@@ -57,11 +59,20 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 		$OFFSET = 0;
 	}
 
+	# grab info for user if they're logged in
+	#
+	if ($SID) {
+		$myuid = uid_from_sid($SID);
+		$acct = account_from_sid($SID);
+	}
+
+	# The search form
+	#
 	print "<center>\n";
 	print "<table cellspacing='3' class='boxSoft'>\n";
 	print "<tr>\n";
 	print "  <td class='boxSoftTitle' align='right'>\n";
-	print "    <span class='boxSoftTitle'>".__("Search Criteria")."</span>\n";
+	print "    <span class='f3'>".__("Search Criteria")."</span>\n";
 	print "  </td>\n";
 	print "</tr>\n";
 	print "<tr>\n";
@@ -143,8 +154,15 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 	print "</td>\n";
 
 	print "<td align='right' valign='bottom'>&nbsp;\n";
-	print "  <input type='submit' class='button' value='Go'>\n";
+	print "  <input type='submit' class='button' value='".__("Go")."'>\n";
 	print "</td>\n";
+
+	if ($SID) {
+		print "<td align='right' valign='bottom'>&nbsp;\n";
+		print "  <input type='submit' class='button' name='M'";
+	 	print "	value='".__("My Packages")."'>\n";
+		print "</td>\n";
+	}
 
 	print "</tr>\n";
 	print "</table>\n";
@@ -155,6 +173,14 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 	print "</table>\n";
 	print "</center>\n";
 	print "<br />\n";
+
+
+	# TODO need an "action" table in here like on /devel?  It would
+	# allow the visitor to flag packages out-of-date, vote, adopt/disown?
+	# Probably need to think about the overall UI of this - the package
+	# name will be a link that goes to 'details'.  There should also be
+	# a column for 'manage/edit'
+
 
 	# query to pull out package info
 	#
@@ -184,6 +210,16 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
 		}
 	}
+	if ($M && $SID) {
+		if ($myuid) {
+			if (!$has_where) {
+				$q.= "WHERE MaintainerUID = ".$myuid." ";
+				$has_where = 1;
+			} else {
+				$q.= "AND MaintainerUID = ".$myuid." ";
+			}
+		}
+	}
 
 	$q.= "GROUP BY PackageID ";
 	switch ($SB) {
@@ -201,6 +237,7 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 			break;
 	}
 	$q.= "LIMIT ".$OFFSET.", ".intval($PP);
+
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		print __("No packages matched your search criteria.");
@@ -222,6 +259,10 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 		print "  <td class='boxSoft'>\n";
 		print "<table width='100%' cellspacing='0' cellpadding='2'>\n";
 		print "<tr>\n";
+		if ($SID) {
+			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+			print " bottom'>&nbsp;</th>\n";
+		}
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>".__("Location")."</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
@@ -239,6 +280,17 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 		for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
 			(($i % 2) == 0) ? $c = "data1" : $c = "data2";
 			print "<tr>\n";
+			if ($SID) {
+				print "  <td class='".$c."'>";
+				if ($row["OutOfDate"]) {
+					print "<span style='background-color: red'>";
+				}
+				print "<input type='checkbox' name='PIDs[]' value='".$row["ID"]."'>";
+				if ($row["OutOfDate"]) {
+					print "</span>";
+				}
+				print "</td>\n";
+			}
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			print $locs[$row["LocationID"]]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
@@ -278,6 +330,7 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 		print "    <input type='hidden' name='Action' value='SearchPkgs'>\n";
 		print "    <input type='hidden' name='O' value='".($OFFSET-intval($PP))."'>\n";
 		print "    <input type='hidden' name='L' value='".$L."'>\n";
+		print "    <input type='hidden' name='M' value='".$M."'>\n";
 		print "    <input type='hidden' name='C' value='".$C."'>\n";
 		print "    <input type='hidden' name='K' value='".$K."'>\n";
 		print "    <input type='hidden' name='SB' value='".$SB."'>\n";
@@ -291,6 +344,7 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 		print "    <input type='hidden' name='Action' value='SearchPkgs'>\n";
 		print "    <input type='hidden' name='O' value='".($OFFSET+intval($PP))."'>\n";
 		print "    <input type='hidden' name='L' value='".$L."'>\n";
+		print "    <input type='hidden' name='M' value='".$M."'>\n";
 		print "    <input type='hidden' name='C' value='".$C."'>\n";
 		print "    <input type='hidden' name='K' value='".$K."'>\n";
 		print "    <input type='hidden' name='SB' value='".$SB."'>\n";

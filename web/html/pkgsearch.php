@@ -35,16 +35,18 @@ if ($atype && $_REQUEST["Action"] == "Something") {
 	#
 
 } elseif ($_REQUEST["Action"] == "SearchPkgs") {
-	# do something else based on what the user specifies
+	# the visitor has requested search options and/or hit the less/more button
 	#
-	pkg_search_page($_REQUEST["L"], $_REQUEST["C"], $_REQUEST["K"],
-			$_REQUEST["SB"], $_REQUEST["O"], $_REQUEST["PP"]);
+	pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
+			$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
+			$_REQUEST["PP"]);
 
 } else {
 	# do the default thing - give the user a search form that they
 	# can specify: location, category, maintainer, name, 'my pkgs'
+	# and display a list of packages based on no search options.
 	#
-	pkg_search_page();
+	pkg_search_page($_COOKIE["AURSID"]);
 }
 
 

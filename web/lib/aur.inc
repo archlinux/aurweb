@@ -202,6 +202,26 @@ function account_from_sid($sid="") {
 	return $row[0];
 }
 
+# obtain the Users.ID if given their current SID
+#
+function uid_from_sid($sid="") {
+	if (!$sid) {
+		return "";
+	}
+	$dbh = db_connect();
+	$q = "SELECT Users.ID ";
+	$q.= "FROM Users, Sessions ";
+	$q.= "WHERE Users.ID = Sessions.UsersID ";
+	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
+	$result = db_query($q, $dbh);
+	if (!$result) {
+		return 0;
+	}
+	$row = mysql_fetch_row($result);
+
+	return $row[0];
+}
+
 # connect to the database
 #
 function db_connect() {
