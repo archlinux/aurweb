@@ -32,6 +32,10 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
+    if (!$_REQUEST["comments"] && !$error) {
+      $error = __("You must supply a comment.");
+    }
+
 		if (!$error) {
 			# first, see if this package already exists, and if it can be overwritten
 			#	
@@ -195,7 +199,8 @@ if ($_COOKIE["AURSID"]) {
 					# this is a variable/value pair, strip out
 					# array parens and any quoting
 					#
-					$pkgbuild[$lparts[0]] = str_replace(array("(",")","\"","'"), "", $lparts[1]);
+					$pkgbuild[$lparts[0]] = str_replace(array("(",")","\"","'"), "",
+              $lparts[1]);
 				} else {
 					# either a comment, blank line, continued line, or build function
 					#
@@ -246,10 +251,6 @@ if ($_COOKIE["AURSID"]) {
 			$dbh = db_connect();
 			if ($pkg_exists) {
 
-				# TODO add some kind of package history table - for who
-				# was the last person to upload, a timestamp, and maybe a
-				# comment about it too
-
 				# this is an overwrite of an existing package, the database ID
 				# needs to be preserved so that any votes are retained.  However,
 				# PackageDepends, PackageSources, and PackageContents can be
@@ -271,6 +272,8 @@ if ($_COOKIE["AURSID"]) {
 
 				# TODO
 				# $q = "UPDATE Packages ..."
+
+        # $q = "INSERT INTO PackageUploadHistory ..."
 
 			} else {
 				# this is a brand new package
@@ -330,11 +333,20 @@ if ($_COOKIE["AURSID"]) {
 			print __("No");
 			print "  </td>\n";
 			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td valign='top' span='f4' align='right'>";
+      print __("Comments").":</td>\n";
+			print "  <td span='f4' align='left'>";
+      print "<textarea rows='10' cols='50' name='comments'></textarea>";
+			print "  </td>\n";
+			print "</tr>\n";
 
 			print "<tr>\n";
 			print "  <td>&nbsp;</td>\n";
 			print "  <td align='left'>";
 			print "<input class='button' type='submit' value='".__("Upload")."' />\n";
+      print "&nbsp;&nbsp;&nbsp;";
+			print "<input class='button' type='reset' value='".__("Reset")."' />\n";
 			print "</td>\n";
 			print "</tr>\n";
 			print "</table>\n";

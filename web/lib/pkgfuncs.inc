@@ -558,10 +558,11 @@ function pkg_search_page($SID="") {
 		print " bottom'><span class='f2'>".__("Description")."</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>".__("Maintainer")."</span></th>\n";
-		if ($SID) {
-			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-			print " bottom'><span class='f2'>".__("Manage")."</span></th>\n";
-		}
+# REMOVED LINK TO 'pkgmgmnt.php'
+#		if ($SID) {
+#			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+#			print " bottom'><span class='f2'>".__("Manage")."</span></th>\n";
+#		}
 		print "</tr>\n";
 
 		for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
@@ -633,17 +634,18 @@ function pkg_search_page($SID="") {
 			}
 			print "</span></span></td>\n";
 
-			# print the managed link if applicable
-			#
-			if (canManagePackage($myuid, $row["AURMaintainerUID"],
-					$row["MaintainerUID"], $row["SubmitterUID"], $managed)) {
-				$manage_url = "<a href='/pkgmgmnt.php?ID=";
-				$manage_url.= $row["ID"]."'><span class='black'>Manage</span></a>";
-				print "  <td class='".$c."'><span class='f4'>";
-				print $manage_url."</span></td>\n";
-			} else {
-				print "<td class='".$c."'><span class='f4'>&nbsp;</span></td>\n";
-			}
+# REMOVED LINK TO 'pkgmgmnt.php'
+#			# print the managed link if applicable
+#			#
+#			if (canManagePackage($myuid, $row["AURMaintainerUID"],
+#					$row["MaintainerUID"], $row["SubmitterUID"], $managed)) {
+#				$manage_url = "<a href='/pkgmgmnt.php?ID=";
+#				$manage_url.= $row["ID"]."'><span class='black'>Manage</span></a>";
+#				print "  <td class='".$c."'><span class='f4'>";
+#				print $manage_url."</span></td>\n";
+#			} else {
+#				print "<td class='".$c."'><span class='f4'>&nbsp;</span></td>\n";
+#			}
 
 			print "</tr>\n";
 
