@@ -1,0 +1,135 @@
+#! /usr/bin/python -O
+# -*- coding: iso-8859-1 -*-
+
+# this script iterates through the 'html' and 'lib' directories
+# looking for php scripts that contain a include_once("xxx_po.inc")
+# line and _() functions.  It creates/appends to the corresponding
+# "xxx_po.inc" file in the 'lang' subdirectory and places the
+# i18n strings into the file in the proper format.
+#
+
+import sys
+print_dupes = '-v' in sys.argv
+
+import re, os
+up = re.compile('_\(\s*"(([^"]|(?<=\\\\)["])+)"')
+
+lang = { 'common_po.po': {} }
+
+current_dir = os.getcwd()
+
+# Find the common_po.po file.
+#
+common = {}
+for dir in ['../lang', 'lang']:
+	if os.path.exists(dir):
+		os.chdir(dir)
+		if os.path.exists('common_po.list'):
+			f = open('common_po.list','r')
+			lines = f.readlines()
+			f.close()
+			for line in lines:
+				common[line[:-1]] = 0
+				lang['common_po.po'][line[:-1]] = 1
+			os.chdir(current_dir)
+			break
+		os.chdir(current_dir)
+else:
+	print "Can't find common_po.list file."
+	raise SystemExit
+
+# Find the lang directory.
+#
+for dir in ['../lang', 'lang']:
+	if os.path.exists(dir):
+		lang_dir = dir
+		break
+else:
+	print "Can't find the lang directory."
+	raise SystemExit
+
+# Iterate through various places where the php files might be.
+#
+for dir in ['../html', '../lib', 'html', 'lib']:
+
+	if os.path.exists(dir):
+		# Find all the PHP files in the current directory.
+		#
+		files = [x for x in os.listdir(dir)
+					if (x[-4:] == '.inc' and x[-7:] != '_po.inc')
+					or x[-6:] == '.class'
+					or x[-4:] == '.php'
+					or x[-6:] == '.phtml'
+				]
+		os.chdir(dir)
+
+		for file in files:
+			f = open(file,'r')
+			lines = f.readlines()
+			f.close()
+
+			# Is this file one we need to parse for internationalized strings?
+			#
+			parse_file = 0
+			for line in lines:
+				match = re.search("include(_once|)\s*\(\s*[\"']([A-Za-z_]+_po.inc)[\"']\s*\);",line)
+				if match and match.group(2) != "common_po.inc":
+					po = match.group(2).replace(".inc",".po")
+					if not lang.has_key(po):
+						lang[po] = {}
+					parse_file = 1
+					break
+
+			# If we need to parse the file, do so.
+			#
+			if parse_file:
+				print "Parsing %s..." % file
+				for line in lines:
+					match = up.search(line)
+					while match:
+						term = match.group(1).replace('\\"','"')
+						if common.has_key(term):
+							common[term] += 1
+						else:
+							if print_dupes:
+								for key in lang.keys():
+									if key != po and lang[key].has_key(term):
+										print "...Duplicate term: \"%s\" is also in %s." % (term,key)
+							lang[po][term] = 1
+						line = line[match.end(1):]
+						match = up.search(line)
+
+		os.chdir(current_dir)
+
+# TODO Now generate all the .inc files if they don't already exist.
+# if they do exist, only append new stuff to the end.  If the 'force'
+# option is passed, just overwrite the entire thing.
+#
+os.chdir(lang_dir)
+for po in lang.keys():
+	print "Generating %s..." % po
+	f = open(po,'w')
+	f.write("""# INSTRUCTIONS TO TRANSLATORS:
+# blah blah blah....
+""")
+
+	for term in lang[po].keys():
+		f.write("\n");
+		f.write('_$t["en"]["%s"] = "%s";\n' % (term, term))
+		f.write('# _$t["es"]["%s"] = "--> Spanish translation here. <--";\n' % term)
+		f.write('# _$t["fr"]["%s"] = "--> French translation here. <--";\n' % term)
+		f.write('# _$t["de"]["%s"] = "--> German translation here. <--";\n' % term)
+
+	f.write("\n");
+	f.close()
+
+# Print out warnings for unused and little-used common entries.
+#
+for key in common.keys():
+	if common[key] == 1:
+		print "Warning: common entry '%s' is only used once." % key
+for key in common.keys():
+	if common[key] == 0:
+		print "Warning: unused common entry '%s'." % key
+
+# vim: ts=2 sw=2 noet ft=python
