@@ -234,11 +234,11 @@ def getDefaultConfig():
 	return confdict
 
 
+confdict = getDefaultConfig()
+
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv
-
-	confdict = getDefaultConfig()
 
 	try:
 		optlist, args = getopt.getopt(argv[1:], "c:", ["config="])
