@@ -328,7 +328,7 @@ if ($_COOKIE["AURSID"]) {
 
 				# update package data
 				#
-        $q = "UPDATE Packages SET Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', Version='".mysql_escape_string($new_pkgbuild['pkgver'])."', CategoryID=".mysql_escape_string($_REQUEST['category']).", Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', URL='".mysql_escape_string($new_pkgbuild['url'])."', LocationID=".mysql_escape_string($_REQUEST['location']).", FSPath='".mysql_escape_string($INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."', URLPath='".mysql_escape_string($URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."' ";
+        $q = "UPDATE Packages SET Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', Version='".mysql_escape_string($new_pkgbuild['pkgver'])."', CategoryID=".mysql_escape_string($_REQUEST['category']).", Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', URL='".mysql_escape_string($new_pkgbuild['url'])."', LocationID=2, FSPath='".mysql_escape_string($INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."', URLPath='".mysql_escape_string($URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."' ";
         $q .= "WHERE ID = " . $pdata["ID"];
         $result = db_query($q, $dbh);
 
@@ -364,7 +364,7 @@ if ($_COOKIE["AURSID"]) {
         # this is a brand new package
         #
         $q = "INSERT INTO Packages (Name, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) ";
-        $q .= "VALUES ('".mysql_escape_string($new_pkgbuild['pkgname'])."', '".mysql_escape_string($new_pkgbuild['pkgver'])."', ".mysql_escape_string($_REQUEST['category']).", '".mysql_escape_string($new_pkgbuild['pkgdesc'])."', '".mysql_escape_string($new_pkgbuild['url'])."', ".mysql_escape_string($_REQUEST['location']).", UNIX_TIMESTAMP(), ".uid_from_sid($_COOKIE["AURSID"]).", ".uid_from_sid($_COOKIE["AURSID"]).", '".mysql_escape_string($INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."', '".mysql_escape_string($URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."')";
+        $q .= "VALUES ('".mysql_escape_string($new_pkgbuild['pkgname'])."', '".mysql_escape_string($new_pkgbuild['pkgver'])."', ".mysql_escape_string($_REQUEST['category']).", '".mysql_escape_string($new_pkgbuild['pkgdesc'])."', '".mysql_escape_string($new_pkgbuild['url'])."', 2, UNIX_TIMESTAMP(), ".uid_from_sid($_COOKIE["AURSID"]).", ".uid_from_sid($_COOKIE["AURSID"]).", '".mysql_escape_string($INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."', '".mysql_escape_string($URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."')";
         $result = db_query($q, $dbh);
 #        print $result . "<br>";
 
@@ -436,17 +436,17 @@ if ($_COOKIE["AURSID"]) {
       }
       print "</select></td>\n";
       print "</tr>\n";
-      print "<tr>\n";
-      print "  <td span='f4' align='right'>";
-      print __("Package Location").":</td>\n";
-      print "  <td span='f4' align='left'>";
-      print "<select name='location'>";
-      print "<option value='0'> " . __("Select Location") . "</option>";
-      while (list($k, $v) = each($pkg_locations)) {
-        print "<option value='".$k."'> " . $v . "</option>";
-      }
-      print "</select></td>\n";
-      print "</tr>\n";
+#      print "<tr>\n";
+#      print "  <td span='f4' align='right'>";
+#      print __("Package Location").":</td>\n";
+#      print "  <td span='f4' align='left'>";
+#      print "<select name='location'>";
+#      print "<option value='0'> " . __("Select Location") . "</option>";
+#      while (list($k, $v) = each($pkg_locations)) {
+#        print "<option value='".$k."'> " . $v . "</option>";
+#      }
+#      print "</select></td>\n";
+#      print "</tr>\n";
 			print "<tr>\n";
 			print "  <td span='f4' align='right'>";
 			print __("Upload package file").":</td>\n";
