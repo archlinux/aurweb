@@ -11,12 +11,89 @@
 #
 # Python Indentation:
 # -------------------
+# For a vim: line to be effective, it must be at the end of the
+# file.  See the end of the file for more information.
+
+import sys
+import socket
+import threading
+import select
+
+class ClientSocket(threading.Thread):
+	def __init__(self, socket, **other):
+		threading.Thread.__init__(self, *other)
+		self.socket = socket
+
+	def close(self):
+		pass
+
+	def run(self):
+		while len(self.socket.recv(1)) != 0:
+			pass
+
+class ServerSocket(threading.Thread):
+	def __init__(self, port=1034, maxqueue=5, **other):
+		threading.Thread.__init__(self, *other)
+		self.running = 1
+		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.socket.bind((socket.gethostname(), port))
+		self.socket.listen(maxqueue)
+		self.clients = []
+
+	def _clean(self, client):
+		if not client.isAlive():
+			return 0
+		return 1
+
+	def close(self):
+		self.socket.close()
+
+	def run(self):
+		while self.running:
+			sread, swrite, serror = select.select([self.socket],[self.socket],[self.socket],5)
+			if sread:
+				(clientsocket, address) = self.socket.accept()
+				ct = ClientSocket(clientsocket)
+				ct.start()
+				self.clients.append(ct)
+
+			print len(self.clients)
+			self.clients = filter(self._clean, self.clients)
+			print len(self.clients)
+		self.socket.close()
+		[x.close() for x in self.clients]
+		[x.join() for x in self.clients]
+
+def main(argv=None):
+	if argv is None:
+		argv = sys.argv
+
+	running = 1
+
+	servsock = ServerSocket()
+	servsock.start()
+
+	try:
+		while running:
+			# Maybe do stuff here?
+			pass
+	except KeyboardInterrupt:
+		running = 0
+
+	print "Just cleaning up stuff"
+
+	servsock.running = 0
+
+	servsock.join()
+
+	return 0
+
+if __name__ == "__main__":
+		sys.exit(main())
+
+# Python Indentation:
+# -------------------
 # Use tabs not spaces.  If you use vim, the following comment will
 # configure it to use tabs.
-# vim: ts=2 sw=2 noet ft=python
 #
-
-
-
-# TODO write the code
-#
+# vim:noet:ts=2 sw=2 ft=python
