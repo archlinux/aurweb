@@ -258,7 +258,7 @@ function package_details($id=0) {
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>";
-			print "<a href='".$row['URLPath']."'>Tarball</a> :: <a href='".$row['URLPath']."/".$row['Name']."'>Files</a></span></td>";
+			print "<a href='".$row['URLPath']."'>Tarball</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."'>Files</a></span></td>";
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><img src='/images/pad.gif' height='30'></td>";
