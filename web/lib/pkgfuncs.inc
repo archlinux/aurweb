@@ -193,7 +193,7 @@ function pkgvotes_from_sid($sid="") {
 function package_details($id=0) {
 	global $_REQUEST;
 	global $pkgsearch_vars;
-	$q = "SELECT *,Location,Category ";
+	$q = "SELECT Packages.*,Location,Category ";
 	$q.= "FROM Packages,PackageLocations,PackageCategories ";
  	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
 	$q.= "AND Packages.CategoryID = PackageCategories.ID ";
