@@ -197,7 +197,6 @@ def usage(name):
 	print "usage: " + name + " [options]"
 	print "options:"
 	print "  -c, --config       Specify an alternate config file (default " + CONFIGFILE + ")"
-	sys.exit(2)
 
 def getDefaultConfig():
 	confdict = {}
@@ -217,6 +216,7 @@ def main(argv=None):
 		optlist, args = getopt.getopt(argv[1:], "c:", ["config="])
 	except getopt.GetoptError:
 		usage(argv[0])
+		return 1
 
 	conffile = CONFIGFILE
 
@@ -227,6 +227,7 @@ def main(argv=None):
 	if not os.path.isfile(conffile):
 		print "Error: cannot access config file ("+conffile+")"
 		usage(argv[0])
+		return 1
 
 	config.read(conffile)
 
