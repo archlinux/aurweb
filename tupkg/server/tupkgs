@@ -30,15 +30,13 @@ import os.path
 import os
 import time
 
-CACHEDIR = '/var/cache/tupkgs/'
-INCOMINGDIR = '/var/cache/tupkgs/incomplete/'
 CONFIGFILE = '/etc/tupkgs.conf'
 
 config = ConfigParser.ConfigParser()
 
 class ClientFile:
 	def __init__(self, filename, actual_size, actual_md5):
-		self.pathname = INCOMINGDIR + filename
+		self.pathname = confdict['incomingdir'] + filename
 		self.filename = filename
 		self.fd = open(self.pathname, "a+b")
 		self.actual_size = actual_size
@@ -64,7 +62,7 @@ class ClientFile:
 
 	def finishDownload(self):
 		self.fd.close()
-		newpathname = CACHEDIR + self.filename
+		newpathname = confdict['cachedir'] + self.filename
 		os.rename(self.pathname, newpathname)
 		self.pathname = newpathname
 		self.fd = open(self.pathname, "a+b")
@@ -229,6 +227,8 @@ def usage(name):
 def getDefaultConfig():
 	confdict = {}
 	confdict['port'] = 1034
+	confdict['cachedir'] = '/var/cache/tupkgs/'
+	confdict['incomingdir'] = '/var/cache/tupkgs/incomplete/'
 	confdict['maxqueue'] = 5
 
 	return confdict
@@ -267,6 +267,10 @@ def main(argv=None):
 			confdict['port'] = config.getint('tupkgs', 'port')
 		if config.has_option('tupkgs', 'maxqueue'):
 			confdict['maxqueue'] = config.getint('tupkgs', 'maxqueue')
+		if config.has_option('tupkgs', 'cachedir'):
+			confdict['cachedir'] = config.get('tupkgs', 'cachedir')
+		if config.has_option('tupkgs', 'incomingdir'):
+			confdict['incomingdir'] = config.get('tupkgs', 'incomingdir')
 
 	print "Connecting to MySQL database"
 	dbconn = MySQLdb.connect(host=config.get('mysql', 'host'),
@@ -274,13 +278,13 @@ def main(argv=None):
 	                         passwd=config.get('mysql', 'password'),
 	                         db=config.get('mysql', 'db'))
 
-	print "Verifying "+CACHEDIR+" and "+INCOMINGDIR+" exist"
-	if not os.path.isdir(CACHEDIR):
-		print "Creating "+CACHEDIR
-		os.mkdir(CACHEDIR, 0755)
-	if not os.path.isdir(INCOMINGDIR):
-		print "Creating "+INCOMINGDIR
-		os.mkdir(INCOMINGDIR, 0755)
+	print "Verifying "+confdict['cachedir']+" and "+confdict['incomingdir']+" exist"
+	if not os.path.isdir(confdict['cachedir']):
+		print "Creating "+confdict['cachedir']
+		os.mkdir(confdict['cachedir'], 0755)
+	if not os.path.isdir(confdict['incomingdir']):
+		print "Creating "+confdict['incomingdir']
+		os.mkdir(confdict['incomingdir'], 0755)
 
 	print "Starting ServerSocket"
 	servsock = ServerSocket(dbconn, confdict['port'], confdict['maxqueue'])
