@@ -38,14 +38,7 @@ function pkgLocations() {
 function pkg_search_page($SID="") {
 	global $_REQUEST;
 	# SID: session id cookie
-	# L: PackageLocations.ID
-	# C: PackageCategories.ID
-	# K: Keywords
-	# SB: Sort by
-	# M: search "my packages"
-	# O: Row offset
-	# PP: Per page
-	# D: Direction to advance (Less/More)
+
 	$locs = pkgLocations();
 	$cats = pkgCategories();
 	$devs = getDevelopers();
@@ -56,6 +49,8 @@ function pkg_search_page($SID="") {
 	# determine paging variables
 	#
 	isset($_REQUEST["PP"]) ? $PP = intval($_REQUEST["PP"]) : $PP = 25;
+	if ($PP < 25) {$PP = 25;}
+	if ($PP > 100) {$PP = 100;}
 	isset($_REQUEST["O"]) ? $O = intval($_REQUEST["O"]) : $O = 0;
 	if (isset($_REQUEST["do_More"])) {
 		$O += $PP;
@@ -63,6 +58,11 @@ function pkg_search_page($SID="") {
 		$O -= $PP;
 	}
 	if ($O < 0) {
+		$O = 0;
+	}
+	if (isset($_REQUEST["do_Search"]) || isset($_REQUEST["do_MyPackages"])) {
+		# reset the offset to zero if they hit Go/My Packages
+		#
 		$O = 0;
 	}
 
@@ -76,16 +76,8 @@ function pkg_search_page($SID="") {
 
 	# The search form
 	#
-	$K = str_replace("\"", "", $_REQUEST["K"]); # TODO better testing for
-                                              # SQL trickery...
 	print "<form action='/pkgsearch.php' method='post'>\n";
 	print "<input type='hidden' name='O' value='".$O."'>\n";
-	print "<input type='hidden' name='L' value='".$_REQUEST["L"]."'>\n";
-	print "<input type='hidden' name='M' value='".$_REQUEST["M"]."'>\n";
-	print "<input type='hidden' name='C' value='".$_REQUEST["C"]."'>\n";
-	print "<input type='hidden' name='K' value='".$K."'>\n";
-	print "<input type='hidden' name='SB' value='".$_REQUEST["SB"]."'>\n";
-	print "<input type='hidden' name='PP' value='".$PP."'>\n";
 
 	print "<center>\n";
 	print "<table cellspacing='3' class='boxSoft'>\n";
@@ -105,7 +97,7 @@ function pkg_search_page($SID="") {
 	print "  <select name='L'>\n";
 	print "  <option value=0> ".__("Any")."\n";
 	while (list($id, $loc) = each($locs)) {
-		if ($_REQUEST["L"] == $id) {
+		if (intval($_REQUEST["L"]) == $id) {
 			print "  <option value=".$id." selected> ".$loc."\n";
 		} else {
 			print "  <option value=".$id."> ".$loc."\n";
@@ -120,7 +112,7 @@ function pkg_search_page($SID="") {
 	print "  <select name='C'>\n";
 	print "  <option value=0> ".__("Any")."\n";
 	while (list($id, $cat) = each($cats)) {
-		if ($_REQUEST["C"] == $id) {
+		if (intval($_REQUEST["C"]) == $id) {
 			print "  <option value=".$id." selected> ".$cat."\n";
 		} else {
 			print "  <option value=".$id."> ".$cat."\n";
@@ -133,6 +125,8 @@ function pkg_search_page($SID="") {
 	print "  <span class='f5'><span class='blue'>".__("Keywords");
 	print "</span></span><br />\n";
 	print "  <input type='text' name='K' size='35'";
+	$K = str_replace("\"", "", $_REQUEST["K"]); # TODO better testing for
+                                              # SQL trickery...
 	print " value=\"".stripslashes($K)."\" maxlength='35'>\n";
 	print "</td>\n";
 
@@ -198,16 +192,16 @@ function pkg_search_page($SID="") {
 #	$q.= "ON Packages.ID = PackageVotes.PackageID ";
 	$q = "SELECT * FROM Packages ";
 	$has_where = 0;
-	if (isset($_REQUEST["L"]) && $_REQUEST["L"]) {
-		$q.= "WHERE LocationID = ".mysql_escape_string($_REQUEST["L"])." ";
+	if (isset($_REQUEST["L"]) && intval($_REQUEST["L"])) {
+		$q.= "WHERE LocationID = ".intval($_REQUEST["L"])." ";
 		$has_where = 1;
 	}
-	if (isset($_REQUEST["C"]) && $_REQUEST["C"]) {
+	if (isset($_REQUEST["C"]) && intval($_REQUEST["C"])) {
 		if (!$has_where) {
-			$q.= "WHERE CategoryID = ".mysql_escape_string($_REQUEST["C"])." ";
+			$q.= "WHERE CategoryID = ".intval($_REQUEST["C"])." ";
 			$has_where = 1;
 		} else {
-			$q.= "AND CategoryID = ".mysql_escape_string($_REQUEST["C"])." ";
+			$q.= "AND CategoryID = ".intval($_REQUEST["C"])." ";
 		}
 	}
 	if ($K) {
@@ -220,7 +214,7 @@ function pkg_search_page($SID="") {
 			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
 		}
 	}
-	if (isset($_REQUEST["M"]) && $_REQUEST["M"] && $SID) {
+	if (isset($_REQUEST["do_MyPackages"]) && $SID) {
 		if ($myuid) {
 			if (!$has_where) {
 				$q.= "WHERE MaintainerUID = ".$myuid." ";
@@ -231,22 +225,21 @@ function pkg_search_page($SID="") {
 		}
 	}
 
-	switch (isset($_REQUEST["SB"])) {
+	switch ($_REQUEST["SB"]) {
 		case 'c':
-			$q.= "ORDER BY CategoryID ASC, Name ASC, LocationID ASC ";
+			$q.= "ORDER BY CategoryID DESC, Name ASC, LocationID ASC ";
 			break;
 		case 'l':
-			$q.= "ORDER BY LocationID ASC, Name ASC, CategoryID ASC ";
+			$q.= "ORDER BY LocationID ASC, Name ASC, CategoryID DESC ";
 			break;
 		case 'v':
-			$q.= "ORDER BY NumVotes DESC, Name ASC, CategoryID ASC ";
+			$q.= "ORDER BY NumVotes DESC, Name ASC, CategoryID DESC ";
 			break;
 		default:
-			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID ASC ";
+			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID DESC ";
 			break;
 	}
 	$q.= "LIMIT ".$O.", ".$PP;
-
 	print $q."<br />\n";
 
 	$result = db_query($q, $dbh);
@@ -257,13 +250,10 @@ function pkg_search_page($SID="") {
 		print __("No packages matched your search criteria.");
 
 	} else {
-		# TODO need an "action" table in here like on /devel?  It would
-		# allow the visitor to flag packages out-of-date, vote, adopt/disown?
-		# Probably need to think about the overall UI of this - the package
-		# name will be a link that goes to 'details'.  There should also be
-		# a column for 'manage/edit'
 
 		if ($SID) {
+			# The 'Actions' table
+			#
 			print "<center>\n";
 			print "<table cellspacing='3' class='boxSoft'>\n";
 			print "<tr>\n";

@@ -13,15 +13,15 @@ DB_HOST   = "localhost"
 DB_NAME   = "AUR"
 DB_USER   = "aur"
 DB_PASS   = "aur"
-USER_ID   = 5        # Users.ID of first user
-PKG_ID    = 1        # Packages.ID of first package
-MAX_USERS = 1000     # how many users to 'register'
-MAX_DEVS  = .1       # what percentage of MAX_USERS are Developers
-MAX_TUS   = .2       # what percentage of MAX_USERS are Trusted Users
-MAX_PKGS  = 2500     # how many packages to load
-PKG_FILES = (8, 30)  # min/max number of files in a package
-VOTING    = (.1, .4) # percentage range for package voting
-RANDOM_PATHS = [     # random path locations for package files
+USER_ID   = 5          # Users.ID of first user
+PKG_ID    = 1          # Packages.ID of first package
+MAX_USERS = 500        # how many users to 'register'
+MAX_DEVS  = .1         # what percentage of MAX_USERS are Developers
+MAX_TUS   = .2         # what percentage of MAX_USERS are Trusted Users
+MAX_PKGS  = 2500       # how many packages to load
+PKG_FILES = (8, 30)    # min/max number of files in a package
+VOTING    = (0, .30)   # percentage range for package voting
+RANDOM_PATHS = [       # random path locations for package files
 	"/usr/bin", "/usr/lib", "/etc", "/etc/rc.d", "/usr/share", "/lib",
 	"/var/spool", "/var/log", "/usr/sbin", "/opt", "/usr/X11R6/bin",
 	"/usr/X11R6/lib", "/usr/libexec", "/usr/man/man1", "/usr/man/man3",
@@ -225,8 +225,10 @@ for p in seen_pkgs.keys():
 	if location_id == 1: # unsupported pkgs don't have a maintainer
 		muid = 0
 
-	s = "INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID, SubmittedTS, SubmitterUID, MaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d);\n" % (seen_pkgs[p], p, genVersion(location_id), genCategory(),
-			location_id, long(time.time()), genUID(), muid)
+	uuid = genUID() # the submitter/user
+
+	s = "INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, AURMaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d, %d);\n" % (seen_pkgs[p], p, genVersion(location_id),
+			genCategory(), location_id, long(time.time()), uuid, uuid, muid)
 	out.write(s)
 	if count % 100 == 0:
 		if DBUG: print ".",
