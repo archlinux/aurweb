@@ -35,7 +35,8 @@ function pkgLocations() {
 
 # display the search form in a boxSoft style
 #
-function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
+function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25,
+		$D="") {
 	# SID: session id cookie
 	# L: PackageLocations.ID
 	# C: PackageCategories.ID
@@ -44,12 +45,15 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 	# M: search "my packages"
 	# O: Row offset
 	# PP: Per page
+	# D: Direction to advance (Less/More)
 	$locs = pkgLocations();
 	$cats = pkgCategories();
 	$devs = getDevelopers();
 	$tus = getTrustedUsers();
 	$dbh = db_connect();
 
+
+	if (!$PP) {$PP = 25;}
 	if ($O) {
 		$OFFSET = intval($O);
 	} else {
@@ -68,6 +72,17 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 
 	# The search form
 	#
+	print "SID=$SID, L=$L, C=$C, K=$K, SB=$SB, M=$M, O=$O, PP=$PP<br />\n";
+
+	print "<form action='/pkgsearch.php' method='post'>\n";
+	print "<input type='hidden' name='O' value='".($OFFSET+intval($PP))."'>\n";
+	print "<input type='hidden' name='L' value='".$L."'>\n";
+	print "<input type='hidden' name='M' value='".$M."'>\n";
+	print "<input type='hidden' name='C' value='".$C."'>\n";
+	print "<input type='hidden' name='K' value='".$K."'>\n";
+	print "<input type='hidden' name='SB' value='".$SB."'>\n";
+	print "<input type='hidden' name='PP' value='".$PP."'>\n";
+
 	print "<center>\n";
 	print "<table cellspacing='3' class='boxSoft'>\n";
 	print "<tr>\n";
@@ -77,8 +92,6 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 	print "</tr>\n";
 	print "<tr>\n";
 	print "  <td class='boxSoft'>\n";
-	print "<form action='/pkgsearch.php' method='post'>\n";
-	print "<input type='hidden' name='Action' value='SearchPkgs'>\n";
 	print "<table style='width: 100%' align='center'>\n";
 
 	print "<tr>\n";
@@ -154,12 +167,13 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 	print "</td>\n";
 
 	print "<td align='right' valign='bottom'>&nbsp;\n";
-	print "  <input type='submit' class='button' value='".__("Go")."'>\n";
+	print "  <input type='submit' class='button' name='do_Search'";
+	print " value='".__("Go")."'>\n";
 	print "</td>\n";
 
 	if ($SID) {
 		print "<td align='right' valign='bottom'>&nbsp;\n";
-		print "  <input type='submit' class='button' name='M'";
+		print "  <input type='submit' class='button' name='do_MyPackages'";
 	 	print "	value='".__("My Packages")."'>\n";
 		print "</td>\n";
 	}
@@ -167,61 +181,18 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 	print "</tr>\n";
 	print "</table>\n";
 
-	print "</form>\n";
 	print "  </td>\n";
 	print "</tr>\n";
 	print "</table>\n";
 	print "</center>\n";
 	print "<br />\n";
 
-
-	# TODO need an "action" table in here like on /devel?  It would
-	# allow the visitor to flag packages out-of-date, vote, adopt/disown?
-	# Probably need to think about the overall UI of this - the package
-	# name will be a link that goes to 'details'.  There should also be
-	# a column for 'manage/edit'
-
-	if ($SID) {
-		print "<center>\n";
-		print "<form action='/pkgsearch.php' method='post'>\n";
-		print "<table cellspacing='3' class='boxSoft'>\n";
-		print "<tr>\n";
-		print "  <td class='boxSoftTitle' align='right'>\n";
-		print "    <span class='f3'>".__("Actions")."</span>\n";
-		print "  </td>\n";
-		print "</tr>\n";
-		print "<tr>\n";
-		print "  <td class='boxSoft'>\n";
-		print "<input type='hidden' name='Action' value='DoSomething'>\n";
-		print "<table style='width: 100%' align='center'>\n";
-		print "<tr>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Flag'";
-		print "	value='".__("Flag Out-of-date")."'></td>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Disown'";
-		print "	value='".__("Disown Packages")."'></td>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Adopt'";
-		print "	value='".__("Adopt Packages")."'></td>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Vote'";
-		print "	value='".__("Vote")."'></td>\n";
-		print "</tr>\n";
-		print "</table>\n";
-		print "  </td>\n";
-		print "</tr>\n";
-		print "</table>\n";
-		print "</form>\n";
-		print "</center>\n";
-		print "<br />\n";
-	}
-
 	# query to pull out package info
 	#
-	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Votes ";
-	$q.= "FROM Packages LEFT JOIN PackageVotes ";
-	$q.= "ON Packages.ID = PackageVotes.PackageID ";
+#	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Votes ";
+#	$q.= "FROM Packages LEFT JOIN PackageVotes ";
+#	$q.= "ON Packages.ID = PackageVotes.PackageID ";
+	$q = "SELECT * FROM Packages ";
 	$has_where = 0;
 	if ($L) {
 		$q.= "WHERE LocationID = ".intval($L)." ";
@@ -256,7 +227,6 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 		}
 	}
 
-	$q.= "GROUP BY PackageID ";
 	switch ($SB) {
 		case 'c':
 			$q.= "ORDER BY CategoryID ASC, Name ASC, LocationID ASC ";
@@ -265,13 +235,15 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 			$q.= "ORDER BY LocationID ASC, Name ASC, CategoryID ASC ";
 			break;
 		case 'v':
-			$q.= "ORDER BY Votes DESC, Name ASC, CategoryID ASC ";
+			$q.= "ORDER BY NumVotes DESC, Name ASC, CategoryID ASC ";
 			break;
 		default:
 			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID ASC ";
 			break;
 	}
 	$q.= "LIMIT ".$OFFSET.", ".intval($PP);
+
+	print $q."<br />\n";
 
 	$result = db_query($q, $dbh);
 	if (!$result) {
@@ -281,6 +253,45 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 		print __("No packages matched your search criteria.");
 
 	} else {
+		# TODO need an "action" table in here like on /devel?  It would
+		# allow the visitor to flag packages out-of-date, vote, adopt/disown?
+		# Probably need to think about the overall UI of this - the package
+		# name will be a link that goes to 'details'.  There should also be
+		# a column for 'manage/edit'
+
+		if ($SID) {
+			print "<center>\n";
+			print "<table cellspacing='3' class='boxSoft'>\n";
+			print "<tr>\n";
+			print "  <td class='boxSoftTitle' align='right'>\n";
+			print "    <span class='f3'>".__("Actions")."</span>\n";
+			print "  </td>\n";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td class='boxSoft'>\n";
+			print "<table style='width: 100%' align='center'>\n";
+			print "<tr>\n";
+			print "  <td align='center'>";
+			print "<input type='submit' class='button' name='do_Flag'";
+			print "	value='".__("Flag Out-of-date")."'></td>\n";
+			print "  <td align='center'>";
+			print "<input type='submit' class='button' name='do_Adopt'";
+			print "	value='".__("Adopt Packages")."'></td>\n";
+			print "  <td align='center'>";
+			print "<input type='submit' class='button' name='do_Disown'";
+			print "	value='".__("Disown Packages")."'></td>\n";
+			print "  <td align='center'>";
+			print "<input type='submit' class='button' name='do_Vote'";
+			print "	value='".__("Vote")."'></td>\n";
+			print "</tr>\n";
+			print "</table>\n";
+			print "  </td>\n";
+			print "</tr>\n";
+			print "</table>\n";
+			print "</center>\n";
+			print "<br />\n";
+		}
+
 		# print out package search results
 		#
 		print "<center>\n";
@@ -310,6 +321,10 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 		print " bottom'><span class='f2'>".__("Description")."</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>".__("Maintainer")."</span></th>\n";
+		if ($SID) {
+			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+			print " bottom'><span class='f2'>".__("Manage")."</span></th>\n";
+		}
 		print "</tr>\n";
 
 		for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
@@ -320,7 +335,12 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 				if ($row["OutOfDate"]) {
 					print "<span style='background-color: red'>";
 				}
-				print "<input type='checkbox' name='PIDs[]' value='".$row["ID"]."'>";
+				print "<input type='checkbox' name='IDs[]' value='".$row["ID"]."'>";
+				if ($i == 0) {
+					$all_ids = $row["ID"];
+				} else {
+					$all_ids .= ":".$row["ID"];
+				}
 				if ($row["OutOfDate"]) {
 					print "</span>";
 				}
@@ -330,21 +350,34 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 			print $locs[$row["LocationID"]]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 			print $cats[$row["CategoryID"]]."</span></span></td>\n";
-			print "  <td class='".$c."'><span class='f4'><span class='blue'>";
-			print $row["Name"]."-".$row["Version"]."</span></span></td>\n";
+			print "  <td class='".$c."'><span class='f4'>";
+			$details_url = "<a href='/pkgsearch.php?do_Details=1&ID=";
+			$details_url.= $row["ID"]."'><span class='black'>".$row["Name"];
+			$details_url.= "-".$row["Version"]."</span></a>";
+			print $details_url."</span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-			print "&nbsp;&nbsp;&nbsp;".$row["Votes"]."</span></span></td>\n";
+			print "&nbsp;&nbsp;&nbsp;".$row["NumVotes"]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f4'><span class='blue'>";
 			print $row["Description"]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+			$not_managed = 0;
 			if (isset($devs[$row["MaintainerUID"]])) {
 				print $devs[$row["MaintainerUID"]]["Username"];
 			} elseif (isset($tus[$row["MaintainerUID"]])) {
 				print $tus[$row["MaintainerUID"]]["Username"];
 			} else {
 				print "None";
+				$not_managed = 1;
 			}
 			print "</span></span></td>\n";
+			if ($myuid == $row["MaintainerUID"] || $not_managed) {
+				$manage_url = "<a href='/pkgmgmnt.php?ID=";
+				$manage_url.= $row["ID"]."'><span class='black'>Manage</span></a>";
+				print "  <td class='".$c."'><span class='f4'>";
+				print $manage_url."</span></td>\n";
+			} else {
+				print "<td class='".$c."'><span class='f4'>&nbsp;</span></td>\n";
+			}
 
 			print "</tr>\n";
 
@@ -353,40 +386,20 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 		print "  </td>\n";
 		print "</tr>\n";
 		print "</table>\n";
+		print "<input type='hidden' name='All_IDs' value='".$all_ids."'>\n";
 
-		print "<br />\n";
 		print "<table width='90%' cellspacing='0' cellpadding='2'>\n";
 		print "<tr>\n";
 		print "  <td>\n";
 		print "  <table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
 		print "  <tr>\n";
 		print "    <td align='left'>";
-		print "    <form action='/pkgsearch.php' method='post'>\n";
-		print "    <input type='hidden' name='Action' value='SearchPkgs'>\n";
-		print "    <input type='hidden' name='O' value='".($OFFSET-intval($PP))."'>\n";
-		print "    <input type='hidden' name='L' value='".$L."'>\n";
-		print "    <input type='hidden' name='M' value='".$M."'>\n";
-		print "    <input type='hidden' name='C' value='".$C."'>\n";
-		print "    <input type='hidden' name='K' value='".$K."'>\n";
-		print "    <input type='hidden' name='SB' value='".$SB."'>\n";
-		print "    <input type='hidden' name='PP' value='".$PP."'>\n";
-		print "    <input type='submit' class='button'";
+		print "    <input type='submit' class='button' name='do_Less'";
 		print " value='&lt;-- ".__("Less")."'>\n";
-		print "    </form>\n";
 		print "    </td>\n";
 		print "    <td align='right'>";
-		print "    <form action='/pkgsearch.php' method='post'>\n";
-		print "    <input type='hidden' name='Action' value='SearchPkgs'>\n";
-		print "    <input type='hidden' name='O' value='".($OFFSET+intval($PP))."'>\n";
-		print "    <input type='hidden' name='L' value='".$L."'>\n";
-		print "    <input type='hidden' name='M' value='".$M."'>\n";
-		print "    <input type='hidden' name='C' value='".$C."'>\n";
-		print "    <input type='hidden' name='K' value='".$K."'>\n";
-		print "    <input type='hidden' name='SB' value='".$SB."'>\n";
-		print "    <input type='hidden' name='PP' value='".$PP."'>\n";
-		print "    <input type='submit' class='button'";
+		print "    <input type='submit' class='button' name='do_More'";
 		print " value='".__("More")." --&gt;'>\n";
-		print "    </form>\n";
 		print "    </td>\n";
 		print "  </tr>\n";
 		print "  </table>\n";
@@ -395,6 +408,7 @@ function pkg_search_page($SID="",$L="",$C="",$K="",$SB="",$M=0,$O=0,$PP=25) {
 		print "</table>\n";
 		print "</center>\n";
 	}
+	print "</form>\n";
 
 	return;
 }

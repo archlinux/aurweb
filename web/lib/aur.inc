@@ -296,6 +296,7 @@ function set_lang() {
 			$row = mysql_fetch_array($result);
 			$LANG = $row[0];
 		}
+		$update_cookie = 1;
 	} else {
 		$LANG = "en";
 	}

@@ -6,10 +6,12 @@ check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
 
 
-# Any text you print out to the visitor, use the __() function
-# for i18n support.  See 'testpo.php' for more details.
+# vistor has requested package management for a specific package
 #
-print __("Under construction...")."<br />\n";
+print __("Manage package ID: %s", array($_REQUEST["ID"])) . "<br />\n";
+
+# NOTE: managing an orphaned package will automatically force adoption
+#
 
 
 html_footer("\$Id$");

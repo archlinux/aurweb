@@ -6,14 +6,6 @@ set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
 	
-# TODO Maybe pkgsearch, pkgvote can be consolidated?  This script can
-# provide a search form.  In the results, it can contain a checkbox
-# for 'flag out of date', 'vote', 'details' link, and a link to 'pkgmgmnt'.
-#
-# the results page should have columns for,
-# pkg name/ver, location, maintainer, description, O-O-D, Vote, details, mgmnt
-#
-
 
 # get login privileges
 #
@@ -25,30 +17,110 @@ if (isset($_COOKIE["AURSID"])) {
 	$atype = "";
 }
 
+# grab the list of Package IDs to be operated on
+#
+isset($_REQUEST["IDs"]) ? $ids = $_REQUEST["IDs"] : $ids = array();
 
-if ($atype && $_REQUEST["Action"] == "Something") {
-	# do something based on what the user specifies
+
+# determine what button the visitor clicked
+#
+if (isset($_REQUEST["do_Flag"])) {
+	if (!$atype) {
+		print __("You must be logged in before you can flag packages.");
+		print "<br />\n";
+
+	} else {
+		# Flag the packages in $ids array, and unflag any other
+		# packages listed in $_REQUEST["All_IDs"]
+		#
+		print "flagging<br />\n";
+
+		# After flagging, show the search page again (or maybe print out
+		# a message and give the user a link to resume where they were
+		# in the search
+		#
+		pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
+				$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
+				$_REQUEST["PP"]);
+	}
+
+
+} elseif (isset($_REQUEST["do_Disown"])) {
+	if ($atype != "User" && $atype != "") {
+		print __("You do not have access to disown packages.");
+		print "<br />\n";
+
+	} else {
+		# Disown the packages in $ids array
+		#
+		print "disowning<br />\n";
+
+		# After disowning, show the search page again (or maybe print out
+		# a message and give the user a link to resume where they were
+		# in the search
+		#
+		pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
+				$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
+				$_REQUEST["PP"]);
+	}
+
+
+} elseif (isset($_REQUEST["do_Adopt"])) {
+	if ($atype != "User" && $atype != "") {
+		print __("You do not have access to adopt packages.");
+		print "<br />\n";
+
+	} else {
+		# Adopt the packages in $ids array
+		#
+		print "adopting<br />\n";
+
+		# After adopting, show the search page again (or maybe print out
+		# a message and give the user a link to resume where they were
+		# in the search
+		#
+		pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
+				$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
+				$_REQUEST["PP"]);
+	}
+
+
+} elseif (isset($_REQUEST["do_Vote"])) {
+	if (!$atype) {
+		print __("You must be logged in before you can vote for packages.");
+		print "<br />\n";
+
+	} else {
+		# vote on the packages in $ids array.  'unvote' for any packages
+		# listed in the $_REQUEST["All_IDs"] array.
+		#
+		print "adopting<br />\n";
+
+		# After voting, show the search page again (or maybe print out
+		# a message and give the user a link to resume where they were
+		# in the search
+		#
+		pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
+				$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
+				$_REQUEST["PP"]);
+	}
+
+
+} elseif (isset($_REQUEST["do_Details"])) {
+	# give a link to 'manage', and another to return to search
+	# results.
 	#
+	print "details for package<br />\n";
 
-} elseif ($atype && $_REQUEST["Action"] == "SomethingElse") {
-	# do something else based on what the user specifies
-	#
 
-} elseif ($_REQUEST["Action"] == "SearchPkgs") {
-	# the visitor has requested search options and/or hit the less/more button
+} else {
+	# do_More/do_Less/do_Search/do_MyPackages - just do a search
 	#
 	pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
 			$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
 			$_REQUEST["PP"]);
 
-} else {
-	# do the default thing - give the user a search form that they
-	# can specify: location, category, maintainer, name, 'my pkgs'
-	# and display a list of packages based on no search options.
-	#
-	pkg_search_page($_COOKIE["AURSID"]);
 }
-
 
 html_footer("\$Id$");
 ?>

@@ -15,12 +15,12 @@ DB_USER   = "aur"
 DB_PASS   = "aur"
 USER_ID   = 5        # Users.ID of first user
 PKG_ID    = 1        # Packages.ID of first package
-MAX_USERS = 200      # how many users to 'register'
+MAX_USERS = 1000     # how many users to 'register'
 MAX_DEVS  = .1       # what percentage of MAX_USERS are Developers
 MAX_TUS   = .2       # what percentage of MAX_USERS are Trusted Users
 MAX_PKGS  = 2500     # how many packages to load
 PKG_FILES = (8, 30)  # min/max number of files in a package
-VOTING    = (.3, .8) # percentage range for package voting
+VOTING    = (.1, .4) # percentage range for package voting
 RANDOM_PATHS = [     # random path locations for package files
 	"/usr/bin", "/usr/lib", "/etc", "/etc/rc.d", "/usr/share", "/lib",
 	"/var/spool", "/var/log", "/usr/sbin", "/opt", "/usr/X11R6/bin",
@@ -299,21 +299,31 @@ if DBUG: print "."
 
 # Cast votes
 #
+track_votes = {}
 if DBUG: print "Casting votes for packages.",
 count = 0
 for u in user_keys:
-	num_votes = random.randrange(len(seen_pkgs)*VOTING[0],
-			len(seen_pkgs)*VOTING[1])
+	num_votes = random.randrange(int(len(seen_pkgs)*VOTING[0]),
+			int(len(seen_pkgs)*VOTING[1]))
 	pkgvote = {}
 	for v in range(num_votes):
 		pkg = random.randrange(0, len(seen_pkgs))
 		if not pkgvote.has_key(pkg):
 			s = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES (%d, %d);\n" % (seen_users[u], pkg)
 			pkgvote[pkg] = 1
+			if not track_votes.has_key(pkg):
+				track_votes[pkg] = 0
+			track_votes[pkg] += 1
 			out.write(s)
 			if count % 100 == 0:
 				if DBUG: print ".",
 			count += 1
+
+# Update statements for package votes
+#
+for p in track_votes.keys():
+	s = "UPDATE Packages SET NumVotes = %d WHERE ID = %d;\n" % (track_votes[p], p)
+	out.write(s)
 
 # close output file
 #
