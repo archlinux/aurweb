@@ -1,6 +1,6 @@
 <?
 include("aur.inc");         # access AUR common functions
-include("pkgs.inc");        # package specific functions
+include("pkgfuncs.inc");    # package specific functions
 include("search_po.inc");   # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
@@ -39,14 +39,13 @@ if (isset($_REQUEST["do_Flag"])) {
 		# a message and give the user a link to resume where they were
 		# in the search
 		#
-		pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
-				$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
-				$_REQUEST["PP"]);
+		pkg_search_page($_COOKIE["AURSID"]);
+				
 	}
 
 
 } elseif (isset($_REQUEST["do_Disown"])) {
-	if ($atype != "User" && $atype != "") {
+	if ($atype == "User" || $atype == "") {
 		print __("You do not have access to disown packages.");
 		print "<br />\n";
 
@@ -59,14 +58,13 @@ if (isset($_REQUEST["do_Flag"])) {
 		# a message and give the user a link to resume where they were
 		# in the search
 		#
-		pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
-				$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
-				$_REQUEST["PP"]);
+		pkg_search_page($_COOKIE["AURSID"]);
+
 	}
 
 
 } elseif (isset($_REQUEST["do_Adopt"])) {
-	if ($atype != "User" && $atype != "") {
+	if ($atype == "User" || $atype == "") {
 		print __("You do not have access to adopt packages.");
 		print "<br />\n";
 
@@ -79,9 +77,8 @@ if (isset($_REQUEST["do_Flag"])) {
 		# a message and give the user a link to resume where they were
 		# in the search
 		#
-		pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
-				$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
-				$_REQUEST["PP"]);
+		pkg_search_page($_COOKIE["AURSID"]);
+
 	}
 
 
@@ -94,15 +91,14 @@ if (isset($_REQUEST["do_Flag"])) {
 		# vote on the packages in $ids array.  'unvote' for any packages
 		# listed in the $_REQUEST["All_IDs"] array.
 		#
-		print "adopting<br />\n";
+		print "voting<br />\n";
 
 		# After voting, show the search page again (or maybe print out
 		# a message and give the user a link to resume where they were
 		# in the search
 		#
-		pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
-				$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
-				$_REQUEST["PP"]);
+		pkg_search_page($_COOKIE["AURSID"]);
+
 	}
 
 
@@ -116,9 +112,7 @@ if (isset($_REQUEST["do_Flag"])) {
 } else {
 	# do_More/do_Less/do_Search/do_MyPackages - just do a search
 	#
-	pkg_search_page($_COOKIE["AURSID"], $_REQUEST["L"], $_REQUEST["C"],
-			$_REQUEST["K"], $_REQUEST["SB"], $_REQUEST["M"], $_REQUEST["O"],
-			$_REQUEST["PP"]);
+	pkg_search_page($_COOKIE["AURSID"]);
 
 }
 

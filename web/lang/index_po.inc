@@ -111,4 +111,9 @@ $_t["en"]["Logged-in as: %h%s%h"] = "Logged-in as: %h%s%h";
 # $_t["fr"]["Logged-in as: %h%s%h"] = "--> Traduction française ici. <--";
 # $_t["de"]["Logged-in as: %h%s%h"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Error looking up username, %s."] = "Error looking up username, %s.";
+# $_t["es"]["Error looking up username, %s."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Error looking up username, %s."] = "--> Traduction française ici. <--";
+# $_t["de"]["Error looking up username, %s."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
