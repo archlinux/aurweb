@@ -467,5 +467,24 @@ function initeger($inival="0", $isbytes=1) {
 	return intval($inival) * $multiplier;
 }
 
+# recursive delete directory
+#
+function rm_rf($dirname="") {
+	$d = dir($dirname);
+	while ($f = $d->read()) {
+		if ($f != "." && $f != "..") {
+			if (is_dir($dirname.$f)) {
+				rm_rf($dirname.$f."/");
+			}
+			if (is_file($dirname.$f) || is_link($dirname.$f)) {
+				unlink($dirname.$f);
+			}
+		}
+	}
+	$d->close();
+	rmdir($dirname);
+	return;
+}
+
 # vim: ts=2 sw=2 noet ft=php
 ?>
