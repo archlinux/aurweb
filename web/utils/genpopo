@@ -7,9 +7,14 @@
 # "xxx_po.inc" file in the 'lang' subdirectory and places the
 # i18n strings into the file in the proper format.
 #
+# usage: genpopo [-v] [-f]
+#        -v: verbose, print duplicate terms that could be moved to common_po
+#        -f: force, overwrite existing translated files, otherwise append
+#
 
 import sys
 print_dupes = '-v' in sys.argv
+force = '-f' in sys.argv
 
 import re, os
 up = re.compile('_\(\s*"(([^"]|(?<=\\\\)["])+)"')
@@ -29,8 +34,9 @@ for dir in ['../lang', 'lang']:
 			lines = f.readlines()
 			f.close()
 			for line in lines:
-				common[line[:-1]] = 0
-				lang['common_po.po'][line[:-1]] = 1
+				if line[0] != '#':
+					common[line[:-1]] = 0
+					lang['common_po.po'][line[:-1]] = 1
 			os.chdir(current_dir)
 			break
 		os.chdir(current_dir)
@@ -105,23 +111,36 @@ for dir in ['../html', '../lib', 'html', 'lib']:
 # if they do exist, only append new stuff to the end.  If the 'force'
 # option is passed, just overwrite the entire thing.
 #
+mapre = re.compile('^\$_t\["en\]["(.*)"].*$')
 os.chdir(lang_dir)
-for po in lang.keys():
-	print "Generating %s..." % po
-	f = open(po,'w')
-	f.write("""# INSTRUCTIONS TO TRANSLATORS:
-# blah blah blah....
-""")
 
-	for term in lang[po].keys():
+if force:
+	# just going to overwrite any existing files
+	#
+	for po in lang.keys():
+		print "Generating %s..." % po
+
+		f = open(po,'w')
+		f.write("<?\n")
+		f.write("""# INSTRUCTIONS TO TRANSLATORS:
+	# blah blah blah....
+	""")
+
+		for term in lang[po].keys():
+			f.write("\n");
+			f.write('$_t["en"]["%s"] = "%s";\n' % (term, term))
+			f.write('# $_t["es"]["%s"] = "--> Spanish translation here. <--";\n' % term)
+			f.write('# $_t["fr"]["%s"] = "--> French translation here. <--";\n' % term)
+			f.write('# $_t["de"]["%s"] = "--> German translation here. <--";\n' % term)
+
 		f.write("\n");
-		f.write('_$t["en"]["%s"] = "%s";\n' % (term, term))
-		f.write('# _$t["es"]["%s"] = "--> Spanish translation here. <--";\n' % term)
-		f.write('# _$t["fr"]["%s"] = "--> French translation here. <--";\n' % term)
-		f.write('# _$t["de"]["%s"] = "--> German translation here. <--";\n' % term)
-
-	f.write("\n");
-	f.close()
+		f.write("?>");
+		f.close()
+else:
+	# TODO left off here... need to leave existing file intact, and only
+	# append on terms that are new
+	#
+	pass
 
 # Print out warnings for unused and little-used common entries.
 #
