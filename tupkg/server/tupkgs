@@ -58,11 +58,12 @@ class ClientFile:
 		self.md5 = md5sum.hexdigest()
 
 class ClientSocket(threading.Thread):
-	def __init__(self, sock, **other):
+	def __init__(self, sock, db, **other):
 		threading.Thread.__init__(self, *other)
 		self.socket = sock
 		self.running = 1
 		self.files = []
+		self.db = db
 
 	def close(self):
 		self.running = 0
@@ -95,10 +96,26 @@ class ClientSocket(threading.Thread):
 			return data
 
 	def auth(self):
-		authdata = self.readMsg()
+		authdata = self.readMsg(1)
 		print authdata
-		# Do auth stuff here
+		q = self.db.cursor()
+		q.execute("SELECT ID, Suspended, AccountTypeID FROM Users WHERE Username = '"+
+		          MySQLdb.escape_string(authdata['username'][0])+
+		          "' AND Passwd = '"+
+		          MySQLdb.escape_string(authdata['password'][0])+
+		          "'")
+		if q.rowcount == 0:
+			self.sendMsg("result=FAIL")
+			return 0
+		row = q.fetchone()
+		if row[1] != 0:
+			self.sendMsg("result=FAIL")
+			return 0
+		if row[2] not in (2, 3):
+			self.sendMsg("result=FAIL")
+			return 0
 		self.sendMsg("result=PASS")
+		return 1
 
 	def readFileMeta(self):
 		files = self.readMsg(1)
@@ -136,18 +153,21 @@ class ClientSocket(threading.Thread):
 		print self.readMsg()
 
 	def run(self):
-		self.auth()
+		if not self.auth():
+			self.close()
+			return
 		self.readFileMeta()
 		self.readFiles()
 
 class ServerSocket(threading.Thread):
-	def __init__(self, port=1034, maxqueue=5, **other):
+	def __init__(self, db, port=1034, maxqueue=5, **other):
 		threading.Thread.__init__(self, *other)
 		self.running = 1
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.socket.bind(('', port))
 		self.socket.listen(maxqueue)
 		self.clients = []
+		self.db = db
 
 	def _clean(self, client):
 		if not client.isAlive():
@@ -160,11 +180,11 @@ class ServerSocket(threading.Thread):
 
 	def run(self):
 		while self.running:
-			sread, swrite, serror = select.select([self.socket],[self.socket],[self.socket],5)
+			sread, swrite, serror = select.select([self.socket],[self.socket],[self.socket],1)
 			if sread:
 				(clientsocket, address) = self.socket.accept()
 				print "New connection from " + str(address)
-				ct = ClientSocket(clientsocket)
+				ct = ClientSocket(clientsocket, self.db)
 				ct.start()
 				self.clients.append(ct)
 
@@ -202,8 +222,14 @@ def main(argv=None):
 
 	running = 1
 
+	print "Connecting to MySQL database"
+	dbconn = MySQLdb.connect(host=config.get('mysql', 'host'),
+	                         user=config.get('mysql', 'username'),
+	                         passwd=config.get('mysql', 'password'),
+	                         db=config.get('mysql', 'db'))
+
 	print "Starting ServerSocket"
-	servsock = ServerSocket()
+	servsock = ServerSocket(dbconn)
 	servsock.start()
 
 	try:
@@ -213,11 +239,14 @@ def main(argv=None):
 	except KeyboardInterrupt:
 		running = 0
 
-	print "Cleaning up stuff"
+	print "Waiting for threads to die"
 
 	servsock.close()
 
 	servsock.join()
+
+	print "Closing DB"
+	dbconn.close()
 
 	return 0
 

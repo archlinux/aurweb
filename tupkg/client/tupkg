@@ -130,11 +130,12 @@ def main(argv=None):
 			usage()
 			return 1
 
-	cs = ClientSocket(files, 'localhost', 1034, "bfinch@example.net", "B0b")
+	cs = ClientSocket(files, 'localhost', 1034, "tu", "tu")
 	cs.connect()
 
 	if not cs.auth():
 		print "Error authenticating you, you bastard"
+		return 1
 
 	cs.sendFileMeta()
 
