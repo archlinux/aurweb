@@ -51,9 +51,32 @@ def areFilesIdentical(file_a, file_b):
 ############################################################
 
 def infoFromPackageFile(filename):
-  pkgbuild = pacman.load(filename)
-  return pkgbuild.name, pkgbuild.version + "-" + pkgbuild.release
+  pkg = pacman.load(filename)
+  return pkg.name, pkg.version + "-" + pkg.release
 
+def infoFromPkgbuildFile(filename):
+  # open and source the file
+  pf_stdin, pf_stdout = os.popen2("/bin/bash", 't', 0)
+  print >>pf_stdin, ". " + filename
+
+  # get pkgname
+  print >>pf_stdin, 'echo $pkgname'
+  pkgname = pf_stdout.readline().strip()
+
+  # get pkgver
+  print >>pf_stdin, 'echo $pkgver'
+  pkgver = pf_stdout.readline().strip()
+
+  # get pkgrel
+  print >>pf_stdin, 'echo $pkgrel'
+  pkgrel = pf_stdout.readline().strip()
+
+  # clean up
+  pf_stdin.close()
+  pf_stdout.close()
+
+  return pkgname, pkgver + "-" + pkgrel
+  
 ############################################################
 # Functions for doing the final steps of execution
 ############################################################
@@ -126,7 +149,7 @@ delete = list()
 
 a_files = pkgbuildsInTree(pkgbuild_dir)
 for a_file in a_files:
-  pkgname, ver = infoFromPackageFile(a_file)
+  pkgname, ver = infoFromPkgbuildFile(a_file)
 
   # Error (and skip) if we encounter any invalid PKGBUILD files
   if (pkgname == None or ver == None):
