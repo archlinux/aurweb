@@ -96,4 +96,19 @@ $_t["en"]["Incorrect password for email address, %s."] = "Incorrect password for
 # $_t["fr"]["Incorrect password for email address, %s."] = "--> Traduction française ici. <--";
 # $_t["de"]["Incorrect password for email address, %s."] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Incorrect password for username, %s."] = "Incorrect password for username, %s.";
+# $_t["es"]["Incorrect password for username, %s."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Incorrect password for username, %s."] = "--> Traduction française ici. <--";
+# $_t["de"]["Incorrect password for username, %s."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Logged in as: %h%s%h"] = "Logged in as: %h%s%h";
+# $_t["es"]["Logged in as: %h%s%h"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Logged in as: %h%s%h"] = "--> Traduction française ici. <--";
+# $_t["de"]["Logged in as: %h%s%h"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Logged-in as: %h%s%h"] = "Logged-in as: %h%s%h";
+# $_t["es"]["Logged-in as: %h%s%h"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Logged-in as: %h%s%h"] = "--> Traduction française ici. <--";
+# $_t["de"]["Logged-in as: %h%s%h"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

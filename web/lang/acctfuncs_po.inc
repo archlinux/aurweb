@@ -191,4 +191,9 @@ $_t["en"]["No more results to display."] = "No more results to display.";
 # $_t["fr"]["No more results to display."] = "--> Traduction française ici. <--";
 # $_t["de"]["No more results to display."] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["A Trusted User cannot assign Developer status."] = "A Trusted User cannot assign Developer status.";
+# $_t["es"]["A Trusted User cannot assign Developer status."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["A Trusted User cannot assign Developer status."] = "--> Traduction française ici. <--";
+# $_t["de"]["A Trusted User cannot assign Developer status."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

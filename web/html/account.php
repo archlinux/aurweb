@@ -19,10 +19,10 @@ if (isset($_COOKIE["AURSID"])) {
 
 		# security check
 		#
-		if ($atype == "Trusted user" || $atype == "Developer") {
+		if ($atype == "Trusted User" || $atype == "Developer") {
 			# the user has entered search criteria, find any matching accounts
 			#
-			search_results_page($_REQUEST["O"], $_REQUEST["SB"],
+			search_results_page($atype, $_REQUEST["O"], $_REQUEST["SB"],
 					$_REQUEST["U"], $_REQUEST["T"], $_REQUEST["S"],
 					$_REQUEST["E"], $_REQUEST["R"], $_REQUEST["I"]);
 
@@ -35,23 +35,74 @@ if (isset($_COOKIE["AURSID"])) {
 	} elseif ($_REQUEST["Action"] == "DisplayAccount") {
 		# the user has clicked 'edit', display the account details in a form
 		#
+		$q = "SELECT Users.*, AccountTypes.AccountType ";
+		$q.= "FROM Users, AccountTypes ";
+		$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
+		$q.= "AND Users.ID = ".intval($_REQUEST["ID"]);
+		$result = db_query($q, $dbh);
+		if (!$result) {
+			print __("Could not retrieve information for the specified user.");
+
+		} else {
+			$row = mysql_fetch_assoc($result);
+
+			# double check to make sure logged in user can edit this account
+			#
+			if ($atype == "User" || ($atype == "Trusted User" && $row["AccountType"] == "Developer")) {
+				print __("You do not have permission to edit this account.");
+			} else {
+
+				display_account_form($atype, "UpdateAccount", $row["Username"],
+						$row["AccountType"], $row["Suspended"], $row["Email"],
+						"", "", $row["RealName"], $row["LangPreference"],
+						$row["IRCNick"], $row["NewPkgNotify"], $row["ID"]);
+			}
+		}
 
 	} elseif ($_REQUEST["Action"] == "UpdateAccount") {
 		# user is submitting their modifications to an existing account
 		#
+		process_account_form($atype, "edit", "UpdateAccount",
+				$_REQUEST["U"], $_REQUEST["T"], $_REQUEST["S"],
+				$_REQUEST["E"], $_REQUEST["P"], $_REQUEST["C"],
+				$_REQUEST["R"], $_REQUEST["L"], $_REQUEST["I"],
+				$_REQUEST["N"], $_REQUEST["ID"]);
+
 
 	} else {
-		if ($atype == "Trusted user" || $atype == "Developer") {
+		if ($atype == "Trusted User" || $atype == "Developer") {
 			# display the search page if they're a TU/dev
 			#
 			print __("Use this form to search existing accounts.")."<br/>\n";
 			search_accounts_form();
 
 		} else {
-			# TODO A normal user, give them the ability to edit
+			# A normal user, give them the ability to edit
 			# their own account
 			#
-			print __("Regular users can edit their own account.");
+			$q = "SELECT Users.*, AccountTypes.AccountType ";
+			$q.= "FROM Users, AccountTypes, Sessions ";
+			$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
+			$q.= "AND Users.ID = Sessions.UsersID ";
+			$q.= "AND Sessions.SessionID = '";
+			$q.= mysql_escape_string($_COOKIE["AURSID"])."'";
+			$result = db_query($q, $dbh);
+			if (!$result) {
+				print __("Could not retrieve information for the specified user.");
+
+			} else {
+				$row = mysql_fetch_assoc($result);
+				# don't need to check if they have permissions, this is a
+				# normal user editing themselves.
+				#
+				print __("Use this form to update your account.");
+				print "<br/>";
+				print __("Leave the password fields blank to keep your same password.");
+				display_account_form($atype, "UpdateAccount", $row["Username"],
+						$row["AccountType"], $row["Suspended"], $row["Email"],
+						"", "", $row["RealName"], $row["LangPreference"],
+						$row["IRCNick"], $row["NewPkgNotify"], $row["ID"]);
+			}
 		}
 	}
 
@@ -69,6 +120,7 @@ if (isset($_COOKIE["AURSID"])) {
 	} else {
 		# display the account request form
 		#
+		print __("Use this form to create an account.");
 		display_account_form("", "NewAccount");
 	}
 }

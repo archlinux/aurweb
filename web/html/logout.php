@@ -9,6 +9,8 @@ set_lang();                 # this sets up the visitor's language
 if (isset($_COOKIE["AURSID"])) {
 	$q = "DELETE FROM Sessions WHERE SessionID = '";
 	$q.= mysql_escape_string($_COOKIE["AURSID"]) . "'";
+	$dbh = db_connect();
+	db_query($q, $dbh);
 	setcookie("AURSID", "", time() - (60*60*24*30), "/");
 }
 

@@ -39,7 +39,11 @@ CREATE TABLE Users (
 );
 -- A default developer account for testing purposes
 INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
-	1, 3, 'root', 'root@localhost', 'changeme');
+	1, 3, 'dev', 'dev@localhost', 'dev');
+INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
+	2, 2, 'tu', 'tu@localhost', 'tu');
+INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
+	3, 1, 'user', 'user@localhost', 'user');
 
 
 -- Track Users logging in/out of AUR web site.

@@ -11,7 +11,7 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 	# Attempting to log in
 	#
 	if (!isset($_REQUEST['user'])) {
-		$login_error = __("You must supply an email address.");
+		$login_error = __("You must supply a username.");
 	}
 	if (!isset($_REQUEST['pass'])) {
 		$login_error = __("You must supply a password.");
@@ -25,7 +25,7 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 		$q.= "AND Passwd = '" . mysql_escape_string($_REQUEST["pass"]) . "'";
 		$result = db_query($q, $dbh);
 		if (!$result) {
-			$login_error = __("Incorrect password for email address, %s.",
+			$login_error = __("Incorrect password for username, %s.",
 						array($_REQUEST["user"]));
 		} else {
 			$row = mysql_fetch_row($result);
@@ -79,7 +79,7 @@ print "  </td>";
 # XXX Is this the proper way to add some spacing between table cells?
 #
 print "  <td>&nbsp;&nbsp;</td>";
-print "  <td align='right'>\n";
+print "  <td align='left' valign='top' nowrap>\n";
 if (!isset($_COOKIE["AURSID"])) {
 	# the user is not logged in, give them login widgets
 	#
@@ -104,7 +104,7 @@ if (!isset($_COOKIE["AURSID"])) {
 	print "</form>\n";
 
 } else {
-	print __("Currently logged in as: %h%s%h",
+	print __("Logged-in as: %h%s%h",
 			array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
 }
 print "  </td>";

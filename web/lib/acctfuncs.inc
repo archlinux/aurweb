@@ -3,9 +3,9 @@ include_once("acctfuncs_po.inc");
 
 # Display the standard Account form, pass in default values if any
 #
-function display_account_form($SID,$A,$U="",$T="",$S="",
-			$E="",$P="",$C="",$R="",$L="",$I="",$N="") {
-	# SID: the session id cookie value (if any)
+function display_account_form($UTYPE,$A,$U="",$T="",$S="",
+			$E="",$P="",$C="",$R="",$L="",$I="",$N="",$UID=0) {
+	# UTYPE: what user type the form is being displayed for
 	# A: what "form" name to use
 	# U: value to display for username
 	# T: value to display for account type
@@ -17,22 +17,18 @@ function display_account_form($SID,$A,$U="",$T="",$S="",
 	# L: value to display for Language preference
 	# I: value to display for IRC nick
 	# N: new package notify value
+	# UID: Users.ID value in case form is used for editing
 
 	global $SUPPORTED_LANGS;
 
 	print "<form action='/account.php' method='post'>\n";
 	print "<input type='hidden' name='Action' value='".$A."'>\n";
+	if ($UID) {
+		print "<input type='hidden' name='ID' value='".$UID."'>\n";
+	}
 	print "<center>\n";
 	print "<table border='0' cellpadding='0' cellspacing='0' width='80%'>\n";
 	print "<tr><td colspan='2'>&nbsp;</td></tr>\n";
-
-	# figure out what account type the visitor is
-	#
-	if ($SID) {
-		$atype = account_from_sid($SID);
-	} else {
-		$atype = "";
-	}
 
 	print "<tr>";
 	print "<td align='left'>".__("Username").":</td>";
@@ -40,18 +36,24 @@ function display_account_form($SID,$A,$U="",$T="",$S="",
 	print " name='U' value='".$U."'> (".__("required").")</td>";
 	print "</tr>\n";
 
-	if ($atype == "Trusted User" || $atype == "Developer") {
+	if ($UTYPE == "Trusted User" || $UTYPE == "Developer") {
 		# only TUs or Devs can promote/demote/suspend a user
 		#
 		print "<tr>";
 		print "<td align='left'>".__("Account Type").":</td>";
 		print "<td align='left'><select name=T>\n";
-		print "<option value='u'> ".__("Normal user")."\n";
-		print "<option value='t'> ".__("Trusted user")."\n";
-		if ($atype == "Developer") {
+		print "<option value='1'";
+		$T == "User" ? print " selected>" : print ">";
+		print	__("Normal user")."\n";
+		print "<option value='2'";
+		$T == "Trusted User" ? print " selected>" : print ">";
+		print __("Trusted user")."\n";
+		if ($UTYPE == "Developer") {
 			# only developers can make another account a developer
 			#
-			print "<option value='d'> ".__("Developer")."\n";
+			print "<option value='3'";
+			$T == "Developer" ? print " selected>" : print ">";
+			print __("Developer")."\n";
 		}
 		print "</select></td>";
 		print "</tr>\n";
@@ -76,14 +78,20 @@ function display_account_form($SID,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td align='left'>".__("Password").":</td>";
 	print "<td align='left'><input type='password' size='30' maxlength='32'";
-	print " name='P' value='".$P."'> (".__("required").")</td>";
-	print "</tr>\n";
+	print " name='P' value='".$P."'>";
+	if ($TYPE == "new") {
+		print "	(".__("required").")";
+	}
+	print "</td></tr>\n";
 
 	print "<tr>";
 	print "<td align='left'>".__("Re-type password").":</td>";
 	print "<td align='left'><input type='password' size='30' maxlength='32'";
-	print " name='C' value='".$C."'> (".__("required").")</td>";
-	print "</tr>\n";
+	print " name='C' value='".$C."'>";
+	if ($TYPE == "new") {
+		print "	(".__("required").")";
+	}
+	print "</td></tr>\n";
 
 	print "<tr>";
 	print "<td align='left'>".__("Real Name").":</td>";
@@ -124,7 +132,7 @@ function display_account_form($SID,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td>&nbsp;</td>";
 	print "<td align='left'>";
-	if ($A == "ModifyAccount") {
+	if ($A == "UpdateAccount") {
 		print "<input type='submit' value='".__("Update")."'> &nbsp; ";
 	} else {
 		print "<input type='submit' value='".__("Create")."'> &nbsp; ";
@@ -142,9 +150,9 @@ function display_account_form($SID,$A,$U="",$T="",$S="",
 
 # process form input from a new/edit account form
 #
-function process_account_form($SID,$TYPE,$A,$U="",$T="",$S="",$E="",
+function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$P="",$C="",$R="",$L="",$I="",$N="",$UID=0) {
-	# SID: the session id from the cookie
+	# UTYPE: The user's account type
 	# TYPE: either "edit" or "new"
 	# A: what parent "form" name to use
 	# U: value to display for username
@@ -162,8 +170,6 @@ function process_account_form($SID,$TYPE,$A,$U="",$T="",$S="",$E="",
 	# error check and process request for a new/modified account
 	#
 	global $SUPPORTED_LANGS;
-	dbug("=> process_account_form");
-	dbug("   A=$A,U=$U,T=$T,S=$S,E=$E,P=$P,C=$C,R=$R,L=$L,I=$I,N=$N");
 
 	$dbh = db_connect();
 	$error = "";
@@ -187,6 +193,9 @@ function process_account_form($SID,$TYPE,$A,$U="",$T="",$S="",$E="",
 	if (!$error && !valid_email($E)) {
 		$error = __("The email address is invalid.");
 	}
+	if ($UTYPE == "Trusted User" && $T == 3) {
+		$error = __("A Trusted User cannot assign Developer status.");
+	}
 	if (!$error && !array_key_exists($L, $SUPPORTED_LANGS)) {
 		$error = __("Language is not currently supported.");
 	}
@@ -196,6 +205,9 @@ function process_account_form($SID,$TYPE,$A,$U="",$T="",$S="",$E="",
 		#
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
 		$q.= "WHERE Username = '".mysql_escape_string($U)."'";
+		if ($TYPE == "edit") {
+			$q.= " AND ID != ".intval($UID);
+		}
 		$result = db_query($q, $dbh);
 		if ($result) {
 			$row = mysql_fetch_array($result);
@@ -211,6 +223,9 @@ function process_account_form($SID,$TYPE,$A,$U="",$T="",$S="",$E="",
 		#
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
 		$q.= "WHERE Email = '".mysql_escape_string($E)."'";
+		if ($TYPE == "edit") {
+			$q.= " AND ID != ".intval($UID);
+		}
 		$result = db_query($q, $dbh);
 		if ($result) {
 			$row = mysql_fetch_array($result);
@@ -222,7 +237,7 @@ function process_account_form($SID,$TYPE,$A,$U="",$T="",$S="",$E="",
 	}
 	if ($error) {
 		print "<span class='error'>".$error."</span><br/>\n";
-		display_account_form($SID, $A, $U, $T, $S, $E, "", "",
+		display_account_form($UTYPE, $A, $U, $T, $S, $E, "", "",
 				$R, $L, $I, $N, $UID);
 	} else {
 		if ($TYPE == "new") {
@@ -259,11 +274,19 @@ function process_account_form($SID,$TYPE,$A,$U="",$T="",$S="",$E="",
 			# no errors, go ahead and modify the user account
 			#
 			$q = "UPDATE Users SET ";
-			$q.= "AccountTypeID = ".intval($T);
-			$q.= ", Suspended = ".intval($S);
-			$q.= ", Username = '".mysql_escape_string($U)."'";
+			$q.= "Username = '".mysql_escape_string($U)."'";
+			if ($T) {
+				$q.= ", AccountTypeID = ".intval($T);
+			}
+			if ($S) {
+				$q.= ", Suspended = 1";
+			} else {
+				$q.= ", Suspended = 0";
+			}
 			$q.= ", Email = '".mysql_escape_string($E)."'";
-			$q.= ", Passwd = '".mysql_escape_string($P)."'";
+			if ($P) {
+				$q.= ", Passwd = '".mysql_escape_string($P)."'";
+			}
 			$q.= ", RealName = '".mysql_escape_string($R)."'";
 			$q.= ", LangPreference = '".mysql_escape_string($L)."'";
 			$q.= ", IRCNick = '".mysql_escape_string($I)."'";
@@ -340,7 +363,6 @@ function search_accounts_form() {
 	print "<td align='left'><select name=SB>\n";
 	print "<option value='u'> ".__("Username")."\n";
 	print "<option value='t'> ".__("Account Type")."\n";
-	print "<option value='e'> ".__("Email address")."\n";
 	print "<option value='r'> ".__("Real Name")."\n";
 	print "<option value='i'> ".__("IRC Nick")."\n";
 	print "<option value='v'> ".__("Last vote")."\n";
@@ -349,7 +371,7 @@ function search_accounts_form() {
 
 	print "<tr>";
 	print "<td>&nbsp;</td>";
-	print "<td align='left'>";
+	print "<td align='left'>&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;";
 	print "<input type='submit' value='".__("Search'")."> &nbsp; ";
 	print "<input type='reset' value='".__("Reset")."'></td>";
 	print "</tr>\n";
@@ -363,8 +385,9 @@ function search_accounts_form() {
 
 # search results page
 #
-function search_results_page($O=0,$SB="",$U="",$T="",
+function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		$S="",$E="",$R="",$I="") {
+	# UTYPE: what account type the user belongs to
 	# O: what row offset we're at
 	# SB: how to sort the results
 	# U: value to display for username
@@ -421,9 +444,6 @@ function search_results_page($O=0,$SB="",$U="",$T="",
 	switch ($SB) {
 		case 't':
 			$q.= "ORDER BY AccountTypeID, Username ";
-			break;
-		case 'e':
-			$q.= "ORDER BY Email, AccountTypeID ";
 			break;
 		case 'r':
 			$q.= "ORDER BY RealName, AccountTypeID ";
@@ -500,9 +520,15 @@ function search_results_page($O=0,$SB="",$U="",$T="",
 						: print __("Never");
 				print "</span></td>";
 				print "<td class='".$c."'><span class='f5'>";
-				$edit_url = "/account.php?Action=DisplayAccount&ID=".$row["ID"];
-				print "<a href='".$edit_url . "'>";
-				print "Edit</a></span></td>";
+				if ($UTYPE == "Trusted User" && $row["AccountType"] == "Developer") {
+					# TUs can't edit devs
+					#
+					print "&nbsp;</span></td>";
+				} else {
+					$edit_url = "/account.php?Action=DisplayAccount&ID=".$row["ID"];
+					print "<a href='".$edit_url . "'>";
+					print "Edit</a></span></td>";
+				}
 				print "</tr>\n";
 				$i++;
 			}

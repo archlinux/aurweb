@@ -246,4 +246,29 @@ $_t["en"]["You are not allowed to access this area."] = "You are not allowed to 
 # $_t["fr"]["You are not allowed to access this area."] = "--> Traduction française ici. <--";
 # $_t["de"]["You are not allowed to access this area."] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Use this form to create an account."] = "Use this form to create an account.";
+# $_t["es"]["Use this form to create an account."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Use this form to create an account."] = "--> Traduction française ici. <--";
+# $_t["de"]["Use this form to create an account."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Use this form to update your account."] = "Use this form to update your account.";
+# $_t["es"]["Use this form to update your account."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Use this form to update your account."] = "--> Traduction française ici. <--";
+# $_t["de"]["Use this form to update your account."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Leave the password fields blank to keep your same password."] = "Leave the password fields blank to keep your same password.";
+# $_t["es"]["Leave the password fields blank to keep your same password."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Leave the password fields blank to keep your same password."] = "--> Traduction française ici. <--";
+# $_t["de"]["Leave the password fields blank to keep your same password."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Could not retrieve information for the specified user."] = "Could not retrieve information for the specified user.";
+# $_t["es"]["Could not retrieve information for the specified user."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Could not retrieve information for the specified user."] = "--> Traduction française ici. <--";
+# $_t["de"]["Could not retrieve information for the specified user."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You do not have permission to edit this account."] = "You do not have permission to edit this account.";
+# $_t["es"]["You do not have permission to edit this account."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You do not have permission to edit this account."] = "--> Traduction française ici. <--";
+# $_t["de"]["You do not have permission to edit this account."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
