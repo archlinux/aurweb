@@ -13,7 +13,7 @@ DB_HOST   = "localhost"
 DB_NAME   = "AUR"
 DB_USER   = "aur"
 DB_PASS   = "aur"
-USER_ID   = 5          # Users.ID of first user
+USER_ID   = 5          # Users.ID of first bogus user
 PKG_ID    = 1          # Packages.ID of first package
 MAX_USERS = 500        # how many users to 'register'
 MAX_DEVS  = .1         # what percentage of MAX_USERS are Developers
@@ -123,8 +123,9 @@ if DBUG: print "Generating random user names..."
 user_id = USER_ID
 while len(seen_users) < MAX_USERS:
 	user = random.randrange(0, len(contents))
-	word = contents[user].strip().replace("'", "").replace(" ", "_")
-	if not seen_users.has_key(user):
+	word = contents[user].replace("'", "").replace(".","").replace(" ", "_")
+	word = word.strip().lower()
+	if not seen_users.has_key(word):
 		seen_users[word] = user_id
 		user_id += 1
 user_keys = seen_users.keys()
@@ -135,7 +136,8 @@ if DBUG: print "Generating random package names..."
 num_pkgs = PKG_ID
 while len(seen_pkgs) < MAX_PKGS:
 	pkg = random.randrange(0, len(contents))
-	word = contents[pkg].strip().replace("'", "").replace(" ", "_")
+	word = contents[pkg].replace("'", "").replace(".","").replace(" ", "_")
+	word = word.strip().lower()
 	if not need_dupes:
 		if not seen_pkgs.has_key(word) and not seen_users.has_key(word):
 			seen_pkgs[word] = num_pkgs
@@ -144,6 +146,10 @@ while len(seen_pkgs) < MAX_PKGS:
 		if not seen_pkgs.has_key(word):
 			seen_pkgs[word] = num_pkgs
 			num_pkgs += 1
+
+# free up contents memory
+#
+contents = None
 
 # Load package categories from database
 #

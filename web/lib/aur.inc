@@ -444,5 +444,28 @@ function dbug($msg) {
 	return;
 }
 
+# convert an ini_get number to a real integer - stupid PHP!
+#
+function initeger($inival="0", $isbytes=1) {
+	$last_char = strtolower(substr($inival, -1));
+	if ($isbytes) {
+		switch ($last_char) {
+			case 't': $multiplier = 1024 * 1024 * 1024; break;
+			case 'm': $multiplier = 1024 * 1024; break;
+			case 'k': $multiplier = 1024; break;
+			default:  $multiplier = 1; break;
+		}
+	} else {
+		switch ($last_char) {
+			case 't': $multiplier = 1000 * 1000 * 1000; break;
+			case 'm': $multiplier = 1000 * 1000; break;
+			case 'k': $multiplier = 1000; break;
+			default:  $multiplier = 1; break;
+		}
+	}
+
+	return intval($inival) * $multiplier;
+}
+
 # vim: ts=2 sw=2 noet ft=php
 ?>
