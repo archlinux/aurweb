@@ -1,0 +1,236 @@
+#!/usr/bin/python -O
+
+import re
+import os
+import sys
+
+# Define some classes we need
+class Version:
+  def __init__(self):
+    self.version = None
+    self.file = None
+
+class Package:
+  def __init__(self):
+    self.name = None
+    self.old = None
+    self.new = None
+
+# And a few convenience functions
+def filesForRegexp(topdir, regexp):
+  retval = []
+  def matchfile(regexp, dirpath, namelist):
+    for name in namelist:
+      if (regexp.match(name)):
+        retval.append(os.path.join(dirpath, name))
+  os.path.walk(topdir, matchfile, regexp)
+  return retval
+
+def packagesInTree(topdir):
+  return filesForRegexp(topdir, re.compile("^.*\.pkg\.tar\.gz$"))
+
+def pkgbuildsInTree(topdir):
+  return filesForRegexp(topdir, re.compile("^PKGBUILD$"))
+
+def parseAssignLine(line):
+  if (line == None):
+    return None
+  defline_re = re.compile("^\s*(?P<key>\w+)\s*=\s*(?P<value>.+)\s*$")
+  quote_re = re.compile("[\"']")
+  match = defline_re.match(line)
+  if (match != None):
+    key = match.group("key")
+    value = match.group("value")
+    value = quote_re.sub('', value)
+    return key, value
+  else:
+    return None
+
+def infoFromPkgbuild(filename):
+  fobj = file(filename)
+  lines = fobj.readlines()
+  fobj.close()
+
+  pkgname = None
+  pkgver = None
+  pkgrel = None
+
+  for line in lines:
+     result = parseAssignLine(line)
+     if (result != None):
+      key, value = result
+      if (key == "pkgname"):
+        pkgname = value
+      elif (key == "pkgver"):
+        pkgver = value
+      elif (key == "pkgrel"):
+        pkgrel = value
+  if (pkgname != None and pkgver != None and pkgrel != None):
+    return pkgname, pkgver + "-" + pkgrel
+  return None
+
+def infoFromPackageFile(filename):
+  regexp = re.compile("^(?P<pkgname>[^-]+)-(?P<version>[^-]+-[^\.]+)\.pkg\.tar\.gz$")
+  match = regexp.match(filename)
+  if (match != None):
+    return match.group("pkgname"), match.group("version")
+  return None
+
+def copyFileToRepo(filename, repodir):
+  destfile = os.path.join(repodir, os.path.basename(filename))
+  command = "cp '" + filename + "' '" + destfile + "'"
+  print(command + "\n")
+
+def deleteFile(filename):
+  command = "rm '" + filename + "'"
+  print(command + "\n")
+
+def runGensync(repo, pkgbuild):
+  target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
+  command = "gensync '" + pkgbuild_dir + "' '" + target + "'"
+  print(command + "\n")
+
+had_error = 0
+def error(string):
+  global had_error
+  print >>sys.stderr, string + "\n"
+  had_error = 1
+
+# ARGUMENTS
+#
+# tupkgupdate <repo_dir> <pkgbuild_dir> <build_dir>
+
+if (len(sys.argv) < 4):
+  print >>sys.stderr, "syntax: update-repository <repo_dir> <pkgbuild_tree> <build_tree>"
+  sys.exit(-1)
+
+repo_dir, pkgbuild_dir, build_dir = sys.argv[1:]
+
+# Set up the lists and tables
+packages = dict()
+copy = list()
+delete = list()
+
+# PASS 1: PARSING/LOCATING
+#  
+# A) Go through the PKGBUILD tree
+#    For each PKGBUILD, create a Package with new Version containing parsed version and and None for file
+
+a_files = pkgbuildsInTree(pkgbuild_dir)
+for a_file in a_files:
+  pkgname, ver = infoFromPkgbuild(a_file)
+
+  # Error (and skip) if we encounter any invalid PKGBUILD files
+  if (pkgname == None or ver == None):
+    error("Pkgbuild '" + a_file + "' is invalid!")
+    continue
+
+  # Error (and skip) if we encounter any duplicate package names
+  if (packages.get(pkgname)):
+    error("Pkgbuild '" + a_file + "' is a duplicate!")
+    continue
+  
+  version = Version()
+  version.version = ver
+  version.file = None
+
+  package = Package()
+  package.name = pkgname
+  package.new = version
+
+  packages[pkgname] = package
+
+# B) Go through the old repo dir
+#    For each package file we encounter, create a Package with old Version containing parsed version and filepath
+
+b_files = packagesInTree(repo_dir)
+for b_file in b_files:
+  pkgname, ver = infoFromPackageFile(b_file)
+  
+  version = Version()
+  version.version = ver
+  version.file = b_file
+
+  package = packages.get(pkgname)
+  if (package == None):
+    package = Package()
+    package.name = pkgname
+    packages[pkgname] = package
+  package.old = version
+
+# C) Go through the build tree
+#    For each package file we encounter:
+#      1 - look up the package name; if it fails, ignore the file (no error)
+#      2 - if package.new = None, ignore the package (no error)
+#      3 - if package.new.version doesn't match, then skip (no error)
+#      4 - if package.new.file = None, set the new version to point to that file
+#          otherwise, log an error (and skip)
+
+c_files = packagesInTree(build_dir)
+for c_file in c_files:
+  pkgname, ver = infoFromPackageFile(c_file)
+
+  # 1
+  package = packages.get(pkgname)
+  if (package == None):
+    continue
+  
+  # 2
+  if (package.new == None):
+    continue
+
+  # 3
+  if (package.new.version != ver):
+    continue
+
+  # 4
+  if (package.new.file == None):
+    package.new.file = c_file
+    continue
+  else:
+    error("Duplicate new file '" + c_file + "'")
+    continue
+
+# PASS 2: CHECKING
+#
+# Go through the package collection
+#   1 - if package has no new, place its file on the "delete" list
+#   2 - if package has a new but no new.file, error and skip
+#   3 - if package has no old, add new file to "copy" list into repo dir
+#   4 - if old > new, error and skip
+#
+#   if new and old are the same version, do nothing
+#   otherwise, add entry to "delete" list for old file and "copy" list for new file into repo dir with obvious name
+
+for package in packages.values():
+  if (package.new == None):
+    delete.append(package.old.file)
+    continue
+  if (package.new.file == None):
+    error("No new package supplied for " + package.name + " " + package.new.version + "!")
+    continue
+  if (package.old == None):
+    copy.append(package.new.file)
+  if (package.old.ver > package.new.ver):
+    error("Old package " + package.name + " " + package.old.version + " is newer than new version " + package.new.version + "!")
+    continue
+  if (package.old.ver < package.new.ver):
+    delete.append(package.old.file)
+    copy.append(package.new.file)
+  # do nothing if the packages are equal in version
+
+## IF WE HAVE HAD ANY ERRORS AT THIS POINT, ABORT! ##
+if (had_error == 1):
+  error("Aborting due to errors.")
+  sys.exit(-1)
+
+# PASS 3: EXECUTION
+#
+# Copy
+for file in copy:
+  copyFileToRepo(file, repo_dir)
+# Delete (second, for safety's sake)
+for file in delete:
+  deleteFile(file)
+# Run gensync to build the repo index
+runGensync(repo_dir, pkgbuild_dir)
