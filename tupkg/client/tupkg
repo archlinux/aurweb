@@ -121,14 +121,16 @@ def main(argv=None):
 		usage()
 		return 1
 
-	try:
-		fil = ClientFile(argv[1])
-	except IOError, err:
-		print "Error: " + err.strerror + ": '" + err.filename + "'"
-		usage()
-		return 1
+	files = []
+	for i in argv[1:]:
+		try:
+			files.append(ClientFile(i))
+		except IOError, err:
+			print "Error: " + err.strerror + ": '" + err.filename + "'"
+			usage()
+			return 1
 
-	cs = ClientSocket([fil], 'localhost', 1034, "bfinch@example.net", "B0b")
+	cs = ClientSocket(files, 'localhost', 1034, "bfinch@example.net", "B0b")
 	cs.connect()
 
 	if not cs.auth():

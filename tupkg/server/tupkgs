@@ -108,7 +108,14 @@ class ClientSocket(threading.Thread):
 
 	def readFiles(self):
 		for i in self.files:
-			i.fd.write(self.reliableRead(i.actual_size))
+			count = 0
+			while count != i.actual_size:
+				if count + 1024 > i.actual_size:
+					i.fd.write(self.reliableRead(i.actual_size - count))
+					count += i.actual_size - count
+				else:
+					i.fd.write(self.reliableRead(1024))
+					count += 1024
 			i.fd.flush()
 		reply = {'numpkgs': len(self.files)}
 		for i, v in enumerate(self.files):
