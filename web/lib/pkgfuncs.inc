@@ -142,6 +142,26 @@ function pkgvotes_from_sid($sid="") {
 }
 
 
+# get package details
+#
+function get_package_id_from_name($name="") {
+	global $_REQUEST;
+	global $pkgsearch_vars;
+	$pkg = 0;
+	$q = "SELECT ID ";
+	$q.= "FROM Packages ";
+ 	$q.= "WHERE Packages.Name = '".$name."'";
+	$dbh = db_connect();
+	$results = db_query($q, $dbh);
+	if (!$results) {
+	} else {
+		$pkg = mysql_fetch_assoc($results);
+		$pkg = $pkg['ID'];
+	}
+	return $pkg;
+}
+
+
 # display package details
 #
 function package_details($id=0) {
