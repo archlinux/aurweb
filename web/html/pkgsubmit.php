@@ -1,6 +1,7 @@
 <?
 include("aur.inc");         # access AUR common functions
 include("submit_po.inc");   # use some form of this for i18n support
+include("pkgfuncs.inc");    # package functions
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
@@ -14,12 +15,6 @@ $DBUG = 1;
 $UPLOAD_DIR = "/tmp/aur/temp/";
 $INCOMING_DIR = "/tmp/aur/incoming/";
 
-function exitError($msg) {
-  print "<span class='error'>" . $msg . "</span><br />\n";
-  print "</center>\n";
-  html_footer("\$Id$");
-  exit();
-}
 
 if ($_COOKIE["AURSID"]) {
 	# track upload errors
@@ -37,7 +32,9 @@ if ($_COOKIE["AURSID"]) {
 		if (!$_REQUEST["pkgname"]) {
 			$error = __("You did not specify a package name.");
 		} else {
-			$pkg_name = escapeshellarg($_REQUEST["pkgname"]);
+      $pkg_name = str_replace("'", "", $_REQUEST["pkgname"]);
+			$pkg_name = escapeshellarg($pkg_name);
+      $pkg_name = str_replace("'", "", $pkg_name); # get rid of single quotes
 			$presult = preg_match("/^[a-z][a-z0-9_-]*$/", $pkg_name);
 			if ($presult == FALSE || $presult <= 0) {
 				# FALSE => error processing regex, 0 => invalid characters
@@ -47,9 +44,7 @@ if ($_COOKIE["AURSID"]) {
 		}
 
     if (!$error && (!$_REQUEST["comments"] || $_REQUEST["comments"] == '')) {
-      $error = __("You must supply a comment.");
-    } else {
-      print exitError($error);
+      $error = __("You must supply a comment for this upload/change.");
     }
 
 		if (!$error) {
@@ -69,9 +64,14 @@ if ($_COOKIE["AURSID"]) {
 							array("<b>", $pkg_name, "</b>"));
 				}
 			}
-		} else {
-      print exitError($error);
     }
+
+    # TODO check to see if the user has the ability to 'change' package
+    # attributes such as location and/or category.  Examples: TUs can
+    # only add/change packages in Unsupported and the AUR, normal users
+    # can only add/change packages in Unsupported.
+    #
+
 
 		if (!$error) {
 			# no errors checking upload permissions, go ahead and try to process
@@ -93,36 +93,33 @@ if ($_COOKIE["AURSID"]) {
 				#
 				$error = __("Error trying to upload file - please try again.");
 			}
-		} else {
-      print exitError($error);
     }
 
 		# at this point, we can safely unpack the uploaded file and parse
 		# its contents.
 		#
-		if (!@mkdir($INCOMING_DIR.$pkg_name)) {
-			$error = __("Could not create incoming directory: %s.",
-					array($INCOMING_DIR.$pkg_name));
-		} else {
-			if (!@chdir($INCOMING_DIR.$pkg_name)) {
-				$error = __("Could not change directory to %s.",
-						array($INCOMING_DIR.$pkg_name));
-			} else {
-				# try .gz first
-				#
-				exec("/bin/sh -c 'tar xzf ".$upload_file."'", $retval);
-				if (!$retval) {
-					# now try .bz2 format
-					#
-					exec("/bin/sh -c 'tar xjf ".$upload_file."'", $retval);
-				}
-				if (!$retval) {
-					$error = __("Unknown file format for uploaded file.");
-				}
-			}
-		}
-    if ($error) {
-      print exitError($error);
+    if (!$error) {
+      if (!@mkdir($INCOMING_DIR.$pkg_name)) {
+        $error = __("Could not create incoming directory: %s.",
+            array($INCOMING_DIR.$pkg_name));
+      } else {
+        if (!@chdir($INCOMING_DIR.$pkg_name)) {
+          $error = __("Could not change directory to %s.",
+              array($INCOMING_DIR.$pkg_name));
+        } else {
+          # try .gz first
+          #
+          @exec("/bin/sh -c 'tar xzf ".$upload_file."'", $trash, $retval);
+          if (!$retval) {
+            # now try .bz2 format
+            #
+            @exec("/bin/sh -c 'tar xjf ".$upload_file."'", $trash, $retval);
+          }
+          if (!$retval) {
+            $error = __("Unknown file format for uploaded file.");
+          }
+        }
+      }
     }
 
 		# At this point, if no error exists, the package has been extracted
@@ -131,39 +128,41 @@ if ($_COOKIE["AURSID"]) {
 		# packaged without the $pkg_name subdirectory, try and create it
 		# and move the package contents into the new sub-directory.
 		#
-		if (is_dir($INCOMING_DIR.$pkg_name."/".$pkg_name) &&
-				is_file($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
-			# the files were packaged correctly
-			#
-			if (!chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
-				$error = __("Could not change to directory %s.",
-						array($INCOMING_DIR.$pkg_name."/".$pkg_name));
-			}
-			$pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
-		} elseif (is_file($INCOMING_DIR.$pkg_name."/PKGBUILD")) {
-			# not packaged correctly, but recovery may be possible.
-			# try and create $INCOMING_DIR.$pkg_name."/".$pkg_name and
-			# move package contents into the new dir
-			#
-			if (!@mkdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
-				$error = __("Could not create directory %s.",
-						array($INCOMING_DIR.$pkg_name."/".$pkg_name));
-			} else {
-				exec("/bin/sh -c 'mv * ".$pkg_name."'");
-				if (!file_exists($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
-					$error = __("Error exec'ing the mv command.");
-				}
-			}
-			if (!@chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
-				$error = __("Could not change to directory %s.",
-						array($INCOMING_DIR.$pkg_name."/".$pkg_name));
-			}
-			$pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
-		} else {
-			# some wierd packaging/extraction error - baal
-			#
-			$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
-		}
+    if (!$error) {
+      if (is_dir($INCOMING_DIR.$pkg_name."/".$pkg_name) &&
+          is_file($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
+        # the files were packaged correctly
+        #
+        if (!@chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+          $error = __("Could not change to directory %s.",
+              array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+        }
+        $pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
+      } elseif (is_file($INCOMING_DIR.$pkg_name."/PKGBUILD")) {
+        # not packaged correctly, but recovery may be possible.
+        # try and create $INCOMING_DIR.$pkg_name."/".$pkg_name and
+        # move package contents into the new dir
+        #
+        if (!@mkdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+          $error = __("Could not create directory %s.",
+              array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+        } else {
+          @exec("/bin/sh -c 'mv * ".$pkg_name."'");
+          if (!file_exists($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
+            $error = __("Error exec'ing the mv command.");
+          }
+        }
+        if (!@chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+          $error = __("Could not change to directory %s.",
+              array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+        }
+        $pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
+      } else {
+        # some wierd packaging/extraction error - baal
+        #
+        $error = __("Error trying to unpack upload - PKGBUILD does not exist.");
+      }
+    }
 
 		# if no error, get list of directory contents and process PKGBUILD
 		#
@@ -271,60 +270,64 @@ if ($_COOKIE["AURSID"]) {
 				}
 			}
     }
-    if ($error) {
-      print exitError($error);
+
+    # TODO This is where other additional error checking can be
+    # performed.  Examples: #md5sums == #sources?, md5sums of any
+    # included files match?, install scriptlet file exists?
+    #
+
+
+    # Now, run through the pkgbuild array and do any $pkgname/$pkgver
+    # substituions.
+    #
+    if (!$error) {
+      $pkgname_var = $pkgbuild["pkgname"];
+      $pkgver_var = $pkgbuild["pkgver"];
+      $new_pkgbuild = array();
+      while (list($k, $v) = each($pkgbuild)) {
+        $v = str_replace("\$pkgname", $pkgname_var, $v);
+        $v = str_replace("\$pkgver", $pkgver_var, $v);
+        $new_pkgbuild[$k] = $v;
+      }
     }
 
-    print "Groovy!!! - We're all set to populate the database!!<br />\n";
-    print "</center>\n";
-    html_footer("\$Id$");
-    exit();
-
-		# update the backend database if there are no errors
+		# update the backend database
 		#
-		if (!$error) {
-			$dbh = db_connect();
-			if ($pkg_exists) {
+    if (!$error) {
+      $dbh = db_connect();
+      if ($pkg_exists) {
 
-				# this is an overwrite of an existing package, the database ID
-				# needs to be preserved so that any votes are retained.  However,
-				# PackageDepends, PackageSources, and PackageContents can be
-				# purged.
-				#
-				$q = "SELECT * FROM Packages ";
-				$q.= "WHERE Name = '".mysql_escape_string($_FILES["pfile"]["name"])."'";
-				$result = db_query($q, $dbh);
-				$pdata = mysql_fetch_assoc($result);
+        # this is an overwrite of an existing package, the database ID
+        # needs to be preserved so that any votes are retained.  However,
+        # PackageDepends, PackageSources, and PackageContents can be
+        # purged.
+        #
+        $q = "SELECT * FROM Packages ";
+        $q.= "WHERE Name = '".mysql_escape_string($_FILES["pfile"]["name"])."'";
+        $result = db_query($q, $dbh);
+        $pdata = mysql_fetch_assoc($result);
 
-				# flush out old data that will be replaced with new data
-				#
-				$q = "DELETE FROM PackageContents WHERE PackageID = ".$pdata["ID"];
-				db_query($q, $dbh);
-				$q = "DELETE FROM PackageDepends WHERE PackageID = ".$pdata["ID"];
-				db_query($q, $dbh);
-				$q = "DELETE FROM PackageSources WHERE PackageID = ".$pdata["ID"];
-				db_query($q, $dbh);
+        # flush out old data that will be replaced with new data
+        #
+        $q = "DELETE FROM PackageContents WHERE PackageID = ".$pdata["ID"];
+        db_query($q, $dbh);
+        $q = "DELETE FROM PackageDepends WHERE PackageID = ".$pdata["ID"];
+        db_query($q, $dbh);
+        $q = "DELETE FROM PackageSources WHERE PackageID = ".$pdata["ID"];
+        db_query($q, $dbh);
 
-				# TODO
-				# $q = "UPDATE Packages ..."
+        # TODO
+        # $q = "UPDATE Packages ..."
 
         # $q = "INSERT INTO PackageUploadHistory ..."
 
-			} else {
-				# this is a brand new package
-				#
-				# TODO
-				# $q = "INSERT ..."
-			}
-		}
-
-		# TODO clean up on error?  How much cleaning to do?
-		#
-		if ($error) {
-			# TODO clean house (filesystem/database)
-			#
-		}
-
+      } else {
+        # this is a brand new package
+        #
+        # TODO
+        # $q = "INSERT ..."
+      }
+    }
 	}
 
 
@@ -337,6 +340,9 @@ if ($_COOKIE["AURSID"]) {
 				print "<span class='error'>".$error."</span><br />\n";
 				print "<br />&nbsp;<br />\n";
 			}
+      $pkg_categories = pkgCategories();
+      $pkg_locations = pkgLocations();
+
 			print "<form action='/pkgsubmit.php' method='post'";
 			print "	enctype='multipart/form-data'>\n";
 			print "<input type='hidden' name='pkgsubmit' value='1' />\n";
@@ -350,6 +356,28 @@ if ($_COOKIE["AURSID"]) {
 			print "<input type='text' name='pkgname' size='30' maxlength='15' />\n";
 			print "  </td>\n";
 			print "</tr>\n";
+      print "<tr>\n";
+      print "  <td span='f4' align='right'>";
+      print __("Package Category").":</td>\n";
+      print "  <td span='f4' align='left'>";
+      print "<select name='category'>";
+      print "<option value='0'> " . __("Select Category") . "</option>";
+      while (list($k, $v) = each($pkg_categories)) {
+        print "<option value='".$k."'> " . $v . "</option>";
+      }
+      print "</select></td>\n";
+      print "</tr>\n";
+      print "<tr>\n";
+      print "  <td span='f4' align='right'>";
+      print __("Package Location").":</td>\n";
+      print "  <td span='f4' align='left'>";
+      print "<select name='location'>";
+      print "<option value='0'> " . __("Select Location") . "</option>";
+      while (list($k, $v) = each($pkg_locations)) {
+        print "<option value='".$k."'> " . $v . "</option>";
+      }
+      print "</select></td>\n";
+      print "</tr>\n";
 			print "<tr>\n";
 			print "  <td span='f4' align='right'>";
 			print __("Upload package file").":</td>\n";
@@ -362,9 +390,9 @@ if ($_COOKIE["AURSID"]) {
 			print __("Overwrite existing package?");
 			print "  </td>\n";
 			print "  <td span='f4' align='left'>";
-			print "<input type='checkbox' name='overwrite' value='1'> ".__("Yes");
+			print "<input type='radio' name='overwrite' value='1'> ".__("Yes");
 			print "&nbsp;&nbsp;&nbsp;";
-			print "<input type='checkbox' name='overwrite' value='0' checked> ";
+			print "<input type='radio' name='overwrite' value='0' checked> ";
 			print __("No");
 			print "  </td>\n";
 			print "</tr>\n";

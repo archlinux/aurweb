@@ -512,11 +512,11 @@ function rm_rf($dirname="") {
 	$d = dir($dirname);
 	while ($f = $d->read()) {
 		if ($f != "." && $f != "..") {
-			if (is_dir($dirname.$f)) {
-				rm_rf($dirname.$f."/");
+			if (is_dir($dirname."/".$f)) {
+				rm_rf($dirname."/".$f);
 			}
-			if (is_file($dirname.$f) || is_link($dirname.$f)) {
-				unlink($dirname.$f);
+			if (is_file($dirname."/".$f) || is_link($dirname."/".$f)) {
+				unlink($dirname."/".$f);
 			}
 		}
 	}
