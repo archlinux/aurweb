@@ -24,9 +24,9 @@ if ($_COOKIE["AURSID"]) {
 			$error = __("You did not specify a package name.");
 		} else {
 			$pkg_name = escapeshellarg($_REQUEST["pkgname"]);
-			$presult = preg_match("/[^a-z_]/", $pkg_name);
-			if ($presult == FALSE || $presult > 0) {
-				# error processing regex, or invalid characters
+			$presult = preg_match("/^[a-z][a-z0-9_-]*$/", $pkg_name);
+			if ($presult == FALSE || $presult <= 0) {
+				# FALSE => error processing regex, 0 => invalid characters
 				#
 				$error = __("Invalid name: only lowercase letters are allowed.");
 			}
@@ -152,20 +152,51 @@ if ($_COOKIE["AURSID"]) {
 			}
 			$d->close();
 
-			# process PKGBIULD
+			# process PKGBIULD - remove line concatenation
 			#
 			$pkgbuild = array();
 			$fp = fopen($pkg_dir."/PKGBUILD", "r");
-			$seen_build_function = 0;
-			while (!feof($fp)) {
+			$line_no = 0;
+			$lines = array();
+			$continuation_line = 0;
+			$current_line = "";
+			while (!$feof($fp)) {
 				$line = trim(fgets($fp));
+				if (substr($line, strlen($line)-1) == "\\") {
+					# continue appending onto existing line_no
+					#
+					$current_line .= substr($line, 0, strlen($line)-1);
+					$continuation_line = 1;
+				} else {
+					# maybe the last line in a continuation, or a standalone line?
+					#
+					if ($continuation_line) {
+						# append onto existing line_no
+						#
+						$current_line .= $line;
+						$lines[$line_no] = $current_line;
+						$current_line = "";
+					} else {
+						# it's own line_no
+						#
+						$lines[$line_no] = $line;
+					}
+					$continuation_line = 0;
+					$line_no++;
+				}
+			}
+			fclose($fp);
+
+			$seen_build_function = 0;
+			while (list($k, $line) = each($lines)) {
+
 				$lparts = explode("=", $line);
 				if (count($lparts) == 2) {
 					# this is a variable/value pair
 					#
 					$pkgbuild[$lparts[0]] = $lparts[1];
 				} else {
-					# either a comment, blank line, or build function
+					# either a comment, blank line, continued line, or build function
 					#
 					if (substr($lparts[0], 0, 5) == "build") {
 						$seen_build_function = 1;
@@ -173,9 +204,10 @@ if ($_COOKIE["AURSID"]) {
 				}
 				if ($seen_build_function) {break;}
 			}
-			fclose($fp);
 
-			# some error checking on PKGBUILD contents
+			# some error checking on PKGBUILD contents - just make sure each
+			# variable has a value.  This does not do any validity checking
+			# on the values, or attempts to fix line continuation/wrapping.
 			#
 			if (!$seen_build_function) {
 				$error = __("Missing build function in PKGBUILD.");
