@@ -11,7 +11,7 @@ print _("Hi, this is worth reading!")."<br/>\n";
 
 
 html_footer("\$Id$");      # Use the $Id$ keyword
-                           # NOTE: when checking in a new file, use the
-                           # 'svn propset svn:keywords "Id" filename.php
+                           # NOTE: when checking in a new file, use
+                           # 'svn propset svn:keywords "Id" filename.php'
                            # to tell svn to expand the "Id" keyword.
 ?>
