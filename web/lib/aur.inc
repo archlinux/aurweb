@@ -33,7 +33,7 @@ function getTrustedUsers() {
 	$result = db_query($q, $dbh);
 	if ($result) {
 		while ($row = mysql_fetch_assoc($result)) {
-			$tus[] = $row;
+			$tus[$row["ID"]] = $row;
 		}
 	}
 	return $tus;
@@ -50,7 +50,7 @@ function getDevelopers() {
 	$result = db_query($q, $dbh);
 	if ($result) {
 		while ($row = mysql_fetch_assoc($result)) {
-			$devs[] = $row;
+			$devs[$row["ID"]] = $row;
 		}
 	}
 	return $devs;

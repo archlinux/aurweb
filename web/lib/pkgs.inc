@@ -114,7 +114,7 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 	print __("Location")."\n";
 	print "  <option value=p";
 	$SB == "p" ? print "selected> " : print "> ";
-	print __("Popularity")."\n";
+	print __("Votes")."\n";
 	print "  </select>\n";
 	print "</td>\n";
 
@@ -147,17 +147,9 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 	print "</center>\n";
 	print "<br />\n";
 
-	print "<center>\n";
-	print "<table cellspacing='3' class='boxSoft'>\n";
-	print "<tr>\n";
-	print "  <td class='boxSoftTitle' align='right'>\n";
-	print "    <span class='f3'Package Listing</span>\n";
-	print "  </td>\n";
-	print "  <td class='boxSoft'>\n";
-
 	# query to pull out package info
 	#
-	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Popularity ";
+	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Votes ";
 	$q.= "FROM Packages LEFT JOIN PackageVotes ";
 	$q.= "ON Packages.ID = PackageVotes.PackageID ";
 	$has_where = 0;
@@ -209,18 +201,54 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 		print "<table cellspacing='3' class='boxSoft'>\n";
 		print "<tr>\n";
 		print "  <td class='boxSoftTitle' align='right'>\n";
-		print "    <span class='f3'Package Listing</span>\n";
+		print "    <span class='f3'>Package Listing</span>\n";
 		print "  </td>\n";
+		print "</tr>\n";
+		print "<tr>\n";
 		print "  <td class='boxSoft'>\n";
+		print "<table width='100%' cellspacing='0' cellpadding='2'>\n";
+		print "<tr>\n";
+		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+		print " bottom'><span class='f2'>".__("Location")."</span></th>\n";
+		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+		print " bottom'><span class='f2'>".__("Category")."</span></th>\n";
+		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+		print " bottom'><span class='f2'>".__("Name")."</span></th>\n";
+		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+		print " bottom'><span class='f2'>".__("Votes")."</span></th>\n";
+		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+		print " bottom'><span class='f2'>".__("Description")."</span></th>\n";
+		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+		print " bottom'><span class='f2'>".__("Maintainer")."</span></th>\n";
+		print "</tr>\n";
 
-#		for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
-#			(($i % 2) == 0) ? $c = "data1" : $c = "data2";
-#			print "<tr>\n";
-#			print "<td ";
-#			print "</tr>\n";
-#
-#		}
-		print "Yippie!  You found some packages!";
+		for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
+			(($i % 2) == 0) ? $c = "data1" : $c = "data2";
+			print "<tr>\n";
+			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+			print $locs[$row["LocationID"]]."</span></span></td>\n";
+			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+			print $cats[$row["CategoryID"]]."</span></span></td>\n";
+			print "  <td class='".$c."'><span class='f4'><span class='blue'>";
+			print $row["Name"]."-".$row["Version"]."</span></span></td>\n";
+			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+			print "&nbsp;&nbsp;&nbsp;".$row["Votes"]."</span></span></td>\n";
+			print "  <td class='".$c."'><span class='f4'><span class='blue'>";
+			print $row["Description"]."</span></span></td>\n";
+			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+			if (isset($devs[$row["MaintainerUID"]])) {
+				print $devs[$row["MaintainerUID"]]["Username"];
+			} elseif (isset($tus[$row["MaintainerUID"]])) {
+				print $tus[$row["MaintainerUID"]]["Username"];
+			} else {
+				print "None";
+			}
+			print "</span></span></td>\n";
+
+			print "</tr>\n";
+
+		}
+		print "</table>\n";
 
 		print "  </td>\n";
 		print "</tr>\n";
@@ -228,11 +256,6 @@ function pkg_search_page($L="",$C="",$K="",$SB="",$O=0,$PP=25) {
 		print "</center>\n";
 	}
 
-
-	print "  </td>\n";
-	print "</tr>\n";
-	print "</table>\n";
-	print "</center>\n";
 	return;
 }
 

@@ -29,16 +29,23 @@ if (isset($_COOKIE["AURSID"])) {
 if ($atype && $_REQUEST["Action"] == "Something") {
 	# do something based on what the user specifies
 	#
+
 } elseif ($atype && $_REQUEST["Action"] == "SomethingElse") {
 	# do something else based on what the user specifies
 	#
+
+} elseif ($_REQUEST["Action"] == "SearchPkgs") {
+	# do something else based on what the user specifies
+	#
+	pkg_search_page($_REQUEST["L"], $_REQUEST["C"], $_REQUEST["K"],
+			$_REQUEST["SB"], $_REQUEST["O"], $_REQUEST["PP"]);
+
 } else {
 	# do the default thing - give the user a search form that they
 	# can specify: location, category, maintainer, name, 'my pkgs'
 	#
 	pkg_search_page();
 }
-print __("Under construction...")."<br />\n";
 
 
 html_footer("\$Id$");

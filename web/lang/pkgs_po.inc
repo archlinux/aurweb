@@ -61,4 +61,19 @@ $_t["en"]["Any"] = "Any";
 # $_t["fr"]["Any"] = "--> Traduction française ici. <--";
 # $_t["de"]["Any"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Votes"] = "Votes";
+# $_t["es"]["Votes"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Votes"] = "--> Traduction française ici. <--";
+# $_t["de"]["Votes"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Description"] = "Description";
+# $_t["es"]["Description"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Description"] = "--> Traduction française ici. <--";
+# $_t["de"]["Description"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["No packages matched your search criteria."] = "No packages matched your search criteria.";
+# $_t["es"]["No packages matched your search criteria."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["No packages matched your search criteria."] = "--> Traduction française ici. <--";
+# $_t["de"]["No packages matched your search criteria."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
