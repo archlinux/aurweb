@@ -531,6 +531,11 @@ function pkg_search_page($SID="") {
 		print "</td>\n";
 	}
 
+	print "<td align='right' valign='bottom'>&nbsp;\n";
+	print "  <input type='submit' class='button' name='do_Orphans'";
+	print " value='".__("Orphans")."'>\n";
+	print "</td>\n";
+
 	print "</tr>\n";
 	print "</table>\n";
 
@@ -590,7 +595,18 @@ function pkg_search_page($SID="") {
 			}
 		}
 	}
-
+	if ($_REQUEST["do_Orphans"]) {
+		# List packages that have neither a Maintainer nor AURMaintainer
+		#
+			if (!$has_where) {
+				$q.= "WHERE (AURMaintainerUID = 0 AND ";
+				$q.= "MaintainerUID = 0) ";
+				$has_where = 1;
+			} else {
+				$q.= "AND (AURMaintainerUID = 0 AND ";
+				$q.= "MaintainerUID = 0) ";
+			}
+	}
 	switch ($_REQUEST["SB"]) {
 		case 'c':
 			$q.= "ORDER BY CategoryID DESC, Name ASC, LocationID ASC ";
@@ -708,6 +724,9 @@ function pkg_search_page($SID="") {
 				if ($row["OutOfDate"]) {
 					print "<span style='background-color: red'>";
 				}
+				if ($row["MaintainerUID"]==0 && $row["AURMaintainerUID"]==0) {
+					print "<span style='background-color: cyan'>";
+				}	
 				print "<input type='checkbox' name='IDs[".$row["ID"]."]' value='1'>";
 #				if ($i == 0) {
 #					$all_ids = $row["ID"];

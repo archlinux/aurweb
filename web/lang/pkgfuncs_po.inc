@@ -202,4 +202,9 @@ $_t["en"]["Yes"] = "Yes";
 # $_t["fr"]["Yes"] = "--> Traduction française ici. <--";
 # $_t["de"]["Yes"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Orphans"] = "Orphans";
+# $_t["es"]["Orphans"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Orphans"] = "--> Traduction française ici. <--";
+# $_t["de"]["Orphans"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
