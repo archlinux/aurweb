@@ -20,4 +20,5 @@ print __("You have been successfully logged out.")."<br />\n";
 
 
 html_footer("\$Id$");
+# vim: ts=2 sw=2 et ft=php
 ?>

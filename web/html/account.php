@@ -126,5 +126,5 @@ if (isset($_COOKIE["AURSID"])) {
 }
 
 html_footer("\$Id$");
-# vim: ts=2 sw=2 noet ft=php
+# vim: ts=2 sw=2 et ft=php
 ?>

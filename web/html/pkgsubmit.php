@@ -18,23 +18,36 @@ if ($_COOKIE["AURSID"]) {
 	$error = "";
 
 	if ($_REQUEST["pkgsubmit"]) {
+		# If this var is set, then the visitor is uploading a file...
+		#
+		if (!$_REQUEST["pkgname"]) {
+			$error = __("You did not specify a package name.");
+		} else {
+			$pkg_name = escapeshellarg($_REQUEST["pkgname"]);
+			$presult = preg_match("/[^a-z_]/", $pkg_name);
+			if ($presult == FALSE || $presult > 0) {
+				# error processing regex, or invalid characters
+				#
+				$error = __("Invalid name: only lowercase letters are allowed.");
+			}
+		}
 
-		$pkg_name = escapeshellarg($_FILES["pfile"]["name"]);
-
-		# first, see if this package already exists, and if it can be overwritten
-	 	#	
-		$pkg_exists = package_exists($pkg_name);
-		if ($pkg_exists) {
-			# ok, it exists - should it be overwritten, and does the user have
-			# the permissions to do so?
-			#
-			if (can_overwrite_pkg($pkg_name, $_COOKIE["AURSID"])) {
-				if (!$_REQUEST["overwrite"]) {
-					$error = __("You did not tag the 'overwrite' checkbox.");
+		if (!$error) {
+			# first, see if this package already exists, and if it can be overwritten
+			#	
+			$pkg_exists = package_exists($pkg_name);
+			if ($pkg_exists) {
+				# ok, it exists - should it be overwritten, and does the user have
+				# the permissions to do so?
+				#
+				if (can_overwrite_pkg($pkg_name, $_COOKIE["AURSID"])) {
+					if (!$_REQUEST["overwrite"]) {
+						$error = __("You did not tag the 'overwrite' checkbox.");
+					}
+				} else {
+					$error = __("You are not allowed to overwrite the %h%s%h package.",
+							array("<b>", $pkg_name, "</b>"));
 				}
-			} else {
-				$error = __("You are not allowed to overwrite the %h%s%h package.",
-						array("<b>", $pkg_name, "</b>"));
 			}
 		}
 
@@ -87,9 +100,9 @@ if ($_COOKIE["AURSID"]) {
 
 		# At this point, if no error exists, the package has been extracted
 		# There should be a $INCOMING_DIR.$pkg_name."/".$pkg_name directory
-		# if the user packaged it correctly.  However, the final sub-directory
-		# may not exist, in which case, the files will live in,
-		# $INCOMING_DIR.$pkg_name.
+		# if the user packaged it correctly.  However, if the file was
+		# packaged without the $pkg_name subdirectory, try and create it
+		# and move the package contents into the new sub-directory.
 		#
 		if (is_dir($INCOMING_DIR.$pkg_name."/".$pkg_name) &&
 				is_file($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
@@ -101,7 +114,9 @@ if ($_COOKIE["AURSID"]) {
 			}
 			$pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
 		} elseif (is_file($INCOMING_DIR.$pkg_name."/PKGBUILD")) {
-			# not packaged correctly, but recovery is possible
+			# not packaged correctly, but recovery may be possible.
+			# try and create $INCOMING_DIR.$pkg_name."/".$pkg_name and
+			# move package contents into the new dir
 			#
 			if (!mkdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
 				$error = __("Could not create directory %s.",
@@ -141,7 +156,7 @@ if ($_COOKIE["AURSID"]) {
 			#
 			$pkgbuild = array();
 			$fp = fopen($pkg_dir."/PKGBUILD", "r");
-			$seen_build = 0;
+			$seen_build_function = 0;
 			while (!feof($fp)) {
 				$line = trim(fgets($fp));
 				$lparts = explode("=", $line);
@@ -153,16 +168,16 @@ if ($_COOKIE["AURSID"]) {
 					# either a comment, blank line, or build function
 					#
 					if (substr($lparts[0], 0, 5) == "build") {
-						$seen_build = 1;
+						$seen_build_function = 1;
 					}
 				}
-				if ($seen_build) {break;}
+				if ($seen_build_function) {break;}
 			}
 			fclose($fp);
 
 			# some error checking on PKGBUILD contents
 			#
-			if (!$seen_build) {
+			if (!$seen_build_function) {
 				$error = __("Missing build function in PKGBUILD.");
 			}
 			if (!array_key_exists("md5sums", $pkgbuild)) {
@@ -188,12 +203,15 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
-
 		# update the backend database if there are no errors
 		#
 		if (!$error) {
 			$dbh = db_connect();
 			if ($pkg_exists) {
+
+				# TODO add some kind of package history table - for who
+				# was the last person to upload, a timestamp, and maybe a
+				# comment about it too
 
 				# this is an overwrite of an existing package, the database ID
 				# needs to be preserved so that any votes are retained.  However,
@@ -236,6 +254,7 @@ if ($_COOKIE["AURSID"]) {
 
 
 	if (!$_REQUEST["pkgsubmit"] || $error) {
+		# User is not uploading, or there were errors uploading - then
 		# give the visitor the default upload form
 		#
 		if (ini_get("file_uploads")) {
@@ -251,7 +270,14 @@ if ($_COOKIE["AURSID"]) {
 			print "<table border='0' cellspacing='5'>\n";
 			print "<tr>\n";
 			print "  <td span='f4' align='right'>";
-			print __("Upload package").":</td>\n";
+			print __("Package name").":</td>\n";
+			print "  <td span='f4' align='left'>";
+			print "<input type='text' name='pkgname' size='30' maxlength='15' />\n";
+			print "  </td>\n";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td span='f4' align='right'>";
+			print __("Upload package file").":</td>\n";
 			print "  <td span='f4' align='left'>";
 			print "<input type='file' name='pfile' size='30' />\n";
 			print "  </td>\n";
@@ -292,4 +318,5 @@ if ($_COOKIE["AURSID"]) {
 
 print "</center>\n";
 html_footer("\$Id$");
+# vim: ts=2 sw=2 et ft=php
 ?>

@@ -39,4 +39,5 @@ print __("Hello, again!")."<br />\n";
 print "</ul>\n";
 print "</body>\n</html>";
 
+# vim: ts=2 sw=2 et ft=php
 ?>

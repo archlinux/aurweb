@@ -15,4 +15,5 @@ print __("Manage package ID: %s", array($_REQUEST["ID"])) . "<br />\n";
 
 
 html_footer("\$Id$");
+# vim: ts=2 sw=2 et ft=php
 ?>
