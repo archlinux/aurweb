@@ -287,5 +287,11 @@ for file in copy:
 # Delete (second, for safety's sake)
 for file in delete:
   deleteFile(file)
+# Now that we've copied new files and deleted, we should delete the source
+# files, if we're supposed to
+if (switches.get("--delete") == True):
+  for file in copy:
+    deleteFile(file)
 # Run gensync to build the repo index
-runGensync(repo_dir, pkgbuild_dir)
+if (len(copy) + len(delete) > 0):
+  runGensync(repo_dir, pkgbuild_dir)
