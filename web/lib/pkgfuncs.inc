@@ -576,6 +576,9 @@ function pkg_search_page($SID="") {
 			print "  <td align='center'>";
 			print "<input type='submit' class='button' name='do_Disown'";
 			print "	value='".__("Disown Packages")."'></td>\n";
+			#print "  <td align='center'>";
+			#print "<input type='submit' class='button' name='do_Delete'";
+			#print "	value='".__("Delete Packages")."'></td>\n";
 			print "  <td align='center'>";
 			print "<input type='submit' class='button' name='do_Vote'";
 			print "	value='".__("Vote")."'></td>\n";

@@ -10,5 +10,5 @@ print __("Click on the Home link above to log in.");
 print "</p>\n";
 
 html_footer("\$Id$");
-# vim: ts=2 sw=2 et ft=php
+# vim: ts=2 sw=2 noet ft=php
 ?>

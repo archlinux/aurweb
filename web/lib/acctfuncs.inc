@@ -265,7 +265,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			if (!$result) {
 				print __("Error trying to create account, %h%s%h: %s.",
 						array("<b>", $U, "</b>", mysql_error($dbh)));
-			} else  {
+			} else {
 				# account created/modified, tell them so.
 				#
 				print __("The account, %h%s%h, has been successfully created.",

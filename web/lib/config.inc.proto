@@ -3,4 +3,6 @@
 $UPLOAD_DIR = "/aur/temp/";
 $INCOMING_DIR = "/aur/incoming/";
 $URL_DIR = "/packages/";
+
+# vim: ts=2 sw=2 noet ft=php
 ?>

@@ -10,5 +10,5 @@ print __("If this problem persists, please contact the site administrator.");
 print "</p>\n";
 
 html_footer("\$Id$");
-# vim: ts=2 sw=2 et ft=php
+# vim: ts=2 sw=2 noet ft=php
 ?>

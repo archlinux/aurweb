@@ -155,7 +155,85 @@ if (isset($_REQUEST["do_Flag"])) {
 			print "</p>\n";
 		} else {
 			print "<p>\n";
-			print __("You did not select any packages to disowned.");
+			print __("You did not select any packages to disown.");
+			print "</p>\n";
+		}
+
+		pkgsearch_results_link();
+
+	}
+
+
+} elseif (isset($_REQUEST["do_Delete"])) {
+	if (!$atype) {
+		print __("You must be logged in before you can disown packages.");
+		print "<br />\n";
+
+	} else {
+		# Delete the packages in $ids array (but only if they are Unsupported)
+		#
+		if (!empty($ids)) {
+			$dbh = db_connect();
+
+			# Delete the packages in $ids array
+			#
+			$first = 1;
+			while (list($pid, $v) = each($ids)) {
+				if ($first) {
+					$first = 0;
+					$delete = $pid;
+				} else {
+					$delete .= ", ".$pid;
+				}
+			}
+			$atype = account_from_sid($_COOKIE["AURSID"]);
+			if ($atype == "Trusted User" || $atype == "Developer") {
+				$field = "AURMaintainerUID";
+			} elseif ($atype == "User") {
+				$field = "MaintainerUID";
+			} else {
+				$field = "";
+			}
+
+			if ($field) {
+				# Only grab Unsupported packages that "we" own or are not owned at all
+				#
+				$ids_to_delete = array();
+				$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
+				$q.= "WHERE Packages.ID IN (" . $delete . ") ";
+				$q.= "AND Packages.LocationsID = PackageLocations.ID ";
+				$q.= "AND PackageLocations.Location = 'Unsupported' ";
+				$q.= "AND (".$field." = ".uid_from_sid($_COOKIE["AURSID"]);
+				$q.= "OR (AURMaintainerUID = 0 AND MaintainerUID = 0))";
+				$result = db_query($q, $dbh);
+				while ($row = mysql_fetch_assoc($result)) {
+					$ids_to_delete[] = $row['ID'];
+				}
+
+				if (!empty($ids_to_delete)) {
+					# TODO These are the packages that are safe to delete
+					#
+					# 1) delete from PackageVotes
+					# 2) delete from PackageContents
+					# 3) delete from PackageDepends
+					# 4) delete from PackageSources
+					# 5) delete from PackageUploadHistory
+					# 6) delete from Packages
+					# TODO question: Now that the package as been deleted, does
+					#                the unsupported repo need to be regenerated?
+				} else {
+					print "<p>\n";
+					print __("None of the selected packages could be deleted.");
+					print "</p>\n";
+				}
+			}
+
+			print "<p>\n";
+			print __("The selected packages have been deleted.");
+			print "</p>\n";
+		} else {
+			print "<p>\n";
+			print __("You did not select any packages to delete.");
 			print "</p>\n";
 		}
 
@@ -196,6 +274,9 @@ if (isset($_REQUEST["do_Flag"])) {
 			}
 
 			if ($field) {
+				# NOTE: Only "orphaned" packages can be adopted at a particular
+				#       user class (TU/Dev or User).
+				#
 				$q = "UPDATE Packages ";
 				$q.= "SET ".$field." = ".uid_from_sid($_COOKIE["AURSID"])." ";
 				$q.= "WHERE ID IN (" . $adopt . ") ";
@@ -346,5 +427,5 @@ if (isset($_REQUEST["do_Flag"])) {
 }
 
 html_footer("\$Id$");
-# vim: ts=2 sw=2 et ft=php
+# vim: ts=2 sw=2 noet ft=php
 ?>
