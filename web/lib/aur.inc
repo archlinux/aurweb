@@ -11,6 +11,84 @@ $SUPPORTED_LANGS = array(
 	"fr" => 1, # Français
 );
 
+# see if the visitor is already logged in
+#
+function check_sid() {
+	global $_COOKIE;
+
+	if (isset($_COOKIE["AURSID"])) {
+		$failed = 0;
+		# the visitor is logged in, try and update the session
+		#
+		$dbh = db_connect();
+		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
+		$q.= "WHERE SessionID = '" . mysql_escape_string($_COOKIE["AURSID"]) . "'";
+		$result = mysql_query($q, $dbh);
+		if (!$result) {
+			$failed = 1;
+		} else {
+			if ($row[0] + 10 >= $row[1]) {
+				$failed = 1;
+			}
+		}
+		if ($failed) {
+			# visitor's session id either doesn't exist, or the timeout
+			# was reached and they must login again, send them back to
+			# the main page where they can log in again.
+			#
+			$q = "DELETE FROM Sessions WHERE SessionID = '";
+			$q.= mysql_escape_string($_COOKIE["AURSID"]) . "'";
+			mysql_query($q, $dbh);
+
+			setcookie("AURSID", "", time() - (60*60*24*30), "/");
+			header("Location: /timeout.php");
+		}
+	}
+
+	return;
+}
+
+# a new seed value for mt_srand()
+#
+function make_seed() {
+	list($usec, $sec) = explode(' ', microtime());
+	return (float) $sec + ((float) $usec * 10000);
+}
+
+# generate a (hopefully) unique session id
+#
+function new_sid() {
+	mt_srand(make_seed());
+	$ts = time();
+	$pid = getmypid();
+
+	$rand_num = mt_rand();
+	mt_srand(make_seed());
+	$rand_str = substr(md5(mt_rand()),2, 20);
+
+	$id = $rand_str . strtolower(md5($ts.$pid)) . $rand_num;
+	return strtoupper(md5($id));
+}
+
+# obtain the username if given their current SID
+#
+function username_from_sid($sid="") {
+	if (!$sid) {
+		return "";
+	}
+	$dbh = db_connect();
+	$q = "SELECT Email ";
+	$q.= "FROM Users, Sessions ";
+	$q.= "WHERE Users.ID = Sessions.UsersID ";
+	$q.= "AND SessionID = '" . mysql_escape_string($sid) . "'";
+	$result = mysql_query($q, $dbh);
+	if (!$result) {
+		return "";
+	}
+	$row = mysql_fetch_row($result);
+
+	return $row[0];
+}
 
 # connect to the database
 #
@@ -155,7 +233,7 @@ function html_footer($ver="") {
 	print "</table>\n";
 	print "<p>\n";
 	if ($ver) {
-		print "<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
+		print "<table border='0' cellpadding='0' cellspacing='0' width='97%'>\n";
 		print "<tr><td align='right'><span class='fix'>".$ver."</span></td></tr>\n";
 		print "</table>\n";
 	}
