@@ -20,6 +20,7 @@ import os.path
 import cgi
 import urllib
 import md5
+import getopt
 
 class ClientFile:
 	def __init__(self, pathname):
@@ -111,18 +112,45 @@ class ClientSocket:
 		self.sendMsg("ack")
 
 def usage():
-	print "usage: tupkg <package file>"
+	print "usage: tupkg [options] <package file>"
+	print "options:"
+	print "  -u, --user     Connect with username"
+	print "  -P, --password Connect with password"
+	print "  -h, --host     Connect to host"
+	print "  -p, --port     Connect to host on port (default 1034)"
 
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv
 
+	confdict = {}
+	confdict['user'] = ""
+	confdict['password'] = ""
+	confdict['host'] = ''
+	confdict['port'] = 1034
+
 	if len(argv) == 1:
 		usage()
 		return 1
 
+	try:
+		optlist, args = getopt.getopt(argv[1:], "u:P:h:p:", ["user=", "password=", "host=", "port="])
+	except getopt.GetoptError:
+		usage()
+		return 1
+
+	for i, k in optlist:
+		if i in ('-u', '--user'):
+			confdict['user'] = k
+		if i in ('-P', '--password'):
+			confdict['password'] = k
+		if i in ('-h', '--host'):
+			confdict['host'] = k
+		if i in ('-p', '--port'):
+			confdict['port'] = int(k)
+
 	files = []
-	for i in argv[1:]:
+	for i in args:
 		try:
 			files.append(ClientFile(i))
 		except IOError, err:
@@ -130,7 +158,7 @@ def main(argv=None):
 			usage()
 			return 1
 
-	cs = ClientSocket(files, 'localhost', 1034, "tu", "tu")
+	cs = ClientSocket(files, confdict['host'], confdict['port'], confdict['user'], confdict['password'])
 	cs.connect()
 
 	if not cs.auth():
