@@ -133,9 +133,11 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<td>&nbsp;</td>";
 	print "<td align='left'>";
 	if ($A == "UpdateAccount") {
-		print "<input type='submit' value='".__("Update")."'> &nbsp; ";
+		print "<input type='submit' class='button'";
+	 	print "	value='".__("Update")."'> &nbsp; ";
 	} else {
-		print "<input type='submit' value='".__("Create")."'> &nbsp; ";
+		print "<input type='submit' class='button'";
+		print " value='".__("Create")."'> &nbsp; ";
 	}
 	print "<input type='reset' value='".__("Reset")."'>";
 	print "</td>";
@@ -372,8 +374,10 @@ function search_accounts_form() {
 	print "<tr>";
 	print "<td>&nbsp;</td>";
 	print "<td align='left'>&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;";
-	print "<input type='submit' value='".__("Search'")."> &nbsp; ";
-	print "<input type='reset' value='".__("Reset")."'></td>";
+	print "<input type='submit' class='button'";
+	print " value='".__("Search'")."> &nbsp; ";
+	print "<input type='reset' class='button'";
+	print "	value='".__("Reset")."'></td>";
 	print "</tr>\n";
 
 	print "</table>\n";
@@ -546,7 +550,8 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				print "<input type='hidden' name='".$ind."'";
 				print " value='".${$ind}."'>\n";
 			}
-			print "<input type='submit' value='&lt;-- ".__("Less")."'>";
+			print "<input type='submit' class='button'";
+			print " value='&lt;-- ".__("Less")."'>";
 			print "</form>\n";
 			print "</td>";
 			print "<td align='right'>";
@@ -559,7 +564,8 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				print "<input type='hidden' name='".$ind."'";
 				print " value='".${$ind}."'>\n";
 			}
-			print "<input type='submit' value='".__("More")." --&gt;'>";
+			print "<input type='submit' class='button'";
+			print " value='".__("More")." --&gt;'>";
 			print "</form>\n";
 			print "</td>";
 			print "</tr>\n";

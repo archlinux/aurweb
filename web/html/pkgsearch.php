@@ -1,5 +1,6 @@
 <?
 include("aur.inc");         # access AUR common functions
+include("pkgs.inc");        # package specific functions
 include("search_po.inc");   # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
@@ -35,6 +36,7 @@ if ($atype && $_REQUEST["Action"] == "Something") {
 	# do the default thing - give the user a search form that they
 	# can specify: location, category, maintainer, name, 'my pkgs'
 	#
+	pkg_search_page();
 }
 print __("Under construction...")."<br/>\n";
 

@@ -98,7 +98,8 @@ if (!isset($_COOKIE["AURSID"])) {
 	print "</tr>\n";
 	print "<tr>\n";
 	print "<td colspan='2' align='right'>&nbsp;<br/>";
-	print "<input type='submit' value='".__("Login")."'></td>";
+	print "<input type='submit' class='button'";
+	print " value='".__("Login")."'></td>";
 	print "</tr>\n";
 	print "</table>\n";
 	print "</form>\n";
