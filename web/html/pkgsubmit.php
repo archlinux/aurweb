@@ -188,10 +188,17 @@ if ($_COOKIE["AURSID"]) {
 			$current_line = "";
 			while (!feof($fp)) {
 				$line = trim(fgets($fp));
+        $char_counts = count_chars($line, 0);
 				if (substr($line, strlen($line)-1) == "\\") {
 					# continue appending onto existing line_no
 					#
 					$current_line .= substr($line, 0, strlen($line)-1);
+					$continuation_line = 1;
+        } elseif ($char_counts[ord('(')] > $char_counts[ord(')')]) {
+          # assumed continuation
+					# continue appending onto existing line_no
+					#
+					$current_line .= $line . " ";
 					$continuation_line = 1;
 				} else {
 					# maybe the last line in a continuation, or a standalone line?
@@ -219,7 +226,6 @@ if ($_COOKIE["AURSID"]) {
       #
 			$seen_build_function = 0;
 			while (list($k, $line) = each($lines)) {
-
 				$lparts = explode("=", $line);
 				if (count($lparts) == 2) {
 					# this is a variable/value pair, strip out
@@ -286,7 +292,9 @@ if ($_COOKIE["AURSID"]) {
       $new_pkgbuild = array();
       while (list($k, $v) = each($pkgbuild)) {
         $v = str_replace("\$pkgname", $pkgname_var, $v);
+        $v = str_replace("\${pkgname}", $pkgname_var, $v);
         $v = str_replace("\$pkgver", $pkgver_var, $v);
+        $v = str_replace("\${pkgver}", $pkgver_var, $v);
         $new_pkgbuild[$k] = $v;
       }
     }
