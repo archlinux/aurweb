@@ -122,7 +122,7 @@ class PackageDatabase:
         "VALUES (" + str(id) + ", '" + source + "')")
     # PackageDepends
     for dep in package.depends:
-      depid = self.lookupOrDummy(dep, locationId)
+      depid = self.lookupOrDummy(dep)
       q.execute("INSERT INTO PackageDepends (PackageID, DepPkgID) " +
         "VALUES (" + str(id) + ", " + str(depid) + ")")
 

@@ -3,6 +3,8 @@ This is the list of things we need to get done by 2/15 in order to make a
 
 TIER 1 (critical)
 * a package should be made of tupkg client tool
+* tupkgupdate needs a way to find out what the repo is called; possibly a
+  file in the top level dir of the cvs repo called "NAME"?
 
 TIER 2 (pretty important)
 * tupkg and tupkgs should not output unhashed passwords
@@ -11,8 +13,13 @@ TIER 2 (pretty important)
 * add foreign key constraints with on delete cascade to make sure
   entries are not orphaned in PackageSources and PackageDepends
 * migrate to InnoDB tables?
+* tupkgupdate should not run gensync if repo is empty (but should delete
+  db file if it exists)
 
 TIER 3 (noncritical)
 * tupkgupdate should use updatesync instead of gensync - Paul
 * error message when a non TU tries to adopt packages
 * add method from the web for setting/changing package category
+* tupkgupdate should have a flag to keep it from modifying the repo if
+  suddenly all the PKGBUILDs disappear from the CVS dir (probably an error
+  not actual clearing house)
