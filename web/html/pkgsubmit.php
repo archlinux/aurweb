@@ -12,9 +12,9 @@ $DBUG = 1;
 
 # this is the directory that new packages will be uploaded to
 #
-$UPLOAD_DIR = "/aur/temp/";
-$INCOMING_DIR = "/aur/incoming/";
-
+$UPLOAD_DIR = "/tmp/aur/temp/";
+$INCOMING_DIR = "/tmp/aur/incoming/";
+$URL_DIR = "/packages/";
 
 if ($_COOKIE["AURSID"]) {
 	# track upload errors
@@ -164,6 +164,8 @@ if ($_COOKIE["AURSID"]) {
       }
     }
 
+    @exec("/bin/sh -c 'mv ".$upload_file." ".$INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"]."'");
+
 		# if no error, get list of directory contents and process PKGBUILD
 		#
 		if (!$error) {
@@ -226,7 +228,7 @@ if ($_COOKIE["AURSID"]) {
       #
 			$seen_build_function = 0;
 			while (list($k, $line) = each($lines)) {
-				$lparts = explode("=", $line);
+				$lparts = explode("=", $line, 2);
 				if (count($lparts) == 2) {
 					# this is a variable/value pair, strip out
 					# array parens and any quoting
@@ -303,17 +305,17 @@ if ($_COOKIE["AURSID"]) {
 		#
     if (!$error) {
       $dbh = db_connect();
-      if ($pkg_exists) {
+      # this is an overwrite of an existing package, the database ID
+      # needs to be preserved so that any votes are retained.  However,
+      # PackageDepends, PackageSources, and PackageContents can be
+      # purged.
+      #
+      $q = "SELECT * FROM Packages ";
+      $q.= "WHERE Name = '".mysql_escape_string($new_pkgbuild['pkgname'])."'";
+      $result = db_query($q, $dbh);
+      $pdata = mysql_fetch_assoc($result);
 
-        # this is an overwrite of an existing package, the database ID
-        # needs to be preserved so that any votes are retained.  However,
-        # PackageDepends, PackageSources, and PackageContents can be
-        # purged.
-        #
-        $q = "SELECT * FROM Packages ";
-        $q.= "WHERE Name = '".mysql_escape_string($new_pkgbuild['pkgname'])."'";
-        $result = db_query($q, $dbh);
-        $pdata = mysql_fetch_assoc($result);
+      if ($pdata) {
 
         # flush out old data that will be replaced with new data
         #
@@ -324,29 +326,76 @@ if ($_COOKIE["AURSID"]) {
         $q = "DELETE FROM PackageSources WHERE PackageID = ".$pdata["ID"];
         db_query($q, $dbh);
 
-        # TODO
-        # $q = "UPDATE Packages ..."
-        $q = "UPDATE Packages SET Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', Version='".mysql_escape_string($new_pkgbuild['pkgver'])."', CategoryID=".mysql_escape_string($_REQUEST['category']).", Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', URL='".mysql_escape_string($new_pkgbuild['url'])."', LocationID=".mysql_escape_string($_REQUEST['location'])." ";
+				# update package data
+				#
+        $q = "UPDATE Packages SET Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', Version='".mysql_escape_string($new_pkgbuild['pkgver'])."', CategoryID=".mysql_escape_string($_REQUEST['category']).", Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', URL='".mysql_escape_string($new_pkgbuild['url'])."', LocationID=".mysql_escape_string($_REQUEST['location']).", FSPath='".mysql_escape_string($INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."', URLPath='".mysql_escape_string($URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."' ";
         $q .= "WHERE ID = " . $pdata["ID"];
         $result = db_query($q, $dbh);
 
+        # TODO Need to contents
+
+#        while (list($k, $line) = each($lines)) {
+
+				# update package depends
+				#
+        $depends = explode(" ", $new_pkgbuild['depends']);
+        while (list($k, $v) = each($depends)) {
+          $q = "INSERT INTO PackageDepends (PackageID, DepPkgID) VALUES (";
+          $deppkgname = preg_replace("/[<>]?=.*/", "", $v);
+					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
+          $q .= $pdata["ID"].", ".$deppkgid.")";
+					print $q;
+					db_query($q, $dbh);
+        }
+
+        $sources = explode(" ", $new_pkgbuild['source']);
+        while (list($k, $v) = each($sources)) {
+          $q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
+          $q .= $pdata["ID"].", '".mysql_escape_string($v)."')";
+					print $q;
+					db_query($q, $dbh);
+        }
+
+				# add upload history
+				#
         $q = "INSERT INTO PackageUploadHistory (PackageID, UsersID, Comments, UploadTS) VALUES (";
         $q .= $pdata["ID"] . ", " . uid_from_sid($_COOKIE['AURSID']) . ", '" . mysql_escape_string($_REQUEST["comments"]) . "', UNIX_TIMESTAMP())";
         db_query($q);
-        # $q = "INSERT INTO PackageUploadHistory ..."
 
       } else {
         # this is a brand new package
         #
-        # TODO
-        # $q = "INSERT ..."
-        $q = "INSERT INTO Packages (Name, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID) ";
-        $q .= "VALUES ('".mysql_escape_string($new_pkgbuild['pkgname'])."', '".mysql_escape_string($new_pkgbuild['pkgver'])."', ".mysql_escape_string($_REQUEST['category']).", '".mysql_escape_string($new_pkgbuild['pkgdesc'])."', '".mysql_escape_string($new_pkgbuild['url'])."', ".mysql_escape_string($_REQUEST['location']).", UNIX_TIMESTAMP(), ".uid_from_sid($_COOKIE["AURSID"]).", ".uid_from_sid($_COOKIE["AURSID"]).")";
+        $q = "INSERT INTO Packages (Name, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) ";
+        $q .= "VALUES ('".mysql_escape_string($new_pkgbuild['pkgname'])."', '".mysql_escape_string($new_pkgbuild['pkgver'])."', ".mysql_escape_string($_REQUEST['category']).", '".mysql_escape_string($new_pkgbuild['pkgdesc'])."', '".mysql_escape_string($new_pkgbuild['url'])."', ".mysql_escape_string($_REQUEST['location']).", UNIX_TIMESTAMP(), ".uid_from_sid($_COOKIE["AURSID"]).", ".uid_from_sid($_COOKIE["AURSID"]).", '".mysql_escape_string($INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."', '".mysql_escape_string($URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"])."')";
         $result = db_query($q, $dbh);
 #        print $result . "<br>";
 
+				$packageID = mysql_insert_id($dbh);
+
+        # TODO Need to contents
+
+				# update package depends
+				#
+        $depends = explode(" ", $new_pkgbuild['depends']);
+        while (list($k, $v) = each($depends)) {
+          $q = "INSERT INTO PackageDepends (PackageID, DepPkgID) VALUES (";
+          $deppkgname = preg_replace("/[<>]?=.*/", "", $v);
+					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
+          $q .= $packageID.", ".$deppkgid.")";
+					db_query($q, $dbh);
+        }
+
+        $sources = explode(" ", $new_pkgbuild['source']);
+        while (list($k, $v) = each($sources)) {
+          $q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
+          $q .= $packageID.", '".mysql_escape_string($v)."')";
+					db_query($q, $dbh);
+        }
+
+				# add upload history
+				#
         $q = "INSERT INTO PackageUploadHistory (PackageID, UsersID, Comments, UploadTS) VALUES (";
-        $q .= mysql_insert_id($dbh) . ", " . uid_from_sid($_COOKIE["AURSID"]) . ", '" . mysql_escape_string($_REQUEST["comments"]) . "', UNIX_TIMESTAMP())";
+        $q .= $packageID . ", " . uid_from_sid($_COOKIE["AURSID"]) . ", '" . mysql_escape_string($_REQUEST["comments"]) . "', UNIX_TIMESTAMP())";
         db_query($q, $dbh);
       }
     }

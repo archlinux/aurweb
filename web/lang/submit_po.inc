@@ -171,4 +171,29 @@ $_t["en"]["Missing source variable in PKGBUILD."] = "Missing source variable in 
 # $_t["fr"]["Missing source variable in PKGBUILD."] = "--> Traduction française ici. <--";
 # $_t["de"]["Missing source variable in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Package Location"] = "Package Location";
+# $_t["es"]["Package Location"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Package Location"] = "--> Traduction française ici. <--";
+# $_t["de"]["Package Location"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Package Category"] = "Package Category";
+# $_t["es"]["Package Category"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Package Category"] = "--> Traduction française ici. <--";
+# $_t["de"]["Package Category"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Select Location"] = "Select Location";
+# $_t["es"]["Select Location"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Select Location"] = "--> Traduction française ici. <--";
+# $_t["de"]["Select Location"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Select Category"] = "Select Category";
+# $_t["es"]["Select Category"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Select Category"] = "--> Traduction française ici. <--";
+# $_t["de"]["Select Category"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You must supply a comment for this upload/change."] = "You must supply a comment for this upload/change.";
+# $_t["es"]["You must supply a comment for this upload/change."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You must supply a comment for this upload/change."] = "--> Traduction française ici. <--";
+# $_t["de"]["You must supply a comment for this upload/change."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

@@ -127,7 +127,7 @@ function create_dummy($pname="", $sid="") {
 		$q = "SELECT ID FROM Packages WHERE Name = '";
 		$q.= mysql_escape_string($pname)."'";
 		$result = db_query($q, $dbh);
-		if (!$result) {
+		if (!mysql_num_rows($result)) {
 			# Insert the dummy
 			#
 			$q = "INSERT INTO Packages (Name, Description, URL, SubmittedTS, ";
@@ -138,10 +138,10 @@ function create_dummy($pname="", $sid="") {
 			if (!$result) {
 				return NULL;
 			}
-			return mysql_insert_id($result);
+			return mysql_insert_id($dbh);
 		} else {
 			$data = mysql_fetch_row($result);
-			return $data['ID'];
+			return $data[0];
 		}
 	}
 	return NULL;
