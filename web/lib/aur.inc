@@ -140,6 +140,24 @@ function new_sid() {
 }
 
 
+# obtain the username if given their Users.ID
+#
+function username_from_id($id="") {
+	if (!$id) {
+		return "";
+	}
+	$dbh = db_connect();
+	$q = "SELECT Username FROM Users WHERE ID = " . mysql_escape_string($id);
+	$result = db_query($q, $dbh);
+	if (!$result) {
+		return "None";
+	}
+	$row = mysql_fetch_row($result);
+
+	return $row[0];
+}
+
+
 # obtain the username if given their current SID
 #
 function username_from_sid($sid="") {

@@ -20,6 +20,8 @@ MAX_DEVS  = .1         # what percentage of MAX_USERS are Developers
 MAX_TUS   = .2         # what percentage of MAX_USERS are Trusted Users
 MAX_PKGS  = 2500       # how many packages to load
 PKG_FILES = (8, 30)    # min/max number of files in a package
+PKG_DEPS  = (1, 5)     # min/max depends a package has
+PKG_SRC   = (1, 3)     # min/max sources a package has
 VOTING    = (0, .30)   # percentage range for package voting
 RANDOM_PATHS = [       # random path locations for package files
 	"/usr/bin", "/usr/lib", "/etc", "/etc/rc.d", "/usr/share", "/lib",
@@ -27,6 +29,10 @@ RANDOM_PATHS = [       # random path locations for package files
 	"/usr/X11R6/lib", "/usr/libexec", "/usr/man/man1", "/usr/man/man3",
 	"/usr/man/man5", "/usr/X11R6/man/man1", "/etc/profile.d"
 ]
+RANDOM_TLDS = ["edu", "com", "org", "net", "tw", "ru", "pl", "de", "es"]
+RANDOM_URL = ["http://www.", "ftp://ftp.", "http://", "ftp://"]
+RANDOM_LOCS = ["pub", "release", "files", "downloads", "src"]
+
 
 import random
 import time
@@ -326,6 +332,38 @@ for u in user_keys:
 for p in track_votes.keys():
 	s = "UPDATE Packages SET NumVotes = %d WHERE ID = %d;\n" % (track_votes[p], p)
 	out.write(s)
+
+# Create package dependencies and sources
+#
+if DBUG: print "."; print "Creating statements for package depends/sources.",
+count = 0
+for p in seen_pkgs.keys():
+	num_deps = random.randrange(PKG_DEPS[0], PKG_DEPS[1])
+	this_deps = {}
+	i = 0
+	while i != num_deps:
+		dep = random.randrange(0, len(seen_pkgs))
+		if not this_deps.has_key(dep):
+			s = "INSERT INTO PackageDepends VALUES (%d, %d);\n" % (seen_pkgs[p], dep)
+			out.write(s)
+			i += 1
+
+	num_sources = random.randrange(PKG_SRC[0], PKG_SRC[1])
+	for i in range(num_sources):
+		src_file = user_keys[random.randrange(0, len(user_keys))]
+		src = "%s%s.%s/%s/%s-%s.tar.gz" % (
+				RANDOM_URL[random.randrange(0,len(RANDOM_URL))],
+				p, RANDOM_TLDS[random.randrange(0,len(RANDOM_TLDS))],
+				RANDOM_LOCS[random.randrange(0,len(RANDOM_LOCS))],
+				src_file, genVersion())
+		s = "INSERT INTO PackageSources VALUES (%d, '%s');\n" % (
+				seen_pkgs[p], src)
+		out.write(s)
+
+	if count % 100 == 0:
+		if DBUG: print ".",
+	count += 1
+
 
 # close output file
 #

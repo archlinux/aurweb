@@ -108,7 +108,6 @@ CREATE TABLE Packages (
 	CategoryID TINYINT UNSIGNED NOT NULL,
 	Description CHAR(128) NOT NULL DEFAULT "An Arch Package",
 	URL CHAR(255) NOT NULL DEFAULT "http://www.archlinux.org",
-	Source CHAR(255) NOT NULL DEFAULT "/dev/null",
 	LocationID TINYINT UNSIGNED NOT NULL,
 	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
 	OutOfDate TINYINT UNSIGNED DEFAULT 0,
@@ -130,6 +129,24 @@ CREATE TABLE Packages (
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (AURMaintainerUID) REFERENCES Users(ID) ON DELETE NO ACTION
+);
+
+
+-- Track which dependencies a package has
+--
+CREATE TABLE PackageDepends (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	DepPkgID INTEGER UNSIGNED NOT NULL,
+	INDEX (PackageID)
+);
+
+
+-- Track which sources a package has
+--
+CREATE TABLE PackageSources (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	Source CHAR(255) NOT NULL DEFAULT "/dev/null",
+	INDEX (PackageID)
 );
 
 

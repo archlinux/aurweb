@@ -33,10 +33,51 @@ function pkgLocations() {
 	return $locs;
 }
 
+# grab package dependencies
+#
+function package_dependencies($pkgid=0) {
+	$deps = array();
+	if ($pkgid) {
+		$dbh = db_connect();
+		$q = "SELECT DepPkgID, Name FROM PackageDepends, Packages ";
+		$q.= "WHERE PackageDepends.DepPkgID = Packages.ID ";
+		$q.= "AND PackageDepends.PackageID = ".mysql_escape_string($pkgid);
+		$q.= " ORDER BY Name";
+		$result = db_query($q, $dbh);
+		if (!$result) {return array();}
+		while ($row = mysql_fetch_row($result)) {
+			$deps[] = $row;
+		}
+	}
+	return $deps;
+}
+
+# grab package sources
+#
+function package_sources($pkgid=0) {
+	$sources = array();
+	if ($pkgid) {
+		$dbh = db_connect();
+		$q = "SELECT Source FROM PackageSources ";
+		$q.= "WHERE PackageID = ".mysql_escape_string($pkgid);
+		$q.= " ORDER BY Source";
+		$result = db_query($q, $dbh);
+		if (!$result) {return array();}
+		while ($row = mysql_fetch_row($result)) {
+			$sources[] = $row[0];
+		}
+	}
+	return $sources;
+}
+
 # display package details
 #
 function package_details($id=0) {
-	$q = "SELECT * FROM Packages WHERE ID = ".intval($_REQUEST["ID"]);
+	$q = "SELECT *,Location,Category ";
+	$q.= "FROM Packages,PackageLocations,PackageCategories ";
+ 	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
+	$q.= "AND Packages.CategoryID = PackageCategories.ID ";
+	$q.= "ANd Packages.ID = ".intval($_REQUEST["ID"]);
 	$dbh = db_connect();
 	$results = db_query($q, $dbh);
 	if (!$results) {
@@ -63,7 +104,64 @@ function package_details($id=0) {
 			print "<center>\n";
 			print "<table>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><span class='f2'>NAME</span></td>\n";
+			print "  <td colspan='2'><span class='f2'>";
+			print $row["Name"] . "-" . $row["Version"]."</span></td>\n";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><span class='f3'>";
+			print "<a href='".$row["URL"]."'>".$row["URL"]."</a></span></td>\n";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><span class='f3'>".$row["Description"];
+			print "</a></span></td>\n";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><img src='/images/pad.gif' height='30'></td>";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><span class='f3'>";
+			print $row["Location"]." :: ".$row["Category"]."</span></td>";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><span class='f3'>".__("Maintainer").": ";
+			if (isset($row["AURMaintainerUID"])) {
+				$maintainer = username_from_id($row["AURMaintainerUID"]);
+			} elseif (isset($row["MaintainerUID"])) {
+				$maintainer = username_from_id($row["MaintainerUID"]);
+			} else {
+				$maintainer = "None";
+			}
+			print $maintainer . "</span></td>";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><img src='/images/pad.gif' height='30'></td>";
+			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td valign='top' style='padding-right: 10'>";
+			print "<table class='boxSoft' style='width: 200px'>";
+			print "<tr><td class='boxSoftTitle'><span class='f3'>";
+			print "Dependencies</span></td></tr>\n";
+			print "<tr><td class='boxSoft'>";
+			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name');
+			while (list($k, $darr) = each($deps)) {
+				print $darr[0]." - ".$darr[1]."<br />\n";
+			}
+			print "</td></tr>\n";
+			print "</table></td>";
+
+			print "  <td valign='top'>";
+			print "<table class='boxSoft' style='width: 200px'>";
+			print "<tr><td class='boxSoftTitle'><span class='f3'>";
+			print "Sources</span></td></tr>\n";
+			print "<tr><td class='boxSoft'>";
+			$sources = package_sources($row["ID"]); # $sources[0] = 'src';
+			while (list($k, $src) = each($sources)) {
+				# TODO left off here... URLify
+				print $src."<br />\n";
+			}
+			print "</td></tr>\n";
+			print "</table></td>";
+
 			print "</tr>\n";
 
 			print "</table>\n";
