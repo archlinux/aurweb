@@ -1,4 +1,5 @@
 <?
+include_once("config.inc");
 include_once("aur_po.inc");
 
 # TODO do we need to set the domain on cookies?  I seem to remember some
@@ -257,12 +258,10 @@ function uid_from_sid($sid="") {
 # connect to the database
 #
 function db_connect() {
-	# NOTE: modify these variables if your MySQL setup is different
-	#
-	$AUR_db_host = "localhost:/tmp/mysql.sock";
-	$AUR_db_name = "AUR";
-	$AUR_db_user = "aur";        # XXX use something better when deploying
-	$AUR_db_pass = "aur";        # XXX use something better when deploying
+  global $AUR_db_host;
+  global $AUR_db_name;
+  global $AUR_db_user;
+  global $AUR_db_pass;
 
 	$handle = mysql_pconnect($AUR_db_host, $AUR_db_user, $AUR_db_pass);
 	if (!$handle) {
