@@ -83,8 +83,7 @@ class PackageDatabase:
       "FSPath = '" + MySQLdb.escape_string(
          os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
       "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
-      "URL = '" + MySQLdb.escape_string(str(package.url)) + "', " +
-      "LocationID = " + str(locationId) + " " +
+      "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
       "WHERE ID = " + str(id))
     self.insertNewInfo(package, id, locationId)
     # we must lastly check to see if this is a move of a package from

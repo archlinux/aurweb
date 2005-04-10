@@ -39,7 +39,7 @@ a TU thinks a package is interesting or has received enough votes,
 the TU may choose to adopt the package. The TU builds the package,
 performs some rudimentary testing, and adds it
 to the community repository, where it can be accessed by any user subscribing
-to the AUR repository by running pacman -S. From that point on, the TU
+to the community repository by running pacman -S. From that point on, the TU
 will maintain the
 package in the community repository, and all updates for the package must go
 through a TU.<br>
@@ -64,12 +64,12 @@ lost.<br>
 Flyspray is incredibly easy to use. Take a moment to create an account
 as soon as you can.<br>
 <br>
-<h3>Using the AUR Repository</h3>
-To access the AUR repository from pacman, add the following to your
+<h3>Using the Community Repository</h3>
+To access the community repository from pacman, add the following to your
 pacman.conf:<br>
 <br>
 <code>[community]<br>
-	Server = ftp://ftp.archlinux.org/community</code><br>
+	Server = ftp://aur.archlinux.org/community/os/i686</code><br>
 <br>
 <h3>What The AUR Means to a Community Member</h3>
 If you're an Arch Linux community member, the AUR represents a giant
@@ -96,7 +96,7 @@ the package contents and build other packages yourself.</li>
 <h3>What The AUR Means to a Trusted User (TU) or an Arch Developer<br>
 </h3>
 If you are an Arch Linux Trusted User (TU) or an Arch developer, and
-you want to get started on the beta, do the following:<br>
+you want to get started putting packages in the community repo, do the following:<br>
 <ol>
   <li>Set your machine up to access the community repository.</li>
   <li>Run <code>pacman -S tupkg</code> to download the TU package
@@ -143,7 +143,7 @@ aur.archlinux.org --user &lt;userid&gt; --password &lt;password&gt;
 &lt;packagefile.pkg.tar.gz&gt;</code><br>
     <br>
 Note that this is your <span style="font-weight: bold;">AUR login
-password</span> -- the one you assign when you create your account, not
+and password</span> -- the one you assign when you create your account, not
 your CVS password, in case they are different.<br>
   </li>
   <li>Once your packages are uploaded successfully, tag the newly
