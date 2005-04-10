@@ -257,22 +257,23 @@ def execute(command):
   global switches
   print(command)
   if not (switches.get("-n") == True):
-    os.system(command)
+    return os.system(command)
+  return 0
 
 def copyFileToRepo(filename, repodir):
   destfile = os.path.join(repodir, os.path.basename(filename))
-  command = "cp -p '" + filename + "' '" + destfile + "'"
-  execute(command)
+  command = "cp --preserve=timestamps '" + filename + "' '" + destfile + "'"
+  return execute(command)
 
 def deleteFile(filename):
   command = "rm '" + filename + "'"
-  execute(command)
+  return execute(command)
 
 def runGensync(repo, pkgbuild):
 #target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
   target = os.path.join(repo, "community.db.tar.gz")
   command = "gensync '" + pkgbuild_dir + "' '" + target + "'"
-  execute(command)
+  return execute(command)
 
 ############################################################
 # Functions for error handling
@@ -492,7 +493,10 @@ for package in dbmodify:
 
 # Copy
 for file in copy:
-  copyFileToRepo(file, repo_dir)
+  retval = copyFileToRepo(file, repo_dir)
+  if (retval != 0):
+    error("Could not copy file to repo: '" + file + "'")
+    sys.exit(-1)
 # Delete (second, for safety's sake)
 for file in delete:
   deleteFile(file)
@@ -503,4 +507,7 @@ if (switches.get("--delete") == True):
     deleteFile(file)
 # Run gensync to build the repo index
 if (len(copy) + len(delete) > 0):
-  runGensync(repo_dir, pkgbuild_dir)
+  retval = runGensync(repo_dir, pkgbuild_dir)
+  if (retval != 0):
+    error("Gensync returned an error!")
+    sys.exit(-1)
