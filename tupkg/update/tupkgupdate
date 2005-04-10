@@ -29,6 +29,7 @@ class Version:
 class Package:
   def __init__(self):
     self.name = None
+    self.category = None
     self.old = None
     self.new = None
     self.desc = None
@@ -56,11 +57,15 @@ class PackageDatabase:
     return None
   def insert(self, package, locationId):
     warning("DB: Inserting package: " + package.name)
+    category_id = lookupCategory(package.category)
+    if (category_id == None):
+      category_id = 1
     global repo_dir
     q = self.cursor()
     q.execute("INSERT INTO Packages " +
-      "(Name, Version, FSPath, LocationID, Description, URL) VALUES ('" +
-      MySQLdb.escape_string(package.name) + "', '" +
+      "(Name, CategoryID, Version, FSPath, LocationID, Description, URL) VALUES ('" +
+      MySQLdb.escape_string(package.name) + "', " + 
+      str(category_id) + ", '" +
       MySQLdb.escape_string(package.new.version) + "', '" +
       MySQLdb.escape_string(
         os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
@@ -98,6 +103,14 @@ class PackageDatabase:
     if (retval != None):
       return retval
     return self.createDummy(packagename)
+  def lookupCategory(self, categoryname):
+    warning("DB: Looking up category: " + categoryname)
+    q = self.cursor()
+    q.execute("SELECT ID from PackageCategories WHERE Category = '" + MySQLdb.escape_string(categoryname) + "'")
+    if (q.rowcount != 0):
+      row = q.fetchone()
+      return row[0]
+    return None
   def createDummy(self, packagename):
     warning("DB: Creating dummy package for: " + packagename)
     q = self.cursor()
@@ -165,6 +178,14 @@ def infoFromPackageFile(filename):
   return pkg.name, pkg.version + "-" + pkg.release
 
 def infoFromPkgbuildFile(filename):
+  # first grab the category based on the file path
+  directory = os.path.dirname(os.path.abspath(filename))
+  m = re.match(r".*/([^/]+)$", directory)
+  if (m):
+    category = m.group(1)
+  else:
+    category = "none"
+
   # open and source the file
   pf_stdin, pf_stdout = os.popen2("/bin/bash", 't', 0)
   print >>pf_stdin, ". " + filename
@@ -207,7 +228,7 @@ def infoFromPkgbuildFile(filename):
   pf_stdin.close()
   pf_stdout.close()
 
-  return pkgname, pkgver + "-" + pkgrel, pkgdesc, url, depends, source
+  return pkgname, pkgver + "-" + pkgrel, pkgdesc, url, depends, source, category
 
 def infoFromPkgbuildFileWorse(filename):
   # load the file with pacman library
@@ -296,7 +317,7 @@ dbmodify = list()
 
 a_files = pkgbuildsInTree(pkgbuild_dir)
 for a_file in a_files:
-  pkgname, ver, desc, url, depends, sources = infoFromPkgbuildFile(a_file)
+  pkgname, ver, desc, url, depends, sources, category = infoFromPkgbuildFile(a_file)
 
   # Error (and skip) if we encounter any invalid PKGBUILD files
   if (pkgname == None or ver == None):
@@ -315,6 +336,7 @@ for a_file in a_files:
 
   package = Package()
   package.name = pkgname
+  package.category = category
   package.desc = desc
   package.url = url
   package.depends = depends
