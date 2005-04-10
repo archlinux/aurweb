@@ -55,17 +55,20 @@ class PackageDatabase:
       row = q.fetchone()
       return row[0]
     return None
-  def insert(self, package, locationId):
-    warning("DB: Inserting package: " + package.name)
-    category_id = lookupCategory(package.category)
+  def getCategoryID(self, package):
+    category_id = self.lookupCategory(package.category)
     if (category_id == None):
       category_id = 1
+    warning("DB: Got category ID '" + str(category_id) + "' for package '" + package.name + "'")
+    return category_id
+  def insert(self, package, locationId):
+    warning("DB: Inserting package: " + package.name)
     global repo_dir
     q = self.cursor()
     q.execute("INSERT INTO Packages " +
       "(Name, CategoryID, Version, FSPath, LocationID, Description, URL) VALUES ('" +
       MySQLdb.escape_string(package.name) + "', " + 
-      str(category_id) + ", '" +
+      str(self.getCategoryID(package)) + ", '" +
       MySQLdb.escape_string(package.new.version) + "', '" +
       MySQLdb.escape_string(
         os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
@@ -80,6 +83,7 @@ class PackageDatabase:
     q = self.cursor()
     q.execute("UPDATE Packages SET " +
       "Version = '" + MySQLdb.escape_string(package.new.version) + "', " +
+      "CategoryID = " + str(self.getCategoryID(package)) + ", " +
       "FSPath = '" + MySQLdb.escape_string(
          os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
       "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
@@ -187,8 +191,9 @@ def infoFromPackageFile(filename):
 
 def infoFromPkgbuildFile(filename):
   # first grab the category based on the file path
-  directory = os.path.dirname(os.path.abspath(filename))
-  m = re.match(r".*/([^/]+)$", directory)
+  pkgdirectory = os.path.dirname(filename)
+  catdirectory = os.path.dirname(pkgdirectory)
+  m = re.match(r".*/([^/]+)$", catdirectory)
   if (m):
     category = m.group(1)
   else:

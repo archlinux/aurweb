@@ -323,7 +323,11 @@ function package_details($id=0) {
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>";
-			print "<a href='".$row['URLPath']."'>Tarball</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."'>Files</a></span></td>";
+			if ($row["LocationID"] == 2) {
+			  print "<a href='".$row['URLPath']."'>Tarball</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."'>Files</a></span></td>";
+			} elseif ($row["LocationID"] == 3) {
+			  print "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
+			}
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><img src='/images/pad.gif' height='30'></td>";
