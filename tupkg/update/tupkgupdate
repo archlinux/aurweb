@@ -87,6 +87,15 @@ class PackageDatabase:
       "LocationID = " + str(locationId) + " " +
       "WHERE ID = " + str(id))
     self.insertNewInfo(package, id, locationId)
+    # we must lastly check to see if this is a move of a package from
+    # unsupported to community, because we'd have to reset maintainer and location
+    q = self.cursor()
+    q.execute("SELECT LocationID FROM Packages WHERE ID = " + str(id))
+    if (q.rowcount != 0):
+      row = q.fetchone()
+      if (row[0] != 3):
+        q = self.cursor()
+	q.execute("UPDATE Packages SET LocationID = 3, MaintainerUID = null WHERE ID = " + str(id))
   def remove(self, id, locationId):
     warning("DB: Removing package with id: " + str(id))
     q = self.cursor()
@@ -256,7 +265,8 @@ def deleteFile(filename):
   execute(command)
 
 def runGensync(repo, pkgbuild):
-  target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
+#target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
+  target = os.path.join(repo, "community.db.tar.gz")
   command = "gensync '" + pkgbuild_dir + "' '" + target + "'"
   execute(command)
 
