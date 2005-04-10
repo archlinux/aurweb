@@ -99,15 +99,12 @@ If you are an Arch Linux Trusted User (TU) or an Arch developer, and
 you want to get started putting packages in the community repo, do the following:<br>
 <ol>
   <li>Set your machine up to access the community repository.</li>
-  <li>Run <code>pacman -S tupkg</code> to download the TU package
-download tool.<br>
+  <li>Run <code>pacman -S aurtools</code> to download the AUR client tool.<br>
   </li>
   <li>Visit the <a href="http://aur.archlinux.org">AUR Site</a>.</li>
   <li>Create a new user account, using your usual user id.<br>
   </li>
-  <li>Email on the TU or developer email list list and ask to have your login modified to modified to have TU/developer status.<br>
-This
-step is necessary so we can make sure that the right people are getting the right access.<br>
+  <li>If your web account does not already have TU or developer status, send an email to the TU or developer email list list and ask to have your login modified to have TU/developer status. This step is necessary so we can make sure that the right people are getting the right access.<br>
   </li>
   <li>Check out the CVS tree for the community repository. To do this,
 execute the following commands:<br>
@@ -120,7 +117,7 @@ CVSROOT=":pserver:&lt;userid&gt;@cvs.archlinux.org:/home/cvs-community"<br>
 If you're
 a TU, you should already have an account in this new
 repository. If you are a developer, email Jason (jason at archlinux dot
-org) and he'll set up access for you.<br>
+org) and he'll set up access for you if you'd like.<br>
   </li>
   <li>Build binary packages for things you wish to place in the community repo,
 and add the PKGBUILD and accompanying necessary files to the CVS
@@ -138,8 +135,7 @@ cvs commit</code><br>
  style="font-family: monospace;">:<br>
     </span><code><br>
 tupkg
---host
-aur.archlinux.org --user &lt;userid&gt; --password &lt;password&gt;
+--user &lt;userid&gt; --password &lt;password&gt;
 &lt;packagefile.pkg.tar.gz&gt;</code><br>
     <br>
 Note that this is your <span style="font-weight: bold;">AUR login
@@ -157,8 +153,7 @@ repository. Verify that they appear both in the web interface and
 become
 available via <code>pacman -Sy &lt;package&gt;</code> from the community
 repository.</li>
-<li>Select the newly added or updated package in the AUR web
-interface and set yourself as the maintainer.<br>
+<li>If this package is new to the community repository, select the package in the AUR web interface and set yourself as the maintainer.<br>
   </li>
 </ol>
 </body>
