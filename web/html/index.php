@@ -78,7 +78,7 @@ print "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
 print "<tr>\n";
 print "  <td align='left' valign='top'>";
 ?>
-Welcome to the AUR! If you're a newcomer, you may want to read the <a href="user_docs.html">User Documentation</a>.
+Welcome to the AUR! If you're a newcomer, you may want to read the <a href="user_docs.html">User Documentation</a> and the <a href="guidelines.html">Guidelines</a>.
 <?php
 #print __("This is where the intro text will go.");
 #print __("For now, it's just a place holder.");

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nohup /home/aur/aur/tupkg/server/tupkgs -c /home/aur/tupkgs.conf >/home/aur/tupkgs.log 2>&1 &

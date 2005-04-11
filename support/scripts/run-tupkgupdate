@@ -1,0 +1,16 @@
+#/bin/bash
+
+echo "-----"
+date
+
+# update the cvs tree
+cd /home/aur/cvs
+cvs update -d
+cd -
+
+# sleep to avoid running into judd's permissions script!!
+#sleep 30
+
+# it's tupkgupdate <repodir> <cvsdir> <incomingdir>
+/home/aur/aur/tupkg/update/tupkgupdate --delete --paranoid /home/ftp/community/os/i686 /home/aur/cvs /home/aur/packages/full
+date
