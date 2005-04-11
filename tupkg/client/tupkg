@@ -126,7 +126,7 @@ def main(argv=None):
 	confdict = {}
 	confdict['user'] = ""
 	confdict['password'] = ""
-	confdict['host'] = ''
+	confdict['host'] = 'aur.archlinux.org'
 	confdict['port'] = 1034
 
 	if len(argv) == 1:
