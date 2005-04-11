@@ -1,0 +1,3 @@
+Versions of AUR Mapped to Subversion Revisions
+----------------------------------------------
+Version 1.0 = Revision 146 = at Launch (4/11/05)
