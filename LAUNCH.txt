@@ -1,13 +1,4 @@
-This is the list of things we need to get done by 2/15 in order to make a
-3/1 launch happen. Feel free to add items to it as they come up, and put "DONE" next to things as you finish them.
-
-TIER 1 (critical)
-* a package should be made of tupkg client tool - DONE
-* tupkgupdate needs a way to find out what the repo is called; possibly a
-  file in the top level dir of the cvs repo called "NAME"?
-
 TIER 2 (pretty important)
-* tupkg and tupkgs should not output unhashed passwords (apparently DONE?)
 * config file capability for tupkg client in user's homedir
 * email notification of errors in tupkgupdate - Paul
 * add foreign key constraints with on delete cascade to make sure
