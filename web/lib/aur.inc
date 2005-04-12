@@ -129,7 +129,7 @@ function check_sid() {
 # verify that an email address looks like it is legitimate
 #
 function valid_email($addy) {
-	return eregi("^[a-z0-9\._-]+@+[a-z0-9\._-]+\.+[a-z]{2,3}$", $addy);
+	return eregi("^[a-z0-9\._-]+@+[a-z0-9\._-]+\.+[a-z]{2,4}$", $addy);
 }
 
 # a new seed value for mt_srand()
