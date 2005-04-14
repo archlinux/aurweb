@@ -1,7 +1,14 @@
 <?php
+# NOTE: modify these variables if your MySQL setup is different
+#
+$AUR_db_host = "localhost:/tmp/mysql.sock";
+$AUR_db_name = "aur";
+$AUR_db_user = "aur"; 
+$AUR_db_pass = "aur";
+
 # Configuration of directories where things live
-$UPLOAD_DIR = "/aur/temp/";
-$INCOMING_DIR = "/aur/incoming/";
+$UPLOAD_DIR = "/home/aur/unsupported-temp/";
+$INCOMING_DIR = "/home/aur/unsupported/";
 $URL_DIR = "/packages/";
 
 # vim: ts=2 sw=2 noet ft=php
