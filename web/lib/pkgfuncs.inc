@@ -402,9 +402,9 @@ function package_details($id=0) {
 							      "<i>",date("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
 					print "</span>";
 					print "<tr><td class='boxSoft'>";
-					print "<pre>\n";
+					print "<code>\n";
 					print str_replace('"',"&quot;", stripslashes($carr["Comments"]));
-					print "</pre>\n";
+					print "</code>\n";
 					print "</td></tr>\n";
 					print "</table>\n";
 					print "  </td>\n";
