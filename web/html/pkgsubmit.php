@@ -480,7 +480,7 @@ if ($_COOKIE["AURSID"]) {
 			print __("Package Category").":</td>\n";
 			print "	<td span='f4' align='left'>";
 			print "<select name='category'>";
-			print "<option value='19'> " . __("Select Category") . "</option>";
+			print "<option value='1'> " . __("Select Category") . "</option>";
 			while (list($k, $v) = each($pkg_categories)) {
 				print "<option value='".$k."'> " . $v . "</option>";
 			}
