@@ -329,6 +329,7 @@ if ($_COOKIE["AURSID"]) {
 				# update package data
 				#
 				$q = "UPDATE Packages SET ";
+				$q.= "DummyPkg = 0, ";
 				$q.="Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', ";
 				$q.="Version='".mysql_escape_string($new_pkgbuild['pkgver'])."-".
 				  mysql_escape_string($new_pkgbuild['pkgrel'])."',";
