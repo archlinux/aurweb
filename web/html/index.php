@@ -123,6 +123,6 @@ print "</tr>\n";
 print "</table>\n";
 
 
-html_footer("\$Id$");
+html_footer("<b>Version 1.0.1</b> \$Id$");
 # vim: ts=2 sw=2 noet ft=php
 ?>
