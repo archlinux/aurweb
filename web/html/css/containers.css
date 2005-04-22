@@ -167,13 +167,13 @@
 	{
 		background-color: #eee;
 		vertical-align: top;
-		padding-left: 5;
+		padding-left: .3em;
 	}
 	td.data2
 	{
 		background-color: #ddd;
 		vertical-align: top;
-		padding-left: 5;
+		padding-left: .3em;
 	}
 	td.text
 	{
