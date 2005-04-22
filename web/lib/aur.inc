@@ -13,9 +13,10 @@ include_once("aur_po.inc");
 $LOGIN_TIMEOUT = 1800;           # number of idle seconds before timeout
 $SUPPORTED_LANGS = array(        # what languages we have translations for
 	"en" => "English",
-	"es" => "Español",
-	"de" => "Deutsch",
-	"fr" => "Français",
+	# Eventually we will comment these in, when they are ready - PJM - 4/2005
+	#	"es" => "Español",
+	#	"de" => "Deutsch",
+	#	"fr" => "Français",
 );
 
 # debugging variables
@@ -386,7 +387,7 @@ function html_header() {
 	# XXX CSS help - a:link, a:visited, etc are defined, but I don't want to
 	# use the defaults.  Is this the way to override them?
 	#
-	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=en'><span class='sideBarSmallHeader'>English</span></a> ";
+	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=en'><span class='sideBarSmallHeader'>English</span></a> ";
 	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=es'><span class='sideBarSmallHeader'>Español</span></a> ";
 	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=de'><span class='sideBarSmallHeader'>Deutsch</span></a> ";
 	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=fr'><span class='sideBarSmallHeader'>Français</span></a>";
