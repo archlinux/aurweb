@@ -67,6 +67,11 @@ if ($_COOKIE["AURSID"]) {
 		# can only add/change packages in Unsupported.
 		#
 
+		#Before processing, make sure we even have a file
+		#
+		if ($_FILES['pfile']['size'] == 0){
+			$error = __("Error - No file uploaded");
+			}
 
 		if (!$error) {
 			# no errors checking upload permissions, go ahead and try to process

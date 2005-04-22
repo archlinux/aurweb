@@ -201,4 +201,9 @@ $_t["en"]["Package upload successful."] = "Package upload successful.";
 # $_t["fr"]["Package upload successful"] = "--> Traduction française ici. <--";
 # $_t["de"]["Package upload successful"] = "--> Deutsche Übersetzung hier. <--";
 
+$_t["en"]["Error - No file uploaded"] = "Error - No file uploaded";
+# $_t["es"]["Package upload successful"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Package upload successful"] = "--> Traduction française ici. <--";
+# $_t["de"]["Package upload successful"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
