@@ -879,6 +879,12 @@ function pkg_search_page($SID="") {
 		print "    <input type='submit' class='button' name='do_Less'";
 		print " value='&lt;-- ".__("Less")."'>\n";
 		print "    </td>\n";
+		if ($SID) {
+			print "    <td align='center'><span class='f5'>\n";
+			print "      <font style='background-color: cyan'>O</font>rphan&nbsp;&nbsp;&nbsp;&nbsp;\n";
+			print "      <font style='background-color: red'>O</font>ut-of-Date\n";
+			print "    </span></td>\n";
+		}
 		print "    <td align='right'>";
 		print "    <input type='submit' class='button' name='do_More'";
 		print " value='".__("More")." --&gt;'>\n";
