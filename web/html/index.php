@@ -80,6 +80,7 @@ print "  <td align='left' valign='top'>";
 ?>
 <p>Welcome to the AUR! If you're a newcomer, you may want to read the <a href="guidelines.html">Guidelines</a>.</p>
 <p>If you have feedback about the AUR, please leave it in <a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">Flyspray</a>.</p>
+<p>Though we can't vouch for their contents, we provide a <a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">list of user repositories</a> for your convenience.</p>
 <?php
 #print __("This is where the intro text will go.");
 #print __("For now, it's just a place holder.");
