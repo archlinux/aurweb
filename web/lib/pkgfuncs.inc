@@ -403,7 +403,7 @@ function package_details($id=0) {
 					print "</span>";
 					print "<tr><td class='boxSoft'>";
 					print "<code>\n";
-					print str_replace('"',"&quot;", htmlspecialchars(strip_tags(stripslashes($carr["Comments"]))));
+					print str_replace("\n", "<br>", str_replace('"',"&quot;", htmlspecialchars(strip_tags(stripslashes($carr["Comments"])))));
 					print "</code>\n";
 					print "</td></tr>\n";
 					print "</table>\n";
