@@ -21,6 +21,7 @@ import cgi
 import urllib
 import md5
 import getopt
+import ConfigParser
 
 class ClientFile:
 	def __init__(self, pathname):
@@ -118,20 +119,36 @@ def usage():
 	print "  -P, --password Connect with password"
 	print "  -h, --host     Connect to host"
 	print "  -p, --port     Connect to host on port (default 1034)"
+	print "May also use conf file: ~/.tupkg"
 
 def main(argv=None):
 	if argv is None:
 		argv = sys.argv
 
 	confdict = {}
-	confdict['user'] = ""
-	confdict['password'] = ""
-	confdict['host'] = 'aur.archlinux.org'
-	confdict['port'] = 1034
-
-	if len(argv) == 1:
-		usage()
-		return 1
+	conffile = os.path.join(os.getenv("HOME"),".tupkg") #try the standard location
+	#Set variables from file now, may be overridden on command line
+	if os.path.isfile(conffile):
+		config = ConfigParser.ConfigParser()
+		config.read(conffile)
+		confdict['user'] = config.get('tupkg','username')
+		confdict['password'] = config.get('tupkg','password')
+		try:
+			confdict['host'] = config.get('tupkg','host')
+		except:
+			confdict['host'] = 'aur.archlinux.org'
+		try:
+			confdict['port'] =  config.get('tupkg','port')
+		except:
+			confdict['port'] = 1034
+	else:
+		confdict['user'] = ""
+		confdict['password'] = ""
+		confdict['host'] = 'aur.archlinux.org'
+		confdict['port'] = 1034
+		if len(argv) == 1: #no config file and no args, bail
+			usage()
+			return 1
 
 	try:
 		optlist, args = getopt.getopt(argv[1:], "u:P:h:p:", ["user=", "password=", "host=", "port="])
