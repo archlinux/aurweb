@@ -334,7 +334,13 @@ if ($_COOKIE["AURSID"]) {
 				# update package data
 				#
 				$q = "UPDATE Packages SET ";
-				$q.= "DummyPkg = 0, ";
+				# if the package was a dummy, undummy it and change submitter
+				# also give it a maintainer so we dont go making an orphan
+				if ($pdata['DummyPkg'] == 1) {
+					$q.= "DummyPkg = 0, ";
+					$q.= "SubmitterUID = ".uid_from_sid($_COOKIE["AURSID"]).", ";
+					$q.= "MaintainerUID = ".uid_from_sid($_COOKIE["AURSID"]).", ";
+				}
 				$q.="Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', ";
 				$q.="Version='".mysql_escape_string($new_pkgbuild['pkgver'])."-".
 				  mysql_escape_string($new_pkgbuild['pkgrel'])."',";
