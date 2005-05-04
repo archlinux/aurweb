@@ -233,10 +233,14 @@ if ($_COOKIE["AURSID"]) {
 				$lparts = explode("=", $line, 2);
 				if (count($lparts) == 2) {
 					# this is a variable/value pair, strip out
-					# array parens and any quoting
+					# array parens and any quoting, except in pkgdesc
 					#
-					$pkgbuild[$lparts[0]] = str_replace(array("(",")","\"","'"), "",
-							$lparts[1]);
+					if ($lparts[0]=="pkgdesc") {
+						$pkgbuild[$lparts[0]] = trim($lparts[1], "\"\' ");
+					} else {
+						$pkgbuild[$lparts[0]] = str_replace(array("(",")","\"","'"), "",
+								$lparts[1]);
+					}
 				} else {
 					# either a comment, blank line, continued line, or build function
 					#
