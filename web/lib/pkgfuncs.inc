@@ -675,6 +675,7 @@ function pkg_search_page($SID="") {
 			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID DESC ";
 			break;
 	}
+	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth
 	$q.= "LIMIT ".$O.", ".$PP;
 
 	$result = db_query($q, $dbh);
@@ -876,8 +877,10 @@ function pkg_search_page($SID="") {
 		print "  <table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
 		print "  <tr>\n";
 		print "    <td align='left'>";
-		print "    <input type='submit' class='button' name='do_Less'";
-		print " value='&lt;-- ".__("Less")."'>\n";
+		if (($O-$PP) >= 0) {
+			print "    <input type='submit' class='button' name='do_Less'";
+			print " value='&lt;-- ".__("Less")."'>\n";
+		}
 		print "    </td>\n";
 		if ($SID) {
 			print "    <td align='center'><span class='f5'>\n";
@@ -886,8 +889,10 @@ function pkg_search_page($SID="") {
 			print "    </span></td>\n";
 		}
 		print "    <td align='right'>";
-		print "    <input type='submit' class='button' name='do_More'";
-		print " value='".__("More")." --&gt;'>\n";
+		if (mysql_num_rows(db_query($qnext, $dbh))) {
+			print "    <input type='submit' class='button' name='do_More'";
+			print " value='".__("More")." --&gt;'>\n";
+		}
 		print "    </td>\n";
 		print "  </tr>\n";
 		print "  </table>\n";
