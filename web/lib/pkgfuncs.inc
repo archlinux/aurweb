@@ -246,7 +246,7 @@ function pkgvotes_from_sid($sid="") {
 
 # display package details
 #
-function package_details($id=0) {
+function package_details($id=0, $SID="") {
 	global $_REQUEST;
 	global $pkgsearch_vars;
 	$q = "SELECT Packages.*,Location,Category ";
@@ -392,10 +392,12 @@ function package_details($id=0) {
 					print "  <td valign='top' style='padding-right: 10' colspan='2'>";
 					print "<table class='boxSoft' width='100%'>";
 					print "<tr><td class='boxSoftTitle'><span class='f3'>";
-					$durl = "<a href='/pkgedit.php?del_Comment=1";
-					$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
-					$durl.= "'><img src='/images/x.png' border='0'";
-					$durl.= " alt=\"".__("Delete comment")."\"></a>";
+					if (canDeleteComment($carr["ID"], account_from_sid($SID), $SID)) {
+						$durl = "<a href='/pkgedit.php?del_Comment=1";
+						$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
+						$durl.= "'><img src='/images/x.png' border='0'";
+						$durl.= " alt=\"".__("Delete comment")."\"></a>";
+					}
 					print $durl . "&nbsp;&nbsp;";
 					print __("Comment by: %h%s%h on %h%s%h",
 							array("<b>",$carr["UserName"],"</b>",
@@ -423,6 +425,21 @@ function package_details($id=0) {
 			print __("Add Comment")."\">";
 			print "</form>\n";
 			print "  </td>";
+			if ($SID) {
+				print "<td><form action='/packages.php' method='post'>\n";
+				print "<input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
+				print "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+				$q = "SELECT * FROM PackageVotes WHERE UsersID = ".uid_from_sid($SID);
+				$q.= " AND PackageID = ".$row["ID"];
+				if (!mysql_num_rows(db_query($q, $dbh))) {
+					print "<input type='submit' class='button' name='do_Vote'";
+					print " value='".__("Vote")."'>";
+				} else {
+					print "<input type='submit' class='button' name='do_UnVote'";
+					print " value='".__("Un-Vote")."'>";
+				}
+				print "</form></td>\n";
+			}
 			print "</tr>\n";
 
 			print "</table>\n";

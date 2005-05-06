@@ -372,7 +372,11 @@ if (isset($_REQUEST["do_Flag"])) {
 			print "</p>\n";
 		}
 
-		pkgsearch_results_link();
+		if (isset($_REQUEST["ID"])) {
+			pkgdetails_link($_REQUEST["ID"]);
+		} else {
+			pkgsearch_results_link();
+		}
 
 	}
 
@@ -425,7 +429,11 @@ if (isset($_REQUEST["do_Flag"])) {
 			print "</p>\n";
 		}
 
-		pkgsearch_results_link();
+		if (isset($_REQUEST["ID"])) {
+			pkgdetails_link($_REQUEST["ID"]);
+		} else {
+			pkgsearch_results_link();
+		}
 
 	}
 
@@ -436,10 +444,11 @@ if (isset($_REQUEST["do_Flag"])) {
 		print __("Error trying to retrieve package details.")."<br />\n";
 		
 	} else {
-		package_details($_REQUEST["ID"]);
+		package_details($_REQUEST["ID"], $_COOKIE["AURSID"]);
 	}
 
 	print "<br />\n";
+	# FIXME: If someone hits the detail page's vote button, this link dies
 	pkgsearch_results_link();
 
 
