@@ -371,8 +371,13 @@ function package_details($id=0, $SID="") {
 				else 
 				{
 					//It is presumably an internal source
-					print "<a href='".dirname($row['URLPath'])."/".$row['Name'];
-					print "/".$src."'>".$src."</a><br />\n";
+					if ($row["LocationID"] == 2) {
+						print "<a href='".dirname($row['URLPath'])."/".$row['Name'];
+						print "/".$src."'>".$src."</a><br />\n";
+					} elseif ($row["LocationID"] == 3) {
+						print "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/*checkout*/".$row["Category"]."/".$row["Name"]."/".$src."/?rev=HEAD&cvsroot=AUR&only_with_tag=CURRENT'>"
+						print $src."</a><br />\n";
+					}
 				}
 			}
 			print "</td></tr>\n";
