@@ -66,13 +66,14 @@ class PackageDatabase:
     global repo_dir
     q = self.cursor()
     q.execute("INSERT INTO Packages " +
-      "(Name, CategoryID, Version, FSPath, LocationID, Description, URL) VALUES ('" +
+      "(Name, CategoryID, Version, FSPath, LocationID, SubmittedTS, Description, URL) VALUES ('" +
       MySQLdb.escape_string(package.name) + "', " + 
       str(self.getCategoryID(package)) + ", '" +
       MySQLdb.escape_string(package.new.version) + "', '" +
       MySQLdb.escape_string(
         os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
-      str(locationId) + ", '" +
+      str(locationId) + ", " +
+      "UNIX_TIMESTAMP(), '" +
       MySQLdb.escape_string(str(package.desc)) + "', '" +
       MySQLdb.escape_string(str(package.url)) + "')")
     id = self.lookup(package.name)
@@ -81,14 +82,27 @@ class PackageDatabase:
     warning("DB: Updating package: " + package.name + " with id " + str(id))
     global repo_dir
     q = self.cursor()
-    q.execute("UPDATE Packages SET " +
-      "Version = '" + MySQLdb.escape_string(package.new.version) + "', " +
-      "CategoryID = " + str(self.getCategoryID(package)) + ", " +
-      "FSPath = '" + MySQLdb.escape_string(
-         os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
-      "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
-      "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
-      "WHERE ID = " + str(id))
+    if (self.isdummy(package.name)):
+      q.execute("UPDATE Packages SET " +
+        "Version = '" + MySQLdb.escape_string(package.new.version) + "', " +
+        "CategoryID = " + str(self.getCategoryID(package)) + ", " +
+        "FSPath = '" + MySQLdb.escape_string(
+          os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
+        "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
+        "DummyPkg = 0, " +
+	"SubmittedTS = UNIX_TIMESTAMP(), " +
+        "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
+        "WHERE ID = " + str(id))
+    else:
+      q.execute("UPDATE Packages SET " +
+        "Version = '" + MySQLdb.escape_string(package.new.version) + "', " +
+        "CategoryID = " + str(self.getCategoryID(package)) + ", " +
+        "FSPath = '" + MySQLdb.escape_string(
+          os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
+        "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
+        "ModifiedTS = UNIX_TIMESTAMP(), " +
+        "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
+        "WHERE ID = " + str(id))
     self.insertNewInfo(package, id, locationId)
     # we must lastly check to see if this is a move of a package from
     # unsupported to community, because we'd have to reset maintainer and location
@@ -150,6 +164,14 @@ class PackageDatabase:
       depid = self.lookupOrDummy(dep)
       q.execute("INSERT INTO PackageDepends (PackageID, DepPkgID) " +
         "VALUES (" + str(id) + ", " + str(depid) + ")")
+  def isdummy(self, packagename):
+    warning("DB: Looking up package: " + packagename)
+    q = self.cursor()
+    q.execute("SELECT * FROM Packages WHERE Name = '" +
+      MySQLdb.escape_string(packagename) + "' AND DummyPkg = 1")
+    if (q.rowcount != 0):
+      return True
+    return False
 
 ############################################################
 # Functions for walking the file trees

@@ -344,6 +344,9 @@ if ($_COOKIE["AURSID"]) {
 					$q.= "DummyPkg = 0, ";
 					$q.= "SubmitterUID = ".uid_from_sid($_COOKIE["AURSID"]).", ";
 					$q.= "MaintainerUID = ".uid_from_sid($_COOKIE["AURSID"]).", ";
+					$q.= "SubmittedTS = UNIX_TIMESTAMP(), ";
+				} else {
+					$q.="ModifiedTS = UNIX_TIMESTAMP(), ";
 				}
 				$q.="Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', ";
 				$q.="Version='".mysql_escape_string($new_pkgbuild['pkgver'])."-".
