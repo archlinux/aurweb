@@ -15,10 +15,12 @@ $_t["en"]["Under construction..."] = "Under construction...";
 # $_t["es"]["Under construction..."] = "--> Traducción española aquí. <--";
 # $_t["fr"]["Under construction..."] = "--> Traduction française ici. <--";
 # $_t["de"]["Under construction..."] = "--> Deutsche Übersetzung hier. <--";
+$_t["pl"]["Under construction..."] = "Prace trwaj±...";
 
 $_t["en"]["Manage package ID: %s"] = "Manage package ID: %s";
 # $_t["es"]["Manage package ID: %s"] = "--> Traducción española aquí. <--";
 # $_t["fr"]["Manage package ID: %s"] = "--> Traduction française ici. <--";
 # $_t["de"]["Manage package ID: %s"] = "--> Deutsche Übersetzung hier. <--";
+$_t["pl"]["Manage package ID: %s"] = "Zarz±dzaj pakietem: %s";
 
 ?>
