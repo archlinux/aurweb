@@ -324,7 +324,7 @@ function package_details($id=0, $SID="") {
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>";
 			if ($row["LocationID"] == 2) {
-			  print "<a href='".$row['URLPath']."'>Tarball</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."'>Files</a></span></td>";
+			  print "<a href='".$row['URLPath']."'>".__("Tarball")."</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."'>".__("Files")."</a></span></td>";
 			} elseif ($row["LocationID"] == 3) {
 			  print "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
 			}
@@ -759,7 +759,7 @@ function pkg_search_page($SID="") {
 		print "<table cellspacing='3' class='boxSoft'>\n";
 		print "<tr>\n";
 		print "  <td class='boxSoftTitle' align='right'>\n";
-		print "    <span class='f3'>Package Listing</span>\n";
+		print "    <span class='f3'>".__("Package Listing")."</span>\n";
 		print "  </td>\n";
 		print "</tr>\n";
 		print "<tr>\n";
@@ -780,7 +780,7 @@ function pkg_search_page($SID="") {
 		print " bottom'><span class='f2'>".__("Votes")."</span></th>\n";
 		if ($SID) {
 			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-			print " bottom'><span class='f2'>".__("Vote")."</span></th>\n";
+			print " bottom'><span class='f2'>".__("Voted")."</span></th>\n";
 		}
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>".__("Description")."</span></th>\n";
@@ -906,8 +906,8 @@ function pkg_search_page($SID="") {
 		print "    </td>\n";
 		if ($SID) {
 			print "    <td align='center'><span class='f5'>\n";
-			print "      <font style='background-color: cyan'>O</font>rphan&nbsp;&nbsp;&nbsp;&nbsp;\n";
-			print "      <font style='background-color: red'>O</font>ut-of-Date\n";
+			print "      <font style='background-color: cyan'>".__("O%hrphan", array('</font>'))."&nbsp;&nbsp;&nbsp;&nbsp;\n";
+			print "      <font style='background-color: red'>".__("O%hut-of-Date", array('</font>'))."\n";
 			print "    </span></td>\n";
 		}
 		print "    <td align='right'>";

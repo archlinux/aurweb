@@ -12,236 +12,236 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["Under construction..."] = "Under construction...";
-# $_t["es"]["Under construction..."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Under construction..."] = "--> Traduction française ici. <--";
-# $_t["de"]["Under construction..."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Under construction..."] = "Prace trwaj±...";
+# $_t["es"]["Under construction..."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Under construction..."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Under construction..."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Under construction..."] = "Prace trwajÄ…...";
 
 $_t["en"]["Sorry, uploads are not permitted by this server."] = "Sorry, uploads are not permitted by this server.";
-# $_t["es"]["Sorry, uploads are not permitted by this server."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Sorry, uploads are not permitted by this server."] = "--> Traduction française ici. <--";
-# $_t["de"]["Sorry, uploads are not permitted by this server."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Sorry, uploads are not permitted by this server."] = "Przepraszam, ale ³adowanie plików nie jest obs³ugiwane przez ten serwer.";
+# $_t["es"]["Sorry, uploads are not permitted by this server."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Sorry, uploads are not permitted by this server."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Sorry, uploads are not permitted by this server."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Sorry, uploads are not permitted by this server."] = "Przepraszam, ale Å‚adowanie plikÃ³w nie jest obsÅ‚ugiwane przez ten serwer.";
 
 $_t["en"]["You must create an account before you can upload packages."] = "You must create an account before you can upload packages.";
-# $_t["es"]["You must create an account before you can upload packages."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["You must create an account before you can upload packages."] = "--> Traduction française ici. <--";
-# $_t["de"]["You must create an account before you can upload packages."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["You must create an account before you can upload packages."] = "Musisz utworzyæ konto aby móc dodawaæ pakiety.";
+# $_t["es"]["You must create an account before you can upload packages."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["You must create an account before you can upload packages."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["You must create an account before you can upload packages."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["You must create an account before you can upload packages."] = "Musisz utworzyÄ‡ konto aby mÃ³c dodawaÄ‡ pakiety.";
 
 $_t["en"]["Upload package"] = "Upload package";
-# $_t["es"]["Upload package"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Upload package"] = "--> Traduction française ici. <--";
-# $_t["de"]["Upload package"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Upload package"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Upload package"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Upload package"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Upload package"] = "Dodaj pakiet";
 
 $_t["en"]["Upload"] = "Upload";
-# $_t["es"]["Upload"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Upload"] = "--> Traduction française ici. <--";
-# $_t["de"]["Upload"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Upload"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Upload"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Upload"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Upload"] = "Dodaj";
 
 $_t["en"]["No"] = "No";
-# $_t["es"]["No"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["No"] = "--> Traduction française ici. <--";
-# $_t["de"]["No"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["No"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["No"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["No"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["No"] = "Nie";
 
 $_t["en"]["Error trying to upload file - please try again."] = "Error trying to upload file - please try again.";
-# $_t["es"]["Error trying to upload file - please try again."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Error trying to upload file - please try again."] = "--> Traduction française ici. <--";
-# $_t["de"]["Error trying to upload file - please try again."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Error trying to upload file - please try again."] = "B³±d podczas próby ³adowania pliku - proszê spróbowaæ ponownie.";
+# $_t["es"]["Error trying to upload file - please try again."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Error trying to upload file - please try again."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Error trying to upload file - please try again."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Error trying to upload file - please try again."] = "BÅ‚Ä…d podczas prÃ³by Å‚adowania pliku - proszÄ™ sprÃ³bowaÄ‡ ponownie.";
 
 $_t["en"]["Yes"] = "Yes";
-# $_t["es"]["Yes"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Yes"] = "--> Traduction française ici. <--";
-# $_t["de"]["Yes"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Yes"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Yes"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Yes"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Yes"] = "Tak";
 
 $_t["en"]["Overwrite existing package?"] = "Overwrite existing package?";
-# $_t["es"]["Overwrite existing package?"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Overwrite existing package?"] = "--> Traduction française ici. <--";
-# $_t["de"]["Overwrite existing package?"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Overwrite existing package?"] = "Czy nadpisaæ istniej±cy pakiet?";
+# $_t["es"]["Overwrite existing package?"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Overwrite existing package?"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Overwrite existing package?"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Overwrite existing package?"] = "Czy nadpisaÄ‡ istniejÄ…cy pakiet?";
 
 $_t["en"]["Missing build function in PKGBUILD."] = "Missing build function in PKGBUILD.";
-# $_t["es"]["Missing build function in PKGBUILD."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing build function in PKGBUILD."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing build function in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing build function in PKGBUILD."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing build function in PKGBUILD."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing build function in PKGBUILD."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing build function in PKGBUILD."] = "W pliku PKGBUILD brakuje funkcji build.";
 
 $_t["en"]["Could not create incoming directory: %s."] = "Could not create incoming directory: %s.";
-# $_t["es"]["Could not create incoming directory: %s."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Could not create incoming directory: %s."] = "--> Traduction française ici. <--";
-# $_t["de"]["Could not create incoming directory: %s."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Could not create incoming directory: %s."] = "Nie uda³o siê utworzyæ katalogu dla pakietu: %s.";
+# $_t["es"]["Could not create incoming directory: %s."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Could not create incoming directory: %s."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Could not create incoming directory: %s."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Could not create incoming directory: %s."] = "Nie udaÅ‚o siÄ™ utworzyÄ‡ katalogu dla pakietu: %s.";
 
-$_t["en"]["Comments"] = "Comments";
-# $_t["es"]["Comments"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Comments"] = "--> Traduction française ici. <--";
-# $_t["de"]["Comments"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Comments"] = "Komentarze";
+$_t["en"]["Comment"] = "Comment";
+# $_t["es"]["Comment"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Comment"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Comment"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Comment"] = "Komentarz";
 
 $_t["en"]["Missing pkgdesc variable in PKGBUILD."] = "Missing pkgdesc variable in PKGBUILD.";
-# $_t["es"]["Missing pkgdesc variable in PKGBUILD."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing pkgdesc variable in PKGBUILD."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing pkgdesc variable in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing pkgdesc variable in PKGBUILD."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing pkgdesc variable in PKGBUILD."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing pkgdesc variable in PKGBUILD."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing pkgdesc variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej pkgdesc.";
 
 $_t["en"]["Error exec'ing the mv command."] = "Error exec'ing the mv command.";
-# $_t["es"]["Error exec'ing the mv command."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Error exec'ing the mv command."] = "--> Traduction française ici. <--";
-# $_t["de"]["Error exec'ing the mv command."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Error exec'ing the mv command."] = "B³±d podczas wykonywania polecenia mv.";
+# $_t["es"]["Error exec'ing the mv command."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Error exec'ing the mv command."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Error exec'ing the mv command."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Error exec'ing the mv command."] = "BÅ‚Ä…d podczas wykonywania polecenia mv.";
 
 $_t["en"]["You did not specify a package name."] = "You did not specify a package name.";
-# $_t["es"]["You did not specify a package name."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["You did not specify a package name."] = "--> Traduction française ici. <--";
-# $_t["de"]["You did not specify a package name."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["You did not specify a package name."] = "Nie poda³e¶ nazwy pakietu.";
+# $_t["es"]["You did not specify a package name."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["You did not specify a package name."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["You did not specify a package name."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["You did not specify a package name."] = "Nie podaÅ‚eÅ› nazwy pakietu.";
 
 $_t["en"]["Error trying to unpack upload - PKGBUILD does not exist."] = "Error trying to unpack upload - PKGBUILD does not exist.";
-# $_t["es"]["Error trying to unpack upload - PKGBUILD does not exist."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Error trying to unpack upload - PKGBUILD does not exist."] = "--> Traduction française ici. <--";
-# $_t["de"]["Error trying to unpack upload - PKGBUILD does not exist."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Error trying to unpack upload - PKGBUILD does not exist."] = "B³±d podczas próby rozpakowania archiwum - plik PKGBUILD nie istnieje.";
+# $_t["es"]["Error trying to unpack upload - PKGBUILD does not exist."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Error trying to unpack upload - PKGBUILD does not exist."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Error trying to unpack upload - PKGBUILD does not exist."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Error trying to unpack upload - PKGBUILD does not exist."] = "BÅ‚Ä…d podczas prÃ³by rozpakowania archiwum - plik PKGBUILD nie istnieje.";
 
 $_t["en"]["You are not allowed to overwrite the %h%s%h package."] = "You are not allowed to overwrite the %h%s%h package.";
-# $_t["es"]["You are not allowed to overwrite the %h%s%h package."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["You are not allowed to overwrite the %h%s%h package."] = "--> Traduction française ici. <--";
-# $_t["de"]["You are not allowed to overwrite the %h%s%h package."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["You are not allowed to overwrite the %h%s%h package."] = "Nie masz uprawnieñ do nadpisania pakietu %h%s%h.";
+# $_t["es"]["You are not allowed to overwrite the %h%s%h package."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["You are not allowed to overwrite the %h%s%h package."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["You are not allowed to overwrite the %h%s%h package."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["You are not allowed to overwrite the %h%s%h package."] = "Nie masz uprawnieÅ„ do nadpisania pakietu %h%s%h.";
 
 $_t["en"]["Upload package file"] = "Upload package file";
-# $_t["es"]["Upload package file"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Upload package file"] = "--> Traduction française ici. <--";
-# $_t["de"]["Upload package file"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Upload package file"] = "Plik do za³adowania";
+# $_t["es"]["Upload package file"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Upload package file"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Upload package file"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Upload package file"] = "Plik do zaÅ‚adowania";
 
 $_t["en"]["Missing url variable in PKGBUILD."] = "Missing url variable in PKGBUILD.";
-# $_t["es"]["Missing url variable in PKGBUILD."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing url variable in PKGBUILD."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing url variable in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing url variable in PKGBUILD."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing url variable in PKGBUILD."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing url variable in PKGBUILD."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing url variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej url.";
 
 $_t["en"]["Missing pkgver variable in PKGBUILD."] = "Missing pkgver variable in PKGBUILD.";
-# $_t["es"]["Missing pkgver variable in PKGBUILD."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing pkgver variable in PKGBUILD."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing pkgver variable in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing pkgver variable in PKGBUILD."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing pkgver variable in PKGBUILD."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing pkgver variable in PKGBUILD."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing pkgver variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej pkgver.";
 
 $_t["en"]["Could not change to directory %s."] = "Could not change to directory %s.";
-# $_t["es"]["Could not change to directory %s."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Could not change to directory %s."] = "--> Traduction française ici. <--";
-# $_t["de"]["Could not change to directory %s."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Could not change to directory %s."] = "Nie uda³o siê przej¶æ do katalogu %s.";
+# $_t["es"]["Could not change to directory %s."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Could not change to directory %s."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Could not change to directory %s."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Could not change to directory %s."] = "Nie udaÅ‚o siÄ™ przejÅ›Ä‡ do katalogu %s.";
 
 $_t["en"]["You did not tag the 'overwrite' checkbox."] = "You did not tag the 'overwrite' checkbox.";
-# $_t["es"]["You did not tag the 'overwrite' checkbox."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["You did not tag the 'overwrite' checkbox."] = "--> Traduction française ici. <--";
-# $_t["de"]["You did not tag the 'overwrite' checkbox."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["You did not tag the 'overwrite' checkbox."] = "Nie zaznaczy³e¶ pola 'nadpisz'.";
+# $_t["es"]["You did not tag the 'overwrite' checkbox."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["You did not tag the 'overwrite' checkbox."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["You did not tag the 'overwrite' checkbox."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["You did not tag the 'overwrite' checkbox."] = "Nie zaznaczyÅ‚eÅ› pola 'nadpisz'.";
 
 $_t["en"]["Could not change directory to %s."] = "Could not change directory to %s.";
-# $_t["es"]["Could not change directory to %s."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Could not change directory to %s."] = "--> Traduction française ici. <--";
-# $_t["de"]["Could not change directory to %s."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Could not change directory to %s."] = "Nie uda³o siê przej¶æ do katalogu %s.";
+# $_t["es"]["Could not change directory to %s."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Could not change directory to %s."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Could not change directory to %s."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Could not change directory to %s."] = "Nie udaÅ‚o siÄ™ przejÅ›Ä‡ do katalogu %s.";
 
 $_t["en"]["Invalid name: only lowercase letters are allowed."] = "Invalid name: only lowercase letters are allowed.";
-# $_t["es"]["Invalid name: only lowercase letters are allowed."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Invalid name: only lowercase letters are allowed."] = "--> Traduction française ici. <--";
-# $_t["de"]["Invalid name: only lowercase letters are allowed."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Invalid name: only lowercase letters are allowed."] = "Nieprawid³owa nazwa: tylko ma³e litery s± dozwolone.";
+# $_t["es"]["Invalid name: only lowercase letters are allowed."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Invalid name: only lowercase letters are allowed."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Invalid name: only lowercase letters are allowed."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Invalid name: only lowercase letters are allowed."] = "NieprawidÅ‚owa nazwa: tylko maÅ‚e litery sÄ… dozwolone.";
 
 $_t["en"]["Package names do not match."] = "Package names do not match.";
-# $_t["es"]["Package names do not match."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Package names do not match."] = "--> Traduction française ici. <--";
-# $_t["de"]["Package names do not match."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Package names do not match."] = "Nazwy pakietu nie zgadzaj± siê.";
+# $_t["es"]["Package names do not match."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Package names do not match."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Package names do not match."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Package names do not match."] = "Nazwy pakietu nie zgadzajÄ… siÄ™.";
 
 $_t["en"]["Package name"] = "Package name";
-# $_t["es"]["Package name"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Package name"] = "--> Traduction française ici. <--";
-# $_t["de"]["Package name"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Package name"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Package name"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Package name"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Package name"] = "Nazwa pakietu";
 
 $_t["en"]["Missing md5sums variable in PKGBUILD."] = "Missing md5sums variable in PKGBUILD.";
-# $_t["es"]["Missing md5sums variable in PKGBUILD."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing md5sums variable in PKGBUILD."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing md5sums variable in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing md5sums variable in PKGBUILD."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing md5sums variable in PKGBUILD."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing md5sums variable in PKGBUILD."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing md5sums variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej md5sums.";
 
 $_t["en"]["Missing pkgrel variable in PKGBUILD."] = "Missing pkgrel variable in PKGBUILD.";
-# $_t["es"]["Missing pkgrel variable in PKGBUILD."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing pkgrel variable in PKGBUILD."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing pkgrel variable in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing pkgrel variable in PKGBUILD."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing pkgrel variable in PKGBUILD."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing pkgrel variable in PKGBUILD."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing pkgrel variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej pkgrel.";
 
 $_t["en"]["Missing pkgname variable in PKGBUILD."] = "Missing pkgname variable in PKGBUILD.";
-# $_t["es"]["Missing pkgname variable in PKGBUILD."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing pkgname variable in PKGBUILD."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing pkgname variable in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing pkgname variable in PKGBUILD."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing pkgname variable in PKGBUILD."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing pkgname variable in PKGBUILD."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing pkgname variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej pkgname.";
 
 $_t["en"]["Could not create directory %s."] = "Could not create directory %s.";
-# $_t["es"]["Could not create directory %s."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Could not create directory %s."] = "--> Traduction française ici. <--";
-# $_t["de"]["Could not create directory %s."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Could not create directory %s."] = "Nie uda³o siê utworzyæ katalogu %s.";
+# $_t["es"]["Could not create directory %s."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Could not create directory %s."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Could not create directory %s."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Could not create directory %s."] = "Nie udaÅ‚o siÄ™ utworzyÄ‡ katalogu %s.";
 
 $_t["en"]["Unknown file format for uploaded file."] = "Unknown file format for uploaded file.";
-# $_t["es"]["Unknown file format for uploaded file."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Unknown file format for uploaded file."] = "--> Traduction française ici. <--";
-# $_t["de"]["Unknown file format for uploaded file."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Unknown file format for uploaded file."] = "Nieznany format ³adowanego pliku.";
+# $_t["es"]["Unknown file format for uploaded file."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Unknown file format for uploaded file."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Unknown file format for uploaded file."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Unknown file format for uploaded file."] = "Nieznany format Å‚adowanego pliku.";
 
 $_t["en"]["Missing source variable in PKGBUILD."] = "Missing source variable in PKGBUILD.";
-# $_t["es"]["Missing source variable in PKGBUILD."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing source variable in PKGBUILD."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing source variable in PKGBUILD."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing source variable in PKGBUILD."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing source variable in PKGBUILD."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing source variable in PKGBUILD."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing source variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej source.";
 
 $_t["en"]["Package Location"] = "Package Location";
-# $_t["es"]["Package Location"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Package Location"] = "--> Traduction française ici. <--";
-# $_t["de"]["Package Location"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Package Location"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Package Location"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Package Location"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Package Location"] = "Lokacja pakietu";
 
 $_t["en"]["Package Category"] = "Package Category";
-# $_t["es"]["Package Category"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Package Category"] = "--> Traduction française ici. <--";
-# $_t["de"]["Package Category"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Package Category"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Package Category"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Package Category"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Package Category"] = "Kategoria pakietu";
 
 $_t["en"]["Select Location"] = "Select Location";
-# $_t["es"]["Select Location"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Select Location"] = "--> Traduction française ici. <--";
-# $_t["de"]["Select Location"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Select Location"] = "Wybierz lokacjê";
+# $_t["es"]["Select Location"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Select Location"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Select Location"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Select Location"] = "Wybierz lokacjÄ™";
 
 $_t["en"]["Select Category"] = "Select Category";
-# $_t["es"]["Select Category"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Select Category"] = "--> Traduction française ici. <--";
-# $_t["de"]["Select Category"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Select Category"] = "Wybierz kategoriê";
+# $_t["es"]["Select Category"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Select Category"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Select Category"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Select Category"] = "Wybierz kategoriÄ™";
 
 $_t["en"]["You must supply a comment for this upload/change."] = "You must supply a comment for this upload/change.";
-# $_t["es"]["You must supply a comment for this upload/change."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["You must supply a comment for this upload/change."] = "--> Traduction française ici. <--";
-# $_t["de"]["You must supply a comment for this upload/change."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["You must supply a comment for this upload/change."] = "Musisz napisaæ komentarz do tego pakietu.";
+# $_t["es"]["You must supply a comment for this upload/change."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["You must supply a comment for this upload/change."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["You must supply a comment for this upload/change."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["You must supply a comment for this upload/change."] = "Musisz napisaÄ‡ komentarz do tego pakietu.";
 
 $_t["en"]["Package upload successful."] = "Package upload successful.";
-# $_t["es"]["Package upload successful"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Package upload successful"] = "--> Traduction française ici. <--";
-# $_t["de"]["Package upload successful"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Package upload successful."] = "Pakiet zosta³ dodany pomy¶lnie.";
+# $_t["es"]["Package upload successful"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Package upload successful"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Package upload successful"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Package upload successful."] = "Pakiet zostaÅ‚ dodany pomyÅ›lnie.";
 
 $_t["en"]["Error - No file uploaded"] = "Error - No file uploaded";
-# $_t["es"]["Package upload successful"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Package upload successful"] = "--> Traduction française ici. <--";
-# $_t["de"]["Package upload successful"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Package upload successful"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Package upload successful"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Package upload successful"] = "--> Deutsche Ãœbersetzung hier. <--";
 
 ?>

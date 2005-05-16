@@ -12,15 +12,15 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["Your session id is invalid."] = "Your session id is invalid.";
-# $_t["es"]["Your session id is invalid."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Your session id is invalid."] = "--> Traduction française ici. <--";
-# $_t["de"]["Your session id is invalid."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Your session id is invalid."] = "Twój identyfikator sesji jest nieprawid³owy.";
+# $_t["es"]["Your session id is invalid."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Your session id is invalid."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Your session id is invalid."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Your session id is invalid."] = "TwÃ³j identyfikator sesji jest nieprawidÅ‚owy.";
 
 $_t["en"]["If this problem persists, please contact the site administrator."] = "If this problem persists, please contact the site administrator.";
-# $_t["es"]["If this problem persists, please contact the site administrator."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["If this problem persists, please contact the site administrator."] = "--> Traduction française ici. <--";
-# $_t["de"]["If this problem persists, please contact the site administrator."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["If this problem persists, please contact the site administrator."] = "Je¿eli ten problem siê powtarza, skontaktuj siê z administratorem strony.";
+# $_t["es"]["If this problem persists, please contact the site administrator."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["If this problem persists, please contact the site administrator."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["If this problem persists, please contact the site administrator."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["If this problem persists, please contact the site administrator."] = "JeÅ¼eli ten problem siÄ™ powtarza, skontaktuj siÄ™ z administratorem strony.";
 
 ?>

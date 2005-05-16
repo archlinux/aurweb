@@ -12,15 +12,15 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["Under construction..."] = "Under construction...";
-# $_t["es"]["Under construction..."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Under construction..."] = "--> Traduction française ici. <--";
-# $_t["de"]["Under construction..."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Under construction..."] = "Prace trwaj±...";
+# $_t["es"]["Under construction..."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Under construction..."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Under construction..."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Under construction..."] = "Prace trwajÄ…...";
 
 $_t["en"]["Manage package ID: %s"] = "Manage package ID: %s";
-# $_t["es"]["Manage package ID: %s"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Manage package ID: %s"] = "--> Traduction française ici. <--";
-# $_t["de"]["Manage package ID: %s"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Manage package ID: %s"] = "Zarz±dzaj pakietem: %s";
+# $_t["es"]["Manage package ID: %s"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Manage package ID: %s"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Manage package ID: %s"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Manage package ID: %s"] = "ZarzÄ…dzaj pakietem: %s";
 
 ?>

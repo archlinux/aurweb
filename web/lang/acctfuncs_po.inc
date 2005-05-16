@@ -12,225 +12,225 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["Missing a required field."] = "Missing a required field.";
-# $_t["es"]["Missing a required field."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing a required field."] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing a required field."] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Missing a required field."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing a required field."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing a required field."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Missing a required field."] = "Brakuje wymaganego pola.";
 
 $_t["en"]["The account, %h%s%h, has been successfully created."] = "The account, %h%s%h, has been successfully created.";
-# $_t["es"]["The account, %h%s%h, has been successfully created."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["The account, %h%s%h, has been successfully created."] = "--> Traduction française ici. <--";
-# $_t["de"]["The account, %h%s%h, has been successfully created."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["The account, %h%s%h, has been successfully created."] = "Konto %h%s%h zosta³o pomy¶lnie utworzone.";
+# $_t["es"]["The account, %h%s%h, has been successfully created."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["The account, %h%s%h, has been successfully created."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["The account, %h%s%h, has been successfully created."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["The account, %h%s%h, has been successfully created."] = "Konto %h%s%h zostaÅ‚o pomyÅ›lnie utworzone.";
 
 $_t["en"]["Error trying to modify account, %h%s%h: %s."] = "Error trying to modify account, %h%s%h: %s.";
-# $_t["es"]["Error trying to modify account, %h%s%h: %s."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Error trying to modify account, %h%s%h: %s."] = "--> Traduction française ici. <--";
-# $_t["de"]["Error trying to modify account, %h%s%h: %s."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Error trying to modify account, %h%s%h: %s."] = "B³±d podczas modyfikacji konta %h%s%h: %s.";
+# $_t["es"]["Error trying to modify account, %h%s%h: %s."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Error trying to modify account, %h%s%h: %s."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Error trying to modify account, %h%s%h: %s."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Error trying to modify account, %h%s%h: %s."] = "BÅ‚Ä…d podczas modyfikacji konta %h%s%h: %s.";
 
 $_t["en"]["The email address is invalid."] = "The email address is invalid.";
-# $_t["es"]["The email address is invalid."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["The email address is invalid."] = "--> Traduction française ici. <--";
-# $_t["de"]["The email address is invalid."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["The email address is invalid."] = "Adres e-mail jest nieprawid³owy.";
+# $_t["es"]["The email address is invalid."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["The email address is invalid."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["The email address is invalid."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["The email address is invalid."] = "Adres e-mail jest nieprawidÅ‚owy.";
 
 $_t["en"]["Error trying to create account, %h%s%h: %s."] = "Error trying to create account, %h%s%h: %s.";
-# $_t["es"]["Error trying to create account, %h%s%h: %s."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Error trying to create account, %h%s%h: %s."] = "--> Traduction française ici. <--";
-# $_t["de"]["Error trying to create account, %h%s%h: %s."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Error trying to create account, %h%s%h: %s."] = "B³±d podczas tworzenia konta %h%s%h: %s.";
+# $_t["es"]["Error trying to create account, %h%s%h: %s."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Error trying to create account, %h%s%h: %s."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Error trying to create account, %h%s%h: %s."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Error trying to create account, %h%s%h: %s."] = "BÅ‚Ä…d podczas tworzenia konta %h%s%h: %s.";
 
 $_t["en"]["The username, %h%s%h, is already in use."] = "The username, %h%s%h, is already in use.";
-# $_t["es"]["The username, %h%s%h, is already in use."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["The username, %h%s%h, is already in use."] = "--> Traduction française ici. <--";
-# $_t["de"]["The username, %h%s%h, is already in use."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["The username, %h%s%h, is already in use."] = "Nazwa u¿ytkownika %h%s%h jest ju¿ u¿ywana.";
+# $_t["es"]["The username, %h%s%h, is already in use."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["The username, %h%s%h, is already in use."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["The username, %h%s%h, is already in use."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["The username, %h%s%h, is already in use."] = "Nazwa uÅ¼ytkownika %h%s%h jest juÅ¼ uÅ¼ywana.";
 
 $_t["en"]["Account Type"] = "Account Type";
-# $_t["es"]["Account Type"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Account Type"] = "--> Traduction française ici. <--";
-# $_t["de"]["Account Type"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Account Type"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Account Type"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Account Type"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Account Type"] = "Rodzaj konta";
 
 $_t["en"]["The account, %h%s%h, has been successfully modified."] = "The account, %h%s%h, has been successfully modified.";
-# $_t["es"]["The account, %h%s%h, has been successfully modified."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["The account, %h%s%h, has been successfully modified."] = "--> Traduction française ici. <--";
-# $_t["de"]["The account, %h%s%h, has been successfully modified."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["The account, %h%s%h, has been successfully modified."] = "Konto %h%s%h zosta³o pomy¶lnie utworzone.";
+# $_t["es"]["The account, %h%s%h, has been successfully modified."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["The account, %h%s%h, has been successfully modified."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["The account, %h%s%h, has been successfully modified."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["The account, %h%s%h, has been successfully modified."] = "Konto %h%s%h zostaÅ‚o pomyÅ›lnie utworzone.";
 
 $_t["en"]["Account Suspended"] = "Account Suspended";
-# $_t["es"]["Account Suspended"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Account Suspended"] = "--> Traduction française ici. <--";
-# $_t["de"]["Account Suspended"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Account Suspended"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Account Suspended"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Account Suspended"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Account Suspended"] = "Konto zablokowane";
 
 $_t["en"]["New Package Notify"] = "New Package Notify";
-# $_t["es"]["New Package Notify"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["New Package Notify"] = "--> Traduction française ici. <--";
-# $_t["de"]["New Package Notify"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["New Package Notify"] = "Powiadomienie o nowym pakiecie";
+# $_t["es"]["New Package Notify"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["New Package Notify"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["New Package Notify"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["New Package Notify"] = "Powiadamiaj o nowych pakietach";
 
 $_t["en"]["IRC Nick"] = "IRC Nick";
-# $_t["es"]["IRC Nick"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["IRC Nick"] = "--> Traduction française ici. <--";
-# $_t["de"]["IRC Nick"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["IRC Nick"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["IRC Nick"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["IRC Nick"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["IRC Nick"] = "Nick na IRC-u";
 
 $_t["en"]["Trusted user"] = "Trusted user";
-# $_t["es"]["Trusted user"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Trusted user"] = "--> Traduction française ici. <--";
-# $_t["de"]["Trusted user"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Trusted user"] = "Zaufany u¿ytkownik";
+# $_t["es"]["Trusted user"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Trusted user"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Trusted user"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Trusted user"] = "Zaufany uÅ¼ytkownik";
 
 $_t["en"]["Normal user"] = "Normal user";
-# $_t["es"]["Normal user"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Normal user"] = "--> Traduction française ici. <--";
-# $_t["de"]["Normal user"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Normal user"] = "Zwyk³y u¿ytkownik";
+# $_t["es"]["Normal user"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Normal user"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Normal user"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Normal user"] = "ZwykÅ‚y uÅ¼ytkownik";
 
 $_t["en"]["Real Name"] = "Real Name";
-# $_t["es"]["Real Name"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Real Name"] = "--> Traduction française ici. <--";
-# $_t["de"]["Real Name"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Real Name"] = "Prawdziwe nazwisko";
+# $_t["es"]["Real Name"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Real Name"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Real Name"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Real Name"] = "ImiÄ™ i nazwisko";
 
 $_t["en"]["Password fields do not match."] = "Password fields do not match.";
-# $_t["es"]["Password fields do not match."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Password fields do not match."] = "--> Traduction française ici. <--";
-# $_t["de"]["Password fields do not match."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Password fields do not match."] = "Has³a nie zgadzaj± siê.";
+# $_t["es"]["Password fields do not match."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Password fields do not match."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Password fields do not match."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Password fields do not match."] = "HasÅ‚a nie zgadzajÄ… siÄ™.";
 
 $_t["en"]["Language"] = "Language";
-# $_t["es"]["Language"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Language"] = "--> Traduction française ici. <--";
-# $_t["de"]["Language"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Language"] = "Jêzyk";
+# $_t["es"]["Language"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Language"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Language"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Language"] = "JÄ™zyk";
 
 $_t["en"]["The address, %h%s%h, is already in use."] = "The address, %h%s%h, is already in use.";
-# $_t["es"]["The address, %h%s%h, is already in use."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["The address, %h%s%h, is already in use."] = "--> Traduction française ici. <--";
-# $_t["de"]["The address, %h%s%h, is already in use."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["The address, %h%s%h, is already in use."] = "Adres %h%s%h jest ju¿ u¿ywany.";
+# $_t["es"]["The address, %h%s%h, is already in use."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["The address, %h%s%h, is already in use."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["The address, %h%s%h, is already in use."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["The address, %h%s%h, is already in use."] = "Adres %h%s%h jest juÅ¼ uÅ¼ywany.";
 
 $_t["en"]["Click on the Home link above to login."] = "Click on the Home link above to login.";
-# $_t["es"]["Click on the Home link above to login."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Click on the Home link above to login."] = "--> Traduction française ici. <--";
-# $_t["de"]["Click on the Home link above to login."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Click on the Home link above to login."] = "Kliknij na linku Start powy¿ej aby siê zalogowaæ.";
+# $_t["es"]["Click on the Home link above to login."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Click on the Home link above to login."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Click on the Home link above to login."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Click on the Home link above to login."] = "Kliknij na linku Start powyÅ¼ej aby siÄ™ zalogowaÄ‡.";
 
 $_t["en"]["Re-type password"] = "Re-type password";
-# $_t["es"]["Re-type password"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Re-type password"] = "--> Traduction française ici. <--";
-# $_t["de"]["Re-type password"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Re-type password"] = "Has³o (ponownie)";
+# $_t["es"]["Re-type password"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Re-type password"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Re-type password"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Re-type password"] = "HasÅ‚o (ponownie)";
 
 $_t["en"]["Language is not currently supported."] = "Language is not currently supported.";
-# $_t["es"]["Language is not currently supported."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Language is not currently supported."] = "--> Traduction française ici. <--";
-# $_t["de"]["Language is not currently supported."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Language is not currently supported."] = "Jêzyk nie jest obecnie obs³ugiwany.";
+# $_t["es"]["Language is not currently supported."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Language is not currently supported."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Language is not currently supported."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Language is not currently supported."] = "JÄ™zyk nie jest obecnie obsÅ‚ugiwany.";
 
 $_t["en"]["Missing User ID"] = "Missing User ID";
-# $_t["es"]["Missing User ID"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Missing User ID"] = "--> Traduction française ici. <--";
-# $_t["de"]["Missing User ID"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Missing User ID"] = "Brakuje ID u¿ytkownika";
+# $_t["es"]["Missing User ID"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Missing User ID"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Missing User ID"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Missing User ID"] = "Brakuje ID uÅ¼ytkownika";
 
 $_t["en"]["Developer"] = "Developer";
-# $_t["es"]["Developer"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Developer"] = "--> Traduction française ici. <--";
-# $_t["de"]["Developer"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Developer"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Developer"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Developer"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Developer"] = "Developer";
 
 $_t["en"]["Search'"] = "Search'";
-# $_t["es"]["Search'"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Search'"] = "--> Traduction française ici. <--";
-# $_t["de"]["Search'"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Search'"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Search'"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Search'"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Search'"] = "Szukaj'";
 
 $_t["en"]["Status"] = "Status";
-# $_t["es"]["Status"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Status"] = "--> Traduction française ici. <--";
-# $_t["de"]["Status"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Status"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Status"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Status"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Status"] = "Status";
 
 $_t["en"]["No results matched your search criteria."] = "No results matched your search criteria.";
-# $_t["es"]["No results matched your search criteria."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["No results matched your search criteria."] = "--> Traduction française ici. <--";
-# $_t["de"]["No results matched your search criteria."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["No results matched your search criteria."] = "Wyszukiwanie nie przynios³o rezultatu.";
+# $_t["es"]["No results matched your search criteria."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["No results matched your search criteria."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["No results matched your search criteria."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["No results matched your search criteria."] = "Wyszukiwanie nie przyniosÅ‚o rezultatu.";
 
 $_t["en"]["Never"] = "Never";
-# $_t["es"]["Never"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Never"] = "--> Traduction française ici. <--";
-# $_t["de"]["Never"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Never"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Never"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Never"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Never"] = "Nigdy";
 
 $_t["en"]["Active"] = "Active";
-# $_t["es"]["Active"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Active"] = "--> Traduction française ici. <--";
-# $_t["de"]["Active"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Active"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Active"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Active"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Active"] = "Aktywne";
 
 $_t["en"]["Last Voted"] = "Last Voted";
-# $_t["es"]["Last Voted"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Last Voted"] = "--> Traduction française ici. <--";
-# $_t["de"]["Last Voted"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Last Voted"] = "Ostatnio g³osowane";
+# $_t["es"]["Last Voted"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Last Voted"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Last Voted"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Last Voted"] = "Ostatni gÅ‚os";
 
 $_t["en"]["Edit Account"] = "Edit Account";
-# $_t["es"]["Edit Account"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Edit Account"] = "--> Traduction française ici. <--";
-# $_t["de"]["Edit Account"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Edit Account"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Edit Account"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Edit Account"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Edit Account"] = "Edytuj konto";
 
 $_t["en"]["Email address"] = "Email address";
-# $_t["es"]["Email address"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Email address"] = "--> Traduction française ici. <--";
-# $_t["de"]["Email address"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Email address"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Email address"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Email address"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Email address"] = "Adres e-mail";
 
 $_t["en"]["Type"] = "Type";
-# $_t["es"]["Type"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Type"] = "--> Traduction française ici. <--";
-# $_t["de"]["Type"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Type"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Type"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Type"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Type"] = "Rodzaj";
 
 $_t["en"]["Sort by"] = "Sort by";
-# $_t["es"]["Sort by"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Sort by"] = "--> Traduction française ici. <--";
-# $_t["de"]["Sort by"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Sort by"] = "Sortuj wed³ug";
+# $_t["es"]["Sort by"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Sort by"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Sort by"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Sort by"] = "Sortuj wedÅ‚ug";
 
 $_t["en"]["Any type"] = "Any type";
-# $_t["es"]["Any type"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Any type"] = "--> Traduction française ici. <--";
-# $_t["de"]["Any type"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Any type"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Any type"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Any type"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Any type"] = "Dowolny rodzaj";
 
 $_t["en"]["Last vote"] = "Last vote";
-# $_t["es"]["Last vote"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Last vote"] = "--> Traduction française ici. <--";
-# $_t["de"]["Last vote"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Last vote"] = "Ostatni g³os";
+# $_t["es"]["Last vote"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Last vote"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Last vote"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Last vote"] = "Ostatni gÅ‚os";
 
 $_t["en"]["Suspended"] = "Suspended";
-# $_t["es"]["Suspended"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Suspended"] = "--> Traduction française ici. <--";
-# $_t["de"]["Suspended"] = "--> Deutsche Übersetzung hier. <--";
+# $_t["es"]["Suspended"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Suspended"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Suspended"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Suspended"] = "Zablokowane";
 
 $_t["en"]["No more results to display."] = "No more results to display.";
-# $_t["es"]["No more results to display."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["No more results to display."] = "--> Traduction française ici. <--";
-# $_t["de"]["No more results to display."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["No more results to display."] = "Nie ma ju¿ rezultatów do wy¶wietlenia.";
+# $_t["es"]["No more results to display."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["No more results to display."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["No more results to display."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["No more results to display."] = "Nie ma juÅ¼ rezultatÃ³w do wyÅ›wietlenia.";
 
 $_t["en"]["A Trusted User cannot assign Developer status."] = "A Trusted User cannot assign Developer status.";
-# $_t["es"]["A Trusted User cannot assign Developer status."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["A Trusted User cannot assign Developer status."] = "--> Traduction française ici. <--";
-# $_t["de"]["A Trusted User cannot assign Developer status."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["A Trusted User cannot assign Developer status."] = "Zaufany u¿ytkownik nie mo¿e nadaæ statusu developera.";
+# $_t["es"]["A Trusted User cannot assign Developer status."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["A Trusted User cannot assign Developer status."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["A Trusted User cannot assign Developer status."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["A Trusted User cannot assign Developer status."] = "Zaufany uÅ¼ytkownik nie moÅ¼e nadaÄ‡ statusu developera.";
 
 ?>

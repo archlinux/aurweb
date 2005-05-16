@@ -12,80 +12,80 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["ArchLinux User-community Repository"] = "ArchLinux User-community Repository";
-# $_t["es"]["ArchLinux User-community Repository"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["ArchLinux User-community Repository"] = "--> Traduction française ici. <--";
+# $_t["es"]["ArchLinux User-community Repository"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["ArchLinux User-community Repository"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["ArchLinux User-community Repository"] = "ArchLinux Benutzer-Community Repository";
-$_t["pl"]["ArchLinux User-community Repository"] = "Repozytorium Spo³eczno¶ci U¿ytkowników ArchLinux";
+$_t["pl"]["ArchLinux User-community Repository"] = "Repozytorium SpoÅ‚ecznoÅ›ci UÅ¼ytkownikÃ³w ArchLinux";
 
 $_t["en"]["AUR: An ArchLinux project"] = "AUR: An ArchLinux project";
-# $_t["es"]["AUR: An ArchLinux project"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["AUR: An ArchLinux project"] = "--> Traduction française ici. <--";
+# $_t["es"]["AUR: An ArchLinux project"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["AUR: An ArchLinux project"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["AUR: An ArchLinux project"] = "AUR: Ein ArchLinux Projekt";
 $_t["pl"]["AUR: An ArchLinux project"] = "AUR: Projekt ArchLinux";
 
 $_t["en"]["Logout"] = "Logout";
-# $_t["es"]["Logout"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Logout"] = "--> Traduction française ici. <--";
+# $_t["es"]["Logout"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Logout"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Logout"] = "Abmelden";
-$_t["pl"]["Logout"] = "Wyloguj siê";
+$_t["pl"]["Logout"] = "Wyloguj siÄ™";
 
 $_t["en"]["Manage"] = "Manage";
-# $_t["es"]["Manage"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Manage"] = "--> Traduction française ici. <--";
+# $_t["es"]["Manage"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Manage"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Manage"] = "Verwalten";
-$_t["pl"]["Manage"] = "Zarz±dzaj";
+$_t["pl"]["Manage"] = "ZarzÄ…dzaj";
 
 $_t["en"]["Submit"] = "Submit";
-# $_t["es"]["Submit"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Submit"] = "--> Traduction française ici. <--";
+# $_t["es"]["Submit"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Submit"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Submit"] = "Senden";
-$_t["pl"]["Submit"] = "Wy¶lij";
+$_t["pl"]["Submit"] = "WyÅ›lij";
 
 $_t["en"]["%s: An ArchLinux project"] = "%s: An ArchLinux project";
-# $_t["es"]["%s: An ArchLinux project"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["%s: An ArchLinux project"] = "--> Traduction française ici. <--";
+# $_t["es"]["%s: An ArchLinux project"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["%s: An ArchLinux project"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["%s: An ArchLinux project"] = "%s: Ein ArchLinux Projekt";
 $_t["pl"]["%s: An ArchLinux project"] = "%s: Projekt ArchLinux";
 
 $_t["en"]["Accounts"] = "Accounts";
-# $_t["es"]["Accounts"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Accounts"] = "--> Traduction française ici. <--";
+# $_t["es"]["Accounts"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Accounts"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Accounts"] = "Benutzerkonti";
-$_t["pl"]["Accounts"] = "Konta";
+$_t["pl"]["Accounts"] = "Konto";
 
 $_t["en"]["Vote"] = "Vote";
-# $_t["es"]["Vote"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Vote"] = "--> Traduction française ici. <--";
+# $_t["es"]["Vote"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Vote"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Vote"] = "Abstimmen";
-$_t["pl"]["Vote"] = "G³osuj";
+$_t["pl"]["Vote"] = "GÅ‚osuj";
 
 $_t["en"]["Home"] = "Home";
-# $_t["es"]["Home"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Home"] = "--> Traduction française ici. <--";
+# $_t["es"]["Home"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Home"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Home"] = "Hauptseite";
 $_t["pl"]["Home"] = "Start";
 
 $_t["en"]["Packages"] = "Packages";
-# $_t["es"]["Packages"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Packages"] = "--> Traduction française ici. <--";
+# $_t["es"]["Packages"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Packages"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Packages"] = "Pakete";
 $_t["pl"]["Packages"] = "Pakiety";
 
 $_t["en"]["Trusted user"] = "Trusted user";
-# $_t["es"]["Trusted user"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Trusted user"] = "--> Traduction française ici. <--";
-$_t["de"]["Trusted user"] = "Vertrauenswürdiger Benutzer";
-$_t["pl"]["Trusted user"] = "Zaufany u¿ytkownik";
+# $_t["es"]["Trusted user"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Trusted user"] = "--> Traduction franÃ§aise ici. <--";
+$_t["de"]["Trusted user"] = "VertrauenswÃ¼rdiger Benutzer";
+$_t["pl"]["Trusted user"] = "Zaufany uÅ¼ytkownik";
 
 $_t["en"]["User"] = "User";
-# $_t["es"]["User"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["User"] = "--> Traduction française ici. <--";
+# $_t["es"]["User"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["User"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["User"] = "Benutzer";
-$_t["pl"]["User"] = "U¿ytkownik";
+$_t["pl"]["User"] = "UÅ¼ytkownik";
 
 $_t["en"]["Developer"] = "Developer";
-# $_t["es"]["Developer"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Developer"] = "--> Traduction française ici. <--";
+# $_t["es"]["Developer"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Developer"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Developer"] = "Entwickler";
 $_t["pl"]["Developer"] = "Developer";
 

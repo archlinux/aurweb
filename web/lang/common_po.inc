@@ -12,69 +12,69 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["Password"] = "Password";
-# $_t["es"]["Password"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Password"] = "--> Traduction française ici. <--";
+# $_t["es"]["Password"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Password"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Password"] = "Passwort";
-$_t["pl"]["Password"] = "Has³o";
+$_t["pl"]["Password"] = "HasÅ‚o";
 
 $_t["en"]["Clear"] = "Clear";
-# $_t["es"]["Clear"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Clear"] = "--> Traduction française ici. <--";
-$_t["de"]["Clear"] = "Löschen";
-$_t["pl"]["Clear"] = "Wyczy¶æ";
+# $_t["es"]["Clear"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Clear"] = "--> Traduction franÃ§aise ici. <--";
+$_t["de"]["Clear"] = "LÃ¶schen";
+$_t["pl"]["Clear"] = "WyczyÅ›Ä‡";
 
 $_t["en"]["required"] = "required";
-# $_t["es"]["required"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["required"] = "--> Traduction française ici. <--";
+# $_t["es"]["required"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["required"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["required"] = "erforderlich";
 $_t["pl"]["required"] = "wymagane";
 
 $_t["en"]["Email Address"] = "Email Address";
-# $_t["es"]["Email Address"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Email Address"] = "--> Traduction française ici. <--";
+# $_t["es"]["Email Address"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Email Address"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Email Address"] = "Email-Addresse";
 $_t["pl"]["Email Address"] = "Adres e-mail";
 
 $_t["en"]["Submit"] = "Submit";
-# $_t["es"]["Submit"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Submit"] = "--> Traduction française ici. <--";
+# $_t["es"]["Submit"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Submit"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Submit"] = "Senden";
-$_t["pl"]["Submit"] = "Wy¶lij";
+$_t["pl"]["Submit"] = "WyÅ›lij";
 
 $_t["en"]["Reset"] = "Reset";
-# $_t["es"]["Reset"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Reset"] = "--> Traduction française ici. <--";
-$_t["de"]["Reset"] = "Zurücksetzen";
-$_t["pl"]["Reset"] = "Resetuj";
+# $_t["es"]["Reset"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Reset"] = "--> Traduction franÃ§aise ici. <--";
+$_t["de"]["Reset"] = "ZurÃ¼cksetzen";
+$_t["pl"]["Reset"] = "WyczyÅ›Ä‡";
 
 $_t["en"]["Create"] = "Create";
-# $_t["es"]["Create"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Create"] = "--> Traduction française ici. <--";
+# $_t["es"]["Create"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Create"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Create"] = "Erstellen";
-$_t["pl"]["Create"] = "Utwórz";
+$_t["pl"]["Create"] = "UtwÃ³rz";
 
 $_t["en"]["Update"] = "Update";
-# $_t["es"]["Update"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Update"] = "--> Traduction française ici. <--";
+# $_t["es"]["Update"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Update"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Update"] = "Aktualisiseren";
 $_t["pl"]["Update"] = "Aktualizuj";
 
 $_t["en"]["Less"] = "Less";
-# $_t["es"]["Less"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Less"] = "--> Traduction française ici. <--";
+# $_t["es"]["Less"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Less"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Less"] = "Weniger";
 $_t["pl"]["Less"] = "Poprzednie";
 
 $_t["en"]["More"] = "More";
-# $_t["es"]["More"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["More"] = "--> Traduction française ici. <--";
+# $_t["es"]["More"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["More"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["More"] = "Mehr";
-$_t["pl"]["More"] = "Nastêpne";
+$_t["pl"]["More"] = "NastÄ™pne";
 
 $_t["en"]["Username"] = "Username";
-# $_t["es"]["Username"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Username"] = "--> Traduction française ici. <--";
+# $_t["es"]["Username"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Username"] = "--> Traduction franÃ§aise ici. <--";
 $_t["de"]["Username"] = "Benutzername";
-$_t["pl"]["Username"] = "Nazwa u¿ytkownika";
+$_t["pl"]["Username"] = "UÅ¼ytkownik";
 
 ?>

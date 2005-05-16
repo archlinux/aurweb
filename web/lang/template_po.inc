@@ -12,9 +12,9 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["Hi, this is worth reading!"] = "Hi, this is worth reading!";
-# $_t["es"]["Hi, this is worth reading!"] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Hi, this is worth reading!"] = "--> Traduction française ici. <--";
-# $_t["de"]["Hi, this is worth reading!"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Hi, this is worth reading!"] = "Witaj, warto to przeczytaæ!";
+# $_t["es"]["Hi, this is worth reading!"] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Hi, this is worth reading!"] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Hi, this is worth reading!"] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Hi, this is worth reading!"] = "Witaj, warto to przeczytaÄ‡!";
 
 ?>

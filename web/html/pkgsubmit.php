@@ -536,7 +536,7 @@ if ($_COOKIE["AURSID"]) {
 			print "</tr>\n";
 			print "<tr>\n";
 			print "	<td valign='top' span='f4' align='right'>";
-			print __("Comments").":</td>\n";
+			print __("Comment").":</td>\n";
 			print "	<td span='f4' align='left'>";
 			print "<textarea rows='10' cols='50' name='comments'></textarea>";
 			print "	</td>\n";

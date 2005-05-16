@@ -12,15 +12,15 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["Under construction..."] = "Under construction...";
-# $_t["es"]["Under construction..."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Under construction..."] = "--> Traduction française ici. <--";
-# $_t["de"]["Under construction..."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Under construction..."] = "Prace trwaj±...";
+# $_t["es"]["Under construction..."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Under construction..."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Under construction..."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Under construction..."] = "Prace trwajÄ…...";
 
 $_t["en"]["You have been successfully logged out."] = "You have been successfully logged out.";
-# $_t["es"]["You have been successfully logged out."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["You have been successfully logged out."] = "--> Traduction française ici. <--";
-# $_t["de"]["You have been successfully logged out."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["You have been successfully logged out."] = "Zosta³e¶ pomy¶lnie wylogowany.";
+# $_t["es"]["You have been successfully logged out."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["You have been successfully logged out."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["You have been successfully logged out."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["You have been successfully logged out."] = "ZostaÅ‚eÅ› pomyÅ›lnie wylogowany.";
 
 ?>

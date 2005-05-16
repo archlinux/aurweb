@@ -77,11 +77,9 @@ html_header();
 print "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
 print "<tr>\n";
 print "  <td align='left' valign='top'>";
-?>
-<p>Welcome to the AUR! If you're a newcomer, you may want to read the <a href="guidelines.html">Guidelines</a>.</p>
-<p>If you have feedback about the AUR, please leave it in <a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">Flyspray</a>.</p>
-<p>Though we can't vouch for their contents, we provide a <a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">list of user repositories</a> for your convenience.</p>
-<?php
+print "<p>".__("Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h.", array('<a href="guidelines.html">', '</a>'))."</p>";
+print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."</p>";
+print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
 #print __("This is where the intro text will go.");
 #print __("For now, it's just a place holder.");
 #print __("It's more important to get the login functionality finished.");

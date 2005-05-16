@@ -12,15 +12,15 @@ include_once("translator.inc");
 global $_t;
 
 $_t["en"]["Click on the Home link above to log in."] = "Click on the Home link above to log in.";
-# $_t["es"]["Click on the Home link above to log in."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Click on the Home link above to log in."] = "--> Traduction française ici. <--";
-# $_t["de"]["Click on the Home link above to log in."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Click on the Home link above to log in."] = "Kliknij na linku Start powy¿ej aby siê zalogowaæ.";
+# $_t["es"]["Click on the Home link above to log in."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Click on the Home link above to log in."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Click on the Home link above to log in."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Click on the Home link above to log in."] = "Kliknij na linku Start powyÅ¼ej aby siÄ™ zalogowaÄ‡.";
 
 $_t["en"]["Your session has timed out.  You must log in again."] = "Your session has timed out.  You must log in again.";
-# $_t["es"]["Your session has timed out.  You must log in again."] = "--> Traducción española aquí. <--";
-# $_t["fr"]["Your session has timed out.  You must log in again."] = "--> Traduction française ici. <--";
-# $_t["de"]["Your session has timed out.  You must log in again."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Your session has timed out.  You must log in again."] = "Twoja sesja wygas³a. Musisz zalogowaæ siê ponownie.";
+# $_t["es"]["Your session has timed out.  You must log in again."] = "--> TraducciÃ³n espaÅ„ola aquÃ­. <--";
+# $_t["fr"]["Your session has timed out.  You must log in again."] = "--> Traduction franÃ§aise ici. <--";
+# $_t["de"]["Your session has timed out.  You must log in again."] = "--> Deutsche Ãœbersetzung hier. <--";
+$_t["pl"]["Your session has timed out.  You must log in again."] = "Twoja sesja wygasÅ‚a. Musisz zalogowaÄ‡ siÄ™ ponownie.";
 
 ?>
