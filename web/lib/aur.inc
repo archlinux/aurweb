@@ -1,4 +1,5 @@
 <?
+header('Content-Type: text/html; charset=utf-8');
 include_once("config.inc");
 include_once("aur_po.inc");
 
