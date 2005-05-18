@@ -57,7 +57,7 @@ $_t["en"]["The account, %h%s%h, has been successfully modified."] = "The account
 # $_t["es"]["The account, %h%s%h, has been successfully modified."] = "--> Traducción espańola aquí. <--";
 # $_t["fr"]["The account, %h%s%h, has been successfully modified."] = "--> Traduction française ici. <--";
 # $_t["de"]["The account, %h%s%h, has been successfully modified."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["The account, %h%s%h, has been successfully modified."] = "Konto %h%s%h zostało pomyślnie utworzone.";
+$_t["pl"]["The account, %h%s%h, has been successfully modified."] = "Konto %h%s%h zostało pomyślnie zaktualizowane.";
 
 $_t["en"]["Account Suspended"] = "Account Suspended";
 # $_t["es"]["Account Suspended"] = "--> Traducción espańola aquí. <--";
