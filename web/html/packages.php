@@ -202,8 +202,14 @@ if (isset($_REQUEST["do_Flag"])) {
 				$q.= "WHERE Packages.ID IN (" . $delete . ") ";
 				$q.= "AND Packages.LocationID = PackageLocations.ID ";
 				$q.= "AND PackageLocations.Location = 'unsupported' ";
-				$q.= "AND $field IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
-				$result = db_query($q, $dbh);
+				# If they're a TU or dev, can always delete, otherwise check ownership
+				#
+				if ($atype == "Trusted User" || $atype == "Developer") {
+					$result = db_query($q, $dbh);
+				} else {
+					$q.= "AND $field IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
+					$result = db_query($q, $dbh);
+				}
 				if ($result != Null && mysql_num_rows($result) > 0) {
 					while ($row = mysql_fetch_assoc($result)) {
 						$ids_to_delete[] = $row['ID'];
