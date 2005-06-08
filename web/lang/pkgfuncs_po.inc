@@ -308,4 +308,14 @@ $_t["en"]["Package Listing"] = "Package Listing";
 # $_t["de"]["Package Listing"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Package Listing"] = "Lista pakietÃ³w";
 
+$_t["en"]["UnNotify"] = "UnNotify";
+# $_t["es"]["UnNotify"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["UnNotify"] = "--> Traduction française ici. <--";
+# $_t["de"]["UnNotify"] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Notify"] = "Notify";
+# $_t["es"]["Notify"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Notify"] = "--> Traduction française ici. <--";
+# $_t["de"]["Notify"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

@@ -143,4 +143,54 @@ $_t["en"]["Your votes have been cast for the selected packages."] = "Your votes 
 # $_t["de"]["Your votes have been cast for the selected packages."] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["Your votes have been cast for the selected packages."] = "Twoje gÅ‚osy zostaÅ‚y przyznane wybranym pakietom.";
 
+$_t["en"]["None of the selected packages could be deleted."] = "None of the selected packages could be deleted.";
+# $_t["es"]["None of the selected packages could be deleted."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["None of the selected packages could be deleted."] = "--> Traduction française ici. <--";
+# $_t["de"]["None of the selected packages could be deleted."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You must be logged in before you can get notifications on comments."] = "You must be logged in before you can get notifications on comments.";
+# $_t["es"]["You must be logged in before you can get notifications on comments."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You must be logged in before you can get notifications on comments."] = "--> Traduction française ici. <--";
+# $_t["de"]["You must be logged in before you can get notifications on comments."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["The selected packages have been deleted."] = "The selected packages have been deleted.";
+# $_t["es"]["The selected packages have been deleted."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["The selected packages have been deleted."] = "--> Traduction française ici. <--";
+# $_t["de"]["The selected packages have been deleted."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You have been removed from the comment notification list."] = "You have been removed from the comment notification list.";
+# $_t["es"]["You have been removed from the comment notification list."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You have been removed from the comment notification list."] = "--> Traduction française ici. <--";
+# $_t["de"]["You have been removed from the comment notification list."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You must be logged in before you can cancel notification on comments."] = "You must be logged in before you can cancel notification on comments.";
+# $_t["es"]["You must be logged in before you can cancel notification on comments."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You must be logged in before you can cancel notification on comments."] = "--> Traduction française ici. <--";
+# $_t["de"]["You must be logged in before you can cancel notification on comments."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You have been added to the comment notification list."] = "You have been added to the comment notification list.";
+# $_t["es"]["You have been added to the comment notification list."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You have been added to the comment notification list."] = "--> Traduction française ici. <--";
+# $_t["de"]["You have been added to the comment notification list."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You did not select any packages to disown."] = "You did not select any packages to disown.";
+# $_t["es"]["You did not select any packages to disown."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You did not select any packages to disown."] = "--> Traduction française ici. <--";
+# $_t["de"]["You did not select any packages to disown."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["You did not select any packages to delete."] = "You did not select any packages to delete.";
+# $_t["es"]["You did not select any packages to delete."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["You did not select any packages to delete."] = "--> Traduction française ici. <--";
+# $_t["de"]["You did not select any packages to delete."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Couldn't add to notification list."] = "Couldn't add to notification list.";
+# $_t["es"]["Couldn't add to notification list."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Couldn't add to notification list."] = "--> Traduction française ici. <--";
+# $_t["de"]["Couldn't add to notification list."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["Couldn't remove from notification list."] = "Couldn't remove from notification list.";
+# $_t["es"]["Couldn't remove from notification list."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["Couldn't remove from notification list."] = "--> Traduction française ici. <--";
+# $_t["de"]["Couldn't remove from notification list."] = "--> Deutsche Übersetzung hier. <--";
+
 ?>

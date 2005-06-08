@@ -243,6 +243,10 @@ if (isset($_REQUEST["do_Flag"])) {
 						$q = "DELETE FROM Packages WHERE ID = " . $id;
 						$result = db_query($q, $dbh);
 
+						# 7) delete from CommentNotify
+						$q = "DELETE FROM CommentNotify WHERE ID = " . $id;
+						$result = db_query($q, $dbh);
+
 						# TODO question: Now that the package as been deleted, does
 						#                the unsupported repo need to be regenerated?
 					  # ANSWER: No, there is no actual repo for unsupported, so no worries! (PJM)
@@ -458,6 +462,59 @@ if (isset($_REQUEST["do_Flag"])) {
 	pkgsearch_results_link();
 
 
+} elseif (isset($_REQUEST["do_Notify"])) {
+	# I realize that the implementation here seems a bit convoluted, but we want to
+	# ensure that everything happens as it should, even if someone called this page
+	# without having clicked a button somewhere (naughty naughty). This also leaves
+	# room to someday expand and allow to add oneself to multiple lists at once. -SL
+	if (!$atype) {
+		print __("You must be logged in before you can get notifications on comments.");
+		print "<br />\n";
+	} else {
+		if (!empty($ids)) {
+			$dbh = db_connect();
+			$uid = uid_from_sid($_COOKIE["AURSID"]);
+			# There currently shouldn't be multiple requests here, but the format in which
+			# it's sent requires this
+			while (list($pid, $v) = each($ids)) {
+				$q = "INSERT INTO CommentNotify (PkgID, UserID) VALUES (".$pid.', '.$uid.')';
+				db_query($q, $dbh);
+				print '<p>';
+				print __("You have been added to the comment notification list.");
+				print '<br /></p>';
+				pkgdetails_link($pid);
+			}
+		} else {
+			print '<p>';
+			print __("Couldn't add to notification list.");
+			print '<br /></p>';
+		}
+	}			
+} elseif (isset($_REQUEST["do_UnNotify"])) {	
+	if (!$atype) {
+		print __("You must be logged in before you can cancel notification on comments.");
+		print "<br />\n";
+	} else {
+		if (!empty($ids)) {
+			$dbh = db_connect();
+			$uid = uid_from_sid($_COOKIE["AURSID"]);
+			# There currently shouldn't be multiple requests here, but the format in which
+			# it's sent requires this
+			while (list($pid, $v) = each($ids)) {
+				$q = "DELETE FROM CommentNotify WHERE PkgID = ".$pid;
+				$q.= " AND UserID = ".$uid;
+				db_query($q, $dbh);
+				print '<p>';
+				print __("You have been removed from the comment notification list.");
+				print '<br /></p>';
+				pkgdetails_link($pid);
+			}
+		} else {
+			print '<p>';
+			print __("Couldn't remove from notification list.");
+			print '<br /></p>';
+		}
+	}			
 } else {
 	# do_More/do_Less/do_Search/do_MyPackages - just do a search
 	#

@@ -434,6 +434,8 @@ function package_details($id=0, $SID="") {
 				print "<td><form action='/packages.php' method='post'>\n";
 				print "<input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
 				print "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+				# Voting Button
+				#
 				$q = "SELECT * FROM PackageVotes WHERE UsersID = ".uid_from_sid($SID);
 				$q.= " AND PackageID = ".$row["ID"];
 				if (!mysql_num_rows(db_query($q, $dbh))) {
@@ -443,7 +445,18 @@ function package_details($id=0, $SID="") {
 					print "<input type='submit' class='button' name='do_UnVote'";
 					print " value='".__("Un-Vote")."'>";
 				}
-				print "</form></td>\n";
+				# Comment Nofify Button
+				#
+				$q = "SELECT * FROM CommentNotify WHERE UserID = ".uid_from_sid($SID);
+				$q.= " AND PkgID = ".$row["ID"];
+				if (!mysql_num_rows(db_query($q, $dbh))) {
+					print "<input type='submit' class='button' name='do_Notify'";
+					print " value='".__("Notify")."'>";
+				} else {
+					print "<input type='submit' class='button' name='do_UnNotify'";
+					print " value='".__("UnNotify")."'>";
+				}
+				print "</form></td>\n";				
 			}
 			print "</tr>\n";
 

@@ -76,6 +76,30 @@ if ($_REQUEST["add_Comment"]) {
 		print __("Comment has been added.")."<br />&nbsp;<br />\n";
 		pkgdetails_link($_REQUEST["ID"]);
 
+		# Send email notifications
+		#
+		$q = "SELECT CommentNotify.*, Users.Email ";
+		$q.= "FROM CommentNotify, Users ";
+		$q.= "WHERE Users.ID = CommentNotify.UserID ";
+		$q.= "AND CommentNotify.PkgID = ".intval($_REQUEST["ID"]);
+		$result = db_query($q, $dbh);
+		$bcc = array();
+		if (mysql_num_rows($result)) {
+			while ($row = mysql_fetch_assoc($result)) {
+				array_push($bcc, $row['Email']);
+			}
+			$q = "SELECT Packages.Name ";
+			$q.= "FROM Packages ";
+			$q.= "WHERE Packages.ID = ".intval($_REQUEST["ID"]);
+			$result = db_query($q, $dbh);
+			$row = mysql_fetch_assoc($result);
+			$body = __("A comment has been added to %s, you may view it at:\nhttp://aur.archlinux.org/packages.php?do_Details=1&ID=%s\n\nYou recieved this e-mail because you chose to recieve notifications of new comments on this package, if you no longer wish to recieve notifications about this package, please go the the above package page and click the appropriate control.",array($row['Name'],$_REQUEST["ID"]));
+			$body = wordwrap($body, 70);
+			$bcc = implode(', ', $bcc);
+			$headers = "Bcc: $bcc\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
+			@mail(' ', __("AUR Comment Notification for %s",array($row['Name'])), $body, $headers);
+		}
+
 	} else {
 		# Prompt visitor for comment
 		#

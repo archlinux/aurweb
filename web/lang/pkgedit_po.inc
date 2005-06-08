@@ -89,4 +89,14 @@ $_t["en"]["You've found a bug if you see this...."] = "You've found a bug if you
 # $_t["de"]["Category"] = "--> Deutsche Ãœbersetzung hier. <--";
 $_t["pl"]["You've found a bug if you see this...."] = "JeÅ¼eli to widzisz, to znalazÅ‚eÅ› bÅ‚Ä…d...";
 
+$_t["en"]["A comment has been added to %s, you may view it at:\nhttp://aur.archlinux.org/packages.php?do_Details=1&ID=%s\n\nYou recieved this e-mail because you chose to recieve notifications of new comments on this package, if you no longer wish to recieve notifications about this package, please go the the above package page and click the appropriate control."] = "A comment has been added to %s, you may view it at:\nhttp://aur.archlinux.org/packages.php?do_Details=1&ID=%s\n\nYou recieved this e-mail because you chose to have recieve notifications of new comments on this package, if you no longer wish to recieve notifications about this package, please go the the above package page and click the appropriate control.";
+# $_t["es"]["A comment has been added to %s, you may view it at:\nhttp://aur.archlinux.org/packages.php?do_Details=1&ID=%s\n\nYou recieved this e-mail because you chose to have recieve notifications of new comments on this package, if you no longer wish to recieve notifications about this package, please go the the above package page and click the appropriate control."] = "--> Traducción española aquí. <--";
+# $_t["fr"]["A comment has been added to %s, you may view it at:\nhttp://aur.archlinux.org/packages.php?do_Details=1&ID=%s\n\nYou recieved this e-mail because you chose to have recieve notifications of new comments on this package, if you no longer wish to recieve notifications about this package, please go the the above package page and click the appropriate control."] = "--> Traduction française ici. <--";
+# $_t["de"]["A comment has been added to %s, you may view it at:\nhttp://aur.archlinux.org/packages.php?do_Details=1&ID=%s\n\nYou recieved this e-mail because you chose to have recieve notifications of new comments on this package, if you no longer wish to recieve notifications about this package, please go the the above package page and click the appropriate control."] = "--> Deutsche Übersetzung hier. <--";
+
+$_t["en"]["AUR Comment Notification for %s"] = "AUR Comment Notification for %s";
+# $_t["es"]["AUR Comment Notification for %s"] = "--> Traducción española aquí. <--";
+# $_t["fr"]["AUR Comment Notification for %s"] = "--> Traduction française ici. <--";
+# $_t["de"]["AUR Comment Notification for %s"] = "--> Deutsche Übersetzung hier. <--";
+
 ?>
