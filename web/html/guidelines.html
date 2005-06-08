@@ -1,19 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>AUR Guidelines</title>
+        
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<link rel="stylesheet" type="text/css" href="guidelines_files/arch-styles"></head>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-        <title>AUR Guidelines</title>
-			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-			<link rel="stylesheet" type="text/css" 
-				href="http://www.archlinux.org/docs/css/arch-styles.css" />
-	</head>
-	
+
+
 	<body>
         <h1>AUR Guidelines</h1>
 		
-        <div class="date">April 15, 2005</div>
-        <div class="version">1.0.2</div>
+        <div class="date">Jun 08, 2005</div>
+        <div class="version">1.1.0</div>
 		
 		<address>
             Ben Mazer
@@ -44,8 +41,7 @@
                 <li><a href="#tuaddition">Adding a TU</a></li>
                 <li><a href="#turemoval">Removing a TU</a></li>
                 <li><a href="#otherduties">Other Duties</a></li> 
-            </ol> </li>
-            <li><a href="#tuguidelines">Guidelines for Package Maintenance</a>
+<li><a href="#tuguidelines">Guidelines for Package Maintenance</a>
             <ol>
                 <li><a href="#accessing">Accessing the Repo</a></li>
                 <li><a href="#adopting">Adopting a package</a></li>
@@ -53,118 +49,225 @@
                 <li><a href="#pkgguidelines">Packaging Etiquette</a></li>
             </ol>
             </li>  
-           
-		</ol>
+             
+
+        </ol> </li>
+        <li><a href="#faq">Frequently Asked Questions</a></li>
+            		</ol>
 		</div>
 
         <h2 id="purpose">Purpose</h2>
         <p>
-        The <acronym title="Arch User Repository">AUR</acronym> is a community of Arch users, where packages outside of the core Arch distribution are maintained. The AUR Community Repo is a supplement to the EXTRA and CURRENT repositories; less popular packages will be maintained as a service to the general Arch-using population. Packages in the AUR will depend on EXTRA and CURRENT.  <br /><br />
-        The AUR was created to lift the burden on the developers. They should be allowed to focus on adding new features, rather than doing the mundane job of package maintenance. Therefore, all packages start inside the AUR, and as developers consider them crucial to the distribution, they will be adopted into EXTRA/CURRENT. The AUR was also created to allow easy participation. Arch is completely volunteer-based, and needs help from its users. Lastly, the AUR helps to further the Arch philosophy of KISS. The Arch Core (EXTRA/CURRENT/UNSTABLE) is a complete distribution, but it does not attempt to provide every single package. The AUR helps by maintaining less popular packages; but the AUR also follows KISS, and only popular packages from UNSUPPORTED will make it into the official AUR repository. 
-		</p>
+        The <acronym title="Arch User Repository">AUR</acronym>
+is a community of Arch users, where packages outside of the core Arch
+distribution are maintained. The AUR Community Repo is a supplement to
+the EXTRA and CURRENT repositories; less popular packages will be
+maintained as a service to the general Arch-using population. Packages
+in the AUR will depend on EXTRA and CURRENT. <br><br> The AUR was
+created to lift the burden on the developers. They should be allowed to
+focus on adding new features, rather than doing the mundane job of
+package maintenance. Therefore, all packages start inside the AUR, and
+as developers consider them crucial to the distribution, they will be
+adopted into EXTRA/CURRENT. The AUR was also created to allow easy
+participation. Arch is completely volunteer-based, and needs help from
+its users. Lastly, the AUR helps to further the Arch philosophy of
+KISS. The Arch Core (EXTRA/CURRENT/UNSTABLE) is a complete
+distribution, but it does not attempt to provide every single package.
+The AUR helps by maintaining less popular packages; but the AUR also
+follows KISS, and only popular packages from UNSUPPORTED will make it
+into the official AUR repository. </p>
         <h2 id="user">The User</h2>
+        <p> Users of the
+AUR can do many things, the main function being to download and use
+packages. One can access the AUR by adding this to their pacman.conf
+file:<br><br>
+        <code>[community]<br>Server = ftp://ftp.archlinux.org/community/os/i686/</code><br><br>
+But a user can also help with package maintenance, by: submitting
+packages (and then maintaining them while they remain in UNSUPPORTED),
+filing bug reports, reporting out-of-date packages, helping with other
+user-submitted PKGBUILDs, and voting for packages that should be
+maintained by the TUs. Once a user account has been created, all
+functions can be performed inside the web interface. </p><h3 id="usersub">Submitting Packages</h3>
         <p>
-        Users of the AUR can do many things, the main function being to download and use packages. One can access the AUR by adding this to their pacman.conf file:<br /><br />
-        <code>[community]<br />Server = ftp://ftp.archlinux.org/community/os/i686/</code><br /><br />
-        
-        But a user can also help with package maintenance, by: submitting packages (and then maintaining them while they remain in UNSUPPORTED), filing bug reports, reporting out-of-date packages, helping with other user-submitted PKGBUILDs, and voting for packages that should be maintained by the TUs. Once a user account has been created, all functions can be performed inside the web interface. 
-        <h3 id="usersub">Submitting Packages</h3>
-        <p>
-        Inside the web interface, a user can submit a tarball (tar.gz) of a directory containing build files for a package. The directory inside the tarball should contain a PKGBUILD, any .install files, patches, etc (<b>no binaries</b>). Examples of what a directory looks like can be seen inside /var/abs. <br /><br />
+Inside the web interface, a user can submit a tarball (tar.gz) of a
+directory containing build files for a package. The directory inside
+the tarball should contain a PKGBUILD, any .install files, patches, etc
+(<b>no binaries</b>). Examples of what a directory looks like can be seen inside /var/abs. <br><br>
         When submitting a package, observe the following rules:
-        <ul>
-            <li>Check EXTRA, CURRENT, UNSTABLE, UNSUPPORTED, and AUR for the package. If it is inside any of those repositories in any form, do not submit the package (if the package is broken in some way, file a bug report). </li>
-            <li>Verify carefully that what you are uploading is correct. Follow the TU/Developer Package Building Guidelines exactly. Broken packages make the AUR messy, and prevent the TUs from doing their other duties. </li>
-            <li>If you are unsure about the package (or the build/submission process) in any way, submit the PKGBUILD to the AUR Mailing List for public review before adding it to the AUR.</li>
-            <li>Make sure the package is useful. Will anyone else want to use this package? Is it extremely specialized? If more than a few people would find this package useful, it is appropriate for submission. </li>
+        </p><ul>
+            <li>Check
+EXTRA, CURRENT, UNSTABLE, UNSUPPORTED, and AUR for the package. If it
+is inside any of those repositories in any form, do not submit the
+package (if the package is broken in some way, file a bug report). </li>
+            <li>Verify
+carefully that what you are uploading is correct. Follow the
+TU/Developer Package Building Guidelines exactly. Broken packages make
+the AUR messy, and prevent the TUs from doing their other duties. </li>
+            <li>If
+you are unsure about the package (or the build/submission process) in
+any way, submit the PKGBUILD to the AUR Mailing List for public review
+before adding it to the AUR.</li>
+            <li>Make sure the package
+is useful. Will anyone else want to use this package? Is it extremely
+specialized? If more than a few people would find this package useful,
+it is appropriate for submission. </li>
             <li>Gain some experience before submitting packages. Build a few packages to learn the process and then submit. </li>
-            <li>Do not abandon packages. While in UNSUPPORTED, it is the user's job to maintain the package. If you do not want to maintain the package for some reason, post a message to the AUR Mailing List.  </li>
+            <li>Do
+not abandon packages. While in UNSUPPORTED, it is the user's job to
+maintain the package. If you do not want to maintain the package for
+some reason, post a message to the AUR Mailing List. </li>
         </ul>
-        </p>
-        </p>
+        
+        
         <h2 id="tu">The TU</h2>
         <p>
-        The TU -or Trusted User- is a member of the community charged with keeping the AUR in working order. He maintains popular packages, and votes in administrative matters. A TU is elected from active community members by current TUs in a democratic process. TUs are the only members who have a final say in the direction of the AUR. 
-        </p>
+The TU -or Trusted User- is a member of the community charged with
+keeping the AUR in working order. He maintains popular packages, and
+votes in administrative matters. A TU is elected from active community
+members by current TUs in a democratic process. TUs are the only
+members who have a final say in the direction of the AUR. </p>
         <h3 id="tuaddition">Adding a TU</h3>
         <p>
-        TUs are only added as needed, and applications will only be accepted at certain times. Check the AUR website for details on whether applications are being accepted. <br /><br />
-        TUs are elected democratically. If you would like to become a TU, a sponsor (another TU) is needed. After this is received, a request must be made on the AUR Mailing List by the sponsor. Ideally, a TU should have a specific subset of packages he wishes to maintain. <br /><br />
-
-        Four other votes must be received from other TUs for an applicant to be accepted. Once these have been received, the user will be given the proper passwords, and a TU will upgrade the user's status on the web interface. 
-        <br />
+TUs are only added as needed, and applications will only be accepted at
+certain times. Check the AUR website for details on whether
+applications are being accepted. <br><br>
+TUs are elected democratically. If you would like to become a TU, a
+sponsor (another TU) is needed. You must solicit requests for a sponsor
+privately before posting on the mailing list. After this is received, a
+request must be made on the AUR Mailing List by the sponsor. Ideally, a
+TU should have a specific subset of packages he wishes to maintain. <br><br>
+Four other votes must be received from other TUs or developers for an
+applicant to be accepted. Once these have been received, the user will
+be given the proper passwords, and a TU will upgrade the user's status
+on the web interface. <br><br>
+Once an application has been published on the mailing list, it is open
+for voting for 3 weeks. If the applicant does not receive enough votes
+within that time period, he must wait 3 months to submit another
+application, with vote tallies being reset. <br>
         
         </p>
         <h3 id="turemoval">Sanctioning/Removing a TU</h3>
         <p>
-        There is a basic sanctioning system for TUs. If a TU breaks a rule, either official or through "community standards" when he was already aware of this rule, one can request a sanction. If two other votes from TUs are received, a sanction will be added. After two sanctions, the TU will automatically come up for a removal vote.
-        <br /><br />
-        If a TU is not working out, for any reason, one can request him to be expelled. Someone requesting a removal of a TU must state a valid reason, and why immediate removal is necessary. Almost always, previous sanctions will be needed. With four additional votes, that TU will be immediately removed and his packages will have to be adopted by a different TU.
-         
-        </p>
+There is a basic sanctioning system for TUs. If a TU breaks a rule,
+either official or through "community standards" when he was already
+aware of this rule, one can request a sanction. If two other votes from
+TUs are received, a sanction will be added. After two sanctions, the TU
+will automatically come up for a removal vote. <br><br> If a TU is not working out, for any reason, one can
+request him to be expelled. Someone requesting a removal of a TU must
+state a valid reason, and why immediate removal is necessary. Almost
+always, previous sanctions will be needed. With four additional votes,
+that TU will be immediately removed and his packages will have to be
+adopted by a different TU. </p>
         <h3 id="otherduties">Other Duties</h3>
         <p>
-        All other duties (changing rules, adding new regulations, new features, etc) should be discussed openly on the AUR Mailing List and voted on. Various pieces of documentation and code can have specified "maintainers" that can perform basic updates (typo/bug fixes) without a vote, but any changes should be reported on the mailing list. Any major changes should receive a simple majority vote. 
-        </p>
-        <h2 id="tuguidelines">Guidelines for Package Maintenance</h2>
+All other duties (changing rules, adding new regulations, new features,
+etc) should be discussed openly on the AUR Mailing List and voted on.
+Various pieces of documentation and code can have specified
+"maintainers" that can perform basic updates (typo/bug fixes) without a
+vote, but any changes should be reported on the mailing list. Any major
+changes should receive a simple majority vote. </p>
+        <h3 id="tuguidelines">Guidelines for Package Maintenance</h3>
         <p>
         </p>
-        <h3 id="accessing">Accessing the Repo</h3>
+        <h4 id="accessing">Accessing the Repo</h4>
         <p>
-        Follow these instructions for uploading/modifying packages:
-        <ol>
+        Follow these instructions for uploading/modifying packages once you have become a TU:
+        </p><ol>
             <li>Install the "aurtools" package.</li>
-            <li>Email Jason (<a class='email' href="mailto:jason@archlinux.org">jason@archlinux.org</a>) for a CVS account.</li>
-            <li>Run the following commands to checkout the AUR CVS:<br />
+            <li>Email Jason (<a class="email" href="mailto:jason@archlinux.org">jason@archlinux.org</a>) for a CVS account.</li>
+            <li>Run the following commands to checkout the AUR CVS:<br>
             <kbd>
-                export CVSROOT=":pserver:&lt;userid&gt;@cvs.archlinux.org:/home/cvs-community"<br />
-                cvs login<br />
+                export CVSROOT=":pserver:&lt;userid&gt;@cvs.archlinux.org:/home/cvs-community"<br>
+                cvs login<br>
                 cvs co community</kbd></li>
-            <li>To add a PKGBUILD and other build files:<br />
+            <li>To add a PKGBUILD and other build files:<br>
             <kbd>
-                cvs add &lt;directory&gt;<br />
-                cd &lt;directory&gt;<br />
-                cvs add PKGBUILD<br />
-                .<br />
-                .<br />
+                cvs add &lt;directory&gt;<br>
+                cd &lt;directory&gt;<br>
+                cvs add PKGBUILD<br>
+                .<br>
+                .<br>
                 cvs commit</kbd></li>
             <li>To upload a binary package:
             <kbd>tupkg --user &lt;userid&gt; --password &lt;password&gt; &lt;packagefile.pkg.tar.gz&gt;</kbd></li>
             <li>After uploading a package and committing the build files, tag the files with this command:
             <kbd>cvs tag -cFR CURRENT &lt;newpackagebuilddir&gt;</kbd></li>
-            <li>Package changes should be available within 10 minutes. Verify everything was uploaded properly, then select the newly added or updated package in the web interface and set yourself as the maintainer.</li>
+            <li>Package
+changes should be available within 10 minutes. Verify everything was
+uploaded properly, then select the newly added or updated package in
+the web interface and set yourself as the maintainer.</li>
         </ol>
-        </p>
-        <h3 id="adopting">Adopting Packages</h3>
+        
+        <h4 id="adopting">Adopting Packages</h4>
         <p>
-        A TU may adopt any package at any time. But because the TU's time is limited, he should try to only adopt popular packages. The voting mechanism in the AUR allows a TU to quickly gage which packages users want. <br /><br />
+A TU may adopt any package at any time. But because the TU's time is
+limited, he should try to only adopt popular packages. The voting
+mechanism in the AUR allows a TU to quickly gage which packages users
+want. <br><br>
+If a package receives 25 votes, it may be adopted by a TU. A maintainer
+should adopt it via the web interface. That maintainer is then
+responsible for bug fixes and new version updates. Packages must be
+properly cleaned and fixed after adoption. </p>
 
-        If a package receives 25 votes, it may be adopted by a TU. A maintainer should adopt it via the web interface. That maintainer is then responsible for bug fixes and new version updates. Packages must be properly cleaned and fixed after adoption.        
-        </p>
-
-        <h3 id='disowning'>Disowning packages</h3>
+        <h4 id="disowning">Disowning packages</h4>
         <p>
-        If a TU can't or doesn't want to maintain a package any longer, a notice should be posted to the AUR Mailing List, so another TU can maintain it. A package can still be disowned even if no other TU wants to maintain it, but the TUs should try not to drop many packages (they shouldn't take on more than they have time for).  If a package has become obsolete or isn't used any longer, it can be removed completely as well. <br /><br />
-        If a package has been removed completely, it can be uploaded once again (fresh) to UNSUPPORTED, where a regular user can maintain the package instead of the TU. 
-        </p>
-        <h3 id="pkgguidelines">Packaging Etiquette</h3>
+If a TU can't or doesn't want to maintain a package any longer, a
+notice should be posted to the AUR Mailing List, so another TU can
+maintain it. A package can still be disowned even if no other TU wants
+to maintain it, but the TUs should try not to drop many packages (they
+shouldn't take on more than they have time for). If a package has
+become obsolete or isn't used any longer, it can be removed completely
+as well. <br><br>
+If a package has been removed completely, it can be uploaded once again
+(fresh) to UNSUPPORTED, where a regular user can maintain the package
+instead of the TU. </p>
+        <h4 id="pkgguidelines">Packaging Etiquette</h4>
         <p>
         Adhere to the following rules when building/maintaining packages:
-        <br />
-        <ul>
+        <br>
+        </p><ul>
             <li>Follow all rules in the <a href="http://www.archlinux.org/docs/en/guide/install/arch-install-guide.html#build">Arch Packaging Guidelines</a>.</li>    
             <li>Always run Namcap on all packages and PKGBUILDs.</li>
-            <li>All important messages should be echoed inside the .install file. For example, if a package needs extra setup to work, directions should be echoed. </li>
-            <li>Any optional dependencies that aren't needed to run the package or have it generally function shouldn't be included, but a warning message inside the .install file should echo something like: "To enable SMB support, download the Samba package."</li>
+            <li>All
+important messages should be echoed inside the .install file. For
+example, if a package needs extra setup to work, directions should be
+echoed. </li>
+            <li>Any optional dependencies that aren't
+needed to run the package or have it generally function shouldn't be
+included, but a warning message inside the .install file should echo
+something like: "To enable SMB support, download the Samba package."</li>
             
             <li>Always look at current packages for ideas on how various problems should be handled. Most problems have already been solved. </li>
-            <li>Dependencies are the most common packaging error. Namcap can help detect them, but it is not always correct. Verify dependencies by looking at source documentation and the program website. </li>
+            <li>Dependencies
+are the most common packaging error. Namcap can help detect them, but
+it is not always correct. Verify dependencies by looking at source
+documentation and the program website. </li>
             <li>All packages should be buildable as a user, under fakeroot. </li>
             <li>New user creation should only be done when absolutely necessary. </li>
-            <li>Always fill out all applicable fields in the PKGBUILD (never forget a URL, md5sum, etc). The LICENSE variable is not currently used, but will be very shortly. </li>
+            <li>Always
+fill out all applicable fields in the PKGBUILD (never forget a URL,
+md5sum, etc). The LICENSE variable is not currently used, but will be
+very shortly. </li>
             <li>All custom variables should begin with an underscore (_). </li>
             <li>A PKGBUILD should never modify any files outside of the build directory. </li>
         </ul>
-        </p>
-    </body>
-</html>
+        
+        <h2 id="faq">Frequently Asked Questions</h2>
+        <p>
+        Q: What is the difference between the AUR, COMMUNITY, and TUR? Why don't packages I upload to the AUR show up in pacman?<br><br>
+A: The TUR, or Trusted User Repository, was the old system used to
+manage user submissions. It had a number of flaws, so was discontinued.
+The TUR website is still up, but is dead and will be removed shortly.
+AUR is the official replacement for the TUR. It is a web system that
+allows users to submit their own PKGBUILDs for both the TUs and the
+general community to see. COMMUNITY is a new Arch repository, run by
+the TUs, that is available via pacman.<br><br>
+User submitted PKGBUILDs are available from the AUR, but because they
+have not been reviewed, packages are not available. If a PKGBUILD is
+reviewed, and receives many votes, it may "graduate" into the COMMUNITY
+repo. There it will easily be retrievable from pacman.<br><br>
+If you are a new user, it is safe to use the COMMUNITY repo, as
+packages have been verified. Any PKGBUILDs in the UNSUPPORTED section
+of the AUR have not been tested, and could be dangerous or broken. Use
+at your own risk. </p>
+    </body></html>
