@@ -362,7 +362,7 @@ function html_header() {
 	print "<link rel='stylesheet' type='text/css' href='/css/fonts.css'/>\n";
 	print "<link rel='stylesheet' type='text/css' href='/css/containers.css'/>\n";
 	print "<link rel='shortcut icon' href='/images/favicon.ico'/>\n";
-	print "<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='http://".$_SERVER['HTTP_HOST']."/rss2.php' />\n";
+	print "<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='/rss2.php' />\n";
 	print "<meta http-equiv=\"Content-Type\"";
 	print " content=\"text/html; charset=UTF-8\" />\n";
 	print "</head>\n";

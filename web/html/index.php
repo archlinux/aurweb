@@ -87,7 +87,7 @@ $q.= "WHERE DummyPkg != 1 ";
 $q.= "ORDER BY SubmittedTS DESC ";
 $q.= "LIMIT 0 , 10";
 $result = db_query($q,$dbh);
-print "<span class='f3'>".__("Latest Packages:")."</span><span class='f5'><a href='http://".$_SERVER['HTTP_HOST']."/rss2.php'>(rss)</a></span><br />\n";
+print "<span class='f3'>".__("Latest Packages:")."</span><span class='f5'><a href='/rss2.php'>(rss)</a></span><br />\n";
 while ($row = mysql_fetch_assoc($result)) {
 	print "  <span class='f4'><a href='/packages.php?do_Details=1&ID=".intval($row["ID"])."'>";
 	print $row["Name"]."</a></span><br />\n";

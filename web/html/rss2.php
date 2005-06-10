@@ -9,12 +9,12 @@ $rss->useCached("RSS2.0","xml/newestpkg.xml",3600);
 #All the general RSS setup
 $rss->title = "AUR Newest Packages";
 $rss->description = "The latest and greatest packages in the AUR";
-$rss->link = 'http://'.$_SERVER['HTTP_HOST'];
-$rss->syndicationURL = 'http://'.$_SERVER['HTTP_HOST'].'/rss2.php';
+$rss->link = "http" . ($_SERVER["HTTPS"]=='on'?"s":"") . "://".$_SERVER['HTTP_HOST'];
+$rss->syndicationURL = "http" . ($_SERVER["HTTPS"]=='on'?"s":"") . "://".$_SERVER['HTTP_HOST']."/rss2.php";
 $image = new FeedImage();
 $image->title = "AUR";
-$image->url = "http://".$_SERVER['HTTP_HOST']."/images/AUR-logo-80.png";
-$image->link = "http://".$_SERVER['HTTP_HOST'];
+$image->url = "http" . ($_SERVER["HTTPS"]=='on'?"s":"") . "://".$_SERVER['HTTP_HOST']."/images/AUR-logo-80.png";
+$image->link = "http" . ($_SERVER["HTTPS"]=='on'?"s":"") . "://".$_SERVER['HTTP_HOST'];
 $image->description = "AUR Newest Packages Feed";
 $rss->image = $image;
 
@@ -28,10 +28,10 @@ $result = db_query($q, $dbh);
 while ($row = mysql_fetch_assoc($result)) {
 	$item = new FeedItem();
 	$item->title = $row["Name"];
-	$item->link = 'http://'.$_SERVER['HTTP_HOST'].'/packages.php?do_Details&ID='.$row["ID"];
+	$item->link = "http" . ($_SERVER["HTTPS"]=='on'?"s":"") . "://".$_SERVER['HTTP_HOST'].'/packages.php?do_Details&ID='.$row["ID"];
 	$item->description = $row["Description"];
 	$item->date = intval($row["SubmittedTS"]);
-	$item->source = 'http://'.$_SERVER['HTTP_HOST'];
+	$item->source = "http" . ($_SERVER["HTTPS"]=='on'?"s":"") . "://".$_SERVER['HTTP_HOST'];
 	$item->author = username_from_id($row["MaintainerUID"]);
 	$rss->addItem($item);
 }
