@@ -45,4 +45,6 @@ $_t["en"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."
 
 $_t["en"]["Incorrect password for username, %s."] = "Incorrect password for username, %s.";
 
+$_t["en"]["Latest Packages:"] = "Latest Packages:";
+
 ?>

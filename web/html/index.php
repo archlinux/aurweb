@@ -80,6 +80,19 @@ print "  <td align='left' valign='top'>";
 print "<p>".__("Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h.", array('<a href="guidelines.html">', '</a>'))."</p>";
 print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."</p>";
 print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
+
+#Hey, how about listing the newest pacakges? :D
+$q = "SELECT * FROM Packages ";
+$q.= "WHERE DummyPkg != 1 ";
+$q.= "ORDER BY SubmittedTS DESC ";
+$q.= "LIMIT 0 , 10";
+$result = db_query($q,$dbh);
+print "<span class='f3'>".__("Latest Packages:")."</span><span class='f5'><a href='http://".$_SERVER['HTTP_HOST']."/rss2.php'>(rss)</a></span><br />\n";
+while ($row = mysql_fetch_assoc($result)) {
+	print "  <span class='f4'><a href='/packages.php?do_Details=1&ID=".intval($row["ID"])."'>";
+	print $row["Name"]."</a></span><br />\n";
+}
+
 #print __("This is where the intro text will go.");
 #print __("For now, it's just a place holder.");
 #print __("It's more important to get the login functionality finished.");
