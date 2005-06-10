@@ -244,7 +244,7 @@ if (isset($_REQUEST["do_Flag"])) {
 						$result = db_query($q, $dbh);
 
 						# 7) delete from CommentNotify
-						$q = "DELETE FROM CommentNotify WHERE ID = " . $id;
+						$q = "DELETE FROM CommentNotify WHERE PkgID = " . $id;
 						$result = db_query($q, $dbh);
 
 						# TODO question: Now that the package as been deleted, does
