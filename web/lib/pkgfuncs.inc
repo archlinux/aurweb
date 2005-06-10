@@ -506,6 +506,21 @@ function pkg_search_page($SID="") {
 		# reset the offset to zero if they hit Go
 		#
 		$_REQUEST["do_MyPackages"] = 0;
+		$_REQUEST["do_Orphans"] = 0;
+		$O = 0;
+	}
+	if ($_REQUEST["do_MyPackages"] && $_REQUEST["do_MyPackages"] != 1) {
+		# reset the offset to zero if they hit My Packages
+		#
+		$_REQUEST["do_Search"] = 0;
+		$_REQUEST["do_Orphans"] = 0;
+		$O = 0;
+	}
+	if ($_REQUEST["do_Orphans"] && $_REQUEST["do_Orphans"] != 1) {
+		# reset the offset to zero if they hit Orphans
+		#
+		$_REQUEST["do_Search"] = 0;
+		$_REQUEST["do_MyPackages"] = 0;
 		$O = 0;
 	}
 	$_REQUEST["O"] = $O; # so that pkg_search_results() works
