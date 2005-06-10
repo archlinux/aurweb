@@ -586,5 +586,60 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	return;
 }
 
+# Display non-editable account info
+#
+function display_account_info($U="",$T="",
+			$E="",$R="",$I="") {
+	# U: value to display for username
+	# T: value to display for account type
+	# E: value to display for email address
+	# R: value to display for RealName
+	# I: value to display for IRC nick
+
+	global $SUPPORTED_LANGS;
+
+	print "<center>\n";
+	print "<table border='0' cellpadding='0' cellspacing='0' width='33%'>\n";
+	print "  <tr>\n";
+	print "    <td colspan='2'>&nbsp;</td>\n";
+	print "  </tr>\n";
+
+	print "  <tr>\n";
+	print "    <td align='left'>".__("Username").":</td>\n";
+	print "    <td align='left'>".$U."</td>\n";
+	print "  </tr>\n";
+	
+	print "  <tr>\n";
+	print "    <td align='left'>".__("Account Type").":</td>\n";
+	print "    <td align='left'>";
+	if ($T == "User") {
+		print __("User");
+	} elseif ($T == "Trusted User") {
+		print __("Trusted User");
+	}	elseif ($T == "Developer") {
+		print __("Developer");
+	}
+	print "</td>\n";
+	
+	print "  <tr>\n";
+	print "    <td align='left'>".__("Email Address").":</td>\n";
+	print "    <td align='left'><a href='mailto:".$E."'>".$E."</a></td>\n";
+	print "  </tr>\n";
+
+	print "  <tr>\n";
+	print "    <td align='left'>".__("Real Name").":</td>\n";
+	print "    <td align='left'>".$R."</td>\n";
+	print "  </tr>\n";
+
+	print "  <tr>\n";
+	print "    <td align='left'>".__("IRC Nick").":</td>\n";
+	print "    <td align='left'>".$I."</td>\n";
+	print "  </tr>\n";
+
+	print "</table>\n";
+	print "</center>\n";
+	return;
+}
+
 # vim: ts=2 sw=2 noet ft=php
 ?>

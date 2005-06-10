@@ -59,7 +59,24 @@ if (isset($_COOKIE["AURSID"])) {
 			}
 		}
 
-	} elseif ($_REQUEST["Action"] == "UpdateAccount") {
+	} elseif ($_REQUEST["Action"] == "AccountInfo") {
+		# no editing, just looking up user info
+		#
+		$q = "SELECT Users.*, AccountTypes.AccountType ";
+		$q.= "FROM Users, AccountTypes ";
+		$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
+		$q.= "AND Users.ID = ".intval($_REQUEST["ID"]);
+		$result = db_query($q, $dbh);
+		if (!mysql_num_rows($result)) {
+			print __("Could not retrieve information for the specified user.");
+		} else {
+			$row = mysql_fetch_assoc($result);
+			display_account_info($row["Username"],
+						$row["AccountType"], $row["Email"], $row["RealName"],
+						$row["IRCNick"]);
+		}
+		
+	}	elseif ($_REQUEST["Action"] == "UpdateAccount") {
 		# user is submitting their modifications to an existing account
 		#
 		process_account_form($atype, "edit", "UpdateAccount",
@@ -109,7 +126,9 @@ if (isset($_COOKIE["AURSID"])) {
 } else {
 	# visitor is not logged in
 	#
-	if ($_REQUEST["Action"] == "NewAccount") {
+	if ($_REQUEST["Action"] == "AccountInfo") {
+		print __("You must log in to view user information.");
+	}	elseif ($_REQUEST["Action"] == "NewAccount") {
 		# process the form input for creating a new account
 		#
 		process_account_form("","new", "NewAccount",

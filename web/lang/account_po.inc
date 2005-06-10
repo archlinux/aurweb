@@ -327,4 +327,6 @@ $_t["en"]["You do not have permission to edit this account."] = "You do not have
 $_t["de"]["You do not have permission to edit this account."] = "Zugriff für das Bearbeiten dieses Benutzerkontos verweigert.";
 $_t["pl"]["You do not have permission to edit this account."] = "Nie masz uprawnień do edycji tego konta.";
 
+$_t["en"]["You must log in to view user information."] = "You must log in to view user information.";
+
 ?>

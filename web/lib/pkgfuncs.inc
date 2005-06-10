@@ -309,14 +309,15 @@ function package_details($id=0, $SID="") {
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>".__("Maintainer").": ";
-			if ($row["AURMaintainerUID"]) {
-				$maintainer = username_from_id($row["AURMaintainerUID"]);
-			} elseif ($row["MaintainerUID"]) {
+			if ($row["MaintainerUID"]) {
 				$maintainer = username_from_id($row["MaintainerUID"]);
+				print "<a href='/account.php?Action=AccountInfo&ID=";
+				print $row["MaintainerUID"] . "'>";
+				print $maintainer . "</a></span></td>";
 			} else {
 				$maintainer = "None";
+				print $maintainer . "</span></td>";
 			}
-			print $maintainer . "</span></td>";
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><img src='/images/pad.gif' height='15'></td>";
