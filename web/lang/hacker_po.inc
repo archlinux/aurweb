@@ -11,16 +11,8 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["en"]["Your session id is invalid."] = "Your session id is invalid.";
-# $_t["es"]["Your session id is invalid."] = "--> Traducción espańola aquí. <--";
-# $_t["fr"]["Your session id is invalid."] = "--> Traduction française ici. <--";
-# $_t["de"]["Your session id is invalid."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Your session id is invalid."] = "Twój identyfikator sesji jest nieprawidłowy.";
+include_once("en/hacker_po.inc");
 
-$_t["en"]["If this problem persists, please contact the site administrator."] = "If this problem persists, please contact the site administrator.";
-# $_t["es"]["If this problem persists, please contact the site administrator."] = "--> Traducción espańola aquí. <--";
-# $_t["fr"]["If this problem persists, please contact the site administrator."] = "--> Traduction française ici. <--";
-# $_t["de"]["If this problem persists, please contact the site administrator."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["If this problem persists, please contact the site administrator."] = "Jeżeli ten problem się powtarza, skontaktuj się z administratorem strony.";
+include_once("pl/hacker_po.inc");
 
 ?>

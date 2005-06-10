@@ -11,8 +11,8 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/aur_po.inc");
+$_t["en"]["Your session id is invalid."] = "Your session id is invalid.";
 
-include_once("pl/aur_po.inc");
+$_t["en"]["If this problem persists, please contact the site administrator."] = "If this problem persists, please contact the site administrator.";
 
 ?>

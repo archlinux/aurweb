@@ -11,8 +11,8 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/aur_po.inc");
+$_t["en"]["Click on the Home link above to log in."] = "Click on the Home link above to log in.";
 
-include_once("pl/aur_po.inc");
+$_t["en"]["Your session has timed out.  You must log in again."] = "Your session has timed out.  You must log in again.";
 
 ?>

@@ -11,28 +11,8 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["en"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
-$_t["es"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Seleccione su lengua aquí: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
-$_t["fr"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Choisissez votre langue ici: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
-$_t["de"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Wählen Sie Ihre Sprache hier vor: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
-$_t["pl"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Wybierz swój język: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
+include_once("en/test_po.inc");
 
-$_t["en"]["Hello, world!"] = "Hello, world!";
-$_t["es"]["Hello, world!"] = "ĄHola, mundo!";
-$_t["fr"]["Hello, world!"] = "Bonjour, monde!";
-$_t["de"]["Hello, world!"] = "Hallo, Welt!";
-$_t["pl"]["Hello, world!"] = "Witaj, świecie!";
-
-$_t["en"]["Hello, again!"] = "Hello, again!";
-$_t["es"]["Hello, again!"] = "ĄHola, otra vez!";
-$_t["fr"]["Hello, again!"] = "Bonjour, encore!";
-$_t["de"]["Hello, again!"] = "Hallo, wieder!";
-$_t["pl"]["Hello, again!"] = "Witaj, ponownie!";
-
-$_t["en"]["My current language tag is: '%s'."] = "My current language tag is: '%s'.";
-$_t["es"]["My current language tag is: '%s'."] = "Mi etiqueta de lengua actual es: '%s'.";
-$_t["fr"]["My current language tag is: '%s'."] = "Ma étiquette de langue courante est: '%s'.";
-$_t["de"]["My current language tag is: '%s'."] = "Meine gegenwärtige Sprachflagge ist: '%s'.";
-$_t["pl"]["My current language tag is: '%s'."] = "Etykieta mojego obecnego języka to: '%s'.";
+include_once("pl/test_po.inc");
 
 ?>

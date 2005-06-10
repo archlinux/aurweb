@@ -11,8 +11,26 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/aur_po.inc");
+$_t["en"]["Reset"] = "Reset";
 
-include_once("pl/aur_po.inc");
+$_t["en"]["Username"] = "Username";
+
+$_t["en"]["Email Address"] = "Email Address";
+
+$_t["en"]["Less"] = "Less";
+
+$_t["en"]["Clear"] = "Clear";
+
+$_t["en"]["required"] = "required";
+
+$_t["en"]["Update"] = "Update";
+
+$_t["en"]["Submit"] = "Submit";
+
+$_t["en"]["Password"] = "Password";
+
+$_t["en"]["Create"] = "Create";
+
+$_t["en"]["More"] = "More";
 
 ?>

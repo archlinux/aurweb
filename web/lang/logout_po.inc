@@ -11,16 +11,8 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["en"]["Under construction..."] = "Under construction...";
-# $_t["es"]["Under construction..."] = "--> Traducción espańola aquí. <--";
-# $_t["fr"]["Under construction..."] = "--> Traduction française ici. <--";
-# $_t["de"]["Under construction..."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Under construction..."] = "Prace trwają...";
+include_once("en/logout_po.inc");
 
-$_t["en"]["You have been successfully logged out."] = "You have been successfully logged out.";
-# $_t["es"]["You have been successfully logged out."] = "--> Traducción espańola aquí. <--";
-# $_t["fr"]["You have been successfully logged out."] = "--> Traduction française ici. <--";
-# $_t["de"]["You have been successfully logged out."] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["You have been successfully logged out."] = "Zostałeś pomyślnie wylogowany.";
+include_once("pl/logout_po.inc");
 
 ?>

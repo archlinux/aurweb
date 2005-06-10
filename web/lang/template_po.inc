@@ -11,10 +11,8 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["en"]["Hi, this is worth reading!"] = "Hi, this is worth reading!";
-# $_t["es"]["Hi, this is worth reading!"] = "--> Traducción espańola aquí. <--";
-# $_t["fr"]["Hi, this is worth reading!"] = "--> Traduction française ici. <--";
-# $_t["de"]["Hi, this is worth reading!"] = "--> Deutsche Übersetzung hier. <--";
-$_t["pl"]["Hi, this is worth reading!"] = "Witaj, warto to przeczytać!";
+include_once("en/template_po.inc");
+
+include_once("pl/template_po.inc");
 
 ?>

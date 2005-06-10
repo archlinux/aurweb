@@ -11,8 +11,12 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/aur_po.inc");
+$_t["en"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
 
-include_once("pl/aur_po.inc");
+$_t["en"]["Hello, world!"] = "Hello, world!";
+
+$_t["en"]["Hello, again!"] = "Hello, again!";
+
+$_t["en"]["My current language tag is: '%s'."] = "My current language tag is: '%s'.";
 
 ?>

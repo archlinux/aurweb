@@ -11,8 +11,14 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/aur_po.inc");
+$_t["en"]["Home"] = "Home";
 
-include_once("pl/aur_po.inc");
+$_t["en"]["%s: An ArchLinux project"] = "%s: An ArchLinux project";
+
+$_t["en"]["Packages"] = "Packages";
+
+$_t["en"]["Accounts"] = "Accounts";
+
+$_t["en"]["Logout"] = "Logout";
 
 ?>

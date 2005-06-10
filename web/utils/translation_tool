@@ -12,20 +12,24 @@
 #        -f: force, overwrite existing translated files, otherwise append
 #
 
+translator_name=raw_input("What is your full name? ")
+translator_email=raw_input("What is your email address? ")
+trans_native=raw_input("What is the native name of the language? ")
+trans_eng=raw_input("What is the English name of the language? ")
+trans_abbrv=raw_input("What is the ISO 639-1 Alpha-2 abbreviation for the language? ")
+if len(trans_abbrv) != 2:
+	print "Must use 2 character abbreviation"
+	raise SystemExit
+
+
 INC_HEADER = """\
 <?
-# INSTRUCTIONS TO TRANSLATORS
-#
-# This file contains the i18n translations for a subset of the
-# Arch Linux User-community Repository (AUR).  This is a PHP
-# script, and as such, you MUST pay great attention to the syntax.
-# If your text contains any double-quotes ("), you MUST escape
-# them with the backslash character (\).
-#
+# %s (%s) translation
+# Translator: %s <%s>
 
 include_once("translator.inc");
 global $_t;
-"""
+""" % (trans_eng, trans_native, translator_name, translator_email)
 
 
 import sys
@@ -60,8 +64,7 @@ else:
 	print "Can't find common_po.list file."
 	raise SystemExit
 
-# Find the lang directory.
-#
+#Find the lang directory
 for dir in ['../lang', 'lang']:
 	if os.path.exists(dir):
 		lang_dir = dir
@@ -69,6 +72,11 @@ for dir in ['../lang', 'lang']:
 else:
 	print "Can't find the lang directory."
 	raise SystemExit
+
+trans_dir = trans_abbrv
+if not os.path.exists(os.path.join(lang_dir,trans_dir)):
+	os.mkdir(os.path.join(lang_dir,trans_dir))
+
 
 # Iterate through various places where the php files might be.
 #
@@ -127,12 +135,36 @@ for dir in ['../html', '../lib', 'html', 'lib']:
 # if they do exist, only append new stuff to the end.  If the 'force'
 # option is passed, just overwrite the entire thing.
 #
-os.chdir(lang_dir)
-if not os.path.exists('en'):
-	os.mkdir('en')
 
+print """
+INSTRUCTIONS:
+****************************************************
+You will now be prompted for all needed translations.
+Please translate the requested lines, hitting [enter]
+goes to the next one. You may stop at any time using
+ctrl+c, and pick up where you left off by running
+translation_tool again.
+
+If there are escapes in the original English, you may
+need to include them in your translation. The
+following is a list of escapes and what they do:
+%h - HTML code inserted at run-time
+%s - Nontranslated string inserted at run-time (such as username)
+\\" - A double quote (")
+
+When you have finished your translation, make a tarball
+of the lang/ directory and send it to Simo (simo@neotuli.net)
+for inclusion in the AUR.
+By submitting a translation, you are implying that you
+are also willing to maintain it. When there are
+new strings to be translated, you will be contacted.
+****************************************************
+"""
+
+os.chdir(lang_dir)
 if force:
 	# just going to overwrite any existing files
+	# NOT RECOMMENDED! OVERWRITES ALL OTHER LANGUAGE SUPPORT
 	#
 	for po in lang.keys():
 		print "Generating %s..." % po
@@ -142,21 +174,22 @@ if force:
 		f.write('\ninclude_once(\"en/%s\");\n' % po)
 		f.write('\n?>')
 		f.close()
-		
-		f = open("en/"+po,'w')
+
+		f = open(trans_dir+"/"+po,'w')
 		f.write(INC_HEADER)
+
 		for term in lang[po].keys():
 			f.write("\n")
-			f.write('$_t["en"]["%s"] = "%s";\n' % (term, term))
-
+			trans = raw_input(term+"  = ")
+			f.write('$_t["%s"]["%s"] = "%s";\n' % (trans_abbrv, term, trans))
 		f.write("\n");
 		f.write("?>");
 		f.close()
 else:
 	# need to leave existing file intact, and only append on terms that are new
 	#
-	incre = re.compile('^include_once\("en\/(.*)"\);')
-	mapre = re.compile('^\$_t\["en"\]\["(.*)"\].*$')
+	incre = re.compile('^include_once\("%s\/(.*)"\);' % trans_abbrv)
+	mapre = re.compile('^\$_t\["%s"\]\["(.*)"\].*$' % trans_abbrv)
 	for po in lang.keys():
 		got_match = False
 		print "Updating %s..." % po
@@ -165,7 +198,6 @@ else:
 			new_file = 0
 		except:
 			new_file = 1
-
 		if not new_file:
 			contents = f.readlines()
 			f.close()
@@ -175,7 +207,7 @@ else:
 				del contents[0]
 			while contents[-1] in ['', "\n", "?>", "?>\n", "\n?>"]:
 				del contents[-1]
-				
+						
 			for line in contents:
 				match = incre.search(line)
 				if match:
@@ -183,20 +215,19 @@ else:
 			if not got_match:
 				f = open(po,'w')
 				f.write("".join(contents))
-				f.write('\ninclude_once(\"en/%s\");\n' % po)
+				f.write('\ninclude_once(\"%s/%s\");\n' % (trans_abbrv, po))
 				f.write("\n?>");
 				f.close()
 		else:
-				f = open(po,'w')
-				f.write(INC_HEADER)
-				f.write('\ninclude_once(\"en/%s\");\n' % po)
-				f.write('\n?>')
-				f.close()
-	
+			f = open(po,'w')
+			f.write(INC_HEADER)
+			f.write('\ninclude_once(\"%s/%s\");\n' % (trans_abbrv, po))
+			f.write('\n?>')
+			f.close()
 		# first read in file contents so we can hash what already exists
 		#
 		try:
-			f = open('en/'+po, 'r')
+			f = open(trans_dir+"/"+po, 'r')
 			new_file = 0
 		except:
 			new_file = 1
@@ -222,7 +253,7 @@ else:
 
 		# now append any new terms to EOF
 		#
-		f = open('en/'+po, 'w')
+		f = open(trans_dir+"/"+po, 'w')
 		if not new_file:
 			f.write("".join(contents))
 		else:
@@ -231,7 +262,8 @@ else:
 		for term in lang[po].keys():
 			if term not in existing_terms:
 				f.write("\n");
-				f.write('$_t["en"]["%s"] = "%s";\n' % (term, term))
+				trans = raw_input(term+"  = ")
+				f.write('$_t["%s"]["%s"] = "%s";\n' % (trans_abbrv, term, trans))
 		f.write("\n?>");
 		f.close()
 

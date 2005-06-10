@@ -11,8 +11,6 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/aur_po.inc");
-
-include_once("pl/aur_po.inc");
+$_t["en"]["You have been successfully logged out."] = "You have been successfully logged out.";
 
 ?>
