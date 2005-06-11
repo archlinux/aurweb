@@ -34,7 +34,7 @@ function __($tag, $args=array()) {
 		# if it's a supported language, but there isn't a translation,
 		# alert the visitor to the missing translation.
 		#
-		$translated = "<blink><b>_" . $tag . "_</b></blink>";
+		$translated = "<font color=\"red\"><b>_" . $tag . "_</b></font>";
 	}
 
 	# replace escape substitutions
