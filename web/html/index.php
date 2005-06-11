@@ -79,6 +79,7 @@ print "<tr>\n";
 print "  <td align='left' valign='top'>";
 print "<p>".__("Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h.", array('<a href="guidelines.html">', '</a>'))."</p>";
 print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."</p>";
+print "<p>".__("Email discussion about the AUR takes place on the %sTUR Users List%s.", array('<a href="http://www.archlinux.org/mailman/listinfo/tur-users">', '<a>'));
 print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
 
 #Hey, how about listing the newest pacakges? :D

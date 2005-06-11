@@ -21,4 +21,6 @@ $_t["en"]["Accounts"] = "Accounts";
 
 $_t["en"]["Logout"] = "Logout";
 
+$_t["en"]["%s: %sAn ArchLinux project%s"] = "%s: %sAn ArchLinux project%s";
+
 ?>

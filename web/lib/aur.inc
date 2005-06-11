@@ -371,7 +371,7 @@ function html_header() {
 	print "style='background-color: #000; width: 100%;'>\n";
 	print "    <tr>\n";
 	print "        <td class='preHeader'><span class='preHeader'>";
-	print __("%s: An ArchLinux project", array("AUR"));
+	print __("%s: %sAn ArchLinux project%s", array("AUR", "<a href=\"http://www.archlinux.org\">", "</a>"));
 	print "</span></td>\n";
 	print "    </tr>\n";
 	print "    <tr>\n";

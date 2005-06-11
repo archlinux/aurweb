@@ -47,4 +47,8 @@ $_t["en"]["Incorrect password for username, %s."] = "Incorrect password for user
 
 $_t["en"]["Latest Packages:"] = "Latest Packages:";
 
+$_t["en"]["Discussion about the AUR takes place on the %sTUR Users List%s."] = "Discussion about the AUR takes place on the %sTUR Users List%s.";
+
+$_t["en"]["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Email discussion about the AUR takes place on the %sTUR Users List%s.";
+
 ?>
