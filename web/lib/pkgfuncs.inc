@@ -384,9 +384,59 @@ function package_details($id=0, $SID="") {
 			print "</td></tr>\n";
 			print "</table></td>";
 			print "</tr>\n";
+			print "<tr>\n";
+			print "  <td colspan='2'><img src='/images/pad.gif' height='2'>";
+			print "</td></tr>\n";
+			print "</table>\n";
+			print "</center>\n";
+			print "  </td>\n";
+			print "</tr>\n";
 
-			# Display package comments
+			print "</table><br />\n";
+
+			# Actions Bar
 			#
+			if ($SID) {
+				print "<table cellspacing='3' class='boxSoft'>\n";
+				print "<tr><td class='boxSoftTitle' align='right'><span class='f3'>".__("Actions")."</span></td></tr>\n";
+				print "<tr>\n";
+				print "<td class='boxSoft'><form action='/packages.php' method='post'>\n";
+				print "<input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
+				print "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+				# Voting Button
+				#
+				$q = "SELECT * FROM PackageVotes WHERE UsersID = ".uid_from_sid($SID);
+				$q.= " AND PackageID = ".$row["ID"];
+				if (!mysql_num_rows(db_query($q, $dbh))) {
+					print "<input type='submit' class='button' name='do_Vote'";
+					print " value='".__("Vote")."'>";
+				} else {
+					print "<input type='submit' class='button' name='do_UnVote'";
+					print " value='".__("Un-Vote")."'>";
+				}
+				# Comment Nofify Button
+				#
+				$q = "SELECT * FROM CommentNotify WHERE UserID = ".uid_from_sid($SID);
+				$q.= " AND PkgID = ".$row["ID"];
+				if (!mysql_num_rows(db_query($q, $dbh))) {
+					print "<input type='submit' class='button' name='do_Notify'";
+					print " value='".__("Notify")."' title='".__("New Comment Notification")."'>";
+				} else {
+					print "<input type='submit' class='button' name='do_UnNotify'";
+					print " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'>";
+				}
+				print "</form></td></tr>\n";				
+				print "</table><br />\n";
+			}
+			
+			# Comments
+			#
+			print "<table cellspacing='3' class='boxSoft'>\n";
+			print "<tr><td class='boxSoftTitle' align='right'><span class='f3'>".__("Comments")."</span></td></tr>\n";
+			print "<tr>\n";
+			print "<td class='boxSoft'>";	
+
+			print "<table width='100%'>\n";
 			$comments = package_comments($row["ID"]);
 			if (!empty($comments)) {
 				while (list($indx, $carr) = each($comments)) {
@@ -431,42 +481,13 @@ function package_details($id=0, $SID="") {
 			print __("Add Comment")."\">";
 			print "</form>\n";
 			print "  </td>";
-			if ($SID) {
-				print "<td><form action='/packages.php' method='post'>\n";
-				print "<input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
-				print "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
-				# Voting Button
-				#
-				$q = "SELECT * FROM PackageVotes WHERE UsersID = ".uid_from_sid($SID);
-				$q.= " AND PackageID = ".$row["ID"];
-				if (!mysql_num_rows(db_query($q, $dbh))) {
-					print "<input type='submit' class='button' name='do_Vote'";
-					print " value='".__("Vote")."'>";
-				} else {
-					print "<input type='submit' class='button' name='do_UnVote'";
-					print " value='".__("Un-Vote")."'>";
-				}
-				# Comment Nofify Button
-				#
-				$q = "SELECT * FROM CommentNotify WHERE UserID = ".uid_from_sid($SID);
-				$q.= " AND PkgID = ".$row["ID"];
-				if (!mysql_num_rows(db_query($q, $dbh))) {
-					print "<input type='submit' class='button' name='do_Notify'";
-					print " value='".__("Notify")."'>";
-				} else {
-					print "<input type='submit' class='button' name='do_UnNotify'";
-					print " value='".__("UnNotify")."'>";
-				}
-				print "</form></td>\n";				
-			}
 			print "</tr>\n";
 
 			print "</table>\n";
-			print "</center>\n";
-			print "  </td>\n";
-			print "</tr>\n";
 
-			print "</table>\n";
+			
+			print "</td></tr></table>\n";
+			
 		}
 	}
 	return;

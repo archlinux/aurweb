@@ -103,4 +103,10 @@ $_t["en"]["Any"] = "Any";
 
 $_t["en"]["Voted"] = "Voted";
 
+$_t["en"]["No New Comment Notification"] = "No New Comment Notification";
+
+$_t["en"]["New Comment Notification"] = "New Comment Notification";
+
+$_t["en"]["Comments"] = "Comments";
+
 ?>
