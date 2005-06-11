@@ -296,7 +296,7 @@ function package_details($id=0, $SID="") {
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td colspan='2'><span class='f3'>";
-			if ($row["Location"] == "unsupported") {
+			if ($row["Location"] == "unsupported" and $SID) {
 			  $edit_cat = "<a href='/pkgedit.php?change_Category=1&ID=";
 			  $edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
 			  $edit_cat .= " &nbsp;<span class='fix'>(";
@@ -311,9 +311,13 @@ function package_details($id=0, $SID="") {
 			print "  <td colspan='2'><span class='f3'>".__("Maintainer").": ";
 			if ($row["MaintainerUID"]) {
 				$maintainer = username_from_id($row["MaintainerUID"]);
-				print "<a href='/account.php?Action=AccountInfo&ID=";
-				print $row["MaintainerUID"] . "'>";
-				print $maintainer . "</a></span></td>";
+				if ($SID) {
+					print "<a href='/account.php?Action=AccountInfo&ID=";
+					print $row["MaintainerUID"] . "'>";
+					print $maintainer . "</a></span></td>";
+				} else {
+					print $maintainer . "</span></td>";
+				}
 			} else {
 				$maintainer = "None";
 				print $maintainer . "</span></td>";
