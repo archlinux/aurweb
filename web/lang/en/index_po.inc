@@ -51,4 +51,6 @@ $_t["en"]["Discussion about the AUR takes place on the %sTUR Users List%s."] = "
 
 $_t["en"]["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Email discussion about the AUR takes place on the %sTUR Users List%s.";
 
+$_t["en"]["Recent Updates"] = "Recent Updates";
+
 ?>

@@ -79,8 +79,10 @@ print "<tr>\n";
 print "  <td align='left' valign='top'>";
 print "<p>".__("Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h.", array('<a href="guidelines.html">', '</a>'))."</p>";
 print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."</p>";
-print "<p>".__("Email discussion about the AUR takes place on the %sTUR Users List%s.", array('<a href="http://www.archlinux.org/mailman/listinfo/tur-users">', '<a>'));
+print "<p>".__("Email discussion about the AUR takes place on the %sTUR Users List%s.", array('<a href="http://www.archlinux.org/mailman/listinfo/tur-users">', '</a>'));
 print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
+
+print "<br>\n";
 
 #Hey, how about listing the newest pacakges? :D
 $q = "SELECT * FROM Packages ";
@@ -88,11 +90,14 @@ $q.= "WHERE DummyPkg != 1 ";
 $q.= "ORDER BY SubmittedTS DESC ";
 $q.= "LIMIT 0 , 10";
 $result = db_query($q,$dbh);
-print "<span class='f3'>".__("Latest Packages:")."</span><span class='f5'><a href='/rss2.php'>(rss)</a></span><br />\n";
+print '<table cellspacing="2" class="boxSoft"><tr><td class="boxSoftTitle" align="right"><span class="f3">'.__("Recent Updates").'</span> </td> </tr><tr><td class="boxSoft"><table style="width: 100%" cellspacing=0 cellpadding=0>'."\n";
 while ($row = mysql_fetch_assoc($result)) {
-	print "  <span class='f4'><a href='/packages.php?do_Details=1&ID=".intval($row["ID"])."'>";
-	print $row["Name"]."</a></span><br />\n";
+	print '<tr><td><span class="f4"><span class="blue">- <a href="/packages.php?do_Details=1&ID='.intval($row["ID"]).'">';
+	print $row["Name"]." ".$row["Version"]."</a></span></span>";
+	#print '<td align="right"><span class="f4">'.intval($row["ModifiedTS"]).'</span></td>';
+	print '</tr>'."\n";
 }
+print '</table></td></tr></table>';
 
 #print __("This is where the intro text will go.");
 #print __("For now, it's just a place holder.");
@@ -136,6 +141,6 @@ print "</tr>\n";
 print "</table>\n";
 
 
-html_footer("<b>Version 1.0.3</b> \$Id$");
+html_footer("<b>Version 1.1</b> \$Id$");
 # vim: ts=2 sw=2 noet ft=php
 ?>
