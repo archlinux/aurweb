@@ -112,6 +112,9 @@ class ClientSocket(threading.Thread):
 	def auth(self):
 		authdata = self.readMsg(1)
 		print authdata
+		if (not authdata.has_key('username')) or (not authdata.has_key('password')):
+			self.sendMsg("result=FAIL")
+			return 0
 		q = self.db.cursor()
 		m = md5.new()
 		m.update(authdata['password'][0])
