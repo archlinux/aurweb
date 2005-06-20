@@ -294,7 +294,7 @@ def deleteFile(filename):
 def runGensync(repo, pkgbuild):
 #target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
   target = os.path.join(repo, "community.db.tar.gz")
-  command = "gensync '" + pkgbuild_dir + "' '" + target + "'"
+  command = "gensync '" + pkgbuild + "' '" + target + "'"
   return execute(command)
 
 ############################################################
