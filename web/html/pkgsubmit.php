@@ -164,8 +164,8 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
-		$shcmd = "/bin/sh -c 'mv ".$upload_file." ".$INCOMING_DIR.$pkg_name;
-		$shcmd.= "/".$_FILES["pfile"]["name"]."'";
+    $shcmd = "/bin/mv ".$upload_file." ";
+    $shcmd.= escapeshellarg($INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"]);
 		@exec($shcmd);
 
 		# if no error, get list of directory contents and process PKGBUILD
