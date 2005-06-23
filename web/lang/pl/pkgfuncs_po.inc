@@ -57,4 +57,12 @@ $_t["pl"]["O%hrphan"] = "B%hez opiekuna";
 $_t["pl"]["O%hut-of-Date"] = "N%hieaktualne";
 $_t["pl"]["Package Listing"] = "Lista pakietów";
 
+$_t["pl"]["No New Comment Notification"] = "Brak powiadomień o nowych komentarzach.";
+
+$_t["pl"]["UnNotify"] = "Rezygnuj z powiadamiania";
+
+$_t["pl"]["Notify"] = "Włącz powiadamianie";
+
+$_t["pl"]["New Comment Notification"] = "Powiadomienie o nowym komentarzu.";
+
 ?>

@@ -43,4 +43,8 @@ $_t["pl"]["Suspended"] = "Zablokowane";
 $_t["pl"]["No more results to display."] = "Nie ma już rezultatów do wyświetlenia.";
 $_t["pl"]["A Trusted User cannot assign Developer status."] = "Zaufany użytkownik nie może nadać statusu developera.";
 
+$_t["pl"]["User"] = "Użytkownik";
+
+$_t["pl"]["Trusted User"] = "Zaufany Użytkownik";
+
 ?>

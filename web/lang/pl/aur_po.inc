@@ -19,4 +19,6 @@ $_t["pl"]["Trusted user"] = "Zaufany użytkownik";
 $_t["pl"]["User"] = "Użytkownik";
 $_t["pl"]["Developer"] = "Developer";
 
+$_t["pl"]["%s: %sAn ArchLinux project%s"] = "%s: %sProjekt ArchLinux%s";
+
 ?>

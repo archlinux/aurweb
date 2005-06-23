@@ -58,4 +58,6 @@ $_t["pl"]["Leave the password fields blank to keep your same password."] = "Pozo
 $_t["pl"]["Could not retrieve information for the specified user."] = "Uzyskanie informacji o podanym użytkowniku nie powiodło się.";
 $_t["pl"]["You do not have permission to edit this account."] = "Nie masz uprawnień do edycji tego konta.";
 
+$_t["pl"]["You must log in to view user information."] = "Musisz być zalogowany aby móc oglądać informacje o użytkownikach.";
+
 ?>

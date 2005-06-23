@@ -30,4 +30,8 @@ $_t["pl"]["Welcome to the AUR! If you're a newcomer, you may want to read the %h
 $_t["pl"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Jeżeli masz uwagi lub pomysły odnośnie AUR, %hFlyspray%h jest odpowiednim miejscem do ich pozostawienia.";
 $_t["pl"]["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Dla Twojej wygody podajemy %hlistę repozytoriów użytkowników%h, ale uwaga - nie odpowiadamy za ich zawartość.";
 
+$_t["pl"]["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Dyskusja na temat AUR ma miejsce na liście pocztowej %sTUR Users%s.";
+
+$_t["pl"]["Recent Updates"] = "Ostatnie aktualizacje";
+
 ?>

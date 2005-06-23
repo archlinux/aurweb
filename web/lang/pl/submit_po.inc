@@ -44,4 +44,6 @@ $_t["pl"]["Select Category"] = "Wybierz kategorię";
 $_t["pl"]["You must supply a comment for this upload/change."] = "Musisz napisać komentarz do tego pakietu.";
 $_t["pl"]["Package upload successful."] = "Pakiet został dodany pomyślnie.";
 
+$_t["pl"]["Error - No file uploaded"] = "Błąd - plik nie został załadowany.";
+
 ?>
