@@ -297,6 +297,7 @@ if ($_COOKIE["AURSID"]) {
 		# Now, run through the pkgbuild array and do any $pkgname/$pkgver
 		# substituions.
 		#
+		#TODO: run through and do ALL substitutions, to cover custom vars
 		if (!$error) {
 			$pkgname_var = $pkgbuild["pkgname"];
 			$pkgver_var = $pkgbuild["pkgver"];
@@ -310,6 +311,20 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
+		# Re-tar the package for consistency's sake
+		#
+		if (!$error) {
+			if (!@chdir($INCOMING_DIR.$pkg_name)) {
+				$error = __("Could not change directory to %s.",
+				array($INCOMING_DIR.$pkg_name));
+			}
+		}
+		if (!$error) {
+			@exec("/bin/sh -c 'tar czf ".$pkg_name.".tar.gz ".$pkg_name."'", $trash, $retval);
+			if ($retval) {
+				$error = __("Could not re-tar");
+			}
+		}
 		# update the backend database
 		#
 		if (!$error) {
