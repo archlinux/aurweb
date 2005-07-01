@@ -90,7 +90,7 @@ $q.= "WHERE DummyPkg != 1 ";
 $q.= "ORDER BY SubmittedTS DESC ";
 $q.= "LIMIT 0 , 10";
 $result = db_query($q,$dbh);
-print '<table cellspacing="2" class="boxSoft"><tr><td class="boxSoftTitle" align="right"><span class="f3">'.__("Recent Updates").'</span> </td> </tr><tr><td class="boxSoft"><table style="width: 100%" cellspacing=0 cellpadding=0>'."\n";
+print '<table cellspacing="2" class="boxSoft"><tr><td class="boxSoftTitle" align="right"><span class="f3">'.__("Recent Updates").'<sub>(<a href="/rss2.php">rss</a>)</sub></span> </td> </tr><tr><td class="boxSoft"><table style="width: 100%" cellspacing=0 cellpadding=0>'."\n";
 while ($row = mysql_fetch_assoc($result)) {
 	print '<tr><td><span class="f4"><span class="blue">- <a href="/packages.php?do_Details=1&ID='.intval($row["ID"]).'">';
 	print $row["Name"]." ".$row["Version"]."</a></span></span>";
