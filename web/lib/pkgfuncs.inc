@@ -280,22 +280,22 @@ function package_details($id=0, $SID="") {
 			print "<center>\n";
 			print "<table>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><span class='f2'>";
+			print "  <td class='boxSoft' colspan='2'><span class='f2'>";
 			print $row["Name"] . " " . $row["Version"]."</span></td>\n";
 			print "</tr>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><span class='f3'>";
+			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
 			print "<a href='".$row["URL"]."'>".$row["URL"]."</a></span></td>\n";
 			print "</tr>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><span class='f3'>".$row["Description"];
+			print "  <td class='boxSoft' colspan='2'><span class='f3'>".$row["Description"];
 			print "</a></span></td>\n";
 			print "</tr>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><img src='/images/pad.gif' height='30'></td>";
+			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td>";
 			print "</tr>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><span class='f3'>";
+			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["Location"] == "unsupported" and $SID) {
 			  $edit_cat = "<a href='/pkgedit.php?change_Category=1&ID=";
 			  $edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
@@ -308,7 +308,7 @@ function package_details($id=0, $SID="") {
 
 			print "</tr>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><span class='f3'>".__("Maintainer").": ";
+			print "  <td class='boxSoft' colspan='2'><span class='f3'>".__("Maintainer").": ";
 			if ($row["MaintainerUID"]) {
 				$maintainer = username_from_id($row["MaintainerUID"]);
 				if ($SID) {
@@ -324,10 +324,10 @@ function package_details($id=0, $SID="") {
 			}
 			print "</tr>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><img src='/images/pad.gif' height='15'></td>";
+			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td>";
 			print "</tr>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><span class='f3'>";
+			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["LocationID"] == 2) {
 			  print "<a href='".$row['URLPath']."'>".__("Tarball")."</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."'>".__("Files")."</a></span></td>";
 			} elseif ($row["LocationID"] == 3) {
@@ -335,7 +335,7 @@ function package_details($id=0, $SID="") {
 			}
 			print "</tr>\n";
 			print "<tr>\n";
-			print "  <td colspan='2'><img src='/images/pad.gif' height='30'></td>";
+			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td>";
 			print "</tr>\n";
 			print "<tr>\n";
 			print "  <td valign='top' style='padding-right: 10'>";
@@ -445,7 +445,7 @@ function package_details($id=0, $SID="") {
 			if (!empty($comments)) {
 				while (list($indx, $carr) = each($comments)) {
 					print "<tr>\n";
-					print "  <td colspan='2'>";
+					print "  <td class='boxSoft' colspan='2'>";
 					print "<img src='/images/pad.gif' height='2'></td></tr>\n";
 
 					print "<tr>\n";

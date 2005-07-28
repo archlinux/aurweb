@@ -95,11 +95,13 @@
 	{
 		width:				90%;
 		background-color:	#ddd;
+		text-align:	left;
 	}
 	td.boxSoft
 	{
 		background-color:	#fff;
 		padding: 10;
+		text-align:	left;
 	}
 	td.boxSoftColumn
 	{
@@ -168,12 +170,14 @@
 		background-color: #eee;
 		vertical-align: top;
 		padding-left: .3em;
+		text-align: left;
 	}
 	td.data2
 	{
 		background-color: #ddd;
 		vertical-align: top;
 		padding-left: .3em;
+		text-align: left;
 	}
 	td.text
 	{
