@@ -76,12 +76,11 @@ html_header();
 
 # Big Top Level Table (Table 1)
 print "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
-
-# Main front page row (split into halves)
 print "<tr>\n";
 
-# Left half of front page
-print "<td class='boxSoft'>";
+# MAIN: Top Left
+print "<td class='boxSoft' valign='top'>";
+
 print "<p>".__("Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.", array('<a href="http://wiki.archlinux.org/index.php/New_AUR_user_guidelines">', '</a>', '<a href="http://wiki.archlinux.org/index.php/New_AUR_TU_guidelines">', '</a>'))."<br>";
 print __("Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!", array('<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">', '</a>'))."</p>";
 print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."<br>";
@@ -90,7 +89,97 @@ print "<p>".__("Remember to vote for your favourite packages!")."<br>";
 print __("The most popular packages will be provided as binary packages in [community].")."</p>";
 #print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
 
-print "<br>\n";
+# MAIN: Top Right
+print "</td>";
+print "<td class='boxSoft' valign='top'>";
+
+# Now present the user login stuff
+if (!isset($_COOKIE["AURSID"])) {
+	# the user is not logged in, give them login widgets
+	#
+	if ($login_error) {
+		print "<span class='error'>" . $login_error . "</span><br />\n";
+	}
+	print "<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
+	print "<form action='/index.php' method='post'>\n";
+	print "<tr>\n";
+	print "<td>".__("Username:")."</td>";
+	print "<td><input type='text' name='user' size='30' maxlength='64'></td>";
+	print "</tr>\n";
+	print "<tr>\n";
+	print "<td>".__("Password:")."</td>";
+	print "<td><input type='password' name='pass' size='30' maxlength='32'></td>";
+	print "</tr>\n";
+	print "<tr>\n";
+	print "<td colspan='2' align='right'>&nbsp;<br />";
+	print "<input type='submit' class='button'";
+	print " value='".__("Login")."'></td>";
+	print "</tr>\n";
+	print "</form>\n";
+	print "</table>\n";
+
+} else {
+	print __("Logged-in as: %h%s%h",
+			array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
+}
+
+# MAIN: Bottom Left
+print "</td>";
+print "</tr>";
+print "<tr>";
+print "<td class='boxSoft' valign='top'>";
+
+#Hey, how about listing the newest pacakges? :D
+$q = "SELECT * FROM Packages ";
+$q.= "WHERE DummyPkg != 1 ";
+$q.= "ORDER BY SubmittedTS DESC ";
+$q.= "LIMIT 0 , 10";
+$result = db_query($q,$dbh);
+# Table 2
+print '<table class="boxSoft">';
+print '<tr>';
+print '<th colspan="2" class="boxSoftTitle" style="text-align: right">';
+print ' <a href="/rss2.php"><img src="/images/rss.gif"></a> <span class="f3">'.__("Recent Updates").' <span class="f5"></span></span>';
+print '</th>';
+print '</tr>';
+
+while ($row = mysql_fetch_assoc($result)) {
+	print '<tr>';
+        print '<td class="boxSoft">';
+
+        print '<span class="f4"><span class="blue"><a href="/packages.php?do_Details=1&ID='.intval($row["ID"]).'">';
+	print $row["Name"]." ".$row["Version"]."</a></span></span>";
+
+        print '</td>';
+	print '<td class="boxSoft" style="text-align: right">';
+
+        # figure out the mod string
+        $mod_int = intval($row["ModifiedTS"]);
+        $sub_int = intval($row["SubmittedTS"]);
+        if ($mod_int != 0) {
+	  $modstring = date("r", $mod_int);
+        }
+        elseif ($sub_int != 0) {
+          $modstring = '<img src="/images/new.gif"/> '.date("r", $sub_int);
+        }
+        else {
+          $mod_string = "(unknown)";
+        }
+        print '<span class="f4">'.$modstring.'</span>';
+        print '</td>';
+	print '</tr>'."\n";
+}
+print "</td>";
+print "</tr>";
+print "</table>";
+# End Table 2
+
+#print "  <td>&nbsp;&nbsp;</td>";
+#print "  <td align='left' valign='top' nowrap>\n";
+
+# MAIN: Bottom Right
+print "</td>";
+print "<td class='boxSoft' valign='top'>";
 
 # AUR STATISTICS 
 
@@ -144,6 +233,13 @@ print "</tr>";
 
 print "<tr>";
 print "<td class='boxSoft'>";
+print "<span class='f4'>".__("Packages added or updated in the past 7 days")."</span>";
+print "</td>";
+print "<td class='boxSoft'><span class='f4'>$update_count</span></td>";
+print "</tr>";
+
+print "<tr>";
+print "<td class='boxSoft'>";
 print "<span class='blue'><span class='f4'>".__("Registered Users")."</span></span>";
 print "</td>";
 print "<td class='boxSoft'><span class='f4'>$user_count</span></td>";
@@ -156,94 +252,7 @@ print "</td>";
 print "<td class='boxSoft'><span class='f4'>$tu_count</span></td>";
 print "</tr>";
 
-print "<tr>";
-print "<td class='boxSoft'>";
-print "<span class='f4'>".__("Packages added or updated in the past 7 days")."</span>";
-print "</td>";
-print "<td class='boxSoft'><span class='f4'>$update_count</span></td>";
-print "</tr>";
-
 print "</table>";
-
-#Hey, how about listing the newest pacakges? :D
-$q = "SELECT * FROM Packages ";
-$q.= "WHERE DummyPkg != 1 ";
-$q.= "ORDER BY SubmittedTS DESC ";
-$q.= "LIMIT 0 , 10";
-$result = db_query($q,$dbh);
-# Table 2
-print '<table class="boxSoft">';
-print '<tr>';
-print '<th colspan="2" class="boxSoftTitle" style="text-align: right">';
-print ' <a href="/rss2.php"><img src="/images/rss.gif"></a> <span class="f3">'.__("Recent Updates").' <span class="f5"></span></span>';
-print '</th>';
-print '</tr>';
-
-while ($row = mysql_fetch_assoc($result)) {
-	print '<tr>';
-        print '<td class="boxSoft">';
-
-        print '<span class="f4"><span class="blue"><a href="/packages.php?do_Details=1&ID='.intval($row["ID"]).'">';
-	print $row["Name"]." ".$row["Version"]."</a></span></span>";
-
-        print '</td>';
-	print '<td class="boxSoft" style="text-align: right">';
-
-        # figure out the mod string
-        $mod_int = intval($row["ModifiedTS"]);
-        $sub_int = intval($row["SubmittedTS"]);
-        if ($mod_int != 0) {
-	  $modstring = date("r", $mod_int);
-        }
-        elseif ($sub_int != 0) {
-          $modstring = '<img src="/images/new.gif"/> '.date("r", $sub_int);
-        }
-        else {
-          $mod_string = "(unknown)";
-        }
-        print '<span class="f4">'.$modstring.'</span>';
-        print '</td>';
-	print '</tr>'."\n";
-}
-print "</td>";
-print "</tr>";
-print "</table>";
-# End Table 2
-
-# Now go to the second (right) column
-print "  </td>";
-print "  <td>&nbsp;&nbsp;</td>";
-print "  <td align='left' valign='top' nowrap>\n";
-
-# Now present the user login stuff
-if (!isset($_COOKIE["AURSID"])) {
-	# the user is not logged in, give them login widgets
-	#
-	if ($login_error) {
-		print "<span class='error'>" . $login_error . "</span><br />\n";
-	}
-	print "<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
-	print "<form action='/index.php' method='post'>\n";
-	print "<tr>\n";
-	print "<td>".__("Username:")."</td>";
-	print "<td><input type='text' name='user' size='30' maxlength='64'></td>";
-	print "</tr>\n";
-	print "<tr>\n";
-	print "<td>".__("Password:")."</td>";
-	print "<td><input type='password' name='pass' size='30' maxlength='32'></td>";
-	print "</tr>\n";
-	print "<tr>\n";
-	print "<td colspan='2' align='right'>&nbsp;<br />";
-	print "<input type='submit' class='button'";
-	print " value='".__("Login")."'></td>";
-	print "</tr>\n";
-	print "</form>\n";
-	print "</table>\n";
-
-} else {
-	print __("Logged-in as: %h%s%h",
-			array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
-}
 
 # Close out the right column
 print "  </td>";
