@@ -81,4 +81,6 @@ $_t["en"]["Remember to vote for your favourite packages!"] = "Remember to vote f
 
 $_t["en"]["The most popular packages will be provided as binary packages in [community]."] = "The most popular packages will be provided as binary packages in [community].";
 
+$_t["en"]["Packages added or updated in the past 7 days"] = "Packages added or updated in the past 7 days";
+
 ?>

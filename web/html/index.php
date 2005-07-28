@@ -92,7 +92,7 @@ print __("The most popular packages will be provided as binary packages in [comm
 
 print "<br>\n";
 
-# PACKAGE COUNTS
+# AUR STATISTICS 
 
 $q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported'";
 $result = db_query($q, $dbh);
@@ -113,6 +113,12 @@ $q = "SELECT count(*) from Users,AccountTypes WHERE Users.AccountTypeID = Accoun
 $result = db_query($q, $dbh);
 $row = mysql_fetch_row($result);
 $tu_count = $row[0];
+
+$targstamp = intval(strtotime("-7 days"));
+$q = "SELECT count(*) from Packages WHERE (Packages.SubmittedTS >= $targstamp OR Packages.ModifiedTS >= $targstamp)";
+$result = db_query($q, $dbh);
+$row = mysql_fetch_row($result);
+$update_count = $row[0];
 
 print "<table class='boxSoft'>";
 
@@ -148,6 +154,13 @@ print "<td class='boxSoft'>";
 print "<span class='f4'>".__("Trusted Users")."</span>";
 print "</td>";
 print "<td class='boxSoft'><span class='f4'>$tu_count</span></td>";
+print "</tr>";
+
+print "<tr>";
+print "<td class='boxSoft'>";
+print "<span class='f4'>".__("Packages added or updated in the past 7 days")."</span>";
+print "</td>";
+print "<td class='boxSoft'><span class='f4'>$update_count</span></td>";
 print "</tr>";
 
 print "</table>";
