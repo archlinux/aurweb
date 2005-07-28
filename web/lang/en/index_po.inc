@@ -53,4 +53,26 @@ $_t["en"]["Email discussion about the AUR takes place on the %sTUR Users List%s.
 
 $_t["en"]["Recent Updates"] = "Recent Updates";
 
+$_t["en"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information. Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information. Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!";
+
+$_t["en"]["Community"] = "Community";
+
+$_t["en"]["Package Counts"] = "Package Counts";
+
+$_t["en"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.";
+
+$_t["en"]["Unsupported"] = "Unsupported";
+
+$_t["en"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!";
+
+$_t["en"]["Statistics"] = "Statistics";
+
+$_t["en"]["Registered Users"] = "Registered Users";
+
+$_t["en"]["Trusted Users"] = "Trusted Users";
+
+$_t["en"]["Packages in unsupported"] = "Packages in unsupported";
+
+$_t["en"]["Packages in [community]"] = "Packages in [community]";
+
 ?>

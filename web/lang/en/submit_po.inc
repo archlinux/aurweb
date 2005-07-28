@@ -85,4 +85,8 @@ $_t["en"]["You must supply a comment for this upload/change."] = "You must suppl
 
 $_t["en"]["Yes"] = "Yes";
 
+$_t["en"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Package URL is missing a protocol (ie. http:// ,ftp://)";
+
+$_t["en"]["Could not re-tar"] = "Could not re-tar";
+
 ?>

@@ -74,15 +74,81 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 #
 html_header();
 
+# Big Top Level Table (Table 1)
 print "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
+
+# Main front page row (split into halves)
 print "<tr>\n";
-print "  <td align='left' valign='top'>";
-print "<p>".__("Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h.", array('<a href="guidelines.html">', '</a>'))."</p>";
-print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."</p>";
-print "<p>".__("Email discussion about the AUR takes place on the %sTUR Users List%s.", array('<a href="http://www.archlinux.org/mailman/listinfo/tur-users">', '</a>'));
-print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
+
+# Left half of front page
+print "<td class='boxSoft'>";
+print "<p>".__("Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.", array('<a href="http://wiki.archlinux.org/index.php/New_AUR_user_guidelines">', '</a>', '<a href="http://wiki.archlinux.org/index.php/New_AUR_TU_guidelines">', '</a>'))."<br>";
+print __("Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!", array('<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">', '</a>'))."</p>";
+print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."<br>";
+print __("Email discussion about the AUR takes place on the %sTUR Users List%s.", array('<a href="http://www.archlinux.org/mailman/listinfo/tur-users">', '</a>'))."</p>";
+#print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
 
 print "<br>\n";
+
+# PACKAGE COUNTS
+
+$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported'";
+$result = db_query($q, $dbh);
+$row = mysql_fetch_row($result);
+$unsupported_count = $row[0];
+
+$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'community'";
+$result = db_query($q, $dbh);
+$row = mysql_fetch_row($result);
+$community_count = $row[0];
+
+$q = "SELECT count(*) from Users";
+$result = db_query($q, $dbh);
+$row = mysql_fetch_row($result);
+$user_count = $row[0];
+
+$q = "SELECT count(*) from Users,AccountTypes WHERE Users.AccountTypeID = AccountTypes.ID AND AccountTypes.AccountType = 'Trusted User'";
+$result = db_query($q, $dbh);
+$row = mysql_fetch_row($result);
+$tu_count = $row[0];
+
+print "<table class='boxSoft'>";
+
+print "<tr>";
+print "<th colspan='2' class='boxSoftTitle' style='text-align: right'>";
+print "<span class='f3'>".__("Statistics")."</span>";
+print "</th>";
+print "</tr>";
+
+print "<tr>";
+print "<td class='boxSoft'>";
+print "<span class='f4'>".__("Packages in unsupported")."</span>";
+print "</td>";
+print "<td class='boxSoft'><span class='f4'>$unsupported_count</span></td>";
+print "</tr>";
+
+print "<tr>";
+print "<td class='boxSoft'>";
+print "<span class='f4'>".__("Packages in [community]")."</span>";
+print "</td>";
+print "<td class='boxSoft'><span class='f4'>$community_count</span></td>";
+print "</tr>";
+
+print "<tr>";
+print "<td class='boxSoft'>";
+print "<span class='blue'><span class='f4'>".__("Registered Users")."</span></span>";
+print "</td>";
+print "<td class='boxSoft'><span class='f4'>$user_count</span></td>";
+print "</tr>";
+
+print "<tr>";
+print "<td class='boxSoft'>";
+print "<span class='f4'>".__("Trusted Users")."</span>";
+print "</td>";
+print "<td class='boxSoft'><span class='f4'>$tu_count</span></td>";
+print "</tr>";
+
+print "</table>";
 
 #Hey, how about listing the newest pacakges? :D
 $q = "SELECT * FROM Packages ";
@@ -90,24 +156,51 @@ $q.= "WHERE DummyPkg != 1 ";
 $q.= "ORDER BY SubmittedTS DESC ";
 $q.= "LIMIT 0 , 10";
 $result = db_query($q,$dbh);
-print '<table cellspacing="2" class="boxSoft"><tr><td class="boxSoftTitle" align="right"><span class="f3">'.__("Recent Updates").'<sub>(<a href="/rss2.php">rss</a>)</sub></span> </td> </tr><tr><td class="boxSoft"><table style="width: 100%" cellspacing=0 cellpadding=0>'."\n";
+# Table 2
+print '<table class="boxSoft">';
+print '<tr>';
+print '<th colspan="2" class="boxSoftTitle" style="text-align: right">';
+print ' <a href="/rss2.php"><img src="/images/rss.gif"></a> <span class="f3">'.__("Recent Updates").' <span class="f5"></span></span>';
+print '</th>';
+print '</tr>';
+
 while ($row = mysql_fetch_assoc($result)) {
-	print '<tr><td><span class="f4"><span class="blue">- <a href="/packages.php?do_Details=1&ID='.intval($row["ID"]).'">';
+	print '<tr>';
+        print '<td class="boxSoft">';
+
+        print '<span class="f4"><span class="blue"><a href="/packages.php?do_Details=1&ID='.intval($row["ID"]).'">';
 	print $row["Name"]." ".$row["Version"]."</a></span></span>";
-	#print '<td align="right"><span class="f4">'.intval($row["ModifiedTS"]).'</span></td>';
+
+        print '</td>';
+	print '<td class="boxSoft" style="text-align: right">';
+
+        # figure out the mod string
+        $mod_int = intval($row["ModifiedTS"]);
+        $sub_int = intval($row["SubmittedTS"]);
+        if ($mod_int != 0) {
+	  $modstring = date("r", $mod_int);
+        }
+        elseif ($sub_int != 0) {
+          $modstring = '<img src="/images/new.gif"/> '.date("r", $sub_int);
+        }
+        else {
+          $mod_string = "(unknown)";
+        }
+        print '<span class="f4">'.$modstring.'</span>';
+        print '</td>';
 	print '</tr>'."\n";
 }
-print '</table></td></tr></table>';
+print "</td>";
+print "</tr>";
+print "</table>";
+# End Table 2
 
-#print __("This is where the intro text will go.");
-#print __("For now, it's just a place holder.");
-#print __("It's more important to get the login functionality finished.");
-#print __("After that, this can be filled in with more meaningful text.");
+# Now go to the second (right) column
 print "  </td>";
-# XXX Is this the proper way to add some spacing between table cells?
-#
 print "  <td>&nbsp;&nbsp;</td>";
 print "  <td align='left' valign='top' nowrap>\n";
+
+# Now present the user login stuff
 if (!isset($_COOKIE["AURSID"])) {
 	# the user is not logged in, give them login widgets
 	#
@@ -136,10 +229,12 @@ if (!isset($_COOKIE["AURSID"])) {
 	print __("Logged-in as: %h%s%h",
 			array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
 }
+
+# Close out the right column
 print "  </td>";
 print "</tr>\n";
 print "</table>\n";
-
+# End Table 1
 
 html_footer("<b>Version 1.1</b> \$Id$");
 # vim: ts=2 sw=2 noet ft=php
