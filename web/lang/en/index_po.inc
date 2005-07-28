@@ -75,4 +75,10 @@ $_t["en"]["Packages in unsupported"] = "Packages in unsupported";
 
 $_t["en"]["Packages in [community]"] = "Packages in [community]";
 
+$_t["en"]["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community].";
+
+$_t["en"]["Remember to vote for your favourite packages!"] = "Remember to vote for your favourite packages!";
+
+$_t["en"]["The most popular packages will be provided as binary packages in [community]."] = "The most popular packages will be provided as binary packages in [community].";
+
 ?>

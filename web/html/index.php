@@ -86,6 +86,8 @@ print "<p>".__("Welcome to the AUR! Please read the %hAUR User Guidelines%h and 
 print __("Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!", array('<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">', '</a>'))."</p>";
 print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."<br>";
 print __("Email discussion about the AUR takes place on the %sTUR Users List%s.", array('<a href="http://www.archlinux.org/mailman/listinfo/tur-users">', '</a>'))."</p>";
+print "<p>".__("Remember to vote for your favourite packages!")."<br>";
+print __("The most popular packages will be provided as binary packages in [community].")."</p>";
 #print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
 
 print "<br>\n";
