@@ -77,4 +77,6 @@ $_t["pl"]["Unflag Safe"] = "Usuń flagę bezpieczeństwa";
 
 $_t["pl"]["Unflag Package Safe To Use"] = "Usuń flagę oznaczającą pakiet jako bezpieczny w użyciu";
 
+$_t["pl"]["Safe"] = "Bezpieczny";
+
 ?>

@@ -34,4 +34,24 @@ $_t["pl"]["Email discussion about the AUR takes place on the %sTUR Users List%s.
 
 $_t["pl"]["Recent Updates"] = "Ostatnie aktualizacje";
 
+$_t["pl"]["Statistics"] = "Statystyki";
+
+$_t["pl"]["Remember to vote for your favourite packages!"] = "Nie zapomnij głosować na swoje ulubione pakiety!";
+
+$_t["pl"]["Packages in unsupported"] = "Pakietów w unsupported";
+
+$_t["pl"]["The most popular packages will be provided as binary packages in [community]."] = "Najbardziej popularne pakiety zostaną umieszczone w formie binarnej w [community].";
+
+$_t["pl"]["Trusted Users"] = "Zaufanych Użytkowników";
+
+$_t["pl"]["Packages added or updated in the past 7 days"] = "Pakietów dodanych lub uaktualnionych w ciągu ostatnich 7 dni";
+
+$_t["pl"]["Packages in [community]"] = "Pakietów w [community]";
+
+$_t["pl"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Witamy w AUR! Aby uzyskać się więcej informacji, przeczytaj z %hInstrukcję Użytkownika%h oraz %hInstrukcję Zaufanego Użytkownika%h.";
+
+$_t["pl"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Pliki PKGBUILD <b>muszą</b> być zgodne ze %hStandardem Pakietów Archa%h, inaczej będą usuwane!";
+
+$_t["pl"]["Registered Users"] = "Zarejestrowanych użytkowników";
+
 ?>

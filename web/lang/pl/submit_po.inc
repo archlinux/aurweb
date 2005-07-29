@@ -46,4 +46,8 @@ $_t["pl"]["Package upload successful."] = "Pakiet został dodany pomyślnie.";
 
 $_t["pl"]["Error - No file uploaded"] = "Błąd - plik nie został załadowany.";
 
+$_t["pl"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Adres URL nie zawiera protokołu (np. http// czy ftp://).";
+
+$_t["pl"]["Could not re-tar"] = "Przepakowanie pakietu nie powiodło się.";
+
 ?>
