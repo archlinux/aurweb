@@ -914,7 +914,7 @@ function pkg_search_page($SID="") {
 			}
 			reset($pkgsearch_vars);
 			$url.= "'>";
-			if ($row["Safe"] == 1) {
+			if ($row["Safe"] == 1 || $locs[$row["LocationID"]] == "community") {
 				$url.="<span class='green'>";
 			}
 			else {
@@ -983,19 +983,31 @@ function pkg_search_page($SID="") {
 		print "  <td>\n";
 		print "  <table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
 		print "  <tr>\n";
+
+		# first print the legend
+		print "    <td colspan='2' align='center'>";
+    print "    <span class='f5'>\n";
+    if ($SID) {
+      print "      <font style='background-color: cyan'>".__("O%hrphan", array('</font>'))."&nbsp;&nbsp;&nbsp;&nbsp;\n";
+      print "      <font style='background-color: red'>".__("O%hut-of-Date", array('</font>'))."&nbsp;&nbsp;&nbsp;&nbsp;";
+    }
+    print '      <span class="green">'.__("Safe")."</span>\n";
+    print "    </span></td>\n";
+		print "  </tr>";
+
+	  # now print the forward and back buttons on the bottom
+		# LEFT
+		print "  <tr>";
 		print "    <td align='left'>";
 		if (($O-$PP) >= 0) {
 			print "    <input type='submit' class='button' name='do_Less'";
 			print " value='&lt;-- ".__("Less")."'>\n";
 		}
-		print "    </td>\n";
-		if ($SID) {
-			print "    <td align='center'><span class='f5'>\n";
-			print "      <font style='background-color: cyan'>".__("O%hrphan", array('</font>'))."&nbsp;&nbsp;&nbsp;&nbsp;\n";
-			print "      <font style='background-color: red'>".__("O%hut-of-Date", array('</font>'))."&nbsp;&nbsp;&nbsp;&nbsp;";
-			print '      <span class="green">'.__("Safe")."</span>\n";
-			print "    </span></td>\n";
+		else {
+			print "&nbsp;";
 		}
+		print "    </td>";
+		# RIGHT
 		print "    <td align='right'>";
 		if (mysql_num_rows(db_query($qnext, $dbh))) {
 			print "    <input type='submit' class='button' name='do_More'";
@@ -1003,6 +1015,7 @@ function pkg_search_page($SID="") {
 		}
 		print "    </td>\n";
 		print "  </tr>\n";
+
 		print "  </table>\n";
 		print "  </td>\n";
 		print "</tr>\n";
