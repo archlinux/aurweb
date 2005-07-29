@@ -48,4 +48,12 @@ $_t["pl"]["Couldn't add to notification list."] = "Dodanie do listy powiadamiani
 
 $_t["pl"]["Couldn't remove from notification list."] = "Usunięcie z listy powiadamiania nie powiodło się.";
 
+$_t["pl"]["The selected packages have been flagged safe."] = "Wybrane pakiety zostały zaznaczone jako bezpieczne.";
+
+$_t["pl"]["Couldn't flag package safe."] = "Zaznaczenie pakietu jako bezpiecznego nie powiodło się.";
+
+$_t["pl"]["The selected packages have been unflagged safe."] = "Wybrane pakiety zostały odznaczone jako bezpieczne.";
+
+$_t["pl"]["Couldn't unflag package safe."] = "Odznaczenie pakietu jako bezpiecznego nie powiodło się.";
+
 ?>

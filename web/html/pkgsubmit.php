@@ -376,6 +376,7 @@ if ($_COOKIE["AURSID"]) {
 				$q.="Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', ";
 				$q.="URL='".mysql_escape_string($new_pkgbuild['url'])."', ";
 				$q.="LocationID=2, ";
+				$q.="Safe=0, ";
 				$fspath=$INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
 				$q.="FSPath='".mysql_escape_string($fspath)."', ";
 				$urlpath=$URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];

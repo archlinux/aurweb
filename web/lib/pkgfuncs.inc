@@ -334,6 +334,15 @@ function package_details($id=0, $SID="") {
 			  print "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
 			}
 			print "</tr>\n";
+			if ($row["LocationID"] == 2) {
+			  print "<tr>\n";
+			  print "  <td colspan='2'>";
+			  if ($row["Safe"]) {
+			    print "<span class='f7'>".__("The above files have been verified (by %s) and are safe to use.", array(username_from_id($row["VerifiedBy"])))."</span></td>";
+			  } else {
+			    print "<span class='f6'>".__("Be careful! The above files may contain malicious code that can damage your system.")."</span></td>";
+			  }
+			}
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td>";
 			print "</tr>\n";
@@ -428,6 +437,21 @@ function package_details($id=0, $SID="") {
 				} else {
 					print "<input type='submit' class='button' name='do_UnNotify'";
 					print " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'>";
+				}
+				# Flag Safe Button
+				#
+				if ($row["LocationID"] == 2 && (account_from_sid($SID) == "Trusted User" || account_from_sid($SID) == "Developer"))
+				{
+					if ($row["Safe"] == 0)
+					{
+						print "<input type='submit' class='button' name='do_FlagSafe'";
+						print " value='".__("Flag Safe")."' title='".__("Flag Package Safe To Use")."'>";
+					}
+					else
+					{
+						print "<input type='submit' class='button' name='do_UnFlagSafe'";
+						print " value='".__("Unflag Safe")."' title='".__("Unflag Package Safe To Use")."'>";
+					}
 				}
 				print "</form></td></tr>\n";				
 				print "</table><br />\n";
@@ -857,7 +881,7 @@ function pkg_search_page($SID="") {
 				}
 				if ($row["MaintainerUID"]==0 && $row["AURMaintainerUID"]==0) {
 					print "<span style='background-color: cyan'>";
-				}	
+				}
 				print "<input type='checkbox' name='IDs[".$row["ID"]."]' value='1'>";
 #				if ($i == 0) {
 #					$all_ids = $row["ID"];
@@ -889,7 +913,14 @@ function pkg_search_page($SID="") {
 				}
 			}
 			reset($pkgsearch_vars);
-			$url.= "'><span class='black'>".$row["Name"];
+			$url.= "'>";
+			if ($row["Safe"] == 1) {
+				$url.="<span class='green'>";
+			}
+			else {
+				$url.="<span class='black'>";
+			}
+			$url.=$row["Name"];
 			$url.= " ".$row["Version"]."</span></a>";
 			print $url."</span></td>\n";
 			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
@@ -961,7 +992,8 @@ function pkg_search_page($SID="") {
 		if ($SID) {
 			print "    <td align='center'><span class='f5'>\n";
 			print "      <font style='background-color: cyan'>".__("O%hrphan", array('</font>'))."&nbsp;&nbsp;&nbsp;&nbsp;\n";
-			print "      <font style='background-color: red'>".__("O%hut-of-Date", array('</font>'))."\n";
+			print "      <font style='background-color: red'>".__("O%hut-of-Date", array('</font>'))."&nbsp;&nbsp;&nbsp;&nbsp;";
+			print '      <span class="green">'.__("Safe")."</span>\n";
 			print "    </span></td>\n";
 		}
 		print "    <td align='right'>";

@@ -67,4 +67,12 @@ $_t["en"]["The selected packages have been disowned."] = "The selected packages 
 
 $_t["en"]["Couldn't remove from notification list."] = "Couldn't remove from notification list.";
 
+$_t["en"]["The selected packages have been flagged safe."] = "The selected packages have been flagged safe.";
+
+$_t["en"]["Couldn't flag package safe."] = "Couldn't flag package safe.";
+
+$_t["en"]["The selected packages have been unflagged safe."] = "The selected packages have been unflagged safe.";
+
+$_t["en"]["Couldn't unflag package safe."] = "Couldn't unflag package safe.";
+
 ?>

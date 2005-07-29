@@ -462,6 +462,54 @@ if (isset($_REQUEST["do_Flag"])) {
 	pkgsearch_results_link();
 
 
+} elseif (isset($_REQUEST["do_FlagSafe"])) {
+	if (!$atype) {
+		print __("You must be logged in before you can flag packages.");
+		print "<br />\n";
+	} else {
+		if (!empty($ids) || $atype == "User") {
+			$dbh = db_connect();
+			# There currently shouldn't be multiple requests here, but the format in which
+			# it's sent requires this
+			while (list($pid, $v) = each($ids)) {
+				$q = "UPDATE Packages SET Safe = 1, VerifiedBy = ".uid_from_sid($_COOKIE["AURSID"])." WHERE ID = ".$pid;
+				db_query($q, $dbh);
+				print '<p>';
+				print __("The selected packages have been flagged safe.");
+				print '<br /></p>';
+				pkgdetails_link($pid);
+			}
+		} else {
+			print '<p>';
+			print __("Couldn't flag package safe.");
+			print '<br /></p>';
+		}
+	}
+
+} elseif (isset($_REQUEST["do_UnFlagSafe"])) {
+	if (!$atype) {
+		print __("You must be logged in before you can unflag packages.");
+		print "<br />\n";
+	} else {
+		if (!empty($ids) || $atype == "User") {
+			$dbh = db_connect();
+			# There currently shouldn't be multiple requests here, but the format in which
+			# it's sent requires this
+			while (list($pid, $v) = each($ids)) {
+				$q = "UPDATE Packages SET Safe = 0 WHERE ID = ".$pid;
+				db_query($q, $dbh);
+				print '<p>';
+				print __("The selected packages have been unflagged safe.");
+				print '<br /></p>';
+				pkgdetails_link($pid);
+			}
+		} else {
+			print '<p>';
+			print __("Couldn't unflag package safe.");
+			print '<br /></p>';
+		}
+	}
+
 } elseif (isset($_REQUEST["do_Notify"])) {
 	# I realize that the implementation here seems a bit convoluted, but we want to
 	# ensure that everything happens as it should, even if someone called this page

@@ -109,4 +109,18 @@ $_t["en"]["New Comment Notification"] = "New Comment Notification";
 
 $_t["en"]["Comments"] = "Comments";
 
+$_t["en"]["The above files have been verified (by %s) and are safe to use."] = "The above files have been verified (by %s) and are safe to use.";
+
+$_t["en"]["Be careful! The above files may contain malicious code that can damage your system."] = "Be careful! The above files may contain malicious code that can damage your system.";
+
+$_t["en"]["Flag Safe"] = "Flag Safe";
+
+$_t["en"]["Flag Package Safe To Use"] = "Flag Package Safe To Use";
+
+$_t["en"]["Unflag Safe"] = "Unflag Safe";
+
+$_t["en"]["Unflag Package Safe To Use"] = "Unflag Package Safe To Use";
+
+$_t["en"]["Safe"] = "Safe";
+
 ?>

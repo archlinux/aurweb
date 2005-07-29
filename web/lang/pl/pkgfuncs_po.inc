@@ -65,4 +65,16 @@ $_t["pl"]["Notify"] = "Włącz powiadamianie";
 
 $_t["pl"]["New Comment Notification"] = "Powiadomienie o nowym komentarzu.";
 
+$_t["pl"]["The above files have been verified (by %s) and are safe to use."] = "Powyższe pliki zostały sprawdzone (przez: %s) i możesz ich bezpiecznie uzywać.";
+
+$_t["pl"]["Be careful! The above files may contain malicious code that can damage your system."] = "Zachowaj ostrożność! Powyższe pliki mogą zawierać szkodliwy kod zagrażający twojemu systemowi.";
+
+$_t["pl"]["Flag Safe"] = "Zaznacz jako bezpieczny";
+
+$_t["pl"]["Flag Package Safe To Use"] = "Zaznacz pakiet jako bezpieczny w użyciu";
+
+$_t["pl"]["Unflag Safe"] = "Usuń flagę bezpieczeństwa";
+
+$_t["pl"]["Unflag Package Safe To Use"] = "Usuń flagę oznaczającą pakiet jako bezpieczny w użyciu";
+
 ?>
