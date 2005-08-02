@@ -21,4 +21,8 @@ $_t["pl"]["Developer"] = "Developer";
 
 $_t["pl"]["%s: %sAn ArchLinux project%s"] = "%s: %sProjekt ArchLinux%s";
 
+$_t["pl"]["Discussion"] = "Dyskusja";
+
+$_t["pl"]["Bugs"] = "Błędy";
+
 ?>

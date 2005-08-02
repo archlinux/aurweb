@@ -79,4 +79,10 @@ $_t["pl"]["Unflag Package Safe To Use"] = "Usuń flagę oznaczającą pakiet jak
 
 $_t["pl"]["Safe"] = "Bezpieczny";
 
+$_t["pl"]["First Submitted"] = "Wysłany";
+
+$_t["pl"]["Last Updated"] = "Ostatnia aktualizacja";
+
+$_t["pl"]["Age"] = "Wiek";
+
 ?>
