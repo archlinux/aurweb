@@ -294,6 +294,7 @@ function package_details($id=0, $SID="") {
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td>";
 			print "</tr>\n";
+
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["Location"] == "unsupported" and $SID) {
@@ -323,6 +324,23 @@ function package_details($id=0, $SID="") {
 				print $maintainer . "</span></td>";
 			}
 			print "</tr>\n";
+
+			print "<tr>\n";
+			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td>";
+			print "</tr>\n";
+
+			# Print the timestamps for last updates
+			$updated_time = ($row["ModifiedTS"] == 0) ? "(unknown)" : date("r", intval($row["ModifiedTS"]));
+			$submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : date("r", intval($row["SubmittedTS"]));
+			print "<tr>\n";
+			print "  <td class='boxSoft' colspan='2'>";
+			print "<span class='f3'>";
+			print __("Last Updated").": ".$updated_time."<br>";
+			print __("First Submitted").": ".$submitted_time;
+			print "</span>";
+			print "</td>\n";
+			print "</tr>\n";
+
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td>";
 			print "</tr>\n";
@@ -644,18 +662,31 @@ function pkg_search_page($SID="") {
 	print "  <span class='f5'><span class='blue'>".__("Sort by");
 	print "</span></span><br />\n";
 	print "  <select name='SB'>\n";
+
 	print "  <option value=n";
 	$_REQUEST["SB"] == "n" ? print " selected> " : print "> ";
-	print __("Name")."\n";
+	print __("Name")."</option>\n";
+
 	print "  <option value=c";
 	$_REQUEST["SB"] == "c" ? print " selected> " : print "> ";
-	print __("Category")."\n";
+	print __("Category")."</option>\n";
+
 	print "  <option value=l";
 	$_REQUEST["SB"] == "l" ? print " selected> " : print "> ";
-	print __("Location")."\n";
+	print __("Location")."</option>\n";
+
 	print "  <option value=v";
 	$_REQUEST["SB"] == "v" ? print " selected> " : print "> ";
-	print __("Votes")."\n";
+	print __("Votes")."</option>\n";
+
+	print "  <option value=m";
+	$_REQUEST["SB"] == "m" ? print " selected> " : print "> ";
+	print __("Maintainer")."</option>\n";
+
+	print "  <option value=a";
+	$_REQUEST["SB"] == "a" ? print " selected> " : print "> ";
+	print __("Age")."</option>\n";
+
 	print "  </select>\n";
 	print "</td>\n";
 
@@ -705,8 +736,9 @@ function pkg_search_page($SID="") {
 #	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Votes ";
 #	$q.= "FROM Packages LEFT JOIN PackageVotes ";
 #	$q.= "ON Packages.ID = PackageVotes.PackageID ";
-	$q = "SELECT * FROM Packages ";
-	$q.= "WHERE DummyPkg != 1 ";
+	$q = "SELECT * FROM Users,Packages ";
+	$q.= "WHERE Users.ID = Packages.MaintainerUID AND ";
+	$q.= "DummyPkg != 1 ";
 	$has_where = 1;
 
 	if (intval($_REQUEST["L"])) {
@@ -772,6 +804,12 @@ function pkg_search_page($SID="") {
 		case 'v':
 			$q.= "ORDER BY NumVotes DESC, Name ASC, CategoryID DESC ";
 			break;
+		case 'm':
+			$q.= "ORDER BY Username ASC, Name ASC, LocationID ASC ";
+			break;
+		case 'a':
+			$q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ASC, Name ASC, LocationID ASC ";
+			break;
 		default:
 			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID DESC ";
 			break;
@@ -779,6 +817,7 @@ function pkg_search_page($SID="") {
 	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth
 	$q.= "LIMIT ".$O.", ".$PP;
 
+	print "<!-- Query: ".$q." -->\n";
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		print __("Error retrieving package list.");

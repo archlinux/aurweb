@@ -123,4 +123,10 @@ $_t["en"]["Unflag Package Safe To Use"] = "Unflag Package Safe To Use";
 
 $_t["en"]["Safe"] = "Safe";
 
+$_t["en"]["Age"] = "Age";
+
+$_t["en"]["First Submitted"] = "First Submitted";
+
+$_t["en"]["Last Updated"] = "Last Updated";
+
 ?>
