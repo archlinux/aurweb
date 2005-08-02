@@ -30,7 +30,7 @@ if ($_COOKIE["AURSID"]) {
 			$pkg_name = str_replace("'", "", $_REQUEST["pkgname"]);
 			$pkg_name = escapeshellarg($pkg_name);
 			$pkg_name = str_replace("'", "", $pkg_name); # get rid of single quotes
-			$presult = preg_match("/^[a-z][a-z0-9_-]*$/", $pkg_name);
+			$presult = preg_match("/^[a-z0-9][a-z0-9_-]*$/", $pkg_name);
 			if ($presult == FALSE || $presult <= 0) {
 				# FALSE => error processing regex, 0 => invalid characters
 				#
