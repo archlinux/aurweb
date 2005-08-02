@@ -421,6 +421,10 @@ function html_header() {
 		print "               <span class='black'> - </span> ";
 		print "            <a href='/logout.php'>".__("Logout")."</a> ";
 	}
+	print "               <span class='black'> - </span> ";
+	print "            <a href='http://bugs.archlinux.org/index.php?tasks=all&project=2'>".__("Bugs")."</a> ";
+	print "               <span class='black'> - </span> ";
+	print "            <a href='http://www.archlinux.org/mailman/listinfo/tur-users'>".__("Discussion")."</a> ";
 	print "                <span class='black'>:.</span></span>";
 	print "        </td>";
 	print "    </tr>";
