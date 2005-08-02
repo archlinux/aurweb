@@ -481,8 +481,9 @@ function package_details($id=0, $SID="") {
 						$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
 						$durl.= "'><img src='/images/x.png' border='0'";
 						$durl.= " alt=\"".__("Delete comment")."\"></a>";
+
+					  print $durl . "&nbsp;&nbsp;";
 					}
-					print $durl . "&nbsp;&nbsp;";
 					print __("Comment by: %h%s%h on %h%s%h",
 							array("<b>",$carr["UserName"],"</b>",
 							      "<i>",date("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
