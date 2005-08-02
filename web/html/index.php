@@ -132,7 +132,7 @@ print "<td class='boxSoft' valign='top'>";
 #Hey, how about listing the newest pacakges? :D
 $q = "SELECT * FROM Packages ";
 $q.= "WHERE DummyPkg != 1 ";
-$q.= "ORDER BY SubmittedTS DESC ";
+$q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) DESC ";
 $q.= "LIMIT 0 , 10";
 $result = db_query($q,$dbh);
 # Table 2
