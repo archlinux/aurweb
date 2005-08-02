@@ -347,7 +347,7 @@ function package_details($id=0, $SID="") {
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["LocationID"] == 2) {
-			  print "<a href='".$row['URLPath']."'>".__("Tarball")."</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."'>".__("Files")."</a></span></td>";
+				print "<a href='".$row['URLPath']."'>".__("Tarball")."</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."'>".__("Files")."</a> :: <a href='".dirname($row['URLPath'])."/".$row['Name']."/PKGBUILD'>PKGBUILD</a></span></td>";
 			} elseif ($row["LocationID"] == 3) {
 			  print "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
 			}
