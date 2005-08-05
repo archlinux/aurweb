@@ -736,9 +736,9 @@ function pkg_search_page($SID="") {
 #	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Votes ";
 #	$q.= "FROM Packages LEFT JOIN PackageVotes ";
 #	$q.= "ON Packages.ID = PackageVotes.PackageID ";
-	$q = "SELECT * FROM Users,Packages ";
-	$q.= "WHERE Users.ID = Packages.MaintainerUID AND ";
-	$q.= "DummyPkg != 1 ";
+	$q = "SELECT * FROM Packages LEFT JOIN Users ";
+	$q.= "ON (Users.ID = Packages.MaintainerUID) ";
+	$q.= "WHERE DummyPkg != 1 ";
 	$has_where = 1;
 
 	if (intval($_REQUEST["L"])) {
