@@ -3,7 +3,7 @@ include_once("pkgfuncs_po.inc");
 
 # define variables used during pkgsearch
 #
-$pkgsearch_vars = array("O", "L", "C", "K", "SB", "PP", "do_MyPackages");
+$pkgsearch_vars = array("O", "L", "C", "K", "SB", "PP", "do_MyPackages", "do_Orphans");
 
 
 # print out the 'return to package details' link
@@ -25,7 +25,7 @@ function pkgsearch_results_link() {
 
 	$url_data = "<a href='/packages.php?do_Search=1";
 	while (list($k, $var) = each($pkgsearch_vars)) {
-		if ($var == "do_MyPackages" && $_REQUEST[$var]) {
+		if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
 			$url_data.="&".$var."=1";
 		} else {
 			$url_data.="&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
@@ -374,7 +374,7 @@ function package_details($id=0, $SID="") {
 			while (list($k, $darr) = each($deps)) {
 				$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
 				while(list($k, $var) = each($pkgsearch_vars)) {
-					if ($var == "do_MyPackages" && $_REQUEST[$var]) {
+					if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
 						$url .= "&".$var."=1";
 					} else {
 						$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
@@ -946,7 +946,7 @@ function pkg_search_page($SID="") {
 				# php.net recommends htmlentities(urlencode(data)), but that
 				# doesn't work!
 				#
-				if ($var == "do_MyPackages" && $_REQUEST[$var]) {
+				if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
 					$url .= "&".$var."=1";
 				} else {
 					$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
@@ -1016,6 +1016,9 @@ function pkg_search_page($SID="") {
 #		print "<input type='hidden' name='All_IDs' value='".$all_ids."'>\n";
 		if ($_REQUEST["do_MyPackages"]) {
 			print "<input type='hidden' name='do_MyPackages' value='1'>\n";
+		}
+		if ($_REQUEST["do_Orphans"]) {
+			print "<input type='hidden' name='do_Orphans' value='1'>\n";
 		}
 
 		print "<table width='90%' cellspacing='0' cellpadding='2'>\n";
