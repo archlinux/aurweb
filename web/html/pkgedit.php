@@ -81,6 +81,7 @@ if ($_REQUEST["add_Comment"]) {
 		$q = "SELECT CommentNotify.*, Users.Email ";
 		$q.= "FROM CommentNotify, Users ";
 		$q.= "WHERE Users.ID = CommentNotify.UserID ";
+		$q.= "AND CommentNotify.UserID != ".uid_from_sid($_COOKIE["AURSID"])." ";
 		$q.= "AND CommentNotify.PkgID = ".intval($_REQUEST["ID"]);
 		$result = db_query($q, $dbh);
 		$bcc = array();
