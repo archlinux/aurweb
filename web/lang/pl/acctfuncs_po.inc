@@ -16,7 +16,7 @@ $_t["pl"]["The account, %h%s%h, has been successfully modified."] = "Konto %h%s%
 $_t["pl"]["Account Suspended"] = "Konto zablokowane";
 $_t["pl"]["New Package Notify"] = "Powiadamiaj o nowych pakietach";
 $_t["pl"]["IRC Nick"] = "Nick na IRC-u";
-$_t["pl"]["Trusted user"] = "Zaufany użytkownik";
+$_t["pl"]["Trusted user"] = "Zaufany Użytkownik";
 $_t["pl"]["Normal user"] = "Zwykły użytkownik";
 $_t["pl"]["Real Name"] = "Imię i nazwisko";
 $_t["pl"]["Password fields do not match."] = "Hasła nie zgadzają się.";
@@ -40,8 +40,8 @@ $_t["pl"]["Sort by"] = "Sortuj według";
 $_t["pl"]["Any type"] = "Dowolny rodzaj";
 $_t["pl"]["Last vote"] = "Ostatni głos";
 $_t["pl"]["Suspended"] = "Zablokowane";
-$_t["pl"]["No more results to display."] = "Nie ma już rezultatów do wyświetlenia.";
-$_t["pl"]["A Trusted User cannot assign Developer status."] = "Zaufany użytkownik nie może nadać statusu developera.";
+$_t["pl"]["No more results to display."] = "Brak rezultatów do wyświetlenia.";
+$_t["pl"]["A Trusted User cannot assign Developer status."] = "Zaufany Użytkownik nie może nadać statusu Developera.";
 
 $_t["pl"]["User"] = "Użytkownik";
 

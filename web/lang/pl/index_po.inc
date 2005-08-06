@@ -10,7 +10,7 @@ $_t["pl"]["You must supply a password."] = "Musisz podać hasło.";
 $_t["pl"]["You must supply a username."] = "Musisz podać nazwę użytkownika.";
 $_t["pl"]["Incorrect password for username %s."] = "Nieprawidłowe hasło dla użytkownika %s.";
 $_t["pl"]["After that, this can be filled in with more meaningful text."] = "Potem można tu wstawić bardziej wyczerpujący tekst.";
-$_t["pl"]["Your account has been suspended."] = "Twoje konto jest zablokowane.";
+$_t["pl"]["Your account has been suspended."] = "Twoje konto zostało zablokowane.";
 $_t["pl"]["Password:"] = "Hasło:";
 $_t["pl"]["Username:"] = "Użytkownik:";
 $_t["pl"]["It's more important to get the login functionality finished."] = "Ważniejsze jest dokończyć logowanie.";
@@ -44,13 +44,13 @@ $_t["pl"]["The most popular packages will be provided as binary packages in [com
 
 $_t["pl"]["Trusted Users"] = "Zaufanych Użytkowników";
 
-$_t["pl"]["Packages added or updated in the past 7 days"] = "Pakietów dodanych lub uaktualnionych w ciągu ostatnich 7 dni";
+$_t["pl"]["Packages added or updated in the past 7 days"] = "Pakietów dodanych lub zmienionych w ostatnich 7 dniach";
 
 $_t["pl"]["Packages in [community]"] = "Pakietów w [community]";
 
-$_t["pl"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Witamy w AUR! Aby uzyskać się więcej informacji, przeczytaj z %hInstrukcję Użytkownika%h oraz %hInstrukcję Zaufanego Użytkownika%h.";
+$_t["pl"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Witamy w AUR! Aby uzyskać więcej informacji, przeczytaj %hInstrukcję Użytkownika%h oraz %hInstrukcję Zaufanego Użytkownika%h.";
 
-$_t["pl"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Pliki PKGBUILD <b>muszą</b> być zgodne ze %hStandardem Pakietów Archa%h, inaczej będą usuwane!";
+$_t["pl"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Pliki PKGBUILD <b>muszą</b> być zgodne ze %hStandardami Pakietów Archa%h, inaczej będą usuwane!";
 
 $_t["pl"]["Registered Users"] = "Zarejestrowanych użytkowników";
 

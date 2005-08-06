@@ -11,11 +11,11 @@ $_t["pl"]["Logout"] = "Wyloguj się";
 $_t["pl"]["Manage"] = "Zarządzaj";
 $_t["pl"]["Submit"] = "Wyślij";
 $_t["pl"]["%s: An ArchLinux project"] = "%s: Projekt ArchLinux";
-$_t["pl"]["Accounts"] = "Konto";
+$_t["pl"]["Accounts"] = "Konta";
 $_t["pl"]["Vote"] = "Głosuj";
 $_t["pl"]["Home"] = "Start";
 $_t["pl"]["Packages"] = "Pakiety";
-$_t["pl"]["Trusted user"] = "Zaufany użytkownik";
+$_t["pl"]["Trusted user"] = "Zaufany Użytkownik";
 $_t["pl"]["User"] = "Użytkownik";
 $_t["pl"]["Developer"] = "Developer";
 
