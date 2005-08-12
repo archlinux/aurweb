@@ -759,11 +759,11 @@ function pkg_search_page($SID="") {
 	}
 	if ($K) {
 		if (!$has_where) {
-			$q.= "WHERE (Name LIKE '".mysql_escape_string($K)."%' OR ";
+			$q.= "WHERE (Name LIKE '%".mysql_escape_string($K)."%' OR ";
 			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
 			$has_where = 1;
 		} else {
-			$q.= "AND (Name LIKE '".mysql_escape_string($K)."%' OR ";
+			$q.= "AND (Name LIKE '%".mysql_escape_string($K)."%' OR ";
 			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
 		}
 	}
