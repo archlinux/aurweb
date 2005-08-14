@@ -189,7 +189,7 @@ function package_comments($pkgid=0) {
 	$comments = array();
 	if ($pkgid) {
 		$dbh = db_connect();
-		$q = "SELECT PackageComments.ID, UserName, Comments, CommentTS ";
+		$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, CommentTS ";
 		$q.= "FROM PackageComments, Users ";
 		$q.= "WHERE PackageComments.UsersID = Users.ID";
 		$q.= " AND PackageID = ".mysql_escape_string($pkgid);
@@ -502,9 +502,15 @@ function package_details($id=0, $SID="") {
 
 					  print $durl . "&nbsp;&nbsp;";
 					}
-					print __("Comment by: %h%s%h on %h%s%h",
+					if ($SID) {
+						print __("Comment by: %h%s%h on %h%s%h",
+							array("<a href='/account.php?Action=AccountInfo&ID=".$carr["UsersID"]."'><b>",$carr["UserName"],"</b></a>",
+							      "<i>",date("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
+					} else {
+						print __("Comment by: %h%s%h on %h%s%h",
 							array("<b>",$carr["UserName"],"</b>",
 							      "<i>",date("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
+					}
 					print "</span>";
 					print "<tr><td class='boxSoft'>";
 					print "<code>\n";
