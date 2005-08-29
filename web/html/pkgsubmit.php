@@ -295,7 +295,7 @@ if ($_COOKIE["AURSID"]) {
 		
 		# Check for http:// or other protocol in url
 		# 
-		if (!error) {
+		if (!$error) {
 			$parsed_url = parse_url($pkgbuild['url']);
 			if (!$parsed_url['scheme']) {
 				$error = __("Package URL is missing a protocol (ie. http:// ,ftp://)");
