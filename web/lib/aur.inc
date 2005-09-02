@@ -15,6 +15,7 @@ $LOGIN_TIMEOUT = 1800;           # number of idle seconds before timeout
 $SUPPORTED_LANGS = array(        # what languages we have translations for
 	"en" => "English",
 	"pl" => "Polski",
+	"it" => "Italiano",
 	# Eventually we will comment these in, when they are ready - PJM - 4/2005
 	#	"es" => "Español",
 	#	"de" => "Deutsch",
@@ -392,6 +393,7 @@ function html_header() {
 	#
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=en'><span class='sideBarSmallHeader'>English</span></a> ";
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=pl'><span class='sideBarSmallHeader'>Polski</span></a> ";
+	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=it'><span class='sideBarSmallHeader'>Italiano</span></a> ";
 	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=es'><span class='sideBarSmallHeader'>Español</span></a> ";
 	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=de'><span class='sideBarSmallHeader'>Deutsch</span></a> ";
 	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=fr'><span class='sideBarSmallHeader'>Français</span></a>";

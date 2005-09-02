@@ -1,0 +1,80 @@
+<?
+# Italian (Italiano) translation
+# Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
+
+include_once("translator.inc");
+global $_t;
+
+$_t["it"]["You must supply a password."] = "Devi inserire una password.";
+
+$_t["it"]["You must supply a username."] = "Devi inserire un nome utente.";
+
+$_t["it"]["After that, this can be filled in with more meaningful text."] = "Dopotutto, questo potrebbe essere riempito con un messaggio più significativo.";
+
+$_t["it"]["Logged-in as: %h%s%h"] = "Sei autenticato come: %h%s%h";
+
+$_t["it"]["Your account has been suspended."] = "Il tuo account è stato sospeso.";
+
+$_t["it"]["Password:"] = "Password:";
+
+$_t["it"]["Username:"] = "Nome utente:";
+
+$_t["it"]["Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h."] = "Benvenuto in AUR! Se sei un nuovo utente, dovresti leggere le %hGuidelines%h.";
+
+$_t["it"]["This is where the intro text will go."] = "Qui ci andrà il testo di introduzione.";
+
+$_t["it"]["Error trying to generate session id."] = "Errore durante la generazione dell'id di sessione.";
+
+$_t["it"]["For now, it's just a place holder."] = "Per adesso, è solo un segnaposto.";
+
+$_t["it"]["It's more important to get the login functionality finished."] = "E' più importante avere la funzionalità di autenticazione completata.";
+
+$_t["it"]["Error looking up username, %s."] = "Errore durante la ricerca del nome utente, %s.";
+
+$_t["it"]["Login"] = "Entra";
+
+$_t["it"]["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Nonostante che non possiamo assicurarvi il loro contenuto, mettiamo a disposizione una %hlista di repositories degli utenti%h per la vostra comodità";
+
+$_t["it"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Se avete delle osservazioni da fare in merito al sistema AUR, potete lasciarle nel %hFlyspray%h.";
+
+$_t["it"]["Incorrect password for username, %s."] = "Password errata per questo nome utente, %s.";
+
+$_t["it"]["Latest Packages:"] = "Ultimi Pacchetti:";
+
+$_t["it"]["Discussion about the AUR takes place on the %sTUR Users List%s."] = "Le discussioni su AUR avvengono nella %sTUR Users List%s.";
+
+$_t["it"]["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Email per le discussioni su AUR che avvengono nella %sTUR Users List%s.";
+
+$_t["it"]["Recent Updates"] = "Aggiornamenti Recenti";
+
+$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information. Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Benvenuto in AUR! Per maggiori informazioni puoi leggere %hAUR User Guidelines%h e %hAUR TU Guidelines%h. I PKGBUILDs inviati <b>devono</b> essere conformi all' %hArch Packaging Standards%h altrimenti saranno cancellati!";
+
+$_t["it"]["Community"] = "Community";
+
+$_t["it"]["Package Counts"] = "Conteggio dei Pacchetti";
+
+$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Benvenuto in AUR! Per maggiori informazioni puoi leggere %hAUR User Guidelines%h e %hAUR TU Guidelines%h.";
+
+$_t["it"]["Unsupported"] = "Unsupported";
+
+$_t["it"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "I PKGBUILDs inviati <b>devono</b> essere conformi all' %hArch Packaging Standards%h altrimenti saranno cancellati!";
+
+$_t["it"]["Statistics"] = "Statistiche";
+
+$_t["it"]["Registered Users"] = "Utenti Registrati";
+
+$_t["it"]["Trusted Users"] = "Trusted Users";
+
+$_t["it"]["Packages in unsupported"] = "Pacchetti in unsupported";
+
+$_t["it"]["Packages in [community]"] = "Pacchetti in [community]";
+
+$_t["it"]["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "Ricordati di votare i tuoi pacchetti preferiti! I pacchetti più popolari sono disponibili in [community] come pacchetti binari.";
+
+$_t["it"]["Remember to vote for your favourite packages!"] = "Ricordati di votare i tuoi pacchetti preferiti!";
+
+$_t["it"]["The most popular packages will be provided as binary packages in [community]."] = "I pacchetti più popolari saranno disponibili in [community] come pacchetti binari.";
+
+$_t["it"]["Packages added or updated in the past 7 days"] = "Pacchetti aggiunti o aggiornati negli ultimi 7 giorni";
+
+?>

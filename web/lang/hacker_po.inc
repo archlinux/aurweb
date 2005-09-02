@@ -15,4 +15,6 @@ include_once("en/hacker_po.inc");
 
 include_once("pl/hacker_po.inc");
 
+include_once("it/hacker_po.inc");
+
 ?>
