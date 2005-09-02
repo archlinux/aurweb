@@ -40,6 +40,8 @@ $_t["pl"]["Remember to vote for your favourite packages!"] = "Nie zapomnij głos
 
 $_t["pl"]["Packages in unsupported"] = "Pakietów w unsupported";
 
+$_t["pl"]["Packages in unsupported and flagged as safe"] = "Pakietów w unsupported oznaczonych jako bezpieczne";
+
 $_t["pl"]["The most popular packages will be provided as binary packages in [community]."] = "Najbardziej popularne pakiety zostaną umieszczone w formie binarnej w [community].";
 
 $_t["pl"]["Trusted Users"] = "Zaufanych Użytkowników";

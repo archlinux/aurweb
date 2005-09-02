@@ -73,6 +73,8 @@ $_t["en"]["Trusted Users"] = "Trusted Users";
 
 $_t["en"]["Packages in unsupported"] = "Packages in unsupported";
 
+$_t["en"]["Packages in unsupported and flagged as safe"] = "Packages in unsupported and flagged as safe";
+
 $_t["en"]["Packages in [community]"] = "Packages in [community]";
 
 $_t["en"]["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community].";

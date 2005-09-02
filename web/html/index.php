@@ -209,6 +209,11 @@ $result = db_query($q, $dbh);
 $row = mysql_fetch_row($result);
 $update_count = $row[0];
 
+$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported' AND Packages.Safe = 1";
+$result = db_query($q, $dbh);
+$row = mysql_fetch_row($result);
+$safe_count = $row[0];
+
 print "<table class='boxSoft'>";
 
 print "<tr>";
@@ -222,6 +227,13 @@ print "<td class='boxSoft'>";
 print "<span class='f4'>".__("Packages in unsupported")."</span>";
 print "</td>";
 print "<td class='boxSoft'><span class='f4'>$unsupported_count</span></td>";
+print "</tr>";
+
+print "<tr>";
+print "<td class='boxSoft'>";
+print "<span class='f4'>".__("Packages in unsupported and flagged as safe")."</span>";
+print "</td>";
+print "<td class='boxSoft'><span class='f4'>$safe_count</span></td>";
 print "</tr>";
 
 print "<tr>";
