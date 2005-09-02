@@ -3,7 +3,7 @@ include_once("pkgfuncs_po.inc");
 
 # define variables used during pkgsearch
 #
-$pkgsearch_vars = array("O", "L", "C", "K", "SB", "PP", "do_MyPackages", "do_Orphans");
+$pkgsearch_vars = array("O", "L", "C", "K", "SB", "SO", "PP", "do_MyPackages", "do_Orphans");
 
 
 # print out the 'return to package details' link
@@ -658,7 +658,7 @@ function pkg_search_page($SID="") {
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Keywords");
 	print "</span></span><br />\n";
-	print "  <input type='text' name='K' size='35'";
+	print "  <input type='text' name='K' size='20'";
 	$K = str_replace("\"", "", $_REQUEST["K"]); # TODO better testing for
                                               # SQL trickery...
 	print " value=\"".stripslashes($K)."\" maxlength='35'>\n";
@@ -692,6 +692,22 @@ function pkg_search_page($SID="") {
 	print "  <option value=a";
 	$_REQUEST["SB"] == "a" ? print " selected> " : print "> ";
 	print __("Age")."</option>\n";
+
+	print "  </select>\n";
+	print "</td>\n";
+
+	print "<td align='right'>\n";
+	print "  <span class='f5'><span class='blue'>".__("Sort order");
+	print "</span></span><br />\n";
+	print "  <select name='SO'>\n";
+
+	print "  <option value=a";
+	$_REQUEST["SO"] == "a" ? print " selected> " : print "> ";
+	print __("Ascending")."</option>\n";
+
+	print "  <option value=d";
+	$_REQUEST["SO"] == "d" ? print " selected> " : print "> ";
+	print __("Descending")."</option>\n";
 
 	print "  </select>\n";
 	print "</td>\n";
@@ -800,24 +816,25 @@ function pkg_search_page($SID="") {
 				$q.= "MaintainerUID = 0) ";
 			}
 	}
+	$order = $_REQUEST["SO"] == 'd' ? 'DESC' : 'ASC';
 	switch ($_REQUEST["SB"]) {
 		case 'c':
-			$q.= "ORDER BY CategoryID DESC, Name ASC, LocationID ASC ";
+			$q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
 			break;
 		case 'l':
-			$q.= "ORDER BY LocationID ASC, Name ASC, CategoryID DESC ";
+			$q.= "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
 			break;
 		case 'v':
-			$q.= "ORDER BY NumVotes DESC, Name ASC, CategoryID DESC ";
+			$q.= "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
 			break;
 		case 'm':
-			$q.= "ORDER BY Username ASC, Name ASC, LocationID ASC ";
+			$q.= "ORDER BY Username ".$order.", Name ASC, LocationID ASC ";
 			break;
 		case 'a':
-			$q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ASC, Name ASC, LocationID ASC ";
+			$q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
 			break;
 		default:
-			$q.= "ORDER BY Name ASC, LocationID ASC, CategoryID DESC ";
+			$q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
 			break;
 	}
 	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth

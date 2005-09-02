@@ -79,6 +79,12 @@ $_t["en"]["Manage"] = "Manage";
 
 $_t["en"]["Sort by"] = "Sort by";
 
+$_t["en"]["Sort order"] = "Sort order";
+
+$_t["en"]["Ascending"] = "Ascending";
+
+$_t["en"]["Descending"] = "Descending";
+
 $_t["en"]["Actions"] = "Actions";
 
 $_t["en"]["Sources"] = "Sources";
