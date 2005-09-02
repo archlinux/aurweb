@@ -61,7 +61,7 @@ $_t["it"]["No more results to display."] = "Non ci sono ulteriori risultati da v
 
 $_t["it"]["Type"] = "Tipo";
 
-$_t["it"]["Click on the Home link above to login."] = "Clicca su Partenza per autenticarti.";
+$_t["it"]["Click on the Home link above to login."] = "Clicca su Inizio per autenticarti.";
 
 $_t["it"]["Sort by"] = "Ordina per";
 

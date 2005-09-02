@@ -51,7 +51,7 @@ $_t["it"]["Go back to %hsearch results%h."] = "Torna ai %hrisulati della ricerca
 
 $_t["it"]["No packages matched your search criteria."] = "Nessun pacchetto corrisponde ai criteri della tua ricerca.";
 
-$_t["it"]["O%hrphan"] = "O%hrfani";
+$_t["it"]["O%hrphan"] = "O%hrfano";
 
 $_t["it"]["Un-Vote"] = "Rimuovi il Voto";
 
@@ -122,5 +122,11 @@ $_t["it"]["Age"] = "Data";
 $_t["it"]["First Submitted"] = "Primo Invio";
 
 $_t["it"]["Last Updated"] = "Ultimo Aggiornamento";
+
+$_t["it"]["Sort order"] = "Ordina in modo";
+
+$_t["it"]["Ascending"] = "Ascendente";
+
+$_t["it"]["Descending"] = "Discendente";
 
 ?>

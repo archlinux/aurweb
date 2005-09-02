@@ -83,4 +83,6 @@ $_t["it"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Manca un
 
 $_t["it"]["Could not re-tar"] = "Impossibile ri-archiviare";
 
+$_t["it"]["Binary packages and filelists are not allowed for upload."] = "Non è consentito inviare pacchetti contenenti binari e filelist.";
+
 ?>

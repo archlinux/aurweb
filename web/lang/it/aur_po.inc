@@ -5,7 +5,7 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["it"]["Home"] = "Partenza";
+$_t["it"]["Home"] = "Inizio";
 
 $_t["it"]["%s: An ArchLinux project"] = "%s: Un progetto ArchLinux";
 

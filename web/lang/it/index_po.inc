@@ -77,4 +77,6 @@ $_t["it"]["The most popular packages will be provided as binary packages in [com
 
 $_t["it"]["Packages added or updated in the past 7 days"] = "Pacchetti aggiunti o aggiornati negli ultimi 7 giorni";
 
+$_t["it"]["Packages in unsupported and flagged as safe"] = "Pacchetti in unsupported e segnati come sicuri";
+
 ?>
