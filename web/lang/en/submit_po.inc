@@ -89,4 +89,6 @@ $_t["en"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Package 
 
 $_t["en"]["Could not re-tar"] = "Could not re-tar";
 
+$_t["en"]["Binary packages and filelists are not allowed for upload."] = "Binary packages and filelists are not allowed for upload.";
+
 ?>

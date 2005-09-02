@@ -178,6 +178,9 @@ if ($_COOKIE["AURSID"]) {
 			while ($f = $d->read()) {
 				if ($f != "." && $f != "..") {
 					$pkg_contents[$f] = filesize($f);
+					if (preg_match("/^(.*\.pkg\.tar\.gz|filelist)$/", $f)) {
+						$error = __("Binary packages and filelists are not allowed for upload.");
+					}
 				}
 			}
 			$d->close();
