@@ -308,7 +308,10 @@ if (isset($_REQUEST["do_Flag"])) {
 				$q = "UPDATE Packages ";
 				$q.= "SET ".$field." = ".uid_from_sid($_COOKIE["AURSID"])." ";
 				$q.= "WHERE ID IN (" . $adopt . ") ";
-				$q.= "AND ".$field." = 0";
+				if ($atype == "User")
+				{
+					$q.= "AND ".$field." = 0";
+				}
 				db_query($q, $dbh);
 			}
 
