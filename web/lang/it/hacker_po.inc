@@ -5,8 +5,8 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["it"]["Your session id is invalid."] = "Il tuo id di sessione non è valido.";
+$_t["it"]["Your session id is invalid."] = "L'id di sessione non è valido.";
 
-$_t["it"]["If this problem persists, please contact the site administrator."] = "Se questo problema dovesse persistere, sei pregato di contattare l'amministratore del sito.";
+$_t["it"]["If this problem persists, please contact the site administrator."] = "Se questo problema dovesse persistere, contattare l'amministratore del sito.";
 
 ?>

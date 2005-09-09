@@ -9,13 +9,13 @@ $_t["it"]["Reset"] = "Cancella";
 
 $_t["it"]["Username"] = "Nome utente";
 
-$_t["it"]["Email Address"] = "Indirizzo Email";
+$_t["it"]["Email Address"] = "Indirizzo email";
 
 $_t["it"]["Less"] = "Precedente";
 
 $_t["it"]["Clear"] = "Pulisci";
 
-$_t["it"]["required"] = "richiesto";
+$_t["it"]["required"] = "obbligatorio";
 
 $_t["it"]["Update"] = "Aggiorna";
 
