@@ -310,7 +310,10 @@ if (isset($_REQUEST["do_Flag"])) {
 				$q.= "WHERE ID IN (" . $adopt . ") ";
 				if ($atype == "User")
 				{
+					# Regular users may only adopt orphan packages from unsupported
+					# FIXME: We assume that LocationID for unsupported is "2"
 					$q.= "AND ".$field." = 0";
+					$q.= " AND LocationID = 2";
 				}
 				db_query($q, $dbh);
 			}
