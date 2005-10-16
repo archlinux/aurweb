@@ -16,10 +16,11 @@ $SUPPORTED_LANGS = array(        # what languages we have translations for
 	"en" => "English",
 	"pl" => "Polski",
 	"it" => "Italiano",
+	"ca" => "CatalÃ ",
 	# Eventually we will comment these in, when they are ready - PJM - 4/2005
-	#	"es" => "Español",
+	#	"es" => "EspaÃ±ol",
 	#	"de" => "Deutsch",
-	#	"fr" => "Français",
+	#	"fr" => "FranÃ§ais",
 );
 
 # debugging variables
@@ -394,9 +395,10 @@ function html_header() {
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=en'><span class='sideBarSmallHeader'>English</span></a> ";
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=pl'><span class='sideBarSmallHeader'>Polski</span></a> ";
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=it'><span class='sideBarSmallHeader'>Italiano</span></a> ";
-	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=es'><span class='sideBarSmallHeader'>Español</span></a> ";
+	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=ca'><span class='sideBarSmallHeader'>CatalÃ </span></a> ";
+	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=es'><span class='sideBarSmallHeader'>EspaÃ±ol</span></a> ";
 	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=de'><span class='sideBarSmallHeader'>Deutsch</span></a> ";
-	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=fr'><span class='sideBarSmallHeader'>Français</span></a>";
+	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=fr'><span class='sideBarSmallHeader'>FranÃ§ais</span></a>";
 	print "                </td>\n";
 	print "            </tr>\n";
 	print "            </table>\n";

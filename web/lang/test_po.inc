@@ -17,4 +17,6 @@ include_once("pl/test_po.inc");
 
 include_once("it/test_po.inc");
 
+include_once("ca/test_po.inc");
+
 ?>

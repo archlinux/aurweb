@@ -17,4 +17,6 @@ include_once("pl/pkgfuncs_po.inc");
 
 include_once("it/pkgfuncs_po.inc");
 
+include_once("ca/pkgfuncs_po.inc");
+
 ?>
