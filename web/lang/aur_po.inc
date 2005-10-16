@@ -19,4 +19,6 @@ include_once("it/aur_po.inc");
 
 include_once("ca/aur_po.inc");
 
+include_once("pt/aur_po.inc");
+
 ?>

@@ -11,14 +11,6 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/template_po.inc");
-
-include_once("pl/template_po.inc");
-
-include_once("it/template_po.inc");
-
-include_once("ca/template_po.inc");
-
-include_once("pt/template_po.inc");
+$_t["pt"]["You have been successfully logged out."] = "Você efetuou logout com sucesso.";
 
 ?>

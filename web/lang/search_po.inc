@@ -19,4 +19,6 @@ include_once("it/search_po.inc");
 
 include_once("ca/search_po.inc");
 
+include_once("pt/search_po.inc");
+
 ?>

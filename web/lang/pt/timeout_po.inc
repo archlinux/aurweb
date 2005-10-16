@@ -11,14 +11,8 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/template_po.inc");
+$_t["pt"]["Click on the Home link above to log in."] = "Clique no link Inicial acima para efetuar o login.";
 
-include_once("pl/template_po.inc");
-
-include_once("it/template_po.inc");
-
-include_once("ca/template_po.inc");
-
-include_once("pt/template_po.inc");
+$_t["pt"]["Your session has timed out.  You must log in again."] = "Sua sessão expirou. Você deve efetuar o login novamente.";
 
 ?>

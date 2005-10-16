@@ -19,4 +19,6 @@ include_once("it/timeout_po.inc");
 
 include_once("ca/timeout_po.inc");
 
+include_once("pt/timeout_po.inc");
+
 ?>

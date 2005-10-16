@@ -19,4 +19,6 @@ include_once("it/submit_po.inc");
 
 include_once("ca/submit_po.inc");
 
+include_once("pt/submit_po.inc");
+
 ?>

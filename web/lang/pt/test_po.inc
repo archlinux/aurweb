@@ -11,14 +11,12 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/template_po.inc");
+$_t["pt"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Selecione seu idioma aqui: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
 
-include_once("pl/template_po.inc");
+$_t["pt"]["Hello, world!"] = "Olá, mundo!";
 
-include_once("it/template_po.inc");
+$_t["pt"]["Hello, again!"] = "Olá, novamente!";
 
-include_once("ca/template_po.inc");
-
-include_once("pt/template_po.inc");
+$_t["pt"]["My current language tag is: '%s'."] = "Meu identificador atual de idioma é: '%s'.";
 
 ?>

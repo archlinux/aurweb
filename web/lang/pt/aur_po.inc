@@ -11,14 +11,20 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/template_po.inc");
+$_t["pt"]["Home"] = "Inicial";
 
-include_once("pl/template_po.inc");
+$_t["pt"]["%s: An ArchLinux project"] = "%s: Um projeto ArchLinux";
 
-include_once("it/template_po.inc");
+$_t["pt"]["Packages"] = "Pacotes";
 
-include_once("ca/template_po.inc");
+$_t["pt"]["Accounts"] = "Contas";
 
-include_once("pt/template_po.inc");
+$_t["pt"]["Logout"] = "Sair";
+
+$_t["pt"]["%s: %sAn ArchLinux project%s"] = "%s: %sUm projeto ArchLinux%s";
+
+$_t["pt"]["Discussion"] = "Discurssão";
+
+$_t["pt"]["Bugs"] = "Falhas";
 
 ?>

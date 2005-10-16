@@ -11,14 +11,8 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/template_po.inc");
+$_t["pt"]["Your session id is invalid."] = "Seu id de sessão é inválido.";
 
-include_once("pl/template_po.inc");
-
-include_once("it/template_po.inc");
-
-include_once("ca/template_po.inc");
-
-include_once("pt/template_po.inc");
+$_t["pt"]["If this problem persists, please contact the site administrator."] = "Se o problema persistir, por favor, contacte o administrador do site.";
 
 ?>
