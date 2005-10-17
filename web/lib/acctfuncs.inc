@@ -636,6 +636,10 @@ function display_account_info($U="",$T="",
 	print "    <td align='left'>".$I."</td>\n";
 	print "  </tr>\n";
 
+	print "  <tr>\n";
+	print "    <td colspan='2'><a href='/packages.php?K=".$U."&SeB=m'>".__("View this user's packages")."</a></td>\n";
+	print "  </tr>\n";
+
 	print "</table>\n";
 	print "</center>\n";
 	return;

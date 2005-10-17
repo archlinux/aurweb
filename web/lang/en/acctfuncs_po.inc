@@ -87,4 +87,6 @@ $_t["en"]["Missing User ID"] = "Missing User ID";
 
 $_t["en"]["Developer"] = "Developer";
 
+$_t["en"]["View this user's packages"] = "View this user's packages";
+
 ?>
