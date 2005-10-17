@@ -3,7 +3,7 @@ include_once("pkgfuncs_po.inc");
 
 # define variables used during pkgsearch
 #
-$pkgsearch_vars = array("O", "L", "C", "K", "SB", "SO", "PP", "do_MyPackages", "do_Orphans");
+$pkgsearch_vars = array("O", "L", "C", "K", "SB", "SO", "PP", "do_MyPackages", "do_Orphans", "SeB");
 
 
 # print out the 'return to package details' link
@@ -663,7 +663,24 @@ function pkg_search_page($SID="") {
                                               # SQL trickery...
 	print " value=\"".stripslashes($K)."\" maxlength='35'>\n";
 	print "</td>\n";
+	
+	print "<td align='right'>\n";
+	print "  <span class='f5'><span class='blue'>".__("Search by");
+	print "</span></span><br />\n";
+	
+	print "  <select name='SeB'>\n";
+	# by name/description
+	print "  <option value=nd";
+	$_REQUEST["SeB"] == "nd" ? print " selected> " : print "> ";
+	print __("Name")."</option>\n";
+	# by maintainer
+	print "  <option value=m";
+	$_REQUEST["SeB"] == "m" ? print " selected> " : print "> ";
+	print __("Maintainer")."</option>\n";
 
+	print "  </select>\n";
+	print "</td>\n";
+	
 /*	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Sort by");
 	print "</span></span><br />\n";
@@ -780,13 +797,25 @@ function pkg_search_page($SID="") {
 		}
 	}
 	if ($K) {
-		if (!$has_where) {
-			$q.= "WHERE (Name LIKE '%".mysql_escape_string($K)."%' OR ";
-			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
-			$has_where = 1;
-		} else {
-			$q.= "AND (Name LIKE '%".mysql_escape_string($K)."%' OR ";
-			$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
+		#search by maintainer
+		if ($_REQUEST["SeB"] == "m"){
+			if (!$has_where) {
+					$q.= "WHERE Username = '".mysql_escape_string($K)."' ";
+				$has_where = 1;
+				} else {
+					$q.= "AND Username = '".mysql_escape_string($K)."' ";
+				}
+			}
+		# the default behaivior, query the name/description
+		else {
+			if (!$has_where) {
+				$q.= "WHERE (Name LIKE '%".mysql_escape_string($K)."%' OR ";
+				$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
+				$has_where = 1;
+			} else {
+				$q.= "AND (Name LIKE '%".mysql_escape_string($K)."%' OR ";
+				$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
+			}
 		}
 	}
 	if ($_REQUEST["do_MyPackages"] && $SID) {
@@ -921,19 +950,19 @@ function pkg_search_page($SID="") {
 		}
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP'>".__("Location")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Location")."</a>";
 		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=c&SO=$SO_next&PP=$PP'>".__("Category")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=c&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Category")."</a>";
 		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=n&SO=$SO_next&PP=$PP'>".__("Name")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=n&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Name")."</a>";
 		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=v&SO=$SO_next&PP=$PP'>".__("Votes")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=v&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Votes")."</a>";
 		print "</span></th>\n";
 		if ($SID) {
 			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
@@ -944,7 +973,7 @@ function pkg_search_page($SID="") {
 		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=m&SO=$SO_next&PP=$PP'>".__("Maintainer")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=m&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Maintainer")."</a>";
 		print "</span></th>\n";
 # REMOVED LINK TO 'pkgmgmnt.php'
 #		if ($SID) {
