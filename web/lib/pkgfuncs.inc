@@ -664,7 +664,7 @@ function pkg_search_page($SID="") {
 	print " value=\"".stripslashes($K)."\" maxlength='35'>\n";
 	print "</td>\n";
 
-	print "<td align='right'>\n";
+/*	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Sort by");
 	print "</span></span><br />\n";
 	print "  <select name='SB'>\n";
@@ -711,7 +711,7 @@ function pkg_search_page($SID="") {
 
 	print "  </select>\n";
 	print "</td>\n";
-
+*/
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Per page");
 	print "</span></span><br />\n";
@@ -896,6 +896,14 @@ function pkg_search_page($SID="") {
 
 		# print out package search results
 		#
+
+		# SO_next used to change sort order on header click
+		if ($_REQUEST["SO"] == "d"){
+			$SO_next="a";
+		} else {
+			$SO_next="d";
+		}
+		
 		print "<center>\n";
 		print "<table cellspacing='3' class='boxSoft'>\n";
 		print "<tr>\n";
@@ -912,21 +920,32 @@ function pkg_search_page($SID="") {
 			print " bottom'>&nbsp;</th>\n";
 		}
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>".__("Location")."</span></th>\n";
+		print " bottom'><span class='f2'>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP'>".__("Location")."</a>";
+		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>".__("Category")."</span></th>\n";
+		print " bottom'><span class='f2'>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=c&SO=$SO_next&PP=$PP'>".__("Category")."</a>";
+		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>".__("Name")."</span></th>\n";
+		print " bottom'><span class='f2'>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=n&SO=$SO_next&PP=$PP'>".__("Name")."</a>";
+		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>".__("Votes")."</span></th>\n";
+		print " bottom'><span class='f2'>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=v&SO=$SO_next&PP=$PP'>".__("Votes")."</a>";
+		print "</span></th>\n";
 		if ($SID) {
 			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 			print " bottom'><span class='f2'>".__("Voted")."</span></th>\n";
 		}
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>".__("Description")."</span></th>\n";
+		print " bottom'><span class='f2'>".__("Description")."</a>";
+		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>".__("Maintainer")."</span></th>\n";
+		print " bottom'><span class='f2'>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=m&SO=$SO_next&PP=$PP'>".__("Maintainer")."</a>";
+		print "</span></th>\n";
 # REMOVED LINK TO 'pkgmgmnt.php'
 #		if ($SID) {
 #			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
