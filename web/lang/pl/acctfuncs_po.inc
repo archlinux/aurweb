@@ -47,4 +47,6 @@ $_t["pl"]["User"] = "Użytkownik";
 
 $_t["pl"]["Trusted User"] = "Zaufany Użytkownik";
 
+$_t["pl"]["View this user's packages"] = "Wyświetl pakiety tego użytkownika";
+
 ?>

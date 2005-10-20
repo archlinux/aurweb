@@ -88,4 +88,6 @@ $_t["pl"]["Last Updated"] = "Ostatnia aktualizacja";
 
 $_t["pl"]["Age"] = "Wiek";
 
+$_t["pl"]["Search by"] = "Szukaj według";
+
 ?>
