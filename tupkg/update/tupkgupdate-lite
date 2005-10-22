@@ -1,0 +1,507 @@
+#!/usr/bin/python -O
+
+import re, os, sys, pacman, getopt, glob
+import MySQLdb, MySQLdb.connections
+import ConfigParser
+
+###########################################################
+# Deal with configuration
+###########################################################
+
+conffile = '/home/aur/tupkgs.conf'
+
+if not os.path.isfile(conffile):
+  print "Error: cannot access config file ("+conffile+")"
+  usage(argv[0])
+  sys.exit(1)
+
+config = ConfigParser.ConfigParser()
+config.read(conffile)
+
+############################################################
+
+# Define some classes we need
+class Version:
+  def __init__(self):
+    self.version = None
+    self.file = None
+
+class Package:
+  def __init__(self):
+    self.name = None
+    self.category = None
+    self.old = None
+    self.new = None
+    self.desc = None
+    self.url = None
+    self.depends = None
+    self.sources = None
+
+class PackageDatabase:
+  def __init__(self, host, user, password, dbname):
+    self.host = host
+    self.user = user
+    self.password = password
+    self.dbname = dbname
+    self.connection = MySQLdb.connect(host=host, user=user, passwd=password, db=dbname)
+  def cursor(self):
+    return self.connection.cursor()
+  def lookup(self, packagename):
+    warning("DB: Looking up package: " + packagename)
+    q = self.cursor()
+    q.execute("SELECT ID FROM Packages WHERE Name = '" + 
+               MySQLdb.escape_string(packagename) + "'")
+    if (q.rowcount != 0):
+      row = q.fetchone()
+      return row[0]
+    return None
+  def getCategoryID(self, package):
+    category_id = self.lookupCategory(package.category)
+    if (category_id == None):
+      category_id = 1
+    warning("DB: Got category ID '" + str(category_id) + "' for package '" + package.name + "'")
+    return category_id
+  def insert(self, package, locationId):
+    warning("DB: Inserting package: " + package.name)
+    global repo_dir
+    q = self.cursor()
+    q.execute("INSERT INTO Packages " +
+      "(Name, CategoryID, Version, FSPath, LocationID, SubmittedTS, Description, URL) VALUES ('" +
+      MySQLdb.escape_string(package.name) + "', " + 
+      str(self.getCategoryID(package)) + ", '" +
+      MySQLdb.escape_string(package.new.version) + "', '" +
+      MySQLdb.escape_string(
+        os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
+      str(locationId) + ", " +
+      "UNIX_TIMESTAMP(), '" +
+      MySQLdb.escape_string(str(package.desc)) + "', '" +
+      MySQLdb.escape_string(str(package.url)) + "')")
+    id = self.lookup(package.name)
+    self.insertNewInfo(package, id, locationId)    
+  def update(self, id, package, locationId):
+    warning("DB: Updating package: " + package.name + " with id " + str(id))
+    global repo_dir
+    q = self.cursor()
+    if (self.isdummy(package.name)):
+      q.execute("UPDATE Packages SET " +
+        "Version = '" + MySQLdb.escape_string(package.new.version) + "', " +
+        "CategoryID = " + str(self.getCategoryID(package)) + ", " +
+        "FSPath = '" + MySQLdb.escape_string(
+          os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
+        "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
+        "DummyPkg = 0, " +
+	"SubmittedTS = UNIX_TIMESTAMP(), " +
+        "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
+        "WHERE ID = " + str(id))
+    else:
+      q.execute("UPDATE Packages SET " +
+        "Version = '" + MySQLdb.escape_string(package.new.version) + "', " +
+        "CategoryID = " + str(self.getCategoryID(package)) + ", " +
+        "FSPath = '" + MySQLdb.escape_string(
+          os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
+        "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
+        "ModifiedTS = UNIX_TIMESTAMP(), " +
+        "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
+        "WHERE ID = " + str(id))
+    self.insertNewInfo(package, id, locationId)
+    # we must lastly check to see if this is a move of a package from
+    # unsupported to community, because we'd have to reset maintainer and location
+    q = self.cursor()
+    q.execute("SELECT LocationID FROM Packages WHERE ID = " + str(id))
+    if (q.rowcount != 0):
+      row = q.fetchone()
+      if (row[0] != 3):
+        q = self.cursor()
+	q.execute("UPDATE Packages SET LocationID = 3, MaintainerUID = null WHERE ID = " + str(id))
+  def remove(self, id, locationId):
+    warning("DB: Removing package with id: " + str(id))
+    q = self.cursor()
+    q.execute("DELETE FROM Packages WHERE " +
+      "LocationID = " + str(locationId) + " AND ID = " + str(id))
+  def clearOldInfo(self, id):
+    warning("DB: Clearing old info for package with id : " + str(id))
+    q = self.cursor()
+    q.execute("DELETE FROM PackageContents WHERE PackageID = " + str(id))
+    q.execute("DELETE FROM PackageDepends WHERE PackageID = " + str(id))
+    q.execute("DELETE FROM PackageSources WHERE PackageID = " + str(id))
+  def lookupOrDummy(self, packagename):
+    retval = self.lookup(packagename)
+    if (retval != None):
+      return retval
+    return self.createDummy(packagename)
+  def lookupCategory(self, categoryname):
+    warning("DB: Looking up category: " + categoryname)
+    q = self.cursor()
+    q.execute("SELECT ID from PackageCategories WHERE Category = '" + MySQLdb.escape_string(categoryname) + "'")
+    if (q.rowcount != 0):
+      row = q.fetchone()
+      return row[0]
+    return None
+  def createDummy(self, packagename):
+    warning("DB: Creating dummy package for: " + packagename)
+    q = self.cursor()
+    q.execute("INSERT INTO Packages " +
+      "(Name, Description, LocationID, DummyPkg) " +
+      "VALUES ('" +
+      MySQLdb.escape_string(packagename) + "', '" +
+      MySQLdb.escape_string("A dummy package") + "', 1, 1)")
+    return self.lookup(packagename)
+  def insertNewInfo(self, package, id, locationId):
+    q = self.cursor()
+
+    # first delete the old; this is never bad
+    self.clearOldInfo(id)
+
+    warning("DB: Inserting new package info for " + package.name +
+            " with id " + str(id))
+
+    # PackageSources
+    for source in package.sources:
+      q.execute("INSERT INTO PackageSources (PackageID, Source) " + 
+        "VALUES (" + str(id) + ", '" + source + "')")
+    # PackageDepends
+    for dep in package.depends:
+      depid = self.lookupOrDummy(dep)
+      q.execute("INSERT INTO PackageDepends (PackageID, DepPkgID) " +
+        "VALUES (" + str(id) + ", " + str(depid) + ")")
+  def isdummy(self, packagename):
+    warning("DB: Looking up package: " + packagename)
+    q = self.cursor()
+    q.execute("SELECT * FROM Packages WHERE Name = '" +
+      MySQLdb.escape_string(packagename) + "' AND DummyPkg = 1")
+    if (q.rowcount != 0):
+      return True
+    return False
+
+############################################################
+# Functions for walking the file trees
+############################################################
+
+def filesForRegexp(topdir, regexp):
+  retval = []
+  def matchfile(regexp, dirpath, namelist):
+    for name in namelist:
+      if (regexp.match(name)):
+        retval.append(os.path.join(dirpath, name))
+  os.path.walk(topdir, matchfile, regexp)
+  return retval
+
+def packagesInTree(topdir):
+  return filesForRegexp(topdir, re.compile("^.*\.pkg\.tar\.gz$"))
+
+def pkgbuildsInTree(topdir):
+  return filesForRegexp(topdir, re.compile("^PKGBUILD$"))
+
+############################################################
+# Function for testing if two files are identical 
+############################################################
+
+def areFilesIdentical(file_a, file_b):
+  command = "cmp '" + file_a + "' '" + file_b + "' >/dev/null"
+  retval = os.system(command)
+  if (retval == 0):
+    return True
+  return False
+
+############################################################
+# Function for fetching info from PKGBUILDs and packages
+############################################################
+
+def infoFromPackageFile(filename):
+  pkg = pacman.load(filename)
+  return pkg.name, pkg.version + "-" + pkg.release
+
+def infoFromPkgbuildFile(filename):
+  # first grab the category based on the file path
+  pkgdirectory = os.path.dirname(filename)
+  catdirectory = os.path.dirname(pkgdirectory)
+  m = re.match(r".*/([^/]+)$", catdirectory)
+  if (m):
+    category = m.group(1)
+  else:
+    category = "none"
+
+  # open and source the file
+  pf_stdin, pf_stdout = os.popen2("/bin/bash", 't', 0)
+  print >>pf_stdin, ". " + filename
+  #print "PKGBUILD: " + filename
+
+  # get pkgname
+  print >>pf_stdin, 'echo $pkgname'
+  pkgname = pf_stdout.readline().strip()
+  #print "PKGBUILD: pkgname: " + pkgname
+
+  # get pkgver
+  print >>pf_stdin, 'echo $pkgver'
+  pkgver = pf_stdout.readline().strip()
+  #print "PKGBUILD: pkgver: " + pkgver
+
+  # get pkgrel
+  print >>pf_stdin, 'echo $pkgrel'
+  pkgrel = pf_stdout.readline().strip()
+  #print "PKGBUILD: pkgrel: " + pkgrel
+
+  # get url
+  print >>pf_stdin, 'echo $url'
+  url = pf_stdout.readline().strip()
+  #print "PKGBUILD: url: " + url
+
+  # get desc
+  print >>pf_stdin, 'echo $pkgdesc'
+  pkgdesc = pf_stdout.readline().strip()
+  #print "PKGBUILD: pkgdesc: " + pkgdesc
+
+  # get source array
+  print >>pf_stdin, 'echo ${source[*]}'
+  source = (pf_stdout.readline().strip()).split(" ")
+
+  # get depends array
+  print >>pf_stdin, 'echo ${depends[*]}'
+  depends = (pf_stdout.readline().strip()).split(" ")
+
+  # clean up
+  pf_stdin.close()
+  pf_stdout.close()
+
+  return pkgname, pkgver + "-" + pkgrel, pkgdesc, url, depends, source, category
+
+def infoFromPkgbuildFileWorse(filename):
+  # load the file with pacman library
+  pkg = pacman.load(filename)
+  return (pkg.name, pkg.version + "-" + pkg.release, pkg.desc,
+    pkg.url, pkg.depends, pkg.source)
+  
+############################################################
+# Functions for doing the final steps of execution
+############################################################
+
+def execute(command):
+  global switches
+  print(command)
+  if not (switches.get("-n") == True):
+    return os.system(command)
+  return 0
+
+def copyFileToRepo(filename, repodir):
+  destfile = os.path.join(repodir, os.path.basename(filename))
+  command = "cp --preserve=timestamps '" + filename + "' '" + destfile + "'"
+  return execute(command)
+
+def deleteFile(filename):
+  command = "rm '" + filename + "'"
+  return execute(command)
+
+def runGensync(repo, pkgbuild):
+#target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
+  target = os.path.join(repo, "community.db.tar.gz")
+  command = "gensync '" + pkgbuild + "' '" + target + "'"
+  return execute(command)
+
+def runUpdatesyncUpd(repo, pkgbuild):
+	targetDB = os.path.join(repo, "community.db.tar.gz")
+	command = "updatesync upd '" + targetDB + "' '" + pkgbuild + "' '" + repo +"'"
+	return execute(command)
+
+def runUpdatesyncDel(repo, pkgname):
+	targetDB = os.path.join(repo, "community.db.tar.gz")
+	command = "updatesync del '" + targetDB + "' '" + pkgname +"'"
+	return execute(command)
+
+############################################################
+# Functions for error handling
+############################################################
+
+def warning(string):
+  print >>sys.stderr, string
+
+had_error = 0
+def error(string):
+  global had_error
+  warning(string)
+  had_error = 1
+
+############################################################
+# MAIN
+############################################################
+# The purpose of this version of tupkgupdate is to avoid
+# doing as much time and machine-intensive work as the full
+# tupkgupdate does, by relying on the state of the mysql
+# database to be correct. Since it usually is, this is a
+# good means for effecting updates more quickly, and won't
+# be a processor hog.
+#
+# Note that this version CANNOT HANDLE deleted packages. Those
+# will have to be processed less frequently. The only way to
+# know a package for sure is missing is to look through all
+# the PKGBUILDs which is what we're trying to avoid.
+#
+# ARGUMENTS
+#
+# tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_dir> <build_dir>
+
+# First call getopt
+switch_list,args_proper = getopt.getopt(sys.argv[1:], 'n',
+                          [ "delete", "paranoid" ])
+switches = {}
+for switch in switch_list:
+  switches[switch[0]] = 1
+
+# Then handle the remaining arguments
+if (len(args_proper) < 3):
+  print >>sys.stderr, "syntax: tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_tree> <build_tree>"
+  sys.exit(-1)
+
+repo_dir, pkgbuild_dir, build_dir = args_proper
+
+# Open the database so we find out now if we can't!
+db = PackageDatabase(config.get('mysql', 'host'),
+  config.get('mysql', 'username'),
+  config.get('mysql', 'password'),
+  config.get('mysql', 'db'))
+
+# Set up the lists and tables
+packages = dict()
+copy = list()
+delete = list()
+
+dbremove = list()
+dbmodify = list()
+
+# PASS 1: PARSING/LOCATING/CHECKING
+#  
+# Go through each package file in the incoming/build tree
+c_files = packagesInTree(build_dir)
+for c_file in c_files:
+
+# 1 - fetch package.name and package.new.{version,file} from package file
+# a) error and skip if invalid package file
+	pkgname, ver = infoFromPackageFile(c_file)
+	if (pkgname == None or ver == None):
+		error("Package file '" + c_file + "' is invalid!")
+		continue
+
+# b) error and skip if this is a duplicate we've already seen
+	if (packages.get(pkgname)):
+		error("Pkgbuild '" + a_file + "' is a duplicate!")
+		continue
+
+# c) create the package structure
+	package = Package()
+	package.name = pkgname
+
+	version = Version()
+	version.version = ver
+	version.file = c_file
+
+	package.new = version
+
+# 2 - use the package name to find/parse the PKGBUILD
+	ver, desc, url, depends, sources, category = findPkgbuildAndGetInfo(pkgname)
+
+# a) if no PKGBUILD file, ignore the built file (log a warning, and skip)
+	if (ver == None):
+		# no way to log warnings at the moment
+		continue
+
+# b) check that PKGBUILD pkgver-pkgrel == package.new.version (or log error and skip)
+	if (ver != package.new.version):
+		error("For package '" + pkgname + "' the PKGBUILD ver '" + ver + "' doesn't match the binary package ver '" + package.new.version + "')
+		continue;
+
+# c) populate package.{desc,url,depends,sources,category}
+  package.desc = desc
+	package.url = url
+	package.depends = depends
+	package.sources = sources
+	package.category = category
+
+# 3 - fill in package.old.version from the mysql db ([community] only) and perform checking:
+  ver = db.getCommunityVersion(package.name)
+
+# a) if no record in mysql db, verify package not in repo (or log error and skip)
+	if (ver == None):
+		evil_packages = glob.glob(os.path.join(repodir, package.name + "-*.pkg.tar.gz"));
+		found_evil_package = 0;
+		for evil_package in evil_packages:
+			pkgname, ver = infoFromPackageFile(evil_package)
+			if (pkgname == package.name):
+				error("No record of package '" + package.name + "' in [community] yet it has a package in '" + evil_package + "'")
+				found_evil_package = 1;
+				continue;
+		if (found_evil_package == 1):
+			continue;
+	
+# b) if record in mysql db, infer and verify proper package.old.file in repo (or log error and skip)
+	inferred_old_filepath = os.path.join(repodir, package.name + "-" + ver + ".pkg.tar.gz")
+	if (not os.path.exists(inferred_old_filepath)):
+		error("The old package file '" + inferred_old_filepath + "' should exist but doesn't! Aborting.")
+		continue
+
+# 4 - If new file exists in repo already, delete it (silently) and skip
+	new_filepath = os.path.join(repodir, os.path.basename(package.new.file))
+  if (os.path.exists(new_filepath)):
+		delete.append(package.new.file)
+		continue
+
+# 5 - If we've gotten here, we are a legitimate update or new package, so:
+# a) put the package in the package list
+	packages.append(package)
+
+# b) add new file to the "copy" list
+	copy.append(package.new.file)
+
+# c) add package to "dbmodify" list
+	dbmodify.append(package)
+
+# d) if package has an old, add old file to "delete" list
+	if (not package.old == None):
+		delete.append(package.old.file)
+
+## IF WE HAVE HAD ANY ERRORS AT THIS POINT, ABORT! ##
+if (had_error == 1):
+  error("Aborting due to errors.")
+  sys.exit(-1)
+
+# FOR NOW, ALWAYS EXIT, for safety
+warning("Would have succeeded in the operation.")
+warning("DBMODIFY: " + ','.join(dbmodify))
+warning("COPY: " + ','.join(copy))
+warning("DELETE: " + ','.join(delete))
+sys.exit(-1)
+
+# PASS 3: EXECUTION
+#
+
+# First, do all the database updates
+
+for package in dbmodify:
+  warning("DB: Package in dbmodify: " + package.name)
+  id = db.lookup(package.name)
+  if (id == None):
+    db.insert(package, 3)
+  else:
+    db.update(id, package, 3)
+
+# Copy
+for file in copy:
+  retval = copyFileToRepo(file, repo_dir)
+  if (retval != 0):
+    error("Could not copy file to repo: '" + file + "'")
+    sys.exit(-1)
+# Delete (second, for safety's sake)
+for file in delete:
+  deleteFile(file)
+# Now that we've copied new files and deleted, we should delete the source
+# files, if we're supposed to
+if (switches.get("--delete") == True):
+  for file in copy:
+    deleteFile(file)
+
+# Run updatesync where it is needed
+for package in dbmodify:
+	retval = runUpdatesyncUpd(repo_dir, os.path.join(pkgbuild_dir,package.category,package.name,"PKGBUILD"))
+	if (retval != 0):
+		error("Updatesync upd returned an error!")
+		sys.exit(-1)
+
+# vim: ft=python ts=2 sw=2 noet
