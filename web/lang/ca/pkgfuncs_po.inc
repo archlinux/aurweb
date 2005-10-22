@@ -129,4 +129,6 @@ $_t["ca"]["Any"] = "Cap";
 
 $_t["ca"]["No packages matched your search criteria."] = "No s'ha trobat cap coincidència amb el teu criteri de cerca.";
 
+$_t["ca"]["Search by"] = "Cerca per";
+
 ?>

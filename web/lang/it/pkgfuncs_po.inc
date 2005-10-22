@@ -39,7 +39,7 @@ $_t["it"]["Package Details"] = "Dettagli del pacchetto";
 
 $_t["it"]["Error retrieving package list."] = "Errore nel recupero della lista dei pacchetti.";
 
-$_t["it"]["Files"] = "Files";
+$_t["it"]["Files"] = "File";
 
 $_t["it"]["None"] = "Nessuno";
 
@@ -47,7 +47,7 @@ $_t["it"]["Name"] = "Nome";
 
 $_t["it"]["Per page"] = "Per pagina";
 
-$_t["it"]["Go back to %hsearch results%h."] = "Ritornare ai %hrisulati della ricerca%h.";
+$_t["it"]["Go back to %hsearch results%h."] = "Ritornare ai %hrisultati della ricerca%h.";
 
 $_t["it"]["No packages matched your search criteria."] = "Nessun pacchetto corrisponde ai criteri della ricerca.";
 
@@ -103,9 +103,9 @@ $_t["it"]["New Comment Notification"] = "Notifica di nuovo commento";
 
 $_t["it"]["Comments"] = "Commenti";
 
-$_t["it"]["The above files have been verified (by %s) and are safe to use."] = "I files sono stati verificati (da %s) ed il loro utilizzo è da considerarsi sicuro.";
+$_t["it"]["The above files have been verified (by %s) and are safe to use."] = "I file sono stati verificati (da %s) ed il loro utilizzo è da considerarsi sicuro.";
 
-$_t["it"]["Be careful! The above files may contain malicious code that can damage your system."] = "Attenzione! I files potrebbero contenere codice pericoloso in grado di danneggiare il vostro sistema.";
+$_t["it"]["Be careful! The above files may contain malicious code that can damage your system."] = "Attenzione! I file potrebbero contenere codice pericoloso in grado di danneggiare il vostro sistema.";
 
 $_t["it"]["Flag Safe"] = "Segnare come sicuro";
 
@@ -128,5 +128,7 @@ $_t["it"]["Sort order"] = "Ordina in modo";
 $_t["it"]["Ascending"] = "Ascendente";
 
 $_t["it"]["Descending"] = "Discendente";
+
+$_t["it"]["Search by"] = "Cerca per";
 
 ?>

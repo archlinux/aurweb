@@ -135,4 +135,6 @@ $_t["pt"]["First Submitted"] = "Submetido pela primeira vez";
 
 $_t["pt"]["Last Updated"] = "Últimos Pacotes Atualizados";
 
+$_t["pt"]["Search by"] = "Pesquisar por";
+
 ?>

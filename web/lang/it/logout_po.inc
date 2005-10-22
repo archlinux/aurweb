@@ -5,6 +5,6 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["it"]["You have been successfully logged out."] = "Sei uscito con successo.";
+$_t["it"]["You have been successfully logged out."] = "Disconnesso.";
 
 ?>

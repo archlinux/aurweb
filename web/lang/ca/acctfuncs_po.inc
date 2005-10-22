@@ -81,4 +81,6 @@ $_t["ca"]["Missing User ID"] = "Manca l'identificador de l'usuari";
 
 $_t["ca"]["Developer"] = "Desenvolupador";
 
+$_t["ca"]["View this user's packages"] = "Visualitza els paquets d'aquest usuari";
+
 ?>

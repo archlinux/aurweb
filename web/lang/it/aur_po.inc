@@ -11,7 +11,7 @@ $_t["it"]["%s: An ArchLinux project"] = "%s: Un progetto ArchLinux";
 
 $_t["it"]["Packages"] = "Pacchetti";
 
-$_t["it"]["Accounts"] = "Accounts";
+$_t["it"]["Accounts"] = "Account";
 
 $_t["it"]["Logout"] = "Esci";
 

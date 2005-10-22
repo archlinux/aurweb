@@ -87,4 +87,6 @@ $_t["pt"]["Missing User ID"] = "ID de usuário não encontrada";
 
 $_t["pt"]["Developer"] = "Desenvolvedor";
 
+$_t["pt"]["View this user's packages"] = "Visualizar os pacotes deste usuário";
+
 ?>
