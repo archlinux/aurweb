@@ -13,7 +13,7 @@ $_t["ca"]["Discussion"] = "Discussió";
 
 $_t["ca"]["Bugs"] = "Errors";
 
-$_t["ca"]["Accounts"] = "Comptes";
+$_t["ca"]["Accounts"] = "Compte";
 
 $_t["ca"]["Home"] = "Inici";
 

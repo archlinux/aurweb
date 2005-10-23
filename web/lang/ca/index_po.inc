@@ -37,11 +37,11 @@ $_t["ca"]["Username:"] = "Nom d'usuari:";
 
 $_t["ca"]["Error trying to generate session id."] = "S'ha produït un error en intentar generar un identificador de sessió.";
 
-$_t["ca"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Benvingut a l'AUR! Si su plau llegit la %hGuia d'usuari de l'AUR%h i la %hGuia de TU de l'AUR%h per a més informació.";
+$_t["ca"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Benvingut a l'AUR! Si us plau llegiu la %hGuia d'usuari de l'AUR%h i la %hGuia de TU de l'AUR%h per a més informació.";
 
 $_t["ca"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Els PKGBUILDs enviats han de seguir els %hEstàndards d'empaquetament d'Arch%h sinó seran esborrats!";
 
-$_t["ca"]["Login"] = "Identifiqueu-vos";
+$_t["ca"]["Login"] = "Entra";
 
 $_t["ca"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Si teniu cap comentari sobre l'AUR, si us plau deixeu-lo en el %hFlyspray%h.";
 
