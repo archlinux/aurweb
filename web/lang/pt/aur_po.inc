@@ -23,7 +23,7 @@ $_t["pt"]["Logout"] = "Sair";
 
 $_t["pt"]["%s: %sAn ArchLinux project%s"] = "%s: %sUm projeto ArchLinux%s";
 
-$_t["pt"]["Discussion"] = "Discurssão";
+$_t["pt"]["Discussion"] = "Discussão";
 
 $_t["pt"]["Bugs"] = "Falhas";
 
