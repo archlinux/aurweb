@@ -21,4 +21,6 @@ include_once("ca/pkgedit_po.inc");
 
 include_once("pt/pkgedit_po.inc");
 
+include_once("es/pkgedit_po.inc");
+
 ?>

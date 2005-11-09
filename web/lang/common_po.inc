@@ -21,4 +21,6 @@ include_once("ca/common_po.inc");
 
 include_once("pt/common_po.inc");
 
+include_once("es/common_po.inc");
+
 ?>

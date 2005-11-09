@@ -21,4 +21,6 @@ include_once("ca/logout_po.inc");
 
 include_once("pt/logout_po.inc");
 
+include_once("es/logout_po.inc");
+
 ?>
