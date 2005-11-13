@@ -507,7 +507,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				}
 				print "<tr>";
 				print "<td class='".$c."'>";
-				print "<span class='f5'>".$row["Username"]."</span></td>";
+				print "<span class='f5'><a href='/packages.php?SeB=m&K=".$row["Username"]."'>".$row["Username"]."</a></span></td>";
 				print "<td class='".$c."'>";
 				print "<span class='f5'>".$row["AccountType"];
 				print "</span></td>";
