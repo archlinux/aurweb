@@ -21,13 +21,13 @@ $_t["es"]["Be careful! The above files may contain malicious code that can damag
 
 $_t["es"]["Voted"] = "Votado";
 
-$_t["es"]["Location"] = "Situación";
+$_t["es"]["Location"] = "Ubicación";
 
 $_t["es"]["Flag Safe"] = "Marcar como seguro";
 
 $_t["es"]["Go"] = "Ir";
 
-$_t["es"]["Unflag Out-of-date"] = "Desmarcar anticuado";
+$_t["es"]["Unflag Out-of-date"] = "Desmarcar Desactualizado";
 
 $_t["es"]["Go back to %hpackage details view%h."] = "Volver a la %hvista detallada del paquete%h.";
 
@@ -81,13 +81,13 @@ $_t["es"]["Comments"] = "Comentarios";
 
 $_t["es"]["O%hrphan"] = "H%huérfano";
 
-$_t["es"]["Un-Vote"] = "Quitar voto";
+$_t["es"]["Un-Vote"] = "Quitar Voto";
 
 $_t["es"]["change category"] = "cambiar categoría";
 
 $_t["es"]["UnNotify"] = "Quitar notificación";
 
-$_t["es"]["Delete Packages"] = "Borrar paquetes";
+$_t["es"]["Delete Packages"] = "Borrar Paquetes";
 
 $_t["es"]["Maintainer"] = "Mantenedor";
 
