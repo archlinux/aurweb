@@ -542,5 +542,24 @@ function rm_rf($dirname="") {
 	return;
 }
 
+# obtain the uid given a Users.Username
+#
+function uid_from_username($username="")
+{
+	if (!$username) {
+		return "";
+	}
+	$dbh = db_connect();
+	$q = "SELECT ID FROM Users WHERE Username = '".mysql_escape_string($username)
+				."'";
+	$result = db_query($q, $dbh);
+	if (!$result) {
+		return "None";
+	}
+	$row = mysql_fetch_row($result);
+	
+	return $row[0];
+}
+
 # vim: ts=2 sw=2 noet ft=php
 ?>

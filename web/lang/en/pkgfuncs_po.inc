@@ -137,4 +137,6 @@ $_t["en"]["Last Updated"] = "Last Updated";
 
 $_t["en"]["Search by"] = "Search by";
 
+$_t["en"]["Submitter"] = "Submitter";
+
 ?>

@@ -677,6 +677,9 @@ function pkg_search_page($SID="") {
 	print "  <option value=m";
 	$_REQUEST["SeB"] == "m" ? print " selected> " : print "> ";
 	print __("Maintainer")."</option>\n";
+	print "  <option value=s";
+	$_REQUEST["SeB"] == "s" ? print " selected> " : print "> ";
+	print __("Submitter")."</option>\n";
 
 	print "  </select>\n";
 	print "</td>\n";
@@ -800,14 +803,20 @@ function pkg_search_page($SID="") {
 		#search by maintainer
 		if ($_REQUEST["SeB"] == "m"){
 			if (!$has_where) {
-					$q.= "WHERE Username = '".mysql_escape_string($K)."' ";
+				$q.= "WHERE Username = '".mysql_escape_string($K)."' ";
 				$has_where = 1;
-				} else {
-					$q.= "AND Username = '".mysql_escape_string($K)."' ";
-				}
+			} else {
+				$q.= "AND Username = '".mysql_escape_string($K)."' ";
+			}
+		} elseif ($_REQUEST["SeB"] == "s") {
+			if (!$has_where) {
+				$q.= "WHERE SubmitterUID = ".uid_from_username($K)." ";
+				$has_where = 1;
+			} else {
+				$q.= "AND SubmitterUID = ".uid_from_username($K)." ";
 			}
 		# the default behaivior, query the name/description
-		else {
+		} else {
 			if (!$has_where) {
 				$q.= "WHERE (Name LIKE '%".mysql_escape_string($K)."%' OR ";
 				$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
