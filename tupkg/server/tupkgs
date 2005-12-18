@@ -72,12 +72,11 @@ class ClientFile:
 		os.remove(self.pathname)
 
 class ClientSocket(threading.Thread):
-	def __init__(self, sock, db, **other):
+	def __init__(self, sock, **other):
 		threading.Thread.__init__(self, *other)
 		self.socket = sock
 		self.running = 1
 		self.files = []
-		self.db = db
 
 	def close(self):
 		self.running = 0
@@ -115,7 +114,14 @@ class ClientSocket(threading.Thread):
 		if (not authdata.has_key('username')) or (not authdata.has_key('password')):
 			self.sendMsg("result=FAIL")
 			return 0
-		q = self.db.cursor()
+		
+		print "Connecting to MySQL database"
+		dbconn = MySQLdb.connect(host=config.get('mysql', 'host'),
+				user=config.get('mysql', 'username'),
+				passwd=config.get('mysql', 'password'),
+				db=config.get('mysql', 'db'))
+		
+		q = dbconn.cursor()
 		m = md5.new()
 		m.update(authdata['password'][0])
 		encpw = m.hexdigest()
@@ -125,6 +131,7 @@ class ClientSocket(threading.Thread):
 								"' AND Passwd = '"+
 								MySQLdb.escape_string(encpw)+
 								"'")
+			dbconn.close()
 		except MySQLdb.OperationalError:
 			self.sendMsg("result=SQLERR")
 			return 0
@@ -193,14 +200,13 @@ class ClientSocket(threading.Thread):
 				return
 
 class ServerSocket(threading.Thread):
-	def __init__(self, db, port, maxqueue, **other):
+	def __init__(self, port, maxqueue, **other):
 		threading.Thread.__init__(self, *other)
 		self.running = 1
 		self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.socket.bind(('', port))
 		self.socket.listen(maxqueue)
 		self.clients = []
-		self.db = db
 
 	def _clean(self, client):
 		if not client.isAlive():
@@ -217,7 +223,7 @@ class ServerSocket(threading.Thread):
 			if sread:
 				(clientsocket, address) = self.socket.accept()
 				print "New connection from " + str(address)
-				ct = ClientSocket(clientsocket, self.db)
+				ct = ClientSocket(clientsocket)
 				ct.start()
 				self.clients.append(ct)
 
@@ -279,12 +285,6 @@ def main(argv=None):
 		if config.has_option('tupkgs', 'incomingdir'):
 			confdict['incomingdir'] = config.get('tupkgs', 'incomingdir')
 
-	print "Connecting to MySQL database"
-	dbconn = MySQLdb.connect(host=config.get('mysql', 'host'),
-	                         user=config.get('mysql', 'username'),
-	                         passwd=config.get('mysql', 'password'),
-	                         db=config.get('mysql', 'db'))
-
 	print "Verifying "+confdict['cachedir']+" and "+confdict['incomingdir']+" exist"
 	if not os.path.isdir(confdict['cachedir']):
 		print "Creating "+confdict['cachedir']
@@ -294,7 +294,7 @@ def main(argv=None):
 		os.mkdir(confdict['incomingdir'], 0755)
 
 	print "Starting ServerSocket"
-	servsock = ServerSocket(dbconn, confdict['port'], confdict['maxqueue'])
+	servsock = ServerSocket(confdict['port'], confdict['maxqueue'])
 	servsock.start()
 
 	try:
@@ -310,8 +310,6 @@ def main(argv=None):
 
 	servsock.join()
 
-	print "Closing DB"
-	dbconn.close()
 
 	return 0
 
