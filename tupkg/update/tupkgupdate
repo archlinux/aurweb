@@ -45,7 +45,11 @@ class PackageDatabase:
     self.dbname = dbname
     self.connection = MySQLdb.connect(host=host, user=user, passwd=password, db=dbname)
   def cursor(self):
-    return self.connection.cursor()
+		try: 
+			self.connection.ping()
+		except MySQLdb.OperationalError:
+			self.connection = MySQLdb.connect(host=self.host, user=self.user, passwd=self.password, db=self.dbname)
+		return self.connection.cursor()
   def lookup(self, packagename):
     warning("DB: Looking up package: " + packagename)
     q = self.cursor()

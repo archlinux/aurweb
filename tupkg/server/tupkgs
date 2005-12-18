@@ -132,7 +132,7 @@ class ClientSocket(threading.Thread):
 								MySQLdb.escape_string(encpw)+
 								"'")
 			dbconn.close()
-		except MySQLdb.OperationalError:
+		except :
 			self.sendMsg("result=SQLERR")
 			return 0
 		if q.rowcount == 0:
