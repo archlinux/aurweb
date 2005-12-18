@@ -87,6 +87,9 @@ class ClientSocket:
 		reply = self.readMsg(1)
 		if reply['result'] == ["PASS"]:
 			return 1
+		elif reply['result'] == ["SQLERR"]:
+			print "SQL server-side error"
+			return 0
 		else:
 			return 0
 
