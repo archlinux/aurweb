@@ -81,6 +81,8 @@ $_t["es"]["Comments"] = "Comentarios";
 
 $_t["es"]["O%hrphan"] = "H%huérfano";
 
+$_t["es"]["orphan"] = "huérfano";
+
 $_t["es"]["Un-Vote"] = "Quitar Voto";
 
 $_t["es"]["change category"] = "cambiar categoría";

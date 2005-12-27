@@ -79,6 +79,8 @@ $_t["ca"]["Comments"] = "Comentaris";
 
 $_t["ca"]["O%hrphan"] = "O%hrfe";
 
+$_t["ca"]["orphan"] = "orfe";
+
 $_t["ca"]["Un-Vote"] = "Lleva vot";
 
 $_t["ca"]["change category"] = "Canvia la categoria";

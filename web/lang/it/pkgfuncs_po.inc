@@ -53,6 +53,8 @@ $_t["it"]["No packages matched your search criteria."] = "Nessun pacchetto corri
 
 $_t["it"]["O%hrphan"] = "O%hrfano";
 
+$_t["it"]["orphan"] = "orfano";
+
 $_t["it"]["Un-Vote"] = "Rimuovere il voto";
 
 $_t["it"]["change category"] = "Cambiare categoria";

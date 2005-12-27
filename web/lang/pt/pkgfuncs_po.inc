@@ -59,6 +59,8 @@ $_t["pt"]["No packages matched your search criteria."] = "Seu critério de pesqu
 
 $_t["pt"]["O%hrphan"] = "O%hrfão";
 
+$_t["pt"]["orphan"] = "orfão";
+
 $_t["pt"]["Un-Vote"] = "Retirar Voto";
 
 $_t["pt"]["change category"] = "mudar categoria";

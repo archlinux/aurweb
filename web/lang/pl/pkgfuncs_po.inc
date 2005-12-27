@@ -57,6 +57,7 @@ $_t["pl"]["Orphans"] = "Bez opiekuna";
 $_t["pl"]["Tarball"] = "Archiwum";
 $_t["pl"]["Files"] = "Pliki";
 $_t["pl"]["O%hrphan"] = "B%hez opiekuna";
+$_t["pl"]["orphan"] = "bez opiekuna";
 $_t["pl"]["O%hut-of-Date"] = "N%hieaktualne";
 $_t["pl"]["Package Listing"] = "Lista pakietów";
 

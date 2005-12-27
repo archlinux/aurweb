@@ -59,6 +59,8 @@ $_t["en"]["No packages matched your search criteria."] = "No packages matched yo
 
 $_t["en"]["O%hrphan"] = "O%hrphan";
 
+$_t["en"]["orphan"] = "orphan";
+
 $_t["en"]["Un-Vote"] = "Un-Vote";
 
 $_t["en"]["change category"] = "change category";
