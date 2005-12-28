@@ -297,7 +297,10 @@ function package_details($id=0, $SID="") {
 
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
-			if ($row["Location"] == "unsupported" and $SID) {
+			if ($row["Location"] == "unsupported" and ( 
+					uid_from_sid($SID) == $row["MaintainerUID"] or
+					(account_from_sid($SID) == "Developer" or
+					 account_from_sid($SID) == "Trusted User"))) {
 			  $edit_cat = "<a href='/pkgedit.php?change_Category=1&ID=";
 			  $edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
 			  $edit_cat .= " &nbsp;<span class='fix'>(";
