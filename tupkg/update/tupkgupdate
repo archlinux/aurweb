@@ -212,8 +212,12 @@ def areFilesIdentical(file_a, file_b):
 ############################################################
 
 def infoFromPackageFile(filename):
-  pkg = pacman.load(filename)
-  return pkg.name, pkg.version + "-" + pkg.release
+	pkg = os.path.basename(filename)
+	m = re.compile("(?P<pkgname>.*)-(?P<pkgver>.*)-(?P<pkgrel>.*).pkg.tar.gz").search(pkg)
+	if not m:
+		raise Exception("Non-standard filename")
+	else:
+		return m.group('pkgname'), m.group('pkgver') + "-" + m.group('pkgrel')
 
 def infoFromPkgbuildFile(filename):
   # first grab the category based on the file path
