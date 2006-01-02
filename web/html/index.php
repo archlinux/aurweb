@@ -157,10 +157,10 @@ while ($row = mysql_fetch_assoc($result)) {
         $mod_int = intval($row["ModifiedTS"]);
         $sub_int = intval($row["SubmittedTS"]);
         if ($mod_int != 0) {
-	  $modstring = date("r", $mod_int);
+	  $modstring = gmdate("r", $mod_int);
         }
         elseif ($sub_int != 0) {
-          $modstring = '<img src="/images/new.gif"/> '.date("r", $sub_int);
+          $modstring = '<img src="/images/new.gif"/> '.gmdate("r", $sub_int);
         }
         else {
           $mod_string = "(unknown)";

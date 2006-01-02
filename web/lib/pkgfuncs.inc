@@ -333,8 +333,8 @@ function package_details($id=0, $SID="") {
 			print "</tr>\n";
 
 			# Print the timestamps for last updates
-			$updated_time = ($row["ModifiedTS"] == 0) ? "(unknown)" : date("r", intval($row["ModifiedTS"]));
-			$submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : date("r", intval($row["SubmittedTS"]));
+			$updated_time = ($row["ModifiedTS"] == 0) ? "(unknown)" : gmdate("r", intval($row["ModifiedTS"]));
+			$submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval($row["SubmittedTS"]));
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'>";
 			print "<span class='f3'>";
@@ -508,11 +508,11 @@ function package_details($id=0, $SID="") {
 					if ($SID) {
 						print __("Comment by: %h%s%h on %h%s%h",
 							array("<a href='/account.php?Action=AccountInfo&ID=".$carr["UsersID"]."'><b>",$carr["UserName"],"</b></a>",
-							      "<i>",date("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
+							      "<i>",gmdate("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
 					} else {
 						print __("Comment by: %h%s%h on %h%s%h",
 							array("<b>",$carr["UserName"],"</b>",
-							      "<i>",date("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
+							      "<i>",gmdate("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
 					}
 					print "</span>";
 					print "<tr><td class='boxSoft'>";
