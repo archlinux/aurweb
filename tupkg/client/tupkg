@@ -109,8 +109,15 @@ class ClientSocket:
 	def sendFiles(self):
 		for i in self.files:
 			i.fd.seek(i.cur_done)
+			print "Uploading:", i.filename, str(i.size/1024), "kb"
+			sdone = 0
 			while i.fd.tell() < i.size:
+				sdone+=1
 				self.socket.sendall(i.fd.read(1024))
+				if sdone % 100 == 0:
+					print "\r",
+					print str(sdone), "of", str(i.size/1024), "kb",
+					sys.stdout.flush()
 		reply = self.readMsg(1)
 		print reply
 		self.sendMsg("ack")
