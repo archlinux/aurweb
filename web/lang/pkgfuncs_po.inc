@@ -23,4 +23,6 @@ include_once("pt/pkgfuncs_po.inc");
 
 include_once("es/pkgfuncs_po.inc");
 
+include_once("de/pkgfuncs_po.inc");
+
 ?>

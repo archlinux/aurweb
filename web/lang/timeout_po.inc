@@ -23,4 +23,6 @@ include_once("pt/timeout_po.inc");
 
 include_once("es/timeout_po.inc");
 
+include_once("de/timeout_po.inc");
+
 ?>
