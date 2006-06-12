@@ -995,7 +995,13 @@ function pkg_search_page($SID="") {
 #			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 #			print " bottom'><span class='f2'>".__("Manage")."</span></th>\n";
 #		}
-		print "</tr>\n";
+		print "</tr>\n";        
+        
+        # Solve the sorting problem, so we can force the 
+        # passage of the sorting params to the next pages.
+        # Added by: dsa <dsandrade@gmail.com>
+        print "<input type='hidden' name='SB' value='".$_REQUEST['SB']."' >";
+        print "<input type='hidden' name='SO' value='".$_REQUEST['SO']."' >";
 
 		for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
 			(($i % 2) == 0) ? $c = "data1" : $c = "data2";
