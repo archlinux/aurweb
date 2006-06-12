@@ -306,13 +306,21 @@ def runGensync(repo, pkgbuild):
   return execute(command)
 
 def runUpdatesyncUpd(repo, pkgbuild):
+	global havefakeroot
 	targetDB = os.path.join(repo, "community.db.tar.gz")
-	command = "updatesync upd '" + targetDB + "' '" + pkgbuild + "' '" + repo +"'"
+	if havefakeroot:
+		command = "fakeroot updatesync upd '" + targetDB + "' '" + pkgbuild + "' '" + repo +"'"
+	else:
+		command = "updatesync upd '" + targetDB + "' '" + pkgbuild + "' '" + repo +"'"
 	return execute(command)
 
 def runUpdatesyncDel(repo, pkgname):
+	global havefakeroot
 	targetDB = os.path.join(repo, "community.db.tar.gz")
-	command = "updatesync del '" + targetDB + "' '" + pkgname +"'"
+	if havefakeroot:
+		command = "fakeroot updatesync del '" + targetDB + "' '" + pkgname +"'"
+	else:
+		command = "updatesync del '" + targetDB + "' '" + pkgname +"'"
 	return execute(command)
 
 ############################################################
@@ -347,6 +355,13 @@ for switch in switch_list:
 if (len(args_proper) < 3):
   print >>sys.stderr, "syntax: tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_tree> <build_tree>"
   sys.exit(-1)
+
+# Make sure we can use fakeroot, warn if not
+havefakeroot = False
+if os.access('/usr/bin/fakeroot', os.X_OK):
+	havefakeroot = True
+else:
+	warning("Not using fakeroot for repo db generation")
 
 repo_dir, pkgbuild_dir, build_dir = args_proper
 
