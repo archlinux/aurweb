@@ -1,22 +1,22 @@
 <?
-# Russian (Р�с�кий) translation
+# Russian (Русский) translation
 # Translator: Sergej Pupykin <ps@lx-ltd.ru>
 
 include_once("translator.inc");
 global $_t;
 
-$_t["ru"]["%s: %sAn ArchLinux project%s"] = "%s: %sП�оек� ArchLinux%s";
+$_t["ru"]["%s: %sAn ArchLinux project%s"] = "%s: %sПроект ArchLinux%s";
 
-$_t["ru"]["Logout"] = "В�ход";
+$_t["ru"]["Logout"] = "Выход";
 
 $_t["ru"]["Discussion"] = "Обсуждение";
 
-$_t["ru"]["Bugs"] = "О�ибки";
+$_t["ru"]["Bugs"] = "Ошибки";
 
-$_t["ru"]["Accounts"] = "У�е�н�е запи�и";
+$_t["ru"]["Accounts"] = "Учетные записи";
 
 $_t["ru"]["Home"] = "Домой";
 
-$_t["ru"]["Packages"] = "Паке��";
+$_t["ru"]["Packages"] = "Пакеты";
 
 ?>

@@ -402,7 +402,7 @@ function html_header() {
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=es'><span class='sideBarSmallHeader'>EspaÃ±ol</span></a> ";
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=de'><span class='sideBarSmallHeader'>Deutsch</span></a> ";
 	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=fr'><span class='sideBarSmallHeader'>FranÃ§ais</span></a>";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=ru'><span class='sideBarSmallHeader'>Ð ÑÂÑÑÂÐºÐ¸Ð¹</span></a>";
+	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=ru'><span class='sideBarSmallHeader'>Russian</span></a>";
 	print "                </td>\n";
 	print "            </tr>\n";
 	print "            </table>\n";

@@ -1,10 +1,10 @@
 <?
-# Russian (Р�с�кий) translation
+# Russian (Русский) translation
 # Translator: Sergej Pupykin <ps@lx-ltd.ru>
 
 include_once("translator.inc");
 global $_t;
 
-$_t["ru"]["You have been successfully logged out."] = "Сеан� заве�шен.";
+$_t["ru"]["You have been successfully logged out."] = "Сеанс завершен.";
 
 ?>

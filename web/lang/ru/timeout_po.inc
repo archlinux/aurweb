@@ -1,12 +1,12 @@
 <?
-# Russian (Р�с�кий) translation
+# Russian (Русский) translation
 # Translator: Sergej Pupykin <ps@lx-ltd.ru>
 
 include_once("translator.inc");
 global $_t;
 
-$_t["ru"]["Click on the Home link above to log in."] = "Щелкните по с�ылке Home ввер��, ч�обы п�едстави�ь��.";
+$_t["ru"]["Click on the Home link above to log in."] = "Щелкните по ссылке Home вверху, чтобы представиться.";
 
-$_t["ru"]["Your session has timed out.  You must log in again."] = "В�емя вашей сессии и�текло. Вам н�жно п�едстави�ь�� снова.";
+$_t["ru"]["Your session has timed out.  You must log in again."] = "Время вашей сессии истекло. Вам нужно представиться снова.";
 
 ?>
