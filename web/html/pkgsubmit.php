@@ -237,9 +237,19 @@ if ($_COOKIE["AURSID"]) {
 				if (count($lparts) == 2) {
 					# this is a variable/value pair, strip out
 					# array parens and any quoting, except in pkgdesc
-					#
+					# for pkgdesc, only remove start/end pairs of " or '
 					if ($lparts[0]=="pkgdesc") {
-						$pkgbuild[$lparts[0]] = trim($lparts[1], "\"\' ");
+						if ($lparts[1]{0} == '"' && 
+								$lparts[1]{strlen($lparts[1])-1} == '"') {
+							$pkgbuild[$lparts[0]] = substr($lparts[1], 1, -1);
+						}
+					 	elseif 
+							($lparts[1]{0} == "'" && 
+							 $lparts[1]{strlen($lparts[1])-1} == "'") {
+							$pkgbuild[$lparts[0]] = substr($lparts[1], 1, -1);
+						} else { 
+							$pkgbuild[$lparts[0]] = $lparts[1];
+					 	}
 					} else {
 						$pkgbuild[$lparts[0]] = str_replace(array("(",")","\"","'"), "",
 								$lparts[1]);
