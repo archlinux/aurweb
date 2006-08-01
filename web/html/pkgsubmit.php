@@ -421,6 +421,12 @@ if ($_COOKIE["AURSID"]) {
 				while (list($k, $v) = each($depends)) {
 					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID) VALUES (";
 					$deppkgname = preg_replace("/[<>]?=.*/", "", $v);
+                    
+                    # Solve the problem with comments and deps
+                    # added by: dsa <dsandrade@gmail.com>
+                    if ($deppkgname == "#")
+                        break;
+                    
 					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
 					$q .= $pdata["ID"].", ".$deppkgid.")";
 					db_query($q, $dbh);
@@ -492,6 +498,12 @@ if ($_COOKIE["AURSID"]) {
 				while (list($k, $v) = each($depends)) {
 					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID) VALUES (";
 					$deppkgname = preg_replace("/[<>]?=.*/", "", $v);
+                    
+                    # Solve the problem with comments and deps
+                    # added by: dsa <dsandrade@gmail.com>
+                    if ($deppkgname == "#")
+                        break;
+                    
 					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
 					$q .= $packageID.", ".$deppkgid.")";
 					db_query($q, $dbh);

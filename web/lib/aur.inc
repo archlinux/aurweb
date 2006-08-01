@@ -432,6 +432,12 @@ function html_header() {
 	print "               <span class='black'> - </span> ";
 	print "            <a href='http://www.archlinux.org/mailman/listinfo/tur-users'>".__("Discussion")."</a> ";
 	if ($_COOKIE["AURSID"]) {
+        # This is a usability change, so we can go to My Packages page
+        # with just one click
+        # Added by: dsa <dsandrade@gmail.com>
+        print "               <span class='black'> - </span> ";
+        print "            <a href='/packages.php?do_MyPackages=1'>".__("My Packages")."</a> ";        
+    
 		print "               <span class='black'> - </span> ";
 		print "            <a href='/logout.php'>".__("Logout")."</a> ";
 	}

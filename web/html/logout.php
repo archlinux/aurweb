@@ -1,5 +1,6 @@
 <?
 include("aur.inc");         # access AUR common functions
+include("pkgfuncs_po.inc"); # Add to handle the i18n of My Packages
 include("logout_po.inc");   # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 

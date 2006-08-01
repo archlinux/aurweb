@@ -1,5 +1,6 @@
 <?
 include("index_po.inc");
+include("pkgfuncs_po.inc"); # Add to handle the i18n of My Packages
 include("aur.inc");
 set_lang();
 check_sid();
