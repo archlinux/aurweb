@@ -9,7 +9,7 @@ $_t["de"]["None of the selected packages could be deleted."] = "Keines der marki
 
 $_t["de"]["Your votes have been removed from the selected packages."] = "Deine Stimmen wurden von den markierten Paketen entfernt.";
 
-$_t["de"]["Couldn't flag package safe."] = "Konnte Paket nicht als \"sicher\" markieren.";
+$_t["de"]["Couldn't flag package safe."] = "Konnte Paket nicht als \"Sicher\" markieren.";
 
 $_t["de"]["You did not select any packages to un-vote for."] = "Du hast kein Paket zum Abwählen ausgewählt.";
 
@@ -23,7 +23,7 @@ $_t["de"]["You must be logged in before you can get notifications on comments."]
 
 $_t["de"]["You must be logged in before you can vote for packages."] = "Du mußt dich anmelden, um für ein Paket stimmen zu können.";
 
-$_t["de"]["The selected packages have been flagged out-of-date."] = "Die gewählten Pakete wurden als \"veraltet\" markiert.";
+$_t["de"]["The selected packages have been flagged out-of-date."] = "Die gewählten Pakete wurden als \"Veraltet\" markiert.";
 
 $_t["de"]["The selected packages have been deleted."] = "Die gewählten Pakete wurden gelöscht.";
 
@@ -39,7 +39,7 @@ $_t["de"]["You have been removed from the comment notification list."] = "Du wur
 
 $_t["de"]["Your votes have been cast for the selected packages."] = "Deine Stimmen wurden für die gewählten Pakete gezählt.";
 
-$_t["de"]["The selected packages have been unflagged safe."] = "Die Markierung \"sicher\" der gewählten Pakete wurde entfernt.";
+$_t["de"]["The selected packages have been unflagged safe."] = "Die Markierung \"Sicher\" der gewählten Pakete wurde entfernt.";
 
 $_t["de"]["You must be logged in before you can cancel notification on comments."] = "Du mußt Dich anmelden, um die Kommentar-Benachrichtigung aufzuheben.";
 
@@ -55,7 +55,7 @@ $_t["de"]["You must be logged in before you can unflag packages."] = "Du mußt D
 
 $_t["de"]["You did not select any packages to unflag."] = "Du hast kein Paket für das Entfernen der Markierung ausgewählt.";
 
-$_t["de"]["Couldn't unflag package safe."] = "Konnte die Markierung \"sicher\" von dem Paket nicht entfernen.";
+$_t["de"]["Couldn't unflag package safe."] = "Konnte die Markierung \"Sicher\" von dem Paket nicht entfernen.";
 
 $_t["de"]["You did not select any packages to delete."] = "Du hast kein Paket zum Löschen ausgewählt.";
 
@@ -65,7 +65,7 @@ $_t["de"]["You did not select any packages to flag."] = "Du hast kein Paket zum 
 
 $_t["de"]["The selected packages have been disowned."] = "Die Betreuung der gewählten Pakete wurde freigegeben.";
 
-$_t["de"]["The selected packages have been flagged safe."] = "Die gewählten Pakete wurde als \"sicher\" markiert.";
+$_t["de"]["The selected packages have been flagged safe."] = "Die gewählten Pakete wurde als \"Sicher\" markiert.";
 
 $_t["de"]["Couldn't remove from notification list."] = "Konnte nichts von der Benachrichtigungsliste entfernen.";
 

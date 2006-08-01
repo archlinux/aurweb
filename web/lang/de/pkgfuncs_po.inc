@@ -11,9 +11,9 @@ $_t["de"]["Search by"] = "Suche nach";
 
 $_t["de"]["Delete comment"] = "Entferne Kommentar";
 
-$_t["de"]["orphan"] = "Verwaiste Pakete";
+$_t["de"]["orphan"] = "Verwaist";
 
-$_t["de"]["Votes"] = "Abgegebene Stimmen";
+$_t["de"]["Votes"] = "Stimmen";
 
 $_t["de"]["First Submitted"] = "Zuerst eingereicht am";
 
@@ -21,11 +21,11 @@ $_t["de"]["Tarball"] = "Tar-Datei";
 
 $_t["de"]["Be careful! The above files may contain malicious code that can damage your system."] = "Sei vorsichtig! Die obengenannten Dateien könnten Code enthalten, der Dein System beschädigt.";
 
-$_t["de"]["Voted"] = "Stimme abgegeben";
+$_t["de"]["Voted"] = "Abgestimmt";
 
 $_t["de"]["Location"] = "Ort";
 
-$_t["de"]["Flag Safe"] = "Als sicher markieren";
+$_t["de"]["Flag Safe"] = "Als \"Sicher\" markieren";
 
 $_t["de"]["Go"] = "Gehe zu";
 
@@ -71,7 +71,7 @@ $_t["de"]["Last Updated"] = "Letzte Aktualisierung";
 
 $_t["de"]["The above files have been verified (by %s) and are safe to use."] = "Die obenstehende Dateien wurden (von %s) bestätigt, und können sicher benutzt werden.";
 
-$_t["de"]["Unflag Package Safe To Use"] = "Markierung \"sicher\" entfernen";
+$_t["de"]["Unflag Package Safe To Use"] = "Markierung \"Sicher\" entfernen";
 
 $_t["de"]["Go back to %hsearch results%h."] = "Zurück zu %hSuchergebnis%h.";
 
@@ -95,7 +95,7 @@ $_t["de"]["Add Comment"] = "Kommentar hinzufügen";
 
 $_t["de"]["Comment by: %h%s%h on %h%s%h"] = "Kommentar von: %h%s%h am %h%s%h";
 
-$_t["de"]["Flag Out-of-date"] = "Als \"veraltet\" markieren";
+$_t["de"]["Flag Out-of-date"] = "Als \"Veraltet\" markieren";
 
 $_t["de"]["Manage"] = "Verwalten";
 
@@ -115,7 +115,7 @@ $_t["de"]["Search Criteria"] = "Suchkriterien";
 
 $_t["de"]["Notify"] = "Benachrichtigen";
 
-$_t["de"]["O%hut-of-Date"] = "%sveraltet";
+$_t["de"]["O%hut-of-Date"] = "V%heraltet";
 
 $_t["de"]["Vote"] = "Abstimmen";
 

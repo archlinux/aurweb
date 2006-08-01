@@ -37,9 +37,9 @@ $_t["de"]["Username:"] = "Benutzername:";
 
 $_t["de"]["Error trying to generate session id."] = "Fehler beim Erstellen der Sitzungs-ID.";
 
-$_t["de"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Willkommen beim AUR! Für weitere Informationen lese bitte das %hAUR Benutzerhandbuch%h und die %hAUR TU Richtlinien%h.";
+$_t["de"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Willkommen beim AUR! Für weitergehende Informationen lies bitte das %hAUR Benutzerhandbuch%h und die %hAUR TU Richtlinien%h.";
 
-$_t["de"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Deine PKGBUILDs <strong>müssen</strong> den %hArch Packaging Standards%h entsprechen. Andernfalls werden sie gelöscht! ";
+$_t["de"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Deine PKGBUILDs <strong>müssen</strong> den %hArch Packaging Standards%h entsprechen. Andernfalls werden sie gelöscht!";
 
 $_t["de"]["Login"] = "Anmelden";
 
