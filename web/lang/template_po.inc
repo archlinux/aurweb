@@ -25,4 +25,6 @@ include_once("es/template_po.inc");
 
 include_once("de/template_po.inc");
 
+include_once("ru/template_po.inc");
+
 ?>

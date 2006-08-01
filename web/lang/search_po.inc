@@ -25,4 +25,6 @@ include_once("es/search_po.inc");
 
 include_once("de/search_po.inc");
 
+include_once("ru/search_po.inc");
+
 ?>
