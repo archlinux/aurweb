@@ -31,7 +31,7 @@ $_t["ru"]["Error trying to unpack upload - PKGBUILD does not exist."] = "Оши�
 
 $_t["ru"]["Could not create incoming directory: %s."] = "Невозможно создать каталог : %s.";
 
-$_t["ru"]["Upload package file"] = "Загрузить файл пакета.";
+$_t["ru"]["Upload package file"] = "Файл пакета";
 
 $_t["ru"]["Package Location"] = "Местонахождение пакета.";
 

@@ -7,7 +7,7 @@ global $_t;
 
 $_t["ru"]["Use this form to update your account."] = "Используйте эту форму для изменения вашей учетной записи.";
 
-$_t["ru"]["Leave the password fields blank to keep your same password."] = "Оставьте поля для вводна пароля пустыми если не хотите его изменять.";
+$_t["ru"]["Leave the password fields blank to keep your same password."] = "Оставьте поля для ввода пароля пустыми если не хотите его изменять.";
 
 $_t["ru"]["You are not allowed to access this area."] = "У вас нет доступа к этой части.";
 

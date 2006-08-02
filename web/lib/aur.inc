@@ -21,7 +21,7 @@ $SUPPORTED_LANGS = array(        # what languages we have translations for
 	# Eventually we will comment these in, when they are ready - PJM - 4/2005
 	"es" => "Español",
 	"de" => "Deutsch",
-	"ru" => "Р�����кий",
+	"ru" => "Русский",
 	#	"fr" => "Français",
 );
 

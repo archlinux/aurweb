@@ -13,7 +13,7 @@ $_t["ru"]["Delete comment"] = "Удалить коментарий";
 
 $_t["ru"]["orphan"] = "сирота";
 
-$_t["ru"]["Votes"] = "Голоса";
+$_t["ru"]["Votes"] = "Голосов";
 
 $_t["ru"]["First Submitted"] = "Впервые послан";
 
@@ -21,7 +21,7 @@ $_t["ru"]["Tarball"] = "Архив";
 
 $_t["ru"]["Be careful! The above files may contain malicious code that can damage your system."] = "Будьте осторожны! Данные файлы могут содержать код, который способен повредить вашу систему.";
 
-$_t["ru"]["Voted"] = "Проголосовал";
+$_t["ru"]["Voted"] = "Мой голос";
 
 $_t["ru"]["Location"] = "Местонахождение";
 
@@ -29,7 +29,7 @@ $_t["ru"]["Flag Safe"] = "Флаг Безопасно";
 
 $_t["ru"]["Go"] = "Поехали";
 
-$_t["ru"]["Unflag Out-of-date"] = "Убрать флаг Устарел";
+$_t["ru"]["Unflag Out-of-date"] = "Убрать флаг Устаревший";
 
 $_t["ru"]["Go back to %hpackage details view%h."] = "Вернуться к %hинформации о пакете%h.";
 
@@ -81,7 +81,7 @@ $_t["ru"]["Comments"] = "Коментарии";
 
 $_t["ru"]["Submitter"] = "Автор";
 
-$_t["ru"]["Un-Vote"] = "Убрать голос";
+$_t["ru"]["Un-Vote"] = "Убрать мой голос";
 
 $_t["ru"]["change category"] = "изменить категорию";
 
@@ -89,7 +89,7 @@ $_t["ru"]["UnNotify"] = "Не извещать";
 
 $_t["ru"]["Delete Packages"] = "Удалить пакеты";
 
-$_t["ru"]["Maintainer"] = "Поддерживающий";
+$_t["ru"]["Maintainer"] = "Ответственный";
 
 $_t["ru"]["Add Comment"] = "Добавить коментарий";
 
@@ -113,7 +113,7 @@ $_t["ru"]["Yes"] = "Да";
 
 $_t["ru"]["Search Criteria"] = "Критерий поиска";
 
-$_t["ru"]["Notify"] = "Известить";
+$_t["ru"]["Notify"] = "Извещать";
 
 $_t["ru"]["O%hut-of-Date"] = "У%hстарел";
 
