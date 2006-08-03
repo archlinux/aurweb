@@ -11,7 +11,7 @@ include_once("aur_po.inc");
 
 # Define global variables
 #
-$LOGIN_TIMEOUT = 1800;           # number of idle seconds before timeout
+$LOGIN_TIMEOUT = 7200;           # number of idle seconds before timeout
 $SUPPORTED_LANGS = array(        # what languages we have translations for
 	"en" => "English",
 	"pl" => "Polski",
