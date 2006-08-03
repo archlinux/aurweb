@@ -1,6 +1,6 @@
 <?
 # German (Deutsch) translation
-# Translators: Pierre Schmitz <pschmitz@laber-land.de>, Matthias Gorissen <siquame@web.de>, Lukas Kropatschek, Niclas Pfeifer
+# Translators: Pierre Schmitz <pierre@archlinux.de>, Matthias Gorissen <siquame@web.de>, Lukas Kropatschek, Niclas Pfeifer
 
 include_once("translator.inc");
 global $_t;

@@ -1,6 +1,6 @@
 <?
 # German (Deutsch) translation
-# Translators: Pierre Schmitz <pschmitz@laber-land.de>, Matthias Gorissen <siquame@web.de>, Lukas Kropatschek, Niclas Pfeifer
+# Translators: Pierre Schmitz <pierre@archlinux.de>, Matthias Gorissen <siquame@web.de>, Lukas Kropatschek, Niclas Pfeifer
 
 include_once("translator.inc");
 global $_t;
@@ -39,7 +39,7 @@ $_t["de"]["Error trying to generate session id."] = "Fehler beim Erstellen der S
 
 $_t["de"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Willkommen beim AUR! Für weitergehende Informationen lies bitte das %hAUR Benutzerhandbuch%h und die %hAUR TU Richtlinien%h.";
 
-$_t["de"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Deine PKGBUILDs <strong>müssen</strong> den %hArch Packaging Standards%h entsprechen. Andernfalls werden sie gelöscht!";
+$_t["de"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Deine PKGBUILDs <strong>müssen</strong> dem %hArch Paket Standard%h entsprechen. Andernfalls werden sie gelöscht!";
 
 $_t["de"]["Login"] = "Anmelden";
 
