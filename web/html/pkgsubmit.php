@@ -33,8 +33,13 @@ if ($_COOKIE["AURSID"]) {
 			$pkg_name = str_replace("'", "", $_REQUEST["pkgname"]);
 			$pkg_name = escapeshellarg($pkg_name);
 			$pkg_name = str_replace("'", "", $pkg_name); # get rid of single quotes
-			$presult = preg_match("/^[a-z0-9][a-z0-9_-]*$/", $pkg_name);
-			if ($presult == FALSE || $presult <= 0) {
+            
+            # Solves the problem when you try to submit PKGBUILD
+            # that have the name with a period like (gstreamer0.10)
+            # Added by: dsa <dsandrade@gmail.com>
+            $presult = preg_match("/^[a-z0-9][a-z0-9\._-]*$/", $pkg_name);
+            
+            if ($presult == FALSE || $presult <= 0) {
 				# FALSE => error processing regex, 0 => invalid characters
 				#
 				$error = __("Invalid name: only lowercase letters are allowed.");
