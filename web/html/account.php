@@ -1,4 +1,7 @@
 <?
+
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+
 include("aur.inc");         # access AUR common functions
 include("acctfuncs.inc");   # access Account specific functions
 include("pkgfuncs_po.inc"); # Add to handle the i18n of My Packages

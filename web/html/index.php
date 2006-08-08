@@ -1,4 +1,7 @@
 <?
+
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+
 include("index_po.inc");
 include("pkgfuncs_po.inc"); # Add to handle the i18n of My Packages
 include("aur.inc");

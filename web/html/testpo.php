@@ -1,4 +1,7 @@
 <?
+
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+
 # This is a sample script to demonstrate how the AUR will
 # handle i18n.  Note:  When the PHP script is finished, and
 # has the proper include file (see below), and the __()

@@ -1,4 +1,7 @@
 <?
+
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+
 include("aur.inc");
 include("feedcreator.class.php");
 

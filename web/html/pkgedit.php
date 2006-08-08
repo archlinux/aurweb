@@ -1,4 +1,7 @@
 <?
+
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+
 include("aur.inc");         # access AUR common functions
 include("pkgfuncs.inc");    # use some form of this for i18n support
 include("pkgedit_po.inc");  # i18n translations for this script
