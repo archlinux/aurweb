@@ -53,7 +53,7 @@ $_t["it"]["Password fields do not match."] = "I campi password non corrispondono
 
 $_t["it"]["Language"] = "Lingua";
 
-$_t["it"]["A Trusted User cannot assign Developer status."] = "Un Trusted User non può assegnare lo stato di Sviluppatore.";
+$_t["it"]["A Trusted User cannot assign Developer status."] = "Un Trusted User non può assegnare lo stato di sviluppatore.";
 
 $_t["it"]["The address, %h%s%h, is already in use."] = "L'indirizzo %h%s%h è già in uso.";
 
@@ -61,7 +61,7 @@ $_t["it"]["No more results to display."] = "Non vi sono ulteriori risultati da v
 
 $_t["it"]["Type"] = "Tipo";
 
-$_t["it"]["Click on the Home link above to login."] = "Cliccare su Inizio per autenticarsi.";
+$_t["it"]["Click on the Home link above to login."] = "Fare clic su Inizio per autenticarsi.";
 
 $_t["it"]["Sort by"] = "Ordina per";
 

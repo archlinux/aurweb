@@ -13,7 +13,7 @@ $_t["it"]["No"] = "No";
 
 $_t["it"]["Missing pkgdesc variable in PKGBUILD."] = "Manca la variabile pkgdesc nel PKGBUILD.";
 
-$_t["it"]["Error trying to upload file - please try again."] = "Errore durante l'invio del file - Riprovare.";
+$_t["it"]["Error trying to upload file - please try again."] = "Errore durante l'invio del file. Riprovare.";
 
 $_t["it"]["Error exec'ing the mv command."] = "Errore nell'esecuzione del comando mv.";
 
@@ -25,9 +25,9 @@ $_t["it"]["Overwrite existing package?"] = "Sovrascrivere il pacchetto esistente
 
 $_t["it"]["You did not specify a package name."] = "Non è stato specificato un nome per il pacchetto.";
 
-$_t["it"]["Error trying to unpack upload - PKGBUILD does not exist."] = "Errore nello scompattare il file inviato. - Non esiste il PKGBUILD.";
+$_t["it"]["Error trying to unpack upload - PKGBUILD does not exist."] = "Errore nello scompattare il file inviato. Non esiste il PKGBUILD.";
 
-$_t["it"]["Could not create incoming directory: %s."] = "Impossibile creare la directory: %s.";
+$_t["it"]["Could not create incoming directory: %s."] = "Impossibile creare la directory %s.";
 
 $_t["it"]["Upload package file"] = "Pacchetto da inviare";
 
@@ -57,7 +57,7 @@ $_t["it"]["Missing pkgrel variable in PKGBUILD."] = "Manca la variabile pkgrel n
 
 $_t["it"]["Missing pkgname variable in PKGBUILD."] = "Manca la variabile pkgname nel PKGBUILD.";
 
-$_t["it"]["Error - No file uploaded"] = "Errore - Nessun file inviato";
+$_t["it"]["Error - No file uploaded"] = "Errore, nessun file inviato.";
 
 $_t["it"]["You are not allowed to overwrite the %h%s%h package."] = "Non si dispone dei permessi per poter sovrascrivere il pacchetto %h%s%h.";
 
@@ -79,7 +79,7 @@ $_t["it"]["You must supply a comment for this upload/change."] = "Bisogna aggiun
 
 $_t["it"]["Yes"] = "Si";
 
-$_t["it"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Manca un protocollo nell'URL del pacchetto (es. http:// ,ftp://)";
+$_t["it"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Manca un protocollo nell'url del pacchetto (es. http:// ,ftp://)";
 
 $_t["it"]["Could not re-tar"] = "Impossibile ri-archiviare";
 

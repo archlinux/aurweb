@@ -63,7 +63,7 @@ $_t["it"]["UnNotify"] = "Togliere la notifica";
 
 $_t["it"]["Delete Packages"] = "Eliminare i pacchetti";
 
-$_t["it"]["Maintainer"] = "Maintainer";
+$_t["it"]["Maintainer"] = "Responsabile";
 
 $_t["it"]["Add Comment"] = "Aggiungere un commento";
 
@@ -132,5 +132,25 @@ $_t["it"]["Ascending"] = "Ascendente";
 $_t["it"]["Descending"] = "Discendente";
 
 $_t["it"]["Search by"] = "Cerca per";
+
+$_t["it"]["Submitter"] = "Presentatore";
+
+$_t["it"]["Leave the password fields blank to keep your same password."] = "Lasciare vuoti i campi relativi alla password per mantenerla invariata.";
+
+$_t["it"]["You have been successfully logged out."] = "Disconnesso.";
+
+$_t["it"]["You must log in to view user information."] = "Bisogna autenticarsi per visualizzare queste informazioni.";
+
+$_t["it"]["Could not retrieve information for the specified user."] = "Non è stato possibile trovare le informazioni sull'utente specificato.";
+
+$_t["it"]["You do not have permission to edit this account."] = "Non si dispone dei permessi necessari per modificare questo account.";
+
+$_t["it"]["Use this form to search existing accounts."] = "Utilizzare questo modulo per cercare account esistenti.";
+
+$_t["it"]["Use this form to create an account."] = "Utilizzare questo modulo per creare un account.";
+
+$_t["it"]["Use this form to update your account."] = "Utilizzare questo modulo per aggiornare il vostro account.";
+
+$_t["it"]["You are not allowed to access this area."] = "Non si dispone dei permessi necessari per accedere.";
 
 ?>

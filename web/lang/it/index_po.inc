@@ -29,7 +29,7 @@ $_t["it"]["For now, it's just a place holder."] = "Per adesso, è solo un segnap
 
 $_t["it"]["It's more important to get the login functionality finished."] = "E' più importante avere la funzionalità di autenticazione completata.";
 
-$_t["it"]["Error looking up username, %s."] = "Errore durante la ricerca del nome utente, %s.";
+$_t["it"]["Error looking up username, %s."] = "Errore durante la ricerca del nome utente %s.";
 
 $_t["it"]["Login"] = "Entra";
 
@@ -37,7 +37,7 @@ $_t["it"]["Though we can't vouch for their contents, we provide a %hlist of user
 
 $_t["it"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Se avete delle osservazioni da fare in merito al sistema AUR, potete lasciarle nel %hFlyspray%h.";
 
-$_t["it"]["Incorrect password for username, %s."] = "Password errata per questo nome utente, %s.";
+$_t["it"]["Incorrect password for username, %s."] = "Password errata per il nome utente %s.";
 
 $_t["it"]["Latest Packages:"] = "Ultimi pacchetti:";
 

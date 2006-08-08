@@ -19,6 +19,8 @@ $_t["it"]["%s: %sAn ArchLinux project%s"] = "%s: %sUn progetto ArchLinux%s";
 
 $_t["it"]["Discussion"] = "Lista di discussione";
 
-$_t["it"]["Bugs"] = "Bugs";
+$_t["it"]["Bugs"] = "Bug";
+
+$_t["it"]["My Packages"] = "I miei pacchetti";
 
 ?>
