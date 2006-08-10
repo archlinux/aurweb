@@ -25,7 +25,7 @@ $_t["pt"]["Go"] = "Ir";
 
 $_t["pt"]["Unflag Out-of-date"] = "Retirar marcador de Desatualizado";
 
-$_t["pt"]["Go back to %hpackage details view%h."] = "Retornar para a %visualização dos detalhes do pacote%h.";
+$_t["pt"]["Go back to %hpackage details view%h."] = "Retornar para a %hvisualização dos detalhes do pacote%h.";
 
 $_t["pt"]["Error retrieving package details."] = "Erro ao retornar os detalhes do pacote.";
 

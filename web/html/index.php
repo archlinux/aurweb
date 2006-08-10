@@ -218,6 +218,78 @@ $result = db_query($q, $dbh);
 $row = mysql_fetch_row($result);
 $safe_count = $row[0];
 
+# Added the user statistcs.
+# Added by: dsa <dsandrade@gmail.com>
+$user = username_from_sid($_COOKIE["AURSID"]);
+
+if (!empty($user)) {
+    $q = "SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported' AND Users.Username='$user'";
+    $result = db_query($q, $dbh);
+    $row = mysql_fetch_row($result);
+    $maintainer_unsupported_count = $row[0];
+    
+    $q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDate = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='$user'";
+    $result = db_query($q, $dbh);
+    $row = mysql_fetch_row($result);
+    $flagged_outdated = $row[0];
+    
+    $q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='$user'";
+    $result = db_query($q, $dbh);
+    $row = mysql_fetch_row($result);
+    $flagged_safe = $row[0];
+        
+    print "<table class='boxSoft'>";
+    
+    print "<tr>";
+    print "<th colspan='2' class='boxSoftTitle' style='text-align: right'>";
+    print "<span class='f3'>".__("User Statistics")."</span>";
+    print "</th>";
+    print "</tr>";
+    
+    # Number of packages in unsupported
+    print "<tr>";
+    print "<td class='boxSoft'>";
+    print "<span class='f4'>".__("Packages in unsupported")."</span>";
+    print "</td>";
+    print "<td class='boxSoft'><span class='f4'>$maintainer_unsupported_count</span></td>";
+    print "</tr>";
+    
+    # If the user is a TU calculate the number of the packages
+    $atype = account_from_sid($_COOKIE["AURSID"]);
+    
+    if ($atype == 'Trusted User') {    
+        $q = "SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'community' AND Users.Username='$user'";
+        $result = db_query($q, $dbh);
+        $row = mysql_fetch_row($result);
+        $maintainer_community_count = $row[0];
+        
+        print "<tr>";
+        print "<td class='boxSoft'>";
+        print "<span class='f4'>".__("Packages in [community]")."</span>";
+        print "</td>";
+        print "<td class='boxSoft'><span class='f4'>$maintainer_community_count</span></td>";
+        print "</tr>";
+    }
+    
+    # Number of outdated packages    
+    print "<tr>";
+    print "<td class='boxSoft'>";
+    print "<span class='f4'>".__("Out-of-date")."</span>";
+    print "</td>";
+    print "<td class='boxSoft'><span class='f4'>$flagged_outdated</span></td>";
+    print "</tr>";    
+    
+    # Number of safe packages
+    print "<tr>";
+    print "<td class='boxSoft'>";
+    print "<span class='f4'>".__("Safe")."</span>";
+    print "</td>";
+    print "<td class='boxSoft'><span class='f4'>$flagged_safe</span></td>";
+    print "</tr>"; 
+        
+    print "</table><br />";
+}
+
 print "<table class='boxSoft'>";
 
 print "<tr>";

@@ -67,6 +67,8 @@ $_t["pt"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Sta
 
 $_t["pt"]["Statistics"] = "Estatísticas";
 
+$_t["pt"]["User Statistics"] = "Estatísticas do Usuário";
+
 $_t["pt"]["Registered Users"] = "Usuários Registrados";
 
 $_t["pt"]["Trusted Users"] = "Usuários Confiáveis";
@@ -84,5 +86,7 @@ $_t["pt"]["Remember to vote for your favourite packages!"] = "Lembre-se de votar
 $_t["pt"]["The most popular packages will be provided as binary packages in [community]."] = "Os pacotes mais populares serão disponibilizados como pacotes binários no repositório [community].";
 
 $_t["pt"]["Packages added or updated in the past 7 days"] = "Pacotes adicionados ou atualizados nos últimos 7 dias";
+
+$_t["pt"]["Out-of-date"] = "Desatualizados";
 
 ?>

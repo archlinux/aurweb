@@ -1075,7 +1075,11 @@ function pkg_search_page($SID="") {
 			#			if (isset($tus[$row["MaintainerUID"]])) {
 			#				print $tus[$row["MaintainerUID"]]["Username"];
 			if (isset($users[$row["MaintainerUID"]])) {
-				print $users[$row["MaintainerUID"]]["Username"];
+                # Add a link to the user packages, e.g, if you click on the Solve the sorting problem, so we can force the 
+                # maintainer name, you will be redirected to a page with the user packages.
+                # Added by: dsa <dsandrade@gmail.com>
+                $user = $users[$row["MaintainerUID"]]["Username"];
+                print "<a href='packages.php?K=".$user."&SeB=m'>".$users[$row["MaintainerUID"]]["Username"]."</a>";
 			} else {
 				print "<span style='color: blue; font-style: italic;'>";
 				print __("orphan");
