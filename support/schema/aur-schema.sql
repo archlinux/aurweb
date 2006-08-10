@@ -109,7 +109,7 @@ CREATE TABLE Packages (
 	Name CHAR(32) NOT NULL,
 	Version CHAR(32) NOT NULL DEFAULT '',
 	CategoryID TINYINT UNSIGNED NOT NULL DEFAULT 1,
-	Description CHAR(256) NOT NULL DEFAULT "An Arch Package",
+	Description CHAR(255) NOT NULL DEFAULT "An Arch Package",
 	URL CHAR(255) NOT NULL DEFAULT "http://www.archlinux.org",
 	DummyPkg TINYINT UNSIGNED NOT NULL DEFAULT 0,         -- 1=>dummy
 	FSPath CHAR(255) NOT NULL DEFAULT '',
