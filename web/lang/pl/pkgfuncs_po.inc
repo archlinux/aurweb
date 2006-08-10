@@ -91,4 +91,24 @@ $_t["pl"]["Age"] = "Wiek";
 
 $_t["pl"]["Search by"] = "Szukaj według";
 
+$_t["pl"]["Leave the password fields blank to keep your same password."] = "Pozostaw pole z hasłem puste aby nie zmieniać swojego hasła.";
+
+$_t["pl"]["You have been successfully logged out."] = "Zostałeś pomyślnie wylogowany.";
+
+$_t["pl"]["You must log in to view user information."] = "Musisz być zalogowany aby móc oglądać informacje o użytkownikach.";
+
+$_t["pl"]["Could not retrieve information for the specified user."] = "Uzyskanie informacji o podanym użytkowniku nie powiodło się.";
+
+$_t["pl"]["You do not have permission to edit this account."] = "Nie masz uprawnień do edycji tego konta.";
+
+$_t["pl"]["Use this form to search existing accounts."] = "Przy użyciu tego formularza możesz przeszukać istniejące konta.";
+
+$_t["pl"]["Submitter"] = "Nadesłał";
+
+$_t["pl"]["Use this form to create an account."] = "Przy użyciu tego formularza możesz utworzyć konto.";
+
+$_t["pl"]["Use this form to update your account."] = "Przy użyciu tego formularza możesz uaktualnić swoje konto.";
+
+$_t["pl"]["You are not allowed to access this area."] = "Nie masz uprawnień do oglądania tej strony.";
+
 ?>

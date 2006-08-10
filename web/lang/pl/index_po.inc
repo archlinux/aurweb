@@ -56,4 +56,10 @@ $_t["pl"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Sta
 
 $_t["pl"]["Registered Users"] = "Zarejestrowanych użytkowników";
 
+$_t["pl"]["Safe"] = "Bezpieczne";
+
+$_t["pl"]["Out-of-date"] = "Nieaktualny";
+
+$_t["pl"]["User Statistics"] = "Statystyki użytkowników";
+
 ?>

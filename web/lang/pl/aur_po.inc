@@ -25,4 +25,6 @@ $_t["pl"]["Discussion"] = "Dyskusja";
 
 $_t["pl"]["Bugs"] = "Błędy";
 
+$_t["pl"]["My Packages"] = "Moje pakiety";
+
 ?>
