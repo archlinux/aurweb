@@ -13,7 +13,7 @@ $_t["fr"]["Couldn't flag package safe."] = "Ce paquet ne peut être marqué comm
 
 $_t["fr"]["You did not select any packages to un-vote for."] = "Vous n'avez sélectionné aucun paquet dont le vote doit être retiré.";
 
-$_t["fr"]["The selected packages have been unflagged."] = "Les paquets sélectionnés ont été "dé-marqués".";
+$_t["fr"]["The selected packages have been unflagged."] = "Les paquets sélectionnés ont été \"dé-marqués\".";
 
 $_t["fr"]["You did not select any packages to adopt."] = "Vous n'avez pas sélectionné de paquet à adopter.";
 
@@ -39,7 +39,7 @@ $_t["fr"]["You have been removed from the comment notification list."] = "Vous a
 
 $_t["fr"]["Your votes have been cast for the selected packages."] = "Vos votes ont été adistribué aux paquets sélectionnés.";
 
-$_t["fr"]["The selected packages have been unflagged safe."] = "Les paquets sélectionnés ont été "dé-marqués" comme sains.";
+$_t["fr"]["The selected packages have been unflagged safe."] = "Les paquets sélectionnés ont été \"dé-marqués\" comme sains.";
 
 $_t["fr"]["You must be logged in before you can cancel notification on comments."] = "Vous devez être authentifié avant de pouvoir annuler les annonces sur les commentaires.";
 
@@ -51,11 +51,11 @@ $_t["fr"]["You did not select any packages to disown."] = "Vous n'avez sélectio
 
 $_t["fr"]["You must be logged in before you can un-vote for packages."] = "Vous devez être authentifié avant de pouvoir retiré votre vote sur des paquets.";
 
-$_t["fr"]["You must be logged in before you can unflag packages."] = "Vous devez être authentifié avant de pouvoir "dé-marquer" des paquets.";
+$_t["fr"]["You must be logged in before you can unflag packages."] = "Vous devez être authentifié avant de pouvoir \"dé-marquer\" des paquets.";
 
-$_t["fr"]["You did not select any packages to unflag."] = "Vous n'avez sélectionné aucun paquet à "dé-marquer".";
+$_t["fr"]["You did not select any packages to unflag."] = "Vous n'avez sélectionné aucun paquet à \"dé-marquer\".";
 
-$_t["fr"]["Couldn't unflag package safe."] = "Ce paquet ne peut être "dé-marqué" come sain.";
+$_t["fr"]["Couldn't unflag package safe."] = "Ce paquet ne peut être \"dé-marqué\" come sain.";
 
 $_t["fr"]["You did not select any packages to delete."] = "Vous n'avez sélectionné aucun paquet à supprimer.";
 
