@@ -27,4 +27,6 @@ include_once("de/aur_po.inc");
 
 include_once("ru/aur_po.inc");
 
+include_once("fr/aur_po.inc");
+
 ?>

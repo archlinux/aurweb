@@ -22,7 +22,7 @@ $SUPPORTED_LANGS = array(        # what languages we have translations for
 	"es" => "Español",
 	"de" => "Deutsch",
 	"ru" => "Русский",
-	#	"fr" => "Français",
+	"fr" => "Français",
 );
 
 # debugging variables
@@ -401,7 +401,7 @@ function html_header() {
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=pt'><span class='sideBarSmallHeader'>Português</span></a> ";
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=es'><span class='sideBarSmallHeader'>Español</span></a> ";
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=de'><span class='sideBarSmallHeader'>Deutsch</span></a> ";
-	#print "<a href='".$_SERVER["PHP_SELF"]."?setlang=fr'><span class='sideBarSmallHeader'>Français</span></a>";
+	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=fr'><span class='sideBarSmallHeader'>Français</span></a>";
 	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=ru'><span class='sideBarSmallHeader'>Russian</span></a>";
 	print "                </td>\n";
 	print "            </tr>\n";
