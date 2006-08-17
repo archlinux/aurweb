@@ -43,7 +43,7 @@ $_t["fr"]["User"] = "Utilisateur";
 
 $_t["fr"]["Active"] = "Actif";
 
-$_t["fr"]["Last Voted"] = "Voté  Dernièrement";
+$_t["fr"]["Last Voted"] = "Voté Dernièrement";
 
 $_t["fr"]["Real Name"] = "Nom Réel";
 

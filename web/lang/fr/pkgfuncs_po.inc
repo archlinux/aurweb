@@ -15,7 +15,7 @@ $_t["fr"]["orphan"] = "orphelin";
 
 $_t["fr"]["Votes"] = "Votes";
 
-$_t["fr"]["First Submitted"] = "Premier Soumis";
+$_t["fr"]["First Submitted"] = "Première Soumission";
 
 $_t["fr"]["Tarball"] = "Tarball";
 
@@ -23,7 +23,7 @@ $_t["fr"]["Be careful! The above files may contain malicious code that can damag
 
 $_t["fr"]["Voted"] = "Voté";
 
-$_t["fr"]["Location"] = "Lieu";
+$_t["fr"]["Location"] = "Dépôt";
 
 $_t["fr"]["Flag Safe"] = "Marquer comme Sain";
 
@@ -51,7 +51,7 @@ $_t["fr"]["Delete comment"] = "Effacer le commentaire";
 
 $_t["fr"]["No New Comment Notification"] = "Pas d'annonce de Nouveau Commentaire";
 
-$_t["fr"]["Dependencies"] = "Dépendences";
+$_t["fr"]["Dependencies"] = "Dépendances";
 
 $_t["fr"]["Descending"] = "Descendant";
 
@@ -87,7 +87,7 @@ $_t["fr"]["Age"] = "Age";
 
 $_t["fr"]["Use this form to search existing accounts."] = "Utilisez ce formulaire pour rechercher des comptes existants.";
 
-$_t["fr"]["Submitter"] = "Soumettre";
+$_t["fr"]["Submitter"] = "Contributeur";
 
 $_t["fr"]["Use this form to create an account."] = "Utilisez ce formulaire pour créer un compte.";
 
