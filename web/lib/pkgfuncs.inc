@@ -328,6 +328,11 @@ function package_details($id=0, $SID="") {
 				print $maintainer . "</span></td>";
 			}
 			print "</tr>\n";
+			
+			print "<tr>\n";
+			print "  <td class='boxSoft' colspan='2'><span class='f3'>".__("Votes").": ";
+			print $row["NumVotes"] . "</span></td>";
+			print "</tr>\n";
 
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td>";
@@ -477,18 +482,36 @@ function package_details($id=0, $SID="") {
 						print " value='".__("Unflag Safe")."' title='".__("Unflag Package Safe To Use")."'>";
 					}
 				}
+					if ($row["OutOfDate"] == 0)
+					{
 						print "<input type='submit' class='button' name='do_Flag'";
 						print "	value='".__("Flag Out-of-date")."'>\n";
+					}
+					else
+					{
 						print "<input type='submit' class='button' name='do_UnFlag'";
 						print "	value='".__("Unflag Out-of-date")."'>\n";
-						
+					}
+					
+					if ($row["AURMaintainerUID"] == 0 && $row["MaintainerUID"] == 0)
+					{
 						print "<input type='submit' class='button' name='do_Adopt'";
 						print "	value='".__("Adopt Packages")."'>\n";
+					}
+					
+					if ($row["MaintainerUID"] == uid_from_sid($SID))
+					{
 						print "<input type='submit' class='button' name='do_Disown'";
 						print "	value='".__("Disown Packages")."'>\n";
+					}	
 					
+					if ($row["MaintainerUID"] == uid_from_sid($SID) ||
+					    account_from_sid($SID) == "Trusted User" ||
+					    account_from_sid($SID) == "Developer")
+					{
 						print "<input type='submit' class='button' name='do_Delete'";
 						print "	value='".__("Delete Packages")."'>\n";
+					}
 						
 				print "</form></td></tr>\n";				
 				print "</table><br />\n";
