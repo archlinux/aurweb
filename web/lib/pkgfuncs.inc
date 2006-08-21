@@ -965,19 +965,19 @@ function pkg_search_page($SID="") {
 		}
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Location")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Location")."</a>";
 		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=c&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Category")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=c&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Category")."</a>";
 		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=n&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Name")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=n&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Name")."</a>";
 		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=v&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Votes")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=v&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Votes")."</a>";
 		print "</span></th>\n";
 		if ($SID) {
 			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
@@ -988,7 +988,7 @@ function pkg_search_page($SID="") {
 		print "</span></th>\n";
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=m&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."'>".__("Maintainer")."</a>";
+		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=m&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Maintainer")."</a>";
 		print "</span></th>\n";
 # REMOVED LINK TO 'pkgmgmnt.php'
 #		if ($SID) {
