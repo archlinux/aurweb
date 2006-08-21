@@ -477,6 +477,19 @@ function package_details($id=0, $SID="") {
 						print " value='".__("Unflag Safe")."' title='".__("Unflag Package Safe To Use")."'>";
 					}
 				}
+						print "<input type='submit' class='button' name='do_Flag'";
+						print "	value='".__("Flag Out-of-date")."'>\n";
+						print "<input type='submit' class='button' name='do_UnFlag'";
+						print "	value='".__("Unflag Out-of-date")."'>\n";
+						
+						print "<input type='submit' class='button' name='do_Adopt'";
+						print "	value='".__("Adopt Packages")."'>\n";
+						print "<input type='submit' class='button' name='do_Disown'";
+						print "	value='".__("Disown Packages")."'>\n";
+					
+						print "<input type='submit' class='button' name='do_Delete'";
+						print "	value='".__("Delete Packages")."'>\n";
+						
 				print "</form></td></tr>\n";				
 				print "</table><br />\n";
 			}
