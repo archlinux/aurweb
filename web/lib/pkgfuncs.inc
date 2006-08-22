@@ -707,26 +707,60 @@ function pkg_search_page($SID="") {
 	print "</td>\n";
 	
 	print "<td align='right'>\n";
-	print "  <span class='f5'><span class='blue'>".__("Search by");
-	print "</span></span><br />\n";
-	
-	print "  <select name='SeB'>\n";
-	# by name/description
-	print "  <option value=nd";
-	$_REQUEST["SeB"] == "nd" ? print " selected> " : print "> ";
-	print __("Name")."</option>\n";
-	# by maintainer
-	print "  <option value=m";
-	$_REQUEST["SeB"] == "m" ? print " selected> " : print "> ";
-	print __("Maintainer")."</option>\n";
-	print "  <option value=s";
-	$_REQUEST["SeB"] == "s" ? print " selected> " : print "> ";
-	print __("Submitter")."</option>\n";
+    print "  <span class='f5'><span class='blue'>".__("Search by");
+    print "</span></span><br />\n";
+    
+    print "  <select name='SeB'>\n";
+    # by name/description
+    print "  <option value=nd";
+    $_REQUEST["SeB"] == "nd" ? print " selected> " : print "> ";
+    print __("Name")."</option>\n";    
+    # by maintainer
+    print "  <option value=m";
+    $_REQUEST["SeB"] == "m" ? print " selected> " : print "> ";
+    print __("Maintainer")."</option>\n";
+    print "  <option value=s";
+    $_REQUEST["SeB"] == "s" ? print " selected> " : print "> ";
+    print __("Submitter")."</option>\n";    
 
-	print "  </select>\n";
-	print "</td>\n";
+    print "  </select>\n";
+    print "</td>\n";
+    
+    /* Status Safe-Unsafe */
+    
+    # Added the code below to handle the safe package flag.
+    # So we can search for then for 'all' packages, 'safe'
+    # packages and 'unsafe' packages.
+    # Added by: dsa <dsandrade@gmail.com> "Happily breaking the lang files ;oD" (Joking)    
+    
+    print "<td align='right'>\n";
+    print "  <span class='f5'><span class='blue'>".__("Status");
+    print "</span></span><br />\n";
+    
+    print "  <select name='PaS'>\n";
+    
+    # Flagged Safe
+    print "  <option value=all";
+    $_REQUEST["PaS"] == "all" ? print " selected> " : print "> ";
+    print __("All")."</option>\n";
+        
+    # Flagged Safe
+    print "  <option value=fs";
+    $_REQUEST["PaS"] == "fs" ? print " selected> " : print "> ";
+    print __("Safe")."</option>\n";
+    # Unflagged Safe
+    print "  <option value=us";
+    $_REQUEST["PaS"] == "us" ? print " selected> " : print "> ";
+    print __("Unsafe")."</option>\n";
+    
+    print "  </select>\n";
+    print "</td>\n";
+    
+    /* End of Package Status */
 	
-/*	print "<td align='right'>\n";
+    /* Sort by */
+	
+    print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Sort by");
 	print "</span></span><br />\n";
 	print "  <select name='SB'>\n";
@@ -773,7 +807,9 @@ function pkg_search_page($SID="") {
 
 	print "  </select>\n";
 	print "</td>\n";
-*/
+
+    /* End of Sort by */
+    
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Per page");
 	print "</span></span><br />\n";
@@ -850,7 +886,7 @@ function pkg_search_page($SID="") {
 			} else {
 				$q.= "AND Username = '".mysql_escape_string($K)."' ";
 			}
-		} elseif ($_REQUEST["SeB"] == "s") {
+        } elseif ($_REQUEST["SeB"] == "s") {
 			if (!$has_where) {
 				$q.= "WHERE SubmitterUID = ".uid_from_username($K)." ";
 				$has_where = 1;
@@ -869,7 +905,8 @@ function pkg_search_page($SID="") {
 			}
 		}
 	}
-	if ($_REQUEST["do_MyPackages"] && $SID) {
+    
+    if ($_REQUEST["do_MyPackages"] && $SID) {
 		# list packages that the user is a AUR Maintainer of, or if it the
 		# vistior is a registered user, if they are the Maintainer.
 		#
@@ -896,8 +933,34 @@ function pkg_search_page($SID="") {
 				$q.= "MaintainerUID = 0) ";
 			}
 	}
-	$order = $_REQUEST["SO"] == 'd' ? 'DESC' : 'ASC';
-	switch ($_REQUEST["SB"]) {
+    
+    # Added the code below to handle the safe package flag.
+    # So we can search for then for 'all' packages, 'safe'
+    # packages and 'unsafe' packages.
+    # Added by: dsa <dsandrade@gmail.com>    
+    if ($_REQUEST["PaS"] <> "all") {
+        # Flagged Safe
+        if ($_REQUEST["PaS"] == "fs")
+            if (!$has_where) {
+                $q.= "WHERE Safe = 1 ";
+                $has_where = 1;
+            } else {
+                $q.= "AND Safe = 1 ";
+            }
+            
+        # Unflagged Safe        
+        if ($_REQUEST["PaS"] == "us")
+            if (!$has_where) {
+                $q.= "WHERE Safe = 0 ";
+                $has_where = 1;
+            } else {
+                $q.= "AND Safe = 0 ";
+            }
+    }
+	
+    $order = $_REQUEST["SO"] == 'd' ? 'DESC' : 'ASC';
+	
+    switch ($_REQUEST["SB"]) {
 		case 'c':
 			$q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
 			break;
@@ -920,7 +983,7 @@ function pkg_search_page($SID="") {
 	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth
 	$q.= "LIMIT ".$O.", ".$PP;
 
-	print "<!-- Query: ".$q." -->\n";
+    print "<!-- Query: ".$q." -->\n";
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		print __("Error retrieving package list.");
@@ -1033,13 +1096,7 @@ function pkg_search_page($SID="") {
 #		}
 		print "</tr>\n";        
         
-        # Solve the sorting problem, so we can force the 
-        # passage of the sorting params to the next pages.
-        # Added by: dsa <dsandrade@gmail.com>
-        print "<input type='hidden' name='SB' value='".$_REQUEST['SB']."' >";
-        print "<input type='hidden' name='SO' value='".$_REQUEST['SO']."' >";
-
-		for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
+        for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
 			(($i % 2) == 0) ? $c = "data1" : $c = "data2";
 			print "<tr>\n";
 			if ($SID) {
@@ -1079,6 +1136,7 @@ function pkg_search_page($SID="") {
 			}
 			reset($pkgsearch_vars);
 			$url.= "'>";
+            
 			if ($row["Safe"] == 1 || $locs[$row["LocationID"]] == "community") {
 				$url.="<span class='green'>";
 			}

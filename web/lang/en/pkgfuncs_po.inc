@@ -141,4 +141,10 @@ $_t["en"]["Search by"] = "Search by";
 
 $_t["en"]["Submitter"] = "Submitter";
 
+$_t["en"]["All"] = "All";
+
+$_t["en"]["Unsafe"] = "Unsafe";
+
+$_t["en"]["Status"] = "Status";
+
 ?>

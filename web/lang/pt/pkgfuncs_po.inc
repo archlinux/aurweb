@@ -81,7 +81,7 @@ $_t["pt"]["Manage"] = "Gerenciar";
 
 $_t["pt"]["Sort by"] = "Ordenar por";
 
-$_t["pt"]["Sort order"] = "Ordem de Ordenação";
+$_t["pt"]["Sort order"] = "Ordem";
 
 $_t["pt"]["Ascending"] = "Ascendente";
 
@@ -138,5 +138,13 @@ $_t["pt"]["First Submitted"] = "Submetido pela primeira vez";
 $_t["pt"]["Last Updated"] = "Últimos Pacotes Atualizados";
 
 $_t["pt"]["Search by"] = "Pesquisar por";
+
+$_t["pt"]["Submitter"] = "Colaborador";
+
+$_t["pt"]["All"] = "Todos";
+
+$_t["pt"]["Unsafe"] = "Não Seguro";
+
+$_t["pt"]["Status"] = "Status";
 
 ?>
