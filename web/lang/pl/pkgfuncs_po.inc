@@ -117,4 +117,6 @@ $_t["pl"]["All"] = "Wszystkie";
 
 $_t["pl"]["Unsafe"] = "Nie bezpieczne";
 
+$_t["pl"]["License"] = "Licencja";
+
 ?>

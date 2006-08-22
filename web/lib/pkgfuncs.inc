@@ -340,7 +340,7 @@ function package_details($id=0, $SID="") {
             $license = $row["License"] == "" ? $msg : $row["License"];
             
             print "<tr>\n";
-            print "  <td class='boxSoft' colspan='2'><br><span class='f3'>License: ".$license;
+            print "  <td class='boxSoft' colspan='2'><br><span class='f3'>".__("License").": ".$license;
             print "</a></span></td>\n";
             print "</tr>\n";            
 
