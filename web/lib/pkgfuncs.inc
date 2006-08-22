@@ -333,6 +333,16 @@ function package_details($id=0, $SID="") {
 			print "  <td class='boxSoft' colspan='2'><span class='f3'>".__("Votes").": ";
 			print $row["NumVotes"] . "</span></td>";
 			print "</tr>\n";
+            
+            # In case of wanting to put a custom message
+            # Added by: dsa <dsandrade@gmail.com>
+            $msg = "unknown";
+            $license = $row["License"] == "" ? $msg : $row["License"];
+            
+            print "<tr>\n";
+            print "  <td class='boxSoft' colspan='2'><br><span class='f3'>License: ".$license;
+            print "</a></span></td>\n";
+            print "</tr>\n";            
 
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td>";

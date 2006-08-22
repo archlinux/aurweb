@@ -396,7 +396,8 @@ if ($_COOKIE["AURSID"]) {
 				$q.="Version='".mysql_escape_string($new_pkgbuild['pkgver'])."-".
 				  mysql_escape_string($new_pkgbuild['pkgrel'])."',";
 				$q.="CategoryID=".mysql_escape_string($_REQUEST['category']).", ";
-				$q.="Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', ";
+                $q.="License='".mysql_escape_string($new_pkgbuild['license'])."', ";
+                $q.="Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', ";
 				$q.="URL='".mysql_escape_string($new_pkgbuild['url'])."', ";
 				$q.="LocationID=2, ";
 				if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User" || account_from_sid($_COOKIE["AURSID"]) == "Developer") {
@@ -460,13 +461,14 @@ if ($_COOKIE["AURSID"]) {
 				# this is a brand new package
 				#
 				$q = "INSERT INTO Packages ";
-				$q.= " (Name, Version, CategoryID, Description, URL, LocationID, ";
+				$q.= " (Name, License, Version, CategoryID, Description, URL, LocationID, ";
 				if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User" || account_from_sid($_COOKIE["AURSID"]) == "Developer") {
 					$q.= "Safe, VerifiedBy,";
 				}
 				$q.= " SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) ";
 				$q.= "VALUES ('";
 				$q.= mysql_escape_string($new_pkgbuild['pkgname'])."', '";
+                $q.= mysql_escape_string($new_pkgbuild['license'])."', '";
 				$q.= mysql_escape_string($new_pkgbuild['pkgver'])."-".
 				  mysql_escape_string($new_pkgbuild['pkgrel'])."', ";
 				$q.= mysql_escape_string($_REQUEST['category']).", '";
