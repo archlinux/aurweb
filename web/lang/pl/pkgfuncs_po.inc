@@ -111,4 +111,10 @@ $_t["pl"]["Use this form to update your account."] = "Przy użyciu tego formular
 
 $_t["pl"]["You are not allowed to access this area."] = "Nie masz uprawnień do oglądania tej strony.";
 
+$_t["pl"]["Status"] = "Status";
+
+$_t["pl"]["All"] = "Wszystkie";
+
+$_t["pl"]["Unsafe"] = "Nie bezpieczne";
+
 ?>
