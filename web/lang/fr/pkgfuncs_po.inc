@@ -149,4 +149,12 @@ $_t["fr"]["Any"] = "Tous";
 
 $_t["fr"]["No packages matched your search criteria."] = "Aucun paquet ne correspond à vos critères de recherche.";
 
+$_t["fr"]["Status"] = "Etat";
+
+$_t["fr"]["License"] = "Licence";
+
+$_t["fr"]["All"] = "Tout";
+
+$_t["fr"]["Unsafe"] = "Non sûr";
+
 ?>
