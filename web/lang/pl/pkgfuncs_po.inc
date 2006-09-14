@@ -119,4 +119,6 @@ $_t["pl"]["Unsafe"] = "Nie bezpieczne";
 
 $_t["pl"]["License"] = "Licencja";
 
+$_t["pl"]["unknown"] = "nieznana";
+
 ?>

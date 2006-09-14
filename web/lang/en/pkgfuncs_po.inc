@@ -147,4 +147,8 @@ $_t["en"]["Unsafe"] = "Unsafe";
 
 $_t["en"]["Status"] = "Status";
 
+$_t["en"]["License"] = "License";
+
+$_t["en"]["unknown"] = "unknown";
+
 ?>

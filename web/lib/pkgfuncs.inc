@@ -336,7 +336,7 @@ function package_details($id=0, $SID="") {
             
             # In case of wanting to put a custom message
             # Added by: dsa <dsandrade@gmail.com>
-            $msg = "unknown";
+            $msg = __("unknown");
             $license = $row["License"] == "" ? $msg : $row["License"];
             
             print "<tr>\n";
