@@ -79,4 +79,10 @@ $_t["it"]["Packages added or updated in the past 7 days"] = "Pacchetti aggiunti 
 
 $_t["it"]["Packages in unsupported and flagged as safe"] = "Pacchetti in unsupported considerati sicuri";
 
+$_t["it"]["Safe"] = "Sicuro";
+
+$_t["it"]["Out-of-date"] = "Non aggiornato";
+
+$_t["it"]["User Statistics"] = "Statistiche dell'utente";
+
 ?>

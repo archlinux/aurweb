@@ -153,4 +153,14 @@ $_t["it"]["Use this form to update your account."] = "Utilizzare questo modulo p
 
 $_t["it"]["You are not allowed to access this area."] = "Non si dispone dei permessi necessari per accedere.";
 
+$_t["it"]["Status"] = "Stato";
+
+$_t["it"]["unknown"] = "sconosciuto";
+
+$_t["it"]["License"] = "Licenza";
+
+$_t["it"]["All"] = "Tutto";
+
+$_t["it"]["Unsafe"] = "Pericoloso";
+
 ?>
