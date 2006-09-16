@@ -117,7 +117,7 @@ $_t["it"]["Unflag Safe"] = "Segnare come non sicuro";
 
 $_t["it"]["Unflag Package Safe To Use"] = "Segnare il pacchetto come non sicuro da utilizzare";
 
-$_t["it"]["Safe"] = "Sicuro";
+$_t["it"]["Safe"] = "Sicuri";
 
 $_t["it"]["Age"] = "Data";
 
@@ -161,6 +161,6 @@ $_t["it"]["License"] = "Licenza";
 
 $_t["it"]["All"] = "Tutti";
 
-$_t["it"]["Unsafe"] = "Non sicuro";
+$_t["it"]["Unsafe"] = "Non sicuri";
 
 ?>
