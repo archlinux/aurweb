@@ -155,12 +155,12 @@ $_t["it"]["You are not allowed to access this area."] = "Non si dispone dei perm
 
 $_t["it"]["Status"] = "Stato";
 
-$_t["it"]["unknown"] = "sconosciuto";
+$_t["it"]["unknown"] = "sconosciuta";
 
 $_t["it"]["License"] = "Licenza";
 
-$_t["it"]["All"] = "Tutto";
+$_t["it"]["All"] = "Tutti";
 
-$_t["it"]["Unsafe"] = "Pericoloso";
+$_t["it"]["Unsafe"] = "Non sicuro";
 
 ?>
