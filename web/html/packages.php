@@ -476,7 +476,7 @@ if (isset($_REQUEST["do_Flag"])) {
 		print __("You must be logged in before you can flag packages.");
 		print "<br />\n";
 	} else {
-		if (!empty($ids) || $atype == "User") {
+		if (!empty($ids) && $atype == "Trusted User") {
 			$dbh = db_connect();
 			# There currently shouldn't be multiple requests here, but the format in which
 			# it's sent requires this
@@ -500,7 +500,7 @@ if (isset($_REQUEST["do_Flag"])) {
 		print __("You must be logged in before you can unflag packages.");
 		print "<br />\n";
 	} else {
-		if (!empty($ids) || $atype == "User") {
+		if (!empty($ids) && $atype == "Trusted User") {
 			$dbh = db_connect();
 			# There currently shouldn't be multiple requests here, but the format in which
 			# it's sent requires this
