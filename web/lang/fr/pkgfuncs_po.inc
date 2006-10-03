@@ -157,4 +157,6 @@ $_t["fr"]["All"] = "Tout";
 
 $_t["fr"]["Unsafe"] = "Non sûr";
 
+$_t["fr"]["unknown"] = "inconnu";
+
 ?>
