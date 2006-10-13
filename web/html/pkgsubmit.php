@@ -87,7 +87,8 @@ if ($_COOKIE["AURSID"]) {
 			#
 
 			$upload_file = $UPLOAD_DIR . $pkg_name;
-			if (move_uploaded_file($_FILES["pfile"]["tmp_name"], $upload_file)) {
+            
+            if (move_uploaded_file($_FILES["pfile"]["tmp_name"], $upload_file)) {
 				# ok, we can proceed
 				#
 				if (file_exists($INCOMING_DIR . $pkg_name)) {
@@ -427,9 +428,11 @@ if ($_COOKIE["AURSID"]) {
 				# update package depends
 				#
 				$depends = explode(" ", $new_pkgbuild['depends']);
-				while (list($k, $v) = each($depends)) {
-					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID) VALUES (";
+                
+                while (list($k, $v) = each($depends)) {
+					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
 					$deppkgname = preg_replace("/[<>]?=.*/", "", $v);
+                    $depcondition = str_replace($deppkgname, "", $v);
                     
                     # Solve the problem with comments and deps
                     # added by: dsa <dsandrade@gmail.com>
@@ -437,7 +440,12 @@ if ($_COOKIE["AURSID"]) {
                         break;
                     
 					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
-					$q .= $pdata["ID"].", ".$deppkgid.")";
+					
+                    if(!empty($depcondition))
+                        $q .= $pdata["ID"].", ".$deppkgid.", '".$depcondition."')";
+                    else
+                        $q .= $pdata["ID"].", ".$deppkgid.", '')";
+                        
 					db_query($q, $dbh);
 				}
 

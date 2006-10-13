@@ -139,7 +139,7 @@ function package_dependencies($pkgid=0) {
 	$deps = array();
 	if ($pkgid) {
 		$dbh = db_connect();
-		$q = "SELECT DepPkgID, Name, DummyPkg FROM PackageDepends, Packages ";
+		$q = "SELECT DepPkgID, Name, DummyPkg, DepCondition FROM PackageDepends, Packages ";
 		$q.= "WHERE PackageDepends.DepPkgID = Packages.ID ";
 		$q.= "AND PackageDepends.PackageID = ".mysql_escape_string($pkgid);
 		$q.= " ORDER BY Name";
@@ -402,8 +402,11 @@ function package_details($id=0, $SID="") {
 					}
 				}
 				reset($pkgsearch_vars);
-				if ($darr[2] == 0) print $url."'>".$darr[1]."</a><br />\n";
-				else print "<a href='#'>".$darr[1]."</a><br />\n";
+                                               
+                // $darr[3] is the DepCondition                                               
+                                               
+				if ($darr[2] == 0) print $url."'>".$darr[1].$darr[3]."</a><br />\n";
+				else print "<a href='#'>".$darr[1].$darr[3]."</a><br />\n";
 			}
 			print "</td></tr>\n";
 			print "</table></td>";
