@@ -148,7 +148,7 @@ def main(argv=None):
 		except:
 			confdict['host'] = 'aur.archlinux.org'
 		try:
-			confdict['port'] =  config.get('tupkg','port')
+			confdict['port'] =  config.getint('tupkg','port')
 		except:
 			confdict['port'] = 1034
 	else:
