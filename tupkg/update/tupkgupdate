@@ -162,7 +162,7 @@ class PackageDatabase:
     # PackageSources
     for source in package.sources:
       q.execute("INSERT INTO PackageSources (PackageID, Source) " + 
-        "VALUES (" + str(id) + ", '" + source + "')")
+        "VALUES (" + str(id) + ", '" + MySQLdb.escape_string(source) + "')")
     # PackageDepends
     for dep in package.depends:
       depid = self.lookupOrDummy(dep)
