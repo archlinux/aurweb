@@ -86,7 +86,13 @@ if ($_COOKIE["AURSID"]) {
 			# the uploaded package file.
 			#
 
-			$upload_file = $UPLOAD_DIR . $pkg_name;
+            # Added the .tgz because the old line just moved the tmp file to
+            # pkgname, but there is a problem below when it try to create the
+            # directory with the same name - pkgname. In linux/unix, if we
+            # touch a file like "touch foo" and then try to create a foo dir
+            # like "mkdir foo" it will give us a error. That was what happening in
+            # newer installations of AUR.
+			$upload_file = $UPLOAD_DIR . $pkg_name . ".tgz";
             
             if (move_uploaded_file($_FILES["pfile"]["tmp_name"], $upload_file)) {
 				# ok, we can proceed
