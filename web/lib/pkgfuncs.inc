@@ -714,8 +714,10 @@ function pkg_search_page($SID="") {
 	print "  <span class='f5'><span class='blue'>".__("Keywords");
 	print "</span></span><br />\n";
 	print "  <input type='text' name='K' size='20'";
-	$K = str_replace("\"", "", $_REQUEST["K"]); # TODO better testing for
-                                              # SQL trickery...
+	
+	# Added to trim() to avoid the problem described in #6191
+	$K = trim(str_replace("\"", "", $_REQUEST["K"])); # TODO better testing for SQL trickery...
+	
 	print " value=\"".stripslashes($K)."\" maxlength='35'>\n";
 	print "</td>\n";
 	
