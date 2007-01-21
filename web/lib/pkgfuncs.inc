@@ -335,7 +335,6 @@ function package_details($id=0, $SID="") {
 			print "</tr>\n";
             
             # In case of wanting to put a custom message
-            # Added by: dsa <dsandrade@gmail.com>
             $msg = __("unknown");
             $license = $row["License"] == "" ? $msg : $row["License"];
             
@@ -746,7 +745,6 @@ function pkg_search_page($SID="") {
     # Added the code below to handle the safe package flag.
     # So we can search for then for 'all' packages, 'safe'
     # packages and 'unsafe' packages.
-    # Added by: dsa <dsandrade@gmail.com> "Happily breaking the lang files ;oD" (Joking)    
     
     print "<td align='right'>\n";
     print "  <span class='f5'><span class='blue'>".__("Status");
@@ -839,21 +837,28 @@ function pkg_search_page($SID="") {
 	$PP == 100 ? print " selected> 100\n" : print "> 100\n";
 	print "  </select>\n";
 	print "</td>\n";
+	
+	# Added to break put the buttons in a new line
+	print"</tr></table><center><table><tr>";
 
 	print "<td align='right' valign='bottom'>&nbsp;\n";
-	print "  <input type='submit' class='button' name='do_Search'";
+	print "  <input type='submit' style='width:80px' class='button' name='do_Search'";
 	print " value='".__("Go")."'>\n";
 	print "</td>\n";
 
+	/*
+	 *  Commented the My Packages button because there is no need for it
+	 *  cause we already have a link.
+	 * 
 	if ($SID) {
 		print "<td align='right' valign='bottom'>&nbsp;\n";
 		print "  <input type='submit' class='button' name='do_MyPackages'";
 	 	print "	value='".__("My Packages")."'>\n";
 		print "</td>\n";
-	}
+	}*/
 
 	print "<td align='right' valign='bottom'>&nbsp;\n";
-	print "  <input type='submit' class='button' name='do_Orphans'";
+	print "  <input type='submit' style='width:80px'  class='button' name='do_Orphans'";
 	print " value='".__("Orphans")."'>\n";
 	print "</td>\n";
 
@@ -952,7 +957,6 @@ function pkg_search_page($SID="") {
     # Added the code below to handle the safe package flag.
     # So we can search for then for 'all' packages, 'safe'
     # packages and 'unsafe' packages.
-    # Added by: dsa <dsandrade@gmail.com>    
     if ($_REQUEST["PaS"] <> "all") {
         # Flagged Safe
         if ($_REQUEST["PaS"] == "fs")
@@ -1186,7 +1190,6 @@ function pkg_search_page($SID="") {
 			if (isset($users[$row["MaintainerUID"]])) {
                 # Add a link to the user packages, e.g, if you click on the Solve the sorting problem, so we can force the 
                 # maintainer name, you will be redirected to a page with the user packages.
-                # Added by: dsa <dsandrade@gmail.com>
                 $user = $users[$row["MaintainerUID"]]["Username"];
                 print "<a href='packages.php?K=".$user."&SeB=m'>".$users[$row["MaintainerUID"]]["Username"]."</a>";
 			} else {
