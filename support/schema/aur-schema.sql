@@ -150,6 +150,7 @@ CREATE TABLE Packages (
 CREATE TABLE PackageDepends (
 	PackageID INTEGER UNSIGNED NOT NULL,
 	DepPkgID INTEGER UNSIGNED NOT NULL,
+	DepCondition VARCHAR(20),
 	INDEX (PackageID)
 );
 
