@@ -62,7 +62,7 @@ class ClientSocket:
 
 	def sendMsg(self, msg):
 		if type(msg) == dict:
-			msg = urllib.unquote(urllib.urlencode(msg,1))
+			msg = urllib.urlencode(msg,1)
 		length = struct.pack("H", socket.htons(len(msg)))
 		self.socket.sendall(length)
 		self.socket.sendall(msg)
