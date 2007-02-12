@@ -7,7 +7,7 @@ global $_t;
 
 $_t["ru"]["Missing a required field."] = "Отсутствует обязательное значение.";
 
-$_t["ru"]["Search'"] = "Поиск";
+$_t["ru"]["Search'"] = "Поиск'";
 
 $_t["ru"]["The account, %h%s%h, has been successfully created."] = "Учетная запись %h%s%h успешно создана.";
 

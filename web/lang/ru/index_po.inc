@@ -55,4 +55,10 @@ $_t["ru"]["Logged-in as: %h%s%h"] = "Вошли как: %h%s%h";
 
 $_t["ru"]["Incorrect password for username, %s."] = "Неверный пароль для пользователя %s.";
 
+$_t["ru"]["Safe"] = "Безопасный";
+
+$_t["ru"]["Out-of-date"] = "Устарел";
+
+$_t["ru"]["User Statistics"] = "Статистика пользователя";
+
 ?>
