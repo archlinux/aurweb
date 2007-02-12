@@ -69,7 +69,7 @@ $_t["de"]["Name"] = "Name";
 
 $_t["de"]["Last Updated"] = "Letzte Aktualisierung";
 
-$_t["de"]["The above files have been verified (by %s) and are safe to use."] = "Die obenstehende Dateien wurden (von %s) bestätigt, und können sicher benutzt werden.";
+$_t["de"]["The above files have been verified (by %s) and are safe to use."] = "Die obenstehenden Dateien wurden (von %s) bestätigt, und können sicher benutzt werden.";
 
 $_t["de"]["Unflag Package Safe To Use"] = "Markierung \"Sicher\" entfernen";
 
@@ -130,5 +130,33 @@ $_t["de"]["Orphans"] = "Verwaiste Pakete";
 $_t["de"]["Any"] = "Alle";
 
 $_t["de"]["No packages matched your search criteria."] = "Keine Pakete entsprachen Deinen Suchkriterien";
+
+$_t["de"]["Status"] = "Status";
+
+$_t["de"]["Leave the password fields blank to keep your same password."] = "Lasse die Passwortfelder frei, um Dein aktuelles Passwort beizubehalten.";
+
+$_t["de"]["unknown"] = "unbekannt";
+
+$_t["de"]["You have been successfully logged out."] = "Du wurdest erfolgreich abgemeldet.";
+
+$_t["de"]["You must log in to view user information."] = "Du mußt Dich anmelden, um Benutzerinformationen anzusehen.";
+
+$_t["de"]["License"] = "Lizenz";
+
+$_t["de"]["Could not retrieve information for the specified user."] = "Konnte keine Informationen für den angegebenen Benutzer laden.";
+
+$_t["de"]["You do not have permission to edit this account."] = "Du hast keine Berechtigung dieses Konto zu ändern.";
+
+$_t["de"]["Use this form to search existing accounts."] = "Benutze dieses Formular um vorhandene Konten zu suchen.";
+
+$_t["de"]["All"] = "Alle";
+
+$_t["de"]["Use this form to create an account."] = "Benutze dieses Formular um ein Konto zu erstellen.";
+
+$_t["de"]["Use this form to update your account."] = "Benutze dieses Formular um Dein Konto zu aktualisieren.";
+
+$_t["de"]["You are not allowed to access this area."] = "Es ist Dir nicht erlaubt diesen Bereich zu betreten.";
+
+$_t["de"]["Unsafe"] = "Unsicher";
 
 ?>

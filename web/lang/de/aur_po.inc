@@ -19,4 +19,6 @@ $_t["de"]["Home"] = "Startseite";
 
 $_t["de"]["Packages"] = "Pakete";
 
+$_t["de"]["My Packages"] = "Meine Pakete";
+
 ?>

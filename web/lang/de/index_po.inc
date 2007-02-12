@@ -55,4 +55,10 @@ $_t["de"]["Logged-in as: %h%s%h"] = "Angemeldet als: %h%s%h";
 
 $_t["de"]["Incorrect password for username, %s."] = "Falsches Passwort für Benutzername %s.";
 
+$_t["de"]["Safe"] = "Sicher";
+
+$_t["de"]["Out-of-date"] = "Veraltet";
+
+$_t["de"]["User Statistics"] = "Benutzerstatistiken";
+
 ?>
