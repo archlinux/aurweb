@@ -11,6 +11,6 @@ $_t["es"]["Hello, world!"] = "¡Hola, mundo!";
 
 $_t["es"]["Hello, again!"] = "¡Hola, otra vez!";
 
-$_t["es"]["My current language tag is: '%s'."] = "Mi etiqueta actual del idioma es: '%s'.";
+$_t["es"]["My current language tag is: '%s'."] = "Mi identificador actual del idioma es: '%s'.";
 
 ?>

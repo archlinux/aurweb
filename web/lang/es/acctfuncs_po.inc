@@ -5,7 +5,7 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["es"]["Missing a required field."] = "Falta un campo requerido.";
+$_t["es"]["Missing a required field."] = "Falta un campo obligatorio.";
 
 $_t["es"]["Search'"] = "Buscar'";
 
@@ -33,7 +33,7 @@ $_t["es"]["IRC Nick"] = "Nick del IRC";
 
 $_t["es"]["Trusted user"] = "Usuario de confianza";
 
-$_t["es"]["No results matched your search criteria."] = "No se encontraron resultados que coincidan con su critero de busqueda.";
+$_t["es"]["No results matched your search criteria."] = "No se encontraron resultados que coincidan con su criterio de búsqueda.";
 
 $_t["es"]["Normal user"] = "Usuario normal";
 
@@ -63,7 +63,7 @@ $_t["es"]["No more results to display."] = "No hay más resultados que mostrar."
 
 $_t["es"]["Type"] = "Tipo";
 
-$_t["es"]["Click on the Home link above to login."] = "Pulse en el enlace Inicio de arriba para registrarse.";
+$_t["es"]["Click on the Home link above to login."] = "Pulse en el enlace Inicio situado en la parte superior para identificarse.";
 
 $_t["es"]["Sort by"] = "Ordenar por";
 

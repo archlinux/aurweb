@@ -27,7 +27,7 @@ $_t["es"]["The selected packages have been flagged out-of-date."] = "Los paquete
 
 $_t["es"]["The selected packages have been deleted."] = "Los paquetes seleccionados se han borrado.";
 
-$_t["es"]["You did not select any packages to vote for."] = "No seleccionó ningún paquete para votar.";
+$_t["es"]["You did not select any packages to vote for."] = "No seleccionó ningún paquete para votarlo.";
 
 $_t["es"]["You must be logged in before you can disown packages."] = "Debe identificarse antes de poder abandonar paquetes.";
 
@@ -51,7 +51,7 @@ $_t["es"]["You did not select any packages to disown."] = "No seleccionó ningú
 
 $_t["es"]["You must be logged in before you can un-vote for packages."] = "Debe identificarse antes de poder quitar votos a los paquetes";
 
-$_t["es"]["You must be logged in before you can unflag packages."] = "Debe registrarse antes de poder desmarcar paquetes.";
+$_t["es"]["You must be logged in before you can unflag packages."] = "Debe identificarse antes de poder desmarcar paquetes.";
 
 $_t["es"]["You did not select any packages to unflag."] = "No seleccionó ningún paquete para desmarcar.";
 

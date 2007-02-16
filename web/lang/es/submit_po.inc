@@ -73,7 +73,7 @@ $_t["es"]["Comment"] = "Comentario";
 
 $_t["es"]["Could not create directory %s."] = "No se pudo crear el directorio %s.";
 
-$_t["es"]["Unknown file format for uploaded file."] = "Formato de archivo desconocido para el fichero subido.";
+$_t["es"]["Unknown file format for uploaded file."] = "Formato de archivo desconocido en el fichero subido.";
 
 $_t["es"]["Missing source variable in PKGBUILD."] = "Falta la variable \"source\" en el PKGBUILD.";
 

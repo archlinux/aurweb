@@ -13,7 +13,7 @@ $_t["es"]["Delete comment"] = "Borrar comentario";
 
 $_t["es"]["Votes"] = "Votos";
 
-$_t["es"]["First Submitted"] = "Primer envio";
+$_t["es"]["First Submitted"] = "Primer envío";
 
 $_t["es"]["Tarball"] = "Archivo TAR";
 
@@ -132,5 +132,35 @@ $_t["es"]["Orphans"] = "Huérfanos";
 $_t["es"]["Any"] = "Cualquiera";
 
 $_t["es"]["No packages matched your search criteria."] = "Ningún paquete coincide con su criterio de búsqueda.";
+
+$_t["es"]["Status"] = "Estado";
+
+$_t["es"]["Leave the password fields blank to keep your same password."] = "Deje en blanco los campos de la contraseña si quiere conservarla.";
+
+$_t["es"]["unknown"] = "desconocido";
+
+$_t["es"]["You have been successfully logged out."] = "Ha abandonado la sesión correctamente.";
+
+$_t["es"]["You must log in to view user information."] = "Debe identificarse para ver la información del usuario.";
+
+$_t["es"]["License"] = "Licencia";
+
+$_t["es"]["Could not retrieve information for the specified user."] = "No se pudo obtener la información del usuario especificado.";
+
+$_t["es"]["You do not have permission to edit this account."] = "No tiene permiso para editar esta cuenta.";
+
+$_t["es"]["Use this form to search existing accounts."] = "Use este formulario para buscar las cuentas existentes.";
+
+$_t["es"]["Submitter"] = "Contribuidor";
+
+$_t["es"]["All"] = "Todo";
+
+$_t["es"]["Use this form to create an account."] = "Use este formulario para crear una cuenta.";
+
+$_t["es"]["Use this form to update your account."] = "Use este formulario para actualizar su cuenta.";
+
+$_t["es"]["You are not allowed to access this area."] = "No está autorizado a acceder a esta área.";
+
+$_t["es"]["Unsafe"] = "Inseguro";
 
 ?>

@@ -5,11 +5,11 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["es"]["Use this form to update your account."] = "Use este formulario para editar su cuenta.";
+$_t["es"]["Use this form to update your account."] = "Use este formulario para actualizar su cuenta.";
 
-$_t["es"]["Leave the password fields blank to keep your same password."] = "Deje en blanco los campos de la contraseña si quiere conservarla.";
+$_t["es"]["Leave the password fields blank to keep your same password."] = "Deje en blanco los campos de la contraseña para conservarla.";
 
-$_t["es"]["You are not allowed to access this area."] = "No está autorizado para acceder a esta área.";
+$_t["es"]["You are not allowed to access this area."] = "No está autorizado a acceder a esta área.";
 
 $_t["es"]["Could not retrieve information for the specified user."] = "No se pudo obtener la información del usuario especificado.";
 

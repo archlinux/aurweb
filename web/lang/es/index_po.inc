@@ -11,9 +11,9 @@ $_t["es"]["Remember to vote for your favourite packages!"] = "¡Recuerde votar s
 
 $_t["es"]["Error looking up username, %s."] = "Error al buscar el usuario, %s.";
 
-$_t["es"]["Packages in unsupported"] = "Paquetes en \"unsupported\"";
+$_t["es"]["Packages in unsupported"] = "Paquetes en [unsupported]";
 
-$_t["es"]["The most popular packages will be provided as binary packages in [community]."] = "Los paquetes más populares serán distribuidos como paquetes binarios en [community].";
+$_t["es"]["The most popular packages will be provided as binary packages in [community]."] = "Los paquetes más populares se distribuirán como paquetes binarios en [community].";
 
 $_t["es"]["Trusted Users"] = "Usuarios de Confianza";
 
@@ -21,11 +21,11 @@ $_t["es"]["You must supply a username."] = "Debe proporcionar un nombre de usuar
 
 $_t["es"]["Packages added or updated in the past 7 days"] = "Paquetes añadidos o actualizados en los últimos 7 días";
 
-$_t["es"]["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Las discusiones sobre el AUR tienen lugar por email en la %sLista de Usuarios TUR%s.";
+$_t["es"]["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Los debates sobre el AUR tienen lugar en la %sLista de correo de los Usuarios TUR%s.";
 
-$_t["es"]["Packages in unsupported and flagged as safe"] = "Paquetes en \"unsupported\" y marcados como seguros";
+$_t["es"]["Packages in unsupported and flagged as safe"] = "Paquetes en [unsupported] y marcados como seguros";
 
-$_t["es"]["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Aunque no podemos responder por sus contenidos, suministramos a %hlista de repositorios de usuarios%h para su comodidad.";
+$_t["es"]["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Aunque no podemos responder por sus contenidos, suministramos para su comodidad una %hlista de repositorios de usuarios%h.";
 
 $_t["es"]["Packages in [community]"] = "Paquetes en [community]";
 
@@ -54,5 +54,11 @@ $_t["es"]["Registered Users"] = "Usuarios Registrados";
 $_t["es"]["Logged-in as: %h%s%h"] = "Identificado como: %h%s%h";
 
 $_t["es"]["Incorrect password for username, %s."] = "Contraseña incorrecta para el usuario, %s.";
+
+$_t["es"]["Safe"] = "Seguro";
+
+$_t["es"]["Out-of-date"] = "Desactualizado";
+
+$_t["es"]["User Statistics"] = "Estadísticas del Usuario";
 
 ?>
