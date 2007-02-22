@@ -233,16 +233,11 @@ if (!empty($user)) {
     $row = mysql_fetch_row($result);
     $flagged_outdated = $row[0];
     
-    $q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='$user'";
-    $result = db_query($q, $dbh);
-    $row = mysql_fetch_row($result);
-    $flagged_safe = $row[0];
-        
     print "<table class='boxSoft'>";
     
     print "<tr>";
     print "<th colspan='2' class='boxSoftTitle' style='text-align: right'>";
-    print "<span class='f3'>".__("User Statistics")."</span>";
+    print "<span class='f3'>".__("My Statistics")."</span>";
     print "</th>";
     print "</tr>";
     
@@ -282,7 +277,23 @@ if (!empty($user)) {
     # Number of safe packages
     print "<tr>";
     print "<td class='boxSoft'>";
-    print "<span class='f4'>".__("Safe")."</span>";
+    if ($atype == 'Trusted User') {
+	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.VerifiedBy = Users.ID AND Users.Username='$user'";
+	$result = db_query($q, $dbh);
+	$row = mysql_fetch_row($result);
+	$flagged_safe = $row[0];
+
+	print "<span class='f4'>".__("Flagged as safe by me")."</span>";
+    }
+    else
+    {
+	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='$user'";
+	$result = db_query($q, $dbh);
+	$row = mysql_fetch_row($result);
+	$flagged_safe = $row[0];
+
+	print "<span class='f4'>".__("Flagged as safe")."</span>";
+    }
     print "</td>";
     print "<td class='boxSoft'><span class='f4'>$flagged_safe</span></td>";
     print "</tr>"; 
