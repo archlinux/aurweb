@@ -58,8 +58,14 @@ $_t["pl"]["Registered Users"] = "Zarejestrowanych użytkowników";
 
 $_t["pl"]["Safe"] = "Bezpieczne";
 
-$_t["pl"]["Out-of-date"] = "Nieaktualny";
+$_t["pl"]["Out-of-date"] = "Nieaktualnych";
 
 $_t["pl"]["User Statistics"] = "Statystyki użytkowników";
+
+$_t["pl"]["Flagged as safe by me"] = "Oznaczonych jako bezpieczne przeze mnie";
+
+$_t["pl"]["Flagged as safe"] = "Oznaczonych jako bezpieczne";
+
+$_t["pl"]["My Statistics"] = "Moje statystyki";
 
 ?>
