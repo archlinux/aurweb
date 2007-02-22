@@ -85,4 +85,10 @@ $_t["it"]["Out-of-date"] = "Non aggiornati";
 
 $_t["it"]["User Statistics"] = "Statistiche dell'utente";
 
+$_t["it"]["Flagged as safe by me"] = "Segnato come sicuro da me";
+
+$_t["it"]["Flagged as safe"] = "Segnato come sicuro";
+
+$_t["it"]["My Statistics"] = "Le mie statistiche";
+
 ?>
