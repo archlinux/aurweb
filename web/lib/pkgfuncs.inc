@@ -933,12 +933,12 @@ function pkg_search_page($SID="") {
 		if ($myuid) {
 			if (!$has_where) {
 				$q.= "WHERE (AURMaintainerUID = ".$myuid." OR ";
-				$q.= "MaintainerUID = ".$myuid." OR SubmitterUID = ".$myuid.") ";
 				$has_where = 1;
 			} else {
 				$q.= "AND (AURMaintainerUID = ".$myuid." OR ";
-				$q.= "MaintainerUID = ".$myuid." OR SubmitterUID = ".$myuid.") ";
 			}
+			//$q.= "MaintainerUID = ".$myuid." OR SubmitterUID = ".$myuid.") ";
+			$q.= "MaintainerUID = ".$myuid.") ";
 		}
 	}
 	if ($_REQUEST["do_Orphans"]) {
