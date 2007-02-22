@@ -348,6 +348,6 @@ print "</tr>\n";
 print "</table>\n";
 # End Table 1
 
-html_footer("<b>Version 1.2.10</b> \$Id$");
+html_footer("<b>Version 1.3.0</b> \$Id$");
 # vim: ts=2 sw=2 noet ft=php
 ?>
