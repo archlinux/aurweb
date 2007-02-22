@@ -970,10 +970,10 @@ function pkg_search_page($SID="") {
         # Unflagged Safe        
         if ($_REQUEST["PaS"] == "us")
             if (!$has_where) {
-                $q.= "WHERE Safe = 0 ";
+                $q.= "WHERE Safe = 0 AND LocationID != 3 ";
                 $has_where = 1;
             } else {
-                $q.= "AND Safe = 0 ";
+                $q.= "AND Safe = 0 AND LocationID != 3 ";
             }
     }
 	
