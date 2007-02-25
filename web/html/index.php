@@ -85,7 +85,7 @@ print "<tr>\n";
 # MAIN: Top Left
 print "<td class='boxSoft' valign='top'>";
 
-print "<p>".__("Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.", array('<a href="http://wiki.archlinux.org/index.php/New_AUR_user_guidelines">', '</a>', '<a href="http://wiki.archlinux.org/index.php/New_AUR_TU_guidelines">', '</a>'))."<br>";
+print "<p>".__("Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.", array('<a href="http://wiki.archlinux.org/index.php/AUR_User_Guidelines">', '</a>', '<a href="http://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">', '</a>'))."<br>";
 print __("Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!", array('<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">', '</a>'))."</p>";
 #print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."<br>";
 #print __("Email discussion about the AUR takes place on the %sTUR Users List%s.", array('<a href="http://www.archlinux.org/mailman/listinfo/tur-users">', '</a>'))."</p>";
