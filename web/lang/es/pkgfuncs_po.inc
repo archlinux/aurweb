@@ -37,7 +37,7 @@ $_t["es"]["Description"] = "Descripción";
 
 $_t["es"]["My Packages"] = "Mis paquetes";
 
-$_t["es"]["Safe"] = "Seguro";
+$_t["es"]["Safe"] = "Seguros";
 
 $_t["es"]["Sort order"] = "Ordenar en sentido";
 
@@ -153,7 +153,7 @@ $_t["es"]["Use this form to search existing accounts."] = "Use este formulario p
 
 $_t["es"]["Submitter"] = "Contribuidor";
 
-$_t["es"]["All"] = "Todo";
+$_t["es"]["All"] = "Todos";
 
 $_t["es"]["Use this form to create an account."] = "Use este formulario para crear una cuenta.";
 
@@ -161,6 +161,6 @@ $_t["es"]["Use this form to update your account."] = "Use este formulario para a
 
 $_t["es"]["You are not allowed to access this area."] = "No está autorizado a acceder a esta área.";
 
-$_t["es"]["Unsafe"] = "Inseguro";
+$_t["es"]["Unsafe"] = "Inseguros";
 
 ?>

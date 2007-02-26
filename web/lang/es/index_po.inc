@@ -55,9 +55,9 @@ $_t["es"]["Logged-in as: %h%s%h"] = "Identificado como: %h%s%h";
 
 $_t["es"]["Incorrect password for username, %s."] = "Contraseña incorrecta para el usuario, %s.";
 
-$_t["es"]["Safe"] = "Seguro";
+$_t["es"]["Safe"] = "Seguros";
 
-$_t["es"]["Out-of-date"] = "Desactualizado";
+$_t["es"]["Out-of-date"] = "Desactualizados";
 
 $_t["es"]["User Statistics"] = "Estadísticas del Usuario";
 

@@ -5,7 +5,7 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["es"]["Reset"] = "Restaurar";
+$_t["es"]["Reset"] = "Limpiar";
 
 $_t["es"]["Username"] = "Nombre de usuario";
 
