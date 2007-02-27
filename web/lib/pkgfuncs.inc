@@ -195,7 +195,7 @@ function package_comments($pkgid=0) {
 		$q.= "WHERE PackageComments.UsersID = Users.ID";
 		$q.= " AND PackageID = ".mysql_escape_string($pkgid);
 		$q.= " AND DelUsersID = 0"; # only display non-deleted comments
-		$q.= " ORDER BY CommentTS ASC";
+		$q.= " ORDER BY CommentTS DESC";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
 		while ($row = mysql_fetch_assoc($result)) {
