@@ -36,8 +36,8 @@ if ($_COOKIE["AURSID"]) {
             
             # Solves the problem when you try to submit PKGBUILD
             # that have the name with a period like (gstreamer0.10)
-            # Added by: dsa <dsandrade@gmail.com>
-            $presult = preg_match("/^[a-z0-9][a-z0-9\._-]*$/", $pkg_name);
+            # Added support for packages with + characters like (mysql++).
+            $presult = preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name);
             
             if ($presult == FALSE || $presult <= 0) {
 				# FALSE => error processing regex, 0 => invalid characters
