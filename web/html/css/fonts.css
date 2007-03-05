@@ -58,6 +58,13 @@
 		font-family:		verdana;
 		font-size:			12px;
 	}
+	span.warning /* Content Text */
+	{
+		color:				#C0C000;
+		font-family:		verdana;
+		font-size:			12px;
+	}
+	
 
 /* Font Attribute Change (#6c83b0)*/
 	span.blue
