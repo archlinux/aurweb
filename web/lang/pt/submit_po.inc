@@ -91,4 +91,9 @@ $_t["pt"]["Could not re-tar"] = "Não foi possível recompactar";
 
 $_t["pt"]["Binary packages and filelists are not allowed for upload."] = "Pacotes binários e filelists não são permitidos para envio.";
 
+$_t["pt"]["Missing arch variable in PKGBUILD."] = "Variável arch não encontrada no arquivo PKGBUILD.";
+
+$_t["pt"]["Missing license variable in PKGBUILD."] = "Variável license não encontrada no arquivo PKGBUILD.";
+
+
 ?>

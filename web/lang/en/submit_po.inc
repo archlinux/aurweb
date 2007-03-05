@@ -91,4 +91,10 @@ $_t["en"]["Could not re-tar"] = "Could not re-tar";
 
 $_t["en"]["Binary packages and filelists are not allowed for upload."] = "Binary packages and filelists are not allowed for upload.";
 
+$_t["en"]["Missing arch variable in PKGBUILD."] = "Missing arch variable in PKGBUILD.";
+
+$_t["en"]["Missing license variable in PKGBUILD."] = "Missing license variable in PKGBUILD.";
+
+
+
 ?>

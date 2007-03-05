@@ -89,4 +89,8 @@ $_t["pt"]["Packages added or updated in the past 7 days"] = "Pacotes adicionados
 
 $_t["pt"]["Out-of-date"] = "Desatualizados";
 
+$_t["pt"]["My Statistics"] = "Minhas Estatísticas";
+
+$_t["pt"]["Flagged as safe by me"] = "Pacotes que marquei como seguros";
+
 ?>

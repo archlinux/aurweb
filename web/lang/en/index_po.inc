@@ -67,6 +67,10 @@ $_t["en"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Sta
 
 $_t["en"]["Statistics"] = "Statistics";
 
+$_t["en"]["My Statistics"] = "My Statistics";
+
+$_t["en"]["Flagged as safe by me"] = "Flagged as safe by me";
+
 $_t["en"]["User Statistics"] = "User Statistics";
 
 $_t["en"]["Registered Users"] = "Registered Users";
