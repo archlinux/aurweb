@@ -21,6 +21,8 @@ if ($_COOKIE["AURSID"]) {
 	if ($DBUG) {
 		print "</center><pre>\n";
 		print_r($_REQUEST);
+        print "<br>";
+        print_r($_FILES);
 		print "</pre><center>\n";
 	}
 
@@ -79,20 +81,14 @@ if ($_COOKIE["AURSID"]) {
 		#
 		if ($_FILES['pfile']['size'] == 0){
 			$error = __("Error - No file uploaded");
-			}
+		}
 
 		if (!$error) {
 			# no errors checking upload permissions, go ahead and try to process
 			# the uploaded package file.
 			#
 
-            # Added the .tgz because the old line just moved the tmp file to
-            # pkgname, but there is a problem below when it try to create the
-            # directory with the same name - pkgname. In linux/unix, if we
-            # touch a file like "touch foo" and then try to create a foo dir
-            # like "mkdir foo" it will give us a error. That was what happening in
-            # newer installations of AUR.
-			$upload_file = $UPLOAD_DIR . $pkg_name . ".tgz";
+            $upload_file = $UPLOAD_DIR . $_FILES["pfile"]["name"];
             
             if (move_uploaded_file($_FILES["pfile"]["tmp_name"], $upload_file)) {
 				# ok, we can proceed
@@ -114,7 +110,8 @@ if ($_COOKIE["AURSID"]) {
 		# its contents.
 		#
 		if (!$error) {
-			if (!@mkdir($INCOMING_DIR.$pkg_name)) {
+			
+            if (!@mkdir($INCOMING_DIR.$pkg_name)) {
 				$error = __("Could not create incoming directory: %s.",
 						array($INCOMING_DIR.$pkg_name));
 			} else {
@@ -124,11 +121,11 @@ if ($_COOKIE["AURSID"]) {
 				} else {
 					# try .gz first
 					#
-					@exec("/bin/sh -c 'tar xzf ".$upload_file."'", $trash, $retval);
+					exec("/bin/sh -c 'tar xzf ".$upload_file."'", $trash, $retval);
 					if (!$retval) {
 						# now try .bz2 format
 						#
-						@exec("/bin/sh -c 'tar xjf ".$upload_file."'", $trash, $retval);
+						exec("/bin/sh -c 'tar xjf ".$upload_file."'", $trash, $retval);
 					}
 					if (!$retval) {
 						$error = __("Unknown file format for uploaded file.");
@@ -162,7 +159,7 @@ if ($_COOKIE["AURSID"]) {
 					$error = __("Could not create directory %s.",
 							array($INCOMING_DIR.$pkg_name."/".$pkg_name));
 				} else {
-					@exec("/bin/sh -c 'mv * ".$pkg_name."'");
+					exec("/bin/sh -c 'mv * ".$pkg_name."'");
 					if (!file_exists($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
 						$error = __("Error exec'ing the mv command.");
 					}
@@ -286,7 +283,7 @@ if ($_COOKIE["AURSID"]) {
 			# variable has a value.	This does not do any validity checking
 			# on the values, or attempts to fix line continuation/wrapping.
 			#
-			if (!$seen_build_function) {
+            if (!$seen_build_function) {
 				$error = __("Missing build function in PKGBUILD.");
 			}
 			if (!array_key_exists("md5sums", $pkgbuild)) {
@@ -301,12 +298,18 @@ if ($_COOKIE["AURSID"]) {
 			if (!array_key_exists("pkgdesc", $pkgbuild)) {
 				$error = __("Missing pkgdesc variable in PKGBUILD.");
 			}
+            if (!array_key_exists("license", $pkgbuild)) {
+                $error = __("Missing license variable in PKGBUILD.");
+            }            
 			if (!array_key_exists("pkgrel", $pkgbuild)) {
 				$error = __("Missing pkgrel variable in PKGBUILD.");
 			}
 			if (!array_key_exists("pkgver", $pkgbuild)) {
 				$error = __("Missing pkgver variable in PKGBUILD.");
 			}
+            if (!array_key_exists("arch", $pkgbuild)) {
+                $error = __("Missing arch variable in PKGBUILD.");
+            }
 			if (!array_key_exists("pkgname", $pkgbuild)) {
 				$error = __("Missing pkgname variable in PKGBUILD.");
 			} else {
@@ -562,6 +565,12 @@ if ($_COOKIE["AURSID"]) {
 				print "<span class='error'>".$error."</span><br />\n";
 				print "<br />&nbsp;<br />\n";
 			}
+            
+            if ($warning) {
+                print "<br><span class='error'>".$warning."</span><br />\n";
+                print "<br />&nbsp;<br />\n";
+            }
+            
 			$pkg_categories = pkgCategories();
 			$pkg_locations = pkgLocations();
 
@@ -643,6 +652,11 @@ if ($_COOKIE["AURSID"]) {
 		}
 	} else {
 		print __("Package upload successful.");
+        
+        if ($warning) {
+            print "<span class='warning'>".$warning."</span><br />\n";
+            print "<br />&nbsp;<br />\n";
+        }
 	}
 
 } else {
