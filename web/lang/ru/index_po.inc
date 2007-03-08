@@ -61,4 +61,10 @@ $_t["ru"]["Out-of-date"] = "Устарел";
 
 $_t["ru"]["User Statistics"] = "Статистика пользователя";
 
+$_t["ru"]["Flagged as safe by me"] = "Отмечено мной как безопасный";
+
+$_t["ru"]["Flagged as safe"] = "Отмечено как безопасный";
+
+$_t["ru"]["My Statistics"] = "Моя статистика";
+
 ?>

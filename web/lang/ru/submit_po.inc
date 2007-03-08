@@ -85,4 +85,8 @@ $_t["ru"]["You must supply a comment for this upload/change."] = "Вы долж�
 
 $_t["ru"]["Yes"] = "Да";
 
+$_t["ru"]["Missing license variable in PKGBUILD."] = "Не указана лицензия в PKGBUILD";
+
+$_t["ru"]["Missing arch variable in PKGBUILD."] = "Не указана архитектура в PKGBUILD";
+
 ?>
