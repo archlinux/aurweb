@@ -133,7 +133,7 @@ $_t["it"]["Descending"] = "Discendente";
 
 $_t["it"]["Search by"] = "Cerca per";
 
-$_t["it"]["Submitter"] = "Presentatore";
+$_t["it"]["Submitter"] = "Contributore";
 
 $_t["it"]["Leave the password fields blank to keep your same password."] = "Lasciare vuoti i campi relativi alla password per mantenerla invariata.";
 
