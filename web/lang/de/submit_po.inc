@@ -85,4 +85,8 @@ $_t["de"]["You must supply a comment for this upload/change."] = "Du muÃŸt die Ã
 
 $_t["de"]["Yes"] = "Ja";
 
+$_t["de"]["Missing license variable in PKGBUILD."] = "Lizenz-Variable in PKGBUILD fehlt.";
+
+$_t["de"]["Missing arch variable in PKGBUILD."] = "Arch-Variable in PKGBUILD fehlt.";
+
 ?>

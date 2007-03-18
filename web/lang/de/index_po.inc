@@ -61,4 +61,10 @@ $_t["de"]["Out-of-date"] = "Veraltet";
 
 $_t["de"]["User Statistics"] = "Benutzerstatistiken";
 
+$_t["de"]["Flagged as safe by me"] = "Von mir als sicher markiert";
+
+$_t["de"]["Flagged as safe"] = "Als sicher markiert";
+
+$_t["de"]["My Statistics"] = "Meine Statistiken";
+
 ?>
