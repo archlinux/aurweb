@@ -52,4 +52,8 @@ $_t["pl"]["Could not re-tar"] = "Przepakowanie pakietu nie powiodło się.";
 
 $_t["pl"]["Binary packages and filelists are not allowed for upload."] = "Nie można wysyłać pakietów binarnych i plików filelist.";
 
+$_t["pl"]["Missing license variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej license.";
+
+$_t["pl"]["Missing arch variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej arch.";
+
 ?>
