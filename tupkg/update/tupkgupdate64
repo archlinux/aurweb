@@ -162,7 +162,7 @@ class PackageDatabase:
     # PackageSources
     for source in package.sources:
       q.execute("INSERT INTO PackageSources (PackageID, Source) " + 
-        "VALUES (" + str(id) + ", '" + source + "')")
+        "VALUES (" + str(id) + ", '" + MySQLdb.escape_string(source) + "')")
     # PackageDepends
     for dep in package.depends:
       depid = self.lookupOrDummy(dep)
@@ -305,22 +305,23 @@ def runGensync(repo, pkgbuild):
   command = "gensync '" + pkgbuild + "' '" + target + "'"
   return execute(command)
 
-def runUpdatesyncUpd(repo, pkgbuild):
+def runRepoAdd(repo, package):
 	global havefakeroot
 	targetDB = os.path.join(repo, "community.db.tar.gz")
+	destfile = os.path.join(repo, os.path.basename(package.new.file))
 	if havefakeroot:
-		command = "fakeroot updatesync upd '" + targetDB + "' '" + pkgbuild + "' '" + repo +"'"
+		command = "fakeroot repo-add '" + targetDB + "' '" + destfile + "'"
 	else:
-		command = "updatesync upd '" + targetDB + "' '" + pkgbuild + "' '" + repo +"'"
+		command = "repo-add '" + targetDB + "' '" + destfile + "'"
 	return execute(command)
 
-def runUpdatesyncDel(repo, pkgname):
+def runRepoRemove(repo, pkgname):
 	global havefakeroot
 	targetDB = os.path.join(repo, "community.db.tar.gz")
 	if havefakeroot:
-		command = "fakeroot updatesync del '" + targetDB + "' '" + pkgname +"'"
+		command = "fakeroot repo-remove '" + targetDB + "' '"+ pkgname + "'"
 	else:
-		command = "updatesync del '" + targetDB + "' '" + pkgname +"'"
+		command = "repo-remove '" + targetDB + "' '" + pkgname +"'"
 	return execute(command)
 
 ############################################################
@@ -570,14 +571,14 @@ if (switches.get("--delete") == True):
 
 # Run updatesync where it is needed
 for package in dbremove:
-	retval = runUpdatesyncDel(repo_dir, package.name)
+	retval = runRepoRemove(repo_dir, package.name)
 	if (retval != 0):
-		error("Updatesync del returned an error!")
+		error("repo-remove returned an error!")
 		sys.exit(-1)
 for package in dbmodify:
-	retval = runUpdatesyncUpd(repo_dir, os.path.join(pkgbuild_dir,package.category,package.name,"PKGBUILD"))
+	retval = runRepoAdd(repo_dir, package)
 	if (retval != 0):
-		error("Updatesync upd returned an error!")
+		error("repo-add returned an error!")
 		sys.exit(-1)
 
 # vim: ft=python ts=2 sw=2 noet
