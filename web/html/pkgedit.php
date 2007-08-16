@@ -73,7 +73,7 @@ if ($_REQUEST["add_Comment"]) {
 		$q = "INSERT INTO PackageComments ";
 		$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
 		$q.= intval($_REQUEST["ID"]).", ".uid_from_sid($_COOKIE["AURSID"]) . ", ";
-		$q.= "'".mysql_escape_string($_REQUEST["comment"])."', ";
+		$q.= "'".mysql_real_escape_string($_REQUEST["comment"])."', ";
 		$q.= "UNIX_TIMESTAMP())";
 		db_query($q, $dbh);
 		print __("Comment has been added.")."<br />&nbsp;<br />\n";

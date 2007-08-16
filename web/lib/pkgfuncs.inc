@@ -125,7 +125,7 @@ function package_exists($name="") {
 	if (!$name) {return NULL;}
 	$dbh = db_connect();
 	$q = "SELECT ID FROM Packages ";
-	$q.= "WHERE Name = '".mysql_escape_string($name)."' ";
+	$q.= "WHERE Name = '".mysql_real_escape_string($name)."' ";
 	$q.= "AND DummyPkg = 0";
 	$result = db_query($q, $dbh);
 	if (!$result) {return NULL;}
@@ -141,7 +141,7 @@ function package_dependencies($pkgid=0) {
 		$dbh = db_connect();
 		$q = "SELECT DepPkgID, Name, DummyPkg, DepCondition FROM PackageDepends, Packages ";
 		$q.= "WHERE PackageDepends.DepPkgID = Packages.ID ";
-		$q.= "AND PackageDepends.PackageID = ".mysql_escape_string($pkgid);
+		$q.= "AND PackageDepends.PackageID = ".mysql_real_escape_string($pkgid);
 		$q.= " ORDER BY Name";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
@@ -161,14 +161,14 @@ function create_dummy($pname="", $sid="") {
 		if (!$uid) {return NULL;}
 		$dbh = db_connect();
 		$q = "SELECT ID FROM Packages WHERE Name = '";
-		$q.= mysql_escape_string($pname)."'";
+		$q.= mysql_real_escape_string($pname)."'";
 		$result = db_query($q, $dbh);
 		if (!mysql_num_rows($result)) {
 			# Insert the dummy
 			#
 			$q = "INSERT INTO Packages (Name, Description, URL, SubmittedTS, ";
 			$q.= "SubmitterUID, DummyPkg) VALUES ('";
-			$q.= mysql_escape_string($pname)."', 'A dummy package', '/#', ";
+			$q.= mysql_real_escape_string($pname)."', 'A dummy package', '/#', ";
 			$q.= "UNIX_TIMESTAMP(), ".$uid.", 1)";
 			$result = db_query($q, $dbh);
 			if (!$result) {
@@ -193,7 +193,7 @@ function package_comments($pkgid=0) {
 		$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, CommentTS ";
 		$q.= "FROM PackageComments, Users ";
 		$q.= "WHERE PackageComments.UsersID = Users.ID";
-		$q.= " AND PackageID = ".mysql_escape_string($pkgid);
+		$q.= " AND PackageID = ".mysql_real_escape_string($pkgid);
 		$q.= " AND DelUsersID = 0"; # only display non-deleted comments
 		$q.= " ORDER BY CommentTS DESC";
 		$result = db_query($q, $dbh);
@@ -212,7 +212,7 @@ function package_sources($pkgid=0) {
 	if ($pkgid) {
 		$dbh = db_connect();
 		$q = "SELECT Source FROM PackageSources ";
-		$q.= "WHERE PackageID = ".mysql_escape_string($pkgid);
+		$q.= "WHERE PackageID = ".mysql_real_escape_string($pkgid);
 		$q.= " ORDER BY Source";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
@@ -234,7 +234,7 @@ function pkgvotes_from_sid($sid="") {
 	$q.= "FROM PackageVotes, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND Users.ID = PackageVotes.UsersID ";
-	$q.= "AND Sessions.SessionID = '".mysql_escape_string($sid)."'";
+	$q.= "AND Sessions.SessionID = '".mysql_real_escape_string($sid)."'";
 	$result = db_query($q, $dbh);
 	if ($result) {
 		while ($row = mysql_fetch_row($result)) {
@@ -901,10 +901,10 @@ function pkg_search_page($SID="") {
 		#search by maintainer
 		if ($_REQUEST["SeB"] == "m"){
 			if (!$has_where) {
-				$q.= "WHERE Username = '".mysql_escape_string($K)."' ";
+				$q.= "WHERE Username = '".mysql_real_escape_string($K)."' ";
 				$has_where = 1;
 			} else {
-				$q.= "AND Username = '".mysql_escape_string($K)."' ";
+				$q.= "AND Username = '".mysql_real_escape_string($K)."' ";
 			}
         } elseif ($_REQUEST["SeB"] == "s") {
 			if (!$has_where) {
@@ -916,12 +916,12 @@ function pkg_search_page($SID="") {
 		# the default behaivior, query the name/description
 		} else {
 			if (!$has_where) {
-				$q.= "WHERE (Name LIKE '%".mysql_escape_string($K)."%' OR ";
-				$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
+				$q.= "WHERE (Name LIKE '%".mysql_real_escape_string($K)."%' OR ";
+				$q.= "Description LIKE '%".mysql_real_escape_string($K)."%') ";
 				$has_where = 1;
 			} else {
-				$q.= "AND (Name LIKE '%".mysql_escape_string($K)."%' OR ";
-				$q.= "Description LIKE '%".mysql_escape_string($K)."%') ";
+				$q.= "AND (Name LIKE '%".mysql_real_escape_string($K)."%' OR ";
+				$q.= "Description LIKE '%".mysql_real_escape_string($K)."%') ";
 			}
 		}
 	}

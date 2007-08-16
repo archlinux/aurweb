@@ -93,7 +93,7 @@ function check_sid() {
 		#
 		$dbh = db_connect();
 		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
-		$q.= "WHERE SessionID = '" . mysql_escape_string($_COOKIE["AURSID"]) . "'";
+		$q.= "WHERE SessionID = '" . mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
 		$result = db_query($q, $dbh);
 		if (!$result) {
 			# Invalid SessionID - hacker alert!
@@ -118,7 +118,7 @@ function check_sid() {
 			# the main page where they can log in again.
 			#
 			$q = "DELETE FROM Sessions WHERE SessionID = '";
-			$q.= mysql_escape_string($_COOKIE["AURSID"]) . "'";
+			$q.= mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
 			db_query($q, $dbh);
 
 			setcookie("AURSID", "", time() - (60*60*24*30), "/");
@@ -129,7 +129,7 @@ function check_sid() {
 			# and update the idle timestamp
 			#
 			$q = "UPDATE Sessions SET LastUpdateTS = UNIX_TIMESTAMP() ";
-			$q.= "WHERE SessionID = '".mysql_escape_string($_COOKIE["AURSID"])."'";
+			$q.= "WHERE SessionID = '".mysql_real_escape_string($_COOKIE["AURSID"])."'";
 			db_query($q, $dbh);
 		}
 	}
@@ -172,7 +172,7 @@ function username_from_id($id="") {
 		return "";
 	}
 	$dbh = db_connect();
-	$q = "SELECT Username FROM Users WHERE ID = " . mysql_escape_string($id);
+	$q = "SELECT Username FROM Users WHERE ID = " . mysql_real_escape_string($id);
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		return "None";
@@ -193,7 +193,7 @@ function username_from_sid($sid="") {
 	$q = "SELECT Username ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
+	$q.= "AND Sessions.SessionID = '" . mysql_real_escape_string($sid) . "'";
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		return "";
@@ -213,7 +213,7 @@ function email_from_sid($sid="") {
 	$q = "SELECT Email ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
+	$q.= "AND Sessions.SessionID = '" . mysql_real_escape_string($sid) . "'";
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		return "";
@@ -235,7 +235,7 @@ function account_from_sid($sid="") {
 	$q.= "FROM Users, AccountTypes, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND AccountTypes.ID = Users.AccountTypeID ";
-	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
+	$q.= "AND Sessions.SessionID = '" . mysql_real_escape_string($sid) . "'";
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		return "";
@@ -255,7 +255,7 @@ function uid_from_sid($sid="") {
 	$q = "SELECT Users.ID ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND Sessions.SessionID = '" . mysql_escape_string($sid) . "'";
+	$q.= "AND Sessions.SessionID = '" . mysql_real_escape_string($sid) . "'";
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		return 0;
@@ -329,7 +329,7 @@ function set_lang() {
 		$q = "SELECT LangPreference FROM Users, Sessions ";
 		$q.= "WHERE Users.ID = Sessions.UsersID ";
 		$q.= "AND Sessions.SessionID = '";
-		$q.= mysql_escape_string($_COOKIE["AURSID"])."'";
+		$q.= mysql_real_escape_string($_COOKIE["AURSID"])."'";
 		$result = db_query($q, $dbh);
 		if (!$result) {
 			$LANG = "en";
@@ -491,7 +491,7 @@ function can_overwrite_pkg($name="", $sid="") {
 	if (!$name || !$sid) {return 0;}
 	$dbh = db_connect();
 	$q = "SELECT SubmitterUID, MaintainerUID, AURMaintainerUID ";
-	$q.= "FROM Packages WHERE Name = '".mysql_escape_string($name)."'";
+	$q.= "FROM Packages WHERE Name = '".mysql_real_escape_string($name)."'";
 	$result = db_query($q, $dbh);
 	if (!$result) {return 0;}
 	$row = mysql_fetch_row($result);
@@ -561,7 +561,7 @@ function uid_from_username($username="")
 		return "";
 	}
 	$dbh = db_connect();
-	$q = "SELECT ID FROM Users WHERE Username = '".mysql_escape_string($username)
+	$q = "SELECT ID FROM Users WHERE Username = '".mysql_real_escape_string($username)
 				."'";
 	$result = db_query($q, $dbh);
 	if (!$result) {
