@@ -1,4 +1,4 @@
-<?
+<?php
 # INSTRUCTIONS TO TRANSLATORS
 #
 # This file contains the i18n translations for a subset of the

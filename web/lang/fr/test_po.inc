@@ -1,4 +1,4 @@
-<?
+<?php
 # French (Français) translation
 # Translator: Morgan LEFIEUX <comete@archlinuxfr.org>
 

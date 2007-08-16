@@ -1,4 +1,4 @@
-<?
+<?php
 # Italian (Italiano) translation
 # Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
 

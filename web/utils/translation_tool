@@ -23,7 +23,7 @@ if len(trans_abbrv) != 2:
 
 
 INC_HEADER = """\
-<?
+<?php
 # %s (%s) translation
 # Translator: %s <%s>
 

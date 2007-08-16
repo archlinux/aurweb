@@ -1,4 +1,4 @@
-<?
+<?php
 # this include file provides support for i18n
 #
 
