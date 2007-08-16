@@ -14,10 +14,10 @@ $login_error = "";
 if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 	# Attempting to log in
 	#
-	if (!isset($_REQUEST['user'])) {
+	if (!isset($_REQUEST["user"])) {
 		$login_error = __("You must supply a username.");
 	}
-	if (!isset($_REQUEST['pass'])) {
+	if (!isset($_REQUEST["pass"])) {
 		$login_error = __("You must supply a password.");
 	}
 	if (!$login_error) {
@@ -33,12 +33,12 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 		$result = db_query($q, $dbh);
 		if (!$result) {
 			$login_error = __("Error looking up username, %s.",
-						array($_REQUEST["user"]));
+						array(htmlspecialchars($_REQUEST["user"])));
 		} else {
 			$row = mysql_fetch_row($result);
 			if (empty($row)) {
 				$login_error = __("Incorrect password for username, %s.",
-						array($_REQUEST["user"]));
+						array(htmlspecialchars($_REQUEST["user"])));
 			} elseif ($row[1]) {
 				$login_error = __("Your account has been suspended.");
 			}
@@ -223,12 +223,12 @@ $safe_count = $row[0];
 $user = username_from_sid($_COOKIE["AURSID"]);
 
 if (!empty($user)) {
-    $q = "SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported' AND Users.Username='$user'";
+    $q = "SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported' AND Users.Username='".mysql_real_escape_string($user)."'";
     $result = db_query($q, $dbh);
     $row = mysql_fetch_row($result);
     $maintainer_unsupported_count = $row[0];
     
-    $q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDate = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='$user'";
+    $q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDate = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='".mysql_real_escape_string($user)."'";
     $result = db_query($q, $dbh);
     $row = mysql_fetch_row($result);
     $flagged_outdated = $row[0];
@@ -253,7 +253,7 @@ if (!empty($user)) {
     $atype = account_from_sid($_COOKIE["AURSID"]);
     
     if ($atype == 'Trusted User') {    
-        $q = "SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'community' AND Users.Username='$user'";
+        $q = "SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'community' AND Users.Username='".mysql_real_escape_string($user)."'";
         $result = db_query($q, $dbh);
         $row = mysql_fetch_row($result);
         $maintainer_community_count = $row[0];
@@ -278,7 +278,7 @@ if (!empty($user)) {
     print "<tr>";
     print "<td class='boxSoft'>";
     if ($atype == 'Trusted User') {
-	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.VerifiedBy = Users.ID AND Users.Username='$user'";
+	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.VerifiedBy = Users.ID AND Users.Username='".mysql_real_escape_string($user)."'";
 	$result = db_query($q, $dbh);
 	$row = mysql_fetch_row($result);
 	$flagged_safe = $row[0];
@@ -287,7 +287,7 @@ if (!empty($user)) {
     }
     else
     {
-	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='$user'";
+	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='".mysql_real_escape_string($user)."'";
 	$result = db_query($q, $dbh);
 	$row = mysql_fetch_row($result);
 	$flagged_safe = $row[0];
