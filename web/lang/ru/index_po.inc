@@ -7,7 +7,7 @@ global $_t;
 
 $_t["ru"]["Statistics"] = "Статистика";
 
-$_t["ru"]["Remember to vote for your favourite packages!"] = "Не забывайте голосвать за полюбившиеся вам пакеты!";
+$_t["ru"]["Remember to vote for your favourite packages!"] = "Не забывайте голосовать за полюбившиеся вам пакеты!";
 
 $_t["ru"]["Error looking up username, %s."] = "Ошибка поиска имени пользователя, %s.";
 
