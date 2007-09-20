@@ -1,4 +1,4 @@
-<?
+<?php
 # Polish (Polski) translation
 # Translator: Jaroslaw Swierczynski <swiergot@gmail.com>
 

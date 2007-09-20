@@ -1,4 +1,4 @@
-<?
+<?php
 # Catalan (Català) translation
 # Translator: Sergio Jovani Guzman <moret.sjg@gmail.com>
 

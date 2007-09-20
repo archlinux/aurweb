@@ -1,4 +1,4 @@
-<?
+<?php
 # Spanish (Español) translation
 # Translator: Víctor Martínez Romanos <vmromanos@gmail.com>
 

@@ -1,4 +1,4 @@
-<?
+<?php
 # Russian (Русский) translation
 # Translator: Sergej Pupykin <ps@lx-ltd.ru>
 
