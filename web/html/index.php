@@ -28,8 +28,8 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 		$_REQUEST["pass"] = md5($_REQUEST["pass"]);
 		$dbh = db_connect();
 		$q = "SELECT ID, Suspended FROM Users ";
-		$q.= "WHERE Username = '" . mysql_escape_string($_REQUEST["user"]) . "' ";
-		$q.= "AND Passwd = '" . mysql_escape_string($_REQUEST["pass"]) . "'";
+		$q.= "WHERE Username = '" . mysql_real_escape_string($_REQUEST["user"]) . "' ";
+		$q.= "AND Passwd = '" . mysql_real_escape_string($_REQUEST["pass"]) . "'";
 		$result = db_query($q, $dbh);
 		if (!$result) {
 			$login_error = __("Error looking up username, %s.",

@@ -106,7 +106,7 @@ if (isset($_COOKIE["AURSID"])) {
 			$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
 			$q.= "AND Users.ID = Sessions.UsersID ";
 			$q.= "AND Sessions.SessionID = '";
-			$q.= mysql_escape_string($_COOKIE["AURSID"])."'";
+			$q.= mysql_real_escape_string($_COOKIE["AURSID"])."'";
 			$result = db_query($q, $dbh);
 			if (!mysql_num_rows($result)) {
 				print __("Could not retrieve information for the specified user.");

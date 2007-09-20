@@ -374,7 +374,7 @@ if ($_COOKIE["AURSID"]) {
 			# purged.
 			#
 			$q = "SELECT * FROM Packages ";
-			$q.= "WHERE Name = '".mysql_escape_string($new_pkgbuild['pkgname'])."'";
+			$q.= "WHERE Name = '".mysql_real_escape_string($new_pkgbuild['pkgname'])."'";
 			$result = db_query($q, $dbh);
 			$pdata = mysql_fetch_assoc($result);
 
@@ -402,13 +402,13 @@ if ($_COOKIE["AURSID"]) {
 				} else {
 					$q.="ModifiedTS = UNIX_TIMESTAMP(), ";
 				}
-				$q.="Name='".mysql_escape_string($new_pkgbuild['pkgname'])."', ";
-				$q.="Version='".mysql_escape_string($new_pkgbuild['pkgver'])."-".
-				  mysql_escape_string($new_pkgbuild['pkgrel'])."',";
-				$q.="CategoryID=".mysql_escape_string($_REQUEST['category']).", ";
-                $q.="License='".mysql_escape_string($new_pkgbuild['license'])."', ";
-                $q.="Description='".mysql_escape_string($new_pkgbuild['pkgdesc'])."', ";
-				$q.="URL='".mysql_escape_string($new_pkgbuild['url'])."', ";
+				$q.="Name='".mysql_real_escape_string($new_pkgbuild['pkgname'])."', ";
+				$q.="Version='".mysql_real_escape_string($new_pkgbuild['pkgver'])."-".
+				  mysql_real_escape_string($new_pkgbuild['pkgrel'])."',";
+				$q.="CategoryID=".mysql_real_escape_string($_REQUEST['category']).", ";
+                $q.="License='".mysql_real_escape_string($new_pkgbuild['license'])."', ";
+                $q.="Description='".mysql_real_escape_string($new_pkgbuild['pkgdesc'])."', ";
+				$q.="URL='".mysql_real_escape_string($new_pkgbuild['url'])."', ";
 				$q.="LocationID=2, ";
 				if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User" || account_from_sid($_COOKIE["AURSID"]) == "Developer") {
 					$q.="Safe=1, VerifiedBy=".uid_from_sid($_COOKIE["AURSID"]).", ";
@@ -416,9 +416,9 @@ if ($_COOKIE["AURSID"]) {
 					$q.="Safe=0, ";
 				}
 				$fspath=$INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
-				$q.="FSPath='".mysql_escape_string($fspath)."', ";
+				$q.="FSPath='".mysql_real_escape_string($fspath)."', ";
 				$urlpath=$URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
-				$q.="URLPath='".mysql_escape_string($urlpath)."' ";
+				$q.="URLPath='".mysql_real_escape_string($urlpath)."' ";
 				$q.="WHERE ID = " . $pdata["ID"];
 				$result = db_query($q, $dbh);
 
@@ -461,7 +461,7 @@ if ($_COOKIE["AURSID"]) {
 				$sources = explode(" ", $new_pkgbuild['source']);
 				while (list($k, $v) = each($sources)) {
 					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-					$q .= $pdata["ID"].", '".mysql_escape_string($v)."')";
+					$q .= $pdata["ID"].", '".mysql_real_escape_string($v)."')";
 					db_query($q, $dbh);
 				}
 
@@ -470,7 +470,7 @@ if ($_COOKIE["AURSID"]) {
 				$q = "INSERT INTO PackageComments ";
 				$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
 				$q.= $pdata["ID"] . ", " . uid_from_sid($_COOKIE['AURSID']);
-				$q.= ", '" . mysql_escape_string($_REQUEST["comments"]);
+				$q.= ", '" . mysql_real_escape_string($_REQUEST["comments"]);
 				$q.= "', UNIX_TIMESTAMP())";
 				db_query($q);
 
@@ -484,13 +484,13 @@ if ($_COOKIE["AURSID"]) {
 				}
 				$q.= " SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) ";
 				$q.= "VALUES ('";
-				$q.= mysql_escape_string($new_pkgbuild['pkgname'])."', '";
-                $q.= mysql_escape_string($new_pkgbuild['license'])."', '";
-				$q.= mysql_escape_string($new_pkgbuild['pkgver'])."-".
-				  mysql_escape_string($new_pkgbuild['pkgrel'])."', ";
-				$q.= mysql_escape_string($_REQUEST['category']).", '";
-				$q.= mysql_escape_string($new_pkgbuild['pkgdesc'])."', '";
-				$q.= mysql_escape_string($new_pkgbuild['url']);
+				$q.= mysql_real_escape_string($new_pkgbuild['pkgname'])."', '";
+                $q.= mysql_real_escape_string($new_pkgbuild['license'])."', '";
+				$q.= mysql_real_escape_string($new_pkgbuild['pkgver'])."-".
+				  mysql_real_escape_string($new_pkgbuild['pkgrel'])."', ";
+				$q.= mysql_real_escape_string($_REQUEST['category']).", '";
+				$q.= mysql_real_escape_string($new_pkgbuild['pkgdesc'])."', '";
+				$q.= mysql_real_escape_string($new_pkgbuild['url']);
 				$q.= "', 2, ";
 				if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User" || account_from_sid($_COOKIE["AURSID"]) == "Developer") {
 					$q.= "1, ".uid_from_sid($_COOKIE["AURSID"]).", ";
@@ -499,9 +499,9 @@ if ($_COOKIE["AURSID"]) {
 				$q.= uid_from_sid($_COOKIE["AURSID"]).", ";
 				$q.= uid_from_sid($_COOKIE["AURSID"]).", '";
 				$fspath=$INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
-				$q.= mysql_escape_string($fspath)."', '";
+				$q.= mysql_real_escape_string($fspath)."', '";
 				$urlpath=$URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
-				$q.= mysql_escape_string($urlpath)."')";
+				$q.= mysql_real_escape_string($urlpath)."')";
 				$result = db_query($q, $dbh);
 #				print $result . "<br>";
 
@@ -539,7 +539,7 @@ if ($_COOKIE["AURSID"]) {
 				$sources = explode(" ", $new_pkgbuild['source']);
 				while (list($k, $v) = each($sources)) {
 					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-					$q .= $packageID.", '".mysql_escape_string($v)."')";
+					$q .= $packageID.", '".mysql_real_escape_string($v)."')";
 					db_query($q, $dbh);
 				}
 
@@ -548,7 +548,7 @@ if ($_COOKIE["AURSID"]) {
 				$q = "INSERT INTO PackageComments ";
 				$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
 				$q.= $packageID . ", " . uid_from_sid($_COOKIE["AURSID"]) . ", '";
-				$q.= mysql_escape_string($_REQUEST["comments"]);
+				$q.= mysql_real_escape_string($_REQUEST["comments"]);
 				$q.= "', UNIX_TIMESTAMP())";
 				db_query($q, $dbh);
 			}

@@ -206,7 +206,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		# NOTE: a race condition exists here if we care...
 		#
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
-		$q.= "WHERE Username = '".mysql_escape_string($U)."'";
+		$q.= "WHERE Username = '".mysql_real_escape_string($U)."'";
 		if ($TYPE == "edit") {
 			$q.= " AND ID != ".intval($UID);
 		}
@@ -224,7 +224,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		# NOTE: a race condition exists here if we care...
 		#
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
-		$q.= "WHERE Email = '".mysql_escape_string($E)."'";
+		$q.= "WHERE Email = '".mysql_real_escape_string($E)."'";
 		if ($TYPE == "edit") {
 			$q.= " AND ID != ".intval($UID);
 		}
@@ -250,12 +250,12 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$P = md5($P);
 			$q = "INSERT INTO Users (AccountTypeID, Suspended, Username, Email, ";
 			$q.= "Passwd, RealName, LangPreference, IRCNick, NewPkgNotify) ";
-			$q.= "VALUES (1, 0, '".mysql_escape_string($U)."'";
-			$q.= ", '".mysql_escape_string($E)."'";
-			$q.= ", '".mysql_escape_string($P)."'";
-			$q.= ", '".mysql_escape_string($R)."'";
-			$q.= ", '".mysql_escape_string($L)."'";
-			$q.= ", '".mysql_escape_string($I)."'";
+			$q.= "VALUES (1, 0, '".mysql_real_escape_string($U)."'";
+			$q.= ", '".mysql_real_escape_string($E)."'";
+			$q.= ", '".mysql_real_escape_string($P)."'";
+			$q.= ", '".mysql_real_escape_string($R)."'";
+			$q.= ", '".mysql_real_escape_string($L)."'";
+			$q.= ", '".mysql_real_escape_string($I)."'";
 			if ($N) {
 				$q.= ", 1)";
 			} else {
@@ -281,7 +281,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 
 			#md5 hash the password
 			$q = "UPDATE Users SET ";
-			$q.= "Username = '".mysql_escape_string($U)."'";
+			$q.= "Username = '".mysql_real_escape_string($U)."'";
 			if ($T) {
 				$q.= ", AccountTypeID = ".intval($T);
 			}
@@ -290,13 +290,13 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			} else {
 				$q.= ", Suspended = 0";
 			}
-			$q.= ", Email = '".mysql_escape_string($E)."'";
+			$q.= ", Email = '".mysql_real_escape_string($E)."'";
 			if ($P) {
-				$q.= ", Passwd = '".mysql_escape_string(md5($P))."'";
+				$q.= ", Passwd = '".mysql_real_escape_string(md5($P))."'";
 			}
-			$q.= ", RealName = '".mysql_escape_string($R)."'";
-			$q.= ", LangPreference = '".mysql_escape_string($L)."'";
-			$q.= ", IRCNick = '".mysql_escape_string($I)."'";
+			$q.= ", RealName = '".mysql_real_escape_string($R)."'";
+			$q.= ", LangPreference = '".mysql_real_escape_string($L)."'";
+			$q.= ", IRCNick = '".mysql_real_escape_string($I)."'";
 			$q.= ", NewPkgNotify = ";
 			if ($N) {
 				$q.= "1 ";
@@ -435,19 +435,19 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		$search_vars[] = "S";
 	}
 	if ($U) {
-		$q.= "AND Username LIKE '%".mysql_escape_string($U)."%' ";
+		$q.= "AND Username LIKE '%".mysql_real_escape_string($U)."%' ";
 		$search_vars[] = "U";
 	}
 	if ($E) {
-		$q.= "AND Email LIKE '%".mysql_escape_string($E)."%' ";
+		$q.= "AND Email LIKE '%".mysql_real_escape_string($E)."%' ";
 		$search_vars[] = "E";
 	}
 	if ($R) {
-		$q.= "AND RealName LIKE '%".mysql_escape_string($R)."%' ";
+		$q.= "AND RealName LIKE '%".mysql_real_escape_string($R)."%' ";
 		$search_vars[] = "R";
 	}
 	if ($I) {
-		$q.= "AND IRCNick LIKE '%".mysql_escape_string($I)."%' ";
+		$q.= "AND IRCNick LIKE '%".mysql_real_escape_string($I)."%' ";
 		$search_vars[] = "I";
 	}
 	switch ($SB) {
