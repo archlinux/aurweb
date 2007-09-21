@@ -40,21 +40,25 @@ Setup on ArchLinux:
    # mysql -uroot
 
  - Issue the following commands to the mysql client
-   mysql> create database AUR;
-   mysql> grant all privileges on AUR.* to aur@localhost
+   mysql> create database aur;
+   mysql> grant all privileges on aur.* to aur@localhost
         > identified by 'aur';
    mysql> flush privileges;
    mysql> quit
 
  - Load the schema file
-   # mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
+   # mysql -uaur -p aur < ~/aur/support/schema/aur-schema.sql
    (give password 'aur' at the prompt)
 
  - Optionally load some test data for development purposes.
    # bzcat ~/aur/support/schema/dummy-data.sql.bz2 | mysql -uaur -p AUR
    (give password 'aur' at the prompt)
 
-7) Point your browser to http://aur
+7) Copy the config.inc.proto file to config.inc. Modify as needed.
+   cd ~/aur/web/lib/
+   cp config.inc.profo config.inc
+
+8) Point your browser to http://aur
 
 
 Web Interface:
