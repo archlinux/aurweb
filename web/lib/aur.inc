@@ -359,100 +359,77 @@ function html_header() {
 	global $_SERVER;
 	global $_COOKIE;
 	global $LANG;
-	print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"";
-	print " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
-	print "<html xmlns=\"http://www.w3.org/1999/xhtml\"";
-	print " xml:lang=\"".$LANG."\" lang=\"".$LANG."\">\n";
-	print "<head>\n";
-	print "<title>AUR (".$LANG.")</title>\n";
-	print "<link rel='stylesheet' type='text/css' href='/css/fonts.css'/>\n";
-	print "<link rel='stylesheet' type='text/css' href='/css/containers.css'/>\n";
-	print "<link rel='shortcut icon' href='/images/favicon.ico'/>\n";
-	print "<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='/rss2.php' />\n";
-	print "<meta http-equiv=\"Content-Type\"";
-	print " content=\"text/html; charset=UTF-8\" />\n";
-	print "</head>\n";
-	print "<body bgcolor='white'>\n";
-	print "<table cellspacing='0' ";
-	print "style='background-color: #000; width: 100%;'>\n";
-	print "    <tr>\n";
-	print "        <td class='preHeader'><span class='preHeader'>";
-	print __("%s: %sAn ArchLinux project%s", array("AUR", "<a href=\"http://www.archlinux.org\">", "</a>"));
-	print "</span></td>\n";
-	print "    </tr>\n";
-	print "    <tr>\n";
-	print "        <td class='headerFill'>\n";
-	print "            <table width='100%'>\n";
-	print "            <tr>\n";
-	print "                <td class='headerDisplay'><a href='/index.php'>";
+	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"";
+	echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+	echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"";
+	echo " xml:lang=\"".$LANG."\" lang=\"".$LANG."\">\n";
+	echo "<head>\n";
+	echo "<title>AUR (".$LANG.")</title>\n";
+	echo "<link rel='stylesheet' type='text/css' href='/css/fonts.css'/>\n";
+	echo "<link rel='stylesheet' type='text/css' href='/css/containers.css'/>\n";
+	echo "<link rel='stylesheet' type='text/css' href='/css/arch.css'/>\n";
+	echo "<link rel='shortcut icon' href='/images/favicon.ico'/>\n";
+	echo "<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='/rss2.php' />\n";
+	echo "<meta http-equiv=\"Content-Type\"";
+	echo " content=\"text/html; charset=UTF-8\" />\n";
+   echo "</head>\n";
+   echo "<body bgcolor='white'>\n";
+   echo <<<END1
+<div id="head_container">
+   <div id="title">
+      <div id="logo"><a href="/"><img src="/images/logo.png" alt="Arch Logo" /></a></div>
+      <div id="titleimg"><a href="/"><img src="/images/title.png" alt="Arch Linux" /></a></div>
+   </div>
+   <div style="float: right; color: #eeeeee; font-size: small">
+   </div>
+   <div id="main_nav">
+      <ul>
+         <li><a href="http://www.archlinux.org/download/">Get Arch</a></li>
+         <li class="selected"><a href="http://aur.archlinux.org">AUR</a></li>
+         <li><a href="http://bugs.archlinux.org">Bugs</a></li>
+         <li><a href="http://wiki.archlinux.org">Wiki</a></li>
+         <li><a href="http://bbs.archlinux.org">Forums</a></li>
+         <li><a href="http://www.archlinux.org">Home</a></li>
+      </ul>
+   </div>
+   <div id="sub_nav">
+      <ul>
 
-	# XXX Can I scale a PNG like this?
-	#
-	print "<img src='/images/AUR-logo-80.png' width='85' height='45' ";
-	print "alt='AUR' border='0' /></a></td>\n";
-	print "                <td class='headerDisplay' valign='top' align='right'>";
-	print "<span class='preHeader'>ArchLinux User-community Repository</span><br />";
-
-	# XXX CSS help - a:link, a:visited, etc are defined, but I don't want to
-	# use the defaults.  Is this the way to override them?
-	#
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=en'><span class='sideBarSmallHeader'>English</span></a> ";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=pl'><span class='sideBarSmallHeader'>Polski</span></a> ";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=it'><span class='sideBarSmallHeader'>Italiano</span></a> ";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=ca'><span class='sideBarSmallHeader'>Català</span></a> ";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=pt'><span class='sideBarSmallHeader'>Português</span></a> ";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=es'><span class='sideBarSmallHeader'>Español</span></a> ";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=de'><span class='sideBarSmallHeader'>Deutsch</span></a> ";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=fr'><span class='sideBarSmallHeader'>Français</span></a>";
-	print "<a href='".$_SERVER["PHP_SELF"]."?setlang=ru'><span class='sideBarSmallHeader'>Русский</span></a>";
-	print "                </td>\n";
-	print "            </tr>\n";
-	print "            </table>\n";
-	print "        </td>\n";
-	print "    </tr>\n";
-
-	# Menu items
-	#
-	print "    <tr>\n";
-	print "        <td class='mainLinks' align='center'>";
-	print "              <span class='f2'><span class='black'>.:</span>";
-	print "            <a href='/index.php'>".__("Home")."</a> ";
-	print "              <span class='black'> - </span> ";
-	print "            <a href='/account.php'>".__("Accounts")."</a> ";
-	print "               <span class='black'> - </span> ";
-	print "            <a href='/packages.php'>".__("Packages")."</a> ";
+END1;
 	if ($_COOKIE["AURSID"]) {
-		# Only display these items if the visitor is logged in.  This should
-		# be a safe check because check_sid() has been called prior to
-		# html_header().
-		#
-		print "               <span class='black'> - </span> ";
-		print "            <a href='/pkgsubmit.php'>".__("Submit")."</a> ";
+      # This is a usability change, so we can go to My Packages page
+      # with just one click
+      # Added by: dsa <dsandrade@gmail.com>
+      echo '        <li><a href="/logout.php">'.__("Logout")."</a></li>\n";
+      echo '        <li><a href="/pkgsubmit.php">'.__("Submit")."</a></li>\n";
+      echo '        <li><a href="/packages.php?do_MyPackages=1">'.__("My Packages")."</a></li>\n";
 	}
-	print "               <span class='black'> - </span> ";
-	print "            <a href='http://bugs.archlinux.org/index.php?tasks=all&project=2'>".__("Bugs")."</a> ";
-	print "               <span class='black'> - </span> ";
-	print "            <a href='http://www.archlinux.org/mailman/listinfo/tur-users'>".__("Discussion")."</a> ";
-	if ($_COOKIE["AURSID"]) {
-        # This is a usability change, so we can go to My Packages page
-        # with just one click
-        # Added by: dsa <dsandrade@gmail.com>
-        print "               <span class='black'> - </span> ";
-        print "            <a href='/packages.php?do_MyPackages=1'>".__("My Packages")."</a> ";        
-    
-		print "               <span class='black'> - </span> ";
-		print "            <a href='/logout.php'>".__("Logout")."</a> ";
-	}
-	print "                <span class='black'>:.</span></span>";
-	print "        </td>";
-	print "    </tr>";
-	print "    <tr>\n";
-	print "        <td class='contentDisplay'>\n";
-	print "        &nbsp;<br />\n";
-	print "<!-- Start of main content -->\n\n";
-
-	return;
+   echo '        <li><a href="http://www.archlinux.org/mailman/listinfo/tur-users/">'.__("Discussion")."</a></li>\n";
+   echo '        <li><a href="http://bugs.archlinux.org/index.php?tasks=all&project=2">'.__("Bugs")."</a></li>\n";
+   echo '        <li><a href="/packages.php">'.__("Packages")."</a></li>\n";
+   echo '        <li><a href="/account.php">'.__("Accounts")."</a></li>\n";
+   echo '        <li><a href="/index.php">AUR-'.__("Home")."</a></li>\n";
+   echo "     </ul>\n";
+   echo "   </div>\n";
+   echo '   <div id="lang_sub">'."\n";
+   echo "      <ul>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=ru' title='Русский'>RU</a></li>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=fr' title='Français'>FR</a></li>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=de' title='Deutsch'>DE</a></li>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=es' title='Español'>ES</a></li>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=pt' title='Português'>PT</a></li>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=ca' title='Català'>CA</a></li>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=it' title='Italiano'>IT</a></li>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=pl' title='Polski'>PL</a></li>\n";
+   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=en' title='English'>EN</a></li>\n";
+   echo "         <li>Lang: </li>\n";
+   echo "      </ul>\n";
+   echo "   </div>\n";
+   echo "</div>\n";
+   echo "<div id=\"maincontent\">\n";
+   echo "<!-- Start of main content -->\n\n";
+   return;
 }
 
 
@@ -461,9 +438,6 @@ function html_header() {
 function html_footer($ver="") {
 	print "\n\n<!-- End of main content -->\n";
 	print "        <br />\n";
-	print "        </td>\n";
-	print "    </tr>\n";
-	print "</table>\n";
 	if ($ver) {
 		print "<p>\n";
 		print "<table border='0' cellpadding='0' cellspacing='0' width='97%'>\n";
@@ -471,7 +445,7 @@ function html_footer($ver="") {
 		print "</table>\n";
 		print "</p>\n";
 	}
-	print "<br />\n";
+	print "</div>\n";
 	print "</body>\n</html>";
 	return;
 }

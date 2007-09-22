@@ -268,36 +268,19 @@ function package_details($id=0, $SID="") {
 		} else {
 
 			# print out package details
-			#
-			print "<br />\n";
-			print "<center>\n";
-			print "<table cellspacing='3' class='boxSoft'>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoftTitle' align='right'>";
-			print "<span class='f3'>".__("Package Details")."</span></td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoft'>\n";
-			print "<center>\n";
-			print "<table>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><span class='f2'>";
-			print $row["Name"] . " " . $row["Version"]."</span></td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
-			print "<a href='".$row["URL"]."'>".$row["URL"]."</a></span></td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><span class='f3'>".$row["Description"];
-			print "</a></span></td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td>";
-			print "</tr>\n";
-
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
+            #
+            echo "<div class=\"pkgbox\">\n";
+            echo "  <div class=\"pkgboxtitle\"><span class=\"f3\">".__("Package Details")."</span></div>\n";
+            echo "  <div class=\"pkgboxbody\">\n";
+			echo "    <table>\n";
+			echo "      <tr><td class='boxSoft' colspan='2'><span class='f2'>";
+			echo $row["Name"] . " " . $row["Version"]."</span></td></tr>\n";
+			echo "      <tr><td class='boxSoft' colspan='2'><span class='f3'>";
+			echo "<a href='".$row["URL"]."'>".$row["URL"]."</a></span></td></tr>\n";
+			echo "      <tr><td class='boxSoft' colspan='2'><span class='f3'>".$row["Description"];
+			echo "</a></span></td></tr>\n";
+			echo "      <tr><td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td></tr>\n";
+			echo "      <tr><td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["Location"] == "unsupported" and ( 
 					uid_from_sid($SID) == $row["MaintainerUID"] or
 					(account_from_sid($SID) == "Developer" or
@@ -309,87 +292,65 @@ function package_details($id=0, $SID="") {
 			} else {
 				$edit_cat = $row["Category"];
 			}
-			print $row["Location"]." :: ".$edit_cat."</span></td>";
-
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><span class='f3'>".__("Maintainer").": ";
+			echo $row["Location"]." :: ".$edit_cat."</span></td></tr>\n";
+			echo "        <tr><td class='boxSoft' colspan='2'><span class='f3'>".__("Maintainer").": ";
 			if ($row["MaintainerUID"]) {
 				$maintainer = username_from_id($row["MaintainerUID"]);
 				if ($SID) {
-					print "<a href='/account.php?Action=AccountInfo&ID=";
-					print $row["MaintainerUID"] . "'>";
-					print $maintainer . "</a></span></td>";
+					echo "<a href='/account.php?Action=AccountInfo&ID=";
+					echo $row["MaintainerUID"] . "'>";
+					echo $maintainer . "</a></span></td>";
 				} else {
-					print $maintainer . "</span></td>";
+					echo $maintainer . "</span></td>";
 				}
 			} else {
 				$maintainer = "None";
-				print $maintainer . "</span></td>";
+				echo $maintainer . "</span></td>";
 			}
-			print "</tr>\n";
-			
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><span class='f3'>".__("Votes").": ";
-			print $row["NumVotes"] . "</span></td>";
-			print "</tr>\n";
+			echo "      </tr>\n";
+			echo "      <tr><td class='boxSoft' colspan='2'><span class='f3'>".__("Votes").": ";
+			echo $row["NumVotes"] . "</span></td></tr>\n";
             
             # In case of wanting to put a custom message
             $msg = __("unknown");
             $license = $row["License"] == "" ? $msg : $row["License"];
             
-            print "<tr>\n";
-            print "  <td class='boxSoft' colspan='2'><br><span class='f3'>".__("License").": ".$license;
-            print "</a></span></td>\n";
-            print "</tr>\n";            
-
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td>";
-			print "</tr>\n";
+            echo "      <tr><td class='boxSoft' colspan='2'><br><span class='f3'>".__("License").": ".$license;
+            echo "</a></span></td></tr>\n";            
+			echo "      <tr><td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td></tr>\n";
 
 			# Print the timestamps for last updates
 			$updated_time = ($row["ModifiedTS"] == 0) ? "(unknown)" : gmdate("r", intval($row["ModifiedTS"]));
 			$submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval($row["SubmittedTS"]));
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'>";
-			print "<span class='f3'>";
-			print __("Last Updated").": ".$updated_time."<br>";
-			print __("First Submitted").": ".$submitted_time;
-			print "</span>";
-			print "</td>\n";
-			print "</tr>\n";
-
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td>";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
+			echo "      <tr><td class='boxSoft' colspan='2'><span class='f3'>";
+			echo __("Last Updated").": ".$updated_time."<br>";
+			echo __("First Submitted").": ".$submitted_time."</span></td></tr>\n";
+			echo "      <tr><td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='15'></td></tr>\n";
+			echo "      <tr><td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["LocationID"] == 2) {
 				global $URL_DIR;
 				$urlpath = $URL_DIR.$row["Name"]."/".$row["Name"];
-				print "<a href='$urlpath.tar.gz'>".__("Tarball")."</a> :: <a href='$urlpath'>".__("Files")."</a> :: <a href='$urlpath/PKGBUILD'>PKGBUILD</a></span></td>";
+				echo "<a href='$urlpath.tar.gz'>".__("Tarball")."</a> :: <a href='$urlpath'>".__("Files")."</a> :: <a href='$urlpath/PKGBUILD'>PKGBUILD</a></span></td>";
 			} elseif ($row["LocationID"] == 3) {
-			  print "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
+			  echo "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
 			}
-			print "</tr>\n";
+			echo "</tr>\n";
 			if ($row["LocationID"] == 2) {
-			  print "<tr>\n";
-			  print "  <td colspan='2'>";
+			  echo "      <tr><td colspan='2'>";
 			  if ($row["Safe"]) {
-			    print "<span class='f7'>".__("The above files have been verified (by %s) and are safe to use.", array(username_from_id($row["VerifiedBy"])))."</span></td>";
+			    echo "<span class='f7'>".__("The above files have been verified (by %s) and are safe to use.", array(username_from_id($row["VerifiedBy"])))."</span></td>";
 			  } else {
-			    print "<span class='f6'>".__("Be careful! The above files may contain malicious code that can damage your system.")."</span></td>";
-			  }
+			    echo "<span class='f6'>".__("Be careful! The above files may contain malicious code that can damage your system.")."</span></td>";
+              }
+              echo "      </tr>\n";
 			}
-			print "<tr>\n";
-			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td>";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td valign='top' style='padding-right: 10'>";
-			print "<table class='boxSoft' style='width: 200px'>";
-			print "<tr><td class='boxSoftTitle'><span class='f3'>";
-			print __("Dependencies")."</span></td></tr>\n";
-			print "<tr><td class='boxSoft'>";
+			echo "      <tr><td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td></tr>\n";
+            echo "      <tr>\n";
+            echo "        <td valign='top' style='padding-right: 10'>\n";
+			echo "          <table class='boxSoft' style='width: 200px'>\n";
+			echo "            <tr><td class='boxSoftTitle'><span class='f3'>";
+			echo __("Dependencies")."</span></td></tr>\n";
+			echo "            <tr><td class='boxSoft'>";
 			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name', 'dummy');
 			while (list($k, $darr) = each($deps)) {
 				$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
@@ -404,196 +365,179 @@ function package_details($id=0, $SID="") {
                                                
                 // $darr[3] is the DepCondition                                               
                                                
-				if ($darr[2] == 0) print $url."'>".$darr[1].$darr[3]."</a><br />\n";
-				else print "<a href='#'>".$darr[1].$darr[3]."</a><br />\n";
+				if ($darr[2] == 0) echo $url."'>".$darr[1].$darr[3]."</a><br />\n";
+				else echo "<a href='#'>".$darr[1].$darr[3]."</a><br />\n";
 			}
-			print "</td></tr>\n";
-			print "</table></td>";
-
-			print "  <td valign='top'>";
-			print "<table class='boxSoft' style='width: 200px'>";
-			print "<tr><td class='boxSoftTitle'><span class='f3'>";
-			print __("Sources")."</span></td></tr>\n";
-			print "<tr><td class='boxSoft'>";
+            echo "</td></tr>\n";
+            echo "          </table>\n";
+            echo "        </td>\n";
+			echo "        <td valign='top'>\n";
+			echo "          <table class='boxSoft' style='width: 200px'>\n";
+			echo "            <tr><td class='boxSoftTitle'><span class='f3'>";
+			echo __("Sources")."</span></td></tr>\n";
+			echo "            <tr><td class='boxSoft'>";
 			$sources = package_sources($row["ID"]); # $sources[0] = 'src';
 			while (list($k, $src) = each($sources)) {
 				$parsed_url = parse_url($src);
 				if ($parsed_url['scheme'])
 				{
 					//It is an external source
-					print "<a href='".$src."'>".$src."</a><br />\n";
+					echo "<a href='".$src."'>".$src."</a><br />\n";
 				}
 				else 
 				{
 					//It is presumably an internal source
 					if ($row["LocationID"] == 2) {
-						print "<a href='".dirname($row['URLPath'])."/".$row['Name'];
-						print "/".$src."'>".$src."</a><br />\n";
+						echo "<a href='".dirname($row['URLPath'])."/".$row['Name'];
+						echo "/".$src."'>".$src."</a><br />\n";
 					} elseif ($row["LocationID"] == 3) {
-						print "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/*checkout*/".$row["Category"]."/".$row["Name"]."/".$src."/?rev=HEAD&cvsroot=AUR&only_with_tag=CURRENT'>";
-						print $src."</a><br />\n";
+						echo "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/*checkout*/".$row["Category"]."/".$row["Name"]."/".$src."/?rev=HEAD&cvsroot=AUR&only_with_tag=CURRENT'>";
+						echo $src."</a><br />\n";
 					}
 				}
 			}
-			print "</td></tr>\n";
-			print "</table></td>";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td colspan='2'><img src='/images/pad.gif' height='2'>";
-			print "</td></tr>\n";
-			print "</table>\n";
-			print "</center>\n";
-			print "  </td>\n";
-			print "</tr>\n";
+			echo "</td></tr>\n";
+            echo "          </table>\n";
+            echo "        </td>\n";
+			echo "      </tr>\n";
+			echo "    </table>\n";
+            echo "  </div>\n";
+            echo "</div>\n\n";
+            echo "<br />\n\n";
 
-			print "</table><br />\n";
 
 			# Actions Bar
 			#
 			if ($SID) {
-				print "<table cellspacing='3' class='boxSoft'>\n";
-				print "<tr><td class='boxSoftTitle' align='right'><span class='f3'>".__("Actions")."</span></td></tr>\n";
-				print "<tr>\n";
-				print "<td class='boxSoft'><form action='/packages.php' method='post'>\n";
-				print "<input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
-				print "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+                echo "<div class=\"pkgbox\">\n";
+                echo "  <div class=\"pkgboxtitle\"><span class=\"f3\">".__("Actions")."</span></div>\n";
+                echo "  <div class=\"pkgboxbody\">\n";
+                echo "    <form action='/packages.php' method='post'>\n";
+				echo "      <input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
+				echo "      <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
 				# Voting Button
 				#
 				$q = "SELECT * FROM PackageVotes WHERE UsersID = ".uid_from_sid($SID);
 				$q.= " AND PackageID = ".$row["ID"];
 				if (!mysql_num_rows(db_query($q, $dbh))) {
-					print "<input type='submit' class='button' name='do_Vote'";
-					print " value='".__("Vote")."'>";
+					echo "      <input type='submit' class='button' name='do_Vote'";
+					echo " value='".__("Vote")."'>";
 				} else {
-					print "<input type='submit' class='button' name='do_UnVote'";
-					print " value='".__("Un-Vote")."'>";
+					echo "<input type='submit' class='button' name='do_UnVote'";
+					echo " value='".__("Un-Vote")."'>";
 				}
 				# Comment Nofify Button
 				#
 				$q = "SELECT * FROM CommentNotify WHERE UserID = ".uid_from_sid($SID);
 				$q.= " AND PkgID = ".$row["ID"];
 				if (!mysql_num_rows(db_query($q, $dbh))) {
-					print "<input type='submit' class='button' name='do_Notify'";
-					print " value='".__("Notify")."' title='".__("New Comment Notification")."'>";
+					echo "<input type='submit' class='button' name='do_Notify'";
+					echo " value='".__("Notify")."' title='".__("New Comment Notification")."'>";
 				} else {
-					print "<input type='submit' class='button' name='do_UnNotify'";
-					print " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'>";
+					echo "<input type='submit' class='button' name='do_UnNotify'";
+					echo " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'>";
 				}
 				# Flag Safe Button
 				#
-				if ($row["LocationID"] == 2 && (account_from_sid($SID) == "Trusted User" || account_from_sid($SID) == "Developer"))
-				{
-					if ($row["Safe"] == 0)
-					{
-						print "<input type='submit' class='button' name='do_FlagSafe'";
-						print " value='".__("Flag Safe")."' title='".__("Flag Package Safe To Use")."'>";
+				if ($row["LocationID"] == 2 && (account_from_sid($SID) == "Trusted User" || account_from_sid($SID) == "Developer")) {
+					if ($row["Safe"] == 0) {
+						echo "<input type='submit' class='button' name='do_FlagSafe'";
+						echo " value='".__("Flag Safe")."' title='".__("Flag Package Safe To Use")."'>";
+					} else {
+						echo "<input type='submit' class='button' name='do_UnFlagSafe'";
+						echo " value='".__("Unflag Safe")."' title='".__("Unflag Package Safe To Use")."'>";
 					}
-					else
-					{
-						print "<input type='submit' class='button' name='do_UnFlagSafe'";
-						print " value='".__("Unflag Safe")."' title='".__("Unflag Package Safe To Use")."'>";
-					}
+                }
+
+                if ($row["OutOfDate"] == 0) {
+                    echo "<input type='submit' class='button' name='do_Flag'";
+                    echo " value='".__("Flag Out-of-date")."'>\n";
+                } else {
+                    echo "<input type='submit' class='button' name='do_UnFlag'";
+                    echo " value='".__("Unflag Out-of-date")."'>\n";
 				}
-					if ($row["OutOfDate"] == 0)
-					{
-						print "<input type='submit' class='button' name='do_Flag'";
-						print "	value='".__("Flag Out-of-date")."'>\n";
-					}
-					else
-					{
-						print "<input type='submit' class='button' name='do_UnFlag'";
-						print "	value='".__("Unflag Out-of-date")."'>\n";
-					}
 					
-					if ($row["AURMaintainerUID"] == 0 && $row["MaintainerUID"] == 0)
-					{
-						print "<input type='submit' class='button' name='do_Adopt'";
-						print "	value='".__("Adopt Packages")."'>\n";
-					}
+                if ($row["AURMaintainerUID"] == 0 && $row["MaintainerUID"] == 0) {
+                    echo "<input type='submit' class='button' name='do_Adopt'";
+                    echo " value='".__("Adopt Packages")."'>\n";
+                }
 					
-					if ($row["MaintainerUID"] == uid_from_sid($SID))
-					{
-						print "<input type='submit' class='button' name='do_Disown'";
-						print "	value='".__("Disown Packages")."'>\n";
-					}	
+				if ($row["MaintainerUID"] == uid_from_sid($SID)) {
+					echo "<input type='submit' class='button' name='do_Disown'";
+					echo " value='".__("Disown Packages")."'>\n";
+				}	
 					
-					if ($row["MaintainerUID"] == uid_from_sid($SID) ||
-					    account_from_sid($SID) == "Trusted User" ||
-					    account_from_sid($SID) == "Developer")
-					{
-						print "<input type='submit' class='button' name='do_Delete'";
-						print "	value='".__("Delete Packages")."'>\n";
-					}
+				if ($row["MaintainerUID"] == uid_from_sid($SID) ||
+				    account_from_sid($SID) == "Trusted User" ||
+				    account_from_sid($SID) == "Developer") {
+					echo "<input type='submit' class='button' name='do_Delete'";
+					echo " value='".__("Delete Packages")."'>\n";
+				}
 						
-				print "</form></td></tr>\n";				
-				print "</table><br />\n";
+                echo "    </form>\n";
+                echo "  </div>\n";
+                echo "</div>\n";
+                echo "\n<br />\n\n";
 			}
 			
 			# Comments
 			#
-			print "<table cellspacing='3' class='boxSoft'>\n";
-			print "<tr><td class='boxSoftTitle' align='right'><span class='f3'>".__("Comments")."</span></td></tr>\n";
-			print "<tr>\n";
-			print "<td class='boxSoft'>";	
-
-			print "<table width='100%'>\n";
+            echo "<div class=\"pkgbox\">\n";
+            echo "  <div class=\"pkgboxtitle\"><span class=\"f3\">".__("Comments")."</span></div>\n";
+            echo "  <div class=\"pkgboxbody-comment\">\n";
+			echo "    <table width='100%'>\n";
 			$comments = package_comments($row["ID"]);
 			if (!empty($comments)) {
 				while (list($indx, $carr) = each($comments)) {
-					print "<tr>\n";
-					print "  <td class='boxSoft' colspan='2'>";
-					print "<img src='/images/pad.gif' height='2'></td></tr>\n";
 
-					print "<tr>\n";
-					print "  <td valign='top' style='padding-right: 10' colspan='2'>";
-					print "<table class='boxSoft' width='100%'>";
-					print "<tr><td class='boxSoftTitle'><span class='f3'>";
+					echo "      <tr>\n";
+					echo "        <td valign='top' style='padding-right: 10' colspan='2'>\n";
+					echo "          <table class='boxSoft' width='100%'>\n";
+                    echo "            <tr>\n";
+                    echo "              <td class='boxSoftTitle'><span class='f3'>";
 					if (canDeleteComment($carr["ID"], account_from_sid($SID), $SID)) {
 						$durl = "<a href='/pkgedit.php?del_Comment=1";
 						$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
 						$durl.= "'><img src='/images/x.png' border='0'";
 						$durl.= " alt=\"".__("Delete comment")."\"></a>";
 
-					  print $durl . "&nbsp;&nbsp;";
+					  echo $durl . "&nbsp;&nbsp;";
 					}
 					if ($SID) {
-						print __("Comment by: %h%s%h on %h%s%h",
+						echo __("Comment by: %h%s%h on %h%s%h",
 							array("<a href='/account.php?Action=AccountInfo&ID=".$carr["UsersID"]."'><b>",$carr["UserName"],"</b></a>",
 							      "<i>",gmdate("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
 					} else {
-						print __("Comment by: %h%s%h on %h%s%h",
+						echo __("Comment by: %h%s%h on %h%s%h",
 							array("<b>",$carr["UserName"],"</b>",
 							      "<i>",gmdate("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
 					}
-					print "</span>";
-					print "<tr><td class='boxSoft'>";
-					print "<code>\n";
-					print str_replace("\n", "<br>", str_replace('"',"&quot;", htmlspecialchars(strip_tags(stripslashes($carr["Comments"])))));
-					print "</code>\n";
-					print "</td></tr>\n";
-					print "</table>\n";
-					print "  </td>\n";
-					print "</tr>\n";
+                    echo "</span></td>\n";
+                    echo "            </tr>\n";
+                    echo "            <tr>\n";
+                    echo "              <td class='boxSoft'>";
+					echo "<code>\n";
+					echo str_replace("\n", "<br>", str_replace('"',"&quot;", htmlspecialchars(strip_tags(stripslashes($carr["Comments"])))));
+                    echo "</code></td>\n";
+                    echo "            </tr>\n";
+					echo "          </table>\n";
+					echo "        </td>\n";
+					echo "      </tr>\n";
 				}
 			}
 
-			print "<tr>\n";
-			print "  <td colspan='2'><img src='/images/pad.gif' height='2'>";
-			print "</td></tr>\n";
-			print "<tr>\n";
-			print "  <td colspan='2'>";
-			print "<form action='/pkgedit.php' method='post'>\n";
-			print "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
-			print "<input type='submit' class='button' name='add_Comment' value=\"";
-			print __("Add Comment")."\">";
-			print "</form>\n";
-			print "  </td>";
-			print "</tr>\n";
-
-			print "</table>\n";
-
-			
-			print "</td></tr></table>\n";
+			echo "      <tr>\n";
+			echo "        <td colspan='2'>\n";
+			echo "          <form action='/pkgedit.php' method='post'>\n";
+			echo "            <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+			echo "            <input type='submit' class='button' name='add_Comment' value=\"";
+			echo __("Add Comment")."\">\n";
+			echo "          </form>\n";
+			echo "        </td>\n";
+			echo "      </tr>\n";
+			echo "    </table>\n";
+            echo "  </div>\n";
+            echo "</div>\n";
 			
 		}
 	}
