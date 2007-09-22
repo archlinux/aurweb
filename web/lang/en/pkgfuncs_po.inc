@@ -153,4 +153,6 @@ $_t["en"]["unknown"] = "unknown";
 
 $_t["en"]["Required by"] = "Required by";
 
+$_t["en"]["The above files have been verified (by %h%s%h) and are safe to use."] = "The above files have been verified (by %h%s%h) and are safe to use.";
+
 ?>

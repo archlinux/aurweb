@@ -395,7 +395,7 @@ function package_details($id=0, $SID="") {
 			  print "<tr>\n";
 			  print "  <td colspan='2'>";
 			  if ($row["Safe"]) {
-			    print "<span class='f7'>".__("The above files have been verified (by %s) and are safe to use.", array(username_from_id($row["VerifiedBy"])))."</span></td>";
+			    print "<span class='f7'>".__("The above files have been verified (by %h%s%h) and are safe to use.", array("<a href='/account.php?Action=AccountInfo&ID=".$row["VerifiedBy"]."'>", username_from_id($row["VerifiedBy"]), "</a>"))."</span></td>";
 			  } else {
 			    print "<span class='f6'>".__("Be careful! The above files may contain malicious code that can damage your system.")."</span></td>";
 			  }
