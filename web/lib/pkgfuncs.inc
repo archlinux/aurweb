@@ -152,6 +152,25 @@ function package_dependencies($pkgid=0) {
 	return $deps;
 }
 
+# reverse deps by tardo
+#
+function package_required($pkgid=0) {
+	$deps = array();
+	if ($pkgid) {
+		$dbh = db_connect();
+		$q = "SELECT PackageID, Name, DummyPkg from PackageDepends, Packages ";
+		$q.= "WHERE PackageDepends.PackageID = Packages.ID ";
+		$q.= "AND PackageDepends.DepPkgID = ";
+		$q.= mysql_real_escape_string($pkgid);
+		$result = db_query($q, $dbh);
+		if (!$result) {return array();}
+		while ($row = mysql_fetch_row($result)) {
+			$deps[] = $row;
+		}
+	}
+	return $deps;
+}
+
 # create a dummy package and return it's Packages.ID  if it already exists,
 # return the existing ID
 #
@@ -391,6 +410,32 @@ function package_details($id=0, $SID="") {
 			print __("Dependencies")."</span></td></tr>\n";
 			print "<tr><td class='boxSoft'>";
 			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name', 'dummy');
+			while (list($k, $darr) = each($deps)) {
+				$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
+				while(list($k, $var) = each($pkgsearch_vars)) {
+					if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
+						$url .= "&".$var."=1";
+					} else {
+						$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+					}
+				}
+				reset($pkgsearch_vars);
+                                               
+                // $darr[3] is the DepCondition                                               
+                                               
+				if ($darr[2] == 0) print $url."'>".$darr[1].$darr[3]."</a><br />\n";
+				else print "<a href='#'>".$darr[1].$darr[3]."</a><br />\n";
+			}
+			print "</td></tr>\n";
+			print "</table></td>";
+
+			# reverse-deps by tardo - could use some beautification
+			print "  <td valign='top'>";
+			print "<table class='boxSoft' style='width: 200px'>";
+			print "<tr><td class='boxSoftTitle'><span class='f3'>";
+			print __("Required by")."</span></td></tr>\n";
+			print "<tr><td class='boxSoft'>";
+			$deps = package_required($row["ID"]);
 			while (list($k, $darr) = each($deps)) {
 				$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
 				while(list($k, $var) = each($pkgsearch_vars)) {

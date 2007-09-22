@@ -151,4 +151,6 @@ $_t["en"]["License"] = "License";
 
 $_t["en"]["unknown"] = "unknown";
 
+$_t["en"]["Required by"] = "Required by";
+
 ?>
