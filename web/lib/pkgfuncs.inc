@@ -400,6 +400,10 @@ function package_details($id=0, $SID="") {
 			    print "<span class='f6'>".__("Be careful! The above files may contain malicious code that can damage your system.")."</span></td>";
 			  }
 			}
+			if ($row["OutOfDate"] == 1) {
+				print "\n<tr><td colspan='2'>";
+				print "<span class='f6'>".__("This package has been flagged out of date.")."</span></td></tr>";
+			}
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td>";
 			print "</tr>\n";

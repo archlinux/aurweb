@@ -155,4 +155,6 @@ $_t["en"]["Required by"] = "Required by";
 
 $_t["en"]["The above files have been verified (by %h%s%h) and are safe to use."] = "The above files have been verified (by %h%s%h) and are safe to use.";
 
+$_t["en"]["This package has been flagged out of date."] = "This package has been flagged out of date.";
+
 ?>
