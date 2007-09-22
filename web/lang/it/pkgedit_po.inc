@@ -9,7 +9,7 @@ $_t["it"]["Missing package ID."] = "Manca l'ID del pacchetto.";
 
 $_t["it"]["Invalid category ID."] = "ID della categoria non valido.";
 
-$_t["it"]["Enter your comment below."] = "Inserire un commento qui sotto.";
+$_t["it"]["Enter your comment below."] = "Inserisci un commento qui sotto.";
 
 $_t["it"]["You are not allowed to delete this comment."] = "Non è possibile cancellare questo commento.";
 
@@ -23,8 +23,8 @@ $_t["it"]["Comment has been deleted."] = "Il commento è stato cancellato.";
 
 $_t["it"]["You've found a bug if you see this...."] = "Se vedi questo, hai appena trovato un bug....";
 
-$_t["it"]["Comment has been added."] = "Il commento è stato aggiunto.";
+$_t["it"]["Comment has been added."] = "Il commento è stato inserito.";
 
-$_t["it"]["Select new category"] = "Selezionare una nuova categoria";
+$_t["it"]["Select new category"] = "Seleziona una nuova categoria";
 
 ?>
