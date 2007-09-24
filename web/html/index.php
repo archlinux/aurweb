@@ -79,19 +79,19 @@ if (isset($_REQUEST["user"]) || isset($_REQUEST["pass"])) {
 html_header();
 
 # Big Top Level Table (Table 1)
-print "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
-print "<tr>\n";
+echo "<div class=\"pgbox\">\n";
+echo "  <div class=\"pgboxtitle\"><span class=\"f3\">AUR-".__("Home")."</span></div>\n";
+echo "  <div class=\"frontpgboxbody\">\n";
+echo "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
+echo "<tr>\n";
 
 # MAIN: Top Left
 print "<td class='boxSoft' valign='top'>";
 
 print "<p>".__("Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.", array('<a href="http://wiki.archlinux.org/index.php/AUR_User_Guidelines">', '</a>', '<a href="http://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">', '</a>'))."<br>";
 print __("Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!", array('<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">', '</a>'))."</p>";
-#print "<p>".__("If you have feedback about the AUR, please leave it in %hFlyspray%h.", array('<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2">', '</a>'))."<br>";
-#print __("Email discussion about the AUR takes place on the %sTUR Users List%s.", array('<a href="http://www.archlinux.org/mailman/listinfo/tur-users">', '</a>'))."</p>";
 print "<p>".__("Remember to vote for your favourite packages!")."<br>";
 print __("The most popular packages will be provided as binary packages in [community].")."</p>";
-#print "<p>".__("Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.", array('<a href="http://wiki2.archlinux.org/index.php/Unofficial%20Repositories">', '</a>'))."</p>";
 
 # MAIN: Top Right
 print "</td>";
@@ -177,9 +177,6 @@ print "</td>";
 print "</tr>";
 print "</table>";
 # End Table 2
-
-#print "  <td>&nbsp;&nbsp;</td>";
-#print "  <td align='left' valign='top' nowrap>\n";
 
 # MAIN: Bottom Right
 print "</td>";
@@ -357,8 +354,10 @@ print "</table>";
 print "  </td>";
 print "</tr>\n";
 print "</table>\n";
+echo "</div>\n";
 # End Table 1
-
+echo "  </div>";
+echo "</div>";
 html_footer("<b>Version 1.3.1</b> \$Id$");
 # vim: ts=2 sw=2 noet ft=php
 ?>

@@ -410,7 +410,7 @@ textarea.vLargeTextField {
     margin-left: 5%;
     margin-right: 5%;
 }
-.pkgbox {
+.pgbox {
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
@@ -421,7 +421,17 @@ textarea.vLargeTextField {
     text-align: left;
     padding: 3px;
 }
-.pkgboxtitle {
+.frontpgboxbody {
+    padding: 10px;
+}
+.frontpgboxbody > table {
+    width: 100%;
+}
+.boxSoftTitle {
+    text-align: right;
+}
+
+.pgboxtitle {
     border-width: 2px;
     border-style: solid;
     border-color: #dddddd;
@@ -435,14 +445,14 @@ textarea.vLargeTextField {
     padding-bottom: 2px;
     padding-right: 10px;
 }
-.pkgboxbody, .pkgboxbody-comment {
+.pgboxbody, .pgboxbody-comment {
     padding: 10px;
 }
-.pkgboxbody input {
+.pgboxbody input {
     margin-right: 10px;
 }
 
-.pkgboxbody-comment > table {
+.pgboxbody-comment > table {
     border-collapse: separate;
     border-spacing: 0 15px;
 }

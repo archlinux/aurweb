@@ -13,6 +13,10 @@ html_header();              # print out the HTML header
 
 # Main page processing here
 #
+echo "<div class=\"pgbox\">\n";
+echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Accounts")."</span></div>\n";
+echo "  <div class=\"pgboxbody\">\n";
+
 if (isset($_COOKIE["AURSID"])) {
 	# visitor is logged in
 	#
@@ -147,6 +151,9 @@ if (isset($_COOKIE["AURSID"])) {
 		display_account_form("", "NewAccount");
 	}
 }
+
+echo "  </div>";
+echo "</div>";
 
 html_footer("\$Id$");
 # vim: ts=2 sw=2 noet ft=php

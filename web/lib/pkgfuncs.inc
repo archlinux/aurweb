@@ -269,9 +269,9 @@ function package_details($id=0, $SID="") {
 
 			# print out package details
             #
-            echo "<div class=\"pkgbox\">\n";
-            echo "  <div class=\"pkgboxtitle\"><span class=\"f3\">".__("Package Details")."</span></div>\n";
-            echo "  <div class=\"pkgboxbody\">\n";
+            echo "<div class=\"pgbox\">\n";
+            echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Package Details")."</span></div>\n";
+            echo "  <div class=\"pgboxbody\">\n";
 			echo "    <table>\n";
 			echo "      <tr><td class='boxSoft' colspan='2'><span class='f2'>";
 			echo $row["Name"] . " " . $row["Version"]."</span></td></tr>\n";
@@ -409,9 +409,9 @@ function package_details($id=0, $SID="") {
 			# Actions Bar
 			#
 			if ($SID) {
-                echo "<div class=\"pkgbox\">\n";
-                echo "  <div class=\"pkgboxtitle\"><span class=\"f3\">".__("Actions")."</span></div>\n";
-                echo "  <div class=\"pkgboxbody\">\n";
+                echo "<div class=\"pgbox\">\n";
+                echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Actions")."</span></div>\n";
+                echo "  <div class=\"pgboxbody\">\n";
                 echo "    <form action='/packages.php' method='post'>\n";
 				echo "      <input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
 				echo "      <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
@@ -482,9 +482,9 @@ function package_details($id=0, $SID="") {
 			
 			# Comments
 			#
-            echo "<div class=\"pkgbox\">\n";
-            echo "  <div class=\"pkgboxtitle\"><span class=\"f3\">".__("Comments")."</span></div>\n";
-            echo "  <div class=\"pkgboxbody-comment\">\n";
+            echo "<div class=\"pgbox\">\n";
+            echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Comments")."</span></div>\n";
+            echo "  <div class=\"pgboxbody-comment\">\n";
 			echo "    <table width='100%'>\n";
 			$comments = package_comments($row["ID"]);
 			if (!empty($comments)) {
