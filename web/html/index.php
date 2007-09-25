@@ -277,7 +277,7 @@ if (!empty($user)) {
     # Number of safe packages
     print "<tr>";
     print "<td class='boxSoft'>";
-    if ($atype == 'Trusted User') {
+    if ($atype == 'Trusted User' || $atype == 'Developer') {
 	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.VerifiedBy = Users.ID AND Users.Username='".mysql_real_escape_string($user)."'";
 	$result = db_query($q, $dbh);
 	$row = mysql_fetch_row($result);
