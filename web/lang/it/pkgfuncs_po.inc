@@ -163,4 +163,6 @@ $_t["it"]["All"] = "Tutti";
 
 $_t["it"]["Unsafe"] = "Non sicuri";
 
+$_t["it"]["Accounts"] = "Account";
+
 ?>

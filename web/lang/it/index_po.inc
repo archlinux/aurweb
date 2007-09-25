@@ -91,4 +91,6 @@ $_t["it"]["Flagged as safe"] = "Considerato sicuro";
 
 $_t["it"]["My Statistics"] = "Le mie statistiche";
 
+$_t["it"]["Home"] = "Inizio";
+
 ?>
