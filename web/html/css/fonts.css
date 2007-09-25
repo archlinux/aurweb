@@ -2,11 +2,10 @@
 	span /* Applicable by default in all fonts */
 	{
 		color:				#666;
-		font-family:		verdana, trebuchet ms, tahoma, luxi sans;
+		font-family:		Bitstream Vera Sans, Lucida Grande, Arial, sans-serif;
 	}
 	span.f1 /* Important */
 	{
-		font-family:		verdana;
 		font-size:			20px;
 		letter-spacing:		1px;
 	}
@@ -25,13 +24,11 @@
 	span.f4 /* Content Text */
 	{
 		color:				#444;
-		font-family:		verdana;
 		font-size:			12px;
 	}
 	span.f5 /* Content Small */
 	{
 		color:				#333;
-		font-family:		trebuchet ms, tahoma, verdana;
 		font-size:			11px;
 	}
 	span.f6 /* Red Message */
@@ -55,13 +52,11 @@
 	span.error /* Content Text */
 	{
 		color:				#900;
-		font-family:		verdana;
 		font-size:			12px;
 	}
 	span.warning /* Content Text */
 	{
 		color:				#C0C000;
-		font-family:		verdana;
 		font-size:			12px;
 	}
 	
@@ -95,7 +90,6 @@
 		color:				rgb( 201, 209, 226 );
 		font-weight:		bold;
 		font-size:			11px;
-		font-family:		tahoma, trebuchet ms, verdana;
 		padding-right:		8px;
 		word-spacing:		8px;
 	}
@@ -104,7 +98,6 @@
 		color:				#fff;
 		font-weight:		bold;
 		font-size:			11px;
-		font-family:		tahoma, trebuchet ms, verdana;
 		padding-right:		8px;
 	}
 

@@ -3,7 +3,6 @@
 		border:				0px;
 		margin:				0px;
 		padding:			0px;
-		font-family:		arial,verdana,tahoma;
 	}
 	
 /* Main Wrapper Data Format */
@@ -182,7 +181,6 @@
 	td.text
 	{
 		color:	#000;
-		font-family: verdana;
 		font-size: 12px;
 	}
 	th
@@ -198,7 +196,7 @@
 	input,textarea,select
 	{
 		background-color: rgb(108,131,176);
-		font-family: courier;
+		font-family: monospace;
 		font-size: 12px;
 		background-color: #ccc;
 		border: #000000 1px solid;
@@ -210,6 +208,5 @@
 		background-color: #fff;
 		color: rgb(108,131,176);
 		border: 1px dashed rgb(108,131,176);
-		font-family: trebuchet ms, tahoma, verdana;
 		font-size: 12px;
 	}
