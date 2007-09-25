@@ -31,7 +31,7 @@ $_t["en"]["Error retrieving package details."] = "Error retrieving package detai
 
 $_t["en"]["Description"] = "Description";
 
-$_t["en"]["My Packages"] = "My Packages";
+$_t["en"]["My Packages"] = "My Pkgs";
 
 $_t["en"]["Keywords"] = "Keywords";
 

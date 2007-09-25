@@ -9,7 +9,9 @@ include("config.inc");      # configuration file with dir locations
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
-print "<center>\n";
+echo "<div class=\"pgbox\">\n";
+echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Submit")."</span></div>\n";
+echo "  <div class=\"pgboxbody\">\n";
 
 # Debugging
 $DBUG = 0;
@@ -665,8 +667,8 @@ if ($_COOKIE["AURSID"]) {
 	print __("You must create an account before you can upload packages.");
 	print "<br />\n";
 }
-
-print "</center>\n";
+echo "  </div>\n";
+echo "</div>\n";
 html_footer("\$Id$");
 # vim: ts=2 sw=2 noet ft=php
 ?>

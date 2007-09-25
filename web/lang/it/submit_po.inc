@@ -21,7 +21,7 @@ $_t["it"]["You must create an account before you can upload packages."] = "Bisog
 
 $_t["it"]["Package upload successful."] = "Invio completato con successo.";
 
-$_t["it"]["Overwrite existing package?"] = "Sovrascrivere il pacchetto esistente?";
+$_t["it"]["Overwrite existing package?"] = "Sovrascrivi il pacchetto esistente?";
 
 $_t["it"]["You did not specify a package name."] = "Non è stato specificato un nome per il pacchetto.";
 
@@ -61,9 +61,9 @@ $_t["it"]["Error - No file uploaded"] = "Errore, nessun file inviato.";
 
 $_t["it"]["You are not allowed to overwrite the %h%s%h package."] = "Non si dispone dei permessi per poter sovrascrivere il pacchetto %h%s%h.";
 
-$_t["it"]["Select Location"] = "Selezionare la posizione";
+$_t["it"]["Select Location"] = "Seleziona la posizione";
 
-$_t["it"]["Select Category"] = "Selezionare la categoria";
+$_t["it"]["Select Category"] = "Seleziona la categoria";
 
 $_t["it"]["Comment"] = "Commento";
 

@@ -47,7 +47,7 @@ $_t["it"]["Last Voted"] = "Ultimo votato";
 
 $_t["it"]["Real Name"] = "Nome reale";
 
-$_t["it"]["Edit Account"] = "Modificare l'account";
+$_t["it"]["Edit Account"] = "Modifica l'account";
 
 $_t["it"]["Password fields do not match."] = "I campi password non corrispondono.";
 
@@ -61,11 +61,11 @@ $_t["it"]["No more results to display."] = "Non vi sono ulteriori risultati da v
 
 $_t["it"]["Type"] = "Tipo";
 
-$_t["it"]["Click on the Home link above to login."] = "Fare clic su Inizio per autenticarsi.";
+$_t["it"]["Click on the Home link above to login."] = "Clicca su Inizio per autenticarti.";
 
 $_t["it"]["Sort by"] = "Ordina per";
 
-$_t["it"]["Re-type password"] = "Riscrivere la password";
+$_t["it"]["Re-type password"] = "Riscrivi la password";
 
 $_t["it"]["Language is not currently supported."] = "Lingua attualmente non supportata.";
 
