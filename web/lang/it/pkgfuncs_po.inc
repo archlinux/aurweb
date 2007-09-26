@@ -135,23 +135,23 @@ $_t["it"]["Search by"] = "Cerca per";
 
 $_t["it"]["Submitter"] = "Contributore";
 
-$_t["it"]["Leave the password fields blank to keep your same password."] = "Lasciare vuoti i campi relativi alla password per mantenerla invariata.";
+$_t["it"]["Leave the password fields blank to keep your same password."] = "Lascia vuoti i campi relativi alla password per mantenerla invariata.";
 
 $_t["it"]["You have been successfully logged out."] = "Disconnesso.";
 
-$_t["it"]["You must log in to view user information."] = "Bisogna autenticarsi per visualizzare queste informazioni.";
+$_t["it"]["You must log in to view user information."] = "Devi autenticarti per visualizzare queste informazioni.";
 
 $_t["it"]["Could not retrieve information for the specified user."] = "Non è stato possibile trovare le informazioni sull'utente specificato.";
 
-$_t["it"]["You do not have permission to edit this account."] = "Non si dispone dei permessi necessari per modificare questo account.";
+$_t["it"]["You do not have permission to edit this account."] = "Non disponi dei permessi necessari per modificare questo account.";
 
-$_t["it"]["Use this form to search existing accounts."] = "Utilizzare questo modulo per cercare account esistenti.";
+$_t["it"]["Use this form to search existing accounts."] = "Utilizza questo modulo per cercare account esistenti.";
 
-$_t["it"]["Use this form to create an account."] = "Utilizzare questo modulo per creare un account.";
+$_t["it"]["Use this form to create an account."] = "Utilizza questo modulo per creare un account.";
 
-$_t["it"]["Use this form to update your account."] = "Utilizzare questo modulo per aggiornare il vostro account.";
+$_t["it"]["Use this form to update your account."] = "Utilizza questo modulo per aggiornare il vostro account.";
 
-$_t["it"]["You are not allowed to access this area."] = "Non si dispone dei permessi necessari per accedere.";
+$_t["it"]["You are not allowed to access this area."] = "Non disponi dei permessi necessari per accedere.";
 
 $_t["it"]["Status"] = "Stato";
 
@@ -164,5 +164,11 @@ $_t["it"]["All"] = "Tutti";
 $_t["it"]["Unsafe"] = "Non sicuri";
 
 $_t["it"]["Accounts"] = "Account";
+
+$_t["it"]["This package has been flagged out of date."] = "Questo pacchetto è stato segnato come non aggiornato.";
+
+$_t["it"]["The above files have been verified (by %h%s%h) and are safe to use."] = "I file sono stati verificati (da %h%s%h) ed il loro utilizzo è da considerarsi sicuro.";
+
+$_t["it"]["Required by"] = "Richiesto da";
 
 ?>
