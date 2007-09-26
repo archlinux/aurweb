@@ -354,7 +354,7 @@ function package_details($id=0, $SID="") {
 			}
 			echo "</tr>\n";
 			if ($row["LocationID"] == 2) {
-			  echo "      <tr><td colspan='2'>";
+			  echo "      <tr><td colspan='3'>";
 			  if ($row["Safe"]) {
 			    echo "<span class='f7'>".__("The above files have been verified (by %h%s%h) and are safe to use.", array("<a href='/account.php?Action=AccountInfo&ID=".$row["VerifiedBy"]."'>", username_from_id($row["VerifiedBy"]), "</a>"))."</span></td>";
 			  } else {
