@@ -388,7 +388,7 @@ function package_details($id=0, $SID="") {
                 // $darr[3] is the DepCondition                                               
                                                
 				if ($darr[2] == 0) echo $url."'>".$darr[1].$darr[3]."</a><br />\n";
-				else echo "<a href='#'>".$darr[1].$darr[3]."</a><br />\n";
+				else echo "<a href='http://archlinux.org/packages/search/".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 			}
 			echo "</td></tr>\n";
 			echo "</table></td>";
@@ -414,7 +414,7 @@ function package_details($id=0, $SID="") {
                 // $darr[3] is the DepCondition                                               
                                                
 				if ($darr[2] == 0) print $url."'>".$darr[1].$darr[3]."</a><br />\n";
-				else print "<a href='#'>".$darr[1].$darr[3]."</a><br />\n";
+				else print "<a href='http://archlinux.org/packages/search/".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 			}
             echo "</td></tr>\n";
             echo "          </table>\n";
