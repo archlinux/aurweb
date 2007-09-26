@@ -440,10 +440,11 @@ textarea.vLargeTextField {
     border-left-width: 1px;
     border-left-color: #ffffff;
     background-color: #f1f2f4;
-    text-align: right;
+    text-align: left;
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 10px;
+    padding-left:	10px;
 }
 .pgboxbody, .pgboxbody-comment {
     padding: 10px;
