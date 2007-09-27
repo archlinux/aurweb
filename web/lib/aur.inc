@@ -385,7 +385,7 @@ END1;
    echo '        <li><a href="http://bugs.archlinux.org/index.php?tasks=all&project=2">'.__("Bugs")."</a></li>\n";
    echo '        <li><a href="/packages.php">'.__("Packages")."</a></li>\n";
    echo '        <li><a href="/account.php">'.__("Accounts")."</a></li>\n";
-   echo '        <li><a href="/index.php">AUR-'.__("Home")."</a></li>\n";
+   echo '        <li><a href="/index.php">AUR '.__("Home")."</a></li>\n";
    echo "     </ul>\n";
    echo "   </div>\n";
    echo '   <div id="lang_sub">'."\n";
