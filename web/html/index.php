@@ -80,7 +80,7 @@ html_header();
 
 # Big Top Level Table (Table 1)
 echo "<div class=\"pgbox\">\n";
-echo "  <div class=\"pgboxtitle\"><span class=\"f3\">AUR-".__("Home")."</span></div>\n";
+echo "  <div class=\"pgboxtitle\"><span class=\"f3\">AUR ".__("Home")."</span></div>\n";
 echo "  <div class=\"frontpgboxbody\">\n";
 echo "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
 echo "<tr>\n";
