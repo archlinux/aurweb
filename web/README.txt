@@ -1,7 +1,7 @@
 Setup on ArchLinux:
 ===================
-1) Install Apache, MySQL, PHP, and Subversion
-  # pacman -Sy apache mysql php subversion
+1) Install Apache, MySQL, PHP, and git 
+  # pacman -Sy apache mysql php git 
 
 2) Set a local 'hostname' of 'aur'
  - Edit /etc/hosts and append 'aur' to loopback address
@@ -31,9 +31,9 @@ Setup on ArchLinux:
  - Edit /etc/php.ini and uncomment the mysql extension line:
    extension=mysql.so
 
-5) Check out the AUR project (using the MYUSER from above)
+5) Clone the AUR project (using the MYUSER from above)
    $ cd
-   $ svn co https://xentac.net/svn/aur/trunk aur
+   $ git clone http://projects.archlinux.org/git/aur.git
 
 6) Configure MySQL
  - Connect to the mysql client
