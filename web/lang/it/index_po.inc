@@ -5,9 +5,9 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["it"]["You must supply a password."] = "E' necessario inserire una password.";
+$_t["it"]["You must supply a password."] = "È necessario inserire una password.";
 
-$_t["it"]["You must supply a username."] = "E' necessario inserire il nome utente.";
+$_t["it"]["You must supply a username."] = "È necessario inserire il nome utente.";
 
 $_t["it"]["After that, this can be filled in with more meaningful text."] = "Dopotutto, questo potrebbe essere riempito con un messaggio più significativo.";
 
@@ -27,7 +27,7 @@ $_t["it"]["Error trying to generate session id."] = "Errore durante la generazio
 
 $_t["it"]["For now, it's just a place holder."] = "Per adesso, è solo un segnaposto.";
 
-$_t["it"]["It's more important to get the login functionality finished."] = "E' più importante avere la funzionalità di autenticazione completata.";
+$_t["it"]["It's more important to get the login functionality finished."] = "È più importante avere la funzionalità di autenticazione completata.";
 
 $_t["it"]["Error looking up username, %s."] = "Errore durante la ricerca del nome utente %s.";
 
@@ -47,13 +47,13 @@ $_t["it"]["Email discussion about the AUR takes place on the %sTUR Users List%s.
 
 $_t["it"]["Recent Updates"] = "Aggiornamenti recenti";
 
-$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information. Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Benvenuto in AUR! Per ottenere maggiori informazioni, leggere %hAUR User Guidelines%h e %hAUR TU Guidelines%h. I PKGBUILD inviati <b>devono</b> essere conformi agli %hArch Packaging Standards%h altrimenti saranno cancellati!";
+$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information. Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Benvenuto in AUR! Per ottenere maggiori informazioni, leggi le %hAUR User Guidelines%h e %hAUR TU Guidelines%h. I PKGBUILD inviati <b>devono</b> essere conformi agli %hArch Packaging Standards%h altrimenti saranno cancellati!";
 
 $_t["it"]["Community"] = "Community";
 
 $_t["it"]["Package Counts"] = "Conteggio dei pacchetti";
 
-$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Benvenuto in AUR! Per ottenere maggiori informazioni, leggere %hAUR User Guidelines%h e %hAUR TU Guidelines%h.";
+$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Benvenuto in AUR! Per ottenere maggiori informazioni, leggi le %hAUR User Guidelines%h e %hAUR TU Guidelines%h.";
 
 $_t["it"]["Unsupported"] = "Unsupported";
 
@@ -69,9 +69,9 @@ $_t["it"]["Packages in unsupported"] = "Pacchetti in unsupported";
 
 $_t["it"]["Packages in [community]"] = "Pacchetti in [community]";
 
-$_t["it"]["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "Ricordate di votare i vostri pacchetti preferiti! I pacchetti più votati sono disponibili in [community] come precompilati.";
+$_t["it"]["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "Ricorda di votare i tuoi pacchetti preferiti! I pacchetti più votati saranno disponibili in [community] come precompilati.";
 
-$_t["it"]["Remember to vote for your favourite packages!"] = "Ricordate di votare i vostri pacchetti preferiti!";
+$_t["it"]["Remember to vote for your favourite packages!"] = "Ricorda di votare i tuoi pacchetti preferiti!";
 
 $_t["it"]["The most popular packages will be provided as binary packages in [community]."] = "I pacchetti più votati saranno disponibili in [community] come precompilati.";
 
@@ -85,10 +85,12 @@ $_t["it"]["Out-of-date"] = "Non aggiornati";
 
 $_t["it"]["User Statistics"] = "Statistiche dell'utente";
 
-$_t["it"]["Flagged as safe by me"] = "Segnato come sicuro da me";
+$_t["it"]["Flagged as safe by me"] = "Pacchetti verificati";
 
-$_t["it"]["Flagged as safe"] = "Segnato come sicuro";
+$_t["it"]["Flagged as safe"] = "Considerato sicuro";
 
 $_t["it"]["My Statistics"] = "Le mie statistiche";
+
+$_t["it"]["Home"] = "Inizio";
 
 ?>

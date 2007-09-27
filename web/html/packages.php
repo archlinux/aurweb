@@ -66,6 +66,27 @@ if (isset($_REQUEST["do_Flag"])) {
 			print "<p>\n";
 			print __("The selected packages have been flagged out-of-date.");
 			print "</p>\n";
+			
+			# notification by tardo.
+			$f_name = username_from_sid($_COOKIE['AURSID']);
+			$f_email = email_from_sid($_COOKIE['AURSID']);
+			$f_uid = uid_from_sid($_COOKIE['AURSID']);
+			$q = "SELECT Packages.Name, Users.Email, Packages.ID ";
+			$q.= "FROM Packages, Users ";
+			$q.= "WHERE Packages.ID IN (" . $flag .") ";
+			$q.= "AND Users.ID = Packages.MaintainerUID ";
+			$q.= "AND Users.ID != " . $f_uid;
+			$result = db_query($q, $dbh);
+			if (mysql_num_rows($result)) {
+				while ($row = mysql_fetch_assoc($result)) {
+					# construct email
+					$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . ". You may view your package at:\nhttp://aur.archlinux.org/packages.php?do_Details=1&ID=" . $row['ID'];
+					$body = wordwrap($body, 70);
+					$headers = "To: ".$row['Email']."\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
+					@mail(' ', "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
+				}
+			}
+			
 		} else {
 			print "<p>\n";
 			print __("You did not select any packages to flag.");

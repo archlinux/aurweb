@@ -31,7 +31,7 @@ $_t["en"]["Error retrieving package details."] = "Error retrieving package detai
 
 $_t["en"]["Description"] = "Description";
 
-$_t["en"]["My Packages"] = "My Packages";
+$_t["en"]["My Packages"] = "My Pkgs";
 
 $_t["en"]["Keywords"] = "Keywords";
 
@@ -150,5 +150,11 @@ $_t["en"]["Status"] = "Status";
 $_t["en"]["License"] = "License";
 
 $_t["en"]["unknown"] = "unknown";
+
+$_t["en"]["Required by"] = "Required by";
+
+$_t["en"]["The above files have been verified (by %h%s%h) and are safe to use."] = "The above files have been verified (by %h%s%h) and are safe to use.";
+
+$_t["en"]["This package has been flagged out of date."] = "This package has been flagged out of date.";
 
 ?>
