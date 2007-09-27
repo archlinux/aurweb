@@ -1,15 +1,43 @@
 <?php
 # NOTE: modify these variables if your MySQL setup is different
 #
-$AUR_db_host = "localhost:/tmp/mysql.sock";
-$AUR_db_name = "aur";
-$AUR_db_user = "aur"; 
-$AUR_db_pass = "aur";
+define( "AUR_db_host", "localhost:/tmp/mysql.sock" );
+define( "AUR_db_name", "aur" );
+define( "AUR_db_user", "aur" ); 
+define( "AUR_db_pass", "aur" );
 
 # Configuration of directories where things live
-$UPLOAD_DIR = "/home/aur/unsupported-temp/";
-$INCOMING_DIR = "/home/aur/unsupported/";
-$URL_DIR = "/packages/";
+define( "UPLOAD_DIR", "/home/aur/unsupported-temp/" );
+define( "INCOMING_DIR", "/home/aur/unsupported/" );
+define( "URL_DIR", "/packages/" );
+
+define( "AURQ_LOG", "/home/aur/aurq.log" );
+define( "AURD_LOG", "/home/aur/aurd.log" );
+
+define( "USERNAME_MIN_LEN", 3 );
+define( "USERNAME_MAX_LEN", 16 );
+define( "PASSWD_MIN_LEN", 4 );
+define( "PASSWD_MAX_LEN", 128 );
+
+
+$LOGIN_TIMEOUT = 7200;           # number of idle seconds before timeout
+
+# debugging variables
+#
+$QBUG = 1;                       # toggle query logging to /var/tmp/aurq.log
+$DBUG = 1;                       # use dbug($msg) to log to /var/tmp/aurd.log
+
+$SUPPORTED_LANGS = array(        # what languages we have translations for
+	"en" => "English",
+	"pl" => "Polski",
+	"it" => "Italiano",
+	"ca" => "Català",
+	"pt" => "Português",
+	"es" => "Español",
+	"de" => "Deutsch",
+	"ru" => "Русский",
+	"fr" => "Français"
+);
 
 # vim: ts=2 sw=2 noet ft=php
 ?>

@@ -12,26 +12,6 @@ include_once("aur_po.inc");
 # is using...
 #
 
-# Define global variables
-#
-$LOGIN_TIMEOUT = 7200;           # number of idle seconds before timeout
-$SUPPORTED_LANGS = array(        # what languages we have translations for
-	"en" => "English",
-	"pl" => "Polski",
-	"it" => "Italiano",
-	"ca" => "Català",
-	"pt" => "Português",
-	# Eventually we will comment these in, when they are ready - PJM - 4/2005
-	"es" => "Español",
-	"de" => "Deutsch",
-	"ru" => "Русский",
-	"fr" => "Français",
-);
-
-# debugging variables
-#
-$QBUG = 1;                       # toggle query logging to /var/tmp/aurq.log
-$DBUG = 1;                       # use dbug($msg) to log to /var/tmp/aurd.log
 
 
 # return an array of info for each Trusted user
@@ -296,7 +276,7 @@ function db_query($query="", $db_handle="") {
 		$db_handle = db_connect();
 	}
 	if ($QBUG) {
-		$fp = fopen("/var/tmp/aurq.log", "a");
+		$fp = fopen(AURQ_LOG, "a");
 		fwrite($fp, $query . "\n");
 		fclose($fp);
 	}
@@ -479,7 +459,7 @@ function html_footer($ver="") {
 # debug logging
 #
 function dbug($msg) {
-	$fp = fopen("/var/tmp/aurd.log", "a");
+	$fp = fopen(AURD_LOG, "a");
 	fwrite($fp, $msg . "\n");
 	fclose($fp);
 	return;

@@ -88,15 +88,15 @@ if ($_COOKIE["AURSID"]) {
 			# the uploaded package file.
 			#
 
-            $upload_file = $UPLOAD_DIR . $_FILES["pfile"]["name"];
+            $upload_file = UPLOAD_DIR . $_FILES["pfile"]["name"];
             
             if (move_uploaded_file($_FILES["pfile"]["tmp_name"], $upload_file)) {
 				# ok, we can proceed
 				#
-				if (file_exists($INCOMING_DIR . $pkg_name)) {
+				if (file_exists(INCOMING_DIR . $pkg_name)) {
 					# blow away the existing file/dir and contents
 					#
-					rm_rf($INCOMING_DIR . $pkg_name);
+					rm_rf(INCOMING_DIR . $pkg_name);
 				}
 
 			} else {
@@ -111,13 +111,13 @@ if ($_COOKIE["AURSID"]) {
 		#
 		if (!$error) {
 			
-            if (!@mkdir($INCOMING_DIR.$pkg_name)) {
+            if (!@mkdir(INCOMING_DIR.$pkg_name)) {
 				$error = __("Could not create incoming directory: %s.",
-						array($INCOMING_DIR.$pkg_name));
+						array(INCOMING_DIR.$pkg_name));
 			} else {
-				if (!@chdir($INCOMING_DIR.$pkg_name)) {
+				if (!@chdir(INCOMING_DIR.$pkg_name)) {
 					$error = __("Could not change directory to %s.",
-							array($INCOMING_DIR.$pkg_name));
+							array(INCOMING_DIR.$pkg_name));
 				} else {
 					# try .gz first
 					#
@@ -135,40 +135,40 @@ if ($_COOKIE["AURSID"]) {
 		}
 
 		# At this point, if no error exists, the package has been extracted
-		# There should be a $INCOMING_DIR.$pkg_name."/".$pkg_name directory
+		# There should be a INCOMING_DIR.$pkg_name."/".$pkg_name directory
 		# if the user packaged it correctly.	However, if the file was
 		# packaged without the $pkg_name subdirectory, try and create it
 		# and move the package contents into the new sub-directory.
 		#
 		if (!$error) {
-			if (is_dir($INCOMING_DIR.$pkg_name."/".$pkg_name) &&
-					is_file($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
+			if (is_dir(INCOMING_DIR.$pkg_name."/".$pkg_name) &&
+					is_file(INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
 				# the files were packaged correctly
 				#
-				if (!@chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+				if (!@chdir(INCOMING_DIR.$pkg_name."/".$pkg_name)) {
 					$error = __("Could not change to directory %s.",
-							array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+							array(INCOMING_DIR.$pkg_name."/".$pkg_name));
 				}
-				$pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
-			} elseif (is_file($INCOMING_DIR.$pkg_name."/PKGBUILD")) {
+				$pkg_dir = INCOMING_DIR.$pkg_name."/".$pkg_name;
+			} elseif (is_file(INCOMING_DIR.$pkg_name."/PKGBUILD")) {
 				# not packaged correctly, but recovery may be possible.
-				# try and create $INCOMING_DIR.$pkg_name."/".$pkg_name and
+				# try and create INCOMING_DIR.$pkg_name."/".$pkg_name and
 				# move package contents into the new dir
 				#
-				if (!@mkdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+				if (!@mkdir(INCOMING_DIR.$pkg_name."/".$pkg_name)) {
 					$error = __("Could not create directory %s.",
-							array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+							array(INCOMING_DIR.$pkg_name."/".$pkg_name));
 				} else {
 					exec("/bin/sh -c 'mv * ".$pkg_name."'");
-					if (!file_exists($INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
+					if (!file_exists(INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
 						$error = __("Error exec'ing the mv command.");
 					}
 				}
-				if (!@chdir($INCOMING_DIR.$pkg_name."/".$pkg_name)) {
+				if (!@chdir(INCOMING_DIR.$pkg_name."/".$pkg_name)) {
 					$error = __("Could not change to directory %s.",
-							array($INCOMING_DIR.$pkg_name."/".$pkg_name));
+							array(INCOMING_DIR.$pkg_name."/".$pkg_name));
 				}
-				$pkg_dir = $INCOMING_DIR.$pkg_name."/".$pkg_name;
+				$pkg_dir = INCOMING_DIR.$pkg_name."/".$pkg_name;
 			} else {
 				# some wierd packaging/extraction error - baal
 				#
@@ -177,7 +177,7 @@ if ($_COOKIE["AURSID"]) {
 		}
 
     $shcmd = "/bin/mv ".$upload_file." ";
-    $shcmd.= escapeshellarg($INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"]);
+    $shcmd.= escapeshellarg(INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"]);
 		@exec($shcmd);
 
 		# if no error, get list of directory contents and process PKGBUILD
@@ -353,9 +353,9 @@ if ($_COOKIE["AURSID"]) {
 		# Re-tar the package for consistency's sake
 		#
 		if (!$error) {
-			if (!@chdir($INCOMING_DIR.$pkg_name)) {
+			if (!@chdir(INCOMING_DIR.$pkg_name)) {
 				$error = __("Could not change directory to %s.",
-				array($INCOMING_DIR.$pkg_name));
+				array(INCOMING_DIR.$pkg_name));
 			}
 		}
 		if (!$error) {
@@ -415,9 +415,9 @@ if ($_COOKIE["AURSID"]) {
 				} else {
 					$q.="Safe=0, ";
 				}
-				$fspath=$INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$fspath=INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
 				$q.="FSPath='".mysql_real_escape_string($fspath)."', ";
-				$urlpath=$URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$urlpath=URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
 				$q.="URLPath='".mysql_real_escape_string($urlpath)."' ";
 				$q.="WHERE ID = " . $pdata["ID"];
 				$result = db_query($q, $dbh);
@@ -428,8 +428,8 @@ if ($_COOKIE["AURSID"]) {
 					$q = "INSERT INTO PackageContents ";
 					$q.= "(PackageID, FSPath, URLPath, FileSize) VALUES (";
 					$q.= $pdata['ID'].", ";
-					$q.= "'".$INCOMING_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
-					$q.= "'".$URL_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
+					$q.= "'".INCOMING_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
+					$q.= "'".URL_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
 					$q.= $v.")";
 					db_query($q);
 				}
@@ -498,9 +498,9 @@ if ($_COOKIE["AURSID"]) {
 				$q.= "UNIX_TIMESTAMP(), ";
 				$q.= uid_from_sid($_COOKIE["AURSID"]).", ";
 				$q.= uid_from_sid($_COOKIE["AURSID"]).", '";
-				$fspath=$INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$fspath=INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
 				$q.= mysql_real_escape_string($fspath)."', '";
-				$urlpath=$URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$urlpath=URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
 				$q.= mysql_real_escape_string($urlpath)."')";
 				$result = db_query($q, $dbh);
 #				print $result . "<br>";
@@ -513,8 +513,8 @@ if ($_COOKIE["AURSID"]) {
 					$q = "INSERT INTO PackageContents ";
 					$q.= "(PackageID, FSPath, URLPath, FileSize) VALUES (";
 					$q.= $packageID.", ";
-					$q.= "'".$INCOMING_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
-					$q.= "'".$URL_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
+					$q.= "'".INCOMING_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
+					$q.= "'".URL_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
 					$q.= $v.")";
 					db_query($q);
 				}

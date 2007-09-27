@@ -365,8 +365,7 @@ function package_details($id=0, $SID="") {
 			print "<tr>\n";
 			print "  <td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["LocationID"] == 2) {
-				global $URL_DIR;
-				$urlpath = $URL_DIR.$row["Name"]."/".$row["Name"];
+				$urlpath = URL_DIR.$row["Name"]."/".$row["Name"];
 				print "<a href='$urlpath.tar.gz'>".__("Tarball")."</a> :: <a href='$urlpath'>".__("Files")."</a> :: <a href='$urlpath/PKGBUILD'>PKGBUILD</a></span></td>";
 			} elseif ($row["LocationID"] == 3) {
 			  print "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
