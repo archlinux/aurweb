@@ -248,17 +248,13 @@ function uid_from_sid($sid="") {
 # connect to the database
 #
 function db_connect() {
-  global $AUR_db_host;
-  global $AUR_db_name;
-  global $AUR_db_user;
-  global $AUR_db_pass;
 
-	$handle = mysql_pconnect($AUR_db_host, $AUR_db_user, $AUR_db_pass);
+	$handle = mysql_pconnect(AUR_db_host, AUR_db_user, AUR_db_pass);
 	if (!$handle) {
 		die("Error connecting to AUR database: " . mysql_error());
 	}
 
-	mysql_select_db($AUR_db_name, $handle) or
+	mysql_select_db(AUR_db_name, $handle) or
 		die("Error selecting AUR database: " . mysql_error());
 
 	return $handle;
