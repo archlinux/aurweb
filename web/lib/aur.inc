@@ -1,4 +1,5 @@
 <?php
+set_include_path(get_include_path() . PATH_SEPARATOR . '../template');
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Tue, 11 Oct 1988 22:00:00 GMT'); // quite a special day
@@ -336,94 +337,17 @@ function html_header() {
 	global $_SERVER;
 	global $_COOKIE;
 	global $LANG;
-	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"";
-	echo " \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
-	echo "<html xmlns=\"http://www.w3.org/1999/xhtml\"";
-	echo " xml:lang=\"".$LANG."\" lang=\"".$LANG."\">\n";
-	echo "<head>\n";
-	echo "<title>AUR (".$LANG.")</title>\n";
-	echo "<link rel='stylesheet' type='text/css' href='/css/fonts.css'/>\n";
-	echo "<link rel='stylesheet' type='text/css' href='/css/containers.css'/>\n";
-	echo "<link rel='stylesheet' type='text/css' href='/css/arch.css'/>\n";
-	echo "<link rel='shortcut icon' href='/images/favicon.ico'/>\n";
-	echo "<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='/rss2.php' />\n";
-	echo "<meta http-equiv=\"Content-Type\"";
-	echo " content=\"text/html; charset=UTF-8\" />\n";
-   echo "</head>\n";
-   echo "<body bgcolor='white'>\n";
-   echo <<<END1
-<div id="head_container">
-   <div id="title">
-      <div id="logo"><a href="/"><img src="/images/logo.png" alt="Arch Logo" /></a></div>
-      <div id="titleimg"><a href="/"><img src="/images/title.png" alt="Arch Linux" /></a></div>
-   </div>
-   <div style="float: right; color: #eeeeee; font-size: small">
-   </div>
-   <div id="main_nav">
-      <ul>
-         <li><a href="http://www.archlinux.org/download/">Get Arch</a></li>
-         <li class="selected"><a href="http://aur.archlinux.org">AUR</a></li>
-         <li><a href="http://bugs.archlinux.org">Bugs</a></li>
-         <li><a href="http://wiki.archlinux.org">Wiki</a></li>
-         <li><a href="http://bbs.archlinux.org">Forums</a></li>
-         <li><a href="http://www.archlinux.org">Home</a></li>
-      </ul>
-   </div>
-   <div id="sub_nav">
-      <ul>
+	global $SUPPORTED_LANGS;
 
-END1;
-	if ($_COOKIE["AURSID"]) {
-      # This is a usability change, so we can go to My Packages page
-      # with just one click
-      # Added by: dsa <dsandrade@gmail.com>
-      echo '        <li><a href="/logout.php">'.__("Logout")."</a></li>\n";
-      echo '        <li><a href="/pkgsubmit.php">'.__("Submit")."</a></li>\n";
-      echo '        <li><a href="/packages.php?do_MyPackages=1">'.__("My Packages")."</a></li>\n";
-	}
-   echo '        <li><a href="http://www.archlinux.org/mailman/listinfo/aur-general/">'.__("Discussion")."</a></li>\n";
-   echo '        <li><a href="http://bugs.archlinux.org/index.php?tasks=all&project=2">'.__("Bugs")."</a></li>\n";
-   echo '        <li><a href="/packages.php">'.__("Packages")."</a></li>\n";
-   echo '        <li><a href="/account.php">'.__("Accounts")."</a></li>\n";
-   echo '        <li><a href="/index.php">AUR '.__("Home")."</a></li>\n";
-   echo "     </ul>\n";
-   echo "   </div>\n";
-   echo '   <div id="lang_sub">'."\n";
-   echo "      <ul>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=ru' title='Русский'>RU</a></li>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=fr' title='Français'>FR</a></li>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=de' title='Deutsch'>DE</a></li>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=es' title='Español'>ES</a></li>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=pt' title='Português'>PT</a></li>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=ca' title='Català'>CA</a></li>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=it' title='Italiano'>IT</a></li>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=pl' title='Polski'>PL</a></li>\n";
-   echo "         <li><a href='".$_SERVER["PHP_SELF"]."?setlang=en' title='English'>EN</a></li>\n";
-   echo "         <li>Lang: </li>\n";
-   echo "      </ul>\n";
-   echo "   </div>\n";
-   echo "</div>\n";
-   echo "<div id=\"maincontent\">\n";
-   echo "<!-- Start of main content -->\n\n";
-   return;
+	include('header.php');
+	return;
 }
 
 
 # common footer
 #
 function html_footer($ver="") {
-	print "\n\n<!-- End of main content -->\n";
-	print "        <br />\n";
-	if ($ver) {
-		print "<p>\n";
-		print "<table border='0' cellpadding='0' cellspacing='0' width='97%'>\n";
-		print "<tr><td align='right'><span class='fix'>".$ver."</span></td></tr>\n";
-		print "</table>\n";
-		print "</p>\n";
-	}
-	print "</div>\n";
-	print "</body>\n</html>";
+	include('footer.php');
 	return;
 }
 
