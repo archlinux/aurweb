@@ -208,6 +208,7 @@
 	{
 		background-color: #fff;
 		color: rgb(108,131,176);
-		border: 1px dashed rgb(108,131,176);
+		border: 1px solid rgb(108,131,176);
 		font-size: 12px;
 	}
+
