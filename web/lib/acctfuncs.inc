@@ -79,7 +79,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<td align='left'>".__("Password").":</td>";
 	print "<td align='left'><input type='password' size='30' maxlength='32'";
 	print " name='P' value='".$P."'>";
-	if ($TYPE == "new") {
+	if ($A != "UpdateAccount") {
 		print "	(".__("required").")";
 	}
 	print "</td></tr>\n";
@@ -88,7 +88,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<td align='left'>".__("Re-type password").":</td>";
 	print "<td align='left'><input type='password' size='30' maxlength='32'";
 	print " name='C' value='".$C."'>";
-	if ($TYPE == "new") {
+	if ($A != "UpdateAccount") {
 		print "	(".__("required").")";
 	}
 	print "</td></tr>\n";
@@ -108,6 +108,8 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td align='left'>".__("Language").":</td>";
 	print "<td align='left'><select name=L>\n";
+
+	reset($SUPPORTED_LANGS);
 	while (list($code, $lang) = each($SUPPORTED_LANGS)) {
 		if ($L == $code) {
 			print "<option value=".$code." selected> ".$lang."\n";
@@ -132,6 +134,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td>&nbsp;</td>";
 	print "<td align='left'>";
+
 	if ($A == "UpdateAccount") {
 		print "<input type='submit' class='button'";
 	 	print "	value='".__("Update")."'> &nbsp; ";
@@ -175,13 +178,14 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 
 	$dbh = db_connect();
 	$error = "";
-	if (!isset($E) || !isset($U)) {
+	if (empty($E) || empty($U)) {
 		$error = __("Missing a required field.");
 	}
+	
 	if ($TYPE == "new") {
 		# they need password fields for this type of action
 		#
-		if (!isset($P) || !isset($C)) {
+		if (empty($P) || empty($C)) {
 			$error = __("Missing a required field.");
 		}
 	} else {
@@ -189,9 +193,22 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$error = __("Missing User ID");
 		}
 	}
+
+  if (!$error && !valid_username($U))
+    $error = __("The username is invalid.") . "<ul>\n"
+      ."<li>" . __("It must be "  . USERNAME_MIN_LEN . "-" . USERNAME_MAX_LEN
+      . " characters long") . "</li>"
+      . "<li>" . __("start and end with a letter or number") . "</li>"
+			. "<li>" . __("can contain only one period, underscore or hyphen.")
+			. "</li>\n</ul>";
+
 	if (!$error && $P && $C && ($P != $C)) {
 		$error = __("Password fields do not match.");
 	}
+	if (!$error && !good_passwd($P))
+		$error = __("Your password must be at least " . PASSWD_MIN_LEN 
+			. " characters.");
+
 	if (!$error && !valid_email($E)) {
 		$error = __("The email address is invalid.");
 	}
@@ -576,6 +593,176 @@ function display_account_info($U="",$T="",
 	print "</table>\n";
 	print "</center>\n";
 	return;
+}
+
+/*
+ * Returns SID (Session ID) and error (error message) in an array
+ * SID of 0 means login failed.
+ * There should be a better way of doing this...I think
+ */
+function try_login() {
+	$login_error = ""; 
+	$new_sid = "";
+	$userID = null;
+
+	if ( isset($_REQUEST['user']) || isset($_REQUEST['passwd']) ) {
+
+
+		$userID = valid_user($_REQUEST['user']);
+
+		if ( user_suspended( $userID ) ) {
+			$login_error = "Account Suspended.";
+		}
+		elseif ( $userID && isset($_REQUEST['passwd'])
+		  && valid_passwd($userID, $_REQUEST['passwd']) ) {
+
+			$logged_in = 0;
+			$num_tries = 0;
+
+			# Account looks good.  Generate a SID and store it.
+			#
+
+			$dbh = db_connect();
+			while (!$logged_in && $num_tries < 5) {
+				$new_sid = new_sid();
+				$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
+				  ." VALUES ( $userID, '" . $new_sid . "', UNIX_TIMESTAMP())";
+				$result = db_query($q, $dbh);
+				# Query will fail if $new_sid is not unique
+				#
+				if ($result) {
+					$logged_in = 1;
+					break;
+				}
+				$num_tries++;
+		        }
+			if ($logged_in) {
+				# set our SID cookie
+
+				setcookie("AURSID", $new_sid, 0, "/");
+#				header("Location: /index.php");
+				header("Location: " . $_SERVER['PHP_SELF']);
+				$login_error = "";
+
+			}
+			else {
+				$login_error = "Error trying to generate session id.";
+			}
+		}
+		else {
+			$login_error = "Bad username or password.";
+		}
+	}
+	return array('SID' => $new_sid, 'error' => $login_error);
+}
+
+/*
+ * Only checks if the name itself is valid
+ * Longer or equal to USERNAME_MIN_LEN
+ * Shorter or equal to USERNAME_MAX_LEN
+ * Starts and ends with a letter or number
+ * Contains at most ONE dot, hyphen, or underscore
+ * Returns the username if it is valid
+ * Returns nothing if it isn't valid
+ */
+function valid_username( $user )
+{
+
+	#Is it non-empty?
+	if (!empty($user)) {
+		
+		#Is username at not too short or too long?
+		if ( strlen($user) >= USERNAME_MIN_LEN &&
+		  strlen($user) <= USERNAME_MAX_LEN ) {
+			
+			$user = strtolower($user);
+			#Does username:
+			# start and end with a letter or number
+			# contain only letters and numbers,
+			#  and at most has one dash, period, or underscore
+			if ( preg_match("/^[a-z0-9]+[.-_]?[a-z0-9]+$/", $user) ) {
+				#All is good return the username
+				return $user;
+			}
+		}
+	}
+	
+	return;
+}
+
+/*
+ * Checks if the username is valid and if it exists in the database
+ * Returns the username ID or nothing
+ */
+function valid_user( $user )
+{
+	/*	if ( $user = valid_username($user) ) { */
+	if ( $user ) {
+		$dbh = db_connect();
+		/*		$q = "SELECT ID FROM Users WHERE Username = '$user'"; */
+		$q = "SELECT ID FROM Users WHERE Username = '"
+			. mysql_real_escape_string($user). "'";
+
+		$result = mysql_fetch_row(db_query($q, $dbh));
+		#Is the username in the database? 
+		if ($result[0]) {
+			return $result[0];
+		}
+	}
+	return;
+}
+
+function good_passwd( $passwd )
+{
+	if ( strlen($passwd) >= PASSWD_MIN_LEN ) {
+		return true;
+	}
+	return false;
+}
+
+/* Verifies that the password is correct for the userID specified.
+ * Returns true or false
+ */
+function valid_passwd( $userID, $passwd )
+{
+	if ( good_passwd($passwd) ) {
+		$dbh = db_connect();
+		$q = "SELECT ID FROM Users".
+		  " WHERE ID = '$userID'" .
+		  " AND Passwd = '" . md5($passwd) . "'";
+
+		$result = mysql_fetch_row(db_query($q, $dbh));
+		if ($result[0]) {
+			#is it the right password?
+			return true;
+		}
+	}
+	return false;
+}
+
+/*
+ * Is the user account suspended?
+ */
+function user_suspended( $id )
+{
+	$dbh = db_connect();
+	$q = "SELECT Suspended FROM Users WHERE ID = '$id'";
+	$result = mysql_fetch_row(db_query($q, $dbh));
+	if ($result[0] == 1 ) {
+		return true;
+	}
+	return false;
+}
+
+/*
+ * This should be expanded to return something
+ * TODO: Handle orphaning of user's packages
+ */
+function user_delete( $id )
+{
+	$dbh = db_connect();
+	$q = "DELETE FROM Users WHERE ID = '$id'";
+	$result = mysql_fetch_row(db_query($q, $dbh));
 }
 
 # vim: ts=2 sw=2 noet ft=php
