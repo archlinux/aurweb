@@ -320,74 +320,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 # search existing accounts
 #
 function search_accounts_form() {
-	print "<form action='/account.php' method='post'>\n";
-	print "<input type='hidden' name='Action' value='SearchAccounts'>\n";
-	print "<center>\n";
-	print "<table border='0' cellpadding='0' cellspacing='0' width='80%'>\n";
-	print "<tr><td colspan='2'>&nbsp;</td></tr>\n";
-
-	print "<tr>";
-	print "<td align='left'>".__("Username").":</td>";
-	print "<td align='left'><input type='text' size='30' maxlength='64'";
-	print " name='U'></td>";
-	print "</tr>\n";
-
-	print "<tr>";
-	print "<td align='left'>".__("Account Type").":</td>";
-	print "<td align='left'><select name=T>\n";
-	print "<option value=''> ".__("Any type")."\n";
-	print "<option value='u'> ".__("Normal user")."\n";
-	print "<option value='t'> ".__("Trusted user")."\n";
-	print "<option value='d'> ".__("Developer")."\n";
-	print "</select></td>";
-	print "</tr>\n";
-
-	print "<tr>";
-	print "<td align='left'>".__("Account Suspended").":</td>";
-	print "<td align='left'><input type='checkbox' name='S'>";
-	print "</tr>\n";
-
-	print "<tr>";
-	print "<td align='left'>".__("Email Address").":</td>";
-	print "<td align='left'><input type='text' size='30' maxlength='64'";
-	print " name='E'></td>";
-	print "</tr>\n";
-
-	print "<tr>";
-	print "<td align='left'>".__("Real Name").":</td>";
-	print "<td align='left'><input type='text' size='30' maxlength='32'";
-	print " name='R'></td>";
-	print "</tr>\n";
-
-	print "<tr>";
-	print "<td align='left'>".__("IRC Nick").":</td>";
-	print "<td align='left'><input type='text' size='30' maxlength='32'";
-	print " name='I'></td>";
-	print "</tr>\n";
-
-	print "<tr>";
-	print "<td align='left'>".__("Sort by").":</td>";
-	print "<td align='left'><select name=SB>\n";
-	print "<option value='u'> ".__("Username")."\n";
-	print "<option value='t'> ".__("Account Type")."\n";
-	print "<option value='r'> ".__("Real Name")."\n";
-	print "<option value='i'> ".__("IRC Nick")."\n";
-	print "<option value='v'> ".__("Last vote")."\n";
-	print "</select></td>";
-	print "</tr>\n";
-
-	print "<tr>";
-	print "<td>&nbsp;</td>";
-	print "<td align='left'>&nbsp;<br/>&nbsp;&nbsp;&nbsp;&nbsp;";
-	print "<input type='submit' class='button'";
-	print " value='".__("Search'")."> &nbsp; ";
-	print "<input type='reset' class='button'";
-	print "	value='".__("Reset")."'></td>";
-	print "</tr>\n";
-
-	print "</table>\n";
-	print "</center>\n";
-	print "</form>\n";
+	include("search_accounts_form.php");
 	return;
 }
 
