@@ -33,8 +33,10 @@ function pkgsearch_results_link() {
 		}
 	}
 	$url_data .= "'>";
+	print "<center>";
 	print __("Go back to %hsearch results%h.",
 		array($url_data, "</a>"));
+	print "</center>";
 	print "\n<br />\n";
 
 	return;
