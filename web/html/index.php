@@ -358,6 +358,6 @@ echo "</div>\n";
 # End Table 1
 echo "  </div>";
 echo "</div>";
-html_footer("<b>Version 1.3.1</b> \$Id$");
+html_footer("<b>Version 1.4.0</b>");
 # vim: ts=2 sw=2 noet ft=php
 ?>
