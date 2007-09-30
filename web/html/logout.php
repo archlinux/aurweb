@@ -19,9 +19,8 @@ if (isset($_COOKIE["AURSID"])) {
 	setcookie("AURLANG", "", time() - (60*60*24*30), "/");
 }
 
-html_header();              # print out the HTML header
-print __("You have been successfully logged out.")."<br />\n";
-
+header('Location: index.php');
+exit;
 
 html_footer("\$Id$");
 # vim: ts=2 sw=2 noet ft=php
