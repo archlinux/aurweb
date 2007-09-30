@@ -11,15 +11,15 @@ $_t["it"]["Invalid category ID."] = "ID della categoria non valido.";
 
 $_t["it"]["Enter your comment below."] = "Inserisci un commento qui sotto.";
 
-$_t["it"]["You are not allowed to delete this comment."] = "Non è possibile cancellare questo commento.";
+$_t["it"]["You are not allowed to delete this comment."] = "Non puoi cancellare questo commento.";
 
 $_t["it"]["Missing comment ID."] = "Manca l'ID del commento.";
 
 $_t["it"]["Package category updated."] = "La categoria del pacchetto è stata aggiornata.";
 
-$_t["it"]["You must be logged in before you can edit package information."] = "Bisogna autenticarsi prima di poter modificare le informazioni sul pacchetto.";
+$_t["it"]["You must be logged in before you can edit package information."] = "Devi autenticarti prima di poter modificare le informazioni sul pacchetto.";
 
-$_t["it"]["Comment has been deleted."] = "Il commento è stato cancellato.";
+$_t["it"]["Comment has been deleted."] = "Il commento è stato rimosso.";
 
 $_t["it"]["You've found a bug if you see this...."] = "Se vedi questo, hai appena trovato un bug....";
 

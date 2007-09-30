@@ -5,7 +5,7 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["it"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Scegli la tua lingua qui: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
+$_t["it"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Scegli la tua lingua: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
 
 $_t["it"]["Hello, world!"] = "Ciao, mondo!";
 

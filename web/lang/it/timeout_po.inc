@@ -7,6 +7,6 @@ global $_t;
 
 $_t["it"]["Click on the Home link above to log in."] = "Clicca su Inizio per autenticarti.";
 
-$_t["it"]["Your session has timed out.  You must log in again."] = "La sessione è scaduta, autenticati di nuovo.";
+$_t["it"]["Your session has timed out.  You must log in again."] = "La sessione è scaduta. Devi autenticarti di nuovo.";
 
 ?>

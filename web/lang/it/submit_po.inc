@@ -17,13 +17,13 @@ $_t["it"]["Error trying to upload file - please try again."] = "Errore durante l
 
 $_t["it"]["Error exec'ing the mv command."] = "Errore nell'esecuzione del comando mv.";
 
-$_t["it"]["You must create an account before you can upload packages."] = "Bisogna creare un account prima di poter inviare i pacchetti.";
+$_t["it"]["You must create an account before you can upload packages."] = "Devi creare un account prima di poter inviare i pacchetti.";
 
 $_t["it"]["Package upload successful."] = "Invio completato con successo.";
 
 $_t["it"]["Overwrite existing package?"] = "Sovrascrivi il pacchetto esistente?";
 
-$_t["it"]["You did not specify a package name."] = "Non è stato specificato un nome per il pacchetto.";
+$_t["it"]["You did not specify a package name."] = "Non hai inserito il nome del pacchetto.";
 
 $_t["it"]["Error trying to unpack upload - PKGBUILD does not exist."] = "Errore nello scompattare il file inviato. Non esiste il PKGBUILD.";
 
@@ -41,7 +41,7 @@ $_t["it"]["Package Category"] = "Categoria del pacchetto";
 
 $_t["it"]["Could not change to directory %s."] = "Impossibile cambiare la directory in %s.";
 
-$_t["it"]["You did not tag the 'overwrite' checkbox."] = "Non è stata selezionata l'opzione 'sovrascrivi'.";
+$_t["it"]["You did not tag the 'overwrite' checkbox."] = "Non hai selezionato l'opzione 'sovrascrivi'.";
 
 $_t["it"]["Invalid name: only lowercase letters are allowed."] = "Nome non valido: sono consentite solo lettere minuscole.";
 
@@ -59,7 +59,7 @@ $_t["it"]["Missing pkgname variable in PKGBUILD."] = "Manca la variabile pkgname
 
 $_t["it"]["Error - No file uploaded"] = "Errore, nessun file inviato.";
 
-$_t["it"]["You are not allowed to overwrite the %h%s%h package."] = "Non si dispone dei permessi per poter sovrascrivere il pacchetto %h%s%h.";
+$_t["it"]["You are not allowed to overwrite the %h%s%h package."] = "Non disponi dei permessi per poter sovrascrivere il pacchetto %h%s%h.";
 
 $_t["it"]["Select Location"] = "Seleziona la posizione";
 
@@ -75,13 +75,13 @@ $_t["it"]["Missing source variable in PKGBUILD."] = "Manca la variabile source n
 
 $_t["it"]["Sorry, uploads are not permitted by this server."] = "Spiacente, gli invii non sono consentiti da questo server.";
 
-$_t["it"]["You must supply a comment for this upload/change."] = "Bisogna aggiungere un commento per questo cambiamento/invio.";
+$_t["it"]["You must supply a comment for this upload/change."] = "Devi inserire un commento.";
 
 $_t["it"]["Yes"] = "Si";
 
 $_t["it"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Manca un protocollo nell'url del pacchetto (es. http:// ,ftp://)";
 
-$_t["it"]["Could not re-tar"] = "Impossibile ri-archiviare";
+$_t["it"]["Could not re-tar"] = "Impossibile riarchiviare";
 
 $_t["it"]["Binary packages and filelists are not allowed for upload."] = "Non è consentito inviare pacchetti contenenti binari e filelist.";
 
