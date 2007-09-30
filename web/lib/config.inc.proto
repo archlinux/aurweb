@@ -19,6 +19,7 @@ define( "USERNAME_MAX_LEN", 16 );
 define( "PASSWD_MIN_LEN", 4 );
 define( "PASSWD_MAX_LEN", 128 );
 
+define( "AUR_VERSION", "<b>Version 1.4.0</b>" );
 
 $LOGIN_TIMEOUT = 7200;           # number of idle seconds before timeout
 

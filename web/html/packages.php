@@ -600,6 +600,6 @@ if (isset($_REQUEST["do_Flag"])) {
 
 }
 
-html_footer("\$Id$");
+html_footer(AUR_VERSION);
 # vim: ts=2 sw=2 noet ft=php
 ?>

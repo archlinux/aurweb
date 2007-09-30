@@ -27,7 +27,7 @@ if (isset($_COOKIE["AURSID"])) {
 if (!$atype) {
 	print __("You must be logged in before you can edit package information.");
 	print "<br />\n";
-	html_footer($svn_idstr);
+	html_footer(AUR_VERSION);
 	exit();
 }
 
@@ -36,7 +36,7 @@ if (!$atype) {
 if (!$_REQUEST["ID"]) {
 	print __("Missing package ID.");
 	print "<br />\n";
-	html_footer($svn_idstr);
+	html_footer(AUR_VERSION);
 }
 
 
@@ -59,7 +59,7 @@ if ($_REQUEST["del_Comment"]) {
 		print __("Missing comment ID.")."<br />\n";
 	}
 	pkgdetails_link($_REQUEST["ID"]);
-	html_footer($svn_idstr);
+	html_footer(AUR_VERSION);
 	exit();
 }
 
@@ -120,7 +120,7 @@ if ($_REQUEST["add_Comment"]) {
 		print "<input type='reset' value=\"".__("Reset")."\">\n";
 		print "</form>\n";
 	}
-	html_footer($svn_idstr);
+	html_footer(AUR_VERSION);
 	exit();
 }
 
@@ -171,13 +171,13 @@ if ($_REQUEST["change_Category"]) {
 		print "</form>\n";
 
 	}
-	html_footer($svn_idstr);
+	html_footer(AUR_VERSION);
 	exit();
 }
 
 print __("You've found a bug if you see this....")."<br />\n";
 
-html_footer($svn_idstr);   # Use the $Id$ keyword
+html_footer(AUR_VERSION);   # Use the $Id$ keyword
                            # NOTE: when checking in a new file, use
                            # 'svn propset svn:keywords "Id" filename.php'
                            # to tell svn to expand the "Id" keyword.
