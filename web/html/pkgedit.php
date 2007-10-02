@@ -110,6 +110,7 @@ if ($_REQUEST["add_Comment"]) {
 	} else {
 		# Prompt visitor for comment
 		#
+		print "<div align='center'>\n";
 		print "<form action='/pkgedit.php' method='post'>\n";
 		print "<input type='hidden' name='add_Comment' value='1'>\n";
 		print "<input type='hidden' name='ID' value=\"".$_REQUEST["ID"]."\">\n";
@@ -119,6 +120,7 @@ if ($_REQUEST["add_Comment"]) {
 		print "<input type='submit' value=\"".__("Submit")."\">\n";
 		print "<input type='reset' value=\"".__("Reset")."\">\n";
 		print "</form>\n";
+		print "</div>\n";
 	}
 	html_footer(AUR_VERSION);
 	exit();
