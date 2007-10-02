@@ -3,6 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Tue, 11 Oct 1988 22:00:00 GMT'); // quite a special day
 header('Pragma: no-cache');
+include_once("version.inc");
 include_once("config.inc");
 include_once("aur_po.inc");
 
