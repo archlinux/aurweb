@@ -110,7 +110,7 @@ function pkgCategories() {
 function pkgLocations() {
 	$locs = array();
 	$dbh = db_connect();
-	$q = "SELECT * FROM PackageLocations WHERE ID != 1 ";
+	$q = "SELECT * FROM PackageLocations WHERE ID != 1 AND ID < 4 ";
 	$q.= "ORDER BY Location ASC";
 	$result = db_query($q, $dbh);
 	if ($result) {
