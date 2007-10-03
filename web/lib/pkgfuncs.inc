@@ -536,6 +536,15 @@ function package_details($id=0, $SID="") {
             echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Comments")."</span></div>\n";
             echo "  <div class=\"pgboxbody-comment\">\n";
 			echo "    <table width='100%'>\n";
+			echo "      <tr>\n";
+			echo "        <td colspan='2'>\n";
+			echo "          <form action='/pkgedit.php' method='post'>\n";
+			echo "            <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+			echo "            <input type='submit' class='button' name='add_Comment' value=\"";
+			echo __("Add Comment")."\">\n";
+			echo "          </form>\n";
+			echo "        </td>\n";
+			echo "      </tr>\n";
 			$comments = package_comments($row["ID"]);
 			if (!empty($comments)) {
 				while (list($indx, $carr) = each($comments)) {
@@ -576,15 +585,6 @@ function package_details($id=0, $SID="") {
 				}
 			}
 
-			echo "      <tr>\n";
-			echo "        <td colspan='2'>\n";
-			echo "          <form action='/pkgedit.php' method='post'>\n";
-			echo "            <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
-			echo "            <input type='submit' class='button' name='add_Comment' value=\"";
-			echo __("Add Comment")."\">\n";
-			echo "          </form>\n";
-			echo "        </td>\n";
-			echo "      </tr>\n";
 			echo "    </table>\n";
             echo "  </div>\n";
             echo "</div>\n";
