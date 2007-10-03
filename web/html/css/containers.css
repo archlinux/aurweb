@@ -179,6 +179,12 @@
 		padding-left: .3em;
 		text-align: left;
 	}
+	.outofdate
+	{
+		background-color: #faa;
+		padding-left: .3em;
+		text-align: left;
+	}
 	td.text
 	{
 		color:	#000;

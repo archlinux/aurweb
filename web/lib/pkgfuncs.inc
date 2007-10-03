@@ -1121,7 +1121,7 @@ function pkg_search_page($SID="") {
 			if ($SID) {
 				print "  <td class='".$c."'>";
 				if ($row["OutOfDate"]) {
-					print "<span style='background-color: red'>";
+					$c = "outofdate";
 				}
 				print "<input type='checkbox' name='IDs[".$row["ID"]."]' value='1'>";
 #				if ($i == 0) {
@@ -1238,7 +1238,7 @@ function pkg_search_page($SID="") {
 		print "    <td colspan='2' align='center'>";
     print "    <span class='f5'>\n";
     if ($SID) {
-    print "      <font style='background-color: red'>".__("O%hut-of-Date", array('</font>'))."&nbsp;&nbsp;&nbsp;&nbsp;";
+    print '      <span class="outofdate">'.__("Out of Date").' </span>'."&nbsp;&nbsp;&nbsp;&nbsp;";
     }
     print '      <span class="green">'.__("Safe")."</span>\n";
     print "    </span></td>\n";

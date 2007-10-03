@@ -95,7 +95,7 @@ $_t["en"]["Search Criteria"] = "Search Criteria";
 
 $_t["en"]["Notify"] = "Notify";
 
-$_t["en"]["O%hut-of-Date"] = "O%hut-of-Date";
+$_t["en"]["Out of Date"] = "Out of Date";
 
 $_t["en"]["Vote"] = "Vote";
 
