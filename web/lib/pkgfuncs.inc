@@ -462,15 +462,7 @@ function package_details($id=0, $SID="") {
                 echo "<div class=\"pgbox\">\n";
                 echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Actions")."</span></div>\n";
                 echo "  <div class=\"pgboxbody\">\n";
-                
-			# Add Comment button
-			#
- 								echo "    <form action='/pkgedit.php' method='post' class='actions'>\n";
-								echo "       <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
-								echo "       <input type='submit' class='button' name='add_Comment' value=\"";
-								echo __("Add Comment")."\">\n";
-								echo "     </form>\n";
-                echo "	 <form action='/packages.php' method='post' class='actions'>\n";
+                echo "    <form action='/packages.php' method='post'>\n";
 				echo "      <input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
 				echo "      <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
 				# Voting Button
@@ -531,11 +523,13 @@ function package_details($id=0, $SID="") {
 					echo "<input type='submit' class='button' name='do_Delete'";
 					echo " value='".__("Delete Packages")."'>\n";
 				}
+						
                 echo "    </form>\n";
                 echo "  </div>\n";
                 echo "</div>\n";
                 echo "\n<br />\n\n";
 			}
+			
 			# Comments
 			#
             echo "<div class=\"pgbox\">\n";
@@ -591,6 +585,15 @@ function package_details($id=0, $SID="") {
 				}
 			}
 
+			echo "      <tr>\n";
+			echo "        <td colspan='2'>\n";
+			echo "          <form action='/pkgedit.php' method='post'>\n";
+			echo "            <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+			echo "            <input type='submit' class='button' name='add_Comment' value=\"";
+			echo __("Add Comment")."\">\n";
+			echo "          </form>\n";
+			echo "        </td>\n";
+			echo "      </tr>\n";
 			echo "    </table>\n";
             echo "  </div>\n";
             echo "</div>\n";
