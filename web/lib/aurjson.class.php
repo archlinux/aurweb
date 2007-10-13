@@ -20,33 +20,13 @@ class AurJSON {
     private $exposed_methods = array('search','info');
 
     /**
-     * Returns the usage data for the exposed json api.
-     * @return string The usage data in plain format.
-     **/
-    public function usage() {
-        $usage = 'The methods currently allowed are: <br />';
-        $usage .= '<ul>';
-        foreach ($this->exposed_methods as $methodname) {
-            $usage .= "<li>{$methodname}</li>";
-        }
-        $usage .= '</ul><br />';
-        $usage .= 'Each method requires the following HTTP GET syntax:<br />';
-        $usage .= '&nbsp;&nbsp; type=_methodname_&arg=_data_ <br /><br />';
-        $usage .= 'Where _methodname_ is the name of an exposed method, and _data_ is the data supplied as part of the call.<br />';
-        $usage .= 'The _ characters are included only in this example as placeholders. Do not use them in an actual query.<br /><br />';
-        $usage .= 'If you need jsonp type callback specification, you can provide an additional variable "callback".<br />';
-        $usage .= 'Example URL: <br />&nbsp;&nbsp; http://aur-url/rpc.php?type=search&args=foobar&callback=jsonp1192244621103';
-        return $usage;
-    }
-
-    /**
      * Handles post data, and routes the request.
      * @param string $post_data The post data to parse and handle.
      * @return string The JSON formatted response data.
      **/
     public function handle($http_data) {
         // set content type header to json
-        //header('content-type: application/json');
+        header('content-type: application/json');
         // set up db connection.
         $this->dbh = db_connect();
 
