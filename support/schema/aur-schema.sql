@@ -125,6 +125,7 @@ CREATE TABLE Packages (
 	AURMaintainerUID INTEGER UNSIGNED NOT NULL DEFAULT 0, -- TU/Dev
 	Safe TINYINT UNSIGNED NOT NULL DEFAULT 0,             -- verified to be safe?
 	VerifiedBy INTEGER UNSIGNED NOT NULL DEFAULT 0,       -- who verified?
+	FULLTEXT (Name,Description),
 	PRIMARY KEY (ID),
 	UNIQUE (Name),
 	INDEX (CategoryID),
