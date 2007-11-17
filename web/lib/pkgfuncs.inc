@@ -355,15 +355,6 @@ function package_details($id=0, $SID="") {
 			  echo "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
 			}
 			echo "</tr>\n";
-			if ($row["LocationID"] == 2) {
-			  echo "      <tr><td colspan='3'>";
-			  if ($row["Safe"]) {
-			    echo "<span class='f7'>".__("The above files have been verified (by %h%s%h) and are safe to use.", array("<a href='/account.php?Action=AccountInfo&ID=".$row["VerifiedBy"]."'>", username_from_id($row["VerifiedBy"]), "</a>"))."</span></td>";
-			  } else {
-			    echo "<span class='f6'>".__("Be careful! The above files may contain malicious code that can damage your system.")."</span></td>";
-              }
-              echo "      </tr>\n";
-			}
 			if ($row["OutOfDate"] == 1) {
 				echo "\n<tr><td colspan='2'>";
 				echo "<span class='f6'>".__("This package has been flagged out of date.")."</span></td></tr>";
@@ -487,17 +478,6 @@ function package_details($id=0, $SID="") {
 					echo "<input type='submit' class='button' name='do_UnNotify'";
 					echo " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'>";
 				}
-				# Flag Safe Button
-				#
-				if ($row["LocationID"] == 2 && (account_from_sid($SID) == "Trusted User" || account_from_sid($SID) == "Developer")) {
-					if ($row["Safe"] == 0) {
-						echo "<input type='submit' class='button' name='do_FlagSafe'";
-						echo " value='".__("Flag Safe")."' title='".__("Flag Package Safe To Use")."'>";
-					} else {
-						echo "<input type='submit' class='button' name='do_UnFlagSafe'";
-						echo " value='".__("Unflag Safe")."' title='".__("Unflag Package Safe To Use")."'>";
-					}
-                }
 
                 if ($row["OutOfDate"] == 0) {
                     echo "<input type='submit' class='button' name='do_Flag'";
@@ -743,37 +723,6 @@ function pkg_search_page($SID="") {
     print "  </select>\n";
     print "</td>\n";
     
-    /* Status Safe-Unsafe */
-    
-    # Added the code below to handle the safe package flag.
-    # So we can search for then for 'all' packages, 'safe'
-    # packages and 'unsafe' packages.
-    
-    print "<td align='right'>\n";
-    print "  <span class='f5'><span class='blue'>".__("Status");
-    print "</span></span><br />\n";
-    
-    print "  <select name='PaS'>\n";
-    
-    # Flagged Safe
-    print "  <option value=all";
-    $_REQUEST["PaS"] == "all" ? print " selected> " : print "> ";
-    print __("All")."</option>\n";
-        
-    # Flagged Safe
-    print "  <option value=fs";
-    $_REQUEST["PaS"] == "fs" ? print " selected> " : print "> ";
-    print __("Safe")."</option>\n";
-    # Unflagged Safe
-    print "  <option value=us";
-    $_REQUEST["PaS"] == "us" ? print " selected> " : print "> ";
-    print __("Unsafe")."</option>\n";
-    
-    print "  </select>\n";
-    print "</td>\n";
-    
-    /* End of Package Status */
-	
     /* Sort by */
 	
     print "<td align='right'>\n";
@@ -956,29 +905,6 @@ function pkg_search_page($SID="") {
 				$q.= "MaintainerUID = 0) ";
 			}
 	}
-    
-    # Added the code below to handle the safe package flag.
-    # So we can search for then for 'all' packages, 'safe'
-    # packages and 'unsafe' packages.
-    if ($_REQUEST["PaS"] <> "all") {
-        # Flagged Safe
-        if ($_REQUEST["PaS"] == "fs")
-            if (!$has_where) {
-                $q.= "WHERE Safe = 1 ";
-                $has_where = 1;
-            } else {
-                $q.= "AND Safe = 1 ";
-            }
-            
-        # Unflagged Safe        
-        if ($_REQUEST["PaS"] == "us")
-            if (!$has_where) {
-                $q.= "WHERE Safe = 0 AND LocationID != 3 ";
-                $has_where = 1;
-            } else {
-                $q.= "AND Safe = 0 AND LocationID != 3 ";
-            }
-    }
 	
     $order = $_REQUEST["SO"] == 'd' ? 'DESC' : 'ASC';
 	
@@ -1158,13 +1084,7 @@ function pkg_search_page($SID="") {
 			}
 			reset($pkgsearch_vars);
 			$url.= "'>";
-            
-			if ($row["Safe"] == 1 || $locs[$row["LocationID"]] == "community") {
-				$url.="<span class='green'>";
-			}
-			else {
-				$url.="<span class='black'>";
-			}
+			$url.="<span class='black'>";
 			$url.=$row["Name"];
 			$url.= " ".$row["Version"]."</span></a>";
 			print $url."</span></td>\n";
@@ -1243,7 +1163,6 @@ function pkg_search_page($SID="") {
     if ($SID) {
     print '      <span class="outofdate">'.__("Out of Date").' </span>'."&nbsp;&nbsp;&nbsp;&nbsp;";
     }
-    print '      <span class="green">'.__("Safe")."</span>\n";
     print "    </span></td>\n";
 		print "  </tr>";
 

@@ -210,11 +210,6 @@ $result = db_query($q, $dbh);
 $row = mysql_fetch_row($result);
 $update_count = $row[0];
 
-$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported' AND Packages.Safe = 1";
-$result = db_query($q, $dbh);
-$row = mysql_fetch_row($result);
-$safe_count = $row[0];
-
 # Added the user statistcs.
 # Added by: dsa <dsandrade@gmail.com>
 $user = username_from_sid($_COOKIE["AURSID"]);
@@ -270,30 +265,6 @@ if (!empty($user)) {
     print "</td>";
     print "<td class='boxSoft'><span class='f4'>$flagged_outdated</span></td>";
     print "</tr>";    
-    
-    # Number of safe packages
-    print "<tr>";
-    print "<td class='boxSoft'>";
-    if ($atype == 'Trusted User' || $atype == 'Developer') {
-	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.VerifiedBy = Users.ID AND Users.Username='".mysql_real_escape_string($user)."'";
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
-	$flagged_safe = $row[0];
-
-	print "<span class='f4'>".__("Flagged as safe by me")."</span>";
-    }
-    else
-    {
-	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.Safe = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='".mysql_real_escape_string($user)."'";
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
-	$flagged_safe = $row[0];
-
-	print "<span class='f4'>".__("Flagged as safe")."</span>";
-    }
-    print "</td>";
-    print "<td class='boxSoft'><span class='f4'>$flagged_safe</span></td>";
-    print "</tr>"; 
         
     print "</table><br />";
 }
@@ -311,13 +282,6 @@ print "<td class='boxSoft'>";
 print "<span class='f4'>".__("Packages in unsupported")."</span>";
 print "</td>";
 print "<td class='boxSoft'><span class='f4'>$unsupported_count</span></td>";
-print "</tr>";
-
-print "<tr>";
-print "<td class='boxSoft'>";
-print "<span class='f4'>".__("Packages in unsupported and flagged as safe")."</span>";
-print "</td>";
-print "<td class='boxSoft'><span class='f4'>$safe_count</span></td>";
 print "</tr>";
 
 print "<tr>";
@@ -356,6 +320,7 @@ print "</tr>\n";
 print "</table>\n";
 echo "</div>\n";
 # End Table 1
+echo "<span class='f4'>".__("DISCLAIMER: Unsupported PKGBUILDs are user produced content, by downloading them you agree to do so at your own risk.")."</span>";
 echo "  </div>";
 echo "</div>";
 html_footer(AUR_VERSION);

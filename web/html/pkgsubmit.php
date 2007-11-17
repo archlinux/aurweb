@@ -412,11 +412,6 @@ if ($_COOKIE["AURSID"]) {
                 $q.="Description='".mysql_real_escape_string($new_pkgbuild['pkgdesc'])."', ";
 				$q.="URL='".mysql_real_escape_string($new_pkgbuild['url'])."', ";
 				$q.="LocationID=2, ";
-				if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User" || account_from_sid($_COOKIE["AURSID"]) == "Developer") {
-					$q.="Safe=1, VerifiedBy=".uid_from_sid($_COOKIE["AURSID"]).", ";
-				} else {
-					$q.="Safe=0, ";
-				}
 				$fspath=INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
 				$q.="FSPath='".mysql_real_escape_string($fspath)."', ";
 				$urlpath=URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
@@ -481,9 +476,6 @@ if ($_COOKIE["AURSID"]) {
 				#
 				$q = "INSERT INTO Packages ";
 				$q.= " (Name, License, Version, CategoryID, Description, URL, LocationID, ";
-				if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User" || account_from_sid($_COOKIE["AURSID"]) == "Developer") {
-					$q.= "Safe, VerifiedBy,";
-				}
 				$q.= " SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) ";
 				$q.= "VALUES ('";
 				$q.= mysql_real_escape_string($new_pkgbuild['pkgname'])."', '";
