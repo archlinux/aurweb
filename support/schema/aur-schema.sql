@@ -134,8 +134,6 @@ CREATE TABLE Packages (
 	INDEX (SubmitterUID),
 	INDEX (MaintainerUID),
 	INDEX (AURMaintainerUID),
-	INDEX (Safe),
-	INDEX (VerifiedBy),
 	FOREIGN KEY (CategoryID) REFERENCES PackageCategories(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (LocationID) REFERENCES PackageLocations(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE NO ACTION,
