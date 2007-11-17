@@ -94,5 +94,6 @@ $_t["en"]["The most popular packages will be provided as binary packages in [com
 $_t["en"]["Packages added or updated in the past 7 days"] = "Packages added or updated in the past 7 days";
 
 $_t["en"]["Out-of-date"] = "Out-of-date";
+$_t["en"]["DISCLAIMER"] = "DISCLAIMER: Unsupported PKGBUILDs are user produced content, by downloading them you agree to do so at your own risk.";
 
 ?>

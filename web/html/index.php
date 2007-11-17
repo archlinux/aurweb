@@ -318,9 +318,8 @@ print "</table>";
 print "  </td>";
 print "</tr>\n";
 print "</table>\n";
-echo "</div>\n";
 # End Table 1
-echo "<span class='f4'>".__("DISCLAIMER: Unsupported PKGBUILDs are user produced content, by downloading them you agree to do so at your own risk.")."</span>";
+echo "<br /><span class='important'>".__("DISCLAIMER")."</span>";
 echo "  </div>";
 echo "</div>";
 html_footer(AUR_VERSION);
