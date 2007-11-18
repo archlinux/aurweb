@@ -109,7 +109,7 @@ class AurJSON {
         // using sprintf to coerce the package_id to an int
         // should handle sql injection issues, since sprintf will
         // bork if not an int, or convert the string to a number
-        $query = sprintf("SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate,Safe FROM Packages WHERE ID=%d",$package_id);
+        $query = sprintf("SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE ID=%d",$package_id);
          $result = db_query($query, $this->dbh);
 
         if ( $result && (mysql_num_rows($result) > 0) ) {
