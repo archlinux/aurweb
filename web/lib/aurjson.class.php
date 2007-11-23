@@ -101,16 +101,27 @@ class AurJSON {
     }
 
     /**
-     * Returns the info on a specific package id.
-     * @param $package_id The ID of the package to fetch info.
+     * Returns the info on a specific package.
+     * @param $pqdata The ID or name of the package. Package Query Data.
      * @return mixed Returns an array of value data containing the package data
      **/
-    private function info($package_id) {
-        // using sprintf to coerce the package_id to an int
-        // should handle sql injection issues, since sprintf will
-        // bork if not an int, or convert the string to a number
-        $query = sprintf("SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE ID=%d",$package_id);
-         $result = db_query($query, $this->dbh);
+    private function info($pqdata) {
+        $base_query = "SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE ";
+
+        if is_numeric($pqdata) {
+            // just using sprintf to coerce the pqd to an int
+            // should handle sql injection issues, since sprintf will
+            // bork if not an int, or convert the string to a number 0
+            $query_stub = sprintf("ID=%d",$pqdata);
+        }
+        else {
+            if(get_magic_quotes_gpc()) {
+                $pqd = stripslashes($pqdata);
+            }
+            $query_stub = sprintf("Name=%s",mysql_real_escape_string($pqdata));
+        }
+
+        $result = db_query($query.$base_query, $this->dbh);
 
         if ( $result && (mysql_num_rows($result) > 0) ) {
             $row = mysql_fetch_assoc($result);
