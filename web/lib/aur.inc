@@ -382,7 +382,7 @@ END1;
       echo '        <li><a href="/pkgsubmit.php">'.__("Submit")."</a></li>\n";
       echo '        <li><a href="/packages.php?do_MyPackages=1">'.__("My Packages")."</a></li>\n";
 	}
-   echo '        <li><a href="http://www.archlinux.org/mailman/listinfo/tur-users/">'.__("Discussion")."</a></li>\n";
+   echo '        <li><a href="http://www.archlinux.org/mailman/listinfo/aur-general/">'.__("Discussion")."</a></li>\n";
    echo '        <li><a href="http://bugs.archlinux.org/index.php?tasks=all&project=2">'.__("Bugs")."</a></li>\n";
    echo '        <li><a href="/packages.php">'.__("Packages")."</a></li>\n";
    echo '        <li><a href="/account.php">'.__("Accounts")."</a></li>\n";
