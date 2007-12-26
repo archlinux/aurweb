@@ -210,3 +210,24 @@ CREATE TABLE CommentNotify (
 	FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
 );
 
+-- Vote information
+--
+CREATE TABLE IF NOT EXISTS TU_VoteInfo (
+  ID int(10) unsigned NOT NULL auto_increment,
+  Agenda text collate latin1_general_ci NOT NULL,
+  User char(32) collate latin1_general_ci NOT NULL,
+  Submitted bigint(20) unsigned NOT NULL,
+  SubmitterID int(10) unsigned NOT NULL,
+  Yes tinyint(3) unsigned NOT NULL default '0',
+  No tinyint(3) unsigned NOT NULL default '0',
+  Abstain tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY  (ID)
+)
+
+-- Individual vote records
+--
+CREATE TABLE IF NOT EXISTS TU_Votes (
+  VoteID int(10) unsigned NOT NULL,
+  UserID int(10) unsigned NOT NULL
+)
+
