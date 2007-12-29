@@ -24,8 +24,6 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 
 	# Temp value for results per page
 	$pp = 5;
-	# This needs to be changed for variable length votes I guess, TODO
-	$aweek = 60*60*24*7;
 
 	if (isset($_REQUEST['id'])) {
 		# Show application details
@@ -48,7 +46,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 				# Print out application details, thanks again AUR
 				#
 
-				$isrunning = (($row['Submitted'] + $aweek) > time()) ? 1 : 0;
+				$isrunning = $row['End'] > time() ? 1 : 0;
 				
 				$qvoted = "SELECT * FROM TU_Votes WHERE ";
 				$qvoted.= "VoteID = " . $row['ID'] . " AND ";
@@ -98,6 +96,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 					}
 				}
 
+        # I think I understand why MVC is good for this stuff..
 				echo "<div class=\"pgbox\">\n";
 				echo "  <div class=\"pgboxtitle\"><span class=\"f3\">Proposal Details</span></div>\n";
 				echo "  <div class=\"pgboxbody\">\n";
@@ -119,9 +118,17 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 				
 				print "Submitted: <b>" . gmdate("r", $row['Submitted']) . "</b> by ";
 				print "<b>" . username_from_id($row['SubmitterID']) . "</b><br />\n";
-				print "<br />\n";
 
-				$row['Agenda'] = htmlentities($row['Agenda']);
+        if ($isrunning == 0) {
+          print "Ended: ";
+        } else {
+          print "Ends: ";
+        }
+        print "<b>" . gmdate("r", $row['End']) . "</b><br />\n";
+
+        print "<br />\n";
+        
+        $row['Agenda'] = htmlentities($row['Agenda']);
 				# str_replace seems better than <pre> because it still maintains word wrapping
 				print str_replace("\n", "<br />\n", $row['Agenda']);
 
@@ -224,9 +231,8 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		function gen_results($offset, $limit, $sort, $by, $type="normal") {
 			
 			$dbh = db_connect();
-			$aweek = 60*60*24*7;
 
-    	if (!empty($offset) AND is_numeric($offset)) {
+      if (!empty($offset) AND is_numeric($offset)) {
       	if ($offset >= 1) {
       	  $off = $offset;
      	 	} else {
@@ -236,16 +242,16 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
   	    $off = 0;
 	    }
 
-			$q = "SELECT * FROM TU_VoteInfo";
-			if ($type == "new") {	
-				$q.= " WHERE Submitted + " . $aweek . " > " . time();
-				$application = "Current Votes";
-			} else {
-				$q.= " WHERE Submitted + " . $aweek . " < " . time();
-				$application = "Old Votes";
-			}
+      $q = "SELECT * FROM TU_VoteInfo";
 
-    	$order = ($by == 'down') ? 'DESC' : 'ASC';
+      if ($type == "new") {	
+        $q.= " WHERE End > " . time();
+        $application = "Current Votes";
+      } else {
+        $application = "All Votes";
+      }
+      
+      $order = ($by == 'down') ? 'DESC' : 'ASC';
 
     	# not much to sort, I'm unsure how to sort by username
     	# when we only store the userid, someone come up with a nifty
@@ -262,7 +268,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 
     	if ($limit != 0) {
 				$q.= " LIMIT " . $off . ", ". $limit;
-			}
+      }
 
     	$result = db_query($q, $dbh);
 			
@@ -288,9 +294,13 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
     	print " bottom'><span class='f2'>";
     	print "Proposal";
     	print "</span></th>\n";
+     	print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+    	print " bottom'><span class='f2'>";
+    	print "<a href='?off=$off&sort=sub&by=$by_next'>Start</a>";
+    	print "</span></th>\n";
     	print "  <th style='border-bottom: #666 1px solid; vertical-align:";
     	print " bottom'><span class='f2'>";
-    	print "<a href='?off=$off&sort=sub&by=$by_next'>Submitted</a>";
+    	print "End";
     	print "</span></th>\n";
     	print "  <th style='border-bottom: #666 1px solid; vertical-align:";
     	print " bottom'><span class='f2'>";
@@ -320,59 +330,70 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
     	} else {
     		for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
       		# Thankyou AUR
-      		(($i % 2) == 0) ? $c = "data1" : $c = "data2";
-      		print "<tr>\n";
-      		print "  <td class='".$c."'><span class='f4'><span class='blue'>";
-			
-					$prev_Len = 100;
 
-      		if (strlen($row["Agenda"]) >= $prev_Len) {
-        		$row["Agenda"] = htmlentities(substr($row["Agenda"], 0, $prev_Len)) . "...";
-      		} else {
-        		$row["Agenda"] = htmlentities($row["Agenda"]);
-      		}
+          # alright, I'm going to just have a "new" table and the
+          # "old" table can just have every vote, works just as well
+          # and probably saves on doing some crap
+          #
 
-					print $row["Agenda"];
-					print " <a href='/tu.php?id=" . $row['ID'] . "'>[More]</a>";
-      		print "</span></span></td>\n";
-      		print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-      		print gmdate("r", intval($row["Submitted"]));
-      		print "</span></span></td>\n";
-      		print "  <td class='".$c."'><span class='f6'><span class='blue'>";
+          (($i % 2) == 0) ? $c = "data1" : $c = "data2";
+          print "<tr>\n";
+          print "  <td class='".$c."'><span class='f4'><span class='blue'>";
+      
+          $prev_Len = 100;
 
-					if (!empty($row['User'])) {
-      			print "<a href='packages.php?K=" . $row['User'] . "&SeB=m'>";
-						print $row['User'] . "</a>";
-					} else {
-						print "N/A";
-					}
+          if (strlen($row["Agenda"]) >= $prev_Len) {
+            $row["Agenda"] = htmlentities(substr($row["Agenda"], 0, $prev_Len)) . "... -";
+          } else {
+            $row["Agenda"] = htmlentities($row["Agenda"]) . " -";
+          }
 
-					print "</span></span></td>\n";
+          print $row["Agenda"];
+          print " <a href='/tu.php?id=" . $row['ID'] . "'>[More]</a>";
+          print "</span></span></td>\n";
+          print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+          # why does the AUR use gmdate with formatting that includes the offset
+          # to GMT?!
+          print gmdate("j M y", $row["Submitted"]);
+          print "</span></span></td>\n";
+          print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+          print gmdate("j M y", $row["End"]);
+          print "</span></span></td>\n";
+          print "  <td class='".$c."'><span class='f6'><span class='blue'>";
+
+          if (!empty($row['User'])) {
+            print "<a href='packages.php?K=" . $row['User'] . "&SeB=m'>";
+            print $row['User'] . "</a>";
+          } else {
+            print "N/A";
+          }
+
+          print "</span></span></td>\n";
           print "  <td class='".$c."'><span class='f5'><span class='blue'>";
           print $row['Yes'];
           print "</span></span></td>\n";
           print "  <td class='".$c."'><span class='f5'><span class='blue'>";
           print $row['No'];
           print "</span></span></td>\n";
-					print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-					# See above
+          print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+          # See above
           # print $row['Abstain'];
           # print "</span></span></td>\n";
           # print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 
-					$qvoted = "SELECT * FROM TU_Votes WHERE ";
+          $qvoted = "SELECT * FROM TU_Votes WHERE ";
           $qvoted.= "VoteID = " . $row['ID'] . " AND ";
           $qvoted.= "UserID = " . uid_from_sid($_COOKIE["AURSID"]);
- 					$hasvoted = mysql_num_rows(db_query($qvoted, $dbh));
+          $hasvoted = mysql_num_rows(db_query($qvoted, $dbh));
 
-					if ($hasvoted == 0) {
-						print "<span style='color: red; font-weight: bold'>No</span>";
-					} else {
-						print "<span style='color: green; font-weight: bold'>Yes</span>";
-					}
+          if ($hasvoted == 0) {
+            print "<span style='color: red; font-weight: bold'>No</span>";
+          } else {
+            print "<span style='color: green; font-weight: bold'>Yes</span>";
+          }
 
           print "</span></span></td>\n";
-					print "</tr>\n";
+          print "</tr>\n";
     		}
     	}
 		

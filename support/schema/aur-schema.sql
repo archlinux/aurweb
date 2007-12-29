@@ -217,6 +217,7 @@ CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   Agenda text collate latin1_general_ci NOT NULL,
   User char(32) collate latin1_general_ci NOT NULL,
   Submitted bigint(20) unsigned NOT NULL,
+  End bigint(20) unsigned NOT NULL,
   SubmitterID int(10) unsigned NOT NULL,
   Yes tinyint(3) unsigned NOT NULL default '0',
   No tinyint(3) unsigned NOT NULL default '0',

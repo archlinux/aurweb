@@ -18,36 +18,48 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 	$dbh = db_connect();
 	
 	if (!empty($_POST['addVote'])) {
-		$aweek = 60*60*24*7;
 		$error = "";
 		
-		if (!empty($_REQUEST['user'])) {
-			$qcheck = "SELECT * FROM Users WHERE Username = '" . mysql_real_escape_string($_REQUEST['user']) . "'";
+		if (!empty($_POST['user'])) {
+			$qcheck = "SELECT * FROM Users WHERE Username = '" . mysql_real_escape_string($_POST['user']) . "'";
 			$check = mysql_num_rows(db_query($qcheck, $dbh));
 
 			if ($check == 0) {
 				$error.= "<div style='color: red; font-weight: bold'>Username does not exist.</div>";
 			} else {
-				$qcheck = "SELECT * FROM TU_VoteInfo WHERE User = '" . mysql_real_escape_string($_REQUEST['user']) . "'";
-				$qcheck.= " AND Submitted + " . $aweek . " > UNIX_TIMESTAMP()";
+				$qcheck = "SELECT * FROM TU_VoteInfo WHERE User = '" . mysql_real_escape_string($_POST['user']) . "'";
+				$qcheck.= " AND End > UNIX_TIMESTAMP()";
 				$check = mysql_num_rows(db_query($qcheck, $dbh));
 
 				if ($check != 0) {
-					$error.= "<div style='color: red; font-weight: bold'>" . mysql_real_escape_string($_REQUEST['user']) . " already has proposal running for them.</div>";
+					$error.= "<div style='color: red; font-weight: bold'>" . htmlentities($_POST['user']) . " already has proposal running for them.</div>";
 				}
 			}
 		}
 
-		if (empty($_REQUEST['agenda'])) {
+		if (!empty($_POST['length'])) {
+			if (!is_numeric($_POST['length'])) {
+				$error.= "<div style='color: red; font-weight: bold'>Length must be a number.</div>";
+			} else if ($_POST['length'] < 1) {
+				$error.= "<div style='color: red; font-weight: bold'>Length must be at least 1.</div>";
+			} else {
+				$len = (60*60*24)*$_POST['length'];
+			}
+		} else {
+			$len = 60*60*24*7;
+		}
+
+		if (empty($_POST['agenda'])) {
 			$error.= "<div style='color: red; font-weight: bold'>Proposal cannot be empty.</div>";
 		}
 	}
 
 	if (!empty($_POST['addVote']) && empty($error)) {
-		$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, SubmitterID) VALUES ";
-		$q.= "('" . mysql_real_escape_string($_REQUEST['agenda']) . "', ";
-		$q.= "'" . mysql_real_escape_string($_REQUEST['user']) . "', ";
-		$q.= "UNIX_TIMESTAMP(), " . uid_from_sid($_COOKIE["AURSID"]) . ")";
+		$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
+		$q.= "('" . mysql_real_escape_string($_POST['agenda']) . "', ";
+		$q.= "'" . mysql_real_escape_string($_POST['user']) . "', ";
+		$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . mysql_real_escape_string($len);
+		$q.= ", " . uid_from_sid($_COOKIE["AURSID"]) . ")";
 
 		db_query($q, $dbh);
 		print "<p>New proposal submitted.</p>\n";
@@ -59,6 +71,10 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 <b>Applicant/TU:</b>
 <input type='text' name='user' value='<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>'>
 (empty if not applicable)
+<br />
+<b>Length in days:</b>
+<input type='text' name='length' value='<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>'>
+(defaults to 7 if empty)
 <br />
 <b>Proposal:</b><br />
 <textarea name='agenda' rows='10' cols='50'><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
