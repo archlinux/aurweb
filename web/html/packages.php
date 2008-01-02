@@ -171,7 +171,10 @@ if (isset($_REQUEST["do_Flag"])) {
 				$q = "UPDATE Packages ";
 				$q.= "SET ".$field." = 0 ";
 				$q.= "WHERE ID IN (" . $disown . ") ";
-				$q.= "AND ".$field." = ".uid_from_sid($_COOKIE["AURSID"]);
+				# If a user is a TU or dev they can disown any package
+        if ($atype == "User") {
+					$q.= "AND ".$field." = ".uid_from_sid($_COOKIE["AURSID"]);
+				}
 				db_query($q, $dbh);
 			}
 
