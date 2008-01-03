@@ -65,8 +65,30 @@ foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
            <li>Lang: </li>
          </ul>
       </div>
-   </div>
-   <div id="maincontent">
-		 <!-- Start of main content -->
+      <br />
+      <div style="text-align: right; padding-right: 10px">
+<?php
+if (!isset($_COOKIE["AURSID"])) {
+	if ($login_error) {
+		print "<span class='error'>" . $login_error . "</span><br />\n";
+  }
+?>
+        <form method='post'>
+<?php print __("Username:"); ?>
+        <input type='text' name='user' size='30' maxlength='64'>
+<?php print __("Password:"); ?>
+        <input type='password' name='pass' size='30' maxlength='32'>
+        <input type='submit' class='button' value='<?php  print __("Login"); ?>'>
+        </form>
+<?php
+} else {
+	print __("Logged-in as: %h%s%h",
+			array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
+}
+?>
+    </div>
+  </div>
+  <div id="maincontent">
+	  <!-- Start of main content -->
 
 

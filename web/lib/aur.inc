@@ -7,6 +7,7 @@ header('Pragma: no-cache');
 include_once("version.inc");
 include_once("config.inc");
 include_once("aur_po.inc");
+include_once("index_po.inc");
 
 # TODO do we need to set the domain on cookies?  I seem to remember some
 # security concerns about not using domains - but it's not like
@@ -92,6 +93,8 @@ function check_sid() {
 			# clear out the hacker's cookie, and send them to a naughty page
 			#
 			setcookie("AURSID", "", time() - (60*60*24*30), "/");
+			# I think it's probably safe to do the same as below with this
+			# but not really vital at this point
 			header("Location: /hacker.php");
 
 		} elseif ($failed == 2) {
@@ -104,8 +107,7 @@ function check_sid() {
 			db_query($q, $dbh);
 
 			setcookie("AURSID", "", time() - (60*60*24*30), "/");
-			header("Location: /timeout.php");
-
+			unset($_COOKIE['AURSID']);
 		} else {
 			# still logged in and haven't reached the timeout, go ahead
 			# and update the idle timestamp
@@ -336,8 +338,73 @@ function set_lang() {
 function html_header() {
 	global $_SERVER;
 	global $_COOKIE;
+	global $_POST;
 	global $LANG;
 	global $SUPPORTED_LANGS;
+
+	$login_error = "";
+	if (isset($_POST["user"]) || isset($_POST["pass"])) {
+		# Attempting to log in
+		#
+		if (!isset($_POST["user"])) {
+			$login_error = __("You must supply a username.");
+		}
+		if (!isset($_POST["pass"])) {
+			$login_error = __("You must supply a password.");
+		}
+		if (!$login_error) {
+			# Try and authenticate the user
+			#
+
+			#md5 hash it
+			$_POST["pass"] = md5($_POST["pass"]);
+			$dbh = db_connect();
+			$q = "SELECT ID, Suspended FROM Users ";
+			$q.= "WHERE Username = '" . mysql_real_escape_string($_POST["user"]) . "' ";
+			$q.= "AND Passwd = '" . mysql_real_escape_string($_POST["pass"]) . "'";
+			$result = db_query($q, $dbh);
+			if (!$result) {
+				$login_error = __("Error looking up username, %s.",
+							array(htmlspecialchars($_POST["user"])));
+			} else {
+				$row = mysql_fetch_row($result);
+				if (empty($row)) {
+					$login_error = __("Incorrect password for username, %s.",
+							array(htmlspecialchars($_POST["user"])));
+				} elseif ($row[1]) {
+					$login_error = __("Your account has been suspended.");
+				}
+			}
+
+			if (!$login_error) {
+				# Account looks good.  Generate a SID and store it.
+				#
+				$logged_in = 0;
+				$num_tries = 0;
+				while (!$logged_in && $num_tries < 5) {
+					$new_sid = new_sid();
+					$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS) ";
+					$q.="VALUES (". $row[0]. ", '" . $new_sid . "', UNIX_TIMESTAMP())";
+					$result = db_query($q, $dbh);
+					# Query will fail if $new_sid is not unique
+					#
+					if ($result) {
+						$logged_in = 1;
+						break;
+					}
+					$num_tries++;
+				}
+				if ($logged_in) {
+					# set our SID cookie
+					#
+					setcookie("AURSID", $new_sid, 0, "/");
+					$_COOKIE['AURSID'] = $new_sid;
+				} else {
+					$login_error = __("Error trying to generate session id.");
+				}
+			}
+		}
+	}
 
 	include('header.php');
 	return;
