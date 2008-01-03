@@ -78,7 +78,7 @@ function check_sid() {
 		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
 		$q.= "WHERE SessionID = '" . mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
 		$result = db_query($q, $dbh);
-		if (!$result) {
+		if (mysql_num_rows($result) == 0) {
 			# Invalid SessionID - hacker alert!
 			#
 			$failed = 1;
@@ -91,12 +91,10 @@ function check_sid() {
 		}
 		if ($failed == 1) {
 			# clear out the hacker's cookie, and send them to a naughty page
+			# why do you have to be so harsh on these people!?
 			#
 			setcookie("AURSID", "", time() - (60*60*24*30), "/");
-			# I think it's probably safe to do the same as below with this
-			# but not really vital at this point
-			header("Location: /hacker.php");
-
+			unset($_COOKIE['AURSID']);
 		} elseif ($failed == 2) {
 			# visitor's session id either doesn't exist, or the timeout
 			# was reached and they must login again, send them back to

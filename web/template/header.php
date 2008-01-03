@@ -68,7 +68,10 @@ foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
       <br />
       <div style="text-align: right; padding-right: 10px">
 <?php
-if (!isset($_COOKIE["AURSID"])) {
+if (isset($_COOKIE["AURSID"])) {
+  print __("Logged-in as: %h%s%h",
+			array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
+} else {
 	if ($login_error) {
 		print "<span class='error'>" . $login_error . "</span><br />\n";
   }
@@ -81,9 +84,6 @@ if (!isset($_COOKIE["AURSID"])) {
         <input type='submit' class='button' value='<?php  print __("Login"); ?>'>
         </form>
 <?php
-} else {
-	print __("Logged-in as: %h%s%h",
-			array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
 }
 ?>
     </div>
