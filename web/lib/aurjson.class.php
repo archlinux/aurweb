@@ -108,7 +108,7 @@ class AurJSON {
     private function info($pqdata) {
         $base_query = "SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE ";
 
-        if is_numeric($pqdata) {
+        if ( is_numeric($pqdata) ) {
             // just using sprintf to coerce the pqd to an int
             // should handle sql injection issues, since sprintf will
             // bork if not an int, or convert the string to a number 0

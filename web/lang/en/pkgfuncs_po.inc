@@ -157,4 +157,6 @@ $_t["en"]["The above files have been verified (by %h%s%h) and are safe to use."]
 
 $_t["en"]["This package has been flagged out of date."] = "This package has been flagged out of date.";
 
+$_t["en"]["Toggle Notify"] = "Toggle Notify";
+
 ?>

@@ -39,7 +39,7 @@ $_t["en"]["Error trying to retrieve package details."] = "Error trying to retrie
 
 $_t["en"]["The selected packages have been adopted."] = "The selected packages have been adopted.";
 
-$_t["en"]["You have been removed from the comment notification list."] = "You have been removed from the comment notification list.";
+$_t["en"]["You have been removed from the comment notification list for %s."] = "You have been removed from the comment notification listfor %s.";
 
 $_t["en"]["Your votes have been cast for the selected packages."] = "Your votes have been cast for the selected packages.";
 
@@ -47,7 +47,7 @@ $_t["en"]["You must be logged in before you can cancel notification on comments.
 
 $_t["en"]["You must be logged in before you can adopt packages."] = "You must be logged in before you can adopt packages.";
 
-$_t["en"]["You have been added to the comment notification list."] = "You have been added to the comment notification list.";
+$_t["en"]["You have been added to the comment notification list for %s."] = "You have been added to the comment notification list for %s.";
 
 $_t["en"]["You did not select any packages to disown."] = "You did not select any packages to disown.";
 

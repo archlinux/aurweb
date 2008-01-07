@@ -265,6 +265,26 @@ function pkgvotes_from_sid($sid="") {
 	return $pkgs;
 }
 
+# array of package ids that you're being notified for
+# *yoink*
+#
+function pkgnotify_from_sid($sid="") {
+	$pkgs = array();
+	if (!$sid) {return $pkgs;}
+	$dbh = db_connect();
+	$q = "SELECT PkgID ";
+	$q.= "FROM CommentNotify, Users, Sessions ";
+	$q.= "WHERE Users.ID = Sessions.UsersID ";
+	$q.= "AND Users.ID = CommentNotify.UserID ";
+	$q.= "AND Sessions.SessionID = '".mysql_real_escape_string($sid)."'";
+	$result = db_query($q, $dbh);
+	if ($result) {
+		while ($row = mysql_fetch_row($result)) {
+			$pkgs[$row[0]] = 1;
+		}
+	}
+	return $pkgs;
+}
 
 # display package details
 #
@@ -475,7 +495,7 @@ function package_details($id=0, $SID="") {
 					echo "<input type='submit' class='button' name='do_Notify'";
 					echo " value='".__("Notify")."' title='".__("New Comment Notification")."'>";
 				} else {
-					echo "<input type='submit' class='button' name='do_UnNotify'";
+					echo "<input type='submit' class='button' name='do_Notify'";
 					echo " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'>";
 				}
 
@@ -636,6 +656,7 @@ function pkg_search_page($SID="") {
 		$myuid = uid_from_sid($SID);
 		$acct = account_from_sid($SID);
 		$my_votes = pkgvotes_from_sid($SID);
+		$my_notify = pkgnotify_from_sid($SID);
 	}
 
 	# The search form
@@ -964,11 +985,9 @@ function pkg_search_page($SID="") {
 			print "<input type='submit' class='button' name='do_Delete'";
 			print "	value='".__("Delete Packages")."'></td>\n";
 			print "  <td align='center'>";
-			print "<input type='submit' class='button' name='do_Vote'";
-			print "	value='".__("Vote")."'></td>\n";
+			print "<input type='submit' class='button' name='do_Notify'";
+			print "	value='".__("Toggle Notify")."'></td>\n";
 			print "  <td align='center'>";
-			print "<input type='submit' class='button' name='do_UnVote'";
-			print "	value='".__("Un-Vote")."'></td>\n";
 			print "</tr>\n";
 			print "</table>\n";
 			print "  </td>\n";
@@ -1022,6 +1041,10 @@ function pkg_search_page($SID="") {
 		if ($SID) {
 			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 			print " bottom'><span class='f2'>".__("Voted")."</span></th>\n";
+		}
+		if ($SID) {
+			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+			print " bottom'><span class='f2'>".__("Notify")."</span></th>\n";
 		}
 		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
 		print " bottom'><span class='f2'>".__("Description")."</a>";
@@ -1086,6 +1109,14 @@ function pkg_search_page($SID="") {
 			if ($SID) {
 				print "  <td class='".$c."'><span class='f5'><span class='blue'>";
 				if (isset($my_votes[$row["ID"]])) {
+					print "&nbsp;&nbsp;".__("Yes")."</span></td>\n";
+				} else {
+					print "&nbsp;</span></td>\n";
+				}
+			}
+			if ($SID) {
+				print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+				if (isset($my_notify[$row["ID"]])) {
 					print "&nbsp;&nbsp;".__("Yes")."</span></td>\n";
 				} else {
 					print "&nbsp;</span></td>\n";
