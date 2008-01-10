@@ -486,9 +486,6 @@ if ($_COOKIE["AURSID"]) {
 				$q.= mysql_real_escape_string($new_pkgbuild['pkgdesc'])."', '";
 				$q.= mysql_real_escape_string($new_pkgbuild['url']);
 				$q.= "', 2, ";
-				if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User" || account_from_sid($_COOKIE["AURSID"]) == "Developer") {
-					$q.= "1, ".uid_from_sid($_COOKIE["AURSID"]).", ";
-				}
 				$q.= "UNIX_TIMESTAMP(), ";
 				$q.= uid_from_sid($_COOKIE["AURSID"]).", ";
 				$q.= uid_from_sid($_COOKIE["AURSID"]).", '";

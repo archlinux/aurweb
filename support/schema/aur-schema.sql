@@ -223,12 +223,12 @@ CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   No tinyint(3) unsigned NOT NULL default '0',
   Abstain tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (ID)
-)
+);
 
 -- Individual vote records
 --
 CREATE TABLE IF NOT EXISTS TU_Votes (
   VoteID int(10) unsigned NOT NULL,
   UserID int(10) unsigned NOT NULL
-)
+);
 
