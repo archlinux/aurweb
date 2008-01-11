@@ -7,6 +7,7 @@ header('Pragma: no-cache');
 include_once("version.inc");
 include_once("config.inc");
 include_once("aur_po.inc");
+// TODO: remove this, move translations over for login form
 include_once("index_po.inc");
 
 # TODO do we need to set the domain on cookies?  I seem to remember some
@@ -425,29 +426,22 @@ function dbug($msg) {
 	return;
 }
 
-# check to see if the user can overwrite an existing package
+# check to see if the user can submit a package
 #
-function can_overwrite_pkg($name="", $sid="") {
+function can_submit_pkg($name="", $sid="") {
 	if (!$name || !$sid) {return 0;}
 	$dbh = db_connect();
-	$q = "SELECT SubmitterUID, MaintainerUID, AURMaintainerUID ";
+	$q = "SELECT MaintainerUID ";
 	$q.= "FROM Packages WHERE Name = '".mysql_real_escape_string($name)."'";
 	$result = db_query($q, $dbh);
-	if (!$result) {return 0;}
+	if (mysql_num_rows($result) == 0) {return 1;}
 	$row = mysql_fetch_row($result);
 	$my_uid = uid_from_sid($sid);
 
-	# user is a dev and maintains the package
-	#
-	if ($my_uid == $row[2]) {return 1;}
+	if ($row[0] == $my_uid) {
+		return 1;
+	}
 
-	# user is a TU and there is no dev
-	#
-	if (!$row[2] && $my_uid == $row[1]) {return 1;}
-
-	# user is a user and there is no TU or dev
-	#
-	if (!$row[2] && !$row[1] && $my_uid == $row[0]) {return 1;}
 	return 0;
 }
 

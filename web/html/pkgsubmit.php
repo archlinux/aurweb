@@ -29,158 +29,78 @@ if ($_COOKIE["AURSID"]) {
 	}
 
 	if ($_REQUEST["pkgsubmit"]) {
-		# If this var is set, then the visitor is uploading a file...
-		#
-		if (!$_REQUEST["pkgname"]) {
-			$error = __("You did not specify a package name.");
-		} else {
-			$pkg_name = str_replace("'", "", $_REQUEST["pkgname"]);
-			$pkg_name = escapeshellarg($pkg_name);
-			$pkg_name = str_replace("'", "", $pkg_name); # get rid of single quotes
-            
-            # Solves the problem when you try to submit PKGBUILD
-            # that have the name with a period like (gstreamer0.10)
-            # Added support for packages with + characters like (mysql++).
-            $presult = preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name);
-            
-            if ($presult == FALSE || $presult <= 0) {
-				# FALSE => error processing regex, 0 => invalid characters
-				#
-				$error = __("Invalid name: only lowercase letters are allowed.");
-			}
-		}
-
-		if (!$error && (!$_REQUEST["comments"] || $_REQUEST["comments"] == '')) {
-			$error = __("You must supply a comment for this upload/change.");
-		}
-
-		if (!$error) {
-			# first, see if this package already exists, and if it can be overwritten
-			#	
-			$pkg_exists = package_exists($pkg_name);
-			if ($pkg_exists) {
-				# ok, it exists - should it be overwritten, and does the user have
-				# the permissions to do so?
-				#
-				if (can_overwrite_pkg($pkg_name, $_COOKIE["AURSID"])) {
-					if (!$_REQUEST["overwrite"]) {
-						$error = __("You did not tag the 'overwrite' checkbox.");
-					}
-				} else {
-					$error = __("You are not allowed to overwrite the %h%s%h package.",
-							array("<b>", $pkg_name, "</b>"));
-				}
-			}
-		}
-
-		# TODO check to see if the user has the ability to 'change' package
-		# attributes such as location and/or category.	Examples: TUs can
-		# only add/change packages in Unsupported and the AUR, normal users
-		# can only add/change packages in Unsupported.
-		#
-
 		#Before processing, make sure we even have a file
 		#
 		if ($_FILES['pfile']['size'] == 0){
 			$error = __("Error - No file uploaded");
 		}
 
+		# temporary dir to put the tarball contents
+		$tempdir = uid_from_sid($_COOKIE['AURSID']) . time();
+		
 		if (!$error) {
-			# no errors checking upload permissions, go ahead and try to process
-			# the uploaded package file.
-			#
-
-            $upload_file = UPLOAD_DIR . $_FILES["pfile"]["name"];
-            
-            if (move_uploaded_file($_FILES["pfile"]["tmp_name"], $upload_file)) {
-				# ok, we can proceed
-				#
-				if (file_exists(INCOMING_DIR . $pkg_name)) {
-					# blow away the existing file/dir and contents
-					#
-					rm_rf(INCOMING_DIR . $pkg_name);
-				}
-
-			} else {
-				# errors uploading file...
-				#
-				$error = __("Error trying to upload file - please try again.");
-			}
-		}
-
-		# at this point, we can safely unpack the uploaded file and parse
-		# its contents.
-		#
-		if (!$error) {
-			
-            if (!@mkdir(INCOMING_DIR.$pkg_name)) {
+			if (!@mkdir(UPLOAD_DIR . $tempdir)) {
 				$error = __("Could not create incoming directory: %s.",
-						array(INCOMING_DIR.$pkg_name));
+					array(UPLOAD_DIR . $tempdir));
 			} else {
-				if (!@chdir(INCOMING_DIR.$pkg_name)) {
+				if (!@chdir(UPLOAD_DIR . $tempdir)) {
 					$error = __("Could not change directory to %s.",
-							array(INCOMING_DIR.$pkg_name));
+						array(UPLOAD_DIR . $tempdir));
 				} else {
-					# try .gz first
-					#
-					exec("/bin/sh -c 'tar xzf ".$upload_file."'", $trash, $retval);
-					if (!$retval) {
-						# now try .bz2 format
-						#
-						exec("/bin/sh -c 'tar xjf ".$upload_file."'", $trash, $retval);
+					exec("/bin/sh -c 'tar xzf " . $_FILES["pfile"]["tmp_name"] . "'", $trash, $retval);
+					if ($retval) {
+						exec("/bin/sh -c 'tar xjf " . $_FILES["pfile"]["tmp_name"] . "'", $trash, $retval);
 					}
-					if (!$retval) {
+					if ($retval) {
 						$error = __("Unknown file format for uploaded file.");
 					}
 				}
 			}
 		}
 
-		# At this point, if no error exists, the package has been extracted
-		# There should be a INCOMING_DIR.$pkg_name."/".$pkg_name directory
-		# if the user packaged it correctly.	However, if the file was
-		# packaged without the $pkg_name subdirectory, try and create it
-		# and move the package contents into the new sub-directory.
-		#
+		# where is the pkgbuild?!
 		if (!$error) {
-			if (is_dir(INCOMING_DIR.$pkg_name."/".$pkg_name) &&
-					is_file(INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
-				# the files were packaged correctly
-				#
-				if (!@chdir(INCOMING_DIR.$pkg_name."/".$pkg_name)) {
-					$error = __("Could not change to directory %s.",
-							array(INCOMING_DIR.$pkg_name."/".$pkg_name));
-				}
-				$pkg_dir = INCOMING_DIR.$pkg_name."/".$pkg_name;
-			} elseif (is_file(INCOMING_DIR.$pkg_name."/PKGBUILD")) {
-				# not packaged correctly, but recovery may be possible.
-				# try and create INCOMING_DIR.$pkg_name."/".$pkg_name and
-				# move package contents into the new dir
-				#
-				if (!@mkdir(INCOMING_DIR.$pkg_name."/".$pkg_name)) {
-					$error = __("Could not create directory %s.",
-							array(INCOMING_DIR.$pkg_name."/".$pkg_name));
-				} else {
-					exec("/bin/sh -c 'mv * ".$pkg_name."'");
-					if (!file_exists(INCOMING_DIR.$pkg_name."/".$pkg_name."/PKGBUILD")) {
-						$error = __("Error exec'ing the mv command.");
+			$d = dir(UPLOAD_DIR . $tempdir);
+
+			$pkgbuild = "";
+			$deepdir = "";
+			while ($file = $d->read()) {
+				# try to find a PKGBUILD in the top level (naughty! :O) and
+				# also the first directory found to use for the next part if required
+				if ($file == "PKGBUILD") {
+					$pkgbuild = UPLOAD_DIR . $tempdir . "/PKGBUILD";
+					$pkg_dir = UPLOAD_DIR . $tempdir;
+					break;
+				} else if (is_dir($file)) {
+					# we'll assume the first directory we find is the one with
+					# the pkgbuild in it
+					if ($file != "." && $file != "..") {
+						$deepdir = $file;
+						break;
 					}
 				}
-				if (!@chdir(INCOMING_DIR.$pkg_name."/".$pkg_name)) {
-					$error = __("Could not change to directory %s.",
-							array(INCOMING_DIR.$pkg_name."/".$pkg_name));
-				}
-				$pkg_dir = INCOMING_DIR.$pkg_name."/".$pkg_name;
-			} else {
-				# some wierd packaging/extraction error - baal
-				#
-				$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
 			}
-		}
 
-    $shcmd = "/bin/mv ".$upload_file." ";
-    $shcmd.= escapeshellarg(INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"]);
-		@exec($shcmd);
+			# if we couldn't find a pkgbuild in the top level we'll
+			# check in the first dir we found, if it's not there we assume
+			# there isn't any (even if there was the user should upload a proper tarball)
+			if ($pkgbuild == "" && $deepdir != "") {
+				$d = dir(UPLOAD_DIR . $tempdir . "/" . $deepdir);
+				while ($file = $d->read()) {
+					if ($file == "PKGBUILD") {
+						# oh my
+						$pkgbuild = UPLOAD_DIR . $tempdir . "/" . $deepdir ."/PKGBUILD";
+						$pkg_dir = UPLOAD_DIR . $tempdir . "/" . $deepdir;
+						break;
+					}
+				}
+				if ($pkgbuild == "") {
+					$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
+				}
+			}
+
+			# we know where our pkgbuild is now, woot woot
+		}
 
 		# if no error, get list of directory contents and process PKGBUILD
 		#
@@ -191,7 +111,7 @@ if ($_COOKIE["AURSID"]) {
 			$pkg_contents = array();
 			while ($f = $d->read()) {
 				if ($f != "." && $f != "..") {
-					$pkg_contents[$f] = filesize($f);
+					$pkg_contents[$f] = filesize($pkg_dir . "/" . $f);
 					if (preg_match("/^(.*\.pkg\.tar\.gz|filelist)$/", $f)) {
 						$error = __("Binary packages and filelists are not allowed for upload.");
 					}
@@ -285,7 +205,7 @@ if ($_COOKIE["AURSID"]) {
 			# variable has a value.	This does not do any validity checking
 			# on the values, or attempts to fix line continuation/wrapping.
 			#
-            if (!$seen_build_function) {
+			if (!$seen_build_function) {
 				$error = __("Missing build function in PKGBUILD.");
 			}
 			if (!array_key_exists("md5sums", $pkgbuild)) {
@@ -300,24 +220,20 @@ if ($_COOKIE["AURSID"]) {
 			if (!array_key_exists("pkgdesc", $pkgbuild)) {
 				$error = __("Missing pkgdesc variable in PKGBUILD.");
 			}
-            if (!array_key_exists("license", $pkgbuild)) {
-                $error = __("Missing license variable in PKGBUILD.");
-            }            
+			if (!array_key_exists("license", $pkgbuild)) {
+					$error = __("Missing license variable in PKGBUILD.");
+			}            
 			if (!array_key_exists("pkgrel", $pkgbuild)) {
 				$error = __("Missing pkgrel variable in PKGBUILD.");
 			}
 			if (!array_key_exists("pkgver", $pkgbuild)) {
 				$error = __("Missing pkgver variable in PKGBUILD.");
 			}
-            if (!array_key_exists("arch", $pkgbuild)) {
-                $error = __("Missing arch variable in PKGBUILD.");
-            }
+			if (!array_key_exists("arch", $pkgbuild)) {
+					$error = __("Missing arch variable in PKGBUILD.");
+			}
 			if (!array_key_exists("pkgname", $pkgbuild)) {
 				$error = __("Missing pkgname variable in PKGBUILD.");
-			} else {
-				if ($pkgbuild["pkgname"] != $pkg_name) {
-					$error = __("Package names do not match.");
-				}
 			}
 		}
 
@@ -352,20 +268,70 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
+		# now we've parsed the pkgbuild, let's move it to where it belongs
+		#
+		if (!$error) {
+			$pkg_name = str_replace("'", "", $pkgbuild['pkgname']);
+			$pkg_name = escapeshellarg($pkg_name);
+			$pkg_name = str_replace("'", "", $pkg_name); # get rid of single quotes
+            
+			# Solves the problem when you try to submit PKGBUILD
+			# that have the name with a period like (gstreamer0.10)
+			# Added support for packages with + characters like (mysql++).
+			$presult = preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name);
+			
+			if ($presult == FALSE || $presult <= 0) {
+				# FALSE => error processing regex, 0 => invalid characters
+				#
+				$error = __("Invalid name: only lowercase letters are allowed.");
+			}
+		}
+
+		if (!$error) {
+			# first, see if this package already exists, and if it can be overwritten
+			#	
+			$pkg_exists = package_exists($pkg_name);
+			if (can_submit_pkg($pkg_name, $_COOKIE["AURSID"])) {
+				if (file_exists(INCOMING_DIR . $pkg_name)) {
+					# blow away the existing file/dir and contents
+					#
+					rm_rf(INCOMING_DIR . $pkg_name);
+				}
+
+				if (!@mkdir(INCOMING_DIR.$pkg_name)) {
+					$error = __("Could not create directory %s.",
+						array(INCOMING_DIR.$pkg_name));
+				}
+
+				$shcmd = "/bin/mv " . $pkg_dir . " " . escapeshellarg(INCOMING_DIR . $pkg_name . "/" . $pkg_name);
+				@exec($shcmd);
+			} else {
+				$error = __("You are not allowed to overwrite the %h%s%h package.",
+					array("<b>", $pkg_name, "</b>"));
+			}
+		}
+
 		# Re-tar the package for consistency's sake
 		#
 		if (!$error) {
 			if (!@chdir(INCOMING_DIR.$pkg_name)) {
 				$error = __("Could not change directory to %s.",
-				array(INCOMING_DIR.$pkg_name));
+					array(INCOMING_DIR.$pkg_name));
 			}
 		}
+		
 		if (!$error) {
 			@exec("/bin/sh -c 'tar czf ".$pkg_name.".tar.gz ".$pkg_name."'", $trash, $retval);
 			if ($retval) {
 				$error = __("Could not re-tar");
 			}
 		}
+		
+		# whether it failed or not we can clean this out
+		if (file_exists(UPLOAD_DIR . $tempdir)) {
+			rm_rf(UPLOAD_DIR . $tempdir);
+		}
+
 		# update the backend database
 		#
 		if (!$error) {
@@ -461,16 +427,6 @@ if ($_COOKIE["AURSID"]) {
 					$q .= $pdata["ID"].", '".mysql_real_escape_string($v)."')";
 					db_query($q, $dbh);
 				}
-
-				# add upload history
-				#
-				$q = "INSERT INTO PackageComments ";
-				$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
-				$q.= $pdata["ID"] . ", " . uid_from_sid($_COOKIE['AURSID']);
-				$q.= ", '" . mysql_real_escape_string($_REQUEST["comments"]);
-				$q.= "', UNIX_TIMESTAMP())";
-				db_query($q);
-
 			} else {
 				# this is a brand new package
 				#
@@ -533,17 +489,11 @@ if ($_COOKIE["AURSID"]) {
 					$q .= $packageID.", '".mysql_real_escape_string($v)."')";
 					db_query($q, $dbh);
 				}
-
-				# add upload history
-				#
-				$q = "INSERT INTO PackageComments ";
-				$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
-				$q.= $packageID . ", " . uid_from_sid($_COOKIE["AURSID"]) . ", '";
-				$q.= mysql_real_escape_string($_REQUEST["comments"]);
-				$q.= "', UNIX_TIMESTAMP())";
-				db_query($q, $dbh);
 			}
 		}
+
+		# must chdir because include dirs are relative!
+		chdir($_SERVER['DOCUMENT_ROOT']);
 	}
 
 
@@ -554,13 +504,13 @@ if ($_COOKIE["AURSID"]) {
 		if (ini_get("file_uploads")) {
 			if ($error) {
 				print "<span class='error'>".$error."</span><br />\n";
-				print "<br />&nbsp;<br />\n";
+				print "<br />\n";
 			}
             
-            if ($warning) {
-                print "<br><span class='error'>".$warning."</span><br />\n";
-                print "<br />&nbsp;<br />\n";
-            }
+			if ($warning) {
+					print "<br><span class='error'>".$warning."</span><br />\n";
+					print "<br />\n";
+			}
             
 			$pkg_categories = pkgCategories();
 			$pkg_locations = pkgLocations();
@@ -571,13 +521,6 @@ if ($_COOKIE["AURSID"]) {
 			print "<input type='hidden' name='MAX_FILE_SIZE' value='";
 			print initeger(ini_get("upload_max_filesize"))."' />\n";
 			print "<table border='0' cellspacing='5'>\n";
-			print "<tr>\n";
-			print "	<td span='f4' align='right'>";
-			print __("Package name").":</td>\n";
-			print "	<td span='f4' align='left'>";
-			print "<input type='text' name='pkgname' size='30' maxlength='32' />\n";
-			print "	</td>\n";
-			print "</tr>\n";
 			print "<tr>\n";
 			print "	<td span='f4' align='right'>";
 			print __("Package Category").":</td>\n";
@@ -607,31 +550,11 @@ if ($_COOKIE["AURSID"]) {
 			print "<input type='file' name='pfile' size='30' />\n";
 			print "	</td>\n";
 			print "</tr>\n";
-			print "<tr>\n";
-			print "	<td span='f4' align='right'>";
-			print __("Overwrite existing package?");
-			print "	</td>\n";
-			print "	<td span='f4' align='left'>";
-			print "<input type='radio' name='overwrite' value='1'> ".__("Yes");
-			print "&nbsp;&nbsp;&nbsp;";
-			print "<input type='radio' name='overwrite' value='0' checked> ";
-			print __("No");
-			print "	</td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "	<td valign='top' span='f4' align='right'>";
-			print __("Comment").":</td>\n";
-			print "	<td span='f4' align='left'>";
-			print "<textarea rows='10' cols='50' name='comments'></textarea>";
-			print "	</td>\n";
-			print "</tr>\n";
 
 			print "<tr>\n";
 			print "	<td>&nbsp;</td>\n";
 			print "	<td align='left'>";
 			print "<input class='button' type='submit' value='".__("Upload")."' />\n";
-			print "&nbsp;&nbsp;&nbsp;";
-			print "<input class='button' type='reset' value='".__("Reset")."' />\n";
 			print "</td>\n";
 			print "</tr>\n";
 			print "</table>\n";
@@ -646,7 +569,7 @@ if ($_COOKIE["AURSID"]) {
         
         if ($warning) {
             print "<span class='warning'>".$warning."</span><br />\n";
-            print "<br />&nbsp;<br />\n";
+            print "<br />\n";
         }
 	}
 
