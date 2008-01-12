@@ -334,7 +334,7 @@ function set_lang() {
 
 # common header
 #
-function html_header() {
+function html_header($title="") {
 	global $_SERVER;
 	global $_COOKIE;
 	global $_POST;
@@ -404,6 +404,8 @@ function html_header() {
 			}
 		}
 	}
+
+	$title = htmlspecialchars($title, ENT_QUOTES);
 
 	include('header.php');
 	return;

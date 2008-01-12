@@ -8,7 +8,7 @@ include("pkgfuncs.inc");    # package functions
 include("config.inc");      # configuration file with dir locations
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
-html_header();              # print out the HTML header
+html_header("Submit");              # print out the HTML header
 echo "<div class=\"pgbox\">\n";
 echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Submit")."</span></div>\n";
 echo "  <div class=\"pgboxbody\">\n";

@@ -250,6 +250,23 @@ function pkgnotify_from_sid($sid="") {
 	return $pkgs;
 }
 
+# get name of package based on pkgid
+#
+function pkgname_from_id($id="") {
+	if (!empty($id)) {
+		$dbh = db_connect();
+		$id = intval($id);
+		$q = "SELECT Name FROM Packages WHERE ID = " . mysql_real_escape_string($id);
+		$result = db_query($q, $dbh);
+		if (mysql_num_rows($result) > 0) {
+			$id = mysql_result($result, 0);
+		} else {
+			$id = "";
+		}
+	}
+	return $id;
+}
+
 # display package details
 #
 function package_details($id=0, $SID="") {
@@ -638,7 +655,7 @@ function pkg_search_page($SID="") {
 
 	# The search form
 	#
-	print "<form action='/packages.php' method='post'>\n";
+	print "<form action='/packages.php' method='get'>\n";
 	print "<input type='hidden' name='O' value='".$O."'>\n";
 
 	print "<center>\n";
@@ -713,58 +730,6 @@ function pkg_search_page($SID="") {
 
     print "  </select>\n";
     print "</td>\n";
-    
-    /* Sort by */
-	
-    print "<td align='right'>\n";
-	print "  <span class='f5'><span class='blue'>".__("Sort by");
-	print "</span></span><br />\n";
-	print "  <select name='SB'>\n";
-
-	print "  <option value=n";
-	$_REQUEST["SB"] == "n" ? print " selected> " : print "> ";
-	print __("Name")."</option>\n";
-
-	print "  <option value=c";
-	$_REQUEST["SB"] == "c" ? print " selected> " : print "> ";
-	print __("Category")."</option>\n";
-
-	print "  <option value=l";
-	$_REQUEST["SB"] == "l" ? print " selected> " : print "> ";
-	print __("Location")."</option>\n";
-
-	print "  <option value=v";
-	$_REQUEST["SB"] == "v" ? print " selected> " : print "> ";
-	print __("Votes")."</option>\n";
-
-	print "  <option value=m";
-	$_REQUEST["SB"] == "m" ? print " selected> " : print "> ";
-	print __("Maintainer")."</option>\n";
-
-	print "  <option value=a";
-	$_REQUEST["SB"] == "a" ? print " selected> " : print "> ";
-	print __("Age")."</option>\n";
-
-	print "  </select>\n";
-	print "</td>\n";
-
-	print "<td align='right'>\n";
-	print "  <span class='f5'><span class='blue'>".__("Sort order");
-	print "</span></span><br />\n";
-	print "  <select name='SO'>\n";
-
-	print "  <option value=a";
-	$_REQUEST["SO"] == "a" ? print " selected> " : print "> ";
-	print __("Ascending")."</option>\n";
-
-	print "  <option value=d";
-	$_REQUEST["SO"] == "d" ? print " selected> " : print "> ";
-	print __("Descending")."</option>\n";
-
-	print "  </select>\n";
-	print "</td>\n";
-
-    /* End of Sort by */
     
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Per page");

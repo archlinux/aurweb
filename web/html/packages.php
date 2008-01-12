@@ -7,7 +7,24 @@ include("pkgfuncs.inc");    # package specific functions
 include("search_po.inc");   # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
-html_header();              # print out the HTML header
+
+# set the title to something useful depending on
+# what "page" we're on
+#
+if (isset($_GET['ID'])) {
+	$id = pkgname_from_id($_GET['ID']);
+	if (!empty($id)) {
+		$title = $id;
+	}
+}	else if (isset($_GET['K'])) {
+	$title = "Search: " . $_GET['K'];
+} else if (isset($_GET['do_MyPackages'])) {
+	$title = __("My Packages");
+} else {
+	$title = __("Packages");
+}
+
+html_header($title);              # print out the HTML header
 
 # enable debugging
 #

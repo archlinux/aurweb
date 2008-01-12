@@ -8,7 +8,7 @@ include("pkgfuncs_po.inc"); # Add to handle the i18n of My Packages
 include("account_po.inc");  # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
-html_header();              # print out the HTML header
+html_header(__("Accounts"));              # print out the HTML header
 
 
 # Main page processing here

@@ -7,10 +7,7 @@ include("pkgfuncs_po.inc"); # Add to handle the i18n of My Packages
 include("aur.inc");
 set_lang();
 check_sid();
-
-# Any cookies have been sent, can now display HTML
-#
-html_header();
+html_header(__("Home"));
 
 # Big Top Level Table (Table 1)
 echo "<div class=\"pgbox\">\n";
