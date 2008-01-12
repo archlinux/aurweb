@@ -43,7 +43,7 @@ if (isset($_COOKIE["AURSID"])) {
 	      .__("My Packages")."</a></li>\n";
 }
 ?>
-   <li><a href="http://www.archlinux.org/mailman/listinfo/tur-users/">
+   <li><a href="http://archlinux.org/mailman/listinfo/aur-general">
 	<?php print __("Discussion"); ?></a></li>
 	<li><a href="http://bugs.archlinux.org/index.php?tasks=all&project=2"><?php print __("Bugs"); ?></a></li>
    <li><a href="packages.php"><?php print __("Packages"); ?></a></li>

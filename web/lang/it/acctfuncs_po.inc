@@ -7,7 +7,7 @@ global $_t;
 
 $_t["it"]["Missing a required field."] = "Manca un campo obbligatorio.";
 
-$_t["it"]["Search'"] = "Cerca'";
+$_t["it"]["Search"] = "Cerca'";
 
 $_t["it"]["The account, %h%s%h, has been successfully created."] = "L'account %h%s%h è stato creato con successo.";
 

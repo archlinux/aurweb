@@ -7,7 +7,7 @@ global $_t;
 
 $_t["ca"]["Missing a required field."] = "Manca un camp requerit.";
 
-$_t["ca"]["Search'"] = "Cerca'";
+$_t["ca"]["Search"] = "Cerca'";
 
 $_t["ca"]["The account, %h%s%h, has been successfully created."] = "El compte, %h%s%h, s'ha creat satisfactòriament.";
 

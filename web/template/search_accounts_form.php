@@ -58,7 +58,7 @@
 <td>&nbsp;</td>
 <td align='left'>&nbsp;<br/>
 <input type='submit' class='button'
-	value="<?php print __("Search'"); ?>">
+	value="<?php print __("Search"); ?>">
 <input type='reset' class='button'
 	value="<?php print __("Reset"); ?>"></td>
 </tr>

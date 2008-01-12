@@ -6,42 +6,6 @@ include_once("config.inc");
 #
 $pkgsearch_vars = array("O", "L", "C", "K", "SB", "SO", "PP", "do_MyPackages", "do_Orphans", "SeB");
 
-
-# print out the 'return to package details' link
-#
-function pkgdetails_link($id=0) {
-	$url_data = "<a href='/packages.php?do_Details=1&ID=".intval($id)."'>";
-	print __("Go back to %hpackage details view%h.",
-		array($url_data, "</a>"));
-	print "\n<br />\n";
-	return;
-}
-
-
-# print out the 'return to search results' link
-#
-function pkgsearch_results_link() {
-	global $_REQUEST;
-	global $pkgsearch_vars;
-
-	$url_data = "<a href='/packages.php?do_Search=1";
-	while (list($k, $var) = each($pkgsearch_vars)) {
-		if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
-			$url_data.="&".$var."=1";
-		} else {
-			$url_data.="&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
-		}
-	}
-	$url_data .= "'>";
-	print "<center>";
-	print __("Go back to %hsearch results%h.",
-		array($url_data, "</a>"));
-	print "</center>";
-	print "\n<br />\n";
-
-	return;
-}
-
 # Make sure this visitor can delete the requested package comment
 # They can delete if they were the comment submitter, or if they are a TU/Dev
 #
@@ -387,21 +351,25 @@ function package_details($id=0, $SID="") {
 			echo __("Dependencies")."</span></td></tr>\n";
 			echo "            <tr><td class='boxSoft'>";
 			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name', 'dummy');
-			while (list($k, $darr) = each($deps)) {
-				$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
-				while(list($k, $var) = each($pkgsearch_vars)) {
-					if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
-						$url .= "&".$var."=1";
-					} else {
-						$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+			if (count($deps) == 0) {
+				print "None\n";
+			} else {
+				while (list($k, $darr) = each($deps)) {
+					$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
+					while(list($k, $var) = each($pkgsearch_vars)) {
+						if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
+							$url .= "&".$var."=1";
+						} else {
+							$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+						}
 					}
+					reset($pkgsearch_vars);
+																								 
+									// $darr[3] is the DepCondition                                               
+																								 
+					if ($darr[2] == 0) echo $url."'>".$darr[1].$darr[3]."</a><br />\n";
+					else echo "<a href='http://archlinux.org/packages/search/".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 				}
-				reset($pkgsearch_vars);
-                                               
-                // $darr[3] is the DepCondition                                               
-                                               
-				if ($darr[2] == 0) echo $url."'>".$darr[1].$darr[3]."</a><br />\n";
-				else echo "<a href='http://archlinux.org/packages/search/".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 			}
 			echo "</td></tr>\n";
 			echo "</table></td>";
@@ -413,58 +381,66 @@ function package_details($id=0, $SID="") {
 			echo __("Required by")."</span></td></tr>\n";
 			echo "<tr><td class='boxSoft'>";
 			$deps = package_required($row["ID"]);
-			while (list($k, $darr) = each($deps)) {
-				$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
-				while(list($k, $var) = each($pkgsearch_vars)) {
-					if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
-						$url .= "&".$var."=1";
-					} else {
-						$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+			if (count($deps) == 0) {
+				print "None\n";
+			} else {
+				while (list($k, $darr) = each($deps)) {
+					$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
+					while(list($k, $var) = each($pkgsearch_vars)) {
+						if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
+							$url .= "&".$var."=1";
+						} else {
+							$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
+						}
 					}
+					reset($pkgsearch_vars);
+																								 
+									// $darr[3] is the DepCondition                                               
+																								 
+					if ($darr[2] == 0) print $url."'>".$darr[1].$darr[3]."</a><br />\n";
+					else print "<a href='http://archlinux.org/packages/search/".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 				}
-				reset($pkgsearch_vars);
-                                               
-                // $darr[3] is the DepCondition                                               
-                                               
-				if ($darr[2] == 0) print $url."'>".$darr[1].$darr[3]."</a><br />\n";
-				else print "<a href='http://archlinux.org/packages/search/".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 			}
-            echo "</td></tr>\n";
-            echo "          </table>\n";
-            echo "        </td>\n";
+			echo "</td></tr>\n";
+			echo "          </table>\n";
+			echo "        </td>\n";
 			echo "        <td valign='top'>\n";
 			echo "          <table class='boxSoft' style='width: 200px'>\n";
 			echo "            <tr><td class='boxSoftTitle'><span class='f3'>";
 			echo __("Sources")."</span></td></tr>\n";
 			echo "            <tr><td class='boxSoft'>";
 			$sources = package_sources($row["ID"]); # $sources[0] = 'src';
-			while (list($k, $src) = each($sources)) {
-				$parsed_url = parse_url($src);
-				if ($parsed_url['scheme'])
-				{
-					//It is an external source
-					echo "<a href='".$src."'>".$src."</a><br />\n";
-				}
-				else 
-				{
-					//It is presumably an internal source
-					if ($row["LocationID"] == 2) {
-						echo "<a href='".dirname($row['URLPath'])."/".$row['Name'];
-						echo "/".$src."'>".$src."</a><br />\n";
-					} elseif ($row["LocationID"] == 3) {
-						echo "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/*checkout*/".$row["Category"]."/".$row["Name"]."/".$src."/?rev=HEAD&cvsroot=AUR&only_with_tag=CURRENT'>";
-						echo $src."</a><br />\n";
+			if (count($sources) == 0) {
+				print "None\n";
+			} else {
+				while (list($k, $src) = each($sources)) {
+					$parsed_url = parse_url($src);
+					if ($parsed_url['scheme'])
+					{
+						//It is an external source
+						echo "<a href='".$src."'>".$src."</a><br />\n";
+					}
+					else 
+					{
+						//It is presumably an internal source
+						if ($row["LocationID"] == 2) {
+							echo "<a href='".dirname($row['URLPath'])."/".$row['Name'];
+							echo "/".$src."'>".$src."</a><br />\n";
+						} elseif ($row["LocationID"] == 3) {
+							echo "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/*checkout*/".$row["Category"]."/".$row["Name"]."/".$src."/?rev=HEAD&cvsroot=AUR&only_with_tag=CURRENT'>";
+							echo $src."</a><br />\n";
+						}
 					}
 				}
 			}
 			echo "</td></tr>\n";
-            echo "          </table>\n";
-            echo "        </td>\n";
+			echo "          </table>\n";
+			echo "        </td>\n";
 			echo "      </tr>\n";
 			echo "    </table>\n";
-            echo "  </div>\n";
-            echo "</div>\n\n";
-            echo "<br />\n\n";
+			echo "  </div>\n";
+			echo "</div>\n\n";
+			echo "<br />\n\n";
 
 
 			# Actions Bar
@@ -534,19 +510,20 @@ function package_details($id=0, $SID="") {
 			
 			# Comments
 			#
-            echo "<div class=\"pgbox\">\n";
-            echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Comments")."</span></div>\n";
-            echo "  <div class=\"pgboxbody-comment\">\n";
+			echo "<div class=\"pgbox\">\n";
+			echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Comments")."</span></div>\n";
+			echo "  <div class=\"pgboxbody-comment\">\n";
 			echo "    <table width='100%'>\n";
-			echo "      <tr>\n";
-			echo "        <td colspan='2'>\n";
-			echo "          <form action='/pkgedit.php' method='post'>\n";
-			echo "            <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
-			echo "            <input type='submit' class='button' name='add_Comment' value=\"";
-			echo __("Add Comment")."\">\n";
-			echo "          </form>\n";
-			echo "        </td>\n";
-			echo "      </tr>\n";
+			if (isset($_COOKIE['AURSID'])) {
+				echo "<tr><td>";
+				echo "          <form action='/pkgedit.php' method='post'>\n";
+				echo "            <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+				echo "            <input type='submit' class='button' name='add_Comment' value=\"";
+				echo __("Add Comment")."\">\n";
+				echo "          </form>\n";
+				echo "</tr></td>";
+				//echo "<br />\n";
+			}
 			$comments = package_comments($row["ID"]);
 			if (!empty($comments)) {
 				while (list($indx, $carr) = each($comments)) {
@@ -554,8 +531,8 @@ function package_details($id=0, $SID="") {
 					echo "      <tr>\n";
 					echo "        <td valign='top' style='padding-right: 10' colspan='2'>\n";
 					echo "          <table class='boxSoft' width='100%'>\n";
-                    echo "            <tr>\n";
-                    echo "              <td class='boxSoftTitle'><span class='f3'>";
+					echo "            <tr>\n";
+					echo "              <td class='boxSoftTitle'><span class='f3'>";
 					if (canDeleteComment($carr["ID"], account_from_sid($SID), $SID)) {
 						$durl = "<a href='/pkgedit.php?del_Comment=1";
 						$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
@@ -573,24 +550,24 @@ function package_details($id=0, $SID="") {
 							array("<b>",$carr["UserName"],"</b>",
 							      "<i>",gmdate("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
 					}
-                    echo "</span></td>\n";
-                    echo "            </tr>\n";
-                    echo "            <tr>\n";
-                    echo "              <td class='boxSoft'>";
+					echo "</span></td>\n";
+					echo "            </tr>\n";
+					echo "            <tr>\n";
+					echo "              <td class='boxSoft'>";
 					echo "<code>\n";
 					echo nl2br(htmlspecialchars($carr["Comments"]));
-                    echo "</code></td>\n";
-                    echo "            </tr>\n";
+					echo "</code></td>\n";
+					echo "            </tr>\n";
 					echo "          </table>\n";
 					echo "        </td>\n";
 					echo "      </tr>\n";
 				}
+			} else {
+				print "<tr><td>None</td></tr>\n";
 			}
-
 			echo "    </table>\n";
-            echo "  </div>\n";
-            echo "</div>\n";
-			
+			echo "  </div>\n";
+			echo "</div>\n";
 		}
 	}
 	return;
@@ -942,61 +919,77 @@ function pkg_search_page($SID="") {
 			$q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
 			break;
 	}
+		
 	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth
 	$q.= "LIMIT ".$O.", ".$PP;
 
-    print "<!-- Query: ".$q." -->\n";
+	if ($SID) {
+		# The 'Actions' table
+		#
+		print "<center>\n";
+		print "<table cellspacing='3' class='boxSoft'>\n";
+		print "<tr>\n";
+		print "  <td class='boxSoftTitle' align='right'>\n";
+		print "    <span class='f3'>".__("Actions")."</span>\n";
+		print "  </td>\n";
+		print "</tr>\n";
+		print "<tr>\n";
+		print "  <td class='boxSoft'>\n";
+		print "<table style='width: 100%' align='center'>\n";
+		print "<tr>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Flag'";
+		print "	value='".__("Flag Out-of-date")."'></td>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_UnFlag'";
+		print "	value='".__("Unflag Out-of-date")."'></td>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Adopt'";
+		print "	value='".__("Adopt Packages")."'></td>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Disown'";
+		print "	value='".__("Disown Packages")."'></td>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Delete'";
+		print "	value='".__("Delete Packages")."'></td>\n";
+		print "  <td align='center'>";
+		print "<input type='submit' class='button' name='do_Notify'";
+		print "	value='".__("Toggle Notify")."'></td>\n";
+		print "  <td align='center'>";
+		print "</tr>\n";
+		print "</table>\n";
+		print "  </td>\n";
+		print "</tr>\n";
+		print "</table>\n";
+		print "</center>\n";
+		print "<br />\n";
+	}
+
+	// Why?
+	// print "<!-- Query: ".$q." -->\n";
+	
 	$result = db_query($q, $dbh);
+	
+	print "<center>\n";
+	print "<table cellspacing='3' class='boxSoft'>\n";
+	print "<tr>\n";
+	print "  <td class='boxSoftTitle' align='right'>\n";
+	print "    <span class='f3'>".__("Package Listing")."</span>\n";
+	print "  </td>\n";
+	print "</tr>\n";
+	print "<tr>\n";
+	print "  <td class='boxSoft'>\n";
+	print "<table width='100%' cellspacing='0' cellpadding='2'>\n";
+
 	if (!$result) {
+		print "<div class='pgboxbody'>";
 		print __("Error retrieving package list.");
-
+		print "</div>";
 	} elseif (!mysql_num_rows($result)) {
+		print "<div class='pgboxbody'>";
 		print __("No packages matched your search criteria.");
-
+		print "</div>";
 	} else {
-
-		if ($SID) {
-			# The 'Actions' table
-			#
-			print "<center>\n";
-			print "<table cellspacing='3' class='boxSoft'>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoftTitle' align='right'>\n";
-			print "    <span class='f3'>".__("Actions")."</span>\n";
-			print "  </td>\n";
-			print "</tr>\n";
-			print "<tr>\n";
-			print "  <td class='boxSoft'>\n";
-			print "<table style='width: 100%' align='center'>\n";
-			print "<tr>\n";
-			print "  <td align='center'>";
-			print "<input type='submit' class='button' name='do_Flag'";
-			print "	value='".__("Flag Out-of-date")."'></td>\n";
-			print "  <td align='center'>";
-			print "<input type='submit' class='button' name='do_UnFlag'";
-			print "	value='".__("Unflag Out-of-date")."'></td>\n";
-			print "  <td align='center'>";
-			print "<input type='submit' class='button' name='do_Adopt'";
-			print "	value='".__("Adopt Packages")."'></td>\n";
-			print "  <td align='center'>";
-			print "<input type='submit' class='button' name='do_Disown'";
-			print "	value='".__("Disown Packages")."'></td>\n";
-			print "  <td align='center'>";
-			print "<input type='submit' class='button' name='do_Delete'";
-			print "	value='".__("Delete Packages")."'></td>\n";
-			print "  <td align='center'>";
-			print "<input type='submit' class='button' name='do_Notify'";
-			print "	value='".__("Toggle Notify")."'></td>\n";
-			print "  <td align='center'>";
-			print "</tr>\n";
-			print "</table>\n";
-			print "  </td>\n";
-			print "</tr>\n";
-			print "</table>\n";
-			print "</center>\n";
-			print "<br />\n";
-		}
-
 		# print out package search results
 		#
 
@@ -1006,17 +999,6 @@ function pkg_search_page($SID="") {
 		} else {
 			$SO_next="d";
 		}
-		
-		print "<center>\n";
-		print "<table cellspacing='3' class='boxSoft'>\n";
-		print "<tr>\n";
-		print "  <td class='boxSoftTitle' align='right'>\n";
-		print "    <span class='f3'>".__("Package Listing")."</span>\n";
-		print "  </td>\n";
-		print "</tr>\n";
-		print "<tr>\n";
-		print "  <td class='boxSoft'>\n";
-		print "<table width='100%' cellspacing='0' cellpadding='2'>\n";
 		print "<tr>\n";
 		if ($SID) {
 			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
@@ -1064,10 +1046,10 @@ function pkg_search_page($SID="") {
 			(($i % 2) == 0) ? $c = "data1" : $c = "data2";
 			print "<tr>\n";
 			if ($SID) {
-				print "  <td class='".$c."'>";
 				if ($row["OutOfDate"]) {
 					$c = "outofdate";
 				}
+				print "  <td class='".$c."'>";
 				print "<input type='checkbox' name='IDs[".$row["ID"]."]' value='1'>";
 #				if ($i == 0) {
 #					$all_ids = $row["ID"];
@@ -1085,20 +1067,8 @@ function pkg_search_page($SID="") {
 			print $cats[$row["CategoryID"]]."</span></span></td>\n";
 			print "  <td class='".$c."'><span class='f4'>";
 			$url = "<a href='/packages.php?";
-			$url .= "do_Details=1&ID=";
+			$url .= "ID=";
 			$url .= $row["ID"];
-			while (list($k, $var) = each($pkgsearch_vars)) {
-				# I'm never convinced how to do this encoding/decoding properly.
-				# php.net recommends htmlentities(urlencode(data)), but that
-				# doesn't work!
-				#
-				if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
-					$url .= "&".$var."=1";
-				} else {
-					$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
-				}
-			}
-			reset($pkgsearch_vars);
 			$url.= "'>";
 			$url.="<span class='black'>";
 			$url.=$row["Name"];
@@ -1210,13 +1180,12 @@ function pkg_search_page($SID="") {
 		}
 		print "    </td>\n";
 		print "  </tr>\n";
-
-		print "  </table>\n";
-		print "  </td>\n";
-		print "</tr>\n";
-		print "</table>\n";
-		print "</center>\n";
 	}
+	print "  </table>\n";
+	print "  </td>\n";
+	print "</tr>\n";
+	print "</table>\n";
+	print "</center>\n";
 	print "</form>\n";
 
 	return;

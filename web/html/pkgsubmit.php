@@ -421,11 +421,15 @@ if ($_COOKIE["AURSID"]) {
 					db_query($q, $dbh);
 				}
 
-				$sources = explode(" ", $new_pkgbuild['source']);
-				while (list($k, $v) = each($sources)) {
-					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-					$q .= $pdata["ID"].", '".mysql_real_escape_string($v)."')";
-					db_query($q, $dbh);
+				# Insert sources, if they don't exist don't inser them
+				# 
+				if ($new_pkgbuild['source'] != "") {
+					$sources = explode(" ", $new_pkgbuild['source']);
+					while (list($k, $v) = each($sources)) {
+						$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
+						$q .= $pdata["ID"].", '".mysql_real_escape_string($v)."')";
+						db_query($q, $dbh);
+					}
 				}
 			} else {
 				# this is a brand new package
@@ -483,11 +487,15 @@ if ($_COOKIE["AURSID"]) {
 					db_query($q, $dbh);
 				}
 
-				$sources = explode(" ", $new_pkgbuild['source']);
-				while (list($k, $v) = each($sources)) {
-					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-					$q .= $packageID.", '".mysql_real_escape_string($v)."')";
-					db_query($q, $dbh);
+				# insert sources
+				#
+				if ($new_pkgbuild['source'] != "") {
+					$sources = explode(" ", $new_pkgbuild['source']);
+					while (list($k, $v) = each($sources)) {
+						$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
+						$q .= $packageID.", '".mysql_real_escape_string($v)."')";
+						db_query($q, $dbh);
+					}
 				}
 			}
 		}

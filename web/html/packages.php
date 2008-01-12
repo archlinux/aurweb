@@ -92,9 +92,6 @@ if (isset($_REQUEST["do_Flag"])) {
 			print __("You did not select any packages to flag.");
 			print "</p>\n";
 		}
-
-		pkgsearch_results_link();
-				
 	}
 
 } elseif (isset($_REQUEST["do_UnFlag"])) {
@@ -131,7 +128,6 @@ if (isset($_REQUEST["do_Flag"])) {
 			print "</p>\n";
 		}
 
-		pkgsearch_results_link();
 				
 	}
 
@@ -187,7 +183,6 @@ if (isset($_REQUEST["do_Flag"])) {
 			print "</p>\n";
 		}
 
-		pkgsearch_results_link();
 
 	}
 
@@ -295,7 +290,6 @@ if (isset($_REQUEST["do_Flag"])) {
 			print __("You did not select any packages to delete.");
 			print "</p>\n";
 		} # end if (!empty($ids))
-		pkgsearch_results_link();
 	} # end if (!atype)
 
 } elseif (isset($_REQUEST["do_Adopt"])) {
@@ -353,9 +347,6 @@ if (isset($_REQUEST["do_Flag"])) {
 			print __("You did not select any packages to adopt.");
 			print "</p>\n";
 		}
-
-		pkgsearch_results_link();
-
 	}
 
 
@@ -414,13 +405,6 @@ if (isset($_REQUEST["do_Flag"])) {
 			print __("You did not select any packages to vote for.");
 			print "</p>\n";
 		}
-
-		if (isset($_REQUEST["ID"])) {
-			pkgdetails_link($_REQUEST["ID"]);
-		} else {
-			pkgsearch_results_link();
-		}
-
 	}
 
 
@@ -471,28 +455,19 @@ if (isset($_REQUEST["do_Flag"])) {
 			print __("You did not select any packages to un-vote for.");
 			print "</p>\n";
 		}
-
-		if (isset($_REQUEST["ID"])) {
-			pkgdetails_link($_REQUEST["ID"]);
-		} else {
-			pkgsearch_results_link();
-		}
-
 	}
 
 
-} elseif (isset($_REQUEST["do_Details"])) {
+} elseif (isset($_REQUEST["ID"])) {
 
-	if (!isset($_REQUEST["ID"]) || !intval($_REQUEST["ID"])) {
+	if (!intval($_REQUEST["ID"])) {
 		print __("Error trying to retrieve package details.")."<br />\n";
 		
 	} else {
 		package_details($_REQUEST["ID"], $_COOKIE["AURSID"]);
 	}
 
-	print "<br />\n";
 	# FIXME: If someone hits the detail page's vote button, this link dies
-	pkgsearch_results_link();
 
 } elseif (isset($_REQUEST["do_Notify"])) {
 	# I realize that the implementation here seems a bit convoluted, but we want to
@@ -532,7 +507,6 @@ if (isset($_REQUEST["do_Flag"])) {
 					print '<br /></p>';
 				}
 			}
-			pkgdetails_link($pid);
 		} else {
 			print '<p>';
 			print __("Couldn't add to notification list.");

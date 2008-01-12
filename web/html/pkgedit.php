@@ -58,7 +58,6 @@ if ($_REQUEST["del_Comment"]) {
 	} else {
 		print __("Missing comment ID.")."<br />\n";
 	}
-	pkgdetails_link($_REQUEST["ID"]);
 	html_footer(AUR_VERSION);
 	exit();
 }
@@ -76,8 +75,7 @@ if ($_REQUEST["add_Comment"]) {
 		$q.= "'".mysql_real_escape_string($_REQUEST["comment"])."', ";
 		$q.= "UNIX_TIMESTAMP())";
 		db_query($q, $dbh);
-		print __("Comment has been added.")."<br />&nbsp;<br />\n";
-		pkgdetails_link($_REQUEST["ID"]);
+		print __("Comment has been added.");
 
 		# Send email notifications
 		#
@@ -144,8 +142,6 @@ if ($_REQUEST["change_Category"]) {
 		} else {
 			print __("Invalid category ID.")."<br />\n";
 		}
-		pkgdetails_link($_REQUEST["ID"]);
-
 	} else {
 		# Prompt visitor for new category_id
 		#
@@ -179,10 +175,7 @@ if ($_REQUEST["change_Category"]) {
 
 print __("You've found a bug if you see this....")."<br />\n";
 
-html_footer(AUR_VERSION);   # Use the $Id$ keyword
-                           # NOTE: when checking in a new file, use
-                           # 'svn propset svn:keywords "Id" filename.php'
-                           # to tell svn to expand the "Id" keyword.
+html_footer(AUR_VERSION);
 
 # vim: ts=2 sw=2 noet ft=php
 ?>
