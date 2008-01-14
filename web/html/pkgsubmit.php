@@ -47,11 +47,9 @@ if ($_COOKIE["AURSID"]) {
 					$error = __("Could not change directory to %s.",
 						array(UPLOAD_DIR . $tempdir));
 				} else {
-					exec("/bin/sh -c 'tar xzf " . $_FILES["pfile"]["tmp_name"] . "'", $trash, $retval);
-					if ($retval) {
-						exec("/bin/sh -c 'tar xjf " . $_FILES["pfile"]["tmp_name"] . "'", $trash, $retval);
-					}
-					if ($retval) {
+					# try using general tar. it should take .gz, .bz2, and plain .tar
+					exec("/bin/sh -c 'tar xf ".$upload_file."'", $trash, $retval);
+					if (!$retval) {
 						$error = __("Unknown file format for uploaded file.");
 					}
 				}
