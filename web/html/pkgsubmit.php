@@ -37,7 +37,7 @@ if ($_COOKIE["AURSID"]) {
 
 		# temporary dir to put the tarball contents
 		$tempdir = uid_from_sid($_COOKIE['AURSID']) . time();
-		
+
 		if (!$error) {
 			if (!@mkdir(UPLOAD_DIR . $tempdir)) {
 				$error = __("Could not create incoming directory: %s.",
@@ -48,8 +48,8 @@ if ($_COOKIE["AURSID"]) {
 						array(UPLOAD_DIR . $tempdir));
 				} else {
 					# try using general tar. it should take .gz, .bz2, and plain .tar
-					exec("/bin/sh -c 'tar xf ".$upload_file."'", $trash, $retval);
-					if (!$retval) {
+					exec("/bin/sh -c 'tar xf ".$_FILES['pfile']['tmp_name']."'", $trash, $retval);
+					if ($retval) {
 						$error = __("Unknown file format for uploaded file.");
 					}
 				}
@@ -520,52 +520,43 @@ if ($_COOKIE["AURSID"]) {
             
 			$pkg_categories = pkgCategories();
 			$pkg_locations = pkgLocations();
+?>
 
-			print "<form action='/pkgsubmit.php' method='post'";
-			print "	enctype='multipart/form-data'>\n";
-			print "<input type='hidden' name='pkgsubmit' value='1' />\n";
-			print "<input type='hidden' name='MAX_FILE_SIZE' value='";
-			print initeger(ini_get("upload_max_filesize"))."' />\n";
-			print "<table border='0' cellspacing='5'>\n";
-			print "<tr>\n";
-			print "	<td span='f4' align='right'>";
-			print __("Package Category").":</td>\n";
-			print "	<td span='f4' align='left'>";
-			print "<select name='category'>";
-			print "<option value='1'> " . __("Select Category") . "</option>";
-			while (list($k, $v) = each($pkg_categories)) {
-				print "<option value='".$k."'> " . $v . "</option>";
-			}
-			print "</select></td>\n";
-			print "</tr>\n";
-#			print "<tr>\n";
-#			print "	<td span='f4' align='right'>";
-#			print __("Package Location").":</td>\n";
-#			print "	<td span='f4' align='left'>";
-#			print "<select name='location'>";
-#			print "<option value='0'> " . __("Select Location") . "</option>";
-#			while (list($k, $v) = each($pkg_locations)) {
-#				print "<option value='".$k."'> " . $v . "</option>";
-#			}
-#			print "</select></td>\n";
-#			print "</tr>\n";
-			print "<tr>\n";
-			print "	<td span='f4' align='right'>";
-			print __("Upload package file").":</td>\n";
-			print "	<td span='f4' align='left'>";
-			print "<input type='file' name='pfile' size='30' />\n";
-			print "	</td>\n";
-			print "</tr>\n";
+<form action='/pkgsubmit.php' method='post' enctype='multipart/form-data'>
+	<input type='hidden' name='pkgsubmit' value='1' />
+	<table border='0' cellspacing='5'>
+		<tr>
+			<td span='f4' align='right'><?php print __("Package Category"); ?>:</td>
+			<td span='f4' align='left'>
+			<select name='category'>
+				<option value='1'><?php print __("Select Category"); ?></option>
+				<?php
+					while (list($k, $v) = each($pkg_categories)) {
+						print "<option value='".$k."'";
+						if (isset($_POST['category']) && $_POST['category'] == $k) {
+							print " selected='selected'";
+						}
+						print "> " . $v . "</option>";
+					}
+				?>
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<td span='f4' align='right'><?php print __("Upload package file"); ?>:</td>
+			<td span='f4' align='left'>
+				<input type='file' name='pfile' size='30' />
+			</td>
+		</tr>
+		<tr>
+			<td align='left'>
+				<input class='button' type='submit' value='<?php print __("Upload"); ?>' />
+			</td>
+		</tr>
+	</table>
+</form>
 
-			print "<tr>\n";
-			print "	<td>&nbsp;</td>\n";
-			print "	<td align='left'>";
-			print "<input class='button' type='submit' value='".__("Upload")."' />\n";
-			print "</td>\n";
-			print "</tr>\n";
-			print "</table>\n";
-
-			print "</form>\n";
+<?php
 		} else {
 			print __("Sorry, uploads are not permitted by this server.");
 			print "<br />\n";
