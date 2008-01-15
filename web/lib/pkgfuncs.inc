@@ -712,24 +712,24 @@ function pkg_search_page($SID="") {
 	print "</td>\n";
 	
 	print "<td align='right'>\n";
-    print "  <span class='f5'><span class='blue'>".__("Search by");
-    print "</span></span><br />\n";
-    
-    print "  <select name='SeB'>\n";
-    # by name/description
-    print "  <option value=nd";
-    $_REQUEST["SeB"] == "nd" ? print " selected> " : print "> ";
-    print __("Name")."</option>\n";    
-    # by maintainer
-    print "  <option value=m";
-    $_REQUEST["SeB"] == "m" ? print " selected> " : print "> ";
-    print __("Maintainer")."</option>\n";
-    print "  <option value=s";
-    $_REQUEST["SeB"] == "s" ? print " selected> " : print "> ";
-    print __("Submitter")."</option>\n";    
+	print "  <span class='f5'><span class='blue'>".__("Search by");
+	print "</span></span><br />\n";
 
-    print "  </select>\n";
-    print "</td>\n";
+	print "  <select name='SeB'>\n";
+	# by name/description
+	print "  <option value=nd";
+	$_REQUEST["SeB"] == "nd" ? print " selected> " : print "> ";
+	print __("Name")."</option>\n";
+	# by maintainer
+	print "  <option value=m";
+	$_REQUEST["SeB"] == "m" ? print " selected> " : print "> ";
+	print __("Maintainer")."</option>\n";
+	print "  <option value=s";
+	$_REQUEST["SeB"] == "s" ? print " selected> " : print "> ";
+	print __("Submitter")."</option>\n";
+
+	print "  </select>\n";
+	print "</td>\n";
     
 	print "<td align='right'>\n";
 	print "  <span class='f5'><span class='blue'>".__("Per page");
@@ -753,17 +753,6 @@ function pkg_search_page($SID="") {
 	print "  <input type='submit' style='width:80px' class='button' name='do_Search'";
 	print " value='".__("Go")."'>\n";
 	print "</td>\n";
-
-	/*
-	 *  Commented the My Packages button because there is no need for it
-	 *  cause we already have a link.
-	 * 
-	if ($SID) {
-		print "<td align='right' valign='bottom'>&nbsp;\n";
-		print "  <input type='submit' class='button' name='do_MyPackages'";
-	 	print "	value='".__("My Packages")."'>\n";
-		print "</td>\n";
-	}*/
 
 	print "<td align='right' valign='bottom'>&nbsp;\n";
 	print "  <input type='submit' style='width:80px'  class='button' name='do_Orphans'";
@@ -884,7 +873,9 @@ function pkg_search_page($SID="") {
 			$q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
 			break;
 	}
-		
+
+	$allresults = mysql_num_rows(db_query($q, $dbh));
+
 	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth
 	$q.= "LIMIT ".$O.", ".$PP;
 
@@ -1115,6 +1106,21 @@ function pkg_search_page($SID="") {
 		print "  <td>\n";
 		print "  <table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
 		print "  <tr>\n";
+
+		# figure out the results to use
+		$first = $O + 1;
+
+		if (($PP+$O) > $allresults) {
+			$last = $allresults;
+		} else {
+			$last = $PP + $O;
+		}
+
+		# print number of results
+		# ok this styling sucks
+		print "<tr><td align='center' colspan='0'><span class='f4'><span class='blue'>";
+		print __("Showing results %s - %s of %s", array($first, $last, $allresults));
+		print "</span></span></td></tr>";
 
 		# first print the legend
 		print "    <td colspan='2' align='center'>";
