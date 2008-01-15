@@ -27,4 +27,6 @@ $_t["en"]["Discussion"] = "Discussion";
 
 $_t["en"]["Bugs"] = "Bugs";
 
+$_t["en"]["Trusted User"] = "TU";
+
 ?>

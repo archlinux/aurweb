@@ -31,10 +31,17 @@
       <ul>
 <?php
 if (isset($_COOKIE["AURSID"])) {
-      echo '        <li><a href="/logout.php">'.__("Logout")."</a></li>\n";
-      echo '        <li><a href="/pkgsubmit.php">'.__("Submit")."</a></li>\n";
-      echo '        <li><a href="/packages.php?do_MyPackages=1">'
-	      .__("My Packages")."</a></li>\n";
+?>
+	<li><a href="/logout.php"><?php print __("Logout"); ?></a></li>
+	<li><a href="/pkgsubmit.php"><?php print __("Submit"); ?></a></li>
+	<li><a href="/packages.php?do_MyPackages=1"><?php print __("My Packages"); ?></a></li>
+<?php
+	if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User"
+		|| account_from_sid($_COOKIE["AURSID"]) == "Developer") {
+?>
+	<li><a href="/tu.php"><?php print __("Trusted User"); ?></a></li>
+<?php
+	}
 }
 ?>
    <li><a href="http://archlinux.org/mailman/listinfo/aur-general">
@@ -59,8 +66,8 @@ foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
            <li>Lang: </li>
          </ul>
       </div>
-      <br />
-      <div style="text-align: right; padding-right: 10px">
+			<br />
+      <div style="text-align: right; padding-right: 10px; clear: right">
 <?php
 if (isset($_COOKIE["AURSID"])) {
   print __("Logged-in as: %h%s%h",

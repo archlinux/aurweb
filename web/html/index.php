@@ -52,7 +52,7 @@ while ($row = mysql_fetch_assoc($result)) {
 	print '<tr>';
         print '<td class="boxSoft">';
 
-        print '<span class="f4"><span class="blue"><a href="/packages.php?do_Details=1&ID='.intval($row["ID"]).'">';
+        print '<span class="f4"><span class="blue"><a href="/packages.php?ID='.intval($row["ID"]).'">';
 	print $row["Name"]." ".$row["Version"]."</a></span></span>";
 
         print '</td>';

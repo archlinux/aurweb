@@ -290,10 +290,10 @@ function package_details($id=0, $SID="") {
 		} else {
 
 			# print out package details
-            #
-            echo "<div class=\"pgbox\">\n";
-            echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Package Details")."</span></div>\n";
-            echo "  <div class=\"pgboxbody\">\n";
+			#
+      echo "<div class=\"pgbox\">\n";
+      echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Package Details")."</span></div>\n";
+      echo "  <div class=\"pgboxbody\">\n";
 			echo "    <table>\n";
 			echo "      <tr><td class='boxSoft' colspan='2'><span class='f2'>";
 			echo $row["Name"] . " " . $row["Version"]."</span></td></tr>\n";
