@@ -61,7 +61,7 @@ body {
    z-index: 1;
    display: block;
    position: absolute;
-   top: 50;
+   top: 50px;
    right: 30px;
 }
 #lang_sub ul {
@@ -76,7 +76,7 @@ body {
 #lang_sub ul li {
 	display: block;
 	float: right;
-	margin-left: 0 3px;
+	margin: 0 3px;
 	font-size: 10px;
 	text-align: center;
 }
