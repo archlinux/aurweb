@@ -345,10 +345,10 @@ function html_header($title="") {
 	if (isset($_POST["user"]) || isset($_POST["pass"])) {
 		# Attempting to log in
 		#
-		if (!isset($_POST["user"])) {
+		if (!isset($_POST["user"]) || $_POST['user'] === "") {
 			$login_error = __("You must supply a username.");
 		}
-		if (!isset($_POST["pass"])) {
+		if ((!isset($_POST["pass"]) || $_POST['pass'] === "") && empty($login_error)) {
 			$login_error = __("You must supply a password.");
 		}
 		if (!$login_error) {
