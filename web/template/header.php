@@ -9,19 +9,13 @@
 	<link rel='stylesheet' type='text/css' href='/css/containers.css' />
 	<link rel='stylesheet' type='text/css' href='/css/arch.css' />
 	<link rel='shortcut icon' href='images/favicon.ico' />
-	<link rel='alternate' type='application/rss+xml'
-	 title='Newest Packages RSS' href='rss2.php' />
+	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='rss2.php' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
    </head>
    <body bgcolor='white'>
 <div id="head_container">
    <div id="title">
-      <div id="logo"><a href="/"><img src="images/logo.png"
-	 alt="Arch Logo" /></a></div>
-      <div id="titleimg"><a href="/"><img src="images/title.png"
-	 alt="Arch Linux" /></a></div>
-   </div>
-   <div style="float: right; color: #eeeeee; font-size: small">
+      <div id="logo"><h1 id="archtitle"><a href="/" title="Arch Linux (Home)">Arch Linux</a></h1></div>
    </div>
    <div id="main_nav">
       <ul>
