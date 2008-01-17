@@ -57,28 +57,44 @@ body {
 #main_nav ul li a:hover {
 	background: #1793d1;
 }
-#lang_sub {
-   z-index: 1;
+#lang_login_sub {
    display: block;
-   position: absolute;
-   top: 50px;
-   right: 30px;
+   position: relative;
+   top: -30px;
+   margin: auto;
+   width: 90%;
 }
-#lang_sub ul {
-	list-style: none;
+#lang_login_sub .button {
+    font-size: 9px;
+    margin: 2px;
 }
-#lang_sub ul a {
+#login_bar {
+    font-size: 10px;
+    display: block;
+    float: left;
+}
+#login_bar input {
+    margin-right: 5px;
+}
+#lang_bar { 
+    display: block;
+    position: relative;
+    float: right;
+}
+#lang_login_sub ul {
+   list-style: none;
+   padding: 0;
+}
+#lang_login_sub ul a {
    text-decoration: none;
 }
-#lang_sub ul a:hover {
+#lang_login_sub ul a:hover {
    text-decoration: underline;
 }
-#lang_sub ul li {
-	display: block;
-	float: right;
-	margin: 0 3px;
+#lang_login_sub ul li {
+	display: inline;
+    padding-right: 1px;
 	font-size: 10px;
-	text-align: center;
 }
 #updates {
 	font-size: small;
@@ -399,6 +415,7 @@ textarea.vLargeTextField {
 #maincontent {
     width: 100%;
     text-align: left;
+    clear: both;
 }
 #maincontent > table {
     width: 90%;
