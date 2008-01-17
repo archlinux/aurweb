@@ -93,7 +93,7 @@ if (isset($_COOKIE["AURSID"])) {
     } ?>
         <form method='post'>
          <?php print __("Username:"); ?>
-					<input type='text' name='user' size='30' maxlength='64' value='<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>'>
+          <input type='text' name='user' size='30' maxlength='64' value='<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>'>
          <?php print __("Password:"); ?>
           <input type='password' name='pass' size='30' maxlength='32'>
           <input type='submit' class='button' value='<?php  print __("Login"); ?>'>

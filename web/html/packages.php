@@ -47,7 +47,7 @@ if (isset($_COOKIE["AURSID"])) {
 
 # grab the list of Package IDs to be operated on
 #
-isset($_REQUEST["IDs"]) ? $ids = $_REQUEST["IDs"] : $ids = array();
+isset($_POST["IDs"]) ? $ids = $_POST["IDs"] : $ids = array();
 #isset($_REQUEST["All_IDs"]) ?
 #		$all_ids = explode(":", $_REQUEST["All_IDs"]) :
 #		$all_ids = array();
@@ -55,7 +55,7 @@ isset($_REQUEST["IDs"]) ? $ids = $_REQUEST["IDs"] : $ids = array();
 
 # determine what button the visitor clicked
 #
-if (isset($_REQUEST["do_Flag"])) {
+if ($_POST['action'] == "do_Flag") {
 	if (!$atype) {
 		print __("You must be logged in before you can flag packages.");
 		print "<br />\n";
@@ -111,7 +111,7 @@ if (isset($_REQUEST["do_Flag"])) {
 		}
 	}
 
-} elseif (isset($_REQUEST["do_UnFlag"])) {
+} elseif ($_POST['action'] == "do_UnFlag") {
 	if (!$atype) {
 		print __("You must be logged in before you can unflag packages.");
 		print "<br />\n";
@@ -148,7 +148,7 @@ if (isset($_REQUEST["do_Flag"])) {
 				
 	}
 
-} elseif (isset($_REQUEST["do_Disown"])) {
+} elseif ($_POST['action'] == "do_Disown") {
 	if (!$atype) {
 		print __("You must be logged in before you can disown packages.");
 		print "<br />\n";
@@ -204,7 +204,7 @@ if (isset($_REQUEST["do_Flag"])) {
 	}
 
 
-} elseif (isset($_REQUEST["do_Delete"])) {
+} elseif ($_POST['action'] == "do_Delete") {
 	if (!$atype) {
 		print __("You must be logged in before you can disown packages.");
 		print "<br />\n";
@@ -309,7 +309,7 @@ if (isset($_REQUEST["do_Flag"])) {
 		} # end if (!empty($ids))
 	} # end if (!atype)
 
-} elseif (isset($_REQUEST["do_Adopt"])) {
+} elseif ($_POST['action'] == "do_Adopt") {
 	if (!$atype) {
 		print __("You must be logged in before you can adopt packages.");
 		print "<br />\n";
@@ -367,7 +367,7 @@ if (isset($_REQUEST["do_Flag"])) {
 	}
 
 
-} elseif (isset($_REQUEST["do_Vote"])) {
+} elseif ($_POST['action'] == "do_Vote") {
 	if (!$atype) {
 		print __("You must be logged in before you can vote for packages.");
 		print "<br />\n";
@@ -425,7 +425,7 @@ if (isset($_REQUEST["do_Flag"])) {
 	}
 
 
-} elseif (isset($_REQUEST["do_UnVote"])) {
+} elseif ($_POST['action'] == "do_UnVote") {
 	if (!$atype) {
 		print __("You must be logged in before you can un-vote for packages.");
 		print "<br />\n";
@@ -475,18 +475,16 @@ if (isset($_REQUEST["do_Flag"])) {
 	}
 
 
-} elseif (isset($_REQUEST["ID"])) {
+} elseif (isset($_GET["ID"])) {
 
-	if (!intval($_REQUEST["ID"])) {
+	if (!intval($_GET["ID"])) {
 		print __("Error trying to retrieve package details.")."<br />\n";
 		
 	} else {
-		package_details($_REQUEST["ID"], $_COOKIE["AURSID"]);
+		package_details($_GET["ID"], $_COOKIE["AURSID"]);
 	}
 
-	# FIXME: If someone hits the detail page's vote button, this link dies
-
-} elseif (isset($_REQUEST["do_Notify"])) {
+} elseif ($_POST['action'] == "do_Notify") {
 	# I realize that the implementation here seems a bit convoluted, but we want to
 	# ensure that everything happens as it should, even if someone called this page
 	# without having clicked a button somewhere (naughty naughty). This also leaves

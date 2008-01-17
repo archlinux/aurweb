@@ -766,8 +766,10 @@ function pkg_search_page($SID="") {
 	print "</tr>\n";
 	print "</table>\n";
 	print "</center>\n";
+	print "</form>";
 	print "<br />\n";
 
+	print "<form action='/packages.php' method='post'>\n";
 	# query to pull out package info
 	#
 #	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Votes ";
@@ -879,51 +881,8 @@ function pkg_search_page($SID="") {
 	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth
 	$q.= "LIMIT ".$O.", ".$PP;
 
-	if ($SID) {
-		# The 'Actions' table
-		#
-		print "<center>\n";
-		print "<table cellspacing='3' class='boxSoft'>\n";
-		print "<tr>\n";
-		print "  <td class='boxSoftTitle' align='right'>\n";
-		print "    <span class='f3'>".__("Actions")."</span>\n";
-		print "  </td>\n";
-		print "</tr>\n";
-		print "<tr>\n";
-		print "  <td class='boxSoft'>\n";
-		print "<table style='width: 100%' align='center'>\n";
-		print "<tr>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Flag'";
-		print "	value='".__("Flag Out-of-date")."'></td>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_UnFlag'";
-		print "	value='".__("Unflag Out-of-date")."'></td>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Adopt'";
-		print "	value='".__("Adopt Packages")."'></td>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Disown'";
-		print "	value='".__("Disown Packages")."'></td>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Delete'";
-		print "	value='".__("Delete Packages")."'></td>\n";
-		print "  <td align='center'>";
-		print "<input type='submit' class='button' name='do_Notify'";
-		print "	value='".__("Toggle Notify")."'></td>\n";
-		print "  <td align='center'>";
-		print "</tr>\n";
-		print "</table>\n";
-		print "  </td>\n";
-		print "</tr>\n";
-		print "</table>\n";
-		print "</center>\n";
-		print "<br />\n";
-	}
-
-	// Why?
-	// print "<!-- Query: ".$q." -->\n";
 	
+
 	$result = db_query($q, $dbh);
 	
 	print "<center>\n";
@@ -1100,13 +1059,29 @@ function pkg_search_page($SID="") {
 		if ($_REQUEST["do_Orphans"]) {
 			print "<input type='hidden' name='do_Orphans' value='1'>\n";
 		}
-
+		
+		if ($SID) {
+			# The 'Actions' box
+			#
+			print "<div style='text-align: right; padding: 5px 5% 5px 0'>";
+			print "<select name='action'>";
+			print "<option value='do_Flag'>".__("Flag Out-of-date")."</option>\n";
+			print "<option value='do_UnFlag'>".__("Unflag Out-of-date")."</option>\n";
+			print "<option value='do_Adopt'>".__("Adopt Packages")."</option>\n";
+			print "<option value='do_Disown'>".__("Disown Packages")."</option>\n";
+			print "<option value='do_Delete'>".__("Delete Packages")."</option>\n";
+			print "<option value='do_Notify'>".__("Toggle Notify")."</option>\n";
+			print "</select>";
+			print "<input type='submit' class='button' style='width: 80px' value='" . __("Go") . "' />";
+			print "</div>";
+		}
+		
 		print "<table width='90%' cellspacing='0' cellpadding='2'>\n";
 		print "<tr>\n";
 		print "  <td>\n";
 		print "  <table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
 		print "  <tr>\n";
-
+		
 		# figure out the results to use
 		$first = $O + 1;
 
