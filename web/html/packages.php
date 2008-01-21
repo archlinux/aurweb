@@ -55,7 +55,7 @@ isset($_POST["IDs"]) ? $ids = $_POST["IDs"] : $ids = array();
 
 # determine what button the visitor clicked
 #
-if ($_POST['action'] == "do_Flag") {
+if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can flag packages.");
 		print "<br />\n";
@@ -111,7 +111,7 @@ if ($_POST['action'] == "do_Flag") {
 		}
 	}
 
-} elseif ($_POST['action'] == "do_UnFlag") {
+} elseif ($_POST['action'] == "do_UnFlag" || isset($_POST['do_UnFlag'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can unflag packages.");
 		print "<br />\n";
@@ -148,7 +148,7 @@ if ($_POST['action'] == "do_Flag") {
 				
 	}
 
-} elseif ($_POST['action'] == "do_Disown") {
+} elseif ($_POST['action'] == "do_Disown" || isset($_POST['do_Disown'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can disown packages.");
 		print "<br />\n";
@@ -204,7 +204,7 @@ if ($_POST['action'] == "do_Flag") {
 	}
 
 
-} elseif ($_POST['action'] == "do_Delete") {
+} elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can disown packages.");
 		print "<br />\n";
@@ -309,7 +309,7 @@ if ($_POST['action'] == "do_Flag") {
 		} # end if (!empty($ids))
 	} # end if (!atype)
 
-} elseif ($_POST['action'] == "do_Adopt") {
+} elseif ($_POST['action'] == "do_Adopt" || isset($_POST['do_Adopt'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can adopt packages.");
 		print "<br />\n";
@@ -367,7 +367,7 @@ if ($_POST['action'] == "do_Flag") {
 	}
 
 
-} elseif ($_POST['action'] == "do_Vote") {
+} elseif ($_POST['action'] == "do_Vote" || isset($_POST['do_Vote'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can vote for packages.");
 		print "<br />\n";
@@ -425,7 +425,7 @@ if ($_POST['action'] == "do_Flag") {
 	}
 
 
-} elseif ($_POST['action'] == "do_UnVote") {
+} elseif ($_POST['action'] == "do_UnVote" || isset($_POST['do_UnVote'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can un-vote for packages.");
 		print "<br />\n";
@@ -484,7 +484,7 @@ if ($_POST['action'] == "do_Flag") {
 		package_details($_GET["ID"], $_COOKIE["AURSID"]);
 	}
 
-} elseif ($_POST['action'] == "do_Notify") {
+} elseif ($_POST['action'] == "do_Notify" || isset($_POST['do_Notify'])) {
 	# I realize that the implementation here seems a bit convoluted, but we want to
 	# ensure that everything happens as it should, even if someone called this page
 	# without having clicked a button somewhere (naughty naughty). This also leaves
