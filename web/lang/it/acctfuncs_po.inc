@@ -83,4 +83,14 @@ $_t["it"]["Developer"] = "Sviluppatore";
 
 $_t["it"]["View this user's packages"] = "Visualizza i pacchetti di quest'utente";
 
+$_t["it"]["start and end with a letter or number"] = "inizia e finisce con una lettera o un numero";
+
+$_t["it"]["Your password must be at least "] = "La password deve essere di almeno ";
+
+$_t["it"]["The username is invalid."] = "Il nome utente non è valido.";
+
+$_t["it"]["It must be "] = "Deve essere ";
+
+$_t["it"]["can contain only one period, underscore or hyphen."] = "può contenere solo un punto, un trattino basso o un trattino.";
+
 ?>

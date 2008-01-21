@@ -171,4 +171,10 @@ $_t["it"]["The above files have been verified (by %h%s%h) and are safe to use."]
 
 $_t["it"]["Required by"] = "Richiesto da";
 
+$_t["it"]["Out of Date"] = "Non aggiornati";
+
+$_t["it"]["Showing results %s - %s of %s"] = "Mostra i risultati %s - %s di %s";
+
+$_t["it"]["Toggle Notify"] = "Blocca la notifica";
+
 ?>

@@ -93,4 +93,6 @@ $_t["it"]["My Statistics"] = "Le mie statistiche";
 
 $_t["it"]["Home"] = "Inizio";
 
+$_t["it"]["DISCLAIMER"] = "CLAUSOLA";
+
 ?>
