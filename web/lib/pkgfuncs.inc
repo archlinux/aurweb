@@ -608,18 +608,15 @@ function pkg_search_page($SID="") {
 
 	# determine paging variables
 	#
+	if (intval($_GET['O'])) {
+		$O = $_GET['O'];
+	} else {
+		$O = 0;
+	}
 	$_REQUEST["PP"] ? $PP = intval($_REQUEST["PP"]) : $PP = 25;
 	if ($PP < 25) {$PP = 25;}
 	if ($PP > 100) {$PP = 100;}
-	$_REQUEST["O"] ? $O = intval($_REQUEST["O"]) : $O = 0;
-	if ($_REQUEST["do_More"]) {
-		$O += $PP;
-	} elseif ($_REQUEST["do_Less"]) {
-		$O -= $PP;
-	}
-	if ($O < 0) {
-		$O = 0;
-	}
+	
 	if ($_REQUEST["do_Search"] && $_REQUEST["do_Search"] != 1) {
 		# reset the offset to zero if they hit Go
 		#
@@ -1062,6 +1059,7 @@ function pkg_search_page($SID="") {
 			#
 			print "<div style='text-align: right; padding: 5px 5% 5px 0'>";
 			print "<select name='action'>";
+			print "<option>" . __("Actions") . "</option>";
 			print "<option value='do_Flag'>".__("Flag Out-of-date")."</option>\n";
 			print "<option value='do_UnFlag'>".__("Unflag Out-of-date")."</option>\n";
 			print "<option value='do_Adopt'>".__("Adopt Packages")."</option>\n";
@@ -1103,23 +1101,21 @@ function pkg_search_page($SID="") {
     print "    </span></td>\n";
 		print "  </tr>";
 
+
 	  # now print the forward and back buttons on the bottom
 		# LEFT
 		print "  <tr>";
 		print "    <td align='left'>";
 		if (($O-$PP) >= 0) {
-			print "    <input type='submit' class='button' name='do_Less'";
-			print " value='&lt;-- ".__("Less")."'>\n";
-		}
-		else {
-			print "&nbsp;";
+			print "<a href='/packages.php?O=" . ($O - $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
+		} else if ($O<$PP && $O>0) {
+			print "<a href='/packages.php?O=0'>" . __("Less") . "</a>";
 		}
 		print "    </td>";
 		# RIGHT
 		print "    <td align='right'>";
 		if (mysql_num_rows(db_query($qnext, $dbh))) {
-			print "    <input type='submit' class='button' name='do_More'";
-			print " value='".__("More")." --&gt;'>\n";
+			print "<a href='/packages.php?O=" . ($O + $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>" . __("More") . "</a>";
 		}
 		print "    </td>\n";
 		print "  </tr>\n";
