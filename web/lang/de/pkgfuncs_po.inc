@@ -159,4 +159,12 @@ $_t["de"]["You are not allowed to access this area."] = "Es ist Dir nicht erlaub
 
 $_t["de"]["Unsafe"] = "Unsicher";
 
+$_t["de"]["This package has been flagged out of date."] = "Dieses Paket wurde als veraltet markiert.";
+
+$_t["de"]["The above files have been verified (by %h%s%h) and are safe to use."] = "Die obigen Dateien wurden (von %h%s%h) als sicher markiert.";
+
+$_t["de"]["Required by"] = "Benötigt von";
+
+$_t["de"]["Accounts"] = "Konten";
+
 ?>

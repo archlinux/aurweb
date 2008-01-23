@@ -67,4 +67,6 @@ $_t["de"]["Flagged as safe"] = "Als sicher markiert";
 
 $_t["de"]["My Statistics"] = "Meine Statistiken";
 
+$_t["de"]["Home"] = "Startseite";
+
 ?>
