@@ -26,15 +26,6 @@ if (isset($_GET['ID'])) {
 
 html_header($title);              # print out the HTML header
 
-# enable debugging
-#
-$DBUG = 0;
-if ($DBUG) {
-	print "<pre>\n";
-	print_r($_REQUEST);
-	print "</pre>\n";
-}
-
 # get login privileges
 #
 if (isset($_COOKIE["AURSID"])) {

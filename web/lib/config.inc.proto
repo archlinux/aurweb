@@ -11,20 +11,12 @@ define( "UPLOAD_DIR", "/home/aur/unsupported-temp/" );
 define( "INCOMING_DIR", "/home/aur/unsupported/" );
 define( "URL_DIR", "/packages/" );
 
-define( "AURQ_LOG", "/home/aur/aurq.log" );
-define( "AURD_LOG", "/home/aur/aurd.log" );
-
 define( "USERNAME_MIN_LEN", 3 );
 define( "USERNAME_MAX_LEN", 16 );
 define( "PASSWD_MIN_LEN", 4 );
 define( "PASSWD_MAX_LEN", 128 );
 
 $LOGIN_TIMEOUT = 7200;           # number of idle seconds before timeout
-
-# debugging variables
-#
-$QBUG = 1;                       # toggle query logging to /var/tmp/aurq.log
-$DBUG = 1;                       # use dbug($msg) to log to /var/tmp/aurd.log
 
 $SUPPORTED_LANGS = array(        # what languages we have translations for
 	"en" => "English",

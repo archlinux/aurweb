@@ -10,13 +10,6 @@ check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
 $svn_idstr = "\$Id$";
 
-$DBUG = 0;
-if ($DBUG) {
-	print "<pre>\n";
-	print_r($_REQUEST);
-	print "</pre>\n";
-}
-
 # Make sure this visitor is logged in
 #
 if (isset($_COOKIE["AURSID"])) {

@@ -13,20 +13,10 @@ echo "<div class=\"pgbox\">\n";
 echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Submit")."</span></div>\n";
 echo "  <div class=\"pgboxbody\">\n";
 
-# Debugging
-$DBUG = 0;
-
 if ($_COOKIE["AURSID"]) {
 	# track upload errors
 	#
 	$error = "";
-	if ($DBUG) {
-		print "</center><pre>\n";
-		print_r($_REQUEST);
-        print "<br>";
-        print_r($_FILES);
-		print "</pre><center>\n";
-	}
 
 	if ($_REQUEST["pkgsubmit"]) {
 		#Before processing, make sure we even have a file

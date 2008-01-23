@@ -86,7 +86,6 @@ function check_sid() {
 		} else {
 			$row = mysql_fetch_row($result);
 			if ($row[0] + $LOGIN_TIMEOUT <= $row[1]) {
-				dbug("login timeout reached");
 				$failed = 2;
 			}
 		}
@@ -267,17 +266,11 @@ function db_connect() {
 # query logging/debuggin in.
 #
 function db_query($query="", $db_handle="") {
-	global $QBUG;
 	if (!$query) {
 		return FALSE;
 	}
 	if (!$db_handle) {
 		$db_handle = db_connect();
-	}
-	if ($QBUG) {
-		$fp = fopen(AURQ_LOG, "a");
-		fwrite($fp, $query . "\n");
-		fclose($fp);
 	}
 	$result = @mysql_query($query, $db_handle);
 	return $result;
@@ -416,15 +409,6 @@ function html_header($title="") {
 #
 function html_footer($ver="") {
 	include('footer.php');
-	return;
-}
-
-# debug logging
-#
-function dbug($msg) {
-	$fp = fopen(AURD_LOG, "a");
-	fwrite($fp, $msg . "\n");
-	fclose($fp);
 	return;
 }
 
