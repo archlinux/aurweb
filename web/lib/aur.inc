@@ -9,6 +9,7 @@ include_once("config.inc");
 include_once("aur_po.inc");
 // TODO: remove this, move translations over for login form
 include_once("index_po.inc");
+include_once("acctfuncs.inc");
 
 # TODO do we need to set the domain on cookies?  I seem to remember some
 # security concerns about not using domains - but it's not like
@@ -71,7 +72,7 @@ function check_sid() {
 	global $_COOKIE;
 	global $LOGIN_TIMEOUT;
 
-	if ($_COOKIE["AURSID"]) {
+	if (isset($_COOKIE["AURSID"])) {
 		$failed = 0;
 		# the visitor is logged in, try and update the session
 		#
@@ -285,18 +286,18 @@ function set_lang() {
 	global $SUPPORTED_LANGS;
 
 	$update_cookie = 0;
-	if ($_REQUEST['setlang']) {
+	if (isset($_REQUEST['setlang'])) {
 		# visitor is requesting a language change
 		#
 		$LANG = $_REQUEST['setlang'];
 		$update_cookie = 1;
 
-	} elseif ($_COOKIE['AURLANG']) {
+	} elseif (isset($_COOKIE['AURLANG'])) {
 		# If a cookie is set, use that
 		#
 		$LANG = $_COOKIE['AURLANG'];
 
-	} elseif ($_COOKIE["AURSID"]) {
+	} elseif (isset($_COOKIE["AURSID"])) {
 		$dbh = db_connect();
 		$q = "SELECT LangPreference FROM Users, Sessions ";
 		$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -334,67 +335,8 @@ function html_header($title="") {
 	global $LANG;
 	global $SUPPORTED_LANGS;
 
-	$login_error = "";
-	if (isset($_POST["user"]) || isset($_POST["pass"])) {
-		# Attempting to log in
-		#
-		if (!isset($_POST["user"]) || $_POST['user'] === "") {
-			$login_error = __("You must supply a username.");
-		}
-		if ((!isset($_POST["pass"]) || $_POST['pass'] === "") && empty($login_error)) {
-			$login_error = __("You must supply a password.");
-		}
-		if (!$login_error) {
-			# Try and authenticate the user
-			#
-
-			#md5 hash it
-			$_POST["pass"] = md5($_POST["pass"]);
-			$dbh = db_connect();
-			$q = "SELECT ID, Suspended FROM Users ";
-			$q.= "WHERE Username = '" . mysql_real_escape_string($_POST["user"]) . "' ";
-			$q.= "AND Passwd = '" . mysql_real_escape_string($_POST["pass"]) . "'";
-			$result = db_query($q, $dbh);
-			if (!$result) {
-                $login_error = __("Login failure: Bad user or pass.");
-			} else {
-				$row = mysql_fetch_row($result);
-				if (empty($row)) {
-				    $login_error = __("Login failure: Bad user or pass.");
-				} elseif ($row[1]) {
-					$login_error = __("Your account has been suspended.");
-				}
-			}
-
-			if (!$login_error) {
-				# Account looks good.  Generate a SID and store it.
-				#
-				$logged_in = 0;
-				$num_tries = 0;
-				while (!$logged_in && $num_tries < 5) {
-					$new_sid = new_sid();
-					$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS) ";
-					$q.="VALUES (". $row[0]. ", '" . $new_sid . "', UNIX_TIMESTAMP())";
-					$result = db_query($q, $dbh);
-					# Query will fail if $new_sid is not unique
-					#
-					if ($result) {
-						$logged_in = 1;
-						break;
-					}
-					$num_tries++;
-				}
-				if ($logged_in) {
-					# set our SID cookie
-					#
-					setcookie("AURSID", $new_sid, 0, "/");
-					$_COOKIE['AURSID'] = $new_sid;
-				} else {
-					$login_error = __("Error trying to generate session id.");
-				}
-			}
-		}
-	}
+	$login = try_login();
+  $login_error = $login['error'];
 
 	$title = htmlspecialchars($title, ENT_QUOTES);
 

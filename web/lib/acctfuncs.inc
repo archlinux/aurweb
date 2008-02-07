@@ -603,7 +603,6 @@ function display_account_info($U="",$T="",
 /*
  * Returns SID (Session ID) and error (error message) in an array
  * SID of 0 means login failed.
- * There should be a better way of doing this...I think
  */
 function try_login() {
 	$login_error = ""; 

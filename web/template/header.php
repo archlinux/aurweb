@@ -82,24 +82,7 @@ foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
 ?>
         </ul>
         </span>
-        <span id="login_bar">
-<?php
-if (isset($_COOKIE["AURSID"])) {
-  print __("Logged-in as: %h%s%h",
-			array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
-} else {
-	if ($login_error) {
-		print "<span class='error'>" . $login_error . "</span><br />\n";
-    } ?>
-        <form method='post'>
-         <?php print __("Username:"); ?>
-          <input type='text' name='user' size='30' maxlength='64' value='<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>'>
-         <?php print __("Password:"); ?>
-          <input type='password' name='pass' size='30' maxlength='32'>
-          <input type='submit' class='button' value='<?php  print __("Login"); ?>'>
-        </form>
-<?php } ?>
-        </span>
+	<?php include("login_form.php"); ?>
       </div>
     </div>
     <div id="maincontent">
