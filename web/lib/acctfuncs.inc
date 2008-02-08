@@ -728,7 +728,7 @@ function good_passwd( $passwd )
  */
 function valid_passwd( $userID, $passwd )
 {
-	if ( good_passwd($passwd) ) {
+	if ( strlen($passwd) > 0 ) {
 		$dbh = db_connect();
 		$q = "SELECT ID FROM Users".
 		  " WHERE ID = '$userID'" .
