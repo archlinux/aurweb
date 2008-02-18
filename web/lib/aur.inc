@@ -356,13 +356,11 @@ function html_header($title="") {
 			$q.= "AND Passwd = '" . mysql_real_escape_string($_POST["pass"]) . "'";
 			$result = db_query($q, $dbh);
 			if (!$result) {
-				$login_error = __("Error looking up username, %s.",
-							array(htmlspecialchars($_POST["user"])));
+                $login_error = __("Login failure: Bad user or pass.");
 			} else {
 				$row = mysql_fetch_row($result);
 				if (empty($row)) {
-					$login_error = __("Incorrect password for username, %s.",
-							array(htmlspecialchars($_POST["user"])));
+				    $login_error = __("Login failure: Bad user or pass.");
 				} elseif ($row[1]) {
 					$login_error = __("Your account has been suspended.");
 				}

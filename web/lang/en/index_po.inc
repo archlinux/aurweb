@@ -35,15 +35,11 @@ $_t["en"]["For now, it's just a place holder."] = "For now, it's just a place ho
 
 $_t["en"]["It's more important to get the login functionality finished."] = "It's more important to get the login functionality finished.";
 
-$_t["en"]["Error looking up username, %s."] = "Error looking up username, %s.";
-
 $_t["en"]["Login"] = "Login";
 
 $_t["en"]["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience.";
 
 $_t["en"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "If you have feedback about the AUR, please leave it in %hFlyspray%h.";
-
-$_t["en"]["Incorrect password for username, %s."] = "Incorrect password for username, %s.";
 
 $_t["en"]["Latest Packages:"] = "Latest Packages:";
 
@@ -94,6 +90,9 @@ $_t["en"]["The most popular packages will be provided as binary packages in [com
 $_t["en"]["Packages added or updated in the past 7 days"] = "Packages added or updated in the past 7 days";
 
 $_t["en"]["Out-of-date"] = "Out-of-date";
+
 $_t["en"]["DISCLAIMER"] = "DISCLAIMER: Unsupported PKGBUILDs are user produced content, by downloading them you agree to do so at your own risk.";
+
+$_t["en"]["Login failure: Bad user or pass."] = "Login failure: Bad user or pass.";
 
 ?>
