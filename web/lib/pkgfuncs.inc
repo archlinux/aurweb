@@ -655,7 +655,8 @@ function pkg_search_page($SID="") {
 
 	# The search form
 	#
-	print "<form action='/packages.php' method='get'>\n";
+	print "<form action='/packages.php' method='post'>\n";
+	#print "<form action='/packages.php' method='get'>\n";
 	print "<input type='hidden' name='O' value='".$O."'>\n";
 
 	print "<center>\n";
@@ -766,10 +767,8 @@ function pkg_search_page($SID="") {
 	print "</tr>\n";
 	print "</table>\n";
 	print "</center>\n";
-	print "</form>";
 	print "<br />\n";
 
-	print "<form action='/packages.php' method='post'>\n";
 	# query to pull out package info
 	#
 #	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Votes ";
@@ -880,8 +879,6 @@ function pkg_search_page($SID="") {
 
 	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth
 	$q.= "LIMIT ".$O.", ".$PP;
-
-	
 
 	$result = db_query($q, $dbh);
 	
