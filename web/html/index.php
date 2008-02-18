@@ -14,23 +14,18 @@ echo "<div class=\"pgbox\">\n";
 echo "  <div class=\"pgboxtitle\"><span class=\"f3\">AUR ".__("Home")."</span></div>\n";
 echo "  <div class=\"frontpgboxbody\">\n";
 echo "<table border='0' cellpadding='0' cellspacing='3' width='90%'>\n";
+
+# MAIN: Top
 echo "<tr>\n";
-
-# MAIN: Top Left
-print "<td class='boxSoft' valign='top'>";
-
+print "<td class='boxSoft' valign='top' colspan='2'>";
 print "<p>".__("Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.", array('<a href="http://wiki.archlinux.org/index.php/AUR_User_Guidelines">', '</a>', '<a href="http://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">', '</a>'))."<br>";
 print __("Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!", array('<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">', '</a>'))."</p>";
 print "<p>".__("Remember to vote for your favourite packages!")."<br>";
 print __("The most popular packages will be provided as binary packages in [community].")."</p>";
-
-# MAIN: Top Right
-print "</td>";
-print "<td class='boxSoft' valign='top'>";
-
-# MAIN: Bottom Left
 print "</td>";
 print "</tr>";
+
+# MAIN: Bottom Left
 print "<tr>";
 print "<td class='boxSoft' valign='top'>";
 
