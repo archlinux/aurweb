@@ -93,6 +93,6 @@ $_t["it"]["My Statistics"] = "Le mie statistiche";
 
 $_t["it"]["Home"] = "Inizio";
 
-$_t["it"]["DISCLAIMER"] = "CLAUSOLA";
+$_t["it"]["DISCLAIMER"] = "Avviso: i PKGBUILD presenti in unsupported sono stati inviati dagli utenti e, scaricandoli, accetti di usarli a tuo rischio e pericolo.";
 
 ?>

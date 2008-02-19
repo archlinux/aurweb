@@ -35,4 +35,6 @@ $_t["it"]["Error looking up username, %s."] = "Si è verificato un errore durant
 
 $_t["it"]["Incorrect password for username, %s."] = "Password errata per il nome utente %s.";
 
+$_t["it"]["Login failure: Bad user or pass."] = "Autenticazione fallita: nome utente o password errata. ";
+
 ?>
