@@ -69,4 +69,6 @@ $_t["de"]["My Statistics"] = "Meine Statistiken";
 
 $_t["de"]["Home"] = "Startseite";
 
+$_t["de"]["DISCLAIMER"] = "DISCLAIMER: Offiziell nicht unterstützte PKGBUILDS werden von den Benutzern erstellt - durch den Download willigt man ein, diese auf eigene Gefahr zu benutzen.";
+
 ?>
