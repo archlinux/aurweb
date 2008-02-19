@@ -8,6 +8,10 @@
  * @copyright cactuswax.net, 12 October, 2007
  * @package rpc
  **/
+if (!extension_loaded('json'))
+{
+    dl('json.so');
+}
 
 /**
  * This class defines a remote interface for fetching data 
@@ -78,9 +82,10 @@ class AurJSON {
      * @return mixed Returns an array of package matches.
      **/
     private function search($keyword_string) {
+        $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
         $query = sprintf(
-            "SELECT Name,ID FROM Packages WHERE MATCH(Name,Description) AGAINST('%s' IN BOOLEAN MODE)", 
-            mysql_real_escape_string($keyword_string, $this->dbh) );
+            "SELECT Name,ID FROM Packages WHERE Name LIKE '%%%s%%' OR Description LIKE '%%%s%%' AND DummyPkg=0",
+            $keyword_string, $keyword_string );
 
         $result = db_query($query, $this->dbh);
 
@@ -106,7 +111,7 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function info($pqdata) {
-        $base_query = "SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE ";
+        $base_query = "SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE DummyPkg=0 AND";
 
         if ( is_numeric($pqdata) ) {
             // just using sprintf to coerce the pqd to an int
@@ -118,10 +123,10 @@ class AurJSON {
             if(get_magic_quotes_gpc()) {
                 $pqd = stripslashes($pqdata);
             }
-            $query_stub = sprintf("Name=%s",mysql_real_escape_string($pqdata));
+            $query_stub = sprintf("Name=\"%s\"",mysql_real_escape_string($pqdata));
         }
 
-        $result = db_query($query.$base_query, $this->dbh);
+        $result = db_query($base_query.$query_stub, $this->dbh);
 
         if ( $result && (mysql_num_rows($result) > 0) ) {
             $row = mysql_fetch_assoc($result);
