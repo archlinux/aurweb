@@ -84,7 +84,7 @@ class AurJSON {
     private function search($keyword_string) {
         $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
         $query = sprintf(
-            "SELECT Name,ID FROM Packages WHERE Name LIKE '%%%s%%' OR Description LIKE '%%%s%%' AND DummyPkg=0",
+            "SELECT Name,ID FROM Packages WHERE ( Name LIKE '%%%s%%' OR Description LIKE '%%%s%%' ) AND DummyPkg=0",
             $keyword_string, $keyword_string );
 
         $result = db_query($query, $this->dbh);
