@@ -159,4 +159,10 @@ $_t["fr"]["Unsafe"] = "Non sûr";
 
 $_t["fr"]["unknown"] = "inconnu";
 
+$_t["fr"]["Showing results %s - %s of %s"] = "Résultats %s à %s pour un total de %s";
+
+$_t["fr"]["Out of Date"] = "Périmé";
+
+$_t["fr"]["Required by"] = "Requis par";
+
 ?>

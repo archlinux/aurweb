@@ -61,4 +61,6 @@ $_t["fr"]["Out-of-date"] = "Périmé";
 
 $_t["fr"]["User Statistics"] = "Statistiques Utilisateur";
 
+$_t["fr"]["DISCLAIMER"] = "Les PKGBUILDs proposés dans \"Unsupported\" sont produits par des utilisateurs. Téléchargez-les à vos propres risques.";
+
 ?>
