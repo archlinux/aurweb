@@ -37,4 +37,6 @@ $_t["it"]["Incorrect password for username, %s."] = "Password errata per il nome
 
 $_t["it"]["Login failure: Bad user or pass."] = "Autenticazione fallita: nome utente o password errata. ";
 
+$_t["it"]["Trusted User"] = "Trusted User";
+
 ?>
