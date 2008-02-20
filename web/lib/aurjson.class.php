@@ -111,7 +111,7 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function info($pqdata) {
-        $base_query = "SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE DummyPkg=0 AND";
+        $base_query = "SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE DummyPkg=0 AND ";
 
         if ( is_numeric($pqdata) ) {
             // just using sprintf to coerce the pqd to an int
