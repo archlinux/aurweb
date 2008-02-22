@@ -854,18 +854,23 @@ function pkg_search_page($SID="") {
     switch ($_REQUEST["SB"]) {
 		case 'c':
 			$q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
+			$SB = 'c';
 			break;
 		case 'l':
 			$q.= "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
+			$SB = 'l';
 			break;
 		case 'v':
 			$q.= "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
+			$SB = 'v';
 			break;
 		case 'm':
 			$q.= "ORDER BY Username ".$order.", Name ASC, LocationID ASC ";
+			$SB = 'm';
 			break;
 		case 'a':
 			$q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
+			$SB = 'a';
 			break;
 		default:
 			$q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
@@ -905,8 +910,10 @@ function pkg_search_page($SID="") {
 		# SO_next used to change sort order on header click
 		if ($_REQUEST["SO"] == "d"){
 			$SO_next="a";
+			$SO = 'd';
 		} else {
 			$SO_next="d";
+			$SO = 'a';
 		}
 		print "<tr>\n";
 		if ($SID) {
@@ -1088,6 +1095,7 @@ function pkg_search_page($SID="") {
 
 		# print number of results
 		# ok this styling sucks
+		# patches welcome!
 		print "<tr><td align='center' colspan='0'><span class='f4'><span class='blue'>";
 		print __("Showing results %s - %s of %s", array($first, $last, $allresults));
 		print "</span></span></td></tr>";
@@ -1107,15 +1115,15 @@ function pkg_search_page($SID="") {
 		print "  <tr>";
 		print "    <td align='left'>";
 		if (($O-$PP) >= 0) {
-			print "<a href='/packages.php?O=" . ($O - $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
+			print "<a href='/packages.php?O=" . ($O - $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
 		} else if ($O<$PP && $O>0) {
-			print "<a href='/packages.php?O=0'>" . __("Less") . "</a>";
+			print "<a href='/packages.php?O=0&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
 		}
 		print "    </td>";
 		# RIGHT
 		print "    <td align='right'>";
 		if (mysql_num_rows(db_query($qnext, $dbh))) {
-			print "<a href='/packages.php?O=" . ($O + $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>" . __("More") . "</a>";
+			print "<a href='/packages.php?O=" . ($O + $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>" . __("More") . "</a>";
 		}
 		print "    </td>\n";
 		print "  </tr>\n";
