@@ -18,7 +18,7 @@ if (isset($_GET['ID'])) {
 	}
 }	else if (!empty($_GET['K'])) {
 	$title = "Search: " . $_GET['K'];
-} else if (isset($_GET['do_MyPackages'])) {
+} else if (!empty($_GET['do_MyPackages'])) {
 	$title = __("My Packages");
 } else {
 	$title = __("Packages");
