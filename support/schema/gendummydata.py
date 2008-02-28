@@ -18,10 +18,10 @@ DB_USER   = "aur"
 DB_PASS   = "aur"
 USER_ID   = 5          # Users.ID of first bogus user
 PKG_ID    = 1          # Packages.ID of first package
-MAX_USERS = 500        # how many users to 'register'
+MAX_USERS = 300        # how many users to 'register'
 MAX_DEVS  = .1         # what percentage of MAX_USERS are Developers
 MAX_TUS   = .2         # what percentage of MAX_USERS are Trusted Users
-MAX_PKGS  = 2500       # how many packages to load
+MAX_PKGS  = 900       # how many packages to load
 PKG_FILES = (8, 30)    # min/max number of files in a package
 PKG_DEPS  = (1, 5)     # min/max depends a package has
 PKG_SRC   = (1, 3)     # min/max sources a package has
@@ -36,14 +36,7 @@ RANDOM_PATHS = (       # random path locations for package files
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
-FORTUNE_FILES = ("computers", "fortunes", "literature", "science",
-  "songs-poems", "startrek", "wisdom", "work", "buffy", "calvin",
-  "futurama", "jargon", "matrix", "starwars", "tao", "chalkboard",
-  "dune", "dune-messiah", "children-of-dune", "god-emperor", "definitions",
-  "drugs", "education", "food", "humorists", "kids", "law", "news",
-  "people", "pets", "politics", "platitudes", "zippy", "riddles"
-)
-FORTUNE_CMD = "/usr/bin/fortune -l " + " ".join(FORTUNE_FILES)
+FORTUNE_CMD = "/usr/bin/fortune -l"
 
 
 import random
@@ -257,7 +250,7 @@ for p in seen_pkgs.keys():
 	uuid = genUID() # the submitter/user
 
 	s = "INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, AURMaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d, %d);\n" % (seen_pkgs[p], p, genVersion(location_id),
-			genCategory(), location_id, NOW, uuid, uuid, muid)
+			genCategory(), location_id, NOW, uuid, muid, muid)
 	out.write(s)
 	if count % 100 == 0:
 		if DBUG: print ".",
@@ -376,7 +369,7 @@ for p in seen_pkgs.keys():
 	while i != num_deps:
 		dep = random.randrange(0, len(seen_pkgs))
 		if not this_deps.has_key(dep):
-			s = "INSERT INTO PackageDepends VALUES (%d, %d);\n" % (seen_pkgs[p], dep)
+			s = "INSERT INTO PackageDepends VALUES (%d, %d, NULL);\n" % (seen_pkgs[p], dep)
 			out.write(s)
 			i += 1
 
