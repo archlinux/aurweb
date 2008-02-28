@@ -631,7 +631,7 @@ function pkg_search_page($SID="") {
 		$_REQUEST["do_Orphans"] = 0;
 		$O = 0;
 	}
-	if ($_REQUEST["do_Orphans"] && $_REQUEST["do_Orphans"] != 1) {
+	if (!empty($_REQUEST['do_Orphans']) && $_REQUEST['do_Orphans'] != 1) {
 		# reset the offset to zero if they hit Orphans
 		#
 		$_REQUEST["do_Search"] = 0;
@@ -1123,7 +1123,12 @@ function pkg_search_page($SID="") {
 		# RIGHT
 		print "    <td align='right'>";
 		if (mysql_num_rows(db_query($qnext, $dbh))) {
-			print "<a href='/packages.php?O=" . ($O + $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>" . __("More") . "</a>";
+			print "<a href='/packages.php?O=" . ($O + $PP) .
+				"&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"]) .
+				"&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"] .
+				"&do_MyPackages=".$_REQUEST["do_MyPackages"] .
+				"&do_Orphans=".isset($_REQUEST["do_Orphans"])."'>" .
+			 	__("More") . "</a>";
 		}
 		print "    </td>\n";
 		print "  </tr>\n";
