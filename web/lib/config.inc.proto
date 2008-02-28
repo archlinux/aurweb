@@ -2,7 +2,7 @@
 # NOTE: modify these variables if your MySQL setup is different
 #
 define( "AUR_db_host", "localhost:/tmp/mysql.sock" );
-define( "AUR_db_name", "aur" );
+define( "AUR_db_name", "AUR" );
 define( "AUR_db_user", "aur" ); 
 define( "AUR_db_pass", "aur" );
 

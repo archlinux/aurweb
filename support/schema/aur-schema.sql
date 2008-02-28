@@ -1,9 +1,9 @@
 -- The MySQL database layout for the AUR.  Certain data
 -- is also included such as AccountTypes, PackageLocations, etc.
 --
-DROP DATABASE aur;
-CREATE DATABASE aur;
-use aur;
+DROP DATABASE AUR;
+CREATE DATABASE AUR;
+USE AUR;
 
 -- Define the Account Types for the AUR.
 --

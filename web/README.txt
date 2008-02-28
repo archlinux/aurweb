@@ -40,14 +40,14 @@ Setup on ArchLinux:
    # mysql -uroot
 
  - Issue the following commands to the mysql client
-   mysql> create database aur;
-   mysql> grant all privileges on aur.* to aur@localhost
+   mysql> CREATE DATABASE AUR;
+   mysql> GRANT ALL PRIVILEGES ON AUR.* to aur@localhost
         > identified by 'aur';
-   mysql> flush privileges;
+   mysql> FLUSH PRIVILEGES;
    mysql> quit
 
  - Load the schema file
-   # mysql -uaur -p aur < ~/aur/support/schema/aur-schema.sql
+   # mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
    (give password 'aur' at the prompt)
 
  - Optionally load some test data for development purposes.
