@@ -15,7 +15,7 @@ $_t["it"]["Location"] = "Posizione";
 
 $_t["it"]["Delete comment"] = "Elimina il commento";
 
-$_t["it"]["Go"] = "Cerca";
+$_t["it"]["Go"] = "Esegui";
 
 $_t["it"]["Unflag Out-of-date"] = "Il pacchetto è aggiornato";
 
