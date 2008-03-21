@@ -121,4 +121,16 @@ $_t["pl"]["License"] = "Licencja";
 
 $_t["pl"]["unknown"] = "nieznana";
 
+$_t["pl"]["Out of Date"] = "Nieaktualny";
+
+$_t["pl"]["This package has been flagged out of date."] = "Ten pakiet został oznaczony jako nieaktualny.";
+
+$_t["pl"]["Required by"] = "Wymagane przez";
+
+$_t["pl"]["Showing results %s - %s of %s"] = "Pokazywanie wyników %s - %s z %s";
+
+$_t["pl"]["Toggle Notify"] = "Włącz powiadomienia";
+
+$_t["pl"]["Accounts"] = "Konta";
+
 ?>

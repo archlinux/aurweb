@@ -49,4 +49,14 @@ $_t["pl"]["Trusted User"] = "Zaufany Użytkownik";
 
 $_t["pl"]["View this user's packages"] = "Wyświetl pakiety tego użytkownika";
 
+$_t["pl"]["start and end with a letter or number"] = "zacznij i zakończ literą bądź cyfrą";
+
+$_t["pl"]["Your password must be at least "] = "Twoje hasło musi być przynajmniej";
+
+$_t["pl"]["The username is invalid."] = "Nazwa użytkownika jest nieprawidłowa.";
+
+$_t["pl"]["It must be "] = "To musi być";
+
+$_t["pl"]["can contain only one period, underscore or hyphen."] = "może zawierać tylko jedną kropkę, podkreślenie lub myślnik";
+
 ?>

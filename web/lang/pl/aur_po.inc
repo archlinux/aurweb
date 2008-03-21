@@ -27,4 +27,14 @@ $_t["pl"]["Bugs"] = "Błędy";
 
 $_t["pl"]["My Packages"] = "Moje pakiety";
 
+$_t["pl"]["You must supply a password."] = "Musisz podać hasło.";
+
+$_t["pl"]["You must supply a username."] = "Musisz podać nazwę użytkownika.";
+
+$_t["pl"]["Your account has been suspended."] = "Twoje konto zostało zawieszone.";
+
+$_t["pl"]["Error trying to generate session id."] = "Wystąpił błąd przy próbie generowania identyfikatora sesji.";
+
+$_t["pl"]["Login failure: Bad user or pass."] = "Logowanie nieudane: Zła nazwa użytkownika bądź hasło.";
+
 ?>

@@ -68,4 +68,8 @@ $_t["pl"]["Flagged as safe"] = "Oznaczonych jako bezpieczne";
 
 $_t["pl"]["My Statistics"] = "Moje statystyki";
 
+$_t["pl"]["Home"] = "Start";
+
+$_t["pl"]["DISCLAIMER"] = "ZRZECZENIE";
+
 ?>

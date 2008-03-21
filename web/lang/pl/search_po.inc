@@ -56,4 +56,12 @@ $_t["pl"]["The selected packages have been unflagged safe."] = "Wybrane pakiety 
 
 $_t["pl"]["Couldn't unflag package safe."] = "Usunięcie flagi bezpieczeństwaego nie powiodło się.";
 
+$_t["pl"]["Packages"] = "Pakiety";
+
+$_t["pl"]["You have been removed from the comment notification list for %s."] = "Zostałeś usunięty z listy powiadamiania o komentarzach dla %s.";
+
+$_t["pl"]["My Packages"] = "Moje Pakiety";
+
+$_t["pl"]["You have been added to the comment notification list for %s."] = "Zostałeś dodany do listy powiadamiania o nowych komentarzach dla %s.";
+
 ?>
