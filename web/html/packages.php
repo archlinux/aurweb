@@ -18,8 +18,6 @@ if (isset($_GET['ID'])) {
 	}
 }	else if (!empty($_GET['K'])) {
 	$title = "Search: " . $_GET['K'];
-} else if (!empty($_GET['do_MyPackages'])) {
-	$title = __("My Packages");
 } else {
 	$title = __("Packages");
 }
@@ -520,7 +518,7 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 		}
 	}			
 } else {
-	# do_More/do_Less/do_Search/do_MyPackages - just do a search
+	# just do a search
 	#
 	pkg_search_page($_COOKIE["AURSID"]);
 

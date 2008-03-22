@@ -4,7 +4,7 @@ include_once("config.inc");
 
 # define variables used during pkgsearch
 #
-$pkgsearch_vars = array("O", "L", "C", "K", "SB", "SO", "PP", "do_MyPackages", "do_Orphans", "SeB");
+$pkgsearch_vars = array("O", "L", "C", "K", "SB", "SO", "PP", "do_Orphans", "SeB");
 
 # Make sure this visitor can delete the requested package comment
 # They can delete if they were the comment submitter, or if they are a TU/Dev
@@ -374,7 +374,7 @@ function package_details($id=0, $SID="") {
 				while (list($k, $darr) = each($deps)) {
 					$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
 					while(list($k, $var) = each($pkgsearch_vars)) {
-						if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
+						if (($var == "do_Orphans") && $_REQUEST[$var]) {
 							$url .= "&".$var."=1";
 						} else {
 							$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
@@ -404,7 +404,7 @@ function package_details($id=0, $SID="") {
 				while (list($k, $darr) = each($deps)) {
 					$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
 					while(list($k, $var) = each($pkgsearch_vars)) {
-						if (($var == "do_MyPackages" || $var == "do_Orphans") && $_REQUEST[$var]) {
+						if (($var == "do_Orphans") && $_REQUEST[$var]) {
 							$url .= "&".$var."=1";
 						} else {
 							$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
@@ -591,557 +591,507 @@ function package_details($id=0, $SID="") {
 }
 
 
-# display the search form in a boxSoft style
-#
+/* pkg_search_page(SID)
+ * outputs the body of search/search results page
+ *
+ * parameters:
+ *  SID - current Session ID
+ * preconditions:
+ *  package search page has been accessed
+ *  request variables have not been sanitized
+ *
+ *  request vars:
+ *    O  - starting result number
+ *    PP - number of search hits per page
+ *    L  - package location ID number
+ *    C  - package category ID number
+ *    K  - package search string
+ *    SO - search hit sort order:
+ *          values: a - ascending
+ *                  d - descending
+ *    SB - sort search hits by:
+ *          values: l - package location
+ *                  c - package category
+ *                  n - package name
+ *                  v - number of votes
+ *                  m - maintainer username
+ *    SeB- property that search string (K) represents
+ *          values: nd - package name&description
+ *                  m  - package maintainer's username
+ *                  s  - package submitter's username
+ *    do_Orphans    - boolean. whether to search packages
+ *                     without a maintainer
+ *
+ *
+ *    These two are actually handled in packages.php.
+ *
+ *    IDs- integer array of ticked packages' IDs
+ *    action - action to be taken on ticked packages
+ *             values: do_Flag   - Flag out-of-date
+ *                     do_UnFlag - Remove out-of-date flag
+ *                     do_Adopt  - Adopt
+ *                     do_Disown - Disown
+ *                     do_Delete - Delete
+ *                     do_Notify - Toggle notification
+ */
 function pkg_search_page($SID="") {
-	global $_REQUEST;
-	global $pkgsearch_vars;
-	# SID: session id cookie
+    // establish a db connection
+    $dbh = db_connect();
 
-	$locs = pkgLocations();
-	$cats = pkgCategories();
-	$devs = getDevelopers();
-	$tus = getTrustedUsers();
-	$users = getUsers();
-	$dbh = db_connect();
+    // get commonly used variables...
+    // TODO: REDUCE DB HITS.
+    // grab info for user if they're logged in
+    if ($SID)
+        $myuid = uid_from_sid($SID);
+    // get a list of package locations
+    $locs = pkgLocations();
+    // get a list of package categories
+    $cats = pkgCategories(); //meow
 
-
-	# determine paging variables
-	#
-	if (intval($_GET['O'])) {
-		$O = $_GET['O'];
-	} else {
-		$O = 0;
-	}
-	$_REQUEST["PP"] ? $PP = intval($_REQUEST["PP"]) : $PP = 25;
-	if ($PP < 25) {$PP = 25;}
-	if ($PP > 100) {$PP = 100;}
-	
-	if ($_REQUEST["do_Search"] && $_REQUEST["do_Search"] != 1) {
-		# reset the offset to zero if they hit Go
-		#
-		$_REQUEST["do_MyPackages"] = 0;
-		$_REQUEST["do_Orphans"] = 0;
-		$O = 0;
-	}
-	if ($_REQUEST["do_MyPackages"] && $_REQUEST["do_MyPackages"] != 1) {
-		# reset the offset to zero if they hit My Packages
-		#
-		$_REQUEST["do_Search"] = 0;
-		$_REQUEST["do_Orphans"] = 0;
-		$O = 0;
-	}
-	if (!empty($_REQUEST['do_Orphans']) && $_REQUEST['do_Orphans'] != 1) {
-		# reset the offset to zero if they hit Orphans
-		#
-		$_REQUEST["do_Search"] = 0;
-		$_REQUEST["do_MyPackages"] = 0;
-		$O = 0;
-	}
-	$_REQUEST["O"] = $O; # so that pkg_search_results() works
-
-
-	# grab info for user if they're logged in
-	#
-	if ($SID) {
-		$myuid = uid_from_sid($SID);
-		$acct = account_from_sid($SID);
-		$my_votes = pkgvotes_from_sid($SID);
-		$my_notify = pkgnotify_from_sid($SID);
-	}
-
-	# The search form
-	#
-	print "<form action='/packages.php' method='post'>\n";
-	#print "<form action='/packages.php' method='get'>\n";
-	print "<input type='hidden' name='O' value='".$O."'>\n";
-
-	print "<center>\n";
-	print "<table cellspacing='3' class='boxSoft'>\n";
-	print "<tr>\n";
-	print "  <td class='boxSoftTitle' align='right'>\n";
-	print "    <span class='f3'>".__("Search Criteria")."</span>\n";
-	print "  </td>\n";
-	print "</tr>\n";
-	print "<tr>\n";
-	print "  <td class='boxSoft'>\n";
-	print "<table style='width: 100%' align='center'>\n";
-
-	print "<tr>\n";
-	print "<td align='right'>\n";
-	print "  <span class='f5'><span class='blue'>".__("Location");
-	print "</span></span><br />\n";
-	print "  <select name='L'>\n";
-	print "  <option value=0> ".__("Any")."\n";
-	while (list($id, $loc) = each($locs)) {
-		if (intval($_REQUEST["L"]) == $id) {
-			print "  <option value=".$id." selected> ".$loc."\n";
-		} else {
-			print "  <option value=".$id."> ".$loc."\n";
-		}
-	}
-	print "  </select>\n";
-	print "</td>\n";
-
-	print "<td align='right'>\n";
-	print "  <span class='f5'><span class='blue'>".__("Category");
-	print "</span></span><br />\n";
-	print "  <select name='C'>\n";
-	print "  <option value=0> ".__("Any")."\n";
-	while (list($id, $cat) = each($cats)) {
-		if (intval($_REQUEST["C"]) == $id) {
-			print "  <option value=".$id." selected> ".$cat."\n";
-		} else {
-			print "  <option value=".$id."> ".$cat."\n";
-		}
-	}
-	print "  </select>\n";
-	print "</td>\n";
-
-	print "<td align='right'>\n";
-	print "  <span class='f5'><span class='blue'>".__("Keywords");
-	print "</span></span><br />\n";
-	print "  <input type='text' name='K' size='20'";
-	
-	# Added to trim() to avoid the problem described in #6191
-	$K = trim(str_replace("\"", "", $_REQUEST["K"])); # TODO better testing for SQL trickery...
-	
-	print " value=\"".stripslashes($K)."\" maxlength='35'>\n";
-	print "</td>\n";
-	
-	print "<td align='right'>\n";
-	print "  <span class='f5'><span class='blue'>".__("Search by");
-	print "</span></span><br />\n";
-
-	print "  <select name='SeB'>\n";
-	# by name/description
-	print "  <option value=nd";
-	$_REQUEST["SeB"] == "nd" ? print " selected> " : print "> ";
-	print __("Name")."</option>\n";
-	# by maintainer
-	print "  <option value=m";
-	$_REQUEST["SeB"] == "m" ? print " selected> " : print "> ";
-	print __("Maintainer")."</option>\n";
-	print "  <option value=s";
-	$_REQUEST["SeB"] == "s" ? print " selected> " : print "> ";
-	print __("Submitter")."</option>\n";
-
-	print "  </select>\n";
-	print "</td>\n";
-    
-	print "<td align='right'>\n";
-	print "  <span class='f5'><span class='blue'>".__("Per page");
-	print "</span></span><br />\n";
-	print "  <select name='PP'>\n";
-	print "  <option value=25";
-	$PP == 25 ? print " selected> 25\n" : print "> 25\n";
-	print "  <option value=50";
-	$PP == 50 ? print " selected> 50\n" : print "> 50\n";
-	print "  <option value=75";
-	$PP == 75 ? print " selected> 75\n" : print "> 75\n";
-	print "  <option value=100";
-	$PP == 100 ? print " selected> 100\n" : print "> 100\n";
-	print "  </select>\n";
-	print "</td>\n";
-	
-	# Added to break put the buttons in a new line
-	print"</tr></table><center><table><tr>";
-
-	print "<td align='right' valign='bottom'>&nbsp;\n";
-	print "  <input type='submit' style='width:80px' class='button' name='do_Search'";
-	print " value='".__("Go")."'>\n";
-	print "</td>\n";
-
-	print "<td align='right' valign='bottom'>&nbsp;\n";
-	print "  <input type='submit' style='width:80px'  class='button' name='do_Orphans'";
-	print " value='".__("Orphans")."'>\n";
-	print "</td>\n";
-
-	print "</tr>\n";
-	print "</table>\n";
-
-	print "  </td>\n";
-	print "</tr>\n";
-	print "</table>\n";
-	print "</center>\n";
-	print "<br />\n";
-
-	# query to pull out package info
-	#
-#	$q = "SELECT Packages.*, IF(ISNULL(PackageID), 0, COUNT(*)) AS Votes ";
-#	$q.= "FROM Packages LEFT JOIN PackageVotes ";
-#	$q.= "ON Packages.ID = PackageVotes.PackageID ";
-	$q = "SELECT * FROM Users RIGHT JOIN Packages ";
-	$q.= "ON (Users.ID = Packages.MaintainerUID) ";
-	$q.= "WHERE DummyPkg != 1 ";
-	$has_where = 1;
-
-	if (intval($_REQUEST["L"])) {
-		if (!$has_where) {
-		  $q.= "WHERE LocationID = ".intval($_REQUEST["L"])." ";
-		} else {
-			$q .= "AND LocationID = ".intval($_REQUEST["L"])." ";
-		}
-		$has_where = 1;
-	}
-	if (intval($_REQUEST["C"])) {
-		if (!$has_where) {
-			$q.= "WHERE CategoryID = ".intval($_REQUEST["C"])." ";
-			$has_where = 1;
-		} else {
-			$q.= "AND CategoryID = ".intval($_REQUEST["C"])." ";
-		}
-	}
-	if ($K) {
-		#search by maintainer
-		if ($_REQUEST["SeB"] == "m"){
-			if (!$has_where) {
-				$q.= "WHERE Username = '".mysql_real_escape_string($K)."' ";
-				$has_where = 1;
-			} else {
-				$q.= "AND Username = '".mysql_real_escape_string($K)."' ";
-			}
-        } elseif ($_REQUEST["SeB"] == "s") {
-			if (!$has_where) {
-				$q.= "WHERE SubmitterUID = ".uid_from_username($K)." ";
-				$has_where = 1;
-			} else {
-				$q.= "AND SubmitterUID = ".uid_from_username($K)." ";
-			}
-		# the default behaivior, query the name/description
-		} else {
-			if (!$has_where) {
-				$q.= "WHERE (Name LIKE '%".mysql_real_escape_string($K)."%' OR ";
-				$q.= "Description LIKE '%".mysql_real_escape_string($K)."%') ";
-				$has_where = 1;
-			} else {
-				$q.= "AND (Name LIKE '%".mysql_real_escape_string($K)."%' OR ";
-				$q.= "Description LIKE '%".mysql_real_escape_string($K)."%') ";
-			}
-		}
-	}
-    
-    if ($_REQUEST["do_MyPackages"] && $SID) {
-		# list packages that the user is a AUR Maintainer of, or if it the
-		# vistior is a registered user, if they are the Maintainer.
-		#
-		if ($myuid) {
-			if (!$has_where) {
-				$q.= "WHERE (AURMaintainerUID = ".$myuid." OR ";
-				$has_where = 1;
-			} else {
-				$q.= "AND (AURMaintainerUID = ".$myuid." OR ";
-			}
-			//$q.= "MaintainerUID = ".$myuid." OR SubmitterUID = ".$myuid.") ";
-			$q.= "MaintainerUID = ".$myuid.") ";
-		}
-	}
-	if ($_REQUEST["do_Orphans"]) {
-		# List packages that have neither a Maintainer nor AURMaintainer
-		#
-			if (!$has_where) {
-				$q.= "WHERE (AURMaintainerUID = 0 AND ";
-				$q.= "MaintainerUID = 0) ";
-				$has_where = 1;
-			} else {
-				$q.= "AND (AURMaintainerUID = 0 AND ";
-				$q.= "MaintainerUID = 0) ";
-			}
-	}
-	
-    $order = $_REQUEST["SO"] == 'd' ? 'DESC' : 'ASC';
-	
-    switch ($_REQUEST["SB"]) {
-		case 'c':
-			$q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
-			$SB = 'c';
-			break;
-		case 'l':
-			$q.= "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
-			$SB = 'l';
-			break;
-		case 'v':
-			$q.= "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
-			$SB = 'v';
-			break;
-		case 'm':
-			$q.= "ORDER BY Username ".$order.", Name ASC, LocationID ASC ";
-			$SB = 'm';
-			break;
-		case 'a':
-			$q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
-			$SB = 'a';
-			break;
-		default:
-			$q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
-			break;
-	}
-
-	$allresults = mysql_num_rows(db_query($q, $dbh));
-
-	$qnext = $q."LIMIT ".($O+$PP).", ".$PP; //next page's worth
-	$q.= "LIMIT ".$O.", ".$PP;
-
-	$result = db_query($q, $dbh);
-	
-	print "<center>\n";
-	print "<table cellspacing='3' class='boxSoft'>\n";
-	print "<tr>\n";
-	print "  <td class='boxSoftTitle' align='right'>\n";
-	print "    <span class='f3'>".__("Package Listing")."</span>\n";
-	print "  </td>\n";
-	print "</tr>\n";
-	print "<tr>\n";
-	print "  <td class='boxSoft'>\n";
-	print "<table width='100%' cellspacing='0' cellpadding='2'>\n";
-
-	if (!$result) {
-		print "<div class='pgboxbody'>";
-		print __("Error retrieving package list.");
-		print "</div>";
-	} elseif (!mysql_num_rows($result)) {
-		print "<div class='pgboxbody'>";
-		print __("No packages matched your search criteria.");
-		print "</div>";
-	} else {
-		# print out package search results
-		#
-
-		# SO_next used to change sort order on header click
-		if ($_REQUEST["SO"] == "d"){
-			$SO_next="a";
-			$SO = 'd';
-		} else {
-			$SO_next="d";
-			$SO = 'a';
-		}
-		print "<tr>\n";
-		if ($SID) {
-			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-			print " bottom'>&nbsp;</th>\n";
-		}
-		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Location")."</a>";
-		print "</span></th>\n";
-		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=c&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Category")."</a>";
-		print "</span></th>\n";
-		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=n&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Name")."</a>";
-		print "</span></th>\n";
-		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=v&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Votes")."</a>";
-		print "</span></th>\n";
-		if ($SID) {
-			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-			print " bottom'><span class='f2'>".__("Voted")."</span></th>\n";
-		}
-		if ($SID) {
-			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-			print " bottom'><span class='f2'>".__("Notify")."</span></th>\n";
-		}
-		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>".__("Description")."</a>";
-		print "</span></th>\n";
-		print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-		print " bottom'><span class='f2'>";
-		print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=m&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Maintainer")."</a>";
-		print "</span></th>\n";
-# REMOVED LINK TO 'pkgmgmnt.php'
-#		if ($SID) {
-#			print "  <th style='border-bottom: #666 1px solid; vertical-align:";
-#			print " bottom'><span class='f2'>".__("Manage")."</span></th>\n";
-#		}
-		print "</tr>\n";        
-        
-        for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
-			(($i % 2) == 0) ? $c = "data1" : $c = "data2";
-			print "<tr>\n";
-			if ($SID) {
-				if ($row["OutOfDate"]) {
-					$c = "outofdate";
-				}
-				print "  <td class='".$c."'>";
-				print "<input type='checkbox' name='IDs[".$row["ID"]."]' value='1'>";
-#				if ($i == 0) {
-#					$all_ids = $row["ID"];
-#				} else {
-#					$all_ids .= ":".$row["ID"];
-#				}
-				if ($row["OutOfDate"]) {
-					print "</span>";
-				}
-				print "</td>\n";
-			}
-			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-			print $locs[$row["LocationID"]]."</span></span></td>\n";
-			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-			print $cats[$row["CategoryID"]]."</span></span></td>\n";
-			print "  <td class='".$c."'><span class='f4'>";
-			$url = "<a href='/packages.php?";
-			$url .= "ID=";
-			$url .= $row["ID"];
-			$url.= "'>";
-			$url.="<span class='black'>";
-			$url.=$row["Name"];
-			$url.= " ".$row["Version"]."</span></a>";
-			print $url."</span></td>\n";
-			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-			print "&nbsp;&nbsp;&nbsp;".$row["NumVotes"]."</span></span></td>\n";
-			if ($SID) {
-				print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-				if (isset($my_votes[$row["ID"]])) {
-					print "&nbsp;&nbsp;".__("Yes")."</span></td>\n";
-				} else {
-					print "&nbsp;</span></td>\n";
-				}
-			}
-			if ($SID) {
-				print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-				if (isset($my_notify[$row["ID"]])) {
-					print "&nbsp;&nbsp;".__("Yes")."</span></td>\n";
-				} else {
-					print "&nbsp;</span></td>\n";
-				}
-			}
-			print "  <td class='".$c."'><span class='f4'><span class='blue'>";
-			print $row["Description"]."</span></span></td>\n";
-			print "  <td class='".$c."'><span class='f5'><span class='blue'>";
-
-			# print the package manager, also determine if it is managed
-			#
-			$managed = 1;
-			#			if (isset($devs[$row["AURMaintainerUID"]])) {
-			#				print $devs[$row["AURMaintainerUID"]]["Username"];
-			# } else
-			#			if (isset($tus[$row["MaintainerUID"]])) {
-			#				print $tus[$row["MaintainerUID"]]["Username"];
-			if (isset($users[$row["MaintainerUID"]])) {
-                # Add a link to the user packages, e.g, if you click on the Solve the sorting problem, so we can force the 
-                # maintainer name, you will be redirected to a page with the user packages.
-                $user = $users[$row["MaintainerUID"]]["Username"];
-                print "<a href='packages.php?K=".$user."&SeB=m'>".$users[$row["MaintainerUID"]]["Username"]."</a>";
-			} else {
-				print "<span style='color: blue; font-style: italic;'>";
-				print __("orphan");
-				print "</span>";
-				$managed = 0;
-			}
-			print "</span></span></td>\n";
-
-# REMOVED LINK TO 'pkgmgmnt.php'
-#			# print the managed link if applicable
-#			#
-#			if (canManagePackage($myuid, $row["AURMaintainerUID"],
-#					$row["MaintainerUID"], $row["SubmitterUID"], $managed)) {
-#				$manage_url = "<a href='/pkgmgmnt.php?ID=";
-#				$manage_url.= $row["ID"]."'><span class='black'>Manage</span></a>";
-#				print "  <td class='".$c."'><span class='f4'>";
-#				print $manage_url."</span></td>\n";
-#			} else {
-#				print "<td class='".$c."'><span class='f4'>&nbsp;</span></td>\n";
-#			}
-
-			print "</tr>\n";
-
-		}
-		print "</table>\n";
-		print "  </td>\n";
-		print "</tr>\n";
-		print "</table>\n";
-#		print "<input type='hidden' name='All_IDs' value='".$all_ids."'>\n";
-		if ($_REQUEST["do_MyPackages"]) {
-			print "<input type='hidden' name='do_MyPackages' value='1'>\n";
-		}
-		if ($_REQUEST["do_Orphans"]) {
-			print "<input type='hidden' name='do_Orphans' value='1'>\n";
-		}
-		
-		if ($SID) {
-			# The 'Actions' box
-			#
-			print "<div style='text-align: right; padding: 5px 5% 5px 0'>";
-			print "<select name='action'>";
-			print "<option>" . __("Actions") . "</option>";
-			print "<option value='do_Flag'>".__("Flag Out-of-date")."</option>\n";
-			print "<option value='do_UnFlag'>".__("Unflag Out-of-date")."</option>\n";
-			print "<option value='do_Adopt'>".__("Adopt Packages")."</option>\n";
-			print "<option value='do_Disown'>".__("Disown Packages")."</option>\n";
-			print "<option value='do_Delete'>".__("Delete Packages")."</option>\n";
-			print "<option value='do_Notify'>".__("Toggle Notify")."</option>\n";
-			print "</select>";
-			print "<input type='submit' class='button' style='width: 80px' value='" . __("Go") . "' />";
-			print "</div>";
-		}
-		
-		print "<table width='90%' cellspacing='0' cellpadding='2'>\n";
-		print "<tr>\n";
-		print "  <td>\n";
-		print "  <table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
-		print "  <tr>\n";
-		
-		# figure out the results to use
-		$first = $O + 1;
-
-		if (($PP+$O) > $allresults) {
-			$last = $allresults;
-		} else {
-			$last = $PP + $O;
-		}
-
-		# print number of results
-		# ok this styling sucks
-		# patches welcome!
-		print "<tr><td align='center' colspan='0'><span class='f4'><span class='blue'>";
-		print __("Showing results %s - %s of %s", array($first, $last, $allresults));
-		print "</span></span></td></tr>";
-
-		# first print the legend
-		print "    <td colspan='2' align='center'>";
-    print "    <span class='f5'>\n";
-    if ($SID) {
-    print '      <span class="outofdate">'.__("Out of Date").' </span>'."&nbsp;&nbsp;&nbsp;&nbsp;";
+    // sanitize paging variables
+    //
+    if (isset($_REQUEST['O'])) {
+        $O = intval($_REQUEST['O']);
+        if ($O < 0)
+            $O = 0;
+    } else {
+        $O = 0;
     }
-    print "    </span></td>\n";
-		print "  </tr>";
+
+    if (isset($_REQUEST["PP"])) {
+        $PP = intval($_REQUEST["PP"]);
+        if ($PP < 25)
+            $PP = 25;
+        else if ($PP > 100)
+            $PP = 100;
+    } else {
+        $PP = 25;
+    }
+
+    // The search form - XXX: split into own function?
+    //
+    // FIXME: highly fugly. whoever makes this use
+    //        less print statements gets a cookie
+    // FIXME: ugly html. whoever un-tables this gets
+    //        another cookie
+    print "<form action='/packages.php' method='get'>\n";
+    print "<input type='hidden' name='O' value='0'>\n";
+
+    print "<center>\n";
+    print "<table cellspacing='3' class='boxSoft'>\n";
+    print "<tr>\n";
+    print "  <td class='boxSoftTitle' align='right'>\n";
+    print "    <span class='f3'>".__("Search Criteria")."</span>\n";
+    print "  </td>\n";
+    print "</tr>\n";
+    print "<tr>\n";
+    print "  <td class='boxSoft'>\n";
+    print "<table style='width: 100%' align='center'>\n";
+
+    print "<tr>\n";
+    print "<td align='right'>\n";
+    print "  <span class='f5'><span class='blue'>".__("Location");
+    print "</span></span><br />\n";
+    print "  <select name='L'>\n";
+    print "  <option value=0> ".__("Any")."\n";
+    while (list($id, $loc) = each($locs)) {
+        if (intval($_REQUEST["L"]) == $id) {
+            print "  <option value=".$id." selected> ".$loc."\n";
+        } else {
+            print "  <option value=".$id."> ".$loc."\n";
+        }
+    }
+    print "  </select>\n";
+    print "</td>\n";
+
+    print "<td align='right'>\n";
+    print "  <span class='f5'><span class='blue'>".__("Category");
+    print "</span></span><br />\n";
+    print "  <select name='C'>\n";
+    print "  <option value=0> ".__("Any")."\n";
+    while (list($id, $cat) = each($cats)) {
+        if (intval($_REQUEST["C"]) == $id) {
+            print "  <option value=".$id." selected> ".$cat."\n";
+        } else {
+            print "  <option value=".$id."> ".$cat."\n";
+        }
+    }
+    print "  </select>\n";
+    print "</td>\n";
+
+    print "<td align='right'>\n";
+    print "  <span class='f5'><span class='blue'>".__("Keywords");
+    print "</span></span><br />\n";
+    print "  <input type='text' name='K' size='20'";
+
+    $K = trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES));
+    print " value=\"".stripslashes($K)."\" maxlength='35'>\n";
+    print "</td>\n";
+
+    print "<td align='right'>\n";
+    print "  <span class='f5'><span class='blue'>".__("Search by");
+    print "</span></span><br />\n";
+
+    print "  <select name='SeB'>\n";
+    # by name/description
+    print "  <option value=nd";
+    $_REQUEST["SeB"] == "nd" ? print " selected> " : print "> ";
+    print __("Name")."</option>\n";
+    # by maintainer
+    print "  <option value=m";
+    $_REQUEST["SeB"] == "m" ? print " selected> " : print "> ";
+    print __("Maintainer")."</option>\n";
+    print "  <option value=s";
+    $_REQUEST["SeB"] == "s" ? print " selected> " : print "> ";
+    print __("Submitter")."</option>\n";
+
+    print "  </select>\n";
+    print "</td>\n";
+
+    print "<td align='right'>\n";
+    print "  <span class='f5'><span class='blue'>".__("Per page");
+    print "</span></span><br />\n";
+    print "  <select name='PP'>\n";
+    print "  <option value=25";
+    $PP == 25 ? print " selected> 25\n" : print "> 25\n";
+    print "  <option value=50";
+    $PP == 50 ? print " selected> 50\n" : print "> 50\n";
+    print "  <option value=75";
+    $PP == 75 ? print " selected> 75\n" : print "> 75\n";
+    print "  <option value=100";
+    $PP == 100 ? print " selected> 100\n" : print "> 100\n";
+    print "  </select>\n";
+    print "</td>\n";
+
+    // Added to break put the buttons in a new line
+    print"</tr></table><center><table><tr>";
+
+    print "<td align='right' valign='bottom'>&nbsp;\n";
+    print "  <input type='submit' style='width:80px' class='button' name='do_Search'";
+    print " value='".__("Go")."'>\n";
+    print "</td>\n";
+
+    print "<td align='right' valign='bottom'>&nbsp;\n";
+    print "  <input type='submit' style='width:80px'  class='button' name='do_Orphans'";
+    print " value='".__("Orphans")."'>\n";
+    print "</td>\n";
+
+    print "</tr>\n";
+    print "</table>\n";
+
+    print "  </td>\n";
+    print "</tr>\n";
+    print "</table>\n";
+    print "</center>\n";
+    print "</form>\n";
+    print "<br />\n";
 
 
-	  # now print the forward and back buttons on the bottom
-		# LEFT
-		print "  <tr>";
-		print "    <td align='left'>";
-		if (($O-$PP) >= 0) {
-			print "<a href='/packages.php?O=" . ($O - $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
-		} else if ($O<$PP && $O>0) {
-			print "<a href='/packages.php?O=0&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_MyPackages=".$_REQUEST["do_MyPackages"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
-		}
-		print "    </td>";
-		# RIGHT
-		print "    <td align='right'>";
-		if (mysql_num_rows(db_query($qnext, $dbh))) {
-			print "<a href='/packages.php?O=" . ($O + $PP) .
-				"&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"]) .
-				"&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"] .
-				"&do_MyPackages=".$_REQUEST["do_MyPackages"] .
-				"&do_Orphans=".isset($_REQUEST["do_Orphans"])."'>" .
-			 	__("More") . "</a>";
-		}
-		print "    </td>\n";
-		print "  </tr>\n";
-	}
-	print "  </table>\n";
-	print "  </td>\n";
-	print "</tr>\n";
-	print "</table>\n";
-	print "</center>\n";
-	print "</form>\n";
+    // FIXME: pull out DB-related code. all of it.
+    //        this one's worth a choco-chip cookie,
+    //        one of those nice big soft ones
 
-	return;
+    // build the package search query
+    //
+    $q = "SELECT SQL_CALC_FOUND_ROWS ";
+    if ($SID) {
+        $q .= "CommentNotify.UserID AS Notify,
+               PackageVotes.UsersID AS Voted, ";
+    }
+    $q .= "Users.Username AS Maintainer,
+        PackageCategories.Category,
+        PackageLocations.Location,
+        Packages.Name, Packages.Version, Packages.Description, Packages.NumVotes,
+        Packages.ID, Packages.OutOfDate
+
+        FROM PackageCategories, PackageLocations, Packages
+        LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID) ";
+    if ($SID) {
+        $q .= "LEFT JOIN PackageVotes
+                ON (Packages.ID = PackageVotes.PackageID AND PackageVotes.UsersID = ".$myuid.")
+               LEFT JOIN CommentNotify
+                ON (Packages.ID = CommentNotify.PkgID AND CommentNotify.UserID = ".$myuid.") ";
+    }
+    $q .= "WHERE
+        Packages.CategoryID = PackageCategories.ID
+        AND Packages.LocationID = PackageLocations.ID
+        AND Packages.DummyPkg = 0 ";
+
+    // TODO: possibly do string matching on category and
+    //       location to make request variable values more sensible
+    if (intval($_REQUEST["L"])) {
+        $q .= "AND Packages.LocationID = ".intval($_REQUEST["L"])." ";
+    }
+    if (intval($_REQUEST["C"])) {
+        $q.= "AND Packages.CategoryID = ".intval($_REQUEST["C"])." ";
+    }
+
+    if ($_REQUEST['K']) {
+        $K = mysql_real_escape_string(trim($_REQUEST['K']));
+        //search by maintainer
+        if ($_REQUEST["SeB"] == "m"){
+            $q.= "AND Users.Username = '".$K."' ";
+        } elseif ($_REQUEST["SeB"] == "s") {
+            // FIXME: this shouldn't be making 2 queries
+            //        kill the call to uid_from_username
+            $q.= "AND SubmitterUID = ".uid_from_username($_REQUEST['K'])." ";
+        // the default behavior, query the name/description
+        } else {
+            $q.= "AND (Name LIKE '%".$K."%' OR ";
+            $q.= "Description LIKE '%".$K."%') ";
+        }
+    }
+
+    if ($_REQUEST["do_Orphans"]) {
+        $q.= "AND MaintainerUID = 0 ";
+    }
+
+    $order = $_REQUEST["SO"] == 'd' ? 'DESC' : 'ASC';
+
+    switch ($_REQUEST["SB"]) {
+        case 'c':
+            $q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
+            $SB = 'c';
+            break;
+        case 'l':
+            $q.= "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
+            $SB = 'l';
+            break;
+        case 'v':
+            $q.= "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
+            $SB = 'v';
+            break;
+        case 'm':
+            $q.= "ORDER BY Maintainer ".$order.", Name ASC, LocationID ASC ";
+            $SB = 'm';
+            break;
+        case 'a':
+            $q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
+            $SB = 'a';
+            break;
+        default:
+            $q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
+            break;
+    }
+
+    $q.= "LIMIT ".$O.", ".$PP;
+
+    $result = db_query($q, $dbh);
+    $total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
+
+    print "<form action='/packages.php' method='post'>\n";
+    print "<center>\n";
+    print "<table cellspacing='3' class='boxSoft'>\n";
+    print "<tr>\n";
+    print "  <td class='boxSoftTitle' align='right'>\n";
+    print "    <span class='f3'>".__("Package Listing")."</span>\n";
+    print "  </td>\n";
+    print "</tr>\n";
+    print "<tr>\n";
+    print "  <td class='boxSoft'>\n";
+    print "<table width='100%' cellspacing='0' cellpadding='2'>\n";
+
+    if (!$result) {
+        print "<div class='pgboxbody'>";
+        print __("Error retrieving package list.");
+        print "</div>";
+    } elseif ($total == 0) {
+        print "<div class='pgboxbody'>";
+        print __("No packages matched your search criteria.");
+        print "</div>";
+    } else {
+        // print out package search results
+        //
+
+        // SO_next used to change sort order on header click
+        if ($_REQUEST["SO"] == "d"){
+            $SO_next="a";
+            $SO = 'd';
+        } else {
+            $SO_next="d";
+            $SO = 'a';
+        }
+        print "<tr>\n";
+        if ($SID) {
+            print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+            print " bottom'>&nbsp;</th>\n";
+        }
+        print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+        print " bottom'><span class='f2'>";
+        print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Location")."</a>";
+        print "</span></th>\n";
+        print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+        print " bottom'><span class='f2'>";
+        print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=c&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Category")."</a>";
+        print "</span></th>\n";
+        print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+        print " bottom'><span class='f2'>";
+        print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=n&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Name")."</a>";
+        print "</span></th>\n";
+        print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+        print " bottom'><span class='f2'>";
+        print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=v&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Votes")."</a>";
+        print "</span></th>\n";
+        if ($SID) {
+            print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+            print " bottom'><span class='f2'>".__("Voted")."</span></th>\n";
+        }
+        if ($SID) {
+            print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+            print " bottom'><span class='f2'>".__("Notify")."</span></th>\n";
+        }
+        print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+        print " bottom'><span class='f2'>".__("Description")."</a>";
+        print "</span></th>\n";
+        print "  <th style='border-bottom: #666 1px solid; vertical-align:";
+        print " bottom'><span class='f2'>";
+        print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=m&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Maintainer")."</a>";
+        print "</span></th>\n";
+        print "</tr>\n";
+
+        for ($i=0; $row = mysql_fetch_assoc($result); $i++) {
+            (($i % 2) == 0) ? $c = "data1" : $c = "data2";
+            print "<tr>\n";
+            if ($SID) {
+                if ($row["OutOfDate"]) {
+                    $c = "outofdate";
+                }
+                print "  <td class='".$c."'>";
+                print "<input type='checkbox' name='IDs[".$row["ID"]."]' value='1'>";
+                if ($row["OutOfDate"]) {
+                    print "</span>";
+                }
+                print "</td>\n";
+            }
+            print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+            print $row["Location"]."</span></span></td>\n";
+            print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+            print $row["Category"]."</span></span></td>\n";
+            print "  <td class='".$c."'><span class='f4'>";
+            $url = "<a href='/packages.php?";
+            $url .= "ID=";
+            $url .= $row["ID"];
+            $url.= "'>";
+            $url.="<span class='black'>";
+            $url.=$row["Name"];
+            $url.= " ".$row["Version"]."</span></a>";
+            print $url."</span></td>\n";
+            print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+            print "&nbsp;&nbsp;&nbsp;".$row["NumVotes"]."</span></span></td>\n";
+            if ($SID) {
+                print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+                if (isset($row["Voted"])) {
+                    print "&nbsp;&nbsp;".__("Yes")."</span></td>\n";
+                } else {
+                    print "&nbsp;</span></td>\n";
+                }
+                print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+                if (isset($row["Notify"])) {
+                    print "&nbsp;&nbsp;".__("Yes")."</span></td>\n";
+                } else {
+                    print "&nbsp;</span></td>\n";
+                }
+            }
+            print "  <td class='".$c."'><span class='f4'><span class='blue'>";
+            print $row["Description"]."</span></span></td>\n";
+            print "  <td class='".$c."'><span class='f5'><span class='blue'>";
+
+            if (isset($row["Maintainer"])) {
+                print "<a href='packages.php?K=".$row['Maintainer']."&SeB=m'>".$row['Maintainer']."</a>";
+            } else {
+                print "<span style='color: blue; font-style: italic;'>";
+                print __("orphan");
+                print "</span>";
+            }
+            print "</span></span></td>\n";
+            print "</tr>\n";
+
+        }
+        print "</table>\n";
+        print "  </td>\n";
+        print "</tr>\n";
+        print "</table>\n";
+
+        if ($SID) {
+            // The 'Actions' box
+            //
+            print "<div style='text-align: right; padding: 5px 5% 5px 0'>";
+            print "<select name='action'>";
+            print "<option>" . __("Actions") . "</option>";
+            print "<option value='do_Flag'>".__("Flag Out-of-date")."</option>\n";
+            print "<option value='do_UnFlag'>".__("Unflag Out-of-date")."</option>\n";
+            print "<option value='do_Adopt'>".__("Adopt Packages")."</option>\n";
+            print "<option value='do_Disown'>".__("Disown Packages")."</option>\n";
+            print "<option value='do_Delete'>".__("Delete Packages")."</option>\n";
+            print "<option value='do_Notify'>".__("Toggle Notify")."</option>\n";
+            print "</select>";
+            print "<input type='submit' class='button' style='width: 80px' value='" . __("Go") . "' />";
+            print "</div>";
+        }
+
+        print "<table width='90%' cellspacing='0' cellpadding='2'>\n";
+        print "<tr>\n";
+        print "  <td>\n";
+        print "  <table border='0' cellpadding='0' cellspacing='0' width='100%'>\n";
+        print "  <tr>\n";
+
+        // figure out the results to use
+        $first = $O + 1;
+
+        if (($PP+$O) > $total) {
+            $last = $total;
+        } else {
+            $last = $PP + $O;
+        }
+
+        // print number of results
+        // ok this styling sucks
+        // patches welcome!
+        print "<tr><td align='center' colspan='0'><span class='f4'><span class='blue'>";
+        print __("Showing results %s - %s of %s", array($first, $last, $total));
+        print "</span></span></td></tr>";
+
+        // first print the legend
+        print "    <td colspan='2' align='center'>";
+        print "    <span class='f5'>\n";
+        if ($SID) {
+            print '      <span class="outofdate">'.__("Out of Date").' </span>'."&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+        print "    </span></td>\n";
+        print "  </tr>";
+
+
+        // now print the forward and back buttons on the bottom
+        // LEFT
+        print "  <tr>";
+        print "    <td align='left'>";
+        if (($O-$PP) >= 0) {
+            print "<a href='/packages.php?O=" . ($O - $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
+        } else if ($O<$PP && $O>0) {
+            print "<a href='/packages.php?O=0&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
+        }
+        print "    </td>";
+        // RIGHT
+        print "    <td align='right'>";
+        if ($total - $PP - $O > 0) {
+            print "<a href='/packages.php?O=" . ($O + $PP) .
+                "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"]) .
+                "&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"] .
+                "&do_Orphans=".$_REQUEST["do_Orphans"]."'>" .
+                 __("More") . "</a>";
+        }
+        print "    </td>\n";
+        print "  </tr>\n";
+    }
+    print "  </table>\n";
+    print "  </td>\n";
+    print "</tr>\n";
+    print "</table>\n";
+    print "</center>\n";
+    print "</form>\n";
+
+    return;
 }
 
-# vim: ts=2 sw=2 noet ft=php
+# vim: ts=4 sw=4 et ft=php
 ?>
