@@ -249,8 +249,8 @@ for p in seen_pkgs.keys():
 
 	uuid = genUID() # the submitter/user
 
-	s = "INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, AURMaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d, %d);\n" % (seen_pkgs[p], p, genVersion(location_id),
-			genCategory(), location_id, NOW, uuid, muid, muid)
+	s = "INSERT INTO Packages (ID, Name, Version, CategoryID, LocationID, SubmittedTS, SubmitterUID, MaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, %d, %d);\n" % (seen_pkgs[p], p, genVersion(location_id),
+			genCategory(), location_id, NOW, uuid, muid)
 	out.write(s)
 	if count % 100 == 0:
 		if DBUG: print ".",

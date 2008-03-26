@@ -159,26 +159,16 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 					$disown .= ", ".$pid;
 				}
 			}
-			# Removed for now since we will have 1 maintainer
-			# PJM - 5 April 2005
-			#			if ($atype == "Trusted User" || $atype == "Developer") {
-			#				$field = "AURMaintainerUID";
-			#			} elseif ($atype == "User") {
-			#				$field = "MaintainerUID";
-			#			} else {
-			#				$field = "";
-			#			}
+
 			$field = "MaintainerUID";
-			if ($field) {
-				$q = "UPDATE Packages ";
-				$q.= "SET ".$field." = 0 ";
-				$q.= "WHERE ID IN (" . $disown . ") ";
-				# If a user is a TU or dev they can disown any package
-        if ($atype == "User") {
-					$q.= "AND ".$field." = ".uid_from_sid($_COOKIE["AURSID"]);
-				}
-				db_query($q, $dbh);
+			$q = "UPDATE Packages ";
+			$q.= "SET ".$field." = 0 ";
+			$q.= "WHERE ID IN (" . $disown . ") ";
+			# If a user is a TU or dev they can disown any package
+      if ($atype == "User") {
+				$q.= "AND ".$field." = ".uid_from_sid($_COOKIE["AURSID"]);
 			}
+		  db_query($q, $dbh);
 
 			print "<p>\n";
 			print __("The selected packages have been disowned.");
@@ -214,83 +204,71 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 					$delete .= ", ".$pid;
 				}
 			}
-			#			if ($atype == "Trusted User" || $atype == "Developer") {
-			#				$field = "AURMaintainerUID";
-			#			} elseif ($atype == "User") {
-			#				$field = "MaintainerUID";
-			#			} else {
-			#				$field = "";
-			#				}
+
 			$field = "MaintainerUID";
-			if ($field) {
-				# Only grab Unsupported packages that "we" own or are not owned at all
-				#
-				$ids_to_delete = array();
-				$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
-				$q.= "WHERE Packages.ID IN (" . $delete . ") ";
-				$q.= "AND Packages.LocationID = PackageLocations.ID ";
-				$q.= "AND PackageLocations.Location = 'unsupported' ";
-				# If they're a TU or dev, can always delete, otherwise check ownership
-				#
-				if ($atype == "Trusted User" || $atype == "Developer") {
-					$result = db_query($q, $dbh);
-				} else {
-					$q.= "AND $field IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
-					$result = db_query($q, $dbh);
+
+			# Only grab Unsupported packages that "we" own or are not owned at all
+			#
+			$ids_to_delete = array();
+			$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
+			$q.= "WHERE Packages.ID IN (" . $delete . ") ";
+			$q.= "AND Packages.LocationID = PackageLocations.ID ";
+			$q.= "AND PackageLocations.Location = 'unsupported' ";
+			# If they're a TU or dev, can always delete, otherwise check ownership
+			#
+			if ($atype == "Trusted User" || $atype == "Developer") {
+				$result = db_query($q, $dbh);
+			} else {
+				$q.= "AND $field IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
+				$result = db_query($q, $dbh);
+			}
+			if ($result != Null && mysql_num_rows($result) > 0) {
+				while ($row = mysql_fetch_assoc($result)) {
+					$ids_to_delete[] = $row['ID'];
 				}
-				if ($result != Null && mysql_num_rows($result) > 0) {
-					while ($row = mysql_fetch_assoc($result)) {
-						$ids_to_delete[] = $row['ID'];
-					}
-				}
-				if (!empty($ids_to_delete)) {
-					# These are the packages that are safe to delete
-					#
-				  foreach ($ids_to_delete as $id) {
-						# 1) delete from PackageVotes
-						$q = "DELETE FROM PackageVotes WHERE PackageID = " . $id;
-						$result = db_query($q, $dbh);
+			}
+			if (!empty($ids_to_delete)) {
+				# These are the packages that are safe to delete
+				#
+			  foreach ($ids_to_delete as $id) {
+					# 1) delete from PackageVotes
+					$q = "DELETE FROM PackageVotes WHERE PackageID = " . $id;
+					$result = db_query($q, $dbh);
 
-						# 2) delete from PackageContents
-						$q = "DELETE FROM PackageContents WHERE PackageID = " . $id;
-						$result = db_query($q, $dbh);
+					# 2) delete from PackageContents
+					$q = "DELETE FROM PackageContents WHERE PackageID = " . $id;
+					$result = db_query($q, $dbh);
 
-						# 3) delete from PackageDepends
-						$q = "DELETE FROM PackageDepends WHERE PackageID = " . $id;
-						$result = db_query($q, $dbh);
+					# 3) delete from PackageDepends
+					$q = "DELETE FROM PackageDepends WHERE PackageID = " . $id;
+					$result = db_query($q, $dbh);
 
-						# 4) delete from PackageSources
-						$q = "DELETE FROM PackageSources WHERE PackageID = " . $id;
-						$result = db_query($q, $dbh);
+					# 4) delete from PackageSources
+					$q = "DELETE FROM PackageSources WHERE PackageID = " . $id;
+					$result = db_query($q, $dbh);
 
-						# 5) delete from PackageComments
-						$q = "DELETE FROM PackageComments WHERE PackageID = " . $id;
-						$result = db_query($q, $dbh);
+					# 5) delete from PackageComments
+					$q = "DELETE FROM PackageComments WHERE PackageID = " . $id;
+					$result = db_query($q, $dbh);
 
-						# 6) delete from Packages
-						$q = "DELETE FROM Packages WHERE ID = " . $id;
-						$result = db_query($q, $dbh);
+					# 6) delete from Packages
+					$q = "DELETE FROM Packages WHERE ID = " . $id;
+					$result = db_query($q, $dbh);
 
-						# 7) delete from CommentNotify
-						$q = "DELETE FROM CommentNotify WHERE PkgID = " . $id;
-						$result = db_query($q, $dbh);
+					# 7) delete from CommentNotify
+					$q = "DELETE FROM CommentNotify WHERE PkgID = " . $id;
+					$result = db_query($q, $dbh);
 
-						# TODO question: Now that the package as been deleted, does
-						#                the unsupported repo need to be regenerated?
-					  # ANSWER: No, there is no actual repo for unsupported, so no worries! (PJM)
-						# TODO question: What about regenerating the AUR repo? (EJ)
-
-						# Print the success message
-						print "<p>\n";
-			      print __("The selected packages have been deleted.");
-			      print "</p>\n";
-					}
-				} else {
+					# Print the success message
 					print "<p>\n";
-					print __("None of the selected packages could be deleted.");
-					print "</p>\n";
-				} # end if (!empty($ids_to_delete))
-			} # end if ($field)
+		      print __("The selected packages have been deleted.");
+		      print "</p>\n";
+				}
+			} else {
+				print "<p>\n";
+				print __("None of the selected packages could be deleted.");
+				print "</p>\n";
+			} # end if (!empty($ids_to_delete))
 		} else {
 			print "<p>\n";
 			print __("You did not select any packages to delete.");
@@ -320,30 +298,22 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 					$adopt .= ", ".$pid;
 				}
 			}
-			#			if ($atype == "Trusted User" || $atype == "Developer") {
-			#				$field = "AURMaintainerUID";
-			#			} elseif ($atype == "User") {
-			#$field = "MaintainerUID";
-			#} else {
-			#	$field = "";
-			#	}
+
 		  $field = "MaintainerUID";
-			if ($field) {
-				# NOTE: Only "orphaned" packages can be adopted at a particular
-				#       user class (TU/Dev or User).
-				#
-				$q = "UPDATE Packages ";
-				$q.= "SET ".$field." = ".uid_from_sid($_COOKIE["AURSID"])." ";
-				$q.= "WHERE ID IN (" . $adopt . ") ";
-				if ($atype == "User")
-				{
-					# Regular users may only adopt orphan packages from unsupported
-					# FIXME: We assume that LocationID for unsupported is "2"
-					$q.= "AND ".$field." = 0";
-					$q.= " AND LocationID = 2";
-				}
-				db_query($q, $dbh);
+			# NOTE: Only "orphaned" packages can be adopted at a particular
+			#       user class (TU/Dev or User).
+			#
+			$q = "UPDATE Packages ";
+			$q.= "SET ".$field." = ".uid_from_sid($_COOKIE["AURSID"])." ";
+			$q.= "WHERE ID IN (" . $adopt . ") ";
+			if ($atype == "User")
+			{
+				# Regular users may only adopt orphan packages from unsupported
+				# FIXME: We assume that LocationID for unsupported is "2"
+				$q.= "AND ".$field." = 0";
+				$q.= " AND LocationID = 2";
 			}
+			db_query($q, $dbh);
 
 			print "<p>\n";
 			print __("The selected packages have been adopted.");

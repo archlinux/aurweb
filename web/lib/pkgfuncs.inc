@@ -500,7 +500,7 @@ function package_details($id=0, $SID="") {
                     echo " value='".__("Unflag Out-of-date")."'>\n";
 				}
 					
-                if ($row["AURMaintainerUID"] == 0 && $row["MaintainerUID"] == 0) {
+                if ($row["MaintainerUID"] == 0) {
                     echo "<input type='submit' class='button' name='do_Adopt'";
                     echo " value='".__("Adopt Packages")."'>\n";
                 }
