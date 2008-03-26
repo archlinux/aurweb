@@ -17,31 +17,47 @@
 #     $_t["es"]["My cat is large."] = "Mi gato esta grande.";
 #
 # examples:
-#   print __("%s has %s apples.", array("Bill", "5"));
-#   print __("This is a %h%s%h problem!", array("<b>","major","</b>"));
+#	print __("%s has %s apples.", "Bill", "5");
+#	print __("This is a %h%s%h problem!", "<b>","major","</b>");
+#
+# deprecated usage:
+#	print __("%s has %s apples.", array("Bill", "5"));
 
 include_once("common_po.inc");
 
 
-function __($tag, $args=array()) {
+function __() {
 	global $_t;
 	global $LANG;
 
 	# create the translation, if it doesn't exist, highlight it
 	#
+	$args = func_get_args();
+
+	# First argument is always string to be translated
+	$tag = $args[0];
+
 	$translated = $_t[$LANG][$tag];
-	if (!$translated) {
+	if (empty($translated)) {
 		# if it's a supported language, but there isn't a translation,
 		# alert the visitor to the missing translation.
 		#
-		$translated = "<font color=\"red\"><b>_" . $tag . "_</b></font>";
+		$translated = "<b style=\"color: red\">_${tag}_</b>";
 	}
 
-	# replace escape substitutions
-	#
-	if (!empty($args)) {
-		while (list($k, $v) = each($args)) {
-			$translated = preg_replace("/\%[sh]/", $v, $translated, 1);
+	# This condition is to reorganise the arguments in case of
+	# deprecated usage. __("string", array("string","string"))
+	if (!empty($args[1]) && is_array($args[1])) {
+		array_unshift($args[1], $tag);
+		$args = $args[1];
+	}
+
+	$num_args = sizeof($args);
+
+	# Subsequent arguments are strings to be formatted
+	if ( $num_args > 1 ) {
+		for ($i = 1; $i < $num_args; $i++) {
+			$translated = preg_replace("/\%[sh]/", $args[$i], $translated, 1);
 		}
 	}
 	return $translated;
