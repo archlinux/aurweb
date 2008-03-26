@@ -201,18 +201,19 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 
   if (!$error && !valid_username($U) && !user_is_privileged($editor_user))
     $error = __("The username is invalid.") . "<ul>\n"
-      ."<li>" . __("It must be "  . USERNAME_MIN_LEN . "-" . USERNAME_MAX_LEN
-      . " characters long") . "</li>"
-      . "<li>" . __("start and end with a letter or number") . "</li>"
-			. "<li>" . __("can contain only one period, underscore or hyphen.")
+			."<li>" . __("It must be between %s and %s characters long", 
+			USERNAME_MIN_LEN,  USERNAME_MAX_LEN )
+			. "</li>"
+      . "<li>" . __("Start and end with a letter or number") . "</li>"
+			. "<li>" . __("Can contain only one period, underscore or hyphen.")
 			. "</li>\n</ul>";
 
 	if (!$error && $P && $C && ($P != $C)) {
 		$error = __("Password fields do not match.");
 	}
 	if (!$error && $P != '' && !good_passwd($P))
-		$error = __("Your password must be at least " . PASSWD_MIN_LEN 
-			. " characters.");
+		$error = 
+				__("Your password must be at least %s characters.",PASSWD_MIN_LEN);
 
 	if (!$error && !valid_email($E)) {
 		$error = __("The email address is invalid.");
@@ -237,7 +238,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$row = mysql_fetch_array($result);
 			if ($row[0]) {
 				$error = __("The username, %h%s%h, is already in use.",
-						array("<b>", $U, "</b>"));
+				 	"<b>", $U, "</b>");
 			}
 		}
 	}
@@ -255,7 +256,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$row = mysql_fetch_array($result);
 			if ($row[0]) {
 				$error = __("The address, %h%s%h, is already in use.",
-						array("<b>", $E, "</b>"));
+						"<b>", $E, "</b>");
 			}
 		}
 	}
@@ -286,12 +287,12 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$result = db_query($q, $dbh);
 			if (!$result) {
 				print __("Error trying to create account, %h%s%h: %s.",
-						array("<b>", $U, "</b>", mysql_error($dbh)));
+						"<b>", $U, "</b>", mysql_error($dbh));
 			} else {
 				# account created/modified, tell them so.
 				#
 				print __("The account, %h%s%h, has been successfully created.",
-						array("<b>", $U, "</b>"));
+						"<b>", $U, "</b>");
 				print "<p>\n";
 				print __("Click on the Home link above to login.");
 				print "</p>\n";
@@ -329,10 +330,10 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$result = db_query($q, $dbh);
 			if (!$result) {
 				print __("Error trying to modify account, %h%s%h: %s.",
-						array("<b>", $U, "</b>", mysql_error($dbh)));
+						"<b>", $U, "</b>", mysql_error($dbh));
 			} else {
 				print __("The account, %h%s%h, has been successfully modified.",
-						array("<b>", $U, "</b>"));
+						"<b>", $U, "</b>");
 			}
 		}
 	}
