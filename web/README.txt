@@ -28,8 +28,11 @@ Setup on ArchLinux:
    </VirtualHost>
 
 4) Configure PHP
- - Edit /etc/php.ini and uncomment the mysql extension line:
+   Make sure you have mysql and json enabled in PHP
+
+ - Edit php.ini and uncomment/add these lines:
    extension=mysql.so
+   extension=json.so
 
 5) Clone the AUR project (using the MYUSER from above)
    $ cd
@@ -70,6 +73,8 @@ Directory Layout:
 ./html/css    - CSS stylesheets
 ./html/images - Any AUR images live here.
 ./lib         - Supporting PHP include files.  Access denied to Apache.
+./template    - Where most of the html markup resides and minimal
+                amount of PHP scripting.
 
 
 Scripts:
