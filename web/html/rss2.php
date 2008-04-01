@@ -3,11 +3,12 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 
 include("aur.inc");
+
 include("feedcreator.class.php");
 
 #If there's a cached version <1hr old, won't regenerate now
 $rss = new UniversalFeedCreator();
-$rss->useCached("RSS2.0","xml/newestpkg.xml",3600);
+$rss->useCached("RSS2.0", "xml/newestpkg.xml", 1800);
 
 #All the general RSS setup
 $rss->title = "AUR Newest Packages";
@@ -28,13 +29,23 @@ $q.= "WHERE DummyPkg != 1 ";
 $q.= "ORDER BY SubmittedTS DESC ";
 $q.= "LIMIT 0 , 20";
 $result = db_query($q, $dbh);
+
+$protocol = 'http';
+
+if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
+	$protocol = 'https';
+
+
 while ($row = mysql_fetch_assoc($result)) {
 	$item = new FeedItem();
 	$item->title = $row["Name"];
-	$item->link = "http" . ($_SERVER["HTTPS"]=='on'?"s":"") . "://".$_SERVER['HTTP_HOST'].'/packages.php?do_Details&ID='.$row["ID"];
+
+	$item->link = $protocol . "://".$_SERVER['HTTP_HOST'] .
+	'/packages.php?ID='.$row["ID"];
+
 	$item->description = $row["Description"];
 	$item->date = intval($row["SubmittedTS"]);
-	$item->source = "http" . ($_SERVER["HTTPS"]=='on'?"s":"") . "://".$_SERVER['HTTP_HOST'];
+	$item->source = $protocol . "://".$_SERVER['HTTP_HOST'];
 	$item->author = username_from_id($row["MaintainerUID"]);
 	$rss->addItem($item);
 }
