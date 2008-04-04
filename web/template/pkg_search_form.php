@@ -1,3 +1,25 @@
+
+    <form action='packages.php' method='get'>
+    <input type='hidden' name='O' value='0'>
+
+    <center>
+    <table cellspacing='3' class='boxSoft'>
+    <tr>
+      <td class='boxSoftTitle' align='right'>
+      <span class='f3'><?php echo __('Search Criteria'); ?></span>
+      </td>
+    </tr>
+    <tr>
+      <td class='boxSoft'>
+    <table style='width: 100%' align='center'>
+
+    <tr>
+    <td align='right'>
+    <span class='f5'><span class='blue'><?php echo __('Location'); ?>
+    </span></span><br />
+      <select name='L'>
+      <option value='0'><?php echo __('Any'); ?>
+
 <?php
 
     // The search form - XXX: split into own function?
@@ -6,26 +28,6 @@
     //        less print statements gets a cookie
     // FIXME: ugly html. whoever un-tables this gets
     //        another cookie
-    print "<form action='/packages.php' method='get'>\n";
-    print "<input type='hidden' name='O' value='0'>\n";
-
-    print "<center>\n";
-    print "<table cellspacing='3' class='boxSoft'>\n";
-    print "<tr>\n";
-    print "  <td class='boxSoftTitle' align='right'>\n";
-    print "    <span class='f3'>".__("Search Criteria")."</span>\n";
-    print "  </td>\n";
-    print "</tr>\n";
-    print "<tr>\n";
-    print "  <td class='boxSoft'>\n";
-    print "<table style='width: 100%' align='center'>\n";
-
-    print "<tr>\n";
-    print "<td align='right'>\n";
-    print "  <span class='f5'><span class='blue'>".__("Location");
-    print "</span></span><br />\n";
-    print "  <select name='L'>\n";
-    print "  <option value=0> ".__("Any")."\n";
     while (list($id, $loc) = each($locs)) {
         if (intval($_REQUEST["L"]) == $id) {
             print "  <option value=".$id." selected> ".$loc."\n";
@@ -96,26 +98,26 @@
     print "</td>\n";
 
     // Added to break put the buttons in a new line
-    print"</tr></table><center><table><tr>";
-
-    print "<td align='right' valign='bottom'>&nbsp;\n";
-    print "  <input type='submit' style='width:80px' class='button' name='do_Search'";
-    print " value='".__("Go")."'>\n";
-    print "</td>\n";
-
-    print "<td align='right' valign='bottom'>&nbsp;\n";
-    print "  <input type='submit' style='width:80px'  class='button' name='do_Orphans'";
-    print " value='".__("Orphans")."'>\n";
-    print "</td>\n";
-
-    print "</tr>\n";
-    print "</table>\n";
-
-    print "  </td>\n";
-    print "</tr>\n";
-    print "</table>\n";
-    print "</center>\n";
-    print "</form>\n";
-    print "<br />\n";
-
 ?>
+    </tr></table><center><table><tr>
+
+    <td align='right' valign='bottom'>&nbsp;
+      <input type='submit' style='width:80px' class='button' name='do_Search'
+    value='<?php echo __('Go'); ?>'>
+    </td>
+
+    <td align='right' valign='bottom'>&nbsp;
+      <input type='submit' style='width:80px'  class='button' name='do_Orphans'
+	      value='<?php echo __('Orphans'); ?>'>
+    </td>
+
+    </tr>
+    </table>
+
+      </td>
+    </tr>
+    </table>
+    </center>
+    </form>
+    <br />
+
