@@ -82,6 +82,10 @@ class AurJSON {
      * @return mixed Returns an array of package matches.
      **/
     private function search($keyword_string) {
+        if (strlen($keyword_string) < 2) {
+            return $this->json_error('Query arg too small');
+        }
+
         $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
         $query = sprintf(
             "SELECT Name,ID FROM Packages WHERE ( Name LIKE '%%%s%%' OR Description LIKE '%%%s%%' ) AND DummyPkg=0",
