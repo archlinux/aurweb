@@ -1,5 +1,5 @@
-Setup on ArchLinux:
-===================
+Setup on Arch Linux:
+====================
 1) Install Apache, MySQL, PHP, and git 
   # pacman -Sy apache mysql php git 
 
@@ -108,24 +108,16 @@ Scripts:
   the account type (regular user or TU).  If a Dev is logged in, they
   can also set the account type to Dev.  TUs and Devs are able to
   delete accounts.  If an account is deleted, all "Unsupported"
-  packages are orphaned (the Users.ID field in the UnsupportedPackages
+  packages are orphaned (the MaintainerUID field in the Packages
   table is set to Null).
 
 - html/packages.php
   PHP script to search the package database.  It should support
-  searching by location ("unsupported", "AUR", "extra"), name,
+  searching by location ("unsupported", "community", "extra"), name,
   category, maintainer, popularity, etc.  It should resemble the
   packages.php script on archlinux.org.  A checkbox should be
   included next to each package to allow users to flag a package
   out of date, adopt it, and vote for it (and reverse operations).
-
-- html/pkgmgmnt.php
-  This script is not accessed directly, but is invoked when a
-  visitor clicks the 'manage' link from the 'packages.php' script.
-  The user can edit the package information stored in the database
-  such as the description, url, category, and location (a TU can move
-  it to/from "unsupported" and the "AUR").  This is where TUs can
-  adopt packages that are in the "unsupported" area.
 
 - html/pkgsubmit.php
   This is the PHP script that allows users to upload a new package.
@@ -135,14 +127,21 @@ Scripts:
   its category (network, devel, etc) but that can be modified
   later by the adopting TU.  The script makes appropriate entries
   into the database (and perhaps notifies interested users of the
-  new package - see question above).
+  new package).
 
 
-New terms/definitions:
+Terms and Definitions:
 ======================
-TU - No change (trusted by the community, if anyone asks what trust
-     means)
-TUR - renamed to Arch User-community Repo (AUR) (so we can use -u for
-      versions)
-Incoming - renamed to "Unsupported"
+AUR - Arch Linux User-Community Repository
+	Includes:
+	- the AUR web site,
+	- the [unsupported] 'repository'
+	- the [community] repository managed by the TUs
+
+TU - Trusted User
+	A user that can add binary packages to the [community]
+	repository and administer AUR.
+
+[unsupported]
+	The collection of package build files hosted via the AUR web site.
 
