@@ -361,7 +361,9 @@ if ($_COOKIE["AURSID"]) {
 				$q.="Name='".mysql_real_escape_string($new_pkgbuild['pkgname'])."', ";
 				$q.="Version='".mysql_real_escape_string($new_pkgbuild['pkgver'])."-".
 				  mysql_real_escape_string($new_pkgbuild['pkgrel'])."',";
+				if ($_POST['category'] > 1) {
 				$q.="CategoryID=".mysql_real_escape_string($_REQUEST['category']).", ";
+			}
                 $q.="License='".mysql_real_escape_string($new_pkgbuild['license'])."', ";
                 $q.="Description='".mysql_real_escape_string($new_pkgbuild['pkgdesc'])."', ";
 				$q.="URL='".mysql_real_escape_string($new_pkgbuild['url'])."', ";
