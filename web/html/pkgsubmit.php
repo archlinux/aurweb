@@ -375,6 +375,7 @@ if ($_COOKIE["AURSID"]) {
 				$fspath=INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
 				$q.="FSPath='".mysql_real_escape_string($fspath)."', ";
 				$urlpath=URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$q.="OutOfDate=0, ";
 				$q.="URLPath='".mysql_real_escape_string($urlpath)."' ";
 				$q.="WHERE ID = " . $pdata["ID"];
 				$result = db_query($q, $dbh);
