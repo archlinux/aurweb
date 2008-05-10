@@ -1,6 +1,7 @@
 <?php
 # French (Français) translation
 # Translator: Morgan LEFIEUX <comete@archlinuxfr.org>
+# Translator: Cilyan Olowen <gaknar@gmail.com>
 
 include_once("translator.inc");
 global $_t;
@@ -15,11 +16,11 @@ $_t["fr"]["orphan"] = "orphelin";
 
 $_t["fr"]["Votes"] = "Votes";
 
-$_t["fr"]["First Submitted"] = "Première Soumission";
+$_t["fr"]["First Submitted"] = "Première soumission";
 
 $_t["fr"]["Tarball"] = "Tarball";
 
-$_t["fr"]["Be careful! The above files may contain malicious code that can damage your system."] = "Attention! Les fichiers ci-dessus peuvent contenir du code malicieux qui pourrait endommager votre système.";
+$_t["fr"]["Be careful! The above files may contain malicious code that can damage your system."] = "Attention ! Les fichiers ci-dessus peuvent contenir du code malicieux qui pourrait endommager votre système.";
 
 $_t["fr"]["Voted"] = "Voté";
 
@@ -49,7 +50,7 @@ $_t["fr"]["Ascending"] = "Ascendant";
 
 $_t["fr"]["Delete comment"] = "Effacer le commentaire";
 
-$_t["fr"]["No New Comment Notification"] = "Pas d'annonce de Nouveau Commentaire";
+$_t["fr"]["No New Comment Notification"] = "Pas d'annonce de nouveau commentaire";
 
 $_t["fr"]["Dependencies"] = "Dépendances";
 
@@ -97,7 +98,7 @@ $_t["fr"]["change category"] = "changer de catégorie";
 
 $_t["fr"]["Vote"] = "Voter";
 
-$_t["fr"]["Use this form to update your account."] = "Utiliser ce formulaire pour mettre à jour votre compte.";
+$_t["fr"]["Use this form to update your account."] = "Utilisez ce formulaire pour mettre à jour votre compte.";
 
 $_t["fr"]["Delete Packages"] = "Supprimer des Paquets";
 
@@ -109,13 +110,13 @@ $_t["fr"]["Comment by: %h%s%h on %h%s%h"] = "Commenté par: %h%s%h sur %h%s%h";
 
 $_t["fr"]["Flag Out-of-date"] = "Marqué comme Périmé";
 
-$_t["fr"]["You are not allowed to access this area."] = "Vous n'êtes pas authorisé à accéder à cet espace.";
+$_t["fr"]["You are not allowed to access this area."] = "Vous n'êtes pas autorisé à accéder à cet espace.";
 
 $_t["fr"]["Manage"] = "Gérer";
 
 $_t["fr"]["Sort by"] = "Trier par";
 
-$_t["fr"]["Flag Package Safe To Use"] = "Marquer le paquet comme sains";
+$_t["fr"]["Flag Package Safe To Use"] = "Marquer le paquet comme Sain";
 
 $_t["fr"]["Actions"] = "Actions";
 
@@ -139,7 +140,7 @@ $_t["fr"]["Go back to %hsearch results%h."] = "Retourner aux %hrésultats de la 
 
 $_t["fr"]["Adopt Packages"] = "Adopter des paquets";
 
-$_t["fr"]["New Comment Notification"] = "Annonce de Nouveau Commentaire";
+$_t["fr"]["New Comment Notification"] = "Annonce de nouveau commentaire";
 
 $_t["fr"]["Sort order"] = "Ordre de tri";
 
@@ -164,5 +165,11 @@ $_t["fr"]["Showing results %s - %s of %s"] = "Résultats %s à %s pour un total 
 $_t["fr"]["Out of Date"] = "Périmé";
 
 $_t["fr"]["Required by"] = "Requis par";
+
+$_t["fr"]["This package has been flagged out of date."] = "Ce paquet a été marqué comme périmé.";
+
+$_t["fr"]["Toggle Notify"] = "Annoncer/Ne plus annoncer";
+
+$_t["fr"]["Accounts"] = "Comptes";
 
 ?>

@@ -1,13 +1,14 @@
 <?php
 # French (Français) translation
 # Translator: Morgan LEFIEUX <comete@archlinuxfr.org>
+# Translator: Cilyan Olowen <gaknar@gmail.com>
 
 include_once("translator.inc");
 global $_t;
 
 $_t["fr"]["Statistics"] = "Statistiques";
 
-$_t["fr"]["Remember to vote for your favourite packages!"] = "Pensez à voter pour vos paquets favoris!";
+$_t["fr"]["Remember to vote for your favourite packages!"] = "Pensez à voter pour vos paquets favoris !";
 
 $_t["fr"]["Error looking up username, %s."] = "Erreur en recherchant l'utilisateur, %s.";
 
@@ -37,9 +38,9 @@ $_t["fr"]["Username:"] = "Nom d'utilisateur:";
 
 $_t["fr"]["Error trying to generate session id."] = "Erreur en essayant de générer un identifiant de session.";
 
-$_t["fr"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Bienvenu(e) sur AUR! Lisez, s'il vous plaît, le %hGuide Utilisateur AUR%h et le %hGuide des Utilisateurs de Confiance%h pour plus d'informations.";
+$_t["fr"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Bienvenue sur AUR ! Lisez, s'il vous plaît, le %hGuide Utilisateur AUR%h et le %hGuide des Utilisateurs de Confiance%h pour plus d'informations.";
 
-$_t["fr"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Les PKGBUILDs portés à contribution <b>doivent</b> se conformer aux %hStandards de l'empaquetage Arch%h ou sinon ils seront supprimés!";
+$_t["fr"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Les PKGBUILDs proposés <b>doivent</b> se conformer aux %hStandards de l'empaquetage Arch%h sans quoi ils seront supprimés!";
 
 $_t["fr"]["Login"] = "Se connecter";
 
@@ -59,8 +60,12 @@ $_t["fr"]["Safe"] = "Sain";
 
 $_t["fr"]["Out-of-date"] = "Périmé";
 
-$_t["fr"]["User Statistics"] = "Statistiques Utilisateur";
+$_t["fr"]["User Statistics"] = "Statistiques utilisateur";
 
 $_t["fr"]["DISCLAIMER"] = "Les PKGBUILDs proposés dans \"Unsupported\" sont produits par des utilisateurs. Téléchargez-les à vos propres risques.";
+
+$_t["fr"]["My Statistics"] = "Mes statistiques";
+
+$_t["fr"]["Home"] = "Accueil";
 
 ?>

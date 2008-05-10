@@ -1,13 +1,14 @@
 <?php
 # French (Français) translation
 # Translator: Morgan LEFIEUX <comete@archlinuxfr.org>
+# Translator: Cilyan Olowen <gaknar@gmail.com>
 
 include_once("translator.inc");
 global $_t;
 
 $_t["fr"]["Missing build function in PKGBUILD."] = "Fonction build manquante dans le PKGBUILD.";
 
-$_t["fr"]["Could not change directory to %s."] = "Ne peut changer le répertoire vers %s.";
+$_t["fr"]["Could not change directory to %s."] = "Impossible de changer le répertoire vers %s.";
 
 $_t["fr"]["No"] = "Non";
 
@@ -21,9 +22,9 @@ $_t["fr"]["You must create an account before you can upload packages."] = "Vous 
 
 $_t["fr"]["Package upload successful."] = "Transfert du paquet réussi.";
 
-$_t["fr"]["Overwrite existing package?"] = "Ecraser le paquet existant?";
+$_t["fr"]["Overwrite existing package?"] = "Écraser le paquet existant ?";
 
-$_t["fr"]["Binary packages and filelists are not allowed for upload."] = "Les paquets binaires et les listes de fichiers ne sont pas autoriÃsés à être transferés.";
+$_t["fr"]["Binary packages and filelists are not allowed for upload."] = "Les paquets binaires et les listes de fichiers ne sont pas autorisés à être transferés.";
 
 $_t["fr"]["You did not specify a package name."] = "Vous n'avez pas spécifié de nom de paquet.";
 
@@ -33,7 +34,7 @@ $_t["fr"]["Could not create incoming directory: %s."] = "Impossible de créer le
 
 $_t["fr"]["Upload package file"] = "Fichier àdu paquet à tranférer";
 
-$_t["fr"]["Package Location"] = " Chemin du paquet";
+$_t["fr"]["Package Location"] = "Chemin du paquet";
 
 $_t["fr"]["Missing url variable in PKGBUILD."] = "La variable url est manquante dans le PKGBUILD.";
 
@@ -43,7 +44,7 @@ $_t["fr"]["Package Category"] = "Catégorie du paquet";
 
 $_t["fr"]["Could not change to directory %s."] = "Impossible de changer de répertoire vers %s.";
 
-$_t["fr"]["You did not tag the 'overwrite' checkbox."] = "Vous n'avez pas coché la case 'Ecraser'.";
+$_t["fr"]["You did not tag the 'overwrite' checkbox."] = "Vous n'avez pas coché la case 'Écraser'.";
 
 $_t["fr"]["Invalid name: only lowercase letters are allowed."] = "Nom invalide: seules les lettres minuscules sont autorisées.";
 
@@ -77,12 +78,16 @@ $_t["fr"]["Unknown file format for uploaded file."] = "Format de fichier inconnu
 
 $_t["fr"]["Missing source variable in PKGBUILD."] = "Variable source manquante dans le PKGBUILD.";
 
-$_t["fr"]["Could not re-tar"] = "Impossible de 'exécuter à nouveau la commande tar";
+$_t["fr"]["Could not re-tar"] = "Impossible d'exécuter à nouveau la commande tar";
 
 $_t["fr"]["Sorry, uploads are not permitted by this server."] = "Désolé, les transferts ne sont pas permis par ce serveur.";
 
 $_t["fr"]["You must supply a comment for this upload/change."] = "Vous devez fournir un commentaire pour ce transfert/changement.";
 
 $_t["fr"]["Yes"] = "Oui";
+
+$_t["fr"]["Missing license variable in PKGBUILD."] = "La variable license est manquante dans le PKGBUILD.";
+
+$_t["fr"]["Missing arch variable in PKGBUILD."] = "La variable arch est manquante dans le PKGBUILD.";
 
 ?>

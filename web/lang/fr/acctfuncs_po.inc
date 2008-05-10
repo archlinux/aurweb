@@ -1,13 +1,14 @@
 <?php
 # French (Français) translation
 # Translator: Morgan LEFIEUX <comete@archlinuxfr.org>
+# Translator: Cilyan Olowen <gaknar@gmail.com>
 
 include_once("translator.inc");
 global $_t;
 
 $_t["fr"]["Missing a required field."] = "Il manque un champ requis.";
 
-$_t["fr"]["Search"] = "Rechercher'";
+$_t["fr"]["Search"] = "Rechercher";
 
 $_t["fr"]["The account, %h%s%h, has been successfully created."] = "Le compte, %h%s%h, a été créé avec succès.";
 
@@ -27,7 +28,7 @@ $_t["fr"]["Account Suspended"] = "Compte Suspendu";
 
 $_t["fr"]["Status"] = "Etat";
 
-$_t["fr"]["New Package Notify"] = "Annonce d'un nouveau paquet";
+$_t["fr"]["New Package Notify"] = "Annoncer les nouveaux paquets";
 
 $_t["fr"]["IRC Nick"] = "Pseudo IRC";
 
@@ -43,11 +44,11 @@ $_t["fr"]["User"] = "Utilisateur";
 
 $_t["fr"]["Active"] = "Actif";
 
-$_t["fr"]["Last Voted"] = "Voté Dernièrement";
+$_t["fr"]["Last Voted"] = "Voté dernièrement";
 
-$_t["fr"]["Real Name"] = "Nom Réel";
+$_t["fr"]["Real Name"] = "Nom réel";
 
-$_t["fr"]["Edit Account"] = "Editer le Compte";
+$_t["fr"]["Edit Account"] = "Editer le compte";
 
 $_t["fr"]["Password fields do not match."] = "Les champs du mot de passe ne correspondent pas.";
 
@@ -82,5 +83,15 @@ $_t["fr"]["Trusted User"] = "Utilisateur de Confiance";
 $_t["fr"]["Missing User ID"] = "ID d'utilisateur manquant";
 
 $_t["fr"]["Developer"] = "Développeur";
+
+$_t["fr"]["It must be between %s and %s characters long"] = "Il doit être compris entre %s et %s caractères,";
+
+$_t["fr"]["Your password must be at least %s characters."] = "Votre mot de passe doit comprendre au moins %s caractères.";
+
+$_t["fr"]["Can contain only one period, underscore or hyphen."] = "ne peut contenir qu'un seul point, blanc souligné ou virgule,";
+
+$_t["fr"]["Start and end with a letter or number"] = "doit débuter et se terminer par une lettre ou un chiffre.";
+
+$_t["fr"]["The username is invalid."] = "Le nom d'utilisateur choisi n'est pas valide.";
 
 ?>

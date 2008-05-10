@@ -1,6 +1,7 @@
 <?php
 # French (Français) translation
 # Translator: Morgan LEFIEUX <comete@archlinuxfr.org>
+# Translator: Cilyan Olowen <gaknar@gmail.com>
 
 include_once("translator.inc");
 global $_t;
@@ -9,7 +10,7 @@ $_t["fr"]["Reset"] = "Réinitialiser";
 
 $_t["fr"]["Username"] = "Nom d'utilisateur";
 
-$_t["fr"]["Email Address"] = "Adresse Email";
+$_t["fr"]["Email Address"] = "Adresse e-mail";
 
 $_t["fr"]["Less"] = "Moins";
 
