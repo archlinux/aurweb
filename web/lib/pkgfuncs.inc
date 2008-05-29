@@ -512,8 +512,7 @@ function package_details($id=0, $SID="") {
 					echo " value='".__("Disown Packages")."'>\n";
 				}	
 					
-				if ($row["MaintainerUID"] == uid_from_sid($SID) ||
-				    account_from_sid($SID) == "Trusted User" ||
+				if (account_from_sid($SID) == "Trusted User" ||
 				    account_from_sid($SID) == "Developer") {
 					echo "<input type='submit' class='button' name='do_Delete'";
 					echo " value='".__("Delete Packages")."'>\n";
@@ -905,7 +904,9 @@ function pkg_search_page($SID="") {
             print "<option value='do_UnFlag'>".__("Unflag Out-of-date")."</option>\n";
             print "<option value='do_Adopt'>".__("Adopt Packages")."</option>\n";
             print "<option value='do_Disown'>".__("Disown Packages")."</option>\n";
-            print "<option value='do_Delete'>".__("Delete Packages")."</option>\n";
+            if (account_from_sid($SID) == "Trusted User" || account_from_sid($SID) == "Developer") {
+              print "<option value='do_Delete'>".__("Delete Packages")."</option>\n";
+            }
             print "<option value='do_Notify'>".__("Toggle Notify")."</option>\n";
             print "</select>";
             print "<input type='submit' class='button' style='width: 80px' value='" . __("Go") . "' />";

@@ -218,9 +218,6 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 			#
 			if ($atype == "Trusted User" || $atype == "Developer") {
 				$result = db_query($q, $dbh);
-			} else {
-				$q.= "AND $field IN (0,  " . uid_from_sid($_COOKIE["AURSID"]) . ")";
-				$result = db_query($q, $dbh);
 			}
 			if ($result != Null && mysql_num_rows($result) > 0) {
 				while ($row = mysql_fetch_assoc($result)) {
