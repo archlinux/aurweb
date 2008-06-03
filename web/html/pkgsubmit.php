@@ -37,11 +37,15 @@ if ($_COOKIE["AURSID"]) {
 					$error = __("Could not change directory to %s.",
 						array(UPLOAD_DIR . $tempdir));
 				} else {
-					# try using general tar. it should take .gz, .bz2, and plain .tar
-					exec("/bin/sh -c 'tar xf ".$_FILES['pfile']['tmp_name']."'", $trash, $retval);
-					if ($retval) {
-						$error = __("Unknown file format for uploaded file.");
-					}
+				  if ($_FILES['pfile']['name'] == "PKGBUILD") {
+				    move_uploaded_file($_FILES['pfile']['tmp_name'], UPLOAD_DIR . $tempdir . "/PKGBUILD");
+				  } else {
+  					# try using general tar. it should take .gz, .bz2, and plain .tar
+  					exec("/bin/sh -c 'tar xf ".$_FILES['pfile']['tmp_name']."'", $trash, $retval);
+  					if ($retval) {
+  						$error = __("Unknown file format for uploaded file.");
+  					}
+				  }
 				}
 			}
 		}
