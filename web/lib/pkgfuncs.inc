@@ -353,7 +353,7 @@ function package_details($id=0, $SID="") {
 				$urlpath = URL_DIR.$row["Name"]."/".$row["Name"];
 				print "<a href='$urlpath.tar.gz'>".__("Tarball")."</a> :: <a href='$urlpath'>".__("Files")."</a> :: <a href='$urlpath/PKGBUILD'>PKGBUILD</a></span></td>";
 			} elseif ($row["LocationID"] == 3) {
-			  echo "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/" . $row["Category"] . "/" . $row["Name"] . "/?cvsroot=AUR&only_with_tag=CURRENT'>CVS</td>";
+			  echo "<a href='http://repos.archlinux.org/viewvc.cgi/community/" . $row["Category"] . "/" . $row["Name"] . "/?root=community&pathrev=CURRENT'>CVS</td>";
 			}
 			echo "</tr>\n";
 			if ($row["OutOfDate"] == 1) {
@@ -385,7 +385,7 @@ function package_details($id=0, $SID="") {
 									// $darr[3] is the DepCondition                                               
 																								 
 					if ($darr[2] == 0) echo $url."'>".$darr[1].$darr[3]."</a><br />\n";
-					else echo "<a href='http://archlinux.org/packages/search/".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
+					else echo "<a href='http://archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 				}
 			}
 			echo "</td></tr>\n";
@@ -415,7 +415,7 @@ function package_details($id=0, $SID="") {
 									// $darr[3] is the DepCondition                                               
 																								 
 					if ($darr[2] == 0) print $url."'>".$darr[1].$darr[3]."</a><br />\n";
-					else print "<a href='http://archlinux.org/packages/search/".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
+					else print "<a href='http://archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 				}
 			}
 			echo "</td></tr>\n";
@@ -444,7 +444,7 @@ function package_details($id=0, $SID="") {
 							echo "<a href='".dirname($row['URLPath'])."/".$row['Name'];
 							echo "/".$src."'>".$src."</a><br />\n";
 						} elseif ($row["LocationID"] == 3) {
-							echo "<a href='http://cvs.archlinux.org/cgi-bin/viewcvs.cgi/*checkout*/".$row["Category"]."/".$row["Name"]."/".$src."/?rev=HEAD&cvsroot=AUR&only_with_tag=CURRENT'>";
+							echo "<a href='http://repos.archlinux.org/viewvc.cgi/community/" . $row["Category"] . "/" . $row["Name"] . "/?root=community&pathrev=CURRENT'>";
 							echo $src."</a><br />\n";
 						}
 					}
