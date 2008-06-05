@@ -1,121 +1,104 @@
 /* Standard Fonts */
-	span /* Applicable by default in all fonts */
-	{
-		color:				#555;
-		font-family:		Bitstream Vera Sans, Lucida Grande, Arial, sans-serif;
-	}
-	span.f1 /* Important */
-	{
-		font-size:			20px;
-		letter-spacing:		1px;
-	}
-	span.f2 /* Title */
-	{
-		font-size:			14px;
-		color: rgb(108, 131, 176);
-		font-weight:		bold;
-	}
-	span.f3 /* Sub Title */
-	{
-		color:				#888;
-		font-size:			14px;
-		font-weight:		bold;
-	}
-	span.f4 /* Content Text */
-	{
-		color:				#444;
-		font-size:			12px;
-	}
-	span.f5 /* Content Small */
-	{
-		color:				#333;
-		font-size:			11px;
-	}
-	span.f6 /* Red Message */
-	{
-		color:				#b06d6e;
-		font-size:			14px;
-		font-weight:			bold;
-	}
-	span.f7 /* Green Message */
-	{
-		color:				#6db06d;
-		font-size:			14px;
-		font-weight:			bold;
-	}
-	span.fix /* Monospace fixed-font */
-	{
-		color:				#000;
-		font-family:		monospace, fixed, terminal;
-		font-size:			12px;
-	}
-	span.error /* Content Text */
-	{
-		color:				#900;
-		font-size:			12px;
-	}
-	span.warning /* Content Text */
-	{
-		color:				#C0C000;
-		font-size:			12px;
-	}
-	
-
+span /* Applicable by default in all fonts */
+{
+  color: #555;
+  font-family: Bitstream Vera Sans, Lucida Grande, Arial, sans-serif;
+}
+span.f1 /* Important */
+{
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+span.f2 /* Title */
+{
+  font-size: 14px;
+  color: #6c83b0;
+  font-weight: bold;
+}
+span.f3 /* Sub Title */
+{
+  color: #888;
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 2px;
+}
+span.f4 /* Content Text */
+{
+  color: #444;
+  font-size: 12px;
+}
+span.f5 /* Content Small */
+{
+  color: #333;
+  font-size: 11px;
+}
+span.f6 /* Red Message */
+{
+  color: #b06d6e;
+  font-size: 14px;
+  font-weight: bold;
+}
+span.f7 /* Green Message */
+{
+  color: #6db06d;
+  font-size: 14px;
+  font-weight: bold;
+}
+span.fix /* Monospace fixed-font */
+{
+  color: #000;
+  font-family: monospace, fixed, terminal;
+  font-size: 12px;
+}
+span.error /* Content Text */
+{
+  color: #900;
+  font-size: 12px;
+}
+span.warning /* Content Text */
+{
+  color: #c0c000;
+  font-size: 12px;
+}
 /* Font Attribute Change (#6c83b0)*/
-	span.blue
-	{
-		color:				rgb( 108, 131, 176 );
-	}
-	span.white
-	{
-		color:				white;
-	}
-	span.black
-	{
-		color:				black;
-	}
-	span.green
-	{
-		color:                          #6db06d;
-	}
-	span.link
-	{
-		color:				rgb( 108, 131, 176 );
-		font-weight:		bold;
-	}	
-
+span.blue { color: #6c83b0; }
+span.white { color: #fff; }
+span.black { color: #000; }
+span.green { color: #6db06d; }
+span.link
+{
+  color: #6c83b0;
+  font-weight: bold;
+}
 /* Misc (c9d1e2) */
-	span.preHeader
-	{
-		color:				rgb( 201, 209, 226 );
-		font-weight:		bold;
-		font-size:			11px;
-		padding-right:		8px;
-		word-spacing:		8px;
-	}
-	span.sideBarSmallHeader
-	{
-		color:				#fff;
-		font-weight:		bold;
-		font-size:			11px;
-		padding-right:		8px;
-	}
-
+span.preHeader
+{
+  color: #c9d1e2;
+  font-weight: bold;
+  font-size: 11px;
+  padding-right: 8px;
+  word-spacing: 8px;
+}
+span.sideBarSmallHeader
+{
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  padding-right: 8px;
+}
 a {
-	color: #0771a6;
-	text-decoration: none;
-	font-weight: bold;
+  color: #0771a6;
+  text-decoration: none;
+  font-weight: bold;
 }
-
 a:hover {
-	color: #333;
-	text-decoration: none;
-	font-weight: bold;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
 }
-
-h1,h2,h3,h4 {
-	font-size: 16pt;
+h1, h2, h3, h4 {
+  font-size: 16pt;
 }
-span.important {
-	color: #f00;
-}
+span.important { color: #f00; }
+/* vim:ts=2:sw=2:et:enc=utf-8:
+ * */
