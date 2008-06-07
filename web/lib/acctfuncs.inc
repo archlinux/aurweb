@@ -646,7 +646,7 @@ function try_login() {
 
 				setcookie("AURSID", $new_sid, 0, "/");
 #				header("Location: /index.php");
-				header("Location: " . $_SERVER['PHP_SELF']);
+				header("Location: " . $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
 				$login_error = "";
 
 			}
