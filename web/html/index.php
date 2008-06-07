@@ -38,7 +38,7 @@ $result = db_query($q,$dbh);
 # Table 2
 print '<table class="boxSoft">';
 print '<tr>';
-print '<th colspan="2" class="boxSoftTitle" style="text-align: right">';
+print '<th colspan="2" class="boxSoftTitle">';
 print ' <a href="/rss2.php"><img src="/images/rss.gif"></a> <span class="f3">'.__("Recent Updates").' <span class="f5"></span></span>';
 print '</th>';
 print '</tr>';
@@ -51,7 +51,7 @@ while ($row = mysql_fetch_assoc($result)) {
 	print $row["Name"]." ".$row["Version"]."</a></span></span>";
 
         print '</td>';
-	print '<td class="boxSoft" style="text-align: right">';
+	print '<td class="boxSoft">';
 
         # figure out the mod string
         $mod_int = intval($row["ModifiedTS"]);
@@ -124,7 +124,7 @@ if (!empty($user)) {
     print "<table class='boxSoft'>";
     
     print "<tr>";
-    print "<th colspan='2' class='boxSoftTitle' style='text-align: right'>";
+    print "<th colspan='2' class='boxSoftTitle'>";
     print "<span class='f3'>".__("My Statistics")."</span>";
     print "</th>";
     print "</tr>";
@@ -168,7 +168,7 @@ if (!empty($user)) {
 print "<table class='boxSoft'>";
 
 print "<tr>";
-print "<th colspan='2' class='boxSoftTitle' style='text-align: right'>";
+print "<th colspan='2' class='boxSoftTitle'>";
 print "<span class='f3'>".__("Statistics")."</span>";
 print "</th>";
 print "</tr>";
