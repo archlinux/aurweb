@@ -361,16 +361,17 @@ function package_details($id=0, $SID="") {
 				echo "<span class='f6'>".__("This package has been flagged out of date.")."</span></td></tr>";
 			}
 			echo "      <tr><td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td></tr>\n";
-            echo "      <tr>\n";
-            echo "        <td valign='top' style='padding-right: 10'>\n";
-			echo "          <table class='boxSoft' style='width: 200px'>\n";
-			echo "            <tr><td class='boxSoftTitle'><span class='f3'>";
-			echo __("Dependencies")."</span></td></tr>\n";
-			echo "            <tr><td class='boxSoft'>";
+			
 			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name', 'dummy');
-			if (count($deps) == 0) {
-				print "None\n";
-			} else {
+			if (count($deps) > 0) {
+			
+        echo "      <tr>\n";
+        echo "        <td valign='top' style='padding-right: 10'>\n";   
+  			echo "          <table class='boxSoft' style='width: 200px'>\n";
+  			echo "            <tr><td class='boxSoftTitle'><span class='f3'>";
+  			echo __("Dependencies")."</span></td></tr>\n";
+  			echo "            <tr><td class='boxSoft'>";
+  			
 				while (list($k, $darr) = each($deps)) {
 					$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
 					while(list($k, $var) = each($pkgsearch_vars)) {
@@ -387,20 +388,22 @@ function package_details($id=0, $SID="") {
 					if ($darr[2] == 0) echo $url."'>".$darr[1].$darr[3]."</a><br />\n";
 					else echo "<a href='http://archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 				}
-			}
-			echo "</td></tr>\n";
-			echo "</table></td>";
+			
+  			echo "</td></tr>\n";
+  			echo "</table></td>";
+
+      }
 
 			# reverse-deps by tardo - could use some beautification
-			echo "  <td valign='top'>";
-			echo "<table class='boxSoft' style='width: 200px'>";
-			echo "<tr><td class='boxSoftTitle'><span class='f3'>";
-			echo __("Required by")."</span></td></tr>\n";
-			echo "<tr><td class='boxSoft'>";
 			$deps = package_required($row["ID"]);
-			if (count($deps) == 0) {
-				print "None\n";
-			} else {
+			if (count($deps) > 0) {
+			  
+  			echo "  <td valign='top'>";
+  			echo "<table class='boxSoft' style='width: 200px'>";
+  			echo "<tr><td class='boxSoftTitle'><span class='f3'>";
+  			echo __("Required by")."</span></td></tr>\n";
+  			echo "<tr><td class='boxSoft'>";
+
 				while (list($k, $darr) = each($deps)) {
 					$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
 					while(list($k, $var) = each($pkgsearch_vars)) {
@@ -417,19 +420,22 @@ function package_details($id=0, $SID="") {
 					if ($darr[2] == 0) print $url."'>".$darr[1].$darr[3]."</a><br />\n";
 					else print "<a href='http://archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a><br />\n";
 				}
-			}
-			echo "</td></tr>\n";
-			echo "          </table>\n";
-			echo "        </td>\n";
-			echo "        <td valign='top'>\n";
-			echo "          <table class='boxSoft' style='width: 200px'>\n";
-			echo "            <tr><td class='boxSoftTitle'><span class='f3'>";
-			echo __("Sources")."</span></td></tr>\n";
-			echo "            <tr><td class='boxSoft'>";
+
+  			echo "</td></tr>\n";
+  			echo "          </table>\n";
+  			echo "        </td>\n";
+			
+		  }
+			
 			$sources = package_sources($row["ID"]); # $sources[0] = 'src';
-			if (count($sources) == 0) {
-				print "None\n";
-			} else {
+			if (count($sources) > 0) {
+			
+  			echo "        <td valign='top'>\n";
+  			echo "          <table class='boxSoft' style='width: 200px'>\n";
+  			echo "            <tr><td class='boxSoftTitle'><span class='f3'>";
+  			echo __("Sources")."</span></td></tr>\n";
+  			echo "            <tr><td class='boxSoft'>";
+
 				while (list($k, $src) = each($sources)) {
 					$parsed_url = parse_url($src);
 					if ($parsed_url['scheme'])
@@ -449,10 +455,13 @@ function package_details($id=0, $SID="") {
 						}
 					}
 				}
-			}
-			echo "</td></tr>\n";
-			echo "          </table>\n";
-			echo "        </td>\n";
+			
+  			echo "</td></tr>\n";
+  			echo "          </table>\n";
+  			echo "        </td>\n";
+			
+		  }
+		
 			echo "      </tr>\n";
 			echo "    </table>\n";
 			echo "  </div>\n";
