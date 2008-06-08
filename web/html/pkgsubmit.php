@@ -372,9 +372,9 @@ if ($_COOKIE["AURSID"]) {
                 $q.="Description='".mysql_real_escape_string($new_pkgbuild['pkgdesc'])."', ";
 				$q.="URL='".mysql_real_escape_string($new_pkgbuild['url'])."', ";
 				$q.="LocationID=2, ";
-				$fspath=INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$fspath=INCOMING_DIR.$pkg_name."/".$pkg_name.".tar.gz";
 				$q.="FSPath='".mysql_real_escape_string($fspath)."', ";
-				$urlpath=URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$urlpath=URL_DIR.$pkg_name."/".$pkg_name.".tar.gz";
 				$q.="OutOfDate=0, ";
 				$q.="URLPath='".mysql_real_escape_string($urlpath)."' ";
 				$q.="WHERE ID = " . $pdata["ID"];
@@ -444,9 +444,9 @@ if ($_COOKIE["AURSID"]) {
 				$q.= "UNIX_TIMESTAMP(), ";
 				$q.= uid_from_sid($_COOKIE["AURSID"]).", ";
 				$q.= uid_from_sid($_COOKIE["AURSID"]).", '";
-				$fspath=INCOMING_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$fspath=INCOMING_DIR.$pkg_name."/".$pkg_name.".tar.gz";
 				$q.= mysql_real_escape_string($fspath)."', '";
-				$urlpath=URL_DIR.$pkg_name."/".$_FILES["pfile"]["name"];
+				$urlpath=URL_DIR.$pkg_name."/".$pkg_name.".tar.gz";
 				$q.= mysql_real_escape_string($urlpath)."')";
 				$result = db_query($q, $dbh);
 #				print $result . "<br>";
