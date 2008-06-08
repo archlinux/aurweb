@@ -396,22 +396,22 @@ if ($_COOKIE["AURSID"]) {
 				#
 				$depends = explode(" ", $new_pkgbuild['depends']);
                 
-                while (list($k, $v) = each($depends)) {
+        while (list($k, $v) = each($depends)) {
 					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
 					$deppkgname = preg_replace("/[<>]?=.*/", "", $v);
-                    $depcondition = str_replace($deppkgname, "", $v);
+          $depcondition = str_replace($deppkgname, "", $v);
                     
-                    # Solve the problem with comments and deps
-                    # added by: dsa <dsandrade@gmail.com>
-                    if ($deppkgname == "#")
-                        break;
+          # Solve the problem with comments and deps
+          # added by: dsa <dsandrade@gmail.com>
+          if ($deppkgname == "#") { break; }
                     
 					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
 					
-                    if(!empty($depcondition))
-                        $q .= $pdata["ID"].", ".$deppkgid.", '".$depcondition."')";
-                    else
-                        $q .= $pdata["ID"].", ".$deppkgid.", '')";
+          if(!empty($depcondition)) {
+              $q .= $pdata["ID"].", ".$deppkgid.", '".$depcondition."')";
+          } else {
+              $q .= $pdata["ID"].", ".$deppkgid.", '')";
+          }
                         
 					db_query($q, $dbh);
 				}
@@ -469,16 +469,22 @@ if ($_COOKIE["AURSID"]) {
 				#
 				$depends = explode(" ", $new_pkgbuild['depends']);
 				while (list($k, $v) = each($depends)) {
-					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID) VALUES (";
+					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
 					$deppkgname = preg_replace("/[<>]?=.*/", "", $v);
+					$depcondition = str_replace($deppkgname, "", $v);
                     
-                    # Solve the problem with comments and deps
-                    # added by: dsa <dsandrade@gmail.com>
-                    if ($deppkgname == "#")
-                        break;
-                    
-					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
-					$q .= $packageID.", ".$deppkgid.")";
+          # Solve the problem with comments and deps
+          # added by: dsa <dsandrade@gmail.com>
+          if ($deppkgname == "#") { break; }
+          
+          $deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
+          
+          if(!empty($depcondition)) {
+              $q .= $packageID.", ".$deppkgid.", '".$depcondition."')";
+          } else {
+              $q .= $packageID.", ".$deppkgid.", '')";
+          }
+          
 					db_query($q, $dbh);
 				}
 
