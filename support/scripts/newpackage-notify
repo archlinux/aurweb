@@ -1,5 +1,4 @@
 #!/usr/bin/python -O
-# $Id$
 # This program is intended to be run as a once-a-day cronjob, it 
 # sends a batched email containing the names of all new pacakges in
 # the AUR, added within the last 24 hours, to those who have requested
@@ -11,76 +10,91 @@ import MySQLdb, MySQLdb.connections
 import ConfigParser
 from time import time
 
-#some options
-SENDMAIL="/usr/sbin/sendmail"
+# Some options
+SENDMAIL = "/usr/sbin/sendmail"
+SITE = "aur.archlinux.org"
+FROM = "aur-notify@archlinux.org"
+REPLYTO = "nobody@archlinux.org"
 
-#Copied and pasted from tupkg updater:
-###########################################################
-# Deal with configuration
-###########################################################
+# Deal with configuration.
 
-conffile = '/home/aur/tupkgs.conf'
+conffile = 'tupkgs.conf'
 
 if not os.path.isfile(conffile):
-	print "Error: cannot access config file ("+conffile+")"
+	print "Error: cannot access config file (%s)" % conffile
 	sys.exit(1)
 
 config = ConfigParser.ConfigParser()
 config.read(conffile)
-############################################################
 
-############################################################
-# Step 1, figure out the unix time 24 hours ago
-starttime = time() - 24*60*60
+# Step 1. Figure out the unix time 24 hours ago.
+starttime = time() - 24 * 60 * 60
 
-############################################################
-# Step 2, do all the mysql mucking
-dbconnection = MySQLdb.connect(host=config.get('mysql', 'host'), user=config.get('mysql', 'username'), passwd=config.get('mysql', 'password'), db=config.get('mysql', 'db'))
+# Step 2. Do all the mysql mucking.
+dbconnection = MySQLdb.connect(host=config.get('mysql', 'host'),
+		user=config.get('mysql', 'username'),
+		passwd=config.get('mysql', 'password'),
+		db=config.get('mysql', 'db'))
+
 q = dbconnection.cursor()
 
-q.execute("SELECT Packages.Name, Packages.ID FROM Packages WHERE Packages.SubmittedTS >= %d AND Packages.DummyPkg = 0"%starttime)
+q.execute("SELECT Packages.Name, Packages.Version, Packages.ID, "
+	"Packages.Description, Users.Username FROM Packages, Users "
+	"WHERE SubmittedTS >= %d AND DummyPkg = 0 AND "
+	"Packages.SubmitterUID = Users.ID" % starttime)
+
 packages = q.fetchall()
 
-q.execute("SELECT Users.Email	FROM Users WHERE Users.NewPkgNotify = 1")
+q.execute("SELECT Users.Email FROM Users WHERE Users.NewPkgNotify = 1")
 emails = q.fetchall()
 
-###########################################################
-# Step 3, generate the message, depending on what we found
+# Step 3. Generate the message, depending on what we found.
 
-#generate the headers to say where it is going
+# Generate the headers to say where it is going.
 message = "To: \nBcc: "
 emails_list=[]
+
 for i in emails:
 	emails_list.append(i[0])
+
 message = message + (", ".join(emails_list))
 
-#where it came from + other headers
-message = message + "\nReply-to: nobody@archlinux.org\nFrom: aur-notify@archlinux.org\nX-Mailer: Python\nX-MimeOLE: Produced by AUR\n"
+# E-mail headers
+message = ("%s\nReply-to: %s\n"
+	"From: %s\nX-Mailer: Python\n"
+	"X-MimeOLE: Produced by %s\n" %
+	(message, REPLYTO, FROM, SITE))
 
-#the subject
+# The subject
 message = message + "Subject: AUR New Package Notification\n\n"
 
-#TODO: translations of message wouldn't kill anyone, but this would then need to find out the users language pref too
-#Ok now the body
-message = message + "Packages added to the AUR within the last 24 hours include:\n\n"
+# TODO: Translations of message wouldn't kill anyone, but this would then need
+# to find out the users language pref too.
+# Ok now the body
+message = "%sPackages added to %s in the last 24 hours:\n\n" % (message, SITE)
 pkgs_list=[]
+
 for i in packages:
-	message = message + i[0] + " ( http://aur.archlinux.org/packages.php?do_Details=1&ID=%d )\n"%i[1]
-message = message + '''
+	message = ("%s%s %s\n\thttp://aur.archlinux.org/packages.php?ID=%d"
+		"\n\t%s\n\tSubmitted by: %s\n\n") % (
+		message, i[0], i[1], i[2], i[3], i[4])
+
+message = '''%s
 ---
 You received this email because you chose to receive new package
 notifications on your user options page in the AUR. If you no
 longer wish to receive this daily mailing, please go to your
-user options page in the AUR (http://aur.archlinux.org) and
+user options page at http://%s and
 uncheck "New Package Notify".
 
-'''
-#print message #that's for debug
+''' % (message, SITE)
 
-###########################################################
-# Step 4, mail that sucker
+# Print message for debug.
+#print message
+#sys.exit(0)
+
+# Step 4. Mail that sucker.
 mailer = os.popen("%s -t" % SENDMAIL, 'w')
 mailer.write(message)
 mailer.close()
 
-# vim:noet:ts=2 sw=2 ft=python
