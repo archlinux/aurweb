@@ -1,48 +1,60 @@
 <?php
 
+include("config.inc");
+
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+require('Archive/Tar.php');
+require('File/Find.php');
 
 include("aur.inc");         # access AUR common functions
 include("submit_po.inc");   # use some form of this for i18n support
 include("pkgfuncs.inc");    # package functions
-include("config.inc");      # configuration file with dir locations
+
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
-html_header("Submit");              # print out the HTML header
-echo "<div class=\"pgbox\">\n";
-echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Submit")."</span></div>\n";
-echo "  <div class=\"pgboxbody\">\n";
+html_header("Submit");
+
+?>
+
+<div class="pgbox">
+  <div class="pgboxtitle">
+    <span class="f3"><?php print __("Submit"); ?></span>
+  </div>
+  <div class="pgboxbody">
+
+<?php
 
 if ($_COOKIE["AURSID"]) {
-	# track upload errors
-	#
+  
+	# Track upload errors
 	$error = "";
 
 	if ($_REQUEST["pkgsubmit"]) {
-		#Before processing, make sure we even have a file
-		#
+	  
+		# Before processing, make sure we even have a file
 		if ($_FILES['pfile']['size'] == 0){
 			$error = __("Error - No file uploaded");
 		}
 
-		# temporary dir to put the tarball contents
-		$tempdir = uid_from_sid($_COOKIE['AURSID']) . time();
+		# Temporary dir to put the tarball contents
+		$tempdir = UPLOAD_DIR . uid_from_sid($_COOKIE['AURSID']) . time();
 
 		if (!$error) {
-			if (!@mkdir(UPLOAD_DIR . $tempdir)) {
+			if (!@mkdir($tempdir)) {
 				$error = __("Could not create incoming directory: %s.",
-					array(UPLOAD_DIR . $tempdir));
+					array($tempdir));
 			} else {
-				if (!@chdir(UPLOAD_DIR . $tempdir)) {
+				if (!@chdir($tempdir)) {
 					$error = __("Could not change directory to %s.",
-						array(UPLOAD_DIR . $tempdir));
+						array($tempdir));
 				} else {
 				  if ($_FILES['pfile']['name'] == "PKGBUILD") {
-				    move_uploaded_file($_FILES['pfile']['tmp_name'], UPLOAD_DIR . $tempdir . "/PKGBUILD");
+				    move_uploaded_file($_FILES['pfile']['tmp_name'], $tempdir . "/PKGBUILD");
 				  } else {
-  					# try using general tar. it should take .gz, .bz2, and plain .tar
-  					exec("/bin/sh -c 'tar xf ".$_FILES['pfile']['tmp_name']."'", $trash, $retval);
-  					if ($retval) {
+  					$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
+  					$extract = $tar->extract();
+  					
+  					if (!$extract) {
   						$error = __("Unknown file format for uploaded file.");
   					}
 				  }
@@ -50,67 +62,21 @@ if ($_COOKIE["AURSID"]) {
 			}
 		}
 
-		# where is the pkgbuild?!
+		# Find the PKGBUILD
 		if (!$error) {
-			$d = dir(UPLOAD_DIR . $tempdir);
-
-			$pkgbuild = "";
-			$deepdir = "";
-			while ($file = $d->read()) {
-				# try to find a PKGBUILD in the top level (naughty! :O) and
-				# also the first directory found to use for the next part if required
-				if ($file == "PKGBUILD") {
-					$pkgbuild = UPLOAD_DIR . $tempdir . "/PKGBUILD";
-					$pkg_dir = UPLOAD_DIR . $tempdir;
-					break;
-				} else if (is_dir($file)) {
-					# we'll assume the first directory we find is the one with
-					# the pkgbuild in it
-					if ($file != "." && $file != "..") {
-						$deepdir = $file;
-						break;
-					}
-				}
-			}
-
-			# if we couldn't find a pkgbuild in the top level we'll
-			# check in the first dir we found, if it's not there we assume
-			# there isn't any (even if there was the user should upload a proper tarball)
-			if ($pkgbuild == "" && $deepdir != "") {
-				$d = dir(UPLOAD_DIR . $tempdir . "/" . $deepdir);
-				while ($file = $d->read()) {
-					if ($file == "PKGBUILD") {
-						# oh my
-						$pkgbuild = UPLOAD_DIR . $tempdir . "/" . $deepdir ."/PKGBUILD";
-						$pkg_dir = UPLOAD_DIR . $tempdir . "/" . $deepdir;
-						break;
-					}
-				}
-				if ($pkgbuild == "") {
-					$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
-				}
-			}
-
-			# we know where our pkgbuild is now, woot woot
+		  $pkgbuild = File_Find::search('PKGBUILD', $tempdir);
+		  
+		  if (count($pkgbuild) > 0) {
+		    $pkgbuild = $pkgbuild[0];
+		    $pkg_dir = dirname($pkgbuild);
+		  } else {
+		    $error = __("Error trying to unpack upload - PKGBUILD does not exist.");
+		  }
 		}
 
 		# if no error, get list of directory contents and process PKGBUILD
 		#
 		if (!$error) {
-			# get list of files
-			#
-			$d = dir($pkg_dir);
-			$pkg_contents = array();
-			while ($f = $d->read()) {
-				if ($f != "." && $f != "..") {
-					$pkg_contents[$f] = filesize($pkg_dir . "/" . $f);
-					if (preg_match("/^(.*\.pkg\.tar\.gz|filelist)$/", $f)) {
-						$error = __("Binary packages and filelists are not allowed for upload.");
-					}
-				}
-			}
-			$d->close();
-
 			# process PKGBIULD - remove line concatenation
 			#
 			$pkgbuild = array();
@@ -252,10 +218,10 @@ if ($_COOKIE["AURSID"]) {
 			$pkgver_var = $pkgbuild["pkgver"];
 			$new_pkgbuild = array();
 			while (list($k, $v) = each($pkgbuild)) {
-				$v = str_replace("\$pkgname", $pkgname_var, $v);
-				$v = str_replace("\${pkgname}", $pkgname_var, $v);
-				$v = str_replace("\$pkgver", $pkgver_var, $v);
-				$v = str_replace("\${pkgver}", $pkgver_var, $v);
+				$v = str_replace('$pkgname', $pkgname_var, $v);
+				$v = str_replace('${pkgname}', $pkgname_var, $v);
+				$v = str_replace('$pkgver', $pkgver_var, $v);
+				$v = str_replace('${pkgver}', $pkgver_var, $v);
 				$new_pkgbuild[$k] = $v;
 			}
 		}
@@ -295,8 +261,7 @@ if ($_COOKIE["AURSID"]) {
 						array(INCOMING_DIR.$pkg_name));
 				}
 
-				$shcmd = "/bin/mv " . $pkg_dir . " " . escapeshellarg(INCOMING_DIR . $pkg_name . "/" . $pkg_name);
-				@exec($shcmd);
+        rename($pkg_dir, INCOMING_DIR . $pkg_name . "/" . $pkg_name);
 			} else {
 				$error = __("You are not allowed to overwrite the %h%s%h package.",
 					array("<b>", $pkg_name, "</b>"));
@@ -313,15 +278,17 @@ if ($_COOKIE["AURSID"]) {
 		}
 		
 		if (!$error) {
-			@exec("/bin/sh -c 'tar czf ".$pkg_name.".tar.gz ".$pkg_name."'", $trash, $retval);
-			if ($retval) {
+		  $tar = new Archive_Tar($pkg_name . '.tar.gz');
+		  $create = $tar->create(array($pkg_name));
+		  
+			if (!$create) {
 				$error = __("Could not re-tar");
 			}
 		}
 		
 		# whether it failed or not we can clean this out
-		if (file_exists(UPLOAD_DIR . $tempdir)) {
-			rm_rf(UPLOAD_DIR . $tempdir);
+		if (file_exists($tempdir)) {
+			rm_rf($tempdir);
 		}
 
 		# update the backend database
@@ -342,8 +309,6 @@ if ($_COOKIE["AURSID"]) {
 
 				# flush out old data that will be replaced with new data
 				#
-				$q = "DELETE FROM PackageContents WHERE PackageID = ".$pdata["ID"];
-				db_query($q, $dbh);
 				$q = "DELETE FROM PackageDepends WHERE PackageID = ".$pdata["ID"];
 				db_query($q, $dbh);
 				$q = "DELETE FROM PackageSources WHERE PackageID = ".$pdata["ID"];
@@ -379,18 +344,6 @@ if ($_COOKIE["AURSID"]) {
 				$q.="URLPath='".mysql_real_escape_string($urlpath)."' ";
 				$q.="WHERE ID = " . $pdata["ID"];
 				$result = db_query($q, $dbh);
-
-				# update package contents
-				#
-				while (list($k, $v) = each($pkg_contents)) {
-					$q = "INSERT INTO PackageContents ";
-					$q.= "(PackageID, FSPath, URLPath, FileSize) VALUES (";
-					$q.= $pdata['ID'].", ";
-					$q.= "'".INCOMING_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
-					$q.= "'".URL_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
-					$q.= $v.")";
-					db_query($q);
-				}
 
 				# update package depends
 				#
@@ -452,18 +405,6 @@ if ($_COOKIE["AURSID"]) {
 #				print $result . "<br>";
 
 				$packageID = mysql_insert_id($dbh);
-
-				# update package contents
-				#
-				while (list($k, $v) = each($pkg_contents)) {
-					$q = "INSERT INTO PackageContents ";
-					$q.= "(PackageID, FSPath, URLPath, FileSize) VALUES (";
-					$q.= $packageID.", ";
-					$q.= "'".INCOMING_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
-					$q.= "'".URL_DIR.$pkg_name."/".$pkg_name."/".$k."', ";
-					$q.= $v.")";
-					db_query($q);
-				}
 
 				# update package depends
 				#
@@ -579,8 +520,15 @@ if ($_COOKIE["AURSID"]) {
 	print __("You must create an account before you can upload packages.");
 	print "<br />\n";
 }
-echo "  </div>\n";
-echo "</div>\n";
+
+?>
+
+  </div>
+</div>
+
+<?php
+
 html_footer(AUR_VERSION);
 # vim: ts=2 sw=2 noet ft=php
+
 ?>

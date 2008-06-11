@@ -228,31 +228,27 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 				# These are the packages that are safe to delete
 				#
 			  foreach ($ids_to_delete as $id) {
-					# 1) delete from PackageVotes
+					# delete from PackageVotes
 					$q = "DELETE FROM PackageVotes WHERE PackageID = " . $id;
 					$result = db_query($q, $dbh);
 
-					# 2) delete from PackageContents
-					$q = "DELETE FROM PackageContents WHERE PackageID = " . $id;
-					$result = db_query($q, $dbh);
-
-					# 3) delete from PackageDepends
+					# delete from PackageDepends
 					$q = "DELETE FROM PackageDepends WHERE PackageID = " . $id;
 					$result = db_query($q, $dbh);
 
-					# 4) delete from PackageSources
+					# delete from PackageSources
 					$q = "DELETE FROM PackageSources WHERE PackageID = " . $id;
 					$result = db_query($q, $dbh);
 
-					# 5) delete from PackageComments
+					# delete from PackageComments
 					$q = "DELETE FROM PackageComments WHERE PackageID = " . $id;
 					$result = db_query($q, $dbh);
 
-					# 6) delete from Packages
+					# delete from Packages
 					$q = "DELETE FROM Packages WHERE ID = " . $id;
 					$result = db_query($q, $dbh);
 
-					# 7) delete from CommentNotify
+					# delete from CommentNotify
 					$q = "DELETE FROM CommentNotify WHERE PkgID = " . $id;
 					$result = db_query($q, $dbh);
 
