@@ -93,4 +93,12 @@ $_t["it"]["It must be "] = "Deve essere ";
 
 $_t["it"]["can contain only one period, underscore or hyphen."] = "può contenere solo un punto, un trattino basso o un trattino.";
 
+$_t["it"]["It must be between %s and %s characters long"] = "Deve contenere un minimo di %s ed un massimo di %s caratteri";
+
+$_t["it"]["Your password must be at least %s characters."] = "La password deve contenere almeno %s caratteri.";
+
+$_t["it"]["Can contain only one period, underscore or hyphen."] = "Può contenere solo un punto, un trattino basso o un trattino.";
+
+$_t["it"]["Start and end with a letter or number"] = "Inizia e finisce con una lettera o un numero";
+
 ?>

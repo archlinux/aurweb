@@ -177,4 +177,30 @@ $_t["it"]["Showing results %s - %s of %s"] = "Risultati: %s - %s di %s";
 
 $_t["it"]["Toggle Notify"] = "Blocca la notifica";
 
+$_t["it"]["Statistics"] = "Statistiche";
+
+$_t["it"]["Remember to vote for your favourite packages!"] = "Ricorda di votare i tuoi pacchetti preferiti!";
+
+$_t["it"]["Packages in unsupported"] = "Pacchetti in unsupported";
+
+$_t["it"]["The most popular packages will be provided as binary packages in [community]."] = "I pacchetti più votati saranno disponibili in [community] come precompilati.";
+
+$_t["it"]["Trusted Users"] = "Trusted Users";
+
+$_t["it"]["Packages added or updated in the past 7 days"] = "Pacchetti aggiunti o aggiornati negli ultimi 7 giorni";
+
+$_t["it"]["Recent Updates"] = "Aggiornamenti recenti";
+
+$_t["it"]["Out-of-date"] = "Non aggiornati";
+
+$_t["it"]["Packages in [community]"] = "Pacchetti in [community]";
+
+$_t["it"]["My Statistics"] = "Le mie statistiche";
+
+$_t["it"]["Registered Users"] = "Utenti registrati";
+
+$_t["it"]["Home"] = "Inizio";
+
+$_t["it"]["DISCLAIMER"] = "Avviso";
+
 ?>
