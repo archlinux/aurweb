@@ -29,15 +29,15 @@ Setup on Arch Linux:
 
 4) Configure PHP
    Make sure you have mysql and json enabled in PHP and
-   PEAR is properly configured
+   PEAR is properly configured with the File_Find package
+   (http://pear.php.net/package/File_Find) installed
 
  - Edit php.ini and uncomment/add these lines:
    extension=mysql.so
    extension=json.so
    
-   Install the File_Find PEAR package:
-   http://pear.php.net/package/File_Find
-   
+ - Install the File_Find PEAR package:
+   # pear install File_Find
 
 5) Clone the AUR project (using the MYUSER from above)
    $ cd
