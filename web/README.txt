@@ -27,21 +27,32 @@ Setup on Arch Linux:
      </Directory>
    </VirtualHost>
 
-4) Configure PHP
-   Make sure you have mysql and json enabled in PHP and
-   PEAR is properly configured with the File_Find package
-   (http://pear.php.net/package/File_Find) installed
+4) Clone the AUR project (using the MYUSER from above)
+   $ cd
+   $ git clone http://projects.archlinux.org/git/aur.git
+
+5) Configure PHP
+   Make sure you have mysql and json enabled in PHP.
 
  - Edit php.ini and uncomment/add these lines:
    extension=mysql.so
    extension=json.so
+
+   AUR requires PEAR and the File_Find module.
+   Installing PEAR will vary depending on the system and may already
+   be included with PHP. You can also find it in the PHP source distribution.
+
+   PHP sources: http://www.php.net/downloads.php
+   File_Find PEAR module: http://pear.php.net/package/File_Find
    
  - Install the File_Find PEAR package:
    # pear install File_Find
 
-5) Clone the AUR project (using the MYUSER from above)
-   $ cd
-   $ git clone http://projects.archlinux.org/git/aur.git
+ - Put PEAR in your php include_path in web/html/.htaccess:
+
+   php value include_path = ".:../lib:../lang:/usr/share/pear"
+
+   PEAR's path may vary depending on your set up.
 
 6) Configure MySQL
  - Connect to the mysql client
