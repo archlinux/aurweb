@@ -90,6 +90,5 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 }
 
 html_footer(AUR_VERSION);
-# vim: ts=2 sw=2 noet ft=php
 
 ?>

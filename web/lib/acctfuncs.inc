@@ -785,5 +785,4 @@ function user_is_privileged( $id )
 
 }
 
-# vim: ts=2 sw=2 noet ft=php
 ?>

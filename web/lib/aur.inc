@@ -410,5 +410,4 @@ function uid_from_username($username="")
 	return $row[0];
 }
 
-# vim: ts=2 sw=2 noet ft=php
 ?>

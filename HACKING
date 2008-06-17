@@ -1,0 +1,24 @@
+HACKING
+
+DISCLAIMER: We realise the code doesn't necessarily follow all the rules.
+This is an attempt to establish a standard coding style for future
+development.
+
+Coding style guidelines
+-----------------------
+Column width: 79 columns or less within reason.
+
+Indentation: tabs (standard eight column width)
+Please don't add any mode lines. Adjust your editor to display tabs to your
+preferred width. Generally code should work with the standard eight column
+tabs.
+
+Try embedding as little HTML in the PHP as possible.
+Consider creating templates for HTML.
+
+MySQL queries should generally go into functions.
+
+Please submit uncompressed git-formatted patches to aur-dev@archlinux.org.
+When writing patches please keep unnecessary changes to a minimum.
+Smaller patches are much easier to review thus have a better chance of being
+pushed more quickly into the main repo.

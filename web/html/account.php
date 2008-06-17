@@ -156,5 +156,5 @@ echo "  </div>";
 echo "</div>";
 
 html_footer(AUR_VERSION);
-# vim: ts=2 sw=2 noet ft=php
+
 ?>

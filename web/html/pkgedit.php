@@ -170,5 +170,4 @@ print __("You've found a bug if you see this....")."<br />\n";
 
 html_footer(AUR_VERSION);
 
-# vim: ts=2 sw=2 noet ft=php
 ?>

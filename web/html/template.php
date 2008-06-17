@@ -15,10 +15,6 @@ html_header();              # print out the HTML header
 print __("Hi, this is worth reading!")."<br />\n";
 
 
-html_footer(AUR_VERSION);      # Use the $Id$ keyword
-                           # NOTE: when checking in a new file, use
-                           # 'svn propset svn:keywords "Id" filename.php'
-                           # to tell svn to expand the "Id" keyword.
+html_footer(AUR_VERSION);
 
-# vim: ts=2 sw=2 et ft=php
 ?>

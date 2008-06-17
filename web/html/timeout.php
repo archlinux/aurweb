@@ -13,5 +13,5 @@ print __("Click on the Home link above to log in.");
 print "</p>\n";
 
 html_footer(AUR_VERSION);
-# vim: ts=2 sw=2 noet ft=php
+
 ?>

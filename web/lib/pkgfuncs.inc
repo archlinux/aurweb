@@ -986,5 +986,4 @@ function pkg_search_page($SID="") {
     return;
 }
 
-# vim: ts=4 sw=4 et ft=php
 ?>
