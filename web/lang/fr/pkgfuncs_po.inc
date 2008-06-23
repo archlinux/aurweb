@@ -108,7 +108,7 @@ $_t["fr"]["Add Comment"] = "Ajouter un Commentaire";
 
 $_t["fr"]["Comment by: %h%s%h on %h%s%h"] = "Commenté par: %h%s%h sur %h%s%h";
 
-$_t["fr"]["Flag Out-of-date"] = "Marqué comme Périmé";
+$_t["fr"]["Flag Out-of-date"] = "Marquer comme Périmé";
 
 $_t["fr"]["You are not allowed to access this area."] = "Vous n'êtes pas autorisé à accéder à cet espace.";
 
