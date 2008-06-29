@@ -1,28 +1,15 @@
 <?php
-
-include("config.inc");
-
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 require('Archive/Tar.php');
 require('File/Find.php');
 
+include("config.inc");
 include("aur.inc");         # access AUR common functions
 include("submit_po.inc");   # use some form of this for i18n support
 include("pkgfuncs.inc");    # package functions
 
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
-html_header("Submit");
-
-?>
-
-<div class="pgbox">
-  <div class="pgboxtitle">
-    <span class="f3"><?php print __("Submit"); ?></span>
-  </div>
-  <div class="pgboxbody">
-
-<?php
 
 if ($_COOKIE["AURSID"]):
   
@@ -342,6 +329,8 @@ if ($_COOKIE["AURSID"]):
 					$q .= $pdata["ID"] . ", '" . mysql_real_escape_string($src) . "')";
 					db_query($q, $dbh);
 			  }
+
+				header('Location: packages.php?ID=' . $pdata['ID']);
 			  
 			} else {
 			  
@@ -385,6 +374,8 @@ if ($_COOKIE["AURSID"]):
 					$q .= $packageID . ", '" . mysql_real_escape_string($src) . "')";
 					db_query($q, $dbh);
 			  }
+
+				header('Location: packages.php?ID=' . $packageID);
 			  
 			}
 		}
@@ -392,7 +383,19 @@ if ($_COOKIE["AURSID"]):
 		chdir($_SERVER['DOCUMENT_ROOT']);
 	}
 
+# Logic over, let's do some output
 
+html_header("Submit");
+
+?>
+
+<div class="pgbox">
+  <div class="pgboxtitle">
+    <span class="f3"><?php print __("Submit"); ?></span>
+  </div>
+  <div class="pgboxbody">
+
+<?php
 	if (!$_REQUEST["pkgsubmit"] || $error):
 		# User is not uploading, or there were errors uploading - then
 		# give the visitor the default upload form
@@ -401,14 +404,6 @@ if ($_COOKIE["AURSID"]):
 ?>
 
 <span class='error'><?php print $error; ?></span><br />
-<br />
-
-<?php
-			endif;
-			if ($warning):
-?>
-
-<br><span class='error'><?php print $warning; ?></span><br />
 <br />
 
 <?php
@@ -461,17 +456,6 @@ if ($_COOKIE["AURSID"]):
 
 <?php
 		endif;
-	else:
-		print __("Package upload successful.");
-
-    if ($warning):
-?>
-
-<span class='warning'><?php print $warning; ?></span><br />
-<br />
-
-<?php
-    endif;
 	endif;
 else:
 	# Visitor is not logged in
