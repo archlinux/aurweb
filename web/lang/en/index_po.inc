@@ -25,6 +25,8 @@ $_t["en"]["Password:"] = "Password:";
 
 $_t["en"]["Username:"] = "Username:";
 
+$_t["en"]["Remember me"] = "Remember me";
+
 $_t["en"]["Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h."] = "Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h.";
 
 $_t["en"]["This is where the intro text will go."] = "This is where the intro text will go.";

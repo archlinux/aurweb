@@ -19,6 +19,8 @@ $_t["it"]["Password:"] = "Password:";
 
 $_t["it"]["Username:"] = "Nome utente:";
 
+$_t["it"]["Remember me"] = "Ricordami" ;
+
 $_t["it"]["Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h."] = "Benvenuto in AUR! Se sei un nuovo utente, dovresti leggere le %hGuidelines%h.";
 
 $_t["it"]["This is where the intro text will go."] = "Qui ci andrà il testo di introduzione.";

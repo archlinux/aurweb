@@ -16,6 +16,7 @@
       } ?>" />
     <label><?php print __("Password:"); ?></label>
     <input type="password" name="passwd" size="30" maxlength="<?php print PASSWD_MAX_LEN; ?>" />
+    <input type="checkbox" name="remember_me" /><?php print __("Remember me"); ?>
     <input type="submit" class="button" value="<?php  print __("Login"); ?>" />
   </form>
   <?php } ?>

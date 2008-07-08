@@ -644,7 +644,12 @@ function try_login() {
 			if ($logged_in) {
 				# set our SID cookie
 
-				setcookie("AURSID", $new_sid, 0, "/");
+				if ($_POST['remember_me'] == "on")
+					# Set cookies for 30 days.
+					$cookie_time = time() + (60 * 60 * 24 * 30);
+				else
+					$cookie_time = 0;
+				setcookie("AURSID", $new_sid, $cookie_time, "/");
 #				header("Location: /index.php");
 				header("Location: " . $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
 				$login_error = "";
