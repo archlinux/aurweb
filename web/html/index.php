@@ -46,8 +46,8 @@ print __( 'Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Sta
 </p>
 <p>
 <?php print __("Remember to vote for your favourite packages!"); ?>
-<br>
-<?php print __("The most popular packages will be provided as binary packages in [community]."); ?>
+<br />
+<?php echo __('Some packages may be provided as binaries in [community].'); ?>
 </p>
 </td>
 </tr>
@@ -69,7 +69,12 @@ general_stats_table($dbh);
 </td>
 </tr>
 </table>
-<br /><span class='important'><?php print __("DISCLAIMER"); ?></span>
+
+<div class="important"><?php
+echo __('DISCLAIMER') . ':<br />';
+echo __('Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk.');
+?></div>
+
 </div>
 </div>
 
