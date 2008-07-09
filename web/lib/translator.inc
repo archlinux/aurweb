@@ -37,12 +37,16 @@ function __() {
 	# First argument is always string to be translated
 	$tag = $args[0];
 
-	$translated = $_t[$LANG][$tag];
+	if (empty($LANG) || $LANG == DEFAULT_LANG)
+		$translated = $tag;
+	else
+		$translated = $_t[$LANG][$tag];
+
 	if (empty($translated)) {
 		# if it's a supported language, but there isn't a translation,
 		# alert the visitor to the missing translation.
 		#
-		$translated = "<b style=\"color: red\">_${tag}_</b>";
+		$translated = "_${tag}_";
 	}
 
 	# This condition is to reorganise the arguments in case of
@@ -63,4 +67,3 @@ function __() {
 	return $translated;
 }
 
-?>

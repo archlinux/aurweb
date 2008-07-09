@@ -311,12 +311,11 @@ function set_lang() {
 			$LANG = $row[0];
 		}
 		$update_cookie = 1;
-	} else {
-		$LANG = "en";
 	}
 
+	# Set $LANG to default if nothing is valid.
 	if (!array_key_exists($LANG, $SUPPORTED_LANGS)) {
-		$LANG = "en"; # default to English
+		$LANG = DEFAULT_LANG;
 	}
 
 	if ($update_cookie) {
@@ -336,7 +335,7 @@ function html_header($title="") {
 	global $SUPPORTED_LANGS;
 
 	$login = try_login();
-  $login_error = $login['error'];
+	$login_error = $login['error'];
 
 	$title = htmlspecialchars($title, ENT_QUOTES);
 
@@ -410,4 +409,3 @@ function uid_from_username($username="")
 	return $row[0];
 }
 
-?>
