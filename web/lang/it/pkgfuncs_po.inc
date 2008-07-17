@@ -57,7 +57,7 @@ $_t["it"]["orphan"] = "orfano";
 
 $_t["it"]["Un-Vote"] = "Rimuovi il voto";
 
-$_t["it"]["change category"] = "Cambia categoria";
+$_t["it"]["change category"] = "cambia categoria";
 
 $_t["it"]["UnNotify"] = "Togli la notifica";
 
@@ -75,6 +75,12 @@ $_t["it"]["Manage"] = "Organizza";
 
 $_t["it"]["Sort by"] = "Ordina per";
 
+$_t["it"]["Sort order"] = "Ordina in modo";
+
+$_t["it"]["Ascending"] = "Ascendente";
+
+$_t["it"]["Descending"] = "Discendente";
+
 $_t["it"]["Actions"] = "Azioni";
 
 $_t["it"]["Sources"] = "Sorgenti";
@@ -83,7 +89,7 @@ $_t["it"]["Search Criteria"] = "Criteri di ricerca";
 
 $_t["it"]["Notify"] = "Notifica";
 
-$_t["it"]["O%hut-of-Date"] = "N%hon aggiornato";
+$_t["it"]["Out-of-Date"] = "Non aggiornato";
 
 $_t["it"]["Vote"] = "Vota";
 
@@ -125,82 +131,27 @@ $_t["it"]["First Submitted"] = "Data di primo invio";
 
 $_t["it"]["Last Updated"] = "Ultimo aggiornamento";
 
-$_t["it"]["Sort order"] = "Ordina in modo";
-
-$_t["it"]["Ascending"] = "Ascendente";
-
-$_t["it"]["Descending"] = "Discendente";
-
 $_t["it"]["Search by"] = "Cerca per";
 
 $_t["it"]["Submitter"] = "Contributore";
-
-$_t["it"]["Leave the password fields blank to keep your same password."] = "Lascia vuoti i campi relativi alla password per mantenerla invariata.";
-
-$_t["it"]["You have been successfully logged out."] = "Disconnesso.";
-
-$_t["it"]["You must log in to view user information."] = "Devi autenticarti per visualizzare queste informazioni.";
-
-$_t["it"]["Could not retrieve information for the specified user."] = "Non è stato possibile trovare le informazioni sull'utente specificato.";
-
-$_t["it"]["You do not have permission to edit this account."] = "Non disponi dei permessi necessari per modificare questo account.";
-
-$_t["it"]["Use this form to search existing accounts."] = "Utilizza questo modulo per cercare account esistenti.";
-
-$_t["it"]["Use this form to create an account."] = "Utilizza questo modulo per creare un account.";
-
-$_t["it"]["Use this form to update your account."] = "Utilizza questo modulo per aggiornare il vostro account.";
-
-$_t["it"]["You are not allowed to access this area."] = "Non disponi dei permessi necessari per accedere.";
-
-$_t["it"]["Status"] = "Stato";
-
-$_t["it"]["unknown"] = "sconosciuta";
-
-$_t["it"]["License"] = "Licenza";
 
 $_t["it"]["All"] = "Tutti";
 
 $_t["it"]["Unsafe"] = "Non sicuri";
 
-$_t["it"]["Accounts"] = "Account";
+$_t["it"]["Status"] = "Stato";
 
-$_t["it"]["This package has been flagged out of date."] = "Questo pacchetto è stato contrassegnato come non aggiornato.";
+$_t["it"]["License"] = "Licenza";
 
-$_t["it"]["The above files have been verified (by %h%s%h) and are safe to use."] = "I file sono stati verificati (da %h%s%h) ed il loro utilizzo è da considerarsi sicuro.";
+$_t["it"]["unknown"] = "sconosciuta";
 
 $_t["it"]["Required by"] = "Richiesto da";
 
-$_t["it"]["Out of Date"] = "Non aggiornati";
+$_t["it"]["The above files have been verified (by %h%s%h) and are safe to use."] = "I file sono stati verificati (da %h%s%h) ed il loro utilizzo è da considerarsi sicuro.";
+
+$_t["it"]["This package has been flagged out of date."] = "Questo pacchetto è stato contrassegnato come non aggiornato.";
+
+$_t["it"]["Toggle Notify"] = "Rimuovi la notifica";
 
 $_t["it"]["Showing results %s - %s of %s"] = "Risultati: %s - %s di %s";
 
-$_t["it"]["Toggle Notify"] = "Blocca la notifica";
-
-$_t["it"]["Statistics"] = "Statistiche";
-
-$_t["it"]["Remember to vote for your favourite packages!"] = "Ricorda di votare i tuoi pacchetti preferiti!";
-
-$_t["it"]["Packages in unsupported"] = "Pacchetti in unsupported";
-
-$_t["it"]["The most popular packages will be provided as binary packages in [community]."] = "I pacchetti più votati saranno disponibili in [community] come precompilati.";
-
-$_t["it"]["Trusted Users"] = "Trusted Users";
-
-$_t["it"]["Packages added or updated in the past 7 days"] = "Pacchetti aggiunti o aggiornati negli ultimi 7 giorni";
-
-$_t["it"]["Recent Updates"] = "Aggiornamenti recenti";
-
-$_t["it"]["Out-of-date"] = "Non aggiornati";
-
-$_t["it"]["Packages in [community]"] = "Pacchetti in [community]";
-
-$_t["it"]["My Statistics"] = "Le mie statistiche";
-
-$_t["it"]["Registered Users"] = "Utenti registrati";
-
-$_t["it"]["Home"] = "Inizio";
-
-$_t["it"]["DISCLAIMER"] = "Avviso";
-
-?>

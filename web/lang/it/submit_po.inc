@@ -85,8 +85,7 @@ $_t["it"]["Could not re-tar"] = "Impossibile riarchiviare";
 
 $_t["it"]["Binary packages and filelists are not allowed for upload."] = "Non è consentito inviare pacchetti contenenti binari e filelist.";
 
-$_t["it"]["Missing license variable in PKGBUILD."] = "Nel PKGBUILD manca la variabile license.";
-
 $_t["it"]["Missing arch variable in PKGBUILD."] = "Nel PKGBUILD manca la variabile arch.";
 
-?>
+$_t["it"]["Missing license variable in PKGBUILD."] = "Nel PKGBUILD manca la variabile license.";
+

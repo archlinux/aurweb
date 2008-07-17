@@ -69,12 +69,3 @@ $_t["it"]["The selected packages have been unflagged safe."] = "I pacchetti sele
 
 $_t["it"]["Couldn't unflag package safe."] = "Impossibile contrassegnare il pacchetto come non sicuro.";
 
-$_t["it"]["Packages"] = "Pacchetti";
-
-$_t["it"]["You have been removed from the comment notification list for %s."] = "Sei stato rimosso dalla lista delle notifiche dei commenti di %s.";
-
-$_t["it"]["My Packages"] = "I miei pacchetti";
-
-$_t["it"]["You have been added to the comment notification list for %s."] = "Sei stato aggiunto alla lista delle notifiche dei commenti di %s.";
-
-?>

@@ -31,15 +31,11 @@ $_t["it"]["For now, it's just a place holder."] = "Per adesso, è solo un segnap
 
 $_t["it"]["It's more important to get the login functionality finished."] = "È più importante avere la funzionalità di autenticazione completata.";
 
-$_t["it"]["Error looking up username, %s."] = "Errore durante la ricerca del nome utente %s.";
-
 $_t["it"]["Login"] = "Entra";
 
 $_t["it"]["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Nonostante che non possiamo assicurarvi il loro contenuto, mettiamo a disposizione una %hlista di repositories degli utenti%h per vostra comodità";
 
 $_t["it"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Se avete delle osservazioni da fare in merito al sistema AUR, potete lasciarle nel %hFlyspray%h.";
-
-$_t["it"]["Incorrect password for username, %s."] = "Password errata per il nome utente %s.";
 
 $_t["it"]["Latest Packages:"] = "Ultimi pacchetti:";
 
@@ -63,11 +59,21 @@ $_t["it"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Sta
 
 $_t["it"]["Statistics"] = "Statistiche";
 
+$_t["it"]["My Statistics"] = "Le mie statistiche";
+
+$_t["it"]["Flagged as safe by me"] = "Pacchetti verificati";
+
+$_t["it"]["Flagged as safe"] = "Considerato sicuro";
+
+$_t["it"]["User Statistics"] = "Statistiche Utente";
+
 $_t["it"]["Registered Users"] = "Utenti registrati";
 
 $_t["it"]["Trusted Users"] = "Trusted Users";
 
 $_t["it"]["Packages in unsupported"] = "Pacchetti in unsupported";
+
+$_t["it"]["Packages in unsupported and flagged as safe"] = "Pacchetti in unsupported considerati sicuri";
 
 $_t["it"]["Packages in [community]"] = "Pacchetti in [community]";
 
@@ -79,22 +85,11 @@ $_t["it"]["The most popular packages will be provided as binary packages in [com
 
 $_t["it"]["Packages added or updated in the past 7 days"] = "Pacchetti aggiunti o aggiornati negli ultimi 7 giorni";
 
-$_t["it"]["Packages in unsupported and flagged as safe"] = "Pacchetti in unsupported considerati sicuri";
-
-$_t["it"]["Safe"] = "Sicuri";
-
 $_t["it"]["Out-of-date"] = "Non aggiornati";
 
-$_t["it"]["User Statistics"] = "Statistiche dell'utente";
+$_t["it"]["DISCLAIMER"] = "AVVISO";
 
-$_t["it"]["Flagged as safe by me"] = "Pacchetti verificati";
+$_t["it"]["Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk."] = "i PKGBUILD presenti in unsupported sono stati inviati dagli utenti e, scaricandoli, accetti di usarli a tuo rischio e pericolo.";
 
-$_t["it"]["Flagged as safe"] = "Considerato sicuro";
+$_t["it"]["Login failure: Bad user or pass."] = "Autenticazione fallita: nome utente o password errata. ";
 
-$_t["it"]["My Statistics"] = "Le mie statistiche";
-
-$_t["it"]["Home"] = "Inizio";
-
-$_t["it"]["DISCLAIMER"] = "Avviso: i PKGBUILD presenti in unsupported sono stati inviati dagli utenti e, scaricandoli, accetti di usarli a tuo rischio e pericolo.";
-
-?>
