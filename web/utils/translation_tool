@@ -172,7 +172,7 @@ if force:
 		f = open(po,'w')
 		f.write(INC_HEADER)
 		f.write('\ninclude_once(\"en/%s\");\n' % po)
-		f.write('\n?>')
+		f.write('\n')
 		f.close()
 
 		f = open(trans_dir+"/"+po,'w')
@@ -183,7 +183,6 @@ if force:
 			trans = raw_input(term+"  = ")
 			f.write('$_t["%s"]["%s"] = "%s";\n' % (trans_abbrv, term, trans))
 		f.write("\n");
-		f.write("?>");
 		f.close()
 else:
 	# need to leave existing file intact, and only append on terms that are new
@@ -216,13 +215,13 @@ else:
 				f = open(po,'w')
 				f.write("".join(contents))
 				f.write('\ninclude_once(\"%s/%s\");\n' % (trans_abbrv, po))
-				f.write("\n?>");
+				f.write("\n");
 				f.close()
 		else:
 			f = open(po,'w')
 			f.write(INC_HEADER)
 			f.write('\ninclude_once(\"%s/%s\");\n' % (trans_abbrv, po))
-			f.write('\n?>')
+			f.write('\n')
 			f.close()
 		# first read in file contents so we can hash what already exists
 		#
@@ -264,7 +263,7 @@ else:
 				f.write("\n");
 				trans = raw_input(term+"  = ")
 				f.write('$_t["%s"]["%s"] = "%s";\n' % (trans_abbrv, term, trans))
-		f.write("\n?>");
+		f.write("\n");
 		f.close()
 
 # Print out warnings for unused and little-used common entries.
