@@ -25,7 +25,6 @@
 
 include_once("common_po.inc");
 
-
 function __() {
 	global $_t;
 	global $LANG;
@@ -49,6 +48,8 @@ function __() {
 		$translated = "_${tag}_";
 	}
 
+	$translated = htmlspecialchars($translated, ENT_QUOTES); 
+
 	# This condition is to reorganise the arguments in case of
 	# deprecated usage. __("string", array("string","string"))
 	if (!empty($args[1]) && is_array($args[1])) {
@@ -64,6 +65,7 @@ function __() {
 			$translated = preg_replace("/\%[sh]/", $args[$i], $translated, 1);
 		}
 	}
+
 	return $translated;
 }
 
