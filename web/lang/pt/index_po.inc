@@ -53,8 +53,6 @@ $_t["pt"]["Email discussion about the AUR takes place on the %sTUR Users List%s.
 
 $_t["pt"]["Recent Updates"] = "Atualizações Recentes";
 
-$_t["pt"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information. Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Bem-vindo ao AUR! Por favor leia as %hregras de usuário do AUR%h e as %hregras de TU do AUR%h para maiores informações.PKGBUILDs contribuídos <b>devem</b> seguir os %hpadrões Arch de Empacotamento%h caso contrário, eles serão excluídos!";
-
 $_t["pt"]["Community"] = "Comunidade";
 
 $_t["pt"]["Package Counts"] = "Contagem de Pacotes";
@@ -63,7 +61,7 @@ $_t["pt"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR
 
 $_t["pt"]["Unsupported"] = "Sem Suporte";
 
-$_t["pt"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "PKGBUILDs contribuídos <b>devem</b> seguir os %hpadrões Arch de Empacotamento%h caso contrário, eles serão excluídos!";
+$_t["pt"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "PKGBUILDs contribuídos %hdevem%h seguir os %hpadrões Arch de Empacotamento%h caso contrário, eles serão excluídos!";
 
 $_t["pt"]["Statistics"] = "Estatísticas";
 
@@ -93,4 +91,3 @@ $_t["pt"]["My Statistics"] = "Minhas Estatísticas";
 
 $_t["pt"]["Flagged as safe by me"] = "Pacotes que marquei como seguros";
 
-?>

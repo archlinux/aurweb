@@ -39,7 +39,7 @@ $_t["ru"]["Error trying to generate session id."] = "Ошибка генерац
 
 $_t["ru"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Добро пожаловать в AUR! Пожалуйста прочитайте %hAUR User Guidelines%h и %hAUR TU Guidelines%h, чтобы получить больше информации.";
 
-$_t["ru"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Присланые PKGBUILD <b>должны</b> соответствовать %hArch Packaging Standards%h или будут удалены!";
+$_t["ru"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Присланые PKGBUILD %hдолжны%h соответствовать %hArch Packaging Standards%h или будут удалены!";
 
 $_t["ru"]["Login"] = "Войти";
 
@@ -69,4 +69,3 @@ $_t["ru"]["My Statistics"] = "Моя статистика";
 
 $_t["ru"]["Home"] = "Заглавная страница";
 
-?>

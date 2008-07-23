@@ -39,7 +39,7 @@ $_t["es"]["Error trying to generate session id."] = "Error al intentar crear un 
 
 $_t["es"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "¡Bienvenido al AUR! Por favor lea la %hGuía AUR del Usuario%h y la %hGuía TU del AUR%h para más información.";
 
-$_t["es"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "¡Los PKGBUILDS enviados <b>deben</b> cumplir las %hNormas de empaquetado de Arch%h sino serán eliminados!";
+$_t["es"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "¡Los PKGBUILDS enviados %hdeben%h cumplir las %hNormas de empaquetado de Arch%h sino serán eliminados!";
 
 $_t["es"]["Login"] = "Entrar";
 

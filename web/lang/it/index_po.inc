@@ -45,8 +45,6 @@ $_t["it"]["Email discussion about the AUR takes place on the %sTUR Users List%s.
 
 $_t["it"]["Recent Updates"] = "Aggiornamenti recenti";
 
-$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information. Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Benvenuto in AUR! Per ottenere maggiori informazioni, leggi le %hAUR User Guidelines%h e %hAUR TU Guidelines%h. I PKGBUILD inviati <b>devono</b> essere conformi agli %hArch Packaging Standards%h altrimenti saranno cancellati!";
-
 $_t["it"]["Community"] = "Community";
 
 $_t["it"]["Package Counts"] = "Conteggio dei pacchetti";
@@ -55,7 +53,7 @@ $_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR
 
 $_t["it"]["Unsupported"] = "Unsupported";
 
-$_t["it"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "I PKGBUILD inviati <b>devono</b> essere conformi agli %hArch Packaging Standards%h altrimenti saranno cancellati!";
+$_t["it"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "I PKGBUILD inviati %hdevono%h essere conformi agli %hArch Packaging Standards%h altrimenti saranno cancellati!";
 
 $_t["it"]["Statistics"] = "Statistiche";
 

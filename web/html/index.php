@@ -20,37 +20,36 @@ $dbh = db_connect();
 <span class="f3">AUR <?php print __("Home"); ?></span>
 </div>
 <div class="frontpgboxbody">
-<table border='0' cellpadding='0' cellspacing='3' width='90%'>
-<tr>
-<td class='boxSoft' valign='top' colspan='2'>
 <p>
 
 <?php 
-print __( 'Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.'
-        , '<a href="http://wiki.archlinux.org/index.php/AUR_User_Guidelines">'
-        , '</a>'
-        , '<a href="http://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">'
-        , '</a>'
+echo __(
+	'Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.',
+	'<a href="http://wiki.archlinux.org/index.php/AUR_User_Guidelines">',
+	'</a>',
+	'<a href="http://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">',
+	'</a>'
         );
 ?>
 
-<br>
+<br />
 
 <?php
-print __( 'Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!'
-        , '<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">'
-        , '</a>'
+echo __(
+	'Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!',
+	'<b>', '</b>',
+	'<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">',
+	'</a>'
         );
 ?>
 
 </p>
 <p>
-<?php print __("Remember to vote for your favourite packages!"); ?>
+<?php echo __('Remember to vote for your favourite packages!'); ?>
 <br />
 <?php echo __('Some packages may be provided as binaries in [community].'); ?>
 </p>
-</td>
-</tr>
+<table border='0' cellpadding='0' cellspacing='3' width='90%'>
 <tr>
 <td class='boxSoft' valign='top'>
 <?php updates_table($dbh); ?>
@@ -70,6 +69,7 @@ general_stats_table($dbh);
 </tr>
 </table>
 
+<br />
 <div class="important"><?php
 echo __('DISCLAIMER') . ':<br />';
 echo __('Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk.');
@@ -80,3 +80,4 @@ echo __('Unsupported PKGBUILDs are user produced content. Any use of files is at
 
 <?php
 html_footer(AUR_VERSION);
+

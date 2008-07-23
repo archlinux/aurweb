@@ -24,7 +24,7 @@ $_t["pl"]["You must supply an email address."] = "Musisz podać adres e-mail.";
 $_t["pl"]["Incorrect password for email address, %s."] = "Nieprawidłowe hasło dla adresu %s.";
 $_t["pl"]["Incorrect password for username, %s."] = "Nieprawidłowe hasło dla użytkownika %s.";
 $_t["pl"]["Logged in as: %h%s%h"] = "Zalogowany jako: %h%s%h";
-$_t["pl"]["Logged-in as: %h%s%h"] = "Zalogowany jako: %h%s%h";
+
 $_t["pl"]["Error looking up username, %s."] = "Błąd podczas wyszukiwania użytkownika %s.";
 $_t["pl"]["Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h."] = "Witamy w AUR! Jeżeli jesteś tu po raz pierwszy, być może zechcesz przeczytać %hInstrukcję%h.";
 $_t["pl"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Jeżeli masz uwagi lub pomysły odnośnie AUR, %hFlyspray%h jest odpowiednim miejscem do ich pozostawienia.";
@@ -52,7 +52,7 @@ $_t["pl"]["Packages in [community]"] = "Pakietów w [community]";
 
 $_t["pl"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Witamy w AUR! Aby uzyskać więcej informacji, przeczytaj %hInstrukcję Użytkownika%h oraz %hInstrukcję Zaufanego Użytkownika%h.";
 
-$_t["pl"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Pliki PKGBUILD <b>muszą</b> być zgodne ze %hStandardami Pakietów Archa%h, inaczej będą usuwane!";
+$_t["pl"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Pliki PKGBUILD %hmuszą%h być zgodne ze %hStandardami Pakietów Archa%h, inaczej będą usuwane!";
 
 $_t["pl"]["Registered Users"] = "Zarejestrowanych użytkowników";
 
@@ -72,4 +72,3 @@ $_t["pl"]["Home"] = "Start";
 
 $_t["pl"]["DISCLAIMER"] = "ZRZECZENIE";
 
-?>
