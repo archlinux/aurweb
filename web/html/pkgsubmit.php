@@ -1,10 +1,10 @@
 <?php
 
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 include("config.inc");
 
-set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 require('Archive/Tar.php');
-require('File/Find.php');
+require('Find.php');
 
 include("aur.inc");         # access AUR common functions
 include("submit_po.inc");   # use some form of this for i18n support
