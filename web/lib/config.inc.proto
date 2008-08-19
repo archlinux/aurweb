@@ -22,15 +22,16 @@ define("DEFAULT_LANG", "en");
 
 # Languages we have translations for
 $SUPPORTED_LANGS = array(
-	"en" => "English",
-	"pl" => "Polski",
-	"it" => "Italiano",
 	"ca" => "Català",
-	"pt" => "Português",
-	"es" => "Español",
 	"de" => "Deutsch",
+	"en" => "English",
+	"es" => "Español",
+	"fr" => "Français",
+	"it" => "Italiano",
+	"pl" => "Polski",
+	"pt" => "Português",
 	"ru" => "Русский",
-	"fr" => "Français"
+	"tr" => "Türkçe"
 );
 
 # Idle seconds before timeout
