@@ -11,23 +11,25 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/acctfuncs_po.inc");
+$_t["tr"]["Reset"] = "Sıfırla";
 
-include_once("pl/acctfuncs_po.inc");
+$_t["tr"]["Username"] = "Kullanıcı Adı";
 
-include_once("it/acctfuncs_po.inc");
+$_t["tr"]["Email Address"] = "Eposta adresi";
 
-include_once("ca/acctfuncs_po.inc");
+$_t["tr"]["Less"] = "Önceki";
 
-include_once("pt/acctfuncs_po.inc");
+$_t["tr"]["Clear"] = "Temizle";
 
-include_once("es/acctfuncs_po.inc");
+$_t["tr"]["required"] = "gerekli";
 
-include_once("de/acctfuncs_po.inc");
+$_t["tr"]["Update"] = "Güncelle";
 
-include_once("ru/acctfuncs_po.inc");
+$_t["tr"]["Submit"] = "Gönder";
 
-include_once("fr/acctfuncs_po.inc");
-include_once("tr/acctfuncs_po.inc");
+$_t["tr"]["Password"] = "Şifre";
 
+$_t["tr"]["Create"] = "Oluştur";
+
+$_t["tr"]["More"] = "Sonraki";
 

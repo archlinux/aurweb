@@ -28,5 +28,5 @@ include_once("de/common_po.inc");
 include_once("ru/common_po.inc");
 
 include_once("fr/common_po.inc");
+include_once("tr/common_po.inc");
 
-?>

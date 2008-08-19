@@ -11,22 +11,7 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/hacker_po.inc");
+$_t["tr"]["Your session id is invalid."] = "Session kimliğiniz geçerli değil.";
 
-include_once("pl/hacker_po.inc");
-
-include_once("it/hacker_po.inc");
-
-include_once("ca/hacker_po.inc");
-
-include_once("pt/hacker_po.inc");
-
-include_once("es/hacker_po.inc");
-
-include_once("de/hacker_po.inc");
-
-include_once("ru/hacker_po.inc");
-
-include_once("fr/hacker_po.inc");
-include_once("tr/hacker_po.inc");
+$_t["tr"]["If this problem persists, please contact the site administrator."] = "Bu sorun devam ederse, sistem yöneticisi ile iletişime geçin.";
 
