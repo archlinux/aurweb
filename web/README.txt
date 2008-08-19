@@ -92,6 +92,9 @@ Directory Layout:
 ./template    - Where most of the html markup resides and minimal
                 amount of PHP scripting.
 
+                There is also a template to model the site's top pages in
+                template.phps 
+
 
 Scripts:
 --------
