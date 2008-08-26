@@ -512,14 +512,12 @@ function package_details($id=0, $SID="") {
                 if ($row["MaintainerUID"] == 0) {
                     echo "<input type='submit' class='button' name='do_Adopt'";
                     echo " value='".__("Adopt Packages")."'>\n";
-                }
-					
-				if ($row["MaintainerUID"] == uid_from_sid($SID) ||
-            account_from_sid($SID) == "Trusted User" ||
-            account_from_sid($SID) == "Developer") {
+                } else if ($row["MaintainerUID"] == uid_from_sid($SID) ||
+            	           account_from_sid($SID) == "Trusted User" ||
+            	           account_from_sid($SID) == "Developer") {
 					echo "<input type='submit' class='button' name='do_Disown'";
 					echo " value='".__("Disown Packages")."'>\n";
-				}	
+				}
 					
 				if (account_from_sid($SID) == "Trusted User" ||
 				    account_from_sid($SID) == "Developer") {
