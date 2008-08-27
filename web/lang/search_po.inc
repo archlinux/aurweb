@@ -30,3 +30,5 @@ include_once("ru/search_po.inc");
 include_once("fr/search_po.inc");
 include_once("tr/search_po.inc");
 
+include_once("uk/search_po.inc");
+

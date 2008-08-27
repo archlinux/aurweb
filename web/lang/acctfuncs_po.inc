@@ -30,4 +30,5 @@ include_once("ru/acctfuncs_po.inc");
 include_once("fr/acctfuncs_po.inc");
 include_once("tr/acctfuncs_po.inc");
 
+include_once("uk/acctfuncs_po.inc");
 

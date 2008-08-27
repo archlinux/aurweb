@@ -30,3 +30,5 @@ include_once("ru/pkgedit_po.inc");
 include_once("fr/pkgedit_po.inc");
 include_once("tr/pkgedit_po.inc");
 
+include_once("uk/pkgedit_po.inc");
+

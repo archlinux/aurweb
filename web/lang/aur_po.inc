@@ -30,3 +30,5 @@ include_once("ru/aur_po.inc");
 include_once("fr/aur_po.inc");
 include_once("tr/aur_po.inc");
 
+include_once("uk/aur_po.inc");
+
