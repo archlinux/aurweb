@@ -12,12 +12,12 @@ set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 
 if ($_COOKIE["AURSID"]):
-  
+
 	# Track upload errors
 	$error = "";
 
 	if ($_REQUEST["pkgsubmit"]) {
-	  
+
 		# Before processing, make sure we even have a file
 		if ($_FILES['pfile']['size'] == 0){
 			$error = __("Error - No file uploaded");
@@ -35,30 +35,30 @@ if ($_COOKIE["AURSID"]):
 					$error = __("Could not change directory to %s.",
 						array($tempdir));
 				} else {
-				  if ($_FILES['pfile']['name'] == "PKGBUILD") {
-				    move_uploaded_file($_FILES['pfile']['tmp_name'], $tempdir . "/PKGBUILD");
-				  } else {
-  					$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
-  					$extract = $tar->extract();
-  					
-  					if (!$extract) {
-  						$error = __("Unknown file format for uploaded file.");
-  					}
-				  }
+					if ($_FILES['pfile']['name'] == "PKGBUILD") {
+						move_uploaded_file($_FILES['pfile']['tmp_name'], $tempdir . "/PKGBUILD");
+					} else {
+						$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
+						$extract = $tar->extract();
+
+						if (!$extract) {
+							$error = __("Unknown file format for uploaded file.");
+						}
+					}
 				}
 			}
 		}
 
 		# Find the PKGBUILD
 		if (!$error) {
-		  $pkgbuild = File_Find::search('PKGBUILD', $tempdir);
-		  
-		  if (count($pkgbuild)) {
-		    $pkgbuild = $pkgbuild[0];
-		    $pkg_dir = dirname($pkgbuild);
-		  } else {
-		    $error = __("Error trying to unpack upload - PKGBUILD does not exist.");
-		  }
+			$pkgbuild = File_Find::search('PKGBUILD', $tempdir);
+
+			if (count($pkgbuild)) {
+				$pkgbuild = $pkgbuild[0];
+				$pkg_dir = dirname($pkgbuild);
+			} else {
+				$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
+			}
 		}
 
 		# if no error, get list of directory contents and process PKGBUILD
@@ -108,7 +108,7 @@ if ($_COOKIE["AURSID"]):
 			fclose($fp);
 
 			# Now process the lines and put any var=val lines into the
-			# 'pkgbuild' array.	Also check to make sure it has the build()
+			# 'pkgbuild' array. Also check to make sure it has the build()
 			# function.
 			#
 			$seen_build_function = 0;
@@ -123,13 +123,13 @@ if ($_COOKIE["AURSID"]):
 								$lparts[1]{strlen($lparts[1])-1} == '"') {
 							$pkgbuild[$lparts[0]] = substr($lparts[1], 1, -1);
 						}
-					 	elseif 
+						elseif 
 							($lparts[1]{0} == "'" && 
 							 $lparts[1]{strlen($lparts[1])-1} == "'") {
 							$pkgbuild[$lparts[0]] = substr($lparts[1], 1, -1);
 						} else { 
 							$pkgbuild[$lparts[0]] = $lparts[1];
-					 	}
+						}
 					} else {
 						$pkgbuild[$lparts[0]] = str_replace(array("(",")","\"","'"), "",
 								$lparts[1]);
@@ -150,20 +150,20 @@ if ($_COOKIE["AURSID"]):
 			if (!$seen_build_function) {
 				$error = __("Missing build function in PKGBUILD.");
 			}
-			
+
 			$req_vars = array("md5sums", "source", "url", "pkgdesc", "license", "pkgrel", "pkgver", "arch", "pkgname");
 			foreach ($req_vars as $var) {
-  			if (!array_key_exists($var, $pkgbuild)) {
-  				$error = __("Missing " . $var . " variable in PKGBUILD.");
-  			}
-		  }
+				if (!array_key_exists($var, $pkgbuild)) {
+					$error = __("Missing " . $var . " variable in PKGBUILD.");
+				}
+			}
 		}
 
 		# TODO This is where other additional error checking can be
-		# performed.	Examples: #md5sums == #sources?, md5sums of any
+		# performed. Examples: #md5sums == #sources?, md5sums of any
 		# included files match?, install scriptlet file exists?
 		#
-		
+
 		# Check for http:// or other protocol in url
 		# 
 		if (!$error) {
@@ -172,7 +172,7 @@ if ($_COOKIE["AURSID"]):
 				$error = __("Package URL is missing a protocol (ie. http:// ,ftp://)");
 			}
 		}
-			
+
 		# Now, run through the pkgbuild array and do any $pkgname/$pkgver
 		# substituions.
 		#
@@ -195,9 +195,9 @@ if ($_COOKIE["AURSID"]):
 			$pkg_name = str_replace("'", "", $pkgbuild['pkgname']);
 			$pkg_name = escapeshellarg($pkg_name);
 			$pkg_name = str_replace("'", "", $pkg_name);
-            
+
 			$presult = preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name);
-			
+
 			if (!$presult) {
 				$error = __("Invalid name: only lowercase letters are allowed.");
 			}
@@ -213,18 +213,14 @@ if ($_COOKIE["AURSID"]):
 				}
 
 				if (!@mkdir(INCOMING_DIR . $pkg_name)) {
-					$error = __( "Could not create directory %s."
-						         , INCOMING_DIR . $pkg_name
-						         );
+					$error = __( "Could not create directory %s.",
+						INCOMING_DIR . $pkg_name);
 				}
 
-        rename($pkg_dir, INCOMING_DIR . $pkg_name . "/" . $pkg_name);
+				rename($pkg_dir, INCOMING_DIR . $pkg_name . "/" . $pkg_name);
 			} else {
-				$error = __( "You are not allowed to overwrite the %h%s%h package."
-					         , "<b>"
-					         , $pkg_name
-					         , "</b>"
-					         );
+				$error = __( "You are not allowed to overwrite the %h%s%h package.",
+					"<b>", $pkg_name, "</b>");
 			}
 		}
 
@@ -235,16 +231,16 @@ if ($_COOKIE["AURSID"]):
 					array(INCOMING_DIR . $pkg_name));
 			}
 		}
-		
+
 		if (!$error) {
-		  $tar = new Archive_Tar($pkg_name . '.tar.gz');
-		  $create = $tar->create(array($pkg_name));
-		  
+			$tar = new Archive_Tar($pkg_name . '.tar.gz');
+			$create = $tar->create(array($pkg_name));
+
 			if (!$create) {
 				$error = __("Could not re-tar");
 			}
 		}
-		
+
 		# Whether it failed or not we can clean this out
 		if (file_exists($tempdir)) {
 			rm_rf($tempdir);
@@ -252,13 +248,13 @@ if ($_COOKIE["AURSID"]):
 
 		# Update the backend database
 		if (!$error) {
-		  
+
 			$dbh = db_connect();
-			
+
 			# This is an overwrite of an existing package, the database ID
-			# needs to be preserved so that any votes are retained.	However,
+			# needs to be preserved so that any votes are retained. However,
 			# PackageDepends and PackageSources can be purged.
-			
+
 			$q = "SELECT * FROM Packages WHERE Name = '" . mysql_real_escape_string($new_pkgbuild['pkgname']) . "'";
 			$result = db_query($q, $dbh);
 			$pdata = mysql_fetch_assoc($result);
@@ -273,53 +269,52 @@ if ($_COOKIE["AURSID"]):
 
 				# If the package was a dummy, undummy it
 				if ($pdata['DummyPkg']) {
-				  $q = sprintf( "UPDATE Packages SET DummyPkg = 0, SubmitterUID = %d, MaintainerUID = %d, SubmittedTS = UNIX_TIMESTAMP() WHERE ID = %d"
-				              , uid_from_sid($_COOKIE["AURSID"])
-				              , uid_from_sid($_COOKIE["AURSID"])
-				              , $pdata["ID"]
-				              );
+					$q = sprintf( "UPDATE Packages SET DummyPkg = 0, SubmitterUID = %d, MaintainerUID = %d, SubmittedTS = UNIX_TIMESTAMP() WHERE ID = %d",
+						uid_from_sid($_COOKIE["AURSID"]),
+						uid_from_sid($_COOKIE["AURSID"]),
+						$pdata["ID"]);
 
-          db_query($q, $dbh);
+					db_query($q, $dbh);
 				}
-				
+
 				# If a new category was chosen, change it to that
 				if ($_POST['category'] > 1) {
-				  $q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d"
-				              , mysql_real_escape_string($_REQUEST['category'])
-				              , $pdata["ID"]
-				              );
-				  
-				  db_query($q, $dbh);
-			  }
-				
+					$q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d",
+						mysql_real_escape_string($_REQUEST['category']),
+						$pdata["ID"]);
+
+					db_query($q, $dbh);
+				}
+
 				# Update package data
-				$q = sprintf( "UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', LocationID = 2, FSPath = '%s', URLPath = '%s', OutOfDate = 0 WHERE ID = %d"
-				            , mysql_real_escape_string($new_pkgbuild['pkgname'])
-				            , mysql_real_escape_string($new_pkgbuild['pkgver'])
-				            , mysql_real_escape_string($new_pkgbuild['pkgrel'])
-				            , mysql_real_escape_string($new_pkgbuild['license'])
-				            , mysql_real_escape_string($new_pkgbuild['pkgdesc'])
-				            , mysql_real_escape_string($new_pkgbuild['url'])
-				            , mysql_real_escape_string(INCOMING_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz")
-				            , mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz")
-				            , $pdata["ID"]
-				            );
-				
+				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', LocationID = 2, FSPath = '%s', URLPath = '%s', OutOfDate = 0 WHERE ID = %d",
+					mysql_real_escape_string($new_pkgbuild['pkgname']),
+					mysql_real_escape_string($new_pkgbuild['pkgver']),
+					mysql_real_escape_string($new_pkgbuild['pkgrel']),
+					mysql_real_escape_string($new_pkgbuild['license']),
+					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
+					mysql_real_escape_string($new_pkgbuild['url']),
+					mysql_real_escape_string(INCOMING_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"),
+					mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"),
+					$pdata["ID"]);
+
 				db_query($q, $dbh);
 
 				# Update package depends
 				$depends = explode(" ", $new_pkgbuild['depends']);
-        foreach ($depends as $dep) {
+				foreach ($depends as $dep) {
 					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
 					$deppkgname = preg_replace("/[<>]?=.*/", "", $dep);
-          $depcondition = str_replace($deppkgname, "", $dep);
-                    
-          if ($deppkgname == "#") { break; }
-                    
-					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
-          $q .= $pdata["ID"] . ", " . $deppkgid . ", '" . mysql_real_escape_string($depcondition) . "')";
+					$depcondition = str_replace($deppkgname, "", $dep);
 
-        	db_query($q, $dbh);
+					if ($deppkgname == "#") {
+						break;
+					}
+
+					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
+					$q .= $pdata["ID"] . ", " . $deppkgid . ", '" . mysql_real_escape_string($depcondition) . "')";
+
+					db_query($q, $dbh);
 				}
 
 				# Insert sources
@@ -328,26 +323,25 @@ if ($_COOKIE["AURSID"]):
 					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
 					$q .= $pdata["ID"] . ", '" . mysql_real_escape_string($src) . "')";
 					db_query($q, $dbh);
-			  }
+				}
 
 				header('Location: packages.php?ID=' . $pdata['ID']);
-			  
+
 			} else {
-			  
+
 				# This is a brand new package
-				$q = sprintf( "INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', 2, UNIX_TIMESTAMP(), %d, %d, '%s', '%s')"
-				            , mysql_real_escape_string($new_pkgbuild['pkgname'])
-				            , mysql_real_escape_string($new_pkgbuild['license'])
-				            , mysql_real_escape_string($new_pkgbuild['pkgver'])
-				            , mysql_real_escape_string($new_pkgbuild['pkgrel'])
-				            , mysql_real_escape_string($_REQUEST['category'])
-				            , mysql_real_escape_string($new_pkgbuild['pkgdesc'])
-				            , mysql_real_escape_string($new_pkgbuild['url'])
-				            , uid_from_sid($_COOKIE["AURSID"])
-				            , uid_from_sid($_COOKIE["AURSID"])
-				            , mysql_real_escape_string(INCOMING_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz")
-				            , mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz")
-				            );
+				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', 2, UNIX_TIMESTAMP(), %d, %d, '%s', '%s')",
+					mysql_real_escape_string($new_pkgbuild['pkgname']),
+					mysql_real_escape_string($new_pkgbuild['license']),
+					mysql_real_escape_string($new_pkgbuild['pkgver']),
+					mysql_real_escape_string($new_pkgbuild['pkgrel']),
+					mysql_real_escape_string($_REQUEST['category']),
+					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
+					mysql_real_escape_string($new_pkgbuild['url']),
+					uid_from_sid($_COOKIE["AURSID"]),
+					uid_from_sid($_COOKIE["AURSID"]),
+					mysql_real_escape_string(INCOMING_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"),
+					mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"));
 
 				$result = db_query($q, $dbh);
 				$packageID = mysql_insert_id($dbh);
@@ -358,12 +352,14 @@ if ($_COOKIE["AURSID"]):
 					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
 					$deppkgname = preg_replace("/[<>]?=.*/", "", $dep);
 					$depcondition = str_replace($deppkgname, "", $dep);
-                    
-          if ($deppkgname == "#") { break; }
-          
-          $deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
-          $q .= $packageID . ", " . $deppkgid . ", '" . mysql_real_escape_string($depcondition) . "')";
-        
+
+					if ($deppkgname == "#") {
+						break;
+					}
+
+					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
+					$q .= $packageID . ", " . $deppkgid . ", '" . mysql_real_escape_string($depcondition) . "')";
+
 					db_query($q, $dbh);
 				}
 
@@ -373,10 +369,10 @@ if ($_COOKIE["AURSID"]):
 					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
 					$q .= $packageID . ", '" . mysql_real_escape_string($src) . "')";
 					db_query($q, $dbh);
-			  }
+				}
 
 				header('Location: packages.php?ID=' . $packageID);
-			  
+
 			}
 		}
 
@@ -390,10 +386,10 @@ html_header("Submit");
 ?>
 
 <div class="pgbox">
-  <div class="pgboxtitle">
-    <span class="f3"><?php print __("Submit"); ?></span>
-  </div>
-  <div class="pgboxbody">
+	<div class="pgboxtitle">
+		<span class="f3"><?php print __("Submit"); ?></span>
+	</div>
+	<div class="pgboxbody">
 
 <?php
 	if (!$_REQUEST["pkgsubmit"] || $error):
@@ -408,7 +404,7 @@ html_header("Submit");
 
 <?php
 			endif;
-            
+
 			$pkg_categories = pkgCategories();
 			$pkg_locations = pkgLocations();
 ?>
@@ -463,15 +459,14 @@ else:
 ?>
 
 <br />
-	
+
 <?php
 endif;
 ?>
 
-  </div>
+	</div>
 </div>
 
 <?php
 html_footer(AUR_VERSION);
 
-?>
