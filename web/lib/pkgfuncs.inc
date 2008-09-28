@@ -128,6 +128,7 @@ function package_required($pkgid=0) {
 		$q.= "WHERE PackageDepends.PackageID = Packages.ID ";
 		$q.= "AND PackageDepends.DepPkgID = ";
 		$q.= mysql_real_escape_string($pkgid);
+		$q.= " ORDER BY Name";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
 		while ($row = mysql_fetch_row($result)) {
