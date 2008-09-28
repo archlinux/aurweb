@@ -55,6 +55,9 @@ Setup on Arch Linux:
    PEAR's path may vary depending on your set up.
 
 6) Configure MySQL
+ - Start the MySQL service. Example:
+   # /etc/rc.d/mysqld start
+
  - Connect to the mysql client
    # mysql -uroot
 
@@ -74,8 +77,8 @@ Setup on Arch Linux:
    (give password 'aur' at the prompt)
 
 7) Copy the config.inc.proto file to config.inc. Modify as needed.
-   cd ~/aur/web/lib/
-   cp config.inc.profo config.inc
+   # cd ~/aur/web/lib/
+   # cp config.inc.profo config.inc
 
 8) Point your browser to http://aur
 
