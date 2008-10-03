@@ -1058,3 +1058,76 @@ function pkg_flag ($atype, $ids, $action = True) {
 		return __("The selected packages have been unflagged.");
 	}
 }
+
+function pkg_delete ($atype, $ids) {
+	if (!$atype) {
+		return __("You must be logged in before you can disown packages.");
+	}
+
+	if (empty($ids)) {
+		return __("You did not select any packages to delete.");
+	}
+
+	# Delete the packages in $ids array (but only if they are Unsupported)
+	#
+	$dbh = db_connect();
+
+	# Delete the packages in $ids array
+	#
+	$first = 1;
+	foreach ($ids as $pid => $v) {
+		if ($first) {
+			$first = 0;
+			$delete = $pid;
+		} else {
+			$delete .= ", ".$pid;
+		}
+	}
+
+	$field = "MaintainerUID";
+
+	# Only grab Unsupported packages that "we" own or are not owned at all
+	$ids_to_delete = array();
+	$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
+	$q.= "WHERE Packages.ID IN (" . $delete . ") ";
+	$q.= "AND Packages.LocationID = PackageLocations.ID ";
+	$q.= "AND PackageLocations.Location = 'unsupported' ";
+
+	# If they're a TU or dev, can delete
+	if ($atype == "Trusted User" || $atype == "Developer") {
+		$result = db_query($q, $dbh);
+	}
+
+	if ($result != Null && mysql_num_rows($result) > 0) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$ids_to_delete[] = $row['ID'];
+		}
+	}
+
+	if (empty($ids_to_delete)) {
+		return __("None of the selected packages could be deleted.");
+	}
+
+	# These are the packages that are safe to delete
+	foreach ($ids_to_delete as $id) {
+		$q = "DELETE FROM PackageVotes WHERE PackageID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM PackageDepends WHERE PackageID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM PackageSources WHERE PackageID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM PackageComments WHERE PackageID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM Packages WHERE ID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM CommentNotify WHERE PkgID = " . $id;
+		$result = db_query($q, $dbh);
+	}
+
+	return __("The selected packages have been deleted.");
+}

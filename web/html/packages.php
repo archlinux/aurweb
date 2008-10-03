@@ -22,7 +22,7 @@ if (isset($_GET['ID'])) {
 	$title = __("Packages");
 }
 
-html_header($title);              # print out the HTML header
+html_header($title);
 
 # get login privileges
 #
@@ -95,91 +95,9 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 
 
 } elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
-	if (!$atype) {
-		print __("You must be logged in before you can disown packages.");
-		print "<br />\n";
-	} else {
-		# Delete the packages in $ids array (but only if they are Unsupported)
-		#
-		if (!empty($ids)) {
-			$dbh = db_connect();
-
-			# Delete the packages in $ids array
-			#
-			$first = 1;
-			while (list($pid, $v) = each($ids)) {
-				if ($first) {
-					$first = 0;
-					$delete = $pid;
-				} else {
-					$delete .= ", ".$pid;
-				}
-			}
-
-			$field = "MaintainerUID";
-
-			# Only grab Unsupported packages that "we" own or are not owned at all
-			#
-			$ids_to_delete = array();
-			$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
-			$q.= "WHERE Packages.ID IN (" . $delete . ") ";
-			$q.= "AND Packages.LocationID = PackageLocations.ID ";
-			$q.= "AND PackageLocations.Location = 'unsupported' ";
-			# If they're a TU or dev, can always delete, otherwise check ownership
-			#
-			if ($atype == "Trusted User" || $atype == "Developer") {
-				$result = db_query($q, $dbh);
-			}
-			if ($result != Null && mysql_num_rows($result) > 0) {
-				while ($row = mysql_fetch_assoc($result)) {
-					$ids_to_delete[] = $row['ID'];
-				}
-			}
-			if (!empty($ids_to_delete)) {
-				# These are the packages that are safe to delete
-				#
-			  foreach ($ids_to_delete as $id) {
-					# delete from PackageVotes
-					$q = "DELETE FROM PackageVotes WHERE PackageID = " . $id;
-					$result = db_query($q, $dbh);
-
-					# delete from PackageDepends
-					$q = "DELETE FROM PackageDepends WHERE PackageID = " . $id;
-					$result = db_query($q, $dbh);
-
-					# delete from PackageSources
-					$q = "DELETE FROM PackageSources WHERE PackageID = " . $id;
-					$result = db_query($q, $dbh);
-
-					# delete from PackageComments
-					$q = "DELETE FROM PackageComments WHERE PackageID = " . $id;
-					$result = db_query($q, $dbh);
-
-					# delete from Packages
-					$q = "DELETE FROM Packages WHERE ID = " . $id;
-					$result = db_query($q, $dbh);
-
-					# delete from CommentNotify
-					$q = "DELETE FROM CommentNotify WHERE PkgID = " . $id;
-					$result = db_query($q, $dbh);
-
-					# Print the success message
-					print "<p>\n";
-		      print __("The selected packages have been deleted.");
-		      print "</p>\n";
-				}
-			} else {
-				print "<p>\n";
-				print __("None of the selected packages could be deleted.");
-				print "</p>\n";
-			} # end if (!empty($ids_to_delete))
-		} else {
-			print "<p>\n";
-			print __("You did not select any packages to delete.");
-			print "</p>\n";
-		} # end if (!empty($ids))
-	} # end if (!atype)
-
+	print "<p>";
+	print pkg_delete($atype, $ids, False);
+	print "</p>";
 } elseif ($_POST['action'] == "do_Adopt" || isset($_POST['do_Adopt'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can adopt packages.");
