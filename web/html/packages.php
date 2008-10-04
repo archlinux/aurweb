@@ -49,105 +49,17 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	print pkg_flag($atype, $ids, False);
 	print "</p>";
 } elseif ($_POST['action'] == "do_Disown" || isset($_POST['do_Disown'])) {
-	if (!$atype) {
-		print __("You must be logged in before you can disown packages.");
-		print "<br />\n";
-
-	} else {
-		# Disown the packages in $ids array
-		#
-		if (!empty($ids)) {
-			$dbh = db_connect();
-
-			# Disown the packages in $ids array
-			#
-			$first = 1;
-			while (list($pid, $v) = each($ids)) {
-				if ($first) {
-					$first = 0;
-					$disown = $pid;
-				} else {
-					$disown .= ", ".$pid;
-				}
-			}
-
-			$field = "MaintainerUID";
-			$q = "UPDATE Packages ";
-			$q.= "SET ".$field." = 0 ";
-			$q.= "WHERE ID IN (" . $disown . ") ";
-			# If a user is a TU or dev they can disown any package
-      if ($atype == "User") {
-				$q.= "AND ".$field." = ".uid_from_sid($_COOKIE["AURSID"]);
-			}
-		  db_query($q, $dbh);
-
-			print "<p>\n";
-			print __("The selected packages have been disowned.");
-			print "</p>\n";
-		} else {
-			print "<p>\n";
-			print __("You did not select any packages to disown.");
-			print "</p>\n";
-		}
-
-
-	}
-
-
+	print "<p>";
+	print pkg_adopt($atype, $ids, False);
+	print "</p>";
 } elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
 	print "<p>";
 	print pkg_delete($atype, $ids, False);
 	print "</p>";
 } elseif ($_POST['action'] == "do_Adopt" || isset($_POST['do_Adopt'])) {
-	if (!$atype) {
-		print __("You must be logged in before you can adopt packages.");
-		print "<br />\n";
-
-	} else {
-		# Adopt the packages in $ids array
-		#
-		if (!empty($ids)) {
-			$dbh = db_connect();
-
-			# Adopt the packages in $ids array
-			#
-			$first = 1;
-			while (list($pid, $v) = each($ids)) {
-				if ($first) {
-					$first = 0;
-					$adopt = $pid;
-				} else {
-					$adopt .= ", ".$pid;
-				}
-			}
-
-		  $field = "MaintainerUID";
-			# NOTE: Only "orphaned" packages can be adopted at a particular
-			#       user class (TU/Dev or User).
-			#
-			$q = "UPDATE Packages ";
-			$q.= "SET ".$field." = ".uid_from_sid($_COOKIE["AURSID"])." ";
-			$q.= "WHERE ID IN (" . $adopt . ") ";
-			if ($atype == "User")
-			{
-				# Regular users may only adopt orphan packages from unsupported
-				# FIXME: We assume that LocationID for unsupported is "2"
-				$q.= "AND ".$field." = 0";
-				$q.= " AND LocationID = 2";
-			}
-			db_query($q, $dbh);
-
-			print "<p>\n";
-			print __("The selected packages have been adopted.");
-			print "</p>\n";
-		} else {
-			print "<p>\n";
-			print __("You did not select any packages to adopt.");
-			print "</p>\n";
-		}
-	}
-
-
+	print "<p>";
+	print pkg_adopt($atype, $ids, True);
+	print "</p>";
 } elseif ($_POST['action'] == "do_Vote" || isset($_POST['do_Vote'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can vote for packages.");

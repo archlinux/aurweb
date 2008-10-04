@@ -1131,3 +1131,61 @@ function pkg_delete ($atype, $ids) {
 
 	return __("The selected packages have been deleted.");
 }
+
+function pkg_adopt ($atype, $ids, $action = True) {
+	if (!$atype) {
+		if ($action) {
+			return __("You must be logged in before you can adopt packages.");
+		} else {
+			return __("You must be logged in before you can disown packages.");
+		}
+	}
+
+	if (empty($ids)) {
+		if ($action) {
+			return __("You did not select any packages to adopt.");
+		} else {
+			return __("You did not select any packages to disown.");
+		}
+	}
+
+	$dbh = db_connect();
+
+	$first = 1;
+	foreach ($ids as $pid => $v) {
+		if ($first) {
+			$first = 0;
+			$pkg = $pid;
+		} else {
+			$pkg .= ", ".$pid;
+		}
+	}
+
+	$field = "MaintainerUID";
+	$q = "UPDATE Packages ";
+
+	if ($action) {
+		$user = uid_from_sid($_COOKIE["AURSID"]);
+	} else {
+		$user = 0;
+	}
+
+	$q.= "SET $field = $user ";
+	$q.= "WHERE ID IN ($pkg) ";
+
+	if ($action && $atype == "User") {
+		# Regular users may only adopt orphan packages from unsupported
+		$q.= "AND $field = 0 ";
+		$q.= "AND LocationID = 2 ";
+	} else if ($atype == "User") {
+		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"]);
+	}
+
+	db_query($q, $dbh);
+
+	if ($action) {
+		return __("The selected packages have been adopted.");
+	} else {
+		return __("The selected packages have been disowned.");
+	}
+}
