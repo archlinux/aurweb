@@ -46,7 +46,6 @@
 <?php
 if (isset($_COOKIE["AURSID"])) {
 ?>
-	      <li><a href="/logout.php"><?php print __("Logout"); ?></a></li>
 	      <li><a href="/pkgsubmit.php"><?php print __("Submit"); ?></a></li>
           <li><a href="/packages.php?SeB=m&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
 <?php
