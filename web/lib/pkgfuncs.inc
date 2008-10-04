@@ -984,6 +984,17 @@ function pkg_search_page($SID="") {
     return;
 }
 
+/**
+ * Flag and un-flag packages out-of-date
+ *
+ * @param string $atype Account type, output of account_from_sid
+ * @param array $ids Array of package IDs to flag/unflag, formatted as
+ * $package_id => $useless_crap
+ * @param boolean $action True flags out-of-date, false un-flags. Flags by
+ * default
+ *
+ * @return string Translated success or error messages
+ */
 function pkg_flag ($atype, $ids, $action = True) {
 	if (!$atype) {
 		if ($action) {
@@ -1058,6 +1069,15 @@ function pkg_flag ($atype, $ids, $action = True) {
 	}
 }
 
+/**
+ * Delete packages
+ *
+ * @param string $atype Account type, output of account_from_sid
+ * @param array $ids Array of package IDs to delete, formatted as
+ * $package_id => $useless_crap
+ *
+ * @return string Translated error or success message
+ */
 function pkg_delete ($atype, $ids) {
 	if (!$atype) {
 		return __("You must be logged in before you can disown packages.");
@@ -1131,6 +1151,16 @@ function pkg_delete ($atype, $ids) {
 	return __("The selected packages have been deleted.");
 }
 
+/**
+ * Adopt or disown packages
+ *
+ * @param string $atype Account type, output of account_from_sid
+ * @param array $ids Array of package IDs to adopt/disown, formatted as
+ * $package_id => $whatever
+ * @param boolean $action Adopts if true, disowns if false. Adopts by default
+ *
+ * @return string Translated error or success message
+ */
 function pkg_adopt ($atype, $ids, $action = True) {
 	if (!$atype) {
 		if ($action) {
@@ -1189,6 +1219,16 @@ function pkg_adopt ($atype, $ids, $action = True) {
 	}
 }
 
+/**
+ * Vote and un-vote for packages
+ *
+ * @param string $atype Account type, output of account_from_sid
+ * @param array $ids Array of package IDs to vote/un-vote, formatted as
+ * $package_id => $useless
+ * @param boolean $action Votes if true, un-votes if false. Votes by default
+ *
+ * @return string Translated error or success message
+ */
 function pkg_vote ($atype, $ids, $action = True) {
 	if (!$atype) {
 		if ($action) {
@@ -1266,6 +1306,14 @@ function pkg_vote ($atype, $ids, $action = True) {
 	}
 }
 
+/**
+ * Toggle notification of packages
+ *
+ * @param string $atype Account type, output of account_from_sid
+ * @param array $ids Array of package IDs to toggle, formatted as $package_id => $crap
+ *
+ * @return string Translated error or success message
+ */
 function pkg_notify ($atype, $ids, $action = True) {
 	if (!$atype) {
 #		return __("You must be logged in before you can get notifications on comments.");

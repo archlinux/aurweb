@@ -8,38 +8,31 @@ include("search_po.inc");   # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 
-# set the title to something useful depending on
-# what "page" we're on
-#
+# Set the title to the current query if required
 if (isset($_GET['ID'])) {
-	$id = pkgname_from_id($_GET['ID']);
-	if (!empty($id)) {
-		$title = $id;
-	}
-}	else if (!empty($_GET['K'])) {
-	$title = "Search: " . $_GET['K'];
+	if ($pkgname = pkgname_from_id($_GET['ID'])) { $title = $pkgname; }
+} else if (!empty($_GET['K'])) {
+	$title = __("Search Criteria") . ": " . $_GET['K'];
 } else {
 	$title = __("Packages");
 }
 
-html_header($title);
-
-# get login privileges
-#
+# Retrieve account type
 if (isset($_COOKIE["AURSID"])) {
-	# Only logged in users can do stuff
-	#
 	$atype = account_from_sid($_COOKIE["AURSID"]);
 } else {
 	$atype = "";
 }
 
-# grab the list of Package IDs to be operated on
+# Grab the list of Package IDs to be operated on
 #
+# TODO: Convert this to a normal array of IDs to operate on and convert the
+# functions to use this format
 isset($_POST["IDs"]) ? $ids = $_POST["IDs"] : $ids = array();
 
-# determine what button the visitor clicked
-#
+html_header($title);
+
+# Determine what action to do
 if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	print "<p>";
 	print pkg_flag($atype, $ids, True);
@@ -48,17 +41,13 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	print "<p>";
 	print pkg_flag($atype, $ids, False);
 	print "</p>";
-} elseif ($_POST['action'] == "do_Disown" || isset($_POST['do_Disown'])) {
-	print "<p>";
-	print pkg_adopt($atype, $ids, False);
-	print "</p>";
-} elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
-	print "<p>";
-	print pkg_delete($atype, $ids, False);
-	print "</p>";
 } elseif ($_POST['action'] == "do_Adopt" || isset($_POST['do_Adopt'])) {
 	print "<p>";
 	print pkg_adopt($atype, $ids, True);
+	print "</p>";
+} elseif ($_POST['action'] == "do_Disown" || isset($_POST['do_Disown'])) {
+	print "<p>";
+	print pkg_adopt($atype, $ids, False);
 	print "</p>";
 } elseif ($_POST['action'] == "do_Vote" || isset($_POST['do_Vote'])) {
 	print "<p>";
@@ -67,6 +56,10 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 } elseif ($_POST['action'] == "do_UnVote" || isset($_POST['do_UnVote'])) {
 	print "<p>";
 	print pkg_vote($atype, $ids, False);
+	print "</p>";
+} elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
+	print "<p>";
+	print pkg_delete($atype, $ids);
 	print "</p>";
 } elseif ($_POST['action'] == "do_Notify" || isset($_POST['do_Notify'])) {
 	print "<p>";
@@ -86,10 +79,7 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	}
 
 } else {
-	# just do a search
-	#
 	pkg_search_page($_COOKIE["AURSID"]);
-
 }
 
 html_footer(AUR_VERSION);
