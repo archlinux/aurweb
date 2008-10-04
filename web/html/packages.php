@@ -37,106 +37,17 @@ if (isset($_COOKIE["AURSID"])) {
 # grab the list of Package IDs to be operated on
 #
 isset($_POST["IDs"]) ? $ids = $_POST["IDs"] : $ids = array();
-#isset($_REQUEST["All_IDs"]) ?
-#		$all_ids = explode(":", $_REQUEST["All_IDs"]) :
-#		$all_ids = array();
-
 
 # determine what button the visitor clicked
 #
 if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
-	if (!$atype) {
-		print __("You must be logged in before you can flag packages.");
-		print "<br />\n";
-
-	} else {
-
-		if (!empty($ids)) {
-			$dbh = db_connect();
-
-			# Flag the packages in $ids array
-			#
-			$first = 1;
-			while (list($pid, $v) = each($ids)) {
-				if ($first) {
-					$first = 0;
-					$flag = $pid;
-				} else {
-					$flag .= ", ".$pid;
-				}
-			}
-			$q = "UPDATE Packages SET OutOfDate = 1 ";
-			$q.= "WHERE ID IN (" . $flag . ")";
-			db_query($q, $dbh);
-
-			print "<p>\n";
-			print __("The selected packages have been flagged out-of-date.");
-			print "</p>\n";
-			
-			# notification by tardo.
-			$f_name = username_from_sid($_COOKIE['AURSID']);
-			$f_email = email_from_sid($_COOKIE['AURSID']);
-			$f_uid = uid_from_sid($_COOKIE['AURSID']);
-			$q = "SELECT Packages.Name, Users.Email, Packages.ID ";
-			$q.= "FROM Packages, Users ";
-			$q.= "WHERE Packages.ID IN (" . $flag .") ";
-			$q.= "AND Users.ID = Packages.MaintainerUID ";
-			$q.= "AND Users.ID != " . $f_uid;
-			$result = db_query($q, $dbh);
-			if (mysql_num_rows($result)) {
-				while ($row = mysql_fetch_assoc($result)) {
-					# construct email
-					$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . ". You may view your package at:\nhttp://aur.archlinux.org/packages.php?do_Details=1&ID=" . $row['ID'];
-					$body = wordwrap($body, 70);
-					$headers = "To: ".$row['Email']."\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
-					@mail(' ', "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
-				}
-			}
-			
-		} else {
-			print "<p>\n";
-			print __("You did not select any packages to flag.");
-			print "</p>\n";
-		}
-	}
-
+	print "<p>";
+	print pkg_flag($atype, $ids, True);
+	print "</p>";
 } elseif ($_POST['action'] == "do_UnFlag" || isset($_POST['do_UnFlag'])) {
-	if (!$atype) {
-		print __("You must be logged in before you can unflag packages.");
-		print "<br />\n";
-
-	} else {
-
-		if (!empty($ids)) {
-			$dbh = db_connect();
-
-			# Un-Flag the packages in $ids array
-			#
-			$first = 1;
-			while (list($pid, $v) = each($ids)) {
-				if ($first) {
-					$first = 0;
-					$unflag = $pid;
-				} else {
-					$unflag .= ", ".$pid;
-				}
-			}
-			$q = "UPDATE Packages SET OutOfDate = 0 ";
-			$q.= "WHERE ID IN (" . $unflag . ")";
-			db_query($q, $dbh);
-
-			print "<p>\n";
-			print __("The selected packages have been unflagged.");
-			print "</p>\n";
-		} else {
-			print "<p>\n";
-			print __("You did not select any packages to unflag.");
-			print "</p>\n";
-		}
-
-				
-	}
-
+	print "<p>";
+	print pkg_flag($atype, $ids, False);
+	print "</p>";
 } elseif ($_POST['action'] == "do_Disown" || isset($_POST['do_Disown'])) {
 	if (!$atype) {
 		print __("You must be logged in before you can disown packages.");

@@ -985,4 +985,76 @@ function pkg_search_page($SID="") {
     return;
 }
 
-?>
+function pkg_flag ($atype, $ids, $action = True) {
+	if (!$atype) {
+		if ($action) {
+			return __("You must be logged in before you can flag packages.");
+		} else {
+			return __("You must be logged in before you can unflag packages.");
+		}
+	}
+
+	if (empty($ids)) {
+		if ($action) {
+			return __("You did not select any packages to flag.");
+		} else {
+			return __("You did not select any packages to unflag.");
+		}
+	}
+
+	foreach ($ids as $pid => $v) {
+		if (!is_numeric($pid)) {
+			if ($action) {
+				return __("You did not select any packages to flag.");
+			} else {
+				return __("You did not select any packages to unflag.");
+			}
+		}
+	}
+
+	$dbh = db_connect();
+
+	$first = 1;
+	foreach ($ids as $pid => $v) {
+		if ($first) {
+			$first = 0;
+			$flag = $pid;
+		} else {
+			$flag .= ", " . $pid;
+		}
+	}
+
+	$ood = $action ? 1 : 0;
+	$q = "UPDATE Packages SET OutOfDate = " . $ood;
+	$q.= " WHERE ID IN (" . $flag . ")";
+
+	db_query($q, $dbh);
+
+	if ($action) {
+		# Notify of flagging by email
+		$f_name = username_from_sid($_COOKIE['AURSID']);
+		$f_email = email_from_sid($_COOKIE['AURSID']);
+		$f_uid = uid_from_sid($_COOKIE['AURSID']);
+		$q = "SELECT Packages.Name, Users.Email, Packages.ID ";
+		$q.= "FROM Packages, Users ";
+		$q.= "WHERE Packages.ID IN (" . $flag .") ";
+		$q.= "AND Users.ID = Packages.MaintainerUID ";
+		$q.= "AND Users.ID != " . $f_uid;
+		$result = db_query($q, $dbh);
+		if (mysql_num_rows($result)) {
+			while ($row = mysql_fetch_assoc($result)) {
+				# construct email
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . ". You may view your package at:\nhttp://aur.archlinux.org/packages.php?ID=" . $row['ID'];
+				$body = wordwrap($body, 70);
+				$headers = "To: ".$row['Email']."\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
+				@mail(' ', "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
+			}
+		}
+	}
+
+	if ($action) {
+		return __("The selected packages have been flagged out-of-date.");
+	} else {
+		return __("The selected packages have been unflagged.");
+	}
+}
