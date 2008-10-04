@@ -1189,3 +1189,80 @@ function pkg_adopt ($atype, $ids, $action = True) {
 		return __("The selected packages have been disowned.");
 	}
 }
+
+function pkg_vote ($atype, $ids, $action = True) {
+	if (!$atype) {
+		if ($action) {
+			return __("You must be logged in before you can vote for packages.");
+		} else {
+			return __("You must be logged in before you can un-vote for packages.");
+		}
+	}
+
+	if (empty($ids)) {
+		if ($action) {
+			return __("You did not select any packages to vote for.");
+		} else {
+			return __("Your votes have been removed from the selected packages.");
+		}
+	}
+
+	$dbh = db_connect();
+	$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"]);
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+
+	$first = 1;
+	foreach ($ids as $pid => $v) {
+		if ($action) {
+			$check = !isset($my_votes[$pid]);
+		} else {
+			$check = isset($my_votes[$pid]);
+		}
+
+		if ($check) {
+			if ($first) {
+				$first = 0;
+				$vote_ids = $pid;
+				if ($action) {
+					$vote_clauses = "($uid, $pid)";
+				}
+			} else {
+				$vote_ids .= ", $pid";
+				if ($action) {
+					$vote_clauses .= ", ($uid, $pid)";
+				}
+			}
+		}
+	}
+
+	# only vote for packages the user hasn't already voted for
+	#
+	$op = $action ? "+" : "-";
+	$q = "UPDATE Packages SET NumVotes = NumVotes $op 1 ";
+	$q.= "WHERE ID IN ($vote_ids)";
+
+	db_query($q, $dbh);
+
+	if ($action) {
+		$q = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES ";
+		$q.= $vote_clauses;
+	} else {
+		$q = "DELETE FROM PackageVotes WHERE UsersID = $uid ";
+		$q.= "AND PackageID IN ($vote_ids)";
+	}
+
+	db_query($q, $dbh);
+
+	if ($action) {
+		$q = "UPDATE Users SET LastVoted = UNIX_TIMESTAMP() ";
+		$q.= "WHERE ID = $uid";
+
+		db_query($q, $dbh);
+	}
+
+	if ($action) {
+		return __("Your votes have been cast for the selected packages.");
+	} else {
+		return __("Your votes have been removed from the selected packages.");
+	}
+}

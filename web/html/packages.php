@@ -61,113 +61,13 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	print pkg_adopt($atype, $ids, True);
 	print "</p>";
 } elseif ($_POST['action'] == "do_Vote" || isset($_POST['do_Vote'])) {
-	if (!$atype) {
-		print __("You must be logged in before you can vote for packages.");
-		print "<br />\n";
-
-	} else {
-		# vote on the packages in $ids array.
-		#
-		if (!empty($ids)) {
-			$dbh = db_connect();
-			$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"]);
-			$uid = uid_from_sid($_COOKIE["AURSID"]);
-			# $vote_ids will contain the string of Package.IDs that
-			# the visitor hasn't voted for already
-			#
-			$first = 1;
-			while (list($pid, $v) = each($ids)) {
-				if (!isset($my_votes[$pid])) {
-					# cast a vote for this package
-					#
-					if ($first) {
-						$first = 0;
-						$vote_ids = $pid;
-						$vote_clauses = "(".$uid.", ".$pid.")";
-					} else {
-						$vote_ids .= ", ".$pid;
-						$vote_clauses .= ", (".$uid.", ".$pid.")";
-					}
-				}
-			}
-			# only vote for packages the user hasn't already voted for
-			#
-			$q = "UPDATE Packages SET NumVotes = NumVotes + 1 ";
-			$q.= "WHERE ID IN (".$vote_ids.")";
-			db_query($q, $dbh);
-
-			$q = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES ";
-			$q.= $vote_clauses;
-			db_query($q, $dbh);
-
-			# Update the LastVoted field for this user
-			#
-			$q = "UPDATE Users SET LastVoted = UNIX_TIMESTAMP() ";
-			$q.= "WHERE ID = ".$uid;
-			db_query($q, $dbh);
-
-			print "<p>\n";
-			print __("Your votes have been cast for the selected packages.");
-			print "</p>\n";
-
-		} else {
-			print "<p>\n";
-			print __("You did not select any packages to vote for.");
-			print "</p>\n";
-		}
-	}
-
-
+	print "<p>";
+	print pkg_vote($atype, $ids, True);
+	print "</p>";
 } elseif ($_POST['action'] == "do_UnVote" || isset($_POST['do_UnVote'])) {
-	if (!$atype) {
-		print __("You must be logged in before you can un-vote for packages.");
-		print "<br />\n";
-
-	} else {
-		# un-vote on the packages in $ids array.
-		#
-		if (!empty($ids)) {
-			$dbh = db_connect();
-			$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"]);
-			$uid = uid_from_sid($_COOKIE["AURSID"]);
-			# $unvote_ids will contain the string of Package.IDs that
-			# the visitor has voted for and wants to unvote.
-			#
-			$first = 1;
-			while (list($pid, $v) = each($ids)) {
-				if (isset($my_votes[$pid])) {
-					# cast a un-vote for this package
-					#
-					if ($first) {
-						$first = 0;
-						$unvote_ids = $pid;
-					} else {
-						$unvote_ids .= ", ".$pid;
-					}
-				}
-			}
-			# only un-vote for packages the user has already voted for
-			#
-			$q = "UPDATE Packages SET NumVotes = NumVotes - 1 ";
-			$q.= "WHERE ID IN (".$unvote_ids.")";
-			db_query($q, $dbh);
-
-			$q = "DELETE FROM PackageVotes WHERE UsersID = ".$uid." ";
-			$q.= "AND PackageID IN (".$unvote_ids.")";
-			db_query($q, $dbh);
-
-			print "<p>\n";
-			print __("Your votes have been removed from the selected packages.");
-			print "</p>\n";
-
-		} else {
-			print "<p>\n";
-			print __("You did not select any packages to un-vote for.");
-			print "</p>\n";
-		}
-	}
-
-
+	print "<p>";
+	print pkg_vote($atype, $ids, False);
+	print "</p>";
 } elseif (isset($_GET["ID"])) {
 
 	if (!intval($_GET["ID"])) {
