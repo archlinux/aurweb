@@ -13,7 +13,7 @@
 </td>
 </tr>
 
-<?php if ($atype == 'Trusted User'): ?>
+<?php if (($atype == 'Trusted User') || ($atype == 'Developer')) : ?>
 
 <tr>
 <td class='boxSoft'>

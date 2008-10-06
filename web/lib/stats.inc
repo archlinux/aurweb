@@ -29,7 +29,7 @@ function user_table($user, $dbh)
 	# If the user is a TU calculate the number of the packages
 	$atype = account_from_sid($_COOKIE["AURSID"]);
 
-	if ($atype == 'Trusted User') {
+	if (($atype == 'Trusted User') || ($atype == 'Developer')) {
 		$result = db_query(sprintf($base_q, 'community'), $dbh);
 		$row = mysql_fetch_row($result);
 		$maintainer_community_count = $row[0];
