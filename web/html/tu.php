@@ -2,7 +2,7 @@
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 
-include("pkgfuncs_po.inc");
+include("tu_po.inc");
 include("aur.inc");
 set_lang();
 check_sid();
