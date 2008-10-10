@@ -372,6 +372,7 @@ if ($_COOKIE["AURSID"]):
 				header('Location: packages.php?ID=' . $pdata['ID']);
 
 			} else {
+				$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 				# This is a brand new package
 				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', 2, UNIX_TIMESTAMP(), %d, %d, '%s', '%s')",
@@ -416,6 +417,8 @@ if ($_COOKIE["AURSID"]):
 						db_query($q, $dbh);
 					}
 				}
+				
+				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($packageID));
 
 				header('Location: packages.php?ID=' . $packageID);
 
