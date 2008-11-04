@@ -39,7 +39,7 @@ $_t["ca"]["Error trying to generate session id."] = "S'ha produït un error en i
 
 $_t["ca"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Benvingut a l'AUR! Si us plau llegiu la %hGuia d'usuari de l'AUR%h i la %hGuia de TU de l'AUR%h per a més informació.";
 
-$_t["ca"]["Contributed PKGBUILDs <b>must</b> conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Els PKGBUILDs enviats han de seguir els %hEstàndards d'empaquetament d'Arch%h sinó seran esborrats!";
+$_t["ca"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Els PKGBUILDs enviats %hhan%h de seguir els %hEstàndards d'empaquetament d'Arch%h sinó seran esborrats!";
 
 $_t["ca"]["Login"] = "Entra";
 
@@ -55,4 +55,3 @@ $_t["ca"]["Logged-in as: %h%s%h"] = "Identificat com: %h%s%h";
 
 $_t["ca"]["Incorrect password for username, %s."] = "Contrasenya incorrecta per a l'usuari, %s.";
 
-?>

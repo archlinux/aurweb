@@ -16,18 +16,24 @@ define( "USERNAME_MAX_LEN", 16 );
 define( "PASSWD_MIN_LEN", 4 );
 define( "PASSWD_MAX_LEN", 128 );
 
-$LOGIN_TIMEOUT = 7200;           # number of idle seconds before timeout
+# Language that messages are initially written in.
+# This should never change.
+define("DEFAULT_LANG", "en");
 
-$SUPPORTED_LANGS = array(        # what languages we have translations for
-	"en" => "English",
-	"pl" => "Polski",
-	"it" => "Italiano",
+# Languages we have translations for
+$SUPPORTED_LANGS = array(
 	"ca" => "Català",
-	"pt" => "Português",
-	"es" => "Español",
 	"de" => "Deutsch",
+	"en" => "English",
+	"es" => "Español",
+	"fr" => "Français",
+	"it" => "Italiano",
+	"pl" => "Polski",
+	"pt" => "Português",
 	"ru" => "Русский",
-	"fr" => "Français"
+	"tr" => "Türkçe"
 );
 
-?>
+# Idle seconds before timeout
+$LOGIN_TIMEOUT = 7200;
+

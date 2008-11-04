@@ -11,22 +11,7 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/template_po.inc");
+$_t["tr"]["Click on the Home link above to log in."] = "Giriş yapmak için yukarıdaki Ev bağlantısını tıklayın.";
 
-include_once("pl/template_po.inc");
+$_t["tr"]["Your session has timed out.  You must log in again."] = "Zaman aşımı. Tekrar giriş yapmalısınız.";
 
-include_once("it/template_po.inc");
-
-include_once("ca/template_po.inc");
-
-include_once("pt/template_po.inc");
-
-include_once("es/template_po.inc");
-
-include_once("de/template_po.inc");
-
-include_once("ru/template_po.inc");
-
-include_once("fr/template_po.inc");
-
-?>

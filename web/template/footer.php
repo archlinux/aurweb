@@ -3,7 +3,7 @@
 	<br />
 <?php
 	if ($ver) {
-		print "<p style=\"text-align: right; font-size: 14px;\">$ver</p>\n";
+		print "<p style=\"text-align: right; font-size: 14px;\"><b>$ver</b></p>\n";
 	}
 ?>
 	</div>

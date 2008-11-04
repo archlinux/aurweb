@@ -22,6 +22,8 @@ if (!extension_loaded('json'))
 class AurJSON {
     private $dbh = false;
     private $exposed_methods = array('search','info');
+    private $fields = array('ID','Name','Version','Description',
+        'URL','URLPath','License','NumVotes','OutOfDate');
 
     /**
      * Handles post data, and routes the request.
@@ -42,7 +44,9 @@ class AurJSON {
         // do the routing
         if ( in_array($http_data['type'], $this->exposed_methods) ) {
             // ugh. this works. I hate you php.
-            $json = call_user_func_array(array(&$this,$http_data['type']),$http_data['arg']);
+            $json = call_user_func_array(array(&$this,$http_data['type']),
+                $http_data['arg']);
+
             // allow rpc callback for XDomainAjax
             if ( isset($http_data['callback']) ) {
                 return $http_data['callback'] . "({$json})";
@@ -87,22 +91,22 @@ class AurJSON {
         }
 
         $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
-        $query = sprintf(
-            "SELECT Name,ID FROM Packages WHERE ( Name LIKE '%%%s%%' OR Description LIKE '%%%s%%' ) AND DummyPkg=0",
-            $keyword_string, $keyword_string );
+
+        $query = "SELECT " . implode(',', $this->fields) .
+            " FROM Packages WHERE DummyPkg=0 AND ";
+        $query .= sprintf("( Name LIKE '%%%s%%' OR Description LIKE '%%%s%%' )",
+                $keyword_string, $keyword_string);
 
         $result = db_query($query, $this->dbh);
 
         if ( $result && (mysql_num_rows($result) > 0) ) {
             $search_data = array();
             while ( $row = mysql_fetch_assoc($result) ) {
-                $elem = array(
-                    'Name' => $row['Name'],
-                    'ID' => $row['ID'] );
-                array_push($search_data,$elem);
-            }
+                array_push($search_data, $row);
+	    }
+
             mysql_free_result($result);
-            return $this->json_results('search',$search_data);
+            return $this->json_results('search', $search_data);
         }
         else {
             return $this->json_error('No results found');
@@ -115,7 +119,8 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function info($pqdata) {
-        $base_query = "SELECT ID,Name,Version,Description,URL,URLPath,License,NumVotes,OutOfDate FROM Packages WHERE DummyPkg=0 AND ";
+        $base_query = "SELECT " . implode(',', $this->fields) .
+            " FROM Packages WHERE DummyPkg=0 AND ";
 
         if ( is_numeric($pqdata) ) {
             // just using sprintf to coerce the pqd to an int
@@ -127,7 +132,8 @@ class AurJSON {
             if(get_magic_quotes_gpc()) {
                 $pqdata = stripslashes($pqdata);
             }
-            $query_stub = sprintf("Name=\"%s\"",mysql_real_escape_string($pqdata));
+            $query_stub = sprintf("Name=\"%s\"",
+                mysql_real_escape_string($pqdata));
         }
 
         $result = db_query($base_query.$query_stub, $this->dbh);
@@ -135,11 +141,11 @@ class AurJSON {
         if ( $result && (mysql_num_rows($result) > 0) ) {
             $row = mysql_fetch_assoc($result);
             mysql_free_result($result);
-            return $this->json_results('info',$row);
+            return $this->json_results('info', $row);
         }
         else {
             return $this->json_error('No result found');
         }
     }
 }
-?>
+

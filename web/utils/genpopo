@@ -232,7 +232,7 @@ else:
 			if term not in existing_terms:
 				f.write("\n");
 				f.write('$_t["en"]["%s"] = "%s";\n' % (term, term))
-		f.write("\n?>");
+		f.write("\n");
 		f.close()
 
 # Print out warnings for unused and little-used common entries.

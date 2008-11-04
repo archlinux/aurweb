@@ -128,6 +128,7 @@ function package_required($pkgid=0) {
 		$q.= "WHERE PackageDepends.PackageID = Packages.ID ";
 		$q.= "AND PackageDepends.DepPkgID = ";
 		$q.= mysql_real_escape_string($pkgid);
+		$q.= " ORDER BY Name";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
 		while ($row = mysql_fetch_row($result)) {
@@ -512,14 +513,12 @@ function package_details($id=0, $SID="") {
                 if ($row["MaintainerUID"] == 0) {
                     echo "<input type='submit' class='button' name='do_Adopt'";
                     echo " value='".__("Adopt Packages")."'>\n";
-                }
-					
-				if ($row["MaintainerUID"] == uid_from_sid($SID) ||
-            account_from_sid($SID) == "Trusted User" ||
-            account_from_sid($SID) == "Developer") {
+                } else if ($row["MaintainerUID"] == uid_from_sid($SID) ||
+            	           account_from_sid($SID) == "Trusted User" ||
+            	           account_from_sid($SID) == "Developer") {
 					echo "<input type='submit' class='button' name='do_Disown'";
 					echo " value='".__("Disown Packages")."'>\n";
-				}	
+				}
 					
 				if (account_from_sid($SID) == "Trusted User" ||
 				    account_from_sid($SID) == "Developer") {
@@ -986,4 +985,284 @@ function pkg_search_page($SID="") {
     return;
 }
 
-?>
+function pkg_flag ($atype, $ids, $action = True) {
+	if (!$atype) {
+		if ($action) {
+			return __("You must be logged in before you can flag packages.");
+		} else {
+			return __("You must be logged in before you can unflag packages.");
+		}
+	}
+
+	if (empty($ids)) {
+		if ($action) {
+			return __("You did not select any packages to flag.");
+		} else {
+			return __("You did not select any packages to unflag.");
+		}
+	}
+
+	foreach ($ids as $pid => $v) {
+		if (!is_numeric($pid)) {
+			if ($action) {
+				return __("You did not select any packages to flag.");
+			} else {
+				return __("You did not select any packages to unflag.");
+			}
+		}
+	}
+
+	$dbh = db_connect();
+
+	$first = 1;
+	foreach ($ids as $pid => $v) {
+		if ($first) {
+			$first = 0;
+			$flag = $pid;
+		} else {
+			$flag .= ", " . $pid;
+		}
+	}
+
+	$ood = $action ? 1 : 0;
+	$q = "UPDATE Packages SET OutOfDate = " . $ood;
+	$q.= " WHERE ID IN (" . $flag . ")";
+
+	db_query($q, $dbh);
+
+	if ($action) {
+		# Notify of flagging by email
+		$f_name = username_from_sid($_COOKIE['AURSID']);
+		$f_email = email_from_sid($_COOKIE['AURSID']);
+		$f_uid = uid_from_sid($_COOKIE['AURSID']);
+		$q = "SELECT Packages.Name, Users.Email, Packages.ID ";
+		$q.= "FROM Packages, Users ";
+		$q.= "WHERE Packages.ID IN (" . $flag .") ";
+		$q.= "AND Users.ID = Packages.MaintainerUID ";
+		$q.= "AND Users.ID != " . $f_uid;
+		$result = db_query($q, $dbh);
+		if (mysql_num_rows($result)) {
+			while ($row = mysql_fetch_assoc($result)) {
+				# construct email
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . ". You may view your package at:\nhttp://aur.archlinux.org/packages.php?ID=" . $row['ID'];
+				$body = wordwrap($body, 70);
+				$headers = "To: ".$row['Email']."\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
+				@mail(' ', "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
+			}
+		}
+	}
+
+	if ($action) {
+		return __("The selected packages have been flagged out-of-date.");
+	} else {
+		return __("The selected packages have been unflagged.");
+	}
+}
+
+function pkg_delete ($atype, $ids) {
+	if (!$atype) {
+		return __("You must be logged in before you can disown packages.");
+	}
+
+	if (empty($ids)) {
+		return __("You did not select any packages to delete.");
+	}
+
+	# Delete the packages in $ids array (but only if they are Unsupported)
+	#
+	$dbh = db_connect();
+
+	# Delete the packages in $ids array
+	#
+	$first = 1;
+	foreach ($ids as $pid => $v) {
+		if ($first) {
+			$first = 0;
+			$delete = $pid;
+		} else {
+			$delete .= ", ".$pid;
+		}
+	}
+
+	$field = "MaintainerUID";
+
+	# Only grab Unsupported packages that "we" own or are not owned at all
+	$ids_to_delete = array();
+	$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
+	$q.= "WHERE Packages.ID IN (" . $delete . ") ";
+	$q.= "AND Packages.LocationID = PackageLocations.ID ";
+	$q.= "AND PackageLocations.Location = 'unsupported' ";
+
+	# If they're a TU or dev, can delete
+	if ($atype == "Trusted User" || $atype == "Developer") {
+		$result = db_query($q, $dbh);
+	}
+
+	if ($result != Null && mysql_num_rows($result) > 0) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$ids_to_delete[] = $row['ID'];
+		}
+	}
+
+	if (empty($ids_to_delete)) {
+		return __("None of the selected packages could be deleted.");
+	}
+
+	# These are the packages that are safe to delete
+	foreach ($ids_to_delete as $id) {
+		$q = "DELETE FROM PackageVotes WHERE PackageID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM PackageDepends WHERE PackageID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM PackageSources WHERE PackageID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM PackageComments WHERE PackageID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM Packages WHERE ID = " . $id;
+		$result = db_query($q, $dbh);
+
+		$q = "DELETE FROM CommentNotify WHERE PkgID = " . $id;
+		$result = db_query($q, $dbh);
+	}
+
+	return __("The selected packages have been deleted.");
+}
+
+function pkg_adopt ($atype, $ids, $action = True) {
+	if (!$atype) {
+		if ($action) {
+			return __("You must be logged in before you can adopt packages.");
+		} else {
+			return __("You must be logged in before you can disown packages.");
+		}
+	}
+
+	if (empty($ids)) {
+		if ($action) {
+			return __("You did not select any packages to adopt.");
+		} else {
+			return __("You did not select any packages to disown.");
+		}
+	}
+
+	$dbh = db_connect();
+
+	$first = 1;
+	foreach ($ids as $pid => $v) {
+		if ($first) {
+			$first = 0;
+			$pkg = $pid;
+		} else {
+			$pkg .= ", ".$pid;
+		}
+	}
+
+	$field = "MaintainerUID";
+	$q = "UPDATE Packages ";
+
+	if ($action) {
+		$user = uid_from_sid($_COOKIE["AURSID"]);
+	} else {
+		$user = 0;
+	}
+
+	$q.= "SET $field = $user ";
+	$q.= "WHERE ID IN ($pkg) ";
+
+	if ($action && $atype == "User") {
+		# Regular users may only adopt orphan packages from unsupported
+		$q.= "AND $field = 0 ";
+		$q.= "AND LocationID = 2 ";
+	} else if ($atype == "User") {
+		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"]);
+	}
+
+	db_query($q, $dbh);
+
+	if ($action) {
+		return __("The selected packages have been adopted.");
+	} else {
+		return __("The selected packages have been disowned.");
+	}
+}
+
+function pkg_vote ($atype, $ids, $action = True) {
+	if (!$atype) {
+		if ($action) {
+			return __("You must be logged in before you can vote for packages.");
+		} else {
+			return __("You must be logged in before you can un-vote for packages.");
+		}
+	}
+
+	if (empty($ids)) {
+		if ($action) {
+			return __("You did not select any packages to vote for.");
+		} else {
+			return __("Your votes have been removed from the selected packages.");
+		}
+	}
+
+	$dbh = db_connect();
+	$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"]);
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+
+	$first = 1;
+	foreach ($ids as $pid => $v) {
+		if ($action) {
+			$check = !isset($my_votes[$pid]);
+		} else {
+			$check = isset($my_votes[$pid]);
+		}
+
+		if ($check) {
+			if ($first) {
+				$first = 0;
+				$vote_ids = $pid;
+				if ($action) {
+					$vote_clauses = "($uid, $pid)";
+				}
+			} else {
+				$vote_ids .= ", $pid";
+				if ($action) {
+					$vote_clauses .= ", ($uid, $pid)";
+				}
+			}
+		}
+	}
+
+	# only vote for packages the user hasn't already voted for
+	#
+	$op = $action ? "+" : "-";
+	$q = "UPDATE Packages SET NumVotes = NumVotes $op 1 ";
+	$q.= "WHERE ID IN ($vote_ids)";
+
+	db_query($q, $dbh);
+
+	if ($action) {
+		$q = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES ";
+		$q.= $vote_clauses;
+	} else {
+		$q = "DELETE FROM PackageVotes WHERE UsersID = $uid ";
+		$q.= "AND PackageID IN ($vote_ids)";
+	}
+
+	db_query($q, $dbh);
+
+	if ($action) {
+		$q = "UPDATE Users SET LastVoted = UNIX_TIMESTAMP() ";
+		$q.= "WHERE ID = $uid";
+
+		db_query($q, $dbh);
+	}
+
+	if ($action) {
+		return __("Your votes have been cast for the selected packages.");
+	} else {
+		return __("Your votes have been removed from the selected packages.");
+	}
+}

@@ -2,6 +2,9 @@
   <?php
   if (isset($_COOKIE["AURSID"])) {
     print __("Logged-in as: %h%s%h", array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
+?>
+<br /><a href="/logout.php"><?php print __("Logout"); ?></a>
+<?php
   }
   else {
     if ($login_error) {
@@ -16,6 +19,7 @@
       } ?>" />
     <label><?php print __("Password:"); ?></label>
     <input type="password" name="passwd" size="30" maxlength="<?php print PASSWD_MAX_LEN; ?>" />
+    <input type="checkbox" name="remember_me" /><?php print __("Remember me"); ?>
     <input type="submit" class="button" value="<?php  print __("Login"); ?>" />
   </form>
   <?php } ?>

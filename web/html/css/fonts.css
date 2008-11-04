@@ -99,5 +99,9 @@ a:hover {
 h1, h2, h3, h4 {
   font-size: 16pt;
 }
-span.important { color: #f00; }
+
+.important {
+	font-weight: bold;
+	color: #f00;
+}
 

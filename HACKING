@@ -18,7 +18,13 @@ Consider creating templates for HTML.
 
 MySQL queries should generally go into functions.
 
+Submitting patches
+------------------
 Please submit uncompressed git-formatted patches to aur-dev@archlinux.org.
+Base your patches on the testing branch as forward development is done there.
 When writing patches please keep unnecessary changes to a minimum.
-Smaller patches are much easier to review thus have a better chance of being
+Smaller patches are much easier to review and have a better chance of being
 pushed more quickly into the main repo.
+
+Try to make your commit messages brief and descriptive.
+

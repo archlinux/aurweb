@@ -11,12 +11,5 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["en"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
+$_t["tr"]["You have been successfully logged out."] = "Başarıyla çıkış yaptınız.";
 
-$_t["en"]["Hello, world!"] = "Hello, world!";
-
-$_t["en"]["Hello, again!"] = "Hello, again!";
-
-$_t["en"]["My current language tag is: '%s'."] = "My current language tag is: '%s'.";
-
-?>

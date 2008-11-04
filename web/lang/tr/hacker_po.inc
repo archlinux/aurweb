@@ -11,12 +11,7 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["pt"]["Select your language here: %h%s%h, %h%s%h, %h%s%h, %h%s%h."] = "Selecione seu idioma aqui: %h%s%h, %h%s%h, %h%s%h, %h%s%h.";
+$_t["tr"]["Your session id is invalid."] = "Session kimliğiniz geçerli değil.";
 
-$_t["pt"]["Hello, world!"] = "Olá, mundo!";
+$_t["tr"]["If this problem persists, please contact the site administrator."] = "Bu sorun devam ederse, sistem yöneticisi ile iletişime geçin.";
 
-$_t["pt"]["Hello, again!"] = "Olá, novamente!";
-
-$_t["pt"]["My current language tag is: '%s'."] = "Meu identificador atual de idioma é: '%s'.";
-
-?>

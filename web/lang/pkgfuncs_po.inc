@@ -28,5 +28,5 @@ include_once("de/pkgfuncs_po.inc");
 include_once("ru/pkgfuncs_po.inc");
 
 include_once("fr/pkgfuncs_po.inc");
+include_once("tr/pkgfuncs_po.inc");
 
-?>
