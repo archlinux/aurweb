@@ -118,8 +118,6 @@ function package_dependencies($pkgid=0) {
 	return $deps;
 }
 
-# reverse deps by tardo
-#
 function package_required($pkgid=0) {
 	$deps = array();
 	if ($pkgid) {
@@ -395,7 +393,6 @@ function package_details($id=0, $SID="") {
 
       }
 
-			# reverse-deps by tardo - could use some beautification
 			$deps = package_required($row["ID"]);
 			if (count($deps) > 0) {
 			  
@@ -498,7 +495,7 @@ function package_details($id=0, $SID="") {
 					echo "<input type='submit' class='button' name='do_Notify'";
 					echo " value='".__("Notify")."' title='".__("New Comment Notification")."'>";
 				} else {
-					echo "<input type='submit' class='button' name='do_Notify'";
+					echo "<input type='submit' class='button' name='do_UnNotify'";
 					echo " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'>";
 				}
 
@@ -639,7 +636,8 @@ function package_details($id=0, $SID="") {
  *                     do_Adopt  - Adopt
  *                     do_Disown - Disown
  *                     do_Delete - Delete
- *                     do_Notify - Toggle notification
+ *                     do_Notify - Enable notification
+ *                     do_UnNotify - Disable notification
  */
 function pkg_search_page($SID="") {
     // establish a db connection
@@ -915,7 +913,8 @@ function pkg_search_page($SID="") {
             if (account_from_sid($SID) == "Trusted User" || account_from_sid($SID) == "Developer") {
               print "<option value='do_Delete'>".__("Delete Packages")."</option>\n";
             }
-            print "<option value='do_Notify'>".__("Toggle Notify")."</option>\n";
+            print "<option value='do_Notify'>".__("Notify")."</option>\n";
+            print "<option value='do_UnNotify'>".__("UnNotify")."</option>\n";
             print "</select>";
             print "<input type='submit' class='button' style='width: 80px' value='" . __("Go") . "' />";
             print "</div>";
@@ -1266,3 +1265,64 @@ function pkg_vote ($atype, $ids, $action = True) {
 		return __("Your votes have been removed from the selected packages.");
 	}
 }
+
+function pkg_notify ($atype, $ids, $action = True) {
+	if (!$atype) {
+#		return __("You must be logged in before you can get notifications on comments.");
+		return;
+	}
+
+	if (empty($ids)) {
+		return __("Couldn't add to notification list.");
+	}
+
+	$dbh = db_connect();
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+
+	$output = "";
+
+	$first = True;
+
+	# There currently shouldn't be multiple requests here, but the
+	# format in which it's sent requires this.
+	foreach ($ids as $pid => $v) {
+		$q = "SELECT Name FROM Packages WHERE ID = $pid";
+		$pkgname = mysql_result(db_query($q, $dbh), 0);
+
+		if ($first)
+			$first = False;
+		else
+			$output .= ", ";
+
+
+		if ($action) {
+			$q = "SELECT * FROM CommentNotify WHERE UserID = $uid";
+			$q .= " AND PkgID = $pid";
+
+			# Notification already added. Don't add again.
+			if (!mysql_num_rows(db_query($q, $dbh))) {
+				$q = "INSERT INTO CommentNotify (PkgID, UserID) VALUES ($pid, $uid)";
+				db_query($q, $dbh);
+			}
+
+			$output .= $pkgname;
+		}
+		else {
+			$q = "DELETE FROM CommentNotify WHERE PkgID = $pid";
+			$q .= " AND UserID = $uid";
+			db_query($q, $dbh);
+
+			$output .= $pkgname;
+		}
+	}
+
+	if ($action) {
+		$output = __("You have been added to the comment notification list for %s.", $output);
+	}
+	else {
+		$output = __("You have been removed from the comment notification list for %s.", $output);
+	}
+
+	return $output;
+}
+

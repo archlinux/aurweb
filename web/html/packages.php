@@ -68,6 +68,14 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	print "<p>";
 	print pkg_vote($atype, $ids, False);
 	print "</p>";
+} elseif ($_POST['action'] == "do_Notify" || isset($_POST['do_Notify'])) {
+	print "<p>";
+	print pkg_notify($atype, $ids);
+	print "</p>";
+} elseif ($_POST['action'] == "do_UnNotify" || isset($_POST['do_UnNotify'])) {
+	print "<p>";
+	print pkg_notify($atype, $ids, False);
+	print "</p>";
 } elseif (isset($_GET["ID"])) {
 
 	if (!intval($_GET["ID"])) {
@@ -77,50 +85,6 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 		package_details($_GET["ID"], $_COOKIE["AURSID"]);
 	}
 
-} elseif ($_POST['action'] == "do_Notify" || isset($_POST['do_Notify'])) {
-	# I realize that the implementation here seems a bit convoluted, but we want to
-	# ensure that everything happens as it should, even if someone called this page
-	# without having clicked a button somewhere (naughty naughty). This also leaves
-	# room to someday expand and allow to add oneself to multiple lists at once. -SL
-	if (!$atype) {
-		print __("You must be logged in before you can get notifications on comments.");
-		print "<br />\n";
-	} else {
-		if (!empty($ids)) {
-			$dbh = db_connect();
-			$uid = uid_from_sid($_COOKIE["AURSID"]);
-			# There currently shouldn't be multiple requests here, but the format in which
-			# it's sent requires this
-			while (list($pid, $v) = each($ids)) {
-				$q = "SELECT Name FROM Packages WHERE ID = " . $pid;
-				$pkgname = mysql_result(db_query($q, $dbh), 0);
-
-				$q = "SELECT * FROM CommentNotify WHERE UserID = ".$uid;
-				$q.= " AND PkgID = ".$pid;
-
-				if (!mysql_num_rows(db_query($q, $dbh))) {
-					$q = "INSERT INTO CommentNotify (PkgID, UserID) VALUES (".$pid.', '.$uid.')';
-					db_query($q, $dbh);
-					print '<p>';
-					print __("You have been added to the comment notification list for %s.",
-						array("<b>" . $pkgname . "</b>"));
-					print '<br /></p>';
-				} else {
-					$q = "DELETE FROM CommentNotify WHERE PkgID = ".$pid;
-					$q.= " AND UserID = ".$uid;
-					db_query($q, $dbh);
-					print '<p>';
-					print __("You have been removed from the comment notification list for %s.",
-						array("<b>" . $pkgname . "</b>"));
-					print '<br /></p>';
-				}
-			}
-		} else {
-			print '<p>';
-			print __("Couldn't add to notification list.");
-			print '<br /></p>';
-		}
-	}			
 } else {
 	# just do a search
 	#
@@ -130,4 +94,3 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 
 html_footer(AUR_VERSION);
 
-?>
