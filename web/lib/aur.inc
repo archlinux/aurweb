@@ -381,6 +381,34 @@ function rm_rf($dirname="") {
 	return;
 }
 
+# Recursive chmod to set group write permissions
+#
+function chmod_group($path) {
+	if (!is_dir($path))
+		return chmod($path, 0664);
+
+	$d = dir($path);
+	while ($f = $d->read()) {
+		if ($f != '.' && $f != '..') {
+			$fullpath = $path.'/'.$f;
+			if (is_link($fullpath))
+				continue;
+			elseif (!is_dir($fullpath)) {
+				if (!chmod($fullpath, 0664))
+					return FALSE;
+			}
+			elseif(!chmod_group($fullpath))
+				return FALSE;
+		}
+	}
+	$d->close();
+
+	if(chmod($path, 0775))
+		return TRUE;
+	else
+		return FALSE;
+}
+
 # obtain the uid given a Users.Username
 #
 function uid_from_username($username="")

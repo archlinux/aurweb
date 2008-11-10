@@ -30,12 +30,10 @@ if ($_COOKIE["AURSID"]):
 
 		if (!$error) {
 			if (!@mkdir($tempdir)) {
-				$error = __("Could not create incoming directory: %s.",
-					array($tempdir));
+				$error = __("Could not create incoming directory: %s.", $tempdir);
 			} else {
 				if (!@chdir($tempdir)) {
-					$error = __("Could not change directory to %s.",
-						array($tempdir));
+					$error = __("Could not change directory to %s.", $tempdir);
 				} else {
 					if ($_FILES['pfile']['name'] == "PKGBUILD") {
 						move_uploaded_file($_FILES['pfile']['tmp_name'], $tempdir . "/PKGBUILD");
@@ -205,32 +203,31 @@ if ($_COOKIE["AURSID"]):
 			}
 		}
 
+		$incoming_pkgdir = INCOMING_DIR . $pkg_name;
+
 		if (!$error) {
 			# First, see if this package already exists, and if it can be overwritten
 			$pkg_exists = package_exists($pkg_name);
 			if (can_submit_pkg($pkg_name, $_COOKIE["AURSID"])) {
-				if (file_exists(INCOMING_DIR . $pkg_name)) {
+				if (file_exists($incoming_pkgdir)) {
 					# Blow away the existing file/dir and contents
-					rm_rf(INCOMING_DIR . $pkg_name);
+					rm_rf($incoming_pkgdir);
 				}
 
-				if (!@mkdir(INCOMING_DIR . $pkg_name)) {
-					$error = __( "Could not create directory %s.",
-						INCOMING_DIR . $pkg_name);
+				if (!@mkdir($incoming_pkgdir)) {
+					$error = __( "Could not create directory %s.", $incoming_pkgdir);
 				}
 
-				rename($pkg_dir, INCOMING_DIR . $pkg_name . "/" . $pkg_name);
+				rename($pkg_dir, $incoming_pkgdir . "/" . $pkg_name);
 			} else {
-				$error = __( "You are not allowed to overwrite the %h%s%h package.",
-					"<b>", $pkg_name, "</b>");
+				$error = __( "You are not allowed to overwrite the %h%s%h package.", "<b>", $pkg_name, "</b>");
 			}
 		}
 
 		# Re-tar the package for consistency's sake
 		if (!$error) {
-			if (!@chdir(INCOMING_DIR . $pkg_name)) {
-				$error = __("Could not change directory to %s.",
-					array(INCOMING_DIR . $pkg_name));
+			if (!@chdir($incoming_pkgdir)) {
+				$error = __("Could not change directory to %s.", $incoming_pkgdir);
 			}
 		}
 
@@ -241,6 +238,11 @@ if ($_COOKIE["AURSID"]):
 			if (!$create) {
 				$error = __("Could not re-tar");
 			}
+		}
+
+		# Chmod files after everything has been done.
+		if (!chmod_group($incoming_pkgdir)) {
+			$error = __("Could not chmod directory %s.", $incoming_pkgdir);
 		}
 
 		# Whether it failed or not we can clean this out
@@ -296,7 +298,7 @@ if ($_COOKIE["AURSID"]):
 					mysql_real_escape_string($new_pkgbuild['license']),
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
-					mysql_real_escape_string(INCOMING_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"),
+					mysql_real_escape_string($incoming_pkgdir . "/" . $pkg_name . ".tar.gz"),
 					mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"),
 					$pdata["ID"]);
 
@@ -342,7 +344,7 @@ if ($_COOKIE["AURSID"]):
 					mysql_real_escape_string($new_pkgbuild['url']),
 					uid_from_sid($_COOKIE["AURSID"]),
 					uid_from_sid($_COOKIE["AURSID"]),
-					mysql_real_escape_string(INCOMING_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"),
+					mysql_real_escape_string($incoming_pkgdir . "/" . $pkg_name . ".tar.gz"),
 					mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"));
 
 				$result = db_query($q, $dbh);
