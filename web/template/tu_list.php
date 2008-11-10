@@ -26,12 +26,12 @@
 					<td class='<?php print $c ?>'><span class='f4'><span class='blue'>
 						<?php
 						if (strlen($row["Agenda"]) >= $prev_Len) {
-							$row["Agenda"] = htmlentities(substr($row["Agenda"], 0, $prev_Len)) . "... - ";
+							$row["Agenda"] = htmlentities(substr($row["Agenda"], 0, $prev_Len)) . "...";
 						} else {
-							$row["Agenda"] = htmlentities($row["Agenda"]) . " - ";
+							$row["Agenda"] = htmlentities($row["Agenda"]);
 						}
 						?>
-						<?php print $row["Agenda"] ?><a href='/tu.php?id=<?php print $row['ID'] ?>'>[<?php print __("More") ?>]</a></span></span>
+						<a href='tu.php?id=<?php print $row['ID'] ?>'><?php print $row["Agenda"] ?></a></span></span>
 					</td>
 					<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print gmdate("j M y", $row["Submitted"]) ?></span></span></td>
 					<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print gmdate("j M y", $row["End"]) ?></span></span></td>

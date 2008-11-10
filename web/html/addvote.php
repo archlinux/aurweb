@@ -91,4 +91,3 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 
 html_footer(AUR_VERSION);
 
-?>

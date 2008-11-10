@@ -9,7 +9,8 @@ check_sid();
 html_header();
 
 # Default votes per page
-$pp = 5;
+$pp = 10;
+$prev_Len = 75;
 
 $atype = "";
 if (isset($_COOKIE["AURSID"])) {
@@ -17,7 +18,6 @@ if (isset($_COOKIE["AURSID"])) {
 }
 
 if ($atype == "Trusted User" OR $atype == "Developer") {
-	$pp = 5;
 
 	if (isset($_GET['id'])) {
 		if (is_numeric($_GET['id'])) {
@@ -87,9 +87,14 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 	} else {
 		$dbh = db_connect();
 		
-		$offset = $_GET['off'];
 		$limit = $pp;
-		$by = $_GET['by'];
+		if (isset($_GET['off']))
+			$offset = $_GET['off'];
+
+		if (isset($_GET['by']))
+			$by = $_GET['by'];
+		else
+			$by = 'up';
 
 		if (!empty($offset) AND is_numeric($offset)) {
 			if ($offset >= 1) {
@@ -104,8 +109,6 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		$order = ($by == 'down') ? 'DESC' : 'ASC';
 		$lim = ($limit > 0) ? " LIMIT " . $off . ", " . $limit : "";
 		$by_next = ($by == "down") ? "up" : "down";
-
-		$prev_Len = 100;
 
 		$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;
 		$result = db_query($q, $dbh);
@@ -146,8 +149,10 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 </table>
 <?php
 	}
-} else {
-	print __("You are not allowed to access this area.");
+}
+else {
+	header('Location: index.php');
 }
 
 html_footer(AUR_VERSION);
+
