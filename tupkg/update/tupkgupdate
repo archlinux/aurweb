@@ -17,6 +17,7 @@ if not os.path.isfile(conffile):
 
 config = ConfigParser.ConfigParser()
 config.read(conffile)
+config_use_db = config.has_section('mysql')
 
 ############################################################
 
@@ -366,11 +367,12 @@ else:
 
 repo_dir, pkgbuild_dir, build_dir = args_proper
 
-# Open the database so we find out now if we can't!
-db = PackageDatabase(config.get('mysql', 'host'),
-  config.get('mysql', 'username'),
-  config.get('mysql', 'password'),
-  config.get('mysql', 'db'))
+# Open the database if we need it so we find out now if we can't!
+if config_use_db:
+  db = PackageDatabase(config.get('mysql', 'host'),
+    config.get('mysql', 'username'),
+    config.get('mysql', 'password'),
+    config.get('mysql', 'db'))
 
 # Set up the lists and tables
 packages = dict()
@@ -531,21 +533,22 @@ if (had_error == 1):
 # PASS 3: EXECUTION
 #
 
-# First, do all the database updates
-for package in dbremove:
-  id = db.lookup(package.name)
-  # Note: this could remove a package from unsupported; probably want to restrict to locationId and/or non-dummy
-  if (id != None):
-    db.clearOldInfo(id)
-    db.remove(id, 3)
+if config_use_db:
+  # First, do all the database updates if asked for
+  for package in dbremove:
+    id = db.lookup(package.name)
+    # Note: this could remove a package from unsupported; probably want to restrict to locationId and/or non-dummy
+    if (id != None):
+      db.clearOldInfo(id)
+      db.remove(id, 3)
 
-for package in dbmodify:
-  warning("DB: Package in dbmodify: " + package.name)
-  id = db.lookup(package.name)
-  if (id == None):
-    db.insert(package, 3)
-  else:
-    db.update(id, package, 3)
+  for package in dbmodify:
+    warning("DB: Package in dbmodify: " + package.name)
+    id = db.lookup(package.name)
+    if (id == None):
+      db.insert(package, 3)
+    else:
+      db.update(id, package, 3)
 
 # Copy
 for file in copy:
