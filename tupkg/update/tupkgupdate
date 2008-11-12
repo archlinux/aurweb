@@ -45,11 +45,11 @@ class PackageDatabase:
     self.dbname = dbname
     self.connection = MySQLdb.connect(host=host, user=user, passwd=password, db=dbname)
   def cursor(self):
-		try: 
-			self.connection.ping()
-		except MySQLdb.OperationalError:
-			self.connection = MySQLdb.connect(host=self.host, user=self.user, passwd=self.password, db=self.dbname)
-		return self.connection.cursor()
+    try:
+      self.connection.ping()
+    except MySQLdb.OperationalError:
+      self.connection = MySQLdb.connect(host=self.host, user=self.user, passwd=self.password, db=self.dbname)
+    return self.connection.cursor()
   def lookup(self, packagename):
     warning("DB: Looking up package: " + packagename)
     q = self.cursor()
@@ -94,7 +94,7 @@ class PackageDatabase:
           os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
         "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
         "DummyPkg = 0, " +
-	"SubmittedTS = UNIX_TIMESTAMP(), " +
+  "SubmittedTS = UNIX_TIMESTAMP(), " +
         "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
         "WHERE ID = " + str(id))
     else:
@@ -116,7 +116,7 @@ class PackageDatabase:
       row = q.fetchone()
       if (row[0] != 3):
         q = self.cursor()
-	q.execute("UPDATE Packages SET LocationID = 3, MaintainerUID = null WHERE ID = " + str(id))
+  q.execute("UPDATE Packages SET LocationID = 3, MaintainerUID = null WHERE ID = " + str(id))
   def remove(self, id, locationId):
     warning("DB: Removing package with id: " + str(id))
     q = self.cursor()
@@ -212,12 +212,12 @@ def areFilesIdentical(file_a, file_b):
 ############################################################
 
 def infoFromPackageFile(filename):
-	pkg = os.path.basename(filename)
-	m = re.compile("(?P<pkgname>.*)-(?P<pkgver>.*)-(?P<pkgrel>.*).pkg.tar.gz").search(pkg)
-	if not m:
-		raise Exception("Non-standard filename")
-	else:
-		return m.group('pkgname'), m.group('pkgver') + "-" + m.group('pkgrel')
+  pkg = os.path.basename(filename)
+  m = re.compile("(?P<pkgname>.*)-(?P<pkgver>.*)-(?P<pkgrel>.*).pkg.tar.gz").search(pkg)
+  if not m:
+    raise Exception("Non-standard filename")
+  else:
+    return m.group('pkgname'), m.group('pkgver') + "-" + m.group('pkgrel')
 
 def infoFromPkgbuildFile(filename):
   # first grab the category based on the file path
@@ -306,23 +306,23 @@ def runGensync(repo, pkgbuild):
   return execute(command)
 
 def runRepoAdd(repo, package):
-	global havefakeroot
-	targetDB = os.path.join(repo, "community.db.tar.gz")
-	destfile = os.path.join(repo, os.path.basename(package.new.file))
-	if havefakeroot:
-		command = "fakeroot repo-add '" + targetDB + "' '" + destfile + "'"
-	else:
-		command = "repo-add '" + targetDB + "' '" + destfile + "'"
-	return execute(command)
+  global havefakeroot
+  targetDB = os.path.join(repo, "community.db.tar.gz")
+  destfile = os.path.join(repo, os.path.basename(package.new.file))
+  if havefakeroot:
+    command = "fakeroot repo-add '" + targetDB + "' '" + destfile + "'"
+  else:
+    command = "repo-add '" + targetDB + "' '" + destfile + "'"
+  return execute(command)
 
 def runRepoRemove(repo, pkgname):
-	global havefakeroot
-	targetDB = os.path.join(repo, "community.db.tar.gz")
-	if havefakeroot:
-		command = "fakeroot repo-remove '" + targetDB + "' '"+ pkgname + "'"
-	else:
-		command = "repo-remove '" + targetDB + "' '" + pkgname +"'"
-	return execute(command)
+  global havefakeroot
+  targetDB = os.path.join(repo, "community.db.tar.gz")
+  if havefakeroot:
+    command = "fakeroot repo-remove '" + targetDB + "' '"+ pkgname + "'"
+  else:
+    command = "repo-remove '" + targetDB + "' '" + pkgname +"'"
+  return execute(command)
 
 ############################################################
 # Functions for error handling
@@ -360,9 +360,9 @@ if (len(args_proper) < 3):
 # Make sure we can use fakeroot, warn if not
 havefakeroot = False
 if os.access('/usr/bin/fakeroot', os.X_OK):
-	havefakeroot = True
+  havefakeroot = True
 else:
-	warning("Not using fakeroot for repo db generation")
+  warning("Not using fakeroot for repo db generation")
 
 repo_dir, pkgbuild_dir, build_dir = args_proper
 
@@ -509,11 +509,11 @@ for package in packages.values():
     if (switches.get("--paranoid") == True and package.new.file != None):
       if not (areFilesIdentical(package.old.file, package.new.file)):
         warning("New package file with identical version '" + 
-	  package.new.file + "' is different than the old one:")
-	if (switches.get("--delete") == True):
+    package.new.file + "' is different than the old one:")
+  if (switches.get("--delete") == True):
           warning("  Deleting the new file.")
           delete.append(package.new.file)
-	else:
+  else:
           warning("  Ignoring the new file.")
     continue
 
@@ -570,14 +570,14 @@ if (switches.get("--delete") == True):
 
 # Run updatesync where it is needed
 for package in dbremove:
-	retval = runRepoRemove(repo_dir, package.name)
-	if (retval != 0):
-		error("repo-remove returned an error!")
-		sys.exit(-1)
+  retval = runRepoRemove(repo_dir, package.name)
+  if (retval != 0):
+    error("repo-remove returned an error!")
+    sys.exit(-1)
 for package in dbmodify:
-	retval = runRepoAdd(repo_dir, package)
-	if (retval != 0):
-		error("repo-add returned an error!")
-		sys.exit(-1)
+  retval = runRepoAdd(repo_dir, package)
+  if (retval != 0):
+    error("repo-add returned an error!")
+    sys.exit(-1)
 
-# vim: ft=python ts=2 sw=2 noet
+# vim: ft=python ts=2 sw=2 et
