@@ -564,12 +564,6 @@ for file in delete:
 if (switches.get("--delete") == True):
   for file in copy:
     deleteFile(file)
-# Run gensync to build the repo index
-#if (len(copy) + len(delete) > 0):
-#  retval = runGensync(repo_dir, pkgbuild_dir)
-#  if (retval != 0):
-#    error("Gensync returned an error!")
-#    sys.exit(-1)
 
 # Run updatesync where it is needed
 for package in dbremove:
