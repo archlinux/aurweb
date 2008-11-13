@@ -19,9 +19,10 @@ import struct
 import os.path
 import cgi
 import urllib
-import md5
 import getopt
 import ConfigParser
+
+from hashlib import md5
 
 class ClientFile:
 	def __init__(self, pathname):
