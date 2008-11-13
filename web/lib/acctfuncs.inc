@@ -625,7 +625,6 @@ function try_login() {
 			$num_tries = 0;
 
 			# Account looks good.  Generate a SID and store it.
-			#
 
 			$dbh = db_connect();
 			while (!$logged_in && $num_tries < 5) {
@@ -790,4 +789,15 @@ function user_is_privileged( $id )
 
 }
 
-?>
+# Clear out old expired sessions.
+function clear_expired_sessions($dbh) {
+	global $LOGIN_TIMEOUT;
+
+	if (empty($dbh))
+		$dbh = db_connect();
+
+	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)"; 
+	db_query($q, $dbh);
+
+	return;
+}

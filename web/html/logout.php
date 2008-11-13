@@ -3,7 +3,7 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 
 include("aur.inc");         # access AUR common functions
-include("pkgfuncs_po.inc"); # Add to handle the i18n of My Packages
+include_once("acctfuncs.inc");         # access AUR common functions
 include("logout_po.inc");   # use some form of this for i18n support
 set_lang();                 # this sets up the visitor's language
 
@@ -19,8 +19,7 @@ if (isset($_COOKIE["AURSID"])) {
 	setcookie("AURLANG", "", time() - (60*60*24*30), "/");
 }
 
-header('Location: index.php');
-exit;
+clear_expired_sessions();
 
-html_footer(AUR_VERSION);
-?>
+header('Location: index.php');
+
