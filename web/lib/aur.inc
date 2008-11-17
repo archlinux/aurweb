@@ -86,10 +86,12 @@ function check_sid() {
 			$failed = 1;
 		} else {
 			$row = mysql_fetch_row($result);
-			if ($row[0] + $LOGIN_TIMEOUT <= $row[1]) {
+			$last_update = $row[0];
+			if ($last_update + $LOGIN_TIMEOUT <= $row[1]) {
 				$failed = 2;
 			}
 		}
+
 		if ($failed == 1) {
 			# clear out the hacker's cookie, and send them to a naughty page
 			# why do you have to be so harsh on these people!?
@@ -110,10 +112,17 @@ function check_sid() {
 		} else {
 			# still logged in and haven't reached the timeout, go ahead
 			# and update the idle timestamp
+
+			# Only update the timestamp if it is less than the
+			# current time plus $LOGIN_TIMEOUT.
 			#
-			$q = "UPDATE Sessions SET LastUpdateTS = UNIX_TIMESTAMP() ";
-			$q.= "WHERE SessionID = '".mysql_real_escape_string($_COOKIE["AURSID"])."'";
-			db_query($q, $dbh);
+			# This keeps 'remembered' sessions from being
+			# overwritten.
+			if ($last_update < time() + $LOGIN_TIMEOUT) {
+				$q = "UPDATE Sessions SET LastUpdateTS = UNIX_TIMESTAMP() ";
+				$q.= "WHERE SessionID = '".mysql_real_escape_string($_COOKIE["AURSID"])."'";
+				db_query($q, $dbh);
+			}
 		}
 	}
 	return;

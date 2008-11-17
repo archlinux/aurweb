@@ -632,24 +632,32 @@ function try_login() {
 				$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
 				  ." VALUES ( $userID, '" . $new_sid . "', UNIX_TIMESTAMP())";
 				$result = db_query($q, $dbh);
+
 				# Query will fail if $new_sid is not unique
-				#
 				if ($result) {
 					$logged_in = 1;
 					break;
 				}
+
 				$num_tries++;
 		        }
+
 			if ($logged_in) {
 				# set our SID cookie
 
-				if ($_POST['remember_me'] == "on")
+				if ($_POST['remember_me'] == "on") {
 					# Set cookies for 30 days.
 					$cookie_time = time() + (60 * 60 * 24 * 30);
+
+					# Set session for 30 days.
+					$q = "UPDATE Sessions SET LastUpdateTS = $cookie_time ";
+					$q.= "WHERE SessionID = '$new_sid'";
+					db_query($q, $dbh);
+				}
 				else
 					$cookie_time = 0;
+
 				setcookie("AURSID", $new_sid, $cookie_time, "/");
-#				header("Location: /index.php");
 				header("Location: " . $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
 				$login_error = "";
 

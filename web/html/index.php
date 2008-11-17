@@ -11,6 +11,7 @@ set_lang();
 check_sid();
 
 html_header( __("Home") );
+
 $dbh = db_connect();
 
 ?>
@@ -56,8 +57,8 @@ echo __(
 </td>
 <td class='boxSoft' valign='top'>
 <?php
-$user = username_from_sid($_COOKIE["AURSID"]);
-if (!empty($user)) {
+if (!empty($_COOKIE["AURSID"])) {
+	$user = username_from_sid($_COOKIE["AURSID"]);
 	user_table($user, $dbh);
 	echo '<br />';
 }
