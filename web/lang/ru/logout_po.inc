@@ -7,4 +7,3 @@ global $_t;
 
 $_t["ru"]["You have been successfully logged out."] = "Сеанс завершен.";
 
-?>

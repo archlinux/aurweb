@@ -167,4 +167,57 @@ $_t["ru"]["Required by"] = "Требуется пакетами";
 
 $_t["ru"]["Accounts"] = "Учетные записи";
 
-?>
+$_t["ru"]["Couldn't add to notification list."] = "Не получилось добавить в список извещений.";
+
+$_t["ru"]["You must be logged in before you can flag packages."] = "Для отметки пакетов нужно представиться.";
+
+$_t["ru"]["Your votes have been removed from the selected packages."] = "Ваш голос убран с выбранных пакетов.";
+
+$_t["ru"]["The selected packages have been disowned."] = "Выбранные пакеты брошены.";
+
+$_t["ru"]["Out of Date"] = "Устарел";
+
+$_t["ru"]["None of the selected packages could be deleted."] = "Ниодин из выбранных пакетов не может быть удален.";
+
+$_t["ru"]["The selected packages have been unflagged."] = "Снята отметка с выбранных пакетов.";
+
+$_t["ru"]["You must be logged in before you can unflag packages."] = "Для отметки пакетов нужно представиться.";
+
+$_t["ru"]["You did not select any packages to adopt."] = "Вы не выбрали ниодного пакета для усыновления.";
+
+$_t["ru"]["You must be logged in before you can get notifications on comments."] = "Необходимо представиться для получения извещений о коментариях.";
+
+$_t["ru"]["The selected packages have been flagged out-of-date."] = "Выбранные пакеты помечены как устаревшие.";
+
+$_t["ru"]["The selected packages have been deleted."] = "Выбранные пакеты удалены.";
+
+$_t["ru"]["You did not select any packages to vote for."] = "Вы не выбрали пакет для голосования.";
+
+$_t["ru"]["You must be logged in before you can disown packages."] = "Нужно представиться, чтобы бросить пакет.";
+
+$_t["ru"]["The selected packages have been adopted."] = "Выбранные пакеты усыновлены.";
+
+$_t["ru"]["You must be logged in before you can adopt packages."] = "Необходимо представиться для усыновления.";
+
+$_t["ru"]["Showing results %s - %s of %s"] = "Результаты %s - %s из %s";
+
+$_t["ru"]["You must be logged in before you can vote for packages."] = "Необходимо представиться для голосования.";
+
+$_t["ru"]["You did not select any packages to disown."] = "Вы не выбрали пакетов, чтобы бросить.";
+
+$_t["ru"]["You must be logged in before you can un-vote for packages."] = "Необходимо представиться для голосования.";
+
+$_t["ru"]["You did not select any packages to unflag."] = "Вы не выбрали пакетов, чтобы снимать флаг.";
+
+$_t["ru"]["You did not select any packages to delete."] = "Вы не выбрали пакетов, чтобы удалить.";
+
+$_t["ru"]["You have been removed from the comment notification list for %s."] = "Вам больше не будут приходить извещения от %s.";
+
+$_t["ru"]["Your votes have been cast for the selected packages."] = "Ваш голос принят.";
+
+$_t["ru"]["You did not select any packages to flag."] = "Вы не выбрали пакетов для отметки.";
+
+$_t["ru"]["Home"] = "Главная";
+
+$_t["ru"]["You have been added to the comment notification list for %s."] = "Вы добавлены в список извещений для %s.";
+

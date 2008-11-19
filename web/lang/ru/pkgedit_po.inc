@@ -27,4 +27,3 @@ $_t["ru"]["Comment has been added."] = "Коментарий добавлен";
 
 $_t["ru"]["Select new category"] = "Выберите новую категорию.";
 
-?>

@@ -9,4 +9,3 @@ $_t["ru"]["Click on the Home link above to log in."] = "Щелкните по с
 
 $_t["ru"]["Your session has timed out.  You must log in again."] = "Время вашей сессии истекло. Вам нужно представиться снова.";
 
-?>

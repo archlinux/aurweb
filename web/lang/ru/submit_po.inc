@@ -89,4 +89,7 @@ $_t["ru"]["Missing license variable in PKGBUILD."] = "Не указана лиц
 
 $_t["ru"]["Missing arch variable in PKGBUILD."] = "Не указана архитектура в PKGBUILD";
 
-?>
+$_t["ru"]["Could not chmod directory %s."] = "Не получилось сделать chmod для %s.";
+
+$_t["ru"]["Missing "] = "Отсутствуют";
+

@@ -9,4 +9,3 @@ $_t["ru"]["Your session id is invalid."] = "Неверный идентифик�
 
 $_t["ru"]["If this problem persists, please contact the site administrator."] = "Если проблема не решена, обратитесь к администратору сайта.";
 
-?>

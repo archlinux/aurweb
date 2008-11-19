@@ -69,4 +69,5 @@ $_t["ru"]["The selected packages have been flagged safe."] = "Выбранные
 
 $_t["ru"]["Couldn't remove from notification list."] = "Невозможно удалить из списка получателей извещений.";
 
-?>
+$_t["ru"]["Packages"] = "Пакеты";
+
