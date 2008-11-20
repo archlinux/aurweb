@@ -1,0 +1,36 @@
+#!/usr/bin/php
+<?php
+# Run this script by providing it with the top path of AUR.
+# In that path you should see a file lib/aur.inc
+#
+# This will remove files which belong to deleted packages
+# in unsupported.
+#
+# ex: php cleanup dev/aur/web
+#
+$dir = $argv[1];
+
+if (empty($dir)) {
+	echo "Please specify AUR directory.\n";
+	exit;
+}
+
+set_include_path(get_include_path() . PATH_SEPARATOR . "$dir/lib");
+include("config.inc");
+include("aur.inc");
+include("pkgfuncs.inc");
+
+exec('ls ' . INCOMING_DIR, $files);
+
+$count = 0;
+
+foreach ($files as $pkgname) {
+	if (!package_exists($pkgname)) {
+		echo 'Removing ' . INCOMING_DIR . "$pkgname\n";
+		system('rm -r ' . INCOMING_DIR . $pkgname);
+		$count++;
+	}
+}
+
+echo "\nRemoved $count directories.\n";
+
