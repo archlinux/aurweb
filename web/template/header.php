@@ -15,16 +15,16 @@
   <body bgcolor='white'>
     <div id="head_container">
       <div id="title">
-        <div id="logo"><h1 id="archtitle"><a href="/" title="Arch Linux (Home)">Arch Linux</a></h1></div>
+        <div id="logo"><h1 id="archtitle"><a href="http://www.archlinux.org/" title="Arch Linux (Home)">Arch Linux</a></h1></div>
       </div>
       <div id="main_nav">
         <ul>
-          <li><a href="http://www.archlinux.org/download/">Get Arch</a></li>
-          <li class="selected"><a href="http://aur.archlinux.org">AUR</a></li>
-          <li><a href="http://bugs.archlinux.org">Bugs</a></li>
-          <li><a href="http://wiki.archlinux.org">Wiki</a></li>
-          <li><a href="http://bbs.archlinux.org">Forums</a></li>
-          <li><a href="http://www.archlinux.org">Home</a></li>
+          <li><a href="http://www.archlinux.org/download/">Download</a></li>
+          <li class="selected"><a href="/">AUR</a></li>
+          <li><a href="http://bugs.archlinux.org/">Bugs</a></li>
+          <li><a href="http://wiki.archlinux.org/">Wiki</a></li>
+          <li><a href="http://bbs.archlinux.org/">Forums</a></li>
+          <li><a href="http://www.archlinux.org/">Home</a></li>
         </ul>
       </div>
         <div id="ads">
