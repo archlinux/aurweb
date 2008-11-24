@@ -15,7 +15,7 @@ $_t["ru"]["Next"] = "Далее";
 
 $_t["ru"]["Add"] = "Добавить";
 
-$_t["ru"]["Length must be at least 1."] = "Длинна должна быть не меньше 1.";
+$_t["ru"]["Length must be at least 1."] = "Длина должна быть не меньше 1.";
 
 $_t["ru"]["(defaults to 7 if empty)"] = "(7 если не указано иного)";
 
@@ -31,7 +31,7 @@ $_t["ru"]["New proposal submitted."] = "Новое предложение при
 
 $_t["ru"]["%s already has proposal running for them."] = "За %s уже идет голосование.";
 
-$_t["ru"]["Length must be a number."] = "Длинна должна быть числом.";
+$_t["ru"]["Length must be a number."] = "Длина должна быть числом.";
 
 $_t["ru"]["You've already voted for this proposal."] = "Вы уже проголосовали.";
 

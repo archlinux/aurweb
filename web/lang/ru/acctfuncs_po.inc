@@ -83,7 +83,7 @@ $_t["ru"]["Missing User ID"] = "Отсутствует идентификато�
 
 $_t["ru"]["Developer"] = "Разработчик";
 
-$_t["ru"]["It must be between %s and %s characters long"] = "Длинна должна быть от %s до %s символов";
+$_t["ru"]["It must be between %s and %s characters long"] = "Длина должна быть от %s до %s символов";
 
 $_t["ru"]["Your password must be at least %s characters."] = "Пароль должен быть не менее %s символов.";
 
