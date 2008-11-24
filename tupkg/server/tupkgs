@@ -21,7 +21,6 @@ import select
 import struct
 import cgi
 import urllib
-import md5
 import MySQLdb
 import MySQLdb.connections
 import ConfigParser
@@ -29,6 +28,7 @@ import getopt
 import os.path
 import os
 import time
+from hashlib import md5
 
 CONFIGFILE = '/etc/tupkgs.conf'
 
