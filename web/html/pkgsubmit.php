@@ -73,15 +73,17 @@ if ($_COOKIE["AURSID"]):
 			$lines = array();
 			$continuation_line = 0;
 			$current_line = "";
+			$paren_depth = 0;
 			while (!feof($fp)) {
 				$line = trim(fgets($fp));
 				$char_counts = count_chars($line, 0);
+				$paren_depth += $char_counts[ord('(')] - $char_counts[ord(')')];
 				if (substr($line, strlen($line)-1) == "\\") {
 					# continue appending onto existing line_no
 					#
 					$current_line .= substr($line, 0, strlen($line)-1);
 					$continuation_line = 1;
-				} elseif ($char_counts[ord('(')] > $char_counts[ord(')')]) {
+				} elseif ($paren_depth > 0) {
 					# assumed continuation
 					# continue appending onto existing line_no
 					#
