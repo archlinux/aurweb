@@ -1,14 +1,20 @@
 #!/usr/bin/python -O
 
-import re, os, sys, pacman, getopt, glob
-import MySQLdb, MySQLdb.connections
+import re
+import os
+import sys
+import pacman
+import getopt
+import glob
+import MySQLdb
+import MySQLdb.connections
 import ConfigParser
 
 ###########################################################
 # Deal with configuration
 ###########################################################
 
-conffile = '/home/aur/tupkgs.conf'
+conffile = '/etc/tupkgs.conf'
 
 if not os.path.isfile(conffile):
   print "Error: cannot access config file ("+conffile+")"

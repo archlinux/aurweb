@@ -1,23 +1,21 @@
 #!/usr/bin/python -O
 
-import re, os, sys, pacman, getopt
-import MySQLdb, MySQLdb.connections
+import re
+import os
+import sys
+import pacman
+import getopt
+import MySQLdb
+import MySQLdb.connections
 import ConfigParser
 
 ###########################################################
 # Deal with configuration
 ###########################################################
 
-conffile = '/home/aur/tupkgs.conf'
-
-if not os.path.isfile(conffile):
-  print "Error: cannot access config file ("+conffile+")"
-  usage(argv[0])
-  sys.exit(1)
+conffile = '/etc/tupkgs.conf'
 
 config = ConfigParser.ConfigParser()
-config.read(conffile)
-config_use_db = config.has_section('mysql')
 
 ############################################################
 
@@ -45,12 +43,14 @@ class PackageDatabase:
     self.password = password
     self.dbname = dbname
     self.connection = MySQLdb.connect(host=host, user=user, passwd=password, db=dbname)
+
   def cursor(self):
     try:
       self.connection.ping()
     except MySQLdb.OperationalError:
       self.connection = MySQLdb.connect(host=self.host, user=self.user, passwd=self.password, db=self.dbname)
     return self.connection.cursor()
+
   def lookup(self, packagename):
     warning("DB: Looking up package: " + packagename)
     q = self.cursor()
@@ -60,12 +60,14 @@ class PackageDatabase:
       row = q.fetchone()
       return row[0]
     return None
+
   def getCategoryID(self, package):
     category_id = self.lookupCategory(package.category)
     if (category_id == None):
       category_id = 1
     warning("DB: Got category ID '" + str(category_id) + "' for package '" + package.name + "'")
     return category_id
+
   def insert(self, package, locationId):
     warning("DB: Inserting package: " + package.name)
     global repo_dir
@@ -83,6 +85,7 @@ class PackageDatabase:
       MySQLdb.escape_string(str(package.url)) + "')")
     id = self.lookup(package.name)
     self.insertNewInfo(package, id, locationId)    
+
   def update(self, id, package, locationId):
     warning("DB: Updating package: " + package.name + " with id " + str(id))
     global repo_dir
@@ -95,7 +98,7 @@ class PackageDatabase:
           os.path.join(repo_dir, os.path.basename(package.new.file))) + "', " +
         "Description = '" + MySQLdb.escape_string(str(package.desc)) + "', " +
         "DummyPkg = 0, " +
-  "SubmittedTS = UNIX_TIMESTAMP(), " +
+        "SubmittedTS = UNIX_TIMESTAMP(), " +
         "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
         "WHERE ID = " + str(id))
     else:
@@ -109,31 +112,37 @@ class PackageDatabase:
         "URL = '" + MySQLdb.escape_string(str(package.url)) + "' " +
         "WHERE ID = " + str(id))
     self.insertNewInfo(package, id, locationId)
-    # we must lastly check to see if this is a move of a package from
-    # unsupported to community, because we'd have to reset maintainer and location
+
+    # Check to see if this is a move of a package from unsupported
+    # to community, because we have to reset maintainer and location.
+
     q = self.cursor()
     q.execute("SELECT LocationID FROM Packages WHERE ID = " + str(id))
     if (q.rowcount != 0):
       row = q.fetchone()
       if (row[0] != 3):
         q = self.cursor()
-  q.execute("UPDATE Packages SET LocationID = 3, MaintainerUID = null WHERE ID = " + str(id))
+        q.execute("UPDATE Packages SET LocationID = 3, MaintainerUID = null WHERE ID = " + str(id))
+
   def remove(self, id, locationId):
     warning("DB: Removing package with id: " + str(id))
     q = self.cursor()
     q.execute("DELETE FROM Packages WHERE " +
       "LocationID = " + str(locationId) + " AND ID = " + str(id))
+
   def clearOldInfo(self, id):
     warning("DB: Clearing old info for package with id : " + str(id))
     q = self.cursor()
     q.execute("DELETE FROM PackageContents WHERE PackageID = " + str(id))
     q.execute("DELETE FROM PackageDepends WHERE PackageID = " + str(id))
     q.execute("DELETE FROM PackageSources WHERE PackageID = " + str(id))
+
   def lookupOrDummy(self, packagename):
     retval = self.lookup(packagename)
     if (retval != None):
       return retval
     return self.createDummy(packagename)
+
   def lookupCategory(self, categoryname):
     warning("DB: Looking up category: " + categoryname)
     q = self.cursor()
@@ -142,6 +151,7 @@ class PackageDatabase:
       row = q.fetchone()
       return row[0]
     return None
+
   def createDummy(self, packagename):
     warning("DB: Creating dummy package for: " + packagename)
     q = self.cursor()
@@ -151,10 +161,11 @@ class PackageDatabase:
       MySQLdb.escape_string(packagename) + "', '" +
       MySQLdb.escape_string("A dummy package") + "', 1, 1)")
     return self.lookup(packagename)
+
   def insertNewInfo(self, package, id, locationId):
     q = self.cursor()
 
-    # first delete the old; this is never bad
+    # First delete the old.
     self.clearOldInfo(id)
 
     warning("DB: Inserting new package info for " + package.name +
@@ -164,11 +175,13 @@ class PackageDatabase:
     for source in package.sources:
       q.execute("INSERT INTO PackageSources (PackageID, Source) " + 
         "VALUES (" + str(id) + ", '" + MySQLdb.escape_string(source) + "')")
+
     # PackageDepends
     for dep in package.depends:
       depid = self.lookupOrDummy(dep)
       q.execute("INSERT INTO PackageDepends (PackageID, DepPkgID) " +
         "VALUES (" + str(id) + ", " + str(depid) + ")")
+
   def isdummy(self, packagename):
     warning("DB: Looking up package: " + packagename)
     q = self.cursor()
@@ -300,12 +313,6 @@ def deleteFile(filename):
   command = "rm '" + filename + "'"
   return execute(command)
 
-def runGensync(repo, pkgbuild):
-#target = os.path.join(repo, os.path.basename(repo) + ".db.tar.gz")
-  target = os.path.join(repo, "community.db.tar.gz")
-  command = "gensync '" + pkgbuild + "' '" + target + "'"
-  return execute(command)
-
 def runRepoAdd(repo, package):
   global havefakeroot
   targetDB = os.path.join(repo, "community.db.tar.gz")
@@ -338,25 +345,49 @@ def error(string):
   warning(string)
   had_error = 1
 
+def usage(name):
+  print "Usage: %s [options] <repo_dir> <pkgbuild_tree> <build_tree>" % name
+  print "Options:"
+  print "  -c, --config        Specify a path to the config file."
+  print "  -n                  Don't actually perform any action on the repo."
+  print "  --delete            Delete duplicate and temporary pkgs."
+  print "  --paranoid          Warn about duplicate pkgs that aren't identical via `cmp`."
+
 ############################################################
 # MAIN
 ############################################################
 
 # ARGUMENTS
-#
-# tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_dir> <build_dir>
+# See usage() for specifying arguments.
 
-# First call getopt
-switch_list,args_proper = getopt.getopt(sys.argv[1:], 'n',
-                          [ "delete", "paranoid" ])
+try:
+  optlist, args = getopt.getopt(sys.argv[1:], 'c:n',
+    ['config=', 'delete', 'paranoid'])
+except getopt.GetoptError:
+  usage(sys.argv[0])
+  sys.exit(1)
+
 switches = {}
-for switch in switch_list:
-  switches[switch[0]] = 1
+for opt in optlist:
+  switches[opt[0]] = 1
 
-# Then handle the remaining arguments
-if (len(args_proper) < 3):
-  print >>sys.stderr, "syntax: tupkgupdate [-n] [--delete] [--paranoid] <repo_dir> <pkgbuild_tree> <build_tree>"
+# Check for required arguments.
+if (len(args) < 3):
+  usage(sys.argv[0])
   sys.exit(-1)
+
+for opt, value in optlist:
+  if opt in ('-c', '--config'):
+    conffile = value
+
+repo_dir, pkgbuild_dir, build_dir = args
+
+if not os.path.isfile(conffile):
+  print "Error: cannot access config file (%s)" % conffile
+  sys.exit(1)
+
+config.read(conffile)
+config_use_db = config.has_section('mysql')
 
 # Make sure we can use fakeroot, warn if not
 havefakeroot = False
@@ -364,8 +395,6 @@ if os.access('/usr/bin/fakeroot', os.X_OK):
   havefakeroot = True
 else:
   warning("Not using fakeroot for repo db generation")
-
-repo_dir, pkgbuild_dir, build_dir = args_proper
 
 # Open the database if we need it so we find out now if we can't!
 if config_use_db:
@@ -513,10 +542,10 @@ for package in packages.values():
         warning("New package file with identical version '" + 
     package.new.file + "' is different than the old one:")
   if (switches.get("--delete") == True):
-          warning("  Deleting the new file.")
-          delete.append(package.new.file)
+    warning("  Deleting the new file.")
+    delete.append(package.new.file)
   else:
-          warning("  Ignoring the new file.")
+    warning("  Ignoring the new file.")
     continue
 
   # 5
@@ -556,9 +585,11 @@ for file in copy:
   if (retval != 0):
     error("Could not copy file to repo: '" + file + "'")
     sys.exit(-1)
+
 # Delete (second, for safety's sake)
 for file in delete:
   deleteFile(file)
+
 # Now that we've copied new files and deleted, we should delete the source
 # files, if we're supposed to
 if (switches.get("--delete") == True):
