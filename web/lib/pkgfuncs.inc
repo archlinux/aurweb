@@ -372,7 +372,7 @@ function package_details($id=0, $SID="") {
   			echo "            <tr><td class='boxSoft'>";
   			
 				while (list($k, $darr) = each($deps)) {
-					$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
+					$url = "<a href='packages.php?ID=".$darr[0];
 					while(list($k, $var) = each($pkgsearch_vars)) {
 						if (($var == "do_Orphans") && $_REQUEST[$var]) {
 							$url .= "&".$var."=1";
@@ -403,7 +403,7 @@ function package_details($id=0, $SID="") {
   			echo "<tr><td class='boxSoft'>";
 
 				while (list($k, $darr) = each($deps)) {
-					$url = "<a href='/packages.php?do_Details=1&ID=".$darr[0];
+					$url = "<a href='packages.php?ID=".$darr[0];
 					while(list($k, $var) = each($pkgsearch_vars)) {
 						if (($var == "do_Orphans") && $_REQUEST[$var]) {
 							$url .= "&".$var."=1";
