@@ -25,7 +25,7 @@ $_t["tr"]["Go"] = "Git";
 
 $_t["tr"]["Unflag Out-of-date"] = "Güncel Değil İşaretini Kaldır";
 
-$_t["tr"]["Go back to %hpackage details view%h."] = "Go back to %hpackage details view%h.";
+$_t["tr"]["Go back to %hpackage details view%h."] = "%Paket detayları görünümüne%h geri dönün.";
 
 $_t["tr"]["Error retrieving package details."] = "Paket bilgileri alınırken hata oluştu.";
 
@@ -47,13 +47,13 @@ $_t["tr"]["Error retrieving package list."] = "Paket listesi alınırken hata ol
 
 $_t["tr"]["Files"] = "Dosyalar";
 
-$_t["tr"]["None"] = "None";
+$_t["tr"]["None"] = "Hiç";
 
-$_t["tr"]["Name"] = "Name";
+$_t["tr"]["Name"] = "İsim";
 
 $_t["tr"]["Per page"] = "Her sayfa";
 
-$_t["tr"]["Go back to %hsearch results%h."] = "%hArama sonuçları%h'na dön.";
+$_t["tr"]["Go back to %hsearch results%h."] = "%hArama sonuçları%h sayfasına dön.";
 
 $_t["tr"]["No packages matched your search criteria."] = "Eşleşen paket bulunamadı.";
 
@@ -61,15 +61,15 @@ $_t["tr"]["O%hrphan"] = "";
 
 $_t["tr"]["orphan"] = "sahipsiz";
 
-$_t["tr"]["Un-Vote"] = "";
+$_t["tr"]["Un-Vote"] = "Oyu kaldır";
 
 $_t["tr"]["change category"] = "kategori değiştir";
 
-$_t["tr"]["UnNotify"] = "";
+$_t["tr"]["UnNotify"] = "Bildirimi iptal et";
 
 $_t["tr"]["Delete Packages"] = "Paketleri Sil";
 
-$_t["tr"]["Maintainer"] = "Destekçi";
+$_t["tr"]["Maintainer"] = "Sorumlu";
 
 $_t["tr"]["Add Comment"] = "Yorum Ekle";
 
@@ -79,7 +79,7 @@ $_t["tr"]["Flag Out-of-date"] = "Güncelliğini yitirmiş olarak işaretle";
 
 $_t["tr"]["Manage"] = "Yönet";
 
-$_t["tr"]["Sort by"] = "";
+$_t["tr"]["Sort by"] = "Sırala";
 
 $_t["tr"]["Sort order"] = "Sıralama kriteri";
 
@@ -117,7 +117,7 @@ $_t["tr"]["New Comment Notification"] = "Yeni Yorum Bildirimi";
 
 $_t["tr"]["Comments"] = "Yorumlar";
 
-$_t["tr"]["The above files have been verified (by %s) and are safe to use."] = "Yukarıdaki dosyalar doğrulandı (by %s) ve güvenli olarak işaretlendi.";
+$_t["tr"]["The above files have been verified (by %s) and are safe to use."] = "Yukarıdaki dosyalar doğrulandı (%s tarafından) ve güvenli olarak işaretlendi.";
 
 $_t["tr"]["Be careful! The above files may contain malicious code that can damage your system."] = "Dikkat! Yukarıdaki dosyalar sisteminize zarar verebilecek nitelikte olabilir.";
 
@@ -137,7 +137,7 @@ $_t["tr"]["First Submitted"] = "İlk Gönderim";
 
 $_t["tr"]["Last Updated"] = "Son Güncelleme";
 
-$_t["tr"]["Search by"] = "";
+$_t["tr"]["Search by"] = "Buna göre ara";
 
 $_t["tr"]["Submitter"] = "Gönderen";
 
@@ -151,11 +151,11 @@ $_t["tr"]["License"] = "Lisans";
 
 $_t["tr"]["unknown"] = "bilinmiyor";
 
-$_t["tr"]["Required by"] = "";
+$_t["tr"]["Required by"] = "İhtiyaç duyan";
 
-$_t["tr"]["The above files have been verified (by %h%s%h) and are safe to use."] = "The above files have been verified (by %h%s%h) and are safe to use.";
+$_t["tr"]["The above files have been verified (by %h%s%h) and are safe to use."] = "Yukarıdaki dosyalar doğrulandı (%h%s%h tarafından) ve kullanım için güvenli olarak işaretlendi.";
 
-$_t["tr"]["This package has been flagged out of date."] = "Bu paket 'güncel değil' olarak işaretlendi.";
+$_t["tr"]["This package has been flagged out of date."] = "Bu paket güncel değil olarak işaretlendi.";
 
 $_t["tr"]["Toggle Notify"] = "Toggle Notify";
 

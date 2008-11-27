@@ -13,5 +13,4 @@ global $_t;
 
 $_t["tr"]["Click on the Home link above to log in."] = "Giriş yapmak için yukarıdaki Ev bağlantısını tıklayın.";
 
-$_t["tr"]["Your session has timed out.  You must log in again."] = "Zaman aşımı. Tekrar giriş yapmalısınız.";
-
+$_t["tr"]["Your session has timed out.  You must log in again."] = "Oturumunuz zaman aşımına uğradı. Tekrar giriş yapmalısınız.";

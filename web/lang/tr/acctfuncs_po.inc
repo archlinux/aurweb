@@ -19,7 +19,7 @@ $_t["tr"]["The account, %h%s%h, has been successfully created."] = "Hesap %h%s%h
 
 $_t["tr"]["Error trying to modify account, %h%s%h: %s."] = "Hesap %h%s%h düzenlenirken hata oluştu.";
 
-$_t["tr"]["The email address is invalid."] = "Eposta adresi geçerli dğeil.";
+$_t["tr"]["The email address is invalid."] = "Eposta adresi geçerli değil.";
 
 $_t["tr"]["Error trying to create account, %h%s%h: %s."] = "Hesap %h%s%h oluşturulurken hata oluştu: %s.";
 
@@ -77,7 +77,7 @@ $_t["tr"]["Language is not currently supported."] = "Dil henüz desteklenmiyor."
 
 $_t["tr"]["Any type"] = "Herhangi bir tür";
 
-$_t["tr"]["Last vote"] = "Last vote";
+$_t["tr"]["Last vote"] = "Son oylanan";
 
 $_t["tr"]["Suspended"] = "Donduruldu";
 
