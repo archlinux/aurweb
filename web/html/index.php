@@ -2,7 +2,7 @@
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 
-# Add to handle the i18n of My Packages
+include('index_po.inc');
 include("pkgfuncs_po.inc");
 include("aur.inc");
 include('stats.inc');
@@ -73,7 +73,7 @@ general_stats_table($dbh);
 <br />
 <div class="important"><?php
 echo __('DISCLAIMER') . ':<br />';
-echo __('Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk.');
+echo __('Unsupported packages are user produced content. Any use of the provided files is at your own risk.');
 ?></div>
 
 </div>
