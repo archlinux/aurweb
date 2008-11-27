@@ -1,16 +1,17 @@
-#/bin/bash
+#!/bin/bash
 
-echo "-----"
+aurroot=/srv/http/sites/aur
+
+echo "--------------------"
 date
 
-# update the cvs tree
-cd /home/aur/cvs
-cvs update -d
+# Update the CVS tree.
+# Show a bit of the beginning output.
+cd $aurroot/cvs
+echo "Updating CVS..."
+cvs update -d 2>&1 | grep "^P\|^U\|repository."
 cd -
 
-# sleep to avoid running into judd's permissions script!!
-#sleep 30
+# tupkgupdate <repodir> <cvsdir> <incomingdir>
+$aurroot/aur/tupkg/update/tupkgupdate --delete --paranoid /srv/ftp/community/os/i686 $aurroot/cvs $aurroot/packages/full
 
-# it's tupkgupdate <repodir> <cvsdir> <incomingdir>
-/home/aur/aur/tupkg/update/tupkgupdate --delete --paranoid /home/ftp/community/os/i686 /home/aur/cvs /home/aur/packages/full
-date

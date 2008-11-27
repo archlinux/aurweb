@@ -1,3 +1,4 @@
 #!/bin/bash
+aurroot=/srv/sites/http/aur
 
-nohup /home/aur/aur/tupkg/server/tupkgs -c /home/aur/tupkgs.conf >/home/aur/tupkgs.log 2>&1 &
+nohup $aurroot/aur/tupkg/server/tupkgs -c $aurroot/tupkgs.conf > $aurroot/tupkgs.log 2>&1 &
