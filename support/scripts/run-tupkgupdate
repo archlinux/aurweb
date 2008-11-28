@@ -9,7 +9,7 @@ date
 # Show a bit of the beginning output.
 cd $aurroot/cvs
 echo "Updating CVS..."
-cvs update -d 2>&1 | grep "^P\|^U\|repository."
+cvs update -d 2>&1 | grep "^P\|^U\|repository"
 cd -
 
 # tupkgupdate <repodir> <cvsdir> <incomingdir>
