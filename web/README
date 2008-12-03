@@ -73,7 +73,11 @@ Setup on Arch Linux:
    (give password 'aur' at the prompt)
 
  - Optionally load some test data for development purposes.
-   # bzcat ~/aur/support/schema/dummy-data.sql.bz2 | mysql -uaur -p AUR
+   # pacman -S words mysql-python
+   # cd ~/aur/support/schema/
+   # python gendummydata.py dummy-data.sql
+   # bzip2 dummy-data.sql
+   # bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
    (give password 'aur' at the prompt)
 
 7) Copy the config.inc.proto file to config.inc. Modify as needed.
