@@ -485,7 +485,7 @@ function package_details($id=0, $SID="") {
 					echo " value='".__("Vote")."'>";
 				} else {
 					echo "<input type='submit' class='button' name='do_UnVote'";
-					echo " value='".__("Un-Vote")."'>";
+					echo " value='".__("UnVote")."'>";
 				}
 				# Comment Nofify Button
 				#
@@ -504,7 +504,7 @@ function package_details($id=0, $SID="") {
                     echo " value='".__("Flag Out-of-date")."'>\n";
                 } else {
                     echo "<input type='submit' class='button' name='do_UnFlag'";
-                    echo " value='".__("Unflag Out-of-date")."'>\n";
+                    echo " value='".__("UnFlag Out-of-date")."'>\n";
 				}
 					
                 if ($row["MaintainerUID"] == 0) {
