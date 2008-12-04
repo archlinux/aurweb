@@ -8,6 +8,7 @@ import getopt
 import MySQLdb
 import MySQLdb.connections
 import ConfigParser
+from subprocess import Popen, PIPE
 
 ###########################################################
 # Deal with configuration
@@ -244,46 +245,49 @@ def infoFromPkgbuildFile(filename):
     category = "none"
 
   # open and source the file
-  pf_stdin, pf_stdout = os.popen2("/bin/bash", 't', 0)
-  print >>pf_stdin, ". " + filename
+  pf = Popen("/bin/bash",
+      shell=True, bufsize=0, stdin=PIPE, stdout=PIPE, close_fds=True)
+
+  print >>pf.stdin, ". " + filename
   #print "PKGBUILD: " + filename
 
   # get pkgname
-  print >>pf_stdin, 'echo $pkgname'
-  pkgname = pf_stdout.readline().strip()
+  print >>pf.stdin, 'echo $pkgname'
+  pkgname = pf.stdout.readline().strip()
+  print pkgname
   #print "PKGBUILD: pkgname: " + pkgname
 
   # get pkgver
-  print >>pf_stdin, 'echo $pkgver'
-  pkgver = pf_stdout.readline().strip()
+  print >>pf.stdin, 'echo $pkgver'
+  pkgver = pf.stdout.readline().strip()
   #print "PKGBUILD: pkgver: " + pkgver
 
   # get pkgrel
-  print >>pf_stdin, 'echo $pkgrel'
-  pkgrel = pf_stdout.readline().strip()
+  print >>pf.stdin, 'echo $pkgrel'
+  pkgrel = pf.stdout.readline().strip()
   #print "PKGBUILD: pkgrel: " + pkgrel
 
   # get url
-  print >>pf_stdin, 'echo $url'
-  url = pf_stdout.readline().strip()
+  print >>pf.stdin, 'echo $url'
+  url = pf.stdout.readline().strip()
   #print "PKGBUILD: url: " + url
 
   # get desc
-  print >>pf_stdin, 'echo $pkgdesc'
-  pkgdesc = pf_stdout.readline().strip()
+  print >>pf.stdin, 'echo $pkgdesc'
+  pkgdesc = pf.stdout.readline().strip()
   #print "PKGBUILD: pkgdesc: " + pkgdesc
 
   # get source array
-  print >>pf_stdin, 'echo ${source[*]}'
-  source = (pf_stdout.readline().strip()).split(" ")
+  print >>pf.stdin, 'echo ${source[*]}'
+  source = (pf.stdout.readline().strip()).split(" ")
 
   # get depends array
-  print >>pf_stdin, 'echo ${depends[*]}'
-  depends = (pf_stdout.readline().strip()).split(" ")
+  print >>pf.stdin, 'echo ${depends[*]}'
+  depends = (pf.stdout.readline().strip()).split(" ")
 
   # clean up
-  pf_stdin.close()
-  pf_stdout.close()
+  pf.stdin.close()
+  pf.stdout.close()
 
   return pkgname, pkgver + "-" + pkgrel, pkgdesc, url, depends, source, category
 
