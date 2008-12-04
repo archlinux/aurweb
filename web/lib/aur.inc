@@ -343,9 +343,6 @@ function html_header($title="") {
 	global $LANG;
 	global $SUPPORTED_LANGS;
 
-	$login = try_login();
-	$login_error = $login['error'];
-
 	$title = htmlspecialchars($title, ENT_QUOTES);
 
 	include('header.php');

@@ -1,3 +1,9 @@
+<?php
+include_once('acctfuncs.inc');
+$login = try_login();
+$login_error = $login['error'];
+?>
+
 <span id="login_bar">
   <?php
   if (isset($_COOKIE["AURSID"])) {
