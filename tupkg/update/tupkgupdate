@@ -355,7 +355,8 @@ def usage(name):
   print "  -c, --config        Specify a path to the config file."
   print "  -n                  Don't actually perform any action on the repo."
   print "  --delete            Delete duplicate and temporary pkgs."
-  print "  --paranoid          Warn about duplicate pkgs that aren't identical via `cmp`."
+  print "  --paranoid          Warn of duplicate pkgs that aren't identical."
+  sys.exit(1)
 
 ############################################################
 # MAIN
@@ -369,7 +370,6 @@ try:
     ['config=', 'delete', 'paranoid'])
 except getopt.GetoptError:
   usage(sys.argv[0])
-  sys.exit(1)
 
 switches = {}
 for opt in optlist:
@@ -378,13 +378,15 @@ for opt in optlist:
 # Check for required arguments.
 if (len(args) < 3):
   usage(sys.argv[0])
-  sys.exit(-1)
 
 for opt, value in optlist:
   if opt in ('-c', '--config'):
     conffile = value
 
-repo_dir, pkgbuild_dir, build_dir = args
+try:
+  repo_dir, pkgbuild_dir, build_dir = args
+except ValueError:
+  usage(sys.argv[0])
 
 if not os.path.isfile(conffile):
   print "Error: cannot access config file (%s)" % conffile
@@ -402,10 +404,15 @@ else:
 
 # Open the database if we need it so we find out now if we can't!
 if config_use_db:
-  db = PackageDatabase(config.get('mysql', 'host'),
-    config.get('mysql', 'username'),
-    config.get('mysql', 'password'),
-    config.get('mysql', 'db'))
+  try:
+    db = PackageDatabase(config.get('mysql', 'host'),
+      config.get('mysql', 'username'),
+      config.get('mysql', 'password'),
+      config.get('mysql', 'db'))
+  except:
+    print "Error: Could not connect to the database %s at %s." % (
+        config.get('mysql', 'db'), config.get('mysql', 'host'))
+    sys.exit(1)
 
 # Set up the lists and tables
 packages = dict()
