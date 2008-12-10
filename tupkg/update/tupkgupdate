@@ -55,7 +55,7 @@ class PackageDatabase:
   def lookup(self, packagename):
     warning("DB: Looking up package: " + packagename)
     q = self.cursor()
-    q.execute("SELECT ID FROM Packages WHERE Name = '" + 
+    q.execute("SELECT ID FROM Packages WHERE Name = '" +
                MySQLdb.escape_string(packagename) + "'")
     if (q.rowcount != 0):
       row = q.fetchone()
@@ -75,7 +75,7 @@ class PackageDatabase:
     q = self.cursor()
     q.execute("INSERT INTO Packages " +
       "(Name, CategoryID, Version, FSPath, LocationID, SubmittedTS, Description, URL) VALUES ('" +
-      MySQLdb.escape_string(package.name) + "', " + 
+      MySQLdb.escape_string(package.name) + "', " +
       str(self.getCategoryID(package)) + ", '" +
       MySQLdb.escape_string(package.new.version) + "', '" +
       MySQLdb.escape_string(
@@ -85,7 +85,7 @@ class PackageDatabase:
       MySQLdb.escape_string(str(package.desc)) + "', '" +
       MySQLdb.escape_string(str(package.url)) + "')")
     id = self.lookup(package.name)
-    self.insertNewInfo(package, id, locationId)    
+    self.insertNewInfo(package, id, locationId)
 
   def update(self, id, package, locationId):
     warning("DB: Updating package: " + package.name + " with id " + str(id))
@@ -174,7 +174,7 @@ class PackageDatabase:
 
     # PackageSources
     for source in package.sources:
-      q.execute("INSERT INTO PackageSources (PackageID, Source) " + 
+      q.execute("INSERT INTO PackageSources (PackageID, Source) " +
         "VALUES (" + str(id) + ", '" + MySQLdb.escape_string(source) + "')")
 
     # PackageDepends
@@ -212,7 +212,7 @@ def pkgbuildsInTree(topdir):
   return filesForRegexp(topdir, re.compile("^PKGBUILD$"))
 
 ############################################################
-# Function for testing if two files are identical 
+# Function for testing if two files are identical
 ############################################################
 
 def areFilesIdentical(file_a, file_b):
@@ -254,7 +254,7 @@ def infoFromPkgbuildFile(filename):
   # get pkgname
   print >>pf.stdin, 'echo $pkgname'
   pkgname = pf.stdout.readline().strip()
-  print pkgname
+
   #print "PKGBUILD: pkgname: " + pkgname
 
   # get pkgver
@@ -296,7 +296,7 @@ def infoFromPkgbuildFileWorse(filename):
   pkg = pacman.load(filename)
   return (pkg.name, pkg.version + "-" + pkg.release, pkg.desc,
     pkg.url, pkg.depends, pkg.source)
-  
+
 ############################################################
 # Functions for doing the final steps of execution
 ############################################################
@@ -416,7 +416,7 @@ dbremove = list()
 dbmodify = list()
 
 # PASS 1: PARSING/LOCATING
-#  
+#
 # A) Go through the PKGBUILD tree
 #    For each PKGBUILD, create a Package with new Version containing
 #    parsed version and and None for file
@@ -435,7 +435,7 @@ for a_file in a_files:
   if (packages.get(pkgname)):
     error("Pkgbuild '" + a_file + "' is a duplicate!")
     continue
-  
+
   version = Version()
   version.version = ver
   version.file = None
@@ -460,7 +460,7 @@ for a_file in a_files:
 b_files = packagesInTree(repo_dir)
 for b_file in b_files:
   pkgname, ver = infoFromPackageFile(b_file)
-  
+
   version = Version()
   version.version = ver
   version.file = b_file
@@ -488,7 +488,7 @@ for c_file in c_files:
   package = packages.get(pkgname)
   if (package == None):
     continue
-  
+
   # 2
   if (package.new == None):
     continue
@@ -527,23 +527,23 @@ for package in packages.values():
 
   # 2
   if (package.new.file == None):
-    if (package.old == None or package.old.file == None or 
+    if (package.old == None or package.old.file == None or
       package.old.version != package.new.version):
       errstr = "No new package supplied for " + package.name + " " + package.new.version + "!"
       error(errstr)
       continue
 
-  # 3 
+  # 3
   if (package.old == None):
     copy.append(package.new.file)
     dbmodify.append(package)
     continue
 
   # 4
-  if (package.old.version == package.new.version): 
+  if (package.old.version == package.new.version):
     if (switches.get("--paranoid") == True and package.new.file != None):
       if not (areFilesIdentical(package.old.file, package.new.file)):
-        warning("New package file with identical version '" + 
+        warning("New package file with identical version '" +
     package.new.file + "' is different than the old one:")
   if (switches.get("--delete") == True):
     warning("  Deleting the new file.")
@@ -556,7 +556,7 @@ for package in packages.values():
   delete.append(package.old.file)
   copy.append(package.new.file)
   dbmodify.append(package)
-  continue  
+  continue
 
 ## IF WE HAVE HAD ANY ERRORS AT THIS POINT, ABORT! ##
 if (had_error == 1):
