@@ -1,17 +1,19 @@
 #!/bin/bash
 
-aurroot=/srv/http/sites/aur
+aurroot=/srv/http/aur
+
+# Set HOME for correct cvs auth.
+HOME=$aurroot
 
 echo "--------------------"
 date
 
 # Update the CVS tree.
-# Show a bit of the beginning output.
+# Filter out useless output.
 cd $aurroot/cvs
 echo "Updating CVS..."
-cvs update -d 2>&1 | grep "^P\|^U\|repository"
-cd -
+cvs update -dP 2>&1 | grep -v "Updating"
 
 # tupkgupdate <repodir> <cvsdir> <incomingdir>
-$aurroot/aur/tupkg/update/tupkgupdate --delete --paranoid /srv/ftp/community/os/i686 $aurroot/cvs $aurroot/packages/full
+$aurroot/aur/tupkg/update/tupkgupdate -c $aurroot/tupkgs.conf --delete --paranoid /srv/ftp/community/os/i686 $aurroot/cvs $aurroot/packages/full
 
