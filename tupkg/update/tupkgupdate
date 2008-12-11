@@ -544,12 +544,12 @@ for package in packages.values():
     if (switches.get("--paranoid") == True and package.new.file != None):
       if not (areFilesIdentical(package.old.file, package.new.file)):
         warning("New package file with identical version '" +
-    package.new.file + "' is different than the old one:")
-  if (switches.get("--delete") == True):
-    warning("  Deleting the new file.")
-    delete.append(package.new.file)
-  else:
-    warning("  Ignoring the new file.")
+          package.new.file + "' is different than the old one:")
+        if (switches.get("--delete") == True):
+          warning("  Deleting the new file.")
+          delete.append(package.new.file)
+        else:
+          warning("  Ignoring the new file.")
     continue
 
   # 5
