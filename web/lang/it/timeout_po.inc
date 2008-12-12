@@ -1,6 +1,6 @@
 <?php
 # Italian (Italiano) translation
-# Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
+# Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 
 include_once("translator.inc");
 global $_t;
@@ -9,4 +9,3 @@ $_t["it"]["Click on the Home link above to log in."] = "Clicca su Inizio per aut
 
 $_t["it"]["Your session has timed out.  You must log in again."] = "La sessione è scaduta. Devi autenticarti di nuovo.";
 
-?>

@@ -1,6 +1,6 @@
 <?php
 # Italian (Italiano) translation
-# Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
+# Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 
 include_once("translator.inc");
 global $_t;
@@ -11,7 +11,7 @@ $_t["it"]["Leave the password fields blank to keep your same password."] = "Lasc
 
 $_t["it"]["You are not allowed to access this area."] = "Non disponi dei permessi necessari per accedere.";
 
-$_t["it"]["Could not retrieve information for the specified user."] = "Non è stato possibile trovare le informazioni sull'utente specificato.";
+$_t["it"]["Could not retrieve information for the specified user."] = "Non è stato possibile trovare le informazioni dell'utente specificato.";
 
 $_t["it"]["Use this form to search existing accounts."] = "Utilizza questo modulo per cercare account esistenti.";
 

@@ -1,6 +1,6 @@
 <?php
 # Italian (Italiano) translation
-# Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
+# Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 
 include_once("translator.inc");
 global $_t;
@@ -11,11 +11,11 @@ $_t["it"]["Search"] = "Cerca";
 
 $_t["it"]["The account, %h%s%h, has been successfully created."] = "L'account %h%s%h è stato creato con successo.";
 
-$_t["it"]["Error trying to modify account, %h%s%h: %s."] = "Errore durante la modifica dell'account %h%s%h: %s.";
+$_t["it"]["Error trying to modify account, %h%s%h: %s."] = "Si è verificato un errore durante la modifica dell'account %h%s%h: %s.";
 
 $_t["it"]["The email address is invalid."] = "L'indirizzo email non risulta valido.";
 
-$_t["it"]["Error trying to create account, %h%s%h: %s."] = "Errore durante la creazione dell'account %h%s%h: %s.";
+$_t["it"]["Error trying to create account, %h%s%h: %s."] = "Si è verificato un errore durante la creazione dell'account %h%s%h: %s.";
 
 $_t["it"]["The username, %h%s%h, is already in use."] = "Il nome utente %h%s%h è già in uso.";
 
@@ -82,4 +82,14 @@ $_t["it"]["Missing User ID"] = "Manca l'User ID";
 $_t["it"]["Developer"] = "Sviluppatore";
 
 $_t["it"]["View this user's packages"] = "Visualizza i pacchetti di quest'utente";
+
+$_t["it"]["It must be between %s and %s characters long"] = "Deve contenere un minino di %s ed un massimo di %s caratteri";
+
+$_t["it"]["Your password must be at least %s characters."] = "La password deve contenere almeno %s caratteri.";
+
+$_t["it"]["Can contain only one period, underscore or hyphen."] = "Può contenere solo un punto, un trattino basso o un trattino.";
+
+$_t["it"]["Start and end with a letter or number"] = "Inizia e termina con una lettera o un numero";
+
+$_t["it"]["The username is invalid."] = "Il nome utente non è valido.";
 

@@ -1,17 +1,17 @@
 <?php
 # Italian (Italiano) translation
-# Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
+# Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 
 include_once("translator.inc");
 global $_t;
 
-$_t["it"]["You must supply a password."] = "È necessario inserire una password.";
+$_t["it"]["You must supply a password."] = "È necessario inserire la password.";
 
 $_t["it"]["You must supply a username."] = "È necessario inserire il nome utente.";
 
 $_t["it"]["After that, this can be filled in with more meaningful text."] = "Dopotutto, questo potrebbe essere riempito con un messaggio più significativo.";
 
-$_t["it"]["Logged-in as: %h%s%h"] = "Autenticato con il nome utente: %h%s%h";
+$_t["it"]["Logged-in as: %h%s%h"] = "Connesso con il nome utente: %h%s%h";
 
 $_t["it"]["Your account has been suspended."] = "L'account è stato sospeso.";
 
@@ -33,9 +33,9 @@ $_t["it"]["It's more important to get the login functionality finished."] = "È 
 
 $_t["it"]["Login"] = "Entra";
 
-$_t["it"]["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Nonostante che non possiamo assicurarvi il loro contenuto, mettiamo a disposizione una %hlista di repositories degli utenti%h per vostra comodità";
+$_t["it"]["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Nonostante che non possiamo assicurarvi il loro contenuto, per vostra comodità mettiamo a disposizione una %hlista di repository degli utenti%h";
 
-$_t["it"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Se avete delle osservazioni da fare in merito al sistema AUR, potete lasciarle nel %hFlyspray%h.";
+$_t["it"]["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Se avete delle osservazioni da fare in merito al sistema AUR, potete segnalarle sul %hFlyspray%h.";
 
 $_t["it"]["Latest Packages:"] = "Ultimi pacchetti:";
 
@@ -49,7 +49,7 @@ $_t["it"]["Community"] = "Community";
 
 $_t["it"]["Package Counts"] = "Conteggio dei pacchetti";
 
-$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Benvenuto in AUR! Per ottenere maggiori informazioni, leggi le %hAUR User Guidelines%h e %hAUR TU Guidelines%h.";
+$_t["it"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Benvenuto in AUR! Per ottenere maggiori informazioni, leggi le %hAUR User Guidelines%h e le %hAUR TU Guidelines%h.";
 
 $_t["it"]["Unsupported"] = "Unsupported";
 

@@ -1,6 +1,6 @@
 <?php
 # Italian (Italiano) translation
-# Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
+# Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 
 include_once("translator.inc");
 global $_t;
@@ -21,11 +21,11 @@ $_t["it"]["You must create an account before you can upload packages."] = "Devi 
 
 $_t["it"]["Package upload successful."] = "Invio completato con successo.";
 
-$_t["it"]["Overwrite existing package?"] = "Sovrascrivi il pacchetto esistente?";
+$_t["it"]["Overwrite existing package?"] = "Vuoi sovrascrivere il pacchetto esistente?";
 
 $_t["it"]["You did not specify a package name."] = "Non hai inserito il nome del pacchetto.";
 
-$_t["it"]["Error trying to unpack upload - PKGBUILD does not exist."] = "Errore nello scompattare il file inviato. Non esiste il PKGBUILD.";
+$_t["it"]["Error trying to unpack upload - PKGBUILD does not exist."] = "Si è verificato un errore nello scompattare il file inviato. Non esiste il PKGBUILD.";
 
 $_t["it"]["Could not create incoming directory: %s."] = "Impossibile creare la directory %s.";
 
@@ -41,7 +41,7 @@ $_t["it"]["Package Category"] = "Categoria del pacchetto";
 
 $_t["it"]["Could not change to directory %s."] = "Impossibile cambiare la directory in %s.";
 
-$_t["it"]["You did not tag the 'overwrite' checkbox."] = "Non hai selezionato l'opzione 'sovrascrivi'.";
+$_t["it"]["You did not tag the 'overwrite' checkbox."] = "Non hai selezionato l'opzione 'sovrascrivere'.";
 
 $_t["it"]["Invalid name: only lowercase letters are allowed."] = "Nome non valido: sono consentite solo lettere minuscole.";
 
@@ -88,4 +88,8 @@ $_t["it"]["Binary packages and filelists are not allowed for upload."] = "Non è
 $_t["it"]["Missing arch variable in PKGBUILD."] = "Nel PKGBUILD manca la variabile arch.";
 
 $_t["it"]["Missing license variable in PKGBUILD."] = "Nel PKGBUILD manca la variabile license.";
+
+$_t["it"]["Could not chmod directory %s."] = "Impossibile modificare i permessi della directory %s.";
+
+$_t["it"]["Missing "] = "Mancante";
 

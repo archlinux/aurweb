@@ -1,6 +1,6 @@
 <?php
 # Italian (Italiano) translation
-# Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
+# Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 
 include_once("translator.inc");
 global $_t;
@@ -154,4 +154,74 @@ $_t["it"]["This package has been flagged out of date."] = "Questo pacchetto è s
 $_t["it"]["Toggle Notify"] = "Rimuovi la notifica";
 
 $_t["it"]["Showing results %s - %s of %s"] = "Risultati: %s - %s di %s";
+
+$_t["it"]["You must be logged in before you can flag packages."] = "Devi autenticarti prima di contrassegnare i pacchetti.";
+
+$_t["it"]["Your votes have been removed from the selected packages."] = "i tuoi voti sono stati rimossi dai pacchetti selezionati.";
+
+$_t["it"]["The selected packages have been disowned."] = "I pacchetti selezionati sono stati abbandonati.";
+
+$_t["it"]["Out of Date"] = "Non aggiornato";
+
+$_t["it"]["None of the selected packages could be deleted."] = "Nessuno dei pacchetti selezionati può essere rimosso.";
+
+$_t["it"]["The selected packages have been unflagged."] = "I pacchetti selezionati non sono più contrassegnati.";
+
+$_t["it"]["You must be logged in before you can unflag packages."] = "Devi autenticarti prima di poter togliere il contrassegno ai pacchetti.";
+
+$_t["it"]["You did not select any packages to adopt."] = "Non hai selezionato nessun pacchetto da adottare.";
+
+$_t["it"]["You must be logged in before you can get notifications on comments."] = "Devi autenticarti prima di poter ricevere le notifiche sui commenti.";
+
+$_t["it"]["Leave the password fields blank to keep your same password."] = "Lascia i campi delle password vuoti per lasciarla inalterata.";
+
+$_t["it"]["The selected packages have been flagged out-of-date."] = "I pacchetti selezionati sono stati contrassegnati come non aggiornati.";
+
+$_t["it"]["The selected packages have been deleted."] = "I pacchetti selezionati sono stati rimossi.";
+
+$_t["it"]["You did not select any packages to vote for."] = "Non hai selezionato nessun pacchetto da votare.";
+
+$_t["it"]["You must be logged in before you can disown packages."] = "Devi autenticarti prima di abbandonare i pacchetti.";
+
+$_t["it"]["Couldn't add to notification list."] = "Impossibile aggiungere alla lista della notifica.";
+
+$_t["it"]["The selected packages have been adopted."] = "I pacchetti selezionati sono stati adottati.";
+
+$_t["it"]["You must log in to view user information."] = "Devi autenticarti per visualizzare le informazioni dell'utente.";
+
+$_t["it"]["You must be logged in before you can adopt packages."] = "Devi autenticarti prima di poter adottare i pacchetti.";
+
+$_t["it"]["Could not retrieve information for the specified user."] = "Impossibile recuperare le informazioni dell'utente specificato.";
+
+$_t["it"]["You must be logged in before you can vote for packages."] = "Devi autenticarti prima di poter votare i pacchetti.";
+
+$_t["it"]["Use this form to search existing accounts."] = "Usa questo modulo per ricercare account esistenti.";
+
+$_t["it"]["You did not select any packages to disown."] = "Non hai selezionati nessun pacchetto da abbandonare.";
+
+$_t["it"]["You must be logged in before you can un-vote for packages."] = "Devi autenticarti prima di rimuovere il voto ai pacchetti.";
+
+$_t["it"]["Use this form to create an account."] = "Usa questo modulo per creare un account.";
+
+$_t["it"]["You did not select any packages to unflag."] = "Non hai selezionato nessun pacchetto da cui rimuovere il contrassegno.";
+
+$_t["it"]["You did not select any packages to delete."] = "Non hai selezionato nessun pacchetto da rimuovere.";
+
+$_t["it"]["You have been removed from the comment notification list for %s."] = "Sei stato rimosso dalla lista di notifica dei commenti.";
+
+$_t["it"]["Use this form to update your account."] = "Usa questo modulo per aggiornare il tuo account.";
+
+$_t["it"]["You are not allowed to access this area."] = "Non hai i permessi necessari per accedere a quest'area.";
+
+$_t["it"]["Your votes have been cast for the selected packages."] = "I tuoi voti sono stati assegnati ai pacchetti selezionati.";
+
+$_t["it"]["You did not select any packages to flag."] = "Non hai selezionato nessun pacchetto da contrassegnare.";
+
+$_t["it"]["Accounts"] = "Account";
+
+$_t["it"]["You do not have permission to edit this account."] = "Non hai i permessi necessari per modificare questo account.";
+
+$_t["it"]["Home"] = "Inizio";
+
+$_t["it"]["You have been added to the comment notification list for %s."] = "Sei stato aggiunto alla lista di notifica dei commenti per %s.";
 

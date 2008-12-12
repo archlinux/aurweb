@@ -1,6 +1,6 @@
 <?php
 # Italian (Italiano) translation
-# Translators: Giovanni Scafora <linuxmania@gmail.com> and Pierluigi Picciau <pierluigi88@gmail.com>
+# Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 
 include_once("translator.inc");
 global $_t;
@@ -68,4 +68,8 @@ $_t["it"]["Couldn't flag package safe."] = "Impossibile contrassegnare il pacche
 $_t["it"]["The selected packages have been unflagged safe."] = "I pacchetti selezionati sono stati contrassegnati come non sicuri.";
 
 $_t["it"]["Couldn't unflag package safe."] = "Impossibile contrassegnare il pacchetto come non sicuro.";
+
+$_t["it"]["Packages"] = "Pacchetti";
+
+$_t["it"]["Search Criteria"] = "Criterio di ricerca";
 
