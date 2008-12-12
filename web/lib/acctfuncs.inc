@@ -798,7 +798,7 @@ function user_is_privileged( $id )
 }
 
 # Clear out old expired sessions.
-function clear_expired_sessions($dbh) {
+function clear_expired_sessions($dbh = null) {
 	global $LOGIN_TIMEOUT;
 
 	if (empty($dbh))
@@ -809,3 +809,4 @@ function clear_expired_sessions($dbh) {
 
 	return;
 }
+
