@@ -77,7 +77,7 @@ $_t["it"]["Sorry, uploads are not permitted by this server."] = "Spiacente, gli 
 
 $_t["it"]["You must supply a comment for this upload/change."] = "Devi inserire un commento.";
 
-$_t["it"]["Yes"] = "Si";
+$_t["it"]["Yes"] = "Sì";
 
 $_t["it"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Manca un protocollo nell'url del pacchetto (es. http:// ,ftp://)";
 

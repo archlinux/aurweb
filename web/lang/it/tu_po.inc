@@ -5,7 +5,7 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["it"]["Proposal:"] = "Proposta";
+$_t["it"]["Proposal:"] = "Proposta:";
 
 $_t["it"]["No"] = "No";
 
@@ -25,11 +25,11 @@ $_t["it"]["Vote ID not valid."] = "L'ID del voto non è valido.";
 
 $_t["it"]["(empty if not applicable)"] = "(vuoto se non applicabile)";
 
-$_t["it"]["Voting is closed for this proposal."] = "Il voto è concluso per questa proposta.";
+$_t["it"]["Voting is closed for this proposal."] = "Non puoi più votare per questa proposta.";
 
 $_t["it"]["New proposal submitted."] = "Nuova proposta inviata.";
 
-$_t["it"]["%s already has proposal running for them."] = "%s ha già avviato la proposta per loro.";
+$_t["it"]["%s already has proposal running for them."] = "%s ha già avviato una proposta per loro.";
 
 $_t["it"]["Length must be a number."] = "La durata deve essere un numero.";
 

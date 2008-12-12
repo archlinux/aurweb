@@ -95,7 +95,7 @@ $_t["it"]["Vote"] = "Vota";
 
 $_t["it"]["Adopt Packages"] = "Adotta il pacchetto";
 
-$_t["it"]["Yes"] = "Si";
+$_t["it"]["Yes"] = "Sì";
 
 $_t["it"]["Package Listing"] = "Lista dei pacchetti";
 
