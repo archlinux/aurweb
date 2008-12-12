@@ -28,4 +28,3 @@ $_t["fr"]["Create"] = "Créer";
 
 $_t["fr"]["More"] = "Plus";
 
-?>

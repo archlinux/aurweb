@@ -10,4 +10,3 @@ $_t["fr"]["Click on the Home link above to log in."] = "Cliquez sur le lien ci-d
 
 $_t["fr"]["Your session has timed out.  You must log in again."] = "Votre session a expiré. Vous devez vous authentifier à nouveau.";
 
-?>

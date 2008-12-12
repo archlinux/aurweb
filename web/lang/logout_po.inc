@@ -28,3 +28,5 @@ include_once("de/logout_po.inc");
 include_once("ru/logout_po.inc");
 include_once("tr/logout_po.inc");
 
+include_once("fr/logout_po.inc");
+

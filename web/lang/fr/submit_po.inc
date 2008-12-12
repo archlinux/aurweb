@@ -90,4 +90,7 @@ $_t["fr"]["Missing license variable in PKGBUILD."] = "La variable license est ma
 
 $_t["fr"]["Missing arch variable in PKGBUILD."] = "La variable arch est manquante dans le PKGBUILD.";
 
-?>
+$_t["fr"]["Could not chmod directory %s."] = "Impossible d'effectuer chmod sur le répertoire %s.";
+
+$_t["fr"]["Missing "] = "Manquant";
+

@@ -21,4 +21,3 @@ $_t["fr"]["Home"] = "Accueil";
 
 $_t["fr"]["Packages"] = "Paquets";
 
-?>

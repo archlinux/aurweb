@@ -9,7 +9,7 @@ $_t["fr"]["Use this form to update your account."] = "Utilisez ce formulaire pou
 
 $_t["fr"]["Leave the password fields blank to keep your same password."] = "Laissez les champs du mot de passe vides pour conserver le même mot de passe.";
 
-$_t["fr"]["You are not allowed to access this area."] = "Vous n'êtes pas autorisé(e) à accèder à cet espace.";
+$_t["fr"]["You are not allowed to access this area."] = "Vous n'avez pas la permission d'accéder à cet espace.";
 
 $_t["fr"]["Could not retrieve information for the specified user."] = "Impossible de retrouver les informations de l'utilisateur spécifié.";
 

@@ -72,8 +72,9 @@ $_t["fr"]["Couldn't remove from notification list."] = "Suppression impossible d
 
 $_t["fr"]["Packages"] = "Paquets";
 
-$_t["fr"]["You have been removed from the comment notification list for %s."] = "Vous avez été retiré de la liste de notification des commentaires pour %s.";
+$_t["fr"]["You have been removed from the comment notification list for %s."] = "Vous avez été retiré de la liste des notifications de commentaire pour %s.";
 
-$_t["fr"]["You have been added to the comment notification list for %s."] = "Vous avez été ajouté à la liste de notification des commentaires pour %s.";
+$_t["fr"]["You have been added to the comment notification list for %s."] = "Vous avez été ajouté à la liste des notifications de commentaire pour %s.";
 
-?>
+$_t["fr"]["Search Criteria"] = "Critères de recherche";
+

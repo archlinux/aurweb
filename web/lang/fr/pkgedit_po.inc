@@ -17,7 +17,7 @@ $_t["fr"]["Missing comment ID."] = "ID de commentaire manquant.";
 
 $_t["fr"]["Package category updated."] = "Catégorie du paquet mise à jour.";
 
-$_t["fr"]["You must be logged in before you can edit package information."] = "Vous devez être authentifié(e) avant de pouvoir éditer les informations du paquet.";
+$_t["fr"]["You must be logged in before you can edit package information."] = "Vous devez vous identifier avant de pouvoir éditer les informations du paquet.";
 
 $_t["fr"]["Comment has been deleted."] = "Le commentaire a été supprimé.";
 
@@ -27,4 +27,3 @@ $_t["fr"]["Comment has been added."] = "Le commentaire a été ajouté.";
 
 $_t["fr"]["Select new category"] = "Sélectionnez une nouvelle catégorie";
 
-?>

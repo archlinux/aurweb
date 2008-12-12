@@ -94,4 +94,3 @@ $_t["fr"]["Start and end with a letter or number"] = "doit débuter et se termin
 
 $_t["fr"]["The username is invalid."] = "Le nom d'utilisateur choisi n'est pas valide.";
 
-?>
