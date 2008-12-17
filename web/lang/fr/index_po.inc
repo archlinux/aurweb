@@ -62,10 +62,13 @@ $_t["fr"]["Out-of-date"] = "Périmé";
 
 $_t["fr"]["User Statistics"] = "Statistiques utilisateur";
 
-$_t["fr"]["DISCLAIMER"] = "Les PKGBUILDs proposés dans \"Unsupported\" sont produits par des utilisateurs. Téléchargez-les à vos propres risques.";
+$_t["fr"]["DISCLAIMER"] = "AVERTISSEMENT";
 
 $_t["fr"]["My Statistics"] = "Mes statistiques";
 
 $_t["fr"]["Home"] = "Accueil";
 
-?>
+$_t["fr"]["Some packages may be provided as binaries in [community]."] = "Certains paquets peuvent être disponibles précompilés dans le dépôt [community]";
+
+$_t["fr"]["Unsupported packages are user produced content. Any use of the provided files is at your own risk."] = "Les paquets proposés dans \"Unsupported\" sont produits par des utilisateurs. Toute utilisation des fichiers fournis se fait à vos propres risques.";
+
