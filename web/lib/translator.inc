@@ -45,7 +45,7 @@ function __() {
 		# if it's a supported language, but there isn't a translation,
 		# alert the visitor to the missing translation.
 		#
-		$translated = "_${tag}_";
+		$translated = $tag;
 	}
 
 	$translated = htmlspecialchars($translated, ENT_QUOTES); 
