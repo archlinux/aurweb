@@ -11,8 +11,6 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/logout_po.inc");
-
 include_once("pl/logout_po.inc");
 
 include_once("it/logout_po.inc");

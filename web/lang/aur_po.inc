@@ -11,8 +11,6 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/aur_po.inc");
-
 include_once("pl/aur_po.inc");
 
 include_once("it/aur_po.inc");

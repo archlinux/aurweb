@@ -11,8 +11,6 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/pkgfuncs_po.inc");
-
 include_once("pl/pkgfuncs_po.inc");
 
 include_once("it/pkgfuncs_po.inc");

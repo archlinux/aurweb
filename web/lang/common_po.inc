@@ -11,8 +11,6 @@
 include_once("translator.inc");
 global $_t;
 
-include_once("en/common_po.inc");
-
 include_once("pl/common_po.inc");
 
 include_once("it/common_po.inc");
