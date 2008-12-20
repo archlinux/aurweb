@@ -25,10 +25,12 @@ if (isset($_COOKIE["AURSID"])) {
 }
 
 # Grab the list of Package IDs to be operated on
-#
-# TODO: Convert this to a normal array of IDs to operate on and convert the
-# functions to use this format
-isset($_POST["IDs"]) ? $ids = $_POST["IDs"] : $ids = array();
+$ids = array();
+if (isset($_POST['IDs'])) {
+	foreach ($_POST['IDs'] as $id => $i) {
+		$ids[] = $id;
+	}
+}
 
 html_header($title);
 

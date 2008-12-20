@@ -988,8 +988,7 @@ function pkg_search_page($SID="") {
  * Flag and un-flag packages out-of-date
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to flag/unflag, formatted as
- * $package_id => $useless_crap
+ * @param array $ids Array of package IDs to flag/unflag
  * @param boolean $action True flags out-of-date, false un-flags. Flags by
  * default
  *
@@ -1012,7 +1011,7 @@ function pkg_flag ($atype, $ids, $action = True) {
 		}
 	}
 
-	foreach ($ids as $pid => $v) {
+	foreach ($ids as $pid) {
 		if (!is_numeric($pid)) {
 			if ($action) {
 				return __("You did not select any packages to flag.");
@@ -1025,7 +1024,7 @@ function pkg_flag ($atype, $ids, $action = True) {
 	$dbh = db_connect();
 
 	$first = 1;
-	foreach ($ids as $pid => $v) {
+	foreach ($ids as $pid) {
 		if ($first) {
 			$first = 0;
 			$flag = $pid;
@@ -1073,8 +1072,7 @@ function pkg_flag ($atype, $ids, $action = True) {
  * Delete packages
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to delete, formatted as
- * $package_id => $useless_crap
+ * @param array $ids Array of package IDs to delete
  *
  * @return string Translated error or success message
  */
@@ -1094,7 +1092,7 @@ function pkg_delete ($atype, $ids) {
 	# Delete the packages in $ids array
 	#
 	$first = 1;
-	foreach ($ids as $pid => $v) {
+	foreach ($ids as $pid) {
 		if ($first) {
 			$first = 0;
 			$delete = $pid;
@@ -1155,8 +1153,7 @@ function pkg_delete ($atype, $ids) {
  * Adopt or disown packages
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to adopt/disown, formatted as
- * $package_id => $whatever
+ * @param array $ids Array of package IDs to adopt/disown
  * @param boolean $action Adopts if true, disowns if false. Adopts by default
  *
  * @return string Translated error or success message
@@ -1181,7 +1178,7 @@ function pkg_adopt ($atype, $ids, $action = True) {
 	$dbh = db_connect();
 
 	$first = 1;
-	foreach ($ids as $pid => $v) {
+	foreach ($ids as $pid) {
 		if ($first) {
 			$first = 0;
 			$pkg = $pid;
@@ -1223,8 +1220,7 @@ function pkg_adopt ($atype, $ids, $action = True) {
  * Vote and un-vote for packages
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to vote/un-vote, formatted as
- * $package_id => $useless
+ * @param array $ids Array of package IDs to vote/un-vote
  * @param boolean $action Votes if true, un-votes if false. Votes by default
  *
  * @return string Translated error or success message
@@ -1251,7 +1247,7 @@ function pkg_vote ($atype, $ids, $action = True) {
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 	$first = 1;
-	foreach ($ids as $pid => $v) {
+	foreach ($ids as $pid) {
 		if ($action) {
 			$check = !isset($my_votes[$pid]);
 		} else {
@@ -1310,8 +1306,7 @@ function pkg_vote ($atype, $ids, $action = True) {
  * Toggle notification of packages
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to toggle, formatted as $package_id => $crap
- *
+ * @param array $ids Array of package IDs to toggle, formatted as $package_id
  * @return string Translated error or success message
  */
 function pkg_notify ($atype, $ids, $action = True) {
@@ -1333,7 +1328,7 @@ function pkg_notify ($atype, $ids, $action = True) {
 
 	# There currently shouldn't be multiple requests here, but the
 	# format in which it's sent requires this.
-	foreach ($ids as $pid => $v) {
+	foreach ($ids as $pid) {
 		$q = "SELECT Name FROM Packages WHERE ID = $pid";
 		$pkgname = mysql_result(db_query($q, $dbh), 0);
 
