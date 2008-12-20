@@ -290,9 +290,9 @@ function package_details($id=0, $SID="") {
 
 			# print out package details
 			#
-      echo "<div class=\"pgbox\">\n";
-      echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Package Details")."</span></div>\n";
-      echo "  <div class=\"pgboxbody\">\n";
+			echo "<div class=\"pgbox\">\n";
+			echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Package Details")."</span></div>\n";
+			echo "  <div class=\"pgboxbody\">\n";
 			echo "    <table>\n";
 			echo "      <tr><td class='boxSoft' colspan='2'><span class='f2'>";
 			echo $row["Name"] . " " . $row["Version"]."</span></td></tr>\n";
@@ -364,8 +364,8 @@ function package_details($id=0, $SID="") {
 			$deps = package_dependencies($row["ID"]); # $deps[0] = array('id','name', 'dummy');
 			if (count($deps) > 0) {
 			
-        echo "      <tr>\n";
-        echo "        <td valign='top' style='padding-right: 10'>\n";   
+			echo "      <tr>\n";
+			echo "        <td valign='top' style='padding-right: 10'>\n";
   			echo "          <table class='boxSoft' style='width: 200px'>\n";
   			echo "            <tr><td class='boxSoftTitle'><span class='f3'>";
   			echo __("Dependencies")."</span></td></tr>\n";
@@ -473,7 +473,7 @@ function package_details($id=0, $SID="") {
                 echo "<div class=\"pgbox\">\n";
                 echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Actions")."</span></div>\n";
                 echo "  <div class=\"pgboxbody\">\n";
-                echo "    <form action='/packages.php' method='post'>\n";
+                echo "    <form action='/packages.php?ID=".$row['ID']."' method='post'>\n";
 				echo "      <input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
 				echo "      <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
 				# Voting Button
@@ -767,7 +767,7 @@ function pkg_search_page($SID="") {
     $result = db_query($q, $dbh);
     $total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
 
-    print "<form action='/packages.php' method='post'>\n";
+    print "<form action='/packages.php?".$_SERVER['QUERY_STRING']."' method='post'>\n";
     print "<center>\n";
     print "<table cellspacing='3' class='boxSoft'>\n";
     print "<tr>\n";

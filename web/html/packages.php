@@ -32,54 +32,43 @@ if (isset($_POST['IDs'])) {
 	}
 }
 
+# Determine what action to do
+$output = "";
+if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
+	$output = pkg_flag($atype, $ids, True);
+} elseif ($_POST['action'] == "do_UnFlag" || isset($_POST['do_UnFlag'])) {
+	$output = pkg_flag($atype, $ids, False);
+} elseif ($_POST['action'] == "do_Adopt" || isset($_POST['do_Adopt'])) {
+	$output = pkg_adopt($atype, $ids, True);
+} elseif ($_POST['action'] == "do_Disown" || isset($_POST['do_Disown'])) {
+	$output = pkg_adopt($atype, $ids, False);
+} elseif ($_POST['action'] == "do_Vote" || isset($_POST['do_Vote'])) {
+	$output = pkg_vote($atype, $ids, True);
+} elseif ($_POST['action'] == "do_UnVote" || isset($_POST['do_UnVote'])) {
+	$output = pkg_vote($atype, $ids, False);
+} elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
+	$output = pkg_delete($atype, $ids);
+	unset($_GET['ID']);
+} elseif ($_POST['action'] == "do_Notify" || isset($_POST['do_Notify'])) {
+	$output = pkg_notify($atype, $ids);
+} elseif ($_POST['action'] == "do_UnNotify" || isset($_POST['do_UnNotify'])) {
+	$output = pkg_notify($atype, $ids, False);
+}
+
 html_header($title);
 
-# Determine what action to do
-if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
-	print "<p>";
-	print pkg_flag($atype, $ids, True);
-	print "</p>";
-} elseif ($_POST['action'] == "do_UnFlag" || isset($_POST['do_UnFlag'])) {
-	print "<p>";
-	print pkg_flag($atype, $ids, False);
-	print "</p>";
-} elseif ($_POST['action'] == "do_Adopt" || isset($_POST['do_Adopt'])) {
-	print "<p>";
-	print pkg_adopt($atype, $ids, True);
-	print "</p>";
-} elseif ($_POST['action'] == "do_Disown" || isset($_POST['do_Disown'])) {
-	print "<p>";
-	print pkg_adopt($atype, $ids, False);
-	print "</p>";
-} elseif ($_POST['action'] == "do_Vote" || isset($_POST['do_Vote'])) {
-	print "<p>";
-	print pkg_vote($atype, $ids, True);
-	print "</p>";
-} elseif ($_POST['action'] == "do_UnVote" || isset($_POST['do_UnVote'])) {
-	print "<p>";
-	print pkg_vote($atype, $ids, False);
-	print "</p>";
-} elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
-	print "<p>";
-	print pkg_delete($atype, $ids);
-	print "</p>";
-} elseif ($_POST['action'] == "do_Notify" || isset($_POST['do_Notify'])) {
-	print "<p>";
-	print pkg_notify($atype, $ids);
-	print "</p>";
-} elseif ($_POST['action'] == "do_UnNotify" || isset($_POST['do_UnNotify'])) {
-	print "<p>";
-	print pkg_notify($atype, $ids, False);
-	print "</p>";
-} elseif (isset($_GET["ID"])) {
+if ($output):
+?>
+<div class="pkgoutput"><?php print $output ?></div><br />
+<?php
+endif;
 
+if (isset($_GET["ID"])) {
 	if (!intval($_GET["ID"])) {
 		print __("Error trying to retrieve package details.")."<br />\n";
-		
 	} else {
 		package_details($_GET["ID"], $_COOKIE["AURSID"]);
 	}
-
 } else {
 	pkg_search_page($_COOKIE["AURSID"]);
 }
