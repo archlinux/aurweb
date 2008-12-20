@@ -241,7 +241,7 @@ if ($_COOKIE["AURSID"]):
 		}
 
 		# Chmod files after everything has been done.
-		if (!chmod_group($incoming_pkgdir)) {
+		if (!error && !chmod_group($incoming_pkgdir)) {
 			$error = __("Could not chmod directory %s.", $incoming_pkgdir);
 		}
 
