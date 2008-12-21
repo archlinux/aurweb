@@ -68,15 +68,15 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 <p><?php print __("Submit a proposal to vote on.") ?></p>
 <?php if (!empty($error)) { print $error . "<br />"; } ?>
 <form action='addvote.php' method='post'>
-<b><?php print __("Applicant/TU:") ?></b>
+<b><?php print __('Applicant/TU') ?></b>
 <input type='text' name='user' value='<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>'>
 <?php print __("(empty if not applicable)") ?>
 <br />
-<b><?php print __("Length in days:") ?></b>
+<b><?php print __('Length in days') ?></b>
 <input type='text' name='length' value='<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>'>
 <?php print __("(defaults to 7 if empty)") ?>
 <br />
-<b><?php print __("Proposal:") ?></b><br />
+<b><?php print __('Proposal') ?></b><br />
 <textarea name='agenda' rows='10' cols='50'><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
 <input type='hidden' name='addVote' value='1'>
 <input type='submit' class='button' value='Submit'>

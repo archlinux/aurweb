@@ -4,8 +4,8 @@
 <?php if ($isrunning == 1) { ?>
 <div style='text-align: center; font-weight: bold; color: red'><?php print __("This vote is still running.") ?></div>
 <br />
-<?php } ?>
-User: <b>
+<?php }
+echo __('User') ?>: <b>
 <?php if (!empty($row['User'])) { ?>
 <a href='packages.php?K=<?php print $row['User'] ?>&amp;SeB=m'><?php print $row['User'] ?></a>
 <?php } else { ?>
@@ -13,7 +13,7 @@ N/A
 <?php } ?>
 </b><br />
 <?php print __("Submitted: %s by %s", "<b>" . gmdate("r", $row['Submitted']) . "</b>", "<b>" . username_from_id($row['SubmitterID']) . "</b>") ?><br />
-<?php print __("End: ") ?><b><?php print gmdate("r", $row['End']) ?></b><br /><br />
+<?php print __('End') ?>: <b><?php print gmdate("r", $row['End']) ?></b><br /><br />
 <?php print str_replace("\n", "<br />\n", htmlentities($row['Agenda'])) ?><br /><br />
 <center>
 <table cellspacing='3' class='boxSoft' style='width: 50%'>
@@ -26,7 +26,7 @@ N/A
 <th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("No") ?></span></th>
 <th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Abstain") ?></span></th>
 <th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Total") ?></span></th>
-<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Voted?") ?></span></th>
+<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __('Voted') ?></span></th>
 </tr>
 <tr>
 <td class='data1'><span class='f5'><span class='blue'><?php print $row['Yes'] ?></span></span></td>
