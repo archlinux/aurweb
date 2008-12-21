@@ -90,11 +90,14 @@ if ($_REQUEST["add_Comment"]) {
 			#TODO: native language emails for users, based on their prefs
 			# Simply making these strings translatable won't work, users would be
 			# getting emails in the language that the user who posted the comment was in
-			$body = "A comment has been added to ".$row['Name']." by " . username_from_sid($_COOKIE["AURSID"]) . ", you may view it at:\nhttp://aur.archlinux.org/packages.php?ID=".$_REQUEST["ID"]."\n\n\"" . $_POST['comment'] . "\"\n\n---\nYou received this e-mail because you chose to receive notifications of new comments on this package, if you no longer wish to recieve notifications about this package, please go the the above package page and click the UnNotify button.";
+			$body = "\nAuthor: " . username_from_sid($_COOKIE["AURSID"])
+			. "\nFrom http://aur.archlinux.org/packages.php?ID="
+			. $_REQUEST["ID"]."\n\n" . $_POST['comment']
+			. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
 			$body = wordwrap($body, 70);
 			$bcc = implode(', ', $bcc);
-			$headers = "Bcc: $bcc\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
-			@mail(' ', "AUR Comment Notification for ".$row['Name'], $body, $headers);
+			$headers = "Bcc: $bcc\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: AUR\n";
+			@mail(' ', "AUR Comment for ".$row['Name'], $body, $headers);
 		}
 
 	} else {
