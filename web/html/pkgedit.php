@@ -8,7 +8,6 @@ include_lang("pkgedit_po.inc");  # i18n translations for this script
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 html_header();              # print out the HTML header
-$svn_idstr = "\$Id$";
 
 # Make sure this visitor is logged in
 #
@@ -102,7 +101,7 @@ if ($_REQUEST["add_Comment"]) {
 		# Prompt visitor for comment
 		#
 		print "<div align='center'>\n";
-		print "<form action='/pkgedit.php' method='post'>\n";
+		print "<form action='pkgedit.php' method='post'>\n";
 		print "<input type='hidden' name='add_Comment' value='1'>\n";
 		print "<input type='hidden' name='ID' value=\"".$_REQUEST["ID"]."\">\n";
 		print __("Enter your comment below.")."<br />&nbsp;<br />\n";
@@ -143,7 +142,7 @@ if ($_REQUEST["change_Category"]) {
 		if ($result != NULL) {
 			$catid = mysql_fetch_row($result);
 		}
-		print "<form action='/pkgedit.php' method='post'>\n";
+		print "<form action='pkgedit.php' method='post'>\n";
 		print "<input type='hidden' name='change_Category' value='1'>\n";
 		print "<input type='hidden' name='ID' value=\"".$_REQUEST["ID"]."\">\n";
 		print __("Select new category").":&nbsp;\n";
@@ -170,4 +169,3 @@ print __("You've found a bug if you see this....")."<br />\n";
 
 html_footer(AUR_VERSION);
 
-?>

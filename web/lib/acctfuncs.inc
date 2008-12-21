@@ -21,7 +21,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 
 	global $SUPPORTED_LANGS;
 
-	print "<form action='/account.php' method='post'>\n";
+	print "<form action='account.php' method='post'>\n";
 	print "<input type='hidden' name='Action' value='".$A."'>\n";
 	if ($UID) {
 		print "<input type='hidden' name='ID' value='".$UID."'>\n";
@@ -491,7 +491,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 					#
 					print "&nbsp;</span></td>";
 				} else {
-					$edit_url = "/account.php?Action=DisplayAccount&ID=".$row["ID"];
+					$edit_url = "account.php?Action=DisplayAccount&ID=".$row["ID"];
 					print "<a href='".$edit_url . "'>";
 					print "Edit</a></span></td>";
 				}
@@ -503,7 +503,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 
 			print "<tr>";
 			print "<td align='left'>";
-			print "<form action='/account.php' method='post'>\n";
+			print "<form action='account.php' method='post'>\n";
 			print "<input type='hidden' name='Action' value='SearchAccounts'>\n";
 			print "<input type='hidden' name='O'";
 			print " value='".($OFFSET-$HITS_PER_PAGE)."'>\n";
@@ -517,7 +517,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 			print "</form>\n";
 			print "</td>";
 			print "<td align='right'>";
-			print "<form action='/account.php' method='post'>\n";
+			print "<form action='account.php' method='post'>\n";
 			print "<input type='hidden' name='Action' value='SearchAccounts'>\n";
 			print "<input type='hidden' name='O'";
 			print " value='".($OFFSET+$HITS_PER_PAGE)."'>\n";

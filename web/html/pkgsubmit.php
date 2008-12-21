@@ -415,7 +415,7 @@ html_header("Submit");
 			$pkg_locations = pkgLocations();
 ?>
 
-<form action='/pkgsubmit.php' method='post' enctype='multipart/form-data'>
+<form action='pkgsubmit.php' method='post' enctype='multipart/form-data'>
 	<input type='hidden' name='pkgsubmit' value='1' />
 	<table border='0' cellspacing='5'>
 		<tr>

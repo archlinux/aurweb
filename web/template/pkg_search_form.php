@@ -1,4 +1,4 @@
-<form action='/packages.php' method='get'>
+<form action='packages.php' method='get'>
 <input type='hidden' name='O' value='0'>
 
 <center>
