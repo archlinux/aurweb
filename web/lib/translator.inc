@@ -1,4 +1,6 @@
 <?php
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+
 # this include file provides support for i18n
 #
 
@@ -23,7 +25,17 @@
 # deprecated usage:
 #	print __("%s has %s apples.", array("Bill", "5"));
 
-include_once("common_po.inc");
+include_once('config.inc');
+
+function include_lang($trans) {
+	global $LANG;
+
+	if ($LANG != DEFAULT_LANG) {
+		return include_once("$LANG/$trans");
+	}
+	else
+		return true;
+}
 
 function __() {
 	global $_t;
@@ -41,10 +53,8 @@ function __() {
 	else
 		$translated = $_t[$LANG][$tag];
 
+	# If there is no translation, just print the given string.
 	if (empty($translated)) {
-		# if it's a supported language, but there isn't a translation,
-		# alert the visitor to the missing translation.
-		#
 		$translated = $tag;
 	}
 

@@ -1,11 +1,10 @@
 <?php
 
-set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
 include("aur.inc");         # access AUR common functions
 include_once("acctfuncs.inc");         # access AUR common functions
-include("logout_po.inc");   # use some form of this for i18n support
-set_lang();                 # this sets up the visitor's language
+
 
 # if they've got a cookie, log them out - need to do this before
 # sending any HTML output.

@@ -1,9 +1,9 @@
 <?php
 
-set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
-include("tu_po.inc");
 include("aur.inc");
+include_lang('tu_po.inc');
 set_lang();
 check_sid();
 html_header();

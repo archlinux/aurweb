@@ -1,22 +1,23 @@
 <?php
-set_include_path(get_include_path() . PATH_SEPARATOR . '../template');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../template');
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Tue, 11 Oct 1988 22:00:00 GMT'); // quite a special day
 header('Pragma: no-cache');
-include_once("version.inc");
+
+include_once('translator.inc');
+set_lang();
+include_lang('aur_po.inc');
+include_lang('common_po.inc');
+
 include_once("config.inc");
-include_once("aur_po.inc");
-// TODO: remove this, move translations over for login form
-include_once("index_po.inc");
+include_once("version.inc");
 include_once("acctfuncs.inc");
 
 # TODO do we need to set the domain on cookies?  I seem to remember some
 # security concerns about not using domains - but it's not like
 # we really care if another site can see what language/SID a user
 # is using...
-#
-
 
 
 # return an array of info for each Trusted user

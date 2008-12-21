@@ -1,14 +1,14 @@
 <?php
 
-set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
-include('index_po.inc');
-include("pkgfuncs_po.inc");
 include("aur.inc");
-include('stats.inc');
-
 set_lang();
 check_sid();
+
+include('stats.inc');
+include_lang('index_po.inc');
+include_lang('pkgfuncs_po.inc');
 
 html_header( __("Home") );
 

@@ -1,5 +1,5 @@
 <?php
-include_once("pkgfuncs_po.inc");
+include_lang('pkgfuncs_po.inc');
 include_once("config.inc");
 
 # define variables used during pkgsearch
