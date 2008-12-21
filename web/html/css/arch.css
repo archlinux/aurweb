@@ -2,7 +2,7 @@
 * ul { padding: 20px; }
 body {
   min-width: 600px;
-  background: #fbf8f1 url("/images/titlebar.png") repeat-x top left;
+  background: #fbf8f1 url("../images/titlebar.png") repeat-x top left;
   padding: 0 30px;
   color: #555;
   font-family: "DejaVu Sans", "Bitstream Vera Sans", "Lucida Grande", Arial, sans-serif;
@@ -125,7 +125,7 @@ body {
 }
 #logo h1#archtitle a {
   display: block;
-  background: transparent url("/images/titlelogo.png") top left no-repeat;
+  background: transparent url("../images/titlelogo.png") top left no-repeat;
   width: 350px;
   height: 103px;
 }

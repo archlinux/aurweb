@@ -306,7 +306,7 @@ function package_details($id=0, $SID="") {
 					uid_from_sid($SID) == $row["MaintainerUID"] or
 					(account_from_sid($SID) == "Developer" or
 					 account_from_sid($SID) == "Trusted User"))) {
-			  $edit_cat = "<a href='/pkgedit.php?change_Category=1&ID=";
+			  $edit_cat = "<a href='pkgedit.php?change_Category=1&ID=";
 			  $edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
 			  $edit_cat .= " &nbsp;<span class='fix'>(";
 			  $edit_cat .= __("change category").")</span>";
@@ -318,7 +318,7 @@ function package_details($id=0, $SID="") {
 			if ($row["MaintainerUID"]) {
 				$maintainer = username_from_id($row["MaintainerUID"]);
 				if ($SID) {
-					echo "<a href='/account.php?Action=AccountInfo&ID=";
+					echo "<a href='account.php?Action=AccountInfo&ID=";
 					echo $row["MaintainerUID"] . "'>";
 					echo $maintainer . "</a></span></td>";
 				} else {
@@ -473,7 +473,7 @@ function package_details($id=0, $SID="") {
                 echo "<div class=\"pgbox\">\n";
                 echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Actions")."</span></div>\n";
                 echo "  <div class=\"pgboxbody\">\n";
-                echo "    <form action='/packages.php?ID=".$row['ID']."' method='post'>\n";
+                echo "    <form action='packages.php?ID=".$row['ID']."' method='post'>\n";
 				echo "      <input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
 				echo "      <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
 				# Voting Button
@@ -537,7 +537,7 @@ function package_details($id=0, $SID="") {
 			echo "    <table width='100%'>\n";
 			if (isset($_COOKIE['AURSID'])) {
 				echo "<tr><td>";
-				echo "          <form action='/pkgedit.php' method='post'>\n";
+				echo "          <form action='pkgedit.php' method='post'>\n";
 				echo "            <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
 				echo "            <input type='submit' class='button' name='add_Comment' value=\"";
 				echo __("Add Comment")."\">\n";
@@ -555,7 +555,7 @@ function package_details($id=0, $SID="") {
 					echo "            <tr>\n";
 					echo "              <td class='boxSoftTitle'><span class='f3'>";
 					if (canDeleteComment($carr["ID"], account_from_sid($SID), $SID)) {
-						$durl = "<a href='/pkgedit.php?del_Comment=1";
+						$durl = "<a href='pkgedit.php?del_Comment=1";
 						$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
 						$durl.= "'><img src='/images/x.png' border='0'";
 						$durl.= " alt=\"".__("Delete comment")."\"></a>";
@@ -564,7 +564,7 @@ function package_details($id=0, $SID="") {
 					}
 					if ($SID) {
 						echo __("Comment by: %h%s%h on %h%s%h",
-							array("<a href='/account.php?Action=AccountInfo&ID=".$carr["UsersID"]."'><b>",$carr["UserName"],"</b></a>",
+							array("<a href='account.php?Action=AccountInfo&ID=".$carr["UsersID"]."'><b>",$carr["UserName"],"</b></a>",
 							      "<i>",gmdate("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
 					} else {
 						echo __("Comment by: %h%s%h on %h%s%h",
@@ -767,7 +767,7 @@ function pkg_search_page($SID="") {
     $result = db_query($q, $dbh);
     $total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
 
-    print "<form action='/packages.php?".$_SERVER['QUERY_STRING']."' method='post'>\n";
+    print "<form action='packages.php?".$_SERVER['QUERY_STRING']."' method='post'>\n";
     print "<center>\n";
     print "<table cellspacing='3' class='boxSoft'>\n";
     print "<tr>\n";
@@ -856,7 +856,7 @@ function pkg_search_page($SID="") {
             print "  <td class='".$c."'><span class='f5'><span class='blue'>";
             print $row["Category"]."</span></span></td>\n";
             print "  <td class='".$c."'><span class='f4'>";
-            $url = "<a href='/packages.php?";
+            $url = "<a href='packages.php?";
             $url .= "ID=";
             $url .= $row["ID"];
             $url.= "'>";
@@ -957,15 +957,15 @@ function pkg_search_page($SID="") {
         print "  <tr>";
         print "    <td align='left'>";
         if (($O-$PP) >= 0) {
-            print "<a href='/packages.php?O=" . ($O - $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
+            print "<a href='packages.php?O=" . ($O - $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
         } else if ($O<$PP && $O>0) {
-            print "<a href='/packages.php?O=0&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
+            print "<a href='packages.php?O=0&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>";
         }
         print "    </td>";
         // RIGHT
         print "    <td align='right'>";
         if ($total - $PP - $O > 0) {
-            print "<a href='/packages.php?O=" . ($O + $PP) .
+            print "<a href='packages.php?O=" . ($O + $PP) .
                 "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"]) .
                 "&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"] .
                 "&do_Orphans=".$_REQUEST["do_Orphans"]."'>" .

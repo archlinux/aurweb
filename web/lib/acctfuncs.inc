@@ -463,7 +463,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				}
 				print "<tr>";
 				print "<td class='".$c."'>";
-				print "<span class='f5'><a href='/packages.php?SeB=m&K=".$row["Username"]."'>".$row["Username"]."</a></span></td>";
+				print "<span class='f5'><a href='packages.php?SeB=m&K=".$row["Username"]."'>".$row["Username"]."</a></span></td>";
 				print "<td class='".$c."'>";
 				print "<span class='f5'>".$row["AccountType"];
 				print "</span></td>";
@@ -593,7 +593,7 @@ function display_account_info($U="",$T="",
 	print "  </tr>\n";
 
 	print "  <tr>\n";
-	print "    <td colspan='2'><a href='/packages.php?K=".$U."&SeB=m'>".__("View this user's packages")."</a></td>\n";
+	print "    <td colspan='2'><a href='packages.php?K=".$U."&SeB=m'>".__("View this user's packages")."</a></td>\n";
 	print "  </tr>\n";
 
 	print "</table>\n";

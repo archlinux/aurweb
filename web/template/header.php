@@ -5,9 +5,9 @@
 	xml:lang="<?php print "$LANG\" lang=\"$LANG"; ?>">
   <head>
     <title>AUR (<?php print $LANG; ?>)<?php if ($title != "") { print " - " . $title; } ?></title>
-	<link rel='stylesheet' type='text/css' href='/css/fonts.css' />
-	<link rel='stylesheet' type='text/css' href='/css/containers.css' />
-	<link rel='stylesheet' type='text/css' href='/css/arch.css' />
+	<link rel='stylesheet' type='text/css' href='css/fonts.css' />
+	<link rel='stylesheet' type='text/css' href='css/containers.css' />
+	<link rel='stylesheet' type='text/css' href='css/arch.css' />
 	<link rel='shortcut icon' href='images/favicon.ico' />
 	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='rss2.php' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -20,7 +20,7 @@
       <div id="main_nav">
         <ul>
           <li><a href="http://www.archlinux.org/download/">Download</a></li>
-          <li class="selected"><a href="/">AUR</a></li>
+          <li class="selected"><a href="index.php">AUR</a></li>
           <li><a href="http://bugs.archlinux.org/">Bugs</a></li>
           <li><a href="http://wiki.archlinux.org/">Wiki</a></li>
           <li><a href="http://bbs.archlinux.org/">Forums</a></li>
@@ -46,13 +46,13 @@
 <?php
 if (isset($_COOKIE["AURSID"])) {
 ?>
-	      <li><a href="/pkgsubmit.php"><?php print __("Submit"); ?></a></li>
-          <li><a href="/packages.php?SeB=m&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
+	      <li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
+          <li><a href="packages.php?SeB=m&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
 <?php
 	if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User"
 		|| account_from_sid($_COOKIE["AURSID"]) == "Developer") {
 ?>
-	      <li><a href="/tu.php"><?php print __("Trusted User"); ?></a></li>
+	      <li><a href="tu.php"><?php print __("Trusted User"); ?></a></li>
 <?php
 	}
 }

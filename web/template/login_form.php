@@ -3,7 +3,7 @@
   if (isset($_COOKIE["AURSID"])) {
     print __("Logged-in as: %h%s%h", array("<b>", username_from_sid($_COOKIE["AURSID"]), "</b>"));
 ?>
-<br /><a href="/logout.php"><?php print __("Logout"); ?></a>
+<br /><a href="logout.php"><?php print __("Logout"); ?></a>
 <?php
   }
   else {
