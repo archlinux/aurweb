@@ -12,6 +12,8 @@ include_lang('pkgfuncs_po.inc');
 
 html_header( __("Home") );
 
+include('pkg_search_form.php');
+
 $dbh = db_connect();
 
 ?>

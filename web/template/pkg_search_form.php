@@ -1,3 +1,5 @@
+<?php include_once('pkgfuncs.inc') ?>
+
 <form action='packages.php' method='get'>
 <input type='hidden' name='O' value='0'>
 <center>
@@ -13,7 +15,7 @@
 			<label><?php print __("Keywords"); ?></label>
 			<input type='text' name='K' size='20' value="<?php print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); ?>" maxlength='35' />
 			<?php if (!$_GET['detail']): ?><input type='submit' style='width:80px' class='button' name='do_Search' value='<?php print __("Go"); ?>' /><?php endif; ?>
-			<a href="packages.php?<?php print mkurl('detail=' . (($_GET['detail']) ? 0 : 1) ) ?>">Advanced</a>
+			<a href="?<?php print mkurl('detail=' . (($_GET['detail']) ? 0 : 1) ) ?>">Advanced</a>
 			<?php if ($_GET['detail']): ?>
 			<div id="advanced">
 				<input type="hidden" name="detail" value="1" />
@@ -23,15 +25,15 @@
 						<select name='L'>
 							<option value=0><?php print __("Any"); ?></option>
 							<?php
-							while (list($id, $loc) = each($locs)):
-								if (intval($_REQUEST["L"]) == $id):
+							foreach (pkgLocations() as $id => $loc):
+								if (intval($_GET["L"]) == $id):
 							?>
 							<option value="<?php print $id; ?>" selected="selected"><?php print $loc; ?></option>
 							<?php else: ?>
 							<option value="<?php print $id; ?>"><?php print $loc; ?></option>
 							<?php
 								endif;
-							endwhile;
+							endforeach;
 							?>
 						</select>
 					</li>
@@ -40,15 +42,15 @@
 						<select name='C'>
 							<option value='0'><?php print __("Any"); ?></option>
 							<?php
-							while (list($id, $cat) = each($cats)):
-								if (intval($_REQUEST["C"]) == $id):
+							foreach (pkgCategories() as $id => $cat):
+								if (intval($_GET["C"]) == $id):
 							?>
 							<option value="<?php print $id ?>" selected="selected"><?php print $cat; ?></option>
 							<?php else: ?>
 							<option value="<?php print $id ?>"><?php print $cat; ?></option>
 							<?php
 								endif;
-							endwhile;
+							endforeach;
 							?>
 						</select>
 					</li>

@@ -64,6 +64,7 @@ if ($output):
 endif;
 
 if (isset($_GET["ID"])) {
+	include('pkg_search_form.php');
 	if (!intval($_GET["ID"])) {
 		print __("Error trying to retrieve package details.")."<br />\n";
 	} else {
