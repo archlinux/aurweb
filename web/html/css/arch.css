@@ -452,4 +452,15 @@ textarea.vLargeTextField {
   border-collapse: separate;
   border-spacing: 0 15px;
 }
-
+#search_box {
+	margin: 5px;
+	text-align: center;
+	font-size: 11px;
+}
+#advanced li {
+	background-color: #f3f3f3;
+	list-style: none;
+	display: inline;
+	padding: 15px;
+	text-decoration: none;
+}

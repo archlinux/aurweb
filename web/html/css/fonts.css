@@ -61,11 +61,11 @@ span.warning /* Content Text */
   font-size: 12px;
 }
 /* Font Attribute Change (#6c83b0)*/
-span.blue { color: #6c83b0; }
-span.white { color: #fff; }
-span.black { color: #000; }
-span.green { color: #6db06d; }
-span.link
+.blue { color: #6c83b0; }
+.white { color: #fff; }
+.black { color: #000; }
+.green { color: #6db06d; }
+.link
 {
   color: #6c83b0;
   font-weight: bold;
