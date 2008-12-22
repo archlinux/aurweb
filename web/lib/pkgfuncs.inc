@@ -655,22 +655,22 @@ function pkg_search_page($SID="") {
 
     // sanitize paging variables
     //
-    if (isset($_REQUEST['O'])) {
-        $O = intval($_REQUEST['O']);
-        if ($O < 0)
-            $O = 0;
+    if (isset($_GET['O'])) {
+        $_GET['O'] = intval($_GET['O']);
+        if ($_GET['O'] < 0)
+            $_GET['O'] = 0;
     } else {
-        $O = 0;
+        $_GET['O'] = 0;
     }
 
-    if (isset($_REQUEST["PP"])) {
-        $PP = intval($_REQUEST["PP"]);
-        if ($PP < 25)
-            $PP = 25;
-        else if ($PP > 100)
-            $PP = 100;
+    if (isset($_GET["PP"])) {
+        $_GET["PP"] = intval($_GET["PP"]);
+        if ($_GET["PP"] < 25)
+            $_GET["PP"] = 25;
+        else if ($_GET["PP"] > 100)
+            $_GET["PP"] = 100;
     } else {
-        $PP = 25;
+        $_GET["PP"] = 25;
     }
 
     include('../template/pkg_search_form.php');
@@ -707,83 +707,83 @@ function pkg_search_page($SID="") {
 
     // TODO: possibly do string matching on category and
     //       location to make request variable values more sensible
-    if (intval($_REQUEST["L"])) {
-        $q .= "AND Packages.LocationID = ".intval($_REQUEST["L"])." ";
+    if (intval($_GET["L"])) {
+        $q .= "AND Packages.LocationID = ".intval($_GET["L"])." ";
     }
-    if (intval($_REQUEST["C"])) {
-        $q.= "AND Packages.CategoryID = ".intval($_REQUEST["C"])." ";
+    if (intval($_GET["C"])) {
+        $q.= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
     }
 
-    if ($_REQUEST['K']) {
-        $K = mysql_real_escape_string(trim($_REQUEST['K']));
+    if ($_GET['K']) {
+        $_GET['K'] = mysql_real_escape_string(trim($_GET['K']));
         //search by maintainer
-        if ($_REQUEST["SeB"] == "m"){
-            $q.= "AND Users.Username = '".$K."' ";
-        } elseif ($_REQUEST["SeB"] == "s") {
+        if ($_GET["SeB"] == "m"){
+            $q.= "AND Users.Username = '".$_GET['K']."' ";
+        } elseif ($_GET["SeB"] == "s") {
             // FIXME: this shouldn't be making 2 queries
             //        kill the call to uid_from_username
-            $q.= "AND SubmitterUID = ".uid_from_username($_REQUEST['K'])." ";
+            $q.= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
         // the default behavior, query the name/description
         } else {
-            $q.= "AND (Name LIKE '%".$K."%' OR ";
-            $q.= "Description LIKE '%".$K."%') ";
+            $q.= "AND (Name LIKE '%".$_GET['K']."%' OR ";
+            $q.= "Description LIKE '%".$_GET['K']."%') ";
         }
     }
 
-    if ($_REQUEST["do_Orphans"]) {
+    if ($_GET["do_Orphans"]) {
         $q.= "AND MaintainerUID = 0 ";
     }
 
-    $order = $_REQUEST["SO"] == 'd' ? 'DESC' : 'ASC';
+    $order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';
 
-    switch ($_REQUEST["SB"]) {
+    switch ($_GET["SB"]) {
         case 'c':
             $q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
-            $SB = 'c';
+            $_GET["SB"] = 'c';
             break;
         case 'l':
             $q.= "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
-            $SB = 'l';
+            $_GET["SB"] = 'l';
             break;
         case 'v':
             $q.= "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
-            $SB = 'v';
+            $_GET["SB"] = 'v';
             break;
         case 'm':
             $q.= "ORDER BY Maintainer ".$order.", Name ASC, LocationID ASC ";
-            $SB = 'm';
+            $_GET["SB"] = 'm';
             break;
         case 'a':
             $q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
-            $SB = 'a';
+            $_GET["SB"] = 'a';
             break;
         default:
             $q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
             break;
     }
 
-    $q.= "LIMIT ".$O.", ".$PP;
+    $q.= "LIMIT ".$_GET["O"].", ".$_GET["PP"];
 
     $result = db_query($q, $dbh);
     $total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
 
 	if ($result && $total > 0) {
-	    if ($_REQUEST["SO"] == "d"){
+	    if ($_GET["SO"] == "d"){
 	        $SO_next="a";
-	        $SO = 'd';
+	        $_GET["SO"] = 'd';
 	    } else {
 	        $SO_next="d";
-	        $SO = 'a';
+	        $_GET["SO"] = 'a';
 	    }
 	}
 
 	// figure out the results to use
-    $first = $O + 1;
+    $first = $_GET['O'] + 1;
 
-    if (($PP+$O) > $total) {
+    if (($_GET['PP']+$_GET['O']) > $total) {
         $last = $total;
     } else {
-        $last = $PP + $O;
+        $last = $_GET['PP'] + $_GET['O'];
     }
 
 	include('pkg_search_results.php');

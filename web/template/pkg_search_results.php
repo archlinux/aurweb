@@ -1,6 +1,6 @@
 <?php
 # Encode search string
-$K = urlencode($K);
+$_GET['K'] = urlencode($_GET['K']);
 ?>
 <form action='packages.php?<?php print $_SERVER['QUERY_STRING'] ?>' method='post'>
 <center>
@@ -26,16 +26,16 @@ $K = urlencode($K);
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'>&nbsp;</th>
 	<?php endif; ?>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
-		<?php print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=l&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Location")."</a>"; ?>
+		<a href='?<?php print mkurl('SB=l&SO=' . $SO_next) ?>'><?php print __("Location") ?></a>
 	</span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
-		<?php print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=c&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Category")."</a>"; ?>
+		<a href='?<?php print mkurl('SB=c&SO=' . $SO_next) ?>'><?php print __("Category") ?></a>
 	</span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
-		<?php print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=n&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Name")."</a>"; ?>
+		<a href='?<?php print mkurl('SB=n&SO=' . $SO_next) ?>'><?php print __("Name") ?></a>
 	</span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
-		<?php print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=v&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Votes")."</a>"; ?>
+		<a href='?<?php print mkurl('SB=v&SO=' . $SO_next) ?>'><?php print __("Votes") ?></a>
 	</span></th>
 	<?php if ($SID): ?>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Voted") ?></span></th>
@@ -43,7 +43,7 @@ $K = urlencode($K);
 	<?php endif; ?>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Description") ?></a></span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
-		<?php print "<a href='?O=$O&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=m&SO=$SO_next&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]."'>".__("Maintainer")."</a>"; ?>
+		<a href='?<?php print mkurl('SB=m&SO=' . $SO_next) ?>'><?php print __("Maintainer") ?></a>
 	</span></th>
 </tr>
 
@@ -125,15 +125,15 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 			</tr>
 			<tr>
 				<td align='left'>
-					<?php if (($O-$PP) >= 0): ?>
-					<?php print "<a href='packages.php?O=" . ($O - $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>" ?>
-					<?php elseif ($O<$PP && $O>0): ?>
-					<?php print "<a href='packages.php?O=0&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"])."&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"]."&do_Orphans=".$_REQUEST["do_Orphans"]. "'>" . __("Less") . "</a>" ?>
+					<?php if (($_GET['O'] - $_GET['PP']) >= 0): ?>
+					<a href="packages.php?<?php print mkurl('O=' . ($_GET['O'] - $_GET['PP'])) ?>"><?php print __("Less") ?></a>
+					<?php elseif ($_GET['O']<$_GET['PP'] && $_GET['O']>0): ?>
+					<a href="packages.php?<?php print mkurl('O=0') ?>"><?php print __("Less") ?></a>
 					<?php endif; ?>
 				</td>
 				<td align='right'>
-					<?php if ($total - $PP - $O > 0): ?>
-					<?php print "<a href='packages.php?O=" . ($O + $PP) . "&L=".intval($_REQUEST["L"])."&C=".intval($_REQUEST["C"]) . "&K=$K&SB=$SB&SO=$SO&PP=$PP&SeB=".$_REQUEST["SeB"] . "&do_Orphans=".$_REQUEST["do_Orphans"]."'>" . __("More") . "</a>" ?>
+					<?php if ($total - $_GET['PP'] - $_GET['O'] > 0): ?>
+					<a href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php print __("More") ?></a>
 					<?php endif; ?>
 				</td>
 			</tr>
