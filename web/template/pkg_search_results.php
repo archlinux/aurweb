@@ -47,9 +47,13 @@ $K = urlencode($K);
 	</span></th>
 </tr>
 
-<?php for ($i=0; $row = mysql_fetch_assoc($result); $i++) { (($i % 2) == 0) ? $c = "data1" : $c = "data2"; ?>
+<?php
+for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
+	(($i % 2) == 0) ? $c = "data1" : $c = "data2";
+	if ($row["OutOfDate"]): $c = "outofdate"; endif;
+?>
 <tr>
-	<?php if ($SID): if ($row["OutOfDate"]): $c = "outofdate"; endif; ?>
+	<?php if ($SID): ?>
 	<td class='<?php print $c ?>'><input type='checkbox' name='IDs[<?php print $row["ID"] ?>]' value='1'></td>
 	<?php endif; ?>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print $row["Location"] ?></span></span></td>
@@ -114,10 +118,9 @@ $K = urlencode($K);
 				<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
 				</span></span></td></tr>
 				<td colspan='2' align='center'>
-				<span class='f5'>
-				<?php if ($SID): ?>
-				<span class="outofdate"><?php print __("Out of Date") ?></span>&nbsp;&nbsp;&nbsp;&nbsp;
-				<?php endif; ?>
+				<span class='f3'>
+				<?php echo __('Legend') ?>
+				<span class="outofdate"><?php print __('Out of Date') ?></span>
 				</span></td>
 			</tr>
 			<tr>
