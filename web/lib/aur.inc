@@ -438,3 +438,37 @@ function uid_from_username($username="")
 	return $row[0];
 }
 
+/**
+ * Generate clean url with edited/added user values
+ *
+ * Makes a clean string of variables for use in URLs based on current $_GET and
+ * list of values to edit/add to that. Any empty variables are discarded.
+ *
+ * ex. print "http://example.com/test.php?" . mkurl("foo=bar&bar=baz")
+ *
+ * @param string $append string of variables and values formatted as in URLs
+ * ex. mkurl("foo=bar&bar=baz")
+ * @return string clean string of variables to append to URL, urlencoded
+ * @author Callan Barrett
+ */
+function mkurl($append) {
+	$get = $_GET;
+	$append = explode('&', $append);
+	$uservars = array();
+	$out = '';
+
+	foreach ($append as $i) {
+		$ex = explode('=', $i);
+		$uservars[$ex[0]] = $ex[1];
+	}
+
+	foreach ($uservars as $k => $v) { $get[$k] = $v; }
+
+	foreach ($get as $k => $v) {
+		if ($v !== '') {
+			$out .= '&amp;' . urlencode($k) . '=' . urlencode($v);
+		}
+	}
+
+	return substr($out, 5);
+}
