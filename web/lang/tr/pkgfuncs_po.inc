@@ -17,7 +17,7 @@ $_t["tr"]["Votes"] = "Oy";
 
 $_t["tr"]["Comment by: %h%s%h on %h%s%h"] = "Yorum sahibi: %h%s%h on %h%s%h";
 
-$_t["tr"]["Location"] = "Yer";
+$_t["tr"]["Location"] = "Depo";
 
 $_t["tr"]["Delete comment"] = "Yorumu sil";
 
@@ -83,9 +83,9 @@ $_t["tr"]["Sort by"] = "Sırala";
 
 $_t["tr"]["Sort order"] = "Sıralama kriteri";
 
-$_t["tr"]["Ascending"] = "Artan";
+$_t["tr"]["Ascending"] = "Eskiden yeniye";
 
-$_t["tr"]["Descending"] = "Azalan";
+$_t["tr"]["Descending"] = "Yeniden eskiye";
 
 $_t["tr"]["Actions"] = "Eylemler";
 

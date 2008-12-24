@@ -11,13 +11,13 @@
 include_once("translator.inc");
 global $_t;
 
-$_t["tr"]["Home"] = "Ev";
+$_t["tr"]["Home"] = "Anasayfa";
 
 $_t["tr"]["%s: An ArchLinux project"] = "%s: Bir ArchLinux projesi";
 
 $_t["tr"]["Packages"] = "Paketler";
 
-$_t["tr"]["Accounts"] = "Hesaplar";
+$_t["tr"]["Accounts"] = "Hesabım";
 
 $_t["tr"]["Logout"] = "Çıkış";
 

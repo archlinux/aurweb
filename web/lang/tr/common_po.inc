@@ -25,7 +25,7 @@ $_t["tr"]["required"] = "gerekli";
 
 $_t["tr"]["Update"] = "Güncelle";
 
-$_t["tr"]["Submit"] = "Gönder";
+$_t["tr"]["Submit"] = "Paket Gönder";
 
 $_t["tr"]["Password"] = "Şifre";
 

@@ -53,11 +53,11 @@ $_t["tr"]["Community"] = "Topluluk";
 
 $_t["tr"]["Package Counts"] = "Paket Sayıları";
 
-$_t["tr"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "AUR'a hoşgeldiniz! Ayrıntılı bilgi için lütfen %hAUR Kullanıcı Kılavuzu%h ve %hAUR GK Kulavuzu%hnu okuyun.";
+$_t["tr"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "AUR'a hoşgeldiniz! Ayrıntılı bilgi için lütfen %hAUR Kullanıcı Kılavuzu%h ve %hAUR GK Kılavuzu%hnu okuyun.";
 
 $_t["tr"]["Unsupported"] = "Desteklenmiyor";
 
-$_t["tr"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Eklenen PKGBUILDler %hArch Paket Standartları%hna %huymalı%h aksi takdirde silinecektir!";
+$_t["tr"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Eklenen PKGBUILDler %hArch Paket Standartları%hna %huymalıdır%h aksi takdirde silinecektir!";
 
 $_t["tr"]["Statistics"] = "İstatistikler";
 
