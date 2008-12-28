@@ -18,7 +18,7 @@ if ($_COOKIE["AURSID"]):
 	# Track upload errors
 	$error = "";
 
-	if ($_REQUEST["pkgsubmit"]) {
+	if (isset($_REQUEST['pkgsubmit'])) {
 
 		# Before processing, make sure we even have a file
 		if ($_FILES['pfile']['size'] == 0){
@@ -205,7 +205,9 @@ if ($_COOKIE["AURSID"]):
 			}
 		}
 
-		$incoming_pkgdir = INCOMING_DIR . $pkg_name;
+		if (isset($pkg_name)) {
+			$incoming_pkgdir = INCOMING_DIR . $pkg_name;
+		}
 
 		if (!$error) {
 			# First, see if this package already exists, and if it can be overwritten
@@ -243,7 +245,7 @@ if ($_COOKIE["AURSID"]):
 		}
 
 		# Chmod files after everything has been done.
-		if (!error && !chmod_group($incoming_pkgdir)) {
+		if (!$error && !chmod_group($incoming_pkgdir)) {
 			$error = __("Could not chmod directory %s.", $incoming_pkgdir);
 		}
 
@@ -398,7 +400,7 @@ html_header("Submit");
 	<div class="pgboxbody">
 
 <?php
-	if (!$_REQUEST["pkgsubmit"] || $error):
+	if (empty($_REQUEST['pkgsubmit']) || $error):
 		# User is not uploading, or there were errors uploading - then
 		# give the visitor the default upload form
 		if (ini_get("file_uploads")):
