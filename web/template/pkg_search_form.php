@@ -111,7 +111,7 @@
 							<?php
 							$pages = array(25, 50, 75, 100);
 							foreach ($pages as $i):
-								if ($PP == $i):
+								if ($_REQUEST['PP'] == $i):
 							?>
 							<option value="<?php print $i; ?>" selected="selected"><?php print $i; ?></option>
 							<?php else: ?>
