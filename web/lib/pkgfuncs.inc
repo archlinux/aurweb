@@ -272,6 +272,7 @@ function package_details($id=0, $SID="") {
 	global $_REQUEST;
 	global $pkgsearch_vars;
 	$atype = account_from_sid($SID);
+	$uid = uid_from_sid($SID);
 	$q = "SELECT Packages.*,Location,Category ";
 	$q.= "FROM Packages,PackageLocations,PackageCategories ";
  	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
@@ -304,7 +305,7 @@ function package_details($id=0, $SID="") {
 			echo "      <tr><td class='boxSoft' colspan='2'><img src='/images/pad.gif' height='30'></td></tr>\n";
 			echo "      <tr><td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["Location"] == "unsupported" and ( 
-					uid_from_sid($SID) == $row["MaintainerUID"] or
+					$uid == $row["MaintainerUID"] or
 					($atype == "Developer" or
 					 $atype == "Trusted User"))) {
 			  $edit_cat = "<a href='pkgedit.php?change_Category=1&ID=";
@@ -479,7 +480,7 @@ function package_details($id=0, $SID="") {
 				echo "      <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
 				# Voting Button
 				#
-				$q = "SELECT * FROM PackageVotes WHERE UsersID = ".uid_from_sid($SID);
+				$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $uid;
 				$q.= " AND PackageID = ".$row["ID"];
 				if (!mysql_num_rows(db_query($q, $dbh))) {
 					echo "      <input type='submit' class='button' name='do_Vote'";
@@ -490,7 +491,7 @@ function package_details($id=0, $SID="") {
 				}
 				# Comment Nofify Button
 				#
-				$q = "SELECT * FROM CommentNotify WHERE UserID = ".uid_from_sid($SID);
+				$q = "SELECT * FROM CommentNotify WHERE UserID = ". $uid;
 				$q.= " AND PkgID = ".$row["ID"];
 				if (!mysql_num_rows(db_query($q, $dbh))) {
 					echo "<input type='submit' class='button' name='do_Notify'";
@@ -511,7 +512,7 @@ function package_details($id=0, $SID="") {
                 if ($row["MaintainerUID"] == 0) {
                     echo "<input type='submit' class='button' name='do_Adopt'";
                     echo " value='".__("Adopt Packages")."'>\n";
-                } else if ($row["MaintainerUID"] == uid_from_sid($SID) ||
+                } else if ($uid == $row["MaintainerUID"] ||
                         $atype == "Trusted User" || $atype == "Developer") {
 					echo "<input type='submit' class='button' name='do_Disown'";
 					echo " value='".__("Disown Packages")."'>\n";

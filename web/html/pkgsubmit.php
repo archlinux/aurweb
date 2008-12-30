@@ -25,8 +25,10 @@ if ($_COOKIE["AURSID"]):
 			$error = __("Error - No file uploaded");
 		}
 
+		$uid = uid_from_sid($_COOKIE['AURSID']);
+
 		# Temporary dir to put the tarball contents
-		$tempdir = UPLOAD_DIR . uid_from_sid($_COOKIE['AURSID']) . time();
+		$tempdir = UPLOAD_DIR . $uid . time();
 
 		if (!$error) {
 			if (!@mkdir($tempdir)) {
@@ -278,8 +280,8 @@ if ($_COOKIE["AURSID"]):
 				# If the package was a dummy, undummy it
 				if ($pdata['DummyPkg']) {
 					$q = sprintf( "UPDATE Packages SET DummyPkg = 0, SubmitterUID = %d, MaintainerUID = %d, SubmittedTS = UNIX_TIMESTAMP() WHERE ID = %d",
-						uid_from_sid($_COOKIE["AURSID"]),
-						uid_from_sid($_COOKIE["AURSID"]),
+						$uid,
+						$uid,
 						$pdata["ID"]);
 
 					db_query($q, $dbh);
@@ -346,8 +348,8 @@ if ($_COOKIE["AURSID"]):
 					mysql_real_escape_string($_REQUEST['category']),
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
-					uid_from_sid($_COOKIE["AURSID"]),
-					uid_from_sid($_COOKIE["AURSID"]),
+					$uid,
+					$uid,
 					mysql_real_escape_string($incoming_pkgdir . "/" . $pkg_name . ".tar.gz"),
 					mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"));
 
