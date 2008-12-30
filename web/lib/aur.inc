@@ -261,8 +261,7 @@ function uid_from_sid($sid="") {
 # connect to the database
 #
 function db_connect() {
-
-	$handle = mysql_pconnect(AUR_db_host, AUR_db_user, AUR_db_pass);
+	$handle = mysql_connect(AUR_db_host, AUR_db_user, AUR_db_pass);
 	if (!$handle) {
 		die("Error connecting to AUR database: " . mysql_error());
 	}
@@ -273,15 +272,27 @@ function db_connect() {
 	return $handle;
 }
 
+# disconnect from the database
+# this won't normally be needed as PHP/reference counting will take care of
+# closing the connection once it is no longer referenced
+#
+function db_disconnect($db_handle="") {
+	if ($db_handle) {
+		mysql_close($db_handle);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 # wrapper function around db_query in case we want to put
-# query logging/debuggin in.
+# query logging/debugging in.
 #
 function db_query($query="", $db_handle="") {
 	if (!$query) {
 		return FALSE;
 	}
 	if (!$db_handle) {
-		$db_handle = db_connect();
+		die("DB handle was not provided to db_query");
 	}
 	$result = @mysql_query($query, $db_handle);
 	return $result;
