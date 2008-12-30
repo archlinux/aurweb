@@ -271,6 +271,7 @@ function pkgname_from_id($id="") {
 function package_details($id=0, $SID="") {
 	global $_REQUEST;
 	global $pkgsearch_vars;
+	$atype = account_from_sid($SID);
 	$q = "SELECT Packages.*,Location,Category ";
 	$q.= "FROM Packages,PackageLocations,PackageCategories ";
  	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
@@ -304,8 +305,8 @@ function package_details($id=0, $SID="") {
 			echo "      <tr><td class='boxSoft' colspan='2'><span class='f3'>";
 			if ($row["Location"] == "unsupported" and ( 
 					uid_from_sid($SID) == $row["MaintainerUID"] or
-					(account_from_sid($SID) == "Developer" or
-					 account_from_sid($SID) == "Trusted User"))) {
+					($atype == "Developer" or
+					 $atype == "Trusted User"))) {
 			  $edit_cat = "<a href='pkgedit.php?change_Category=1&ID=";
 			  $edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
 			  $edit_cat .= " &nbsp;<span class='fix'>(";
@@ -511,14 +512,12 @@ function package_details($id=0, $SID="") {
                     echo "<input type='submit' class='button' name='do_Adopt'";
                     echo " value='".__("Adopt Packages")."'>\n";
                 } else if ($row["MaintainerUID"] == uid_from_sid($SID) ||
-            	           account_from_sid($SID) == "Trusted User" ||
-            	           account_from_sid($SID) == "Developer") {
+                        $atype == "Trusted User" || $atype == "Developer") {
 					echo "<input type='submit' class='button' name='do_Disown'";
 					echo " value='".__("Disown Packages")."'>\n";
 				}
 					
-				if (account_from_sid($SID) == "Trusted User" ||
-				    account_from_sid($SID) == "Developer") {
+				if ($atype == "Trusted User" || $atype == "Developer") {
 					echo "<input type='submit' class='button' name='do_Delete'";
 					echo " value='".__("Delete Packages")."'>\n";
 				}
@@ -554,7 +553,7 @@ function package_details($id=0, $SID="") {
 					echo "          <table class='boxSoft' width='100%'>\n";
 					echo "            <tr>\n";
 					echo "              <td class='boxSoftTitle'><span class='f3'>";
-					if (canDeleteComment($carr["ID"], account_from_sid($SID), $SID)) {
+					if (canDeleteComment($carr["ID"], $atype, $SID)) {
 						$durl = "<a href='pkgedit.php?del_Comment=1";
 						$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
 						$durl.= "'><img src='/images/x.png' border='0'";

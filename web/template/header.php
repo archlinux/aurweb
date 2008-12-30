@@ -49,8 +49,9 @@ if (isset($_COOKIE["AURSID"])) {
 	      <li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
           <li><a href="packages.php?SeB=m&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
 <?php
-	if (account_from_sid($_COOKIE["AURSID"]) == "Trusted User"
-		|| account_from_sid($_COOKIE["AURSID"]) == "Developer") {
+	$SID = $_COOKIE['AURSID'];
+	$atype = account_from_sid($SID);
+	if ($atype == "Trusted User" || $atype == "Developer") {
 ?>
 	      <li><a href="tu.php"><?php print __("Trusted User"); ?></a></li>
 <?php

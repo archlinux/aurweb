@@ -48,6 +48,7 @@ $_GET['K'] = urlencode($_GET['K']);
 </tr>
 
 <?php
+$atype = account_from_sid($_COOKIE['AURSID']);
 for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	(($i % 2) == 0) ? $c = "data1" : $c = "data2";
 	if ($row["OutOfDate"]): $c = "outofdate"; endif;
@@ -99,7 +100,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 		<option value='do_UnFlag'><?php print __("Unflag Out-of-date") ?></option>
 		<option value='do_Adopt'><?php print __("Adopt Packages") ?></option>
 		<option value='do_Disown'><?php print __("Disown Packages") ?></option>
-		<?php if (account_from_sid($SID) == "Trusted User" || account_from_sid($SID) == "Developer"): ?>
+		<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
 		<option value='do_Delete'><?php print __("Delete Packages") ?></option>
 		<?php endif; ?>
 		<option value='do_Notify'><?php print __("Notify") ?></option>
