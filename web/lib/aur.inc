@@ -20,53 +20,6 @@ include_once("acctfuncs.inc");
 # is using...
 
 
-# return an array of info for each Trusted user
-#
-function getTrustedUsers() {
-	$tus = array();
-	$dbh = db_connect();
-	$q = "SELECT * FROM Users WHERE AccountTypeID = 2 ";
-	$q.= "ORDER BY Username ASC";
-	$result = db_query($q, $dbh);
-	if ($result) {
-		while ($row = mysql_fetch_assoc($result)) {
-			$tus[$row["ID"]] = $row;
-		}
-	}
-	return $tus;
-}
-
-
-# return an array of info for each Developer
-#
-function getDevelopers() {
-	$devs = array();
-	$dbh = db_connect();
-	$q = "SELECT * FROM Users WHERE AccountTypeID = 3 ";
-	$q.= "ORDER BY Username ASC";
-	$result = db_query($q, $dbh);
-	if ($result) {
-		while ($row = mysql_fetch_assoc($result)) {
-			$devs[$row["ID"]] = $row;
-		}
-	}
-	return $devs;
-}
-
-# return an array of info for each user
-function getUsers() {
-	$users = array();
-	$dbh = db_connect();
-	$q = "SELECT * FROM Users ORDER BY Username ASC";
-	$result = db_query($q, $dbh);
-	if ($result) {
-		while ($row = mysql_fetch_assoc($result)) {
-			$users[$row["ID"]] = $row;
-		}
-	}
-	return $users;
-}
-
 # see if the visitor is already logged in
 #
 function check_sid() {
