@@ -426,6 +426,8 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	$search_vars[] = "SB";
 	$q.= "LIMIT ". $OFFSET . ", " . $HITS_PER_PAGE;
 
+	$dbh = db_connect();
+
 	$result = db_query($q, $dbh);
 	if (!$result) {
 		print __("No results matched your search criteria.");
