@@ -110,7 +110,10 @@ class ClientSocket(threading.Thread):
 
 	def auth(self):
 		authdata = self.readMsg(1)
-		print authdata
+
+		if (authdata.has_key('username')):
+			print "Trying connection for user %s" % authdata['username']
+
 		if (not authdata.has_key('username')) or (not authdata.has_key('password')):
 			self.sendMsg("result=FAIL")
 			return 0
@@ -189,6 +192,7 @@ class ClientSocket(threading.Thread):
 	def run(self):
 		try:
 			if not self.auth():
+				print "Error authenticating."
 				self.close()
 				return
 			self.readFileMeta()
