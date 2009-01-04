@@ -2,10 +2,39 @@
 
 include_once('aur.inc');
 
+# Check if APC extension is loaded
+if (!defined('EXTENSION_LOADED_APC'))
+	define('EXTENSION_LOADED_APC', extension_loaded('apc'));
+$apc_prefix = 'aur:';
+
+# run a simple db query, retrieving and/or caching the value if APC
+# is available for use
+#
+function db_cache_value($dbq, $dbh, $key)
+{
+	if(!(EXTENSION_LOADED_APC && ($ret = apc_fetch($key)))) {
+		$result = db_query($dbq, $dbh);
+		$row = mysql_fetch_row($result);
+		$ret = $row[0];
+		# set the TTL here in seconds: 300 seconds = 5 minutes
+		apc_store($key, $ret, 300);
+	}
+	return $ret;
+}
+
 function updates_table($dbh)
 {
-	$q = 'SELECT * FROM Packages WHERE DummyPkg != 1 ORDER BY GREATEST(SubmittedTS,ModifiedTS) DESC LIMIT 0 , 10';
-	$newest_packages = db_query($q, $dbh);
+	$key = $apc_prefix . 'recent_updates';
+	if(!(EXTENSION_LOADED_APC && ($newest_packages = apc_fetch($key)))) {
+		$q = 'SELECT * FROM Packages WHERE DummyPkg != 1 ORDER BY GREATEST(SubmittedTS,ModifiedTS) DESC LIMIT 0 , 10';
+		$result = db_query($q, $dbh);
+
+		$newest_packages = new ArrayObject();
+		while ($row = mysql_fetch_assoc($result)) {
+			$newest_packages->append($row);
+		}
+		apc_store($key, $newest_packages, 300);
+	}
 	include('stats/updates_table.php');
 }
 
@@ -42,30 +71,20 @@ function general_stats_table($dbh)
 {
 	# AUR statistics
 	$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported'";
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
-	$unsupported_count = $row[0];
+	$unsupported_count = db_cache_value($q, $dbh, $apc_prefix . 'unsupported_count');
 
 	$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'community'";
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
-	$community_count = $row[0];
+	$community_count = db_cache_value($q, $dbh, $apc_prefix . 'community_count');
 
 	$q = "SELECT count(*) from Users";
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
-	$user_count = $row[0];
+	$user_count = db_cache_value($q, $dbh, $apc_prefix . 'user_count');
 
 	$q = "SELECT count(*) from Users,AccountTypes WHERE Users.AccountTypeID = AccountTypes.ID AND AccountTypes.AccountType = 'Trusted User'";
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
-	$tu_count = $row[0];
+	$tu_count = db_cache_value($q, $dbh, $apc_prefix . 'tu_count');
 
 	$targstamp = intval(strtotime("-7 days"));
 	$q = "SELECT count(*) from Packages WHERE (Packages.SubmittedTS >= $targstamp OR Packages.ModifiedTS >= $targstamp)";
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
-	$update_count = $row[0];
+	$update_count = db_cache_value($q, $dbh, $apc_prefix . 'update_count');
 
 	include('stats/general_stats_table.php');
 }

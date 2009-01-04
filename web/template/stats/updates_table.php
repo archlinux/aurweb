@@ -6,8 +6,7 @@
 </th>
 </tr>
 
-<?php while ($row = mysql_fetch_assoc($newest_packages)): ?>
-
+<?php foreach ($newest_packages->getIterator() as $row): ?>
 <tr>
 <td class="boxSoft">
 <span class="f4"><span class="blue">
@@ -34,7 +33,7 @@ endif;
 </td>
 </tr>
 
-<?php endwhile; ?>
+<?php endforeach; ?>
 
 </table>
 
