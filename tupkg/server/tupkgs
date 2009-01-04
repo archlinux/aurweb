@@ -51,14 +51,14 @@ class ClientFile:
 		self.fd.seek(cur)
 
 	def makeMd5(self):
-		md5sum = md5.new()
+		m = md5();
 		cur = self.fd.tell()
 		self.getSize()
 		self.fd.seek(0)
 		while self.fd.tell() != self.size:
-			md5sum.update(self.fd.read(1024))
+			m.update(self.fd.read(1024))
 		self.fd.seek(cur)
-		self.md5 = md5sum.hexdigest()
+		self.md5 = m.hexdigest()
 
 	def finishDownload(self):
 		self.fd.close()
@@ -122,7 +122,7 @@ class ClientSocket(threading.Thread):
 				db=config.get('mysql', 'db'))
 		
 		q = dbconn.cursor()
-		m = md5.new()
+		m = md5();
 		m.update(authdata['password'][0])
 		encpw = m.hexdigest()
 		try:

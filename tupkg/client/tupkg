@@ -35,7 +35,7 @@ class ClientFile:
 		self.makeMd5()
 
 	def makeMd5(self):
-		md5sum = md5.new()
+		md5sum = md5()
 		while self.fd.tell() != self.size:
 			md5sum.update(self.fd.read(1024))
 		self.md5 = md5sum.hexdigest()
