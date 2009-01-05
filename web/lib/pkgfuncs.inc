@@ -524,71 +524,24 @@ function package_details($id=0, $SID="") {
 				}
 						
                 echo "    </form>\n";
+                echo "<br />\n";
+
+			# Add Comments
+			echo "<form action='pkgedit.php' method='post'>\n";
+			echo "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
+			echo "<input type='submit' class='button' name='add_Comment' value=\"";
+			echo __("Add Comment")."\">\n";
+			echo "</form>\n";
                 echo "  </div>\n";
                 echo "</div>\n";
-                echo "\n<br />\n\n";
+                echo "\n<br />";
 			}
 			
-			# Comments
-			#
-			echo "<div class=\"pgbox\">\n";
-			echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Comments")."</span></div>\n";
-			echo "  <div class=\"pgboxbody-comment\">\n";
-			echo "    <table width='100%'>\n";
-			if (isset($_COOKIE['AURSID'])) {
-				echo "<tr><td>";
-				echo "          <form action='pkgedit.php' method='post'>\n";
-				echo "            <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
-				echo "            <input type='submit' class='button' name='add_Comment' value=\"";
-				echo __("Add Comment")."\">\n";
-				echo "          </form>\n";
-				echo "</tr></td>";
-				//echo "<br />\n";
-			}
+			# Print Comments
 			$comments = package_comments($row["ID"]);
 			if (!empty($comments)) {
-				while (list($indx, $carr) = each($comments)) {
-
-					echo "      <tr>\n";
-					echo "        <td valign='top' style='padding-right: 10' colspan='2'>\n";
-					echo "          <table class='boxSoft' width='100%'>\n";
-					echo "            <tr>\n";
-					echo "              <td class='boxSoftTitle'><span class='f3'>";
-					if (canDeleteComment($carr["ID"], $atype, $SID)) {
-						$durl = "<a href='pkgedit.php?del_Comment=1";
-						$durl.= "&comment_id=".$carr["ID"]."&ID=".$row["ID"];
-						$durl.= "'><img src='/images/x.png' border='0'";
-						$durl.= " alt=\"".__("Delete comment")."\"></a>";
-
-					  echo $durl . "&nbsp;&nbsp;";
-					}
-					if ($SID) {
-						echo __("Comment by: %h%s%h on %h%s%h",
-							array("<a href='account.php?Action=AccountInfo&ID=".$carr["UsersID"]."'><b>",$carr["UserName"],"</b></a>",
-							      "<i>",gmdate("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
-					} else {
-						echo __("Comment by: %h%s%h on %h%s%h",
-							array("<b>",$carr["UserName"],"</b>",
-							      "<i>",gmdate("Ymd [H:i:s]",$carr["CommentTS"]),"</i>"));
-					}
-					echo "</span></td>\n";
-					echo "            </tr>\n";
-					echo "            <tr>\n";
-					echo "              <td class='boxSoft'>";
-					echo "<code>\n";
-					echo nl2br(htmlspecialchars($carr["Comments"]));
-					echo "</code></td>\n";
-					echo "            </tr>\n";
-					echo "          </table>\n";
-					echo "        </td>\n";
-					echo "      </tr>\n";
-				}
-			} else {
-				print "<tr><td>None</td></tr>\n";
+				include('pkg_comments.php');
 			}
-			echo "    </table>\n";
-			echo "  </div>\n";
-			echo "</div>\n";
 		}
 	}
 	return;
