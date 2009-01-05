@@ -5,7 +5,7 @@ body {
   background: #fbf8f1 url("../images/titlebar.png") repeat-x top left;
   padding: 0 30px;
   color: #555;
-  font-family: "DejaVu Sans", "Bitstream Vera Sans", "Lucida Grande", Arial, sans-serif;
+  font-family: sans-serif;
 }
 /* Divs */
 #head_container {
