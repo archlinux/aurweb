@@ -22,7 +22,7 @@ $_t["tr"]["You did not select any packages to adopt."] = "Sahiplenilecek paket(l
 
 $_t["tr"]["You must be logged in before you can flag packages."] = "Paketleri işaretleyebilmek için giriş yapmalısınız.";
 
-$_t["tr"]["You must be logged in before you can get notifications on comments."] = "Yorum bildirisi almak için giriş yapmalısınız.";
+$_t["tr"]["You must be logged in before you can get notifications on comments."] = "Yorum bildirimi almak için giriş yapmalısınız.";
 
 $_t["tr"]["You must be logged in before you can vote for packages."] = "Paketlere oy vermeden önce giriş yapmalısınız.";
 

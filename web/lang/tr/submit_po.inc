@@ -85,7 +85,7 @@ $_t["tr"]["You must supply a comment for this upload/change."] = "Bu yükleme/de
 
 $_t["tr"]["Yes"] = "Evet";
 
-$_t["tr"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Paket URL'si protokolü hayalı (ör. http:// ,ftp://)";
+$_t["tr"]["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Paket URL protokolü hatalı (ör. http:// ,ftp://)";
 
 $_t["tr"]["Could not re-tar"] = "Yeniden tarlanamadı";
 

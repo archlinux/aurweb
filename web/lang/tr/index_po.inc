@@ -57,7 +57,7 @@ $_t["tr"]["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR
 
 $_t["tr"]["Unsupported"] = "Desteklenmiyor";
 
-$_t["tr"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Eklenen PKGBUILDler %hArch Paket Standartları%hna %huymalıdır%h aksi takdirde silinecektir!";
+$_t["tr"]["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Eklenen PKGBUILD dosyaları %hArch Paket Standartları%hna %huymalıdır%h aksi takdirde silinecektir!";
 
 $_t["tr"]["Statistics"] = "İstatistikler";
 
@@ -89,3 +89,6 @@ $_t["tr"]["DISCLAIMER"] = "FERAGATNAME";
 
 $_t["tr"]["Login failure: Bad user or pass."] = "Giriş hatası: Hatalı kullanıcı adı veya parola";
 
+$_t["tr"]["Some packages may be provided as binaries in [community]."] = "Burada listelenen paketlerin bazıları [community] deposunda yer almaktadır.";
+
+$_t["tr"]["Unsupported packages are user produced content. Any use of the provided files is at your own risk."] = "Desteklenmeyen paketler kullanıcının kendi ürettiği içeriğidir. Bu paketlerin kullanımından doğan risk kullanıcının kendisine aittir."; 
