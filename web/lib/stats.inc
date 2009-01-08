@@ -2,10 +2,10 @@
 
 include_once('aur.inc');
 
+$apc_prefix = 'aur:';
 # Check if APC extension is loaded
 if (!defined('EXTENSION_LOADED_APC'))
 	define('EXTENSION_LOADED_APC', extension_loaded('apc'));
-$apc_prefix = 'aur:';
 
 # run a simple db query, retrieving and/or caching the value if APC
 # is available for use
@@ -17,13 +17,17 @@ function db_cache_value($dbq, $dbh, $key)
 		$row = mysql_fetch_row($result);
 		$ret = $row[0];
 		# set the TTL here in seconds: 300 seconds = 5 minutes
-		apc_store($key, $ret, 300);
+
+		if (EXTENSION_LOADED_APC) {
+			apc_store($key, $ret, 300);
+		}
 	}
 	return $ret;
 }
 
 function updates_table($dbh)
 {
+	global $apc_prefix;
 	$key = $apc_prefix . 'recent_updates';
 	if(!(EXTENSION_LOADED_APC && ($newest_packages = apc_fetch($key)))) {
 		$q = 'SELECT * FROM Packages WHERE DummyPkg != 1 ORDER BY GREATEST(SubmittedTS,ModifiedTS) DESC LIMIT 0 , 10';
@@ -33,7 +37,10 @@ function updates_table($dbh)
 		while ($row = mysql_fetch_assoc($result)) {
 			$newest_packages->append($row);
 		}
-		apc_store($key, $newest_packages, 300);
+
+		if (EXTENSION_LOADED_APC) {
+			apc_store($key, $newest_packages, 300);
+		}
 	}
 	include('stats/updates_table.php');
 }
@@ -69,6 +76,7 @@ function user_table($user, $dbh)
 
 function general_stats_table($dbh)
 {
+	global $apc_prefix;
 	# AUR statistics
 	$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported'";
 	$unsupported_count = db_cache_value($q, $dbh, $apc_prefix . 'unsupported_count');
