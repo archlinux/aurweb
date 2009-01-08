@@ -155,10 +155,11 @@ if ($_COOKIE["AURSID"]):
 				$error = __("Missing build function in PKGBUILD.");
 			}
 
-			$req_vars = array("md5sums", "source", "url", "pkgdesc", "license", "pkgrel", "pkgver", "arch", "pkgname");
+			$req_vars = array("url", "pkgdesc", "license", "pkgrel", "pkgver", "arch", "pkgname");
 			foreach ($req_vars as $var) {
 				if (!array_key_exists($var, $pkgbuild)) {
-					$error = __("Missing " . $var . " variable in PKGBUILD.");
+					$error = __('Missing %s variable in PKGBUILD.', $var);
+					break;
 				}
 			}
 		}
