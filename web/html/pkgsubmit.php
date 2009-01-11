@@ -73,6 +73,7 @@ if ($_COOKIE["AURSID"]):
 			$fp = fopen($pkg_dir."/PKGBUILD", "r");
 			$line_no = 0;
 			$lines = array();
+			$decomment = array();
 			$continuation_line = 0;
 			$current_line = "";
 			$paren_depth = 0;
@@ -89,6 +90,8 @@ if ($_COOKIE["AURSID"]):
 					# assumed continuation
 					# continue appending onto existing line_no
 					#
+					$decomment = explode("#",$line,2);
+					$line = $decomment[0];
 					$current_line .= $line . " ";
 					$continuation_line = 1;
 				} else {
@@ -331,9 +334,11 @@ if ($_COOKIE["AURSID"]):
 				# Insert sources
 				$sources = explode(" ", $new_pkgbuild['source']);
 				foreach ($sources as $src) {
-					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-					$q .= $pdata["ID"] . ", '" . mysql_real_escape_string($src) . "')";
-					db_query($q, $dbh);
+					if ($src != "" ) {
+						$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
+						$q .= $pdata["ID"] . ", '" . mysql_real_escape_string($src) . "')";
+						db_query($q, $dbh);
+					}
 				}
 
 				header('Location: packages.php?ID=' . $pdata['ID']);
@@ -377,9 +382,11 @@ if ($_COOKIE["AURSID"]):
 				# Insert sources
 				$sources = explode(" ", $new_pkgbuild['source']);
 				foreach ($sources as $src) {
-					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-					$q .= $packageID . ", '" . mysql_real_escape_string($src) . "')";
-					db_query($q, $dbh);
+					if ($src != "" ) {
+						$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
+						$q .= $packageID . ", '" . mysql_real_escape_string($src) . "')";
+						db_query($q, $dbh);
+					}
 				}
 
 				header('Location: packages.php?ID=' . $packageID);
