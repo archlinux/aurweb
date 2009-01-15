@@ -1,8 +1,8 @@
 <table class="boxSoft">
 <tr>
 <th colspan="2" class="boxSoftTitle" style="text-align: right">
-<a href="rss2.php"><img src="images/rss.gif"></a>
 <span class="f3"><?php print __("Recent Updates") ?><span class="f5"></span></span>
+<a href="rss2.php"><img src="images/feed-icon-14x14.png" alt="RSS Feed"></a>
 </th>
 </tr>
 
