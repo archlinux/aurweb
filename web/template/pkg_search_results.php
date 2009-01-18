@@ -125,14 +125,26 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 				</span></td>
 			</tr>
 			<tr>
-				<td align='left'>
+				<td align='left' width='25%'>
 					<?php if (($_GET['O'] - $_GET['PP']) >= 0): ?>
 					<a href="packages.php?<?php print mkurl('O=' . ($_GET['O'] - $_GET['PP'])) ?>"><?php print __("Less") ?></a>
 					<?php elseif ($_GET['O']<$_GET['PP'] && $_GET['O']>0): ?>
 					<a href="packages.php?<?php print mkurl('O=0') ?>"><?php print __("Less") ?></a>
 					<?php endif; ?>
 				</td>
-				<td align='right'>
+				<td align='center' width='50%'>
+					<?php if ($_GET['PP'] > 0) { $pages = ceil($total/$_GET['PP']); } ?>
+					<?php if ($_GET['O'] > 0)  { $currentpage = ceil(($_GET['O']+1)/$_GET['PP']); }
+					      else { $currentpage = 1; } ?>
+					<?php for ($i = 1; $i <= $pages; $i++) :
+						if ($i <> $currentpage) :
+                                                  $pagestart = ($i-1)*$_GET['PP'];  ?>
+						<a href='packages.php?<?php print mkurl('O=' . ($pagestart))?>'><?php print "$i" ?> </a>
+					      <?php else : print "[$i] ";
+						endif;
+					       endfor; ?>
+				</td>
+				<td align='right' width='25%'>
 					<?php if ($total - $_GET['PP'] - $_GET['O'] > 0): ?>
 					<a href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php print __("More") ?></a>
 					<?php endif; ?>
