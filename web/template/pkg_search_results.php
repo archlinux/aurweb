@@ -115,14 +115,14 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 		<td>
 			<table border='0' cellpadding='0' cellspacing='0' width='100%'>
 			<tr>
-				<tr><td align='center' colspan='0'><span class='f4'><span class='blue'>
-				<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
-				</span></span></td></tr>
 				<td colspan='2' align='center'>
 				<span class='f3'>
 				<?php echo __('Legend') ?>
 				<span class="outofdate"><?php print __('Out of Date') ?></span>
 				</span></td>
+				<tr><td align='center' colspan='0'><span class='f4'><span class='blue'>
+				<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
+				</span></span></td></tr>
 			</tr>
 			<tr>
 				<td align='left' width='25%'>
