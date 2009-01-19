@@ -1,0 +1,675 @@
+<?php
+# Russian (Русский) translation
+# Translator: Sergej Pupykin <ps@lx-ltd.ru>
+
+
+$_t["Use this form to update your account."] = "Используйте эту форму для изменения вашей учетной записи.";
+
+$_t["Leave the password fields blank to keep your same password."] = "Оставьте поля для ввода пароля пустыми если не хотите его изменять.";
+
+$_t["You are not allowed to access this area."] = "У вас нет доступа к этой части.";
+
+$_t["Could not retrieve information for the specified user."] = "Невозможно получить информацию об указанном пользователе.";
+
+$_t["Use this form to search existing accounts."] = "Используйте эту форму для поиска существующей учетной записи.";
+
+$_t["You do not have permission to edit this account."] = "У вас нет прав для изменения этой учетной записи.";
+
+$_t["Use this form to create an account."] = "Используйте эту форму для создания новой учетной записи.";
+
+$_t["You must log in to view user information."] = "Вы должны представиться для просмотра информации о пользователе.";
+
+
+
+$_t["Missing a required field."] = "Отсутствует обязательное значение.";
+
+$_t["Search"] = "Поиск'";
+
+$_t["The account, %h%s%h, has been successfully created."] = "Учетная запись %h%s%h успешно создана.";
+
+$_t["Error trying to modify account, %h%s%h: %s."] = "Ошибка изменения учетной записи, %h%s%h: %s.";
+
+$_t["The email address is invalid."] = "Неправильный адрес электронной почты.";
+
+$_t["Error trying to create account, %h%s%h: %s."] = "Ошибка создания учетной записи, %h%s%h: %s.";
+
+$_t["The username, %h%s%h, is already in use."] = "Имя %h%s%h уже используется.";
+
+$_t["Account Type"] = "Тип учетной записи.";
+
+$_t["The account, %h%s%h, has been successfully modified."] = "Учетная запись %h%s%h успешно изменена.";
+
+$_t["Account Suspended"] = "Действие учетной записи приостановлено.";
+
+$_t["Status"] = "Статус";
+
+$_t["New Package Notify"] = "Извещать о новых пакетах";
+
+$_t["IRC Nick"] = "IRC Ник";
+
+$_t["Trusted user"] = "Доверенный пользователь";
+
+$_t["No results matched your search criteria."] = "По вашему запросу ничего не найдено.";
+
+$_t["Normal user"] = "Обычный пользователь";
+
+$_t["Never"] = "Никогда";
+
+$_t["User"] = "Пользователь";
+
+$_t["Active"] = "Активный";
+
+$_t["Last Voted"] = "Последний проголосовавший";
+
+$_t["Real Name"] = "Настоящее имя";
+
+$_t["Edit Account"] = "Изменить учетную запись";
+
+$_t["Password fields do not match."] = "Пароли не совпадают.";
+
+$_t["View this user's packages"] = "Посмотреть пакеты этого пользователя";
+
+$_t["Language"] = "Язык";
+
+$_t["A Trusted User cannot assign Developer status."] = "Доверенный пользователь не может устанавливать статус Разработчик.";
+
+$_t["The address, %h%s%h, is already in use."] = "Адрес %h%s%h уже используется.";
+
+$_t["No more results to display."] = "Больше нет результатов.";
+
+$_t["Type"] = "Тип";
+
+$_t["Click on the Home link above to login."] = "Щелкните ссылку Home чтобы представиться.";
+
+$_t["Sort by"] = "Сортировать по";
+
+$_t["Re-type password"] = "Введите пароль еще раз";
+
+$_t["Language is not currently supported."] = "Язык пока не поддерживается.";
+
+$_t["Any type"] = "Любой тип";
+
+$_t["Last vote"] = "Последнее голосование";
+
+$_t["Suspended"] = "Приостановлена";
+
+$_t["Trusted User"] = "Доверенный пользователь";
+
+$_t["Missing User ID"] = "Отсутствует идентификатор пользователя";
+
+$_t["Developer"] = "Разработчик";
+
+$_t["It must be between %s and %s characters long"] = "Длина должна быть от %s до %s символов";
+
+$_t["Your password must be at least %s characters."] = "Пароль должен быть не менее %s символов.";
+
+$_t["Can contain only one period, underscore or hyphen."] = "Может содержать только одну запятую, подчёркивание или тире.";
+
+$_t["Start and end with a letter or number"] = "Начинаются и заканчиваются цифрой или буквой";
+
+$_t["The username is invalid."] = "Неверное имя пользователя.";
+
+
+
+$_t["%s: %sAn ArchLinux project%s"] = "%s: %sПроект ArchLinux%s";
+
+$_t["Logout"] = "Выход";
+
+$_t["Discussion"] = "Обсуждение";
+
+$_t["Bugs"] = "Ошибки";
+
+$_t["Accounts"] = "Учетная запись";
+
+$_t["Home"] = "Домой";
+
+$_t["Packages"] = "Пакеты";
+
+$_t["My Packages"] = "Мои пакеты";
+
+
+
+$_t["Reset"] = "Очистить";
+
+$_t["Username"] = "Имя пользователя";
+
+$_t["Email Address"] = "Адрес электронной почты";
+
+$_t["Less"] = "Назад";
+
+$_t["Clear"] = "Очистить";
+
+$_t["required"] = "необходимо";
+
+$_t["Update"] = "Обновить";
+
+$_t["Submit"] = "Прислать";
+
+$_t["Password"] = "Пароль";
+
+$_t["Create"] = "Создать";
+
+$_t["More"] = "Далее";
+
+
+
+$_t["Statistics"] = "Статистика";
+
+$_t["Remember to vote for your favourite packages!"] = "Не забывайте голосовать за полюбившиеся вам пакеты!";
+
+$_t["Error looking up username, %s."] = "Ошибка поиска имени пользователя, %s.";
+
+$_t["Packages in unsupported"] = "Пакетов в [unsupported]";
+
+$_t["The most popular packages will be provided as binary packages in [community]."] = "Наиболее популярные пакеты будут добавлены в [community] в собраном виде.";
+
+$_t["Trusted Users"] = "Доверенных пользователей";
+
+$_t["You must supply a username."] = "Вы должны задать имя пользователя.";
+
+$_t["Packages added or updated in the past 7 days"] = "Пакетов добавлено/обновлено за последние 7 дней";
+
+$_t["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Используйте %sTUR Users List%s для обсуждения AUR.";
+
+$_t["Packages in unsupported and flagged as safe"] = "Безопасных пакетов в [unsupported]";
+
+$_t["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Хотя мы не можем  поручиться за содержимое, мы предоставляем %hсписок пользовательских репозитариев%h для удобства.";
+
+$_t["Packages in [community]"] = "Пакетов в [community]";
+
+$_t["Recent Updates"] = "Последние обновления";
+
+$_t["Your account has been suspended."] = "Действие вашей учетной записи приостановлено.";
+
+$_t["Username:"] = "Имя пользователя:";
+
+$_t["Error trying to generate session id."] = "Ошибка генерации идентификатора сессии.";
+
+$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Добро пожаловать в AUR! Пожалуйста прочитайте %hAUR User Guidelines%h и %hAUR TU Guidelines%h, чтобы получить больше информации.";
+
+$_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Присланые PKGBUILD %hдолжны%h соответствовать %hArch Packaging Standards%h или будут удалены!";
+
+$_t["Login"] = "Войти";
+
+$_t["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Замечания и пожелания о AUR оставляйте в %hFlyspray%h.";
+
+$_t["You must supply a password."] = "Вы должны ввести пароль.";
+
+$_t["Password:"] = "Пароль:";
+
+$_t["Registered Users"] = "Зарегистрированных пользователей";
+
+$_t["Logged-in as: %h%s%h"] = "Вошли как: %h%s%h";
+
+$_t["Incorrect password for username, %s."] = "Неверный пароль для пользователя %s.";
+
+$_t["Safe"] = "Безопасный";
+
+$_t["Out-of-date"] = "Устарел";
+
+$_t["User Statistics"] = "Статистика пользователя";
+
+$_t["Flagged as safe by me"] = "Отмечено мной как безопасный";
+
+$_t["Flagged as safe"] = "Отмечено как безопасный";
+
+$_t["My Statistics"] = "Моя статистика";
+
+$_t["Home"] = "Заглавная страница";
+
+
+
+$_t["You have been successfully logged out."] = "Сеанс завершен.";
+
+
+
+$_t["Missing package ID."] = "Идентификатор пакета отсутствует.";
+
+$_t["Invalid category ID."] = "Неверный идентификатор категории.";
+
+$_t["Enter your comment below."] = "Введите ваш коментарий ниже.";
+
+$_t["You are not allowed to delete this comment."] = "У вас нет прав для удаления этого коментария.";
+
+$_t["Missing comment ID."] = "Идентификатор коментария отсутствует.";
+
+$_t["Package category updated."] = "Категория пакета обновлена.";
+
+$_t["You must be logged in before you can edit package information."] = "Вы должны представиться прежде чем редактировать информацию о пакете.";
+
+$_t["Comment has been deleted."] = "Коментарий удален.";
+
+$_t["You've found a bug if you see this...."] = "Вы нашли ошибку, если видите это....";
+
+$_t["Comment has been added."] = "Коментарий добавлен";
+
+$_t["Select new category"] = "Выберите новую категорию.";
+
+
+
+$_t["Category"] = "Категория";
+
+$_t["Search by"] = "Искать по";
+
+$_t["Delete comment"] = "Удалить коментарий";
+
+$_t["orphan"] = "сирота";
+
+$_t["Votes"] = "Голосов";
+
+$_t["First Submitted"] = "Впервые послан";
+
+$_t["Tarball"] = "Архив";
+
+$_t["Be careful! The above files may contain malicious code that can damage your system."] = "Будьте осторожны! Данные файлы могут содержать код, который способен повредить вашу систему.";
+
+$_t["Voted"] = "Мой голос";
+
+$_t["Location"] = "Местонахождение";
+
+$_t["Flag Safe"] = "Флаг Безопасно";
+
+$_t["Go"] = "Поехали";
+
+$_t["Unflag Out-of-date"] = "Убрать флаг Устаревший";
+
+$_t["Go back to %hpackage details view%h."] = "Вернуться к %hинформации о пакете%h.";
+
+$_t["Error retrieving package details."] = "Ошибка получения информации о пакете.";
+
+$_t["Description"] = "Описание";
+
+$_t["My Packages"] = "Мои пакеты";
+
+$_t["Safe"] = "Безопасно";
+
+$_t["Sort order"] = "Порядок сортировки";
+
+$_t["Ascending"] = "По возрастанию";
+
+$_t["Keywords"] = "Ключевые слова";
+
+$_t["No New Comment Notification"] = "Нет новых извещений о коментариях";
+
+$_t["Dependencies"] = "Зависимости";
+
+$_t["Descending"] = "По убыванию";
+
+$_t["Per page"] = "Постранично";
+
+$_t["Package Listing"] = "Список пакетов";
+
+$_t["Package details could not be found."] = "Не найдена информация о пакете.";
+
+$_t["Package Details"] = "Информация о пакете";
+
+$_t["Error retrieving package list."] = "Ошибка получения списка пакетов.";
+
+$_t["Files"] = "Файлы";
+
+$_t["Name"] = "Имя";
+
+$_t["Last Updated"] = "Последнее обновление";
+
+$_t["The above files have been verified (by %s) and are safe to use."] = "Данные файлы проверены (%s) и могут быть безопасно использованы.";
+
+$_t["Unflag Package Safe To Use"] = "Снять флаг Безопасно";
+
+$_t["Go back to %hsearch results%h."] = "Вернуться к %hрезультатам поиска%h.";
+
+$_t["Age"] = "Возраст";
+
+$_t["Comments"] = "Коментарии";
+
+$_t["Submitter"] = "Автор";
+
+$_t["Un-Vote"] = "Убрать мой голос";
+
+$_t["change category"] = "изменить категорию";
+
+$_t["UnNotify"] = "Не извещать";
+
+$_t["Delete Packages"] = "Удалить пакеты";
+
+$_t["Maintainer"] = "Ответственный";
+
+$_t["Add Comment"] = "Добавить коментарий";
+
+$_t["Comment by: %h%s%h on %h%s%h"] = "Коментарии: %h%s%h к %h%s%h";
+
+$_t["Flag Out-of-date"] = "Пометить как Устаревший";
+
+$_t["Manage"] = "Управлять";
+
+$_t["Sort by"] = "Сортировать по";
+
+$_t["Flag Package Safe To Use"] = "Пометить флагом Безопасно";
+
+$_t["Actions"] = "Действия";
+
+$_t["Unflag Safe"] = "Снять флаг Безопасно";
+
+$_t["Sources"] = "Исходники";
+
+$_t["Yes"] = "Да";
+
+$_t["Search Criteria"] = "Критерий поиска";
+
+$_t["Notify"] = "Извещать";
+
+$_t["O%hut-of-Date"] = "У%hстарел";
+
+$_t["Vote"] = "Голосовать";
+
+$_t["Adopt Packages"] = "Усыновить пакеты";
+
+$_t["New Comment Notification"] = "Извещение о новом коментарии";
+
+$_t["Disown Packages"] = "Бросить пакеты";
+
+$_t["Orphans"] = "Сироты";
+
+$_t["Any"] = "Любой";
+
+$_t["No packages matched your search criteria."] = "Нет пакетов по выбранному критерию поиска.";
+
+$_t["Status"] = "Статус";
+
+$_t["unknown"] = "неизвестно";
+
+$_t["You have been successfully logged out."] = "Сеанс успешно завершен";
+
+$_t["License"] = "Лицензия";
+
+$_t["Could not retrieve information for the specified user."] = "Невозможно получить информацию об указанном пользователе.";
+
+$_t["You do not have permission to edit this account."] = "Вы не имеете прав для редактирования этой учетной записи.";
+
+$_t["Use this form to search existing accounts."] = "Используйте эту форму для поиска существующих учетных записей.";
+
+$_t["All"] = "Все";
+
+$_t["Use this form to create an account."] = "Используйте эту форму для создания учетной записи.";
+
+$_t["Use this form to update your account."] = "Используйте эту форму для изменения вашей учетной записи.";
+
+$_t["You are not allowed to access this area."] = "Доступ сюда вам запрещен.";
+
+$_t["Unsafe"] = "Небезопаный";
+
+$_t["This package has been flagged out of date."] = "Пакет отмечен как устаревший.";
+
+$_t["The above files have been verified (by %h%s%h) and are safe to use."] = "Файлы проверены %h%s%h и могут быть безопасно использованы.";
+
+$_t["Required by"] = "Требуется пакетами";
+
+$_t["Accounts"] = "Учетные записи";
+
+$_t["Couldn't add to notification list."] = "Не получилось добавить в список извещений.";
+
+$_t["You must be logged in before you can flag packages."] = "Для отметки пакетов нужно представиться.";
+
+$_t["Your votes have been removed from the selected packages."] = "Ваш голос убран с выбранных пакетов.";
+
+$_t["The selected packages have been disowned."] = "Выбранные пакеты брошены.";
+
+$_t["Out of Date"] = "Устарел";
+
+$_t["None of the selected packages could be deleted."] = "Ниодин из выбранных пакетов не может быть удален.";
+
+$_t["The selected packages have been unflagged."] = "Снята отметка с выбранных пакетов.";
+
+$_t["You must be logged in before you can unflag packages."] = "Для отметки пакетов нужно представиться.";
+
+$_t["You did not select any packages to adopt."] = "Вы не выбрали ниодного пакета для усыновления.";
+
+$_t["You must be logged in before you can get notifications on comments."] = "Необходимо представиться для получения извещений о коментариях.";
+
+$_t["The selected packages have been flagged out-of-date."] = "Выбранные пакеты помечены как устаревшие.";
+
+$_t["The selected packages have been deleted."] = "Выбранные пакеты удалены.";
+
+$_t["You did not select any packages to vote for."] = "Вы не выбрали пакет для голосования.";
+
+$_t["You must be logged in before you can disown packages."] = "Нужно представиться, чтобы бросить пакет.";
+
+$_t["The selected packages have been adopted."] = "Выбранные пакеты усыновлены.";
+
+$_t["You must be logged in before you can adopt packages."] = "Необходимо представиться для усыновления.";
+
+$_t["Showing results %s - %s of %s"] = "Результаты %s - %s из %s";
+
+$_t["You must be logged in before you can vote for packages."] = "Необходимо представиться для голосования.";
+
+$_t["You did not select any packages to disown."] = "Вы не выбрали пакетов, чтобы бросить.";
+
+$_t["You must be logged in before you can un-vote for packages."] = "Необходимо представиться для голосования.";
+
+$_t["You did not select any packages to unflag."] = "Вы не выбрали пакетов, чтобы снимать флаг.";
+
+$_t["You did not select any packages to delete."] = "Вы не выбрали пакетов, чтобы удалить.";
+
+$_t["You have been removed from the comment notification list for %s."] = "Вам больше не будут приходить извещения от %s.";
+
+$_t["Your votes have been cast for the selected packages."] = "Ваш голос принят.";
+
+$_t["You did not select any packages to flag."] = "Вы не выбрали пакетов для отметки.";
+
+$_t["Home"] = "Главная";
+
+$_t["You have been added to the comment notification list for %s."] = "Вы добавлены в список извещений для %s.";
+
+
+
+$_t["None of the selected packages could be deleted."] = "Ниодин выбранный пакет не может быть удален.";
+
+$_t["Your votes have been removed from the selected packages."] = "Ваш голос убран с выбранного пакета.";
+
+$_t["Couldn't flag package safe."] = "Невозможно пометить пакет как безопасный.";
+
+$_t["You did not select any packages to un-vote for."] = "Вы не выбрали ниодного пакета для снятия голоса.";
+
+$_t["The selected packages have been unflagged."] = "С выбранных пакетов пометка снята.";
+
+$_t["You did not select any packages to adopt."] = "Вы не выбрали ниодного пакета для усыновления.";
+
+$_t["You must be logged in before you can flag packages."] = "Вы должны войти прежде чем расставлять флажки на пакеты.";
+
+$_t["You must be logged in before you can get notifications on comments."] = "Вы должны войти прежде чем получать извещения о коментариях.";
+
+$_t["You must be logged in before you can vote for packages."] = "Вы должны войти прежде чем голосовать.";
+
+$_t["The selected packages have been flagged out-of-date."] = "Выбраные пакеты помечены как устаревшие.";
+
+$_t["The selected packages have been deleted."] = "Выбраные пакеты удалены.";
+
+$_t["You did not select any packages to vote for."] = "Вы не выбрали ниодного пакета для голосования.";
+
+$_t["You must be logged in before you can disown packages."] = "Вы должны войти прежде чем бросать пакеты.";
+
+$_t["Error trying to retrieve package details."] = "Ошибка получения информации о пакете.";
+
+$_t["The selected packages have been adopted."] = "Выбраные пакеты усыновлены.";
+
+$_t["You have been removed from the comment notification list."] = "Вы удалены из списка получателей извещений.";
+
+$_t["Your votes have been cast for the selected packages."] = "Вы проголосовали за выбранные пакеты.";
+
+$_t["The selected packages have been unflagged safe."] = "С выбраных пакетов снят флаг Безопасно.";
+
+$_t["You must be logged in before you can cancel notification on comments."] = "Вы должны войти прежде чем отменять извещения о коментариях.";
+
+$_t["You must be logged in before you can adopt packages."] = "Вы должны войти прежде чем усыновлять пакеты.";
+
+$_t["You have been added to the comment notification list."] = "Вы добавлены в список получателей извещений о коментариях.";
+
+$_t["You did not select any packages to disown."] = "Вы не выбрали ниодного пакета чтобы бросить.";
+
+$_t["You must be logged in before you can un-vote for packages."] = "Вы должны войти прежде чем снимать голос с пакета.";
+
+$_t["You must be logged in before you can unflag packages."] = "Вы должны войти прежде чем снимать флажки.";
+
+$_t["You did not select any packages to unflag."] = "Вы не выбрали ниодного пакета для снятия пометки.";
+
+$_t["Couldn't unflag package safe."] = "Нельзя безопасно снять флажок.";
+
+$_t["You did not select any packages to delete."] = "Вы не выбрали ниодного пакета для удаления.";
+
+$_t["Couldn't add to notification list."] = "Невозможно добавить в список получателей извещений.";
+
+$_t["You did not select any packages to flag."] = "Вы не выбрали ниодного пакета для пометки.";
+
+$_t["The selected packages have been disowned."] = "Выбранные пакеты брошены.";
+
+$_t["The selected packages have been flagged safe."] = "Выбранные пакеты помечены как безопасные.";
+
+$_t["Couldn't remove from notification list."] = "Невозможно удалить из списка получателей извещений.";
+
+$_t["Packages"] = "Пакеты";
+
+
+
+$_t["Missing build function in PKGBUILD."] = "Отсутствует функция build в PKGBUILD.";
+
+$_t["Could not change directory to %s."] = "Невозможно сменить директорию в %s.";
+
+$_t["No"] = "Нет";
+
+$_t["Missing pkgdesc variable in PKGBUILD."] = "Отсутствует переменная pkgdesc в PKGBUILD.";
+
+$_t["Error trying to upload file - please try again."] = "Ошибка загрузки файла - попробуйте еще раз.";
+
+$_t["Error exec'ing the mv command."] = "Ошибка выполнения команды mv.";
+
+$_t["You must create an account before you can upload packages."] = "Вы должны создать учетную запись для загрузки пакетов.";
+
+$_t["Package upload successful."] = "Пакет успешно загружен.";
+
+$_t["Overwrite existing package?"] = "Перезаписать существующий пакет?";
+
+$_t["Binary packages and filelists are not allowed for upload."] = "Бинарные пакеты и списки файлов запрещены для загрузки.";
+
+$_t["You did not specify a package name."] = "Вы не указали имя пакета.";
+
+$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Ошибка во время распаковки - PKGBUILD отсутствует.";
+
+$_t["Could not create incoming directory: %s."] = "Невозможно создать каталог : %s.";
+
+$_t["Upload package file"] = "Файл пакета";
+
+$_t["Package Location"] = "Местонахождение пакета.";
+
+$_t["Missing url variable in PKGBUILD."] = "Отсутствует переменная url в PKGBUILD.";
+
+$_t["Package names do not match."] = "Имена пакета не совпадают.";
+
+$_t["Package Category"] = "Категория пакета.";
+
+$_t["Could not change to directory %s."] = "Невозможно сменить каталог на %s.";
+
+$_t["You did not tag the 'overwrite' checkbox."] = "Вы не установили переключатель 'overwrite'.";
+
+$_t["Invalid name: only lowercase letters are allowed."] = "Неверное имя: только нижний регистр допустим.";
+
+$_t["Missing pkgver variable in PKGBUILD."] = "Отсутствует переменная pkgver в PKGBUILD.";
+
+$_t["Package name"] = "Имя пакета.";
+
+$_t["Upload"] = "Загрузить";
+
+$_t["Missing md5sums variable in PKGBUILD."] = "Отсутствует переменная md5sums в PKGBUILD.";
+
+$_t["Missing pkgrel variable in PKGBUILD."] = " Отсутствует переменная pkgrel в PKGBUILD.";
+
+$_t["Missing pkgname variable in PKGBUILD."] = "Отсутствует переменная pkgname в PKGBUILD.";
+
+$_t["Error - No file uploaded"] = "Ошибка - нет загруженного файла";
+
+$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Не указан протокол в URL (т.е.  http:// ,ftp://)";
+
+$_t["You are not allowed to overwrite the %h%s%h package."] = "Вы не имеете доступа для перезаписи пакета %h%s%h.";
+
+$_t["Select Location"] = "Выберите местонахождение";
+
+$_t["Select Category"] = "Выберите категорию";
+
+$_t["Comment"] = "Коментарий";
+
+$_t["Could not create directory %s."] = "Нельзя создать директорию %s.";
+
+$_t["Unknown file format for uploaded file."] = "Неизвестный формат загруженного файла.";
+
+$_t["Missing source variable in PKGBUILD."] = "Отсутствует переменная source  в PKGBUILD.";
+
+$_t["Could not re-tar"] = "Невозможно переархивировать";
+
+$_t["Sorry, uploads are not permitted by this server."] = "Извините, загрузки не разрешены этим сервером.";
+
+$_t["You must supply a comment for this upload/change."] = "Вы должны ввести коментарий к загрузке/изменению.";
+
+$_t["Yes"] = "Да";
+
+$_t["Missing license variable in PKGBUILD."] = "Не указана лицензия в PKGBUILD";
+
+$_t["Missing arch variable in PKGBUILD."] = "Не указана архитектура в PKGBUILD";
+
+$_t["Could not chmod directory %s."] = "Не получилось сделать chmod для %s.";
+
+$_t["Missing "] = "Отсутствуют";
+
+
+
+$_t["Proposal:"] = "Предложение:";
+
+$_t["No"] = "Против";
+
+$_t["Username does not exist."] = "Такого пользователя нет.";
+
+$_t["Next"] = "Далее";
+
+$_t["Add"] = "Добавить";
+
+$_t["Length must be at least 1."] = "Длина должна быть не меньше 1.";
+
+$_t["(defaults to 7 if empty)"] = "(7 если не указано иного)";
+
+$_t["Proposal cannot be empty."] = "Предложение не может быть пустым.";
+
+$_t["Vote ID not valid."] = "Идентификатор голосование неверный.";
+
+$_t["(empty if not applicable)"] = "(пусто если не применимо)";
+
+$_t["Voting is closed for this proposal."] = "Голосование закрыто.";
+
+$_t["New proposal submitted."] = "Новое предложение принято.";
+
+$_t["%s already has proposal running for them."] = "За %s уже идет голосование.";
+
+$_t["Length must be a number."] = "Длина должна быть числом.";
+
+$_t["You've already voted for this proposal."] = "Вы уже проголосовали.";
+
+$_t["Current Votes"] = "Сейчас голосов";
+
+$_t["You've already voted in this proposal."] = "Вы уже проголосовали.";
+
+$_t["You cannot vote in an proposal about you."] = "Нельзя голосовать за себя.";
+
+$_t["Abstain"] = "Воздерживаюсь";
+
+$_t["You are not allowed to access this area."] = "Нет доступа.";
+
+$_t["Length in days:"] = "Длительность в днях:";
+
+$_t["Back"] = "Назад";
+
+$_t["Submit a proposal to vote on."] = "Отправить предложение.";
+
+$_t["All Votes"] = "Всего";
+
+$_t["Could not retrieve proposal details."] = "Не получилось показать предложение.";
+
+$_t["Yes"] = "За";
+
+$_t["Applicant/TU:"] = "Кандидат/TU";
+

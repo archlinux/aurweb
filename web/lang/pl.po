@@ -1,0 +1,498 @@
+<?php
+# Polish (Polski) translation
+# Translator: Jaroslaw Swierczynski <swiergot@gmail.com>
+
+
+$_t["Under construction..."] = "Prace trwają...";
+$_t["Account Suspended:"] = "Konto zablokowane:";
+$_t["Notify:"] = "Powiadomienie:";
+$_t["Trusted User"] = "Zaufany Użytkownik";
+$_t["Normal User"] = "Zwykły użytkownik";
+$_t["Password:"] = "Hasło:";
+$_t["Email Address:"] = "Adres e-mail:";
+$_t["Confirm:"] = "Potwierdź:";
+$_t["Real Name:"] = "Imię i nazwisko:";
+$_t["Account Type:"] = "Rodzaj konta:";
+$_t["IRC Nick:"] = "Nick na IRC-u:";
+$_t["Language:"] = "Język:";
+$_t["Developer"] = "Developer";
+$_t["New Package Notify:"] = "Powiadamiaj o nowych pakietach:";
+$_t["Password fields do not match."] = "Hasła nie zgadzają się.";
+$_t["Error trying to create account, %h%s%h: %s."] = "Błąd podczas tworzenia konta %h%s%h: %s.";
+$_t["Missing a required field."] = "Brakuje wymaganego pola.";
+$_t["This address is already in use."] = "Ten adres jest już używany.";
+$_t["Language is not currently supported."] = "Język nie jest obecnie obsługiwany.";
+$_t["The email address is invalid."] = "Adres e-mail jest nieprawidłowy.";
+$_t["Re-type password:"] = "Hasło (ponownie):";
+$_t["The account, %h%s%h, has been successfully created."] = "Konto %h%s%h zostało pomyślnie utworzone.";
+$_t["Click on the Home link above to login."] = "Kliknij na linku Start powyżej aby się zalogować.";
+$_t["The address, %h%s%h, is already in use."] = "Adres %h%s%h jest już używany.";
+$_t["Trusted user"] = "Zaufany Użytkownik";
+$_t["Normal user"] = "Zwykły użytkownik";
+$_t["Any type"] = "Dowolny rodzaj";
+$_t["No results matched your search criteria."] = "Wyszukiwanie nie przyniosło rezultatu.";
+$_t["Never"] = "Nigdy";
+$_t["Active"] = "Aktywne";
+$_t["Suspended"] = "Zablokowane";
+$_t["The username, %h%s%h, is already in use."] = "Nazwa użytkownika %h%s%h jest już używana.";
+$_t["Type"] = "Rodzaj";
+$_t["Status"] = "Status";
+$_t["IRC Nick"] = "Nick na IRC-u";
+$_t["Last Voted"] = "Ostatni głos";
+$_t["Real Name"] = "Imię i nazwisko";
+$_t["Username:"] = "Nazwa użytkownika:";
+$_t["Sort by"] = "Sortuj według";
+$_t["Account Type"] = "Rodzaj konta";
+$_t["Account Suspended"] = "Konto zablokowane";
+$_t["Email address"] = "Adres e-mail";
+$_t["Last vote"] = "Ostatni głos";
+$_t["Regular users can edit their own account."] = "Zwykli użytkownicy mogą edytować swoje konto.";
+$_t["Edit Account"] = "Edytuj konto";
+$_t["Use this form to search existing accounts."] = "Przy użyciu tego formularza możesz przeszukać istniejące konta.";
+$_t["You are not allowed to access this area."] = "Nie masz uprawnień do oglądania tej strony.";
+$_t["Use this form to create an account."] = "Przy użyciu tego formularza możesz utworzyć konto.";
+$_t["Use this form to update your account."] = "Przy użyciu tego formularza możesz uaktualnić swoje konto.";
+$_t["Leave the password fields blank to keep your same password."] = "Pozostaw pola z hasłem puste aby nie zmieniać swojego hasła.";
+$_t["Could not retrieve information for the specified user."] = "Uzyskanie informacji o podanym użytkowniku nie powiodło się.";
+$_t["You do not have permission to edit this account."] = "Nie masz uprawnień do edycji tego konta.";
+
+$_t["You must log in to view user information."] = "Musisz być zalogowany aby móc oglądać informacje o użytkownikach.";
+
+
+
+$_t["Missing a required field."] = "Brakuje wymaganego pola.";
+$_t["The account, %h%s%h, has been successfully created."] = "Konto %h%s%h zostało pomyślnie utworzone.";
+$_t["Error trying to modify account, %h%s%h: %s."] = "Błąd podczas modyfikacji konta %h%s%h: %s.";
+$_t["The email address is invalid."] = "Adres e-mail jest nieprawidłowy.";
+$_t["Error trying to create account, %h%s%h: %s."] = "Błąd podczas tworzenia konta %h%s%h: %s.";
+$_t["The username, %h%s%h, is already in use."] = "Nazwa użytkownika %h%s%h jest już używana.";
+$_t["Account Type"] = "Rodzaj konta";
+$_t["The account, %h%s%h, has been successfully modified."] = "Konto %h%s%h zostało pomyślnie zaktualizowane.";
+$_t["Account Suspended"] = "Konto zablokowane";
+$_t["New Package Notify"] = "Powiadamiaj o nowych pakietach";
+$_t["IRC Nick"] = "Nick na IRC-u";
+$_t["Trusted user"] = "Zaufany Użytkownik";
+$_t["Normal user"] = "Zwykły użytkownik";
+$_t["Real Name"] = "Imię i nazwisko";
+$_t["Password fields do not match."] = "Hasła nie zgadzają się.";
+$_t["Language"] = "Język";
+$_t["The address, %h%s%h, is already in use."] = "Adres %h%s%h jest już używany.";
+$_t["Click on the Home link above to login."] = "Kliknij na linku Start powyżej aby się zalogować.";
+$_t["Re-type password"] = "Hasło (ponownie)";
+$_t["Language is not currently supported."] = "Język nie jest obecnie obsługiwany.";
+$_t["Missing User ID"] = "Brakuje ID użytkownika";
+$_t["Developer"] = "Developer";
+$_t["Search"] = "Szukaj'";
+$_t["Status"] = "Status";
+$_t["No results matched your search criteria."] = "Wyszukiwanie nie przyniosło rezultatu.";
+$_t["Never"] = "Nigdy";
+$_t["Active"] = "Aktywne";
+$_t["Last Voted"] = "Ostatni głos";
+$_t["Edit Account"] = "Edytuj konto";
+$_t["Email address"] = "Adres e-mail";
+$_t["Type"] = "Rodzaj";
+$_t["Sort by"] = "Sortuj według";
+$_t["Any type"] = "Dowolny rodzaj";
+$_t["Last vote"] = "Ostatni głos";
+$_t["Suspended"] = "Zablokowane";
+$_t["No more results to display."] = "Brak rezultatów do wyświetlenia.";
+$_t["A Trusted User cannot assign Developer status."] = "Zaufany Użytkownik nie może nadać statusu Developera.";
+
+$_t["User"] = "Użytkownik";
+
+$_t["Trusted User"] = "Zaufany Użytkownik";
+
+$_t["View this user's packages"] = "Wyświetl pakiety tego użytkownika";
+
+$_t["start and end with a letter or number"] = "zacznij i zakończ literą bądź cyfrą";
+
+$_t["Your password must be at least "] = "Twoje hasło musi być przynajmniej";
+
+$_t["The username is invalid."] = "Nazwa użytkownika jest nieprawidłowa.";
+
+$_t["It must be "] = "To musi być";
+
+$_t["can contain only one period, underscore or hyphen."] = "może zawierać tylko jedną kropkę, podkreślenie lub myślnik";
+
+
+
+$_t["ArchLinux User-community Repository"] = "Repozytorium Społeczności Użytkowników ArchLinux";
+$_t["AUR: An ArchLinux project"] = "AUR: Projekt ArchLinux";
+$_t["Logout"] = "Wyloguj się";
+$_t["Manage"] = "Zarządzaj";
+$_t["Submit"] = "Wyślij";
+$_t["%s: An ArchLinux project"] = "%s: Projekt ArchLinux";
+$_t["Accounts"] = "Konta";
+$_t["Vote"] = "Głosuj";
+$_t["Home"] = "Start";
+$_t["Packages"] = "Pakiety";
+$_t["Trusted user"] = "Zaufany Użytkownik";
+$_t["User"] = "Użytkownik";
+$_t["Developer"] = "Developer";
+
+$_t["%s: %sAn ArchLinux project%s"] = "%s: %sProjekt ArchLinux%s";
+
+$_t["Discussion"] = "Dyskusja";
+
+$_t["Bugs"] = "Błędy";
+
+$_t["My Packages"] = "Moje pakiety";
+
+$_t["You must supply a password."] = "Musisz podać hasło.";
+
+$_t["You must supply a username."] = "Musisz podać nazwę użytkownika.";
+
+$_t["Your account has been suspended."] = "Twoje konto zostało zawieszone.";
+
+$_t["Error trying to generate session id."] = "Wystąpił błąd przy próbie generowania identyfikatora sesji.";
+
+$_t["Login failure: Bad user or pass."] = "Logowanie nieudane: Zła nazwa użytkownika bądź hasło.";
+
+
+
+$_t["Password"] = "Hasło";
+$_t["Clear"] = "Wyczyść";
+$_t["required"] = "wymagane";
+$_t["Email Address"] = "Adres e-mail";
+$_t["Submit"] = "Wyślij";
+$_t["Reset"] = "Wyczyść";
+$_t["Create"] = "Utwórz";
+$_t["Update"] = "Aktualizuj";
+$_t["Less"] = "Poprzednie";
+$_t["More"] = "Następne";
+$_t["Username"] = "Użytkownik";
+
+
+
+$_t["Hi, this is worth reading!"] = "Witaj, warto to przeczytać!";
+$_t["You must supply a password."] = "Musisz podać hasło.";
+$_t["You must supply a username."] = "Musisz podać nazwę użytkownika.";
+$_t["Incorrect password for username %s."] = "Nieprawidłowe hasło dla użytkownika %s.";
+$_t["After that, this can be filled in with more meaningful text."] = "Potem można tu wstawić bardziej wyczerpujący tekst.";
+$_t["Your account has been suspended."] = "Twoje konto zostało zablokowane.";
+$_t["Password:"] = "Hasło:";
+$_t["Username:"] = "Użytkownik:";
+$_t["It's more important to get the login functionality finished."] = "Ważniejsze jest dokończyć logowanie.";
+$_t["Currently logged in as: %h%s%h"] = "Obecnie zalogowany jako: %h%s%h";
+$_t["For now, it's just a place holder."] = "Narazie to tylko wypełnia przestrzeń.";
+$_t["This is where the intro text will go."] = "Tutaj będzie tekst powitalny.";
+$_t["Error trying to generate session id."] = "Błąd podczas generowania identyfikatora sesji.";
+$_t["Login"] = "Zaloguj się";
+$_t["Email Address:"] = "Adres e-mail:";
+$_t["You must supply an email address."] = "Musisz podać adres e-mail.";
+$_t["Incorrect password for email address, %s."] = "Nieprawidłowe hasło dla adresu %s.";
+$_t["Incorrect password for username, %s."] = "Nieprawidłowe hasło dla użytkownika %s.";
+$_t["Logged in as: %h%s%h"] = "Zalogowany jako: %h%s%h";
+
+$_t["Error looking up username, %s."] = "Błąd podczas wyszukiwania użytkownika %s.";
+$_t["Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h."] = "Witamy w AUR! Jeżeli jesteś tu po raz pierwszy, być może zechcesz przeczytać %hInstrukcję%h.";
+$_t["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Jeżeli masz uwagi lub pomysły odnośnie AUR, %hFlyspray%h jest odpowiednim miejscem do ich pozostawienia.";
+$_t["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Dla Twojej wygody podajemy %hlistę repozytoriów użytkowników%h, ale uwaga - nie odpowiadamy za ich zawartość.";
+
+$_t["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Dyskusja na temat AUR ma miejsce na liście pocztowej %sTUR Users%s.";
+
+$_t["Recent Updates"] = "Ostatnie aktualizacje";
+
+$_t["Statistics"] = "Statystyki";
+
+$_t["Remember to vote for your favourite packages!"] = "Nie zapomnij głosować na swoje ulubione pakiety!";
+
+$_t["Packages in unsupported"] = "Pakietów w unsupported";
+
+$_t["Packages in unsupported and flagged as safe"] = "Pakietów w unsupported oznaczonych jako bezpieczne";
+
+$_t["The most popular packages will be provided as binary packages in [community]."] = "Najbardziej popularne pakiety zostaną umieszczone w formie binarnej w [community].";
+
+$_t["Trusted Users"] = "Zaufanych Użytkowników";
+
+$_t["Packages added or updated in the past 7 days"] = "Pakietów dodanych lub zmienionych w ostatnich 7 dniach";
+
+$_t["Packages in [community]"] = "Pakietów w [community]";
+
+$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Witamy w AUR! Aby uzyskać więcej informacji, przeczytaj %hInstrukcję Użytkownika%h oraz %hInstrukcję Zaufanego Użytkownika%h.";
+
+$_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Pliki PKGBUILD %hmuszą%h być zgodne ze %hStandardami Pakietów Archa%h, inaczej będą usuwane!";
+
+$_t["Registered Users"] = "Zarejestrowanych użytkowników";
+
+$_t["Safe"] = "Bezpieczne";
+
+$_t["Out-of-date"] = "Nieaktualnych";
+
+$_t["User Statistics"] = "Statystyki użytkowników";
+
+$_t["Flagged as safe by me"] = "Oznaczonych jako bezpieczne przeze mnie";
+
+$_t["Flagged as safe"] = "Oznaczonych jako bezpieczne";
+
+$_t["My Statistics"] = "Moje statystyki";
+
+$_t["Home"] = "Start";
+
+$_t["DISCLAIMER"] = "ZRZECZENIE";
+
+
+
+$_t["Under construction..."] = "Prace trwają...";
+$_t["You have been successfully logged out."] = "Zostałeś pomyślnie wylogowany.";
+
+
+
+$_t["You must be logged in before you can edit package information."] = "Musisz być zalogowany aby móc edytować informacje o pakiecie.";
+$_t["Missing package ID."] = "Brakuje identyfikatora pakietu.";
+$_t["Comment has been deleted."] = "Komentarz został usunięty.";
+$_t["You are not allowed to delete this comment."] = "Nie masz uprawnień do usunięcia tego komentarza.";
+$_t["Missing comment ID."] = "Brakuje identyfikatora komentarza.";
+$_t["Comment has been added."] = "Komentarz został dodany.";
+$_t["Enter your comment below."] = "Napisz swój komentarz poniżej.";
+$_t["Submit"] = "Wyślij";
+$_t["Reset"] = "Wyczyść";
+$_t["Package category updated."] = "Kategoria pakietu zmieniona.";
+$_t["Invalid category ID."] = "Nieprawidłowy identyfikator kategorii.";
+$_t["Select new category"] = "Wybierz nową kategorię";
+$_t["You've found a bug if you see this...."] = "Jeżeli to widzisz, to znalazłeś błąd...";
+
+
+
+$_t["Go back to %hpackage details view%h."] = "Powrót do %hinformacji o pakiecie%h.";
+$_t["None"] = "Brak";
+$_t["change category"] = "zmień kategorię";
+$_t["Delete comment"] = "Usuń komentarz";
+$_t["Comment by: %h%s%h on %h%s%h"] = "Komentarz - autor: %h%s%h, data: %h%s%h";
+$_t["Add Comment"] = "Dodaj komentarz";
+$_t["Comments"] = "Komentarze";
+$_t["Sources"] = "Źródła";
+$_t["Dependencies"] = "Zależności";
+$_t["Package Details"] = "Informacje o pakiecie";
+$_t["Category"] = "Kategoria";
+$_t["Maintainer"] = "Opiekun";
+$_t["Name"] = "Nazwa";
+$_t["Per page"] = "Na stronie";
+$_t["Popularity"] = "Popularność";
+$_t["Sort by"] = "Sortuj według";
+$_t["Sort order"] = "Porządek";
+$_t["Ascending"] = "Rosnąco";
+$_t["Descending"] = "Malejąco";
+$_t["Search Criteria"] = "Kryteria wyszukiwania";
+$_t["Location"] = "Lokacja";
+$_t["Keywords"] = "Słowa kluczowe";
+$_t["Any"] = "Dowolna";
+$_t["Votes"] = "Głosów";
+$_t["Description"] = "Opis";
+$_t["No packages matched your search criteria."] = "Żaden pakiet nie spełnia podanych kryteriów.";
+$_t["My Packages"] = "Moje pakiety";
+$_t["Go"] = "Wykonaj";
+$_t["Out-of-date"] = "Nieaktualny";
+$_t["Flag Out-of-date"] = "Zaznacz jako nieaktualny";
+$_t["Actions"] = "Działania";
+$_t["Adopt Packages"] = "Przejmij pakiety";
+$_t["Disown Packages"] = "Porzuć pakiety";
+$_t["Delete Packages"] = "Usuń pakiety";
+$_t["You did not select any packages to delete."] = "Nie wybrałeś żadnych pakietów do usunięcia.";
+$_t["None of the selected packages could be deleted."] = "Żaden z wybranych pakietów nie mógł być usunięty.";
+$_t["The selected packages have been deleted."] = "Wybrane pakiety zostały usunięte.";
+$_t["Vote"] = "Głosuj";
+$_t["Voted"] = "Głos";
+$_t["Error retrieving package details."] = "Błąd podczas pobierania informacji o pakiecie.";
+$_t["Package details could not be found."] = "Nie odnaleziono informacji o pakiecie.";
+$_t["Error retrieving package list."] = "Błąd podczas pobierania listy pakietów.";
+$_t["Go back to %hsearch results%h."] = "Powrót do %hwyników wyszukiwania%h.";
+$_t["Manage"] = "Zarządzaj";
+$_t["Un-flag Out-of-date"] = "Usuń flagę nieaktualności";
+$_t["Unflag Out-of-date"] = "Usuń flagę nieaktualności";
+$_t["Un-Vote"] = "Anuluj głos";
+$_t["Yes"] = "Tak";
+$_t["Orphans"] = "Bez opiekuna";
+$_t["Tarball"] = "Archiwum";
+$_t["Files"] = "Pliki";
+$_t["O%hrphan"] = "B%hez opiekuna";
+$_t["orphan"] = "bez opiekuna";
+$_t["O%hut-of-Date"] = "N%hieaktualne";
+$_t["Package Listing"] = "Lista pakietów";
+
+$_t["No New Comment Notification"] = "Brak powiadomień o nowych komentarzach.";
+
+$_t["UnNotify"] = "Rezygnuj z powiadamiania";
+
+$_t["Notify"] = "Włącz powiadamianie";
+
+$_t["New Comment Notification"] = "Powiadomienie o nowym komentarzu.";
+
+$_t["The above files have been verified (by %s) and are safe to use."] = "Powyższe pliki zostały sprawdzone (przez: %s) i możesz ich bezpiecznie uzywać.";
+
+$_t["Be careful! The above files may contain malicious code that can damage your system."] = "Zachowaj ostrożność! Powyższe pliki mogą zawierać szkodliwy kod zagrażający twojemu systemowi.";
+
+$_t["Flag Safe"] = "Zaznacz jako bezpieczny";
+
+$_t["Flag Package Safe To Use"] = "Zaznacz pakiet jako bezpieczny w użyciu";
+
+$_t["Unflag Safe"] = "Usuń flagę bezpieczeństwa";
+
+$_t["Unflag Package Safe To Use"] = "Usuń flagę oznaczającą pakiet jako bezpieczny w użyciu";
+
+$_t["Safe"] = "Bezpieczny";
+
+$_t["First Submitted"] = "Wysłany";
+
+$_t["Last Updated"] = "Ostatnia aktualizacja";
+
+$_t["Age"] = "Wiek";
+
+$_t["Search by"] = "Szukaj według";
+
+$_t["Leave the password fields blank to keep your same password."] = "Pozostaw pole z hasłem puste aby nie zmieniać swojego hasła.";
+
+$_t["You have been successfully logged out."] = "Zostałeś pomyślnie wylogowany.";
+
+$_t["You must log in to view user information."] = "Musisz być zalogowany aby móc oglądać informacje o użytkownikach.";
+
+$_t["Could not retrieve information for the specified user."] = "Uzyskanie informacji o podanym użytkowniku nie powiodło się.";
+
+$_t["You do not have permission to edit this account."] = "Nie masz uprawnień do edycji tego konta.";
+
+$_t["Use this form to search existing accounts."] = "Przy użyciu tego formularza możesz przeszukać istniejące konta.";
+
+$_t["Submitter"] = "Nadesłał";
+
+$_t["Use this form to create an account."] = "Przy użyciu tego formularza możesz utworzyć konto.";
+
+$_t["Use this form to update your account."] = "Przy użyciu tego formularza możesz uaktualnić swoje konto.";
+
+$_t["You are not allowed to access this area."] = "Nie masz uprawnień do oglądania tej strony.";
+
+$_t["Status"] = "Status";
+
+$_t["All"] = "Wszystkie";
+
+$_t["Unsafe"] = "Nie bezpieczne";
+
+$_t["License"] = "Licencja";
+
+$_t["unknown"] = "nieznana";
+
+$_t["Out of Date"] = "Nieaktualny";
+
+$_t["This package has been flagged out of date."] = "Ten pakiet został oznaczony jako nieaktualny.";
+
+$_t["Required by"] = "Wymagane przez";
+
+$_t["Showing results %s - %s of %s"] = "Pokazywanie wyników %s - %s z %s";
+
+$_t["Toggle Notify"] = "Włącz powiadomienia";
+
+$_t["Accounts"] = "Konta";
+
+
+
+$_t["Under construction..."] = "Prace trwają...";
+$_t["You must be logged in before you can vote for packages."] = "Musisz być zalogowany aby móc głosować na pakiety.";
+$_t["You do not have access to disown packages."] = "Nie masz uprawnień do porzucania pakietów.";
+$_t["You must be logged in before you can flag packages."] = "Musisz być zalogowany aby móc zmieniać flagi pakietów.";
+$_t["You do not have access to adopt packages."] = "Nie masz uprawnień do przejmowania pakietów.";
+$_t["You must be logged in before you can disown packages."] = "Musisz być zalogowany aby móc porzucać pakiety.";
+$_t["Error trying to retrieve package details."] = "Błąd podczas pobierania informacji o pakiecie.";
+$_t["You must be logged in before you can adopt packages."] = "Musisz być zalogowany aby móc przejmować pakiety.";
+$_t["The selected packages have been flagged out-of-date."] = "Wybrane pakiety zostały zaznaczone jako nieaktualne.";
+$_t["You did not select any packages to flag."] = "Nie wybrałeś żadnych pakietów do zaznaczenia.";
+$_t["The selected packages have been unflagged."] = "Wybrane pakiety zostały odznaczone.";
+$_t["You must be logged in before you can unflag packages."] = "Musisz być zalogowany aby móc odznaczać pakiety.";
+$_t["You did not select any packages to unflag."] = "Nie wybrałeś żadnych pakietów do odznaczenia.";
+$_t["You did not select any packages to adopt."] = "Nie wybrałeś żadnych pakietów do przejęcia.";
+$_t["You did not select any packages to disowned."] = "Nie wybrałeś żadnych pakietów do porzucenia.";
+$_t["The selected packages have been adopted."] = "Wybrane pakiety zostały przejęte.";
+$_t["The selected packages have been disowned."] = "Wybrane pakiety zostały porzucone.";
+$_t["You must be logged in before you can un-vote for packages."] = "Musisz być zalogowany aby móc anulować głosy na pakiety.";
+$_t["Your votes have been removed from the selected packages."] = "Twoje głosy zostały odebrane wybranym pakietom.";
+$_t["You did not select any packages to vote for."] = "Nie wybrałeś żadnych pakietów do oddania głosów.";
+$_t["You did not select any packages to un-vote for."] = "Nie wybrałeś żadnych pakietów do anulowania głosów.";
+$_t["Your votes have been cast for the selected packages."] = "Twoje głosy zostały przyznane wybranym pakietom.";
+
+$_t["None of the selected packages could be deleted."] = "Żaden z wybranych pakietów nie mógł być usunięty.";
+
+$_t["You must be logged in before you can get notifications on comments."] = "Musisz być zalogowany aby móc otrzymywać powiadomienia o komentarzach.";
+
+$_t["The selected packages have been deleted."] = "Wybrane pakiety zostały usunięte.";
+
+$_t["You have been removed from the comment notification list."] = "Zostałeć usunięty z listy powiadamiania o komentarzach.";
+
+$_t["You must be logged in before you can cancel notification on comments."] = "Musisz być zalogowany aby móc zrezygnować z powiadamiania o komentarzach.";
+
+$_t["You have been added to the comment notification list."] = "Zostałeś dodany do listy powiadamiania o komentarzach.";
+
+$_t["You did not select any packages to disown."] = "Nie wybrałeś żadnych pakietów do porzucenia.";
+
+$_t["You did not select any packages to delete."] = "Nie wybrałeś żadnych pakietów do usunięcia.";
+
+$_t["Couldn't add to notification list."] = "Dodanie do listy powiadamiania nie powiodło się.";
+
+$_t["Couldn't remove from notification list."] = "Usunięcie z listy powiadamiania nie powiodło się.";
+
+$_t["The selected packages have been flagged safe."] = "Wybrane pakiety zostały zaznaczone jako bezpieczne.";
+
+$_t["Couldn't flag package safe."] = "Zaznaczenie pakietu jako bezpieczny nie powiodło się.";
+
+$_t["The selected packages have been unflagged safe."] = "Wybrane pakiety zostały pozbawione flagi bezpieczeństwa.";
+
+$_t["Couldn't unflag package safe."] = "Usunięcie flagi bezpieczeństwaego nie powiodło się.";
+
+$_t["Packages"] = "Pakiety";
+
+$_t["You have been removed from the comment notification list for %s."] = "Zostałeś usunięty z listy powiadamiania o komentarzach dla %s.";
+
+$_t["My Packages"] = "Moje Pakiety";
+
+$_t["You have been added to the comment notification list for %s."] = "Zostałeś dodany do listy powiadamiania o nowych komentarzach dla %s.";
+
+
+
+$_t["Under construction..."] = "Prace trwają...";
+$_t["Sorry, uploads are not permitted by this server."] = "Przepraszam, ale ładowanie plików nie jest obsługiwane przez ten serwer.";
+$_t["You must create an account before you can upload packages."] = "Musisz utworzyć konto aby móc dodawać pakiety.";
+$_t["Upload package"] = "Dodaj pakiet";
+$_t["Upload"] = "Dodaj";
+$_t["No"] = "Nie";
+$_t["Error trying to upload file - please try again."] = "Błąd podczas próby ładowania pliku - proszę spróbować ponownie.";
+$_t["Yes"] = "Tak";
+$_t["Overwrite existing package?"] = "Czy nadpisać istniejący pakiet?";
+$_t["Missing build function in PKGBUILD."] = "W pliku PKGBUILD brakuje funkcji build.";
+$_t["Could not create incoming directory: %s."] = "Nie udało się utworzyć katalogu dla pakietu: %s.";
+$_t["Comment"] = "Komentarz";
+$_t["Missing pkgdesc variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej pkgdesc.";
+$_t["Error exec'ing the mv command."] = "Błąd podczas wykonywania polecenia mv.";
+$_t["You did not specify a package name."] = "Nie podałeś nazwy pakietu.";
+$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Błąd podczas próby rozpakowania archiwum - plik PKGBUILD nie istnieje.";
+$_t["You are not allowed to overwrite the %h%s%h package."] = "Nie masz uprawnień do nadpisania pakietu %h%s%h.";
+$_t["Upload package file"] = "Plik do załadowania";
+$_t["Missing url variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej url.";
+$_t["Missing pkgver variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej pkgver.";
+$_t["Could not change to directory %s."] = "Nie udało się przejść do katalogu %s.";
+$_t["You did not tag the 'overwrite' checkbox."] = "Nie zaznaczyłeś pola 'nadpisz'.";
+$_t["Could not change directory to %s."] = "Nie udało się przejść do katalogu %s.";
+$_t["Invalid name: only lowercase letters are allowed."] = "Nieprawidłowa nazwa: tylko małe litery są dozwolone.";
+$_t["Package names do not match."] = "Nazwy pakietu nie zgadzają się.";
+$_t["Package name"] = "Nazwa pakietu";
+$_t["Missing md5sums variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej md5sums.";
+$_t["Missing pkgrel variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej pkgrel.";
+$_t["Missing pkgname variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej pkgname.";
+$_t["Could not create directory %s."] = "Nie udało się utworzyć katalogu %s.";
+$_t["Unknown file format for uploaded file."] = "Nieznany format ładowanego pliku.";
+$_t["Missing source variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej source.";
+$_t["Package Location"] = "Lokacja pakietu";
+$_t["Package Category"] = "Kategoria pakietu";
+$_t["Select Location"] = "Wybierz lokację";
+$_t["Select Category"] = "Wybierz kategorię";
+$_t["You must supply a comment for this upload/change."] = "Musisz napisać komentarz do tego pakietu.";
+$_t["Package upload successful."] = "Pakiet został dodany pomyślnie.";
+
+$_t["Error - No file uploaded"] = "Błąd - plik nie został załadowany.";
+
+$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Adres URL nie zawiera protokołu (np. http// czy ftp://).";
+
+$_t["Could not re-tar"] = "Przepakowanie pakietu nie powiodło się.";
+
+$_t["Binary packages and filelists are not allowed for upload."] = "Nie można wysyłać pakietów binarnych i plików filelist.";
+
+$_t["Missing license variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej license.";
+
+$_t["Missing arch variable in PKGBUILD."] = "W pliku PKGBUILD brakuje zmiennej arch.";
+

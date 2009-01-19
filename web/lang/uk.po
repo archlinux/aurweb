@@ -1,0 +1,343 @@
+<?php
+# Ukrainian (Українська) translation
+# Translator: sevenfourk <sevenfourk@gmail.com>
+
+
+$_t["View this user's packages"] = "Дивитись пакунки цього користувача";
+
+$_t["It must be between %s and %s characters long"] = "Кількість символів повинна бути від %s до %s";
+
+$_t["Missing a required field."] = "Відсутній обов'язковий рядок.";
+
+$_t["The account, %h%s%h, has been successfully created."] = "Аккаунт, %h%s%h, було усспішно створено.";
+
+$_t["Error trying to modify account, %h%s%h: %s."] = "Помилка прри зміні аккаунту, %h%s%h: %s.";
+
+$_t["Your password must be at least %s characters."] = "Ваш пароль повинен бути довжиною не менш як %s символів.";
+
+$_t["The email address is invalid."] = "Адреса електронної пошти невірна.";
+
+$_t["Error trying to create account, %h%s%h: %s."] = "Помилка при створенні аккаунту, %h%s%h: %s.";
+
+$_t["The username, %h%s%h, is already in use."] = "Ім'я користувача %h%s%h вже існує.";
+
+$_t["Can contain only one period, underscore or hyphen."] = "Може містити тільки один період, підкреслення чи дефіс.";
+
+$_t["Account Type"] = "Тип Аккаунту";
+
+$_t["The account, %h%s%h, has been successfully modified."] = "Аккаунт %h%s%h було вдало змінено.";
+
+$_t["Account Suspended"] = "Аккаунт Підвішено";
+
+$_t["Start and end with a letter or number"] = "Початок та кінець з літери чи цифри";
+
+$_t["New Package Notify"] = "Повідомляти про нові пакунки";
+
+$_t["IRC Nick"] = "IRC Нік";
+
+$_t["Trusted user"] = "Довіренний користувач";
+
+$_t["No results matched your search criteria."] = "За вашим запитом нічого не знайдено.";
+
+$_t["Normal user"] = "Звичайний користувач";
+
+$_t["Never"] = "Ніколи";
+
+$_t["User"] = "Користувач";
+
+$_t["Active"] = "Активний";
+
+$_t["Last Voted"] = "Проголосував Останній";
+
+$_t["Real Name"] = "Справжнє Ім'я";
+
+$_t["Edit Account"] = "Редагувати Аккаунт";
+
+$_t["Password fields do not match."] = "Паролі не співпадають.";
+
+$_t["Status"] = "Статус";
+
+$_t["The username is invalid."] = "Ім'я користувача невірне.";
+
+$_t["Language"] = "Мова";
+
+$_t["A Trusted User cannot assign Developer status."] = "Довірений користувач не може встановлювати статус Розробника.";
+
+$_t["The address, %h%s%h, is already in use."] = "Адреса %h%s%h вже існує.";
+
+$_t["No more results to display."] = "Більше немає результатів.";
+
+$_t["Type"] = "Тип";
+
+$_t["Click on the Home link above to login."] = "Клікніть на посилання Home для того щоб зайти.";
+
+$_t["Re-type password"] = "Введіть пароль ще раз.";
+
+$_t["Language is not currently supported."] = "Мова не підтримується на даний момент.";
+
+$_t["Suspended"] = "Призупинено";
+
+$_t["Trusted User"] = "Довірений Користувач";
+
+$_t["Missing User ID"] = "Відсутній ідентифікатор користувача";
+
+$_t["Developer"] = "Розробник";
+
+
+
+
+
+$_t["Reset"] = "Очистити";
+
+$_t["Username"] = "Ім'я користувача";
+
+$_t["Email Address"] = "Адреса електронної пошти";
+
+$_t["Less"] = "Назад";
+
+$_t["Clear"] = "Очистити";
+
+$_t["required"] = "необхідно";
+
+$_t["Update"] = "Поновити";
+
+$_t["Submit"] = "Надіслати";
+
+$_t["Password"] = "Пароль";
+
+$_t["Create"] = "Створити";
+
+$_t["More"] = "Далі";
+
+
+
+$_t["Missing package ID."] = "Ідентифікатор пакету відсутній.";
+
+$_t["Invalid category ID."] = "Невірний ідентифікатор категорії.";
+
+$_t["Enter your comment below."] = "ВВедіть ваш коментар нижче.";
+
+$_t["You are not allowed to delete this comment."] = "У вас немає прав, щоб видалити цей коментар.";
+
+$_t["Missing comment ID."] = "Ідентифікатор коментару відсутній.";
+
+$_t["Package category updated."] = "Категорія пакунку поновлена.";
+
+$_t["You must be logged in before you can edit package information."] = "Ви повинні увійти у систему, щоб мати можливість редагувати інформацію про пакунок.";
+
+$_t["Comment has been deleted."] = "Коментар було видалено.";
+
+$_t["You've found a bug if you see this...."] = "Ви знайшли помилку, якщо ви бачите це....";
+
+$_t["Comment has been added."] = "Коментар додано.";
+
+$_t["Select new category"] = "Виберіть нову категорію.";
+
+
+
+$_t["Category"] = "Категорія";
+
+$_t["Votes"] = "Голоси";
+
+$_t["Adopt Packages"] = "Прийняти Пакунки";
+
+$_t["Comments"] = "Коментарі";
+
+$_t["orphan"] = "Сироти";
+
+$_t["Out of Date"] = "Старий";
+
+$_t["First Submitted"] = "Вперше Надісланий";
+
+$_t["Tarball"] = "Архів";
+
+$_t["Voted"] = "Мій голос";
+
+$_t["Location"] = "Розташування";
+
+$_t["Delete comment"] = "Видалити коментар";
+
+$_t["Go"] = "Уперед";
+
+$_t["Unflag Out-of-date"] = "Зняти флаг Старий";
+
+$_t["Error retrieving package details."] = "Помилка при завантаженні інформації про пакунок.";
+
+$_t["Leave the password fields blank to keep your same password."] = "Залиште місце пдля паролей порожнім, щоб не міняти пароль.";
+
+$_t["Description"] = "Опис";
+
+$_t["unknown"] = "невідомо";
+
+$_t["This package has been flagged out of date."] = "Цьому пакунку було призначено флаг Старий";
+
+$_t["No New Comment Notification"] = "Немає нових оповіщень про коментарі";
+
+$_t["Dependencies"] = "Залежності";
+
+$_t["Disown Packages"] = "Кинути Пакунки";
+
+$_t["Required by"] = "Потребується пакунками";
+
+$_t["Package details could not be found."] = "Інформація про пакунок не знайдена.";
+
+$_t["You must log in to view user information."] = "Ви повинні увійти у систему, щоб дивитись дані користувача.";
+
+$_t["Package Details"] = "Інформація про Пакунок";
+
+$_t["Package Listing"] = "Список Пакунків";
+
+$_t["Files"] = "Файли";
+
+$_t["Name"] = "Ім'я";
+
+$_t["License"] = "Ліцензія";
+
+$_t["Last Updated"] = "Останній раз поновлений";
+
+$_t["Could not retrieve information for the specified user."] = "Не можливо отримати інмформацію про вказаного користувача.";
+
+$_t["UnNotify"] = "Не сповіщати";
+
+$_t["Showing results %s - %s of %s"] = "Результати %s - %s з %s";
+
+$_t["Vote"] = "Голос";
+
+$_t["Use this form to search existing accounts."] = "Використовуйте цю форму для пошуку існуючих аккаунтів.";
+
+$_t["Use this form to create an account."] = "Використовуйте цю форму, щоб створити аккаунт.";
+
+$_t["Un-Vote"] = "Забрати свій голос";
+
+$_t["change category"] = "змінити категорію";
+
+$_t["Use this form to update your account."] = "Використовуйте цю форму, для того щоб поновити свій аккаунт.";
+
+$_t["Delete Packages"] = "Видалити Пакунки";
+
+$_t["Maintainer"] = "Відповідальний";
+
+$_t["Add Comment"] = "Додати Коментар";
+
+$_t["Comment by: %h%s%h on %h%s%h"] = "Коментар: %h%s%h до %h%s%h";
+
+$_t["Flag Out-of-date"] = "Позначити як Старий";
+
+$_t["You are not allowed to access this area."] = "У вам немає прав доступу сюди.";
+
+$_t["Actions"] = "Дії";
+
+$_t["Sources"] = "Сирці";
+
+$_t["Toggle Notify"] = "Ввімк/Вимкн Оповіщення";
+
+$_t["Yes"] = "Так";
+
+$_t["Accounts"] = "Аккаунти";
+
+$_t["Notify"] = "Оповіщувати";
+
+$_t["You do not have permission to edit this account."] = "У вам немає прав, для того щоб редагувати цей аккаунт.";
+
+$_t["Home"] = "Home";
+
+$_t["New Comment Notification"] = "Оповіщення про новий коментар";
+
+$_t["Error retrieving package list."] = "Помилка при завантаженні списку пакунків.";
+
+$_t["No packages matched your search criteria."] = "За вашим запитом не знайдено пакунків.";
+
+
+
+$_t["None of the selected packages could be deleted."] = "Жоден із вибраних пакунків не мможливо видалити.";
+
+$_t["Your votes have been removed from the selected packages."] = "Ваші голоси було видалено з вибраних пакунків.";
+
+$_t["You did not select any packages to un-vote for."] = "Ви не вибрали жодного пакунку щоб забрати голос.";
+
+$_t["The selected packages have been unflagged."] = "З вибраних пакунків було знято помітку";
+
+$_t["You did not select any packages to adopt."] = "Ви не вибрали жодного пакунку для прийняття.";
+
+$_t["You must be logged in before you can flag packages."] = "Ви повинні зайти , щоб ви могли позначати пакунки.";
+
+$_t["You must be logged in before you can get notifications on comments."] = "Ви повинні зайти, щоб мати можливість отримувати сповіщення про коментарі.";
+
+$_t["You must be logged in before you can vote for packages."] = "Ви повинні зайти, щоб мати змогу голосувати за пакунки.";
+
+$_t["The selected packages have been flagged out-of-date."] = "Для вибраних пакунків було призначено флаг Старий.";
+
+$_t["The selected packages have been deleted."] = "Вибрані пакунки були видалені.";
+
+$_t["You did not select any packages to vote for."] = "Ви не вибрали жодного пакунка для голосування.";
+
+$_t["You must be logged in before you can disown packages."] = "Ви повинні зайти, щоб кмити змогу кидати пакунки.";
+
+$_t["Error trying to retrieve package details."] = "Помилка при завантаженні інформації про пакунок.";
+
+$_t["The selected packages have been adopted."] = "Ви прийняли вибрані пакунки.";
+
+$_t["Your votes have been cast for the selected packages."] = "Ви проголосували за вибранііііі пакунки.";
+
+$_t["Packages"] = "Пакунки";
+
+$_t["You must be logged in before you can adopt packages."] = "Ви повинні зайти, щоб мати змогу приймати пакунки.";
+
+$_t["You did not select any packages to disown."] = "Ви не вибрали жодного пакунку щоб кинути.";
+
+$_t["You must be logged in before you can un-vote for packages."] = "Ви повинні зайти, щоб ви могли забирати свої голоси за пакунки.";
+
+$_t["You must be logged in before you can unflag packages."] = "Ви повинні зайти, щоб змати змогу знімати мітку з пакунків.";
+
+$_t["You did not select any packages to unflag."] = "Ви не вибрали жодного пакунку, щоб зняти мітку.";
+
+$_t["You did not select any packages to delete."] = "Ви не вибрали жодного пакунку для видалення.";
+
+$_t["You have been removed from the comment notification list for %s."] = "Вас було видалено із списку отримувачів оповіщень.";
+
+$_t["Couldn't add to notification list."] = "Не можливо додати до списку оповіщень.";
+
+$_t["You did not select any packages to flag."] = "Ви не вибрали жодного пакунку для мітки.";
+
+$_t["The selected packages have been disowned."] = "Ви позбулися вибраних пакунків.";
+
+$_t["You have been added to the comment notification list for %s."] = "Вас додали до списку отримувачів оповіщень.";
+
+
+
+$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Помилка при розпакуванні завантаження - PKGBUILD не існує.";
+
+$_t["Unknown file format for uploaded file."] = "Невідомий формат завантаженого файлу.";
+
+$_t["Could not change directory to %s."] = "Не можливо змінити директорію до %s.";
+
+$_t["Invalid name: only lowercase letters are allowed."] = "Невірне ім'я: дозволені тільки малі літери.";
+
+$_t["Missing "] = "Відсутній";
+
+$_t["Could not create incoming directory: %s."] = "Неможливо створити каталог: %s.";
+
+$_t["Upload package file"] = "Завантажити файл пакунку";
+
+$_t["Missing build function in PKGBUILD."] = "Відсутня функція збирання у PKGBUILD.";
+
+$_t["Sorry, uploads are not permitted by this server."] = "Вибачте, завантаження не дозволені цим сервером.";
+
+$_t["Could not create directory %s."] = "Неможливо створити директорію %s.";
+
+$_t["Could not re-tar"] = "Неможливо перезапакувати";
+
+$_t["Upload"] = "Завантажити";
+
+$_t["You must create an account before you can upload packages."] = "Ви повинні створити аккаунт, щоб завантажувати пакунки.";
+
+$_t["Error - No file uploaded"] = "Помилка - Файл не було завантажено";
+
+$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Не вказано протокол URL (напр. http:// , ftp://)";
+
+$_t["You are not allowed to overwrite the %h%s%h package."] = "Ви не маєте права перезаписувати пакунок %h%s%h.";
+
+$_t["Package Category"] = "Категорія Пакунку";
+
+$_t["Select Category"] = "Виберіть Категорію";
+
