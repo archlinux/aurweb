@@ -7,8 +7,6 @@ set_lang();
 check_sid();
 
 include('stats.inc');
-include_lang('index_po.inc');
-include_lang('pkgfuncs_po.inc');
 
 html_header( __("Home") );
 

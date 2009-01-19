@@ -5,7 +5,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 include("aur.inc");         # access AUR common functions
 set_lang();                 # this sets up the visitor's language
 include('pkgfuncs.inc');    # package specific functions
-include_lang('search_po.inc');   # use some form of this for i18n support
 check_sid();                # see if they're still logged in
 
 # Set the title to the current query if required

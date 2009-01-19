@@ -1,5 +1,4 @@
 <?php
-include_lang('acctfuncs_po.inc');
 
 # Display the standard Account form, pass in default values if any
 #

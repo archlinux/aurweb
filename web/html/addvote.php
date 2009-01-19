@@ -3,7 +3,6 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
 include("aur.inc");
-include_lang('tu_po.inc');
 set_lang();
 check_sid();
 html_header();

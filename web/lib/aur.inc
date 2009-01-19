@@ -7,8 +7,6 @@ header('Pragma: no-cache');
 
 include_once('translator.inc');
 set_lang();
-include_lang('aur_po.inc');
-include_lang('common_po.inc');
 
 include_once("config.inc");
 include_once("version.inc");
@@ -254,8 +252,7 @@ function db_query($query="", $db_handle="") {
 # set up the visitor's language
 #
 function set_lang() {
-	global $_REQUEST;
-	global $_COOKIE;
+	global $_t;
 	global $LANG;
 	global $SUPPORTED_LANGS;
 
@@ -295,6 +292,11 @@ function set_lang() {
 	if ($update_cookie) {
 		setcookie("AURLANG", $LANG, 0, "/");
 	}
+
+	if ($LANG != DEFAULT_LANG ) {
+		include_once("$LANG.po");
+	}
+
 	return;
 }
 

@@ -27,6 +27,8 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR
 
 include_once('config.inc');
 
+global $_t;
+
 function include_lang($trans) {
 	global $LANG;
 
@@ -51,7 +53,7 @@ function __() {
 	if (empty($LANG) || $LANG == DEFAULT_LANG)
 		$translated = $tag;
 	else
-		$translated = $_t[$LANG][$tag];
+		$translated = $_t[$tag];
 
 	# If there is no translation, just print the given string.
 	if (empty($translated)) {

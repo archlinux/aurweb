@@ -4,11 +4,9 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
 include('aur.inc');         # access AUR common functions
 include_once('acctfuncs.inc');   # access Account specific functions
+
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
-
-include_lang('pkgfuncs_po.inc'); # Add to handle the i18n of My Packages
-include_lang('account_po.inc');  # use some form of this for i18n support
 
 html_header(__('Accounts'));
 
