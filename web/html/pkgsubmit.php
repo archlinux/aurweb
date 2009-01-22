@@ -180,19 +180,34 @@ if ($_COOKIE["AURSID"]):
 			}
 		}
 
-		# Now, run through the pkgbuild array and do any $pkgname/$pkgver
-		# substituions.
-		#
-		# TODO: run through and do ALL substitutions, to cover custom vars
+		# Now, run through the pkgbuild array, and do "eval" and simple substituions.
 		if (!$error) {
-			$pkgname_var = $pkgbuild["pkgname"];
-			$pkgver_var = $pkgbuild["pkgver"];
-			$new_pkgbuild = array();
 			while (list($k, $v) = each($pkgbuild)) {
-				$v = str_replace('$pkgname', $pkgname_var, $v);
-				$v = str_replace('${pkgname}', $pkgname_var, $v);
-				$v = str_replace('$pkgver', $pkgver_var, $v);
-				$v = str_replace('${pkgver}', $pkgver_var, $v);
+				if (strpos($k,'eval ') !== false) {
+					$k = preg_replace('/^eval[\s]*/', "", $k);
+					##"eval" replacements
+					$pattern_eval = '/{\$({?)([\w]+)(}?)}/';
+					while (preg_match($pattern_eval,$v,$regs)) {
+						$pieces = explode(",",$pkgbuild["$regs[2]"]);
+						## nongreedy matching! - preserving the order of "eval"
+						$pattern = '/([\S]*?){\$'.$regs[1].$regs[2].$regs[3].'}([\S]*)/';
+						while (preg_match($pattern,$v,$regs_replace)) {
+							$replacement = "";
+							for ($i = 0; $i < sizeof($pieces); $i++) {
+								$replacement .= $regs_replace[1].$pieces[$i].$regs_replace[2]." ";
+							}
+							$v=preg_replace($pattern, $replacement, $v, 1);
+						}
+					}
+				}
+				##simple variable replacement
+				$pattern_var = '/\$({?)([\w]+)(}?)/';
+				while (preg_match($pattern_var,$v,$regs)) {
+					$pieces = explode(" ",$pkgbuild["$regs[2]"],2);
+					$pattern = '/\$'.$regs[1].$regs[2].$regs[3].'/';
+					$replacement = $pieces[0];
+					$v=preg_replace($pattern, $replacement, $v);
+				}
 				$new_pkgbuild[$k] = $v;
 			}
 		}
