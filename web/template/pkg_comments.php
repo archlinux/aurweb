@@ -27,7 +27,7 @@
 	</tr>
 	<tr>
 	<td class="boxSoft">
-	<pre><?php echo htmlspecialchars($carr["Comments"]) ?></pre>
+	<code><?php echo nl2br(htmlspecialchars($carr["Comments"])) ?></code>
 	</td>
 	</tr>
 <?php
