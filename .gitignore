@@ -1,5 +1,7 @@
+.htaccess
+robots.txt
 *.swp
 web/lib/config.inc
 *.DS_Store
 web/html/xml/*.xml
-support/schema/dummy-data.sql.bz2
+dummy-data.sql*
