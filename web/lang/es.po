@@ -319,7 +319,7 @@ $_t["Maintainer"] = "Mantenedor";
 
 $_t["Add Comment"] = "Añadir Comentario";
 
-$_t["Comment by: %h%s%h on %h%s%h"] = "Comentario de: %h%s%h el %h%s%h";
+$_t["Comment by: %s on %s"] = "Comentario de: %s el %s";
 
 $_t["Flag Out-of-date"] = "Marcar como Desactualizado";
 

@@ -328,7 +328,7 @@ $_t["Maintainer"] = "Betreuer";
 
 $_t["Add Comment"] = "Kommentar hinzufügen";
 
-$_t["Comment by: %h%s%h on %h%s%h"] = "Kommentar von: %h%s%h am %h%s%h";
+$_t["Comment by: %s on %s"] = "Kommentar von: %s am %s";
 
 $_t["Flag Out-of-date"] = "Als \"Veraltet\" markieren";
 

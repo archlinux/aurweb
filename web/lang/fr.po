@@ -347,7 +347,7 @@ $_t["Maintainer"] = "Mainteneur";
 
 $_t["Add Comment"] = "Ajouter un Commentaire";
 
-$_t["Comment by: %h%s%h on %h%s%h"] = "Commenté par: %h%s%h sur %h%s%h";
+$_t["Comment by: %s on %s"] = "Commenté par: %s sur %s";
 
 $_t["Flag Out-of-date"] = "Marquer comme Périmé";
 

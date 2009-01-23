@@ -269,13 +269,11 @@ $_t["Comment has been added."] = "Il commento è stato inserito.";
 
 $_t["Select new category"] = "Seleziona una nuova categoria";
 
-
-
 $_t["Category"] = "Categoria";
 
 $_t["Votes"] = "Voti";
 
-$_t["Comment by: %h%s%h on %h%s%h"] = "Commento lasciato da: %h%s%h il %h%s%h";
+$_t["Comment by: %s on %s"] = "Commento lasciato da: %s il %s";
 
 $_t["Location"] = "Posizione";
 

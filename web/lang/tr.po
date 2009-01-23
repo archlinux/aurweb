@@ -260,13 +260,11 @@ $_t["Comment has been added."] = "Yorum eklendi.";
 
 $_t["Select new category"] = "Yeni kategori seçin";
 
-
-
 $_t["Category"] = "Kategori";
 
 $_t["Votes"] = "Oy";
 
-$_t["Comment by: %h%s%h on %h%s%h"] = "Yorum sahibi: %h%s%h on %h%s%h";
+$_t["Comment by: %s on %s"] = "Yorum sahibi: %s on %s";
 
 $_t["Location"] = "Depo";
 

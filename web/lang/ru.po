@@ -217,12 +217,6 @@ $_t["My Statistics"] = "Моя статистика";
 
 $_t["Home"] = "Заглавная страница";
 
-
-
-$_t["You have been successfully logged out."] = "Сеанс завершен.";
-
-
-
 $_t["Missing package ID."] = "Идентификатор пакета отсутствует.";
 
 $_t["Invalid category ID."] = "Неверный идентификатор категории.";
@@ -335,7 +329,7 @@ $_t["Maintainer"] = "Ответственный";
 
 $_t["Add Comment"] = "Добавить коментарий";
 
-$_t["Comment by: %h%s%h on %h%s%h"] = "Коментарии: %h%s%h к %h%s%h";
+$_t["Comment by: %s on %s"] = "Коментарии: %s к %s";
 
 $_t["Flag Out-of-date"] = "Пометить как Устаревший";
 

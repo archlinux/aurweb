@@ -309,7 +309,7 @@ $_t["Maintainer"] = "Mantenidor";
 
 $_t["Add Comment"] = "Afegeix comentari";
 
-$_t["Comment by: %h%s%h on %h%s%h"] = "Comentari per: %h%s%h a %h%s%h";
+$_t["Comment by: %s on %s"] = "Comentari per: %s a %s";
 
 $_t["Flag Out-of-date"] = "Marca com No-Actualitzat";
 

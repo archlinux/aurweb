@@ -14,12 +14,11 @@
 	  echo $durl;
 	}
 	if ($SID) {
-		echo __("Comment by: %h%s%h on %s",
-			"<a href='account.php?Action=AccountInfo&ID=".$carr["UsersID"]."'><b>",
-			$carr["UserName"], "</b></a>", gmdate("Y m d [H:i:s]", $carr["CommentTS"]));
+		echo __("Comment by: %s on %s",
+			"<a href='account.php?Action=AccountInfo&ID=" . $carr["UsersID"] . "'><b>" . $carr["UserName"] . "</b></a>", gmdate("Y m d [H:i:s]", $carr["CommentTS"]));
 	} else {
-		echo __("Comment by: %h%s%h on %s",
-			"<b>", $carr["UserName"], "</b>",
+		echo __("Comment by: %s on %s",
+			'<b>' . $carr['UserName'] . '</b>',
 			gmdate("Y m d [H:i:s]", $carr["CommentTS"]));
 	}
 ?>

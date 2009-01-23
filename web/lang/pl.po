@@ -173,7 +173,6 @@ $_t["Your account has been suspended."] = "Twoje konto zostało zablokowane.";
 $_t["Password:"] = "Hasło:";
 $_t["Username:"] = "Użytkownik:";
 $_t["It's more important to get the login functionality finished."] = "Ważniejsze jest dokończyć logowanie.";
-$_t["Currently logged in as: %h%s%h"] = "Obecnie zalogowany jako: %h%s%h";
 $_t["For now, it's just a place holder."] = "Narazie to tylko wypełnia przestrzeń.";
 $_t["This is where the intro text will go."] = "Tutaj będzie tekst powitalny.";
 $_t["Error trying to generate session id."] = "Błąd podczas generowania identyfikatora sesji.";
@@ -252,13 +251,11 @@ $_t["Invalid category ID."] = "Nieprawidłowy identyfikator kategorii.";
 $_t["Select new category"] = "Wybierz nową kategorię";
 $_t["You've found a bug if you see this...."] = "Jeżeli to widzisz, to znalazłeś błąd...";
 
-
-
 $_t["Go back to %hpackage details view%h."] = "Powrót do %hinformacji o pakiecie%h.";
 $_t["None"] = "Brak";
 $_t["change category"] = "zmień kategorię";
 $_t["Delete comment"] = "Usuń komentarz";
-$_t["Comment by: %h%s%h on %h%s%h"] = "Komentarz - autor: %h%s%h, data: %h%s%h";
+$_t["Comment by: %s on %s"] = "Komentarz - autor: %s, data: %s";
 $_t["Add Comment"] = "Dodaj komentarz";
 $_t["Comments"] = "Komentarze";
 $_t["Sources"] = "Źródła";

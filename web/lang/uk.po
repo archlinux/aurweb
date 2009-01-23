@@ -219,7 +219,7 @@ $_t["Maintainer"] = "Відповідальний";
 
 $_t["Add Comment"] = "Додати Коментар";
 
-$_t["Comment by: %h%s%h on %h%s%h"] = "Коментар: %h%s%h до %h%s%h";
+$_t["Comment by: %s on %s"] = "Коментар: %s до %s";
 
 $_t["Flag Out-of-date"] = "Позначити як Старий";
 
