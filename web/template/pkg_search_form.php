@@ -2,7 +2,7 @@
 
 <div class='pgbox'>
 <form action='packages.php' method='get'>
-<div class='pgboxtitle' align='right'>
+<div class='pgboxtitle'>
 	<span class='f3'><?php print __("Search Criteria"); ?></span>
 	<input type='text' name='K' size='30' value="<?php print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); ?>" maxlength='35' />
 	<input type='submit' style='width:80px' class='button' name='do_Search' value='<?php print __("Go"); ?>' />

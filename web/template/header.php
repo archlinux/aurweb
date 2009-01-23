@@ -12,7 +12,7 @@
 	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='rss2.php' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
-  <body bgcolor='white'>
+  <body>
     <div id="head_container">
       <div id="title">
         <div id="logo"><h1 id="archtitle"><a href="http://www.archlinux.org/" title="Arch Linux (Home)">Arch Linux</a></h1></div>
@@ -60,7 +60,7 @@ if (isset($_COOKIE["AURSID"])) {
 ?>
           <li><a href="http://archlinux.org/mailman/listinfo/aur-general">
 	<?php print __("Discussion"); ?></a></li>
-	      <li><a href="http://bugs.archlinux.org/index.php?tasks=all&project=2"><?php print __("Bugs"); ?></a></li>
+	      <li><a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a></li>
           <li><a href="packages.php"><?php print __("Packages"); ?></a></li>
           <li><a href="account.php"><?php print __("Accounts"); ?></a></li>
           <li><a href="index.php">AUR <?php print __("Home"); ?></a></li>
@@ -83,7 +83,6 @@ foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
         </ul>
         </span>
 	<?php include("login_form.php"); ?>
-      </div>
     </div>
     <div id="maincontent">
 	  <!-- Start of main content -->

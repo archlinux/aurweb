@@ -1,6 +1,6 @@
 <form action='packages.php?<?php print $_SERVER['QUERY_STRING'] ?>' method='post'>
 <div class="pgbox">
-		<div class="pgboxtitle" align='right'>
+		<div class="pgboxtitle">
 			<span class='f3'><?php print __("Package Listing") ?></span>
 		</div>
 
@@ -31,7 +31,7 @@
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Voted") ?></span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Notify") ?></span></th>
 	<?php endif; ?>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Description") ?></a></span></th>
+	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Description") ?></span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
 		<a href='?<?php print mkurl('SB=m&SO=' . $SO_next) ?>'><?php print __("Maintainer") ?></a>
 	</span></th>
