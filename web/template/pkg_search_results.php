@@ -1,15 +1,8 @@
 <form action='packages.php?<?php print $_SERVER['QUERY_STRING'] ?>' method='post'>
-<center>
-
-<table cellspacing='3' class='boxSoft'>
-	<tr>
-		<td class='boxSoftTitle' align='right'>
+<div class="pgbox">
+		<div class="pgboxtitle" align='right'>
 			<span class='f3'><?php print __("Package Listing") ?></span>
-		</td>
-	</tr>
-	<tr>
-		<td class='boxSoft'>
-			<table width='100%' cellspacing='0' cellpadding='2'>
+		</div>
 
 <?php if (!$result) { ?>
 <div class='pgboxbody'><?php print __("Error retrieving package list.") ?></div>
@@ -17,6 +10,7 @@
 <div class='pgboxbody'><?php print __("No packages matched your search criteria.") ?></div>
 <?php } else { ?>
 
+<table width='100%' cellspacing='0' cellpadding='2'>
 <tr>
 	<?php if ($SID): ?>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'>&nbsp;</th>
@@ -83,43 +77,42 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 </tr>
 <?php } ?>
 
-			</table>
-		</td>
-	</tr>
-</table>
-
-<?php if ($SID): ?>
-<div style='text-align: right; padding: 5px 5% 5px 0'>
-	<select name='action'>
-		<option><?php print __("Actions") ?></option>
-		<option value='do_Flag'><?php print __("Flag Out-of-date") ?></option>
-		<option value='do_UnFlag'><?php print __("Unflag Out-of-date") ?></option>
-		<option value='do_Adopt'><?php print __("Adopt Packages") ?></option>
-		<option value='do_Disown'><?php print __("Disown Packages") ?></option>
-		<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
-		<option value='do_Delete'><?php print __("Delete Packages") ?></option>
-		<?php endif; ?>
-		<option value='do_Notify'><?php print __("Notify") ?></option>
-		<option value='do_UnNotify'><?php print __("UnNotify") ?></option>
-	</select>
-	<input type='submit' class='button' style='width: 80px' value='<?php print __("Go") ?>' />
+	</table>
 </div>
-<?php endif; ?>
 
-<table width='90%' cellspacing='0' cellpadding='2'>
+
+<div class="pgbox">
+	<table width='100%'>
 	<tr>
-		<td>
-			<table border='0' cellpadding='0' cellspacing='0' width='100%'>
-			<tr>
-				<td colspan='2' align='center'>
-				<span class='f3'>
-				<?php echo __('Legend') ?>
-				<span class="outofdate"><?php print __('Out of Date') ?></span>
-				</span></td>
-				<tr><td align='center' colspan='0'><span class='f4'><span class='blue'>
-				<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
-				</span></span></td></tr>
-			</tr>
+		<td align='left'>
+	<div>
+		<span class='f3'><?php echo __('Legend') ?>
+		<span class="outofdate"><?php print __('Out of Date') ?></span>
+		</span>
+	</div>
+	<?php if ($SID): ?>
+	<div>
+		<select name='action'>
+			<option><?php print __("Actions") ?></option>
+			<option value='do_Flag'><?php print __("Flag Out-of-date") ?></option>
+			<option value='do_UnFlag'><?php print __("Unflag Out-of-date") ?></option>
+			<option value='do_Adopt'><?php print __("Adopt Packages") ?></option>
+			<option value='do_Disown'><?php print __("Disown Packages") ?></option>
+			<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+			<option value='do_Delete'><?php print __("Delete Packages") ?></option>
+			<?php endif; ?>
+			<option value='do_Notify'><?php print __("Notify") ?></option>
+			<option value='do_UnNotify'><?php print __("UnNotify") ?></option>
+		</select>
+		<input type='submit' class='button' style='width: 80px' value='<?php print __("Go") ?>' />
+	</div>
+	<?php endif; ?>
+		</td>
+
+		<td align='right'><span class='f4'><span class='blue'>
+		<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
+		</span></span>
+		<br />
 			<?php
 			if ($_GET['PP'] > 0) {
 				$pages = ceil($total / $_GET['PP']);
@@ -128,8 +121,6 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 			if ($pages > 1) {
 			?>
 
-			<tr>
-				<td align='center' width='100%'>
 				<?php
 				if ($_GET['O'] > 0) {
 					$currentpage = ceil(($_GET['O'] + 1) / $_GET['PP']);
@@ -156,7 +147,23 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 					<?php else : print "[$i] ";
 					endif;
 				}
+
 				?>
+			<?php
+			if ($_GET['O'] > 0):
+				$O = $_GET['O'] - $_GET['PP'];
+
+				if ($_GET['O'] < $_GET['PP']) {
+					$O = 0;
+				}
+			?>
+				<a href="packages.php?<?php print mkurl("O=$O") ?>"><?php echo __('Previous') ?></a>
+			<?php endif; ?>
+
+			<?php if ($total - $_GET['PP'] - $_GET['O'] > 0): ?>
+				<a href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php echo __('Next') ?></a>
+			<?php endif; ?>
+
 				</td>
 			</tr>
 
@@ -164,11 +171,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 			}
 }
 ?>
-
-			</table>
-		</td>
-	</tr>
-</table>
-
-</center>
+	</table>
+</div>
 </form>
+
