@@ -22,7 +22,7 @@ if (!extension_loaded('json'))
 class AurJSON {
     private $dbh = false;
     private $exposed_methods = array('search','info');
-    private $fields = array('ID','Name','Version','Description',
+    private $fields = array('ID','Name','Version','CategoryID','Description',
         'URL','URLPath','License','NumVotes','OutOfDate');
 
     /**
