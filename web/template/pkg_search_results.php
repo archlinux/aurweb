@@ -1,7 +1,3 @@
-<?php
-# Encode search string
-$_GET['K'] = urlencode($_GET['K']);
-?>
 <form action='packages.php?<?php print $_SERVER['QUERY_STRING'] ?>' method='post'>
 <center>
 
