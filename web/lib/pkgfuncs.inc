@@ -465,75 +465,11 @@ function package_details($id=0, $SID="") {
 			echo "    </table>\n";
 			echo "  </div>\n";
 			echo "</div>\n\n";
-			echo "<br />\n\n";
-
 
 			# Actions Bar
 			#
 			if ($SID) {
-                echo "<div class=\"pgbox\">\n";
-                echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Actions")."</span></div>\n";
-                echo "  <div class=\"pgboxbody\">\n";
-                echo "    <form action='packages.php?ID=".$row['ID']."' method='post'>\n";
-				echo "      <input type='hidden' name='IDs[".$row["ID"]."]' value='1'>\n";
-				echo "      <input type='hidden' name='ID' value='".$row["ID"]."'>\n";
-				# Voting Button
-				#
-				$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $uid;
-				$q.= " AND PackageID = ".$row["ID"];
-				if (!mysql_num_rows(db_query($q, $dbh))) {
-					echo "      <input type='submit' class='button' name='do_Vote'";
-					echo " value='".__("Vote")."'>";
-				} else {
-					echo "<input type='submit' class='button' name='do_UnVote'";
-					echo " value='".__("UnVote")."'>";
-				}
-				# Comment Nofify Button
-				#
-				$q = "SELECT * FROM CommentNotify WHERE UserID = ". $uid;
-				$q.= " AND PkgID = ".$row["ID"];
-				if (!mysql_num_rows(db_query($q, $dbh))) {
-					echo "<input type='submit' class='button' name='do_Notify'";
-					echo " value='".__("Notify")."' title='".__("New Comment Notification")."'>";
-				} else {
-					echo "<input type='submit' class='button' name='do_UnNotify'";
-					echo " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'>";
-				}
-
-                if ($row["OutOfDate"] == 0) {
-                    echo "<input type='submit' class='button' name='do_Flag'";
-                    echo " value='".__("Flag Out-of-date")."'>\n";
-                } else {
-                    echo "<input type='submit' class='button' name='do_UnFlag'";
-                    echo " value='".__("UnFlag Out-of-date")."'>\n";
-				}
-					
-                if ($row["MaintainerUID"] == 0) {
-                    echo "<input type='submit' class='button' name='do_Adopt'";
-                    echo " value='".__("Adopt Packages")."'>\n";
-                } else if ($uid == $row["MaintainerUID"] ||
-                        $atype == "Trusted User" || $atype == "Developer") {
-					echo "<input type='submit' class='button' name='do_Disown'";
-					echo " value='".__("Disown Packages")."'>\n";
-				}
-					
-				if ($atype == "Trusted User" || $atype == "Developer") {
-					echo "<input type='submit' class='button' name='do_Delete'";
-					echo " value='".__("Delete Packages")."'>\n";
-				}
-						
-                echo "    </form>\n";
-                echo "<br />\n";
-
-			# Add Comments
-			echo "<form action='pkgedit.php' method='post'>\n";
-			echo "<input type='hidden' name='ID' value='".$row["ID"]."'>\n";
-			echo "<input type='submit' class='button' name='add_Comment' value=\"";
-			echo __("Add Comment")."\">\n";
-			echo "</form>\n";
-                echo "  </div>\n";
-                echo "</div>\n";
-                echo "\n<br />";
+				include('actions_form.php');
 			}
 			
 			# Print Comments
