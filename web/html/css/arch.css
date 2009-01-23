@@ -419,6 +419,7 @@ textarea.vLargeTextField {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
+  margin-bottom: 1%;
   background-color: #fff;
   border: 2px solid #ddd;
   text-align: left;
