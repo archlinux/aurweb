@@ -1,2 +1,0 @@
-php_value short_open_tag Off
-php_value include_path ".:../lib:../lang:/usr/share/pear"
