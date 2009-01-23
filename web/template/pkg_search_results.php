@@ -142,9 +142,19 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 					$currentpage = 1;
 				}
 
-				for ($i = 1; $i <= $pages; $i++) {
+				if ($currentpage + 5 < $pages) {
+					$pages = $currentpage + 5;
+				}
+
+				# Display links for more search results.
+				for ($i = ($currentpage - 5); $i <= ($pages); $i++) {
+					if ($i < 1) {
+						$i = 1;
+					}
+
+					$pagestart = ($i - 1) * $_GET['PP'];
+
 					if ($i <> $currentpage) :
-						$pagestart = ($i - 1) * $_GET['PP'];
 					?>
 				<a href='packages.php?<?php print mkurl('O=' . ($pagestart))?>'><?php print "$i " ?></a>
 					<?php else : print "[$i] ";
