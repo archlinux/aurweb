@@ -89,13 +89,15 @@ if ($_REQUEST["add_Comment"]) {
 			#TODO: native language emails for users, based on their prefs
 			# Simply making these strings translatable won't work, users would be
 			# getting emails in the language that the user who posted the comment was in
-			$body = "\nAuthor: " . username_from_sid($_COOKIE["AURSID"])
-			. "\nFrom http://aur.archlinux.org/packages.php?ID="
-			. $_REQUEST["ID"]."\n\n" . $_POST['comment']
+			$body =
+			"from http://aur.archlinux.org/packages.php?ID="
+			. $_REQUEST["ID"] . "\n"
+			. username_from_sid($_COOKIE["AURSID"]) . " wrote:\n\n"
+			. $_POST['comment']
 			. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
 			$body = wordwrap($body, 70);
 			$bcc = implode(', ', $bcc);
-			$headers = "Bcc: $bcc\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: AUR\n";
+			$headers = "Bcc: $bcc\nReply-to: nobody@archlinux.org\nFrom: aur-notify@archlinux.org\nX-Mailer: AUR\n";
 			@mail(' ', "AUR Comment for ".$row['Name'], $body, $headers);
 		}
 
