@@ -2,7 +2,10 @@
 
 include_once('aur.inc');
 
+# APC configuration variables
 $apc_prefix = 'aur:';
+$apc_ttl = 600;
+
 # Check if APC extension is loaded
 if (!defined('EXTENSION_LOADED_APC'))
 	define('EXTENSION_LOADED_APC', extension_loaded('apc'));
@@ -12,14 +15,17 @@ if (!defined('EXTENSION_LOADED_APC'))
 #
 function db_cache_value($dbq, $dbh, $key)
 {
-	if(!(EXTENSION_LOADED_APC && ($ret = apc_fetch($key)))) {
+	global $apc_ttl;
+	$bool = false;
+	if(EXTENSION_LOADED_APC) {
+		$ret = apc_fetch($key, $bool);
+	}
+	if(!$bool) {
 		$result = db_query($dbq, $dbh);
 		$row = mysql_fetch_row($result);
 		$ret = $row[0];
-		# set the TTL here in seconds: 300 seconds = 5 minutes
-
 		if (EXTENSION_LOADED_APC) {
-			apc_store($key, $ret, 300);
+			apc_store($key, $ret, $apc_ttl);
 		}
 	}
 	return $ret;
@@ -27,7 +33,7 @@ function db_cache_value($dbq, $dbh, $key)
 
 function updates_table($dbh)
 {
-	global $apc_prefix;
+	global $apc_prefix, $apc_ttl;
 	$key = $apc_prefix . 'recent_updates';
 	if(!(EXTENSION_LOADED_APC && ($newest_packages = apc_fetch($key)))) {
 		$q = 'SELECT * FROM Packages WHERE DummyPkg != 1 ORDER BY GREATEST(SubmittedTS,ModifiedTS) DESC LIMIT 0 , 10';
@@ -37,9 +43,8 @@ function updates_table($dbh)
 		while ($row = mysql_fetch_assoc($result)) {
 			$newest_packages->append($row);
 		}
-
 		if (EXTENSION_LOADED_APC) {
-			apc_store($key, $newest_packages, 300);
+			apc_store($key, $newest_packages, $apc_ttl);
 		}
 	}
 	include('stats/updates_table.php');
@@ -47,28 +52,24 @@ function updates_table($dbh)
 
 function user_table($user, $dbh)
 {
+	global $apc_prefix;
+	$escuser = mysql_real_escape_string($user);
+	$base_q = "SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = '%s' AND Users.Username='" . $escuser . "'";
 
-	$base_q = 'SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = "%s" AND Users.Username="' .
-	mysql_real_escape_string($user).'"';
+	$maintainer_unsupported_count = db_cache_value(sprintf($base_q, 'unsupported'), $dbh,
+		$apc_prefix . 'user_unsupported_count:' . $escuser);
 
-	$result = db_query(sprintf($base_q, 'unsupported'), $dbh);
-	$row = mysql_fetch_row($result);
-	$maintainer_unsupported_count = $row[0];
+	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDate = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
 
-	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDate = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='" .
-	mysql_real_escape_string($user)."'";
-
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
-	$flagged_outdated = $row[0];
+	$flagged_outdated = db_cache_value($q, $dbh,
+		$apc_prefix . 'user_flagged_outdated:' . $escuser);
 
 	# If the user is a TU calculate the number of the packages
 	$atype = account_from_sid($_COOKIE["AURSID"]);
 
 	if (($atype == 'Trusted User') || ($atype == 'Developer')) {
-		$result = db_query(sprintf($base_q, 'community'), $dbh);
-		$row = mysql_fetch_row($result);
-		$maintainer_community_count = $row[0];
+		$maintainer_community_count = db_cache_value(sprintf($base_q, 'community'), $dbh,
+			$apc_prefix . 'user_community_count:' . $escuser);
 	}
 
 	include('stats/user_table.php');
