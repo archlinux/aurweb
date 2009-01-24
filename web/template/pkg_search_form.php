@@ -4,6 +4,7 @@
 <form action='packages.php' method='get'>
 <div class='pgboxtitle'>
 	<span class='f3'><?php print __("Search Criteria"); ?></span>
+	<input type='hidden' name='O' value='0' />
 	<input type='text' name='K' size='30' value="<?php print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); ?>" maxlength='35' />
 	<input type='submit' style='width:80px' class='button' name='do_Search' value='<?php print __("Go"); ?>' />
 	<?php if (!empty($_GET['detail'])): ?>
@@ -13,7 +14,6 @@
 	<a href="?<?php print mkurl('detail=' . ((!empty($_GET['detail'])) ? 0 : 1) ) ?>">Advanced</a>
 </div>
 
-<input type='hidden' name='O' value='0' />
 			<?php if (!empty($_GET['detail'])): ?>
 			<div id="advanced-search" class="blue">
 				<input type="hidden" name="detail" value="1" />
