@@ -199,7 +199,7 @@ $_t["Password:"] = "Mot de passe:";
 
 $_t["Registered Users"] = "Utilisateurs enregistrés";
 
-$_t["Logged-in as: %h%s%h"] = " Connecté en tant que: %h%s%h";
+$_t["Logged-in as: %s"] = " Connecté en tant que: %s";
 
 $_t["Incorrect password for username, %s."] = "Mot de passe incorrect pour l'utilisateur, %s.";
 

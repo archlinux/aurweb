@@ -149,15 +149,13 @@ $_t["Create"] = "Oluştur";
 
 $_t["More"] = "Sonraki";
 
-
-
 $_t["You must supply a password."] = "Bir parola belirlemelisiniz.";
 
 $_t["You must supply a username."] = "Bir kullanıcı adı belirlemelisiniz.";
 
 $_t["After that, this can be filled in with more meaningful text."] = "Eksiklikleri tamamladıktan sonra, bu kısma anlamlı bir açıklama yazabilirsiniz.";
 
-$_t["Logged-in as: %h%s%h"] = "%h%s%h olarak giriş yapıldı";
+$_t["Logged-in as: %s"] = "%s olarak giriş yapıldı";
 
 $_t["Your account has been suspended."] = "Hesabınız donduruldu.";
 

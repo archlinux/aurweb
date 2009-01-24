@@ -181,7 +181,7 @@ $_t["Email Address:"] = "Adres e-mail:";
 $_t["You must supply an email address."] = "Musisz podać adres e-mail.";
 $_t["Incorrect password for email address, %s."] = "Nieprawidłowe hasło dla adresu %s.";
 $_t["Incorrect password for username, %s."] = "Nieprawidłowe hasło dla użytkownika %s.";
-$_t["Logged in as: %h%s%h"] = "Zalogowany jako: %h%s%h";
+$_t["Logged in as: %s"] = "Zalogowany jako: %s";
 
 $_t["Error looking up username, %s."] = "Błąd podczas wyszukiwania użytkownika %s.";
 $_t["Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h."] = "Witamy w AUR! Jeżeli jesteś tu po raz pierwszy, być może zechcesz przeczytać %hInstrukcję%h.";

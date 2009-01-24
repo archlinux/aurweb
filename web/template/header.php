@@ -68,7 +68,6 @@ if (isset($_COOKIE["AURSID"])) {
       </div>
     </div>
     <div id="lang_login_sub">
-	    <span id="lang_bar">
         <ul>
           <li>Lang: </li>
 <?php
@@ -81,7 +80,6 @@ foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
 }
 ?>
         </ul>
-        </span>
 	<?php include("login_form.php"); ?>
     </div>
     <div id="maincontent">

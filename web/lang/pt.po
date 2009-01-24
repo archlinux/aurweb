@@ -147,15 +147,13 @@ $_t["Create"] = "Criar";
 
 $_t["More"] = "Mais";
 
-
-
 $_t["You must supply a password."] = "Você deve informar uma senha.";
 
 $_t["You must supply a username."] = "Você deve informar um usuário.";
 
 $_t["After that, this can be filled in with more meaningful text."] = "Depois, isso pode ter um texto mais significativo.";
 
-$_t["Logged-in as: %h%s%h"] = "Logado como: %h%s%h";
+$_t["Logged-in as: %s"] = "Logado como: %s";
 
 $_t["Your account has been suspended."] = "Sua conta foi suspensa.";
 

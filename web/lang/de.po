@@ -190,7 +190,7 @@ $_t["Password:"] = "Passwort";
 
 $_t["Registered Users"] = "Registrierte Benutzer";
 
-$_t["Logged-in as: %h%s%h"] = "Angemeldet als: %h%s%h";
+$_t["Logged-in as: %s"] = "Angemeldet als: %s";
 
 $_t["Incorrect password for username, %s."] = "Falsches Passwort für Benutzername %s.";
 
@@ -350,8 +350,6 @@ $_t["Search Criteria"] = "Suchkriterien";
 
 $_t["Notify"] = "Benachrichtigen";
 
-$_t["O%hut-of-Date"] = "V%heraltet";
-
 $_t["Vote"] = "Abstimmen";
 
 $_t["Adopt Packages"] = "Pakete übernehmen";
@@ -401,8 +399,6 @@ $_t["The above files have been verified (by %h%s%h) and are safe to use."] = "Di
 $_t["Required by"] = "Benötigt von";
 
 $_t["Accounts"] = "Konten";
-
-
 
 $_t["None of the selected packages could be deleted."] = "Keines der markierten Pakete konnte gelöscht werden.";
 

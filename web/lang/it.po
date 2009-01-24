@@ -161,7 +161,7 @@ $_t["You must supply a username."] = "È necessario inserire il nome utente.";
 
 $_t["After that, this can be filled in with more meaningful text."] = "Dopotutto, questo potrebbe essere riempito con un messaggio più significativo.";
 
-$_t["Logged-in as: %h%s%h"] = "Connesso con il nome utente: %h%s%h";
+$_t["Logged-in as: %s"] = "Connesso con il nome utente: %s";
 
 $_t["Your account has been suspended."] = "L'account è stato sospeso.";
 

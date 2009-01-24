@@ -187,7 +187,7 @@ $_t["Password:"] = "Contrasenya:";
 
 $_t["Registered Users"] = "Usuaris registrats";
 
-$_t["Logged-in as: %h%s%h"] = "Identificat com: %h%s%h";
+$_t["Logged-in as: %s"] = "Identificat com: %s";
 
 $_t["Incorrect password for username, %s."] = "Contrasenya incorrecta per a l'usuari, %s.";
 

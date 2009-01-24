@@ -189,7 +189,7 @@ $_t["Password:"] = "Contraseña:";
 
 $_t["Registered Users"] = "Usuarios Registrados";
 
-$_t["Logged-in as: %h%s%h"] = "Identificado como: %h%s%h";
+$_t["Logged-in as: %s"] = "Identificado como: %s";
 
 $_t["Incorrect password for username, %s."] = "Contraseña incorrecta para el usuario, %s.";
 
