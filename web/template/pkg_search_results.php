@@ -15,6 +15,7 @@
 	<?php if ($SID): ?>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'>&nbsp;</th>
 	<?php endif; ?>
+
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
 		<a href='?<?php print mkurl('SB=l&SO=' . $SO_next) ?>'><?php print __("Location") ?></a>
 	</span></th>
@@ -27,6 +28,7 @@
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
 		<a href='?<?php print mkurl('SB=v&SO=' . $SO_next) ?>'><?php print __("Votes") ?></a>
 	</span></th>
+
 	<?php if ($SID): ?>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Voted") ?></span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Notify") ?></span></th>
@@ -50,19 +52,19 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print $row["Location"] ?></span></span></td>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print $row["Category"] ?></span></span></td>
 	<td class='<?php print $c ?>'><span class='f4'><a href='packages.php?ID=<?php print $row["ID"] ?>'><span class='black'><?php print $row["Name"] ?> <?php print $row["Version"] ?></span></a></span></td>
-	<td class='<?php print $c ?>'><span class='f5'><span class='blue'>&nbsp;&nbsp;&nbsp;<?php print $row["NumVotes"] ?></span></span></td>
+	<td class='<?php print $c ?>' style="text-align: right"><span class='f5'><span class='blue'><?php print $row["NumVotes"] ?></span></span></td>
 	<?php if ($SID): ?>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'>
 	<?php if (isset($row["Voted"])): ?>
-	&nbsp;&nbsp;<?php print __("Yes") ?></span></td>
+	<?php print __("Yes") ?></span></td>
 	<?php else: ?>
-	&nbsp;</span></td>
+	</span></td>
 	<?php endif; ?>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'>
 	<?php if (isset($row["Notify"])): ?>
-	&nbsp;&nbsp;<?php print __("Yes") ?></span></td>
+	<?php print __("Yes") ?></span></td>
 	<?php else: ?>
-	&nbsp;</span></td>
+	</span></td>
 	<?php endif; ?>
 	<?php endif; ?>
 	<td class='<?php print $c ?>'><span class='f4'><span class='blue'>
@@ -109,7 +111,8 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	<?php endif; ?>
 		</td>
 
-		<td align='right'><span class='f4'><span class='blue'>
+		<td align='right'>
+		<span class='f4'><span class='blue'>
 		<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
 		</span></span>
 		<br />
@@ -119,9 +122,6 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 			}
 
 			if ($pages > 1) {
-			?>
-
-				<?php
 				if ($_GET['O'] > 0) {
 					$currentpage = ceil(($_GET['O'] + 1) / $_GET['PP']);
 				}
@@ -129,12 +129,10 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 					$currentpage = 1;
 				}
 
-				if ($currentpage + 5 < $pages) {
-					$pages = $currentpage + 5;
-				}
+				$morepages = $currentpage + 5;
 
 				# Display links for more search results.
-				for ($i = ($currentpage - 5); $i <= ($pages); $i++) {
+				for ($i = ($currentpage - 5); $i <= $morepages && $i <= $pages; $i++) {
 					if ($i < 1) {
 						$i = 1;
 					}
@@ -144,28 +142,31 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 					if ($i <> $currentpage) :
 					?>
 				<a href='packages.php?<?php print mkurl('O=' . ($pagestart))?>'><?php print "$i " ?></a>
-					<?php else : print "[$i] ";
+					<?php else : print "<b>[$i] </b>";
 					endif;
 				}
 
-				?>
-			<?php
-			if ($_GET['O'] > 0):
-				$O = $_GET['O'] - $_GET['PP'];
-
-				if ($_GET['O'] < $_GET['PP']) {
-					$O = 0;
+				# Indicate that there are more pages.
+				if ($pages > $morepages) {
+					echo "<a href=\"packages.php?" . mkurl('O=' . ($pagestart + $_GET['PP'])) . '">... </a>';
 				}
+
+				if ($_GET['O'] > 0):
+					$O = $_GET['O'] - $_GET['PP'];
+
+					if ($_GET['O'] < $_GET['PP']) {
+						$O = 0;
+					}
 			?>
 				<a href="packages.php?<?php print mkurl("O=$O") ?>"><?php echo __('Previous') ?></a>
-			<?php endif; ?>
+			<?php   endif; ?>
 
 			<?php if ($total - $_GET['PP'] - $_GET['O'] > 0): ?>
 				<a href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php echo __('Next') ?></a>
 			<?php endif; ?>
 
-				</td>
-			</tr>
+		</td>
+	</tr>
 
 <?php
 			}
