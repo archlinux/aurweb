@@ -95,7 +95,7 @@ td.div {
   background-color: #eee;
   width: 3px;
 }
-td.boxSoftTitle {
+.boxSoftTitle {
   border-bottom: 1px solid #fff;
   border-top: 1px solid #fff;
   background-color: #f1f2f4;

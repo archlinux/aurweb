@@ -431,9 +431,6 @@ textarea.vLargeTextField {
 .frontpgboxbody > table {
   width: 100%;
 }
-.boxSoftTitle {
-  text-align: right;
-}
 .pgboxtitle {
   border: 2px solid #ddd;
   border-top: 1px solid #fff;
