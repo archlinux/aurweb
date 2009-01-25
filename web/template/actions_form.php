@@ -51,10 +51,4 @@ if ($row["MaintainerUID"] == 0) {
 ?>
 				
 	</form>
-<br />
-
-	<form action='pkgedit.php' method='post'>
-	<input type='hidden' name='ID' value="<?php echo $row['ID'] ?>" />
-	<input type='submit' class='button' name='add_Comment' value="<?php echo __('Add Comment') ?>" />
-	</form>
 </div>
