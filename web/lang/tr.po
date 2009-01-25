@@ -551,11 +551,97 @@ $_t["Yes"] = "Evet";
 
 $_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Paket URL protokolü hatalı (ör. http:// ,ftp://)";
 
-$_t["Could not re-tar"] = "Yeniden tarlanamadı";
+$_t["Could not re-tar"] = "Yeniden arşivlenemedi";
 
 $_t["Binary packages and filelists are not allowed for upload."] = "İkili paket ve dosya listesi yüklemelerine izin verilmiyor.";
 
 $_t["Missing arch variable in PKGBUILD."] = "PKGBUILD içinde arch değişkeni bulunamadı.";
 
 $_t["Missing license variable in PKGBUILD."] = "PKGBUILD içinde license değişkeni bulunamadı.";
+
+$_t["Voting is closed for this proposal."] = "Bu öneri için oylama kapanmıştır.";
+
+$_t["Username does not exist."] = "Kullanıcı adı bulunamadı.";
+
+$_t["Can contain only one period, underscore or hyphen."] = "Sadece bir nokta, alt çizgi veya tire barındırabilir.";
+
+$_t["You cannot vote in an proposal about you."] = "Sizin hakkınızdaki öneride oy kullanamazsınız.";
+
+$_t["Submitted: %s by %s"] = "Gönderildi: %s %s tarafından";
+
+$_t["string"] = "dizgi";
+
+$_t["Remember me"] = "Beni hatırla";
+
+$_t["This vote is still running."] = "Bu oylama hala yürürlükte.";
+
+$_t["%s already has proposal running for them."] = "%s için yürürlükte olan bir öneri var.";
+
+$_t["Total"] = "Toplam";
+
+$_t["Vote Actions"] = "Oylama İşlemleri";
+
+$_t["Could not retrieve proposal details."] = "Öneri detayları alınamadı.";
+
+$_t["Start and end with a letter or number"] = "Bir rakam veya harf ile başlatıp bitirmelisiniz";
+
+$_t["Next"] = "Sonraki";
+
+$_t["(defaults to 7 if empty)"] = "(eğer boş ise öntanımlı olarak 7'dir)";
+
+$_t["Vote ID not valid."] = "Oy kimliği geçersiz.";
+
+$_t["(empty if not applicable)"] = "(uygulanabilir değilse boş)";
+
+$_t["New proposal submitted."] = "Yeni öneri gönderildi.";
+
+$_t["Current Votes"] = "Mevcut Oylar";
+
+$_t["You've already voted in this proposal."] = "Bu öneriye zaten oy vermişsiniz.";
+
+$_t["Back"] = "Geri";
+
+$_t["All Votes"] = "Bütün Oylar";
+
+$_t["UnFlag Out-of-date"] = "Güncel değiş işaretini kaldır";
+
+$_t["No results found."] = "Sonuç bulunamadı.";
+
+$_t["Voted?"] = "Oylandı?";
+
+$_t["Start"] = "Başlangıç";
+
+$_t["Add"] = "Ekle";
+
+$_t["Length must be at least 1."] = "Süre en az 1 olmalıdır.";
+
+$_t["End"] = "Son";
+
+$_t["This is a %h%s%h problem!"] = "Bu bir %h%s%h sorunu!";
+
+$_t["Proposal cannot be empty."] = "Öneri boş olamaz.";
+
+$_t["You've already voted for this proposal."] = "Bu öneri için zaten oy vermişsiniz.";
+
+$_t["It must be between %s and %s characters long"] = "Uzunluğu %s ve %s karakter arasında olabilir.";
+
+$_t["Your password must be at least %s characters."] = "Şifreniz en az %s karakterden oluşmalıdır.";
+
+$_t["Proposal"] = "Öneri";
+
+$_t["UnVote"] = "Oyu kaldır";
+
+$_t["The username is invalid."] = "Bu kullanıcı adı geçersizdir.";
+
+$_t["Length must be a number."] = "Süre bir rakam olmalıdır";
+
+$_t["%s has %s apples."] = "%s %s elmaya sahip.";
+
+$_t["Abstain"] = "Çekimser";
+
+$_t["Could not chmod directory %s."] = "%s dizini için chmod ayarlanamıyor.";
+
+$_t["Submit a proposal to vote on."] = "Oylanması için öneri gönder.";
+
+$_t["Proposal Details"] = "Öneri Detayları";
 
