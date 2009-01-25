@@ -410,15 +410,7 @@ textarea.vLargeTextField {
   text-align: left;
   clear: both;
 }
-#maincontent > table {
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
 .pgbox {
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
   margin-bottom: 1%;
   background-color: #fff;
   border: 2px solid #ddd;
