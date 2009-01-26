@@ -705,3 +705,33 @@ $_t["Yes"] = "Sì";
 
 $_t["Applicant/TU:"] = "Candidato/TU:";
 
+$_t["Submitted: %s by %s"] = "Inviato: %s da %s";
+
+$_t["string"] = "stringa";
+
+$_t["Proposal Details"] = "Dettagli della proposta";
+
+$_t["Total"] = "Totale";
+
+$_t["Vote Actions"] = "Azioni del voto";
+
+$_t["This vote is still running."] = "Questa votazione è ancora in corso.";
+
+$_t["UnFlag Out-of-date"] = "Il pacchetto è aggiornato";
+
+$_t["No results found."] = "La ricerca non ha prodotto nessun risultato.";
+
+$_t["Voted?"] = "Votato?";
+
+$_t["Start"] = "Inizio";
+
+$_t["End"] = "Fine";
+
+$_t["This is a %h%s%h problem!"] = "Questo è un problema di %h%s%h!";
+
+$_t["Proposal"] = "Proposta";
+
+$_t["UnVote"] = "Rimuovi il voto";
+
+$_t["%s has %s apples."] = "%s ha %s mele.";
+
