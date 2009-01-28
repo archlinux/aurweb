@@ -146,10 +146,12 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval(
 <?php
 		while (list($k, $src) = each($sources)) {
 			$parsed_url = parse_url($src);
+
 			if ($parsed_url['scheme'])
 			{
 				# It is an external source
-				echo "<a href='".$src."'>".$src."</a><br />\n";
+				$src = explode('::', $src);
+				echo "<a href=\"" . (isset($src[1]) ? $src[1] : $src[0]) . "\">$src[0]</a><br />\n";
 			}
 			else 
 			{
