@@ -559,6 +559,14 @@ $_t["Packages"] = "Pacchetti";
 
 $_t["Search Criteria"] = "Criterio di ricerca";
 
+$_t["Advanced"] = "Ricerca avanzata";
+
+$_t["Some packages may be provided as binaries in [community]."] = "Alcuni pacchetti possono essere disponibili come precompilati nel repository [community]";
+
+$_t["Legend"] = "Legenda";
+
+$_t["Unsupported packages are user produced content. Any use of the provided files is at your own risk."] = "I pacchetti presenti in unsupported sono stati inviati dagli utenti. Usali a tuo rischio e pericolo.";
+
 
 
 $_t["Missing build function in PKGBUILD."] = "Manca la funzione build nel PKGBUILD.";
