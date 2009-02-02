@@ -451,3 +451,10 @@ textarea.vLargeTextField {
 	text-decoration: none;
 }
 
+#pages { margin: 5px; }
+#pages .page_num {
+	border: 1px solid #ddd;
+	padding: 2px;
+	color: #0771a6;
+}
+#pages #page_sel { color: #555; }

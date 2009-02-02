@@ -116,6 +116,19 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 		<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
 		</span></span>
 		<br />
+
+                <div id="pages">
+		<?php
+			if ($_GET['O'] > 0):
+				$O = $_GET['O'] - $_GET['PP'];
+
+				if ($_GET['O'] < $_GET['PP']) {
+					$O = 0;
+				}
+		?>
+			<a href="packages.php?<?php print mkurl("O=$O") ?>"><?php echo '&lt; ' . __('Previous') ?></a>
+		<?php   endif; ?>
+
 			<?php
 			if ($_GET['PP'] > 0) {
 				$pages = ceil($total / $_GET['PP']);
@@ -131,6 +144,8 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 
 				$morepages = $currentpage + 5;
 
+				print (($currentpage-5) > 1) ? '...' : '';
+
 				# Display links for more search results.
 				for ($i = ($currentpage - 5); $i <= $morepages && $i <= $pages; $i++) {
 					if ($i < 1) {
@@ -141,29 +156,20 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 
 					if ($i <> $currentpage) :
 					?>
-				<a href='packages.php?<?php print mkurl('O=' . ($pagestart))?>'><?php print "$i " ?></a>
-					<?php else : print "<b>[$i] </b>";
+				<a href='packages.php?<?php print mkurl('O=' . ($pagestart))?>'><span class="page_num"><?php print "$i" ?></span></a>
+					<?php else : print '<span class="page_sel"><b>'.$i.'</b></span> ';
 					endif;
 				}
 
-				# Indicate that there are more pages.
-				if ($pages > $morepages) {
-					echo "<a href=\"packages.php?" . mkurl('O=' . ($pagestart + $_GET['PP'])) . '">... </a>';
-				}
+                                print ($pages > $morepages) ? '...' : '';
 
-				if ($_GET['O'] > 0):
-					$O = $_GET['O'] - $_GET['PP'];
-
-					if ($_GET['O'] < $_GET['PP']) {
-						$O = 0;
-					}
-			?>
-				<a href="packages.php?<?php print mkurl("O=$O") ?>"><?php echo __('Previous') ?></a>
-			<?php   endif; ?>
+                                ?>
 
 			<?php if ($total - $_GET['PP'] - $_GET['O'] > 0): ?>
-				<a href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php echo __('Next') ?></a>
+				<a href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php echo __('Next') . ' &gt;' ?></a>
 			<?php endif; ?>
+
+			</div>
 
 		</td>
 	</tr>
