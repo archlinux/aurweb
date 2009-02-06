@@ -457,4 +457,15 @@ textarea.vLargeTextField {
 	padding: 2px;
 	color: #0771a6;
 }
-#pages #page_sel { color: #555; }
+
+#pages .page_num:hover {
+	border: 1px solid #8faecd;
+	color: #333;
+}
+
+#pages #page_sel {
+	border: 1px solid #8faecd;
+	padding: 2px;
+	color: #333;
+	font-weight: bold;
+}

@@ -117,7 +117,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 		</span></span>
 		<br />
 
-                <div id="pages">
+		<div id="pages">
 		<?php
 			if ($_GET['O'] > 0):
 				$O = $_GET['O'] - $_GET['PP'];
@@ -126,7 +126,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 					$O = 0;
 				}
 		?>
-			<a href="packages.php?<?php print mkurl("O=$O") ?>"><?php echo '&lt; ' . __('Previous') ?></a>
+			<a class="page_num" href="packages.php?<?php print mkurl("O=$O") ?>"><?php echo __('Previous') ?></a>
 		<?php   endif; ?>
 
 			<?php
@@ -156,17 +156,16 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 
 					if ($i <> $currentpage) :
 					?>
-				<a href='packages.php?<?php print mkurl('O=' . ($pagestart))?>'><span class="page_num"><?php print "$i" ?></span></a>
-					<?php else : print '<span class="page_sel"><b>'.$i.'</b></span> ';
+				<a class="page_num" href="packages.php?<?php print mkurl('O=' . ($pagestart)) ?>"><?php echo $i ?></a>
+					<?php else : echo "<span id=\"page_sel\">$i</span>";
 					endif;
 				}
 
-                                print ($pages > $morepages) ? '...' : '';
-
-                                ?>
+				print ($pages > $morepages) ? '...' : '';
+				?>
 
 			<?php if ($total - $_GET['PP'] - $_GET['O'] > 0): ?>
-				<a href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php echo __('Next') . ' &gt;' ?></a>
+				<a class="page_num" href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php echo __('Next') ?></a>
 			<?php endif; ?>
 
 			</div>
