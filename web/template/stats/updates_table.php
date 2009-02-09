@@ -23,7 +23,7 @@ $sub_int = intval($row["SubmittedTS"]);
 if ($mod_int != 0):
   $modstring = gmdate("r", $mod_int);
 elseif ($sub_int != 0):
-  $modstring = '<img src="images/new.gif" /> ' . gmdate("r", $sub_int);
+  $modstring = '<img src="images/new.gif" alt="New!" /> ' . gmdate("r", $sub_int);
 else:
   $modstring = '(unknown)';
 endif;
