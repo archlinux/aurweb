@@ -61,7 +61,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 					$errorvote = __("You cannot vote in an proposal about you.");
 				} else if ($hasvoted != 0) {
 					$canvote = 0;
-					$errorvote = __("You've already voted in this proposal.");
+					$errorvote = __("You've already voted for this proposal.");
 				}
 
 				if ($canvote == 1) {

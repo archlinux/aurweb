@@ -17,7 +17,7 @@
 					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("User") ?></span></th>
 					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Yes") ?></span></th>
 					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("No") ?></span></th>
-					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Voted?") ?></span></th>
+					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __('Voted') ?></span></th>
 				</tr>
 				<?php if (mysql_num_rows($result) == 0) { ?>
 				<tr><td align='center' colspan='0'><?php print __("No results found.") ?></td></tr>
