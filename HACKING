@@ -13,6 +13,10 @@ Please don't add any mode lines. Adjust your editor to display tabs to your
 preferred width. Generally code should work with the standard eight column
 tabs.
 
+PHP
+---
+No short open tags. '<?'
+Do not end files with a close tag. '?>'
 Try embedding as little HTML in the PHP as possible.
 Consider creating templates for HTML.
 
