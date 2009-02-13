@@ -205,7 +205,11 @@ if ($_COOKIE["AURSID"]):
 				while (preg_match($pattern_var,$v,$regs)) {
 					$pieces = explode(" ",$pkgbuild["$regs[2]"],2);
 					$pattern = '/\$'.$regs[1].$regs[2].$regs[3].'/';
-					$replacement = $pieces[0];
+					if ($regs[2] != $k) {
+						$replacement = $pieces[0];
+					} else {
+						$replacement = "";
+					}
 					$v=preg_replace($pattern, $replacement, $v);
 				}
 				$new_pkgbuild[$k] = $v;
