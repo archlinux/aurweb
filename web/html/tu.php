@@ -38,6 +38,19 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 				$qvoted.= "UserID = " . uid_from_sid($_COOKIE["AURSID"]);
 				$hasvoted = mysql_num_rows(db_query($qvoted, $dbh));
 
+				# List voters of a proposal.
+				$qwhoVoted = "SELECT tv.UserID,U.Username
+					FROM TU_Votes tv, Users U
+					WHERE tv.VoteID = {$row['ID']}
+					AND tv.UserID = U.ID
+					ORDER BY Username";
+				$result = db_query($qwhoVoted,$dbh);
+				if (mysql_num_rows($result) > 0) {
+					while ($who = mysql_fetch_assoc($result)) {
+						$whovoted.= '<a href="account.php?Action=AccountInfo&ID='.$who['UserID'].'">'.$who['Username'].'</a> ';
+					}
+				}
+
 				$canvote = 1;
 				$errorvote = "";
 				if ($isrunning == 0) {

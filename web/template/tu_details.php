@@ -44,7 +44,20 @@ N/A
 </table>
 </table>
 </div></div>
-<br />
+
+<?php
+if (!$isrunning) { ?>
+<div class="pgbox">
+	<div class="pgboxtitle">
+	<span class="f3"><?php echo __('Voters'); ?></span>
+	</div>
+	<div class="pgboxbody">
+	<?php echo $whovoted; ?>
+	</div>
+</div>
+<?php
+} ?>
+
 <div class='pgbox'>
 <div class='pgboxtitle'><span class='f3'><?php print __("Vote Actions") ?></span></div>
 <div class='pgboxbody'>
