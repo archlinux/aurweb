@@ -145,23 +145,22 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval(
 	<div>
 <?php
 		while (list($k, $src) = each($sources)) {
-			$parsed_url = parse_url($src);
+			$src = explode('::', $src);
+			$parsed_url = parse_url($src[0]);
 
-			if ($parsed_url['scheme'])
-			{
+			if (isset($parsed_url['scheme']) || isset($src[1])) {
 				# It is an external source
-				$src = explode('::', $src);
-				echo "<a href=\"" . (isset($src[1]) ? $src[1] : $src[0]) . "\">$src[0]</a><br />\n";
+				echo "<a href=\"" . (isset($src[1]) ? $src[1] : $src[0]) . "\">{$src[0]}</a><br />\n";
 			}
-			else 
-			{
+			else {
+				$src = $src[0];
 				# It is presumably an internal source
 				if ($row["LocationID"] == 2) {
 					echo "<a href='".dirname($row['URLPath'])."/".$row['Name'];
-					echo "/".$src."'>".$src."</a><br />\n";
+					echo "/$src'>$src</a><br />\n";
 				} elseif ($row["LocationID"] == 3) {
 					echo "<a href='http://repos.archlinux.org/viewvc.cgi/community/" . $row["Category"] . "/" . $row["Name"] . "/?root=community&pathrev=CURRENT'>";
-					echo $src."</a><br />\n";
+					echo "$src</a><br />\n";
 				}
 			}
 		}
