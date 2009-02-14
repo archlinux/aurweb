@@ -33,8 +33,6 @@ class AurJSON {
     public function handle($http_data) {
         // set content type header to json
         header('content-type: application/json');
-        // set up db connection.
-        $this->dbh = db_connect();
 
         // handle error states
         if ( !isset($http_data['type']) || !isset($http_data['arg']) ) {
@@ -43,6 +41,9 @@ class AurJSON {
 
         // do the routing
         if ( in_array($http_data['type'], $this->exposed_methods) ) {
+            // set up db connection.
+            $this->dbh = db_connect();
+
             // ugh. this works. I hate you php.
             $json = call_user_func_array(array(&$this,$http_data['type']),
                 $http_data['arg']);
@@ -103,7 +104,7 @@ class AurJSON {
             $search_data = array();
             while ( $row = mysql_fetch_assoc($result) ) {
                 array_push($search_data, $row);
-	    }
+            }
 
             mysql_free_result($result);
             return $this->json_results('search', $search_data);
