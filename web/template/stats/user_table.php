@@ -9,7 +9,7 @@
 <span class='f4'><?php print __("Packages in unsupported"); ?></span>
 </td>
 <td class='boxSoft'>
-<span class='f4'><?php print $maintainer_unsupported_count; ?></span>
+<span class='f4'><a href="packages.php?SeB=m&L=2&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"> <?php print $maintainer_unsupported_count; ?></a></span>
 </td>
 </tr>
 
@@ -20,7 +20,7 @@
 <span class='f4'><?php print __("Packages in [community]"); ?></span>
 </td>
 <td class='boxSoft'>
-<span class='f4'><?php print $maintainer_community_count; ?></span>
+<span class='f4'><a href="packages.php?SeB=m&L=3&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"> <?php print $maintainer_community_count; ?></a></span>
 </td>
 </tr>
 
@@ -31,7 +31,7 @@
 <span class='f4'><?php print __("Out-of-date"); ?></span>
 </td>
 <td class='boxSoft'>
-<span class='f4'><?php print $flagged_outdated ?></span>
+<span class='f4'><a href="packages.php?SeB=m&OD=on&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"> <?php print $flagged_outdated ?></a></span>
 </td>
 </tr>
 </table>
