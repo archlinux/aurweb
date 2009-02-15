@@ -120,6 +120,14 @@
 							?>
 						</select>
 					</li>
+					<li>
+						<label><?php echo __('Out of Date'); ?></label>
+						<?php if (isset($_GET['outdated'])): ?>
+							<input type="checkbox" name="outdated" checked />
+						<?php else: ?>
+							<input type="checkbox" name="outdated" />
+						<?php endif; ?>
+					</li>
 				</ul>
 			</div>
 			<?php endif; ?>

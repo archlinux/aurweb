@@ -449,6 +449,10 @@ function pkg_search_page($SID="") {
         $q.= "AND MaintainerUID = 0 ";
     }
 
+	if (isset($_GET['outdated'])) {
+		$q .= "AND OutOfDate = 1 ";
+	}
+
     $order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';
 
     switch ($_GET["SB"]) {
