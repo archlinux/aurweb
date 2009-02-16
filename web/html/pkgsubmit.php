@@ -66,13 +66,12 @@ if ($_COOKIE["AURSID"]):
 		# TODO: This needs to be completely rewritten to support stuff like arrays
 		# and variable substitution among other things.
 		if (!$error) {
-			# process PKGBIULD - remove line concatenation
+			# process PKGBUILD - remove line concatenation
 			#
 			$pkgbuild = array();
 			$fp = fopen($pkg_dir."/PKGBUILD", "r");
 			$line_no = 0;
 			$lines = array();
-			$decomment = array();
 			$continuation_line = 0;
 			$current_line = "";
 			$paren_depth = 0;
@@ -89,8 +88,6 @@ if ($_COOKIE["AURSID"]):
 					# assumed continuation
 					# continue appending onto existing line_no
 					#
-					$decomment = explode("#",$line,2);
-					$line = $decomment[0];
 					$current_line .= $line . " ";
 					$continuation_line = 1;
 				} else {
@@ -119,6 +116,12 @@ if ($_COOKIE["AURSID"]):
 			#
 			$seen_build_function = 0;
 			while (list($k, $line) = each($lines)) {
+				# Neutralize parameter substitution
+				$line = preg_replace('/\${(\w+)#(\w*)}?/', '$1$2', $line);
+
+				# Remove comments
+				$line = preg_replace('/#.*/', '', $line);
+
 				$lparts = explode("=", $line, 2);
 				if (count($lparts) == 2) {
 					# this is a variable/value pair, strip out
