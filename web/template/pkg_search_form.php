@@ -21,7 +21,7 @@
 					<li>
 						<label><?php print __("Location"); ?></label>
 						<select name='L'>
-							<option value=0><?php print __("Any"); ?></option>
+							<option value="0"><?php print __("Any"); ?></option>
 							<?php
 							foreach (pkgLocations() as $id => $loc):
 								if (intval($_GET["L"]) == $id):
