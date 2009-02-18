@@ -129,15 +129,6 @@ body {
   width: 350px;
   height: 103px;
 }
-#devlist {
-  width: 80%;
-  padding: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  border-top: 1px dashed #000;
-  border-bottom: 1px dashed #000;
-  text-align: center;
-}
 .clear {
   clear: both;
   margin: 0;
@@ -296,21 +287,6 @@ table#art {
   margin-left: auto;
   margin-right: auto;
 }
-.devpic {
-  vertical-align: top;
-  padding-right: 15px;
-}
-table.deventry {
-  padding-bottom: 25px;
-}
-.deventry th {
-  text-align: left;
-  vertical-align: top;
-  white-space: nowrap;
-}
-.deventry td {
-  width: 100%;
-}
 table.results {
   padding: 0;
   border-collapse: collapse;
@@ -352,51 +328,7 @@ blockquote.code {
   color: #333;
   font-size: .95em;
 }
-/* Wiki Styles */
-h1.wiki {
-  border-bottom: 1px solid #46494d;
-}
-div.wikifoot_l {
-  font-size: x-small;
-  text-align: left;
-  padding-top: 25px;
-}
-div.wikifoot_r {
-  font-size: x-small;
-  text-align: right;
-  float: right;
-  padding-top: 25px;
-}
-.wikibody {
-  padding-top: 15px;
-}
-.wikibody ol {
-  padding-left: 28px;
-  padding-top: 0;
-}
-.wikibody ul {
-  padding-left: 25px;
-  padding-top: 0;
-}
-.wikibody dd {
-  padding-left: 30px;
-}
-.wikibody pre code {
-  background-color: #c1c3f6;
-  border: 1px solid #8faecd;
-  margin-left: auto;
-  margin-right: auto;
-  white-space: nowrap;
-  padding: 5px;
-  font-family: Courier, Courier New, Monospace;
-}
-.wikibody blockquote {
-  padding-left: 30px;
-}
-.wikibody td {
-  padding: 5px;
-  border: 1px solid #000;
-}
+
 /* Used by Django's FormWrappers */
 textarea.vLargeTextField {
   width: 450px;
