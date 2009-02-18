@@ -13,12 +13,16 @@ Please don't add any mode lines. Adjust your editor to display tabs to your
 preferred width. Generally code should work with the standard eight column
 tabs.
 
-PHP
----
 No short open tags. '<?'
 Do not end files with a close tag. '?>'
-Try embedding as little HTML in the PHP as possible.
-Consider creating templates for HTML.
+Try embedding as little XHTML in the PHP as possible.
+Consider creating templates for XHTML.
+
+All markup should conform to XHTML 1.0 Strict requirements.
+You can use http://validator.w3.org to check the markup.
+
+Prevent PHP Notices by using isset() or empty() in conditionals that
+reference $_GET, $_POST, or $_REQUEST variables.
 
 MySQL queries should generally go into functions.
 
