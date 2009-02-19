@@ -401,3 +401,19 @@ textarea.vLargeTextField {
 	color: #333;
 	font-weight: bold;
 }
+
+.comment-header {
+	background-color: #f1f2f4;
+	color: #888;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 5px;
+	margin-top: 5px;
+	padding: 2px;
+}
+
+.comment-body {
+	margin-left: 5px;
+	padding: 2px;
+	font-family: monospace;
+}

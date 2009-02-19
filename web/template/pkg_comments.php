@@ -1,37 +1,27 @@
 <div class="pgbox">
-<table width="100%">
-<?php while (list($indx, $carr) = each($comments)) { ?>
-	<tr class='boxSoft'>
-	<td class='boxSoftTitle' valign='top' style='padding-right: 10' colspan='2'>
-	<span class='f3'>
 <?php
+while (list($indx, $carr) = each($comments)) { ?>
+	<div class="comment-header"><?php
 	if (canDeleteComment($carr['ID'], $atype, $SID)) {
 		$durl = '<a href="pkgedit.php?del_Comment=1';
 		$durl.= '&comment_id=' . $carr['ID'] . '&ID=' . $row['ID'];
 		$durl.= '"><img src="images/x.png" border="0"';
 		$durl.= ' alt="' . __("Delete comment") . '"></a> ';
 
-	  echo $durl;
+		echo $durl;
 	}
+
 	if ($SID) {
-		echo __("Comment by: %s on %s",
-			"<a href='account.php?Action=AccountInfo&ID=" . $carr["UsersID"] . "'><b>" . $carr["UserName"] . "</b></a>", gmdate("Y m d [H:i:s]", $carr["CommentTS"]));
-	} else {
-		echo __("Comment by: %s on %s",
-			'<b>' . $carr['UserName'] . '</b>',
-			gmdate("Y m d [H:i:s]", $carr["CommentTS"]));
+		$carr['UserName'] = "<a href=\"account.php?Action=AccountInfo&amp;ID={$carr['UsersID']}\">{$carr['UserName']}</a>";
 	}
-?>
-	</span>
-	</td>
-	</tr>
-	<tr>
-	<td class="boxSoft">
-	<code><?php echo nl2br(htmlspecialchars($carr["Comments"])) ?></code>
-	</td>
-	</tr>
+
+	echo __('Comment by: %s on %s', $carr['UserName'], gmdate('r', $carr['CommentTS']));
+?></div>
+	<blockquote class="comment-body">
+	<div>
+<?php echo nl2br(htmlspecialchars($carr['Comments'])) ?>
+	</div>
+	</blockquote>
 <?php
-}
-?>
-</table>
+} ?>
 </div>
