@@ -226,6 +226,7 @@ class ServerSocket(threading.Thread):
 			sread, swrite, serror = select.select([self.socket],[self.socket],[self.socket],1)
 			if sread:
 				(clientsocket, address) = self.socket.accept()
+				print time.asctime(time.gmtime())
 				print "New connection from " + str(address)
 				ct = ClientSocket(clientsocket)
 				ct.start()
