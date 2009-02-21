@@ -180,7 +180,11 @@ function package_comments($pkgid=0) {
 		$q.= " AND DelUsersID = 0"; # only display non-deleted comments
 		$q.= " ORDER BY CommentTS DESC";
 		$result = db_query($q, $dbh);
-		if (!$result) {print 'poop';return array();}
+
+		if (!$result) {
+			return;
+		}
+
 		while ($row = mysql_fetch_assoc($result)) {
 			$comments[] = $row;
 		}
@@ -268,7 +272,6 @@ function pkgname_from_id($id="") {
 # display package details
 #
 function package_details($id=0, $SID="") {
-	global $_REQUEST;
 	global $pkgsearch_vars;
 	$atype = account_from_sid($SID);
 	$uid = uid_from_sid($SID);
@@ -277,7 +280,7 @@ function package_details($id=0, $SID="") {
 	$q.= "FROM Packages,PackageLocations,PackageCategories ";
  	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
 	$q.= "AND Packages.CategoryID = PackageCategories.ID ";
-	$q.= "AND Packages.ID = " . intval($_REQUEST['ID']);
+	$q.= "AND Packages.ID = " . intval($id);
 	$dbh = db_connect();
 	$results = db_query($q, $dbh);
 
@@ -300,7 +303,7 @@ function package_details($id=0, $SID="") {
 			}
 			
 			# Print Comments
-			$comments = package_comments($_REQUEST['ID']);
+			$comments = package_comments($id);
 			if (!empty($comments)) {
 				include('pkg_comments.php');
 			}

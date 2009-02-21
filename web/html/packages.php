@@ -62,12 +62,12 @@ if ($output):
 <?php
 endif;
 
-if (isset($_GET["ID"])) {
+if (isset($_GET['ID'])) {
 	include('pkg_search_form.php');
-	if (!intval($_GET["ID"])) {
+	if (!$_GET['ID'] = intval($_GET['ID'])) {
 		print __("Error trying to retrieve package details.")."<br />\n";
 	} else {
-		package_details($_GET["ID"], $_COOKIE["AURSID"]);
+		package_details($_GET['ID'], $_COOKIE["AURSID"]);
 	}
 } else {
 	pkg_search_page($_COOKIE["AURSID"]);
