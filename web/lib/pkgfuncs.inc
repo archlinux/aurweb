@@ -84,6 +84,21 @@ function pkgLocations() {
 	return $locs;
 }
 
+# Return the repository name for a particular package.
+function package_location($name="") {
+	if (!$name) {return NULL;}
+	$dbh = db_connect();
+	$q = "SELECT PackageLocations.Location FROM Packages ";
+	$q.= "LEFT JOIN PackageLocations ON ";
+	$q.= "Packages.LocationID = PackageLocations.ID ";
+	$q.= "WHERE Name = '".mysql_real_escape_string($name)."' ";
+	$q.= "AND DummyPkg = 0";
+	$result = db_query($q, $dbh);
+	if (!$result) {return NULL;}
+	$row = mysql_fetch_row($result);
+	return $row[0];
+}
+
 # check to see if the package name exists
 #
 function package_exists($name="") {
