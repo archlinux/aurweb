@@ -293,7 +293,7 @@ function package_details($id=0, $SID="") {
 
 	$q = "SELECT Packages.*,Location,Category ";
 	$q.= "FROM Packages,PackageLocations,PackageCategories ";
- 	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
+	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
 	$q.= "AND Packages.CategoryID = PackageCategories.ID ";
 	$q.= "AND Packages.ID = " . intval($id);
 	$dbh = db_connect();
@@ -373,159 +373,165 @@ function package_details($id=0, $SID="") {
  *                     do_UnNotify - Disable notification
  */
 function pkg_search_page($SID="") {
-    // establish a db connection
-    $dbh = db_connect();
+	// establish a db connection
+	$dbh = db_connect();
 
-    // get commonly used variables...
-    // TODO: REDUCE DB HITS.
-    // grab info for user if they're logged in
-    if ($SID)
-        $myuid = uid_from_sid($SID);
-    // get a list of package locations
-    $locs = pkgLocations();
-    // get a list of package categories
-    $cats = pkgCategories(); //meow
+	// get commonly used variables...
+	// TODO: REDUCE DB HITS.
+	// grab info for user if they're logged in
+	if ($SID)
+		$myuid = uid_from_sid($SID);
+	// get a list of package locations
+	$locs = pkgLocations();
+	// get a list of package categories
+	$cats = pkgCategories(); //meow
 
-    // sanitize paging variables
-    //
-    if (isset($_GET['O'])) {
-        $_GET['O'] = intval($_GET['O']);
-        if ($_GET['O'] < 0)
-            $_GET['O'] = 0;
-    } else {
-        $_GET['O'] = 0;
-    }
+	// sanitize paging variables
+	//
+	if (isset($_GET['O'])) {
+		$_GET['O'] = intval($_GET['O']);
+		if ($_GET['O'] < 0)
+			$_GET['O'] = 0;
+	}
+	else {
+		$_GET['O'] = 0;
+	}
 
-    if (isset($_GET["PP"])) {
-        $_GET["PP"] = intval($_GET["PP"]);
-        if ($_GET["PP"] < 25)
-            $_GET["PP"] = 25;
-        else if ($_GET["PP"] > 100)
-            $_GET["PP"] = 100;
-    } else {
-        $_GET["PP"] = 25;
-    }
+	if (isset($_GET["PP"])) {
+		$_GET["PP"] = intval($_GET["PP"]);
+		if ($_GET["PP"] < 25)
+			$_GET["PP"] = 25;
+		else if ($_GET["PP"] > 100)
+			$_GET["PP"] = 100;
+	}
+	else {
+		$_GET["PP"] = 25;
+	}
 
-    include('../template/pkg_search_form.php');
+	include('../template/pkg_search_form.php');
 
-    // FIXME: pull out DB-related code. all of it.
-    //        this one's worth a choco-chip cookie,
-    //        one of those nice big soft ones
+	// FIXME: pull out DB-related code. all of it.
+	//        this one's worth a choco-chip cookie,
+	//        one of those nice big soft ones
 
-    // build the package search query
-    //
-    $q = "SELECT SQL_CALC_FOUND_ROWS ";
-    if ($SID) {
-        $q .= "CommentNotify.UserID AS Notify,
-               PackageVotes.UsersID AS Voted, ";
-    }
-    $q .= "Users.Username AS Maintainer,
-        PackageCategories.Category,
-        PackageLocations.Location,
-        Packages.Name, Packages.Version, Packages.Description, Packages.NumVotes,
-        Packages.ID, Packages.OutOfDate
+	// build the package search query
+	//
+	$q = "SELECT SQL_CALC_FOUND_ROWS ";
+	if ($SID) {
+		$q .= "CommentNotify.UserID AS Notify,
+		       PackageVotes.UsersID AS Voted, ";
+	}
+	$q .= "Users.Username AS Maintainer,
+	PackageCategories.Category,
+	PackageLocations.Location,
+	Packages.Name, Packages.Version, Packages.Description, Packages.NumVotes,
+	Packages.ID, Packages.OutOfDate
 
-        FROM PackageCategories, PackageLocations, Packages
-        LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID) ";
-    if ($SID) {
-        $q .= "LEFT JOIN PackageVotes
-                ON (Packages.ID = PackageVotes.PackageID AND PackageVotes.UsersID = ".$myuid.")
-               LEFT JOIN CommentNotify
-                ON (Packages.ID = CommentNotify.PkgID AND CommentNotify.UserID = ".$myuid.") ";
-    }
-    $q .= "WHERE
-        Packages.CategoryID = PackageCategories.ID
-        AND Packages.LocationID = PackageLocations.ID
-        AND Packages.DummyPkg = 0 ";
+	FROM PackageCategories, PackageLocations, Packages
+	LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID) ";
 
-    // TODO: possibly do string matching on category and
-    //       location to make request variable values more sensible
-    if (intval($_GET["L"])) {
-        $q .= "AND Packages.LocationID = ".intval($_GET["L"])." ";
-    }
-    if (intval($_GET["C"])) {
-        $q.= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
-    }
+	if ($SID) {
+		$q .= "LEFT JOIN PackageVotes
+		ON (Packages.ID = PackageVotes.PackageID AND PackageVotes.UsersID = $myuid)
+		LEFT JOIN CommentNotify
+		ON (Packages.ID = CommentNotify.PkgID AND CommentNotify.UserID = $myuid) ";
+	}
+	$q .= "WHERE
+	Packages.CategoryID = PackageCategories.ID
+	AND Packages.LocationID = PackageLocations.ID
+	AND Packages.DummyPkg = 0 ";
 
-    if ($_GET['K']) {
-        $_GET['K'] = mysql_real_escape_string(trim($_GET['K']));
-        //search by maintainer
-        if ($_GET["SeB"] == "m"){
-            $q.= "AND Users.Username = '".$_GET['K']."' ";
-        } elseif ($_GET["SeB"] == "s") {
-            // FIXME: this shouldn't be making 2 queries
-            //        kill the call to uid_from_username
-            $q.= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
-        // the default behavior, query the name/description
-        } else {
-            $q.= "AND (Name LIKE '%".$_GET['K']."%' OR ";
-            $q.= "Description LIKE '%".$_GET['K']."%') ";
-        }
-    }
+	// TODO: possibly do string matching on category and
+	//       location to make request variable values more sensible
+	if (intval($_GET["L"])) {
+		$q .= "AND Packages.LocationID = ".intval($_GET["L"])." ";
+	}
+	if (intval($_GET["C"])) {
+		$q.= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
+	}
 
-    if ($_GET["do_Orphans"]) {
-        $q.= "AND MaintainerUID = 0 ";
-    }
+	if ($_GET['K']) {
+		$_GET['K'] = mysql_real_escape_string(trim($_GET['K']));
+		# Search by maintainer
+		if ($_GET["SeB"] == "m") {
+			$q.= "AND Users.Username = '".$_GET['K']."' ";
+		}
+		elseif ($_GET["SeB"] == "s") {
+			// FIXME: this shouldn't be making 2 queries
+			//        kill the call to uid_from_username
+			$q.= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
+		// the default behavior, query the name/description
+		}
+		else {
+			$q.= "AND (Name LIKE '%".$_GET['K']."%' OR ";
+			$q.= "Description LIKE '%".$_GET['K']."%') ";
+		}
+	}
+
+	if ($_GET["do_Orphans"]) {
+		$q.= "AND MaintainerUID = 0 ";
+	}
 
 	if (isset($_GET['outdated'])) {
 		$q .= "AND OutOfDate = 1 ";
 	}
 
-    $order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';
+	$order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';
 
-    switch ($_GET["SB"]) {
-        case 'c':
-            $q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
-            $_GET["SB"] = 'c';
-            break;
-        case 'l':
-            $q.= "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
-            $_GET["SB"] = 'l';
-            break;
-        case 'v':
-            $q.= "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
-            $_GET["SB"] = 'v';
-            break;
-        case 'm':
-            $q.= "ORDER BY Maintainer ".$order.", Name ASC, LocationID ASC ";
-            $_GET["SB"] = 'm';
-            break;
-        case 'a':
-            $q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
-            $_GET["SB"] = 'a';
-            break;
-        default:
-            $q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
-            break;
-    }
+	switch ($_GET["SB"]) {
+	case 'c':
+		$q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
+		$_GET["SB"] = 'c';
+		break;
+	case 'l':
+		$q.= "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
+		$_GET["SB"] = 'l';
+		break;
+	case 'v':
+		$q.= "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
+		$_GET["SB"] = 'v';
+		break;
+	case 'm':
+		$q.= "ORDER BY Maintainer ".$order.", Name ASC, LocationID ASC ";
+		$_GET["SB"] = 'm';
+		break;
+	case 'a':
+		$q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
+		$_GET["SB"] = 'a';
+		break;
+	default:
+		$q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
+		break;
+	}
 
-    $q.= "LIMIT ".$_GET["O"].", ".$_GET["PP"];
+	$q.= "LIMIT ".$_GET["O"].", ".$_GET["PP"];
 
-    $result = db_query($q, $dbh);
-    $total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
+	$result = db_query($q, $dbh);
+	$total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
 
 	if ($result && $total > 0) {
-	    if ($_GET["SO"] == "d"){
-	        $SO_next="a";
-	        $_GET["SO"] = 'd';
-	    } else {
-	        $SO_next="d";
-	        $_GET["SO"] = 'a';
-	    }
+		if ($_GET["SO"] == "d"){
+			$SO_next="a";
+			$_GET["SO"] = 'd';
+		}
+		else {
+			$SO_next="d";
+			$_GET["SO"] = 'a';
+		}
 	}
 
 	// figure out the results to use
-    $first = $_GET['O'] + 1;
+	$first = $_GET['O'] + 1;
 
-    if (($_GET['PP']+$_GET['O']) > $total) {
-        $last = $total;
-    } else {
-        $last = $_GET['PP'] + $_GET['O'];
-    }
+	if (($_GET['PP'] + $_GET['O']) > $total) {
+		$last = $total;
+	} else {
+		$last = $_GET['PP'] + $_GET['O'];
+	}
 
 	include('pkg_search_results.php');
 
-    return;
+	return;
 }
 
 /**
