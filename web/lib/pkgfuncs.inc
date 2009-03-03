@@ -408,8 +408,6 @@ function pkg_search_page($SID="") {
 		$_GET["PP"] = 25;
 	}
 
-	include('../template/pkg_search_form.php');
-
 	// FIXME: pull out DB-related code. all of it.
 	//        this one's worth a choco-chip cookie,
 	//        one of those nice big soft ones
@@ -529,7 +527,15 @@ function pkg_search_page($SID="") {
 		$last = $_GET['PP'] + $_GET['O'];
 	}
 
-	include('pkg_search_results.php');
+
+	if ($total > 1) {
+		include('pkg_search_form.php');
+		include('pkg_search_results.php');
+	}
+	else {
+		$pkgdetails = mysql_fetch_assoc($result);
+		header("Location: packages.php?ID={$pkgdetails['ID']}");
+	}
 
 	return;
 }
