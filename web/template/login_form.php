@@ -9,9 +9,10 @@ if (isset($_COOKIE["AURSID"])) {
 else {
 	if ($login_error) {
 		print "<span class='error'>" . $login_error . "</span><br />\n";
-	} 
+	}
+	 '?' . implode('&amp', $_GET);
 ?>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form method="post" action="<?php echo $_SERVER['REQUEST_URI'] ?>">
 	<div>
 	<?php print __('Username') . ':'; ?>
 	<input type="text" name="user" size="30" maxlength="<?php print USERNAME_MAX_LEN; ?>" value="<?php
