@@ -1,14 +1,13 @@
 <form action='packages.php?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>' method='post'>
 <div class="pgbox">
-		<div class="pgboxtitle">
-			<span class='f3'><?php print __("Package Listing") ?></span>
-		</div>
-
 <?php if (!$result) { ?>
 <div class='pgboxbody'><?php print __("Error retrieving package list.") ?></div>
 <?php } elseif ($total == 0) { ?>
 <div class='pgboxbody'><?php print __("No packages matched your search criteria.") ?></div>
 <?php } else { ?>
+	<div class="pgboxtitle">
+		<span class='f3'><?php print __("Package Listing") ?></span>
+	</div>
 
 <table width='100%' cellspacing='0' cellpadding='2'>
 <tr>

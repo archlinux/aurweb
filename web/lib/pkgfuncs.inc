@@ -528,7 +528,7 @@ function pkg_search_page($SID="") {
 	}
 
 
-	if ($total > 1) {
+	if ($total > 1 || $total == 0) {
 		include('pkg_search_form.php');
 		include('pkg_search_results.php');
 	}
