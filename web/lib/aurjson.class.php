@@ -23,7 +23,7 @@ class AurJSON {
     private $dbh = false;
     private $exposed_methods = array('search','info');
     private $fields = array('ID','Name','Version','CategoryID','Description',
-        'URL','URLPath','License','NumVotes','OutOfDate');
+        'LocationID', 'URL','URLPath','License','NumVotes','OutOfDate');
 
     /**
      * Handles post data, and routes the request.
