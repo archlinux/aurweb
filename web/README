@@ -9,9 +9,11 @@ Setup on Arch Linux:
 
 3) Configure Apache
 
- - Edit /etc/httpd/conf/httpd.conf and make sure that PHP
-   support is enabled by uncommenting the LoadModule line
-   that specifies the PHP module.
+ - Edit /etc/httpd/conf/httpd.conf and enable PHP support
+   by adding the following lines.
+
+   LoadModule php5_module modules/libphp5.so
+   Include conf/extra/php5_module.conf
 
  - Also append the following snippet to enable the aur
    Virtual Host (Replace MYUSER with your username).
@@ -24,6 +26,8 @@ Setup on Arch Linux:
      <Directory /home/MYUSER/aur/web/html>
        Options Indexes FollowSymLinks
        AllowOverride All
+       Order allow,deny
+       Allow from all
      </Directory>
    </VirtualHost>
 
@@ -50,7 +54,7 @@ Setup on Arch Linux:
 
  - Put PEAR in your php include_path in web/html/.htaccess:
 
-   php value include_path = ".:../lib:../lang:/usr/share/pear"
+   php_value include_path ".:../lib:../lang:/usr/share/pear"
 
    PEAR's path may vary depending on your set up.
 
