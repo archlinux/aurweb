@@ -120,10 +120,15 @@ if ($_COOKIE["AURSID"]):
 				$line = preg_replace('/\${(\w+)#(\w*)}?/', '$1$2', $line);
 
 				# Remove comments
-				$line = preg_replace('/#.*/', '', $line);
+				$line = preg_replace('/\s*#.*/', '', $line);
 
-				$lparts = explode("=", $line, 2);
-				if (count($lparts) == 2) {
+				$lparts = Array();
+				# Match variable assignment only.
+				if (preg_match('/^\s*[_\w]+=[^=].*/', $line, $matches)) {
+					$lparts = explode("=", $matches[0], 2);
+				}
+
+				if (!empty($lparts)) {
 					# this is a variable/value pair, strip out
 					# array parens and any quoting, except in pkgdesc
 					# for pkgdesc, only remove start/end pairs of " or '
@@ -143,10 +148,10 @@ if ($_COOKIE["AURSID"]):
 						$pkgbuild[$lparts[0]] = str_replace(array("(",")","\"","'"), "",
 								$lparts[1]);
 					}
-				} else {
-					# either a comment, blank line, continued line, or build function
-					#
-					if (substr($lparts[0], 0, 5) == "build") {
+				}
+				else {
+					# Non variable assignment line. (comment, blank, command, etc)
+					if (preg_match('/\s*build\s*\(\)/', $line)) {
 						$seen_build_function = 1;
 					}
 				}
@@ -203,10 +208,12 @@ if ($_COOKIE["AURSID"]):
 						}
 					}
 				}
-				##simple variable replacement
-				$pattern_var = '/\$({?)([\w]+)(}?)/';
+
+				# Simple variable replacement
+				$pattern_var = '/\$({?)([_\w]+)(}?)/';
 				while (preg_match($pattern_var,$v,$regs)) {
 					$pieces = explode(" ",$pkgbuild["$regs[2]"],2);
+
 					$pattern = '/\$'.$regs[1].$regs[2].$regs[3].'/';
 					if ($regs[2] != $k) {
 						$replacement = $pieces[0];
@@ -221,7 +228,7 @@ if ($_COOKIE["AURSID"]):
 
 		# Now we've parsed the pkgbuild, let's move it to where it belongs
 		if (!$error) {
-			$pkg_name = str_replace("'", "", $pkgbuild['pkgname']);
+			$pkg_name = str_replace("'", "", $new_pkgbuild['pkgname']);
 			$pkg_name = escapeshellarg($pkg_name);
 			$pkg_name = str_replace("'", "", $pkg_name);
 
