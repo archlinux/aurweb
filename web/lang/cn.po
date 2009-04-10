@@ -1,0 +1,154 @@
+<?php
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User Community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with a backslash (\).
+#
+# chinese (简体中文) translation
+# Translator: supern_lee <supern.lee@gmail.com>
+
+global $_t;
+
+$_t["Search by"] = "";
+
+$_t["This package has been flagged out of date."] = "";
+
+$_t["Missing a required field."] = "";
+
+$_t["Logged-in as: %s"] = "";
+
+$_t["Error trying to modify account, %h%s%h: %s."] = "";
+
+$_t["Username does not exist."] = "";
+
+$_t["Tarball"] = "";
+
+$_t["Can contain only one period, underscore or hyphen."] = "";
+
+$_t["Unflag Out-of-date"] = "";
+
+$_t["Missing package ID."] = "";
+
+$_t["You must be logged in before you can unflag packages."] = "";
+
+$_t["No results matched your search criteria."] = "";
+
+$_t["Update"] = "";
+
+$_t["Sort order"] = "";
+
+$_t["You must be logged in before you can edit package information."] = "";
+
+$_t["Your votes have been cast for the selected packages."] = "";
+
+$_t["Package details could not be found."] = "";
+
+$_t["change category"] = "";
+
+$_t["Error retrieving package list."] = "";
+
+$_t["Reset"] = "";
+
+$_t["Submitted: %s by %s"] = "";
+
+$_t["string"] = "";
+
+$_t["Remember me"] = "";
+
+$_t["This vote is still running."] = "";
+
+$_t["Package category updated."] = "";
+
+$_t["%s already has proposal running for them."] = "";
+
+$_t["Error - No file uploaded"] = "";
+
+$_t["You did not select any packages to disown."] = "";
+
+$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "";
+
+$_t["Votes"] = "";
+
+$_t["Total"] = "";
+
+$_t["No more results to display."] = "";
+
+$_t["Maintainer"] = "";
+
+$_t["Less"] = "";
+
+$_t["You are not allowed to access this area."] = "";
+
+$_t["Any type"] = "";
+
+$_t["Accounts"] = "";
+
+$_t["Could not retrieve proposal details."] = "";
+
+$_t["You do not have permission to edit this account."] = "";
+
+$_t["Click on the Home link above to login."] = "";
+
+$_t["The email address is invalid."] = "";
+
+$_t["Could not change directory to %s."] = "";
+
+$_t["None of the selected packages could be deleted."] = "";
+
+$_t["Your votes have been removed from the selected packages."] = "";
+
+$_t["No packages matched your search criteria."] = "";
+
+$_t["Create"] = "";
+
+$_t["orphan"] = "";
+
+$_t["View this user's packages"] = "";
+
+$_t["Next"] = "下一个";
+
+$_t["Could not re-tar"] = "将不在重新大包";
+
+$_t["You must be logged in before you can adopt packages."] = "在你怀疑前你必须先登录";
+
+$_t["You must create an account before you can upload packages."] = "在你上传包之前你必须创建帐号";
+
+$_t["Location"] = "位置";
+
+$_t["Delete comment"] = "删除注释";
+
+$_t["Account Type"] = "帐户类型";
+
+$_t["Type"] = "类型";
+
+$_t["More"] = "更多";
+
+$_t["Username"] = "帐户";
+
+$_t["Could not create incoming directory: %s."] = "";
+
+$_t["Upload package file"] = "上传包文件";
+
+$_t["(defaults to 7 if empty)"] = "（如果是空的，默认值是7）";
+
+$_t["No New Comment Notification"] = "没有新的通知";
+
+$_t["Couldn't add to notification list."] = "";
+
+$_t["Disown Packages"] = "";
+
+$_t["Files"] = "文件";
+
+$_t["Vote ID not valid."] = "非法的投票选项";
+
+$_t["(empty if not applicable)"] = "";
+
+$_t["Per page"] = "每一页";
+
+$_t["New proposal submitted."] = "";
+
+$_t["Upload"] = "上传";
+
