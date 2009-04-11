@@ -168,7 +168,7 @@ CREATE TABLE PackageVotes (
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
 );
-
+CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageID);
 
 -- The individual files and their file system location.
 --
@@ -206,6 +206,7 @@ CREATE TABLE CommentNotify (
 	FOREIGN KEY (PkgID) REFERENCES Packages(ID) ON DELETE CASCADE,
 	FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
 );
+CREATE UNIQUE INDEX NotifyUserIDPkgID ON CommentNotify (UserID, PkgID);
 
 -- Vote information
 --
