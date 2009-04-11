@@ -437,19 +437,19 @@ function pkg_search_page($SID="") {
 	Packages.Name, Packages.Version, Packages.Description, Packages.NumVotes,
 	Packages.ID, Packages.OutOfDate
 
-	FROM PackageCategories, PackageLocations, Packages
+	FROM Packages
 	LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID) ";
-
 	if ($SID) {
 		$q .= "LEFT JOIN PackageVotes
 		ON (Packages.ID = PackageVotes.PackageID AND PackageVotes.UsersID = $myuid)
 		LEFT JOIN CommentNotify
 		ON (Packages.ID = CommentNotify.PkgID AND CommentNotify.UserID = $myuid) ";
 	}
-	$q .= "WHERE
-	Packages.CategoryID = PackageCategories.ID
-	AND Packages.LocationID = PackageLocations.ID
-	AND Packages.DummyPkg = 0 ";
+	$q .= "LEFT JOIN PackageCategories
+	ON (Packages.CategoryID = PackageCategories.ID)
+	LEFT JOIN PackageLocations
+	ON (Packages.LocationID = PackageLocations.ID)
+	WHERE Packages.DummyPkg = 0 ";
 
 	// TODO: possibly do string matching on category and
 	//       location to make request variable values more sensible
