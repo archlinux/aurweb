@@ -35,9 +35,9 @@ if (!$_REQUEST["ID"]) {
 #
 if ($_REQUEST["del_Comment"]) {
 	if ($_REQUEST["comment_id"]) {
-		if (canDeleteComment($_REQUEST["comment_id"], $atype, $_COOKIE["AURSID"])) {
+		$uid = uid_from_sid($_COOKIE["AURSID"]);
+		if (canDeleteComment($_REQUEST["comment_id"], $atype, $uid)) {
 			$dbh = db_connect();
-			$uid = uid_from_sid($_COOKIE["AURSID"]);
 			$q = "UPDATE PackageComments ";
 			$q.= "SET DelUsersID = ".$uid." ";
 			$q.= "WHERE ID = ".intval($_REQUEST["comment_id"]);

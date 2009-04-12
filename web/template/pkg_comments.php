@@ -1,8 +1,9 @@
 <div class="pgbox">
 <?php
+$uid = uid_from_sid($SID);
 while (list($indx, $carr) = each($comments)) { ?>
 	<div class="comment-header"><?php
-	if (canDeleteComment($carr['ID'], $atype, $SID)) {
+	if (canDeleteCommentArray($carr, $atype, $uid)) {
 		$durl = '<a href="pkgedit.php?del_Comment=1';
 		$durl.= '&comment_id=' . $carr['ID'] . '&ID=' . $row['ID'];
 		$durl.= '"><img src="images/x.png" border="0"';

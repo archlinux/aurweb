@@ -8,13 +8,11 @@ $pkgsearch_vars = array("O", "L", "C", "K", "SB", "SO", "PP", "do_Orphans", "SeB
 # Make sure this visitor can delete the requested package comment
 # They can delete if they were the comment submitter, or if they are a TU/Dev
 #
-function canDeleteComment($comment_id=0, $atype="", $SID="") {
+function canDeleteComment($comment_id=0, $atype="", $uid=0) {
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
-		#
 		return TRUE;
 	}
-	$uid = uid_from_sid($SID);
 	$dbh = db_connect();
 	$q = "SELECT COUNT(ID) AS CNT ";
 	$q.= "FROM PackageComments ";
@@ -26,6 +24,20 @@ function canDeleteComment($comment_id=0, $atype="", $SID="") {
 		if ($row['CNT'] > 0) {
 			return TRUE;
 		}
+	}
+	return FALSE;
+}
+
+# Make sure this visitor can delete the requested package comment
+# They can delete if they were the comment submitter, or if they are a TU/Dev
+#
+function canDeleteCommentArray($comment, $atype="", $uid=0) {
+	if ($atype == "Trusted User" || $atype == "Developer") {
+		# A TU/Dev can delete any comment
+		return TRUE;
+	} else if ($comment['UsersID'] == $uid) {
+		# User's own comment
+		return TRUE;
 	}
 	return FALSE;
 }
