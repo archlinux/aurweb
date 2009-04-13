@@ -3,10 +3,6 @@
  * AurJSON
  * 
  * This file contains the AurRPC remote handling class
- * @author eliott <eliott@cactuswax.net>
- * @version $Id$
- * @copyright cactuswax.net, 12 October, 2007
- * @package rpc
  **/
 if (!extension_loaded('json'))
 {

@@ -415,7 +415,6 @@ function uid_from_username($username="")
  * @param string $append string of variables and values formatted as in URLs
  * ex. mkurl("foo=bar&bar=baz")
  * @return string clean string of variables to append to URL, urlencoded
- * @author Callan Barrett
  */
 function mkurl($append) {
 	$get = $_GET;
