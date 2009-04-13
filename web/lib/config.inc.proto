@@ -32,6 +32,7 @@ $SUPPORTED_LANGS = array(
 	"pt" => "Português",
 	"ru" => "Русский",
 	"tr" => "Türkçe",
+	"uk" => "Українська",
 	"zh_CN" => "简体中文"
 );
 
