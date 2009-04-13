@@ -43,8 +43,7 @@ function __() {
 	global $_t;
 	global $LANG;
 
-	# create the translation, if it doesn't exist, highlight it
-	#
+	# Create the translation.
 	$args = func_get_args();
 
 	# First argument is always string to be translated
@@ -52,12 +51,14 @@ function __() {
 
 	if (empty($LANG) || $LANG == DEFAULT_LANG)
 		$translated = $tag;
-	else
-		$translated = $_t[$tag];
-
-	# If there is no translation, just print the given string.
-	if (empty($translated)) {
-		$translated = $tag;
+	else {
+		# If there is no translation, just print the given string.
+		if (empty($_t[$tag])) {
+			$translated = $tag;
+		}
+		else {
+			$translated = $_t[$tag];
+		}
 	}
 
 	$translated = htmlspecialchars($translated, ENT_QUOTES); 
