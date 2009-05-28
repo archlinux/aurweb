@@ -11,7 +11,7 @@
 	<input type='submit' style='width:80px'  class='button' name='do_Orphans' value='<?php print __("Orphans"); ?>' />
 
 <?php endif; ?>
-	<a href="?<?php print mkurl('detail=' . ((!empty($_GET['detail'])) ? 0 : 1) ) ?>">Advanced</a>
+	<a href="?<?php print mkurl('detail=' . ((!empty($_GET['detail'])) ? 0 : 1) ) ?>"><?php print __("Advanced"); ?></a>
 </div>
 
 			<?php if (!empty($_GET['detail'])): ?>
