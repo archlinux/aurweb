@@ -1,7 +1,6 @@
 <?php
 # Russian (Русский) translation
-# Translator: Sergej Pupykin <ps@lx-ltd.ru>
-
+# Translator: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 $_t["Use this form to update your account."] = "Используйте эту форму для изменения вашей учетной записи.";
 
@@ -615,7 +614,7 @@ $_t["Missing "] = "Отсутствуют";
 
 $_t["Proposal:"] = "Предложение:";
 
-$_t["No"] = "Против";
+$_t["No"] = "Нет";
 
 $_t["Username does not exist."] = "Такого пользователя нет.";
 
@@ -663,7 +662,43 @@ $_t["All Votes"] = "Всего";
 
 $_t["Could not retrieve proposal details."] = "Не получилось показать предложение.";
 
-$_t["Yes"] = "За";
+$_t["Advanced"] = "Дополнительно";
+
+$_t["Some packages may be provided as binaries in [community]."] = "Некоторые пакеты могут быть представлены в бинарном виде в репозитории [community].";
+
+$_t["DISCLAIMER"] = "ВНИМАНИЕ";
+
+$_t["Unsupported packages are user produced content. Any use of the provided files is at your own risk."] = "Пакеты в unsupported созданы пользователями. Используйте их на свой страх и риск.";
+
+$_t["Yes"] = "Да";
 
 $_t["Applicant/TU:"] = "Кандидат/TU";
+
+$_t["Submitted: %s by %s"] = "Получено: %s %s";
+
+$_t["string"] = "строка";
+
+$_t["Remember me"] = "Напомнить";
+
+$_t["Total"] = "Всего";
+
+$_t["This vote is still running."] = "Голосование продолжается";
+
+$_t["UnFlag Out-of-date"] = "Снять флаг устаревший";
+
+$_t["No results found."] = "Нет результатов";
+
+$_t["Start"] = "Начато";
+
+$_t["End"] = "Завершится";
+
+$_t["This is a %h%s%h problem!"] = "Это %h%s%h проблема!";
+
+$_t["Proposal"] = "Предложение";
+
+$_t["UnVote"] = "Убрать голос";
+
+$_t["%s has %s apples."] = "%s %s";
+
+$_t["Proposal Details"] = "Подробнее о предложении";
 
