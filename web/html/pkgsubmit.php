@@ -77,6 +77,9 @@ if ($_COOKIE["AURSID"]):
 			$paren_depth = 0;
 			while (!feof($fp)) {
 				$line = trim(fgets($fp));
+				# Remove comments
+				$line = preg_replace('/\s*#.*/', '', $line);
+
 				$char_counts = count_chars($line, 0);
 				$paren_depth += $char_counts[ord('(')] - $char_counts[ord(')')];
 				if (substr($line, strlen($line)-1) == "\\") {
@@ -118,9 +121,6 @@ if ($_COOKIE["AURSID"]):
 			while (list($k, $line) = each($lines)) {
 				# Neutralize parameter substitution
 				$line = preg_replace('/\${(\w+)#(\w*)}?/', '$1$2', $line);
-
-				# Remove comments
-				$line = preg_replace('/\s*#.*/', '', $line);
 
 				$lparts = Array();
 				# Match variable assignment only.
