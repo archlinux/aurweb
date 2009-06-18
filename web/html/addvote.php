@@ -78,7 +78,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 <b><?php print __('Proposal') ?></b><br />
 <textarea name='agenda' rows='10' cols='50'><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
 <input type='hidden' name='addVote' value='1'>
-<input type='submit' class='button' value='Submit'>
+<input type='submit' class='button' value='<?php print __('Submit'); ?>'>
 </form>
 <br />
 <?php
