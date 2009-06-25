@@ -61,7 +61,7 @@ function __() {
 		}
 	}
 
-	$translated = htmlspecialchars($translated, ENT_QUOTES); 
+	$translated = htmlspecialchars($translated, ENT_QUOTES);
 
 	# This condition is to reorganise the arguments in case of
 	# deprecated usage. __("string", array("string","string"))

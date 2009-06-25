@@ -53,4 +53,3 @@ while ($row = mysql_fetch_assoc($result)) {
 #save it so that useCached() can find it
 $rss->saveFeed("RSS2.0","xml/newestpkg.xml",true);
 
-?>

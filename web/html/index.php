@@ -23,7 +23,7 @@ $dbh = db_connect();
 <div class="frontpgboxbody">
 <p>
 
-<?php 
+<?php
 echo __(
 	'Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.',
 	'<a href="http://wiki.archlinux.org/index.php/AUR_User_Guidelines">',

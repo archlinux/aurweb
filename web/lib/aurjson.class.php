@@ -1,7 +1,7 @@
 <?php
 /**
  * AurJSON
- * 
+ *
  * This file contains the AurRPC remote handling class
  **/
 if (!extension_loaded('json'))

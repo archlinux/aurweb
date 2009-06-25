@@ -133,15 +133,15 @@ if ($_COOKIE["AURSID"]):
 					# array parens and any quoting, except in pkgdesc
 					# for pkgdesc, only remove start/end pairs of " or '
 					if ($lparts[0]=="pkgdesc") {
-						if ($lparts[1]{0} == '"' && 
+						if ($lparts[1]{0} == '"' &&
 								$lparts[1]{strlen($lparts[1])-1} == '"') {
 							$pkgbuild[$lparts[0]] = substr($lparts[1], 1, -1);
 						}
-						elseif 
-							($lparts[1]{0} == "'" && 
+						elseif
+							($lparts[1]{0} == "'" &&
 							 $lparts[1]{strlen($lparts[1])-1} == "'") {
 							$pkgbuild[$lparts[0]] = substr($lparts[1], 1, -1);
-						} else { 
+						} else {
 							$pkgbuild[$lparts[0]] = $lparts[1];
 						}
 					} else {
@@ -158,7 +158,7 @@ if ($_COOKIE["AURSID"]):
 			}
 
 			# some error checking on PKGBUILD contents - just make sure each
-			# variable has a value.	This does not do any validity checking
+			# variable has a value. This does not do any validity checking
 			# on the values, or attempts to fix line continuation/wrapping.
 			#
 			if (!$seen_build_function) {
@@ -180,7 +180,7 @@ if ($_COOKIE["AURSID"]):
 		#
 
 		# Check for http:// or other protocol in url
-		# 
+		#
 		if (!$error) {
 			$parsed_url = parse_url($pkgbuild['url']);
 			if (!$parsed_url['scheme']) {

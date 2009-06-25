@@ -10,7 +10,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'GET' ) {
     if ( isset($_GET['type']) ) {
         echo $rpc_o->handle($_GET);
     }
-    else { 
+    else {
         // dump a simple usage output for people to use.
         // this could be moved to an api doc in the future, or generated from 
         // the AurJSON class directly with phpdoc. For now though, just putting it here.

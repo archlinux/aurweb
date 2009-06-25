@@ -176,7 +176,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	global $SUPPORTED_LANGS;
 
 	if(isset($_COOKIE['AURSID']))
-		$editor_user = 	uid_from_sid($_COOKIE['AURSID']);
+		$editor_user = uid_from_sid($_COOKIE['AURSID']);
 	else
 		$editor_user = null;
 
@@ -237,7 +237,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$row = mysql_fetch_array($result);
 			if ($row[0]) {
 				$error = __("The username, %h%s%h, is already in use.",
-				 	"<b>", $U, "</b>");
+					"<b>", $U, "</b>");
 			}
 		}
 	}
@@ -607,7 +607,7 @@ function display_account_info($U="",$T="",
  * SID of 0 means login failed.
  */
 function try_login() {
-	$login_error = ""; 
+	$login_error = "";
 	$new_sid = "";
 	$userID = null;
 
