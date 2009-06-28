@@ -36,7 +36,8 @@ $ git clone git://projects.archlinux.org/aur.git aur-git
    run translation_tool again, and it will continue from where you left off. 
 
 $ cd aur-git
-$ git checkout -b testing origin/testing
+$ git checkout master
+$ git pull
 $ cd web/lang
 $ ./translation_tool
 
