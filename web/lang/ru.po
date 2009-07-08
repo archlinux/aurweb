@@ -150,6 +150,7 @@ $_t["Create"] = "Создать";
 
 $_t["More"] = "Далее";
 
+$_t["Previous"] = "Назад";
 
 
 $_t["Statistics"] = "Статистика";
@@ -198,7 +199,7 @@ $_t["Password:"] = "Пароль:";
 
 $_t["Registered Users"] = "Зарегистрированных пользователей";
 
-$_t["Logged-in as: %s"] = "Вошли как: %s";
+$_t["Logged-in as: %s"] = "Вы вошли как: %s";
 
 $_t["Incorrect password for username, %s."] = "Неверный пароль для пользователя %s.";
 
@@ -674,7 +675,7 @@ $_t["Submitted: %s by %s"] = "Получено: %s %s";
 
 $_t["string"] = "строка";
 
-$_t["Remember me"] = "Напомнить";
+$_t["Remember me"] = "Запомнить меня";
 
 $_t["Total"] = "Всего";
 
@@ -684,9 +685,9 @@ $_t["UnFlag Out-of-date"] = "Снять флаг устаревший";
 
 $_t["No results found."] = "Нет результатов";
 
-$_t["Start"] = "Начато";
+$_t["Start"] = "Начало";
 
-$_t["End"] = "Завершится";
+$_t["End"] = "Конец";
 
 $_t["This is a %h%s%h problem!"] = "Это %h%s%h проблема!";
 
