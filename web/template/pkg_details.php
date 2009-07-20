@@ -1,9 +1,11 @@
 <?php
+
+$pkgid = intval($_REQUEST['ID']);
 if ($row["Location"] == "unsupported" and ($uid == $row["MaintainerUID"] or
 	($atype == "Developer" or $atype == "Trusted User"))) {
 
 	$edit_cat = "<a href='pkgedit.php?change_Category=1&amp;ID=";
-	$edit_cat .= intval($_REQUEST["ID"])."'>".$row["Category"]."</a>";
+	$edit_cat .= $pkgid ."'>".$row["Category"]."</a>";
 	$edit_cat .= " &nbsp;<span class='fix'>(";
 	$edit_cat .= __("change category").")</span>";
 }
@@ -19,6 +21,11 @@ if ($row["MaintainerUID"]) {
 
 } else {
 	$maintainer = "None";
+}
+
+$votes = __('Votes') . ': ' . $row['NumVotes'];
+if ($atype == "Developer" or $atype == "Trusted User") {
+	$votes = "<a href=\"voters.php?ID=$pkgid\">$votes</a>";
 }
 
 # In case of wanting to put a custom message
@@ -43,7 +50,11 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval(
 	<p>
 	<span class='f3'><?php echo $row['Location'] . ' :: ' . $edit_cat ?></span><br />
 	<span class='f3'><?php echo __('Maintainer') .': ' . $maintainer ?></span><br />
-	<span class='f3'><?php echo __('Votes') . ': ' . $row['NumVotes'] ?></span>
+	<span class='f3'><?php echo $votes ?></span>
+<?php
+if ($atype == "Developer" or $atype == "Trusted User") { ?>
+	<a href="voters.php?ID=<?php echo intval($_REQUEST['ID']) ?>"></a>
+<?php } ?>
 	</p>
 
 	<p><span class='f3'><?php echo __('License') . ': ' . $license ?></span></p>
