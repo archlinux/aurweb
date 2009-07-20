@@ -51,10 +51,6 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval(
 	<span class='f3'><?php echo $row['Location'] . ' :: ' . $edit_cat ?></span><br />
 	<span class='f3'><?php echo __('Maintainer') .': ' . $maintainer ?></span><br />
 	<span class='f3'><?php echo $votes ?></span>
-<?php
-if ($atype == "Developer" or $atype == "Trusted User") { ?>
-	<a href="voters.php?ID=<?php echo intval($_REQUEST['ID']) ?>"></a>
-<?php } ?>
 	</p>
 
 	<p><span class='f3'><?php echo __('License') . ': ' . $license ?></span></p>
