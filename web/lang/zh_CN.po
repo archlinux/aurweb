@@ -9,8 +9,8 @@
 #
 # Chinese Simplified (简体中文) translation
 #
-# Maintainer: Mod Gao <mod.gao <at| gmail.com>
-# Maintainer: Huntxu <mhuntxu <at| gmail.com>
+# Maintainer: Mod Gao <mod.gao |at| gmail.com>
+# Maintainer: Huntxu <mhuntxu |at| gmail.com>
 # Contributor: supern_lee <supern.lee@gmail.com>
 
 global $_t;
@@ -29,11 +29,12 @@ $_t["Username does not exist."] = "此用户不存在。";
 
 $_t["Tarball"] = "压缩包";
 
-$_t["Can contain only one period, underscore or hyphen."] = "只能包含一个“.”，“_”，或“-”。";
+# no period at last is right of this translation, dont change.
+$_t["Can contain only one period, underscore or hyphen."] = "只能包含一个“.”，“_”，或“-”";
 
 $_t["Unflag Out-of-date"] = "取消标记为过期";
 
-$_t["Missing package ID."] = "丢失包标。识";
+$_t["Missing package ID."] = "丢失包标识。";
 
 $_t["You must be logged in before you can unflag packages."] = "您需要登录后才能移除包标记。";
 
@@ -53,9 +54,9 @@ $_t["change category"] = "改变类别";
 
 $_t["Error retrieving package list."] = "无法获取包列表。";
 
-$_t["Reset"] = "重置";
+$_t["Reset"] = "清空";
 
-$_t["Submitted: %s by %s"] = "";
+$_t["Submitted: %s by %s"] = "已提交 %s 由 %s";
 
 $_t["string"] = "";
 
@@ -65,11 +66,11 @@ $_t["This vote is still running."] = "投票仍在继续。";
 
 $_t["Package category updated."] = "软件包类别已更新。";
 
-$_t["%s already has proposal running for them."] = "";
+$_t["%s already has proposal running for them."] = "%s 已经有了关于他们的提议。";
 
 $_t["Error - No file uploaded"] = "发生错误 - 没有文件被上传";
 
-$_t["You did not select any packages to disown."] = "您未选择要弃置的包。";
+$_t["You did not select any packages to disown."] = "您没有选择要弃置的包。";
 
 $_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "包的 URL 缺少协议（如 http://，ftp://）";
 
@@ -89,13 +90,13 @@ $_t["Any type"] = "所有类型";
 
 $_t["Accounts"] = "帐户";
 
-$_t["Could not retrieve proposal details."] = "";
+$_t["Could not retrieve proposal details."] = "无法获取提议详情。";
 
 $_t["You do not have permission to edit this account."] = "您没有权限修改此帐户。";
 
 $_t["Click on the Home link above to login."] = "点击上方的首页链接以登录。";
 
-$_t["The email address is invalid."] = "无效的 email 地址。";
+$_t["The email address is invalid."] = "无效的 Email 地址。";
 
 $_t["Could not change directory to %s."] = "无法切换目录至 %s。";
 
@@ -129,13 +130,13 @@ $_t["Type"] = "类型";
 
 $_t["More"] = "更多";
 
-$_t["Start and end with a letter or number"] = "";
+$_t["Start and end with a letter or number"] = "开头和结尾必须是数字或英文字母";
 
 $_t["Could not create incoming directory: %s."] = "无法创建目录：%s。";
 
 $_t["Upload package file"] = "上传包文件";
 
-$_t["(defaults to 7 if empty)"] = "（如果是空的，默认值是7）";
+$_t["(defaults to 7 if empty)"] = "（如果不填，默认为7）";
 
 $_t["No New Comment Notification"] = "没有新的评论通知";
 
@@ -143,7 +144,7 @@ $_t["Couldn't add to notification list."] = "无法将您添加到通知列表�
 
 $_t["Disown Packages"] = "弃置包";
 
-$_t["Advanced"] = "";
+$_t["Advanced"] = "高级";
 
 $_t["Files"] = "文件";
 
@@ -153,7 +154,7 @@ $_t["(empty if not applicable)"] = "（如果不符合可以留空）";
 
 $_t["Per page"] = "每页";
 
-$_t["New proposal submitted."] = "";
+$_t["New proposal submitted."] = "新提议已被提交。";
 
 $_t["Upload"] = "上传";
 
@@ -207,7 +208,7 @@ $_t["You must be logged in before you can flag packages."] = "您需要登录后
 
 $_t["No results found."] = "没有找到结果。";
 
-$_t["No"] = "不";
+$_t["No"] = "否";
 
 $_t["Discussion"] = "讨论";
 
@@ -219,7 +220,7 @@ $_t["Add"] = "添加";
 
 $_t["You did not select any packages to adopt."] = "您没有选择要接管的包。";
 
-$_t["Length must be at least 1."] = "长度需要不小于1。";
+$_t["Length must be at least 1."] = "长度必须不小于1。";
 
 $_t["Error trying to create account, %h%s%h: %s."] = "尝试创建帐户失败，%h%s%h：%s。";
 
@@ -249,7 +250,7 @@ $_t["Missing comment ID."] = "评论标识丢失。";
 
 $_t["Error trying to retrieve package details."] = "尝试重新获取包详情时发生错误。";
 
-$_t["Proposal cannot be empty."] = "";
+$_t["Proposal cannot be empty."] = "提议不能为空。";
 
 $_t["User"] = "用户";
 
@@ -267,7 +268,7 @@ $_t["Language"] = "语言";
 
 $_t["Orphans"] = "孤儿包";
 
-$_t["Voting is closed for this proposal."] = "";
+$_t["Voting is closed for this proposal."] = "该提议的投票已被关闭。";
 
 $_t["Bugs"] = "Bugs";
 
@@ -275,11 +276,11 @@ $_t["Showing results %s - %s of %s"] = "显示结果 %s - %s，共 %s 个";
 
 $_t["Active"] = "激活";
 
-$_t["You've already voted for this proposal."] = "";
+$_t["You've already voted for this proposal."] = "您已经在这个提议上投票了。";
 
 $_t["Required by"] = "被需要";
 
-$_t["You cannot vote in an proposal about you."] = "";
+$_t["You cannot vote in an proposal about you."] = "您不能在关于您的提议里投票。";
 
 $_t["You did not select any packages to unflag."] = "您没有选择要取消标记的包。";
 
@@ -295,7 +296,7 @@ $_t["Flag Out-of-date"] = "标记为过期";
 
 $_t["The selected packages have been unflagged."] = "选中的包的标记已被移除。";
 
-$_t["Search Criteria"] = "搜索条件";
+$_t["Search Criteria"] = "搜索";
 
 $_t["Notify"] = "通知";
 
@@ -309,7 +310,7 @@ $_t["Package Listing"] = "包列表";
 
 $_t["Any"] = "任意";
 
-$_t["It must be between %s and %s characters long"] = "必须在 %s 到 %s 个长度之间";
+$_t["It must be between %s and %s characters long"] = "必须在 %s 到 %s 个字符之间";
 
 $_t["Logout"] = "退出";
 
@@ -321,13 +322,13 @@ $_t["Submit"] = "提交";
 
 $_t["Sorry, uploads are not permitted by this server."] = "抱歉，此服务器不允许上传。";
 
-$_t["Actions"] = "";
+$_t["Actions"] = "操作";
 
 $_t["Comment has been deleted."] = "评论已被删除。";
 
 $_t["The username, %h%s%h, is already in use."] = "用户名 %h%s%h 已被使用。";
 
-$_t["Proposal"] = "";
+$_t["Proposal"] = "提议";
 
 $_t["You did not select any packages to flag."] = "您没有选择要标记的包。";
 
@@ -363,7 +364,7 @@ $_t["Password fields do not match."] = "密码项不符合。";
 
 $_t["Username"] = "用户名";
 
-$_t["The username is invalid."] = "此用户名不合格。";
+$_t["The username is invalid."] = "此用户名不符合。";
 
 $_t["Could not retrieve information for the specified user."] = "无法获取指定用户的信息。";
 
@@ -377,6 +378,8 @@ $_t["Error retrieving package details."] = "获取包详情是发生错误。";
 
 $_t["Length must be a number."] = "长度必须是数字。";
 
+$_t["%s has %s apples."] = "";
+
 $_t["You must be logged in before you can un-vote for packages."] = "您需要登录后才能取消投票。";
 
 $_t["Login"] = "登录";
@@ -385,7 +388,7 @@ $_t["Use this form to create an account."] = "使用此表单创建帐号。";
 
 $_t["Use this form to update your account."] = "使用此表单更新帐号。";
 
-$_t["Abstain"] = "";
+$_t["Abstain"] = "弃权";
 
 $_t["Could not chmod directory %s."] = "无法修改 %s 的目录权限。";
 
@@ -393,11 +396,11 @@ $_t["You are not allowed to delete this comment."] = "您没有权限删除此�
 
 $_t["required"] = "必填";
 
-$_t["Sort by"] = "排列";
+$_t["Sort by"] = "排列依据";
 
-$_t["Submit a proposal to vote on."] = "";
+$_t["Submit a proposal to vote on."] = "提交一个提议用于投票。";
 
-$_t["Proposal Details"] = "";
+$_t["Proposal Details"] = "提议详情";
 
 $_t["Language is not currently supported."] = "目前不支持此语言。";
 
@@ -412,4 +415,67 @@ $_t["You have been added to the comment notification list for %s."] = "您已被
 $_t["Select new category"] = "选择一个新类别";
 
 $_t["A Trusted User cannot assign Developer status."] = "受信用户不能指派开发人员状态。";
+
+# new stuff that official translating material not included.
+# new stuff that official translating material not included.
+
+$_t["Out-of-date"] = "过期包";
+
+$_t["Age"] = "时间";
+
+$_t["Submitter"] = "提交人";
+
+$_t["Bad username or password."] = "用户名或密码错误。";
+
+$_t["Legend"] = "图例";
+
+$_t["Ascending"] = "从小到大";
+
+$_t["Descending"] = "从大到小";
+
+$_t["Sources"] = "源代码";
+
+$_t["License"] = "协议";
+
+$_t["Last Updated"] = "最后更新";
+
+$_t["First Submitted"] = "首次提交";
+
+$_t["Enter your comment below."] = "在这里写上您的评论。";
+
+$_t["unknown"] = "未知";
+
+$_t["Comment by: %s on %s"] = "该评论由 %s 添加于 %s";
+
+$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "欢迎来到AUR！请阅读 %hAUR User Guidelines%h 和 %hAUR TU Guidelines%h 获取更多信息。";
+
+$_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "贡献的PKGBUILD%h必须%h符合 %hArch Packaging Standards%h，否则将被删除！";
+
+$_t["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "为您喜欢的包投票！最流行的包将以二进制包的形式提供于 [community] 仓库。";
+
+$_t["Remember to vote for your favourite packages!"] = "为您喜欢的包投票！";
+
+$_t["The most popular packages will be provided as binary packages in [community]."] = "最流行的包将以二进制包的形式提供于 [community] 仓库。";
+
+$_t["DISCLAIMER"] = "免责声明";
+
+$_t["Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk."] = "位于 unsupported 的包属于用户生成的数据。请对使用而产生的后果负责。";
+
+$_t["Recent Updates"] = "最新更新";
+
+$_t["My Statistics"] = "我的状态";
+
+$_t["Packages in unsupported"] = "位于 unsupported 的包";
+
+$_t["Out of Date"] = "过期包";
+
+$_t["Statistics"] = "状态";
+
+$_t["Packages in [community]"] = "位于 [community] 的包";
+
+$_t["Packages added or updated in the past 7 days"] = "过去7天内更新或添加的包";
+
+$_t["Registered Users"] = "注册用户";
+
+$_t["Trusted Users"] = "受信用户";
 
