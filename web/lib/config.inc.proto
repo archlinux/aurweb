@@ -30,6 +30,7 @@ $SUPPORTED_LANGS = array(
 	"it" => "Italiano",
 	"pl" => "Polski",
 	"pt" => "Português",
+	"ro" => "Română",
 	"ru" => "Русский",
 	"tr" => "Türkçe",
 	"uk" => "Українська",
