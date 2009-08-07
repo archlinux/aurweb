@@ -4,10 +4,11 @@
  *
  * This file contains the AurRPC remote handling class
  **/
-if (!extension_loaded('json'))
-{
+if (!extension_loaded('json')) {
     dl('json.so');
 }
+
+include_once("aur.inc");
 
 /**
  * This class defines a remote interface for fetching data 

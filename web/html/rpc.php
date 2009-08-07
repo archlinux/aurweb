@@ -2,8 +2,7 @@
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
-include("aur.inc");
-include("aurjson.class.php");
+include_once("aurjson.class.php");
 
 if ( $_SERVER['REQUEST_METHOD'] == 'GET' ) {
     if ( isset($_GET['type']) ) {

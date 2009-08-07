@@ -2,10 +2,10 @@
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
-include("aur.inc");         # access AUR common functions
-set_lang();                 # this sets up the visitor's language
-include('pkgfuncs.inc');    # package specific functions
-check_sid();                # see if they're still logged in
+include_once("aur.inc");      # access AUR common functions
+set_lang();                   # this sets up the visitor's language
+include_once('pkgfuncs.inc'); # package specific functions
+check_sid();                  # see if they're still logged in
 
 # Set the title to the current query if required
 if (isset($_GET['ID'])) {

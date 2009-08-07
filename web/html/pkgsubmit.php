@@ -1,13 +1,13 @@
 <?php
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
-include("config.inc");
+include_once("config.inc");
 
-require('Archive/Tar.php');
-require('Find.php');
+require_once('Archive/Tar.php');
+require_once('Find.php');
 
-include("aur.inc");         # access AUR common functions
-include("pkgfuncs.inc");    # package functions
+include_once("aur.inc");         # access AUR common functions
+include_once("pkgfuncs.inc");    # package functions
 
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in

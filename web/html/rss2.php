@@ -2,9 +2,9 @@
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 
-include("aur.inc");
+include_once("aur.inc");
 
-include("feedcreator.class.php");
+include_once("feedcreator.class.php");
 
 #If there's a cached version <1hr old, won't regenerate now
 $rss = new UniversalFeedCreator();

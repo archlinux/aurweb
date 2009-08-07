@@ -2,11 +2,11 @@
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
-include("aur.inc");
+include_once("aur.inc");
 set_lang();
 check_sid();
 
-include('stats.inc');
+include_once('stats.inc');
 
 html_header( __("Home") );
 
