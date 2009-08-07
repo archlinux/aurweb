@@ -1,13 +1,13 @@
 <?php
 
-set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
 include("aur.inc");
 include("aurjson.class.php");
 
-$rpc_o = new AurJSON();
 if ( $_SERVER['REQUEST_METHOD'] == 'GET' ) {
     if ( isset($_GET['type']) ) {
+        $rpc_o = new AurJSON();
         echo $rpc_o->handle($_GET);
     }
     else {
