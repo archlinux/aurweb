@@ -19,23 +19,6 @@
 				<input type="hidden" name="detail" value="1" />
 				<ul>
 					<li>
-						<label><?php print __("Location"); ?></label>
-						<select name='L'>
-							<option value="0"><?php print __("Any"); ?></option>
-							<?php
-							foreach (pkgLocations() as $id => $loc):
-								if (intval($_GET["L"]) == $id):
-							?>
-							<option value="<?php print $id; ?>" selected="selected"><?php print $loc; ?></option>
-							<?php else: ?>
-							<option value="<?php print $id; ?>"><?php print $loc; ?></option>
-							<?php
-								endif;
-							endforeach;
-							?>
-						</select>
-					</li>
-					<li>
 						<label><?php print __("Category"); ?></label>
 						<select name='C'>
 							<option value='0'><?php print __("Any"); ?></option>
