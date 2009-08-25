@@ -67,11 +67,6 @@ function user_table($user, $dbh)
 	# If the user is a TU calculate the number of the packages
 	$atype = account_from_sid($_COOKIE["AURSID"]);
 
-	if (($atype == 'Trusted User') || ($atype == 'Developer')) {
-		$maintainer_community_count = db_cache_value(sprintf($base_q, 'community'), $dbh,
-			$apc_prefix . 'user_community_count:' . $escuser);
-	}
-
 	include('stats/user_table.php');
 }
 
@@ -81,9 +76,6 @@ function general_stats_table($dbh)
 	# AUR statistics
 	$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported'";
 	$unsupported_count = db_cache_value($q, $dbh, $apc_prefix . 'unsupported_count');
-
-	$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'community'";
-	$community_count = db_cache_value($q, $dbh, $apc_prefix . 'community_count');
 
 	$q = "SELECT count(*) from Users";
 	$user_count = db_cache_value($q, $dbh, $apc_prefix . 'user_count');

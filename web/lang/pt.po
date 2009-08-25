@@ -211,8 +211,6 @@ $_t["Packages in unsupported"] = "Pacotes no repositório unsupported";
 
 $_t["Packages in unsupported and flagged as safe"] = "Pacotes no repositório unsupported e marcados como seguro";
 
-$_t["Packages in [community]"] = "Pacotes no repositório [community]";
-
 $_t["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "Lembre-se de votar nos seus pacotes favoritos! Os pacotes mais populares serão disponibilizados como pacotes binários no repositório [community].";
 
 $_t["Remember to vote for your favourite packages!"] = "Lembre-se de votar nos seus pacotes favoritos!";

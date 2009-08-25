@@ -215,8 +215,6 @@ $_t["Packages in unsupported"] = "Desteklenmeyen paketler";
 
 $_t["Packages in unsupported and flagged as safe"] = "Desteklenmeyen ve güvenli olarak olarak işaretlenen paketler";
 
-$_t["Packages in [community]"] = "[community] üzerindeki paketler";
-
 $_t["Remember to vote for your favourite packages!"] = "Beğendiğiniz paketleri oylamayı unutmayın!";
 
 $_t["Packages added or updated in the past 7 days"] = "Son 7 günde eklenen ya da güncellenen paketler";

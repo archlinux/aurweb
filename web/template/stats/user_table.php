@@ -17,21 +17,6 @@
 </td>
 </tr>
 
-<?php if (($atype == 'Trusted User') || ($atype == 'Developer')) : ?>
-
-<tr>
-<td class='boxSoft'>
-<span class='f4'><a href="packages.php?SeB=m&amp;L=3&amp;K=<?php echo $username; ?>">
-<?php print __("Packages in [community]"); ?></a></span>
-</td>
-<td class='boxSoft'>
-<span class='f4'>
-<?php echo $maintainer_community_count; ?></span>
-</td>
-</tr>
-
-<?php endif; ?>
-
 <tr>
 <td class='boxSoft'>
 <span class='f4'><a href="packages.php?SeB=m&amp;outdated&amp;K=<?php echo $username; ?>">

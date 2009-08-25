@@ -471,8 +471,6 @@ $_t["Out of Date"] = "过期包";
 
 $_t["Statistics"] = "状态";
 
-$_t["Packages in [community]"] = "位于 [community] 的包";
-
 $_t["Packages added or updated in the past 7 days"] = "过去7天内更新或添加的包";
 
 $_t["Registered Users"] = "注册用户";

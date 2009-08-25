@@ -68,9 +68,6 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval(
 			$urlpath = URL_DIR . $row['Name'] . '/' . $row['Name'];
 			print "<a href='$urlpath.tar.gz'>".__("Tarball")."</a> :: <a href='$urlpath'>".__("Files")."</a> :: <a href='$urlpath/PKGBUILD'>PKGBUILD</a></span>";
 		}
-		elseif ($row['LocationID'] == 3) {
-			echo "<a href='http://repos.archlinux.org/viewvc.cgi/community/" . $row["Category"] . "/" . $row["Name"] . "/?root=community&pathrev=CURRENT'>CVS</a>";
-		}
 
 		if ($row["OutOfDate"] == 1) {
 			echo "<br /><span class='f6'>".__("This package has been flagged out of date.")."</span>";
@@ -165,9 +162,6 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval(
 				if ($row["LocationID"] == 2) {
 					echo "<a href='".dirname($row['URLPath'])."/".$row['Name'];
 					echo "/$src'>$src</a><br />\n";
-				} elseif ($row["LocationID"] == 3) {
-					echo "<a href='http://repos.archlinux.org/viewvc.cgi/community/" . $row["Category"] . "/" . $row["Name"] . "/?root=community&pathrev=CURRENT'>";
-					echo "$src</a><br />\n";
 				}
 			}
 		}

@@ -175,8 +175,6 @@ $_t["Packages in unsupported and flagged as safe"] = "Безопасных па�
 
 $_t["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Хотя мы не можем  поручиться за содержимое, мы предоставляем %hсписок пользовательских репозитариев%h для удобства.";
 
-$_t["Packages in [community]"] = "Пакетов в [community]";
-
 $_t["Recent Updates"] = "Последние обновления";
 
 $_t["Your account has been suspended."] = "Действие вашей учетной записи приостановлено.";

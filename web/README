@@ -147,11 +147,11 @@ Scripts:
 
 - html/packages.php
   PHP script to search the package database.  It should support
-  searching by location ("unsupported", "community", "extra"), name,
-  category, maintainer, popularity, etc.  It should resemble the
-  packages.php script on archlinux.org.  A checkbox should be
-  included next to each package to allow users to flag a package
-  out of date, adopt it, and vote for it (and reverse operations).
+  searching by name, category, maintainer, popularity, etc. It
+  should resemble the packages.php script on archlinux.org. A
+  checkbox should be included next to each package to allow
+  users to flag a package out of date, adopt it, and vote for
+  it (and reverse operations).
 
 - html/pkgsubmit.php
   This is the PHP script that allows users to upload a new package.

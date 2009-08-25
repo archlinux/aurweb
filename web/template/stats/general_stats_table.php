@@ -12,12 +12,6 @@
 </tr>
 <tr>
 <td class='boxSoft'>
-<span class='f4'><?php print __("Packages in [community]"); ?></span>
-</td>
-<td class='boxSoft'><span class='f4'><?php print $community_count; ?></span></td>
-</tr>
-<tr>
-<td class='boxSoft'>
 <span class='f4'><?php print __("Packages added or updated in the past 7 days"); ?></span>
 </td>
 <td class='boxSoft'><span class='f4'><?php print $update_count; ?></span></td>

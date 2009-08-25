@@ -206,8 +206,6 @@ $_t["Trusted Users"] = "Zaufanych Użytkowników";
 
 $_t["Packages added or updated in the past 7 days"] = "Pakietów dodanych lub zmienionych w ostatnich 7 dniach";
 
-$_t["Packages in [community]"] = "Pakietów w [community]";
-
 $_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Witamy w AUR! Aby uzyskać więcej informacji, przeczytaj %hInstrukcję Użytkownika%h oraz %hInstrukcję Zaufanego Użytkownika%h.";
 
 $_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Pliki PKGBUILD %hmuszą%h być zgodne ze %hStandardami Pakietów Archa%h, inaczej będą usuwane!";
