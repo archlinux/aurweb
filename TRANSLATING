@@ -41,7 +41,10 @@ $ git pull
 $ cd web/lang
 $ ./translation_tool
 
-3. To commit your patch to your branch:
+3. Add a line for the new translation in web/lib/config.inc.proto
+4. Add an entry in the AUTHORS file.
+
+5. To commit your patch to your branch:
 
 $ git add <all edited files>
 $ git commit -s
@@ -49,11 +52,11 @@ $ git commit -s
 Write your commit message above the sign off and separate them by a
 blank line.
 
-4. Create a git formatted patch.
+6. Create a git formatted patch.
 
 $ git format-patch origin/master
 
-5. Send the gzipped patch to the aur-dev mailing list.
+7. Send the gzipped patch to the aur-dev mailing list.
 
 
 Updating an Existing Translation
