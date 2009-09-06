@@ -1,414 +1,406 @@
 <?php
-# INSTRUCTIONS TO TRANSLATORS
-#
-# This file contains the i18n translations for a subset of the
-# Arch Linux User Community Repository (AUR).  This is a PHP
-# script, and as such, you MUST pay great attention to the syntax.
-# If your text contains any double-quotes ("), you MUST escape
-# them with a backslash (\).
-#
 # Hungarian (Magyar) translation
-# Translator: Laszlo Papp <djszapi2@gmail.com>
+# Translators: Laszlo Papp <djszapi2@gmail.com>, Gergely Imreh <imrehg@gmail.com>
 
 global $_t;
 
-$_t["Search by"] = "Kereses eszerint";
+$_t["Search by"] = "Keresés eszerint";
 
-$_t["This package has been flagged out of date."] = "Ez a csomag elavult";
+$_t["This package has been flagged out of date."] = "Ez a csomag elavultnak van jelölve.";
 
-$_t["Missing a required field."] = "Egy kotelezo mezo megadasa hianyzik";
+$_t["Missing a required field."] = "Egy kötelező mező megadása hiányzik.";
 
-$_t["Logged-in as: %s"] = "Bejelentkezve, mint: %s";
+$_t["Logged-in as: %s"] = "Bejelentkezve: %s";
 
-$_t["Error trying to modify account, %h%s%h: %s."] = "Hiba tortent ugyfel adatok modositasa kozben, %h%s%h: %s.";
+$_t["Error trying to modify account, %h%s%h: %s."] = "Hiba történt a felasználói adatok módosítása közben, %h%s%h: %s.";
 
-$_t["Username does not exist."] = "Ez a felhasznalo nev nem letezik";
+$_t["Username does not exist."] = "Ez a felhasznalói név nem létezik.";
 
 $_t["Tarball"] = "Tarball";
 
-$_t["Can contain only one period, underscore or hyphen."] = "Csak egy pontot, alahuzast vagy kotojelet tartalmazhat";
+$_t["Can contain only one period, underscore or hyphen."] = "Csak egyetlen pontot, aláhúzást vagy kötőjelet tartalmazhat.";
 
-$_t["Unflag Out-of-date"] = "Elavultsag visszavonva";
+$_t["Unflag Out-of-date"] = "Elavultság visszavonása";
 
-$_t["Missing package ID."] = "Hianyzo csomag ID";
+$_t["Missing package ID."] = "Hiányzó csomag ID";
 
-$_t["You cannot vote in an proposal about you."] = "Nem szavazhatsz egy kezdemenyezesben magadrol";
+$_t["You cannot vote in an proposal about you."] = "Nem szavazhatsz egy rólad szóló indítványra.";
 
-$_t["No results matched your search criteria."] = "Nincs talalat a keresesi felteteleidnek megfeleloen";
+$_t["No results matched your search criteria."] = "Nincs a keresési feltételeknek megfelelő találat.";
 
-$_t["Update"] = "Frissit";
+$_t["Update"] = "Adatok frissítése";
 
-$_t["Sort order"] = "Rendezesi sorrend";
+$_t["Sort order"] = "Rendezési sorrend";
 
-$_t["You must be logged in before you can edit package information."] = "Elobb be kell jelentkezned, hogy tudd szerkeszteni a csomag informaciokat";
+$_t["You must be logged in before you can edit package information."] = "A csomag informacióinak szerkesztéséhez be kell jelentkezned.";
 
-$_t["Your votes have been cast for the selected packages."] = "A szavazatod ervenytelenitve a kivalasztott csomagokra";
+$_t["Your votes have been cast for the selected packages."] = "Leadtad a szavazatod a kiválasztott csomagokra.";
 
-$_t["Package details could not be found."] = "Csomag reszletes informaciok nem talalhatoak";
+$_t["Package details could not be found."] = "Csomag részletes információja nem talalható.";
 
-$_t["change category"] = "kategoria valtoztatas";
+$_t["change category"] = "kategória megváltoztatása";
 
-$_t["Error retrieving package list."] = "Hiba tortent a csomag lista megszerzese kozben";
+$_t["Error retrieving package list."] = "Hiba történt a csomaglista letöltése közben.";
 
-$_t["Reset"] = "Reset";
+$_t["Reset"] = "Mezők visszaállítása";
 
-$_t["Submitted: %s by %s"] = "Benyujtva: %s by %s";
+$_t["Submitted: %s by %s"] = "Benyujtva: %s (%s által)";
 
-$_t["string"] = "szolanc";
+$_t["string"] = "szólanc";
 
-$_t["Remember me"] = "Emlekeztess";
+$_t["Remember me"] = "Maradj bejelentkezve";
 
-$_t["Package category updated."] = "Csomag kategoriaja frissitve";
+$_t["Package category updated."] = "A csomag kategoriája frissítve.";
 
-$_t["%s already has proposal running for them."] = "%s mar megpalyazta oket";
+$_t["%s already has proposal running for them."] = "%s már megpályázta őket.";
 
-$_t["Error - No file uploaded"] = "Hiba - Nincs fajl feltoltes";
+$_t["Error - No file uploaded"] = "Hiba - Nincs fájl feltöltés";
 
-$_t["You did not select any packages to disown."] = "Nem valasztottal ki egyetlen csomagot sem megtagadasra";
+$_t["You did not select any packages to disown."] = "Nem valásztottál ki egyetlen csomagot sem megtagadasra.";
 
-$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Hianyzik egy protokoll a csomag URL-jebol (lasd. http:// ,ftp://)";
+$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Hiányzik a protokoll a csomag URL-jébol (pl. http:// ,ftp://)";
 
 $_t["Votes"] = "Szavazatok";
 
-$_t["Total"] = "Osszesen";
+$_t["Total"] = "Összesen";
 
-$_t["No more results to display."] = "Nincs tobb kijelezheto eredmeny";
+$_t["No more results to display."] = "Nincs több kijelezhető eredmeny.";
 
-$_t["Maintainer"] = "Karbantarto";
+$_t["Maintainer"] = "Karbantartó";
 
 $_t["Less"] = "Kevesebb";
 
-$_t["You are not allowed to access this area."] = "Nincs engedelyed hogy hozzaferj ehhez a terulethez";
+$_t["You are not allowed to access this area."] = "Nincs engedélyed hozzáférni ehhez a területhez.";
 
-$_t["Any type"] = "Barmilyen tipus";
+$_t["Any type"] = "Bármilyen típus";
 
-$_t["Accounts"] = "Fiokok";
+$_t["Accounts"] = "Fiókok";
 
-$_t["Could not retrieve proposal details."] = "Reszletek megszerzese sikertelen";
+$_t["Could not retrieve proposal details."] = "Az indítvány részletes információjának letöltése sikertelen.";
 
-$_t["You do not have permission to edit this account."] = "Nincs hozza engedelyed, hogy szerkeszdhesd ezt a fiokot";
+$_t["You do not have permission to edit this account."] = "Nincs engedélyed ennek a fióknak a szerkesztéséhez.";
 
-$_t["New Package Notify"] = "Uj csomag ertesites";
+$_t["New Package Notify"] = "Új csomag értesítés";
 
-$_t["Click on the Home link above to login."] = "A bejelentkezeshez kattints az Otthon linken fentebb";
+$_t["Click on the Home link above to login."] = "A bejelentkezéshez kattints a fentebb található Otthon linken.";
 
-$_t["The email address is invalid."] = "Az email cim ervenytelen";
+$_t["The email address is invalid."] = "Érvénytelen email cím.";
 
-$_t["Could not change directory to %s."] = "Nem lehet megvaltoztatni a konyvtarat erre %s";
+$_t["Could not change directory to %s."] = "Nem sikerült a könyvtárat megváltoztatni erre: %s";
 
-$_t["None of the selected packages could be deleted."] = "Nem sikerult torolni a kijelolt csomagok egyiket sem";
+$_t["None of the selected packages could be deleted."] = "Egyik kijelölt csomagot sem sikerült törölni.";
 
-$_t["Your votes have been removed from the selected packages."] = "El lett tavolitva a szavazatod a kivalasztott csomagrol";
+$_t["Your votes have been removed from the selected packages."] = "Szavazatod eltávolítva a kiválasztott csomagról.";
 
-$_t["No packages matched your search criteria."] = "Nincs megfelelo csomag a keresesi felteteleknek";
+$_t["No packages matched your search criteria."] = "Nincs a keresési feltételeknek megfelelő csomag.";
 
-$_t["Create"] = "Letrehozas";
+$_t["Create"] = "Létrehozás";
 
-$_t["Start and end with a letter or number"] = "Betuvel vagy szammal kezdodjon es vegzodjon";
+$_t["Start and end with a letter or number"] = "Betűvel vagy számjeggyel kell kezdődjön és végződjön";
 
-$_t["orphan"] = "arva";
+$_t["orphan"] = "árva";
 
-$_t["View this user's packages"] = "Lassuk ennek a felhasznalonak a csomagjait";
+$_t["View this user's packages"] = "A felhasználó csomagjainak megjelenítése";
 
-$_t["Next"] = "Kovetkezo";
+$_t["Next"] = "Következő";
 
-$_t["Could not re-tar"] = "Sikertelen ujra tomorites";
+$_t["Could not re-tar"] = "Sikertelen újratömörítés";
 
-$_t["You must create an account before you can upload packages."] = "Letre kell hoznod egy fiokot, mielott feltoltenel egy csomagot";
+$_t["You must create an account before you can upload packages."] = "A csomagok feltöltése előtt regisztrálnod kell.";
 
-$_t["Location"] = "Helyszin";
+$_t["Location"] = "Helyszín";
 
-$_t["Delete comment"] = "Megjegyzes torlese";
+$_t["Delete comment"] = "Megjegyzés törlése";
 
-$_t["Account Type"] = "Fiok Tipus";
+$_t["Account Type"] = "Fiók típus";
 
-$_t["Type"] = "Tipus";
+$_t["Type"] = "Típus";
 
-$_t["More"] = "Tobb";
+$_t["More"] = "Több";
 
-$_t["Error retrieving package details."] = "Hiba tortent a csomag reszletek megszerzese kozben";
+$_t["Error retrieving package details."] = "Hiba történt a csomag részletes információjának letöltése közben.";
 
-$_t["Could not create incoming directory: %s."] = "Beerkezo konyvtar letrehozasa sikertelen: %s";
+$_t["Could not create incoming directory: %s."] = "A beérkezo könyvtar létrehozása sikertelen: %s";
 
-$_t["Upload package file"] = "Csomag fajl feltoltes";
+$_t["Upload package file"] = "Csomag fájl feltöltése";
 
-$_t["(defaults to 7 if empty)"] = "7 az alapertelmezett, ha ures";
+$_t["(defaults to 7 if empty)"] = "(ha üresen van, 7 az alapertelmezett)";
 
-$_t["No New Comment Notification"] = "Nincs uj megjegyzes ertesites";
+$_t["No New Comment Notification"] = "Nincs új megjegyzés értesítés";
 
-$_t["Couldn't add to notification list."] = "Nem sikerult hozzaadni az ertesitesi listahoz";
+$_t["Couldn't add to notification list."] = "Nem sikerült hozzáadni az értesítési listához.";
 
-$_t["Disown Packages"] = "Csomagok megtagadasa";
+$_t["Disown Packages"] = "Csomagok megtagadása";
 
-$_t["Advanced"] = "Osszetett";
+$_t["Advanced"] = "Összetett";
 
-$_t["This vote is still running."] = "A szavazas meg mindig zajlik";
+$_t["This vote is still running."] = "A szavázas még zajlik.";
 
-$_t["Vote ID not valid."] = "Szavazat ID ervenytelen";
+$_t["Vote ID not valid."] = "Érvénytelen szavazat ID.";
 
-$_t["(empty if not applicable)"] = "(ures ha nem megfelelo)";
+$_t["(empty if not applicable)"] = "(üres, ha nem alkalmazható)";
 
-$_t["Per page"] = "Laponkent";
+$_t["Per page"] = "Laponként";
 
-$_t["New proposal submitted."] = "Uj kezdemenyezes benyujtva";
+$_t["New proposal submitted."] = "Új indítvány benyújtva.";
 
-$_t["Upload"] = "Feltoltes";
+$_t["Upload"] = "Feltöltés";
 
-$_t["Invalid category ID."] = "Ervenytelen kategoria ID";
+$_t["Invalid category ID."] = "Érvénytelen kategória ID";
 
-$_t["Go"] = "Gyerunk";
+$_t["Go"] = "Mehet";
 
-$_t["You must be logged in before you can vote for packages."] = "Be kell jelentkezned mielott szavazhatnal csomagokra";
+$_t["You must be logged in before you can vote for packages."] = "Be kell jelentkezned a csomagokra való szavazáshoz.";
 
-$_t["Use this form to search existing accounts."] = "Hasznald ezt a format, amikor meglevo fiokokra keresnenk";
+$_t["Use this form to search existing accounts."] = "Már meglévő felhasználói fiókok kereséséhez használd ezt az űrlapot.";
 
-$_t["The address, %h%s%h, is already in use."] = "A cim, %h%s%h, mar hasznalatban van";
+$_t["The address, %h%s%h, is already in use."] = "A cím, %h%s%h, már használatban van.";
 
 $_t["Current Votes"] = "Jelenlegi szavazatok";
 
-$_t["Select Category"] = "Kategoria Kivalasztas";
+$_t["Select Category"] = "Kategoria kiválasztás";
 
-$_t["You have been removed from the comment notification list for %s."] = "El vagy tavolitba a megjegyzes ertesitesi listabol az adott csomagra, %s";
+$_t["You have been removed from the comment notification list for %s."] = "El lettél távolítva az következő csomagok megjegyzés értesítési listájáról: %s";
 
-$_t["Unknown file format for uploaded file."] = "Ismeretlen fajl formatumu feltoltendo fajl";
+$_t["Unknown file format for uploaded file."] = "Ismeretlen formátumú feltöltött fájl.";
 
-$_t["Delete Packages"] = "Csomagok torlese";
+$_t["Delete Packages"] = "Csomagok törlése";
 
-$_t["Trusted user"] = "Bizalmas Felhasznalo";
+$_t["Trusted user"] = "Megbízható felhasználó";
 
 $_t["Back"] = "Vissza";
 
-$_t["You did not select any packages to flag."] = "Nem valasztottal ki egyetlen csomagot sem megjelolesre";
+$_t["You did not select any packages to flag."] = "Nem választottál ki egyetlen csomagot sem megjelölésre.";
 
 $_t["All Votes"] = "Minden szavazat";
 
-$_t["The selected packages have been disowned."] = "A kivalasztott csomag elhagyva";
+$_t["The selected packages have been disowned."] = "A kiválasztott csomagok megtagadva.";
 
-$_t["Suspended"] = "Felfuggesztve";
+$_t["Suspended"] = "Felfüggesztve";
 
-$_t["Home"] = "Home";
+$_t["Home"] = "Otthon";
 
 $_t["Yes"] = "Igen";
 
-$_t["UnFlag Out-of-date"] = "Elavultsag visszavona";
+$_t["UnFlag Out-of-date"] = "Elavultság visszavonása";
 
-$_t["Developer"] = "Fejleszto";
+$_t["Developer"] = "Fejlesztő";
 
-$_t["Category"] = "Kategoria";
+$_t["Category"] = "Kategória";
 
-$_t["Missing build function in PKGBUILD."] = "Hianyzo build fuggveny a PKGBUILD-ben";
+$_t["Missing build function in PKGBUILD."] = "A build függvény hiányzik a PKGBUILD-ból.";
 
-$_t["You must be logged in before you can flag packages."] = "Be kell jelentkezned, mielott csomagokat tudnal megjelolni";
+$_t["You must be logged in before you can flag packages."] = "Be kell jelentkezned csomagok megjelöléséhez.";
 
-$_t["No results found."] = "Nincs talalat";
+$_t["No results found."] = "Nincs találat.";
 
 $_t["No"] = "Nem";
 
-$_t["Discussion"] = "Megbeszeles";
+$_t["Discussion"] = "Levelezőlista";
 
-$_t["Dependencies"] = "Fuggosegek";
+$_t["Dependencies"] = "Függőségek";
 
-$_t["Start"] = "Kezdes";
+$_t["Start"] = "Kezdés";
 
-$_t["Add"] = "Hozzaad";
+$_t["Add"] = "Hozzáad";
 
-$_t["You did not select any packages to adopt."] = "Nem valasztottal ki egyetlen csomagot sem oroklesre";
+$_t["You did not select any packages to adopt."] = "Nem választottál ki egyetlen örökbefogadandó csomagot sem.";
 
-$_t["Length must be at least 1."] = "A hossznak legalabb 1-nek kell lennie";
+$_t["Length must be at least 1."] = "A hossznak legalább 1-nek kell lennie.";
 
-$_t["Error trying to create account, %h%s%h: %s."] = "Hiba tortent a fiok letrehozasa kozben, %h%s%h: %s";
+$_t["Error trying to create account, %h%s%h: %s."] = "Hiba történt a felhasználói fiók létrehozása közben, %h%s%h: %s";
 
-$_t["End"] = "Vege";
+$_t["End"] = "Vége";
 
-$_t["The account, %h%s%h, has been successfully modified."] = "A fiok,  %h%s%h, modositasa sikeresen megtortent";
+$_t["The account, %h%s%h, has been successfully modified."] = "A felhasználói fiók sikeresen módosítva: %h%s%h";
 
-$_t["Account Suspended"] = "Fiok Felfuggesztve";
+$_t["Account Suspended"] = "Felhasználói fiók felfüggesztve";
 
-$_t["Status"] = "Statusz";
+$_t["Status"] = "Státusz";
 
-$_t["You must be logged in before you can get notifications on comments."] = "Be kell jelentkezned mielott ertesitest szerezhetnel a megjegyzesekrol";
+$_t["You must be logged in before you can get notifications on comments."] = "Be kell jelentkezned mielőtt értesítest szerezhetnél a megjegyzésekről.";
 
-$_t["Leave the password fields blank to keep your same password."] = "Hagyja uresen a jelszo mezot ha meg szeretne tartani ugyanazt a jelszot";
+$_t["Leave the password fields blank to keep your same password."] = "Hagyd üresen a jelszó mezőt ha nem akarod megváltoztatni a jelenlegi jelszavad.";
 
-$_t["IRC Nick"] = "IRC Alnev";
+$_t["IRC Nick"] = "IRC becenév";
 
-$_t["The selected packages have been deleted."] = "A kivalasztott csomagok torlese megtortent";
+$_t["The selected packages have been deleted."] = "A kiválasztott csomagok törlese megtörtént.";
 
-$_t["Normal user"] = "Normal felhasznalo";
+$_t["Normal user"] = "Normál felhasználó";
 
-$_t["This is a %h%s%h problem!"] = "Ez egy %h%s%h problema!";
+$_t["This is a %h%s%h problem!"] = "Ez egy %h%s%h probléma!";
 
-$_t["You are not allowed to overwrite the %h%s%h package."] = "Nincs engedelyed, hogy felulird a %h%s%h csomagot";
+$_t["You are not allowed to overwrite the %h%s%h package."] = "Nincs engedélyed a %h%s%h csomag felülírásához.";
 
-$_t["Missing comment ID."] = "Hianyzo megjegyzes ID";
+$_t["Missing comment ID."] = "Hiányzó megjegyzés ID";
 
-$_t["Error trying to retrieve package details."] = "Hiba tortent a csomag reszletes informacioinak megszerzese kozben";
+$_t["Error trying to retrieve package details."] = "Hiba törtent a csomag részletes informacióinak letöltése közben.";
 
-$_t["Proposal cannot be empty."] = "Kezdemenyezes nem lehet ures";
+$_t["Proposal cannot be empty."] = "Az indítvány nem lehet üres.";
 
-$_t["User"] = "Felhasznalo";
+$_t["User"] = "Felhasznaló";
 
-$_t["Package Category"] = "Csomag Kategoria";
+$_t["Package Category"] = "Csomag kategória";
 
-$_t["The selected packages have been adopted."] = "A kivalasztott csomagok oroklese megtortent";
+$_t["The selected packages have been adopted."] = "Sikeresen örökbefogadtad a kiválasztott csomagokat.";
 
 $_t["Packages"] = "Csomagok";
 
-$_t["Edit Account"] = "Fiok szerkesztese";
+$_t["Edit Account"] = "Felhasználói fiók szerkesztése";
 
-$_t["Search"] = "Kereses";
+$_t["Search"] = "Keresés";
 
 $_t["Language"] = "Nyelv";
 
-$_t["Orphans"] = "Arvak";
+$_t["Orphans"] = "Árvák";
 
-$_t["Voting is closed for this proposal."] = "A szavazas lezarult erre a kezdemenyezesre";
+$_t["Voting is closed for this proposal."] = "A szavazás lezárult erre az indítványra.";
 
-$_t["Bugs"] = "Hibak";
+$_t["Bugs"] = "Hibák";
 
-$_t["Showing results %s - %s of %s"] = "Eredmenyek kimutatasa %s - %s of %s";
+$_t["Showing results %s - %s of %s"] = "Eredmények: %s - %s, összesen %s";
 
-$_t["Active"] = "Aktiv";
+$_t["Active"] = "Aktív";
 
-$_t["You've already voted for this proposal."] = "Mar szavaztal erre az inditvanyra";
+$_t["You've already voted for this proposal."] = "Már szavaztál erre az indítványra.";
 
-$_t["Required by"] = "Raepul";
+$_t["Required by"] = "Függ ettől";
 
-$_t["You must be logged in before you can unflag packages."] = "Be kell jelentkezned mielott visszavonnal egy csomag megjelolest";
+$_t["You must be logged in before you can unflag packages."] = "Be kell jelentkezned csomagok megjelölésének visszavonásához.";
 
-$_t["You did not select any packages to unflag."] = "Nem valasztottal ki egyetlen csomagot sem megjeloles visszavonasara";
+$_t["You did not select any packages to unflag."] = "Nem választottál ki egyetlen csomagot sem megjelölés visszavonására.";
 
-$_t["You must log in to view user information."] = "Be kell jelentkezned, hogy felhasznalo informaciokat lathass";
+$_t["You must log in to view user information."] = "Be kell jelentkezned a felhasználói információ megtekintéshez.";
 
-$_t["You did not select any packages to delete."] = "Nem valasztottal ki egyetlen csomagot sem torlesre";
+$_t["You did not select any packages to delete."] = "Nem választottál ki egyetlen törlendő csomagot sem.";
 
-$_t["Could not create directory %s."] = "Nem lehet letrehozni a kovetkezo konyvtarat %s";
+$_t["Could not create directory %s."] = "Nem sikerült létrehozni a %s konyvtarat.";
 
-$_t["UnNotify"] = "Ertesites megszuntetese";
+$_t["UnNotify"] = "Értesítés kikapcsolása";
 
-$_t["Flag Out-of-date"] = "Elavultnak jeloles";
+$_t["Flag Out-of-date"] = "Elavultnak jelölés";
 
-$_t["The selected packages have been unflagged."] = "A kivalasztott csomag visszajelolve";
+$_t["The selected packages have been unflagged."] = "A kivalasztott csomagok bejelölése visszavonva.";
 
-$_t["Search Criteria"] = "Keresesi feltetelek";
+$_t["Search Criteria"] = "Keresési feltételek";
 
-$_t["Notify"] = "Ertesites";
+$_t["Notify"] = "Értesítés";
 
-$_t["Files"] = "Fajlok";
+$_t["Files"] = "Fájlok";
 
-$_t["Vote"] = "Szavazat";
+$_t["Vote"] = "Szavazás";
 
-$_t["Adopt Packages"] = "Csomagok oroklese";
+$_t["Adopt Packages"] = "Csomagok örökbefogadása";
 
-$_t["Name"] = "Nev";
+$_t["Name"] = "Név";
 
 $_t["Package Listing"] = "Csomag lista";
 
-$_t["Any"] = "Barmi";
+$_t["Any"] = "Bármi";
 
-$_t["It must be between %s and %s characters long"] = "%s es %s kozotti karakterhosszusagunak kell lennie";
+$_t["It must be between %s and %s characters long"] = "%s és %s közötti karakterhosszúságúnak kell lennie";
 
-$_t["Logout"] = "Kijelentkezes";
+$_t["Logout"] = "Kijelentkezés";
 
-$_t["The account, %h%s%h, has been successfully created."] = "A fiok, %h%s%h, sikeresen letrejott";
+$_t["The account, %h%s%h, has been successfully created."] = "A felhasználói fiók sikeresen létrehozva:  %h%s%h";
 
-$_t["Your password must be at least %s characters."] = "A jelszavadnak legalabb %s karakter hosszunak kell lennie";
+$_t["Your password must be at least %s characters."] = "A jelszónak legalább %s karakter hosszúságúnak kell lennie.";
 
-$_t["Submit"] = "Benyujt";
+$_t["Submit"] = "Feltöltés";
 
-$_t["Sorry, uploads are not permitted by this server."] = "Sajnaljuk, de a feltoltesek nem engedelyezettek ezen a szerveren";
+$_t["Sorry, uploads are not permitted by this server."] = "Sajnáljuk, de feltöltések nem engedélyezettek ezen a szerveren.";
 
-$_t["Actions"] = "Tevekenysegek";
+$_t["Actions"] = "Tevékenységek";
 
-$_t["Comment has been deleted."] = "Megjegyzes torolve";
+$_t["Comment has been deleted."] = "Megjegyzés törölve";
 
-$_t["The username, %h%s%h, is already in use."] = "A felhasznalo nev, %h%s%h, mar hasznalnalatban van";
+$_t["The username, %h%s%h, is already in use."] = "A felhasznalói név már használnalatban van: %h%s%h";
 
-$_t["Could not retrieve information for the specified user."] = "Nem sikerult informaciot szerezni a megadott felhasznalorol";
+$_t["Could not retrieve information for the specified user."] = "Nem sikerült letölteni a megadott felhasznaló informacióit.";
 
-$_t["Re-type password"] = "Ird be ujra a jelszavad";
+$_t["Re-type password"] = "Ismételd meg a jelszót";
 
-$_t["Proposal"] = "Kezdemenyezes";
+$_t["Proposal"] = "Indítvány";
 
-$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Hiba tortent a feltoltes kicsomagolasa kozben - PKGBUILD nem letezik";
+$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Hiba történt a feltöltes kicsomagolása közben - PKGBUILD nem létezik.";
 
-$_t["The selected packages have been flagged out-of-date."] = "A kivalasztott csomagok elavultnak lettek megjelolve";
+$_t["The selected packages have been flagged out-of-date."] = "A kiválasztott csomagok elavultnak lettek jelolve.";
 
-$_t["Description"] = "Leiras";
+$_t["Description"] = "Leíras";
 
 $_t["My Packages"] = "Csomagjaim";
 
-$_t["You did not select any packages to vote for."] = "Nem valasztottal ki egyetlen csomagot sem amire szavaznal";
+$_t["You did not select any packages to vote for."] = "Nem választottal ki egyetlen csomagot sem amire szavaznál.";
 
 $_t["Never"] = "Soha";
 
-$_t["You must be logged in before you can disown packages."] = "Be kell jelentkeznek mielott csomagokat tudnal megtagadni";
+$_t["You must be logged in before you can disown packages."] = "Be kell jelentkeznek csomagokat megtagadásához.";
 
 $_t["Voted"] = "Szavazva";
 
-$_t["You've found a bug if you see this...."] = "BUG-ot talaltal, ha ezt latod....";
+$_t["You've found a bug if you see this...."] = "BUG-ot találtal, ha ezt latod....";
 
-$_t["Last Voted"] = "Utolso szavazat";
+$_t["Last Voted"] = "Utolsó szavazat";
 
-$_t["Password"] = "Jelszo";
+$_t["Password"] = "Jelszó";
 
-$_t["Real Name"] = "Valos Nev";
+$_t["Real Name"] = "Valós név";
 
-$_t["Package Details"] = "Csomag reszletek";
+$_t["Package Details"] = "Részletes csomag információ";
 
-$_t["UnVote"] = "Leszavaz";
+$_t["UnVote"] = "Szavazat visszavonása";
 
-$_t["Password fields do not match."] = "Jelszo mezok nem egyeznek";
+$_t["Password fields do not match."] = "A jelszó mezők nem egyeznek.";
 
-$_t["Username"] = "Felhasznalo Nev";
+$_t["Username"] = "Felhasznalói név";
 
-$_t["The username is invalid."] = "A felhasznalo nev ervenytelen";
+$_t["The username is invalid."] = "A felhasznalói név érvénytelen.";
 
-$_t["You must be logged in before you can adopt packages."] = "Be kell jelentkezned mielott csomagokat orokolhetnel";
+$_t["You must be logged in before you can adopt packages."] = "Be kell jelentkezned a csomagokat örökbefogadásához.";
 
-$_t["Email Address"] = "Email Cim";
+$_t["Email Address"] = "Email cím";
 
-$_t["Trusted User"] = "Bizalmas Felhasznalo";
+$_t["Trusted User"] = "Megbízható Felhasználó";
 
-$_t["Invalid name: only lowercase letters are allowed."] = "Ervenytelen Nev, csak kisbetuk hasznalata engedelyezett";
+$_t["Invalid name: only lowercase letters are allowed."] = "Érvenytelen név: csak kisbetűk használata engedélyezett.";
 
-$_t["Length must be a number."] = "A hossznak egy szamnak kell lennie";
+$_t["Length must be a number."] = "A hossznak egy számnak kell lennie.";
 
-$_t["%s has %s apples."] = "%s birtokol %s almat";
+$_t["%s has %s apples."] = "%s birtokol %s almát";
 
-$_t["You must be logged in before you can un-vote for packages."] = "Be kell jelenztkezned mielott csomagokat szavaznal le";
+$_t["You must be logged in before you can un-vote for packages."] = "Be kell jelenztkezned a szavazatod visszavonásához.";
 
-$_t["Login"] = "Bejelentkezes";
+$_t["Login"] = "Bejelentkezés";
 
-$_t["Use this form to create an account."] = "Hasznalt ezt a format fiok letrehozasara";
+$_t["Use this form to create an account."] = "Használd ezt a űrlapot felhasználói fiók letrehozására.";
 
-$_t["Use this form to update your account."] = "Hasznald ezt a format, hogy frissitsd a fiokodat";
+$_t["Use this form to update your account."] = "Használd ezt a űrlapot a felhasználói fiókod adatainak frissítéséhez.";
 
-$_t["Abstain"] = "Tartozkodik";
+$_t["Abstain"] = "Tartózkodik";
 
-$_t["Could not chmod directory %s."] = "Nem sikerult a konyvtar, %s, jogainak megvaltoztatasa";
+$_t["Could not chmod directory %s."] = "Nem sikerult a könyvtár jogainak megváltoztatása: %s";
 
-$_t["You are not allowed to delete this comment."] = "Nem torolheted ezt a megjegyzest";
+$_t["You are not allowed to delete this comment."] = "Nem törölheted ezt a megjegyzést.";
 
-$_t["required"] = "Igenyli";
+$_t["required"] = "kötelező";
 
-$_t["Sort by"] = "Rendezve";
+$_t["Sort by"] = "Rendezés";
 
-$_t["Submit a proposal to vote on."] = "Inditvany benyujtasa szavazasra";
+$_t["Submit a proposal to vote on."] = "Indítvány szavazásra bocsátása.";
 
-$_t["Proposal Details"] = "Kezdemenyezes reszletek";
+$_t["Proposal Details"] = "Indítvány részletes információja";
 
-$_t["Language is not currently supported."] = "Nyelv jelenleg nem tamogatott";
+$_t["Language is not currently supported."] = "Nyelv jelenleg nem támogatott.";
 
-$_t["Last vote"] = "Utolso szavazat";
+$_t["Last vote"] = "Utolsó szavazat";
 
-$_t["New Comment Notification"] = "Uj megjegyzes ertesites";
+$_t["New Comment Notification"] = "Új megjegyzés értesítés";
 
-$_t["Missing User ID"] = "Hianyzo Felhasznalo ID";
+$_t["Missing User ID"] = "Hianyzó felhasznaló ID";
 
-$_t["You have been added to the comment notification list for %s."] = "Sikeresen hozza lettel adva a megjegyzes ertesitesi listajahoz a kovetkezo csomagnak, %s";
+$_t["You have been added to the comment notification list for %s."] = "Sikeresen fel lettél véve a kovetkezo csomagok megjegyzés értesítési listájára: %s";
 
-$_t["Select new category"] = "Valassz uj kategoriat";
+$_t["Select new category"] = "Válassz új kategoriát";
 
-$_t["A Trusted User cannot assign Developer status."] = "Egy Bizalmas Felhasznalo nem tulajdonithat Fejlesztoi statuszt";
+$_t["A Trusted User cannot assign Developer status."] = "Egy Megbizható Felhasznalo nem adhat ki Fejlesztői státuszt.";
 
