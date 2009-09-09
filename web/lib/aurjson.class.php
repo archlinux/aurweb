@@ -139,6 +139,15 @@ class AurJSON {
         if ( $result && (mysql_num_rows($result) > 0) ) {
             $row = mysql_fetch_assoc($result);
             mysql_free_result($result);
+            foreach($row as $name => $value) {
+                $converted = utf8_encode($value);
+                if ($converted) {
+                    $row[$name] = $converted;
+                }
+                else {
+                    $row[$name] = "[PKGBUILD error: non-UTF8 character]";
+                }
+            }
             return $this->json_results('info', $row);
         }
         else {
