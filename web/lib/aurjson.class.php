@@ -42,7 +42,7 @@ class AurJSON {
             $this->dbh = db_connect();
 
             // ugh. this works. I hate you php.
-            $json = call_user_func_array(array(&$this,$http_data['type']),
+            $json = call_user_func(array(&$this,$http_data['type']),
                 $http_data['arg']);
 
             // allow rpc callback for XDomainAjax
