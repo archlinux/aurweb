@@ -2,6 +2,7 @@
 # Ukrainian (Українська) translation
 # Translator: sevenfourk <sevenfourk@gmail.com>
 
+global $_t;
 
 $_t["View this user's packages"] = "Переглянути пакунки цього користувача";
 
