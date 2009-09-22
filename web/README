@@ -1,7 +1,7 @@
 Setup on Arch Linux:
 ====================
-1) Install Apache, MySQL, PHP, and git 
-  # pacman -Sy apache mysql php git 
+1) Install Apache, MySQL, PHP, and git
+  # pacman -Sy apache mysql php git
 
 2) Set a local 'hostname' of 'aur'
  - Edit /etc/hosts and append 'aur' to loopback address
@@ -33,7 +33,7 @@ Setup on Arch Linux:
 
 4) Clone the AUR project (using the MYUSER from above)
    $ cd
-   $ git clone http://projects.archlinux.org/git/aur.git
+   $ git clone git://projects.archlinux.org/aur.git
 
 5) Configure PHP
    Make sure you have mysql and json enabled in PHP.
@@ -42,19 +42,23 @@ Setup on Arch Linux:
    extension=mysql.so
    extension=json.so
 
+   If those php extensions are separate packages on your system, install
+   them.
+
    AUR requires PEAR and the File_Find module.
    Installing PEAR will vary depending on the system and may already
-   be included with PHP. You can also find it in the PHP source distribution.
+   be included with PHP. You can also find it in the PHP source
+   distribution.
 
    PHP sources: http://www.php.net/downloads.php
    File_Find PEAR module: http://pear.php.net/package/File_Find
-   
+
  - Install the File_Find PEAR package:
    # pear install File_Find
 
- - Put PEAR in your php include_path in web/html/.htaccess:
+ - Put PEAR in your php include_path in php.ini:
 
-   php_value include_path ".:../lib:../lang:/usr/share/pear"
+   include_path = ".:/usr/share/pear"
 
    PEAR's path may vary depending on your set up.
 
@@ -107,8 +111,8 @@ Directory Layout:
 ./template    - Where most of the html markup resides and minimal
                 amount of PHP scripting.
 
-                There is also a template to model the site's top pages in
-                template.phps 
+		There is also a template to model the site's top pages
+		in template.phps
 
 
 Scripts:
@@ -177,5 +181,6 @@ TU - Trusted User
 	repository and administer AUR.
 
 [unsupported]
-	The collection of package build files hosted via the AUR web site.
+	The collection of package build files hosted via the AUR web
+	site.
 
