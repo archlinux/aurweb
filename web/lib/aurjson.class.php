@@ -11,7 +11,7 @@ if (!extension_loaded('json')) {
 include_once("aur.inc");
 
 /**
- * This class defines a remote interface for fetching data 
+ * This class defines a remote interface for fetching data
  * from the AUR using JSON formatted elements.
  * @package rpc
  * @subpackage classes
@@ -28,9 +28,6 @@ class AurJSON {
      * @return string The JSON formatted response data.
      **/
     public function handle($http_data) {
-        // set content type header to json
-        header('content-type: application/json');
-
         // handle error states
         if ( !isset($http_data['type']) || !isset($http_data['arg']) ) {
             return $this->json_error('No request type/data specified.');
@@ -47,9 +44,14 @@ class AurJSON {
 
             // allow rpc callback for XDomainAjax
             if ( isset($http_data['callback']) ) {
+                // it is more correct to send text/javascript
+                // content-type for jsonp-callback
+                header('content-type: text/javascript');
                 return $http_data['callback'] . "({$json})";
             }
             else {
+                // set content type header to app/json
+                header('content-type: application/json');
                 return $json;
             }
         }
@@ -65,6 +67,8 @@ class AurJSON {
      * @return mixed A json formatted error response.
      **/
     private function json_error($msg){
+        // set content type header to app/json
+        header('content-type: application/json');
         return $this->json_results('error',$msg);
     }
 
