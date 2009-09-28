@@ -11,13 +11,14 @@ if ( $_SERVER['REQUEST_METHOD'] == 'GET' ) {
     }
     else {
         // dump a simple usage output for people to use.
-        // this could be moved to an api doc in the future, or generated from 
+        // this could be moved to an api doc in the future, or generated from
         // the AurJSON class directly with phpdoc. For now though, just putting it here.
         echo '<html><body>';
         echo 'The methods currently allowed are: <br />';
         echo '<ul>';
         echo '<li>search</li>';
         echo '<li>info</li>';
+        echo '<li>msearch</li>';
         echo '</ul><br />';
         echo 'Each method requires the following HTTP GET syntax:<br />';
         echo '&nbsp;&nbsp; type=<i>methodname</i>&arg=<i>data</i> <br /><br />';
