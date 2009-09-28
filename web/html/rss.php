@@ -16,7 +16,7 @@ $rss->useCached("RSS2.0", "/tmp/aur-newestpkg.xml", 1800);
 $rss->title = "AUR Newest Packages";
 $rss->description = "The latest and greatest packages in the AUR";
 $rss->link = "${protocol}://{$host}";
-$rss->syndicationURL = "{$protocol}://{$host}/rss2.php";
+$rss->syndicationURL = "{$protocol}://{$host}/rss.php";
 $image = new FeedImage();
 $image->title = "AUR";
 $image->url = "{$protocol}://{$host}/images/AUR-logo-80.png";

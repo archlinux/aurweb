@@ -2,7 +2,7 @@
 <tr>
 <th colspan="2" class="boxSoftTitle" style="text-align: right">
 <span class="f3"><?php print __("Recent Updates") ?><span class="f5"></span></span>
-<a href="rss2.php"><img src="images/feed-icon-14x14.png" alt="RSS Feed" /></a>
+<a href="rss.php"><img src="images/feed-icon-14x14.png" alt="RSS Feed" /></a>
 </th>
 </tr>
 
