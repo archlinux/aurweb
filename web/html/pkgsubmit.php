@@ -36,16 +36,12 @@ if ($_COOKIE["AURSID"]):
 				if (!@chdir($tempdir)) {
 					$error = __("Could not change directory to %s.", $tempdir);
 				} else {
-					if ($_FILES['pfile']['name'] == "PKGBUILD") {
-						move_uploaded_file($_FILES['pfile']['tmp_name'], $tempdir . "/PKGBUILD");
-					} else {
 						$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
 						$extract = $tar->extract();
 
 						if (!$extract) {
 							$error = __("Unknown file format for uploaded file.");
 						}
-					}
 				}
 			}
 		}
