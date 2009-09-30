@@ -1,0 +1,414 @@
+<?php
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User Community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with a backslash (\).
+#
+# Norwegian (Norsk) translation
+# Translator: Hans-Kristian Arntzen <maister@archlinux.us>
+
+global $_t;
+
+$_t["Search by"] = "Søk etter";
+
+$_t["This package has been flagged out of date."] = "Denne pakken har blitt merket som utdatert.";
+
+$_t["Voted"] = "Stemmet";
+
+$_t["Missing a required field."] = "Mangler et nødvendig felt.";
+
+$_t["Logged-in as: %s"] = "Logget inn som: %s";
+
+$_t["Error trying to modify account, %h%s%h: %s."] = "Feil oppstod under endring av konto, %h%s%h: %s.";
+
+$_t["Username does not exist."] = "Brukernavn finnes ikke.";
+
+$_t["Tarball"] = "Tar-ball";
+
+$_t["Can contain only one period, underscore or hyphen."] = "Kan kun innehold ett punktum, understrek, eller bindestrek.";
+
+$_t["Unflag Out-of-date"] = "Fjern markering av \"utdatert\"";
+
+$_t["Missing package ID."] = "Mangler pakke-ID.";
+
+$_t["You must be logged in before you can unflag packages."] = "Du må være logget inn før du kan fjerne \"utdatert\"-markeringen av pakker.";
+
+$_t["No results matched your search criteria."] = "Ingen søk stemte overens med dine søkekriterier.";
+
+$_t["Update"] = "Oppdatér";
+
+$_t["Sort order"] = "Sorteringsrekkefølge";
+
+$_t["You must be logged in before you can edit package information."] = "Du må være logget inn før du kan redigere pakkeinformasjon.";
+
+$_t["Your votes have been cast for the selected packages."] = "Stemmene dine er talte for de valgte pakkene.";
+
+$_t["Package details could not be found."] = "Pakkedetaljene kunne ikke bli funnet.";
+
+$_t["change category"] = "endre kategori";
+
+$_t["Error retrieving package list."] = "Feil oppstod under mottagelse av pakkeliste.";
+
+$_t["Reset"] = "Omstart";
+
+$_t["Submitted: %s by %s"] = "Innsendt: %s av %s";
+
+$_t["string"] = "streng";
+
+$_t["Remember me"] = "Husk meg";
+
+$_t["This vote is still running."] = "Stemmingen er fortsatt aktiv.";
+
+$_t["Package category updated."] = "Pakkekateogi er oppdatert.";
+
+$_t["%s already has proposal running for them."] = "%s har allerede et forslag.";
+
+$_t["Error - No file uploaded"] = "Feil - Ingen fil ble opplastet";
+
+$_t["You did not select any packages to disown."] = "Du valgte ingen pakker som skulle fjernes eierskap til.";
+
+$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Pakke-URL mangler en protokoll (f.eks http:// eller ftp://)";
+
+$_t["Votes"] = "Stemmer";
+
+$_t["Total"] = "Totalt";
+
+$_t["No more results to display."] = "Ingen flere resultater å vise.";
+
+$_t["Maintainer"] = "Vedlikeholder";
+
+$_t["Less"] = "Færre";
+
+$_t["You are not allowed to access this area."] = "Du har ikke adgang til dette området.";
+
+$_t["Any type"] = "Hvilken som helst type";
+
+$_t["Accounts"] = "Kontoer";
+
+$_t["Could not retrieve proposal details."] = "Kunne ikke motta detaljer om forslag.";
+
+$_t["You do not have permission to edit this account."] = "Du har ikke adgang til å endre denne kontoen.";
+
+$_t["Click on the Home link above to login."] = "Klikk på Hjem-linken ovenfor for å logge inn.";
+
+$_t["The email address is invalid."] = "E-post-adressen er ugyldig.";
+
+$_t["Could not change directory to %s."] = "Kunne ikke endre mappen til %s.";
+
+$_t["None of the selected packages could be deleted."] = "Ingen av de valgte pakkene kunne slettes.";
+
+$_t["Your votes have been removed from the selected packages."] = "Stemmene dine har blitt fjernet fra de valgte pakkene.";
+
+$_t["No packages matched your search criteria."] = "Ingen pakker stemmer overens med dine søkekriterier.";
+
+$_t["Create"] = "Opprett";
+
+$_t["orphan"] = "hjemløs";
+
+$_t["View this user's packages"] = "Se denne brukereren sine pakker";
+
+$_t["Next"] = "Neste";
+
+$_t["Could not re-tar"] = "Kunne ikke tar-e på nytt";
+
+$_t["You must be logged in before you can adopt packages."] = "Du må være logget inn før du kan adoptere pakker.";
+
+$_t["You must create an account before you can upload packages."] = "Du må opprette en konto før du kan laste opp pakker.";
+
+$_t["Location"] = "Lokasjon";
+
+$_t["Delete comment"] = "Slett kommentar";
+
+$_t["Account Type"] = "Konto-type";
+
+$_t["Type"] = "Type";
+
+$_t["More"] = "Flere";
+
+$_t["Start and end with a letter or number"] = "Start og slutt med en bokstav eller et siffer";
+
+$_t["Could not create incoming directory: %s."] = "Kunne ikke opprette innkommende mappe: %s.";
+
+$_t["Upload package file"] = "Last opp pakkefil";
+
+$_t["(defaults to 7 if empty)"] = "(settes standard til 7 hvis tom)";
+
+$_t["No New Comment Notification"] = "Ingen ny påminnelse om kommentarer";
+
+$_t["Couldn't add to notification list."] = "Kunne ikke legge til påminnelseslisten.";
+
+$_t["Disown Packages"] = "Avslutt eierskap av pakker";
+
+$_t["Advanced"] = "Avansert";
+
+$_t["Files"] = "Filer";
+
+$_t["Vote ID not valid."] = "Stemme-ID ikke gyldig.";
+
+$_t["(empty if not applicable)"] = "(tom hvis ikke anvendelig)";
+
+$_t["Per page"] = "Per side";
+
+$_t["New proposal submitted."] = "Nytt forslag innsendt.";
+
+$_t["Upload"] = "Last opp";
+
+$_t["You must be logged in before you can vote for packages."] = "Du må være logget inn før du kan stemme på pakker.";
+
+$_t["Invalid category ID."] = "Invalid kategori-ID.";
+
+$_t["Go"] = "Gå";
+
+$_t["New Package Notify"] = "Ny pakkepåminnelse";
+
+$_t["Use this form to search existing accounts."] = "Bruk dette skjemaet for å søke etter eksisterende kontoer.";
+
+$_t["The address, %h%s%h, is already in use."] = "Adressen, %h%s%h, er allerede i bruk.";
+
+$_t["Current Votes"] = "Foreløpige stemmer";
+
+$_t["Select Category"] = "Velg kategori";
+
+$_t["You have been removed from the comment notification list for %s."] = "Du har blitt fjernet fra kommentarpåminnelselisten for %s.";
+
+$_t["Unknown file format for uploaded file."] = "Ukjent filformat for opplastede filer.";
+
+$_t["Delete Packages"] = "Slett pakker";
+
+$_t["The selected packages have been deleted."] = "De valgte pakkene har blitt slettet.";
+
+$_t["Back"] = "Tilbake";
+
+$_t["Re-type password"] = "Tast inn passord på nytt";
+
+$_t["All Votes"] = "Alle stemmene";
+
+$_t["The selected packages have been disowned."] = "De valgte pakkene eies ikke mer.";
+
+$_t["Suspended"] = "Suspendert";
+
+$_t["Home"] = "Hjem";
+
+$_t["Yes"] = "Ja";
+
+$_t["UnFlag Out-of-date"] = "Av-markér \"utdatert\"";
+
+$_t["Developer"] = "Utvikler";
+
+$_t["Category"] = "Kategori";
+
+$_t["Missing build function in PKGBUILD."] = "Mangler build()-funksjon i PKGBUILD.";
+
+$_t["You must be logged in before you can flag packages."] = "Du må være logget inn før du kan markere pakker.";
+
+$_t["No results found."] = "Ingen resultater funnet.";
+
+$_t["No"] = "Nei";
+
+$_t["Discussion"] = "Diskusjon";
+
+$_t["Dependencies"] = "Avhengigheter";
+
+$_t["Start"] = "Start";
+
+$_t["Add"] = "Legg til";
+
+$_t["You did not select any packages to adopt."] = "Du valgte ingen pakker å adoptere.";
+
+$_t["Length must be at least 1."] = "Lengden må være minst 1.";
+
+$_t["Error trying to create account, %h%s%h: %s."] = "Feil oppstod under opprettelse av konto: %h%s%h: %s.";
+
+$_t["End"] = "Slutt";
+
+$_t["The account, %h%s%h, has been successfully modified."] = "Kontoen, %h%s%h, har blitt korrekt modifisert.";
+
+$_t["Account Suspended"] = "Konto suspendert";
+
+$_t["Status"] = "Status";
+
+$_t["You must be logged in before you can get notifications on comments."] = "Du må være logget inn før du kan se påminnelser i kommentarer.";
+
+$_t["Leave the password fields blank to keep your same password."] = "La passord-feltene stå blanke for å beholde ditt gamle passord.";
+
+$_t["IRC Nick"] = "IRC-nick";
+
+$_t["Trusted user"] = "Betrodd bruker";
+
+$_t["Normal user"] = "Vanlig bruker";
+
+$_t["This is a %h%s%h problem!"] = "Dette er er %h%s%h-problem!";
+
+$_t["You are not allowed to overwrite the %h%s%h package."] = "Du har ikke tilgang til å skrive over %h%s%h-pakken.";
+
+$_t["Missing comment ID."] = "Mangler kommentar-ID.";
+
+$_t["Error trying to retrieve package details."] = "Feil oppstod under mottagelse av pakkedetaljer.";
+
+$_t["Proposal cannot be empty."] = "Forslag kan ikke være tomt.";
+
+$_t["User"] = "Bruker";
+
+$_t["Package Category"] = "Pakkekategori";
+
+$_t["The selected packages have been adopted."] = "Den valgte pakken har blitt adoptert.";
+
+$_t["Packages"] = "Pakker";
+
+$_t["Edit Account"] = "Endre brukerkonto";
+
+$_t["Search"] = "Søk";
+
+$_t["Language"] = "Språk";
+
+$_t["Orphans"] = "Hjemløse";
+
+$_t["Voting is closed for this proposal."] = "Stemming er avsluttet for dette forslaget.";
+
+$_t["Bugs"] = "Bugs";
+
+$_t["Showing results %s - %s of %s"] = "Viser resultater %s - %s av %s";
+
+$_t["Active"] = "Aktiv";
+
+$_t["You've already voted for this proposal."] = "Du har allerede stemt for dette forslaget.";
+
+$_t["Required by"] = "Trengs av";
+
+$_t["You cannot vote in an proposal about you."] = "Du kan ikke stemme i et forslag om deg.";
+
+$_t["You did not select any packages to unflag."] = "Du valgte ingen pakker å flagge bort.";
+
+$_t["You must log in to view user information."] = "Du må logge inn for å se informasjon om bruker.";
+
+$_t["You did not select any packages to delete."] = "Du valgte ingen pakker å slette.";
+
+$_t["Could not create directory %s."] = "Kunne ikke opprette mappe %s.";
+
+$_t["UnNotify"] = "Avnotifisér";
+
+$_t["Flag Out-of-date"] = "Flagg som utdatert";
+
+$_t["The selected packages have been unflagged."] = "De valgte pakkene har blitt flagget bort.";
+
+$_t["Search Criteria"] = "Søkekriterier";
+
+$_t["Notify"] = "Notifisér";
+
+$_t["Vote"] = "Stem";
+
+$_t["Adopt Packages"] = "Adoptér pakker";
+
+$_t["Name"] = "Navn";
+
+$_t["Package Listing"] = "Pakkelisting";
+
+$_t["Any"] = "Uansett";
+
+$_t["It must be between %s and %s characters long"] = "Det må være mellom %s og %s tegn langt";
+
+$_t["Logout"] = "Logg ut";
+
+$_t["The account, %h%s%h, has been successfully created."] = "Kontoen, %h%s%h, har blitt opprettet korrekt.";
+
+$_t["Your password must be at least %s characters."] = "Passordet ditt må være minst %s tegn.";
+
+$_t["Submit"] = "Send inn";
+
+$_t["Sorry, uploads are not permitted by this server."] = "Unnskyld, opplastinger er ikke tillat av denne serveren.";
+
+$_t["Actions"] = "Handlinger";
+
+$_t["Comment has been deleted."] = "Kommentar har blitt slettet.";
+
+$_t["The username, %h%s%h, is already in use."] = "Brukernavnet, %h%s%h, er allerede i bruk.";
+
+$_t["Proposal"] = "Forslag";
+
+$_t["You did not select any packages to flag."] = "Du valgte ingen pakker å flagge.";
+
+$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Feil oppstod under forsøk av å pakke ut opplasting - PKGBUILD finnes ikke.";
+
+$_t["The selected packages have been flagged out-of-date."] = "De valgte pakkene har blitt flagget som utdatert.";
+
+$_t["Description"] = "Beskrivelse";
+
+$_t["My Packages"] = "Mine pakker";
+
+$_t["You did not select any packages to vote for."] = "Du valgte ingen pakker å stemme på.";
+
+$_t["Never"] = "Aldri";
+
+$_t["You must be logged in before you can disown packages."] = "Du må være logget inn før du kan avslutte eierskap av pakker.";
+
+$_t["You've found a bug if you see this...."] = "Du har funnet en bug hvis du ser dette ...";
+
+$_t["Last Voted"] = "Sist stemt";
+
+$_t["Password"] = "Passord";
+
+$_t["Real Name"] = "Ekte navn";
+
+$_t["Package Details"] = "Pakkedetaljer";
+
+$_t["UnVote"] = "Av-stem";
+
+$_t["Password fields do not match."] = "Passord-felter stemmer ikke overens.";
+
+$_t["Username"] = "Brukernavn";
+
+$_t["The username is invalid."] = "Brukernavnet er ikke gyldig.";
+
+$_t["Could not retrieve information for the specified user."] = "Kunne ikke motta informasjon for den valgte brukeren.";
+
+$_t["Email Address"] = "E-post-adresse";
+
+$_t["Trusted User"] = "Betrodd bruker";
+
+$_t["Invalid name: only lowercase letters are allowed."] = "Invalid navn - kun små bokstaver er tillatte.";
+
+$_t["Error retrieving package details."] = "Feil oppstod under mottagelse av pakkedetaljer.";
+
+$_t["Length must be a number."] = "Lengden må være et nummer.";
+
+$_t["%s has %s apples."] = "%s har %s epler.";
+
+$_t["You must be logged in before you can un-vote for packages."] = "Du må være logget inn før du av av-stemme pakker.";
+
+$_t["Login"] = "Logg inn";
+
+$_t["Use this form to create an account."] = "Bruk dette feltet for å opprette en konto.";
+
+$_t["Use this form to update your account."] = "Bruk dette feltet for å oppdatér kontoen din.";
+
+$_t["Abstain"] = "Avhold deg fra";
+
+$_t["Could not chmod directory %s."] = "Kunne ikke chmod-e mappe %s.";
+
+$_t["You are not allowed to delete this comment."] = "Du har ikke tilgang til å slette denne kommentaren.";
+
+$_t["required"] = "trengs av";
+
+$_t["Sort by"] = "Sortér med";
+
+$_t["Submit a proposal to vote on."] = "Send inn et forslag å stemme på.";
+
+$_t["Proposal Details"] = "Resultater for forslag";
+
+$_t["Language is not currently supported."] = "Språk er ikke støttet på dette tidspunktet.";
+
+$_t["Last vote"] = "Siste stemme";
+
+$_t["New Comment Notification"] = "Ny påminnelse om kommentar";
+
+$_t["Missing User ID"] = "Mangler bruker-ID";
+
+$_t["You have been added to the comment notification list for %s."] = "Du har blitt lagt til påminnelselisten for kommentarer for %s.";
+
+$_t["Select new category"] = "Velg ny kategori";
+
+$_t["A Trusted User cannot assign Developer status."] = "En betrodd bruker kan ikke tilegne utviklerstatus.";
+
