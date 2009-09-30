@@ -1,0 +1,414 @@
+<?php
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User Community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with a backslash (\).
+#
+# Czech (česky) translation
+# Translator: Daniel Kozák <kozzi11@gmail.com>
+
+global $_t;
+
+$_t["Search by"] = "Vyhledat dle";
+
+$_t["This package has been flagged out of date."] = "Balíček byl označen jako zastaralý.";
+
+$_t["Voted"] = "Hlasováno";
+
+$_t["Missing a required field."] = "Chybý povinný údaj.";
+
+$_t["Logged-in as: %s"] = "Přihlášen jako: %s";
+
+$_t["Error trying to modify account, %h%s%h: %s."] = "Chyba při snaze upravit účet, %h%s%h: %s.";
+
+$_t["Username does not exist."] = "Uživatelské jméno neexistuje.";
+
+$_t["Tarball"] = "Tarball";
+
+$_t["Can contain only one period, underscore or hyphen."] = "Může obsahovat pouze jednu tečku, podtržítko nebo spojovník.";
+
+$_t["Unflag Out-of-date"] = "Odebrat příznak zastaralý";
+
+$_t["Missing package ID."] = "Chybějící ID balíčku.";
+
+$_t["You cannot vote in an proposal about you."] = "Nemůžete volit samy pro sebe.";
+
+$_t["No results matched your search criteria."] = "Pro Váš dotaz nebyl nalezen žádný odpovídající výsledek.";
+
+$_t["Update"] = "Aktualizovat";
+
+$_t["Sort order"] = "Řadit";
+
+$_t["You must be logged in before you can edit package information."] = "Musíte být přihlášeni, než budete moci upravovat informace o balíčkách.";
+
+$_t["Your votes have been cast for the selected packages."] = "Vaše hlasování bylo započteno pro vybrané balíčky.";
+
+$_t["Package details could not be found."] = "Detailní informace o balíčku nejsou dostupné.";
+
+$_t["change category"] = "změnit kategorii";
+
+$_t["Error retrieving package list."] = "Chyba při získávání seznamu balíčků.";
+
+$_t["Reset"] = "Reset";
+
+$_t["Submitted: %s by %s"] = "Vloženo: %s od %s";
+
+$_t["string"] = "řetězec";
+
+$_t["Remember me"] = "Pamatuj si mě";
+
+$_t["Package category updated."] = "Kategorie balíčku změněna.";
+
+$_t["%s already has proposal running for them."] = "Pro %s se již hlasuje.";
+
+$_t["Error - No file uploaded"] = "Chyba - soubor nebyl nahrán";
+
+$_t["You did not select any packages to disown."] = "Nevybrali jste žádný balíček pro odebrání vlastnictví.";
+
+$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "V URL balíčku chybý protokolo (např. http://, ftp://)";
+
+$_t["Votes"] = "Hlasy";
+
+$_t["Total"] = "Celkem";
+
+$_t["No more results to display."] = "Žádné další výsledky.";
+
+$_t["Maintainer"] = "Správce";
+
+$_t["Less"] = "Méně";
+
+$_t["You are not allowed to access this area."] = "Zde nemáte povolený přístup.";
+
+$_t["Any type"] = "Jakýkoliv";
+
+$_t["Accounts"] = "Účet";
+
+$_t["Could not retrieve proposal details."] = "Nelze obdržet navrhované detaily.";
+
+$_t["You do not have permission to edit this account."] = "Nemáte oprávnění na úpravu tohoto účtu.";
+
+$_t["New Package Notify"] = "Oznámení o novém balíčku";
+
+$_t["Click on the Home link above to login."] = "Pro přihlášení použíte odkaz na domácí stránku.";
+
+$_t["The email address is invalid."] = "Vadná emailová adresa.";
+
+$_t["Could not change directory to %s."] = "Nelze se přesunout do adresáře %s.";
+
+$_t["None of the selected packages could be deleted."] = "Žádný z vybraných balíčku nemůže být smazán.";
+
+$_t["Your votes have been removed from the selected packages."] = "Vaše hlasování bylo odebráno vybraným balíčkům.";
+
+$_t["No packages matched your search criteria."] = "Žádný balíček neodpovídá zadaným kritériím.";
+
+$_t["Create"] = "Vytvořit";
+
+$_t["Start and end with a letter or number"] = "Začíná a končí písmenem nebo číslicí";
+
+$_t["orphan"] = "sirotek";
+
+$_t["View this user's packages"] = "Zobrazit balíčky tohoto uživatele";
+
+$_t["Next"] = "Další";
+
+$_t["Could not re-tar"] = "Nelze re-tar";
+
+$_t["You must create an account before you can upload packages."] = "Před vkládáním balíčků je zapotřebí si založit účet.";
+
+$_t["Location"] = "Umístění";
+
+$_t["Delete comment"] = "Smazat komentář";
+
+$_t["Account Type"] = "Typ účtu";
+
+$_t["Type"] = "Typ";
+
+$_t["More"] = "Více";
+
+$_t["Error retrieving package details."] = "Došlo k chybě při získávání detailů o balíčku.";
+
+$_t["Could not create incoming directory: %s."] = "Nelze vytvořit příchozí adresář: %s.";
+
+$_t["Upload package file"] = "Nahrát soubor balíčku";
+
+$_t["(defaults to 7 if empty)"] = "(defaultně 7 pokud nezadáno)";
+
+$_t["No New Comment Notification"] = "Žádné nové komentáře";
+
+$_t["Couldn't add to notification list."] = "Nelze přidat do seznamu upozornění.";
+
+$_t["Disown Packages"] = "Odebrat vlastnictví";
+
+$_t["Advanced"] = "Rozšířené";
+
+$_t["This vote is still running."] = "Hlasování stále probíhá.";
+
+$_t["Vote ID not valid."] = "Nesprávné ID hlasování.";
+
+$_t["(empty if not applicable)"] = "(vynechat pokud neni vhodný)";
+
+$_t["Per page"] = "Na jedné stránce";
+
+$_t["New proposal submitted."] = "Nový návrh podán.";
+
+$_t["Upload"] = "Nahrát";
+
+$_t["Invalid category ID."] = "Chybné ID kategorie.";
+
+$_t["Go"] = "Jdi";
+
+$_t["You must be logged in before you can vote for packages."] = "Před hlasováním se musíte přihlásit.";
+
+$_t["Use this form to search existing accounts."] = "Pro vyhledání existujících účtů použíte tento formulář.";
+
+$_t["The address, %h%s%h, is already in use."] = "Adresa, %h%s%h, je již použita.";
+
+$_t["Current Votes"] = "Současný počet hlasů";
+
+$_t["Select Category"] = "Vybrat kategorii";
+
+$_t["You have been removed from the comment notification list for %s."] = "Byli jste odebrání ze seznamu upozornění ohledně %s.";
+
+$_t["Unknown file format for uploaded file."] = "Nahrávaný soubor má neznámý formát.";
+
+$_t["Delete Packages"] = "Smazat balíčky";
+
+$_t["Trusted user"] = "Důvěryhodný uživatel";
+
+$_t["Back"] = "Zpět";
+
+$_t["You did not select any packages to flag."] = "Nezvolili jste žádný balíček k označení.";
+
+$_t["All Votes"] = "Všechny hlasy";
+
+$_t["The selected packages have been disowned."] = "Vybraným balíčkům bylo odebráno vlastnictví.";
+
+$_t["Suspended"] = "Pozastavený";
+
+$_t["Home"] = "Domů";
+
+$_t["Yes"] = "Ano";
+
+$_t["UnFlag Out-of-date"] = "Odebrat příznak zastaralý";
+
+$_t["Developer"] = "Vyvojář";
+
+$_t["Category"] = "Kategorie";
+
+$_t["Missing build function in PKGBUILD."] = "Chbějící funkce pro sestavení v PKGBUILD.";
+
+$_t["You must be logged in before you can flag packages."] = "Před nastavením příznaku balíčků se musíte přihlásit.";
+
+$_t["No results found."] = "Žádné výsledky.";
+
+$_t["No"] = "Ne";
+
+$_t["Discussion"] = "Diskuze";
+
+$_t["Dependencies"] = "Závislosti";
+
+$_t["Start"] = "Začátek";
+
+$_t["Add"] = "Přidat";
+
+$_t["You did not select any packages to adopt."] = "Nevybrali jste žádný balíček k osvojení.";
+
+$_t["Length must be at least 1."] = "Minimální délka musí být 1.";
+
+$_t["Error trying to create account, %h%s%h: %s."] = "Došlo k chybě při zakládání ůčtu, %h%s%h: %s.";
+
+$_t["End"] = "Konec";
+
+$_t["The account, %h%s%h, has been successfully modified."] = "Účet, %h%s%h, byl úspěšně upraven.";
+
+$_t["Account Suspended"] = "Účet pozastaven";
+
+$_t["Status"] = "Status";
+
+$_t["You must be logged in before you can get notifications on comments."] = "Musíte být příhlášení pokud chcete dostávat upozornění na nové komentáře.";
+
+$_t["Leave the password fields blank to keep your same password."] = "Ponechte pole pro heslo prázdné pro zachování současného hesla,";
+
+$_t["IRC Nick"] = "IRC přezdívka";
+
+$_t["The selected packages have been deleted."] = "Zvolené balíčky byly smazány.";
+
+$_t["Normal user"] = "Obyčejný uživatel";
+
+$_t["This is a %h%s%h problem!"] = "Toto je %h%s%h problém!";
+
+$_t["You are not allowed to overwrite the %h%s%h package."] = "Nemáte oprávnění k přepsání balíčku %h%s%h.";
+
+$_t["Missing comment ID."] = "Chybějící ID komentáře.";
+
+$_t["Error trying to retrieve package details."] = "Došlo k chybě při získávání detailů balíčku.";
+
+$_t["Proposal cannot be empty."] = "Návrh némuže být prázdný.";
+
+$_t["User"] = "Uživatel";
+
+$_t["Package Category"] = "Kategorie balíčku";
+
+$_t["The selected packages have been adopted."] = "Zvolené balíčky byly osvojeny.";
+
+$_t["Packages"] = "Balíčky";
+
+$_t["Edit Account"] = "Upravit účet";
+
+$_t["Search"] = "Hledat";
+
+$_t["Language"] = "Jazyk";
+
+$_t["Orphans"] = "Sirotci";
+
+$_t["Voting is closed for this proposal."] = "Toto hlasování již skončilo.";
+
+$_t["Bugs"] = "Chyby";
+
+$_t["Showing results %s - %s of %s"] = "Zobrazeny výsledky %s - %s z %s";
+
+$_t["Active"] = "Aktivní";
+
+$_t["You've already voted for this proposal."] = "Již jste hlasoval.";
+
+$_t["Required by"] = "Výžadováno";
+
+$_t["You must be logged in before you can unflag packages."] = "Musíte být příhlášeni aby jste mohli odznačit balíčky.";
+
+$_t["You did not select any packages to unflag."] = "Nevybrali jste žádne balíčky k odebrání příznaku.";
+
+$_t["You must log in to view user information."] = "Musíte se přihlásit, pro zobrazení informací o uživateli.";
+
+$_t["You did not select any packages to delete."] = "Nevybrali jste žádné balíčky ke smazání.";
+
+$_t["Could not create directory %s."] = "Nelze vytvořit adresář %s.";
+
+$_t["UnNotify"] = "Neoznamovat";
+
+$_t["Flag Out-of-date"] = "Označit jako zastaralý";
+
+$_t["The selected packages have been unflagged."] = "Zvoleným bálíčkům bylo odebráno označení.";
+
+$_t["Search Criteria"] = "Vyhledávací kritéria";
+
+$_t["Notify"] = "Oznamovat";
+
+$_t["Files"] = "Soubory";
+
+$_t["Vote"] = "Hlasovat";
+
+$_t["Adopt Packages"] = "Osvojit balíček";
+
+$_t["Name"] = "Název";
+
+$_t["Package Listing"] = "Výpis balíčků";
+
+$_t["Any"] = "jakákoliv";
+
+$_t["It must be between %s and %s characters long"] = "Délka musí být %s až %s znaků";
+
+$_t["Logout"] = "Odhlásit";
+
+$_t["The account, %h%s%h, has been successfully created."] = "Účet, %h%s%h, byl úspěšně založen.";
+
+$_t["Your password must be at least %s characters."] = "Heslo musí mít nejméně %s znaků.";
+
+$_t["Submit"] = "Odeslat";
+
+$_t["Sorry, uploads are not permitted by this server."] = "Omlouváme se, tento server neumožňuje nahrávání.";
+
+$_t["Actions"] = "Akce";
+
+$_t["Comment has been deleted."] = "Komentář byl smazán.";
+
+$_t["The username, %h%s%h, is already in use."] = "Uživatelské jméno, %h%s%h, is already in use.";
+
+$_t["Could not retrieve information for the specified user."] = "Nelze obdržet informace pro vybraného uživatele.";
+
+$_t["Re-type password"] = "Heslo znovu";
+
+$_t["Proposal"] = "Návrh";
+
+$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Došlo k chybě při snaze rozbalit archiv - PKGBUILD nenalezen.";
+
+$_t["The selected packages have been flagged out-of-date."] = "Zvoleným balíčkům byl nastaven příznak zastaralé.";
+
+$_t["Description"] = "Popis";
+
+$_t["My Packages"] = "Moje balíčky";
+
+$_t["You did not select any packages to vote for."] = "Nezvolili jste žádné balíčky k hlasování.";
+
+$_t["Never"] = "Nikdy";
+
+$_t["You must be logged in before you can disown packages."] = "Musíte být příhlášení, pro odebrání vlastnictví u vašich balíčků.";
+
+$_t["You've found a bug if you see this...."] = "Narazili jste na chybu, jestli vidíte toto....";
+
+$_t["Last Voted"] = "Poslední hlasování";
+
+$_t["Password"] = "Heslo";
+
+$_t["Real Name"] = "Skutečné jméno";
+
+$_t["Package Details"] = "Detaily balíčku";
+
+$_t["UnVote"] = "Odebrat hlas";
+
+$_t["Password fields do not match."] = "Hesla se neshodují";
+
+$_t["Username"] = "Uživatelské jméno";
+
+$_t["The username is invalid."] = "Chybně zadané uživatelské jméno";
+
+$_t["You must be logged in before you can adopt packages."] = "Musíte být přihlášeni, než si budete moci osvojit balíčky.";
+
+$_t["Email Address"] = "Emailová adresa";
+
+$_t["Trusted User"] = "";
+
+$_t["Invalid name: only lowercase letters are allowed."] = "Chybný název: jsou povolena pouze malá písmena.";
+
+$_t["Length must be a number."] = "Délka musí být číslo.";
+
+$_t["%s has %s apples."] = "%s má %s jablek.";
+
+$_t["You must be logged in before you can un-vote for packages."] = "Musíte být příhlášeni, než budete moci odebrat hlasování pro balíčky.";
+
+$_t["Login"] = "Přihlašovací jméno";
+
+$_t["Use this form to create an account."] = "Použíte tento formulář k založení účtu.";
+
+$_t["Use this form to update your account."] = "Použíte tento formulář k editaci svého účtu.";
+
+$_t["Abstain"] = "Zdržet se";
+
+$_t["Could not chmod directory %s."] = "Nelze změnit oprávnění pro adresář %s.";
+
+$_t["You are not allowed to delete this comment."] = "Nemáte oprávnění pro smazání tohoto komentáře.";
+
+$_t["required"] = "vyžadováno";
+
+$_t["Sort by"] = "Seřadit dle";
+
+$_t["Submit a proposal to vote on."] = "Předložit návrh na hlasování.";
+
+$_t["Proposal Details"] = "Detaily návrhu";
+
+$_t["Language is not currently supported."] = "Jazyk není momentálné podporován.";
+
+$_t["Last vote"] = "Poslední hlasování";
+
+$_t["New Comment Notification"] = "Oznámení o novém komentáři";
+
+$_t["Missing User ID"] = "Chybějící Uživateské ID";
+
+$_t["You have been added to the comment notification list for %s."] = "Byly jste přidáni do seznamu oznámení ohledně %s.";
+
+$_t["Select new category"] = "Zvolit novou kategorii";
+
+$_t["A Trusted User cannot assign Developer status."] = "Trusted User nemohou přidělit status vývojáře.";
+
