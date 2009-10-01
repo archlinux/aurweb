@@ -134,7 +134,7 @@ class AurJSON {
             if(get_magic_quotes_gpc()) {
                 $pqdata = stripslashes($pqdata);
             }
-            $query_stub = printf("Name=\"%s\"",
+            $query_stub = sprintf("Name=\"%s\"",
                 mysql_real_escape_string($pqdata));
         }
 
