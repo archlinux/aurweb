@@ -24,6 +24,7 @@ define("DEFAULT_LANG", "en");
 $SUPPORTED_LANGS = array(
 	"ca" => "Català",
 	"cs" => "česky",
+	"da" => "Dansk",
 	"de" => "Deutsch",
 	"en" => "English",
 	"el_GR" => "Ελληνικά",
