@@ -145,7 +145,7 @@ class AurJSON {
             mysql_free_result($result);
             foreach($row as $name => $value) {
                 $converted = utf8_encode($value);
-                if ($converted) {
+                if ($converted != "") {
                     $row[$name] = $converted;
                 }
                 else {
