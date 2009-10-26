@@ -67,11 +67,11 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 				if ($canvote == 1) {
 					if (isset($_POST['doVote'])) {
 						if (isset($_POST['voteYes'])) {
-							$myvote = __("Yes");
+							$myvote = "Yes";
 						} else if (isset($_POST['voteNo'])) {
-							$myvote = __("No");
+							$myvote = "No";
 						} else if (isset($_POST['voteAbstain'])) {
-							$myvote = __("Abstain");
+							$myvote = "Abstain";
 						}
 
 						$qvote = "UPDATE TU_VoteInfo SET " . $myvote . " = " . ($row[$myvote] + 1) . " WHERE ID = " . $row['ID'];
