@@ -44,7 +44,7 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval(
 	<p>
 	<span class='f2'><?php echo $row['Name'] . ' ' . $row['Version'] ?></span><br />
 	<span class='f3'><a href="<?php echo $row['URL'] . '">' . $row['URL'] ?></a></span><br />
-	<span class='f3'><?php echo $row["Description"]; ?></span>
+	<span class='f3'><?php echo htmlspecialchars($row['Description'], ENT_QUOTES); ?></span>
 	</p>
 
 	<p>
