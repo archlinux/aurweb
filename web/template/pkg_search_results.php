@@ -67,7 +67,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	<?php endif; ?>
 	<?php endif; ?>
 	<td class='<?php print $c ?>'><span class='f4'><span class='blue'>
-	<?php print $row["Description"] ?></span></span></td>
+	<?php print htmlspecialchars($row['Description'], ENT_QUOTES); ?></span></span></td>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'>
 	<?php if (isset($row["Maintainer"])): ?>
 	<a href='packages.php?K=<?php print $row['Maintainer'] ?>&amp;SeB=m'><?php print $row['Maintainer'] ?></a>
