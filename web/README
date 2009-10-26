@@ -94,7 +94,7 @@ Setup on Arch Linux:
 
 7) Copy the config.inc.proto file to config.inc. Modify as needed.
    # cd ~/aur/web/lib/
-   # cp config.inc.profo config.inc
+   # cp config.inc.proto config.inc
 
 8) Point your browser to http://aur
 
