@@ -23,12 +23,12 @@ define("DEFAULT_LANG", "en");
 # Languages we have translations for
 $SUPPORTED_LANGS = array(
 	"ca" => "Català",
-	"cr" => "Hrvatski",
 	"cs" => "česky",
 	"de" => "Deutsch",
 	"en" => "English",
 	"es" => "Español",
 	"fr" => "Français",
+	"hr" => "Hrvatski",
 	"hu" => "Magyar",
 	"it" => "Italiano",
 	"nb_NO" => "Norsk",
