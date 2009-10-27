@@ -12,7 +12,7 @@
 
 global $_t;
 
-$_t["Search by"] = "Pretrauje se";
+$_t["Search by"] = "Pretražuje se";
 
 $_t["This package has been flagged out of date."] = "Paket je označen kao zastareo";
 
@@ -94,7 +94,7 @@ $_t["You do not have permission to edit this account."] = "Nemate dozvole za ure
 
 $_t["New Package Notify"] = "Obaveštenje o novom paketu";
 
-$_t["Click on the Home link above to login."] = "Da bi ste se priavili kliknite na vezu „Aur početna“.";
+$_t["Click on the Home link above to login."] = "Da bi ste se priavili kliknite na vezu „AUR početna“.";
 
 $_t["The email address is invalid."] = "Neispravna adresa e-pošte.";
 
@@ -110,7 +110,7 @@ $_t["Create"] = "Napravi";
 
 $_t["Start and end with a letter or number"] = "Počni i završi slovom ili brojem";
 
-$_t["orphan"] = "siroić";
+$_t["orphan"] = "sirčoić";
 
 $_t["View this user's packages"] = "Pregledaj korisnikove pakete";
 
@@ -200,7 +200,7 @@ $_t["Developer"] = "Programer";
 
 $_t["Category"] = "Kategorija";
 
-$_t["Missing build function in PKGBUILD."] = "U PKGBUILD-u nedostaje funkcija gradnje.";
+$_t["Missing build function in PKGBUILD."] = "U PKGBUILDu nedostaje funkcija gradnje.";
 
 $_t["You must be logged in before you can flag packages."] = "Morate se prijaviti pre označavanja paketa.";
 
@@ -413,15 +413,15 @@ $_t["Select new category"] = "Izaberite novu kategoriju";
 $_t["A Trusted User cannot assign Developer status."] = "Poverljivi korisnik ne može dodeliti privilegije Programera.";
 
 $_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Dodbrodošli u AUR!
- Molimo vas da prvo pročitate %huputstvo za korisnike AUR-a %h i %huputstvo za AUR-ove poverljive korisnike%h za više informacija.";
+ Molimo vas da prvo pročitate %huputstvo za korisnike AURa %h i %huputstvo za AURove poverljive korisnike%h za više informacija.";
 
-$_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Priloženi PKGBUILD-ovi %hmoraju%h biti saglasni sa %hArch-ovim standardima pakiranja%h ili će biti uklonjeni!";
+$_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Priloženi PKGBUILDovi %hmoraju%h biti saglasni sa %hArch-ovim standardima pakiranja%h ili će biti uklonjeni!";
 
 $_t["Remember to vote for your favourite packages!"] = "Ne zaboravite da glasate za omiljene pakete!";
 
 $_t["Recent Updates"] = "Nedavno ažurirano";
 
-$_t["Statistics"] = "Stastistika";
+$_t["Statistics"] = "Statistika";
 
 $_t["Packages in unsupported"] = "Paketi u [unsupported]";
 
