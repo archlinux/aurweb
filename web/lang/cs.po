@@ -9,6 +9,7 @@
 #
 # Czech (česky) translation
 # Translator: Daniel Kozák <kozzi11@gmail.com>
+# Translator: Jaroslav Lichtblau <dragonlord@aur.archlinux.org>
 
 global $_t;
 
@@ -18,7 +19,7 @@ $_t["This package has been flagged out of date."] = "Balíček byl označen jako
 
 $_t["Voted"] = "Hlasováno";
 
-$_t["Missing a required field."] = "Chybý povinný údaj.";
+$_t["Missing a required field."] = "Chybí povinný údaj.";
 
 $_t["Logged-in as: %s"] = "Přihlášen jako: %s";
 
@@ -34,7 +35,7 @@ $_t["Unflag Out-of-date"] = "Odebrat příznak zastaralý";
 
 $_t["Missing package ID."] = "Chybějící ID balíčku.";
 
-$_t["You cannot vote in an proposal about you."] = "Nemůžete volit samy pro sebe.";
+$_t["You cannot vote in an proposal about you."] = "Nemůžete volit sami pro sebe.";
 
 $_t["No results matched your search criteria."] = "Pro Váš dotaz nebyl nalezen žádný odpovídající výsledek.";
 
@@ -42,7 +43,7 @@ $_t["Update"] = "Aktualizovat";
 
 $_t["Sort order"] = "Řadit";
 
-$_t["You must be logged in before you can edit package information."] = "Musíte být přihlášeni, než budete moci upravovat informace o balíčkách.";
+$_t["You must be logged in before you can edit package information."] = "Musíte být přihlášeni, než budete moci upravovat informace o balíčcích.";
 
 $_t["Your votes have been cast for the selected packages."] = "Vaše hlasování bylo započteno pro vybrané balíčky.";
 
@@ -88,7 +89,7 @@ $_t["Accounts"] = "Účet";
 
 $_t["Could not retrieve proposal details."] = "Nelze obdržet navrhované detaily.";
 
-$_t["You do not have permission to edit this account."] = "Nemáte oprávnění na úpravu tohoto účtu.";
+$_t["You do not have permission to edit this account."] = "Nemáte oprávnění pro úpravu tohoto účtu.";
 
 $_t["New Package Notify"] = "Oznámení o novém balíčku";
 
@@ -134,7 +135,7 @@ $_t["Could not create incoming directory: %s."] = "Nelze vytvořit příchozí a
 
 $_t["Upload package file"] = "Nahrát soubor balíčku";
 
-$_t["(defaults to 7 if empty)"] = "(defaultně 7 pokud nezadáno)";
+$_t["(defaults to 7 if empty)"] = "(předvoleno 7 pokud nezadáno)";
 
 $_t["No New Comment Notification"] = "Žádné nové komentáře";
 
@@ -198,7 +199,7 @@ $_t["Developer"] = "Vyvojář";
 
 $_t["Category"] = "Kategorie";
 
-$_t["Missing build function in PKGBUILD."] = "Chbějící funkce pro sestavení v PKGBUILD.";
+$_t["Missing build function in PKGBUILD."] = "Chybějící funkce pro sestavení v PKGBUILD.";
 
 $_t["You must be logged in before you can flag packages."] = "Před nastavením příznaku balíčků se musíte přihlásit.";
 
@@ -228,7 +229,7 @@ $_t["Account Suspended"] = "Účet pozastaven";
 
 $_t["Status"] = "Status";
 
-$_t["You must be logged in before you can get notifications on comments."] = "Musíte být příhlášení pokud chcete dostávat upozornění na nové komentáře.";
+$_t["You must be logged in before you can get notifications on comments."] = "Musíte být přihlášeni, pokud chcete dostávat upozornění na nové komentáře.";
 
 $_t["Leave the password fields blank to keep your same password."] = "Ponechte pole pro heslo prázdné pro zachování současného hesla,";
 
@@ -246,7 +247,7 @@ $_t["Missing comment ID."] = "Chybějící ID komentáře.";
 
 $_t["Error trying to retrieve package details."] = "Došlo k chybě při získávání detailů balíčku.";
 
-$_t["Proposal cannot be empty."] = "Návrh némuže být prázdný.";
+$_t["Proposal cannot be empty."] = "Návrh nemůže být prázdný.";
 
 $_t["User"] = "Uživatel";
 
@@ -274,9 +275,9 @@ $_t["Active"] = "Aktivní";
 
 $_t["You've already voted for this proposal."] = "Již jste hlasoval.";
 
-$_t["Required by"] = "Výžadováno";
+$_t["Required by"] = "Vyžadováno";
 
-$_t["You must be logged in before you can unflag packages."] = "Musíte být příhlášeni aby jste mohli odznačit balíčky.";
+$_t["You must be logged in before you can unflag packages."] = "Musíte být příhlášeni, abyste mohli odznačit balíčky.";
 
 $_t["You did not select any packages to unflag."] = "Nevybrali jste žádne balíčky k odebrání příznaku.";
 
@@ -344,7 +345,7 @@ $_t["You did not select any packages to vote for."] = "Nezvolili jste žádné b
 
 $_t["Never"] = "Nikdy";
 
-$_t["You must be logged in before you can disown packages."] = "Musíte být příhlášení, pro odebrání vlastnictví u vašich balíčků.";
+$_t["You must be logged in before you can disown packages."] = "Musíte být přihlášeni, pro odebrání vlastnictví u svých balíčků.";
 
 $_t["You've found a bug if you see this...."] = "Narazili jste na chybu, jestli vidíte toto....";
 
@@ -368,7 +369,7 @@ $_t["You must be logged in before you can adopt packages."] = "Musíte být při
 
 $_t["Email Address"] = "Emailová adresa";
 
-$_t["Trusted User"] = "";
+$_t["Trusted User"] = "Důvěryhodný uživatel";
 
 $_t["Invalid name: only lowercase letters are allowed."] = "Chybný název: jsou povolena pouze malá písmena.";
 
@@ -376,7 +377,7 @@ $_t["Length must be a number."] = "Délka musí být číslo.";
 
 $_t["%s has %s apples."] = "%s má %s jablek.";
 
-$_t["You must be logged in before you can un-vote for packages."] = "Musíte být příhlášeni, než budete moci odebrat hlasování pro balíčky.";
+$_t["You must be logged in before you can un-vote for packages."] = "Musíte být přihlášeni, než budete moci odebrat hlasování pro balíčky.";
 
 $_t["Login"] = "Přihlašovací jméno";
 
@@ -410,5 +411,5 @@ $_t["You have been added to the comment notification list for %s."] = "Byly jste
 
 $_t["Select new category"] = "Zvolit novou kategorii";
 
-$_t["A Trusted User cannot assign Developer status."] = "Trusted User nemohou přidělit status vývojáře.";
+$_t["A Trusted User cannot assign Developer status."] = "Důvěryhodní uživatelé nemohou přidělit status vývojáře.";
 
