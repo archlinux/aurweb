@@ -28,6 +28,7 @@ if (!$_REQUEST["ID"]) {
 	print __("Missing package ID.");
 	print "<br />\n";
 	html_footer(AUR_VERSION);
+	exit();
 }
 
 
