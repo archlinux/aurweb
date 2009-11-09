@@ -1,29 +1,32 @@
+Names Sorted Alphabetically:
+
 Current Contributors
 --------------------
 Callan Barrett (wizzo) <wizzomafizzo@gmail.com>
 Loui Chang (louipc) <louipc.ist@gmail.com>
-Simo Leone (simo) <simo@archlinux.org>
 
 Contributors
 --------------------
-Jason Chu (jchu) <jason@archlinux.org>
-Evangelos Foutras <foutrelis@gmail.com>
-Joerie de Gram (Thralas) <j.de.gram@gmail.com>
-Gergely Imreh <imrehg@gmail.com>
+Andrea Scarpino <bash.lnx@gmail.com>
+Angel Velasquez (angvp) <angvp@archlinux.com.ve>
+Damir Perisa (dp)
+Dan McGee <dan@archlinux.org>
+Dusty Phillips (dusty)
+Douglas Soares de Andrade (dsa) <dsandrade at gmail dot com>
 Eli Janssen (eliott/cactus) <eliott@cactuswax.net>
 Eric Johnson (eric) <eric@coding-zone.com>
-Nathan Jones <nathanj@insightbb.com>
-Michael Klier <chi@chimeric.de>
-Paul Mattal (pjmattal) <paul@archlinux.org>
-Dan McGee <dan@archlinux.org>
-Damir Perisa (dp)
-Dusty Phillips (dusty)
-Andrea Scarpino <bash.lnx@gmail.com>
-Douglas Soares de Andrade (dsa) <dsandrade at gmail dot com>
+Evangelos Foutras <foutrelis@gmail.com>
+Gergely Imreh <imrehg@gmail.com>
 Jaroslaw Swierczynski (swiergot)
+Jason Chu (jchu) <jason@archlinux.org>
+Joerie de Gram (Thralas) <j.de.gram@gmail.com>
+Laszlo Papp <djszapi2@gmail.com>
+Michael Klier <chi@chimeric.de>
+Nathan Jones <nathanj@insightbb.com>
+Paul Mattal (pjmattal) <paul@archlinux.org>
 Sebastian Nowicki (Xilon) <xilonmu@gmail.com>
+Simo Leone (simo) <simo@archlinux.org>
 tardo <tardo@nagi-fanboi.net>
-Angel Velasquez (angvp) <angvp@archlinux.com.ve>
 
 Translations
 ====================
@@ -44,10 +47,10 @@ Jaroslav Lichtblau <dragonlord@aur.archlinux.org>
 Deutsch
 -------
 Gerhard Brauer <gerbra@archlinux.de>
-Matthias Gorissen <matthias@archlinux.de>
-Pierre Schmitz <pierre@archlinux.de>
 Lukas Kropatschek
+Matthias Gorissen <matthias@archlinux.de>
 Niclas Pfeifer
+Pierre Schmitz <pierre@archlinux.de>
 
 Español
 -------
@@ -55,16 +58,16 @@ Víctor Martínez Romanos <vmromanos@gmail.com>
 
 Français
 --------
-Morgan Lefieux <comete@archlinuxfr.org>
 Cilyan Olowen <gaknar@gmail.com>
+Morgan Lefieux <comete@archlinuxfr.org>
 
 Greek
 -----
-Panos Filip <panosfilip@gmail.com>
 artem
 dimpard
 Duryodhana
 gtklocker
+Panos Filip (flamelab) <panosfilip@gmail.com>
 paschalis.m
 ranger
 shadowman
@@ -73,14 +76,14 @@ Zaxariadis
 
 Hungarian
 --------
-Laszlo Papp <djszapi2@gmail.com>
 Gergely Imreh <imrehg@gmail.com>
+Laszlo Papp <djszapi2@gmail.com>
 
 Italiano
 --------
-Pierluigi Picciau <pierluigi88@gmail.com>
-Giovanni Scafora (voidnull) <giovanni@archlinux.org>
 Andrea Scarpino <bash.lnx@gmail.com>
+Giovanni Scafora (voidnull) <giovanni@archlinux.org>
+Pierluigi Picciau <pierluigi88@gmail.com>
 
 Norwegian
 ---------
@@ -88,8 +91,8 @@ Hans-Kristian Arntzen <maister@archlinux.us>
 
 Polski
 ------
-Mateusz Herych <heniekk@gmail.com>
 Jaroslaw Swierczynski <swiergot@gmail.com>
+Mateusz Herych <heniekk@gmail.com>
 
 Português
 ---------
@@ -97,8 +100,8 @@ Douglas Soares de Andrade (dsa) <dsandrade at gmail dot com>
 
 Русский
 -------
-Sergej Pupykin
 Pierre Schmitz
+Sergej Pupykin
 
 Română
 ------
