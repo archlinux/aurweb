@@ -9,23 +9,29 @@
 #
 # Greek (Ελληνικά) translation
 # Main Translator: Panos Filip <panosfilip@gmail.com>
+# Contributor: artem
 # Contributor: dimpard
+# Contributor: Duryodhana
 # Contributor: gtklocker
 # Contributor: paschalis.m
+# Contributor: ranger
+# Contributor: shadowman
+# Contributor: WAntilles
+# Contributor: Zaxariadis
 
 global $_t;
 
-$_t["Search by"] = "Αναζήτηση";
+$_t["Search by"] = "Αναζήτηση κατά";
 
-$_t["This package has been flagged out of date."] = "Αυτό το πακέτο έχει επισημανθεί ως παρωχημένο.";
+$_t["This package has been flagged out of date."] = "Αυτό το πακέτο έχει χαρακτηριστεί παρωχημένο.";
 
 $_t["Voted"] = "Ψηφισμένο";
 
-$_t["Missing a required field."] = "Λείπει ένα απαραίτητο πεδίο";
+$_t["Missing a required field."] = "Λείπει ένα απαραίτητο πεδίο.";
 
 $_t["Logged-in as: %s"] = "Έχετε συνδεθεί ως: %s";
 
-$_t["Voting is closed for this proposal."] = "Η ψηφοφορία έχει κλείσει για αυτή την πρόταση";
+$_t["Voting is closed for this proposal."] = "Η ψηφοφορία έχει κλείσει για αυτή την πρόταση.";
 
 $_t["Error trying to modify account, %h%s%h: %s."] = "Σφάλμα κατά την τροποποίηση του λογαριασμού, %h%s%h: %s.";
 
@@ -35,19 +41,19 @@ $_t["Tarball"] = "Tarball";
 
 $_t["Can contain only one period, underscore or hyphen."] = "Μπορεί να περιλαμβάνει μόνο μία τελεία, κάτω παύλα ή παύλα.";
 
-$_t["Unflag Out-of-date"] = "Δηλώστε το πακέτο ως παρωχημένο.";
+$_t["Unflag Out-of-date"] = "Δηλώστε το πακέτο Παρωχημένο";
 
 $_t["Missing package ID."] = "Λείπει το ID (η ταυτότητα) του πακέτου.";
 
 $_t["You cannot vote in an proposal about you."] = "Δεν μπορείτε να ψηφίσετε σε μία πρόταση που αφορά εσάς.";
 
-$_t["No results matched your search criteria."] = "Κανένα από τα αποτελέσματα δεν ταιριάζει με τα δικά σας κριτήρια αναζήτησης.";
+$_t["No results matched your search criteria."] = "Δε βρέθηκε αποτέλεσμα που να ικανοποιεί τα κριτήρια αναζήτησης.";
 
-$_t["Update"] = "Ανανέωση.";
+$_t["Update"] = "Eνημέρωση";
 
 $_t["Sort order"] = "Σειρά ταξινόμησης";
 
-$_t["You must be logged in before you can edit package information."] = "Πρέπει να έχετε συνδεθεί πριν προσπαθήσετε να επεξεργαστείτε τις πληροφορίες του πακέτου.";
+$_t["You must be logged in before you can edit package information."] = "Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις πληροφορίες του πακέτου.";
 
 $_t["Your votes have been cast for the selected packages."] = "Οι ψήφοι σας προστέθηκαν στα επιλεγμένα πακέτα.";
 
@@ -55,13 +61,13 @@ $_t["Package details could not be found."] = "Οι πληροφορίες του
 
 $_t["change category"] = "αλλάξτε κατηγορία";
 
-$_t["Error retrieving package list."] = "Σφάλμα κατα την διάρκεια λήψης της λίστας πακέτων.";
+$_t["Error retrieving package list."] = "Σφάλμα κατά τη λήψη της λίστας πακέτων.";
 
 $_t["Reset"] = "Επαναφορά";
 
 $_t["Submitted: %s by %s"] = "Υποβλήθηκε: %s από %s";
 
-$_t["string"] = "νήμα";
+$_t["string"] = "ακολουθία χαρακτήρων";
 
 $_t["Remember me"] = "Θυμήσου με";
 
@@ -71,9 +77,9 @@ $_t["Package category updated."] = "Η κατηγορία του πακέτου 
 
 $_t["%s already has proposal running for them."] = "%s έχει ήδη πρόταση σε εξέλιξη για αυτό το θέμα.";
 
-$_t["Error - No file uploaded"] = "Σφάλμα - Κανένα αρχείο δεν έχει φορτωθεί";
+$_t["Error - No file uploaded"] = "Σφάλμα - Κανένα αρχείο δεν έχει ανεβαστεί";
 
-$_t["You did not select any packages to disown."] = "Δεν επιλέξατε κάποιο πακέτο για να το απορρίψετε.";
+$_t["You did not select any packages to disown."] = "Δεν επιλέξατε κάποιο πακέτο για απόρριψη.";
 
 $_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου.";
 
@@ -81,73 +87,73 @@ $_t["Votes"] = "Ψήφοι";
 
 $_t["Total"] = "Σύνολο";
 
-$_t["No more results to display."] = "Δεν υπάρχουν περισσότερα αποτελέσματα για να δείτε.";
+$_t["No more results to display."] = "Δεν υπάρχουν άλλα αποτελέσματα για να δείτε.";
 
 $_t["Maintainer"] = "Συντηρητής";
 
 $_t["Less"] = "Λιγότερο";
 
-$_t["You are not allowed to access this area."] = "Δεν σας επιτρέπεται η πρόσβαση σε αυτή τη περιοχή.";
+$_t["You are not allowed to access this area."] = "Δεν σας επιτρέπεται η πρόσβαση σε αυτήν την περιοχή.";
 
 $_t["Any type"] = "Κάθε είδος";
 
 $_t["Accounts"] = "Λογαριασμοί";
 
-$_t["Could not retrieve proposal details."] = "Δεν γινόταν να ληφθούν οι λεπτομέρειες της πρότασης.";
+$_t["Could not retrieve proposal details."] = "Δεν ήταν δυνατόν να ληφθούν οι λεπτομέρειες της πρότασης.";
 
 $_t["You do not have permission to edit this account."] = "Δεν έχετε την άδεια να επεξεργαστείτε αυτόν τον λογαριασμό.";
 
-$_t["New Package Notify"] = "Ενημέρωση Νέου Πακέτου";
+$_t["New Package Notify"] = "Ειδοποίηση για νέα πακέτα";
 
-$_t["Click on the Home link above to login."] = "Κλικάρετε στο Home link επάνω για να συνδεθείτε.";
+$_t["Click on the Home link above to login."] = "Κάντε κλικ στο σύνδεσμο Home επάνω για να συνδεθείτε.";
 
-$_t["The email address is invalid."] = "Αυτή τη διεύθυνση email δεν είναι έγκυρη.";
+$_t["The email address is invalid."] = "Αυτή η διεύθυνση email δεν είναι έγκυρη.";
 
-$_t["Could not change directory to %s."] = "Δεν γίνεται να γίνει αλλαγή καταλόγου σε %s";
+$_t["Could not change directory to %s."] = "Δεν είναι δυνατή η αλλαγή καταλόγου σε %s";
 
-$_t["None of the selected packages could be deleted."] = "Κανένα από τα επιλεγμένα πακέτα δεν γίνεται να σβηστεί.";
+$_t["None of the selected packages could be deleted."] = "Κανένα από τα επιλεγμένα πακέτα δεν είναι δυνατό να σβηστεί.";
 
 $_t["Your votes have been removed from the selected packages."] = "Οι ψήφοι σας έχουν αφαιρεθεί από τα επιλεγμένα πακέτα.";
 
-$_t["No packages matched your search criteria."] = "Κανένα πακέτο δεν ταιριάζει με τα κριτήρια αναζήτησης σας.";
+$_t["No packages matched your search criteria."] = "Κανένα πακέτο δεν ικανοποιεί τα κριτήρια αναζήτησης σας.";
 
 $_t["Create"] = "Δημιουργήστε";
 
-$_t["Start and end with a letter or number"] = "Ξεκινήστε και τελειώστε με ένα γράμμα ή αριθμό";
+$_t["Start and end with a letter or number"] = "Ξεκινήστε και τελειώστε με γράμμα ή αριθμό";
 
 $_t["orphan"] = "ορφανό";
 
-$_t["View this user's packages"] = "Δείτε τα πακέτου αυτού του χρήστη";
+$_t["View this user's packages"] = "Δείτε τα πακέτα αυτού του χρήστη";
 
 $_t["Next"] = "Επόμενο";
 
 $_t["Could not re-tar"] = "Αποτυχία κατά την επανασυμπίεση";
 
-$_t["You must create an account before you can upload packages."] = "Πρέπει να δημιουργήσετε ένα λογαριασμό πριν ανεβάσετε πακέτα.";
+$_t["You must create an account before you can upload packages."] = "Πρέπει να δημιουργήσετε ένα λογαριασμό για να ανεβάσετε πακέτα.";
 
 $_t["Location"] = "Τοποθεσία";
 
-$_t["Delete comment"] = "Διαγράψετε σχόλιο";
+$_t["Delete comment"] = "Διαγράψτε το σχόλιο";
 
 $_t["Account Type"] = "Είδος λογαριασμού";
 
 $_t["Type"] = "Είδος";
 
-$_t["More"] = "Περισσότερο";
+$_t["More"] = "Περισσότερα";
 
 $_t["Error retrieving package details."] = "Σφάλμα κατά τη διάρκεια φόρτωσης των πληροφοριών του πακέτου.";
 
-$_t["Could not create incoming directory: %s."] = "Δεν ήταν δυνατή η δημιουργία εισερχόμενου καταλόγου: %s.";
+$_t["Could not create incoming directory: %s."] = "Δεν ήταν δυνατή η δημιουργία κατάλογου εισερχομένων: %s..";
 
-$_t["Upload package file"] = "Φορτώστε το αρχείο του πακέτου";
+$_t["Upload package file"] = "Ανεβάστε το αρχείο του πακέτου";
 
 $_t["(defaults to 7 if empty)"] = "(7 από προεπιλογή εάν είναι άδειο)";
 
-$_t["No New Comment Notification"] = "Καμία Ειδοποίηση για Νέο Πακέτο";
+$_t["No New Comment Notification"] = "Ακύρωση Ειδοποίησης Για Νέα Πακέτα";
 
-$_t["Couldn't add to notification list."] = "Δεν γίνεται η πρόσθεση του στη λίστα ειδοποίησης.";
+$_t["Couldn't add to notification list."] = "Δεν ήταν δυνατή η προσθήκη του στη λίστα ειδοποίησης.";
 
-$_t["Disown Packages"] = "Απορρίψτε Πακέτα";
+$_t["Disown Packages"] = "Aποδεσμεύστε Πακέτα";
 
 $_t["Advanced"] = "Σύνθετη αναζήτηση";
 
@@ -159,17 +165,17 @@ $_t["(empty if not applicable)"] = "(κενό εάν δεν είναι εφαρ�
 
 $_t["Per page"] = "Ανά σελίδα";
 
-$_t["New proposal submitted."] = "Νέα πρόταση υποβλήθηκε.";
+$_t["New proposal submitted."] = "Υποβλήθηκε νέα πρόταση.";
 
-$_t["Upload"] = "Φόρτωσε";
+$_t["Upload"] = "Ανέβασε";
 
 $_t["Invalid category ID."] = "Μη έγκυρο ID κατηγορίας.";
 
 $_t["Go"] = "Πήγαινε";
 
-$_t["You must be logged in before you can vote for packages."] = "Πρέπει να έχετε συνδεθεί πριν μπορέσετε να ψηφίσετε για πακέτα.";
+$_t["You must be logged in before you can vote for packages."] = "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ψηφίσετε για πακέτα.";
 
-$_t["Use this form to search existing accounts."] = "Χρησιμοποιήστε αυτή τη φόρμα για αναζητήσετε για υπάρχοντες λογαριασμούς.";
+$_t["Use this form to search existing accounts."] = "Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε για υπάρχοντες λογαριασμούς.";
 
 $_t["The address, %h%s%h, is already in use."] = "Η διεύθυνση, , %h%s%h, χρησιμοποιείται ήδη.";
 
@@ -179,7 +185,7 @@ $_t["Select Category"] = "Επιλέξτε κατηγορία";
 
 $_t["You have been removed from the comment notification list for %s."] = "Έχετε αφαιρεθεί από τη λίστα ειδοποίησης σχολίων για το %s.";
 
-$_t["Unknown file format for uploaded file."] = "Άγνωστο είδος φορτωμένου αρχείου.";
+$_t["Unknown file format for uploaded file."] = "Άγνωστο είδος ανεβασμένου αρχείου.";
 
 $_t["Delete Packages"] = "Διαγράψτε Πακέτα";
 
@@ -191,9 +197,9 @@ $_t["You did not select any packages to flag."] = "Δεν επιλέξατε κ�
 
 $_t["All Votes"] = "Όλες οι Ψήφοι";
 
-$_t["The selected packages have been disowned."] = "Τα επιλεγμένα πακέτα έχουν απορριφθεί.";
+$_t["The selected packages have been disowned."] = "Τα επιλεγμένα πακέτα έχουν αποδεσμευθεί.";
 
-$_t["Suspended"] = "Έχει ανασταλλεί";
+$_t["Suspended"] = "Έχει ανασταλεί";
 
 $_t["Home"] = "Home";
 
@@ -207,7 +213,7 @@ $_t["Category"] = "Κατηγορία";
 
 $_t["Missing build function in PKGBUILD."] = "Λείπει το function build στο PKGBUILD.";
 
-$_t["You must be logged in before you can flag packages."] = "Πρέπει να έχετε συνδεθεί πριν επισημάνετε τα πακέτα.";
+$_t["You must be logged in before you can flag packages."] = "Πρέπει να έχετε συνδεθεί για να επισημάνετε τα πακέτα.";
 
 $_t["No results found."] = "Κανένα αποτέλεσμα δεν βρέθηκε.";
 
@@ -225,7 +231,7 @@ $_t["You did not select any packages to adopt."] = "Δεν επιλέξατε κ
 
 $_t["Length must be at least 1."] = "Το μήκος πρέπει να είναι τουλάχιστον 1.";
 
-$_t["Error trying to create account, %h%s%h: %s."] = "Σφάλμα κατα τη διάρκεια δημιουργίας λογαριασμού, %h%s%h: %s.";
+$_t["Error trying to create account, %h%s%h: %s."] = "Σφάλμα κατα τη διάρκεια δημιουργίας του λογαριασμού, %h%s%h: %s.";
 
 $_t["End"] = "Τέλος";
 
@@ -233,11 +239,11 @@ $_t["The account, %h%s%h, has been successfully modified."] = "Ο λογαρια
 
 $_t["Account Suspended"] = "Ο Λογαριασμός έχει Ανασταλεί.";
 
-$_t["Status"] = "Στοιχεία";
+$_t["Status"] = "Κατάσταση";
 
-$_t["You must be logged in before you can get notifications on comments."] = "Πρέπει να έχετε συνδεθεί πριν μπορέσετε να λάβετε ειδοποιήσεις για σχόλια.";
+$_t["You must be logged in before you can get notifications on comments."] = "Πρέπει να έχετε συνδεθεί για να μπορέσετε να λάβετε ειδοποιήσεις για σχόλια.";
 
-$_t["Leave the password fields blank to keep your same password."] = "Αφήστε τα πεδία για το κωδικό σας κενά για να κρατήσετε το ίδιο κωδικό.";
+$_t["Leave the password fields blank to keep your same password."] = "Αφήστε τα πεδία για τον κωδικό σας κενά για να κρατήσετε το ίδιο κωδικό.";
 
 $_t["IRC Nick"] = "Ψευδώνυμο IRC";
 
@@ -249,9 +255,9 @@ $_t["This is a %h%s%h problem!"] = "Αυτό είναι ένα %h%s%h πρόβλ
 
 $_t["You are not allowed to overwrite the %h%s%h package."] = "Δεν επιτρέπεται να επικαλύψετε το %h%s%h πακέτο.";
 
-$_t["Missing comment ID."] = "Λείπει το ID σχολίου.";
+$_t["Missing comment ID."] = "Λείπει το ID του σχολίου.";
 
-$_t["Error trying to retrieve package details."] = "Σφάλμα κατά τη διάρκεια λήψης των πληροφοριών του πακέτου.";
+$_t["Error trying to retrieve package details."] = "Σφάλμα στη διαδικασία λήψης των πληροφοριών του πακέτου.";
 
 $_t["Proposal cannot be empty."] = "Η πρόταση δεν μπορεί να είναι κενή.";
 
@@ -263,7 +269,7 @@ $_t["The selected packages have been adopted."] = "Τα επιλεγμένα π�
 
 $_t["Packages"] = "Πακέτα";
 
-$_t["Edit Account"] = "Τροποποιήστε Λογαριασμό";
+$_t["Edit Account"] = "Τροποποίηση Λογαριασμού";
 
 $_t["Search"] = "Αναζήτηση";
 
@@ -271,7 +277,7 @@ $_t["Language"] = "Γλώσσα";
 
 $_t["Orphans"] = "Ορφανά";
 
-$_t["Could not retrieve information for the specified user."] = "Δεν μπορούσε να γίνει λήψη πληροφοριών για αυτό το χρήστη.";
+$_t["Could not retrieve information for the specified user."] = "Δεν ήταν δυνατή η λήψη πληροφοριών για αυτόν τον χρήστη.";
 
 $_t["Bugs"] = "Bugs";
 
@@ -283,7 +289,7 @@ $_t["You've already voted for this proposal."] = "Έχετε ήδη ψηφίσε
 
 $_t["Required by"] = "Απαιτείται από";
 
-$_t["You must be logged in before you can unflag packages."] = "Πρέπει να έχετε συνδεθεί πριν μπορέσετε να αποχαρακτηρίσετε πακέτα.";
+$_t["You must be logged in before you can unflag packages."] = "Πρέπει να έχετε συνδεθεί για να μπορέσετε να αποχαρακτηρίσετε πακέτα.";
 
 $_t["You did not select any packages to unflag."] = "Δεν επιλέξατε κάποιο πακέτο για να αποχαρακτηρίσετε.";
 
@@ -293,9 +299,9 @@ $_t["You did not select any packages to delete."] = "Δεν επιλέξατε �
 
 $_t["Could not create directory %s."] = "Aποτυχία κατά τη δημιουργία του καταλόγου %s.";
 
-$_t["UnNotify"] = "Διακοπή ειδοποίησης";
+$_t["UnNotify"] = "Διακοπή Ειδοποίησης";
 
-$_t["Flag Out-of-date"] = "Επισημάνετε ως παρωχημένο";
+$_t["Flag Out-of-date"] = "Επισημάνετε ως Παρωχημένο";
 
 $_t["The selected packages have been unflagged."] = "Τα συγκεκριμένα πακέτα έχουν αποεπισημανθεί.";
 
@@ -309,21 +315,21 @@ $_t["Adopt Packages"] = "Υιοθετήστε Πακέτα";
 
 $_t["Name"] = "Όνομα";
 
-$_t["Package Listing"] = "Λίστα πακέτων";
+$_t["Package Listing"] = "Λίστα Πακέτων";
 
 $_t["Any"] = "Οποιοδήποτε";
 
-$_t["It must be between %s and %s characters long"] = "Πρέπει να συμπεριλαμβάνει από %s έως %s χαρακτήρες";
+$_t["It must be between %s and %s characters long"] = "Πρέπει να αποτελείται από %s έως %s χαρακτήρες";
 
 $_t["Logout"] = "Αποσύνδεση";
 
 $_t["The account, %h%s%h, has been successfully created."] = "Ο λογαριασμός, %h%s%h, δημιουργήθηκε με επιτυχία.";
 
-$_t["Your password must be at least %s characters."] = "Ο κωδικός πρέπει να συμπεριλαμβάνει τουλάχιστον %s χαρακτήρες.";
+$_t["Your password must be at least %s characters."] = "Ο κωδικός πρέπει να αποτελείται τουλάχιστον %s χαρακτήρες.";
 
-$_t["Submit"] = "Υποβάλετε";
+$_t["Submit"] = "Υποβολή";
 
-$_t["Sorry, uploads are not permitted by this server."] = "Συγγνώμη, δεν επιτρέπονται φορτώσεις αρχείων σε αυτόν τον server.";
+$_t["Sorry, uploads are not permitted by this server."] = "Συγγνώμη, αυτός ο server δεν επιτρέπει το ανέβασμα αρχείων..";
 
 $_t["Actions"] = "Ενέργειες";
 
@@ -335,7 +341,7 @@ $_t["Proposal"] = "Πρόταση";
 
 $_t["Re-type password"] = "Πληκτρολογήστε ξανά τον κωδικό σας.";
 
-$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Σφάλμα κατά το ξεπακετάρισμα του φορτωμένου αρχείου - δεν υπάρχει PKGBUILD.";
+$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Σφάλμα κατά το ξεπακετάρισμα του ανεβασμένου αρχείου - δεν υπάρχει PKGBUILD.";
 
 $_t["The selected packages have been flagged out-of-date."] = "Τα συγκεκριμένα πακέτα έχουν επισημανθεί ως παρωχημένα.";
 
@@ -347,39 +353,39 @@ $_t["You did not select any packages to vote for."] = "Δεν επιλέξατε
 
 $_t["Never"] = "Ποτέ";
 
-$_t["You must be logged in before you can disown packages."] = "Πρέπει να έχετε συνδεθεί πριν μπορέσετε να απορρίψετε πακέτα.";
+$_t["You must be logged in before you can disown packages."] = "Πρέπει να έχετε συνδεθεί για να μπορέσετε να αποδεσμεύσετε πακέτα.";
 
-$_t["You've found a bug if you see this...."] = "Έχετε βρει ένα bug εάν βλέπετε αυτό....";
+$_t["You've found a bug if you see this...."] = "Για να βλέπετε αυτό, σημαίνει ότι ανακαλύψατε ένα bug....";
 
-$_t["Last Voted"] = "Τελευταία Ψηφισμένο";
+$_t["Last Voted"] = "Πιο Πρόσφατα Ψηφισμένο";
 
 $_t["Password"] = "Κωδικός";
 
-$_t["Real Name"] = "Πραγματικό όνομα";
+$_t["Real Name"] = "Πραγματικό 'Ονομα";
 
-$_t["Package Details"] = "Πληροφορίες πακέτου";
+$_t["Package Details"] = "Πληροφορίες Πακέτου";
 
-$_t["UnVote"] = "Ακύρωση ψήφου";
+$_t["UnVote"] = "Αναίρεση ψήφου";
 
-$_t["Password fields do not match."] = "Τα πεδία κωδικού δεν ταιριάζουν.";
+$_t["Password fields do not match."] = "Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν είναι ίδιες.";
 
 $_t["Username"] = "Όνομα χρήστη";
 
 $_t["The username is invalid."] = "Το όνομα χρήστη δεν είναι έγκυρο.";
 
-$_t["You must be logged in before you can adopt packages."] = "Πρέπει να έχετε συνδεθεί πριν μπορέσετε να υιοθετήσετε πακέτα.";
+$_t["You must be logged in before you can adopt packages."] = "Πρέπει να έχετε συνδεθεί για να μπορέσετε να υιοθετήσετε πακέτα.";
 
 $_t["Email Address"] = "Διεύθυνση email";
 
 $_t["Trusted User"] = "Trusted User";
 
-$_t["Invalid name: only lowercase letters are allowed."] = "Μη έγκυρο όνομα: μόνο μικρά γράμματα επιτρέπονται.";
+$_t["Invalid name: only lowercase letters are allowed."] = "Μη έγκυρο όνομα: μόνο πεζοί χαρακτήρες επιτρέπονται.";
 
 $_t["Length must be a number."] = "Το μήκος πρέπει να είναι αριθμός.";
 
 $_t["%s has %s apples."] = "%s έχει %s μήλα.";
 
-$_t["You must be logged in before you can un-vote for packages."] = "Πρέπει να έχετε συνδεθεί πριν μπορέσετε να ακυρώσετε την ψήφο σας για πακέτα.";
+$_t["You must be logged in before you can un-vote for packages."] = "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για πακέτα.";
 
 $_t["Login"] = "Σύνδεση";
 
@@ -389,15 +395,15 @@ $_t["Use this form to update your account."] = "Χρησιμοποιήστε α�
 
 $_t["Abstain"] = "Απέχουν";
 
-$_t["Could not chmod directory %s."] = "Δεν μπορούσε να γίνει chmod στο κατάλογο %s.";
+$_t["Could not chmod directory %s."] = "Δεν ήταν δυνατή η αλλαγή δικαιωμάτων (chmod) στον κατάλογο %s.";
 
 $_t["You are not allowed to delete this comment."] = "Δεν σας επιτρέπεται να διαγράψετε αυτό το σχόλιο.";
 
 $_t["required"] = "απαιτούμενο";
 
-$_t["Sort by"] = "Ταξινομήστε";
+$_t["Sort by"] = "Ταξινόμηση κατά";
 
-$_t["Submit a proposal to vote on."] = "Υποβάλετε μία πρόταση για ψήφιση.";
+$_t["Submit a proposal to vote on."] = "Υποβάλετε μία πρόταση προς ψήφιση.";
 
 $_t["Proposal Details"] = "Πληροφορίες Πρότασης";
 
@@ -405,13 +411,12 @@ $_t["Language is not currently supported."] = "Η γλώσσα αυτή δεν �
 
 $_t["Last vote"] = "Τελευταία ψήφος";
 
-$_t["New Comment Notification"] = "Νέα Ειδοποίηση Σχολίου";
+$_t["New Comment Notification"] = "Ειδοποίηση για νέα σχόλια";
 
 $_t["Missing User ID"] = "Λείπει το ID Χρήστη";
 
 $_t["You have been added to the comment notification list for %s."] = "Έχετε προστεθεί στη λίστα ειδοποίησης σχολίων για το %s.";
 
-$_t["Select new category"] = "Επιλέξετε νέα κατηγορία";
+$_t["Select new category"] = "Επιλογή νέας κατηγορίας";
 
-$_t["A Trusted User cannot assign Developer status."] = "Ένας Trusted User δεν μπορεί αποδόσει στοιχεία Developer.";
-
+$_t["A Trusted User cannot assign Developer status."] = "Ένας Trusted User δεν μπορεί να αποδώσει στοιχεία Developer.";
