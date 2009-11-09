@@ -413,7 +413,7 @@ if ($_COOKIE["AURSID"]):
 						db_query($q, $dbh);
 					}
 				}
-				
+
 				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($packageID));
 
 				header('Location: packages.php?ID=' . $packageID);
@@ -435,6 +435,7 @@ html_header("Submit");
 		<span class="f3"><?php print __("Submit"); ?></span>
 	</div>
 	<div class="pgboxbody">
+	<p><?php echo __("Upload your source packages here. Create source packages with `makepkg --source`.") ?></p>
 
 <?php
 	if (empty($_REQUEST['pkgsubmit']) || $error):
@@ -455,11 +456,11 @@ html_header("Submit");
 ?>
 
 <form action='pkgsubmit.php' method='post' enctype='multipart/form-data'>
-	<input type='hidden' name='pkgsubmit' value='1' />
+	<div> <input type='hidden' name='pkgsubmit' value='1' /> </div>
 	<table border='0' cellspacing='5'>
 		<tr>
-			<td span='f4' align='right'><?php print __("Package Category"); ?>:</td>
-			<td span='f4' align='left'>
+			<td class='f4' align='right'><?php print __("Package Category"); ?>:</td>
+			<td class='f4' align='left'>
 			<select name='category'>
 				<option value='1'><?php print __("Select Category"); ?></option>
 				<?php
@@ -475,8 +476,8 @@ html_header("Submit");
 			</td>
 		</tr>
 		<tr>
-			<td span='f4' align='right'><?php print __("Upload package file"); ?>:</td>
-			<td span='f4' align='left'>
+			<td class='f4' align='right'><?php print __("Upload package file"); ?>:</td>
+			<td class='f4' align='left'>
 				<input type='file' name='pfile' size='30' />
 			</td>
 		</tr>
