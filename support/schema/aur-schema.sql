@@ -26,6 +26,7 @@ CREATE TABLE Users (
 	Username CHAR(32) NOT NULL,
 	Email CHAR(64) NOT NULL,
 	Passwd CHAR(32) NOT NULL,
+	ResetKey CHAR(32) NOT NULL DEFAULT '',
 	RealName CHAR(64) NOT NULL DEFAULT '',
 	LangPreference CHAR(2) NOT NULL DEFAULT 'en',
 	IRCNick CHAR(32) NOT NULL DEFAULT '',
@@ -229,4 +230,3 @@ CREATE TABLE IF NOT EXISTS TU_Votes (
   VoteID int(10) unsigned NOT NULL,
   UserID int(10) unsigned NOT NULL
 );
-

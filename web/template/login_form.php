@@ -25,6 +25,6 @@ else {
 	<input type="submit" class="button" value="<?php  print __("Login"); ?>" />
 	</div>
 </form>
+<a href="passreset.php">[Forgot Password]</a>
 <?php } ?>
 </div>
-
