@@ -400,7 +400,26 @@ function uid_from_username($username="")
 		return "None";
 	}
 	$row = mysql_fetch_row($result);
-	
+
+	return $row[0];
+}
+
+# obtain the uid given a Users.Email
+#
+function uid_from_email($email="")
+{
+	if (!$email) {
+		return "";
+	}
+	$dbh = db_connect();
+	$q = "SELECT ID FROM Users WHERE Email = '".mysql_real_escape_string($email)
+				."'";
+	$result = db_query($q, $dbh);
+	if (!$result) {
+		return "None";
+	}
+	$row = mysql_fetch_row($result);
+
 	return $row[0];
 }
 
