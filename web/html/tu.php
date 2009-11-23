@@ -129,10 +129,6 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		include("tu_list.php");
 ?>
 
-<center>
-	<a href='addvote.php'><?php print __("Add") ?></a>
-</center><br />
-
 <?php
 		$q = "SELECT * FROM TU_VoteInfo ORDER BY Submitted " . $order . $lim;
 		$result = db_query($q, $dbh);
@@ -143,22 +139,18 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		$qnext = "SELECT ID FROM TU_VoteInfo";
 		$nextresult = db_query($qnext, $dbh);
 ?>
-<table style='width: 90%'>
+<div class="pgbox">
+<p><a href='addvote.php'><?php print __("Add Proposal") ?></a></p>
+
 	<?php if (mysql_num_rows($result)) { $by = htmlentities($by, ENT_QUOTES); ?>
-	<tr>
-	<td align='left'>
 	<?php if ($off != 0) { $back = (($off - $limit) <= 0) ? 0 : $off - $limit; ?>
 	<a href='tu.php?off=<?php print $back ?>&amp;by=<?php print $by ?>'><?php print __("Back") ?></a>
 	<?php } ?>
-	</td>
-	<td align='right'>
 	<?php if (($off + $limit) < mysql_num_rows($nextresult)) { $forw = $off + $limit; ?>
 	<a href='tu.php?off=<?php print $forw ?>&amp;by=<?php print $by ?>'><?php print __("Next") ?></a>
 	<?php } ?>
-	</td>
-	</tr>
 	<?php } ?>
-</table>
+</div>
 <?php
 	}
 }

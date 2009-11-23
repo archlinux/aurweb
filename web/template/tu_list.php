@@ -1,12 +1,7 @@
-<center>
-<table cellspacing='3' class='boxSoft'>
-	<tr>
-		<td class='boxSoftTitle' align='right'>
+<div class="pgbox">
+		<div class="pgboxtitle" align="right">
 			<span class='f3'><?php print $type ?></span>
-		</td>
-	</tr>
-	<tr>
-		<td class='boxSoft'>
+		</div>
 			<table width='100%' cellspacing='0' cellpadding='2'>
 				<tr>
 					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Proposal") ?></span></th>
@@ -62,7 +57,4 @@
 				</tr>
 				<?php } } ?>
 			</table>
-		</td>
-	</tr>
-</table>
-</center>
+</div>

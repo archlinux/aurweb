@@ -24,11 +24,7 @@ N/A
 <?php print str_replace("\n", "<br />\n", htmlentities($row['Agenda'])) ?>
 </p>
 
-<table cellspacing='3' class='boxSoft' style='width: 50%'>
-</tr>
-<tr>
-<td class='boxSoft'>
-<table width='100%' cellspacing='0' cellpadding='2'>
+<table class="boxSoft" width='100%' cellspacing='0' cellpadding='2'>
 <tr>
 <th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Yes") ?></span></th>
 <th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("No") ?></span></th>
@@ -49,7 +45,6 @@ N/A
 <?php } ?>
 </span></span></td>
 </tr>
-</table>
 </table>
 </div></div>
 
