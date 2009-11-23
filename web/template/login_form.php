@@ -1,4 +1,4 @@
-<div id="login_bar">
+<div id="login_bar" class="pgbox">
 <?php
 if (isset($_COOKIE["AURSID"])) {
 	print __("Logged-in as: %s", '<b>' . username_from_sid($_COOKIE["AURSID"]) . '</b>');
@@ -23,8 +23,8 @@ else {
 	<input type="password" name="passwd" size="30" maxlength="<?php print PASSWD_MAX_LEN; ?>" />
 	<input type="checkbox" name="remember_me" /><?php print __("Remember me"); ?>
 	<input type="submit" class="button" value="<?php  print __("Login"); ?>" />
+	<a href="passreset.php">[<?php echo __('Forgot Password') ?>]</a>
 	</div>
 </form>
-<a href="passreset.php">[Forgot Password]</a>
 <?php } ?>
 </div>
