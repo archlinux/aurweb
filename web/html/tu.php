@@ -27,12 +27,12 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 			$dbh = db_connect();
 			$results = db_query($q, $dbh);
 			$row = mysql_fetch_assoc($results);
-			
+
 			if (empty($row)) {
 				print __("Could not retrieve proposal details.");
 			} else {
 				$isrunning = $row['End'] > time() ? 1 : 0;
-				
+
 				$qvoted = "SELECT * FROM TU_Votes WHERE ";
 				$qvoted.= "VoteID = " . $row['ID'] . " AND ";
 				$qvoted.= "UserID = " . uid_from_sid($_COOKIE["AURSID"]);
@@ -85,7 +85,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 						$errorvote = __("You've already voted for this proposal.");
 						# Update if they voted
 						$hasvoted = mysql_num_rows(db_query($qvoted, $dbh));
-						
+
 						$results = db_query($q, $dbh);
 						$row = mysql_fetch_assoc($results);
 					}
@@ -98,7 +98,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 
 	} else {
 		$dbh = db_connect();
-		
+
 		$limit = $pp;
 		if (isset($_GET['off']))
 			$offset = $_GET['off'];
