@@ -446,14 +446,6 @@ html_header("Submit");
 		# User is not uploading, or there were errors uploading - then
 		# give the visitor the default upload form
 		if (ini_get("file_uploads")):
-			if ($error):
-?>
-
-<span class='error'><?php print $error; ?></span><br />
-<br />
-
-<?php
-			endif;
 
 			$pkg_categories = pkgCategories();
 			$pkg_locations = pkgLocations();
