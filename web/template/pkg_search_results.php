@@ -86,10 +86,9 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	<table width='100%'>
 	<tr>
 		<td align='left'>
-	<div>
-		<span class='f3'><?php echo __('Legend') ?>
+	<div id="legend">
+		<span class='f3'><?php echo __('Legend') ?></span>
 		<span class="outofdate"><?php print __('Out of Date') ?></span>
-		</span>
 	</div>
 	<?php if ($SID): ?>
 	<div>

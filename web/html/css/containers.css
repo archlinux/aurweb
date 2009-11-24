@@ -153,6 +153,12 @@ td.data2 {
   padding-left: .3em;
   text-align: left;
 }
+#legend span {
+  padding: 1px;
+  margin-left: .3em;
+  border: solid 1px #888;
+  text-align: left;
+}
 td.text {
   color: #000;
   font-size: 12px;
