@@ -15,32 +15,32 @@ if (isset($_COOKIE["AURSID"])) {
 
 if ($atype == "Trusted User" OR $atype == "Developer") {
 	$dbh = db_connect();
-	
+
 	if (!empty($_POST['addVote'])) {
 		$error = "";
-		
+
 		if (!empty($_POST['user'])) {
 			$qcheck = "SELECT * FROM Users WHERE Username = '" . mysql_real_escape_string($_POST['user']) . "'";
 			$check = mysql_num_rows(db_query($qcheck, $dbh));
 
 			if ($check == 0) {
-				$error.= "<div style='color: red; font-weight: bold'>" . __("Username does not exist.") . "</div>";
+				$error.= __("Username does not exist.");
 			} else {
 				$qcheck = "SELECT * FROM TU_VoteInfo WHERE User = '" . mysql_real_escape_string($_POST['user']) . "'";
 				$qcheck.= " AND End > UNIX_TIMESTAMP()";
 				$check = mysql_num_rows(db_query($qcheck, $dbh));
 
 				if ($check != 0) {
-					$error.= "<div style='color: red; font-weight: bold'>" . __("%s already has proposal running for them.", htmlentities($_POST['user'])) . "</div>";
+					$error.= __("%s already has proposal running for them.", htmlentities($_POST['user']));
 				}
 			}
 		}
 
 		if (!empty($_POST['length'])) {
 			if (!is_numeric($_POST['length'])) {
-				$error.= "<div style='color: red; font-weight: bold'>" . __("Length must be a number.") . "</div>";
+				$error.=  __("Length must be a number.") ;
 			} else if ($_POST['length'] < 1) {
-				$error.= "<div style='color: red; font-weight: bold'>" . __("Length must be at least 1.") . "</div>";
+				$error.= __("Length must be at least 1.");
 			} else {
 				$len = (60*60*24)*$_POST['length'];
 			}
@@ -49,7 +49,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		}
 
 		if (empty($_POST['agenda'])) {
-			$error.= "<div style='color: red; font-weight: bold'>" . __("Proposal cannot be empty.") . "</div>";
+			$error.= __("Proposal cannot be empty.");
 		}
 	}
 
@@ -61,11 +61,17 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		$q.= ", " . uid_from_sid($_COOKIE["AURSID"]) . ")";
 
 		db_query($q, $dbh);
-		print "<p>" . __("New proposal submitted.") . "</p>\n";
+		print "<p class=\"pkgoutput\">" . __("New proposal submitted.") . "</p>\n";
 	} else {
 ?>
-<p><?php print __("Submit a proposal to vote on.") ?></p>
-<?php if (!empty($error)) { print $error . "<br />"; } ?>
+
+<?php if (!empty($error)): ?>
+	<p style="color: red;" class="pkgoutput"><?php print $error ?></p>
+<?php endif; ?>
+
+<div class="pgbox">
+<div class="pgboxtitle"><?php print __("Submit a proposal to vote on.") ?></div>
+<div class="pgboxbody">
 <form action='addvote.php' method='post'>
 <b><?php print __('Applicant/TU') ?></b>
 <input type='text' name='user' value='<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>'>
@@ -76,14 +82,14 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 <?php print __("(defaults to 7 if empty)") ?>
 <br />
 <b><?php print __('Proposal') ?></b><br />
-<textarea name='agenda' rows='10' cols='50'><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
+<textarea name='agenda' rows='25' cols='80'><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
 <input type='hidden' name='addVote' value='1'>
 <input type='submit' class='button' value='<?php print __('Submit'); ?>'>
 </form>
-<br />
+</div>
+</div>
 <?php
 	}
-	print "<a href='tu.php'>" . __("Back") . "</a>";
 } else {
 	print __("You are not allowed to access this area.");
 }

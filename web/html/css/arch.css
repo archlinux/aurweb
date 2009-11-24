@@ -361,3 +361,9 @@ blockquote.code {
 	padding: 2px;
 	font-family: monospace;
 }
+
+.pkgoutput {
+	margin: 0 25px;
+	font-size: 18px;
+	font-weight: bold;
+}
