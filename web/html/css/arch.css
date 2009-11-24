@@ -2,142 +2,119 @@
 * ul { padding: 20px; }
 body {
   min-width: 600px;
-  background: #fbf8f1 url("../images/titlebar.png") repeat-x top left;
-  padding: 0 30px;
   color: #555;
-  font-family: sans-serif;
+  font-family: "DejaVu Sans", sans-serif;
+  font-size: 14px;
 }
 /* Divs */
-#head_container {
-  height: 220px;
-}
-#main_nav {
-  position: absolute;
-  top: 123px;
-  right: 30px;
-  width: 600px;
-  background-color: #333;
-}
-#sub_nav {
-  position: absolute;
-  top: 149px;
-  right: 30px;
-  min-width: 700px;
-  background-color: #1793d1;
-}
-#main_nav ul,
-#sub_nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#main_nav ul li,
-#sub_nav ul li {
+#title {
   display: block;
-  float: right;
-  margin: 0 3px;
-  padding: 0;
-  text-align: center;
+  position: relative;
+  height: 123px;
+}
+#main_nav,
+#sub_nav {
+  list-style: none;
   font-size: 13px;
   line-height: 26px;
+  padding: 0 32px;
 }
-#main_nav ul li.selected {
+#main_nav {
+  background-color: #333;
+  text-align: right;
+}
+#sub_nav {
+  min-width: 700px;
+  background-color: #1793d1;
+  text-align: right;
+}
+#main_nav a.selected {
   background-color: #1793d1;
 }
-#sub_nav ul li.selected {
+#sub_nav a.selected {
   background-color: #333;
 }
-#main_nav ul li a,
-#sub_nav ul li a {
-  display: block;
-  padding: 0 8px;
+#main_nav a,
+#sub_nav a {
+  padding: 5px 9px;
+  line-height: 26px;
   color: #fff;
   font-weight: bold;
   text-decoration: none;
 }
-#main_nav ul li a:hover {
+#main_nav a:hover {
   background-color: #1793d1;
 }
-#lang_login_sub {
-  display: block;
-  position: relative;
-  top: -30px;
-  margin: auto;
-  width: 90%;
+#sub_nav a:hover {
+  background-color: #333;
 }
-#lang_login_sub .button {
-  font-size: 9px;
-  margin: 2px;
+#lang_sub {
+  display: block;
+  font-size: 10pt;
+  text-align: right;
+  position: relative;
+  margin-bottom: 10px;
+  margin-right: 35px;
+}
+#lang_sub ul {
+  list-style: none;
+  padding: 0px;
+}
+#lang_sub ul a {
+  text-decoration: none;
+}
+#lang_sub ul a:hover {
+  text-decoration: underline;
+}
+#lang_sub ul li {
+  display: inline;
+  padding-right: 1px;
 }
 #login_bar {
-  font-size: 10px;
-  display: block;
-  float: left;
+	display: block;
+	margin-bottom: 40px;
 }
 #login_bar input {
   margin-right: 5px;
 }
-#lang_bar { 
-  display: block;
-  position: relative;
-  float: right;
-}
-#lang_login_sub ul {
-  list-style: none;
-  padding: 0;
-}
-#lang_login_sub ul a {
-  text-decoration: none;
-}
-#lang_login_sub ul a:hover {
-  text-decoration: underline;
-}
-#lang_login_sub ul li {
-  display: inline;
-  padding-right: 1px;
-  font-size: 10px;
+#login_bar .button {
+  margin: 2px;
 }
 #updates {
   font-size: small;
   /*position: relative;*/
-  top: 0;
+  top: 0px;
   background-color: #e7f0f6;
   border: 1px solid #92cbe8;
   padding: 10px;
 }
-#ads {
-  z-index: 0;
-  position: absolute;
-  top: 40px;
-  right: 10px;
-}
 #logo {
   z-index: 1;
-  position: absolute;
+  position: relative;
   top: 10px;
   left: 25px;
   width: 350px;
 }
 #logo h1#archtitle {
-  text-indent: -9999px;
-  margin: 0;
-  padding: 0;
+  background: transparent url("../images/titlelogo.png") no-repeat top left;
+  margin: 0px;
+  padding: 0px;
 }
 #logo h1#archtitle a {
+  color: transparent;
   display: block;
-  background: transparent url("../images/titlelogo.png") top left no-repeat;
   width: 350px;
   height: 103px;
 }
 .clear {
   clear: both;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 .right {
   float: right;
   width: 320px;
-  padding: 0 10px 10px 0;
+  padding: 0px 10px 10px 0px;
 }
 .left {
   padding: 10px;
@@ -182,7 +159,7 @@ div.listing {
 }
 /* Headers */
 h2 {
-  margin: 20px 0 10px 0;
+  margin: 20px 0px 10px 0px;
 }
 h2.title {
   border-bottom: 1px solid #46494d;
@@ -235,7 +212,7 @@ ul.small {
 ul.links {
   list-style: none;
   font-size: small;
-  padding: 0 0 20px 20px;
+  padding: 0px 0px 20px 20px;
 }
 img {
   border: none;
@@ -265,30 +242,8 @@ table.center {
   margin-left: auto;
   margin-right: auto;
 }
-table#releases {
-  font-size: small;
-  width: 100%;
-}
-table#releases td {
-  padding-right: 20px;
-}
-table#repolinks {
-  font-size: small;
-  width: 100%;
-}
-table#repolinks td {
-  text-align: right;
-}
-table#repolinks th {
-  text-align: left;
-}
-table#art {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
 table.results {
-  padding: 0;
+  padding: 0px;
   border-collapse: collapse;
 }
 .results th {
@@ -296,7 +251,7 @@ table.results {
   border-bottom: 1px solid #46494d;
   border-top: 1px solid #46494d;
   text-align: left;
-  padding: 0 5px 0 0;
+  padding: 0px 5px 0px 0px;
 }
 .results th>a {
   text-decoration: none;
@@ -329,20 +284,9 @@ blockquote.code {
   font-size: .95em;
 }
 
-/* Used by Django's FormWrappers */
-textarea.vLargeTextField {
-  width: 450px;
-  height: 250px;
-}
-.pkgr2 {
-  background-color: #eee4cb;
-}
-#maincontent {
-  width: 100%;
-  text-align: left;
-  clear: both;
-}
+/* AUR Styles */
 .pgbox {
+  margin: 0 25px;
   margin-bottom: 1%;
   background-color: #fff;
   border: 2px solid #ddd;
@@ -372,7 +316,7 @@ textarea.vLargeTextField {
 }
 .pgboxbody-comment > table {
   border-collapse: separate;
-  border-spacing: 0 15px;
+  border-spacing: 0px 15px;
 }
 
 #advanced-search li {

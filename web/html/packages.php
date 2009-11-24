@@ -55,13 +55,13 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 }
 
 html_header($title);
-
-if ($output):
 ?>
-<div class="pkgoutput"><?php print $output ?></div><br />
-<?php
-endif;
 
+<?php if ($output): ?>
+	<p class="pkgoutput"><?php print $output ?></p>
+<?php endif; ?>
+
+<?php
 if (isset($_GET['ID'])) {
 	include('pkg_search_form.php');
 	if (!$_GET['ID'] = intval($_GET['ID'])) {

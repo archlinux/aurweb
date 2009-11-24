@@ -105,7 +105,9 @@ h1, h2, h3, h4 {
 	color: #f00;
 }
 .pkgoutput {
+	font-size: 12pt;
 	font-weight: bold;
-	text-align: center;
+	text-align: left;
+	clear: both;
 }
 

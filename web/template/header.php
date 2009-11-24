@@ -13,62 +13,53 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
-    <div id="head_container">
       <div id="title">
         <div id="logo"><h1 id="archtitle"><a href="http://www.archlinux.org/" title="Arch Linux (Home)">Arch Linux</a></h1></div>
       </div>
       <div id="main_nav">
-        <ul>
-          <li><a href="http://www.archlinux.org/download/">Download</a></li>
-          <li class="selected"><a href="index.php">AUR</a></li>
-          <li><a href="http://bugs.archlinux.org/">Bugs</a></li>
-          <li><a href="http://wiki.archlinux.org/">Wiki</a></li>
-          <li><a href="http://bbs.archlinux.org/">Forums</a></li>
-          <li><a href="http://www.archlinux.org/">Home</a></li>
-        </ul>
+          <a href="http://www.archlinux.org/">Home</a>
+          <a href="http://bbs.archlinux.org/">Forums</a>
+          <a href="http://wiki.archlinux.org/">Wiki</a>
+          <a href="http://bugs.archlinux.org/">Bugs</a>
+          <a class="selected" href="index.php">AUR</a>
+          <a href="http://www.archlinux.org/download/">Download</a>
       </div>
       <div id="sub_nav">
-        <ul>
+	<a href="index.php">AUR <?php print __("Home"); ?></a>
+	<a href="account.php"><?php print __("Accounts"); ?></a>
+	<a href="packages.php"><?php print __("Packages"); ?></a>
+	<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a></li>
+	<a href="http://archlinux.org/mailman/listinfo/aur-general">
+	<?php print __("Discussion"); ?></a>
 <?php
 if (isset($_COOKIE["AURSID"])) {
-?>
-	      <li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
-          <li><a href="packages.php?SeB=m&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
-<?php
 	$SID = $_COOKIE['AURSID'];
 	$atype = account_from_sid($SID);
 	if ($atype == "Trusted User" || $atype == "Developer") {
 ?>
-	      <li><a href="tu.php"><?php print __("Trusted User"); ?></a></li>
+	<a href="tu.php"><?php print __("Trusted User"); ?></a>
 <?php
 	}
+?>
+	<a href="packages.php?SeB=m&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a>
+	<a href="pkgsubmit.php"><?php print __("Submit"); ?></a>
+<?php
 }
 ?>
-          <li><a href="http://archlinux.org/mailman/listinfo/aur-general">
-	<?php print __("Discussion"); ?></a></li>
-	      <li><a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a></li>
-          <li><a href="packages.php"><?php print __("Packages"); ?></a></li>
-          <li><a href="account.php"><?php print __("Accounts"); ?></a></li>
-          <li><a href="index.php">AUR <?php print __("Home"); ?></a></li>
-        </ul>
+
       </div>
-    </div>
-    <div id="lang_login_sub">
-        <ul>
-          <li>Lang: </li>
+	<?php include("login_form.php"); ?>
+	<div id="lang_sub">
 <?php
 reset($SUPPORTED_LANGS);
 foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
-        print '<li><a href="'
+        print '<a href="'
                 . $_SERVER["PHP_SELF"]."?setlang=$lang\""
-		. " title=\"" . $SUPPORTED_LANGS[$lang]. "\">"
-		. strtoupper($lang) . "</a></li>\n";
+		. " title=\"$lang_name\">"
+		. strtolower($lang) . "</a>\n";
 }
 ?>
-        </ul>
-	<?php include("login_form.php"); ?>
-    </div>
-    <div id="maincontent">
-	  <!-- Start of main content -->
+	</div>
+	<!-- Start of main content -->
 
 

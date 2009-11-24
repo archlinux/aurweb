@@ -430,6 +430,10 @@ html_header("Submit");
 
 ?>
 
+<?php if ($error): ?>
+	<p class="pkgoutput"><?php print $error ?></p>
+<?php endif; ?>
+
 <div class="pgbox">
 	<div class="pgboxtitle">
 		<span class="f3"><?php print __("Submit"); ?></span>
@@ -502,6 +506,7 @@ html_header("Submit");
 else:
 	# Visitor is not logged in
 	print __("You must create an account before you can upload packages.");
+	exit();
 ?>
 
 <br />
