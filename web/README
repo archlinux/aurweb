@@ -92,6 +92,11 @@ Setup on Arch Linux:
    # bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
    (give password 'aur' at the prompt)
 
+   If your test data consists of real people and real email addresses consider
+   inserting bogus addressess to avoid sending unwanted spam from testing. You
+   can insert garbage addresses with:
+   mysql> UPDATE Users SET Email = RAND() * RAND();
+
 7) Copy the config.inc.proto file to config.inc. Modify as needed.
    # cd ~/aur/web/lib/
    # cp config.inc.proto config.inc
