@@ -28,7 +28,7 @@
 	<a href="index.php">AUR <?php print __("Home"); ?></a>
 	<a href="account.php"><?php print __("Accounts"); ?></a>
 	<a href="packages.php"><?php print __("Packages"); ?></a>
-	<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a></li>
+	<a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a>
 	<a href="http://archlinux.org/mailman/listinfo/aur-general">
 	<?php print __("Discussion"); ?></a>
 <?php
