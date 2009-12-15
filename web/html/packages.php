@@ -70,6 +70,8 @@ if (isset($_GET['ID'])) {
 		package_details($_GET['ID'], $_COOKIE["AURSID"]);
 	}
 } else {
+	$_GET['SB'] = 'v';
+	$_GET['SO'] = 'd';
 	pkg_search_page($_COOKIE["AURSID"]);
 }
 
