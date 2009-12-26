@@ -106,7 +106,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		if (isset($_GET['by']))
 			$by = $_GET['by'];
 		else
-			$by = 'up';
+			$by = 'desc';
 
 		if (!empty($offset) AND is_numeric($offset)) {
 			if ($offset >= 1) {
@@ -118,9 +118,9 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 			$off = 0;
 		}
 
-		$order = ($by == 'down') ? 'DESC' : 'ASC';
-		$lim = ($limit > 0) ? " LIMIT " . $off . ", " . $limit : "";
-		$by_next = ($by == "down") ? "up" : "down";
+		$order = ($by == 'asc') ? 'ASC' : 'DESC';
+		$lim = ($limit > 0) ? " LIMIT $off, $limit" : "";
+		$by_next = ($by == 'desc') ? 'asc' : 'desc';
 
 		$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;
 		$result = db_query($q, $dbh);
