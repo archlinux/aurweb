@@ -295,6 +295,8 @@ function set_lang() {
 
 	if ($LANG != DEFAULT_LANG ) {
 		include_once("$LANG.po");
+	} else {
+		include_once(DEFAULT_LANG.".po");
 	}
 
 	return;

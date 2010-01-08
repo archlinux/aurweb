@@ -49,16 +49,16 @@ function __() {
 	# First argument is always string to be translated
 	$tag = $args[0];
 
-	if (empty($LANG) || $LANG == DEFAULT_LANG)
+	if (empty($LANG) || $LANG == DEFAULT_LANG){
 		$translated = $tag;
+	}
+
+	# If there is no translation, just print the given string.
+	if (empty($_t[$tag])) {
+		$translated = $tag;
+	}
 	else {
-		# If there is no translation, just print the given string.
-		if (empty($_t[$tag])) {
-			$translated = $tag;
-		}
-		else {
-			$translated = $_t[$tag];
-		}
+		$translated = $_t[$tag];
 	}
 
 	$translated = htmlspecialchars($translated, ENT_QUOTES);

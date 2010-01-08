@@ -1,6 +1,7 @@
 <?php
+
 # NOTE: modify these variables if your MySQL setup is different
-#
+
 define( "AUR_db_host", "localhost:/var/run/mysqld/mysqld.sock" );
 define( "AUR_db_name", "AUR" );
 define( "AUR_db_user", "aur" );
@@ -16,8 +17,7 @@ define( "USERNAME_MAX_LEN", 16 );
 define( "PASSWD_MIN_LEN", 4 );
 define( "PASSWD_MAX_LEN", 128 );
 
-# Language that messages are initially written in.
-# This should never change.
+# Default language for displayed messages in the web interface.
 define("DEFAULT_LANG", "en");
 
 # Languages we have translations for
