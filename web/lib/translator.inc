@@ -1,8 +1,7 @@
 <?php
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR . '../lang');
 
-# this include file provides support for i18n
-#
+# This file provides support for i18n
 
 # usage:
 #   use the __() function for returning translated strings of
@@ -20,24 +19,11 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR
 #
 # examples:
 #	print __("%s has %s apples.", "Bill", "5");
-#	print __("This is a %h%s%h problem!", "<b>","major","</b>");
-#
-# deprecated usage:
-#	print __("%s has %s apples.", array("Bill", "5"));
+#	print __("This is a %hmajor%h problem!", "<b>", "</b>");
 
 include_once('config.inc');
 
 global $_t;
-
-function include_lang($trans) {
-	global $LANG;
-
-	if ($LANG != DEFAULT_LANG) {
-		return include_once("$LANG/$trans");
-	}
-	else
-		return true;
-}
 
 function __() {
 	global $_t;
@@ -63,16 +49,13 @@ function __() {
 
 	$translated = htmlspecialchars($translated, ENT_QUOTES);
 
-	# This condition is to reorganise the arguments in case of
-	# deprecated usage. __("string", array("string","string"))
-	if (!empty($args[1]) && is_array($args[1])) {
-		array_unshift($args[1], $tag);
-		$args = $args[1];
-	}
-
 	$num_args = sizeof($args);
 
 	# Subsequent arguments are strings to be formatted
+	#
+	# TODO: make this more robust.
+	# '%%' should translate to a literal '%'
+
 	if ( $num_args > 1 ) {
 		for ($i = 1; $i < $num_args; $i++) {
 			$translated = preg_replace("/\%[sh]/", $args[$i], $translated, 1);
