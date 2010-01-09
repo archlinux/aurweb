@@ -35,10 +35,6 @@ function __() {
 	# First argument is always string to be translated
 	$tag = $args[0];
 
-	if (empty($LANG) || $LANG == DEFAULT_LANG){
-		$translated = $tag;
-	}
-
 	# If there is no translation, just print the given string.
 	if (empty($_t[$tag])) {
 		$translated = $tag;

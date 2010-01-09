@@ -275,9 +275,8 @@ function set_lang() {
 		$q.= "AND Sessions.SessionID = '";
 		$q.= mysql_real_escape_string($_COOKIE["AURSID"])."'";
 		$result = db_query($q, $dbh);
-		if (!$result) {
-			$LANG = "en";
-		} else {
+
+		if ($result) {
 			$row = mysql_fetch_array($result);
 			$LANG = $row[0];
 		}
@@ -293,10 +292,8 @@ function set_lang() {
 		setcookie("AURLANG", $LANG, 0, "/");
 	}
 
-	if ($LANG != DEFAULT_LANG ) {
+	if ($LANG != "en" ) {
 		include_once("$LANG.po");
-	} else {
-		include_once(DEFAULT_LANG.".po");
 	}
 
 	return;
