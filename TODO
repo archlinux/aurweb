@@ -1,23 +1,20 @@
 TODO
 
-Here's a list of things that currently need doing in the AUR which aren't bugs
-that need investigation, they just need some time to fix. Don't forget to remove
-anything from this list that gets fixed if you can and feel free to add to it.
+Here's a list of things that currently need doing in the AUR which
+aren't bugs that need investigation, they just need some time to fix.
+Don't forget to remove anything from this list that gets fixed if you
+can and feel free to add to it.
 
-Todo List
----------
 * HTML basically needs a complete rewrite, rife with broken html
 * Use mod_rewrite for urls, allows for nicer looking urls and no more
   deciphering of those insane variables
 * Rename those insane variables (the url variables on the search page),
   probably make them more verbose and actually relate to what they are
 * Set up redirects for useless pages (like the "you've done action to X"
-  package pages), FS#10674, FS#3542
-* Add support for the license field in tupkg scripts, FS#8138
+  package pages), FS#3542
 * Add confirmation for TUs deleting packages, FS#6515
 * Ownership of packages should turn notify on (adopt, create, etc.), FS#10480
 * Bad hyphens in RSS feed, FS#10706
-* Add "package download counters", for tarballs and PKGBUILDs, FS#7780, FS#3094
 - Shuffle around secondary nav links (does every page really need
   bugs/discuss/etc? front page material?)
 - search page formattting (squashed columns)
