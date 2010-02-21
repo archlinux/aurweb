@@ -1,7 +1,7 @@
 <?php
 
 # Display the standard Account form, pass in default values if any
-#
+
 function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 			$E="",$P="",$C="",$R="",$L="",$I="",$N="",$UID=0) {
 	# UTYPE: what user type the form is being displayed for
@@ -35,21 +35,20 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print " name='U' value='".$U."'> (".__("required").")</td>";
 	print "</tr>\n";
 
+	# Only TUs or Devs can promote/demote/suspend a user
 	if ($UTYPE == "Trusted User" || $UTYPE == "Developer") {
-		# only TUs or Devs can promote/demote/suspend a user
-		#
 		print "<tr>";
 		print "<td align='left'>".__("Account Type").":</td>";
 		print "<td align='left'><select name=T>\n";
 		print "<option value='1'";
 		$T == "User" ? print " selected>" : print ">";
-		print	__("Normal user")."\n";
+		print __("Normal user")."\n";
 		print "<option value='2'";
 		$T == "Trusted User" ? print " selected>" : print ">";
 		print __("Trusted user")."\n";
+
+		# Only developers can make another account a developer
 		if ($UTYPE == "Developer") {
-			# only developers can make another account a developer
-			#
 			print "<option value='3'";
 			$T == "Developer" ? print " selected>" : print ">";
 			print __("Developer")."\n";
@@ -79,7 +78,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<td align='left'><input type='password' size='30' maxlength='32'";
 	print " name='P' value='".$P."'>";
 	if ($A != "UpdateAccount") {
-		print "	(".__("required").")";
+		print " (".__("required").")";
 	}
 	print "</td></tr>\n";
 
@@ -88,7 +87,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<td align='left'><input type='password' size='30' maxlength='32'";
 	print " name='C' value='".$C."'>";
 	if ($A != "UpdateAccount") {
-		print "	(".__("required").")";
+		print " (".__("required").")";
 	}
 	print "</td></tr>\n";
 
@@ -136,7 +135,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 
 	if ($A == "UpdateAccount") {
 		print "<input type='submit' class='button'";
-	 	print "	value='".__("Update")."'> &nbsp; ";
+		print " value='".__("Update")."'> &nbsp; ";
 	} else {
 		print "<input type='submit' class='button'";
 		print " value='".__("Create")."'> &nbsp; ";
@@ -172,20 +171,21 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	# UID: database Users.ID value
 
 	# error check and process request for a new/modified account
-	#
 	global $SUPPORTED_LANGS;
 
-	if(isset($_COOKIE['AURSID']))
+	if(isset($_COOKIE['AURSID'])) {
 		$editor_user = uid_from_sid($_COOKIE['AURSID']);
-	else
+	}
+	else {
 		$editor_user = null;
+	}
 
 	$dbh = db_connect();
 	$error = "";
 	if (empty($E) || empty($U)) {
 		$error = __("Missing a required field.");
 	}
-	
+
 	if ($TYPE == "new") {
 		# they need password fields for this type of action
 		#
@@ -200,10 +200,10 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 
   if (!$error && !valid_username($U) && !user_is_privileged($editor_user))
     $error = __("The username is invalid.") . "<ul>\n"
-			."<li>" . __("It must be between %s and %s characters long", 
+			."<li>" . __("It must be between %s and %s characters long",
 			USERNAME_MIN_LEN,  USERNAME_MAX_LEN )
 			. "</li>"
-      . "<li>" . __("Start and end with a letter or number") . "</li>"
+			. "<li>" . __("Start and end with a letter or number") . "</li>"
 			. "<li>" . __("Can contain only one period, underscore or hyphen.")
 			. "</li>\n</ul>";
 
@@ -211,8 +211,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("Password fields do not match.");
 	}
 	if (!$error && $P != '' && !good_passwd($P))
-		$error = 
-				__("Your password must be at least %s characters.",PASSWD_MIN_LEN);
+		$error = __("Your password must be at least %s characters.",PASSWD_MIN_LEN);
 
 	if (!$error && !valid_email($E)) {
 		$error = __("The email address is invalid.");
@@ -266,9 +265,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	} else {
 		if ($TYPE == "new") {
 			# no errors, go ahead and create the unprivileged user
-			#
-			
-			#md5hash the password
+
+			# md5hash the password
 			$P = md5($P);
 			$q = "INSERT INTO Users (AccountTypeID, Suspended, Username, Email, ";
 			$q.= "Passwd, RealName, LangPreference, IRCNick, NewPkgNotify) ";
@@ -299,9 +297,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 
 		} else {
 			# no errors, go ahead and modify the user account
-			#
 
-			#md5 hash the password
+			# md5 hash the password
 			$q = "UPDATE Users SET ";
 			$q.= "Username = '".mysql_real_escape_string($U)."'";
 			if ($T) {
@@ -545,8 +542,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 
 # Display non-editable account info
 #
-function display_account_info($U="",$T="",
-			$E="",$R="",$I="") {
+function display_account_info($U="", $T="", $E="", $R="", $I="") {
 	# U: value to display for username
 	# T: value to display for account type
 	# E: value to display for email address
@@ -565,7 +561,7 @@ function display_account_info($U="",$T="",
 	print "    <td align='left'>".__("Username").":</td>\n";
 	print "    <td align='left'>".$U."</td>\n";
 	print "  </tr>\n";
-	
+
 	print "  <tr>\n";
 	print "    <td align='left'>".__("Account Type").":</td>\n";
 	print "    <td align='left'>";
@@ -573,11 +569,11 @@ function display_account_info($U="",$T="",
 		print __("User");
 	} elseif ($T == "Trusted User") {
 		print __("Trusted User");
-	}	elseif ($T == "Developer") {
+	} elseif ($T == "Developer") {
 		print __("Developer");
 	}
 	print "</td>\n";
-	
+
 	print "  <tr>\n";
 	print "    <td align='left'>".__("Email Address").":</td>\n";
 	print "    <td align='left'><a href='mailto:".$E."'>".$E."</a></td>\n";
@@ -613,7 +609,6 @@ function try_login() {
 
 	if ( isset($_REQUEST['user']) || isset($_REQUEST['passwd']) ) {
 
-
 		$userID = valid_user($_REQUEST['user']);
 
 		if ( user_suspended( $userID ) ) {
@@ -641,7 +636,7 @@ function try_login() {
 				}
 
 				$num_tries++;
-		        }
+			}
 
 			if ($logged_in) {
 				# set our SID cookie
@@ -685,16 +680,14 @@ function try_login() {
  */
 function valid_username( $user )
 {
-
-	#Is it non-empty?
 	if (!empty($user)) {
-		
+
 		#Is username at not too short or too long?
 		if ( strlen($user) >= USERNAME_MIN_LEN &&
 		  strlen($user) <= USERNAME_MAX_LEN ) {
-			
+
 			$user = strtolower($user);
-			#Does username:
+			# Does username:
 			# start and end with a letter or number
 			# contain only letters and numbers,
 			#  and at most has one dash, period, or underscore
@@ -704,7 +697,7 @@ function valid_username( $user )
 			}
 		}
 	}
-	
+
 	return;
 }
 
@@ -721,7 +714,8 @@ function valid_user( $user )
 			. mysql_real_escape_string($user). "'";
 
 		$result = mysql_fetch_row(db_query($q, $dbh));
-		#Is the username in the database? 
+
+		# Is the username in the database?
 		if ($result[0]) {
 			return $result[0];
 		}
@@ -750,7 +744,7 @@ function valid_passwd( $userID, $passwd )
 
 		$result = mysql_fetch_row(db_query($q, $dbh));
 		if ($result[0]) {
-			#is it the right password?
+			# Is it the right password?
 			return true;
 		}
 	}
@@ -792,8 +786,9 @@ function user_is_privileged( $id )
 	$dbh = db_connect();
 	$q = "SELECT AccountTypeID FROM Users WHERE ID = '$id'";
 	$result = mysql_fetch_row(db_query($q, $dbh));
-	if( $result[0] > 1)
+	if( $result[0] > 1) {
 		return $result[0];
+	}
 	return 0;
 
 }
@@ -802,10 +797,11 @@ function user_is_privileged( $id )
 function clear_expired_sessions($dbh = null) {
 	global $LOGIN_TIMEOUT;
 
-	if (empty($dbh))
+	if (empty($dbh)) {
 		$dbh = db_connect();
+	}
 
-	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)"; 
+	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)";
 	db_query($q, $dbh);
 
 	return;
