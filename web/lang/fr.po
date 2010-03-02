@@ -521,7 +521,7 @@ $_t["Couldn't add to notification list."] = "Ajout impossible à la liste de not
 
 $_t["You did not select any packages to flag."] = "Vous n'avez sélectionné aucun paquet à marquer.";
 
-$_t["The selected packages have been disowned."] = "Les paquets sélectionnés ont été abandonné.";
+$_t["The selected packages have been disowned."] = "Les paquets sélectionnés ont été abandonnés.";
 
 $_t["The selected packages have been flagged safe."] = "Les paquets sélectionnés ont été marqué comme sains.";
 
@@ -563,7 +563,7 @@ $_t["Error trying to unpack upload - PKGBUILD does not exist."] = "Erreur en ess
 
 $_t["Could not create incoming directory: %s."] = "Impossible de créer le répertoire entrant: %s.";
 
-$_t["Upload package file"] = "Fichier àdu paquet à tranférer";
+$_t["Upload package file"] = "Fichier du paquet à transférer";
 
 $_t["Package Location"] = "Chemin du paquet";
 
