@@ -623,8 +623,8 @@ function pkg_flag ($atype, $ids, $action = True) {
 				# construct email
 				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\nhttp://aur.archlinux.org/packages.php?ID=" . $row['ID'] . "\n\n[1] - http://aur.archlinux.org/account.php?Action=AccountInfo&ID=" . $f_uid;
 				$body = wordwrap($body, 70);
-				$headers = "To: ".$row['Email']."\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
-				@mail(' ', "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
+				$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
+				@mail($row['Email'], "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
 			}
 		}
 	}
