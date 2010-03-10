@@ -778,6 +778,7 @@ function pkg_adopt ($atype, $ids, $action = True) {
 	db_query($q, $dbh);
 
 	if ($action) {
+		pkg_notify(account_from_sid($_COOKIE["AURSID"]), $ids);
 		return __("The selected packages have been adopted.");
 	} else {
 		return __("The selected packages have been disowned.");
