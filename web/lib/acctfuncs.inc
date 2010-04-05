@@ -265,17 +265,14 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	} else {
 		if ($TYPE == "new") {
 			# no errors, go ahead and create the unprivileged user
-
-			# md5hash the password
-			$P = md5($P);
-			$q = "INSERT INTO Users (AccountTypeID, Suspended, Username, Email, ";
-			$q.= "Passwd, RealName, LangPreference, IRCNick, NewPkgNotify) ";
-			$q.= "VALUES (1, 0, '".mysql_real_escape_string($U)."'";
-			$q.= ", '".mysql_real_escape_string($E)."'";
-			$q.= ", '".mysql_real_escape_string($P)."'";
-			$q.= ", '".mysql_real_escape_string($R)."'";
-			$q.= ", '".mysql_real_escape_string($L)."'";
-			$q.= ", '".mysql_real_escape_string($I)."'";
+			$salt = generate_salt();
+			$P = salted_hash($P, $salt);
+			$escaped = array_map(mysql_real_escape_string,
+				array($U, $E, $P, $salt, $R, $L, $I));
+			$q = "INSERT INTO Users (" .
+				"AccountTypeID, Suspended, Username, Email, Passwd, Salt" .
+				", RealName, LangPreference, IRCNick, NewPkgNotify) " .
+				"VALUES (1, 0, '" . implode("', '", $escaped) . "'";
 			if ($N) {
 				$q.= ", 1)";
 			} else {
@@ -298,7 +295,6 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		} else {
 			# no errors, go ahead and modify the user account
 
-			# md5 hash the password
 			$q = "UPDATE Users SET ";
 			$q.= "Username = '".mysql_real_escape_string($U)."'";
 			if ($T) {
@@ -311,7 +307,9 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			}
 			$q.= ", Email = '".mysql_real_escape_string($E)."'";
 			if ($P) {
-				$q.= ", Passwd = '".mysql_real_escape_string(md5($P))."'";
+				$salt = generate_salt();
+				$hash = salted_hash($P, $salt);
+				$q .= ", Passwd = '$hash', Salt = '$salt'";
 			}
 			$q.= ", RealName = '".mysql_real_escape_string($R)."'";
 			$q.= ", LangPreference = '".mysql_real_escape_string($L)."'";
@@ -738,14 +736,34 @@ function valid_passwd( $userID, $passwd )
 {
 	if ( strlen($passwd) > 0 ) {
 		$dbh = db_connect();
-		$q = "SELECT ID FROM Users".
-		  " WHERE ID = '$userID'" .
-		  " AND Passwd = '" . md5($passwd) . "'";
 
-		$result = mysql_fetch_row(db_query($q, $dbh));
-		if ($result[0]) {
-			# Is it the right password?
-			return true;
+		# get salt for this user
+		$salt = get_salt($userID);
+		if ($salt) {
+			# use salt
+			$passwd_q = "SELECT ID FROM Users" .
+				" WHERE ID = '$userID' AND Passwd = '" .
+				salted_hash($passwd, $salt) . "'";
+			$passwd_result = mysql_fetch_row(db_query($passwd_q, $dbh));
+			if ($passwd_result[0]) {
+				return true;
+			}
+		} else {
+			# check without salt
+			$nosalt_q = "SELECT ID FROM Users".
+				" WHERE ID = '$userID'" .
+				" AND Passwd = '" . md5($passwd) . "'";
+			$nosalt_result = mysql_fetch_row(db_query($nosalt_q, $dbh));
+			if ($nosalt_result[0]) {
+				# password correct, but salt it first
+				if (!save_salt($userID, $passwd)) {
+					trigger_error("Unable to salt user's password;" .
+						" ID $userID", E_USER_WARNING);
+					return false;
+				}
+
+				return true;
+			}
 		}
 	}
 	return false;

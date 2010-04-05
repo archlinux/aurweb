@@ -31,10 +31,13 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 
 	if (empty($error)) {
 		$dbh = db_connect();
+		$salt = generate_salt();
+		$hash = salted_hash($password, $salt);
 		# The query below won't affect any records unless the ResetKey
 		# and Email combination is correct and ResetKey is nonempty
 		$q = "UPDATE Users
-		      SET Passwd = '".md5($password)."',
+		      SET Passwd = '$hash',
+		      Salt = '$salt',
 		      ResetKey = ''
 		      WHERE ResetKey != ''
 		      AND ResetKey = '".mysql_real_escape_string($resetkey)."'
