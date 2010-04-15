@@ -9,6 +9,9 @@ Creating an AUR translation requires python and git to be installed.
 Translation files should be gzipped to protect from possible encoding
 errors when submitting.
 
+You will need to register on the mailing list before submitting:
+http://mailman.archlinux.org/mailman/listinfo/aur-dev
+
 Patches should be sent to the aur-dev mailing list at:
 aur-dev@archlinux.org
 
