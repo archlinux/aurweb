@@ -365,7 +365,8 @@ function package_details($id=0, $SID="") {
  *                  v - number of votes
  *                  m - maintainer username
  *    SeB- property that search string (K) represents
- *          values: nd - package name&description
+ *          values: n  - package name
+ *                  nd - package name & description
  *                  m  - package maintainer's username
  *                  s  - package submitter's username
  *    do_Orphans    - boolean. whether to search packages
@@ -466,12 +467,17 @@ function pkg_search_page($SID="") {
 		if ($_GET["SeB"] == "m") {
 			$q.= "AND Users.Username = '".$_GET['K']."' ";
 		}
+		# Search by submitter
 		elseif ($_GET["SeB"] == "s") {
 			// FIXME: this shouldn't be making 2 queries
 			//        kill the call to uid_from_username
 			$q.= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
-		// the default behavior, query the name/description
+		# Search by name
 		}
+		elseif ($_GET["SeB"] == "n") {
+			$q.= "AND (Name LIKE '%".$_GET['K']."%') ";
+		}
+		# Search by name and description (Default)
 		else {
 			$q.= "AND (Name LIKE '%".$_GET['K']."%' OR ";
 			$q.= "Description LIKE '%".$_GET['K']."%') ";

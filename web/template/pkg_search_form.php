@@ -39,7 +39,7 @@
 					<label><?php print __("Search by"); ?></label>
 						<select name='SeB'>
 							<?php
-							$searchby = array('nd' => 'Name', 'm'  => 'Maintainer', 's'  => 'Submitter');
+							$searchby = array('nd' => 'Name & Desc', 'n' => 'Name Only', 'm'  => 'Maintainer', 's'  => 'Submitter');
 							foreach ($searchby as $k => $v):
 								if ($_REQUEST['SeB'] == $k):
 							?>
