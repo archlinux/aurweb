@@ -28,7 +28,7 @@ MySQL queries should generally go into functions.
 
 Submitting patches
 ------------------
-Please test your patches before submitting.
+!!! PLEASE TEST YOUR PATCHES BEFORE SUBMITTING !!!
 Submit uncompressed git-formatted patches to aur-dev@archlinux.org.
 
 You will need to register on the mailing list before submitting:
