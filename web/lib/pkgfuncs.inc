@@ -194,9 +194,25 @@ function create_dummy($pname="", $sid="") {
 
 }
 
-# grab package comments
-#
-function package_comments($pkgid=0) {
+# Return the number of comments for a specified package
+function package_comments_count($pkgid = 0) {
+	if ($pkgid) {
+		$dbh = db_connect();
+		$q = "SELECT COUNT(*) FROM PackageComments ";
+		$q.= "WHERE PackageID = " . mysql_real_escape_string($pkgid);
+		$q.= " AND DelUsersID = 0";
+	}
+	$result = db_query($q, $dbh);
+
+	if (!$result) {
+		return;
+	}
+
+	return mysql_result($result, 0);
+}
+
+# Return an array of package comments
+function package_comments($pkgid = 0) {
 	$comments = array();
 	if ($pkgid) {
 		$dbh = db_connect();
@@ -206,6 +222,11 @@ function package_comments($pkgid=0) {
 		$q.= " AND PackageID = ".mysql_real_escape_string($pkgid);
 		$q.= " AND DelUsersID = 0"; # only display non-deleted comments
 		$q.= " ORDER BY CommentTS DESC";
+
+		if (!isset($_GET['comments'])) {
+			$q.= " LIMIT 10";
+		}
+
 		$result = db_query($q, $dbh);
 
 		if (!$result) {
@@ -328,7 +349,7 @@ function package_details($id=0, $SID="") {
 				include('actions_form.php');
 				include('pkg_comment_form.php');
 			}
-			
+
 			# Print Comments
 			$comments = package_comments($id);
 			if (!empty($comments)) {
