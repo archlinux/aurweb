@@ -29,8 +29,12 @@
 	</span></th>
 
 	<?php if ($SID): ?>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Voted") ?></span></th>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Notify") ?></span></th>
+	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+		<a href='?<?php print mkurl('SB=w&SO=' . $SO_next) ?>'><?php print __("Voted") ?></a>
+	</span></th>
+	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+		<a href='?<?php print mkurl('SB=o&SO=' . $SO_next) ?>'><?php print __("Notify") ?></a>
+	</span></th>
 	<?php endif; ?>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Description") ?></span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>

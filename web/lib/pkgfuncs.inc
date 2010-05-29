@@ -515,31 +515,45 @@ function pkg_search_page($SID="") {
 
 	$order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';
 
+	$q_sort = "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
 	switch ($_GET["SB"]) {
 	case 'c':
-		$q.= "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
+		$q_sort = "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
 		$_GET["SB"] = 'c';
 		break;
 	case 'l':
-		$q.= "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
+		$q_sort = "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
 		$_GET["SB"] = 'l';
 		break;
 	case 'v':
-		$q.= "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
+		$q_sort = "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
 		$_GET["SB"] = 'v';
 		break;
+	case 'w':
+		if ($SID) {
+			$q_sort = "ORDER BY Voted ".$order.", Name ASC, CategoryID DESC ";
+		}
+		$_GET["SB"] = 'w';
+		break;
+	case 'o':
+		if ($SID) {
+			$q_sort = "ORDER BY Notify ".$order.", Name ASC, CategoryID DESC ";
+		}
+		$_GET["SB"] = 'o';
+		break;
 	case 'm':
-		$q.= "ORDER BY Maintainer ".$order.", Name ASC, LocationID ASC ";
+		$q_sort = "ORDER BY Maintainer ".$order.", Name ASC, LocationID ASC ";
 		$_GET["SB"] = 'm';
 		break;
 	case 'a':
-		$q.= "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
+		$q_sort = "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
 		$_GET["SB"] = 'a';
 		break;
 	default:
-		$q.= "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
 		break;
 	}
+
+	$q.= $q_sort;
 
 	$q.= "LIMIT ".$_GET["O"].", ".$_GET["PP"];
 
