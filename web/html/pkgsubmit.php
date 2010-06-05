@@ -12,6 +12,8 @@ include_once("pkgfuncs.inc");    # package functions
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 
+$cwd = getcwd();
+
 if ($_COOKIE["AURSID"]):
 
 	# Track upload errors
@@ -421,7 +423,7 @@ if ($_COOKIE["AURSID"]):
 			}
 		}
 
-		chdir($_SERVER['DOCUMENT_ROOT']);
+		chdir($cwd);
 	}
 
 # Logic over, let's do some output
