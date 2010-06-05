@@ -10,7 +10,6 @@ else {
 	if ($login_error) {
 		print "<span class='error'>" . $login_error . "</span><br />\n";
 	}
-	 '?' . implode('&amp', $_GET);
 ?>
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI'] ?>">
 	<div>
