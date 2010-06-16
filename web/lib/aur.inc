@@ -476,7 +476,7 @@ function save_salt($user_id, $passwd)
 
 function generate_salt()
 {
-	return md5(uniqid(rand(), true));
+	return md5(uniqid(mt_rand(), true));
 }
 
 function salted_hash($passwd, $salt)
