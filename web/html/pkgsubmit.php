@@ -112,10 +112,7 @@ if ($_COOKIE["AURSID"]):
 			fclose($fp);
 
 			# Now process the lines and put any var=val lines into the
-			# 'pkgbuild' array. Also check to make sure it has the build()
-			# function.
-			#
-			$seen_build_function = 0;
+			# 'pkgbuild' array.
 			while (list($k, $line) = each($lines)) {
 				# Neutralize parameter substitution
 				$line = preg_replace('/\${(\w+)#(\w*)}?/', '$1$2', $line);
@@ -147,22 +144,11 @@ if ($_COOKIE["AURSID"]):
 								$lparts[1]);
 					}
 				}
-				else {
-					# Non variable assignment line. (comment, blank, command, etc)
-					if (preg_match('/\s*build\s*\(\)/', $line)) {
-						$seen_build_function = 1;
-					}
-				}
 			}
 
 			# some error checking on PKGBUILD contents - just make sure each
 			# variable has a value. This does not do any validity checking
 			# on the values, or attempts to fix line continuation/wrapping.
-			#
-			if (!$seen_build_function) {
-				$error = __("Missing build function in PKGBUILD.");
-			}
-
 			$req_vars = array("url", "pkgdesc", "license", "pkgrel", "pkgver", "arch", "pkgname");
 			foreach ($req_vars as $var) {
 				if (!array_key_exists($var, $pkgbuild)) {
