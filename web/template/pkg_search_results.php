@@ -108,6 +108,9 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 			<option value='do_Notify'><?php print __("Notify") ?></option>
 			<option value='do_UnNotify'><?php print __("UnNotify") ?></option>
 		</select>
+		<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+		<input type='checkbox' name='confirm_Delete' value='1' /> <?php print __("Confirm") ?>
+		<?php endif; ?>
 		<input type='submit' class='button' style='width: 80px' value='<?php print __("Go") ?>' />
 	</div>
 	<?php endif; ?>

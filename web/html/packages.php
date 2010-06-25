@@ -46,8 +46,13 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 } elseif ($_POST['action'] == "do_UnVote" || isset($_POST['do_UnVote'])) {
 	$output = pkg_vote($atype, $ids, False);
 } elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
-	$output = pkg_delete($atype, $ids);
-	unset($_GET['ID']);
+	if (isset($_POST['confirm_Delete'])) {
+		$output = pkg_delete($atype, $ids);
+		unset($_GET['ID']);
+	}
+	else {
+		$output = __("The selected packages have not been deleted, check the confirmation checkbox.");
+	}
 } elseif ($_POST['action'] == "do_Notify" || isset($_POST['do_Notify'])) {
 	$output = pkg_notify($atype, $ids);
 } elseif ($_POST['action'] == "do_UnNotify" || isset($_POST['do_UnNotify'])) {
