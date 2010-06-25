@@ -422,6 +422,14 @@ function uid_from_email($email="")
 	return $row[0];
 }
 
+# check user privileges
+#
+function check_user_privileges()
+{
+	$type = account_from_sid($_COOKIE['AURSID']);
+	return ($type == 'Trusted User' || $type == 'Developer');
+}
+
 /**
  * Generate clean url with edited/added user values
  *
