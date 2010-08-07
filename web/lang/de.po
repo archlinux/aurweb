@@ -3,15 +3,15 @@
 # Translators: Pierre Schmitz <pierre@archlinux.de>, Matthias Gorissen <siquame@web.de>, Lukas Kropatschek, Niclas Pfeifer
 
 
-$_t["Use this form to update your account."] = "Hier kannst Du Deine Benutzerdaten ändern.";
+$_t["Use this form to update your account."] = "Hier kannst Du Dein Benutzerkonto anpassen.";
 
 $_t["Leave the password fields blank to keep your same password."] = "Lasse die Passwort-Felder leer, um Dein aktuelles Passwort beizubehalten.";
 
-$_t["You are not allowed to access this area."] = "Du darfst diesen Bereich nicht betreten.";
+$_t["You are not allowed to access this area."] = "Du darfst auf diesen Bereich nicht zugreifen.";
 
 $_t["Could not retrieve information for the specified user."] = "Konnte keine Informationen zum angegebenen Benutzer abrufen.";
 
-$_t["Use this form to search existing accounts."] = "Benutze dieses Formular, um nach vorhandenen Konten zu suchen.";
+$_t["Use this form to search existing accounts."] = "Benutze dieses Formular, um nach Benutzerkonten zu suchen.";
 
 $_t["You do not have permission to edit this account."] = "Du hast keine Berechtigung, dieses Konto zu ändern.";
 
@@ -21,9 +21,9 @@ $_t["You must log in to view user information."] = "Du mußt Dich anmelden, um B
 
 
 
-$_t["Missing a required field."] = "Ein benötigtes Feld fehlt.";
+$_t["Missing a required field."] = "Ein benötigtes Feld ist nicht ausgefüllt.";
 
-$_t["Search"] = "Suche'";
+$_t["Search"] = "Suche";
 
 $_t["The account, %h%s%h, has been successfully created."] = "Das Konto %h%s%h wurde erfolgreich angelegt.";
 
@@ -134,7 +134,7 @@ $_t["required"] = "Notwendig";
 
 $_t["Update"] = "Aktualisieren";
 
-$_t["Submit"] = "Abschicken";
+$_t["Submit"] = "Paket hochladen";
 
 $_t["Password"] = "Passwort";
 
@@ -156,7 +156,7 @@ $_t["The most popular packages will be provided as binary packages in [community
 
 $_t["Trusted Users"] = "Vertrauenswürdige Benutzer (TU)";
 
-$_t["You must supply a username."] = "Du mußt einen Benutzernamen eingeben.";
+$_t["You must supply a username."] = "Du musst einen Benutzernamen eingeben.";
 
 $_t["Packages added or updated in the past 7 days"] = "Pakete, die in den letzten 7 Tagen hinzugefügt oder geändert wurden";
 
@@ -226,11 +226,11 @@ $_t["Missing comment ID."] = "Kommentar-ID fehlt.";
 
 $_t["Package category updated."] = "Die Kategorie des Pakets wurde aktualisiert.";
 
-$_t["You must be logged in before you can edit package information."] = "Du mußt Dich anmelden, um Paket-Informationen zu bearbeiten.";
+$_t["You must be logged in before you can edit package information."] = "Du musst Dich anmelden, um Paket-Informationen zu bearbeiten.";
 
 $_t["Comment has been deleted."] = "Kommentar wurde gelöscht.";
 
-$_t["You've found a bug if you see this...."] = "Wenn Du dies ließt, hast Du einen Fehler gefunden...";
+$_t["You've found a bug if you see this...."] = "Wenn Du dies liest, hast Du einen Fehler gefunden...";
 
 $_t["Comment has been added."] = "Kommentar wurde hinzugefügt.";
 
@@ -250,7 +250,7 @@ $_t["Votes"] = "Stimmen";
 
 $_t["First Submitted"] = "Zuerst eingereicht am";
 
-$_t["Tarball"] = "Tar-Datei";
+$_t["Tarball"] = "Tar-Archiv";
 
 $_t["Be careful! The above files may contain malicious code that can damage your system."] = "Sei vorsichtig! Die obengenannten Dateien könnten Code enthalten, der Dein System beschädigt.";
 
@@ -260,7 +260,7 @@ $_t["Location"] = "Ort";
 
 $_t["Flag Safe"] = "Als \"Sicher\" markieren";
 
-$_t["Go"] = "Gehe zu";
+$_t["Go"] = "Suche";
 
 $_t["Unflag Out-of-date"] = "Markierung \"Veraltet\" entfernen";
 
@@ -386,7 +386,7 @@ $_t["Use this form to create an account."] = "Benutze dieses Formular um ein Kon
 
 $_t["Use this form to update your account."] = "Benutze dieses Formular um Dein Konto zu aktualisieren.";
 
-$_t["You are not allowed to access this area."] = "Es ist Dir nicht erlaubt diesen Bereich zu betreten.";
+$_t["You are not allowed to access this area."] = "Es ist Dir nicht erlaubt, auf diesen Bereich zuzugreifen.";
 
 $_t["Unsafe"] = "Unsicher";
 
@@ -534,7 +534,7 @@ $_t["Could not create directory %s."] = "Konnte das Verzeichnis %s nicht erstell
 
 $_t["Unknown file format for uploaded file."] = "Unbekanntes Dateiformat der hochgeladenen Datei.";
 
-$_t["Missing source variable in PKGBUILD."] = "Fehlende Quell-Variable in PKGBUILD.";
+$_t["Missing source variable in PKGBUILD."] = "Die source-Variable fehlt im PKGBUILD.";
 
 $_t["Could not re-tar"] = "Konnte nicht erneut den tar-Befehl ausführen.";
 
@@ -544,7 +544,7 @@ $_t["You must supply a comment for this upload/change."] = "Du mußt die Änderu
 
 $_t["Yes"] = "Ja";
 
-$_t["Missing license variable in PKGBUILD."] = "Lizenz-Variable in PKGBUILD fehlt.";
+$_t["Missing license variable in PKGBUILD."] = "Die license-Variable fehlt im PKGBUILD.";
 
-$_t["Missing arch variable in PKGBUILD."] = "Arch-Variable in PKGBUILD fehlt.";
+$_t["Missing arch variable in PKGBUILD."] = "Die arch-Variable fehlt im PKGBUILD.";
 
