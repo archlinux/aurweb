@@ -6,9 +6,9 @@
 	<span class='f3'><?php print __("Search Criteria"); ?></span>
 	<input type='hidden' name='O' value='0' />
 	<input type='text' name='K' size='30' value="<?php print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); ?>" maxlength='35' />
-	<input type='submit' style='width:80px' class='button' name='do_Search' value='<?php print __("Go"); ?>' />
+	<input type='submit' style='min-width:80px' class='button' name='do_Search' value='<?php print __("Go"); ?>' />
 	<?php if (!empty($_GET['detail'])): ?>
-	<input type='submit' style='width:80px'  class='button' name='do_Orphans' value='<?php print __("Orphans"); ?>' />
+	<input type='submit' style='min-width:80px'  class='button' name='do_Orphans' value='<?php print __("Orphans"); ?>' />
 
 <?php endif; ?>
 	<a href="?<?php print mkurl('detail=' . ((!empty($_GET['detail'])) ? 0 : 1) ) ?>"><?php print __("Advanced"); ?></a>
