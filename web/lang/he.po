@@ -1,0 +1,426 @@
+<?php
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User Community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with a backslash (\).
+#
+# Hebrew (עברית) translation
+# Translator: Netanel Shine <netanelshine@gmail.com>
+
+global $_t;
+
+$_t["Confirm your e-mail address:"] = "אישור כתובת הדוא״ל שלך";
+
+$_t["This package has been flagged out of date."] = "החבילה מסומנת כלא עדכנית.";
+
+$_t["Missing a required field."] = "שדה הכרחי חסר.";
+
+$_t["Logged-in as: %s"] = "נכנסת בשם: %s";
+
+$_t["Error trying to modify account, %h%s%h: %s."] = "שגיאה בעריכת החשבון, %h%s%h: %s.";
+
+$_t["Username does not exist."] = "שם המשתמש לא קיים.";
+
+$_t["Tarball"] = "חבילת tar";
+
+$_t["Can contain only one period, underscore or hyphen."] = "יכול הכיל רק נקודה אחת, קו תחתון או מקף.";
+
+$_t["Unflag Out-of-date"] = "ביטול סימון כלא מעודכן";
+
+$_t["Missing package ID."] = "חסר מספר זיהוי לחבילה.";
+
+$_t["You must be logged in before you can unflag packages."] = "עליך להתחבר לפני שיהיה באפשרותך לבטל סימוני חבילות.";
+
+$_t["No results matched your search criteria."] = "אין תוצאות עבור נתוני החיפוש שלך.";
+
+$_t["Enter your new password:"] = "הזנת ססמה חדשה:";
+
+$_t["Update"] = "עדכון";
+
+$_t["Sort order"] = "סדר המיון";
+
+$_t["You must be logged in before you can edit package information."] = "עליך להיכנס לפני שיהיה באפשרותך לערוך נתוני חבילה.";
+
+$_t["Your votes have been cast for the selected packages."] = "ההצבעות שלך נקלטו עבור החבילות המסומנות.";
+
+$_t["Package details could not be found."] = "נתוני חבילה לא נמצאו.";
+
+$_t["change category"] = "שינוי קטגוריה";
+
+$_t["Error retrieving package list."] = "שגיאה בעת קבלת רשימת החבילות.";
+
+$_t["Reset"] = "איפוס";
+
+$_t["Submitted: %s by %s"] = "נשלח: %s על ידי %s";
+
+$_t["Voted"] = "הצביעו";
+
+$_t["Remember me"] = "שמירת הפרטים";
+
+$_t["This vote is still running."] = "ההצבעה עדיין קיימת.";
+
+$_t["Package category updated."] = "קטגוריית החבילה עודכנה.";
+
+$_t["%s already has proposal running for them."] = "%s יש כבר הצעה קיימת.";
+
+$_t["Error - No file uploaded"] = "שגיאה — קובץ לא הועלה";
+
+$_t["You did not select any packages to disown."] = "לא בחרת שום חבילות להסרת בעלותך מהן.";
+
+$_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "בכתובת החבילה חסר פרוטוקול (לדוגמה: http:// ,ftp://)";
+
+$_t["Total"] = "סך הכול";
+
+$_t["No more results to display."] = "אין יותר תוצאות להצגה.";
+
+$_t["Maintainer"] = "מתחזק";
+
+$_t["Less"] = "פחות";
+
+$_t["You are not allowed to access this area."] = "אין לך גישה לאזור זה.";
+
+$_t["Any type"] = "כל סוג";
+
+$_t["Accounts"] = "חשבונות";
+
+$_t["Could not retrieve proposal details."] = "לא ניתן לקבל נתוני הצעה.";
+
+$_t["You do not have permission to edit this account."] = "אין לך הרשאה לערוך חשבון זה.";
+
+$_t["Click on the Home link above to login."] = "יש ללחוץ על הקישור ״בית״ שלמעלה על מנת להיכנס.";
+
+$_t["You must be logged in before you can adopt packages."] = "עליך להיכנס לפני שיהיה באפשרותך לאמץ חבילות.";
+
+$_t["The email address is invalid."] = "כתובת הדוא״ל שהוזנה אינה תקינה.";
+
+$_t["Search by"] = "חיפוש לפי";
+
+$_t["Could not change directory to %s."] = "לא ניתן לשנות את התיקייה אל %s.";
+
+$_t["None of the selected packages could be deleted."] = "לא ניתן למחוק אף אחת מהחבילות שנבחרו.";
+
+$_t["Your votes have been removed from the selected packages."] = "ההצבעות שלך הוסרו מהחבילות המסומנות.";
+
+$_t["No packages matched your search criteria."] = "אין חבילות התואמות לנתוני החיפוש שלך.";
+
+$_t["Confirm"] = "אישור";
+
+$_t["Create"] = "יצירה";
+
+$_t["orphan"] = "יתומה";
+
+$_t["View this user's packages"] = "צפייה בחבילות המשתמש";
+
+$_t["Next"] = "הבא";
+
+$_t["Could not re-tar"] = "לא ניתן ליצור קובץ tar מחדש";
+
+$_t["Upload your source packages here. Create source packages with `makepkg --source`."] = "העלאת חבילות המקור שלך לכאן. ניתן ליצור חבילות מקור באמצעות הפקודה `makepkg --source`.";
+
+$_t["The selected packages have been deleted."] = "החבילות המסומנות נמחקו.";
+
+$_t["You must create an account before you can upload packages."] = "עליך ליצור חשבון לפני שיהיה באפשרותך להעלות חבילות.";
+
+$_t["Location"] = "מיקום";
+
+$_t["Delete comment"] = "מחיקת הערה";
+
+$_t["Account Type"] = "סוג חשבון";
+
+$_t["Type"] = "סוג";
+
+$_t["More"] = "עוד";
+
+$_t["Username"] = "שם משתמש";
+
+$_t["Could not create incoming directory: %s."] = "לא ניתן ליצור תיקיית קבצים נכנסים: %s.";
+
+$_t["Upload package file"] = "העלאת קובץ חבילה";
+
+$_t["Password Reset"] = "איפוס ססמה";
+
+$_t["(defaults to 7 if empty)"] = "(ברירת המחדל היא 7 אם ריק)";
+
+$_t["No New Comment Notification"] = "אין התרעות על הערות חדשות";
+
+$_t["Couldn't add to notification list."] = "לא ניתן לצרף את רשימת ההתרעות.";
+
+$_t["The selected packages have not been deleted, check the confirmation checkbox."] = "החבילות שנבחרו לא נמחקו, נא לבחור בתיבת האישור.";
+
+$_t["Disown Packages"] = "שחרור בעלות על חבילות";
+
+$_t["Advanced"] = "מתקדם";
+
+$_t["Files"] = "קבצים";
+
+$_t["Vote ID not valid."] = "מס׳ הזיהוי של ההצבעה אינו תקין.";
+
+$_t["(empty if not applicable)"] = "(ריק אם אינה מתאימה)";
+
+$_t["Per page"] = "לפי דף";
+
+$_t["New proposal submitted."] = "הצעה חדשה נשלחה.";
+
+$_t["Upload"] = "העלאה";
+
+$_t["You must be logged in before you can vote for packages."] = "עליך להיכנס לפני שתהיה באפשרותך להצביע לחבילות.";
+
+$_t["Invalid category ID."] = "מס׳ הזיהוי של הקטגוריה אינו תקין";
+
+$_t["Go"] = "מעבר";
+
+$_t["New Package Notify"] = "התרעה על חבילה חדשה";
+
+$_t["Use this form to search existing accounts."] = "נא להשתמש בטופס על מנת לחפש אחר חשבונות קיימים.";
+
+$_t["The address, %h%s%h, is already in use."] = "הכתובת, %h%s%h, כבר נמצאת בשימוש.";
+
+$_t["Current Votes"] = "הצבעות נוכחיות";
+
+$_t["Select Category"] = "נא לבחור קטגוריה";
+
+$_t["You have been removed from the comment notification list for %s."] = "הוסרת מרשימה ההתרעות עבור ההערות של %s.";
+
+$_t["Unknown file format for uploaded file."] = "הקובץ שהועלה הנו במבנה בלתי מוכר.";
+
+$_t["Delete Packages"] = "מחיקת חבילות";
+
+$_t["Trusted user"] = "משתמשים אמינים";
+
+$_t["Back"] = "חזרה";
+
+$_t["Re-type password"] = "הקלדת הססמה מחדש";
+
+$_t["All Votes"] = "כל ההצבעות";
+
+$_t["The selected packages have been disowned."] = "החבילות המסומנות ננטשו";
+
+$_t["Suspended"] = "השעייה";
+
+$_t["Home"] = "בית";
+
+$_t["Yes"] = "כן";
+
+$_t["UnFlag Out-of-date"] = "ביטול סימון לא מעודכן";
+
+$_t["Developer"] = "מפתח";
+
+$_t["Category"] = "קטגוריה";
+
+$_t["Votes"] = "הצבעות";
+
+$_t["You must be logged in before you can flag packages."] = "עליך להיכנס לפני שיהיה באפשרותך לסמן חבילות.";
+
+$_t["No results found."] = "תוצאות לא נמצאו.";
+
+$_t["No"] = "לא";
+
+$_t["Discussion"] = "דיון";
+
+$_t["Dependencies"] = "תלות";
+
+$_t["Start"] = "התחלה";
+
+$_t["You did not select any packages to adopt."] = "לא בחרת שום חבילות לאימוץ.";
+
+$_t["Length must be at least 1."] = "האורך חייב להיות לפחות 1.";
+
+$_t["Error trying to create account, %h%s%h: %s."] = "שגיאה בזמן יצירת חשבון, %h%s%h: %s.";
+
+$_t["End"] = "סוף";
+
+$_t["The account, %h%s%h, has been successfully modified."] = "החשבון, %h%s%h, נערך בהצלחה.";
+
+$_t["Confirm your new password:"] = "אישור הססמה החדשה:";
+
+$_t["Account Suspended"] = "חשבון מושעה";
+
+$_t["Status"] = "מצב";
+
+$_t["You must be logged in before you can get notifications on comments."] = "עליך להתחבר לפני שיהיה באפשרותך לקבל התרעות עבור הערות.";
+
+$_t["Leave the password fields blank to keep your same password."] = "נא להשאיר את תיבת הססמה ריקה על מנת להישאר עם אותה הססמה.";
+
+$_t["IRC Nick"] = "כינוי ב־IRC";
+
+$_t["Enter your e-mail address:"] = "נא להזין את כתובת הדוא״ל שלך:";
+
+$_t["Normal user"] = "משתמש רגיל";
+
+$_t["You are not allowed to overwrite the %h%s%h package."] = "אין לך גישה על מנת לדרוס את חבילת %h%s%h.";
+
+$_t["Missing comment ID."] = "חסר מס׳ זיהוי להערה.";
+
+$_t["Error trying to retrieve package details."] = "ארעה שגיאה בזמן קבלת נתוני חבילה.";
+
+$_t["Proposal cannot be empty."] = "הצעה לא יכולה להיות ריקה.";
+
+$_t["User"] = "משתמש";
+
+$_t["Package Category"] = "קטגוריית חבילה";
+
+$_t["The selected packages have been adopted."] = "החבילות שנבחרו אומצו.";
+
+$_t["Packages"] = "חבילות";
+
+$_t["Edit Account"] = "עריכת חשבון";
+
+$_t["Search"] = "חיפוש";
+
+$_t["Add Proposal"] = "הוספת הצעה";
+
+$_t["Language"] = "שפה";
+
+$_t["Orphans"] = "יתומות";
+
+$_t["Voting is closed for this proposal."] = "ההצבעה סגורה עבור הצעה זו.";
+
+$_t["Bugs"] = "באגים";
+
+$_t["Showing results %s - %s of %s"] = "הצגת תוצאות %s - %s מתוך %s";
+
+$_t["Active"] = "פעיל";
+
+$_t["You've already voted for this proposal."] = "כבר הצבעת עבור הצעה זו.";
+
+$_t["Required by"] = "נדרש על ידי";
+
+$_t["You cannot vote in an proposal about you."] = "אין באפשרותך להצביע עבור הצעה הקשורה בך.";
+
+$_t["This is a %hmajor%h problem!"] = "זו היא  בעיה %hחמורה%h!";
+
+$_t["You did not select any packages to unflag."] = "לא בחרת שום חבילות לביטול סימון.";
+
+$_t["You must log in to view user information."] = "עליך להתחבר על מנת לצפות בנתוני משתמש.";
+
+$_t["You did not select any packages to delete."] = "לא בחרת שום חבילות למחיקה.";
+
+$_t["Could not create directory %s."] = "לא ניתן ליצור תיקייה %s.";
+
+$_t["UnNotify"] = "ביטול התרעה";
+
+$_t["Flag Out-of-date"] = "סימון כלא עדכני";
+
+$_t["The selected packages have been unflagged."] = "החבילות שנבחרו בוטלו מהסימון.";
+
+$_t["Search Criteria"] = "קריטריונים לחיפוש";
+
+$_t["Notify"] = "התרעה";
+
+$_t["Vote"] = "הצבעה";
+
+$_t["Adopt Packages"] = "אימוץ חבילות";
+
+$_t["Name"] = "שם";
+
+$_t["Package Listing"] = "רשימת חבילות";
+
+$_t["Any"] = "כל";
+
+$_t["It must be between %s and %s characters long"] = "חייב להיות בין %s ל־%s אותיות";
+
+$_t["Logout"] = "ניתוק";
+
+$_t["The account, %h%s%h, has been successfully created."] = "החשבון, %h%s%h, נוצר בהצלחה.";
+
+$_t["Your password must be at least %s characters."] = "הססמה חייבת להיות באורך של %s אותיות לפחות.";
+
+$_t["Submit"] = "שליחה";
+
+$_t["Sorry, uploads are not permitted by this server."] = "חל איסור על העלאת קבצים לשרת זה, עמך הסליחה.";
+
+$_t["Actions"] = "פעולות";
+
+$_t["Comment has been deleted."] = "הערה נמחקה.";
+
+$_t["The username, %h%s%h, is already in use."] = "שם המשתמש, %h%s%h, כבר בשימוש.";
+
+$_t["Proposal"] = "הצעה";
+
+$_t["You did not select any packages to flag."] = "לא בחרת שום חבילות לסימון.";
+
+$_t["Error trying to unpack upload - PKGBUILD does not exist."] = "שגיאה בניסיון פריסת הקובץ שהועלה - PKGBUILD לא קיים.";
+
+$_t["The selected packages have been flagged out-of-date."] = "החבילות שנבחרו מסומנות כלא עדכניות.";
+
+$_t["Description"] = "תיאור";
+
+$_t["My Packages"] = "החבילות שלי";
+
+$_t["You did not select any packages to vote for."] = "לא בחרת שום חבילות להצביע עבורן.";
+
+$_t["Never"] = "לעולם";
+
+$_t["You must be logged in before you can disown packages."] = "עליך להיכנס לפני שיהיה באפשרותך לבטל בעלות מחבילות.";
+
+$_t["You've found a bug if you see this...."] = "אם הודעה זו מופיעה מצאת באג...";
+
+$_t["Last Voted"] = "הצבעה אחרונה";
+
+$_t["Password"] = "ססמה";
+
+$_t["Real Name"] = "שם אמתי";
+
+$_t["Package Details"] = "נתוני חבילה";
+
+$_t["UnVote"] = "ביטול הצבעה";
+
+$_t["Password fields do not match."] = "שדות הססמה לא תואמים.";
+
+$_t["Start and end with a letter or number"] = "יש להתחיל ולסיים עם תו או מספר";
+
+$_t["The username is invalid."] = "שם המשתמש אינו חוקי.";
+
+$_t["Could not retrieve information for the specified user."] = "לא ניתן לקבל נתונים עבור המשתמש שנבחר.";
+
+$_t["Email Address"] = "כתובת דוא״ל";
+
+$_t["Trusted User"] = "משתמש אמין";
+
+$_t["Invalid name: only lowercase letters are allowed."] = "שם לא חוקי: רק אותיות קטנות מותרות.";
+
+$_t["Error retrieving package details."] = "שגיאה בקבלת נתוני חבילה.";
+
+$_t["Length must be a number."] = "על האורך להיות מספר בלבד.";
+
+$_t["%s has %s apples."] = "ל־%s יש %s תפוחים.";
+
+$_t["You must be logged in before you can un-vote for packages."] = "עליך להתחבר לפני ביטול הצבעה עבור חבילות.";
+
+$_t["Login"] = "כניסה";
+
+$_t["Use this form to create an account."] = "ניתן להשתמש בטופס זה על מנת ליצור חשבון.";
+
+$_t["Use this form to update your account."] = "ניתן להשתמש בטופס זה על מנת לעדכן את חשבונך.";
+
+$_t["Abstain"] = "הימנעות";
+
+$_t["Could not chmod directory %s."] = "לא ניתן לבצע chmod לתיקייה %s.";
+
+$_t["You are not allowed to delete this comment."] = "אין לך הרשאה למחוק הערה זו.";
+
+$_t["required"] = "נדרש";
+
+$_t["Sort by"] = "סידור לפי";
+
+$_t["Submit a proposal to vote on."] = "שליחת הצבעה עבור הפעלת הצבעה.";
+
+$_t["Proposal Details"] = "פרטי הצעה";
+
+$_t["Language is not currently supported."] = "שפה כרגע לא נתמכת.";
+
+$_t["Last vote"] = "הצבעה אחרונה";
+
+$_t["New Comment Notification"] = "התרעה על הערה חדשה";
+
+$_t["Missing User ID"] = "חסר מס׳ הזיהוי של המשתמש";
+
+$_t["You have been added to the comment notification list for %s."] = "צורפת אל רשימת ההתרעות עבור %s.";
+
+$_t["Select new category"] = "נא לבחור קטגוריה חדשה";
+
+$_t["A Trusted User cannot assign Developer status."] = "משתמש אמין לא יכול להקצות סטטוס מפתח.";
+

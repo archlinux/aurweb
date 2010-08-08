@@ -29,6 +29,7 @@ $SUPPORTED_LANGS = array(
 	"el_GR" => "Ελληνικά",
 	"es" => "Español",
 	"fr" => "Français",
+	"he" => "עברית",
 	"hr" => "Hrvatski",
 	"hu" => "Magyar",
 	"it" => "Italiano",
