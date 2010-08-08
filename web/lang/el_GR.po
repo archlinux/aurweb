@@ -21,6 +21,71 @@
 
 global $_t;
 
+
+$_t["Statistics"] = "Στατιστικά";
+
+$_t["Remember to vote for your favourite packages!"] = "Θυμηθείτε να ψηφίσετε τα αγαπημένα σας πακέτα!";
+
+$_t["Error looking up username, %s."] = "Σφάλμα κατα την διάρκεια αναζήτησης ονόματος χρήστη, %s.";
+
+$_t["Packages in unsupported"] = "Μη-υποστηριζόμενα πακέτα";
+
+$_t["The most popular packages will be provided as binary packages in [community]."] = "Τα πιο δημοφιλή πακέτα θα παρέχονται ως binary πακέτα στο [community].";
+
+$_t["Trusted Users"] = "Trusted Users";
+
+$_t["You must supply a username."] = "Πρέπει να καταχωρήσετε ένα επώνυμο.";
+
+$_t["Packages added or updated in the past 7 days"] = "Πακέτα που προσθέθηκαν ή ανανεώθηκαν τις τελευταίες 7 ημέρες";
+
+$_t["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Οι συζητήσεις με e-mail όσον αφορά το AUR λαμβάνουν χώρα στη %sλίστα των Trusted Users%s.";
+
+$_t["Packages in unsupported and flagged as safe"] = "Πακέτα μη-υποστηριζόμενα και χαρακτηρισμένα ως ασφαλή";
+
+$_t["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Αν και δεν μπορούμε να εγγηυθούμε για το περιεχόμενό τους, σας παρέχουμε μία %hλίστα με αποθετήρια χρηστών%h για την ευκολία σας.";
+
+$_t["Recent Updates"] = "Πρόσφατες Ανανεώσεις";
+
+$_t["Your account has been suspended."] = "Η λειτουργία του λογαριασμού σας έχει ανασταλεί.";
+
+$_t["Username:"] = "Όνομα Χρήστη:";
+
+$_t["Error trying to generate session id."] = "Σφάλμα κατά τη δημιουργία id της συνόδου.";
+
+$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %hOδηγό Χρηστών του AUR%h και τον %hΟδηγό των Trusted Users%h για περισσότερες πληροφορίες.";
+
+$_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Τα προτεινόμενα PKGBUILDs %hπρέπει%h να ακολουθούν τα  %hΠρότυπα δημιουργίας πακέτων του Arch%h αλλιώς θα διαγράφονται!";
+
+$_t["Login"] = "Συνδεθείτε";
+
+$_t["If you have feedback about the AUR, please leave it in %hFlyspray%h."] = "Εάν έχετε προτάσεις για το AUR, παρακαλώ καταθέστε τις στο %hFlyspray%h.";
+
+$_t["You must supply a password."] = "Πρέπει να καταχωρήσετε ένα συνθηματικό.";
+
+$_t["Password:"] = "Συνθηματικό:";
+
+$_t["Registered Users"] = "Εγγεγραμμένοι Χρήστες";
+
+$_t["Logged-in as: %s"] = " Συνδεδεμένος ως: %s";
+
+$_t["Incorrect password for username, %s."] = "Λάθος συνθηματικό για το όνομα χρήστη, %s.";
+
+$_t["Safe"] = "Ασφαλές";
+
+$_t["Out-of-date"] = "Παρωχημένο";
+
+$_t["User Statistics"] = "Στατιστικά χρηστών";
+
+$_t["DISCLAIMER"] = "ΑΠΟΠΟΙΗΣΗ ΕΥΘΥΝΗΣ";
+
+$_t["My Statistics"] = "Τα στατιστικά μου";
+
+$_t["Home"] = "Λογαριασμός";
+
+$_t["Some packages may be provided as binaries in [community]."] = "Ορισμένα πακέτα μπορεί να μεταφερθούν ως binaries στο [community]";
+
+$_t["Unsupported packages are user produced content. Any use of the provided files is at your own risk."] = "Τα προτεινόμενα πακέτα στο \"Unsupported\" είναι περιεχόμενο που παρέχεται απο τους χρήστες. Χρησιμοποιήστε τα με δική σας ευθύνη.";
+
 $_t["Search by"] = "Αναζήτηση κατά";
 
 $_t["This package has been flagged out of date."] = "Αυτό το πακέτο έχει χαρακτηριστεί παρωχημένο.";
