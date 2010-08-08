@@ -420,3 +420,24 @@ $_t["You have been added to the comment notification list for %s."] = "Έχετ�
 $_t["Select new category"] = "Επιλογή νέας κατηγορίας";
 
 $_t["A Trusted User cannot assign Developer status."] = "Ένας Trusted User δεν μπορεί να αποδώσει στοιχεία Developer.";
+
+$_t["Confirm your e-mail address:"] = "panosfilip@gmail.com";
+
+$_t["Enter your new password:"] = "Εισάγετε νέο κωδικό";
+
+$_t["This is a %hmajor%h problem!"] = "Αυτό είναι ενα %hμεγάλο%h πρόβλημα!";
+
+$_t["Confirm"] = "Επιβεβαιώστε";
+
+$_t["Upload your source packages here. Create source packages with `makepkg --source`."] = "Ανεβάστε τα πηγαία πακέτα εδώ. Δημιουργήστε πηγαία πακέτα με την εντολή `makepkg --source`";
+
+$_t["Password Reset"] = "Επαναφορά Κωδικού";
+
+$_t["The selected packages have not been deleted, check the confirmation checkbox."] = "Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι επιβεβαίωσης.";
+
+$_t["Enter your e-mail address:"] = "Εισάγετε την διεύθυνση e-mail σας:";
+
+$_t["Confirm your new password:"] = "Επιβεβαιώστε το νέο σας συνθηματικό:";
+
+$_t["Add Proposal"] = "Προσθέστε Πρόταση";
+
