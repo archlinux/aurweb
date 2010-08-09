@@ -486,7 +486,7 @@ $_t["Select new category"] = "Επιλογή νέας κατηγορίας";
 
 $_t["A Trusted User cannot assign Developer status."] = "Ένας Trusted User δεν μπορεί να αποδώσει στοιχεία Developer.";
 
-$_t["Confirm your e-mail address:"] = "panosfilip@gmail.com";
+$_t["Confirm your e-mail address:"] = "Παρακαλώ επιβεβαιώστε την διεύθυνση e-mail σας:";
 
 $_t["Enter your new password:"] = "Εισάγετε νέο κωδικό";
 
