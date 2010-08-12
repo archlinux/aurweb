@@ -28,7 +28,7 @@ $_t["Remember to vote for your favourite packages!"] = "Θυμηθείτε να 
 
 $_t["Error looking up username, %s."] = "Σφάλμα κατα την διάρκεια αναζήτησης ονόματος χρήστη, %s.";
 
-$_t["Packages in unsupported"] = "Μη-υποστηριζόμενα πακέτα";
+$_t["Packages in unsupported"] = "Μη υποστηριζόμενα πακέτα";
 
 $_t["The most popular packages will be provided as binary packages in [community]."] = "Τα πιο δημοφιλή πακέτα θα παρέχονται ως binary πακέτα στο [community].";
 
@@ -36,7 +36,7 @@ $_t["Trusted Users"] = "Trusted Users";
 
 $_t["You must supply a username."] = "Πρέπει να καταχωρήσετε ένα επώνυμο.";
 
-$_t["Packages added or updated in the past 7 days"] = "Πακέτα που προσθέθηκαν ή ανανεώθηκαν τις τελευταίες 7 ημέρες";
+$_t["Packages added or updated in the past 7 days"] = "Πακέτα που προστέθηκαν ή ανανεώθηκαν τις τελευταίες 7 ημέρες";
 
 $_t["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Οι συζητήσεις με e-mail όσον αφορά το AUR λαμβάνουν χώρα στη %sλίστα των Trusted Users%s.";
 
@@ -71,8 +71,6 @@ $_t["Logged-in as: %s"] = " Συνδεδεμένος ως: %s";
 $_t["Incorrect password for username, %s."] = "Λάθος συνθηματικό για το όνομα χρήστη, %s.";
 
 $_t["Safe"] = "Ασφαλές";
-
-$_t["Out-of-date"] = "Παρωχημένο";
 
 $_t["User Statistics"] = "Στατιστικά χρηστών";
 
@@ -506,3 +504,8 @@ $_t["Confirm your new password:"] = "Επιβεβαιώστε το νέο σας
 
 $_t["Add Proposal"] = "Προσθέστε Πρόταση";
 
+
+
+$_t["Ascending"] = "Αύξουσα"
+$_t["Descending"] = "Φθίνουσα";
+$_t["Out of Date"] = "Παρωχημένο";
