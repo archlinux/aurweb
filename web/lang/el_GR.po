@@ -504,8 +504,9 @@ $_t["Confirm your new password:"] = "Επιβεβαιώστε το νέο σας
 
 $_t["Add Proposal"] = "Προσθέστε Πρόταση";
 
+$_t["Ascending"] = "Αύξουσα";
 
-
-$_t["Ascending"] = "Αύξουσα"
 $_t["Descending"] = "Φθίνουσα";
+
 $_t["Out of Date"] = "Παρωχημένο";
+
