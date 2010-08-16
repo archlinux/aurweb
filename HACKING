@@ -36,8 +36,11 @@ http://mailman.archlinux.org/mailman/listinfo/aur-dev
 
 Base your patches on the master branch as forward development is done there.
 When writing patches please keep unnecessary changes to a minimum.
+
+Try to keep your commits small and focused.
 Smaller patches are much easier to review and have a better chance of being
-pushed more quickly into the main repo.
+pushed more quickly into the main repo. Smaller commits also makes reviewing
+the commit history and tracking down specific changes much easier.
 
 Try to make your commit messages brief but descriptive.
 
