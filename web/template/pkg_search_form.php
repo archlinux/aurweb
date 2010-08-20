@@ -39,13 +39,13 @@
 					<label><?php print __("Search by"); ?></label>
 						<select name='SeB'>
 							<?php
-							$searchby = array('nd' => 'Name & Desc', 'n' => 'Name Only', 'm'  => 'Maintainer', 's'  => 'Submitter');
+							$searchby = array('nd' => __('Name, Description'), 'n' => __('Name Only'), 'm'  => __('Maintainer'), 's'  => __('Submitter'));
 							foreach ($searchby as $k => $v):
 								if ($_REQUEST['SeB'] == $k):
 							?>
-							<option value="<?php print $k; ?>" selected="selected"><?php print __($v); ?></option>
+							<option value="<?php print $k; ?>" selected="selected"><?php print $v; ?></option>
 							<?php else: ?>
-							<option value="<?php print $k; ?>"><?php print __($v); ?></option>
+							<option value="<?php print $k; ?>"><?php print $v; ?></option>
 							<?php
 								endif;
 							endforeach;
@@ -56,13 +56,13 @@
 						<label><?php print __("Sort by"); ?></label>
 						<select name='SB'>
 							<?php
-							$sortby = array('n' => 'Name', 'c' => 'Category', 'l' => 'Location', 'v' => 'Votes', 'w' => 'Voted', 'o' => 'Notify', 'm' => 'Maintainer', 'a' => 'Age');
+							$sortby = array('n' => __('Name'), 'c' => __('Category'), 'l' => __('Location'), 'v' => __('Votes'), 'w' => __('Voted'), 'o' => __('Notify'), 'm' => __('Maintainer'), 'a' => __('Age'));
 							foreach ($sortby as $k => $v):
 								if ($_REQUEST['SB'] == $k):
 							?>
-							<option value='<?php print $k; ?>' selected="selected"><?php print __($v); ?></option>
+							<option value='<?php print $k; ?>' selected="selected"><?php print $v; ?></option>
 							<?php else: ?>
-							<option value='<?php print $k; ?>'><?php print __($v); ?></option>
+							<option value='<?php print $k; ?>'><?php print $v; ?></option>
 							<?php
 								endif;
 							endforeach;
@@ -73,13 +73,13 @@
 						<label><?php print __("Sort order"); ?></label>
 						<select name='SO'>
 							<?php
-							$orderby = array('a' => 'Ascending', 'd' => 'Descending');
+							$orderby = array('a' => __('Ascending'), 'd' => __('Descending'));
 							foreach ($orderby as $k => $v):
 								if ($_REQUEST['SO'] == $k):
 							?>
-							<option value='<?php print $k; ?>' selected="selected"><?php print __($v); ?></option>
+							<option value='<?php print $k; ?>' selected="selected"><?php print $v; ?></option>
 							<?php else: ?>
-							<option value='<?php print $k; ?>'><?php print __($v); ?></option>
+							<option value='<?php print $k; ?>'><?php print $v; ?></option>
 							<?php
 								endif;
 							endforeach;
