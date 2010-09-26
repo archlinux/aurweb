@@ -134,7 +134,7 @@ $_t["required"] = "Notwendig";
 
 $_t["Update"] = "Aktualisieren";
 
-$_t["Submit"] = "Paket hochladen";
+$_t["Submit"] = "Abschicken";
 
 $_t["Password"] = "Passwort";
 
