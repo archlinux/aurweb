@@ -39,3 +39,7 @@ div#archdev-navbar li a { padding: 0 0.5em; color: #07b; }
 
 /* highlight current website */
 #archnavbar.anb-aur ul li#anb-aur a { color: white !important; }
+
+/* style the links */
+#archnavbar ul#archnavbarlist li a { color: #999; font-weight: bold !important; text-decoration: none !important; }
+#archnavbar ul li a:hover { color: white !important; text-decoration: underline !important; }
