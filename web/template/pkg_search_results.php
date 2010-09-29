@@ -21,7 +21,7 @@
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
 		<a href='?<?php print mkurl('SB=c&SO=' . $SO_next) ?>'><?php print __("Category") ?></a>
 	</span></th>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+	<th style='border-bottom: #666 1px solid; vertical-align: bottom; text-align: center;'><span class='f2'>
 		<a href='?<?php print mkurl('SB=n&SO=' . $SO_next) ?>'><?php print __("Name") ?></a>
 	</span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
@@ -36,7 +36,7 @@
 		<a href='?<?php print mkurl('SB=o&SO=' . $SO_next) ?>'><?php print __("Notify") ?></a>
 	</span></th>
 	<?php endif; ?>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Description") ?></span></th>
+	<th style='border-bottom: #666 1px solid; vertical-align: bottom; text-align: center;'><span class='f2'><?php print __("Description") ?></span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
 		<a href='?<?php print mkurl('SB=m&SO=' . $SO_next) ?>'><?php print __("Maintainer") ?></a>
 	</span></th>
