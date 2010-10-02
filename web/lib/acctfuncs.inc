@@ -32,7 +32,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td align='left'>".__("Username").":</td>";
 	print "<td align='left'><input type='text' size='30' maxlength='64'";
-	print " name='U' value='".$U."'> (".__("required").")</td>";
+	print " name='U' value='".htmlspecialchars($U,ENT_QUOTES)."'> (".__("required").")</td>";
 	print "</tr>\n";
 
 	# Only TUs or Devs can promote/demote/suspend a user
@@ -70,7 +70,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td align='left'>".__("Email Address").":</td>";
 	print "<td align='left'><input type='text' size='30' maxlength='64'";
-	print " name='E' value='".$E."'> (".__("required").")</td>";
+	print " name='E' value='".htmlspecialchars($E,ENT_QUOTES)."'> (".__("required").")</td>";
 	print "</tr>\n";
 
 	print "<tr>";
@@ -94,13 +94,13 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td align='left'>".__("Real Name").":</td>";
 	print "<td align='left'><input type='text' size='30' maxlength='32'";
-	print " name='R' value='".$R."'></td>";
+	print " name='R' value='".htmlspecialchars($R,ENT_QUOTES)."'></td>";
 	print "</tr>\n";
 
 	print "<tr>";
 	print "<td align='left'>".__("IRC Nick").":</td>";
 	print "<td align='left'><input type='text' size='30' maxlength='32'";
-	print " name='I' value='".$I."'></td>";
+	print " name='I' value='".htmlspecialchars($I,ENT_QUOTES)."'></td>";
 	print "</tr>\n";
 
 	print "<tr>";
@@ -236,7 +236,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$row = mysql_fetch_array($result);
 			if ($row[0]) {
 				$error = __("The username, %h%s%h, is already in use.",
-					"<b>", $U, "</b>");
+					"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 			}
 		}
 	}
@@ -254,7 +254,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$row = mysql_fetch_array($result);
 			if ($row[0]) {
 				$error = __("The address, %h%s%h, is already in use.",
-						"<b>", $E, "</b>");
+						"<b>", htmlspecialchars($E,ENT_QUOTES), "</b>");
 			}
 		}
 	}
@@ -281,12 +281,12 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$result = db_query($q, $dbh);
 			if (!$result) {
 				print __("Error trying to create account, %h%s%h: %s.",
-						"<b>", $U, "</b>", mysql_error($dbh));
+						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>", mysql_error($dbh));
 			} else {
 				# account created/modified, tell them so.
 				#
 				print __("The account, %h%s%h, has been successfully created.",
-						"<b>", $U, "</b>");
+						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 				print "<p>\n";
 				print __("Click on the Home link above to login.");
 				print "</p>\n";
@@ -324,10 +324,10 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$result = db_query($q, $dbh);
 			if (!$result) {
 				print __("Error trying to modify account, %h%s%h: %s.",
-						"<b>", $U, "</b>", mysql_error($dbh));
+						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>", mysql_error($dbh));
 			} else {
 				print __("The account, %h%s%h, has been successfully modified.",
-						"<b>", $U, "</b>");
+						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 			}
 		}
 	}
@@ -471,10 +471,10 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				}
 				print "</span></td>";
 				print "<td class='".$c."'><span class='f5'>";
-				$row["RealName"] ? print $row["RealName"] : print "&nbsp;";
+				$row["RealName"] ? print htmlspecialchars($row["RealName"],ENT_QUOTES) : print "&nbsp;";
 				print "</span></td>";
 				print "<td class='".$c."'><span class='f5'>";
-				$row["IRCNick"] ? print $row["IRCNick"] : print "&nbsp;";
+				$row["IRCNick"] ? print htmlspecialchars($row["IRCNick"],ENT_QUOTES) : print "&nbsp;";
 				print "</span></td>";
 				print "<td class='".$c."'><span class='f5'>";
 				$row["LastVoted"]
@@ -574,17 +574,17 @@ function display_account_info($U="", $T="", $E="", $R="", $I="") {
 
 	print "  <tr>\n";
 	print "    <td align='left'>".__("Email Address").":</td>\n";
-	print "    <td align='left'><a href='mailto:".$E."'>".$E."</a></td>\n";
+	print "    <td align='left'><a href='mailto:".htmlspecialchars($E,ENT_QUOTES)."'>".htmlspecialchars($E,ENT_QUOTES)."</a></td>\n";
 	print "  </tr>\n";
 
 	print "  <tr>\n";
 	print "    <td align='left'>".__("Real Name").":</td>\n";
-	print "    <td align='left'>".$R."</td>\n";
+	print "    <td align='left'>".htmlspecialchars($R,ENT_QUOTES)."</td>\n";
 	print "  </tr>\n";
 
 	print "  <tr>\n";
 	print "    <td align='left'>".__("IRC Nick").":</td>\n";
-	print "    <td align='left'>".$I."</td>\n";
+	print "    <td align='left'>".htmlspecialchars($I,ENT_QUOTES)."</td>\n";
 	print "  </tr>\n";
 
 	print "  <tr>\n";
