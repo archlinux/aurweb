@@ -25,7 +25,7 @@ while (list($indx, $carr) = each($comments)) { ?>
 ?></div>
 	<blockquote class="comment-body">
 	<div>
-<?php echo nl2br(htmlspecialchars($carr['Comments'])) ?>
+<?php echo parse_comment($carr['Comments']) ?>
 	</div>
 	</blockquote>
 <?php

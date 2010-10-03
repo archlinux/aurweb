@@ -494,3 +494,27 @@ function salted_hash($passwd, $salt)
 	}
 	return md5($salt . $passwd);
 }
+
+function parse_comment($comment)
+{
+	$url_pattern = '/(\b(?:https?|ftp):\/\/[\w\/\#~:.?+=&%@!\-;,]+?' .
+		'(?=[.:?\-;,]*(?:[^\w\/\#~:.?+=&%@!\-;,]|$)))/iS';
+
+	$matches = preg_split($url_pattern, $comment, -1,
+		PREG_SPLIT_DELIM_CAPTURE);
+
+	$html = '';
+	for ($i = 0; $i < count($matches); $i++) {
+		if ($i % 2) {
+			# convert links
+			$html .= '<a href="' . htmlspecialchars($matches[$i]) .
+				'">' .  htmlspecialchars($matches[$i]) . '</a>';
+		}
+		else {
+			# convert everything else
+			$html .= nl2br(htmlspecialchars($matches[$i]));
+		}
+	}
+
+	return $html;
+}
