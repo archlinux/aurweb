@@ -9,28 +9,27 @@
 #
 # Chinese Simplified (简体中文) translation
 #
-# Maintainer: Mod Gao <mod.gao |at| gmail.com>
-# Maintainer: Huntxu <mhuntxu |at| gmail.com>
+# Maintainer: gDD <usrgdd@gmail.com>
+# Contributor: Huntxu <mhuntxu@gmail.com>
 # Contributor: supern_lee <supern.lee@gmail.com>
 
 global $_t;
 
-$_t["Search by"] = "搜索";
+$_t["Confirm your e-mail address:"] = "确认Email:";
 
 $_t["This package has been flagged out of date."] = "此包已被标记为过期。";
 
 $_t["Missing a required field."] = "缺少必填项。";
 
-$_t["Logged-in as: %s"] = "登陆为：%s";
+$_t["Logged-in as: %s"] = "登陆为: %s";
 
-$_t["Error trying to modify account, %h%s%h: %s."] = "账户修改失败，%h%s%h: %s。";
+$_t["Error trying to modify account, %h%s%h: %s."] = "帐户修改失败，%h%s%h: %s。";
 
 $_t["Username does not exist."] = "此用户不存在。";
 
 $_t["Tarball"] = "压缩包";
 
-# no period at last is right of this translation, dont change.
-$_t["Can contain only one period, underscore or hyphen."] = "只能包含一个“.”，“_”，或“-”";
+$_t["Can contain only one period, underscore or hyphen."] = "最多包含一个“.”，“_”，或“-”"; # for uniform look, no period at last, dont change.
 
 $_t["Unflag Out-of-date"] = "取消标记为过期";
 
@@ -39,6 +38,8 @@ $_t["Missing package ID."] = "丢失包标识。";
 $_t["You must be logged in before you can unflag packages."] = "您需要登录后才能移除包标记。";
 
 $_t["No results matched your search criteria."] = "没有结果符合您的搜索条件。";
+
+$_t["Enter your new password:"] = "输入新密码:";
 
 $_t["Update"] = "更新";
 
@@ -54,27 +55,23 @@ $_t["change category"] = "改变类别";
 
 $_t["Error retrieving package list."] = "无法获取包列表。";
 
-$_t["Reset"] = "清空";
+$_t["Reset"] = "重填";
 
 $_t["Submitted: %s by %s"] = "已提交 %s 由 %s";
 
-$_t["string"] = "";
+$_t["Voted"] = "已投票";
 
 $_t["Remember me"] = "记住我";
-
-$_t["This vote is still running."] = "投票仍在继续。";
 
 $_t["Package category updated."] = "软件包类别已更新。";
 
 $_t["%s already has proposal running for them."] = "%s 已经有了关于他们的提议。";
 
-$_t["Error - No file uploaded"] = "发生错误 - 没有文件被上传";
+$_t["Error - No file uploaded"] = "发生错误: 没有文件被上传";
 
 $_t["You did not select any packages to disown."] = "您没有选择要弃置的包。";
 
 $_t["Package URL is missing a protocol (ie. http:// ,ftp://)"] = "包的 URL 缺少协议（如 http://，ftp://）";
-
-$_t["Votes"] = "票数";
 
 $_t["Total"] = "总数";
 
@@ -86,9 +83,9 @@ $_t["Less"] = "更少";
 
 $_t["You are not allowed to access this area."] = "您不被允许进入此区域。";
 
-$_t["Any type"] = "所有类型";
+$_t["Any type"] = "所有类别";
 
-$_t["Accounts"] = "帐户";
+$_t["Accounts"] = "我的帐户";
 
 $_t["Could not retrieve proposal details."] = "无法获取提议详情。";
 
@@ -96,7 +93,11 @@ $_t["You do not have permission to edit this account."] = "您没有权限修改
 
 $_t["Click on the Home link above to login."] = "点击上方的首页链接以登录。";
 
-$_t["The email address is invalid."] = "无效的 Email 地址。";
+$_t["You must be logged in before you can adopt packages."] = "您需要登陆后才能接管包";
+
+$_t["The email address is invalid."] = "错误的 Email 地址。";
+
+$_t["Search by"] = "搜索";
 
 $_t["Could not change directory to %s."] = "无法切换目录至 %s。";
 
@@ -105,6 +106,8 @@ $_t["None of the selected packages could be deleted."] = "无法删除所选的�
 $_t["Your votes have been removed from the selected packages."] = "您对所选包的投票已被取消。";
 
 $_t["No packages matched your search criteria."] = "没有相关的包符合您的搜索条件。";
+
+$_t["Confirm"] = "确认";
 
 $_t["Create"] = "创建";
 
@@ -116,7 +119,9 @@ $_t["Next"] = "下一页";
 
 $_t["Could not re-tar"] = "无法重新打包";
 
-$_t["You must be logged in before you can adopt packages."] = "您需要登陆后才能接管包";
+$_t["Upload your source packages here. Create source packages with `makepkg --source`."] = "在此上传包。使用`makepkg --source`创建包。";
+
+$_t["The selected packages have been deleted."] = "选中的包已经被删除。";
 
 $_t["You must create an account before you can upload packages."] = "您在创建帐号后才能上传包";
 
@@ -124,17 +129,19 @@ $_t["Location"] = "位置";
 
 $_t["Delete comment"] = "删除评论";
 
-$_t["Account Type"] = "帐户类型";
+$_t["Account Type"] = "帐户类别";
 
-$_t["Type"] = "类型";
+$_t["Type"] = "类别";
 
 $_t["More"] = "更多";
 
-$_t["Start and end with a letter or number"] = "开头和结尾必须是数字或英文字母";
+$_t["Username"] = "用户名";
 
-$_t["Could not create incoming directory: %s."] = "无法创建目录：%s。";
+$_t["Could not create incoming directory: %s."] = "无法创建目录: %s。";
 
 $_t["Upload package file"] = "上传包文件";
+
+$_t["Password Reset"] = "找回密码";
 
 $_t["(defaults to 7 if empty)"] = "（如果不填，默认为7）";
 
@@ -142,17 +149,19 @@ $_t["No New Comment Notification"] = "没有新的评论通知";
 
 $_t["Couldn't add to notification list."] = "无法将您添加到通知列表。";
 
+##$_t["The selected packages have not been deleted, check the confirmation checkbox."] = "";
+
 $_t["Disown Packages"] = "弃置包";
 
 $_t["Advanced"] = "高级";
 
-$_t["Files"] = "文件";
+$_t["This vote is still running."] = "投票仍在继续。";
 
 $_t["Vote ID not valid."] = "非法的投票标识";
 
 $_t["(empty if not applicable)"] = "（如果不符合可以留空）";
 
-$_t["Per page"] = "每页";
+$_t["Per page"] = "每页显示";
 
 $_t["New proposal submitted."] = "新提议已被提交。";
 
@@ -180,7 +189,7 @@ $_t["Unknown file format for uploaded file."] = "上传的文件格式未知。"
 
 $_t["Delete Packages"] = "删除包";
 
-$_t["The selected packages have been deleted."] = "选中的包已经被删除。";
+$_t["Trusted user"] = "受信用户";
 
 $_t["Back"] = "返回";
 
@@ -202,7 +211,7 @@ $_t["Developer"] = "开发人员";
 
 $_t["Category"] = "类别";
 
-$_t["Missing build function in PKGBUILD."] = "PKGBUILD中缺少build函数。";
+$_t["Votes"] = "得票数";
 
 $_t["You must be logged in before you can flag packages."] = "您需要登录后才能标记包。";
 
@@ -210,23 +219,23 @@ $_t["No results found."] = "没有找到结果。";
 
 $_t["No"] = "否";
 
-$_t["Discussion"] = "讨论";
+$_t["Discussion"] = "邮件列表";
 
-$_t["Dependencies"] = "依赖";
+$_t["Dependencies"] = "依赖于:";
 
 $_t["Start"] = "开始";
-
-$_t["Add"] = "添加";
 
 $_t["You did not select any packages to adopt."] = "您没有选择要接管的包。";
 
 $_t["Length must be at least 1."] = "长度必须不小于1。";
 
-$_t["Error trying to create account, %h%s%h: %s."] = "尝试创建帐户失败，%h%s%h：%s。";
+$_t["Error trying to create account, %h%s%h: %s."] = "尝试创建帐户失败，%h%s%h: %s。";
 
 $_t["End"] = "结束";
 
 $_t["The account, %h%s%h, has been successfully modified."] = "帐户 %h%s%h 修改成功。";
+
+$_t["Confirm your new password:"] = "确认新密码:";
 
 $_t["Account Suspended"] = "帐户被暂停";
 
@@ -234,15 +243,13 @@ $_t["Status"] = "状态";
 
 $_t["You must be logged in before you can get notifications on comments."] = "您需要登录后才能收到评论通知。";
 
-$_t["Leave the password fields blank to keep your same password."] = "如果不修改密码,请保持密码项为空。";
+$_t["Leave the password fields blank to keep your same password."] = "如果不修改密码，请保持密码项为空。";
 
 $_t["IRC Nick"] = "IRC昵称";
 
-$_t["Trusted user"] = "受信用户";
+$_t["Enter your e-mail address:"] = "输入您的Email:";
 
 $_t["Normal user"] = "普通用户";
-
-$_t["This is a %h%s%h problem!"] = "这是一个 %h%s%h 的问题！";
 
 $_t["You are not allowed to overwrite the %h%s%h package."] = "您没有权限覆盖 %h%s%h 这个包。";
 
@@ -258,19 +265,21 @@ $_t["Package Category"] = "包类别";
 
 $_t["The selected packages have been adopted."] = "选择的包已经被接管。";
 
-$_t["Packages"] = "包";
+$_t["Packages"] = "所有包";
 
 $_t["Edit Account"] = "编辑帐户";
 
 $_t["Search"] = "搜索";
 
+$_t["Add Proposal"] = "添加提议";
+
 $_t["Language"] = "语言";
 
 $_t["Orphans"] = "孤儿包";
 
-$_t["Voting is closed for this proposal."] = "该提议的投票已被关闭。";
+$_t["Could not retrieve information for the specified user."] = "无法获取指定用户的信息。";
 
-$_t["Bugs"] = "Bugs";
+$_t["Bugs"] = "报告Bug";
 
 $_t["Showing results %s - %s of %s"] = "显示结果 %s - %s，共 %s 个";
 
@@ -278,9 +287,11 @@ $_t["Active"] = "激活";
 
 $_t["You've already voted for this proposal."] = "您已经在这个提议上投票了。";
 
-$_t["Required by"] = "被需要";
+$_t["Required by"] = "被需要:";
 
 $_t["You cannot vote in an proposal about you."] = "您不能在关于您的提议里投票。";
+
+$_t["This is a %hmajor%h problem!"] = "这是一个%h严重的%h问题！";
 
 $_t["You did not select any packages to unflag."] = "您没有选择要取消标记的包。";
 
@@ -300,6 +311,8 @@ $_t["Search Criteria"] = "搜索";
 
 $_t["Notify"] = "通知";
 
+$_t["Files"] = "文件";
+
 $_t["Vote"] = "投票";
 
 $_t["Adopt Packages"] = "接管包";
@@ -308,9 +321,9 @@ $_t["Name"] = "名称";
 
 $_t["Package Listing"] = "包列表";
 
-$_t["Any"] = "任意";
+$_t["Any"] = "所有";
 
-$_t["It must be between %s and %s characters long"] = "必须在 %s 到 %s 个字符之间";
+$_t["It must be between %s and %s characters long"] = "在 %s 到 %s 个字符之间";
 
 $_t["Logout"] = "退出";
 
@@ -318,7 +331,7 @@ $_t["The account, %h%s%h, has been successfully created."] = "帐号 %h%s%h 创�
 
 $_t["Your password must be at least %s characters."] = "密码至少要 %s 个字符。";
 
-$_t["Submit"] = "提交";
+$_t["Submit"] = "上传";
 
 $_t["Sorry, uploads are not permitted by this server."] = "抱歉，此服务器不允许上传。";
 
@@ -346,9 +359,7 @@ $_t["Never"] = "从不";
 
 $_t["You must be logged in before you can disown packages."] = "您需要登录后才能弃置包。";
 
-$_t["Voted"] = "已投票";
-
-$_t["You've found a bug if you see this...."] = "如果你看见这个，嘿嘿，说明你发现了一个BUG……";
+$_t["You've found a bug if you see this...."] = "恭喜，你发现了一个BUG...";
 
 $_t["Last Voted"] = "最后投票";
 
@@ -362,23 +373,23 @@ $_t["UnVote"] = "取消投票";
 
 $_t["Password fields do not match."] = "密码项不符合。";
 
-$_t["Username"] = "用户名";
+$_t["Start and end with a letter or number"] = "开头和结尾是数字/英文字母";
 
-$_t["The username is invalid."] = "此用户名不符合。";
+$_t["The username is invalid."] = "用户名需要符合以下条件：";
 
-$_t["Could not retrieve information for the specified user."] = "无法获取指定用户的信息。";
+$_t["Voting is closed for this proposal."] = "该提议的投票已被关闭。";
 
 $_t["Email Address"] = "Email";
 
 $_t["Trusted User"] = "受信用户";
 
-$_t["Invalid name: only lowercase letters are allowed."] = "无效的名称：只允许小写字母。";
+$_t["Invalid name: only lowercase letters are allowed."] = "无效的名称: 只允许小写字母。";
 
 $_t["Error retrieving package details."] = "获取包详情是发生错误。";
 
 $_t["Length must be a number."] = "长度必须是数字。";
 
-$_t["%s has %s apples."] = "";
+##$_t["%s has %s apples."] = "useless string";
 
 $_t["You must be logged in before you can un-vote for packages."] = "您需要登录后才能取消投票。";
 
@@ -416,8 +427,15 @@ $_t["Select new category"] = "选择一个新类别";
 
 $_t["A Trusted User cannot assign Developer status."] = "受信用户不能指派开发人员状态。";
 
-# new stuff that official translating material not included.
-# new stuff that official translating material not included.
+# HI:
+#   above lines are sync'ed with .po file generated by ./translation_tool
+# i done them with vimdiff. and following lines are manually added,
+# in the early stage them are grabbed from other .po translations,
+# it's been a long times since last update, i forgot names, sorry bros.
+# and, many grabbed directly form php source code.
+# there are many lines are outdated. (including above lines i think.)
+# it's painful to find out which is, and keep all of them for
+# compatibility:)                                     -- gDD (2010-10-06)
 
 $_t["Out-of-date"] = "过期包";
 
@@ -427,53 +445,76 @@ $_t["Submitter"] = "提交人";
 
 $_t["Bad username or password."] = "用户名或密码错误。";
 
-$_t["Legend"] = "图例";
+$_t["Legend"] = "图例:";
 
 $_t["Ascending"] = "从小到大";
 
 $_t["Descending"] = "从大到小";
 
-$_t["Sources"] = "源代码";
+$_t["Sources"] = "源代码:";
 
-$_t["License"] = "协议";
+$_t["License"] = "许可协议";
 
 $_t["Last Updated"] = "最后更新";
 
 $_t["First Submitted"] = "首次提交";
 
-$_t["Enter your comment below."] = "在这里写上您的评论。";
+$_t["Enter your comment below."] = "填上您的评论:";
 
 $_t["unknown"] = "未知";
 
-$_t["Comment by: %s on %s"] = "该评论由 %s 添加于 %s";
+$_t["Comment by: %s on %s"] = "%s 发表于 %s";
 
-$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "欢迎来到AUR！请阅读 %hAUR User Guidelines%h 和 %hAUR TU Guidelines%h 获取更多信息。";
+$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "欢迎来到AUR！请阅读 %hAUR User Repository%h 和 %hAUR TU Guidelines%h 获取更多信息。";
 
-$_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "贡献的PKGBUILD%h必须%h符合 %hArch Packaging Standards%h，否则将被删除！";
-
-$_t["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "为您喜欢的包投票！最流行的包将以二进制包的形式提供于 [community] 仓库。";
+$_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "贡献的PKGBUILD%h必须%h符合%h软件包标准%h，否则将被删除！";
 
 $_t["Remember to vote for your favourite packages!"] = "为您喜欢的包投票！";
 
-$_t["The most popular packages will be provided as binary packages in [community]."] = "最流行的包将以二进制包的形式提供于 [community] 仓库。";
-
 $_t["DISCLAIMER"] = "免责声明";
 
-$_t["Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk."] = "位于 unsupported 的包属于用户生成的数据。请对使用而产生的后果负责。";
+$_t["Unsupported packages are user produced content. Any use of the provided files is at your own risk."] = "位于 unsupported 的包为用户产生的内容。使用它们造成的后果自负。";
+
+#$_t["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "为您喜欢的包投票！最流行的包将以二进制包的形式提供于 [community] 仓库。";
+
+#$_t["The most popular packages will be provided as binary packages in [community]."] = "最流行的包将以二进制包的形式提供于 [community] 仓库。";
+
+#$_t["Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk."] = "位于 unsupported 的包属于用户生成的数据。请对使用而产生的后果负责。";
 
 $_t["Recent Updates"] = "最新更新";
 
-$_t["My Statistics"] = "我的状态";
+$_t["My Statistics"] = "我的统计";
 
 $_t["Packages in unsupported"] = "位于 unsupported 的包";
 
 $_t["Out of Date"] = "过期包";
 
-$_t["Statistics"] = "状态";
+$_t["Statistics"] = "统计";
 
 $_t["Packages added or updated in the past 7 days"] = "过去7天内更新或添加的包";
 
 $_t["Registered Users"] = "注册用户";
 
-$_t["Trusted Users"] = "受信用户";
+$_t["Missing build function in PKGBUILD."] = "PKGBUILD中缺少build函数。";
 
+$_t["Add"] = "添加";
+
+$_t["This is a %h%s%h problem!"] = "这是一个 %h%s%h 的问题！";
+
+$_t["Forgot Password"] = "找回密码";
+
+$_t["Check your e-mail for the confirmation link."] = "请进入您的邮箱查看确认邮件。";
+
+# NO! dont change very English bit of the next line, otherwise will not working
+$_t["If you have forgotten the e-mail address you used to
+		register, please send a message to the %haur-general%h mailing list."] = "如果您忘记了注册账号时使用的Email，请向 %haur-general%h 邮件列表寻求帮助。";
+
+$_t["Some packages may be provided as binaries in [community]."] = "部分包将以二进制包的形式提供于[community]仓库。";
+
+$_t["Name, Description"] = "名称和描述";
+
+$_t["Name Only"] = "名称";
+
+# not working though, php modification needed, uncomment when ready
+#$_t["(unknown)"] = "(未知)";
+#$_t["Continue"] = "继续";
