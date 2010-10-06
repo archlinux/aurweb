@@ -457,7 +457,7 @@ function pkg_search_page($SID="") {
 	PackageCategories.Category,
 	PackageLocations.Location,
 	Packages.Name, Packages.Version, Packages.Description, Packages.NumVotes,
-	Packages.ID, Packages.OutOfDate
+	Packages.ID, Packages.OutOfDateTS
 
 	FROM Packages
 	LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID) ";
@@ -510,7 +510,7 @@ function pkg_search_page($SID="") {
 	}
 
 	if (isset($_GET['outdated'])) {
-		$q .= "AND OutOfDate = 1 ";
+		$q .= "AND OutOfDateTS IS NOT NULL ";
 	}
 
 	$order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';
@@ -642,8 +642,13 @@ function pkg_flag ($atype, $ids, $action = True) {
 		}
 	}
 
-	$ood = $action ? 1 : 0;
-	$q = "UPDATE Packages SET OutOfDate = " . $ood;
+	$q = "UPDATE Packages SET";
+	if ($action) {
+		$q.= " OutOfDateTS = UNIX_TIMESTAMP()";
+	}
+	else {
+		$q.= " OutOfDateTS = NULL";
+	}
 	$q.= " WHERE ID IN (" . $flag . ")";
 
 	db_query($q, $dbh);

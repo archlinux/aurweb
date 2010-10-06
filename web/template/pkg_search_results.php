@@ -46,7 +46,7 @@
 $atype = account_from_sid($_COOKIE['AURSID']);
 for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	(($i % 2) == 0) ? $c = "data1" : $c = "data2";
-	if ($row["OutOfDate"]): $c = "outofdate"; endif;
+	if ($row["OutOfDateTS"] !== NULL): $c = "outofdate"; endif;
 ?>
 <tr>
 	<?php if ($SID): ?>

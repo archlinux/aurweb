@@ -59,7 +59,7 @@ function user_table($user, $dbh)
 	$maintainer_unsupported_count = db_cache_value(sprintf($base_q, 'unsupported'), $dbh,
 		$apc_prefix . 'user_unsupported_count:' . $escuser);
 
-	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDate = 1 AND Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
+	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDateTS IS NOT NULL AND Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
 
 	$flagged_outdated = db_cache_value($q, $dbh,
 		$apc_prefix . 'user_flagged_outdated:' . $escuser);

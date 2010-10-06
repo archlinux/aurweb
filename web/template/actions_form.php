@@ -27,7 +27,7 @@
 			echo " value='".__("UnNotify")."' title='".__("No New Comment Notification")."'> ";
 		}
 
-if ($row["OutOfDate"] == 0) {
+if ($row["OutOfDateTS"] === NULL) {
     echo "<input type='submit' class='button' name='do_Flag'";
     echo " value='".__("Flag Out-of-date")."'>\n";
 } else {

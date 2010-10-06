@@ -21,7 +21,7 @@ class AurJSON {
     private $exposed_methods = array('search','info','msearch');
     private $fields = array('Packages.ID','Name','Version','CategoryID',
 	'Description', 'LocationID', 'URL','URLPath','License','NumVotes',
-	'OutOfDate');
+	'(OutOfDateTS IS NOT NULL) AS OutOfDate');
 
     /**
      * Handles post data, and routes the request.

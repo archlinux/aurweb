@@ -35,6 +35,7 @@ $license = empty($row['License']) ? $msg : $row['License'];
 # Print the timestamps for last updates
 $updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("r", intval($row["ModifiedTS"]));
 $submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("r", intval($row["SubmittedTS"]));
+$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row["OutOfDateTS"]));
 
 ?>
 <div class="pgbox">
@@ -69,8 +70,8 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("r", intval($row["S
 			print "<a href='$urlpath.tar.gz'>".__("Tarball")."</a> :: <a href='$urlpath'>".__("Files")."</a> :: <a href='$urlpath/PKGBUILD'>PKGBUILD</a></span>";
 		}
 
-		if ($row["OutOfDate"] == 1) {
-			echo "<br /><span class='f6'>".__("This package has been flagged out of date.")."</span>";
+		if ($row["OutOfDateTS"] !== NULL) {
+			echo "<br /><span class='f6'>".__("This package has been flagged out of date.")." (${out_of_date_time})</span>";
 		}
 ?>
 	</p>
