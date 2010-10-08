@@ -33,8 +33,8 @@ $msg = __('unknown');
 $license = empty($row['License']) ? $msg : $row['License'];
 
 # Print the timestamps for last updates
-$updated_time = ($row["ModifiedTS"] == 0) ? "(unknown)" : gmdate("r", intval($row["ModifiedTS"]));
-$submitted_time = ($row["SubmittedTS"] == 0) ? "(unknown)" : gmdate("r", intval($row["SubmittedTS"]));
+$updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("r", intval($row["ModifiedTS"]));
+$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("r", intval($row["SubmittedTS"]));
 
 ?>
 <div class="pgbox">

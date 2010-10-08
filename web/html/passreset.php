@@ -117,19 +117,18 @@ html_header(__("Password Reset"));
 				</tr>
 			</table>
 			<br />
-			<input type="submit" class="button" value="Continue" />
+			<input type="submit" class="button" value="<?php echo __('Continue') ?>" />
 		</form>
 		<?php
 		} else {
 		?>
-		<p><?php echo __('If you have forgotten the e-mail address you used to
-		register, please send a message to the %haur-general%h mailing list.',
+		<p><?php echo __('If you have forgotten the e-mail address you used to register, please send a message to the %haur-general%h mailing list.',
 		'<a href="http://mailman.archlinux.org/mailman/listinfo/aur-general">',
 		'</a>'); ?></p>
 		<form action="" method="post">
 			<p><?php echo __("Enter your e-mail address:"); ?>
 			<input type="text" name="email" size="30" maxlength="64" /></p>
-			<input type="submit" class="button" value="Continue" />
+			<input type="submit" class="button" value="<?php echo __('Continue') ?>" />
 		</form>
 		<?php } ?>
 	</div>

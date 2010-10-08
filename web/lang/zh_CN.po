@@ -505,9 +505,7 @@ $_t["Forgot Password"] = "找回密码";
 
 $_t["Check your e-mail for the confirmation link."] = "请进入您的邮箱查看确认邮件。";
 
-# NO! dont change very English bit of the next line, otherwise will not working
-$_t["If you have forgotten the e-mail address you used to
-		register, please send a message to the %haur-general%h mailing list."] = "如果您忘记了注册账号时使用的Email，请向 %haur-general%h 邮件列表寻求帮助。";
+$_t["If you have forgotten the e-mail address you used to register, please send a message to the %haur-general%h mailing list."] = "如果您忘记了注册账号时使用的Email，请向 %haur-general%h 邮件列表寻求帮助。";
 
 $_t["Some packages may be provided as binaries in [community]."] = "部分包将以二进制包的形式提供于[community]仓库。";
 
@@ -515,6 +513,4 @@ $_t["Name, Description"] = "名称和描述";
 
 $_t["Name Only"] = "名称";
 
-# not working though, php modification needed, uncomment when ready
-#$_t["(unknown)"] = "(未知)";
-#$_t["Continue"] = "继续";
+$_t["Continue"] = "继续";
