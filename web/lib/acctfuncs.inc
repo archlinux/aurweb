@@ -661,7 +661,7 @@ function try_login() {
 			}
 		}
 		else {
-			$login_error = "Bad username or password.";
+			$login_error = __("Bad username or password.");
 		}
 	}
 	return array('SID' => $new_sid, 'error' => $login_error);
