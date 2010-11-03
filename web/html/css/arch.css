@@ -2,6 +2,7 @@
 * ul { padding: 20px; }
 body {
   min-width: 600px;
+  background-color: white;
   color: #555;
   font-family: "DejaVu Sans", sans-serif;
   font-size: 12px;
