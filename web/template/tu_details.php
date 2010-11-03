@@ -21,7 +21,7 @@ N/A
 <?php print __('End') ?>: <b><?php print gmdate("r", $row['End']) ?></b></p>
 
 <p>
-<?php print str_replace("\n", "<br />\n", htmlentities($row['Agenda'])) ?>
+<?php print str_replace("\n", "<br />\n", htmlspecialchars($row['Agenda'])) ?>
 </p>
 
 <table class="boxSoft" width='100%' cellspacing='0' cellpadding='2'>
