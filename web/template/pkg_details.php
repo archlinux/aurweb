@@ -77,8 +77,9 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 	<p><span class='f3'>
 <?php
 		if ($row['LocationID'] == 2) {
-			$urlpath = URL_DIR . $row['Name'] . '/' . $row['Name'];
-			print "<a href='$urlpath.tar.gz'>".__("Tarball")."</a> :: <a href='$urlpath'>".__("Files")."</a> :: <a href='$urlpath/PKGBUILD'>PKGBUILD</a></span>";
+			$urlpath = URL_DIR . $row['Name'];
+			print "<a href='$urlpath/" . $row['Name'] . ".tar.gz'>".__("Tarball")."</a> :: ";
+			print "<a href='$urlpath/PKGBUILD'>".__("PKGBUILD")."</a></span>";
 		}
 
 		if ($row["OutOfDateTS"] !== NULL) {

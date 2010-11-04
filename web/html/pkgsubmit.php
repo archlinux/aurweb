@@ -28,34 +28,19 @@ if ($_COOKIE["AURSID"]):
 
 		$uid = uid_from_sid($_COOKIE['AURSID']);
 
-		# Temporary dir to put the tarball contents
-		$tempdir = UPLOAD_DIR . $uid . time();
-
 		if (!$error) {
-			if (!@mkdir($tempdir)) {
-				$error = __("Could not create incoming directory: %s.", $tempdir);
-			} else {
-				if (!@chdir($tempdir)) {
-					$error = __("Could not change directory to %s.", $tempdir);
-				} else {
-						$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
-						$extract = $tar->extract();
+			$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
 
-						if (!$extract) {
-							$error = __("Unknown file format for uploaded file.");
-						}
+			# Extract PKGBUILD into a string
+			$pkgbuild_raw = '';
+			foreach ($tar->listContent() as $tar_file) {
+				if (preg_match('/^[^\/]+\/PKGBUILD$/', $tar_file['filename'])) {
+					$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
+					break;
 				}
 			}
-		}
 
-		# Find the PKGBUILD
-		if (!$error) {
-			$pkgbuild = File_Find::search('PKGBUILD', $tempdir);
-
-			if (count($pkgbuild)) {
-				$pkgbuild = $pkgbuild[0];
-				$pkg_dir = dirname($pkgbuild);
-			} else {
+			if (empty($pkgbuild_raw)) {
 				$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
 			}
 		}
@@ -67,14 +52,13 @@ if ($_COOKIE["AURSID"]):
 			# process PKGBUILD - remove line concatenation
 			#
 			$pkgbuild = array();
-			$fp = fopen($pkg_dir."/PKGBUILD", "r");
 			$line_no = 0;
 			$lines = array();
 			$continuation_line = 0;
 			$current_line = "";
 			$paren_depth = 0;
-			while (!feof($fp)) {
-				$line = trim(fgets($fp));
+			foreach (split("\n", $pkgbuild_raw) as $line) {
+				$line = trim($line);
 				# Remove comments
 				$line = preg_replace('/\s*#.*/', '', $line);
 
@@ -109,7 +93,6 @@ if ($_COOKIE["AURSID"]):
 					$line_no++;
 				}
 			}
-			fclose($fp);
 
 			# Now process the lines and put any var=val lines into the
 			# 'pkgbuild' array.
@@ -239,37 +222,18 @@ if ($_COOKIE["AURSID"]):
 				if (!@mkdir($incoming_pkgdir)) {
 					$error = __( "Could not create directory %s.", $incoming_pkgdir);
 				}
-
-				rename($pkg_dir, $incoming_pkgdir . "/" . $pkg_name);
 			} else {
 				$error = __( "You are not allowed to overwrite the %h%s%h package.", "<b>", $pkg_name, "</b>");
 			}
 		}
 
-		# Re-tar the package for consistency's sake
 		if (!$error) {
 			if (!@chdir($incoming_pkgdir)) {
 				$error = __("Could not change directory to %s.", $incoming_pkgdir);
 			}
-		}
 
-		if (!$error) {
-			$tar = new Archive_Tar($pkg_name . '.tar.gz');
-			$create = $tar->create(array($pkg_name));
-
-			if (!$create) {
-				$error = __("Could not re-tar");
-			}
-		}
-
-		# Chmod files after everything has been done.
-		if (!$error && !chmod_group($incoming_pkgdir)) {
-			$error = __("Could not chmod directory %s.", $incoming_pkgdir);
-		}
-
-		# Whether it failed or not we can clean this out
-		if (file_exists($tempdir)) {
-			rm_rf($tempdir);
+			file_put_contents('PKGBUILD', $pkgbuild_raw);
+			rename($_FILES['pfile']['tmp_name'], $pkg_name . '.tar.gz');
 		}
 
 		# Update the backend database

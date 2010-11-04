@@ -3,9 +3,32 @@ Upgrading
 
 From 1.7.0 to 1.8.0
 -------------------
+
+1. Run the following MySQL statements:
+
+----
 ALTER TABLE Packages ADD OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL;
 UPDATE Packages SET OutOfDateTS = UNIX_TIMESTAMP() WHERE OutOfDate = 1;
 ALTER TABLE Packages DROP OutOfDate;
+----
+
+2. You will need to update all packages which are stored in the incoming dir as
+in 1.8.0, source tarballs are no longer extracted automatically and PKGBUILDs
+are from now on located in the same subdirectories as the tarballs themselves.
+The following script will do the conversion automatically when being run inside
+"$INCOMING_DIR":
+
+----
+#!/bin/bash
+
+for pkg in *; do
+	if [ -d "${pkg}" -a ! -f "${pkg}/PKGBUILD" ]; then
+		pkgbuild_file=$(find -P "${pkg}" -name PKGBUILD)
+		[ -n "${pkgbuild_file}" ] && \
+			cp "${pkgbuild_file}" "${pkg}/PKGBUILD"
+	fi
+done
+----
 
 From 1.6.0 to 1.7.0
 -------------------
