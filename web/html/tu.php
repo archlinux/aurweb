@@ -130,10 +130,10 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 ?>
 
 <?php
-		$q = "SELECT * FROM TU_VoteInfo ORDER BY Submitted " . $order . $lim;
+		$q = "SELECT * FROM TU_VoteInfo WHERE End < " . time() . " ORDER BY Submitted " . $order . $lim;
 		$result = db_query($q, $dbh);
 
-		$type = __("All Votes");
+		$type = __("Past Votes");
 		include("tu_list.php");
 
 		$qnext = "SELECT ID FROM TU_VoteInfo";

@@ -703,7 +703,7 @@ $_t["Back"] = "Indietro";
 
 $_t["Submit a proposal to vote on."] = "Invia una proposta di voto.";
 
-$_t["All Votes"] = "Tutti i voti";
+$_t["Past Votes"] = "Vecchi voti";
 
 $_t["Could not retrieve proposal details."] = "Impossibile recuperare i dettagli della proposta.";
 
