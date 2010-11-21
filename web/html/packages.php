@@ -57,6 +57,10 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	$output = pkg_notify($atype, $ids);
 } elseif ($_POST['action'] == "do_UnNotify" || isset($_POST['do_UnNotify'])) {
 	$output = pkg_notify($atype, $ids, False);
+} elseif ($_POST['action'] == "do_DeleteComment" || isset($_POST["do_DeleteComment"])) {
+	$output = pkg_delete_comment($atype);
+} elseif ($_POST['action'] == "do_ChangeCategory" || isset($_POST['do_ChangeCategory'])) {
+	$output = pkg_change_category($atype);
 }
 
 html_header($title);

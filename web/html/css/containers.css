@@ -187,4 +187,8 @@ input.button {
   font-size: 12px;
   padding: 2px 8px;
 }
+input[type=image] {
+  border: 0;
+  background: none;
+}
 

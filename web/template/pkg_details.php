@@ -4,13 +4,24 @@ $pkgid = intval($_REQUEST['ID']);
 if ($row["Location"] == "unsupported" and ($uid == $row["MaintainerUID"] or
 	($atype == "Developer" or $atype == "Trusted User"))) {
 
-	$edit_cat = "<a href='pkgedit.php?change_Category=1&amp;ID=";
-	$edit_cat .= $pkgid ."'>".$row["Category"]."</a>";
-	$edit_cat .= " &nbsp;<span class='fix'>(";
-	$edit_cat .= __("change category").")</span>";
+	$catarr = pkgCategories();
+	$edit_cat = "<form method='POST' action='packages.php?ID=".$pkgid."'>\n";
+	$edit_cat.= "<input type='hidden' name='action' value='do_ChangeCategory'>";
+	$edit_cat.= $row['Location']." :: ";
+	$edit_cat.= "<select name='category_id'>\n";
+	foreach ($catarr as $cid => $catname) {
+		$edit_cat.= "<option value='$cid'";
+		if ($cid == $row["CategoryID"]) {
+		    $edit_cat.="selected";
+		}
+		$edit_cat.=">".$catname."</option>";
+	}
+	$edit_cat.= "</select>&nbsp;<input type='submit' value='Change category'>";
+	$edit_cat.= "</form>";
+
 }
 else {
-	$edit_cat = $row['Category'];
+	$edit_cat = $row['Location']." :: ".$row['Category'];
 }
 
 if ($row["MaintainerUID"]) {
@@ -49,7 +60,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 	</p>
 
 	<p>
-	<span class='f3'><?php echo $row['Location'] . ' :: ' . $edit_cat ?></span><br />
+	<span class='f3'><?php echo $edit_cat ?></span><br />
 	<span class='f3'><?php echo __('Maintainer') .': ' . $maintainer ?></span><br />
 	<span class='f3'><?php echo $votes ?></span>
 	</p>

@@ -984,3 +984,89 @@ function pkg_notify ($atype, $ids, $action = True) {
 	return $output;
 }
 
+
+
+/**
+ * Delete comment
+ *
+ * @param string $atype Account type, output of account_from_sid
+ * @return string Translated error or success message
+ */
+function pkg_delete_comment($atype) {
+	if (!$atype) {
+		return __("You must be logged before you can edit package information.");
+	}
+
+	# Get ID of comment to be removed
+	if (isset($_POST["comment_id"])) {
+		$comment_id = $_POST["comment_id"];
+	} else {
+		return __("Missing comment ID.");
+	}
+
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if (canDeleteComment($comment_id, $atype, $uid)) {
+
+	       $dbh = db_connect();
+	       $q = "UPDATE PackageComments ";
+	       $q.= "SET DelUsersID = ".$uid." ";
+	       $q.= "WHERE ID = ".intval($comment_id);
+	       db_query($q, $dbh);
+	       return __("Comment has been deleted.");
+	} else {
+	       return __("You are not allowed to delete this comment.");
+	}
+}
+
+/**
+ * Change package category
+ *
+ * @param string $atype Account type, output of account_from_sid
+ * @return string Translated error or success message
+ */
+function pkg_change_category($atype) {
+	if (!$atype)  {
+		return __("You must be logged before you can edit package information.");
+	}
+
+	# Get ID of the new category
+	if (isset($_POST["category_id"])) {
+		$category_id = $_POST["category_id"];
+	} else {
+		return __("Missing category ID.");
+	}
+
+	$catArray = pkgCategories();
+	if (!array_key_exists($category_id, $catArray)) {
+		return __("Invalid category ID.");
+	}
+
+	if (isset($_GET["ID"])) {
+		$pid = $_GET["ID"];
+	} else {
+		return __("Missing package ID.");
+	}
+
+	# Verify package ownership and location
+	$dbh = db_connect();
+	$q = "SELECT Packages.MaintainerUID,";
+	$q.= "PackageLocations.Location ";
+	$q.= "FROM Packages ";
+	$q.= "LEFT JOIN PackageLocations ON Packages.LocationID = PackageLocations.ID ";
+	$q.= "WHERE Packages.ID = ".$pid;
+	$result = db_query($q, $dbh);
+	echo mysql_error();
+	$pkg = mysql_fetch_assoc($result);
+
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if ($pkg["Location"] == "unsupported" and ($uid == $pkg["MaintainerUID"] or
+	($atype == "Developer" or $atype == "Trusted User"))) {
+		$q = "UPDATE Packages ";
+		$q.= "SET CategoryID = ".intval($category_id)." ";
+		$q.= "WHERE ID = ".intval($pid);
+		db_query($q, $dbh);
+		return __("Package category changed.");
+	} else {
+		return __("You are not allowed to change this package category.");
+	}
+}
