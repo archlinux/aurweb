@@ -148,6 +148,8 @@ $_t["Statistics"] = "Statistiken";
 
 $_t["Remember to vote for your favourite packages!"] = "Denke daran, für Deine bevorzugten Pakete zu stimmen!";
 
+$_t["Some packages may be provided as binaries in [community]."] = "Manche Pakete könnten als Binär-Pakete in [community] bereitgestellt sein.";
+
 $_t["Error looking up username, %s."] = "Benutzer %s nicht gefunden.";
 
 $_t["Packages in unsupported"] = "Pakete in \"unsupported\"";
