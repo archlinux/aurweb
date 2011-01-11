@@ -25,7 +25,7 @@ if (isset($_REQUEST['comment'])) {
 			array_push($bcc, $row['Email']);
 		}
 
-		$q = 'SELECT Packages.Name ';
+		$q = 'SELECT Packages.* ';
 		$q.= 'FROM Packages ';
 		$q.= 'WHERE Packages.ID = ' . intval($_REQUEST['ID']);
 		$result = db_query($q, $dbh);
