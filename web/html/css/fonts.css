@@ -65,6 +65,8 @@ span.warning /* Content Text */
 .white { color: #fff; }
 .black { color: #000; }
 .green { color: #6db06d; }
+/* Better contrast on out-of-date rows (FS#20514) */
+.outofdate .blue { color: #444; }
 .link
 {
   color: #6c83b0;
