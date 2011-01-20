@@ -131,6 +131,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 					$O = 0;
 				}
 		?>
+			<a class="page_num" href="packages.php?<?php print mkurl("O=0") ?>"><?php echo __('First') ?></a>
 			<a class="page_num" href="packages.php?<?php print mkurl("O=$O") ?>"><?php echo __('Previous') ?></a>
 		<?php   endif; ?>
 
@@ -171,6 +172,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 
 			<?php if ($total - $_GET['PP'] - $_GET['O'] > 0): ?>
 				<a class="page_num" href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php echo __('Next') ?></a>
+				<a class="page_num" href='packages.php?<?php print mkurl('O=' . ($total - $_GET['PP'])) ?>'><?php echo __('Last') ?></a>
 			<?php endif; ?>
 
 			</div>
