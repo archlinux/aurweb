@@ -10,14 +10,8 @@ can and feel free to add to it.
   deciphering of those insane variables
 * Rename those insane variables (the url variables on the search page),
   probably make them more verbose and actually relate to what they are
-* Set up redirects for useless pages (like the "you've done action to X"
-  package pages), FS#3542
-* Add confirmation for TUs deleting packages, FS#6515
-* Ownership of packages should turn notify on (adopt, create, etc.), FS#10480
-* Bad hyphens in RSS feed, FS#10706
 - Shuffle around secondary nav links (does every page really need
   bugs/discuss/etc? front page material?)
 - search page formattting (squashed columns)
 - improve package searching (fulltext is nifty, needs discussion)
-- [community] scripts should handle -arch suffixes (FS#9449)
 
