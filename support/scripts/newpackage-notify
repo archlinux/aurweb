@@ -1,4 +1,4 @@
-#!/usr/bin/python -O
+#!/usr/bin/python2 -O
 # This program is intended to be run as a once-a-day cronjob, it 
 # sends a batched email containing the names of all new pacakges in
 # the AUR, added within the last 24 hours, to those who have requested
