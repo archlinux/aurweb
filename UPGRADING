@@ -9,7 +9,7 @@ From 1.7.0 to 1.8.0
 ----
 ALTER TABLE Packages ADD OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL;
 UPDATE Packages SET OutOfDateTS = UNIX_TIMESTAMP() WHERE OutOfDate = 1;
-ALTER TABLE Packages DROP OutOfDate;
+ALTER TABLE Packages DROP OutOfDate, DROP URLPath;
 ----
 
 2. You will need to update all packages which are stored in the incoming dir as

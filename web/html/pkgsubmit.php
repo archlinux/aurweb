@@ -277,7 +277,7 @@ if ($_COOKIE["AURSID"]):
 				}
 
 				# Update package data
-				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', LocationID = 2, FSPath = '%s', URLPath = '%s', OutOfDateTS = NULL WHERE ID = %d",
+				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', LocationID = 2, FSPath = '%s', OutOfDateTS = NULL WHERE ID = %d",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['pkgver']),
 					mysql_real_escape_string($new_pkgbuild['pkgrel']),
@@ -285,7 +285,6 @@ if ($_COOKIE["AURSID"]):
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
 					mysql_real_escape_string($incoming_pkgdir . "/" . $pkg_name . ".tar.gz"),
-					mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"),
 					$pdata["ID"]);
 
 				db_query($q, $dbh);
@@ -323,7 +322,7 @@ if ($_COOKIE["AURSID"]):
 				$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 				# This is a brand new package
-				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, FSPath, URLPath) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', 2, UNIX_TIMESTAMP(), %d, %d, '%s', '%s')",
+				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, FSPath) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', 2, UNIX_TIMESTAMP(), %d, %d, '%s')",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['license']),
 					mysql_real_escape_string($new_pkgbuild['pkgver']),
@@ -333,8 +332,7 @@ if ($_COOKIE["AURSID"]):
 					mysql_real_escape_string($new_pkgbuild['url']),
 					$uid,
 					$uid,
-					mysql_real_escape_string($incoming_pkgdir . "/" . $pkg_name . ".tar.gz"),
-					mysql_real_escape_string(URL_DIR . $pkg_name . "/" . $pkg_name . ".tar.gz"));
+					mysql_real_escape_string($incoming_pkgdir . "/" . $pkg_name . ".tar.gz"));
 
 				$result = db_query($q, $dbh);
 				$packageID = mysql_insert_id($dbh);

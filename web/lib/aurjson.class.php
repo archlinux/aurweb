@@ -18,10 +18,23 @@ include_once("aur.inc");
  **/
 class AurJSON {
     private $dbh = false;
-    private $exposed_methods = array('search','info','msearch');
-    private $fields = array('Packages.ID','Name','Version','CategoryID',
-	'Description', 'LocationID', 'URL','URLPath','License','NumVotes',
-	'(OutOfDateTS IS NOT NULL) AS OutOfDate');
+    private $exposed_methods = array();
+    private $fields = array();
+
+    /**
+     * Initialize methods and database fields.
+     **/
+    public function __construct() {
+        $this->exposed_methods = array('search', 'info', 'msearch');
+
+	$this->fields = array(
+	    'Packages.ID', 'Name', 'Version', 'CategoryID',
+	    'Description', 'LocationID', 'URL', 'CONCAT("' .
+	    mysql_real_escape_string(URL_DIR) .
+	    '", Name, "/", Name, ".tar.gz") AS URLPath', 'License',
+	    'NumVotes', '(OutOfDateTS IS NOT NULL) AS OutOfDate'
+	);
+    }
 
     /**
      * Handles post data, and routes the request.
