@@ -173,9 +173,8 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 				$src = $src[0];
 				# It is presumably an internal source
 				if ($row["LocationID"] == 2) {
-					$urlpath = URL_DIR . $row['Name'];
-					echo "<a href='$urlpath/$src'>";
-					echo "$src</a><br />\n";
+					echo "<span class='f8'>$src</span>";
+					echo "<br />\n";
 				}
 			}
 		}

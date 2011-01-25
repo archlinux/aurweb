@@ -44,6 +44,12 @@ span.f7 /* Green Message */
   font-size: 14px;
   font-weight: bold;
 }
+span.f8 /* Internal Sources in Package Details */
+{
+  color: #888;
+  font-size: 12px;
+  font-weight: bold;
+}
 span.fix /* Monospace fixed-font */
 {
   color: #000;
