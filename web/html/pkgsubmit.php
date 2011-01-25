@@ -216,7 +216,7 @@ if ($_COOKIE["AURSID"]):
 			if (can_submit_pkg($pkg_name, $_COOKIE["AURSID"])) {
 				if (file_exists($incoming_pkgdir)) {
 					# Blow away the existing file/dir and contents
-					rm_rf($incoming_pkgdir);
+					rm_tree($incoming_pkgdir);
 				}
 
 				if (!@mkdir($incoming_pkgdir)) {

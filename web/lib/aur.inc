@@ -348,10 +348,22 @@ function can_submit_pkg($name="", $sid="") {
 
 # recursive delete directory
 #
-function rm_rf($dirname="") {
-	if ($dirname != "") {
-		exec('rm -rf ' . escapeshellcmd($dirname));
+function rm_tree($dirname) {
+	if (empty($dirname) || !is_dir($dirname)) return;
+
+	foreach (scandir($dirname) as $item) {
+		if ($item != '.' && $item != '..') {
+			$path = $dirname . '/' . $item;
+			if (is_file($path) || is_link($path)) {
+				unlink($path);
+			}
+			else {
+				rm_tree($path);
+			}
+		}
 	}
+
+	rmdir($dirname);
 
 	return;
 }
