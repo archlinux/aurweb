@@ -178,16 +178,24 @@ if ($_COOKIE["AURSID"]):
 
 				# Simple variable replacement
 				$pattern_var = '/\$({?)([_\w]+)(}?)/';
-				while (preg_match($pattern_var,$v,$regs)) {
-					$pieces = explode(" ",$pkgbuild["$regs[2]"],2);
+				$offset = 0;
+				while (preg_match($pattern_var, $v, $regs, PREG_OFFSET_CAPTURE, $offset)) {
+					$var = $regs[2][0];
+					$pos = $regs[0][1];
+					$len = strlen($regs[0][0]);
 
-					$pattern = '/\$'.$regs[1].$regs[2].$regs[3].'/';
-					if ($regs[2] != $k) {
-						$replacement = $pieces[0];
-					} else {
-						$replacement = "";
+					if (isset($new_pkgbuild[$var])) {
+						$replacement = explode(" ", $new_pkgbuild[$var], 2);
 					}
-					$v=preg_replace($pattern, $replacement, $v);
+					elseif (isset($pkgbuild[$var]) && $var != $k) {
+						$replacement = explode(" ", $pkgbuild[$var], 2);
+					}
+					else {
+						$replacement = '';
+					}
+
+					$v = substr_replace($v, $replacement, $pos, $len);
+					$offset += strlen($replacement);
 				}
 				$new_pkgbuild[$k] = $v;
 			}
