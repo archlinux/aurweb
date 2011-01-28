@@ -107,6 +107,7 @@ class AurJSON {
         }
 
         $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
+        $keyword_string = addcslashes($keyword_string, '%_');
 
         $query = "SELECT " . implode(',', $this->fields) .
             " FROM Packages WHERE DummyPkg=0 AND " .
