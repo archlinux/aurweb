@@ -187,15 +187,12 @@ if ($_COOKIE["AURSID"]):
 					if (isset($new_pkgbuild[$var])) {
 						$replacement = explode(" ", $new_pkgbuild[$var], 2);
 					}
-					elseif (isset($pkgbuild[$var]) && $var != $k) {
-						$replacement = explode(" ", $pkgbuild[$var], 2);
-					}
 					else {
 						$replacement = '';
 					}
 
 					$v = substr_replace($v, $replacement, $pos, $len);
-					$offset += strlen($replacement);
+					$offset = $pos + strlen($replacement);
 				}
 				$new_pkgbuild[$k] = $v;
 			}
