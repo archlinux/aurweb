@@ -25,7 +25,7 @@ exec('ls ' . INCOMING_DIR, $files);
 $count = 0;
 
 foreach ($files as $pkgname) {
-	if (package_location($pkgname) != 'unsupported') {
+	if (!package_exists($pkgname)) {
 		echo 'Removing ' . INCOMING_DIR . "$pkgname\n";
 		system('rm -r ' . INCOMING_DIR . $pkgname);
 		$count++;

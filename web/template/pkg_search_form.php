@@ -56,7 +56,7 @@
 						<label><?php print __("Sort by"); ?></label>
 						<select name='SB'>
 							<?php
-							$sortby = array('n' => __('Name'), 'c' => __('Category'), 'l' => __('Location'), 'v' => __('Votes'), 'w' => __('Voted'), 'o' => __('Notify'), 'm' => __('Maintainer'), 'a' => __('Age'));
+							$sortby = array('n' => __('Name'), 'c' => __('Category'), 'v' => __('Votes'), 'w' => __('Voted'), 'o' => __('Notify'), 'm' => __('Maintainer'), 'a' => __('Age'));
 							foreach ($sortby as $k => $v):
 								if ($_REQUEST['SB'] == $k):
 							?>

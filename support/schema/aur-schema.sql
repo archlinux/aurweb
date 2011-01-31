@@ -1,5 +1,5 @@
 -- The MySQL database layout for the AUR.  Certain data
--- is also included such as AccountTypes, PackageLocations, etc.
+-- is also included such as AccountTypes, etc.
 --
 DROP DATABASE AUR;
 CREATE DATABASE AUR;
@@ -89,21 +89,6 @@ INSERT INTO PackageCategories (Category) VALUES ('x11');
 INSERT INTO PackageCategories (Category) VALUES ('xfce');
 
 
--- The various repositories that a package could live in.
---
-CREATE TABLE PackageLocations (
-	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-	Location CHAR(32) NOT NULL,
-	PRIMARY KEY (ID)
-);
-INSERT INTO PackageLocations (Location) VALUES ('none');
-INSERT INTO PackageLocations (Location) VALUES ('unsupported');
-INSERT INTO PackageLocations (Location) VALUES ('community');
-INSERT INTO PackageLocations (Location) VALUES ('current');
-INSERT INTO PackageLocations (Location) VALUES ('extra');
-INSERT INTO PackageLocations (Location) VALUES ('unstable');
-
-
 -- Information about the actual packages
 --
 CREATE TABLE Packages (
@@ -116,7 +101,6 @@ CREATE TABLE Packages (
 	DummyPkg TINYINT UNSIGNED NOT NULL DEFAULT 0,         -- 1=>dummy
 	FSPath CHAR(255) NOT NULL DEFAULT '',
 	License CHAR(40) NOT NULL DEFAULT '',
-	LocationID TINYINT UNSIGNED NOT NULL DEFAULT 1,
 	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
 	OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL,
 	SubmittedTS BIGINT UNSIGNED NOT NULL,
@@ -127,13 +111,11 @@ CREATE TABLE Packages (
 	PRIMARY KEY (ID),
 	UNIQUE (Name),
 	INDEX (CategoryID),
-	INDEX (LocationID),
 	INDEX (DummyPkg),
 	INDEX (NumVotes),
 	INDEX (SubmitterUID),
 	INDEX (MaintainerUID),
 	FOREIGN KEY (CategoryID) REFERENCES PackageCategories(ID) ON DELETE NO ACTION,
-	FOREIGN KEY (LocationID) REFERENCES PackageLocations(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE NO ACTION
 );

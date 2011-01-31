@@ -29,7 +29,7 @@ class AurJSON {
 
 	$this->fields = array(
 	    'Packages.ID', 'Name', 'Version', 'CategoryID',
-	    'Description', 'LocationID', 'URL', 'CONCAT("' .
+	    'Description', 'URL', 'CONCAT("' .
 	    mysql_real_escape_string(URL_DIR) .
 	    '", Name, "/", Name, ".tar.gz") AS URLPath', 'License',
 	    'NumVotes', '(OutOfDateTS IS NOT NULL) AS OutOfDate'

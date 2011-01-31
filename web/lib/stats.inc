@@ -54,9 +54,9 @@ function user_table($user, $dbh)
 {
 	global $apc_prefix;
 	$escuser = mysql_real_escape_string($user);
-	$base_q = "SELECT count(*) FROM Packages,PackageLocations,Users WHERE Packages.MaintainerUID = Users.ID AND Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = '%s' AND Users.Username='" . $escuser . "'";
+	$base_q = "SELECT count(*) FROM Packages,Users WHERE Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
 
-	$maintainer_unsupported_count = db_cache_value(sprintf($base_q, 'unsupported'), $dbh,
+	$maintainer_unsupported_count = db_cache_value($base_q, $dbh,
 		$apc_prefix . 'user_unsupported_count:' . $escuser);
 
 	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDateTS IS NOT NULL AND Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
@@ -74,7 +74,7 @@ function general_stats_table($dbh)
 {
 	global $apc_prefix;
 	# AUR statistics
-	$q = "SELECT count(*) FROM Packages,PackageLocations WHERE Packages.LocationID = PackageLocations.ID AND PackageLocations.Location = 'unsupported'";
+	$q = "SELECT count(*) FROM Packages WHERE DummyPkg = 0";
 	$unsupported_count = db_cache_value($q, $dbh, $apc_prefix . 'unsupported_count');
 
 	$q = "SELECT count(*) from Users";

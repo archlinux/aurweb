@@ -1,13 +1,13 @@
 <?php
 
 $pkgid = intval($_REQUEST['ID']);
-if ($row["Location"] == "unsupported" and ($uid == $row["MaintainerUID"] or
-	($atype == "Developer" or $atype == "Trusted User"))) {
+if ($uid == $row["MaintainerUID"] or
+	($atype == "Developer" or $atype == "Trusted User")) {
 
 	$catarr = pkgCategories();
 	$edit_cat = "<form method='POST' action='packages.php?ID=".$pkgid."'>\n";
 	$edit_cat.= "<input type='hidden' name='action' value='do_ChangeCategory'>";
-	$edit_cat.= $row['Location']." :: ";
+	$edit_cat.= "Category: ";
 	$edit_cat.= "<select name='category_id'>\n";
 	foreach ($catarr as $cid => $catname) {
 		$edit_cat.= "<option value='$cid'";
@@ -21,7 +21,7 @@ if ($row["Location"] == "unsupported" and ($uid == $row["MaintainerUID"] or
 
 }
 else {
-	$edit_cat = $row['Location']." :: ".$row['Category'];
+	$edit_cat = "Category: ".$row['Category'];
 }
 
 if ($row["MaintainerUID"]) {
@@ -76,11 +76,9 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 
 	<p><span class='f3'>
 <?php
-		if ($row['LocationID'] == 2) {
-			$urlpath = URL_DIR . $row['Name'];
-			print "<a href='$urlpath/" . $row['Name'] . ".tar.gz'>".__("Tarball")."</a> :: ";
-			print "<a href='$urlpath/PKGBUILD'>".__("PKGBUILD")."</a></span>";
-		}
+		$urlpath = URL_DIR . $row['Name'];
+		print "<a href='$urlpath/" . $row['Name'] . ".tar.gz'>".__("Tarball")."</a> :: ";
+		print "<a href='$urlpath/PKGBUILD'>".__("PKGBUILD")."</a></span>";
 
 		if ($row["OutOfDateTS"] !== NULL) {
 			echo "<br /><span class='f6'>".__("This package has been flagged out of date.")." (${out_of_date_time})</span>";
@@ -172,10 +170,8 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 			else {
 				$src = $src[0];
 				# It is presumably an internal source
-				if ($row["LocationID"] == 2) {
-					echo "<span class='f8'>$src</span>";
-					echo "<br />\n";
-				}
+				echo "<span class='f8'>$src</span>";
+				echo "<br />\n";
 			}
 		}
 ?>

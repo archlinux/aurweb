@@ -16,9 +16,6 @@
 	<?php endif; ?>
 
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
-		<a href='?<?php print mkurl('SB=l&SO=' . $SO_next) ?>'><?php print __("Location") ?></a>
-	</span></th>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
 		<a href='?<?php print mkurl('SB=c&SO=' . $SO_next) ?>'><?php print __("Category") ?></a>
 	</span></th>
 	<th style='border-bottom: #666 1px solid; vertical-align: bottom; text-align: center;'><span class='f2'>
@@ -52,7 +49,6 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	<?php if ($SID): ?>
 	<td class='<?php print $c ?>'><input type='checkbox' name='IDs[<?php print $row["ID"] ?>]' value='1'></td>
 	<?php endif; ?>
-	<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print $row["Location"] ?></span></span></td>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print $row["Category"] ?></span></span></td>
 	<td class='<?php print $c ?>'><span class='f4'><a href='packages.php?ID=<?php print $row["ID"] ?>'><span class='black'><?php print $row["Name"] ?> <?php print $row["Version"] ?></span></a></span></td>
 	<td class='<?php print $c ?>' style="text-align: right"><span class='f5'><span class='blue'><?php print $row["NumVotes"] ?></span></span></td>

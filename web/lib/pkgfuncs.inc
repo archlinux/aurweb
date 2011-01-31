@@ -80,37 +80,6 @@ function pkgCategories() {
 	return $cats;
 }
 
-# grab the current list of PackageLocations
-#
-function pkgLocations() {
-	$locs = array();
-	$dbh = db_connect();
-	$q = "SELECT * FROM PackageLocations WHERE ID != 1 AND ID < 4 ";
-	$q.= "ORDER BY Location ASC";
-	$result = db_query($q, $dbh);
-	if ($result) {
-		while ($row = mysql_fetch_row($result)) {
-			$locs[$row[0]] = $row[1];
-		}
-	}
-	return $locs;
-}
-
-# Return the repository name for a particular package.
-function package_location($name="") {
-	if (!$name) {return NULL;}
-	$dbh = db_connect();
-	$q = "SELECT PackageLocations.Location FROM Packages ";
-	$q.= "LEFT JOIN PackageLocations ON ";
-	$q.= "Packages.LocationID = PackageLocations.ID ";
-	$q.= "WHERE Name = '".mysql_real_escape_string($name)."' ";
-	$q.= "AND DummyPkg = 0";
-	$result = db_query($q, $dbh);
-	if (!$result) {return NULL;}
-	$row = mysql_fetch_row($result);
-	return $row[0];
-}
-
 # check to see if the package name exists
 #
 function package_exists($name="") {
@@ -324,10 +293,9 @@ function package_details($id=0, $SID="") {
 	$atype = account_from_sid($SID);
 	$uid = uid_from_sid($SID);
 
-	$q = "SELECT Packages.*,Location,Category ";
-	$q.= "FROM Packages,PackageLocations,PackageCategories ";
-	$q.= "WHERE Packages.LocationID = PackageLocations.ID ";
-	$q.= "AND Packages.CategoryID = PackageCategories.ID ";
+	$q = "SELECT Packages.*,Category ";
+	$q.= "FROM Packages,PackageCategories ";
+	$q.= "WHERE Packages.CategoryID = PackageCategories.ID ";
 	$q.= "AND Packages.ID = " . intval($id);
 	$dbh = db_connect();
 	$results = db_query($q, $dbh);
@@ -373,15 +341,13 @@ function package_details($id=0, $SID="") {
  *  request vars:
  *    O  - starting result number
  *    PP - number of search hits per page
- *    L  - package location ID number
  *    C  - package category ID number
  *    K  - package search string
  *    SO - search hit sort order:
  *          values: a - ascending
  *                  d - descending
  *    SB - sort search hits by:
- *          values: l - package location
- *                  c - package category
+ *          values: c - package category
  *                  n - package name
  *                  v - number of votes
  *                  m - maintainer username
@@ -415,8 +381,6 @@ function pkg_search_page($SID="") {
 	// grab info for user if they're logged in
 	if ($SID)
 		$myuid = uid_from_sid($SID);
-	// get a list of package locations
-	$locs = pkgLocations();
 	// get a list of package categories
 	$cats = pkgCategories(); //meow
 
@@ -455,7 +419,6 @@ function pkg_search_page($SID="") {
 	}
 	$q .= "Users.Username AS Maintainer,
 	PackageCategories.Category,
-	PackageLocations.Location,
 	Packages.Name, Packages.Version, Packages.Description, Packages.NumVotes,
 	Packages.ID, Packages.OutOfDateTS
 
@@ -469,15 +432,10 @@ function pkg_search_page($SID="") {
 	}
 	$q .= "LEFT JOIN PackageCategories
 	ON (Packages.CategoryID = PackageCategories.ID)
-	LEFT JOIN PackageLocations
-	ON (Packages.LocationID = PackageLocations.ID)
 	WHERE Packages.DummyPkg = 0 ";
 
-	// TODO: possibly do string matching on category and
-	//       location to make request variable values more sensible
-	if (intval($_GET["L"])) {
-		$q .= "AND Packages.LocationID = ".intval($_GET["L"])." ";
-	}
+	// TODO: possibly do string matching on category
+	//       to make request variable values more sensible
 	if (intval($_GET["C"])) {
 		$q.= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
 	}
@@ -515,15 +473,11 @@ function pkg_search_page($SID="") {
 
 	$order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';
 
-	$q_sort = "ORDER BY Name ".$order.", LocationID ASC, CategoryID DESC ";
+	$q_sort = "ORDER BY Name ".$order.", CategoryID DESC ";
 	switch ($_GET["SB"]) {
 	case 'c':
-		$q_sort = "ORDER BY CategoryID ".$order.", Name ASC, LocationID ASC ";
+		$q_sort = "ORDER BY CategoryID ".$order.", Name ASC ";
 		$_GET["SB"] = 'c';
-		break;
-	case 'l':
-		$q_sort = "ORDER BY LocationID ".$order.", Name ASC, CategoryID DESC ";
-		$_GET["SB"] = 'l';
 		break;
 	case 'v':
 		$q_sort = "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
@@ -542,11 +496,11 @@ function pkg_search_page($SID="") {
 		$_GET["SB"] = 'o';
 		break;
 	case 'm':
-		$q_sort = "ORDER BY Maintainer ".$order.", Name ASC, LocationID ASC ";
+		$q_sort = "ORDER BY Maintainer ".$order.", Name ASC ";
 		$_GET["SB"] = 'm';
 		break;
 	case 'a':
-		$q_sort = "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC, LocationID ASC ";
+		$q_sort = "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC ";
 		$_GET["SB"] = 'a';
 		break;
 	default:
@@ -719,10 +673,8 @@ function pkg_delete ($atype, $ids) {
 
 	# Only grab Unsupported packages that "we" own or are not owned at all
 	$ids_to_delete = array();
-	$q = "SELECT Packages.ID FROM Packages, PackageLocations ";
+	$q = "SELECT Packages.ID FROM Packages ";
 	$q.= "WHERE Packages.ID IN (" . $delete . ") ";
-	$q.= "AND Packages.LocationID = PackageLocations.ID ";
-	$q.= "AND PackageLocations.Location = 'unsupported' ";
 
 	# If they're a TU or dev, can delete
 	if ($atype == "Trusted User" || $atype == "Developer") {
@@ -816,7 +768,6 @@ function pkg_adopt ($atype, $ids, $action = True) {
 	if ($action && $atype == "User") {
 		# Regular users may only adopt orphan packages from unsupported
 		$q.= "AND $field = 0 ";
-		$q.= "AND LocationID = 2 ";
 	} else if ($atype == "User") {
 		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"]);
 	}
@@ -1047,20 +998,18 @@ function pkg_change_category($atype) {
 		return __("Missing package ID.");
 	}
 
-	# Verify package ownership and location
+	# Verify package ownership
 	$dbh = db_connect();
 	$q = "SELECT Packages.MaintainerUID,";
-	$q.= "PackageLocations.Location ";
 	$q.= "FROM Packages ";
-	$q.= "LEFT JOIN PackageLocations ON Packages.LocationID = PackageLocations.ID ";
 	$q.= "WHERE Packages.ID = ".$pid;
 	$result = db_query($q, $dbh);
 	echo mysql_error();
 	$pkg = mysql_fetch_assoc($result);
 
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
-	if ($pkg["Location"] == "unsupported" and ($uid == $pkg["MaintainerUID"] or
-	($atype == "Developer" or $atype == "Trusted User"))) {
+	if ($uid == $pkg["MaintainerUID"] or
+	($atype == "Developer" or $atype == "Trusted User")) {
 		$q = "UPDATE Packages ";
 		$q.= "SET CategoryID = ".intval($category_id)." ";
 		$q.= "WHERE ID = ".intval($pid);

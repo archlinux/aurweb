@@ -285,7 +285,7 @@ if ($_COOKIE["AURSID"]):
 				}
 
 				# Update package data
-				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', LocationID = 2, FSPath = '%s', OutOfDateTS = NULL WHERE ID = %d",
+				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', FSPath = '%s', OutOfDateTS = NULL WHERE ID = %d",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['pkgver']),
 					mysql_real_escape_string($new_pkgbuild['pkgrel']),
@@ -330,7 +330,7 @@ if ($_COOKIE["AURSID"]):
 				$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 				# This is a brand new package
-				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, LocationID, SubmittedTS, SubmitterUID, MaintainerUID, FSPath) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', 2, UNIX_TIMESTAMP(), %d, %d, '%s')",
+				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, SubmitterUID, MaintainerUID, FSPath) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', UNIX_TIMESTAMP(), %d, %d, '%s')",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['license']),
 					mysql_real_escape_string($new_pkgbuild['pkgver']),
@@ -406,7 +406,6 @@ html_header("Submit");
 		if (ini_get("file_uploads")):
 
 			$pkg_categories = pkgCategories();
-			$pkg_locations = pkgLocations();
 ?>
 
 <form action='pkgsubmit.php' method='post' enctype='multipart/form-data'>
