@@ -244,34 +244,6 @@ for p in seen_pkgs.keys():
 		s = "INSERT INTO PackageComments (PackageID, UsersID, Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n" % (seen_pkgs[p], genUID(), fortune, now)
 		out.write(s)
 
-	others = random.randrange(0,3)
-	s = "INSERT INTO PackageContents (PackageID, FSPath, FileSize) VALUES (%d, '%s', %d);\n" % (seen_pkgs[p], "/home/aur/incoming/%s/PKGBUILD" % p,
-			random.randrange(0,999))
-	out.write(s)
-	if others == 0:
-		s = "INSERT INTO PackageContents (PackageID, FSPath, FileSize) VALUES (%d, '%s', %d);\n" % (seen_pkgs[p], "/home/aur/incoming/%s/%s.patch" % (p,p),
-				random.randrange(0,999))
-		out.write(s)
-
-	elif others == 1:
-		s = "INSERT INTO PackageContents (PackageID, FSPath, FileSize) VALUES (%d, '%s', %d);\n" % (seen_pkgs[p], "/home/aur/incoming/%s/%s.patch" % (p,p),
-				random.randrange(0,999))
-		out.write(s)
-		s = "INSERT INTO PackageContents (PackageID, FSPath, FileSize) VALUES (%d, '%s', %d);\n" % (seen_pkgs[p], "/home/aur/incoming/%s/arch.patch" % p,
-				random.randrange(0,999))
-		out.write(s)
-
-	elif others == 2:
-		s = "INSERT INTO PackageContents (PackageID, FSPath, FileSize) VALUES (%d, '%s', %d);\n" % (seen_pkgs[p], "/home/aur/incoming/%s/%s.patch" % (p,p),
-				random.randrange(0,999))
-		out.write(s)
-		s = "INSERT INTO PackageContents (PackageID, FSPath, FileSize) VALUES (%d, '%s', %d);\n" % (seen_pkgs[p], "/home/aur/incoming/%s/arch.patch" % p,
-				random.randrange(0,999))
-		out.write(s)
-		s = "INSERT INTO PackageContents (PackageID, FSPath, FileSize) VALUES (%d, '%s', %d);\n" % (seen_pkgs[p], "/home/aur/incoming/%s/%s.install" % (p,p),
-				random.randrange(0,999))
-		out.write(s)
-
 if DBUG: print "."
 
 # Cast votes

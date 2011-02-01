@@ -151,17 +151,6 @@ CREATE TABLE PackageVotes (
 );
 CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageID);
 
--- The individual files and their file system location.
---
-CREATE TABLE PackageContents (
-	PackageID INTEGER UNSIGNED NOT NULL,
-	FSPath CHAR(255) NOT NULL DEFAULT '',
-	URLPath CHAR(255) NOT NULL DEFAULT '',
-	FileSize BIGINT UNSIGNED NOT NULL default 0,
-	INDEX (PackageID),
-	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
-);
-
 -- Record comments for packages
 --
 CREATE TABLE PackageComments (
