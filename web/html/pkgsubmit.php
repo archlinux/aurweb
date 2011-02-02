@@ -185,7 +185,7 @@ if ($_COOKIE["AURSID"]):
 					$len = strlen($regs[0][0]);
 
 					if (isset($new_pkgbuild[$var])) {
-						$replacement = explode(" ", $new_pkgbuild[$var], 2);
+						$replacement = substr($new_pkgbuild[$var], strpos($new_pkgbuild[$var], " "));
 					}
 					else {
 						$replacement = '';
