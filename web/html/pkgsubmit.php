@@ -297,7 +297,7 @@ if ($_COOKIE["AURSID"]):
 				$depends = explode(" ", $new_pkgbuild['depends']);
 				foreach ($depends as $dep) {
 					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
-					$deppkgname = preg_replace("/[<>]?=.*/", "", $dep);
+					$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
 					$depcondition = str_replace($deppkgname, "", $dep);
 
 					if ($deppkgname == "#") {
@@ -344,7 +344,7 @@ if ($_COOKIE["AURSID"]):
 				$depends = explode(" ", $new_pkgbuild['depends']);
 				foreach ($depends as $dep) {
 					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
-					$deppkgname = preg_replace("/[<>]?=.*/", "", $dep);
+					$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
 					$depcondition = str_replace($deppkgname, "", $dep);
 
 					if ($deppkgname == "#") {
