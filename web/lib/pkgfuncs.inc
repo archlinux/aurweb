@@ -64,6 +64,18 @@ function canManagePackage($uid=0,$AURMUID=0, $MUID=0, $SUID=0, $managed=0) {
 	return 0;
 }
 
+# Check if the current user can submit blacklisted packages.
+#
+function canSubmitBlacklisted($atype = "") {
+	if ($atype == "Trusted User" || $atype == "Developer") {
+		# Only TUs/Devs can submit blacklisted packages.
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
+
 # grab the current list of PackageCategories
 #
 function pkgCategories() {
@@ -284,6 +296,17 @@ function pkgname_from_id($id="") {
 		}
 	}
 	return $id;
+}
+
+# Check if a package name is blacklisted.
+#
+function pkgname_is_blacklisted($name) {
+	$dbh = db_connect();
+	$q = "SELECT COUNT(*) FROM PackageBlacklist WHERE Name = '" . mysql_real_escape_string($name) . "'";
+	$result = db_query($q, $dbh);
+
+	if (!$result) return false;
+	return (mysql_result($result, 0) > 0);
 }
 
 # display package details

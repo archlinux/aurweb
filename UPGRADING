@@ -27,6 +27,12 @@ ALTER TABLE PackageSources
 	MODIFY Source VARCHAR(255) NOT NULL DEFAULT "/dev/null";
 ALTER TABLE TU_VoteInfo
 	MODIFY User VARCHAR(32) collate latin1_general_ci NOT NULL;
+CREATE TABLE PackageBlacklist (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name CHAR(64) NOT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name)
+);
 ----
 
 2. Drop all fulltext indexes from the "Packages" table:

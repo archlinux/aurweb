@@ -177,6 +177,15 @@ CREATE TABLE CommentNotify (
 );
 CREATE UNIQUE INDEX NotifyUserIDPkgID ON CommentNotify (UserID, PkgID);
 
+-- Package name blacklist
+--
+CREATE TABLE PackageBlacklist (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name CHAR(64) NOT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name)
+);
+
 -- Vote information
 --
 CREATE TABLE IF NOT EXISTS TU_VoteInfo (
