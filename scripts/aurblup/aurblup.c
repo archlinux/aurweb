@@ -182,6 +182,8 @@ read_config(const char *fn)
 void
 init(void)
 {
+  if (mysql_library_init(0, NULL, NULL))
+    mysql_die("could not initialize MySQL library: %s\n");
   if (!(c = mysql_init(NULL)))
     mysql_die("failed to setup MySQL client: %s\n");
   if (!mysql_real_connect(c, mysql_host, mysql_user, mysql_passwd,
@@ -207,6 +209,7 @@ cleanup(void)
 
   alpm_release();
   mysql_close(c);
+  mysql_library_end();
 }
 
 int main(int argc, char *argv[])
