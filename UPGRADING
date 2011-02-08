@@ -11,6 +11,22 @@ ALTER TABLE Packages ADD OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL;
 UPDATE Packages SET OutOfDateTS = UNIX_TIMESTAMP() WHERE OutOfDate = 1;
 ALTER TABLE Packages DROP OutOfDate, DROP FSPath, DROP URLPath, DROP LocationID;
 DROP TABLE PackageLocations, PackageContents;
+ALTER TABLE AccountTypes MODIFY AccountType VARCHAR(32) NOT NULL DEFAULT '';
+ALTER TABLE Users MODIFY Username VARCHAR(32) NOT NULL,
+	MODIFY Email VARCHAR(64) NOT NULL,
+	MODIFY RealName VARCHAR(64) NOT NULL DEFAULT '',
+	MODIFY LangPreference VARCHAR(5) NOT NULL DEFAULT 'en',
+	MODIFY IRCNick VARCHAR(32) NOT NULL DEFAULT '';
+ALTER TABLE PackageCategories MODIFY Category VARCHAR(32) NOT NULL;
+ALTER TABLE Packages MODIFY Name VARCHAR(64) NOT NULL,
+	MODIFY Version VARCHAR(32) NOT NULL DEFAULT '',
+	MODIFY Description VARCHAR(255) NOT NULL DEFAULT "An Arch Package",
+	MODIFY URL VARCHAR(255) NOT NULL DEFAULT "http://www.archlinux.org",
+	MODIFY License VARCHAR(40) NOT NULL DEFAULT '';
+ALTER TABLE PackageSources
+	MODIFY Source VARCHAR(255) NOT NULL DEFAULT "/dev/null";
+ALTER TABLE TU_VoteInfo
+	MODIFY User VARCHAR(32) collate latin1_general_ci NOT NULL;
 ----
 
 2. You will need to update all packages which are stored in the incoming dir as

@@ -9,7 +9,7 @@ USE AUR;
 --
 CREATE TABLE AccountTypes (
 	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-	AccountType char(32) NOT NULL DEFAULT '',
+	AccountType VARCHAR(32) NOT NULL DEFAULT '',
 	PRIMARY KEY (ID)
 );
 INSERT INTO AccountTypes (ID, AccountType) VALUES (1, 'User');
@@ -23,14 +23,14 @@ CREATE TABLE Users (
 	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 	AccountTypeID TINYINT UNSIGNED NOT NULL DEFAULT 1,
 	Suspended TINYINT UNSIGNED NOT NULL DEFAULT 0,
-	Username CHAR(32) NOT NULL,
-	Email CHAR(64) NOT NULL,
+	Username VARCHAR(32) NOT NULL,
+	Email VARCHAR(64) NOT NULL,
 	Passwd CHAR(32) NOT NULL,
 	Salt CHAR(32) NOT NULL DEFAULT '',
 	ResetKey CHAR(32) NOT NULL DEFAULT '',
-	RealName CHAR(64) NOT NULL DEFAULT '',
-	LangPreference CHAR(5) NOT NULL DEFAULT 'en',
-	IRCNick CHAR(32) NOT NULL DEFAULT '',
+	RealName VARCHAR(64) NOT NULL DEFAULT '',
+	LangPreference VARCHAR(5) NOT NULL DEFAULT 'en',
+	IRCNick VARCHAR(32) NOT NULL DEFAULT '',
 	LastVoted BIGINT UNSIGNED NOT NULL DEFAULT 0,
 	NewPkgNotify TINYINT UNSIGNED NOT NULL DEFAULT 0,
 	PRIMARY KEY (ID),
@@ -66,7 +66,7 @@ CREATE TABLE Sessions (
 --
 CREATE TABLE PackageCategories (
 	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-	Category CHAR(32) NOT NULL,
+	Category VARCHAR(32) NOT NULL,
 	PRIMARY KEY (ID)
 );
 INSERT INTO PackageCategories (Category) VALUES ('none');
@@ -93,13 +93,13 @@ INSERT INTO PackageCategories (Category) VALUES ('xfce');
 --
 CREATE TABLE Packages (
 	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-	Name CHAR(64) NOT NULL,
-	Version CHAR(32) NOT NULL DEFAULT '',
+	Name VARCHAR(64) NOT NULL,
+	Version VARCHAR(32) NOT NULL DEFAULT '',
 	CategoryID TINYINT UNSIGNED NOT NULL DEFAULT 1,
-	Description CHAR(255) NOT NULL DEFAULT "An Arch Package",
-	URL CHAR(255) NOT NULL DEFAULT "http://www.archlinux.org",
+	Description VARCHAR(255) NOT NULL DEFAULT "An Arch Package",
+	URL VARCHAR(255) NOT NULL DEFAULT "http://www.archlinux.org",
 	DummyPkg TINYINT UNSIGNED NOT NULL DEFAULT 0,         -- 1=>dummy
-	License CHAR(40) NOT NULL DEFAULT '',
+	License VARCHAR(40) NOT NULL DEFAULT '',
 	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
 	OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL,
 	SubmittedTS BIGINT UNSIGNED NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE PackageDepends (
 --
 CREATE TABLE PackageSources (
 	PackageID INTEGER UNSIGNED NOT NULL,
-	Source CHAR(255) NOT NULL DEFAULT "/dev/null",
+	Source VARCHAR(255) NOT NULL DEFAULT "/dev/null",
 	INDEX (PackageID)
 );
 
@@ -183,7 +183,7 @@ CREATE UNIQUE INDEX NotifyUserIDPkgID ON CommentNotify (UserID, PkgID);
 CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   ID int(10) unsigned NOT NULL auto_increment,
   Agenda text collate latin1_general_ci NOT NULL,
-  User char(32) collate latin1_general_ci NOT NULL,
+  User VARCHAR(32) collate latin1_general_ci NOT NULL,
   Submitted bigint(20) unsigned NOT NULL,
   End bigint(20) unsigned NOT NULL,
   SubmitterID int(10) unsigned NOT NULL,
