@@ -15,6 +15,7 @@
 #define mysql_die(...) die(__VA_ARGS__, mysql_error(c));
 
 void die(const char *, ...);
+void blacklist_add(const char *);
 void blacklist_sync(alpm_list_t *);
 alpm_list_t *get_package_list(alpm_list_t *);
 alpm_list_t *create_db_list(void);
@@ -45,11 +46,25 @@ die(const char *format, ...)
 }
 
 void
+blacklist_add(const char *name)
+{
+  char *esc = malloc(strlen(name) * 2 + 1);
+  char query[1024];
+
+  mysql_real_escape_string(c, esc, name, strlen(name));
+  *(esc + strcspn(esc, "<=>")) = 0;
+  snprintf(query, 1024, "INSERT IGNORE INTO PackageBlacklist (Name) "
+                        "VALUES ('%s');", esc);
+  free(esc);
+
+  if (mysql_query(c, query))
+    mysql_die("failed to query MySQL database (\"%s\"): %s\n", query);
+}
+
+void
 blacklist_sync(alpm_list_t *pkgs)
 {
-  alpm_list_t *r;
-  char *se;
-  char query[1024];
+  alpm_list_t *r, *p;
 
   if (mysql_query(c, "LOCK TABLES PackageBlacklist WRITE;"))
     mysql_die("failed to lock MySQL table: %s\n");
@@ -58,16 +73,17 @@ blacklist_sync(alpm_list_t *pkgs)
     mysql_die("failed to clear MySQL table: %s\n");
 
   for (r = pkgs; r; r = alpm_list_next(r)) {
-    const char *s = alpm_pkg_get_name(alpm_list_getdata(r));
+    pmpkg_t *pkg = alpm_list_getdata(r);
 
-    se = malloc(strlen(s) * 2 + 1);
-    mysql_real_escape_string(c, se, s, strlen(s));
-    snprintf(query, 1024, "INSERT INTO PackageBlacklist (Name) "
-                          "VALUES ('%s');", se);
-    free(se);
+    blacklist_add(alpm_pkg_get_name(pkg));
 
-    if (mysql_query(c, query))
-      mysql_die("failed to query MySQL database (\"%s\"): %s\n", query);
+    for (p = alpm_pkg_get_provides(pkg); p; p = alpm_list_next(p)) {
+      blacklist_add(alpm_list_getdata(p));
+    }
+
+    for (p = alpm_pkg_get_replaces(pkg); p; p = alpm_list_next(p)) {
+      blacklist_add(alpm_list_getdata(p));
+    }
   }
 
   if (mysql_query(c, "UNLOCK TABLES;"))
