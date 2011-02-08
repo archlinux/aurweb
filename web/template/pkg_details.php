@@ -24,6 +24,16 @@ else {
 	$edit_cat = "Category: ".$row['Category'];
 }
 
+if ($row["SubmitterUID"]) {
+	$submitter = username_from_id($row["SubmitterUID"]);
+	if ($SID) {
+		$submitter = '<a href="account.php?Action=AccountInfo&amp;ID=' . $row['SubmitterUID'] . '">' . $submitter . '</a>';
+	}
+
+} else {
+	$submitter = "None";
+}
+
 if ($row["MaintainerUID"]) {
 	$maintainer = username_from_id($row["MaintainerUID"]);
 	if ($SID) {
@@ -61,6 +71,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 
 	<p>
 	<span class='f3'><?php echo $edit_cat ?></span><br />
+	<span class='f3'><?php echo __('Submitter') .': ' . $submitter ?></span><br />
 	<span class='f3'><?php echo __('Maintainer') .': ' . $maintainer ?></span><br />
 	<span class='f3'><?php echo $votes ?></span>
 	</p>
