@@ -106,7 +106,6 @@ CREATE TABLE Packages (
 	ModifiedTS BIGINT UNSIGNED NOT NULL,
 	SubmitterUID INTEGER UNSIGNED NOT NULL DEFAULT 0,     -- who submitted it?
 	MaintainerUID INTEGER UNSIGNED NOT NULL DEFAULT 0,    -- User
-	FULLTEXT (Name,Description),
 	PRIMARY KEY (ID),
 	UNIQUE (Name),
 	INDEX (CategoryID),

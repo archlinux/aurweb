@@ -29,7 +29,15 @@ ALTER TABLE TU_VoteInfo
 	MODIFY User VARCHAR(32) collate latin1_general_ci NOT NULL;
 ----
 
-2. You will need to update all packages which are stored in the incoming dir as
+2. Drop all fulltext indexes from the "Packages" table:
+
+Please do this with care. `ALTER TABLE Packages DROP INDEX Name;` will work in
+most cases but might remove the wrong index if your indexes have been created
+in a non-standard order (e.g. during some update process). You'd better run
+`SHOW INDEX FROM Packages;` before to ensure that your setup doesn't use a
+different naming.
+
+3. You will need to update all packages which are stored in the incoming dir as
 in 1.8.0, source tarballs are no longer extracted automatically and PKGBUILDs
 are from now on located in the same subdirectories as the tarballs themselves.
 The following script will do the conversion automatically when being run inside
