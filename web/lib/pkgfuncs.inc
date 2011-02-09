@@ -1000,7 +1000,7 @@ function pkg_change_category($atype) {
 
 	# Verify package ownership
 	$dbh = db_connect();
-	$q = "SELECT Packages.MaintainerUID,";
+	$q = "SELECT Packages.MaintainerUID ";
 	$q.= "FROM Packages ";
 	$q.= "WHERE Packages.ID = ".$pid;
 	$result = db_query($q, $dbh);
