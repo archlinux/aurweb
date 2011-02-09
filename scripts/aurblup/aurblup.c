@@ -37,7 +37,7 @@ die(const char *format, ...)
   va_list arg;
 
   va_start(arg, format);
-  fprintf(stderr, "blackup: ");
+  fprintf(stderr, "aurblup: ");
   vfprintf(stderr, format, arg);
   va_end(arg);
 

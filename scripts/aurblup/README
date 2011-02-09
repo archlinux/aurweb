@@ -1,7 +1,7 @@
 aurblup
 =======
 
-aurblup is a small and leightweight tool that updates the package blacklist of
+aurblup is a small and lightweight tool that updates the package blacklist of
 an AUR MySQL database using one (or more) package databases. It does the
 following things:
 
@@ -21,7 +21,7 @@ Installation
 
 Edit the "config.h" (copy from "config.h.proto" if doesn't exist) and
 "config.mk" configuration files to match your setup and enter the following
-command to build and install dwm:
+command to build and install aurblup:
 
 	make install
 
