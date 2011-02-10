@@ -66,11 +66,22 @@ blacklist_sync(alpm_list_t *pkgs)
 {
   alpm_list_t *r, *p;
 
+#if MYSQL_USE_TRANSACTIONS
+  if (mysql_autocommit(c, 0))
+    mysql_die("failed to turn MySQL autocommit off: %s\n");
+
+  if (mysql_query(c, "START TRANSACTION;"))
+    mysql_die("failed to start MySQL transaction: %s\n");
+
+  if (mysql_query(c, "TRUNCATE TABLE PackageBlacklist;"))
+    mysql_die("failed to truncate MySQL table: %s\n");
+#else
   if (mysql_query(c, "LOCK TABLES PackageBlacklist WRITE;"))
     mysql_die("failed to lock MySQL table: %s\n");
 
   if (mysql_query(c, "DELETE FROM PackageBlacklist;"))
     mysql_die("failed to clear MySQL table: %s\n");
+#endif
 
   for (r = pkgs; r; r = alpm_list_next(r)) {
     pmpkg_t *pkg = alpm_list_getdata(r);
@@ -86,8 +97,13 @@ blacklist_sync(alpm_list_t *pkgs)
     }
   }
 
+#if MYSQL_USE_TRANSACTIONS
+  if (mysql_query(c, "COMMIT;"))
+    mysql_die("failed to commit MySQL transaction: %s\n");
+#else
   if (mysql_query(c, "UNLOCK TABLES;"))
     mysql_die("failed to unlock MySQL tables: %s\n");
+#endif
 }
 
 alpm_list_t *
