@@ -9,7 +9,8 @@ following things:
 
 - Get a list of packages in those databases.
 
-- Update the MySQL blacklist table to match those packages.
+- Update the MySQL blacklist table to match those packages, including those
+  packages' provides and replaces.
 
 Requirements
 ------------
