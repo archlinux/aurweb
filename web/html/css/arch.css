@@ -53,9 +53,9 @@ body {
   display: block;
   font-size: 10pt;
   text-align: right;
-  position: relative;
   margin-bottom: 40px;
   margin-right: 35px;
+  margin-left: 35px;
 }
 #lang_sub ul {
   list-style: none;
@@ -173,7 +173,6 @@ h3.title {
   border-bottom: 1px solid #46494d;
 }
 h4.title {
-  text-align: left;
   border-bottom: 1px solid #46494d;
 }
 h4.news {
@@ -251,7 +250,6 @@ table.results {
   background-color: #e1e3e6;
   border-bottom: 1px solid #46494d;
   border-top: 1px solid #46494d;
-  text-align: left;
   padding: 0px 5px 0px 0px;
 }
 .results th>a {
@@ -266,7 +264,6 @@ table.results {
 .listing th {
   font-size: small;
   vertical-align: top;
-  text-align: left;
   padding: 2px;
 }
 .listing td {
@@ -306,7 +303,6 @@ blockquote.code {
   margin-bottom: 1%;
   background-color: #fff;
   border: 2px solid #ddd;
-  text-align: left;
   padding: 3px;
 }
 .frontpgboxbody {
@@ -320,7 +316,6 @@ blockquote.code {
   border-top: 1px solid #fff;
   border-left: 1px solid #fff;
   background-color: #f1f2f4;
-  text-align: left;
   padding: 2px 10px 2px 10px;
 }
 .pgboxbody,
@@ -382,4 +377,48 @@ blockquote.code {
 	margin: 0 25px;
 	font-size: 18px;
 	font-weight: bold;
+}
+
+div.version {
+  font-weight:bold;
+  font-size:14px;
+  text-align:right;
+}
+
+
+
+
+/**
+ * 
+ * =============== Language-specific declarations ======================
+ * 
+ * (e.g. right-to-left texts for Hebrew)
+ * 
+ * */
+
+
+/**
+ *                 RIGHT - TO - LEFT
+ * 
+ * Too add a language, just add it's language code to all
+ * :lang()-pseudo-classes, delimited by a hyphen ("-").
+ * */
+
+body:lang(he) {
+  direction: rtl;
+}
+th:lang(he) {
+  text-align: right;
+}
+#lang_sub:lang(he) {
+  text-align: left;
+}
+.pkg_search_results_footer:lang(he) .legend_and_actions {
+  float: right;
+}
+.pkg_search_results_footer:lang(he) .page_links {
+  float: left;
+}
+div.version:lang(he) {
+  text-align: left;
 }

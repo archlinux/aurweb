@@ -33,7 +33,6 @@ td.sideBar {
 td.sideBarGrey {
   background-color: #eee;
   border-bottom: 1px solid #000;
-  text-align: left;
   vertical-align: top;
   width: 150px;
 }
@@ -77,12 +76,10 @@ td.footerDisplay {
 table.boxSoft {
   width: 90%;
   background-color: #ddd;
-  text-align: left;
 }
 td.boxSoft {
   background-color: #fff;
   padding: 2px;
-  text-align: left;
 }
 td.boxSoftColumn {
   padding-left: 16px;
@@ -100,7 +97,6 @@ td.div {
   border-top: 1px solid #fff;
   background-color: #f1f2f4;
   padding: 1px 0 0 3px;
-  text-align: left;
 }
 table.boxSoftSmall {
   width: 94px;
@@ -133,31 +129,26 @@ td.features {
 }
 td.formLeft {
   padding: 6px;
-  text-align: left;
   vertical-align: top;
 }
 td.data1 {
   background-color: #eee;
   vertical-align: top;
   padding-left: .3em;
-  text-align: left;
 }
 td.data2 {
   background-color: #ddd;
   vertical-align: top;
   padding-left: .3em;
-  text-align: left;
 }
 .outofdate {
   background-color: #faa;
   padding-left: .3em;
-  text-align: left;
 }
 .legend span {
   padding: 1px;
   margin-left: .3em;
   border: solid 1px #888;
-  text-align: left;
 }
 td.text {
   color: #000;
