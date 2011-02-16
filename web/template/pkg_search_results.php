@@ -113,73 +113,24 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 		</td>
 
 		<td align='right'>
-		<span class='f4'><span class='blue'>
-		<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
-		</span></span>
-		<br />
-
-		<div id="pages">
-		<?php
-			if ($_GET['O'] > 0):
-				$O = $_GET['O'] - $_GET['PP'];
-
-				if ($_GET['O'] < $_GET['PP']) {
-					$O = 0;
-				}
-		?>
-			<a class="page_num" href="packages.php?<?php print mkurl("O=0") ?>"><?php echo __('First') ?></a>
-			<a class="page_num" href="packages.php?<?php print mkurl("O=$O") ?>"><?php echo __('Previous') ?></a>
-		<?php   endif; ?>
-
-			<?php
-			if ($_GET['PP'] > 0) {
-				$pages = ceil($total / $_GET['PP']);
-			}
-
-			if ($pages > 1) {
-				if ($_GET['O'] > 0) {
-					$currentpage = ceil(($_GET['O'] + 1) / $_GET['PP']);
-				}
-				else {
-					$currentpage = 1;
-				}
-
-				$morepages = $currentpage + 5;
-
-				print (($currentpage-5) > 1) ? '...' : '';
-
-				# Display links for more search results.
-				for ($i = ($currentpage - 5); $i <= $morepages && $i <= $pages; $i++) {
-					if ($i < 1) {
-						$i = 1;
-					}
-
-					$pagestart = ($i - 1) * $_GET['PP'];
-
-					if ($i <> $currentpage) :
-					?>
-				<a class="page_num" href="packages.php?<?php print mkurl('O=' . ($pagestart)) ?>"><?php echo $i ?></a>
-					<?php else : echo "<span id=\"page_sel\">$i</span>";
-					endif;
-				}
-
-				print ($pages > $morepages) ? '...' : '';
-				?>
-
-			<?php if ($total - $_GET['PP'] - $_GET['O'] > 0): ?>
-				<a class="page_num" href='packages.php?<?php print mkurl('O=' . ($_GET['O'] + $_GET['PP'])) ?>'><?php echo __('Next') ?></a>
-				<a class="page_num" href='packages.php?<?php print mkurl('O=' . ($total - $_GET['PP'])) ?>'><?php echo __('Last') ?></a>
-			<?php endif; ?>
-
+			<div class="f4 blue">
+				<?php print __("Showing results %s - %s of %s", $first, $last, $total) ?>
 			</div>
-
+			<div class="page_nav">
+				<?php foreach($templ_pages as $pagenr => $pagestart) { ?>
+					<?php if ($pagestart === false) { ?>
+						<?php echo $pagenr ?>
+					<?php } else if ($pagestart + 1 == $first) { ?>
+						<span class="page_sel"><?php echo $pagenr ?></span>
+					<?php } else { ?>
+						<a class="page_num" href="packages.php?<?php print mkurl('O=' . (	$pagestart)) ?>"><?php echo $pagenr ?></a>
+					<?php } ?>
+				<?php } ?>
+			</div>
 		</td>
 	</tr>
 
-<?php
-			}
-}
-?>
+<?php } ?>
 	</table>
 </div>
 </form>
