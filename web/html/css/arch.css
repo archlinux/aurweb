@@ -284,6 +284,21 @@ blockquote.code {
   color: #333;
   font-size: .95em;
 }
+.pkg_search_results_footer {
+  overflow: auto;
+}
+.pkg_search_results_footer .legend_and_actions {
+  float: left;
+}
+.pkg_search_results_footer .legend {
+  margin-bottom: 3px;
+}
+.pkg_search_results_footer .page_links {
+  float: right;
+  margin: 0 0;
+  padding: 0 0;
+}
+
 
 /* AUR Styles */
 .pgbox {
