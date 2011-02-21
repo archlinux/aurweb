@@ -994,7 +994,7 @@ function pkg_notify ($atype, $ids, $action = True) {
  */
 function pkg_delete_comment($atype) {
 	if (!$atype) {
-		return __("You must be logged before you can edit package information.");
+		return __("You must be logged in before you can edit package information.");
 	}
 
 	# Get ID of comment to be removed
@@ -1026,7 +1026,7 @@ function pkg_delete_comment($atype) {
  */
 function pkg_change_category($atype) {
 	if (!$atype)  {
-		return __("You must be logged before you can edit package information.");
+		return __("You must be logged in before you can edit package information.");
 	}
 
 	# Get ID of the new category
