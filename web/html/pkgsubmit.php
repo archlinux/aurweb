@@ -255,15 +255,14 @@ if ($_COOKIE["AURSID"]):
 
 			$dbh = db_connect();
 
-			# This is an overwrite of an existing package, the database ID
-			# needs to be preserved so that any votes are retained. However,
-			# PackageDepends and PackageSources can be purged.
-
 			$q = "SELECT * FROM Packages WHERE Name = '" . mysql_real_escape_string($new_pkgbuild['pkgname']) . "'";
 			$result = db_query($q, $dbh);
 			$pdata = mysql_fetch_assoc($result);
 
 			if ($pdata) {
+				# This is an overwrite of an existing package, the database ID
+				# needs to be preserved so that any votes are retained. However,
+				# PackageDepends and PackageSources can be purged.
 
 				# Flush out old data that will be replaced with new data
 				$q = "DELETE FROM PackageDepends WHERE PackageID = " . $pdata["ID"];
@@ -291,13 +290,14 @@ if ($_COOKIE["AURSID"]):
 				}
 
 				# Update package data
-				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL WHERE ID = %d",
+				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = '%d' WHERE ID = %d",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['pkgver']),
 					mysql_real_escape_string($new_pkgbuild['pkgrel']),
 					mysql_real_escape_string($new_pkgbuild['license']),
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
+					uid_from_sid($_COOKIE["AURSID"]),
 					$pdata["ID"]);
 
 				db_query($q, $dbh);
@@ -328,6 +328,8 @@ if ($_COOKIE["AURSID"]):
 						db_query($q, $dbh);
 					}
 				}
+
+				if (!$pdata["MaintainerUID"]) pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($pdata["ID"]));
 
 				header('Location: packages.php?ID=' . $pdata['ID']);
 
