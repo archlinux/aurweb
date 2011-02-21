@@ -48,3 +48,5 @@ $SUPPORTED_LANGS = array(
 # Idle seconds before timeout
 $LOGIN_TIMEOUT = 7200;
 
+# Session timeout when using "Remember me" cookies
+$PERSISTENT_COOKIE_TIMEOUT = 60 * 60 * 24 * 30;

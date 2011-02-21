@@ -601,6 +601,8 @@ function display_account_info($U="", $T="", $E="", $R="", $I="") {
  * SID of 0 means login failed.
  */
 function try_login() {
+	global $PERSISTENT_COOKIE_TIMEOUT;
+
 	$login_error = "";
 	$new_sid = "";
 	$userID = null;
@@ -641,7 +643,7 @@ function try_login() {
 
 				if ($_POST['remember_me'] == "on") {
 					# Set cookies for 30 days.
-					$cookie_time = time() + (60 * 60 * 24 * 30);
+					$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
 
 					# Set session for 30 days.
 					$q = "UPDATE Sessions SET LastUpdateTS = $cookie_time ";
