@@ -38,6 +38,9 @@ if ($_COOKIE["AURSID"]):
 					$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
 					break;
 				}
+				elseif (preg_match('/^[^\/]+\/[^\/]+\//', $tar_file['filename'])) {
+					$error = __("Error - source tarball may not contain subdirectories.");
+				}
 			}
 
 			if (empty($pkgbuild_raw)) {
