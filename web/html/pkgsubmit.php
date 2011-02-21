@@ -247,7 +247,7 @@ if ($_COOKIE["AURSID"]):
 			}
 
 			file_put_contents('PKGBUILD', $pkgbuild_raw);
-			rename($_FILES['pfile']['tmp_name'], $pkg_name . '.tar.gz');
+			move_uploaded_file($_FILES['pfile']['tmp_name'], $pkg_name . '.tar.gz');
 		}
 
 		# Update the backend database
