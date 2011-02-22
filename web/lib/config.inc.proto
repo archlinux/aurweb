@@ -53,3 +53,8 @@ $LOGIN_TIMEOUT = 7200;
 
 # Session timeout when using "Remember me" cookies
 $PERSISTENT_COOKIE_TIMEOUT = 60 * 60 * 24 * 30;
+
+# Uncompressed file size limit for submitted tarballs (ZIP bomb protection) -
+# please ensure "upload_max_filesize" is additionally set to no more than 3M,
+# otherwise this check might be easy to bypass (FS#22991 for details)
+$MAX_FILESIZE_UNCOMPRESSED = 1024 * 1024 * 8;

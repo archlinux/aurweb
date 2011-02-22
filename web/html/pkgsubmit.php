@@ -26,6 +26,18 @@ if ($_COOKIE["AURSID"]):
 			$error = __("Error - No file uploaded");
 		}
 
+		# Check uncompressed file size (ZIP bomb protection)
+		if (!$error && $MAX_FILESIZE_UNCOMPRESSED) {
+			$fh = fopen($_FILES['pfile']['tmp_name'], 'rb');
+			fseek($fh, -4, SEEK_END);
+			$filesize_uncompressed = end(unpack('V', fread($fh, 4)));
+			fclose($fh);
+
+			if ($filesize_uncompressed > $MAX_FILESIZE_UNCOMPRESSED) {
+				$error = __("Error - uncompressed file size too large.");
+			}
+		}
+
 		$uid = uid_from_sid($_COOKIE['AURSID']);
 
 		if (!$error) {
