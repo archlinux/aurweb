@@ -491,7 +491,12 @@ function pkg_search_page($SID="") {
 	}
 
 	if (isset($_GET['outdated'])) {
-		$q .= "AND OutOfDateTS IS NOT NULL ";
+		if ($_GET['outdated'] == 'on') {
+			$q .= "AND OutOfDateTS IS NOT NULL ";
+		}
+		elseif ($_GET['outdated'] == 'off') {
+			$q .= "AND OutOfDateTS IS NULL ";
+		}
 	}
 
 	$order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';

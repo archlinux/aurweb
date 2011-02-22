@@ -105,11 +105,20 @@
 					</li>
 					<li>
 						<label><?php echo __('Out of Date'); ?></label>
-						<?php if (isset($_GET['outdated'])): ?>
-							<input type="checkbox" name="outdated" checked />
-						<?php else: ?>
-							<input type="checkbox" name="outdated" />
-						<?php endif; ?>
+						<select name='outdated'>
+							<?php
+							$outdated_flags = array('' => __('All'), 'on' => __('Flagged'), 'off' => __('Not Flagged'));
+							foreach ($outdated_flags as $k => $v):
+								if ($_REQUEST['outdated'] == $k):
+							?>
+							<option value='<?php print $k; ?>' selected="selected"><?php print $v; ?></option>
+							<?php else: ?>
+							<option value='<?php print $k; ?>'><?php print $v; ?></option>
+							<?php
+								endif;
+							endforeach;
+							?>
+						</select>
 					</li>
 				</ul>
 			</div>
