@@ -45,6 +45,9 @@ $SUPPORTED_LANGS = array(
 	"zh_CN" => "简体中文"
 );
 
+# Session limit per user
+$MAX_SESSIONS_PER_USER = 8;
+
 # Idle seconds before timeout
 $LOGIN_TIMEOUT = 7200;
 

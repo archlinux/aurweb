@@ -601,7 +601,7 @@ function display_account_info($U="", $T="", $E="", $R="", $I="") {
  * SID of 0 means login failed.
  */
 function try_login() {
-	global $PERSISTENT_COOKIE_TIMEOUT;
+	global $MAX_SESSIONS_PER_USER, $PERSISTENT_COOKIE_TIMEOUT;
 
 	$login_error = "";
 	$new_sid = "";
@@ -624,6 +624,20 @@ function try_login() {
 
 			$dbh = db_connect();
 			while (!$logged_in && $num_tries < 5) {
+				if ($MAX_SESSIONS_PER_USER) {
+					# Delete all user sessions except the
+					# last ($MAX_SESSIONS_PER_USER - 1).
+					$q = "DELETE s.* FROM Sessions s ";
+					$q.= "LEFT JOIN (SELECT SessionID FROM Sessions ";
+					$q.= "WHERE UsersId = '" . $userID . "' ";
+					$q.= "ORDER BY LastUpdateTS DESC ";
+					$q.= "LIMIT " . ($MAX_SESSIONS_PER_USER - 1) . ") q ";
+					$q.= "ON s.SessionID = q.SessionID ";
+					$q.= "WHERE s.UsersId = '" . $userID . "' ";
+					$q.= "AND q.SessionID IS NULL;";
+					db_query($q, $dbh);
+				}
+
 				$new_sid = new_sid();
 				$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
 				  ." VALUES ( $userID, '" . $new_sid . "', UNIX_TIMESTAMP())";
