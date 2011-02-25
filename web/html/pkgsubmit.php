@@ -231,15 +231,6 @@ if ($_COOKIE["AURSID"]):
 		}
 
 		if (!$error) {
-			# Check if package name is blacklisted.
-			if (pkgname_is_blacklisted($pkg_name)) {
-				if (!canSubmitBlacklisted(account_from_sid($_COOKIE["AURSID"]))) {
-					$error = __( "%s is on the package blacklist, please check if it's available in the official repos.", $pkg_name);
-				}
-			}
-		}
-
-		if (!$error) {
 			# First, see if this package already exists, and if it can be overwritten
 			$pkg_exists = package_exists($pkg_name);
 			if (can_submit_pkg($pkg_name, $_COOKIE["AURSID"])) {
@@ -254,6 +245,15 @@ if ($_COOKIE["AURSID"]):
 			} else {
 				$error = __( "You are not allowed to overwrite the %h%s%h package.", "<b>", $pkg_name, "</b>");
 			}
+
+		if (!$error) {
+			# Check if package name is blacklisted.
+			if (!$pkg_exists && pkgname_is_blacklisted($pkg_name)) {
+				if (!canSubmitBlacklisted(account_from_sid($_COOKIE["AURSID"]))) {
+					$error = __( "%s is on the package blacklist, please check if it's available in the official repos.", $pkg_name);
+				}
+			}
+		}
 		}
 
 		if (!$error) {
