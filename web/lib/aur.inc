@@ -220,6 +220,8 @@ function db_connect() {
 	mysql_select_db(AUR_db_name, $handle) or
 		die("Error selecting AUR database: " . mysql_error());
 
+	db_query("SET NAMES 'utf8' COLLATE 'utf8_general_ci';", $handle);
+
 	return $handle;
 }
 
