@@ -1,6 +1,32 @@
 Upgrading
 =========
 
+From 1.8.0 to 1.8.1
+-------------------
+
+1. Drop foreign keys from the "Sessions" table:
+
+`ALTER TABLE Sessions DROP FOREIGN KEY Sessions_ibfk_1;` should work in most
+cases. Otherwise, check the output of `SHOW CREATE TABLE Sessions;` and use the
+foreign key name shown there.
+
+2. Run the following MySQL statements:
+
+----
+ALTER TABLE Sessions
+	ADD FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE;
+ALTER TABLE PackageDepends
+	ADD FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	ADD FOREIGN KEY (DepPkgID) REFERENCES Packages(ID) ON DELETE CASCADE;
+ALTER TABLE PackageSources
+	ADD FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE;
+ALTER TABLE TU_VoteInfo
+	ADD FOREIGN KEY (SubmitterID) REFERENCES Users(ID) ON DELETE CASCADE;
+ALTER TABLE TU_Votes
+	ADD FOREIGN KEY (VoteID) REFERENCES TU_VoteInfo(ID) ON DELETE CASCADE,
+	ADD FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE;
+----
+
 From 1.7.0 to 1.8.0
 -------------------
 

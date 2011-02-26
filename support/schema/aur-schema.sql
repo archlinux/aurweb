@@ -55,7 +55,7 @@ CREATE TABLE Sessions (
 	UsersID INTEGER UNSIGNED NOT NULL,
 	SessionID CHAR(32) NOT NULL,
 	LastUpdateTS BIGINT UNSIGNED NOT NULL,
-	FOREIGN KEY (UsersID) REFERENCES Users(ID),
+	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	UNIQUE (SessionID)
 );
 
@@ -125,7 +125,9 @@ CREATE TABLE PackageDepends (
 	PackageID INTEGER UNSIGNED NOT NULL,
 	DepPkgID INTEGER UNSIGNED NOT NULL,
 	DepCondition VARCHAR(20),
-	INDEX (PackageID)
+	INDEX (PackageID),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (DepPkgID) REFERENCES Packages(ID) ON DELETE CASCADE
 );
 
 
@@ -134,7 +136,8 @@ CREATE TABLE PackageDepends (
 CREATE TABLE PackageSources (
 	PackageID INTEGER UNSIGNED NOT NULL,
 	Source VARCHAR(255) NOT NULL DEFAULT "/dev/null",
-	INDEX (PackageID)
+	INDEX (PackageID),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
 );
 
 
@@ -198,12 +201,15 @@ CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   Yes tinyint(3) unsigned NOT NULL default '0',
   No tinyint(3) unsigned NOT NULL default '0',
   Abstain tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY  (ID)
+  PRIMARY KEY  (ID),
+  FOREIGN KEY (SubmitterID) REFERENCES Users(ID) ON DELETE CASCADE
 );
 
 -- Individual vote records
 --
 CREATE TABLE IF NOT EXISTS TU_Votes (
   VoteID int(10) unsigned NOT NULL,
-  UserID int(10) unsigned NOT NULL
+  UserID int(10) unsigned NOT NULL,
+  FOREIGN KEY (VoteID) REFERENCES TU_VoteInfo(ID) ON DELETE CASCADE,
+  FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
 );
