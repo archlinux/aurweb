@@ -15,10 +15,13 @@
 #define mysql_die(...) die(__VA_ARGS__, mysql_error(c));
 
 void die(const char *, ...);
+alpm_list_t *pkglist_append(alpm_list_t *, const char *);
+alpm_list_t *blacklist_get_pkglist();
 void blacklist_add(const char *);
-void blacklist_sync(alpm_list_t *);
-alpm_list_t *get_package_list(alpm_list_t *);
-alpm_list_t *create_db_list(void);
+void blacklist_remove(const char *);
+void blacklist_sync(alpm_list_t *, alpm_list_t *);
+alpm_list_t *dblist_get_pkglist(alpm_list_t *);
+alpm_list_t *dblist_create(void);
 void read_config(const char *);
 void init(void);
 void cleanup(void);
@@ -45,6 +48,46 @@ die(const char *format, ...)
   exit(1);
 }
 
+alpm_list_t *
+pkglist_append(alpm_list_t *pkglist, const char *pkgname)
+{
+  int len = strcspn(pkgname, "<=>");
+  if (!len) len = strlen(pkgname);
+
+  char *s = malloc(len + 1);
+
+  strncpy(s, pkgname, len);
+  s[len] = 0;
+
+  if (alpm_list_find_str(pkglist, s))
+    free(s);
+  else
+    pkglist = alpm_list_add(pkglist, s);
+
+  return pkglist;
+}
+
+alpm_list_t *
+blacklist_get_pkglist()
+{
+  MYSQL_RES *res;
+  MYSQL_ROW row;
+  alpm_list_t *pkglist = NULL;
+
+  if (mysql_query(c, "SELECT Name FROM PackageBlacklist;"))
+    mysql_die("failed to read blacklist from MySQL database: %s\n");
+
+  if (!(res = mysql_store_result(c)))
+    mysql_die("failed to store MySQL result: %s\n");
+
+  while ((row = mysql_fetch_row(res)))
+    pkglist = pkglist_append(pkglist, row[0]);
+
+  mysql_free_result(res);
+
+  return pkglist;
+}
+
 void
 blacklist_add(const char *name)
 {
@@ -52,8 +95,7 @@ blacklist_add(const char *name)
   char query[1024];
 
   mysql_real_escape_string(c, esc, name, strlen(name));
-  *(esc + strcspn(esc, "<=>")) = 0;
-  snprintf(query, 1024, "INSERT IGNORE INTO PackageBlacklist (Name) "
+  snprintf(query, 1024, "INSERT INTO PackageBlacklist (Name) "
                         "VALUES ('%s');", esc);
   free(esc);
 
@@ -62,9 +104,23 @@ blacklist_add(const char *name)
 }
 
 void
-blacklist_sync(alpm_list_t *pkgs)
+blacklist_remove(const char *name)
 {
-  alpm_list_t *r, *p;
+  char *esc = malloc(strlen(name) * 2 + 1);
+  char query[1024];
+
+  mysql_real_escape_string(c, esc, name, strlen(name));
+  snprintf(query, 1024, "DELETE FROM PackageBlacklist WHERE Name = '%s';", esc);
+  free(esc);
+
+  if (mysql_query(c, query))
+    mysql_die("failed to query MySQL database (\"%s\"): %s\n", query);
+}
+
+void
+blacklist_sync(alpm_list_t *pkgs_cur, alpm_list_t *pkgs_new)
+{
+  alpm_list_t *pkgs_add, *pkgs_rem, *p;
 
 #if MYSQL_USE_TRANSACTIONS
   if (mysql_autocommit(c, 0))
@@ -72,30 +128,22 @@ blacklist_sync(alpm_list_t *pkgs)
 
   if (mysql_query(c, "START TRANSACTION;"))
     mysql_die("failed to start MySQL transaction: %s\n");
-
-  if (mysql_query(c, "TRUNCATE TABLE PackageBlacklist;"))
-    mysql_die("failed to truncate MySQL table: %s\n");
 #else
   if (mysql_query(c, "LOCK TABLES PackageBlacklist WRITE;"))
     mysql_die("failed to lock MySQL table: %s\n");
-
-  if (mysql_query(c, "DELETE FROM PackageBlacklist;"))
-    mysql_die("failed to clear MySQL table: %s\n");
 #endif
 
-  for (r = pkgs; r; r = alpm_list_next(r)) {
-    pmpkg_t *pkg = alpm_list_getdata(r);
+  pkgs_add = alpm_list_diff(pkgs_new, pkgs_cur, (alpm_list_fn_cmp)strcmp);
+  pkgs_rem = alpm_list_diff(pkgs_cur, pkgs_new, (alpm_list_fn_cmp)strcmp);
 
-    blacklist_add(alpm_pkg_get_name(pkg));
+  for (p = pkgs_add; p; p = alpm_list_next(p))
+    blacklist_add(alpm_list_getdata(p));
 
-    for (p = alpm_pkg_get_provides(pkg); p; p = alpm_list_next(p)) {
-      blacklist_add(alpm_list_getdata(p));
-    }
+  for (p = pkgs_rem; p; p = alpm_list_next(p))
+    blacklist_remove(alpm_list_getdata(p));
 
-    for (p = alpm_pkg_get_replaces(pkg); p; p = alpm_list_next(p)) {
-      blacklist_add(alpm_list_getdata(p));
-    }
-  }
+  alpm_list_free(pkgs_add);
+  alpm_list_free(pkgs_rem);
 
 #if MYSQL_USE_TRANSACTIONS
   if (mysql_query(c, "COMMIT;"))
@@ -107,12 +155,13 @@ blacklist_sync(alpm_list_t *pkgs)
 }
 
 alpm_list_t *
-get_package_list(alpm_list_t *dblist)
+dblist_get_pkglist(alpm_list_t *dblist)
 {
-  alpm_list_t *r, *pkgs = NULL;
+  alpm_list_t *d, *p, *q;
+  alpm_list_t *pkglist = NULL;
 
-  for (r = dblist; r; r = alpm_list_next(r)) {
-    pmdb_t *db = alpm_list_getdata(r);
+  for (d = dblist; d; d = alpm_list_next(d)) {
+    pmdb_t *db = alpm_list_getdata(d);
 
     if (alpm_trans_init(0, NULL, NULL, NULL))
       alpm_die("failed to initialize ALPM transaction: %s\n");
@@ -121,16 +170,27 @@ get_package_list(alpm_list_t *dblist)
     if (alpm_trans_release())
       alpm_die("failed to release ALPM transaction: %s\n");
 
-    pkgs = alpm_list_join(pkgs, alpm_list_copy(alpm_db_get_pkgcache(db)));
+    for (p = alpm_db_get_pkgcache(db); p; p = alpm_list_next(p)) {
+      pmpkg_t *pkg = alpm_list_getdata(p);
+
+      pkglist = pkglist_append(pkglist, alpm_pkg_get_name(pkg));
+
+      for (q = alpm_pkg_get_provides(pkg); q; q = alpm_list_next(q))
+        pkglist = pkglist_append(pkglist, alpm_list_getdata(q));
+
+      for (q = alpm_pkg_get_replaces(pkg); q; q = alpm_list_next(q))
+        pkglist = pkglist_append(pkglist, alpm_list_getdata(q));
+    }
   }
 
-  return pkgs;
+  return pkglist;
 }
 
 alpm_list_t *
-create_db_list(void)
+dblist_create(void)
 {
-  alpm_list_t *r, *dblist = NULL;
+  alpm_list_t *d;
+  alpm_list_t *dblist = NULL;
   int i;
 
   for (i = 0; i < sizeof(alpm_repos) / sizeof(char *); i++) {
@@ -141,8 +201,8 @@ create_db_list(void)
   if (!(dblist = alpm_option_get_syncdbs()))
     alpm_die("failed to get sync DBs: %s\n");
 
-  for (r = dblist; r; r = alpm_list_next(r)) {
-    pmdb_t *db = alpm_list_getdata(r);
+  for (d = dblist; d; d = alpm_list_next(d)) {
+    pmdb_t *db = alpm_list_getdata(d);
 
     char server[1024];
     snprintf(server, 1024, ALPM_MIRROR, alpm_db_get_name(db));
@@ -246,13 +306,17 @@ cleanup(void)
 
 int main(int argc, char *argv[])
 {
-  alpm_list_t *pkgs;
+  alpm_list_t *pkgs_cur, *pkgs_new;
 
   read_config(AUR_CONFIG);
   init();
-  pkgs = get_package_list(create_db_list());
-  blacklist_sync(pkgs);
-  alpm_list_free(pkgs);
+
+  pkgs_cur = blacklist_get_pkglist();
+  pkgs_new = dblist_get_pkglist(dblist_create());
+  blacklist_sync(pkgs_cur, pkgs_new);
+  FREELIST(pkgs_new);
+  FREELIST(pkgs_cur);
+
   cleanup();
 
   return 0;
