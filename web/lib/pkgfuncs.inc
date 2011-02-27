@@ -181,7 +181,7 @@ function package_comments_count($pkgid = 0) {
 		$dbh = db_connect();
 		$q = "SELECT COUNT(*) FROM PackageComments ";
 		$q.= "WHERE PackageID = " . mysql_real_escape_string($pkgid);
-		$q.= " AND DelUsersID = 0";
+		$q.= " AND DelUsersID IS NULL";
 	}
 	$result = db_query($q, $dbh);
 
@@ -201,7 +201,7 @@ function package_comments($pkgid = 0) {
 		$q.= "FROM PackageComments, Users ";
 		$q.= "WHERE PackageComments.UsersID = Users.ID";
 		$q.= " AND PackageID = ".mysql_real_escape_string($pkgid);
-		$q.= " AND DelUsersID = 0"; # only display non-deleted comments
+		$q.= " AND DelUsersID IS NULL"; # only display non-deleted comments
 		$q.= " ORDER BY CommentTS DESC";
 
 		if (!isset($_GET['comments'])) {
