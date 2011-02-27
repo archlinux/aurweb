@@ -11,7 +11,7 @@ CREATE TABLE AccountTypes (
 	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	AccountType VARCHAR(32) NOT NULL DEFAULT '',
 	PRIMARY KEY (ID)
-);
+) ENGINE = InnoDB;
 INSERT INTO AccountTypes (ID, AccountType) VALUES (1, 'User');
 INSERT INTO AccountTypes (ID, AccountType) VALUES (2, 'Trusted User');
 INSERT INTO AccountTypes (ID, AccountType) VALUES (3, 'Developer');
@@ -39,7 +39,7 @@ CREATE TABLE Users (
 	INDEX (AccountTypeID),
 	INDEX (NewPkgNotify),
 	FOREIGN KEY (AccountTypeID) REFERENCES AccountTypes(ID) ON DELETE NO ACTION
-);
+) ENGINE = InnoDB;
 -- A default developer account for testing purposes
 INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
 	1, 3, 'dev', 'dev@localhost', MD5('dev'));
@@ -57,7 +57,7 @@ CREATE TABLE Sessions (
 	LastUpdateTS BIGINT UNSIGNED NOT NULL,
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	UNIQUE (SessionID)
-);
+) ENGINE = InnoDB;
 
 
 -- Categories for grouping packages when they reside in
@@ -68,7 +68,7 @@ CREATE TABLE PackageCategories (
 	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	Category VARCHAR(32) NOT NULL,
 	PRIMARY KEY (ID)
-);
+) ENGINE = InnoDB;
 INSERT INTO PackageCategories (Category) VALUES ('none');
 INSERT INTO PackageCategories (Category) VALUES ('daemons');
 INSERT INTO PackageCategories (Category) VALUES ('devel');
@@ -116,7 +116,7 @@ CREATE TABLE Packages (
 	FOREIGN KEY (CategoryID) REFERENCES PackageCategories(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE NO ACTION
-);
+) ENGINE = InnoDB;
 
 
 -- Track which dependencies a package has
@@ -128,7 +128,7 @@ CREATE TABLE PackageDepends (
 	INDEX (PackageID),
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
 	FOREIGN KEY (DepPkgID) REFERENCES Packages(ID) ON DELETE CASCADE
-);
+) ENGINE = InnoDB;
 
 
 -- Track which sources a package has
@@ -138,7 +138,7 @@ CREATE TABLE PackageSources (
 	Source VARCHAR(255) NOT NULL DEFAULT "/dev/null",
 	INDEX (PackageID),
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
-);
+) ENGINE = InnoDB;
 
 
 -- Track votes for packages
@@ -150,7 +150,7 @@ CREATE TABLE PackageVotes (
 	INDEX (PackageID),
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
-);
+) ENGINE = InnoDB;
 CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageID);
 
 -- Record comments for packages
@@ -168,7 +168,7 @@ CREATE TABLE PackageComments (
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	FOREIGN KEY (DelUsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
-);
+) ENGINE = InnoDB;
 
 -- Comment addition notifications
 --
@@ -177,7 +177,7 @@ CREATE TABLE CommentNotify (
 	UserID INTEGER UNSIGNED NOT NULL,
 	FOREIGN KEY (PkgID) REFERENCES Packages(ID) ON DELETE CASCADE,
 	FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
-);
+) ENGINE = InnoDB;
 CREATE UNIQUE INDEX NotifyUserIDPkgID ON CommentNotify (UserID, PkgID);
 
 -- Package name blacklist
@@ -187,7 +187,7 @@ CREATE TABLE PackageBlacklist (
 	Name VARCHAR(64) NOT NULL,
 	PRIMARY KEY (ID),
 	UNIQUE (Name)
-);
+) ENGINE = InnoDB;
 
 -- Vote information
 --
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   Abstain tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (ID),
   FOREIGN KEY (SubmitterID) REFERENCES Users(ID) ON DELETE CASCADE
-);
+) ENGINE = InnoDB;
 
 -- Individual vote records
 --
@@ -212,4 +212,4 @@ CREATE TABLE IF NOT EXISTS TU_Votes (
   UserID int(10) unsigned NOT NULL,
   FOREIGN KEY (VoteID) REFERENCES TU_VoteInfo(ID) ON DELETE CASCADE,
   FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
-);
+) ENGINE = InnoDB;
