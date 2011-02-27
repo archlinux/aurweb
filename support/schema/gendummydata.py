@@ -261,7 +261,7 @@ for u in user_keys:
 			int(len(seen_pkgs)*VOTING[1]))
 	pkgvote = {}
 	for v in range(num_votes):
-		pkg = random.randrange(0, len(seen_pkgs))
+		pkg = random.randrange(1, len(seen_pkgs) + 1)
 		if not pkgvote.has_key(pkg):
 			s = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES (%d, %d);\n" % (seen_users[u], pkg)
 			pkgvote[pkg] = 1
@@ -288,7 +288,7 @@ for p in seen_pkgs.keys():
 	this_deps = {}
 	i = 0
 	while i != num_deps:
-		dep = random.randrange(0, len(seen_pkgs))
+		dep = random.randrange(1, len(seen_pkgs) + 1)
 		if not this_deps.has_key(dep):
 			s = "INSERT INTO PackageDepends VALUES (%d, %d, NULL);\n" % (seen_pkgs[p], dep)
 			out.write(s)
