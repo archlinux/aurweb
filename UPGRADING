@@ -59,6 +59,8 @@ ALTER TABLE CommentNotify
 	ADD FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE;
 ----
 
+4. Merge "web/lib/config.inc.proto" with "web/lib/config.inc".
+
 From 1.7.0 to 1.8.0
 -------------------
 
