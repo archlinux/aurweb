@@ -35,7 +35,7 @@ if ($row["OutOfDateTS"] === NULL) {
     echo " value='".__("UnFlag Out-of-date")."'>\n";
 		}
 			
-if ($row["MaintainerUID"] == 0) {
+if ($row["MaintainerUID"] === NULL) {
     echo "<input type='submit' class='button' name='do_Adopt'";
     echo " value='".__("Adopt Packages")."'>\n";
 } else if ($uid == $row["MaintainerUID"] ||

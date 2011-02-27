@@ -487,7 +487,7 @@ function pkg_search_page($SID="") {
 	}
 
 	if ($_GET["do_Orphans"]) {
-		$q.= "AND MaintainerUID = 0 ";
+		$q.= "AND MaintainerUID IS NULL ";
 	}
 
 	if (isset($_GET['outdated'])) {
@@ -813,7 +813,7 @@ function pkg_adopt ($atype, $ids, $action = True) {
 	if ($action) {
 		$user = uid_from_sid($_COOKIE["AURSID"]);
 	} else {
-		$user = 0;
+		$user = 'NULL';
 	}
 
 	$q.= "SET $field = $user ";
@@ -821,7 +821,7 @@ function pkg_adopt ($atype, $ids, $action = True) {
 
 	if ($action && $atype == "User") {
 		# Regular users may only adopt orphan packages from unsupported
-		$q.= "AND $field = 0 ";
+		$q.= "AND $field IS NULL ";
 	} else if ($atype == "User") {
 		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"]);
 	}

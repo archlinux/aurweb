@@ -339,7 +339,7 @@ function can_submit_pkg($name="", $sid="") {
 	if ($row[1] == "1") { return 1; }
 	$my_uid = uid_from_sid($sid);
 
-	if (!$row[0] || $row[0] == $my_uid) {
+	if ($row[0] === NULL || $row[0] == $my_uid) {
 		return 1;
 	}
 

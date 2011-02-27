@@ -28,6 +28,11 @@ ALTER TABLE TU_Votes
 ALTER TABLE PackageComments
 	MODIFY DelUsersID INTEGER UNSIGNED NULL DEFAULT NULL;
 UPDATE PackageComments SET DelUsersID = NULL WHERE DelUsersID = 0;
+ALTER TABLE Packages
+	MODIFY SubmitterUID INTEGER UNSIGNED NULL DEFAULT NULL,
+	MODIFY MaintainerUID INTEGER UNSIGNED NULL DEFAULT NULL;
+UPDATE Packages SET SubmitterUID = NULL WHERE SubmitterUID = 0;
+UPDATE Packages SET MaintainerUID = NULL WHERE MaintainerUID = 0;
 ----
 
 3. (optional) If you converted your database from MyISAM to InnoDB during the

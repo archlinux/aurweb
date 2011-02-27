@@ -344,7 +344,7 @@ if ($_COOKIE["AURSID"]):
 					}
 				}
 
-				if (!$pdata["MaintainerUID"]) pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($pdata["ID"]));
+				if ($pdata["MaintainerUID"] === NULL) pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($pdata["ID"]));
 
 				header('Location: packages.php?ID=' . $pdata['ID']);
 

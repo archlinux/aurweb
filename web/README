@@ -152,7 +152,7 @@ Scripts:
   can also set the account type to Dev.  TUs and Devs are able to
   delete accounts.  If an account is deleted, all "Unsupported"
   packages are orphaned (the MaintainerUID field in the Packages
-  table is set to Null).
+  table is set to NULL).
 
 - html/packages.php
   PHP script to search the package database.  It should support
