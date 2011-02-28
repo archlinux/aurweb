@@ -6,13 +6,7 @@ if [ `basename $mydir` != "schema" ]; then
 	exit
 fi
 
-echo "dropping old database..."
-yes | mysqladmin -uaur -paur drop AUR
-
 echo "recreating database..."
-mysqladmin -uaur -paur create AUR
-
-echo "recreating tables..."
 mysql -uaur -paur AUR < ./aur-schema.sql
 
 echo "loading dummy-data..."
