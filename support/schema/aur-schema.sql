@@ -2,7 +2,7 @@
 -- is also included such as AccountTypes, etc.
 --
 DROP DATABASE AUR;
-CREATE DATABASE AUR;
+CREATE DATABASE AUR DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE AUR;
 
 -- Define the Account Types for the AUR.
@@ -159,7 +159,7 @@ CREATE TABLE PackageComments (
 	ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	PackageID INTEGER UNSIGNED NOT NULL,
 	UsersID INTEGER UNSIGNED NOT NULL,
-	Comments TEXT NOT NULl DEFAULT '',
+	Comments TEXT NOT NULL DEFAULT '',
 	CommentTS BIGINT UNSIGNED NOT NULL DEFAULT 0,
 	DelUsersID INTEGER UNSIGNED NULL DEFAULT NULL,
 	PRIMARY KEY (ID),
@@ -193,8 +193,8 @@ CREATE TABLE PackageBlacklist (
 --
 CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   ID int(10) unsigned NOT NULL auto_increment,
-  Agenda text collate latin1_general_ci NOT NULL,
-  User VARCHAR(32) collate latin1_general_ci NOT NULL,
+  Agenda text COLLATE utf8_general_ci NOT NULL,
+  User VARCHAR(32) COLLATE utf8_general_ci NOT NULL,
   Submitted bigint(20) unsigned NOT NULL,
   End bigint(20) unsigned NOT NULL,
   SubmitterID int(10) unsigned NOT NULL,
