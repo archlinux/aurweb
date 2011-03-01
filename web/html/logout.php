@@ -14,8 +14,9 @@ if (isset($_COOKIE["AURSID"])) {
 	$q = "DELETE FROM Sessions WHERE SessionID = '";
 	$q.= mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
 	db_query($q, $dbh);
-	setcookie("AURSID", "", time() - (60*60*24*30), "/");
-	setcookie("AURLANG", "", time() - (60*60*24*30), "/");
+	# setting expiration to 1 means '1 second after midnight January 1, 1970'
+	setcookie("AURSID", "", 1, "/");
+	unset($_COOKIE['AURSID']);
 }
 
 clear_expired_sessions();

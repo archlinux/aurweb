@@ -12,12 +12,6 @@ include_once("config.inc");
 include_once("version.inc");
 include_once("acctfuncs.inc");
 
-# TODO do we need to set the domain on cookies?  I seem to remember some
-# security concerns about not using domains - but it's not like
-# we really care if another site can see what language/SID a user
-# is using...
-
-
 # see if the visitor is already logged in
 #
 function check_sid() {
@@ -48,18 +42,16 @@ function check_sid() {
 			# clear out the hacker's cookie, and send them to a naughty page
 			# why do you have to be so harsh on these people!?
 			#
-			setcookie("AURSID", "", time() - (60*60*24*30), "/");
+			setcookie("AURSID", "", 1, "/");
 			unset($_COOKIE['AURSID']);
 		} elseif ($failed == 2) {
-			# visitor's session id either doesn't exist, or the timeout
-			# was reached and they must login again, send them back to
-			# the main page where they can log in again.
+			# session id timeout was reached and they must login again.
 			#
 			$q = "DELETE FROM Sessions WHERE SessionID = '";
 			$q.= mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
 			db_query($q, $dbh);
 
-			setcookie("AURSID", "", time() - (60*60*24*30), "/");
+			setcookie("AURSID", "", 1, "/");
 			unset($_COOKIE['AURSID']);
 		} else {
 			# still logged in and haven't reached the timeout, go ahead
@@ -257,6 +249,7 @@ function set_lang() {
 	global $_t;
 	global $LANG;
 	global $SUPPORTED_LANGS;
+	global $PERSISTENT_COOKIE_TIMEOUT;
 
 	$update_cookie = 0;
 	if (isset($_REQUEST['setlang'])) {
@@ -271,6 +264,8 @@ function set_lang() {
 		$LANG = $_COOKIE['AURLANG'];
 
 	} elseif (isset($_COOKIE["AURSID"])) {
+		# No language but a session; use default lang preference
+		#
 		$dbh = db_connect();
 		$q = "SELECT LangPreference FROM Users, Sessions ";
 		$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -291,7 +286,8 @@ function set_lang() {
 	}
 
 	if ($update_cookie) {
-		setcookie("AURLANG", $LANG, 0, "/");
+		$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
+		setcookie("AURLANG", $LANG, $cookie_time, "/");
 	}
 
 	if ($LANG != "en" ) {
