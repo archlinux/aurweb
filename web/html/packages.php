@@ -38,19 +38,19 @@ if (isset($_POST['IDs'])) {
 
 # Determine what action to do
 $output = "";
-if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
+if (current_action("do_Flag")) {
 	$output = pkg_flag($atype, $ids, True);
-} elseif ($_POST['action'] == "do_UnFlag" || isset($_POST['do_UnFlag'])) {
+} elseif (current_action("do_UnFlag")) {
 	$output = pkg_flag($atype, $ids, False);
-} elseif ($_POST['action'] == "do_Adopt" || isset($_POST['do_Adopt'])) {
+} elseif (current_action("do_Adopt")) {
 	$output = pkg_adopt($atype, $ids, True);
-} elseif ($_POST['action'] == "do_Disown" || isset($_POST['do_Disown'])) {
+} elseif (current_action("do_Disown")) {
 	$output = pkg_adopt($atype, $ids, False);
-} elseif ($_POST['action'] == "do_Vote" || isset($_POST['do_Vote'])) {
+} elseif (current_action("do_Vote")) {
 	$output = pkg_vote($atype, $ids, True);
-} elseif ($_POST['action'] == "do_UnVote" || isset($_POST['do_UnVote'])) {
+} elseif (current_action("do_UnVote")) {
 	$output = pkg_vote($atype, $ids, False);
-} elseif ($_POST['action'] == "do_Delete" || isset($_POST['do_Delete'])) {
+} elseif (current_action("do_Delete")) {
 	if (isset($_POST['confirm_Delete'])) {
 		$output = pkg_delete($atype, $ids);
 		unset($_GET['ID']);
@@ -58,13 +58,13 @@ if ($_POST['action'] == "do_Flag" || isset($_POST['do_Flag'])) {
 	else {
 		$output = __("The selected packages have not been deleted, check the confirmation checkbox.");
 	}
-} elseif ($_POST['action'] == "do_Notify" || isset($_POST['do_Notify'])) {
+} elseif (current_action("do_Notify")) {
 	$output = pkg_notify($atype, $ids);
-} elseif ($_POST['action'] == "do_UnNotify" || isset($_POST['do_UnNotify'])) {
+} elseif (current_action("do_UnNotify")) {
 	$output = pkg_notify($atype, $ids, False);
-} elseif ($_POST['action'] == "do_DeleteComment" || isset($_POST["do_DeleteComment"])) {
+} elseif (current_action("do_DeleteComment")) {
 	$output = pkg_delete_comment($atype);
-} elseif ($_POST['action'] == "do_ChangeCategory" || isset($_POST['do_ChangeCategory'])) {
+} elseif (current_action("do_ChangeCategory")) {
 	$output = pkg_change_category($atype);
 }
 

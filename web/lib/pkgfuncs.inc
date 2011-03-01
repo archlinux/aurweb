@@ -605,6 +605,11 @@ function pkg_search_page($SID="") {
 	return;
 }
 
+function current_action($action) {
+	return (isset($_POST['action']) && $_POST['action'] == $action) ||
+		isset($_POST[$action]);
+}
+
 /**
  * Flag and un-flag packages out-of-date
  *
