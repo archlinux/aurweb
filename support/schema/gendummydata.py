@@ -9,13 +9,20 @@ usage: gendummydata.py outputfilename.sql
 # package names.  It generates the SQL statements to
 # insert these users/packages into the AUR database.
 #
+import random
+import time
+import os
+import sys
+import cStringIO
+import commands
+
 
 DBUG      = 1
 SEED_FILE = "/usr/share/dict/words"
-DB_HOST   = "localhost"
-DB_NAME   = "AUR"
-DB_USER   = "aur"
-DB_PASS   = "aur"
+DB_HOST   = os.getenv("DB_HOST", "localhost")
+DB_NAME   = os.getenv("DB_NAME", "AUR")
+DB_USER   = os.getenv("DB_USER", "aur")
+DB_PASS   = os.getenv("DB_PASS", "aur")
 USER_ID   = 5          # Users.ID of first bogus user
 PKG_ID    = 1          # Packages.ID of first package
 MAX_USERS = 300        # how many users to 'register'
@@ -39,14 +46,6 @@ RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
 FORTUNE_CMD = "/usr/bin/fortune -l"
 
 
-import random
-import time
-import os
-import sys
-import cStringIO
-import commands
-
-
 if len(sys.argv) != 2:
 	sys.stderr.write("Missing output filename argument");
 	raise SystemExit
@@ -60,6 +59,7 @@ out.write("BEGIN;\n")
 #
 if not os.path.exists(SEED_FILE):
 	sys.stderr.write("Please install the 'words' Arch package\n");
+	raise SystemExit
 
 # Make sure database access will be available
 #

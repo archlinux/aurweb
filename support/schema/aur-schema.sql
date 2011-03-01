@@ -1,7 +1,7 @@
 -- The MySQL database layout for the AUR.  Certain data
 -- is also included such as AccountTypes, etc.
 --
-DROP DATABASE AUR;
+DROP DATABASE IF EXISTS AUR;
 CREATE DATABASE AUR DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE AUR;
 
