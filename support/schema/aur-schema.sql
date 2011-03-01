@@ -114,8 +114,9 @@ CREATE TABLE Packages (
 	INDEX (SubmitterUID),
 	INDEX (MaintainerUID),
 	FOREIGN KEY (CategoryID) REFERENCES PackageCategories(ID) ON DELETE NO ACTION,
-	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE NO ACTION,
-	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE NO ACTION
+	-- deleting a user will cause packages to be orphaned, not deleted
+	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE SET NULL,
+	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL
 ) ENGINE = InnoDB;
 
 

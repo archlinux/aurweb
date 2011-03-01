@@ -801,7 +801,6 @@ function user_suspended( $id )
 
 /*
  * This should be expanded to return something
- * TODO: Handle orphaning of user's packages
  */
 function user_delete( $id )
 {
