@@ -19,7 +19,7 @@
 
 <tr>
 <td class='boxSoft'>
-<span class='f4'><a href="packages.php?SeB=m&amp;outdated&amp;K=<?php echo $username; ?>">
+<span class='f4'><a href="packages.php?SeB=m&amp;outdated=on&amp;K=<?php echo $username; ?>">
 <?php print __("Out of Date"); ?></a></span>
 </td>
 <td class='boxSoft'>
