@@ -16,22 +16,24 @@ echo "<div class=\"pgbox\">\n";
 echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Accounts")."</span></div>\n";
 echo "  <div class=\"pgboxbody\">\n";
 
+$action = in_request("Action");
+
 if (isset($_COOKIE["AURSID"])) {
 	# visitor is logged in
 	#
 	$dbh = db_connect();
 	$atype = account_from_sid($_COOKIE["AURSID"]);
 
-	if ($_REQUEST["Action"] == "SearchAccounts") {
+	if ($action == "SearchAccounts") {
 
 		# security check
 		#
 		if ($atype == "Trusted User" || $atype == "Developer") {
 			# the user has entered search criteria, find any matching accounts
 			#
-			search_results_page($atype, $_REQUEST["O"], $_REQUEST["SB"],
-					$_REQUEST["U"], $_REQUEST["T"], $_REQUEST["S"],
-					$_REQUEST["E"], $_REQUEST["R"], $_REQUEST["I"]);
+			search_results_page($atype, in_request("O"), in_request("SB"),
+					in_request("U"), in_request("T"), in_request("S"),
+					in_request("E"), in_request("R"), in_request("I"));
 
 		} else {
 			# a non-privileged user is trying to access the search page
@@ -39,13 +41,13 @@ if (isset($_COOKIE["AURSID"])) {
 			print __("You are not allowed to access this area.")."<br />\n";
 		}
 
-	} elseif ($_REQUEST["Action"] == "DisplayAccount") {
+	} elseif ($action == "DisplayAccount") {
 		# the user has clicked 'edit', display the account details in a form
 		#
 		$q = "SELECT Users.*, AccountTypes.AccountType ";
 		$q.= "FROM Users, AccountTypes ";
 		$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
-		$q.= "AND Users.ID = ".intval($_REQUEST["ID"]);
+		$q.= "AND Users.ID = ".intval(in_request("ID"));
 		$result = db_query($q, $dbh);
 		if (!mysql_num_rows($result)) {
 			print __("Could not retrieve information for the specified user.");
@@ -66,13 +68,13 @@ if (isset($_COOKIE["AURSID"])) {
 			}
 		}
 
-	} elseif ($_REQUEST["Action"] == "AccountInfo") {
+	} elseif ($action == "AccountInfo") {
 		# no editing, just looking up user info
 		#
 		$q = "SELECT Users.*, AccountTypes.AccountType ";
 		$q.= "FROM Users, AccountTypes ";
 		$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
-		$q.= "AND Users.ID = ".intval($_REQUEST["ID"]);
+		$q.= "AND Users.ID = ".intval(in_request("ID"));
 		$result = db_query($q, $dbh);
 		if (!mysql_num_rows($result)) {
 			print __("Could not retrieve information for the specified user.");
@@ -83,14 +85,14 @@ if (isset($_COOKIE["AURSID"])) {
 						$row["IRCNick"]);
 		}
 		
-	}	elseif ($_REQUEST["Action"] == "UpdateAccount") {
+	} elseif ($action == "UpdateAccount") {
 		# user is submitting their modifications to an existing account
 		#
 		process_account_form($atype, "edit", "UpdateAccount",
-				$_REQUEST["U"], $_REQUEST["T"], $_REQUEST["S"],
-				$_REQUEST["E"], $_REQUEST["P"], $_REQUEST["C"],
-				$_REQUEST["R"], $_REQUEST["L"], $_REQUEST["I"],
-				$_REQUEST["N"], $_REQUEST["ID"]);
+				in_request("U"), in_request("T"), in_request("S"),
+				in_request("E"), in_request("P"), in_request("C"),
+				in_request("R"), in_request("L"), in_request("I"),
+				in_request("N"), in_request("ID"));
 
 
 	} else {
@@ -133,15 +135,15 @@ if (isset($_COOKIE["AURSID"])) {
 } else {
 	# visitor is not logged in
 	#
-	if ($_REQUEST["Action"] == "AccountInfo") {
+	if ($action == "AccountInfo") {
 		print __("You must log in to view user information.");
-	}	elseif ($_REQUEST["Action"] == "NewAccount") {
+	}	elseif ($action == "NewAccount") {
 		# process the form input for creating a new account
 		#
 		process_account_form("","new", "NewAccount",
-				$_REQUEST["U"], 1, 0, $_REQUEST["E"],
-				$_REQUEST["P"], $_REQUEST["C"], $_REQUEST["R"],
-				$_REQUEST["L"], $_REQUEST["I"], $_REQUEST["N"]);
+				in_request("U"), 1, 0, in_request("E"),
+				in_request("P"), in_request("C"), in_request("R"),
+				in_request("L"), in_request("I"), in_request("N"));
 
 	} else {
 		# display the account request form

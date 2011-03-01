@@ -1,5 +1,13 @@
 <?php
 
+# Helper function- retrieve request param if available, "" otherwise
+function in_request($name) {
+	if (isset($_REQUEST[$name])) {
+		return $_REQUEST[$name];
+	}
+	return "";
+}
+
 # Display the standard Account form, pass in default values if any
 
 function display_account_form($UTYPE,$A,$U="",$T="",$S="",
