@@ -598,6 +598,20 @@ function current_action($action) {
 }
 
 /**
+ * Ensure an array of IDs is in fact all valid integers.
+ */
+function sanitize_ids($ids) {
+	$new_ids = array();
+	foreach ($ids as $id) {
+		$id = intval($id);
+		if ($id > 0) {
+			$new_ids[] = $id;
+		}
+	}
+	return $new_ids;
+}
+
+/**
  * Flag and un-flag packages out-of-date
  *
  * @param string $atype Account type, output of account_from_sid
@@ -616,6 +630,7 @@ function pkg_flag ($atype, $ids, $action = True) {
 		}
 	}
 
+	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
 		if ($action) {
 			return __("You did not select any packages to flag.");
@@ -624,27 +639,7 @@ function pkg_flag ($atype, $ids, $action = True) {
 		}
 	}
 
-	foreach ($ids as $pid) {
-		if (!is_numeric($pid)) {
-			if ($action) {
-				return __("You did not select any packages to flag.");
-			} else {
-				return __("You did not select any packages to unflag.");
-			}
-		}
-	}
-
 	$dbh = db_connect();
-
-	$first = 1;
-	foreach ($ids as $pid) {
-		if ($first) {
-			$first = 0;
-			$flag = $pid;
-		} else {
-			$flag .= ", " . $pid;
-		}
-	}
 
 	$q = "UPDATE Packages SET";
 	if ($action) {
@@ -653,7 +648,7 @@ function pkg_flag ($atype, $ids, $action = True) {
 	else {
 		$q.= " OutOfDateTS = NULL";
 	}
-	$q.= " WHERE ID IN (" . $flag . ")";
+	$q.= " WHERE ID IN (" . implode(",", $ids) . ")";
 
 	db_query($q, $dbh);
 
@@ -664,7 +659,7 @@ function pkg_flag ($atype, $ids, $action = True) {
 		$f_uid = uid_from_sid($_COOKIE['AURSID']);
 		$q = "SELECT Packages.Name, Users.Email, Packages.ID ";
 		$q.= "FROM Packages, Users ";
-		$q.= "WHERE Packages.ID IN (" . $flag .") ";
+		$q.= "WHERE Packages.ID IN (" . implode(",", $ids) .") ";
 		$q.= "AND Users.ID = Packages.MaintainerUID ";
 		$q.= "AND Users.ID != " . $f_uid;
 		$result = db_query($q, $dbh);
@@ -704,6 +699,7 @@ function pkg_delete ($atype, $ids) {
 		return __("You do have permission to delete packages.");
 	}
 
+	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
 		return __("You did not select any packages to delete.");
 	}
@@ -733,6 +729,7 @@ function pkg_adopt ($atype, $ids, $action = True) {
 		}
 	}
 
+	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
 		if ($action) {
 			return __("You did not select any packages to adopt.");
@@ -742,16 +739,6 @@ function pkg_adopt ($atype, $ids, $action = True) {
 	}
 
 	$dbh = db_connect();
-
-	$first = 1;
-	foreach ($ids as $pid) {
-		if ($first) {
-			$first = 0;
-			$pkg = $pid;
-		} else {
-			$pkg .= ", ".$pid;
-		}
-	}
 
 	$field = "MaintainerUID";
 	$q = "UPDATE Packages ";
@@ -763,7 +750,7 @@ function pkg_adopt ($atype, $ids, $action = True) {
 	}
 
 	$q.= "SET $field = $user ";
-	$q.= "WHERE ID IN ($pkg) ";
+	$q.= "WHERE ID IN (" . implode(",", $ids) . ") ";
 
 	if ($action && $atype == "User") {
 		# Regular users may only adopt orphan packages from unsupported
@@ -800,6 +787,7 @@ function pkg_vote ($atype, $ids, $action = True) {
 		}
 	}
 
+	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
 		if ($action) {
 			return __("You did not select any packages to vote for.");
@@ -881,6 +869,7 @@ function pkg_notify ($atype, $ids, $action = True) {
 		return;
 	}
 
+	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
 		return __("Couldn't add to notification list.");
 	}
