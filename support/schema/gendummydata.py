@@ -54,6 +54,7 @@ if len(sys.argv) != 2:
 # Just let python throw the errors if any happen
 #
 out = open(sys.argv[1], "w")
+out.write("BEGIN;\n")
 
 # make sure the seed file exists
 #
@@ -313,6 +314,7 @@ for p in seen_pkgs.keys():
 
 # close output file
 #
+out.write("COMMIT;\n")
 out.write("\n")
 out.close()
 
