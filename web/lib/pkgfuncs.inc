@@ -1,10 +1,6 @@
 <?php
 include_once("config.inc");
 
-# define variables used during pkgsearch
-#
-$pkgsearch_vars = array("O", "L", "C", "K", "SB", "SO", "PP", "do_Orphans", "SeB");
-
 # Make sure this visitor can delete the requested package comment
 # They can delete if they were the comment submitter, or if they are a TU/Dev
 #
@@ -316,7 +312,6 @@ function pkgname_is_blacklisted($name) {
 # display package details
 #
 function package_details($id=0, $SID="") {
-	global $pkgsearch_vars;
 	$atype = account_from_sid($SID);
 	$uid = uid_from_sid($SID);
 

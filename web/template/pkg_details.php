@@ -111,18 +111,12 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 		echo "<span class='boxSoftTitle'><span class='f3'>". __("Dependencies")."</span></span>";
 
 		while (list($k, $darr) = each($deps)) {
-			$url = " <a href='packages.php?ID=".$darr[0];
-			while(list($k, $var) = each($pkgsearch_vars)) {
-				if (($var == "do_Orphans") && $_REQUEST[$var]) {
-					$url .= "&".$var."=1";
-				} else {
-					$url .= "&".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
-				}
+			if ($darr[2] == 0) {
+				# $darr[3] is the DepCondition
+				echo " <a href='packages.php?ID=".$darr[0]."'>".$darr[1].$darr[3]."</a>";
+			} else {
+				echo " <a href='http://www.archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a>";
 			}
-			reset($pkgsearch_vars);
-			# $darr[3] is the DepCondition
-			if ($darr[2] == 0) echo $url."'>".$darr[1].$darr[3]."</a>";
-			else echo " <a href='http://www.archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a>";
 		}
 
 		if (count($requiredby) > 0) {
@@ -135,20 +129,9 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 		echo "<span class='boxSoftTitle'><span class='f3'>". __("Required by")."</span></span>";
 
 		while (list($k, $darr) = each($requiredby)) {
-			$url = " <a href='packages.php?ID=".$darr[0];
-			while(list($k, $var) = each($pkgsearch_vars)) {
-				if (($var == "do_Orphans") && $_REQUEST[$var]) {
-					$url .= "&amp;" . $var . "=1";
-				} else {
-					$url .= "&amp;".$var."=".rawurlencode(stripslashes($_REQUEST[$var]));
-				}
-			}
-			reset($pkgsearch_vars);
-
 			if ($darr[2] == 0) {
-				echo $url . "'>" . $darr[1] . "</a>";
-			}
-			else {
+				echo " <a href='packages.php?ID=".$darr[0]."'>".$darr[1]."</a>";
+			} else {
 				print "<a href='http://www.archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1]."</a>";
 			}
 		}
