@@ -9,7 +9,9 @@ check_sid();                  # see if they're still logged in
 
 # Set the title to the current query if required
 if (isset($_GET['ID'])) {
-	if ($pkgname = pkgname_from_id($_GET['ID'])) { $title = $pkgname; }
+	if ($pkgname = pkgname_from_id($_GET['ID'])) {
+		$title = $pkgname;
+	}
 } else if (!empty($_GET['K'])) {
 	$title = __("Search Criteria") . ": " . $_GET['K'];
 } else {
@@ -27,7 +29,10 @@ if (isset($_COOKIE["AURSID"])) {
 $ids = array();
 if (isset($_POST['IDs'])) {
 	foreach ($_POST['IDs'] as $id => $i) {
-		$ids[] = $id;
+		$id = intval($id);
+		if ($id > 0) {
+			$ids[] = $id;
+		}
 	}
 }
 
