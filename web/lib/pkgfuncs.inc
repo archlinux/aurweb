@@ -110,11 +110,12 @@ function package_exists($name="") {
 #
 function package_dependencies($pkgid=0) {
 	$deps = array();
-	if ($pkgid) {
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
 		$dbh = db_connect();
 		$q = "SELECT DepPkgID, Name, DummyPkg, DepCondition FROM PackageDepends, Packages ";
 		$q.= "WHERE PackageDepends.DepPkgID = Packages.ID ";
-		$q.= "AND PackageDepends.PackageID = ".mysql_real_escape_string($pkgid);
+		$q.= "AND PackageDepends.PackageID = ". $pkgid;
 		$q.= " ORDER BY Name";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
@@ -127,12 +128,12 @@ function package_dependencies($pkgid=0) {
 
 function package_required($pkgid=0) {
 	$deps = array();
-	if ($pkgid) {
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
 		$dbh = db_connect();
 		$q = "SELECT PackageID, Name, DummyPkg from PackageDepends, Packages ";
 		$q.= "WHERE PackageDepends.PackageID = Packages.ID ";
-		$q.= "AND PackageDepends.DepPkgID = ";
-		$q.= mysql_real_escape_string($pkgid);
+		$q.= "AND PackageDepends.DepPkgID = ". $pkgid;
 		$q.= " ORDER BY Name";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
@@ -177,10 +178,11 @@ function create_dummy($pname="", $sid="") {
 
 # Return the number of comments for a specified package
 function package_comments_count($pkgid = 0) {
-	if ($pkgid) {
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
 		$dbh = db_connect();
 		$q = "SELECT COUNT(*) FROM PackageComments ";
-		$q.= "WHERE PackageID = " . mysql_real_escape_string($pkgid);
+		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " AND DelUsersID IS NULL";
 	}
 	$result = db_query($q, $dbh);
@@ -195,12 +197,13 @@ function package_comments_count($pkgid = 0) {
 # Return an array of package comments
 function package_comments($pkgid = 0) {
 	$comments = array();
-	if ($pkgid) {
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
 		$dbh = db_connect();
 		$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, CommentTS ";
 		$q.= "FROM PackageComments, Users ";
 		$q.= "WHERE PackageComments.UsersID = Users.ID";
-		$q.= " AND PackageID = ".mysql_real_escape_string($pkgid);
+		$q.= " AND PackageID = " . $pkgid;
 		$q.= " AND DelUsersID IS NULL"; # only display non-deleted comments
 		$q.= " ORDER BY CommentTS DESC";
 
@@ -225,10 +228,11 @@ function package_comments($pkgid = 0) {
 #
 function package_sources($pkgid=0) {
 	$sources = array();
-	if ($pkgid) {
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
 		$dbh = db_connect();
 		$q = "SELECT Source FROM PackageSources ";
-		$q.= "WHERE PackageID = ".mysql_real_escape_string($pkgid);
+		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " ORDER BY Source";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
@@ -283,19 +287,19 @@ function pkgnotify_from_sid($sid="") {
 
 # get name of package based on pkgid
 #
-function pkgname_from_id($id="") {
-	if (!empty($id)) {
+function pkgname_from_id($pkgid=0) {
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
 		$dbh = db_connect();
-		$id = intval($id);
-		$q = "SELECT Name FROM Packages WHERE ID = " . mysql_real_escape_string($id);
+		$q = "SELECT Name FROM Packages WHERE ID = " . $pkgid;
 		$result = db_query($q, $dbh);
 		if (mysql_num_rows($result) > 0) {
-			$id = mysql_result($result, 0);
+			$name = mysql_result($result, 0);
 		} else {
-			$id = "";
+			$name = "";
 		}
 	}
-	return $id;
+	return $name;
 }
 
 # Check if a package name is blacklisted.
