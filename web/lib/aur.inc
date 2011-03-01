@@ -5,6 +5,8 @@ header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Tue, 11 Oct 1988 22:00:00 GMT'); // quite a special day
 header('Pragma: no-cache');
 
+date_default_timezone_set('UTC');
+
 include_once('translator.inc');
 set_lang();
 
