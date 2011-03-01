@@ -463,24 +463,23 @@ function pkg_search_page($SID="") {
 
 	// TODO: possibly do string matching on category
 	//       to make request variable values more sensible
-	if (intval($_GET["C"])) {
+	if (isset($_GET["C"]) && intval($_GET["C"])) {
 		$q.= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
 	}
 
-	if ($_GET['K']) {
+	if (isset($_GET['K'])) {
 		$_GET['K'] = mysql_real_escape_string(trim($_GET['K']));
+
 		# Search by maintainer
-		if ($_GET["SeB"] == "m") {
+		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {
 			$q.= "AND Users.Username = '".$_GET['K']."' ";
 		}
 		# Search by submitter
-		elseif ($_GET["SeB"] == "s") {
-			// FIXME: this shouldn't be making 2 queries
-			//        kill the call to uid_from_username
+		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
 			$q.= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
 		# Search by name
 		}
-		elseif ($_GET["SeB"] == "n") {
+		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
 			$q.= "AND (Name LIKE '%".$_GET['K']."%') ";
 		}
 		# Search by name and description (Default)
@@ -490,7 +489,7 @@ function pkg_search_page($SID="") {
 		}
 	}
 
-	if ($_GET["do_Orphans"]) {
+	if (isset($_GET["do_Orphans"]) && $_GET["do_Orphans"] == 'Orphans') {
 		$q.= "AND MaintainerUID IS NULL ";
 	}
 
@@ -503,37 +502,32 @@ function pkg_search_page($SID="") {
 		}
 	}
 
-	$order = $_GET["SO"] == 'd' ? 'DESC' : 'ASC';
+	$order = (isset($_GET["SO"]) && $_GET["SO"] == 'd') ? 'DESC' : 'ASC';
 
 	$q_sort = "ORDER BY Name ".$order.", CategoryID DESC ";
-	switch ($_GET["SB"]) {
+	$sort_by = isset($_GET["SB"]) ? $_GET["SB"] : '';
+	switch ($sort_by) {
 	case 'c':
 		$q_sort = "ORDER BY CategoryID ".$order.", Name ASC ";
-		$_GET["SB"] = 'c';
 		break;
 	case 'v':
 		$q_sort = "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
-		$_GET["SB"] = 'v';
 		break;
 	case 'w':
 		if ($SID) {
 			$q_sort = "ORDER BY Voted ".$order.", Name ASC, CategoryID DESC ";
 		}
-		$_GET["SB"] = 'w';
 		break;
 	case 'o':
 		if ($SID) {
 			$q_sort = "ORDER BY Notify ".$order.", Name ASC, CategoryID DESC ";
 		}
-		$_GET["SB"] = 'o';
 		break;
 	case 'm':
 		$q_sort = "ORDER BY Maintainer ".$order.", Name ASC ";
-		$_GET["SB"] = 'm';
 		break;
 	case 'a':
 		$q_sort = "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC ";
-		$_GET["SB"] = 'a';
 		break;
 	default:
 		break;
@@ -547,13 +541,11 @@ function pkg_search_page($SID="") {
 	$total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
 
 	if ($result && $total > 0) {
-		if ($_GET["SO"] == "d"){
-			$SO_next="a";
-			$_GET["SO"] = 'd';
+		if (isset($_GET["SO"]) && $_GET["SO"] == "d"){
+			$SO_next = "a";
 		}
 		else {
-			$SO_next="d";
-			$_GET["SO"] = 'a';
+			$SO_next = "d";
 		}
 	}
 
