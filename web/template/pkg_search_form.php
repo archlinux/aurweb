@@ -5,7 +5,7 @@
 <div class='pgboxtitle'>
 	<span class='f3'><?php print __("Search Criteria"); ?></span>
 	<input type='hidden' name='O' value='0' />
-	<input type='text' name='K' size='30' value="<?php print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); ?>" maxlength='35' />
+	<input type='text' name='K' size='30' value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength='35' />
 	<input type='submit' style='min-width:80px' class='button' name='do_Search' value='<?php print __("Go"); ?>' />
 	<?php if (!empty($_GET['detail'])): ?>
 	<input type='submit' style='min-width:80px'  class='button' name='do_Orphans' value='<?php print __("Orphans"); ?>' />
@@ -23,7 +23,7 @@
 							<option value='0'><?php print __("Any"); ?></option>
 							<?php
 							foreach (pkgCategories() as $id => $cat):
-								if (intval($_GET["C"]) == $id):
+								if (isset($_REQUEST['C']) && $_REQUEST['C'] == $id):
 							?>
 							<option value="<?php print $id ?>" selected="selected"><?php print $cat; ?></option>
 							<?php else: ?>
@@ -40,7 +40,7 @@
 							<?php
 							$searchby = array('nd' => __('Name, Description'), 'n' => __('Name Only'), 'm'  => __('Maintainer'), 's'  => __('Submitter'));
 							foreach ($searchby as $k => $v):
-								if ($_REQUEST['SeB'] == $k):
+								if (isset($_REQUEST['SeB']) && $_REQUEST['SeB'] == $k):
 							?>
 							<option value="<?php print $k; ?>" selected="selected"><?php print $v; ?></option>
 							<?php else: ?>
@@ -57,7 +57,7 @@
 							<?php
 							$sortby = array('n' => __('Name'), 'c' => __('Category'), 'v' => __('Votes'), 'w' => __('Voted'), 'o' => __('Notify'), 'm' => __('Maintainer'), 'a' => __('Age'));
 							foreach ($sortby as $k => $v):
-								if ($_REQUEST['SB'] == $k):
+								if (isset($_REQUEST['SB']) && $_REQUEST['SB'] == $k):
 							?>
 							<option value='<?php print $k; ?>' selected="selected"><?php print $v; ?></option>
 							<?php else: ?>
@@ -74,7 +74,7 @@
 							<?php
 							$orderby = array('a' => __('Ascending'), 'd' => __('Descending'));
 							foreach ($orderby as $k => $v):
-								if ($_REQUEST['SO'] == $k):
+								if (isset($_REQUEST['SO']) && $_REQUEST['SO'] == $k):
 							?>
 							<option value='<?php print $k; ?>' selected="selected"><?php print $v; ?></option>
 							<?php else: ?>
@@ -91,7 +91,7 @@
 							<?php
 							$pages = array(25, 50, 75, 100);
 							foreach ($pages as $i):
-								if ($_REQUEST['PP'] == $i):
+								if (isset($_REQUEST['PP']) && $_REQUEST['PP'] == $i):
 							?>
 							<option value="<?php print $i; ?>" selected="selected"><?php print $i; ?></option>
 							<?php else: ?>
@@ -108,7 +108,7 @@
 							<?php
 							$outdated_flags = array('' => __('All'), 'on' => __('Flagged'), 'off' => __('Not Flagged'));
 							foreach ($outdated_flags as $k => $v):
-								if ($_REQUEST['outdated'] == $k):
+								if (isset($_REQUEST['outdated']) && $_REQUEST['outdated'] == $k):
 							?>
 							<option value='<?php print $k; ?>' selected="selected"><?php print $v; ?></option>
 							<?php else: ?>
