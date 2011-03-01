@@ -145,12 +145,11 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 			}
 			reset($pkgsearch_vars);
 
-			# $darr[3] is the DepCondition
 			if ($darr[2] == 0) {
-				echo $url . "'>" . $darr[1] . $darr[3] . "</a>";
+				echo $url . "'>" . $darr[1] . "</a>";
 			}
 			else {
-				print "<a href='http://www.archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a>";
+				print "<a href='http://www.archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1]."</a>";
 			}
 		}
 
