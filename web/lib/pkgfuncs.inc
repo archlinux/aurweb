@@ -434,32 +434,32 @@ function pkg_search_page($SID="") {
 
 	// build the package search query
 	//
-	$q = "SELECT SQL_CALC_FOUND_ROWS ";
+	$q_select = "SELECT SQL_CALC_FOUND_ROWS ";
 	if ($SID) {
-		$q .= "CommentNotify.UserID AS Notify,
+		$q_select .= "CommentNotify.UserID AS Notify,
 		       PackageVotes.UsersID AS Voted, ";
 	}
-	$q .= "Users.Username AS Maintainer,
+	$q_select .= "Users.Username AS Maintainer,
 	PackageCategories.Category,
 	Packages.Name, Packages.Version, Packages.Description, Packages.NumVotes,
-	Packages.ID, Packages.OutOfDateTS
+	Packages.ID, Packages.OutOfDateTS ";
 
-	FROM Packages
+	$q_from = "FROM Packages
 	LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID) ";
 	if ($SID) {
-		$q .= "LEFT JOIN PackageVotes
+		$q_from .= "LEFT JOIN PackageVotes
 		ON (Packages.ID = PackageVotes.PackageID AND PackageVotes.UsersID = $myuid)
 		LEFT JOIN CommentNotify
 		ON (Packages.ID = CommentNotify.PkgID AND CommentNotify.UserID = $myuid) ";
 	}
-	$q .= "LEFT JOIN PackageCategories
-	ON (Packages.CategoryID = PackageCategories.ID)
-	WHERE Packages.DummyPkg = 0 ";
+	$q_from .= "LEFT JOIN PackageCategories
+	ON (Packages.CategoryID = PackageCategories.ID) ";
 
+	$q_where = "WHERE Packages.DummyPkg = 0 ";
 	// TODO: possibly do string matching on category
 	//       to make request variable values more sensible
 	if (isset($_GET["C"]) && intval($_GET["C"])) {
-		$q.= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
+		$q_where .= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
 	}
 
 	if (isset($_GET['K'])) {
@@ -467,33 +467,33 @@ function pkg_search_page($SID="") {
 
 		# Search by maintainer
 		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {
-			$q.= "AND Users.Username = '".$_GET['K']."' ";
+			$q_where .= "AND Users.Username = '".$_GET['K']."' ";
 		}
 		# Search by submitter
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
-			$q.= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
+			$q_where .= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
 		# Search by name
 		}
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
-			$q.= "AND (Name LIKE '%".$_GET['K']."%') ";
+			$q_where .= "AND (Name LIKE '%".$_GET['K']."%') ";
 		}
 		# Search by name and description (Default)
 		else {
-			$q.= "AND (Name LIKE '%".$_GET['K']."%' OR ";
-			$q.= "Description LIKE '%".$_GET['K']."%') ";
+			$q_where .= "AND (Name LIKE '%".$_GET['K']."%' OR ";
+			$q_where .= "Description LIKE '%".$_GET['K']."%') ";
 		}
 	}
 
 	if (isset($_GET["do_Orphans"]) && $_GET["do_Orphans"] == 'Orphans') {
-		$q.= "AND MaintainerUID IS NULL ";
+		$q_where .= "AND MaintainerUID IS NULL ";
 	}
 
 	if (isset($_GET['outdated'])) {
 		if ($_GET['outdated'] == 'on') {
-			$q .= "AND OutOfDateTS IS NOT NULL ";
+			$q_where .= "AND OutOfDateTS IS NOT NULL ";
 		}
 		elseif ($_GET['outdated'] == 'off') {
-			$q .= "AND OutOfDateTS IS NULL ";
+			$q_where .= "AND OutOfDateTS IS NULL ";
 		}
 	}
 
@@ -528,9 +528,9 @@ function pkg_search_page($SID="") {
 		break;
 	}
 
-	$q.= $q_sort;
+	$q_limit = "LIMIT ".$_GET["O"].", ".$_GET["PP"];
 
-	$q.= "LIMIT ".$_GET["O"].", ".$_GET["PP"];
+	$q = $q_select . $q_from . $q_where . $q_sort . $q_limit;
 
 	$result = db_query($q, $dbh);
 	$total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
