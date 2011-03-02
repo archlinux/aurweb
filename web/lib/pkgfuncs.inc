@@ -434,7 +434,7 @@ function pkg_search_page($SID="") {
 
 	// build the package search query
 	//
-	$q_select = "SELECT SQL_CALC_FOUND_ROWS ";
+	$q_select = "SELECT ";
 	if ($SID) {
 		$q_select .= "CommentNotify.UserID AS Notify,
 		       PackageVotes.UsersID AS Voted, ";
@@ -445,15 +445,18 @@ function pkg_search_page($SID="") {
 	Packages.ID, Packages.OutOfDateTS ";
 
 	$q_from = "FROM Packages
-	LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID) ";
+	LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID)
+	LEFT JOIN PackageCategories
+	ON (Packages.CategoryID = PackageCategories.ID) ";
 	if ($SID) {
-		$q_from .= "LEFT JOIN PackageVotes
+		# this portion is not needed for the total row count query
+		$q_from_extra = "LEFT JOIN PackageVotes
 		ON (Packages.ID = PackageVotes.PackageID AND PackageVotes.UsersID = $myuid)
 		LEFT JOIN CommentNotify
 		ON (Packages.ID = CommentNotify.PkgID AND CommentNotify.UserID = $myuid) ";
+	} else {
+		$q_from_extra = "";
 	}
-	$q_from .= "LEFT JOIN PackageCategories
-	ON (Packages.CategoryID = PackageCategories.ID) ";
 
 	$q_where = "WHERE Packages.DummyPkg = 0 ";
 	// TODO: possibly do string matching on category
@@ -530,10 +533,11 @@ function pkg_search_page($SID="") {
 
 	$q_limit = "LIMIT ".$_GET["O"].", ".$_GET["PP"];
 
-	$q = $q_select . $q_from . $q_where . $q_sort . $q_limit;
+	$q = $q_select . $q_from . $q_from_extra . $q_where . $q_sort . $q_limit;
+	$q_total = "SELECT COUNT(*) " . $q_from . $q_where;
 
 	$result = db_query($q, $dbh);
-	$total = mysql_result(db_query('SELECT FOUND_ROWS() AS Total', $dbh), 0);
+	$total = mysql_result(db_query($q_total, $dbh), 0);
 
 	if ($result && $total > 0) {
 		if (isset($_GET["SO"]) && $_GET["SO"] == "d"){
