@@ -88,7 +88,11 @@ if (isset($_GET['ID'])) {
 		$_GET['SB'] = 'v';
 		$_GET['SO'] = 'd';
 	}
-	pkg_search_page($_COOKIE["AURSID"]);
+	if (isset($_COOKIE["AURSID"])) {
+		pkg_search_page($_COOKIE["AURSID"]);
+	} else {
+		pkg_search_page();
+	}
 }
 
 html_footer(AUR_VERSION);

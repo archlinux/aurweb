@@ -43,7 +43,11 @@
 </tr>
 
 <?php
-$atype = account_from_sid($_COOKIE['AURSID']);
+if (isset($_COOKIE['AURSID'])) {
+	$atype = account_from_sid($_COOKIE['AURSID']);
+} else {
+	$atype = "";
+}
 for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	(($i % 2) == 0) ? $c = "data1" : $c = "data2";
 	if ($row["OutOfDateTS"] !== NULL): $c = "outofdate"; endif;

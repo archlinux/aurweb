@@ -663,7 +663,8 @@ function try_login() {
 			if ($logged_in) {
 				# set our SID cookie
 
-				if ($_POST['remember_me'] == "on") {
+				if (isset($_POST['remember_me']) &&
+					$_POST['remember_me'] == "on") {
 					# Set cookies for 30 days.
 					$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
 
