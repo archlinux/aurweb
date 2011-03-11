@@ -47,7 +47,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 				$result = db_query($qwhoVoted,$dbh);
 				if (mysql_num_rows($result) > 0) {
 					while ($who = mysql_fetch_assoc($result)) {
-						$whovoted.= '<a href="account.php?Action=AccountInfo&ID='.$who['UserID'].'">'.$who['Username'].'</a> ';
+						$whovoted.= '<a href="account.php?Action=AccountInfo&amp;ID='.$who['UserID'].'">'.$who['Username'].'</a> ';
 					}
 				}
 

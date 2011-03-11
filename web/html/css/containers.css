@@ -161,6 +161,9 @@ th.header {
   border-bottom: #666 1px solid;
   vertical-align: bottom;
 }
+fieldset {
+  border: none;
+}
 input,
 textarea,
 select {

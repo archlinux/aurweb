@@ -28,7 +28,7 @@ if ($account == 'Trusted User' || $account == 'Developer') {
 		$uid = $row['UsersID'];
 		$username = $row['Username'];
 ?>
-<a href="account.php?Action=AccountInfo&ID=<?php echo $uid ?>">
+<a href="account.php?Action=AccountInfo&amp;ID=<?php echo $uid ?>">
 <?php echo $username ?></a><br />
 <?php
 	}

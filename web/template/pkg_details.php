@@ -5,23 +5,25 @@ if ($uid == $row["MaintainerUID"] or
 	($atype == "Developer" or $atype == "Trusted User")) {
 
 	$catarr = pkgCategories();
-	$edit_cat = "<form method='POST' action='packages.php?ID=".$pkgid."'>\n";
-	$edit_cat.= "<input type='hidden' name='action' value='do_ChangeCategory'>";
-	$edit_cat.= "Category: ";
+	$edit_cat = "<form method='post' action='packages.php?ID=".$pkgid."'>\n";
+	$edit_cat.= "<p>";
+	$edit_cat.= "<input type='hidden' name='action' value='do_ChangeCategory' />";
+	$edit_cat.= "<span class='f3'>Category:</span> ";
 	$edit_cat.= "<select name='category_id'>\n";
 	foreach ($catarr as $cid => $catname) {
 		$edit_cat.= "<option value='$cid'";
 		if ($cid == $row["CategoryID"]) {
-		    $edit_cat.="selected";
+		    $edit_cat.=" selected='selected'";
 		}
 		$edit_cat.=">".$catname."</option>";
 	}
-	$edit_cat.= "</select>&nbsp;<input type='submit' value='Change category'>";
+	$edit_cat.= "</select>&nbsp;<input type='submit' value='Change category' />";
+	$edit_cat.= "</p>";
 	$edit_cat.= "</form>";
 
 }
 else {
-	$edit_cat = "Category: ".$row['Category'];
+	$edit_cat = "<span class='f3'>Category: " . $row['Category'] . "</span>";
 }
 
 if ($row["SubmitterUID"]) {
@@ -69,8 +71,9 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 	<span class='f3'><?php echo htmlspecialchars($row['Description'], ENT_QUOTES); ?></span>
 	</p>
 
+	<?php echo $edit_cat ?>
+
 	<p>
-	<span class='f3'><?php echo $edit_cat ?></span><br />
 	<span class='f3'><?php echo __('Submitter') .': ' . $submitter ?></span><br />
 	<span class='f3'><?php echo __('Maintainer') .': ' . $maintainer ?></span><br />
 	<span class='f3'><?php echo $votes ?></span>

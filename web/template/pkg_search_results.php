@@ -54,7 +54,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 ?>
 <tr>
 	<?php if ($SID): ?>
-	<td class='<?php print $c ?>'><input type='checkbox' name='IDs[<?php print $row["ID"] ?>]' value='1'></td>
+	<td class='<?php print $c ?>'><input type='checkbox' name='IDs[<?php print $row["ID"] ?>]' value='1' /></td>
 	<?php endif; ?>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print $row["Category"] ?></span></span></td>
 	<td class='<?php print $c ?>'><span class='f4'><a href='packages.php?ID=<?php print $row["ID"] ?>'><span class='black'><?php print $row["Name"] ?> <?php print $row["Version"] ?></span></a></span></td>
@@ -62,15 +62,15 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	<?php if ($SID): ?>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'>
 	<?php if (isset($row["Voted"])): ?>
-	<?php print __("Yes") ?></span></td>
+	<?php print __("Yes") ?></span></span></td>
 	<?php else: ?>
-	</span></td>
+	</span></span></td>
 	<?php endif; ?>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'>
 	<?php if (isset($row["Notify"])): ?>
-	<?php print __("Yes") ?></span></td>
+	<?php print __("Yes") ?></span></span></td>
 	<?php else: ?>
-	</span></td>
+	</span></span></td>
 	<?php endif; ?>
 	<?php endif; ?>
 	<td class='<?php print $c ?>'><span class='f4'><span class='blue'>

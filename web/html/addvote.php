@@ -73,18 +73,22 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 <div class="pgboxtitle"><?php print __("Submit a proposal to vote on.") ?></div>
 <div class="pgboxbody">
 <form action='addvote.php' method='post'>
+<p>
 <b><?php print __('Applicant/TU') ?></b>
-<input type='text' name='user' value='<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>'>
+<input type='text' name='user' value='<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>' />
 <?php print __("(empty if not applicable)") ?>
-<br />
+</p>
+<p>
 <b><?php print __('Length in days') ?></b>
-<input type='text' name='length' value='<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>'>
+<input type='text' name='length' value='<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>' />
 <?php print __("(defaults to 7 if empty)") ?>
-<br />
+</p>
+<p>
 <b><?php print __('Proposal') ?></b><br />
 <textarea name='agenda' rows='25' cols='80'><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
-<input type='hidden' name='addVote' value='1'>
-<input type='submit' class='button' value='<?php print __('Submit'); ?>'>
+<input type='hidden' name='addVote' value='1' />
+<input type='submit' class='button' value='<?php print __('Submit'); ?>' />
+</p>
 </form>
 </div>
 </div>

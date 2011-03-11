@@ -65,10 +65,12 @@ if (!$isrunning) { ?>
 <div class='pgboxbody'>
 <?php if ($canvote == 1) { ?>
 <form action='tu.php?id=<?php print $row['ID'] ?>' method='post'>
-<input type='submit' class='button' name='voteYes' value='<?php print __("Yes") ?>'>
-<input type='submit' class='button' name='voteNo' value='<?php print __("No") ?>'>
-<input type='submit' class='button' name='voteAbstain' value='<?php print __("Abstain") ?>'>
-<input type='hidden' name='doVote' value='1'>
+<fieldset>
+<input type='submit' class='button' name='voteYes' value='<?php print __("Yes") ?>' />
+<input type='submit' class='button' name='voteNo' value='<?php print __("No") ?>' />
+<input type='submit' class='button' name='voteAbstain' value='<?php print __("Abstain") ?>' />
+<input type='hidden' name='doVote' value='1' />
+</fieldset>
 </form>
 <?php } else { ?>
 <?php print $errorvote ?>

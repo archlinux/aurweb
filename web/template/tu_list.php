@@ -1,5 +1,5 @@
 <div class="pgbox">
-		<div class="pgboxtitle" align="right">
+		<div class="pgboxtitle" style="text-align:right;">
 			<span class='f3'><?php print $type ?></span>
 		</div>
 			<table width='100%' cellspacing='0' cellpadding='2'>
@@ -29,7 +29,7 @@
 					<td class='<?php print $c ?>'><span class='f6'><span class='blue'>
 					<?php
 					if (!empty($row['User'])) {
-						print "<a href='packages.php?K=" . $row['User'] . "&SeB=m'>" . $row['User'] . "</a>";
+						print "<a href='packages.php?K=" . $row['User'] . "&amp;SeB=m'>" . $row['User'] . "</a>";
 					} else {
 						print "N/A";
 					}

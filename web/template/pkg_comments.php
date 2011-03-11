@@ -8,15 +8,17 @@ while (list($indx, $carr) = each($comments)) { ?>
 		$carr['UserName'] = "<a href=\"account.php?Action=AccountInfo&amp;ID={$carr['UsersID']}\">{$carr['UserName']}</a>";
 	}
 
-	$commentHeader =__('Comment by: %s on %s', $carr['UserName'], gmdate('r', $carr['CommentTS']));
+	$commentHeader = '<p style="display:inline;">' . __('Comment by: %s on %s', $carr['UserName'], gmdate('r', $carr['CommentTS'])) . '</p>';
 
 	if (canDeleteCommentArray($carr, $atype, $uid)) {
-		$durl = '<form method="POST" action="packages.php?ID='.$row['ID'].'">';
-		$durl.= '<input type="hidden" name="action" value="do_DeleteComment">';
-		$durl.= '<input type="hidden" name="comment_id" value="'.$carr['ID'].'">';
-		$durl.= '<input type="image" src="images/x.png" border="0" ';
+		$durl = '<form method="post" action="packages.php?ID='.$row['ID'].'">';
+		$durl.= '<fieldset style="display:inline;">';
+		$durl.= '<input type="hidden" name="action" value="do_DeleteComment" />';
+		$durl.= '<input type="hidden" name="comment_id" value="'.$carr['ID'].'" />';
+		$durl.= '<input type="image" src="images/x.png" ';
 		$durl.= ' alt="'.__("Delete comment").'" name="submit" value="1" ';
-		$durl.= ' width="19" height="18">&nbsp;';
+		$durl.= ' />&nbsp;';
+		$durl.= '</fieldset>';
 
 		$commentHeader = $durl.$commentHeader."</form>";
 	}

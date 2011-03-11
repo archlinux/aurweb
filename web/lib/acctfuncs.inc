@@ -29,18 +29,19 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	global $SUPPORTED_LANGS;
 
 	print "<form action='account.php' method='post'>\n";
-	print "<input type='hidden' name='Action' value='".$A."'>\n";
+	print "<fieldset>";
+	print "<input type='hidden' name='Action' value='".$A."' />\n";
 	if ($UID) {
-		print "<input type='hidden' name='ID' value='".$UID."'>\n";
+		print "<input type='hidden' name='ID' value='".$UID."' />\n";
 	}
-	print "<center>\n";
-	print "<table border='0' cellpadding='0' cellspacing='0' width='80%'>\n";
+	print "</fieldset>";
+	print "<table border='0' cellpadding='0' cellspacing='0' width='80%' style=\"margin:0 auto;\">\n";
 	print "<tr><td colspan='2'>&nbsp;</td></tr>\n";
 
 	print "<tr>";
 	print "<td align='left'>".__("Username").":</td>";
 	print "<td align='left'><input type='text' size='30' maxlength='64'";
-	print " name='U' value='".htmlspecialchars($U,ENT_QUOTES)."'> (".__("required").")</td>";
+	print " name='U' value='".htmlspecialchars($U,ENT_QUOTES)."' /> (".__("required").")</td>";
 	print "</tr>\n";
 
 	# Only TUs or Devs can promote/demote/suspend a user
@@ -68,9 +69,9 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 		print "<td align='left'>".__("Account Suspended").":</td>";
 		print "<td align='left'><input type='checkbox' name='S'";
 		if ($S) {
-			print " checked>";
+			print " checked=\"checked\" />";
 		} else {
-			print ">";
+			print " />";
 		}
 		print "</tr>\n";
 	}
@@ -78,13 +79,13 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td align='left'>".__("Email Address").":</td>";
 	print "<td align='left'><input type='text' size='30' maxlength='64'";
-	print " name='E' value='".htmlspecialchars($E,ENT_QUOTES)."'> (".__("required").")</td>";
+	print " name='E' value='".htmlspecialchars($E,ENT_QUOTES)."' /> (".__("required").")</td>";
 	print "</tr>\n";
 
 	print "<tr>";
 	print "<td align='left'>".__("Password").":</td>";
 	print "<td align='left'><input type='password' size='30' maxlength='32'";
-	print " name='P' value='".$P."'>";
+	print " name='P' value='".$P."' />";
 	if ($A != "UpdateAccount") {
 		print " (".__("required").")";
 	}
@@ -93,7 +94,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td align='left'>".__("Re-type password").":</td>";
 	print "<td align='left'><input type='password' size='30' maxlength='32'";
-	print " name='C' value='".$C."'>";
+	print " name='C' value='".$C."' />";
 	if ($A != "UpdateAccount") {
 		print " (".__("required").")";
 	}
@@ -102,13 +103,13 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<tr>";
 	print "<td align='left'>".__("Real Name").":</td>";
 	print "<td align='left'><input type='text' size='30' maxlength='32'";
-	print " name='R' value='".htmlspecialchars($R,ENT_QUOTES)."'></td>";
+	print " name='R' value='".htmlspecialchars($R,ENT_QUOTES)."' /></td>";
 	print "</tr>\n";
 
 	print "<tr>";
 	print "<td align='left'>".__("IRC Nick").":</td>";
 	print "<td align='left'><input type='text' size='30' maxlength='32'";
-	print " name='I' value='".htmlspecialchars($I,ENT_QUOTES)."'></td>";
+	print " name='I' value='".htmlspecialchars($I,ENT_QUOTES)."' /></td>";
 	print "</tr>\n";
 
 	print "<tr>";
@@ -130,9 +131,9 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<td align='left'>".__("New Package Notify").":</td>";
 	print "<td align='left'><input type='checkbox' name='N'";
 	if ($N) {
-		print " checked>";
+		print " checked=\"checked\" />";
 	} else {
-		print ">";
+		print " />";
 	}
 	print "</tr>\n";
 
@@ -143,17 +144,16 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 
 	if ($A == "UpdateAccount") {
 		print "<input type='submit' class='button'";
-		print " value='".__("Update")."'> &nbsp; ";
+		print " value='".__("Update")."' /> &nbsp; ";
 	} else {
 		print "<input type='submit' class='button'";
-		print " value='".__("Create")."'> &nbsp; ";
+		print " value='".__("Create")."' /> &nbsp; ";
 	}
-	print "<input type='reset' class='button' value='".__("Reset")."'>";
+	print "<input type='reset' class='button' value='".__("Reset")."' />";
 	print "</td>";
 	print "</tr>\n";
 
 	print "</table>\n";
-	print "</center>\n";
 	print "</form>\n";
 	return;
 } # function display_account_form()
@@ -436,13 +436,14 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	} else {
 		$num_rows = mysql_num_rows($result);
 		if ($num_rows) {
-			print "<center>\n";
 			print "<table border='0' cellpadding='0'";
-			print " cellspacing='0' width='90%'>\n";
+			print " cellspacing='0' width='90%'";
+			print " style=\"margin:0 auto\">\n";
 			print "<tr>";
 			print "<td colspan='2'>";
 			print "<table border='0' cellpadding='0'";
 			print " cellspacing='0' width='100%'>\n";
+			print "<tr>";
 			print "<th class='header'>";
 			print "<span class='f2'>".__("Username")."</span></th>";
 			print "<th class='header'>";
@@ -467,7 +468,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				}
 				print "<tr>";
 				print "<td class='".$c."'>";
-				print "<span class='f5'><a href='packages.php?SeB=m&K=".$row["Username"]."'>".$row["Username"]."</a></span></td>";
+				print "<span class='f5'><a href='packages.php?SeB=m&amp;K=".$row["Username"]."'>".$row["Username"]."</a></span></td>";
 				print "<td class='".$c."'>";
 				print "<span class='f5'>".$row["AccountType"];
 				print "</span></td>";
@@ -495,7 +496,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 					#
 					print "&nbsp;</span></td>";
 				} else {
-					$edit_url = "account.php?Action=DisplayAccount&ID=".$row["ID"];
+					$edit_url = "account.php?Action=DisplayAccount&amp;ID=".$row["ID"];
 					print "<a href='".$edit_url . "'>";
 					print "Edit</a></span></td>";
 				}
@@ -508,39 +509,42 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 			print "<tr>";
 			print "<td align='left'>";
 			print "<form action='account.php' method='post'>\n";
-			print "<input type='hidden' name='Action' value='SearchAccounts'>\n";
+			print "<fieldset>";
+			print "<input type='hidden' name='Action' value='SearchAccounts' />\n";
 			print "<input type='hidden' name='O'";
-			print " value='".($OFFSET-$HITS_PER_PAGE)."'>\n";
+			print " value='".($OFFSET-$HITS_PER_PAGE)."' />\n";
 			reset($search_vars);
 			while (list($k, $ind) = each($search_vars)) {
 				print "<input type='hidden' name='".$ind."'";
-				print " value='".${$ind}."'>\n";
+				print " value='".${$ind}."' />\n";
 			}
 			print "<input type='submit' class='button'";
-			print " value='&lt;-- ".__("Less")."'>";
+			print " value='&lt;-- ".__("Less")."' />";
+			print "</fieldset>";
 			print "</form>\n";
 			print "</td>";
 			print "<td align='right'>";
 			print "<form action='account.php' method='post'>\n";
-			print "<input type='hidden' name='Action' value='SearchAccounts'>\n";
+			print "<fieldset>";
+			print "<input type='hidden' name='Action' value='SearchAccounts' />\n";
 			print "<input type='hidden' name='O'";
-			print " value='".($OFFSET+$HITS_PER_PAGE)."'>\n";
+			print " value='".($OFFSET+$HITS_PER_PAGE)."' />\n";
 			reset($search_vars);
 			while (list($k, $ind) = each($search_vars)) {
 				print "<input type='hidden' name='".$ind."'";
-				print " value='".${$ind}."'>\n";
+				print " value='".${$ind}."' />\n";
 			}
 			print "<input type='submit' class='button'";
-			print " value='".__("More")." --&gt;'>";
+			print " value='".__("More")." --&gt;' />";
+			print "</fieldset>";
 			print "</form>\n";
 			print "</td>";
 			print "</tr>\n";
 			print "</table>\n";
-			print "</center>\n";
 		} else {
-			print "<center>\n";
+			print "<p style=\"text-align:center;\">\n";
 			print __("No more results to display.");
-			print "</center>\n";
+			print "</p>\n";
 		}
 	}
 	return;
@@ -557,8 +561,7 @@ function display_account_info($U="", $T="", $E="", $R="", $I="") {
 
 	global $SUPPORTED_LANGS;
 
-	print "<center>\n";
-	print "<table border='0' cellpadding='0' cellspacing='0' width='33%'>\n";
+	print "<table border='0' cellpadding='0' cellspacing='0' width='33%' style=\"margin:0 auto;\">\n";
 	print "  <tr>\n";
 	print "    <td colspan='2'>&nbsp;</td>\n";
 	print "  </tr>\n";
@@ -578,7 +581,8 @@ function display_account_info($U="", $T="", $E="", $R="", $I="") {
 	} elseif ($T == "Developer") {
 		print __("Developer");
 	}
-	print "</td>\n";
+	print "    </td>\n";
+	print "  </tr>\n";
 
 	print "  <tr>\n";
 	print "    <td align='left'>".__("Email Address").":</td>\n";
@@ -596,11 +600,10 @@ function display_account_info($U="", $T="", $E="", $R="", $I="") {
 	print "  </tr>\n";
 
 	print "  <tr>\n";
-	print "    <td colspan='2'><a href='packages.php?K=".$U."&SeB=m'>".__("View this user's packages")."</a></td>\n";
+	print "    <td colspan='2'><a href='packages.php?K=".$U."&amp;SeB=m'>".__("View this user's packages")."</a></td>\n";
 	print "  </tr>\n";
 
 	print "</table>\n";
-	print "</center>\n";
 	return;
 }
 

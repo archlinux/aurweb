@@ -57,11 +57,11 @@ if (isset($_REQUEST['comment'])) {
 	echo '<b>' . __('Comment has been added.') . '</b>';
 }
 ?>
-	<input type='hidden' name='ID' value="<?php echo $_REQUEST['ID'] ?>">
+	<input type='hidden' name='ID' value="<?php echo $_REQUEST['ID'] ?>" />
 	<?php echo __('Enter your comment below.') ?><br />
-	<textarea name='comment' rows='10' style="width: 100%"></textarea><br />
-	<input type='submit' value="<?php echo __("Submit") ?>">
-	<input type='reset' value="<?php echo __("Reset") ?>">
+	<textarea name='comment' cols='80' rows='10' style="width: 100%"></textarea><br />
+	<input type='submit' value="<?php echo __("Submit") ?>" />
+	<input type='reset' value="<?php echo __("Reset") ?>" />
 	</div>
 	</form>
 </div>

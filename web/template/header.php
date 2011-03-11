@@ -37,8 +37,8 @@
 				<li><a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a></li>
 				<li><a href="http://archlinux.org/mailman/listinfo/aur-general"><?php print __("Discussion"); ?></a></li>
 				<?php if (isset($_COOKIE['AURSID'])): ?>
-					<?php if (check_user_privileges()): ?><li><a href="tu.php"><?php print __("Trusted User"); ?></a><?php endif; ?>
-					<li><a href="packages.php?SeB=m&K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
+					<?php if (check_user_privileges()): ?><li><a href="tu.php"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
+					<li><a href="packages.php?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
 					<li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
 				<?php endif; ?>
 			</ul>
