@@ -29,7 +29,7 @@ else {
 if ($row["SubmitterUID"]) {
 	$submitter = username_from_id($row["SubmitterUID"]);
 	if ($SID) {
-		$submitter = '<a href="account.php?Action=AccountInfo&amp;ID=' . $row['SubmitterUID'] . '">' . $submitter . '</a>';
+		$submitter = '<a href="account.php?Action=AccountInfo&amp;ID=' . htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) . '">' . htmlspecialchars($submitter) . '</a>';
 	}
 
 } else {
@@ -39,7 +39,7 @@ if ($row["SubmitterUID"]) {
 if ($row["MaintainerUID"]) {
 	$maintainer = username_from_id($row["MaintainerUID"]);
 	if ($SID) {
-		$maintainer = '<a href="account.php?Action=AccountInfo&amp;ID=' . $row['MaintainerUID'] . '">' . $maintainer . '</a>';
+		$maintainer = '<a href="account.php?Action=AccountInfo&amp;ID=' . htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) . '">' . htmlspecialchars($maintainer) . '</a>';
 	}
 
 } else {
@@ -66,8 +66,8 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 	<div class="pgboxbody">
 
 	<p>
-	<span class='f2'><?php echo $row['Name'] . ' ' . $row['Version'] ?></span><br />
-	<span class='f3'><a href="<?php echo $row['URL'] . '">' . $row['URL'] ?></a></span><br />
+	<span class='f2'><?php echo htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></span><br />
+	<span class='f3'><a href="<?php echo htmlspecialchars($row['URL'], ENT_QUOTES) . '">' . $row['URL'] ?></a></span><br />
 	<span class='f3'><?php echo htmlspecialchars($row['Description'], ENT_QUOTES); ?></span>
 	</p>
 
@@ -79,7 +79,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 	<span class='f3'><?php echo $votes ?></span>
 	</p>
 
-	<p><span class='f3'><?php echo __('License') . ': ' . $license ?></span></p>
+	<p><span class='f3'><?php echo __('License') . ': ' . htmlspecialchars($license) ?></span></p>
 
 	<p>
 	<span class='f3'>
@@ -161,12 +161,12 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 
 			if (isset($parsed_url['scheme']) || isset($src[1])) {
 				# It is an external source
-				echo "<a href=\"" . (isset($src[1]) ? $src[1] : $src[0]) . "\">{$src[0]}</a><br />\n";
+				echo "<a href=\"" . htmlspecialchars((isset($src[1]) ? $src[1] : $src[0]), ENT_QUOTES) . "\">" . htmlspecialchars($src[0]) . "</a><br />\n";
 			}
 			else {
 				$src = $src[0];
 				# It is presumably an internal source
-				echo "<span class='f8'>$src</span>";
+				echo "<span class='f8'>" . htmlspecialchars($src) . "</span>";
 				echo "<br />\n";
 			}
 		}

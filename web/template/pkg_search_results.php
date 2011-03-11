@@ -56,8 +56,8 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	<?php if ($SID): ?>
 	<td class='<?php print $c ?>'><input type='checkbox' name='IDs[<?php print $row["ID"] ?>]' value='1' /></td>
 	<?php endif; ?>
-	<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print $row["Category"] ?></span></span></td>
-	<td class='<?php print $c ?>'><span class='f4'><a href='packages.php?ID=<?php print $row["ID"] ?>'><span class='black'><?php print $row["Name"] ?> <?php print $row["Version"] ?></span></a></span></td>
+	<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print htmlspecialchars($row["Category"]) ?></span></span></td>
+	<td class='<?php print $c ?>'><span class='f4'><a href='packages.php?ID=<?php print $row["ID"] ?>'><span class='black'><?php print htmlspecialchars($row["Name"]) ?> <?php print htmlspecialchars($row["Version"]) ?></span></a></span></td>
 	<td class='<?php print $c ?>' style="text-align: right"><span class='f5'><span class='blue'><?php print $row["NumVotes"] ?></span></span></td>
 	<?php if ($SID): ?>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'>
@@ -77,7 +77,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 	<?php print htmlspecialchars($row['Description'], ENT_QUOTES); ?></span></span></td>
 	<td class='<?php print $c ?>'><span class='f5'><span class='blue'>
 	<?php if (isset($row["Maintainer"])): ?>
-	<a href='packages.php?K=<?php print $row['Maintainer'] ?>&amp;SeB=m'><?php print $row['Maintainer'] ?></a>
+	<a href='packages.php?K=<?php print htmlspecialchars($row['Maintainer'], ENT_QUOTES) ?>&amp;SeB=m'><?php print htmlspecialchars($row['Maintainer']) ?></a>
 	<?php else: ?>
 	<span style='color: blue; font-style: italic;'><?php print __("orphan") ?></span>
 	<?php endif; ?>
