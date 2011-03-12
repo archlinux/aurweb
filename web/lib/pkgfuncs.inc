@@ -487,7 +487,7 @@ function pkg_search_page($SID="") {
 		}
 	}
 
-	if (isset($_GET["do_Orphans"]) && $_GET["do_Orphans"] == 'Orphans') {
+	if (isset($_GET["do_Orphans"])) {
 		$q_where .= "AND MaintainerUID IS NULL ";
 	}
 
