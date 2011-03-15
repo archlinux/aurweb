@@ -118,7 +118,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 				# $darr[3] is the DepCondition
 				echo " <a href='packages.php?ID=".$darr[0]."'>".$darr[1].$darr[3]."</a>";
 			} else {
-				echo " <a href='http://www.archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a>";
+				echo " <a href='http://www.archlinux.org/packages/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a>";
 			}
 		}
 
@@ -135,7 +135,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 			if ($darr[2] == 0) {
 				echo " <a href='packages.php?ID=".$darr[0]."'>".$darr[1]."</a>";
 			} else {
-				print "<a href='http://www.archlinux.org/packages/search/?q=".$darr[1]."'>".$darr[1]."</a>";
+				print "<a href='http://www.archlinux.org/packages/?q=".$darr[1]."'>".$darr[1]."</a>";
 			}
 		}
 
