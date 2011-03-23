@@ -89,7 +89,7 @@
 						<label><?php print __("Per page"); ?></label>
 						<select name='PP'>
 							<?php
-							$pages = array(25, 50, 75, 100);
+							$pages = array(50, 100, 250);
 							foreach ($pages as $i):
 								if (isset($_REQUEST['PP']) && $_REQUEST['PP'] == $i):
 							?>

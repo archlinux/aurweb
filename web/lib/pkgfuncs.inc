@@ -419,13 +419,13 @@ function pkg_search_page($SID="") {
 
 	if (isset($_GET["PP"])) {
 		$_GET["PP"] = intval($_GET["PP"]);
-		if ($_GET["PP"] < 25)
-			$_GET["PP"] = 25;
-		else if ($_GET["PP"] > 100)
-			$_GET["PP"] = 100;
+		if ($_GET["PP"] < 50)
+			$_GET["PP"] = 50;
+		else if ($_GET["PP"] > 250)
+			$_GET["PP"] = 250;
 	}
 	else {
-		$_GET["PP"] = 25;
+		$_GET["PP"] = 50;
 	}
 
 	// FIXME: pull out DB-related code. all of it.
@@ -560,7 +560,7 @@ function pkg_search_page($SID="") {
 
 	if ($total > 1 || $total == 0) {
 		# calculation of pagination links
-		$per_page = ($_GET['PP'] > 0) ? $_GET['PP'] : 25;
+		$per_page = ($_GET['PP'] > 0) ? $_GET['PP'] : 50;
 		$current = ceil($first / $per_page);
 		$pages = ceil($total / $per_page);
 		$templ_pages = array();
