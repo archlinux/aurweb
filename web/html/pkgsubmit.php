@@ -59,17 +59,28 @@ if ($_COOKIE["AURSID"]):
 
 			# Extract PKGBUILD into a string
 			$pkgbuild_raw = '';
+			$dircount = 0;
 			foreach ($tar->listContent() as $tar_file) {
 				if (preg_match('/^[^\/]+\/PKGBUILD$/', $tar_file['filename'])) {
 					$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
+				}
+				elseif (preg_match('/^[^\/]+\/$/', $tar_file['filename'])) {
+					if (++$dircount > 1) {
+						$error = __("Error - source tarball may not contain more than one directory.");
+						break;
+					}
+				}
+				elseif (preg_match('/^[^\/]+$/', $tar_file['filename'])) {
+					$error = __("Error - source tarball may not contain files outside a directory.");
 					break;
 				}
 				elseif (preg_match('/^[^\/]+\/[^\/]+\//', $tar_file['filename'])) {
-					$error = __("Error - source tarball may not contain subdirectories.");
+					$error = __("Error - source tarball may not contain nested subdirectories.");
+					break;
 				}
 			}
 
-			if (empty($pkgbuild_raw)) {
+			if (!$error && empty($pkgbuild_raw)) {
 				$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
 			}
 		}
