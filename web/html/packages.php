@@ -81,7 +81,12 @@ if (isset($_GET['ID'])) {
 	if (!$_GET['ID'] = intval($_GET['ID'])) {
 		print __("Error trying to retrieve package details.")."<br />\n";
 	} else {
-		package_details($_GET['ID'], $_COOKIE["AURSID"]);
+		if (isset($_COOKIE["AURSID"])) {
+			package_details($_GET['ID'], $_COOKIE["AURSID"]);
+		}
+		else {
+			package_details($_GET['ID'], null);
+		}
 	}
 } else {
 	if (!isset($_GET['K']) && !isset($_GET['SB'])) {
