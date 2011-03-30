@@ -51,8 +51,8 @@
 reset($SUPPORTED_LANGS);
 foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
         print '<a href="'
-                . $_SERVER["PHP_SELF"]."?setlang=$lang\""
-		. " title=\"$lang_name\">"
+		. htmlspecialchars($_SERVER["PHP_SELF"], ENT_QUOTES)
+		."?setlang=$lang\" title=\"$lang_name\">"
 		. strtolower($lang) . "</a>\n";
 }
 ?>
