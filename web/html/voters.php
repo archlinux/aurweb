@@ -13,7 +13,7 @@ function getvotes($pkgid) {
 
 $SID = $_COOKIE['AURSID'];
 
-$pkgid = $_GET['ID'];
+$pkgid = intval($_GET['ID']);
 $votes = getvotes($pkgid);
 $account = account_from_sid($SID);
 
@@ -29,7 +29,7 @@ if ($account == 'Trusted User' || $account == 'Developer') {
 		$username = $row['Username'];
 ?>
 <a href="account.php?Action=AccountInfo&amp;ID=<?php echo $uid ?>">
-<?php echo $username ?></a><br />
+<?php echo htmlspecialchars($username) ?></a><br />
 <?php
 	}
 ?>
