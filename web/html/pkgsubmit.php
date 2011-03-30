@@ -48,7 +48,7 @@ if ($_COOKIE["AURSID"]):
 		}
 
 		# Close file handle before extracting stuff
-		if (is_resource($fh)) {
+		if (isset($fh) && is_resource($fh)) {
 			fclose($fh);
 		}
 
