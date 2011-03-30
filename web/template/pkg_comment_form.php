@@ -50,14 +50,14 @@ if (isset($_REQUEST['comment'])) {
 	# Prompt visitor for comment
 ?>
 <div class="pgbox">
-	<form action='<?php echo $_SERVER['PHP_SELF'] . '?ID=' . $_REQUEST['ID'] ?>' method='post'>
+	<form action='<?php echo $_SERVER['REQUEST_URI'] ?>' method='post'>
 	<div style="padding: 1%">
 <?php
 if (isset($_REQUEST['comment'])) {
 	echo '<b>' . __('Comment has been added.') . '</b>';
 }
 ?>
-	<input type='hidden' name='ID' value="<?php echo $_REQUEST['ID'] ?>" />
+	<input type='hidden' name='ID' value="<?php echo intval($_REQUEST['ID']) ?>" />
 	<?php echo __('Enter your comment below.') ?><br />
 	<textarea name='comment' cols='80' rows='10' style="width: 100%"></textarea><br />
 	<input type='submit' value="<?php echo __("Submit") ?>" />

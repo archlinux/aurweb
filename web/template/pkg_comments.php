@@ -39,7 +39,7 @@ while (list($indx, $carr) = each($comments)) { ?>
 $count = package_comments_count($_GET['ID']);
 if ($count > 10 && !isset($_GET['comments'])) {
 	echo '<div class="pgbox">';
-	echo '<a href="'. $_SERVER['PHP_SELF'] . '?ID=' . $_REQUEST['ID'] . '&comments=all">'. __('Show all %s comments', $count) . '</a>';
+	echo '<a href="'. $_SERVER['REQUEST_URI'] . '&comments=all">'. __('Show all %s comments', $count) . '</a>';
 	echo '</div>';
 }
 ?>
