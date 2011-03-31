@@ -303,11 +303,12 @@ if ($_COOKIE["AURSID"]):
 				# This is an overwrite of an existing package, the database ID
 				# needs to be preserved so that any votes are retained. However,
 				# PackageDepends and PackageSources can be purged.
+				$packageID = $pdata["ID"];
 
 				# Flush out old data that will be replaced with new data
-				$q = "DELETE FROM PackageDepends WHERE PackageID = " . $pdata["ID"];
+				$q = "DELETE FROM PackageDepends WHERE PackageID = " . $packageID;
 				db_query($q, $dbh);
-				$q = "DELETE FROM PackageSources WHERE PackageID = " . $pdata["ID"];
+				$q = "DELETE FROM PackageSources WHERE PackageID = " . $packageID;
 				db_query($q, $dbh);
 
 				# If the package was a dummy, undummy it
@@ -315,7 +316,7 @@ if ($_COOKIE["AURSID"]):
 					$q = sprintf( "UPDATE Packages SET DummyPkg = 0, SubmitterUID = %d, MaintainerUID = %d, SubmittedTS = UNIX_TIMESTAMP() WHERE ID = %d",
 						$uid,
 						$uid,
-						$pdata["ID"]);
+						$packageID);
 
 					db_query($q, $dbh);
 				}
@@ -324,7 +325,7 @@ if ($_COOKIE["AURSID"]):
 				if ($_POST['category'] > 1) {
 					$q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d",
 						mysql_real_escape_string($_REQUEST['category']),
-						$pdata["ID"]);
+						$packageID);
 
 					db_query($q, $dbh);
 				}
@@ -338,40 +339,9 @@ if ($_COOKIE["AURSID"]):
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
 					uid_from_sid($_COOKIE["AURSID"]),
-					$pdata["ID"]);
+					$packageID);
 
 				db_query($q, $dbh);
-
-				# Update package depends
-				$depends = explode(" ", $new_pkgbuild['depends']);
-				foreach ($depends as $dep) {
-					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
-					$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
-					$depcondition = str_replace($deppkgname, "", $dep);
-
-					if ($deppkgname == "#") {
-						break;
-					}
-
-					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
-					$q .= $pdata["ID"] . ", " . $deppkgid . ", '" . mysql_real_escape_string($depcondition) . "')";
-
-					db_query($q, $dbh);
-				}
-
-				# Insert sources
-				$sources = explode(" ", $new_pkgbuild['source']);
-				foreach ($sources as $src) {
-					if ($src != "" ) {
-						$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-						$q .= $pdata["ID"] . ", '" . mysql_real_escape_string($src) . "')";
-						db_query($q, $dbh);
-					}
-				}
-
-				if ($pdata["MaintainerUID"] === NULL) pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($pdata["ID"]));
-
-				header('Location: packages.php?ID=' . $pdata['ID']);
 
 			} else {
 				$uid = uid_from_sid($_COOKIE["AURSID"]);
@@ -388,41 +358,45 @@ if ($_COOKIE["AURSID"]):
 					$uid,
 					$uid);
 
-				$result = db_query($q, $dbh);
+				db_query($q, $dbh);
 				$packageID = mysql_insert_id($dbh);
 
-				# Update package depends
-				$depends = explode(" ", $new_pkgbuild['depends']);
-				foreach ($depends as $dep) {
-					$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
-					$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
-					$depcondition = str_replace($deppkgname, "", $dep);
+			}
 
-					if ($deppkgname == "#") {
-						break;
-					}
+			# Update package depends
+			$depends = explode(" ", $new_pkgbuild['depends']);
+			foreach ($depends as $dep) {
+				$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
+				$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
+				$depcondition = str_replace($deppkgname, "", $dep);
 
-					$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
-					$q .= $packageID . ", " . $deppkgid . ", '" . mysql_real_escape_string($depcondition) . "')";
+				if ($deppkgname == "#") {
+					break;
+				}
 
+				$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
+				$q .= $packageID . ", " . $deppkgid . ", '" . mysql_real_escape_string($depcondition) . "')";
+
+				db_query($q, $dbh);
+			}
+
+			# Insert sources
+			$sources = explode(" ", $new_pkgbuild['source']);
+			foreach ($sources as $src) {
+				if ($src != "" ) {
+					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
+					$q .= $packageID . ", '" . mysql_real_escape_string($src) . "')";
 					db_query($q, $dbh);
 				}
-
-				# Insert sources
-				$sources = explode(" ", $new_pkgbuild['source']);
-				foreach ($sources as $src) {
-					if ($src != "" ) {
-						$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-						$q .= $packageID . ", '" . mysql_real_escape_string($src) . "')";
-						db_query($q, $dbh);
-					}
-				}
-
-				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($packageID));
-
-				header('Location: packages.php?ID=' . $packageID);
-
 			}
+
+			# If we just created this package, or it was an orphan and we
+			# auto-adopted, add submitting user to the notification list.
+			if (!$pdata || $pdata["MaintainerUID"] === NULL) {
+				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($packageID));
+			}
+
+			header('Location: packages.php?ID=' . $packageID);
 		}
 
 		chdir($cwd);
