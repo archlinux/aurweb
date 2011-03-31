@@ -40,7 +40,7 @@ q = dbconnection.cursor()
 
 q.execute("SELECT Packages.Name, Packages.Version, Packages.ID, "
 	"Packages.Description, Users.Username FROM Packages, Users "
-	"WHERE SubmittedTS >= %d AND DummyPkg = 0 AND "
+	"WHERE SubmittedTS >= %d AND "
 	"Packages.SubmitterUID = Users.ID" % starttime)
 
 packages = q.fetchall()

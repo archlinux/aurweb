@@ -331,12 +331,11 @@ function html_footer($ver="") {
 function can_submit_pkg($name="", $sid="") {
 	if (!$name || !$sid) {return 0;}
 	$dbh = db_connect();
-	$q = "SELECT MaintainerUID, DummyPkg ";
+	$q = "SELECT MaintainerUID ";
 	$q.= "FROM Packages WHERE Name = '".mysql_real_escape_string($name)."'";
 	$result = db_query($q, $dbh);
 	if (mysql_num_rows($result) == 0) {return 1;}
 	$row = mysql_fetch_row($result);
-	if ($row[1] == "1") { return 1; }
 	$my_uid = uid_from_sid($sid);
 
 	if ($row[0] === NULL || $row[0] == $my_uid) {

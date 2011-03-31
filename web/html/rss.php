@@ -31,7 +31,6 @@ $rss->image = $image;
 #Get the latest packages and add items for them
 $dbh = db_connect();
 $q = "SELECT * FROM Packages ";
-$q.= "WHERE DummyPkg != 1 ";
 $q.= "ORDER BY SubmittedTS DESC ";
 $q.= "LIMIT 0 , 20";
 $result = db_query($q, $dbh);

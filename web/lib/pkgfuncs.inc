@@ -95,7 +95,6 @@ function package_exists($name="") {
 	$dbh = db_connect();
 	$q = "SELECT ID FROM Packages ";
 	$q.= "WHERE Name = '".mysql_real_escape_string($name)."' ";
-	$q.= "AND DummyPkg = 0";
 	$result = db_query($q, $dbh);
 	if (!$result) {return NULL;}
 	$row = mysql_fetch_row($result);
@@ -109,10 +108,10 @@ function package_dependencies($pkgid=0) {
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
 		$dbh = db_connect();
-		$q = "SELECT DepPkgID, Name, DummyPkg, DepCondition FROM PackageDepends, Packages ";
-		$q.= "WHERE PackageDepends.DepPkgID = Packages.ID ";
-		$q.= "AND PackageDepends.PackageID = ". $pkgid;
-		$q.= " ORDER BY Name";
+		$q = "SELECT pd.DepName, pd.DepCondition, p.ID FROM PackageDepends pd ";
+		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
+		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
+		$q.= "ORDER BY pd.DepName";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
 		while ($row = mysql_fetch_row($result)) {
@@ -122,15 +121,14 @@ function package_dependencies($pkgid=0) {
 	return $deps;
 }
 
-function package_required($pkgid=0) {
+function package_required($name="") {
 	$deps = array();
-	$pkgid = intval($pkgid);
-	if ($pkgid > 0) {
+	if ($name != "") {
 		$dbh = db_connect();
-		$q = "SELECT PackageID, Name, DummyPkg from PackageDepends, Packages ";
-		$q.= "WHERE PackageDepends.PackageID = Packages.ID ";
-		$q.= "AND PackageDepends.DepPkgID = ". $pkgid;
-		$q.= " ORDER BY Name";
+		$q = "SELECT p.Name, PackageID FROM PackageDepends pd ";
+		$q.= "JOIN Packages p ON pd.PackageID = p.ID ";
+		$q.= "WHERE DepName = '".mysql_real_escape_string($name)."' ";
+		$q.= "ORDER BY p.Name";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
 		while ($row = mysql_fetch_row($result)) {
@@ -138,38 +136,6 @@ function package_required($pkgid=0) {
 		}
 	}
 	return $deps;
-}
-
-# create a dummy package and return it's Packages.ID  if it already exists,
-# return the existing ID
-#
-function create_dummy($pname="", $sid="") {
-	if ($pname && $sid) {
-		$uid = uid_from_sid($sid);
-		if (!$uid) {return NULL;}
-		$dbh = db_connect();
-		$q = "SELECT ID FROM Packages WHERE Name = '";
-		$q.= mysql_real_escape_string($pname)."'";
-		$result = db_query($q, $dbh);
-		if (!mysql_num_rows($result)) {
-			# Insert the dummy
-			#
-			$q = "INSERT INTO Packages (Name, Description, URL, SubmittedTS, ";
-			$q.= "SubmitterUID, DummyPkg) VALUES ('";
-			$q.= mysql_real_escape_string($pname)."', 'A dummy package', '/#', ";
-			$q.= "UNIX_TIMESTAMP(), ".$uid.", 1)";
-			$result = db_query($q, $dbh);
-			if (!$result) {
-				return NULL;
-			}
-			return mysql_insert_id($dbh);
-		} else {
-			$data = mysql_fetch_row($result);
-			return $data[0];
-		}
-	}
-	return NULL;
-
 }
 
 # Return the number of comments for a specified package
@@ -458,7 +424,7 @@ function pkg_search_page($SID="") {
 		$q_from_extra = "";
 	}
 
-	$q_where = "WHERE Packages.DummyPkg = 0 ";
+	$q_where = "WHERE 1 = 1 ";
 	// TODO: possibly do string matching on category
 	//       to make request variable values more sensible
 	if (isset($_GET["C"]) && intval($_GET["C"])) {

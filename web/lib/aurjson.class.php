@@ -110,7 +110,7 @@ class AurJSON {
         $keyword_string = addcslashes($keyword_string, '%_');
 
         $query = "SELECT " . implode(',', $this->fields) .
-            " FROM Packages WHERE DummyPkg=0 AND " .
+            " FROM Packages WHERE " .
             "  ( Name LIKE '%{$keyword_string}%' OR " .
             "    Description LIKE '%{$keyword_string}%' )";
         $result = db_query($query, $this->dbh);
@@ -136,7 +136,7 @@ class AurJSON {
      **/
     private function info($pqdata) {
         $base_query = "SELECT " . implode(',', $this->fields) .
-            " FROM Packages WHERE DummyPkg=0 AND ";
+            " FROM Packages WHERE ";
 
         if ( is_numeric($pqdata) ) {
             // just using sprintf to coerce the pqd to an int

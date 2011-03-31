@@ -101,24 +101,22 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 	</p>
 <?php
 
-	# $deps[0] = array('id','name', 'dummy');
 	$deps = package_dependencies($row["ID"]);
-	$requiredby = package_required($row["ID"]);
+	$requiredby = package_required($row["Name"]);
 
 	if (count($deps) > 0 || count($requiredby) > 0) {
 		echo '<p>';
 	}
 
 	if (count($deps) > 0) {
-
 		echo "<span class='boxSoftTitle'><span class='f3'>". __("Dependencies")."</span></span>";
 
 		while (list($k, $darr) = each($deps)) {
-			if ($darr[2] == 0) {
-				# $darr[3] is the DepCondition
-				echo " <a href='packages.php?ID=".$darr[0]."'>".$darr[1].$darr[3]."</a>";
+			# darr: (DepName, DepCondition, PackageID), where ID is NULL if it didn't exist
+			if (!is_null($darr[2])) {
+				echo " <a href='packages.php?ID=".$darr[2]."'>".$darr[0].$darr[1]."</a>";
 			} else {
-				echo " <a href='http://www.archlinux.org/packages/?q=".$darr[1]."'>".$darr[1].$darr[3]."</a>";
+				echo " <a href='http://www.archlinux.org/packages/?q=".$darr[0]."'>".$darr[0].$darr[1]."</a>";
 			}
 		}
 
@@ -128,17 +126,12 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 	}
 
 	if (count($requiredby) > 0) {
-
 		echo "<span class='boxSoftTitle'><span class='f3'>". __("Required by")."</span></span>";
 
 		while (list($k, $darr) = each($requiredby)) {
-			if ($darr[2] == 0) {
-				echo " <a href='packages.php?ID=".$darr[0]."'>".$darr[1]."</a>";
-			} else {
-				print "<a href='http://www.archlinux.org/packages/?q=".$darr[1]."'>".$darr[1]."</a>";
-			}
+			# darr: (PackageName, PackageID)
+			echo " <a href='packages.php?ID=".$darr[1]."'>".$darr[0]."</a>";
 		}
-
 	}
 
 	if (count($deps) > 0 || count($requiredby) > 0) {

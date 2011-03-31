@@ -311,16 +311,6 @@ if ($_COOKIE["AURSID"]):
 				$q = "DELETE FROM PackageSources WHERE PackageID = " . $packageID;
 				db_query($q, $dbh);
 
-				# If the package was a dummy, undummy it
-				if ($pdata['DummyPkg']) {
-					$q = sprintf( "UPDATE Packages SET DummyPkg = 0, SubmitterUID = %d, MaintainerUID = %d, SubmittedTS = UNIX_TIMESTAMP() WHERE ID = %d",
-						$uid,
-						$uid,
-						$packageID);
-
-					db_query($q, $dbh);
-				}
-
 				# If a new category was chosen, change it to that
 				if ($_POST['category'] > 1) {
 					$q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d",
@@ -366,7 +356,6 @@ if ($_COOKIE["AURSID"]):
 			# Update package depends
 			$depends = explode(" ", $new_pkgbuild['depends']);
 			foreach ($depends as $dep) {
-				$q = "INSERT INTO PackageDepends (PackageID, DepPkgID, DepCondition) VALUES (";
 				$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
 				$depcondition = str_replace($deppkgname, "", $dep);
 
@@ -374,8 +363,10 @@ if ($_COOKIE["AURSID"]):
 					break;
 				}
 
-				$deppkgid = create_dummy($deppkgname, $_COOKIE['AURSID']);
-				$q .= $packageID . ", " . $deppkgid . ", '" . mysql_real_escape_string($depcondition) . "')";
+				$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, '%s', '%s')",
+					$packageID,
+					mysql_real_escape_string($deppkgname),
+					mysql_real_escape_string($depcondition));
 
 				db_query($q, $dbh);
 			}

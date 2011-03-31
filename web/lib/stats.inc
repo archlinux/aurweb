@@ -36,7 +36,7 @@ function updates_table($dbh)
 	global $apc_prefix, $apc_ttl;
 	$key = $apc_prefix . 'recent_updates';
 	if(!(EXTENSION_LOADED_APC && ($newest_packages = apc_fetch($key)))) {
-		$q = 'SELECT * FROM Packages WHERE DummyPkg != 1 ORDER BY ModifiedTS DESC LIMIT 0 , 10';
+		$q = 'SELECT * FROM Packages ORDER BY ModifiedTS DESC LIMIT 0 , 10';
 		$result = db_query($q, $dbh);
 
 		$newest_packages = new ArrayObject();
@@ -74,7 +74,7 @@ function general_stats_table($dbh)
 {
 	global $apc_prefix;
 	# AUR statistics
-	$q = "SELECT count(*) FROM Packages WHERE DummyPkg = 0";
+	$q = "SELECT count(*) FROM Packages";
 	$unsupported_count = db_cache_value($q, $dbh, $apc_prefix . 'unsupported_count');
 
 	$q = "SELECT count(*) from Users";
