@@ -36,7 +36,7 @@ function updates_table($dbh)
 	global $apc_prefix, $apc_ttl;
 	$key = $apc_prefix . 'recent_updates';
 	if(!(EXTENSION_LOADED_APC && ($newest_packages = apc_fetch($key)))) {
-		$q = 'SELECT * FROM Packages ORDER BY ModifiedTS DESC LIMIT 0 , 10';
+		$q = 'SELECT * FROM Packages ORDER BY ModifiedTS DESC LIMIT 10';
 		$result = db_query($q, $dbh);
 
 		$newest_packages = new ArrayObject();
@@ -77,6 +77,9 @@ function general_stats_table($dbh)
 	$q = "SELECT count(*) FROM Packages";
 	$unsupported_count = db_cache_value($q, $dbh, $apc_prefix . 'unsupported_count');
 
+	$q = "SELECT count(*) FROM Packages WHERE MaintainerUID IS NULL";
+	$orphan_count = db_cache_value($q, $dbh, $apc_prefix . 'orphan_count');
+
 	$q = "SELECT count(*) from Users";
 	$user_count = db_cache_value($q, $dbh, $apc_prefix . 'user_count');
 
@@ -84,8 +87,19 @@ function general_stats_table($dbh)
 	$tu_count = db_cache_value($q, $dbh, $apc_prefix . 'tu_count');
 
 	$targstamp = intval(strtotime("-7 days"));
-	$q = "SELECT count(*) from Packages WHERE Packages.ModifiedTS >= $targstamp";
+	$yearstamp = intval(strtotime("-1 year"));
+
+	$q = "SELECT count(*) from Packages WHERE Packages.ModifiedTS >= $targstamp AND Packages.ModifiedTS = Packages.SubmittedTS";
+	$add_count = db_cache_value($q, $dbh, $apc_prefix . 'add_count');
+
+	$q = "SELECT count(*) from Packages WHERE Packages.ModifiedTS >= $targstamp AND Packages.ModifiedTS != Packages.SubmittedTS";
 	$update_count = db_cache_value($q, $dbh, $apc_prefix . 'update_count');
+
+	$q = "SELECT count(*) from Packages WHERE Packages.ModifiedTS >= $yearstamp AND Packages.ModifiedTS != Packages.SubmittedTS";
+	$update_year_count = db_cache_value($q, $dbh, $apc_prefix . 'update_year_count');
+
+	$q = "SELECT count(*) from Packages WHERE Packages.ModifiedTS = Packages.SubmittedTS";
+	$never_update_count = db_cache_value($q, $dbh, $apc_prefix . 'never_update_count');
 
 	include('stats/general_stats_table.php');
 }
