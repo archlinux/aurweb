@@ -525,7 +525,7 @@ function pkg_search_page($SID="") {
 		$q_sort = "ORDER BY Maintainer ".$order.", Name ASC ";
 		break;
 	case 'a':
-		$q_sort = "ORDER BY GREATEST(SubmittedTS,ModifiedTS) ".$order.", Name ASC ";
+		$q_sort = "ORDER BY ModifiedTS ".$order.", Name ASC ";
 		break;
 	default:
 		break;

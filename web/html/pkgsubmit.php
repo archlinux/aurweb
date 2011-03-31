@@ -347,7 +347,7 @@ if ($_COOKIE["AURSID"]):
 				$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 				# This is a brand new package
-				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', UNIX_TIMESTAMP(), %d, %d)",
+				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['license']),
 					mysql_real_escape_string($new_pkgbuild['pkgver']),

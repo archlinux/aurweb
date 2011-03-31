@@ -36,7 +36,7 @@ function updates_table($dbh)
 	global $apc_prefix, $apc_ttl;
 	$key = $apc_prefix . 'recent_updates';
 	if(!(EXTENSION_LOADED_APC && ($newest_packages = apc_fetch($key)))) {
-		$q = 'SELECT * FROM Packages WHERE DummyPkg != 1 ORDER BY GREATEST(SubmittedTS,ModifiedTS) DESC LIMIT 0 , 10';
+		$q = 'SELECT * FROM Packages WHERE DummyPkg != 1 ORDER BY ModifiedTS DESC LIMIT 0 , 10';
 		$result = db_query($q, $dbh);
 
 		$newest_packages = new ArrayObject();
@@ -84,7 +84,7 @@ function general_stats_table($dbh)
 	$tu_count = db_cache_value($q, $dbh, $apc_prefix . 'tu_count');
 
 	$targstamp = intval(strtotime("-7 days"));
-	$q = "SELECT count(*) from Packages WHERE (Packages.SubmittedTS >= $targstamp OR Packages.ModifiedTS >= $targstamp)";
+	$q = "SELECT count(*) from Packages WHERE Packages.ModifiedTS >= $targstamp";
 	$update_count = db_cache_value($q, $dbh, $apc_prefix . 'update_count');
 
 	include('stats/general_stats_table.php');

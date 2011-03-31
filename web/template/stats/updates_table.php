@@ -20,12 +20,10 @@
 $mod_int = intval($row["ModifiedTS"]);
 $sub_int = intval($row["SubmittedTS"]);
 
-if ($mod_int != 0):
-  $modstring = gmdate("r", $mod_int);
-elseif ($sub_int != 0):
+if ($mod_int == $sub_int):
   $modstring = '<img src="images/new.gif" alt="New!" /> ' . gmdate("r", $sub_int);
 else:
-  $modstring = '(unknown)';
+  $modstring = gmdate("r", $mod_int);
 endif;
 ?>
 
@@ -36,4 +34,3 @@ endif;
 <?php endforeach; ?>
 
 </table>
-

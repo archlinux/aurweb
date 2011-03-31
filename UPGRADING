@@ -1,6 +1,13 @@
 Upgrading
 =========
 
+From 1.8.1 to X.X.X
+-------------------
+
+1. Update the modified package timestamp for new packages.
+
+UPDATE Packages SET ModifiedTS = SubmittedTS WHERE ModifiedTS = 0;
+
 From 1.8.0 to 1.8.1
 -------------------
 
