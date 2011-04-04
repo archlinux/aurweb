@@ -8,10 +8,8 @@ include_once('pkgfuncs.inc'); # package specific functions
 check_sid();                  # see if they're still logged in
 
 # Set the title to the current query if required
-if (isset($_GET['ID'])) {
-	if ($pkgname = pkgname_from_id($_GET['ID'])) {
-		$title = $pkgname;
-	}
+if (isset($_GET['ID']) && ($pkgname = pkgname_from_id($_GET['ID']))) {
+	$title = $pkgname;
 } else if (!empty($_GET['K'])) {
 	$title = __("Search Criteria") . ": " . $_GET['K'];
 } else {
