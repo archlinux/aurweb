@@ -20,6 +20,9 @@ DELETE FROM Packages WHERE DummyPkg = 1;
 ALTER TABLE Packages DROP COLUMN DummyPkg;
 ----
 
+3. The File_Find PEAR module is no longer required. You can safely uninstall it
+if nothing else depends on it.
+
 From 1.8.0 to 1.8.1
 -------------------
 

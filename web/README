@@ -45,16 +45,16 @@ Setup on Arch Linux:
    If those php extensions are separate packages on your system, install
    them.
 
-   AUR requires PEAR and the File_Find module.
+   AUR requires PEAR and the Archive_Tar module.
    Installing PEAR will vary depending on the system and may already
    be included with PHP. You can also find it in the PHP source
    distribution.
 
    PHP sources: http://www.php.net/downloads.php
-   File_Find PEAR module: http://pear.php.net/package/File_Find
+   Archive_Tar PEAR module: http://pear.php.net/package/Archive_Tar
 
- - Install the File_Find PEAR package:
-   # pear install File_Find
+ - Install the Archive_Tar PEAR package:
+   # pear install Archive_Tar
 
  - Put PEAR in your php include_path in php.ini:
 

@@ -4,7 +4,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 include_once("config.inc");
 
 require_once('Archive/Tar.php');
-require_once('Find.php');
 
 include_once("aur.inc");         # access AUR common functions
 include_once("pkgfuncs.inc");    # package functions
