@@ -251,14 +251,13 @@ function pkgnotify_from_sid($sid="") {
 #
 function pkgname_from_id($pkgid=0) {
 	$pkgid = intval($pkgid);
+	$name = "";
 	if ($pkgid > 0) {
 		$dbh = db_connect();
 		$q = "SELECT Name FROM Packages WHERE ID = " . $pkgid;
 		$result = db_query($q, $dbh);
 		if (mysql_num_rows($result) > 0) {
 			$name = mysql_result($result, 0);
-		} else {
-			$name = "";
 		}
 	}
 	return $name;
