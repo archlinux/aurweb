@@ -43,11 +43,11 @@ $_t["Account Suspended"] = "Compte Suspendu";
 
 $_t["Status"] = "Etat";
 
-$_t["New Package Notify"] = "Annoncer les nouveaux paquets";
+$_t["New Package Notify"] = "Notification de nouveaux paquets";
 
 $_t["IRC Nick"] = "Pseudo IRC";
 
-$_t["Trusted user"] = "Utilisateur de confiance";
+$_t["Trusted user"] = "Utilisateur de confiance (TU)";
 
 $_t["No results matched your search criteria."] = "Aucun résultat ne correspond à vos critères de recherche.";
 
@@ -71,7 +71,7 @@ $_t["View this user's packages"] = "Visualiser les paquets de cet utilisateur.";
 
 $_t["Language"] = "Langue";
 
-$_t["A Trusted User cannot assign Developer status."] = "Un Utilisateur de Confiance ne peut pas assigner le status de Développeur.";
+$_t["A Trusted User cannot assign Developer status."] = "Un Utilisateur de Confiance (TU) ne peut pas assigner le status de Développeur.";
 
 $_t["The address, %h%s%h, is already in use."] = "L'adresse, %h%s%h, est déjà utilisée.";
 
@@ -93,7 +93,7 @@ $_t["Last vote"] = "Dernier vote";
 
 $_t["Suspended"] = "Suspendu";
 
-$_t["Trusted User"] = "Utilisateur de Confiance";
+$_t["Trusted User"] = "Utilisateur de Confiance (TU)";
 
 $_t["Missing User ID"] = "ID d'utilisateur manquant";
 
@@ -159,11 +159,11 @@ $_t["Remember to vote for your favourite packages!"] = "Pensez à voter pour vos
 
 $_t["Error looking up username, %s."] = "Erreur en recherchant l'utilisateur, %s.";
 
-$_t["Packages in unsupported"] = "Paquets dans non supportés";
+$_t["Packages in unsupported"] = "Paquets dans \"unsupported\"";
 
 $_t["The most popular packages will be provided as binary packages in [community]."] = "Les paquets les plus populaires seront mis à disposition sous forme de paquets binaires dans [community].";
 
-$_t["Trusted Users"] = "Utilisateurs de Confiance";
+$_t["Trusted Users"] = "Utilisateurs de Confiance (TU)";
 
 $_t["You must supply a username."] = "Vous devez fournir un nom d'utilisateur.";
 
@@ -171,9 +171,9 @@ $_t["Packages added or updated in the past 7 days"] = "Paquets ajoutés ou mis �
 
 $_t["Email discussion about the AUR takes place on the %sTUR Users List%s."] = "Les discussions par email au sujet d'AUR ont lieu sur la %sliste des Utilisateurs de Confiance%s.";
 
-$_t["Packages in unsupported and flagged as safe"] = "Paquets dans non supportés et marqués comme sains";
+$_t["Packages in unsupported and flagged as safe"] = "Paquets dans \"unsupported\" et étiquetés comme sûrs";
 
-$_t["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Bien que nous ne puissions garantir leur contenu, nous fournissons une %hliste de dépôts d'utilisateurs%h à votre convenance.";
+$_t["Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."] = "Bien que nous ne puissions garantir leur contenu, nous fournissons une %hliste de dépôts d'utilisateurs%h pour votre commodité.";
 
 $_t["Recent Updates"] = "Mises à jour récentes";
 
@@ -183,7 +183,7 @@ $_t["Username:"] = "Nom d'utilisateur:";
 
 $_t["Error trying to generate session id."] = "Erreur en essayant de générer un identifiant de session.";
 
-$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Bienvenue sur AUR ! Lisez, s'il vous plaît, le %hGuide Utilisateur AUR%h et le %hGuide des Utilisateurs de Confiance%h pour plus d'informations.";
+$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Bienvenue sur AUR ! Lisez, s'il vous plaît, le %hGuide Utilisateur AUR%h et le %hGuide des Utilisateurs de Confiance (TU)%h pour plus d'informations.";
 
 $_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Les PKGBUILDs proposés %hdoivent%h se conformer aux %hStandards de l'empaquetage Arch%h sans quoi ils seront supprimés!";
 
@@ -201,7 +201,7 @@ $_t["Logged-in as: %s"] = " Connecté en tant que: %s";
 
 $_t["Incorrect password for username, %s."] = "Mot de passe incorrect pour l'utilisateur, %s.";
 
-$_t["Safe"] = "Sain";
+$_t["Safe"] = "Sûr";
 
 $_t["Out-of-date"] = "Périmé";
 
@@ -257,7 +257,7 @@ $_t["Votes"] = "Votes";
 
 $_t["First Submitted"] = "Première soumission";
 
-$_t["Tarball"] = "Tarball";
+$_t["Tarball"] = "Archive";
 
 $_t["Be careful! The above files may contain malicious code that can damage your system."] = "Attention ! Les fichiers ci-dessus peuvent contenir du code malicieux qui pourrait endommager votre système.";
 
@@ -265,11 +265,11 @@ $_t["Voted"] = "Voté";
 
 $_t["Location"] = "Dépôt";
 
-$_t["Flag Safe"] = "Marquer comme Sain";
+$_t["Flag Safe"] = "Etiqueter comme sûr";
 
-$_t["Unflag Package Safe To Use"] = "Retirer l'étiquette Sain du paquet";
+$_t["Unflag Package Safe To Use"] = "Retirer l'étiquette \"Sûr\" du paquet";
 
-$_t["Unflag Out-of-date"] = "Retirer l'étiquette Périmé";
+$_t["Unflag Out-of-date"] = "Retirer l'étiquette \"Périmé\"";
 
 $_t["Go back to %hpackage details view%h."] = "Retourner à la %hvue des détails du paquet%h.";
 
@@ -281,7 +281,7 @@ $_t["Description"] = "Description";
 
 $_t["My Packages"] = "Mes paquets";
 
-$_t["Safe"] = "Sain";
+$_t["Safe"] = "Sûr";
 
 $_t["You have been successfully logged out."] = "Vous avez été déconnecté avec succès.";
 
@@ -289,7 +289,7 @@ $_t["Ascending"] = "Ascendant";
 
 $_t["Delete comment"] = "Effacer le commentaire";
 
-$_t["No New Comment Notification"] = "Pas d'annonce de nouveau commentaire";
+$_t["No New Comment Notification"] = "Pas de notification de nouveau commentaire";
 
 $_t["Dependencies"] = "Dépendances";
 
@@ -313,11 +313,11 @@ $_t["Name"] = "Nom";
 
 $_t["Last Updated"] = "Dernière mise à jour";
 
-$_t["The above files have been verified (by %s) and are safe to use."] = "Les fichiers ci-dessus ont été vérifiés (par %s) et sont sains.";
+$_t["The above files have been verified (by %s) and are safe to use."] = "Les fichiers ci-dessus ont été vérifiés (par %s) et sont sûrs.";
 
 $_t["Could not retrieve information for the specified user."] = "Impossible de retrouver l'information pour l'utilisateur spécifié.";
 
-$_t["UnNotify"] = "Ne plus annoncer";
+$_t["UnNotify"] = "Ne plus notifier";
 
 $_t["You do not have permission to edit this account."] = "Vous n'avez pas la permission d'éditer ce compte.";
 
@@ -347,7 +347,7 @@ $_t["Add Comment"] = "Ajouter un Commentaire";
 
 $_t["Comment by: %s on %s"] = "Commenté par: %s sur %s";
 
-$_t["Flag Out-of-date"] = "Marquer comme Périmé";
+$_t["Flag Out-of-date"] = "Etiqueter comme périmé";
 
 $_t["You are not allowed to access this area."] = "Vous n'avez pas la permission d'accéder à cet espace.";
 
@@ -355,11 +355,11 @@ $_t["Manage"] = "Gérer";
 
 $_t["Sort by"] = "Trier par";
 
-$_t["Flag Package Safe To Use"] = "Marquer le paquet comme Sain";
+$_t["Flag Package Safe To Use"] = "Etiqueter le paquet comme sûr";
 
 $_t["Actions"] = "Actions";
 
-$_t["Unflag Safe"] = "Retirer l'étiquette Sain";
+$_t["Unflag Safe"] = "Retirer l'étiquette  \"Sûr\"";
 
 $_t["Disown Packages"] = "Abandonner les paquets";
 
@@ -369,7 +369,7 @@ $_t["Yes"] = "Oui";
 
 $_t["Search Criteria"] = "Critères de recherche";
 
-$_t["Notify"] = "Annoncer";
+$_t["Notify"] = "Notifier";
 
 $_t["Go"] = "Aller";
 
@@ -379,7 +379,7 @@ $_t["Go back to %hsearch results%h."] = "Retourner aux %hrésultats de la recher
 
 $_t["Adopt Packages"] = "Adopter des paquets";
 
-$_t["New Comment Notification"] = "Annonce de nouveau commentaire";
+$_t["New Comment Notification"] = "Notification de nouveau commentaire";
 
 $_t["Sort order"] = "Ordre de tri";
 
@@ -405,15 +405,15 @@ $_t["Out of Date"] = "Périmé";
 
 $_t["Required by"] = "Requis par";
 
-$_t["This package has been flagged out of date."] = "Ce paquet a été marqué comme périmé.";
+$_t["This package has been flagged out of date."] = "Ce paquet a été étiqueté comme périmé.";
 
-$_t["Toggle Notify"] = "Annoncer/Ne plus annoncer";
+$_t["Toggle Notify"] = "Notifier/Ne plus notifier";
 
 $_t["Accounts"] = "Comptes";
 
 $_t["Couldn't add to notification list."] = "Impossible d'ajouter aux notifications.";
 
-$_t["You must be logged in before you can flag packages."] = "Vous devez vous identifier avant de pouvoir marquer un paquet.";
+$_t["You must be logged in before you can flag packages."] = "Vous devez vous identifier avant de pouvoir étiquetter un paquet.";
 
 $_t["Your votes have been removed from the selected packages."] = "Vos votes ont été retirés des paquets sélectionnés.";
 
@@ -421,15 +421,15 @@ $_t["The selected packages have been disowned."] = "Les paquets sélectionnés o
 
 $_t["None of the selected packages could be deleted."] = "Aucun des paquets sélectionnés n'a pu être effacé.";
 
-$_t["The selected packages have been unflagged."] = "La marque a été retirée des paquets sélectionnés.";
+$_t["The selected packages have been unflagged."] = "L'étiquette a été retirée des paquets sélectionnés.";
 
-$_t["You must be logged in before you can unflag packages."] = "Vous devez vous identifier pour retirer la marque d'un paquet.";
+$_t["You must be logged in before you can unflag packages."] = "Vous devez vous identifier pour retirer l'étiquette d'un paquet.";
 
 $_t["You did not select any packages to adopt."] = "Vous n'avez pas sélectionné de paquet à adopter.";
 
 $_t["You must be logged in before you can get notifications on comments."] = "Vous devez vous identifier avant de pouvoir recevoir des notifications de commentaires.";
 
-$_t["The selected packages have been flagged out-of-date."] = "Les paquets sélectionnés ont été marqués comme périmés.";
+$_t["The selected packages have been flagged out-of-date."] = "Les paquets sélectionnés ont été étiquetés comme périmés.";
 
 $_t["The selected packages have been deleted."] = "Les paquets sélectionnés ont été supprimés.";
 
@@ -447,7 +447,7 @@ $_t["You did not select any packages to disown."] = "Vous n'avez pas sélectionn
 
 $_t["You must be logged in before you can un-vote for packages."] = "Vous devez vous identifier avant de pouvoir retirer vos votes sur des paquets";
 
-$_t["You did not select any packages to unflag."] = "Vous n'avez sélectionné aucun paquet duquel retirer la marque.";
+$_t["You did not select any packages to unflag."] = "Vous n'avez pas sélectionné de paquet duquel retirer l'étiquette.";
 
 $_t["You did not select any packages to delete."] = "Vous n'avez sélectionné aucun paquet à supprimer.";
 
@@ -455,7 +455,7 @@ $_t["You have been removed from the comment notification list for %s."] = "Vous 
 
 $_t["Your votes have been cast for the selected packages."] = "Vos votes ont été ajoutés aux paquets sélectionnés.";
 
-$_t["You did not select any packages to flag."] = "Vous n'avez sélectionné aucun paquet à marquer.";
+$_t["You did not select any packages to flag."] = "Vous n'avez sélectionné aucun paquet à étiquetter.";
 
 $_t["Home"] = "Accueil";
 
@@ -467,21 +467,21 @@ $_t["None of the selected packages could be deleted."] = "Aucun des paquets sél
 
 $_t["Your votes have been removed from the selected packages."] = "Vos votes ont été retirés des paquets sélectionnés.";
 
-$_t["Couldn't flag package safe."] = "Ce paquet ne peut être marqué comme sain.";
+$_t["Couldn't flag package safe."] = "Ce paquet ne peut être étiqueté comme sûr.";
 
 $_t["You did not select any packages to un-vote for."] = "Vous n'avez sélectionné aucun paquet dont le vote doit être retiré.";
 
-$_t["The selected packages have been unflagged."] = "Les paquets sélectionnés ne sont plus marqués.";
+$_t["The selected packages have been unflagged."] = "Les paquets sélectionnés ne sont plus étiquetés.";
 
 $_t["You did not select any packages to adopt."] = "Vous n'avez pas sélectionné de paquet à adopter.";
 
-$_t["You must be logged in before you can flag packages."] = "Vous devez être authentifié avant de pouvoir marquer des paquets.";
+$_t["You must be logged in before you can flag packages."] = "Vous devez être authentifié avant de pouvoir étiqueter des paquets.";
 
-$_t["You must be logged in before you can get notifications on comments."] = "Vous devez être authentifié avant de pouvoir recevoir des annonces de commentaires.";
+$_t["You must be logged in before you can get notifications on comments."] = "Vous devez être authentifié avant de pouvoir recevoir des notifications de commentaires.";
 
 $_t["You must be logged in before you can vote for packages."] = "Vous devez être authentifié avant de pouvoir voter pour des paquets.";
 
-$_t["The selected packages have been flagged out-of-date."] = "Les paquets sélectionnés ont été marqués comme périmés.";
+$_t["The selected packages have been flagged out-of-date."] = "Les paquets sélectionnés ont été étiquetés comme périmés.";
 
 $_t["The selected packages have been deleted."] = "Les paquets sélectionnés ont été supprimés.";
 
@@ -497,9 +497,9 @@ $_t["You have been removed from the comment notification list."] = "Vous avez é
 
 $_t["Your votes have been cast for the selected packages."] = "Vos votes ont été distribués aux paquets sélectionnés.";
 
-$_t["The selected packages have been unflagged safe."] = "Les paquets sélectionnés ne sont plus marqués comme sains.";
+$_t["The selected packages have been unflagged safe."] = "Les paquets sélectionnés ne sont plus étiquetés comme sûrs.";
 
-$_t["You must be logged in before you can cancel notification on comments."] = "Vous devez être authentifié avant de pouvoir annuler les annonces sur les commentaires.";
+$_t["You must be logged in before you can cancel notification on comments."] = "Vous devez être authentifié avant de pouvoir annuler les notifications sur les commentaires.";
 
 $_t["You must be logged in before you can adopt packages."] = "Vous devez être authentifié avant de pouvoir adopter des paquets.";
 
@@ -509,21 +509,21 @@ $_t["You did not select any packages to disown."] = "Vous n'avez sélectionné a
 
 $_t["You must be logged in before you can un-vote for packages."] = "Vous devez être authentifié avant de pouvoir retiré votre vote sur des paquets.";
 
-$_t["You must be logged in before you can unflag packages."] = "Vous devez être authentifié avant de pouvoir retirer le marquage des paquets.";
+$_t["You must be logged in before you can unflag packages."] = "Vous devez être authentifié avant de pouvoir retirer le étiquetage des paquets.";
 
-$_t["You did not select any packages to unflag."] = "Vous n'avez sélectionné aucun paquet auxquels retirer le marquage.";
+$_t["You did not select any packages to unflag."] = "Vous n'avez sélectionné aucun paquet auxquels retirer le étiquetage.";
 
-$_t["Couldn't unflag package safe."] = "La marque \"Sain\" n'a pu être enlevée du paquet.";
+$_t["Couldn't unflag package safe."] = "L'étiquette \"Sûr\" n'a pu être enlevé du paquet.";
 
 $_t["You did not select any packages to delete."] = "Vous n'avez sélectionné aucun paquet à supprimer.";
 
 $_t["Couldn't add to notification list."] = "Ajout impossible à la liste de notification.";
 
-$_t["You did not select any packages to flag."] = "Vous n'avez sélectionné aucun paquet à marquer.";
+$_t["You did not select any packages to flag."] = "Vous n'avez sélectionné aucun paquet à étiqueter.";
 
 $_t["The selected packages have been disowned."] = "Les paquets sélectionnés ont été abandonnés.";
 
-$_t["The selected packages have been flagged safe."] = "Les paquets sélectionnés ont été marqué comme sains.";
+$_t["The selected packages have been flagged safe."] = "Les paquets sélectionnés ont été étiqueté comme sûrs.";
 
 $_t["Couldn't remove from notification list."] = "Suppression impossible de la liste de notification.";
 
