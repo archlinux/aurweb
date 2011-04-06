@@ -1,0 +1,613 @@
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User Community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with a backslash (\).
+#
+# Czech (česky) translation
+# Translator: Daniel Kozák <kozzi11@gmail.com>
+# Translator: Jaroslav Lichtblau <dragonlord@aur.archlinux.org>
+
+
+msgid "Search by"
+msgstr "Vyhledat dle"
+
+msgid "This package has been flagged out of date."
+msgstr "Balíček byl označen jako zastaralý."
+
+msgid "Voted"
+msgstr "Hlasováno"
+
+msgid "Missing a required field."
+msgstr "Chybí povinný údaj."
+
+msgid "Logged-in as: %s"
+msgstr "Přihlášen jako: %s"
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Chyba při snaze upravit účet, %h%s%h: %s."
+
+msgid "Username does not exist."
+msgstr "Uživatelské jméno neexistuje."
+
+msgid "Tarball"
+msgstr "Tarball"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Může obsahovat pouze jednu tečku, podtržítko nebo spojovník."
+
+msgid "Unflag Out-of-date"
+msgstr "Odebrat příznak zastaralý"
+
+msgid "Missing package ID."
+msgstr "Chybějící ID balíčku."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Nemůžete volit sami pro sebe."
+
+msgid "No results matched your search criteria."
+msgstr "Pro Váš dotaz nebyl nalezen žádný odpovídající výsledek."
+
+msgid "Update"
+msgstr "Aktualizovat"
+
+msgid "Sort order"
+msgstr "Řadit"
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Musíte být přihlášeni, než budete moci upravovat informace o balíčcích."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Vaše hlasování bylo započteno pro vybrané balíčky."
+
+msgid "Package details could not be found."
+msgstr "Detailní informace o balíčku nejsou dostupné."
+
+msgid "change category"
+msgstr "změnit kategorii"
+
+msgid "Error retrieving package list."
+msgstr "Chyba při získávání seznamu balíčků."
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Submitted: %s by %s"
+msgstr "Vloženo: %s od %s"
+
+msgid "string"
+msgstr "řetězec"
+
+msgid "Remember me"
+msgstr "Pamatuj si mě"
+
+msgid "Package category updated."
+msgstr "Kategorie balíčku změněna."
+
+msgid "%s already has proposal running for them."
+msgstr "Pro %s se již hlasuje."
+
+msgid "Error - No file uploaded"
+msgstr "Chyba - soubor nebyl nahrán"
+
+msgid "You did not select any packages to disown."
+msgstr "Nevybrali jste žádný balíček pro odebrání vlastnictví."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "V URL balíčku chybý protokolo (např. http://, ftp://)"
+
+msgid "Votes"
+msgstr "Hlasy"
+
+msgid "Total"
+msgstr "Celkem"
+
+msgid "No more results to display."
+msgstr "Žádné další výsledky."
+
+msgid "Maintainer"
+msgstr "Správce"
+
+msgid "Less"
+msgstr "Méně"
+
+msgid "You are not allowed to access this area."
+msgstr "Zde nemáte povolený přístup."
+
+msgid "Any type"
+msgstr "Jakýkoliv"
+
+msgid "Accounts"
+msgstr "Účet"
+
+msgid "Could not retrieve proposal details."
+msgstr "Nelze obdržet navrhované detaily."
+
+msgid "You do not have permission to edit this account."
+msgstr "Nemáte oprávnění pro úpravu tohoto účtu."
+
+msgid "New Package Notify"
+msgstr "Oznámení o novém balíčku"
+
+msgid "Click on the Home link above to login."
+msgstr "Pro přihlášení použíte odkaz na domácí stránku."
+
+msgid "The email address is invalid."
+msgstr "Vadná emailová adresa."
+
+msgid "Could not change directory to %s."
+msgstr "Nelze se přesunout do adresáře %s."
+
+msgid "None of the selected packages could be deleted."
+msgstr "Žádný z vybraných balíčku nemůže být smazán."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Vaše hlasování bylo odebráno vybraným balíčkům."
+
+msgid "No packages matched your search criteria."
+msgstr "Žádný balíček neodpovídá zadaným kritériím."
+
+msgid "Create"
+msgstr "Vytvořit"
+
+msgid "Start and end with a letter or number"
+msgstr "Začíná a končí písmenem nebo číslicí"
+
+msgid "orphan"
+msgstr "sirotek"
+
+msgid "View this user's packages"
+msgstr "Zobrazit balíčky tohoto uživatele"
+
+msgid "Next"
+msgstr "Další"
+
+msgid "Could not re-tar"
+msgstr "Nelze re-tar"
+
+msgid "You must create an account before you can upload packages."
+msgstr "Před vkládáním balíčků je zapotřebí si založit účet."
+
+msgid "Location"
+msgstr "Umístění"
+
+msgid "Delete comment"
+msgstr "Smazat komentář"
+
+msgid "Account Type"
+msgstr "Typ účtu"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "More"
+msgstr "Více"
+
+msgid "Error retrieving package details."
+msgstr "Došlo k chybě při získávání detailů o balíčku."
+
+msgid "Could not create incoming directory: %s."
+msgstr "Nelze vytvořit příchozí adresář: %s."
+
+msgid "Upload package file"
+msgstr "Nahrát soubor balíčku"
+
+msgid "(defaults to 7 if empty)"
+msgstr "(předvoleno 7 pokud nezadáno)"
+
+msgid "No New Comment Notification"
+msgstr "Žádné nové komentáře"
+
+msgid "Couldn't add to notification list."
+msgstr "Nelze přidat do seznamu upozornění."
+
+msgid "Disown Packages"
+msgstr "Odebrat vlastnictví"
+
+msgid "Advanced"
+msgstr "Rozšířené"
+
+msgid "This vote is still running."
+msgstr "Hlasování stále probíhá."
+
+msgid "Vote ID not valid."
+msgstr "Nesprávné ID hlasování."
+
+msgid "(empty if not applicable)"
+msgstr "(vynechat pokud neni vhodný)"
+
+msgid "Per page"
+msgstr "Na jedné stránce"
+
+msgid "New proposal submitted."
+msgstr "Nový návrh podán."
+
+msgid "Upload"
+msgstr "Nahrát"
+
+msgid "Invalid category ID."
+msgstr "Chybné ID kategorie."
+
+msgid "Go"
+msgstr "Jdi"
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Před hlasováním se musíte přihlásit."
+
+msgid "Use this form to search existing accounts."
+msgstr "Pro vyhledání existujících účtů použíte tento formulář."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Adresa, %h%s%h, je již použita."
+
+msgid "Current Votes"
+msgstr "Současný počet hlasů"
+
+msgid "Select Category"
+msgstr "Vybrat kategorii"
+
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Byli jste odebrání ze seznamu upozornění ohledně %s."
+
+msgid "Unknown file format for uploaded file."
+msgstr "Nahrávaný soubor má neznámý formát."
+
+msgid "Delete Packages"
+msgstr "Smazat balíčky"
+
+msgid "Trusted user"
+msgstr "Důvěryhodný uživatel"
+
+msgid "Back"
+msgstr "Zpět"
+
+msgid "You did not select any packages to flag."
+msgstr "Nezvolili jste žádný balíček k označení."
+
+msgid "All Votes"
+msgstr "Všechny hlasy"
+
+msgid "The selected packages have been disowned."
+msgstr "Vybraným balíčkům bylo odebráno vlastnictví."
+
+msgid "Suspended"
+msgstr "Pozastavený"
+
+msgid "Home"
+msgstr "Domů"
+
+msgid "Yes"
+msgstr "Ano"
+
+msgid "UnFlag Out-of-date"
+msgstr "Odebrat příznak zastaralý"
+
+msgid "Developer"
+msgstr "Vyvojář"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Missing build function in PKGBUILD."
+msgstr "Chybějící funkce pro sestavení v PKGBUILD."
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Před nastavením příznaku balíčků se musíte přihlásit."
+
+msgid "No results found."
+msgstr "Žádné výsledky."
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Discussion"
+msgstr "Diskuze"
+
+msgid "Dependencies"
+msgstr "Závislosti"
+
+msgid "Start"
+msgstr "Začátek"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "You did not select any packages to adopt."
+msgstr "Nevybrali jste žádný balíček k osvojení."
+
+msgid "Length must be at least 1."
+msgstr "Minimální délka musí být 1."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Došlo k chybě při zakládání ůčtu, %h%s%h: %s."
+
+msgid "End"
+msgstr "Konec"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Účet, %h%s%h, byl úspěšně upraven."
+
+msgid "Account Suspended"
+msgstr "Účet pozastaven"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "You must be logged in before you can get notifications on comments."
+msgstr "Musíte být přihlášeni, pokud chcete dostávat upozornění na nové komentáře."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "Ponechte pole pro heslo prázdné pro zachování současného hesla,"
+
+msgid "IRC Nick"
+msgstr "IRC přezdívka"
+
+msgid "The selected packages have been deleted."
+msgstr "Zvolené balíčky byly smazány."
+
+msgid "Normal user"
+msgstr "Obyčejný uživatel"
+
+msgid "This is a %h%s%h problem!"
+msgstr "Toto je %h%s%h problém!"
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Nemáte oprávnění k přepsání balíčku %h%s%h."
+
+msgid "Missing comment ID."
+msgstr "Chybějící ID komentáře."
+
+msgid "Error trying to retrieve package details."
+msgstr "Došlo k chybě při získávání detailů balíčku."
+
+msgid "Proposal cannot be empty."
+msgstr "Návrh nemůže být prázdný."
+
+msgid "User"
+msgstr "Uživatel"
+
+msgid "Package Category"
+msgstr "Kategorie balíčku"
+
+msgid "The selected packages have been adopted."
+msgstr "Zvolené balíčky byly osvojeny."
+
+msgid "Packages"
+msgstr "Balíčky"
+
+msgid "Edit Account"
+msgstr "Upravit účet"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "Orphans"
+msgstr "Sirotci"
+
+msgid "Voting is closed for this proposal."
+msgstr "Toto hlasování již skončilo."
+
+msgid "Bugs"
+msgstr "Chyby"
+
+msgid "Showing results %s - %s of %s"
+msgstr "Zobrazeny výsledky %s - %s z %s"
+
+msgid "Active"
+msgstr "Aktivní"
+
+msgid "You've already voted for this proposal."
+msgstr "Již jste hlasoval."
+
+msgid "Required by"
+msgstr "Vyžadováno"
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Musíte být příhlášeni, abyste mohli odznačit balíčky."
+
+msgid "You did not select any packages to unflag."
+msgstr "Nevybrali jste žádne balíčky k odebrání příznaku."
+
+msgid "You must log in to view user information."
+msgstr "Musíte se přihlásit, pro zobrazení informací o uživateli."
+
+msgid "You did not select any packages to delete."
+msgstr "Nevybrali jste žádné balíčky ke smazání."
+
+msgid "Could not create directory %s."
+msgstr "Nelze vytvořit adresář %s."
+
+msgid "UnNotify"
+msgstr "Neoznamovat"
+
+msgid "Flag Out-of-date"
+msgstr "Označit jako zastaralý"
+
+msgid "The selected packages have been unflagged."
+msgstr "Zvoleným bálíčkům bylo odebráno označení."
+
+msgid "Search Criteria"
+msgstr "Vyhledávací kritéria"
+
+msgid "Notify"
+msgstr "Oznamovat"
+
+msgid "Files"
+msgstr "Soubory"
+
+msgid "Vote"
+msgstr "Hlasovat"
+
+msgid "Adopt Packages"
+msgstr "Osvojit balíček"
+
+msgid "Name"
+msgstr "Název"
+
+msgid "Package Listing"
+msgstr "Výpis balíčků"
+
+msgid "Any"
+msgstr "jakákoliv"
+
+msgid "It must be between %s and %s characters long"
+msgstr "Délka musí být %s až %s znaků"
+
+msgid "Logout"
+msgstr "Odhlásit"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Účet, %h%s%h, byl úspěšně založen."
+
+msgid "Your password must be at least %s characters."
+msgstr "Heslo musí mít nejméně %s znaků."
+
+msgid "Submit"
+msgstr "Odeslat"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Omlouváme se, tento server neumožňuje nahrávání."
+
+msgid "Actions"
+msgstr "Akce"
+
+msgid "Comment has been deleted."
+msgstr "Komentář byl smazán."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Uživatelské jméno, %h%s%h, is already in use."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Nelze obdržet informace pro vybraného uživatele."
+
+msgid "Re-type password"
+msgstr "Heslo znovu"
+
+msgid "Proposal"
+msgstr "Návrh"
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Došlo k chybě při snaze rozbalit archiv - PKGBUILD nenalezen."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Zvoleným balíčkům byl nastaven příznak zastaralé."
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "My Packages"
+msgstr "Moje balíčky"
+
+msgid "You did not select any packages to vote for."
+msgstr "Nezvolili jste žádné balíčky k hlasování."
+
+msgid "Never"
+msgstr "Nikdy"
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Musíte být přihlášeni, pro odebrání vlastnictví u svých balíčků."
+
+msgid "You've found a bug if you see this...."
+msgstr "Narazili jste na chybu, jestli vidíte toto...."
+
+msgid "Last Voted"
+msgstr "Poslední hlasování"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Real Name"
+msgstr "Skutečné jméno"
+
+msgid "Package Details"
+msgstr "Detaily balíčku"
+
+msgid "UnVote"
+msgstr "Odebrat hlas"
+
+msgid "Password fields do not match."
+msgstr "Hesla se neshodují"
+
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+msgid "The username is invalid."
+msgstr "Chybně zadané uživatelské jméno"
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Musíte být přihlášeni, než si budete moci osvojit balíčky."
+
+msgid "Email Address"
+msgstr "Emailová adresa"
+
+msgid "Trusted User"
+msgstr "Důvěryhodný uživatel"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Chybný název: jsou povolena pouze malá písmena."
+
+msgid "Length must be a number."
+msgstr "Délka musí být číslo."
+
+msgid "%s has %s apples."
+msgstr "%s má %s jablek."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Musíte být přihlášeni, než budete moci odebrat hlasování pro balíčky."
+
+msgid "Login"
+msgstr "Přihlašovací jméno"
+
+msgid "Use this form to create an account."
+msgstr "Použíte tento formulář k založení účtu."
+
+msgid "Use this form to update your account."
+msgstr "Použíte tento formulář k editaci svého účtu."
+
+msgid "Abstain"
+msgstr "Zdržet se"
+
+msgid "Could not chmod directory %s."
+msgstr "Nelze změnit oprávnění pro adresář %s."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Nemáte oprávnění pro smazání tohoto komentáře."
+
+msgid "required"
+msgstr "vyžadováno"
+
+msgid "Sort by"
+msgstr "Seřadit dle"
+
+msgid "Submit a proposal to vote on."
+msgstr "Předložit návrh na hlasování."
+
+msgid "Proposal Details"
+msgstr "Detaily návrhu"
+
+msgid "Language is not currently supported."
+msgstr "Jazyk není momentálné podporován."
+
+msgid "Last vote"
+msgstr "Poslední hlasování"
+
+msgid "New Comment Notification"
+msgstr "Oznámení o novém komentáři"
+
+msgid "Missing User ID"
+msgstr "Chybějící Uživateské ID"
+
+msgid "You have been added to the comment notification list for %s."
+msgstr "Byly jste přidáni do seznamu oznámení ohledně %s."
+
+msgid "Select new category"
+msgstr "Zvolit novou kategorii"
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Důvěryhodní uživatelé nemohou přidělit status vývojáře."
+

@@ -1,0 +1,754 @@
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User Community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with a backslash (\).
+#
+# Greek (Ελληνικά) translation
+# Main Translator: Panos Filip <panosfilip@gmail.com>
+# Contributor: artem
+# Contributor: dimpard
+# Contributor: Duryodhana
+# Contributor: gtklocker
+# Contributor: paschalis.m
+# Contributor: ranger
+# Contributor: shadowman
+# Contributor: WAntilles
+# Contributor: Zaxariadis
+
+
+
+msgid "Statistics"
+msgstr "Στατιστικά"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "Θυμηθείτε να ψηφίσετε τα αγαπημένα σας πακέτα!"
+
+msgid "Error looking up username, %s."
+msgstr "Σφάλμα κατα την διάρκεια αναζήτησης ονόματος χρήστη, %s."
+
+msgid "Packages in unsupported"
+msgstr "Μη υποστηριζόμενα πακέτα"
+
+msgid "The most popular packages will be provided as binary packages in [community]."
+msgstr "Τα πιο δημοφιλή πακέτα θα παρέχονται ως binary πακέτα στο [community]."
+
+msgid "Trusted Users"
+msgstr "Trusted Users"
+
+msgid "You must supply a username."
+msgstr "Πρέπει να καταχωρήσετε ένα επώνυμο."
+
+msgid "Packages added or updated in the past 7 days"
+msgstr "Πακέτα που προστέθηκαν ή ανανεώθηκαν τις τελευταίες 7 ημέρες"
+
+msgid "Email discussion about the AUR takes place on the %sTUR Users List%s."
+msgstr "Οι συζητήσεις με e-mail όσον αφορά το AUR λαμβάνουν χώρα στη %sλίστα των Trusted Users%s."
+
+msgid "Packages in unsupported and flagged as safe"
+msgstr "Πακέτα μη-υποστηριζόμενα και χαρακτηρισμένα ως ασφαλή"
+
+msgid "Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."
+msgstr "Αν και δεν μπορούμε να εγγηυθούμε για το περιεχόμενό τους, σας παρέχουμε μία %hλίστα με αποθετήρια χρηστών%h για την ευκολία σας."
+
+msgid "Recent Updates"
+msgstr "Πρόσφατες Ανανεώσεις"
+
+msgid "Your account has been suspended."
+msgstr "Η λειτουργία του λογαριασμού σας έχει ανασταλεί."
+
+msgid "Username:"
+msgstr "Όνομα Χρήστη:"
+
+msgid "Error trying to generate session id."
+msgstr "Σφάλμα κατά τη δημιουργία id της συνόδου."
+
+msgid "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."
+msgstr "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %hOδηγό Χρηστών του AUR%h και τον %hΟδηγό των Trusted Users%h για περισσότερες πληροφορίες."
+
+msgid "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"
+msgstr "Τα προτεινόμενα PKGBUILDs %hπρέπει%h να ακολουθούν τα  %hΠρότυπα δημιουργίας πακέτων του Arch%h αλλιώς θα διαγράφονται!"
+
+msgid "Login"
+msgstr "Συνδεθείτε"
+
+msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
+msgstr "Εάν έχετε προτάσεις για το AUR, παρακαλώ καταθέστε τις στο %hFlyspray%h."
+
+msgid "You must supply a password."
+msgstr "Πρέπει να καταχωρήσετε ένα συνθηματικό."
+
+msgid "Password:"
+msgstr "Συνθηματικό:"
+
+msgid "Registered Users"
+msgstr "Εγγεγραμμένοι Χρήστες"
+
+msgid "Logged-in as: %s"
+msgstr " Συνδεδεμένος ως: %s"
+
+msgid "Incorrect password for username, %s."
+msgstr "Λάθος συνθηματικό για το όνομα χρήστη, %s."
+
+msgid "Safe"
+msgstr "Ασφαλές"
+
+msgid "User Statistics"
+msgstr "Στατιστικά χρηστών"
+
+msgid "DISCLAIMER"
+msgstr "ΑΠΟΠΟΙΗΣΗ ΕΥΘΥΝΗΣ"
+
+msgid "My Statistics"
+msgstr "Τα στατιστικά μου"
+
+msgid "Home"
+msgstr "Λογαριασμός"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "Ορισμένα πακέτα μπορεί να μεταφερθούν ως binaries στο [community]"
+
+msgid "Unsupported packages are user produced content. Any use of the provided files is at your own risk."
+msgstr "Τα προτεινόμενα πακέτα στο \"Unsupported\" είναι περιεχόμενο που παρέχεται απο τους χρήστες. Χρησιμοποιήστε τα με δική σας ευθύνη."
+
+msgid "Search by"
+msgstr "Αναζήτηση κατά"
+
+msgid "This package has been flagged out of date."
+msgstr "Αυτό το πακέτο έχει χαρακτηριστεί παρωχημένο."
+
+msgid "Voted"
+msgstr "Ψηφισμένο"
+
+msgid "Missing a required field."
+msgstr "Λείπει ένα απαραίτητο πεδίο."
+
+msgid "Logged-in as: %s"
+msgstr "Έχετε συνδεθεί ως: %s"
+
+msgid "Voting is closed for this proposal."
+msgstr "Η ψηφοφορία έχει κλείσει για αυτή την πρόταση."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Σφάλμα κατά την τροποποίηση του λογαριασμού, %h%s%h: %s."
+
+msgid "Username does not exist."
+msgstr "Αυτό το όνομα χρήστη δεν υπάρχει."
+
+msgid "Tarball"
+msgstr "Tarball"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Μπορεί να περιλαμβάνει μόνο μία τελεία, κάτω παύλα ή παύλα."
+
+msgid "Unflag Out-of-date"
+msgstr "Δηλώστε το πακέτο Παρωχημένο"
+
+msgid "Missing package ID."
+msgstr "Λείπει το ID (η ταυτότητα) του πακέτου."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Δεν μπορείτε να ψηφίσετε σε μία πρόταση που αφορά εσάς."
+
+msgid "No results matched your search criteria."
+msgstr "Δε βρέθηκε αποτέλεσμα που να ικανοποιεί τα κριτήρια αναζήτησης."
+
+msgid "Update"
+msgstr "Eνημέρωση"
+
+msgid "Sort order"
+msgstr "Σειρά ταξινόμησης"
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις πληροφορίες του πακέτου."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Οι ψήφοι σας προστέθηκαν στα επιλεγμένα πακέτα."
+
+msgid "Package details could not be found."
+msgstr "Οι πληροφορίες του πακέτου δεν μπόρεσαν να βρεθούν."
+
+msgid "change category"
+msgstr "αλλάξτε κατηγορία"
+
+msgid "Error retrieving package list."
+msgstr "Σφάλμα κατά τη λήψη της λίστας πακέτων."
+
+msgid "Reset"
+msgstr "Επαναφορά"
+
+msgid "Submitted: %s by %s"
+msgstr "Υποβλήθηκε: %s από %s"
+
+msgid "string"
+msgstr "ακολουθία χαρακτήρων"
+
+msgid "Remember me"
+msgstr "Θυμήσου με"
+
+msgid "This vote is still running."
+msgstr "Η ψηφοφορία αυτή βρίσκεται ακόμη σε εξέλιξη."
+
+msgid "Package category updated."
+msgstr "Η κατηγορία του πακέτου ανανεώθηκε."
+
+msgid "%s already has proposal running for them."
+msgstr "%s έχει ήδη πρόταση σε εξέλιξη για αυτό το θέμα."
+
+msgid "Error - No file uploaded"
+msgstr "Σφάλμα - Κανένα αρχείο δεν έχει ανεβαστεί"
+
+msgid "You did not select any packages to disown."
+msgstr "Δεν επιλέξατε κάποιο πακέτο για απόρριψη."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου."
+
+msgid "Votes"
+msgstr "Ψήφοι"
+
+msgid "Total"
+msgstr "Σύνολο"
+
+msgid "No more results to display."
+msgstr "Δεν υπάρχουν άλλα αποτελέσματα για να δείτε."
+
+msgid "Maintainer"
+msgstr "Συντηρητής"
+
+msgid "Less"
+msgstr "Λιγότερο"
+
+msgid "You are not allowed to access this area."
+msgstr "Δεν σας επιτρέπεται η πρόσβαση σε αυτήν την περιοχή."
+
+msgid "Any type"
+msgstr "Κάθε είδος"
+
+msgid "Accounts"
+msgstr "Λογαριασμοί"
+
+msgid "Could not retrieve proposal details."
+msgstr "Δεν ήταν δυνατόν να ληφθούν οι λεπτομέρειες της πρότασης."
+
+msgid "You do not have permission to edit this account."
+msgstr "Δεν έχετε την άδεια να επεξεργαστείτε αυτόν τον λογαριασμό."
+
+msgid "New Package Notify"
+msgstr "Ειδοποίηση για νέα πακέτα"
+
+msgid "Click on the Home link above to login."
+msgstr "Κάντε κλικ στο σύνδεσμο Home επάνω για να συνδεθείτε."
+
+msgid "The email address is invalid."
+msgstr "Αυτή η διεύθυνση email δεν είναι έγκυρη."
+
+msgid "Could not change directory to %s."
+msgstr "Δεν είναι δυνατή η αλλαγή καταλόγου σε %s"
+
+msgid "None of the selected packages could be deleted."
+msgstr "Κανένα από τα επιλεγμένα πακέτα δεν είναι δυνατό να σβηστεί."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Οι ψήφοι σας έχουν αφαιρεθεί από τα επιλεγμένα πακέτα."
+
+msgid "No packages matched your search criteria."
+msgstr "Κανένα πακέτο δεν ικανοποιεί τα κριτήρια αναζήτησης σας."
+
+msgid "Create"
+msgstr "Δημιουργήστε"
+
+msgid "Start and end with a letter or number"
+msgstr "Ξεκινήστε και τελειώστε με γράμμα ή αριθμό"
+
+msgid "orphan"
+msgstr "ορφανό"
+
+msgid "View this user's packages"
+msgstr "Δείτε τα πακέτα αυτού του χρήστη"
+
+msgid "Next"
+msgstr "Επόμενο"
+
+msgid "Could not re-tar"
+msgstr "Αποτυχία κατά την επανασυμπίεση"
+
+msgid "You must create an account before you can upload packages."
+msgstr "Πρέπει να δημιουργήσετε ένα λογαριασμό για να ανεβάσετε πακέτα."
+
+msgid "Location"
+msgstr "Τοποθεσία"
+
+msgid "Delete comment"
+msgstr "Διαγράψτε το σχόλιο"
+
+msgid "Account Type"
+msgstr "Είδος λογαριασμού"
+
+msgid "Type"
+msgstr "Είδος"
+
+msgid "More"
+msgstr "Περισσότερα"
+
+msgid "Error retrieving package details."
+msgstr "Σφάλμα κατά τη διάρκεια φόρτωσης των πληροφοριών του πακέτου."
+
+msgid "Could not create incoming directory: %s."
+msgstr "Δεν ήταν δυνατή η δημιουργία κατάλογου εισερχομένων: %s.."
+
+msgid "Upload package file"
+msgstr "Ανεβάστε το αρχείο του πακέτου"
+
+msgid "(defaults to 7 if empty)"
+msgstr "(7 από προεπιλογή εάν είναι άδειο)"
+
+msgid "No New Comment Notification"
+msgstr "Ακύρωση Ειδοποίησης Για Νέα Πακέτα"
+
+msgid "Couldn't add to notification list."
+msgstr "Δεν ήταν δυνατή η προσθήκη του στη λίστα ειδοποίησης."
+
+msgid "Disown Packages"
+msgstr "Aποδεσμεύστε Πακέτα"
+
+msgid "Advanced"
+msgstr "Σύνθετη αναζήτηση"
+
+msgid "Files"
+msgstr "Αρχεία"
+
+msgid "Vote ID not valid."
+msgstr "Το ID της ψήφου δεν είναι έγκυρο."
+
+msgid "(empty if not applicable)"
+msgstr "(κενό εάν δεν είναι εφαρμόσιμο)"
+
+msgid "Per page"
+msgstr "Ανά σελίδα"
+
+msgid "New proposal submitted."
+msgstr "Υποβλήθηκε νέα πρόταση."
+
+msgid "Upload"
+msgstr "Ανέβασε"
+
+msgid "Invalid category ID."
+msgstr "Μη έγκυρο ID κατηγορίας."
+
+msgid "Go"
+msgstr "Πήγαινε"
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ψηφίσετε για πακέτα."
+
+msgid "Use this form to search existing accounts."
+msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε για υπάρχοντες λογαριασμούς."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Η διεύθυνση, , %h%s%h, χρησιμοποιείται ήδη."
+
+msgid "Current Votes"
+msgstr "Τρέχουσες ψήφοι"
+
+msgid "Select Category"
+msgstr "Επιλέξτε κατηγορία"
+
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Έχετε αφαιρεθεί από τη λίστα ειδοποίησης σχολίων για το %s."
+
+msgid "Unknown file format for uploaded file."
+msgstr "Άγνωστο είδος ανεβασμένου αρχείου."
+
+msgid "Delete Packages"
+msgstr "Διαγράψτε Πακέτα"
+
+msgid "Trusted user"
+msgstr "Αξιόπιστος χρήστης"
+
+msgid "Back"
+msgstr "Πίσω"
+
+msgid "You did not select any packages to flag."
+msgstr "Δεν επιλέξατε κάποιο πακέτο για επισήμανση."
+
+msgid "All Votes"
+msgstr "Όλες οι Ψήφοι"
+
+msgid "The selected packages have been disowned."
+msgstr "Τα επιλεγμένα πακέτα έχουν αποδεσμευθεί."
+
+msgid "Suspended"
+msgstr "Έχει ανασταλεί"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Yes"
+msgstr "Ναι"
+
+msgid "UnFlag Out-of-date"
+msgstr "Αποχαρακτηρίστε ως Παρωχημένο"
+
+msgid "Developer"
+msgstr "Developer"
+
+msgid "Category"
+msgstr "Κατηγορία"
+
+msgid "Missing build function in PKGBUILD."
+msgstr "Λείπει το function build στο PKGBUILD."
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Πρέπει να έχετε συνδεθεί για να επισημάνετε τα πακέτα."
+
+msgid "No results found."
+msgstr "Κανένα αποτέλεσμα δεν βρέθηκε."
+
+msgid "No"
+msgstr "Όχι"
+
+msgid "Discussion"
+msgstr "Συζήτηση"
+
+msgid "Dependencies"
+msgstr "Εξαρτήσεις"
+
+msgid "Start"
+msgstr "Ξεκινήστε"
+
+msgid "Add"
+msgstr "Προσθέστε"
+
+msgid "You did not select any packages to adopt."
+msgstr "Δεν επιλέξατε κανένα πακέτο για να υιοθετήσετε."
+
+msgid "Length must be at least 1."
+msgstr "Το μήκος πρέπει να είναι τουλάχιστον 1."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Σφάλμα κατα τη διάρκεια δημιουργίας του λογαριασμού, %h%s%h: %s."
+
+msgid "End"
+msgstr "Τέλος"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Ο λογαριασμός, %h%s%h, τροποποιήθηκε με επιτυχία."
+
+msgid "Account Suspended"
+msgstr "Ο Λογαριασμός έχει Ανασταλεί."
+
+msgid "Status"
+msgstr "Κατάσταση"
+
+msgid "You must be logged in before you can get notifications on comments."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να λάβετε ειδοποιήσεις για σχόλια."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "Αφήστε τα πεδία για τον κωδικό σας κενά για να κρατήσετε το ίδιο κωδικό."
+
+msgid "IRC Nick"
+msgstr "Ψευδώνυμο IRC"
+
+msgid "The selected packages have been deleted."
+msgstr "Tα επιλεγμένα πακέτα έχουν διαγραφεί."
+
+msgid "Normal user"
+msgstr "Απλός χρήστης"
+
+msgid "This is a %h%s%h problem!"
+msgstr "Αυτό είναι ένα %h%s%h πρόβλημα!"
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Δεν επιτρέπεται να επικαλύψετε το %h%s%h πακέτο."
+
+msgid "Missing comment ID."
+msgstr "Λείπει το ID του σχολίου."
+
+msgid "Error trying to retrieve package details."
+msgstr "Σφάλμα στη διαδικασία λήψης των πληροφοριών του πακέτου."
+
+msgid "Proposal cannot be empty."
+msgstr "Η πρόταση δεν μπορεί να είναι κενή."
+
+msgid "User"
+msgstr "Χρήστης"
+
+msgid "Package Category"
+msgstr "Κατηγορία Πακέτου"
+
+msgid "The selected packages have been adopted."
+msgstr "Τα επιλεγμένα πακέτα έχουν υιοθετηθεί."
+
+msgid "Packages"
+msgstr "Πακέτα"
+
+msgid "Edit Account"
+msgstr "Τροποποίηση Λογαριασμού"
+
+msgid "Search"
+msgstr "Αναζήτηση"
+
+msgid "Language"
+msgstr "Γλώσσα"
+
+msgid "Orphans"
+msgstr "Ορφανά"
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Δεν ήταν δυνατή η λήψη πληροφοριών για αυτόν τον χρήστη."
+
+msgid "Bugs"
+msgstr "Bugs"
+
+msgid "Showing results %s - %s of %s"
+msgstr "Εμφάνιση αποτελεσμάτων %s - %s από %s"
+
+msgid "Active"
+msgstr "Ενεργός"
+
+msgid "You've already voted for this proposal."
+msgstr "Έχετε ήδη ψηφίσει για αυτή τη πρόταση."
+
+msgid "Required by"
+msgstr "Απαιτείται από"
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να αποχαρακτηρίσετε πακέτα."
+
+msgid "You did not select any packages to unflag."
+msgstr "Δεν επιλέξατε κάποιο πακέτο για να αποχαρακτηρίσετε."
+
+msgid "You must log in to view user information."
+msgstr "Πρέπει να συνδεθείτε για να δείτε πληροφορίες χρήστη."
+
+msgid "You did not select any packages to delete."
+msgstr "Δεν επιλέξατε κάποιο πακέτο για να διαγράψετε."
+
+msgid "Could not create directory %s."
+msgstr "Aποτυχία κατά τη δημιουργία του καταλόγου %s."
+
+msgid "UnNotify"
+msgstr "Διακοπή Ειδοποίησης"
+
+msgid "Flag Out-of-date"
+msgstr "Επισημάνετε ως Παρωχημένο"
+
+msgid "The selected packages have been unflagged."
+msgstr "Τα συγκεκριμένα πακέτα έχουν αποεπισημανθεί."
+
+msgid "Search Criteria"
+msgstr "Κριτήρια Αναζήτησης"
+
+msgid "Notify"
+msgstr "Ειδοποίηση"
+
+msgid "Vote"
+msgstr "Ψηφίστε"
+
+msgid "Adopt Packages"
+msgstr "Υιοθετήστε Πακέτα"
+
+msgid "Name"
+msgstr "Όνομα"
+
+msgid "Package Listing"
+msgstr "Λίστα Πακέτων"
+
+msgid "Any"
+msgstr "Οποιοδήποτε"
+
+msgid "It must be between %s and %s characters long"
+msgstr "Πρέπει να αποτελείται από %s έως %s χαρακτήρες"
+
+msgid "Logout"
+msgstr "Αποσύνδεση"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Ο λογαριασμός, %h%s%h, δημιουργήθηκε με επιτυχία."
+
+msgid "Your password must be at least %s characters."
+msgstr "Ο κωδικός πρέπει να αποτελείται τουλάχιστον %s χαρακτήρες."
+
+msgid "Submit"
+msgstr "Υποβολή"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Συγγνώμη, αυτός ο server δεν επιτρέπει το ανέβασμα αρχείων.."
+
+msgid "Actions"
+msgstr "Ενέργειες"
+
+msgid "Comment has been deleted."
+msgstr "Το σχόλιο έχει διαγραφεί."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Το όνομα χρήστη, %h%s%h, χρησιμοποιείται ήδη."
+
+msgid "Proposal"
+msgstr "Πρόταση"
+
+msgid "Re-type password"
+msgstr "Πληκτρολογήστε ξανά τον κωδικό σας."
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Σφάλμα κατά το ξεπακετάρισμα του ανεβασμένου αρχείου - δεν υπάρχει PKGBUILD."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Τα συγκεκριμένα πακέτα έχουν επισημανθεί ως παρωχημένα."
+
+msgid "Description"
+msgstr "Περιγραφή"
+
+msgid "My Packages"
+msgstr "Τα πακέτα μου"
+
+msgid "You did not select any packages to vote for."
+msgstr "Δεν επιλέξατε κάποιο πακέτο για να το ψηφίσετε."
+
+msgid "Never"
+msgstr "Ποτέ"
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να αποδεσμεύσετε πακέτα."
+
+msgid "You've found a bug if you see this...."
+msgstr "Για να βλέπετε αυτό, σημαίνει ότι ανακαλύψατε ένα bug...."
+
+msgid "Last Voted"
+msgstr "Πιο Πρόσφατα Ψηφισμένο"
+
+msgid "Password"
+msgstr "Κωδικός"
+
+msgid "Real Name"
+msgstr "Πραγματικό 'Ονομα"
+
+msgid "Package Details"
+msgstr "Πληροφορίες Πακέτου"
+
+msgid "UnVote"
+msgstr "Αναίρεση ψήφου"
+
+msgid "Password fields do not match."
+msgstr "Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν είναι ίδιες."
+
+msgid "Username"
+msgstr "Όνομα χρήστη"
+
+msgid "The username is invalid."
+msgstr "Το όνομα χρήστη δεν είναι έγκυρο."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να υιοθετήσετε πακέτα."
+
+msgid "Email Address"
+msgstr "Διεύθυνση email"
+
+msgid "Trusted User"
+msgstr "Trusted User"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Μη έγκυρο όνομα: μόνο πεζοί χαρακτήρες επιτρέπονται."
+
+msgid "Length must be a number."
+msgstr "Το μήκος πρέπει να είναι αριθμός."
+
+msgid "%s has %s apples."
+msgstr "%s έχει %s μήλα."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για πακέτα."
+
+msgid "Login"
+msgstr "Σύνδεση"
+
+msgid "Use this form to create an account."
+msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να δημιουργήσετε λογαριασμό."
+
+msgid "Use this form to update your account."
+msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να ανανεώσετε το λογαριασμό σας."
+
+msgid "Abstain"
+msgstr "Απέχουν"
+
+msgid "Could not chmod directory %s."
+msgstr "Δεν ήταν δυνατή η αλλαγή δικαιωμάτων (chmod) στον κατάλογο %s."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Δεν σας επιτρέπεται να διαγράψετε αυτό το σχόλιο."
+
+msgid "required"
+msgstr "απαιτούμενο"
+
+msgid "Sort by"
+msgstr "Ταξινόμηση κατά"
+
+msgid "Submit a proposal to vote on."
+msgstr "Υποβάλετε μία πρόταση προς ψήφιση."
+
+msgid "Proposal Details"
+msgstr "Πληροφορίες Πρότασης"
+
+msgid "Language is not currently supported."
+msgstr "Η γλώσσα αυτή δεν υποστηρίζεται ακόμη."
+
+msgid "Last vote"
+msgstr "Τελευταία ψήφος"
+
+msgid "New Comment Notification"
+msgstr "Ειδοποίηση για νέα σχόλια"
+
+msgid "Missing User ID"
+msgstr "Λείπει το ID Χρήστη"
+
+msgid "You have been added to the comment notification list for %s."
+msgstr "Έχετε προστεθεί στη λίστα ειδοποίησης σχολίων για το %s."
+
+msgid "Select new category"
+msgstr "Επιλογή νέας κατηγορίας"
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Ένας Trusted User δεν μπορεί να αποδώσει στοιχεία Developer."
+
+msgid "Confirm your e-mail address:"
+msgstr "Παρακαλώ επιβεβαιώστε την διεύθυνση e-mail σας:"
+
+msgid "Enter your new password:"
+msgstr "Εισάγετε νέο κωδικό"
+
+msgid "This is a %hmajor%h problem!"
+msgstr "Αυτό είναι ενα %hμεγάλο%h πρόβλημα!"
+
+msgid "Confirm"
+msgstr "Επιβεβαιώστε"
+
+msgid "Upload your source packages here. Create source packages with `makepkg --source`."
+msgstr "Ανεβάστε τα πηγαία πακέτα εδώ. Δημιουργήστε πηγαία πακέτα με την εντολή `makepkg --source`"
+
+msgid "Password Reset"
+msgstr "Επαναφορά Κωδικού"
+
+msgid "The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι επιβεβαίωσης."
+
+msgid "Enter your e-mail address:"
+msgstr "Εισάγετε την διεύθυνση e-mail σας:"
+
+msgid "Confirm your new password:"
+msgstr "Επιβεβαιώστε το νέο σας συνθηματικό:"
+
+msgid "Add Proposal"
+msgstr "Προσθέστε Πρόταση"
+
+msgid "Ascending"
+msgstr "Αύξουσα"
+
+msgid "Descending"
+msgstr "Φθίνουσα"
+
+msgid "Out of Date"
+msgstr "Παρωχημένο"
+

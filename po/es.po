@@ -1,0 +1,790 @@
+# Spanish (Español) translation
+# Translator: Víctor Martínez Romanos <vmromanos@gmail.com>
+
+
+msgid "Use this form to update your account."
+msgstr "Use este formulario para actualizar su cuenta."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "Deje en blanco los campos de la contraseña para conservarla."
+
+msgid "You are not allowed to access this area."
+msgstr "No está autorizado a acceder a esta área."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "No se pudo obtener la información del usuario especificado."
+
+msgid "Use this form to search existing accounts."
+msgstr "Use este formulario para buscar cuentas existentes."
+
+msgid "You do not have permission to edit this account."
+msgstr "No tiene permiso para editar esta cuenta."
+
+msgid "Use this form to create an account."
+msgstr "Use este formulario para crear una cuenta."
+
+msgid "You must log in to view user information."
+msgstr "Debe identificarse para ver la información del usuario."
+
+
+
+msgid "Missing a required field."
+msgstr "Falta un campo obligatorio."
+
+msgid "Search"
+msgstr "Buscar'"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "La cuenta, %h%s%h, se creó correctamente."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Error al intentar modificar la cuenta, %h%s%h: %s."
+
+msgid "The email address is invalid."
+msgstr "La dirección de email no es válida."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Error al intentar crear la cuenta, %h%s%h: %s."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "El nombre de usuario, %h%s%h, ya está en uso."
+
+msgid "Account Type"
+msgstr "Tipo de cuenta"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "La cuenta, %h%s%h, se ha modificado correctamente."
+
+msgid "Account Suspended"
+msgstr "Cuenta suspendida"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "New Package Notify"
+msgstr "Aviso de nuevos paquetes"
+
+msgid "IRC Nick"
+msgstr "Nick del IRC"
+
+msgid "Trusted user"
+msgstr "Usuario de confianza"
+
+msgid "No results matched your search criteria."
+msgstr "No se encontraron resultados que coincidan con su criterio de búsqueda."
+
+msgid "Normal user"
+msgstr "Usuario normal"
+
+msgid "Never"
+msgstr "Nunca"
+
+msgid "User"
+msgstr "Usuario"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Last Voted"
+msgstr "Último voto"
+
+msgid "Real Name"
+msgstr "Nombre real"
+
+msgid "Edit Account"
+msgstr "Editar cuenta"
+
+msgid "Password fields do not match."
+msgstr "Los campos de la contraseña no coinciden."
+
+msgid "View this user's packages"
+msgstr "Ver los paquetes de este usuario"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Un usuario de confianza no puede asignar el estado de desarrollador."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "La dirección, %h%s%h, ya está en uso."
+
+msgid "No more results to display."
+msgstr "No hay más resultados que mostrar."
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Click on the Home link above to login."
+msgstr "Pulse en el enlace Inicio situado en la parte superior para identificarse."
+
+msgid "Sort by"
+msgstr "Ordenar por"
+
+msgid "Re-type password"
+msgstr "Reescriba la contraseña"
+
+msgid "Language is not currently supported."
+msgstr "El idioma no está soportado actualmente."
+
+msgid "Any type"
+msgstr "Cualquier tipo"
+
+msgid "Last vote"
+msgstr "Último voto"
+
+msgid "Suspended"
+msgstr "Suspendido"
+
+msgid "Trusted User"
+msgstr "Usuario de Confianza"
+
+msgid "Missing User ID"
+msgstr "Falta el identificador de usuario"
+
+msgid "Developer"
+msgstr "Desarrollador"
+
+
+
+msgid "%s: %sAn ArchLinux project%s"
+msgstr "%s: %sUn proyecto de ArchLinux%s"
+
+msgid "Logout"
+msgstr "Salir"
+
+msgid "Discussion"
+msgstr "Debate"
+
+msgid "Bugs"
+msgstr "Bugs"
+
+msgid "Accounts"
+msgstr "Cuentas"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "Packages"
+msgstr "Paquetes"
+
+msgid "My Packages"
+msgstr "Mis paquetes"
+
+
+
+msgid "Reset"
+msgstr "Limpiar"
+
+msgid "Username"
+msgstr "Nombre de usuario"
+
+msgid "Email Address"
+msgstr "Dirección de email"
+
+msgid "Less"
+msgstr "Menos"
+
+msgid "Clear"
+msgstr "Limpiar"
+
+msgid "required"
+msgstr "obligatorio"
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Submit"
+msgstr "Enviar"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "More"
+msgstr "Más"
+
+
+
+msgid "Statistics"
+msgstr "Estadísticas"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "¡Recuerde votar sus paquetes favoritos!"
+
+msgid "Error looking up username, %s."
+msgstr "Error al buscar el usuario, %s."
+
+msgid "Packages in unsupported"
+msgstr "Paquetes en [unsupported]"
+
+msgid "The most popular packages will be provided as binary packages in [community]."
+msgstr "Los paquetes más populares se distribuirán como paquetes binarios en [community]."
+
+msgid "Trusted Users"
+msgstr "Usuarios de Confianza"
+
+msgid "You must supply a username."
+msgstr "Debe proporcionar un nombre de usuario."
+
+msgid "Packages added or updated in the past 7 days"
+msgstr "Paquetes añadidos o actualizados en los últimos 7 días"
+
+msgid "Email discussion about the AUR takes place on the %sTUR Users List%s."
+msgstr "Los debates sobre el AUR tienen lugar en la %sLista de correo de los Usuarios TUR%s."
+
+msgid "Packages in unsupported and flagged as safe"
+msgstr "Paquetes en [unsupported] y marcados como seguros"
+
+msgid "Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."
+msgstr "Aunque no podemos responder por sus contenidos, suministramos para su comodidad una %hlista de repositorios de usuarios%h."
+
+msgid "Recent Updates"
+msgstr "Actualizaciones recientes"
+
+msgid "Your account has been suspended."
+msgstr "Su cuenta ha sido suspendida."
+
+msgid "Username:"
+msgstr "Nombre de usuario:"
+
+msgid "Error trying to generate session id."
+msgstr "Error al intentar crear un identificador de sesión."
+
+msgid "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."
+msgstr "¡Bienvenido al AUR! Por favor lea la %hGuía AUR del Usuario%h y la %hGuía TU del AUR%h para más información."
+
+msgid "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"
+msgstr "¡Los PKGBUILDS enviados %hdeben%h cumplir las %hNormas de empaquetado de Arch%h sino serán eliminados!"
+
+msgid "Login"
+msgstr "Entrar"
+
+msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
+msgstr "Si tiene algún comentario sobre el AUR, por favor déjelo en el %hFlyspray%h."
+
+msgid "You must supply a password."
+msgstr "Debe suministrar una contraseña."
+
+msgid "Password:"
+msgstr "Contraseña:"
+
+msgid "Registered Users"
+msgstr "Usuarios Registrados"
+
+msgid "Logged-in as: %s"
+msgstr "Identificado como: %s"
+
+msgid "Incorrect password for username, %s."
+msgstr "Contraseña incorrecta para el usuario, %s."
+
+msgid "Safe"
+msgstr "Seguros"
+
+msgid "Out-of-date"
+msgstr "Desactualizados"
+
+msgid "User Statistics"
+msgstr "Estadísticas del Usuario"
+
+
+
+msgid "You have been successfully logged out."
+msgstr "Ha abandonado la sesión correctamente."
+
+
+
+msgid "Missing package ID."
+msgstr "Falta el identificador del paquete."
+
+msgid "Invalid category ID."
+msgstr "El identificador de la categoría no es válido."
+
+msgid "Enter your comment below."
+msgstr "Introduzca su comentario a continuación."
+
+msgid "You are not allowed to delete this comment."
+msgstr "No está autorizado a borrar este comentario."
+
+msgid "Missing comment ID."
+msgstr "Falta el identificador del comentario."
+
+msgid "Package category updated."
+msgstr "Se ha actualizado la categoría del paquete."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Debe identificarse antes de editar la información del paquete."
+
+msgid "Comment has been deleted."
+msgstr "Comentario borrado."
+
+msgid "You've found a bug if you see this...."
+msgstr "Si ve esto es que ha encontrado un bug...."
+
+msgid "Comment has been added."
+msgstr "Se ha añadido el comentario."
+
+msgid "Select new category"
+msgstr "Seleccione una nueva categoría"
+
+
+
+msgid "Category"
+msgstr "Categoría"
+
+msgid "Search by"
+msgstr "Buscar por"
+
+msgid "Delete comment"
+msgstr "Borrar comentario"
+
+msgid "Votes"
+msgstr "Votos"
+
+msgid "First Submitted"
+msgstr "Primer envío"
+
+msgid "Tarball"
+msgstr "Archivo TAR"
+
+msgid "Be careful! The above files may contain malicious code that can damage your system."
+msgstr "¡Tenga cuidado! Los siguientes ficheros pueden contenter código malévolo que podría dañar su sistema."
+
+msgid "Voted"
+msgstr "Votado"
+
+msgid "Location"
+msgstr "Ubicación"
+
+msgid "Flag Safe"
+msgstr "Marcar como seguro"
+
+msgid "Go"
+msgstr "Ir"
+
+msgid "Unflag Out-of-date"
+msgstr "Desmarcar Desactualizado"
+
+msgid "Go back to %hpackage details view%h."
+msgstr "Volver a la %hvista detallada del paquete%h."
+
+msgid "Error retrieving package details."
+msgstr "Error al recuperar los detalles del paquete."
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "My Packages"
+msgstr "Mis paquetes"
+
+msgid "Safe"
+msgstr "Seguros"
+
+msgid "Sort order"
+msgstr "Ordenar en sentido"
+
+msgid "Ascending"
+msgstr "Ascendente"
+
+msgid "Keywords"
+msgstr "Palabras clave"
+
+msgid "No New Comment Notification"
+msgstr "Ninguna notificación de nuevo comentario"
+
+msgid "Dependencies"
+msgstr "Dependencias"
+
+msgid "Descending"
+msgstr "Descendente"
+
+msgid "Per page"
+msgstr "Por página"
+
+msgid "Package Listing"
+msgstr "Lista de paquetes"
+
+msgid "Package details could not be found."
+msgstr "Los detalles del paquete no se han podido encontrar."
+
+msgid "Package Details"
+msgstr "Detalles del paquete"
+
+msgid "Error retrieving package list."
+msgstr "Error al recuperar la lista de paquetes."
+
+msgid "Files"
+msgstr "Ficheros"
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Last Updated"
+msgstr "Última actualización"
+
+msgid "The above files have been verified (by %s) and are safe to use."
+msgstr "Los ficheros de arriba han sido verificados (por %s) y son seguros."
+
+msgid "Unflag Package Safe To Use"
+msgstr "Desmarcar Paquete Seguro"
+
+msgid "Go back to %hsearch results%h."
+msgstr "Volver a %hresultados de la busqueda%h."
+
+msgid "Age"
+msgstr "Antigüedad"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "O%hrphan"
+msgstr "H%huérfano"
+
+msgid "orphan"
+msgstr "huérfano"
+
+msgid "Un-Vote"
+msgstr "Quitar Voto"
+
+msgid "change category"
+msgstr "cambiar categoría"
+
+msgid "UnNotify"
+msgstr "Quitar notificación"
+
+msgid "Delete Packages"
+msgstr "Borrar Paquetes"
+
+msgid "Maintainer"
+msgstr "Mantenedor"
+
+msgid "Add Comment"
+msgstr "Añadir Comentario"
+
+msgid "Comment by: %s on %s"
+msgstr "Comentario de: %s el %s"
+
+msgid "Flag Out-of-date"
+msgstr "Marcar como Desactualizado"
+
+msgid "Manage"
+msgstr "Gestionar"
+
+msgid "Sort by"
+msgstr "Ordenar por"
+
+msgid "Flag Package Safe To Use"
+msgstr "Marcar paquete como Seguro"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Unflag Safe"
+msgstr "Desmarcar Seguro"
+
+msgid "Sources"
+msgstr "Fuentes"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "Search Criteria"
+msgstr "Criterio de Búsqueda"
+
+msgid "Notify"
+msgstr "Notificar"
+
+msgid "O%hut-of-Date"
+msgstr "D%hesactualizado"
+
+msgid "Vote"
+msgstr "Votar"
+
+msgid "Adopt Packages"
+msgstr "Adoptar Paquetes"
+
+msgid "New Comment Notification"
+msgstr "Notificación de nuevo comentario"
+
+msgid "Disown Packages"
+msgstr "Abandonar Paquetes"
+
+msgid "Orphans"
+msgstr "Huérfanos"
+
+msgid "Any"
+msgstr "Cualquiera"
+
+msgid "No packages matched your search criteria."
+msgstr "Ningún paquete coincide con su criterio de búsqueda."
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "Deje en blanco los campos de la contraseña si quiere conservarla."
+
+msgid "unknown"
+msgstr "desconocido"
+
+msgid "You have been successfully logged out."
+msgstr "Ha abandonado la sesión correctamente."
+
+msgid "You must log in to view user information."
+msgstr "Debe identificarse para ver la información del usuario."
+
+msgid "License"
+msgstr "Licencia"
+
+msgid "Could not retrieve information for the specified user."
+msgstr "No se pudo obtener la información del usuario especificado."
+
+msgid "You do not have permission to edit this account."
+msgstr "No tiene permiso para editar esta cuenta."
+
+msgid "Use this form to search existing accounts."
+msgstr "Use este formulario para buscar las cuentas existentes."
+
+msgid "Submitter"
+msgstr "Contribuidor"
+
+msgid "All"
+msgstr "Todos"
+
+msgid "Use this form to create an account."
+msgstr "Use este formulario para crear una cuenta."
+
+msgid "Use this form to update your account."
+msgstr "Use este formulario para actualizar su cuenta."
+
+msgid "You are not allowed to access this area."
+msgstr "No está autorizado a acceder a esta área."
+
+msgid "Unsafe"
+msgstr "Inseguros"
+
+
+
+msgid "None of the selected packages could be deleted."
+msgstr "Ninguno de los paquetes seleccionados pudo ser borrado."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Sus votos han sido eliminados de los paquetes seleccionados."
+
+msgid "Couldn't flag package safe."
+msgstr "No se pudo marcar el paquete como seguro."
+
+msgid "You did not select any packages to un-vote for."
+msgstr "No seleccionó ningún paquete para quitarle el voto."
+
+msgid "The selected packages have been unflagged."
+msgstr "Los paquetes seleccionados han sido desmarcados."
+
+msgid "You did not select any packages to adopt."
+msgstr "No ha seleccionado ningún paquete para ser adoptado."
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Debe identificarse antes de poder marcar paquetes."
+
+msgid "You must be logged in before you can get notifications on comments."
+msgstr "Debe identificarse antes de poder recibir notificaciones sobre comentarios."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Debe identificarse antes de poder votar paquetes."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Los paquetes seleccionados han sido marcados como desactualizados."
+
+msgid "The selected packages have been deleted."
+msgstr "Los paquetes seleccionados se han borrado."
+
+msgid "You did not select any packages to vote for."
+msgstr "No seleccionó ningún paquete para votarlo."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Debe identificarse antes de poder abandonar paquetes."
+
+msgid "Error trying to retrieve package details."
+msgstr "Error al intentar recuperar los detalles del paquete."
+
+msgid "The selected packages have been adopted."
+msgstr "Los paquetes seleccionados han sido adoptados."
+
+msgid "You have been removed from the comment notification list."
+msgstr "Ha sido borrado de la lista de notificación de comentarios."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Sus votos han sido computados para los paquetes seleccionados."
+
+msgid "The selected packages have been unflagged safe."
+msgstr "Los paquetes seleccionados han sido desmarcados como seguros."
+
+msgid "You must be logged in before you can cancel notification on comments."
+msgstr "Debe identificarse antes de poder cancelar las notificaciones sobre comentarios."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Debe indentificarse antes de poder adoptar paquetes."
+
+msgid "You have been added to the comment notification list."
+msgstr "Ha sido añadido a la lista de notificaciones de comentarios."
+
+msgid "You did not select any packages to disown."
+msgstr "No seleccionó ningún paquete para ser abandonado."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Debe identificarse antes de poder quitar votos a los paquetes"
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Debe identificarse antes de poder desmarcar paquetes."
+
+msgid "You did not select any packages to unflag."
+msgstr "No seleccionó ningún paquete para desmarcar."
+
+msgid "Couldn't unflag package safe."
+msgstr "No se pudo desmarcar el paquete como seguro."
+
+msgid "You did not select any packages to delete."
+msgstr "No seleccionó ningún paquete para borrar."
+
+msgid "Couldn't add to notification list."
+msgstr "No se pudo añadir a la lista de notificaciones."
+
+msgid "You did not select any packages to flag."
+msgstr "No seleccionó ningún paquete para marcar."
+
+msgid "The selected packages have been disowned."
+msgstr "Los paquetes seleccionados han sido abandonados."
+
+msgid "The selected packages have been flagged safe."
+msgstr "Los paquetes seleccionados han sido marcados como seguros."
+
+msgid "Couldn't remove from notification list."
+msgstr "No se pudo borrar de la lista de notificaciones."
+
+
+
+msgid "Missing build function in PKGBUILD."
+msgstr "Falta la función \"build\" en el PKGBUILD."
+
+msgid "Could not change directory to %s."
+msgstr "No se pudo cambiar el directorio a %s."
+
+msgid "No"
+msgstr "No"
+
+msgid "Missing pkgdesc variable in PKGBUILD."
+msgstr "Falta la variable \"pkgdesc\" en el PKGBUILD."
+
+msgid "Error trying to upload file - please try again."
+msgstr "Error al intentar subir el fichero - por favor vuelva a intentarlo."
+
+msgid "Error exec'ing the mv command."
+msgstr "Error al ejecutar el comando \"mv\"."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Debe crear una cuenta antes de poder subir paquetes."
+
+msgid "Package upload successful."
+msgstr "Paquete subido correctamente."
+
+msgid "Overwrite existing package?"
+msgstr "¿Sobreescribir el paquete existente?"
+
+msgid "Binary packages and filelists are not allowed for upload."
+msgstr "La subida de paquetes binarios y del fichero \"filelist\" no está permitida."
+
+msgid "You did not specify a package name."
+msgstr "No especificó el nombre del paquete."
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Error al intentar desempaquetar - no existe el fichero PKGBUILD."
+
+msgid "Could not create incoming directory: %s."
+msgstr "No se pudo crear el directorio de recepción: %s."
+
+msgid "Upload package file"
+msgstr "Subir archivo del paquete"
+
+msgid "Package Location"
+msgstr "Ubicación del paquete"
+
+msgid "Missing url variable in PKGBUILD."
+msgstr "Falta la variable \"url\" en el PKGBUILD."
+
+msgid "Package names do not match."
+msgstr "Los nombres del paquete no coinciden."
+
+msgid "Package Category"
+msgstr "Categoría del paquete"
+
+msgid "Could not change to directory %s."
+msgstr "No se pudo cambiar al directorio %s."
+
+msgid "You did not tag the 'overwrite' checkbox."
+msgstr "No marcó la casilla de 'sobreescribir'."
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Nombre no válido: sólo se permiten letras minúsculas."
+
+msgid "Missing pkgver variable in PKGBUILD."
+msgstr "Falta la variable \"pkgver\" en el PKGBUILD."
+
+msgid "Package name"
+msgstr "Nombre del paquete"
+
+msgid "Upload"
+msgstr "Subir"
+
+msgid "Missing md5sums variable in PKGBUILD."
+msgstr "Falta la variable \"md5sums\" en el PKGBUILD."
+
+msgid "Missing pkgrel variable in PKGBUILD."
+msgstr "Falta la variable \"pkgrel\" en el PKGBUILD."
+
+msgid "Missing pkgname variable in PKGBUILD."
+msgstr "Falta la variable \"pkgname\" en el PKGBUILD."
+
+msgid "Error - No file uploaded"
+msgstr "Error - El fichero no se ha subido"
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Falta el protocolo en la URL del paquete (es decir, http:// ,ftp://)"
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "No está autorizado a sobreescribir el paquete %h%s%h."
+
+msgid "Select Location"
+msgstr "Seleccionar Ubicación"
+
+msgid "Select Category"
+msgstr "Seleccionar Categoría"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "Could not create directory %s."
+msgstr "No se pudo crear el directorio %s."
+
+msgid "Unknown file format for uploaded file."
+msgstr "Formato de archivo desconocido en el fichero subido."
+
+msgid "Missing source variable in PKGBUILD."
+msgstr "Falta la variable \"source\" en el PKGBUILD."
+
+msgid "Could not re-tar"
+msgstr "No se pudo volver a crear el archivo TAR"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Perdón, las subidas no están permitidas en este servidor."
+
+msgid "You must supply a comment for this upload/change."
+msgstr "Debe suministrar un comentario para esta subida/cambio."
+
+msgid "Yes"
+msgstr "Sí"
+

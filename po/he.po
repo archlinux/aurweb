@@ -1,0 +1,630 @@
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User Community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with a backslash (\).
+#
+# Hebrew (עברית) translation
+# Translator: Netanel Shine <netanelshine@gmail.com>
+
+
+msgid "Confirm your e-mail address:"
+msgstr "אישור כתובת הדוא״ל שלך"
+
+msgid "This package has been flagged out of date."
+msgstr "החבילה מסומנת כלא עדכנית."
+
+msgid "Missing a required field."
+msgstr "שדה הכרחי חסר."
+
+msgid "Logged-in as: %s"
+msgstr "נכנסת בשם: %s"
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "שגיאה בעריכת החשבון, %h%s%h: %s."
+
+msgid "Username does not exist."
+msgstr "שם המשתמש לא קיים."
+
+msgid "Tarball"
+msgstr "חבילת tar"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "יכול הכיל רק נקודה אחת, קו תחתון או מקף."
+
+msgid "Unflag Out-of-date"
+msgstr "ביטול סימון כלא מעודכן"
+
+msgid "Missing package ID."
+msgstr "חסר מספר זיהוי לחבילה."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "עליך להתחבר לפני שיהיה באפשרותך לבטל סימוני חבילות."
+
+msgid "No results matched your search criteria."
+msgstr "אין תוצאות עבור נתוני החיפוש שלך."
+
+msgid "Enter your new password:"
+msgstr "הזנת ססמה חדשה:"
+
+msgid "Update"
+msgstr "עדכון"
+
+msgid "Sort order"
+msgstr "סדר המיון"
+
+msgid "You must be logged in before you can edit package information."
+msgstr "עליך להיכנס לפני שיהיה באפשרותך לערוך נתוני חבילה."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "ההצבעות שלך נקלטו עבור החבילות המסומנות."
+
+msgid "Package details could not be found."
+msgstr "נתוני חבילה לא נמצאו."
+
+msgid "change category"
+msgstr "שינוי קטגוריה"
+
+msgid "Error retrieving package list."
+msgstr "שגיאה בעת קבלת רשימת החבילות."
+
+msgid "Reset"
+msgstr "איפוס"
+
+msgid "Submitted: %s by %s"
+msgstr "נשלח: %s על ידי %s"
+
+msgid "Voted"
+msgstr "הצביעו"
+
+msgid "Remember me"
+msgstr "שמירת הפרטים"
+
+msgid "This vote is still running."
+msgstr "ההצבעה עדיין קיימת."
+
+msgid "Package category updated."
+msgstr "קטגוריית החבילה עודכנה."
+
+msgid "%s already has proposal running for them."
+msgstr "%s יש כבר הצעה קיימת."
+
+msgid "Error - No file uploaded"
+msgstr "שגיאה — קובץ לא הועלה"
+
+msgid "You did not select any packages to disown."
+msgstr "לא בחרת שום חבילות להסרת בעלותך מהן."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "בכתובת החבילה חסר פרוטוקול (לדוגמה: http:// ,ftp://)"
+
+msgid "Total"
+msgstr "סך הכול"
+
+msgid "No more results to display."
+msgstr "אין יותר תוצאות להצגה."
+
+msgid "Maintainer"
+msgstr "מתחזק"
+
+msgid "Less"
+msgstr "פחות"
+
+msgid "You are not allowed to access this area."
+msgstr "אין לך גישה לאזור זה."
+
+msgid "Any type"
+msgstr "כל סוג"
+
+msgid "Accounts"
+msgstr "חשבונות"
+
+msgid "Could not retrieve proposal details."
+msgstr "לא ניתן לקבל נתוני הצעה."
+
+msgid "You do not have permission to edit this account."
+msgstr "אין לך הרשאה לערוך חשבון זה."
+
+msgid "Click on the Home link above to login."
+msgstr "יש ללחוץ על הקישור ״בית״ שלמעלה על מנת להיכנס."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "עליך להיכנס לפני שיהיה באפשרותך לאמץ חבילות."
+
+msgid "The email address is invalid."
+msgstr "כתובת הדוא״ל שהוזנה אינה תקינה."
+
+msgid "Search by"
+msgstr "חיפוש לפי"
+
+msgid "Could not change directory to %s."
+msgstr "לא ניתן לשנות את התיקייה אל %s."
+
+msgid "None of the selected packages could be deleted."
+msgstr "לא ניתן למחוק אף אחת מהחבילות שנבחרו."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "ההצבעות שלך הוסרו מהחבילות המסומנות."
+
+msgid "No packages matched your search criteria."
+msgstr "אין חבילות התואמות לנתוני החיפוש שלך."
+
+msgid "Confirm"
+msgstr "אישור"
+
+msgid "Create"
+msgstr "יצירה"
+
+msgid "orphan"
+msgstr "יתומה"
+
+msgid "View this user's packages"
+msgstr "צפייה בחבילות המשתמש"
+
+msgid "Next"
+msgstr "הבא"
+
+msgid "Could not re-tar"
+msgstr "לא ניתן ליצור קובץ tar מחדש"
+
+msgid "Upload your source packages here. Create source packages with `makepkg --source`."
+msgstr "העלאת חבילות המקור שלך לכאן. ניתן ליצור חבילות מקור באמצעות הפקודה `makepkg --source`."
+
+msgid "The selected packages have been deleted."
+msgstr "החבילות המסומנות נמחקו."
+
+msgid "You must create an account before you can upload packages."
+msgstr "עליך ליצור חשבון לפני שיהיה באפשרותך להעלות חבילות."
+
+msgid "Location"
+msgstr "מיקום"
+
+msgid "Delete comment"
+msgstr "מחיקת הערה"
+
+msgid "Account Type"
+msgstr "סוג חשבון"
+
+msgid "Type"
+msgstr "סוג"
+
+msgid "More"
+msgstr "עוד"
+
+msgid "Username"
+msgstr "שם משתמש"
+
+msgid "Could not create incoming directory: %s."
+msgstr "לא ניתן ליצור תיקיית קבצים נכנסים: %s."
+
+msgid "Upload package file"
+msgstr "העלאת קובץ חבילה"
+
+msgid "Password Reset"
+msgstr "איפוס ססמה"
+
+msgid "(defaults to 7 if empty)"
+msgstr "(ברירת המחדל היא 7 אם ריק)"
+
+msgid "No New Comment Notification"
+msgstr "אין התרעות על הערות חדשות"
+
+msgid "Couldn't add to notification list."
+msgstr "לא ניתן לצרף את רשימת ההתרעות."
+
+msgid "The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "החבילות שנבחרו לא נמחקו, נא לבחור בתיבת האישור."
+
+msgid "Disown Packages"
+msgstr "שחרור בעלות על חבילות"
+
+msgid "Advanced"
+msgstr "מתקדם"
+
+msgid "Files"
+msgstr "קבצים"
+
+msgid "Vote ID not valid."
+msgstr "מס׳ הזיהוי של ההצבעה אינו תקין."
+
+msgid "(empty if not applicable)"
+msgstr "(ריק אם אינה מתאימה)"
+
+msgid "Per page"
+msgstr "לפי דף"
+
+msgid "New proposal submitted."
+msgstr "הצעה חדשה נשלחה."
+
+msgid "Upload"
+msgstr "העלאה"
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "עליך להיכנס לפני שתהיה באפשרותך להצביע לחבילות."
+
+msgid "Invalid category ID."
+msgstr "מס׳ הזיהוי של הקטגוריה אינו תקין"
+
+msgid "Go"
+msgstr "מעבר"
+
+msgid "New Package Notify"
+msgstr "התרעה על חבילה חדשה"
+
+msgid "Use this form to search existing accounts."
+msgstr "נא להשתמש בטופס על מנת לחפש אחר חשבונות קיימים."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "הכתובת, %h%s%h, כבר נמצאת בשימוש."
+
+msgid "Current Votes"
+msgstr "הצבעות נוכחיות"
+
+msgid "Select Category"
+msgstr "נא לבחור קטגוריה"
+
+msgid "You have been removed from the comment notification list for %s."
+msgstr "הוסרת מרשימה ההתרעות עבור ההערות של %s."
+
+msgid "Unknown file format for uploaded file."
+msgstr "הקובץ שהועלה הנו במבנה בלתי מוכר."
+
+msgid "Delete Packages"
+msgstr "מחיקת חבילות"
+
+msgid "Trusted user"
+msgstr "משתמשים אמינים"
+
+msgid "Back"
+msgstr "חזרה"
+
+msgid "Re-type password"
+msgstr "הקלדת הססמה מחדש"
+
+msgid "All Votes"
+msgstr "כל ההצבעות"
+
+msgid "The selected packages have been disowned."
+msgstr "החבילות המסומנות ננטשו"
+
+msgid "Suspended"
+msgstr "השעייה"
+
+msgid "Home"
+msgstr "בית"
+
+msgid "Yes"
+msgstr "כן"
+
+msgid "UnFlag Out-of-date"
+msgstr "ביטול סימון לא מעודכן"
+
+msgid "Developer"
+msgstr "מפתח"
+
+msgid "Category"
+msgstr "קטגוריה"
+
+msgid "Votes"
+msgstr "הצבעות"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "עליך להיכנס לפני שיהיה באפשרותך לסמן חבילות."
+
+msgid "No results found."
+msgstr "תוצאות לא נמצאו."
+
+msgid "No"
+msgstr "לא"
+
+msgid "Discussion"
+msgstr "דיון"
+
+msgid "Dependencies"
+msgstr "תלות"
+
+msgid "Start"
+msgstr "התחלה"
+
+msgid "You did not select any packages to adopt."
+msgstr "לא בחרת שום חבילות לאימוץ."
+
+msgid "Length must be at least 1."
+msgstr "האורך חייב להיות לפחות 1."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "שגיאה בזמן יצירת חשבון, %h%s%h: %s."
+
+msgid "End"
+msgstr "סוף"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "החשבון, %h%s%h, נערך בהצלחה."
+
+msgid "Confirm your new password:"
+msgstr "אישור הססמה החדשה:"
+
+msgid "Account Suspended"
+msgstr "חשבון מושעה"
+
+msgid "Status"
+msgstr "מצב"
+
+msgid "You must be logged in before you can get notifications on comments."
+msgstr "עליך להתחבר לפני שיהיה באפשרותך לקבל התרעות עבור הערות."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "נא להשאיר את תיבת הססמה ריקה על מנת להישאר עם אותה הססמה."
+
+msgid "IRC Nick"
+msgstr "כינוי ב־IRC"
+
+msgid "Enter your e-mail address:"
+msgstr "נא להזין את כתובת הדוא״ל שלך:"
+
+msgid "Normal user"
+msgstr "משתמש רגיל"
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "אין לך גישה על מנת לדרוס את חבילת %h%s%h."
+
+msgid "Missing comment ID."
+msgstr "חסר מס׳ זיהוי להערה."
+
+msgid "Error trying to retrieve package details."
+msgstr "ארעה שגיאה בזמן קבלת נתוני חבילה."
+
+msgid "Proposal cannot be empty."
+msgstr "הצעה לא יכולה להיות ריקה."
+
+msgid "User"
+msgstr "משתמש"
+
+msgid "Package Category"
+msgstr "קטגוריית חבילה"
+
+msgid "The selected packages have been adopted."
+msgstr "החבילות שנבחרו אומצו."
+
+msgid "Packages"
+msgstr "חבילות"
+
+msgid "Edit Account"
+msgstr "עריכת חשבון"
+
+msgid "Search"
+msgstr "חיפוש"
+
+msgid "Add Proposal"
+msgstr "הוספת הצעה"
+
+msgid "Language"
+msgstr "שפה"
+
+msgid "Orphans"
+msgstr "יתומות"
+
+msgid "Voting is closed for this proposal."
+msgstr "ההצבעה סגורה עבור הצעה זו."
+
+msgid "Bugs"
+msgstr "באגים"
+
+msgid "Showing results %s - %s of %s"
+msgstr "הצגת תוצאות %s - %s מתוך %s"
+
+msgid "Active"
+msgstr "פעיל"
+
+msgid "You've already voted for this proposal."
+msgstr "כבר הצבעת עבור הצעה זו."
+
+msgid "Required by"
+msgstr "נדרש על ידי"
+
+msgid "You cannot vote in an proposal about you."
+msgstr "אין באפשרותך להצביע עבור הצעה הקשורה בך."
+
+msgid "This is a %hmajor%h problem!"
+msgstr "זו היא  בעיה %hחמורה%h!"
+
+msgid "You did not select any packages to unflag."
+msgstr "לא בחרת שום חבילות לביטול סימון."
+
+msgid "You must log in to view user information."
+msgstr "עליך להתחבר על מנת לצפות בנתוני משתמש."
+
+msgid "You did not select any packages to delete."
+msgstr "לא בחרת שום חבילות למחיקה."
+
+msgid "Could not create directory %s."
+msgstr "לא ניתן ליצור תיקייה %s."
+
+msgid "UnNotify"
+msgstr "ביטול התרעה"
+
+msgid "Flag Out-of-date"
+msgstr "סימון כלא עדכני"
+
+msgid "The selected packages have been unflagged."
+msgstr "החבילות שנבחרו בוטלו מהסימון."
+
+msgid "Search Criteria"
+msgstr "קריטריונים לחיפוש"
+
+msgid "Notify"
+msgstr "התרעה"
+
+msgid "Vote"
+msgstr "הצבעה"
+
+msgid "Adopt Packages"
+msgstr "אימוץ חבילות"
+
+msgid "Name"
+msgstr "שם"
+
+msgid "Package Listing"
+msgstr "רשימת חבילות"
+
+msgid "Any"
+msgstr "כל"
+
+msgid "It must be between %s and %s characters long"
+msgstr "חייב להיות בין %s ל־%s אותיות"
+
+msgid "Logout"
+msgstr "ניתוק"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "החשבון, %h%s%h, נוצר בהצלחה."
+
+msgid "Your password must be at least %s characters."
+msgstr "הססמה חייבת להיות באורך של %s אותיות לפחות."
+
+msgid "Submit"
+msgstr "שליחה"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "חל איסור על העלאת קבצים לשרת זה, עמך הסליחה."
+
+msgid "Actions"
+msgstr "פעולות"
+
+msgid "Comment has been deleted."
+msgstr "הערה נמחקה."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "שם המשתמש, %h%s%h, כבר בשימוש."
+
+msgid "Proposal"
+msgstr "הצעה"
+
+msgid "You did not select any packages to flag."
+msgstr "לא בחרת שום חבילות לסימון."
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "שגיאה בניסיון פריסת הקובץ שהועלה - PKGBUILD לא קיים."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "החבילות שנבחרו מסומנות כלא עדכניות."
+
+msgid "Description"
+msgstr "תיאור"
+
+msgid "My Packages"
+msgstr "החבילות שלי"
+
+msgid "You did not select any packages to vote for."
+msgstr "לא בחרת שום חבילות להצביע עבורן."
+
+msgid "Never"
+msgstr "לעולם"
+
+msgid "You must be logged in before you can disown packages."
+msgstr "עליך להיכנס לפני שיהיה באפשרותך לבטל בעלות מחבילות."
+
+msgid "You've found a bug if you see this...."
+msgstr "אם הודעה זו מופיעה מצאת באג..."
+
+msgid "Last Voted"
+msgstr "הצבעה אחרונה"
+
+msgid "Password"
+msgstr "ססמה"
+
+msgid "Real Name"
+msgstr "שם אמתי"
+
+msgid "Package Details"
+msgstr "נתוני חבילה"
+
+msgid "UnVote"
+msgstr "ביטול הצבעה"
+
+msgid "Password fields do not match."
+msgstr "שדות הססמה לא תואמים."
+
+msgid "Start and end with a letter or number"
+msgstr "יש להתחיל ולסיים עם תו או מספר"
+
+msgid "The username is invalid."
+msgstr "שם המשתמש אינו חוקי."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "לא ניתן לקבל נתונים עבור המשתמש שנבחר."
+
+msgid "Email Address"
+msgstr "כתובת דוא״ל"
+
+msgid "Trusted User"
+msgstr "משתמש אמין"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "שם לא חוקי: רק אותיות קטנות מותרות."
+
+msgid "Error retrieving package details."
+msgstr "שגיאה בקבלת נתוני חבילה."
+
+msgid "Length must be a number."
+msgstr "על האורך להיות מספר בלבד."
+
+msgid "%s has %s apples."
+msgstr "ל־%s יש %s תפוחים."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "עליך להתחבר לפני ביטול הצבעה עבור חבילות."
+
+msgid "Login"
+msgstr "כניסה"
+
+msgid "Use this form to create an account."
+msgstr "ניתן להשתמש בטופס זה על מנת ליצור חשבון."
+
+msgid "Use this form to update your account."
+msgstr "ניתן להשתמש בטופס זה על מנת לעדכן את חשבונך."
+
+msgid "Abstain"
+msgstr "הימנעות"
+
+msgid "Could not chmod directory %s."
+msgstr "לא ניתן לבצע chmod לתיקייה %s."
+
+msgid "You are not allowed to delete this comment."
+msgstr "אין לך הרשאה למחוק הערה זו."
+
+msgid "required"
+msgstr "נדרש"
+
+msgid "Sort by"
+msgstr "סידור לפי"
+
+msgid "Submit a proposal to vote on."
+msgstr "שליחת הצבעה עבור הפעלת הצבעה."
+
+msgid "Proposal Details"
+msgstr "פרטי הצעה"
+
+msgid "Language is not currently supported."
+msgstr "שפה כרגע לא נתמכת."
+
+msgid "Last vote"
+msgstr "הצבעה אחרונה"
+
+msgid "New Comment Notification"
+msgstr "התרעה על הערה חדשה"
+
+msgid "Missing User ID"
+msgstr "חסר מס׳ הזיהוי של המשתמש"
+
+msgid "You have been added to the comment notification list for %s."
+msgstr "צורפת אל רשימת ההתרעות עבור %s."
+
+msgid "Select new category"
+msgstr "נא לבחור קטגוריה חדשה"
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "משתמש אמין לא יכול להקצות סטטוס מפתח."
+

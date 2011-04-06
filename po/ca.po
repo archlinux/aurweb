@@ -1,0 +1,733 @@
+# Catalan (Català) translation
+# Translator: Sergio Jovani Guzman <moret.sjg@gmail.com>
+
+
+msgid "Use this form to update your account."
+msgstr "Utilitzeu aquest formulari per editar el vostre compte."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "Deixeu els camps de contrasenya en blanc si voleu conservar-la."
+
+msgid "You are not allowed to access this area."
+msgstr "No esteu autoritzat per a accedir a aquesta àrea."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "No s'ha pogut obtenir la informació de l'usuari especificat."
+
+msgid "Use this form to search existing accounts."
+msgstr "Utilitzeu aquest formulari per a cercar comptes existents."
+
+msgid "You do not have permission to edit this account."
+msgstr "No teniu permís per a editar aquest compte."
+
+msgid "Use this form to create an account."
+msgstr "Utilitzeu aquest formulari per a crear un compte."
+
+msgid "You must log in to view user information."
+msgstr "Heu d'identificar-vos per a veure la inforació de l'usuari."
+
+
+
+msgid "Missing a required field."
+msgstr "Manca un camp requerit."
+
+msgid "Search"
+msgstr "Cerca'"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "El compte, %h%s%h, s'ha creat satisfactòriament."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "S'ha produït un error en intentar modificar el compte, %h%s%h: %s."
+
+msgid "The email address is invalid."
+msgstr "L'adreça del correu-e no és vàlida."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "S'ha produït un error en intentar crear el compte, %h%s%h: %s."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "El nom d'usuari, %h%s%h, està ja en ús."
+
+msgid "Account Type"
+msgstr "Tipus de compte"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "El compte, %h%s%h, s'ha modificat satisfactòriament."
+
+msgid "Account Suspended"
+msgstr "El compte s'ha suspès"
+
+msgid "Status"
+msgstr "Estat"
+
+msgid "New Package Notify"
+msgstr "Notificació en nous paquets"
+
+msgid "IRC Nick"
+msgstr "Nom d'usuari IRC"
+
+msgid "Trusted user"
+msgstr "Usuari de Confiança"
+
+msgid "No results matched your search criteria."
+msgstr "No s'ha trobat cap coindidència amb els criteris de cerca."
+
+msgid "Normal user"
+msgstr "Usuari normal"
+
+msgid "Never"
+msgstr "Mai"
+
+msgid "User"
+msgstr "Usuari"
+
+msgid "Active"
+msgstr "Actiu"
+
+msgid "Last Voted"
+msgstr "Últim vot"
+
+msgid "Real Name"
+msgstr "Nom real"
+
+msgid "Edit Account"
+msgstr "Edita compte"
+
+msgid "Password fields do not match."
+msgstr "Els camps de contrasenya no coincideixen."
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Un Usuari de Confiança no pot assignar l'estat de desenvolupador."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "L'adreça, %h%s%h, està ja en ús."
+
+msgid "No more results to display."
+msgstr "No hi ha més resultats per mostrar."
+
+msgid "Type"
+msgstr "Tipus"
+
+msgid "Click on the Home link above to login."
+msgstr "Feu clic en l'enllaç Inici de dalt per identificar-vos."
+
+msgid "Sort by"
+msgstr "Ordenat per"
+
+msgid "Re-type password"
+msgstr "Escriu altre cop la contrasenya"
+
+msgid "Language is not currently supported."
+msgstr "L'idioma no està suportat actualment."
+
+msgid "Any type"
+msgstr "Qualsevol tipus"
+
+msgid "Last vote"
+msgstr "Últim vot"
+
+msgid "Suspended"
+msgstr "Suspès"
+
+msgid "Trusted User"
+msgstr "Usuari de Confiança"
+
+msgid "Missing User ID"
+msgstr "Manca l'identificador de l'usuari"
+
+msgid "Developer"
+msgstr "Desenvolupador"
+
+msgid "View this user's packages"
+msgstr "Visualitza els paquets d'aquest usuari"
+
+
+
+msgid "%s: %sAn ArchLinux project%s"
+msgstr "%s: %sUn projecte d'Archlinux%s"
+
+msgid "Logout"
+msgstr "Surt"
+
+msgid "Discussion"
+msgstr "Discussió"
+
+msgid "Bugs"
+msgstr "Errors"
+
+msgid "Accounts"
+msgstr "Compte"
+
+msgid "Home"
+msgstr "Inici"
+
+msgid "Packages"
+msgstr "Paquets"
+
+
+
+msgid "Reset"
+msgstr "Restaura"
+
+msgid "Username"
+msgstr "Nom d'usuari"
+
+msgid "Email Address"
+msgstr "Adreça de correu-e"
+
+msgid "Less"
+msgstr "Menys"
+
+msgid "Clear"
+msgstr "Neteja"
+
+msgid "required"
+msgstr "requerit"
+
+msgid "Update"
+msgstr "Actualitza"
+
+msgid "Submit"
+msgstr "Envia"
+
+msgid "Password"
+msgstr "Contrasenya"
+
+msgid "Create"
+msgstr "Crea"
+
+msgid "More"
+msgstr "Més"
+
+
+
+msgid "Statistics"
+msgstr "Estadístiques"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "Recordeu votar els vostres paquets preferits!"
+
+msgid "Error looking up username, %s."
+msgstr "S'ha produït un error en cercar l'usuari, %s."
+
+msgid "Packages in unsupported"
+msgstr "Paquets a \"unsupported\""
+
+msgid "The most popular packages will be provided as binary packages in [community]."
+msgstr "Els paquets més populars es distribuiran com a binaris a [community]."
+
+msgid "Trusted Users"
+msgstr "Usuaris de Confiança"
+
+msgid "You must supply a username."
+msgstr "Heu de proporcionar un nom d'usuari."
+
+msgid "Packages added or updated in the past 7 days"
+msgstr "Paquets afegits o actualitzats en els últims 7 dies"
+
+msgid "Email discussion about the AUR takes place on the %sTUR Users List%s."
+msgstr "La discussió en correu-e sobre AUR és a la %sLlista d'Usuaris TUR%s."
+
+msgid "Packages in unsupported and flagged as safe"
+msgstr "Paquets a \"unsupported\" i marcats com Segurs"
+
+msgid "Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."
+msgstr "Encara que no pugam respondre als seus continguts, subministrem una %hllista de repositoris d'usuaris%h per a la vostra conveniència."
+
+msgid "Recent Updates"
+msgstr "Actualitzacions recents"
+
+msgid "Your account has been suspended."
+msgstr "El vostre compte s'ha suspès."
+
+msgid "Username:"
+msgstr "Nom d'usuari:"
+
+msgid "Error trying to generate session id."
+msgstr "S'ha produït un error en intentar generar un identificador de sessió."
+
+msgid "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."
+msgstr "Benvingut a l'AUR! Si us plau llegiu la %hGuia d'usuari de l'AUR%h i la %hGuia de TU de l'AUR%h per a més informació."
+
+msgid "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"
+msgstr "Els PKGBUILDs enviats %hhan%h de seguir els %hEstàndards d'empaquetament d'Arch%h sinó seran esborrats!"
+
+msgid "Login"
+msgstr "Entra"
+
+msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
+msgstr "Si teniu cap comentari sobre l'AUR, si us plau deixeu-lo en el %hFlyspray%h."
+
+msgid "You must supply a password."
+msgstr "Heu de subministrar una contrasenya."
+
+msgid "Password:"
+msgstr "Contrasenya:"
+
+msgid "Registered Users"
+msgstr "Usuaris registrats"
+
+msgid "Logged-in as: %s"
+msgstr "Identificat com: %s"
+
+msgid "Incorrect password for username, %s."
+msgstr "Contrasenya incorrecta per a l'usuari, %s."
+
+
+
+msgid "You have been successfully logged out."
+msgstr "Heu eixit correctament."
+
+
+
+msgid "Missing package ID."
+msgstr "Manca l'identificador del paquet."
+
+msgid "Invalid category ID."
+msgstr "L'identificador de la categoria no és vàlid."
+
+msgid "Enter your comment below."
+msgstr "Introduïu el vostre comentari a continuació."
+
+msgid "You are not allowed to delete this comment."
+msgstr "No esteu autoritzat per esborrar aquest comentari."
+
+msgid "Missing comment ID."
+msgstr "Manca l'identificador del comentari."
+
+msgid "Package category updated."
+msgstr "S'ha actualitzat la categoria del paquet."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Heu d'identificar-vos abans d'editar qualsevol informació de paquet."
+
+msgid "Comment has been deleted."
+msgstr "S'ha esborrat el comentari."
+
+msgid "You've found a bug if you see this...."
+msgstr "Heu trobat un error si veieu açò."
+
+msgid "Comment has been added."
+msgstr "S'ha afegit el comentari."
+
+msgid "Select new category"
+msgstr "Seleccioneu nova categoria"
+
+
+
+msgid "Category"
+msgstr "Categoria"
+
+msgid "Votes"
+msgstr "Vots"
+
+msgid "Delete comment"
+msgstr "Esborra comentari"
+
+msgid "First Submitted"
+msgstr "Primer enviament"
+
+msgid "Tarball"
+msgstr "Arxiu TAR"
+
+msgid "Be careful! The above files may contain malicious code that can damage your system."
+msgstr "Aneu amb compte! Els fitxers poden contenir codi maliciós que pot danyar el vostre sistema."
+
+msgid "Voted"
+msgstr "Votat"
+
+msgid "Location"
+msgstr "Localització"
+
+msgid "Flag Safe"
+msgstr "Marca com Segur"
+
+msgid "Go"
+msgstr "Vés"
+
+msgid "Unflag Out-of-date"
+msgstr "Desmarca No-Actualitzat"
+
+msgid "Go back to %hpackage details view%h."
+msgstr "Torna a la %hvista de detalls del paquet%h."
+
+msgid "Error retrieving package details."
+msgstr "No s'han pogut obtenir els detalls del paquet."
+
+msgid "Description"
+msgstr "Descripció"
+
+msgid "My Packages"
+msgstr "Els meus paquets"
+
+msgid "Safe"
+msgstr "Segur"
+
+msgid "Sort order"
+msgstr "Ordena en sentit"
+
+msgid "Ascending"
+msgstr "Ascendent"
+
+msgid "Keywords"
+msgstr "Paraules clau"
+
+msgid "No New Comment Notification"
+msgstr "Cap notificació de nous comentaris"
+
+msgid "Dependencies"
+msgstr "Dependències"
+
+msgid "Descending"
+msgstr "Descendent"
+
+msgid "Per page"
+msgstr "Per pàgina"
+
+msgid "Package Listing"
+msgstr "Llista de paquets"
+
+msgid "Package details could not be found."
+msgstr "No s'han pogut trobar els detalls del paquet."
+
+msgid "Package Details"
+msgstr "Detalls del paquet"
+
+msgid "Error retrieving package list."
+msgstr "S'ha produït un error en obtenir la llista de paquets."
+
+msgid "Files"
+msgstr "Fitxers"
+
+msgid "None"
+msgstr "Cap"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Last Updated"
+msgstr "Última actualització"
+
+msgid "The above files have been verified (by %s) and are safe to use."
+msgstr "Els fitxers s'han comprovat (per %s) i són segurs."
+
+msgid "Unflag Package Safe To Use"
+msgstr "Desmarca Paquet Segur"
+
+msgid "Go back to %hsearch results%h."
+msgstr "Torna a %hResultat de cerca%h."
+
+msgid "Age"
+msgstr "Antiguitat"
+
+msgid "Comments"
+msgstr "Comentaris"
+
+msgid "O%hrphan"
+msgstr "O%hrfe"
+
+msgid "orphan"
+msgstr "orfe"
+
+msgid "Un-Vote"
+msgstr "Lleva vot"
+
+msgid "change category"
+msgstr "Canvia la categoria"
+
+msgid "UnNotify"
+msgstr "Lleva notificació"
+
+msgid "Delete Packages"
+msgstr "Esborra paquet"
+
+msgid "Maintainer"
+msgstr "Mantenidor"
+
+msgid "Add Comment"
+msgstr "Afegeix comentari"
+
+msgid "Comment by: %s on %s"
+msgstr "Comentari per: %s a %s"
+
+msgid "Flag Out-of-date"
+msgstr "Marca com No-Actualitzat"
+
+msgid "Manage"
+msgstr "Gestiona"
+
+msgid "Sort by"
+msgstr "Ordena per"
+
+msgid "Flag Package Safe To Use"
+msgstr "Marca com Segur"
+
+msgid "Actions"
+msgstr "Accions"
+
+msgid "Unflag Safe"
+msgstr "Desmarca Segur"
+
+msgid "Sources"
+msgstr "Fonts"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "Search Criteria"
+msgstr "Criteri de cerca"
+
+msgid "Notify"
+msgstr "Notifica"
+
+msgid "O%hut-of-Date"
+msgstr "N%ho-Actualitzat"
+
+msgid "Vote"
+msgstr "Vota"
+
+msgid "Adopt Packages"
+msgstr "Apròpia paquets"
+
+msgid "New Comment Notification"
+msgstr "Notificació de nou comentari"
+
+msgid "Disown Packages"
+msgstr "Desapròpia paquets"
+
+msgid "Orphans"
+msgstr "Orfes"
+
+msgid "Any"
+msgstr "Cap"
+
+msgid "No packages matched your search criteria."
+msgstr "No s'ha trobat cap coincidència amb el teu criteri de cerca."
+
+msgid "Search by"
+msgstr "Cerca per"
+
+
+
+msgid "None of the selected packages could be deleted."
+msgstr "Cap dels paquets seleccionats s'han pogut esborrar."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Els vostres vots s'han suprimit dels paquets seleccionats."
+
+msgid "Couldn't flag package safe."
+msgstr "No s'ha pogut marcar el paquet com Segur."
+
+msgid "You did not select any packages to un-vote for."
+msgstr "No heu seleccionat cap paquet per llevar-li el vot."
+
+msgid "The selected packages have been unflagged."
+msgstr "Els paquets seleccionats s'han desmarcat."
+
+msgid "You did not select any packages to adopt."
+msgstr "No heu seleccionat cap paquet per apropiar-se'n."
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Heu d'identificar-vos abans de marcar paquets."
+
+msgid "You must be logged in before you can get notifications on comments."
+msgstr "Heu d'identificar-vos abans de rebre notificacions dels comentaris."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Heu d'identificar-vos abans de votar paquets."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Els paquets seleccionats s'han marcat com No-Actualitzats."
+
+msgid "The selected packages have been deleted."
+msgstr "Els paquets seleccionats s'han esborrat."
+
+msgid "You did not select any packages to vote for."
+msgstr "No heu seleccionat cap paquet per votar."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Heu d'identificar-vos abans de desapropiàr-se paquets."
+
+msgid "Error trying to retrieve package details."
+msgstr "S'ha produït un error en obtenir els detalls del paquet."
+
+msgid "The selected packages have been adopted."
+msgstr "Els paquets seleccionats s'han apropiat."
+
+msgid "You have been removed from the comment notification list."
+msgstr "Heu sigut esborrat de la llista de notificacions de comentaris."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Els vostres vots s'han enviat per als paquets seleccionats."
+
+msgid "The selected packages have been unflagged safe."
+msgstr "Els paquets seleccionats s'han desmarcat de Segurs."
+
+msgid "You must be logged in before you can cancel notification on comments."
+msgstr "Heu d'identificar-vos abans de cancel·lar les notificacions en comentaris."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Heu d'identificar-vos abans d'apropiar-se paquets."
+
+msgid "You have been added to the comment notification list."
+msgstr "Heu sigut afegit a la llista de notificacions de comentaris."
+
+msgid "You did not select any packages to disown."
+msgstr "No heu seleccionat cap paquet per desapropiar-se'n."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Heu d'identificar-vos abans de llevar el vot als paquets."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Heu d'identificar-vos abans de desmarcar paquets."
+
+msgid "You did not select any packages to unflag."
+msgstr "No heu seleccionat cap paquet per a desmarcar."
+
+msgid "Couldn't unflag package safe."
+msgstr "No s'ha pogut desmarcar el paquet Segur."
+
+msgid "You did not select any packages to delete."
+msgstr "No heu seleccionat cap paquet per a esborrar."
+
+msgid "Couldn't add to notification list."
+msgstr "No s'ha pogut afegir a la llista de notificació."
+
+msgid "You did not select any packages to flag."
+msgstr "No heu seleccionat cap paquet per a marcar."
+
+msgid "The selected packages have been disowned."
+msgstr "Els paquets seleccionats han sigut desapropiats."
+
+msgid "The selected packages have been flagged safe."
+msgstr "Els paquets seleccionats han sigut marcats com Segurs."
+
+msgid "Couldn't remove from notification list."
+msgstr "No s'ha pogut esborrar de la llista de notificació."
+
+
+
+msgid "Missing build function in PKGBUILD."
+msgstr "Manca la funció \"build\" al PKGBUILD."
+
+msgid "Could not change directory to %s."
+msgstr "No s'ha pogut canviar el directori a %s."
+
+msgid "No"
+msgstr "No"
+
+msgid "Missing pkgdesc variable in PKGBUILD."
+msgstr "Manca la variable \"pkgdesc\" al PKGBUILD."
+
+msgid "Error trying to upload file - please try again."
+msgstr "S'ha produït un error en pujar l'arxiu - si us plau proveu altre cop."
+
+msgid "Error exec'ing the mv command."
+msgstr "S'ha produït un error en executar el comandament \"mv\"."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Heu de crear un compte per poder pujar paquets."
+
+msgid "Package upload successful."
+msgstr "El paquets s'ha pujat satisfactòriament."
+
+msgid "Overwrite existing package?"
+msgstr "Voleu sobreescriure el paquet existent?"
+
+msgid "Binary packages and filelists are not allowed for upload."
+msgstr "Els arxius binaris i les llistes de fitxers no s'accepten per a pujar."
+
+msgid "You did not specify a package name."
+msgstr "No heu especificat cap nom de paquet."
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "S'ha produït un error en intentar desempaquetar la pujada - El PKGBUILD no existeix."
+
+msgid "Could not create incoming directory: %s."
+msgstr "No s'ha pogut crear el directori de recepció: %s."
+
+msgid "Upload package file"
+msgstr "Puja arxiu del paquet"
+
+msgid "Package Location"
+msgstr "Localització del paquet"
+
+msgid "Missing url variable in PKGBUILD."
+msgstr "Manca la variable \"URL\" al PKGBUILD."
+
+msgid "Package names do not match."
+msgstr "Els noms del paquet no coincideixen."
+
+msgid "Package Category"
+msgstr "Categoria del paquet"
+
+msgid "Could not change to directory %s."
+msgstr "No s'ha pogut canviar al directori %s."
+
+msgid "You did not tag the 'overwrite' checkbox."
+msgstr "No s'ha pogut marcat la casella \"Sobreescriu\"."
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Nom no vàlid: sols es permet lletres minúscules."
+
+msgid "Missing pkgver variable in PKGBUILD."
+msgstr "Manca la variable \"pkgver\" al PKGBUILD."
+
+msgid "Package name"
+msgstr "Nom del paquet"
+
+msgid "Upload"
+msgstr "Puja"
+
+msgid "Missing md5sums variable in PKGBUILD."
+msgstr "Manca la variable \"md5sums\" al PKGBUILD."
+
+msgid "Missing pkgrel variable in PKGBUILD."
+msgstr "Manca la variable \"pkgrel\" al PKGBUILD."
+
+msgid "Missing pkgname variable in PKGBUILD."
+msgstr "Manca la variable \"pkgname\" al PKGBUILD."
+
+msgid "Error - No file uploaded"
+msgstr "S'ha produït un error - El fitxer no s'ha pujat"
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Manca el protocol a la URL del paquet (per exemple: http:// , ftp://)"
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "No esteu autoritzat a sobreescriure el paquet %h%s%h."
+
+msgid "Select Location"
+msgstr "Seleccioneu localització"
+
+msgid "Select Category"
+msgstr "Seleccioneu categoria"
+
+msgid "Comment"
+msgstr "Comentari"
+
+msgid "Could not create directory %s."
+msgstr "No s'ha pogut crear el directori %s."
+
+msgid "Unknown file format for uploaded file."
+msgstr "No es coneix el format del fitxer pujat."
+
+msgid "Missing source variable in PKGBUILD."
+msgstr "Manca la variable \"source\" al PKGBUILD."
+
+msgid "Could not re-tar"
+msgstr "No s'ha pogut tornar a crear l'arxiu TAR."
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Ho sentim, les pujades no estan permesses en aquest servidor."
+
+msgid "You must supply a comment for this upload/change."
+msgstr "Heu de subministrar un comentari per a aquest/a canvi/pujada."
+
+msgid "Yes"
+msgstr "Sí"
+

@@ -1,0 +1,505 @@
+# Ukrainian (Українська) translation
+# Translator: sevenfourk <sevenfourk@gmail.com>
+
+
+msgid "View this user's packages"
+msgstr "Переглянути пакунки цього користувача"
+
+msgid "It must be between %s and %s characters long"
+msgstr "Кількість символів повинна бути від %s до %s"
+
+msgid "Missing a required field."
+msgstr "Бракує обов'язкового рядка."
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Аккаунт, %h%s%h, успішно створено."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Помилка при спробі редагувати акаунт, %h%s%h: %s."
+
+msgid "Your password must be at least %s characters."
+msgstr "Ваш пароль має містити щонайменше %s символів."
+
+msgid "The email address is invalid."
+msgstr "Адреса електронної пошти неправильна."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Помилка при спробі створити аккаунт, %h%s%h: %s."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Ім'я користувача %h%s%h вже існує."
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Може містити тільки один період, підкреслення або дефіс."
+
+msgid "Account Type"
+msgstr "Тип аккаунта"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Аккаунт %h%s%h успішно змінено."
+
+msgid "Account Suspended"
+msgstr "Аккаунт призупинено"
+
+msgid "Start and end with a letter or number"
+msgstr "Початок та кінець з літери або цифри"
+
+msgid "New Package Notify"
+msgstr "Повідомляти про нові пакунки"
+
+msgid "IRC Nick"
+msgstr "Псевдонім IRC"
+
+msgid "Trusted user"
+msgstr "Довіренний користувач"
+
+msgid "No results matched your search criteria."
+msgstr "За вашим запитом нічого не знайдено."
+
+msgid "Normal user"
+msgstr "Звичайний користувач"
+
+msgid "Never"
+msgstr "Ніколи"
+
+msgid "User"
+msgstr "Користувач"
+
+msgid "Active"
+msgstr "Активний"
+
+msgid "Last Voted"
+msgstr "Останнім проголосував"
+
+msgid "Real Name"
+msgstr "Справжнє ім'я"
+
+msgid "Edit Account"
+msgstr "Редагувати Аккаунт"
+
+msgid "Password fields do not match."
+msgstr "Паролі не збігаються."
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "The username is invalid."
+msgstr "Ім'я користувача неправильне."
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Довірений користувач не може задати статус Розробник."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Адреса %h%s%h вже існує."
+
+msgid "No more results to display."
+msgstr "Більше немає результатів."
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Click on the Home link above to login."
+msgstr "Клікніть на посилання Головна, щоб увійти."
+
+msgid "Re-type password"
+msgstr "Введіть пароль ще раз."
+
+msgid "Language is not currently supported."
+msgstr "Зараз ця мова не підтримується."
+
+msgid "Suspended"
+msgstr "Призупинено"
+
+msgid "Trusted User"
+msgstr "Довірений користувач"
+
+msgid "Missing User ID"
+msgstr "Бракує ID користувача"
+
+msgid "Developer"
+msgstr "Розробник"
+
+
+
+
+
+msgid "Reset"
+msgstr "Очистити"
+
+msgid "Username"
+msgstr "Ім'я користувача"
+
+msgid "Email Address"
+msgstr "Адреса електронної пошти"
+
+msgid "Less"
+msgstr "Назад"
+
+msgid "Clear"
+msgstr "Очистити"
+
+msgid "required"
+msgstr "необхідно"
+
+msgid "Update"
+msgstr "Оновити"
+
+msgid "Submit"
+msgstr "Надіслати"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Create"
+msgstr "Створити"
+
+msgid "More"
+msgstr "Далі"
+
+
+
+msgid "Missing package ID."
+msgstr "Нема ID пакунка."
+
+msgid "Invalid category ID."
+msgstr "Неправильне ID категорії."
+
+msgid "Enter your comment below."
+msgstr "Введіть ваш коментар нижче."
+
+msgid "You are not allowed to delete this comment."
+msgstr "У вас немає прав, щоб вилучити цей коментар."
+
+msgid "Missing comment ID."
+msgstr "Нема ID коментаря."
+
+msgid "Package category updated."
+msgstr "Категорію пакунка оновлено."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Ви повинні увійти у систему, щоб мати можливість редагувати інформацію про пакунок."
+
+msgid "Comment has been deleted."
+msgstr "Коментар вилучено."
+
+msgid "You've found a bug if you see this...."
+msgstr "Якщо ви це бачите, ви натрапили на ваду...."
+
+msgid "Comment has been added."
+msgstr "Коментар додано."
+
+msgid "Select new category"
+msgstr "Виберіть нову категорію."
+
+
+
+msgid "Category"
+msgstr "Категорія"
+
+msgid "Votes"
+msgstr "Голоси"
+
+msgid "Adopt Packages"
+msgstr "Прийняти пакунки"
+
+msgid "Comments"
+msgstr "Коментарі"
+
+msgid "orphan"
+msgstr "Сироти"
+
+msgid "Out of Date"
+msgstr "Застарілий"
+
+msgid "First Submitted"
+msgstr "Вперше надіслано"
+
+msgid "Tarball"
+msgstr "Архів"
+
+msgid "Voted"
+msgstr "Проголосовано"
+
+msgid "Location"
+msgstr "Розташування"
+
+msgid "Delete comment"
+msgstr "Вилучити коментар"
+
+msgid "Go"
+msgstr "Уперед"
+
+msgid "Unflag Out-of-date"
+msgstr "Зняти мітку Застарілий"
+
+msgid "Error retrieving package details."
+msgstr "Помилка при пошуку інформації про пакунок."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "Залиште місце поля паролей порожніми, щоб не міняти пароль."
+
+msgid "Description"
+msgstr "Опис"
+
+msgid "unknown"
+msgstr "невідомо"
+
+msgid "This package has been flagged out of date."
+msgstr "Цьому пакунку призначено мітку Застарілий"
+
+msgid "No New Comment Notification"
+msgstr "Немає нових сповіщень про коментарі"
+
+msgid "Dependencies"
+msgstr "Залежності"
+
+msgid "Disown Packages"
+msgstr "Зріктися пакунків"
+
+msgid "Required by"
+msgstr "Потребується пакунками"
+
+msgid "Package details could not be found."
+msgstr "Інформації про пакунок не знайдено."
+
+msgid "You must log in to view user information."
+msgstr "Ви повинні увійти у систему, щоб дивитись дані користувача."
+
+msgid "Package Details"
+msgstr "Інформація про пакунок"
+
+msgid "Package Listing"
+msgstr "Список пакунків"
+
+msgid "Files"
+msgstr "Файли"
+
+msgid "Name"
+msgstr "Назва"
+
+msgid "License"
+msgstr "Ліцензія"
+
+msgid "Last Updated"
+msgstr "Останній раз оновлено"
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Неможливо отримати інформацію про вказаного користувача."
+
+msgid "UnNotify"
+msgstr "Не сповіщати"
+
+msgid "Showing results %s - %s of %s"
+msgstr "Результати %s — %s з %s"
+
+msgid "Vote"
+msgstr "Проголосувати"
+
+msgid "Use this form to search existing accounts."
+msgstr "Використовуйте цю форму для пошуку існуючих аккаунтів."
+
+msgid "Use this form to create an account."
+msgstr "Використайте цю форму, щоб створити аккаунт."
+
+msgid "Un-Vote"
+msgstr "Забрати свій голос"
+
+msgid "change category"
+msgstr "змінити категорію"
+
+msgid "Use this form to update your account."
+msgstr "Використовуйте цю форму, щоб оновити свій аккаунт."
+
+msgid "Delete Packages"
+msgstr "Вилучити пакунки"
+
+msgid "Maintainer"
+msgstr "Відповідальний"
+
+msgid "Add Comment"
+msgstr "Коментувати"
+
+msgid "Comment by: %s on %s"
+msgstr "Коментар: %s до %s"
+
+msgid "Flag Out-of-date"
+msgstr "Призначити мітку Застарілий"
+
+msgid "You are not allowed to access this area."
+msgstr "У вам немає прав доступу сюди."
+
+msgid "Actions"
+msgstr "Дії"
+
+msgid "Sources"
+msgstr "Сирці"
+
+msgid "Toggle Notify"
+msgstr "Перемкнути режим сповіщення"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "Accounts"
+msgstr "Аккаунти"
+
+msgid "Notify"
+msgstr "Сповіщувати"
+
+msgid "You do not have permission to edit this account."
+msgstr "У вам немає прав, щоб редагувати цей аккаунт."
+
+msgid "Home"
+msgstr "Головна"
+
+msgid "New Comment Notification"
+msgstr "Сповіщення про новий коментар"
+
+msgid "Error retrieving package list."
+msgstr "Помилка при пошуку списку пакунків."
+
+msgid "No packages matched your search criteria."
+msgstr "За вашим запитом не знайдено пакунків."
+
+
+
+msgid "None of the selected packages could be deleted."
+msgstr "Жоден із вибраних пакунків неможливо вилучити."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Ваші голоси вилучено з вибраних пакунків."
+
+msgid "You did not select any packages to un-vote for."
+msgstr "Ви не вибрали жодного пакунку, щоб забрати голос."
+
+msgid "The selected packages have been unflagged."
+msgstr "З вибраних пакунків було знято мітку"
+
+msgid "You did not select any packages to adopt."
+msgstr "Ви не вибрали жодного пакунку для прийняття."
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Ви повинні зайти , щоб ви могли позначати пакунки."
+
+msgid "You must be logged in before you can get notifications on comments."
+msgstr "Ви повинні зайти, щоб мати можливість отримувати сповіщення про коментарі."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Ви повинні зайти, щоб мати змогу голосувати за пакунки."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Для вибраних пакунків призначено мітку Застарілий."
+
+msgid "The selected packages have been deleted."
+msgstr "Вибрані пакунки вилучено."
+
+msgid "You did not select any packages to vote for."
+msgstr "Ви не вибрали жодного пакунка для голосування."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Ви повинні зайти, щоб мати змогу зріктись пакунків."
+
+msgid "Error trying to retrieve package details."
+msgstr "Помилка при спробі пошуку інформації про пакунок."
+
+msgid "The selected packages have been adopted."
+msgstr "Вибрані пакунки прийнято."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Ви проголосували за вибрані пакунки."
+
+msgid "Packages"
+msgstr "Пакунки"
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Ви повинні зайти, щоб мати змогу приймати пакунки."
+
+msgid "You did not select any packages to disown."
+msgstr "Не вибрано жодного пакунку, щоб зріктись."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Ви повинні зайти, щоб могли забирати свої голоси за пакунки."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Ви повинні зайти, щоб мати змогу знімати мітку з пакунків."
+
+msgid "You did not select any packages to unflag."
+msgstr "Не вибрано жодного пакунку, щоб зняти мітку."
+
+msgid "You did not select any packages to delete."
+msgstr "Не вибрано жодного пакунку для вилучення."
+
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Вас вилучено із списку сповіщень про коментарі для %s."
+
+msgid "Couldn't add to notification list."
+msgstr "Неможливо долучити до списку соповіщень."
+
+msgid "You did not select any packages to flag."
+msgstr "Ви не вибрали жодного пакунку для мітки."
+
+msgid "The selected packages have been disowned."
+msgstr "Ви зріклись вибраних пакунків."
+
+msgid "You have been added to the comment notification list for %s."
+msgstr "Вас долучено до списку сповіщень про коментарі для %s."
+
+
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Помилка при розпакуванні завантаження — PKGBUILD не існує."
+
+msgid "Unknown file format for uploaded file."
+msgstr "Невідомий формат завантаженого файла."
+
+msgid "Could not change directory to %s."
+msgstr "Не можливо змінити каталог до %s."
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Неправильна назва: дозволено тільки малі літери."
+
+msgid "Missing "
+msgstr "Немає"
+
+msgid "Could not create incoming directory: %s."
+msgstr "Неможливо створити каталог: %s."
+
+msgid "Upload package file"
+msgstr "Завантажити файл пакунку"
+
+msgid "Missing build function in PKGBUILD."
+msgstr "Немає функції збирання у PKGBUILD."
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Вибачте, завантаження не дозволені цим сервером."
+
+msgid "Could not create directory %s."
+msgstr "Неможливо створити каталог %s."
+
+msgid "Could not re-tar"
+msgstr "Неможливо перезапакувати"
+
+msgid "Upload"
+msgstr "Завантажити"
+
+msgid "You must create an account before you can upload packages."
+msgstr "Ви повинні створити аккаунт, щоб завантажувати пакунки."
+
+msgid "Error - No file uploaded"
+msgstr "Помилка — жодного файла не завантажено"
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Не вказано протокол посилання (напр. http:// , ftp://)"
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Ви не маєте права перезаписувати пакунок %h%s%h."
+
+msgid "Package Category"
+msgstr "Категорія Пакунку"
+
+msgid "Select Category"
+msgstr "Виберіть Категорію"
+

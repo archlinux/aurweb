@@ -1,0 +1,612 @@
+# INSTRUCTIONS TO TRANSLATORS
+#
+# This file contains the i18n translations for a subset of the
+# Arch Linux User Community Repository (AUR).  This is a PHP
+# script, and as such, you MUST pay great attention to the syntax.
+# If your text contains any double-quotes ("), you MUST escape
+# them with a backslash (\).
+#
+# Norwegian (Norsk) translation
+# Translator: Hans-Kristian Arntzen <maister@archlinux.us>
+
+
+msgid "Search by"
+msgstr "Søk etter"
+
+msgid "This package has been flagged out of date."
+msgstr "Denne pakken har blitt merket som utdatert."
+
+msgid "Voted"
+msgstr "Stemmet"
+
+msgid "Missing a required field."
+msgstr "Mangler et nødvendig felt."
+
+msgid "Logged-in as: %s"
+msgstr "Logget inn som: %s"
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Feil oppstod under endring av konto, %h%s%h: %s."
+
+msgid "Username does not exist."
+msgstr "Brukernavn finnes ikke."
+
+msgid "Tarball"
+msgstr "Tar-ball"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Kan kun innehold ett punktum, understrek, eller bindestrek."
+
+msgid "Unflag Out-of-date"
+msgstr "Fjern markering av \"utdatert\""
+
+msgid "Missing package ID."
+msgstr "Mangler pakke-ID."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Du må være logget inn før du kan fjerne \"utdatert\"-markeringen av pakker."
+
+msgid "No results matched your search criteria."
+msgstr "Ingen søk stemte overens med dine søkekriterier."
+
+msgid "Update"
+msgstr "Oppdatér"
+
+msgid "Sort order"
+msgstr "Sorteringsrekkefølge"
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Du må være logget inn før du kan redigere pakkeinformasjon."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Stemmene dine er talte for de valgte pakkene."
+
+msgid "Package details could not be found."
+msgstr "Pakkedetaljene kunne ikke bli funnet."
+
+msgid "change category"
+msgstr "endre kategori"
+
+msgid "Error retrieving package list."
+msgstr "Feil oppstod under mottagelse av pakkeliste."
+
+msgid "Reset"
+msgstr "Omstart"
+
+msgid "Submitted: %s by %s"
+msgstr "Innsendt: %s av %s"
+
+msgid "string"
+msgstr "streng"
+
+msgid "Remember me"
+msgstr "Husk meg"
+
+msgid "This vote is still running."
+msgstr "Stemmingen er fortsatt aktiv."
+
+msgid "Package category updated."
+msgstr "Pakkekateogi er oppdatert."
+
+msgid "%s already has proposal running for them."
+msgstr "%s har allerede et forslag."
+
+msgid "Error - No file uploaded"
+msgstr "Feil - Ingen fil ble opplastet"
+
+msgid "You did not select any packages to disown."
+msgstr "Du valgte ingen pakker som skulle fjernes eierskap til."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Pakke-URL mangler en protokoll (f.eks http:// eller ftp://)"
+
+msgid "Votes"
+msgstr "Stemmer"
+
+msgid "Total"
+msgstr "Totalt"
+
+msgid "No more results to display."
+msgstr "Ingen flere resultater å vise."
+
+msgid "Maintainer"
+msgstr "Vedlikeholder"
+
+msgid "Less"
+msgstr "Færre"
+
+msgid "You are not allowed to access this area."
+msgstr "Du har ikke adgang til dette området."
+
+msgid "Any type"
+msgstr "Hvilken som helst type"
+
+msgid "Accounts"
+msgstr "Kontoer"
+
+msgid "Could not retrieve proposal details."
+msgstr "Kunne ikke motta detaljer om forslag."
+
+msgid "You do not have permission to edit this account."
+msgstr "Du har ikke adgang til å endre denne kontoen."
+
+msgid "Click on the Home link above to login."
+msgstr "Klikk på Hjem-linken ovenfor for å logge inn."
+
+msgid "The email address is invalid."
+msgstr "E-post-adressen er ugyldig."
+
+msgid "Could not change directory to %s."
+msgstr "Kunne ikke endre mappen til %s."
+
+msgid "None of the selected packages could be deleted."
+msgstr "Ingen av de valgte pakkene kunne slettes."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Stemmene dine har blitt fjernet fra de valgte pakkene."
+
+msgid "No packages matched your search criteria."
+msgstr "Ingen pakker stemmer overens med dine søkekriterier."
+
+msgid "Create"
+msgstr "Opprett"
+
+msgid "orphan"
+msgstr "hjemløs"
+
+msgid "View this user's packages"
+msgstr "Se denne brukereren sine pakker"
+
+msgid "Next"
+msgstr "Neste"
+
+msgid "Could not re-tar"
+msgstr "Kunne ikke tar-e på nytt"
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Du må være logget inn før du kan adoptere pakker."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Du må opprette en konto før du kan laste opp pakker."
+
+msgid "Location"
+msgstr "Lokasjon"
+
+msgid "Delete comment"
+msgstr "Slett kommentar"
+
+msgid "Account Type"
+msgstr "Konto-type"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "More"
+msgstr "Flere"
+
+msgid "Start and end with a letter or number"
+msgstr "Start og slutt med en bokstav eller et siffer"
+
+msgid "Could not create incoming directory: %s."
+msgstr "Kunne ikke opprette innkommende mappe: %s."
+
+msgid "Upload package file"
+msgstr "Last opp pakkefil"
+
+msgid "(defaults to 7 if empty)"
+msgstr "(settes standard til 7 hvis tom)"
+
+msgid "No New Comment Notification"
+msgstr "Ingen ny påminnelse om kommentarer"
+
+msgid "Couldn't add to notification list."
+msgstr "Kunne ikke legge til påminnelseslisten."
+
+msgid "Disown Packages"
+msgstr "Avslutt eierskap av pakker"
+
+msgid "Advanced"
+msgstr "Avansert"
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "Vote ID not valid."
+msgstr "Stemme-ID ikke gyldig."
+
+msgid "(empty if not applicable)"
+msgstr "(tom hvis ikke anvendelig)"
+
+msgid "Per page"
+msgstr "Per side"
+
+msgid "New proposal submitted."
+msgstr "Nytt forslag innsendt."
+
+msgid "Upload"
+msgstr "Last opp"
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Du må være logget inn før du kan stemme på pakker."
+
+msgid "Invalid category ID."
+msgstr "Invalid kategori-ID."
+
+msgid "Go"
+msgstr "Gå"
+
+msgid "New Package Notify"
+msgstr "Ny pakkepåminnelse"
+
+msgid "Use this form to search existing accounts."
+msgstr "Bruk dette skjemaet for å søke etter eksisterende kontoer."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Adressen, %h%s%h, er allerede i bruk."
+
+msgid "Current Votes"
+msgstr "Foreløpige stemmer"
+
+msgid "Select Category"
+msgstr "Velg kategori"
+
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Du har blitt fjernet fra kommentarpåminnelselisten for %s."
+
+msgid "Unknown file format for uploaded file."
+msgstr "Ukjent filformat for opplastede filer."
+
+msgid "Delete Packages"
+msgstr "Slett pakker"
+
+msgid "The selected packages have been deleted."
+msgstr "De valgte pakkene har blitt slettet."
+
+msgid "Back"
+msgstr "Tilbake"
+
+msgid "Re-type password"
+msgstr "Tast inn passord på nytt"
+
+msgid "All Votes"
+msgstr "Alle stemmene"
+
+msgid "The selected packages have been disowned."
+msgstr "De valgte pakkene eies ikke mer."
+
+msgid "Suspended"
+msgstr "Suspendert"
+
+msgid "Home"
+msgstr "Hjem"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "UnFlag Out-of-date"
+msgstr "Av-markér \"utdatert\""
+
+msgid "Developer"
+msgstr "Utvikler"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Missing build function in PKGBUILD."
+msgstr "Mangler build()-funksjon i PKGBUILD."
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Du må være logget inn før du kan markere pakker."
+
+msgid "No results found."
+msgstr "Ingen resultater funnet."
+
+msgid "No"
+msgstr "Nei"
+
+msgid "Discussion"
+msgstr "Diskusjon"
+
+msgid "Dependencies"
+msgstr "Avhengigheter"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Add"
+msgstr "Legg til"
+
+msgid "You did not select any packages to adopt."
+msgstr "Du valgte ingen pakker å adoptere."
+
+msgid "Length must be at least 1."
+msgstr "Lengden må være minst 1."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Feil oppstod under opprettelse av konto: %h%s%h: %s."
+
+msgid "End"
+msgstr "Slutt"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Kontoen, %h%s%h, har blitt korrekt modifisert."
+
+msgid "Account Suspended"
+msgstr "Konto suspendert"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "You must be logged in before you can get notifications on comments."
+msgstr "Du må være logget inn før du kan se påminnelser i kommentarer."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "La passord-feltene stå blanke for å beholde ditt gamle passord."
+
+msgid "IRC Nick"
+msgstr "IRC-nick"
+
+msgid "Trusted user"
+msgstr "Betrodd bruker"
+
+msgid "Normal user"
+msgstr "Vanlig bruker"
+
+msgid "This is a %h%s%h problem!"
+msgstr "Dette er er %h%s%h-problem!"
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Du har ikke tilgang til å skrive over %h%s%h-pakken."
+
+msgid "Missing comment ID."
+msgstr "Mangler kommentar-ID."
+
+msgid "Error trying to retrieve package details."
+msgstr "Feil oppstod under mottagelse av pakkedetaljer."
+
+msgid "Proposal cannot be empty."
+msgstr "Forslag kan ikke være tomt."
+
+msgid "User"
+msgstr "Bruker"
+
+msgid "Package Category"
+msgstr "Pakkekategori"
+
+msgid "The selected packages have been adopted."
+msgstr "Den valgte pakken har blitt adoptert."
+
+msgid "Packages"
+msgstr "Pakker"
+
+msgid "Edit Account"
+msgstr "Endre brukerkonto"
+
+msgid "Search"
+msgstr "Søk"
+
+msgid "Language"
+msgstr "Språk"
+
+msgid "Orphans"
+msgstr "Hjemløse"
+
+msgid "Voting is closed for this proposal."
+msgstr "Stemming er avsluttet for dette forslaget."
+
+msgid "Bugs"
+msgstr "Bugs"
+
+msgid "Showing results %s - %s of %s"
+msgstr "Viser resultater %s - %s av %s"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "You've already voted for this proposal."
+msgstr "Du har allerede stemt for dette forslaget."
+
+msgid "Required by"
+msgstr "Trengs av"
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Du kan ikke stemme i et forslag om deg."
+
+msgid "You did not select any packages to unflag."
+msgstr "Du valgte ingen pakker å flagge bort."
+
+msgid "You must log in to view user information."
+msgstr "Du må logge inn for å se informasjon om bruker."
+
+msgid "You did not select any packages to delete."
+msgstr "Du valgte ingen pakker å slette."
+
+msgid "Could not create directory %s."
+msgstr "Kunne ikke opprette mappe %s."
+
+msgid "UnNotify"
+msgstr "Avnotifisér"
+
+msgid "Flag Out-of-date"
+msgstr "Flagg som utdatert"
+
+msgid "The selected packages have been unflagged."
+msgstr "De valgte pakkene har blitt flagget bort."
+
+msgid "Search Criteria"
+msgstr "Søkekriterier"
+
+msgid "Notify"
+msgstr "Notifisér"
+
+msgid "Vote"
+msgstr "Stem"
+
+msgid "Adopt Packages"
+msgstr "Adoptér pakker"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Package Listing"
+msgstr "Pakkelisting"
+
+msgid "Any"
+msgstr "Uansett"
+
+msgid "It must be between %s and %s characters long"
+msgstr "Det må være mellom %s og %s tegn langt"
+
+msgid "Logout"
+msgstr "Logg ut"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Kontoen, %h%s%h, har blitt opprettet korrekt."
+
+msgid "Your password must be at least %s characters."
+msgstr "Passordet ditt må være minst %s tegn."
+
+msgid "Submit"
+msgstr "Send inn"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Unnskyld, opplastinger er ikke tillat av denne serveren."
+
+msgid "Actions"
+msgstr "Handlinger"
+
+msgid "Comment has been deleted."
+msgstr "Kommentar har blitt slettet."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Brukernavnet, %h%s%h, er allerede i bruk."
+
+msgid "Proposal"
+msgstr "Forslag"
+
+msgid "You did not select any packages to flag."
+msgstr "Du valgte ingen pakker å flagge."
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Feil oppstod under forsøk av å pakke ut opplasting - PKGBUILD finnes ikke."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "De valgte pakkene har blitt flagget som utdatert."
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "My Packages"
+msgstr "Mine pakker"
+
+msgid "You did not select any packages to vote for."
+msgstr "Du valgte ingen pakker å stemme på."
+
+msgid "Never"
+msgstr "Aldri"
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Du må være logget inn før du kan avslutte eierskap av pakker."
+
+msgid "You've found a bug if you see this...."
+msgstr "Du har funnet en bug hvis du ser dette ..."
+
+msgid "Last Voted"
+msgstr "Sist stemt"
+
+msgid "Password"
+msgstr "Passord"
+
+msgid "Real Name"
+msgstr "Ekte navn"
+
+msgid "Package Details"
+msgstr "Pakkedetaljer"
+
+msgid "UnVote"
+msgstr "Av-stem"
+
+msgid "Password fields do not match."
+msgstr "Passord-felter stemmer ikke overens."
+
+msgid "Username"
+msgstr "Brukernavn"
+
+msgid "The username is invalid."
+msgstr "Brukernavnet er ikke gyldig."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Kunne ikke motta informasjon for den valgte brukeren."
+
+msgid "Email Address"
+msgstr "E-post-adresse"
+
+msgid "Trusted User"
+msgstr "Betrodd bruker"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Invalid navn - kun små bokstaver er tillatte."
+
+msgid "Error retrieving package details."
+msgstr "Feil oppstod under mottagelse av pakkedetaljer."
+
+msgid "Length must be a number."
+msgstr "Lengden må være et nummer."
+
+msgid "%s has %s apples."
+msgstr "%s har %s epler."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Du må være logget inn før du av av-stemme pakker."
+
+msgid "Login"
+msgstr "Logg inn"
+
+msgid "Use this form to create an account."
+msgstr "Bruk dette feltet for å opprette en konto."
+
+msgid "Use this form to update your account."
+msgstr "Bruk dette feltet for å oppdatér kontoen din."
+
+msgid "Abstain"
+msgstr "Avhold deg fra"
+
+msgid "Could not chmod directory %s."
+msgstr "Kunne ikke chmod-e mappe %s."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Du har ikke tilgang til å slette denne kommentaren."
+
+msgid "required"
+msgstr "trengs av"
+
+msgid "Sort by"
+msgstr "Sortér med"
+
+msgid "Submit a proposal to vote on."
+msgstr "Send inn et forslag å stemme på."
+
+msgid "Proposal Details"
+msgstr "Resultater for forslag"
+
+msgid "Language is not currently supported."
+msgstr "Språk er ikke støttet på dette tidspunktet."
+
+msgid "Last vote"
+msgstr "Siste stemme"
+
+msgid "New Comment Notification"
+msgstr "Ny påminnelse om kommentar"
+
+msgid "Missing User ID"
+msgstr "Mangler bruker-ID"
+
+msgid "You have been added to the comment notification list for %s."
+msgstr "Du har blitt lagt til påminnelselisten for kommentarer for %s."
+
+msgid "Select new category"
+msgstr "Velg ny kategori"
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "En betrodd bruker kan ikke tilegne utviklerstatus."
+
