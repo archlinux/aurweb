@@ -262,7 +262,7 @@ $_t["Location"] = "Ort";
 
 $_t["Flag Safe"] = "Als \"Sicher\" markieren";
 
-$_t["Go"] = "Suche";
+$_t["Go"] = "Los";
 
 $_t["Unflag Out-of-date"] = "Markierung \"Veraltet\" entfernen";
 
@@ -550,3 +550,114 @@ $_t["Missing license variable in PKGBUILD."] = "Die license-Variable fehlt im PK
 
 $_t["Missing arch variable in PKGBUILD."] = "Die arch-Variable fehlt im PKGBUILD.";
 
+$_t["Past Votes"] = "Abgeschloßene Abstimmungen";
+
+$_t["Confirm your e-mail address:"] = "Bestätige deine E-Mail Adresse";
+
+$_t["Voting is closed for this proposal."] = "Die Abstimmungsphase für diesen Vorschlag ist beendet.";
+
+$_t["Username does not exist."] = "Der Nutzername existiert nicht.";
+
+$_t["Can contain only one period, underscore or hyphen."] = "Kann nur einen Punkt, Unter- oder Bindestrich enthalten.";
+
+$_t["You cannot vote in an proposal about you."] = "Du kannst in einem Vorschlag, der dich selbst betrifft, nicht abstimmen.";
+
+$_t["Enter your new password:"] = "Gib dein neues Passwort ein:";
+
+$_t["Submitted: %s by %s"] = "Eingereicht: %s von %s";
+
+$_t["Remember me"] = "Angemeldet bleiben";
+
+$_t["Package category changed."] = "Kategorie des Paketes wurde verändert.";
+
+$_t["%s already has proposal running for them."] = "Es läuft bereits ein Vorschlag für %s.";
+
+$_t["Total"] = "Insgesamt";
+
+$_t["Missing category ID."] = "Fehlende Kategorie-ID.";
+
+$_t["Could not retrieve proposal details."] = "Konnte Vorschlag-Details nicht ermitteln.";
+
+$_t["Confirm"] = "Bestätige";
+
+$_t["Start and end with a letter or number"] = "Muss mit einem Buchstaben oder einer Zahl beginnen und enden";
+
+$_t["Next"] = "Weiter";
+
+$_t["%s is on the package blacklist, please check if it's available in the official repos."] = "%s ist auf der Paket-Blacklist, bitte sieh nach, ob es in einem offiziellen Repository ist.";
+
+$_t["Upload your source packages here. Create source packages with `makepkg --source`."] = "Lade deine Quellpakete hier hoch. Generiere eines mit `makepkg --source`.";
+
+$_t["PKGBUILD"] = "PKGBUILD";
+
+$_t["Password Reset"] = "Passwort zurücksetzen";
+
+$_t["(defaults to 7 if empty)"] = "(7, falls leer)";
+
+$_t["The selected packages have not been deleted, check the confirmation checkbox."] = "Die ausgewählten Pakete wurden nicht gelöscht, bitte die Bestätigungs-Checkbox aktivieren.";
+
+$_t["Advanced"] = "Erweitert";
+
+$_t["This vote is still running."] = "Diese Abstimmung läuft noch.";
+
+$_t["Vote ID not valid."] = "Ungültige Abstimmungs-ID.";
+
+$_t["(empty if not applicable)"] = "(leer, falls nicht zutreffend)";
+
+$_t["New proposal submitted."] = "Neuer Vorschlag eingereicht.";
+
+$_t["Current Votes"] = "Laufende Abstimmungen";
+
+$_t["You have been removed from the comment notification list for %s."] = "Du wurdes von der Benachrichtigungsliste für %s entfernt.";
+
+$_t["Back"] = "Zurück";
+
+$_t["UnFlag Out-of-date"] = "\"Veraltet\"-Markierung entfernen";
+
+$_t["No results found."] = "Keine Ergebnisse gefunden";
+
+$_t["Start"] = "Beginn";
+
+$_t["Length must be at least 1."] = "Die Länge muss mindestens 1 betragen.";
+
+$_t["End"] = "Ende";
+
+$_t["Confirm your new password:"] = "Bestätige dein neues Passwort:";
+
+$_t["Enter your e-mail address:"] = "Gib deine E-Mail Adresse ein:";
+
+$_t["Proposal cannot be empty."] = "Vorschlag darf nicht leer sein.";
+
+$_t["Add Proposal"] = "Vorschlag hinzufügen";
+
+$_t["You are not allowed to change this package category."] = "Du darfst diese Paketkategorie nicht ändern.";
+
+$_t["Showing results %s - %s of %s"] = "Ergebnisse %s - %s von %s";
+
+$_t["You've already voted for this proposal."] = "Du hast für diesen Vorschlag bereits abgestimmt.";
+
+$_t["This is a %hmajor%h problem!"] = "Dies ist ein %hgroßes%h Problem!";
+
+$_t["It must be between %s and %s characters long"] = "Es muss zwischen %s und %s Zeichen lang sein";
+
+$_t["Your password must be at least %s characters."] = "Dein Passwort muss mindestens %s Zeichen lang sein.";
+
+$_t["Proposal"] = "Vorschlag";
+
+$_t["UnVote"] = "Stimme zurückziehen";
+
+$_t["The username is invalid."] = "Der Nutzername ist ungültig";
+
+$_t["Length must be a number."] = "Die Länge muss eine Zahl sein.";
+
+$_t["%s has %s apples."] = "%s hat %s Äpfel.";
+
+$_t["Abstain"] = "Enthalten";
+
+$_t["Submit a proposal to vote on."] = "Reiche einen Vorschlag zur Abstimmung ein.";
+
+$_t["Proposal Details"] = "Vorschlag-Details";
+
+$_t["Bad username or password."] = "Falscher Nutzername oder falsches Passwort.";
+
+$_t["You have been added to the comment notification list for %s."] = "Du wurdest zur Benachrichtigungliste für %s hinzugefügt.";
