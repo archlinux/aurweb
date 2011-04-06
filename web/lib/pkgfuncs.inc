@@ -341,6 +341,7 @@ function package_details($id=0, $SID="") {
  *    SeB- property that search string (K) represents
  *          values: n  - package name
  *                  nd - package name & description
+ *                  x  - package name (exact match)
  *                  m  - package maintainer's username
  *                  s  - package submitter's username
  *    do_Orphans    - boolean. whether to search packages
@@ -440,10 +441,14 @@ function pkg_search_page($SID="") {
 		# Search by submitter
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
 			$q_where .= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
-		# Search by name
 		}
+		# Search by name
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
 			$q_where .= "AND (Name LIKE '%".$_GET['K']."%') ";
+		}
+		# Search by name (exact match)
+		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "x") {
+			$q_where .= "AND (Name = '".$_GET['K']."') ";
 		}
 		# Search by name and description (Default)
 		else {

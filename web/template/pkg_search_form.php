@@ -38,7 +38,7 @@
 					<label><?php print __("Search by"); ?></label>
 						<select name='SeB'>
 							<?php
-							$searchby = array('nd' => __('Name, Description'), 'n' => __('Name Only'), 'm'  => __('Maintainer'), 's'  => __('Submitter'));
+							$searchby = array('nd' => __('Name, Description'), 'n' => __('Name Only'), 'x' => ('Exact name'), 'm'  => __('Maintainer'), 's'  => __('Submitter'));
 							foreach ($searchby as $k => $v):
 								if (isset($_REQUEST['SeB']) && $_REQUEST['SeB'] == $k):
 							?>
