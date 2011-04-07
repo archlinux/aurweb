@@ -26,10 +26,21 @@ POFILES = \
 MOFILES = ${POFILES:.po=.mo}
 LOCALES = ${MOFILES:.mo=}
 
+MSGID_BUGS_ADDRESS = https://bugs.archlinux.org/index.php?project=2
+
 all: ${MOFILES}
 
 %.mo: %.po
 	msgfmt -o $@ $<
+
+update-pot:
+	pkgname=AUR; \
+	pkgver=`sed -n 's/.*"AUR_VERSION", "\(.*\)".*/\1/p' ../web/lib/version.inc`; \
+	xgettext --default-domain=aur -L php --keyword=__ --no-location \
+		--add-comments=TRANSLATORS: --package-name="$$pkgname" \
+		--package-version="$$pkgver" \
+		--msgid-bugs-address='${MSGID_BUGS_ADDRESS}' \
+		--directory ../web --files-from POTFILES -o aur.pot
 
 clean:
 	rm *.mo
@@ -41,4 +52,4 @@ install: all
 uninstall:
 	for l in ${LOCALES}; do rm -rf ${DESTDIR}${PREFIX}/$$l/LC_MESSAGES/; done
 
-.PHONY: all clean install uninstall
+.PHONY: all update-pot clean install uninstall
