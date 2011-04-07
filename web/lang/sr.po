@@ -412,8 +412,7 @@ $_t["Select new category"] = "Izaberite novu kategoriju";
 
 $_t["A Trusted User cannot assign Developer status."] = "Poverljivi korisnik ne može dodeliti privilegije Programera.";
 
-$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Dodbrodošli u AUR!
- Molimo vas da prvo pročitate %huputstvo za korisnike AURa %h i %huputstvo za AURove poverljive korisnike%h za više informacija.";
+$_t["Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."] = "Dodbrodošli u AUR! Molimo vas da prvo pročitate %huputstvo za korisnike AURa %h i %huputstvo za AURove poverljive korisnike%h za više informacija.";
 
 $_t["Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"] = "Priloženi PKGBUILDovi %hmoraju%h biti saglasni sa %hArch-ovim standardima pakiranja%h ili će biti uklonjeni!";
 
