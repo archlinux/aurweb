@@ -5,3 +5,4 @@ web/lib/config.inc
 *.DS_Store
 web/html/xml/*.xml
 dummy-data.sql*
+web/locale/*/
