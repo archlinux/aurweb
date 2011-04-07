@@ -12,499 +12,260 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# Croatian (Hrvatski) translation
-# Translator: Dino Krtanjek <krtanjekdino@gmail.com>
-
-
-msgid "View this user's packages"
-msgstr "Pregledaj pakete ovog korisnika"
-
-msgid "It must be between %s and %s characters long"
-msgstr "Mora biti najmanje %s a najviše %s znakova"
-
-msgid "Missing a required field."
-msgstr "Nedostaje Vam obvezno polje."
-
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "Račun, %h%s%h, je uspješno kreiran."
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "Desila se greška prilikom izmjene računa, %h%s%h: %s."
-
-msgid "Your password must be at least %s characters."
-msgstr "Lozinka mora sadržavati najmanje %s znakova."
-
-msgid "The email address is invalid."
-msgstr "Email adresa je neispravna."
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "Desila se greška prilikom stvaranja računa, %h%s%h: %s."
-
-msgid "The username, %h%s%h, is already in use."
-msgstr "Korisničko ime %h%s%h je već zauzeto."
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr "Može sadržavati samo jednu točku, donju crticu ili povlaku."
-
-msgid "Account Type"
-msgstr "Tip računa"
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr "Račun %h%s%h je uspješno izmijenjen."
-
-msgid "Account Suspended"
-msgstr "Račun je suspendiran"
-
-msgid "Start and end with a letter or number"
-msgstr "Zapični i završi sa slovom ili brojkom"
-
-msgid "New Package Notify"
-msgstr "Obavijesti me o novim paketima"
-
-msgid "IRC Nick"
-msgstr "Nadimak na IRC-u"
-
-msgid "Trusted user"
-msgstr "Pouzdan korisnik"
-
-msgid "No results matched your search criteria."
-msgstr "Nema rezultata pretrage."
-
-msgid "Normal user"
-msgstr "Običan korisnik"
-
-msgid "Never"
-msgstr "Nikad"
-
-msgid "User"
-msgstr "Korisnik"
-
-msgid "Active"
-msgstr "Aktivan"
-
-msgid "Last Voted"
-msgstr "Posljednje glasao"
-
-msgid "Real Name"
-msgstr "Vaše stvarno ime"
-
-msgid "Edit Account"
-msgstr "Podesi račun"
-
-msgid "Password fields do not match."
-msgstr "Lozinke nisu jednake."
-
-msgid "Status"
-msgstr "Stanje"
-
-msgid "The username is invalid."
-msgstr "Korisničko ime je neispravno."
-
-msgid "Language"
-msgstr "Jezik"
-
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Pouzdan korisnik nemoše dodijeliti Developer status."
-
-msgid "The address, %h%s%h, is already in use."
-msgstr "Adresa %h%s%h je već iskorištena."
-
-msgid "No more results to display."
-msgstr "Nema više rezultata za prikaz."
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "Click on the Home link above to login."
-msgstr "Kliknite na link Početna kako bi se logirali."
-
-msgid "Re-type password"
-msgstr "Ponovno upišite lozinku"
-
-msgid "Language is not currently supported."
-msgstr "Jezik trenutno nije podržan."
-
-msgid "Suspended"
-msgstr "Suspendiran"
-
-msgid "Trusted User"
-msgstr "Pouzdan korisnik"
-
-msgid "Missing User ID"
-msgstr "Nedostaje ID korisnika"
-
-msgid "Developer"
-msgstr "Developer"
-
-msgid "Reset"
-msgstr "Resetiraj"
-
-msgid "Username"
-msgstr "Korisničko ime"
-
-msgid "Email Address"
-msgstr "Email adresa"
-
-msgid "Less"
-msgstr "Manje"
-
-msgid "Clear"
-msgstr "Briši"
-
-msgid "required"
-msgstr "obvezno"
-
-msgid "Update"
-msgstr "Ažuriraj"
-
-msgid "Submit"
-msgstr "Pošalji"
-
-msgid "Password"
-msgstr "Lozinka"
-
-msgid "Create"
-msgstr "Kreiraj"
-
-msgid "More"
-msgstr "Više"
-
-msgid "Missing package ID."
-msgstr "Nedostaje ID paketa."
-
-msgid "Invalid category ID."
-msgstr "Neispravan ID kategorije."
-
-msgid "Enter your comment below."
-msgstr "Ovdje unesite komentar."
-
-msgid "You are not allowed to delete this comment."
-msgstr "Brisanje ovog komentara Vam nije dozvoljeno."
-
-msgid "Missing comment ID."
-msgstr "Nedostaje ID komentara."
-
-msgid "Package category updated."
-msgstr "Kategorija paketa je ažurirana."
-
-msgid "You must be logged in before you can edit package information."
-msgstr "Morate biti logirani da biste mogli mijenjati informacije o paketu."
-
-msgid "Comment has been deleted."
-msgstr "Komentar je izbrisan."
-
-msgid "You've found a bug if you see this...."
-msgstr "Pronašli ste bug ako vidite ovu poruku...."
-
-msgid "Comment has been added."
-msgstr "Komentar je dodan."
-
-msgid "Select new category"
-msgstr "Odaberite novu kategoriju"
-
-msgid "Category"
-msgstr "Kategorija"
-
-msgid "Votes"
-msgstr "Glasovi"
-
-msgid "Adopt Packages"
-msgstr "Posvoji paket"
-
-msgid "Comments"
-msgstr "Komentari"
-
-msgid "orphan"
-msgstr "napušten"
-
-msgid "Out of Date"
-msgstr "Zastario"
-
-msgid "First Submitted"
-msgstr "Prvi put poslan"
-
-msgid "Tarball"
-msgstr "Arhiva"
-
-msgid "Voted"
-msgstr "Glasao"
-
-msgid "Location"
-msgstr "Lokacija"
-
-msgid "Delete comment"
-msgstr "Briši komentar"
-
-msgid "Go"
-msgstr "Traži"
-
-msgid "Unflag Out-of-date"
-msgstr "Obilježi kao ažuriran"
-
-msgid "Error retrieving package details."
-msgstr "Došlo je do greške prilikom preuzimanja detalja o paketu."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Nemojte ispunjavati poslja za lozinku ukoliko želite zadržati dosadašnju lozinku."
-
-msgid "Description"
-msgstr "Opis"
-
-msgid "unknown"
-msgstr "nepoznato"
-
-msgid "This package has been flagged out of date."
-msgstr "Paket je obilježen kao zastarijeli."
-
-msgid "No New Comment Notification"
-msgstr "Nemoj me više obavještavati o novim komentarima"
-
-msgid "Dependencies"
-msgstr "Ovisi o"
-
-msgid "Disown Packages"
-msgstr "Odrekni se paketa"
-
-msgid "Required by"
-msgstr "Potreban za"
-
-msgid "Package details could not be found."
-msgstr "Nije moguće naći detalje o paketu."
-
-msgid "You must log in to view user information."
-msgstr "Morate se logirati kako bi pregledali informacije o korisniku."
-
-msgid "Package Details"
-msgstr "Detalji o paketu"
-
-msgid "Package Listing"
-msgstr "Lista paketa"
-
-msgid "Files"
-msgstr "Datoteke"
-
-msgid "Name"
-msgstr "Ime"
-
-msgid "License"
-msgstr "Licenca"
-
-msgid "Last Updated"
-msgstr "Posljednji put ažuriran"
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Nije moguće naći informacije o zadanom korisniku."
-
-msgid "UnNotify"
-msgstr "Ne obavještavaj"
-
-msgid "Showing results %s - %s of %s"
-msgstr "Rezultati %s - %s od %s"
-
-msgid "Vote"
-msgstr "Glasaj"
-
-msgid "Use this form to search existing accounts."
-msgstr "Koristite ovaj formular za pretraživanj postoječih računa."
-
-msgid "Use this form to create an account."
-msgstr "Koristite ovaj formular za kreiranje računa."
-
-msgid "Un-Vote"
-msgstr "Makni svoj glas"
-
-msgid "change category"
-msgstr "promijeni kategoriju"
-
-msgid "Use this form to update your account."
-msgstr "Ovim formulatom ažurirajte Vaš računa."
-
-msgid "Delete Packages"
-msgstr "Izbriši pakete"
-
-msgid "Maintainer"
-msgstr "Održavatelj"
-
-msgid "Add Comment"
-msgstr "Dodaj komentar"
-
-msgid "Comment by: %s on %s"
-msgstr "Komentirao %s u %s"
-
-msgid "Flag Out-of-date"
-msgstr "Obilježi kao zastario"
-
-msgid "You are not allowed to access this area."
-msgstr "Nije vam dozvoljen pristup ovom području."
-
-msgid "Actions"
-msgstr "Radnje"
-
-msgid "Sources"
-msgstr "Izvor"
-
-msgid "Toggle Notify"
-msgstr "Mijenjaj obavještavanje"
-
-msgid "Yes"
-msgstr "Da"
-
-msgid "Accounts"
-msgstr "Računi"
-
-msgid "Notify"
-msgstr "Obavijesti"
-
-msgid "You do not have permission to edit this account."
-msgstr "Nemate ovlasti da bi mjenjali ovaj račun."
-
 msgid "Home"
 msgstr "Početna"
 
-msgid "New Comment Notification"
-msgstr "Obavijesti me o novim komentarima"
+msgid ""
+"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
+"Guidelines%h for more information."
+msgstr ""
 
-msgid "Error retrieving package list."
-msgstr "Došlo je do greške prilikom stvaranja liste paketa."
+msgid ""
+"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
+"otherwise they will be deleted!"
+msgstr ""
 
-msgid "No packages matched your search criteria."
-msgstr "Nijedan paket ne odgovara kriterijima traženja."
+msgid "Remember to vote for your favourite packages!"
+msgstr ""
 
+msgid "Some packages may be provided as binaries in [community]."
+msgstr ""
 
+msgid "DISCLAIMER"
+msgstr ""
 
-msgid "None of the selected packages could be deleted."
-msgstr "Nijedan odabrani paket nije moguće izbrisati."
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr ""
 
-msgid "Your votes have been removed from the selected packages."
-msgstr "Vaši su glasovi maknuti s odabranih paketa."
-
-msgid "You did not select any packages to un-vote for."
-msgstr "Niste odabrali pakete s kojih želite maknuti glasove."
-
-msgid "The selected packages have been unflagged."
-msgstr "Odabrani paketu su postavljeni kao ažurirani."
-
-msgid "You did not select any packages to adopt."
-msgstr "Niste odabrali pakete koje želite posvojiti."
-
-msgid "You must be logged in before you can flag packages."
-msgstr "Morate se logirati da bi obilježavali pakete."
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Morate biti logirani kako bi mogli dobivati obavijesti o novim komentarima."
-
-msgid "You must be logged in before you can vote for packages."
-msgstr "Morate se logirati da bi glasali za pakete."
-
-msgid "The selected packages have been flagged out-of-date."
-msgstr "Odabrani paketi su obilježeni kao zastarijeli."
-
-msgid "The selected packages have been deleted."
-msgstr "Odabrani paketi su izbrisani."
-
-msgid "You did not select any packages to vote for."
-msgstr "Niste odabrali pakete za koje želite glasati."
-
-msgid "You must be logged in before you can disown packages."
-msgstr "Morate se logirati da bi se mogli odreknuti paketa."
-
-msgid "Error trying to retrieve package details."
-msgstr "Došlo je do greške prilikom dobivanja detalja o paketu."
-
-msgid "The selected packages have been adopted."
-msgstr "Posvojili ste odabrane pakete."
-
-msgid "Your votes have been cast for the selected packages."
-msgstr "Glasovi su dodijeljeni odabranim paketima."
+msgid "Search Criteria"
+msgstr "Kriteriji traženja"
 
 msgid "Packages"
 msgstr "Paketi"
 
-msgid "You must be logged in before you can adopt packages."
-msgstr "Morate se logirati da bi posvojili pakete."
+#, fuzzy
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "Odabrani paketi su izbrisani."
 
-msgid "You did not select any packages to disown."
-msgstr "Niste odabrali pakete kojih se želite odreči."
+msgid "Error trying to retrieve package details."
+msgstr "Došlo je do greške prilikom dobivanja detalja o paketu."
 
-msgid "You must be logged in before you can un-vote for packages."
-msgstr "Morate se logirati da bi mogli maknuti svoje glasove s paketa."
+msgid "Accounts"
+msgstr "Računi"
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Morate se logirati da bi mogli obilježiti pakete kao ažurirane."
+msgid "You are not allowed to access this area."
+msgstr "Nije vam dozvoljen pristup ovom području."
 
-msgid "You did not select any packages to unflag."
-msgstr "Niste odabrali pakete koje želite obilježiti kao ažurirane."
+msgid "Could not retrieve information for the specified user."
+msgstr "Nije moguće naći informacije o zadanom korisniku."
 
-msgid "You did not select any packages to delete."
-msgstr "Niste odabrali pakete koje želite izbrisati."
+msgid "You do not have permission to edit this account."
+msgstr "Nemate ovlasti da bi mjenjali ovaj račun."
 
-msgid "You have been removed from the comment notification list for %s."
-msgstr "Niste više na listi za obavježtavanje o novim komentarima za %s."
+msgid "Use this form to search existing accounts."
+msgstr "Koristite ovaj formular za pretraživanj postoječih računa."
 
-msgid "Couldn't add to notification list."
-msgstr "Nemogu dodati u listu za obavještavanje."
+msgid "Use this form to update your account."
+msgstr "Ovim formulatom ažurirajte Vaš računa."
 
-msgid "You did not select any packages to flag."
-msgstr "Niste odabrali pakete koje želite obilježiti."
+msgid "Leave the password fields blank to keep your same password."
+msgstr ""
+"Nemojte ispunjavati poslja za lozinku ukoliko želite zadržati dosadašnju "
+"lozinku."
 
-msgid "The selected packages have been disowned."
-msgstr "Odrekli ste se odabranih paketa."
+msgid "You must log in to view user information."
+msgstr "Morate se logirati kako bi pregledali informacije o korisniku."
 
-msgid "You have been added to the comment notification list for %s."
-msgstr "Dodani ste u listu za obavještavanje o novim komentarima za %s."
+msgid "Use this form to create an account."
+msgstr "Koristite ovaj formular za kreiranje računa."
 
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Došlo je do greške prilikom raspakiravanja poslane datoteke - PKGBUILD ne postoji."
+msgid "Could not retrieve proposal details."
+msgstr "Nemogu pronaći detalje o prijedlogu."
 
-msgid "Unknown file format for uploaded file."
-msgstr "Nepoznat format poslane datoteke."
+msgid "Voting is closed for this proposal."
+msgstr "Glasanje je zaključeno za ovaj prijedlog"
 
-msgid "Could not change directory to %s."
-msgstr "Nisam mogao promijeniti direktorij u %s."
+msgid "You cannot vote in an proposal about you."
+msgstr "Nemožete glasati o prijedlogu koji se tiće Vas."
 
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Neispravno ime: Dozvoljena su samo mala slova (kurenti)."
+msgid "You've already voted for this proposal."
+msgstr "Već ste glasali za ovaj prijedlog."
 
-msgid "Missing "
-msgstr "Nedostaje"
+msgid "Vote ID not valid."
+msgstr "ID glasa je neispravan."
 
-msgid "Could not create incoming directory: %s."
-msgstr "Nemogu kreirati dolazeću mapu: %s."
+msgid "Current Votes"
+msgstr "Trenutno glasova"
 
-msgid "Upload package file"
-msgstr "Šalji datoteku paketa"
+#, fuzzy
+msgid "Past Votes"
+msgstr "Posljednje glasao"
 
-msgid "Missing build function in PKGBUILD."
-msgstr "Nedostaje build funkcija u PKGBUILD."
+#, fuzzy
+msgid "Add Proposal"
+msgstr "Prijedlog"
 
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Oprostite, ovaj server ne dozvoljava slanje."
+msgid "Back"
+msgstr "Natrag"
 
-msgid "Could not create directory %s."
-msgstr "Nemogu kreirati direktorij %s."
+msgid "Next"
+msgstr "Sljedeći"
 
-msgid "Could not re-tar"
-msgstr "Nemogu ponovno kreirati tar"
+msgid "Username does not exist."
+msgstr "Korisničko ime ne postoji."
 
-msgid "Upload"
-msgstr "Šalji"
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s već ima prijedlog."
 
-msgid "You must create an account before you can upload packages."
-msgstr "Da biste mogli slati pakete, morate prvo kreirati račun."
+msgid "Length must be a number."
+msgstr "Duljina mora biti broj."
+
+msgid "Length must be at least 1."
+msgstr "Doljina mora biti najmanje 1."
+
+msgid "Proposal cannot be empty."
+msgstr "Prijedlog nemože biti prazan."
+
+msgid "New proposal submitted."
+msgstr "Novi prijedlog je poslan."
+
+msgid "Submit a proposal to vote on."
+msgstr "Pošalji prijedlog za glasanje."
+
+msgid "Applicant/TU"
+msgstr ""
+
+msgid "(empty if not applicable)"
+msgstr "(prazno ako nije prikladno)"
+
+msgid "Length in days"
+msgstr ""
+
+msgid "(defaults to 7 if empty)"
+msgstr "(7 ako je prazno)"
+
+msgid "Proposal"
+msgstr "Prijedlog"
+
+msgid "Submit"
+msgstr "Pošalji"
+
+msgid "Missing a required field."
+msgstr "Nedostaje Vam obvezno polje."
+
+msgid "Password fields do not match."
+msgstr "Lozinke nisu jednake."
+
+msgid "Invalid e-mail."
+msgstr ""
+
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#, fuzzy
+msgid "Password Reset"
+msgstr "Lozinka"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr ""
+
+#, fuzzy
+msgid "Your password has been reset successfully."
+msgstr "Lozinka mora sadržavati najmanje %s znakova."
+
+msgid "Confirm your e-mail address:"
+msgstr ""
+
+#, fuzzy
+msgid "Enter your new password:"
+msgstr "Ponovno upišite lozinku"
+
+msgid "Confirm your new password:"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %haur-general%h mailing list."
+msgstr ""
+
+#, fuzzy
+msgid "Enter your e-mail address:"
+msgstr "Email adresa"
 
 msgid "Error - No file uploaded"
 msgstr "Greška - datoteka nije poslana"
 
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+
+msgid "Error - uncompressed file size too large."
+msgstr ""
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr ""
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr ""
+"Došlo je do greške prilikom raspakiravanja poslane datoteke - PKGBUILD ne "
+"postoji."
+
+#, fuzzy, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Nedostaje build funkcija u PKGBUILD."
+
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "URL paketa mora sadržavati protokol (npr. http://, ftp://)"
 
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Neispravno ime: Dozvoljena su samo mala slova (kurenti)."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Nemogu kreirati direktorij %s."
+
 msgid "You are not allowed to overwrite the %h%s%h package."
 msgstr "Paket %h%s%h već postoji i nemate ovlasti mijenjati ga."
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr ""
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "Nisam mogao promijeniti direktorij u %s."
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "Kategorija paketa"
@@ -512,162 +273,657 @@ msgstr "Kategorija paketa"
 msgid "Select Category"
 msgstr "Odaberi kategoriju"
 
-msgid "Search by"
-msgstr "Traži po"
+msgid "Upload package file"
+msgstr "Šalji datoteku paketa"
 
-msgid "Logged-in as: %s"
-msgstr "Logirani ste kao: %s"
+msgid "Upload"
+msgstr "Šalji"
 
-msgid "Username does not exist."
-msgstr "Korisničko ime ne postoji."
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Oprostite, ovaj server ne dozvoljava slanje."
 
-msgid "Sort order"
-msgstr "Način sortiranja"
+msgid "You must create an account before you can upload packages."
+msgstr "Da biste mogli slati pakete, morate prvo kreirati račun."
 
-msgid "Submitted: %s by %s"
-msgstr "Poslan: %s od %s"
+msgid "Error retrieving package details."
+msgstr "Došlo je do greške prilikom preuzimanja detalja o paketu."
 
-msgid "string"
-msgstr "string"
+msgid "Package details could not be found."
+msgstr "Nije moguće naći detalje o paketu."
 
-msgid "Remember me"
-msgstr "Zapamti me"
+msgid "First"
+msgstr ""
 
-msgid "%s already has proposal running for them."
-msgstr "%s već ima prijedlog."
+msgid "Previous"
+msgstr ""
 
-msgid "Total"
-msgstr "Ukupno"
+#, fuzzy
+msgid "Last"
+msgstr "Posljednji glas"
 
-msgid "Any type"
-msgstr "Bilo koji tip"
+msgid "You must be logged in before you can flag packages."
+msgstr "Morate se logirati da bi obilježavali pakete."
 
-msgid "Could not retrieve proposal details."
-msgstr "Nemogu pronaći detalje o prijedlogu."
+msgid "You must be logged in before you can unflag packages."
+msgstr "Morate se logirati da bi mogli obilježiti pakete kao ažurirane."
 
-msgid "Next"
-msgstr "Sljedeći"
+msgid "You did not select any packages to flag."
+msgstr "Niste odabrali pakete koje želite obilježiti."
 
-msgid "(defaults to 7 if empty)"
-msgstr "(7 ako je prazno)"
+msgid "You did not select any packages to unflag."
+msgstr "Niste odabrali pakete koje želite obilježiti kao ažurirane."
 
-msgid "Advanced"
-msgstr "Napredno"
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Odabrani paketi su obilježeni kao zastarijeli."
 
-msgid "This vote is still running."
-msgstr "Ovaj glas još vrijedi."
+msgid "The selected packages have been unflagged."
+msgstr "Odabrani paketu su postavljeni kao ažurirani."
 
-msgid "Vote ID not valid."
-msgstr "ID glasa je neispravan."
+#, fuzzy
+msgid "You must be logged in before you can delete packages."
+msgstr "Morate se logirati da bi posvojili pakete."
 
-msgid "(empty if not applicable)"
-msgstr "(prazno ako nije prikladno)"
+#, fuzzy
+msgid "You do have permission to delete packages."
+msgstr "Nemate ovlasti da bi mjenjali ovaj račun."
 
-msgid "Per page"
-msgstr "Po stranici"
+msgid "You did not select any packages to delete."
+msgstr "Niste odabrali pakete koje želite izbrisati."
 
-msgid "New proposal submitted."
-msgstr "Novi prijedlog je poslan."
+msgid "The selected packages have been deleted."
+msgstr "Odabrani paketi su izbrisani."
 
-msgid "Current Votes"
-msgstr "Trenutno glasova"
+msgid "You must be logged in before you can adopt packages."
+msgstr "Morate se logirati da bi posvojili pakete."
 
-msgid "Back"
-msgstr "Natrag"
+msgid "You must be logged in before you can disown packages."
+msgstr "Morate se logirati da bi se mogli odreknuti paketa."
 
-msgid "All Votes"
-msgstr "Svi glasovi"
+msgid "You did not select any packages to adopt."
+msgstr "Niste odabrali pakete koje želite posvojiti."
 
-msgid "UnFlag Out-of-date"
-msgstr "Obilježi kao ažurirano"
+msgid "You did not select any packages to disown."
+msgstr "Niste odabrali pakete kojih se želite odreči."
 
-msgid "No results found."
-msgstr "Nema rezultata."
+msgid "The selected packages have been adopted."
+msgstr "Posvojili ste odabrane pakete."
 
-msgid "No"
-msgstr "Ne"
+msgid "The selected packages have been disowned."
+msgstr "Odrekli ste se odabranih paketa."
 
-msgid "Discussion"
-msgstr "Rasprava"
+msgid "You must be logged in before you can vote for packages."
+msgstr "Morate se logirati da bi glasali za pakete."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Morate se logirati da bi mogli maknuti svoje glasove s paketa."
+
+msgid "You did not select any packages to vote for."
+msgstr "Niste odabrali pakete za koje želite glasati."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Vaši su glasovi maknuti s odabranih paketa."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Glasovi su dodijeljeni odabranim paketima."
+
+msgid "Couldn't add to notification list."
+msgstr "Nemogu dodati u listu za obavještavanje."
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "Dodani ste u listu za obavještavanje o novim komentarima za %s."
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Niste više na listi za obavježtavanje o novim komentarima za %s."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Morate biti logirani da biste mogli mijenjati informacije o paketu."
+
+msgid "Missing comment ID."
+msgstr "Nedostaje ID komentara."
+
+msgid "Comment has been deleted."
+msgstr "Komentar je izbrisan."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Brisanje ovog komentara Vam nije dozvoljeno."
+
+#, fuzzy
+msgid "Missing category ID."
+msgstr "Nedostaje ID paketa."
+
+msgid "Invalid category ID."
+msgstr "Neispravan ID kategorije."
+
+msgid "Missing package ID."
+msgstr "Nedostaje ID paketa."
+
+#, fuzzy
+msgid "Package category changed."
+msgstr "Kategorija paketa je ažurirana."
+
+#, fuzzy
+msgid "You are not allowed to change this package category."
+msgstr "Nije vam dozvoljen pristup ovom području."
+
+msgid "Username"
+msgstr "Korisničko ime"
+
+msgid "required"
+msgstr "obvezno"
+
+msgid "Account Type"
+msgstr "Tip računa"
+
+msgid "Normal user"
+msgstr "Običan korisnik"
+
+msgid "Trusted user"
+msgstr "Pouzdan korisnik"
+
+msgid "Developer"
+msgstr "Developer"
+
+msgid "Account Suspended"
+msgstr "Račun je suspendiran"
+
+msgid "Email Address"
+msgstr "Email adresa"
+
+msgid "Password"
+msgstr "Lozinka"
+
+msgid "Re-type password"
+msgstr "Ponovno upišite lozinku"
+
+msgid "Real Name"
+msgstr "Vaše stvarno ime"
+
+msgid "IRC Nick"
+msgstr "Nadimak na IRC-u"
+
+msgid "Language"
+msgstr "Jezik"
+
+msgid "New Package Notify"
+msgstr "Obavijesti me o novim paketima"
+
+msgid "Update"
+msgstr "Ažuriraj"
+
+msgid "Create"
+msgstr "Kreiraj"
+
+msgid "Reset"
+msgstr "Resetiraj"
+
+msgid "Missing User ID"
+msgstr "Nedostaje ID korisnika"
+
+msgid "The username is invalid."
+msgstr "Korisničko ime je neispravno."
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Mora biti najmanje %s a najviše %s znakova"
+
+msgid "Start and end with a letter or number"
+msgstr "Zapični i završi sa slovom ili brojkom"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Može sadržavati samo jednu točku, donju crticu ili povlaku."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Lozinka mora sadržavati najmanje %s znakova."
+
+msgid "The email address is invalid."
+msgstr "Email adresa je neispravna."
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Pouzdan korisnik nemoše dodijeliti Developer status."
+
+msgid "Language is not currently supported."
+msgstr "Jezik trenutno nije podržan."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Korisničko ime %h%s%h je već zauzeto."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Adresa %h%s%h je već iskorištena."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Desila se greška prilikom stvaranja računa, %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Račun, %h%s%h, je uspješno kreiran."
+
+msgid "Click on the Home link above to login."
+msgstr "Kliknite na link Početna kako bi se logirali."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Desila se greška prilikom izmjene računa, %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Račun %h%s%h je uspješno izmijenjen."
+
+msgid "No results matched your search criteria."
+msgstr "Nema rezultata pretrage."
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Status"
+msgstr "Stanje"
+
+msgid "Last Voted"
+msgstr "Posljednje glasao"
+
+msgid "Edit Account"
+msgstr "Podesi račun"
+
+msgid "Suspended"
+msgstr "Suspendiran"
+
+msgid "Active"
+msgstr "Aktivan"
+
+msgid "Never"
+msgstr "Nikad"
+
+msgid "Less"
+msgstr "Manje"
+
+msgid "More"
+msgstr "Više"
+
+msgid "No more results to display."
+msgstr "Nema više rezultata za prikaz."
+
+msgid "User"
+msgstr "Korisnik"
+
+msgid "Trusted User"
+msgstr "Pouzdan korisnik"
+
+# Croatian (Hrvatski) translation
+# Translator: Dino Krtanjek <krtanjekdino@gmail.com>
+msgid "View this user's packages"
+msgstr "Pregledaj pakete ovog korisnika"
+
+msgid "Bad username or password."
+msgstr ""
+
+msgid "Votes"
+msgstr "Glasovi"
+
+msgid "unknown"
+msgstr "nepoznato"
+
+msgid "Package Details"
+msgstr "Detalji o paketu"
+
+#, fuzzy
+msgid "Submitter"
+msgstr "Pošalji"
+
+msgid "Maintainer"
+msgstr "Održavatelj"
+
+msgid "License"
+msgstr "Licenca"
+
+msgid "Last Updated"
+msgstr "Posljednji put ažuriran"
+
+msgid "First Submitted"
+msgstr "Prvi put poslan"
+
+msgid "Tarball"
+msgstr "Arhiva"
+
+msgid "PKGBUILD"
+msgstr ""
+
+msgid "This package has been flagged out of date."
+msgstr "Paket je obilježen kao zastarijeli."
+
+msgid "Dependencies"
+msgstr "Ovisi o"
+
+msgid "Required by"
+msgstr "Potreban za"
+
+msgid "Sources"
+msgstr "Izvor"
+
+msgid "Hi, this is worth reading!"
+msgstr ""
 
 msgid "Start"
 msgstr "Početak"
 
-msgid "Add"
-msgstr "Dodaj"
-
-msgid "Length must be at least 1."
-msgstr "Doljina mora biti najmanje 1."
-
 msgid "End"
 msgstr "Kraj"
 
-msgid "This is a %h%s%h problem!"
-msgstr "Ovo je %h%s%h problem!"
+msgid "Yes"
+msgstr "Da"
 
-msgid "Proposal cannot be empty."
-msgstr "Prijedlog nemože biti prazan."
+msgid "No"
+msgstr "Ne"
 
-msgid "Search"
-msgstr "Traži"
+msgid "Voted"
+msgstr "Glasao"
 
-msgid "Orphans"
-msgstr "Napušteni"
-
-msgid "Voting is closed for this proposal."
-msgstr "Glasanje je zaključeno za ovaj prijedlog"
-
-msgid "Bugs"
-msgstr "Bug-ovi"
-
-msgid "You've already voted for this proposal."
-msgstr "Već ste glasali za ovaj prijedlog."
-
-msgid "You cannot vote in an proposal about you."
-msgstr "Nemožete glasati o prijedlogu koji se tiće Vas."
-
-msgid "Search Criteria"
-msgstr "Kriteriji traženja"
-
-msgid "Any"
-msgstr "Bilo koji"
-
-msgid "Logout"
-msgstr "Logout"
-
-msgid "Proposal"
-msgstr "Prijedlog"
-
-msgid "My Packages"
-msgstr "Moji paketi"
-
-msgid "UnVote"
-msgstr "Makni glas"
-
-msgid "Length must be a number."
-msgstr "Duljina mora biti broj."
-
-msgid "%s has %s apples."
-msgstr "%s ima %s jabuka."
-
-msgid "Login"
-msgstr "Login"
-
-msgid "Abstain"
-msgstr "Suzdržan"
-
-msgid "Could not chmod directory %s."
-msgstr "Nemogu napraviti chmod na direktorij %s."
-
-msgid "Sort by"
-msgstr "Sortiraj po"
-
-msgid "Submit a proposal to vote on."
-msgstr "Pošalji prijedlog za glasanje."
+msgid "No results found."
+msgstr "Nema rezultata."
 
 msgid "Proposal Details"
 msgstr "Detalji prijedloga"
 
+msgid "This vote is still running."
+msgstr "Ovaj glas još vrijedi."
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Poslan: %s od %s"
+
+msgid "Abstain"
+msgstr "Suzdržan"
+
+msgid "Total"
+msgstr "Ukupno"
+
+#, fuzzy
+msgid "Voters"
+msgstr "Glasovi"
+
+msgid "Bugs"
+msgstr "Bug-ovi"
+
+msgid "Discussion"
+msgstr "Rasprava"
+
+msgid "My Packages"
+msgstr "Moji paketi"
+
+msgid "Vote"
+msgstr "Glasaj"
+
+msgid "UnVote"
+msgstr "Makni glas"
+
+msgid "Notify"
+msgstr "Obavijesti"
+
+msgid "New Comment Notification"
+msgstr "Obavijesti me o novim komentarima"
+
+msgid "UnNotify"
+msgstr "Ne obavještavaj"
+
+msgid "No New Comment Notification"
+msgstr "Nemoj me više obavještavati o novim komentarima"
+
+msgid "Flag Out-of-date"
+msgstr "Obilježi kao zastario"
+
+msgid "UnFlag Out-of-date"
+msgstr "Obilježi kao ažurirano"
+
+msgid "Adopt Packages"
+msgstr "Posvoji paket"
+
+msgid "Disown Packages"
+msgstr "Odrekni se paketa"
+
+msgid "Delete Packages"
+msgstr "Izbriši pakete"
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Any type"
+msgstr "Bilo koji tip"
+
+msgid "Sort by"
+msgstr "Sortiraj po"
+
 msgid "Last vote"
 msgstr "Posljednji glas"
 
+msgid "Search"
+msgstr "Traži"
+
+msgid "Comment has been added."
+msgstr "Komentar je dodan."
+
+msgid "Enter your comment below."
+msgstr "Ovdje unesite komentar."
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Logirani ste kao: %s"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Remember me"
+msgstr "Zapamti me"
+
+msgid "Login"
+msgstr "Login"
+
+#, fuzzy
+msgid "Forgot Password"
+msgstr "Lozinka"
+
+#, fuzzy
+msgid "Recent Updates"
+msgstr "Posljednji put ažuriran"
+
+msgid "My Statistics"
+msgstr ""
+
+#, fuzzy
+msgid "Packages in unsupported"
+msgstr "Jezik trenutno nije podržan."
+
+msgid "Out of Date"
+msgstr "Zastario"
+
+#, fuzzy
+msgid "Statistics"
+msgstr "Stanje"
+
+#, fuzzy
+msgid "Orphan Packages"
+msgstr "Paketi"
+
+msgid "Packages added in the past 7 days"
+msgstr ""
+
+msgid "Packages updated in the past 7 days"
+msgstr ""
+
+msgid "Packages updated in the past year"
+msgstr ""
+
+#, fuzzy
+msgid "Packages never updated"
+msgstr "Kategorija paketa je ažurirana."
+
+#, fuzzy
+msgid "Registered Users"
+msgstr "Pouzdan korisnik"
+
+#, fuzzy
+msgid "Trusted Users"
+msgstr "Pouzdan korisnik"
+
+msgid "Error retrieving package list."
+msgstr "Došlo je do greške prilikom stvaranja liste paketa."
+
+msgid "No packages matched your search criteria."
+msgstr "Nijedan paket ne odgovara kriterijima traženja."
+
+msgid "Package Listing"
+msgstr "Lista paketa"
+
+msgid "Category"
+msgstr "Kategorija"
+
+msgid "Name"
+msgstr "Ime"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "orphan"
+msgstr "napušten"
+
+msgid "Legend"
+msgstr ""
+
+msgid "Actions"
+msgstr "Radnje"
+
+msgid "Unflag Out-of-date"
+msgstr "Obilježi kao ažuriran"
+
+msgid "Go"
+msgstr "Traži"
+
+#, php-format
+msgid "Showing results %s - %s of %s"
+msgstr "Rezultati %s - %s od %s"
+
+#, php-format
+msgid "Comment by: %s on %s"
+msgstr "Komentirao %s u %s"
+
+msgid "Delete comment"
+msgstr "Briši komentar"
+
+#, php-format
+msgid "Show all %s comments"
+msgstr ""
+
+msgid "Orphans"
+msgstr "Napušteni"
+
+msgid "Advanced"
+msgstr "Napredno"
+
+msgid "Any"
+msgstr "Bilo koji"
+
+msgid "Search by"
+msgstr "Traži po"
+
+#, fuzzy
+msgid "Name, Description"
+msgstr "Opis"
+
+#, fuzzy
+msgid "Name Only"
+msgstr "Ime"
+
+msgid "Exact name"
+msgstr ""
+
+msgid "Age"
+msgstr ""
+
+msgid "Sort order"
+msgstr "Način sortiranja"
+
+msgid "Ascending"
+msgstr ""
+
+msgid "Descending"
+msgstr ""
+
+msgid "Per page"
+msgstr "Po stranici"
+
+msgid "All"
+msgstr ""
+
+msgid "Flagged"
+msgstr ""
+
+msgid "Not Flagged"
+msgstr ""
+
+#~ msgid "Clear"
+#~ msgstr "Briši"
+
+#~ msgid "You've found a bug if you see this...."
+#~ msgstr "Pronašli ste bug ako vidite ovu poruku...."
+
+#~ msgid "Select new category"
+#~ msgstr "Odaberite novu kategoriju"
+
+#~ msgid "Comments"
+#~ msgstr "Komentari"
+
+#~ msgid "Location"
+#~ msgstr "Lokacija"
+
+#~ msgid "Files"
+#~ msgstr "Datoteke"
+
+#~ msgid "Un-Vote"
+#~ msgstr "Makni svoj glas"
+
+#~ msgid "change category"
+#~ msgstr "promijeni kategoriju"
+
+#~ msgid "Add Comment"
+#~ msgstr "Dodaj komentar"
+
+#~ msgid "Toggle Notify"
+#~ msgstr "Mijenjaj obavještavanje"
+
+#~ msgid "None of the selected packages could be deleted."
+#~ msgstr "Nijedan odabrani paket nije moguće izbrisati."
+
+#~ msgid "You did not select any packages to un-vote for."
+#~ msgstr "Niste odabrali pakete s kojih želite maknuti glasove."
+
+#~ msgid "You must be logged in before you can get notifications on comments."
+#~ msgstr ""
+#~ "Morate biti logirani kako bi mogli dobivati obavijesti o novim "
+#~ "komentarima."
+
+#~ msgid "Unknown file format for uploaded file."
+#~ msgstr "Nepoznat format poslane datoteke."
+
+#~ msgid "Missing "
+#~ msgstr "Nedostaje"
+
+#~ msgid "Could not create incoming directory: %s."
+#~ msgstr "Nemogu kreirati dolazeću mapu: %s."
+
+#~ msgid "Could not re-tar"
+#~ msgstr "Nemogu ponovno kreirati tar"
+
+#~ msgid "string"
+#~ msgstr "string"
+
+#~ msgid "All Votes"
+#~ msgstr "Svi glasovi"
+
+#~ msgid "Add"
+#~ msgstr "Dodaj"
+
+#~ msgid "This is a %h%s%h problem!"
+#~ msgstr "Ovo je %h%s%h problem!"
+
+#~ msgid "%s has %s apples."
+#~ msgstr "%s ima %s jabuka."
+
+#~ msgid "Could not chmod directory %s."
+#~ msgstr "Nemogu napraviti chmod na direktorij %s."

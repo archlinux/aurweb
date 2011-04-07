@@ -12,520 +12,65 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# Russian (Русский) translation
-# Translator: Sergej Pupykin <pupykin.s+arch@gmail.com>
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Оставьте поля для ввода пароля пустыми если не хотите его изменять."
-
-msgid "You must log in to view user information."
-msgstr "Вы должны представиться для просмотра информации о пользователе."
-
-
-
-msgid "Missing a required field."
-msgstr "Отсутствует обязательное значение."
-
-msgid "Search"
-msgstr "Поиск"
-
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "Учетная запись %h%s%h успешно создана."
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "Ошибка изменения учетной записи, %h%s%h: %s."
-
-msgid "The email address is invalid."
-msgstr "Неправильный адрес электронной почты."
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "Ошибка создания учетной записи, %h%s%h: %s."
-
-msgid "The username, %h%s%h, is already in use."
-msgstr "Имя %h%s%h уже используется."
-
-msgid "Account Type"
-msgstr "Тип учетной записи."
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr "Учетная запись %h%s%h успешно изменена."
-
-msgid "Account Suspended"
-msgstr "Действие учетной записи приостановлено."
-
-msgid "New Package Notify"
-msgstr "Извещать о новых пакетах"
-
-msgid "IRC Nick"
-msgstr "IRC Ник"
-
-msgid "Trusted user"
-msgstr "Доверенный пользователь"
-
-msgid "No results matched your search criteria."
-msgstr "По вашему запросу ничего не найдено."
-
-msgid "Normal user"
-msgstr "Обычный пользователь"
-
-msgid "Never"
-msgstr "Никогда"
-
-msgid "User"
-msgstr "Пользователь"
-
-msgid "Active"
-msgstr "Активный"
-
-msgid "Last Voted"
-msgstr "Последний проголосовавший"
-
-msgid "Real Name"
-msgstr "Настоящее имя"
-
-msgid "Edit Account"
-msgstr "Изменить учетную запись"
-
-msgid "Password fields do not match."
-msgstr "Пароли не совпадают."
-
-msgid "View this user's packages"
-msgstr "Посмотреть пакеты этого пользователя"
-
-msgid "Language"
-msgstr "Язык"
-
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Доверенный пользователь не может устанавливать статус Разработчик."
-
-msgid "The address, %h%s%h, is already in use."
-msgstr "Адрес %h%s%h уже используется."
-
-msgid "No more results to display."
-msgstr "Больше нет результатов."
-
-msgid "Type"
-msgstr "Тип"
-
-msgid "Click on the Home link above to login."
-msgstr "Щелкните ссылку Home чтобы представиться."
-
-msgid "Re-type password"
-msgstr "Введите пароль еще раз"
-
-msgid "Language is not currently supported."
-msgstr "Язык пока не поддерживается."
-
-msgid "Any type"
-msgstr "Любой тип"
-
-msgid "Last vote"
-msgstr "Последнее голосование"
-
-msgid "Suspended"
-msgstr "Приостановлена"
-
-msgid "Trusted User"
-msgstr "Доверенный пользователь"
-
-msgid "Missing User ID"
-msgstr "Отсутствует идентификатор пользователя"
-
-msgid "Developer"
-msgstr "Разработчик"
-
-msgid "It must be between %s and %s characters long"
-msgstr "Длина должна быть от %s до %s символов"
-
-msgid "Your password must be at least %s characters."
-msgstr "Пароль должен быть не менее %s символов."
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr "Может содержать только одну запятую, подчёркивание или тире."
-
-msgid "Start and end with a letter or number"
-msgstr "Начинаются и заканчиваются цифрой или буквой"
-
-msgid "The username is invalid."
-msgstr "Неверное имя пользователя."
-
-
-
-msgid "%s: %sAn ArchLinux project%s"
-msgstr "%s: %sПроект ArchLinux%s"
-
-msgid "Logout"
-msgstr "Выход"
-
-msgid "Discussion"
-msgstr "Обсуждение"
-
-msgid "Bugs"
-msgstr "Ошибки"
-
-
-
-msgid "Reset"
-msgstr "Очистить"
-
-msgid "Username"
-msgstr "Имя пользователя"
-
-msgid "Email Address"
-msgstr "Адрес электронной почты"
-
-msgid "Less"
-msgstr "Назад"
-
-msgid "Clear"
-msgstr "Очистить"
-
-msgid "required"
-msgstr "необходимо"
-
-msgid "Update"
-msgstr "Обновить"
-
-msgid "Submit"
-msgstr "Прислать"
-
-msgid "Password"
-msgstr "Пароль"
-
-msgid "Create"
-msgstr "Создать"
-
-msgid "More"
-msgstr "Далее"
-
-msgid "Previous"
-msgstr "Назад"
-
-
-msgid "Statistics"
-msgstr "Статистика"
+msgid "Home"
+msgstr "Главная"
+
+msgid ""
+"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
+"Guidelines%h for more information."
+msgstr ""
+"Добро пожаловать в AUR! Пожалуйста прочитайте %hAUR User Guidelines%h и "
+"%hAUR TU Guidelines%h, чтобы получить больше информации."
+
+msgid ""
+"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
+"otherwise they will be deleted!"
+msgstr ""
+"Присланые PKGBUILD %hдолжны%h соответствовать %hArch Packaging Standards%h "
+"или будут удалены!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Не забывайте голосовать за полюбившиеся вам пакеты!"
 
-msgid "Error looking up username, %s."
-msgstr "Ошибка поиска имени пользователя, %s."
-
-msgid "Packages in unsupported"
-msgstr "Пакетов в [unsupported]"
-
-msgid "The most popular packages will be provided as binary packages in [community]."
-msgstr "Наиболее популярные пакеты будут добавлены в [community] в собраном виде."
-
-msgid "Trusted Users"
-msgstr "Доверенных пользователей"
-
-msgid "You must supply a username."
-msgstr "Вы должны задать имя пользователя."
-
-msgid "Packages added or updated in the past 7 days"
-msgstr "Пакетов добавлено/обновлено за последние 7 дней"
-
-msgid "Email discussion about the AUR takes place on the %sTUR Users List%s."
-msgstr "Используйте %sTUR Users List%s для обсуждения AUR."
-
-msgid "Packages in unsupported and flagged as safe"
-msgstr "Безопасных пакетов в [unsupported]"
-
-msgid "Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."
-msgstr "Хотя мы не можем  поручиться за содержимое, мы предоставляем %hсписок пользовательских репозитариев%h для удобства."
-
-msgid "Recent Updates"
-msgstr "Последние обновления"
-
-msgid "Your account has been suspended."
-msgstr "Действие вашей учетной записи приостановлено."
-
-msgid "Username:"
-msgstr "Имя пользователя:"
-
-msgid "Error trying to generate session id."
-msgstr "Ошибка генерации идентификатора сессии."
-
-msgid "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."
-msgstr "Добро пожаловать в AUR! Пожалуйста прочитайте %hAUR User Guidelines%h и %hAUR TU Guidelines%h, чтобы получить больше информации."
-
-msgid "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"
-msgstr "Присланые PKGBUILD %hдолжны%h соответствовать %hArch Packaging Standards%h или будут удалены!"
-
-msgid "Login"
-msgstr "Войти"
-
-msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
-msgstr "Замечания и пожелания о AUR оставляйте в %hFlyspray%h."
-
-msgid "You must supply a password."
-msgstr "Вы должны ввести пароль."
-
-msgid "Password:"
-msgstr "Пароль:"
-
-msgid "Registered Users"
-msgstr "Зарегистрированных пользователей"
-
-msgid "Logged-in as: %s"
-msgstr "Вы вошли как: %s"
-
-msgid "Incorrect password for username, %s."
-msgstr "Неверный пароль для пользователя %s."
-
-msgid "Out-of-date"
-msgstr "Устарел"
-
-msgid "User Statistics"
-msgstr "Статистика пользователя"
-
-msgid "Flagged as safe by me"
-msgstr "Отмечено мной как безопасный"
-
-msgid "Flagged as safe"
-msgstr "Отмечено как безопасный"
-
-msgid "My Statistics"
-msgstr "Моя статистика"
-
-msgid "Missing package ID."
-msgstr "Идентификатор пакета отсутствует."
-
-msgid "Invalid category ID."
-msgstr "Неверный идентификатор категории."
-
-msgid "Enter your comment below."
-msgstr "Введите ваш коментарий ниже."
-
-msgid "You are not allowed to delete this comment."
-msgstr "У вас нет прав для удаления этого коментария."
-
-msgid "Missing comment ID."
-msgstr "Идентификатор коментария отсутствует."
-
-msgid "Package category updated."
-msgstr "Категория пакета обновлена."
-
-msgid "You must be logged in before you can edit package information."
-msgstr "Вы должны представиться прежде чем редактировать информацию о пакете."
-
-msgid "Comment has been deleted."
-msgstr "Коментарий удален."
-
-msgid "You've found a bug if you see this...."
-msgstr "Вы нашли ошибку, если видите это...."
-
-msgid "Comment has been added."
-msgstr "Коментарий добавлен"
-
-msgid "Select new category"
-msgstr "Выберите новую категорию."
-
-
-
-msgid "Category"
-msgstr "Категория"
-
-msgid "Search by"
-msgstr "Искать по"
-
-msgid "Delete comment"
-msgstr "Удалить коментарий"
-
-msgid "orphan"
-msgstr "сирота"
-
-msgid "Votes"
-msgstr "Голосов"
-
-msgid "First Submitted"
-msgstr "Впервые послан"
-
-msgid "Tarball"
-msgstr "Архив"
-
-msgid "Be careful! The above files may contain malicious code that can damage your system."
-msgstr "Будьте осторожны! Данные файлы могут содержать код, который способен повредить вашу систему."
-
-msgid "Voted"
-msgstr "Мой голос"
-
-msgid "Location"
-msgstr "Местонахождение"
-
-msgid "Flag Safe"
-msgstr "Флаг Безопасно"
-
-msgid "Go"
-msgstr "Поехали"
-
-msgid "Unflag Out-of-date"
-msgstr "Убрать флаг Устаревший"
-
-msgid "Go back to %hpackage details view%h."
-msgstr "Вернуться к %hинформации о пакете%h."
-
-msgid "Error retrieving package details."
-msgstr "Ошибка получения информации о пакете."
-
-msgid "Description"
-msgstr "Описание"
-
-msgid "My Packages"
-msgstr "Мои пакеты"
-
-msgid "Safe"
-msgstr "Безопасно"
-
-msgid "Sort order"
-msgstr "Порядок сортировки"
-
-msgid "Ascending"
-msgstr "По возрастанию"
-
-msgid "Keywords"
-msgstr "Ключевые слова"
-
-msgid "No New Comment Notification"
-msgstr "Нет новых извещений о коментариях"
-
-msgid "Dependencies"
-msgstr "Зависимости"
-
-msgid "Descending"
-msgstr "По убыванию"
-
-msgid "Per page"
-msgstr "Постранично"
-
-msgid "Package Listing"
-msgstr "Список пакетов"
-
-msgid "Package details could not be found."
-msgstr "Не найдена информация о пакете."
-
-msgid "Package Details"
-msgstr "Информация о пакете"
-
-msgid "Error retrieving package list."
-msgstr "Ошибка получения списка пакетов."
-
-msgid "Files"
-msgstr "Файлы"
-
-msgid "Name"
-msgstr "Имя"
-
-msgid "Last Updated"
-msgstr "Последнее обновление"
-
-msgid "The above files have been verified (by %s) and are safe to use."
-msgstr "Данные файлы проверены (%s) и могут быть безопасно использованы."
-
-msgid "Unflag Package Safe To Use"
-msgstr "Снять флаг Безопасно"
-
-msgid "Go back to %hsearch results%h."
-msgstr "Вернуться к %hрезультатам поиска%h."
-
-msgid "Age"
-msgstr "Возраст"
-
-msgid "Comments"
-msgstr "Коментарии"
-
-msgid "Submitter"
-msgstr "Автор"
-
-msgid "Un-Vote"
-msgstr "Убрать мой голос"
-
-msgid "change category"
-msgstr "изменить категорию"
-
-msgid "UnNotify"
-msgstr "Не извещать"
-
-msgid "Delete Packages"
-msgstr "Удалить пакеты"
-
-msgid "Maintainer"
-msgstr "Ответственный"
-
-msgid "Add Comment"
-msgstr "Добавить коментарий"
-
-msgid "Comment by: %s on %s"
-msgstr "Коментарии: %s к %s"
-
-msgid "Flag Out-of-date"
-msgstr "Пометить как Устаревший"
-
-msgid "Manage"
-msgstr "Управлять"
-
-msgid "Sort by"
-msgstr "Сортировать по"
-
-msgid "Flag Package Safe To Use"
-msgstr "Пометить флагом Безопасно"
-
-msgid "Actions"
-msgstr "Действия"
-
-msgid "Unflag Safe"
-msgstr "Снять флаг Безопасно"
-
-msgid "Sources"
-msgstr "Исходники"
+msgid "Some packages may be provided as binaries in [community]."
+msgstr ""
+"Некоторые пакеты могут быть представлены в бинарном виде в репозитории "
+"[community]."
+
+msgid "DISCLAIMER"
+msgstr "ВНИМАНИЕ"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr ""
+"Пакеты в unsupported созданы пользователями. Используйте их на свой страх и "
+"риск."
 
 msgid "Search Criteria"
 msgstr "Критерий поиска"
 
-msgid "Notify"
-msgstr "Извещать"
+msgid "Packages"
+msgstr "Пакеты"
 
-msgid "O%hut-of-Date"
-msgstr "У%hстарел"
+#, fuzzy
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "Выбраные пакеты удалены."
 
-msgid "Vote"
-msgstr "Голосовать"
+msgid "Error trying to retrieve package details."
+msgstr "Ошибка получения информации о пакете."
 
-msgid "Adopt Packages"
-msgstr "Усыновить пакеты"
+msgid "Accounts"
+msgstr "Учетные записи"
 
-msgid "New Comment Notification"
-msgstr "Извещение о новом коментарии"
-
-msgid "Disown Packages"
-msgstr "Бросить пакеты"
-
-msgid "Orphans"
-msgstr "Сироты"
-
-msgid "Any"
-msgstr "Любой"
-
-msgid "No packages matched your search criteria."
-msgstr "Нет пакетов по выбранному критерию поиска."
-
-msgid "Status"
-msgstr "Статус"
-
-msgid "unknown"
-msgstr "неизвестно"
-
-msgid "You have been successfully logged out."
-msgstr "Сеанс успешно завершен"
-
-msgid "License"
-msgstr "Лицензия"
+msgid "You are not allowed to access this area."
+msgstr "Нет доступа."
 
 msgid "Could not retrieve information for the specified user."
 msgstr "Невозможно получить информацию об указанном пользователе."
@@ -536,383 +81,528 @@ msgstr "Вы не имеете прав для редактирования эт
 msgid "Use this form to search existing accounts."
 msgstr "Используйте эту форму для поиска существующих учетных записей."
 
-msgid "All"
-msgstr "Все"
+msgid "Use this form to update your account."
+msgstr "Используйте эту форму для изменения вашей учетной записи."
+
+# Russian (Русский) translation
+# Translator: Sergej Pupykin <pupykin.s+arch@gmail.com>
+msgid "Leave the password fields blank to keep your same password."
+msgstr "Оставьте поля для ввода пароля пустыми если не хотите его изменять."
+
+msgid "You must log in to view user information."
+msgstr "Вы должны представиться для просмотра информации о пользователе."
 
 msgid "Use this form to create an account."
 msgstr "Используйте эту форму для создания учетной записи."
 
-msgid "Use this form to update your account."
-msgstr "Используйте эту форму для изменения вашей учетной записи."
-
-msgid "Unsafe"
-msgstr "Небезопаный"
-
-msgid "This package has been flagged out of date."
-msgstr "Пакет отмечен как устаревший."
-
-msgid "The above files have been verified (by %h%s%h) and are safe to use."
-msgstr "Файлы проверены %h%s%h и могут быть безопасно использованы."
-
-msgid "Required by"
-msgstr "Требуется пакетами"
-
-msgid "Accounts"
-msgstr "Учетные записи"
-
-msgid "Out of Date"
-msgstr "Устарел"
-
-msgid "Showing results %s - %s of %s"
-msgstr "Результаты %s - %s из %s"
-
-msgid "You have been removed from the comment notification list for %s."
-msgstr "Вам больше не будут приходить извещения от %s."
-
-msgid "Home"
-msgstr "Главная"
-
-msgid "You have been added to the comment notification list for %s."
-msgstr "Вы добавлены в список извещений для %s."
-
-
-
-msgid "None of the selected packages could be deleted."
-msgstr "Ниодин выбранный пакет не может быть удален."
-
-msgid "Your votes have been removed from the selected packages."
-msgstr "Ваш голос убран с выбранного пакета."
-
-msgid "Couldn't flag package safe."
-msgstr "Невозможно пометить пакет как безопасный."
-
-msgid "You did not select any packages to un-vote for."
-msgstr "Вы не выбрали ниодного пакета для снятия голоса."
-
-msgid "The selected packages have been unflagged."
-msgstr "С выбранных пакетов пометка снята."
-
-msgid "You did not select any packages to adopt."
-msgstr "Вы не выбрали ниодного пакета для усыновления."
-
-msgid "You must be logged in before you can flag packages."
-msgstr "Вы должны войти прежде чем расставлять флажки на пакеты."
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Вы должны войти прежде чем получать извещения о коментариях."
-
-msgid "You must be logged in before you can vote for packages."
-msgstr "Вы должны войти прежде чем голосовать."
-
-msgid "The selected packages have been flagged out-of-date."
-msgstr "Выбраные пакеты помечены как устаревшие."
-
-msgid "The selected packages have been deleted."
-msgstr "Выбраные пакеты удалены."
-
-msgid "You did not select any packages to vote for."
-msgstr "Вы не выбрали ниодного пакета для голосования."
-
-msgid "You must be logged in before you can disown packages."
-msgstr "Вы должны войти прежде чем бросать пакеты."
-
-msgid "Error trying to retrieve package details."
-msgstr "Ошибка получения информации о пакете."
-
-msgid "The selected packages have been adopted."
-msgstr "Выбраные пакеты усыновлены."
-
-msgid "You have been removed from the comment notification list."
-msgstr "Вы удалены из списка получателей извещений."
-
-msgid "Your votes have been cast for the selected packages."
-msgstr "Вы проголосовали за выбранные пакеты."
-
-msgid "The selected packages have been unflagged safe."
-msgstr "С выбраных пакетов снят флаг Безопасно."
-
-msgid "You must be logged in before you can cancel notification on comments."
-msgstr "Вы должны войти прежде чем отменять извещения о коментариях."
-
-msgid "You must be logged in before you can adopt packages."
-msgstr "Вы должны войти прежде чем усыновлять пакеты."
-
-msgid "You have been added to the comment notification list."
-msgstr "Вы добавлены в список получателей извещений о коментариях."
-
-msgid "You did not select any packages to disown."
-msgstr "Вы не выбрали ниодного пакета чтобы бросить."
-
-msgid "You must be logged in before you can un-vote for packages."
-msgstr "Вы должны войти прежде чем снимать голос с пакета."
-
-msgid "You must be logged in before you can unflag packages."
-msgstr "Вы должны войти прежде чем снимать флажки."
-
-msgid "You did not select any packages to unflag."
-msgstr "Вы не выбрали ниодного пакета для снятия пометки."
-
-msgid "Couldn't unflag package safe."
-msgstr "Нельзя безопасно снять флажок."
-
-msgid "You did not select any packages to delete."
-msgstr "Вы не выбрали ниодного пакета для удаления."
-
-msgid "Couldn't add to notification list."
-msgstr "Невозможно добавить в список получателей извещений."
-
-msgid "You did not select any packages to flag."
-msgstr "Вы не выбрали ниодного пакета для пометки."
-
-msgid "The selected packages have been disowned."
-msgstr "Выбранные пакеты брошены."
-
-msgid "The selected packages have been flagged safe."
-msgstr "Выбранные пакеты помечены как безопасные."
-
-msgid "Couldn't remove from notification list."
-msgstr "Невозможно удалить из списка получателей извещений."
-
-msgid "Packages"
-msgstr "Пакеты"
-
-
-
-msgid "Missing build function in PKGBUILD."
-msgstr "Отсутствует функция build в PKGBUILD."
-
-msgid "Could not change directory to %s."
-msgstr "Невозможно сменить директорию в %s."
-
-msgid "Missing pkgdesc variable in PKGBUILD."
-msgstr "Отсутствует переменная pkgdesc в PKGBUILD."
-
-msgid "Error trying to upload file - please try again."
-msgstr "Ошибка загрузки файла - попробуйте еще раз."
-
-msgid "Error exec'ing the mv command."
-msgstr "Ошибка выполнения команды mv."
-
-msgid "You must create an account before you can upload packages."
-msgstr "Вы должны создать учетную запись для загрузки пакетов."
-
-msgid "Package upload successful."
-msgstr "Пакет успешно загружен."
-
-msgid "Overwrite existing package?"
-msgstr "Перезаписать существующий пакет?"
-
-msgid "Binary packages and filelists are not allowed for upload."
-msgstr "Бинарные пакеты и списки файлов запрещены для загрузки."
-
-msgid "You did not specify a package name."
-msgstr "Вы не указали имя пакета."
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Ошибка во время распаковки - PKGBUILD отсутствует."
-
-msgid "Could not create incoming directory: %s."
-msgstr "Невозможно создать каталог : %s."
-
-msgid "Upload package file"
-msgstr "Файл пакета"
-
-msgid "Package Location"
-msgstr "Местонахождение пакета."
-
-msgid "Missing url variable in PKGBUILD."
-msgstr "Отсутствует переменная url в PKGBUILD."
-
-msgid "Package names do not match."
-msgstr "Имена пакета не совпадают."
-
-msgid "Package Category"
-msgstr "Категория пакета."
-
-msgid "Could not change to directory %s."
-msgstr "Невозможно сменить каталог на %s."
-
-msgid "You did not tag the 'overwrite' checkbox."
-msgstr "Вы не установили переключатель 'overwrite'."
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Неверное имя: только нижний регистр допустим."
-
-msgid "Missing pkgver variable in PKGBUILD."
-msgstr "Отсутствует переменная pkgver в PKGBUILD."
-
-msgid "Package name"
-msgstr "Имя пакета."
-
-msgid "Upload"
-msgstr "Загрузить"
-
-msgid "Missing md5sums variable in PKGBUILD."
-msgstr "Отсутствует переменная md5sums в PKGBUILD."
-
-msgid "Missing pkgrel variable in PKGBUILD."
-msgstr " Отсутствует переменная pkgrel в PKGBUILD."
-
-msgid "Missing pkgname variable in PKGBUILD."
-msgstr "Отсутствует переменная pkgname в PKGBUILD."
-
-msgid "Error - No file uploaded"
-msgstr "Ошибка - нет загруженного файла"
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Не указан протокол в URL (т.е.  http:// ,ftp://)"
-
-msgid "You are not allowed to overwrite the %h%s%h package."
-msgstr "Вы не имеете доступа для перезаписи пакета %h%s%h."
-
-msgid "Select Location"
-msgstr "Выберите местонахождение"
-
-msgid "Select Category"
-msgstr "Выберите категорию"
-
-msgid "Comment"
-msgstr "Коментарий"
-
-msgid "Could not create directory %s."
-msgstr "Нельзя создать директорию %s."
-
-msgid "Unknown file format for uploaded file."
-msgstr "Неизвестный формат загруженного файла."
-
-msgid "Missing source variable in PKGBUILD."
-msgstr "Отсутствует переменная source  в PKGBUILD."
-
-msgid "Could not re-tar"
-msgstr "Невозможно переархивировать"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Извините, загрузки не разрешены этим сервером."
-
-msgid "You must supply a comment for this upload/change."
-msgstr "Вы должны ввести коментарий к загрузке/изменению."
-
-msgid "Missing license variable in PKGBUILD."
-msgstr "Не указана лицензия в PKGBUILD"
-
-msgid "Missing arch variable in PKGBUILD."
-msgstr "Не указана архитектура в PKGBUILD"
-
-msgid "Could not chmod directory %s."
-msgstr "Не получилось сделать chmod для %s."
-
-msgid "Missing "
-msgstr "Отсутствуют"
-
-
-
-msgid "Proposal:"
-msgstr "Предложение:"
-
-msgid "No"
-msgstr "Нет"
-
-msgid "Username does not exist."
-msgstr "Такого пользователя нет."
-
-msgid "Next"
-msgstr "Далее"
-
-msgid "Add"
-msgstr "Добавить"
-
-msgid "Length must be at least 1."
-msgstr "Длина должна быть не меньше 1."
-
-msgid "(defaults to 7 if empty)"
-msgstr "(7 если не указано иного)"
-
-msgid "Proposal cannot be empty."
-msgstr "Предложение не может быть пустым."
-
-msgid "Vote ID not valid."
-msgstr "Идентификатор голосование неверный."
-
-msgid "(empty if not applicable)"
-msgstr "(пусто если не нужно)"
+msgid "Could not retrieve proposal details."
+msgstr "Не получилось показать предложение."
 
 msgid "Voting is closed for this proposal."
 msgstr "Голосование закрыто."
 
-msgid "New proposal submitted."
-msgstr "Новое предложение принято."
+msgid "You cannot vote in an proposal about you."
+msgstr "Нельзя голосовать за себя."
 
+msgid "You've already voted for this proposal."
+msgstr "Вы уже проголосовали."
+
+msgid "Vote ID not valid."
+msgstr "Идентификатор голосование неверный."
+
+msgid "Current Votes"
+msgstr "Сейчас голосов"
+
+#, fuzzy
+msgid "Past Votes"
+msgstr "Последний проголосовавший"
+
+#, fuzzy
+msgid "Add Proposal"
+msgstr "Предложение"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Next"
+msgstr "Далее"
+
+msgid "Username does not exist."
+msgstr "Такого пользователя нет."
+
+#, php-format
 msgid "%s already has proposal running for them."
 msgstr "За %s уже идет голосование."
 
 msgid "Length must be a number."
 msgstr "Длина должна быть числом."
 
-msgid "You've already voted for this proposal."
-msgstr "Вы уже проголосовали."
+msgid "Length must be at least 1."
+msgstr "Длина должна быть не меньше 1."
 
-msgid "Current Votes"
-msgstr "Сейчас голосов"
+msgid "Proposal cannot be empty."
+msgstr "Предложение не может быть пустым."
 
-msgid "You've already voted in this proposal."
-msgstr "Вы уже проголосовали."
-
-msgid "You cannot vote in an proposal about you."
-msgstr "Нельзя голосовать за себя."
-
-msgid "Abstain"
-msgstr "Воздерживаюсь"
-
-msgid "You are not allowed to access this area."
-msgstr "Нет доступа."
-
-msgid "Back"
-msgstr "Назад"
+msgid "New proposal submitted."
+msgstr "Новое предложение принято."
 
 msgid "Submit a proposal to vote on."
 msgstr "Отправить предложение."
 
-msgid "All Votes"
-msgstr "Всего"
+msgid "Applicant/TU"
+msgstr "Кандидат/TU"
 
-msgid "Could not retrieve proposal details."
-msgstr "Не получилось показать предложение."
+msgid "(empty if not applicable)"
+msgstr "(пусто если не нужно)"
 
-msgid "Advanced"
-msgstr "Дополнительно"
+msgid "Length in days"
+msgstr "Продолжительность в днях"
 
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Некоторые пакеты могут быть представлены в бинарном виде в репозитории [community]."
+msgid "(defaults to 7 if empty)"
+msgstr "(7 если не указано иного)"
 
-msgid "DISCLAIMER"
-msgstr "ВНИМАНИЕ"
+msgid "Proposal"
+msgstr "Предложение"
 
-msgid "Unsupported packages are user produced content. Any use of the provided files is at your own risk."
-msgstr "Пакеты в unsupported созданы пользователями. Используйте их на свой страх и риск."
+msgid "Submit"
+msgstr "Прислать"
 
-msgid "Yes"
-msgstr "Да"
+msgid "Missing a required field."
+msgstr "Отсутствует обязательное значение."
 
-msgid "Submitted: %s by %s"
-msgstr "Получено: %s %s"
+msgid "Password fields do not match."
+msgstr "Пароли не совпадают."
 
-msgid "string"
-msgstr "строка"
+msgid "Invalid e-mail."
+msgstr ""
 
-msgid "Remember me"
-msgstr "Запомнить меня"
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
 
-msgid "Total"
-msgstr "Всего"
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr ""
 
-msgid "This vote is still running."
-msgstr "Голосование продолжается"
+#, fuzzy
+msgid "Password Reset"
+msgstr "Пароль"
 
-msgid "UnFlag Out-of-date"
-msgstr "Снять флаг устаревший"
+msgid "Check your e-mail for the confirmation link."
+msgstr ""
 
-msgid "No results found."
-msgstr "Нет результатов"
+#, fuzzy
+msgid "Your password has been reset successfully."
+msgstr "Пароль должен быть не менее %s символов."
+
+msgid "Confirm your e-mail address:"
+msgstr ""
+
+#, fuzzy
+msgid "Enter your new password:"
+msgstr "Введите пароль еще раз"
+
+msgid "Confirm your new password:"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %haur-general%h mailing list."
+msgstr ""
+
+#, fuzzy
+msgid "Enter your e-mail address:"
+msgstr "Адрес электронной почты"
+
+msgid "Error - No file uploaded"
+msgstr "Ошибка - нет загруженного файла"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+
+msgid "Error - uncompressed file size too large."
+msgstr ""
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr ""
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Ошибка во время распаковки - PKGBUILD отсутствует."
+
+#, fuzzy, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Отсутствует переменная url в PKGBUILD."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Не указан протокол в URL (т.е.  http:// ,ftp://)"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Неверное имя: только нижний регистр допустим."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Нельзя создать директорию %s."
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Вы не имеете доступа для перезаписи пакета %h%s%h."
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr ""
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "Невозможно сменить директорию в %s."
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
+
+msgid "Package Category"
+msgstr "Категория пакета."
+
+msgid "Select Category"
+msgstr "Выберите категорию"
+
+msgid "Upload package file"
+msgstr "Файл пакета"
+
+msgid "Upload"
+msgstr "Загрузить"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Извините, загрузки не разрешены этим сервером."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Вы должны создать учетную запись для загрузки пакетов."
+
+msgid "Error retrieving package details."
+msgstr "Ошибка получения информации о пакете."
+
+msgid "Package details could not be found."
+msgstr "Не найдена информация о пакете."
+
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr "Назад"
+
+#, fuzzy
+msgid "Last"
+msgstr "Последнее голосование"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Вы должны войти прежде чем расставлять флажки на пакеты."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Вы должны войти прежде чем снимать флажки."
+
+msgid "You did not select any packages to flag."
+msgstr "Вы не выбрали ниодного пакета для пометки."
+
+msgid "You did not select any packages to unflag."
+msgstr "Вы не выбрали ниодного пакета для снятия пометки."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Выбраные пакеты помечены как устаревшие."
+
+msgid "The selected packages have been unflagged."
+msgstr "С выбранных пакетов пометка снята."
+
+#, fuzzy
+msgid "You must be logged in before you can delete packages."
+msgstr "Вы должны войти прежде чем усыновлять пакеты."
+
+#, fuzzy
+msgid "You do have permission to delete packages."
+msgstr "Вы не имеете прав для редактирования этой учетной записи."
+
+msgid "You did not select any packages to delete."
+msgstr "Вы не выбрали ниодного пакета для удаления."
+
+msgid "The selected packages have been deleted."
+msgstr "Выбраные пакеты удалены."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Вы должны войти прежде чем усыновлять пакеты."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Вы должны войти прежде чем бросать пакеты."
+
+msgid "You did not select any packages to adopt."
+msgstr "Вы не выбрали ниодного пакета для усыновления."
+
+msgid "You did not select any packages to disown."
+msgstr "Вы не выбрали ниодного пакета чтобы бросить."
+
+msgid "The selected packages have been adopted."
+msgstr "Выбраные пакеты усыновлены."
+
+msgid "The selected packages have been disowned."
+msgstr "Выбранные пакеты брошены."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Вы должны войти прежде чем голосовать."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Вы должны войти прежде чем снимать голос с пакета."
+
+msgid "You did not select any packages to vote for."
+msgstr "Вы не выбрали ниодного пакета для голосования."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Ваш голос убран с выбранного пакета."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Вы проголосовали за выбранные пакеты."
+
+msgid "Couldn't add to notification list."
+msgstr "Невозможно добавить в список получателей извещений."
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "Вы добавлены в список извещений для %s."
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Вам больше не будут приходить извещения от %s."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Вы должны представиться прежде чем редактировать информацию о пакете."
+
+msgid "Missing comment ID."
+msgstr "Идентификатор коментария отсутствует."
+
+msgid "Comment has been deleted."
+msgstr "Коментарий удален."
+
+msgid "You are not allowed to delete this comment."
+msgstr "У вас нет прав для удаления этого коментария."
+
+#, fuzzy
+msgid "Missing category ID."
+msgstr "Идентификатор пакета отсутствует."
+
+msgid "Invalid category ID."
+msgstr "Неверный идентификатор категории."
+
+msgid "Missing package ID."
+msgstr "Идентификатор пакета отсутствует."
+
+#, fuzzy
+msgid "Package category changed."
+msgstr "Категория пакета обновлена."
+
+#, fuzzy
+msgid "You are not allowed to change this package category."
+msgstr "Нет доступа."
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "required"
+msgstr "необходимо"
+
+msgid "Account Type"
+msgstr "Тип учетной записи."
+
+msgid "Normal user"
+msgstr "Обычный пользователь"
+
+msgid "Trusted user"
+msgstr "Доверенный пользователь"
+
+msgid "Developer"
+msgstr "Разработчик"
+
+msgid "Account Suspended"
+msgstr "Действие учетной записи приостановлено."
+
+msgid "Email Address"
+msgstr "Адрес электронной почты"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Re-type password"
+msgstr "Введите пароль еще раз"
+
+msgid "Real Name"
+msgstr "Настоящее имя"
+
+msgid "IRC Nick"
+msgstr "IRC Ник"
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "New Package Notify"
+msgstr "Извещать о новых пакетах"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "Reset"
+msgstr "Очистить"
+
+msgid "Missing User ID"
+msgstr "Отсутствует идентификатор пользователя"
+
+msgid "The username is invalid."
+msgstr "Неверное имя пользователя."
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Длина должна быть от %s до %s символов"
+
+msgid "Start and end with a letter or number"
+msgstr "Начинаются и заканчиваются цифрой или буквой"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Может содержать только одну запятую, подчёркивание или тире."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Пароль должен быть не менее %s символов."
+
+msgid "The email address is invalid."
+msgstr "Неправильный адрес электронной почты."
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Доверенный пользователь не может устанавливать статус Разработчик."
+
+msgid "Language is not currently supported."
+msgstr "Язык пока не поддерживается."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Имя %h%s%h уже используется."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Адрес %h%s%h уже используется."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Ошибка создания учетной записи, %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Учетная запись %h%s%h успешно создана."
+
+msgid "Click on the Home link above to login."
+msgstr "Щелкните ссылку Home чтобы представиться."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Ошибка изменения учетной записи, %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Учетная запись %h%s%h успешно изменена."
+
+msgid "No results matched your search criteria."
+msgstr "По вашему запросу ничего не найдено."
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Last Voted"
+msgstr "Последний проголосовавший"
+
+msgid "Edit Account"
+msgstr "Изменить учетную запись"
+
+msgid "Suspended"
+msgstr "Приостановлена"
+
+msgid "Active"
+msgstr "Активный"
+
+msgid "Never"
+msgstr "Никогда"
+
+msgid "Less"
+msgstr "Назад"
+
+msgid "More"
+msgstr "Далее"
+
+msgid "No more results to display."
+msgstr "Больше нет результатов."
+
+msgid "User"
+msgstr "Пользователь"
+
+msgid "Trusted User"
+msgstr "Доверенный пользователь"
+
+msgid "View this user's packages"
+msgstr "Посмотреть пакеты этого пользователя"
+
+msgid "Bad username or password."
+msgstr ""
+
+msgid "Votes"
+msgstr "Голосов"
+
+msgid "unknown"
+msgstr "неизвестно"
+
+msgid "Package Details"
+msgstr "Информация о пакете"
+
+msgid "Submitter"
+msgstr "Автор"
+
+msgid "Maintainer"
+msgstr "Ответственный"
+
+msgid "License"
+msgstr "Лицензия"
+
+msgid "Last Updated"
+msgstr "Последнее обновление"
+
+msgid "First Submitted"
+msgstr "Впервые послан"
+
+msgid "Tarball"
+msgstr "Архив"
+
+msgid "PKGBUILD"
+msgstr ""
+
+msgid "This package has been flagged out of date."
+msgstr "Пакет отмечен как устаревший."
+
+msgid "Dependencies"
+msgstr "Зависимости"
+
+msgid "Required by"
+msgstr "Требуется пакетами"
+
+msgid "Sources"
+msgstr "Исходники"
+
+msgid "Hi, this is worth reading!"
+msgstr ""
 
 msgid "Start"
 msgstr "Начало"
@@ -920,26 +610,523 @@ msgstr "Начало"
 msgid "End"
 msgstr "Конец"
 
-msgid "This is a %h%s%h problem!"
-msgstr "Это %h%s%h проблема!"
+msgid "Yes"
+msgstr "Да"
 
-msgid "Proposal"
-msgstr "Предложение"
+msgid "No"
+msgstr "Нет"
 
-msgid "UnVote"
-msgstr "Убрать голос"
+msgid "Voted"
+msgstr "Мой голос"
 
-msgid "%s has %s apples."
-msgstr "%s %s"
+msgid "No results found."
+msgstr "Нет результатов"
 
 msgid "Proposal Details"
 msgstr "Подробнее о предложении"
 
-msgid "Applicant/TU"
-msgstr "Кандидат/TU"
+msgid "This vote is still running."
+msgstr "Голосование продолжается"
 
-msgid "Length in days"
-msgstr "Продолжительность в днях"
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Получено: %s %s"
+
+msgid "Abstain"
+msgstr "Воздерживаюсь"
+
+msgid "Total"
+msgstr "Всего"
+
+#, fuzzy
+msgid "Voters"
+msgstr "Голосов"
+
+msgid "Bugs"
+msgstr "Ошибки"
+
+msgid "Discussion"
+msgstr "Обсуждение"
+
+msgid "My Packages"
+msgstr "Мои пакеты"
+
+msgid "Vote"
+msgstr "Голосовать"
+
+msgid "UnVote"
+msgstr "Убрать голос"
+
+msgid "Notify"
+msgstr "Извещать"
+
+msgid "New Comment Notification"
+msgstr "Извещение о новом коментарии"
+
+msgid "UnNotify"
+msgstr "Не извещать"
+
+msgid "No New Comment Notification"
+msgstr "Нет новых извещений о коментариях"
+
+msgid "Flag Out-of-date"
+msgstr "Пометить как Устаревший"
+
+msgid "UnFlag Out-of-date"
+msgstr "Снять флаг устаревший"
+
+msgid "Adopt Packages"
+msgstr "Усыновить пакеты"
+
+msgid "Disown Packages"
+msgstr "Бросить пакеты"
+
+msgid "Delete Packages"
+msgstr "Удалить пакеты"
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Any type"
+msgstr "Любой тип"
+
+msgid "Sort by"
+msgstr "Сортировать по"
+
+msgid "Last vote"
+msgstr "Последнее голосование"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Comment has been added."
+msgstr "Коментарий добавлен"
+
+msgid "Enter your comment below."
+msgstr "Введите ваш коментарий ниже."
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Вы вошли как: %s"
+
+msgid "Logout"
+msgstr "Выход"
+
+msgid "Remember me"
+msgstr "Запомнить меня"
+
+msgid "Login"
+msgstr "Войти"
+
+#, fuzzy
+msgid "Forgot Password"
+msgstr "Пароль"
+
+msgid "Recent Updates"
+msgstr "Последние обновления"
+
+msgid "My Statistics"
+msgstr "Моя статистика"
+
+msgid "Packages in unsupported"
+msgstr "Пакетов в [unsupported]"
+
+msgid "Out of Date"
+msgstr "Устарел"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+#, fuzzy
+msgid "Orphan Packages"
+msgstr "Пакеты"
+
+#, fuzzy
+msgid "Packages added in the past 7 days"
+msgstr "Пакетов добавлено/обновлено за последние 7 дней"
+
+#, fuzzy
+msgid "Packages updated in the past 7 days"
+msgstr "Пакетов добавлено/обновлено за последние 7 дней"
+
+#, fuzzy
+msgid "Packages updated in the past year"
+msgstr "Пакетов добавлено/обновлено за последние 7 дней"
+
+#, fuzzy
+msgid "Packages never updated"
+msgstr "Категория пакета обновлена."
+
+msgid "Registered Users"
+msgstr "Зарегистрированных пользователей"
+
+msgid "Trusted Users"
+msgstr "Доверенных пользователей"
+
+msgid "Error retrieving package list."
+msgstr "Ошибка получения списка пакетов."
+
+msgid "No packages matched your search criteria."
+msgstr "Нет пакетов по выбранному критерию поиска."
+
+msgid "Package Listing"
+msgstr "Список пакетов"
+
+msgid "Category"
+msgstr "Категория"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "orphan"
+msgstr "сирота"
 
 msgid "Legend"
 msgstr "Легенда"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Unflag Out-of-date"
+msgstr "Убрать флаг Устаревший"
+
+msgid "Go"
+msgstr "Поехали"
+
+#, php-format
+msgid "Showing results %s - %s of %s"
+msgstr "Результаты %s - %s из %s"
+
+#, php-format
+msgid "Comment by: %s on %s"
+msgstr "Коментарии: %s к %s"
+
+msgid "Delete comment"
+msgstr "Удалить коментарий"
+
+#, php-format
+msgid "Show all %s comments"
+msgstr ""
+
+msgid "Orphans"
+msgstr "Сироты"
+
+msgid "Advanced"
+msgstr "Дополнительно"
+
+msgid "Any"
+msgstr "Любой"
+
+msgid "Search by"
+msgstr "Искать по"
+
+#, fuzzy
+msgid "Name, Description"
+msgstr "Описание"
+
+#, fuzzy
+msgid "Name Only"
+msgstr "Имя"
+
+#, fuzzy
+msgid "Exact name"
+msgstr "Имя пакета."
+
+msgid "Age"
+msgstr "Возраст"
+
+msgid "Sort order"
+msgstr "Порядок сортировки"
+
+msgid "Ascending"
+msgstr "По возрастанию"
+
+msgid "Descending"
+msgstr "По убыванию"
+
+msgid "Per page"
+msgstr "Постранично"
+
+msgid "All"
+msgstr "Все"
+
+#, fuzzy
+msgid "Flagged"
+msgstr "Отмечено как безопасный"
+
+msgid "Not Flagged"
+msgstr ""
+
+#~ msgid "%s: %sAn ArchLinux project%s"
+#~ msgstr "%s: %sПроект ArchLinux%s"
+
+#~ msgid "Clear"
+#~ msgstr "Очистить"
+
+#~ msgid "Error looking up username, %s."
+#~ msgstr "Ошибка поиска имени пользователя, %s."
+
+#~ msgid ""
+#~ "The most popular packages will be provided as binary packages in "
+#~ "[community]."
+#~ msgstr ""
+#~ "Наиболее популярные пакеты будут добавлены в [community] в собраном виде."
+
+#~ msgid "You must supply a username."
+#~ msgstr "Вы должны задать имя пользователя."
+
+#~ msgid ""
+#~ "Email discussion about the AUR takes place on the %sTUR Users List%s."
+#~ msgstr "Используйте %sTUR Users List%s для обсуждения AUR."
+
+#~ msgid "Packages in unsupported and flagged as safe"
+#~ msgstr "Безопасных пакетов в [unsupported]"
+
+#~ msgid ""
+#~ "Though we can't vouch for their contents, we provide a %hlist of user "
+#~ "repositories%h for your convenience."
+#~ msgstr ""
+#~ "Хотя мы не можем  поручиться за содержимое, мы предоставляем %hсписок "
+#~ "пользовательских репозитариев%h для удобства."
+
+#~ msgid "Your account has been suspended."
+#~ msgstr "Действие вашей учетной записи приостановлено."
+
+#~ msgid "Username:"
+#~ msgstr "Имя пользователя:"
+
+#~ msgid "Error trying to generate session id."
+#~ msgstr "Ошибка генерации идентификатора сессии."
+
+#~ msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
+#~ msgstr "Замечания и пожелания о AUR оставляйте в %hFlyspray%h."
+
+#~ msgid "You must supply a password."
+#~ msgstr "Вы должны ввести пароль."
+
+#~ msgid "Password:"
+#~ msgstr "Пароль:"
+
+#~ msgid "Incorrect password for username, %s."
+#~ msgstr "Неверный пароль для пользователя %s."
+
+#~ msgid "Out-of-date"
+#~ msgstr "Устарел"
+
+#~ msgid "User Statistics"
+#~ msgstr "Статистика пользователя"
+
+#~ msgid "Flagged as safe by me"
+#~ msgstr "Отмечено мной как безопасный"
+
+#~ msgid "You've found a bug if you see this...."
+#~ msgstr "Вы нашли ошибку, если видите это...."
+
+#~ msgid "Select new category"
+#~ msgstr "Выберите новую категорию."
+
+#~ msgid ""
+#~ "Be careful! The above files may contain malicious code that can damage "
+#~ "your system."
+#~ msgstr ""
+#~ "Будьте осторожны! Данные файлы могут содержать код, который способен "
+#~ "повредить вашу систему."
+
+#~ msgid "Location"
+#~ msgstr "Местонахождение"
+
+#~ msgid "Flag Safe"
+#~ msgstr "Флаг Безопасно"
+
+#~ msgid "Go back to %hpackage details view%h."
+#~ msgstr "Вернуться к %hинформации о пакете%h."
+
+#~ msgid "Safe"
+#~ msgstr "Безопасно"
+
+#~ msgid "Keywords"
+#~ msgstr "Ключевые слова"
+
+#~ msgid "Files"
+#~ msgstr "Файлы"
+
+#~ msgid "The above files have been verified (by %s) and are safe to use."
+#~ msgstr "Данные файлы проверены (%s) и могут быть безопасно использованы."
+
+#~ msgid "Unflag Package Safe To Use"
+#~ msgstr "Снять флаг Безопасно"
+
+#~ msgid "Go back to %hsearch results%h."
+#~ msgstr "Вернуться к %hрезультатам поиска%h."
+
+#~ msgid "Comments"
+#~ msgstr "Коментарии"
+
+#~ msgid "Un-Vote"
+#~ msgstr "Убрать мой голос"
+
+#~ msgid "change category"
+#~ msgstr "изменить категорию"
+
+#~ msgid "Add Comment"
+#~ msgstr "Добавить коментарий"
+
+#~ msgid "Manage"
+#~ msgstr "Управлять"
+
+#~ msgid "Flag Package Safe To Use"
+#~ msgstr "Пометить флагом Безопасно"
+
+#~ msgid "Unflag Safe"
+#~ msgstr "Снять флаг Безопасно"
+
+#~ msgid "O%hut-of-Date"
+#~ msgstr "У%hстарел"
+
+#~ msgid "You have been successfully logged out."
+#~ msgstr "Сеанс успешно завершен"
+
+#~ msgid "Unsafe"
+#~ msgstr "Небезопаный"
+
+#~ msgid "The above files have been verified (by %h%s%h) and are safe to use."
+#~ msgstr "Файлы проверены %h%s%h и могут быть безопасно использованы."
+
+#~ msgid "None of the selected packages could be deleted."
+#~ msgstr "Ниодин выбранный пакет не может быть удален."
+
+#~ msgid "Couldn't flag package safe."
+#~ msgstr "Невозможно пометить пакет как безопасный."
+
+#~ msgid "You did not select any packages to un-vote for."
+#~ msgstr "Вы не выбрали ниодного пакета для снятия голоса."
+
+#~ msgid "You must be logged in before you can get notifications on comments."
+#~ msgstr "Вы должны войти прежде чем получать извещения о коментариях."
+
+#~ msgid "You have been removed from the comment notification list."
+#~ msgstr "Вы удалены из списка получателей извещений."
+
+#~ msgid "The selected packages have been unflagged safe."
+#~ msgstr "С выбраных пакетов снят флаг Безопасно."
+
+#~ msgid ""
+#~ "You must be logged in before you can cancel notification on comments."
+#~ msgstr "Вы должны войти прежде чем отменять извещения о коментариях."
+
+#~ msgid "You have been added to the comment notification list."
+#~ msgstr "Вы добавлены в список получателей извещений о коментариях."
+
+#~ msgid "Couldn't unflag package safe."
+#~ msgstr "Нельзя безопасно снять флажок."
+
+#~ msgid "The selected packages have been flagged safe."
+#~ msgstr "Выбранные пакеты помечены как безопасные."
+
+#~ msgid "Couldn't remove from notification list."
+#~ msgstr "Невозможно удалить из списка получателей извещений."
+
+#~ msgid "Missing build function in PKGBUILD."
+#~ msgstr "Отсутствует функция build в PKGBUILD."
+
+#~ msgid "Missing pkgdesc variable in PKGBUILD."
+#~ msgstr "Отсутствует переменная pkgdesc в PKGBUILD."
+
+#~ msgid "Error trying to upload file - please try again."
+#~ msgstr "Ошибка загрузки файла - попробуйте еще раз."
+
+#~ msgid "Error exec'ing the mv command."
+#~ msgstr "Ошибка выполнения команды mv."
+
+#~ msgid "Package upload successful."
+#~ msgstr "Пакет успешно загружен."
+
+#~ msgid "Overwrite existing package?"
+#~ msgstr "Перезаписать существующий пакет?"
+
+#~ msgid "Binary packages and filelists are not allowed for upload."
+#~ msgstr "Бинарные пакеты и списки файлов запрещены для загрузки."
+
+#~ msgid "You did not specify a package name."
+#~ msgstr "Вы не указали имя пакета."
+
+#~ msgid "Could not create incoming directory: %s."
+#~ msgstr "Невозможно создать каталог : %s."
+
+#~ msgid "Package Location"
+#~ msgstr "Местонахождение пакета."
+
+#~ msgid "Package names do not match."
+#~ msgstr "Имена пакета не совпадают."
+
+#~ msgid "Could not change to directory %s."
+#~ msgstr "Невозможно сменить каталог на %s."
+
+#~ msgid "You did not tag the 'overwrite' checkbox."
+#~ msgstr "Вы не установили переключатель 'overwrite'."
+
+#~ msgid "Missing pkgver variable in PKGBUILD."
+#~ msgstr "Отсутствует переменная pkgver в PKGBUILD."
+
+#~ msgid "Missing md5sums variable in PKGBUILD."
+#~ msgstr "Отсутствует переменная md5sums в PKGBUILD."
+
+#~ msgid "Missing pkgrel variable in PKGBUILD."
+#~ msgstr " Отсутствует переменная pkgrel в PKGBUILD."
+
+#~ msgid "Missing pkgname variable in PKGBUILD."
+#~ msgstr "Отсутствует переменная pkgname в PKGBUILD."
+
+#~ msgid "Select Location"
+#~ msgstr "Выберите местонахождение"
+
+#~ msgid "Comment"
+#~ msgstr "Коментарий"
+
+#~ msgid "Unknown file format for uploaded file."
+#~ msgstr "Неизвестный формат загруженного файла."
+
+#~ msgid "Missing source variable in PKGBUILD."
+#~ msgstr "Отсутствует переменная source  в PKGBUILD."
+
+#~ msgid "Could not re-tar"
+#~ msgstr "Невозможно переархивировать"
+
+#~ msgid "You must supply a comment for this upload/change."
+#~ msgstr "Вы должны ввести коментарий к загрузке/изменению."
+
+#~ msgid "Missing license variable in PKGBUILD."
+#~ msgstr "Не указана лицензия в PKGBUILD"
+
+#~ msgid "Missing arch variable in PKGBUILD."
+#~ msgstr "Не указана архитектура в PKGBUILD"
+
+#~ msgid "Could not chmod directory %s."
+#~ msgstr "Не получилось сделать chmod для %s."
+
+#~ msgid "Missing "
+#~ msgstr "Отсутствуют"
+
+#~ msgid "Proposal:"
+#~ msgstr "Предложение:"
+
+#~ msgid "Add"
+#~ msgstr "Добавить"
+
+#~ msgid "You've already voted in this proposal."
+#~ msgstr "Вы уже проголосовали."
+
+#~ msgid "All Votes"
+#~ msgstr "Всего"
+
+#~ msgid "string"
+#~ msgstr "строка"
+
+#~ msgid "This is a %h%s%h problem!"
+#~ msgstr "Это %h%s%h проблема!"
+
+#~ msgid "%s has %s apples."
+#~ msgstr "%s %s"

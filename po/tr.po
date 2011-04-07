@@ -12,10 +12,73 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home"
+msgstr "Anasayfa"
+
+msgid ""
+"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
+"Guidelines%h for more information."
+msgstr ""
+"AUR'a hoşgeldiniz! Ayrıntılı bilgi için lütfen %hAUR Kullanıcı Kılavuzu%h ve "
+"%hAUR GK Kılavuzu%hnu okuyun."
+
+msgid ""
+"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
+"otherwise they will be deleted!"
+msgstr ""
+"Eklenen PKGBUILD dosyaları %hArch Paket Standartları%hna %huymalıdır%h aksi "
+"takdirde silinecektir!"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "Beğendiğiniz paketleri oylamayı unutmayın!"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr ""
+"Burada listelenen paketlerin bazıları [community] deposunda yer almaktadır."
+
+msgid "DISCLAIMER"
+msgstr "FERAGATNAME"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr ""
+"Desteklenmeyen paketler kullanıcının kendi ürettiği içeriğidir. Bu "
+"paketlerin kullanımından doğan risk kullanıcının kendisine aittir."
+
+msgid "Search Criteria"
+msgstr "Arama Kriteri"
+
+msgid "Packages"
+msgstr "Paketler"
+
+#, fuzzy
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "Seçilen paketler silindi."
+
+msgid "Error trying to retrieve package details."
+msgstr "Paket ayrıntılarını almaya çalışırken hata oluştu."
+
+msgid "Accounts"
+msgstr "Hesabım"
+
+msgid "You are not allowed to access this area."
+msgstr "Bu kısma erişim izniniz yok."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Kullanıcı verileri alınamadı."
+
+msgid "You do not have permission to edit this account."
+msgstr "Bu hesap üzerinde değişiklik yapma izniniz yok."
+
+msgid "Use this form to search existing accounts."
+msgstr "Mevcut hesaplar içinde arama yapmak için bu formu kullanın."
 
 # INSTRUCTIONS TO TRANSLATORS
 #
@@ -25,292 +88,679 @@ msgstr ""
 # If your text contains any double-quotes ("), you MUST escape
 # them with the backslash character (\).
 #
-
-
 msgid "Use this form to update your account."
 msgstr "Hesap bilgilerinizi güncellemek için bu formu kullanın."
 
 msgid "Leave the password fields blank to keep your same password."
 msgstr "Şifrenizi değiştirmek istemiyorsanız şifre kısmını boş bırakın."
 
-msgid "You are not allowed to access this area."
-msgstr "Bu kısma erişim izniniz yok."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Kullanıcı verileri alınamadı."
-
-msgid "Use this form to search existing accounts."
-msgstr "Mevcut hesaplar içinde arama yapmak için bu formu kullanın."
-
-msgid "You do not have permission to edit this account."
-msgstr "Bu hesap üzerinde değişiklik yapma izniniz yok."
+msgid "You must log in to view user information."
+msgstr "Kullanıcı bilgilerini görmek için giriş yapmalısınız."
 
 msgid "Use this form to create an account."
 msgstr "Yeni bir hesap oluşturmak için bu formu kullanın."
 
-msgid "You must log in to view user information."
-msgstr "Kullanıcı bilgilerini görmek için giriş yapmalısınız."
+msgid "Could not retrieve proposal details."
+msgstr "Öneri detayları alınamadı."
 
+msgid "Voting is closed for this proposal."
+msgstr "Bu öneri için oylama kapanmıştır."
 
+msgid "You cannot vote in an proposal about you."
+msgstr "Sizin hakkınızdaki öneride oy kullanamazsınız."
 
-msgid "Missing a required field."
-msgstr "Gerekli bir alan doldurulmamış."
+msgid "You've already voted for this proposal."
+msgstr "Bu öneri için zaten oy vermişsiniz."
 
-msgid "Search"
-msgstr "Ara"
+msgid "Vote ID not valid."
+msgstr "Oy kimliği geçersiz."
 
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "Hesap %h%s%h başarıyla oluşturuldu."
+msgid "Current Votes"
+msgstr "Mevcut Oylar"
 
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "Hesap %h%s%h düzenlenirken hata oluştu."
-
-msgid "The email address is invalid."
-msgstr "Eposta adresi geçerli değil."
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "Hesap %h%s%h oluşturulurken hata oluştu: %s."
-
-msgid "The username, %h%s%h, is already in use."
-msgstr "%h%s%h kullanıcı adı kullanımda."
-
-msgid "Account Type"
-msgstr "Hesap Türü"
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr "Hesap %h%s%h başarıyla düzenlendi."
-
-msgid "Account Suspended"
-msgstr "Hesap Donduruldu"
-
-msgid "New Package Notify"
-msgstr "Yeni Paket Bildirimi"
-
-msgid "IRC Nick"
-msgstr "IRC Nick"
-
-msgid "Trusted user"
-msgstr "Güvenilen kullanıcı"
-
-msgid "No results matched your search criteria."
-msgstr "Uygun sonuç bulunamadı."
-
-msgid "Normal user"
-msgstr "Normal kullanıcı"
-
-msgid "Never"
-msgstr "Hiç"
-
-msgid "User"
-msgstr "Kullanıcı"
-
-msgid "Active"
-msgstr "Aktif"
-
-msgid "Last Voted"
+#, fuzzy
+msgid "Past Votes"
 msgstr "Son Oylanan"
 
-msgid "Real Name"
-msgstr "Gerçek İsim"
+#, fuzzy
+msgid "Add Proposal"
+msgstr "Öneri"
 
-msgid "Edit Account"
-msgstr "Hesap Bilgilerini Düzenle"
+msgid "Back"
+msgstr "Geri"
 
-msgid "Password fields do not match."
-msgstr "Şifreler birbirinin aynı değil."
+msgid "Next"
+msgstr "Sonraki"
 
-msgid "Language"
-msgstr "Dil"
+msgid "Username does not exist."
+msgstr "Kullanıcı adı bulunamadı."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Güvenilen Kullanıcı Geliştirici durumu belirleyemez."
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s için yürürlükte olan bir öneri var."
 
-msgid "The address, %h%s%h, is already in use."
-msgstr "%h%s%h adresi kullanımda."
+msgid "Length must be a number."
+msgstr "Süre bir rakam olmalıdır"
 
-msgid "No more results to display."
-msgstr "Gösterilecek daha fazla sonuç yok."
+msgid "Length must be at least 1."
+msgstr "Süre en az 1 olmalıdır."
 
-msgid "Type"
-msgstr "Tür"
+msgid "Proposal cannot be empty."
+msgstr "Öneri boş olamaz."
 
-msgid "Click on the Home link above to login."
-msgstr "Giriş yapmak için aşağıdaki Ev bağlantısını tıklayın.."
+msgid "New proposal submitted."
+msgstr "Yeni öneri gönderildi."
 
-msgid "Re-type password"
-msgstr "Şifreyi tekrarlayın"
+msgid "Submit a proposal to vote on."
+msgstr "Oylanması için öneri gönder."
 
-msgid "Language is not currently supported."
-msgstr "Dil henüz desteklenmiyor."
+msgid "Applicant/TU"
+msgstr ""
 
-msgid "Any type"
-msgstr "Herhangi bir tür"
+msgid "(empty if not applicable)"
+msgstr "(uygulanabilir değilse boş)"
 
-msgid "Last vote"
-msgstr "Son oylanan"
+msgid "Length in days"
+msgstr ""
 
-msgid "Suspended"
-msgstr "Donduruldu"
+msgid "(defaults to 7 if empty)"
+msgstr "(eğer boş ise öntanımlı olarak 7'dir)"
 
-msgid "Missing User ID"
-msgstr "Kullanıcı kimliği eksik"
-
-msgid "Developer"
-msgstr "Geliştirici"
-
-msgid "View this user's packages"
-msgstr "Bu kullanıcı tarafından hazırlanan paketleri göster"
-
-
-
-msgid "Home"
-msgstr "Anasayfa"
-
-msgid "%s: An ArchLinux project"
-msgstr "%s: Bir ArchLinux projesi"
-
-msgid "Packages"
-msgstr "Paketler"
-
-msgid "Accounts"
-msgstr "Hesabım"
-
-msgid "Logout"
-msgstr "Çıkış"
-
-msgid "%s: %sAn ArchLinux project%s"
-msgstr "%s: %sBir ArchLinux projesi%s"
-
-msgid "Discussion"
-msgstr "Tartışma"
-
-msgid "Bugs"
-msgstr "Hatalar"
-
-msgid "Trusted User"
-msgstr "Güvenilen Kullanıcı"
-
-
-
-msgid "Reset"
-msgstr "Sıfırla"
-
-msgid "Username"
-msgstr "Kullanıcı Adı"
-
-msgid "Email Address"
-msgstr "Eposta adresi"
-
-msgid "Less"
-msgstr "Önceki"
-
-msgid "Clear"
-msgstr "Temizle"
-
-msgid "required"
-msgstr "gerekli"
-
-msgid "Update"
-msgstr "Güncelle"
+msgid "Proposal"
+msgstr "Öneri"
 
 msgid "Submit"
 msgstr "Gönder"
 
+msgid "Missing a required field."
+msgstr "Gerekli bir alan doldurulmamış."
+
+msgid "Password fields do not match."
+msgstr "Şifreler birbirinin aynı değil."
+
+msgid "Invalid e-mail."
+msgstr ""
+
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#, fuzzy
+msgid "Password Reset"
+msgstr "Şifre"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr ""
+
+#, fuzzy
+msgid "Your password has been reset successfully."
+msgstr "Şifreniz en az %s karakterden oluşmalıdır."
+
+msgid "Confirm your e-mail address:"
+msgstr ""
+
+#, fuzzy
+msgid "Enter your new password:"
+msgstr "Şifreyi tekrarlayın"
+
+msgid "Confirm your new password:"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %haur-general%h mailing list."
+msgstr ""
+
+#, fuzzy
+msgid "Enter your e-mail address:"
+msgstr "Eposta adresi"
+
+msgid "Error - No file uploaded"
+msgstr "Hata - Yüklenecek dosya yok"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+
+msgid "Error - uncompressed file size too large."
+msgstr ""
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr ""
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Yüklenen dosya açılırken hata - PKGBUILD mevcut değil."
+
+#, fuzzy, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "PKGBUILD içinde url değişkeni bulunamadı."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Paket URL protokolü hatalı (ör. http:// ,ftp://)"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Geçersiz isim: yalnızca küçük harf kullanılabilir."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "%s dizini oluşturulamadı."
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "%h%s%h paketi üzerinde değişiklik yapma yetkiniz yok."
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr ""
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "%s dizinine geçilemedi."
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
+
+msgid "Package Category"
+msgstr "Paket Kategorisi"
+
+msgid "Select Category"
+msgstr "Kategori Seçin"
+
+msgid "Upload package file"
+msgstr "Paket yükle"
+
+msgid "Upload"
+msgstr "Yükle"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Üzgünüm, bu sunucu üzerinden yükleme kabul edilmiyor."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Paket yükleyebilmek için bir hesap oluşturmalısınız."
+
+msgid "Error retrieving package details."
+msgstr "Paket bilgileri alınırken hata oluştu."
+
+msgid "Package details could not be found."
+msgstr "Paket ayrıntıları bulunamadı."
+
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+#, fuzzy
+msgid "Last"
+msgstr "Son oylanan"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Paketleri işaretleyebilmek için giriş yapmalısınız."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Paket(ler)in işaretini kaldırabilmek için giriş yapmalısınız."
+
+msgid "You did not select any packages to flag."
+msgstr "İşaretlenecek paket(ler)i seçmediniz."
+
+msgid "You did not select any packages to unflag."
+msgstr "İşareti kaldırılacak paket(ler)i seçmediniz."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Seçilen paketler güncelliğini yitirmiş olarak işaretlendi."
+
+msgid "The selected packages have been unflagged."
+msgstr "Seçilen paketlerin işareti kaldırıldı."
+
+#, fuzzy
+msgid "You must be logged in before you can delete packages."
+msgstr "Paketleri sahiplenmek için giriş yapmalısınız."
+
+#, fuzzy
+msgid "You do have permission to delete packages."
+msgstr "Bu hesap üzerinde değişiklik yapma izniniz yok."
+
+msgid "You did not select any packages to delete."
+msgstr "Silinecek paketleri seçmediniz."
+
+msgid "The selected packages have been deleted."
+msgstr "Seçilen paketler silindi."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Paketleri sahiplenmek için giriş yapmalısınız."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Paketlerin sahipliğini bırakmak için giriş yapmalısınız."
+
+msgid "You did not select any packages to adopt."
+msgstr "Sahiplenilecek paket(ler)i seçmediniz."
+
+msgid "You did not select any packages to disown."
+msgstr "Sahipliği bırakılacak paketleri seçmediniz."
+
+msgid "The selected packages have been adopted."
+msgstr "Seçilen paketler sahiplenildi."
+
+msgid "The selected packages have been disowned."
+msgstr "Seçilen paketlerin sahipliği bırakıldı."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Paketlere oy vermeden önce giriş yapmalısınız."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Oy iptali için giriş yapmalısınız."
+
+msgid "You did not select any packages to vote for."
+msgstr "Oy verilecek paketleri seçmediniz."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Seçtiğiniz paketlerden oyunuz geri alındı."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Seçtiğiniz paketlere oyunuz eklendi."
+
+msgid "Couldn't add to notification list."
+msgstr "Bildirim listesine ekleme işlemi başarısız oldu."
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "%s bildirim listesine başarıyla eklendiniz."
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "%s bildirim listesinden başarıyla çıktınız."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Paket bilgilerini güncellemek için giriş yapmalısınız."
+
+msgid "Missing comment ID."
+msgstr "Yorum kimliği bulunamadı."
+
+msgid "Comment has been deleted."
+msgstr "Yorum silindi."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Bu yorumu silme yetkiniz yok."
+
+#, fuzzy
+msgid "Missing category ID."
+msgstr "Paket kimliği bulunamadı."
+
+msgid "Invalid category ID."
+msgstr "Geçersiz kategori."
+
+msgid "Missing package ID."
+msgstr "Paket kimliği bulunamadı."
+
+#, fuzzy
+msgid "Package category changed."
+msgstr "Paket kategorisi güncellendi."
+
+#, fuzzy
+msgid "You are not allowed to change this package category."
+msgstr "Bu kısma erişim izniniz yok."
+
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+msgid "required"
+msgstr "gerekli"
+
+msgid "Account Type"
+msgstr "Hesap Türü"
+
+msgid "Normal user"
+msgstr "Normal kullanıcı"
+
+msgid "Trusted user"
+msgstr "Güvenilen kullanıcı"
+
+msgid "Developer"
+msgstr "Geliştirici"
+
+msgid "Account Suspended"
+msgstr "Hesap Donduruldu"
+
+msgid "Email Address"
+msgstr "Eposta adresi"
+
 msgid "Password"
 msgstr "Şifre"
+
+msgid "Re-type password"
+msgstr "Şifreyi tekrarlayın"
+
+msgid "Real Name"
+msgstr "Gerçek İsim"
+
+msgid "IRC Nick"
+msgstr "IRC Nick"
+
+msgid "Language"
+msgstr "Dil"
+
+msgid "New Package Notify"
+msgstr "Yeni Paket Bildirimi"
+
+msgid "Update"
+msgstr "Güncelle"
 
 msgid "Create"
 msgstr "Oluştur"
 
+msgid "Reset"
+msgstr "Sıfırla"
+
+msgid "Missing User ID"
+msgstr "Kullanıcı kimliği eksik"
+
+msgid "The username is invalid."
+msgstr "Bu kullanıcı adı geçersizdir."
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Uzunluğu %s ve %s karakter arasında olabilir."
+
+msgid "Start and end with a letter or number"
+msgstr "Bir rakam veya harf ile başlatıp bitirmelisiniz"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Sadece bir nokta, alt çizgi veya tire barındırabilir."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Şifreniz en az %s karakterden oluşmalıdır."
+
+msgid "The email address is invalid."
+msgstr "Eposta adresi geçerli değil."
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Güvenilen Kullanıcı Geliştirici durumu belirleyemez."
+
+msgid "Language is not currently supported."
+msgstr "Dil henüz desteklenmiyor."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "%h%s%h kullanıcı adı kullanımda."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "%h%s%h adresi kullanımda."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Hesap %h%s%h oluşturulurken hata oluştu: %s."
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Hesap %h%s%h başarıyla oluşturuldu."
+
+msgid "Click on the Home link above to login."
+msgstr "Giriş yapmak için aşağıdaki Ev bağlantısını tıklayın.."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Hesap %h%s%h düzenlenirken hata oluştu."
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Hesap %h%s%h başarıyla düzenlendi."
+
+msgid "No results matched your search criteria."
+msgstr "Uygun sonuç bulunamadı."
+
+msgid "Type"
+msgstr "Tür"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Last Voted"
+msgstr "Son Oylanan"
+
+msgid "Edit Account"
+msgstr "Hesap Bilgilerini Düzenle"
+
+msgid "Suspended"
+msgstr "Donduruldu"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Never"
+msgstr "Hiç"
+
+msgid "Less"
+msgstr "Önceki"
+
 msgid "More"
 msgstr "Sonraki"
 
-msgid "You must supply a password."
-msgstr "Bir parola belirlemelisiniz."
+msgid "No more results to display."
+msgstr "Gösterilecek daha fazla sonuç yok."
 
-msgid "You must supply a username."
-msgstr "Bir kullanıcı adı belirlemelisiniz."
+msgid "User"
+msgstr "Kullanıcı"
 
-msgid "After that, this can be filled in with more meaningful text."
-msgstr "Eksiklikleri tamamladıktan sonra, bu kısma anlamlı bir açıklama yazabilirsiniz."
+msgid "Trusted User"
+msgstr "Güvenilen Kullanıcı"
 
+msgid "View this user's packages"
+msgstr "Bu kullanıcı tarafından hazırlanan paketleri göster"
+
+msgid "Bad username or password."
+msgstr ""
+
+msgid "Votes"
+msgstr "Oy"
+
+msgid "unknown"
+msgstr "bilinmiyor"
+
+msgid "Package Details"
+msgstr "Paket Ayrıntıları"
+
+msgid "Submitter"
+msgstr "Gönderen"
+
+msgid "Maintainer"
+msgstr "Sorumlu"
+
+msgid "License"
+msgstr "Lisans"
+
+msgid "Last Updated"
+msgstr "Son Güncelleme"
+
+msgid "First Submitted"
+msgstr "İlk Gönderim"
+
+msgid "Tarball"
+msgstr "Tarball"
+
+msgid "PKGBUILD"
+msgstr ""
+
+msgid "This package has been flagged out of date."
+msgstr "Bu paket güncel değil olarak işaretlendi."
+
+msgid "Dependencies"
+msgstr "Bağımlılıklar"
+
+msgid "Required by"
+msgstr "İhtiyaç duyan"
+
+msgid "Sources"
+msgstr "Kaynaklar"
+
+msgid "Hi, this is worth reading!"
+msgstr ""
+
+msgid "Start"
+msgstr "Başlangıç"
+
+msgid "End"
+msgstr "Son"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "Voted"
+msgstr "Oylanan"
+
+msgid "No results found."
+msgstr "Sonuç bulunamadı."
+
+msgid "Proposal Details"
+msgstr "Öneri Detayları"
+
+msgid "This vote is still running."
+msgstr "Bu oylama hala yürürlükte."
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Gönderildi: %s %s tarafından"
+
+msgid "Abstain"
+msgstr "Çekimser"
+
+msgid "Total"
+msgstr "Toplam"
+
+#, fuzzy
+msgid "Voters"
+msgstr "Oy"
+
+msgid "Bugs"
+msgstr "Hatalar"
+
+msgid "Discussion"
+msgstr "Tartışma"
+
+msgid "My Packages"
+msgstr "Paketlerim"
+
+msgid "Vote"
+msgstr "Oy ver"
+
+msgid "UnVote"
+msgstr "Oyu kaldır"
+
+msgid "Notify"
+msgstr "Bilgilendir"
+
+msgid "New Comment Notification"
+msgstr "Yeni Yorum Bildirimi"
+
+msgid "UnNotify"
+msgstr "Bildirimi iptal et"
+
+msgid "No New Comment Notification"
+msgstr "Yeni Yorum Bildirim Yok"
+
+msgid "Flag Out-of-date"
+msgstr "Güncelliğini yitirmiş olarak işaretle"
+
+msgid "UnFlag Out-of-date"
+msgstr "Güncel değiş işaretini kaldır"
+
+msgid "Adopt Packages"
+msgstr "Paketleri Sahiplen"
+
+msgid "Disown Packages"
+msgstr "Paketleri sahiplenmeyi bırak"
+
+msgid "Delete Packages"
+msgstr "Paketleri Sil"
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Any type"
+msgstr "Herhangi bir tür"
+
+msgid "Sort by"
+msgstr "Sırala"
+
+msgid "Last vote"
+msgstr "Son oylanan"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Comment has been added."
+msgstr "Yorum eklendi."
+
+msgid "Enter your comment below."
+msgstr "Lütfen yorumunuzu yazınız."
+
+#, php-format
 msgid "Logged-in as: %s"
 msgstr "%s olarak giriş yapıldı"
 
-msgid "Your account has been suspended."
-msgstr "Hesabınız donduruldu."
+msgid "Logout"
+msgstr "Çıkış"
 
-msgid "Password:"
-msgstr "Şifre:"
-
-msgid "Username:"
-msgstr "Kullanıcı Adı:"
-
-msgid "Welcome to the AUR! If you're a newcomer, you may want to read the %hGuidelines%h."
-msgstr "AUR'a hoş geldiniz! Yeni katıldıysanız, belki de  %hKılavuz%h 'a bir göz atmak istersiniz."
-
-msgid "This is where the intro text will go."
-msgstr "Tanıtım yazısının gösterileceği kısımdır."
-
-msgid "Error trying to generate session id."
-msgstr "Oturum kimliği oluşturulmaya çalışılırken hata oluştu."
-
-msgid "For now, it's just a place holder."
-msgstr "Şimdilik bu kısım sadece yer işgal etmektedir."
-
-msgid "It's more important to get the login functionality finished."
-msgstr "Giriş işlemi fonksiyonunun tamamlanması daha fazla önem arz etmektedir."
+msgid "Remember me"
+msgstr "Beni hatırla"
 
 msgid "Login"
 msgstr "Giriş"
 
-msgid "Though we can't vouch for their contents, we provide a %hlist of user repositories%h for your convenience."
-msgstr "İçeriklerine kefil olmasak da, kullanmanız için %hkullanıcı deposu listesi%h sağlamaktayız. "
-
-msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
-msgstr "AUR ile ilgili geribildirim yapmak için lütfen %hFlyspray%h 'i kullanın."
-
-msgid "Latest Packages:"
-msgstr "Son paketler:"
-
-msgid "Discussion about the AUR takes place on the %sTUR Users List%s."
-msgstr "AUR ile ilgili tartışmalar %sTUR Kullanıcı Listesi%s 'nde."
-
-msgid "Email discussion about the AUR takes place on the %sTUR Users List%s."
-msgstr "AUR hakkındaki e-posta tartışmaları %sTUR Eposta Listesi%s üzerinde gerçekleşmektedir."
+#, fuzzy
+msgid "Forgot Password"
+msgstr "Şifre"
 
 msgid "Recent Updates"
 msgstr "Son Güncellemeler"
 
-msgid "Community"
-msgstr "Topluluk"
+msgid "My Statistics"
+msgstr "İstatistiklerim"
 
-msgid "Package Counts"
-msgstr "Paket Sayıları"
+msgid "Packages in unsupported"
+msgstr "Desteklenmeyen paketler"
 
-msgid "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."
-msgstr "AUR'a hoşgeldiniz! Ayrıntılı bilgi için lütfen %hAUR Kullanıcı Kılavuzu%h ve %hAUR GK Kılavuzu%hnu okuyun."
-
-msgid "Unsupported"
-msgstr "Desteklenmiyor"
-
-msgid "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"
-msgstr "Eklenen PKGBUILD dosyaları %hArch Paket Standartları%hna %huymalıdır%h aksi takdirde silinecektir!"
+msgid "Out of Date"
+msgstr "Güncel Değil"
 
 msgid "Statistics"
 msgstr "İstatistikler"
 
-msgid "My Statistics"
-msgstr "İstatistiklerim"
+#, fuzzy
+msgid "Orphan Packages"
+msgstr "Paketler"
 
-msgid "Flagged as safe by me"
-msgstr "Tarafımdan güvenli olarak işaretlenmiş"
+#, fuzzy
+msgid "Packages added in the past 7 days"
+msgstr "Son 7 günde eklenen ya da güncellenen paketler"
 
-msgid "Flagged as safe"
-msgstr "Güvenli olarak işaretmiş"
+#, fuzzy
+msgid "Packages updated in the past 7 days"
+msgstr "Son 7 günde eklenen ya da güncellenen paketler"
 
-msgid "User Statistics"
-msgstr "Kullanıcı İstatistikleri"
+#, fuzzy
+msgid "Packages updated in the past year"
+msgstr "Son 7 günde eklenen ya da güncellenen paketler"
+
+#, fuzzy
+msgid "Packages never updated"
+msgstr "Paket kategorisi güncellendi."
 
 msgid "Registered Users"
 msgstr "Kayıtlı Kullanıcılar"
@@ -318,176 +768,80 @@ msgstr "Kayıtlı Kullanıcılar"
 msgid "Trusted Users"
 msgstr "Güvenilen Kullanıcılar"
 
-msgid "Packages in unsupported"
-msgstr "Desteklenmeyen paketler"
-
-msgid "Packages in unsupported and flagged as safe"
-msgstr "Desteklenmeyen ve güvenli olarak olarak işaretlenen paketler"
-
-msgid "Remember to vote for your favourite packages!"
-msgstr "Beğendiğiniz paketleri oylamayı unutmayın!"
-
-msgid "Packages added or updated in the past 7 days"
-msgstr "Son 7 günde eklenen ya da güncellenen paketler"
-
-msgid "Out-of-date"
-msgstr "Güncelliğini yitirmiş"
-
-msgid "DISCLAIMER"
-msgstr "FERAGATNAME"
-
-msgid "Login failure: Bad user or pass."
-msgstr "Giriş hatası: Hatalı kullanıcı adı veya parola"
-
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Burada listelenen paketlerin bazıları [community] deposunda yer almaktadır."
-
-msgid "Unsupported packages are user produced content. Any use of the provided files is at your own risk."
-msgstr "Desteklenmeyen paketler kullanıcının kendi ürettiği içeriğidir. Bu paketlerin kullanımından doğan risk kullanıcının kendisine aittir."
-
-
-msgid "You have been successfully logged out."
-msgstr "Başarıyla çıkış yaptınız."
-
-
-
-msgid "Missing package ID."
-msgstr "Paket kimliği bulunamadı."
-
-msgid "Invalid category ID."
-msgstr "Geçersiz kategori."
-
-msgid "Enter your comment below."
-msgstr "Lütfen yorumunuzu yazınız."
-
-msgid "You are not allowed to delete this comment."
-msgstr "Bu yorumu silme yetkiniz yok."
-
-msgid "Missing comment ID."
-msgstr "Yorum kimliği bulunamadı."
-
-msgid "Package category updated."
-msgstr "Paket kategorisi güncellendi."
-
-msgid "You must be logged in before you can edit package information."
-msgstr "Paket bilgilerini güncellemek için giriş yapmalısınız."
-
-msgid "Comment has been deleted."
-msgstr "Yorum silindi."
-
-msgid "You've found a bug if you see this...."
-msgstr "Bu yazıyı görebiliyorsanız bir hata keşfettiniz"
-
-msgid "Comment has been added."
-msgstr "Yorum eklendi."
-
-msgid "Select new category"
-msgstr "Yeni kategori seçin"
-
-msgid "Category"
-msgstr "Kategori"
-
-msgid "Votes"
-msgstr "Oy"
-
-msgid "Comment by: %s on %s"
-msgstr "Yorum sahibi: %s on %s"
-
-msgid "Location"
-msgstr "Depo"
-
-msgid "Delete comment"
-msgstr "Yorumu sil"
-
-msgid "Go"
-msgstr "Git"
-
-msgid "Unflag Out-of-date"
-msgstr "Güncel Değil İşaretini Kaldır"
-
-msgid "Go back to %hpackage details view%h."
-msgstr "%Paket detayları görünümüne%h geri dönün."
-
-msgid "Error retrieving package details."
-msgstr "Paket bilgileri alınırken hata oluştu."
-
-msgid "Description"
-msgstr "Açıklama"
-
-msgid "My Packages"
-msgstr "Paketlerim"
-
-msgid "Keywords"
-msgstr "Anahtar kelimeler"
-
-msgid "Dependencies"
-msgstr "Bağımlılıklar"
-
-msgid "Disown Packages"
-msgstr "Paketleri sahiplenmeyi bırak"
-
-msgid "Package details could not be found."
-msgstr "Paket ayrıntıları bulunamadı."
-
-msgid "Package Details"
-msgstr "Paket Ayrıntıları"
-
 msgid "Error retrieving package list."
 msgstr "Paket listesi alınırken hata oluştu."
-
-msgid "Files"
-msgstr "Dosyalar"
-
-msgid "None"
-msgstr "Hiç"
-
-msgid "Name"
-msgstr "İsim"
-
-msgid "Per page"
-msgstr "Her sayfa"
-
-msgid "Go back to %hsearch results%h."
-msgstr "%hArama sonuçları%h sayfasına dön."
 
 msgid "No packages matched your search criteria."
 msgstr "Eşleşen paket bulunamadı."
 
-msgid "O%hrphan"
-msgstr ""
+msgid "Package Listing"
+msgstr "Paket Listeleme"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Name"
+msgstr "İsim"
+
+msgid "Description"
+msgstr "Açıklama"
 
 msgid "orphan"
 msgstr "sahipsiz"
 
-msgid "Un-Vote"
-msgstr "Oyu kaldır"
+msgid "Legend"
+msgstr ""
 
-msgid "change category"
-msgstr "kategori değiştir"
+msgid "Actions"
+msgstr "Eylemler"
 
-msgid "UnNotify"
-msgstr "Bildirimi iptal et"
+msgid "Unflag Out-of-date"
+msgstr "Güncel Değil İşaretini Kaldır"
 
-msgid "Delete Packages"
-msgstr "Paketleri Sil"
+msgid "Go"
+msgstr "Git"
 
-msgid "Maintainer"
-msgstr "Sorumlu"
+#, php-format
+msgid "Showing results %s - %s of %s"
+msgstr "%s - %s görüntüleniyor, %s sonuç arasından"
 
-msgid "Add Comment"
-msgstr "Yorum Ekle"
+#, php-format
+msgid "Comment by: %s on %s"
+msgstr "Yorum sahibi: %s on %s"
 
-msgid "Tarball"
-msgstr "Tarball"
+msgid "Delete comment"
+msgstr "Yorumu sil"
 
-msgid "Flag Out-of-date"
-msgstr "Güncelliğini yitirmiş olarak işaretle"
+#, php-format
+msgid "Show all %s comments"
+msgstr ""
 
-msgid "Manage"
-msgstr "Yönet"
+msgid "Orphans"
+msgstr "Sahipsiz"
 
-msgid "Sort by"
-msgstr "Sırala"
+msgid "Advanced"
+msgstr ""
+
+msgid "Any"
+msgstr "Tümü"
+
+msgid "Search by"
+msgstr "Buna göre ara"
+
+#, fuzzy
+msgid "Name, Description"
+msgstr "Açıklama"
+
+#, fuzzy
+msgid "Name Only"
+msgstr "İsim"
+
+#, fuzzy
+msgid "Exact name"
+msgstr "Paket adı"
+
+msgid "Age"
+msgstr "Yaş"
 
 msgid "Sort order"
 msgstr "Sıralama kriteri"
@@ -498,465 +852,321 @@ msgstr "Eskiden yeniye"
 msgid "Descending"
 msgstr "Yeniden eskiye"
 
-msgid "Actions"
-msgstr "Eylemler"
-
-msgid "Sources"
-msgstr "Kaynaklar"
-
-msgid "Search Criteria"
-msgstr "Arama Kriteri"
-
-msgid "Notify"
-msgstr "Bilgilendir"
-
-msgid "Out of Date"
-msgstr "Güncel Değil"
-
-msgid "Vote"
-msgstr "Oy ver"
-
-msgid "Adopt Packages"
-msgstr "Paketleri Sahiplen"
-
-msgid "Package Listing"
-msgstr "Paket Listeleme"
-
-msgid "Orphans"
-msgstr "Sahipsiz"
-
-msgid "Any"
-msgstr "Tümü"
-
-msgid "Voted"
-msgstr "Oylanan"
-
-msgid "No New Comment Notification"
-msgstr "Yeni Yorum Bildirim Yok"
-
-msgid "New Comment Notification"
-msgstr "Yeni Yorum Bildirimi"
-
-msgid "Comments"
-msgstr "Yorumlar"
-
-msgid "The above files have been verified (by %s) and are safe to use."
-msgstr "Yukarıdaki dosyalar doğrulandı (%s tarafından) ve güvenli olarak işaretlendi."
-
-msgid "Be careful! The above files may contain malicious code that can damage your system."
-msgstr "Dikkat! Yukarıdaki dosyalar sisteminize zarar verebilecek nitelikte olabilir."
-
-msgid "Flag Safe"
-msgstr "Güvenli Olarak İşaretle"
-
-msgid "Flag Package Safe To Use"
-msgstr "Paketi Güvenli Olarak İşaretle"
-
-msgid "Unflag Safe"
-msgstr "Güvenilirlik İşaretini Kaldır"
-
-msgid "Unflag Package Safe To Use"
-msgstr "Paketin Güvenilirlik İşaretini Kaldır"
-
-msgid "Safe"
-msgstr "Güvenli"
-
-msgid "Age"
-msgstr "Yaş"
-
-msgid "First Submitted"
-msgstr "İlk Gönderim"
-
-msgid "Last Updated"
-msgstr "Son Güncelleme"
-
-msgid "Search by"
-msgstr "Buna göre ara"
-
-msgid "Submitter"
-msgstr "Gönderen"
+msgid "Per page"
+msgstr "Her sayfa"
 
 msgid "All"
 msgstr "Tümü"
 
-msgid "Unsafe"
-msgstr "Güvensiz"
+#, fuzzy
+msgid "Flagged"
+msgstr "Güvenli olarak işaretmiş"
 
-msgid "Status"
-msgstr "Durum"
+msgid "Not Flagged"
+msgstr ""
 
-msgid "License"
-msgstr "Lisans"
+#~ msgid "%s: An ArchLinux project"
+#~ msgstr "%s: Bir ArchLinux projesi"
 
-msgid "unknown"
-msgstr "bilinmiyor"
+#~ msgid "%s: %sAn ArchLinux project%s"
+#~ msgstr "%s: %sBir ArchLinux projesi%s"
 
-msgid "Required by"
-msgstr "İhtiyaç duyan"
+#~ msgid "Clear"
+#~ msgstr "Temizle"
 
-msgid "The above files have been verified (by %h%s%h) and are safe to use."
-msgstr "Yukarıdaki dosyalar doğrulandı (%h%s%h tarafından) ve kullanım için güvenli olarak işaretlendi."
+#~ msgid "You must supply a password."
+#~ msgstr "Bir parola belirlemelisiniz."
 
-msgid "This package has been flagged out of date."
-msgstr "Bu paket güncel değil olarak işaretlendi."
+#~ msgid "You must supply a username."
+#~ msgstr "Bir kullanıcı adı belirlemelisiniz."
 
-msgid "Toggle Notify"
-msgstr "Toggle Notify"
+#~ msgid "After that, this can be filled in with more meaningful text."
+#~ msgstr ""
+#~ "Eksiklikleri tamamladıktan sonra, bu kısma anlamlı bir açıklama "
+#~ "yazabilirsiniz."
 
-msgid "Showing results %s - %s of %s"
-msgstr "%s - %s görüntüleniyor, %s sonuç arasından"
+#~ msgid "Your account has been suspended."
+#~ msgstr "Hesabınız donduruldu."
 
+#~ msgid "Password:"
+#~ msgstr "Şifre:"
 
-msgid "None of the selected packages could be deleted."
-msgstr "Seçilen paketlerin hiçbiri silinemedi."
+#~ msgid "Username:"
+#~ msgstr "Kullanıcı Adı:"
 
-msgid "Your votes have been removed from the selected packages."
-msgstr "Seçtiğiniz paketlerden oyunuz geri alındı."
+#~ msgid ""
+#~ "Welcome to the AUR! If you're a newcomer, you may want to read the "
+#~ "%hGuidelines%h."
+#~ msgstr ""
+#~ "AUR'a hoş geldiniz! Yeni katıldıysanız, belki de  %hKılavuz%h 'a bir göz "
+#~ "atmak istersiniz."
 
-msgid "You did not select any packages to un-vote for."
-msgstr "Oyunuzu geri almak üzere paket seçmediniz."
+#~ msgid "This is where the intro text will go."
+#~ msgstr "Tanıtım yazısının gösterileceği kısımdır."
 
-msgid "The selected packages have been unflagged."
-msgstr "Seçilen paketlerin işareti kaldırıldı."
+#~ msgid "Error trying to generate session id."
+#~ msgstr "Oturum kimliği oluşturulmaya çalışılırken hata oluştu."
 
-msgid "You did not select any packages to adopt."
-msgstr "Sahiplenilecek paket(ler)i seçmediniz."
+#~ msgid "For now, it's just a place holder."
+#~ msgstr "Şimdilik bu kısım sadece yer işgal etmektedir."
 
-msgid "You must be logged in before you can flag packages."
-msgstr "Paketleri işaretleyebilmek için giriş yapmalısınız."
+#~ msgid "It's more important to get the login functionality finished."
+#~ msgstr ""
+#~ "Giriş işlemi fonksiyonunun tamamlanması daha fazla önem arz etmektedir."
 
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Yorum bildirimi almak için giriş yapmalısınız."
+#~ msgid ""
+#~ "Though we can't vouch for their contents, we provide a %hlist of user "
+#~ "repositories%h for your convenience."
+#~ msgstr ""
+#~ "İçeriklerine kefil olmasak da, kullanmanız için %hkullanıcı deposu listesi"
+#~ "%h sağlamaktayız. "
 
-msgid "You must be logged in before you can vote for packages."
-msgstr "Paketlere oy vermeden önce giriş yapmalısınız."
+#~ msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
+#~ msgstr ""
+#~ "AUR ile ilgili geribildirim yapmak için lütfen %hFlyspray%h 'i kullanın."
 
-msgid "The selected packages have been flagged out-of-date."
-msgstr "Seçilen paketler güncelliğini yitirmiş olarak işaretlendi."
+#~ msgid "Latest Packages:"
+#~ msgstr "Son paketler:"
 
-msgid "The selected packages have been deleted."
-msgstr "Seçilen paketler silindi."
+#~ msgid "Discussion about the AUR takes place on the %sTUR Users List%s."
+#~ msgstr "AUR ile ilgili tartışmalar %sTUR Kullanıcı Listesi%s 'nde."
 
-msgid "You did not select any packages to vote for."
-msgstr "Oy verilecek paketleri seçmediniz."
+#~ msgid ""
+#~ "Email discussion about the AUR takes place on the %sTUR Users List%s."
+#~ msgstr ""
+#~ "AUR hakkındaki e-posta tartışmaları %sTUR Eposta Listesi%s üzerinde "
+#~ "gerçekleşmektedir."
 
-msgid "You must be logged in before you can disown packages."
-msgstr "Paketlerin sahipliğini bırakmak için giriş yapmalısınız."
+#~ msgid "Community"
+#~ msgstr "Topluluk"
 
-msgid "Error trying to retrieve package details."
-msgstr "Paket ayrıntılarını almaya çalışırken hata oluştu."
+#~ msgid "Package Counts"
+#~ msgstr "Paket Sayıları"
 
-msgid "The selected packages have been adopted."
-msgstr "Seçilen paketler sahiplenildi."
+#~ msgid "Unsupported"
+#~ msgstr "Desteklenmiyor"
 
-msgid "You have been removed from the comment notification list for %s."
-msgstr "%s bildirim listesinden başarıyla çıktınız."
+#~ msgid "Flagged as safe by me"
+#~ msgstr "Tarafımdan güvenli olarak işaretlenmiş"
 
-msgid "Your votes have been cast for the selected packages."
-msgstr "Seçtiğiniz paketlere oyunuz eklendi."
+#~ msgid "User Statistics"
+#~ msgstr "Kullanıcı İstatistikleri"
 
-msgid "You must be logged in before you can cancel notification on comments."
-msgstr "Yorum bildirimlerini iptal etmek için giriş yapmalısınız."
+#~ msgid "Packages in unsupported and flagged as safe"
+#~ msgstr "Desteklenmeyen ve güvenli olarak olarak işaretlenen paketler"
 
-msgid "You must be logged in before you can adopt packages."
-msgstr "Paketleri sahiplenmek için giriş yapmalısınız."
+#~ msgid "Out-of-date"
+#~ msgstr "Güncelliğini yitirmiş"
 
-msgid "You have been added to the comment notification list for %s."
-msgstr "%s bildirim listesine başarıyla eklendiniz."
+#~ msgid "Login failure: Bad user or pass."
+#~ msgstr "Giriş hatası: Hatalı kullanıcı adı veya parola"
 
-msgid "You did not select any packages to disown."
-msgstr "Sahipliği bırakılacak paketleri seçmediniz."
+#~ msgid "You have been successfully logged out."
+#~ msgstr "Başarıyla çıkış yaptınız."
 
-msgid "You must be logged in before you can un-vote for packages."
-msgstr "Oy iptali için giriş yapmalısınız."
+#~ msgid "You've found a bug if you see this...."
+#~ msgstr "Bu yazıyı görebiliyorsanız bir hata keşfettiniz"
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Paket(ler)in işaretini kaldırabilmek için giriş yapmalısınız."
+#~ msgid "Select new category"
+#~ msgstr "Yeni kategori seçin"
 
-msgid "You did not select any packages to unflag."
-msgstr "İşareti kaldırılacak paket(ler)i seçmediniz."
+#~ msgid "Location"
+#~ msgstr "Depo"
 
-msgid "You did not select any packages to delete."
-msgstr "Silinecek paketleri seçmediniz."
+#~ msgid "Go back to %hpackage details view%h."
+#~ msgstr "%Paket detayları görünümüne%h geri dönün."
 
-msgid "Couldn't add to notification list."
-msgstr "Bildirim listesine ekleme işlemi başarısız oldu."
+#~ msgid "Keywords"
+#~ msgstr "Anahtar kelimeler"
 
-msgid "You did not select any packages to flag."
-msgstr "İşaretlenecek paket(ler)i seçmediniz."
+#~ msgid "Files"
+#~ msgstr "Dosyalar"
 
-msgid "The selected packages have been disowned."
-msgstr "Seçilen paketlerin sahipliği bırakıldı."
+#~ msgid "None"
+#~ msgstr "Hiç"
 
-msgid "Couldn't remove from notification list."
-msgstr "Bildirim listesinden silme işlemi başarısız oldu."
+#~ msgid "Go back to %hsearch results%h."
+#~ msgstr "%hArama sonuçları%h sayfasına dön."
 
-msgid "The selected packages have been flagged safe."
-msgstr "Seçilen paketler güvenli olarak işaretlendi"
+#~ msgid "Un-Vote"
+#~ msgstr "Oyu kaldır"
 
-msgid "Couldn't flag package safe."
-msgstr "Paket güvenli olarak işaretlenemedi."
+#~ msgid "change category"
+#~ msgstr "kategori değiştir"
 
-msgid "The selected packages have been unflagged safe."
-msgstr "Seçilen paketler artık güvenli olarak işaretli değil."
+#~ msgid "Add Comment"
+#~ msgstr "Yorum Ekle"
 
-msgid "Couldn't unflag package safe."
-msgstr "Güvenli işaretini kaldırma işlemi başarısız oldu."
+#~ msgid "Manage"
+#~ msgstr "Yönet"
 
+#~ msgid "Comments"
+#~ msgstr "Yorumlar"
 
+#~ msgid "The above files have been verified (by %s) and are safe to use."
+#~ msgstr ""
+#~ "Yukarıdaki dosyalar doğrulandı (%s tarafından) ve güvenli olarak "
+#~ "işaretlendi."
 
-msgid "Missing build function in PKGBUILD."
-msgstr "PKGBUILD içinde build fonksiyonu bulunmadı."
+#~ msgid ""
+#~ "Be careful! The above files may contain malicious code that can damage "
+#~ "your system."
+#~ msgstr ""
+#~ "Dikkat! Yukarıdaki dosyalar sisteminize zarar verebilecek nitelikte "
+#~ "olabilir."
 
-msgid "Could not change directory to %s."
-msgstr "%s dizinine geçilemedi."
+#~ msgid "Flag Safe"
+#~ msgstr "Güvenli Olarak İşaretle"
 
-msgid "No"
-msgstr "Hayır"
+#~ msgid "Flag Package Safe To Use"
+#~ msgstr "Paketi Güvenli Olarak İşaretle"
 
-msgid "Missing pkgdesc variable in PKGBUILD."
-msgstr "PKGBUILD içinde pkgdesc değişkeni bulunamadı."
+#~ msgid "Unflag Safe"
+#~ msgstr "Güvenilirlik İşaretini Kaldır"
 
-msgid "Error trying to upload file - please try again."
-msgstr "Dosya yüklenirken hata - lütfen tekrar deneyin."
+#~ msgid "Unflag Package Safe To Use"
+#~ msgstr "Paketin Güvenilirlik İşaretini Kaldır"
 
-msgid "Error exec'ing the mv command."
-msgstr "mv komutu işlenirken hata oluştu."
+#~ msgid "Safe"
+#~ msgstr "Güvenli"
 
-msgid "You must create an account before you can upload packages."
-msgstr "Paket yükleyebilmek için bir hesap oluşturmalısınız."
+#~ msgid "Unsafe"
+#~ msgstr "Güvensiz"
 
-msgid "Package upload successful."
-msgstr "Paket başarıyla yüklendi."
+#~ msgid "The above files have been verified (by %h%s%h) and are safe to use."
+#~ msgstr ""
+#~ "Yukarıdaki dosyalar doğrulandı (%h%s%h tarafından) ve kullanım için "
+#~ "güvenli olarak işaretlendi."
 
-msgid "Overwrite existing package?"
-msgstr "Mevcut paketin üzerine yazılsın mı?"
+#~ msgid "Toggle Notify"
+#~ msgstr "Toggle Notify"
 
-msgid "You did not specify a package name."
-msgstr "Bir paket adı belirlemediniz."
+#~ msgid "None of the selected packages could be deleted."
+#~ msgstr "Seçilen paketlerin hiçbiri silinemedi."
 
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Yüklenen dosya açılırken hata - PKGBUILD mevcut değil."
+#~ msgid "You did not select any packages to un-vote for."
+#~ msgstr "Oyunuzu geri almak üzere paket seçmediniz."
 
-msgid "Could not create incoming directory: %s."
-msgstr "Gelen dizin oluşturulamadı: %s."
+#~ msgid "You must be logged in before you can get notifications on comments."
+#~ msgstr "Yorum bildirimi almak için giriş yapmalısınız."
 
-msgid "Upload package file"
-msgstr "Paket yükle"
+#~ msgid ""
+#~ "You must be logged in before you can cancel notification on comments."
+#~ msgstr "Yorum bildirimlerini iptal etmek için giriş yapmalısınız."
 
-msgid "Package Location"
-msgstr "Paket Konumu"
+#~ msgid "Couldn't remove from notification list."
+#~ msgstr "Bildirim listesinden silme işlemi başarısız oldu."
 
-msgid "Missing url variable in PKGBUILD."
-msgstr "PKGBUILD içinde url değişkeni bulunamadı."
+#~ msgid "The selected packages have been flagged safe."
+#~ msgstr "Seçilen paketler güvenli olarak işaretlendi"
 
-msgid "Package names do not match."
-msgstr "Paket isimleri uyuşmuyor."
+#~ msgid "Couldn't flag package safe."
+#~ msgstr "Paket güvenli olarak işaretlenemedi."
 
-msgid "Package Category"
-msgstr "Paket Kategorisi"
+#~ msgid "The selected packages have been unflagged safe."
+#~ msgstr "Seçilen paketler artık güvenli olarak işaretli değil."
 
-msgid "Could not change to directory %s."
-msgstr "%s dizinine geçilemedi."
+#~ msgid "Couldn't unflag package safe."
+#~ msgstr "Güvenli işaretini kaldırma işlemi başarısız oldu."
 
-msgid "You did not tag the 'overwrite' checkbox."
-msgstr "'üzerine yaz' kutusunu işaretlemediniz."
+#~ msgid "Missing build function in PKGBUILD."
+#~ msgstr "PKGBUILD içinde build fonksiyonu bulunmadı."
 
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Geçersiz isim: yalnızca küçük harf kullanılabilir."
+#~ msgid "Missing pkgdesc variable in PKGBUILD."
+#~ msgstr "PKGBUILD içinde pkgdesc değişkeni bulunamadı."
 
-msgid "Missing pkgver variable in PKGBUILD."
-msgstr "PKGBUILD içinde pkgver değişkeni bulunamadı."
+#~ msgid "Error trying to upload file - please try again."
+#~ msgstr "Dosya yüklenirken hata - lütfen tekrar deneyin."
 
-msgid "Package name"
-msgstr "Paket adı"
+#~ msgid "Error exec'ing the mv command."
+#~ msgstr "mv komutu işlenirken hata oluştu."
 
-msgid "Upload"
-msgstr "Yükle"
+#~ msgid "Package upload successful."
+#~ msgstr "Paket başarıyla yüklendi."
 
-msgid "Missing md5sums variable in PKGBUILD."
-msgstr "PKGBUILD içinde md5sums değişkeni bulunamadı."
+#~ msgid "Overwrite existing package?"
+#~ msgstr "Mevcut paketin üzerine yazılsın mı?"
 
-msgid "Missing pkgrel variable in PKGBUILD."
-msgstr "PKGBUILD içinde pkgrel değişkeni bulunamadı."
+#~ msgid "You did not specify a package name."
+#~ msgstr "Bir paket adı belirlemediniz."
 
-msgid "Missing pkgname variable in PKGBUILD."
-msgstr "PKGBUILD içinde pkgname değişkeni bulunamadı."
+#~ msgid "Could not create incoming directory: %s."
+#~ msgstr "Gelen dizin oluşturulamadı: %s."
 
-msgid "Error - No file uploaded"
-msgstr "Hata - Yüklenecek dosya yok"
+#~ msgid "Package Location"
+#~ msgstr "Paket Konumu"
 
-msgid "You are not allowed to overwrite the %h%s%h package."
-msgstr "%h%s%h paketi üzerinde değişiklik yapma yetkiniz yok."
+#~ msgid "Package names do not match."
+#~ msgstr "Paket isimleri uyuşmuyor."
 
-msgid "Select Location"
-msgstr "Konum Seçin"
+#~ msgid "Could not change to directory %s."
+#~ msgstr "%s dizinine geçilemedi."
 
-msgid "Select Category"
-msgstr "Kategori Seçin"
+#~ msgid "You did not tag the 'overwrite' checkbox."
+#~ msgstr "'üzerine yaz' kutusunu işaretlemediniz."
 
-msgid "Comment"
-msgstr "Yorum"
+#~ msgid "Missing pkgver variable in PKGBUILD."
+#~ msgstr "PKGBUILD içinde pkgver değişkeni bulunamadı."
 
-msgid "Could not create directory %s."
-msgstr "%s dizini oluşturulamadı."
+#~ msgid "Missing md5sums variable in PKGBUILD."
+#~ msgstr "PKGBUILD içinde md5sums değişkeni bulunamadı."
 
-msgid "Unknown file format for uploaded file."
-msgstr "Yüklenen dosya biçimi bilinmiyor."
+#~ msgid "Missing pkgrel variable in PKGBUILD."
+#~ msgstr "PKGBUILD içinde pkgrel değişkeni bulunamadı."
 
-msgid "Missing source variable in PKGBUILD."
-msgstr "PKGBUILD içinde source değişkeni bulunamadı."
+#~ msgid "Missing pkgname variable in PKGBUILD."
+#~ msgstr "PKGBUILD içinde pkgname değişkeni bulunamadı."
 
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Üzgünüm, bu sunucu üzerinden yükleme kabul edilmiyor."
+#~ msgid "Select Location"
+#~ msgstr "Konum Seçin"
 
-msgid "You must supply a comment for this upload/change."
-msgstr "Bu yükleme/değişiklik için bir yorum belirtmelisiniz."
+#~ msgid "Comment"
+#~ msgstr "Yorum"
 
-msgid "Yes"
-msgstr "Evet"
+#~ msgid "Unknown file format for uploaded file."
+#~ msgstr "Yüklenen dosya biçimi bilinmiyor."
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Paket URL protokolü hatalı (ör. http:// ,ftp://)"
+#~ msgid "Missing source variable in PKGBUILD."
+#~ msgstr "PKGBUILD içinde source değişkeni bulunamadı."
 
-msgid "Could not re-tar"
-msgstr "Yeniden arşivlenemedi"
+#~ msgid "You must supply a comment for this upload/change."
+#~ msgstr "Bu yükleme/değişiklik için bir yorum belirtmelisiniz."
 
-msgid "Binary packages and filelists are not allowed for upload."
-msgstr "İkili paket ve dosya listesi yüklemelerine izin verilmiyor."
+#~ msgid "Could not re-tar"
+#~ msgstr "Yeniden arşivlenemedi"
 
-msgid "Missing arch variable in PKGBUILD."
-msgstr "PKGBUILD içinde arch değişkeni bulunamadı."
+#~ msgid "Binary packages and filelists are not allowed for upload."
+#~ msgstr "İkili paket ve dosya listesi yüklemelerine izin verilmiyor."
 
-msgid "Missing license variable in PKGBUILD."
-msgstr "PKGBUILD içinde license değişkeni bulunamadı."
+#~ msgid "Missing arch variable in PKGBUILD."
+#~ msgstr "PKGBUILD içinde arch değişkeni bulunamadı."
 
-msgid "Voting is closed for this proposal."
-msgstr "Bu öneri için oylama kapanmıştır."
+#~ msgid "Missing license variable in PKGBUILD."
+#~ msgstr "PKGBUILD içinde license değişkeni bulunamadı."
 
-msgid "Username does not exist."
-msgstr "Kullanıcı adı bulunamadı."
+#~ msgid "string"
+#~ msgstr "dizgi"
 
-msgid "Can contain only one period, underscore or hyphen."
-msgstr "Sadece bir nokta, alt çizgi veya tire barındırabilir."
+#~ msgid "Vote Actions"
+#~ msgstr "Oylama İşlemleri"
 
-msgid "You cannot vote in an proposal about you."
-msgstr "Sizin hakkınızdaki öneride oy kullanamazsınız."
+#~ msgid "You've already voted in this proposal."
+#~ msgstr "Bu öneriye zaten oy vermişsiniz."
 
-msgid "Submitted: %s by %s"
-msgstr "Gönderildi: %s %s tarafından"
+#~ msgid "All Votes"
+#~ msgstr "Bütün Oylar"
 
-msgid "string"
-msgstr "dizgi"
+#~ msgid "Voted?"
+#~ msgstr "Oylandı?"
 
-msgid "Remember me"
-msgstr "Beni hatırla"
+#~ msgid "Add"
+#~ msgstr "Ekle"
 
-msgid "This vote is still running."
-msgstr "Bu oylama hala yürürlükte."
+#~ msgid "This is a %h%s%h problem!"
+#~ msgstr "Bu bir %h%s%h sorunu!"
 
-msgid "%s already has proposal running for them."
-msgstr "%s için yürürlükte olan bir öneri var."
+#~ msgid "%s has %s apples."
+#~ msgstr "%s %s elmaya sahip."
 
-msgid "Total"
-msgstr "Toplam"
-
-msgid "Vote Actions"
-msgstr "Oylama İşlemleri"
-
-msgid "Could not retrieve proposal details."
-msgstr "Öneri detayları alınamadı."
-
-msgid "Start and end with a letter or number"
-msgstr "Bir rakam veya harf ile başlatıp bitirmelisiniz"
-
-msgid "Next"
-msgstr "Sonraki"
-
-msgid "(defaults to 7 if empty)"
-msgstr "(eğer boş ise öntanımlı olarak 7'dir)"
-
-msgid "Vote ID not valid."
-msgstr "Oy kimliği geçersiz."
-
-msgid "(empty if not applicable)"
-msgstr "(uygulanabilir değilse boş)"
-
-msgid "New proposal submitted."
-msgstr "Yeni öneri gönderildi."
-
-msgid "Current Votes"
-msgstr "Mevcut Oylar"
-
-msgid "You've already voted in this proposal."
-msgstr "Bu öneriye zaten oy vermişsiniz."
-
-msgid "Back"
-msgstr "Geri"
-
-msgid "All Votes"
-msgstr "Bütün Oylar"
-
-msgid "UnFlag Out-of-date"
-msgstr "Güncel değiş işaretini kaldır"
-
-msgid "No results found."
-msgstr "Sonuç bulunamadı."
-
-msgid "Voted?"
-msgstr "Oylandı?"
-
-msgid "Start"
-msgstr "Başlangıç"
-
-msgid "Add"
-msgstr "Ekle"
-
-msgid "Length must be at least 1."
-msgstr "Süre en az 1 olmalıdır."
-
-msgid "End"
-msgstr "Son"
-
-msgid "This is a %h%s%h problem!"
-msgstr "Bu bir %h%s%h sorunu!"
-
-msgid "Proposal cannot be empty."
-msgstr "Öneri boş olamaz."
-
-msgid "You've already voted for this proposal."
-msgstr "Bu öneri için zaten oy vermişsiniz."
-
-msgid "It must be between %s and %s characters long"
-msgstr "Uzunluğu %s ve %s karakter arasında olabilir."
-
-msgid "Your password must be at least %s characters."
-msgstr "Şifreniz en az %s karakterden oluşmalıdır."
-
-msgid "Proposal"
-msgstr "Öneri"
-
-msgid "UnVote"
-msgstr "Oyu kaldır"
-
-msgid "The username is invalid."
-msgstr "Bu kullanıcı adı geçersizdir."
-
-msgid "Length must be a number."
-msgstr "Süre bir rakam olmalıdır"
-
-msgid "%s has %s apples."
-msgstr "%s %s elmaya sahip."
-
-msgid "Abstain"
-msgstr "Çekimser"
-
-msgid "Could not chmod directory %s."
-msgstr "%s dizini için chmod ayarlanamıyor."
-
-msgid "Submit a proposal to vote on."
-msgstr "Oylanması için öneri gönder."
-
-msgid "Proposal Details"
-msgstr "Öneri Detayları"
-
+#~ msgid "Could not chmod directory %s."
+#~ msgstr "%s dizini için chmod ayarlanamıyor."

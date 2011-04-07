@@ -12,10 +12,816 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home"
+msgstr "Acasă"
+
+msgid ""
+"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
+"Guidelines%h for more information."
+msgstr ""
+
+msgid ""
+"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
+"otherwise they will be deleted!"
+msgstr ""
+
+msgid "Remember to vote for your favourite packages!"
+msgstr ""
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr ""
+
+msgid "DISCLAIMER"
+msgstr ""
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr ""
+
+msgid "Search Criteria"
+msgstr "Criteriul de căutare"
+
+msgid "Packages"
+msgstr "Pachete"
+
+#, fuzzy
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "Pachetele selectate au fost șterse."
+
+msgid "Error trying to retrieve package details."
+msgstr "Eroare la încercarea de a prelua detaliile pachetului."
+
+msgid "Accounts"
+msgstr "Conturi"
+
+msgid "You are not allowed to access this area."
+msgstr "Nu îți este permis accesul la această secțiune."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Nu s-a putut prelua informații despre utilizatorul specificat."
+
+msgid "You do not have permission to edit this account."
+msgstr "Nu ai permisii pentru a putea edita acest cont."
+
+msgid "Use this form to search existing accounts."
+msgstr "Folosește acest formular pentru a căuta conturi existente."
+
+msgid "Use this form to update your account."
+msgstr "Folosește acest formular pentru a actualiza contul."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "Lasă câmpul parolei gol pentru a păstra aceeași parolă."
+
+msgid "You must log in to view user information."
+msgstr ""
+"Trebuie sa fi autentificat pentru a putea vedea informații despre "
+"utilizatori."
+
+msgid "Use this form to create an account."
+msgstr "Folosește acest formular pentru a crea un cont."
+
+msgid "Could not retrieve proposal details."
+msgstr "Nu am putut prelua detaliile propunerii."
+
+msgid "Voting is closed for this proposal."
+msgstr "Votarea este închisă pentru această propunere."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Nu poți vota într-o propunere despre tine."
+
+msgid "You've already voted for this proposal."
+msgstr "Deja ai votat pentru această propunere."
+
+msgid "Vote ID not valid."
+msgstr "ID-ul votului nu este valid."
+
+msgid "Current Votes"
+msgstr "Voturi curente"
+
+#, fuzzy
+msgid "Past Votes"
+msgstr "Ultimul vot"
+
+#, fuzzy
+msgid "Add Proposal"
+msgstr "Propunere"
+
+msgid "Back"
+msgstr "Înapoi"
+
+msgid "Next"
+msgstr "Următorul"
+
+msgid "Username does not exist."
+msgstr "Nume de utilizator inexistent."
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s are deja propunerea de a rula pentru ei"
+
+msgid "Length must be a number."
+msgstr "Lungimea trebuie să fie un număr."
+
+msgid "Length must be at least 1."
+msgstr "Lungimea trebuie să fi de cel puțin 1."
+
+msgid "Proposal cannot be empty."
+msgstr "Propunerea nu poate fi goală."
+
+msgid "New proposal submitted."
+msgstr "Propunerea nouă a fost trimisă."
+
+msgid "Submit a proposal to vote on."
+msgstr "Trimite o propunere pentru a putea fi votată."
+
+msgid "Applicant/TU"
+msgstr ""
+
+msgid "(empty if not applicable)"
+msgstr "(gol, dacă nu este cazul)"
+
+msgid "Length in days"
+msgstr ""
+
+msgid "(defaults to 7 if empty)"
+msgstr "(implictit la 7 dacă este gol)"
+
+msgid "Proposal"
+msgstr "Propunere"
+
+msgid "Submit"
+msgstr "Trimite"
+
+msgid "Missing a required field."
+msgstr "Lipsește un câmp necesar."
+
+msgid "Password fields do not match."
+msgstr "Câmpurile parolei nu sunt potrivesc."
+
+msgid "Invalid e-mail."
+msgstr ""
+
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#, fuzzy
+msgid "Password Reset"
+msgstr "Parolă"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr ""
+
+#, fuzzy
+msgid "Your password has been reset successfully."
+msgstr "Parola trebuie să fie de cel puțin %s caractere."
+
+msgid "Confirm your e-mail address:"
+msgstr ""
+
+#, fuzzy
+msgid "Enter your new password:"
+msgstr "Rescrie parola"
+
+msgid "Confirm your new password:"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %haur-general%h mailing list."
+msgstr ""
+
+#, fuzzy
+msgid "Enter your e-mail address:"
+msgstr "Adresă email"
+
+msgid "Error - No file uploaded"
+msgstr "Eroare - Niciun fișier încărcat"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+
+msgid "Error - uncompressed file size too large."
+msgstr ""
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr ""
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Eroarea la încercarea de a dezarhiva - PKGBUILD nu există."
+
+#, fuzzy, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Funcția build din PKGBUILD lipsește"
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "în URL-ul pachetului lipsește protocolul (exemplu: http://, ftp://)"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Numele nu este valid: doar litere mici sunt permise."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Nu s-a putut crea directorul %s."
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Nu ai permisia de a rescrie pachetul %h%s%h."
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr ""
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "Nu am putut schimba directorul la %s."
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
+
+msgid "Package Category"
+msgstr "Categoria pachetului."
+
+msgid "Select Category"
+msgstr "Selectează categoria"
+
+msgid "Upload package file"
+msgstr "Încarcă fișierul pachetului"
+
+msgid "Upload"
+msgstr "Încărcat"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Îmi pare rău, nu sunt permise încărcări pe acest server."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Trebuie să te înregistrezi înainte de a putea trimite pachete."
+
+msgid "Error retrieving package details."
+msgstr "Eroare în a prelua detaliile pachetului."
+
+msgid "Package details could not be found."
+msgstr "Detaliile pachetului nu pot fi găsite."
+
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+#, fuzzy
+msgid "Last"
+msgstr "Ultimul vot"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Trebuie să fi autentificat înainte de a putea marca pachetele."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr ""
+"Trebuie să fi autentificat înainte de putea elimina marcajul de Neactualizat "
+"al pachetelor."
+
+msgid "You did not select any packages to flag."
+msgstr "Nu ai selectat niciun pachet pentru a fi marcat"
+
+msgid "You did not select any packages to unflag."
+msgstr "Nu ai selectat niciun pachet pentru a-i fi eliminat marcajul."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Pachetele selectate au fost marcate ca fiind Neactualizate."
+
+msgid "The selected packages have been unflagged."
+msgstr "La pachetele selectate a fost eliminat marcajul de Neactualizat."
+
+#, fuzzy
+msgid "You must be logged in before you can delete packages."
+msgstr "Trebuie să fi autentificat înainte de a putea adopta pachete."
+
+#, fuzzy
+msgid "You do have permission to delete packages."
+msgstr "Nu ai permisii pentru a putea edita acest cont."
+
+msgid "You did not select any packages to delete."
+msgstr "Nu ai selectat niciun pachet pentru a fi șters."
+
+msgid "The selected packages have been deleted."
+msgstr "Pachetele selectate au fost șterse."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Trebuie să fi autentificat înainte de a putea adopta pachete."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Trebuie să fi autentificat înainte de dezmoșteni pachete."
+
+msgid "You did not select any packages to adopt."
+msgstr "Nu ai selectat niciun pachet pentru a-l adopta."
+
+msgid "You did not select any packages to disown."
+msgstr "Nu ai selectat niciun pachet căruia să-i fie eliminat părintele."
+
+msgid "The selected packages have been adopted."
+msgstr "Pachetele selectate au fost adoptate."
+
+msgid "The selected packages have been disowned."
+msgstr "Pachetele selectate au fost dezmoștenite."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Trebuie să fi autentificat înainte de a putea vota pentru pachete."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr ""
+"Trebuie să fi autentificat înainte de a putea șterge voturile pachetelor."
+
+msgid "You did not select any packages to vote for."
+msgstr "Nu ai selectat niciun pachet pentru a vota."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Voturile tale au fost șterse de la pachetele selectate."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Voturile au fost exprimate pentru pachetele selectate."
+
+msgid "Couldn't add to notification list."
+msgstr "Nu am putut adăuga la lista de notificări."
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "Ai fost adăugat în lista de notificare a comentariilor pentru %s."
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr ""
+"Ai fost șters din lista de notificări pentru comentarii pentru pachetul %s."
+
+msgid "You must be logged in before you can edit package information."
+msgstr ""
+"Trebuie să fi autentificat înainte de a putea edita informațiile pachetului."
+
+msgid "Missing comment ID."
+msgstr "ID-ul comentariului lipsește"
+
+msgid "Comment has been deleted."
+msgstr "Comentariul a fost șters."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Nu ai voie să ștergi acest comentariu."
+
+#, fuzzy
+msgid "Missing category ID."
+msgstr "ID-ul pachetului lipsește."
+
+msgid "Invalid category ID."
+msgstr "ID-ul categoriei nu este valid."
+
+msgid "Missing package ID."
+msgstr "ID-ul pachetului lipsește."
+
+#, fuzzy
+msgid "Package category changed."
+msgstr "Categoria pachetului actualizată"
+
+#, fuzzy
+msgid "You are not allowed to change this package category."
+msgstr "Nu îți este permis accesul la această secțiune."
+
+msgid "Username"
+msgstr "Nume utilizator"
+
+msgid "required"
+msgstr "cerut"
+
+msgid "Account Type"
+msgstr "Tip cont"
+
+msgid "Normal user"
+msgstr "Normal user"
+
+msgid "Trusted user"
+msgstr "Trusted user"
+
+msgid "Developer"
+msgstr "Dezvoltator"
+
+msgid "Account Suspended"
+msgstr "Cont suspendat"
+
+msgid "Email Address"
+msgstr "Adresă email"
+
+msgid "Password"
+msgstr "Parolă"
+
+msgid "Re-type password"
+msgstr "Rescrie parola"
+
+msgid "Real Name"
+msgstr "Nume real"
+
+msgid "IRC Nick"
+msgstr "Nick IRC"
+
+msgid "Language"
+msgstr "Limbă"
+
+msgid "New Package Notify"
+msgstr "Notificare pachet nou"
+
+msgid "Update"
+msgstr "Actualizare"
+
+msgid "Create"
+msgstr "Creați"
+
+msgid "Reset"
+msgstr "Resetează"
+
+msgid "Missing User ID"
+msgstr "ID-ul utilizatorului lipsește"
+
+msgid "The username is invalid."
+msgstr "Numele de utilizator nu este valid."
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Trebuie să fie între %s și %s lungime"
+
+msgid "Start and end with a letter or number"
+msgstr "Începutul și sfârșitul cu o literă sau un număr."
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Poate conține doar o virgulă, underscore sau cratimă."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Parola trebuie să fie de cel puțin %s caractere."
+
+msgid "The email address is invalid."
+msgstr "Adresă de mail nu este validă."
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Un Trusted User nu-și poate atribui statutul de Developer."
+
+msgid "Language is not currently supported."
+msgstr "Limba nu este încă suportată."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Numele de utilizator, %h%s%h, este deja folosit."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Această adresă, %h%s%h, este deja folosită."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Eroare la încercarea de a crea contul, %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Contul, %s%s%h, a fost creat cu succes."
+
+msgid "Click on the Home link above to login."
+msgstr "Click pe link-ul Home pentru a te loga."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr ""
+"S-a produs o eroare în urma încercării de a modifica contul, %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Contul, %h%s%h, a fost modificat cu succes."
+
+msgid "No results matched your search criteria."
+msgstr "Nici un rezultat nu s-a încadrat în criteriile de căutare."
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Last Voted"
+msgstr "Ultimul vot"
+
+msgid "Edit Account"
+msgstr "Editeaza cont"
+
+msgid "Suspended"
+msgstr "Suspendat"
+
+msgid "Active"
+msgstr "Activ"
+
+msgid "Never"
+msgstr "Niciodată"
+
+msgid "Less"
+msgstr "Mai puțin"
+
+msgid "More"
+msgstr "Mai mult"
+
+msgid "No more results to display."
+msgstr "Nu mai există rezultate pentru a fi afișate"
+
+msgid "User"
+msgstr "Utilizator"
+
+msgid "Trusted User"
+msgstr "Trusted User"
+
+msgid "View this user's packages"
+msgstr "Vezi pachetele acestui utilizator"
+
+msgid "Bad username or password."
+msgstr ""
+
+msgid "Votes"
+msgstr "Voturi"
+
+msgid "unknown"
+msgstr ""
+
+msgid "Package Details"
+msgstr "Detaliile pachetului"
+
+#, fuzzy
+msgid "Submitter"
+msgstr "Trimite"
+
+msgid "Maintainer"
+msgstr "Maintainer"
+
+msgid "License"
+msgstr ""
+
+#, fuzzy
+msgid "Last Updated"
+msgstr "Ultimul vot"
+
+msgid "First Submitted"
+msgstr ""
+
+msgid "Tarball"
+msgstr "Arhivă"
+
+msgid "PKGBUILD"
+msgstr ""
+
+msgid "This package has been flagged out of date."
+msgstr "Acest pachet a fost marcat ca Neactualizat."
+
+msgid "Dependencies"
+msgstr "Dependențe"
+
+msgid "Required by"
+msgstr "Cerut de"
+
+msgid "Sources"
+msgstr ""
+
+msgid "Hi, this is worth reading!"
+msgstr ""
+
+msgid "Start"
+msgstr "Start"
+
+msgid "End"
+msgstr "Sfârșit"
+
+msgid "Yes"
+msgstr "Da"
+
+msgid "No"
+msgstr "Nu"
+
+msgid "Voted"
+msgstr "Votat"
+
+msgid "No results found."
+msgstr "Niciun rezultat găsit"
+
+msgid "Proposal Details"
+msgstr "Detaliile propunerii."
+
+msgid "This vote is still running."
+msgstr "Acest vot este în desfășurare."
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Trimis: %s by %s "
+
+msgid "Abstain"
+msgstr "Abținere"
+
+msgid "Total"
+msgstr "Total"
+
+#, fuzzy
+msgid "Voters"
+msgstr "Voturi"
+
+msgid "Bugs"
+msgstr "Bug-uri"
+
+msgid "Discussion"
+msgstr "Discuție"
+
+msgid "My Packages"
+msgstr "Pachetele mele"
+
+msgid "Vote"
+msgstr "Vot"
+
+msgid "UnVote"
+msgstr "EliminăVot"
+
+msgid "Notify"
+msgstr "Notificare"
+
+msgid "New Comment Notification"
+msgstr "Notificare de comentariu nouă"
+
+msgid "UnNotify"
+msgstr "DeNotificare"
+
+msgid "No New Comment Notification"
+msgstr "Nu sunt notificări de comentariu noi"
+
+msgid "Flag Out-of-date"
+msgstr "Marcaj de Neactualizat"
+
+msgid "UnFlag Out-of-date"
+msgstr "Elimină marcajul de Neactualizat"
+
+msgid "Adopt Packages"
+msgstr "Adoptă pachete"
+
+msgid "Disown Packages"
+msgstr "Dezmoștenește pachetele"
+
+msgid "Delete Packages"
+msgstr "Șterge pachetele"
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Any type"
+msgstr "Orice tip"
+
+msgid "Sort by"
+msgstr "Sortează după"
+
+msgid "Last vote"
+msgstr "Ultimul vot"
+
+msgid "Search"
+msgstr "Caută"
+
+#, fuzzy
+msgid "Comment has been added."
+msgstr "Comentariul a fost șters."
+
+msgid "Enter your comment below."
+msgstr ""
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Autentificat ca: %s"
+
+msgid "Logout"
+msgstr "Ieșire"
+
+msgid "Remember me"
+msgstr "Ține minte"
+
+msgid "Login"
+msgstr "Logare"
+
+#, fuzzy
+msgid "Forgot Password"
+msgstr "Parolă"
+
+#, fuzzy
+msgid "Recent Updates"
+msgstr "Actualizare"
+
+msgid "My Statistics"
+msgstr ""
+
+#, fuzzy
+msgid "Packages in unsupported"
+msgstr "Limba nu este încă suportată."
+
+msgid "Out of Date"
+msgstr ""
+
+#, fuzzy
+msgid "Statistics"
+msgstr "Statut"
+
+#, fuzzy
+msgid "Orphan Packages"
+msgstr "Pachete"
+
+msgid "Packages added in the past 7 days"
+msgstr ""
+
+msgid "Packages updated in the past 7 days"
+msgstr ""
+
+msgid "Packages updated in the past year"
+msgstr ""
+
+#, fuzzy
+msgid "Packages never updated"
+msgstr "Categoria pachetului actualizată"
+
+#, fuzzy
+msgid "Registered Users"
+msgstr "Trusted User"
+
+#, fuzzy
+msgid "Trusted Users"
+msgstr "Trusted User"
+
+msgid "Error retrieving package list."
+msgstr "Eroare la preluarea listei de pachete."
+
+msgid "No packages matched your search criteria."
+msgstr "Niciun pachet nu s-a potrivit criteriului de căutare."
+
+msgid "Package Listing"
+msgstr "Listare pachete"
+
+msgid "Category"
+msgstr "Categorie"
+
+msgid "Name"
+msgstr "Nume"
+
+msgid "Description"
+msgstr "Descriere"
+
+msgid "orphan"
+msgstr "orfan"
+
+msgid "Legend"
+msgstr ""
+
+msgid "Actions"
+msgstr "Acțiuni"
+
+msgid "Unflag Out-of-date"
+msgstr "Elimină marcajul de Neactualizat"
+
+msgid "Go"
+msgstr "Înainte"
+
+#, php-format
+msgid "Showing results %s - %s of %s"
+msgstr "Afișarea rezultatelor %s - %s din %s"
+
+#, php-format
+msgid "Comment by: %s on %s"
+msgstr ""
+
+msgid "Delete comment"
+msgstr "Șterge comentariu"
+
+#, php-format
+msgid "Show all %s comments"
+msgstr ""
+
+msgid "Orphans"
+msgstr "Orfane"
+
+msgid "Advanced"
+msgstr "Avansat"
+
+msgid "Any"
+msgstr "Orice"
 
 # INSTRUCTIONS TO TRANSLATORS
 #
@@ -27,604 +833,90 @@ msgstr ""
 #
 # Romanian (Română) translation
 # Translator: Bîru Ionuț Mircea <ionut@archlinux.ro>
-
-
 msgid "Search by"
 msgstr "Caută după"
 
-msgid "This package has been flagged out of date."
-msgstr "Acest pachet a fost marcat ca Neactualizat."
+#, fuzzy
+msgid "Name, Description"
+msgstr "Descriere"
 
-msgid "Voted"
-msgstr "Votat"
+#, fuzzy
+msgid "Name Only"
+msgstr "Nume"
 
-msgid "Missing a required field."
-msgstr "Lipsește un câmp necesar."
+msgid "Exact name"
+msgstr ""
 
-msgid "Logged-in as: %s"
-msgstr "Autentificat ca: %s"
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "S-a produs o eroare în urma încercării de a modifica contul, %h%s%h: %s."
-
-msgid "Username does not exist."
-msgstr "Nume de utilizator inexistent."
-
-msgid "Tarball"
-msgstr "Arhivă"
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr "Poate conține doar o virgulă, underscore sau cratimă."
-
-msgid "Unflag Out-of-date"
-msgstr "Elimină marcajul de Neactualizat"
-
-msgid "Missing package ID."
-msgstr "ID-ul pachetului lipsește."
-
-msgid "You must be logged in before you can unflag packages."
-msgstr "Trebuie să fi autentificat înainte de putea elimina marcajul de Neactualizat al pachetelor."
-
-msgid "No results matched your search criteria."
-msgstr "Nici un rezultat nu s-a încadrat în criteriile de căutare."
-
-msgid "Update"
-msgstr "Actualizare"
+msgid "Age"
+msgstr ""
 
 msgid "Sort order"
 msgstr "Ordinea sortării"
 
-msgid "You must be logged in before you can edit package information."
-msgstr "Trebuie să fi autentificat înainte de a putea edita informațiile pachetului."
+msgid "Ascending"
+msgstr ""
 
-msgid "Your votes have been cast for the selected packages."
-msgstr "Voturile au fost exprimate pentru pachetele selectate."
-
-msgid "Package details could not be found."
-msgstr "Detaliile pachetului nu pot fi găsite."
-
-msgid "change category"
-msgstr "Schimbă categoria"
-
-msgid "Error retrieving package list."
-msgstr "Eroare la preluarea listei de pachete."
-
-msgid "Reset"
-msgstr "Resetează"
-
-msgid "Submitted: %s by %s"
-msgstr "Trimis: %s by %s "
-
-msgid "string"
-msgstr "string"
-
-msgid "Remember me"
-msgstr "Ține minte"
-
-msgid "Package category updated."
-msgstr "Categoria pachetului actualizată"
-
-msgid "%s already has proposal running for them."
-msgstr "%s are deja propunerea de a rula pentru ei"
-
-msgid "Error - No file uploaded"
-msgstr "Eroare - Niciun fișier încărcat"
-
-msgid "You did not select any packages to disown."
-msgstr "Nu ai selectat niciun pachet căruia să-i fie eliminat părintele."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "în URL-ul pachetului lipsește protocolul (exemplu: http://, ftp://)"
-
-msgid "Votes"
-msgstr "Voturi"
-
-msgid "Total"
-msgstr "Total"
-
-msgid "No more results to display."
-msgstr "Nu mai există rezultate pentru a fi afișate"
-
-msgid "Maintainer"
-msgstr "Maintainer"
-
-msgid "Less"
-msgstr "Mai puțin"
-
-msgid "You are not allowed to access this area."
-msgstr "Nu îți este permis accesul la această secțiune."
-
-msgid "Any type"
-msgstr "Orice tip"
-
-msgid "Accounts"
-msgstr "Conturi"
-
-msgid "Could not retrieve proposal details."
-msgstr "Nu am putut prelua detaliile propunerii."
-
-msgid "You do not have permission to edit this account."
-msgstr "Nu ai permisii pentru a putea edita acest cont."
-
-msgid "Click on the Home link above to login."
-msgstr "Click pe link-ul Home pentru a te loga."
-
-msgid "The email address is invalid."
-msgstr "Adresă de mail nu este validă."
-
-msgid "Could not change directory to %s."
-msgstr "Nu am putut schimba directorul la %s."
-
-msgid "None of the selected packages could be deleted."
-msgstr "Niciun pachet selectat nu a putut fi șters."
-
-msgid "Your votes have been removed from the selected packages."
-msgstr "Voturile tale au fost șterse de la pachetele selectate."
-
-msgid "No packages matched your search criteria."
-msgstr "Niciun pachet nu s-a potrivit criteriului de căutare."
-
-msgid "Create"
-msgstr "Creați"
-
-msgid "orphan"
-msgstr "orfan"
-
-msgid "View this user's packages"
-msgstr "Vezi pachetele acestui utilizator"
-
-msgid "Next"
-msgstr "Următorul"
-
-msgid "Could not re-tar"
-msgstr "Nu s-a putut re-arhiva"
-
-msgid "You must be logged in before you can adopt packages."
-msgstr "Trebuie să fi autentificat înainte de a putea adopta pachete."
-
-msgid "You must create an account before you can upload packages."
-msgstr "Trebuie să te înregistrezi înainte de a putea trimite pachete."
-
-msgid "Location"
-msgstr "Locație"
-
-msgid "Delete comment"
-msgstr "Șterge comentariu"
-
-msgid "Account Type"
-msgstr "Tip cont"
-
-msgid "Type"
-msgstr "Tip"
-
-msgid "More"
-msgstr "Mai mult"
-
-msgid "Username"
-msgstr "Nume utilizator"
-
-msgid "Could not create incoming directory: %s."
-msgstr "Nu am putut crea directorul: %s."
-
-msgid "Upload package file"
-msgstr "Încarcă fișierul pachetului"
-
-msgid "(defaults to 7 if empty)"
-msgstr "(implictit la 7 dacă este gol)"
-
-msgid "No New Comment Notification"
-msgstr "Nu sunt notificări de comentariu noi"
-
-msgid "Couldn't add to notification list."
-msgstr "Nu am putut adăuga la lista de notificări."
-
-msgid "Disown Packages"
-msgstr "Dezmoștenește pachetele"
-
-msgid "Advanced"
-msgstr "Avansat"
-
-msgid "This vote is still running."
-msgstr "Acest vot este în desfășurare."
-
-msgid "Vote ID not valid."
-msgstr "ID-ul votului nu este valid."
-
-msgid "(empty if not applicable)"
-msgstr "(gol, dacă nu este cazul)"
+msgid "Descending"
+msgstr ""
 
 msgid "Per page"
 msgstr "Pe pagină"
 
-msgid "New proposal submitted."
-msgstr "Propunerea nouă a fost trimisă."
+msgid "All"
+msgstr ""
 
-msgid "Upload"
-msgstr "Încărcat"
+msgid "Flagged"
+msgstr ""
 
-msgid "You must be logged in before you can vote for packages."
-msgstr "Trebuie să fi autentificat înainte de a putea vota pentru pachete."
+msgid "Not Flagged"
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "ID-ul categoriei nu este valid."
+#~ msgid "change category"
+#~ msgstr "Schimbă categoria"
 
-msgid "Go"
-msgstr "Înainte"
+#~ msgid "string"
+#~ msgstr "string"
 
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Lasă câmpul parolei gol pentru a păstra aceeași parolă."
+#~ msgid "None of the selected packages could be deleted."
+#~ msgstr "Niciun pachet selectat nu a putut fi șters."
 
-msgid "Use this form to search existing accounts."
-msgstr "Folosește acest formular pentru a căuta conturi existente."
+#~ msgid "Could not re-tar"
+#~ msgstr "Nu s-a putut re-arhiva"
 
-msgid "The address, %h%s%h, is already in use."
-msgstr "Această adresă, %h%s%h, este deja folosită."
+#~ msgid "Location"
+#~ msgstr "Locație"
 
-msgid "Current Votes"
-msgstr "Voturi curente"
+#~ msgid "Could not create incoming directory: %s."
+#~ msgstr "Nu am putut crea directorul: %s."
 
-msgid "Select Category"
-msgstr "Selectează categoria"
+#~ msgid "Unknown file format for uploaded file."
+#~ msgstr "Formatul fișierului trimis necunoscut."
 
-msgid "You have been removed from the comment notification list for %s."
-msgstr "Ai fost șters din lista de notificări pentru comentarii pentru pachetul %s."
+#~ msgid "All Votes"
+#~ msgstr "Toate voturile"
 
-msgid "Unknown file format for uploaded file."
-msgstr "Formatul fișierului trimis necunoscut."
+#~ msgid "Add"
+#~ msgstr "Adaugă"
 
-msgid "Delete Packages"
-msgstr "Șterge pachetele"
+#~ msgid "You must be logged in before you can get notifications on comments."
+#~ msgstr ""
+#~ "Trebuie să fi autentificat înainte de a putea primi notificări pentru "
+#~ "comentarii."
 
-msgid "The selected packages have been deleted."
-msgstr "Pachetele selectate au fost șterse."
+#~ msgid "This is a %h%s%h problem!"
+#~ msgstr "Aceasta este o %h%s%h problemă!"
 
-msgid "Back"
-msgstr "Înapoi"
+#~ msgid "Files"
+#~ msgstr "Fișiere"
 
-msgid "Re-type password"
-msgstr "Rescrie parola"
+#~ msgid "You've found a bug if you see this...."
+#~ msgstr "Ai descoperit un bug dacă poți să vezi asta...."
 
-msgid "All Votes"
-msgstr "Toate voturile"
+#~ msgid "%s has %s apples."
+#~ msgstr "%s are %s mere."
 
-msgid "The selected packages have been disowned."
-msgstr "Pachetele selectate au fost dezmoștenite."
+#~ msgid "Could not chmod directory %s."
+#~ msgstr "Nu s-a putut face chmod pe directorul %s."
 
-msgid "Suspended"
-msgstr "Suspendat"
-
-msgid "Home"
-msgstr "Acasă"
-
-msgid "Yes"
-msgstr "Da"
-
-msgid "UnFlag Out-of-date"
-msgstr "Elimină marcajul de Neactualizat"
-
-msgid "Developer"
-msgstr "Dezvoltator"
-
-msgid "Category"
-msgstr "Categorie"
-
-msgid "Missing build function in PKGBUILD."
-msgstr "Funcția build din PKGBUILD lipsește"
-
-msgid "You must be logged in before you can flag packages."
-msgstr "Trebuie să fi autentificat înainte de a putea marca pachetele."
-
-msgid "No results found."
-msgstr "Niciun rezultat găsit"
-
-msgid "No"
-msgstr "Nu"
-
-msgid "Discussion"
-msgstr "Discuție"
-
-msgid "Dependencies"
-msgstr "Dependențe"
-
-msgid "Start"
-msgstr "Start"
-
-msgid "Add"
-msgstr "Adaugă"
-
-msgid "You did not select any packages to adopt."
-msgstr "Nu ai selectat niciun pachet pentru a-l adopta."
-
-msgid "Length must be at least 1."
-msgstr "Lungimea trebuie să fi de cel puțin 1."
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "Eroare la încercarea de a crea contul, %h%s%h: %s."
-
-msgid "End"
-msgstr "Sfârșit"
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr "Contul, %h%s%h, a fost modificat cu succes."
-
-msgid "Account Suspended"
-msgstr "Cont suspendat"
-
-msgid "Status"
-msgstr "Statut"
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Trebuie să fi autentificat înainte de a putea primi notificări pentru comentarii."
-
-msgid "New Package Notify"
-msgstr "Notificare pachet nou"
-
-msgid "IRC Nick"
-msgstr "Nick IRC"
-
-msgid "Trusted user"
-msgstr "Trusted user"
-
-msgid "Normal user"
-msgstr "Normal user"
-
-msgid "This is a %h%s%h problem!"
-msgstr "Aceasta este o %h%s%h problemă!"
-
-msgid "You are not allowed to overwrite the %h%s%h package."
-msgstr "Nu ai permisia de a rescrie pachetul %h%s%h."
-
-msgid "Missing comment ID."
-msgstr "ID-ul comentariului lipsește"
-
-msgid "Error trying to retrieve package details."
-msgstr "Eroare la încercarea de a prelua detaliile pachetului."
-
-msgid "Proposal cannot be empty."
-msgstr "Propunerea nu poate fi goală."
-
-msgid "User"
-msgstr "Utilizator"
-
-msgid "Package Category"
-msgstr "Categoria pachetului."
-
-msgid "The selected packages have been adopted."
-msgstr "Pachetele selectate au fost adoptate."
-
-msgid "Packages"
-msgstr "Pachete"
-
-msgid "Edit Account"
-msgstr "Editeaza cont"
-
-msgid "Search"
-msgstr "Caută"
-
-msgid "Language"
-msgstr "Limbă"
-
-msgid "Orphans"
-msgstr "Orfane"
-
-msgid "Voting is closed for this proposal."
-msgstr "Votarea este închisă pentru această propunere."
-
-msgid "Bugs"
-msgstr "Bug-uri"
-
-msgid "Showing results %s - %s of %s"
-msgstr "Afișarea rezultatelor %s - %s din %s"
-
-msgid "Active"
-msgstr "Activ"
-
-msgid "You've already voted for this proposal."
-msgstr "Deja ai votat pentru această propunere."
-
-msgid "Required by"
-msgstr "Cerut de"
-
-msgid "You cannot vote in an proposal about you."
-msgstr "Nu poți vota într-o propunere despre tine."
-
-msgid "You did not select any packages to unflag."
-msgstr "Nu ai selectat niciun pachet pentru a-i fi eliminat marcajul."
-
-msgid "You must log in to view user information."
-msgstr "Trebuie sa fi autentificat pentru a putea vedea informații despre utilizatori."
-
-msgid "You did not select any packages to delete."
-msgstr "Nu ai selectat niciun pachet pentru a fi șters."
-
-msgid "Could not create directory %s."
-msgstr "Nu s-a putut crea directorul %s."
-
-msgid "UnNotify"
-msgstr "DeNotificare"
-
-msgid "Flag Out-of-date"
-msgstr "Marcaj de Neactualizat"
-
-msgid "The selected packages have been unflagged."
-msgstr "La pachetele selectate a fost eliminat marcajul de Neactualizat."
-
-msgid "Search Criteria"
-msgstr "Criteriul de căutare"
-
-msgid "Notify"
-msgstr "Notificare"
-
-msgid "Files"
-msgstr "Fișiere"
-
-msgid "Vote"
-msgstr "Vot"
-
-msgid "Adopt Packages"
-msgstr "Adoptă pachete"
-
-msgid "Name"
-msgstr "Nume"
-
-msgid "Package Listing"
-msgstr "Listare pachete"
-
-msgid "Any"
-msgstr "Orice"
-
-msgid "It must be between %s and %s characters long"
-msgstr "Trebuie să fie între %s și %s lungime"
-
-msgid "Logout"
-msgstr "Ieșire"
-
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "Contul, %s%s%h, a fost creat cu succes."
-
-msgid "Your password must be at least %s characters."
-msgstr "Parola trebuie să fie de cel puțin %s caractere."
-
-msgid "Submit"
-msgstr "Trimite"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Îmi pare rău, nu sunt permise încărcări pe acest server."
-
-msgid "Actions"
-msgstr "Acțiuni"
-
-msgid "Comment has been deleted."
-msgstr "Comentariul a fost șters."
-
-msgid "The username, %h%s%h, is already in use."
-msgstr "Numele de utilizator, %h%s%h, este deja folosit."
-
-msgid "Proposal"
-msgstr "Propunere"
-
-msgid "You did not select any packages to flag."
-msgstr "Nu ai selectat niciun pachet pentru a fi marcat"
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Eroarea la încercarea de a dezarhiva - PKGBUILD nu există."
-
-msgid "The selected packages have been flagged out-of-date."
-msgstr "Pachetele selectate au fost marcate ca fiind Neactualizate."
-
-msgid "Description"
-msgstr "Descriere"
-
-msgid "My Packages"
-msgstr "Pachetele mele"
-
-msgid "You did not select any packages to vote for."
-msgstr "Nu ai selectat niciun pachet pentru a vota."
-
-msgid "Never"
-msgstr "Niciodată"
-
-msgid "You must be logged in before you can disown packages."
-msgstr "Trebuie să fi autentificat înainte de dezmoșteni pachete."
-
-msgid "You've found a bug if you see this...."
-msgstr "Ai descoperit un bug dacă poți să vezi asta...."
-
-msgid "Last Voted"
-msgstr "Ultimul vot"
-
-msgid "Password"
-msgstr "Parolă"
-
-msgid "Real Name"
-msgstr "Nume real"
-
-msgid "Package Details"
-msgstr "Detaliile pachetului"
-
-msgid "UnVote"
-msgstr "EliminăVot"
-
-msgid "Password fields do not match."
-msgstr "Câmpurile parolei nu sunt potrivesc."
-
-msgid "Start and end with a letter or number"
-msgstr "Începutul și sfârșitul cu o literă sau un număr."
-
-msgid "The username is invalid."
-msgstr "Numele de utilizator nu este valid."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Nu s-a putut prelua informații despre utilizatorul specificat."
-
-msgid "Email Address"
-msgstr "Adresă email"
-
-msgid "Trusted User"
-msgstr "Trusted User"
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Numele nu este valid: doar litere mici sunt permise."
-
-msgid "Error retrieving package details."
-msgstr "Eroare în a prelua detaliile pachetului."
-
-msgid "Length must be a number."
-msgstr "Lungimea trebuie să fie un număr."
-
-msgid "%s has %s apples."
-msgstr "%s are %s mere."
-
-msgid "You must be logged in before you can un-vote for packages."
-msgstr "Trebuie să fi autentificat înainte de a putea șterge voturile pachetelor."
-
-msgid "Login"
-msgstr "Logare"
-
-msgid "Use this form to create an account."
-msgstr "Folosește acest formular pentru a crea un cont."
-
-msgid "Use this form to update your account."
-msgstr "Folosește acest formular pentru a actualiza contul."
-
-msgid "Abstain"
-msgstr "Abținere"
-
-msgid "Could not chmod directory %s."
-msgstr "Nu s-a putut face chmod pe directorul %s."
-
-msgid "You are not allowed to delete this comment."
-msgstr "Nu ai voie să ștergi acest comentariu."
-
-msgid "required"
-msgstr "cerut"
-
-msgid "Sort by"
-msgstr "Sortează după"
-
-msgid "Submit a proposal to vote on."
-msgstr "Trimite o propunere pentru a putea fi votată."
-
-msgid "Proposal Details"
-msgstr "Detaliile propunerii."
-
-msgid "Language is not currently supported."
-msgstr "Limba nu este încă suportată."
-
-msgid "Last vote"
-msgstr "Ultimul vot"
-
-msgid "New Comment Notification"
-msgstr "Notificare de comentariu nouă"
-
-msgid "Missing User ID"
-msgstr "ID-ul utilizatorului lipsește"
-
-msgid "You have been added to the comment notification list for %s."
-msgstr "Ai fost adăugat în lista de notificare a comentariilor pentru %s."
-
-msgid "Select new category"
-msgstr "Selectează categorie nouă"
-
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Un Trusted User nu-și poate atribui statutul de Developer."
+#~ msgid "Select new category"
+#~ msgstr "Selectează categorie nouă"

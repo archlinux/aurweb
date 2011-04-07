@@ -12,612 +12,900 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# Hungarian (Magyar) translation
-# Translators: Laszlo Papp <djszapi2@gmail.com>, Gergely Imreh <imrehg@gmail.com>
-
-
-msgid "Search by"
-msgstr "Keresés eszerint"
-
-msgid "This package has been flagged out of date."
-msgstr "Ez a csomag elavultnak van jelölve."
-
-msgid "Missing a required field."
-msgstr "Egy kötelező mező megadása hiányzik."
-
-msgid "Logged-in as: %s"
-msgstr "Bejelentkezve: %s"
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "Hiba történt a felasználói adatok módosítása közben, %h%s%h: %s."
-
-msgid "Username does not exist."
-msgstr "Ez a felhasznalói név nem létezik."
-
-msgid "Tarball"
-msgstr "Tarball"
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr "Csak egyetlen pontot, aláhúzást vagy kötőjelet tartalmazhat."
-
-msgid "Unflag Out-of-date"
-msgstr "Elavultság visszavonása"
-
-msgid "Missing package ID."
-msgstr "Hiányzó csomag ID"
-
-msgid "You cannot vote in an proposal about you."
-msgstr "Nem szavazhatsz egy rólad szóló indítványra."
-
-msgid "No results matched your search criteria."
-msgstr "Nincs a keresési feltételeknek megfelelő találat."
-
-msgid "Update"
-msgstr "Adatok frissítése"
-
-msgid "Sort order"
-msgstr "Rendezési sorrend"
-
-msgid "You must be logged in before you can edit package information."
-msgstr "A csomag informacióinak szerkesztéséhez be kell jelentkezned."
-
-msgid "Your votes have been cast for the selected packages."
-msgstr "Leadtad a szavazatod a kiválasztott csomagokra."
-
-msgid "Package details could not be found."
-msgstr "Csomag részletes információja nem talalható."
-
-msgid "change category"
-msgstr "kategória megváltoztatása"
-
-msgid "Error retrieving package list."
-msgstr "Hiba történt a csomaglista letöltése közben."
-
-msgid "Reset"
-msgstr "Mezők visszaállítása"
-
-msgid "Submitted: %s by %s"
-msgstr "Benyujtva: %s (%s által)"
-
-msgid "string"
-msgstr "szólanc"
-
-msgid "Remember me"
-msgstr "Maradj bejelentkezve"
-
-msgid "Package category updated."
-msgstr "A csomag kategoriája frissítve."
-
-msgid "%s already has proposal running for them."
-msgstr "%s már megpályázta őket."
-
-msgid "Error - No file uploaded"
-msgstr "Hiba - Nincs fájl feltöltés"
-
-msgid "You did not select any packages to disown."
-msgstr "Nem valásztottál ki egyetlen csomagot sem megtagadasra."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Hiányzik a protokoll a csomag URL-jébol (pl. http:// ,ftp://)"
-
-msgid "Votes"
-msgstr "Szavazatok"
-
-msgid "Total"
-msgstr "Összesen"
-
-msgid "No more results to display."
-msgstr "Nincs több kijelezhető eredmeny."
-
-msgid "Maintainer"
-msgstr "Karbantartó"
-
-msgid "Less"
-msgstr "Kevesebb"
-
-msgid "You are not allowed to access this area."
-msgstr "Nincs engedélyed hozzáférni ehhez a területhez."
-
-msgid "Any type"
-msgstr "Bármilyen típus"
-
-msgid "Accounts"
-msgstr "Fiókok"
-
-msgid "Could not retrieve proposal details."
-msgstr "Az indítvány részletes információjának letöltése sikertelen."
-
-msgid "You do not have permission to edit this account."
-msgstr "Nincs engedélyed ennek a fióknak a szerkesztéséhez."
-
-msgid "New Package Notify"
-msgstr "Új csomag értesítés"
-
-msgid "Click on the Home link above to login."
-msgstr "A bejelentkezéshez kattints a fentebb található Otthon linken."
-
-msgid "The email address is invalid."
-msgstr "Érvénytelen email cím."
-
-msgid "Could not change directory to %s."
-msgstr "Nem sikerült a könyvtárat megváltoztatni erre: %s"
-
-msgid "None of the selected packages could be deleted."
-msgstr "Egyik kijelölt csomagot sem sikerült törölni."
-
-msgid "Your votes have been removed from the selected packages."
-msgstr "Szavazatod eltávolítva a kiválasztott csomagról."
-
-msgid "No packages matched your search criteria."
-msgstr "Nincs a keresési feltételeknek megfelelő csomag."
-
-msgid "Create"
-msgstr "Létrehozás"
-
-msgid "Start and end with a letter or number"
-msgstr "Betűvel vagy számjeggyel kell kezdődjön és végződjön"
-
-msgid "orphan"
-msgstr "árva"
-
-msgid "View this user's packages"
-msgstr "A felhasználó csomagjainak megjelenítése"
-
-msgid "Next"
-msgstr "Következő"
-
-msgid "Could not re-tar"
-msgstr "Sikertelen újratömörítés"
-
-msgid "You must create an account before you can upload packages."
-msgstr "A csomagok feltöltése előtt regisztrálnod kell."
-
-msgid "Location"
-msgstr "Helyszín"
-
-msgid "Delete comment"
-msgstr "Megjegyzés törlése"
-
-msgid "Account Type"
-msgstr "Fiók típus"
-
-msgid "Type"
-msgstr "Típus"
-
-msgid "More"
-msgstr "Több"
-
-msgid "Error retrieving package details."
-msgstr "Hiba történt a csomag részletes információjának letöltése közben."
-
-msgid "Could not create incoming directory: %s."
-msgstr "A beérkezo könyvtar létrehozása sikertelen: %s"
-
-msgid "Upload package file"
-msgstr "Csomag fájl feltöltése"
-
-msgid "(defaults to 7 if empty)"
-msgstr "(ha üresen van, 7 az alapertelmezett)"
-
-msgid "No New Comment Notification"
-msgstr "Nincs új megjegyzés értesítés"
-
-msgid "Couldn't add to notification list."
-msgstr "Nem sikerült hozzáadni az értesítési listához."
-
-msgid "Disown Packages"
-msgstr "Csomagok megtagadása"
-
-msgid "Advanced"
-msgstr "Összetett"
-
-msgid "This vote is still running."
-msgstr "A szavázas még zajlik."
-
-msgid "Vote ID not valid."
-msgstr "Érvénytelen szavazat ID."
-
-msgid "(empty if not applicable)"
-msgstr "(üres, ha nem alkalmazható)"
-
-msgid "Per page"
-msgstr "Laponként"
-
-msgid "New proposal submitted."
-msgstr "Új indítvány benyújtva."
-
-msgid "Upload"
-msgstr "Feltöltés"
-
-msgid "Invalid category ID."
-msgstr "Érvénytelen kategória ID"
-
-msgid "Go"
-msgstr "Mehet"
-
-msgid "You must be logged in before you can vote for packages."
-msgstr "Be kell jelentkezned a csomagokra való szavazáshoz."
-
-msgid "Use this form to search existing accounts."
-msgstr "Már meglévő felhasználói fiókok kereséséhez használd ezt az űrlapot."
-
-msgid "The address, %h%s%h, is already in use."
-msgstr "A cím, %h%s%h, már használatban van."
-
-msgid "Current Votes"
-msgstr "Jelenlegi szavazatok"
-
-msgid "Select Category"
-msgstr "Kategoria kiválasztás"
-
-msgid "You have been removed from the comment notification list for %s."
-msgstr "El lettél távolítva az következő csomagok megjegyzés értesítési listájáról: %s"
-
-msgid "Unknown file format for uploaded file."
-msgstr "Ismeretlen formátumú feltöltött fájl."
-
-msgid "Delete Packages"
-msgstr "Csomagok törlése"
-
-msgid "Trusted user"
-msgstr "Megbízható felhasználó"
-
-msgid "Back"
-msgstr "Vissza"
-
-msgid "You did not select any packages to flag."
-msgstr "Nem választottál ki egyetlen csomagot sem megjelölésre."
-
-msgid "All Votes"
-msgstr "Minden szavazat"
-
-msgid "The selected packages have been disowned."
-msgstr "A kiválasztott csomagok megtagadva."
-
-msgid "Suspended"
-msgstr "Felfüggesztve"
-
 msgid "Home"
 msgstr "Otthon"
 
-msgid "Yes"
-msgstr "Igen"
+msgid ""
+"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
+"Guidelines%h for more information."
+msgstr ""
 
-msgid "UnFlag Out-of-date"
-msgstr "Elavultság visszavonása"
+msgid ""
+"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
+"otherwise they will be deleted!"
+msgstr ""
 
-msgid "Developer"
-msgstr "Fejlesztő"
+msgid "Remember to vote for your favourite packages!"
+msgstr ""
 
-msgid "Category"
-msgstr "Kategória"
+msgid "Some packages may be provided as binaries in [community]."
+msgstr ""
 
-msgid "Missing build function in PKGBUILD."
-msgstr "A build függvény hiányzik a PKGBUILD-ból."
+msgid "DISCLAIMER"
+msgstr ""
 
-msgid "You must be logged in before you can flag packages."
-msgstr "Be kell jelentkezned csomagok megjelöléséhez."
-
-msgid "No results found."
-msgstr "Nincs találat."
-
-msgid "No"
-msgstr "Nem"
-
-msgid "Discussion"
-msgstr "Levelezőlista"
-
-msgid "Dependencies"
-msgstr "Függőségek"
-
-msgid "Start"
-msgstr "Kezdés"
-
-msgid "Add"
-msgstr "Hozzáad"
-
-msgid "You did not select any packages to adopt."
-msgstr "Nem választottál ki egyetlen örökbefogadandó csomagot sem."
-
-msgid "Length must be at least 1."
-msgstr "A hossznak legalább 1-nek kell lennie."
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "Hiba történt a felhasználói fiók létrehozása közben, %h%s%h: %s"
-
-msgid "End"
-msgstr "Vége"
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr "A felhasználói fiók sikeresen módosítva: %h%s%h"
-
-msgid "Account Suspended"
-msgstr "Felhasználói fiók felfüggesztve"
-
-msgid "Status"
-msgstr "Státusz"
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Be kell jelentkezned mielőtt értesítest szerezhetnél a megjegyzésekről."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Hagyd üresen a jelszó mezőt ha nem akarod megváltoztatni a jelenlegi jelszavad."
-
-msgid "IRC Nick"
-msgstr "IRC becenév"
-
-msgid "The selected packages have been deleted."
-msgstr "A kiválasztott csomagok törlese megtörtént."
-
-msgid "Normal user"
-msgstr "Normál felhasználó"
-
-msgid "This is a %h%s%h problem!"
-msgstr "Ez egy %h%s%h probléma!"
-
-msgid "You are not allowed to overwrite the %h%s%h package."
-msgstr "Nincs engedélyed a %h%s%h csomag felülírásához."
-
-msgid "Missing comment ID."
-msgstr "Hiányzó megjegyzés ID"
-
-msgid "Error trying to retrieve package details."
-msgstr "Hiba törtent a csomag részletes informacióinak letöltése közben."
-
-msgid "Proposal cannot be empty."
-msgstr "Az indítvány nem lehet üres."
-
-msgid "User"
-msgstr "Felhasznaló"
-
-msgid "Package Category"
-msgstr "Csomag kategória"
-
-msgid "The selected packages have been adopted."
-msgstr "Sikeresen örökbefogadtad a kiválasztott csomagokat."
-
-msgid "Packages"
-msgstr "Csomagok"
-
-msgid "Edit Account"
-msgstr "Felhasználói fiók szerkesztése"
-
-msgid "Search"
-msgstr "Keresés"
-
-msgid "Language"
-msgstr "Nyelv"
-
-msgid "Orphans"
-msgstr "Árvák"
-
-msgid "Voting is closed for this proposal."
-msgstr "A szavazás lezárult erre az indítványra."
-
-msgid "Bugs"
-msgstr "Hibák"
-
-msgid "Showing results %s - %s of %s"
-msgstr "Eredmények: %s - %s, összesen %s"
-
-msgid "Active"
-msgstr "Aktív"
-
-msgid "You've already voted for this proposal."
-msgstr "Már szavaztál erre az indítványra."
-
-msgid "Required by"
-msgstr "Függ ettől"
-
-msgid "You must be logged in before you can unflag packages."
-msgstr "Be kell jelentkezned csomagok megjelölésének visszavonásához."
-
-msgid "You did not select any packages to unflag."
-msgstr "Nem választottál ki egyetlen csomagot sem megjelölés visszavonására."
-
-msgid "You must log in to view user information."
-msgstr "Be kell jelentkezned a felhasználói információ megtekintéshez."
-
-msgid "You did not select any packages to delete."
-msgstr "Nem választottál ki egyetlen törlendő csomagot sem."
-
-msgid "Could not create directory %s."
-msgstr "Nem sikerült létrehozni a %s konyvtarat."
-
-msgid "UnNotify"
-msgstr "Értesítés kikapcsolása"
-
-msgid "Flag Out-of-date"
-msgstr "Elavultnak jelölés"
-
-msgid "The selected packages have been unflagged."
-msgstr "A kivalasztott csomagok bejelölése visszavonva."
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr ""
 
 msgid "Search Criteria"
 msgstr "Keresési feltételek"
 
-msgid "Notify"
-msgstr "Értesítés"
+msgid "Packages"
+msgstr "Csomagok"
 
-msgid "Files"
-msgstr "Fájlok"
+#, fuzzy
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "A kiválasztott csomagok törlese megtörtént."
 
-msgid "Vote"
-msgstr "Szavazás"
+msgid "Error trying to retrieve package details."
+msgstr "Hiba törtent a csomag részletes informacióinak letöltése közben."
 
-msgid "Adopt Packages"
-msgstr "Csomagok örökbefogadása"
+msgid "Accounts"
+msgstr "Fiókok"
 
-msgid "Name"
-msgstr "Név"
+msgid "You are not allowed to access this area."
+msgstr "Nincs engedélyed hozzáférni ehhez a területhez."
 
-msgid "Package Listing"
-msgstr "Csomag lista"
+msgid "Could not retrieve information for the specified user."
+msgstr "Nem sikerült letölteni a megadott felhasznaló informacióit."
 
-msgid "Any"
-msgstr "Bármi"
+msgid "You do not have permission to edit this account."
+msgstr "Nincs engedélyed ennek a fióknak a szerkesztéséhez."
 
-msgid "It must be between %s and %s characters long"
-msgstr "%s és %s közötti karakterhosszúságúnak kell lennie"
+msgid "Use this form to search existing accounts."
+msgstr "Már meglévő felhasználói fiókok kereséséhez használd ezt az űrlapot."
 
-msgid "Logout"
-msgstr "Kijelentkezés"
+msgid "Use this form to update your account."
+msgstr "Használd ezt a űrlapot a felhasználói fiókod adatainak frissítéséhez."
 
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "A felhasználói fiók sikeresen létrehozva:  %h%s%h"
+msgid "Leave the password fields blank to keep your same password."
+msgstr ""
+"Hagyd üresen a jelszó mezőt ha nem akarod megváltoztatni a jelenlegi "
+"jelszavad."
 
-msgid "Your password must be at least %s characters."
-msgstr "A jelszónak legalább %s karakter hosszúságúnak kell lennie."
+msgid "You must log in to view user information."
+msgstr "Be kell jelentkezned a felhasználói információ megtekintéshez."
+
+msgid "Use this form to create an account."
+msgstr "Használd ezt a űrlapot felhasználói fiók letrehozására."
+
+msgid "Could not retrieve proposal details."
+msgstr "Az indítvány részletes információjának letöltése sikertelen."
+
+msgid "Voting is closed for this proposal."
+msgstr "A szavazás lezárult erre az indítványra."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Nem szavazhatsz egy rólad szóló indítványra."
+
+msgid "You've already voted for this proposal."
+msgstr "Már szavaztál erre az indítványra."
+
+msgid "Vote ID not valid."
+msgstr "Érvénytelen szavazat ID."
+
+msgid "Current Votes"
+msgstr "Jelenlegi szavazatok"
+
+#, fuzzy
+msgid "Past Votes"
+msgstr "Utolsó szavazat"
+
+#, fuzzy
+msgid "Add Proposal"
+msgstr "Indítvány"
+
+msgid "Back"
+msgstr "Vissza"
+
+msgid "Next"
+msgstr "Következő"
+
+msgid "Username does not exist."
+msgstr "Ez a felhasznalói név nem létezik."
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s már megpályázta őket."
+
+msgid "Length must be a number."
+msgstr "A hossznak egy számnak kell lennie."
+
+msgid "Length must be at least 1."
+msgstr "A hossznak legalább 1-nek kell lennie."
+
+msgid "Proposal cannot be empty."
+msgstr "Az indítvány nem lehet üres."
+
+msgid "New proposal submitted."
+msgstr "Új indítvány benyújtva."
+
+msgid "Submit a proposal to vote on."
+msgstr "Indítvány szavazásra bocsátása."
+
+msgid "Applicant/TU"
+msgstr ""
+
+msgid "(empty if not applicable)"
+msgstr "(üres, ha nem alkalmazható)"
+
+msgid "Length in days"
+msgstr ""
+
+msgid "(defaults to 7 if empty)"
+msgstr "(ha üresen van, 7 az alapertelmezett)"
+
+msgid "Proposal"
+msgstr "Indítvány"
 
 msgid "Submit"
+msgstr "Feltöltés"
+
+msgid "Missing a required field."
+msgstr "Egy kötelező mező megadása hiányzik."
+
+msgid "Password fields do not match."
+msgstr "A jelszó mezők nem egyeznek."
+
+msgid "Invalid e-mail."
+msgstr ""
+
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#, fuzzy
+msgid "Password Reset"
+msgstr "Jelszó"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr ""
+
+#, fuzzy
+msgid "Your password has been reset successfully."
+msgstr "A jelszónak legalább %s karakter hosszúságúnak kell lennie."
+
+msgid "Confirm your e-mail address:"
+msgstr ""
+
+#, fuzzy
+msgid "Enter your new password:"
+msgstr "Ismételd meg a jelszót"
+
+msgid "Confirm your new password:"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %haur-general%h mailing list."
+msgstr ""
+
+#, fuzzy
+msgid "Enter your e-mail address:"
+msgstr "Email cím"
+
+msgid "Error - No file uploaded"
+msgstr "Hiba - Nincs fájl feltöltés"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+
+msgid "Error - uncompressed file size too large."
+msgstr ""
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr ""
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Hiba történt a feltöltes kicsomagolása közben - PKGBUILD nem létezik."
+
+#, fuzzy, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "A build függvény hiányzik a PKGBUILD-ból."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Hiányzik a protokoll a csomag URL-jébol (pl. http:// ,ftp://)"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Érvenytelen név: csak kisbetűk használata engedélyezett."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Nem sikerült létrehozni a %s konyvtarat."
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Nincs engedélyed a %h%s%h csomag felülírásához."
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr ""
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "Nem sikerült a könyvtárat megváltoztatni erre: %s"
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
+
+msgid "Package Category"
+msgstr "Csomag kategória"
+
+msgid "Select Category"
+msgstr "Kategoria kiválasztás"
+
+msgid "Upload package file"
+msgstr "Csomag fájl feltöltése"
+
+msgid "Upload"
 msgstr "Feltöltés"
 
 msgid "Sorry, uploads are not permitted by this server."
 msgstr "Sajnáljuk, de feltöltések nem engedélyezettek ezen a szerveren."
 
-msgid "Actions"
-msgstr "Tevékenységek"
+msgid "You must create an account before you can upload packages."
+msgstr "A csomagok feltöltése előtt regisztrálnod kell."
 
-msgid "Comment has been deleted."
-msgstr "Megjegyzés törölve"
+msgid "Error retrieving package details."
+msgstr "Hiba történt a csomag részletes információjának letöltése közben."
 
-msgid "The username, %h%s%h, is already in use."
-msgstr "A felhasznalói név már használnalatban van: %h%s%h"
+msgid "Package details could not be found."
+msgstr "Csomag részletes információja nem talalható."
 
-msgid "Could not retrieve information for the specified user."
-msgstr "Nem sikerült letölteni a megadott felhasznaló informacióit."
+msgid "First"
+msgstr ""
 
-msgid "Re-type password"
-msgstr "Ismételd meg a jelszót"
+msgid "Previous"
+msgstr ""
 
-msgid "Proposal"
-msgstr "Indítvány"
+#, fuzzy
+msgid "Last"
+msgstr "Utolsó szavazat"
 
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Hiba történt a feltöltes kicsomagolása közben - PKGBUILD nem létezik."
+msgid "You must be logged in before you can flag packages."
+msgstr "Be kell jelentkezned csomagok megjelöléséhez."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Be kell jelentkezned csomagok megjelölésének visszavonásához."
+
+msgid "You did not select any packages to flag."
+msgstr "Nem választottál ki egyetlen csomagot sem megjelölésre."
+
+msgid "You did not select any packages to unflag."
+msgstr "Nem választottál ki egyetlen csomagot sem megjelölés visszavonására."
 
 msgid "The selected packages have been flagged out-of-date."
 msgstr "A kiválasztott csomagok elavultnak lettek jelolve."
 
-msgid "Description"
-msgstr "Leíras"
+msgid "The selected packages have been unflagged."
+msgstr "A kivalasztott csomagok bejelölése visszavonva."
 
-msgid "My Packages"
-msgstr "Csomagjaim"
+#, fuzzy
+msgid "You must be logged in before you can delete packages."
+msgstr "Be kell jelentkezned a csomagokat örökbefogadásához."
 
-msgid "You did not select any packages to vote for."
-msgstr "Nem választottal ki egyetlen csomagot sem amire szavaznál."
+#, fuzzy
+msgid "You do have permission to delete packages."
+msgstr "Nincs engedélyed ennek a fióknak a szerkesztéséhez."
 
-msgid "Never"
-msgstr "Soha"
+msgid "You did not select any packages to delete."
+msgstr "Nem választottál ki egyetlen törlendő csomagot sem."
 
-msgid "You must be logged in before you can disown packages."
-msgstr "Be kell jelentkeznek csomagokat megtagadásához."
-
-msgid "Voted"
-msgstr "Szavazva"
-
-msgid "You've found a bug if you see this...."
-msgstr "BUG-ot találtal, ha ezt latod...."
-
-msgid "Last Voted"
-msgstr "Utolsó szavazat"
-
-msgid "Password"
-msgstr "Jelszó"
-
-msgid "Real Name"
-msgstr "Valós név"
-
-msgid "Package Details"
-msgstr "Részletes csomag információ"
-
-msgid "UnVote"
-msgstr "Szavazat visszavonása"
-
-msgid "Password fields do not match."
-msgstr "A jelszó mezők nem egyeznek."
-
-msgid "Username"
-msgstr "Felhasznalói név"
-
-msgid "The username is invalid."
-msgstr "A felhasznalói név érvénytelen."
+msgid "The selected packages have been deleted."
+msgstr "A kiválasztott csomagok törlese megtörtént."
 
 msgid "You must be logged in before you can adopt packages."
 msgstr "Be kell jelentkezned a csomagokat örökbefogadásához."
 
-msgid "Email Address"
-msgstr "Email cím"
+msgid "You must be logged in before you can disown packages."
+msgstr "Be kell jelentkeznek csomagokat megtagadásához."
 
-msgid "Trusted User"
-msgstr "Megbízható Felhasználó"
+msgid "You did not select any packages to adopt."
+msgstr "Nem választottál ki egyetlen örökbefogadandó csomagot sem."
 
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Érvenytelen név: csak kisbetűk használata engedélyezett."
+msgid "You did not select any packages to disown."
+msgstr "Nem valásztottál ki egyetlen csomagot sem megtagadasra."
 
-msgid "Length must be a number."
-msgstr "A hossznak egy számnak kell lennie."
+msgid "The selected packages have been adopted."
+msgstr "Sikeresen örökbefogadtad a kiválasztott csomagokat."
 
-msgid "%s has %s apples."
-msgstr "%s birtokol %s almát"
+msgid "The selected packages have been disowned."
+msgstr "A kiválasztott csomagok megtagadva."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Be kell jelentkezned a csomagokra való szavazáshoz."
 
 msgid "You must be logged in before you can un-vote for packages."
 msgstr "Be kell jelenztkezned a szavazatod visszavonásához."
 
-msgid "Login"
-msgstr "Bejelentkezés"
+msgid "You did not select any packages to vote for."
+msgstr "Nem választottal ki egyetlen csomagot sem amire szavaznál."
 
-msgid "Use this form to create an account."
-msgstr "Használd ezt a űrlapot felhasználói fiók letrehozására."
+msgid "Your votes have been removed from the selected packages."
+msgstr "Szavazatod eltávolítva a kiválasztott csomagról."
 
-msgid "Use this form to update your account."
-msgstr "Használd ezt a űrlapot a felhasználói fiókod adatainak frissítéséhez."
+msgid "Your votes have been cast for the selected packages."
+msgstr "Leadtad a szavazatod a kiválasztott csomagokra."
 
-msgid "Abstain"
-msgstr "Tartózkodik"
+msgid "Couldn't add to notification list."
+msgstr "Nem sikerült hozzáadni az értesítési listához."
 
-msgid "Could not chmod directory %s."
-msgstr "Nem sikerult a könyvtár jogainak megváltoztatása: %s"
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr ""
+"Sikeresen fel lettél véve a kovetkezo csomagok megjegyzés értesítési "
+"listájára: %s"
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr ""
+"El lettél távolítva az következő csomagok megjegyzés értesítési listájáról: "
+"%s"
+
+msgid "You must be logged in before you can edit package information."
+msgstr "A csomag informacióinak szerkesztéséhez be kell jelentkezned."
+
+msgid "Missing comment ID."
+msgstr "Hiányzó megjegyzés ID"
+
+msgid "Comment has been deleted."
+msgstr "Megjegyzés törölve"
 
 msgid "You are not allowed to delete this comment."
 msgstr "Nem törölheted ezt a megjegyzést."
 
+#, fuzzy
+msgid "Missing category ID."
+msgstr "Hiányzó csomag ID"
+
+msgid "Invalid category ID."
+msgstr "Érvénytelen kategória ID"
+
+msgid "Missing package ID."
+msgstr "Hiányzó csomag ID"
+
+#, fuzzy
+msgid "Package category changed."
+msgstr "A csomag kategoriája frissítve."
+
+#, fuzzy
+msgid "You are not allowed to change this package category."
+msgstr "Nincs engedélyed hozzáférni ehhez a területhez."
+
+msgid "Username"
+msgstr "Felhasznalói név"
+
 msgid "required"
 msgstr "kötelező"
 
-msgid "Sort by"
-msgstr "Rendezés"
+msgid "Account Type"
+msgstr "Fiók típus"
 
-msgid "Submit a proposal to vote on."
-msgstr "Indítvány szavazásra bocsátása."
+msgid "Normal user"
+msgstr "Normál felhasználó"
 
-msgid "Proposal Details"
-msgstr "Indítvány részletes információja"
+msgid "Trusted user"
+msgstr "Megbízható felhasználó"
 
-msgid "Language is not currently supported."
-msgstr "Nyelv jelenleg nem támogatott."
+msgid "Developer"
+msgstr "Fejlesztő"
 
-msgid "Last vote"
-msgstr "Utolsó szavazat"
+msgid "Account Suspended"
+msgstr "Felhasználói fiók felfüggesztve"
 
-msgid "New Comment Notification"
-msgstr "Új megjegyzés értesítés"
+msgid "Email Address"
+msgstr "Email cím"
+
+msgid "Password"
+msgstr "Jelszó"
+
+msgid "Re-type password"
+msgstr "Ismételd meg a jelszót"
+
+msgid "Real Name"
+msgstr "Valós név"
+
+msgid "IRC Nick"
+msgstr "IRC becenév"
+
+msgid "Language"
+msgstr "Nyelv"
+
+msgid "New Package Notify"
+msgstr "Új csomag értesítés"
+
+msgid "Update"
+msgstr "Adatok frissítése"
+
+msgid "Create"
+msgstr "Létrehozás"
+
+msgid "Reset"
+msgstr "Mezők visszaállítása"
 
 msgid "Missing User ID"
 msgstr "Hianyzó felhasznaló ID"
 
-msgid "You have been added to the comment notification list for %s."
-msgstr "Sikeresen fel lettél véve a kovetkezo csomagok megjegyzés értesítési listájára: %s"
+msgid "The username is invalid."
+msgstr "A felhasznalói név érvénytelen."
 
-msgid "Select new category"
-msgstr "Válassz új kategoriát"
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "%s és %s közötti karakterhosszúságúnak kell lennie"
+
+msgid "Start and end with a letter or number"
+msgstr "Betűvel vagy számjeggyel kell kezdődjön és végződjön"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Csak egyetlen pontot, aláhúzást vagy kötőjelet tartalmazhat."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "A jelszónak legalább %s karakter hosszúságúnak kell lennie."
+
+msgid "The email address is invalid."
+msgstr "Érvénytelen email cím."
 
 msgid "A Trusted User cannot assign Developer status."
 msgstr "Egy Megbizható Felhasznalo nem adhat ki Fejlesztői státuszt."
 
+msgid "Language is not currently supported."
+msgstr "Nyelv jelenleg nem támogatott."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "A felhasznalói név már használnalatban van: %h%s%h"
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "A cím, %h%s%h, már használatban van."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Hiba történt a felhasználói fiók létrehozása közben, %h%s%h: %s"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "A felhasználói fiók sikeresen létrehozva:  %h%s%h"
+
+msgid "Click on the Home link above to login."
+msgstr "A bejelentkezéshez kattints a fentebb található Otthon linken."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Hiba történt a felasználói adatok módosítása közben, %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "A felhasználói fiók sikeresen módosítva: %h%s%h"
+
+msgid "No results matched your search criteria."
+msgstr "Nincs a keresési feltételeknek megfelelő találat."
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Status"
+msgstr "Státusz"
+
+msgid "Last Voted"
+msgstr "Utolsó szavazat"
+
+msgid "Edit Account"
+msgstr "Felhasználói fiók szerkesztése"
+
+msgid "Suspended"
+msgstr "Felfüggesztve"
+
+msgid "Active"
+msgstr "Aktív"
+
+msgid "Never"
+msgstr "Soha"
+
+msgid "Less"
+msgstr "Kevesebb"
+
+msgid "More"
+msgstr "Több"
+
+msgid "No more results to display."
+msgstr "Nincs több kijelezhető eredmeny."
+
+msgid "User"
+msgstr "Felhasznaló"
+
+msgid "Trusted User"
+msgstr "Megbízható Felhasználó"
+
+msgid "View this user's packages"
+msgstr "A felhasználó csomagjainak megjelenítése"
+
+msgid "Bad username or password."
+msgstr ""
+
+msgid "Votes"
+msgstr "Szavazatok"
+
+msgid "unknown"
+msgstr ""
+
+msgid "Package Details"
+msgstr "Részletes csomag információ"
+
+#, fuzzy
+msgid "Submitter"
+msgstr "Feltöltés"
+
+msgid "Maintainer"
+msgstr "Karbantartó"
+
+msgid "License"
+msgstr ""
+
+#, fuzzy
+msgid "Last Updated"
+msgstr "Utolsó szavazat"
+
+msgid "First Submitted"
+msgstr ""
+
+msgid "Tarball"
+msgstr "Tarball"
+
+msgid "PKGBUILD"
+msgstr ""
+
+msgid "This package has been flagged out of date."
+msgstr "Ez a csomag elavultnak van jelölve."
+
+msgid "Dependencies"
+msgstr "Függőségek"
+
+msgid "Required by"
+msgstr "Függ ettől"
+
+msgid "Sources"
+msgstr ""
+
+msgid "Hi, this is worth reading!"
+msgstr ""
+
+msgid "Start"
+msgstr "Kezdés"
+
+msgid "End"
+msgstr "Vége"
+
+msgid "Yes"
+msgstr "Igen"
+
+msgid "No"
+msgstr "Nem"
+
+msgid "Voted"
+msgstr "Szavazva"
+
+msgid "No results found."
+msgstr "Nincs találat."
+
+msgid "Proposal Details"
+msgstr "Indítvány részletes információja"
+
+msgid "This vote is still running."
+msgstr "A szavázas még zajlik."
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Benyujtva: %s (%s által)"
+
+msgid "Abstain"
+msgstr "Tartózkodik"
+
+msgid "Total"
+msgstr "Összesen"
+
+#, fuzzy
+msgid "Voters"
+msgstr "Szavazatok"
+
+msgid "Bugs"
+msgstr "Hibák"
+
+msgid "Discussion"
+msgstr "Levelezőlista"
+
+msgid "My Packages"
+msgstr "Csomagjaim"
+
+msgid "Vote"
+msgstr "Szavazás"
+
+msgid "UnVote"
+msgstr "Szavazat visszavonása"
+
+msgid "Notify"
+msgstr "Értesítés"
+
+msgid "New Comment Notification"
+msgstr "Új megjegyzés értesítés"
+
+msgid "UnNotify"
+msgstr "Értesítés kikapcsolása"
+
+msgid "No New Comment Notification"
+msgstr "Nincs új megjegyzés értesítés"
+
+msgid "Flag Out-of-date"
+msgstr "Elavultnak jelölés"
+
+msgid "UnFlag Out-of-date"
+msgstr "Elavultság visszavonása"
+
+msgid "Adopt Packages"
+msgstr "Csomagok örökbefogadása"
+
+msgid "Disown Packages"
+msgstr "Csomagok megtagadása"
+
+msgid "Delete Packages"
+msgstr "Csomagok törlése"
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Any type"
+msgstr "Bármilyen típus"
+
+msgid "Sort by"
+msgstr "Rendezés"
+
+msgid "Last vote"
+msgstr "Utolsó szavazat"
+
+msgid "Search"
+msgstr "Keresés"
+
+#, fuzzy
+msgid "Comment has been added."
+msgstr "Megjegyzés törölve"
+
+msgid "Enter your comment below."
+msgstr ""
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Bejelentkezve: %s"
+
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+msgid "Remember me"
+msgstr "Maradj bejelentkezve"
+
+msgid "Login"
+msgstr "Bejelentkezés"
+
+#, fuzzy
+msgid "Forgot Password"
+msgstr "Jelszó"
+
+#, fuzzy
+msgid "Recent Updates"
+msgstr "Adatok frissítése"
+
+msgid "My Statistics"
+msgstr ""
+
+#, fuzzy
+msgid "Packages in unsupported"
+msgstr "Nyelv jelenleg nem támogatott."
+
+msgid "Out of Date"
+msgstr ""
+
+#, fuzzy
+msgid "Statistics"
+msgstr "Státusz"
+
+#, fuzzy
+msgid "Orphan Packages"
+msgstr "Csomagok"
+
+msgid "Packages added in the past 7 days"
+msgstr ""
+
+msgid "Packages updated in the past 7 days"
+msgstr ""
+
+msgid "Packages updated in the past year"
+msgstr ""
+
+#, fuzzy
+msgid "Packages never updated"
+msgstr "A csomag kategoriája frissítve."
+
+#, fuzzy
+msgid "Registered Users"
+msgstr "Megbízható Felhasználó"
+
+#, fuzzy
+msgid "Trusted Users"
+msgstr "Megbízható Felhasználó"
+
+msgid "Error retrieving package list."
+msgstr "Hiba történt a csomaglista letöltése közben."
+
+msgid "No packages matched your search criteria."
+msgstr "Nincs a keresési feltételeknek megfelelő csomag."
+
+msgid "Package Listing"
+msgstr "Csomag lista"
+
+msgid "Category"
+msgstr "Kategória"
+
+msgid "Name"
+msgstr "Név"
+
+msgid "Description"
+msgstr "Leíras"
+
+msgid "orphan"
+msgstr "árva"
+
+msgid "Legend"
+msgstr ""
+
+msgid "Actions"
+msgstr "Tevékenységek"
+
+msgid "Unflag Out-of-date"
+msgstr "Elavultság visszavonása"
+
+msgid "Go"
+msgstr "Mehet"
+
+#, php-format
+msgid "Showing results %s - %s of %s"
+msgstr "Eredmények: %s - %s, összesen %s"
+
+#, php-format
+msgid "Comment by: %s on %s"
+msgstr ""
+
+msgid "Delete comment"
+msgstr "Megjegyzés törlése"
+
+#, php-format
+msgid "Show all %s comments"
+msgstr ""
+
+msgid "Orphans"
+msgstr "Árvák"
+
+msgid "Advanced"
+msgstr "Összetett"
+
+msgid "Any"
+msgstr "Bármi"
+
+# Hungarian (Magyar) translation
+# Translators: Laszlo Papp <djszapi2@gmail.com>, Gergely Imreh <imrehg@gmail.com>
+msgid "Search by"
+msgstr "Keresés eszerint"
+
+#, fuzzy
+msgid "Name, Description"
+msgstr "Leíras"
+
+#, fuzzy
+msgid "Name Only"
+msgstr "Név"
+
+msgid "Exact name"
+msgstr ""
+
+msgid "Age"
+msgstr ""
+
+msgid "Sort order"
+msgstr "Rendezési sorrend"
+
+msgid "Ascending"
+msgstr ""
+
+msgid "Descending"
+msgstr ""
+
+msgid "Per page"
+msgstr "Laponként"
+
+msgid "All"
+msgstr ""
+
+msgid "Flagged"
+msgstr ""
+
+msgid "Not Flagged"
+msgstr ""
+
+#~ msgid "change category"
+#~ msgstr "kategória megváltoztatása"
+
+#~ msgid "string"
+#~ msgstr "szólanc"
+
+#~ msgid "None of the selected packages could be deleted."
+#~ msgstr "Egyik kijelölt csomagot sem sikerült törölni."
+
+#~ msgid "Could not re-tar"
+#~ msgstr "Sikertelen újratömörítés"
+
+#~ msgid "Location"
+#~ msgstr "Helyszín"
+
+#~ msgid "Could not create incoming directory: %s."
+#~ msgstr "A beérkezo könyvtar létrehozása sikertelen: %s"
+
+#~ msgid "Unknown file format for uploaded file."
+#~ msgstr "Ismeretlen formátumú feltöltött fájl."
+
+#~ msgid "All Votes"
+#~ msgstr "Minden szavazat"
+
+#~ msgid "Add"
+#~ msgstr "Hozzáad"
+
+#~ msgid "You must be logged in before you can get notifications on comments."
+#~ msgstr ""
+#~ "Be kell jelentkezned mielőtt értesítest szerezhetnél a megjegyzésekről."
+
+#~ msgid "This is a %h%s%h problem!"
+#~ msgstr "Ez egy %h%s%h probléma!"
+
+#~ msgid "Files"
+#~ msgstr "Fájlok"
+
+#~ msgid "You've found a bug if you see this...."
+#~ msgstr "BUG-ot találtal, ha ezt latod...."
+
+#~ msgid "%s has %s apples."
+#~ msgstr "%s birtokol %s almát"
+
+#~ msgid "Could not chmod directory %s."
+#~ msgstr "Nem sikerult a könyvtár jogainak megváltoztatása: %s"
+
+#~ msgid "Select new category"
+#~ msgstr "Válassz új kategoriát"

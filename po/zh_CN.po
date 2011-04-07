@@ -12,10 +12,179 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home"
+msgstr "首页"
+
+msgid ""
+"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
+"Guidelines%h for more information."
+msgstr ""
+"欢迎来到AUR！请阅读 %hAUR User Repository%h 和 %hAUR TU Guidelines%h 获取更多"
+"信息。"
+
+msgid ""
+"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
+"otherwise they will be deleted!"
+msgstr "贡献的PKGBUILD%h必须%h符合%h软件包标准%h，否则将被删除！"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "为您喜欢的包投票！"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "部分包将以二进制包的形式提供于[community]仓库。"
+
+msgid "DISCLAIMER"
+msgstr "免责声明"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr "位于 unsupported 的包为用户产生的内容。使用它们造成的后果自负。"
+
+msgid "Search Criteria"
+msgstr "搜索"
+
+msgid "Packages"
+msgstr "所有包"
+
+#, fuzzy
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "选中的包已经被删除。"
+
+msgid "Error trying to retrieve package details."
+msgstr "尝试重新获取包详情时发生错误。"
+
+msgid "Accounts"
+msgstr "我的帐户"
+
+msgid "You are not allowed to access this area."
+msgstr "您不被允许进入此区域。"
+
+msgid "Could not retrieve information for the specified user."
+msgstr "无法获取指定用户的信息。"
+
+msgid "You do not have permission to edit this account."
+msgstr "您没有权限修改此帐户。"
+
+msgid "Use this form to search existing accounts."
+msgstr "使用此表单查找存在的帐户。"
+
+msgid "Use this form to update your account."
+msgstr "使用此表单更新帐号。"
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr "如果不修改密码，请保持密码项为空。"
+
+msgid "You must log in to view user information."
+msgstr "您需要登录后才能察看用户信息。"
+
+msgid "Use this form to create an account."
+msgstr "使用此表单创建帐号。"
+
+msgid "Could not retrieve proposal details."
+msgstr "无法获取提议详情。"
+
+msgid "Voting is closed for this proposal."
+msgstr "该提议的投票已被关闭。"
+
+msgid "You cannot vote in an proposal about you."
+msgstr "您不能在关于您的提议里投票。"
+
+msgid "You've already voted for this proposal."
+msgstr "您已经在这个提议上投票了。"
+
+msgid "Vote ID not valid."
+msgstr "非法的投票标识"
+
+msgid "Current Votes"
+msgstr "当前的投票"
+
+#, fuzzy
+msgid "Past Votes"
+msgstr "最后投票"
+
+msgid "Add Proposal"
+msgstr "添加提议"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Next"
+msgstr "下一页"
+
+msgid "Username does not exist."
+msgstr "此用户不存在。"
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s 已经有了关于他们的提议。"
+
+msgid "Length must be a number."
+msgstr "长度必须是数字。"
+
+msgid "Length must be at least 1."
+msgstr "长度必须不小于1。"
+
+msgid "Proposal cannot be empty."
+msgstr "提议不能为空。"
+
+msgid "New proposal submitted."
+msgstr "新提议已被提交。"
+
+msgid "Submit a proposal to vote on."
+msgstr "提交一个提议用于投票。"
+
+msgid "Applicant/TU"
+msgstr ""
+
+msgid "(empty if not applicable)"
+msgstr "（如果不符合可以留空）"
+
+msgid "Length in days"
+msgstr ""
+
+msgid "(defaults to 7 if empty)"
+msgstr "（如果不填，默认为7）"
+
+msgid "Proposal"
+msgstr "提议"
+
+msgid "Submit"
+msgstr "上传"
+
+msgid "Missing a required field."
+msgstr "缺少必填项。"
+
+msgid "Password fields do not match."
+msgstr "密码项不符合。"
+
+msgid "Invalid e-mail."
+msgstr ""
+
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr ""
+
+msgid "Password Reset"
+msgstr "找回密码"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr "请进入您的邮箱查看确认邮件。"
+
+#, fuzzy
+msgid "Your password has been reset successfully."
+msgstr "密码至少要 %s 个字符。"
 
 # INSTRUCTIONS TO TRANSLATORS
 #
@@ -30,657 +199,383 @@ msgstr ""
 # Maintainer: gDD <usrgdd@gmail.com>
 # Contributor: Huntxu <mhuntxu@gmail.com>
 # Contributor: supern_lee <supern.lee@gmail.com>
-
-
 msgid "Confirm your e-mail address:"
 msgstr "确认Email:"
-
-msgid "This package has been flagged out of date."
-msgstr "此包已被标记为过期。"
-
-msgid "Missing a required field."
-msgstr "缺少必填项。"
-
-msgid "Logged-in as: %s"
-msgstr "登陆为: %s"
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "帐户修改失败，%h%s%h: %s。"
-
-msgid "Username does not exist."
-msgstr "此用户不存在。"
-
-msgid "Tarball"
-msgstr "压缩包"
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr "最多包含一个“.”，“_”，或“-”"
-
-msgid "Unflag Out-of-date"
-msgstr "取消标记为过期"
-
-msgid "Missing package ID."
-msgstr "丢失包标识。"
-
-msgid "You must be logged in before you can unflag packages."
-msgstr "您需要登录后才能移除包标记。"
-
-msgid "No results matched your search criteria."
-msgstr "没有结果符合您的搜索条件。"
 
 msgid "Enter your new password:"
 msgstr "输入新密码:"
 
-msgid "Update"
-msgstr "更新"
-
-msgid "Sort order"
-msgstr "排列方式"
-
-msgid "You must be logged in before you can edit package information."
-msgstr "您需要登录后才能编辑包信息。"
-
-msgid "Your votes have been cast for the selected packages."
-msgstr "您的投票已被接受。"
-
-msgid "Package details could not be found."
-msgstr "无法找到包的详细信息。"
-
-msgid "change category"
-msgstr "改变类别"
-
-msgid "Error retrieving package list."
-msgstr "无法获取包列表。"
-
-msgid "Reset"
-msgstr "重填"
-
-msgid "Submitted: %s by %s"
-msgstr "已提交 %s 由 %s"
-
-msgid "Voted"
-msgstr "已投票"
-
-msgid "Remember me"
-msgstr "记住我"
-
-msgid "Package category updated."
-msgstr "软件包类别已更新。"
-
-msgid "%s already has proposal running for them."
-msgstr "%s 已经有了关于他们的提议。"
-
-msgid "Error - No file uploaded"
-msgstr "发生错误: 没有文件被上传"
-
-msgid "You did not select any packages to disown."
-msgstr "您没有选择要弃置的包。"
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "包的 URL 缺少协议（如 http://，ftp://）"
-
-msgid "Total"
-msgstr "总数"
-
-msgid "No more results to display."
-msgstr "没有更多的结果供显示。"
-
-msgid "Maintainer"
-msgstr "维护者"
-
-msgid "Less"
-msgstr "更少"
-
-msgid "You are not allowed to access this area."
-msgstr "您不被允许进入此区域。"
-
-msgid "Any type"
-msgstr "所有类别"
-
-msgid "Accounts"
-msgstr "我的帐户"
-
-msgid "Could not retrieve proposal details."
-msgstr "无法获取提议详情。"
-
-msgid "You do not have permission to edit this account."
-msgstr "您没有权限修改此帐户。"
-
-msgid "Click on the Home link above to login."
-msgstr "点击上方的首页链接以登录。"
-
-msgid "You must be logged in before you can adopt packages."
-msgstr "您需要登陆后才能接管包"
-
-msgid "The email address is invalid."
-msgstr "错误的 Email 地址。"
-
-msgid "Search by"
-msgstr "搜索"
-
-msgid "Could not change directory to %s."
-msgstr "无法切换目录至 %s。"
-
-msgid "None of the selected packages could be deleted."
-msgstr "无法删除所选的包。"
-
-msgid "Your votes have been removed from the selected packages."
-msgstr "您对所选包的投票已被取消。"
-
-msgid "No packages matched your search criteria."
-msgstr "没有相关的包符合您的搜索条件。"
-
-msgid "Confirm"
-msgstr "确认"
-
-msgid "Create"
-msgstr "创建"
-
-msgid "orphan"
-msgstr "孤儿包"
-
-msgid "View this user's packages"
-msgstr "查看这个用户提交的包"
-
-msgid "Next"
-msgstr "下一页"
-
-msgid "Could not re-tar"
-msgstr "无法重新打包"
-
-msgid "Upload your source packages here. Create source packages with `makepkg --source`."
-msgstr "在此上传包。使用`makepkg --source`创建包。"
-
-msgid "The selected packages have been deleted."
-msgstr "选中的包已经被删除。"
-
-msgid "You must create an account before you can upload packages."
-msgstr "您在创建帐号后才能上传包"
-
-msgid "Location"
-msgstr "位置"
-
-msgid "Delete comment"
-msgstr "删除评论"
-
-msgid "Account Type"
-msgstr "帐户类别"
-
-msgid "Type"
-msgstr "类别"
-
-msgid "More"
-msgstr "更多"
-
-msgid "Username"
-msgstr "用户名"
-
-msgid "Could not create incoming directory: %s."
-msgstr "无法创建目录: %s。"
-
-msgid "Upload package file"
-msgstr "上传包文件"
-
-msgid "Password Reset"
-msgstr "找回密码"
-
-msgid "(defaults to 7 if empty)"
-msgstr "（如果不填，默认为7）"
-
-msgid "No New Comment Notification"
-msgstr "没有新的评论通知"
-
-msgid "Couldn't add to notification list."
-msgstr "无法将您添加到通知列表。"
-
-##$_t["The selected packages have not been deleted, check the confirmation checkbox."] = "";
-
-msgid "Disown Packages"
-msgstr "弃置包"
-
-msgid "Advanced"
-msgstr "高级"
-
-msgid "This vote is still running."
-msgstr "投票仍在继续。"
-
-msgid "Vote ID not valid."
-msgstr "非法的投票标识"
-
-msgid "(empty if not applicable)"
-msgstr "（如果不符合可以留空）"
-
-msgid "Per page"
-msgstr "每页显示"
-
-msgid "New proposal submitted."
-msgstr "新提议已被提交。"
-
-msgid "Upload"
-msgstr "上传"
-
-msgid "You must be logged in before you can vote for packages."
-msgstr "您需要登录后才能为包投票。"
-
-msgid "Invalid category ID."
-msgstr "非法的类别标识"
-
-msgid "Go"
-msgstr "Go"
-
-msgid "New Package Notify"
-msgstr "新包通知"
-
-msgid "Use this form to search existing accounts."
-msgstr "使用此表单查找存在的帐户。"
-
-msgid "The address, %h%s%h, is already in use."
-msgstr "该地址，%h%s%h，已被使用。"
-
-msgid "Current Votes"
-msgstr "当前的投票"
-
-msgid "Select Category"
-msgstr "选择类别"
-
-msgid "You have been removed from the comment notification list for %s."
-msgstr "您将不再收到 %s 的评论通知。"
-
-msgid "Unknown file format for uploaded file."
-msgstr "上传的文件格式未知。"
-
-msgid "Delete Packages"
-msgstr "删除包"
-
-msgid "Trusted user"
-msgstr "受信用户"
-
-msgid "Back"
-msgstr "返回"
-
-msgid "Re-type password"
-msgstr "确认密码"
-
-msgid "All Votes"
-msgstr "所有投票"
-
-msgid "The selected packages have been disowned."
-msgstr "选中的包已经被弃置。"
-
-msgid "Suspended"
-msgstr "暂停"
-
-msgid "Home"
-msgstr "首页"
-
-msgid "Yes"
-msgstr "是"
-
-msgid "UnFlag Out-of-date"
-msgstr "移除过期标记"
-
-msgid "Developer"
-msgstr "开发人员"
-
-msgid "Category"
-msgstr "类别"
-
-msgid "Votes"
-msgstr "得票数"
-
-msgid "You must be logged in before you can flag packages."
-msgstr "您需要登录后才能标记包。"
-
-msgid "No results found."
-msgstr "没有找到结果。"
-
-msgid "No"
-msgstr "否"
-
-msgid "Discussion"
-msgstr "邮件列表"
-
-msgid "Dependencies"
-msgstr "依赖于:"
-
-msgid "Start"
-msgstr "开始"
-
-msgid "You did not select any packages to adopt."
-msgstr "您没有选择要接管的包。"
-
-msgid "Length must be at least 1."
-msgstr "长度必须不小于1。"
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "尝试创建帐户失败，%h%s%h: %s。"
-
-msgid "End"
-msgstr "结束"
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr "帐户 %h%s%h 修改成功。"
-
 msgid "Confirm your new password:"
 msgstr "确认新密码:"
 
-msgid "Account Suspended"
-msgstr "帐户被暂停"
+msgid "Continue"
+msgstr "继续"
 
-msgid "Status"
-msgstr "状态"
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "您需要登录后才能收到评论通知。"
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "如果不修改密码，请保持密码项为空。"
-
-msgid "IRC Nick"
-msgstr "IRC昵称"
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %haur-general%h mailing list."
+msgstr ""
+"如果您忘记了注册账号时使用的Email，请向 %haur-general%h 邮件列表寻求帮助。"
 
 msgid "Enter your e-mail address:"
 msgstr "输入您的Email:"
 
-msgid "Normal user"
-msgstr "普通用户"
+msgid "Error - No file uploaded"
+msgstr "发生错误: 没有文件被上传"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+
+msgid "Error - uncompressed file size too large."
+msgstr ""
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr ""
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "尝试解压上传的包发生错误 - 没有PKGBUILD文件。"
+
+#, fuzzy, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "PKGBUILD中缺少build函数。"
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "包的 URL 缺少协议（如 http://，ftp://）"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "无效的名称: 只允许小写字母。"
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "无法创建文件夹 %s。"
 
 msgid "You are not allowed to overwrite the %h%s%h package."
 msgstr "您没有权限覆盖 %h%s%h 这个包。"
 
-msgid "Missing comment ID."
-msgstr "评论标识丢失。"
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr ""
 
-msgid "Error trying to retrieve package details."
-msgstr "尝试重新获取包详情时发生错误。"
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "无法切换目录至 %s。"
 
-msgid "Proposal cannot be empty."
-msgstr "提议不能为空。"
-
-msgid "User"
-msgstr "用户"
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr "在此上传包。使用`makepkg --source`创建包。"
 
 msgid "Package Category"
 msgstr "包类别"
 
-msgid "The selected packages have been adopted."
-msgstr "选择的包已经被接管。"
+msgid "Select Category"
+msgstr "选择类别"
 
-msgid "Packages"
-msgstr "所有包"
+msgid "Upload package file"
+msgstr "上传包文件"
 
-msgid "Edit Account"
-msgstr "编辑帐户"
-
-msgid "Search"
-msgstr "搜索"
-
-msgid "Add Proposal"
-msgstr "添加提议"
-
-msgid "Language"
-msgstr "语言"
-
-msgid "Orphans"
-msgstr "孤儿包"
-
-msgid "Could not retrieve information for the specified user."
-msgstr "无法获取指定用户的信息。"
-
-msgid "Bugs"
-msgstr "报告Bug"
-
-msgid "Showing results %s - %s of %s"
-msgstr "显示结果 %s - %s，共 %s 个"
-
-msgid "Active"
-msgstr "激活"
-
-msgid "You've already voted for this proposal."
-msgstr "您已经在这个提议上投票了。"
-
-msgid "Required by"
-msgstr "被需要:"
-
-msgid "You cannot vote in an proposal about you."
-msgstr "您不能在关于您的提议里投票。"
-
-msgid "This is a %hmajor%h problem!"
-msgstr "这是一个%h严重的%h问题！"
-
-msgid "You did not select any packages to unflag."
-msgstr "您没有选择要取消标记的包。"
-
-msgid "You must log in to view user information."
-msgstr "您需要登录后才能察看用户信息。"
-
-msgid "You did not select any packages to delete."
-msgstr "您没有选择要删除的包。"
-
-msgid "Could not create directory %s."
-msgstr "无法创建文件夹 %s。"
-
-msgid "UnNotify"
-msgstr "取消通知"
-
-msgid "Flag Out-of-date"
-msgstr "标记为过期"
-
-msgid "The selected packages have been unflagged."
-msgstr "选中的包的标记已被移除。"
-
-msgid "Search Criteria"
-msgstr "搜索"
-
-msgid "Notify"
-msgstr "通知"
-
-msgid "Files"
-msgstr "文件"
-
-msgid "Vote"
-msgstr "投票"
-
-msgid "Adopt Packages"
-msgstr "接管包"
-
-msgid "Name"
-msgstr "名称"
-
-msgid "Package Listing"
-msgstr "包列表"
-
-msgid "Any"
-msgstr "所有"
-
-msgid "It must be between %s and %s characters long"
-msgstr "在 %s 到 %s 个字符之间"
-
-msgid "Logout"
-msgstr "退出"
-
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "帐号 %h%s%h 创建成功。"
-
-msgid "Your password must be at least %s characters."
-msgstr "密码至少要 %s 个字符。"
-
-msgid "Submit"
+msgid "Upload"
 msgstr "上传"
 
 msgid "Sorry, uploads are not permitted by this server."
 msgstr "抱歉，此服务器不允许上传。"
 
-msgid "Actions"
-msgstr "操作"
-
-msgid "Comment has been deleted."
-msgstr "评论已被删除。"
-
-msgid "The username, %h%s%h, is already in use."
-msgstr "用户名 %h%s%h 已被使用。"
-
-msgid "Proposal"
-msgstr "提议"
-
-msgid "You did not select any packages to flag."
-msgstr "您没有选择要标记的包。"
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "尝试解压上传的包发生错误 - 没有PKGBUILD文件。"
-
-msgid "The selected packages have been flagged out-of-date."
-msgstr "选择的包已被标记为过期。"
-
-msgid "Description"
-msgstr "描述"
-
-msgid "My Packages"
-msgstr "我的包"
-
-msgid "You did not select any packages to vote for."
-msgstr "您没有选择要投票的包。"
-
-msgid "Never"
-msgstr "从不"
-
-msgid "You must be logged in before you can disown packages."
-msgstr "您需要登录后才能弃置包。"
-
-msgid "You've found a bug if you see this...."
-msgstr "恭喜，你发现了一个BUG..."
-
-msgid "Last Voted"
-msgstr "最后投票"
-
-msgid "Password"
-msgstr "密码"
-
-msgid "Real Name"
-msgstr "真实名字"
-
-msgid "Package Details"
-msgstr "包详情"
-
-msgid "UnVote"
-msgstr "取消投票"
-
-msgid "Password fields do not match."
-msgstr "密码项不符合。"
-
-msgid "Start and end with a letter or number"
-msgstr "开头和结尾是数字/英文字母"
-
-msgid "The username is invalid."
-msgstr "用户名需要符合以下条件："
-
-msgid "Voting is closed for this proposal."
-msgstr "该提议的投票已被关闭。"
-
-msgid "Email Address"
-msgstr "Email"
-
-msgid "Trusted User"
-msgstr "受信用户"
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "无效的名称: 只允许小写字母。"
+msgid "You must create an account before you can upload packages."
+msgstr "您在创建帐号后才能上传包"
 
 msgid "Error retrieving package details."
 msgstr "获取包详情是发生错误。"
 
-msgid "Length must be a number."
-msgstr "长度必须是数字。"
+msgid "Package details could not be found."
+msgstr "无法找到包的详细信息。"
 
-##$_t["%s has %s apples."] = "useless string";
+msgid "First"
+msgstr ""
 
+msgid "Previous"
+msgstr ""
+
+#, fuzzy
+msgid "Last"
+msgstr "最后投票"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "您需要登录后才能标记包。"
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "您需要登录后才能移除包标记。"
+
+msgid "You did not select any packages to flag."
+msgstr "您没有选择要标记的包。"
+
+msgid "You did not select any packages to unflag."
+msgstr "您没有选择要取消标记的包。"
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "选择的包已被标记为过期。"
+
+msgid "The selected packages have been unflagged."
+msgstr "选中的包的标记已被移除。"
+
+#, fuzzy
+msgid "You must be logged in before you can delete packages."
+msgstr "您需要登陆后才能接管包"
+
+#, fuzzy
+msgid "You do have permission to delete packages."
+msgstr "您没有权限修改此帐户。"
+
+msgid "You did not select any packages to delete."
+msgstr "您没有选择要删除的包。"
+
+msgid "The selected packages have been deleted."
+msgstr "选中的包已经被删除。"
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "您需要登陆后才能接管包"
+
+msgid "You must be logged in before you can disown packages."
+msgstr "您需要登录后才能弃置包。"
+
+msgid "You did not select any packages to adopt."
+msgstr "您没有选择要接管的包。"
+
+msgid "You did not select any packages to disown."
+msgstr "您没有选择要弃置的包。"
+
+msgid "The selected packages have been adopted."
+msgstr "选择的包已经被接管。"
+
+msgid "The selected packages have been disowned."
+msgstr "选中的包已经被弃置。"
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "您需要登录后才能为包投票。"
+
+# #$_t["%s has %s apples."] = "useless string";
 msgid "You must be logged in before you can un-vote for packages."
 msgstr "您需要登录后才能取消投票。"
 
-msgid "Login"
-msgstr "登录"
+msgid "You did not select any packages to vote for."
+msgstr "您没有选择要投票的包。"
 
-msgid "Use this form to create an account."
-msgstr "使用此表单创建帐号。"
+msgid "Your votes have been removed from the selected packages."
+msgstr "您对所选包的投票已被取消。"
 
-msgid "Use this form to update your account."
-msgstr "使用此表单更新帐号。"
+msgid "Your votes have been cast for the selected packages."
+msgstr "您的投票已被接受。"
 
-msgid "Abstain"
-msgstr "弃权"
+msgid "Couldn't add to notification list."
+msgstr "无法将您添加到通知列表。"
 
-msgid "Could not chmod directory %s."
-msgstr "无法修改 %s 的目录权限。"
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "您已被成功添加到 %s 的评论通知列表。"
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "您将不再收到 %s 的评论通知。"
+
+msgid "You must be logged in before you can edit package information."
+msgstr "您需要登录后才能编辑包信息。"
+
+msgid "Missing comment ID."
+msgstr "评论标识丢失。"
+
+msgid "Comment has been deleted."
+msgstr "评论已被删除。"
 
 msgid "You are not allowed to delete this comment."
 msgstr "您没有权限删除此评论。"
 
+#, fuzzy
+msgid "Missing category ID."
+msgstr "丢失包标识。"
+
+msgid "Invalid category ID."
+msgstr "非法的类别标识"
+
+msgid "Missing package ID."
+msgstr "丢失包标识。"
+
+#, fuzzy
+msgid "Package category changed."
+msgstr "软件包类别已更新。"
+
+#, fuzzy
+msgid "You are not allowed to change this package category."
+msgstr "您不被允许进入此区域。"
+
+msgid "Username"
+msgstr "用户名"
+
 msgid "required"
 msgstr "必填"
 
-msgid "Sort by"
-msgstr "排列依据"
+msgid "Account Type"
+msgstr "帐户类别"
 
-msgid "Submit a proposal to vote on."
-msgstr "提交一个提议用于投票。"
+msgid "Normal user"
+msgstr "普通用户"
 
-msgid "Proposal Details"
-msgstr "提议详情"
+msgid "Trusted user"
+msgstr "受信用户"
 
-msgid "Language is not currently supported."
-msgstr "目前不支持此语言。"
+msgid "Developer"
+msgstr "开发人员"
 
-msgid "Last vote"
-msgstr "最后投票"
+msgid "Account Suspended"
+msgstr "帐户被暂停"
 
-msgid "New Comment Notification"
-msgstr "新评论通知"
+msgid "Email Address"
+msgstr "Email"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Re-type password"
+msgstr "确认密码"
+
+msgid "Real Name"
+msgstr "真实名字"
+
+msgid "IRC Nick"
+msgstr "IRC昵称"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "New Package Notify"
+msgstr "新包通知"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Create"
+msgstr "创建"
+
+msgid "Reset"
+msgstr "重填"
 
 msgid "Missing User ID"
 msgstr "缺少用户标识"
 
-msgid "You have been added to the comment notification list for %s."
-msgstr "您已被成功添加到 %s 的评论通知列表。"
+msgid "The username is invalid."
+msgstr "用户名需要符合以下条件："
 
-msgid "Select new category"
-msgstr "选择一个新类别"
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "在 %s 到 %s 个字符之间"
+
+msgid "Start and end with a letter or number"
+msgstr "开头和结尾是数字/英文字母"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "最多包含一个“.”，“_”，或“-”"
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "密码至少要 %s 个字符。"
+
+msgid "The email address is invalid."
+msgstr "错误的 Email 地址。"
 
 msgid "A Trusted User cannot assign Developer status."
 msgstr "受信用户不能指派开发人员状态。"
 
-# HI:
-#   above lines are sync'ed with .po file generated by ./translation_tool
-# i done them with vimdiff. and following lines are manually added,
-# in the early stage them are grabbed from other .po translations,
-# it's been a long times since last update, i forgot names, sorry bros.
-# and, many grabbed directly form php source code.
-# there are many lines are outdated. (including above lines i think.)
-# it's painful to find out which is, and keep all of them for
-# compatibility:)                                     -- gDD (2010-10-06)
+msgid "Language is not currently supported."
+msgstr "目前不支持此语言。"
 
-msgid "Out-of-date"
-msgstr "过期包"
+msgid "The username, %h%s%h, is already in use."
+msgstr "用户名 %h%s%h 已被使用。"
 
-msgid "Age"
-msgstr "时间"
+msgid "The address, %h%s%h, is already in use."
+msgstr "该地址，%h%s%h，已被使用。"
 
-msgid "Submitter"
-msgstr "提交人"
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "尝试创建帐户失败，%h%s%h: %s。"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "帐号 %h%s%h 创建成功。"
+
+msgid "Click on the Home link above to login."
+msgstr "点击上方的首页链接以登录。"
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "帐户修改失败，%h%s%h: %s。"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "帐户 %h%s%h 修改成功。"
+
+msgid "No results matched your search criteria."
+msgstr "没有结果符合您的搜索条件。"
+
+msgid "Type"
+msgstr "类别"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Last Voted"
+msgstr "最后投票"
+
+msgid "Edit Account"
+msgstr "编辑帐户"
+
+msgid "Suspended"
+msgstr "暂停"
+
+msgid "Active"
+msgstr "激活"
+
+msgid "Never"
+msgstr "从不"
+
+msgid "Less"
+msgstr "更少"
+
+msgid "More"
+msgstr "更多"
+
+msgid "No more results to display."
+msgstr "没有更多的结果供显示。"
+
+msgid "User"
+msgstr "用户"
+
+msgid "Trusted User"
+msgstr "受信用户"
+
+msgid "View this user's packages"
+msgstr "查看这个用户提交的包"
 
 msgid "Bad username or password."
 msgstr "用户名或密码错误。"
 
-msgid "Legend"
-msgstr "图例:"
+msgid "Votes"
+msgstr "得票数"
 
-msgid "Ascending"
-msgstr "从小到大"
+msgid "unknown"
+msgstr "未知"
 
-msgid "Descending"
-msgstr "从大到小"
+msgid "Package Details"
+msgstr "包详情"
 
-msgid "Sources"
-msgstr "源代码:"
+msgid "Submitter"
+msgstr "提交人"
+
+msgid "Maintainer"
+msgstr "维护者"
 
 msgid "License"
 msgstr "许可协议"
@@ -691,36 +586,149 @@ msgstr "最后更新"
 msgid "First Submitted"
 msgstr "首次提交"
 
+msgid "Tarball"
+msgstr "压缩包"
+
+msgid "PKGBUILD"
+msgstr ""
+
+msgid "This package has been flagged out of date."
+msgstr "此包已被标记为过期。"
+
+msgid "Dependencies"
+msgstr "依赖于:"
+
+msgid "Required by"
+msgstr "被需要:"
+
+msgid "Sources"
+msgstr "源代码:"
+
+msgid "Hi, this is worth reading!"
+msgstr ""
+
+msgid "Start"
+msgstr "开始"
+
+msgid "End"
+msgstr "结束"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "Voted"
+msgstr "已投票"
+
+msgid "No results found."
+msgstr "没有找到结果。"
+
+msgid "Proposal Details"
+msgstr "提议详情"
+
+msgid "This vote is still running."
+msgstr "投票仍在继续。"
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "已提交 %s 由 %s"
+
+msgid "Abstain"
+msgstr "弃权"
+
+msgid "Total"
+msgstr "总数"
+
+#, fuzzy
+msgid "Voters"
+msgstr "得票数"
+
+msgid "Bugs"
+msgstr "报告Bug"
+
+msgid "Discussion"
+msgstr "邮件列表"
+
+msgid "My Packages"
+msgstr "我的包"
+
+msgid "Vote"
+msgstr "投票"
+
+msgid "UnVote"
+msgstr "取消投票"
+
+msgid "Notify"
+msgstr "通知"
+
+msgid "New Comment Notification"
+msgstr "新评论通知"
+
+msgid "UnNotify"
+msgstr "取消通知"
+
+msgid "No New Comment Notification"
+msgstr "没有新的评论通知"
+
+msgid "Flag Out-of-date"
+msgstr "标记为过期"
+
+msgid "UnFlag Out-of-date"
+msgstr "移除过期标记"
+
+msgid "Adopt Packages"
+msgstr "接管包"
+
+# #$_t["The selected packages have not been deleted, check the confirmation checkbox."] = "";
+msgid "Disown Packages"
+msgstr "弃置包"
+
+msgid "Delete Packages"
+msgstr "删除包"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid "Any type"
+msgstr "所有类别"
+
+msgid "Sort by"
+msgstr "排列依据"
+
+msgid "Last vote"
+msgstr "最后投票"
+
+msgid "Search"
+msgstr "搜索"
+
+#, fuzzy
+msgid "Comment has been added."
+msgstr "评论已被删除。"
+
 msgid "Enter your comment below."
 msgstr "填上您的评论:"
 
-msgid "unknown"
-msgstr "未知"
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "登陆为: %s"
 
-msgid "Comment by: %s on %s"
-msgstr "%s 发表于 %s"
+msgid "Logout"
+msgstr "退出"
 
-msgid "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."
-msgstr "欢迎来到AUR！请阅读 %hAUR User Repository%h 和 %hAUR TU Guidelines%h 获取更多信息。"
+msgid "Remember me"
+msgstr "记住我"
 
-msgid "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"
-msgstr "贡献的PKGBUILD%h必须%h符合%h软件包标准%h，否则将被删除！"
+msgid "Login"
+msgstr "登录"
 
-msgid "Remember to vote for your favourite packages!"
-msgstr "为您喜欢的包投票！"
+msgid "Forgot Password"
+msgstr "找回密码"
 
-msgid "DISCLAIMER"
-msgstr "免责声明"
-
-msgid "Unsupported packages are user produced content. Any use of the provided files is at your own risk."
-msgstr "位于 unsupported 的包为用户产生的内容。使用它们造成的后果自负。"
-
-#$_t["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "为您喜欢的包投票！最流行的包将以二进制包的形式提供于 [community] 仓库。";
-
-#$_t["The most popular packages will be provided as binary packages in [community]."] = "最流行的包将以二进制包的形式提供于 [community] 仓库。";
-
-#$_t["Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk."] = "位于 unsupported 的包属于用户生成的数据。请对使用而产生的后果负责。";
-
+# $_t["Remember to vote for your favourite packages! The most popular packages are provided as binary packages in [community]."] = "为您喜欢的包投票！最流行的包将以二进制包的形式提供于 [community] 仓库。";
+# $_t["The most popular packages will be provided as binary packages in [community]."] = "最流行的包将以二进制包的形式提供于 [community] 仓库。";
+# $_t["Unsupported PKGBUILDs are user produced content. Any use of files is at your own risk."] = "位于 unsupported 的包属于用户生成的数据。请对使用而产生的后果负责。";
 msgid "Recent Updates"
 msgstr "最新更新"
 
@@ -736,32 +744,92 @@ msgstr "过期包"
 msgid "Statistics"
 msgstr "统计"
 
-msgid "Packages added or updated in the past 7 days"
+#, fuzzy
+msgid "Orphan Packages"
+msgstr "所有包"
+
+#, fuzzy
+msgid "Packages added in the past 7 days"
 msgstr "过去7天内更新或添加的包"
+
+#, fuzzy
+msgid "Packages updated in the past 7 days"
+msgstr "过去7天内更新或添加的包"
+
+#, fuzzy
+msgid "Packages updated in the past year"
+msgstr "过去7天内更新或添加的包"
+
+#, fuzzy
+msgid "Packages never updated"
+msgstr "软件包类别已更新。"
 
 msgid "Registered Users"
 msgstr "注册用户"
 
-msgid "Missing build function in PKGBUILD."
-msgstr "PKGBUILD中缺少build函数。"
+#, fuzzy
+msgid "Trusted Users"
+msgstr "受信用户"
 
-msgid "Add"
-msgstr "添加"
+msgid "Error retrieving package list."
+msgstr "无法获取包列表。"
 
-msgid "This is a %h%s%h problem!"
-msgstr "这是一个 %h%s%h 的问题！"
+msgid "No packages matched your search criteria."
+msgstr "没有相关的包符合您的搜索条件。"
 
-msgid "Forgot Password"
-msgstr "找回密码"
+msgid "Package Listing"
+msgstr "包列表"
 
-msgid "Check your e-mail for the confirmation link."
-msgstr "请进入您的邮箱查看确认邮件。"
+msgid "Category"
+msgstr "类别"
 
-msgid "If you have forgotten the e-mail address you used to register, please send a message to the %haur-general%h mailing list."
-msgstr "如果您忘记了注册账号时使用的Email，请向 %haur-general%h 邮件列表寻求帮助。"
+msgid "Name"
+msgstr "名称"
 
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "部分包将以二进制包的形式提供于[community]仓库。"
+msgid "Description"
+msgstr "描述"
+
+msgid "orphan"
+msgstr "孤儿包"
+
+msgid "Legend"
+msgstr "图例:"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Unflag Out-of-date"
+msgstr "取消标记为过期"
+
+msgid "Go"
+msgstr "Go"
+
+#, php-format
+msgid "Showing results %s - %s of %s"
+msgstr "显示结果 %s - %s，共 %s 个"
+
+#, php-format
+msgid "Comment by: %s on %s"
+msgstr "%s 发表于 %s"
+
+msgid "Delete comment"
+msgstr "删除评论"
+
+#, php-format
+msgid "Show all %s comments"
+msgstr ""
+
+msgid "Orphans"
+msgstr "孤儿包"
+
+msgid "Advanced"
+msgstr "高级"
+
+msgid "Any"
+msgstr "所有"
+
+msgid "Search by"
+msgstr "搜索"
 
 msgid "Name, Description"
 msgstr "名称和描述"
@@ -769,5 +837,86 @@ msgstr "名称和描述"
 msgid "Name Only"
 msgstr "名称"
 
-msgid "Continue"
-msgstr "继续"
+msgid "Exact name"
+msgstr ""
+
+msgid "Age"
+msgstr "时间"
+
+msgid "Sort order"
+msgstr "排列方式"
+
+msgid "Ascending"
+msgstr "从小到大"
+
+msgid "Descending"
+msgstr "从大到小"
+
+msgid "Per page"
+msgstr "每页显示"
+
+msgid "All"
+msgstr ""
+
+msgid "Flagged"
+msgstr ""
+
+msgid "Not Flagged"
+msgstr ""
+
+#~ msgid "change category"
+#~ msgstr "改变类别"
+
+#~ msgid "None of the selected packages could be deleted."
+#~ msgstr "无法删除所选的包。"
+
+#~ msgid "Could not re-tar"
+#~ msgstr "无法重新打包"
+
+#~ msgid "Location"
+#~ msgstr "位置"
+
+#~ msgid "Could not create incoming directory: %s."
+#~ msgstr "无法创建目录: %s。"
+
+#~ msgid "Unknown file format for uploaded file."
+#~ msgstr "上传的文件格式未知。"
+
+#~ msgid "All Votes"
+#~ msgstr "所有投票"
+
+#~ msgid "You must be logged in before you can get notifications on comments."
+#~ msgstr "您需要登录后才能收到评论通知。"
+
+#~ msgid "This is a %hmajor%h problem!"
+#~ msgstr "这是一个%h严重的%h问题！"
+
+#~ msgid "Files"
+#~ msgstr "文件"
+
+#~ msgid "You've found a bug if you see this...."
+#~ msgstr "恭喜，你发现了一个BUG..."
+
+#~ msgid "Could not chmod directory %s."
+#~ msgstr "无法修改 %s 的目录权限。"
+
+#~ msgid "Select new category"
+#~ msgstr "选择一个新类别"
+
+# HI:
+#   above lines are sync'ed with .po file generated by ./translation_tool
+# i done them with vimdiff. and following lines are manually added,
+# in the early stage them are grabbed from other .po translations,
+# it's been a long times since last update, i forgot names, sorry bros.
+# and, many grabbed directly form php source code.
+# there are many lines are outdated. (including above lines i think.)
+# it's painful to find out which is, and keep all of them for
+# compatibility:)                                     -- gDD (2010-10-06)
+#~ msgid "Out-of-date"
+#~ msgstr "过期包"
+
+#~ msgid "Add"
+#~ msgstr "添加"
+
+#~ msgid "This is a %h%s%h problem!"
+#~ msgstr "这是一个 %h%s%h 的问题！"

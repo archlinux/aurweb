@@ -12,10 +12,809 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Home"
+msgstr "Hjem"
+
+msgid ""
+"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
+"Guidelines%h for more information."
+msgstr ""
+
+msgid ""
+"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
+"otherwise they will be deleted!"
+msgstr ""
+
+msgid "Remember to vote for your favourite packages!"
+msgstr ""
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr ""
+
+msgid "DISCLAIMER"
+msgstr ""
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr ""
+
+msgid "Search Criteria"
+msgstr "Søgekriterier"
+
+msgid "Packages"
+msgstr "Pakker"
+
+#, fuzzy
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "De valgte pakker er blevet slettet."
+
+msgid "Error trying to retrieve package details."
+msgstr "Fejl ved modtagning af pakkedetaljer."
+
+msgid "Accounts"
+msgstr "Konti"
+
+msgid "You are not allowed to access this area."
+msgstr "Du har ikke tilladelse til dette område."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Kunne ikke hente information om den specifikke bruger."
+
+msgid "You do not have permission to edit this account."
+msgstr "Du har ikke tilladelse til at redigere denne konto."
+
+msgid "Use this form to search existing accounts."
+msgstr "Brug denne formular til at søge i eksisterende konti."
+
+msgid "Use this form to update your account."
+msgstr "Brug denne formular til at opdatere din konto."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr ""
+"Efterlad kodeordsfelterne tomme, hvis du ikke ønsker at ændre adgangskoden."
+
+msgid "You must log in to view user information."
+msgstr "Du skal være logget ind for at se brugerinformation."
+
+msgid "Use this form to create an account."
+msgstr "Brug denne formular til at oprette en konto."
+
+msgid "Could not retrieve proposal details."
+msgstr "Kunne ikke hente detaljer om forslaget."
+
+msgid "Voting is closed for this proposal."
+msgstr "Afstemningen er lukket for dette forslag."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Du kan ikke stemme i et forslag om dig selv."
+
+msgid "You've already voted for this proposal."
+msgstr "Du har allerede stemt ved dette forslag."
+
+msgid "Vote ID not valid."
+msgstr "Stemme ID er ikke gyldigt."
+
+msgid "Current Votes"
+msgstr "Aktuelle stemmer"
+
+#, fuzzy
+msgid "Past Votes"
+msgstr "Sidste stemme"
+
+#, fuzzy
+msgid "Add Proposal"
+msgstr "Forslag"
+
+msgid "Back"
+msgstr "Tilbage"
+
+msgid "Next"
+msgstr "Næste"
+
+msgid "Username does not exist."
+msgstr "Brugernavnet findes ikke."
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s har allerede et forslag kørende for dem."
+
+msgid "Length must be a number."
+msgstr "Længden skal angives som talværdi."
+
+msgid "Length must be at least 1."
+msgstr "Længden skal være mindst 1."
+
+msgid "Proposal cannot be empty."
+msgstr "Forslag må ikke være tomt."
+
+msgid "New proposal submitted."
+msgstr "Nyt forslag tilføjet."
+
+msgid "Submit a proposal to vote on."
+msgstr "Fremsæt et forslag til afstemning."
+
+msgid "Applicant/TU"
+msgstr ""
+
+msgid "(empty if not applicable)"
+msgstr "(tomt hvis ikke relevant)"
+
+msgid "Length in days"
+msgstr ""
+
+msgid "(defaults to 7 if empty)"
+msgstr "(sat til 7 hvis tomt)"
+
+msgid "Proposal"
+msgstr "Forslag"
+
+msgid "Submit"
+msgstr "Tilføj"
+
+msgid "Missing a required field."
+msgstr "Du mangler at udfylde et påkrævet felt."
+
+msgid "Password fields do not match."
+msgstr "Adgangskoderne stemmer ikke overens."
+
+msgid "Invalid e-mail."
+msgstr ""
+
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#, fuzzy
+msgid "Password Reset"
+msgstr "Adgangskode"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr ""
+
+#, fuzzy
+msgid "Your password has been reset successfully."
+msgstr "Din adgangskode skal være mindst %s tegn."
+
+msgid "Confirm your e-mail address:"
+msgstr ""
+
+#, fuzzy
+msgid "Enter your new password:"
+msgstr "Bekræft adgangskode"
+
+msgid "Confirm your new password:"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %haur-general%h mailing list."
+msgstr ""
+
+#, fuzzy
+msgid "Enter your e-mail address:"
+msgstr "E-mail adresse"
+
+msgid "Error - No file uploaded"
+msgstr "Fejl - Ingen fil overført"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+
+msgid "Error - uncompressed file size too large."
+msgstr ""
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr ""
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr ""
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Fejl ved udpakning af sendt fil - kan ikke finde PKGBUILD."
+
+#, fuzzy, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Manglende byggefunktion i PKGBUILD."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Pakkens webadresse mangler en protokol (f.eks. http:// eller ftp://)"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Ugyldigt navn: kun små bogstaver er tilladt."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Kunne ikke oprette mappen %s."
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Du har ikke tilladelse til at overskrive %h%s%h pakken."
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr ""
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "Kunne ikke ændre mappe til %s."
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
+
+msgid "Package Category"
+msgstr "Pakkekategori"
+
+msgid "Select Category"
+msgstr "Vælg kategori"
+
+msgid "Upload package file"
+msgstr "Send pakke"
+
+msgid "Upload"
+msgstr "Send"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Beklager, men denne server tillader ikke overførsler til serveren."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Du skal oprette en konto for at sende pakker."
+
+msgid "Error retrieving package details."
+msgstr "Fejl ved modtagelse af pakkedetaljer."
+
+msgid "Package details could not be found."
+msgstr "Kunne ikke finde pakkedetaljerne.."
+
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+#, fuzzy
+msgid "Last"
+msgstr "Sidste stemme"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Du skal være logget ind for at markere pakker."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Du skal være logget ind for at afmarkere pakker."
+
+msgid "You did not select any packages to flag."
+msgstr "Du har ikke valgt nogle pakker at markere."
+
+msgid "You did not select any packages to unflag."
+msgstr "Du har ikke valgt nogle at afmarkere."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "De valgte pakker er markeret forældet."
+
+msgid "The selected packages have been unflagged."
+msgstr "De valgte pakker er afmarkeret."
+
+#, fuzzy
+msgid "You must be logged in before you can delete packages."
+msgstr "Du skal være logget ind for at adoptere pakker."
+
+#, fuzzy
+msgid "You do have permission to delete packages."
+msgstr "Du har ikke tilladelse til at redigere denne konto."
+
+msgid "You did not select any packages to delete."
+msgstr "Du har ikke valgt nogle pakker at slette."
+
+msgid "The selected packages have been deleted."
+msgstr "De valgte pakker er blevet slettet."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Du skal være logget ind for at adoptere pakker."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Du skal være logget ind for at opgive ejerskabet for pakker."
+
+msgid "You did not select any packages to adopt."
+msgstr "Du har ikke valgt nogle pakker at adoptere."
+
+msgid "You did not select any packages to disown."
+msgstr "Du har ikke valgt nogle pakker at opgive ejerskabet for."
+
+msgid "The selected packages have been adopted."
+msgstr "De valgte pakker er adopteret."
+
+msgid "The selected packages have been disowned."
+msgstr "De valgte pakker er blevet efterladt."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Du skal være logget ind for at stemme på pakker."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Du skal være logget ind for at fjerne din stemme fra pakker."
+
+msgid "You did not select any packages to vote for."
+msgstr "Du har ikke valgt nogle pakker at stemme på."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Dine stemmer er fjernet fra de valgte pakker."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Din stemme er afgivet for de valgte pakker."
+
+msgid "Couldn't add to notification list."
+msgstr "Kunne ikke tilføje til listen over påmindelser."
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "Du vil nu modtage besked, når der kommer nye kommentarer til %s."
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Du vil ikke længere modtage besked ved nye kommentarer for %s."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Du skal være logget ind for at redigere pakkeoplysninger."
+
+msgid "Missing comment ID."
+msgstr "Manglende kommentar ID."
+
+msgid "Comment has been deleted."
+msgstr "Kommentaren er slettet."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Du har ikke rettigheder til at slette denne kommentar."
+
+#, fuzzy
+msgid "Missing category ID."
+msgstr "Mangler pakke-ID."
+
+msgid "Invalid category ID."
+msgstr "Ugyldigt kategori ID."
+
+msgid "Missing package ID."
+msgstr "Mangler pakke-ID."
+
+#, fuzzy
+msgid "Package category changed."
+msgstr "Pakkekategori er opdateret."
+
+#, fuzzy
+msgid "You are not allowed to change this package category."
+msgstr "Du har ikke tilladelse til dette område."
+
+msgid "Username"
+msgstr "Brugernavn"
+
+msgid "required"
+msgstr "påkrævet"
+
+msgid "Account Type"
+msgstr "Kontotype"
+
+msgid "Normal user"
+msgstr "Normal bruger"
+
+msgid "Trusted user"
+msgstr "Betroet bruger (TU)"
+
+msgid "Developer"
+msgstr "Udvikler"
+
+msgid "Account Suspended"
+msgstr "Konto suspenderet"
+
+msgid "Email Address"
+msgstr "E-mail adresse"
+
+msgid "Password"
+msgstr "Adgangskode"
+
+msgid "Re-type password"
+msgstr "Bekræft adgangskode"
+
+msgid "Real Name"
+msgstr "Rigtigt navn"
+
+msgid "IRC Nick"
+msgstr "IRC kaldenavn"
+
+msgid "Language"
+msgstr "Sprog"
+
+msgid "New Package Notify"
+msgstr "Besked ved nye pakker"
+
+msgid "Update"
+msgstr "Opdater"
+
+msgid "Create"
+msgstr "Opret"
+
+msgid "Reset"
+msgstr "Nulstil"
+
+msgid "Missing User ID"
+msgstr "Manglende bruger-ID"
+
+msgid "The username is invalid."
+msgstr "Brugernavnet er ugyldigt."
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Skal være mellem %s og %s tegn."
+
+msgid "Start and end with a letter or number"
+msgstr "Start og slut med et bogstav eller tal"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Kan kun indeholde ét punktum, én bundstreg eller én bindestreg."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Din adgangskode skal være mindst %s tegn."
+
+msgid "The email address is invalid."
+msgstr "E-mail adressen er ugyldig."
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "En betroet bruger (TU) kan ikke tildele udviklerstatus."
+
+msgid "Language is not currently supported."
+msgstr "Sproget er ikke understøttet på nuværende tidspunkt."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Brugernavnet, %h%s%h, er allerede i brug."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Adressen, %h%s%h, er allerede i brug."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Fejl ved opretning af konto, %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Kontoen, %h%s%h, er blevet oprettet."
+
+msgid "Click on the Home link above to login."
+msgstr "Klik på Hjem ovenover for at logge ind."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Fejl ved ændring af konto, %h%s%h: %s"
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Kontoen, %h%s%h%, er blevet ændret."
+
+msgid "No results matched your search criteria."
+msgstr "Ingen resultater opfyldte dine søgekriterier."
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Last Voted"
+msgstr "Sidste stemme"
+
+msgid "Edit Account"
+msgstr "Rediger konto"
+
+msgid "Suspended"
+msgstr "Suspenderet"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Never"
+msgstr "Aldrig"
+
+msgid "Less"
+msgstr "Færre"
+
+msgid "More"
+msgstr "Flere"
+
+msgid "No more results to display."
+msgstr "Ikke flere resultater at vise."
+
+msgid "User"
+msgstr "Bruger"
+
+msgid "Trusted User"
+msgstr "Betroet bruger (TU)"
+
+msgid "View this user's packages"
+msgstr "Vis pakker fra denne bruger"
+
+msgid "Bad username or password."
+msgstr ""
+
+msgid "Votes"
+msgstr "Stemmer"
+
+msgid "unknown"
+msgstr ""
+
+msgid "Package Details"
+msgstr "Detaljer om pakken"
+
+#, fuzzy
+msgid "Submitter"
+msgstr "Tilføj"
+
+msgid "Maintainer"
+msgstr "Ejer"
+
+msgid "License"
+msgstr ""
+
+#, fuzzy
+msgid "Last Updated"
+msgstr "Sidste stemme"
+
+msgid "First Submitted"
+msgstr ""
+
+msgid "Tarball"
+msgstr "Tar-arkiv"
+
+msgid "PKGBUILD"
+msgstr ""
+
+msgid "This package has been flagged out of date."
+msgstr "Denne pakke er markeret forældet"
+
+msgid "Dependencies"
+msgstr "Afhængigheder"
+
+msgid "Required by"
+msgstr "Påkrævet af"
+
+msgid "Sources"
+msgstr ""
+
+msgid "Hi, this is worth reading!"
+msgstr ""
+
+msgid "Start"
+msgstr "Start"
+
+msgid "End"
+msgstr "Slut"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "Voted"
+msgstr "Stemt"
+
+msgid "No results found."
+msgstr "Ingen resultater fundet."
+
+msgid "Proposal Details"
+msgstr "Detaljer om forslag"
+
+msgid "This vote is still running."
+msgstr "Denne afstemning er stadig aktiv."
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Tilføjet: %s af %s"
+
+msgid "Abstain"
+msgstr "Undlad at stemme"
+
+msgid "Total"
+msgstr "Total"
+
+#, fuzzy
+msgid "Voters"
+msgstr "Stemmer"
+
+msgid "Bugs"
+msgstr "Fejl"
+
+msgid "Discussion"
+msgstr "Diskussion"
+
+msgid "My Packages"
+msgstr "Mine pakker"
+
+msgid "Vote"
+msgstr "Stem"
+
+msgid "UnVote"
+msgstr "Tilbagetræk stemme"
+
+msgid "Notify"
+msgstr "Påmindelse"
+
+msgid "New Comment Notification"
+msgstr "Giv besked ved nye kommentarer"
+
+msgid "UnNotify"
+msgstr "Ingen påmindelse"
+
+msgid "No New Comment Notification"
+msgstr "Afmeld besked ved nye kommentarer"
+
+msgid "Flag Out-of-date"
+msgstr "Marker forældet"
+
+msgid "UnFlag Out-of-date"
+msgstr "Fjern forældet markeringen"
+
+msgid "Adopt Packages"
+msgstr "Adopter pakker"
+
+msgid "Disown Packages"
+msgstr "Fjern ejerskab for pakker"
+
+msgid "Delete Packages"
+msgstr "Slet pakker"
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Any type"
+msgstr "Vilkårlig type"
+
+msgid "Sort by"
+msgstr "Sortér efter"
+
+msgid "Last vote"
+msgstr "Sidste stemme"
+
+msgid "Search"
+msgstr "Søg"
+
+#, fuzzy
+msgid "Comment has been added."
+msgstr "Kommentaren er slettet."
+
+msgid "Enter your comment below."
+msgstr ""
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Logget ind som: %s"
+
+msgid "Logout"
+msgstr "Log ud"
+
+msgid "Remember me"
+msgstr "Husk mig"
+
+msgid "Login"
+msgstr "Log ind"
+
+#, fuzzy
+msgid "Forgot Password"
+msgstr "Adgangskode"
+
+#, fuzzy
+msgid "Recent Updates"
+msgstr "Opdater"
+
+msgid "My Statistics"
+msgstr ""
+
+#, fuzzy
+msgid "Packages in unsupported"
+msgstr "Sproget er ikke understøttet på nuværende tidspunkt."
+
+msgid "Out of Date"
+msgstr ""
+
+#, fuzzy
+msgid "Statistics"
+msgstr "Status"
+
+#, fuzzy
+msgid "Orphan Packages"
+msgstr "Pakker"
+
+msgid "Packages added in the past 7 days"
+msgstr ""
+
+msgid "Packages updated in the past 7 days"
+msgstr ""
+
+msgid "Packages updated in the past year"
+msgstr ""
+
+#, fuzzy
+msgid "Packages never updated"
+msgstr "Pakkekategori er opdateret."
+
+#, fuzzy
+msgid "Registered Users"
+msgstr "Betroet bruger (TU)"
+
+#, fuzzy
+msgid "Trusted Users"
+msgstr "Betroet bruger (TU)"
+
+msgid "Error retrieving package list."
+msgstr "Fejl ved modtagelse af pakkeliste."
+
+msgid "No packages matched your search criteria."
+msgstr "Ingen pakker opfylder dine søgekriterier."
+
+msgid "Package Listing"
+msgstr "Liste over pakker"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "orphan"
+msgstr "forladt"
+
+msgid "Legend"
+msgstr ""
+
+msgid "Actions"
+msgstr "Handlinger"
+
+msgid "Unflag Out-of-date"
+msgstr "Afmarker forældet"
+
+msgid "Go"
+msgstr "Søg"
+
+#, php-format
+msgid "Showing results %s - %s of %s"
+msgstr "Viser resultaterne %s - %s af %s"
+
+#, php-format
+msgid "Comment by: %s on %s"
+msgstr ""
+
+msgid "Delete comment"
+msgstr "Slet kommentar"
+
+#, php-format
+msgid "Show all %s comments"
+msgstr ""
+
+msgid "Orphans"
+msgstr "Forladt"
+
+msgid "Advanced"
+msgstr "Avanceret"
+
+msgid "Any"
+msgstr "Alle"
 
 # INSTRUCTIONS TO TRANSLATORS
 #
@@ -27,604 +826,89 @@ msgstr ""
 #
 # Danish (Dansk) translation
 # Translator: Jacob Bang <julemand101@gmail.com>
-
-
 msgid "Search by"
 msgstr "Søg efter"
 
-msgid "This package has been flagged out of date."
-msgstr "Denne pakke er markeret forældet"
+#, fuzzy
+msgid "Name, Description"
+msgstr "Beskrivelse"
 
-msgid "Voted"
-msgstr "Stemt"
+#, fuzzy
+msgid "Name Only"
+msgstr "Navn"
 
-msgid "Missing a required field."
-msgstr "Du mangler at udfylde et påkrævet felt."
+msgid "Exact name"
+msgstr ""
 
-msgid "Logged-in as: %s"
-msgstr "Logget ind som: %s"
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "Fejl ved ændring af konto, %h%s%h: %s"
-
-msgid "Username does not exist."
-msgstr "Brugernavnet findes ikke."
-
-msgid "Tarball"
-msgstr "Tar-arkiv"
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr "Kan kun indeholde ét punktum, én bundstreg eller én bindestreg."
-
-msgid "Unflag Out-of-date"
-msgstr "Afmarker forældet"
-
-msgid "Missing package ID."
-msgstr "Mangler pakke-ID."
-
-msgid "You cannot vote in an proposal about you."
-msgstr "Du kan ikke stemme i et forslag om dig selv."
-
-msgid "No results matched your search criteria."
-msgstr "Ingen resultater opfyldte dine søgekriterier."
-
-msgid "Update"
-msgstr "Opdater"
+msgid "Age"
+msgstr ""
 
 msgid "Sort order"
 msgstr "Sorter efter"
 
-msgid "You must be logged in before you can edit package information."
-msgstr "Du skal være logget ind for at redigere pakkeoplysninger."
+msgid "Ascending"
+msgstr ""
 
-msgid "Your votes have been cast for the selected packages."
-msgstr "Din stemme er afgivet for de valgte pakker."
-
-msgid "Package details could not be found."
-msgstr "Kunne ikke finde pakkedetaljerne.."
-
-msgid "change category"
-msgstr "skift kategori"
-
-msgid "Error retrieving package list."
-msgstr "Fejl ved modtagelse af pakkeliste."
-
-msgid "Reset"
-msgstr "Nulstil"
-
-msgid "Submitted: %s by %s"
-msgstr "Tilføjet: %s af %s"
-
-msgid "string"
-msgstr "tekststreng"
-
-msgid "Remember me"
-msgstr "Husk mig"
-
-msgid "Package category updated."
-msgstr "Pakkekategori er opdateret."
-
-msgid "%s already has proposal running for them."
-msgstr "%s har allerede et forslag kørende for dem."
-
-msgid "Error - No file uploaded"
-msgstr "Fejl - Ingen fil overført"
-
-msgid "You did not select any packages to disown."
-msgstr "Du har ikke valgt nogle pakker at opgive ejerskabet for."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Pakkens webadresse mangler en protokol (f.eks. http:// eller ftp://)"
-
-msgid "Votes"
-msgstr "Stemmer"
-
-msgid "Total"
-msgstr "Total"
-
-msgid "No more results to display."
-msgstr "Ikke flere resultater at vise."
-
-msgid "Maintainer"
-msgstr "Ejer"
-
-msgid "Less"
-msgstr "Færre"
-
-msgid "You are not allowed to access this area."
-msgstr "Du har ikke tilladelse til dette område."
-
-msgid "Any type"
-msgstr "Vilkårlig type"
-
-msgid "Accounts"
-msgstr "Konti"
-
-msgid "Could not retrieve proposal details."
-msgstr "Kunne ikke hente detaljer om forslaget."
-
-msgid "You do not have permission to edit this account."
-msgstr "Du har ikke tilladelse til at redigere denne konto."
-
-msgid "New Package Notify"
-msgstr "Besked ved nye pakker"
-
-msgid "Click on the Home link above to login."
-msgstr "Klik på Hjem ovenover for at logge ind."
-
-msgid "The email address is invalid."
-msgstr "E-mail adressen er ugyldig."
-
-msgid "Could not change directory to %s."
-msgstr "Kunne ikke ændre mappe til %s."
-
-msgid "None of the selected packages could be deleted."
-msgstr "Ingen af de valgte pakker kunne slettes."
-
-msgid "Your votes have been removed from the selected packages."
-msgstr "Dine stemmer er fjernet fra de valgte pakker."
-
-msgid "No packages matched your search criteria."
-msgstr "Ingen pakker opfylder dine søgekriterier."
-
-msgid "Create"
-msgstr "Opret"
-
-msgid "Start and end with a letter or number"
-msgstr "Start og slut med et bogstav eller tal"
-
-msgid "orphan"
-msgstr "forladt"
-
-msgid "View this user's packages"
-msgstr "Vis pakker fra denne bruger"
-
-msgid "Next"
-msgstr "Næste"
-
-msgid "Could not re-tar"
-msgstr "Kunne ikke genopbygge tar-arkiv"
-
-msgid "You must create an account before you can upload packages."
-msgstr "Du skal oprette en konto for at sende pakker."
-
-msgid "Location"
-msgstr "Placering"
-
-msgid "Delete comment"
-msgstr "Slet kommentar"
-
-msgid "Account Type"
-msgstr "Kontotype"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "More"
-msgstr "Flere"
-
-msgid "Error retrieving package details."
-msgstr "Fejl ved modtagelse af pakkedetaljer."
-
-msgid "Could not create incoming directory: %s."
-msgstr "Kunne ikke oprette indgående mappe: %s."
-
-msgid "Upload package file"
-msgstr "Send pakke"
-
-msgid "(defaults to 7 if empty)"
-msgstr "(sat til 7 hvis tomt)"
-
-msgid "No New Comment Notification"
-msgstr "Afmeld besked ved nye kommentarer"
-
-msgid "Couldn't add to notification list."
-msgstr "Kunne ikke tilføje til listen over påmindelser."
-
-msgid "Disown Packages"
-msgstr "Fjern ejerskab for pakker"
-
-msgid "Advanced"
-msgstr "Avanceret"
-
-msgid "This vote is still running."
-msgstr "Denne afstemning er stadig aktiv."
-
-msgid "Vote ID not valid."
-msgstr "Stemme ID er ikke gyldigt."
-
-msgid "(empty if not applicable)"
-msgstr "(tomt hvis ikke relevant)"
+msgid "Descending"
+msgstr ""
 
 msgid "Per page"
 msgstr "Per side"
 
-msgid "New proposal submitted."
-msgstr "Nyt forslag tilføjet."
+msgid "All"
+msgstr ""
 
-msgid "Upload"
-msgstr "Send"
+msgid "Flagged"
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "Ugyldigt kategori ID."
+msgid "Not Flagged"
+msgstr ""
 
-msgid "Go"
-msgstr "Søg"
+#~ msgid "change category"
+#~ msgstr "skift kategori"
 
-msgid "You must be logged in before you can vote for packages."
-msgstr "Du skal være logget ind for at stemme på pakker."
+#~ msgid "string"
+#~ msgstr "tekststreng"
 
-msgid "Use this form to search existing accounts."
-msgstr "Brug denne formular til at søge i eksisterende konti."
+#~ msgid "None of the selected packages could be deleted."
+#~ msgstr "Ingen af de valgte pakker kunne slettes."
 
-msgid "The address, %h%s%h, is already in use."
-msgstr "Adressen, %h%s%h, er allerede i brug."
+#~ msgid "Could not re-tar"
+#~ msgstr "Kunne ikke genopbygge tar-arkiv"
 
-msgid "Current Votes"
-msgstr "Aktuelle stemmer"
+#~ msgid "Location"
+#~ msgstr "Placering"
 
-msgid "Select Category"
-msgstr "Vælg kategori"
+#~ msgid "Could not create incoming directory: %s."
+#~ msgstr "Kunne ikke oprette indgående mappe: %s."
 
-msgid "You have been removed from the comment notification list for %s."
-msgstr "Du vil ikke længere modtage besked ved nye kommentarer for %s."
+#~ msgid "Unknown file format for uploaded file."
+#~ msgstr "Ukendt filformat for sendt fil."
 
-msgid "Unknown file format for uploaded file."
-msgstr "Ukendt filformat for sendt fil."
+#~ msgid "All Votes"
+#~ msgstr "Alle stemmer"
 
-msgid "Delete Packages"
-msgstr "Slet pakker"
+#~ msgid "Add"
+#~ msgstr "Tilføj"
 
-msgid "Trusted user"
-msgstr "Betroet bruger (TU)"
+#~ msgid "You must be logged in before you can get notifications on comments."
+#~ msgstr ""
+#~ "Du skal være logget ind for at tilmelde dig beskeder ved nye kommentarer."
 
-msgid "Back"
-msgstr "Tilbage"
+#~ msgid "This is a %h%s%h problem!"
+#~ msgstr "Dette er et %h%s%h problem!"
 
-msgid "You did not select any packages to flag."
-msgstr "Du har ikke valgt nogle pakker at markere."
+#~ msgid "Files"
+#~ msgstr "Filer"
 
-msgid "All Votes"
-msgstr "Alle stemmer"
+#~ msgid "You've found a bug if you see this...."
+#~ msgstr "Du har fundet en fejl, hvis du ser dette...."
 
-msgid "The selected packages have been disowned."
-msgstr "De valgte pakker er blevet efterladt."
+#~ msgid "%s has %s apples."
+#~ msgstr "%s har %s æbler."
 
-msgid "Suspended"
-msgstr "Suspenderet"
+#~ msgid "Could not chmod directory %s."
+#~ msgstr "Kunne ikke ændre rettigheder for mappen %s."
 
-msgid "Home"
-msgstr "Hjem"
-
-msgid "Yes"
-msgstr "Ja"
-
-msgid "UnFlag Out-of-date"
-msgstr "Fjern forældet markeringen"
-
-msgid "Developer"
-msgstr "Udvikler"
-
-msgid "Category"
-msgstr "Kategori"
-
-msgid "Missing build function in PKGBUILD."
-msgstr "Manglende byggefunktion i PKGBUILD."
-
-msgid "You must be logged in before you can flag packages."
-msgstr "Du skal være logget ind for at markere pakker."
-
-msgid "No results found."
-msgstr "Ingen resultater fundet."
-
-msgid "No"
-msgstr "Nej"
-
-msgid "Discussion"
-msgstr "Diskussion"
-
-msgid "Dependencies"
-msgstr "Afhængigheder"
-
-msgid "Start"
-msgstr "Start"
-
-msgid "Add"
-msgstr "Tilføj"
-
-msgid "You did not select any packages to adopt."
-msgstr "Du har ikke valgt nogle pakker at adoptere."
-
-msgid "Length must be at least 1."
-msgstr "Længden skal være mindst 1."
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "Fejl ved opretning af konto, %h%s%h: %s."
-
-msgid "End"
-msgstr "Slut"
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr "Kontoen, %h%s%h%, er blevet ændret."
-
-msgid "Account Suspended"
-msgstr "Konto suspenderet"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Du skal være logget ind for at tilmelde dig beskeder ved nye kommentarer."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Efterlad kodeordsfelterne tomme, hvis du ikke ønsker at ændre adgangskoden."
-
-msgid "IRC Nick"
-msgstr "IRC kaldenavn"
-
-msgid "The selected packages have been deleted."
-msgstr "De valgte pakker er blevet slettet."
-
-msgid "Normal user"
-msgstr "Normal bruger"
-
-msgid "This is a %h%s%h problem!"
-msgstr "Dette er et %h%s%h problem!"
-
-msgid "You are not allowed to overwrite the %h%s%h package."
-msgstr "Du har ikke tilladelse til at overskrive %h%s%h pakken."
-
-msgid "Missing comment ID."
-msgstr "Manglende kommentar ID."
-
-msgid "Error trying to retrieve package details."
-msgstr "Fejl ved modtagning af pakkedetaljer."
-
-msgid "Proposal cannot be empty."
-msgstr "Forslag må ikke være tomt."
-
-msgid "User"
-msgstr "Bruger"
-
-msgid "Package Category"
-msgstr "Pakkekategori"
-
-msgid "The selected packages have been adopted."
-msgstr "De valgte pakker er adopteret."
-
-msgid "Packages"
-msgstr "Pakker"
-
-msgid "Edit Account"
-msgstr "Rediger konto"
-
-msgid "Search"
-msgstr "Søg"
-
-msgid "Language"
-msgstr "Sprog"
-
-msgid "Orphans"
-msgstr "Forladt"
-
-msgid "Voting is closed for this proposal."
-msgstr "Afstemningen er lukket for dette forslag."
-
-msgid "Bugs"
-msgstr "Fejl"
-
-msgid "Showing results %s - %s of %s"
-msgstr "Viser resultaterne %s - %s af %s"
-
-msgid "Active"
-msgstr "Aktiv"
-
-msgid "You've already voted for this proposal."
-msgstr "Du har allerede stemt ved dette forslag."
-
-msgid "Required by"
-msgstr "Påkrævet af"
-
-msgid "You must be logged in before you can unflag packages."
-msgstr "Du skal være logget ind for at afmarkere pakker."
-
-msgid "You did not select any packages to unflag."
-msgstr "Du har ikke valgt nogle at afmarkere."
-
-msgid "You must log in to view user information."
-msgstr "Du skal være logget ind for at se brugerinformation."
-
-msgid "You did not select any packages to delete."
-msgstr "Du har ikke valgt nogle pakker at slette."
-
-msgid "Could not create directory %s."
-msgstr "Kunne ikke oprette mappen %s."
-
-msgid "UnNotify"
-msgstr "Ingen påmindelse"
-
-msgid "Flag Out-of-date"
-msgstr "Marker forældet"
-
-msgid "The selected packages have been unflagged."
-msgstr "De valgte pakker er afmarkeret."
-
-msgid "Search Criteria"
-msgstr "Søgekriterier"
-
-msgid "Notify"
-msgstr "Påmindelse"
-
-msgid "Files"
-msgstr "Filer"
-
-msgid "Vote"
-msgstr "Stem"
-
-msgid "Adopt Packages"
-msgstr "Adopter pakker"
-
-msgid "Name"
-msgstr "Navn"
-
-msgid "Package Listing"
-msgstr "Liste over pakker"
-
-msgid "Any"
-msgstr "Alle"
-
-msgid "It must be between %s and %s characters long"
-msgstr "Skal være mellem %s og %s tegn."
-
-msgid "Logout"
-msgstr "Log ud"
-
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "Kontoen, %h%s%h, er blevet oprettet."
-
-msgid "Your password must be at least %s characters."
-msgstr "Din adgangskode skal være mindst %s tegn."
-
-msgid "Submit"
-msgstr "Tilføj"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Beklager, men denne server tillader ikke overførsler til serveren."
-
-msgid "Actions"
-msgstr "Handlinger"
-
-msgid "Comment has been deleted."
-msgstr "Kommentaren er slettet."
-
-msgid "The username, %h%s%h, is already in use."
-msgstr "Brugernavnet, %h%s%h, er allerede i brug."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Kunne ikke hente information om den specifikke bruger."
-
-msgid "Re-type password"
-msgstr "Bekræft adgangskode"
-
-msgid "Proposal"
-msgstr "Forslag"
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Fejl ved udpakning af sendt fil - kan ikke finde PKGBUILD."
-
-msgid "The selected packages have been flagged out-of-date."
-msgstr "De valgte pakker er markeret forældet."
-
-msgid "Description"
-msgstr "Beskrivelse"
-
-msgid "My Packages"
-msgstr "Mine pakker"
-
-msgid "You did not select any packages to vote for."
-msgstr "Du har ikke valgt nogle pakker at stemme på."
-
-msgid "Never"
-msgstr "Aldrig"
-
-msgid "You must be logged in before you can disown packages."
-msgstr "Du skal være logget ind for at opgive ejerskabet for pakker."
-
-msgid "You've found a bug if you see this...."
-msgstr "Du har fundet en fejl, hvis du ser dette...."
-
-msgid "Last Voted"
-msgstr "Sidste stemme"
-
-msgid "Password"
-msgstr "Adgangskode"
-
-msgid "Real Name"
-msgstr "Rigtigt navn"
-
-msgid "Package Details"
-msgstr "Detaljer om pakken"
-
-msgid "UnVote"
-msgstr "Tilbagetræk stemme"
-
-msgid "Password fields do not match."
-msgstr "Adgangskoderne stemmer ikke overens."
-
-msgid "Username"
-msgstr "Brugernavn"
-
-msgid "The username is invalid."
-msgstr "Brugernavnet er ugyldigt."
-
-msgid "You must be logged in before you can adopt packages."
-msgstr "Du skal være logget ind for at adoptere pakker."
-
-msgid "Email Address"
-msgstr "E-mail adresse"
-
-msgid "Trusted User"
-msgstr "Betroet bruger (TU)"
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Ugyldigt navn: kun små bogstaver er tilladt."
-
-msgid "Length must be a number."
-msgstr "Længden skal angives som talværdi."
-
-msgid "%s has %s apples."
-msgstr "%s har %s æbler."
-
-msgid "You must be logged in before you can un-vote for packages."
-msgstr "Du skal være logget ind for at fjerne din stemme fra pakker."
-
-msgid "Login"
-msgstr "Log ind"
-
-msgid "Use this form to create an account."
-msgstr "Brug denne formular til at oprette en konto."
-
-msgid "Use this form to update your account."
-msgstr "Brug denne formular til at opdatere din konto."
-
-msgid "Abstain"
-msgstr "Undlad at stemme"
-
-msgid "Could not chmod directory %s."
-msgstr "Kunne ikke ændre rettigheder for mappen %s."
-
-msgid "You are not allowed to delete this comment."
-msgstr "Du har ikke rettigheder til at slette denne kommentar."
-
-msgid "required"
-msgstr "påkrævet"
-
-msgid "Sort by"
-msgstr "Sortér efter"
-
-msgid "Submit a proposal to vote on."
-msgstr "Fremsæt et forslag til afstemning."
-
-msgid "Proposal Details"
-msgstr "Detaljer om forslag"
-
-msgid "Language is not currently supported."
-msgstr "Sproget er ikke understøttet på nuværende tidspunkt."
-
-msgid "Last vote"
-msgstr "Sidste stemme"
-
-msgid "New Comment Notification"
-msgstr "Giv besked ved nye kommentarer"
-
-msgid "Missing User ID"
-msgstr "Manglende bruger-ID"
-
-msgid "You have been added to the comment notification list for %s."
-msgstr "Du vil nu modtage besked, når der kommer nye kommentarer til %s."
-
-msgid "Select new category"
-msgstr "Vælg ny kategori"
-
-msgid "A Trusted User cannot assign Developer status."
-msgstr "En betroet bruger (TU) kan ikke tildele udviklerstatus."
+#~ msgid "Select new category"
+#~ msgstr "Vælg ny kategori"
