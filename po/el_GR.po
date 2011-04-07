@@ -71,9 +71,6 @@ msgstr "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τ�
 msgid "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"
 msgstr "Τα προτεινόμενα PKGBUILDs %hπρέπει%h να ακολουθούν τα  %hΠρότυπα δημιουργίας πακέτων του Arch%h αλλιώς θα διαγράφονται!"
 
-msgid "Login"
-msgstr "Συνδεθείτε"
-
 msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
 msgstr "Εάν έχετε προτάσεις για το AUR, παρακαλώ καταθέστε τις στο %hFlyspray%h."
 
@@ -85,9 +82,6 @@ msgstr "Συνθηματικό:"
 
 msgid "Registered Users"
 msgstr "Εγγεγραμμένοι Χρήστες"
-
-msgid "Logged-in as: %s"
-msgstr " Συνδεδεμένος ως: %s"
 
 msgid "Incorrect password for username, %s."
 msgstr "Λάθος συνθηματικό για το όνομα χρήστη, %s."
@@ -103,9 +97,6 @@ msgstr "ΑΠΟΠΟΙΗΣΗ ΕΥΘΥΝΗΣ"
 
 msgid "My Statistics"
 msgstr "Τα στατιστικά μου"
-
-msgid "Home"
-msgstr "Λογαριασμός"
 
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Ορισμένα πακέτα μπορεί να μεταφερθούν ως binaries στο [community]"

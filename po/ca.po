@@ -115,9 +115,6 @@ msgstr "Tipus"
 msgid "Click on the Home link above to login."
 msgstr "Feu clic en l'enllaç Inici de dalt per identificar-vos."
 
-msgid "Sort by"
-msgstr "Ordenat per"
-
 msgid "Re-type password"
 msgstr "Escriu altre cop la contrasenya"
 
@@ -474,9 +471,6 @@ msgstr "Desmarca Segur"
 
 msgid "Sources"
 msgstr "Fonts"
-
-msgid "Yes"
-msgstr "Sí"
 
 msgid "Search Criteria"
 msgstr "Criteri de cerca"

@@ -1,26 +1,8 @@
 # Russian (Русский) translation
 # Translator: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
-msgid "Use this form to update your account."
-msgstr "Используйте эту форму для изменения вашей учетной записи."
-
 msgid "Leave the password fields blank to keep your same password."
 msgstr "Оставьте поля для ввода пароля пустыми если не хотите его изменять."
-
-msgid "You are not allowed to access this area."
-msgstr "У вас нет доступа к этой части."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Невозможно получить информацию об указанном пользователе."
-
-msgid "Use this form to search existing accounts."
-msgstr "Используйте эту форму для поиска существующей учетной записи."
-
-msgid "You do not have permission to edit this account."
-msgstr "У вас нет прав для изменения этой учетной записи."
-
-msgid "Use this form to create an account."
-msgstr "Используйте эту форму для создания новой учетной записи."
 
 msgid "You must log in to view user information."
 msgstr "Вы должны представиться для просмотра информации о пользователе."
@@ -56,9 +38,6 @@ msgstr "Учетная запись %h%s%h успешно изменена."
 
 msgid "Account Suspended"
 msgstr "Действие учетной записи приостановлено."
-
-msgid "Status"
-msgstr "Статус"
 
 msgid "New Package Notify"
 msgstr "Извещать о новых пакетах"
@@ -117,9 +96,6 @@ msgstr "Тип"
 msgid "Click on the Home link above to login."
 msgstr "Щелкните ссылку Home чтобы представиться."
 
-msgid "Sort by"
-msgstr "Сортировать по"
-
 msgid "Re-type password"
 msgstr "Введите пароль еще раз"
 
@@ -172,18 +148,6 @@ msgstr "Обсуждение"
 
 msgid "Bugs"
 msgstr "Ошибки"
-
-msgid "Accounts"
-msgstr "Учетная запись"
-
-msgid "Home"
-msgstr "Домой"
-
-msgid "Packages"
-msgstr "Пакеты"
-
-msgid "My Packages"
-msgstr "Мои пакеты"
 
 
 
@@ -296,9 +260,6 @@ msgstr "Вы вошли как: %s"
 msgid "Incorrect password for username, %s."
 msgstr "Неверный пароль для пользователя %s."
 
-msgid "Safe"
-msgstr "Безопасный"
-
 msgid "Out-of-date"
 msgstr "Устарел"
 
@@ -313,9 +274,6 @@ msgstr "Отмечено как безопасный"
 
 msgid "My Statistics"
 msgstr "Моя статистика"
-
-msgid "Home"
-msgstr "Заглавная страница"
 
 msgid "Missing package ID."
 msgstr "Идентификатор пакета отсутствует."
@@ -508,9 +466,6 @@ msgstr "Снять флаг Безопасно"
 msgid "Sources"
 msgstr "Исходники"
 
-msgid "Yes"
-msgstr "Да"
-
 msgid "Search Criteria"
 msgstr "Критерий поиска"
 
@@ -571,9 +526,6 @@ msgstr "Используйте эту форму для создания уче�
 msgid "Use this form to update your account."
 msgstr "Используйте эту форму для изменения вашей учетной записи."
 
-msgid "You are not allowed to access this area."
-msgstr "Доступ сюда вам запрещен."
-
 msgid "Unsafe"
 msgstr "Небезопаный"
 
@@ -589,80 +541,14 @@ msgstr "Требуется пакетами"
 msgid "Accounts"
 msgstr "Учетные записи"
 
-msgid "Couldn't add to notification list."
-msgstr "Не получилось добавить в список извещений."
-
-msgid "You must be logged in before you can flag packages."
-msgstr "Для отметки пакетов нужно представиться."
-
-msgid "Your votes have been removed from the selected packages."
-msgstr "Ваш голос убран с выбранных пакетов."
-
-msgid "The selected packages have been disowned."
-msgstr "Выбранные пакеты брошены."
-
 msgid "Out of Date"
 msgstr "Устарел"
-
-msgid "None of the selected packages could be deleted."
-msgstr "Ниодин из выбранных пакетов не может быть удален."
-
-msgid "The selected packages have been unflagged."
-msgstr "Снята отметка с выбранных пакетов."
-
-msgid "You must be logged in before you can unflag packages."
-msgstr "Для отметки пакетов нужно представиться."
-
-msgid "You did not select any packages to adopt."
-msgstr "Вы не выбрали ниодного пакета для усыновления."
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Необходимо представиться для получения извещений о коментариях."
-
-msgid "The selected packages have been flagged out-of-date."
-msgstr "Выбранные пакеты помечены как устаревшие."
-
-msgid "The selected packages have been deleted."
-msgstr "Выбранные пакеты удалены."
-
-msgid "You did not select any packages to vote for."
-msgstr "Вы не выбрали пакет для голосования."
-
-msgid "You must be logged in before you can disown packages."
-msgstr "Нужно представиться, чтобы бросить пакет."
-
-msgid "The selected packages have been adopted."
-msgstr "Выбранные пакеты усыновлены."
-
-msgid "You must be logged in before you can adopt packages."
-msgstr "Необходимо представиться для усыновления."
 
 msgid "Showing results %s - %s of %s"
 msgstr "Результаты %s - %s из %s"
 
-msgid "You must be logged in before you can vote for packages."
-msgstr "Необходимо представиться для голосования."
-
-msgid "You did not select any packages to disown."
-msgstr "Вы не выбрали пакетов, чтобы бросить."
-
-msgid "You must be logged in before you can un-vote for packages."
-msgstr "Необходимо представиться для голосования."
-
-msgid "You did not select any packages to unflag."
-msgstr "Вы не выбрали пакетов, чтобы снимать флаг."
-
-msgid "You did not select any packages to delete."
-msgstr "Вы не выбрали пакетов, чтобы удалить."
-
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Вам больше не будут приходить извещения от %s."
-
-msgid "Your votes have been cast for the selected packages."
-msgstr "Ваш голос принят."
-
-msgid "You did not select any packages to flag."
-msgstr "Вы не выбрали пакетов для отметки."
 
 msgid "Home"
 msgstr "Главная"
@@ -779,9 +665,6 @@ msgstr "Отсутствует функция build в PKGBUILD."
 msgid "Could not change directory to %s."
 msgstr "Невозможно сменить директорию в %s."
 
-msgid "No"
-msgstr "Нет"
-
 msgid "Missing pkgdesc variable in PKGBUILD."
 msgstr "Отсутствует переменная pkgdesc в PKGBUILD."
 
@@ -889,9 +772,6 @@ msgstr "Извините, загрузки не разрешены этим се
 
 msgid "You must supply a comment for this upload/change."
 msgstr "Вы должны ввести коментарий к загрузке/изменению."
-
-msgid "Yes"
-msgstr "Да"
 
 msgid "Missing license variable in PKGBUILD."
 msgstr "Не указана лицензия в PKGBUILD"

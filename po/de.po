@@ -2,30 +2,6 @@
 # Translators: Pierre Schmitz <pierre@archlinux.de>, Matthias Gorissen <siquame@web.de>, Lukas Kropatschek, Niclas Pfeifer
 
 
-msgid "Use this form to update your account."
-msgstr "Hier kannst Du Dein Benutzerkonto anpassen."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Lasse die Passwort-Felder leer, um Dein aktuelles Passwort beizubehalten."
-
-msgid "You are not allowed to access this area."
-msgstr "Du darfst auf diesen Bereich nicht zugreifen."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Konnte keine Informationen zum angegebenen Benutzer abrufen."
-
-msgid "Use this form to search existing accounts."
-msgstr "Benutze dieses Formular, um nach Benutzerkonten zu suchen."
-
-msgid "You do not have permission to edit this account."
-msgstr "Du hast keine Berechtigung, dieses Konto zu ändern."
-
-msgid "Use this form to create an account."
-msgstr "Benutze dieses Formular, um ein neues Konto zu erstellen."
-
-msgid "You must log in to view user information."
-msgstr "Du mußt Dich anmelden, um Benutzer-Informationen zu sehen."
-
 
 
 msgid "Missing a required field."
@@ -57,9 +33,6 @@ msgstr "Das Konto %h%s%h wurde erfolgreich geändert."
 
 msgid "Account Suspended"
 msgstr "Konto gesperrt"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "New Package Notify"
 msgstr "Benachrichtigung bei neuen Paketen"
@@ -118,9 +91,6 @@ msgstr "Typ"
 msgid "Click on the Home link above to login."
 msgstr "Klicke auf \"Start\", um Dich anzumelden."
 
-msgid "Sort by"
-msgstr "Sortieren nach"
-
 msgid "Re-type password"
 msgstr "Bestätige das Passwort"
 
@@ -159,17 +129,8 @@ msgstr "Diskussion"
 msgid "Bugs"
 msgstr "Fehler"
 
-msgid "Accounts"
-msgstr "Konten"
-
-msgid "Home"
-msgstr "Startseite"
-
 msgid "Packages"
 msgstr "Pakete"
-
-msgid "My Packages"
-msgstr "Meine Pakete"
 
 
 
@@ -284,9 +245,6 @@ msgstr "Angemeldet als: %s"
 msgid "Incorrect password for username, %s."
 msgstr "Falsches Passwort für Benutzername %s."
 
-msgid "Safe"
-msgstr "Sicher"
-
 msgid "Out-of-date"
 msgstr "Veraltet"
 
@@ -309,9 +267,6 @@ msgid "DISCLAIMER"
 msgstr "DISCLAIMER: Offiziell nicht unterstützte PKGBUILDS werden von den Benutzern erstellt - durch den Download willigt man ein, diese auf eigene Gefahr zu benutzen."
 
 
-
-msgid "You have been successfully logged out."
-msgstr "Du wurdest erfolgreich abgemeldet."
 
 
 
@@ -505,9 +460,6 @@ msgstr "Markierung \"sicher\" entfernen"
 
 msgid "Sources"
 msgstr "Quellen"
-
-msgid "Yes"
-msgstr "Ja"
 
 msgid "Search Criteria"
 msgstr "Suchkriterien"

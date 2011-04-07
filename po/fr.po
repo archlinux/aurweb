@@ -2,30 +2,6 @@
 # Translator: Morgan LEFIEUX <comete@archlinuxfr.org>
 
 
-msgid "Use this form to update your account."
-msgstr "Utilisez ce formulaire pour mettre à jour votre compte."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Laissez les champs du mot de passe vides pour conserver le même mot de passe."
-
-msgid "You are not allowed to access this area."
-msgstr "Vous n'avez pas la permission d'accéder à cet espace."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Impossible de retrouver les informations de l'utilisateur spécifié."
-
-msgid "Use this form to search existing accounts."
-msgstr "Utilisez ce formulaire pour rechercher des comptes existants."
-
-msgid "You do not have permission to edit this account."
-msgstr "Vous n'avez pas l'autorisation d'éditer ce compte."
-
-msgid "Use this form to create an account."
-msgstr "Utilisez ce formulaire pour créer un compte."
-
-msgid "You must log in to view user information."
-msgstr "Vous devez vous authentifier pour voir les informations de l'utilisateur."
-
 
 
 msgid "Missing a required field."
@@ -57,9 +33,6 @@ msgstr "Le compte, %h%s%h, a été modifié avec succès."
 
 msgid "Account Suspended"
 msgstr "Compte Suspendu"
-
-msgid "Status"
-msgstr "Etat"
 
 msgid "New Package Notify"
 msgstr "Notification de nouveaux paquets"
@@ -118,9 +91,6 @@ msgstr "Type"
 msgid "Click on the Home link above to login."
 msgstr "Cliquez sur le lien ci-dessus pour vous authentifier."
 
-msgid "Sort by"
-msgstr "Trier par"
-
 msgid "Re-type password"
 msgstr "Retapez le mot de passe"
 
@@ -162,9 +132,6 @@ msgstr "Le nom d'utilisateur choisi n'est pas valide."
 
 
 
-msgid "My Packages"
-msgstr "Mes paquets"
-
 msgid "%s: %sAn ArchLinux project%s"
 msgstr "%s: %sUn projet Archlinux%s"
 
@@ -176,15 +143,6 @@ msgstr "Discussion"
 
 msgid "Bugs"
 msgstr "Bugs"
-
-msgid "Accounts"
-msgstr "Comptes"
-
-msgid "Home"
-msgstr "Accueil"
-
-msgid "Packages"
-msgstr "Paquets"
 
 
 
@@ -295,9 +253,6 @@ msgstr " Connecté en tant que: %s"
 msgid "Incorrect password for username, %s."
 msgstr "Mot de passe incorrect pour l'utilisateur, %s."
 
-msgid "Safe"
-msgstr "Sûr"
-
 msgid "Out-of-date"
 msgstr "Périmé"
 
@@ -309,9 +264,6 @@ msgstr "AVERTISSEMENT"
 
 msgid "My Statistics"
 msgstr "Mes statistiques"
-
-msgid "Home"
-msgstr "Accueil"
 
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Certains paquets peuvent être disponibles précompilés dans le dépôt [community]"
@@ -514,9 +466,6 @@ msgstr "Commenté par: %s sur %s"
 msgid "Flag Out-of-date"
 msgstr "Etiqueter comme périmé"
 
-msgid "You are not allowed to access this area."
-msgstr "Vous n'avez pas la permission d'accéder à cet espace."
-
 msgid "Manage"
 msgstr "Gérer"
 
@@ -537,12 +486,6 @@ msgstr "Abandonner les paquets"
 
 msgid "Sources"
 msgstr "Sources"
-
-msgid "Yes"
-msgstr "Oui"
-
-msgid "Search Criteria"
-msgstr "Critères de recherche"
 
 msgid "Notify"
 msgstr "Notifier"
@@ -607,80 +550,8 @@ msgstr "Notifier/Ne plus notifier"
 msgid "Accounts"
 msgstr "Comptes"
 
-msgid "Couldn't add to notification list."
-msgstr "Impossible d'ajouter aux notifications."
-
-msgid "You must be logged in before you can flag packages."
-msgstr "Vous devez vous identifier avant de pouvoir étiquetter un paquet."
-
-msgid "Your votes have been removed from the selected packages."
-msgstr "Vos votes ont été retirés des paquets sélectionnés."
-
-msgid "The selected packages have been disowned."
-msgstr "Les paquets sélectionnés ont été abandonnés."
-
-msgid "None of the selected packages could be deleted."
-msgstr "Aucun des paquets sélectionnés n'a pu être effacé."
-
-msgid "The selected packages have been unflagged."
-msgstr "L'étiquette a été retirée des paquets sélectionnés."
-
-msgid "You must be logged in before you can unflag packages."
-msgstr "Vous devez vous identifier pour retirer l'étiquette d'un paquet."
-
-msgid "You did not select any packages to adopt."
-msgstr "Vous n'avez pas sélectionné de paquet à adopter."
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Vous devez vous identifier avant de pouvoir recevoir des notifications de commentaires."
-
-msgid "The selected packages have been flagged out-of-date."
-msgstr "Les paquets sélectionnés ont été étiquetés comme périmés."
-
-msgid "The selected packages have been deleted."
-msgstr "Les paquets sélectionnés ont été supprimés."
-
-msgid "You did not select any packages to vote for."
-msgstr "Vous n'avez pas sélectionné de paquet pour lesquels voter."
-
-msgid "You must be logged in before you can disown packages."
-msgstr "Vous devez vous identifier avant de pouvoir abandonner des paquets."
-
-msgid "The selected packages have been adopted."
-msgstr "Les paquets sélectionnés ont été adoptés."
-
-msgid "You must be logged in before you can adopt packages."
-msgstr "Vous devez vous identifier avant de pouvoir adopter des paquets."
-
-msgid "You must be logged in before you can vote for packages."
-msgstr "Vous devez vous identifier avant de pouvoir voter pour des paquets."
-
-msgid "You did not select any packages to disown."
-msgstr "Vous n'avez pas sélectionné de paquet à abandonner."
-
-msgid "You must be logged in before you can un-vote for packages."
-msgstr "Vous devez vous identifier avant de pouvoir retirer vos votes sur des paquets"
-
-msgid "You did not select any packages to unflag."
-msgstr "Vous n'avez pas sélectionné de paquet duquel retirer l'étiquette."
-
-msgid "You did not select any packages to delete."
-msgstr "Vous n'avez sélectionné aucun paquet à supprimer."
-
-msgid "You have been removed from the comment notification list for %s."
-msgstr "Vous avez été supprimé de la liste des notifications de commentaire pour %s."
-
-msgid "Your votes have been cast for the selected packages."
-msgstr "Vos votes ont été ajoutés aux paquets sélectionnés."
-
-msgid "You did not select any packages to flag."
-msgstr "Vous n'avez sélectionné aucun paquet à étiquetter."
-
 msgid "Home"
 msgstr "Accueil"
-
-msgid "You have been added to the comment notification list for %s."
-msgstr "Vous avez été ajouté à la liste des notifications de commentaire pour %s."
 
 
 
@@ -800,9 +671,6 @@ msgstr "Fonction build manquante dans le PKGBUILD."
 msgid "Could not change directory to %s."
 msgstr "Impossible de changer le répertoire vers %s."
 
-msgid "No"
-msgstr "Non"
-
 msgid "Missing pkgdesc variable in PKGBUILD."
 msgstr "La variable pkgdesc est manquante dans le PKGBUILD."
 
@@ -910,9 +778,6 @@ msgstr "Désolé, les transferts ne sont pas permis par ce serveur."
 
 msgid "You must supply a comment for this upload/change."
 msgstr "Vous devez fournir un commentaire pour ce transfert/changement."
-
-msgid "Yes"
-msgstr "Oui"
 
 msgid "Missing license variable in PKGBUILD."
 msgstr "La variable license est manquante dans le PKGBUILD."

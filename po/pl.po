@@ -2,26 +2,14 @@
 # Translator: Jaroslaw Swierczynski <swiergot@gmail.com>
 
 
-msgid "Under construction..."
-msgstr "Prace trwają..."
-
 msgid "Account Suspended:"
 msgstr "Konto zablokowane:"
 
 msgid "Notify:"
 msgstr "Powiadomienie:"
 
-msgid "Trusted User"
-msgstr "Zaufany Użytkownik"
-
 msgid "Normal User"
 msgstr "Zwykły użytkownik"
-
-msgid "Password:"
-msgstr "Hasło:"
-
-msgid "Email Address:"
-msgstr "Adres e-mail:"
 
 msgid "Confirm:"
 msgstr "Potwierdź:"
@@ -38,128 +26,17 @@ msgstr "Nick na IRC-u:"
 msgid "Language:"
 msgstr "Język:"
 
-msgid "Developer"
-msgstr "Developer"
-
 msgid "New Package Notify:"
 msgstr "Powiadamiaj o nowych pakietach:"
-
-msgid "Password fields do not match."
-msgstr "Hasła nie zgadzają się."
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "Błąd podczas tworzenia konta %h%s%h: %s."
-
-msgid "Missing a required field."
-msgstr "Brakuje wymaganego pola."
 
 msgid "This address is already in use."
 msgstr "Ten adres jest już używany."
 
-msgid "Language is not currently supported."
-msgstr "Język nie jest obecnie obsługiwany."
-
-msgid "The email address is invalid."
-msgstr "Adres e-mail jest nieprawidłowy."
-
 msgid "Re-type password:"
 msgstr "Hasło (ponownie):"
 
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "Konto %h%s%h zostało pomyślnie utworzone."
-
-msgid "Click on the Home link above to login."
-msgstr "Kliknij na linku Start powyżej aby się zalogować."
-
-msgid "The address, %h%s%h, is already in use."
-msgstr "Adres %h%s%h jest już używany."
-
-msgid "Trusted user"
-msgstr "Zaufany Użytkownik"
-
-msgid "Normal user"
-msgstr "Zwykły użytkownik"
-
-msgid "Any type"
-msgstr "Dowolny rodzaj"
-
-msgid "No results matched your search criteria."
-msgstr "Wyszukiwanie nie przyniosło rezultatu."
-
-msgid "Never"
-msgstr "Nigdy"
-
-msgid "Active"
-msgstr "Aktywne"
-
-msgid "Suspended"
-msgstr "Zablokowane"
-
-msgid "The username, %h%s%h, is already in use."
-msgstr "Nazwa użytkownika %h%s%h jest już używana."
-
-msgid "Type"
-msgstr "Rodzaj"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "IRC Nick"
-msgstr "Nick na IRC-u"
-
-msgid "Last Voted"
-msgstr "Ostatni głos"
-
-msgid "Real Name"
-msgstr "Imię i nazwisko"
-
-msgid "Username:"
-msgstr "Nazwa użytkownika:"
-
-msgid "Sort by"
-msgstr "Sortuj według"
-
-msgid "Account Type"
-msgstr "Rodzaj konta"
-
-msgid "Account Suspended"
-msgstr "Konto zablokowane"
-
-msgid "Email address"
-msgstr "Adres e-mail"
-
-msgid "Last vote"
-msgstr "Ostatni głos"
-
 msgid "Regular users can edit their own account."
 msgstr "Zwykli użytkownicy mogą edytować swoje konto."
-
-msgid "Edit Account"
-msgstr "Edytuj konto"
-
-msgid "Use this form to search existing accounts."
-msgstr "Przy użyciu tego formularza możesz przeszukać istniejące konta."
-
-msgid "You are not allowed to access this area."
-msgstr "Nie masz uprawnień do oglądania tej strony."
-
-msgid "Use this form to create an account."
-msgstr "Przy użyciu tego formularza możesz utworzyć konto."
-
-msgid "Use this form to update your account."
-msgstr "Przy użyciu tego formularza możesz uaktualnić swoje konto."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Pozostaw pola z hasłem puste aby nie zmieniać swojego hasła."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Uzyskanie informacji o podanym użytkowniku nie powiodło się."
-
-msgid "You do not have permission to edit this account."
-msgstr "Nie masz uprawnień do edycji tego konta."
-
-msgid "You must log in to view user information."
-msgstr "Musisz być zalogowany aby móc oglądać informacje o użytkownikach."
 
 
 
@@ -196,9 +73,6 @@ msgstr "Powiadamiaj o nowych pakietach"
 msgid "IRC Nick"
 msgstr "Nick na IRC-u"
 
-msgid "Trusted user"
-msgstr "Zaufany Użytkownik"
-
 msgid "Normal user"
 msgstr "Zwykły użytkownik"
 
@@ -226,14 +100,8 @@ msgstr "Język nie jest obecnie obsługiwany."
 msgid "Missing User ID"
 msgstr "Brakuje ID użytkownika"
 
-msgid "Developer"
-msgstr "Developer"
-
 msgid "Search"
 msgstr "Szukaj'"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "No results matched your search criteria."
 msgstr "Wyszukiwanie nie przyniosło rezultatu."
@@ -256,9 +124,6 @@ msgstr "Adres e-mail"
 msgid "Type"
 msgstr "Rodzaj"
 
-msgid "Sort by"
-msgstr "Sortuj według"
-
 msgid "Any type"
 msgstr "Dowolny rodzaj"
 
@@ -273,9 +138,6 @@ msgstr "Brak rezultatów do wyświetlenia."
 
 msgid "A Trusted User cannot assign Developer status."
 msgstr "Zaufany Użytkownik nie może nadać statusu Developera."
-
-msgid "User"
-msgstr "Użytkownik"
 
 msgid "Trusted User"
 msgstr "Zaufany Użytkownik"
@@ -309,26 +171,8 @@ msgstr "AUR: Projekt ArchLinux"
 msgid "Logout"
 msgstr "Wyloguj się"
 
-msgid "Manage"
-msgstr "Zarządzaj"
-
-msgid "Submit"
-msgstr "Wyślij"
-
 msgid "%s: An ArchLinux project"
 msgstr "%s: Projekt ArchLinux"
-
-msgid "Accounts"
-msgstr "Konta"
-
-msgid "Vote"
-msgstr "Głosuj"
-
-msgid "Home"
-msgstr "Start"
-
-msgid "Packages"
-msgstr "Pakiety"
 
 msgid "Trusted user"
 msgstr "Zaufany Użytkownik"
@@ -348,21 +192,6 @@ msgstr "Dyskusja"
 msgid "Bugs"
 msgstr "Błędy"
 
-msgid "My Packages"
-msgstr "Moje pakiety"
-
-msgid "You must supply a password."
-msgstr "Musisz podać hasło."
-
-msgid "You must supply a username."
-msgstr "Musisz podać nazwę użytkownika."
-
-msgid "Your account has been suspended."
-msgstr "Twoje konto zostało zawieszone."
-
-msgid "Error trying to generate session id."
-msgstr "Wystąpił błąd przy próbie generowania identyfikatora sesji."
-
 msgid "Login failure: Bad user or pass."
 msgstr "Logowanie nieudane: Zła nazwa użytkownika bądź hasło."
 
@@ -379,12 +208,6 @@ msgstr "wymagane"
 
 msgid "Email Address"
 msgstr "Adres e-mail"
-
-msgid "Submit"
-msgstr "Wyślij"
-
-msgid "Reset"
-msgstr "Wyczyść"
 
 msgid "Create"
 msgstr "Utwórz"
@@ -505,12 +328,6 @@ msgstr "Pliki PKGBUILD %hmuszą%h być zgodne ze %hStandardami Pakietów Archa%h
 msgid "Registered Users"
 msgstr "Zarejestrowanych użytkowników"
 
-msgid "Safe"
-msgstr "Bezpieczne"
-
-msgid "Out-of-date"
-msgstr "Nieaktualnych"
-
 msgid "User Statistics"
 msgstr "Statystyki użytkowników"
 
@@ -530,12 +347,6 @@ msgid "DISCLAIMER"
 msgstr "ZRZECZENIE"
 
 
-
-msgid "Under construction..."
-msgstr "Prace trwają..."
-
-msgid "You have been successfully logged out."
-msgstr "Zostałeś pomyślnie wylogowany."
 
 
 
@@ -656,9 +467,6 @@ msgstr "Opis"
 msgid "No packages matched your search criteria."
 msgstr "Żaden pakiet nie spełnia podanych kryteriów."
 
-msgid "My Packages"
-msgstr "Moje pakiety"
-
 msgid "Go"
 msgstr "Wykonaj"
 
@@ -679,15 +487,6 @@ msgstr "Porzuć pakiety"
 
 msgid "Delete Packages"
 msgstr "Usuń pakiety"
-
-msgid "You did not select any packages to delete."
-msgstr "Nie wybrałeś żadnych pakietów do usunięcia."
-
-msgid "None of the selected packages could be deleted."
-msgstr "Żaden z wybranych pakietów nie mógł być usunięty."
-
-msgid "The selected packages have been deleted."
-msgstr "Wybrane pakiety zostały usunięte."
 
 msgid "Vote"
 msgstr "Głosuj"
@@ -718,9 +517,6 @@ msgstr "Usuń flagę nieaktualności"
 
 msgid "Un-Vote"
 msgstr "Anuluj głos"
-
-msgid "Yes"
-msgstr "Tak"
 
 msgid "Orphans"
 msgstr "Bez opiekuna"
@@ -852,9 +648,6 @@ msgid "Accounts"
 msgstr "Konta"
 
 
-
-msgid "Under construction..."
-msgstr "Prace trwają..."
 
 msgid "You must be logged in before you can vote for packages."
 msgstr "Musisz być zalogowany aby móc głosować na pakiety."

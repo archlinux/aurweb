@@ -2,30 +2,6 @@
 # Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 
 
-msgid "Use this form to update your account."
-msgstr "Utilizza questo modulo per aggiornare un account."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Lascia vuoti i campi relativi alla password per mantenerla invariata."
-
-msgid "You are not allowed to access this area."
-msgstr "Non disponi dei permessi necessari per accedere."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "Non è stato possibile trovare le informazioni dell'utente specificato."
-
-msgid "Use this form to search existing accounts."
-msgstr "Utilizza questo modulo per cercare account esistenti."
-
-msgid "You do not have permission to edit this account."
-msgstr "Non disponi dei permessi necessari per modificare questo account."
-
-msgid "Use this form to create an account."
-msgstr "Utilizza questo modulo per creare un account."
-
-msgid "You must log in to view user information."
-msgstr "Devi autenticarti per poter visualizzare le informazioni sull'utente."
-
 
 
 msgid "Missing a required field."
@@ -57,9 +33,6 @@ msgstr "L'account %h%s%h è stato modificato con successo."
 
 msgid "Account Suspended"
 msgstr "Account sospeso"
-
-msgid "Status"
-msgstr "Stato"
 
 msgid "New Package Notify"
 msgstr "Notifica dei nuovi pacchetti"
@@ -115,9 +88,6 @@ msgstr "Tipo"
 msgid "Click on the Home link above to login."
 msgstr "Clicca su Inizio per autenticarti."
 
-msgid "Sort by"
-msgstr "Ordina per"
-
 msgid "Re-type password"
 msgstr "Riscrivi la password"
 
@@ -162,17 +132,8 @@ msgstr "Il nome utente non è valido."
 
 
 
-msgid "Home"
-msgstr "Inizio"
-
 msgid "%s: An ArchLinux project"
 msgstr "%s: Un progetto Arch Linux"
-
-msgid "Packages"
-msgstr "Pacchetti"
-
-msgid "Accounts"
-msgstr "Account"
 
 msgid "Logout"
 msgstr "Esci"
@@ -185,9 +146,6 @@ msgstr "Discussione"
 
 msgid "Bugs"
 msgstr "Bug"
-
-msgid "My Packages"
-msgstr "I miei pacchetti"
 
 
 
@@ -512,9 +470,6 @@ msgstr "Azioni"
 msgid "Sources"
 msgstr "Sorgenti"
 
-msgid "Search Criteria"
-msgstr "Criteri di ricerca"
-
 msgid "Notify"
 msgstr "Notifica"
 
@@ -526,9 +481,6 @@ msgstr "Vota"
 
 msgid "Adopt Packages"
 msgstr "Adotta il pacchetto"
-
-msgid "Yes"
-msgstr "Sì"
 
 msgid "Package Listing"
 msgstr "Lista dei pacchetti"
@@ -617,98 +569,29 @@ msgstr "Rimuovi la notifica"
 msgid "Showing results %s - %s of %s"
 msgstr "Risultati: %s - %s di %s"
 
-msgid "You must be logged in before you can flag packages."
-msgstr "Devi autenticarti prima di contrassegnare i pacchetti."
-
-msgid "Your votes have been removed from the selected packages."
-msgstr "i tuoi voti sono stati rimossi dai pacchetti selezionati."
-
-msgid "The selected packages have been disowned."
-msgstr "I pacchetti selezionati sono stati abbandonati."
-
 msgid "Out of Date"
 msgstr "Non aggiornato"
-
-msgid "None of the selected packages could be deleted."
-msgstr "Nessuno dei pacchetti selezionati può essere rimosso."
-
-msgid "The selected packages have been unflagged."
-msgstr "I pacchetti selezionati non sono più contrassegnati."
-
-msgid "You must be logged in before you can unflag packages."
-msgstr "Devi autenticarti prima di poter togliere il contrassegno ai pacchetti."
-
-msgid "You did not select any packages to adopt."
-msgstr "Non hai selezionato nessun pacchetto da adottare."
-
-msgid "You must be logged in before you can get notifications on comments."
-msgstr "Devi autenticarti prima di poter ricevere le notifiche sui commenti."
 
 msgid "Leave the password fields blank to keep your same password."
 msgstr "Lascia i campi delle password vuoti per lasciarla inalterata."
 
-msgid "The selected packages have been flagged out-of-date."
-msgstr "I pacchetti selezionati sono stati contrassegnati come non aggiornati."
-
-msgid "The selected packages have been deleted."
-msgstr "I pacchetti selezionati sono stati rimossi."
-
-msgid "You did not select any packages to vote for."
-msgstr "Non hai selezionato nessun pacchetto da votare."
-
-msgid "You must be logged in before you can disown packages."
-msgstr "Devi autenticarti prima di abbandonare i pacchetti."
-
-msgid "Couldn't add to notification list."
-msgstr "Impossibile aggiungere alla lista della notifica."
-
-msgid "The selected packages have been adopted."
-msgstr "I pacchetti selezionati sono stati adottati."
-
 msgid "You must log in to view user information."
 msgstr "Devi autenticarti per visualizzare le informazioni dell'utente."
-
-msgid "You must be logged in before you can adopt packages."
-msgstr "Devi autenticarti prima di poter adottare i pacchetti."
 
 msgid "Could not retrieve information for the specified user."
 msgstr "Impossibile recuperare le informazioni dell'utente specificato."
 
-msgid "You must be logged in before you can vote for packages."
-msgstr "Devi autenticarti prima di poter votare i pacchetti."
-
 msgid "Use this form to search existing accounts."
 msgstr "Usa questo modulo per ricercare account esistenti."
 
-msgid "You did not select any packages to disown."
-msgstr "Non hai selezionati nessun pacchetto da abbandonare."
-
-msgid "You must be logged in before you can un-vote for packages."
-msgstr "Devi autenticarti prima di rimuovere il voto ai pacchetti."
-
 msgid "Use this form to create an account."
 msgstr "Usa questo modulo per creare un account."
-
-msgid "You did not select any packages to unflag."
-msgstr "Non hai selezionato nessun pacchetto da cui rimuovere il contrassegno."
-
-msgid "You did not select any packages to delete."
-msgstr "Non hai selezionato nessun pacchetto da rimuovere."
 
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Sei stato rimosso dalla lista di notifica dei commenti."
 
 msgid "Use this form to update your account."
 msgstr "Usa questo modulo per aggiornare il tuo account."
-
-msgid "You are not allowed to access this area."
-msgstr "Non hai i permessi necessari per accedere a quest'area."
-
-msgid "Your votes have been cast for the selected packages."
-msgstr "I tuoi voti sono stati assegnati ai pacchetti selezionati."
-
-msgid "You did not select any packages to flag."
-msgstr "Non hai selezionato nessun pacchetto da contrassegnare."
 
 msgid "Accounts"
 msgstr "Account"
@@ -846,9 +729,6 @@ msgstr "Manca la funzione build nel PKGBUILD."
 msgid "Could not change directory to %s."
 msgstr "Impossibile cambiare la directory in %s."
 
-msgid "No"
-msgstr "No"
-
 msgid "Missing pkgdesc variable in PKGBUILD."
 msgstr "Manca la variabile pkgdesc nel PKGBUILD."
 
@@ -947,9 +827,6 @@ msgstr "Spiacente, gli invii non sono consentiti da questo server."
 
 msgid "You must supply a comment for this upload/change."
 msgstr "Devi inserire un commento."
-
-msgid "Yes"
-msgstr "Sì"
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Manca un protocollo nell'url del pacchetto (es. http:// ,ftp://)"

@@ -64,9 +64,6 @@ msgstr "A contar, %h%s%h, foi modificada com sucesso."
 msgid "Account Suspended"
 msgstr "Conta Suspensa"
 
-msgid "Status"
-msgstr "Estado"
-
 msgid "New Package Notify"
 msgstr "Notificação de novos Pacotes"
 
@@ -120,9 +117,6 @@ msgstr "Tipo"
 
 msgid "Click on the Home link above to login."
 msgstr "Clique no link Inicial acima para efetuar o login."
-
-msgid "Sort by"
-msgstr "Ordenar por"
 
 msgid "Re-type password"
 msgstr "Confirme a senha"
@@ -503,9 +497,6 @@ msgstr "Votar"
 
 msgid "Adopt Packages"
 msgstr "Adotar Pacotes"
-
-msgid "Yes"
-msgstr "Sim"
 
 msgid "Package Listing"
 msgstr "Listagem de Pacotes"

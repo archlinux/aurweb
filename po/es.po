@@ -2,30 +2,6 @@
 # Translator: Víctor Martínez Romanos <vmromanos@gmail.com>
 
 
-msgid "Use this form to update your account."
-msgstr "Use este formulario para actualizar su cuenta."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Deje en blanco los campos de la contraseña para conservarla."
-
-msgid "You are not allowed to access this area."
-msgstr "No está autorizado a acceder a esta área."
-
-msgid "Could not retrieve information for the specified user."
-msgstr "No se pudo obtener la información del usuario especificado."
-
-msgid "Use this form to search existing accounts."
-msgstr "Use este formulario para buscar cuentas existentes."
-
-msgid "You do not have permission to edit this account."
-msgstr "No tiene permiso para editar esta cuenta."
-
-msgid "Use this form to create an account."
-msgstr "Use este formulario para crear una cuenta."
-
-msgid "You must log in to view user information."
-msgstr "Debe identificarse para ver la información del usuario."
-
 
 
 msgid "Missing a required field."
@@ -57,9 +33,6 @@ msgstr "La cuenta, %h%s%h, se ha modificado correctamente."
 
 msgid "Account Suspended"
 msgstr "Cuenta suspendida"
-
-msgid "Status"
-msgstr "Estado"
 
 msgid "New Package Notify"
 msgstr "Aviso de nuevos paquetes"
@@ -118,9 +91,6 @@ msgstr "Tipo"
 msgid "Click on the Home link above to login."
 msgstr "Pulse en el enlace Inicio situado en la parte superior para identificarse."
 
-msgid "Sort by"
-msgstr "Ordenar por"
-
 msgid "Re-type password"
 msgstr "Reescriba la contraseña"
 
@@ -167,9 +137,6 @@ msgstr "Inicio"
 
 msgid "Packages"
 msgstr "Paquetes"
-
-msgid "My Packages"
-msgstr "Mis paquetes"
 
 
 
@@ -280,9 +247,6 @@ msgstr "Identificado como: %s"
 msgid "Incorrect password for username, %s."
 msgstr "Contraseña incorrecta para el usuario, %s."
 
-msgid "Safe"
-msgstr "Seguros"
-
 msgid "Out-of-date"
 msgstr "Desactualizados"
 
@@ -290,9 +254,6 @@ msgid "User Statistics"
 msgstr "Estadísticas del Usuario"
 
 
-
-msgid "You have been successfully logged out."
-msgstr "Ha abandonado la sesión correctamente."
 
 
 
@@ -489,9 +450,6 @@ msgstr "Desmarcar Seguro"
 
 msgid "Sources"
 msgstr "Fuentes"
-
-msgid "Yes"
-msgstr "Sí"
 
 msgid "Search Criteria"
 msgstr "Criterio de Búsqueda"

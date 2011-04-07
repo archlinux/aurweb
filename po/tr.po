@@ -64,9 +64,6 @@ msgstr "Hesap %h%s%h başarıyla düzenlendi."
 msgid "Account Suspended"
 msgstr "Hesap Donduruldu"
 
-msgid "Status"
-msgstr "Durum"
-
 msgid "New Package Notify"
 msgstr "Yeni Paket Bildirimi"
 
@@ -121,9 +118,6 @@ msgstr "Tür"
 msgid "Click on the Home link above to login."
 msgstr "Giriş yapmak için aşağıdaki Ev bağlantısını tıklayın.."
 
-msgid "Sort by"
-msgstr "Sıralama kriteri"
-
 msgid "Re-type password"
 msgstr "Şifreyi tekrarlayın"
 
@@ -138,9 +132,6 @@ msgstr "Son oylanan"
 
 msgid "Suspended"
 msgstr "Donduruldu"
-
-msgid "Trusted User"
-msgstr "Güvenilen Kullanıcı"
 
 msgid "Missing User ID"
 msgstr "Kullanıcı kimliği eksik"
@@ -508,9 +499,6 @@ msgstr "Oy ver"
 
 msgid "Adopt Packages"
 msgstr "Paketleri Sahiplen"
-
-msgid "Yes"
-msgstr "Evet"
 
 msgid "Package Listing"
 msgstr "Paket Listeleme"
