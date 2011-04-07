@@ -52,7 +52,7 @@ update-po:
 	${MAKE} ${UPDATEPOFILES}
 
 clean:
-	rm *.mo *.po\~
+	rm -f *.mo *.po\~
 
 install: all
 	for l in ${LOCALES}; do mkdir -p ${DESTDIR}${PREFIX}/$$l/LC_MESSAGES/; done
