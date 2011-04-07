@@ -33,6 +33,7 @@ PKG_FILES = (8, 30)    # min/max number of files in a package
 PKG_DEPS  = (1, 5)     # min/max depends a package has
 PKG_SRC   = (1, 3)     # min/max sources a package has
 PKG_CMNTS = (1, 5)     # min/max number of comments a package has
+CATEGORIES_COUNT = 17  # the number of categories from aur-schema
 VOTING    = (0, .30)   # percentage range for package voting
 RANDOM_PATHS = (       # random path locations for package files
 	"/usr/bin", "/usr/lib", "/etc", "/etc/rc.d", "/usr/share", "/lib",
@@ -56,33 +57,10 @@ if not os.path.exists(SEED_FILE):
 	sys.stderr.write("Please install the 'words' Arch package\n");
 	raise SystemExit
 
-# Make sure database access will be available
-#
-try:
-	import MySQLdb
-except:
-	sys.stderr.write("Please install the 'mysql-python' Arch package\n");
-	raise SystemExit
-
-# try to connect to database
-#
-try:
-	db = MySQLdb.connect(host = DB_HOST, user = DB_USER,
-			db = DB_NAME, passwd = DB_PASS)
-	dbc = db.cursor()
-except:
-	sys.stderr.write("Could not connect to database\n");
-	raise SystemExit
-
-esc = db.escape_string
-
-
 # track what users/package names have been used
 #
 seen_users = {}
 seen_pkgs = {}
-categories = {}
-category_keys = []
 user_keys = []
 
 # some functions to generate random data
@@ -95,7 +73,7 @@ def genVersion():
 		ver.append("%d" % random.randrange(0,100))
 	return ".".join(ver) + "-u%d" % random.randrange(1,11)
 def genCategory():
-	return categories[category_keys[random.randrange(0,len(category_keys))]]
+	return random.randrange(1,CATEGORIES_COUNT)
 def genUID():
 	return seen_users[user_keys[random.randrange(0,len(user_keys))]]
 
@@ -148,22 +126,6 @@ while len(seen_pkgs) < MAX_PKGS:
 # free up contents memory
 #
 contents = None
-
-# Load package categories from database
-#
-if DBUG: print "Loading package categories..."
-q = "SELECT * FROM PackageCategories"
-dbc.execute(q)
-row = dbc.fetchone()
-while row:
-	categories[row[1]] = row[0]
-	row = dbc.fetchone()
-category_keys = categories.keys()
-
-# done with the database
-#
-dbc.close()
-db.close()
 
 # developer/tu IDs
 #
@@ -245,7 +207,7 @@ for p in seen_pkgs.keys():
 	#
 	num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
 	for i in range(0, num_comments):
-		fortune = esc(commands.getoutput(FORTUNE_CMD).replace("'",""))
+		fortune = commands.getoutput(FORTUNE_CMD).replace("'","")
 		now = NOW + random.randrange(400, 86400*3)
 		s = "INSERT INTO PackageComments (PackageID, UsersID, Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n" % (seen_pkgs[p], genUID(), fortune, now)
 		out.write(s)
