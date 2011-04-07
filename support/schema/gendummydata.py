@@ -15,9 +15,9 @@ import os
 import sys
 import cStringIO
 import commands
+import logging
 
-
-DBUG      = 1
+LOG_LEVEL = logging.DEBUG # logging level. set to logging.INFO to reduce output
 SEED_FILE = "/usr/share/dict/words"
 DB_HOST   = os.getenv("DB_HOST", "localhost")
 DB_NAME   = os.getenv("DB_NAME", "AUR")
@@ -46,15 +46,19 @@ RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
 FORTUNE_CMD = "/usr/bin/fortune -l"
 
+# setup logging
+logformat = "%(levelname)s: %(message)s"
+logging.basicConfig(format=logformat, level=LOG_LEVEL)
+log = logging.getLogger()
 
 if len(sys.argv) != 2:
-	sys.stderr.write("Missing output filename argument");
+	log.error("Missing output filename argument")
 	raise SystemExit
 
 # make sure the seed file exists
 #
 if not os.path.exists(SEED_FILE):
-	sys.stderr.write("Please install the 'words' Arch package\n");
+	log.error("Please install the 'words' Arch package")
 	raise SystemExit
 
 # track what users/package names have been used
@@ -80,7 +84,7 @@ def genUID():
 
 # load the words, and make sure there are enough words for users/pkgs
 #
-if DBUG: print "Grabbing words from seed file..."
+log.debug("Grabbing words from seed file...")
 fp = open(SEED_FILE, "r")
 contents = fp.readlines()
 fp.close()
@@ -95,7 +99,7 @@ else:
 
 # select random usernames
 #
-if DBUG: print "Generating random user names..."
+log.debug("Generating random user names...")
 user_id = USER_ID
 while len(seen_users) < MAX_USERS:
 	user = random.randrange(0, len(contents))
@@ -108,7 +112,7 @@ user_keys = seen_users.keys()
 
 # select random package names
 #
-if DBUG: print "Generating random package names..."
+log.debug("Generating random package names...")
 num_pkgs = PKG_ID
 while len(seen_pkgs) < MAX_PKGS:
 	pkg = random.randrange(0, len(contents))
@@ -141,8 +145,7 @@ out.write("BEGIN;\n")
 
 # Begin by creating the User statements
 #
-if DBUG: print "Creating SQL statements for users.",
-count = 0
+log.debug("Creating SQL statements for users.")
 for u in user_keys:
 	account_type = 1  # default to normal user
 	if not has_devs or not has_tus:
@@ -163,22 +166,18 @@ for u in user_keys:
 			# a normal user account
 			#
 			pass
-	
+
 	s = "INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (%d, %d, '%s', '%s@example.com', MD5('%s'));\n" % (seen_users[u], account_type, u, u, u)
 	out.write(s)
-	if count % 10 == 0:
-		if DBUG: print ".",
-	count += 1
-if DBUG: print "."
-if DBUG:
-	print "Number of developers:", len(developers)
-	print "Number of trusted users:", len(trustedusers)
-	print "Number of users:", (MAX_USERS-len(developers)-len(trustedusers))
-	print "Number of packages:", MAX_PKGS
+
+log.debug("Number of developers: %d" % len(developers))
+log.debug("Number of trusted users: %d" % len(trustedusers))
+log.debug("Number of users: %d" % (MAX_USERS-len(developers)-len(trustedusers)))
+log.debug("Number of packages: %d" % MAX_PKGS)
 
 # Create the package statements
 #
-if DBUG: print "Creating SQL statements for packages.",
+log.debug("Creating SQL statements for packages.")
 count = 0
 for p in seen_pkgs.keys():
 	NOW = int(time.time())
@@ -199,8 +198,6 @@ for p in seen_pkgs.keys():
 			genCategory(), NOW, uuid, muid)
 
 	out.write(s)
-	if count % 100 == 0:
-		if DBUG: print ".",
 	count += 1
 
 	# create random comments for this package
@@ -212,13 +209,10 @@ for p in seen_pkgs.keys():
 		s = "INSERT INTO PackageComments (PackageID, UsersID, Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n" % (seen_pkgs[p], genUID(), fortune, now)
 		out.write(s)
 
-if DBUG: print "."
-
 # Cast votes
 #
 track_votes = {}
-if DBUG: print "Casting votes for packages.",
-count = 0
+log.debug("Casting votes for packages.")
 for u in user_keys:
 	num_votes = random.randrange(int(len(seen_pkgs)*VOTING[0]),
 			int(len(seen_pkgs)*VOTING[1]))
@@ -232,9 +226,6 @@ for u in user_keys:
 				track_votes[pkg] = 0
 			track_votes[pkg] += 1
 			out.write(s)
-			if count % 100 == 0:
-				if DBUG: print ".",
-			count += 1
 
 # Update statements for package votes
 #
@@ -244,8 +235,7 @@ for p in track_votes.keys():
 
 # Create package dependencies and sources
 #
-if DBUG: print "."; print "Creating statements for package depends/sources.",
-count = 0
+log.debug("Creating statements for package depends/sources.")
 for p in seen_pkgs.keys():
 	num_deps = random.randrange(PKG_DEPS[0], PKG_DEPS[1])
 	this_deps = {}
@@ -269,17 +259,9 @@ for p in seen_pkgs.keys():
 				seen_pkgs[p], src)
 		out.write(s)
 
-	if count % 100 == 0:
-		if DBUG: print ".",
-	count += 1
-
-
 # close output file
 #
 out.write("COMMIT;\n")
 out.write("\n")
 out.close()
-
-if DBUG: print "."
-if DBUG: print "Done."
-
+log.debug("Done.")
