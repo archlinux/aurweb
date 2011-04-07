@@ -22,12 +22,14 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR
 #	print __("This is a %hmajor%h problem!", "<b>", "</b>");
 
 include_once('config.inc');
+include_once('gettext.php');
+include_once('streams.php');
 
-global $_t;
+global $streamer, $l10n;
 
 function __() {
-	global $_t;
 	global $LANG;
+	global $l10n;
 
 	# Create the translation.
 	$args = func_get_args();
@@ -35,14 +37,8 @@ function __() {
 	# First argument is always string to be translated
 	$tag = $args[0];
 
-	# If there is no translation, just print the given string.
-	if (empty($_t[$tag])) {
-		$translated = $tag;
-	}
-	else {
-		$translated = $_t[$tag];
-	}
-
+	# Translate using gettext_reader initialized before.
+	$translated = $l10n->translate($tag);
 	$translated = htmlspecialchars($translated, ENT_QUOTES);
 
 	$num_args = sizeof($args);

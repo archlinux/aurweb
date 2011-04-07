@@ -248,10 +248,10 @@ function db_query($query="", $db_handle="") {
 # set up the visitor's language
 #
 function set_lang() {
-	global $_t;
 	global $LANG;
 	global $SUPPORTED_LANGS;
 	global $PERSISTENT_COOKIE_TIMEOUT;
+	global $streamer, $l10n;
 
 	$update_cookie = 0;
 	if (isset($_REQUEST['setlang'])) {
@@ -292,9 +292,9 @@ function set_lang() {
 		setcookie("AURLANG", $LANG, $cookie_time, "/");
 	}
 
-	if ($LANG != "en" ) {
-		include_once("$LANG.po");
-	}
+	$streamer = new FileReader('../locale/' . $LANG .
+		'/LC_MESSAGES/aur.mo');
+	$l10n = new gettext_reader($streamer, true);
 
 	return;
 }
