@@ -167,7 +167,9 @@ for u in user_keys:
 			#
 			pass
 
-	s = "INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (%d, %d, '%s', '%s@example.com', MD5('%s'));\n" % (seen_users[u], account_type, u, u, u)
+	s = ("INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd)"
+		 " VALUES (%d, %d, '%s', '%s@example.com', MD5('%s'));\n")
+	s = s % (seen_users[u], account_type, u, u, u)
 	out.write(s)
 
 log.debug("Number of developers: %d" % len(developers))
@@ -191,11 +193,15 @@ for p in seen_pkgs.keys():
 	uuid = genUID() # the submitter/user
 
 	if muid == 0:
-		s = "INSERT INTO Packages (ID, Name, Version, CategoryID, SubmittedTS, SubmitterUID, MaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, NULL);\n" % (seen_pkgs[p], p, genVersion(),
-			genCategory(), NOW, uuid)
+		s = ("INSERT INTO Packages (ID, Name, Version, CategoryID,"
+			 " SubmittedTS, SubmitterUID, MaintainerUID) VALUES"
+			 " (%d, '%s', '%s', %d, %d, %d, NULL);\n")
+		s = s % (seen_pkgs[p], p, genVersion(), genCategory(), NOW, uuid)
 	else:
-		s = "INSERT INTO Packages (ID, Name, Version, CategoryID, SubmittedTS, SubmitterUID, MaintainerUID) VALUES (%d, '%s', '%s', %d, %d, %d, %d);\n" % (seen_pkgs[p], p, genVersion(),
-			genCategory(), NOW, uuid, muid)
+		s = ("INSERT INTO Packages (ID, Name, Version, CategoryID,"
+			 " SubmittedTS, SubmitterUID, MaintainerUID) VALUES "
+			 " (%d, '%s', '%s', %d, %d, %d, %d);\n")
+		s = s % (seen_pkgs[p], p, genVersion(), genCategory(), NOW, uuid, muid)
 
 	out.write(s)
 	count += 1
@@ -206,7 +212,9 @@ for p in seen_pkgs.keys():
 	for i in range(0, num_comments):
 		fortune = commands.getoutput(FORTUNE_CMD).replace("'","")
 		now = NOW + random.randrange(400, 86400*3)
-		s = "INSERT INTO PackageComments (PackageID, UsersID, Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n" % (seen_pkgs[p], genUID(), fortune, now)
+		s = ("INSERT INTO PackageComments (PackageID, UsersID,"
+			 " Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n")
+		s = s % (seen_pkgs[p], genUID(), fortune, now)
 		out.write(s)
 
 # Cast votes
@@ -220,7 +228,9 @@ for u in user_keys:
 	for v in range(num_votes):
 		pkg = random.randrange(1, len(seen_pkgs) + 1)
 		if not pkgvote.has_key(pkg):
-			s = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES (%d, %d);\n" % (seen_users[u], pkg)
+			s = ("INSERT INTO PackageVotes (UsersID, PackageID)"
+				 " VALUES (%d, %d);\n")
+			s = s % (seen_users[u], pkg)
 			pkgvote[pkg] = 1
 			if not track_votes.has_key(pkg):
 				track_votes[pkg] = 0
@@ -230,7 +240,8 @@ for u in user_keys:
 # Update statements for package votes
 #
 for p in track_votes.keys():
-	s = "UPDATE Packages SET NumVotes = %d WHERE ID = %d;\n" % (track_votes[p], p)
+	s = "UPDATE Packages SET NumVotes = %d WHERE ID = %d;\n"
+	s = s % (track_votes[p], p)
 	out.write(s)
 
 # Create package dependencies and sources
@@ -243,7 +254,8 @@ for p in seen_pkgs.keys():
 	while i != num_deps:
 		dep = random.randrange(1, len(seen_pkgs) + 1)
 		if not this_deps.has_key(dep):
-			s = "INSERT INTO PackageDepends VALUES (%d, %d, NULL);\n" % (seen_pkgs[p], dep)
+			s = "INSERT INTO PackageDepends VALUES (%d, %d, NULL);\n"
+			s = s % (seen_pkgs[p], dep)
 			out.write(s)
 			i += 1
 
@@ -255,8 +267,8 @@ for p in seen_pkgs.keys():
 				p, RANDOM_TLDS[random.randrange(0,len(RANDOM_TLDS))],
 				RANDOM_LOCS[random.randrange(0,len(RANDOM_LOCS))],
 				src_file, genVersion())
-		s = "INSERT INTO PackageSources VALUES (%d, '%s');\n" % (
-				seen_pkgs[p], src)
+		s = "INSERT INTO PackageSources VALUES (%d, '%s');\n"
+		s = s % (seen_pkgs[p], src)
 		out.write(s)
 
 # close output file
