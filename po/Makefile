@@ -33,7 +33,7 @@ MSGID_BUGS_ADDRESS = https://bugs.archlinux.org/index.php?project=2
 all: ${MOFILES}
 
 %.mo: %.po
-	msgfmt -o $@ $<
+	msgfmt --check -o $@ $<
 
 %.po-update: %.po aur.pot
 	lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
