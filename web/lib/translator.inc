@@ -8,15 +8,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR
 #   text.  The string can contain escape codes %h for HTML
 #   and %s for regular text.
 #
-# supporting scripts:
-#   there is a supporting script, web/utils/genpopo, that will
-#   parse the PHP files and create PHP include files that contain
-#   a mapping for each translated language.  The include files
-#   have the form,
-#
-#     $_t["en"]["My cat is large."] = "My cat is large.";
-#     $_t["es"]["My cat is large."] = "Mi gato esta grande.";
-#
 # examples:
 #	print __("%s has %s apples.", "Bill", "5");
 #	print __("This is a %hmajor%h problem!", "<b>", "</b>");
