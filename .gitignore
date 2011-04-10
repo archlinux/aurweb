@@ -6,3 +6,5 @@ web/lib/config.inc
 web/html/xml/*.xml
 dummy-data.sql*
 web/locale/*/
+po/*.mo
+po/*.po~
