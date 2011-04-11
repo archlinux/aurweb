@@ -50,13 +50,11 @@ Updating an Existing Translation
 1. Download current translation files from Transifex. You can also do this
    using transifex-client which is available through the AUR:
 
-$ tx init --host=https://www.transifex.net
-$ tx set --auto-remote https://www.transifex.net/projects/p/aur/
-$ tx pull -r aur.aurpot -a
+$ tx pull -a
 
 2. Update the existing translation file using an editor or a tool like poedit:
 
-$ poedit <locale>.po
+$ poedit po/<locale>.po
 
 3. Push the updated translation file back to Transifex. Using transifex-client,
    this works as follows:
