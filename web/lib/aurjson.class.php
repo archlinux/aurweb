@@ -117,10 +117,11 @@ class AurJSON {
             return $this->json_error('Query arg too small');
         }
 
+        $fields = implode(',', self::$fields);
         $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
         $keyword_string = addcslashes($keyword_string, '%_');
 
-        $query = "SELECT " . implode(',', self::$fields) .
+        $query = "SELECT {$fields} " .
             " FROM Packages WHERE " .
             "  ( Name LIKE '%{$keyword_string}%' OR " .
             "    Description LIKE '%{$keyword_string}%' )";
@@ -134,7 +135,9 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function info($pqdata) {
-        $base_query = "SELECT " . implode(',', self::$fields) .
+        $fields = implode(',', self::$fields);
+
+        $base_query = "SELECT {$fields} " .
             " FROM Packages WHERE ";
 
         if ( is_numeric($pqdata) ) {
@@ -144,11 +147,8 @@ class AurJSON {
             $query_stub = "ID={$pqdata}";
         }
         else {
-            if(get_magic_quotes_gpc()) {
-                $pqdata = stripslashes($pqdata);
-            }
             $query_stub = sprintf("Name=\"%s\"",
-                mysql_real_escape_string($pqdata));
+                mysql_real_escape_string($pqdata, $this->dbh));
         }
         $query = $base_query . $query_stub;
 
@@ -161,13 +161,13 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function msearch($maintainer) {
-        $maintainer = mysql_real_escape_string($maintainer, $this->dbh);
         $fields = implode(',', self::$fields);
+        $maintainer = mysql_real_escape_string($maintainer, $this->dbh);
 
         $query = "SELECT Users.Username as Maintainer, {$fields} " .
-            " FROM Packages, Users " .
-            "        WHERE Packages.MaintainerUID = Users.ID AND " .
-            "              Users.Username = '{$maintainer}'";
+            " FROM Packages, Users WHERE " .
+            "   Packages.MaintainerUID = Users.ID AND " .
+            "   Users.Username = '{$maintainer}'";
 
         return $this->process_query('msearch', $query);
     }
