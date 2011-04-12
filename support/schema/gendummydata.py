@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 """
 usage: gendummydata.py outputfilename.sql
 """
@@ -13,8 +13,8 @@ import random
 import time
 import os
 import sys
-import cStringIO
-import commands
+import io
+import subprocess
 import logging
 
 LOG_LEVEL = logging.DEBUG # logging level. set to logging.INFO to reduce output
@@ -105,10 +105,10 @@ while len(seen_users) < MAX_USERS:
 	user = random.randrange(0, len(contents))
 	word = contents[user].replace("'", "").replace(".","").replace(" ", "_")
 	word = word.strip().lower()
-	if not seen_users.has_key(word):
+	if word not in seen_users:
 		seen_users[word] = user_id
 		user_id += 1
-user_keys = seen_users.keys()
+user_keys = list(seen_users.keys())
 
 # select random package names
 #
@@ -119,11 +119,11 @@ while len(seen_pkgs) < MAX_PKGS:
 	word = contents[pkg].replace("'", "").replace(".","").replace(" ", "_")
 	word = word.strip().lower()
 	if not need_dupes:
-		if not seen_pkgs.has_key(word) and not seen_users.has_key(word):
+		if word not in seen_pkgs and word not in seen_users:
 			seen_pkgs[word] = num_pkgs
 			num_pkgs += 1
 	else:
-		if not seen_pkgs.has_key(word):
+		if word not in seen_pkgs:
 			seen_pkgs[word] = num_pkgs
 			num_pkgs += 1
 
@@ -181,7 +181,7 @@ log.debug("Number of packages: %d" % MAX_PKGS)
 #
 log.debug("Creating SQL statements for packages.")
 count = 0
-for p in seen_pkgs.keys():
+for p in list(seen_pkgs.keys()):
 	NOW = int(time.time())
 	if count % 2 == 0:
 		muid = developers[random.randrange(0,len(developers))]
@@ -210,7 +210,7 @@ for p in seen_pkgs.keys():
 	#
 	num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
 	for i in range(0, num_comments):
-		fortune = commands.getoutput(FORTUNE_CMD).replace("'","")
+		fortune = subprocess.getoutput(FORTUNE_CMD).replace("'","")
 		now = NOW + random.randrange(400, 86400*3)
 		s = ("INSERT INTO PackageComments (PackageID, UsersID,"
 			 " Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n")
@@ -227,19 +227,19 @@ for u in user_keys:
 	pkgvote = {}
 	for v in range(num_votes):
 		pkg = random.randrange(1, len(seen_pkgs) + 1)
-		if not pkgvote.has_key(pkg):
+		if pkg not in pkgvote:
 			s = ("INSERT INTO PackageVotes (UsersID, PackageID)"
 				 " VALUES (%d, %d);\n")
 			s = s % (seen_users[u], pkg)
 			pkgvote[pkg] = 1
-			if not track_votes.has_key(pkg):
+			if pkg not in track_votes:
 				track_votes[pkg] = 0
 			track_votes[pkg] += 1
 			out.write(s)
 
 # Update statements for package votes
 #
-for p in track_votes.keys():
+for p in list(track_votes.keys()):
 	s = "UPDATE Packages SET NumVotes = %d WHERE ID = %d;\n"
 	s = s % (track_votes[p], p)
 	out.write(s)
@@ -247,13 +247,13 @@ for p in track_votes.keys():
 # Create package dependencies and sources
 #
 log.debug("Creating statements for package depends/sources.")
-for p in seen_pkgs.keys():
+for p in list(seen_pkgs.keys()):
 	num_deps = random.randrange(PKG_DEPS[0], PKG_DEPS[1])
 	this_deps = {}
 	i = 0
 	while i != num_deps:
 		dep = random.choice([k for k in seen_pkgs])
-		if not this_deps.has_key(dep):
+		if dep not in this_deps:
 			s = "INSERT INTO PackageDepends VALUES (%d, '%s', NULL);\n"
 			s = s % (seen_pkgs[p], dep)
 			out.write(s)

@@ -20,7 +20,7 @@ mysql -h $DB_HOST -u $DB_USER -p$DB_PASS < aur-schema.sql
 
 if [ ! -f $DATA_FILE ]; then
 	echo "creating dumy-data..."
-	python2 gendummydata.py $DATA_FILE
+	python3 gendummydata.py $DATA_FILE
 fi
 
 echo "loading dummy-data..."
