@@ -83,7 +83,12 @@ class AurJSON {
         return json_encode( array('type' => $type, 'results' => $data) );
     }
 
-    private function process_query($type, $query) {
+    private function process_query($type, $where_condition) {
+        $fields = implode(',', self::$fields);
+        $query = "SELECT Users.Username as Maintainer, {$fields} " .
+            "FROM Packages LEFT JOIN Users " .
+            "ON Packages.MaintainerUID = Users.ID " .
+            "WHERE ${where_condition}";
         $result = db_query($query, $this->dbh);
 
         if ( $result && (mysql_num_rows($result) > 0) ) {
@@ -149,16 +154,13 @@ class AurJSON {
             return $this->json_error('Query arg too small');
         }
 
-        $fields = implode(',', self::$fields);
         $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
         $keyword_string = addcslashes($keyword_string, '%_');
 
-        $query = "SELECT {$fields} " .
-            " FROM Packages WHERE " .
-            "  ( Name LIKE '%{$keyword_string}%' OR " .
-            "    Description LIKE '%{$keyword_string}%' )";
+        $where_condition = "( Name LIKE '%{$keyword_string}%' OR " .
+            "Description LIKE '%{$keyword_string}%' )";
 
-        return $this->process_query('search', $query);
+        return $this->process_query('search', $where_condition);
     }
 
     /**
@@ -167,24 +169,18 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function info($pqdata) {
-        $fields = implode(',', self::$fields);
-
-        $base_query = "SELECT {$fields} " .
-            " FROM Packages WHERE ";
-
         if ( is_numeric($pqdata) ) {
             // just using sprintf to coerce the pqd to an int
             // should handle sql injection issues, since sprintf will
             // bork if not an int, or convert the string to a number 0
-            $query_stub = "ID={$pqdata}";
+            $where_condition = "ID={$pqdata}";
         }
         else {
-            $query_stub = sprintf("Name=\"%s\"",
+            $where_condition = sprintf("Name=\"%s\"",
                 mysql_real_escape_string($pqdata, $this->dbh));
         }
-        $query = $base_query . $query_stub;
 
-        return $this->process_query('info', $query);
+        return $this->process_query('info', $where_condition);
     }
 
     /**
@@ -193,7 +189,6 @@ class AurJSON {
      * @return mixed Returns an array of results containing the package data
      **/
     private function multiinfo($pqdata) {
-        $fields = implode(',', self::$fields);
         $args = $this->parse_multiinfo_args($pqdata);
         $ids = $args['ids'];
         $names = $args['names'];
@@ -202,22 +197,21 @@ class AurJSON {
             return $this->json_error('Invalid query arguments');
         }
 
-        $query = "SELECT {$fields} " .
-            " FROM Packages WHERE ";
+        $where_condition = "";
         if ($ids) {
             $ids_value = implode(',', $args['ids']);
-            $query .= "ID IN ({$ids_value})";
+            $where_condition .= "ID IN ({$ids_value})";
         }
         if ($ids && $names) {
-            $query .= " OR ";
+            $where_condition .= " OR ";
         }
         if ($names) {
             // individual names were quoted in parse_multiinfo_args()
             $names_value = implode(',', $args['names']);
-            $query .= "Name IN ({$names_value})";
+            $where_condition .= "Name IN ({$names_value})";
         }
 
-        return $this->process_query('multiinfo', $query);
+        return $this->process_query('multiinfo', $where_condition);
     }
 
     /**
@@ -226,15 +220,11 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function msearch($maintainer) {
-        $fields = implode(',', self::$fields);
         $maintainer = mysql_real_escape_string($maintainer, $this->dbh);
 
-        $query = "SELECT Users.Username as Maintainer, {$fields} " .
-            " FROM Packages, Users WHERE " .
-            "   Packages.MaintainerUID = Users.ID AND " .
-            "   Users.Username = '{$maintainer}'";
+        $where_condition = "Users.Username = '{$maintainer}'";
 
-        return $this->process_query('msearch', $query);
+        return $this->process_query('msearch', $where_condition);
     }
 }
 
