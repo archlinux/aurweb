@@ -252,9 +252,9 @@ for p in seen_pkgs.keys():
 	this_deps = {}
 	i = 0
 	while i != num_deps:
-		dep = random.randrange(1, len(seen_pkgs) + 1)
+		dep = random.choice([k for k in seen_pkgs])
 		if not this_deps.has_key(dep):
-			s = "INSERT INTO PackageDepends VALUES (%d, %d, NULL);\n"
+			s = "INSERT INTO PackageDepends VALUES (%d, '%s', NULL);\n"
 			s = s % (seen_pkgs[p], dep)
 			out.write(s)
 			i += 1
