@@ -14,23 +14,12 @@ include_once("aur.inc");
  **/
 class AurJSON {
     private $dbh = false;
-    private $exposed_methods = array();
-    private $fields = array();
-
-    /**
-     * Initialize methods and database fields.
-     **/
-    public function __construct() {
-        $this->exposed_methods = array('search', 'info', 'msearch');
-
-	$this->fields = array(
-	    'Packages.ID', 'Name', 'Version', 'CategoryID',
-	    'Description', 'URL', 'CONCAT("' .
-	    mysql_real_escape_string(URL_DIR) .
-	    '", Name, "/", Name, ".tar.gz") AS URLPath', 'License',
-	    'NumVotes', '(OutOfDateTS IS NOT NULL) AS OutOfDate'
-	);
-    }
+    private static $exposed_methods = array('search', 'info', 'msearch');
+    private static $fields = array(
+        'Packages.ID', 'Name', 'Version', 'CategoryID',
+        'Description', 'URL', 'License',
+        'NumVotes', '(OutOfDateTS IS NOT NULL) AS OutOfDate'
+    );
 
     /**
      * Handles post data, and routes the request.
@@ -44,12 +33,12 @@ class AurJSON {
         }
 
         // do the routing
-        if ( in_array($http_data['type'], $this->exposed_methods) ) {
+        if ( in_array($http_data['type'], self::$exposed_methods) ) {
             // set up db connection.
             $this->dbh = db_connect();
 
             // ugh. this works. I hate you php.
-            $json = call_user_func(array(&$this,$http_data['type']),
+            $json = call_user_func(array(&$this, $http_data['type']),
                 $http_data['arg']);
 
             // allow rpc callback for XDomainAjax
@@ -76,10 +65,10 @@ class AurJSON {
      * @param $msg The error string to return
      * @return mixed A json formatted error response.
      **/
-    private function json_error($msg){
+    private function json_error($msg) {
         // set content type header to app/json
         header('content-type: application/json');
-        return $this->json_results('error',$msg);
+        return $this->json_results('error', $msg);
     }
 
     /**
@@ -88,8 +77,34 @@ class AurJSON {
      * @param $data The result data to return
      * @return mixed A json formatted result response.
      **/
-    private function json_results($type,$data){
+    private function json_results($type, $data) {
         return json_encode( array('type' => $type, 'results' => $data) );
+    }
+
+    private function process_query($type, $query) {
+        $result = db_query($query, $this->dbh);
+
+        if ( $result && (mysql_num_rows($result) > 0) ) {
+            $search_data = array();
+            while ( $row = mysql_fetch_assoc($result) ) {
+                $name = $row['Name'];
+                $row['URLPath'] = URL_DIR . $name . "/" . $name . ".tar.gz";
+
+                if ($type == 'info') {
+                    $search_data = $row;
+                    break;
+                }
+                else {
+                    array_push($search_data, $row);
+                }
+            }
+
+            mysql_free_result($result);
+            return $this->json_results($type, $search_data);
+        }
+        else {
+            return $this->json_error('No results found');
+        }
     }
 
     /**
@@ -105,24 +120,12 @@ class AurJSON {
         $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
         $keyword_string = addcslashes($keyword_string, '%_');
 
-        $query = "SELECT " . implode(',', $this->fields) .
+        $query = "SELECT " . implode(',', self::$fields) .
             " FROM Packages WHERE " .
             "  ( Name LIKE '%{$keyword_string}%' OR " .
             "    Description LIKE '%{$keyword_string}%' )";
-        $result = db_query($query, $this->dbh);
 
-        if ( $result && (mysql_num_rows($result) > 0) ) {
-            $search_data = array();
-            while ( $row = mysql_fetch_assoc($result) ) {
-                array_push($search_data, $row);
-            }
-
-            mysql_free_result($result);
-            return $this->json_results('search', $search_data);
-        }
-        else {
-            return $this->json_error('No results found');
-        }
+        return $this->process_query('search', $query);
     }
 
     /**
@@ -131,7 +134,7 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function info($pqdata) {
-        $base_query = "SELECT " . implode(',', $this->fields) .
+        $base_query = "SELECT " . implode(',', self::$fields) .
             " FROM Packages WHERE ";
 
         if ( is_numeric($pqdata) ) {
@@ -147,26 +150,9 @@ class AurJSON {
             $query_stub = sprintf("Name=\"%s\"",
                 mysql_real_escape_string($pqdata));
         }
+        $query = $base_query . $query_stub;
 
-        $result = db_query($base_query.$query_stub, $this->dbh);
-
-        if ( $result && (mysql_num_rows($result) > 0) ) {
-            $row = mysql_fetch_assoc($result);
-            mysql_free_result($result);
-            foreach($row as $name => $value) {
-                $converted = utf8_encode($value);
-                if ($converted != "") {
-                    $row[$name] = $converted;
-                }
-                else {
-                    $row[$name] = "[PKGBUILD error: non-UTF8 character]";
-                }
-            }
-            return $this->json_results('info', $row);
-        }
-        else {
-            return $this->json_error('No result found');
-        }
+        return $this->process_query('info', $query);
     }
 
     /**
@@ -176,25 +162,14 @@ class AurJSON {
      **/
     private function msearch($maintainer) {
         $maintainer = mysql_real_escape_string($maintainer, $this->dbh);
-        $fields = implode(',', $this->fields);
+        $fields = implode(',', self::$fields);
 
         $query = "SELECT Users.Username as Maintainer, {$fields} " .
             " FROM Packages, Users " .
             "        WHERE Packages.MaintainerUID = Users.ID AND " .
             "              Users.Username = '{$maintainer}'";
-        $result = db_query($query, $this->dbh);
 
-        if ( $result && (mysql_num_rows($result) > 0) ) {
-            $packages = array();
-            while ( $row = mysql_fetch_assoc($result) ) {
-                array_push($packages, $row);
-            }
-            mysql_free_result($result);
-            return $this->json_results('msearch', $packages);
-        }
-        else {
-            return $this->json_error('No results found');
-        }
+        return $this->process_query('msearch', $query);
     }
 }
 
