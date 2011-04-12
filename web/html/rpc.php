@@ -18,6 +18,7 @@ if ( $_SERVER['REQUEST_METHOD'] == 'GET' ) {
         echo '<ul>';
         echo '<li>search</li>';
         echo '<li>info</li>';
+        echo '<li>multiinfo</li>';
         echo '<li>msearch</li>';
         echo '</ul><br />';
         echo 'Each method requires the following HTTP GET syntax:<br />';

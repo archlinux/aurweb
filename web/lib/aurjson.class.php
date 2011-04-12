@@ -14,7 +14,9 @@ include_once("aur.inc");
  **/
 class AurJSON {
     private $dbh = false;
-    private static $exposed_methods = array('search', 'info', 'msearch');
+    private static $exposed_methods = array(
+        'search', 'info', 'multiinfo', 'msearch'
+    );
     private static $fields = array(
         'Packages.ID', 'Name', 'Version', 'CategoryID',
         'Description', 'URL', 'License',
@@ -108,6 +110,36 @@ class AurJSON {
     }
 
     /**
+     * Parse the args to the multiinfo function. We may have a string or an 
+     * array, so do the appropriate thing. Within the elements, both * package 
+     * IDs and package names are valid; sort them into the relevant arrays and
+     * escape/quote the names.
+     * @param $args the arg string or array to parse.
+     * @return mixed An array containing 'ids' and 'names'.
+     **/
+    private function parse_multiinfo_args($args) {
+        if (!is_array($args)) {
+            $args = array($args);
+        }
+
+        $id_args = array();
+        $name_args = array();
+        foreach ($args as $arg) {
+            if (!$arg) {
+                continue;
+            }
+            if (is_numeric($arg)) {
+                $id_args[] = intval($arg);
+            } else {
+                $escaped = mysql_real_escape_string($arg, $this->dbh);
+                $name_args[] = "'" . $escaped . "'";
+            }
+        }
+
+        return array('ids' => $id_args, 'names' => $name_args);
+    }
+
+    /**
      * Performs a fulltext mysql search of the package database.
      * @param $keyword_string A string of keywords to search with.
      * @return mixed Returns an array of package matches.
@@ -153,6 +185,39 @@ class AurJSON {
         $query = $base_query . $query_stub;
 
         return $this->process_query('info', $query);
+    }
+
+    /**
+     * Returns the info on multiple packages.
+     * @param $pqdata A comma-separated list of IDs or names of the packages.
+     * @return mixed Returns an array of results containing the package data
+     **/
+    private function multiinfo($pqdata) {
+        $fields = implode(',', self::$fields);
+        $args = $this->parse_multiinfo_args($pqdata);
+        $ids = $args['ids'];
+        $names = $args['names'];
+
+        if (!$ids && !$names) {
+            return $this->json_error('Invalid query arguments');
+        }
+
+        $query = "SELECT {$fields} " .
+            " FROM Packages WHERE ";
+        if ($ids) {
+            $ids_value = implode(',', $args['ids']);
+            $query .= "ID IN ({$ids_value})";
+        }
+        if ($ids && $names) {
+            $query .= " OR ";
+        }
+        if ($names) {
+            // individual names were quoted in parse_multiinfo_args()
+            $names_value = implode(',', $args['names']);
+            $query .= "Name IN ({$names_value})";
+        }
+
+        return $this->process_query('multiinfo', $query);
     }
 
     /**
