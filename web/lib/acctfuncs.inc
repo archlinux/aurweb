@@ -265,7 +265,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			# no errors, go ahead and create the unprivileged user
 			$salt = generate_salt();
 			$P = salted_hash($P, $salt);
-			$escaped = array_map(mysql_real_escape_string,
+			$escaped = array_map('mysql_real_escape_string',
 				array($U, $E, $P, $salt, $R, $L, $I));
 			$q = "INSERT INTO Users (" .
 				"AccountTypeID, Suspended, Username, Email, Passwd, Salt" .
