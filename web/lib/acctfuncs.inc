@@ -11,7 +11,7 @@ function in_request($name) {
 # Display the standard Account form, pass in default values if any
 
 function display_account_form($UTYPE,$A,$U="",$T="",$S="",
-			$E="",$P="",$C="",$R="",$L="",$I="",$N="",$UID=0) {
+			$E="",$P="",$C="",$R="",$L="",$I="",$UID=0) {
 	# UTYPE: what user type the form is being displayed for
 	# A: what "form" name to use
 	# U: value to display for username
@@ -127,16 +127,6 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "</select></td>";
 	print "</tr>\n";
 
-	print "<tr>";
-	print "<td align='left'>".__("New Package Notify").":</td>";
-	print "<td align='left'><input type='checkbox' name='N'";
-	if ($N) {
-		print " checked=\"checked\" />";
-	} else {
-		print " />";
-	}
-	print "</tr>\n";
-
 	print "<tr><td colspan='2'>&nbsp;</td></tr>\n";
 	print "<tr>";
 	print "<td>&nbsp;</td>";
@@ -162,7 +152,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 # process form input from a new/edit account form
 #
 function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
-			$P="",$C="",$R="",$L="",$I="",$N="",$UID=0) {
+			$P="",$C="",$R="",$L="",$I="",$UID=0) {
 	# UTYPE: The user's account type
 	# TYPE: either "edit" or "new"
 	# A: what parent "form" name to use
@@ -269,7 +259,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	if ($error) {
 		print "<span class='error'>".$error."</span><br/>\n";
 		display_account_form($UTYPE, $A, $U, $T, $S, $E, "", "",
-				$R, $L, $I, $N, $UID);
+				$R, $L, $I, $UID);
 	} else {
 		if ($TYPE == "new") {
 			# no errors, go ahead and create the unprivileged user
@@ -279,13 +269,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 				array($U, $E, $P, $salt, $R, $L, $I));
 			$q = "INSERT INTO Users (" .
 				"AccountTypeID, Suspended, Username, Email, Passwd, Salt" .
-				", RealName, LangPreference, IRCNick, NewPkgNotify) " .
-				"VALUES (1, 0, '" . implode("', '", $escaped) . "'";
-			if ($N) {
-				$q.= ", 1)";
-			} else {
-				$q.= ", 0)";
-			}
+				", RealName, LangPreference, IRCNick) " .
+				"VALUES (1, 0, '" . implode("', '", $escaped) . "')";
 			$result = db_query($q, $dbh);
 			if (!$result) {
 				print __("Error trying to create account, %h%s%h: %s.",
@@ -322,13 +307,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$q.= ", RealName = '".mysql_real_escape_string($R)."'";
 			$q.= ", LangPreference = '".mysql_real_escape_string($L)."'";
 			$q.= ", IRCNick = '".mysql_real_escape_string($I)."'";
-			$q.= ", NewPkgNotify = ";
-			if ($N) {
-				$q.= "1 ";
-			} else {
-				$q.= "0 ";
-			}
-			$q.= "WHERE ID = ".intval($UID);
+			$q.= " WHERE ID = ".intval($UID);
 			$result = db_query($q, $dbh);
 			if (!$result) {
 				print __("Error trying to modify account, %h%s%h: %s.",

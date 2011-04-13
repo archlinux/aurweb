@@ -64,7 +64,7 @@ if (isset($_COOKIE["AURSID"])) {
 				display_account_form($atype, "UpdateAccount", $row["Username"],
 						$row["AccountType"], $row["Suspended"], $row["Email"],
 						"", "", $row["RealName"], $row["LangPreference"],
-						$row["IRCNick"], $row["NewPkgNotify"], $row["ID"]);
+						$row["IRCNick"], $row["ID"]);
 			}
 		}
 
@@ -92,7 +92,7 @@ if (isset($_COOKIE["AURSID"])) {
 				in_request("U"), in_request("T"), in_request("S"),
 				in_request("E"), in_request("P"), in_request("C"),
 				in_request("R"), in_request("L"), in_request("I"),
-				in_request("N"), in_request("ID"));
+				in_request("ID"));
 
 
 	} else {
@@ -127,7 +127,7 @@ if (isset($_COOKIE["AURSID"])) {
 				display_account_form($atype, "UpdateAccount", $row["Username"],
 						$row["AccountType"], $row["Suspended"], $row["Email"],
 						"", "", $row["RealName"], $row["LangPreference"],
-						$row["IRCNick"], $row["NewPkgNotify"], $row["ID"]);
+						$row["IRCNick"], $row["ID"]);
 			}
 		}
 	}
@@ -143,7 +143,7 @@ if (isset($_COOKIE["AURSID"])) {
 		process_account_form("","new", "NewAccount",
 				in_request("U"), 1, 0, in_request("E"),
 				in_request("P"), in_request("C"), in_request("R"),
-				in_request("L"), in_request("I"), in_request("N"));
+				in_request("L"), in_request("I"));
 
 	} else {
 		# display the account request form
