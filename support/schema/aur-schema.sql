@@ -32,12 +32,10 @@ CREATE TABLE Users (
 	LangPreference VARCHAR(5) NOT NULL DEFAULT 'en',
 	IRCNick VARCHAR(32) NOT NULL DEFAULT '',
 	LastVoted BIGINT UNSIGNED NOT NULL DEFAULT 0,
-	NewPkgNotify TINYINT UNSIGNED NOT NULL DEFAULT 0,
 	PRIMARY KEY (ID),
 	UNIQUE (Username),
 	UNIQUE (Email),
 	INDEX (AccountTypeID),
-	INDEX (NewPkgNotify),
 	FOREIGN KEY (AccountTypeID) REFERENCES AccountTypes(ID) ON DELETE NO ACTION
 ) ENGINE = InnoDB;
 -- A default developer account for testing purposes

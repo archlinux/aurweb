@@ -7,6 +7,12 @@ From 1.8.2 to 1.9.0
 1. Translation files are now gettext compatible and need to be compiled after
 each AUR upgrade by running `make install` in the "po/" directory.
 
+2. Remove the "NewPkgNotify" column from the "Users" table:
+
+----
+ALTER TABLE Users DROP COLUMN NewPkgNotify;
+----
+
 From 1.8.1 to 1.8.2
 -------------------
 
