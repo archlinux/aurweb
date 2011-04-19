@@ -18,13 +18,13 @@
 			<div id="archnavbarlogo"><h1><a href="/" title="Return to the main page">Arch Linux</a></h1></div>
 			<div id="archnavbarmenu">
 				<ul id="archnavbarlist">
-					<li id="anb-home"><a href="http://archlinux.org/" title="Arch news, packages, projects and more">Home</a></li>
-					<li id="anb-packages"><a href="http://archlinux.org/packages/" title="Arch Package Database">Packages</a></li>
-					<li id="anb-forums"><a href="http://bbs.archlinux.org/" title="Community forums">Forums</a></li>
-					<li id="anb-wiki"><a href="http://wiki.archlinux.org/" title="Community documentation">Wiki</a></li>
-					<li id="anb-bugs"><a href="http://bugs.archlinux.org/" title="Report and track bugs">Bugs</a></li>
-					<li id="anb-aur"><a href="http://aur.archlinux.org/" title="Arch Linux User Repository">AUR</a></li>
-					<li id="anb-download"><a href="http://archlinux.org/download/" title="Get Arch Linux">Download</a></li>
+					<li id="anb-home"><a href="http://www.archlinux.org/" title="Arch news, packages, projects and more">Home</a></li>
+					<li id="anb-packages"><a href="http://www.archlinux.org/packages/" title="Arch Package Database">Packages</a></li>
+					<li id="anb-forums"><a href="https://bbs.archlinux.org/" title="Community forums">Forums</a></li>
+					<li id="anb-wiki"><a href="https://wiki.archlinux.org/" title="Community documentation">Wiki</a></li>
+					<li id="anb-bugs"><a href="https://bugs.archlinux.org/" title="Report and track bugs">Bugs</a></li>
+					<li id="anb-aur"><a href="https://aur.archlinux.org/" title="Arch Linux User Repository">AUR</a></li>
+					<li id="anb-download"><a href="http://www.archlinux.org/download/" title="Get Arch Linux">Download</a></li>
 				</ul>
 			</div>
 		</div><!-- #archnavbar -->
