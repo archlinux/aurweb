@@ -35,7 +35,7 @@ if (isset($_REQUEST['comment'])) {
 		# Simply making these strings translatable won't work, users would be
 		# getting emails in the language that the user who posted the comment was in
 		$body =
-		'from http://aur.archlinux.org/packages.php?ID='
+		'from https://aur.archlinux.org/packages.php?ID='
 		. $_REQUEST['ID'] . "\n"
 		. username_from_sid($_COOKIE['AURSID']) . " wrote:\n\n"
 		. $_POST['comment']
