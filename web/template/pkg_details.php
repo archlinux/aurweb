@@ -116,7 +116,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 			if (!is_null($darr[2])) {
 				echo " <a href='packages.php?ID=".$darr[2]."'>".$darr[0].$darr[1]."</a>";
 			} else {
-				echo " <a href='http://www.archlinux.org/packages/?q=".$darr[0]."'>".$darr[0].$darr[1]."</a>";
+				echo " <a href='http://www.archlinux.org/packages/?q=".urlencode($darr[0])."'>".$darr[0].$darr[1]."</a>";
 			}
 		}
 
