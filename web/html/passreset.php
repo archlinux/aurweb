@@ -67,7 +67,7 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 		           'your password follow the link below, otherwise ignore '.
 		           'this message and nothing will happen.').
 		           "\n\n".
-		           'http://aur.archlinux.org/passreset.php?'.
+		           'https://aur.archlinux.org/passreset.php?'.
 		           "resetkey={$resetkey}";
 		$body = wordwrap($body, 70);
 		$headers = "To: {$email}\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR";
