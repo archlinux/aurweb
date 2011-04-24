@@ -327,14 +327,12 @@ if ($_COOKIE["AURSID"]):
 					mysql_real_escape_string($new_pkgbuild['license']),
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
-					uid_from_sid($_COOKIE["AURSID"]),
+					$uid,
 					$packageID);
 
 				db_query($q, $dbh);
 
 			} else {
-				$uid = uid_from_sid($_COOKIE["AURSID"]);
-
 				# This is a brand new package
 				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
