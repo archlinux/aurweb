@@ -13,7 +13,14 @@ check_sid();                # see if they're still logged in
 
 $cwd = getcwd();
 
-if ($_COOKIE["AURSID"]):
+if ($_COOKIE["AURSID"]) {
+	$uid = uid_from_sid($_COOKIE['AURSID']);
+}
+else {
+	$uid = NULL;
+}
+
+if ($uid):
 
 	# Track upload errors
 	$error = "";
@@ -50,8 +57,6 @@ if ($_COOKIE["AURSID"]):
 		if (isset($fh) && is_resource($fh)) {
 			fclose($fh);
 		}
-
-		$uid = uid_from_sid($_COOKIE['AURSID']);
 
 		if (!$error) {
 			$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
