@@ -238,10 +238,22 @@ function db_query($query="", $db_handle="") {
 	if (!$query) {
 		return FALSE;
 	}
+
 	if (!$db_handle) {
 		die("DB handle was not provided to db_query");
 	}
+
+	if (SQL_DEBUG == 1) {
+		$bt = debug_backtrace();
+		error_log("DEBUG: ".$bt[0]['file'].":".$bt[0]['line']." query: $query\n");
+	}
+
 	$result = @mysql_query($query, $db_handle);
+	if (!$result) {
+		$bt = debug_backtrace();
+		error_log("ERROR: near ".$bt[0]['file'].":".$bt[0]['line']." in query: $query\n -> ".mysql_error($db_handle));
+	}
+
 	return $result;
 }
 

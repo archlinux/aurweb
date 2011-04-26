@@ -20,6 +20,10 @@ define( "PASSWD_MAX_LEN", 128 );
 # Default language for displayed messages in the web interface.
 define("DEFAULT_LANG", "en");
 
+# Enable debug sql output. This sends each query to error_log. Useful for
+# development. Should not be enabled in production. Default to 0 (off).
+define("SQL_DEBUG", 0);
+
 # Languages we have translations for
 $SUPPORTED_LANGS = array(
 	"ca" => "Català",
