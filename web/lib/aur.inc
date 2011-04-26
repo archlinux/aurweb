@@ -478,7 +478,7 @@ function mkurl($append) {
 function get_salt($user_id)
 {
 	$dbh = db_connect();
-	$salt_q = "SELECT Salt FROM Users WHERE ID = '$user_id'";
+	$salt_q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
 	$salt_result = mysql_fetch_row(db_query($salt_q, $dbh));
 	return $salt_result[0];
 }
@@ -488,8 +488,8 @@ function save_salt($user_id, $passwd)
 	$dbh = db_connect();
 	$salt = generate_salt();
 	$hash = salted_hash($passwd, $salt);
-	$salting_q = "UPDATE Users SET Salt = '$salt'" .
-		", Passwd = '$hash' WHERE ID = '$user_id'";
+	$salting_q = "UPDATE Users SET Salt = '" . $salt . "', " .
+		"Passwd = '" . $hash . "' WHERE ID = " . $user_id;
 	return db_query($salting_q, $dbh);
 }
 

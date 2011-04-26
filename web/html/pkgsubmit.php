@@ -325,7 +325,7 @@ if ($uid):
 				}
 
 				# Update package data
-				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = '%d' WHERE ID = %d",
+				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['pkgver']),
 					mysql_real_escape_string($new_pkgbuild['pkgrel']),

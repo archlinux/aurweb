@@ -58,8 +58,8 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 		$resetkey = new_sid();
 		$dbh = db_connect();
 		$q = "UPDATE Users
-		      SET ResetKey = '$resetkey'
-		      WHERE ID = '$uid'";
+		      SET ResetKey = '" . $resetkey . "'
+		      WHERE ID = " . $uid;
 		db_query($q, $dbh);
 		# Send email with confirmation link
 		$body = __('A password reset request was submitted for the account '.

@@ -619,18 +619,18 @@ function try_login() {
 					# last ($MAX_SESSIONS_PER_USER - 1).
 					$q = "DELETE s.* FROM Sessions s ";
 					$q.= "LEFT JOIN (SELECT SessionID FROM Sessions ";
-					$q.= "WHERE UsersId = '" . $userID . "' ";
+					$q.= "WHERE UsersId = " . $userID . " ";
 					$q.= "ORDER BY LastUpdateTS DESC ";
 					$q.= "LIMIT " . ($MAX_SESSIONS_PER_USER - 1) . ") q ";
 					$q.= "ON s.SessionID = q.SessionID ";
-					$q.= "WHERE s.UsersId = '" . $userID . "' ";
+					$q.= "WHERE s.UsersId = " . $userID . " ";
 					$q.= "AND q.SessionID IS NULL;";
 					db_query($q, $dbh);
 				}
 
 				$new_sid = new_sid();
 				$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
-				  ." VALUES ( $userID, '" . $new_sid . "', UNIX_TIMESTAMP())";
+				  ." VALUES (" . $userID . ", '" . $new_sid . "', UNIX_TIMESTAMP())";
 				$result = db_query($q, $dbh);
 
 				# Query will fail if $new_sid is not unique
@@ -749,7 +749,7 @@ function valid_passwd( $userID, $passwd )
 		if ($salt) {
 			# use salt
 			$passwd_q = "SELECT ID FROM Users" .
-				" WHERE ID = '$userID' AND Passwd = '" .
+				" WHERE ID = " . $userID  . " AND Passwd = '" .
 				salted_hash($passwd, $salt) . "'";
 			$passwd_result = mysql_fetch_row(db_query($passwd_q, $dbh));
 			if ($passwd_result[0]) {
@@ -758,14 +758,14 @@ function valid_passwd( $userID, $passwd )
 		} else {
 			# check without salt
 			$nosalt_q = "SELECT ID FROM Users".
-				" WHERE ID = '$userID'" .
+				" WHERE ID = " . $userID .
 				" AND Passwd = '" . md5($passwd) . "'";
 			$nosalt_result = mysql_fetch_row(db_query($nosalt_q, $dbh));
 			if ($nosalt_result[0]) {
 				# password correct, but salt it first
 				if (!save_salt($userID, $passwd)) {
 					trigger_error("Unable to salt user's password;" .
-						" ID $userID", E_USER_WARNING);
+						" ID " . $userID, E_USER_WARNING);
 					return false;
 				}
 
@@ -782,7 +782,7 @@ function valid_passwd( $userID, $passwd )
 function user_suspended( $id )
 {
 	$dbh = db_connect();
-	$q = "SELECT Suspended FROM Users WHERE ID = '$id'";
+	$q = "SELECT Suspended FROM Users WHERE ID = " . $id;
 	$result = mysql_fetch_row(db_query($q, $dbh));
 	if ($result[0] == 1 ) {
 		return true;
@@ -796,7 +796,7 @@ function user_suspended( $id )
 function user_delete( $id )
 {
 	$dbh = db_connect();
-	$q = "DELETE FROM Users WHERE ID = '$id'";
+	$q = "DELETE FROM Users WHERE ID = " . $id;
 	$result = mysql_fetch_row(db_query($q, $dbh));
 	return;
 }
@@ -808,7 +808,7 @@ function user_delete( $id )
 function user_is_privileged( $id )
 {
 	$dbh = db_connect();
-	$q = "SELECT AccountTypeID FROM Users WHERE ID = '$id'";
+	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
 	$result = mysql_fetch_row(db_query($q, $dbh));
 	if( $result[0] > 1) {
 		return $result[0];
