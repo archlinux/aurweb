@@ -405,7 +405,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 			break;
 	}
 	$search_vars[] = "SB";
-	$q.= "LIMIT ". $OFFSET . ", " . $HITS_PER_PAGE;
+	$q.= "LIMIT " . $HITS_PER_PAGE . " OFFSET " . $OFFSET;
 
 	$dbh = db_connect();
 

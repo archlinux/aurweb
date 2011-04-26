@@ -119,7 +119,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		}
 
 		$order = ($by == 'asc') ? 'ASC' : 'DESC';
-		$lim = ($limit > 0) ? " LIMIT $off, $limit" : "";
+		$lim = ($limit > 0) ? " LIMIT $limit OFFSET $off" : "";
 		$by_next = ($by == 'desc') ? 'asc' : 'desc';
 
 		$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;

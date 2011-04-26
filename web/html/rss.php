@@ -32,7 +32,7 @@ $rss->image = $image;
 $dbh = db_connect();
 $q = "SELECT * FROM Packages ";
 $q.= "ORDER BY SubmittedTS DESC ";
-$q.= "LIMIT 0 , 20";
+$q.= "LIMIT 20";
 $result = db_query($q, $dbh);
 
 while ($row = mysql_fetch_assoc($result)) {

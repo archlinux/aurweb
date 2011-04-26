@@ -501,7 +501,7 @@ function pkg_search_page($SID="") {
 		break;
 	}
 
-	$q_limit = "LIMIT ".$_GET["O"].", ".$_GET["PP"];
+	$q_limit = "LIMIT ".$_GET["PP"]." OFFSET ".$_GET["O"];
 
 	$q = $q_select . $q_from . $q_from_extra . $q_where . $q_sort . $q_limit;
 	$q_total = "SELECT COUNT(*) " . $q_from . $q_where;
