@@ -13,6 +13,8 @@ each AUR upgrade by running `make install` in the "po/" directory.
 ALTER TABLE Users DROP COLUMN NewPkgNotify;
 ----
 
+3. Merge "web/lib/config.inc.proto" with "web/lib/config.inc".
+
 From 1.8.1 to 1.8.2
 -------------------
 
