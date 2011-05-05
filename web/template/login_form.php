@@ -13,14 +13,15 @@ else {
 ?>
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI'] ?>">
 	<div>
-	<?php print __('Username') . ':'; ?>
-	<input type="text" name="user" size="30" maxlength="<?php print USERNAME_MAX_LEN; ?>" value="<?php
+	<label for="user"><?php print __('Username') . ':'; ?></label>
+	<input type="text" name="user" id="user" size="30" maxlength="<?php print USERNAME_MAX_LEN; ?>" value="<?php
 	if (isset($_POST['user'])) {
 		print htmlspecialchars($_POST['user'], ENT_QUOTES);
 	} ?>" />
-	<?php print __('Password') . ':'; ?>
-	<input type="password" name="passwd" size="30" maxlength="<?php print PASSWD_MAX_LEN; ?>" />
-	<input type="checkbox" name="remember_me" /><?php print __("Remember me"); ?>
+	<label for="passwd"><?php print __('Password') . ':'; ?></label>
+	<input type="password" name="passwd" id="passwd" size="30" maxlength="<?php print PASSWD_MAX_LEN; ?>" />
+	<input type="checkbox" name="remember_me" id="remember_me" />
+	<label for="remember_me"><?php print __("Remember me"); ?></label>
 	<input type="submit" class="button" value="<?php  print __("Login"); ?>" />
 	<a href="passreset.php">[<?php echo __('Forgot Password') ?>]</a>
 	</div>
