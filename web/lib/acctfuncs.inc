@@ -786,6 +786,9 @@ function valid_passwd( $userID, $passwd )
  */
 function user_suspended( $id )
 {
+	if (!$id) {
+		return false;
+	}
 	$dbh = db_connect();
 	$q = "SELECT Suspended FROM Users WHERE ID = " . $id;
 	$result = db_query($q, $dbh);
