@@ -491,8 +491,12 @@ function get_salt($user_id)
 {
 	$dbh = db_connect();
 	$salt_q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
-	$salt_result = mysql_fetch_row(db_query($salt_q, $dbh));
-	return $salt_result[0];
+    $result = db_query($salt_q, $dbh);
+    if ($result) {
+        $salt_row = mysql_fetch_row($result);
+	    return $salt_row[0];
+    }
+    return;
 }
 
 function save_salt($user_id, $passwd)

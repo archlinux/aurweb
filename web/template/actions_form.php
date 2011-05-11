@@ -8,39 +8,45 @@
 		#
 		$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $uid;
 		$q.= " AND PackageID = ".$row["ID"];
-		if (!mysql_num_rows(db_query($q, $dbh))) {
-			echo "      <input type='submit' class='button' name='do_Vote'";
-			echo " value='".__("Vote")."' /> ";
-		} else {
-			echo "<input type='submit' class='button' name='do_UnVote'";
-			echo " value='".__("UnVote")."' /> ";
+		$result = db_query($q, $dbh);
+		if ($result) {
+			if (!mysql_num_rows($result)) {
+				echo "      <input type='submit' class='button' name='do_Vote'";
+				echo " value='".__("Vote")."' /> ";
+			} else {
+				echo "<input type='submit' class='button' name='do_UnVote'";
+				echo " value='".__("UnVote")."' /> ";
+			}
 		}
 
 		# Comment Notify Button
 		#
 		$q = "SELECT * FROM CommentNotify WHERE UserID = ". $uid;
 		$q.= " AND PkgID = ".$row["ID"];
-		if (!mysql_num_rows(db_query($q, $dbh))) {
-			echo "<input type='submit' class='button' name='do_Notify'";
-			echo " value='".__("Notify")."' title='".__("New Comment Notification")."' /> ";
-		} else {
-			echo "<input type='submit' class='button' name='do_UnNotify'";
-			echo " value='".__("UnNotify")."' title='".__("No New Comment Notification")."' /> ";
+		$result = db_query($q, $dbh);
+		if ($result) {
+			if (!mysql_num_rows($result)) {
+				echo "<input type='submit' class='button' name='do_Notify'";
+				echo " value='".__("Notify")."' title='".__("New Comment Notification")."' /> ";
+			} else {
+				echo "<input type='submit' class='button' name='do_UnNotify'";
+				echo " value='".__("UnNotify")."' title='".__("No New Comment Notification")."' /> ";
+			}
 		}
 
-if ($row["OutOfDateTS"] === NULL) {
-    echo "<input type='submit' class='button' name='do_Flag'";
-    echo " value='".__("Flag Out-of-date")."' />\n";
-} else {
-    echo "<input type='submit' class='button' name='do_UnFlag'";
-    echo " value='".__("UnFlag Out-of-date")."' />\n";
+		if ($row["OutOfDateTS"] === NULL) {
+			echo "<input type='submit' class='button' name='do_Flag'";
+			echo " value='".__("Flag Out-of-date")."' />\n";
+		} else {
+			echo "<input type='submit' class='button' name='do_UnFlag'";
+			echo " value='".__("UnFlag Out-of-date")."' />\n";
 		}
 			
-if ($row["MaintainerUID"] === NULL) {
-    echo "<input type='submit' class='button' name='do_Adopt'";
-    echo " value='".__("Adopt Packages")."' />\n";
-} else if ($uid == $row["MaintainerUID"] ||
-	$atype == "Trusted User" || $atype == "Developer") {
+		if ($row["MaintainerUID"] === NULL) {
+			echo "<input type='submit' class='button' name='do_Adopt'";
+			echo " value='".__("Adopt Packages")."' />\n";
+		} else if ($uid == $row["MaintainerUID"] ||
+			$atype == "Trusted User" || $atype == "Developer") {
 			echo "<input type='submit' class='button' name='do_Disown'";
 			echo " value='".__("Disown Packages")."' />\n";
 		}

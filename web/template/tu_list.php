@@ -40,7 +40,13 @@
 					<td class='<?php print $c ?>'>
 						<?php
 						$q = "SELECT * FROM TU_Votes WHERE VoteID = " . $row['ID'] . " AND UserID = " . uid_from_sid($_COOKIE["AURSID"]);
-						$hasvoted = mysql_num_rows(db_query($q, $dbh));
+						$result_tulist = db_query($q, $dbh);
+						if ($result_tulist) {
+							$hasvoted = mysql_num_rows($result_tulist);
+						}
+						else {
+							$hasvoted = 0;
+						}
 						?>
 						<span class='f5'><span class='blue'>
 						<?php if ($hasvoted == 0) { ?>

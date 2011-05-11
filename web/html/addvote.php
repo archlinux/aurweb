@@ -21,14 +21,26 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 
 		if (!empty($_POST['user'])) {
 			$qcheck = "SELECT * FROM Users WHERE Username = '" . mysql_real_escape_string($_POST['user']) . "'";
-			$check = mysql_num_rows(db_query($qcheck, $dbh));
+			$result = db_query($qcheck, $dbh);
+			if ($result) {
+				$check = mysql_num_rows($result);
+			}
+			else {
+				$check = 0;
+			}
 
 			if ($check == 0) {
 				$error.= __("Username does not exist.");
 			} else {
 				$qcheck = "SELECT * FROM TU_VoteInfo WHERE User = '" . mysql_real_escape_string($_POST['user']) . "'";
 				$qcheck.= " AND End > UNIX_TIMESTAMP()";
-				$check = mysql_num_rows(db_query($qcheck, $dbh));
+				$result = db_query($qcheck, $dbh);
+				if ($result) {
+					$check = mysql_num_rows($result);
+				}
+				else {
+					$check = 0;
+				}
 
 				if ($check != 0) {
 					$error.= __("%s already has proposal running for them.", htmlentities($_POST['user']));

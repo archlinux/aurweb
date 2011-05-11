@@ -197,7 +197,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	}
 
   if (!$error && !valid_username($U) && !user_is_privileged($editor_user))
-    $error = __("The username is invalid.") . "<ul>\n"
+	$error = __("The username is invalid.") . "<ul>\n"
 			."<li>" . __("It must be between %s and %s characters long",
 			USERNAME_MIN_LEN,  USERNAME_MAX_LEN )
 			. "</li>"
@@ -718,11 +718,11 @@ function valid_user( $user )
 		$q = "SELECT ID FROM Users WHERE Username = '"
 			. mysql_real_escape_string($user). "'";
 
-		$result = mysql_fetch_row(db_query($q, $dbh));
-
+		$result = db_query($q, $dbh);
 		# Is the username in the database?
-		if ($result[0]) {
-			return $result[0];
+		if ($result) {
+			$row = mysql_fetch_row($result);
+			return $row[0];
 		}
 	}
 	return;
@@ -751,25 +751,30 @@ function valid_passwd( $userID, $passwd )
 			$passwd_q = "SELECT ID FROM Users" .
 				" WHERE ID = " . $userID  . " AND Passwd = '" .
 				salted_hash($passwd, $salt) . "'";
-			$passwd_result = mysql_fetch_row(db_query($passwd_q, $dbh));
-			if ($passwd_result[0]) {
-				return true;
+			$result = db_query($passwd_q, $dbh);
+			if ($result) {
+				$passwd_result = mysql_fetch_row($result);
+				if ($passwd_result[0]) {
+					return true;
+				}
 			}
 		} else {
 			# check without salt
 			$nosalt_q = "SELECT ID FROM Users".
 				" WHERE ID = " . $userID .
 				" AND Passwd = '" . md5($passwd) . "'";
-			$nosalt_result = mysql_fetch_row(db_query($nosalt_q, $dbh));
-			if ($nosalt_result[0]) {
-				# password correct, but salt it first
-				if (!save_salt($userID, $passwd)) {
-					trigger_error("Unable to salt user's password;" .
-						" ID " . $userID, E_USER_WARNING);
-					return false;
+			$result = db_query($nosalt_q, $dbh);
+			if ($result) {
+				$nosalt_row = mysql_fetch_row($result);
+				if ($nosalt_row[0]) {
+					# password correct, but salt it first
+					if (!save_salt($userID, $passwd)) {
+						trigger_error("Unable to salt user's password;" .
+							" ID " . $userID, E_USER_WARNING);
+						return false;
+					}
+					return true;
 				}
-
-				return true;
 			}
 		}
 	}
@@ -783,9 +788,12 @@ function user_suspended( $id )
 {
 	$dbh = db_connect();
 	$q = "SELECT Suspended FROM Users WHERE ID = " . $id;
-	$result = mysql_fetch_row(db_query($q, $dbh));
-	if ($result[0] == 1 ) {
-		return true;
+	$result = db_query($q, $dbh);
+	if ($result) {
+		$row = mysql_fetch_row($result);
+		if ($result[0] == 1 ) {
+			return true;
+		}
 	}
 	return false;
 }
@@ -797,7 +805,7 @@ function user_delete( $id )
 {
 	$dbh = db_connect();
 	$q = "DELETE FROM Users WHERE ID = " . $id;
-	$result = mysql_fetch_row(db_query($q, $dbh));
+	db_query($q, $dbh);
 	return;
 }
 
@@ -809,9 +817,12 @@ function user_is_privileged( $id )
 {
 	$dbh = db_connect();
 	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
-	$result = mysql_fetch_row(db_query($q, $dbh));
-	if( $result[0] > 1) {
-		return $result[0];
+	$result = db_query($q, $dbh);
+	if ($result) {
+		$row = mysql_fetch_row($result);
+		if( $result[0] > 1) {
+			return $result[0];
+		}
 	}
 	return 0;
 

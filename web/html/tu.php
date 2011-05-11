@@ -36,7 +36,13 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 				$qvoted = "SELECT * FROM TU_Votes WHERE ";
 				$qvoted.= "VoteID = " . $row['ID'] . " AND ";
 				$qvoted.= "UserID = " . uid_from_sid($_COOKIE["AURSID"]);
-				$hasvoted = mysql_num_rows(db_query($qvoted, $dbh));
+				$result = db_query($qvoted, $dbh);
+				if ($result) {
+					$hasvoted = mysql_num_rows($result);
+				}
+				else {
+					$hasvoted = 0;
+				}
 
 				# List voters of a proposal.
 				$qwhoVoted = "SELECT tv.UserID,U.Username
@@ -85,10 +91,15 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 						$canvote = 0;
 						$errorvote = __("You've already voted for this proposal.");
 						# Update if they voted
-						$hasvoted = mysql_num_rows(db_query($qvoted, $dbh));
+						$result = db_query($qvoted, $dbh);
+						if ($result) {
+							$hasvoted = mysql_num_rows($result);
+						}
 
 						$results = db_query($q, $dbh);
-						$row = mysql_fetch_assoc($results);
+						if ($results) {
+							$row = mysql_fetch_assoc($results);
+						}
 					}
 				}
 				include("tu_details.php");

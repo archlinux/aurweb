@@ -403,7 +403,7 @@ function pkg_search_page($SID="") {
 	$q_select = "SELECT ";
 	if ($SID) {
 		$q_select .= "CommentNotify.UserID AS Notify,
-		       PackageVotes.UsersID AS Voted, ";
+			   PackageVotes.UsersID AS Voted, ";
 	}
 	$q_select .= "Users.Username AS Maintainer,
 	PackageCategories.Category,
@@ -507,7 +507,13 @@ function pkg_search_page($SID="") {
 	$q_total = "SELECT COUNT(*) " . $q_from . $q_where;
 
 	$result = db_query($q, $dbh);
-	$total = mysql_result(db_query($q_total, $dbh), 0);
+	$result_t = db_query($q_total, $dbh);
+	if ($result_t) {
+		$total = mysql_result($result_t, 0);
+	}
+	else {
+		$total = 0;
+	}
 
 	if ($result && $total > 0) {
 		if (isset($_GET["SO"]) && $_GET["SO"] == "d"){
@@ -859,7 +865,13 @@ function pkg_notify ($atype, $ids, $action = True) {
 	# format in which it's sent requires this.
 	foreach ($ids as $pid) {
 		$q = "SELECT Name FROM Packages WHERE ID = $pid";
-		$pkgname = mysql_result(db_query($q, $dbh), 0);
+		$result = db_query($q, $dbh);
+		if ($result) {
+			$pkgname = mysql_result($result , 0);
+		}
+		else {
+			$pkgname = '';
+		}
 
 		if ($first)
 			$first = False;
@@ -872,7 +884,8 @@ function pkg_notify ($atype, $ids, $action = True) {
 			$q .= " AND PkgID = $pid";
 
 			# Notification already added. Don't add again.
-			if (!mysql_num_rows(db_query($q, $dbh))) {
+			$result = db_query($q, $dbh);
+			if (!mysql_num_rows($result)) {
 				$q = "INSERT INTO CommentNotify (PkgID, UserID) VALUES ($pid, $uid)";
 				db_query($q, $dbh);
 			}
@@ -921,14 +934,14 @@ function pkg_delete_comment($atype) {
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 	if (canDeleteComment($comment_id, $atype, $uid)) {
 
-	       $dbh = db_connect();
-	       $q = "UPDATE PackageComments ";
-	       $q.= "SET DelUsersID = ".$uid." ";
-	       $q.= "WHERE ID = ".intval($comment_id);
-	       db_query($q, $dbh);
-	       return __("Comment has been deleted.");
+		   $dbh = db_connect();
+		   $q = "UPDATE PackageComments ";
+		   $q.= "SET DelUsersID = ".$uid." ";
+		   $q.= "WHERE ID = ".intval($comment_id);
+		   db_query($q, $dbh);
+		   return __("Comment has been deleted.");
 	} else {
-	       return __("You are not allowed to delete this comment.");
+		   return __("You are not allowed to delete this comment.");
 	}
 }
 
@@ -967,8 +980,12 @@ function pkg_change_category($atype) {
 	$q.= "FROM Packages ";
 	$q.= "WHERE Packages.ID = ".$pid;
 	$result = db_query($q, $dbh);
-	echo mysql_error();
-	$pkg = mysql_fetch_assoc($result);
+	if ($result) {
+		$pkg = mysql_fetch_assoc($result);
+	}
+	else {
+		return __("You are not allowed to change this package category.");
+	}
 
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 	if ($uid == $pkg["MaintainerUID"] or
