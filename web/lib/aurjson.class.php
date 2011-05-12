@@ -20,7 +20,8 @@ class AurJSON {
     private static $fields = array(
         'Packages.ID', 'Name', 'Version', 'CategoryID',
         'Description', 'URL', 'License',
-        'NumVotes', '(OutOfDateTS IS NOT NULL) AS OutOfDate'
+        'NumVotes', '(OutOfDateTS IS NOT NULL) AS OutOfDate',
+        'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified'
     );
 
     /**
