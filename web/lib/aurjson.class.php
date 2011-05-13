@@ -29,6 +29,17 @@ class AurJSON {
      * @return string The JSON formatted response data.
      **/
     public function handle($http_data) {
+		// unset global aur headers from aur.inc
+		// leave expires header to enforce validation
+		// header_remove('Expires');
+		// unset global aur.inc pragma header. We want to allow caching of data
+		// in proxies, but require validation of data (if-none-match) if
+		// possible
+		header_remove('Pragma');
+		// overwrite cache-control header set in aur.inc to allow caching, but
+		// require validation
+		header('Cache-Control: public, must-revalidate, max-age=0');
+
         // handle error states
         if ( !isset($http_data['type']) || !isset($http_data['arg']) ) {
             return $this->json_error('No request type/data specified.');
@@ -42,6 +53,24 @@ class AurJSON {
             // ugh. this works. I hate you php.
             $json = call_user_func(array(&$this, $http_data['type']),
                 $http_data['arg']);
+
+			// calculate etag as an md5 based on the json result
+			// this could be optimized by calculating the etag on the 
+			// query result object before converting to json (step into
+			// the above function call) and adding the 'type' to the response,
+			// but having all this code here is cleaner and 'good enough'
+			$etag = md5($json);
+			header("Etag: \"$etag\"");
+			// make sure to strip a few things off the if-none-match
+			// header. stripping whitespace may not be required, but 
+			// removing the quote on the incoming header is required 
+			// to make the equality test
+			$if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
+				trim($_SERVER['HTTP_IF_NONE_MATCH'], "\t\n\r\" ") : false;
+			if ($if_none_match && $if_none_match == $etag) {
+				header('HTTP/1.1 304 Not Modified');
+				return;
+			}
 
             // allow rpc callback for XDomainAjax
             if ( isset($http_data['callback']) ) {
@@ -179,7 +208,6 @@ class AurJSON {
             $where_condition = sprintf("Name=\"%s\"",
                 mysql_real_escape_string($pqdata, $this->dbh));
         }
-
         return $this->process_query('info', $where_condition);
     }
 
