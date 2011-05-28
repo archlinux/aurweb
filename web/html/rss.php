@@ -5,10 +5,12 @@ include_once("aur.inc");
 include_once("feedcreator.class.php");
 
 #detect prefix
-$protocol = $_SERVER["HTTPS"]=='on' ? "https" : "http";
+$protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]=='on' ? "https" : "http";
 $host = $_SERVER['HTTP_HOST'];
 
 $rss = new RSSCreator20();
+$rss->cssStyleSheet = false;
+$rss->xslStyleSheet = false;
 
 # Use UTF-8 (fixes FS#10706).
 $rss->encoding = "UTF-8";
