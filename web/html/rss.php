@@ -8,15 +8,21 @@ include_once("feedcreator.class.php");
 $protocol = isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]=='on' ? "https" : "http";
 $host = $_SERVER['HTTP_HOST'];
 
+$feed_key = 'pkg-feed-' . $protocol;
+
+$bool = false;
+$ret = get_cache_value($feed_key, $bool);
+if ($bool) {
+	echo $ret;
+	exit();
+}
+
 $rss = new RSSCreator20();
 $rss->cssStyleSheet = false;
 $rss->xslStyleSheet = false;
 
 # Use UTF-8 (fixes FS#10706).
 $rss->encoding = "UTF-8";
-
-#If there's a cached version <1hr old, won't regenerate now
-$rss->useCached("/tmp/aur-newestpkg.xml", 1800);
 
 #All the general RSS setup
 $rss->title = "AUR Newest Packages";
@@ -49,5 +55,7 @@ while ($row = mysql_fetch_assoc($result)) {
 }
 
 #save it so that useCached() can find it
-$rss->saveFeed("/tmp/aur-newestpkg.xml",true);
-
+$feedContent = $rss->createFeed();
+set_cache_value($feed_key, $feedContent, 1800);
+echo $feedContent;
+?>
