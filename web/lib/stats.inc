@@ -2,40 +2,10 @@
 
 include_once('aur.inc');
 
-# APC configuration variables
-$apc_prefix = 'aur:';
-$apc_ttl = 600;
-
-# Check if APC extension is loaded
-if (!defined('EXTENSION_LOADED_APC'))
-	define('EXTENSION_LOADED_APC', extension_loaded('apc'));
-
-# run a simple db query, retrieving and/or caching the value if APC
-# is available for use
-#
-function db_cache_value($dbq, $dbh, $key)
-{
-	global $apc_ttl;
-	$bool = false;
-	if(EXTENSION_LOADED_APC) {
-		$ret = apc_fetch($key, $bool);
-	}
-	if(!$bool) {
-		$result = db_query($dbq, $dbh);
-		$row = mysql_fetch_row($result);
-		$ret = $row[0];
-		if (EXTENSION_LOADED_APC) {
-			apc_store($key, $ret, $apc_ttl);
-		}
-	}
-	return $ret;
-}
-
 function updates_table($dbh)
 {
-	global $apc_prefix, $apc_ttl;
-	$key = $apc_prefix . 'recent_updates';
-	if(!(EXTENSION_LOADED_APC && ($newest_packages = apc_fetch($key)))) {
+	$key = 'recent_updates';
+	if(!($newest_packages = get_cache_value($key))) {
 		$q = 'SELECT * FROM Packages ORDER BY ModifiedTS DESC LIMIT 10';
 		$result = db_query($q, $dbh);
 
@@ -43,26 +13,23 @@ function updates_table($dbh)
 		while ($row = mysql_fetch_assoc($result)) {
 			$newest_packages->append($row);
 		}
-		if (EXTENSION_LOADED_APC) {
-			apc_store($key, $newest_packages, $apc_ttl);
-		}
+		set_cache_value($key, $newest_packages);
 	}
 	include('stats/updates_table.php');
 }
 
 function user_table($user, $dbh)
 {
-	global $apc_prefix;
 	$escuser = mysql_real_escape_string($user);
 	$base_q = "SELECT count(*) FROM Packages,Users WHERE Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
 
 	$maintainer_unsupported_count = db_cache_value($base_q, $dbh,
-		$apc_prefix . 'user_unsupported_count:' . $escuser);
+		'user_unsupported_count:' . $escuser);
 
 	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDateTS IS NOT NULL AND Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
 
 	$flagged_outdated = db_cache_value($q, $dbh,
-		$apc_prefix . 'user_flagged_outdated:' . $escuser);
+		'user_flagged_outdated:' . $escuser);
 
 	# If the user is a TU calculate the number of the packages
 	$atype = account_from_sid($_COOKIE["AURSID"]);
@@ -72,35 +39,33 @@ function user_table($user, $dbh)
 
 function general_stats_table($dbh)
 {
-	global $apc_prefix;
 	# AUR statistics
 	$q = "SELECT count(*) FROM Packages";
-	$unsupported_count = db_cache_value($q, $dbh, $apc_prefix . 'unsupported_count');
+	$unsupported_count = db_cache_value($q, $dbh, 'unsupported_count');
 
 	$q = "SELECT count(*) FROM Packages WHERE MaintainerUID IS NULL";
-	$orphan_count = db_cache_value($q, $dbh, $apc_prefix . 'orphan_count');
+	$orphan_count = db_cache_value($q, $dbh, 'orphan_count');
 
 	$q = "SELECT count(*) FROM Users";
-	$user_count = db_cache_value($q, $dbh, $apc_prefix . 'user_count');
+	$user_count = db_cache_value($q, $dbh, 'user_count');
 
 	$q = "SELECT count(*) FROM Users,AccountTypes WHERE Users.AccountTypeID = AccountTypes.ID AND AccountTypes.AccountType = 'Trusted User'";
-	$tu_count = db_cache_value($q, $dbh, $apc_prefix . 'tu_count');
+	$tu_count = db_cache_value($q, $dbh, 'tu_count');
 
 	$targstamp = intval(strtotime("-7 days"));
 	$yearstamp = intval(strtotime("-1 year"));
 
 	$q = "SELECT count(*) FROM Packages WHERE Packages.ModifiedTS >= $targstamp AND Packages.ModifiedTS = Packages.SubmittedTS";
-	$add_count = db_cache_value($q, $dbh, $apc_prefix . 'add_count');
+	$add_count = db_cache_value($q, $dbh, 'add_count');
 
 	$q = "SELECT count(*) FROM Packages WHERE Packages.ModifiedTS >= $targstamp AND Packages.ModifiedTS != Packages.SubmittedTS";
-	$update_count = db_cache_value($q, $dbh, $apc_prefix . 'update_count');
+	$update_count = db_cache_value($q, $dbh, 'update_count');
 
 	$q = "SELECT count(*) FROM Packages WHERE Packages.ModifiedTS >= $yearstamp AND Packages.ModifiedTS != Packages.SubmittedTS";
-	$update_year_count = db_cache_value($q, $dbh, $apc_prefix . 'update_year_count');
+	$update_year_count = db_cache_value($q, $dbh, 'update_year_count');
 
 	$q = "SELECT count(*) FROM Packages WHERE Packages.ModifiedTS = Packages.SubmittedTS";
-	$never_update_count = db_cache_value($q, $dbh, $apc_prefix . 'never_update_count');
+	$never_update_count = db_cache_value($q, $dbh, 'never_update_count');
 
 	include('stats/general_stats_table.php');
 }
-

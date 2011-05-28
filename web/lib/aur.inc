@@ -14,6 +14,12 @@ include_once("config.inc");
 include_once("version.inc");
 include_once("acctfuncs.inc");
 
+# Check if APC extension is loaded, and set cache prefix if it is.
+if (!defined('EXTENSION_LOADED_APC')) {
+	define('EXTENSION_LOADED_APC', extension_loaded('apc'));
+	define('APC_PREFIX', 'aur:');
+}
+
 # see if the visitor is already logged in
 #
 function check_sid() {
@@ -257,6 +263,46 @@ function db_query($query="", $db_handle="") {
 	return $result;
 }
 
+# Set a value in the cache (currently APC) if cache is available for use. If
+# not available, this becomes effectively a no-op (return value is
+# false). Accepts an optional TTL (defaults to 600 seconds).
+function set_cache_value($key, $value, $ttl=600) {
+	$status = false;
+	if (EXTENSION_LOADED_APC) {
+		$status = apc_store(APC_PREFIX.$key, $value, $ttl);
+	}
+	return $status;
+}
+
+# Get a value from the cache (currently APC) if cache is available for use. If
+# not available, this returns false (optionally sets passed in variable $status
+# to false, much like apc_fetch() behaves). This allows for testing the fetch
+# result appropriately even in the event that a 'false' value was the value in
+# the cache.
+function get_cache_value($key, &$status=false) {
+	if(EXTENSION_LOADED_APC) {
+		$ret = apc_fetch(APC_PREFIX.$key, $status);
+		if ($status) {
+			return $ret;
+		}
+	}
+	return $status;
+}
+
+# Run a simple db query, retrieving and/or caching the value if APC is
+# available for use. Accepts an optional TTL value (defaults to 600 seconds).
+function db_cache_value($dbq, $dbh, $key, $ttl=600) {
+	$status = false;
+	$value = get_cache_value($key, $status);
+	if (!$status) {
+		$result = db_query($dbq, $dbh);
+		$row = mysql_fetch_row($result);
+		$value = $row[0];
+		set_cache_value($key, $value, $ttl);
+	}
+	return $value;
+}
+
 # set up the visitor's language
 #
 function set_lang() {
@@ -491,12 +537,12 @@ function get_salt($user_id)
 {
 	$dbh = db_connect();
 	$salt_q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
-    $result = db_query($salt_q, $dbh);
-    if ($result) {
-        $salt_row = mysql_fetch_row($result);
-	    return $salt_row[0];
-    }
-    return;
+	$result = db_query($salt_q, $dbh);
+	if ($result) {
+		$salt_row = mysql_fetch_row($result);
+		return $salt_row[0];
+	}
+	return;
 }
 
 function save_salt($user_id, $passwd)
@@ -535,7 +581,7 @@ function parse_comment($comment)
 		if ($i % 2) {
 			# convert links
 			$html .= '<a href="' . htmlspecialchars($matches[$i]) .
-				'">' .  htmlspecialchars($matches[$i]) . '</a>';
+				'">' .	htmlspecialchars($matches[$i]) . '</a>';
 		}
 		else {
 			# convert everything else
