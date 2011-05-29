@@ -24,6 +24,15 @@ define("DEFAULT_LANG", "en");
 # development. Should not be enabled in production. Default to 0 (off).
 define("SQL_DEBUG", 0);
 
+# Set cache type. Either "APC", "MEMCACHE", or "NONE". Defaults to NONE.
+#define("CACHE_TYPE", "APC");
+#define("CACHE_TYPE", "MEMCACHE");
+
+# If using memcache cache_type, list servers. You can separate multiple servers
+# with a comma, ex: '127.0.0.1:11211,127.0.0.1:11212'. If undefined, defaults
+# to '127.0.0.1:11211'.
+#define("MEMCACHE_SERVERS", '127.0.0.1:11211');
+
 # Languages we have translations for
 $SUPPORTED_LANGS = array(
 	"ca" => "Català",
