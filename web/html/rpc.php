@@ -18,22 +18,18 @@ else {
 	// here.
 ?>
 <html><body>
-The methods currently allowed are: <br />
+<p>The methods currently allowed are:</p>
 <ul>
-  <li>search</li>
-  <li>info</li>
-  <li>multiinfo</li>
-  <li>msearch</li>
-</ul> <br />
-Each method requires the following HTTP GET syntax: <br />
-&nbsp;&nbsp; type=<i>methodname</i>&amp;arg=<i>data</i>
-<br /><br />
-Where <i>methodname</i> is the name of an allowed method, and <i>data</i> is the argument to the call.
-<br /><br />
-If you need jsonp type callback specification, you can provide an additional variable <i>callback</i>.
-<br />
-Example URL: <br />
-	&nbsp;&nbsp; http://aur-url/rpc.php?type=search&amp;arg=foobar&amp;callback=jsonp1192244621103
+  <li><tt>search</tt></li>
+  <li><tt>info</tt></li>
+  <li><tt>multiinfo</tt></li>
+  <li><tt>msearch</tt></li>
+</ul>
+<p>Each method requires the following HTTP GET syntax:</p>
+<pre>type=<em>methodname</em>&amp;arg=<em>data</em></pre>
+<p>Where <em>methodname</em> is the name of an allowed method, and <em>data</em> is the argument to the call.</p>
+<p>If you need jsonp type callback specification, you can provide an additional variable <em>callback</em>.</p>
+<p>Example URL: <tt>http://aur-url/rpc.php?type=search&amp;arg=foobar&amp;callback=jsonp1192244621103</tt></p>
 </body></html>
 <?php
 // close if statement
