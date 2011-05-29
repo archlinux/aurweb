@@ -4,7 +4,7 @@
  *
  * This file contains the AurRPC remote handling class
  **/
-include_once("aur.inc");
+include_once("aur.inc.php");
 
 /**
  * This class defines a remote interface for fetching data

@@ -7,12 +7,12 @@ header('Pragma: no-cache');
 
 date_default_timezone_set('UTC');
 
-include_once('translator.inc');
+include_once('translator.inc.php');
 set_lang();
 
-include_once("config.inc");
-include_once("version.inc");
-include_once("acctfuncs.inc");
+include_once("config.inc.php");
+include_once("version.inc.php");
+include_once("acctfuncs.inc.php");
 
 # Check if APC extension is loaded, and set cache prefix if it is.
 if (!defined('EXTENSION_LOADED_APC')) {

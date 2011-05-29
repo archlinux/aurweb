@@ -1,5 +1,5 @@
 <?php
-include_once("config.inc");
+include_once("config.inc.php");
 
 # Make sure this visitor can delete the requested package comment
 # They can delete if they were the comment submitter, or if they are a TU/Dev

@@ -12,7 +12,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR
 #	print __("%s has %s apples.", "Bill", "5");
 #	print __("This is a %hmajor%h problem!", "<b>", "</b>");
 
-include_once('config.inc');
+include_once('config.inc.php');
 include_once('gettext.php');
 include_once('streams.php');
 

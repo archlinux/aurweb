@@ -1,6 +1,6 @@
 <?php
 
-include_once('aur.inc');
+include_once('aur.inc.php');
 
 function updates_table($dbh)
 {

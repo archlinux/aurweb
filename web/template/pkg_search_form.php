@@ -1,4 +1,4 @@
-<?php include_once('pkgfuncs.inc') ?>
+<?php include_once('pkgfuncs.inc.php') ?>
 
 <div class='pgbox'>
 <form action='packages.php' method='get'>

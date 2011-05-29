@@ -97,9 +97,9 @@ Setup on Arch Linux:
    can insert garbage addresses with:
    mysql> UPDATE Users SET Email = RAND() * RAND();
 
-7) Copy the config.inc.proto file to config.inc. Modify as needed.
+7) Copy the config.inc.php.proto file to config.inc.php. Modify as needed.
    # cd ~/aur/web/lib/
-   # cp config.inc.proto config.inc
+   # cp config.inc.php.proto config.inc.php
 
 8) Point your browser to http://aur
 

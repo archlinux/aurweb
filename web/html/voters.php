@@ -1,7 +1,7 @@
 <?php
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
-include('aur.inc');
-include('pkgfuncs.inc');
+include('aur.inc.php');
+include('pkgfuncs.inc.php');
 
 function getvotes($pkgid) {
 	$dbh = db_connect();
