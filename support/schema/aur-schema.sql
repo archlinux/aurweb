@@ -123,6 +123,7 @@ CREATE TABLE PackageDepends (
 	DepName VARCHAR(64) NOT NULL,
 	DepCondition VARCHAR(20),
 	INDEX (PackageID),
+	INDEX (DepName),
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 

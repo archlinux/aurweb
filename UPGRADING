@@ -9,13 +9,15 @@ each AUR upgrade by running `make install` in the "po/" directory.
 
 2. Remove the "NewPkgNotify" column from the "Users" table:
 
-----
 ALTER TABLE Users DROP COLUMN NewPkgNotify;
-----
 
-3. Rename "web/lib/config.inc" to "web/lib/config.inc.php".
+3. Fix up issues with depends performance on large dataset.
 
-4. Merge "web/lib/config.inc.php.proto" with "web/lib/config.inc.php".
+ALTER TABLE PackageDepends ADD INDEX (DepName);
+
+4. Rename "web/lib/config.inc" to "web/lib/config.inc.php".
+
+5. Merge "web/lib/config.inc.php.proto" with "web/lib/config.inc.php".
 
 From 1.8.1 to 1.8.2
 -------------------
