@@ -1,7 +1,7 @@
 Setup on Arch Linux:
 ====================
 1) Install Apache, MySQL, PHP, and git
-  # pacman -Sy apache mysql php git
+  # pacman -Syu apache mysql php git
 
 2) Set a local 'hostname' of 'aur'
  - Edit /etc/hosts and append 'aur' to loopback address
