@@ -472,23 +472,23 @@ function pkg_search_page($SID="") {
 
 	$order = (isset($_GET["SO"]) && $_GET["SO"] == 'd') ? 'DESC' : 'ASC';
 
-	$q_sort = "ORDER BY Name ".$order.", CategoryID DESC ";
+	$q_sort = "ORDER BY Name ".$order." ";
 	$sort_by = isset($_GET["SB"]) ? $_GET["SB"] : '';
 	switch ($sort_by) {
 	case 'c':
 		$q_sort = "ORDER BY CategoryID ".$order.", Name ASC ";
 		break;
 	case 'v':
-		$q_sort = "ORDER BY NumVotes ".$order.", Name ASC, CategoryID DESC ";
+		$q_sort = "ORDER BY NumVotes ".$order.", Name ASC ";
 		break;
 	case 'w':
 		if ($SID) {
-			$q_sort = "ORDER BY Voted ".$order.", Name ASC, CategoryID DESC ";
+			$q_sort = "ORDER BY Voted ".$order.", Name ASC ";
 		}
 		break;
 	case 'o':
 		if ($SID) {
-			$q_sort = "ORDER BY Notify ".$order.", Name ASC, CategoryID DESC ";
+			$q_sort = "ORDER BY Notify ".$order.", Name ASC ";
 		}
 		break;
 	case 'm':
