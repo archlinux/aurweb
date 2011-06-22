@@ -62,10 +62,6 @@ Setup on Arch Linux:
 
    PEAR's path may vary depending on your set up.
 
- - AUR does not work properly with PHP's short open tag enabled.
-   Be sure you have this in php.ini:
-   short_open_tag = Off
-
 6) Configure MySQL
  - Start the MySQL service. Example:
    # /etc/rc.d/mysqld start
