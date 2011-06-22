@@ -533,41 +533,34 @@ function pkg_search_page($SID="") {
 		$last = $_GET['PP'] + $_GET['O'];
 	}
 
+	# calculation of pagination links
+	$per_page = ($_GET['PP'] > 0) ? $_GET['PP'] : 50;
+	$current = ceil($first / $per_page);
+	$pages = ceil($total / $per_page);
+	$templ_pages = array();
 
-	if ($total > 1 || $total == 0) {
-		# calculation of pagination links
-		$per_page = ($_GET['PP'] > 0) ? $_GET['PP'] : 50;
-		$current = ceil($first / $per_page);
-		$pages = ceil($total / $per_page);
-		$templ_pages = array();
-
-		if ($current > 1) {
-			$templ_pages[__('First')] = 0;
-			$templ_pages[__('Previous')] = ($current - 2) * $per_page;
-		}
-
-		if ($current - 5 > 1)
-			$templ_pages["..."] = false;
-
-		for ($i = max($current - 5, 1); $i <= min($pages, $current + 5); $i++) {
-			$templ_pages[$i] = ($i - 1) * $per_page;
-		}
-
-		if ($current + 5 < $pages)
-			$templ_pages["... "] = false;
-
-		if ($current < $pages) {
-			$templ_pages[__('Next')] = $current * $per_page;
-			$templ_pages[__('Last')] = ($pages - 1) * $per_page;
-		}
-
-		include('pkg_search_form.php');
-		include('pkg_search_results.php');
+	if ($current > 1) {
+		$templ_pages[__('First')] = 0;
+		$templ_pages[__('Previous')] = ($current - 2) * $per_page;
 	}
-	else {
-		$pkgdetails = mysql_fetch_assoc($result);
-		header("Location: packages.php?ID={$pkgdetails['ID']}");
+
+	if ($current - 5 > 1)
+		$templ_pages["..."] = false;
+
+	for ($i = max($current - 5, 1); $i <= min($pages, $current + 5); $i++) {
+		$templ_pages[$i] = ($i - 1) * $per_page;
 	}
+
+	if ($current + 5 < $pages)
+		$templ_pages["... "] = false;
+
+	if ($current < $pages) {
+		$templ_pages[__('Next')] = $current * $per_page;
+		$templ_pages[__('Last')] = ($pages - 1) * $per_page;
+	}
+
+	include('pkg_search_form.php');
+	include('pkg_search_results.php');
 
 	return;
 }
