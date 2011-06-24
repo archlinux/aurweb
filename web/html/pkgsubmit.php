@@ -303,6 +303,12 @@ if ($uid):
 			$result = db_query($q, $dbh);
 			$pdata = mysql_fetch_assoc($result);
 
+			if (isset($new_pkgbuild['epoch']) && (int)$new_pkgbuild['epoch'] > 0) {
+				$pkg_version = sprintf('%d:%s-%s', $new_pkgbuild['epoch'], $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
+			} else {
+				$pkg_version = sprintf('%s-%s', $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
+			}
+
 			if ($pdata) {
 				# This is an overwrite of an existing package, the database ID
 				# needs to be preserved so that any votes are retained. However,
@@ -325,10 +331,9 @@ if ($uid):
 				}
 
 				# Update package data
-				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s-%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
+				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
-					mysql_real_escape_string($new_pkgbuild['pkgver']),
-					mysql_real_escape_string($new_pkgbuild['pkgrel']),
+					mysql_real_escape_string($pkg_version),
 					mysql_real_escape_string($new_pkgbuild['license']),
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
@@ -339,11 +344,10 @@ if ($uid):
 
 			} else {
 				# This is a brand new package
-				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s-%s', %d, '%s', '%s', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
+				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s', %d, '%s', '%s', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['license']),
-					mysql_real_escape_string($new_pkgbuild['pkgver']),
-					mysql_real_escape_string($new_pkgbuild['pkgrel']),
+					mysql_real_escape_string($pkg_version),
 					mysql_real_escape_string($_REQUEST['category']),
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
