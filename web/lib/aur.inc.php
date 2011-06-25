@@ -91,16 +91,7 @@ function make_seed() {
 # generate a (hopefully) unique session id
 #
 function new_sid() {
-	mt_srand(make_seed());
-	$ts = time();
-	$pid = getmypid();
-
-	$rand_num = mt_rand();
-	mt_srand(make_seed());
-	$rand_str = substr(md5(mt_rand()),2, 20);
-
-	$id = $rand_str . strtolower(md5($ts.$pid)) . $rand_num;
-	return strtoupper(md5($id));
+	return md5($_SERVER['REMOTE_ADDR'] . uniqid(mt_rand(), true));
 }
 
 
