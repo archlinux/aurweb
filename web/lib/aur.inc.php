@@ -78,7 +78,7 @@ function check_sid() {
 # verify that an email address looks like it is legitimate
 #
 function valid_email($addy) {
-	return strpos($addy, '@');
+	return (filter_var($addy, FILTER_VALIDATE_EMAIL) !== false);
 }
 
 # a new seed value for mt_srand()
