@@ -5,16 +5,12 @@ OBJ = ${SRC:.c=.o}
 
 all: aurblup
 
-.c.o:
-	${CC} -c ${CFLAGS} $<
-
 config.h:
 	cp config.h.proto config.h
 
 ${OBJ}: config.h
 
 aurblup: ${OBJ}
-	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 install: aurblup
 	install -Dm0755 aurblup "${DESTDIR}${PREFIX}/bin/aurblup"
