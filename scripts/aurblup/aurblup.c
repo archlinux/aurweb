@@ -14,17 +14,17 @@
 #define alpm_die(...) die(__VA_ARGS__, alpm_strerrorlast());
 #define mysql_die(...) die(__VA_ARGS__, mysql_error(c));
 
-void die(const char *, ...);
-alpm_list_t *pkglist_append(alpm_list_t *, const char *);
-alpm_list_t *blacklist_get_pkglist();
-void blacklist_add(const char *);
-void blacklist_remove(const char *);
-void blacklist_sync(alpm_list_t *, alpm_list_t *);
-alpm_list_t *dblist_get_pkglist(alpm_list_t *);
-alpm_list_t *dblist_create(void);
-void read_config(const char *);
-void init(void);
-void cleanup(void);
+static void die(const char *, ...);
+static alpm_list_t *pkglist_append(alpm_list_t *, const char *);
+static alpm_list_t *blacklist_get_pkglist();
+static void blacklist_add(const char *);
+static void blacklist_remove(const char *);
+static void blacklist_sync(alpm_list_t *, alpm_list_t *);
+static alpm_list_t *dblist_get_pkglist(alpm_list_t *);
+static alpm_list_t *dblist_create(void);
+static void read_config(const char *);
+static void init(void);
+static void cleanup(void);
 
 static char *mysql_host = NULL;
 static char *mysql_socket = NULL;
@@ -32,9 +32,9 @@ static char *mysql_user = NULL;
 static char *mysql_passwd = NULL;
 static char *mysql_db = NULL;
 
-MYSQL *c;
+static MYSQL *c;
 
-void
+static void
 die(const char *format, ...)
 {
   va_list arg;
@@ -48,7 +48,7 @@ die(const char *format, ...)
   exit(1);
 }
 
-alpm_list_t *
+static alpm_list_t *
 pkglist_append(alpm_list_t *pkglist, const char *pkgname)
 {
   int len = strcspn(pkgname, "<=>");
@@ -67,7 +67,7 @@ pkglist_append(alpm_list_t *pkglist, const char *pkgname)
   return pkglist;
 }
 
-alpm_list_t *
+static alpm_list_t *
 blacklist_get_pkglist()
 {
   MYSQL_RES *res;
@@ -88,7 +88,7 @@ blacklist_get_pkglist()
   return pkglist;
 }
 
-void
+static void
 blacklist_add(const char *name)
 {
   char *esc = malloc(strlen(name) * 2 + 1);
@@ -103,7 +103,7 @@ blacklist_add(const char *name)
     mysql_die("failed to query MySQL database (\"%s\"): %s\n", query);
 }
 
-void
+static void
 blacklist_remove(const char *name)
 {
   char *esc = malloc(strlen(name) * 2 + 1);
@@ -117,7 +117,7 @@ blacklist_remove(const char *name)
     mysql_die("failed to query MySQL database (\"%s\"): %s\n", query);
 }
 
-void
+static void
 blacklist_sync(alpm_list_t *pkgs_cur, alpm_list_t *pkgs_new)
 {
   alpm_list_t *pkgs_add, *pkgs_rem, *p;
@@ -141,7 +141,7 @@ blacklist_sync(alpm_list_t *pkgs_cur, alpm_list_t *pkgs_new)
   alpm_list_free(pkgs_rem);
 }
 
-alpm_list_t *
+static alpm_list_t *
 dblist_get_pkglist(alpm_list_t *dblist)
 {
   alpm_list_t *d, *p, *q;
@@ -173,7 +173,7 @@ dblist_get_pkglist(alpm_list_t *dblist)
   return pkglist;
 }
 
-alpm_list_t *
+static alpm_list_t *
 dblist_create(void)
 {
   alpm_list_t *d;
@@ -201,7 +201,7 @@ dblist_create(void)
   return dblist;
 }
 
-void
+static void
 read_config(const char *fn)
 {
   FILE *fp;
@@ -258,7 +258,7 @@ read_config(const char *fn)
     die("MySQL database setting not found in AUR config file\n");
 }
 
-void
+static void
 init(void)
 {
   if (mysql_library_init(0, NULL, NULL))
@@ -277,7 +277,7 @@ init(void)
     alpm_die("failed to set ALPM database path: %s\n");
 }
 
-void
+static void
 cleanup(void)
 {
   if (mysql_host) free(mysql_host);
