@@ -122,19 +122,11 @@ blacklist_sync(alpm_list_t *pkgs_cur, alpm_list_t *pkgs_new)
 {
   alpm_list_t *pkgs_add, *pkgs_rem, *p;
 
-#if MYSQL_USE_TRANSACTIONS
-  if (mysql_autocommit(c, 0))
-    mysql_die("failed to turn MySQL autocommit off: %s\n");
+  pkgs_add = alpm_list_diff(pkgs_new, pkgs_cur, (alpm_list_fn_cmp)strcmp);
+  pkgs_rem = alpm_list_diff(pkgs_cur, pkgs_new, (alpm_list_fn_cmp)strcmp);
 
   if (mysql_query(c, "START TRANSACTION;"))
     mysql_die("failed to start MySQL transaction: %s\n");
-#else
-  if (mysql_query(c, "LOCK TABLES PackageBlacklist WRITE;"))
-    mysql_die("failed to lock MySQL table: %s\n");
-#endif
-
-  pkgs_add = alpm_list_diff(pkgs_new, pkgs_cur, (alpm_list_fn_cmp)strcmp);
-  pkgs_rem = alpm_list_diff(pkgs_cur, pkgs_new, (alpm_list_fn_cmp)strcmp);
 
   for (p = pkgs_add; p; p = alpm_list_next(p))
     blacklist_add(alpm_list_getdata(p));
@@ -142,16 +134,11 @@ blacklist_sync(alpm_list_t *pkgs_cur, alpm_list_t *pkgs_new)
   for (p = pkgs_rem; p; p = alpm_list_next(p))
     blacklist_remove(alpm_list_getdata(p));
 
-  alpm_list_free(pkgs_add);
-  alpm_list_free(pkgs_rem);
-
-#if MYSQL_USE_TRANSACTIONS
   if (mysql_query(c, "COMMIT;"))
     mysql_die("failed to commit MySQL transaction: %s\n");
-#else
-  if (mysql_query(c, "UNLOCK TABLES;"))
-    mysql_die("failed to unlock MySQL tables: %s\n");
-#endif
+
+  alpm_list_free(pkgs_add);
+  alpm_list_free(pkgs_rem);
 }
 
 alpm_list_t *
