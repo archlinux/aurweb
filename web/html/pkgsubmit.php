@@ -101,7 +101,7 @@ if ($uid):
 			$continuation_line = 0;
 			$current_line = "";
 			$paren_depth = 0;
-			foreach (split("\n", $pkgbuild_raw) as $line) {
+			foreach (explode("\n", $pkgbuild_raw) as $line) {
 				$line = trim($line);
 				# Remove comments
 				$line = preg_replace('/\s*#.*/', '', $line);
