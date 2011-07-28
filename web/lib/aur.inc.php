@@ -235,7 +235,7 @@ function db_query($query="", $db_handle="") {
 		die("DB handle was not provided to db_query");
 	}
 
-	if (SQL_DEBUG == 1) {
+	if (defined('SQL_DEBUG') && SQL_DEBUG == 1) {
 		$bt = debug_backtrace();
 		error_log("DEBUG: ".$bt[0]['file'].":".$bt[0]['line']." query: $query\n");
 	}
