@@ -16,21 +16,23 @@ if (empty($dir)) {
 }
 
 set_include_path(get_include_path() . PATH_SEPARATOR . "$dir/lib");
-include("config.inc");
-include("aur.inc");
-include("pkgfuncs.inc");
-
-exec('ls ' . INCOMING_DIR, $files);
+include("config.inc.php");
+include("aur.inc.php");
+include("pkgfuncs.inc.php");
 
 $count = 0;
 
+$files = scandir(INCOMING_DIR);
 foreach ($files as $pkgname) {
-	if (!package_exists($pkgname)) {
-		echo 'Removing ' . INCOMING_DIR . "$pkgname\n";
-		system('rm -r ' . INCOMING_DIR . $pkgname);
+	if ($pkgname == '.' || $pkgname == '..') {
+		continue;
+	}
+	$fullpath = INCOMING_DIR . $pkgname;
+	if (!package_exists($pkgname) && is_dir($fullpath)) {
+		echo 'Removing ' . $fullpath . "\n";
+		rm_tree($fullpath);
 		$count++;
 	}
 }
 
 echo "\nRemoved $count directories.\n";
-
