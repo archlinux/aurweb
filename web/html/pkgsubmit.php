@@ -361,20 +361,25 @@ if ($uid):
 
 			# Update package depends
 			$depends = explode(" ", $new_pkgbuild['depends']);
-			foreach ($depends as $dep) {
-				$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
-				$depcondition = str_replace($deppkgname, "", $dep);
+			if ($depends !== false) {
+				foreach ($depends as $dep) {
+					$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
+					$depcondition = str_replace($deppkgname, "", $dep);
 
-				if ($deppkgname == "#") {
-					break;
+					if ($deppkgname == "") {
+						continue;
+					}
+					else if ($deppkgname == "#") {
+						break;
+					}
+
+					$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, '%s', '%s')",
+						$packageID,
+						mysql_real_escape_string($deppkgname),
+						mysql_real_escape_string($depcondition));
+
+					db_query($q, $dbh);
 				}
-
-				$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, '%s', '%s')",
-					$packageID,
-					mysql_real_escape_string($deppkgname),
-					mysql_real_escape_string($depcondition));
-
-				db_query($q, $dbh);
 			}
 
 			# Insert sources
