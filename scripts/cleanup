@@ -34,7 +34,7 @@ foreach ($buckets as $bucket) {
 			continue;
 		}
 		$fullpath = INCOMING_DIR . $bucket . "/" . $pkgname;
-		if (!package_exists($pkgname) && is_dir($fullpath)) {
+		if (!pkgid_from_name($pkgname) && is_dir($fullpath)) {
 			echo 'Removing ' . $fullpath . "\n";
 			rm_tree($fullpath);
 			$count++;

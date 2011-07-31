@@ -90,7 +90,7 @@ function pkgCategories() {
 
 # check to see if the package name exists
 #
-function package_exists($name="") {
+function pkgid_from_name($name="") {
 	if (!$name) {return NULL;}
 	$dbh = db_connect();
 	$q = "SELECT ID FROM Packages ";
