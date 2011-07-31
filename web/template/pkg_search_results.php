@@ -110,6 +110,8 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 							<option value='do_UnNotify'><?php print __("UnNotify") ?></option>
 						</select>
 						<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+							<label for='merge_Into'><?php print __("Merge into") ?></label>
+							<input type='text' id='merge_Into' name='merge_Into' />
 							<input type='checkbox' name='confirm_Delete' value='1' /> <?php print __("Confirm") ?>
 						<?php endif; ?>
 						<input type='submit' class='button' style='width: 80px' value='<?php print __("Go") ?>' />

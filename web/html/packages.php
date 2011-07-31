@@ -50,8 +50,20 @@ if (current_action("do_Flag")) {
 	$output = pkg_vote($atype, $ids, False);
 } elseif (current_action("do_Delete")) {
 	if (isset($_POST['confirm_Delete'])) {
-		$output = pkg_delete($atype, $ids);
-		unset($_GET['ID']);
+		if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
+			$output = pkg_delete($atype, $ids, NULL);
+			unset($_GET['ID']);
+		}
+		else {
+			$mergepkgid = pkgid_from_name($_POST['merge_Into']);
+			if ($mergepkgid) {
+				$output = pkg_delete($atype, $ids, $mergepkgid);
+				unset($_GET['ID']);
+			}
+			else {
+				$output = __("Cannot find package to merge votes and comments into.");
+			}
+		}
 	}
 	else {
 		$output = __("The selected packages have not been deleted, check the confirmation checkbox.");

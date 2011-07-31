@@ -54,6 +54,8 @@
 		if ($atype == "Trusted User" || $atype == "Developer") {
 			echo "<input type='submit' class='button' name='do_Delete'";
 			echo " value='".__("Delete Packages")."' />\n";
+			echo "<label for='merge_Into'>".__("Merge into")."</label>\n";
+			echo "<input type='text' id='merge_Into' name='merge_Into' /> ";
 			echo "<input type='checkbox' name='confirm_Delete' value='1' /> ";
 			echo __("Confirm")."\n";
 		}
