@@ -659,10 +659,11 @@ function pkg_flag ($atype, $ids, $action = True) {
  *
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to delete
+ * @param int $mergepkgid Package to merge the deleted ones into
  *
  * @return string Translated error or success message
  */
-function pkg_delete ($atype, $ids) {
+function pkg_delete ($atype, $ids, $mergepkgid) {
 	if (!$atype) {
 		return __("You must be logged in before you can delete packages.");
 	}
@@ -678,6 +679,34 @@ function pkg_delete ($atype, $ids) {
 	}
 
 	$dbh = db_connect();
+
+	if ($mergepkgid) {
+		/* Merge comments */
+		$q = "UPDATE PackageComments ";
+		$q.= "SET PackageID = " . intval($mergepkgid) . " ";
+		$q.= "WHERE PackageID IN (" . implode(",", $ids) . ")";
+		db_query($q, $dbh);
+
+		/* Merge votes */
+		foreach ($ids as $pkgid) {
+			$q = "UPDATE PackageVotes ";
+			$q.= "SET PackageID = " . intval($mergepkgid) . " ";
+			$q.= "WHERE PackageID = " . $pkgid . " ";
+			$q.= "AND UsersID NOT IN (";
+			$q.= "SELECT * FROM (SELECT UsersID ";
+			$q.= "FROM PackageVotes ";
+			$q.= "WHERE PackageID = " . intval($mergepkgid);
+			$q.= ") temp)";
+			db_query($q, $dbh);
+		}
+
+		$q = "UPDATE Packages ";
+		$q.= "SET NumVotes = (SELECT COUNT(*) FROM PackageVotes ";
+		$q.= "WHERE PackageID = " . intval($mergepkgid) . ") ";
+		$q.= "WHERE ID = " . intval($mergepkgid);
+		db_query($q, $dbh);
+	}
+
 	$q = "DELETE FROM Packages WHERE ID IN (" . implode(",", $ids) . ")";
 	$result = db_query($q, $dbh);
 
