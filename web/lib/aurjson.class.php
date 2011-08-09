@@ -125,7 +125,7 @@ class AurJSON {
             $search_data = array();
             while ( $row = mysql_fetch_assoc($result) ) {
                 $name = $row['Name'];
-                $row['URLPath'] = URL_DIR . $name . "/" . $name . ".tar.gz";
+                $row['URLPath'] = URL_DIR . substr($name, 0, 2) . "/" . $name . "/" . $name . ".tar.gz";
 
                 if ($type == 'info') {
                     $search_data = $row;

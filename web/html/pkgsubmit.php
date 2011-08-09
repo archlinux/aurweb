@@ -256,7 +256,7 @@ if ($uid):
 		}
 
 		if (isset($pkg_name)) {
-			$incoming_pkgdir = INCOMING_DIR . $pkg_name;
+			$incoming_pkgdir = INCOMING_DIR . substr($pkg_name, 0, 2) . "/" . $pkg_name;
 		}
 
 		if (!$error) {
@@ -268,7 +268,8 @@ if ($uid):
 					rm_tree($incoming_pkgdir);
 				}
 
-				if (!@mkdir($incoming_pkgdir)) {
+				# The mode is masked by the current umask, so not as scary as it looks
+				if (!mkdir($incoming_pkgdir, 0777, true)) {
 					$error = __( "Could not create directory %s.", $incoming_pkgdir);
 				}
 			} else {
@@ -286,7 +287,7 @@ if ($uid):
 		}
 
 		if (!$error) {
-			if (!@chdir($incoming_pkgdir)) {
+			if (!chdir($incoming_pkgdir)) {
 				$error = __("Could not change directory to %s.", $incoming_pkgdir);
 			}
 

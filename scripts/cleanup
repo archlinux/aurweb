@@ -22,16 +22,23 @@ include("pkgfuncs.inc.php");
 
 $count = 0;
 
-$files = scandir(INCOMING_DIR);
-foreach ($files as $pkgname) {
-	if ($pkgname == '.' || $pkgname == '..') {
+$buckets = scandir(INCOMING_DIR);
+foreach ($buckets as $bucket) {
+	$bucketpath = INCOMING_DIR . $bucket;
+	if ($bucket == '.' || $bucket == '..' || !is_dir($bucketpath)) {
 		continue;
 	}
-	$fullpath = INCOMING_DIR . $pkgname;
-	if (!package_exists($pkgname) && is_dir($fullpath)) {
-		echo 'Removing ' . $fullpath . "\n";
-		rm_tree($fullpath);
-		$count++;
+	$files = scandir(INCOMING_DIR . $bucket);
+	foreach ($files as $pkgname) {
+		if ($pkgname == '.' || $pkgname == '..') {
+			continue;
+		}
+		$fullpath = INCOMING_DIR . $bucket . "/" . $pkgname;
+		if (!package_exists($pkgname) && is_dir($fullpath)) {
+			echo 'Removing ' . $fullpath . "\n";
+			rm_tree($fullpath);
+			$count++;
+		}
 	}
 }
 

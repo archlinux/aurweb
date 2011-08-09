@@ -90,7 +90,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 
 	<p><span class='f3'>
 <?php
-		$urlpath = URL_DIR . $row['Name'];
+		$urlpath = URL_DIR . substr($row['Name'], 0, 2) . "/" . $row['Name'];
 		print "<a href='$urlpath/" . $row['Name'] . ".tar.gz'>".__("Tarball")."</a> :: ";
 		print "<a href='$urlpath/PKGBUILD'>".__("PKGBUILD")."</a></span>";
 
