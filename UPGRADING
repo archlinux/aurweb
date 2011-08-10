@@ -22,6 +22,23 @@ ALTER TABLE PackageDepends ADD INDEX (DepName);
 6. Run the upload directory transform script ("scripts/uploadbuckets.sh") and
 rotate the converted directory structure into place.
 
+7. In order to to provide backward compatible package URLs, enable mod_rewrite
+and add the following to your Apache configuration (inside the "VirtualHost"
+container or optionally create a ".htaccess" file in the upload directory):
+
+----
+RewriteEngine on
+RewriteRule ^/packages/([^/]{1,2})([^/]*/(PKGBUILD|.*\.tar\.gz|))$ /packages/$1/$1$2
+----
+
+The following equivalent rule can be used for lighttpd setups:
+
+----
+url.rewrite-once = ( "^/packages/([^/]{1,2})([^/]*/(PKGBUILD|.*\.tar\.gz|))$" => "/packages/$1/$1$2" )
+----
+
+If you use a non-standard URL_DIR, slight modifications might be necessary.
+
 From 1.8.1 to 1.8.2
 -------------------
 
