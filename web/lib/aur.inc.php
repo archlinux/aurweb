@@ -17,7 +17,7 @@ include_once("cachefuncs.inc.php");
 
 # see if the visitor is already logged in
 #
-function check_sid() {
+function check_sid($dbh=NULL) {
 	global $_COOKIE;
 	global $LOGIN_TIMEOUT;
 
@@ -25,7 +25,9 @@ function check_sid() {
 		$failed = 0;
 		# the visitor is logged in, try and update the session
 		#
-		$dbh = db_connect();
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
 		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
 		$q.= "WHERE SessionID = '" . mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
 		$result = db_query($q, $dbh);
@@ -97,11 +99,13 @@ function new_sid() {
 
 # obtain the username if given their Users.ID
 #
-function username_from_id($id="") {
+function username_from_id($id="", $dbh=NULL) {
 	if (!$id) {
 		return "";
 	}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT Username FROM Users WHERE ID = " . mysql_real_escape_string($id);
 	$result = db_query($q, $dbh);
 	if (!$result) {
@@ -115,11 +119,13 @@ function username_from_id($id="") {
 
 # obtain the username if given their current SID
 #
-function username_from_sid($sid="") {
+function username_from_sid($sid="", $dbh=NULL) {
 	if (!$sid) {
 		return "";
 	}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT Username ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -135,11 +141,13 @@ function username_from_sid($sid="") {
 
 # obtain the email address if given their current SID
 #
-function email_from_sid($sid="") {
+function email_from_sid($sid="", $dbh=NULL) {
 	if (!$sid) {
 		return "";
 	}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT Email ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -156,11 +164,13 @@ function email_from_sid($sid="") {
 # obtain the account type if given their current SID
 # Return either "", "User", "Trusted User", "Developer"
 #
-function account_from_sid($sid="") {
+function account_from_sid($sid="", $dbh=NULL) {
 	if (!$sid) {
 		return "";
 	}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT AccountType ";
 	$q.= "FROM Users, AccountTypes, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -177,11 +187,13 @@ function account_from_sid($sid="") {
 
 # obtain the Users.ID if given their current SID
 #
-function uid_from_sid($sid="") {
+function uid_from_sid($sid="", $dbh=NULL) {
 	if (!$sid) {
 		return "";
 	}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT Users.ID ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -251,7 +263,7 @@ function db_query($query="", $db_handle="") {
 
 # set up the visitor's language
 #
-function set_lang() {
+function set_lang($dbh=NULL) {
 	global $LANG;
 	global $SUPPORTED_LANGS;
 	global $PERSISTENT_COOKIE_TIMEOUT;
@@ -272,7 +284,9 @@ function set_lang() {
 	} elseif (isset($_COOKIE["AURSID"])) {
 		# No language but a session; use default lang preference
 		#
-		$dbh = db_connect();
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
 		$q = "SELECT LangPreference FROM Users, Sessions ";
 		$q.= "WHERE Users.ID = Sessions.UsersID ";
 		$q.= "AND Sessions.SessionID = '";
@@ -332,15 +346,17 @@ function html_footer($ver="") {
 
 # check to see if the user can submit a package
 #
-function can_submit_pkg($name="", $sid="") {
+function can_submit_pkg($name="", $sid="", $dbh=NULL) {
 	if (!$name || !$sid) {return 0;}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT MaintainerUID ";
 	$q.= "FROM Packages WHERE Name = '".mysql_real_escape_string($name)."'";
 	$result = db_query($q, $dbh);
 	if (mysql_num_rows($result) == 0) {return 1;}
 	$row = mysql_fetch_row($result);
-	$my_uid = uid_from_sid($sid);
+	$my_uid = uid_from_sid($sid, $dbh);
 
 	if ($row[0] === NULL || $row[0] == $my_uid) {
 		return 1;
@@ -401,12 +417,14 @@ function chmod_group($path) {
 
 # obtain the uid given a Users.Username
 #
-function uid_from_username($username="")
+function uid_from_username($username="", $dbh=NULL)
 {
 	if (!$username) {
 		return "";
 	}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT ID FROM Users WHERE Username = '".mysql_real_escape_string($username)
 				."'";
 	$result = db_query($q, $dbh);
@@ -420,12 +438,14 @@ function uid_from_username($username="")
 
 # obtain the uid given a Users.Email
 #
-function uid_from_email($email="")
+function uid_from_email($email="", $dbh=NULL)
 {
 	if (!$email) {
 		return "";
 	}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT ID FROM Users WHERE Email = '".mysql_real_escape_string($email)
 				."'";
 	$result = db_query($q, $dbh);
@@ -479,9 +499,11 @@ function mkurl($append) {
 	return substr($out, 5);
 }
 
-function get_salt($user_id)
+function get_salt($user_id, $dbh=NULL)
 {
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$salt_q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
 	$result = db_query($salt_q, $dbh);
 	if ($result) {
@@ -491,9 +513,11 @@ function get_salt($user_id)
 	return;
 }
 
-function save_salt($user_id, $passwd)
+function save_salt($user_id, $passwd, $dbh=NULL)
 {
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$salt = generate_salt();
 	$hash = salted_hash($passwd, $salt);
 	$salting_q = "UPDATE Users SET Salt = '" . $salt . "', " .
