@@ -4,12 +4,14 @@ include_once("config.inc.php");
 # Make sure this visitor can delete the requested package comment
 # They can delete if they were the comment submitter, or if they are a TU/Dev
 #
-function canDeleteComment($comment_id=0, $atype="", $uid=0) {
+function canDeleteComment($comment_id=0, $atype="", $uid=0, $dbh=NULL) {
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
 		return TRUE;
 	}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT COUNT(ID) AS CNT ";
 	$q.= "FROM PackageComments ";
 	$q.= "WHERE ID = " . intval($comment_id);
@@ -74,9 +76,11 @@ function canSubmitBlacklisted($atype = "") {
 
 # grab the current list of PackageCategories
 #
-function pkgCategories() {
+function pkgCategories($dbh=NULL) {
 	$cats = array();
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT * FROM PackageCategories WHERE ID != 1 ";
 	$q.= "ORDER BY Category ASC";
 	$result = db_query($q, $dbh);
@@ -90,9 +94,11 @@ function pkgCategories() {
 
 # check to see if the package name exists
 #
-function pkgid_from_name($name="") {
+function pkgid_from_name($name="", $dbh=NULL) {
 	if (!$name) {return NULL;}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT ID FROM Packages ";
 	$q.= "WHERE Name = '".mysql_real_escape_string($name)."' ";
 	$result = db_query($q, $dbh);
@@ -103,11 +109,13 @@ function pkgid_from_name($name="") {
 
 # grab package dependencies
 #
-function package_dependencies($pkgid=0) {
+function package_dependencies($pkgid, $dbh=NULL) {
 	$deps = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
-		$dbh = db_connect();
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
 		$q = "SELECT pd.DepName, pd.DepCondition, p.ID FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
 		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
@@ -121,10 +129,12 @@ function package_dependencies($pkgid=0) {
 	return $deps;
 }
 
-function package_required($name="") {
+function package_required($name="", $dbh=NULL) {
 	$deps = array();
 	if ($name != "") {
-		$dbh = db_connect();
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
 		$q = "SELECT p.Name, PackageID FROM PackageDepends pd ";
 		$q.= "JOIN Packages p ON pd.PackageID = p.ID ";
 		$q.= "WHERE DepName = '".mysql_real_escape_string($name)."' ";
@@ -139,10 +149,12 @@ function package_required($name="") {
 }
 
 # Return the number of comments for a specified package
-function package_comments_count($pkgid = 0) {
+function package_comments_count($pkgid, $dbh=NULL) {
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
-		$dbh = db_connect();
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
 		$q = "SELECT COUNT(*) FROM PackageComments ";
 		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " AND DelUsersID IS NULL";
@@ -157,11 +169,13 @@ function package_comments_count($pkgid = 0) {
 }
 
 # Return an array of package comments
-function package_comments($pkgid = 0) {
+function package_comments($pkgid, $dbh=NULL) {
 	$comments = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
-		$dbh = db_connect();
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
 		$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, CommentTS ";
 		$q.= "FROM PackageComments, Users ";
 		$q.= "WHERE PackageComments.UsersID = Users.ID";
@@ -188,11 +202,13 @@ function package_comments($pkgid = 0) {
 
 # grab package sources
 #
-function package_sources($pkgid=0) {
+function package_sources($pkgid, $dbh=NULL) {
 	$sources = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
-		$dbh = db_connect();
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
 		$q = "SELECT Source FROM PackageSources ";
 		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " ORDER BY Source";
@@ -208,10 +224,12 @@ function package_sources($pkgid=0) {
 
 # grab array of Package.IDs that I've voted for: $pkgs[1234] = 1, ...
 #
-function pkgvotes_from_sid($sid="") {
+function pkgvotes_from_sid($sid="", $dbh=NULL) {
 	$pkgs = array();
 	if (!$sid) {return $pkgs;}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT PackageID ";
 	$q.= "FROM PackageVotes, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -229,10 +247,12 @@ function pkgvotes_from_sid($sid="") {
 # array of package ids that you're being notified for
 # *yoink*
 #
-function pkgnotify_from_sid($sid="") {
+function pkgnotify_from_sid($sid="", $dbh=NULL) {
 	$pkgs = array();
 	if (!$sid) {return $pkgs;}
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT PkgID ";
 	$q.= "FROM CommentNotify, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -249,11 +269,13 @@ function pkgnotify_from_sid($sid="") {
 
 # get name of package based on pkgid
 #
-function pkgname_from_id($pkgid=0) {
+function pkgname_from_id($pkgid, $dbh=NULL) {
 	$pkgid = intval($pkgid);
 	$name = "";
 	if ($pkgid > 0) {
-		$dbh = db_connect();
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
 		$q = "SELECT Name FROM Packages WHERE ID = " . $pkgid;
 		$result = db_query($q, $dbh);
 		if (mysql_num_rows($result) > 0) {
@@ -265,8 +287,10 @@ function pkgname_from_id($pkgid=0) {
 
 # Check if a package name is blacklisted.
 #
-function pkgname_is_blacklisted($name) {
-	$dbh = db_connect();
+function pkgname_is_blacklisted($name, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT COUNT(*) FROM PackageBlacklist WHERE Name = '" . mysql_real_escape_string($name) . "'";
 	$result = db_query($q, $dbh);
 
@@ -276,15 +300,18 @@ function pkgname_is_blacklisted($name) {
 
 # display package details
 #
-function package_details($id=0, $SID="") {
+function package_details($id=0, $SID="", $dbh=NULL) {
 	$atype = account_from_sid($SID);
 	$uid = uid_from_sid($SID);
+
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 
 	$q = "SELECT Packages.*,Category ";
 	$q.= "FROM Packages,PackageCategories ";
 	$q.= "WHERE Packages.CategoryID = PackageCategories.ID ";
 	$q.= "AND Packages.ID = " . intval($id);
-	$dbh = db_connect();
 	$results = db_query($q, $dbh);
 
 	if (!$results) {
@@ -306,7 +333,7 @@ function package_details($id=0, $SID="") {
 			}
 
 			# Print Comments
-			$comments = package_comments($id);
+			$comments = package_comments($id, $dbh);
 			if (!empty($comments)) {
 				include('pkg_comments.php');
 			}
@@ -360,17 +387,18 @@ function package_details($id=0, $SID="") {
  *                     do_Notify - Enable notification
  *                     do_UnNotify - Disable notification
  */
-function pkg_search_page($SID="") {
-	// establish a db connection
-	$dbh = db_connect();
+function pkg_search_page($SID="", $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 
 	// get commonly used variables...
 	// TODO: REDUCE DB HITS.
 	// grab info for user if they're logged in
 	if ($SID)
-		$myuid = uid_from_sid($SID);
+		$myuid = uid_from_sid($SID, $dbh);
 	// get a list of package categories
-	$cats = pkgCategories(); //meow
+	$cats = pkgCategories($dbh); //meow
 
 	// sanitize paging variables
 	//
@@ -440,7 +468,7 @@ function pkg_search_page($SID="") {
 		}
 		# Search by submitter
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
-			$q_where .= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
+			$q_where .= "AND SubmitterUID = ".uid_from_username($_GET['K'], $dbh)." ";
 		}
 		# Search by name
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
@@ -594,7 +622,7 @@ function sanitize_ids($ids) {
  *
  * @return string Translated success or error messages
  */
-function pkg_flag ($atype, $ids, $action = True) {
+function pkg_flag ($atype, $ids, $action=True, $dbh=NULL) {
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can flag packages.");
@@ -612,7 +640,9 @@ function pkg_flag ($atype, $ids, $action = True) {
 		}
 	}
 
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 
 	$q = "UPDATE Packages SET";
 	if ($action) {
@@ -627,9 +657,9 @@ function pkg_flag ($atype, $ids, $action = True) {
 
 	if ($action) {
 		# Notify of flagging by email
-		$f_name = username_from_sid($_COOKIE['AURSID']);
-		$f_email = email_from_sid($_COOKIE['AURSID']);
-		$f_uid = uid_from_sid($_COOKIE['AURSID']);
+		$f_name = username_from_sid($_COOKIE['AURSID'], $dbh);
+		$f_email = email_from_sid($_COOKIE['AURSID'], $dbh);
+		$f_uid = uid_from_sid($_COOKIE['AURSID'], $dbh);
 		$q = "SELECT Packages.Name, Users.Email, Packages.ID ";
 		$q.= "FROM Packages, Users ";
 		$q.= "WHERE Packages.ID IN (" . implode(",", $ids) .") ";
@@ -663,7 +693,7 @@ function pkg_flag ($atype, $ids, $action = True) {
  *
  * @return string Translated error or success message
  */
-function pkg_delete ($atype, $ids, $mergepkgid) {
+function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
 	if (!$atype) {
 		return __("You must be logged in before you can delete packages.");
 	}
@@ -678,7 +708,9 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 		return __("You did not select any packages to delete.");
 	}
 
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 
 	if ($mergepkgid) {
 		/* Merge comments */
@@ -722,7 +754,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
  *
  * @return string Translated error or success message
  */
-function pkg_adopt ($atype, $ids, $action = True) {
+function pkg_adopt ($atype, $ids, $action=True, $dbh=NULL) {
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can adopt packages.");
@@ -740,13 +772,15 @@ function pkg_adopt ($atype, $ids, $action = True) {
 		}
 	}
 
-	$dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 
 	$field = "MaintainerUID";
 	$q = "UPDATE Packages ";
 
 	if ($action) {
-		$user = uid_from_sid($_COOKIE["AURSID"]);
+		$user = uid_from_sid($_COOKIE["AURSID"], $dbh);
 	} else {
 		$user = 'NULL';
 	}
@@ -758,13 +792,13 @@ function pkg_adopt ($atype, $ids, $action = True) {
 		# Regular users may only adopt orphan packages from unsupported
 		$q.= "AND $field IS NULL ";
 	} else if ($atype == "User") {
-		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"]);
+		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
 	}
 
 	db_query($q, $dbh);
 
 	if ($action) {
-		pkg_notify(account_from_sid($_COOKIE["AURSID"]), $ids);
+		pkg_notify(account_from_sid($_COOKIE["AURSID"], $dbh), $ids, $dbh);
 		return __("The selected packages have been adopted.");
 	} else {
 		return __("The selected packages have been disowned.");
@@ -780,7 +814,7 @@ function pkg_adopt ($atype, $ids, $action = True) {
  *
  * @return string Translated error or success message
  */
-function pkg_vote ($atype, $ids, $action = True) {
+function pkg_vote ($atype, $ids, $action=True, $dbh=NULL) {
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can vote for packages.");
@@ -798,9 +832,11 @@ function pkg_vote ($atype, $ids, $action = True) {
 		}
 	}
 
-	$dbh = db_connect();
-	$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"]);
-	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"], $dbh);
+	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
 
 	$first = 1;
 	foreach ($ids as $pid) {
@@ -865,7 +901,7 @@ function pkg_vote ($atype, $ids, $action = True) {
  * @param array $ids Array of package IDs to toggle, formatted as $package_id
  * @return string Translated error or success message
  */
-function pkg_notify ($atype, $ids, $action = True) {
+function pkg_notify ($atype, $ids, $action=True, $dbh=NULL) {
 	if (!$atype) {
 #		return __("You must be logged in before you can get notifications on comments.");
 		return;
@@ -876,8 +912,10 @@ function pkg_notify ($atype, $ids, $action = True) {
 		return __("Couldn't add to notification list.");
 	}
 
-	$dbh = db_connect();
-	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
 
 	$output = "";
 
@@ -941,7 +979,7 @@ function pkg_notify ($atype, $ids, $action = True) {
  * @param string $atype Account type, output of account_from_sid
  * @return string Translated error or success message
  */
-function pkg_delete_comment($atype) {
+function pkg_delete_comment($atype, $dbh=NULL) {
 	if (!$atype) {
 		return __("You must be logged in before you can edit package information.");
 	}
@@ -953,10 +991,11 @@ function pkg_delete_comment($atype) {
 		return __("Missing comment ID.");
 	}
 
-	$uid = uid_from_sid($_COOKIE["AURSID"]);
-	if (canDeleteComment($comment_id, $atype, $uid)) {
-
-		   $dbh = db_connect();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
+	if (canDeleteComment($comment_id, $atype, $uid, $dbh)) {
 		   $q = "UPDATE PackageComments ";
 		   $q.= "SET DelUsersID = ".$uid." ";
 		   $q.= "WHERE ID = ".intval($comment_id);
@@ -973,7 +1012,7 @@ function pkg_delete_comment($atype) {
  * @param string $atype Account type, output of account_from_sid
  * @return string Translated error or success message
  */
-function pkg_change_category($atype) {
+function pkg_change_category($atype, $dbh=NULL) {
 	if (!$atype)  {
 		return __("You must be logged in before you can edit package information.");
 	}
@@ -985,7 +1024,10 @@ function pkg_change_category($atype) {
 		return __("Missing category ID.");
 	}
 
-	$catArray = pkgCategories();
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$catArray = pkgCategories($dbh);
 	if (!array_key_exists($category_id, $catArray)) {
 		return __("Invalid category ID.");
 	}
@@ -997,7 +1039,6 @@ function pkg_change_category($atype) {
 	}
 
 	# Verify package ownership
-	$dbh = db_connect();
 	$q = "SELECT Packages.MaintainerUID ";
 	$q.= "FROM Packages ";
 	$q.= "WHERE Packages.ID = ".$pid;
@@ -1009,7 +1050,7 @@ function pkg_change_category($atype) {
 		return __("You are not allowed to change this package category.");
 	}
 
-	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
 	if ($uid == $pkg["MaintainerUID"] or
 	($atype == "Developer" or $atype == "Trusted User")) {
 		$q = "UPDATE Packages ";
