@@ -299,6 +299,7 @@ if ($uid):
 		if (!$error) {
 
 			$dbh = db_connect();
+			db_query("BEGIN", $dbh);
 
 			$q = "SELECT * FROM Packages WHERE Name = '" . mysql_real_escape_string($new_pkgbuild['pkgname']) . "'";
 			$result = db_query($q, $dbh);
@@ -396,8 +397,11 @@ if ($uid):
 			# If we just created this package, or it was an orphan and we
 			# auto-adopted, add submitting user to the notification list.
 			if (!$pdata || $pdata["MaintainerUID"] === NULL) {
-				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($packageID));
+				pkg_notify(account_from_sid($_COOKIE["AURSID"], $dbh), array($packageID), true, $dbh);
 			}
+
+			# Entire package creation process is atomic
+			db_query("COMMIT", $dbh);
 
 			header('Location: packages.php?ID=' . $packageID);
 		}
