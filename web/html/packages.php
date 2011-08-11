@@ -37,15 +37,15 @@ if (isset($_POST['IDs'])) {
 # Determine what action to do
 $output = "";
 if (current_action("do_Flag")) {
-	$output = pkg_flag($atype, $ids, True);
+	$output = pkg_flag($atype, $ids, true);
 } elseif (current_action("do_UnFlag")) {
 	$output = pkg_flag($atype, $ids, False);
 } elseif (current_action("do_Adopt")) {
-	$output = pkg_adopt($atype, $ids, True);
+	$output = pkg_adopt($atype, $ids, true);
 } elseif (current_action("do_Disown")) {
 	$output = pkg_adopt($atype, $ids, False);
 } elseif (current_action("do_Vote")) {
-	$output = pkg_vote($atype, $ids, True);
+	$output = pkg_vote($atype, $ids, true);
 } elseif (current_action("do_UnVote")) {
 	$output = pkg_vote($atype, $ids, False);
 } elseif (current_action("do_Delete")) {

@@ -617,12 +617,12 @@ function sanitize_ids($ids) {
  *
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to flag/unflag
- * @param boolean $action True flags out-of-date, false un-flags. Flags by
+ * @param boolean $action true flags out-of-date, false un-flags. Flags by
  * default
  *
  * @return string Translated success or error messages
  */
-function pkg_flag ($atype, $ids, $action=True, $dbh=NULL) {
+function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can flag packages.");
@@ -754,7 +754,7 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
  *
  * @return string Translated error or success message
  */
-function pkg_adopt ($atype, $ids, $action=True, $dbh=NULL) {
+function pkg_adopt ($atype, $ids, $action=true, $dbh=NULL) {
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can adopt packages.");
@@ -814,7 +814,7 @@ function pkg_adopt ($atype, $ids, $action=True, $dbh=NULL) {
  *
  * @return string Translated error or success message
  */
-function pkg_vote ($atype, $ids, $action=True, $dbh=NULL) {
+function pkg_vote ($atype, $ids, $action=true, $dbh=NULL) {
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can vote for packages.");
@@ -901,7 +901,7 @@ function pkg_vote ($atype, $ids, $action=True, $dbh=NULL) {
  * @param array $ids Array of package IDs to toggle, formatted as $package_id
  * @return string Translated error or success message
  */
-function pkg_notify ($atype, $ids, $action=True, $dbh=NULL) {
+function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
 	if (!$atype) {
 #		return __("You must be logged in before you can get notifications on comments.");
 		return;
@@ -919,7 +919,7 @@ function pkg_notify ($atype, $ids, $action=True, $dbh=NULL) {
 
 	$output = "";
 
-	$first = True;
+	$first = true;
 
 	# There currently shouldn't be multiple requests here, but the
 	# format in which it's sent requires this.
