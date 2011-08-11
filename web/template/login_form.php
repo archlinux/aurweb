@@ -6,7 +6,7 @@ if (isset($_COOKIE["AURSID"])) {
  <a href="logout.php">[<?php print __("Logout"); ?>]</a>
 <?php
 }
-else {
+elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])) {
 	if ($login_error) {
 		print "<span class='error'>" . $login_error . "</span><br />\n";
 	}
@@ -26,5 +26,13 @@ else {
 	<a href="passreset.php">[<?php echo __('Forgot Password') ?>]</a>
 	</div>
 </form>
+<?php
+}
+else {
+?>
+<span class='error'>
+	<?php echo __("HTTP login is disabled. Please switch to HTTPs if you want to login: "); ?>
+	<a href="https://aur.archlinux.org/">https://aur.archlinux.org/</a>
+</span>
 <?php } ?>
 </div>
