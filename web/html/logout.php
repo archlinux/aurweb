@@ -15,7 +15,7 @@ if (isset($_COOKIE["AURSID"])) {
 	$q.= mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
 	db_query($q, $dbh);
 	# setting expiration to 1 means '1 second after midnight January 1, 1970'
-	setcookie("AURSID", "", 1, "/");
+	setcookie("AURSID", "", 1, "/", null, !empty($_SERVER['HTTPS']), true);
 	unset($_COOKIE['AURSID']);
 }
 

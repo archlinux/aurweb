@@ -47,7 +47,7 @@ function check_sid($dbh=NULL) {
 			# clear out the hacker's cookie, and send them to a naughty page
 			# why do you have to be so harsh on these people!?
 			#
-			setcookie("AURSID", "", 1, "/");
+			setcookie("AURSID", "", 1, "/", null, !empty($_SERVER['HTTPS']), true);
 			unset($_COOKIE['AURSID']);
 		} elseif ($failed == 2) {
 			# session id timeout was reached and they must login again.
@@ -56,7 +56,7 @@ function check_sid($dbh=NULL) {
 			$q.= mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
 			db_query($q, $dbh);
 
-			setcookie("AURSID", "", 1, "/");
+			setcookie("AURSID", "", 1, "/", null, !empty($_SERVER['HTTPS']), true);
 			unset($_COOKIE['AURSID']);
 		} else {
 			# still logged in and haven't reached the timeout, go ahead
