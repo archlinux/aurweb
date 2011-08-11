@@ -1,4 +1,6 @@
 <?php
+$atype = account_from_sid($SID);
+$uid = uid_from_sid($SID);
 
 $pkgid = intval($_REQUEST['ID']);
 if ($uid == $row["MaintainerUID"] or

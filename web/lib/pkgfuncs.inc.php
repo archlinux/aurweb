@@ -301,9 +301,6 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
 # display package details
 #
 function package_details($id=0, $SID="", $dbh=NULL) {
-	$atype = account_from_sid($SID);
-	$uid = uid_from_sid($SID);
-
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
