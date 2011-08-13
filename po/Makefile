@@ -8,12 +8,14 @@ POFILES = \
 	de.po \
 	el_GR.po \
 	es.po \
+	fi.po \
 	fr.po \
 	he.po \
 	hr.po \
 	hu.po \
 	it.po \
 	nb_NO.po \
+	nl.po \
 	pl.po \
 	pt.po \
 	ro.po \

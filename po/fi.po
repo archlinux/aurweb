@@ -1,0 +1,854 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Jesse Jaara <jesse.jaara@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Arch User Repository (AUR)\n"
+"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"POT-Creation-Date: 2011-04-07 13:52+0200\n"
+"PO-Revision-Date: 2011-04-21 16:15+0000\n"
+"Last-Translator: Huulivoide <jesse.jaara@gmail.com>\n"
+"Language-Team: Finnish (http://www.transifex.net/projects/p/aur/team/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgid "Home"
+msgstr "Etusivu"
+
+msgid ""
+"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
+"Guidelines%h for more information."
+msgstr ""
+"Tervetuloa! Lue %hAUR:in käyttäjä ohjeet%h sekä %hAUR:in TU ohjeet%h, jos "
+"tahdot tietää enemmän. :)"
+
+msgid ""
+"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
+"otherwise they will be deleted!"
+msgstr ""
+"Luotujen PKGBUILD tiedostojen %htulee%h olla %hArch paketointi standardien%h"
+" mukaisia tai ne poistetaan!"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "Muista äänestää suosikki pakettejasi!!"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr ""
+"Jotkin paketit saattavat olla tarjolla valmiina paketteina [community] "
+"varastossa. :)"
+
+msgid "DISCLAIMER"
+msgstr "Vastuuvapauslauseke"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr ""
+"Nämä paketit eivät ole virallisesti tuettuja. Tämän sivun paketit ovat "
+"käyttäjien tuotosta. Näiden käyttäminen on omalla vastuullaasi"
+
+msgid "Search Criteria"
+msgstr "Haku kriteerit"
+
+msgid "Packages"
+msgstr "Paketit"
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr ""
+"Valittuja paketteja ei ole poistettu. Muistitko laittaa raksin varmistus "
+"ruutuun?"
+
+msgid "Error trying to retrieve package details."
+msgstr "Valitun paketin tietoja ei löytynyt."
+
+msgid "Accounts"
+msgstr "Käyttäjätilit"
+
+msgid "You are not allowed to access this area."
+msgstr "Sinulla ei ole oikeuksia tämän osion käyttämiseen."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Valitun käyttäjän tietoja ei löytynyt."
+
+msgid "You do not have permission to edit this account."
+msgstr "Sinulla ei ole oikeuksia tämän käyttäjätlin muokkaamiseen."
+
+msgid "Use this form to search existing accounts."
+msgstr "Etsi käyttäjätilejä."
+
+msgid "Use this form to update your account."
+msgstr "Päivitä käyttäjätilisi tällä lomakkeella.."
+
+msgid "Leave the password fields blank to keep your same password."
+msgstr ""
+"Jätä salasana kentät tyhjiksi, jos haluat säilyttää nykyisen salasanasi."
+
+msgid "You must log in to view user information."
+msgstr "Sinun pitää kirjautua sisään tarkastellaksesi käyttäjien tietoja."
+
+msgid "Use this form to create an account."
+msgstr "Käytä tätä lomaketta uuden käyttäjätilin luomiseen."
+
+msgid "Could not retrieve proposal details."
+msgstr "Ehdotuksen tietoja ei löytynyt."
+
+msgid "Voting is closed for this proposal."
+msgstr "Tämän ehdoksen äänestys on päättynyt."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Et voi äänestää itseäsi koskevassa äänestyksessä."
+
+msgid "You've already voted for this proposal."
+msgstr "Olet jo antanut äänesi tälle ehdotukselle."
+
+msgid "Vote ID not valid."
+msgstr ""
+
+msgid "Current Votes"
+msgstr "Avoimet äänestykset."
+
+msgid "Past Votes"
+msgstr "Sulkeutuneet äänestykset."
+
+msgid "Add Proposal"
+msgstr "Lisää ehdotus"
+
+msgid "Back"
+msgstr "Takaisin"
+
+msgid "Next"
+msgstr "Seuraava"
+
+msgid "Username does not exist."
+msgstr "Käyttäjänimeä ei ole olemassa."
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr ""
+
+msgid "Length must be a number."
+msgstr "Pituuden pitää olla numero."
+
+msgid "Length must be at least 1."
+msgstr "Pituuden pitää olla vähintään 1."
+
+msgid "Proposal cannot be empty."
+msgstr "Ehdotus ei voi olla tyhjä."
+
+msgid "New proposal submitted."
+msgstr "Uusi ehdotus lisätty."
+
+msgid "Submit a proposal to vote on."
+msgstr "Lisää ehdotus äänestettäväksi."
+
+msgid "Applicant/TU"
+msgstr "Ehdokas/TU"
+
+msgid "(empty if not applicable)"
+msgstr "(tyhjä jos ei tiettyä henkilöä)"
+
+msgid "Length in days"
+msgstr "Pituus päivinä"
+
+msgid "(defaults to 7 if empty)"
+msgstr "(oletuksena 7)"
+
+msgid "Proposal"
+msgstr "Ehdotus"
+
+msgid "Submit"
+msgstr "Lisää"
+
+msgid "Missing a required field."
+msgstr "Jokin vaadituidta kentistä on puutteellinen."
+
+msgid "Password fields do not match."
+msgstr "Salasanakentät eivät täsmää."
+
+msgid "Invalid e-mail."
+msgstr "Epäkelvollinen sähköpostiosoite."
+
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr ""
+"Salasanan palautusta pyydettiin, tähän sähköpostiosoitteeseen "
+"linkitettetylle tilille. Jos tahdot palauttaa salasanasi klikkaa alla olevaa"
+" linkkiä. Muussa tapauksessa jätä tämä viesti huomiotta."
+
+msgid "Password Reset"
+msgstr "Salasanan palautus"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr "Sähköpostiisi on nyt lähetetty varmistus linkki."
+
+msgid "Your password has been reset successfully."
+msgstr "Salasanasi on palautettu onnistuneesti."
+
+msgid "Confirm your e-mail address:"
+msgstr "Vahvista sähköpostiositteesi:"
+
+msgid "Enter your new password:"
+msgstr "Uuusi salasana:"
+
+msgid "Confirm your new password:"
+msgstr "Uusi salasana uudelleen:"
+
+msgid "Continue"
+msgstr "Jatka"
+
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %haur-general%h mailing list."
+msgstr ""
+"Jos olet unohtanut rekisteröityessäsi käyttämäsi sähköpostiosoitteen lähetä "
+"viesti %haur-general%h postituslistalle."
+
+msgid "Enter your e-mail address:"
+msgstr "Sähköpostiosoitteesi:"
+
+msgid "Error - No file uploaded"
+msgstr "Virhe - Tiedostoa ei ole ladattu"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by"
+" makepkg(8) only)."
+msgstr ""
+"Virhe - Tuntematon tiedostoformaatti (lataa makepkg(8):n luoma gzip pakattu "
+"tar-pallo)."
+
+msgid "Error - uncompressed file size too large."
+msgstr "Virhe - Puretun tiedoston koko on liian suuri."
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr "Virhe - Lähdepaketissa saa olla vain yksi kansio."
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr "Virhe - Lähdepaketissa ei saa olla tiedostoja kansion ulkopuolella."
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr "Virhe - Lähdepaketti ei saa sisältää sisäkkäisiä alikansioita."
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Virhe pureattaessa lähdepakettia - PKGBUILD tiedostoa ei löydy."
+
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Muuttuja %s ei ole määriteltynä PKGBUILD-tiedostossa."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Paketin osoitteesta puutuu protokolla (esim. http://, ftp://)"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Virheellinen nimi: vain pienet kirjaimet ovat sallittuja."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Kansion %s luonti epäonnistui."
+
+msgid "You are not allowed to overwrite the %h%s%h package."
+msgstr "Sinulla ei ole oikeuksia paketin %h%s%h ylikirjoittamiseen."
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr ""
+"%s on mustalla listalla. Tarkista onko se saatavilla virallisissa "
+"pakettivarastoissa."
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "Ei voitu vaihtaa kansioon %s."
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg "
+"--source`."
+msgstr ""
+"Lisää ja päivitä paketteja täällä. Luo lähdepaketti komennolla `makepkg "
+"--source`."
+
+msgid "Package Category"
+msgstr "Paketin kategoria"
+
+msgid "Select Category"
+msgstr "Valitse kategoria"
+
+msgid "Upload package file"
+msgstr "Lähdepaketti:"
+
+msgid "Upload"
+msgstr "Lähetä"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr ""
+"Pahoittelemme, mutta tämä palvelin ei salli tiedostojen lataamista "
+"palvelimelle."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Sinun pitää rekisteröityä, ennen kuin voit lisätä paketteja."
+
+msgid "Error retrieving package details."
+msgstr "Virhe haettaessa paketin tietoja."
+
+msgid "Package details could not be found."
+msgstr "Paketin tietoja ei löydetty."
+
+msgid "First"
+msgstr "Ensimmäinen"
+
+msgid "Previous"
+msgstr "Edellinen"
+
+msgid "Last"
+msgstr "Viimeinen"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Sinun pitää kirjautua, ennen kuin voit muuttaa merkintöjä."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Sinun pitää kirjautua, ennen kuin voit muuttaa merkintöjä."
+
+msgid "You did not select any packages to flag."
+msgstr "Et valinnut yhtään pakettia."
+
+msgid "You did not select any packages to unflag."
+msgstr "Et valinnut yhtään pakettia."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Valitut paketit on merkitty vanhentuneiksi."
+
+msgid "The selected packages have been unflagged."
+msgstr "Valittuilta paketeilta on poistettu merkintä."
+
+msgid "You must be logged in before you can delete packages."
+msgstr "Sinun pitää kirjautua sisään, ennen kuin voit poistaa paketteja."
+
+msgid "You do have permission to delete packages."
+msgstr "Sinulla ei ole pakettien poistamiseen tarvittavia oikeuksia."
+
+msgid "You did not select any packages to delete."
+msgstr "Et valinnut yhtään pakettiä poistettavaksi."
+
+msgid "The selected packages have been deleted."
+msgstr "Valitut paketit on nyt poistettu."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Sinun pitää kirjautua, ennen kuin voit adoptoida paketteja."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Sinun pitää kirjautua, ennen kuin voit hylätä paketteja."
+
+msgid "You did not select any packages to adopt."
+msgstr "Et valinnut yhtään pakettia adoptoitavaksi."
+
+msgid "You did not select any packages to disown."
+msgstr "Et valinnut yhtään pakettia hylättäväksi."
+
+msgid "The selected packages have been adopted."
+msgstr "Valitut paketit on nyt adoptoitu."
+
+msgid "The selected packages have been disowned."
+msgstr "Valitut paketiti on nyt hylätty."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Sinun pitää kirjautua, ennen kuin voit äänestää paketteja."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Sinun pitää kirjautua, ennen kuin voit perua äänesi."
+
+msgid "You did not select any packages to vote for."
+msgstr "Et valinnut yhtään pakettia äänestettäväksi."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Valittuille paketeille antamasi äänet on nyt peruttu."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Äänesi on nyt annettu valituille paketeille."
+
+msgid "Couldn't add to notification list."
+msgstr ""
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "Saat nyt ilmoituksen paketin %s uusista kommenteista."
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Et saa enää ilmoituksia paketin %s uusista kommenteista."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Sinun pitää kirjautua, ennen kuin voit muokata paketin tietoja."
+
+msgid "Missing comment ID."
+msgstr "Kommentin tunnus puuttuu."
+
+msgid "Comment has been deleted."
+msgstr "Kommentti on poistettu."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Sinulla ei ole oikeuksia poistaa tätä kommenttia."
+
+msgid "Missing category ID."
+msgstr "Kategorian tunnus puuttuu."
+
+msgid "Invalid category ID."
+msgstr "Kategorian id ei ole kelvollinen."
+
+msgid "Missing package ID."
+msgstr "Paketin tunnus puuttuu."
+
+msgid "Package category changed."
+msgstr "Paketin kategoria vaihdettu."
+
+msgid "You are not allowed to change this package category."
+msgstr ""
+
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+msgid "required"
+msgstr "vaaditaan"
+
+msgid "Account Type"
+msgstr "TIlin tyyppi"
+
+msgid "Normal user"
+msgstr "Tavallinen käyttäjä"
+
+msgid "Trusted user"
+msgstr "Luotettu käyttäjä (TU)"
+
+msgid "Developer"
+msgstr "Kehittäjä"
+
+msgid "Account Suspended"
+msgstr "Käyttäjätili hyllytetty"
+
+msgid "Email Address"
+msgstr "Sähköpostiosoite"
+
+msgid "Password"
+msgstr "Salasana"
+
+msgid "Re-type password"
+msgstr "Salasana uudelleen:"
+
+msgid "Real Name"
+msgstr "Oikea nimi"
+
+msgid "IRC Nick"
+msgstr "IRC nikki"
+
+msgid "Language"
+msgstr "Kieli"
+
+msgid "New Package Notify"
+msgstr "Ilmoita uusista paketeista"
+
+msgid "Update"
+msgstr "Päivitä"
+
+msgid "Create"
+msgstr "Luo"
+
+msgid "Reset"
+msgstr "Tyhjennä"
+
+msgid "Missing User ID"
+msgstr "Käyttäjän tunnus puuttuu"
+
+msgid "The username is invalid."
+msgstr "Käyttäjänimi ei ole kelvollinen."
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Sen pitää olla %s-%s kirjaintapitkä"
+
+msgid "Start and end with a letter or number"
+msgstr "Alkaa ja loppua kirjaimeen tai numeroon"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Voi sisältää vain yhden väliviivan, alaviivan tai pisteen."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Salasanan pitää olla vähintään %s merkkiä pitkä."
+
+msgid "The email address is invalid."
+msgstr "Sähköpostiosoite ei ole kelvollinen."
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Luotettu käyttäjä ei voi antaa kehittäjän valtuuksia."
+
+msgid "Language is not currently supported."
+msgstr "Kieli ei ole vielä tuettuna."
+
+msgid "The username, %h%s%h, is already in use."
+msgstr "Käyttäjänimi %h%s%h on jo käytössä."
+
+msgid "The address, %h%s%h, is already in use."
+msgstr "Osoite %h%s%h on jo käytössä."
+
+msgid "Error trying to create account, %h%s%h: %s."
+msgstr "Virhe luotaessa tiliä %h%s%h: %s"
+
+msgid "The account, %h%s%h, has been successfully created."
+msgstr "Käyttäjätili %h%s%h on nyt luotu."
+
+msgid "Click on the Home link above to login."
+msgstr "Klikkaa etusivu linkkiä kirjautuaksesi."
+
+msgid "Error trying to modify account, %h%s%h: %s."
+msgstr "Virhe muokattaessa käyttäjätiliä %h%s%h: %s."
+
+msgid "The account, %h%s%h, has been successfully modified."
+msgstr "Käyttäjätilin %h%s%h tiedot on nyt tallennettu."
+
+msgid "No results matched your search criteria."
+msgstr "Hakuasi vastaavia paketteja ei löydy."
+
+msgid "Type"
+msgstr "Tyyppi"
+
+msgid "Status"
+msgstr "Tila"
+
+msgid "Last Voted"
+msgstr "Viimeksi äänestetty"
+
+msgid "Edit Account"
+msgstr "Muokkaa käyttäjätiliä"
+
+msgid "Suspended"
+msgstr "Hyllytä"
+
+msgid "Active"
+msgstr "Aktiivinen"
+
+msgid "Never"
+msgstr "Ei koskaan"
+
+msgid "Less"
+msgstr "Vähemmän"
+
+msgid "More"
+msgstr "Enemmän"
+
+msgid "No more results to display."
+msgstr "Ei enempää tuloksia"
+
+msgid "User"
+msgstr "Käyttäjä"
+
+msgid "Trusted User"
+msgstr "Luotettu käyttäjä (TU)"
+
+msgid "View this user's packages"
+msgstr "Näytä käyttäjän paketit"
+
+msgid "Bad username or password."
+msgstr "Virheellinen käyttäjänimi tai salasana."
+
+msgid "Votes"
+msgstr "Äänet"
+
+msgid "unknown"
+msgstr "tuntematon"
+
+msgid "Package Details"
+msgstr "Paketin tiedot"
+
+msgid "Submitter"
+msgstr "Lisääjä"
+
+msgid "Maintainer"
+msgstr "Ylläpitäjä"
+
+msgid "License"
+msgstr "Lisenssi"
+
+msgid "Last Updated"
+msgstr "Päivitettiin"
+
+msgid "First Submitted"
+msgstr "Lisättiin"
+
+msgid "Tarball"
+msgstr "Tar-pallo"
+
+msgid "PKGBUILD"
+msgstr "PKGBUILD"
+
+msgid "This package has been flagged out of date."
+msgstr "Tämä paketti on merkitty vanhentuneeksi."
+
+msgid "Dependencies"
+msgstr "Riippuvuudet"
+
+msgid "Required by"
+msgstr "Riippuvuutena paketeille"
+
+msgid "Sources"
+msgstr "Lähdetiedostot"
+
+msgid "Hi, this is worth reading!"
+msgstr "Hei. Tämä on lukemisen arvoinen!"
+
+msgid "Start"
+msgstr "Alku"
+
+msgid "End"
+msgstr "Loppu"
+
+msgid "Yes"
+msgstr "Kyllä"
+
+msgid "No"
+msgstr "Ei"
+
+msgid "Voted"
+msgstr "Äänestetty"
+
+msgid "No results found."
+msgstr "Ei tuloksia."
+
+msgid "Proposal Details"
+msgstr "Ehdotuksen tiedot"
+
+msgid "This vote is still running."
+msgstr "Tätä ehdotusta voi vielä äänestää."
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Lisätty: %s Lisääjä: %s"
+
+msgid "Abstain"
+msgstr ""
+
+msgid "Total"
+msgstr "Yhteensä"
+
+msgid "Voters"
+msgstr "Äänestäjät"
+
+msgid "Bugs"
+msgstr "Bugit"
+
+msgid "Discussion"
+msgstr "Keskustelu"
+
+msgid "My Packages"
+msgstr "Omat paketit"
+
+msgid "Vote"
+msgstr "Äänestä"
+
+msgid "UnVote"
+msgstr "Peru ääni"
+
+msgid "Notify"
+msgstr "Ilmoita"
+
+msgid "New Comment Notification"
+msgstr "Ilmoitus uusista kommenteista"
+
+msgid "UnNotify"
+msgstr "Älä ilmoita"
+
+msgid "No New Comment Notification"
+msgstr "Ei ilmoituksia uusista kommenteista"
+
+msgid "Flag Out-of-date"
+msgstr "Merkitse vanhentuneeksi"
+
+msgid "UnFlag Out-of-date"
+msgstr "Tämä ei ole vanhentunut"
+
+msgid "Adopt Packages"
+msgstr "Adoptoi paketit"
+
+msgid "Disown Packages"
+msgstr "Hylkää paketit"
+
+msgid "Delete Packages"
+msgstr "Poista paketit"
+
+msgid "Confirm"
+msgstr "Vahvista"
+
+msgid "Any type"
+msgstr "Mikä tahansa"
+
+msgid "Sort by"
+msgstr "Järjestelyperuste"
+
+msgid "Last vote"
+msgstr "Viimeisin ääni"
+
+msgid "Search"
+msgstr "Etsi"
+
+msgid "Comment has been added."
+msgstr "Kommentti lisätty."
+
+msgid "Enter your comment below."
+msgstr "Kirjoita kommenttisi."
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Nykyinen käyttäjä: %s"
+
+msgid "Logout"
+msgstr "Kirjaudu ulos"
+
+msgid "Remember me"
+msgstr "Muista minut"
+
+msgid "Login"
+msgstr "Kirjaudu"
+
+msgid "Forgot Password"
+msgstr "Unohditko salasanasi?"
+
+msgid "Recent Updates"
+msgstr "Viimeisimmät päivitykset"
+
+msgid "My Statistics"
+msgstr "Statistiikkani"
+
+msgid "Packages in unsupported"
+msgstr "Ei tuettuja paketteja"
+
+msgid "Out of Date"
+msgstr "Vanhentuneita"
+
+msgid "Statistics"
+msgstr "Statistiikkat"
+
+msgid "Orphan Packages"
+msgstr "Hylättyjä paketteja"
+
+msgid "Packages added in the past 7 days"
+msgstr "Uudet paketit 7 päivän sisällä"
+
+msgid "Packages updated in the past 7 days"
+msgstr "Paketteja päivitetty 7 päivän sisällä"
+
+msgid "Packages updated in the past year"
+msgstr "Vuoden aikana päivitettyjä paketteja"
+
+msgid "Packages never updated"
+msgstr "Paketteja ei ole koskaan päivitetty"
+
+msgid "Registered Users"
+msgstr "Rekisteröityjä käyttäjiä"
+
+msgid "Trusted Users"
+msgstr "Luotettuja käyttäjiä"
+
+msgid "Error retrieving package list."
+msgstr "Virhe pakettilistaa noudettaessa."
+
+msgid "No packages matched your search criteria."
+msgstr "Hakuasi vastaavia paketteja ei löydy."
+
+msgid "Package Listing"
+msgstr "Pakettilista"
+
+msgid "Category"
+msgstr "Kategoria"
+
+msgid "Name"
+msgstr "Nimi"
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "orphan"
+msgstr "orpo"
+
+msgid "Legend"
+msgstr ""
+
+msgid "Actions"
+msgstr "Toiminnot"
+
+msgid "Unflag Out-of-date"
+msgstr "Ei vanhentunut"
+
+msgid "Go"
+msgstr "Mene"
+
+#, php-format
+msgid "Showing results %s - %s of %s"
+msgstr "Näytetään tulokset väliltä %s-%s, yhteensä %s tulosta"
+
+#, php-format
+msgid "Comment by: %s on %s"
+msgstr "Kommmentin kirjoitti %s ajankohtana: %s"
+
+msgid "Delete comment"
+msgstr "Poista kommentti"
+
+#, php-format
+msgid "Show all %s comments"
+msgstr "Näytä kaikki %s kommenttia"
+
+msgid "Orphans"
+msgstr "Orvot"
+
+msgid "Advanced"
+msgstr "Edistynyt"
+
+msgid "Any"
+msgstr "Mikä tahansa"
+
+msgid "Search by"
+msgstr "Etsintäperuste"
+
+msgid "Name, Description"
+msgstr "Nimi, kuvaus"
+
+msgid "Name Only"
+msgstr "Pelkkä nimi"
+
+msgid "Exact name"
+msgstr "Nimi täsmälleen"
+
+msgid "Age"
+msgstr "Ikä"
+
+msgid "Sort order"
+msgstr "Järjestelyperuste"
+
+msgid "Ascending"
+msgstr "Nouseva"
+
+msgid "Descending"
+msgstr "Laskeva"
+
+msgid "Per page"
+msgstr "Sivua kohden"
+
+msgid "All"
+msgstr "Kaikki"
+
+msgid "Flagged"
+msgstr "Merkitty"
+
+msgid "Not Flagged"
+msgstr "Ei merkitty"
+
+
