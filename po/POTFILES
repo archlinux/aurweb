@@ -5,9 +5,9 @@ html/tu.php
 html/addvote.php
 html/passreset.php
 html/pkgsubmit.php
-lib/pkgfuncs.inc
-lib/acctfuncs.inc
-lib/translator.inc
+lib/pkgfuncs.inc.php
+lib/acctfuncs.inc.php
+lib/translator.inc.php
 template/pkg_details.php
 template/template.phps
 template/tu_list.php
