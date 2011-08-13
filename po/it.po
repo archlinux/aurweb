@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Giovanni Scafora <giovanni@archlinux.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v1.8.1\n"
+"Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2011-04-07 13:52+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: it\n"
+"PO-Revision-Date: 2011-07-24 12:32+0000\n"
+"Last-Translator: giovanni <giovanni@archlinux.org>\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/aur/team/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgid "Home"
 msgstr "Inizio"
@@ -31,16 +32,16 @@ msgid ""
 "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
 "otherwise they will be deleted!"
 msgstr ""
-"I PKGBUILD inviati %hdevono%h essere conformi agli %hArch Packaging Standards"
-"%h altrimenti saranno cancellati!"
+"I PKGBUILD inviati %hdevono%h essere conformi agli %hArch Packaging "
+"Standards%h altrimenti saranno cancellati!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Ricorda di votare i tuoi pacchetti preferiti!"
 
 msgid "Some packages may be provided as binaries in [community]."
 msgstr ""
-"Alcuni pacchetti possono essere disponibili come precompilati nel repository "
-"[community]"
+"Alcuni pacchetti possono essere disponibili come precompilati nel repository"
+" [community]"
 
 msgid "DISCLAIMER"
 msgstr "AVVISO"
@@ -49,8 +50,8 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr ""
-"I pacchetti presenti in unsupported sono stati inviati dagli utenti. Usali a "
-"tuo rischio e pericolo."
+"I pacchetti presenti in unsupported sono stati inviati dagli utenti. Usali a"
+" tuo rischio e pericolo."
 
 msgid "Search Criteria"
 msgstr "Criterio di ricerca"
@@ -58,10 +59,12 @@ msgstr "Criterio di ricerca"
 msgid "Packages"
 msgstr "Pacchetti"
 
-#, fuzzy
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr "I pacchetti selezionati sono stati eliminati."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr ""
+"I pacchetti selezionati non sono stati eliminati, conferma la tua scelta, "
+"inserendo un segno di spunta nell'apposita checkbox."
 
 msgid "Error trying to retrieve package details."
 msgstr "Errore durante il recupero dei dettagli del pacchetto."
@@ -114,12 +117,11 @@ msgstr "Voti attuali"
 msgid "Past Votes"
 msgstr "Vecchi voti"
 
-#, fuzzy
 msgid "Add Proposal"
-msgstr "Proposta"
+msgstr "Aggiungi proposta"
 
 msgid "Back"
-msgstr "Indietro"
+msgstr "Precedente"
 
 msgid "Next"
 msgstr "Successivo"
@@ -141,21 +143,19 @@ msgid "Proposal cannot be empty."
 msgstr "La proposta non può essere vuota."
 
 msgid "New proposal submitted."
-msgstr "Nuova proposta inviata."
+msgstr "La nuova proposta è stata inviata."
 
 msgid "Submit a proposal to vote on."
 msgstr "Invia una proposta di voto."
 
-#, fuzzy
 msgid "Applicant/TU"
-msgstr "Candidato/TU:"
+msgstr "Applicant/TU"
 
 msgid "(empty if not applicable)"
 msgstr "(vuoto se non applicabile)"
 
-#, fuzzy
 msgid "Length in days"
-msgstr "Durata in giorni:"
+msgstr "Durata in giorni"
 
 msgid "(defaults to 7 if empty)"
 msgstr "(se vuoto, di default è impostata a 7)"
@@ -166,8 +166,6 @@ msgstr "Proposta"
 msgid "Submit"
 msgstr "Invia"
 
-# Italian (Italiano) translation
-# Translators: Giovanni Scafora <giovanni@archlinux.org> and Pierluigi Picciau <pierluigi88@gmail.com>
 msgid "Missing a required field."
 msgstr "Manca un campo obbligatorio."
 
@@ -175,78 +173,86 @@ msgid "Password fields do not match."
 msgstr "I campi password non corrispondono."
 
 msgid "Invalid e-mail."
-msgstr ""
+msgstr "L'e-mail inserita non è valida."
 
 msgid "Invalid e-mail and reset key combination."
-msgstr ""
+msgstr "Combinazione non valida del pulsante reset ed e-mail."
 
 msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
 msgstr ""
+"È stata inviata una richiesta per resettare la password dell'account "
+"associato al tuo indirizzo e-mail. Se desideri resettare la tua password, "
+"clicca sul link sottostante, altrimenti ignora questo messaggio e non "
+"succederà nulla."
 
-#, fuzzy
 msgid "Password Reset"
-msgstr "Password"
+msgstr "Resetta la password"
 
 msgid "Check your e-mail for the confirmation link."
-msgstr ""
+msgstr "Controlla la tua e-mail per il link di conferma."
 
-#, fuzzy
 msgid "Your password has been reset successfully."
-msgstr "La password deve contenere almeno %s caratteri."
+msgstr "La tua password è stata resettata con successo."
 
 msgid "Confirm your e-mail address:"
-msgstr ""
+msgstr "Conferma il tuo indirizzo e-mail:"
 
-#, fuzzy
 msgid "Enter your new password:"
-msgstr "Riscrivi la password"
+msgstr "Inserisci la tua nuova password:"
 
 msgid "Confirm your new password:"
-msgstr ""
+msgstr "Conferma la tua nuova password:"
 
 msgid "Continue"
-msgstr ""
+msgstr "Continua"
 
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %haur-general%h mailing list."
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %haur-general%h mailing list."
 msgstr ""
+"Se hai dimenticato l'indirizzo e-mail che hai utilizzato per registrarti, "
+"invia un messaggio alla mailing list %haur-general%h."
 
-#, fuzzy
 msgid "Enter your e-mail address:"
-msgstr "Indirizzo email"
+msgstr "Inserisci il tuo indirizzo email:"
 
 msgid "Error - No file uploaded"
 msgstr "Errore, nessun file inviato."
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by"
+" makepkg(8) only)."
 msgstr ""
+"Errore, formato del file non supportato (inviare solo tarball compressi con "
+"gzip, generati con makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
-msgstr ""
+msgstr "Errore, il file decompresso supera la dimensione consentita."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr ""
+"Errore, il tarball dei sorgenti non può contenere più di una directory."
 
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr ""
+"Errore, il tarball dei sorgenti non può contenere file al di fuori di una "
+"directory."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr ""
+"Errore, il tarball dei sorgenti non può contenere sottodirectory annidate."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr ""
 "Si è verificato un errore nello scompattare il file inviato. Non esiste il "
 "PKGBUILD."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Missing %s variable in PKGBUILD."
-msgstr "Manca la variabile url nel PKGBUILD."
+msgstr "Manca la variabile %s nel PKGBUILD."
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Manca un protocollo nell'url del pacchetto (es. http:// ,ftp://)"
@@ -266,15 +272,18 @@ msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr ""
+"%s è nella blacklist dei pacchetti, controlla se è disponibile nei "
+"repository ufficiali."
 
 #, php-format
 msgid "Could not change directory to %s."
 msgstr "Impossibile cambiare la directory in %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
+"Upload your source packages here. Create source packages with `makepkg "
+"--source`."
 msgstr ""
+"Invia da qui i tuoi pacchetti. Crea i pacchetti con `makepkg --source`."
 
 msgid "Package Category"
 msgstr "Categoria del pacchetto"
@@ -302,14 +311,13 @@ msgid "Package details could not be found."
 msgstr "Impossibile trovare i dettagli del pacchetto."
 
 msgid "First"
-msgstr ""
+msgstr "Primo"
 
 msgid "Previous"
-msgstr ""
+msgstr "Precedente"
 
-#, fuzzy
 msgid "Last"
-msgstr "Ultimo voto"
+msgstr "Ultimo"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "Devi autenticarti prima di poter contrassegnare i pacchetti."
@@ -327,18 +335,17 @@ msgstr ""
 "Non hai selezionato nessun pacchetto da contrassegnare come aggiornato."
 
 msgid "The selected packages have been flagged out-of-date."
-msgstr "I pacchetti selezionati sono stati contrassegnati come non aggiornati."
+msgstr ""
+"I pacchetti selezionati sono stati contrassegnati come non aggiornati."
 
 msgid "The selected packages have been unflagged."
 msgstr "I pacchetti selezionati non sono più contrassegnati."
 
-#, fuzzy
 msgid "You must be logged in before you can delete packages."
-msgstr "Devi autenticarti prima di poter adottare dei pacchetti."
+msgstr "Devi essere loggato prima di poter eliminare i pacchetti."
 
-#, fuzzy
 msgid "You do have permission to delete packages."
-msgstr "Non hai i permessi necessari per modificare questo account."
+msgstr "Non hai il permesso di eliminare i pacchetti."
 
 msgid "You did not select any packages to delete."
 msgstr "Non hai selezionato nessun pacchetto da eliminare."
@@ -386,9 +393,9 @@ msgstr "Impossibile aggiungere alla lista di notifica."
 msgid "You have been added to the comment notification list for %s."
 msgstr "Sei stato aggiunto alla lista di notifica dei commenti per %s."
 
-#, fuzzy, php-format
+#, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr "Sei stato rimosso dalla lista di notifica dei commenti."
+msgstr "Sei stato rimosso dalla lista delle notifiche dei commenti di %s."
 
 msgid "You must be logged in before you can edit package information."
 msgstr ""
@@ -403,9 +410,8 @@ msgstr "Il commento è stato rimosso."
 msgid "You are not allowed to delete this comment."
 msgstr "Non puoi cancellare questo commento."
 
-#, fuzzy
 msgid "Missing category ID."
-msgstr "Manca l'ID del pacchetto."
+msgstr "Manca l'ID della categoria."
 
 msgid "Invalid category ID."
 msgstr "L'ID della categoria non è valido."
@@ -413,13 +419,11 @@ msgstr "L'ID della categoria non è valido."
 msgid "Missing package ID."
 msgstr "Manca l'ID del pacchetto."
 
-#, fuzzy
 msgid "Package category changed."
-msgstr "La categoria del pacchetto è stata aggiornata."
+msgstr "La categoria del pacchetto è stata modificata."
 
-#, fuzzy
 msgid "You are not allowed to change this package category."
-msgstr "Non puoi accedere a quest'area."
+msgstr "Non puoi modificare la categoria di questo pacchetto."
 
 msgid "Username"
 msgstr "Nome utente"
@@ -518,7 +522,8 @@ msgid "Click on the Home link above to login."
 msgstr "Clicca su Inizio per autenticarti."
 
 msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "Si è verificato un errore durante la modifica dell'account %h%s%h: %s."
+msgstr ""
+"Si è verificato un errore durante la modifica dell'account %h%s%h: %s."
 
 msgid "The account, %h%s%h, has been successfully modified."
 msgstr "L'account %h%s%h è stato modificato con successo."
@@ -566,7 +571,7 @@ msgid "View this user's packages"
 msgstr "Visualizza i pacchetti di quest'utente"
 
 msgid "Bad username or password."
-msgstr ""
+msgstr "Nome utente o password errati."
 
 msgid "Votes"
 msgstr "Voti"
@@ -596,7 +601,7 @@ msgid "Tarball"
 msgstr "Archivio"
 
 msgid "PKGBUILD"
-msgstr ""
+msgstr "PKGBUILD"
 
 msgid "This package has been flagged out of date."
 msgstr "Questo pacchetto è stato contrassegnato come non aggiornato."
@@ -611,7 +616,7 @@ msgid "Sources"
 msgstr "Sorgenti"
 
 msgid "Hi, this is worth reading!"
-msgstr ""
+msgstr "Ciao, questo vale la pena di leggerlo!"
 
 msgid "Start"
 msgstr "Inizio"
@@ -647,9 +652,8 @@ msgstr "Astenuto"
 msgid "Total"
 msgstr "Totale"
 
-#, fuzzy
 msgid "Voters"
-msgstr "Voti"
+msgstr "Votanti"
 
 msgid "Bugs"
 msgstr "Bug"
@@ -694,7 +698,7 @@ msgid "Delete Packages"
 msgstr "Elimina il pacchetto"
 
 msgid "Confirm"
-msgstr ""
+msgstr "Conferma"
 
 msgid "Any type"
 msgstr "Qualsiasi tipo"
@@ -727,9 +731,8 @@ msgstr "Ricordami"
 msgid "Login"
 msgstr "Entra"
 
-#, fuzzy
 msgid "Forgot Password"
-msgstr "Password"
+msgstr "Password dimenticata"
 
 msgid "Recent Updates"
 msgstr "Aggiornamenti recenti"
@@ -746,25 +749,20 @@ msgstr "Non aggiornato"
 msgid "Statistics"
 msgstr "Statistiche"
 
-#, fuzzy
 msgid "Orphan Packages"
-msgstr "Pacchetti"
+msgstr "Pacchetti orfani"
 
-#, fuzzy
 msgid "Packages added in the past 7 days"
-msgstr "Pacchetti aggiunti o aggiornati negli ultimi 7 giorni"
+msgstr "Pacchetti aggiunti nel ultimi 7 giorni"
 
-#, fuzzy
 msgid "Packages updated in the past 7 days"
-msgstr "Pacchetti aggiunti o aggiornati negli ultimi 7 giorni"
+msgstr "Pacchetti aggiornati negli ultimi 7 giorni"
 
-#, fuzzy
 msgid "Packages updated in the past year"
-msgstr "Pacchetti aggiunti o aggiornati negli ultimi 7 giorni"
+msgstr "Pacchetti aggiornati nell'ultimo anno"
 
-#, fuzzy
 msgid "Packages never updated"
-msgstr "La categoria del pacchetto è stata aggiornata."
+msgstr "Pacchetti mai aggiornati"
 
 msgid "Registered Users"
 msgstr "Utenti registrati"
@@ -819,7 +817,7 @@ msgstr "Elimina il commento"
 
 #, php-format
 msgid "Show all %s comments"
-msgstr ""
+msgstr "Visualizza tutti i commenti di %s"
 
 msgid "Orphans"
 msgstr "Orfani"
@@ -833,17 +831,14 @@ msgstr "Qualsiasi"
 msgid "Search by"
 msgstr "Cerca per"
 
-#, fuzzy
 msgid "Name, Description"
-msgstr "Descrizione"
+msgstr "Nome, descrizione"
 
-#, fuzzy
 msgid "Name Only"
-msgstr "Nome"
+msgstr "Solo il nome"
 
-#, fuzzy
 msgid "Exact name"
-msgstr "Nome del pacchetto"
+msgstr "Nome esatto"
 
 msgid "Age"
 msgstr "Data"
@@ -863,353 +858,10 @@ msgstr "Per pagina"
 msgid "All"
 msgstr "Tutti"
 
-#, fuzzy
 msgid "Flagged"
-msgstr "Considerato sicuro"
+msgstr "Segnalato"
 
 msgid "Not Flagged"
-msgstr ""
+msgstr "Non segnalato"
 
-#~ msgid "%s: An ArchLinux project"
-#~ msgstr "%s: Un progetto Arch Linux"
 
-#~ msgid "%s: %sAn ArchLinux project%s"
-#~ msgstr "%s: %sUn progetto Arch Linux%s"
-
-#~ msgid "Clear"
-#~ msgstr "Pulisci"
-
-#~ msgid "You must supply a password."
-#~ msgstr "È necessario inserire la password."
-
-#~ msgid "You must supply a username."
-#~ msgstr "È necessario inserire il nome utente."
-
-#~ msgid "After that, this can be filled in with more meaningful text."
-#~ msgstr ""
-#~ "Dopotutto, questo potrebbe essere riempito con un messaggio più "
-#~ "significativo."
-
-#~ msgid "Your account has been suspended."
-#~ msgstr "L'account è stato sospeso."
-
-#~ msgid "Password:"
-#~ msgstr "Password:"
-
-#~ msgid "Username:"
-#~ msgstr "Nome utente:"
-
-#~ msgid ""
-#~ "Welcome to the AUR! If you're a newcomer, you may want to read the "
-#~ "%hGuidelines%h."
-#~ msgstr ""
-#~ "Benvenuto in AUR! Se sei un nuovo utente, dovresti leggere le %hGuidelines"
-#~ "%h."
-
-#~ msgid "This is where the intro text will go."
-#~ msgstr "Qui ci andrà il testo di introduzione."
-
-#~ msgid "Error trying to generate session id."
-#~ msgstr "Errore durante la generazione dell'id di sessione."
-
-#~ msgid "For now, it's just a place holder."
-#~ msgstr "Per adesso, è solo un segnaposto."
-
-#~ msgid "It's more important to get the login functionality finished."
-#~ msgstr ""
-#~ "È più importante avere la funzionalità di autenticazione completata."
-
-#~ msgid ""
-#~ "Though we can't vouch for their contents, we provide a %hlist of user "
-#~ "repositories%h for your convenience."
-#~ msgstr ""
-#~ "Nonostante che non possiamo assicurarvi il loro contenuto, per vostra "
-#~ "comodità mettiamo a disposizione una %hlista di repository degli utenti%h"
-
-#~ msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
-#~ msgstr ""
-#~ "Se avete delle osservazioni da fare in merito al sistema AUR, potete "
-#~ "segnalarle sul %hFlyspray%h."
-
-#~ msgid "Latest Packages:"
-#~ msgstr "Ultimi pacchetti:"
-
-#~ msgid "Discussion about the AUR takes place on the %sTUR Users List%s."
-#~ msgstr "Le discussioni su AUR avvengono nella %sTUR Users List%s."
-
-#~ msgid ""
-#~ "Email discussion about the AUR takes place on the %sTUR Users List%s."
-#~ msgstr ""
-#~ "Email per le discussioni su AUR che avvengono nella %sTUR Users List%s."
-
-#~ msgid "Community"
-#~ msgstr "Community"
-
-#~ msgid "Package Counts"
-#~ msgstr "Conteggio dei pacchetti"
-
-#~ msgid "Unsupported"
-#~ msgstr "Unsupported"
-
-#~ msgid "Flagged as safe by me"
-#~ msgstr "Pacchetti verificati"
-
-#~ msgid "User Statistics"
-#~ msgstr "Statistiche Utente"
-
-#~ msgid "Packages in unsupported and flagged as safe"
-#~ msgstr "Pacchetti in unsupported considerati sicuri"
-
-#~ msgid ""
-#~ "Remember to vote for your favourite packages! The most popular packages "
-#~ "are provided as binary packages in [community]."
-#~ msgstr ""
-#~ "Ricorda di votare i tuoi pacchetti preferiti! I pacchetti più votati "
-#~ "saranno disponibili in [community] come precompilati."
-
-#~ msgid ""
-#~ "The most popular packages will be provided as binary packages in "
-#~ "[community]."
-#~ msgstr ""
-#~ "I pacchetti più votati saranno disponibili in [community] come "
-#~ "precompilati."
-
-#~ msgid "Out-of-date"
-#~ msgstr "Non aggiornati"
-
-#~ msgid ""
-#~ "Unsupported PKGBUILDs are user produced content. Any use of files is at "
-#~ "your own risk."
-#~ msgstr ""
-#~ "i PKGBUILD presenti in unsupported sono stati inviati dagli utenti e, "
-#~ "scaricandoli, accetti di usarli a tuo rischio e pericolo."
-
-#~ msgid "Login failure: Bad user or pass."
-#~ msgstr "Autenticazione fallita: nome utente o password errata. "
-
-#~ msgid "You have been successfully logged out."
-#~ msgstr "Disconnesso."
-
-#~ msgid "You've found a bug if you see this...."
-#~ msgstr "Se vedi questo, hai appena trovato un bug...."
-
-#~ msgid "Select new category"
-#~ msgstr "Seleziona una nuova categoria"
-
-#~ msgid "Location"
-#~ msgstr "Posizione"
-
-#~ msgid "Go back to %hpackage details view%h."
-#~ msgstr "Ritorna alla %hvista dettagli del pacchetto%h."
-
-#~ msgid "Keywords"
-#~ msgstr "Parola chiave"
-
-#~ msgid "Files"
-#~ msgstr "File"
-
-#~ msgid "None"
-#~ msgstr "Nessuno"
-
-#~ msgid "Go back to %hsearch results%h."
-#~ msgstr "Ritorna ai %hrisultati della ricerca%h."
-
-#~ msgid "O%hrphan"
-#~ msgstr "O%hrfano"
-
-#~ msgid "Un-Vote"
-#~ msgstr "Rimuovi il voto"
-
-#~ msgid "change category"
-#~ msgstr "cambia categoria"
-
-#~ msgid "Add Comment"
-#~ msgstr "Aggiungi un commento"
-
-#~ msgid "Manage"
-#~ msgstr "Organizza"
-
-#~ msgid "Out-of-Date"
-#~ msgstr "Non aggiornato"
-
-#~ msgid "Comments"
-#~ msgstr "Commenti"
-
-#~ msgid "The above files have been verified (by %s) and are safe to use."
-#~ msgstr ""
-#~ "I file sono stati verificati (da %s) ed il loro utilizzo è da "
-#~ "considerarsi sicuro."
-
-#~ msgid ""
-#~ "Be careful! The above files may contain malicious code that can damage "
-#~ "your system."
-#~ msgstr ""
-#~ "Attenzione! I file potrebbero contenere codice pericoloso in grado di "
-#~ "danneggiare il vostro sistema."
-
-#~ msgid "Flag Safe"
-#~ msgstr "Il pacchetto è sicuro"
-
-#~ msgid "Flag Package Safe To Use"
-#~ msgstr "Il pacchetto è sicuro"
-
-#~ msgid "Unflag Safe"
-#~ msgstr "Il pacchetto non è sicuro"
-
-#~ msgid "Unflag Package Safe To Use"
-#~ msgstr "Il pacchetto non è sicuro"
-
-#~ msgid "Safe"
-#~ msgstr "Sicuri"
-
-#~ msgid "Unsafe"
-#~ msgstr "Non sicuri"
-
-#~ msgid "The above files have been verified (by %h%s%h) and are safe to use."
-#~ msgstr ""
-#~ "I file sono stati verificati (da %h%s%h) ed il loro utilizzo è da "
-#~ "considerarsi sicuro."
-
-#~ msgid "Toggle Notify"
-#~ msgstr "Rimuovi la notifica"
-
-#~ msgid "None of the selected packages could be deleted."
-#~ msgstr "Nessuno dei pacchetti selezionati può essere cancellato."
-
-#~ msgid "You did not select any packages to un-vote for."
-#~ msgstr "Non hai selezionato nessun pacchetto a cui rimuovere il voto."
-
-#~ msgid "You must be logged in before you can get notifications on comments."
-#~ msgstr ""
-#~ "Devi autenticarti prima di poter ricevere le notifiche sui commenti."
-
-#~ msgid "You have been removed from the comment notification list."
-#~ msgstr "Sei stato rimosso dalla lista di notifica dei commenti."
-
-#~ msgid ""
-#~ "You must be logged in before you can cancel notification on comments."
-#~ msgstr ""
-#~ "Devi autenticarti prima di poter cancellare le notifiche sui commenti."
-
-#~ msgid "You have been added to the comment notification list."
-#~ msgstr "Sei stato aggiunto alla lista di notifica dei commenti."
-
-#~ msgid "Couldn't remove from notification list."
-#~ msgstr "Impossibile rimuovere dalla lista di notifica."
-
-#~ msgid "The selected packages have been flagged safe."
-#~ msgstr "I pacchetti selezionati sono stati contrassegnati come sicuri."
-
-#~ msgid "Couldn't flag package safe."
-#~ msgstr "Impossibile contrassegnare il pacchetto come sicuro."
-
-#~ msgid "The selected packages have been unflagged safe."
-#~ msgstr "I pacchetti selezionati sono stati contrassegnati come non sicuri."
-
-#~ msgid "Couldn't unflag package safe."
-#~ msgstr "Impossibile contrassegnare il pacchetto come non sicuro."
-
-#~ msgid "Missing build function in PKGBUILD."
-#~ msgstr "Manca la funzione build nel PKGBUILD."
-
-#~ msgid "Missing pkgdesc variable in PKGBUILD."
-#~ msgstr "Manca la variabile pkgdesc nel PKGBUILD."
-
-#~ msgid "Error trying to upload file - please try again."
-#~ msgstr "Errore durante l'invio del file. Riprovare."
-
-#~ msgid "Error exec'ing the mv command."
-#~ msgstr "Errore nell'esecuzione del comando mv."
-
-#~ msgid "Package upload successful."
-#~ msgstr "Invio completato con successo."
-
-#~ msgid "Overwrite existing package?"
-#~ msgstr "Vuoi sovrascrivere il pacchetto esistente?"
-
-#~ msgid "You did not specify a package name."
-#~ msgstr "Non hai inserito il nome del pacchetto."
-
-#~ msgid "Could not create incoming directory: %s."
-#~ msgstr "Impossibile creare la directory %s."
-
-#~ msgid "Package Location"
-#~ msgstr "Posizione del pacchetto"
-
-#~ msgid "Package names do not match."
-#~ msgstr "Il nome del pacchetto non corrisponde."
-
-#~ msgid "Could not change to directory %s."
-#~ msgstr "Impossibile cambiare la directory in %s."
-
-#~ msgid "You did not tag the 'overwrite' checkbox."
-#~ msgstr "Non hai selezionato l'opzione 'sovrascrivere'."
-
-#~ msgid "Missing pkgver variable in PKGBUILD."
-#~ msgstr "Manca la variabile pkgver nel PKGBUILD."
-
-#~ msgid "Missing md5sums variable in PKGBUILD."
-#~ msgstr "Manca la variabile md5sums nel PKGBUILD."
-
-#~ msgid "Missing pkgrel variable in PKGBUILD."
-#~ msgstr "Manca la variabile pkgrel nel PKGBUILD."
-
-#~ msgid "Missing pkgname variable in PKGBUILD."
-#~ msgstr "Manca la variabile pkgname nel PKGBUILD."
-
-#~ msgid "Select Location"
-#~ msgstr "Seleziona la posizione"
-
-#~ msgid "Comment"
-#~ msgstr "Commento"
-
-#~ msgid "Unknown file format for uploaded file."
-#~ msgstr "Il file inviato ha un formato sconosciuto."
-
-#~ msgid "Missing source variable in PKGBUILD."
-#~ msgstr "Manca la variabile source nel PKGBUILD."
-
-#~ msgid "You must supply a comment for this upload/change."
-#~ msgstr "Devi inserire un commento."
-
-#~ msgid "Could not re-tar"
-#~ msgstr "Impossibile riarchiviare"
-
-#~ msgid "Binary packages and filelists are not allowed for upload."
-#~ msgstr "Non è consentito inviare pacchetti contenenti binari e filelist."
-
-#~ msgid "Missing arch variable in PKGBUILD."
-#~ msgstr "Nel PKGBUILD manca la variabile arch."
-
-#~ msgid "Missing license variable in PKGBUILD."
-#~ msgstr "Nel PKGBUILD manca la variabile license."
-
-#~ msgid "Could not chmod directory %s."
-#~ msgstr "Impossibile modificare i permessi della directory %s."
-
-#~ msgid "Missing "
-#~ msgstr "Mancante"
-
-#~ msgid "Proposal:"
-#~ msgstr "Proposta:"
-
-#~ msgid "Add"
-#~ msgstr "Aggiungi"
-
-#~ msgid "You've already voted in this proposal."
-#~ msgstr "Hai già votato per questa proposta."
-
-#~ msgid "string"
-#~ msgstr "stringa"
-
-#~ msgid "Vote Actions"
-#~ msgstr "Azioni del voto"
-
-#~ msgid "Voted?"
-#~ msgstr "Votato?"
-
-#~ msgid "This is a %h%s%h problem!"
-#~ msgstr "Questo è un problema di %h%s%h!"
-
-#~ msgid "%s has %s apples."
-#~ msgstr "%s ha %s mele."

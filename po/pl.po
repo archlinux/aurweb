@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Bartek Piotrowski <barthalion@gmail.com>, 2011.
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v1.8.1\n"
+"Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2011-04-07 13:52+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: pl\n"
+"PO-Revision-Date: 2011-05-06 10:15+0000\n"
+"Last-Translator: Barthalion <barthalion@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.net/projects/p/aur/team/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 msgid "Home"
 msgstr "Start"
@@ -25,7 +26,7 @@ msgid ""
 "Guidelines%h for more information."
 msgstr ""
 "Witamy w AUR! Aby uzyskać więcej informacji, przeczytaj %hInstrukcję "
-"Użytkownika%h oraz %hInstrukcję Zaufanego Użytkownika%h."
+"Użytkownika AUR%h oraz %hInstrukcję Zaufanego Użytkownika%h."
 
 msgid ""
 "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
@@ -35,13 +36,10 @@ msgstr ""
 "inaczej będą usuwane!"
 
 msgid "Remember to vote for your favourite packages!"
-msgstr "Nie zapomnij głosować na swoje ulubione pakiety!"
+msgstr "Nie zapomnij zagłosować na swoje ulubione pakiety!"
 
-#, fuzzy
 msgid "Some packages may be provided as binaries in [community]."
-msgstr ""
-"Najbardziej popularne pakiety zostaną umieszczone w formie binarnej w "
-"[community]."
+msgstr "Część pakietów może być dostępna w formie binarnej w [community]."
 
 msgid "DISCLAIMER"
 msgstr "ZRZECZENIE"
@@ -50,6 +48,8 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr ""
+"Zamieszczone pakiety są stworzone przez użytkowników. Używasz ich na własne "
+"ryzyko."
 
 msgid "Search Criteria"
 msgstr "Kryteria wyszukiwania"
@@ -57,10 +57,10 @@ msgstr "Kryteria wyszukiwania"
 msgid "Packages"
 msgstr "Pakiety"
 
-#, fuzzy
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr "Wybrane pakiety zostały usunięte."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr ""
 
 msgid "Error trying to retrieve package details."
 msgstr "Błąd podczas pobierania informacji o pakiecie."
@@ -92,9 +92,8 @@ msgstr "Musisz być zalogowany aby móc oglądać informacje o użytkownikach."
 msgid "Use this form to create an account."
 msgstr "Przy użyciu tego formularza możesz utworzyć konto."
 
-#, fuzzy
 msgid "Could not retrieve proposal details."
-msgstr "Błąd podczas pobierania informacji o pakiecie."
+msgstr ""
 
 msgid "Voting is closed for this proposal."
 msgstr ""
@@ -111,21 +110,20 @@ msgstr ""
 msgid "Current Votes"
 msgstr ""
 
-#, fuzzy
 msgid "Past Votes"
-msgstr "Ostatni głos"
+msgstr ""
 
 msgid "Add Proposal"
 msgstr ""
 
 msgid "Back"
-msgstr ""
+msgstr "Wstecz"
 
 msgid "Next"
-msgstr ""
+msgstr "Następna"
 
 msgid "Username does not exist."
-msgstr ""
+msgstr "Nazwa użytkownika nie istnieje."
 
 #, php-format
 msgid "%s already has proposal running for them."
@@ -134,9 +132,8 @@ msgstr ""
 msgid "Length must be a number."
 msgstr ""
 
-#, fuzzy
 msgid "Length must be at least 1."
-msgstr "Twoje hasło musi być przynajmniej"
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr ""
@@ -172,76 +169,85 @@ msgid "Password fields do not match."
 msgstr "Hasła nie zgadzają się."
 
 msgid "Invalid e-mail."
-msgstr ""
+msgstr "Nieprawidłowy e-mail."
 
 msgid "Invalid e-mail and reset key combination."
-msgstr ""
+msgstr "Nieprawidłowy e-mail i klucz do resetowania."
 
 msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
 msgstr ""
+"Została wysłana prośba o zresetowanie hasła do konta przypisanego do Twojego"
+" adresu e-mail. Jeśli chcesz je zresetować, kliknij w link poniżej, w "
+"przeciwnym razie zignoruj tą wiadomość."
 
-#, fuzzy
 msgid "Password Reset"
-msgstr "Hasło"
+msgstr ""
 
 msgid "Check your e-mail for the confirmation link."
 msgstr ""
+"Na Twój adres został wysłany e-mail z instrukcją dotyczącą resetowania "
+"hasła."
 
-#, fuzzy
 msgid "Your password has been reset successfully."
-msgstr "Twoje hasło musi być przynajmniej"
+msgstr "Twoje hasło zostało pomyślnie zresetowane."
 
 msgid "Confirm your e-mail address:"
-msgstr ""
+msgstr "Potwierdź swój adres e-mail:"
 
-#, fuzzy
 msgid "Enter your new password:"
-msgstr "Hasło (ponownie):"
+msgstr "Wpisz nowe hasło:"
 
 msgid "Confirm your new password:"
-msgstr ""
+msgstr "Wpisz ponownie hasło:"
 
 msgid "Continue"
-msgstr ""
+msgstr "Kontynuuj"
 
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %haur-general%h mailing list."
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %haur-general%h mailing list."
 msgstr ""
+"Jeśli zapomniałeś adresu e-mail, którego użyłeś przy rejestracji, wyślij "
+"wiadomość na listę dyskusyjną %haur-general%h."
 
-#, fuzzy
 msgid "Enter your e-mail address:"
-msgstr "Adres e-mail"
+msgstr "Wpisz swój adres e-mail:"
 
 msgid "Error - No file uploaded"
 msgstr "Błąd - plik nie został załadowany."
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by"
+" makepkg(8) only)."
 msgstr ""
+"Błąd - niewspierany format pliku (wysyłaj tylko tarballe skomprezowane za "
+"pomocą gzip stworzone przez makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
-msgstr ""
+msgstr "Błąd - rozmiar zdekompresowanego pliku jest za duży."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr ""
+"Błąd - źródłowy tarball nie może zawierać więcej, niż jednego katalogu."
 
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr ""
+"Błąd - źródłowy tarball nie może zawierać plików na zewnątrz katalogu."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr ""
+"Bład - źródłowy tarball nie może zawierać zagnieżdżonych podkatalogów."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Błąd podczas próby rozpakowania archiwum - plik PKGBUILD nie istnieje."
+msgstr ""
+"Błąd podczas próby rozpakowania archiwum - plik PKGBUILD nie istnieje."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Missing %s variable in PKGBUILD."
-msgstr "W pliku PKGBUILD brakuje zmiennej url."
+msgstr "Brakująca zmienna %s w PKGBUILD-zie."
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Adres URL nie zawiera protokołu (np. http// czy ftp://)."
@@ -261,15 +267,19 @@ msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr ""
+"%s jest na czarnej liście pakietów, sprawdź, czy nie jest dostępny w "
+"oficjalnych repozytoriach."
 
 #, php-format
 msgid "Could not change directory to %s."
 msgstr "Nie udało się przejść do katalogu %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
+"Upload your source packages here. Create source packages with `makepkg "
+"--source`."
 msgstr ""
+"Tutaj możesz wysłać źródła pakietów. Stwórz je poleceniem `makepkg "
+"--source`."
 
 msgid "Package Category"
 msgstr "Kategoria pakietu"
@@ -297,23 +307,22 @@ msgid "Package details could not be found."
 msgstr "Nie odnaleziono informacji o pakiecie."
 
 msgid "First"
-msgstr ""
+msgstr "Pierwsza"
 
 msgid "Previous"
-msgstr ""
+msgstr "Poprzednia"
 
-#, fuzzy
 msgid "Last"
-msgstr "Ostatni głos"
+msgstr "Ostatnia"
 
 msgid "You must be logged in before you can flag packages."
-msgstr "Musisz być zalogowany aby móc zmieniać flagi pakietów."
+msgstr "Musisz być zalogowany aby móc oznaczyć pakiety."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr "Musisz być zalogowany aby móc odznaczać pakiety."
+msgstr "Musisz być zalogowany aby móc odznaczyć pakiety."
 
 msgid "You did not select any packages to flag."
-msgstr "Nie wybrałeś żadnych pakietów do zaznaczenia."
+msgstr "Nie wybrałeś żadnych pakietów do oznaczenia."
 
 msgid "You did not select any packages to unflag."
 msgstr "Nie wybrałeś żadnych pakietów do odznaczenia."
@@ -324,13 +333,11 @@ msgstr "Wybrane pakiety zostały zaznaczone jako nieaktualne."
 msgid "The selected packages have been unflagged."
 msgstr "Wybrane pakiety zostały odznaczone."
 
-#, fuzzy
 msgid "You must be logged in before you can delete packages."
-msgstr "Musisz być zalogowany aby móc przejmować pakiety."
+msgstr ""
 
-#, fuzzy
 msgid "You do have permission to delete packages."
-msgstr "Nie masz uprawnień do przejmowania pakietów."
+msgstr ""
 
 msgid "You did not select any packages to delete."
 msgstr "Nie wybrałeś żadnych pakietów do usunięcia."
@@ -394,23 +401,20 @@ msgstr "Komentarz został usunięty."
 msgid "You are not allowed to delete this comment."
 msgstr "Nie masz uprawnień do usunięcia tego komentarza."
 
-#, fuzzy
 msgid "Missing category ID."
-msgstr "Brakuje identyfikatora pakietu."
+msgstr "Brakujące ID kategorii."
 
 msgid "Invalid category ID."
 msgstr "Nieprawidłowy identyfikator kategorii."
 
 msgid "Missing package ID."
-msgstr "Brakuje identyfikatora pakietu."
+msgstr "Brakujący identyfikator pakietu."
 
-#, fuzzy
 msgid "Package category changed."
 msgstr "Kategoria pakietu zmieniona."
 
-#, fuzzy
 msgid "You are not allowed to change this package category."
-msgstr "Nie masz uprawnień do oglądania tej strony."
+msgstr "Nie masz uprawnień, by zmienić kategorię tego pakietu."
 
 msgid "Username"
 msgstr "Użytkownik"
@@ -464,7 +468,7 @@ msgid "Reset"
 msgstr "Wyczyść"
 
 msgid "Missing User ID"
-msgstr "Brakuje ID użytkownika"
+msgstr "Brakujące ID użytkownika."
 
 msgid "The username is invalid."
 msgstr "Nazwa użytkownika jest nieprawidłowa."
@@ -473,17 +477,15 @@ msgstr "Nazwa użytkownika jest nieprawidłowa."
 msgid "It must be between %s and %s characters long"
 msgstr ""
 
-#, fuzzy
 msgid "Start and end with a letter or number"
-msgstr "zacznij i zakończ literą bądź cyfrą"
+msgstr ""
 
-#, fuzzy
 msgid "Can contain only one period, underscore or hyphen."
-msgstr "może zawierać tylko jedną kropkę, podkreślenie lub myślnik"
+msgstr ""
 
-#, fuzzy, php-format
+#, php-format
 msgid "Your password must be at least %s characters."
-msgstr "Twoje hasło musi być przynajmniej"
+msgstr "Twoje hasło musi mieć składać się z conajmniej %s znaków."
 
 msgid "The email address is invalid."
 msgstr "Adres e-mail jest nieprawidłowy."
@@ -546,7 +548,7 @@ msgid "More"
 msgstr "Następne"
 
 msgid "No more results to display."
-msgstr "Brak rezultatów do wyświetlenia."
+msgstr "Brak wyników do wyświetlenia."
 
 msgid "User"
 msgstr "Użytkownik"
@@ -558,7 +560,7 @@ msgid "View this user's packages"
 msgstr "Wyświetl pakiety tego użytkownika"
 
 msgid "Bad username or password."
-msgstr ""
+msgstr "Nieprawidłowa nazwa użytkownika lub hasło."
 
 msgid "Votes"
 msgstr "Głosów"
@@ -588,7 +590,7 @@ msgid "Tarball"
 msgstr "Archiwum"
 
 msgid "PKGBUILD"
-msgstr ""
+msgstr "PKGBUILD"
 
 msgid "This package has been flagged out of date."
 msgstr "Ten pakiet został oznaczony jako nieaktualny."
@@ -620,13 +622,11 @@ msgstr "Nie"
 msgid "Voted"
 msgstr "Głos"
 
-#, fuzzy
 msgid "No results found."
-msgstr "Brak rezultatów do wyświetlenia."
+msgstr ""
 
-#, fuzzy
 msgid "Proposal Details"
-msgstr "Informacje o pakiecie"
+msgstr ""
 
 msgid "This vote is still running."
 msgstr ""
@@ -641,9 +641,8 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#, fuzzy
 msgid "Voters"
-msgstr "Głosów"
+msgstr ""
 
 msgid "Bugs"
 msgstr "Błędy"
@@ -657,9 +656,8 @@ msgstr "Moje Pakiety"
 msgid "Vote"
 msgstr "Głosuj"
 
-#, fuzzy
 msgid "UnVote"
-msgstr "Anuluj głos"
+msgstr "Cofnij głos"
 
 msgid "Notify"
 msgstr "Włącz powiadamianie"
@@ -676,9 +674,8 @@ msgstr "Brak powiadomień o nowych komentarzach."
 msgid "Flag Out-of-date"
 msgstr "Zaznacz jako nieaktualny"
 
-#, fuzzy
 msgid "UnFlag Out-of-date"
-msgstr "Usuń flagę nieaktualności"
+msgstr ""
 
 msgid "Adopt Packages"
 msgstr "Przejmij pakiety"
@@ -689,9 +686,8 @@ msgstr "Porzuć pakiety"
 msgid "Delete Packages"
 msgstr "Usuń pakiety"
 
-#, fuzzy
 msgid "Confirm"
-msgstr "Potwierdź:"
+msgstr "Potwierdź"
 
 msgid "Any type"
 msgstr "Dowolny rodzaj"
@@ -703,7 +699,7 @@ msgid "Last vote"
 msgstr "Ostatni głos"
 
 msgid "Search"
-msgstr "Szukaj'"
+msgstr "Szukaj"
 
 msgid "Comment has been added."
 msgstr "Komentarz został dodany."
@@ -711,7 +707,7 @@ msgstr "Komentarz został dodany."
 msgid "Enter your comment below."
 msgstr "Napisz swój komentarz poniżej."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Logged-in as: %s"
 msgstr "Zalogowany jako: %s"
 
@@ -719,14 +715,13 @@ msgid "Logout"
 msgstr "Wyloguj się"
 
 msgid "Remember me"
-msgstr ""
+msgstr "Zapamiętaj mnie"
 
 msgid "Login"
 msgstr "Zaloguj się"
 
-#, fuzzy
 msgid "Forgot Password"
-msgstr "Hasło"
+msgstr "Zapomniałem hasła"
 
 msgid "Recent Updates"
 msgstr "Ostatnie aktualizacje"
@@ -743,25 +738,20 @@ msgstr "Nieaktualny"
 msgid "Statistics"
 msgstr "Statystyki"
 
-#, fuzzy
 msgid "Orphan Packages"
-msgstr "Pakiety"
+msgstr "Osierocone"
 
-#, fuzzy
 msgid "Packages added in the past 7 days"
-msgstr "Pakietów dodanych lub zmienionych w ostatnich 7 dniach"
+msgstr "Dodane przez ostatnie 7 dni"
 
-#, fuzzy
 msgid "Packages updated in the past 7 days"
-msgstr "Pakietów dodanych lub zmienionych w ostatnich 7 dniach"
+msgstr "Zaktualizowane przez ostatnie 7 dni"
 
-#, fuzzy
 msgid "Packages updated in the past year"
-msgstr "Pakietów dodanych lub zmienionych w ostatnich 7 dniach"
+msgstr "Zaktualizowane przez ostatni rok"
 
-#, fuzzy
 msgid "Packages never updated"
-msgstr "Kategoria pakietu zmieniona."
+msgstr "Nigdy nieaktualizowane"
 
 msgid "Registered Users"
 msgstr "Zarejestrowanych użytkowników"
@@ -791,7 +781,7 @@ msgid "orphan"
 msgstr "bez opiekuna"
 
 msgid "Legend"
-msgstr ""
+msgstr "Legenda"
 
 msgid "Actions"
 msgstr "Działania"
@@ -821,7 +811,7 @@ msgid "Orphans"
 msgstr "Bez opiekuna"
 
 msgid "Advanced"
-msgstr ""
+msgstr "Zaawansowane"
 
 msgid "Any"
 msgstr "Dowolna"
@@ -829,17 +819,14 @@ msgstr "Dowolna"
 msgid "Search by"
 msgstr "Szukaj według"
 
-#, fuzzy
 msgid "Name, Description"
-msgstr "Opis"
+msgstr "Nazwa, Opis"
 
-#, fuzzy
 msgid "Name Only"
-msgstr "Nazwa"
+msgstr "Tylko nazwa"
 
-#, fuzzy
 msgid "Exact name"
-msgstr "Nazwa pakietu"
+msgstr "Dokładna nazwa"
 
 msgid "Age"
 msgstr "Wiek"
@@ -859,352 +846,10 @@ msgstr "Na stronie"
 msgid "All"
 msgstr "Wszystkie"
 
-#, fuzzy
 msgid "Flagged"
-msgstr "Oznaczonych jako bezpieczne"
+msgstr "Oznaczony"
 
 msgid "Not Flagged"
-msgstr ""
+msgstr "Nieoznaczony"
 
-# Polish (Polski) translation
-# Translator: Jaroslaw Swierczynski <swiergot@gmail.com>
-#~ msgid "Account Suspended:"
-#~ msgstr "Konto zablokowane:"
 
-#~ msgid "Notify:"
-#~ msgstr "Powiadomienie:"
-
-#~ msgid "Normal User"
-#~ msgstr "Zwykły użytkownik"
-
-#~ msgid "Real Name:"
-#~ msgstr "Imię i nazwisko:"
-
-#~ msgid "Account Type:"
-#~ msgstr "Rodzaj konta:"
-
-#~ msgid "IRC Nick:"
-#~ msgstr "Nick na IRC-u:"
-
-#~ msgid "Language:"
-#~ msgstr "Język:"
-
-#~ msgid "New Package Notify:"
-#~ msgstr "Powiadamiaj o nowych pakietach:"
-
-#~ msgid "This address is already in use."
-#~ msgstr "Ten adres jest już używany."
-
-#~ msgid "Regular users can edit their own account."
-#~ msgstr "Zwykli użytkownicy mogą edytować swoje konto."
-
-#~ msgid "It must be "
-#~ msgstr "To musi być"
-
-#~ msgid "ArchLinux User-community Repository"
-#~ msgstr "Repozytorium Społeczności Użytkowników ArchLinux"
-
-#~ msgid "AUR: An ArchLinux project"
-#~ msgstr "AUR: Projekt ArchLinux"
-
-#~ msgid "%s: An ArchLinux project"
-#~ msgstr "%s: Projekt ArchLinux"
-
-#~ msgid "%s: %sAn ArchLinux project%s"
-#~ msgstr "%s: %sProjekt ArchLinux%s"
-
-#~ msgid "Login failure: Bad user or pass."
-#~ msgstr "Logowanie nieudane: Zła nazwa użytkownika bądź hasło."
-
-#~ msgid "Clear"
-#~ msgstr "Wyczyść"
-
-#~ msgid "You must supply a password."
-#~ msgstr "Musisz podać hasło."
-
-#~ msgid "You must supply a username."
-#~ msgstr "Musisz podać nazwę użytkownika."
-
-#~ msgid "Incorrect password for username %s."
-#~ msgstr "Nieprawidłowe hasło dla użytkownika %s."
-
-#~ msgid "After that, this can be filled in with more meaningful text."
-#~ msgstr "Potem można tu wstawić bardziej wyczerpujący tekst."
-
-#~ msgid "Your account has been suspended."
-#~ msgstr "Twoje konto zostało zablokowane."
-
-#~ msgid "Password:"
-#~ msgstr "Hasło:"
-
-#~ msgid "Username:"
-#~ msgstr "Użytkownik:"
-
-#~ msgid "It's more important to get the login functionality finished."
-#~ msgstr "Ważniejsze jest dokończyć logowanie."
-
-#~ msgid "For now, it's just a place holder."
-#~ msgstr "Narazie to tylko wypełnia przestrzeń."
-
-#~ msgid "This is where the intro text will go."
-#~ msgstr "Tutaj będzie tekst powitalny."
-
-#~ msgid "Error trying to generate session id."
-#~ msgstr "Błąd podczas generowania identyfikatora sesji."
-
-#~ msgid "Email Address:"
-#~ msgstr "Adres e-mail:"
-
-#~ msgid "You must supply an email address."
-#~ msgstr "Musisz podać adres e-mail."
-
-#~ msgid "Incorrect password for email address, %s."
-#~ msgstr "Nieprawidłowe hasło dla adresu %s."
-
-#~ msgid "Incorrect password for username, %s."
-#~ msgstr "Nieprawidłowe hasło dla użytkownika %s."
-
-#~ msgid "Error looking up username, %s."
-#~ msgstr "Błąd podczas wyszukiwania użytkownika %s."
-
-#~ msgid ""
-#~ "Welcome to the AUR! If you're a newcomer, you may want to read the "
-#~ "%hGuidelines%h."
-#~ msgstr ""
-#~ "Witamy w AUR! Jeżeli jesteś tu po raz pierwszy, być może zechcesz "
-#~ "przeczytać %hInstrukcję%h."
-
-#~ msgid "If you have feedback about the AUR, please leave it in %hFlyspray%h."
-#~ msgstr ""
-#~ "Jeżeli masz uwagi lub pomysły odnośnie AUR, %hFlyspray%h jest odpowiednim "
-#~ "miejscem do ich pozostawienia."
-
-#~ msgid ""
-#~ "Though we can't vouch for their contents, we provide a %hlist of user "
-#~ "repositories%h for your convenience."
-#~ msgstr ""
-#~ "Dla Twojej wygody podajemy %hlistę repozytoriów użytkowników%h, ale uwaga "
-#~ "- nie odpowiadamy za ich zawartość."
-
-#~ msgid ""
-#~ "Email discussion about the AUR takes place on the %sTUR Users List%s."
-#~ msgstr "Dyskusja na temat AUR ma miejsce na liście pocztowej %sTUR Users%s."
-
-#~ msgid "Packages in unsupported and flagged as safe"
-#~ msgstr "Pakietów w unsupported oznaczonych jako bezpieczne"
-
-#~ msgid "User Statistics"
-#~ msgstr "Statystyki użytkowników"
-
-#~ msgid "Flagged as safe by me"
-#~ msgstr "Oznaczonych jako bezpieczne przeze mnie"
-
-#~ msgid "Select new category"
-#~ msgstr "Wybierz nową kategorię"
-
-#~ msgid "You've found a bug if you see this...."
-#~ msgstr "Jeżeli to widzisz, to znalazłeś błąd..."
-
-#~ msgid "Go back to %hpackage details view%h."
-#~ msgstr "Powrót do %hinformacji o pakiecie%h."
-
-#~ msgid "None"
-#~ msgstr "Brak"
-
-#~ msgid "change category"
-#~ msgstr "zmień kategorię"
-
-#~ msgid "Add Comment"
-#~ msgstr "Dodaj komentarz"
-
-#~ msgid "Comments"
-#~ msgstr "Komentarze"
-
-#~ msgid "Popularity"
-#~ msgstr "Popularność"
-
-#~ msgid "Location"
-#~ msgstr "Lokacja"
-
-#~ msgid "Keywords"
-#~ msgstr "Słowa kluczowe"
-
-#~ msgid "Out-of-date"
-#~ msgstr "Nieaktualny"
-
-#~ msgid "Go back to %hsearch results%h."
-#~ msgstr "Powrót do %hwyników wyszukiwania%h."
-
-#~ msgid "Manage"
-#~ msgstr "Zarządzaj"
-
-#~ msgid "Un-flag Out-of-date"
-#~ msgstr "Usuń flagę nieaktualności"
-
-#~ msgid "Files"
-#~ msgstr "Pliki"
-
-#~ msgid "O%hrphan"
-#~ msgstr "B%hez opiekuna"
-
-#~ msgid "O%hut-of-Date"
-#~ msgstr "N%hieaktualne"
-
-#~ msgid "The above files have been verified (by %s) and are safe to use."
-#~ msgstr ""
-#~ "Powyższe pliki zostały sprawdzone (przez: %s) i możesz ich bezpiecznie "
-#~ "uzywać."
-
-#~ msgid ""
-#~ "Be careful! The above files may contain malicious code that can damage "
-#~ "your system."
-#~ msgstr ""
-#~ "Zachowaj ostrożność! Powyższe pliki mogą zawierać szkodliwy kod "
-#~ "zagrażający twojemu systemowi."
-
-#~ msgid "Flag Safe"
-#~ msgstr "Zaznacz jako bezpieczny"
-
-#~ msgid "Flag Package Safe To Use"
-#~ msgstr "Zaznacz pakiet jako bezpieczny w użyciu"
-
-#~ msgid "Unflag Safe"
-#~ msgstr "Usuń flagę bezpieczeństwa"
-
-#~ msgid "Unflag Package Safe To Use"
-#~ msgstr "Usuń flagę oznaczającą pakiet jako bezpieczny w użyciu"
-
-#~ msgid "Safe"
-#~ msgstr "Bezpieczny"
-
-#~ msgid "You have been successfully logged out."
-#~ msgstr "Zostałeś pomyślnie wylogowany."
-
-#~ msgid "Unsafe"
-#~ msgstr "Nie bezpieczne"
-
-#~ msgid "Toggle Notify"
-#~ msgstr "Włącz powiadomienia"
-
-#~ msgid "You do not have access to disown packages."
-#~ msgstr "Nie masz uprawnień do porzucania pakietów."
-
-#~ msgid "You did not select any packages to disowned."
-#~ msgstr "Nie wybrałeś żadnych pakietów do porzucenia."
-
-#~ msgid "You did not select any packages to un-vote for."
-#~ msgstr "Nie wybrałeś żadnych pakietów do anulowania głosów."
-
-#~ msgid "None of the selected packages could be deleted."
-#~ msgstr "Żaden z wybranych pakietów nie mógł być usunięty."
-
-#~ msgid "You must be logged in before you can get notifications on comments."
-#~ msgstr ""
-#~ "Musisz być zalogowany aby móc otrzymywać powiadomienia o komentarzach."
-
-#~ msgid "You have been removed from the comment notification list."
-#~ msgstr "Zostałeć usunięty z listy powiadamiania o komentarzach."
-
-#~ msgid ""
-#~ "You must be logged in before you can cancel notification on comments."
-#~ msgstr ""
-#~ "Musisz być zalogowany aby móc zrezygnować z powiadamiania o komentarzach."
-
-#~ msgid "You have been added to the comment notification list."
-#~ msgstr "Zostałeś dodany do listy powiadamiania o komentarzach."
-
-#~ msgid "Couldn't remove from notification list."
-#~ msgstr "Usunięcie z listy powiadamiania nie powiodło się."
-
-#~ msgid "The selected packages have been flagged safe."
-#~ msgstr "Wybrane pakiety zostały zaznaczone jako bezpieczne."
-
-#~ msgid "Couldn't flag package safe."
-#~ msgstr "Zaznaczenie pakietu jako bezpieczny nie powiodło się."
-
-#~ msgid "The selected packages have been unflagged safe."
-#~ msgstr "Wybrane pakiety zostały pozbawione flagi bezpieczeństwa."
-
-#~ msgid "Couldn't unflag package safe."
-#~ msgstr "Usunięcie flagi bezpieczeństwaego nie powiodło się."
-
-#~ msgid "Under construction..."
-#~ msgstr "Prace trwają..."
-
-#~ msgid "Upload package"
-#~ msgstr "Dodaj pakiet"
-
-#~ msgid "Error trying to upload file - please try again."
-#~ msgstr "Błąd podczas próby ładowania pliku - proszę spróbować ponownie."
-
-#~ msgid "Overwrite existing package?"
-#~ msgstr "Czy nadpisać istniejący pakiet?"
-
-#~ msgid "Missing build function in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje funkcji build."
-
-#~ msgid "Could not create incoming directory: %s."
-#~ msgstr "Nie udało się utworzyć katalogu dla pakietu: %s."
-
-#~ msgid "Comment"
-#~ msgstr "Komentarz"
-
-#~ msgid "Missing pkgdesc variable in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje zmiennej pkgdesc."
-
-#~ msgid "Error exec'ing the mv command."
-#~ msgstr "Błąd podczas wykonywania polecenia mv."
-
-#~ msgid "You did not specify a package name."
-#~ msgstr "Nie podałeś nazwy pakietu."
-
-#~ msgid "Missing pkgver variable in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje zmiennej pkgver."
-
-#~ msgid "Could not change to directory %s."
-#~ msgstr "Nie udało się przejść do katalogu %s."
-
-#~ msgid "You did not tag the 'overwrite' checkbox."
-#~ msgstr "Nie zaznaczyłeś pola 'nadpisz'."
-
-#~ msgid "Package names do not match."
-#~ msgstr "Nazwy pakietu nie zgadzają się."
-
-#~ msgid "Missing md5sums variable in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje zmiennej md5sums."
-
-#~ msgid "Missing pkgrel variable in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje zmiennej pkgrel."
-
-#~ msgid "Missing pkgname variable in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje zmiennej pkgname."
-
-#~ msgid "Unknown file format for uploaded file."
-#~ msgstr "Nieznany format ładowanego pliku."
-
-#~ msgid "Missing source variable in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje zmiennej source."
-
-#~ msgid "Package Location"
-#~ msgstr "Lokacja pakietu"
-
-#~ msgid "Select Location"
-#~ msgstr "Wybierz lokację"
-
-#~ msgid "You must supply a comment for this upload/change."
-#~ msgstr "Musisz napisać komentarz do tego pakietu."
-
-#~ msgid "Package upload successful."
-#~ msgstr "Pakiet został dodany pomyślnie."
-
-#~ msgid "Could not re-tar"
-#~ msgstr "Przepakowanie pakietu nie powiodło się."
-
-#~ msgid "Binary packages and filelists are not allowed for upload."
-#~ msgstr "Nie można wysyłać pakietów binarnych i plików filelist."
-
-#~ msgid "Missing license variable in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje zmiennej license."
-
-#~ msgid "Missing arch variable in PKGBUILD."
-#~ msgstr "W pliku PKGBUILD brakuje zmiennej arch."
