@@ -41,7 +41,7 @@ all: ${MOFILES}
 
 update-pot:
 	pkgname=AUR; \
-	pkgver=`sed -n 's/.*"AUR_VERSION", "\(.*\)".*/\1/p' ../web/lib/version.inc`; \
+	pkgver=`sed -n 's/.*"AUR_VERSION", "\(.*\)".*/\1/p' ../web/lib/version.inc.php`; \
 	xgettext --default-domain=aur -L php --keyword=__ --no-location \
 		--add-comments=TRANSLATORS: --package-name="$$pkgname" \
 		--package-version="$$pkgver" \
