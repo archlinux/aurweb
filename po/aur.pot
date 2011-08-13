@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v1.8.1\n"
+"Project-Id-Version: AUR v1.9.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-04-07 13:52+0200\n"
+"POT-Creation-Date: 2011-08-13 12:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,9 @@ msgid "Search Criteria"
 msgstr ""
 
 msgid "Packages"
+msgstr ""
+
+msgid "Cannot find package to merge votes and comments into."
 msgstr ""
 
 msgid ""
@@ -384,10 +387,10 @@ msgstr ""
 msgid "Missing package ID."
 msgstr ""
 
-msgid "Package category changed."
+msgid "You are not allowed to change this package category."
 msgstr ""
 
-msgid "You are not allowed to change this package category."
+msgid "Package category changed."
 msgstr ""
 
 msgid "Username"
@@ -427,9 +430,6 @@ msgid "IRC Nick"
 msgstr ""
 
 msgid "Language"
-msgstr ""
-
-msgid "New Package Notify"
 msgstr ""
 
 msgid "Update"
@@ -660,6 +660,9 @@ msgstr ""
 msgid "Delete Packages"
 msgstr ""
 
+msgid "Merge into"
+msgstr ""
+
 msgid "Confirm"
 msgstr ""
 
@@ -695,6 +698,9 @@ msgid "Login"
 msgstr ""
 
 msgid "Forgot Password"
+msgstr ""
+
+msgid "HTTP login is disabled. Please switch to HTTPs if you want to login: "
 msgstr ""
 
 msgid "Recent Updates"
