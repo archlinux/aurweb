@@ -122,7 +122,7 @@ html_header(__("Password Reset"));
 		<?php
 		} else {
 		?>
-		<p><?php echo __('If you have forgotten the e-mail address you used to register, please send a message to the %haur-general%h mailing list.',
+		<p><?php echo __('If you have forgotten the e-mail address you used to register, please send a message to the %saur-general%s mailing list.',
 		'<a href="http://mailman.archlinux.org/mailman/listinfo/aur-general">',
 		'</a>'); ?></p>
 		<form action="" method="post">

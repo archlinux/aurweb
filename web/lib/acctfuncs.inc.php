@@ -233,7 +233,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		if ($result) {
 			$row = mysql_fetch_array($result);
 			if ($row[0]) {
-				$error = __("The username, %h%s%h, is already in use.",
+				$error = __("The username, %s%s%s, is already in use.",
 					"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 			}
 		}
@@ -251,7 +251,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		if ($result) {
 			$row = mysql_fetch_array($result);
 			if ($row[0]) {
-				$error = __("The address, %h%s%h, is already in use.",
+				$error = __("The address, %s%s%s, is already in use.",
 						"<b>", htmlspecialchars($E,ENT_QUOTES), "</b>");
 			}
 		}
@@ -273,12 +273,12 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 				"VALUES (1, 0, '" . implode("', '", $escaped) . "')";
 			$result = db_query($q, $dbh);
 			if (!$result) {
-				print __("Error trying to create account, %h%s%h: %s.",
+				print __("Error trying to create account, %s%s%s: %s.",
 						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>", mysql_error($dbh));
 			} else {
 				# account created/modified, tell them so.
 				#
-				print __("The account, %h%s%h, has been successfully created.",
+				print __("The account, %s%s%s, has been successfully created.",
 						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 				print "<p>\n";
 				print __("Click on the Home link above to login.");
@@ -310,10 +310,10 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$q.= " WHERE ID = ".intval($UID);
 			$result = db_query($q, $dbh);
 			if (!$result) {
-				print __("Error trying to modify account, %h%s%h: %s.",
+				print __("Error trying to modify account, %s%s%s: %s.",
 						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>", mysql_error($dbh));
 			} else {
-				print __("The account, %h%s%h, has been successfully modified.",
+				print __("The account, %s%s%s, has been successfully modified.",
 						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 			}
 		}

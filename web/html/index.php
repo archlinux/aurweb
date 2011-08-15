@@ -25,7 +25,7 @@ $dbh = db_connect();
 
 <?php
 echo __(
-	'Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information.',
+	'Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU Guidelines%s for more information.',
 	'<a href="http://wiki.archlinux.org/index.php/AUR_User_Guidelines">',
 	'</a>',
 	'<a href="http://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">',
@@ -37,7 +37,7 @@ echo __(
 
 <?php
 echo __(
-	'Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!',
+	'Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!',
 	'<b>', '</b>',
 	'<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">',
 	'</a>'
