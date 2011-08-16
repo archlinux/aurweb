@@ -1,5 +1,5 @@
 /* AUR configuration file */
-#define AUR_CONFIG "/srv/aur/web/lib/config.inc"
+#define AUR_CONFIG "/srv/aur/web/lib/config.inc.php"
 
 #define CONFIG_KEY_HOST "AUR_db_host"
 #define CONFIG_KEY_USER "AUR_db_user"
@@ -8,6 +8,13 @@
 
 /* libalpm options */
 #define ALPM_DBPATH "/var/lib/aurblup/"
-#define ALPM_MIRROR "ftp://mirrors.kernel.org/archlinux/%s/os/i686"
+#define ALPM_MIRROR "ftp://mirrors.kernel.org/archlinux/%s/os/x86_64"
 
-static const char *alpm_repos[] = { "core", "community", "extra" };
+static const char *alpm_repos[] = {
+  "core",
+  "community",
+  "community-testing",
+  "extra",
+  "multilib",
+  "testing"
+};
