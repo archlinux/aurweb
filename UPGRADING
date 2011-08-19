@@ -39,6 +39,8 @@ url.rewrite-once = ( "^/packages/([^/]{1,2})([^/]*/(PKGBUILD|.*\.tar\.gz|))$" =>
 
 If you use a non-standard URL_DIR, slight modifications might be necessary.
 
+8. Merge "scripts/aurblup/config.h.proto" with "scripts/aurblup/config.h".
+
 From 1.8.1 to 1.8.2
 -------------------
 
