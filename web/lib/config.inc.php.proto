@@ -52,6 +52,7 @@ $SUPPORTED_LANGS = array(
 	"nl" => "Dutch",
 	"pl" => "Polski",
 	"pt" => "Português",
+	"pt_BR" => "Português (Brasil)",
 	"ro" => "Română",
 	"ru" => "Русский",
 	"sr" => "Srpski",
