@@ -10,7 +10,7 @@ if ($uid == $row["MaintainerUID"] or
 	$edit_cat = "<form method='post' action='packages.php?ID=".$pkgid."'>\n";
 	$edit_cat.= "<p>";
 	$edit_cat.= "<input type='hidden' name='action' value='do_ChangeCategory' />";
-	$edit_cat.= "<span class='f3'>Category:</span> ";
+	$edit_cat.= "<span class='f3'>" . __("Category") . ":</span> ";
 	$edit_cat.= "<select name='category_id'>\n";
 	foreach ($catarr as $cid => $catname) {
 		$edit_cat.= "<option value='$cid'";
@@ -19,13 +19,13 @@ if ($uid == $row["MaintainerUID"] or
 		}
 		$edit_cat.=">".$catname."</option>";
 	}
-	$edit_cat.= "</select>&nbsp;<input type='submit' value='Change category' />";
+	$edit_cat.= "</select>&nbsp;<input type='submit' value='" . __("Change category") . "' />";
 	$edit_cat.= "</p>";
 	$edit_cat.= "</form>";
 
 }
 else {
-	$edit_cat = "<span class='f3'>Category: " . $row['Category'] . "</span>";
+	$edit_cat = "<span class='f3'>" . __("Category") . ": " . $row['Category'] . "</span>";
 }
 
 if ($row["SubmitterUID"]) {
