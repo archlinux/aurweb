@@ -22,6 +22,10 @@ class AurJSON {
         'License', 'NumVotes', 'OutOfDateTS AS OutOfDate',
         'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified'
     );
+    private static $numeric_fields = array(
+        'ID', 'CategoryID', 'NumVotes', 'OutOfDate', 'FirstSubmitted',
+        'LastModified'
+    );
 
     /**
      * Handles post data, and routes the request.
@@ -125,6 +129,14 @@ class AurJSON {
             while ( $row = mysql_fetch_assoc($result) ) {
                 $name = $row['Name'];
                 $row['URLPath'] = URL_DIR . substr($name, 0, 2) . "/" . $name . "/" . $name . ".tar.gz";
+
+                /* Unfortunately, mysql_fetch_assoc() returns all fields as
+                 * strings. We need to coerce numeric values into integers to
+                 * provide proper data types in the JSON response.
+                 */
+                foreach (self::$numeric_fields as $field) {
+                    $row[$field] = intval($row[$field]);
+                }
 
                 if ($type == 'info') {
                     $search_data = $row;
