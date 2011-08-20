@@ -1,20 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Jesse Jaara <jesse.jaara@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2011-08-13 12:46+0200\n"
-"PO-Revision-Date: 2011-04-21 16:15+0000\n"
+"PO-Revision-Date: 2011-08-14 11:16+0000\n"
 "Last-Translator: Huulivoide <jesse.jaara@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.net/projects/p/aur/team/fi/)\n"
-"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgid "Home"
@@ -25,17 +25,17 @@ msgid ""
 "Guidelines%h for more information."
 msgstr ""
 "Tervetuloa! Lue %hAUR:in käyttäjä ohjeet%h sekä %hAUR:in TU ohjeet%h, jos "
-"tahdot tietää enemmän. :)"
+"tahdot tietää enemmän."
 
 msgid ""
 "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
 "otherwise they will be deleted!"
 msgstr ""
-"Luotujen PKGBUILD tiedostojen %htulee%h olla %hArch paketointi standardien%h "
-"mukaisia tai ne poistetaan!"
+"Luotujen PKGBUILD tiedostojen %htulee%h olla %hArch paketointi standardien%h"
+" mukaisia tai ne poistetaan!"
 
 msgid "Remember to vote for your favourite packages!"
-msgstr "Muista äänestää suosikki pakettejasi!!"
+msgstr "Muista äänestää suosikki pakettejasi!"
 
 msgid "Some packages may be provided as binaries in [community]."
 msgstr ""
@@ -62,7 +62,8 @@ msgid "Cannot find package to merge votes and comments into."
 msgstr ""
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
 msgstr ""
 "Valittuja paketteja ei ole poistettu. Muistitko laittaa raksin varmistus "
 "ruutuun?"
@@ -77,7 +78,7 @@ msgid "You are not allowed to access this area."
 msgstr "Sinulla ei ole oikeuksia tämän osion käyttämiseen."
 
 msgid "Could not retrieve information for the specified user."
-msgstr "Valitun käyttäjän tietoja ei löytynyt."
+msgstr "Valitun käyttäjän tietoja ei voitu noutaa."
 
 msgid "You do not have permission to edit this account."
 msgstr "Sinulla ei ole oikeuksia tämän käyttäjätlin muokkaamiseen."
@@ -86,7 +87,7 @@ msgid "Use this form to search existing accounts."
 msgstr "Etsi käyttäjätilejä."
 
 msgid "Use this form to update your account."
-msgstr "Päivitä käyttäjätilisi tällä lomakkeella.."
+msgstr "Päivitä käyttäjätilisi tällä lomakkeella."
 
 msgid "Leave the password fields blank to keep your same password."
 msgstr ""
@@ -99,7 +100,7 @@ msgid "Use this form to create an account."
 msgstr "Käytä tätä lomaketta uuden käyttäjätilin luomiseen."
 
 msgid "Could not retrieve proposal details."
-msgstr "Ehdotuksen tietoja ei löytynyt."
+msgstr "Ehdotuksen tietoja ei voitu noutaa."
 
 msgid "Voting is closed for this proposal."
 msgstr "Tämän ehdoksen äänestys on päättynyt."
@@ -169,7 +170,7 @@ msgid "Submit"
 msgstr "Lisää"
 
 msgid "Missing a required field."
-msgstr "Jokin vaadituidta kentistä on puutteellinen."
+msgstr "Jokin vaadituista kentistä on puutteellinen."
 
 msgid "Password fields do not match."
 msgstr "Salasanakentät eivät täsmää."
@@ -178,7 +179,7 @@ msgid "Invalid e-mail."
 msgstr "Epäkelvollinen sähköpostiosoite."
 
 msgid "Invalid e-mail and reset key combination."
-msgstr ""
+msgstr "Epäkelvollinen sähköposti ja palautusavain yhdistelmä."
 
 msgid ""
 "A password reset request was submitted for the account associated with your "
@@ -186,8 +187,8 @@ msgid ""
 "otherwise ignore this message and nothing will happen."
 msgstr ""
 "Salasanan palautusta pyydettiin, tähän sähköpostiosoitteeseen "
-"linkitettetylle tilille. Jos tahdot palauttaa salasanasi klikkaa alla olevaa "
-"linkkiä. Muussa tapauksessa jätä tämä viesti huomiotta."
+"linkitettetylle tilille. Jos tahdot palauttaa salasanasi klikkaa alla olevaa"
+" linkkiä. Muussa tapauksessa voit jättä tämän viestin huomiotta."
 
 msgid "Password Reset"
 msgstr "Salasanan palautus"
@@ -205,14 +206,14 @@ msgid "Enter your new password:"
 msgstr "Uuusi salasana:"
 
 msgid "Confirm your new password:"
-msgstr "Uusi salasana uudelleen:"
+msgstr "Vahvista uusi salasana:"
 
 msgid "Continue"
 msgstr "Jatka"
 
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %haur-general%h mailing list."
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %haur-general%h mailing list."
 msgstr ""
 "Jos olet unohtanut rekisteröityessäsi käyttämäsi sähköpostiosoitteen lähetä "
 "viesti %haur-general%h postituslistalle."
@@ -224,11 +225,11 @@ msgid "Error - No file uploaded"
 msgstr "Virhe - Tiedostoa ei ole ladattu"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by"
+" makepkg(8) only)."
 msgstr ""
 "Virhe - Tuntematon tiedostoformaatti (lataa makepkg(8):n luoma gzip pakattu "
-"tar-pallo)."
+"tar-pallero)."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Virhe - Puretun tiedoston koko on liian suuri."
@@ -275,11 +276,11 @@ msgid "Could not change directory to %s."
 msgstr "Ei voitu vaihtaa kansioon %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
+"Upload your source packages here. Create source packages with `makepkg "
+"--source`."
 msgstr ""
-"Lisää ja päivitä paketteja täällä. Luo lähdepaketti komennolla `makepkg --"
-"source`."
+"Lisää ja päivitä paketteja täällä. Luo lähdepaketti komennolla `makepkg "
+"--source`."
 
 msgid "Package Category"
 msgstr "Paketin kategoria"
@@ -294,9 +295,7 @@ msgid "Upload"
 msgstr "Lähetä"
 
 msgid "Sorry, uploads are not permitted by this server."
-msgstr ""
-"Pahoittelemme, mutta tämä palvelin ei salli tiedostojen lataamista "
-"palvelimelle."
+msgstr "Pahoittelemme, mutta tämä palvelin ei salli tiedostojen lataamista."
 
 msgid "You must create an account before you can upload packages."
 msgstr "Sinun pitää rekisteröityä, ennen kuin voit lisätä paketteja."
@@ -338,10 +337,10 @@ msgid "You must be logged in before you can delete packages."
 msgstr "Sinun pitää kirjautua sisään, ennen kuin voit poistaa paketteja."
 
 msgid "You do have permission to delete packages."
-msgstr "Sinulla ei ole pakettien poistamiseen tarvittavia oikeuksia."
+msgstr "Sinulla on oikeudet pakettien poistamiseen."
 
 msgid "You did not select any packages to delete."
-msgstr "Et valinnut yhtään pakettiä poistettavaksi."
+msgstr "Et valinnut yhtään pakettia poistettavaksi."
 
 msgid "The selected packages have been deleted."
 msgstr "Valitut paketit on nyt poistettu."
@@ -380,7 +379,7 @@ msgid "Your votes have been cast for the selected packages."
 msgstr "Äänesi on nyt annettu valituille paketeille."
 
 msgid "Couldn't add to notification list."
-msgstr ""
+msgstr "Ei kyetty lisäämään ilmoituslistaan."
 
 #, php-format
 msgid "You have been added to the comment notification list for %s."
@@ -400,19 +399,19 @@ msgid "Comment has been deleted."
 msgstr "Kommentti on poistettu."
 
 msgid "You are not allowed to delete this comment."
-msgstr "Sinulla ei ole oikeuksia poistaa tätä kommenttia."
+msgstr "Sinulla ei ole oikeuksia tämän kommentin poistamiseen."
 
 msgid "Missing category ID."
-msgstr "Kategorian tunnus puuttuu."
+msgstr "Kategorian ID puuttuu."
 
 msgid "Invalid category ID."
-msgstr "Kategorian id ei ole kelvollinen."
+msgstr "Kategorian ID ei ole kelvollinen."
 
 msgid "Missing package ID."
-msgstr "Paketin tunnus puuttuu."
+msgstr "Paketin ID puuttuu."
 
 msgid "You are not allowed to change this package category."
-msgstr ""
+msgstr "Sinulla ei ole oikeuksia tämän paketin kategorian muuttamiseen."
 
 msgid "Package category changed."
 msgstr "Paketin kategoria vaihdettu."
@@ -856,5 +855,4 @@ msgstr "Merkitty"
 msgid "Not Flagged"
 msgstr "Ei merkitty"
 
-#~ msgid "New Package Notify"
-#~ msgstr "Ilmoita uusista paketeista"
+
