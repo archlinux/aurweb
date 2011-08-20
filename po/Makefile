@@ -6,7 +6,7 @@ POFILES = \
 	cs.po \
 	da.po \
 	de.po \
-	el_GR.po \
+	el.po \
 	es.po \
 	fi.po \
 	fr.po \
