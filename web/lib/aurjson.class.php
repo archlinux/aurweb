@@ -203,7 +203,7 @@ class AurJSON {
             // just using sprintf to coerce the pqd to an int
             // should handle sql injection issues, since sprintf will
             // bork if not an int, or convert the string to a number 0
-            $where_condition = "ID={$pqdata}";
+            $where_condition = "Packages.ID={$pqdata}";
         }
         else {
             $where_condition = sprintf("Name=\"%s\"",
