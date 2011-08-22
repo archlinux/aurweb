@@ -28,13 +28,13 @@ container or optionally create a ".htaccess" file in the upload directory):
 
 ----
 RewriteEngine on
-RewriteRule ^/packages/([^/]{1,2})([^/]*/(PKGBUILD|.*\.tar\.gz|))$ /packages/$1/$1$2
+RewriteRule ^/packages/([^/]{1,2})([^/]*/(PKGBUILD|[^/]*\.tar\.gz|))$ /packages/$1/$1$2
 ----
 
 The following equivalent rule can be used for lighttpd setups:
 
 ----
-url.rewrite-once = ( "^/packages/([^/]{1,2})([^/]*/(PKGBUILD|.*\.tar\.gz|))$" => "/packages/$1/$1$2" )
+url.rewrite-once = ( "^/packages/([^/]{1,2})([^/]*/(PKGBUILD|[^/]*\.tar\.gz|))$" => "/packages/$1/$1$2" )
 ----
 
 If you use a non-standard URL_DIR, slight modifications might be necessary.
