@@ -31,8 +31,8 @@ elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']))
 else {
 ?>
 <span class='error'>
-	<?php echo __("HTTP login is disabled. Please switch to HTTPs if you want to login: "); ?>
-	<a href="https://aur.archlinux.org/">https://aur.archlinux.org/</a>
+	<?php printf(__("HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."),
+		'<a href="https://aur.archlinux.org' . htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) . '">', '</a>'); ?>
 </span>
 <?php } ?>
 </div>
