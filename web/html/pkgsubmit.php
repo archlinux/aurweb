@@ -311,6 +311,18 @@ if ($uid):
 				$pkg_version = sprintf('%s-%s', $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
 			}
 
+			# Check the category to use, "1" meaning "none" (or "keep category" for
+			# existing packages).
+			if (isset($_POST['category'])) {
+				$category_id = intval($_POST['category']);
+				if ($category_id <= 0) {
+					$category_id = 1;
+				}
+			}
+			else {
+				$category_id = 1;
+			}
+
 			if ($pdata) {
 				# This is an overwrite of an existing package, the database ID
 				# needs to be preserved so that any votes are retained. However,
@@ -324,9 +336,9 @@ if ($uid):
 				db_query($q, $dbh);
 
 				# If a new category was chosen, change it to that
-				if ($_POST['category'] > 1) {
+				if ($category_id > 1) {
 					$q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d",
-						mysql_real_escape_string($_REQUEST['category']),
+						$category_id,
 						$packageID);
 
 					db_query($q, $dbh);
@@ -350,7 +362,7 @@ if ($uid):
 					mysql_real_escape_string($new_pkgbuild['pkgname']),
 					mysql_real_escape_string($new_pkgbuild['license']),
 					mysql_real_escape_string($pkg_version),
-					mysql_real_escape_string($_REQUEST['category']),
+					$category_id,
 					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
 					mysql_real_escape_string($new_pkgbuild['url']),
 					$uid,
