@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v1.9.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-08-13 12:46+0200\n"
+"POT-Creation-Date: 2011-09-05 17:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -536,6 +536,12 @@ msgstr ""
 msgid "Bad username or password."
 msgstr ""
 
+msgid "Category"
+msgstr ""
+
+msgid "Change category"
+msgstr ""
+
 msgid "Votes"
 msgstr ""
 
@@ -700,7 +706,9 @@ msgstr ""
 msgid "Forgot Password"
 msgstr ""
 
-msgid "HTTP login is disabled. Please switch to HTTPs if you want to login: "
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
 msgstr ""
 
 msgid "Recent Updates"
@@ -746,9 +754,6 @@ msgid "No packages matched your search criteria."
 msgstr ""
 
 msgid "Package Listing"
-msgstr ""
-
-msgid "Category"
 msgstr ""
 
 msgid "Name"
