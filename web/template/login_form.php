@@ -11,7 +11,7 @@ elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']))
 		print "<span class='error'>" . $login_error . "</span><br />\n";
 	}
 ?>
-<form method="post" action="<?php echo $_SERVER['REQUEST_URI'] ?>">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>">
 	<div>
 	<label for="user"><?php print __('Username') . ':'; ?></label>
 	<input type="text" name="user" id="user" size="30" maxlength="<?php print USERNAME_MAX_LEN; ?>" value="<?php
@@ -31,8 +31,8 @@ elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']))
 else {
 ?>
 <span class='error'>
-	<?php echo __("HTTP login is disabled. Please switch to HTTPs if you want to login: "); ?>
-	<a href="https://aur.archlinux.org/">https://aur.archlinux.org/</a>
+	<?php printf(__("HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."),
+		'<a href="https://aur.archlinux.org' . htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) . '">', '</a>'); ?>
 </span>
 <?php } ?>
 </div>
