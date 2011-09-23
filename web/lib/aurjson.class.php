@@ -18,9 +18,8 @@ class AurJSON {
         'search', 'info', 'multiinfo', 'msearch'
     );
     private static $fields = array(
-        'Packages.ID', 'Name', 'Version', 'CategoryID',
-        'Description', 'URL', 'License',
-        'NumVotes', '(OutOfDateTS IS NOT NULL) AS OutOfDate',
+        'Packages.ID', 'Name', 'Version', 'CategoryID', 'Description', 'URL',
+        'License', 'NumVotes', 'OutOfDateTS AS OutOfDate',
         'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified'
     );
 
