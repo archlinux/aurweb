@@ -372,19 +372,19 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		$search_vars[] = "S";
 	}
 	if ($U) {
-		$q.= "AND Username LIKE '%".db_escape_string($U)."%' ";
+		$q.= "AND Username LIKE '%".db_escape_like($U)."%' ";
 		$search_vars[] = "U";
 	}
 	if ($E) {
-		$q.= "AND Email LIKE '%".db_escape_string($E)."%' ";
+		$q.= "AND Email LIKE '%".db_escape_like($E)."%' ";
 		$search_vars[] = "E";
 	}
 	if ($R) {
-		$q.= "AND RealName LIKE '%".db_escape_string($R)."%' ";
+		$q.= "AND RealName LIKE '%".db_escape_like($R)."%' ";
 		$search_vars[] = "R";
 	}
 	if ($I) {
-		$q.= "AND IRCNick LIKE '%".db_escape_string($I)."%' ";
+		$q.= "AND IRCNick LIKE '%".db_escape_like($I)."%' ";
 		$search_vars[] = "I";
 	}
 	switch ($SB) {

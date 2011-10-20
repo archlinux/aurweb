@@ -229,6 +229,11 @@ function db_escape_string($string) {
 	return mysql_real_escape_string($string);
 }
 
+# Escape strings for usage in SQL LIKE operators.
+function db_escape_like($string) {
+	return addcslashes(mysql_real_escape_string($string), '%_');
+}
+
 # disconnect from the database
 # this won't normally be needed as PHP/reference counting will take care of
 # closing the connection once it is no longer referenced
