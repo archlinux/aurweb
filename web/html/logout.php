@@ -12,7 +12,7 @@ include_once("acctfuncs.inc.php");         # access AUR common functions
 if (isset($_COOKIE["AURSID"])) {
 	$dbh = db_connect();
 	$q = "DELETE FROM Sessions WHERE SessionID = '";
-	$q.= mysql_real_escape_string($_COOKIE["AURSID"]) . "'";
+	$q.= db_escape_string($_COOKIE["AURSID"]) . "'";
 	db_query($q, $dbh);
 	# setting expiration to 1 means '1 second after midnight January 1, 1970'
 	setcookie("AURSID", "", 1, "/", null, !empty($_SERVER['HTTPS']), true);

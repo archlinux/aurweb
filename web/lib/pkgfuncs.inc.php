@@ -100,7 +100,7 @@ function pkgid_from_name($name="", $dbh=NULL) {
 		$dbh = db_connect();
 	}
 	$q = "SELECT ID FROM Packages ";
-	$q.= "WHERE Name = '".mysql_real_escape_string($name)."' ";
+	$q.= "WHERE Name = '".db_escape_string($name)."' ";
 	$result = db_query($q, $dbh);
 	if (!$result) {return NULL;}
 	$row = mysql_fetch_row($result);
@@ -137,7 +137,7 @@ function package_required($name="", $dbh=NULL) {
 		}
 		$q = "SELECT p.Name, PackageID FROM PackageDepends pd ";
 		$q.= "JOIN Packages p ON pd.PackageID = p.ID ";
-		$q.= "WHERE DepName = '".mysql_real_escape_string($name)."' ";
+		$q.= "WHERE DepName = '".db_escape_string($name)."' ";
 		$q.= "ORDER BY p.Name";
 		$result = db_query($q, $dbh);
 		if (!$result) {return array();}
@@ -234,7 +234,7 @@ function pkgvotes_from_sid($sid="", $dbh=NULL) {
 	$q.= "FROM PackageVotes, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND Users.ID = PackageVotes.UsersID ";
-	$q.= "AND Sessions.SessionID = '".mysql_real_escape_string($sid)."'";
+	$q.= "AND Sessions.SessionID = '".db_escape_string($sid)."'";
 	$result = db_query($q, $dbh);
 	if ($result) {
 		while ($row = mysql_fetch_row($result)) {
@@ -257,7 +257,7 @@ function pkgnotify_from_sid($sid="", $dbh=NULL) {
 	$q.= "FROM CommentNotify, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND Users.ID = CommentNotify.UserID ";
-	$q.= "AND Sessions.SessionID = '".mysql_real_escape_string($sid)."'";
+	$q.= "AND Sessions.SessionID = '".db_escape_string($sid)."'";
 	$result = db_query($q, $dbh);
 	if ($result) {
 		while ($row = mysql_fetch_row($result)) {
@@ -291,7 +291,7 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = "SELECT COUNT(*) FROM PackageBlacklist WHERE Name = '" . mysql_real_escape_string($name) . "'";
+	$q = "SELECT COUNT(*) FROM PackageBlacklist WHERE Name = '" . db_escape_string($name) . "'";
 	$result = db_query($q, $dbh);
 
 	if (!$result) return false;
@@ -457,7 +457,7 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	}
 
 	if (isset($_GET['K'])) {
-		$_GET['K'] = mysql_real_escape_string(trim($_GET['K']));
+		$_GET['K'] = db_escape_string(trim($_GET['K']));
 
 		# Search by maintainer
 		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {

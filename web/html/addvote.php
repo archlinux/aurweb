@@ -20,7 +20,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		$error = "";
 
 		if (!empty($_POST['user'])) {
-			$qcheck = "SELECT * FROM Users WHERE Username = '" . mysql_real_escape_string($_POST['user']) . "'";
+			$qcheck = "SELECT * FROM Users WHERE Username = '" . db_escape_string($_POST['user']) . "'";
 			$result = db_query($qcheck, $dbh);
 			if ($result) {
 				$check = mysql_num_rows($result);
@@ -32,7 +32,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 			if ($check == 0) {
 				$error.= __("Username does not exist.");
 			} else {
-				$qcheck = "SELECT * FROM TU_VoteInfo WHERE User = '" . mysql_real_escape_string($_POST['user']) . "'";
+				$qcheck = "SELECT * FROM TU_VoteInfo WHERE User = '" . db_escape_string($_POST['user']) . "'";
 				$qcheck.= " AND End > UNIX_TIMESTAMP()";
 				$result = db_query($qcheck, $dbh);
 				if ($result) {
@@ -67,9 +67,9 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 
 	if (!empty($_POST['addVote']) && empty($error)) {
 		$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
-		$q.= "('" . mysql_real_escape_string($_POST['agenda']) . "', ";
-		$q.= "'" . mysql_real_escape_string($_POST['user']) . "', ";
-		$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . mysql_real_escape_string($len);
+		$q.= "('" . db_escape_string($_POST['agenda']) . "', ";
+		$q.= "'" . db_escape_string($_POST['user']) . "', ";
+		$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . db_escape_string($len);
 		$q.= ", " . uid_from_sid($_COOKIE["AURSID"]) . ")";
 
 		db_query($q, $dbh);

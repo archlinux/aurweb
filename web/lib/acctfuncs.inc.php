@@ -226,7 +226,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		# NOTE: a race condition exists here if we care...
 		#
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
-		$q.= "WHERE Username = '".mysql_real_escape_string($U)."'";
+		$q.= "WHERE Username = '".db_escape_string($U)."'";
 		if ($TYPE == "edit") {
 			$q.= " AND ID != ".intval($UID);
 		}
@@ -244,7 +244,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		# NOTE: a race condition exists here if we care...
 		#
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
-		$q.= "WHERE Email = '".mysql_real_escape_string($E)."'";
+		$q.= "WHERE Email = '".db_escape_string($E)."'";
 		if ($TYPE == "edit") {
 			$q.= " AND ID != ".intval($UID);
 		}
@@ -266,7 +266,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			# no errors, go ahead and create the unprivileged user
 			$salt = generate_salt();
 			$P = salted_hash($P, $salt);
-			$escaped = array_map('mysql_real_escape_string',
+			$escaped = array_map('db_escape_string',
 				array($U, $E, $P, $salt, $R, $L, $I));
 			$q = "INSERT INTO Users (" .
 				"AccountTypeID, Suspended, Username, Email, Passwd, Salt" .
@@ -290,7 +290,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			# no errors, go ahead and modify the user account
 
 			$q = "UPDATE Users SET ";
-			$q.= "Username = '".mysql_real_escape_string($U)."'";
+			$q.= "Username = '".db_escape_string($U)."'";
 			if ($T) {
 				$q.= ", AccountTypeID = ".intval($T);
 			}
@@ -299,15 +299,15 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			} else {
 				$q.= ", Suspended = 0";
 			}
-			$q.= ", Email = '".mysql_real_escape_string($E)."'";
+			$q.= ", Email = '".db_escape_string($E)."'";
 			if ($P) {
 				$salt = generate_salt();
 				$hash = salted_hash($P, $salt);
 				$q .= ", Passwd = '$hash', Salt = '$salt'";
 			}
-			$q.= ", RealName = '".mysql_real_escape_string($R)."'";
-			$q.= ", LangPreference = '".mysql_real_escape_string($L)."'";
-			$q.= ", IRCNick = '".mysql_real_escape_string($I)."'";
+			$q.= ", RealName = '".db_escape_string($R)."'";
+			$q.= ", LangPreference = '".db_escape_string($L)."'";
+			$q.= ", IRCNick = '".db_escape_string($I)."'";
 			$q.= " WHERE ID = ".intval($UID);
 			$result = db_query($q, $dbh);
 			if (!$result) {
@@ -373,19 +373,19 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		$search_vars[] = "S";
 	}
 	if ($U) {
-		$q.= "AND Username LIKE '%".mysql_real_escape_string($U)."%' ";
+		$q.= "AND Username LIKE '%".db_escape_string($U)."%' ";
 		$search_vars[] = "U";
 	}
 	if ($E) {
-		$q.= "AND Email LIKE '%".mysql_real_escape_string($E)."%' ";
+		$q.= "AND Email LIKE '%".db_escape_string($E)."%' ";
 		$search_vars[] = "E";
 	}
 	if ($R) {
-		$q.= "AND RealName LIKE '%".mysql_real_escape_string($R)."%' ";
+		$q.= "AND RealName LIKE '%".db_escape_string($R)."%' ";
 		$search_vars[] = "R";
 	}
 	if ($I) {
-		$q.= "AND IRCNick LIKE '%".mysql_real_escape_string($I)."%' ";
+		$q.= "AND IRCNick LIKE '%".db_escape_string($I)."%' ";
 		$search_vars[] = "I";
 	}
 	switch ($SB) {
@@ -720,7 +720,7 @@ function valid_user( $user, $dbh )
 	/*	if ( $user = valid_username($user) ) { */
 	if ( $user ) {
 		$q = "SELECT ID FROM Users WHERE Username = '"
-			. mysql_real_escape_string($user). "'";
+			. db_escape_string($user). "'";
 
 		$result = db_query($q, $dbh);
 		# Is the username in the database?

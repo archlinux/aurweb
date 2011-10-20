@@ -177,7 +177,7 @@ class AurJSON {
             if (is_numeric($arg)) {
                 $id_args[] = intval($arg);
             } else {
-                $escaped = mysql_real_escape_string($arg, $this->dbh);
+                $escaped = db_escape_string($arg, $this->dbh);
                 $name_args[] = "'" . $escaped . "'";
             }
         }
@@ -195,7 +195,7 @@ class AurJSON {
             return $this->json_error('Query arg too small');
         }
 
-        $keyword_string = mysql_real_escape_string($keyword_string, $this->dbh);
+        $keyword_string = db_escape_string($keyword_string, $this->dbh);
         $keyword_string = addcslashes($keyword_string, '%_');
 
         $where_condition = "( Name LIKE '%{$keyword_string}%' OR " .
@@ -218,7 +218,7 @@ class AurJSON {
         }
         else {
             $where_condition = sprintf("Name=\"%s\"",
-                mysql_real_escape_string($pqdata, $this->dbh));
+                db_escape_string($pqdata, $this->dbh));
         }
         return $this->process_query('info', $where_condition);
     }
@@ -260,7 +260,7 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function msearch($maintainer) {
-        $maintainer = mysql_real_escape_string($maintainer, $this->dbh);
+        $maintainer = db_escape_string($maintainer, $this->dbh);
 
         $where_condition = "Users.Username = '{$maintainer}'";
 

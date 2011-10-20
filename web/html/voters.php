@@ -5,7 +5,7 @@ include('pkgfuncs.inc.php');
 
 function getvotes($pkgid) {
 	$dbh = db_connect();
-	$pkgid = mysql_real_escape_string($pkgid);
+	$pkgid = db_escape_string($pkgid);
 
 	$result = db_query("SELECT UsersID,Username FROM PackageVotes LEFT JOIN Users on (UsersID = ID) WHERE PackageID = $pkgid ORDER BY Username", $dbh);
 	return $result;

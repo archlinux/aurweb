@@ -301,7 +301,7 @@ if ($uid):
 			$dbh = db_connect();
 			db_query("BEGIN", $dbh);
 
-			$q = "SELECT * FROM Packages WHERE Name = '" . mysql_real_escape_string($new_pkgbuild['pkgname']) . "'";
+			$q = "SELECT * FROM Packages WHERE Name = '" . db_escape_string($new_pkgbuild['pkgname']) . "'";
 			$result = db_query($q, $dbh);
 			$pdata = mysql_fetch_assoc($result);
 
@@ -346,11 +346,11 @@ if ($uid):
 
 				# Update package data
 				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
-					mysql_real_escape_string($new_pkgbuild['pkgname']),
-					mysql_real_escape_string($pkg_version),
-					mysql_real_escape_string($new_pkgbuild['license']),
-					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
-					mysql_real_escape_string($new_pkgbuild['url']),
+					db_escape_string($new_pkgbuild['pkgname']),
+					db_escape_string($pkg_version),
+					db_escape_string($new_pkgbuild['license']),
+					db_escape_string($new_pkgbuild['pkgdesc']),
+					db_escape_string($new_pkgbuild['url']),
 					$uid,
 					$packageID);
 
@@ -359,12 +359,12 @@ if ($uid):
 			} else {
 				# This is a brand new package
 				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s', %d, '%s', '%s', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
-					mysql_real_escape_string($new_pkgbuild['pkgname']),
-					mysql_real_escape_string($new_pkgbuild['license']),
-					mysql_real_escape_string($pkg_version),
+					db_escape_string($new_pkgbuild['pkgname']),
+					db_escape_string($new_pkgbuild['license']),
+					db_escape_string($pkg_version),
 					$category_id,
-					mysql_real_escape_string($new_pkgbuild['pkgdesc']),
-					mysql_real_escape_string($new_pkgbuild['url']),
+					db_escape_string($new_pkgbuild['pkgdesc']),
+					db_escape_string($new_pkgbuild['url']),
 					$uid,
 					$uid);
 
@@ -389,8 +389,8 @@ if ($uid):
 
 					$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, '%s', '%s')",
 						$packageID,
-						mysql_real_escape_string($deppkgname),
-						mysql_real_escape_string($depcondition));
+						db_escape_string($deppkgname),
+						db_escape_string($depcondition));
 
 					db_query($q, $dbh);
 				}
@@ -401,7 +401,7 @@ if ($uid):
 			foreach ($sources as $src) {
 				if ($src != "" ) {
 					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-					$q .= $packageID . ", '" . mysql_real_escape_string($src) . "')";
+					$q .= $packageID . ", '" . db_escape_string($src) . "')";
 					db_query($q, $dbh);
 				}
 			}
