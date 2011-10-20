@@ -40,8 +40,8 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 		      Salt = '$salt',
 		      ResetKey = ''
 		      WHERE ResetKey != ''
-		      AND ResetKey = '".mysql_real_escape_string($resetkey)."'
-		      AND Email = '".mysql_real_escape_string($email)."'";
+		      AND ResetKey = '".db_escape_string($resetkey)."'
+		      AND Email = '".db_escape_string($email)."'";
 		$result = db_query($q, $dbh);
 		if (!mysql_affected_rows($dbh)) {
 			$error = __('Invalid e-mail and reset key combination.');

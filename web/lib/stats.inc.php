@@ -20,7 +20,7 @@ function updates_table($dbh)
 
 function user_table($user, $dbh)
 {
-	$escuser = mysql_real_escape_string($user);
+	$escuser = db_escape_string($user);
 	$base_q = "SELECT count(*) FROM Packages,Users WHERE Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
 
 	$maintainer_unsupported_count = db_cache_value($base_q, $dbh,
