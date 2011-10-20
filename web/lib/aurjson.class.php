@@ -195,8 +195,7 @@ class AurJSON {
             return $this->json_error('Query arg too small');
         }
 
-        $keyword_string = db_escape_string($keyword_string, $this->dbh);
-        $keyword_string = addcslashes($keyword_string, '%_');
+        $keyword_string = db_escape_like($keyword_string, $this->dbh);
 
         $where_condition = "( Name LIKE '%{$keyword_string}%' OR " .
             "Description LIKE '%{$keyword_string}%' )";

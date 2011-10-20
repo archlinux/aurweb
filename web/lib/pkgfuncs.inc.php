@@ -457,11 +457,9 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	}
 
 	if (isset($_GET['K'])) {
-		$_GET['K'] = db_escape_string(trim($_GET['K']));
-
 		# Search by maintainer
 		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {
-			$q_where .= "AND Users.Username = '".$_GET['K']."' ";
+			$q_where .= "AND Users.Username = '".db_escape_string($_GET['K'])."' ";
 		}
 		# Search by submitter
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
@@ -469,16 +467,16 @@ function pkg_search_page($SID="", $dbh=NULL) {
 		}
 		# Search by name
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
-			$q_where .= "AND (Name LIKE '%".$_GET['K']."%') ";
+			$q_where .= "AND (Name LIKE '%".db_escape_like($_GET['K'])."%') ";
 		}
 		# Search by name (exact match)
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "x") {
-			$q_where .= "AND (Name = '".$_GET['K']."') ";
+			$q_where .= "AND (Name = '".db_escape_string($_GET['K'])."') ";
 		}
 		# Search by name and description (Default)
 		else {
-			$q_where .= "AND (Name LIKE '%".$_GET['K']."%' OR ";
-			$q_where .= "Description LIKE '%".$_GET['K']."%') ";
+			$q_where .= "AND (Name LIKE '%".db_escape_like($_GET['K'])."%' OR ";
+			$q_where .= "Description LIKE '%".db_escape_like($_GET['K'])."%') ";
 		}
 	}
 
