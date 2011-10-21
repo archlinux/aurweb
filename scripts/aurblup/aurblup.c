@@ -130,10 +130,10 @@ blacklist_sync(alpm_list_t *pkgs_cur, alpm_list_t *pkgs_new)
     mysql_die("failed to start MySQL transaction: %s\n");
 
   for (p = pkgs_add; p; p = alpm_list_next(p))
-    blacklist_add(alpm_list_getdata(p));
+    blacklist_add(p->data);
 
   for (p = pkgs_rem; p; p = alpm_list_next(p))
-    blacklist_remove(alpm_list_getdata(p));
+    blacklist_remove(p->data);
 
   if (mysql_query(c, "COMMIT"))
     mysql_die("failed to commit MySQL transaction: %s\n");
@@ -149,7 +149,7 @@ dblist_get_pkglist(alpm_list_t *dblist)
   alpm_list_t *pkglist = NULL;
 
   for (d = dblist; d; d = alpm_list_next(d)) {
-    pmdb_t *db = alpm_list_getdata(d);
+    pmdb_t *db = d->data;
 
     if (alpm_trans_init(0, NULL, NULL, NULL))
       alpm_die("failed to initialize ALPM transaction: %s\n");
@@ -159,15 +159,15 @@ dblist_get_pkglist(alpm_list_t *dblist)
       alpm_die("failed to release ALPM transaction: %s\n");
 
     for (p = alpm_db_get_pkgcache(db); p; p = alpm_list_next(p)) {
-      pmpkg_t *pkg = alpm_list_getdata(p);
+      pmpkg_t *pkg = p->data;
 
       pkglist = pkglist_append(pkglist, alpm_pkg_get_name(pkg));
 
       for (q = alpm_pkg_get_provides(pkg); q; q = alpm_list_next(q))
-        pkglist = pkglist_append(pkglist, alpm_list_getdata(q));
+        pkglist = pkglist_append(pkglist, q->data);
 
       for (q = alpm_pkg_get_replaces(pkg); q; q = alpm_list_next(q))
-        pkglist = pkglist_append(pkglist, alpm_list_getdata(q));
+        pkglist = pkglist_append(pkglist, q->data);
     }
   }
 
@@ -190,7 +190,7 @@ dblist_create(void)
     alpm_die("failed to get sync DBs: %s\n");
 
   for (d = dblist; d; d = alpm_list_next(d)) {
-    pmdb_t *db = alpm_list_getdata(d);
+    pmdb_t *db = d->data;
 
     char server[1024];
     snprintf(server, 1024, ALPM_MIRROR, alpm_db_get_name(db));
