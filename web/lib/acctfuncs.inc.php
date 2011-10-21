@@ -171,14 +171,15 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	# error check and process request for a new/modified account
 	global $SUPPORTED_LANGS;
 
+	$dbh = db_connect();
+
 	if(isset($_COOKIE['AURSID'])) {
-		$editor_user = uid_from_sid($_COOKIE['AURSID']);
+		$editor_user = uid_from_sid($_COOKIE['AURSID'], $dbh);
 	}
 	else {
 		$editor_user = null;
 	}
 
-	$dbh = db_connect();
 	$error = "";
 	if (empty($E) || empty($U)) {
 		$error = __("Missing a required field.");
@@ -196,7 +197,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		}
 	}
 
-  if (!$error && !valid_username($U) && !user_is_privileged($editor_user))
+  if (!$error && !valid_username($U) && !user_is_privileged($editor_user, $dbh))
 	$error = __("The username is invalid.") . "<ul>\n"
 			."<li>" . __("It must be between %s and %s characters long",
 			USERNAME_MIN_LEN,  USERNAME_MAX_LEN )
@@ -592,21 +593,20 @@ function try_login() {
 	$userID = null;
 
 	if ( isset($_REQUEST['user']) || isset($_REQUEST['passwd']) ) {
+		$dbh = db_connect();
+		$userID = valid_user($_REQUEST['user'], $dbh);
 
-		$userID = valid_user($_REQUEST['user']);
-
-		if ( user_suspended( $userID ) ) {
+		if ( user_suspended($userID, $dbh) ) {
 			$login_error = "Account Suspended.";
 		}
 		elseif ( $userID && isset($_REQUEST['passwd'])
-		  && valid_passwd($userID, $_REQUEST['passwd']) ) {
+		  && valid_passwd($userID, $_REQUEST['passwd'], $dbh) ) {
 
 			$logged_in = 0;
 			$num_tries = 0;
 
 			# Account looks good.  Generate a SID and store it.
 
-			$dbh = db_connect();
 			while (!$logged_in && $num_tries < 5) {
 				if ($MAX_SESSIONS_PER_USER) {
 					# Delete all user sessions except the
@@ -704,11 +704,10 @@ function valid_username( $user )
  * Checks if the username is valid and if it exists in the database
  * Returns the username ID or nothing
  */
-function valid_user( $user )
+function valid_user( $user, $dbh )
 {
 	/*	if ( $user = valid_username($user) ) { */
 	if ( $user ) {
-		$dbh = db_connect();
 		$q = "SELECT ID FROM Users WHERE Username = '"
 			. mysql_real_escape_string($user). "'";
 
@@ -733,11 +732,9 @@ function good_passwd( $passwd )
 /* Verifies that the password is correct for the userID specified.
  * Returns true or false
  */
-function valid_passwd( $userID, $passwd )
+function valid_passwd( $userID, $passwd, $dbh )
 {
 	if ( strlen($passwd) > 0 ) {
-		$dbh = db_connect();
-
 		# get salt for this user
 		$salt = get_salt($userID);
 		if ($salt) {
@@ -778,12 +775,11 @@ function valid_passwd( $userID, $passwd )
 /*
  * Is the user account suspended?
  */
-function user_suspended( $id )
+function user_suspended( $id, $dbh )
 {
 	if (!$id) {
 		return false;
 	}
-	$dbh = db_connect();
 	$q = "SELECT Suspended FROM Users WHERE ID = " . $id;
 	$result = db_query($q, $dbh);
 	if ($result) {
@@ -798,9 +794,8 @@ function user_suspended( $id )
 /*
  * This should be expanded to return something
  */
-function user_delete( $id )
+function user_delete( $id, $dbh )
 {
-	$dbh = db_connect();
 	$q = "DELETE FROM Users WHERE ID = " . $id;
 	db_query($q, $dbh);
 	return;
@@ -810,9 +805,8 @@ function user_delete( $id )
  * A different way of determining a user's privileges
  * rather than account_from_sid()
  */
-function user_is_privileged( $id )
+function user_is_privileged( $id, $dbh )
 {
-	$dbh = db_connect();
 	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
 	$result = db_query($q, $dbh);
 	if ($result) {
@@ -826,12 +820,8 @@ function user_is_privileged( $id )
 }
 
 # Clear out old expired sessions.
-function clear_expired_sessions($dbh = null) {
+function clear_expired_sessions( $dbh ) {
 	global $LOGIN_TIMEOUT;
-
-	if (empty($dbh)) {
-		$dbh = db_connect();
-	}
 
 	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)";
 	db_query($q, $dbh);

@@ -17,9 +17,8 @@ if (isset($_COOKIE["AURSID"])) {
 	# setting expiration to 1 means '1 second after midnight January 1, 1970'
 	setcookie("AURSID", "", 1, "/", null, !empty($_SERVER['HTTPS']), true);
 	unset($_COOKIE['AURSID']);
+	clear_expired_sessions($dbh);
 }
-
-clear_expired_sessions();
 
 header('Location: index.php');
 
