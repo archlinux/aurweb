@@ -637,8 +637,11 @@ function try_login() {
 			}
 
 			if ($logged_in) {
-				# set our SID cookie
+				$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP() ";
+				$q.= "WHERE ID = '$userID'";
+				db_query($q, $dbh);
 
+				# set our SID cookie
 				if (isset($_POST['remember_me']) &&
 					$_POST['remember_me'] == "on") {
 					# Set cookies for 30 days.
