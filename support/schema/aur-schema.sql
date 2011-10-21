@@ -190,8 +190,8 @@ CREATE TABLE PackageBlacklist (
 --
 CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   ID int(10) unsigned NOT NULL auto_increment,
-  Agenda text COLLATE utf8_general_ci NOT NULL,
-  User VARCHAR(32) COLLATE utf8_general_ci NOT NULL,
+  Agenda text NOT NULL,
+  User VARCHAR(32) NOT NULL,
   Submitted bigint(20) unsigned NOT NULL,
   End bigint(20) unsigned NOT NULL,
   SubmitterID int(10) unsigned NOT NULL,
