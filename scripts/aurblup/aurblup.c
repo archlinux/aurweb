@@ -74,7 +74,7 @@ blacklist_get_pkglist()
   MYSQL_ROW row;
   alpm_list_t *pkglist = NULL;
 
-  if (mysql_query(c, "SELECT Name FROM PackageBlacklist;"))
+  if (mysql_query(c, "SELECT Name FROM PackageBlacklist"))
     mysql_die("failed to read blacklist from MySQL database: %s\n");
 
   if (!(res = mysql_store_result(c)))
@@ -96,7 +96,7 @@ blacklist_add(const char *name)
 
   mysql_real_escape_string(c, esc, name, strlen(name));
   snprintf(query, 1024, "INSERT INTO PackageBlacklist (Name) "
-                        "VALUES ('%s');", esc);
+                        "VALUES ('%s')", esc);
   free(esc);
 
   if (mysql_query(c, query))
@@ -110,7 +110,7 @@ blacklist_remove(const char *name)
   char query[1024];
 
   mysql_real_escape_string(c, esc, name, strlen(name));
-  snprintf(query, 1024, "DELETE FROM PackageBlacklist WHERE Name = '%s';", esc);
+  snprintf(query, 1024, "DELETE FROM PackageBlacklist WHERE Name = '%s'", esc);
   free(esc);
 
   if (mysql_query(c, query))
@@ -125,7 +125,7 @@ blacklist_sync(alpm_list_t *pkgs_cur, alpm_list_t *pkgs_new)
   pkgs_add = alpm_list_diff(pkgs_new, pkgs_cur, (alpm_list_fn_cmp)strcmp);
   pkgs_rem = alpm_list_diff(pkgs_cur, pkgs_new, (alpm_list_fn_cmp)strcmp);
 
-  if (mysql_query(c, "START TRANSACTION;"))
+  if (mysql_query(c, "START TRANSACTION"))
     mysql_die("failed to start MySQL transaction: %s\n");
 
   for (p = pkgs_add; p; p = alpm_list_next(p))
@@ -134,7 +134,7 @@ blacklist_sync(alpm_list_t *pkgs_cur, alpm_list_t *pkgs_new)
   for (p = pkgs_rem; p; p = alpm_list_next(p))
     blacklist_remove(alpm_list_getdata(p));
 
-  if (mysql_query(c, "COMMIT;"))
+  if (mysql_query(c, "COMMIT"))
     mysql_die("failed to commit MySQL transaction: %s\n");
 
   alpm_list_free(pkgs_add);
