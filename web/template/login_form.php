@@ -32,7 +32,7 @@ else {
 ?>
 <span class='error'>
 	<?php printf(__("HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."),
-		'<a href="https://aur.archlinux.org' . htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) . '">', '</a>'); ?>
+		'<a href="' . $AUR_LOCATION . htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) . '">', '</a>'); ?>
 </span>
 <?php } ?>
 </div>

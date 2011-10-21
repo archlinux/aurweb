@@ -49,3 +49,6 @@ $MAX_FILESIZE_UNCOMPRESSED = 1024 * 1024 * 8;
 
 # Allow HTTPs logins only
 $DISABLE_HTTP_LOGIN = true;
+
+# Web URL used in email links and absolute redirects, no trailing slash
+$AUR_LOCATION = "http://localhost";

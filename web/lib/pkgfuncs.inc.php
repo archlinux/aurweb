@@ -301,6 +301,8 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
 # display package details
 #
 function package_details($id=0, $SID="", $dbh=NULL) {
+	global $AUR_LOCATION;
+
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
@@ -618,6 +620,8 @@ function sanitize_ids($ids) {
  * @return string Translated success or error messages
  */
 function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
+	global $AUR_LOCATION;
+
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can flag packages.");
@@ -664,7 +668,7 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 		if (mysql_num_rows($result)) {
 			while ($row = mysql_fetch_assoc($result)) {
 				# construct email
-				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\nhttps://aur.archlinux.org/packages.php?ID=" . $row['ID'] . "\n\n[1] - https://aur.archlinux.org/account.php?Action=AccountInfo&ID=" . $f_uid;
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . "/packages.php?ID=" . $row['ID'] . "\n\n[1] - " . $AUR_LOCATION . "/account.php?Action=AccountInfo&ID=" . $f_uid;
 				$body = wordwrap($body, 70);
 				$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
 				@mail($row['Email'], "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);

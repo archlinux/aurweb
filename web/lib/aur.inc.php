@@ -281,6 +281,7 @@ function html_header($title="") {
 	global $LANG;
 	global $SUPPORTED_LANGS;
 	global $DISABLE_HTTP_LOGIN;
+	global $AUR_LOCATION;
 
 	if (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])) {
 		$login = try_login();
