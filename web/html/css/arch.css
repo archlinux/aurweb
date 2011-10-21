@@ -244,13 +244,14 @@ table.center {
 }
 table.results {
   padding: 0px;
+  width: 100%;
   border-collapse: collapse;
 }
 .results th {
-  background-color: #e1e3e6;
-  border-bottom: 1px solid #46494d;
-  border-top: 1px solid #46494d;
-  padding: 0px 5px 0px 0px;
+  text-align: center;
+}
+.results th, .results td {
+  padding: 1px;
 }
 .results th>a {
   text-decoration: none;

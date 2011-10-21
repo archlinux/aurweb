@@ -449,7 +449,7 @@ html_header("Submit");
 
 <form action='pkgsubmit.php' method='post' enctype='multipart/form-data'>
 	<div> <input type='hidden' name='pkgsubmit' value='1' /> </div>
-	<table border='0' cellspacing='5'>
+	<table>
 		<tr>
 			<td class='f4' align='right'><?php print __("Package Category"); ?>:</td>
 			<td class='f4' align='left'>

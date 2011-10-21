@@ -35,7 +35,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 		print "<input type='hidden' name='ID' value='".$UID."' />\n";
 	}
 	print "</fieldset>";
-	print "<table border='0' cellpadding='0' cellspacing='0' width='80%' style=\"margin:0 auto;\">\n";
+	print "<table>\n";
 	print "<tr><td colspan='2'>&nbsp;</td></tr>\n";
 
 	print "<tr>";
@@ -415,13 +415,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	} else {
 		$num_rows = mysql_num_rows($result);
 		if ($num_rows) {
-			print "<table border='0' cellpadding='0'";
-			print " cellspacing='0' width='90%'";
-			print " style=\"margin:0 auto\">\n";
-			print "<tr>";
-			print "<td colspan='2'>";
-			print "<table border='0' cellpadding='0'";
-			print " cellspacing='0' width='100%'>\n";
+			print "<table class='results'>\n";
 			print "<tr>";
 			print "<th class='header'>";
 			print "<span class='f2'>".__("Username")."</span></th>";
@@ -483,8 +477,8 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				$i++;
 			}
 			print "</table>\n";
-			print "</td></tr>\n";
 
+			print "<table class='results'>\n";
 			print "<tr>";
 			print "<td align='left'>";
 			print "<form action='account.php' method='post'>\n";
@@ -540,7 +534,7 @@ function display_account_info($U="", $T="", $E="", $R="", $I="") {
 
 	global $SUPPORTED_LANGS;
 
-	print "<table border='0' cellpadding='0' cellspacing='0' width='33%' style=\"margin:0 auto;\">\n";
+	print "<table>\n";
 	print "  <tr>\n";
 	print "    <td colspan='2'>&nbsp;</td>\n";
 	print "  </tr>\n";

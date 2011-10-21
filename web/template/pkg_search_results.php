@@ -12,32 +12,32 @@
 
 
 
-<table width='100%' cellspacing='0' cellpadding='2'>
+<table class='results'>
 <tr>
 	<?php if ($SID): ?>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'>&nbsp;</th>
+	<th class='header'>&nbsp;</th>
 	<?php endif; ?>
 
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+	<th class='header'><span class='f2'>
 		<a href='?<?php print mkurl('SB=c&SO=' . $SO_next) ?>'><?php print __("Category") ?></a>
 	</span></th>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom; text-align: center;'><span class='f2'>
+	<th class='header'><span class='f2'>
 		<a href='?<?php print mkurl('SB=n&SO=' . $SO_next) ?>'><?php print __("Name") ?></a>
 	</span></th>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+	<th class='header'><span class='f2'>
 		<a href='?<?php print mkurl('SB=v&SO=' . $SO_next) ?>'><?php print __("Votes") ?></a>
 	</span></th>
 
 	<?php if ($SID): ?>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+	<th class='header'><span class='f2'>
 		<a href='?<?php print mkurl('SB=w&SO=' . $SO_next) ?>'><?php print __("Voted") ?></a>
 	</span></th>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+	<th class='header'><span class='f2'>
 		<a href='?<?php print mkurl('SB=o&SO=' . $SO_next) ?>'><?php print __("Notify") ?></a>
 	</span></th>
 	<?php endif; ?>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom; text-align: center;'><span class='f2'><?php print __("Description") ?></span></th>
-	<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+	<th class='header'><span class='f2'><?php print __("Description") ?></span></th>
+	<th class='header'><span class='f2'>
 		<a href='?<?php print mkurl('SB=m&SO=' . $SO_next) ?>'><?php print __("Maintainer") ?></a>
 	</span></th>
 </tr>

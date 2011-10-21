@@ -24,13 +24,13 @@ N/A
 <?php print str_replace("\n", "<br />\n", htmlspecialchars($row['Agenda'])) ?>
 </p>
 
-<table class="boxSoft" width='100%' cellspacing='0' cellpadding='2'>
+<table class="boxSoft">
 <tr>
-<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Yes") ?></span></th>
-<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("No") ?></span></th>
-<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Abstain") ?></span></th>
-<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Total") ?></span></th>
-<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __('Voted') ?></span></th>
+<th class='boxSoftTitle'><span class='f2'><?php print __("Yes") ?></span></th>
+<th class='boxSoftTitle'><span class='f2'><?php print __("No") ?></span></th>
+<th class='boxSoftTitle'><span class='f2'><?php print __("Abstain") ?></span></th>
+<th class='boxSoftTitle'><span class='f2'><?php print __("Total") ?></span></th>
+<th class='boxSoftTitle'><span class='f2'><?php print __('Voted') ?></span></th>
 </tr>
 <tr>
 <td class='data1'><span class='f5'><span class='blue'><?php print $row['Yes'] ?></span></span></td>

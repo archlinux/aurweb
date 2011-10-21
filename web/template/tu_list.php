@@ -2,17 +2,17 @@
 		<div class="pgboxtitle" style="text-align:right;">
 			<span class='f3'><?php print $type ?></span>
 		</div>
-			<table width='100%' cellspacing='0' cellpadding='2'>
+			<table class='results'>
 				<tr>
-					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Proposal") ?></span></th>
-					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'>
+					<th class='header'><span class='f2'><?php print __("Proposal") ?></span></th>
+					<th class='header'><span class='f2'>
 						<a href='?off=<?php print $off ?>&amp;by=<?php print $by_next ?>'><?php print __("Start") ?></a>
 					</span></th>
-					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("End") ?></span></th>
-					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("User") ?></span></th>
-					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("Yes") ?></span></th>
-					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __("No") ?></span></th>
-					<th style='border-bottom: #666 1px solid; vertical-align: bottom'><span class='f2'><?php print __('Voted') ?></span></th>
+					<th class='header'><span class='f2'><?php print __("End") ?></span></th>
+					<th class='header'><span class='f2'><?php print __("User") ?></span></th>
+					<th class='header'><span class='f2'><?php print __("Yes") ?></span></th>
+					<th class='header'><span class='f2'><?php print __("No") ?></span></th>
+					<th class='header'><span class='f2'><?php print __('Voted') ?></span></th>
 				</tr>
 				<?php if (mysql_num_rows($result) == 0) { ?>
 				<tr><td align='center' colspan='0'><?php print __("No results found.") ?></td></tr>

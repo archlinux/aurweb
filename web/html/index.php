@@ -50,7 +50,7 @@ echo __(
 <br />
 <?php echo __('Some packages may be provided as binaries in [community].'); ?>
 </p>
-<table border='0' cellpadding='0' cellspacing='3' width='90%'>
+<table>
 <tr>
 <td class='boxSoft' valign='top'>
 <?php updates_table($dbh); ?>

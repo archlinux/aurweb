@@ -1,6 +1,6 @@
 <br />
 <form action='account.php' method='post'>
-	<table border='0' cellpadding='0' cellspacing='0' width='80%' style="margin:0 auto;">
+	<table>
 
 		<tr>
 			<td align='left'><?php print __("Username"); ?>:</td>
