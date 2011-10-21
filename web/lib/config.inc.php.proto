@@ -33,34 +33,6 @@ define("SQL_DEBUG", 0);
 # to '127.0.0.1:11211'.
 #define("MEMCACHE_SERVERS", '127.0.0.1:11211');
 
-# Languages we have translations for
-$SUPPORTED_LANGS = array(
-	"ca" => "Català",
-	"cs" => "česky",
-	"da" => "Dansk",
-	"de" => "Deutsch",
-	"en" => "English",
-	"el" => "Ελληνικά",
-	"es" => "Español",
-	"fi" => "Finnish",
-	"fr" => "Français",
-	"he" => "עברית",
-	"hr" => "Hrvatski",
-	"hu" => "Magyar",
-	"it" => "Italiano",
-	"nb_NO" => "Norsk",
-	"nl" => "Dutch",
-	"pl" => "Polski",
-	"pt" => "Português",
-	"pt_BR" => "Português (Brasil)",
-	"ro" => "Română",
-	"ru" => "Русский",
-	"sr" => "Srpski",
-	"tr" => "Türkçe",
-	"uk" => "Українська",
-	"zh_CN" => "简体中文"
-);
-
 # Session limit per user
 $MAX_SESSIONS_PER_USER = 8;
 

@@ -261,62 +261,6 @@ function db_query($query="", $db_handle="") {
 	return $result;
 }
 
-# set up the visitor's language
-#
-function set_lang($dbh=NULL) {
-	global $LANG;
-	global $SUPPORTED_LANGS;
-	global $PERSISTENT_COOKIE_TIMEOUT;
-	global $streamer, $l10n;
-
-	$update_cookie = 0;
-	if (isset($_REQUEST['setlang'])) {
-		# visitor is requesting a language change
-		#
-		$LANG = $_REQUEST['setlang'];
-		$update_cookie = 1;
-
-	} elseif (isset($_COOKIE['AURLANG'])) {
-		# If a cookie is set, use that
-		#
-		$LANG = $_COOKIE['AURLANG'];
-
-	} elseif (isset($_COOKIE["AURSID"])) {
-		# No language but a session; use default lang preference
-		#
-		if(!$dbh) {
-			$dbh = db_connect();
-		}
-		$q = "SELECT LangPreference FROM Users, Sessions ";
-		$q.= "WHERE Users.ID = Sessions.UsersID ";
-		$q.= "AND Sessions.SessionID = '";
-		$q.= mysql_real_escape_string($_COOKIE["AURSID"])."'";
-		$result = db_query($q, $dbh);
-
-		if ($result) {
-			$row = mysql_fetch_array($result);
-			$LANG = $row[0];
-		}
-		$update_cookie = 1;
-	}
-
-	# Set $LANG to default if nothing is valid.
-	if (!array_key_exists($LANG, $SUPPORTED_LANGS)) {
-		$LANG = DEFAULT_LANG;
-	}
-
-	if ($update_cookie) {
-		$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
-		setcookie("AURLANG", $LANG, $cookie_time, "/");
-	}
-
-	$streamer = new FileReader('../locale/' . $LANG .
-		'/LC_MESSAGES/aur.mo');
-	$l10n = new gettext_reader($streamer, true);
-
-	return;
-}
-
 
 # common header
 #
