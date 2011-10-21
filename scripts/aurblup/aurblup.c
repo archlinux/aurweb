@@ -11,7 +11,7 @@
 
 #include "config.h"
 
-#define alpm_die(...) die(__VA_ARGS__, alpm_strerrorlast());
+#define alpm_die(...) die(__VA_ARGS__, alpm_strerror(alpm_errno(handle)));
 #define mysql_die(...) die(__VA_ARGS__, mysql_error(c));
 
 static void die(const char *, ...);
@@ -33,6 +33,8 @@ static char *mysql_passwd = NULL;
 static char *mysql_db = NULL;
 
 static MYSQL *c;
+
+static alpm_handle_t *handle;
 
 static void
 die(const char *format, ...)
@@ -149,25 +151,29 @@ dblist_get_pkglist(alpm_list_t *dblist)
   alpm_list_t *pkglist = NULL;
 
   for (d = dblist; d; d = alpm_list_next(d)) {
-    pmdb_t *db = d->data;
+    alpm_db_t *db = d->data;
 
-    if (alpm_trans_init(0, NULL, NULL, NULL))
+    if (alpm_trans_init(handle, 0))
       alpm_die("failed to initialize ALPM transaction: %s\n");
     if (alpm_db_update(0, db) < 0)
       alpm_die("failed to update ALPM database: %s\n");
-    if (alpm_trans_release())
+    if (alpm_trans_release(handle))
       alpm_die("failed to release ALPM transaction: %s\n");
 
     for (p = alpm_db_get_pkgcache(db); p; p = alpm_list_next(p)) {
-      pmpkg_t *pkg = p->data;
+      alpm_pkg_t *pkg = p->data;
 
       pkglist = pkglist_append(pkglist, alpm_pkg_get_name(pkg));
 
-      for (q = alpm_pkg_get_provides(pkg); q; q = alpm_list_next(q))
-        pkglist = pkglist_append(pkglist, q->data);
+      for (q = alpm_pkg_get_provides(pkg); q; q = alpm_list_next(q)) {
+        alpm_depend_t *provide = q->data;
+        pkglist = pkglist_append(pkglist, provide->name);
+      }
 
-      for (q = alpm_pkg_get_replaces(pkg); q; q = alpm_list_next(q))
-        pkglist = pkglist_append(pkglist, q->data);
+      for (q = alpm_pkg_get_replaces(pkg); q; q = alpm_list_next(q)) {
+        alpm_depend_t *replace = q->data;
+        pkglist = pkglist_append(pkglist, replace->name);
+      }
     }
   }
 
@@ -182,20 +188,20 @@ dblist_create(void)
   int i;
 
   for (i = 0; i < sizeof(alpm_repos) / sizeof(char *); i++) {
-    if (!alpm_db_register_sync(alpm_repos[i]))
+    if (!alpm_db_register_sync(handle, alpm_repos[i], 0))
       alpm_die("failed to register sync db \"%s\": %s\n", alpm_repos[i]);
   }
 
-  if (!(dblist = alpm_option_get_syncdbs()))
+  if (!(dblist = alpm_option_get_syncdbs(handle)))
     alpm_die("failed to get sync DBs: %s\n");
 
   for (d = dblist; d; d = alpm_list_next(d)) {
-    pmdb_t *db = d->data;
+    alpm_db_t *db = d->data;
 
     char server[1024];
     snprintf(server, 1024, ALPM_MIRROR, alpm_db_get_name(db));
 
-    if (alpm_db_setserver(db, server))
+    if (alpm_db_add_server(db, server))
       alpm_die("failed to set server \"%s\": %s\n", server);
   }
 
@@ -266,6 +272,7 @@ read_config(const char *fn)
 static void
 init(void)
 {
+  enum _alpm_errno_t alpm_err;
   if (mysql_library_init(0, NULL, NULL))
     mysql_die("could not initialize MySQL library: %s\n");
   if (!(c = mysql_init(NULL)))
@@ -274,12 +281,8 @@ init(void)
                           mysql_db, 0, mysql_socket, 0))
     mysql_die("failed to initiate MySQL connection to %s: %s\n", mysql_host);
 
-  if (alpm_initialize())
-    alpm_die("failed to initialize ALPM: %s\n");
-  if (alpm_option_set_root("/"))
-    alpm_die("failed to set ALPM root: %s\n");
-  if (alpm_option_set_dbpath(ALPM_DBPATH))
-    alpm_die("failed to set ALPM database path: %s\n");
+  if ((handle = alpm_initialize("/", ALPM_DBPATH, &alpm_err)) == NULL)
+    die("failed to initialize ALPM: %s\n", alpm_strerror(alpm_err));
 }
 
 static void
@@ -291,7 +294,7 @@ cleanup(void)
   free(mysql_passwd);
   free(mysql_db);
 
-  alpm_release();
+  alpm_release(handle);
   mysql_close(c);
   mysql_library_end();
 }
