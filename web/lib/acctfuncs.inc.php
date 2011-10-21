@@ -461,7 +461,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				print "</span></td>";
 				print "<td class='".$c."'><span class='f5'>";
 				$row["LastVoted"]
-						? print date("Ymd", $row["LastVoted"])
+						? print date("Y-m-d", $row["LastVoted"])
 						: print __("Never");
 				print "</span></td>";
 				print "<td class='".$c."'><span class='f5'>";
@@ -526,12 +526,13 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 
 # Display non-editable account info
 #
-function display_account_info($U="", $T="", $E="", $R="", $I="") {
+function display_account_info($U="", $T="", $E="", $R="", $I="", $LV="") {
 	# U: value to display for username
 	# T: value to display for account type
 	# E: value to display for email address
 	# R: value to display for RealName
 	# I: value to display for IRC nick
+	# LV: value to display for last voted
 
 	global $SUPPORTED_LANGS;
 
@@ -571,6 +572,13 @@ function display_account_info($U="", $T="", $E="", $R="", $I="") {
 	print "  <tr>\n";
 	print "    <td align='left'>".__("IRC Nick").":</td>\n";
 	print "    <td align='left'>".htmlspecialchars($I,ENT_QUOTES)."</td>\n";
+	print "  </tr>\n";
+
+	print "  <tr>\n";
+	print "    <td align='left'>".__("Last Voted").":</td>\n";
+	print "    <td align='left'>";
+	print $LV ? date("Y-m-d", $LV) : __("Never");
+	print "</td>\n";
 	print "  </tr>\n";
 
 	print "  <tr>\n";

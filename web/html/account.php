@@ -82,7 +82,7 @@ if (isset($_COOKIE["AURSID"])) {
 			$row = mysql_fetch_assoc($result);
 			display_account_info($row["Username"],
 						$row["AccountType"], $row["Email"], $row["RealName"],
-						$row["IRCNick"]);
+						$row["IRCNick"], $row["LastVoted"]);
 		}
 		
 	} elseif ($action == "UpdateAccount") {
