@@ -52,12 +52,13 @@ static alpm_list_t *
 pkglist_append(alpm_list_t *pkglist, const char *pkgname)
 {
   int len = strcspn(pkgname, "<=>");
-  if (!len) len = strlen(pkgname);
+  if (!len)
+    len = strlen(pkgname);
 
   char *s = malloc(len + 1);
 
   strncpy(s, pkgname, len);
-  s[len] = 0;
+  s[len] = '\0';
 
   if (alpm_list_find_str(pkglist, s))
     free(s);
@@ -217,10 +218,14 @@ read_config(const char *fn)
       t = &mysql_host;
       u = &mysql_socket;
     }
-    else if (strstr(line, CONFIG_KEY_USER)) t = &mysql_user;
-    else if (strstr(line, CONFIG_KEY_PASSWD)) t = &mysql_passwd;
-    else if (strstr(line, CONFIG_KEY_DB)) t = &mysql_db;
-    else t = NULL;
+    else if (strstr(line, CONFIG_KEY_USER))
+      t = &mysql_user;
+    else if (strstr(line, CONFIG_KEY_PASSWD))
+      t = &mysql_passwd;
+    else if (strstr(line, CONFIG_KEY_DB))
+      t = &mysql_db;
+    else
+      t = NULL;
 
     if (t) {
       strtok(line, "\"");
@@ -280,11 +285,11 @@ init(void)
 static void
 cleanup(void)
 {
-  if (mysql_host) free(mysql_host);
-  if (mysql_socket) free(mysql_socket);
-  if (mysql_user) free(mysql_user);
-  if (mysql_passwd) free(mysql_passwd);
-  if (mysql_db) free(mysql_db);
+  free(mysql_host);
+  free(mysql_socket);
+  free(mysql_user);
+  free(mysql_passwd);
+  free(mysql_db);
 
   alpm_release();
   mysql_close(c);
