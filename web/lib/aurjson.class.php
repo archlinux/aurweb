@@ -103,7 +103,7 @@ class AurJSON {
     private function json_error($msg) {
         // set content type header to app/json
         header('content-type: application/json');
-        return $this->json_results('error', $msg);
+        return $this->json_results('error', 0, $msg);
     }
 
     /**
@@ -112,8 +112,8 @@ class AurJSON {
      * @param $data The result data to return
      * @return mixed A json formatted result response.
      **/
-    private function json_results($type, $data) {
-        return json_encode( array('type' => $type, 'results' => $data) );
+    private function json_results($type, $count, $data) {
+        return json_encode( array('type' => $type, 'resultcount' => $count, 'results' => $data) );
     }
 
     private function process_query($type, $where_condition) {
@@ -124,7 +124,8 @@ class AurJSON {
             "WHERE ${where_condition}";
         $result = db_query($query, $this->dbh);
 
-        if ( $result && (mysql_num_rows($result) > 0) ) {
+        $resultcount = mysql_num_rows($result);
+        if ( $result && $resultcount > 0 ) {
             $search_data = array();
             while ( $row = mysql_fetch_assoc($result) ) {
                 $name = $row['Name'];
@@ -148,7 +149,7 @@ class AurJSON {
             }
 
             mysql_free_result($result);
-            return $this->json_results($type, $search_data);
+            return $this->json_results($type, $resultcount, $search_data);
         }
         else {
             return $this->json_error('No results found');
