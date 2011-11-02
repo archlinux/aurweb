@@ -1,7 +1,7 @@
 Setup on Arch Linux:
 ====================
-1) Install Apache, MySQL, PHP, and git
-  # pacman -Syu apache mysql php git
+1) Install Apache, MySQL, PHP, git and php-pear
+  # pacman -Syu apache mysql php git php-pear
 
 2) Set a local 'hostname' of 'aur'
  - Edit /etc/hosts and append 'aur' to loopback address
@@ -16,11 +16,13 @@ Setup on Arch Linux:
    Include conf/extra/php5_module.conf
 
  - Also append the following snippet to enable the aur
-   Virtual Host (Replace MYUSER with your username).
+   Virtual Host in /etc/httpd/conf/extra/httpd-vhosts.conf.
+	 Comment out the example vhosts and replace MYUSER with your username.
+	 (You could put aur in /srv/http/aur and then create a symlink in ~ )
 
    <VirtualHost aur:80>
    Servername    aur
-   DocumentRoot    /home/MYUSER/aur/web/html
+   DocumentRoot  /home/MYUSER/aur/web/html
    ErrorLog    /var/log/httpd/aur-error.log
    CustomLog   /var/log/httpd/aur-access.log combined
      <Directory /home/MYUSER/aur/web/html>
@@ -30,6 +32,10 @@ Setup on Arch Linux:
        Allow from all
      </Directory>
    </VirtualHost>
+
+ - In httpd.conf, uncomment this line:
+
+   Include conf/extra/httpd-vhosts.conf
 
 4) Clone the AUR project (using the MYUSER from above)
    $ cd
@@ -56,21 +62,17 @@ Setup on Arch Linux:
  - Install the Archive_Tar PEAR package:
    # pear install Archive_Tar
 
- - Put PEAR in your php include_path in php.ini:
-
-   include_path = ".:/usr/share/pear"
-
-   PEAR's path may vary depending on your set up.
-
 6) Configure MySQL
  - Start the MySQL service. Example:
    # /etc/rc.d/mysqld start
 
+ - Create database
+   # mysqladmin -p create AUR
+
  - Connect to the mysql client
-   # mysql -uroot
+   # mysql -uroot -p AUR
 
  - Issue the following commands to the mysql client
-   mysql> CREATE DATABASE AUR;
    mysql> GRANT ALL PRIVILEGES ON AUR.* to aur@localhost
         > identified by 'aur';
    mysql> FLUSH PRIVILEGES;
