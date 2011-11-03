@@ -152,7 +152,7 @@ class AurJSON {
             return $this->json_results($type, $resultcount, $search_data);
         }
         else {
-            return $this->json_error('No results found');
+            return $this->json_results($type, 0, array());
         }
     }
 
