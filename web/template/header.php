@@ -8,7 +8,8 @@
 	<link rel='stylesheet' type='text/css' href='css/fonts.css' />
 	<link rel='stylesheet' type='text/css' href='css/containers.css' />
 	<link rel='stylesheet' type='text/css' href='css/arch.css' />
-	<link rel='stylesheet' type='text/css' href='css/archnavbar/archnavbar.css' />
+	<link rel='stylesheet' type='text/css' href='css/archweb.css' />
+	<link rel='stylesheet' type='text/css' href='css/aur.css' />
 	<link rel='shortcut icon' href='images/favicon.ico' />
 	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='rss.php' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
