@@ -5,7 +5,10 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 include_once("aur.inc.php");
 set_lang();
 check_sid();
-html_header();
+
+$title = __("Trusted User");
+
+html_header($title);
 
 # Default votes per page
 $pp = 10;
