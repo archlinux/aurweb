@@ -31,6 +31,26 @@
 		</div><!-- #archnavbar -->
 
 		<div id="content">
+			<div id="lang_sub">
+				<form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"], ENT_QUOTES) ?>">
+					<fieldset>
+						<div>
+							<select name="setlang" id="id_setlang">
+		<?php
+		reset($SUPPORTED_LANGS);
+		foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
+
+			print '<option value="' . strtolower($lang) . '"' .
+				($lang == $LANG ? ' selected="selected"' : '') .
+				'>' . strtolower($lang) . "</option>\n";
+		}
+		?>
+							</select>
+							<input type="submit" value="Go" />
+						</div>
+					</fieldset>
+				</form>
+			</div>
 			<div id="archdev-navbar">
 				<ul>
 					<li><a href="index.php">AUR <?php print __("Home"); ?></a></li>
@@ -47,17 +67,5 @@
 					<?php endif; ?>
 				</ul>
 			</div><!-- #archdev-navbar -->
-
-			<div id="lang_sub">
-				<?php
-				reset($SUPPORTED_LANGS);
-				foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
-					print '<a href="'
-						. htmlspecialchars($_SERVER["PHP_SELF"], ENT_QUOTES)
-						."?setlang=" . htmlspecialchars($lang, ENT_QUOTES) . "\" title=\"" . htmlspecialchars($lang_name, ENT_QUOTES) . "\">"
-						. htmlspecialchars(strtolower($lang)) . "</a>\n";
-				}
-				?>
-			</div>
 			<!-- Start of main content -->
 

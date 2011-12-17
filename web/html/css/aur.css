@@ -1,1 +1,4 @@
 /* AUR-specific customizations to "archweb.css". */
+#lang_sub {
+  float: right;
+}
