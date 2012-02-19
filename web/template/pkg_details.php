@@ -69,7 +69,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row[
 
 	<p>
 	<span class='f2'><?php echo htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></span><br />
-	<span class='f3'><a href="<?php echo htmlspecialchars($row['URL'], ENT_QUOTES) . '">' . $row['URL'] ?></a></span><br />
+	<span class='f3'><a href="<?php echo htmlspecialchars($row['URL'], ENT_QUOTES) . '">' . htmlspecialchars($row['URL']) ?></a></span><br />
 	<span class='f3'><?php echo htmlspecialchars($row['Description'], ENT_QUOTES); ?></span>
 	</p>
 

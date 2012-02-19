@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xml:lang="<?php print "$LANG\" lang=\"$LANG"; ?>">
   <head>
-    <title>AUR (<?php print $LANG; ?>)<?php if ($title != "") { print " - " . $title; } ?></title>
+    <title>AUR (<?php print htmlspecialchars($LANG); ?>)<?php if ($title != "") { print " - " . htmlspecialchars($title); } ?></title>
 	<link rel='stylesheet' type='text/css' href='css/fonts.css' />
 	<link rel='stylesheet' type='text/css' href='css/containers.css' />
 	<link rel='stylesheet' type='text/css' href='css/arch.css' />

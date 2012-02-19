@@ -11,7 +11,7 @@
 <td class="boxSoft">
 <span class="f4"><span class="blue">
 <a href="packages.php?ID=<?php print intval($row["ID"]); ?>">
-<?php print $row["Name"] . ' ' . $row["Version"]; ?>
+<?php print htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?>
 </a></span></span>
 </td>
 <td class="boxSoft">
