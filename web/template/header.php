@@ -2,9 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xml:lang="<?php print "$LANG\" lang=\"$LANG"; ?>">
+	xml:lang="<?php print htmlspecialchars($LANG, ENT_QUOTES) ?>" lang="<?php print htmlspecialchars($LANG, ENT_QUOTES) ?>">
   <head>
-    <title>AUR (<?php print $LANG; ?>)<?php if ($title != "") { print " - " . $title; } ?></title>
+    <title>AUR (<?php print htmlspecialchars($LANG); ?>)<?php if ($title != "") { print " - " . htmlspecialchars($title); } ?></title>
 	<link rel='stylesheet' type='text/css' href='css/fonts.css' />
 	<link rel='stylesheet' type='text/css' href='css/containers.css' />
 	<link rel='stylesheet' type='text/css' href='css/arch.css' />
@@ -52,8 +52,8 @@ reset($SUPPORTED_LANGS);
 foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
         print '<a href="'
 		. htmlspecialchars($_SERVER["PHP_SELF"], ENT_QUOTES)
-		."?setlang=$lang\" title=\"$lang_name\">"
-		. strtolower($lang) . "</a>\n";
+		."?setlang=" . htmlspecialchars($lang, ENT_QUOTES) . "\" title=\"" . htmlspecialchars($lang_name, ENT_QUOTES) . "\">"
+		. htmlspecialchars(strtolower($lang)) . "</a>\n";
 }
 ?>
 	</div>
