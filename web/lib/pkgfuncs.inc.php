@@ -269,20 +269,37 @@ function pkgnotify_from_sid($sid="", $dbh=NULL) {
 
 # get name of package based on pkgid
 #
-function pkgname_from_id($pkgid, $dbh=NULL) {
-	$pkgid = intval($pkgid);
-	$name = "";
-	if ($pkgid > 0) {
+function pkgname_from_id($pkgids, $dbh=NULL) {
+	if (is_array($pkgids)) {
+		$pkgids = sanitize_ids($pkgids);
+		$names = array();
 		if(!$dbh) {
 			$dbh = db_connect();
 		}
-		$q = "SELECT Name FROM Packages WHERE ID = " . $pkgid;
+		$q = "SELECT Name FROM Packages WHERE ID IN (" .
+			implode(",", $pkgids) . ")";
+		$result = db_query($q, $dbh);
+		if (mysql_num_rows($result) > 0) {
+			while ($row = mysql_fetch_assoc($result)) {
+				$names[] = $row['Name'];
+			}
+		}
+		return $names;
+	}
+	elseif ($pkgids > 0) {
+		if(!$dbh) {
+			$dbh = db_connect();
+		}
+		$q = "SELECT Name FROM Packages WHERE ID = " . $pkgids;
 		$result = db_query($q, $dbh);
 		if (mysql_num_rows($result) > 0) {
 			$name = mysql_result($result, 0);
 		}
+		return $name;
 	}
-	return $name;
+	else {
+		return NULL;
+	}
 }
 
 # Check if a package name is blacklisted.
