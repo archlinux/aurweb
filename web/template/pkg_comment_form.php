@@ -43,7 +43,7 @@ if (isset($_REQUEST['comment'])) {
 		$body = wordwrap($body, 70);
 		$bcc = implode(', ', $bcc);
 		$headers = "Bcc: $bcc\nReply-to: nobody@archlinux.org\nFrom: aur-notify@archlinux.org\nX-Mailer: AUR\n";
-		@mail(' ', "AUR Comment for " . $row['Name'], $body, $headers);
+		@mail('undisclosed-recipients: ;', "AUR Comment for " . $row['Name'], $body, $headers);
 	}
 }
 

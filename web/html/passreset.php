@@ -70,8 +70,8 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 		           "{$AUR_LOCATION}/passreset.php?".
 		           "resetkey={$resetkey}";
 		$body = wordwrap($body, 70);
-		$headers = "To: {$email}\nReply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR";
-		@mail(' ', 'AUR Password Reset', $body, $headers);
+		$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR";
+		@mail($email, 'AUR Password Reset', $body, $headers);
 
 	}
 	header('Location: passreset.php?step=confirm');

@@ -745,7 +745,7 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
 			$body = wordwrap($body, 70);
 			$bcc = implode(', ', $bcc);
 			$headers = "Bcc: $bcc\nReply-to: nobody@archlinux.org\nFrom: aur-notify@archlinux.org\nX-Mailer: AUR\n";
-			@mail(' ', "AUR Package deleted: " . $pkgname, $body, $headers);
+			@mail('undisclosed-recipients: ;', "AUR Package deleted: " . $pkgname, $body, $headers);
 		}
 	}
 
