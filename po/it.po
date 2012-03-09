@@ -2,16 +2,17 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Translators:
 # Giovanni Scafora <giovanni@archlinux.org>, 2011.
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-08-13 12:46+0200\n"
-"PO-Revision-Date: 2011-08-13 13:15+0000\n"
-"Last-Translator: bash <andrea@archlinux.org>\n"
-"Language-Team: Italian (http://www.transifex.net/projects/p/aur/team/it/)\n"
+"POT-Creation-Date: 2011-09-05 17:02+0200\n"
+"PO-Revision-Date: 2011-11-14 09:42+0000\n"
+"Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
+"Language-Team: Italian (http://www.transifex.net/projects/p/aur/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,24 +25,18 @@ msgstr "Inizio"
 msgid ""
 "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
 "Guidelines%h for more information."
-msgstr ""
-"Benvenuto in AUR! Per ottenere maggiori informazioni, leggi le %hAUR User "
-"Guidelines%h e le %hAUR TU Guidelines%h."
+msgstr "Benvenuto in AUR! Per ottenere maggiori informazioni, leggi le %hAUR User Guidelines%h e le %hAUR TU Guidelines%h."
 
 msgid ""
 "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
 "otherwise they will be deleted!"
-msgstr ""
-"I PKGBUILD inviati %hdevono%h essere conformi agli %hArch Packaging "
-"Standards%h altrimenti saranno cancellati!"
+msgstr "I PKGBUILD inviati %hdevono%h essere conformi agli %hArch Packaging Standards%h altrimenti saranno cancellati!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Ricorda di votare i tuoi pacchetti preferiti!"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr ""
-"Alcuni pacchetti possono essere disponibili come precompilati nel repository"
-" [community]."
+msgstr "Alcuni pacchetti possono essere disponibili come precompilati nel repository [community]."
 
 msgid "DISCLAIMER"
 msgstr "AVVISO"
@@ -49,9 +44,7 @@ msgstr "AVVISO"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr ""
-"I pacchetti presenti in unsupported sono stati inviati dagli utenti. Usali a"
-" tuo rischio e pericolo."
+msgstr "I pacchetti presenti in unsupported sono stati inviati dagli utenti. Usali a tuo rischio e pericolo."
 
 msgid "Search Criteria"
 msgstr "Criterio di ricerca"
@@ -60,16 +53,12 @@ msgid "Packages"
 msgstr "Pacchetti"
 
 msgid "Cannot find package to merge votes and comments into."
-msgstr ""
-"Impossibile trovare il pacchetto per inserire al suo interno i voti ed i "
-"commenti."
+msgstr "Impossibile trovare il pacchetto per inserire al suo interno i voti ed i commenti."
 
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr ""
-"I pacchetti selezionati non sono stati eliminati, conferma la tua scelta, "
-"inserendo un segno di spunta nell'apposita checkbox."
+msgstr "I pacchetti selezionati non sono stati eliminati, conferma la tua scelta, inserendo un segno di spunta nell'apposita checkbox."
 
 msgid "Error trying to retrieve package details."
 msgstr "Errore durante il recupero dei dettagli del pacchetto."
@@ -181,17 +170,13 @@ msgid "Invalid e-mail."
 msgstr "L'e-mail inserita non è valida."
 
 msgid "Invalid e-mail and reset key combination."
-msgstr "Combinazione non valida del pulsante reset ed e-mail."
+msgstr "Combinazione non valida del pulsante reset e dell'e-mail."
 
 msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr ""
-"È stata inviata una richiesta per resettare la password dell'account "
-"associato al tuo indirizzo e-mail. Se desideri resettare la tua password, "
-"clicca sul link sottostante, altrimenti ignora questo messaggio e non "
-"succederà nulla."
+msgstr "È stata inviata una richiesta per resettare la password dell'account associato al tuo indirizzo e-mail. Se desideri resettare la tua password, clicca sul link sottostante, altrimenti ignora questo messaggio e non succederà nulla."
 
 msgid "Password Reset"
 msgstr "Resetta la password"
@@ -217,9 +202,7 @@ msgstr "Continua"
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
 " message to the %haur-general%h mailing list."
-msgstr ""
-"Se hai dimenticato l'indirizzo e-mail che hai utilizzato per registrarti, "
-"invia un messaggio alla mailing list %haur-general%h."
+msgstr "Se hai dimenticato l'indirizzo e-mail che hai utilizzato per registrarti, invia un messaggio alla mailing list %haur-general%h."
 
 msgid "Enter your e-mail address:"
 msgstr "Inserisci il tuo indirizzo email:"
@@ -230,30 +213,22 @@ msgstr "Errore, nessun file inviato."
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
 " makepkg(8) only)."
-msgstr ""
-"Errore, formato del file non supportato (inviare solo tarball compressi con "
-"gzip, generati con makepkg(8))."
+msgstr "Errore, formato del file non supportato (inviare solo tarball compressi con gzip, generati con makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Errore, il file decompresso supera la dimensione consentita."
 
 msgid "Error - source tarball may not contain more than one directory."
-msgstr ""
-"Errore, il tarball dei sorgenti non può contenere più di una directory."
+msgstr "Errore, il tarball dei sorgenti non può contenere più di una directory."
 
 msgid "Error - source tarball may not contain files outside a directory."
-msgstr ""
-"Errore, il tarball dei sorgenti non può contenere file al di fuori di una "
-"directory."
+msgstr "Errore, il tarball dei sorgenti non può contenere file al di fuori di una directory."
 
 msgid "Error - source tarball may not contain nested subdirectories."
-msgstr ""
-"Errore, il tarball dei sorgenti non può contenere sottodirectory annidate."
+msgstr "Errore, il tarball dei sorgenti non può contenere sottodirectory annidate."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr ""
-"Si è verificato un errore nello scompattare il file inviato. Non esiste il "
-"PKGBUILD."
+msgstr "Si è verificato un errore nello scompattare il file inviato. Non esiste il PKGBUILD."
 
 #, php-format
 msgid "Missing %s variable in PKGBUILD."
@@ -276,9 +251,7 @@ msgstr "Non disponi dei permessi per poter sovrascrivere il pacchetto %h%s%h."
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr ""
-"%s è nella blacklist dei pacchetti, controlla se è disponibile nei "
-"repository ufficiali."
+msgstr "%s è nella blacklist dei pacchetti, controlla se è disponibile nei repository ufficiali."
 
 #, php-format
 msgid "Could not change directory to %s."
@@ -287,8 +260,7 @@ msgstr "Impossibile cambiare la directory in %s."
 msgid ""
 "Upload your source packages here. Create source packages with `makepkg "
 "--source`."
-msgstr ""
-"Invia da qui i tuoi pacchetti. Crea i pacchetti con `makepkg --source`."
+msgstr "Invia da qui i tuoi pacchetti. Crea i pacchetti con `makepkg --source`."
 
 msgid "Package Category"
 msgstr "Categoria del pacchetto"
@@ -309,8 +281,7 @@ msgid "You must create an account before you can upload packages."
 msgstr "Devi creare un account prima di poter inviare i pacchetti."
 
 msgid "Error retrieving package details."
-msgstr ""
-"Si è verificato un errore durante il recupero dei dettagli del pacchetto."
+msgstr "Si è verificato un errore durante il recupero dei dettagli del pacchetto."
 
 msgid "Package details could not be found."
 msgstr "Impossibile trovare i dettagli del pacchetto."
@@ -328,20 +299,16 @@ msgid "You must be logged in before you can flag packages."
 msgstr "Devi autenticarti prima di poter contrassegnare i pacchetti."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr ""
-"Devi autenticarti prima di poter rimuovere il contrassegno ai pacchetti."
+msgstr "Devi autenticarti prima di poter rimuovere il contrassegno ai pacchetti."
 
 msgid "You did not select any packages to flag."
-msgstr ""
-"Non hai selezionato nessun pacchetto da contrassegnare come non aggiornato."
+msgstr "Non hai selezionato nessun pacchetto da contrassegnare come non aggiornato."
 
 msgid "You did not select any packages to unflag."
-msgstr ""
-"Non hai selezionato nessun pacchetto da contrassegnare come aggiornato."
+msgstr "Non hai selezionato nessun pacchetto da contrassegnare come aggiornato."
 
 msgid "The selected packages have been flagged out-of-date."
-msgstr ""
-"I pacchetti selezionati sono stati contrassegnati come non aggiornati."
+msgstr "I pacchetti selezionati sono stati contrassegnati come non aggiornati."
 
 msgid "The selected packages have been unflagged."
 msgstr "I pacchetti selezionati non sono più contrassegnati."
@@ -403,8 +370,7 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Sei stato rimosso dalla lista delle notifiche dei commenti di %s."
 
 msgid "You must be logged in before you can edit package information."
-msgstr ""
-"Devi autenticarti prima di poter modificare le informazioni del pacchetto."
+msgstr "Devi autenticarti prima di poter modificare le informazioni del pacchetto."
 
 msgid "Missing comment ID."
 msgstr "Manca l'ID del commento."
@@ -514,8 +480,7 @@ msgid "The address, %h%s%h, is already in use."
 msgstr "L'indirizzo %h%s%h è già in uso."
 
 msgid "Error trying to create account, %h%s%h: %s."
-msgstr ""
-"Si è verificato un errore durante la creazione dell'account %h%s%h: %s."
+msgstr "Si è verificato un errore durante la creazione dell'account %h%s%h: %s."
 
 msgid "The account, %h%s%h, has been successfully created."
 msgstr "L'account %h%s%h è stato creato con successo."
@@ -524,8 +489,7 @@ msgid "Click on the Home link above to login."
 msgstr "Clicca su Inizio per autenticarti."
 
 msgid "Error trying to modify account, %h%s%h: %s."
-msgstr ""
-"Si è verificato un errore durante la modifica dell'account %h%s%h: %s."
+msgstr "Si è verificato un errore durante la modifica dell'account %h%s%h: %s."
 
 msgid "The account, %h%s%h, has been successfully modified."
 msgstr "L'account %h%s%h è stato modificato con successo."
@@ -574,6 +538,12 @@ msgstr "Visualizza i pacchetti di quest'utente"
 
 msgid "Bad username or password."
 msgstr "Nome utente o password errati."
+
+msgid "Category"
+msgstr "Categoria"
+
+msgid "Change category"
+msgstr "Cambia la categoria"
 
 msgid "Votes"
 msgstr "Voti"
@@ -739,9 +709,10 @@ msgstr "Entra"
 msgid "Forgot Password"
 msgstr "Password dimenticata"
 
-msgid "HTTP login is disabled. Please switch to HTTPs if you want to login: "
-msgstr ""
-"L'accesso tramite HTTP è disabilitato. Passa ad HTTPs, se vuoi loggarti: "
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "L'accesso tramite HTTP è disabilitato. Se vuoi accedere, %spassa ad HTTPs%s."
 
 msgid "Recent Updates"
 msgstr "Aggiornamenti recenti"
@@ -780,17 +751,13 @@ msgid "Trusted Users"
 msgstr "Trusted Users"
 
 msgid "Error retrieving package list."
-msgstr ""
-"Si è verificato un errore durante il recupero della lista dei pacchetti."
+msgstr "Si è verificato un errore durante il recupero della lista dei pacchetti."
 
 msgid "No packages matched your search criteria."
 msgstr "Nessun pacchetto corrisponde ai criteri della ricerca."
 
 msgid "Package Listing"
 msgstr "Lista dei pacchetti"
-
-msgid "Category"
-msgstr "Categoria"
 
 msgid "Name"
 msgstr "Nome"
@@ -872,5 +839,3 @@ msgstr "Segnalato"
 
 msgid "Not Flagged"
 msgstr "Non segnalato"
-
-

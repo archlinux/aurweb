@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
+# Translators:
 # Bartek Piotrowski <barthalion@gmail.com>, 2011.
+# Kwpolska <kwpolska@kwpolska.tk>, 2011.
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-08-13 12:46+0200\n"
-"PO-Revision-Date: 2011-05-06 10:15+0000\n"
-"Last-Translator: Barthalion <barthalion@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.net/projects/p/aur/team/pl/)\n"
-"Language: pl\n"
+"POT-Creation-Date: 2011-09-05 17:02+0200\n"
+"PO-Revision-Date: 2011-11-05 19:52+0000\n"
+"Last-Translator: Kwpolska <kwpolska@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.net/projects/p/aur/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2)\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 msgid "Home"
 msgstr "Start"
@@ -25,16 +26,12 @@ msgstr "Start"
 msgid ""
 "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
 "Guidelines%h for more information."
-msgstr ""
-"Witamy w AUR! Aby uzyskać więcej informacji, przeczytaj %hInstrukcję "
-"Użytkownika AUR%h oraz %hInstrukcję Zaufanego Użytkownika%h."
+msgstr "Witamy w AUR! Aby uzyskać więcej informacji, przeczytaj %hInstrukcję Użytkownika AUR%h oraz %hInstrukcję Zaufanego Użytkownika%h."
 
 msgid ""
 "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
 "otherwise they will be deleted!"
-msgstr ""
-"Pliki PKGBUILD %hmuszą%h być zgodne ze %hStandardami Pakietów Archa%h, "
-"inaczej będą usuwane!"
+msgstr "Pliki PKGBUILD %hmuszą%h być zgodne ze %hStandardami Pakietów Archa%h, inaczej będą usuwane!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Nie zapomnij zagłosować na swoje ulubione pakiety!"
@@ -48,9 +45,7 @@ msgstr "ZRZECZENIE"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr ""
-"Zamieszczone pakiety są stworzone przez użytkowników. Używasz ich na własne "
-"ryzyko."
+msgstr "Zamieszczone pakiety są stworzone przez użytkowników. Używasz ich na własne ryzyko."
 
 msgid "Search Criteria"
 msgstr "Kryteria wyszukiwania"
@@ -59,11 +54,12 @@ msgid "Packages"
 msgstr "Pakiety"
 
 msgid "Cannot find package to merge votes and comments into."
-msgstr ""
+msgstr "Nie można znaleźć pakietu do scalenia głosów i komentarzy."
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Wybrane pakiety nie zostały usunięte, sprawdź pole wyboru powierdzenia."
 
 msgid "Error trying to retrieve package details."
 msgstr "Błąd podczas pobierania informacji o pakiecie."
@@ -96,28 +92,28 @@ msgid "Use this form to create an account."
 msgstr "Przy użyciu tego formularza możesz utworzyć konto."
 
 msgid "Could not retrieve proposal details."
-msgstr ""
+msgstr "Nie można odczytać szczegółów propozycji."
 
 msgid "Voting is closed for this proposal."
-msgstr ""
+msgstr "Głosowanie na tą propozycję jest zamknięte."
 
 msgid "You cannot vote in an proposal about you."
-msgstr ""
+msgstr "Nie możesz głosować w propozycji o tobie."
 
 msgid "You've already voted for this proposal."
-msgstr ""
+msgstr "Już zagłosowałeś na tą propozycję"
 
 msgid "Vote ID not valid."
-msgstr ""
+msgstr "ID głosowania nieprawidłowe."
 
 msgid "Current Votes"
-msgstr ""
+msgstr "Obecne Głosy"
 
 msgid "Past Votes"
-msgstr ""
+msgstr "Poprzednie Głosy"
 
 msgid "Add Proposal"
-msgstr ""
+msgstr "Dodaj Propozycję"
 
 msgid "Back"
 msgstr "Wstecz"
@@ -133,34 +129,34 @@ msgid "%s already has proposal running for them."
 msgstr ""
 
 msgid "Length must be a number."
-msgstr ""
+msgstr "Długość musi być liczbą."
 
 msgid "Length must be at least 1."
-msgstr ""
+msgstr "Długość musi wynosić co najmniej 1."
 
 msgid "Proposal cannot be empty."
-msgstr ""
+msgstr "Propozycja nie może być pusta."
 
 msgid "New proposal submitted."
-msgstr ""
+msgstr "Nowa propozycja wysłana."
 
 msgid "Submit a proposal to vote on."
-msgstr ""
+msgstr "Wyślij propozycję do głosowania."
 
 msgid "Applicant/TU"
-msgstr ""
+msgstr "Wnioskodawca/TU"
 
 msgid "(empty if not applicable)"
-msgstr ""
+msgstr "(puste jeśli nie dotyczy)"
 
 msgid "Length in days"
-msgstr ""
+msgstr "Długość w dniach"
 
 msgid "(defaults to 7 if empty)"
-msgstr ""
+msgstr "(domyślnie 7 jeśli puste)"
 
 msgid "Proposal"
-msgstr ""
+msgstr "Propozycja"
 
 msgid "Submit"
 msgstr "Wyślij"
@@ -181,17 +177,13 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr ""
-"Została wysłana prośba o zresetowanie hasła do konta przypisanego do Twojego "
-"adresu e-mail. Jeśli chcesz je zresetować, kliknij w link poniżej, w "
-"przeciwnym razie zignoruj tą wiadomość."
+msgstr "Została wysłana prośba o zresetowanie hasła do konta przypisanego do Twojego adresu e-mail. Jeśli chcesz je zresetować, kliknij w link poniżej, w przeciwnym razie zignoruj tą wiadomość."
 
 msgid "Password Reset"
-msgstr ""
+msgstr "Resetowanie hasła"
 
 msgid "Check your e-mail for the confirmation link."
-msgstr ""
-"Na Twój adres został wysłany e-mail z instrukcją dotyczącą resetowania hasła."
+msgstr "Na Twój adres został wysłany e-mail z instrukcją dotyczącą resetowania hasła."
 
 msgid "Your password has been reset successfully."
 msgstr "Twoje hasło zostało pomyślnie zresetowane."
@@ -209,11 +201,9 @@ msgid "Continue"
 msgstr "Kontynuuj"
 
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %haur-general%h mailing list."
-msgstr ""
-"Jeśli zapomniałeś adresu e-mail, którego użyłeś przy rejestracji, wyślij "
-"wiadomość na listę dyskusyjną %haur-general%h."
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %haur-general%h mailing list."
+msgstr "Jeśli zapomniałeś adresu e-mail, którego użyłeś przy rejestracji, wyślij wiadomość na listę dyskusyjną %haur-general%h."
 
 msgid "Enter your e-mail address:"
 msgstr "Wpisz swój adres e-mail:"
@@ -222,18 +212,15 @@ msgid "Error - No file uploaded"
 msgstr "Błąd - plik nie został załadowany."
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-"Błąd - niewspierany format pliku (wysyłaj tylko tarballe skomprezowane za "
-"pomocą gzip stworzone przez makepkg(8))."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by"
+" makepkg(8) only)."
+msgstr "Błąd - niewspierany format pliku (wysyłaj tylko tarballe skomprezowane za pomocą gzip stworzone przez makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Błąd - rozmiar zdekompresowanego pliku jest za duży."
 
 msgid "Error - source tarball may not contain more than one directory."
-msgstr ""
-"Błąd - źródłowy tarball nie może zawierać więcej, niż jednego katalogu."
+msgstr "Błąd - źródłowy tarball nie może zawierać więcej, niż jednego katalogu."
 
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Błąd - źródłowy tarball nie może zawierać plików na zewnątrz katalogu."
@@ -265,19 +252,16 @@ msgstr "Nie masz uprawnień do nadpisania pakietu %h%s%h."
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr ""
-"%s jest na czarnej liście pakietów, sprawdź, czy nie jest dostępny w "
-"oficjalnych repozytoriach."
+msgstr "%s jest na czarnej liście pakietów, sprawdź, czy nie jest dostępny w oficjalnych repozytoriach."
 
 #, php-format
 msgid "Could not change directory to %s."
 msgstr "Nie udało się przejść do katalogu %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-"Tutaj możesz wysłać źródła pakietów. Stwórz je poleceniem `makepkg --source`."
+"Upload your source packages here. Create source packages with `makepkg "
+"--source`."
+msgstr "Tutaj możesz wysłać źródła pakietów. Stwórz je poleceniem `makepkg --source`."
 
 msgid "Package Category"
 msgstr "Kategoria pakietu"
@@ -292,8 +276,7 @@ msgid "Upload"
 msgstr "Dodaj"
 
 msgid "Sorry, uploads are not permitted by this server."
-msgstr ""
-"Przepraszam, ale ładowanie plików nie jest obsługiwane przez ten serwer."
+msgstr "Przepraszam, ale ładowanie plików nie jest obsługiwane przez ten serwer."
 
 msgid "You must create an account before you can upload packages."
 msgstr "Musisz utworzyć konto aby móc dodawać pakiety."
@@ -332,10 +315,10 @@ msgid "The selected packages have been unflagged."
 msgstr "Wybrane pakiety zostały odznaczone."
 
 msgid "You must be logged in before you can delete packages."
-msgstr ""
+msgstr "Musisz się zalogować przed usuwaniem pakietów."
 
 msgid "You do have permission to delete packages."
-msgstr ""
+msgstr "Nie masz uprawnień do usuwania pakietów."
 
 msgid "You did not select any packages to delete."
 msgstr "Nie wybrałeś żadnych pakietów do usunięcia."
@@ -470,13 +453,13 @@ msgstr "Nazwa użytkownika jest nieprawidłowa."
 
 #, php-format
 msgid "It must be between %s and %s characters long"
-msgstr ""
+msgstr "Długość musi być pomiędzy %s a %s"
 
 msgid "Start and end with a letter or number"
-msgstr ""
+msgstr "Zacznij i zakończ literą lub cyfrą"
 
 msgid "Can contain only one period, underscore or hyphen."
-msgstr ""
+msgstr "Może zawierać tylko jedną kropkę, podkreślnik lub myślnik."
 
 #, php-format
 msgid "Your password must be at least %s characters."
@@ -557,6 +540,12 @@ msgstr "Wyświetl pakiety tego użytkownika"
 msgid "Bad username or password."
 msgstr "Nieprawidłowa nazwa użytkownika lub hasło."
 
+msgid "Category"
+msgstr "Kategoria"
+
+msgid "Change category"
+msgstr "Zmień kategorię."
+
 msgid "Votes"
 msgstr "Głosów"
 
@@ -603,10 +592,10 @@ msgid "Hi, this is worth reading!"
 msgstr "Witaj, warto to przeczytać!"
 
 msgid "Start"
-msgstr ""
+msgstr "Początek"
 
 msgid "End"
-msgstr ""
+msgstr "Koniec"
 
 msgid "Yes"
 msgstr "Tak"
@@ -618,26 +607,26 @@ msgid "Voted"
 msgstr "Głos"
 
 msgid "No results found."
-msgstr ""
+msgstr "Brak wyników."
 
 msgid "Proposal Details"
-msgstr ""
+msgstr "Szczegóły propozycji"
 
 msgid "This vote is still running."
-msgstr ""
+msgstr "Głosowanie ciągle trwa."
 
 #, php-format
 msgid "Submitted: %s by %s"
-msgstr ""
+msgstr "Wysłane: %s przez %s"
 
 msgid "Abstain"
-msgstr ""
+msgstr "Wstrzymaj się od głosu"
 
 msgid "Total"
-msgstr ""
+msgstr "Suma"
 
 msgid "Voters"
-msgstr ""
+msgstr "Głosujących"
 
 msgid "Bugs"
 msgstr "Błędy"
@@ -670,7 +659,7 @@ msgid "Flag Out-of-date"
 msgstr "Zaznacz jako nieaktualny"
 
 msgid "UnFlag Out-of-date"
-msgstr ""
+msgstr "Odznacz jako nieaktualny"
 
 msgid "Adopt Packages"
 msgstr "Przejmij pakiety"
@@ -682,7 +671,7 @@ msgid "Delete Packages"
 msgstr "Usuń pakiety"
 
 msgid "Merge into"
-msgstr ""
+msgstr "Scal z"
 
 msgid "Confirm"
 msgstr "Potwierdź"
@@ -721,8 +710,10 @@ msgstr "Zaloguj się"
 msgid "Forgot Password"
 msgstr "Zapomniałem hasła"
 
-msgid "HTTP login is disabled. Please switch to HTTPs if you want to login: "
-msgstr ""
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "Logowanie w HTTP jest wyłączone.  %sPrzełącz się na HTTPs%s aby się zalogować."
 
 msgid "Recent Updates"
 msgstr "Ostatnie aktualizacje"
@@ -768,9 +759,6 @@ msgstr "Żaden pakiet nie spełnia podanych kryteriów."
 
 msgid "Package Listing"
 msgstr "Lista pakietów"
-
-msgid "Category"
-msgstr "Kategoria"
 
 msgid "Name"
 msgstr "Nazwa"
@@ -852,6 +840,3 @@ msgstr "Oznaczony"
 
 msgid "Not Flagged"
 msgstr "Nieoznaczony"
-
-#~ msgid "New Package Notify"
-#~ msgstr "Powiadamiaj o nowych pakietach"
