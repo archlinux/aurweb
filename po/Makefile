@@ -14,11 +14,11 @@ POFILES = \
 	hr.po \
 	hu.po \
 	it.po \
-	nb_NO.po \
+	nb.po \
 	nl.po \
 	pl.po \
-	pt.po \
 	pt_BR.po \
+	pt_PT.po \
 	ro.po \
 	ru.po \
 	sr.po \

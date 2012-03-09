@@ -2,16 +2,18 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # 
-#   <panosfilip@gmail.com>, 2011.
+# Translators:
+# Axilleas P <markeleas@gmail.com>, 2011.
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+#   <panosfilip@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-08-13 12:46+0200\n"
-"PO-Revision-Date: 2011-08-14 11:16+0000\n"
-"Last-Translator: flamelab <panosfilip@gmail.com>\n"
-"Language-Team: Greek (http://www.transifex.net/projects/p/aur/team/el/)\n"
+"POT-Creation-Date: 2011-09-05 17:02+0200\n"
+"PO-Revision-Date: 2011-09-28 12:52+0000\n"
+"Last-Translator: Axilleas P <markeleas@gmail.com>\n"
+"Language-Team: Greek (http://www.transifex.net/projects/p/aur/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,16 +26,12 @@ msgstr "Home"
 msgid ""
 "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
 "Guidelines%h for more information."
-msgstr ""
-"Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %hOδηγό Χρηστών του AUR%h και τον"
-" %hΟδηγό των Trusted Users%h για περισσότερες πληροφορίες."
+msgstr "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %hOδηγό Χρηστών του AUR%h και τον %hΟδηγό των Trusted Users%h για περισσότερες πληροφορίες."
 
 msgid ""
 "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
 "otherwise they will be deleted!"
-msgstr ""
-"Τα προτεινόμενα PKGBUILDs %hπρέπει%h να ακολουθούν τα  %hΠρότυπα δημιουργίας"
-" πακέτων του Arch%h αλλιώς θα διαγράφονται!"
+msgstr "Τα προτεινόμενα PKGBUILDs %hπρέπει%h να ακολουθούν τα  %hΠρότυπα δημιουργίας πακέτων του Arch%h αλλιώς θα διαγράφονται!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Θυμηθείτε να ψηφίσετε τα αγαπημένα σας πακέτα!"
@@ -47,9 +45,7 @@ msgstr "ΑΠΟΠΟΙΗΣΗ ΕΥΘΥΝΗΣ"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr ""
-"Τα προτεινόμενα πακέτα στο \"Unsupported\" είναι περιεχόμενο που παρέχεται "
-"απο τους χρήστες. Χρησιμοποιήστε τα με δική σας ευθύνη."
+msgstr "Τα προτεινόμενα πακέτα στο \"Unsupported\" είναι περιεχόμενο που παρέχεται απο τους χρήστες. Χρησιμοποιήστε τα με δική σας ευθύνη."
 
 msgid "Search Criteria"
 msgstr "Κριτήρια Αναζήτησης"
@@ -63,9 +59,7 @@ msgstr "Δεν μπορεί να βρεθεί το πακέτο για τη συ
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr ""
-"Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι "
-"επιβεβαίωσης."
+msgstr "Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι επιβεβαίωσης."
 
 msgid "Error trying to retrieve package details."
 msgstr "Σφάλμα στη διαδικασία λήψης των πληροφοριών του πακέτου."
@@ -83,15 +77,13 @@ msgid "You do not have permission to edit this account."
 msgstr "Δεν έχετε την άδεια να επεξεργαστείτε αυτόν τον λογαριασμό."
 
 msgid "Use this form to search existing accounts."
-msgstr ""
-"Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε για υπάρχοντες λογαριασμούς."
+msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε για υπάρχοντες λογαριασμούς."
 
 msgid "Use this form to update your account."
 msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να ανανεώσετε το λογαριασμό σας."
 
 msgid "Leave the password fields blank to keep your same password."
-msgstr ""
-"Αφήστε τα πεδία για τον κωδικό σας κενά για να κρατήσετε το ίδιο κωδικό."
+msgstr "Αφήστε τα πεδία για τον κωδικό σας κενά για να κρατήσετε το ίδιο κωδικό."
 
 msgid "You must log in to view user information."
 msgstr "Πρέπει να συνδεθείτε για να δείτε πληροφορίες χρήστη."
@@ -173,9 +165,7 @@ msgid "Missing a required field."
 msgstr "Λείπει ένα απαραίτητο πεδίο."
 
 msgid "Password fields do not match."
-msgstr ""
-"Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν "
-"είναι ίδιες."
+msgstr "Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν είναι ίδιες."
 
 msgid "Invalid e-mail."
 msgstr "Άκυρo e-mail."
@@ -187,11 +177,7 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr ""
-"Ένα αίτημα επαναφοράς κωδικού έχει αποσταλλεί στον λογαριασμό που "
-"συσχετίζεται με την διεύθυνση e-mail σας. Εαν επιθυμείτε να επαναφέρετε τον "
-"κωδικό σας, ακολουθείστε τον σύνδεσμο που ακολουθεί, αλλιώς αγνοείστε αυτό "
-"το μήνυμα."
+msgstr "Ένα αίτημα επαναφοράς κωδικού έχει αποσταλλεί στον λογαριασμό που συσχετίζεται με την διεύθυνση e-mail σας. Εαν επιθυμείτε να επαναφέρετε τον κωδικό σας, ακολουθείστε τον σύνδεσμο που ακολουθεί, αλλιώς αγνοείστε αυτό το μήνυμα."
 
 msgid "Password Reset"
 msgstr "Επαναφορά Κωδικού"
@@ -217,9 +203,7 @@ msgstr "Συνεχίστε"
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
 " message to the %haur-general%h mailing list."
-msgstr ""
-"Εάν έχετε ξεχάσει τη διεύθυνση ηλεκτρονικού ταχυδρομείου που χρησιμοποιήσατε"
-" για να εγγραφείτε, στείλτε ένα μήνυμα στην %haur-general%h mailing list"
+msgstr "Εάν έχετε ξεχάσει τη διεύθυνση ηλεκτρονικού ταχυδρομείου που χρησιμοποιήσατε για να εγγραφείτε, στείλτε ένα μήνυμα στην %haur-general%h mailing list"
 
 msgid "Enter your e-mail address:"
 msgstr "Εισάγετε την διεύθυνση e-mail σας:"
@@ -230,35 +214,29 @@ msgstr "Σφάλμα - Κανένα αρχείο δεν έχει ανεβαστ�
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
 " makepkg(8) only)."
-msgstr ""
-"Σφάλμα - δεν υποστηρίζεται η μορφή αρχείου (παρακαλείστε να υποβάλετε gzip "
-"tarballs που παράγονται από το makepkg (8) μόνο)."
+msgstr "Σφάλμα - δεν υποστηρίζεται η μορφή αρχείου (παρακαλείστε να υποβάλετε gzip tarballs που παράγονται από το makepkg (8) μόνο)."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Σφάλμα - το ασυμπίεστο μέγεθος αρχείου είναι πολύ μεγάλο."
 
 msgid "Error - source tarball may not contain more than one directory."
-msgstr ""
-"Σφάλμα -το tarball δεν μπορεί να περιέχει περισσότερους από έναν καταλόγους."
+msgstr "Σφάλμα -το tarball δεν μπορεί να περιέχει περισσότερους από έναν καταλόγους."
 
 msgid "Error - source tarball may not contain files outside a directory."
-msgstr ""
-"Σφάλμα - το tarball δεν μπορεί να περιέχει αρχεία έξω από έναν κατάλογο."
+msgstr "Σφάλμα - το tarball δεν μπορεί να περιέχει αρχεία έξω από έναν κατάλογο."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Σφάλμα - το tarball δεν μπορεί να περιέχει παραπάνω υποκαταλόγους."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr ""
-"Σφάλμα κατά το ξεπακετάρισμα του ανεβασμένου αρχείου - δεν υπάρχει PKGBUILD."
+msgstr "Σφάλμα κατά το ξεπακετάρισμα του ανεβασμένου αρχείου - δεν υπάρχει PKGBUILD."
 
 #, php-format
 msgid "Missing %s variable in PKGBUILD."
 msgstr "Λείπει η μεταβλητή %s στο PKGBUILD."
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr ""
-"Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου."
+msgstr "Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Μη έγκυρο όνομα: μόνο πεζοί χαρακτήρες επιτρέπονται."
@@ -274,9 +252,7 @@ msgstr "Δεν επιτρέπεται να επικαλύψετε το %h%s%h π
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr ""
-"Το πακέτο %s είναι σε μαύρη λίστα , παρακαλούμε να ελέγξετε αν είναι "
-"διαθέσιμο στα επίσημα repos."
+msgstr "Το πακέτο %s είναι σε μαύρη λίστα , παρακαλούμε να ελέγξετε αν είναι διαθέσιμο στα επίσημα repos."
 
 #, php-format
 msgid "Could not change directory to %s."
@@ -285,9 +261,7 @@ msgstr "Δεν είναι δυνατή η αλλαγή καταλόγου σε %
 msgid ""
 "Upload your source packages here. Create source packages with `makepkg "
 "--source`."
-msgstr ""
-"Ανεβάστε τα πηγαία πακέτα εδώ. Δημιουργήστε πηγαία πακέτα με την εντολή "
-"`makepkg --source`"
+msgstr "Ανεβάστε τα πηγαία πακέτα εδώ. Δημιουργήστε πηγαία πακέτα με την εντολή `makepkg --source`"
 
 msgid "Package Category"
 msgstr "Κατηγορία Πακέτου"
@@ -341,8 +315,7 @@ msgid "The selected packages have been unflagged."
 msgstr "Τα συγκεκριμένα πακέτα έχουν αποεπισημανθεί."
 
 msgid "You must be logged in before you can delete packages."
-msgstr ""
-"Πρέπει να είστε συνδεδεμένοι για να μπορέσετε να διαγράψετε τα πακέτα."
+msgstr "Πρέπει να είστε συνδεδεμένοι για να μπορέσετε να διαγράψετε τα πακέτα."
 
 msgid "You do have permission to delete packages."
 msgstr "Έχετε τα απαραίτητα δικαιώματα για να διαγράψετε τα πακέτα."
@@ -375,9 +348,7 @@ msgid "You must be logged in before you can vote for packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ψηφίσετε για πακέτα."
 
 msgid "You must be logged in before you can un-vote for packages."
-msgstr ""
-"Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για "
-"πακέτα."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για πακέτα."
 
 msgid "You did not select any packages to vote for."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για να το ψηφίσετε."
@@ -400,9 +371,7 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Έχετε αφαιρεθεί από τη λίστα ειδοποίησης σχολίων για το %s."
 
 msgid "You must be logged in before you can edit package information."
-msgstr ""
-"Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις "
-"πληροφορίες του πακέτου."
+msgstr "Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις πληροφορίες του πακέτου."
 
 msgid "Missing comment ID."
 msgstr "Λείπει το ID του σχολίου."
@@ -571,6 +540,12 @@ msgstr "Δείτε τα πακέτα αυτού του χρήστη"
 msgid "Bad username or password."
 msgstr "Λάθος όνομα χρήστη ή συνθηματικό"
 
+msgid "Category"
+msgstr "Κατηγορία"
+
+msgid "Change category"
+msgstr "Αλλαγή κατηγορίας"
+
 msgid "Votes"
 msgstr "Ψήφοι"
 
@@ -735,10 +710,10 @@ msgstr "Σύνδεση"
 msgid "Forgot Password"
 msgstr "Ξεχάσατε τον κωδικό σας"
 
-msgid "HTTP login is disabled. Please switch to HTTPs if you want to login: "
-msgstr ""
-"Η HTTP σύνδεση είναι απενεργοποιημένη. Παρακαλούμε να μεταβείτε σε HTTPS, αν"
-" θέλετε να συνδεθείτε:"
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "Το HTTP είναι απενεργοποιημένο. Παρακαλώ %sγυρίστε σε HTTPs%s αν θέλετε να εισέλθετε."
 
 msgid "Recent Updates"
 msgstr "Πρόσφατες Ανανεώσεις"
@@ -750,7 +725,7 @@ msgid "Packages in unsupported"
 msgstr "Μη υποστηριζόμενα πακέτα"
 
 msgid "Out of Date"
-msgstr "Παρωχημένο"
+msgstr "Παρωχημένα"
 
 msgid "Statistics"
 msgstr "Στατιστικά"
@@ -785,9 +760,6 @@ msgstr "Κανένα πακέτο δεν ικανοποιεί τα κριτήρ�
 msgid "Package Listing"
 msgstr "Λίστα Πακέτων"
 
-msgid "Category"
-msgstr "Κατηγορία"
-
 msgid "Name"
 msgstr "Όνομα"
 
@@ -804,7 +776,7 @@ msgid "Actions"
 msgstr "Ενέργειες"
 
 msgid "Unflag Out-of-date"
-msgstr "Δηλώστε το πακέτο Παρωχημένο"
+msgstr "Δηλώστε το πακέτο ως Παρωχημένο"
 
 msgid "Go"
 msgstr "Πήγαινε"
@@ -815,14 +787,14 @@ msgstr "Εμφάνιση αποτελεσμάτων %s - %s από %s"
 
 #, php-format
 msgid "Comment by: %s on %s"
-msgstr "Σχόλια από: %s στο %s"
+msgstr "Σχόλιο από: %s στις %s"
 
 msgid "Delete comment"
 msgstr "Διαγράψτε το σχόλιο"
 
 #, php-format
 msgid "Show all %s comments"
-msgstr "Eμφάνιση όλων των σχολίων %s"
+msgstr "Eμφάνιση όλων των %s σχολίων "
 
 msgid "Orphans"
 msgstr "Ορφανά"
@@ -831,7 +803,7 @@ msgid "Advanced"
 msgstr "Σύνθετη αναζήτηση"
 
 msgid "Any"
-msgstr "Οποιοδήποτε"
+msgstr "Οποιαδήποτε"
 
 msgid "Search by"
 msgstr "Αναζήτηση κατά"
@@ -868,5 +840,3 @@ msgstr "Σημειωμένα"
 
 msgid "Not Flagged"
 msgstr "Μη Σημειωμένα"
-
-

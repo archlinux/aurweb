@@ -1,12 +1,19 @@
 Upgrading
 =========
 
-From 1.9.0 to 1.9.X
+From 1.9.1 to 2.0.0
 -------------------
 
 1. Add new "Users" table login date column:
 
 ALTER TABLE Users ADD COLUMN LastLogin BIGINT NOT NULL DEFAULT 0;
+
+From 1.9.0 to 1.9.1
+-------------------
+
+1. Merge "web/lib/config.inc.php.proto" with "web/lib/config.inc.php".
+
+2. Install translations by running `make install` in "po/".
 
 From 1.8.2 to 1.9.0
 -------------------

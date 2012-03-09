@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# neiko <neikokz+tsfx@gmail.com>, 2011.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# 
+# Translators:
 # Angel Velasquez <angvp@archlinux.org>, 2011.
+#   <juantascon@gmail.com>, 2011.
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# neiko <neikokz+tsfx@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-08-13 12:46+0200\n"
-"PO-Revision-Date: 2011-04-11 20:18+0000\n"
-"Last-Translator: neiko <neikokz+tsfx@gmail.com>\n"
-"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/aur/"
-"team/es/)\n"
-"Language: es\n"
+"POT-Creation-Date: 2011-09-05 17:02+0200\n"
+"PO-Revision-Date: 2011-10-07 18:01+0000\n"
+"Last-Translator: juantascon <juantascon@gmail.com>\n"
+"Language-Team: Spanish (Castilian) (http://www.transifex.net/projects/p/aur/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgid "Home"
@@ -26,23 +27,18 @@ msgstr "Inicio"
 msgid ""
 "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
 "Guidelines%h for more information."
-msgstr ""
-"¡Bienvenido al AUR! Por favor lea la %hGuía AUR del Usuario%h y la %hGuía TU "
-"del AUR%h para más información."
+msgstr "¡Bienvenido al AUR! Por favor lea la %hGuía AUR del Usuario%h y la %hGuía TU del AUR%h para más información."
 
 msgid ""
 "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
 "otherwise they will be deleted!"
-msgstr ""
-"¡Los PKGBUILDS enviados %hdeben%h cumplir las %hNormas de empaquetado de Arch"
-"%h si no serán eliminados!"
+msgstr "¡Los PKGBUILDS enviados %hdeben%h cumplir las %hNormas de empaquetado de Arch%h si no serán eliminados!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "¡Recuerde votar sus paquetes favoritos!"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr ""
-"Algunos paquetes pueden estar provistos de forma binaria en [community]"
+msgstr "Algunos paquetes pueden estar provistos de forma binaria en [community]"
 
 msgid "DISCLAIMER"
 msgstr "ACLARATORIA"
@@ -50,9 +46,7 @@ msgstr "ACLARATORIA"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr ""
-"Los paquetes no soportados son producidos por los usuarios. Cualquier uso de "
-"los archivos de éstos es a su propio riesgo."
+msgstr "Los paquetes no soportados son producidos por los usuarios. Cualquier uso de los archivos de éstos es a su propio riesgo."
 
 msgid "Search Criteria"
 msgstr "Criterio de Búsqueda"
@@ -64,10 +58,9 @@ msgid "Cannot find package to merge votes and comments into."
 msgstr ""
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr ""
-"Los paquetes seleccionados no han sido eliminados, compruebe la casilla de "
-"confirmación."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Los paquetes seleccionados no han sido eliminados, compruebe la casilla de confirmación."
 
 msgid "Error trying to retrieve package details."
 msgstr "Error al intentar recuperar los detalles del paquete."
@@ -185,10 +178,7 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr ""
-"Una petición de reinicio de la clave ha sido enviada para la cuenta asociada "
-"a su dirección de correo electrónico. Si quiere reiniciar su clave siga el "
-"siguiente enlace, si no es así, ignore este mensaje y no ocurrirá nada."
+msgstr "Una petición de reinicio de la clave ha sido enviada para la cuenta asociada a su dirección de correo electrónico. Si quiere reiniciar su clave siga el siguiente enlace, si no es así, ignore este mensaje y no ocurrirá nada."
 
 msgid "Password Reset"
 msgstr "Reinicio de la clave"
@@ -212,11 +202,9 @@ msgid "Continue"
 msgstr "Continuar"
 
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %haur-general%h mailing list."
-msgstr ""
-"Si ha olvidado el correo que usó para registrarse, por favor, envíe un "
-"mensaje a la lista de correo %haur-general%h."
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %haur-general%h mailing list."
+msgstr "Si ha olvidado el correo que usó para registrarse, por favor, envíe un mensaje a la lista de correo %haur-general%h."
 
 msgid "Enter your e-mail address:"
 msgstr "Introduzca su dirección de correo:"
@@ -225,11 +213,9 @@ msgid "Error - No file uploaded"
 msgstr "Error - El fichero no se ha subido"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-"Error - formato de archivo no soportado (por favor, envíe sólo archivos .tar."
-"gz generados por makepkg(8))."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by"
+" makepkg(8) only)."
+msgstr "Error - formato de archivo no soportado (por favor, envíe sólo archivos .tar.gz generados por makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Error - el tamaño del archivo descomprimido es demasiado grande."
@@ -238,8 +224,7 @@ msgid "Error - source tarball may not contain more than one directory."
 msgstr "Error - el archivo tar no puede contener más de un directorio."
 
 msgid "Error - source tarball may not contain files outside a directory."
-msgstr ""
-"Error - el archivo tar no puede contener archivos fuera de un directorio."
+msgstr "Error - el archivo tar no puede contener archivos fuera de un directorio."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Error - el archivo tar no puede contener subdirectorios anidados."
@@ -268,20 +253,16 @@ msgstr "No está autorizado a sobreescribir el paquete %h%s%h."
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr ""
-"%s está en la lista negra de paquetes, por favor, compruebe si está "
-"disponible en los repositorios oficiales."
+msgstr "%s está en la lista negra de paquetes, por favor, compruebe si está disponible en los repositorios oficiales."
 
 #, php-format
 msgid "Could not change directory to %s."
 msgstr "No se pudo cambiar el directorio a %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-"Suba sus paquetes de fuentes aquí. Cree paquetes de fuentes con `makepkg --"
-"source`."
+"Upload your source packages here. Create source packages with `makepkg "
+"--source`."
+msgstr "Suba sus paquetes de fuentes aquí. Cree paquetes de fuentes con `makepkg --source`."
 
 msgid "Package Category"
 msgstr "Categoría del paquete"
@@ -507,8 +488,7 @@ msgid "The account, %h%s%h, has been successfully created."
 msgstr "La cuenta, %h%s%h, se creó correctamente."
 
 msgid "Click on the Home link above to login."
-msgstr ""
-"Pulse en el enlace Inicio situado en la parte superior para identificarse."
+msgstr "Pulse en el enlace Inicio situado en la parte superior para identificarse."
 
 msgid "Error trying to modify account, %h%s%h: %s."
 msgstr "Error al intentar modificar la cuenta, %h%s%h: %s."
@@ -517,8 +497,7 @@ msgid "The account, %h%s%h, has been successfully modified."
 msgstr "La cuenta, %h%s%h, se ha modificado correctamente."
 
 msgid "No results matched your search criteria."
-msgstr ""
-"No se encontraron resultados que coincidan con su criterio de búsqueda."
+msgstr "No se encontraron resultados que coincidan con su criterio de búsqueda."
 
 msgid "Type"
 msgstr "Tipo"
@@ -561,6 +540,12 @@ msgstr "Ver los paquetes de este usuario"
 
 msgid "Bad username or password."
 msgstr "Clave o nombre de usuario erróneos."
+
+msgid "Category"
+msgstr "Categoría"
+
+msgid "Change category"
+msgstr "Cambiar categoría"
 
 msgid "Votes"
 msgstr "Votos"
@@ -726,7 +711,9 @@ msgstr "Entrar"
 msgid "Forgot Password"
 msgstr "Olvidé la clave"
 
-msgid "HTTP login is disabled. Please switch to HTTPs if you want to login: "
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
 msgstr ""
 
 msgid "Recent Updates"
@@ -773,9 +760,6 @@ msgstr "Ningún paquete coincide con su criterio de búsqueda."
 
 msgid "Package Listing"
 msgstr "Lista de paquetes"
-
-msgid "Category"
-msgstr "Categoría"
 
 msgid "Name"
 msgstr "Nombre"
@@ -857,6 +841,3 @@ msgstr "Marcados"
 
 msgid "Not Flagged"
 msgstr "No marcados"
-
-#~ msgid "New Package Notify"
-#~ msgstr "Aviso de nuevos paquetes"
