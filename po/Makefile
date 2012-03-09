@@ -17,8 +17,8 @@ POFILES = \
 	nb_NO.po \
 	nl.po \
 	pl.po \
-	pt.po \
 	pt_BR.po \
+	pt_PT.po \
 	ro.po \
 	ru.po \
 	sr.po \
