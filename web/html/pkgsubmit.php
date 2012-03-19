@@ -65,22 +65,24 @@ if ($uid):
 			$pkgbuild_raw = '';
 			$dircount = 0;
 			foreach ($tar->listContent() as $tar_file) {
-				if (preg_match('/^[^\/]+\/PKGBUILD$/', $tar_file['filename'])) {
-					$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
+				if ($tar_file['typeflag'] == 0) {
+					if (strchr($tar_file['filename'], '/') === false) {
+						$error = __("Error - source tarball may not contain files outside a directory.");
+						break;
+					}
+					elseif (substr($tar_file['filename'], -9) == '/PKGBUILD') {
+						$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
+					}
 				}
-				elseif (preg_match('/^[^\/]+\/$/', $tar_file['filename'])) {
-					if (++$dircount > 1) {
+				elseif ($tar_file['typeflag'] == 5) {
+					if (substr_count($tar_file['filename'], "/") > 1) {
+						$error = __("Error - source tarball may not contain nested subdirectories.");
+						break;
+					}
+					elseif (++$dircount > 1) {
 						$error = __("Error - source tarball may not contain more than one directory.");
 						break;
 					}
-				}
-				elseif (preg_match('/^[^\/]+$/', $tar_file['filename'])) {
-					$error = __("Error - source tarball may not contain files outside a directory.");
-					break;
-				}
-				elseif (preg_match('/^[^\/]+\/[^\/]+\//', $tar_file['filename'])) {
-					$error = __("Error - source tarball may not contain nested subdirectories.");
-					break;
 				}
 			}
 
