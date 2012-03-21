@@ -80,7 +80,18 @@ function check_sid($dbh=NULL) {
 # verify that an email address looks like it is legitimate
 #
 function valid_email($addy) {
-	return (filter_var($addy, FILTER_VALIDATE_EMAIL) !== false);
+	// check against RFC 3696
+	if (filter_var($addy, FILTER_VALIDATE_EMAIL) === false) {
+		return false;
+	}
+
+	// check dns for mx, a, aaaa records
+	list($local, $domain) = explode('@', $addy);
+	if (!(checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A') || checkdnsrr($domain, 'AAAA'))) {
+		return false;
+	}
+
+	return true;
 }
 
 # a new seed value for mt_srand()
