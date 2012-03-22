@@ -10,6 +10,8 @@ check_sid();                      # see if they're still logged in
 # Set the title to the current query if required
 if (isset($_GET['ID']) && ($pkgname = pkgname_from_id($_GET['ID']))) {
 	$title = $pkgname;
+} else if (isset($_GET['N'])) {
+	$title = $pkgname = $_GET['N'];
 } else if (!empty($_GET['K'])) {
 	$title = __("Search Criteria") . ": " . $_GET['K'];
 } else {
@@ -96,6 +98,18 @@ if (isset($_GET['ID'])) {
 		}
 		else {
 			package_details($_GET['ID'], null);
+		}
+	}
+} else if (isset($_GET['N'])) {
+	include('pkg_search_form.php');
+	if (!$pkgid = pkgid_from_name($_GET['N'])) {
+		print __("Error trying to retrieve package details.")."<br />\n";
+	} else {
+		if (isset($_COOKIE["AURSID"])) {
+			package_details($pkgid, $_COOKIE["AURSID"]);
+		}
+		else {
+			package_details($pkgid, null);
 		}
 	}
 } else {

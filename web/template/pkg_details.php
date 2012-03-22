@@ -2,7 +2,13 @@
 $atype = account_from_sid($SID);
 $uid = uid_from_sid($SID);
 
-$pkgid = intval($_REQUEST['ID']);
+if (isset($_REQUEST['ID'])) {
+	$pkgid = intval($_REQUEST['ID']);
+}
+else {
+	$pkgid = pkgid_from_name($_REQUEST['N']);
+}
+
 if ($uid == $row["MaintainerUID"] or
 	($atype == "Developer" or $atype == "Trusted User")) {
 
