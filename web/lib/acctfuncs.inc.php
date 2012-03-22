@@ -8,10 +8,28 @@ function in_request($name) {
 	return "";
 }
 
+# Format PGP key fingerprint
+function html_format_pgp_fingerprint($fingerprint) {
+	if (strlen($fingerprint) != 40 || !ctype_xdigit($fingerprint)) {
+		return $fingerprint;
+	}
+
+	return htmlspecialchars(substr($fingerprint, 0, 4) . " " .
+		substr($fingerprint, 4, 4) . " " .
+		substr($fingerprint, 8, 4) . " " .
+		substr($fingerprint, 12, 4) . " " .
+		substr($fingerprint, 16, 4) . "  " .
+		substr($fingerprint, 20, 4) . " " .
+		substr($fingerprint, 24, 4) . " " .
+		substr($fingerprint, 28, 4) . " " .
+		substr($fingerprint, 32, 4) . " " .
+		substr($fingerprint, 36, 4) . " ", ENT_QUOTES);
+}
+
 # Display the standard Account form, pass in default values if any
 
 function display_account_form($UTYPE,$A,$U="",$T="",$S="",
-			$E="",$P="",$C="",$R="",$L="",$I="",$UID=0) {
+			$E="",$P="",$C="",$R="",$L="",$I="",$K="",$UID=0) {
 	# UTYPE: what user type the form is being displayed for
 	# A: what "form" name to use
 	# U: value to display for username
@@ -113,6 +131,12 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "</tr>\n";
 
 	print "<tr>";
+	print "<td align='left'>".__("PGP Key Fingerprint").":</td>";
+	print "<td align='left'><input type='text' size='30' maxlength='50'";
+	print " name='K' value='".html_format_pgp_fingerprint($K)."' /></td>";
+	print "</tr>\n";
+
+	print "<tr>";
 	print "<td align='left'>".__("Language").":</td>";
 	print "<td align='left'><select name=L>\n";
 
@@ -152,7 +176,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 # process form input from a new/edit account form
 #
 function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
-			$P="",$C="",$R="",$L="",$I="",$UID=0) {
+			$P="",$C="",$R="",$L="",$I="",$K="",$UID=0) {
 	# UTYPE: The user's account type
 	# TYPE: either "edit" or "new"
 	# A: what parent "form" name to use
@@ -215,6 +239,11 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	if (!$error && !valid_email($E)) {
 		$error = __("The email address is invalid.");
 	}
+
+	if (!$error && $K != '' && !valid_pgp_fingerprint($K)) {
+		$error = __("The PGP key fingerprint is invalid.");
+	}
+
 	if ($UTYPE == "Trusted User" && $T == 3) {
 		$error = __("A Trusted User cannot assign Developer status.");
 	}
@@ -260,17 +289,17 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	if ($error) {
 		print "<span class='error'>".$error."</span><br/>\n";
 		display_account_form($UTYPE, $A, $U, $T, $S, $E, "", "",
-				$R, $L, $I, $UID);
+				$R, $L, $I, $K, $UID);
 	} else {
 		if ($TYPE == "new") {
 			# no errors, go ahead and create the unprivileged user
 			$salt = generate_salt();
 			$P = salted_hash($P, $salt);
 			$escaped = array_map('db_escape_string',
-				array($U, $E, $P, $salt, $R, $L, $I));
+				array($U, $E, $P, $salt, $R, $L, $I, str_replace(" ", "", $K)));
 			$q = "INSERT INTO Users (" .
 				"AccountTypeID, Suspended, Username, Email, Passwd, Salt" .
-				", RealName, LangPreference, IRCNick) " .
+				", RealName, LangPreference, IRCNick, PGPKey) " .
 				"VALUES (1, 0, '" . implode("', '", $escaped) . "')";
 			$result = db_query($q, $dbh);
 			if (!$result) {
@@ -308,6 +337,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$q.= ", RealName = '".db_escape_string($R)."'";
 			$q.= ", LangPreference = '".db_escape_string($L)."'";
 			$q.= ", IRCNick = '".db_escape_string($I)."'";
+			$q.= ", PGPKey = '".db_escape_string(str_replace(" ", "", $K))."'";
 			$q.= " WHERE ID = ".intval($UID);
 			$result = db_query($q, $dbh);
 			if (!$result) {
@@ -333,7 +363,7 @@ function search_accounts_form() {
 # search results page
 #
 function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
-		$S="",$E="",$R="",$I="") {
+		$S="",$E="",$R="",$I="",$K="") {
 	# UTYPE: what account type the user belongs to
 	# O: what row offset we're at
 	# SB: how to sort the results
@@ -388,6 +418,10 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		$q.= "AND IRCNick LIKE '%".db_escape_like($I)."%' ";
 		$search_vars[] = "I";
 	}
+	if ($K) {
+		$q.= "AND PGPKey LIKE '%".db_escape_like(str_replace(" ", "", $K))."%' ";
+		$search_vars[] = "K";
+	}
 	switch ($SB) {
 		case 't':
 			$q.= "ORDER BY AccountTypeID, Username ";
@@ -429,6 +463,8 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 			print "<th class='header'>";
 			print "<span class='f2'>".__("IRC Nick")."</span></th>";
 			print "<th class='header'>";
+			print "<span class='f2'>".__("PGP Key Fingerprint")."</span></th>";
+			print "<th class='header'>";
 			print "<span class='f2'>".__("Last Voted")."</span></th>";
 			print "<th class='header'>";
 			print "<span class='f2'>".__("Edit Account")."</span></th>";
@@ -458,6 +494,9 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 				print "</span></td>";
 				print "<td class='".$c."'><span class='f5'>";
 				$row["IRCNick"] ? print htmlspecialchars($row["IRCNick"],ENT_QUOTES) : print "&nbsp;";
+				print "</span></td>";
+				print "<td class='".$c."'><span class='f5'>";
+				$row["PGPKey"] ? print html_format_pgp_fingerprint($row["PGPKey"]) : print "&nbsp;";
 				print "</span></td>";
 				print "<td class='".$c."'><span class='f5'>";
 				$row["LastVoted"]
@@ -526,7 +565,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 
 # Display non-editable account info
 #
-function display_account_info($U="", $T="", $E="", $R="", $I="", $LV="") {
+function display_account_info($U="", $T="", $E="", $R="", $I="", $K="", $LV="") {
 	# U: value to display for username
 	# T: value to display for account type
 	# E: value to display for email address
@@ -572,6 +611,11 @@ function display_account_info($U="", $T="", $E="", $R="", $I="", $LV="") {
 	print "  <tr>\n";
 	print "    <td align='left'>".__("IRC Nick").":</td>\n";
 	print "    <td align='left'>".htmlspecialchars($I,ENT_QUOTES)."</td>\n";
+	print "  </tr>\n";
+
+	print "  <tr>\n";
+	print "    <td align='left'>".__("PGP Key Fingerprint").":</td>\n";
+	print "    <td align='left'>".html_format_pgp_fingerprint($K)."</td>\n";
 	print "  </tr>\n";
 
 	print "  <tr>\n";
@@ -781,6 +825,15 @@ function valid_passwd( $userID, $passwd, $dbh )
 		}
 	}
 	return false;
+}
+
+/*
+ * Checks if the PGP key fingerprint is valid (must be 40 hexadecimal digits).
+ */
+function valid_pgp_fingerprint ( $fingerprint )
+{
+	$fingerprint = str_replace(" ", "", $fingerprint);
+	return (strlen($fingerprint) == 40 && ctype_xdigit($fingerprint));
 }
 
 /*

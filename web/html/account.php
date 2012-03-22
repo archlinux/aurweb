@@ -33,7 +33,8 @@ if (isset($_COOKIE["AURSID"])) {
 			#
 			search_results_page($atype, in_request("O"), in_request("SB"),
 					in_request("U"), in_request("T"), in_request("S"),
-					in_request("E"), in_request("R"), in_request("I"));
+					in_request("E"), in_request("R"), in_request("I"),
+					in_request("K"));
 
 		} else {
 			# a non-privileged user is trying to access the search page
@@ -64,7 +65,7 @@ if (isset($_COOKIE["AURSID"])) {
 				display_account_form($atype, "UpdateAccount", $row["Username"],
 						$row["AccountType"], $row["Suspended"], $row["Email"],
 						"", "", $row["RealName"], $row["LangPreference"],
-						$row["IRCNick"], $row["ID"]);
+						$row["IRCNick"], $row["PGPKey"], $row["ID"]);
 			}
 		}
 
@@ -82,7 +83,7 @@ if (isset($_COOKIE["AURSID"])) {
 			$row = mysql_fetch_assoc($result);
 			display_account_info($row["Username"],
 						$row["AccountType"], $row["Email"], $row["RealName"],
-						$row["IRCNick"], $row["LastVoted"]);
+						$row["IRCNick"], $row["PGPKey"], $row["LastVoted"]);
 		}
 		
 	} elseif ($action == "UpdateAccount") {
@@ -92,7 +93,7 @@ if (isset($_COOKIE["AURSID"])) {
 				in_request("U"), in_request("T"), in_request("S"),
 				in_request("E"), in_request("P"), in_request("C"),
 				in_request("R"), in_request("L"), in_request("I"),
-				in_request("ID"));
+				in_request("K"), in_request("ID"));
 
 
 	} else {
@@ -127,7 +128,7 @@ if (isset($_COOKIE["AURSID"])) {
 				display_account_form($atype, "UpdateAccount", $row["Username"],
 						$row["AccountType"], $row["Suspended"], $row["Email"],
 						"", "", $row["RealName"], $row["LangPreference"],
-						$row["IRCNick"], $row["ID"]);
+						$row["IRCNick"], $row["PGPKey"], $row["ID"]);
 			}
 		}
 	}
@@ -143,7 +144,7 @@ if (isset($_COOKIE["AURSID"])) {
 		process_account_form("","new", "NewAccount",
 				in_request("U"), 1, 0, in_request("E"),
 				in_request("P"), in_request("C"), in_request("R"),
-				in_request("L"), in_request("I"));
+				in_request("L"), in_request("I"), in_request("K"));
 
 	} else {
 		# display the account request form
