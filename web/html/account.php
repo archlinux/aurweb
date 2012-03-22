@@ -75,7 +75,11 @@ if (isset($_COOKIE["AURSID"])) {
 		$q = "SELECT Users.*, AccountTypes.AccountType ";
 		$q.= "FROM Users, AccountTypes ";
 		$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
-		$q.= "AND Users.ID = ".intval(in_request("ID"));
+		if (isset($_REQUEST["ID"])) {
+			$q.= "AND Users.ID = ".intval(in_request("ID"));
+		} else {
+			$q.= "AND Users.Username = '".db_escape_string(in_request("U")) . "'";
+		}
 		$result = db_query($q, $dbh);
 		if (!mysql_num_rows($result)) {
 			print __("Could not retrieve information for the specified user.");
