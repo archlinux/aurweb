@@ -2,8 +2,7 @@
 
 include_once('aur.inc.php');
 
-function updates_table($dbh)
-{
+function updates_table($dbh) {
 	$key = 'recent_updates';
 	if(!($newest_packages = get_cache_value($key))) {
 		$q = 'SELECT * FROM Packages ORDER BY ModifiedTS DESC LIMIT 10';
@@ -18,8 +17,7 @@ function updates_table($dbh)
 	include('stats/updates_table.php');
 }
 
-function user_table($user, $dbh)
-{
+function user_table($user, $dbh) {
 	$escuser = db_escape_string($user);
 	$base_q = "SELECT count(*) FROM Packages,Users WHERE Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
 
@@ -37,8 +35,7 @@ function user_table($user, $dbh)
 	include('stats/user_table.php');
 }
 
-function general_stats_table($dbh)
-{
+function general_stats_table($dbh) {
 	# AUR statistics
 	$q = "SELECT count(*) FROM Packages";
 	$unsupported_count = db_cache_value($q, $dbh, 'unsupported_count');

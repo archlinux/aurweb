@@ -732,8 +732,7 @@ function try_login() {
  * Returns the username if it is valid
  * Returns nothing if it isn't valid
  */
-function valid_username( $user )
-{
+function valid_username($user) {
 	if (!empty($user)) {
 
 		#Is username at not too short or too long?
@@ -759,8 +758,7 @@ function valid_username( $user )
  * Checks if the username is valid and if it exists in the database
  * Returns the username ID or nothing
  */
-function valid_user( $user, $dbh )
-{
+function valid_user($user, $dbh) {
 	/*	if ( $user = valid_username($user) ) { */
 	if ( $user ) {
 		$q = "SELECT ID FROM Users WHERE Username = '"
@@ -776,8 +774,7 @@ function valid_user( $user, $dbh )
 	return;
 }
 
-function good_passwd( $passwd )
-{
+function good_passwd($passwd) {
 	if ( strlen($passwd) >= PASSWD_MIN_LEN ) {
 		return true;
 	}
@@ -787,8 +784,7 @@ function good_passwd( $passwd )
 /* Verifies that the password is correct for the userID specified.
  * Returns true or false
  */
-function valid_passwd( $userID, $passwd, $dbh )
-{
+function valid_passwd($userID, $passwd, $dbh) {
 	if ( strlen($passwd) > 0 ) {
 		# get salt for this user
 		$salt = get_salt($userID);
@@ -830,8 +826,7 @@ function valid_passwd( $userID, $passwd, $dbh )
 /*
  * Checks if the PGP key fingerprint is valid (must be 40 hexadecimal digits).
  */
-function valid_pgp_fingerprint ( $fingerprint )
-{
+function valid_pgp_fingerprint($fingerprint) {
 	$fingerprint = str_replace(" ", "", $fingerprint);
 	return (strlen($fingerprint) == 40 && ctype_xdigit($fingerprint));
 }
@@ -839,8 +834,7 @@ function valid_pgp_fingerprint ( $fingerprint )
 /*
  * Is the user account suspended?
  */
-function user_suspended( $id, $dbh )
-{
+function user_suspended($id, $dbh) {
 	if (!$id) {
 		return false;
 	}
@@ -858,8 +852,7 @@ function user_suspended( $id, $dbh )
 /*
  * This should be expanded to return something
  */
-function user_delete( $id, $dbh )
-{
+function user_delete($id, $dbh) {
 	$q = "DELETE FROM Users WHERE ID = " . $id;
 	db_query($q, $dbh);
 	return;
@@ -869,8 +862,7 @@ function user_delete( $id, $dbh )
  * A different way of determining a user's privileges
  * rather than account_from_sid()
  */
-function user_is_privileged( $id, $dbh )
-{
+function user_is_privileged($id, $dbh) {
 	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
 	$result = db_query($q, $dbh);
 	if ($result) {

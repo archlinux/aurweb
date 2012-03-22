@@ -386,8 +386,7 @@ function chmod_group($path) {
 
 # obtain the uid given a Users.Username
 #
-function uid_from_username($username="", $dbh=NULL)
-{
+function uid_from_username($username="", $dbh=NULL) {
 	if (!$username) {
 		return "";
 	}
@@ -407,8 +406,7 @@ function uid_from_username($username="", $dbh=NULL)
 
 # obtain the uid given a Users.Email
 #
-function uid_from_email($email="", $dbh=NULL)
-{
+function uid_from_email($email="", $dbh=NULL) {
 	if (!$email) {
 		return "";
 	}
@@ -428,8 +426,7 @@ function uid_from_email($email="", $dbh=NULL)
 
 # check user privileges
 #
-function check_user_privileges()
-{
+function check_user_privileges() {
 	$type = account_from_sid($_COOKIE['AURSID']);
 	return ($type == 'Trusted User' || $type == 'Developer');
 }
@@ -468,8 +465,7 @@ function mkurl($append) {
 	return substr($out, 5);
 }
 
-function get_salt($user_id, $dbh=NULL)
-{
+function get_salt($user_id, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
@@ -482,8 +478,7 @@ function get_salt($user_id, $dbh=NULL)
 	return;
 }
 
-function save_salt($user_id, $passwd, $dbh=NULL)
-{
+function save_salt($user_id, $passwd, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
@@ -494,21 +489,18 @@ function save_salt($user_id, $passwd, $dbh=NULL)
 	return db_query($salting_q, $dbh);
 }
 
-function generate_salt()
-{
+function generate_salt() {
 	return md5(uniqid(mt_rand(), true));
 }
 
-function salted_hash($passwd, $salt)
-{
+function salted_hash($passwd, $salt) {
 	if (strlen($salt) != 32) {
 		trigger_error('Salt does not look like an md5 hash', E_USER_WARNING);
 	}
 	return md5($salt . $passwd);
 }
 
-function parse_comment($comment)
-{
+function parse_comment($comment) {
 	$url_pattern = '/(\b(?:https?|ftp):\/\/[\w\/\#~:.?+=&%@!\-;,]+?' .
 		'(?=[.:?\-;,]*(?:[^\w\/\#~:.?+=&%@!\-;,]|$)))/iS';
 
