@@ -17,17 +17,16 @@ function updates_table($dbh) {
 	include('stats/updates_table.php');
 }
 
-function user_table($user, $dbh) {
-	$escuser = db_escape_string($user);
-	$base_q = "SELECT count(*) FROM Packages,Users WHERE Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
+function user_table($userid, $dbh) {
+	$base_q = "SELECT count(*) FROM Packages WHERE Packages.MaintainerUID = " . $userid;
 
 	$maintainer_unsupported_count = db_cache_value($base_q, $dbh,
-		'user_unsupported_count:' . $escuser);
+		'user_unsupported_count:' . $userid);
 
-	$q = "SELECT count(*) FROM Packages,Users WHERE Packages.OutOfDateTS IS NOT NULL AND Packages.MaintainerUID = Users.ID AND Users.Username='" . $escuser . "'";
+	$q = "SELECT count(*) FROM Packages WHERE Packages.OutOfDateTS IS NOT NULL AND Packages.MaintainerUID = " . $userid;
 
 	$flagged_outdated = db_cache_value($q, $dbh,
-		'user_flagged_outdated:' . $escuser);
+		'user_flagged_outdated:' . $userid);
 
 	# If the user is a TU calculate the number of the packages
 	$atype = account_from_sid($_COOKIE["AURSID"]);

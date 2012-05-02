@@ -58,8 +58,8 @@ echo __(
 <td class='boxSoft' valign='top'>
 <?php
 if (!empty($_COOKIE["AURSID"])) {
-	$user = username_from_sid($_COOKIE["AURSID"]);
-	user_table($user, $dbh);
+	$userid = uid_from_sid($_COOKIE["AURSID"]);
+	user_table($userid, $dbh);
 	echo '<br />';
 }
 
