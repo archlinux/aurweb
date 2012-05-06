@@ -89,28 +89,24 @@ html_header($title);
 
 <?php
 if (isset($_GET['ID'])) {
-	include('pkg_search_form.php');
-	if (!$_GET['ID'] = intval($_GET['ID'])) {
-		print __("Error trying to retrieve package details.")."<br />\n";
-	} else {
-		if (isset($_COOKIE["AURSID"])) {
-			package_details($_GET['ID'], $_COOKIE["AURSID"]);
-		}
-		else {
-			package_details($_GET['ID'], null);
-		}
-	}
+	$pkgid = intval($_GET['ID']);
 } else if (isset($_GET['N'])) {
+	$pkgid = pkgid_from_name($_GET['N']);
+} else {
+	unset($pkgid);
+}
+
+if (isset($pkgid)) {
 	include('pkg_search_form.php');
-	if (!$pkgid = pkgid_from_name($_GET['N'])) {
-		print __("Error trying to retrieve package details.")."<br />\n";
-	} else {
+	if ($pkgid) {
 		if (isset($_COOKIE["AURSID"])) {
 			package_details($pkgid, $_COOKIE["AURSID"]);
 		}
 		else {
 			package_details($pkgid, null);
 		}
+	} else {
+		print __("Error trying to retrieve package details.")."<br />\n";
 	}
 } else {
 	if (!isset($_GET['K']) && !isset($_GET['SB'])) {
