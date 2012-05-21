@@ -314,12 +314,12 @@ function package_details($id=0, $SID="", $dbh=NULL) {
 	$results = db_query($q, $dbh);
 
 	if (!$results) {
-		print __("Error retrieving package details.") . "<br />\n";
+		print "<p>" . __("Error retrieving package details.") . "</p>\n";
 	}
 	else {
 		$row = mysql_fetch_assoc($results);
 		if (empty($row)) {
-			print __("Package details could not be found.") . "<br />\n";
+			print "<p>" . __("Package details could not be found.") . "</p>\n";
 
 		}
 		else {
