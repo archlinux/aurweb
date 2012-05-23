@@ -30,34 +30,34 @@
 			</div>
 		</div><!-- #archnavbar -->
 
-		<div id="archdev-navbar">
-			<ul>
-				<li><a href="index.php">AUR <?php print __("Home"); ?></a></li>
-				<li><a href="account.php"><?php print __("Accounts"); ?></a></li>
-				<li><a href="packages.php"><?php print __("Packages"); ?></a></li>
-				<li><a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a></li>
-				<li><a href="http://archlinux.org/mailman/listinfo/aur-general"><?php print __("Discussion"); ?></a></li>
-				<?php if (isset($_COOKIE['AURSID'])): ?>
-					<?php if (check_user_privileges()): ?><li><a href="tu.php"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
-					<li><a href="packages.php?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
-					<li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
-				<?php endif; ?>
-			</ul>
-		</div><!-- #archdev-navbar -->
+		<div id="content">
+			<div id="archdev-navbar">
+				<ul>
+					<li><a href="index.php">AUR <?php print __("Home"); ?></a></li>
+					<li><a href="account.php"><?php print __("Accounts"); ?></a></li>
+					<li><a href="packages.php"><?php print __("Packages"); ?></a></li>
+					<li><a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a></li>
+					<li><a href="http://archlinux.org/mailman/listinfo/aur-general"><?php print __("Discussion"); ?></a></li>
+					<?php if (isset($_COOKIE['AURSID'])): ?>
+						<?php if (check_user_privileges()): ?><li><a href="tu.php"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
+						<li><a href="packages.php?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
+						<li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
+					<?php endif; ?>
+				</ul>
+			</div><!-- #archdev-navbar -->
 
-		<?php include("login_form.php"); ?>
+			<?php include("login_form.php"); ?>
 
-	<div id="lang_sub">
-<?php
-reset($SUPPORTED_LANGS);
-foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
-        print '<a href="'
-		. htmlspecialchars($_SERVER["PHP_SELF"], ENT_QUOTES)
-		."?setlang=" . htmlspecialchars($lang, ENT_QUOTES) . "\" title=\"" . htmlspecialchars($lang_name, ENT_QUOTES) . "\">"
-		. htmlspecialchars(strtolower($lang)) . "</a>\n";
-}
-?>
-	</div>
-	<!-- Start of main content -->
-
+			<div id="lang_sub">
+				<?php
+				reset($SUPPORTED_LANGS);
+				foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
+					print '<a href="'
+						. htmlspecialchars($_SERVER["PHP_SELF"], ENT_QUOTES)
+						."?setlang=" . htmlspecialchars($lang, ENT_QUOTES) . "\" title=\"" . htmlspecialchars($lang_name, ENT_QUOTES) . "\">"
+						. htmlspecialchars(strtolower($lang)) . "</a>\n";
+				}
+				?>
+			</div>
+			<!-- Start of main content -->
 
