@@ -681,9 +681,24 @@ function user_is_privileged($id, $dbh) {
 
 }
 
+# Remove session on logout
+function delete_session_id($sid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "DELETE FROM Sessions WHERE SessionID = '";
+	$q.= db_escape_string($sid) . "'";
+	db_query($q, $dbh);
+}
+
 # Clear out old expired sessions.
-function clear_expired_sessions( $dbh ) {
+function clear_expired_sessions($dbh=NULL) {
 	global $LOGIN_TIMEOUT;
+
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
 
 	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)";
 	db_query($q, $dbh);
