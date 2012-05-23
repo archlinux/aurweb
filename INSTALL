@@ -1,0 +1,102 @@
+Setup on Arch Linux:
+====================
+1) Install Apache, MySQL, PHP, git and php-pear
+  # pacman -Syu apache mysql php git php-pear
+
+2) Set a local 'hostname' of 'aur'
+ - Edit /etc/hosts and append 'aur' to loopback address
+   127.0.0.1    localhost aur
+
+3) Configure Apache
+
+ - Edit /etc/httpd/conf/httpd.conf and enable PHP support
+   by adding the following lines.
+
+   LoadModule php5_module modules/libphp5.so
+   Include conf/extra/php5_module.conf
+
+ - Also append the following snippet to enable the aur
+   Virtual Host in /etc/httpd/conf/extra/httpd-vhosts.conf.
+	 Comment out the example vhosts and replace MYUSER with your username.
+	 (You could put aur in /srv/http/aur and then create a symlink in ~ )
+
+   <VirtualHost aur:80>
+   Servername    aur
+   DocumentRoot  /home/MYUSER/aur/web/html
+   ErrorLog    /var/log/httpd/aur-error.log
+   CustomLog   /var/log/httpd/aur-access.log combined
+     <Directory /home/MYUSER/aur/web/html>
+       Options Indexes FollowSymLinks
+       AllowOverride All
+       Order allow,deny
+       Allow from all
+     </Directory>
+   </VirtualHost>
+
+ - In httpd.conf, uncomment this line:
+
+   Include conf/extra/httpd-vhosts.conf
+
+4) Clone the AUR project (using the MYUSER from above)
+   $ cd
+   $ git clone git://projects.archlinux.org/aur.git
+
+5) Configure PHP
+   Make sure you have mysql and json enabled in PHP.
+
+ - Edit php.ini and uncomment/add these lines:
+   extension=mysql.so
+   extension=json.so
+
+   If those php extensions are separate packages on your system, install
+   them.
+
+   AUR requires PEAR and the Archive_Tar module.
+   Installing PEAR will vary depending on the system and may already
+   be included with PHP. You can also find it in the PHP source
+   distribution.
+
+   PHP sources: http://www.php.net/downloads.php
+   Archive_Tar PEAR module: http://pear.php.net/package/Archive_Tar
+
+ - Install the Archive_Tar PEAR package:
+   # pear install Archive_Tar
+
+6) Configure MySQL
+ - Start the MySQL service. Example:
+   # /etc/rc.d/mysqld start
+
+ - Create database
+   # mysqladmin -p create AUR
+
+ - Connect to the mysql client
+   # mysql -uroot -p AUR
+
+ - Issue the following commands to the mysql client
+   mysql> GRANT ALL PRIVILEGES ON AUR.* to aur@localhost
+        > identified by 'aur';
+   mysql> FLUSH PRIVILEGES;
+   mysql> quit
+
+ - Load the schema file
+   # mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
+   (give password 'aur' at the prompt)
+
+ - Optionally load some test data for development purposes.
+   # pacman -S words mysql-python
+   # cd ~/aur/support/schema/
+   # python gendummydata.py dummy-data.sql
+   # bzip2 dummy-data.sql
+   # bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
+   (give password 'aur' at the prompt)
+
+   If your test data consists of real people and real email addresses consider
+   inserting bogus addressess to avoid sending unwanted spam from testing. You
+   can insert garbage addresses with:
+   mysql> UPDATE Users SET Email = RAND() * RAND();
+
+7) Copy the config.inc.php.proto file to config.inc.php. Modify as needed.
+   # cd ~/aur/web/lib/
+   # cp config.inc.php.proto config.inc.php
+
+8) Point your browser to http://aur
