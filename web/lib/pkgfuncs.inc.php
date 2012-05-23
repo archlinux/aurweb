@@ -200,6 +200,56 @@ function package_comments($pkgid, $dbh=NULL) {
 	return $comments;
 }
 
+# Add a comment to a package page and send out appropriate notifications
+# TODO: Move notification logic to separate function where it belongs
+function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = 'INSERT INTO PackageComments ';
+	$q.= '(PackageID, UsersID, Comments, CommentTS) VALUES (';
+	$q.= intval($pkgid) . ', ' . $uid . ', ';
+	$q.= "'" . db_escape_string($comment) . "', ";
+	$q.= 'UNIX_TIMESTAMP())';
+	db_query($q, $dbh);
+
+	# Send email notifications
+	$q = 'SELECT CommentNotify.*, Users.Email ';
+	$q.= 'FROM CommentNotify, Users ';
+	$q.= 'WHERE Users.ID = CommentNotify.UserID ';
+	$q.= 'AND CommentNotify.UserID != ' . $uid . ' ';
+	$q.= 'AND CommentNotify.PkgID = ' . intval($pkgid);
+	$result = db_query($q, $dbh);
+	$bcc = array();
+
+	if (mysql_num_rows($result)) {
+		while ($row = mysql_fetch_assoc($result)) {
+			array_push($bcc, $row['Email']);
+		}
+
+		$q = 'SELECT Packages.* ';
+		$q.= 'FROM Packages ';
+		$q.= 'WHERE Packages.ID = ' . intval($pkgid);
+		$result = db_query($q, $dbh);
+		$row = mysql_fetch_assoc($result);
+
+		# TODO: native language emails for users, based on their prefs
+		# Simply making these strings translatable won't work, users would be
+		# getting emails in the language that the user who posted the comment was in
+		$body =
+		'from ' . $AUR_LOCATION . '/packages.php?ID='
+		. $pkgid . "\n"
+		. username_from_sid($_COOKIE['AURSID'], $dbh) . " wrote:\n\n"
+		. $comment
+		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
+		$body = wordwrap($body, 70);
+		$bcc = implode(', ', $bcc);
+		$headers = "Bcc: $bcc\nReply-to: nobody@archlinux.org\nFrom: aur-notify@archlinux.org\nX-Mailer: AUR\n";
+		@mail('undisclosed-recipients: ;', "AUR Comment for " . $row['Name'], $body, $headers);
+	}
+}
+
 # grab package sources
 #
 function package_sources($pkgid, $dbh=NULL) {
@@ -345,6 +395,10 @@ function package_details($id=0, $SID="", $dbh=NULL) {
 			# Actions Bar
 			if ($SID) {
 				include('actions_form.php');
+				if (isset($_REQUEST['comment'])) {
+					$uid = uid_from_sid($SID, $dbh);
+					add_package_comment($id, $uid, $_REQUEST['comment'], $dbh);
+				}
 				include('pkg_comment_form.php');
 			}
 
