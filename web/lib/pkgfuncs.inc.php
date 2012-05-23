@@ -948,6 +948,31 @@ function pkg_vote ($atype, $ids, $action=true, $dbh=NULL) {
 	}
 }
 
+# Get all usernames and ids for a specifc package id
+function getvotes($pkgid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$pkgid = db_escape_string($pkgid);
+
+	$q = "SELECT UsersID,Username FROM PackageVotes ";
+	$q.= "LEFT JOIN Users on (UsersID = ID) ";
+	$q.= "WHERE PackageID = ". $pkgid . " ";
+	$q.= "ORDER BY Username";
+	$result = db_query($q, $dbh);
+
+	if (!$result) {
+		return;
+	}
+
+	while ($row = mysql_fetch_assoc($result)) {
+		$votes[] = $row;
+	}
+
+	return $votes;
+}
+
 /**
  * Toggle notification of packages
  *

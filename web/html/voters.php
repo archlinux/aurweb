@@ -3,14 +3,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 include('aur.inc.php');
 include('pkgfuncs.inc.php');
 
-function getvotes($pkgid) {
-	$dbh = db_connect();
-	$pkgid = db_escape_string($pkgid);
-
-	$result = db_query("SELECT UsersID,Username FROM PackageVotes LEFT JOIN Users on (UsersID = ID) WHERE PackageID = $pkgid ORDER BY Username", $dbh);
-	return $result;
-}
-
 $SID = $_COOKIE['AURSID'];
 
 $pkgid = intval($_GET['ID']);
@@ -27,11 +19,8 @@ if ($atype == 'Trusted User' || $atype== 'Developer'):
 	<div class="boxbody">
 
 <?php
-	while ($row = mysql_fetch_assoc($votes)):
-		$uid = $row['UsersID'];
-		$username = $row['Username'];
-?>
-		<a href="account.php?Action=AccountInfo&amp;ID=<?php echo $uid ?>"><?php echo htmlspecialchars($username) ?></a><br />
+	while (list($indx, $row) = each($votes)): ?>
+		<a href="account.php?Action=AccountInfo&amp;ID=<?php echo $row['UsersID'] ?>"><?php echo htmlspecialchars($row['Username']) ?></a><br />
 	<?php endwhile; ?>
 	</div>
 </div>
