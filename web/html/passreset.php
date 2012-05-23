@@ -30,25 +30,10 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 	}
 
 	if (empty($error)) {
-		$dbh = db_connect();
 		$salt = generate_salt();
 		$hash = salted_hash($password, $salt);
-		# The query below won't affect any records unless the ResetKey
-		# and Email combination is correct and ResetKey is nonempty
-		$q = "UPDATE Users
-		      SET Passwd = '$hash',
-		      Salt = '$salt',
-		      ResetKey = ''
-		      WHERE ResetKey != ''
-		      AND ResetKey = '".db_escape_string($resetkey)."'
-		      AND Email = '".db_escape_string($email)."'";
-		$result = db_query($q, $dbh);
-		if (!mysql_affected_rows($dbh)) {
-			$error = __('Invalid e-mail and reset key combination.');
-		} else {
-			header('Location: passreset.php?step=complete');
-			exit();
-		}
+
+		$error = password_reset($hash, $salt, $resetkey, $email);
 	}
 } elseif (isset($_POST['email'])) {
 	$email = $_POST['email'];
@@ -56,11 +41,7 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 	if ($uid != NULL && $uid != 'None') {
 		# We (ab)use new_sid() to get a random 32 characters long string
 		$resetkey = new_sid();
-		$dbh = db_connect();
-		$q = "UPDATE Users
-		      SET ResetKey = '" . $resetkey . "'
-		      WHERE ID = " . $uid;
-		db_query($q, $dbh);
+		create_resetkey($resetkey, $uid);
 		# Send email with confirmation link
 		$body = __('A password reset request was submitted for the account '.
 		           'associated with your e-mail address. If you wish to reset '.

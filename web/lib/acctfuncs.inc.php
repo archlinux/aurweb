@@ -580,6 +580,40 @@ function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) 
 
 }
 
+# Add a reset key for a specific user
+function create_resetkey($resetkey, $uid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "UPDATE Users ";
+	$q.= "SET ResetKey = '" . $resetkey . "' ";
+	$q.= "WHERE ID = " . $uid;
+	db_query($q, $dbh);
+}
+
+# Change a password and save the salt only if reset key and email are correct
+function password_reset($hash, $salt, $resetkey, $email, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "UPDATE Users ";
+	$q.= "SET Passwd = '$hash', ";
+	$q.= "Salt = '$salt', ";
+	$q.= "ResetKey = '' ";
+	$q.= "WHERE ResetKey != '' ";
+	$q.= "AND ResetKey = '".db_escape_string($resetkey)."' ";
+	$q.= "AND Email = '".db_escape_string($email)."'";
+	$result = db_query($q, $dbh);
+
+	if (!mysql_affected_rows($dbh)) {
+		$error = __('Invalid e-mail and reset key combination.');
+		return $error;
+	} else {
+		header('Location: passreset.php?step=complete');
+		exit();
+	}
+}
+
 function good_passwd($passwd) {
 	if ( strlen($passwd) >= PASSWD_MIN_LEN ) {
 		return true;
