@@ -34,16 +34,15 @@
 			<div id="archdev-navbar">
 				<ul>
 					<li><a href="index.php">AUR <?php print __("Home"); ?></a></li>
-					<li><a href="account.php"><?php print __("Accounts"); ?></a></li>
 					<li><a href="packages.php"><?php print __("Packages"); ?></a></li>
-					<li><a href="http://bugs.archlinux.org/index.php?tasks=all&amp;project=2"><?php print __("Bugs"); ?></a></li>
-					<li><a href="http://archlinux.org/mailman/listinfo/aur-general"><?php print __("Discussion"); ?></a></li>
 					<?php if (isset($_COOKIE['AURSID'])): ?>
-						<?php if (check_user_privileges()): ?><li><a href="tu.php"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
 						<li><a href="packages.php?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
 						<li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
+						<li><a href="account.php"><?php print __("Accounts"); ?></a></li>
+						<?php if (check_user_privileges()): ?><li><a href="tu.php"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
 						<li><a href="logout.php"><?php print __("Logout"); ?></a></li>
 					<?php else: ?>
+						<li><a href="account.php"><?php print __("Register"); ?></a></li>
 						<li><a href="login.php"><?php print __("Login"); ?></a></li>
 					<?php endif; ?>
 				</ul>
