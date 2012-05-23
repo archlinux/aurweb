@@ -29,18 +29,11 @@ MAX_USERS = 300        # how many users to 'register'
 MAX_DEVS  = .1         # what percentage of MAX_USERS are Developers
 MAX_TUS   = .2         # what percentage of MAX_USERS are Trusted Users
 MAX_PKGS  = 900       # how many packages to load
-PKG_FILES = (8, 30)    # min/max number of files in a package
 PKG_DEPS  = (1, 5)     # min/max depends a package has
 PKG_SRC   = (1, 3)     # min/max sources a package has
 PKG_CMNTS = (1, 5)     # min/max number of comments a package has
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
 VOTING    = (0, .30)   # percentage range for package voting
-RANDOM_PATHS = (       # random path locations for package files
-	"/usr/bin", "/usr/lib", "/etc", "/etc/rc.d", "/usr/share", "/lib",
-	"/var/spool", "/var/log", "/usr/sbin", "/opt", "/usr/X11R6/bin",
-	"/usr/X11R6/lib", "/usr/libexec", "/usr/man/man1", "/usr/man/man3",
-	"/usr/man/man5", "/usr/X11R6/man/man1", "/etc/profile.d"
-)
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
