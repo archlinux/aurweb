@@ -34,6 +34,8 @@ PKG_SRC   = (1, 3)     # min/max sources a package has
 PKG_CMNTS = (1, 5)     # min/max number of comments a package has
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
 VOTING    = (0, .30)   # percentage range for package voting
+OPEN_PROPOSALS = 5 # number of open trusted user proposals
+CLOSE_PROPOSALS = 15 # number of closed trusted user proposals
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
@@ -263,6 +265,30 @@ for p in list(seen_pkgs.keys()):
 		s = "INSERT INTO PackageSources VALUES (%d, '%s');\n"
 		s = s % (seen_pkgs[p], src)
 		out.write(s)
+
+# Create trusted user proposals
+#
+log.debug("Creating SQL statements for trusted user proposals.")
+count=0
+for t in range(0, OPEN_PROPOSALS+CLOSE_PROPOSALS):
+	fortune = subprocess.getoutput(FORTUNE_CMD).replace("'","")
+	now = int(time.time())
+	if count < CLOSE_PROPOSALS:
+		start =  now - random.randrange(3600*24*7, 3600*24*21)
+		end = now - random.randrange(0, 3600*24*7)
+	else:
+		start = now
+		end = now + random.randrange(3600*24, 3600*24*7)
+	if count % 5 == 0: # Don't make the vote about anyone once in a while
+		user = ""
+	else:
+		user = user_keys[random.randrange(0,len(user_keys))]
+	suid = trustedusers[random.randrange(0,len(trustedusers))]
+	s = ("INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End,"
+	" SubmitterID) VALUES ('%s', '%s', %d, %d, %d);\n")
+	s = s % (fortune, user, start, end, suid)
+	out.write(s)
+	count += 1
 
 # close output file
 #
