@@ -1,85 +1,104 @@
-Web Interface:
+==============
+AUR Web Interface
 ==============
 
-Directory Layout:
------------------
-./html        - DocumentRoot for AUR, where the PHP scripts live.
-./html/css    - CSS stylesheets
-./html/images - Any AUR images live here.
-./lib         - Supporting PHP include files.  Access denied to Apache.
-./template    - Where most of the html markup resides and minimal
-                amount of PHP scripting.
-
-		There is also a template to model the site's top pages
-		in template.phps
-
-
-Scripts:
---------
-- lib/aur.inc
-  This is where we can stick functions that can be shared
-  between the various scripts.  Also a good place to put the
-  MySQL authentication variables since it should live outside
-  the DocumentRoot.
-
-- html/login.php (probably index.php)
-  PHP script to handle logging users into the AUR web site.  It
-  authenticates using the email address and a password against
-  the Users table.  Once authenticated, a session id is generated
-  and stored in the Sessions table and sent as a cookie to the
-  user's browser.
-
-- html/logout.php
-  PHP script to logout.  It clears the session id from the
-  Sessions table and unsets the cookie.
-
-- html/account.php
-  PHP script to handle registering for a new account.  It prompts
-  the visitor for account information: Email, password, real name,
-  irc nick.  The info is recorded in the Users table.  Perhaps later,
-  we can add a preferences field that allows the user to request to
-  be notified when new packages are submitted so that they can cast
-  votes for them?
-
-  If a TU is logged into the system, they can edit accounts and set
-  the account type (regular user or TU).  If a Dev is logged in, they
-  can also set the account type to Dev.  TUs and Devs are able to
-  delete accounts.  If an account is deleted, all "Unsupported"
-  packages are orphaned (the MaintainerUID field in the Packages
-  table is set to NULL).
-
-- html/packages.php
-  PHP script to search the package database.  It should support
-  searching by name, category, maintainer, popularity, etc. It
-  should resemble the packages.php script on archlinux.org. A
-  checkbox should be included next to each package to allow
-  users to flag a package out of date, adopt it, and vote for
-  it (and reverse operations).
-
-- html/pkgsubmit.php
-  This is the PHP script that allows users to upload a new package.
-  The package format will be a tgz containing the PKGBUILD,
-  scriptlets, and patches necessary to build the package from
-  source.  Initially, the user submitting the package can select
-  its category (network, devel, etc) but that can be modified
-  later by the adopting TU.  The script makes appropriate entries
-  into the database (and perhaps notifies interested users of the
-  new package).
-
-
 Terms and Definitions:
-======================
-AUR - Arch Linux User-Community Repository
-	Includes:
-	- the AUR web site,
-	- the [unsupported] 'repository'
-	- the [community] repository managed by the TUs
+================
+AUR - Arch User Repository
+	Repository made up of a collection of build scripts that are
+	created and submitted by the Arch community.
 
 TU - Trusted User
 	A user that can add binary packages to the [community]
 	repository and administer AUR.
 
 [unsupported]
-	The collection of package build files hosted via the AUR web
-	site.
+	The collection of package build files hosted via the AUR website.
 
+File Hierachy
+=========
+
+Directory Layout:
+-------------------
+./html			- DocumentRoot for AUR, where the PHP scripts live.
+./html/css		- CSS for AUR appearance
+./html/css/navbar	- CSS for Arch navigation bar appearance
+./html/images		- Any AUR images live here.
+./lib			- Supporting PHP include files. Access denied to Apache.
+./locale
+./template		- Where most of the html markup resides and minimal
+			amount of PHP scripting.
+./template/stats
+
+./html Files:
+-------------
+account.php -
+	PHP script to handle registering for a new account.  It prompts
+	the visitor for account information: desired username, E-mail,
+	password, real name, IRC nick, and default language. The info is
+	recorded in the Users table.
+
+	A logged-in user can change any of their own account information. If a
+	TU or Developer is logged into the system, they can search for and
+	edit accounts. A TU can change an account to a TU or User account. A
+	Developer can also change an account to the Developer type. TUs and
+	Developers are able to suspend accounts. If an account is suspended,
+	all packages are orphaned (the MaintainerUID field in the Packages
+	table is set to NULL).
+
+addvote.php -
+	A form to submit proposals relating to the AUR. Only accessible to TUs
+	and Developers. Can be used to vote on a potential new TU, or any
+	other proposal that needs a vote. Length of the vote can be specified.
+
+index.php -
+	Main page for the AUR. Provides links to all other pages in the AUR.
+	Gives a brief synopsis of what the AUR is and where to go for more
+	information.
+
+logout.php -
+	Logs out a logged-in user. Clears the session id from the Sessions
+	table and unsets the cookie.
+
+packages.php -
+	Page used to search the package database. Supports searching by name,
+	category, maintainer, popularity, etc. Also provides the ability to go
+	to a package page which has specific information for that package.
+	A specific package page includes the name, description, votes, etc.
+	As well as the ability to perform actions on the packages, such as
+	flagging or leaving a comment on the package.
+
+passreset.php -
+	A page for a user to enter their e-mail and receive a reset e-mail to
+	replace the forgotten password.
+
+pkgsubmit.php -
+	Page for users to upload a new package. Only allows upload of a
+	tarball that has been compressed with gzip. Tarball must contain the
+	PKGBUILD, scriptlets, and any other files necessary to build the
+	package from source. The user can select a category for the package.
+	The page makes appropriate entries into the database for tracking the
+	newly added source package and associated information.
+
+rpc.php -
+	A frontend for tools to obtain raw information from the AUR. Features
+	the ability to search for a package, return information on a package,
+	return information on multiple packages, and search for a specific
+	package maintainer. Functionality through HTTP GET.
+
+rss.php -
+	Generates RDF Site Summary (RSS) feed with the latest packages updated
+	in the AUR. Lists most recent 20 packages. Includes package name, link
+	to package page, package description, time of update, source listing,
+	maintainer name.
+
+tu.php -
+	Page only available to TUs and Developers. Shows ongoing votes for
+	proposals and past votes for proposals. Current votes can be voted on
+	with a "Yes" vote, "No" vote, or an "Abstain" vote. Developers and TUs
+	can only vote once. Cannot vote on a proposal about themselves.
+
+voters.php -
+	Page only available to TUs and Developers. Shows list of users that
+	voted for a specific package. Each username links to the user's
+	account information page.
