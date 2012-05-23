@@ -44,17 +44,10 @@ if (isset($_COOKIE["AURSID"])) {
 	} elseif ($action == "DisplayAccount") {
 		# the user has clicked 'edit', display the account details in a form
 		#
-		$q = "SELECT Users.*, AccountTypes.AccountType ";
-		$q.= "FROM Users, AccountTypes ";
-		$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
-		$q.= "AND Users.ID = ".intval(in_request("ID"));
-		$result = db_query($q, $dbh);
-		if (!mysql_num_rows($result)) {
+		$row = account_details(in_request("ID"), in_request("U"));
+		if (empty($row)) {
 			print __("Could not retrieve information for the specified user.");
-
 		} else {
-			$row = mysql_fetch_assoc($result);
-
 			# double check to make sure logged in user can edit this account
 			#
 			if ($atype == "User" || ($atype == "Trusted User" && $row["AccountType"] == "Developer")) {
@@ -71,24 +64,15 @@ if (isset($_COOKIE["AURSID"])) {
 	} elseif ($action == "AccountInfo") {
 		# no editing, just looking up user info
 		#
-		$q = "SELECT Users.*, AccountTypes.AccountType ";
-		$q.= "FROM Users, AccountTypes ";
-		$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
-		if (isset($_REQUEST["ID"])) {
-			$q.= "AND Users.ID = ".intval(in_request("ID"));
-		} else {
-			$q.= "AND Users.Username = '".db_escape_string(in_request("U")) . "'";
-		}
-		$result = db_query($q, $dbh);
-		if (!mysql_num_rows($result)) {
+		$row = account_details(in_request("ID"), in_request("U"));
+		if (empty($row)) {
 			print __("Could not retrieve information for the specified user.");
 		} else {
-			$row = mysql_fetch_assoc($result);
-			display_account_info($row["Username"],
-						$row["AccountType"], $row["Email"], $row["RealName"],
-						$row["IRCNick"], $row["PGPKey"], $row["LastVoted"]);
+		display_account_info($row["Username"],
+					$row["AccountType"], $row["Email"], $row["RealName"],
+					$row["IRCNick"], $row["PGPKey"], $row["LastVoted"]);
 		}
-		
+
 	} elseif ($action == "UpdateAccount") {
 		# user is submitting their modifications to an existing account
 		#
@@ -110,18 +94,10 @@ if (isset($_COOKIE["AURSID"])) {
 			# A normal user, give them the ability to edit
 			# their own account
 			#
-			$q = "SELECT Users.*, AccountTypes.AccountType ";
-			$q.= "FROM Users, AccountTypes, Sessions ";
-			$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
-			$q.= "AND Users.ID = Sessions.UsersID ";
-			$q.= "AND Sessions.SessionID = '";
-			$q.= db_escape_string($_COOKIE["AURSID"])."'";
-			$result = db_query($q, $dbh);
-			if (!mysql_num_rows($result)) {
+			$row = own_account_details($_COOKIE["AURSID"]);
+			if (empty($row)) {
 				print __("Could not retrieve information for the specified user.");
-
 			} else {
-				$row = mysql_fetch_assoc($result);
 				# don't need to check if they have permissions, this is a
 				# normal user editing themselves.
 				#

@@ -740,3 +740,42 @@ function clear_expired_sessions($dbh=NULL) {
 	return;
 }
 
+function account_details($uid, $username, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "SELECT Users.*, AccountTypes.AccountType ";
+	$q.= "FROM Users, AccountTypes ";
+	$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
+	if (!empty($uid)) {
+		$q.= "AND Users.ID = ".intval($uid);
+	} else {
+		$q.= "AND Users.Username = '".db_escape_string($username) . "'";
+	}
+	$result = db_query($q, $dbh);
+
+	if ($result) {
+		$row = mysql_fetch_assoc($result);
+	}
+
+	return $row;
+}
+
+function own_account_details($sid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "SELECT Users.*, AccountTypes.AccountType ";
+	$q.= "FROM Users, AccountTypes, Sessions ";
+	$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
+	$q.= "AND Users.ID = Sessions.UsersID ";
+	$q.= "AND Sessions.SessionID = '";
+	$q.= db_escape_string($sid)."'";
+	$result = db_query($q, $dbh);
+
+	if ($result) {
+		$row = mysql_fetch_assoc($result);
+	}
+
+	return $row;
+}
