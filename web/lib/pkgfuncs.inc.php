@@ -582,8 +582,8 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	$templ_pages = array();
 
 	if ($current > 1) {
-		$templ_pages[__('First')] = 0;
-		$templ_pages[__('Previous')] = ($current - 2) * $per_page;
+		$templ_pages['&laquo; ' . __('First')] = 0;
+		$templ_pages['&lsaquo; ' . __('Previous')] = ($current - 2) * $per_page;
 	}
 
 	if ($current - 5 > 1)
@@ -597,8 +597,8 @@ function pkg_search_page($SID="", $dbh=NULL) {
 		$templ_pages["... "] = false;
 
 	if ($current < $pages) {
-		$templ_pages[__('Next')] = $current * $per_page;
-		$templ_pages[__('Last')] = ($pages - 1) * $per_page;
+		$templ_pages[__('Next') . ' &rsaquo;'] = $current * $per_page;
+		$templ_pages[__('Last') . ' &raquo;'] = ($pages - 1) * $per_page;
 	}
 
 	include('pkg_search_form.php');
