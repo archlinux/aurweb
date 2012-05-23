@@ -49,20 +49,27 @@ if (isset($_REQUEST['comment'])) {
 
 	# Prompt visitor for comment
 ?>
-<div class="pgbox">
-	<form action='<?php echo $_SERVER['REQUEST_URI'] ?>' method='post'>
-	<div style="padding: 1%">
+<div id="generic-form" class="box">
+	<h2><?php echo __("Add Comment"); ?></h2>
+	<form call="general-form" action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
+		<fieldset>
 <?php
 if (isset($_REQUEST['comment'])) {
-	echo '<b>' . __('Comment has been added.') . '</b>';
+	echo '<p>' . __('Comment has been added.') . '</p>';
 }
 ?>
-	<input type='hidden' name='ID' value="<?php echo intval($_REQUEST['ID']) ?>" />
-	<?php echo __('Enter your comment below.') ?><br />
-	<textarea name='comment' cols='80' rows='10' style="width: 100%"></textarea><br />
-	<input type='submit' value="<?php echo __("Submit") ?>" />
-	<input type='reset' value="<?php echo __("Reset") ?>" />
-	</div>
+			<div>
+				<input type="hidden" name="ID" value="<?php echo intval($_REQUEST['ID']) ?>" />
+			</div>
+			<p>
+				<label for="id_comment"><?php echo __("Comment") . ':' ?></label>
+				<textarea id="id_comment" name="comment" cols="80" rows="10"></textarea>
+			</p>
+			<p>
+				<label></label>
+				<input type="submit" value="<?php echo __("Add Comment") ?>" />
+			</p>
+		</fieldset>
 	</form>
 </div>
 
