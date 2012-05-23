@@ -44,7 +44,7 @@ RANDOM_PATHS = (       # random path locations for package files
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
-FORTUNE_CMD = "/usr/bin/fortune -l"
+FORTUNE_CMD = "/usr/bin/fortune"
 
 # setup logging
 logformat = "%(levelname)s: %(message)s"
@@ -59,6 +59,12 @@ if len(sys.argv) != 2:
 #
 if not os.path.exists(SEED_FILE):
 	log.error("Please install the 'words' Arch package")
+	raise SystemExit
+
+# make sure comments can be created
+#
+if not os.path.exists(FORTUNE_CMD):
+	log.error("Please install the 'fortune-mod' Arch package")
 	raise SystemExit
 
 # track what users/package names have been used
