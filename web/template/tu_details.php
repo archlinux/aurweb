@@ -17,8 +17,8 @@ if ($isrunning == 1) { ?>
 N/A
 <?php } ?>
 </b><br />
-<?php print __("Submitted: %s by %s", "<b>" . gmdate("r", $row['Submitted']) . "</b>", "<b>" . username_from_id($row['SubmitterID']) . "</b>") ?><br />
-<?php print __('End') ?>: <b><?php print gmdate("r", $row['End']) ?></b></p>
+<?php print __("Submitted: %s by %s", "<b>" . gmdate("Y-m-d H:i", $row['Submitted']) . "</b>", "<b>" . username_from_id($row['SubmitterID']) . "</b>") ?><br />
+<?php print __('End') ?>: <b><?php print gmdate("Y-m-d H:i", $row['End']) ?></b></p>
 
 <p>
 <?php print str_replace("\n", "<br />\n", htmlspecialchars($row['Agenda'])) ?>

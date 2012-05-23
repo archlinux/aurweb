@@ -8,7 +8,7 @@ while (list($indx, $carr) = each($comments)) { ?>
 		$carr['UserName'] = "<a href=\"account.php?Action=AccountInfo&amp;ID={$carr['UsersID']}\">{$carr['UserName']}</a>";
 	}
 
-	$commentHeader = '<p style="display:inline;">' . __('Comment by: %s on %s', $carr['UserName'], gmdate('r', $carr['CommentTS'])) . '</p>';
+	$commentHeader = '<p style="display:inline;">' . __('Comment by: %s on %s', $carr['UserName'], gmdate('Y-m-d H:i', $carr['CommentTS'])) . '</p>';
 
 	if (canDeleteCommentArray($carr, $atype, $uid)) {
 		$durl = '<form method="post" action="packages.php?ID='.$row['ID'].'">';

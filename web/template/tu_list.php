@@ -24,8 +24,8 @@
 						?>
 						<a href='tu.php?id=<?php print $row['ID'] ?>'><?php print $row["Agenda"] ?></a></span></span>
 					</td>
-					<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print gmdate("j M y", $row["Submitted"]) ?></span></span></td>
-					<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print gmdate("j M y", $row["End"]) ?></span></span></td>
+					<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print gmdate("Y-m-d", $row["Submitted"]) ?></span></span></td>
+					<td class='<?php print $c ?>'><span class='f5'><span class='blue'><?php print gmdate("Y-m-d", $row["End"]) ?></span></span></td>
 					<td class='<?php print $c ?>'><span class='f6'><span class='blue'>
 					<?php
 					if (!empty($row['User'])) {

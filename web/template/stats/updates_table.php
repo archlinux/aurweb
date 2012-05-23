@@ -21,9 +21,9 @@ $mod_int = intval($row["ModifiedTS"]);
 $sub_int = intval($row["SubmittedTS"]);
 
 if ($mod_int == $sub_int):
-  $modstring = '<img src="images/new.gif" alt="New!" /> ' . gmdate("r", $sub_int);
+  $modstring = '<img src="images/new.gif" alt="New!" /> ' . gmdate("Y-m-d H:i", $sub_int);
 else:
-  $modstring = gmdate("r", $mod_int);
+  $modstring = gmdate("Y-m-d H:i", $mod_int);
 endif;
 ?>
 
