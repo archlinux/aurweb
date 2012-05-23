@@ -12,9 +12,8 @@ html_header(__('Accounts'));
 
 # Main page processing here
 #
-echo "<div class=\"pgbox\">\n";
+echo "<div class=\"box\">\n";
 echo "  <h2>".__("Accounts")."</h2>\n";
-echo "  <div class=\"pgboxbody\">\n";
 
 $action = in_request("Action");
 
@@ -158,7 +157,6 @@ if (isset($_COOKIE["AURSID"])) {
 	}
 }
 
-echo "  </div>";
 echo "</div>";
 
 html_footer(AUR_VERSION);
