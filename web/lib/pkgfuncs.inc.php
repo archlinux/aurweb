@@ -1105,8 +1105,8 @@ function pkg_change_category($atype, $dbh=NULL) {
 	}
 
 	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
-	if ($uid == $pkg["MaintainerUID"] or
-	($atype == "Developer" or $atype == "Trusted User")) {
+	if ($uid == $pkg["MaintainerUID"] ||
+	($atype == "Developer" || $atype == "Trusted User")) {
 		$q = "UPDATE Packages ";
 		$q.= "SET CategoryID = ".intval($category_id)." ";
 		$q.= "WHERE ID = ".intval($pid);

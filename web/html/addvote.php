@@ -13,7 +13,7 @@ if (isset($_COOKIE["AURSID"])) {
   $atype = "";
 }
 
-if ($atype == "Trusted User" OR $atype == "Developer") {
+if ($atype == "Trusted User" || $atype == "Developer") {
 	$dbh = db_connect();
 
 	if (!empty($_POST['addVote'])) {

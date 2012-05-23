@@ -19,7 +19,7 @@ if (isset($_COOKIE["AURSID"])) {
   $atype = account_from_sid($_COOKIE["AURSID"]);
 }
 
-if ($atype == "Trusted User" OR $atype == "Developer") {
+if ($atype == "Trusted User" || $atype == "Developer") {
 
 	if (isset($_GET['id'])) {
 		if (is_numeric($_GET['id'])) {
@@ -123,7 +123,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 		else
 			$by = 'desc';
 
-		if (!empty($offset) AND is_numeric($offset)) {
+		if (!empty($offset) && is_numeric($offset)) {
 			if ($offset >= 1) {
 				$off = $offset;
 			} else {

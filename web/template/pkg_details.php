@@ -9,8 +9,8 @@ else {
 	$pkgid = pkgid_from_name($_REQUEST['N']);
 }
 
-if ($uid == $row["MaintainerUID"] or
-	($atype == "Developer" or $atype == "Trusted User")) {
+if ($uid == $row["MaintainerUID"] ||
+	($atype == "Developer" || $atype == "Trusted User")) {
 
 	$catarr = pkgCategories();
 	$edit_cat = "<form method='post' action='packages.php?ID=".$pkgid."'>\n";
@@ -55,7 +55,7 @@ if ($row["MaintainerUID"]) {
 }
 
 $votes = __('Votes') . ': ' . $row['NumVotes'];
-if ($atype == "Developer" or $atype == "Trusted User") {
+if ($atype == "Developer" || $atype == "Trusted User") {
 	$votes = "<a href=\"voters.php?ID=$pkgid\">$votes</a>";
 }
 
