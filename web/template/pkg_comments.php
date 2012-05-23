@@ -1,45 +1,42 @@
-<div class="pgbox">
 <?php
 $uid = uid_from_sid($SID);
-while (list($indx, $carr) = each($comments)) { ?>
-	<div class="comment-header"><?php
-
-	if ($SID) {
-		$carr['UserName'] = "<a href=\"account.php?Action=AccountInfo&amp;ID={$carr['UsersID']}\">{$carr['UserName']}</a>";
-	}
-
-	$commentHeader = '<p style="display:inline;">' . __('Comment by: %s on %s', $carr['UserName'], gmdate('Y-m-d H:i', $carr['CommentTS'])) . '</p>';
-
-	if (canDeleteCommentArray($carr, $atype, $uid)) {
-		$durl = '<form method="post" action="packages.php?ID='.$row['ID'].'">';
-		$durl.= '<fieldset style="display:inline;">';
-		$durl.= '<input type="hidden" name="action" value="do_DeleteComment" />';
-		$durl.= '<input type="hidden" name="comment_id" value="'.$carr['ID'].'" />';
-		$durl.= '<input type="image" src="images/x.png" ';
-		$durl.= ' alt="'.__("Delete comment").'" name="submit" value="1" ';
-		$durl.= ' />&nbsp;';
-		$durl.= '</fieldset>';
-
-		$commentHeader = $durl.$commentHeader."</form>";
-	}
-
-	echo $commentHeader;
-?></div>
-	<blockquote class="comment-body">
-	<div>
-<?php echo parse_comment($carr['Comments']) ?>
-	</div>
-	</blockquote>
-<?php
-}
+$count = package_comments_count($_GET['ID']);
 ?>
+<div id="news">
+	<h3>
+		<a href="<?php echo htmlentities($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>&amp;comments=all" title="<?php echo __('View all %s comments' , $count) ?>"><?php echo __('Latest Comments') ?></a>
+		<span class="arrow"></span>
+	</h3>
+
+	<?php while (list($indx, $row) = each($comments)): ?>
+		<?php if ($SID):
+			$row['UserName'] = "<a href=\"account.php?Action=AccountInfo&amp;ID={$row['UsersID']}\">{$row['UserName']}</a>";
+		endif; ?>
+		<h4>
+			<?php if (canDeleteCommentArray($row, $atype, $uid)): ?>
+				<form method="post" action="packages.php?ID=<?php echo $row['ID'] ?>">
+					<fieldset style="display:inline;">
+						<input type="hidden" name="action" value="do_DeleteComment" />
+						<input type="hidden" name="comment_id" value="<?php echo $row['ID'] ?>" />
+						<input type="image" src="images/x.png" alt="<?php echo __('Delete comment') ?> name="submit" value="1" />
+					</fieldset>
+				</form>
+			<?php endif; ?>
+			<?php echo __('Comment by %s', $row['UserName']) ?>
+		</h4>
+		<p class="timestamp"><?php echo gmdate('Y-m-d H:i', $row['CommentTS']) ?></p>
+		<div class="article-content">
+			<p>
+				<?php echo parse_comment($row['Comments']) ?>
+			</p>
+		</div>
+	<?php endwhile; ?>
 </div>
 
-<?php
-$count = package_comments_count(isset($_GET['ID']) ? $_GET['ID'] : pkgid_from_name($_GET['N']));
-if ($count > 10 && !isset($_GET['comments'])) {
-	echo '<div class="pgbox">';
-	echo '<a href="'. $_SERVER['REQUEST_URI'] . '&amp;comments=all">'. __('Show all %s comments', $count) . '</a>';
-	echo '</div>';
-}
-?>
+<?php if ($count > 10 && !isset($_GET['comments'])): ?>
+<div id="news">
+	<h3>
+		<a href="<?php echo $_SERVER['REQUEST_URI'] ?>&amp;comments=all" title="<?php echo __('View all %s comments', $count) ?>"><?php echo __('All comments', $count) ?></a>
+	</h3>
+</div>
+<?php endif; ?>
