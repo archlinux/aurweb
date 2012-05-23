@@ -299,13 +299,10 @@ if ($uid):
 
 		# Update the backend database
 		if (!$error) {
-
 			$dbh = db_connect();
-			db_query("BEGIN", $dbh);
+			begin_atomic_commit($dbh);
 
-			$q = "SELECT * FROM Packages WHERE Name = '" . db_escape_string($new_pkgbuild['pkgname']) . "'";
-			$result = db_query($q, $dbh);
-			$pdata = mysql_fetch_assoc($result);
+			$pdata = pkgdetails_by_pkgname($new_pkgbuild['pkgname'], $dbh);
 
 			if (isset($new_pkgbuild['epoch']) && (int)$new_pkgbuild['epoch'] > 0) {
 				$pkg_version = sprintf('%d:%s-%s', $new_pkgbuild['epoch'], $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
@@ -332,46 +329,20 @@ if ($uid):
 				$packageID = $pdata["ID"];
 
 				# Flush out old data that will be replaced with new data
-				$q = "DELETE FROM PackageDepends WHERE PackageID = " . $packageID;
-				db_query($q, $dbh);
-				$q = "DELETE FROM PackageSources WHERE PackageID = " . $packageID;
-				db_query($q, $dbh);
+				remove_pkg_deps($packageID, $dbh);
+				remove_pkg_sources($packageID, $dbh);
 
 				# If a new category was chosen, change it to that
 				if ($category_id > 1) {
-					$q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d",
-						$category_id,
-						$packageID);
-
-					db_query($q, $dbh);
+					update_pkg_category($packageID, $category_id);
 				}
 
 				# Update package data
-				$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
-					db_escape_string($new_pkgbuild['pkgname']),
-					db_escape_string($pkg_version),
-					db_escape_string($new_pkgbuild['license']),
-					db_escape_string($new_pkgbuild['pkgdesc']),
-					db_escape_string($new_pkgbuild['url']),
-					$uid,
-					$packageID);
-
-				db_query($q, $dbh);
-
+				update_pkgdetails($packageID, $new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, "", $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], "", $uid, $dbh);
 			} else {
 				# This is a brand new package
-				$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s', %d, '%s', '%s', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
-					db_escape_string($new_pkgbuild['pkgname']),
-					db_escape_string($new_pkgbuild['license']),
-					db_escape_string($pkg_version),
-					$category_id,
-					db_escape_string($new_pkgbuild['pkgdesc']),
-					db_escape_string($new_pkgbuild['url']),
-					$uid,
-					$uid);
-
-				db_query($q, $dbh);
-				$packageID = mysql_insert_id($dbh);
+				new_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $category_id, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid, $dbh);
+				$packageID = last_insert_id($dbh);
 
 			}
 
@@ -388,13 +359,7 @@ if ($uid):
 					else if ($deppkgname == "#") {
 						break;
 					}
-
-					$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, '%s', '%s')",
-						$packageID,
-						db_escape_string($deppkgname),
-						db_escape_string($depcondition));
-
-					db_query($q, $dbh);
+					add_pkg_dep($packageID, $deppkgname, $depcondition, $dbh);
 				}
 			}
 
@@ -402,9 +367,7 @@ if ($uid):
 			$sources = explode(" ", $new_pkgbuild['source']);
 			foreach ($sources as $src) {
 				if ($src != "" ) {
-					$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-					$q .= $packageID . ", '" . db_escape_string($src) . "')";
-					db_query($q, $dbh);
+					add_pkg_src($packageID, $src, $dbh);
 				}
 			}
 
@@ -415,7 +378,7 @@ if ($uid):
 			}
 
 			# Entire package creation process is atomic
-			db_query("COMMIT", $dbh);
+			end_atomic_commit($dbh);
 
 			header('Location: packages.php?ID=' . $packageID);
 		}

@@ -512,3 +512,24 @@ function parse_comment($comment) {
 
 	return $html;
 }
+
+function begin_atomic_commit($dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	db_query("BEGIN", $dbh);
+}
+
+function end_atomic_commit($dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	db_query("COMMIT", $dbh);
+}
+
+function last_insert_id($dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	return mysql_insert_id($dbh);
+}

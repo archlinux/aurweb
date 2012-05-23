@@ -1240,3 +1240,100 @@ function pkg_change_category($atype, $dbh=NULL) {
 		return __("You are not allowed to change this package category.");
 	}
 }
+
+function pkgdetails_by_pkgname($pkgname, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "SELECT * FROM Packages WHERE Name = '" . db_escape_string($pkgname) . "'";
+	$result = db_query($q, $dbh);
+	if ($result) {
+		$pdata = mysql_fetch_assoc($result);
+	}
+	return $pdata;
+}
+
+function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pkgurl, $uid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s', %d, '%s', '%s', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
+	db_escape_string($pkgname),
+	db_escape_string($license),
+	db_escape_string($pkgver),
+	$category_id,
+	db_escape_string($pkgdesc),
+	db_escape_string($pkgurl),
+	$uid,
+	$uid);
+
+	db_query($q, $dbh);
+}
+
+function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid, $pkgid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	# This is an overwrite of an existing package
+	$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
+	db_escape_string($pkgname),
+	db_escape_string($pkgver),
+	db_escape_string($license),
+	db_escape_string($pkgdesc),
+	db_escape_string($pkgurl),
+	$uid,
+	$pkgid);
+
+	db_query($q, $dbh);
+}
+
+function add_pkg_dep($pkgid, $depname, $depcondition, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, '%s', '%s')",
+	$pkgid,
+	db_escape_string($depname),
+	db_escape_string($depcondition));
+
+	db_query($q, $dbh);
+}
+
+function add_pkg_src($pkgid, $pkgsrc, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
+	$q .= $pkgid . ", '" . db_escape_string($pkgsrc) . "')";
+
+	db_query($q, $dbh);
+}
+
+function update_pkg_category($pkgid, $category_id, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d",
+	$category_id,
+	$pkgid);
+
+	db_query($q, $dbh);
+}
+
+function remove_pkg_deps($pkgid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "DELETE FROM PackageDepends WHERE PackageID = " . $pkgid;
+
+	db_query($q, $dbh);
+}
+
+function remove_pkg_sources($pkgid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "DELETE FROM PackageSources WHERE PackageID = " . $pkgid;
+
+	db_query($q, $dbh);
+}
