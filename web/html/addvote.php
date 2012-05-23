@@ -5,7 +5,10 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 include_once("aur.inc.php");
 set_lang();
 check_sid();
-html_header();
+
+$title = __("Add Proposal");
+
+html_header($title);
 
 if (isset($_COOKIE["AURSID"])) {
   $atype = account_from_sid($_COOKIE["AURSID"]);
@@ -81,28 +84,27 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 	<p style="color: red;" class="pkgoutput"><?php print $error ?></p>
 <?php endif; ?>
 
-<div class="pgbox">
-<h2><?php print __("Submit a proposal to vote on.") ?></h2>
-<div class="pgboxbody">
-<form action='addvote.php' method='post'>
-<p>
-<b><?php print __('Applicant/TU') ?></b>
-<input type='text' name='user' value='<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>' />
-<?php print __("(empty if not applicable)") ?>
-</p>
-<p>
-<b><?php print __('Length in days') ?></b>
-<input type='text' name='length' value='<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>' />
-<?php print __("(defaults to 7 if empty)") ?>
-</p>
-<p>
-<b><?php print __('Proposal') ?></b><br />
-<textarea name='agenda' rows='25' cols='80'><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
-<input type='hidden' name='addVote' value='1' />
-<input type='submit' class='button' value='<?php print __('Submit'); ?>' />
-</p>
-</form>
-</div>
+<div class="box">
+	<h2><?php print __("Submit a proposal to vote on.") ?></h2>
+
+	<form action="addvote.php" method="post">
+		<p>
+			<b><?php print __("Applicant/TU") ?></b>
+			<input type="text" name="user" value="<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>" />
+			<?php print __("(empty if not applicable)") ?>
+		</p>
+		<p>
+			<b><?php print __("Length in days") ?></b>
+			<input type="text" name="length" value="<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>" />
+			<?php print __("(defaults to 7 if empty)") ?>
+		</p>
+		<p>
+		<b><?php print __("Proposal") ?></b><br />
+		<textarea name="agenda" rows="15" cols="80"><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
+		<input type="hidden" name="addVote" value="1" />
+		<input type="submit" class="button" value="<?php print __("Submit"); ?>" />
+		</p>
+	</form>
 </div>
 <?php
 	}
