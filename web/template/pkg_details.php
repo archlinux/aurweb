@@ -2,62 +2,14 @@
 $atype = account_from_sid($SID);
 $uid = uid_from_sid($SID);
 
-if (isset($_REQUEST['ID'])) {
-	$pkgid = intval($_REQUEST['ID']);
-}
-else {
-	$pkgid = pkgid_from_name($_REQUEST['N']);
-}
+$pkgid = intval($_REQUEST['ID']);
 
-if ($uid == $row["MaintainerUID"] ||
-	($atype == "Developer" || $atype == "Trusted User")) {
+$catarr = pkgCategories();
 
-	$catarr = pkgCategories();
-	$edit_cat = "<form method='post' action='packages.php?ID=".$pkgid."'>\n";
-	$edit_cat.= "<p>";
-	$edit_cat.= "<input type='hidden' name='action' value='do_ChangeCategory' />";
-	$edit_cat.= "<span class='f3'>" . __("Category") . ":</span> ";
-	$edit_cat.= "<select name='category_id'>\n";
-	foreach ($catarr as $cid => $catname) {
-		$edit_cat.= "<option value='$cid'";
-		if ($cid == $row["CategoryID"]) {
-		    $edit_cat.=" selected='selected'";
-		}
-		$edit_cat.=">".$catname."</option>";
-	}
-	$edit_cat.= "</select>&nbsp;<input type='submit' value='" . __("Change category") . "' />";
-	$edit_cat.= "</p>";
-	$edit_cat.= "</form>";
+$submitter = username_from_id($row["SubmitterUID"]);
+$maintainer = username_from_id($row["MaintainerUID"]);
 
-}
-else {
-	$edit_cat = "<span class='f3'>" . __("Category") . ": " . $row['Category'] . "</span>";
-}
-
-if ($row["SubmitterUID"]) {
-	$submitter = username_from_id($row["SubmitterUID"]);
-	if ($SID) {
-		$submitter = '<a href="account.php?Action=AccountInfo&amp;ID=' . htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) . '">' . htmlspecialchars($submitter) . '</a>';
-	}
-
-} else {
-	$submitter = "None";
-}
-
-if ($row["MaintainerUID"]) {
-	$maintainer = username_from_id($row["MaintainerUID"]);
-	if ($SID) {
-		$maintainer = '<a href="account.php?Action=AccountInfo&amp;ID=' . htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) . '">' . htmlspecialchars($maintainer) . '</a>';
-	}
-
-} else {
-	$maintainer = "None";
-}
-
-$votes = __('Votes') . ': ' . $row['NumVotes'];
-if ($atype == "Developer" || $atype == "Trusted User") {
-	$votes = "<a href=\"voters.php?ID=$pkgid\">$votes</a>";
-}
+$votes = $row['NumVotes'];
 
 # In case of wanting to put a custom message
 $msg = __('unknown');
@@ -68,115 +20,168 @@ $updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($r
 $submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["SubmittedTS"]));
 $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
 
+$urlpath = URL_DIR . substr($row['Name'], 0, 2) . "/" . $row['Name'];
+
+$deps = package_dependencies($row["ID"]);
+$requiredby = package_required($row["Name"]);
+
+# $sources[0] = 'src';
+$sources = package_sources($row["ID"]);
 ?>
-<div class="pgbox">
-	<h2><?php echo __("Package Details") . ': ' . htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></h2>
-	<div class="pgboxbody">
-
-	<p>
-	<span class='f2'><?php echo htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></span><br />
-	<span class='f3'><a href="<?php echo htmlspecialchars($row['URL'], ENT_QUOTES) . '">' . htmlspecialchars($row['URL']) ?></a></span><br />
-	<span class='f3'><?php echo htmlspecialchars($row['Description'], ENT_QUOTES); ?></span>
-	</p>
-
-	<?php echo $edit_cat ?>
-
-	<p>
-	<span class='f3'><?php echo __('Submitter') .': ' . $submitter ?></span><br />
-	<span class='f3'><?php echo __('Maintainer') .': ' . $maintainer ?></span><br />
-	<span class='f3'><?php echo $votes ?></span>
-	</p>
-
-	<p><span class='f3'><?php echo __('License') . ': ' . htmlspecialchars($license) ?></span></p>
-
-	<p>
-	<span class='f3'>
-	<?php echo __('Last Updated') . ': ' . $updated_time ?><br />
-	<?php echo __('First Submitted') . ': '. $submitted_time ?>
-	</span>
-	</p>
-
-	<p><span class='f3'>
-<?php
-		$urlpath = URL_DIR . substr($row['Name'], 0, 2) . "/" . $row['Name'];
-		print "<a href='$urlpath/" . $row['Name'] . ".tar.gz'>".__("Tarball")."</a> :: ";
-		print "<a href='$urlpath/PKGBUILD'>".__("PKGBUILD")."</a></span>";
-
-		if ($row["OutOfDateTS"] !== NULL) {
-			echo "<br /><span class='f6'>".__("This package has been flagged out of date.")." (${out_of_date_time})</span>";
-		}
-?>
-	</p>
-<?php
-
-	$deps = package_dependencies($row["ID"]);
-	$requiredby = package_required($row["Name"]);
-
-	if (count($deps) > 0 || count($requiredby) > 0) {
-		echo '<p>';
-	}
-
-	if (count($deps) > 0) {
-		echo "<span class='boxSoftTitle'><span class='f3'>". __("Dependencies")."</span></span>";
-
-		while (list($k, $darr) = each($deps)) {
-			# darr: (DepName, DepCondition, PackageID), where ID is NULL if it didn't exist
-			if (!is_null($darr[2])) {
-				echo " <a href='packages.php?ID=".$darr[2]."'>".$darr[0].$darr[1]."</a>";
-			} else {
-				echo " <a href='http://www.archlinux.org/packages/?q=".urlencode($darr[0])."'>".$darr[0].$darr[1]."</a>";
-			}
-		}
-
-		if (count($requiredby) > 0) {
-			echo '<br />';
-		}
-	}
-
-	if (count($requiredby) > 0) {
-		echo "<span class='boxSoftTitle'><span class='f3'>". __("Required by")."</span></span>";
-
-		while (list($k, $darr) = each($requiredby)) {
-			# darr: (PackageName, PackageID)
-			echo " <a href='packages.php?ID=".$darr[1]."'>".$darr[0]."</a>";
-		}
-	}
-
-	if (count($deps) > 0 || count($requiredby) > 0) {
-		echo '</p>';
-	}
-
-
-	# $sources[0] = 'src';
-	$sources = package_sources($row["ID"]);
-
-	if (count($sources) > 0) {
-
-?>
-	<div class='boxSoftTitle'><span class='f3'><?php echo __('Sources') ?></span></div>
-	<div>
-<?php
-		while (list($k, $src) = each($sources)) {
-			$src = explode('::', $src);
-			$parsed_url = parse_url($src[0]);
-
-			if (isset($parsed_url['scheme']) || isset($src[1])) {
-				# It is an external source
-				echo "<a href=\"" . htmlspecialchars((isset($src[1]) ? $src[1] : $src[0]), ENT_QUOTES) . "\">" . htmlspecialchars($src[0]) . "</a><br />\n";
-			}
-			else {
-				$src = $src[0];
-				# It is presumably an internal source
-				echo "<span class='f8'>" . htmlspecialchars($src) . "</span>";
-				echo "<br />\n";
-			}
-		}
-?>
+<div id="pkgdetails" class="box">
+	<h2><?php echo __('Package Details') . ': ' . htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></h2>
+	<div id="detailslinks" class="listing">
+		<div id="actionlist">
+			<h4>Package Actions</h4>
+			<ul class="small">
+				<li><a href="<?php echo $urlpath ?>/PKGBUILD"><?php echo __('View PKGBUILD') ?></a></li>
+				<li><a href="<?php echo $urlpath . '/' . $row['Name'] ?>.tar.gz"><?php echo __('Download tarball') ?></a></li>
+				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
+			</ul>
+		</div>
 	</div>
+
+	<table id="pkginfo">
+		<tr>
+			<th><?php echo __('Description') . ': ' ?></th>
+			<td class="wrap"><?php echo htmlspecialchars($row['Description']); ?></td>
+		</tr>
+		<tr>
+			<th>Upstream URL:</th>
+			<td><a href="<?php echo htmlspecialchars($row['URL'], ENT_QUOTES) ?>" title="<?php echo __('Visit the website for') . ' ' . htmlspecialchars( $row['Name'])?>"><?php echo htmlspecialchars($row['URL'], ENT_QUOTES) ?></a></td>
+		</tr>
+		<tr>
+			<th><?php echo __('Category') . ': ' ?></th>
 <?php
-	}
-
+if ($SID && ($uid == $row["MaintainerUID"] ||
+	($atype == "Developer" || $atype == "Trusted User"))):
 ?>
+			<td>
+				<form method="post" action="packages.php?ID=<?php echo $pkgid ?>">
+					<div>
+						<input type="hidden" name="action" value="do_ChangeCategory" />
+						<select name="category_id">
+<?php
+	foreach ($catarr as $cid => $catname):
+?>
+							<option value="<?php echo $cid ?>"<?php if ($cid == $row["CategoryID"]) { ?> selected="selected" <?php } ?>><?php echo $catname ?></option>
+	<?php endforeach; ?>
+						</select>
+						<input type="submit" value="<?php echo __('Change category') ?>"/>
+					</div>
+				</form>
+<?php else: ?>
+			<td>
+				<a href="packages.php?C=<?php echo $row['CategoryID'] ?>"><?php print $row['Category'] ?></a>
+<?php endif; ?>
+			</td>
+		<tr>
+			<th><?php echo __('License') . ': ' ?></th>
+			<td><?php echo htmlspecialchars($license) ?></td>
+		</tr>
+		<tr>
+			<th><?php echo __('Submitter') .': ' ?></th>
+<?php
+if ($row["SubmitterUID"]):
+	if ($SID):
+?>
+			<td><a href="account.php?Action=AccountInfo&amp;ID=<?php echo htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) ?>" title="<?php echo __('View account information for')?> <?php echo htmlspecialchars($submitter) ?>"><?php echo htmlspecialchars($submitter) ?></a></td>
+<?php else: ?>
+		<td><?php echo htmlspecialchars($submitter) ?></td>
+	<?php endif; ?>
+<?php else: ?>
+			<td>None</td>
+<?php endif; ?>
+		<tr>
+			<th><?php echo __('Maintainer') .': ' ?></th>
+<?php
+if ($row["MaintainerUID"]):
+	if ($SID):
+?>
+			<td><a href="account.php?Action=AccountInfo&amp;ID=<?php echo htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) ?>" title="<?php echo __('View account information for')?> <?php echo htmlspecialchars($maintainer) ?>"><?php echo htmlspecialchars($maintainer) ?></a></td>
+	<?php else: ?>
+		<td><?php echo htmlspecialchars($maintainer) ?></td>
+	<?php endif; ?>
+<?php else: ?>
+			<td>None</td>
+<?php endif; ?>
+		</tr>
+		<tr>
+			<th><?php echo __('Votes') . ': ' ?></th>
+<?php
+if ($atype == "Developer" || $atype == "Trusted User"):
+?>
+			<td><a href="voters.php?ID=<?php echo$pkgid ?>"><?php echo $votes ?></a>
+<?php else: ?>
+			<td><?php echo $votes ?></td>
+<?php endif; ?>
+		</tr>
+		<tr>
+			<th><?php echo __('First Submitted') . ': ' ?></th>
+			<td><?php echo $submitted_time ?></td>
+		</tr>
+		<tr>
+			<th><?php echo __('Last Updated') . ': ' ?></th>
+			<td><?php echo $updated_time ?></td>
+		</tr>
+	</table>
 
+	<div id="metadata">
+		<div id="pkgdeps" class="listing">
+			<h3><?php echo __('Dependencies') . " (" . count($deps) . ")"?></h3>
+<?php if (count($deps) > 0): ?>
+			<ul>
+<?php
+	while (list($k, $darr) = each($deps)):
+		# darr: (DepName, DepCondition, PackageID), where ID is NULL if it didn't exist
+		if (!is_null($darr[2])):
+?>
+				<li><a href="packages.php?ID=<?php echo $darr[2]?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1]?>"><?php echo $darr[0].$darr[1]?></a></li>
+		<?php else: ?>
+				<li><a href="http://www.archlinux.org/packages/?q="<?php echo urlencode($darr[0])?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1] ?>"><?php echo $darr[0].$darr[1] ?></a></li>
+		<?php endif; ?>
+	<?php endwhile; ?>
+			</ul>
+		</div>
+<?php endif; ?>
+		<div id="pkgreqs" class="listing">
+			<h3><?php echo __('Required by') . " (" . count($requiredby) . ")"?></h3>
+<?php if (count($requiredby) > 0): ?>
+			<ul>
+<?php
+	# darr: (PackageName, PackageID)
+	while (list($k, $darr) = each($requiredby)):
+?>
+				<li><a href="packages.php?ID=<?php echo $darr[1] ?>" title="<?php echo __('View packages details for').' '.$darr[0]?>"><?php echo $darr[0] ?></a></li>
+	<?php endwhile; ?>
+			</ul>
+<?php endif; ?>
+		</div>
+		<div id="pkgfiles" class="listing">
+			<h3><?php echo __('Sources') ?></h3>
+		</div>
+		<div>
+<?php if (count($sources) > 0): ?>
+			<ul>
+<?php
+	while (list($k, $src) = each($sources)):
+		$src = explode('::', $src);
+		$parsed_url = parse_url($src[0]);
+
+		# It is an external source
+		if (isset($parsed_url['scheme']) || isset($src[1])):
+?>
+				<li><a href="<?php echo htmlspecialchars((isset($src[1]) ? $src[1] : $src[0]), ENT_QUOTES) ?>"><?php echo htmlspecialchars($src[0]) ?> </a></li>
+<?php
+		else:
+			# It is presumably an internal source
+			$src = $src[0];
+?>
+				<li><?php echo htmlspecialchars($src) ?></li>
+		<?php endif; ?>
+	<?php endwhile; ?>
+			</ul>
+		</div>
+<?php endif; ?>
 	</div>
 </div>
