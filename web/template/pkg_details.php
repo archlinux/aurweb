@@ -70,7 +70,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($
 
 ?>
 <div class="pgbox">
-	<div class="pgboxtitle"><span class="f3"><?php echo __("Package Details") ?></span></div>
+	<h2><?php echo __("Package Details") . ': ' . htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></h2>
 	<div class="pgboxbody">
 
 	<p>

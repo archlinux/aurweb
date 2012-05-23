@@ -5,9 +5,7 @@
 <?php } else { ?>
 	<form action='packages.php?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>' method='post'>
 		<div class="pgbox">
-			<div class="pgboxtitle">
-				<span class='f3'><?php print __("Package Listing") ?></span>
-			</div>
+			<h2><?php print __("Package Listing") ?></h2>
 
 
 

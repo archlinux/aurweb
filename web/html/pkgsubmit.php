@@ -434,9 +434,7 @@ html_header("Submit");
 <?php endif; ?>
 
 <div class="pgbox">
-	<div class="pgboxtitle">
-		<span class="f3"><?php print __("Submit"); ?></span>
-	</div>
+	<h2><?php print __("Submit"); ?></h2>
 	<div class="pgboxbody">
 	<p><?php echo __("Upload your source packages here. Create source packages with `makepkg --source`.") ?></p>
 

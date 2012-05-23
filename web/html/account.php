@@ -13,7 +13,7 @@ html_header(__('Accounts'));
 # Main page processing here
 #
 echo "<div class=\"pgbox\">\n";
-echo "  <div class=\"pgboxtitle\"><span class=\"f3\">".__("Accounts")."</span></div>\n";
+echo "  <h2>".__("Accounts")."</h2>\n";
 echo "  <div class=\"pgboxbody\">\n";
 
 $action = in_request("Action");

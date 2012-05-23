@@ -1,7 +1,5 @@
 <div class="pgbox">
-		<div class="pgboxtitle" style="text-align:right;">
-			<span class='f3'><?php print $type ?></span>
-		</div>
+	<h2><?php print $type ?></h2>
 			<table class='results'>
 				<tr>
 					<th class='header'><span class='f2'><?php print __("Proposal") ?></span></th>

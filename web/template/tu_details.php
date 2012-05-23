@@ -1,5 +1,5 @@
 <div class="pgbox">
-<div class="pgboxtitle"><span class="f3"><?php print __("Proposal Details") ?></span></div>
+<h2><?php print __("Proposal Details") ?></h2>
 <div class="pgboxbody">
 <?php
 if ($isrunning == 1) { ?>
@@ -51,9 +51,7 @@ N/A
 <?php
 if (!$isrunning) { ?>
 <div class="pgbox">
-	<div class="pgboxtitle">
-	<span class="f3"><?php echo __('Voters'); ?></span>
-	</div>
+	<h2><?php echo __('Voters'); ?></h2>
 	<div class="pgboxbody">
 	<?php echo $whovoted; ?>
 	</div>

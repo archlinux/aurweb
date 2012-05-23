@@ -17,9 +17,7 @@ $dbh = db_connect();
 ?>
 
 <div class="pgbox">
-<div class="pgboxtitle">
-<span class="f3">AUR <?php print __("Home"); ?></span>
-</div>
+<h2>AUR <?php print __("Home"); ?></h2>
 <div class="frontpgboxbody">
 <p>
 

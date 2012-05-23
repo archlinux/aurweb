@@ -82,7 +82,7 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 <?php endif; ?>
 
 <div class="pgbox">
-<div class="pgboxtitle"><?php print __("Submit a proposal to vote on.") ?></div>
+<h2><?php print __("Submit a proposal to vote on.") ?></h2>
 <div class="pgboxbody">
 <form action='addvote.php' method='post'>
 <p>

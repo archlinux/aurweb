@@ -2,8 +2,8 @@
 
 <div class='pgbox'>
 <form action='packages.php' method='get'>
-<div class='pgboxtitle'>
-	<span class='f3'><?php print __("Search Criteria"); ?></span>
+<h2><?php print __("Search Criteria"); ?></h2>
+<div>
 	<input type='hidden' name='O' value='0' />
 	<input type='text' name='K' size='30' value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength='35' />
 	<input type='submit' style='min-width:80px' class='button' name='do_Search' value='<?php print __("Go"); ?>' />

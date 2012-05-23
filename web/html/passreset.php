@@ -85,9 +85,7 @@ html_header(__("Password Reset"));
 ?>
 
 <div class="pgbox">
-	<div class="pgboxtitle">
-		<span class="f3"><?php print __("Password Reset"); ?></span>
-	</div>
+	<h2><?php print __("Password Reset"); ?></h2>
 	<div class="pgboxbody">
 		<?php
 		if ($error) {
