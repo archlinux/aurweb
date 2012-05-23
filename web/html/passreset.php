@@ -84,52 +84,49 @@ html_header(__("Password Reset"));
 
 ?>
 
-<div class="pgbox">
+<div class="box">
 	<h2><?php print __("Password Reset"); ?></h2>
-	<div class="pgboxbody">
-		<?php
-		if ($error) {
-			echo '<p><span class="error">'.$error.'</span></p>';
-		}
-		?>
-		<?php
-		if ($step == 'confirm') {
-			echo __('Check your e-mail for the confirmation link.');
-		} elseif ($step == 'complete') {
-			echo __('Your password has been reset successfully.');
-		} elseif (isset($_GET['resetkey'])) {
-		?>
-		<form action="" method="post">
-			<table>
-				<tr>
-					<td><?php echo __("Confirm your e-mail address:"); ?></td>
-					<td><input type="text" name="email" size="30" maxlength="64" /></td>
-				</tr>
-				<tr>
-					<td><?php echo __("Enter your new password:"); ?></td>
-					<td><input type="password" name="password" size="30" maxlength="32" /></td>
-				</tr>
-				<tr>
-					<td><?php echo __("Confirm your new password:"); ?></td>
-					<td><input type="password" name="confirm" size="30" maxlength="32" /></td>
-				</tr>
-			</table>
-			<br />
-			<input type="submit" class="button" value="<?php echo __('Continue') ?>" />
-		</form>
-		<?php
-		} else {
-		?>
-		<p><?php echo __('If you have forgotten the e-mail address you used to register, please send a message to the %saur-general%s mailing list.',
-		'<a href="http://mailman.archlinux.org/mailman/listinfo/aur-general">',
-		'</a>'); ?></p>
-		<form action="" method="post">
-			<p><?php echo __("Enter your e-mail address:"); ?>
-			<input type="text" name="email" size="30" maxlength="64" /></p>
-			<input type="submit" class="button" value="<?php echo __('Continue') ?>" />
-		</form>
-		<?php } ?>
-	</div>
+
+	<?php if ($error): ?>
+		<p><span class="error"><?php echo $error ?></span></p>
+	<?php endif;?>
+	<?php
+	if ($step == 'confirm') {
+		echo __('Check your e-mail for the confirmation link.');
+	} elseif ($step == 'complete') {
+		echo __('Your password has been reset successfully.');
+	} elseif (isset($_GET['resetkey'])) {
+	?>
+	<form action="" method="post">
+		<table>
+			<tr>
+				<td><?php echo __("Confirm your e-mail address:"); ?></td>
+				<td><input type="text" name="email" size="30" maxlength="64" /></td>
+			</tr>
+			<tr>
+				<td><?php echo __("Enter your new password:"); ?></td>
+				<td><input type="password" name="password" size="30" maxlength="32" /></td>
+			</tr>
+			<tr>
+				<td><?php echo __("Confirm your new password:"); ?></td>
+				<td><input type="password" name="confirm" size="30" maxlength="32" /></td>
+			</tr>
+		</table>
+		<br />
+		<input type="submit" class="button" value="<?php echo __('Continue') ?>" />
+	</form>
+	<?php
+	} else {
+	?>
+	<p><?php echo __('If you have forgotten the e-mail address you used to register, please send a message to the %saur-general%s mailing list.',
+	'<a href="http://mailman.archlinux.org/mailman/listinfo/aur-general">',
+	'</a>'); ?></p>
+	<form action="" method="post">
+		<p><?php echo __("Enter your e-mail address:"); ?>
+		<input type="text" name="email" size="30" maxlength="64" /></p>
+		<input type="submit" class="button" value="<?php echo __('Continue') ?>" />
+	</form>
+	<?php } ?>
 </div>
 
 <?php
