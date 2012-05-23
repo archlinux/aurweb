@@ -15,26 +15,28 @@ $SID = $_COOKIE['AURSID'];
 
 $pkgid = intval($_GET['ID']);
 $votes = getvotes($pkgid);
-$account = account_from_sid($SID);
+$atype = account_from_sid($SID);
 
-if ($account == 'Trusted User' || $account == 'Developer') {
+html_header(__("Voters"));
+
+if ($atype == 'Trusted User' || $atype== 'Developer'):
 ?>
-<html>
-<body>
-<h3><?php echo account_from_sid($SID) ?></h3>
-<h2>Votes for <a href="packages.php?ID=<?php echo $pkgid ?>"><?php echo pkgname_from_id($pkgid) ?></a></h2>
+
+<div class="box">
+	<h2>Votes for <a href="packages.php?ID=<?php echo $pkgid ?>"><?php echo pkgname_from_id($pkgid) ?></a></h2>
+	<div class="boxbody">
+
 <?php
-	while ($row = mysql_fetch_assoc($votes)) {
+	while ($row = mysql_fetch_assoc($votes)):
 		$uid = $row['UsersID'];
 		$username = $row['Username'];
 ?>
-<a href="account.php?Action=AccountInfo&amp;ID=<?php echo $uid ?>">
-<?php echo htmlspecialchars($username) ?></a><br />
-<?php
-	}
-?>
-</body>
-</html>
-<?php
-}
+		<a href="account.php?Action=AccountInfo&amp;ID=<?php echo $uid ?>"><?php echo htmlspecialchars($username) ?></a><br />
+	<?php endwhile; ?>
+	</div>
+</div>
 
+<?php
+endif;
+
+html_footer(AUR_VERSION);
