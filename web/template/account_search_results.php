@@ -2,7 +2,6 @@
 if (!$result):
 	print __("No results matched your search criteria.");
 else:
-	$num_rows = mysql_num_rows($result);
 	if ($num_rows):
 ?>
 		<table class="results">
@@ -20,7 +19,7 @@ else:
 			</thead>
 			<?php
 			$i = 0;
-			while ($row = mysql_fetch_assoc($result)):
+			while (list($indx, $row) = each($userinfo)):
 				if ($i % 2):
 					$c = "even";
 				else:

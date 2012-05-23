@@ -323,6 +323,12 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	$dbh = db_connect();
 
 	$result = db_query($q, $dbh);
+	$num_rows = mysql_num_rows($result);
+
+	while ($row = mysql_fetch_assoc($result)) {
+		$userinfo[] = $row;
+	}
+
 	include("account_search_results.php");
 	return;
 }
