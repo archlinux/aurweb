@@ -973,6 +973,46 @@ function getvotes($pkgid, $dbh=NULL) {
 	return $votes;
 }
 
+# Determine if a user has already voted for a specific package
+function user_voted($uid, $pkgid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$uid = db_escape_string($uid);
+	$pkgid = db_escape_string($pkgid);
+
+	$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $uid;
+	$q.= " AND PackageID = ".$pkgid;
+	$result = db_query($q, $dbh);
+	if (mysql_num_rows($result)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+# Determine if a user wants notifications for a specific package
+function user_notify($uid, $pkgid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$uid = db_escape_string($uid);
+	$pkgid = db_escape_string($pkgid);
+
+	$q = "SELECT * FROM CommentNotify WHERE UserID = ". $uid;
+	$q.= " AND PkgID = ".$pkgid;
+	$result = db_query($q, $dbh);
+	if (mysql_num_rows($result)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 /**
  * Toggle notification of packages
  *

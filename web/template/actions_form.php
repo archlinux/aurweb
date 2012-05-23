@@ -3,33 +3,17 @@
 		<fieldset>
 			<input type="hidden" name="IDs[<?php echo $row['ID'] ?>]" value="1" />
 			<input type="hidden" name="ID" value="<?php echo $row['ID'] ?>" />
-		<?php
-		# Voting Button
-		#
-		$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $uid;
-		$q.= " AND PackageID = ".$row["ID"];
-		$result = db_query($q, $dbh);
-		if ($result):
-			if (!mysql_num_rows($result)):
-		?>
-			<input type="submit" class="button" name="do_Vote" value="<?php echo __("Vote") ?>" />
-			<?php else: ?>
+
+		<?php if (user_voted($uid, $row['ID'])): ?>
 			<input type="submit" class="button" name="do_UnVote" value="<?php echo __("UnVote") ?>" />
-			<?php endif; ?>
+		<?php else: ?>
+			<input type="submit" class="button" name="do_Vote" value="<?php echo __("Vote") ?>" />
 		<?php endif; ?>
-		<?php
-		# Comment Notify Button
-		#
-		$q = "SELECT * FROM CommentNotify WHERE UserID = ". $uid;
-		$q.= " AND PkgID = ".$row["ID"];
-		$result = db_query($q, $dbh);
-		if ($result):
-			if (!mysql_num_rows($result)):
-		?>
-			<input type="submit" class="button" name="do_Notify" value="<?php echo __("Notify") ?>" title="<?php echo __("New Comment Notification") ?>" />
-			<?php else: ?>
+
+		<?php if (user_notify($uid, $row['ID'])): ?>
 			<input type="submit" class="button" name="do_UnNotify" value="<?php echo __("UnNotify") ?>" title="<?php echo __("No New Comment Notification") ?>" />
-			<?php endif; ?>
+		<?php else: ?>
+			<input type="submit" class="button" name="do_Notify" value="<?php echo __("Notify") ?>" title="<?php echo __("New Comment Notification") ?>" />
 		<?php endif; ?>
 
 		<?php if ($row["OutOfDateTS"] === NULL): ?>
