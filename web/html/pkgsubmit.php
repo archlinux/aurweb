@@ -433,9 +433,8 @@ html_header("Submit");
 	<p class="pkgoutput"><?php print $error ?></p>
 <?php endif; ?>
 
-<div class="pgbox">
-	<h2><?php print __("Submit"); ?></h2>
-	<div class="pgboxbody">
+<div class="box">
+	<h2><?php echo __("Submit"); ?></h2>
 	<p><?php echo __("Upload your source packages here. Create source packages with `makepkg --source`.") ?></p>
 
 <?php
@@ -447,38 +446,35 @@ html_header("Submit");
 			$pkg_categories = pkgCategories();
 ?>
 
-<form action='pkgsubmit.php' method='post' enctype='multipart/form-data'>
-	<div> <input type='hidden' name='pkgsubmit' value='1' /> </div>
-	<table>
-		<tr>
-			<td class='f4' align='right'><?php print __("Package Category"); ?>:</td>
-			<td class='f4' align='left'>
-			<select name='category'>
-				<option value='1'><?php print __("Select Category"); ?></option>
+<form action="pkgsubmit.php" method="post" enctype="multipart/form-data">
+	<fieldset>
+		<div>
+			<input type="hidden" name="pkgsubmit" value="1" />
+		</div>
+		<p>
+			<label for="id_category"><?php print __("Package Category"); ?>:</label>
+			<select id="id_category" name="category">
+				<option value="1"><?php print __("Select Category"); ?></option>
 				<?php
 					foreach ($pkg_categories as $num => $cat):
-						print "<option value='" . $num . "'";
+						print '<option value="' . $num . '"';
 						if (isset($_POST['category']) && $_POST['category'] == $cat):
-							print " selected='selected'";
+							print ' selected="selected"';
 						endif;
-						print ">" . $cat . "</option>";
+						print '>' . $cat . '</option>';
 					endforeach;
 				?>
 			</select>
-			</td>
-		</tr>
-		<tr>
-			<td class='f4' align='right'><?php print __("Upload package file"); ?>:</td>
-			<td class='f4' align='left'>
-				<input type='file' name='pfile' size='30' />
-			</td>
-		</tr>
-		<tr>
-			<td align='left'>
-				<input class='button' type='submit' value='<?php print __("Upload"); ?>' />
-			</td>
-		</tr>
-	</table>
+		</p>
+		<p>
+			<label for="id_file"><?php print __("Upload package file"); ?>:</label>
+			<input id="id_file" type="file" name="pfile" size='30' />
+		</p>
+		<p>
+			<label></label>
+			<input class="button" type="submit" value="<?php print __("Upload"); ?>" />
+		</p>
+	</fieldset>
 </form>
 
 <?php
