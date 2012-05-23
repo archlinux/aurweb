@@ -42,11 +42,12 @@
 						<?php if (check_user_privileges()): ?><li><a href="tu.php"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
 						<li><a href="packages.php?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
 						<li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
+						<li><a href="logout.php"><?php print __("Logout"); ?></a></li>
+					<?php else: ?>
+						<li><a href="login.php"><?php print __("Login"); ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</div><!-- #archdev-navbar -->
-
-			<?php include("login_form.php"); ?>
 
 			<div id="lang_sub">
 				<?php

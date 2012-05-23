@@ -286,18 +286,8 @@ function db_query($query="", $db_handle="") {
 # common header
 #
 function html_header($title="") {
-	global $_SERVER;
-	global $_COOKIE;
-	global $_POST;
 	global $LANG;
 	global $SUPPORTED_LANGS;
-	global $DISABLE_HTTP_LOGIN;
-	global $AUR_LOCATION;
-
-	if (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])) {
-		$login = try_login();
-		$login_error = $login['error'];
-	}
 
 	$title = htmlspecialchars($title, ENT_QUOTES);
 
