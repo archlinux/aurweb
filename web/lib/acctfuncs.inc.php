@@ -522,8 +522,13 @@ function valid_username($user) {
  * Checks if the username is valid and if it exists in the database
  * Returns the username ID or nothing
  */
-function valid_user($user, $dbh) {
+function valid_user($user, $dbh=NULL) {
 	/*	if ( $user = valid_username($user) ) { */
+
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
 	if ( $user ) {
 		$q = "SELECT ID FROM Users WHERE Username = '"
 			. db_escape_string($user). "'";
@@ -536,6 +541,37 @@ function valid_user($user, $dbh) {
 		}
 	}
 	return;
+}
+
+# Check for any open proposals about a user. Used to prevent multiple proposals.
+function open_user_proposals($user, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "SELECT * FROM TU_VoteInfo WHERE User = '" . db_escape_string($user) . "'";
+	$q.= " AND End > UNIX_TIMESTAMP()";
+	$result = db_query($q, $dbh);
+	if (mysql_num_rows($result)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+# Creates a new trusted user proposal from entered agenda.
+# Optionally takes proposal about specific user. Length of vote set by submitter.
+function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
+	$q.= "('" . db_escape_string($agenda) . "', ";
+	$q.= "'" . db_escape_string($user) . "', ";
+	$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . db_escape_string($votelength);
+	$q.= ", " . $submitteruid . ")";
+	db_query($q, $dbh);
+
 }
 
 function good_passwd($passwd) {

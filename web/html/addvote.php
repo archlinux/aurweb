@@ -12,40 +12,22 @@ html_header($title);
 
 if (isset($_COOKIE["AURSID"])) {
   $atype = account_from_sid($_COOKIE["AURSID"]);
+  $uid = uid_from_sid($_COOKIE["AURSID"]);
 } else {
   $atype = "";
 }
 
 if ($atype == "Trusted User" || $atype == "Developer") {
-	$dbh = db_connect();
 
 	if (!empty($_POST['addVote'])) {
 		$error = "";
 
 		if (!empty($_POST['user'])) {
-			$qcheck = "SELECT * FROM Users WHERE Username = '" . db_escape_string($_POST['user']) . "'";
-			$result = db_query($qcheck, $dbh);
-			if ($result) {
-				$check = mysql_num_rows($result);
-			}
-			else {
-				$check = 0;
-			}
-
-			if ($check == 0) {
+			if (!valid_user($_POST['user'])) {
 				$error.= __("Username does not exist.");
 			} else {
-				$qcheck = "SELECT * FROM TU_VoteInfo WHERE User = '" . db_escape_string($_POST['user']) . "'";
-				$qcheck.= " AND End > UNIX_TIMESTAMP()";
-				$result = db_query($qcheck, $dbh);
-				if ($result) {
-					$check = mysql_num_rows($result);
-				}
-				else {
-					$check = 0;
-				}
 
-				if ($check != 0) {
+				if (open_user_proposals($_POST['user'])) {
 					$error.= __("%s already has proposal running for them.", htmlentities($_POST['user']));
 				}
 			}
@@ -69,13 +51,8 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 	}
 
 	if (!empty($_POST['addVote']) && empty($error)) {
-		$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
-		$q.= "('" . db_escape_string($_POST['agenda']) . "', ";
-		$q.= "'" . db_escape_string($_POST['user']) . "', ";
-		$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . db_escape_string($len);
-		$q.= ", " . uid_from_sid($_COOKIE["AURSID"]) . ")";
+		add_tu_proposal($_POST['agenda'], $_POST['user'], $len, $uid);
 
-		db_query($q, $dbh);
 		print "<p class=\"pkgoutput\">" . __("New proposal submitted.") . "</p>\n";
 	} else {
 ?>
