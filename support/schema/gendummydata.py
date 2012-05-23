@@ -187,20 +187,14 @@ for p in list(seen_pkgs.keys()):
 	else:
 		muid = trustedusers[random.randrange(0,len(trustedusers))]
 	if count % 20 == 0: # every so often, there are orphans...
-		muid = 0
+		muid = "NULL"
 
 	uuid = genUID() # the submitter/user
 
-	if muid == 0:
-		s = ("INSERT INTO Packages (ID, Name, Version, CategoryID,"
-			 " SubmittedTS, SubmitterUID, MaintainerUID) VALUES"
-			 " (%d, '%s', '%s', %d, %d, %d, NULL);\n")
-		s = s % (seen_pkgs[p], p, genVersion(), genCategory(), NOW, uuid)
-	else:
-		s = ("INSERT INTO Packages (ID, Name, Version, CategoryID,"
-			 " SubmittedTS, SubmitterUID, MaintainerUID) VALUES "
-			 " (%d, '%s', '%s', %d, %d, %d, %d);\n")
-		s = s % (seen_pkgs[p], p, genVersion(), genCategory(), NOW, uuid, muid)
+	s = ("INSERT INTO Packages (ID, Name, Version, CategoryID,"
+		 " SubmittedTS, SubmitterUID, MaintainerUID) VALUES "
+		 " (%d, '%s', '%s', %d, %d, %d, %s);\n")
+	s = s % (seen_pkgs[p], p, genVersion(), genCategory(), NOW, uuid, muid)
 
 	out.write(s)
 	count += 1
