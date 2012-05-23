@@ -46,9 +46,8 @@ if (!$result): ?>
 			</thead>
 			<tbody>
 
-
-	<?php for ($i = 0; $row = mysql_fetch_assoc($result); $i++): ?>
-		<tr class="<?php echo ($i % 2 == 0) ? 'odd' : 'even' ?>">
+	<?php while (list($indx, $row) = each($searchresults)): ?>
+		<tr class="<?php echo ($indx % 2 == 0) ? 'odd' : 'even' ?>">
 		<?php if ($SID): ?>
 		<td><input type="checkbox" name="IDs[<?php echo $row["ID"] ?>]" value="1" /></td>
 		<?php endif; ?>
@@ -76,7 +75,7 @@ if (!$result): ?>
 		<?php endif; ?>
 		</td>
 	</tr>
-	<?php endfor; ?>
+	<?php endwhile; ?>
 
 			</tbody>
 			</table>

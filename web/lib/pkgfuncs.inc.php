@@ -602,6 +602,11 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	}
 
 	include('pkg_search_form.php');
+
+	while ($row = mysql_fetch_assoc($result)) {
+		$searchresults[] = $row;
+	}
+
 	include('pkg_search_results.php');
 
 	return;
