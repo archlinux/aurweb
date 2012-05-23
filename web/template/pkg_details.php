@@ -64,9 +64,9 @@ $msg = __('unknown');
 $license = empty($row['License']) ? $msg : $row['License'];
 
 # Print the timestamps for last updates
-$updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("r", intval($row["ModifiedTS"]));
-$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("r", intval($row["SubmittedTS"]));
-$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("r", intval($row["OutOfDateTS"]));
+$updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["ModifiedTS"]));
+$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["SubmittedTS"]));
+$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
 
 ?>
 <div class="pgbox">
