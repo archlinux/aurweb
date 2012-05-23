@@ -1,37 +1,36 @@
-<table class='boxSoft'>
+<h3><?php echo __("Statistics") ?></h3>
+
+<table>
 	<tr>
-		<th colspan='2' class='boxSoftTitle'><span class='f3'><?php print __("Statistics") ?></span></th>
+		<td><?php print __("Packages"); ?></td>
+		<td><?php print $unsupported_count; ?></td>
 	</tr>
 	<tr>
-		<td class='boxSoft'><span class='f4'><?php print __("Packages"); ?></span></td>
-		<td class='boxSoft'><span class='f4'><?php print $unsupported_count; ?></span></td>
+		<td><?php print __("Orphan Packages"); ?></td>
+		<td><?php print $orphan_count; ?></td>
 	</tr>
 	<tr>
-		<td class='boxSoft'><span class='f4'><?php print __("Orphan Packages"); ?></span></td>
-		<td class='boxSoft'><span class='f4'><?php print $orphan_count; ?></span></td>
+		<td><?php print __("Packages added in the past 7 days"); ?></td>
+		<td><?php print $add_count; ?></td>
 	</tr>
 	<tr>
-		<td class='boxSoft'><span class='f4'><?php print __("Packages added in the past 7 days"); ?></span></td>
-		<td class='boxSoft'><span class='f4'><?php print $add_count; ?></span></td>
+		<td><?php print __("Packages updated in the past 7 days"); ?></td>
+		<td><?php print $update_count; ?></td>
 	</tr>
 	<tr>
-		<td class='boxSoft'><span class='f4'><?php print __("Packages updated in the past 7 days"); ?></span></td>
-		<td class='boxSoft'><span class='f4'><?php print $update_count; ?></span></td>
+		<td><?php print __("Packages updated in the past year"); ?></td>
+		<td><?php print $update_year_count; ?></td>
 	</tr>
 	<tr>
-		<td class='boxSoft'><span class='f4'><?php print __("Packages updated in the past year"); ?></span></td>
-		<td class='boxSoft'><span class='f4'><?php print $update_year_count; ?></span></td>
+		<td><?php print __("Packages never updated"); ?></td>
+		<td><?php print $never_update_count; ?></td>
 	</tr>
 	<tr>
-		<td class='boxSoft'><span class='f4'><?php print __("Packages never updated"); ?></span></td>
-		<td class='boxSoft'><span class='f4'><?php print $never_update_count; ?></span></td>
+		<td><?php print __("Registered Users"); ?></td>
+		<td><?php print $user_count; ?></td>
 	</tr>
 	<tr>
-		<td class='boxSoft'><span class='f4'><?php print __("Registered Users"); ?></span></td>
-		<td class='boxSoft'><span class='f4'><?php print $user_count; ?></span></td>
-	</tr>
-	<tr>
-		<td class='boxSoft'><span class='f4'><?php print __("Trusted Users"); ?></span></td>
-		<td class='boxSoft'><span class='f4'><?php print $tu_count; ?></span></td>
+		<td><?php print __("Trusted Users"); ?></td>
+		<td><?php print $tu_count; ?></td>
 	</tr>
 </table>
