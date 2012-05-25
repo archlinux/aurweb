@@ -23,43 +23,15 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 
 	if (isset($_GET['id'])) {
 		if (is_numeric($_GET['id'])) {
-
-			$q = "SELECT * FROM TU_VoteInfo ";
-			$q.= "WHERE ID = " . $_GET['id'];
-
-			$dbh = db_connect();
-			$results = db_query($q, $dbh);
-			$row = mysql_fetch_assoc($results);
+			$row = vote_details($_GET['id']);
 
 			if (empty($row)) {
 				print __("Could not retrieve proposal details.");
 			} else {
 				$isrunning = $row['End'] > time() ? 1 : 0;
 
-				$qvoted = "SELECT * FROM TU_Votes WHERE ";
-				$qvoted.= "VoteID = " . $row['ID'] . " AND ";
-				$qvoted.= "UserID = " . uid_from_sid($_COOKIE["AURSID"]);
-				$result = db_query($qvoted, $dbh);
-				if ($result) {
-					$hasvoted = mysql_num_rows($result);
-				}
-				else {
-					$hasvoted = 0;
-				}
-
 				# List voters of a proposal.
-				$qwhoVoted = "SELECT tv.UserID,U.Username
-					FROM TU_Votes tv, Users U
-					WHERE tv.VoteID = {$row['ID']}
-					AND tv.UserID = U.ID
-					ORDER BY Username";
-				$result = db_query($qwhoVoted,$dbh);
-				if (mysql_num_rows($result) > 0) {
-					$whovoted = '';
-					while ($who = mysql_fetch_assoc($result)) {
-						$whovoted.= '<a href="account.php?Action=AccountInfo&amp;ID='.$who['UserID'].'">'.$who['Username'].'</a> ';
-					}
-				}
+				$whovoted = voter_list($row['ID']);
 
 				$canvote = 1;
 				$errorvote = "";
@@ -69,8 +41,9 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 				} else if ($row['User'] == username_from_sid($_COOKIE["AURSID"])) {
 					$canvote = 0;
 					$errorvote = __("You cannot vote in an proposal about you.");
-				} else if ($hasvoted != 0) {
+				} else if (tu_voted($row['ID'], uid_from_sid($_COOKIE["AURSID"]))) {
 					$canvote = 0;
+					$hasvoted = 1;
 					$errorvote = __("You've already voted for this proposal.");
 				}
 
@@ -84,25 +57,18 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 							$myvote = "Abstain";
 						}
 
-						$qvote = "UPDATE TU_VoteInfo SET " . $myvote . " = " . ($row[$myvote] + 1) . " WHERE ID = " . $row['ID'];
-						db_query($qvote, $dbh);
-						$qvote = "INSERT INTO TU_Votes (VoteID, UserID) VALUES (" . $row['ID'] . ", " . uid_from_sid($_COOKIE["AURSID"]) . ")";
-						db_query($qvote, $dbh);
+						cast_proposal_vote($row['ID'], uid_from_sid($_COOKIE["AURSID"]), $myvote, $row[$myvote] + 1);
 
 						# Can't vote anymore
 						#
 						$canvote = 0;
 						$errorvote = __("You've already voted for this proposal.");
-						# Update if they voted
-						$result = db_query($qvoted, $dbh);
-						if ($result) {
-							$hasvoted = mysql_num_rows($result);
-						}
 
-						$results = db_query($q, $dbh);
-						if ($results) {
-							$row = mysql_fetch_assoc($results);
+						# Update if they voted
+						if (tu_voted($row['ID'], uid_from_sid($_COOKIE["AURSID"]))) {
+							$hasvoted = 1;
 						}
+						$row = vote_details($_GET['id']);
 					}
 				}
 				include("tu_details.php");
@@ -112,8 +78,6 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 		}
 
 	} else {
-		$dbh = db_connect();
-
 		$limit = $pp;
 		if (isset($_GET['off']))
 			$offset = $_GET['off'];
@@ -137,33 +101,29 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 		$lim = ($limit > 0) ? " LIMIT $limit OFFSET $off" : "";
 		$by_next = ($by == 'desc') ? 'asc' : 'desc';
 
-		$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;
-		$result = db_query($q, $dbh);
-
+		$result = current_proposal_list($order);
 		$type = __("Current Votes");
 		include("tu_list.php");
 ?>
 
 <?php
-		$q = "SELECT * FROM TU_VoteInfo WHERE End < " . time() . " ORDER BY Submitted " . $order . $lim;
-		$result = db_query($q, $dbh);
+		$result = past_proposal_list($order, $lim);
 
 		$type = __("Past Votes");
 		include("tu_list.php");
 
-		$qnext = "SELECT ID FROM TU_VoteInfo";
-		$nextresult = db_query($qnext, $dbh);
+		$nextresult = proposal_count();
 ?>
 <div class="box">
 	<p><a href="addvote.php"><?php print __("Add Proposal") ?></a></p>
 
-	<?php if (mysql_num_rows($result)):
+	<?php if ($result):
 		$by = htmlentities($by, ENT_QUOTES); ?>
 		<?php if ($off != 0):
 			$back = (($off - $limit) <= 0) ? 0 : $off - $limit; ?>
 			<a href='tu.php?off=<?php print $back ?>&amp;by=<?php print $by ?>'><?php print __("Back") ?></a>
 		<?php endif; ?>
-		<?php if (($off + $limit) < mysql_num_rows($nextresult)):
+		<?php if (($off + $limit) < $nextresult):
 			$forw = $off + $limit; ?>
 		<a href="tu.php?off=<?php print $forw ?>&amp;by=<?php print $by ?>"><?php print __("Next") ?></a>
 		<?php endif; ?>

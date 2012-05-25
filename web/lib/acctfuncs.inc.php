@@ -779,3 +779,107 @@ function own_account_details($sid, $dbh=NULL) {
 
 	return $row;
 }
+
+function tu_voted($voteid, $uid, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "SELECT * FROM TU_Votes WHERE VoteID = " . intval($voteid) . " AND UserID = " . intval($uid);
+	$result = db_query($q, $dbh);
+	if (mysql_num_rows($result)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+function current_proposal_list($order, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;
+	$result = db_query($q, $dbh);
+
+	while ($row = mysql_fetch_assoc($result)) {
+		$details[] = $row;
+	}
+
+	return $details;
+}
+
+function past_proposal_list($order, $lim, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "SELECT * FROM TU_VoteInfo WHERE End < " . time() . " ORDER BY Submitted " . $order . $lim;
+	$result = db_query($q, $dbh);
+
+	while ($row = mysql_fetch_assoc($result)) {
+		$details[] = $row;
+	}
+
+	return $details;
+}
+
+function proposal_count($dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "SELECT COUNT(*) FROM TU_VoteInfo";
+	$result = db_query($q, $dbh);
+	$row = mysql_fetch_row($result);
+
+	return $row[0];
+}
+
+function vote_details($voteid, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "SELECT * FROM TU_VoteInfo ";
+	$q.= "WHERE ID = " . intval($voteid);
+
+	$result = db_query($q, $dbh);
+	$row = mysql_fetch_assoc($result);
+
+	return $row;
+}
+
+function voter_list($voteid, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "SELECT tv.UserID,U.Username ";
+	$q.= "FROM TU_Votes tv, Users U ";
+	$q.= "WHERE tv.VoteID = " . intval($voteid);
+	$q.= " AND tv.UserID = U.ID ";
+	$q.= "ORDER BY Username";
+
+	$result = db_query($q, $dbh);
+	if ($result) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$whovoted.= '<a href="account.php?Action=AccountInfo&amp;ID='.$row['UserID'].'">'.$row['Username'].'</a> ';
+		}
+	}
+	return $whovoted;
+}
+
+function cast_proposal_vote($voteid, $uid, $vote, $newtotal, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "UPDATE TU_VoteInfo SET " . $vote . " = " . ($newtotal) . " WHERE ID = " . $voteid;
+	db_query($q, $dbh);
+
+	$q = "INSERT INTO TU_Votes (VoteID, UserID) VALUES (" . $voteid . ", " . $uid . ")";
+	db_query($q, $dbh);
+
+}
