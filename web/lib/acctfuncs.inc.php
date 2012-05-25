@@ -54,7 +54,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 # process form input from a new/edit account form
 #
 function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
-			$P="",$C="",$R="",$L="",$I="",$K="",$UID=0) {
+			$P="",$C="",$R="",$L="",$I="",$K="",$UID=0,$dbh=NULL) {
 	# UTYPE: The user's account type
 	# TYPE: either "edit" or "new"
 	# A: what parent "form" name to use
@@ -73,7 +73,9 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	# error check and process request for a new/modified account
 	global $SUPPORTED_LANGS;
 
-	$dbh = db_connect();
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
 
 	if(isset($_COOKIE['AURSID'])) {
 		$editor_user = uid_from_sid($_COOKIE['AURSID'], $dbh);
@@ -241,7 +243,7 @@ function search_accounts_form() {
 # search results page
 #
 function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
-		$S="",$E="",$R="",$I="",$K="") {
+		$S="",$E="",$R="",$I="",$K="",$dbh=NULL) {
 	# UTYPE: what account type the user belongs to
 	# O: what row offset we're at
 	# SB: how to sort the results
@@ -320,7 +322,9 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	$search_vars[] = "SB";
 	$q.= "LIMIT " . $HITS_PER_PAGE . " OFFSET " . $OFFSET;
 
-	$dbh = db_connect();
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
 
 	$result = db_query($q, $dbh);
 	$num_rows = mysql_num_rows($result);
@@ -407,7 +411,7 @@ function display_account_info($U="", $T="", $E="", $R="", $I="", $K="", $LV="") 
  * Returns SID (Session ID) and error (error message) in an array
  * SID of 0 means login failed.
  */
-function try_login() {
+function try_login($dbh=NULL) {
 	global $MAX_SESSIONS_PER_USER, $PERSISTENT_COOKIE_TIMEOUT;
 
 	$login_error = "";
@@ -415,7 +419,9 @@ function try_login() {
 	$userID = null;
 
 	if ( isset($_REQUEST['user']) || isset($_REQUEST['passwd']) ) {
-		$dbh = db_connect();
+		if (!$dbh) {
+			$dbh = db_connect();
+		}
 		$userID = valid_user($_REQUEST['user'], $dbh);
 
 		if ( user_suspended($userID, $dbh) ) {
@@ -624,7 +630,10 @@ function good_passwd($passwd) {
 /* Verifies that the password is correct for the userID specified.
  * Returns true or false
  */
-function valid_passwd($userID, $passwd, $dbh) {
+function valid_passwd($userID, $passwd, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
 	if ( strlen($passwd) > 0 ) {
 		# get salt for this user
 		$salt = get_salt($userID);
@@ -674,7 +683,10 @@ function valid_pgp_fingerprint($fingerprint) {
 /*
  * Is the user account suspended?
  */
-function user_suspended($id, $dbh) {
+function user_suspended($id, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
 	if (!$id) {
 		return false;
 	}
@@ -692,7 +704,10 @@ function user_suspended($id, $dbh) {
 /*
  * This should be expanded to return something
  */
-function user_delete($id, $dbh) {
+function user_delete($id, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "DELETE FROM Users WHERE ID = " . $id;
 	db_query($q, $dbh);
 	return;
@@ -702,7 +717,10 @@ function user_delete($id, $dbh) {
  * A different way of determining a user's privileges
  * rather than account_from_sid()
  */
-function user_is_privileged($id, $dbh) {
+function user_is_privileged($id, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
 	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
 	$result = db_query($q, $dbh);
 	if ($result) {
