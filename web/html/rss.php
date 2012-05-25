@@ -37,13 +37,9 @@ $image->description = "AUR Newest Packages Feed";
 $rss->image = $image;
 
 #Get the latest packages and add items for them
-$dbh = db_connect();
-$q = "SELECT * FROM Packages ";
-$q.= "ORDER BY SubmittedTS DESC ";
-$q.= "LIMIT 20";
-$result = db_query($q, $dbh);
+$packages = latest_pkgs(20);
 
-while ($row = mysql_fetch_assoc($result)) {
+while (list($indx, $row) = each($packages)) {
 	$item = new FeedItem();
 	$item->title = $row["Name"];
 	$item->link = "{$protocol}://{$host}/packages.php?ID={$row["ID"]}";

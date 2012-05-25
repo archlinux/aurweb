@@ -533,3 +533,22 @@ function last_insert_id($dbh=NULL) {
 	}
 	return mysql_insert_id($dbh);
 }
+
+function latest_pkgs($numpkgs, $dbh=NULL) {
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "SELECT * FROM Packages ";
+	$q.= "ORDER BY SubmittedTS DESC ";
+	$q.= "LIMIT " .intval($numpkgs);
+	$result = db_query($q, $dbh);
+
+	if ($result) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$packages[] = $row;
+		}
+	}
+
+	return $packages;
+}
