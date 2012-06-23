@@ -27,9 +27,16 @@ if ($uid):
 
 	if (isset($_REQUEST['pkgsubmit'])) {
 
+		# Make sure authenticated user submitted the package themselves
+		if (!check_token()) {
+			$error = __("Invalid token for user action.");
+		}
+
 		# Before processing, make sure we even have a file
-		if ($_FILES['pfile']['size'] == 0){
-			$error = __("Error - No file uploaded");
+		if (!$error) {
+			if ($_FILES['pfile']['size'] == 0){
+				$error = __("Error - No file uploaded");
+			}
 		}
 
 		# Check whether the file is gzip'ed
@@ -448,7 +455,8 @@ html_header("Submit");
 ?>
 
 <form action='pkgsubmit.php' method='post' enctype='multipart/form-data'>
-	<div> <input type='hidden' name='pkgsubmit' value='1' /> </div>
+	<div> <input type='hidden' name='pkgsubmit' value='1' />
+	<input type='hidden' name='token' value='<?php print htmlspecialchars($_COOKIE['AURSID']) ?>' /> </div>
 	<table border='0' cellspacing='5'>
 		<tr>
 			<td class='f4' align='right'><?php print __("Package Category"); ?>:</td>

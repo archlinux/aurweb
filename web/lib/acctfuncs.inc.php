@@ -33,6 +33,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 	print "<input type='hidden' name='Action' value='".$A."' />\n";
 	if ($UID) {
 		print "<input type='hidden' name='ID' value='".$UID."' />\n";
+		print "<input type='hidden' name='token' value='".htmlspecialchars($_COOKIE['AURSID'])."' />\n";
 	}
 	print "</fieldset>";
 	print "<table border='0' cellpadding='0' cellspacing='0' width='80%' style=\"margin:0 auto;\">\n";

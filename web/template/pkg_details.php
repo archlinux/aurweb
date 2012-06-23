@@ -10,6 +10,9 @@ if ($uid == $row["MaintainerUID"] or
 	$edit_cat = "<form method='post' action='packages.php?ID=".$pkgid."'>\n";
 	$edit_cat.= "<p>";
 	$edit_cat.= "<input type='hidden' name='action' value='do_ChangeCategory' />";
+	if ($SID) {
+		$edit_cat.= "<input type='hidden' name='token' value='".htmlspecialchars($_COOKIE['AURSID'])."' />";
+	}
 	$edit_cat.= "<span class='f3'>" . __("Category") . ":</span> ";
 	$edit_cat.= "<select name='category_id'>\n";
 	foreach ($catarr as $cid => $catname) {

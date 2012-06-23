@@ -16,7 +16,11 @@ if (isset($_COOKIE["AURSID"])) {
 if ($atype == "Trusted User" OR $atype == "Developer") {
 	$dbh = db_connect();
 
-	if (!empty($_POST['addVote'])) {
+	if (!empty($_POST['addVote']) && !check_token()) {
+		$error = __("Invalid token for user action.");
+	}
+
+	if (!empty($_POST['addVote']) && check_token()) {
 		$error = "";
 
 		if (!empty($_POST['user'])) {
@@ -99,6 +103,7 @@ if ($atype == "Trusted User" OR $atype == "Developer") {
 <b><?php print __('Proposal') ?></b><br />
 <textarea name='agenda' rows='25' cols='80'><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
 <input type='hidden' name='addVote' value='1' />
+<input type='hidden' name='token' value='<?php print htmlspecialchars($_COOKIE['AURSID']) ?>' />
 <input type='submit' class='button' value='<?php print __('Submit'); ?>' />
 </p>
 </form>

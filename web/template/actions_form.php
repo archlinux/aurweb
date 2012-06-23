@@ -3,6 +3,7 @@
 		<fieldset>
 			<input type='hidden' name='IDs[<?php echo $row['ID'] ?>]' value='1' />
 			<input type='hidden' name='ID' value="<?php echo $row['ID'] ?>" />
+			<input type='hidden' name='token' value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
 <?php
 		# Voting Button
 		#

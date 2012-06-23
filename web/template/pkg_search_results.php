@@ -114,6 +114,7 @@ for ($i = 0; $row = mysql_fetch_assoc($result); $i++) {
 							<input type='text' id='merge_Into' name='merge_Into' />
 							<input type='checkbox' name='confirm_Delete' value='1' /> <?php print __("Confirm") ?>
 						<?php endif; ?>
+						<input type='hidden' name='token' value='<?php print htmlspecialchars($_COOKIE['AURSID']) ?>' />
 						<input type='submit' class='button' style='width: 80px' value='<?php print __("Go") ?>' />
 					</div>
 				<?php endif; # if ($SID) ?>

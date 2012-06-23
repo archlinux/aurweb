@@ -15,6 +15,7 @@ while (list($indx, $carr) = each($comments)) { ?>
 		$durl.= '<fieldset style="display:inline;">';
 		$durl.= '<input type="hidden" name="action" value="do_DeleteComment" />';
 		$durl.= '<input type="hidden" name="comment_id" value="'.$carr['ID'].'" />';
+		$durl.= '<input type="hidden" name="token" value="'.htmlspecialchars($_COOKIE['AURSID']).'" />';
 		$durl.= '<input type="image" src="images/x.png" ';
 		$durl.= ' alt="'.__("Delete comment").'" name="submit" value="1" ';
 		$durl.= ' />&nbsp;';

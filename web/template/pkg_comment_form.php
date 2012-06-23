@@ -1,6 +1,6 @@
 <?php
 # Add a comment to this package
-if (isset($_REQUEST['comment'])) {
+if (isset($_REQUEST['comment']) && check_token()) {
 
 	# Insert the comment
 	$dbh = db_connect();
@@ -53,13 +53,14 @@ if (isset($_REQUEST['comment'])) {
 	<form action='<?php echo $_SERVER['REQUEST_URI'] ?>' method='post'>
 	<div style="padding: 1%">
 <?php
-if (isset($_REQUEST['comment'])) {
+if (isset($_REQUEST['comment']) && check_token()) {
 	echo '<b>' . __('Comment has been added.') . '</b>';
 }
 ?>
 	<input type='hidden' name='ID' value="<?php echo intval($_REQUEST['ID']) ?>" />
 	<?php echo __('Enter your comment below.') ?><br />
 	<textarea name='comment' cols='80' rows='10' style="width: 100%"></textarea><br />
+	<input type='hidden' name='token' value='<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>' />
 	<input type='submit' value="<?php echo __("Submit") ?>" />
 	<input type='reset' value="<?php echo __("Reset") ?>" />
 	</div>

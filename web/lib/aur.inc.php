@@ -77,6 +77,16 @@ function check_sid($dbh=NULL) {
 	return;
 }
 
+# Verify the supplied token matches the expected token for POST forms
+#
+function check_token() {
+	if (isset($_POST['token'])) {
+		return ($_POST['token'] == $_COOKIE['AURSID']);
+	} else {
+		return false;
+	}
+}
+
 # verify that an email address looks like it is legitimate
 #
 function valid_email($addy) {
