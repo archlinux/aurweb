@@ -28,8 +28,23 @@ if ($uid):
 	if (isset($_REQUEST['pkgsubmit'])) {
 
 		# Before processing, make sure we even have a file
-		if ($_FILES['pfile']['size'] == 0){
-			$error = __("Error - No file uploaded");
+		switch($_FILES['pfile']['error']) {
+			case UPLOAD_ERR_INI_SIZE:
+				$maxsize =  ini_get('upload_max_filesize');
+				$error = __("Error - Uploaded file larger than maximum allowed size (%s)", $maxsize);
+				break;
+			case UPLOAD_ERR_PARTIAL:
+				$error = __("Error - File partially uploaded");
+				break;
+			case UPLOAD_ERR_NO_FILE:
+				$error = __("Error - No file uploaded");
+				break;
+			case UPLOAD_ERR_NO_TMP_DIR:
+				$error = __("Error - Could not locate temporary upload folder");
+				break;
+			case UPLOAD_ERR_CANT_WRITE:
+				$error = __("Error - File could not be written");
+				break;
 		}
 
 		# Check whether the file is gzip'ed
