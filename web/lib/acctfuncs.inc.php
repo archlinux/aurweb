@@ -725,8 +725,8 @@ function user_is_privileged($id, $dbh=NULL) {
 	$result = db_query($q, $dbh);
 	if ($result) {
 		$row = mysql_fetch_row($result);
-		if( $result[0] > 1) {
-			return $result[0];
+		if($row[0] > 1) {
+			return $row[0];
 		}
 	}
 	return 0;
