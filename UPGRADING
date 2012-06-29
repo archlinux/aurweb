@@ -11,6 +11,8 @@ ALTER TABLE Users ADD COLUMN LastLogin BIGINT NOT NULL DEFAULT 0;
 ALTER TABLE Users ADD COLUMN PGPKey VARCHAR(40) NULL DEFAULT NULL;
 ----
 
+2. Merge "web/lib/config.inc.php.proto" with "web/lib/config.inc.php".
+
 From 1.9.0 to 1.9.1
 -------------------
 

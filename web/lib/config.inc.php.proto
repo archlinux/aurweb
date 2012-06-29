@@ -8,7 +8,6 @@ define( "AUR_db_user", "aur" );
 define( "AUR_db_pass", "aur" );
 
 # Configuration of directories where things live
-define( "UPLOAD_DIR", "/srv/aur/unsupported-temp/" );
 define( "INCOMING_DIR", "/srv/aur/unsupported/" );
 define( "URL_DIR", "/packages/" );
 
