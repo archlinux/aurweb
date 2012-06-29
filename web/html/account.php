@@ -68,9 +68,7 @@ if (isset($_COOKIE["AURSID"])) {
 		if (empty($row)) {
 			print __("Could not retrieve information for the specified user.");
 		} else {
-		display_account_info($row["Username"],
-					$row["AccountType"], $row["Email"], $row["RealName"],
-					$row["IRCNick"], $row["PGPKey"], $row["LastVoted"]);
+			include("account_details.php");
 		}
 
 	} elseif ($action == "UpdateAccount") {
