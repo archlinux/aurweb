@@ -94,13 +94,6 @@ function valid_email($addy) {
 	return true;
 }
 
-# a new seed value for mt_srand()
-#
-function make_seed() {
-	list($usec, $sec) = explode(' ', microtime());
-	return (float) $sec + ((float) $usec * 10000);
-}
-
 # generate a (hopefully) unique session id
 #
 function new_sid() {
