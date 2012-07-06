@@ -751,6 +751,7 @@ function current_proposal_list($order, $dbh=NULL) {
 	$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;
 	$result = db_query($q, $dbh);
 
+	$details = array();
 	while ($row = mysql_fetch_assoc($result)) {
 		$details[] = $row;
 	}
@@ -766,6 +767,7 @@ function past_proposal_list($order, $lim, $dbh=NULL) {
 	$q = "SELECT * FROM TU_VoteInfo WHERE End < " . time() . " ORDER BY Submitted " . $order . $lim;
 	$result = db_query($q, $dbh);
 
+	$details = array();
 	while ($row = mysql_fetch_assoc($result)) {
 		$details[] = $row;
 	}
@@ -803,6 +805,8 @@ function voter_list($voteid, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
 	}
+
+	$whovoted = '';
 
 	$q = "SELECT tv.UserID,U.Username ";
 	$q.= "FROM TU_Votes tv, Users U ";
