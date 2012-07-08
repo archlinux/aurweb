@@ -5,9 +5,6 @@
 	xml:lang="<?php print htmlspecialchars($LANG, ENT_QUOTES) ?>" lang="<?php print htmlspecialchars($LANG, ENT_QUOTES) ?>">
   <head>
     <title>AUR (<?php print htmlspecialchars($LANG); ?>)<?php if ($title != "") { print " - " . htmlspecialchars($title); } ?></title>
-	<link rel='stylesheet' type='text/css' href='css/fonts.css' />
-	<link rel='stylesheet' type='text/css' href='css/containers.css' />
-	<link rel='stylesheet' type='text/css' href='css/arch.css' />
 	<link rel='stylesheet' type='text/css' href='css/archweb.css' />
 	<link rel='stylesheet' type='text/css' href='css/aur.css' />
 	<link rel='shortcut icon' href='images/favicon.ico' />
