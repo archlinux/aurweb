@@ -34,6 +34,7 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 				$whovoted = voter_list($row['ID']);
 
 				$canvote = 1;
+				$hasvoted = 0;
 				$errorvote = "";
 				if ($isrunning == 0) {
 					$canvote = 0;
