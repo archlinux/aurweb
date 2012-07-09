@@ -138,7 +138,7 @@ if ($atype == "Developer" || $atype == "Trusted User"):
 ?>
 				<li><a href="packages.php?ID=<?php echo $darr[2]?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1]?>"><?php echo $darr[0].$darr[1]?></a></li>
 		<?php else: ?>
-				<li><a href="http://www.archlinux.org/packages/?q="<?php echo urlencode($darr[0])?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1] ?>"><?php echo $darr[0].$darr[1] ?></a></li>
+				<li><a href="http://www.archlinux.org/packages/?q=<?php echo urlencode($darr[0])?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1] ?>"><?php echo $darr[0].$darr[1] ?></a></li>
 		<?php endif; ?>
 	<?php endwhile; ?>
 			</ul>
