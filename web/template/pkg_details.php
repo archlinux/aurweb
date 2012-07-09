@@ -160,8 +160,8 @@ if ($atype == "Developer" || $atype == "Trusted User"):
 		<div id="pkgfiles" class="listing">
 			<h3><?php echo __('Sources') ?></h3>
 		</div>
-		<div>
 <?php if (count($sources) > 0): ?>
+		<div>
 			<ul>
 <?php
 	while (list($k, $src) = each($sources)):
