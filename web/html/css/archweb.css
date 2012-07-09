@@ -85,6 +85,10 @@ input[type=submit] {
     clear: both;
 }
 
+.hide {
+    display: none;
+}
+
 hr {
     border: none;
     border-top: 1px solid #888;
@@ -121,6 +125,16 @@ a {
     a:active {
         color: #e90;
     }
+
+/* special anchor elements */
+a.headerlink {
+    visibility: hidden;
+    padding-left: 0.5em;
+}
+
+h3:hover > a.headerlink {
+    visibility: visible;
+}
 
 /* headings */
 h2 {
@@ -257,6 +271,23 @@ table.pretty2 {
         background: #eee;
         border: 1px solid #bbb;
     }
+
+        /* additional styles for JS sorting */
+        table.pretty2 th.header {
+            padding-right: 20px;
+            background-image: url(nosort.gif);
+            background-repeat: no-repeat;
+            background-position: center right;
+            cursor: pointer;
+        }
+
+        table.pretty2 th.headerSortDown {
+            background-image: url(desc.gif);
+        }
+
+        table.pretty2 th.headerSortUp {
+            background-image: url(asc.gif);
+        }
 
     table.pretty2 td {
         padding: 0.35em;
@@ -481,15 +512,11 @@ h3 span.arrow {
         text-align: right;
     }
 
-    #pkg-updates span.testing,
-    #pkg-updates span.community-testing,
-    span.multilib-testing {
+    #pkg-updates span.testing {
         font-style: italic;
     }
 
-    #pkg-updates span.staging,
-    #pkg-updates span.community-staging,
-    span.multilib-staging {
+    #pkg-updates span.staging {
         font-style: italic;
         color: #ff8040;
     }
@@ -575,25 +602,6 @@ table#download-torrents .cpu-arch {
     text-align: center;
 }
 
-table#download-mirrors {
-    width: auto;
-    margin-bottom: 1em;
-}
-
-    table#download-mirrors td.mirror-country {
-        padding-top: 1em;
-    }
-
-    table#download-mirrors td.mirror-server {
-        padding-right: 1em;
-    }
-
-    table#download-mirrors a {
-        display: block;
-        float: right;
-        width: 4em;
-    }
-
 /* pkglists/devlists */
 table.results {
     font-size: 0.846em;
@@ -649,8 +657,7 @@ div#pkglist-about {
 }
 
 /* pkglist: results navigation */
-#pkglist-stats-top,
-#pkglist-stats-bottom {
+.pkglist-stats {
     font-size: 0.85em;
 }
 
@@ -668,9 +675,13 @@ div#pkglist-about {
 }
 
 /* search fields  and other filter selections */
+.filter-criteria {
+    margin-bottom: 1em;
+}
+
 .filter-criteria h3 {
     font-size: 1em;
-    margin-top:0;
+    margin-top: 0;
 }
 
 .filter-criteria div {
@@ -726,6 +737,11 @@ div#pkglist-about {
 
     #pkgdetails #pkginfo td {
         padding: 0.25em 0 0.25em 1.5em;
+    }
+
+    #pkgdetails #pkginfo .userdata {
+        font-size: 0.85em;
+        padding: 0.5em;
     }
 
 /* pkgdetails: flag package */
@@ -795,6 +811,28 @@ form#flag-pkg-form input[type=text] {
     padding-top: 1em;
 }
 
+    #pkgdetails #pkgfiles li.d {
+        color: #666;
+    }
+
+    #pkgdetails #pkgfiles li.f {
+    }
+
+/* mirror stuff */
+table td.country {
+    white-space: normal;
+}
+
+form#list-generator div ul {
+    list-style: none;
+    display: inline;
+    padding-left: 0;
+}
+
+    form#list-generator div ul li {
+        display: inline;
+    }
+
 /* dev/TU biographies */
 div#arch-bio-toc {
     width: 75%;
@@ -802,32 +840,49 @@ div#arch-bio-toc {
     text-align: center;
 }
 
-table.arch-bio-entry td.pic {
-    vertical-align: top;
-    padding-right: 15px;
-    padding-top: 10px;
-}
-
-    table.arch-bio-entry td.pic img {
-        padding: 4px;
-        border: 1px solid #ccc;
-    }
-
-table.arch-bio-entry table.bio {
-    margin-bottom: 2em;
-}
-
-    table.arch-bio-entry table.bio th {
-        text-align: left;
-        padding-right: 0.5em;
-        vertical-align: top;
+    div#arch-bio-toc a {
         white-space: nowrap;
     }
 
-    table.arch-bio-entry table.bio td {
-        width: 100%;
-        padding-bottom: 0.25em;
+table.arch-bio-entry {
+    width: 75%;
+    min-width: 640px;
+    margin: 0 auto;
+}
+
+    table.arch-bio-entry td.pic {
+        vertical-align: top;
+        padding-right: 15px;
+        padding-top: 2.25em;
     }
+
+        table.arch-bio-entry td.pic img {
+            padding: 4px;
+            border: 1px solid #ccc;
+        }
+
+    table.arch-bio-entry td h3 {
+        border-bottom: 1px dotted #ccc;
+        margin-bottom: 0.5em;
+    }
+
+    table.arch-bio-entry table.bio {
+        margin-bottom: 2em;
+    }
+
+        table.arch-bio-entry table.bio th {
+            color: #666;
+            font-weight: normal;
+            text-align: right;
+            padding-right: 0.5em;
+            vertical-align: top;
+            white-space: nowrap;
+        }
+
+        table.arch-bio-entry table.bio td {
+            width: 100%;
+            padding-bottom: 0.25em;
+        }
 
 /* dev: login/out */
 table#dev-login {
@@ -899,26 +954,26 @@ ul.admin-actions {
     background: #ffd;
 }
 
-#dev-signoffs ul {
+ul.signoff-list {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-#dev-signoffs .signoff-yes {
+.signoff-yes {
     color: green;
     font-weight: bold;
 }
 
-#dev-signoffs .signoff-no {
+.signoff-no {
     color: red;
 }
 
-#dev-signoffs .signoff-bad {
+.signoff-bad {
     color: darkorange;
 }
 
-#dev-signoffs .signoff-disabled {
+.signoff-disabled {
     color: gray;
 }
 
@@ -946,6 +1001,14 @@ ul.admin-actions {
 }
 
 #releng-result .success-no {
+    color: red;
+}
+
+#key-status .signed-yes {
+    color: green;
+}
+
+#key-status .signed-no {
     color: red;
 }
 
@@ -982,3 +1045,8 @@ ul.admin-actions {
         font-size: 0.85em;
         line-height: 1em;
     }
+
+#visualize-keys svg {
+    width: 100%;
+    height: 100%;
+}
