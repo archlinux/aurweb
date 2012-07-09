@@ -477,7 +477,6 @@ else:
 endif;
 ?>
 
-	</div>
 </div>
 
 <?php
