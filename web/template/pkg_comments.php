@@ -19,7 +19,7 @@ $count = package_comments_count($_GET['ID']);
 						<input type="hidden" name="action" value="do_DeleteComment" />
 						<input type="hidden" name="comment_id" value="<?php echo $row['ID'] ?>" />
 						<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="image" src="images/x.png" alt="<?php echo __('Delete comment') ?> name="submit" value="1" />
+						<input type="image" src="/images/x.png" alt="<?php echo __('Delete comment') ?> name="submit" value="1" />
 					</fieldset>
 				</form>
 			<?php endif; ?>

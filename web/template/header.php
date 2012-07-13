@@ -5,9 +5,9 @@
 	xml:lang="<?php print htmlspecialchars($LANG, ENT_QUOTES) ?>" lang="<?php print htmlspecialchars($LANG, ENT_QUOTES) ?>">
   <head>
     <title>AUR (<?php print htmlspecialchars($LANG); ?>)<?php if ($title != "") { print " - " . htmlspecialchars($title); } ?></title>
-	<link rel='stylesheet' type='text/css' href='css/archweb.css' />
-	<link rel='stylesheet' type='text/css' href='css/aur.css' />
-	<link rel='shortcut icon' href='images/favicon.ico' />
+	<link rel='stylesheet' type='text/css' href='/css/archweb.css' />
+	<link rel='stylesheet' type='text/css' href='/css/aur.css' />
+	<link rel='shortcut icon' href='/images/favicon.ico' />
 	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='rss.php' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
