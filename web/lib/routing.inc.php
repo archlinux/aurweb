@@ -17,6 +17,8 @@ $ROUTES = array(
 	'/addvote' => 'addvote.php',
 );
 
+$PKG_PATH = '/packages';
+
 function get_route($path) {
 	global $ROUTES;
 
@@ -35,5 +37,21 @@ function get_uri($path) {
 		return $path;
 	} else {
 		return get_route($path);
+	}
+}
+
+function get_pkg_route() {
+	global $PKG_PATH;
+	return $PKG_PATH;
+}
+
+function get_pkg_uri($pkgname) {
+	global $USE_VIRTUAL_URLS;
+	global $PKG_PATH;
+
+	if ($USE_VIRTUAL_URLS) {
+		return $PKG_PATH . '/' . urlencode($pkgname) . '/';
+	} else {
+		return get_route($PKG_PATH) . '?N=' . urlencode($pkgname);
 	}
 }

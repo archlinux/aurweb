@@ -4,7 +4,7 @@ $count = package_comments_count($_GET['ID']);
 ?>
 <div id="news">
 	<h3>
-		<a href="<?php echo htmlentities($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>&amp;comments=all" title="<?php echo __('View all %s comments' , $count) ?>"><?php echo __('Latest Comments') ?></a>
+		<a href="<?php echo htmlentities($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>?comments=all" title="<?php echo __('View all %s comments' , $count) ?>"><?php echo __('Latest Comments') ?></a>
 		<span class="arrow"></span>
 	</h3>
 
@@ -14,7 +14,7 @@ $count = package_comments_count($_GET['ID']);
 		endif; ?>
 		<h4>
 			<?php if (canDeleteCommentArray($row, $atype, $uid)): ?>
-				<form method="post" action="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $row['ID'] ?>">
+				<form method="post" action="<?php echo htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />
 						<input type="hidden" name="comment_id" value="<?php echo $row['ID'] ?>" />

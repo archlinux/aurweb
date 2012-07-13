@@ -6,7 +6,7 @@
 	<?php foreach ($newest_packages->getIterator() as $row): ?>
 		<tr>
 			<td>
-				<a href="<?php echo get_uri('/packages/'); ?>?ID=<?php print intval($row["ID"]); ?>"><?php print htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
+				<a href="<?php echo get_pkg_uri($row["Name"]); ?>"><?php print htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
 			</td>
 			<td>
 				<span><?php print gmdate("Y-m-d H:i", intval($row["ModifiedTS"])); ?></span>

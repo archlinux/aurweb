@@ -5,8 +5,16 @@ include_once("config.inc.php");
 include_once("routing.inc.php");
 
 $path = rtrim($_SERVER['PATH_INFO'], '/');
+$tokens = explode('/', $path);
 
-if (get_route($path) !== NULL) {
+if (isset($tokens[1]) &&'/' . $tokens[1] == get_pkg_route()) {
+	if (isset($tokens[2])) {
+		unset($_GET['ID']);
+		$_GET['N'] = $tokens[2];
+	}
+
+	include get_route('/' . $tokens[1]);
+} elseif (get_route($path) !== NULL) {
 	include get_route($path);
 } else {
 	switch ($path) {

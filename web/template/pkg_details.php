@@ -57,7 +57,7 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 	($atype == "Developer" || $atype == "Trusted User"))):
 ?>
 			<td>
-				<form method="post" action="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $pkgid ?>">
+				<form method="post" action="<?php echo htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>">
 					<div>
 						<input type="hidden" name="action" value="do_ChangeCategory" />
 						<?php if ($SID): ?>
@@ -139,7 +139,7 @@ if ($atype == "Developer" || $atype == "Trusted User"):
 		# darr: (DepName, DepCondition, PackageID), where ID is NULL if it didn't exist
 		if (!is_null($darr[2])):
 ?>
-				<li><a href="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $darr[2]?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1]?>"><?php echo $darr[0].$darr[1]?></a></li>
+				<li><a href="<?php echo htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1]?>"><?php echo $darr[0].$darr[1]?></a></li>
 		<?php else: ?>
 				<li><a href="http://www.archlinux.org/packages/?q=<?php echo urlencode($darr[0])?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1] ?>"><?php echo $darr[0].$darr[1] ?></a></li>
 		<?php endif; ?>
@@ -155,7 +155,7 @@ if ($atype == "Developer" || $atype == "Trusted User"):
 	# darr: (PackageName, PackageID)
 	while (list($k, $darr) = each($requiredby)):
 ?>
-				<li><a href="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $darr[1] ?>" title="<?php echo __('View packages details for').' '.$darr[0]?>"><?php echo $darr[0] ?></a></li>
+				<li><a href="<?php echo htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?php echo __('View packages details for').' '.$darr[0]?>"><?php echo $darr[0] ?></a></li>
 	<?php endwhile; ?>
 			</ul>
 <?php endif; ?>

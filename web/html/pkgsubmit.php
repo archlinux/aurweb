@@ -400,7 +400,7 @@ if ($uid):
 			# Entire package creation process is atomic
 			end_atomic_commit($dbh);
 
-			header('Location: ' . get_uri('/packages/') . '?ID=' . $packageID);
+			header('Location: ' . get_pkg_uri($pkg_name));
 		}
 
 		chdir($cwd);

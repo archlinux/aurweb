@@ -52,7 +52,7 @@ if (!$result): ?>
 		<td><input type="checkbox" name="IDs[<?php echo $row["ID"] ?>]" value="1" /></td>
 		<?php endif; ?>
 		<td><?php echo htmlspecialchars($row["Category"]) ?></td>
-		<td><a href="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $row["ID"] ?>"><?php echo htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]) ?></a></td>
+		<td><a href="<?php echo htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?php echo htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]) ?></a></td>
 		<td><?php echo $row["NumVotes"] ?></td>
 		<?php if ($SID): ?>
 		<td>
