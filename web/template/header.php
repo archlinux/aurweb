@@ -8,7 +8,7 @@
 	<link rel='stylesheet' type='text/css' href='/css/archweb.css' />
 	<link rel='stylesheet' type='text/css' href='/css/aur.css' />
 	<link rel='shortcut icon' href='/images/favicon.ico' />
-	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='rss.php' />
+	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='<?php echo get_uri('/rss/'); ?>' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
 	<body>
@@ -50,17 +50,17 @@
 			</div>
 			<div id="archdev-navbar">
 				<ul>
-					<li><a href="index.php">AUR <?php print __("Home"); ?></a></li>
-					<li><a href="packages.php"><?php print __("Packages"); ?></a></li>
+					<li><a href="<?php echo get_uri('/'); ?>">AUR <?php print __("Home"); ?></a></li>
+					<li><a href="<?php echo get_uri('/packages/'); ?>"><?php print __("Packages"); ?></a></li>
 					<?php if (isset($_COOKIE['AURSID'])): ?>
-						<li><a href="packages.php?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
-						<li><a href="pkgsubmit.php"><?php print __("Submit"); ?></a></li>
-						<li><a href="account.php"><?php print __("Accounts"); ?></a></li>
-						<?php if (check_user_privileges()): ?><li><a href="tu.php"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
-						<li><a href="logout.php"><?php print __("Logout"); ?></a></li>
+						<li><a href="<?php echo get_uri('/packages/'); ?>?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
+						<li><a href="<?php echo get_uri('/submit/'); ?>"><?php print __("Submit"); ?></a></li>
+						<li><a href="<?php echo get_uri('/accounts/'); ?>"><?php print __("Accounts"); ?></a></li>
+						<?php if (check_user_privileges()): ?><li><a href="<?php echo get_uri('/tu/'); ?>"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
+						<li><a href="<?php echo get_uri('/logout/'); ?>"><?php print __("Logout"); ?></a></li>
 					<?php else: ?>
-						<li><a href="account.php"><?php print __("Register"); ?></a></li>
-						<li><a href="login.php"><?php print __("Login"); ?></a></li>
+						<li><a href="<?php echo get_uri('/register/'); ?>"><?php print __("Register"); ?></a></li>
+						<li><a href="<?php echo get_uri('/login/'); ?>"><?php print __("Login"); ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</div><!-- #archdev-navbar -->

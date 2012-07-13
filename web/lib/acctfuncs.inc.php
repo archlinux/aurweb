@@ -545,7 +545,7 @@ function password_reset($hash, $salt, $resetkey, $email, $dbh=NULL) {
 		$error = __('Invalid e-mail and reset key combination.');
 		return $error;
 	} else {
-		header('Location: passreset.php?step=complete');
+		header('Location: ' . get_uri('/passreset/') . '?step=complete');
 		exit();
 	}
 }
@@ -817,7 +817,7 @@ function voter_list($voteid, $dbh=NULL) {
 	$result = db_query($q, $dbh);
 	if ($result) {
 		while ($row = mysql_fetch_assoc($result)) {
-			$whovoted.= '<a href="account.php?Action=AccountInfo&amp;ID='.$row['UserID'].'">'.$row['Username'].'</a> ';
+			$whovoted.= '<a href="' . get_uri('/accounts/') . '?Action=AccountInfo&amp;ID='.$row['UserID'].'">'.$row['Username'].'</a> ';
 		}
 	}
 	return $whovoted;

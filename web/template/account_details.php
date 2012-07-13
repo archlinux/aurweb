@@ -51,7 +51,7 @@
 	</tr>
 
 	<tr>
-		<td colspan="2"><a href="packages.php?K=<?php echo $row['Username'] ?>&amp;SeB=m"><?php echo __("View this user's packages") ?></a></td>
+		<td colspan="2"><a href="<?php echo get_uri('/packages/'); ?>?K=<?php echo $row['Username'] ?>&amp;SeB=m"><?php echo __("View this user's packages") ?></a></td>
 	</tr>
 
 </table>

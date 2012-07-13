@@ -36,7 +36,7 @@ $pages = array(50, 100, 250);
 <div id="pkglist-search" class="box filter-criteria">
 <h2><?php print __("Search Criteria"); ?></h2>
 
-<form action='packages.php' method='get'>
+<form action='<?php echo get_uri('/packages/'); ?>' method='get'>
 	<p><input type='hidden' name='O' value='0' /></p>
 
 	<fieldset>

@@ -20,13 +20,13 @@ if (!$result): ?>
 					<?php elseif ($pagestart + 1 == $first): ?>
 						<span class="page"><?php echo $pagenr ?></span>
 					<?php else: ?>
-						<a class="page" href="packages.php?<?php echo mkurl('O=' . $pagestart) ?>"><?php echo $pagenr ?></a>
+						<a class="page" href="<?php echo get_uri('/packages/'); ?>?<?php echo mkurl('O=' . $pagestart) ?>"><?php echo $pagenr ?></a>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</p>
 		</div>
 
-		<form id="pkglist-results-form" method="post" action="packages.php?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>">
+		<form id="pkglist-results-form" method="post" action="<?php echo get_uri('/packages/'); ?>?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>">
 			<table class="results">
 			<thead>
 				<tr>
@@ -52,7 +52,7 @@ if (!$result): ?>
 		<td><input type="checkbox" name="IDs[<?php echo $row["ID"] ?>]" value="1" /></td>
 		<?php endif; ?>
 		<td><?php echo htmlspecialchars($row["Category"]) ?></td>
-		<td><a href="packages.php?ID=<?php echo $row["ID"] ?>"><?php echo htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]) ?></a></td>
+		<td><a href="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $row["ID"] ?>"><?php echo htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]) ?></a></td>
 		<td><?php echo $row["NumVotes"] ?></td>
 		<?php if ($SID): ?>
 		<td>
@@ -69,7 +69,7 @@ if (!$result): ?>
 		<td><?php echo htmlspecialchars($row['Description'], ENT_QUOTES); ?></td>
 		<td>
 		<?php if (isset($row["Maintainer"])): ?>
-		<a href="packages.php?K=<?php echo htmlspecialchars($row['Maintainer'], ENT_QUOTES) ?>&amp;SeB=m"><?php echo htmlspecialchars($row['Maintainer']) ?></a>
+		<a href="<?php echo get_uri('/packages/'); ?>?K=<?php echo htmlspecialchars($row['Maintainer'], ENT_QUOTES) ?>&amp;SeB=m"><?php echo htmlspecialchars($row['Maintainer']) ?></a>
 		<?php else: ?>
 		<span><?php echo __("orphan") ?></span>
 		<?php endif; ?>
@@ -90,7 +90,7 @@ if (!$result): ?>
 						<?php elseif ($pagestart + 1 == $first): ?>
 							<span class="page"><?php echo $pagenr ?></span>
 						<?php else: ?>
-							<a class="page" href="packages.php?<?php echo mkurl('O=' . $pagestart) ?>"><?php echo $pagenr ?></a>
+							<a class="page" href="<?php echo get_uri('/packages/'); ?>?<?php echo mkurl('O=' . $pagestart) ?>"><?php echo $pagenr ?></a>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</p>

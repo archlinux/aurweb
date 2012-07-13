@@ -400,7 +400,7 @@ if ($uid):
 			# Entire package creation process is atomic
 			end_atomic_commit($dbh);
 
-			header('Location: packages.php?ID=' . $packageID);
+			header('Location: ' . get_uri('/packages/') . '?ID=' . $packageID);
 		}
 
 		chdir($cwd);
@@ -429,7 +429,7 @@ html_header("Submit");
 			$pkg_categories = pkgCategories();
 ?>
 
-<form action="pkgsubmit.php" method="post" enctype="multipart/form-data">
+<form action="<?php echo get_uri('/submit/'); ?>" method="post" enctype="multipart/form-data">
 	<fieldset>
 		<div>
 			<input type="hidden" name="pkgsubmit" value="1" />

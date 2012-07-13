@@ -25,13 +25,13 @@
 			?>
 			<tr class="<?php print $c ?>">
 				<td><?php $row["Agenda"] = htmlspecialchars(substr($row["Agenda"], 0, $prev_Len)); ?>
-					<a href="tu.php?id=<?php print $row['ID'] ?>"><?php print $row["Agenda"] ?></a></span></span>
+					<a href="<?php echo get_uri('/tu/'); ?>?id=<?php print $row['ID'] ?>"><?php print $row["Agenda"] ?></a></span></span>
 				</td>
 				<td><?php print gmdate("Y-m-d", $row["Submitted"]) ?></td>
 				<td><?php print gmdate("Y-m-d", $row["End"]) ?></td>
 				<td>
 				<?php if (!empty($row['User'])): ?>
-					<a href="packages.php?K=<?php echo $row['User'] ?>&amp;SeB=m"><?php echo $row['User'] ?></a>
+					<a href="<?php echo get_uri('/packages/'); ?>?K=<?php echo $row['User'] ?>&amp;SeB=m"><?php echo $row['User'] ?></a>
 				<?php else:
 					print "N/A";
 				endif;

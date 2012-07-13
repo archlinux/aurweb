@@ -10,11 +10,11 @@ $count = package_comments_count($_GET['ID']);
 
 	<?php while (list($indx, $row) = each($comments)): ?>
 		<?php if ($SID):
-			$row['UserName'] = "<a href=\"account.php?Action=AccountInfo&amp;ID={$row['UsersID']}\">{$row['UserName']}</a>";
+			$row['UserName'] = "<a href=\"<?php echo get_uri('/account/'); ?>?Action=AccountInfo&amp;ID={$row['UsersID']}\">{$row['UserName']}</a>";
 		endif; ?>
 		<h4>
 			<?php if (canDeleteCommentArray($row, $atype, $uid)): ?>
-				<form method="post" action="packages.php?ID=<?php echo $row['ID'] ?>">
+				<form method="post" action="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $row['ID'] ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />
 						<input type="hidden" name="comment_id" value="<?php echo $row['ID'] ?>" />

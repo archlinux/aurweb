@@ -8,7 +8,7 @@ set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 
 if (isset($_COOKIE["AURSID"])) {
-	header('Location: index.php');
+	header('Location: /');
 	exit();
 }
 
@@ -48,14 +48,14 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 		           'your password follow the link below, otherwise ignore '.
 		           'this message and nothing will happen.').
 		           "\n\n".
-		           "{$AUR_LOCATION}/passreset.php?".
+			   "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
 		           "resetkey={$resetkey}";
 		$body = wordwrap($body, 70);
 		$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR";
 		@mail($email, 'AUR Password Reset', $body, $headers);
 
 	}
-	header('Location: passreset.php?step=confirm');
+	header('Location: ' . get_uri('/passreset/') . '?step=confirm');
 	exit();
 }
 

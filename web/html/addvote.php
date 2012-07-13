@@ -68,7 +68,7 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 <div class="box">
 	<h2><?php print __("Submit a proposal to vote on.") ?></h2>
 
-	<form action="addvote.php" method="post">
+	<form action="<?php echo get_uri('/addvote/'); ?>" method="post">
 		<p>
 			<b><?php print __("Applicant/TU") ?></b>
 			<input type="text" name="user" value="<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>" />

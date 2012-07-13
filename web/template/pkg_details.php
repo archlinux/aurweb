@@ -57,7 +57,7 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 	($atype == "Developer" || $atype == "Trusted User"))):
 ?>
 			<td>
-				<form method="post" action="packages.php?ID=<?php echo $pkgid ?>">
+				<form method="post" action="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $pkgid ?>">
 					<div>
 						<input type="hidden" name="action" value="do_ChangeCategory" />
 						<?php if ($SID): ?>
@@ -75,7 +75,7 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 				</form>
 <?php else: ?>
 			<td>
-				<a href="packages.php?C=<?php echo $row['CategoryID'] ?>"><?php print $row['Category'] ?></a>
+				<a href="<?php echo get_uri('/packages/'); ?>?C=<?php echo $row['CategoryID'] ?>"><?php print $row['Category'] ?></a>
 <?php endif; ?>
 			</td>
 		<tr>
@@ -88,7 +88,7 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 if ($row["SubmitterUID"]):
 	if ($SID):
 ?>
-			<td><a href="account.php?Action=AccountInfo&amp;ID=<?php echo htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) ?>" title="<?php echo __('View account information for')?> <?php echo htmlspecialchars($submitter) ?>"><?php echo htmlspecialchars($submitter) ?></a></td>
+			<td><a href="<?php echo get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?php echo htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) ?>" title="<?php echo __('View account information for')?> <?php echo htmlspecialchars($submitter) ?>"><?php echo htmlspecialchars($submitter) ?></a></td>
 <?php else: ?>
 		<td><?php echo htmlspecialchars($submitter) ?></td>
 	<?php endif; ?>
@@ -101,7 +101,7 @@ if ($row["SubmitterUID"]):
 if ($row["MaintainerUID"]):
 	if ($SID):
 ?>
-			<td><a href="account.php?Action=AccountInfo&amp;ID=<?php echo htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) ?>" title="<?php echo __('View account information for')?> <?php echo htmlspecialchars($maintainer) ?>"><?php echo htmlspecialchars($maintainer) ?></a></td>
+			<td><a href="<?php echo get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?php echo htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) ?>" title="<?php echo __('View account information for')?> <?php echo htmlspecialchars($maintainer) ?>"><?php echo htmlspecialchars($maintainer) ?></a></td>
 	<?php else: ?>
 		<td><?php echo htmlspecialchars($maintainer) ?></td>
 	<?php endif; ?>
@@ -114,7 +114,7 @@ if ($row["MaintainerUID"]):
 <?php
 if ($atype == "Developer" || $atype == "Trusted User"):
 ?>
-			<td><a href="voters.php?ID=<?php echo$pkgid ?>"><?php echo $votes ?></a>
+			<td><a href="<?php echo get_uri('/voters/'); ?>?ID=<?php echo$pkgid ?>"><?php echo $votes ?></a>
 <?php else: ?>
 			<td><?php echo $votes ?></td>
 <?php endif; ?>
@@ -139,7 +139,7 @@ if ($atype == "Developer" || $atype == "Trusted User"):
 		# darr: (DepName, DepCondition, PackageID), where ID is NULL if it didn't exist
 		if (!is_null($darr[2])):
 ?>
-				<li><a href="packages.php?ID=<?php echo $darr[2]?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1]?>"><?php echo $darr[0].$darr[1]?></a></li>
+				<li><a href="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $darr[2]?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1]?>"><?php echo $darr[0].$darr[1]?></a></li>
 		<?php else: ?>
 				<li><a href="http://www.archlinux.org/packages/?q=<?php echo urlencode($darr[0])?>" title="<?php echo __('View packages details for').' '.$darr[0].$darr[1] ?>"><?php echo $darr[0].$darr[1] ?></a></li>
 		<?php endif; ?>
@@ -155,7 +155,7 @@ if ($atype == "Developer" || $atype == "Trusted User"):
 	# darr: (PackageName, PackageID)
 	while (list($k, $darr) = each($requiredby)):
 ?>
-				<li><a href="packages.php?ID=<?php echo $darr[1] ?>" title="<?php echo __('View packages details for').' '.$darr[0]?>"><?php echo $darr[0] ?></a></li>
+				<li><a href="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $darr[1] ?>" title="<?php echo __('View packages details for').' '.$darr[0]?>"><?php echo $darr[0] ?></a></li>
 	<?php endwhile; ?>
 			</ul>
 <?php endif; ?>

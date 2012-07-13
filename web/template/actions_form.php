@@ -1,5 +1,5 @@
 <div class="box">
-	<form action="packages.php?ID=<?php echo $row['ID'] ?>" method="post">
+	<form action="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $row['ID'] ?>" method="post">
 		<fieldset>
 			<input type="hidden" name="IDs[<?php echo $row['ID'] ?>]" value="1" />
 			<input type="hidden" name="ID" value="<?php echo $row['ID'] ?>" />

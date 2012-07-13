@@ -238,7 +238,7 @@ function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
 		# Simply making these strings translatable won't work, users would be
 		# getting emails in the language that the user who posted the comment was in
 		$body =
-		'from ' . $AUR_LOCATION . '/packages.php?ID='
+		'from ' . $AUR_LOCATION . '/' . get_uri('/packages/') . '?ID='
 		. $pkgid . "\n"
 		. username_from_sid($_COOKIE['AURSID'], $dbh) . " wrote:\n\n"
 		. $comment
@@ -744,7 +744,7 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 		if (mysql_num_rows($result)) {
 			while ($row = mysql_fetch_assoc($result)) {
 				# construct email
-				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . "/packages.php?ID=" . $row['ID'] . "\n\n[1] - " . $AUR_LOCATION . "/account.php?Action=AccountInfo&ID=" . $f_uid;
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . "/" . get_uri('/packages/') . "?ID=" . $row['ID'] . "\n\n[1] - " . $AUR_LOCATION . "/" . get_uri('/accounts/') . "?Action=AccountInfo&ID=" . $f_uid;
 				$body = wordwrap($body, 70);
 				$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
 				@mail($row['Email'], "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
@@ -813,7 +813,7 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
 			$body = "";
 			if ($mergepkgid) {
 				$body .= username_from_sid($_COOKIE['AURSID']) . " merged \"".$pkgname."\" into \"$mergepkgname\".\n\n";
-				$body .= "You will no longer receive notifications about this package, please go to https://aur.archlinux.org/packages.php?ID=".$mergepkgid." and click the Notify button if you wish to recieve them again.";
+				$body .= "You will no longer receive notifications about this package, please go to https://aur.archlinux.org/" . get_uri('/packages/') . "?ID=".$mergepkgid." and click the Notify button if you wish to recieve them again.";
 			} else {
 				$body .= username_from_sid($_COOKIE['AURSID']) . " deleted \"".$pkgname."\".\n\n";
 				$body .= "You will no longer receive notifications about this package.";

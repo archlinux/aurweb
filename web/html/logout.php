@@ -20,5 +20,5 @@ if (isset($_COOKIE["AURSID"])) {
 	clear_expired_sessions($dbh);
 }
 
-header('Location: index.php');
+header('Location: /');
 

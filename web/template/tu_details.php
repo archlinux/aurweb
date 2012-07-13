@@ -11,7 +11,7 @@
 		<?php echo __("User") ?>:
 		<b>
 			<?php if (!empty($row['User'])): ?>
-			<a href="packages.php?K=<?php print $row['User'] ?>&amp;SeB=m"><?php print $row['User'] ?></a>
+			<a href="<?php echo get_uri('/packages/'); ?>?K=<?php print $row['User'] ?>&amp;SeB=m"><?php print $row['User'] ?></a>
 			<?php else: ?>
 			N/A
 			<?php endif; ?>
@@ -61,7 +61,7 @@
 <div class="box">
 
 <?php if ($canvote == 1): ?>
-	<form action="tu.php?id=<?php print $row['ID'] ?>" method="post">
+	<form action="<?php echo get_uri('/tu/'); ?>?id=<?php print $row['ID'] ?>" method="post">
 		<fieldset>
 			<input type="submit" class="button" name="voteYes" value="<?php print __("Yes") ?>" />
 			<input type="submit" class="button" name="voteNo" value="<?php print __("No") ?>" />

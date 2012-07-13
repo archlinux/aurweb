@@ -17,7 +17,7 @@ html_header('AUR ' . __("Login"));
 	<?php if (isset($_COOKIE["AURSID"])): ?>
 	<p>
 		<?php echo __("Logged-in as: %s", '<strong>' . username_from_sid($_COOKIE["AURSID"]) . '</strong>'); ?>
-		<a href="logout.php">[<?php print __("Logout"); ?>]</a>
+		<a href="<?php get_uri('/logout/'); ?>">[<?php print __("Logout"); ?>]</a>
 	</p>
 	<?php elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])): ?>
 	<form method="post" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>">
@@ -40,7 +40,7 @@ html_header('AUR ' . __("Login"));
 			</p>
 			<p>
 				<input type="submit" class="button" value="<?php  print __("Login"); ?>" />
-				<a href="passreset.php">[<?php echo __('Forgot Password') ?>]</a>
+				<a href="<?php echo get_uri('/passreset/') ?>">[<?php echo __('Forgot Password') ?>]</a>
 			</p>
 		</fieldset>
 	</form>

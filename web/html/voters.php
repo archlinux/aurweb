@@ -15,12 +15,12 @@ if ($atype == 'Trusted User' || $atype== 'Developer'):
 ?>
 
 <div class="box">
-	<h2>Votes for <a href="packages.php?ID=<?php echo $pkgid ?>"><?php echo pkgname_from_id($pkgid) ?></a></h2>
+	<h2>Votes for <a href="<?php echo get_uri('/packages/'); ?>?ID=<?php echo $pkgid ?>"><?php echo pkgname_from_id($pkgid) ?></a></h2>
 	<div class="boxbody">
 
 <?php
 	while (list($indx, $row) = each($votes)): ?>
-		<a href="account.php?Action=AccountInfo&amp;ID=<?php echo $row['UsersID'] ?>"><?php echo htmlspecialchars($row['Username']) ?></a><br />
+		<a href="<?php echo get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?php echo $row['UsersID'] ?>"><?php echo htmlspecialchars($row['Username']) ?></a><br />
 	<?php endwhile; ?>
 	</div>
 </div>

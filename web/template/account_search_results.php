@@ -28,7 +28,7 @@ else:
 			?>
 				<tbody>
 				<tr class ="<?php echo $c ?>">
-					<td><a href="packages.php?SeB=m&amp;K=<?php echo $row["Username"] ?>"><?php echo $row["Username"] ?></a></td>
+					<td><a href="<?php echo get_uri('/packages/'); ?>?SeB=m&amp;K=<?php echo $row["Username"] ?>"><?php echo $row["Username"] ?></a></td>
 					<td><?php echo $row["AccountType"] ?></td>
 					<td>
 						<?php
@@ -50,7 +50,7 @@ else:
 							print "&nbsp;";
 						else:
 					?>
-						<a href="account.php?Action=DisplayAccount&amp;ID=<?php echo $row["ID"] ?>"><?php echo __("Edit") ?></a>
+						<a href="<?php echo get_uri('/account/'); ?>?Action=DisplayAccount&amp;ID=<?php echo $row["ID"] ?>"><?php echo __("Edit") ?></a>
 					<?php endif; ?>
 					</td>
 				</tr>
@@ -63,7 +63,7 @@ else:
 	<table class="results">
 		<tr>
 			<td align="left">
-				<form action="account.php" method="post">
+			<form action="<?php echo get_uri('/account/'); ?>" method="post">
 					<fieldset>
 						<input type="hidden" name="Action" value="SearchAccounts" />
 						<input type="hidden" name="O" value="<?php echo ($OFFSET-$HITS_PER_PAGE) ?>" />
@@ -78,7 +78,7 @@ else:
 				</form>
 			</td>
 			<td align="right">
-				<form action="account.php" method="post">
+				<form action="<?php echo get_uri('/account/'); ?>" method="post">
 					<fieldset>
 						<input type="hidden" name="Action" value="SearchAccounts" />
 						<input type="hidden" name="O" value="<?php echo ($OFFSET+$HITS_PER_PAGE) ?>" />
