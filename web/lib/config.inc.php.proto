@@ -51,3 +51,7 @@ $DISABLE_HTTP_LOGIN = true;
 
 # Web URL used in email links and absolute redirects, no trailing slash
 $AUR_LOCATION = "http://localhost";
+
+# Use virtual URLs -- to enable this feature, you also need to tell your web
+# server to redirect all requests to "/index.php/$uri".
+$USE_VIRTUAL_URLS = true;
