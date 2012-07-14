@@ -67,6 +67,7 @@
 			<input type="submit" class="button" name="voteNo" value="<?php print __("No") ?>" />
 			<input type="submit" class="button" name="voteAbstain" value="<?php print __("Abstain") ?>" />
 			<input type="hidden" name="doVote" value="1" />
+			<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		</fieldset>
 	</form>
 <?php else:

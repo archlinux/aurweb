@@ -395,7 +395,7 @@ function package_details($id=0, $SID="", $dbh=NULL) {
 			# Actions Bar
 			if ($SID) {
 				include('actions_form.php');
-				if (isset($_REQUEST['comment'])) {
+				if (isset($_REQUEST['comment']) && check_token()) {
 					$uid = uid_from_sid($SID, $dbh);
 					add_package_comment($id, $uid, $_REQUEST['comment'], $dbh);
 				}

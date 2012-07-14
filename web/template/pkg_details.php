@@ -60,6 +60,9 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 				<form method="post" action="packages.php?ID=<?php echo $pkgid ?>">
 					<div>
 						<input type="hidden" name="action" value="do_ChangeCategory" />
+						<?php if ($SID): ?>
+						<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
+						<?php endif; ?>
 						<select name="category_id">
 <?php
 	foreach ($catarr as $cid => $catname):

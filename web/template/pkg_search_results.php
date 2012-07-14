@@ -115,6 +115,7 @@ if (!$result): ?>
 						<input type="text" id="merge_Into" name="merge_Into" />
 						<input type="checkbox" name="confirm_Delete" value="1" /> <?php echo __("Confirm") ?>
 					<?php endif; ?>
+					<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
 					<input type="submit" class="button" style="width: 80px" value="<?php echo __("Go") ?>" />
 				</p>
 			<?php endif; # if ($SID) ?>

@@ -624,7 +624,7 @@ function user_suspended($id, $dbh=NULL) {
 	$result = db_query($q, $dbh);
 	if ($result) {
 		$row = mysql_fetch_row($result);
-		if ($result[0] == 1 ) {
+		if ($row[0]) {
 			return true;
 		}
 	}

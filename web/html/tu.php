@@ -49,7 +49,7 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 				}
 
 				if ($canvote == 1) {
-					if (isset($_POST['doVote'])) {
+					if (isset($_POST['doVote']) && check_token()) {
 						if (isset($_POST['voteYes'])) {
 							$myvote = "Yes";
 						} else if (isset($_POST['voteNo'])) {

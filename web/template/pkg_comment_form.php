@@ -3,12 +3,13 @@
 	<form call="general-form" action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post">
 		<fieldset>
 <?php
-if (isset($_REQUEST['comment'])) {
+if (isset($_REQUEST['comment']) && check_token()) {
 	echo '<p>' . __('Comment has been added.') . '</p>';
 }
 ?>
 			<div>
 				<input type="hidden" name="ID" value="<?php echo intval($_REQUEST['ID']) ?>" />
+				<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
 			</div>
 			<p>
 				<label for="id_comment"><?php echo __("Comment") . ':' ?></label>

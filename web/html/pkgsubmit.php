@@ -27,6 +27,11 @@ if ($uid):
 
 	if (isset($_REQUEST['pkgsubmit'])) {
 
+		# Make sure authenticated user submitted the package themselves
+		if (!check_token()) {
+			$error = __("Invalid token for user action.");
+		}
+
 		# Before processing, make sure we even have a file
 		switch($_FILES['pfile']['error']) {
 			case UPLOAD_ERR_INI_SIZE:
@@ -428,6 +433,7 @@ html_header("Submit");
 	<fieldset>
 		<div>
 			<input type="hidden" name="pkgsubmit" value="1" />
+			<input type="hidden" name="token" value="<?php print htmlspecialchars($_COOKIE['AURSID']) ?>" /> </div>
 		</div>
 		<p>
 			<label for="id_category"><?php print __("Package Category"); ?>:</label>

@@ -74,13 +74,13 @@ if (isset($_COOKIE["AURSID"])) {
 	} elseif ($action == "UpdateAccount") {
 		# user is submitting their modifications to an existing account
 		#
-		process_account_form($atype, "edit", "UpdateAccount",
-				in_request("U"), in_request("T"), in_request("S"),
-				in_request("E"), in_request("P"), in_request("C"),
-				in_request("R"), in_request("L"), in_request("I"),
-				in_request("K"), in_request("ID"));
-
-
+		if (check_token()) {
+			process_account_form($atype, "edit", "UpdateAccount",
+					in_request("U"), in_request("T"), in_request("S"),
+					in_request("E"), in_request("P"), in_request("C"),
+					in_request("R"), in_request("L"), in_request("I"),
+					in_request("K"), in_request("ID"));
+		}
 	} else {
 		if ($atype == "Trusted User" || $atype == "Developer") {
 			# display the search page if they're a TU/dev
