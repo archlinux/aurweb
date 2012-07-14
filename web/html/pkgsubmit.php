@@ -379,9 +379,9 @@ if ($uid):
 			}
 
 			# Insert sources
-			$sources = explode(" ", $new_pkgbuild['source']);
-			foreach ($sources as $src) {
-				if ($src != "" ) {
+			if (!empty($new_pkgbuild['source'])) {
+				$sources = explode(" ", $new_pkgbuild['source']);
+				foreach ($sources as $src) {
 					add_pkg_src($packageID, $src, $dbh);
 				}
 			}
