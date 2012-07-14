@@ -52,9 +52,7 @@ function check_sid($dbh=NULL) {
 		} elseif ($failed == 2) {
 			# session id timeout was reached and they must login again.
 			#
-			$q = "DELETE FROM Sessions WHERE SessionID = '";
-			$q.= db_escape_string($_COOKIE["AURSID"]) . "'";
-			db_query($q, $dbh);
+			delete_session_id($_COOKIE["AURSID"], $dbh);
 
 			setcookie("AURSID", "", 1, "/", null, !empty($_SERVER['HTTPS']), true);
 			unset($_COOKIE['AURSID']);
