@@ -414,7 +414,7 @@ function try_login($dbh=NULL) {
 					$cookie_time = 0;
 
 				setcookie("AURSID", $new_sid, $cookie_time, "/", null, !empty($_SERVER['HTTPS']), true);
-				header("Location: " . $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
+				header("Location: " . get_uri('/'));
 				$login_error = "";
 
 			}
