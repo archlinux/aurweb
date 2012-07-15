@@ -433,7 +433,7 @@ html_header("Submit");
 	<fieldset>
 		<div>
 			<input type="hidden" name="pkgsubmit" value="1" />
-			<input type="hidden" name="token" value="<?php print htmlspecialchars($_COOKIE['AURSID']) ?>" /> </div>
+			<input type="hidden" name="token" value="<?php print htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		</div>
 		<p>
 			<label for="id_category"><?php print __("Package Category"); ?>:</label>
