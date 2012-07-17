@@ -3,7 +3,7 @@
 		<input type="hidden" name="Action" value="<?php echo $A ?>" />
 		<?php if ($UID): ?>
 		<input type="hidden" name="ID" value="<?php echo $UID ?>" />
-		<input type="hidden" name="token" value="<?php print htmlspecialchars($_COOKIE['AURSID']) ?>" /> </div>
+		<input type="hidden" name="token" value="<?php print htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		<?php endif; ?>
 	</fieldset>
 	<table>
