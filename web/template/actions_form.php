@@ -25,13 +25,6 @@
 		<?php endif; ?>
 		<?php endif; ?>
 			
-		<?php if ($row["MaintainerUID"] === NULL): ?>
-			<input type="submit" class="button" name="do_Adopt" value="<?php echo __("Adopt Packages") ?>" />
-		<?php elseif ($uid == $row["MaintainerUID"] ||
-			$atype == "Trusted User" || $atype == "Developer"): ?>
-			<input type="submit" class="button" name="do_Disown" value="<?php echo __("Disown Packages") ?>" />
-		<?php endif; ?>
-
 		<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
 			<input type="submit" class="button" name="do_Delete" value="<?php echo __("Delete Packages") ?>" />
 			<label for="merge_Into" ><?php echo __("Merge into") ?></label>

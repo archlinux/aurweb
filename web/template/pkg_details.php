@@ -55,6 +55,19 @@ $sources = package_sources($row["ID"]);
 				<?php endif; ?>
 				<?php endif; ?>
 			</ul>
+			<form action="<?php echo htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>" method="post">
+				<fieldset>
+					<input type="hidden" name="IDs[<?php echo $row['ID'] ?>]" value="1" />
+					<input type="hidden" name="ID" value="<?php echo $row['ID'] ?>" />
+					<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
+					<?php if ($row["MaintainerUID"] === NULL): ?>
+						<input type="submit" class="button" name="do_Adopt" value="<?php echo __("Adopt Packages") ?>" />
+					<?php elseif ($uid == $row["MaintainerUID"] ||
+						$atype == "Trusted User" || $atype == "Developer"): ?>
+						<input type="submit" class="button" name="do_Disown" value="<?php echo __("Disown Packages") ?>" />
+					<?php endif; ?>
+				</fieldset>
+			</form>
 		</div>
 	</div>
 
