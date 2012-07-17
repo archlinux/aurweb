@@ -37,6 +37,23 @@ $sources = package_sources($row["ID"]);
 				<li><a href="<?php echo $urlpath ?>/PKGBUILD"><?php echo __('View PKGBUILD') ?></a></li>
 				<li><a href="<?php echo $urlpath . '/' . $row['Name'] ?>.tar.gz"><?php echo __('Download tarball') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
+				<?php if ($USE_VIRTUAL_URLS && $uid): ?>
+				<?php if (user_voted($uid, $row['ID'])): ?>
+				<li><a href="<?php echo get_pkg_uri($row['Name']) . 'unvote/'; ?>"><?php echo __('UnVote'); ?></a></li>
+				<?php else: ?>
+				<li><a href="<?php echo get_pkg_uri($row['Name']) . 'vote/'; ?>"><?php echo __('Vote'); ?></a></li>
+				<?php endif; ?>
+				<?php if (user_notify($uid, $row['ID'])): ?>
+				<li><a href="<?php echo get_pkg_uri($row['Name']) . 'unnotify/'; ?>"><?php echo __('UnNotify'); ?></a></li>
+				<?php else: ?>
+				<li><a href="<?php echo get_pkg_uri($row['Name']) . 'notify/'; ?>"><?php echo __('Notify'); ?></a></li>
+				<?php endif; ?>
+				<?php if ($row["OutOfDateTS"] === NULL): ?>
+				<li><a href="<?php echo get_pkg_uri($row['Name']) . 'flag/'; ?>"><?php echo __('Flag'); ?></a></li>
+				<?php else: ?>
+				<li><a href="<?php echo get_pkg_uri($row['Name']) . 'unflag/'; ?>"><?php echo __('UnFlag'); ?></a></li>
+				<?php endif; ?>
+				<?php endif; ?>
 			</ul>
 		</div>
 	</div>

@@ -5,6 +5,7 @@
 			<input type="hidden" name="ID" value="<?php echo $row['ID'] ?>" />
 			<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
 
+		<?php if (!$USE_VIRTUAL_URLS): ?>
 		<?php if (user_voted($uid, $row['ID'])): ?>
 			<input type="submit" class="button" name="do_UnVote" value="<?php echo __("UnVote") ?>" />
 		<?php else: ?>
@@ -21,6 +22,7 @@
 			<input type="submit" class="button" name="do_Flag" value="<?php echo __("Flag Out-of-date") ?>" />
 		<?php else: ?>
 			<input type="submit" class="button" name="do_UnFlag" value="<?php echo __("UnFlag Out-of-date") ?>" />
+		<?php endif; ?>
 		<?php endif; ?>
 			
 		<?php if ($row["MaintainerUID"] === NULL): ?>

@@ -368,6 +368,7 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
 #
 function package_details($id=0, $SID="", $dbh=NULL) {
 	global $AUR_LOCATION;
+	global $USE_VIRTUAL_URLS;
 
 	if(!$dbh) {
 		$dbh = db_connect();
