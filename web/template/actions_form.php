@@ -1,3 +1,4 @@
+<?php if (!$USE_VIRTUAL_URLS || $atype == "Trusted User" || $atype == "Developer" ): ?>
 <div class="box">
 	<form action="<?php echo htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>" method="post">
 		<fieldset>
@@ -36,3 +37,4 @@
 		</fieldset>
 	</form>
 </div>
+<?php endif; ?>
