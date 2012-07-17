@@ -1,6 +1,6 @@
 <?php
 $uid = uid_from_sid($SID);
-$count = package_comments_count($_GET['ID']);
+$count = package_comments_count($row['ID']);
 ?>
 <div id="news">
 	<h3>
