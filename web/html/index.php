@@ -4,7 +4,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 include_once("aur.inc.php");
 include_once("pkgfuncs.inc.php");
 
-$path = rtrim($_SERVER['PATH_INFO'], '/');
+$path = $_SERVER['PATH_INFO'];
 $tokens = explode('/', $path);
 
 if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {

@@ -22,6 +22,7 @@ $PKG_PATH = '/packages';
 function get_route($path) {
 	global $ROUTES;
 
+	$path = rtrim($path, '/');
 	if (isset($ROUTES[$path])) {
 		return $ROUTES[$path];
 	} else {
