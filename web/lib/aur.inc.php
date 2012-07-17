@@ -11,6 +11,7 @@ include_once('translator.inc.php');
 set_lang();
 
 include_once("config.inc.php");
+include_once("routing.inc.php");
 include_once("version.inc.php");
 include_once("acctfuncs.inc.php");
 include_once("cachefuncs.inc.php");

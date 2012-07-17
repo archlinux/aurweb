@@ -1,8 +1,6 @@
 <?php
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
-include_once("config.inc.php");
-include_once("routing.inc.php");
 include_once("aur.inc.php");
 include_once("pkgfuncs.inc.php");
 
