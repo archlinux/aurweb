@@ -5,6 +5,7 @@ $ROUTES = array(
 	'/index.php' => 'home.php',
 	'/packages' => 'packages.php',
 	'/register' => 'account.php',
+	'/account' => 'account.php',
 	'/accounts' => 'account.php',
 	'/login' => 'login.php',
 	'/logout' => 'logout.php',
