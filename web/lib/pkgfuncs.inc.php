@@ -1212,6 +1212,8 @@ function pkg_change_category($atype, $dbh=NULL) {
 
 	if (isset($_GET["ID"])) {
 		$pid = $_GET["ID"];
+	} elseif (isset($_GET["N"])) {
+		$pid = pkgid_from_name($_GET["N"]);
 	} else {
 		return __("Missing package ID.");
 	}
