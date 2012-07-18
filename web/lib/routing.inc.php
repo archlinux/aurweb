@@ -14,7 +14,6 @@ $ROUTES = array(
 	'/rss' => 'rss.php',
 	'/submit' => 'pkgsubmit.php',
 	'/tu' => 'tu.php',
-	'/voters' => 'voters.php',
 	'/addvote' => 'addvote.php',
 );
 

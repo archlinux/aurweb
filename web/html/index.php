@@ -13,6 +13,12 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		$_GET['N'] = $tokens[2];
 
 		if (isset($tokens[3])) {
+			if ($tokens[3] == 'voters') {
+				$_GET['ID'] = pkgid_from_name($tokens[2]);
+				include('voters.php');
+				return;
+			}
+
 			/* TODO: Remove support for legacy URIs and move these
 			 * actions to separate modules. */
 			switch ($tokens[3]) {

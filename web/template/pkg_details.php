@@ -143,10 +143,12 @@ if ($row["MaintainerUID"]):
 		</tr>
 		<tr>
 			<th><?php echo __('Votes') . ': ' ?></th>
-<?php
-if ($atype == "Developer" || $atype == "Trusted User"):
-?>
-			<td><a href="<?php echo get_uri('/voters/'); ?>?ID=<?php echo$pkgid ?>"><?php echo $votes ?></a>
+<?php if ($atype == "Developer" || $atype == "Trusted User"): ?>
+<?php if ($USE_VIRTUAL_URLS): ?>
+			<td><a href="<?php echo get_pkg_uri($row['Name']); ?>voters/"><?php echo $votes ?></a>
+<?php else: ?>
+			<td><a href="<?php echo get_uri('/voters/'); ?>?ID=<?php echo $pkgid ?>"><?php echo $votes ?></a>
+<?php endif; ?>
 <?php else: ?>
 			<td><?php echo $votes ?></td>
 <?php endif; ?>
