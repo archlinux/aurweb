@@ -17,11 +17,11 @@ if ($atype == 'Trusted User' || $atype== 'Developer'):
 <div class="box">
 	<h2>Votes for <a href="<?php echo get_pkg_uri(pkgname_from_id($pkgid)); ?>"><?php echo pkgname_from_id($pkgid) ?></a></h2>
 	<div class="boxbody">
-
-<?php
-	while (list($indx, $row) = each($votes)): ?>
-		<a href="<?php echo get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?php echo $row['UsersID'] ?>"><?php echo htmlspecialchars($row['Username']) ?></a><br />
-	<?php endwhile; ?>
+		<ul>
+			<?php while (list($indx, $row) = each($votes)): ?>
+			<li><a href="<?php echo get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?php echo $row['UsersID'] ?>"><?php echo htmlspecialchars($row['Username']) ?></a></li>
+			<?php endwhile; ?>
+		</ul>
 	</div>
 </div>
 
