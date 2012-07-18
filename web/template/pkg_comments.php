@@ -1,6 +1,7 @@
 <?php
 $uid = uid_from_sid($SID);
 $count = package_comments_count($row['ID']);
+$pkgname = $row['Name'];
 ?>
 <div id="news">
 	<h3>
@@ -14,12 +15,12 @@ $count = package_comments_count($row['ID']);
 		endif; ?>
 		<h4>
 			<?php if (canDeleteCommentArray($row, $atype, $uid)): ?>
-				<form method="post" action="<?php echo htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>">
+				<form method="post" action="<?php echo htmlspecialchars(get_pkg_uri($pkgname), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />
 						<input type="hidden" name="comment_id" value="<?php echo $row['ID'] ?>" />
 						<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="image" src="/images/x.png" alt="<?php echo __('Delete comment') ?> name="submit" value="1" />
+						<input type="image" src="/images/x.png" alt="<?php echo __('Delete comment') ?>" name="submit" value="1" />
 					</fieldset>
 				</form>
 			<?php endif; ?>
