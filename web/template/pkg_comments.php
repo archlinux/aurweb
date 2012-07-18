@@ -10,7 +10,7 @@ $count = package_comments_count($row['ID']);
 
 	<?php while (list($indx, $row) = each($comments)): ?>
 		<?php if ($SID):
-			$row['UserName'] = "<a href=\"<?php echo get_uri('/account/'); ?>?Action=AccountInfo&amp;ID={$row['UsersID']}\">{$row['UserName']}</a>";
+			$row['UserName'] = "<a href=\"" . get_uri('/account/') . "?Action=AccountInfo&amp;ID={$row['UsersID']}\">{$row['UserName']}</a>";
 		endif; ?>
 		<h4>
 			<?php if (canDeleteCommentArray($row, $atype, $uid)): ?>
