@@ -1,7 +1,7 @@
 <?php
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
-include('aur.inc.php');
-include('pkgfuncs.inc.php');
+include_once('aur.inc.php');
+include_once('pkgfuncs.inc.php');
 
 $SID = $_COOKIE['AURSID'];
 
