@@ -6,10 +6,10 @@ function updates_table($dbh) {
 	$key = 'recent_updates';
 	if(!($newest_packages = get_cache_value($key))) {
 		$q = 'SELECT * FROM Packages ORDER BY ModifiedTS DESC LIMIT 10';
-		$result = db_query($q, $dbh);
+		$result = $dbh->query($q);
 
 		$newest_packages = new ArrayObject();
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$newest_packages->append($row);
 		}
 		set_cache_value($key, $newest_packages);

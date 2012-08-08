@@ -30,14 +30,15 @@ function check_sid($dbh=NULL) {
 			$dbh = db_connect();
 		}
 		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
-		$q.= "WHERE SessionID = '" . db_escape_string($_COOKIE["AURSID"]) . "'";
-		$result = db_query($q, $dbh);
-		if (mysql_num_rows($result) == 0) {
+		$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
+		$result = $dbh->query($q);
+		$row = $result->fetch(PDO::FETCH_NUM);
+
+		if (!$row[0]) {
 			# Invalid SessionID - hacker alert!
 			#
 			$failed = 1;
 		} else {
-			$row = mysql_fetch_row($result);
 			$last_update = $row[0];
 			if ($last_update + $LOGIN_TIMEOUT <= $row[1]) {
 				$failed = 2;
@@ -68,8 +69,8 @@ function check_sid($dbh=NULL) {
 			# overwritten.
 			if ($last_update < time() + $LOGIN_TIMEOUT) {
 				$q = "UPDATE Sessions SET LastUpdateTS = UNIX_TIMESTAMP() ";
-				$q.= "WHERE SessionID = '".db_escape_string($_COOKIE["AURSID"])."'";
-				db_query($q, $dbh);
+				$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
+				$dbh->exec($q);
 			}
 		}
 	}
@@ -119,12 +120,12 @@ function username_from_id($id="", $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = "SELECT Username FROM Users WHERE ID = " . db_escape_string($id);
-	$result = db_query($q, $dbh);
+	$q = "SELECT Username FROM Users WHERE ID = " . $dbh->quote($id);
+	$result = $dbh->query($q);
 	if (!$result) {
 		return "None";
 	}
-	$row = mysql_fetch_row($result);
+	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
 }
@@ -142,12 +143,12 @@ function username_from_sid($sid="", $dbh=NULL) {
 	$q = "SELECT Username ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND Sessions.SessionID = '" . db_escape_string($sid) . "'";
-	$result = db_query($q, $dbh);
+	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
+	$result = $dbh->query($q);
 	if (!$result) {
 		return "";
 	}
-	$row = mysql_fetch_row($result);
+	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
 }
@@ -164,12 +165,12 @@ function email_from_sid($sid="", $dbh=NULL) {
 	$q = "SELECT Email ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND Sessions.SessionID = '" . db_escape_string($sid) . "'";
-	$result = db_query($q, $dbh);
+	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
+	$result = $dbh->query($q);
 	if (!$result) {
 		return "";
 	}
-	$row = mysql_fetch_row($result);
+	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
 }
@@ -188,12 +189,12 @@ function account_from_sid($sid="", $dbh=NULL) {
 	$q.= "FROM Users, AccountTypes, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND AccountTypes.ID = Users.AccountTypeID ";
-	$q.= "AND Sessions.SessionID = '" . db_escape_string($sid) . "'";
-	$result = db_query($q, $dbh);
+	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
+	$result = $dbh->query($q);
 	if (!$result) {
 		return "";
 	}
-	$row = mysql_fetch_row($result);
+	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
 }
@@ -210,12 +211,12 @@ function uid_from_sid($sid="", $dbh=NULL) {
 	$q = "SELECT Users.ID ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND Sessions.SessionID = '" . db_escape_string($sid) . "'";
-	$result = db_query($q, $dbh);
+	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
+	$result = $dbh->query($q);
 	if (!$result) {
 		return 0;
 	}
-	$row = mysql_fetch_row($result);
+	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
 }
@@ -223,66 +224,16 @@ function uid_from_sid($sid="", $dbh=NULL) {
 # connect to the database
 #
 function db_connect() {
-	$handle = mysql_connect(AUR_db_host, AUR_db_user, AUR_db_pass);
-	if (!$handle) {
-		die("Error connecting to AUR database: " . mysql_error());
+	try {
+		$dbh = new PDO(AUR_db_DSN_prefix . ":" . AUR_db_host . ";dbname=" . AUR_db_name, AUR_db_user, AUR_db_pass);
+	}
+	catch (PDOException $e) {
+		echo "Error - Could not connect to AUR database: " . $e->getMessage();
 	}
 
-	mysql_select_db(AUR_db_name, $handle) or
-		die("Error selecting AUR database: " . mysql_error());
+	$dbh->exec("SET NAMES 'utf8' COLLATE 'utf8_general_ci';");
 
-	db_query("SET NAMES 'utf8' COLLATE 'utf8_general_ci';", $handle);
-
-	return $handle;
-}
-
-# Escape strings for SQL query usage.
-# Wraps the database driver's provided method (for convenience and porting).
-function db_escape_string($string) {
-	return mysql_real_escape_string($string);
-}
-
-# Escape strings for usage in SQL LIKE operators.
-function db_escape_like($string) {
-	return addcslashes(mysql_real_escape_string($string), '%_');
-}
-
-# disconnect from the database
-# this won't normally be needed as PHP/reference counting will take care of
-# closing the connection once it is no longer referenced
-#
-function db_disconnect($db_handle="") {
-	if ($db_handle) {
-		mysql_close($db_handle);
-		return TRUE;
-	}
-	return FALSE;
-}
-
-# wrapper function around db_query in case we want to put
-# query logging/debugging in.
-#
-function db_query($query="", $db_handle="") {
-	if (!$query) {
-		return FALSE;
-	}
-
-	if (!$db_handle) {
-		die("DB handle was not provided to db_query");
-	}
-
-	if (defined('SQL_DEBUG') && SQL_DEBUG == 1) {
-		$bt = debug_backtrace();
-		error_log("DEBUG: ".$bt[0]['file'].":".$bt[0]['line']." query: $query\n");
-	}
-
-	$result = @mysql_query($query, $db_handle);
-	if (!$result) {
-		$bt = debug_backtrace();
-		error_log("ERROR: near ".$bt[0]['file'].":".$bt[0]['line']." in query: $query\n -> ".mysql_error($db_handle));
-	}
-
-	return $result;
+	return $dbh;
 }
 
 # common header
@@ -313,10 +264,13 @@ function can_submit_pkg($name="", $sid="", $dbh=NULL) {
 		$dbh = db_connect();
 	}
 	$q = "SELECT MaintainerUID ";
-	$q.= "FROM Packages WHERE Name = '".db_escape_string($name)."'";
-	$result = db_query($q, $dbh);
-	if (mysql_num_rows($result) == 0) {return 1;}
-	$row = mysql_fetch_row($result);
+	$q.= "FROM Packages WHERE Name = " . $dbh->quote($name);
+	$result = $dbh->query($q);
+	$row = $result->fetch(PDO::FETCH_NUM);
+
+	if (!$row[0]) {
+		return 1;
+	}
 	$my_uid = uid_from_sid($sid, $dbh);
 
 	if ($row[0] === NULL || $row[0] == $my_uid) {
@@ -385,13 +339,12 @@ function uid_from_username($username="", $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = "SELECT ID FROM Users WHERE Username = '".db_escape_string($username)
-				."'";
-	$result = db_query($q, $dbh);
+	$q = "SELECT ID FROM Users WHERE Username = " . $dbh->quote($username);
+	$result = $dbh->query($q);
 	if (!$result) {
 		return "None";
 	}
-	$row = mysql_fetch_row($result);
+	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
 }
@@ -405,13 +358,12 @@ function uid_from_email($email="", $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = "SELECT ID FROM Users WHERE Email = '".db_escape_string($email)
-				."'";
-	$result = db_query($q, $dbh);
+	$q = "SELECT ID FROM Users WHERE Email = " . $dbh->quote($email);
+	$result = $dbh->query($q);
 	if (!$result) {
 		return "None";
 	}
-	$row = mysql_fetch_row($result);
+	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
 }
@@ -461,11 +413,11 @@ function get_salt($user_id, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$salt_q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
-	$result = db_query($salt_q, $dbh);
+	$q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
+	$result = $dbh->query($q);
 	if ($result) {
-		$salt_row = mysql_fetch_row($result);
-		return $salt_row[0];
+		$row = $result->fetch(PDO::FETCH_NUM);
+		return $row[0];
 	}
 	return;
 }
@@ -476,9 +428,9 @@ function save_salt($user_id, $passwd, $dbh=NULL) {
 	}
 	$salt = generate_salt();
 	$hash = salted_hash($passwd, $salt);
-	$salting_q = "UPDATE Users SET Salt = '" . $salt . "', " .
-		"Passwd = '" . $hash . "' WHERE ID = " . $user_id;
-	return db_query($salting_q, $dbh);
+	$q = "UPDATE Users SET Salt = " . $dbh->quote($salt) . ", ";
+	$q.= "Passwd = " . $dbh->quote($hash) . " WHERE ID = " . $user_id;
+	$result = $dbh->exec($q);
 }
 
 function generate_salt() {
@@ -519,21 +471,21 @@ function begin_atomic_commit($dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	db_query("BEGIN", $dbh);
+	$dbh->beginTransaction();
 }
 
 function end_atomic_commit($dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	db_query("COMMIT", $dbh);
+	$dbh->commit();
 }
 
 function last_insert_id($dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	return mysql_insert_id($dbh);
+	return $dbh->lastInsertId();
 }
 
 function latest_pkgs($numpkgs, $dbh=NULL) {
@@ -544,10 +496,10 @@ function latest_pkgs($numpkgs, $dbh=NULL) {
 	$q = "SELECT * FROM Packages ";
 	$q.= "ORDER BY SubmittedTS DESC ";
 	$q.= "LIMIT " .intval($numpkgs);
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 
 	if ($result) {
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$packages[] = $row;
 		}
 	}

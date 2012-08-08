@@ -122,12 +122,13 @@ class AurJSON {
             "FROM Packages LEFT JOIN Users " .
             "ON Packages.MaintainerUID = Users.ID " .
             "WHERE ${where_condition}";
-        $result = db_query($query, $this->dbh);
+        $result = $this->dbh->query($query);
 
-        $resultcount = mysql_num_rows($result);
-        if ( $result && $resultcount > 0 ) {
+        if ($result) {
+            $resultcount = 0;
             $search_data = array();
-            while ( $row = mysql_fetch_assoc($result) ) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $resultcount++;
                 $name = $row['Name'];
                 $row['URLPath'] = URL_DIR . substr($name, 0, 2) . "/" . $name . "/" . $name . ".tar.gz";
 
@@ -148,7 +149,6 @@ class AurJSON {
                 }
             }
 
-            mysql_free_result($result);
             return $this->json_results($type, $resultcount, $search_data);
         }
         else {
@@ -178,8 +178,7 @@ class AurJSON {
             if (is_numeric($arg)) {
                 $id_args[] = intval($arg);
             } else {
-                $escaped = db_escape_string($arg, $this->dbh);
-                $name_args[] = "'" . $escaped . "'";
+                $name_args[] = $this->dbh->quote($arg);
             }
         }
 
@@ -196,10 +195,10 @@ class AurJSON {
             return $this->json_error('Query arg too small');
         }
 
-        $keyword_string = db_escape_like($keyword_string, $this->dbh);
+        $keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
 
-        $where_condition = "( Name LIKE '%{$keyword_string}%' OR " .
-            "Description LIKE '%{$keyword_string}%' )";
+        $where_condition = "(Name LIKE {$keyword_string} OR ";
+        $where_condition.= "Description LIKE {$keyword_string})";
 
         return $this->process_query('search', $where_condition);
     }
@@ -217,8 +216,7 @@ class AurJSON {
             $where_condition = "Packages.ID={$pqdata}";
         }
         else {
-            $where_condition = sprintf("Name=\"%s\"",
-                db_escape_string($pqdata, $this->dbh));
+            $where_condition = sprintf("Name=%s", $this->dbh->quote($pqdata));
         }
         return $this->process_query('info', $where_condition);
     }
@@ -260,9 +258,9 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function msearch($maintainer) {
-        $maintainer = db_escape_string($maintainer, $this->dbh);
+        $maintainer = $this->dbh->quote($maintainer);
 
-        $where_condition = "Users.Username = '{$maintainer}'";
+        $where_condition = "Users.Username = {$maintainer}";
 
         return $this->process_query('msearch', $where_condition);
     }

@@ -16,9 +16,9 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0, $dbh=NULL) {
 	$q.= "FROM PackageComments ";
 	$q.= "WHERE ID = " . intval($comment_id);
 	$q.= " AND UsersID = " . $uid;
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 	if ($result != NULL) {
-		$row = mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 		if ($row['CNT'] > 0) {
 			return TRUE;
 		}
@@ -83,9 +83,9 @@ function pkgCategories($dbh=NULL) {
 	}
 	$q = "SELECT * FROM PackageCategories WHERE ID != 1 ";
 	$q.= "ORDER BY Category ASC";
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 	if ($result) {
-		while ($row = mysql_fetch_row($result)) {
+		while ($row = $result->fetch(PDO::FETCH_NUM)) {
 			$cats[$row[0]] = $row[1];
 		}
 	}
@@ -100,10 +100,12 @@ function pkgid_from_name($name="", $dbh=NULL) {
 		$dbh = db_connect();
 	}
 	$q = "SELECT ID FROM Packages ";
-	$q.= "WHERE Name = '".db_escape_string($name)."' ";
-	$result = db_query($q, $dbh);
-	if (!$result) {return NULL;}
-	$row = mysql_fetch_row($result);
+	$q.= "WHERE Name = " . $dbh->quote($name);
+	$result = $dbh->query($q);
+	if (!$result) {
+		return;
+	}
+	$row = $result->fetch(PDO::FETCH_NUM);
 	return $row[0];
 }
 
@@ -120,9 +122,11 @@ function package_dependencies($pkgid, $dbh=NULL) {
 		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
 		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
 		$q.= "ORDER BY pd.DepName";
-		$result = db_query($q, $dbh);
-		if (!$result) {return array();}
-		while ($row = mysql_fetch_row($result)) {
+		$result = $dbh->query($q);
+		if (!$result) {
+			return array();
+		}
+		while ($row = $result->fetch(PDO::FETCH_NUM)) {
 			$deps[] = $row;
 		}
 	}
@@ -137,11 +141,11 @@ function package_required($name="", $dbh=NULL) {
 		}
 		$q = "SELECT p.Name, PackageID FROM PackageDepends pd ";
 		$q.= "JOIN Packages p ON pd.PackageID = p.ID ";
-		$q.= "WHERE DepName = '".db_escape_string($name)."' ";
+		$q.= "WHERE DepName = " . $dbh->quote($name) . " ";
 		$q.= "ORDER BY p.Name";
-		$result = db_query($q, $dbh);
+		$result = $dbh->query($q);
 		if (!$result) {return array();}
-		while ($row = mysql_fetch_row($result)) {
+		while ($row = $result->fetch(PDO::FETCH_NUM)) {
 			$deps[] = $row;
 		}
 	}
@@ -150,6 +154,10 @@ function package_required($name="", $dbh=NULL) {
 
 # Return the number of comments for a specified package
 function package_comments_count($pkgid, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
 		if(!$dbh) {
@@ -159,13 +167,14 @@ function package_comments_count($pkgid, $dbh=NULL) {
 		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " AND DelUsersID IS NULL";
 	}
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 
 	if (!$result) {
 		return;
 	}
 
-	return mysql_result($result, 0);
+	$row = $result->fetch(PDO::FETCH_NUM);
+	return $row[0];
 }
 
 # Return an array of package comments
@@ -187,13 +196,13 @@ function package_comments($pkgid, $dbh=NULL) {
 			$q.= " LIMIT 10";
 		}
 
-		$result = db_query($q, $dbh);
+		$result = $dbh->query($q);
 
 		if (!$result) {
 			return;
 		}
 
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$comments[] = $row;
 		}
 	}
@@ -207,32 +216,31 @@ function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 
-	$q = 'INSERT INTO PackageComments ';
-	$q.= '(PackageID, UsersID, Comments, CommentTS) VALUES (';
-	$q.= intval($pkgid) . ', ' . $uid . ', ';
-	$q.= "'" . db_escape_string($comment) . "', ";
-	$q.= 'UNIX_TIMESTAMP())';
-	db_query($q, $dbh);
+	$q = "INSERT INTO PackageComments ";
+	$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
+	$q.= intval($pkgid) . ", " . $uid . ", ";
+	$q.= $dbh->quote($comment) . ", UNIX_TIMESTAMP())";
+	$dbh->exec($q);
 
 	# Send email notifications
-	$q = 'SELECT CommentNotify.*, Users.Email ';
-	$q.= 'FROM CommentNotify, Users ';
-	$q.= 'WHERE Users.ID = CommentNotify.UserID ';
-	$q.= 'AND CommentNotify.UserID != ' . $uid . ' ';
-	$q.= 'AND CommentNotify.PkgID = ' . intval($pkgid);
-	$result = db_query($q, $dbh);
+	$q = "SELECT CommentNotify.*, Users.Email ";
+	$q.= "FROM CommentNotify, Users ";
+	$q.= "WHERE Users.ID = CommentNotify.UserID ";
+	$q.= "AND CommentNotify.UserID != " . $uid . " ";
+	$q.= "AND CommentNotify.PkgID = " . intval($pkgid);
+	$result = $dbh->query($q);
 	$bcc = array();
 
-	if (mysql_num_rows($result)) {
-		while ($row = mysql_fetch_assoc($result)) {
+	if ($result) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			array_push($bcc, $row['Email']);
 		}
 
-		$q = 'SELECT Packages.* ';
-		$q.= 'FROM Packages ';
-		$q.= 'WHERE Packages.ID = ' . intval($pkgid);
-		$result = db_query($q, $dbh);
-		$row = mysql_fetch_assoc($result);
+		$q = "SELECT Packages.* ";
+		$q.= "FROM Packages ";
+		$q.= "WHERE Packages.ID = " . intval($pkgid);
+		$result = $dbh->query($q);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 
 		# TODO: native language emails for users, based on their prefs
 		# Simply making these strings translatable won't work, users would be
@@ -261,9 +269,11 @@ function package_sources($pkgid, $dbh=NULL) {
 		$q = "SELECT Source FROM PackageSources ";
 		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " ORDER BY Source";
-		$result = db_query($q, $dbh);
-		if (!$result) {return array();}
-		while ($row = mysql_fetch_row($result)) {
+		$result = $dbh->query($q);
+		if (!$result) {
+			return array();
+		}
+		while ($row = $result->fetch(PDO::FETCH_NUM)) {
 			$sources[] = $row[0];
 		}
 	}
@@ -283,10 +293,10 @@ function pkgvotes_from_sid($sid="", $dbh=NULL) {
 	$q.= "FROM PackageVotes, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND Users.ID = PackageVotes.UsersID ";
-	$q.= "AND Sessions.SessionID = '".db_escape_string($sid)."'";
-	$result = db_query($q, $dbh);
+	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
+	$result = $dbh->query($q);
 	if ($result) {
-		while ($row = mysql_fetch_row($result)) {
+		while ($row = $result->fetch(PDO::FETCH_NUM)) {
 			$pkgs[$row[0]] = 1;
 		}
 	}
@@ -306,10 +316,10 @@ function pkgnotify_from_sid($sid="", $dbh=NULL) {
 	$q.= "FROM CommentNotify, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND Users.ID = CommentNotify.UserID ";
-	$q.= "AND Sessions.SessionID = '".db_escape_string($sid)."'";
-	$result = db_query($q, $dbh);
+	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
+	$result = $dbh->query($q);
 	if ($result) {
-		while ($row = mysql_fetch_row($result)) {
+		while ($row = $result->fetch(PDO::FETCH_NUM)) {
 			$pkgs[$row[0]] = 1;
 		}
 	}
@@ -325,11 +335,11 @@ function pkgname_from_id($pkgids, $dbh=NULL) {
 		if(!$dbh) {
 			$dbh = db_connect();
 		}
-		$q = "SELECT Name FROM Packages WHERE ID IN (" .
-			implode(",", $pkgids) . ")";
-		$result = db_query($q, $dbh);
-		if (mysql_num_rows($result) > 0) {
-			while ($row = mysql_fetch_assoc($result)) {
+		$q = "SELECT Name FROM Packages WHERE ID IN (";
+		$q.= implode(",", $pkgids) . ")";
+		$result = $dbh->query($q);
+		if ($result) {
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$names[] = $row['Name'];
 			}
 		}
@@ -340,11 +350,11 @@ function pkgname_from_id($pkgids, $dbh=NULL) {
 			$dbh = db_connect();
 		}
 		$q = "SELECT Name FROM Packages WHERE ID = " . $pkgids;
-		$result = db_query($q, $dbh);
-		if (mysql_num_rows($result) > 0) {
-			$name = mysql_result($result, 0);
+		$result = $dbh->query($q);
+		if ($result) {
+			$name = $result->fetch(PDO::FETCH_NUM);
 		}
-		return $name;
+		return $name[0];
 	}
 	else {
 		return NULL;
@@ -357,11 +367,12 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = "SELECT COUNT(*) FROM PackageBlacklist WHERE Name = '" . db_escape_string($name) . "'";
-	$result = db_query($q, $dbh);
+	$q = "SELECT COUNT(*) FROM PackageBlacklist ";
+	$q.= "WHERE Name = " . $dbh->quote($name);
+	$result = $dbh->query($q);
 
 	if (!$result) return false;
-	return (mysql_result($result, 0) > 0);
+	return ($result->fetch(PDO::FETCH_NUM) > 0);
 }
 
 # display package details
@@ -378,13 +389,13 @@ function package_details($id=0, $SID="", $dbh=NULL) {
 	$q.= "FROM Packages,PackageCategories ";
 	$q.= "WHERE Packages.CategoryID = PackageCategories.ID ";
 	$q.= "AND Packages.ID = " . intval($id);
-	$results = db_query($q, $dbh);
+	$result = $dbh->query($q);
 
-	if (!$results) {
+	if (!$result) {
 		print "<p>" . __("Error retrieving package details.") . "</p>\n";
 	}
 	else {
-		$row = mysql_fetch_assoc($results);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 		if (empty($row)) {
 			print "<p>" . __("Package details could not be found.") . "</p>\n";
 
@@ -532,7 +543,7 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	if (isset($_GET['K'])) {
 		# Search by maintainer
 		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {
-			$q_where .= "AND Users.Username = '".db_escape_string($_GET['K'])."' ";
+			$q_where .= "AND Users.Username = " . $dbh->quote($_GET['K']) . " ";
 		}
 		# Search by submitter
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
@@ -540,16 +551,18 @@ function pkg_search_page($SID="", $dbh=NULL) {
 		}
 		# Search by name
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
-			$q_where .= "AND (Name LIKE '%".db_escape_like($_GET['K'])."%') ";
+			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
+			$q_where .= "AND (Name LIKE " . $dbh->quote($K) . ") ";
 		}
 		# Search by name (exact match)
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "x") {
-			$q_where .= "AND (Name = '".db_escape_string($_GET['K'])."') ";
+			$q_where .= "AND (Name = " . $dbh->quote($_GET['K']) . ") ";
 		}
 		# Search by name and description (Default)
 		else {
-			$q_where .= "AND (Name LIKE '%".db_escape_like($_GET['K'])."%' OR ";
-			$q_where .= "Description LIKE '%".db_escape_like($_GET['K'])."%') ";
+			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
+			$q_where .= "AND (Name LIKE " . $dbh->quote($K) . " OR ";
+			$q_where .= "Description LIKE " . $dbh->quote($K) . ") ";
 		}
 	}
 
@@ -602,10 +615,11 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	$q = $q_select . $q_from . $q_from_extra . $q_where . $q_sort . $q_limit;
 	$q_total = "SELECT COUNT(*) " . $q_from . $q_where;
 
-	$result = db_query($q, $dbh);
-	$result_t = db_query($q_total, $dbh);
+	$result = $dbh->query($q);
+	$result_t = $dbh->query($q_total);
 	if ($result_t) {
-		$total = mysql_result($result_t, 0);
+		$row = $result_t->fetch(PDO::FETCH_NUM);
+		$total = $row[0];
 	}
 	else {
 		$total = 0;
@@ -657,8 +671,10 @@ function pkg_search_page($SID="", $dbh=NULL) {
 
 	include('pkg_search_form.php');
 
-	while ($row = mysql_fetch_assoc($result)) {
-		$searchresults[] = $row;
+	if ($result) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$searchresults[] = $row;
+		}
 	}
 
 	include('pkg_search_results.php');
@@ -732,7 +748,7 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
 	}
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 
 	if ($action) {
 		# Notify of flagging by email
@@ -744,9 +760,9 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 		$q.= "WHERE Packages.ID IN (" . implode(",", $ids) .") ";
 		$q.= "AND Users.ID = Packages.MaintainerUID ";
 		$q.= "AND Users.ID != " . $f_uid;
-		$result = db_query($q, $dbh);
-		if (mysql_num_rows($result)) {
-			while ($row = mysql_fetch_assoc($result)) {
+		$result = $dbh->query($q);
+		if ($result) {
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				# construct email
 				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . "/" . get_pkg_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . "/" . get_uri('/accounts/') . "?Action=AccountInfo&ID=" . $f_uid;
 				$body = wordwrap($body, 70);
@@ -797,15 +813,15 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
 
 	# Send email notifications
 	foreach ($ids as $pkgid) {
-		$q = 'SELECT CommentNotify.*, Users.Email ';
-		$q.= 'FROM CommentNotify, Users ';
-		$q.= 'WHERE Users.ID = CommentNotify.UserID ';
-		$q.= 'AND CommentNotify.UserID != ' . uid_from_sid($_COOKIE['AURSID']) . ' ';
-		$q.= 'AND CommentNotify.PkgID = ' . $pkgid;
-		$result = db_query($q, $dbh);
+		$q = "SELECT CommentNotify.*, Users.Email ";
+		$q.= "FROM CommentNotify, Users ";
+		$q.= "WHERE Users.ID = CommentNotify.UserID ";
+		$q.= "AND CommentNotify.UserID != " . uid_from_sid($_COOKIE['AURSID']) . " ";
+		$q.= "AND CommentNotify.PkgID = " . $pkgid;
+		$result = $dbh->query($q);
 		$bcc = array();
 
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			array_push($bcc, $row['Email']);
 		}
 		if (!empty($bcc)) {
@@ -834,7 +850,7 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
 		$q = "UPDATE PackageComments ";
 		$q.= "SET PackageID = " . intval($mergepkgid) . " ";
 		$q.= "WHERE PackageID IN (" . implode(",", $ids) . ")";
-		db_query($q, $dbh);
+		$dbh->exec($q);
 
 		/* Merge votes */
 		foreach ($ids as $pkgid) {
@@ -846,18 +862,18 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
 			$q.= "FROM PackageVotes ";
 			$q.= "WHERE PackageID = " . intval($mergepkgid);
 			$q.= ") temp)";
-			db_query($q, $dbh);
+			$dbh->exec($q);
 		}
 
 		$q = "UPDATE Packages ";
 		$q.= "SET NumVotes = (SELECT COUNT(*) FROM PackageVotes ";
 		$q.= "WHERE PackageID = " . intval($mergepkgid) . ") ";
 		$q.= "WHERE ID = " . intval($mergepkgid);
-		db_query($q, $dbh);
+		$dbh->exec($q);
 	}
 
 	$q = "DELETE FROM Packages WHERE ID IN (" . implode(",", $ids) . ")";
-	$result = db_query($q, $dbh);
+	$result = $dbh->exec($q);
 
 	return __("The selected packages have been deleted.");
 }
@@ -912,7 +928,7 @@ function pkg_adopt ($atype, $ids, $action=true, $dbh=NULL) {
 		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
 	}
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 
 	if ($action) {
 		pkg_notify(account_from_sid($_COOKIE["AURSID"], $dbh), $ids, $dbh);
@@ -985,7 +1001,7 @@ function pkg_vote ($atype, $ids, $action=true, $dbh=NULL) {
 	$q = "UPDATE Packages SET NumVotes = NumVotes $op 1 ";
 	$q.= "WHERE ID IN ($vote_ids)";
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 
 	if ($action) {
 		$q = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES ";
@@ -995,13 +1011,12 @@ function pkg_vote ($atype, $ids, $action=true, $dbh=NULL) {
 		$q.= "AND PackageID IN ($vote_ids)";
 	}
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 
 	if ($action) {
 		$q = "UPDATE Users SET LastVoted = UNIX_TIMESTAMP() ";
 		$q.= "WHERE ID = $uid";
-
-		db_query($q, $dbh);
+		$dbh->exec($q);
 	}
 
 	if ($action) {
@@ -1017,19 +1032,17 @@ function getvotes($pkgid, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 
-	$pkgid = db_escape_string($pkgid);
-
 	$q = "SELECT UsersID,Username FROM PackageVotes ";
 	$q.= "LEFT JOIN Users on (UsersID = ID) ";
-	$q.= "WHERE PackageID = ". $pkgid . " ";
+	$q.= "WHERE PackageID = ". $dbh->quote($pkgid) . " ";
 	$q.= "ORDER BY Username";
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 
 	if (!$result) {
 		return;
 	}
 
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$votes[] = $row;
 	}
 
@@ -1042,13 +1055,11 @@ function user_voted($uid, $pkgid, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 
-	$uid = db_escape_string($uid);
-	$pkgid = db_escape_string($pkgid);
+	$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $dbh->quote($uid);
+	$q.= " AND PackageID = " . $dbh->quote($pkgid);
+	$result = $dbh->query($q);
 
-	$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $uid;
-	$q.= " AND PackageID = ".$pkgid;
-	$result = db_query($q, $dbh);
-	if (mysql_num_rows($result)) {
+	if ($result->fetch(PDO::FETCH_NUM)) {
 		return true;
 	}
 	else {
@@ -1062,13 +1073,11 @@ function user_notify($uid, $pkgid, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 
-	$uid = db_escape_string($uid);
-	$pkgid = db_escape_string($pkgid);
+	$q = "SELECT * FROM CommentNotify WHERE UserID = " . $dbh->quote($uid);
+	$q.= " AND PkgID = " . $dbh->quote($pkgid);
+	$result = $dbh->query($q);
 
-	$q = "SELECT * FROM CommentNotify WHERE UserID = ". $uid;
-	$q.= " AND PkgID = ".$pkgid;
-	$result = db_query($q, $dbh);
-	if (mysql_num_rows($result)) {
+	if ($result->fetch(PDO::FETCH_NUM)) {
 		return true;
 	}
 	else {
@@ -1107,9 +1116,10 @@ function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
 	# format in which it's sent requires this.
 	foreach ($ids as $pid) {
 		$q = "SELECT Name FROM Packages WHERE ID = $pid";
-		$result = db_query($q, $dbh);
+		$result = $dbh->query($q);
 		if ($result) {
-			$pkgname = mysql_result($result , 0);
+			$row = $result->fetch(PDO::FETCH_NUM);
+			$pkgname = $row[0];
 		}
 		else {
 			$pkgname = '';
@@ -1126,10 +1136,10 @@ function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
 			$q .= " AND PkgID = $pid";
 
 			# Notification already added. Don't add again.
-			$result = db_query($q, $dbh);
-			if (!mysql_num_rows($result)) {
+			$result = $dbh->query($q);
+			if (!$result) {
 				$q = "INSERT INTO CommentNotify (PkgID, UserID) VALUES ($pid, $uid)";
-				db_query($q, $dbh);
+				$dbh->exec($q);
 			}
 
 			$output .= $pkgname;
@@ -1137,7 +1147,7 @@ function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
 		else {
 			$q = "DELETE FROM CommentNotify WHERE PkgID = $pid";
 			$q .= " AND UserID = $uid";
-			db_query($q, $dbh);
+			$dbh->exec($q);
 
 			$output .= $pkgname;
 		}
@@ -1181,7 +1191,7 @@ function pkg_delete_comment($atype, $dbh=NULL) {
 		   $q = "UPDATE PackageComments ";
 		   $q.= "SET DelUsersID = ".$uid." ";
 		   $q.= "WHERE ID = ".intval($comment_id);
-		   db_query($q, $dbh);
+		$dbh->exec($q);
 		   return __("Comment has been deleted.");
 	} else {
 		   return __("You are not allowed to delete this comment.");
@@ -1226,21 +1236,21 @@ function pkg_change_category($atype, $dbh=NULL) {
 	$q = "SELECT Packages.MaintainerUID ";
 	$q.= "FROM Packages ";
 	$q.= "WHERE Packages.ID = ".$pid;
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 	if ($result) {
-		$pkg = mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 	}
 	else {
 		return __("You are not allowed to change this package category.");
 	}
 
 	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
-	if ($uid == $pkg["MaintainerUID"] ||
+	if ($uid == $row["MaintainerUID"] ||
 	($atype == "Developer" || $atype == "Trusted User")) {
 		$q = "UPDATE Packages ";
 		$q.= "SET CategoryID = ".intval($category_id)." ";
 		$q.= "WHERE ID = ".intval($pid);
-		db_query($q, $dbh);
+		$dbh->exec($q);
 		return __("Package category changed.");
 	} else {
 		return __("You are not allowed to change this package category.");
@@ -1251,29 +1261,29 @@ function pkgdetails_by_pkgname($pkgname, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = "SELECT * FROM Packages WHERE Name = '" . db_escape_string($pkgname) . "'";
-	$result = db_query($q, $dbh);
+	$q = "SELECT * FROM Packages WHERE Name = " . $dbh->quote($pkgname);
+	$result = $dbh->query($q);
 	if ($result) {
-		$pdata = mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 	}
-	return $pdata;
+	return $row;
 }
 
 function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pkgurl, $uid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES ('%s', '%s', '%s', %d, '%s', '%s', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
-	db_escape_string($pkgname),
-	db_escape_string($license),
-	db_escape_string($pkgver),
+	$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES (%s, %s, %s, %d, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
+	$dbh->quote($pkgname),
+	$dbh->quote($license),
+	$dbh->quote($pkgver),
 	$category_id,
-	db_escape_string($pkgdesc),
-	db_escape_string($pkgurl),
+	$dbh->quote($pkgdesc),
+	$dbh->quote($pkgurl),
 	$uid,
 	$uid);
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 }
 
 function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid, $pkgid, $dbh=NULL) {
@@ -1281,28 +1291,28 @@ function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid,
 		$dbh = db_connect();
 	}
 	# This is an overwrite of an existing package
-	$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = '%s', Version = '%s', License = '%s', Description = '%s', URL = '%s', OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
-	db_escape_string($pkgname),
-	db_escape_string($pkgver),
-	db_escape_string($license),
-	db_escape_string($pkgdesc),
-	db_escape_string($pkgurl),
+	$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = %s, Version = %s, License = %s, Description = %s, URL = %s, OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
+	$dbh->quote($pkgname),
+	$dbh->quote($pkgver),
+	$dbh->quote($license),
+	$dbh->quote($pkgdesc),
+	$dbh->quote($pkgurl),
 	$uid,
 	$pkgid);
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 }
 
 function add_pkg_dep($pkgid, $depname, $depcondition, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, '%s', '%s')",
+	$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, %s, %s)",
 	$pkgid,
-	db_escape_string($depname),
-	db_escape_string($depcondition));
+	$dbh->quote($depname),
+	$dbh->quote($depcondition));
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 }
 
 function add_pkg_src($pkgid, $pkgsrc, $dbh=NULL) {
@@ -1310,9 +1320,9 @@ function add_pkg_src($pkgid, $pkgsrc, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 	$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-	$q .= $pkgid . ", '" . db_escape_string($pkgsrc) . "')";
+	$q .= $pkgid . ", " . $dbh->quote($pkgsrc) . ")";
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 }
 
 function update_pkg_category($pkgid, $category_id, $dbh=NULL) {
@@ -1323,7 +1333,7 @@ function update_pkg_category($pkgid, $category_id, $dbh=NULL) {
 	$category_id,
 	$pkgid);
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 }
 
 function remove_pkg_deps($pkgid, $dbh=NULL) {
@@ -1332,7 +1342,7 @@ function remove_pkg_deps($pkgid, $dbh=NULL) {
 	}
 	$q = "DELETE FROM PackageDepends WHERE PackageID = " . $pkgid;
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 }
 
 function remove_pkg_sources($pkgid, $dbh=NULL) {
@@ -1341,5 +1351,5 @@ function remove_pkg_sources($pkgid, $dbh=NULL) {
 	}
 	$q = "DELETE FROM PackageSources WHERE PackageID = " . $pkgid;
 
-	db_query($q, $dbh);
+	$dbh->exec($q);
 }

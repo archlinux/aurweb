@@ -135,17 +135,16 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		# NOTE: a race condition exists here if we care...
 		#
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
-		$q.= "WHERE Username = '".db_escape_string($U)."'";
+		$q.= "WHERE Username = " . $dbh->quote($U);
 		if ($TYPE == "edit") {
 			$q.= " AND ID != ".intval($UID);
 		}
-		$result = db_query($q, $dbh);
-		if ($result) {
-			$row = mysql_fetch_array($result);
-			if ($row[0]) {
-				$error = __("The username, %s%s%s, is already in use.",
-					"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
-			}
+		$result = $dbh->query($q);
+		$row = $result->fetch(PDO::FETCH_NUM);
+
+		if ($row[0]) {
+			$error = __("The username, %s%s%s, is already in use.",
+				"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 		}
 	}
 	if (!$error) {
@@ -153,17 +152,16 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		# NOTE: a race condition exists here if we care...
 		#
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
-		$q.= "WHERE Email = '".db_escape_string($E)."'";
+		$q.= "WHERE Email = " . $dbh->quote($E);
 		if ($TYPE == "edit") {
 			$q.= " AND ID != ".intval($UID);
 		}
-		$result = db_query($q, $dbh);
-		if ($result) {
-			$row = mysql_fetch_array($result);
-			if ($row[0]) {
-				$error = __("The address, %s%s%s, is already in use.",
-						"<b>", htmlspecialchars($E,ENT_QUOTES), "</b>");
-			}
+		$result = $dbh->query($q);
+		$row = $result->fetch(PDO::FETCH_NUM);
+
+		if ($row[0]) {
+			$error = __("The address, %s%s%s, is already in use.",
+					"<b>", htmlspecialchars($E,ENT_QUOTES), "</b>");
 		}
 	}
 	if ($error) {
@@ -175,16 +173,22 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			# no errors, go ahead and create the unprivileged user
 			$salt = generate_salt();
 			$P = salted_hash($P, $salt);
-			$escaped = array_map('db_escape_string',
-				array($U, $E, $P, $salt, $R, $L, $I, str_replace(" ", "", $K)));
-			$q = "INSERT INTO Users (" .
-				"AccountTypeID, Suspended, Username, Email, Passwd, Salt" .
-				", RealName, LangPreference, IRCNick, PGPKey) " .
-				"VALUES (1, 0, '" . implode("', '", $escaped) . "')";
-			$result = db_query($q, $dbh);
+			$U = $dbh->quote($U);
+			$E = $dbh->quote($E);
+			$P = $dbh->quote($P);
+			$salt = $dbh->quote($salt);
+			$R = $dbh->quote($R);
+			$L = $dbh->quote($L);
+			$I = $dbh->quote($I);
+			$K = $dbh->quote(str_replace(" ", "", $K));
+			$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
+			$q.= "Username, Email, Passwd, Salt, RealName, ";
+			$q.= "LangPreference, IRCNick, PGPKey) VALUES (1, 0, ";
+			$q.= "$U, $E, $P, $salt, $R, $L, $I, $K)";
+			$result = $dbh->exec($q);
 			if (!$result) {
-				print __("Error trying to create account, %s%s%s: %s.",
-						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>", mysql_error($dbh));
+				print __("Error trying to create account, %s%s%s.",
+						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 			} else {
 				# account created/modified, tell them so.
 				#
@@ -199,7 +203,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			# no errors, go ahead and modify the user account
 
 			$q = "UPDATE Users SET ";
-			$q.= "Username = '".db_escape_string($U)."'";
+			$q.= "Username = " . $dbh->quote($U);
 			if ($T) {
 				$q.= ", AccountTypeID = ".intval($T);
 			}
@@ -208,21 +212,21 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			} else {
 				$q.= ", Suspended = 0";
 			}
-			$q.= ", Email = '".db_escape_string($E)."'";
+			$q.= ", Email = " . $dbh->quote($E);
 			if ($P) {
 				$salt = generate_salt();
 				$hash = salted_hash($P, $salt);
 				$q .= ", Passwd = '$hash', Salt = '$salt'";
 			}
-			$q.= ", RealName = '".db_escape_string($R)."'";
-			$q.= ", LangPreference = '".db_escape_string($L)."'";
-			$q.= ", IRCNick = '".db_escape_string($I)."'";
-			$q.= ", PGPKey = '".db_escape_string(str_replace(" ", "", $K))."'";
+			$q.= ", RealName = " . $dbh->quote($R);
+			$q.= ", LangPreference = " . $dbh->quote($L);
+			$q.= ", IRCNick = " . $dbh->quote($I);
+			$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
 			$q.= " WHERE ID = ".intval($UID);
-			$result = db_query($q, $dbh);
+			$result = $dbh->exec($q);
 			if (!$result) {
-				print __("Error trying to modify account, %s%s%s: %s.",
-						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>", mysql_error($dbh));
+				print __("Error trying to modify account, %s%s%s.",
+						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 			} else {
 				print __("The account, %s%s%s, has been successfully modified.",
 						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
@@ -265,6 +269,10 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	}
 	$search_vars = array();
 
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
 	$q = "SELECT Users.*, AccountTypes.AccountType ";
 	$q.= "FROM Users, AccountTypes ";
 	$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
@@ -283,23 +291,28 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		$search_vars[] = "S";
 	}
 	if ($U) {
-		$q.= "AND Username LIKE '%".db_escape_like($U)."%' ";
+		$U = "%" . addcslashes($U, '%_') . "%";
+		$q.= "AND Username LIKE " . $dbh->quote($U) . " ";
 		$search_vars[] = "U";
 	}
 	if ($E) {
-		$q.= "AND Email LIKE '%".db_escape_like($E)."%' ";
+		$E = "%" . addcslashes($E, '%_') . "%";
+		$q.= "AND Email LIKE " . $dbh->quote($E) . " ";
 		$search_vars[] = "E";
 	}
 	if ($R) {
-		$q.= "AND RealName LIKE '%".db_escape_like($R)."%' ";
+		$R = "%" . addcslashes($R, '%_') . "%";
+		$q.= "AND RealName LIKE " . $dbh->quote($R) . " ";
 		$search_vars[] = "R";
 	}
 	if ($I) {
-		$q.= "AND IRCNick LIKE '%".db_escape_like($I)."%' ";
+		$I = "%" . addcslashes($I, '%_') . "%";
+		$q.= "AND IRCNick LIKE " . $dbh->quote($I) . " ";
 		$search_vars[] = "I";
 	}
 	if ($K) {
-		$q.= "AND PGPKey LIKE '%".db_escape_like(str_replace(" ", "", $K))."%' ";
+		$K = "%" . addcslashes(str_replace(" ", "", $K), '%_') . "%";
+		$q.= "AND PGPKey LIKE " . $dbh->quote($K) . " ";
 		$search_vars[] = "K";
 	}
 	switch ($SB) {
@@ -326,10 +339,9 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		$dbh = db_connect();
 	}
 
-	$result = db_query($q, $dbh);
-	$num_rows = mysql_num_rows($result);
+	$result = $dbh->query($q);
 
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$userinfo[] = $row;
 	}
 
@@ -377,13 +389,13 @@ function try_login($dbh=NULL) {
 					$q.= "ON s.SessionID = q.SessionID ";
 					$q.= "WHERE s.UsersId = " . $userID . " ";
 					$q.= "AND q.SessionID IS NULL;";
-					db_query($q, $dbh);
+					$dbh->query($q);
 				}
 
 				$new_sid = new_sid();
 				$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
 				  ." VALUES (" . $userID . ", '" . $new_sid . "', UNIX_TIMESTAMP())";
-				$result = db_query($q, $dbh);
+				$result = $dbh->exec($q);
 
 				# Query will fail if $new_sid is not unique
 				if ($result) {
@@ -397,7 +409,7 @@ function try_login($dbh=NULL) {
 			if ($logged_in) {
 				$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP() ";
 				$q.= "WHERE ID = '$userID'";
-				db_query($q, $dbh);
+				$dbh->exec($q);
 
 				# set our SID cookie
 				if (isset($_POST['remember_me']) &&
@@ -408,7 +420,7 @@ function try_login($dbh=NULL) {
 					# Set session for 30 days.
 					$q = "UPDATE Sessions SET LastUpdateTS = $cookie_time ";
 					$q.= "WHERE SessionID = '$new_sid'";
-					db_query($q, $dbh);
+					$dbh->exec($q);
 				}
 				else
 					$cookie_time = 0;
@@ -472,13 +484,13 @@ function valid_user($user, $dbh=NULL) {
 	}
 
 	if ( $user ) {
-		$q = "SELECT ID FROM Users WHERE Username = '"
-			. db_escape_string($user). "'";
+		$q = "SELECT ID FROM Users ";
+		$q.= "WHERE Username = " . $dbh->quote($user);
 
-		$result = db_query($q, $dbh);
+		$result = $dbh->query($q);
 		# Is the username in the database?
 		if ($result) {
-			$row = mysql_fetch_row($result);
+			$row = $result->fetch(PDO::FETCH_NUM);
 			return $row[0];
 		}
 	}
@@ -490,10 +502,10 @@ function open_user_proposals($user, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = "SELECT * FROM TU_VoteInfo WHERE User = '" . db_escape_string($user) . "'";
-	$q.= " AND End > UNIX_TIMESTAMP()";
-	$result = db_query($q, $dbh);
-	if (mysql_num_rows($result)) {
+	$q = "SELECT * FROM TU_VoteInfo WHERE User = " . $dbh->quote($user) . " ";
+	$q.= "AND End > UNIX_TIMESTAMP()";
+	$result = $dbh->query($q);
+	if ($result->fetchColumn()) {
 		return true;
 	}
 	else {
@@ -507,13 +519,12 @@ function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) 
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
-	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
-	$q.= "('" . db_escape_string($agenda) . "', ";
-	$q.= "'" . db_escape_string($user) . "', ";
-	$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . db_escape_string($votelength);
-	$q.= ", " . $submitteruid . ")";
-	db_query($q, $dbh);
 
+	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
+	$q.= "(" . $dbh->quote($agenda) . ", " . $dbh->quote($user) . ", ";
+	$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . $dbh->quote($votelength);
+	$q.= ", " . $submitteruid . ")";
+	$result = $dbh->exec($q);
 }
 
 # Add a reset key for a specific user
@@ -524,7 +535,7 @@ function create_resetkey($resetkey, $uid, $dbh=NULL) {
 	$q = "UPDATE Users ";
 	$q.= "SET ResetKey = '" . $resetkey . "' ";
 	$q.= "WHERE ID = " . $uid;
-	db_query($q, $dbh);
+	$dbh->exec($q);
 }
 
 # Change a password and save the salt only if reset key and email are correct
@@ -537,11 +548,11 @@ function password_reset($hash, $salt, $resetkey, $email, $dbh=NULL) {
 	$q.= "Salt = '$salt', ";
 	$q.= "ResetKey = '' ";
 	$q.= "WHERE ResetKey != '' ";
-	$q.= "AND ResetKey = '".db_escape_string($resetkey)."' ";
-	$q.= "AND Email = '".db_escape_string($email)."'";
-	$result = db_query($q, $dbh);
+	$q.= "AND ResetKey = " . $dbh->quote($resetkey) . " ";
+	$q.= "AND Email = " . $dbh->quote($email);
+	$result = $dbh->exec($q);
 
-	if (!mysql_affected_rows($dbh)) {
+	if (!$result) {
 		$error = __('Invalid e-mail and reset key combination.');
 		return $error;
 	} else {
@@ -569,25 +580,25 @@ function valid_passwd($userID, $passwd, $dbh=NULL) {
 		$salt = get_salt($userID);
 		if ($salt) {
 			# use salt
-			$passwd_q = "SELECT ID FROM Users" .
-				" WHERE ID = " . $userID  . " AND Passwd = '" .
-				salted_hash($passwd, $salt) . "'";
-			$result = db_query($passwd_q, $dbh);
+			$q = "SELECT ID FROM Users ";
+			$q.= "WHERE ID = " . $userID . " ";
+			$q.= "AND Passwd = " . $dbh->quote(salted_hash($passwd, $salt));
+			$result = $dbh->query($q);
 			if ($result) {
-				$passwd_result = mysql_fetch_row($result);
-				if ($passwd_result[0]) {
+				$row = $result->fetch(PDO::FETCH_NUM);
+				if ($row[0]) {
 					return true;
 				}
 			}
 		} else {
 			# check without salt
-			$nosalt_q = "SELECT ID FROM Users".
-				" WHERE ID = " . $userID .
-				" AND Passwd = '" . md5($passwd) . "'";
-			$result = db_query($nosalt_q, $dbh);
+			$q = "SELECT ID FROM Users ";
+			$q.= "WHERE ID = " . $userID . " ";
+			$q.= "AND Passwd = " . $dbh->quote(md5($passwd));
+			$result = $dbh->query($q);
 			if ($result) {
-				$nosalt_row = mysql_fetch_row($result);
-				if ($nosalt_row[0]) {
+				$row = $result->fetch(PDO::FETCH_NUM);
+				if ($row[0]) {
 					# password correct, but salt it first
 					if (!save_salt($userID, $passwd)) {
 						trigger_error("Unable to salt user's password;" .
@@ -621,9 +632,9 @@ function user_suspended($id, $dbh=NULL) {
 		return false;
 	}
 	$q = "SELECT Suspended FROM Users WHERE ID = " . $id;
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 	if ($result) {
-		$row = mysql_fetch_row($result);
+		$row = $result->fetch(PDO::FETCH_NUM);
 		if ($row[0]) {
 			return true;
 		}
@@ -639,7 +650,7 @@ function user_delete($id, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 	$q = "DELETE FROM Users WHERE ID = " . $id;
-	db_query($q, $dbh);
+	$dbh->query($q);
 	return;
 }
 
@@ -652,9 +663,9 @@ function user_is_privileged($id, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 	if ($result) {
-		$row = mysql_fetch_row($result);
+		$row = $result->fetch(PDO::FETCH_NUM);
 		if($row[0] > 1) {
 			return $row[0];
 		}
@@ -669,9 +680,8 @@ function delete_session_id($sid, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 
-	$q = "DELETE FROM Sessions WHERE SessionID = '";
-	$q.= db_escape_string($sid) . "'";
-	db_query($q, $dbh);
+	$q = "DELETE FROM Sessions WHERE SessionID = " . $dbh->quote($sid);
+	$dbh->query($q);
 }
 
 # Clear out old expired sessions.
@@ -683,7 +693,7 @@ function clear_expired_sessions($dbh=NULL) {
 	}
 
 	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)";
-	db_query($q, $dbh);
+	$dbh->query($q);
 
 	return;
 }
@@ -698,12 +708,12 @@ function account_details($uid, $username, $dbh=NULL) {
 	if (!empty($uid)) {
 		$q.= "AND Users.ID = ".intval($uid);
 	} else {
-		$q.= "AND Users.Username = '".db_escape_string($username) . "'";
+		$q.= "AND Users.Username = " . $dbh->quote($username);
 	}
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 
 	if ($result) {
-		$row = mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 	}
 
 	return $row;
@@ -717,12 +727,11 @@ function own_account_details($sid, $dbh=NULL) {
 	$q.= "FROM Users, AccountTypes, Sessions ";
 	$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
 	$q.= "AND Users.ID = Sessions.UsersID ";
-	$q.= "AND Sessions.SessionID = '";
-	$q.= db_escape_string($sid)."'";
-	$result = db_query($q, $dbh);
+	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
+	$result = $dbh->query($q);
 
 	if ($result) {
-		$row = mysql_fetch_assoc($result);
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 	}
 
 	return $row;
@@ -733,9 +742,10 @@ function tu_voted($voteid, $uid, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 
-	$q = "SELECT * FROM TU_Votes WHERE VoteID = " . intval($voteid) . " AND UserID = " . intval($uid);
-	$result = db_query($q, $dbh);
-	if (mysql_num_rows($result)) {
+	$q = "SELECT COUNT(*) FROM TU_Votes ";
+	$q.= "WHERE VoteID = " . intval($voteid) . " AND UserID = " . intval($uid);
+	$result = $dbh->query($q);
+	if ($result->fetchColumn() > 0) {
 		return true;
 	}
 	else {
@@ -749,10 +759,10 @@ function current_proposal_list($order, $dbh=NULL) {
 	}
 
 	$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 
 	$details = array();
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$details[] = $row;
 	}
 
@@ -765,10 +775,10 @@ function past_proposal_list($order, $lim, $dbh=NULL) {
 	}
 
 	$q = "SELECT * FROM TU_VoteInfo WHERE End < " . time() . " ORDER BY Submitted " . $order . $lim;
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 
 	$details = array();
-	while ($row = mysql_fetch_assoc($result)) {
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$details[] = $row;
 	}
 
@@ -781,8 +791,8 @@ function proposal_count($dbh=NULL) {
 	}
 
 	$q = "SELECT COUNT(*) FROM TU_VoteInfo";
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_row($result);
+	$result = $dbh->query($q);
+	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
 }
@@ -795,8 +805,8 @@ function vote_details($voteid, $dbh=NULL) {
 	$q = "SELECT * FROM TU_VoteInfo ";
 	$q.= "WHERE ID = " . intval($voteid);
 
-	$result = db_query($q, $dbh);
-	$row = mysql_fetch_assoc($result);
+	$result = $dbh->query($q);
+	$row = $result->fetch(PDO::FETCH_ASSOC);
 
 	return $row;
 }
@@ -814,9 +824,9 @@ function voter_list($voteid, $dbh=NULL) {
 	$q.= " AND tv.UserID = U.ID ";
 	$q.= "ORDER BY Username";
 
-	$result = db_query($q, $dbh);
+	$result = $dbh->query($q);
 	if ($result) {
-		while ($row = mysql_fetch_assoc($result)) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$whovoted.= '<a href="' . get_uri('/accounts/') . '?Action=AccountInfo&amp;ID='.$row['UserID'].'">'.$row['Username'].'</a> ';
 		}
 	}
@@ -828,10 +838,9 @@ function cast_proposal_vote($voteid, $uid, $vote, $newtotal, $dbh=NULL) {
 		$dbh = db_connect();
 	}
 
-	$q = "UPDATE TU_VoteInfo SET " . $vote . " = " . ($newtotal) . " WHERE ID = " . $voteid;
-	db_query($q, $dbh);
+	$q = "UPDATE TU_VoteInfo SET " . $vote . " = (" . $newtotal . ") WHERE ID = " . $voteid;
+	$result = $dbh->exec($q);
 
-	$q = "INSERT INTO TU_Votes (VoteID, UserID) VALUES (" . $voteid . ", " . $uid . ")";
-	db_query($q, $dbh);
-
+	$q = "INSERT INTO TU_Votes (VoteID, UserID) VALUES (" . intval($voteid) . ", " . intval($uid) . ")";
+	$result = $dbh->exec($q);
 }

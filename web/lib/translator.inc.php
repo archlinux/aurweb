@@ -96,11 +96,11 @@ function set_lang($dbh=NULL) {
 		$q = "SELECT LangPreference FROM Users, Sessions ";
 		$q.= "WHERE Users.ID = Sessions.UsersID ";
 		$q.= "AND Sessions.SessionID = '";
-		$q.= mysql_real_escape_string($_COOKIE["AURSID"])."'";
-		$result = db_query($q, $dbh);
+		$q.= $dbh->quote($_COOKIE["AURSID"]);
+		$result = $dbh->query($q);
 
 		if ($result) {
-			$row = mysql_fetch_array($result);
+			$row = $result->fetchAll();
 			$LANG = $row[0];
 		}
 		$update_cookie = 1;

@@ -2,7 +2,7 @@
 if (!$result):
 	print __("No results matched your search criteria.");
 else:
-	if ($num_rows):
+	if ($result):
 ?>
 		<table class="results">
 			<thead>
