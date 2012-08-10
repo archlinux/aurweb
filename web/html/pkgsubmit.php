@@ -460,21 +460,21 @@ html_header("Submit");
 		</p>
 	</fieldset>
 </form>
-
+</div>
 <?php
 		else:
 			print __("Sorry, uploads are not permitted by this server.");
 ?>
 
 <br />
-
+</div>
 <?php
 		endif;
 	endif;
 else:
 	# Visitor is not logged in
+	html_header("Submit");
 	print __("You must create an account before you can upload packages.");
-	exit();
 ?>
 
 <br />
@@ -483,7 +483,7 @@ else:
 endif;
 ?>
 
-</div>
+
 
 <?php
 html_footer(AUR_VERSION);
