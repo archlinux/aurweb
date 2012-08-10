@@ -40,7 +40,8 @@ $sources = package_sources($row["ID"]);
 				<?php if ($USE_VIRTUAL_URLS && $uid): ?>
 				<?php if ($row["OutOfDateTS"] === NULL): ?>
 				<li><a href="<?php echo get_pkg_uri($row['Name']) . 'flag/'; ?>"><?php echo __('Flag package out-of-date'); ?></a></li>
-				<?php else: ?>
+				<?php elseif (($row["OutOfDateTS"] !== NULL) &&
+				($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
 				<li><a href="<?php echo get_pkg_uri($row['Name']) . 'unflag/'; ?>"><?php echo __('Unflag package'); ?></a></li>
 				<?php endif; ?>
 				<?php if (user_voted($uid, $row['ID'])): ?>

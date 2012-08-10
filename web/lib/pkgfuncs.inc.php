@@ -728,6 +728,10 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 	}
 	$q.= " WHERE ID IN (" . implode(",", $ids) . ")";
 
+	if (!$action && ($atype != "Trusted User" && $atype != "Developer")) {
+		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
+	}
+
 	db_query($q, $dbh);
 
 	if ($action) {

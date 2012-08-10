@@ -21,7 +21,8 @@
 
 		<?php if ($row["OutOfDateTS"] === NULL): ?>
 			<input type="submit" class="button" name="do_Flag" value="<?php echo __("Flag Out-of-date") ?>" />
-		<?php else: ?>
+		<?php elseif (($row["OutOfDateTS"] !== NULL) &&
+		($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
 			<input type="submit" class="button" name="do_UnFlag" value="<?php echo __("UnFlag Out-of-date") ?>" />
 		<?php endif; ?>
 		<?php endif; ?>
