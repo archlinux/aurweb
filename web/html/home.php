@@ -91,7 +91,7 @@ $dbh = db_connect();
 </div>
 <div id="content-right">
 	<div id="pkgsearch" class="widget">
-		<form id="pkgsearch-form" method="get" action="<?php get_uri('/packages/'); ?>">
+		<form id="pkgsearch-form" method="get" action="<?php echo get_uri('/packages/'); ?>">
 			<fieldset>
 				<label for="pkgsearch-field">Package Search:</label>
 				<input type="hidden" name="O" value="0" />
