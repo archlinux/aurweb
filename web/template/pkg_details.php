@@ -179,8 +179,8 @@ if ($row["MaintainerUID"]):
 		<?php endif; ?>
 	<?php endwhile; ?>
 			</ul>
-		</div>
 <?php endif; ?>
+		</div>
 		<div id="pkgreqs" class="listing">
 			<h3><?php echo __('Required by') . " (" . count($requiredby) . ")"?></h3>
 <?php if (count($requiredby) > 0): ?>
