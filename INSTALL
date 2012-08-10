@@ -51,7 +51,7 @@ Setup on Arch Linux:
    If those php extensions are separate packages on your system, install
    them.
 
-   AUR requires PEAR and the Archive_Tar module.
+   AUR requires PEAR and the Archive_Tar module (version > 1.3.7).
    Installing PEAR will vary depending on the system and may already
    be included with PHP. You can also find it in the PHP source
    distribution.
