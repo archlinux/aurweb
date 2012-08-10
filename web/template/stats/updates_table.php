@@ -1,6 +1,6 @@
 <h3><?php echo __("Recent Updates") ?></h3>
 
-<a href="rss.php" title="Arch Package Updates RSS Feed" class="rss-icon"><img src="images/feed-icon-14x14.png" alt="RSS Feed" /></a>
+<a href="<?php echo get_uri('/rss/') ?>" title="Arch Package Updates RSS Feed" class="rss-icon"><img src="/images/feed-icon-14x14.png" alt="RSS Feed" /></a>
 
 <table>
 	<?php foreach ($newest_packages->getIterator() as $row): ?>
