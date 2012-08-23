@@ -277,6 +277,35 @@ if ($uid):
 			}
 		}
 
+		# Determine the full package version with epoch
+		if (!$error) {
+			if (isset($new_pkgbuild['epoch']) && (int)$new_pkgbuild['epoch'] > 0) {
+				$pkg_version = sprintf('%d:%s-%s', $new_pkgbuild['epoch'], $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
+			} else {
+				$pkg_version = sprintf('%s-%s', $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
+			}
+		}
+
+		# The DB schema imposes limitations on number of allowed characters
+		# Print error message when these limitations are exceeded
+		if (!$error) {
+			if (strlen($pkg_name) > 64) {
+				$error = __("Error - Package name cannot be greater than %d characters", 64);
+			}
+			if (strlen($new_pkgbuild['url']) > 255) {
+				$error = __("Error - Package URL cannot be greater than %d characters", 255);
+			}
+			if (strlen($new_pkgbuild['pkgdesc']) > 255) {
+				$error = __("Error - Package description cannot be greater than %d characters", 255);
+			}
+			if (strlen($new_pkgbuild['license']) > 40) {
+				$error = __("Error - Package license cannot be greater than %d characters", 40);
+			}
+			if (strlen($pkg_version) > 32) {
+				$error = __("Error - Package version cannot be greater than %d characters", 32);
+			}
+		}
+
 		if (isset($pkg_name)) {
 			$incoming_pkgdir = INCOMING_DIR . substr($pkg_name, 0, 2) . "/" . $pkg_name;
 		}
@@ -323,12 +352,6 @@ if ($uid):
 			begin_atomic_commit($dbh);
 
 			$pdata = pkgdetails_by_pkgname($new_pkgbuild['pkgname'], $dbh);
-
-			if (isset($new_pkgbuild['epoch']) && (int)$new_pkgbuild['epoch'] > 0) {
-				$pkg_version = sprintf('%d:%s-%s', $new_pkgbuild['epoch'], $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
-			} else {
-				$pkg_version = sprintf('%s-%s', $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
-			}
 
 			# Check the category to use, "1" meaning "none" (or "keep category" for
 			# existing packages).
