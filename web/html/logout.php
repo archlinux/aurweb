@@ -10,7 +10,7 @@ include_once("acctfuncs.inc.php");         # access AUR common functions
 # sending any HTML output.
 #
 if (isset($_COOKIE["AURSID"])) {
-	if (!$dbh) {
+	if (!isset($dbh)) {
 		$dbh = db_connect();
 	}
 	delete_session_id($_COOKIE["AURSID"], $dbh);
