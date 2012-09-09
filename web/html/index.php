@@ -59,8 +59,8 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		include "./$path";
 		break;
 	case "/css/archnavbar/archlogo.gif":
-	case "/images/new.gif":
-		header("Content-Type: image/gif");
+	case "/images/new.png":
+		header("Content-Type: image/png");
 		include "./$path";
 		break;
 	case "/css/archnavbar/archlogo.png":

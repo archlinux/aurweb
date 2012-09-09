@@ -8,7 +8,7 @@
 			<td>
 				<a href="<?php echo get_pkg_uri($row["Name"]); ?>"><?php print htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
 				<?php if ($row["ModifiedTS"] === $row["SubmittedTS"]): ?>
-				<img src="images/new.gif" alt="New!" />
+				<img src="images/new.png" alt="New!" />
 				<?php endif; ?>
 			</td>
 			<td>
