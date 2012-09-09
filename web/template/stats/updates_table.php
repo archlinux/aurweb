@@ -7,6 +7,9 @@
 		<tr>
 			<td>
 				<a href="<?php echo get_pkg_uri($row["Name"]); ?>"><?php print htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
+				<?php if ($row["ModifiedTS"] === $row["SubmittedTS"]): ?>
+				<img src="images/new.gif" alt="New!" />
+				<?php endif; ?>
 			</td>
 			<td>
 				<span><?php print gmdate("Y-m-d H:i", intval($row["ModifiedTS"])); ?></span>
