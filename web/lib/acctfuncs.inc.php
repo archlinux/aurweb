@@ -195,7 +195,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 				print __("The account, %s%s%s, has been successfully created.",
 						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
 				print "<p>\n";
-				print __("Click on the Home link above to login.");
+				print __("Click on the Login link above to use your account.");
 				print "</p>\n";
 			}
 
