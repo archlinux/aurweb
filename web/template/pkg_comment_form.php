@@ -8,7 +8,7 @@ if (isset($_REQUEST['comment']) && check_token()) {
 }
 ?>
 			<div>
-				<input type="hidden" name="ID" value="<?php echo intval($_REQUEST['ID']) ?>" />
+				<input type="hidden" name="ID" value="<?php echo intval($row['ID']) ?>" />
 				<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
 			</div>
 			<p>
