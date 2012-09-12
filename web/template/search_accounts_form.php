@@ -1,5 +1,5 @@
 <br />
-<form action="<?php echo get_uri('/account/'); ?>" method="post">
+<form action="<?php echo get_uri('/accounts/'); ?>" method="post">
 	<table>
 
 		<tr>

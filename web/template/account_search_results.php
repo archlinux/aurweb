@@ -63,7 +63,7 @@ else:
 	<table class="results">
 		<tr>
 			<td align="left">
-			<form action="<?php echo get_uri('/account/'); ?>" method="post">
+			<form action="<?php echo get_uri('/accounts/'); ?>" method="post">
 					<fieldset>
 						<input type="hidden" name="Action" value="SearchAccounts" />
 						<input type="hidden" name="O" value="<?php echo ($OFFSET-$HITS_PER_PAGE) ?>" />
@@ -78,7 +78,7 @@ else:
 				</form>
 			</td>
 			<td align="right">
-				<form action="<?php echo get_uri('/account/'); ?>" method="post">
+				<form action="<?php echo get_uri('/accounts/'); ?>" method="post">
 					<fieldset>
 						<input type="hidden" name="Action" value="SearchAccounts" />
 						<input type="hidden" name="O" value="<?php echo ($OFFSET+$HITS_PER_PAGE) ?>" />
