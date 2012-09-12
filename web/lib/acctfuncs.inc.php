@@ -827,7 +827,7 @@ function voter_list($voteid, $dbh=NULL) {
 	$result = $dbh->query($q);
 	if ($result) {
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$whovoted.= '<a href="' . get_uri('/accounts/') . '?Action=AccountInfo&amp;ID='.$row['UserID'].'">'.$row['Username'].'</a> ';
+			$whovoted.= '<a href="' . get_user_uri($row['Username']) . '">'.$row['Username'].'</a> ';
 		}
 	}
 	return $whovoted;

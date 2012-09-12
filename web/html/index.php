@@ -48,6 +48,12 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 	}
 
 	include get_route('/' . $tokens[1]);
+} elseif (isset($tokens[1]) && '/' . $tokens[1] == get_user_route()) {
+	if (isset($tokens[2])) {
+		$_REQUEST['U'] = $tokens[2];
+		$_REQUEST['Action'] = "AccountInfo";
+	}
+	include get_route('/' . $tokens[1]);
 } elseif (get_route($path) !== NULL) {
 	include get_route($path);
 } else {

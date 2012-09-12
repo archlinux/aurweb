@@ -11,7 +11,7 @@ $pkgname = $row['Name'];
 
 	<?php while (list($indx, $row) = each($comments)): ?>
 		<?php if ($SID):
-			$row['UserName'] = "<a href=\"" . get_uri('/account/') . "?Action=AccountInfo&amp;ID={$row['UsersID']}\">{$row['UserName']}</a>";
+			$row['UserName'] = "<a href=\"" . get_user_uri($row['UserName']) . "\">{$row['UserName']}</a>";
 		endif; ?>
 		<h4>
 			<?php if (canDeleteCommentArray($row, $atype, $uid)): ?>

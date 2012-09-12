@@ -18,6 +18,7 @@ $ROUTES = array(
 );
 
 $PKG_PATH = '/packages';
+$USER_PATH = '/account';
 
 function get_route($path) {
 	global $ROUTES;
@@ -54,5 +55,21 @@ function get_pkg_uri($pkgname) {
 		return $PKG_PATH . '/' . urlencode($pkgname) . '/';
 	} else {
 		return get_route($PKG_PATH) . '?N=' . urlencode($pkgname);
+	}
+}
+
+function get_user_route() {
+	global $USER_PATH;
+	return $USER_PATH;
+}
+
+function get_user_uri($username) {
+	global $USE_VIRTUAL_URLS;
+	global $USER_PATH;
+
+	if ($USE_VIRTUAL_URLS) {
+		return $USER_PATH . '/' . urlencode($username) . '/';
+	} else {
+		return get_route($USER_PATH) . '?U=' . urlencode($username);
 	}
 }

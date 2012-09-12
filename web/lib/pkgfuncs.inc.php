@@ -764,7 +764,7 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 		if ($result) {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				# construct email
-				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . "/" . get_pkg_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . "/" . get_uri('/accounts/') . "?Action=AccountInfo&ID=" . $f_uid;
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . "/" . get_pkg_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . "/" . get_user_uri($f_name);
 				$body = wordwrap($body, 70);
 				$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
 				@mail($row['Email'], "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);

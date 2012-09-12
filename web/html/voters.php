@@ -19,7 +19,7 @@ if ($atype == 'Trusted User' || $atype== 'Developer'):
 	<div class="boxbody">
 		<ul>
 			<?php while (list($indx, $row) = each($votes)): ?>
-			<li><a href="<?php echo get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?php echo $row['UsersID'] ?>"><?php echo htmlspecialchars($row['Username']) ?></a></li>
+			<li><a href="<?php echo get_user_uri($row['Username']); ?>"><?php echo htmlspecialchars($row['Username']) ?></a></li>
 			<?php endwhile; ?>
 		</ul>
 	</div>
