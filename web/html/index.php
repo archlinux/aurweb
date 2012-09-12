@@ -51,7 +51,15 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 } elseif (isset($tokens[1]) && '/' . $tokens[1] == get_user_route()) {
 	if (isset($tokens[2])) {
 		$_REQUEST['U'] = $tokens[2];
-		$_REQUEST['Action'] = "AccountInfo";
+
+		if (isset($tokens[3])) {
+			if ($tokens[3] == 'edit') {
+				$_REQUEST['Action'] = "DisplayAccount";
+			} else {
+				$_REQUEST['Action'] = "AccountInfo";
+			}
+		}
+
 	}
 	include get_route('/' . $tokens[1]);
 } elseif (get_route($path) !== NULL) {

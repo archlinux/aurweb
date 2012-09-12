@@ -50,7 +50,7 @@ else:
 							print "&nbsp;";
 						else:
 					?>
-						<a href="<?php echo get_uri('/account/'); ?>?Action=DisplayAccount&amp;ID=<?php echo $row["ID"] ?>"><?php echo __("Edit") ?></a>
+						<a href="<?php echo get_user_uri($row["Username"]) . "edit/" ?>"><?php echo __("Edit") ?></a>
 					<?php endif; ?>
 					</td>
 				</tr>
