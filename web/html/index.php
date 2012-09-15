@@ -60,8 +60,9 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			} else {
 				$_REQUEST['Action'] = "AccountInfo";
 			}
+		} else {
+			$_REQUEST['Action'] = "AccountInfo";
 		}
-
 	}
 	include get_route('/' . $tokens[1]);
 } elseif (get_route($path) !== NULL) {

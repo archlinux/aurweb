@@ -50,14 +50,15 @@ if (isset($_COOKIE["AURSID"])) {
 		} else {
 			# double check to make sure logged in user can edit this account
 			#
-			if ($atype == "User" || ($atype == "Trusted User" && $row["AccountType"] == "Developer")) {
-				print __("You do not have permission to edit this account.");
-			} else {
-
+			if ($atype == "Developer" || ($atype == "Trusted User" &&
+				$row["AccountType"] != "Developer") ||
+				($row["ID"] == uid_from_sid($_COOKIE["AURSID"]))) {
 				display_account_form($atype, "UpdateAccount", $row["Username"],
-						$row["AccountType"], $row["Suspended"], $row["Email"],
-						"", "", $row["RealName"], $row["LangPreference"],
-						$row["IRCNick"], $row["PGPKey"], $row["ID"]);
+					$row["AccountType"], $row["Suspended"], $row["Email"],
+					"", "", $row["RealName"], $row["LangPreference"],
+					$row["IRCNick"], $row["PGPKey"], $row["ID"]);
+			} else {
+				print __("You do not have permission to edit this account.");
 			}
 		}
 
@@ -89,24 +90,7 @@ if (isset($_COOKIE["AURSID"])) {
 			search_accounts_form();
 
 		} else {
-			# A normal user, give them the ability to edit
-			# their own account
-			#
-			$row = own_account_details($_COOKIE["AURSID"]);
-			if (empty($row)) {
-				print __("Could not retrieve information for the specified user.");
-			} else {
-				# don't need to check if they have permissions, this is a
-				# normal user editing themselves.
-				#
-				print __("Use this form to update your account.");
-				print "<br />";
-				print __("Leave the password fields blank to keep your same password.");
-				display_account_form($atype, "UpdateAccount", $row["Username"],
-						$row["AccountType"], $row["Suspended"], $row["Email"],
-						"", "", $row["RealName"], $row["LangPreference"],
-						$row["IRCNick"], $row["PGPKey"], $row["ID"]);
-			}
+			print __("You are not allowed to access this area.");
 		}
 	}
 

@@ -719,24 +719,6 @@ function account_details($uid, $username, $dbh=NULL) {
 	return $row;
 }
 
-function own_account_details($sid, $dbh=NULL) {
-	if(!$dbh) {
-		$dbh = db_connect();
-	}
-	$q = "SELECT Users.*, AccountTypes.AccountType ";
-	$q.= "FROM Users, AccountTypes, Sessions ";
-	$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
-	$q.= "AND Users.ID = Sessions.UsersID ";
-	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
-	$result = $dbh->query($q);
-
-	if ($result) {
-		$row = $result->fetch(PDO::FETCH_ASSOC);
-	}
-
-	return $row;
-}
-
 function tu_voted($voteid, $uid, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
