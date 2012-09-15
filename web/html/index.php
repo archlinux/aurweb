@@ -55,6 +55,8 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		if (isset($tokens[3])) {
 			if ($tokens[3] == 'edit') {
 				$_REQUEST['Action'] = "DisplayAccount";
+			} elseif ($tokens[3] == 'update') {
+				$_REQUEST['Action'] = "UpdateAccount";
 			} else {
 				$_REQUEST['Action'] = "AccountInfo";
 			}

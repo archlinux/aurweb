@@ -1,4 +1,4 @@
-<form action="<?php echo get_uri('/account/'); ?>" method="post">
+<form action="<?php echo get_user_uri($U) . 'update/'; ?>" method="post">
 	<fieldset>
 		<input type="hidden" name="Action" value="<?php echo $A ?>" />
 		<?php if ($UID): ?>
