@@ -55,7 +55,10 @@
 					<?php if (isset($_COOKIE['AURSID'])): ?>
 						<li><a href="<?php echo get_uri('/packages/'); ?>?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
 						<li><a href="<?php echo get_uri('/submit/'); ?>"><?php print __("Submit"); ?></a></li>
-						<li><a href="<?php echo get_uri('/accounts/'); ?>"><?php print __("Accounts"); ?></a></li>
+						<?php if (check_user_privileges()): ?>
+						<li><a href="<?php echo get_uri('/accounts/') ; ?>"><?php print __("Accounts"); ?></a></li>
+						<?php endif; ?>
+						<li><a href="<?php echo get_user_uri(username_from_sid($_COOKIE['AURSID'])) . 'edit/'; ?>"><?php print __(" My Account"); ?></a></li>
 						<?php if (check_user_privileges()): ?><li><a href="<?php echo get_uri('/tu/'); ?>"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
 						<li><a href="<?php echo get_uri('/logout/'); ?>"><?php print __("Logout"); ?></a></li>
 					<?php else: ?>
