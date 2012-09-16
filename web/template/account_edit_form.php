@@ -1,4 +1,8 @@
+<?php if ($A == "UpdateAccount"): ?>
 <form action="<?php echo get_user_uri($U) . 'update/'; ?>" method="post">
+<?php else: ?>
+<form action="<?php echo get_uri('/register/'); ?>" method="post">
+<?php endif; ?>
 	<fieldset>
 		<input type="hidden" name="Action" value="<?php echo $A ?>" />
 		<?php if ($UID): ?>
