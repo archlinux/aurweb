@@ -212,6 +212,8 @@ function package_comments($pkgid, $dbh=NULL) {
 # Add a comment to a package page and send out appropriate notifications
 # TODO: Move notification logic to separate function where it belongs
 function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
+	global $AUR_LOCATION;
+
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
