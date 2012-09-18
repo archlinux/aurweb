@@ -29,7 +29,7 @@
 
 		<div id="content">
 			<div id="lang_sub">
-				<form method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"], ENT_QUOTES) ?>">
+				<form method="get" action="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"], ENT_QUOTES) ?>">
 					<fieldset>
 						<div>
 							<select name="setlang" id="id_setlang">
