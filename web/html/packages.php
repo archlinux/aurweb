@@ -89,7 +89,7 @@ if (check_token()) {
 	} elseif (current_action("do_DeleteComment")) {
 		$output = pkg_delete_comment($atype);
 	} elseif (current_action("do_ChangeCategory")) {
-		$output = pkg_change_category($atype);
+		$output = pkg_change_category($pkgid, $atype);
 	}
 }
 

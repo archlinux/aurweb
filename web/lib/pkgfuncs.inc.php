@@ -1206,7 +1206,7 @@ function pkg_delete_comment($atype, $dbh=NULL) {
  * @param string $atype Account type, output of account_from_sid
  * @return string Translated error or success message
  */
-function pkg_change_category($atype, $dbh=NULL) {
+function pkg_change_category($pid, $atype, $dbh=NULL) {
 	if (!$atype)  {
 		return __("You must be logged in before you can edit package information.");
 	}
@@ -1224,14 +1224,6 @@ function pkg_change_category($atype, $dbh=NULL) {
 	$catArray = pkgCategories($dbh);
 	if (!array_key_exists($category_id, $catArray)) {
 		return __("Invalid category ID.");
-	}
-
-	if (isset($_GET["ID"])) {
-		$pid = $_GET["ID"];
-	} elseif (isset($_GET["N"])) {
-		$pid = pkgid_from_name($_GET["N"]);
-	} else {
-		return __("Missing package ID.");
 	}
 
 	# Verify package ownership
