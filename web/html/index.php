@@ -9,8 +9,11 @@ $tokens = explode('/', $path);
 
 if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 	if (isset($tokens[2])) {
-		unset($_GET['ID']);
-		$_GET['N'] = $tokens[2];
+		/* TODO: Create a proper data structure to pass variables from
+		 * the routing framework to the individual pages instead of
+		 * initializing arbitrary variables here. */
+		$pkgname = $tokens[2];
+		$pkgid = pkgid_from_name($pkgname);
 
 		if (isset($tokens[3])) {
 			if ($tokens[3] == 'voters') {

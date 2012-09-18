@@ -7,11 +7,22 @@ set_lang();                       # this sets up the visitor's language
 include_once('pkgfuncs.inc.php'); # package specific functions
 check_sid();                      # see if they're still logged in
 
+# Retrieve package ID and name, unless initialized by the routing framework
+if (!isset($pkgid) || !isset($pkgname)) {
+	if (isset($_GET['ID'])) {
+		$pkgid = intval($_GET['ID']);
+		$pkgname = pkgname_from_id($_GET['ID']);
+	} else if (isset($_GET['N'])) {
+		$pkgid = pkgid_from_name($_GET['N']);
+		$pkgname = $_GET['N'];
+	} else {
+		unset($pkgid, $pkgname);
+	}
+}
+
 # Set the title to the current query if required
-if (isset($_GET['ID']) && ($pkgname = pkgname_from_id($_GET['ID']))) {
+if (isset($pkgname)) {
 	$title = $pkgname;
-} else if (isset($_GET['N'])) {
-	$title = $pkgname = $_GET['N'];
 } else if (!empty($_GET['K'])) {
 	$title = __("Search Criteria") . ": " . $_GET['K'];
 } else {
@@ -90,14 +101,6 @@ html_header($title);
 <?php endif; ?>
 
 <?php
-if (isset($_GET['ID'])) {
-	$pkgid = intval($_GET['ID']);
-} else if (isset($_GET['N'])) {
-	$pkgid = pkgid_from_name($_GET['N']);
-} else {
-	unset($pkgid);
-}
-
 if (isset($pkgid)) {
 	include('pkg_search_form.php');
 	if ($pkgid) {
