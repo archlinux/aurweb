@@ -1134,12 +1134,12 @@ function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
 
 
 		if ($action) {
-			$q = "SELECT * FROM CommentNotify WHERE UserID = $uid";
-			$q .= " AND PkgID = $pid";
+			$q = "SELECT COUNT(*) FROM CommentNotify WHERE ";
+			$q .= "UserID = $uid AND PkgID = $pid";
 
 			# Notification already added. Don't add again.
 			$result = $dbh->query($q);
-			if (!$result) {
+			if ($result->fetchColumn() == 0) {
 				$q = "INSERT INTO CommentNotify (PkgID, UserID) VALUES ($pid, $uid)";
 				$dbh->exec($q);
 			}
@@ -1147,8 +1147,8 @@ function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
 			$output .= $pkgname;
 		}
 		else {
-			$q = "DELETE FROM CommentNotify WHERE PkgID = $pid";
-			$q .= " AND UserID = $uid";
+			$q = "DELETE FROM CommentNotify WHERE PkgID = $pid ";
+			$q .= "AND UserID = $uid";
 			$dbh->exec($q);
 
 			$output .= $pkgname;
