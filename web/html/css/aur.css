@@ -2,3 +2,7 @@
 #lang_sub {
   float: right;
 }
+
+#pkg-updates td.pkg-new {
+  padding: 0 .5em;
+}

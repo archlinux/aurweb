@@ -3,10 +3,13 @@
 <a href="<?php echo get_uri('/rss/') ?>" title="Arch Package Updates RSS Feed" class="rss-icon"><img src="/images/feed-icon-14x14.png" alt="RSS Feed" /></a>
 
 <table>
-	<?php foreach ($newest_packages->getIterator() as $row): ?>
+	<tbody>
+		<?php foreach ($newest_packages->getIterator() as $row): ?>
 		<tr>
-			<td>
+			<td class="pkg-name">
 				<a href="<?php echo get_pkg_uri($row["Name"]); ?>"><?php print htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
+			</td>
+			<td class="pkg-new">
 				<?php if ($row["ModifiedTS"] === $row["SubmittedTS"]): ?>
 				<img src="images/new.png" alt="New!" />
 				<?php endif; ?>
@@ -15,5 +18,6 @@
 				<span><?php print gmdate("Y-m-d H:i", intval($row["ModifiedTS"])); ?></span>
 			</td>
 		</tr>
-	<?php endforeach; ?>
+		<?php endforeach; ?>
+	</tbody>
 </table>
