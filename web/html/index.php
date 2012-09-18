@@ -42,7 +42,10 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				break;
 			}
 
-			$_POST['token'] = $_COOKIE['AURSID'];
+			if (isset($_COOKIE['AURSID'])) {
+				$_POST['token'] = $_COOKIE['AURSID'];
+			}
+
 			$_POST['IDs'] = array(pkgid_from_name($tokens[2]) => '1');
 		}
 	}
