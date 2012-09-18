@@ -56,6 +56,7 @@ $sources = package_sources($row["ID"]);
 				<?php endif; ?>
 				<?php endif; ?>
 			</ul>
+			<?php if ($uid): ?>
 			<form action="<?php echo htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>" method="post">
 				<div>
 					<input type="hidden" name="IDs[<?php echo $row['ID'] ?>]" value="1" />
@@ -71,6 +72,7 @@ $sources = package_sources($row["ID"]);
 					<?php endif; ?>
 				</p>
 			</form>
+			<?php endif; ?>
 		</div>
 	</div>
 
