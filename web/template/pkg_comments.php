@@ -5,7 +5,7 @@ $pkgname = $row['Name'];
 ?>
 <div id="news">
 	<h3>
-		<a href="<?php echo htmlentities($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>?comments=all" title="<?php echo __('View all %s comments' , $count) ?>"><?php echo __('Latest Comments') ?></a>
+		<a href="<?php echo htmlentities(get_pkg_uri($pkgname), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?php echo __('View all %s comments' , $count) ?>"><?php echo __('Latest Comments') ?></a>
 		<span class="arrow"></span>
 	</h3>
 
@@ -38,7 +38,7 @@ $pkgname = $row['Name'];
 <?php if ($count > 10 && !isset($_GET['comments'])): ?>
 <div id="news">
 	<h3>
-		<a href="<?php echo $_SERVER['REQUEST_URI'] ?>&amp;comments=all" title="<?php echo __('View all %s comments', $count) ?>"><?php echo __('All comments', $count) ?></a>
+		<a href="<?php echo htmlentities(get_pkg_uri($pkgname), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?php echo __('View all %s comments', $count) ?>"><?php echo __('All comments', $count) ?></a>
 	</h3>
 </div>
 <?php endif; ?>
