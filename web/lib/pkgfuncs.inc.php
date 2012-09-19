@@ -283,29 +283,6 @@ function pkgvotes_from_sid($sid="", $dbh=NULL) {
 	return $pkgs;
 }
 
-# array of package ids that you're being notified for
-# *yoink*
-#
-function pkgnotify_from_sid($sid="", $dbh=NULL) {
-	$pkgs = array();
-	if (!$sid) {return $pkgs;}
-	if(!$dbh) {
-		$dbh = db_connect();
-	}
-	$q = "SELECT PkgID ";
-	$q.= "FROM CommentNotify, Users, Sessions ";
-	$q.= "WHERE Users.ID = Sessions.UsersID ";
-	$q.= "AND Users.ID = CommentNotify.UserID ";
-	$q.= "AND Sessions.SessionID = " . $dbh->quote($sid);
-	$result = $dbh->query($q);
-	if ($result) {
-		while ($row = $result->fetch(PDO::FETCH_NUM)) {
-			$pkgs[$row[0]] = 1;
-		}
-	}
-	return $pkgs;
-}
-
 # get name of package based on pkgid
 #
 function pkgname_from_id($pkgids, $dbh=NULL) {
