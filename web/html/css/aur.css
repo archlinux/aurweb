@@ -3,6 +3,10 @@
   float: right;
 }
 
+.pkglist-nav .page {
+    margin: 0 .25em;
+}
+
 #pkg-updates td.pkg-new {
   padding: 0 .5em;
 }

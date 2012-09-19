@@ -30,7 +30,7 @@ $orderby = array(
 	'd' => __('Descending')
 );
 
-$pages = array(50, 100, 250);
+$per_page = array(50, 100, 250);
 ?>
 
 <div id="pkglist-search" class="box filter-criteria">
@@ -109,7 +109,7 @@ $pages = array(50, 100, 250);
 		<div>
 			<label for="id_per_page"><?php print __("Per page"); ?></label>
 			<select name='PP'>
-				<?php foreach ($pages as $i): ?>
+				<?php foreach ($per_page as $i): ?>
 				<?php if (isset($_REQUEST['PP']) && $_REQUEST['PP'] == $i): ?>
 				<option value="<?php print $i; ?>" selected="selected"><?php print $i; ?></option>
 				<?php else: ?>

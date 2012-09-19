@@ -639,12 +639,6 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	// figure out the results to use
 	$first = $_GET['O'] + 1;
 
-	if (($_GET['PP'] + $_GET['O']) > $total) {
-		$last = $total;
-	} else {
-		$last = $_GET['PP'] + $_GET['O'];
-	}
-
 	# calculation of pagination links
 	$per_page = ($_GET['PP'] > 0) ? $_GET['PP'] : 50;
 	$current = ceil($first / $per_page);

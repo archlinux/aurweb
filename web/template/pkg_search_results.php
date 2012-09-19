@@ -11,8 +11,9 @@ if (!$result): ?>
 	<div class="box"><p><?php echo __("No packages matched your search criteria.") ?></p></div>
 <?php else: ?>
 	<div id="pkglist-results" class="box">
-		<div id="pkglist-stats-top">
-			<p><?php echo __('%s Packages found. Showing %s - %s', $total, $first, $last) ?></p>
+		<div class="pkglist-stats">
+			<p><?php echo __('%d packages found. Page %d of %d.', $total, $current, $pages) ?></p>
+			<?php if (count($templ_pages) > 1): ?>
 			<p class="pkglist-nav">
 				<?php foreach ($templ_pages as $pagenr => $pagestart): ?>
 					<?php if ($pagestart === false): ?>
@@ -24,6 +25,7 @@ if (!$result): ?>
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</p>
+			<?php endif; ?>
 		</div>
 
 		<form id="pkglist-results-form" method="post" action="<?php echo get_uri('/packages/'); ?>?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>">
@@ -80,9 +82,9 @@ if (!$result): ?>
 			</tbody>
 			</table>
 
-			<div id="pkglist-stats-bottom">
-				<p><?php echo __('%s Packages found. Showing %s - %s', $total, $first, $last) ?></p>
-
+			<div class="pkglist-stats">
+				<p><?php echo __('%d packages found. Page %d of %d.', $total, $current, $pages) ?></p>
+				<?php if (count($templ_pages) > 1): ?>
 				<p class="pkglist-nav">
 					<?php foreach ($templ_pages as $pagenr => $pagestart): ?>
 						<?php if ($pagestart === false): ?>
@@ -94,6 +96,7 @@ if (!$result): ?>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</p>
+				<?php endif; ?>
 			</div>
 
 			<?php if ($SID): ?>
