@@ -40,28 +40,6 @@ function canDeleteCommentArray($comment, $atype="", $uid=0) {
 	return FALSE;
 }
 
-# see if this Users.ID can manage the package
-#
-function canManagePackage($uid=0,$AURMUID=0, $MUID=0, $SUID=0, $managed=0) {
-	if (!$uid) {return 0;}
-
-	# The uid of the TU/Dev that manages the package
-	#
-	if ($uid == $AURMUID) {return 1;}
-
-	# If the package isn't maintained by a TU/Dev, is this the user-maintainer?
-	#
-	if ($uid == $MUID && !$managed) {return 1;}
-
-	# If the package isn't maintained by a TU/Dev, is this the user-submitter?
-	#
-	if ($uid == $SUID && !$managed) {return 1;}
-
-	# otherwise, no right to manage this package
-	#
-	return 0;
-}
-
 # Check if the current user can submit blacklisted packages.
 #
 function canSubmitBlacklisted($atype = "") {
