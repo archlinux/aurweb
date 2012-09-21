@@ -9,18 +9,18 @@
 
 	<p>
 		<?= __("User") ?>:
-		<b>
+		<strong>
 			<?php if (!empty($row['User'])): ?>
 			<a href="<?= get_uri('/packages/'); ?>?K=<?= $row['User'] ?>&amp;SeB=m"><?= $row['User'] ?></a>
 			<?php else: ?>
 			N/A
 			<?php endif; ?>
-		</b>
+		</strong>
 		<br />
-		<?= __("Submitted: %s by %s", "<b>" . gmdate("Y-m-d H:i", $row['Submitted']) . "</b>", "<b>" . username_from_id($row['SubmitterID']) . "</b>") ?>
+		<?= __("Submitted: %s by %s", gmdate("Y-m-d H:i", $row['Submitted']), username_from_id($row['SubmitterID'])) ?>
 		<br />
 		<?= __("End") ?>:
-		<b><?= gmdate("Y-m-d H:i", $row['End']) ?></b>
+		<strong><?= gmdate("Y-m-d H:i", $row['End']) ?></strong>
 	</p>
 
 	<p>

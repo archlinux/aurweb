@@ -324,7 +324,7 @@ if ($uid):
 					$error = __( "Could not create directory %s.", $incoming_pkgdir);
 				}
 			} else {
-				$error = __( "You are not allowed to overwrite the %s%s%s package.", "<b>", $pkg_name, "</b>");
+				$error = __( "You are not allowed to overwrite the %s%s%s package.", "<strong>", $pkg_name, "</strong>");
 			}
 
 		if (!$error) {

@@ -9,7 +9,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR
 #
 # examples:
 #	print __("%s has %s apples.", "Bill", "5");
-#	print __("This is a %smajor%s problem!", "<b>", "</b>");
+#	print __("This is a %smajor%s problem!", "<strong>", "</strong>");
 
 include_once('config.inc.php');
 include_once('gettext.php');

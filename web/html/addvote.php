@@ -70,18 +70,18 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 
 	<form action="<?= get_uri('/addvote/'); ?>" method="post">
 		<p>
-			<b><?= __("Applicant/TU") ?></b>
-			<input type="text" name="user" value="<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>" />
+			<label for="id_user"><?= __("Applicant/TU") ?></label>
+			<input type="text" name="user" id="id_user" value="<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>" />
 			<?= __("(empty if not applicable)") ?>
 		</p>
 		<p>
-			<b><?= __("Length in days") ?></b>
-			<input type="text" name="length" value="<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>" />
+			<label for="id_length"><?= __("Length in days") ?></label>
+			<input type="text" name="length" id="id_length" value="<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>" />
 			<?= __("(defaults to 7 if empty)") ?>
 		</p>
 		<p>
-		<b><?= __("Proposal") ?></b><br />
-		<textarea name="agenda" rows="15" cols="80"><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
+		<label for="id_agenda"><?= __("Proposal") ?></label><br />
+		<textarea name="agenda" id="id_agenda" rows="15" cols="80"><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
 		<input type="hidden" name="addVote" value="1" />
 		<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		<input type="submit" class="button" value="<?= __("Submit"); ?>" />

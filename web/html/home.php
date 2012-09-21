@@ -33,7 +33,7 @@ $dbh = db_connect();
 			<?php
 			echo __(
 				'Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!',
-				'<b>', '</b>',
+				'<strong>', '</strong>',
 				'<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">',
 				'</a>'
 				);
@@ -67,9 +67,8 @@ $dbh = db_connect();
 			?>
 			</p>
 
+			<h4><?= __('DISCLAIMER') ?></h4>
 			<div class="important">
-				<b><?= __('DISCLAIMER') ?> :</b>
-				<br />
 				<?= __('Unsupported packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</div>
 		</div>

@@ -165,7 +165,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 
 		if ($row[0]) {
 			$error = __("The username, %s%s%s, is already in use.",
-				"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
+				"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 		}
 	}
 	if (!$error) {
@@ -182,7 +182,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 
 		if ($row[0]) {
 			$error = __("The address, %s%s%s, is already in use.",
-					"<b>", htmlspecialchars($E,ENT_QUOTES), "</b>");
+					"<strong>", htmlspecialchars($E,ENT_QUOTES), "</strong>");
 		}
 	}
 	if ($error) {
@@ -209,12 +209,12 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$result = $dbh->exec($q);
 			if (!$result) {
 				print __("Error trying to create account, %s%s%s.",
-						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
+						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 			} else {
 				# account created/modified, tell them so.
 				#
 				print __("The account, %s%s%s, has been successfully created.",
-						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
+						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 				print "<p>\n";
 				print __("Click on the Login link above to use your account.");
 				print "</p>\n";
@@ -247,10 +247,10 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$result = $dbh->exec($q);
 			if (!$result) {
 				print __("Error trying to modify account, %s%s%s.",
-						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
+						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 			} else {
 				print __("The account, %s%s%s, has been successfully modified.",
-						"<b>", htmlspecialchars($U,ENT_QUOTES), "</b>");
+						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 			}
 		}
 	}
