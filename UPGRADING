@@ -4,7 +4,7 @@ Upgrading
 From 1.9.1 to 2.0.0
 -------------------
 
-1. Add new "Users" table login date column:
+1. Add new "Users" table login date and PGP key columns:
 
 ----
 ALTER TABLE Users ADD COLUMN LastLogin BIGINT NOT NULL DEFAULT 0;
