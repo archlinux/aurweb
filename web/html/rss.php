@@ -28,7 +28,7 @@ $rss->encoding = "UTF-8";
 $rss->title = "AUR Newest Packages";
 $rss->description = "The latest and greatest packages in the AUR";
 $rss->link = "${protocol}://{$host}";
-$rss->syndicationURL = "{$protocol}://{$host}/rss.php";
+$rss->syndicationURL = "{$protocol}://{$host}" . get_uri('/rss/');
 $image = new FeedImage();
 $image->title = "AUR";
 $image->url = "{$protocol}://{$host}/images/AUR-logo-80.png";
@@ -42,7 +42,7 @@ $packages = latest_pkgs(20);
 while (list($indx, $row) = each($packages)) {
 	$item = new FeedItem();
 	$item->title = $row["Name"];
-	$item->link = "{$protocol}://{$host}/packages.php?ID={$row["ID"]}";
+	$item->link = "{$protocol}://{$host}" . get_pkg_uri($row["Name"]);
 	$item->description = $row["Description"];
 	$item->date = intval($row["SubmittedTS"]);
 	$item->source = "{$protocol}://{$host}";
