@@ -62,29 +62,29 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 ?>
 
 <?php if (!empty($error)): ?>
-	<p style="color: red;" class="pkgoutput"><?php print $error ?></p>
+	<p style="color: red;" class="pkgoutput"><?= $error ?></p>
 <?php endif; ?>
 
 <div class="box">
-	<h2><?php print __("Submit a proposal to vote on.") ?></h2>
+	<h2><?= __("Submit a proposal to vote on.") ?></h2>
 
-	<form action="<?php echo get_uri('/addvote/'); ?>" method="post">
+	<form action="<?= get_uri('/addvote/'); ?>" method="post">
 		<p>
-			<b><?php print __("Applicant/TU") ?></b>
+			<b><?= __("Applicant/TU") ?></b>
 			<input type="text" name="user" value="<?php if (!empty($_POST['user'])) { print htmlentities($_POST['user'], ENT_QUOTES); } ?>" />
-			<?php print __("(empty if not applicable)") ?>
+			<?= __("(empty if not applicable)") ?>
 		</p>
 		<p>
-			<b><?php print __("Length in days") ?></b>
+			<b><?= __("Length in days") ?></b>
 			<input type="text" name="length" value="<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>" />
-			<?php print __("(defaults to 7 if empty)") ?>
+			<?= __("(defaults to 7 if empty)") ?>
 		</p>
 		<p>
-		<b><?php print __("Proposal") ?></b><br />
+		<b><?= __("Proposal") ?></b><br />
 		<textarea name="agenda" rows="15" cols="80"><?php if (!empty($_POST['agenda'])) { print htmlentities($_POST['agenda']); } ?></textarea><br />
 		<input type="hidden" name="addVote" value="1" />
-		<input type="hidden" name="token" value="<?php print htmlspecialchars($_COOKIE['AURSID']) ?>" />
-		<input type="submit" class="button" value="<?php print __("Submit"); ?>" />
+		<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+		<input type="submit" class="button" value="<?= __("Submit"); ?>" />
 		</p>
 	</form>
 </div>

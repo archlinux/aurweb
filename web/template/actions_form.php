@@ -1,38 +1,38 @@
 <?php if (!$USE_VIRTUAL_URLS || $atype == "Trusted User" || $atype == "Developer" ): ?>
 <div class="box">
-	<form action="<?php echo htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>" method="post">
+	<form action="<?= htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>" method="post">
 		<fieldset>
-			<input type="hidden" name="IDs[<?php echo $row['ID'] ?>]" value="1" />
-			<input type="hidden" name="ID" value="<?php echo $row['ID'] ?>" />
-			<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
+			<input type="hidden" name="IDs[<?= $row['ID'] ?>]" value="1" />
+			<input type="hidden" name="ID" value="<?= $row['ID'] ?>" />
+			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 
 		<?php if (!$USE_VIRTUAL_URLS): ?>
 		<?php if (user_voted($uid, $row['ID'])): ?>
-			<input type="submit" class="button" name="do_UnVote" value="<?php echo __("UnVote") ?>" />
+			<input type="submit" class="button" name="do_UnVote" value="<?= __("UnVote") ?>" />
 		<?php else: ?>
-			<input type="submit" class="button" name="do_Vote" value="<?php echo __("Vote") ?>" />
+			<input type="submit" class="button" name="do_Vote" value="<?= __("Vote") ?>" />
 		<?php endif; ?>
 
 		<?php if (user_notify($uid, $row['ID'])): ?>
-			<input type="submit" class="button" name="do_UnNotify" value="<?php echo __("UnNotify") ?>" title="<?php echo __("No New Comment Notification") ?>" />
+			<input type="submit" class="button" name="do_UnNotify" value="<?= __("UnNotify") ?>" title="<?= __("No New Comment Notification") ?>" />
 		<?php else: ?>
-			<input type="submit" class="button" name="do_Notify" value="<?php echo __("Notify") ?>" title="<?php echo __("New Comment Notification") ?>" />
+			<input type="submit" class="button" name="do_Notify" value="<?= __("Notify") ?>" title="<?= __("New Comment Notification") ?>" />
 		<?php endif; ?>
 
 		<?php if ($row["OutOfDateTS"] === NULL): ?>
-			<input type="submit" class="button" name="do_Flag" value="<?php echo __("Flag Out-of-date") ?>" />
+			<input type="submit" class="button" name="do_Flag" value="<?= __("Flag Out-of-date") ?>" />
 		<?php elseif (($row["OutOfDateTS"] !== NULL) &&
 		($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
-			<input type="submit" class="button" name="do_UnFlag" value="<?php echo __("UnFlag Out-of-date") ?>" />
+			<input type="submit" class="button" name="do_UnFlag" value="<?= __("UnFlag Out-of-date") ?>" />
 		<?php endif; ?>
 		<?php endif; ?>
 			
 		<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
-			<input type="submit" class="button" name="do_Delete" value="<?php echo __("Delete Packages") ?>" />
-			<label for="merge_Into" ><?php echo __("Merge into") ?></label>
+			<input type="submit" class="button" name="do_Delete" value="<?= __("Delete Packages") ?>" />
+			<label for="merge_Into" ><?= __("Merge into") ?></label>
 			<input type="text" id="merge_Into" name="merge_Into" />
 			<input type="checkbox" name="confirm_Delete" value="1" />
-			<?php echo __("Confirm") ?>
+			<?= __("Confirm") ?>
 		<?php endif; ?>
 
 		</fieldset>

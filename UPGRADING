@@ -17,6 +17,8 @@ ALTER TABLE Users ADD COLUMN PGPKey VARCHAR(40) NULL DEFAULT NULL;
 
 4. Enable the PDO MySQL extension (pdo_mysql.so) in "php.ini".
 
+5. Upgrade to PHP>=5.4.0 or enable "short_open_tag" in "php.ini".
+
 From 1.9.0 to 1.9.1
 -------------------
 

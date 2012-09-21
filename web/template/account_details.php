@@ -4,12 +4,12 @@
 	</tr>
 
 	<tr>
-		<td align="left"><?php echo __("Username") . ":" ?></td>
-		<td align="left"><?php echo $row["Username"] ?></td>
+		<td align="left"><?= __("Username") . ":" ?></td>
+		<td align="left"><?= $row["Username"] ?></td>
 	</tr>
 
 	<tr>
-		<td align="left"><?php echo __("Account Type") . ":" ?></td>
+		<td align="left"><?= __("Account Type") . ":" ?></td>
 		<td align="left">
 			<?php
 			if ($row["AccountType"] == "User") {
@@ -24,34 +24,34 @@
 	</tr>
 
 	<tr>
-		<td align="left"><?php echo __("Email Address") . ":" ?></td>
-		<td align="left"><a href="mailto:<?php echo htmlspecialchars($row["Email"], ENT_QUOTES) ?>"><?php echo htmlspecialchars($row["Email"], ENT_QUOTES) ?></a></td>
+		<td align="left"><?= __("Email Address") . ":" ?></td>
+		<td align="left"><a href="mailto:<?= htmlspecialchars($row["Email"], ENT_QUOTES) ?>"><?= htmlspecialchars($row["Email"], ENT_QUOTES) ?></a></td>
 	</tr>
 
 	<tr>
-		<td align="left"><?php echo __("Real Name") . ":" ?></td>
-		<td align="left"><?php echo htmlspecialchars($row["RealName"], ENT_QUOTES) ?></td>
+		<td align="left"><?= __("Real Name") . ":" ?></td>
+		<td align="left"><?= htmlspecialchars($row["RealName"], ENT_QUOTES) ?></td>
 	</tr>
 
 	<tr>
-		<td align="left"><?php echo __("IRC Nick") . ":" ?></td>
-		<td align="left"><?php echo htmlspecialchars($row["IRCNick"], ENT_QUOTES) ?></td>
+		<td align="left"><?= __("IRC Nick") . ":" ?></td>
+		<td align="left"><?= htmlspecialchars($row["IRCNick"], ENT_QUOTES) ?></td>
 	</tr>
 
 	<tr>
-		<td align="left"><?php echo __("PGP Key Fingerprint") . ":" ?></td>
-		<td align="left"><?php echo html_format_pgp_fingerprint($row["PGPKey"]) ?></td>
+		<td align="left"><?= __("PGP Key Fingerprint") . ":" ?></td>
+		<td align="left"><?= html_format_pgp_fingerprint($row["PGPKey"]) ?></td>
 	</tr>
 
 	<tr>
-		<td align="left"><?php echo __("Last Voted") . ":" ?></td>
+		<td align="left"><?= __("Last Voted") . ":" ?></td>
 		<td align="left">
-		<?php print $row["LastVoted"] ? date("Y-m-d", $row["LastVoted"]) : __("Never"); ?>
+		<?= $row["LastVoted"] ? date("Y-m-d", $row["LastVoted"]) : __("Never"); ?>
 		</td>
 	</tr>
 
 	<tr>
-		<td colspan="2"><a href="<?php echo get_uri('/packages/'); ?>?K=<?php echo $row['Username'] ?>&amp;SeB=m"><?php echo __("View this user's packages") ?></a></td>
+		<td colspan="2"><a href="<?= get_uri('/packages/'); ?>?K=<?= $row['Username'] ?>&amp;SeB=m"><?= __("View this user's packages") ?></a></td>
 	</tr>
 
 </table>

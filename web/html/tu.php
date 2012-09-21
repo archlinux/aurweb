@@ -116,17 +116,17 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 		$nextresult = proposal_count();
 ?>
 <div class="box">
-	<p><a href="<?php echo get_uri('/addvote/'); ?>"><?php print __("Add Proposal") ?></a></p>
+	<p><a href="<?= get_uri('/addvote/'); ?>"><?= __("Add Proposal") ?></a></p>
 
 	<?php if ($result):
 		$by = htmlentities($by, ENT_QUOTES); ?>
 		<?php if ($off != 0):
 			$back = (($off - $limit) <= 0) ? 0 : $off - $limit; ?>
-			<a href='<?php echo get_uri('/tu/'); ?>?off=<?php print $back ?>&amp;by=<?php print $by ?>'><?php print __("Back") ?></a>
+			<a href='<?= get_uri('/tu/'); ?>?off=<?= $back ?>&amp;by=<?= $by ?>'><?= __("Back") ?></a>
 		<?php endif; ?>
 		<?php if (($off + $limit) < $nextresult):
 			$forw = $off + $limit; ?>
-		<a href="<?php echo get_uri('/tu/'); ?>?off=<?php print $forw ?>&amp;by=<?php print $by ?>"><?php print __("Next") ?></a>
+		<a href="<?= get_uri('/tu/'); ?>?off=<?= $forw ?>&amp;by=<?= $by ?>"><?= __("Next") ?></a>
 		<?php endif; ?>
 	<?php endif; ?>
 </div>

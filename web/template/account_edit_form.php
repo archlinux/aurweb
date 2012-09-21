@@ -1,13 +1,13 @@
 <?php if ($A == "UpdateAccount"): ?>
-<form action="<?php echo get_user_uri($U) . 'update/'; ?>" method="post">
+<form action="<?= get_user_uri($U) . 'update/'; ?>" method="post">
 <?php else: ?>
-<form action="<?php echo get_uri('/register/'); ?>" method="post">
+<form action="<?= get_uri('/register/'); ?>" method="post">
 <?php endif; ?>
 	<fieldset>
-		<input type="hidden" name="Action" value="<?php echo $A ?>" />
+		<input type="hidden" name="Action" value="<?= $A ?>" />
 		<?php if ($UID): ?>
-		<input type="hidden" name="ID" value="<?php echo $UID ?>" />
-		<input type="hidden" name="token" value="<?php print htmlspecialchars($_COOKIE['AURSID']) ?>" />
+		<input type="hidden" name="ID" value="<?= $UID ?>" />
+		<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		<?php endif; ?>
 	</fieldset>
 	<table>
@@ -16,26 +16,26 @@
 		</tr>
 
 		<tr>
-			<td align="left"><?php echo __("Username") ?>:</td>
-			<td align="left"><input type="text" size="30" maxlength="64" name="U" value="<?php echo htmlspecialchars($U,ENT_QUOTES) ?>" /> (<?php echo __("required") ?>)</td>
+			<td align="left"><?= __("Username") ?>:</td>
+			<td align="left"><input type="text" size="30" maxlength="64" name="U" value="<?= htmlspecialchars($U,ENT_QUOTES) ?>" /> (<?= __("required") ?>)</td>
 		</tr>
 		<?php
 		# Only TUs or Devs can promote/demote/suspend a user
 		if ($UTYPE == "Trusted User" || $UTYPE == "Developer"):
 		?>
 		<tr>
-			<td align="left"><?php echo __("Account Type") ?>:</td>
+			<td align="left"><?= __("Account Type") ?>:</td>
 			<td align="left">
 				<select name=T>
 					<?php if ($T == "User"): ?>
-					<option value="1" selected><?php echo __("Normal user") ?>
+					<option value="1" selected><?= __("Normal user") ?>
 					<?php else: ?>
-					<option value="1"><?php echo __("Normal user") ?>
+					<option value="1"><?= __("Normal user") ?>
 					<?php endif; ?>
 					<?php if ($T == "Trusted User"): ?>
-					<option value="2" selected><?php echo __("Trusted user") ?>
+					<option value="2" selected><?= __("Trusted user") ?>
 					<?php else: ?>
-					<option value="2"><?php echo __("Trusted user") ?>
+					<option value="2"><?= __("Trusted user") ?>
 					<?php endif; ?>
 					<?php
 					# Only developers can make another account a developer
@@ -50,7 +50,7 @@
 		</tr>
 
 		<tr>
-			<td align="left"><?php echo __("Account Suspended") ?>:</td>
+			<td align="left"><?= __("Account Suspended") ?>:</td>
 
 			<?php if ($S): ?>
 			<td align="left"><input type="checkbox" name="S" checked="checked" />
@@ -61,14 +61,14 @@
 		<?php endif; ?>
 
 		<tr>
-			<td align="left"><?php echo __("Email Address") ?>:</td>
-			<td align="left"><input type="text" size="30" maxlength="64" name="E" value="<?php echo htmlspecialchars($E,ENT_QUOTES) ?>" /> (<?php echo __("required") ?>)</td>
+			<td align="left"><?= __("Email Address") ?>:</td>
+			<td align="left"><input type="text" size="30" maxlength="64" name="E" value="<?= htmlspecialchars($E,ENT_QUOTES) ?>" /> (<?= __("required") ?>)</td>
 		</tr>
 
 		<tr>
-			<td align="left"><?php echo __("Password") ?>:</td>
+			<td align="left"><?= __("Password") ?>:</td>
 			<td align="left">
-				<input type="password" size="30" maxlength="32" name="P" value="<?php echo $P ?>" />
+				<input type="password" size="30" maxlength="32" name="P" value="<?= $P ?>" />
 				<?php if ($A != "UpdateAccount"):
 					print " (".__("required").")";
 				endif; ?>
@@ -76,9 +76,9 @@
 		</tr>
 
 		<tr>
-			<td align="left"><?php echo __("Re-type password") ?>:</td>
+			<td align="left"><?= __("Re-type password") ?>:</td>
 			<td align="left">
-				<input type="password" size="30" maxlength="32" name="C" value="<?php echo $C ?>" />
+				<input type="password" size="30" maxlength="32" name="C" value="<?= $C ?>" />
 				<?php if ($A != "UpdateAccount"):
 					print " (".__("required").")";
 				endif; ?>
@@ -86,28 +86,28 @@
 		</tr>
 
 		<tr>
-			<td align="left"><?php echo __("Real Name") ?>:</td>
+			<td align="left"><?= __("Real Name") ?>:</td>
 			<td align="left">
-				<input type="text" size="30" maxlength="32" name="R" value="<?php echo htmlspecialchars($R,ENT_QUOTES) ?>" />
+				<input type="text" size="30" maxlength="32" name="R" value="<?= htmlspecialchars($R,ENT_QUOTES) ?>" />
 			</td>
 		</tr>
 
 		<tr>
-			<td align="left"><?php echo __("IRC Nick") ?>:</td>
+			<td align="left"><?= __("IRC Nick") ?>:</td>
 			<td align="left">
-				<input type="text" size="30" maxlength="32" name="I" value="<?php echo htmlspecialchars($I,ENT_QUOTES) ?>" />
+				<input type="text" size="30" maxlength="32" name="I" value="<?= htmlspecialchars($I,ENT_QUOTES) ?>" />
 			</td>
 		</tr>
 
 		<tr>
-			<td align="left"><?php echo __("PGP Key Fingerprint") ?>:</td>
+			<td align="left"><?= __("PGP Key Fingerprint") ?>:</td>
 <td align="left">
-				<input type="text" size="30" maxlength="50" name="K" value="<?php echo html_format_pgp_fingerprint($K) ?>" />
+				<input type="text" size="30" maxlength="50" name="K" value="<?= html_format_pgp_fingerprint($K) ?>" />
 			</td>
 		</tr>
 
 		<tr>
-			<td align="left"><?php echo __("Language") ?>:</td>
+			<td align="left"><?= __("Language") ?>:</td>
 			<td align="left">
 				<select name=L>
 <?php
@@ -131,11 +131,11 @@
 			<td>&nbsp;</td>
 			<td align="left">
 				<?php if ($A == "UpdateAccount"): ?>
-				<input type="submit" class="button" value="<?php echo __("Update") ?>" /> &nbsp;
+				<input type="submit" class="button" value="<?= __("Update") ?>" /> &nbsp;
 				<?php else: ?>
-				<input type="submit" class="button" value="<?php echo __("Create") ?>" /> &nbsp;
+				<input type="submit" class="button" value="<?= __("Create") ?>" /> &nbsp;
 				<?php endif; ?>
-				<input type="reset" class="button" value="<?php echo __("Reset") ?>" />
+				<input type="reset" class="button" value="<?= __("Reset") ?>" />
 			</td>
 		</tr>
 

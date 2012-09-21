@@ -7,14 +7,14 @@ else:
 		<table class="results">
 			<thead>
 				<tr>
-					<th><?php echo __("Username") ?></th>
-					<th><?php echo __("Type") ?></th>
-					<th><?php echo __("Status") ?></th>
-					<th><?php echo __("Real Name") ?></th>
-					<th><?php echo __("IRC Nick") ?></th>
-					<th><?php echo __("PGP Key Fingerprint") ?></th>
-					<th><?php echo __("Last Voted") ?></th>
-					<th><?php echo __("Edit Account") ?></th>
+					<th><?= __("Username") ?></th>
+					<th><?= __("Type") ?></th>
+					<th><?= __("Status") ?></th>
+					<th><?= __("Real Name") ?></th>
+					<th><?= __("IRC Nick") ?></th>
+					<th><?= __("PGP Key Fingerprint") ?></th>
+					<th><?= __("Last Voted") ?></th>
+					<th><?= __("Edit Account") ?></th>
 				</tr>
 			</thead>
 			<?php
@@ -27,9 +27,9 @@ else:
 				endif;
 			?>
 				<tbody>
-				<tr class ="<?php echo $c ?>">
-					<td><a href="<?php echo get_uri('/packages/'); ?>?SeB=m&amp;K=<?php echo $row["Username"] ?>"><?php echo $row["Username"] ?></a></td>
-					<td><?php echo $row["AccountType"] ?></td>
+				<tr class ="<?= $c ?>">
+					<td><a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;K=<?= $row["Username"] ?>"><?= $row["Username"] ?></a></td>
+					<td><?= $row["AccountType"] ?></td>
 					<td>
 						<?php
 						if ($row["Suspended"]):
@@ -50,7 +50,7 @@ else:
 							print "&nbsp;";
 						else:
 					?>
-						<a href="<?php echo get_user_uri($row["Username"]) . "edit/" ?>"><?php echo __("Edit") ?></a>
+						<a href="<?= get_user_uri($row["Username"]) . "edit/" ?>"><?= __("Edit") ?></a>
 					<?php endif; ?>
 					</td>
 				</tr>
@@ -63,32 +63,32 @@ else:
 	<table class="results">
 		<tr>
 			<td align="left">
-			<form action="<?php echo get_uri('/accounts/'); ?>" method="post">
+			<form action="<?= get_uri('/accounts/'); ?>" method="post">
 					<fieldset>
 						<input type="hidden" name="Action" value="SearchAccounts" />
-						<input type="hidden" name="O" value="<?php echo ($OFFSET-$HITS_PER_PAGE) ?>" />
+						<input type="hidden" name="O" value="<?= ($OFFSET-$HITS_PER_PAGE) ?>" />
 						<?php
 						reset($search_vars);
 						while (list($k, $ind) = each($search_vars)):
 						?>
-						<input type="hidden" name="<?php echo $ind ?>" value="<?php echo ${$ind} ?>" />
+						<input type="hidden" name="<?= $ind ?>" value="<?= ${$ind} ?>" />
 						<?php endwhile; ?>
-						<input type="submit" class="button" value="&lt;-- <?php echo __("Less") ?>" />
+						<input type="submit" class="button" value="&lt;-- <?= __("Less") ?>" />
 					</fieldset>
 				</form>
 			</td>
 			<td align="right">
-				<form action="<?php echo get_uri('/accounts/'); ?>" method="post">
+				<form action="<?= get_uri('/accounts/'); ?>" method="post">
 					<fieldset>
 						<input type="hidden" name="Action" value="SearchAccounts" />
-						<input type="hidden" name="O" value="<?php echo ($OFFSET+$HITS_PER_PAGE) ?>" />
+						<input type="hidden" name="O" value="<?= ($OFFSET+$HITS_PER_PAGE) ?>" />
 						<?php
 						reset($search_vars);
 						while (list($k, $ind) = each($search_vars)):
 						?>
-						<input type="hidden" name="<?php echo $ind ?>" value="<?php echo ${$ind} ?>" />
+						<input type="hidden" name="<?= $ind ?>" value="<?= ${$ind} ?>" />
 						<?php endwhile; ?>
-						<input type="submit" class="button" value="<?php echo __("More") ?> --&gt;" />
+						<input type="submit" class="button" value="<?= __("More") ?> --&gt;" />
 					</fieldset>
 				</form>
 			</td>
@@ -96,7 +96,7 @@ else:
 	</table>
 	<?php else: ?>
 		<p style="text-align:center;">
-			<?php print __("No more results to display."); ?>
+			<?= __("No more results to display."); ?>
 		</p>
 	<?php endif; ?>
 <?php endif; ?>

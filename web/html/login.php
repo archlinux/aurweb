@@ -13,34 +13,34 @@ if (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])) {
 html_header('AUR ' . __("Login"));
 ?>
 <div id="dev-login" class="box">
-	<h2>AUR <?php echo __('Login') ?></h2>
+	<h2>AUR <?= __('Login') ?></h2>
 	<?php if (isset($_COOKIE["AURSID"])): ?>
 	<p>
-		<?php echo __("Logged-in as: %s", '<strong>' . username_from_sid($_COOKIE["AURSID"]) . '</strong>'); ?>
-		<a href="<?php get_uri('/logout/'); ?>">[<?php print __("Logout"); ?>]</a>
+		<?= __("Logged-in as: %s", '<strong>' . username_from_sid($_COOKIE["AURSID"]) . '</strong>'); ?>
+		<a href="<?php get_uri('/logout/'); ?>">[<?= __("Logout"); ?>]</a>
 	</p>
 	<?php elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])): ?>
-	<form method="post" action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>">
+	<form method="post" action="<?= htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>">
 		<fieldset>
-			<legend><?php echo __('Enter login credentials') ?></legend>
+			<legend><?= __('Enter login credentials') ?></legend>
 			<?php if (!empty($login_error)): ?>
-			<ul class="errorlist"><li><?php echo $login_error ?></li></ul>
+			<ul class="errorlist"><li><?= $login_error ?></li></ul>
 			<?php endif; ?>
 			<p>
-				<label for="id_username"><?php print __('Username') . ':'; ?></label>
-				<input id="id_username" type="text" name="user" size="30" maxlength="<?php print USERNAME_MAX_LEN; ?>" value="<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>" />
+				<label for="id_username"><?= __('Username') . ':'; ?></label>
+				<input id="id_username" type="text" name="user" size="30" maxlength="<?= USERNAME_MAX_LEN; ?>" value="<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>" />
 			</p>
 			<p>
-				<label for="id_password"><?php print __('Password') . ':'; ?></label>
-				<input id="id_password" type="password" name="passwd" size="30" maxlength="<?php print PASSWD_MAX_LEN; ?>" />
+				<label for="id_password"><?= __('Password') . ':'; ?></label>
+				<input id="id_password" type="password" name="passwd" size="30" maxlength="<?= PASSWD_MAX_LEN; ?>" />
 			</p>
 			<p>
 				<input type="checkbox" name="remember_me" id="id_remember_me" />
-				<label for="id_remember_me"><?php print __("Remember me"); ?></label>
+				<label for="id_remember_me"><?= __("Remember me"); ?></label>
 			</p>
 			<p>
 				<input type="submit" class="button" value="<?php  print __("Login"); ?>" />
-				<a href="<?php echo get_uri('/passreset/') ?>">[<?php echo __('Forgot Password') ?>]</a>
+				<a href="<?= get_uri('/passreset/') ?>">[<?= __('Forgot Password') ?>]</a>
 			</p>
 		</fieldset>
 	</form>

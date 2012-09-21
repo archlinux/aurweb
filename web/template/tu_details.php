@@ -1,50 +1,50 @@
 <div class="box">
-	<h2><?php print __("Proposal Details") ?></h2>
+	<h2><?= __("Proposal Details") ?></h2>
 
 	<?php if ($isrunning == 1): ?>
 	<p style="font-weight: bold; color: red">
-		<?php print __("This vote is still running.") ?>
+		<?= __("This vote is still running.") ?>
 	</p>
 	<?php endif; ?>
 
 	<p>
-		<?php echo __("User") ?>:
+		<?= __("User") ?>:
 		<b>
 			<?php if (!empty($row['User'])): ?>
-			<a href="<?php echo get_uri('/packages/'); ?>?K=<?php print $row['User'] ?>&amp;SeB=m"><?php print $row['User'] ?></a>
+			<a href="<?= get_uri('/packages/'); ?>?K=<?= $row['User'] ?>&amp;SeB=m"><?= $row['User'] ?></a>
 			<?php else: ?>
 			N/A
 			<?php endif; ?>
 		</b>
 		<br />
-		<?php print __("Submitted: %s by %s", "<b>" . gmdate("Y-m-d H:i", $row['Submitted']) . "</b>", "<b>" . username_from_id($row['SubmitterID']) . "</b>") ?>
+		<?= __("Submitted: %s by %s", "<b>" . gmdate("Y-m-d H:i", $row['Submitted']) . "</b>", "<b>" . username_from_id($row['SubmitterID']) . "</b>") ?>
 		<br />
-		<?php print __("End") ?>:
-		<b><?php print gmdate("Y-m-d H:i", $row['End']) ?></b>
+		<?= __("End") ?>:
+		<b><?= gmdate("Y-m-d H:i", $row['End']) ?></b>
 	</p>
 
 	<p>
-		<?php print str_replace("\n", "<br />\n", htmlspecialchars($row['Agenda'])) ?>
+		<?= str_replace("\n", "<br />\n", htmlspecialchars($row['Agenda'])) ?>
 	</p>
 
 	<table>
 		<tr>
-			<th><?php print __("Yes") ?></th>
-			<th><?php print __("No") ?></th>
-			<th><?php print __("Abstain") ?></th>
-			<th><?php print __("Total") ?></th>
-			<th><?php print __('Voted') ?></th>
+			<th><?= __("Yes") ?></th>
+			<th><?= __("No") ?></th>
+			<th><?= __("Abstain") ?></th>
+			<th><?= __("Total") ?></th>
+			<th><?= __('Voted') ?></th>
 		</tr>
 		<tr>
-			<td><?php print $row['Yes'] ?></td>
-			<td><?php print $row['No'] ?></td>
-			<td><?php print $row['Abstain'] ?></td>
-			<td><?php print ($row['Yes'] + $row['No'] + $row['Abstain']) ?></td>
+			<td><?= $row['Yes'] ?></td>
+			<td><?= $row['No'] ?></td>
+			<td><?= $row['Abstain'] ?></td>
+			<td><?= ($row['Yes'] + $row['No'] + $row['Abstain']) ?></td>
 			<td>
 				<?php if ($hasvoted == 0): ?>
-				<span style="color: red; font-weight: bold"><?php print __("No") ?></span>
+				<span style="color: red; font-weight: bold"><?= __("No") ?></span>
 				<?php else: ?>
-				<span style="color: green; font-weight: bold"><?php print __("Yes") ?></span>
+				<span style="color: green; font-weight: bold"><?= __("Yes") ?></span>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -53,21 +53,21 @@
 
 <?php if (!$isrunning): ?>
 <div class="box">
-	<h2><?php echo __("Voters"); ?></h2>
-	<?php echo $whovoted; ?>
+	<h2><?= __("Voters"); ?></h2>
+	<?= $whovoted; ?>
 </div>
 <?php endif; ?>
 
 <div class="box">
 
 <?php if ($canvote == 1): ?>
-	<form action="<?php echo get_uri('/tu/'); ?>?id=<?php print $row['ID'] ?>" method="post">
+	<form action="<?= get_uri('/tu/'); ?>?id=<?= $row['ID'] ?>" method="post">
 		<fieldset>
-			<input type="submit" class="button" name="voteYes" value="<?php print __("Yes") ?>" />
-			<input type="submit" class="button" name="voteNo" value="<?php print __("No") ?>" />
-			<input type="submit" class="button" name="voteAbstain" value="<?php print __("Abstain") ?>" />
+			<input type="submit" class="button" name="voteYes" value="<?= __("Yes") ?>" />
+			<input type="submit" class="button" name="voteNo" value="<?= __("No") ?>" />
+			<input type="submit" class="button" name="voteAbstain" value="<?= __("Abstain") ?>" />
 			<input type="hidden" name="doVote" value="1" />
-			<input type="hidden" name="token" value="<?php echo htmlspecialchars($_COOKIE['AURSID']) ?>" />
+			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		</fieldset>
 	</form>
 <?php else:

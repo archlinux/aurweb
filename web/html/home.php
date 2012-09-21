@@ -17,7 +17,7 @@ $dbh = db_connect();
 <div id="content-left-wrapper">
 	<div id="content-left">
 		<div id="intro" class="box">
-			<h2>AUR <?php print __("Home"); ?></h2>
+			<h2>AUR <?= __("Home"); ?></h2>
 			<p>
 			<?php
 			echo __(
@@ -40,11 +40,11 @@ $dbh = db_connect();
 			?>
 			</p>
 			<p>
-			<?php echo __('Remember to vote for your favourite packages!'); ?>
-			<?php echo __('Some packages may be provided as binaries in [community].'); ?>
+			<?= __('Remember to vote for your favourite packages!'); ?>
+			<?= __('Some packages may be provided as binaries in [community].'); ?>
 			</p>
 			<p>
-			<h4><?php echo __('Discussion') ?></h4>
+			<h4><?= __('Discussion') ?></h4>
 			<?php
 			echo __(
 				'General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. This list can be used for package orphan requests, merge requests, and deletion requests. For discussion relating to the development of the AUR, use the %saur-dev%s mailing list.',
@@ -55,7 +55,7 @@ $dbh = db_connect();
 				);
 			?>
 			</p>
-			<h4><?php echo __('Bug Reporting') ?></h4>
+			<h4><?= __('Bug Reporting') ?></h4>
 			<?php
 			echo __(
 				'If you find a bug in the AUR, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page.',
@@ -68,9 +68,9 @@ $dbh = db_connect();
 			</p>
 
 			<div class="important">
-				<b><?php echo __('DISCLAIMER') ?> :</b>
+				<b><?= __('DISCLAIMER') ?> :</b>
 				<br />
-				<?php echo __('Unsupported packages are user produced content. Any use of the provided files is at your own risk.'); ?>
+				<?= __('Unsupported packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</div>
 		</div>
 		<?php if (!empty($_COOKIE["AURSID"])): ?>
@@ -91,7 +91,7 @@ $dbh = db_connect();
 </div>
 <div id="content-right">
 	<div id="pkgsearch" class="widget">
-		<form id="pkgsearch-form" method="get" action="<?php echo get_uri('/packages/'); ?>">
+		<form id="pkgsearch-form" method="get" action="<?= get_uri('/packages/'); ?>">
 			<fieldset>
 				<label for="pkgsearch-field">Package Search:</label>
 				<input type="hidden" name="O" value="0" />

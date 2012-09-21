@@ -1,14 +1,14 @@
-<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
+<?= '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xml:lang="<?php print htmlspecialchars($LANG, ENT_QUOTES) ?>" lang="<?php print htmlspecialchars($LANG, ENT_QUOTES) ?>">
+	xml:lang="<?= htmlspecialchars($LANG, ENT_QUOTES) ?>" lang="<?= htmlspecialchars($LANG, ENT_QUOTES) ?>">
   <head>
-    <title>AUR (<?php print htmlspecialchars($LANG); ?>)<?php if ($title != "") { print " - " . htmlspecialchars($title); } ?></title>
+    <title>AUR (<?= htmlspecialchars($LANG); ?>)<?php if ($title != "") { print " - " . htmlspecialchars($title); } ?></title>
 	<link rel='stylesheet' type='text/css' href='/css/archweb.css' />
 	<link rel='stylesheet' type='text/css' href='/css/aur.css' />
 	<link rel='shortcut icon' href='/images/favicon.ico' />
-	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='<?php echo get_uri('/rss/'); ?>' />
+	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='<?= get_uri('/rss/'); ?>' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
 	<body>
@@ -29,7 +29,7 @@
 
 		<div id="content">
 			<div id="lang_sub">
-				<form method="get" action="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"], ENT_QUOTES) ?>">
+				<form method="get" action="<?= htmlspecialchars($_SERVER["REQUEST_URI"], ENT_QUOTES) ?>">
 					<fieldset>
 						<div>
 							<select name="setlang" id="id_setlang">
@@ -50,20 +50,20 @@
 			</div>
 			<div id="archdev-navbar">
 				<ul>
-					<li><a href="<?php echo get_uri('/'); ?>">AUR <?php print __("Home"); ?></a></li>
-					<li><a href="<?php echo get_uri('/packages/'); ?>"><?php print __("Packages"); ?></a></li>
+					<li><a href="<?= get_uri('/'); ?>">AUR <?= __("Home"); ?></a></li>
+					<li><a href="<?= get_uri('/packages/'); ?>"><?= __("Packages"); ?></a></li>
 					<?php if (isset($_COOKIE['AURSID'])): ?>
-						<li><a href="<?php echo get_uri('/packages/'); ?>?SeB=m&amp;K=<?php print username_from_sid($_COOKIE["AURSID"]); ?>"><?php print __("My Packages"); ?></a></li>
-						<li><a href="<?php echo get_uri('/submit/'); ?>"><?php print __("Submit"); ?></a></li>
+						<li><a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __("My Packages"); ?></a></li>
+						<li><a href="<?= get_uri('/submit/'); ?>"><?= __("Submit"); ?></a></li>
 						<?php if (check_user_privileges()): ?>
-						<li><a href="<?php echo get_uri('/accounts/') ; ?>"><?php print __("Accounts"); ?></a></li>
+						<li><a href="<?= get_uri('/accounts/') ; ?>"><?= __("Accounts"); ?></a></li>
 						<?php endif; ?>
-						<li><a href="<?php echo get_user_uri(username_from_sid($_COOKIE['AURSID'])) . 'edit/'; ?>"><?php print __(" My Account"); ?></a></li>
-						<?php if (check_user_privileges()): ?><li><a href="<?php echo get_uri('/tu/'); ?>"><?php print __("Trusted User"); ?></a></li><?php endif; ?>
-						<li><a href="<?php echo get_uri('/logout/'); ?>"><?php print __("Logout"); ?></a></li>
+						<li><a href="<?= get_user_uri(username_from_sid($_COOKIE['AURSID'])) . 'edit/'; ?>"><?= __(" My Account"); ?></a></li>
+						<?php if (check_user_privileges()): ?><li><a href="<?= get_uri('/tu/'); ?>"><?= __("Trusted User"); ?></a></li><?php endif; ?>
+						<li><a href="<?= get_uri('/logout/'); ?>"><?= __("Logout"); ?></a></li>
 					<?php else: ?>
-						<li><a href="<?php echo get_uri('/register/'); ?>"><?php print __("Register"); ?></a></li>
-						<li><a href="<?php echo get_uri('/login/'); ?>"><?php print __("Login"); ?></a></li>
+						<li><a href="<?= get_uri('/register/'); ?>"><?= __("Register"); ?></a></li>
+						<li><a href="<?= get_uri('/login/'); ?>"><?= __("Login"); ?></a></li>
 					<?php endif; ?>
 				</ul>
 			</div><!-- #archdev-navbar -->

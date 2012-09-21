@@ -97,7 +97,7 @@ html_header($title);
 ?>
 
 <?php if ($output): ?>
-	<p class="pkgoutput"><?php print $output ?></p>
+	<p class="pkgoutput"><?= $output ?></p>
 <?php endif; ?>
 
 <?php

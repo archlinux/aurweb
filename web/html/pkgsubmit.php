@@ -436,12 +436,12 @@ html_header("Submit");
 ?>
 
 <?php if ($error): ?>
-	<p class="pkgoutput"><?php print $error ?></p>
+	<p class="pkgoutput"><?= $error ?></p>
 <?php endif; ?>
 
 <div class="box">
-	<h2><?php echo __("Submit"); ?></h2>
-	<p><?php echo __("Upload your source packages here. Create source packages with `makepkg --source`.") ?></p>
+	<h2><?= __("Submit"); ?></h2>
+	<p><?= __("Upload your source packages here. Create source packages with `makepkg --source`.") ?></p>
 
 <?php
 	if (empty($_REQUEST['pkgsubmit']) || $error):
@@ -452,16 +452,16 @@ html_header("Submit");
 			$pkg_categories = pkgCategories();
 ?>
 
-<form action="<?php echo get_uri('/submit/'); ?>" method="post" enctype="multipart/form-data">
+<form action="<?= get_uri('/submit/'); ?>" method="post" enctype="multipart/form-data">
 	<fieldset>
 		<div>
 			<input type="hidden" name="pkgsubmit" value="1" />
-			<input type="hidden" name="token" value="<?php print htmlspecialchars($_COOKIE['AURSID']) ?>" />
+			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		</div>
 		<p>
-			<label for="id_category"><?php print __("Package Category"); ?>:</label>
+			<label for="id_category"><?= __("Package Category"); ?>:</label>
 			<select id="id_category" name="category">
-				<option value="1"><?php print __("Select Category"); ?></option>
+				<option value="1"><?= __("Select Category"); ?></option>
 				<?php
 					foreach ($pkg_categories as $num => $cat):
 						print '<option value="' . $num . '"';
@@ -474,12 +474,12 @@ html_header("Submit");
 			</select>
 		</p>
 		<p>
-			<label for="id_file"><?php print __("Upload package file"); ?>:</label>
+			<label for="id_file"><?= __("Upload package file"); ?>:</label>
 			<input id="id_file" type="file" name="pfile" size='30' />
 		</p>
 		<p>
 			<label></label>
-			<input class="button" type="submit" value="<?php print __("Upload"); ?>" />
+			<input class="button" type="submit" value="<?= __("Upload"); ?>" />
 		</p>
 	</fieldset>
 </form>
