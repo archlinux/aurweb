@@ -16,8 +16,19 @@ include_once("version.inc.php");
 include_once("acctfuncs.inc.php");
 include_once("cachefuncs.inc.php");
 
-# see if the visitor is already logged in
-#
+/**
+ * Check if a visitor is logged in
+ *
+ * Query "Sessions" table with supplied cookie. Determine if the cookie is valid
+ * or not. Unset the cookie if invalid or session timeout reached. Update the
+ * session timeout if it is still valid.
+ *
+ * @global array $_COOKIE User cookie values
+ * @global string $LOGIN_TIMEOUT Time until session times out
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return void
+ */
 function check_sid($dbh=NULL) {
 	global $_COOKIE;
 	global $LOGIN_TIMEOUT;
@@ -77,8 +88,11 @@ function check_sid($dbh=NULL) {
 	return;
 }
 
-# Verify the supplied token matches the expected token for POST forms
-#
+/**
+ * Verify the supplied CSRF token matches expected token
+ *
+ * @return bool True if the CSRF token is the same as the cookie SID, otherwise false
+ */
 function check_token() {
 	if (isset($_POST['token'])) {
 		return ($_POST['token'] == $_COOKIE['AURSID']);
@@ -87,8 +101,13 @@ function check_token() {
 	}
 }
 
-# verify that an email address looks like it is legitimate
-#
+/**
+ * Verify a user supplied e-mail against RFC 3696 and DNS records
+ *
+ * @param string $addy E-mail address being validated in foo@example.com format
+ *
+ * @return bool True if e-mail passes validity checks, otherwise false
+ */
 function valid_email($addy) {
 	// check against RFC 3696
 	if (filter_var($addy, FILTER_VALIDATE_EMAIL) === false) {
@@ -104,15 +123,23 @@ function valid_email($addy) {
 	return true;
 }
 
-# generate a (hopefully) unique session id
-#
+/**
+ * Generate a unique session ID
+ *
+ * @return string MD5 hash of the concatenated user IP, random number, and current time
+ */
 function new_sid() {
 	return md5($_SERVER['REMOTE_ADDR'] . uniqid(mt_rand(), true));
 }
 
-
-# obtain the username if given their Users.ID
-#
+/**
+ * Determine the user's username in the database using a user ID
+ *
+ * @param string $id User's ID
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string Username if it exists, otherwise "None"
+ */
 function username_from_id($id="", $dbh=NULL) {
 	if (!$id) {
 		return "";
@@ -130,9 +157,14 @@ function username_from_id($id="", $dbh=NULL) {
 	return $row[0];
 }
 
-
-# obtain the username if given their current SID
-#
+/**
+ * Determine the user's username in the database using a session ID
+ *
+ * @param string $sid User's session ID
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string Username of the visitor
+ */
 function username_from_sid($sid="", $dbh=NULL) {
 	if (!$sid) {
 		return "";
@@ -153,8 +185,14 @@ function username_from_sid($sid="", $dbh=NULL) {
 	return $row[0];
 }
 
-# obtain the email address if given their current SID
-#
+/**
+ * Determine the user's e-mail address in the database using a session ID
+ *
+ * @param string $sid User's session ID
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string User's e-mail address as given during registration
+ */
 function email_from_sid($sid="", $dbh=NULL) {
 	if (!$sid) {
 		return "";
@@ -175,9 +213,14 @@ function email_from_sid($sid="", $dbh=NULL) {
 	return $row[0];
 }
 
-# obtain the account type if given their current SID
-# Return either "", "User", "Trusted User", "Developer"
-#
+/**
+ * Determine the user's account type in the database using a session ID
+ *
+ * @param string $sid User's session ID
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string Account type of user ("User", "Trusted User", or "Developer")
+ */
 function account_from_sid($sid="", $dbh=NULL) {
 	if (!$sid) {
 		return "";
@@ -199,8 +242,14 @@ function account_from_sid($sid="", $dbh=NULL) {
 	return $row[0];
 }
 
-# obtain the Users.ID if given their current SID
-#
+/**
+ * Determine the user's ID in the database using a session ID
+ *
+ * @param string $sid User's session ID
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string|int The user's name, 0 on query failure
+ */
 function uid_from_sid($sid="", $dbh=NULL) {
 	if (!$sid) {
 		return "";
@@ -221,8 +270,11 @@ function uid_from_sid($sid="", $dbh=NULL) {
 	return $row[0];
 }
 
-# connect to the database
-#
+/**
+ * Establish a connection with a database using PDO
+ *
+ * @return \PDO A database connection
+ */
 function db_connect() {
 	try {
 		$dbh = new PDO(AUR_db_DSN_prefix . ":" . AUR_db_host . ";dbname=" . AUR_db_name, AUR_db_user, AUR_db_pass);
@@ -236,8 +288,15 @@ function db_connect() {
 	return $dbh;
 }
 
-# common header
-#
+/**
+ * Common AUR header displayed on all pages
+ *
+ * @global string $LANG Language selected by the visitor
+ * @global array $SUPPORTED_LANGS Languages that are supported by the AUR
+ * @param string $title Name of the AUR page to be displayed on browser
+ *
+ * @return void
+ */
 function html_header($title="") {
 	global $LANG;
 	global $SUPPORTED_LANGS;
@@ -248,16 +307,27 @@ function html_header($title="") {
 	return;
 }
 
-
-# common footer
-#
+/**
+ * Common AUR footer displayed on all pages
+ *
+ * @param string $ver The AUR version
+ *
+ * @return void
+ */
 function html_footer($ver="") {
 	include('footer.php');
 	return;
 }
 
-# check to see if the user can submit a package
-#
+/**
+ * Determine if a user has permission to submit a package
+ *
+ * @param string $name Name of the package to be submitted
+ * @param string $sid User's session ID
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return int 0 if the user can't submit, 1 if the user can submit
+ */
 function can_submit_pkg($name="", $sid="", $dbh=NULL) {
 	if (!$name || !$sid) {return 0;}
 	if(!$dbh) {
@@ -280,8 +350,13 @@ function can_submit_pkg($name="", $sid="", $dbh=NULL) {
 	return 0;
 }
 
-# recursive delete directory
-#
+/**
+ * Recursively delete a directory
+ *
+ * @param string $dirname Name of the directory to be removed
+ *
+ * @return void
+ */
 function rm_tree($dirname) {
 	if (empty($dirname) || !is_dir($dirname)) return;
 
@@ -302,8 +377,14 @@ function rm_tree($dirname) {
 	return;
 }
 
-# obtain the uid given a Users.Username
-#
+ /**
+ * Determine the user's ID in the database using a username
+ *
+ * @param string $username The username of an account
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string Return user ID if exists for username, otherwise "None"
+ */
 function uid_from_username($username="", $dbh=NULL) {
 	if (!$username) {
 		return "";
@@ -321,8 +402,14 @@ function uid_from_username($username="", $dbh=NULL) {
 	return $row[0];
 }
 
-# obtain the uid given a Users.Email
-#
+/**
+ * Determine the user's ID in the database using an e-mail address
+ *
+ * @param string $email An e-mail address in foo@example.com format
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string The user's ID
+ */
 function uid_from_email($email="", $dbh=NULL) {
 	if (!$email) {
 		return "";
@@ -340,8 +427,11 @@ function uid_from_email($email="", $dbh=NULL) {
 	return $row[0];
 }
 
-# check user privileges
-#
+/**
+ * Determine if a user has TU or Developer privileges
+ *
+ * @return bool Return true if the user is a TU or developer, otherwise false
+ */
 function check_user_privileges() {
 	$type = account_from_sid($_COOKIE['AURSID']);
 	return ($type == 'Trusted User' || $type == 'Developer');
@@ -353,10 +443,10 @@ function check_user_privileges() {
  * Makes a clean string of variables for use in URLs based on current $_GET and
  * list of values to edit/add to that. Any empty variables are discarded.
  *
- * ex. print "http://example.com/test.php?" . mkurl("foo=bar&bar=baz")
+ * @example print "http://example.com/test.php?" . mkurl("foo=bar&bar=baz")
  *
  * @param string $append string of variables and values formatted as in URLs
- * ex. mkurl("foo=bar&bar=baz")
+ *
  * @return string clean string of variables to append to URL, urlencoded
  */
 function mkurl($append) {
@@ -381,6 +471,14 @@ function mkurl($append) {
 	return substr($out, 5);
 }
 
+/**
+ * Determine a user's salt from the database
+ *
+ * @param string $user_id The user ID of the user trying to log in
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string|void Return the salt for the requested user, otherwise void
+ */
 function get_salt($user_id, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -394,6 +492,13 @@ function get_salt($user_id, $dbh=NULL) {
 	return;
 }
 
+/**
+ * Save a user's salted password in the database
+ *
+ * @param string $user_id The user ID of the user who is salting their password
+ * @param string $passwd The password of the user logging in
+ * @param \PDO $dbh Already established database connection
+ */
 function save_salt($user_id, $passwd, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -405,10 +510,23 @@ function save_salt($user_id, $passwd, $dbh=NULL) {
 	$result = $dbh->exec($q);
 }
 
+/**
+ * Generate a string to be used for salting passwords
+ *
+ * @return string MD5 hash of concatenated random number and current time
+ */
 function generate_salt() {
 	return md5(uniqid(mt_rand(), true));
 }
 
+/**
+ * Combine salt and password to form a hash
+ *
+ * @param string $passwd User plaintext password
+ * @param string $salt MD5 hash to be used as user salt
+ *
+ * @return string The MD5 hash of the concatenated salt and user password
+ */
 function salted_hash($passwd, $salt) {
 	if (strlen($salt) != 32) {
 		trigger_error('Salt does not look like an md5 hash', E_USER_WARNING);
@@ -416,6 +534,13 @@ function salted_hash($passwd, $salt) {
 	return md5($salt . $passwd);
 }
 
+/**
+ * Process submitted comments so any links can be followed
+ *
+ * @param string $comment Raw user submitted package comment
+ *
+ * @return string User comment with links printed in HTML
+ */
 function parse_comment($comment) {
 	$url_pattern = '/(\b(?:https?|ftp):\/\/[\w\/\#~:.?+=&%@!\-;,]+?' .
 		'(?=[.:?\-;,]*(?:[^\w\/\#~:.?+=&%@!\-;,]|$)))/iS';
@@ -439,6 +564,11 @@ function parse_comment($comment) {
 	return $html;
 }
 
+/**
+ * Wrapper for beginning a database transaction
+ *
+ * @param \PDO $dbh Already established database connection
+ */
 function begin_atomic_commit($dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -446,6 +576,11 @@ function begin_atomic_commit($dbh=NULL) {
 	$dbh->beginTransaction();
 }
 
+/**
+ * Wrapper for committing a database transaction
+ *
+ * @param \PDO $dbh Already established database connection
+ */
 function end_atomic_commit($dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -453,6 +588,14 @@ function end_atomic_commit($dbh=NULL) {
 	$dbh->commit();
 }
 
+/**
+ *
+ * Determine the row ID for the most recently insterted row
+ *
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return string The ID of the last inserted row
+ */
 function last_insert_id($dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -460,6 +603,14 @@ function last_insert_id($dbh=NULL) {
 	return $dbh->lastInsertId();
 }
 
+/**
+ * Determine package information for latest package
+ *
+ * @param int $numpkgs Number of packages to get information on
+ * @param \PDO $dbh Already established database connection
+ *
+ * @return array $packages Package info for the specified number of recent packages
+ */
 function latest_pkgs($numpkgs, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
