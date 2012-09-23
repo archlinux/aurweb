@@ -1,6 +1,12 @@
 <?php
 
-# Helper function- retrieve request param if available, "" otherwise
+/**
+ * Determine if an HTTP request variable is set
+ *
+ * @param string $name The request variable to test for
+ *
+ * @return string Return the value of the request variable, otherwise blank
+ */
 function in_request($name) {
 	if (isset($_REQUEST[$name])) {
 		return $_REQUEST[$name];
@@ -8,7 +14,13 @@ function in_request($name) {
 	return "";
 }
 
-# Format PGP key fingerprint
+/**
+ * Format the PGP key fingerprint
+ *
+ * @param string $fingerprint An unformatted PGP key fingerprint
+ *
+ * @return string PGP fingerprint with spaces every 4 characters
+ */
 function html_format_pgp_fingerprint($fingerprint) {
 	if (strlen($fingerprint) != 40 || !ctype_xdigit($fingerprint)) {
 		return $fingerprint;
@@ -26,49 +38,58 @@ function html_format_pgp_fingerprint($fingerprint) {
 		substr($fingerprint, 36, 4) . " ", ENT_QUOTES);
 }
 
-# Display the standard Account form, pass in default values if any
-
+/**
+ * Loads the account editing form, with any values that are already saved
+ *
+ * @global array $SUPPORTED_LANGS Languages that are supported by the AUR
+ * @param string $UTYPE User type of the account accessing the form
+ * @param string $A Form to use, either UpdateAccount or NewAccount
+ * @param string $U The username to display
+ * @param string $T The account type of the displayed user
+ * @param string $S Whether the displayed user has a suspended account
+ * @param string $E The e-mail address of the displayed user
+ * @param string $P The password value of the displayed user
+ * @param string $C The confirmed password value of the displayed user
+ * @param string $R The real name of the displayed user
+ * @param string $L The language preference of the displayed user
+ * @param string $I The IRC nickname of the displayed user
+ * @param string $K The PGP key fingerprint of the displayed user
+ * @param string $UID The user ID of the displayed user
+ *
+ * @return void
+ */
 function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 			$E="",$P="",$C="",$R="",$L="",$I="",$K="",$UID=0) {
-	# UTYPE: what user type the form is being displayed for
-	# A: what "form" name to use
-	# U: value to display for username
-	# T: value to display for account type
-	# S: value to display for account suspended
-	# E: value to display for email address
-	# P: password value
-	# C: confirm password value
-	# R: value to display for RealName
-	# L: value to display for Language preference
-	# I: value to display for IRC nick
-	# N: new package notify value
-	# UID: Users.ID value in case form is used for editing
-
 	global $SUPPORTED_LANGS;
 
 	include("account_edit_form.php");
 	return;
 } # function display_account_form()
 
-
-# process form input from a new/edit account form
-#
+/**
+ * Process information given to new/edit account form
+ *
+ * @global array $SUPPORTED_LANGS Languages that are supported by the AUR
+ * @param string $UTYPE The account type of the user modifying the account
+ * @param string $TYPE Either "edit" for editing or "new" for registering an account
+ * @param string $A Form to use, either UpdateAccount or NewAccount
+ * @param string $U The username for the account
+ * @param string $T The account type for the user
+ * @param string $S Whether or not the account is suspended
+ * @param string $E The e-mail address for the user
+ * @param string $P The password for the user
+ * @param string $C The confirmed password for the user
+ * @param string $R The real name of the user
+ * @param string $L The language preference of the user
+ * @param string $I The IRC nickname of the user
+ * @param string $K The PGP fingerprint of the user
+ * @param string $UID The user ID of the modified account
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return string|void Return void if successful, otherwise return error
+ */
 function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$P="",$C="",$R="",$L="",$I="",$K="",$UID=0,$dbh=NULL) {
-	# UTYPE: The user's account type
-	# TYPE: either "edit" or "new"
-	# A: what parent "form" name to use
-	# U: value to display for username
-	# T: value to display for account type
-	# S: value to display for account suspended
-	# E: value to display for email address
-	# P: password value
-	# C: confirm password value
-	# R: value to display for RealName
-	# L: value to display for Language preference
-	# I: value to display for IRC nick
-	# N: new package notify value
-	# UID: database Users.ID value
 
 	# error check and process request for a new/modified account
 	global $SUPPORTED_LANGS;
@@ -236,27 +257,35 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	return;
 }
 
-# search existing accounts
-#
+/**
+ * Include the search accounts form
+ *
+ * @return void
+ */
 function search_accounts_form() {
 	include("search_accounts_form.php");
 	return;
 }
 
-
-# search results page
-#
+/**
+ * Display the search results page
+ *
+ * @param string $UTYPE User type of the account accessing the form
+ * @param string $O The offset for the results page
+ * @param string $SB The column to sort the results page by
+ * @param string $U The username search criteria
+ * @param string $T The account type search criteria
+ * @param string $S Whether the account is suspended search criteria
+ * @param string $E The e-mail address search criteria
+ * @param string $R The real name search criteria
+ * @param string $I The IRC nickname search criteria
+ * @param string $K The PGP key fingerprint search criteria
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		$S="",$E="",$R="",$I="",$K="",$dbh=NULL) {
-	# UTYPE: what account type the user belongs to
-	# O: what row offset we're at
-	# SB: how to sort the results
-	# U: value to display for username
-	# T: value to display for account type
-	# S: value to display for account suspended
-	# E: value to display for email address
-	# R: value to display for RealName
-	# I: value to display for IRC nick
 
 	$HITS_PER_PAGE = 50;
 	if ($O) {
@@ -349,9 +378,14 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	return;
 }
 
-/*
- * Returns SID (Session ID) and error (error message) in an array
- * SID of 0 means login failed.
+/**
+ * Attempt to login and generate a session
+ *
+ * @global int $MAX_SESSIONS_PER_USER Maximum sessions a single user may have open
+ * @global int $PERSISTENT_COOKIE_TIMEOUT Time until cookie expires
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array Session ID for user, error message if applicable
  */
 function try_login($dbh=NULL) {
 	global $MAX_SESSIONS_PER_USER, $PERSISTENT_COOKIE_TIMEOUT;
@@ -441,14 +475,17 @@ function try_login($dbh=NULL) {
 	return array('SID' => $new_sid, 'error' => $login_error);
 }
 
-/*
- * Only checks if the name itself is valid
- * Longer or equal to USERNAME_MIN_LEN
- * Shorter or equal to USERNAME_MAX_LEN
- * Starts and ends with a letter or number
- * Contains at most ONE dot, hyphen, or underscore
- * Returns the username if it is valid
- * Returns nothing if it isn't valid
+/**
+ * Validate a username against a collection of rules
+ *
+ * The username must be longer or equal to USERNAME_MIN_LEN. It must be shorter
+ * or equal to USERNAME_MAX_LEN. It must start and end with either a letter or
+ * a number. It can contain one period, hypen, or underscore. Returns username
+ * if it meets all of those rules.
+ *
+ * @param string $user Username to validate
+ *
+ * @return string|void Return username if it meets criteria, otherwise void
  */
 function valid_username($user) {
 	if (!empty($user)) {
@@ -472,9 +509,13 @@ function valid_username($user) {
 	return;
 }
 
-/*
- * Checks if the username is valid and if it exists in the database
- * Returns the username ID or nothing
+/**
+ * Determine if a username exists in the database
+ *
+ * @param string $user Username to check in the database
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return string|void Return user ID if in database, otherwise void
  */
 function valid_user($user, $dbh=NULL) {
 	/*	if ( $user = valid_username($user) ) { */
@@ -497,7 +538,14 @@ function valid_user($user, $dbh=NULL) {
 	return;
 }
 
-# Check for any open proposals about a user. Used to prevent multiple proposals.
+/**
+ * Determine if a user already has a proposal open about themselves
+ *
+ * @param string $user Username to checkout for open proposal
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return bool True if there is an open proposal about the user, otherwise false
+ */
 function open_user_proposals($user, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -513,8 +561,17 @@ function open_user_proposals($user, $dbh=NULL) {
 	}
 }
 
-# Creates a new trusted user proposal from entered agenda.
-# Optionally takes proposal about specific user. Length of vote set by submitter.
+/**
+ * Add a new Trusted User proposal to the database
+ *
+ * @param string $agenda The agenda of the vote
+ * @param string $user The use the vote is about
+ * @param int $votelength The length of time for the vote to last
+ * @param string $submitteruid The user ID of the individual who submitted the proposal
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -527,7 +584,15 @@ function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) 
 	$result = $dbh->exec($q);
 }
 
-# Add a reset key for a specific user
+/**
+ * Add a reset key to the database for a specified user
+ *
+ * @param string $resetkey A password reset key to be stored in database
+ * @param string $uid The user ID to store the reset key for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function create_resetkey($resetkey, $uid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -538,7 +603,17 @@ function create_resetkey($resetkey, $uid, $dbh=NULL) {
 	$dbh->exec($q);
 }
 
-# Change a password and save the salt only if reset key and email are correct
+/**
+ * Change a user's password in the database if reset key and e-mail are correct
+ *
+ * @param string $hash New MD5 hash of a user's password
+ * @param string $salt New salt for the user's password
+ * @param string $resetkey Code e-mailed to a user to reset a password
+ * @param string $email E-mail address of the user resetting their password
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return string|void Redirect page if successful, otherwise return error message
+ */
 function password_reset($hash, $salt, $resetkey, $email, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -561,6 +636,13 @@ function password_reset($hash, $salt, $resetkey, $email, $dbh=NULL) {
 	}
 }
 
+/**
+ * Determine if the password is longer than the minimum length
+ *
+ * @param string $passwd The password to check
+ *
+ * @return bool True if longer than minimum length, otherwise false
+ */
 function good_passwd($passwd) {
 	if ( strlen($passwd) >= PASSWD_MIN_LEN ) {
 		return true;
@@ -568,8 +650,14 @@ function good_passwd($passwd) {
 	return false;
 }
 
-/* Verifies that the password is correct for the userID specified.
- * Returns true or false
+/**
+ * Determine if the password is correct and salt it if it hasn't been already
+ *
+ * @param string $userID The user ID to check the password against
+ * @param string $passwd The password the visitor sent
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return bool True if password was correct and properly salted, otherwise false
  */
 function valid_passwd($userID, $passwd, $dbh=NULL) {
 	if (!$dbh) {
@@ -613,16 +701,25 @@ function valid_passwd($userID, $passwd, $dbh=NULL) {
 	return false;
 }
 
-/*
- * Checks if the PGP key fingerprint is valid (must be 40 hexadecimal digits).
+/**
+ * Determine if the PGP key fingerprint is valid (must be 40 hexadecimal digits)
+ *
+ * @param string $fingerprint PGP fingerprint to check if valid
+ *
+ * @return bool True if the fingerprint is 40 hexadecimal digits, otherwise false
  */
 function valid_pgp_fingerprint($fingerprint) {
 	$fingerprint = str_replace(" ", "", $fingerprint);
 	return (strlen($fingerprint) == 40 && ctype_xdigit($fingerprint));
 }
 
-/*
- * Is the user account suspended?
+/**
+ * Determine if the user account has been suspended
+ *
+ * @param string $id The ID of user to check if suspended
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return bool True if the user is suspended, otherwise false
  */
 function user_suspended($id, $dbh=NULL) {
 	if (!$dbh) {
@@ -642,8 +739,13 @@ function user_suspended($id, $dbh=NULL) {
 	return false;
 }
 
-/*
- * This should be expanded to return something
+/**
+ * Delete a specified user account from the database
+ *
+ * @param int $id The user ID of the account to be deleted
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
  */
 function user_delete($id, $dbh=NULL) {
 	if (!$dbh) {
@@ -654,9 +756,13 @@ function user_delete($id, $dbh=NULL) {
 	return;
 }
 
-/*
- * A different way of determining a user's privileges
- * rather than account_from_sid()
+/**
+ * Determine if a user is either a Trusted User or Developer
+ *
+ * @param string $id The ID of the user to check if privileged
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return int|string Return  0 if un-privileged, "2" if Trusted User, "3" if Developer
  */
 function user_is_privileged($id, $dbh=NULL) {
 	if (!$dbh) {
@@ -674,7 +780,14 @@ function user_is_privileged($id, $dbh=NULL) {
 
 }
 
-# Remove session on logout
+/**
+ * Remove the session from the database on logout
+ *
+ * @param string $sid User's session ID
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function delete_session_id($sid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -684,7 +797,14 @@ function delete_session_id($sid, $dbh=NULL) {
 	$dbh->query($q);
 }
 
-# Clear out old expired sessions.
+/**
+ * Remove sessions from the database that have exceed the timeout
+ *
+ * @global int $LOGIN_TIMEOUT Time until session expires
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function clear_expired_sessions($dbh=NULL) {
 	global $LOGIN_TIMEOUT;
 
@@ -698,6 +818,15 @@ function clear_expired_sessions($dbh=NULL) {
 	return;
 }
 
+/**
+ * Get account details for a specific user
+ *
+ * @param string $uid The User ID of account to get information for
+ * @param string $username The username of the account to get for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array Account details for the specified user
+ */
 function account_details($uid, $username, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -719,6 +848,15 @@ function account_details($uid, $username, $dbh=NULL) {
 	return $row;
 }
 
+/**
+ * Determine if a user has already voted on a specific proposal
+ *
+ * @param string $voteid The ID of the Trusted User proposal
+ * @param string $uid The ID to check if the user already voted
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return bool True if the user has already voted, otherwise false
+ */
 function tu_voted($voteid, $uid, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
@@ -735,6 +873,14 @@ function tu_voted($voteid, $uid, $dbh=NULL) {
 	}
 }
 
+/**
+ * Get all current Trusted User proposals from the database
+ *
+ * @param string $order Ascending or descending order for the proposal listing
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array The details for all current Trusted User proposals
+ */
 function current_proposal_list($order, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
@@ -751,6 +897,15 @@ function current_proposal_list($order, $dbh=NULL) {
 	return $details;
 }
 
+/**
+ * Get a subset of all past Trusted User proposals from the database
+ *
+ * @param string $order Ascending or descending order for the proposal listing
+ * @param string $lim The number of proposals to list with the offset
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array The details for the subset of past Trusted User proposals
+ */
 function past_proposal_list($order, $lim, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
@@ -767,6 +922,13 @@ function past_proposal_list($order, $lim, $dbh=NULL) {
 	return $details;
 }
 
+/**
+ * Determine the total number of Trusted User proposals
+ *
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return string The total number of Trusted User proposals
+ */
 function proposal_count($dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
@@ -779,6 +941,14 @@ function proposal_count($dbh=NULL) {
 	return $row[0];
 }
 
+/**
+ * Get all details related to a specific vote from the database
+ *
+ * @param string $voteid The ID of the Trusted User proposal
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array All stored details for a specific vote
+ */
 function vote_details($voteid, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
@@ -793,6 +963,14 @@ function vote_details($voteid, $dbh=NULL) {
 	return $row;
 }
 
+/**
+ * Get an alphabetical list of users who voted for a proposal with HTML links
+ *
+ * @param string $voteid The ID of the Trusted User proposal
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array All users (and HTML links) who voted for a specific proposal
+ */
 function voter_list($voteid, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
@@ -815,6 +993,17 @@ function voter_list($voteid, $dbh=NULL) {
 	return $whovoted;
 }
 
+/**
+ * Cast a vote for a specific user proposal
+ *
+ * @param string $voteid The ID of the proposal being voted on
+ * @param string $uid The user ID of the individual voting
+ * @param string $vote Vote position, either "Yes", "No", or "Abstain"
+ * @param int $newtotal The total number of votes after the user has voted
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function cast_proposal_vote($voteid, $uid, $vote, $newtotal, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
