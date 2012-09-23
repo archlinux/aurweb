@@ -2,6 +2,13 @@
 
 include_once('aur.inc.php');
 
+/**
+ * Display the most recent 10 packages
+ *
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function updates_table($dbh) {
 	$key = 'recent_updates';
 	if(!($newest_packages = get_cache_value($key))) {
@@ -17,6 +24,14 @@ function updates_table($dbh) {
 	include('stats/updates_table.php');
 }
 
+/**
+ * Display a user's statistics table
+ *
+ * @param string $userid The user ID of the person to get package statistics for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function user_table($userid, $dbh) {
 	$base_q = "SELECT count(*) FROM Packages WHERE Packages.MaintainerUID = " . $userid;
 
@@ -34,6 +49,13 @@ function user_table($userid, $dbh) {
 	include('stats/user_table.php');
 }
 
+/**
+ * Display the general package statistics table
+ *
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function general_stats_table($dbh) {
 	# AUR statistics
 	$q = "SELECT count(*) FROM Packages";
