@@ -56,6 +56,7 @@ $sources = package_sources($row["ID"]);
 				<?php endif; ?>
 				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
 				<li><a href="<?= get_pkg_uri($row['Name']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
+				<li><a href="<?= get_pkg_uri($row['Name']) . 'merge/'; ?>"><?= __('Merge Package'); ?></a></li>
 				<?php endif; ?>
 				<?php endif; ?>
 			</ul>

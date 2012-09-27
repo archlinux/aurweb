@@ -46,6 +46,9 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			case "delete":
 				include('pkgdel.php');
 				return;
+			case "merge":
+				include('pkgmerge.php');
+				return;
 			}
 
 			if (isset($_COOKIE['AURSID'])) {
