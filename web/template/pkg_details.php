@@ -126,8 +126,12 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 <?php
 if ($row["SubmitterUID"]):
 	if ($SID):
+		if (!$USE_VIRTUAL_URLS):
 ?>
 			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= htmlspecialchars($submitter) ?>"><?= htmlspecialchars($submitter) ?></a></td>
+		<?php else: ?>
+			<td><a href="<?= get_uri('/account/') . htmlspecialchars($submitter, ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($submitter)) ?>"><?= htmlspecialchars($submitter) ?></a></td>
+		<?php endif; ?>
 <?php else: ?>
 		<td><?= htmlspecialchars($submitter) ?></td>
 	<?php endif; ?>
@@ -139,8 +143,12 @@ if ($row["SubmitterUID"]):
 <?php
 if ($row["MaintainerUID"]):
 	if ($SID):
+		if (!$USE_VIRTUAL_URLS):
 ?>
 			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= htmlspecialchars($maintainer) ?>"><?= htmlspecialchars($maintainer) ?></a></td>
+		<?php else: ?>
+			<td><a href="<?= get_uri('/account/') . htmlspecialchars($maintainer, ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($maintainer)) ?>"><?= htmlspecialchars($maintainer) ?></a></td>
+		<?php endif; ?>
 	<?php else: ?>
 		<td><?= htmlspecialchars($maintainer) ?></td>
 	<?php endif; ?>
