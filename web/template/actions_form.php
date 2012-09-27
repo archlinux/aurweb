@@ -1,4 +1,4 @@
-<?php if (!$USE_VIRTUAL_URLS || $atype == "Trusted User" || $atype == "Developer" ): ?>
+<?php if (!$USE_VIRTUAL_URLS): ?>
 <div class="box">
 	<form action="<?= htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>" method="post">
 		<fieldset>
@@ -6,7 +6,6 @@
 			<input type="hidden" name="ID" value="<?= $row['ID'] ?>" />
 			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 
-		<?php if (!$USE_VIRTUAL_URLS): ?>
 		<?php if (user_voted($uid, $row['ID'])): ?>
 			<input type="submit" class="button" name="do_UnVote" value="<?= __("UnVote") ?>" />
 		<?php else: ?>
@@ -24,7 +23,6 @@
 		<?php elseif (($row["OutOfDateTS"] !== NULL) &&
 		($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
 			<input type="submit" class="button" name="do_UnFlag" value="<?= __("UnFlag Out-of-date") ?>" />
-		<?php endif; ?>
 		<?php endif; ?>
 			
 		<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
