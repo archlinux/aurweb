@@ -43,6 +43,9 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			case "unflag":
 				$_POST['do_UnFlag'] = __('UnFlag');
 				break;
+			case "delete":
+				include('pkgdel.php');
+				return;
 			}
 
 			if (isset($_COOKIE['AURSID'])) {

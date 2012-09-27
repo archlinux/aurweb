@@ -54,6 +54,9 @@ $sources = package_sources($row["ID"]);
 				<?php else: ?>
 				<li><a href="<?= get_pkg_uri($row['Name']) . 'notify/'; ?>"><?= __('Notify of new comments'); ?></a></li>
 				<?php endif; ?>
+				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+				<li><a href="<?= get_pkg_uri($row['Name']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
+				<?php endif; ?>
 				<?php endif; ?>
 			</ul>
 			<?php if ($uid): ?>
