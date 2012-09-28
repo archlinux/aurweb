@@ -993,6 +993,7 @@ function getvotes($pkgid, $dbh=NULL) {
 		return;
 	}
 
+	$votes = array();
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$votes[] = $row;
 	}
