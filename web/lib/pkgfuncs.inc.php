@@ -699,9 +699,13 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
 	}
 
-	$dbh->exec($q);
-
 	if ($action) {
+		$q.= " AND OutOfDateTS IS NULL";
+	}
+
+	$affected_pkgs = $dbh->exec($q);
+
+	if ($action && $affected_pkgs > 0) {
 		# Notify of flagging by email
 		$f_name = username_from_sid($_COOKIE['AURSID'], $dbh);
 		$f_email = email_from_sid($_COOKIE['AURSID'], $dbh);
