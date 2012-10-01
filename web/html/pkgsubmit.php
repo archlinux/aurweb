@@ -390,8 +390,8 @@ if ($uid):
 			}
 
 			# Update package depends
-			$depends = explode(" ", $new_pkgbuild['depends']);
-			if ($depends !== false) {
+			if (!empty($new_pkgbuild['depends'])) {
+				$depends = explode(" ", $new_pkgbuild['depends']);
 				foreach ($depends as $dep) {
 					$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
 					$depcondition = str_replace($deppkgname, "", $dep);
