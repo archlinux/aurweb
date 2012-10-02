@@ -1,9 +1,19 @@
 <?php
 include_once("config.inc.php");
 
-# Make sure this visitor can delete the requested package comment
-# They can delete if they were the comment submitter, or if they are a TU/Dev
-#
+/**
+ * Determine if the user can delete a specific package comment
+ *
+ * Only the comment submitter, Trusted Users, and Developers can delete
+ * comments. This function is used for the backend side of comment deletion.
+ *
+ * @param string $comment_id The comment ID in the database
+ * @param string $atype The account type of the user trying to delete a comment
+ * @param string|int $uid The user ID of the individual trying to delete a comment
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return bool True if the user can delete the comment, otherwise false
+ */
 function canDeleteComment($comment_id=0, $atype="", $uid=0, $dbh=NULL) {
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
@@ -26,9 +36,18 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0, $dbh=NULL) {
 	return FALSE;
 }
 
-# Make sure this visitor can delete the requested package comment
-# They can delete if they were the comment submitter, or if they are a TU/Dev
-#
+/**
+ * Determine if the user can delete a specific package comment using an array
+ *
+ * Only the comment submitter, Trusted Users, and Developers can delete
+ * comments. This function is used for the frontend side of comment deletion.
+ *
+ * @param array $comment All database information relating a specific comment
+ * @param string $atype The account type of the user trying to delete a comment
+ * @param string|int $uid The user ID of the individual trying to delete a comment
+ *
+ * @return bool True if the user can delete the comment, otherwise false
+ */
 function canDeleteCommentArray($comment, $atype="", $uid=0) {
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
@@ -40,8 +59,16 @@ function canDeleteCommentArray($comment, $atype="", $uid=0) {
 	return FALSE;
 }
 
-# Check if the current user can submit blacklisted packages.
-#
+/**
+ * Determine if the visitor can submit blacklisted packages.
+ *
+ * Only Trusted Users and Developers can delete blacklisted packages. Packages
+ * are blacklisted if they are include in the official repositories.
+ *
+ * @param string $atype The account type of the user
+ *
+ * @return bool True if the user can submit blacklisted packages, otherwise false
+ */
 function canSubmitBlacklisted($atype = "") {
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# Only TUs/Devs can submit blacklisted packages.
@@ -52,8 +79,13 @@ function canSubmitBlacklisted($atype = "") {
 	}
 }
 
-# grab the current list of PackageCategories
-#
+/**
+ * Get all package categories stored in the database
+ *
+ * @param \PDO An already established database connection
+ *
+ * @return array All package categories
+ */
 function pkgCategories($dbh=NULL) {
 	$cats = array();
 	if(!$dbh) {
@@ -70,8 +102,14 @@ function pkgCategories($dbh=NULL) {
 	return $cats;
 }
 
-# check to see if the package name exists
-#
+/**
+ * Check to see if the package name already exists in the database
+ *
+ * @param string $name The package name to check
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return string|void Package name if it already exists
+ */
 function pkgid_from_name($name="", $dbh=NULL) {
 	if (!$name) {return NULL;}
 	if(!$dbh) {
@@ -87,8 +125,14 @@ function pkgid_from_name($name="", $dbh=NULL) {
 	return $row[0];
 }
 
-# grab package dependencies
-#
+/**
+ * Get package dependencies for a specific package
+ *
+ * @param int $pkgid The package to get dependencies for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array All package dependencies for the package
+ */
 function package_dependencies($pkgid, $dbh=NULL) {
 	$deps = array();
 	$pkgid = intval($pkgid);
@@ -111,6 +155,14 @@ function package_dependencies($pkgid, $dbh=NULL) {
 	return $deps;
 }
 
+/**
+ * Determine packages that depend on a package
+ *
+ * @param string $name The package name for the dependency search
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array All packages that depend on the specified package name
+ */
 function package_required($name="", $dbh=NULL) {
 	$deps = array();
 	if ($name != "") {
@@ -130,7 +182,14 @@ function package_required($name="", $dbh=NULL) {
 	return $deps;
 }
 
-# Return the number of comments for a specified package
+/**
+ * Get the number of non-deleted comments for a specific package
+ *
+ * @param string $pkgid The package ID to get comment count for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return string The number of comments left for a specific package
+ */
 function package_comments_count($pkgid, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
@@ -155,7 +214,14 @@ function package_comments_count($pkgid, $dbh=NULL) {
 	return $row[0];
 }
 
-# Return an array of package comments
+/**
+ * Get all package comment information for a specific package
+ *
+ * @param int $pkgid The package ID to get comments for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array All package comment information for a specific package
+ */
 function package_comments($pkgid, $dbh=NULL) {
 	$comments = array();
 	$pkgid = intval($pkgid);
@@ -187,8 +253,17 @@ function package_comments($pkgid, $dbh=NULL) {
 	return $comments;
 }
 
-# Add a comment to a package page and send out appropriate notifications
-# TODO: Move notification logic to separate function where it belongs
+/**
+ * Add a comment to a package page and send out appropriate notifications
+ *
+ * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
+ * @param string $pkgid The package ID to add the comment on
+ * @param string $uid The user ID of the individual who left the comment
+ * @param string $comment The comment left on a package page
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
 	global $AUR_LOCATION;
 
@@ -202,6 +277,7 @@ function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
 	$q.= $dbh->quote($comment) . ", UNIX_TIMESTAMP())";
 	$dbh->exec($q);
 
+        # TODO: Move notification logic to separate function where it belongs
 	# Send email notifications
 	$q = "SELECT CommentNotify.*, Users.Email ";
 	$q.= "FROM CommentNotify, Users ";
@@ -237,8 +313,14 @@ function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
 	}
 }
 
-# grab package sources
-#
+/**
+ * Get all package sources for a specific package
+ *
+ * @param string $pkgid The package ID to get the sources for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array All sources associated with a specific package
+ */
 function package_sources($pkgid, $dbh=NULL) {
 	$sources = array();
 	$pkgid = intval($pkgid);
@@ -260,9 +342,14 @@ function package_sources($pkgid, $dbh=NULL) {
 	return $sources;
 }
 
-
-# grab array of Package.IDs that I've voted for: $pkgs[1234] = 1, ...
-#
+/**
+ * Get a list of all packages a logged-in user has voted for
+ *
+ * @param string $sid The session ID of the visitor
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array All packages the visitor has voted for
+ */
 function pkgvotes_from_sid($sid="", $dbh=NULL) {
 	$pkgs = array();
 	if (!$sid) {return $pkgs;}
@@ -283,8 +370,14 @@ function pkgvotes_from_sid($sid="", $dbh=NULL) {
 	return $pkgs;
 }
 
-# get name of package based on pkgid
-#
+/**
+ * Determine package names from package IDs
+ *
+ * @param string|array $pkgids The package IDs to get names for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array|string All names if multiple package IDs, otherwise package name
+ */
 function pkgname_from_id($pkgids, $dbh=NULL) {
 	if (is_array($pkgids)) {
 		$pkgids = sanitize_ids($pkgids);
@@ -318,8 +411,14 @@ function pkgname_from_id($pkgids, $dbh=NULL) {
 	}
 }
 
-# Check if a package name is blacklisted.
-#
+/**
+ * Determine if a package name is on the database blacklist
+ *
+ * @param string $name The package name to check
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return bool True if the name is blacklisted, otherwise false
+ */
 function pkgname_is_blacklisted($name, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -332,8 +431,17 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
 	return ($result->fetch(PDO::FETCH_NUM) > 0);
 }
 
-# display package details
-#
+/**
+ * Display the package details page
+ *
+ * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
+ * @global bool $USE_VIRTUAL_URLS True if using URL rewriting, otherwise false
+ * @param string $id The package ID to get details page for
+ * @param string $SID The session ID of the visitor
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function package_details($id=0, $SID="", $dbh=NULL) {
 	global $AUR_LOCATION;
 	global $USE_VIRTUAL_URLS;
@@ -633,13 +741,24 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	return;
 }
 
+/**
+ * Determine if a POST string has been sent by a visitor
+ *
+ * @param string $action String to check has been sent via POST
+ *
+ * @return bool True if the POST string was used, otherwise false
+ */
 function current_action($action) {
 	return (isset($_POST['action']) && $_POST['action'] == $action) ||
 		isset($_POST[$action]);
 }
 
 /**
- * Ensure an array of IDs is in fact all valid integers.
+ * Determine if sent IDs are valid integers
+ *
+ * @param array $ids IDs to validate
+ *
+ * @return array All sent IDs that are valid integers
  */
 function sanitize_ids($ids) {
 	$new_ids = array();
@@ -655,10 +774,10 @@ function sanitize_ids($ids) {
 /**
  * Flag and un-flag packages out-of-date
  *
+ * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to flag/unflag
- * @param boolean $action true flags out-of-date, false un-flags. Flags by
- * default
+ * @param bool $action true flags out-of-date, false un-flags. Flags by default
  *
  * @return string Translated success or error messages
  */
@@ -838,7 +957,7 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
  *
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to adopt/disown
- * @param boolean $action Adopts if true, disowns if false. Adopts by default
+ * @param bool $action Adopts if true, disowns if false. Adopts by default
  *
  * @return string Translated error or success message
  */
@@ -898,7 +1017,7 @@ function pkg_adopt ($atype, $ids, $action=true, $dbh=NULL) {
  *
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to vote/un-vote
- * @param boolean $action Votes if true, un-votes if false. Votes by default
+ * @param bool $action Votes if true, un-votes if false. Votes by default
  *
  * @return string Translated error or success message
  */
@@ -981,7 +1100,14 @@ function pkg_vote ($atype, $ids, $action=true, $dbh=NULL) {
 	}
 }
 
-# Get all usernames and ids for a specifc package id
+/**
+ * Get all usernames and IDs that voted for a specific package
+ *
+ * @param string $pkgid The package ID to get all votes for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array User IDs and usernames that voted for a specific package
+ */
 function getvotes($pkgid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1005,7 +1131,15 @@ function getvotes($pkgid, $dbh=NULL) {
 	return $votes;
 }
 
-# Determine if a user has already voted for a specific package
+/**
+ * Determine if a user has already voted for a specific package
+ *
+ * @param string $uid The user ID to check for an existing vote
+ * @param string $pkgid The package ID to check for an existing vote
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return bool True if the user has already voted, otherwise false
+ */
 function user_voted($uid, $pkgid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1023,7 +1157,15 @@ function user_voted($uid, $pkgid, $dbh=NULL) {
 	}
 }
 
-# Determine if a user wants notifications for a specific package
+/**
+ * Determine if a user wants notifications for a specific package
+ *
+ * @param string $uid User ID to check in the database
+ * @param string $pkgid Package ID to check notifications for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return bool True if the user wants notifications, otherwise false
+ */
 function user_notify($uid, $pkgid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1046,6 +1188,7 @@ function user_notify($uid, $pkgid, $dbh=NULL) {
  *
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to toggle, formatted as $package_id
+ *
  * @return string Translated error or success message
  */
 function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
@@ -1119,12 +1262,11 @@ function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
 	return $output;
 }
 
-
-
 /**
- * Delete comment
+ * Delete a package comment
  *
  * @param string $atype Account type, output of account_from_sid
+ *
  * @return string Translated error or success message
  */
 function pkg_delete_comment($atype, $dbh=NULL) {
@@ -1158,6 +1300,7 @@ function pkg_delete_comment($atype, $dbh=NULL) {
  * Change package category
  *
  * @param string $atype Account type, output of account_from_sid
+ *
  * @return string Translated error or success message
  */
 function pkg_change_category($pid, $atype, $dbh=NULL) {
@@ -1205,6 +1348,14 @@ function pkg_change_category($pid, $atype, $dbh=NULL) {
 	}
 }
 
+/**
+ * Get all package information in the database for a specific package
+ *
+ * @param string $pkgname The name of the package to get details for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return array All package details for a specific package
+ */
 function pkgdetails_by_pkgname($pkgname, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1217,6 +1368,20 @@ function pkgdetails_by_pkgname($pkgname, $dbh=NULL) {
 	return $row;
 }
 
+/**
+ * Add package information to the database for a specific package
+ *
+ * @param string $pkgname Name of the new package
+ * @param string $license License of the new package
+ * @param string $pkgver Version of the new package
+ * @param int $category_id Category for the new package
+ * @param string $pkgdesc Description of the new package
+ * @param string $pkgurl Upstream URL for the new package
+ * @param int $uid User ID of the package uploader
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pkgurl, $uid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1234,6 +1399,20 @@ function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pk
 	$dbh->exec($q);
 }
 
+/**
+ * Update all database information for a specific package
+ *
+ * @param string $pkgname Name of the updated package
+ * @param string $license License of the updated package
+ * @param string $pkgver Version of the updated package
+ * @param string $pkgdesc Description of updated package
+ * @param string $pkgurl The upstream URL for the package
+ * @param int $uid The user ID of the updater
+ * @param int $pkgid The package ID of the updated package
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid, $pkgid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1251,6 +1430,16 @@ function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid,
 	$dbh->exec($q);
 }
 
+/**
+ * Add a dependency for a specific package to the database
+ *
+ * @param int $pkgid The package ID to add the dependency for
+ * @param string $depname The name of the dependency to add
+ * @param string $depcondition The  type of dependency for the package
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function add_pkg_dep($pkgid, $depname, $depcondition, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1263,6 +1452,15 @@ function add_pkg_dep($pkgid, $depname, $depcondition, $dbh=NULL) {
 	$dbh->exec($q);
 }
 
+/**
+ * Add a source for a specific package to the database
+ *
+ * @param int $pkgid The package ID to add the source for
+ * @param string $pkgsrc The package source to add to the database
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function add_pkg_src($pkgid, $pkgsrc, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1273,6 +1471,15 @@ function add_pkg_src($pkgid, $pkgsrc, $dbh=NULL) {
 	$dbh->exec($q);
 }
 
+/**
+ * Change the category a package belongs to
+ *
+ * @param int $pkgid The package ID to change the category for
+ * @param int $category_id The new category ID for the package
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function update_pkg_category($pkgid, $category_id, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1284,6 +1491,14 @@ function update_pkg_category($pkgid, $category_id, $dbh=NULL) {
 	$dbh->exec($q);
 }
 
+/**
+ * Remove package dependencies from a specific package
+ *
+ * @param string $pkgid The package ID to remove package dependencies from
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function remove_pkg_deps($pkgid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
@@ -1293,6 +1508,14 @@ function remove_pkg_deps($pkgid, $dbh=NULL) {
 	$dbh->exec($q);
 }
 
+/**
+ * Remove package sources from a specific package
+ *
+ * @param string $pkgid The package ID to remove package sources from
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
 function remove_pkg_sources($pkgid, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
