@@ -68,7 +68,7 @@ if (!$result): ?>
 		<?php endif; ?>
 		</td>
 		<?php endif; ?>
-		<td><?= htmlspecialchars($row['Description'], ENT_QUOTES); ?></td>
+		<td class="wrap"><?= htmlspecialchars($row['Description'], ENT_QUOTES); ?></td>
 		<td>
 		<?php if (isset($row["Maintainer"])): ?>
 		<a href="<?= get_uri('/packages/'); ?>?K=<?= htmlspecialchars($row['Maintainer'], ENT_QUOTES) ?>&amp;SeB=m"><?= htmlspecialchars($row['Maintainer']) ?></a>
