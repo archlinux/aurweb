@@ -19,6 +19,8 @@ ALTER TABLE Users ADD COLUMN PGPKey VARCHAR(40) NULL DEFAULT NULL;
 
 5. Upgrade to PHP>=5.4.0 or enable "short_open_tag" in "php.ini".
 
+6. Install translations by running `make install` in "po/".
+
 From 1.9.0 to 1.9.1
 -------------------
 
