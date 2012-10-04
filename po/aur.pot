@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v1.9.0\n"
+"Project-Id-Version: AUR v1.9.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-09-05 17:02+0200\n"
+"POT-Creation-Date: 2012-10-04 12:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,49 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "Home"
-msgstr ""
-
-msgid ""
-"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
-"Guidelines%h for more information."
-msgstr ""
-
-msgid ""
-"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
-"otherwise they will be deleted!"
-msgstr ""
-
-msgid "Remember to vote for your favourite packages!"
-msgstr ""
-
-msgid "Some packages may be provided as binaries in [community]."
-msgstr ""
-
-msgid "DISCLAIMER"
-msgstr ""
-
-msgid ""
-"Unsupported packages are user produced content. Any use of the provided "
-"files is at your own risk."
-msgstr ""
-
-msgid "Search Criteria"
-msgstr ""
-
-msgid "Packages"
-msgstr ""
-
-msgid "Cannot find package to merge votes and comments into."
-msgstr ""
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr ""
-
-msgid "Error trying to retrieve package details."
-msgstr ""
 
 msgid "Accounts"
 msgstr ""
@@ -75,46 +32,16 @@ msgstr ""
 msgid "Use this form to search existing accounts."
 msgstr ""
 
-msgid "Use this form to update your account."
-msgstr ""
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr ""
-
 msgid "You must log in to view user information."
 msgstr ""
 
 msgid "Use this form to create an account."
 msgstr ""
 
-msgid "Could not retrieve proposal details."
-msgstr ""
-
-msgid "Voting is closed for this proposal."
-msgstr ""
-
-msgid "You cannot vote in an proposal about you."
-msgstr ""
-
-msgid "You've already voted for this proposal."
-msgstr ""
-
-msgid "Vote ID not valid."
-msgstr ""
-
-msgid "Current Votes"
-msgstr ""
-
-msgid "Past Votes"
-msgstr ""
-
 msgid "Add Proposal"
 msgstr ""
 
-msgid "Back"
-msgstr ""
-
-msgid "Next"
+msgid "Invalid token for user action."
 msgstr ""
 
 msgid "Username does not exist."
@@ -157,6 +84,121 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+msgid "Home"
+msgstr ""
+
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr ""
+
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr ""
+
+msgid "Remember to vote for your favourite packages!"
+msgstr ""
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr ""
+
+msgid "Discussion"
+msgstr ""
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. This list can be used for package "
+"orphan requests, merge requests, and deletion requests. For discussion "
+"relating to the development of the AUR, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr ""
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR, please fill out a bug report on our %sbug "
+"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
+"packaging bugs contact the package maintainer or leave a comment on the "
+"appropriate package page."
+msgstr ""
+
+msgid "DISCLAIMER"
+msgstr ""
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr ""
+
+msgid "Vote"
+msgstr ""
+
+msgid "UnVote"
+msgstr ""
+
+msgid "Notify"
+msgstr ""
+
+msgid "UnNotify"
+msgstr ""
+
+msgid "Flag"
+msgstr ""
+
+msgid "UnFlag"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+msgid "Enter login credentials"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Remember me"
+msgstr ""
+
+msgid "Forgot Password"
+msgstr ""
+
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr ""
+
+msgid "Search Criteria"
+msgstr ""
+
+msgid "Packages"
+msgstr ""
+
+msgid "Cannot find package to merge votes and comments into."
+msgstr ""
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr ""
+
+msgid "Error trying to retrieve package details."
+msgstr ""
+
 msgid "Missing a required field."
 msgstr ""
 
@@ -164,9 +206,6 @@ msgid "Password fields do not match."
 msgstr ""
 
 msgid "Invalid e-mail."
-msgstr ""
-
-msgid "Invalid e-mail and reset key combination."
 msgstr ""
 
 msgid ""
@@ -196,15 +235,84 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
+#, php-format
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a "
-"message to the %haur-general%h mailing list."
+"message to the %saur-general%s mailing list."
 msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr ""
 
+msgid "Package Deletion"
+msgstr ""
+
+#, php-format
+msgid "Delete Package: %s"
+msgstr ""
+
+#, php-format
+msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgstr ""
+
+msgid "Deletion of a package is permanent. "
+msgstr ""
+
+msgid "Select the checkbox to confirm action."
+msgstr ""
+
+msgid "Confirm package deletion"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr ""
+
+msgid "Package Merging"
+msgstr ""
+
+#, php-format
+msgid "Merge Package: %s"
+msgstr ""
+
+#, php-format
+msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgstr ""
+
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr ""
+
+msgid "Enter the package name you wish to merge the package into. "
+msgstr ""
+
+msgid "Merge into:"
+msgstr ""
+
+msgid "Confirm package merge"
+msgstr ""
+
+msgid "Merge"
+msgstr ""
+
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr ""
+
+#, php-format
+msgid "Error - Uploaded file larger than maximum allowed size (%s)"
+msgstr ""
+
+msgid "Error - File partially uploaded"
+msgstr ""
+
 msgid "Error - No file uploaded"
+msgstr ""
+
+msgid "Error - Could not locate temporary upload folder"
+msgstr ""
+
+msgid "Error - File could not be written"
 msgstr ""
 
 msgid ""
@@ -215,13 +323,13 @@ msgstr ""
 msgid "Error - uncompressed file size too large."
 msgstr ""
 
-msgid "Error - source tarball may not contain more than one directory."
-msgstr ""
-
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr ""
 
 msgid "Error - source tarball may not contain nested subdirectories."
+msgstr ""
+
+msgid "Error - source tarball may not contain more than one directory."
 msgstr ""
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
@@ -238,10 +346,31 @@ msgid "Invalid name: only lowercase letters are allowed."
 msgstr ""
 
 #, php-format
+msgid "Error - Package name cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
+msgid "Error - Package URL cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
+msgid "Error - Package description cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
+msgid "Error - Package license cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
+msgid "Error - Package version cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
 msgid "Could not create directory %s."
 msgstr ""
 
-msgid "You are not allowed to overwrite the %h%s%h package."
+#, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
 msgstr ""
 
 #, php-format
@@ -275,6 +404,104 @@ msgid "Sorry, uploads are not permitted by this server."
 msgstr ""
 
 msgid "You must create an account before you can upload packages."
+msgstr ""
+
+msgid "Trusted User"
+msgstr ""
+
+msgid "Could not retrieve proposal details."
+msgstr ""
+
+msgid "Voting is closed for this proposal."
+msgstr ""
+
+msgid "You cannot vote in an proposal about you."
+msgstr ""
+
+msgid "You've already voted for this proposal."
+msgstr ""
+
+msgid "Vote ID not valid."
+msgstr ""
+
+msgid "Current Votes"
+msgstr ""
+
+msgid "Past Votes"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Voters"
+msgstr ""
+
+msgid "Missing User ID"
+msgstr ""
+
+msgid "The username is invalid."
+msgstr ""
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr ""
+
+msgid "Start and end with a letter or number"
+msgstr ""
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr ""
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr ""
+
+msgid "The email address is invalid."
+msgstr ""
+
+msgid "The PGP key fingerprint is invalid."
+msgstr ""
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr ""
+
+msgid "Language is not currently supported."
+msgstr ""
+
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr ""
+
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr ""
+
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr ""
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr ""
+
+msgid "Click on the Login link above to use your account."
+msgstr ""
+
+#, php-format
+msgid "Error trying to modify account, %s%s%s."
+msgstr ""
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr ""
+
+msgid "Bad username or password."
+msgstr ""
+
+msgid "Invalid e-mail and reset key combination."
 msgstr ""
 
 msgid "Error retrieving package details."
@@ -384,22 +611,43 @@ msgstr ""
 msgid "Invalid category ID."
 msgstr ""
 
-msgid "Missing package ID."
-msgstr ""
-
 msgid "You are not allowed to change this package category."
 msgstr ""
 
 msgid "Package category changed."
 msgstr ""
 
-msgid "Username"
+msgid "Account Type"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Developer"
+msgstr ""
+
+msgid "Email Address"
+msgstr ""
+
+msgid "Real Name"
+msgstr ""
+
+msgid "IRC Nick"
+msgstr ""
+
+msgid "PGP Key Fingerprint"
+msgstr ""
+
+msgid "Last Voted"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "View this user's packages"
 msgstr ""
 
 msgid "required"
-msgstr ""
-
-msgid "Account Type"
 msgstr ""
 
 msgid "Normal user"
@@ -408,25 +656,10 @@ msgstr ""
 msgid "Trusted user"
 msgstr ""
 
-msgid "Developer"
-msgstr ""
-
 msgid "Account Suspended"
 msgstr ""
 
-msgid "Email Address"
-msgstr ""
-
-msgid "Password"
-msgstr ""
-
 msgid "Re-type password"
-msgstr ""
-
-msgid "Real Name"
-msgstr ""
-
-msgid "IRC Nick"
 msgstr ""
 
 msgid "Language"
@@ -441,56 +674,6 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-msgid "Missing User ID"
-msgstr ""
-
-msgid "The username is invalid."
-msgstr ""
-
-#, php-format
-msgid "It must be between %s and %s characters long"
-msgstr ""
-
-msgid "Start and end with a letter or number"
-msgstr ""
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr ""
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr ""
-
-msgid "The email address is invalid."
-msgstr ""
-
-msgid "A Trusted User cannot assign Developer status."
-msgstr ""
-
-msgid "Language is not currently supported."
-msgstr ""
-
-msgid "The username, %h%s%h, is already in use."
-msgstr ""
-
-msgid "The address, %h%s%h, is already in use."
-msgstr ""
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr ""
-
-msgid "The account, %h%s%h, has been successfully created."
-msgstr ""
-
-msgid "Click on the Home link above to login."
-msgstr ""
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr ""
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr ""
-
 msgid "No results matched your search criteria."
 msgstr ""
 
@@ -498,9 +681,6 @@ msgid "Type"
 msgstr ""
 
 msgid "Status"
-msgstr ""
-
-msgid "Last Voted"
 msgstr ""
 
 msgid "Edit Account"
@@ -512,7 +692,7 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-msgid "Never"
+msgid "Edit"
 msgstr ""
 
 msgid "Less"
@@ -524,143 +704,16 @@ msgstr ""
 msgid "No more results to display."
 msgstr ""
 
-msgid "User"
-msgstr ""
-
-msgid "Trusted User"
-msgstr ""
-
-msgid "View this user's packages"
-msgstr ""
-
-msgid "Bad username or password."
-msgstr ""
-
-msgid "Category"
-msgstr ""
-
-msgid "Change category"
-msgstr ""
-
-msgid "Votes"
-msgstr ""
-
-msgid "unknown"
-msgstr ""
-
-msgid "Package Details"
-msgstr ""
-
-msgid "Submitter"
-msgstr ""
-
-msgid "Maintainer"
-msgstr ""
-
-msgid "License"
-msgstr ""
-
-msgid "Last Updated"
-msgstr ""
-
-msgid "First Submitted"
-msgstr ""
-
-msgid "Tarball"
-msgstr ""
-
-msgid "PKGBUILD"
-msgstr ""
-
-msgid "This package has been flagged out of date."
-msgstr ""
-
-msgid "Dependencies"
-msgstr ""
-
-msgid "Required by"
-msgstr ""
-
-msgid "Sources"
-msgstr ""
-
-msgid "Hi, this is worth reading!"
-msgstr ""
-
-msgid "Start"
-msgstr ""
-
-msgid "End"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "No"
-msgstr ""
-
-msgid "Voted"
-msgstr ""
-
-msgid "No results found."
-msgstr ""
-
-msgid "Proposal Details"
-msgstr ""
-
-msgid "This vote is still running."
-msgstr ""
-
-#, php-format
-msgid "Submitted: %s by %s"
-msgstr ""
-
-msgid "Abstain"
-msgstr ""
-
-msgid "Total"
-msgstr ""
-
-msgid "Voters"
-msgstr ""
-
-msgid "Bugs"
-msgstr ""
-
-msgid "Discussion"
-msgstr ""
-
-msgid "My Packages"
-msgstr ""
-
-msgid "Vote"
-msgstr ""
-
-msgid "UnVote"
-msgstr ""
-
-msgid "Notify"
+msgid "No New Comment Notification"
 msgstr ""
 
 msgid "New Comment Notification"
-msgstr ""
-
-msgid "UnNotify"
-msgstr ""
-
-msgid "No New Comment Notification"
 msgstr ""
 
 msgid "Flag Out-of-date"
 msgstr ""
 
 msgid "UnFlag Out-of-date"
-msgstr ""
-
-msgid "Adopt Packages"
-msgstr ""
-
-msgid "Disown Packages"
 msgstr ""
 
 msgid "Delete Packages"
@@ -672,55 +725,227 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
-msgid "Any type"
+msgid "My Packages"
+msgstr ""
+
+msgid " My Account"
+msgstr ""
+
+msgid "Register"
+msgstr ""
+
+msgid "Add Comment"
+msgstr ""
+
+msgid "Comment has been added."
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
+#, php-format
+msgid "View all %s comments"
+msgstr ""
+
+msgid "Latest Comments"
+msgstr ""
+
+msgid "Delete comment"
+msgstr ""
+
+#, php-format
+msgid "Comment by %s"
+msgstr ""
+
+msgid "All comments"
+msgstr ""
+
+msgid "unknown"
+msgstr ""
+
+msgid "Package Details"
+msgstr ""
+
+msgid "View PKGBUILD"
+msgstr ""
+
+msgid "Download tarball"
+msgstr ""
+
+msgid "Flagged out-of-date"
+msgstr ""
+
+msgid "Flag package out-of-date"
+msgstr ""
+
+msgid "Unflag package"
+msgstr ""
+
+msgid "Remove vote"
+msgstr ""
+
+msgid "Vote for this package"
+msgstr ""
+
+msgid "Disable notifications"
+msgstr ""
+
+msgid "Notify of new comments"
+msgstr ""
+
+msgid "Delete Package"
+msgstr ""
+
+msgid "Merge Package"
+msgstr ""
+
+msgid "Adopt Packages"
+msgstr ""
+
+msgid "Disown Packages"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Visit the website for"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "Change category"
+msgstr ""
+
+msgid "License"
+msgstr ""
+
+msgid "Submitter"
+msgstr ""
+
+msgid "View account information for"
+msgstr ""
+
+#, php-format
+msgid "View account information for %s"
+msgstr ""
+
+msgid "Maintainer"
+msgstr ""
+
+msgid "Votes"
+msgstr ""
+
+msgid "First Submitted"
+msgstr ""
+
+msgid "Last Updated"
+msgstr ""
+
+msgid "Dependencies"
+msgstr ""
+
+msgid "View packages details for"
+msgstr ""
+
+msgid "Required by"
+msgstr ""
+
+msgid "Sources"
+msgstr ""
+
+msgid "Name, Description"
+msgstr ""
+
+msgid "Name Only"
+msgstr ""
+
+msgid "Exact name"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "Flagged"
+msgstr ""
+
+msgid "Not Flagged"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Voted"
+msgstr ""
+
+msgid "Age"
+msgstr ""
+
+msgid "Ascending"
+msgstr ""
+
+msgid "Descending"
+msgstr ""
+
+msgid "Enter search criteria"
+msgstr ""
+
+msgid "Any"
+msgstr ""
+
+msgid "Search by"
+msgstr ""
+
+msgid "Keywords"
+msgstr ""
+
+msgid "Out of Date"
 msgstr ""
 
 msgid "Sort by"
+msgstr ""
+
+msgid "Sort order"
+msgstr ""
+
+msgid "Per page"
+msgstr ""
+
+msgid "Go"
+msgstr ""
+
+msgid "Orphans"
+msgstr ""
+
+msgid "Error retrieving package list."
+msgstr ""
+
+msgid "No packages matched your search criteria."
+msgstr ""
+
+#, php-format
+msgid "%d packages found. Page %d of %d."
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "orphan"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "Unflag Out-of-date"
+msgstr ""
+
+msgid "Any type"
 msgstr ""
 
 msgid "Last vote"
 msgstr ""
 
 msgid "Search"
-msgstr ""
-
-msgid "Comment has been added."
-msgstr ""
-
-msgid "Enter your comment below."
-msgstr ""
-
-#, php-format
-msgid "Logged-in as: %s"
-msgstr ""
-
-msgid "Logout"
-msgstr ""
-
-msgid "Remember me"
-msgstr ""
-
-msgid "Login"
-msgstr ""
-
-msgid "Forgot Password"
-msgstr ""
-
-#, php-format
-msgid ""
-"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
-
-msgid "Recent Updates"
-msgstr ""
-
-msgid "My Statistics"
-msgstr ""
-
-msgid "Packages in unsupported"
-msgstr ""
-
-msgid "Out of Date"
 msgstr ""
 
 msgid "Statistics"
@@ -747,92 +972,39 @@ msgstr ""
 msgid "Trusted Users"
 msgstr ""
 
-msgid "Error retrieving package list."
+msgid "Recent Updates"
 msgstr ""
 
-msgid "No packages matched your search criteria."
+msgid "My Statistics"
 msgstr ""
 
-msgid "Package Listing"
+msgid "Packages in unsupported"
 msgstr ""
 
-msgid "Name"
+msgid "Proposal Details"
 msgstr ""
 
-msgid "Description"
-msgstr ""
-
-msgid "orphan"
-msgstr ""
-
-msgid "Legend"
-msgstr ""
-
-msgid "Actions"
-msgstr ""
-
-msgid "Unflag Out-of-date"
-msgstr ""
-
-msgid "Go"
+msgid "This vote is still running."
 msgstr ""
 
 #, php-format
-msgid "Showing results %s - %s of %s"
+msgid "Submitted: %s by %s"
 msgstr ""
 
-#, php-format
-msgid "Comment by: %s on %s"
+msgid "End"
 msgstr ""
 
-msgid "Delete comment"
+msgid "No"
 msgstr ""
 
-#, php-format
-msgid "Show all %s comments"
+msgid "Abstain"
 msgstr ""
 
-msgid "Orphans"
+msgid "Total"
 msgstr ""
 
-msgid "Advanced"
+msgid "Start"
 msgstr ""
 
-msgid "Any"
-msgstr ""
-
-msgid "Search by"
-msgstr ""
-
-msgid "Name, Description"
-msgstr ""
-
-msgid "Name Only"
-msgstr ""
-
-msgid "Exact name"
-msgstr ""
-
-msgid "Age"
-msgstr ""
-
-msgid "Sort order"
-msgstr ""
-
-msgid "Ascending"
-msgstr ""
-
-msgid "Descending"
-msgstr ""
-
-msgid "Per page"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "Flagged"
-msgstr ""
-
-msgid "Not Flagged"
+msgid "No results found."
 msgstr ""
