@@ -54,7 +54,11 @@
 <?php if (!$isrunning): ?>
 <div class="box">
 	<h2><?= __("Voters"); ?></h2>
-	<?= $whovoted; ?>
+	<ul>
+		<?php foreach($whovoted as $voter): ?>
+		<li><a href="<?= get_user_uri($voter) ?>"><?= htmlspecialchars($voter) ?></a></li>
+		<?php endforeach; ?>
+	</ul>
 </div>
 <?php endif; ?>
 

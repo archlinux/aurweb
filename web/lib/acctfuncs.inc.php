@@ -969,14 +969,14 @@ function vote_details($voteid, $dbh=NULL) {
  * @param string $voteid The ID of the Trusted User proposal
  * @param \PDO $dbh An already established database connection
  *
- * @return array All users (and HTML links) who voted for a specific proposal
+ * @return array All users who voted for a specific proposal
  */
 function voter_list($voteid, $dbh=NULL) {
 	if (!$dbh) {
 		$dbh = db_connect();
 	}
 
-	$whovoted = '';
+	$whovoted = array();
 
 	$q = "SELECT tv.UserID,U.Username ";
 	$q.= "FROM TU_Votes tv, Users U ";
@@ -987,7 +987,7 @@ function voter_list($voteid, $dbh=NULL) {
 	$result = $dbh->query($q);
 	if ($result) {
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$whovoted.= '<a href="' . get_user_uri($row['Username']) . '">'.$row['Username'].'</a> ';
+			$whovoted[] = $row['Username'];
 		}
 	}
 	return $whovoted;
