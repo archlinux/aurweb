@@ -15,7 +15,6 @@ define( "URL_DIR", "/packages/" );
 define( "USERNAME_MIN_LEN", 3 );
 define( "USERNAME_MAX_LEN", 16 );
 define( "PASSWD_MIN_LEN", 4 );
-define( "PASSWD_MAX_LEN", 128 );
 
 # Default language for displayed messages in the web interface.
 define("DEFAULT_LANG", "en");

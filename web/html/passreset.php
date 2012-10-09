@@ -86,11 +86,11 @@ html_header(__("Password Reset"));
 			</tr>
 			<tr>
 				<td><?= __("Enter your new password:"); ?></td>
-				<td><input type="password" name="password" size="30" maxlength="32" /></td>
+				<td><input type="password" name="password" size="30" /></td>
 			</tr>
 			<tr>
 				<td><?= __("Confirm your new password:"); ?></td>
-				<td><input type="password" name="confirm" size="30" maxlength="32" /></td>
+				<td><input type="password" name="confirm" size="30" /></td>
 			</tr>
 		</table>
 		<br />

@@ -32,7 +32,7 @@ html_header('AUR ' . __("Login"));
 			</p>
 			<p>
 				<label for="id_password"><?= __('Password') . ':'; ?></label>
-				<input id="id_password" type="password" name="passwd" size="30" maxlength="<?= PASSWD_MAX_LEN; ?>" />
+				<input id="id_password" type="password" name="passwd" size="30" />
 			</p>
 			<p>
 				<input type="checkbox" name="remember_me" id="id_remember_me" />

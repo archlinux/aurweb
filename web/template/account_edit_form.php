@@ -60,13 +60,13 @@
 
 		<p>
 			<label for="id_passwd1"><?= __("Password") ?>:</label>
-			<input type="password" size="30" maxlength="32" name="P" id="id_passwd1" value="<?= $P ?>" />
+			<input type="password" size="30" name="P" id="id_passwd1" value="<?= $P ?>" />
 			<?php if ($A != "UpdateAccount"): print " (".__("required").")"; endif; ?>
 		</p>
 
 		<p>
 			<label for="id_passwd2"><?= __("Re-type password") ?>:</label>
-			<input type="password" size="30" maxlength="32" name="C" id="id_passwd2" value="<?= $C ?>" />
+			<input type="password" size="30" name="C" id="id_passwd2" value="<?= $C ?>" />
 			<?php if ($A != "UpdateAccount"): print " (".__("required").")"; endif; ?>
 		</p>
 
