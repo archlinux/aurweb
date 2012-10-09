@@ -428,7 +428,7 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
 	$result = $dbh->query($q);
 
 	if (!$result) return false;
-	return ($result->fetch(PDO::FETCH_NUM) > 0);
+	return ($result->fetchColumn() > 0);
 }
 
 /**
