@@ -13,7 +13,7 @@
   </head>
 	<body>
 		<div id="archnavbar" class="anb-aur">
-			<div id="archnavbarlogo"><h1><a href="/" title="Return to the main page">Arch Linux</a></h1></div>
+			<div id="archnavbarlogo"><h1><a href="http://www.archlinux.org" title="Return to the main page">Arch Linux</a></h1></div>
 			<div id="archnavbarmenu">
 				<ul id="archnavbarlist">
 					<li id="anb-home"><a href="http://www.archlinux.org/" title="Arch news, packages, projects and more">Home</a></li>
