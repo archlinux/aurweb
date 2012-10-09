@@ -381,7 +381,7 @@ if ($uid):
 				}
 
 				# Update package data
-				update_pkgdetails($packageID, $new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, "", $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], "", $uid, $dbh);
+				update_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid, $packageID, $dbh);
 			} else {
 				# This is a brand new package
 				new_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $category_id, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid, $dbh);
