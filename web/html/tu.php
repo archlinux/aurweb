@@ -42,10 +42,13 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 				} else if ($row['User'] == username_from_sid($_COOKIE["AURSID"])) {
 					$canvote = 0;
 					$errorvote = __("You cannot vote in an proposal about you.");
-				} else if (tu_voted($row['ID'], uid_from_sid($_COOKIE["AURSID"]))) {
+				}
+				if (tu_voted($row['ID'], uid_from_sid($_COOKIE["AURSID"]))) {
 					$canvote = 0;
 					$hasvoted = 1;
-					$errorvote = __("You've already voted for this proposal.");
+					if ($isrunning) {
+						$errorvote = __("You've already voted for this proposal.");
+					}
 				}
 
 				if ($canvote == 1) {
