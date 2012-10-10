@@ -12,11 +12,9 @@ if (isset($_REQUEST['comment']) && check_token()) {
 				<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 			</div>
 			<p>
-				<label for="id_comment"><?= __("Comment") . ':' ?></label>
 				<textarea id="id_comment" name="comment" cols="80" rows="10"></textarea>
 			</p>
 			<p>
-				<label></label>
 				<input type="submit" value="<?= __("Add Comment") ?>" />
 			</p>
 		</fieldset>
