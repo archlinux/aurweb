@@ -22,9 +22,11 @@ $pkgname = $row['Name'];
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="image" src="/images/x.png" alt="<?= __('Delete comment') ?>" name="submit" value="1" />
 					</fieldset>
+					<?= __('Comment by %s', $row['UserName']) ?>
 				</form>
-			<?php endif; ?>
+			<?php else: ?>
 			<?= __('Comment by %s', $row['UserName']) ?>
+			<?php endif; ?>
 		</h4>
 		<p class="timestamp"><?= gmdate('Y-m-d H:i', $row['CommentTS']) ?></p>
 		<div class="article-content">
