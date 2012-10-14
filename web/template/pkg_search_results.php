@@ -56,7 +56,7 @@ if (!$result): ?>
 		<?php endif; ?>
 		<td><?= htmlspecialchars($row["Category"]) ?></td>
 		<td><a href="<?= htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) ?></a></td>
-		<td><?= htmlspecialchars($row["Version"]) ?></td>
+		<td<?php if ($row["OutOfDateTS"]): ?> class="flagged"<?php endif; ?>><?= htmlspecialchars($row["Version"]) ?></td>
 		<td><?= $row["NumVotes"] ?></td>
 		<?php if ($SID): ?>
 		<td>
