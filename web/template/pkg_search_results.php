@@ -37,6 +37,7 @@ if (!$result): ?>
 					<?php endif; ?>
 					<th><a href="?<?= mkurl('SB=c&SO=' . $SO_next) ?>"><?= __("Category") ?></a></th>
 					<th><a href="?<?= mkurl('SB=n&SO=' . $SO_next) ?>"><?= __("Name") ?></a></th>
+					<th><?= __("Version") ?></th>
 					<th><a href="?<?= mkurl('SB=v&SO=' . $SO_next) ?>"><?= __("Votes") ?></a></th>
 					<?php if ($SID): ?>
 					<th><a href="?<?= mkurl('SB=w&SO=' . $SO_next) ?>"><?= __("Voted") ?></a></th>
@@ -54,7 +55,8 @@ if (!$result): ?>
 		<td><input type="checkbox" name="IDs[<?= $row["ID"] ?>]" value="1" /></td>
 		<?php endif; ?>
 		<td><?= htmlspecialchars($row["Category"]) ?></td>
-		<td><a href="<?= htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]) ?></a></td>
+		<td><a href="<?= htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) ?></a></td>
+		<td><?= htmlspecialchars($row["Version"]) ?></td>
 		<td><?= $row["NumVotes"] ?></td>
 		<?php if ($SID): ?>
 		<td>
