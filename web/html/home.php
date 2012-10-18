@@ -43,8 +43,8 @@ $dbh = db_connect();
 			<?= __('Remember to vote for your favourite packages!'); ?>
 			<?= __('Some packages may be provided as binaries in [community].'); ?>
 			</p>
-			<p>
 			<h4><?= __('Discussion') ?></h4>
+			<p>
 			<?php
 			echo __(
 				'General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. This list can be used for package orphan requests, merge requests, and deletion requests. For discussion relating to the development of the AUR, use the %saur-dev%s mailing list.',
@@ -56,6 +56,7 @@ $dbh = db_connect();
 			?>
 			</p>
 			<h4><?= __('Bug Reporting') ?></h4>
+			<p>
 			<?php
 			echo __(
 				'If you find a bug in the AUR, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page.',
@@ -107,7 +108,7 @@ $dbh = db_connect();
 			</tr>
 		</table>
 	</div>
-	<div id="pkg-updates" class="widget box">
+	<div id="pkg-stats" class="widget box">
 		<table>
 			<tr>
 				<td class="pkg-name">
