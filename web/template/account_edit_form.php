@@ -23,23 +23,25 @@
 			<label for="id_type"><?= __("Account Type") ?>:</label>
 			<select name="T" id="id_type">
 				<?php if ($T == "User"): ?>
-				<option value="1" selected><?= __("Normal user") ?>
+				<option value="1" selected="selected"><?= __("Normal user") ?></option>
 				<?php else: ?>
-				<option value="1"><?= __("Normal user") ?>
+				<option value="1"><?= __("Normal user") ?></option>
 				<?php endif; ?>
 				<?php if ($T == "Trusted User"): ?>
-				<option value="2" selected><?= __("Trusted user") ?>
+				<option value="2" selected="selected"><?= __("Trusted user") ?></option>
 				<?php else: ?>
-				<option value="2"><?= __("Trusted user") ?>
+				<option value="2"><?= __("Trusted user") ?></option>
 				<?php endif; ?>
 				<?php
 				# Only developers can make another account a developer
 				if ($UTYPE == "Developer"):
 				?>
 				<option value="3"
-				<?php $T == "Developer" ? print " selected>" : print ">";
+				<?php $T == "Developer" ? print " selected=\"selected\">" : print ">";
 				print __("Developer")."\n"; ?>
+				</option>
 				<?php endif; ?>
+
 			</select>
 		</p>
 
@@ -92,9 +94,9 @@
 	reset($SUPPORTED_LANGS);
 	while (list($code, $lang) = each($SUPPORTED_LANGS)) {
 		if ($L == $code) {
-			print "<option value=".$code." selected> ".$lang."\n";
+			print "<option value=\"".$code."\" selected=\"selected\"> ".$lang."</option>"."\n";
 		} else {
-			print "<option value=".$code."> ".$lang."\n";
+			print "<option value=\"".$code."\"> ".$lang."</option>"."\n";
 		}
 	}
 ?>
