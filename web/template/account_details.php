@@ -4,11 +4,11 @@
 			<h3><?= htmlspecialchars($row["Username"], ENT_QUOTES) ?></h3>
 			<table class="bio">
 				<tr>
-					<th><?= __("Username") . ":" ?></td>
+					<th><?= __("Username") . ":" ?></th>
 					<td><?= $row["Username"] ?></td>
 				</tr>
 				<tr>
-					<th><?= __("Account Type") . ":" ?></td>
+					<th><?= __("Account Type") . ":" ?></th>
 					<td>
 						<?php
 						if ($row["AccountType"] == "User") {
@@ -22,23 +22,23 @@
 					</td>
 				</tr>
 				<tr>
-					<th><?= __("Email Address") . ":" ?></td>
+					<th><?= __("Email Address") . ":" ?></th>
 					<td><a href="mailto:<?= htmlspecialchars($row["Email"], ENT_QUOTES) ?>"><?= htmlspecialchars($row["Email"], ENT_QUOTES) ?></a></td>
 				</tr>
 				<tr>
-					<th><?= __("Real Name") . ":" ?></td>
+					<th><?= __("Real Name") . ":" ?></th>
 					<td><?= htmlspecialchars($row["RealName"], ENT_QUOTES) ?></td>
 				</tr>
 				<tr>
-					<th><?= __("IRC Nick") . ":" ?></td>
+					<th><?= __("IRC Nick") . ":" ?></th>
 					<td><?= htmlspecialchars($row["IRCNick"], ENT_QUOTES) ?></td>
 				</tr>
 				<tr>
-					<th><?= __("PGP Key Fingerprint") . ":" ?></td>
+					<th><?= __("PGP Key Fingerprint") . ":" ?></th>
 					<td><?= html_format_pgp_fingerprint($row["PGPKey"]) ?></td>
 				</tr>
 				<tr>
-					<th><?= __("Last Voted") . ":" ?></td>
+					<th><?= __("Last Voted") . ":" ?></th>
 					<td>
 					<?= $row["LastVoted"] ? date("Y-m-d", $row["LastVoted"]) : __("Never"); ?>
 					</td>
