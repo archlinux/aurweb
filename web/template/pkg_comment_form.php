@@ -1,6 +1,6 @@
 <div id="generic-form" class="box">
 	<h2><?= __("Add Comment"); ?></h2>
-	<form call="general-form" action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
+	<form action="<?= $_SERVER['REQUEST_URI'] ?>" method="post">
 		<fieldset>
 <?php
 if (isset($_REQUEST['comment']) && check_token()) {
