@@ -102,5 +102,9 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		header("Content-Type: image/png");
 		include "./$path";
 		break;
+	default:
+		header("HTTP/1.0 404 Not Found");
+		include "./404.php";
+		break;
 	}
 }
