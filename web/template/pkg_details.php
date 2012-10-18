@@ -117,6 +117,7 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 				<a href="<?= get_uri('/packages/'); ?>?C=<?= $row['CategoryID'] ?>"><?= $row['Category'] ?></a>
 <?php endif; ?>
 			</td>
+		</tr>
 		<tr>
 			<th><?= __('License') . ': ' ?></th>
 			<td><?= htmlspecialchars($license) ?></td>
@@ -138,6 +139,7 @@ if ($row["SubmitterUID"]):
 <?php else: ?>
 			<td>None</td>
 <?php endif; ?>
+		</tr>
 		<tr>
 			<th><?= __('Maintainer') .': ' ?></th>
 <?php
@@ -160,9 +162,9 @@ if ($row["MaintainerUID"]):
 			<th><?= __('Votes') . ': ' ?></th>
 <?php if ($atype == "Developer" || $atype == "Trusted User"): ?>
 <?php if ($USE_VIRTUAL_URLS): ?>
-			<td><a href="<?= get_pkg_uri($row['Name']); ?>voters/"><?= $votes ?></a>
+			<td><a href="<?= get_pkg_uri($row['Name']); ?>voters/"><?= $votes ?></a></td>
 <?php else: ?>
-			<td><a href="<?= get_uri('/voters/'); ?>?ID=<?= $pkgid ?>"><?= $votes ?></a>
+			<td><a href="<?= get_uri('/voters/'); ?>?ID=<?= $pkgid ?>"><?= $votes ?></a></td>
 <?php endif; ?>
 <?php else: ?>
 			<td><?= $votes ?></td>
