@@ -25,7 +25,7 @@
 			?>
 			<tr class="<?= $c ?>">
 				<td><?php $row["Agenda"] = htmlspecialchars(substr($row["Agenda"], 0, $prev_Len)); ?>
-					<a href="<?= get_uri('/tu/'); ?>?id=<?= $row['ID'] ?>"><?= $row["Agenda"] ?></a></span></span>
+					<a href="<?= get_uri('/tu/'); ?>?id=<?= $row['ID'] ?>"><?= $row["Agenda"] ?></a>
 				</td>
 				<td><?= gmdate("Y-m-d", $row["Submitted"]) ?></td>
 				<td><?= gmdate("Y-m-d", $row["End"]) ?></td>
