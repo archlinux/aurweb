@@ -273,7 +273,7 @@ table.pretty2 {
     }
 
         /* additional styles for JS sorting */
-        table.pretty2 th.header {
+        table.pretty2 th.tablesorter-header {
             padding-right: 20px;
             background-image: url(nosort.gif);
             background-repeat: no-repeat;
@@ -281,11 +281,11 @@ table.pretty2 {
             cursor: pointer;
         }
 
-        table.pretty2 th.headerSortDown {
+        table.pretty2 th.tablesorter-headerSortDown {
             background-image: url(desc.gif);
         }
 
-        table.pretty2 th.headerSortUp {
+        table.pretty2 th.tablesorter-headerSortUp {
             background-image: url(asc.gif);
         }
 
@@ -486,6 +486,31 @@ h3 span.arrow {
         border: 1px solid #09c;
     }
 
+    .pkgsearch-typeahead {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        float: left;
+        padding: 0.15em 0.1em;
+        margin: 0;
+        min-width: 10em;
+        font-size: 0.812em;
+        text-align: left;
+        list-style: none;
+        background-color: #f6f9fc;
+        border: 1px solid #09c;
+    }
+
+        .pkgsearch-typeahead li a {
+            color: #000;
+        }
+
+        .pkgsearch-typeahead li.active a {
+            color: #07b;
+        }
+
 /* home: recent pkg updates */
 #pkg-updates h3 {
     margin: 0 0 0.3em;
@@ -617,7 +642,7 @@ table.results {
     }
 
         /* additional styles for JS sorting */
-        table.results th.header {
+        table.results th.tablesorter-header {
             padding-right: 20px;
             background-image: url(nosort.gif);
             background-repeat: no-repeat;
@@ -625,12 +650,12 @@ table.results {
             cursor: pointer;
         }
 
-        table.results th.headerSortDown {
+        table.results th.tablesorter-headerSortDown {
             background-color: #e4eeff;
             background-image: url(desc.gif);
         }
 
-        table.results th.headerSortUp {
+        table.results th.tablesorter-headerSortUp {
             background-color: #e4eeff;
             background-image: url(asc.gif);
         }
@@ -797,7 +822,10 @@ form#flag-pkg-form input[type=text] {
 
 #pkgdetails #metadata .virtual-dep,
 #pkgdetails #metadata .testing-dep,
+#pkgdetails #metadata .staging-dep,
 #pkgdetails #metadata .opt-dep,
+#pkgdetails #metadata .make-dep,
+#pkgdetails #metadata .check-dep,
 #pkgdetails #metadata .dep-desc {
     font-style: italic;
 }
@@ -811,12 +839,12 @@ form#flag-pkg-form input[type=text] {
     padding-top: 1em;
 }
 
-    #pkgdetails #pkgfiles li.d {
-        color: #666;
-    }
+#pkgfilelist li.d {
+    color: #666;
+}
 
-    #pkgdetails #pkgfiles li.f {
-    }
+#pkgfilelist li.f {
+}
 
 /* mirror stuff */
 table td.country {
