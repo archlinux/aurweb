@@ -100,7 +100,7 @@ html_header(__("Password Reset"));
 	} else {
 	?>
 	<p><?= __('If you have forgotten the e-mail address you used to register, please send a message to the %saur-general%s mailing list.',
-	'<a href="http://mailman.archlinux.org/mailman/listinfo/aur-general">',
+	'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-general">',
 	'</a>'); ?></p>
 	<form action="" method="post">
 		<p><?= __("Enter your e-mail address:"); ?>

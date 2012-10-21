@@ -192,7 +192,7 @@ if ($row["MaintainerUID"]):
 ?>
 				<li><a href="<?= htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?= __('View packages details for').' '.$darr[0].$darr[1]?>"><?= $darr[0].$darr[1]?></a></li>
 		<?php else: ?>
-				<li><a href="http://www.archlinux.org/packages/?q=<?= urlencode($darr[0])?>" title="<?= __('View packages details for').' '.$darr[0].$darr[1] ?>"><?= $darr[0].$darr[1] ?></a></li>
+				<li><a href="https://www.archlinux.org/packages/?q=<?= urlencode($darr[0])?>" title="<?= __('View packages details for').' '.$darr[0].$darr[1] ?>"><?= $darr[0].$darr[1] ?></a></li>
 		<?php endif; ?>
 	<?php endwhile; ?>
 			</ul>

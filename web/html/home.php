@@ -22,9 +22,9 @@ $dbh = db_connect();
 			<?php
 			echo __(
 				'Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU Guidelines%s for more information.',
-				'<a href="http://wiki.archlinux.org/index.php/AUR_User_Guidelines">',
+				'<a href="https://wiki.archlinux.org/index.php/AUR_User_Guidelines">',
 				'</a>',
-				'<a href="http://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">',
+				'<a href="https://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">',
 				'</a>'
 				);
 			?>
@@ -34,7 +34,7 @@ $dbh = db_connect();
 			echo __(
 				'Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!',
 				'<strong>', '</strong>',
-				'<a href="http://wiki.archlinux.org/index.php/Arch_Packaging_Standards">',
+				'<a href="https://wiki.archlinux.org/index.php/Arch_Packaging_Standards">',
 				'</a>'
 				);
 			?>
@@ -48,9 +48,9 @@ $dbh = db_connect();
 			<?php
 			echo __(
 				'General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. This list can be used for package orphan requests, merge requests, and deletion requests. For discussion relating to the development of the AUR, use the %saur-dev%s mailing list.',
-				'<a href="http://mailman.archlinux.org/mailman/listinfo/aur-general">',
+				'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-general">',
 				'</a>',
-				'<a href="http://mailman.archlinux.org/mailman/listinfo/aur-dev">',
+				'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-dev">',
 				'</a>'
 				);
 			?>
