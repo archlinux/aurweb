@@ -117,6 +117,7 @@ class AurJSON {
     }
 
     private function process_query($type, $where_condition) {
+        global $MAX_RPC_RESULTS;
         $fields = implode(',', self::$fields);
         $query = "SELECT Users.Username as Maintainer, {$fields} " .
             "FROM Packages LEFT JOIN Users " .
@@ -148,6 +149,10 @@ class AurJSON {
                     array_push($search_data, $row);
                 }
             }
+
+           if ($resultcount === $MAX_RPC_RESULTS) {
+               return $this->json_error('Too many package results.');
+           }
 
             return $this->json_results($type, $resultcount, $search_data);
         }
@@ -191,6 +196,7 @@ class AurJSON {
      * @return mixed Returns an array of package matches.
      **/
     private function search($keyword_string) {
+        global $MAX_RPC_RESULTS;
         if (strlen($keyword_string) < 2) {
             return $this->json_error('Query arg too small');
         }
@@ -198,7 +204,8 @@ class AurJSON {
         $keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
 
         $where_condition = "(Name LIKE {$keyword_string} OR ";
-        $where_condition.= "Description LIKE {$keyword_string})";
+        $where_condition.= "Description LIKE {$keyword_string}) ";
+        $where_condition.= "LIMIT {$MAX_RPC_RESULTS}";
 
         return $this->process_query('search', $where_condition);
     }
@@ -227,6 +234,7 @@ class AurJSON {
      * @return mixed Returns an array of results containing the package data
      **/
     private function multiinfo($pqdata) {
+        global $MAX_RPC_RESULTS;
         $args = $this->parse_multiinfo_args($pqdata);
         $ids = $args['ids'];
         $names = $args['names'];
@@ -238,16 +246,18 @@ class AurJSON {
         $where_condition = "";
         if ($ids) {
             $ids_value = implode(',', $args['ids']);
-            $where_condition .= "ID IN ({$ids_value})";
+            $where_condition .= "ID IN ({$ids_value}) ";
         }
         if ($ids && $names) {
-            $where_condition .= " OR ";
+            $where_condition .= "OR ";
         }
         if ($names) {
             // individual names were quoted in parse_multiinfo_args()
             $names_value = implode(',', $args['names']);
-            $where_condition .= "Name IN ({$names_value})";
+            $where_condition .= "Name IN ({$names_value}) ";
         }
+
+        $where_condition .= "LIMIT {$MAX_RPC_RESULTS}";
 
         return $this->process_query('multiinfo', $where_condition);
     }
@@ -258,9 +268,11 @@ class AurJSON {
      * @return mixed Returns an array of value data containing the package data
      **/
     private function msearch($maintainer) {
+        global $MAX_RPC_RESULTS;
         $maintainer = $this->dbh->quote($maintainer);
 
-        $where_condition = "Users.Username = {$maintainer}";
+        $where_condition = "Users.Username = {$maintainer} ";
+        $where_condition .= "LIMIT {$MAX_RPC_RESULTS}";
 
         return $this->process_query('msearch', $where_condition);
     }
