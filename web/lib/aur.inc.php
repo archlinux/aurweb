@@ -298,6 +298,8 @@ function db_connect() {
  * @return void
  */
 function html_header($title="") {
+	global $AUR_LOCATION;
+	global $DISABLE_HTTP_LOGIN;
 	global $LANG;
 	global $SUPPORTED_LANGS;
 
