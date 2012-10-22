@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v1.9.1\n"
+"Project-Id-Version: AUR v2.0.0-rc1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-04 12:23+0200\n"
+"POT-Creation-Date: 2012-10-22 18:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Page Not Found"
+msgstr ""
+
+msgid "Sorry, the page you've requested does not exist."
+msgstr ""
 
 msgid "Accounts"
 msgstr ""
@@ -740,9 +746,6 @@ msgstr ""
 msgid "Comment has been added."
 msgstr ""
 
-msgid "Comment"
-msgstr ""
-
 #, php-format
 msgid "View all %s comments"
 msgstr ""
@@ -925,6 +928,9 @@ msgstr ""
 
 #, php-format
 msgid "%d packages found. Page %d of %d."
+msgstr ""
+
+msgid "Version"
 msgstr ""
 
 msgid "Yes"
