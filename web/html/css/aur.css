@@ -10,3 +10,7 @@
 #pkg-updates td.pkg-new {
   padding: 0 .5em;
 }
+
+#pkg-stats td.stat-desc {
+  white-space: normal;
+}
