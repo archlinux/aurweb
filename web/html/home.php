@@ -100,22 +100,10 @@ $dbh = db_connect();
 		</form>
 	</div>
 	<div id="pkg-updates" class="widget box">
-		<table>
-			<tr>
-				<td class="pkg-name">
-					<?php updates_table($dbh); ?>
-				</td>
-			</tr>
-		</table>
+		<?php updates_table($dbh); ?>
 	</div>
 	<div id="pkg-stats" class="widget box">
-		<table>
-			<tr>
-				<td class="pkg-name">
-					<?php general_stats_table($dbh); ?>
-				</td>
-			</tr>
-		</table>
+		<?php general_stats_table($dbh); ?>
 	</div>
 
 </div>
