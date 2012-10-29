@@ -106,6 +106,10 @@ if ($uid):
 				}
 			}
 
+			if (!$error && $dircount !== 1) {
+				$error = __("Error - source tarball may not contain files outside a directory.");
+			}
+
 			if (!$error && empty($pkgbuild_raw)) {
 				$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
 			}
