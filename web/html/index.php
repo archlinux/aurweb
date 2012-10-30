@@ -7,15 +7,21 @@ include_once("pkgfuncs.inc.php");
 $path = $_SERVER['PATH_INFO'];
 $tokens = explode('/', $path);
 
-if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
-	if (isset($tokens[2])) {
+if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
+	if (!empty($tokens[2])) {
 		/* TODO: Create a proper data structure to pass variables from
 		 * the routing framework to the individual pages instead of
 		 * initializing arbitrary variables here. */
 		$pkgname = $tokens[2];
 		$pkgid = pkgid_from_name($pkgname);
 
-		if (isset($tokens[3])) {
+		if (!$pkgid) {
+			header("HTTP/1.0 404 Not Found");
+			include "./404.php";
+			return;
+		}
+
+		if (!empty($tokens[3])) {
 			if ($tokens[3] == 'voters') {
 				$_GET['ID'] = pkgid_from_name($tokens[2]);
 				include('voters.php');
@@ -49,6 +55,10 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			case "merge":
 				include('pkgmerge.php');
 				return;
+			default:
+				header("HTTP/1.0 404 Not Found");
+				include "./404.php";
+				return;
 			}
 
 			if (isset($_COOKIE['AURSID'])) {
@@ -60,17 +70,25 @@ if (isset($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 	}
 
 	include get_route('/' . $tokens[1]);
-} elseif (isset($tokens[1]) && '/' . $tokens[1] == get_user_route()) {
-	if (isset($tokens[2])) {
-		$_REQUEST['U'] = $tokens[2];
+} elseif (!empty($tokens[1]) && '/' . $tokens[1] == get_user_route()) {
+	if (!empty($tokens[2])) {
+		$_REQUEST['ID'] = uid_from_username($tokens[2]);
 
-		if (isset($tokens[3])) {
+		if (!$_REQUEST['ID']) {
+			header("HTTP/1.0 404 Not Found");
+			include "./404.php";
+			return;
+		}
+
+		if (!empty($tokens[3])) {
 			if ($tokens[3] == 'edit') {
 				$_REQUEST['Action'] = "DisplayAccount";
 			} elseif ($tokens[3] == 'update') {
 				$_REQUEST['Action'] = "UpdateAccount";
 			} else {
-				$_REQUEST['Action'] = "AccountInfo";
+				header("HTTP/1.0 404 Not Found");
+				include "./404.php";
+				return;
 			}
 		} else {
 			$_REQUEST['Action'] = "AccountInfo";
