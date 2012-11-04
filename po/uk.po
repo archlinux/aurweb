@@ -4,129 +4,62 @@
 # 
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011.
+# Rax Garfield <admin@dvizho.ks.ua>, 2012.
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2012.
 # Данило Коростіль <ted.korostiled@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-09-05 17:02+0200\n"
-"PO-Revision-Date: 2011-11-24 17:09+0000\n"
+"POT-Creation-Date: 2012-10-22 18:43+0200\n"
+"PO-Revision-Date: 2012-10-26 15:06+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
-"Language-Team: Ukrainian (http://www.transifex.net/projects/p/aur/language/uk/)\n"
+"Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-msgid "Home"
-msgstr "Головна"
+msgid "Page Not Found"
+msgstr "Сторінку не знайдено"
 
-msgid ""
-"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
-"Guidelines%h for more information."
-msgstr "Раді вітати вас в сховищі пакунків користувачів (AUR англійською)! Будь ласка, прочитайте %hІнструкцію користувача AUR%h і %hІнструкцію довіреного користувача (TU) AUR%h для розширеної довідки."
-
-msgid ""
-"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
-"otherwise they will be deleted!"
-msgstr "Прислані PKGBUILD %hповинні%h задовольняти %hСтандарти пакунків Арчлінукс%h, в противному випадку  вони будуть вилучені!"
-
-msgid "Remember to vote for your favourite packages!"
-msgstr "Не забудьте проголосувати за улюблені пакунки!"
-
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Деякі пакунки можуть бути подані як бінарні в сховищі [community]."
-
-msgid "DISCLAIMER"
-msgstr "ВІДМОВА ВІД ВІДПОВІДАЛЬНОСТІ"
-
-msgid ""
-"Unsupported packages are user produced content. Any use of the provided "
-"files is at your own risk."
-msgstr "Пакунки, що не підтримуються —- це пакунки, створені користувачами. Ви можете використовувати їх тільки на ваш власний страх і ризик."
-
-msgid "Search Criteria"
-msgstr "Критерії пошуку"
-
-msgid "Packages"
-msgstr "Пакунки"
-
-msgid "Cannot find package to merge votes and comments into."
-msgstr "Не вдалося знайти пакунок для об’єднання голосів та коментарів."
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Вибрані пакунки не вилучено, перевірте, чи позначено галочку в полі підтвердження."
-
-msgid "Error trying to retrieve package details."
-msgstr "Помилка протягом спроби пошуку інформації про пакунок."
+msgid "Sorry, the page you've requested does not exist."
+msgstr "Вибачте, сторінка, до якої Ви звертаєтесь, не існує."
 
 msgid "Accounts"
 msgstr "Облікові записи"
 
 msgid "You are not allowed to access this area."
-msgstr "У Вас немає достаньо прав доступу."
+msgstr "У вас недостатньо прав доступу."
 
 msgid "Could not retrieve information for the specified user."
-msgstr "Неможливо отримати інформацію про вказаного користувача."
+msgstr "Не вдалося отримати інформацію про вказаного користувача."
 
 msgid "You do not have permission to edit this account."
-msgstr "У Вас немає прав для редагування цього облікового запису."
+msgstr "У вас недостатньо прав для редагування цього облікового запису."
 
 msgid "Use this form to search existing accounts."
-msgstr "Використовуйте цю форму для пошуку наявних облікових записів."
-
-msgid "Use this form to update your account."
-msgstr "Використовуйте цю форму для оновлення свого облікового запису."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Залиште поля паролів порожніми, щоб не міняти пароль."
+msgstr "Шукайте облікові записи за допомогою цієї форми."
 
 msgid "You must log in to view user information."
-msgstr "Ви повинні увійти у систему для перегляду даних користувача."
+msgstr "Ви повинні увійти в систему для перегляду даних користувача."
 
 msgid "Use this form to create an account."
-msgstr "Використайте цю форму, щоб створити обліковий запис."
-
-msgid "Could not retrieve proposal details."
-msgstr "Не вдалось отримати подробиць пропозиції."
-
-msgid "Voting is closed for this proposal."
-msgstr "Голосування на цю пропозицію закрито."
-
-msgid "You cannot vote in an proposal about you."
-msgstr "Ви не можете голосувати за Вашу пропозицію."
-
-msgid "You've already voted for this proposal."
-msgstr "Ви вже проголосували за цю пропозицію."
-
-msgid "Vote ID not valid."
-msgstr "Ідентифікатор голосу неправильний."
-
-msgid "Current Votes"
-msgstr "Поточні голосування"
-
-msgid "Past Votes"
-msgstr "Минулі голосування"
+msgstr "Створіть обліковий запис за допомогою цієї форми."
 
 msgid "Add Proposal"
 msgstr "Додати пропозицію"
 
-msgid "Back"
-msgstr "Назад"
-
-msgid "Next"
-msgstr "Далі"
+msgid "Invalid token for user action."
+msgstr "Невірний маркер для дій користувача."
 
 msgid "Username does not exist."
 msgstr "Користувача не існує."
 
 #, php-format
 msgid "%s already has proposal running for them."
-msgstr "%s вже мають пропозицію, що зареєстрована на них."
+msgstr "%s вже мають зареєстровану на себе пропозицію."
 
 msgid "Length must be a number."
 msgstr "Довжина повинна бути числом."
@@ -161,8 +94,124 @@ msgstr "Пропозиція"
 msgid "Submit"
 msgstr "Надіслати"
 
+msgid "Home"
+msgstr "Головна"
+
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr "Вітаємо Вас у Сховищі Пакунків Користувачів (AUR англійською)! Для початку прочитайте %sAUR User Guidelines%s та %sAUR TU Guidelines%s для більшої інформації."
+
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr "Надіслані PKGBUILDs %sповинні%s відповідати %sArch Packaging Standards%s (Стандартам пакування Арча), в противному випадку вони будуть вилучені!"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "Не забудьте проголосувати за улюблені пакунки."
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "Деякі пакунки подаються у бінарному вигляді через сховище [community]."
+
+msgid "Discussion"
+msgstr "Обговорення"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. This list can be used for package"
+" orphan requests, merge requests, and deletion requests. For discussion "
+"relating to the development of the AUR, use the %saur-dev%s mailing list."
+msgstr "Загальна дискусія щодо Сховища Пакунків Користувачів (AUR) та структури Довірених Користувачів відбувається в %saur-general%s. Цей список розсилки можна використовувати для запитів щодо відмови від пакунка, запиту про злиття пакунків та запит про вилучення пакунка. Для дискусій щодо тем про розробку AUR використовуйте список розсилання %saur-dev%s."
+
+msgid "Bug Reporting"
+msgstr "Повідомлення про вади"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR, please fill out a bug report on our %sbug "
+"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
+"packaging bugs contact the package maintainer or leave a comment on the "
+"appropriate package page."
+msgstr "Якщо Ви знайдете ваду в AUR, будь ласка напишіть повідомлення про неї на наш %sbug tracker%s (трекер вад). Використовуйте цей трекер для повідомлення про вади %sтільки%s в AUR. Для повідомлення про вади в пакунках зв’яжіться з супровідником пакунка або залишіть коментар на відповідній сторінці пакунка."
+
+msgid "DISCLAIMER"
+msgstr "ВІДМОВА ВІД ВІДПОВІДАЛЬНОСТІ"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr "Непідтримувані пакунки створюються користувачами. Використовуйте їх на Ваш власний страх і ризик."
+
+msgid "Vote"
+msgstr "Проголосувати"
+
+msgid "UnVote"
+msgstr "Забрати голос"
+
+msgid "Notify"
+msgstr "Сповіщати"
+
+msgid "UnNotify"
+msgstr "Не сповіщати"
+
+msgid "Flag"
+msgstr "Позначити"
+
+msgid "UnFlag"
+msgstr "Зняти позначку"
+
+msgid "Login"
+msgstr "Увійти"
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Ввійшов як: %s"
+
+msgid "Logout"
+msgstr "Вийти"
+
+msgid "Enter login credentials"
+msgstr "Введіть облікові дані для входу"
+
+msgid "Username"
+msgstr "Користувач"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Remember me"
+msgstr "Запам'ятати мене"
+
+msgid "Forgot Password"
+msgstr "Забули пароль?"
+
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "Реєстрування через HTTP вимкнено. Будь-ласка, %sперейдіть на HTTPs%s для входу."
+
+msgid "Search Criteria"
+msgstr "Критерії пошуку"
+
+msgid "Packages"
+msgstr "Пакунки"
+
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Не вдалося знайти пакунок для об’єднання голосів та коментарів."
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Обрані пакунки не вилучено; перевірте, чи позначено галочку в полі підтвердження."
+
+msgid "Error trying to retrieve package details."
+msgstr "Стався збій під час пошуку інформації про пакунок."
+
 msgid "Missing a required field."
-msgstr "Бракує обов'язкового рядка."
+msgstr "Бракує обов’язкового рядка."
 
 msgid "Password fields do not match."
 msgstr "Паролі не збігаються."
@@ -170,17 +219,14 @@ msgstr "Паролі не збігаються."
 msgid "Invalid e-mail."
 msgstr "Неправильна електронна адреса."
 
-msgid "Invalid e-mail and reset key combination."
-msgstr "Неприпустимий адрес електронної пошти і комбінації клавіш скидання."
-
 msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr "Запит на скинення пароля для облікового запису надіслано на електронну пошту, пов'язану ним. Якщо Ви бажаєте скинути пароль, натисніть на посилання нижче, інакше проігноруйте це повідомлення і не відбудеться жодних змін."
+msgstr "Запит на скинення паролю для облікового запису надісланий на пов’язану з ним адресу електронної пошти. Щоб скинути пароль, натисніть на посилання нижче; щоб залишити все як є, проігноруйте це повідомлення."
 
 msgid "Password Reset"
-msgstr "Скидання пароля"
+msgstr "Скидання паролю"
 
 msgid "Check your e-mail for the confirmation link."
 msgstr "Перевірте свою електронну пошту для підтвердження."
@@ -200,33 +246,102 @@ msgstr "Підтвердження нового пароля:"
 msgid "Continue"
 msgstr "Продовжити"
 
+#, php-format
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
-" message to the %haur-general%h mailing list."
-msgstr "Якщо Ви забули адресу електронної пошти, вказану під час реєстрації, будь ласка, надішліть повідомлення до списку листування %haur-general%."
+" message to the %saur-general%s mailing list."
+msgstr "Якщо Ви забули електронну адресу, яку Ви використовували при реєстрації, напишіть повідомлення до списку розсилки %saur-general%s"
 
 msgid "Enter your e-mail address:"
 msgstr "Введіть адресу електронної пошти:"
 
+msgid "Package Deletion"
+msgstr "Вилучення пакунку"
+
+#, php-format
+msgid "Delete Package: %s"
+msgstr "Вилучити пакунок: %s"
+
+#, php-format
+msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgstr "Використовуйте цю форму для вилучення пакунку (%s%s%s) з AUR. "
+
+msgid "Deletion of a package is permanent. "
+msgstr "Вилучення пакунку є безповоротне."
+
+msgid "Select the checkbox to confirm action."
+msgstr "Встановіть галочку, щоб підтвердити дію."
+
+msgid "Confirm package deletion"
+msgstr "Підтвердити вилучення пакунку"
+
+msgid "Delete"
+msgstr "Вилучити"
+
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr "Тільки Довірені Користувачі та Розробники можуть вилучати пакунки."
+
+msgid "Package Merging"
+msgstr "Об’єднання пакунків"
+
+#, php-format
+msgid "Merge Package: %s"
+msgstr "Об’єднати пакунки: %s"
+
+#, php-format
+msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgstr "Використовуйте цю форму для об’єднання пакунку (%s%s%s) з іншим пакунком."
+
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr "Як тільки пакунок буде об’єднаний, його вже неможливо повернути."
+
+msgid "Enter the package name you wish to merge the package into. "
+msgstr "Введіть назву пакунку з яким Ви бажаєте об'єднати."
+
+msgid "Merge into:"
+msgstr "Об’єднати з:"
+
+msgid "Confirm package merge"
+msgstr "Підтвердити об’єднання пакунків"
+
+msgid "Merge"
+msgstr "Об’єднати"
+
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr "Тільки Довірені Користувачі та Розробники можуть об’єднувати пакунки."
+
+#, php-format
+msgid "Error - Uploaded file larger than maximum allowed size (%s)"
+msgstr "Помилка - Вивантажений файл має більший розмір ніж дозволяється (%s)"
+
+msgid "Error - File partially uploaded"
+msgstr "Помилка - Файл частково вивантажений"
+
 msgid "Error - No file uploaded"
 msgstr "Помилка — жодного файла не вивантажено"
+
+msgid "Error - Could not locate temporary upload folder"
+msgstr "Помилка - Не можу знайти тимчасову теку для вивантаження"
+
+msgid "Error - File could not be written"
+msgstr "Помилка - Файл неможливо записати"
 
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
 " makepkg(8) only)."
-msgstr "Помилка — формат файла не підтримується (будь ласка, надішліть стиснутий архів gzip, що створений за допомогою тільки makepkg(8))."
+msgstr "Помилка — формат файлу не підтримується (будь ласка, надішліть стиснутий архів tar.gz, що створений тільки за допомогою makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Помилка — розмір нестисненого файла надто великий."
-
-msgid "Error - source tarball may not contain more than one directory."
-msgstr "Помилка — архів з кодом не може містити понад одну теку."
 
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Помилка — архів з  кодом не може містити файли за межами теки."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Помилка — архів з  кодом не може містити вкладені підтеки."
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr "Помилка — архів з кодом не може містити понад одну теку."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Помилка під час  розпакування вивантаженого — немає PKGBUILD."
@@ -242,11 +357,32 @@ msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Неправильна назва: дозволено тільки малі літери."
 
 #, php-format
+msgid "Error - Package name cannot be greater than %d characters"
+msgstr "Помилка - Назва пакунку не може бути більшою ніж %d символів"
+
+#, php-format
+msgid "Error - Package URL cannot be greater than %d characters"
+msgstr "Помилка - URL пакунку не може бути більшим ніж %d символів"
+
+#, php-format
+msgid "Error - Package description cannot be greater than %d characters"
+msgstr "Помилка - Опис пакунку не може бути більшим ніж %d символів"
+
+#, php-format
+msgid "Error - Package license cannot be greater than %d characters"
+msgstr "Помилка - Ліцензія пакунку не може бути більшою ніж %d символів"
+
+#, php-format
+msgid "Error - Package version cannot be greater than %d characters"
+msgstr "Помилка - Версія пакунку не може бути ніж %d символів"
+
+#, php-format
 msgid "Could not create directory %s."
 msgstr "Неможливо створити теку %s."
 
-msgid "You are not allowed to overwrite the %h%s%h package."
-msgstr "Ви не маєте права перезаписувати пакунок %h%s%h."
+#, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr "Вам заборонено переписувати пакунок %s%s%s."
 
 #, php-format
 msgid ""
@@ -280,6 +416,104 @@ msgstr "Вибачте, вивантаження не дозволені цим 
 
 msgid "You must create an account before you can upload packages."
 msgstr "Ви повинні створити обліковий запис, щоб вивантажувати пакунки."
+
+msgid "Trusted User"
+msgstr "Довірений користувач"
+
+msgid "Could not retrieve proposal details."
+msgstr "Не вдалось отримати подробиць пропозиції."
+
+msgid "Voting is closed for this proposal."
+msgstr "Голосування на цю пропозицію закрито."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Ви не можете голосувати за свою пропозицію."
+
+msgid "You've already voted for this proposal."
+msgstr "Ви вже проголосували за цю пропозицію."
+
+msgid "Vote ID not valid."
+msgstr "Ідентифікатор голосу неправильний."
+
+msgid "Current Votes"
+msgstr "Поточні голосування"
+
+msgid "Past Votes"
+msgstr "Минулі голосування"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Next"
+msgstr "Далі"
+
+msgid "Voters"
+msgstr "Проголосували"
+
+msgid "Missing User ID"
+msgstr "Бракує ідентифікатора користувача"
+
+msgid "The username is invalid."
+msgstr "Користувач неправильний."
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Кількість символів повинна бути від %s до %s"
+
+msgid "Start and end with a letter or number"
+msgstr "Початок та кінець з літери або цифри"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Може містити тільки один період, підкреслення або дефіс."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Ваш пароль має містити щонайменше %s символів."
+
+msgid "The email address is invalid."
+msgstr "Адреса електронної пошти неправильна."
+
+msgid "The PGP key fingerprint is invalid."
+msgstr "Відбиток ключа PGP недійсний."
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr "Довірений користувач не може присвоювати статус розробника."
+
+msgid "Language is not currently supported."
+msgstr "Наразі ця мова не підтримується."
+
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr "Назва користувача %s%s%s вже використовується."
+
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr "Адрес %s%s%s вже використовується."
+
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr "Помилка при спробі створити рахунок %s%s%s."
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr "Рахунок %s%s%s успішно створено."
+
+msgid "Click on the Login link above to use your account."
+msgstr "Натисніть на посилання Ввійти вище щоб використовувати свій рахунок."
+
+#, php-format
+msgid "Error trying to modify account, %s%s%s."
+msgstr "Помилка про спробі змінити рахунок %s%s%s."
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr "Рахунок %s%s%s успішно змінено."
+
+msgid "Bad username or password."
+msgstr "Неправильний користувач або пароль. "
+
+msgid "Invalid e-mail and reset key combination."
+msgstr "Неприпустима адреса електронної пошти й комбінація клавіш скидання."
 
 msgid "Error retrieving package details."
 msgstr "Помилка пошуку інформації про пакунок."
@@ -388,23 +622,44 @@ msgstr "Пропущено ідентифікатор категорії."
 msgid "Invalid category ID."
 msgstr "Неправильний ідентифікатор категорії."
 
-msgid "Missing package ID."
-msgstr "Нема ідентифікатора пакунка."
-
 msgid "You are not allowed to change this package category."
 msgstr "Ви не можете змінити катеогрію цього пакунку."
 
 msgid "Package category changed."
 msgstr "Категорію пакунку змінено."
 
-msgid "Username"
+msgid "Account Type"
+msgstr "Тип облікового запису"
+
+msgid "User"
 msgstr "Користувач"
+
+msgid "Developer"
+msgstr "Розробник"
+
+msgid "Email Address"
+msgstr "Адреса електронної пошти"
+
+msgid "Real Name"
+msgstr "Справжнє ім'я"
+
+msgid "IRC Nick"
+msgstr "Псевдонім IRC"
+
+msgid "PGP Key Fingerprint"
+msgstr "Відбиток ключа PGP"
+
+msgid "Last Voted"
+msgstr "Останнім проголосував"
+
+msgid "Never"
+msgstr "Ніколи"
+
+msgid "View this user's packages"
+msgstr "Переглянути пакунки цього користувача"
 
 msgid "required"
 msgstr "обов'язково"
-
-msgid "Account Type"
-msgstr "Тип облікового запису"
 
 msgid "Normal user"
 msgstr "Звичайний користувач"
@@ -412,26 +667,11 @@ msgstr "Звичайний користувач"
 msgid "Trusted user"
 msgstr "Довіренний користувач"
 
-msgid "Developer"
-msgstr "Розробник"
-
 msgid "Account Suspended"
 msgstr "Обліковий запис призупинено"
 
-msgid "Email Address"
-msgstr "Адреса електронної пошти"
-
-msgid "Password"
-msgstr "Пароль"
-
 msgid "Re-type password"
 msgstr "Введіть пароль ще раз."
-
-msgid "Real Name"
-msgstr "Справжнє ім'я"
-
-msgid "IRC Nick"
-msgstr "Псевдонім IRC"
 
 msgid "Language"
 msgstr "Мова"
@@ -445,56 +685,6 @@ msgstr "Створити"
 msgid "Reset"
 msgstr "Очистити"
 
-msgid "Missing User ID"
-msgstr "Бракує ідентифікатора користувача"
-
-msgid "The username is invalid."
-msgstr "Користувач неправильний."
-
-#, php-format
-msgid "It must be between %s and %s characters long"
-msgstr "Кількість символів повинна бути від %s до %s"
-
-msgid "Start and end with a letter or number"
-msgstr "Початок та кінець з літери або цифри"
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr "Може містити тільки один період, підкреслення або дефіс."
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr "Ваш пароль має містити щонайменше %s символів."
-
-msgid "The email address is invalid."
-msgstr "Адреса електронної пошти неправильна."
-
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Довірений користувач не може присвоювати статус розробника."
-
-msgid "Language is not currently supported."
-msgstr "Наразі ця мова не підтримується."
-
-msgid "The username, %h%s%h, is already in use."
-msgstr "Користувач %h%s%h вже існує."
-
-msgid "The address, %h%s%h, is already in use."
-msgstr "Адреса %h%s%h вже існує."
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr "Помилка при спробі створити обліковий запис, %h%s%h: %s."
-
-msgid "The account, %h%s%h, has been successfully created."
-msgstr "Обліковий запис, %h%s%h, успішно створено."
-
-msgid "Click on the Home link above to login."
-msgstr "Натисніть на посилання «Головна», щоб увійти."
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr "Помилка під час спроби редагувати обліковий запис, %h%s%h: %s."
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr "Обліковий запис %h%s%h успішно змінено."
-
 msgid "No results matched your search criteria."
 msgstr "За вашим запитом нічого не знайдено."
 
@@ -503,9 +693,6 @@ msgstr "Тип"
 
 msgid "Status"
 msgstr "Статус"
-
-msgid "Last Voted"
-msgstr "Останнім проголосував"
 
 msgid "Edit Account"
 msgstr "Редагувати обліковий запис"
@@ -516,8 +703,8 @@ msgstr "Призупинено"
 msgid "Active"
 msgstr "Активний"
 
-msgid "Never"
-msgstr "Ніколи"
+msgid "Edit"
+msgstr "Редагувати"
 
 msgid "Less"
 msgstr "Менше"
@@ -528,17 +715,109 @@ msgstr "Більше"
 msgid "No more results to display."
 msgstr "Більше немає результатів."
 
-msgid "User"
-msgstr "Користувач"
+msgid "No New Comment Notification"
+msgstr "Немає нових сповіщень про коментарі"
 
-msgid "Trusted User"
-msgstr "Довірений користувач"
+msgid "New Comment Notification"
+msgstr "Сповіщення про новий коментар"
 
-msgid "View this user's packages"
-msgstr "Переглянути пакунки цього користувача"
+msgid "Flag Out-of-date"
+msgstr "Призначити мітку «застарілий»"
 
-msgid "Bad username or password."
-msgstr "Неправильний користувач або пароль. "
+msgid "UnFlag Out-of-date"
+msgstr "Зняти мітку «застарілий»"
+
+msgid "Delete Packages"
+msgstr "Вилучити пакунки"
+
+msgid "Merge into"
+msgstr "Об'єднати в"
+
+msgid "Confirm"
+msgstr "Підтвердити"
+
+msgid "My Packages"
+msgstr "Мої пакунки"
+
+msgid " My Account"
+msgstr "Мій рахунок"
+
+msgid "Register"
+msgstr "Зареєструвати"
+
+msgid "Add Comment"
+msgstr "Додати коментар"
+
+msgid "Comment has been added."
+msgstr "Коментар додано."
+
+#, php-format
+msgid "View all %s comments"
+msgstr "Переглянути всі %s коментарі"
+
+msgid "Latest Comments"
+msgstr "Останні коментарі"
+
+msgid "Delete comment"
+msgstr "Вилучити коментар"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "Коментоване через %s"
+
+msgid "All comments"
+msgstr "Всі коментарі"
+
+msgid "unknown"
+msgstr "невідомо"
+
+msgid "Package Details"
+msgstr "Подробиці пакунку"
+
+msgid "View PKGBUILD"
+msgstr "Переглянути PKGBUILD"
+
+msgid "Download tarball"
+msgstr "Звантажити tar-архів"
+
+msgid "Flagged out-of-date"
+msgstr "Позначено як застарілий"
+
+msgid "Flag package out-of-date"
+msgstr "Позначити пакунок як застарілий"
+
+msgid "Unflag package"
+msgstr "Відмінити позначення"
+
+msgid "Remove vote"
+msgstr "Вилучити голос"
+
+msgid "Vote for this package"
+msgstr "Голосувати за цей пакунок"
+
+msgid "Disable notifications"
+msgstr "Відключити сповіщення"
+
+msgid "Notify of new comments"
+msgstr "Сповіщати про нові коментарі"
+
+msgid "Delete Package"
+msgstr "Вилучити пакунок"
+
+msgid "Merge Package"
+msgstr "Об’єднати пакунок"
+
+msgid "Adopt Packages"
+msgstr "Прийняти пакунки"
+
+msgid "Disown Packages"
+msgstr "Зректися пакунків"
+
+msgid "Description"
+msgstr "Опис"
+
+msgid "Visit the website for"
+msgstr "Відвідати веб-сторінку для"
 
 msgid "Category"
 msgstr "Категорія"
@@ -546,41 +825,36 @@ msgstr "Категорія"
 msgid "Change category"
 msgstr "Змінити категорію"
 
-msgid "Votes"
-msgstr "Голоси"
-
-msgid "unknown"
-msgstr "невідомо"
-
-msgid "Package Details"
-msgstr "Подробиці про пакунок"
+msgid "License"
+msgstr "Ліцензія"
 
 msgid "Submitter"
 msgstr "Подавач"
 
+msgid "View account information for"
+msgstr "Показати інформацію про рахунок для"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "Показати інформацію про рахунок для %s"
+
 msgid "Maintainer"
 msgstr "Супровідник"
 
-msgid "License"
-msgstr "Ліцензія"
-
-msgid "Last Updated"
-msgstr "Останній раз оновлено"
+msgid "Votes"
+msgstr "Голоси"
 
 msgid "First Submitted"
 msgstr "Вперше надіслано"
 
-msgid "Tarball"
-msgstr "Архів"
-
-msgid "PKGBUILD"
-msgstr "PKGBUILD"
-
-msgid "This package has been flagged out of date."
-msgstr "Цьому пакунку призначено мітку «застарілий»"
+msgid "Last Updated"
+msgstr "Останній раз оновлено"
 
 msgid "Dependencies"
 msgstr "Залежності"
+
+msgid "View packages details for"
+msgstr "Показати деталі пакунку для "
 
 msgid "Required by"
 msgstr "Потрібен для"
@@ -588,26 +862,135 @@ msgstr "Потрібен для"
 msgid "Sources"
 msgstr "Сирці"
 
-msgid "Hi, this is worth reading!"
-msgstr "Привіт, це варто прочитати!"
+msgid "Name, Description"
+msgstr "Назва, опис"
 
-msgid "Start"
-msgstr "Початок"
+msgid "Name Only"
+msgstr "Тільки назва"
 
-msgid "End"
-msgstr "Кінець"
+msgid "Exact name"
+msgstr "Точна назва"
 
-msgid "Yes"
-msgstr "Так"
+msgid "All"
+msgstr "Всі"
 
-msgid "No"
-msgstr "Ні"
+msgid "Flagged"
+msgstr "Позначені"
+
+msgid "Not Flagged"
+msgstr "Не позначені"
+
+msgid "Name"
+msgstr "Назва"
 
 msgid "Voted"
 msgstr "Проголосовано"
 
-msgid "No results found."
-msgstr "Результатів не знайдено."
+msgid "Age"
+msgstr "Вік"
+
+msgid "Ascending"
+msgstr "Висхідний"
+
+msgid "Descending"
+msgstr "Спадний"
+
+msgid "Enter search criteria"
+msgstr "Введіть критерії пошуку"
+
+msgid "Any"
+msgstr "Будь-який"
+
+msgid "Search by"
+msgstr "Пошук по"
+
+msgid "Keywords"
+msgstr "Ключові слова"
+
+msgid "Out of Date"
+msgstr "Застарілих"
+
+msgid "Sort by"
+msgstr "Упорядкувати за"
+
+msgid "Sort order"
+msgstr "Порядок упорядкування"
+
+msgid "Per page"
+msgstr "Результатів на сторінку"
+
+msgid "Go"
+msgstr "Перейти"
+
+msgid "Orphans"
+msgstr "Покинуті"
+
+msgid "Error retrieving package list."
+msgstr "Помилка отримання списку пакунків."
+
+msgid "No packages matched your search criteria."
+msgstr "За вашим запитом не знайдено пакунків."
+
+#, php-format
+msgid "%d packages found. Page %d of %d."
+msgstr "%d пакунків знайдено. Сторінка %d з %d."
+
+msgid "Version"
+msgstr "Версія"
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "orphan"
+msgstr "покинутий"
+
+msgid "Actions"
+msgstr "Дії"
+
+msgid "Unflag Out-of-date"
+msgstr "Зняти мітку «застарілий»"
+
+msgid "Any type"
+msgstr "Будь-який тип"
+
+msgid "Last vote"
+msgstr "Останній голос"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+msgid "Orphan Packages"
+msgstr "Покинуті пакунки"
+
+msgid "Packages added in the past 7 days"
+msgstr "Пакунки, додані за останні 7 днів"
+
+msgid "Packages updated in the past 7 days"
+msgstr "Пакунки, оновлені за останні 7 днів"
+
+msgid "Packages updated in the past year"
+msgstr "Пакунки, оновлені за останній рік"
+
+msgid "Packages never updated"
+msgstr "Пакунки, що ніколи не оновлювалися"
+
+msgid "Registered Users"
+msgstr "Зареєстровані користувачі"
+
+msgid "Trusted Users"
+msgstr "Довірені користувачі"
+
+msgid "Recent Updates"
+msgstr "Останні зміни"
+
+msgid "My Statistics"
+msgstr "Моя статистика"
+
+msgid "Packages in unsupported"
+msgstr "Пакунків в AUR"
 
 msgid "Proposal Details"
 msgstr "Подробиці пропозиції"
@@ -619,224 +1002,20 @@ msgstr "Це голосування все ще доречне."
 msgid "Submitted: %s by %s"
 msgstr "Подано: %s з %s"
 
+msgid "End"
+msgstr "Кінець"
+
+msgid "No"
+msgstr "Ні"
+
 msgid "Abstain"
 msgstr "Утриматися"
 
 msgid "Total"
 msgstr "Всього"
 
-msgid "Voters"
-msgstr "Проголосували"
-
-msgid "Bugs"
-msgstr "Вади"
-
-msgid "Discussion"
-msgstr "Обговорення"
-
-msgid "My Packages"
-msgstr "Мої пакунки"
-
-msgid "Vote"
-msgstr "Проголосувати"
-
-msgid "UnVote"
-msgstr "Забрати голос"
-
-msgid "Notify"
-msgstr "Сповіщати"
-
-msgid "New Comment Notification"
-msgstr "Сповіщення про новий коментар"
-
-msgid "UnNotify"
-msgstr "Не сповіщати"
-
-msgid "No New Comment Notification"
-msgstr "Немає нових сповіщень про коментарі"
-
-msgid "Flag Out-of-date"
-msgstr "Призначити мітку «застарілий»"
-
-msgid "UnFlag Out-of-date"
-msgstr "Зняти мітку «застарілий»"
-
-msgid "Adopt Packages"
-msgstr "Прийняти пакунки"
-
-msgid "Disown Packages"
-msgstr "Зректися пакунків"
-
-msgid "Delete Packages"
-msgstr "Вилучити пакунки"
-
-msgid "Merge into"
-msgstr "Об'єднати в"
-
-msgid "Confirm"
-msgstr "Підтвердити"
-
-msgid "Any type"
-msgstr "Будь-який тип"
-
-msgid "Sort by"
-msgstr "Упорядкувати за"
-
-msgid "Last vote"
-msgstr "Останній голос"
-
-msgid "Search"
-msgstr "Пошук"
-
-msgid "Comment has been added."
-msgstr "Коментар додано."
-
-msgid "Enter your comment below."
-msgstr "Введіть ваш коментар нижче."
-
-#, php-format
-msgid "Logged-in as: %s"
-msgstr "Ввійшов як: %s"
-
-msgid "Logout"
-msgstr "Вийти"
-
-msgid "Remember me"
-msgstr "Запам'ятати мене"
-
-msgid "Login"
-msgstr "Увійти"
-
-msgid "Forgot Password"
-msgstr "Забули пароль?"
-
-#, php-format
-msgid ""
-"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Реєстрування через HTTP вимкнено. Будь-ласка, %sперейдіть на HTTPs%s для входу."
-
-msgid "Recent Updates"
-msgstr "Останні зміни"
-
-msgid "My Statistics"
-msgstr "Моя статистика"
-
-msgid "Packages in unsupported"
-msgstr "Пакунки в непідтримуваних"
-
-msgid "Out of Date"
-msgstr "Застарілий"
-
-msgid "Statistics"
-msgstr "Статистика"
-
-msgid "Orphan Packages"
-msgstr "Пакунки без власника"
-
-msgid "Packages added in the past 7 days"
-msgstr "Пакунки додані за останні 7 днів"
-
-msgid "Packages updated in the past 7 days"
-msgstr "Пакунки оновлені за останні 7 днів"
-
-msgid "Packages updated in the past year"
-msgstr "Пакунки оновлені за останній рік"
-
-msgid "Packages never updated"
-msgstr "Пакунки, що ніколи не оновлювалися"
-
-msgid "Registered Users"
-msgstr "Зареєстровані користувачі"
-
-msgid "Trusted Users"
-msgstr "Довірені користувачі"
-
-msgid "Error retrieving package list."
-msgstr "Помилка отримання списку пакунків."
-
-msgid "No packages matched your search criteria."
-msgstr "За вашим запитом не знайдено пакунків."
-
-msgid "Package Listing"
-msgstr "Список пакунків"
-
-msgid "Name"
-msgstr "Назва"
-
-msgid "Description"
-msgstr "Опис"
-
-msgid "orphan"
-msgstr "без власника"
-
-msgid "Legend"
-msgstr "Легенда"
-
-msgid "Actions"
-msgstr "Дії"
-
-msgid "Unflag Out-of-date"
-msgstr "Зняти мітку «застарілий»"
-
-msgid "Go"
-msgstr "Перейти"
-
-#, php-format
-msgid "Showing results %s - %s of %s"
-msgstr "Результати %s — %s з %s"
-
-#, php-format
-msgid "Comment by: %s on %s"
-msgstr "Коментар: %s до %s"
-
-msgid "Delete comment"
-msgstr "Вилучити коментар"
-
-#, php-format
-msgid "Show all %s comments"
-msgstr "Показати всі коментарі %s."
-
-msgid "Orphans"
-msgstr "Без власника"
-
-msgid "Advanced"
-msgstr "Додатково"
-
-msgid "Any"
-msgstr "Будь-який"
-
-msgid "Search by"
-msgstr "Пошук по"
-
-msgid "Name, Description"
-msgstr "Назва, опис"
-
-msgid "Name Only"
-msgstr "Тільки назва"
-
-msgid "Exact name"
-msgstr "Точна назва"
-
-msgid "Age"
-msgstr "Вік"
-
-msgid "Sort order"
-msgstr "Порядок упорядкування"
-
-msgid "Ascending"
-msgstr "Висхідний"
-
-msgid "Descending"
-msgstr "Спадний"
-
-msgid "Per page"
-msgstr "Результатів на сторінку"
-
-msgid "All"
-msgstr "Всі"
-
-msgid "Flagged"
-msgstr "Позначені"
-
-msgid "Not Flagged"
-msgstr "Не позначені"
+msgid "Start"
+msgstr "Початок"
+
+msgid "No results found."
+msgstr "Результатів не знайдено."

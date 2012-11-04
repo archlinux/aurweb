@@ -8,59 +8,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2011-09-05 17:02+0200\n"
-"PO-Revision-Date: 2011-09-05 15:03+0000\n"
+"POT-Creation-Date: 2012-10-22 18:43+0200\n"
+"PO-Revision-Date: 2012-10-22 17:06+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Dutch (http://www.transifex.net/projects/p/aur/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/aur/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Home"
-msgstr "Home"
-
-msgid ""
-"Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU "
-"Guidelines%h for more information."
-msgstr "Welcome to the AUR! Please read the %hAUR User Guidelines%h and %hAUR TU Guidelines%h for more information."
-
-msgid ""
-"Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h "
-"otherwise they will be deleted!"
-msgstr "Contributed PKGBUILDs %hmust%h conform to the %hArch Packaging Standards%h otherwise they will be deleted!"
-
-msgid "Remember to vote for your favourite packages!"
-msgstr "Vergeet niet te stemmen voor je favoriete pakketten!"
-
-msgid "Some packages may be provided as binaries in [community]."
-msgstr "Sommige pakketten kunnen worden geleverd als binaries in [community]."
-
-msgid "DISCLAIMER"
-msgstr "DISCLAIMER"
-
-msgid ""
-"Unsupported packages are user produced content. Any use of the provided "
-"files is at your own risk."
-msgstr "Niet-ondersteunde pakketten zijn gebruikers geproduceerde content. Elk gebruik van de geleverde bestanden is op eigen risico."
-
-msgid "Search Criteria"
-msgstr "Zoekcriteria"
-
-msgid "Packages"
-msgstr "Pakketten"
-
-msgid "Cannot find package to merge votes and comments into."
+msgid "Page Not Found"
 msgstr ""
 
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "De geselecteerde pakketten zijn niet gewist, controleer de bevestiging te schakelen."
-
-msgid "Error trying to retrieve package details."
-msgstr "Fout bij pakket details te halen."
+msgid "Sorry, the page you've requested does not exist."
+msgstr ""
 
 msgid "Accounts"
 msgstr "Rekeningen"
@@ -77,47 +39,17 @@ msgstr "Je hebt geen toestemming om dit account te bewerken."
 msgid "Use this form to search existing accounts."
 msgstr "Gebruik dit formulier om bestaande accounts zoeken."
 
-msgid "Use this form to update your account."
-msgstr "Gebruik dit formulier om uw account te updaten."
-
-msgid "Leave the password fields blank to keep your same password."
-msgstr "Laat het wachtwoord velden leeg om uw hetzelfde wachtwoord te houden."
-
 msgid "You must log in to view user information."
 msgstr "U moet inloggen om de gebruiker informatie te bekijken."
 
 msgid "Use this form to create an account."
 msgstr "Gebruik dit formulier om een ​​account aan te maken."
 
-msgid "Could not retrieve proposal details."
-msgstr "Kan niet worden opgehaald voorstel details."
-
-msgid "Voting is closed for this proposal."
-msgstr "Stemmen is gesloten voor dit voorstel."
-
-msgid "You cannot vote in an proposal about you."
-msgstr "Je kunt niet stemmen in een voorstel over jou."
-
-msgid "You've already voted for this proposal."
-msgstr "Je hebt al gestemd voor dit voorstel."
-
-msgid "Vote ID not valid."
-msgstr "Stem ID niet geldig."
-
-msgid "Current Votes"
-msgstr "Huidige Stemmen"
-
-msgid "Past Votes"
-msgstr "Stemmen verleden"
-
 msgid "Add Proposal"
 msgstr "Voeg Voorstel"
 
-msgid "Back"
-msgstr "Terug"
-
-msgid "Next"
-msgstr "Volgende"
+msgid "Invalid token for user action."
+msgstr ""
 
 msgid "Username does not exist."
 msgstr "Gebruikersnaam bestaat niet."
@@ -159,6 +91,122 @@ msgstr "Voorstel"
 msgid "Submit"
 msgstr "Indienen"
 
+msgid "Home"
+msgstr "Home"
+
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr ""
+
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr ""
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "Vergeet niet te stemmen voor je favoriete pakketten!"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "Sommige pakketten kunnen worden geleverd als binaries in [community]."
+
+msgid "Discussion"
+msgstr "Discussie"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. This list can be used for package"
+" orphan requests, merge requests, and deletion requests. For discussion "
+"relating to the development of the AUR, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr ""
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR, please fill out a bug report on our %sbug "
+"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
+"packaging bugs contact the package maintainer or leave a comment on the "
+"appropriate package page."
+msgstr ""
+
+msgid "DISCLAIMER"
+msgstr "DISCLAIMER"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr "Niet-ondersteunde pakketten zijn gebruikers geproduceerde content. Elk gebruik van de geleverde bestanden is op eigen risico."
+
+msgid "Vote"
+msgstr "Stem"
+
+msgid "UnVote"
+msgstr "Verwijder Stem"
+
+msgid "Notify"
+msgstr "Geef Kennis"
+
+msgid "UnNotify"
+msgstr "Geef geen kennis"
+
+msgid "Flag"
+msgstr ""
+
+msgid "UnFlag"
+msgstr ""
+
+msgid "Login"
+msgstr "Login"
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Ingelogd as: %s"
+
+msgid "Logout"
+msgstr "Loguit"
+
+msgid "Enter login credentials"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgid "Remember me"
+msgstr "Herrineer me"
+
+msgid "Forgot Password"
+msgstr "Password vergeten"
+
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr ""
+
+msgid "Search Criteria"
+msgstr "Zoekcriteria"
+
+msgid "Packages"
+msgstr "Pakketten"
+
+msgid "Cannot find package to merge votes and comments into."
+msgstr ""
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "De geselecteerde pakketten zijn niet gewist, controleer de bevestiging te schakelen."
+
+msgid "Error trying to retrieve package details."
+msgstr "Fout bij pakket details te halen."
+
 msgid "Missing a required field."
 msgstr "Er ontbreekt een verplicht veld."
 
@@ -167,9 +215,6 @@ msgstr "Wachtwoord velden komen niet overeen."
 
 msgid "Invalid e-mail."
 msgstr "Ongeldig e-mail."
-
-msgid "Invalid e-mail and reset key combination."
-msgstr "Ongeldige e-mail en reset-toets combinatie."
 
 msgid ""
 "A password reset request was submitted for the account associated with your "
@@ -198,16 +243,85 @@ msgstr "Bevestig uw nieuwe wachtwoord:"
 msgid "Continue"
 msgstr "Blijven"
 
+#, php-format
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
-" message to the %haur-general%h mailing list."
+" message to the %saur-general%s mailing list."
 msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Vul uw e-mail adres:"
 
+msgid "Package Deletion"
+msgstr ""
+
+#, php-format
+msgid "Delete Package: %s"
+msgstr ""
+
+#, php-format
+msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgstr ""
+
+msgid "Deletion of a package is permanent. "
+msgstr ""
+
+msgid "Select the checkbox to confirm action."
+msgstr ""
+
+msgid "Confirm package deletion"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr ""
+
+msgid "Package Merging"
+msgstr ""
+
+#, php-format
+msgid "Merge Package: %s"
+msgstr ""
+
+#, php-format
+msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgstr ""
+
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr ""
+
+msgid "Enter the package name you wish to merge the package into. "
+msgstr ""
+
+msgid "Merge into:"
+msgstr ""
+
+msgid "Confirm package merge"
+msgstr ""
+
+msgid "Merge"
+msgstr ""
+
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr ""
+
+#, php-format
+msgid "Error - Uploaded file larger than maximum allowed size (%s)"
+msgstr ""
+
+msgid "Error - File partially uploaded"
+msgstr ""
+
 msgid "Error - No file uploaded"
 msgstr "Fout - Geen bestand geupload"
+
+msgid "Error - Could not locate temporary upload folder"
+msgstr ""
+
+msgid "Error - File could not be written"
+msgstr ""
 
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
@@ -217,14 +331,14 @@ msgstr "Fout - niet-ondersteunde bestandsindeling (gelieve gzip'd tarballs gegen
 msgid "Error - uncompressed file size too large."
 msgstr "Fout - ongecomprimeerd bestand te groot."
 
-msgid "Error - source tarball may not contain more than one directory."
-msgstr "Fout - source tarball mag niet meer dan een directory."
-
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Fout - source tarball mag geen bestanden buiten een directory."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Fout - source tarball mag geen geneste submappen."
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr "Fout - source tarball mag niet meer dan een directory."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Fout bij het uitpakken uploaden - PKGBUILD bestaat niet."
@@ -240,10 +354,31 @@ msgid "Invalid name: only lowercase letters are allowed."
 msgstr ""
 
 #, php-format
+msgid "Error - Package name cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
+msgid "Error - Package URL cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
+msgid "Error - Package description cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
+msgid "Error - Package license cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
+msgid "Error - Package version cannot be greater than %d characters"
+msgstr ""
+
+#, php-format
 msgid "Could not create directory %s."
 msgstr ""
 
-msgid "You are not allowed to overwrite the %h%s%h package."
+#, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
 msgstr ""
 
 #, php-format
@@ -278,6 +413,104 @@ msgstr ""
 
 msgid "You must create an account before you can upload packages."
 msgstr ""
+
+msgid "Trusted User"
+msgstr "Vertrouwde Gebruiker"
+
+msgid "Could not retrieve proposal details."
+msgstr "Kan niet worden opgehaald voorstel details."
+
+msgid "Voting is closed for this proposal."
+msgstr "Stemmen is gesloten voor dit voorstel."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Je kunt niet stemmen in een voorstel over jou."
+
+msgid "You've already voted for this proposal."
+msgstr "Je hebt al gestemd voor dit voorstel."
+
+msgid "Vote ID not valid."
+msgstr "Stem ID niet geldig."
+
+msgid "Current Votes"
+msgstr "Huidige Stemmen"
+
+msgid "Past Votes"
+msgstr "Stemmen verleden"
+
+msgid "Back"
+msgstr "Terug"
+
+msgid "Next"
+msgstr "Volgende"
+
+msgid "Voters"
+msgstr "Stemmers"
+
+msgid "Missing User ID"
+msgstr ""
+
+msgid "The username is invalid."
+msgstr ""
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr ""
+
+msgid "Start and end with a letter or number"
+msgstr ""
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr ""
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr ""
+
+msgid "The email address is invalid."
+msgstr ""
+
+msgid "The PGP key fingerprint is invalid."
+msgstr ""
+
+msgid "A Trusted User cannot assign Developer status."
+msgstr ""
+
+msgid "Language is not currently supported."
+msgstr ""
+
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr ""
+
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr ""
+
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr ""
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr ""
+
+msgid "Click on the Login link above to use your account."
+msgstr ""
+
+#, php-format
+msgid "Error trying to modify account, %s%s%s."
+msgstr ""
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr ""
+
+msgid "Bad username or password."
+msgstr "Verkeerd gebruiker of wachtwoord"
+
+msgid "Invalid e-mail and reset key combination."
+msgstr "Ongeldige e-mail en reset-toets combinatie."
 
 msgid "Error retrieving package details."
 msgstr ""
@@ -386,22 +619,43 @@ msgstr ""
 msgid "Invalid category ID."
 msgstr ""
 
-msgid "Missing package ID."
-msgstr ""
-
 msgid "You are not allowed to change this package category."
 msgstr ""
 
 msgid "Package category changed."
 msgstr ""
 
-msgid "Username"
+msgid "Account Type"
 msgstr ""
+
+msgid "User"
+msgstr "Gebruiker"
+
+msgid "Developer"
+msgstr ""
+
+msgid "Email Address"
+msgstr "Email adres"
+
+msgid "Real Name"
+msgstr "Echte naam"
+
+msgid "IRC Nick"
+msgstr "IRC naam"
+
+msgid "PGP Key Fingerprint"
+msgstr ""
+
+msgid "Last Voted"
+msgstr "Laatst gestemd"
+
+msgid "Never"
+msgstr "Nooit"
+
+msgid "View this user's packages"
+msgstr "Bekijk gebruiker zijn pakketten"
 
 msgid "required"
-msgstr ""
-
-msgid "Account Type"
 msgstr ""
 
 msgid "Normal user"
@@ -410,26 +664,11 @@ msgstr ""
 msgid "Trusted user"
 msgstr ""
 
-msgid "Developer"
-msgstr ""
-
 msgid "Account Suspended"
 msgstr ""
 
-msgid "Email Address"
-msgstr "Email adres"
-
-msgid "Password"
-msgstr "Wachtwoord"
-
 msgid "Re-type password"
 msgstr ""
-
-msgid "Real Name"
-msgstr "Echte naam"
-
-msgid "IRC Nick"
-msgstr "IRC naam"
 
 msgid "Language"
 msgstr "Taal"
@@ -443,56 +682,6 @@ msgstr "Creer"
 msgid "Reset"
 msgstr "Reset"
 
-msgid "Missing User ID"
-msgstr ""
-
-msgid "The username is invalid."
-msgstr ""
-
-#, php-format
-msgid "It must be between %s and %s characters long"
-msgstr ""
-
-msgid "Start and end with a letter or number"
-msgstr ""
-
-msgid "Can contain only one period, underscore or hyphen."
-msgstr ""
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr ""
-
-msgid "The email address is invalid."
-msgstr ""
-
-msgid "A Trusted User cannot assign Developer status."
-msgstr ""
-
-msgid "Language is not currently supported."
-msgstr ""
-
-msgid "The username, %h%s%h, is already in use."
-msgstr ""
-
-msgid "The address, %h%s%h, is already in use."
-msgstr ""
-
-msgid "Error trying to create account, %h%s%h: %s."
-msgstr ""
-
-msgid "The account, %h%s%h, has been successfully created."
-msgstr ""
-
-msgid "Click on the Home link above to login."
-msgstr ""
-
-msgid "Error trying to modify account, %h%s%h: %s."
-msgstr ""
-
-msgid "The account, %h%s%h, has been successfully modified."
-msgstr ""
-
 msgid "No results matched your search criteria."
 msgstr ""
 
@@ -501,9 +690,6 @@ msgstr "Type"
 
 msgid "Status"
 msgstr "Status"
-
-msgid "Last Voted"
-msgstr "Laatst gestemd"
 
 msgid "Edit Account"
 msgstr "Bewerk account"
@@ -514,8 +700,8 @@ msgstr "Geschorst"
 msgid "Active"
 msgstr "Actief"
 
-msgid "Never"
-msgstr "Nooit"
+msgid "Edit"
+msgstr ""
 
 msgid "Less"
 msgstr "Minder"
@@ -526,144 +712,17 @@ msgstr "Meer"
 msgid "No more results to display."
 msgstr "Geen andere resultaten gevonden "
 
-msgid "User"
-msgstr "Gebruiker"
-
-msgid "Trusted User"
-msgstr "Vertrouwde Gebruiker"
-
-msgid "View this user's packages"
-msgstr "Bekijk gebruiker zijn pakketten"
-
-msgid "Bad username or password."
-msgstr "Verkeerd gebruiker of wachtwoord"
-
-msgid "Category"
-msgstr "Category"
-
-msgid "Change category"
-msgstr ""
-
-msgid "Votes"
-msgstr "Stemmen"
-
-msgid "unknown"
-msgstr "onbekend"
-
-msgid "Package Details"
-msgstr "Pakketten details"
-
-msgid "Submitter"
-msgstr "Inzender"
-
-msgid "Maintainer"
-msgstr "Onderhouder"
-
-msgid "License"
-msgstr "Licentie"
-
-msgid "Last Updated"
-msgstr "Laatste geupdate"
-
-msgid "First Submitted"
-msgstr "Allereerst toegevoegd"
-
-msgid "Tarball"
-msgstr "Tarball"
-
-msgid "PKGBUILD"
-msgstr "PKGBUILD"
-
-msgid "This package has been flagged out of date."
-msgstr ""
-
-msgid "Dependencies"
-msgstr "Afhankelijkeheden"
-
-msgid "Required by"
-msgstr "Vereist door"
-
-msgid "Sources"
-msgstr "Bronnen"
-
-msgid "Hi, this is worth reading!"
-msgstr "Hoi, dit is het waard om gelezen te worden!"
-
-msgid "Start"
-msgstr "Start "
-
-msgid "End"
-msgstr "Einde"
-
-msgid "Yes"
-msgstr "Ja"
-
-msgid "No"
-msgstr "Nee"
-
-msgid "Voted"
-msgstr "Gestemd"
-
-msgid "No results found."
-msgstr "Geen resultaten gevonden."
-
-msgid "Proposal Details"
-msgstr "Details Voorstel"
-
-msgid "This vote is still running."
-msgstr "Dit voorstel is nog bezig"
-
-#, php-format
-msgid "Submitted: %s by %s"
-msgstr "Ingezonden: %s door %s"
-
-msgid "Abstain"
-msgstr "Onthouden"
-
-msgid "Total"
-msgstr "Totaal"
-
-msgid "Voters"
-msgstr "Stemmers"
-
-msgid "Bugs"
-msgstr "Bugs"
-
-msgid "Discussion"
-msgstr "Discussie"
-
-msgid "My Packages"
-msgstr "Mijn pakketten"
-
-msgid "Vote"
-msgstr "Stem"
-
-msgid "UnVote"
-msgstr "Verwijder Stem"
-
-msgid "Notify"
-msgstr "Geef Kennis"
+msgid "No New Comment Notification"
+msgstr "Geen nieuwe opmerking gevonden"
 
 msgid "New Comment Notification"
 msgstr "Nieuwe opmerking gevonden"
-
-msgid "UnNotify"
-msgstr "Geef geen kennis"
-
-msgid "No New Comment Notification"
-msgstr "Geen nieuwe opmerking gevonden"
 
 msgid "Flag Out-of-date"
 msgstr "Markeer veroudered"
 
 msgid "UnFlag Out-of-date"
 msgstr "Verouderd markering opheffen"
-
-msgid "Adopt Packages"
-msgstr "Adopteer Pakketten"
-
-msgid "Disown Packages"
-msgstr "Verstoot Pakketten"
 
 msgid "Delete Packages"
 msgstr "Verwijder pakketten"
@@ -674,56 +733,228 @@ msgstr ""
 msgid "Confirm"
 msgstr "Bevestig"
 
-msgid "Any type"
-msgstr "Elk type"
+msgid "My Packages"
+msgstr "Mijn pakketten"
+
+msgid " My Account"
+msgstr ""
+
+msgid "Register"
+msgstr ""
+
+msgid "Add Comment"
+msgstr ""
+
+msgid "Comment has been added."
+msgstr "Opmerking is toegevoegd."
+
+#, php-format
+msgid "View all %s comments"
+msgstr ""
+
+msgid "Latest Comments"
+msgstr ""
+
+msgid "Delete comment"
+msgstr "Verwijder opmerking"
+
+#, php-format
+msgid "Comment by %s"
+msgstr ""
+
+msgid "All comments"
+msgstr ""
+
+msgid "unknown"
+msgstr "onbekend"
+
+msgid "Package Details"
+msgstr "Pakketten details"
+
+msgid "View PKGBUILD"
+msgstr ""
+
+msgid "Download tarball"
+msgstr ""
+
+msgid "Flagged out-of-date"
+msgstr ""
+
+msgid "Flag package out-of-date"
+msgstr ""
+
+msgid "Unflag package"
+msgstr ""
+
+msgid "Remove vote"
+msgstr ""
+
+msgid "Vote for this package"
+msgstr ""
+
+msgid "Disable notifications"
+msgstr ""
+
+msgid "Notify of new comments"
+msgstr ""
+
+msgid "Delete Package"
+msgstr ""
+
+msgid "Merge Package"
+msgstr ""
+
+msgid "Adopt Packages"
+msgstr "Adopteer Pakketten"
+
+msgid "Disown Packages"
+msgstr "Verstoot Pakketten"
+
+msgid "Description"
+msgstr "Omschrijving"
+
+msgid "Visit the website for"
+msgstr ""
+
+msgid "Category"
+msgstr "Category"
+
+msgid "Change category"
+msgstr ""
+
+msgid "License"
+msgstr "Licentie"
+
+msgid "Submitter"
+msgstr "Inzender"
+
+msgid "View account information for"
+msgstr ""
+
+#, php-format
+msgid "View account information for %s"
+msgstr ""
+
+msgid "Maintainer"
+msgstr "Onderhouder"
+
+msgid "Votes"
+msgstr "Stemmen"
+
+msgid "First Submitted"
+msgstr "Allereerst toegevoegd"
+
+msgid "Last Updated"
+msgstr "Laatste geupdate"
+
+msgid "Dependencies"
+msgstr "Afhankelijkeheden"
+
+msgid "View packages details for"
+msgstr ""
+
+msgid "Required by"
+msgstr "Vereist door"
+
+msgid "Sources"
+msgstr "Bronnen"
+
+msgid "Name, Description"
+msgstr "Naam, omschrijving"
+
+msgid "Name Only"
+msgstr "Alleen de naam"
+
+msgid "Exact name"
+msgstr "Exacte naam"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Flagged"
+msgstr "Gemarkeerd"
+
+msgid "Not Flagged"
+msgstr "Ongemarkeerd"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Voted"
+msgstr "Gestemd"
+
+msgid "Age"
+msgstr "Leeftijd"
+
+msgid "Ascending"
+msgstr "Oplopend"
+
+msgid "Descending"
+msgstr "Aflopend"
+
+msgid "Enter search criteria"
+msgstr ""
+
+msgid "Any"
+msgstr "Enige"
+
+msgid "Search by"
+msgstr "Zoek op"
+
+msgid "Keywords"
+msgstr ""
+
+msgid "Out of Date"
+msgstr "Verouderd"
 
 msgid "Sort by"
 msgstr "Sorteer Bij"
+
+msgid "Sort order"
+msgstr "Sorteervolgorde"
+
+msgid "Per page"
+msgstr "Per pagina"
+
+msgid "Go"
+msgstr "Ga"
+
+msgid "Orphans"
+msgstr "Wezen"
+
+msgid "Error retrieving package list."
+msgstr "Fout bij het ophalen van lijst pakketten."
+
+msgid "No packages matched your search criteria."
+msgstr "Geen pakketen gevonden die aan uw zoekcriteria voldoen"
+
+#, php-format
+msgid "%d packages found. Page %d of %d."
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "orphan"
+msgstr "wees"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "Unflag Out-of-date"
+msgstr "Hef Out-of-Date markering op"
+
+msgid "Any type"
+msgstr "Elk type"
 
 msgid "Last vote"
 msgstr "Laatste Stem"
 
 msgid "Search"
 msgstr "Zoek"
-
-msgid "Comment has been added."
-msgstr "Opmerking is toegevoegd."
-
-msgid "Enter your comment below."
-msgstr "Voer uw opmerkingen hier beneden in."
-
-#, php-format
-msgid "Logged-in as: %s"
-msgstr "Ingelogd as: %s"
-
-msgid "Logout"
-msgstr "Loguit"
-
-msgid "Remember me"
-msgstr "Herrineer me"
-
-msgid "Login"
-msgstr "Login"
-
-msgid "Forgot Password"
-msgstr "Password vergeten"
-
-#, php-format
-msgid ""
-"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
-
-msgid "Recent Updates"
-msgstr "Recente updates"
-
-msgid "My Statistics"
-msgstr "Mijn statistieken"
-
-msgid "Packages in unsupported"
-msgstr "Pakketten in AUR"
-
-msgid "Out of Date"
-msgstr "Verouderd"
 
 msgid "Statistics"
 msgstr "Statistieken"
@@ -749,92 +980,39 @@ msgstr "Geregistreerde Gebruikers"
 msgid "Trusted Users"
 msgstr "Trusted USers"
 
-msgid "Error retrieving package list."
-msgstr "Fout bij het ophalen van lijst pakketten."
+msgid "Recent Updates"
+msgstr "Recente updates"
 
-msgid "No packages matched your search criteria."
-msgstr "Geen pakketen gevonden die aan uw zoekcriteria voldoen"
+msgid "My Statistics"
+msgstr "Mijn statistieken"
 
-msgid "Package Listing"
-msgstr "Pakketten lijst"
+msgid "Packages in unsupported"
+msgstr "Pakketten in AUR"
 
-msgid "Name"
-msgstr "Naam"
+msgid "Proposal Details"
+msgstr "Details Voorstel"
 
-msgid "Description"
-msgstr "Omschrijving"
-
-msgid "orphan"
-msgstr "wees"
-
-msgid "Legend"
-msgstr "Legenda"
-
-msgid "Actions"
-msgstr "Acties"
-
-msgid "Unflag Out-of-date"
-msgstr "Hef Out-of-Date markering op"
-
-msgid "Go"
-msgstr "Ga"
+msgid "This vote is still running."
+msgstr "Dit voorstel is nog bezig"
 
 #, php-format
-msgid "Showing results %s - %s of %s"
-msgstr "Laat resultaten: %s - %s of %s zien"
+msgid "Submitted: %s by %s"
+msgstr "Ingezonden: %s door %s"
 
-#, php-format
-msgid "Comment by: %s on %s"
-msgstr "Opmerking bij: %s on %s"
+msgid "End"
+msgstr "Einde"
 
-msgid "Delete comment"
-msgstr "Verwijder opmerking"
+msgid "No"
+msgstr "Nee"
 
-#, php-format
-msgid "Show all %s comments"
-msgstr "Laat alle %s opmerkingen zien"
+msgid "Abstain"
+msgstr "Onthouden"
 
-msgid "Orphans"
-msgstr "Wezen"
+msgid "Total"
+msgstr "Totaal"
 
-msgid "Advanced"
-msgstr "Geavanceerd"
+msgid "Start"
+msgstr "Start "
 
-msgid "Any"
-msgstr "Enige"
-
-msgid "Search by"
-msgstr "Zoek op"
-
-msgid "Name, Description"
-msgstr "Naam, omschrijving"
-
-msgid "Name Only"
-msgstr "Alleen de naam"
-
-msgid "Exact name"
-msgstr "Exacte naam"
-
-msgid "Age"
-msgstr "Leeftijd"
-
-msgid "Sort order"
-msgstr "Sorteervolgorde"
-
-msgid "Ascending"
-msgstr "Oplopend"
-
-msgid "Descending"
-msgstr "Aflopend"
-
-msgid "Per page"
-msgstr "Per pagina"
-
-msgid "All"
-msgstr "Alle"
-
-msgid "Flagged"
-msgstr "Gemarkeerd"
-
-msgid "Not Flagged"
-msgstr "Ongemarkeerd"
+msgid "No results found."
+msgstr "Geen resultaten gevonden."
