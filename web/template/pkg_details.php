@@ -32,7 +32,7 @@ $sources = package_sources($row["ID"]);
 	<h2><?= __('Package Details') . ': ' . htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></h2>
 	<div id="detailslinks" class="listing">
 		<div id="actionlist">
-			<h4>Package Actions</h4>
+			<h4><?= __('Package Actions') ?></h4>
 			<ul class="small">
 				<li><a href="<?= $urlpath ?>/PKGBUILD"><?= __('View PKGBUILD') ?></a></li>
 				<li><a href="<?= $urlpath . '/' . $row['Name'] ?>.tar.gz"><?= __('Download tarball') ?></a></li>
@@ -86,7 +86,7 @@ $sources = package_sources($row["ID"]);
 			<td class="wrap"><?= htmlspecialchars($row['Description']); ?></td>
 		</tr>
 		<tr>
-			<th>Upstream URL:</th>
+			<th><?= __('Upstream URL') . ': ' ?></th>
 			<td><a href="<?= htmlspecialchars($row['URL'], ENT_QUOTES) ?>" title="<?= __('Visit the website for') . ' ' . htmlspecialchars( $row['Name'])?>"><?= htmlspecialchars($row['URL'], ENT_QUOTES) ?></a></td>
 		</tr>
 		<tr>

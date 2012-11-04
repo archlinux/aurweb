@@ -93,7 +93,7 @@ $dbh = db_connect();
 	<div id="pkgsearch" class="widget">
 		<form id="pkgsearch-form" method="get" action="<?= get_uri('/packages/'); ?>">
 			<fieldset>
-				<label for="pkgsearch-field">Package Search:</label>
+				<label for="pkgsearch-field"><?= __('Package Search') ?>:</label>
 				<input type="hidden" name="O" value="0" />
 				<input type="text" name="K" size="30" value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength="35" />
 			</fieldset>
