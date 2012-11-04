@@ -302,7 +302,7 @@ function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
 		# Simply making these strings translatable won't work, users would be
 		# getting emails in the language that the user who posted the comment was in
 		$body =
-		'from ' . $AUR_LOCATION . '/' . get_pkg_uri($row['Name']) . "\n"
+		'from ' . $AUR_LOCATION . get_pkg_uri($row['Name']) . "\n"
 		. username_from_sid($_COOKIE['AURSID'], $dbh) . " wrote:\n\n"
 		. $comment
 		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
@@ -838,7 +838,7 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 		if ($result) {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				# construct email
-				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . "/" . get_pkg_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . "/" . get_user_uri($f_name);
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . get_pkg_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . get_user_uri($f_name);
 				$body = wordwrap($body, 70);
 				$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
 				@mail($row['Email'], "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
@@ -907,7 +907,7 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
 			$body = "";
 			if ($mergepkgid) {
 				$body .= username_from_sid($_COOKIE['AURSID']) . " merged \"".$pkgname."\" into \"$mergepkgname\".\n\n";
-				$body .= "You will no longer receive notifications about this package, please go to https://aur.archlinux.org/" . get_pkg_uri($mergepkgname) . " and click the Notify button if you wish to recieve them again.";
+				$body .= "You will no longer receive notifications about this package, please go to https://aur.archlinux.org" . get_pkg_uri($mergepkgname) . " and click the Notify button if you wish to recieve them again.";
 			} else {
 				$body .= username_from_sid($_COOKIE['AURSID']) . " deleted \"".$pkgname."\".\n\n";
 				$body .= "You will no longer receive notifications about this package.";
