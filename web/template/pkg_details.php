@@ -69,10 +69,10 @@ $sources = package_sources($row["ID"]);
 				</div>
 				<p>
 					<?php if ($row["MaintainerUID"] === NULL): ?>
-						<input type="submit" class="button" name="do_Adopt" value="<?= __("Adopt Packages") ?>" />
+						<input type="submit" class="button" name="do_Adopt" value="<?= __("Adopt Package") ?>" />
 					<?php elseif ($uid == $row["MaintainerUID"] ||
 						$atype == "Trusted User" || $atype == "Developer"): ?>
-						<input type="submit" class="button" name="do_Disown" value="<?= __("Disown Packages") ?>" />
+						<input type="submit" class="button" name="do_Disown" value="<?= __("Disown Package") ?>" />
 					<?php endif; ?>
 				</p>
 			</form>
