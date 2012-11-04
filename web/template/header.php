@@ -37,9 +37,9 @@
 		reset($SUPPORTED_LANGS);
 		foreach ($SUPPORTED_LANGS as $lang => $lang_name) {
 
-			print '<option value="' . strtolower($lang) . '"' .
+			print '<option value="' . htmlspecialchars($lang, ENT_QUOTES) . '"' .
 				($lang == $LANG ? ' selected="selected"' : '') .
-				'>' . strtolower($lang) . "</option>\n";
+				'>' . htmlspecialchars($lang) . "</option>\n";
 		}
 		?>
 							</select>
