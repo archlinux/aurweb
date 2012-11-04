@@ -269,6 +269,10 @@ if ($uid):
 		}
 
 		# Now we've parsed the pkgbuild, let's move it to where it belongs
+		if (!$error && $pkg_name[0] == '(') {
+			$error = __("Error - The AUR does not support split packages!");
+		}
+
 		if (!$error) {
 			$pkg_name = str_replace("'", "", $new_pkgbuild['pkgname']);
 			$pkg_name = escapeshellarg($pkg_name);
