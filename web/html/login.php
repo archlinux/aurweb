@@ -20,7 +20,7 @@ html_header('AUR ' . __("Login"));
 		<a href="<?php get_uri('/logout/'); ?>">[<?= __("Logout"); ?>]</a>
 	</p>
 	<?php elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])): ?>
-	<form method="post" action="<?= htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) ?>">
+	<form method="post" action="<?= get_uri('/login') ?>">
 		<fieldset>
 			<legend><?= __('Enter login credentials') ?></legend>
 			<?php if (!empty($login_error)): ?>
@@ -47,7 +47,7 @@ html_header('AUR ' . __("Login"));
 	<?php else: ?>
 	<p>
 		<?php printf(__("HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."),
-			'<a href="' . $AUR_LOCATION . htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES) . '">', '</a>'); ?>
+			'<a href="' . $AUR_LOCATION . get_uri('/login') . '">', '</a>'); ?>
 	</p>
 	<?php endif; ?>
 </div>
