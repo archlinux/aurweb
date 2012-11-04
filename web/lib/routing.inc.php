@@ -54,7 +54,7 @@ function get_pkg_uri($pkgname) {
 	if ($USE_VIRTUAL_URLS) {
 		return $PKG_PATH . '/' . urlencode($pkgname) . '/';
 	} else {
-		return get_route($PKG_PATH) . '?N=' . urlencode($pkgname);
+		return '/' . get_route($PKG_PATH) . '?N=' . urlencode($pkgname);
 	}
 }
 
@@ -70,6 +70,6 @@ function get_user_uri($username) {
 	if ($USE_VIRTUAL_URLS) {
 		return $USER_PATH . '/' . urlencode($username) . '/';
 	} else {
-		return get_route($USER_PATH) . '?U=' . urlencode($username);
+		return '/' . get_route($USER_PATH) . '?U=' . urlencode($username);
 	}
 }
