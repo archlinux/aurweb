@@ -190,9 +190,9 @@ if ($row["MaintainerUID"]):
 		# darr: (DepName, DepCondition, PackageID), where ID is NULL if it didn't exist
 		if (!is_null($darr[2])):
 ?>
-				<li><a href="<?= htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?= __('View packages details for').' '.$darr[0].$darr[1]?>"><?= $darr[0].$darr[1]?></a></li>
+				<li><a href="<?= htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?= __('View packages details for').' '. htmlspecialchars($darr[0]) ?>"><?= htmlspecialchars($darr[0]) ?></a><?= htmlspecialchars($darr[1]) ?></li>
 		<?php else: ?>
-				<li><a href="https://www.archlinux.org/packages/?q=<?= urlencode($darr[0])?>" title="<?= __('View packages details for').' '.$darr[0].$darr[1] ?>"><?= $darr[0].$darr[1] ?></a></li>
+				<li><a href="https://www.archlinux.org/packages/?q=<?= urlencode($darr[0])?>" title="<?= __('View packages details for').' ' . htmlspecialchars($darr[0]) ?>"><?= htmlspecialchars($darr[0]) ?></a><?= htmlspecialchars($darr[1]) ?></li>
 		<?php endif; ?>
 	<?php endwhile; ?>
 			</ul>
@@ -206,7 +206,7 @@ if ($row["MaintainerUID"]):
 	# darr: (PackageName, PackageID)
 	while (list($k, $darr) = each($requiredby)):
 ?>
-				<li><a href="<?= htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?= __('View packages details for').' '.$darr[0]?>"><?= $darr[0] ?></a></li>
+				<li><a href="<?= htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?= __('View packages details for').' ' . htmlspecialchars($darr[0]) ?>"><?= htmlspecialchars($darr[0]) ?></a></li>
 	<?php endwhile; ?>
 			</ul>
 <?php endif; ?>
