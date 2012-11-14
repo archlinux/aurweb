@@ -76,7 +76,7 @@ def genVersion():
 	ver.append("%d" % random.randrange(0,20))
 	if random.randrange(0,2) == 0:
 		ver.append("%d" % random.randrange(0,100))
-	return ".".join(ver) + "-u%d" % random.randrange(1,11)
+	return ".".join(ver) + "-%d" % random.randrange(1,11)
 def genCategory():
 	return random.randrange(1,CATEGORIES_COUNT)
 def genUID():
