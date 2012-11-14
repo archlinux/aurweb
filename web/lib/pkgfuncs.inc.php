@@ -169,7 +169,7 @@ function package_required($name="", $dbh=NULL) {
 		if(!$dbh) {
 			$dbh = db_connect();
 		}
-		$q = "SELECT p.Name, PackageID FROM PackageDepends pd ";
+		$q = "SELECT DISTINCT p.Name, PackageID FROM PackageDepends pd ";
 		$q.= "JOIN Packages p ON pd.PackageID = p.ID ";
 		$q.= "WHERE DepName = " . $dbh->quote($name) . " ";
 		$q.= "ORDER BY p.Name";
