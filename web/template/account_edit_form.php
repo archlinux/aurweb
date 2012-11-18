@@ -22,12 +22,12 @@
 		<p>
 			<label for="id_type"><?= __("Account Type") ?>:</label>
 			<select name="T" id="id_type">
-				<?php if ($T == "User"): ?>
+				<?php if ($T == 1): ?>
 				<option value="1" selected="selected"><?= __("Normal user") ?></option>
 				<?php else: ?>
 				<option value="1"><?= __("Normal user") ?></option>
 				<?php endif; ?>
-				<?php if ($T == "Trusted User"): ?>
+				<?php if ($T == 2): ?>
 				<option value="2" selected="selected"><?= __("Trusted user") ?></option>
 				<?php else: ?>
 				<option value="2"><?= __("Trusted user") ?></option>
@@ -37,7 +37,7 @@
 				if ($UTYPE == "Developer"):
 				?>
 				<option value="3"
-				<?php $T == "Developer" ? print " selected=\"selected\">" : print ">";
+				<?php $T == 3 ? print " selected=\"selected\">" : print ">";
 				print __("Developer")."\n"; ?>
 				</option>
 				<?php endif; ?>

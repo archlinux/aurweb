@@ -50,7 +50,7 @@ if (isset($_COOKIE["AURSID"])) {
 			/* Verify user has permission to edit the account */
 			if (can_edit_account($atype, $row, uid_from_sid($_COOKIE["AURSID"]))) {
 				display_account_form($atype, "UpdateAccount", $row["Username"],
-					$row["AccountType"], $row["Suspended"], $row["Email"],
+					$row["AccountTypeID"], $row["Suspended"], $row["Email"],
 					"", "", $row["RealName"], $row["LangPreference"],
 					$row["IRCNick"], $row["PGPKey"], $row["ID"]);
 			} else {
