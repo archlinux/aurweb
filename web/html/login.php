@@ -17,7 +17,7 @@ html_header('AUR ' . __("Login"));
 	<?php if (isset($_COOKIE["AURSID"])): ?>
 	<p>
 		<?= __("Logged-in as: %s", '<strong>' . username_from_sid($_COOKIE["AURSID"]) . '</strong>'); ?>
-		<a href="<?php get_uri('/logout/'); ?>">[<?= __("Logout"); ?>]</a>
+		<a href="<?= get_uri('/logout/'); ?>">[<?= __("Logout"); ?>]</a>
 	</p>
 	<?php elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])): ?>
 	<form method="post" action="<?= get_uri('/login') ?>">
