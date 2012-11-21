@@ -22,12 +22,6 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		}
 
 		if (!empty($tokens[3])) {
-			if ($tokens[3] == 'voters') {
-				$_GET['ID'] = pkgid_from_name($tokens[2]);
-				include('voters.php');
-				return;
-			}
-
 			/* TODO: Remove support for legacy URIs and move these
 			 * actions to separate modules. */
 			switch ($tokens[3]) {
@@ -54,6 +48,10 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				return;
 			case "merge":
 				include('pkgmerge.php');
+				return;
+			case "voters":
+				$_GET['ID'] = pkgid_from_name($tokens[2]);
+				include('voters.php');
 				return;
 			default:
 				header("HTTP/1.0 404 Not Found");
