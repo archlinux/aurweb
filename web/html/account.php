@@ -73,9 +73,14 @@ if (isset($_COOKIE["AURSID"])) {
 		}
 
 	} elseif ($action == "UpdateAccount") {
-		# user is submitting their modifications to an existing account
-		#
-		if (check_token()) {
+		$uid = uid_from_sid($_COOKIE['AURSID']);
+
+		/* Details for account being updated */
+		$acctinfo = account_details(in_request('ID'), in_request('U'));
+
+		/* Verify user permissions and that the request is a valid POST */
+		if (can_edit_account($atype, $acctinfo, $uid) && check_token()) {
+			/* Update the details for the existing account */
 			process_account_form($atype, "edit", "UpdateAccount",
 					in_request("U"), in_request("T"), in_request("S"),
 					in_request("E"), in_request("P"), in_request("C"),
