@@ -145,8 +145,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("The PGP key fingerprint is invalid.");
 	}
 
-	if ($UTYPE == "Trusted User" && $T == 3) {
-		$error = __("A Trusted User cannot assign Developer status.");
+	if (($UTYPE == "User" && $T > 1) || ($UTYPE == "Trusted User" && $T > 2)) {
+		$error = __("Cannot increase account permissions.");
 	}
 	if (!$error && !array_key_exists($L, $SUPPORTED_LANGS)) {
 		$error = __("Language is not currently supported.");
