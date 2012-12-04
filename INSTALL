@@ -72,7 +72,7 @@ Setup on Arch Linux:
    (give password 'aur' at the prompt)
 
  - Optionally load some test data for development purposes.
-   # pacman -S words mysql-python
+   # pacman -S words fortune-mod
    # cd ~/aur/support/schema/
    # python gendummydata.py dummy-data.sql
    # bzip2 dummy-data.sql
