@@ -53,7 +53,7 @@ Setup on Arch Linux:
 
 6) Configure MySQL
  - Start the MySQL service. Example:
-   # /etc/rc.d/mysqld start
+   # systemctl start mysqld
 
  - Create database
    # mysqladmin -p create AUR
