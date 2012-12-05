@@ -44,12 +44,10 @@ Setup on Arch Linux:
 5) Configure PHP
    Make sure you have mysql and json enabled in PHP.
 
- - Edit php.ini and uncomment/add these lines:
+ - Edit php.ini and uncomment/add this line:
    extension=pdo_mysql.so
-   extension=json.so
 
-   If those php extensions are separate packages on your system, install
-   them.
+   If this PHP extension is a separate package on your system, install it.
 
 6) Configure MySQL
  - Start the MySQL service. Example:
