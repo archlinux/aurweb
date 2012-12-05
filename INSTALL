@@ -57,24 +57,24 @@ Setup on Arch Linux:
    # mysqladmin -p create AUR
 
  - Connect to the mysql client
-   # mysql -uroot -p AUR
+   $ mysql -uroot -p AUR
 
  - Issue the following commands to the mysql client
    mysql> GRANT ALL PRIVILEGES ON AUR.* to aur@localhost
-        > identified by 'aur';
+       -> identified by 'aur';
    mysql> FLUSH PRIVILEGES;
    mysql> quit
 
  - Load the schema file
-   # mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
+   $ mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
    (give password 'aur' at the prompt)
 
  - Optionally load some test data for development purposes.
    # pacman -S words fortune-mod
-   # cd ~/aur/support/schema/
-   # python gendummydata.py dummy-data.sql
-   # bzip2 dummy-data.sql
-   # bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
+   $ cd ~/aur/support/schema/
+   $ python gendummydata.py dummy-data.sql
+   $ bzip2 dummy-data.sql
+   $ bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
    (give password 'aur' at the prompt)
 
    If your test data consists of real people and real email addresses consider
@@ -83,7 +83,7 @@ Setup on Arch Linux:
    mysql> UPDATE Users SET Email = RAND() * RAND();
 
 7) Copy the config.inc.php.proto file to config.inc.php. Modify as needed.
-   # cd ~/aur/web/lib/
-   # cp config.inc.php.proto config.inc.php
+   $ cd ~/aur/web/lib/
+   $ cp config.inc.php.proto config.inc.php
 
 8) Point your browser to http://aur
