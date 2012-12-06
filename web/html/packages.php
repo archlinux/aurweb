@@ -51,9 +51,9 @@ if (isset($_POST['IDs'])) {
 $output = "";
 if (check_token()) {
 	if (current_action("do_Flag")) {
-		$output = pkg_flag($atype, $ids, true);
+		$output = pkg_flag($atype, $ids);
 	} elseif (current_action("do_UnFlag")) {
-		$output = pkg_flag($atype, $ids, False);
+		$output = pkg_unflag($atype, $ids);
 	} elseif (current_action("do_Adopt")) {
 		$output = pkg_adopt($atype, $ids, true);
 	} elseif (current_action("do_Disown")) {

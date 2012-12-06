@@ -772,33 +772,24 @@ function sanitize_ids($ids) {
 }
 
 /**
- * Flag and un-flag packages out-of-date
+ * Flag package(s) as out-of-date
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to flag/unflag
- * @param bool $action true flags out-of-date, false un-flags. Flags by default
  *
  * @return string Translated success or error messages
  */
-function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
+function pkg_flag($atype, $ids, $dbh=NULL) {
 	global $AUR_LOCATION;
 
 	if (!$atype) {
-		if ($action) {
-			return __("You must be logged in before you can flag packages.");
-		} else {
-			return __("You must be logged in before you can unflag packages.");
-		}
+		return __("You must be logged in before you can flag packages.");
 	}
 
 	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
-		if ($action) {
-			return __("You did not select any packages to flag.");
-		} else {
-			return __("You did not select any packages to unflag.");
-		}
+		return __("You did not select any packages to flag.");
 	}
 
 	if(!$dbh) {
@@ -806,25 +797,13 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 	}
 
 	$q = "UPDATE Packages SET";
-	if ($action) {
-		$q.= " OutOfDateTS = UNIX_TIMESTAMP()";
-	}
-	else {
-		$q.= " OutOfDateTS = NULL";
-	}
+	$q.= " OutOfDateTS = UNIX_TIMESTAMP()";
 	$q.= " WHERE ID IN (" . implode(",", $ids) . ")";
-
-	if (!$action && ($atype != "Trusted User" && $atype != "Developer")) {
-		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
-	}
-
-	if ($action) {
-		$q.= " AND OutOfDateTS IS NULL";
-	}
+	$q.= " AND OutOfDateTS IS NULL";
 
 	$affected_pkgs = $dbh->exec($q);
 
-	if ($action && $affected_pkgs > 0) {
+	if ($affected_pkgs > 0) {
 		# Notify of flagging by email
 		$f_name = username_from_sid($_COOKIE['AURSID'], $dbh);
 		$f_email = email_from_sid($_COOKIE['AURSID'], $dbh);
@@ -846,9 +825,42 @@ function pkg_flag ($atype, $ids, $action=true, $dbh=NULL) {
 		}
 	}
 
-	if ($action) {
-		return __("The selected packages have been flagged out-of-date.");
-	} else {
+	return __("The selected packages have been flagged out-of-date.");
+}
+
+/**
+ * Unflag package(s) as out-of-date
+ *
+ * @param string $atype Account type, output of account_from_sid
+ * @param array $ids Array of package IDs to flag/unflag
+ *
+ * @return string Translated success or error messages
+ */
+function pkg_unflag($atype, $ids, $dbh=NULL) {
+	if (!$atype) {
+		return __("You must be logged in before you can unflag packages.");
+	}
+
+	$ids = sanitize_ids($ids);
+	if (empty($ids)) {
+		return __("You did not select any packages to unflag.");
+	}
+
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "UPDATE Packages SET ";
+	$q.= "OutOfDateTS = NULL ";
+	$q.= "WHERE ID IN (" . implode(",", $ids) . ") ";
+
+	if ($atype != "Trusted User" && $atype != "Developer") {
+		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
+	}
+
+	$result = $dbh->exec($q);
+
+	if ($result) {
 		return __("The selected packages have been unflagged.");
 	}
 }
