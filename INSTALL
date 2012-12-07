@@ -44,39 +44,37 @@ Setup on Arch Linux:
 5) Configure PHP
    Make sure you have mysql and json enabled in PHP.
 
- - Edit php.ini and uncomment/add these lines:
+ - Edit php.ini and uncomment/add this line:
    extension=pdo_mysql.so
-   extension=json.so
 
-   If those php extensions are separate packages on your system, install
-   them.
+   If this PHP extension is a separate package on your system, install it.
 
 6) Configure MySQL
  - Start the MySQL service. Example:
-   # /etc/rc.d/mysqld start
+   # systemctl start mysqld
 
  - Create database
    # mysqladmin -p create AUR
 
  - Connect to the mysql client
-   # mysql -uroot -p AUR
+   $ mysql -uroot -p AUR
 
  - Issue the following commands to the mysql client
    mysql> GRANT ALL PRIVILEGES ON AUR.* to aur@localhost
-        > identified by 'aur';
+       -> identified by 'aur';
    mysql> FLUSH PRIVILEGES;
    mysql> quit
 
  - Load the schema file
-   # mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
+   $ mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
    (give password 'aur' at the prompt)
 
  - Optionally load some test data for development purposes.
-   # pacman -S words mysql-python
-   # cd ~/aur/support/schema/
-   # python gendummydata.py dummy-data.sql
-   # bzip2 dummy-data.sql
-   # bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
+   # pacman -S words fortune-mod
+   $ cd ~/aur/support/schema/
+   $ python gendummydata.py dummy-data.sql
+   $ bzip2 dummy-data.sql
+   $ bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
    (give password 'aur' at the prompt)
 
    If your test data consists of real people and real email addresses consider
@@ -85,7 +83,7 @@ Setup on Arch Linux:
    mysql> UPDATE Users SET Email = RAND() * RAND();
 
 7) Copy the config.inc.php.proto file to config.inc.php. Modify as needed.
-   # cd ~/aur/web/lib/
-   # cp config.inc.php.proto config.inc.php
+   $ cd ~/aur/web/lib/
+   $ cp config.inc.php.proto config.inc.php
 
 8) Point your browser to http://aur

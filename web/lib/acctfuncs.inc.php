@@ -145,8 +145,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("The PGP key fingerprint is invalid.");
 	}
 
-	if ($UTYPE == "Trusted User" && $T == 3) {
-		$error = __("A Trusted User cannot assign Developer status.");
+	if (($UTYPE == "User" && $T > 1) || ($UTYPE == "Trusted User" && $T > 2)) {
+		$error = __("Cannot increase account permissions.");
 	}
 	if (!$error && !array_key_exists($L, $SUPPORTED_LANGS)) {
 		$error = __("Language is not currently supported.");
@@ -1014,4 +1014,33 @@ function cast_proposal_vote($voteid, $uid, $vote, $newtotal, $dbh=NULL) {
 
 	$q = "INSERT INTO TU_Votes (VoteID, UserID) VALUES (" . intval($voteid) . ", " . intval($uid) . ")";
 	$result = $dbh->exec($q);
+}
+
+/**
+ * Verify a user has the proper permissions to edit an account
+ *
+ * @param string $atype Account type of the editing user
+ * @param array $acctinfo User account information for edited account
+ * @param int $uid User ID of the editing user
+ *
+ * @return bool True if permission to edit the account, otherwise false
+ */
+function can_edit_account($atype, $acctinfo, $uid) {
+	/* Developers can edit any account */
+	if ($atype == 'Developer') {
+		return true;
+	}
+
+	/* Trusted Users can edit all accounts except Developer accounts */
+	if ($atype == 'Trusted User' &&
+		$acctinfo['AccountType'] != 'Developer') {
+			return true;
+	}
+
+	/* Users can edit only their own account */
+	if ($acctinfo['ID'] == $uid) {
+		return true;
+	}
+
+	return false;
 }
