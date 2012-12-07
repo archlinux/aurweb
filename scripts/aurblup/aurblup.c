@@ -5,6 +5,7 @@
  */
 
 #include <alpm.h>
+#include <getopt.h>
 #include <mysql.h>
 #include <stdio.h>
 #include <string.h>
@@ -22,15 +23,15 @@ static void blacklist_remove(const char *);
 static void blacklist_sync(alpm_list_t *, alpm_list_t *);
 static alpm_list_t *dblist_get_pkglist(alpm_list_t *);
 static alpm_list_t *dblist_create(void);
-static void read_config(const char *);
+static int parse_options(int, char **);
 static void init(void);
 static void cleanup(void);
 
-static char *mysql_host = NULL;
+static char *mysql_host = "localhost";
 static char *mysql_socket = NULL;
-static char *mysql_user = NULL;
-static char *mysql_passwd = NULL;
-static char *mysql_db = NULL;
+static char *mysql_user = "aur";
+static char *mysql_passwd = "aur";
+static char *mysql_db = "AUR";
 
 static MYSQL *c;
 
@@ -208,65 +209,42 @@ dblist_create(void)
   return dblist;
 }
 
-static void
-read_config(const char *fn)
+static int parse_options(int argc, char **argv)
 {
-  FILE *fp;
-  char line[128];
-  char **t, **u, *p, *q;
+  int opt;
 
-  if (!(fp = fopen(fn, "r")))
-    die("failed to open AUR config file (\"%s\")\n", fn);
+  static const struct option opts[] = {
+    { "mysql-host",   required_argument, 0, 'h' },
+    { "mysql-socket", required_argument, 0, 'S' },
+    { "mysql-user",   required_argument, 0, 'u' },
+    { "mysql-passwd", required_argument, 0, 'p' },
+    { "mysql-db",     required_argument, 0, 'D' },
+    { 0, 0, 0, 0 }
+  };
 
-  while (fgets(line, sizeof(line), fp)) {
-    u = NULL;
-    if (strstr(line, CONFIG_KEY_HOST)) {
-      t = &mysql_host;
-      u = &mysql_socket;
-    }
-    else if (strstr(line, CONFIG_KEY_USER))
-      t = &mysql_user;
-    else if (strstr(line, CONFIG_KEY_PASSWD))
-      t = &mysql_passwd;
-    else if (strstr(line, CONFIG_KEY_DB))
-      t = &mysql_db;
-    else
-      t = NULL;
-
-    if (t) {
-      strtok(line, "\"");
-      strtok(NULL, "\"");
-      strtok(NULL, "\"");
-      p = strtok(NULL, "\"");
-
-      if (u) {
-        p = strtok(p, ":");
-        q = strtok(NULL, ":");
-      }
-      else q = NULL;
-
-      if (p && !*t) {
-        *t = malloc(strlen(p) + 1);
-        strncpy(*t, p, strlen(p) + 1);
-      }
-
-      if (q && !*u) {
-        *u = malloc(strlen(q) + 1);
-        strncpy(*u, q, strlen(q) + 1);
-      }
+  while((opt = getopt_long(argc, argv, "h:S:u:p:D:", opts, NULL)) != -1) {
+    switch(opt) {
+      case 'h':
+        mysql_host = optarg;
+        break;;
+      case 'S':
+        mysql_socket = optarg;
+        break;;
+      case 'u':
+        mysql_user = optarg;
+        break;;
+      case 'p':
+        mysql_passwd = optarg;
+        break;;
+      case 'D':
+        mysql_db = optarg;
+        break;;
+      default:
+        return 0;
     }
   }
 
-  fclose(fp);
-
-  if (!mysql_host)
-    die("MySQL host setting not found in AUR config file\n");
-  if (!mysql_user)
-    die("MySQL user setting not found in AUR config file\n");
-  if (!mysql_passwd)
-    die("MySQL password setting not found in AUR config file\n");
-  if (!mysql_db)
-    die("MySQL database setting not found in AUR config file\n");
+  return 1;
 }
 
 static void
@@ -288,12 +266,6 @@ init(void)
 static void
 cleanup(void)
 {
-  free(mysql_host);
-  free(mysql_socket);
-  free(mysql_user);
-  free(mysql_passwd);
-  free(mysql_db);
-
   alpm_release(handle);
   mysql_close(c);
   mysql_library_end();
@@ -303,7 +275,9 @@ int main(int argc, char *argv[])
 {
   alpm_list_t *pkgs_cur, *pkgs_new;
 
-  read_config(AUR_CONFIG);
+  if (!parse_options(argc, argv))
+    return 1;
+
   init();
 
   pkgs_cur = blacklist_get_pkglist();
