@@ -87,7 +87,7 @@ def genFortune():
 # load the words, and make sure there are enough words for users/pkgs
 #
 log.debug("Grabbing words from seed file...")
-fp = open(SEED_FILE, "r")
+fp = open(SEED_FILE, "r", encoding="utf-8")
 contents = fp.readlines()
 fp.close()
 if MAX_USERS > len(contents):
@@ -142,7 +142,7 @@ has_tus = 0
 
 # Just let python throw the errors if any happen
 #
-out = open(sys.argv[1], "w")
+out = open(sys.argv[1], "w", encoding="utf-8")
 out.write("BEGIN;\n")
 
 # Begin by creating the User statements
@@ -180,7 +180,7 @@ log.debug("Number of users: %d" % (MAX_USERS-len(developers)-len(trustedusers)))
 log.debug("Number of packages: %d" % MAX_PKGS)
 
 log.debug("Gathering text from fortune file...")
-fp = open(FORTUNE_FILE, "r")
+fp = open(FORTUNE_FILE, "r", encoding="utf-8")
 fortunes = fp.read().split("%\n")
 fp.close()
 
