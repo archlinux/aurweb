@@ -14,7 +14,6 @@ import time
 import os
 import sys
 import io
-import subprocess
 import logging
 
 LOG_LEVEL = logging.DEBUG # logging level. set to logging.INFO to reduce output
@@ -39,7 +38,7 @@ CLOSE_PROPOSALS = 15 # number of closed trusted user proposals
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
-FORTUNE_CMD = "/usr/bin/fortune"
+FORTUNE_FILE = "/usr/share/fortune/cookie"
 
 # setup logging
 logformat = "%(levelname)s: %(message)s"
@@ -58,7 +57,7 @@ if not os.path.exists(SEED_FILE):
 
 # make sure comments can be created
 #
-if not os.path.exists(FORTUNE_CMD):
+if not os.path.exists(FORTUNE_FILE):
 	log.error("Please install the 'fortune-mod' Arch package")
 	raise SystemExit
 
@@ -81,6 +80,8 @@ def genCategory():
 	return random.randrange(1,CATEGORIES_COUNT)
 def genUID():
 	return seen_users[user_keys[random.randrange(0,len(user_keys))]]
+def genFortune():
+	return fortunes[random.randrange(0,len(fortunes))].replace("'", "")
 
 
 # load the words, and make sure there are enough words for users/pkgs
@@ -178,6 +179,11 @@ log.debug("Number of trusted users: %d" % len(trustedusers))
 log.debug("Number of users: %d" % (MAX_USERS-len(developers)-len(trustedusers)))
 log.debug("Number of packages: %d" % MAX_PKGS)
 
+log.debug("Gathering text from fortune file...")
+fp = open(FORTUNE_FILE, "r")
+fortunes = fp.read().split("%\n")
+fp.close()
+
 # Create the package statements
 #
 log.debug("Creating SQL statements for packages.")
@@ -205,11 +211,10 @@ for p in list(seen_pkgs.keys()):
 	#
 	num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
 	for i in range(0, num_comments):
-		fortune = subprocess.getoutput(FORTUNE_CMD).replace("'","")
 		now = NOW + random.randrange(400, 86400*3)
 		s = ("INSERT INTO PackageComments (PackageID, UsersID,"
 			 " Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n")
-		s = s % (seen_pkgs[p], genUID(), fortune, now)
+		s = s % (seen_pkgs[p], genUID(), genFortune(), now)
 		out.write(s)
 
 # Cast votes
@@ -271,7 +276,6 @@ for p in list(seen_pkgs.keys()):
 log.debug("Creating SQL statements for trusted user proposals.")
 count=0
 for t in range(0, OPEN_PROPOSALS+CLOSE_PROPOSALS):
-	fortune = subprocess.getoutput(FORTUNE_CMD).replace("'","")
 	now = int(time.time())
 	if count < CLOSE_PROPOSALS:
 		start =  now - random.randrange(3600*24*7, 3600*24*21)
@@ -286,7 +290,7 @@ for t in range(0, OPEN_PROPOSALS+CLOSE_PROPOSALS):
 	suid = trustedusers[random.randrange(0,len(trustedusers))]
 	s = ("INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End,"
 	" SubmitterID) VALUES ('%s', '%s', %d, %d, %d);\n")
-	s = s % (fortune, user, start, end, suid)
+	s = s % (genFortune(), user, start, end, suid)
 	out.write(s)
 	count += 1
 
