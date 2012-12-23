@@ -86,4 +86,11 @@ Setup on Arch Linux:
    $ cd ~/aur/web/lib/
    $ cp config.inc.php.proto config.inc.php
 
+   In case you set $USE_VIRTUAL_URLS to true (default nowadays) you should add
+   a rewrite rule. For Apache, add this ~/aur/web/html/.htaccess:
+
+   RewriteEngine on
+   RewriteCond %{REQUEST_URI} !^/index.php
+   RewriteRule ^(.*)$ /index.php/$1
+
 8) Point your browser to http://aur
