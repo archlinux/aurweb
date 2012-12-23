@@ -95,7 +95,7 @@ $dbh = db_connect();
 			<fieldset>
 				<label for="pkgsearch-field"><?= __('Package Search') ?>:</label>
 				<input type="hidden" name="O" value="0" />
-				<input type="text" name="K" size="30" value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength="35" />
+				<input id="pkgsearch-field" type="text" name="K" size="30" value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength="35" />
 			</fieldset>
 		</form>
 	</div>
@@ -107,5 +107,22 @@ $dbh = db_connect();
 	</div>
 
 </div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#pkgsearch-field').typeahead({
+        source: function(query, callback) {
+            $.getJSON('<?= get_uri('/rpc'); ?>', {type: "suggest", arg: query}, function(data) {
+                callback(data);
+            });
+        },
+        matcher: function(item) { return true; },
+        sorter: function(items) { return items; },
+        menu: '<ul class="pkgsearch-typeahead"></ul>',
+        items: 20
+    }).attr('autocomplete', 'off');
+});
+</script>
 <?php
 html_footer(AUR_VERSION);

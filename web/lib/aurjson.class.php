@@ -15,7 +15,7 @@ include_once("aur.inc.php");
 class AurJSON {
     private $dbh = false;
     private static $exposed_methods = array(
-        'search', 'info', 'multiinfo', 'msearch'
+        'search', 'info', 'multiinfo', 'msearch', 'suggest'
     );
     private static $fields = array(
         'Packages.ID', 'Name', 'Version', 'CategoryID', 'Description', 'URL',
@@ -275,6 +275,26 @@ class AurJSON {
         $where_condition .= "LIMIT {$MAX_RPC_RESULTS}";
 
         return $this->process_query('msearch', $where_condition);
+    }
+
+    /**
+     * Get all package names that start with $search.
+     * @param string $search Search string.
+     * @return string The JSON formatted response data.
+     **/
+    private function suggest($search) {
+        $query = 'SELECT Name FROM Packages WHERE Name LIKE ' .
+            $this->dbh->quote(addcslashes($search, '%_') . '%') .
+            ' ORDER BY Name ASC LIMIT 20';
+
+        $result = $this->dbh->query($query);
+        $result_array = array();
+
+        if ($result) {
+            $result_array = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+        }
+
+        return json_encode($result_array);
     }
 }
 

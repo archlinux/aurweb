@@ -118,6 +118,10 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		header("Content-Type: image/png");
 		include "./$path";
 		break;
+	case "/js/bootstrap-typeahead.js":
+		header("Content-Type: application/javascript");
+		include "./$path";
+		break;
 	default:
 		header("HTTP/1.0 404 Not Found");
 		include "./404.php";
