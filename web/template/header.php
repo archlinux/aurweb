@@ -10,6 +10,9 @@
 	<link rel='shortcut icon' href='/images/favicon.ico' />
 	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='<?= get_uri('/rss/'); ?>' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<?php if (isset($details['Description']) && !empty($details['Description'])): ?>
+	<meta name="description" content="<?= htmlspecialchars($details['Description']) ?>" />
+<?php endif; ?>
   </head>
 	<body>
 		<div id="archnavbar" class="anb-aur">

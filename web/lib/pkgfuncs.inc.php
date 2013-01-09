@@ -432,20 +432,14 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
 }
 
 /**
- * Display the package details page
+ * Get the package details
  *
- * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
- * @global bool $USE_VIRTUAL_URLS True if using URL rewriting, otherwise false
- * @param string $id The package ID to get details page for
- * @param string $SID The session ID of the visitor
+ * @param string $id The package ID to get description for
  * @param \PDO $dbh An already established database connection
  *
- * @return void
- */
-function package_details($id=0, $SID="", $dbh=NULL) {
-	global $AUR_LOCATION;
-	global $USE_VIRTUAL_URLS;
-
+ * @return array The package's details OR error message
+ **/
+function get_package_details($id=0, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = db_connect();
 	}
@@ -456,36 +450,63 @@ function package_details($id=0, $SID="", $dbh=NULL) {
 	$q.= "AND Packages.ID = " . intval($id);
 	$result = $dbh->query($q);
 
+	$row = array();
+
 	if (!$result) {
-		print "<p>" . __("Error retrieving package details.") . "</p>\n";
+		$row['error'] = __("Error retrieving package details.");
 	}
 	else {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
 		if (empty($row)) {
-			print "<p>" . __("Package details could not be found.") . "</p>\n";
-
-		}
-		else {
-			include('pkg_details.php');
-
-			# Actions Bar
-			if ($SID) {
-				include('actions_form.php');
-				if (isset($_REQUEST['comment']) && check_token()) {
-					$uid = uid_from_sid($SID, $dbh);
-					add_package_comment($id, $uid, $_REQUEST['comment'], $dbh);
-				}
-				include('pkg_comment_form.php');
-			}
-
-			# Print Comments
-			$comments = package_comments($id, $dbh);
-			if (!empty($comments)) {
-				include('pkg_comments.php');
-			}
+			$row['error'] = __("Package details could not be found.");
 		}
 	}
-	return;
+
+	return $row;
+}
+
+/**
+ * Display the package details page
+ *
+ * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
+ * @global bool $USE_VIRTUAL_URLS True if using URL rewriting, otherwise false
+ * @param string $id The package ID to get details page for
+ * @param array $row Package details retrieved by get_package_details
+ * @param string $SID The session ID of the visitor
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
+function display_package_details($id=0, $row, $SID="", $dbh=NULL) {
+	global $AUR_LOCATION;
+	global $USE_VIRTUAL_URLS;
+
+	if(!$dbh) {
+		$dbh = db_connect();
+	}
+
+	if (isset($row['error'])) {
+		print "<p>" . $row['error'] . "</p>\n";
+	}
+	else {
+		include('pkg_details.php');
+
+		# Actions Bar
+		if ($SID) {
+			include('actions_form.php');
+			if (isset($_REQUEST['comment']) && check_token()) {
+				$uid = uid_from_sid($SID, $dbh);
+				add_package_comment($id, $uid, $_REQUEST['comment'], $dbh);
+			}
+			include('pkg_comment_form.php');
+		}
+
+		# Print Comments
+		$comments = package_comments($id, $dbh);
+		if (!empty($comments)) {
+			include('pkg_comments.php');
+		}
+	}
 }
 
 

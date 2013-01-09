@@ -20,9 +20,12 @@ if (!isset($pkgid) || !isset($pkgname)) {
 	}
 }
 
-# Set the title to the current query if required
+# Set the title to the current query and get package details if required
+$details = array();
+
 if (isset($pkgname)) {
 	$title = $pkgname;
+	$details = get_package_details($pkgid);
 } else if (!empty($_GET['K'])) {
 	$title = __("Search Criteria") . ": " . $_GET['K'];
 } else {
@@ -93,7 +96,7 @@ if (check_token()) {
 	}
 }
 
-html_header($title);
+html_header($title, $details);
 ?>
 
 <?php if ($output): ?>
@@ -105,10 +108,10 @@ if (isset($pkgid)) {
 	include('pkg_search_form.php');
 	if ($pkgid) {
 		if (isset($_COOKIE["AURSID"])) {
-			package_details($pkgid, $_COOKIE["AURSID"]);
+			display_package_details($pkgid, $details, $_COOKIE["AURSID"]);
 		}
 		else {
-			package_details($pkgid, null);
+			display_package_details($pkgid, $details, null);
 		}
 	} else {
 		print __("Error trying to retrieve package details.")."<br />\n";

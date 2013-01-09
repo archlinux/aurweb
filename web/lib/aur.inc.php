@@ -297,7 +297,7 @@ function db_connect() {
  *
  * @return void
  */
-function html_header($title="") {
+function html_header($title="", $details=array()) {
 	global $AUR_LOCATION;
 	global $DISABLE_HTTP_LOGIN;
 	global $LANG;
