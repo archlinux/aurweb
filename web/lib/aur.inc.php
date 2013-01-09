@@ -303,8 +303,6 @@ function html_header($title="") {
 	global $LANG;
 	global $SUPPORTED_LANGS;
 
-	$title = htmlspecialchars($title, ENT_QUOTES);
-
 	include('header.php');
 	return;
 }
