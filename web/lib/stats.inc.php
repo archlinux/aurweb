@@ -43,9 +43,6 @@ function user_table($userid, $dbh) {
 	$flagged_outdated = db_cache_value($q, $dbh,
 		'user_flagged_outdated:' . $userid);
 
-	# If the user is a TU calculate the number of the packages
-	$atype = account_from_sid($_COOKIE["AURSID"]);
-
 	include('stats/user_table.php');
 }
 

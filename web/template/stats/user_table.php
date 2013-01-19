@@ -7,7 +7,7 @@ $username = username_from_sid($_COOKIE["AURSID"]);
 <table>
 	<tr>
 		<td>
-			<a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;L=2&amp;K=<?= $username; ?>">
+			<a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;K=<?= $username; ?>">
 <?= __("Packages in unsupported"); ?></a>
 		</td>
 		<td><?= $maintainer_unsupported_count; ?></td>
