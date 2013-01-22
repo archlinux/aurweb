@@ -229,6 +229,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 				$q.= ", AccountTypeID = ".intval($T);
 			}
 			if ($S) {
+				/* Ensure suspended users can't keep an active session */
+				delete_user_sessions($UID, $dbh);
 				$q.= ", Suspended = 1";
 			} else {
 				$q.= ", Suspended = 0";
@@ -794,6 +796,23 @@ function delete_session_id($sid, $dbh=NULL) {
 
 	$q = "DELETE FROM Sessions WHERE SessionID = " . $dbh->quote($sid);
 	$dbh->query($q);
+}
+
+/**
+ * Remove all sessions belonging to a particular user
+ *
+ * @param int $uid ID of user to remove all sessions for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
+function delete_user_sessions($uid, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "DELETE FROM Sessions WHERE UsersID = " . intval($uid);
+	$dbh->exec($q);
 }
 
 /**
