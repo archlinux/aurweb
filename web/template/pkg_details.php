@@ -137,7 +137,7 @@ if ($row["SubmitterUID"]):
 		<td><?= htmlspecialchars($submitter) ?></td>
 	<?php endif; ?>
 <?php else: ?>
-			<td>None</td>
+			<td><?= __('None') ?></td>
 <?php endif; ?>
 		</tr>
 		<tr>
@@ -155,7 +155,7 @@ if ($row["MaintainerUID"]):
 		<td><?= htmlspecialchars($maintainer) ?></td>
 	<?php endif; ?>
 <?php else: ?>
-			<td>None</td>
+			<td><?= __('None') ?></td>
 <?php endif; ?>
 		</tr>
 		<tr>
