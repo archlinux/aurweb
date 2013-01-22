@@ -248,7 +248,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$q.= " WHERE ID = ".intval($UID);
 			$result = $dbh->exec($q);
 			if (!$result) {
-				print __("Error trying to modify account, %s%s%s.",
+				print __("No changes were made to the account, %s%s%s.",
 						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 			} else {
 				print __("The account, %s%s%s, has been successfully modified.",
