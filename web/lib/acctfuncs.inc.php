@@ -480,12 +480,12 @@ function try_login($dbh=NULL) {
  *
  * The username must be longer or equal to USERNAME_MIN_LEN. It must be shorter
  * or equal to USERNAME_MAX_LEN. It must start and end with either a letter or
- * a number. It can contain one period, hypen, or underscore. Returns username
- * if it meets all of those rules.
+ * a number. It can contain one period, hypen, or underscore. Returns boolean
+ * of whether name is valid.
  *
  * @param string $user Username to validate
  *
- * @return string|void Return username if it meets criteria, otherwise void
+ * @return bool True if username meets criteria, otherwise false
  */
 function valid_username($user) {
 	if (!empty($user)) {
@@ -500,13 +500,12 @@ function valid_username($user) {
 			# contain only letters and numbers,
 			#  and at most has one dash, period, or underscore
 			if ( preg_match("/^[a-z0-9]+[.\-_]?[a-z0-9]+$/", $user) ) {
-				#All is good return the username
-				return $user;
+				return true;
 			}
 		}
 	}
 
-	return;
+	return false;
 }
 
 /**
