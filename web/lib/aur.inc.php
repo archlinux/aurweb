@@ -94,7 +94,7 @@ function check_sid($dbh=NULL) {
  * @return bool True if the CSRF token is the same as the cookie SID, otherwise false
  */
 function check_token() {
-	if (isset($_POST['token'])) {
+	if (isset($_POST['token']) && isset($_COOKIE['AURSID'])) {
 		return ($_POST['token'] == $_COOKIE['AURSID']);
 	} else {
 		return false;
