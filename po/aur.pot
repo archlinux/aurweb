@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v2.0.0-rc1\n"
+"Project-Id-Version: AUR v2.0.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,6 +139,9 @@ msgstr ""
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
+msgstr ""
+
+msgid "Package Search"
 msgstr ""
 
 msgid "Vote"
@@ -348,6 +351,9 @@ msgstr ""
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr ""
 
+msgid "Error - The AUR does not support split packages!"
+msgstr ""
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr ""
 
@@ -471,7 +477,7 @@ msgstr ""
 msgid "The PGP key fingerprint is invalid."
 msgstr ""
 
-msgid "A Trusted User cannot assign Developer status."
+msgid "Cannot increase account permissions."
 msgstr ""
 
 msgid "Language is not currently supported."
@@ -497,7 +503,7 @@ msgid "Click on the Login link above to use your account."
 msgstr ""
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
 msgstr ""
 
 #, php-format
@@ -528,16 +534,16 @@ msgstr ""
 msgid "You must be logged in before you can flag packages."
 msgstr ""
 
-msgid "You must be logged in before you can unflag packages."
-msgstr ""
-
 msgid "You did not select any packages to flag."
 msgstr ""
 
-msgid "You did not select any packages to unflag."
+msgid "The selected packages have been flagged out-of-date."
 msgstr ""
 
-msgid "The selected packages have been flagged out-of-date."
+msgid "You must be logged in before you can unflag packages."
+msgstr ""
+
+msgid "You did not select any packages to unflag."
 msgstr ""
 
 msgid "The selected packages have been unflagged."
@@ -769,6 +775,9 @@ msgstr ""
 msgid "Package Details"
 msgstr ""
 
+msgid "Package Actions"
+msgstr ""
+
 msgid "View PKGBUILD"
 msgstr ""
 
@@ -802,13 +811,16 @@ msgstr ""
 msgid "Merge Package"
 msgstr ""
 
-msgid "Adopt Packages"
+msgid "Adopt Package"
 msgstr ""
 
-msgid "Disown Packages"
+msgid "Disown Package"
 msgstr ""
 
 msgid "Description"
+msgstr ""
+
+msgid "Upstream URL"
 msgstr ""
 
 msgid "Visit the website for"
@@ -831,6 +843,9 @@ msgstr ""
 
 #, php-format
 msgid "View account information for %s"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "Maintainer"
@@ -943,6 +958,12 @@ msgid "Actions"
 msgstr ""
 
 msgid "Unflag Out-of-date"
+msgstr ""
+
+msgid "Adopt Packages"
+msgstr ""
+
+msgid "Disown Packages"
 msgstr ""
 
 msgid "Any type"
