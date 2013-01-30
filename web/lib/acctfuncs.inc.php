@@ -229,6 +229,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 				$q.= ", AccountTypeID = ".intval($T);
 			}
 			if ($S) {
+				/* Ensure suspended users can't keep an active session */
+				delete_user_sessions($UID, $dbh);
 				$q.= ", Suspended = 1";
 			} else {
 				$q.= ", Suspended = 0";
@@ -246,7 +248,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$q.= " WHERE ID = ".intval($UID);
 			$result = $dbh->exec($q);
 			if (!$result) {
-				print __("Error trying to modify account, %s%s%s.",
+				print __("No changes were made to the account, %s%s%s.",
 						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 			} else {
 				print __("The account, %s%s%s, has been successfully modified.",
@@ -480,12 +482,12 @@ function try_login($dbh=NULL) {
  *
  * The username must be longer or equal to USERNAME_MIN_LEN. It must be shorter
  * or equal to USERNAME_MAX_LEN. It must start and end with either a letter or
- * a number. It can contain one period, hypen, or underscore. Returns username
- * if it meets all of those rules.
+ * a number. It can contain one period, hypen, or underscore. Returns boolean
+ * of whether name is valid.
  *
  * @param string $user Username to validate
  *
- * @return string|void Return username if it meets criteria, otherwise void
+ * @return bool True if username meets criteria, otherwise false
  */
 function valid_username($user) {
 	if (!empty($user)) {
@@ -500,13 +502,12 @@ function valid_username($user) {
 			# contain only letters and numbers,
 			#  and at most has one dash, period, or underscore
 			if ( preg_match("/^[a-z0-9]+[.\-_]?[a-z0-9]+$/", $user) ) {
-				#All is good return the username
-				return $user;
+				return true;
 			}
 		}
 	}
 
-	return;
+	return false;
 }
 
 /**
@@ -795,6 +796,23 @@ function delete_session_id($sid, $dbh=NULL) {
 
 	$q = "DELETE FROM Sessions WHERE SessionID = " . $dbh->quote($sid);
 	$dbh->query($q);
+}
+
+/**
+ * Remove all sessions belonging to a particular user
+ *
+ * @param int $uid ID of user to remove all sessions for
+ * @param \PDO $dbh An already established database connection
+ *
+ * @return void
+ */
+function delete_user_sessions($uid, $dbh=NULL) {
+	if (!$dbh) {
+		$dbh = db_connect();
+	}
+
+	$q = "DELETE FROM Sessions WHERE UsersID = " . intval($uid);
+	$dbh->exec($q);
 }
 
 /**
