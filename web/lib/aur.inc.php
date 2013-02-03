@@ -37,9 +37,7 @@ function check_sid() {
 		$failed = 0;
 		# the visitor is logged in, try and update the session
 		#
-		if(!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
 		$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
 		$result = $dbh->query($q);
@@ -143,9 +141,7 @@ function username_from_id($id="") {
 	if (!$id) {
 		return "";
 	}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT Username FROM Users WHERE ID = " . $dbh->quote($id);
 	$result = $dbh->query($q);
 	if (!$result) {
@@ -167,9 +163,7 @@ function username_from_sid($sid="") {
 	if (!$sid) {
 		return "";
 	}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT Username ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -194,9 +188,7 @@ function email_from_sid($sid="") {
 	if (!$sid) {
 		return "";
 	}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT Email ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -221,9 +213,7 @@ function account_from_sid($sid="") {
 	if (!$sid) {
 		return "";
 	}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT AccountType ";
 	$q.= "FROM Users, AccountTypes, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -249,9 +239,7 @@ function uid_from_sid($sid="") {
 	if (!$sid) {
 		return "";
 	}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT Users.ID ";
 	$q.= "FROM Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -306,9 +294,7 @@ function html_footer($ver="") {
  */
 function can_submit_pkg($name="", $sid="") {
 	if (!$name || !$sid) {return 0;}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT MaintainerUID ";
 	$q.= "FROM Packages WHERE Name = " . $dbh->quote($name);
 	$result = $dbh->query($q);
@@ -364,9 +350,7 @@ function uid_from_username($username="") {
 	if (!$username) {
 		return "";
 	}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT ID FROM Users WHERE Username = " . $dbh->quote($username);
 	$result = $dbh->query($q);
 	if (!$result) {
@@ -388,9 +372,7 @@ function uid_from_email($email="") {
 	if (!$email) {
 		return "";
 	}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT ID FROM Users WHERE Email = " . $dbh->quote($email);
 	$result = $dbh->query($q);
 	if (!$result) {
@@ -453,9 +435,7 @@ function mkurl($append) {
  * @return string|void Return the salt for the requested user, otherwise void
  */
 function get_salt($user_id) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
 	$result = $dbh->query($q);
 	if ($result) {
@@ -472,9 +452,7 @@ function get_salt($user_id) {
  * @param string $passwd The password of the user logging in
  */
 function save_salt($user_id, $passwd) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$salt = generate_salt();
 	$hash = salted_hash($passwd, $salt);
 	$q = "UPDATE Users SET Salt = " . $dbh->quote($salt) . ", ";
@@ -540,9 +518,7 @@ function parse_comment($comment) {
  * Wrapper for beginning a database transaction
  */
 function begin_atomic_commit() {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$dbh->beginTransaction();
 }
 
@@ -550,9 +526,7 @@ function begin_atomic_commit() {
  * Wrapper for committing a database transaction
  */
 function end_atomic_commit() {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$dbh->commit();
 }
 
@@ -563,9 +537,7 @@ function end_atomic_commit() {
  * @return string The ID of the last inserted row
  */
 function last_insert_id() {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	return $dbh->lastInsertId();
 }
 
@@ -577,9 +549,7 @@ function last_insert_id() {
  * @return array $packages Package info for the specified number of recent packages
  */
 function latest_pkgs($numpkgs) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT * FROM Packages ";
 	$q.= "ORDER BY SubmittedTS DESC ";

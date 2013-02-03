@@ -18,9 +18,7 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0) {
 		# A TU/Dev can delete any comment
 		return TRUE;
 	}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT COUNT(ID) AS CNT ";
 	$q.= "FROM PackageComments ";
 	$q.= "WHERE ID = " . intval($comment_id);
@@ -87,9 +85,7 @@ function canSubmitBlacklisted($atype = "") {
  */
 function pkgCategories() {
 	$cats = array();
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT * FROM PackageCategories WHERE ID != 1 ";
 	$q.= "ORDER BY Category ASC";
 	$result = $dbh->query($q);
@@ -110,9 +106,7 @@ function pkgCategories() {
  */
 function pkgid_from_name($name="") {
 	if (!$name) {return NULL;}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT ID FROM Packages ";
 	$q.= "WHERE Name = " . $dbh->quote($name);
 	$result = $dbh->query($q);
@@ -134,9 +128,7 @@ function package_dependencies($pkgid) {
 	$deps = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
-		if(!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT pd.DepName, pd.DepCondition, p.ID FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
 		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
@@ -162,9 +154,7 @@ function package_dependencies($pkgid) {
 function package_required($name="") {
 	$deps = array();
 	if ($name != "") {
-		if(!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT DISTINCT p.Name, PackageID FROM PackageDepends pd ";
 		$q.= "JOIN Packages p ON pd.PackageID = p.ID ";
 		$q.= "WHERE DepName = " . $dbh->quote($name) . " ";
@@ -186,15 +176,11 @@ function package_required($name="") {
  * @return string The number of comments left for a specific package
  */
 function package_comments_count($pkgid) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
-		if(!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT COUNT(*) FROM PackageComments ";
 		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " AND DelUsersID IS NULL";
@@ -220,9 +206,7 @@ function package_comments($pkgid) {
 	$comments = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
-		if(!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, CommentTS ";
 		$q.= "FROM PackageComments, Users ";
 		$q.= "WHERE PackageComments.UsersID = Users.ID";
@@ -260,9 +244,7 @@ function package_comments($pkgid) {
 function add_package_comment($pkgid, $uid, $comment) {
 	global $AUR_LOCATION;
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "INSERT INTO PackageComments ";
 	$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
@@ -317,9 +299,7 @@ function package_sources($pkgid) {
 	$sources = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
-		if(!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT Source FROM PackageSources ";
 		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " ORDER BY Source";
@@ -344,9 +324,7 @@ function package_sources($pkgid) {
 function pkgvotes_from_sid($sid="") {
 	$pkgs = array();
 	if (!$sid) {return $pkgs;}
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT PackageID ";
 	$q.= "FROM PackageVotes, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
@@ -372,9 +350,7 @@ function pkgname_from_id($pkgids) {
 	if (is_array($pkgids)) {
 		$pkgids = sanitize_ids($pkgids);
 		$names = array();
-		if(!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT Name FROM Packages WHERE ID IN (";
 		$q.= implode(",", $pkgids) . ")";
 		$result = $dbh->query($q);
@@ -386,9 +362,7 @@ function pkgname_from_id($pkgids) {
 		return $names;
 	}
 	elseif ($pkgids > 0) {
-		if(!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT Name FROM Packages WHERE ID = " . $pkgids;
 		$result = $dbh->query($q);
 		if ($result) {
@@ -409,9 +383,7 @@ function pkgname_from_id($pkgids) {
  * @return bool True if the name is blacklisted, otherwise false
  */
 function pkgname_is_blacklisted($name) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT COUNT(*) FROM PackageBlacklist ";
 	$q.= "WHERE Name = " . $dbh->quote($name);
 	$result = $dbh->query($q);
@@ -428,9 +400,7 @@ function pkgname_is_blacklisted($name) {
  * @return array The package's details OR error message
  **/
 function get_package_details($id=0) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT Packages.*,Category ";
 	$q.= "FROM Packages,PackageCategories ";
@@ -468,9 +438,7 @@ function display_package_details($id=0, $row, $SID="") {
 	global $AUR_LOCATION;
 	global $USE_VIRTUAL_URLS;
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	if (isset($row['error'])) {
 		print "<p>" . $row['error'] . "</p>\n";
@@ -542,9 +510,7 @@ function display_package_details($id=0, $row, $SID="") {
  *                     do_UnNotify - Disable notification
  */
 function pkg_search_page($SID="") {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	// get commonly used variables...
 	// TODO: REDUCE DB HITS.
@@ -800,9 +766,7 @@ function pkg_flag($atype, $ids) {
 		return __("You did not select any packages to flag.");
 	}
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "UPDATE Packages SET";
 	$q.= " OutOfDateTS = UNIX_TIMESTAMP()";
@@ -854,9 +818,7 @@ function pkg_unflag($atype, $ids) {
 		return __("You did not select any packages to unflag.");
 	}
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "UPDATE Packages SET ";
 	$q.= "OutOfDateTS = NULL ";
@@ -897,9 +859,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 		return __("You did not select any packages to delete.");
 	}
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	if ($mergepkgid) {
 		$mergepkgname = pkgname_from_id($mergepkgid);
@@ -999,9 +959,7 @@ function pkg_adopt ($atype, $ids, $action=true) {
 		}
 	}
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$field = "MaintainerUID";
 	$q = "UPDATE Packages ";
@@ -1059,9 +1017,7 @@ function pkg_vote ($atype, $ids, $action=true) {
 		}
 	}
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"]);
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 
@@ -1128,9 +1084,7 @@ function pkg_vote ($atype, $ids, $action=true) {
  * @return array User IDs and usernames that voted for a specific package
  */
 function getvotes($pkgid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT UsersID,Username FROM PackageVotes ";
 	$q.= "LEFT JOIN Users on (UsersID = ID) ";
@@ -1159,9 +1113,7 @@ function getvotes($pkgid) {
  * @return bool True if the user has already voted, otherwise false
  */
 function user_voted($uid, $pkgid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $dbh->quote($uid);
 	$q.= " AND PackageID = " . $dbh->quote($pkgid);
@@ -1184,9 +1136,7 @@ function user_voted($uid, $pkgid) {
  * @return bool True if the user wants notifications, otherwise false
  */
 function user_notify($uid, $pkgid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT * FROM CommentNotify WHERE UserID = " . $dbh->quote($uid);
 	$q.= " AND PkgID = " . $dbh->quote($pkgid);
@@ -1219,9 +1169,7 @@ function pkg_notify ($atype, $ids, $action=true) {
 		return __("Couldn't add to notification list.");
 	}
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 	$output = "";
@@ -1298,9 +1246,7 @@ function pkg_delete_comment($atype) {
 		return __("Missing comment ID.");
 	}
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 	if (canDeleteComment($comment_id, $atype, $uid)) {
 		   $q = "UPDATE PackageComments ";
@@ -1332,9 +1278,7 @@ function pkg_change_category($pid, $atype) {
 		return __("Missing category ID.");
 	}
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$catArray = pkgCategories($dbh);
 	if (!array_key_exists($category_id, $catArray)) {
 		return __("Invalid category ID.");
@@ -1373,9 +1317,7 @@ function pkg_change_category($pid, $atype) {
  * @return array All package details for a specific package
  */
 function pkgdetails_by_pkgname($pkgname) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT * FROM Packages WHERE Name = " . $dbh->quote($pkgname);
 	$result = $dbh->query($q);
 	if ($result) {
@@ -1398,9 +1340,7 @@ function pkgdetails_by_pkgname($pkgname) {
  * @return void
  */
 function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pkgurl, $uid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES (%s, %s, %s, %d, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
 	$dbh->quote($pkgname),
 	$dbh->quote($license),
@@ -1428,9 +1368,7 @@ function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pk
  * @return void
  */
 function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid, $pkgid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	# This is an overwrite of an existing package
 	$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = %s, Version = %s, License = %s, Description = %s, URL = %s, OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
 	$dbh->quote($pkgname),
@@ -1454,9 +1392,7 @@ function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid,
  * @return void
  */
 function add_pkg_dep($pkgid, $depname, $depcondition) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, %s, %s)",
 	$pkgid,
 	$dbh->quote($depname),
@@ -1474,9 +1410,7 @@ function add_pkg_dep($pkgid, $depname, $depcondition) {
  * @return void
  */
 function add_pkg_src($pkgid, $pkgsrc) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
 	$q .= $pkgid . ", " . $dbh->quote($pkgsrc) . ")";
 
@@ -1492,9 +1426,7 @@ function add_pkg_src($pkgid, $pkgsrc) {
  * @return void
  */
 function update_pkg_category($pkgid, $category_id) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d",
 	$category_id,
 	$pkgid);
@@ -1510,9 +1442,7 @@ function update_pkg_category($pkgid, $category_id) {
  * @return void
  */
 function remove_pkg_deps($pkgid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "DELETE FROM PackageDepends WHERE PackageID = " . $pkgid;
 
 	$dbh->exec($q);
@@ -1526,9 +1456,7 @@ function remove_pkg_deps($pkgid) {
  * @return void
  */
 function remove_pkg_sources($pkgid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "DELETE FROM PackageSources WHERE PackageID = " . $pkgid;
 
 	$dbh->exec($q);

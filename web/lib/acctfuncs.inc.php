@@ -93,9 +93,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	# error check and process request for a new/modified account
 	global $SUPPORTED_LANGS;
 
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	if(isset($_COOKIE['AURSID'])) {
 		$editor_user = uid_from_sid($_COOKIE['AURSID']);
@@ -298,9 +296,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	}
 	$search_vars = array();
 
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT Users.*, AccountTypes.AccountType ";
 	$q.= "FROM Users, AccountTypes ";
@@ -364,9 +360,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	$search_vars[] = "SB";
 	$q.= "LIMIT " . $HITS_PER_PAGE . " OFFSET " . $OFFSET;
 
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$result = $dbh->query($q);
 
@@ -394,9 +388,7 @@ function try_login() {
 	$userID = null;
 
 	if ( isset($_REQUEST['user']) || isset($_REQUEST['passwd']) ) {
-		if (!$dbh) {
-			$dbh = DB::connect();
-		}
+		$dbh = DB::connect();
 		$userID = valid_user($_REQUEST['user']);
 
 		if ( user_suspended($userID) ) {
@@ -517,9 +509,7 @@ function valid_username($user) {
 function valid_user($user) {
 	/*	if ( $user = valid_username($user) ) { */
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	if ( $user ) {
 		$q = "SELECT ID FROM Users ";
@@ -543,9 +533,7 @@ function valid_user($user) {
  * @return bool True if there is an open proposal about the user, otherwise false
  */
 function open_user_proposals($user) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT * FROM TU_VoteInfo WHERE User = " . $dbh->quote($user) . " ";
 	$q.= "AND End > UNIX_TIMESTAMP()";
 	$result = $dbh->query($q);
@@ -568,9 +556,7 @@ function open_user_proposals($user) {
  * @return void
  */
 function add_tu_proposal($agenda, $user, $votelength, $submitteruid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
 	$q.= "(" . $dbh->quote($agenda) . ", " . $dbh->quote($user) . ", ";
@@ -588,9 +574,7 @@ function add_tu_proposal($agenda, $user, $votelength, $submitteruid) {
  * @return void
  */
 function create_resetkey($resetkey, $uid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "UPDATE Users ";
 	$q.= "SET ResetKey = '" . $resetkey . "' ";
 	$q.= "WHERE ID = " . $uid;
@@ -608,9 +592,7 @@ function create_resetkey($resetkey, $uid) {
  * @return string|void Redirect page if successful, otherwise return error message
  */
 function password_reset($hash, $salt, $resetkey, $email) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "UPDATE Users ";
 	$q.= "SET Passwd = '$hash', ";
 	$q.= "Salt = '$salt', ";
@@ -652,9 +634,7 @@ function good_passwd($passwd) {
  * @return bool True if password was correct and properly salted, otherwise false
  */
 function valid_passwd($userID, $passwd) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	if ( strlen($passwd) > 0 ) {
 		# get salt for this user
 		$salt = get_salt($userID);
@@ -713,9 +693,7 @@ function valid_pgp_fingerprint($fingerprint) {
  * @return bool True if the user is suspended, otherwise false
  */
 function user_suspended($id) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	if (!$id) {
 		return false;
 	}
@@ -738,9 +716,7 @@ function user_suspended($id) {
  * @return void
  */
 function user_delete($id) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "DELETE FROM Users WHERE ID = " . $id;
 	$dbh->query($q);
 	return;
@@ -754,9 +730,7 @@ function user_delete($id) {
  * @return int|string Return  0 if un-privileged, "2" if Trusted User, "3" if Developer
  */
 function user_is_privileged($id) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
 	$result = $dbh->query($q);
 	if ($result) {
@@ -777,9 +751,7 @@ function user_is_privileged($id) {
  * @return void
  */
 function delete_session_id($sid) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "DELETE FROM Sessions WHERE SessionID = " . $dbh->quote($sid);
 	$dbh->query($q);
@@ -793,9 +765,7 @@ function delete_session_id($sid) {
  * @return void
  */
 function delete_user_sessions($uid) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "DELETE FROM Sessions WHERE UsersID = " . intval($uid);
 	$dbh->exec($q);
@@ -811,9 +781,7 @@ function delete_user_sessions($uid) {
 function clear_expired_sessions() {
 	global $LOGIN_TIMEOUT;
 
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)";
 	$dbh->query($q);
@@ -830,9 +798,7 @@ function clear_expired_sessions() {
  * @return array Account details for the specified user
  */
 function account_details($uid, $username) {
-	if(!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 	$q = "SELECT Users.*, AccountTypes.AccountType ";
 	$q.= "FROM Users, AccountTypes ";
 	$q.= "WHERE AccountTypes.ID = Users.AccountTypeID ";
@@ -859,9 +825,7 @@ function account_details($uid, $username) {
  * @return bool True if the user has already voted, otherwise false
  */
 function tu_voted($voteid, $uid) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT COUNT(*) FROM TU_Votes ";
 	$q.= "WHERE VoteID = " . intval($voteid) . " AND UserID = " . intval($uid);
@@ -882,9 +846,7 @@ function tu_voted($voteid, $uid) {
  * @return array The details for all current Trusted User proposals
  */
 function current_proposal_list($order) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;
 	$result = $dbh->query($q);
@@ -906,9 +868,7 @@ function current_proposal_list($order) {
  * @return array The details for the subset of past Trusted User proposals
  */
 function past_proposal_list($order, $lim) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT * FROM TU_VoteInfo WHERE End < " . time() . " ORDER BY Submitted " . $order . $lim;
 	$result = $dbh->query($q);
@@ -927,10 +887,7 @@ function past_proposal_list($order, $lim) {
  * @return string The total number of Trusted User proposals
  */
 function proposal_count() {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
-
+	$dbh = DB::connect();
 	$q = "SELECT COUNT(*) FROM TU_VoteInfo";
 	$result = $dbh->query($q);
 	$row = $result->fetch(PDO::FETCH_NUM);
@@ -946,9 +903,7 @@ function proposal_count() {
  * @return array All stored details for a specific vote
  */
 function vote_details($voteid) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "SELECT * FROM TU_VoteInfo ";
 	$q.= "WHERE ID = " . intval($voteid);
@@ -967,9 +922,7 @@ function vote_details($voteid) {
  * @return array All users who voted for a specific proposal
  */
 function voter_list($voteid) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$whovoted = array();
 
@@ -999,9 +952,7 @@ function voter_list($voteid) {
  * @return void
  */
 function cast_proposal_vote($voteid, $uid, $vote, $newtotal) {
-	if (!$dbh) {
-		$dbh = DB::connect();
-	}
+	$dbh = DB::connect();
 
 	$q = "UPDATE TU_VoteInfo SET " . $vote . " = (" . $newtotal . ") WHERE ID = " . $voteid;
 	$result = $dbh->exec($q);
