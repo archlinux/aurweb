@@ -89,7 +89,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
  * @return string|void Return void if successful, otherwise return error
  */
 function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
-			$P="",$C="",$R="",$L="",$I="",$K="",$UID=0,$dbh=NULL) {
+			$P="",$C="",$R="",$L="",$I="",$K="",$UID=0) {
 
 	# error check and process request for a new/modified account
 	global $SUPPORTED_LANGS;
@@ -99,7 +99,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	}
 
 	if(isset($_COOKIE['AURSID'])) {
-		$editor_user = uid_from_sid($_COOKIE['AURSID'], $dbh);
+		$editor_user = uid_from_sid($_COOKIE['AURSID']);
 	}
 	else {
 		$editor_user = null;
@@ -122,7 +122,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		}
 	}
 
-  if (!$error && !valid_username($U) && !user_is_privileged($editor_user, $dbh))
+  if (!$error && !valid_username($U) && !user_is_privileged($editor_user))
 	$error = __("The username is invalid.") . "<ul>\n"
 			."<li>" . __("It must be between %s and %s characters long",
 			USERNAME_MIN_LEN,  USERNAME_MAX_LEN )
@@ -230,7 +230,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			}
 			if ($S) {
 				/* Ensure suspended users can't keep an active session */
-				delete_user_sessions($UID, $dbh);
+				delete_user_sessions($UID);
 				$q.= ", Suspended = 1";
 			} else {
 				$q.= ", Suspended = 0";
@@ -287,7 +287,7 @@ function search_accounts_form() {
  * @return void
  */
 function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
-		$S="",$E="",$R="",$I="",$K="",$dbh=NULL) {
+		$S="",$E="",$R="",$I="",$K="") {
 
 	$HITS_PER_PAGE = 50;
 	if ($O) {
@@ -389,7 +389,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
  *
  * @return array Session ID for user, error message if applicable
  */
-function try_login($dbh=NULL) {
+function try_login() {
 	global $MAX_SESSIONS_PER_USER, $PERSISTENT_COOKIE_TIMEOUT;
 
 	$login_error = "";
@@ -400,13 +400,13 @@ function try_login($dbh=NULL) {
 		if (!$dbh) {
 			$dbh = DB::connect();
 		}
-		$userID = valid_user($_REQUEST['user'], $dbh);
+		$userID = valid_user($_REQUEST['user']);
 
-		if ( user_suspended($userID, $dbh) ) {
+		if ( user_suspended($userID) ) {
 			$login_error = "Account Suspended.";
 		}
 		elseif ( $userID && isset($_REQUEST['passwd'])
-		  && valid_passwd($userID, $_REQUEST['passwd'], $dbh) ) {
+		  && valid_passwd($userID, $_REQUEST['passwd']) ) {
 
 			$logged_in = 0;
 			$num_tries = 0;
@@ -518,7 +518,7 @@ function valid_username($user) {
  *
  * @return string|void Return user ID if in database, otherwise void
  */
-function valid_user($user, $dbh=NULL) {
+function valid_user($user) {
 	/*	if ( $user = valid_username($user) ) { */
 
 	if(!$dbh) {
@@ -547,7 +547,7 @@ function valid_user($user, $dbh=NULL) {
  *
  * @return bool True if there is an open proposal about the user, otherwise false
  */
-function open_user_proposals($user, $dbh=NULL) {
+function open_user_proposals($user) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -573,7 +573,7 @@ function open_user_proposals($user, $dbh=NULL) {
  *
  * @return void
  */
-function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) {
+function add_tu_proposal($agenda, $user, $votelength, $submitteruid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -594,7 +594,7 @@ function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) 
  *
  * @return void
  */
-function create_resetkey($resetkey, $uid, $dbh=NULL) {
+function create_resetkey($resetkey, $uid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -615,7 +615,7 @@ function create_resetkey($resetkey, $uid, $dbh=NULL) {
  *
  * @return string|void Redirect page if successful, otherwise return error message
  */
-function password_reset($hash, $salt, $resetkey, $email, $dbh=NULL) {
+function password_reset($hash, $salt, $resetkey, $email) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -660,7 +660,7 @@ function good_passwd($passwd) {
  *
  * @return bool True if password was correct and properly salted, otherwise false
  */
-function valid_passwd($userID, $passwd, $dbh=NULL) {
+function valid_passwd($userID, $passwd) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -722,7 +722,7 @@ function valid_pgp_fingerprint($fingerprint) {
  *
  * @return bool True if the user is suspended, otherwise false
  */
-function user_suspended($id, $dbh=NULL) {
+function user_suspended($id) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -748,7 +748,7 @@ function user_suspended($id, $dbh=NULL) {
  *
  * @return void
  */
-function user_delete($id, $dbh=NULL) {
+function user_delete($id) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -765,7 +765,7 @@ function user_delete($id, $dbh=NULL) {
  *
  * @return int|string Return  0 if un-privileged, "2" if Trusted User, "3" if Developer
  */
-function user_is_privileged($id, $dbh=NULL) {
+function user_is_privileged($id) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -789,7 +789,7 @@ function user_is_privileged($id, $dbh=NULL) {
  *
  * @return void
  */
-function delete_session_id($sid, $dbh=NULL) {
+function delete_session_id($sid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -806,7 +806,7 @@ function delete_session_id($sid, $dbh=NULL) {
  *
  * @return void
  */
-function delete_user_sessions($uid, $dbh=NULL) {
+function delete_user_sessions($uid) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -823,7 +823,7 @@ function delete_user_sessions($uid, $dbh=NULL) {
  *
  * @return void
  */
-function clear_expired_sessions($dbh=NULL) {
+function clear_expired_sessions() {
 	global $LOGIN_TIMEOUT;
 
 	if(!$dbh) {
@@ -845,7 +845,7 @@ function clear_expired_sessions($dbh=NULL) {
  *
  * @return array Account details for the specified user
  */
-function account_details($uid, $username, $dbh=NULL) {
+function account_details($uid, $username) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -875,7 +875,7 @@ function account_details($uid, $username, $dbh=NULL) {
  *
  * @return bool True if the user has already voted, otherwise false
  */
-function tu_voted($voteid, $uid, $dbh=NULL) {
+function tu_voted($voteid, $uid) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -899,7 +899,7 @@ function tu_voted($voteid, $uid, $dbh=NULL) {
  *
  * @return array The details for all current Trusted User proposals
  */
-function current_proposal_list($order, $dbh=NULL) {
+function current_proposal_list($order) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -924,7 +924,7 @@ function current_proposal_list($order, $dbh=NULL) {
  *
  * @return array The details for the subset of past Trusted User proposals
  */
-function past_proposal_list($order, $lim, $dbh=NULL) {
+function past_proposal_list($order, $lim) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -947,7 +947,7 @@ function past_proposal_list($order, $lim, $dbh=NULL) {
  *
  * @return string The total number of Trusted User proposals
  */
-function proposal_count($dbh=NULL) {
+function proposal_count() {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -967,7 +967,7 @@ function proposal_count($dbh=NULL) {
  *
  * @return array All stored details for a specific vote
  */
-function vote_details($voteid, $dbh=NULL) {
+function vote_details($voteid) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -989,7 +989,7 @@ function vote_details($voteid, $dbh=NULL) {
  *
  * @return array All users who voted for a specific proposal
  */
-function voter_list($voteid, $dbh=NULL) {
+function voter_list($voteid) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1022,7 +1022,7 @@ function voter_list($voteid, $dbh=NULL) {
  *
  * @return void
  */
-function cast_proposal_vote($voteid, $uid, $vote, $newtotal, $dbh=NULL) {
+function cast_proposal_vote($voteid, $uid, $vote, $newtotal) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}

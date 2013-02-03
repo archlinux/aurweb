@@ -80,7 +80,7 @@ $dbh = DB::connect();
 						<td class="pkg-name">
 							<?php
 							$userid = uid_from_sid($_COOKIE["AURSID"]);
-							user_table($userid, $dbh);
+							user_table($userid);
 							?>
 						</td>
 					</tr>
@@ -100,10 +100,10 @@ $dbh = DB::connect();
 		</form>
 	</div>
 	<div id="pkg-updates" class="widget box">
-		<?php updates_table($dbh); ?>
+		<?php updates_table(); ?>
 	</div>
 	<div id="pkg-stats" class="widget box">
-		<?php general_stats_table($dbh); ?>
+		<?php general_stats_table(); ?>
 	</div>
 
 </div>

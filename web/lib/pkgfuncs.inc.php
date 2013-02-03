@@ -14,7 +14,7 @@ include_once("config.inc.php");
  *
  * @return bool True if the user can delete the comment, otherwise false
  */
-function canDeleteComment($comment_id=0, $atype="", $uid=0, $dbh=NULL) {
+function canDeleteComment($comment_id=0, $atype="", $uid=0) {
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
 		return TRUE;
@@ -86,7 +86,7 @@ function canSubmitBlacklisted($atype = "") {
  *
  * @return array All package categories
  */
-function pkgCategories($dbh=NULL) {
+function pkgCategories() {
 	$cats = array();
 	if(!$dbh) {
 		$dbh = DB::connect();
@@ -110,7 +110,7 @@ function pkgCategories($dbh=NULL) {
  *
  * @return string|void Package name if it already exists
  */
-function pkgid_from_name($name="", $dbh=NULL) {
+function pkgid_from_name($name="") {
 	if (!$name) {return NULL;}
 	if(!$dbh) {
 		$dbh = DB::connect();
@@ -133,7 +133,7 @@ function pkgid_from_name($name="", $dbh=NULL) {
  *
  * @return array All package dependencies for the package
  */
-function package_dependencies($pkgid, $dbh=NULL) {
+function package_dependencies($pkgid) {
 	$deps = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
@@ -163,7 +163,7 @@ function package_dependencies($pkgid, $dbh=NULL) {
  *
  * @return array All packages that depend on the specified package name
  */
-function package_required($name="", $dbh=NULL) {
+function package_required($name="") {
 	$deps = array();
 	if ($name != "") {
 		if(!$dbh) {
@@ -190,7 +190,7 @@ function package_required($name="", $dbh=NULL) {
  *
  * @return string The number of comments left for a specific package
  */
-function package_comments_count($pkgid, $dbh=NULL) {
+function package_comments_count($pkgid) {
 	if (!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -222,7 +222,7 @@ function package_comments_count($pkgid, $dbh=NULL) {
  *
  * @return array All package comment information for a specific package
  */
-function package_comments($pkgid, $dbh=NULL) {
+function package_comments($pkgid) {
 	$comments = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
@@ -264,7 +264,7 @@ function package_comments($pkgid, $dbh=NULL) {
  *
  * @return void
  */
-function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
+function add_package_comment($pkgid, $uid, $comment) {
 	global $AUR_LOCATION;
 
 	if(!$dbh) {
@@ -303,7 +303,7 @@ function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
 		# getting emails in the language that the user who posted the comment was in
 		$body =
 		'from ' . $AUR_LOCATION . get_pkg_uri($row['Name']) . "\n"
-		. username_from_sid($_COOKIE['AURSID'], $dbh) . " wrote:\n\n"
+		. username_from_sid($_COOKIE['AURSID']) . " wrote:\n\n"
 		. $comment
 		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
 		$body = wordwrap($body, 70);
@@ -321,7 +321,7 @@ function add_package_comment($pkgid, $uid, $comment, $dbh=NULL) {
  *
  * @return array All sources associated with a specific package
  */
-function package_sources($pkgid, $dbh=NULL) {
+function package_sources($pkgid) {
 	$sources = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
@@ -350,7 +350,7 @@ function package_sources($pkgid, $dbh=NULL) {
  *
  * @return array All packages the visitor has voted for
  */
-function pkgvotes_from_sid($sid="", $dbh=NULL) {
+function pkgvotes_from_sid($sid="") {
 	$pkgs = array();
 	if (!$sid) {return $pkgs;}
 	if(!$dbh) {
@@ -378,7 +378,7 @@ function pkgvotes_from_sid($sid="", $dbh=NULL) {
  *
  * @return array|string All names if multiple package IDs, otherwise package name
  */
-function pkgname_from_id($pkgids, $dbh=NULL) {
+function pkgname_from_id($pkgids) {
 	if (is_array($pkgids)) {
 		$pkgids = sanitize_ids($pkgids);
 		$names = array();
@@ -419,7 +419,7 @@ function pkgname_from_id($pkgids, $dbh=NULL) {
  *
  * @return bool True if the name is blacklisted, otherwise false
  */
-function pkgname_is_blacklisted($name, $dbh=NULL) {
+function pkgname_is_blacklisted($name) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -439,7 +439,7 @@ function pkgname_is_blacklisted($name, $dbh=NULL) {
  *
  * @return array The package's details OR error message
  **/
-function get_package_details($id=0, $dbh=NULL) {
+function get_package_details($id=0) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -477,7 +477,7 @@ function get_package_details($id=0, $dbh=NULL) {
  *
  * @return void
  */
-function display_package_details($id=0, $row, $SID="", $dbh=NULL) {
+function display_package_details($id=0, $row, $SID="") {
 	global $AUR_LOCATION;
 	global $USE_VIRTUAL_URLS;
 
@@ -495,14 +495,14 @@ function display_package_details($id=0, $row, $SID="", $dbh=NULL) {
 		if ($SID) {
 			include('actions_form.php');
 			if (isset($_REQUEST['comment']) && check_token()) {
-				$uid = uid_from_sid($SID, $dbh);
-				add_package_comment($id, $uid, $_REQUEST['comment'], $dbh);
+				$uid = uid_from_sid($SID);
+				add_package_comment($id, $uid, $_REQUEST['comment']);
 			}
 			include('pkg_comment_form.php');
 		}
 
 		# Print Comments
-		$comments = package_comments($id, $dbh);
+		$comments = package_comments($id);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
 		}
@@ -554,7 +554,7 @@ function display_package_details($id=0, $row, $SID="", $dbh=NULL) {
  *                     do_Notify - Enable notification
  *                     do_UnNotify - Disable notification
  */
-function pkg_search_page($SID="", $dbh=NULL) {
+function pkg_search_page($SID="") {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -563,7 +563,7 @@ function pkg_search_page($SID="", $dbh=NULL) {
 	// TODO: REDUCE DB HITS.
 	// grab info for user if they're logged in
 	if ($SID)
-		$myuid = uid_from_sid($SID, $dbh);
+		$myuid = uid_from_sid($SID);
 	// get a list of package categories
 	$cats = pkgCategories($dbh); //meow
 
@@ -633,7 +633,7 @@ function pkg_search_page($SID="", $dbh=NULL) {
 		}
 		# Search by submitter
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
-			$q_where .= "AND SubmitterUID = ".uid_from_username($_GET['K'], $dbh)." ";
+			$q_where .= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
 		}
 		# Search by name
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
@@ -801,7 +801,7 @@ function sanitize_ids($ids) {
  *
  * @return string Translated success or error messages
  */
-function pkg_flag($atype, $ids, $dbh=NULL) {
+function pkg_flag($atype, $ids) {
 	global $AUR_LOCATION;
 
 	if (!$atype) {
@@ -826,9 +826,9 @@ function pkg_flag($atype, $ids, $dbh=NULL) {
 
 	if ($affected_pkgs > 0) {
 		# Notify of flagging by email
-		$f_name = username_from_sid($_COOKIE['AURSID'], $dbh);
-		$f_email = email_from_sid($_COOKIE['AURSID'], $dbh);
-		$f_uid = uid_from_sid($_COOKIE['AURSID'], $dbh);
+		$f_name = username_from_sid($_COOKIE['AURSID']);
+		$f_email = email_from_sid($_COOKIE['AURSID']);
+		$f_uid = uid_from_sid($_COOKIE['AURSID']);
 		$q = "SELECT Packages.Name, Users.Email, Packages.ID ";
 		$q.= "FROM Packages, Users ";
 		$q.= "WHERE Packages.ID IN (" . implode(",", $ids) .") ";
@@ -857,7 +857,7 @@ function pkg_flag($atype, $ids, $dbh=NULL) {
  *
  * @return string Translated success or error messages
  */
-function pkg_unflag($atype, $ids, $dbh=NULL) {
+function pkg_unflag($atype, $ids) {
 	if (!$atype) {
 		return __("You must be logged in before you can unflag packages.");
 	}
@@ -876,7 +876,7 @@ function pkg_unflag($atype, $ids, $dbh=NULL) {
 	$q.= "WHERE ID IN (" . implode(",", $ids) . ") ";
 
 	if ($atype != "Trusted User" && $atype != "Developer") {
-		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
+		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"]);
 	}
 
 	$result = $dbh->exec($q);
@@ -895,7 +895,7 @@ function pkg_unflag($atype, $ids, $dbh=NULL) {
  *
  * @return string Translated error or success message
  */
-function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
+function pkg_delete ($atype, $ids, $mergepkgid) {
 	if (!$atype) {
 		return __("You must be logged in before you can delete packages.");
 	}
@@ -915,7 +915,7 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
 	}
 
 	if ($mergepkgid) {
-		$mergepkgname = pkgname_from_id($mergepkgid, $dbh);
+		$mergepkgname = pkgname_from_id($mergepkgid);
 	}
 
 	# Send email notifications
@@ -994,7 +994,7 @@ function pkg_delete ($atype, $ids, $mergepkgid, $dbh=NULL) {
  *
  * @return string Translated error or success message
  */
-function pkg_adopt ($atype, $ids, $action=true, $dbh=NULL) {
+function pkg_adopt ($atype, $ids, $action=true) {
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can adopt packages.");
@@ -1020,7 +1020,7 @@ function pkg_adopt ($atype, $ids, $action=true, $dbh=NULL) {
 	$q = "UPDATE Packages ";
 
 	if ($action) {
-		$user = uid_from_sid($_COOKIE["AURSID"], $dbh);
+		$user = uid_from_sid($_COOKIE["AURSID"]);
 	} else {
 		$user = 'NULL';
 	}
@@ -1032,13 +1032,13 @@ function pkg_adopt ($atype, $ids, $action=true, $dbh=NULL) {
 		# Regular users may only adopt orphan packages from unsupported
 		$q.= "AND $field IS NULL ";
 	} else if ($atype == "User") {
-		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"], $dbh);
+		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"]);
 	}
 
 	$dbh->exec($q);
 
 	if ($action) {
-		pkg_notify(account_from_sid($_COOKIE["AURSID"], $dbh), $ids, $dbh);
+		pkg_notify(account_from_sid($_COOKIE["AURSID"]), $ids);
 		return __("The selected packages have been adopted.");
 	} else {
 		return __("The selected packages have been disowned.");
@@ -1054,7 +1054,7 @@ function pkg_adopt ($atype, $ids, $action=true, $dbh=NULL) {
  *
  * @return string Translated error or success message
  */
-function pkg_vote ($atype, $ids, $action=true, $dbh=NULL) {
+function pkg_vote ($atype, $ids, $action=true) {
 	if (!$atype) {
 		if ($action) {
 			return __("You must be logged in before you can vote for packages.");
@@ -1075,8 +1075,8 @@ function pkg_vote ($atype, $ids, $action=true, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
-	$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"], $dbh);
-	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
+	$my_votes = pkgvotes_from_sid($_COOKIE["AURSID"]);
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 	$first = 1;
 	foreach ($ids as $pid) {
@@ -1141,7 +1141,7 @@ function pkg_vote ($atype, $ids, $action=true, $dbh=NULL) {
  *
  * @return array User IDs and usernames that voted for a specific package
  */
-function getvotes($pkgid, $dbh=NULL) {
+function getvotes($pkgid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1173,7 +1173,7 @@ function getvotes($pkgid, $dbh=NULL) {
  *
  * @return bool True if the user has already voted, otherwise false
  */
-function user_voted($uid, $pkgid, $dbh=NULL) {
+function user_voted($uid, $pkgid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1199,7 +1199,7 @@ function user_voted($uid, $pkgid, $dbh=NULL) {
  *
  * @return bool True if the user wants notifications, otherwise false
  */
-function user_notify($uid, $pkgid, $dbh=NULL) {
+function user_notify($uid, $pkgid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1224,7 +1224,7 @@ function user_notify($uid, $pkgid, $dbh=NULL) {
  *
  * @return string Translated error or success message
  */
-function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
+function pkg_notify ($atype, $ids, $action=true) {
 	if (!$atype) {
 #		return __("You must be logged in before you can get notifications on comments.");
 		return;
@@ -1238,7 +1238,7 @@ function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
-	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 	$output = "";
 
@@ -1302,7 +1302,7 @@ function pkg_notify ($atype, $ids, $action=true, $dbh=NULL) {
  *
  * @return string Translated error or success message
  */
-function pkg_delete_comment($atype, $dbh=NULL) {
+function pkg_delete_comment($atype) {
 	if (!$atype) {
 		return __("You must be logged in before you can edit package information.");
 	}
@@ -1317,8 +1317,8 @@ function pkg_delete_comment($atype, $dbh=NULL) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
-	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
-	if (canDeleteComment($comment_id, $atype, $uid, $dbh)) {
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if (canDeleteComment($comment_id, $atype, $uid)) {
 		   $q = "UPDATE PackageComments ";
 		   $q.= "SET DelUsersID = ".$uid." ";
 		   $q.= "WHERE ID = ".intval($comment_id);
@@ -1336,7 +1336,7 @@ function pkg_delete_comment($atype, $dbh=NULL) {
  *
  * @return string Translated error or success message
  */
-function pkg_change_category($pid, $atype, $dbh=NULL) {
+function pkg_change_category($pid, $atype) {
 	if (!$atype)  {
 		return __("You must be logged in before you can edit package information.");
 	}
@@ -1368,7 +1368,7 @@ function pkg_change_category($pid, $atype, $dbh=NULL) {
 		return __("You are not allowed to change this package category.");
 	}
 
-	$uid = uid_from_sid($_COOKIE["AURSID"], $dbh);
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
 	if ($uid == $row["MaintainerUID"] ||
 	($atype == "Developer" || $atype == "Trusted User")) {
 		$q = "UPDATE Packages ";
@@ -1389,7 +1389,7 @@ function pkg_change_category($pid, $atype, $dbh=NULL) {
  *
  * @return array All package details for a specific package
  */
-function pkgdetails_by_pkgname($pkgname, $dbh=NULL) {
+function pkgdetails_by_pkgname($pkgname) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1415,7 +1415,7 @@ function pkgdetails_by_pkgname($pkgname, $dbh=NULL) {
  *
  * @return void
  */
-function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pkgurl, $uid, $dbh=NULL) {
+function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pkgurl, $uid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1446,7 +1446,7 @@ function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pk
  *
  * @return void
  */
-function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid, $pkgid, $dbh=NULL) {
+function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid, $pkgid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1473,7 +1473,7 @@ function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid,
  *
  * @return void
  */
-function add_pkg_dep($pkgid, $depname, $depcondition, $dbh=NULL) {
+function add_pkg_dep($pkgid, $depname, $depcondition) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1494,7 +1494,7 @@ function add_pkg_dep($pkgid, $depname, $depcondition, $dbh=NULL) {
  *
  * @return void
  */
-function add_pkg_src($pkgid, $pkgsrc, $dbh=NULL) {
+function add_pkg_src($pkgid, $pkgsrc) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1513,7 +1513,7 @@ function add_pkg_src($pkgid, $pkgsrc, $dbh=NULL) {
  *
  * @return void
  */
-function update_pkg_category($pkgid, $category_id, $dbh=NULL) {
+function update_pkg_category($pkgid, $category_id) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1532,7 +1532,7 @@ function update_pkg_category($pkgid, $category_id, $dbh=NULL) {
  *
  * @return void
  */
-function remove_pkg_deps($pkgid, $dbh=NULL) {
+function remove_pkg_deps($pkgid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -1549,7 +1549,7 @@ function remove_pkg_deps($pkgid, $dbh=NULL) {
  *
  * @return void
  */
-function remove_pkg_sources($pkgid, $dbh=NULL) {
+function remove_pkg_sources($pkgid) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}

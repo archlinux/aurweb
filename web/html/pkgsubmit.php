@@ -357,9 +357,9 @@ if ($uid):
 		# Update the backend database
 		if (!$error) {
 			$dbh = DB::connect();
-			begin_atomic_commit($dbh);
+			begin_atomic_commit();
 
-			$pdata = pkgdetails_by_pkgname($new_pkgbuild['pkgname'], $dbh);
+			$pdata = pkgdetails_by_pkgname($new_pkgbuild['pkgname']);
 
 			# Check the category to use, "1" meaning "none" (or "keep category" for
 			# existing packages).
@@ -380,8 +380,8 @@ if ($uid):
 				$packageID = $pdata["ID"];
 
 				# Flush out old data that will be replaced with new data
-				remove_pkg_deps($packageID, $dbh);
-				remove_pkg_sources($packageID, $dbh);
+				remove_pkg_deps($packageID);
+				remove_pkg_sources($packageID);
 
 				# If a new category was chosen, change it to that
 				if ($category_id > 1) {
@@ -389,11 +389,11 @@ if ($uid):
 				}
 
 				# Update package data
-				update_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid, $packageID, $dbh);
+				update_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid, $packageID);
 			} else {
 				# This is a brand new package
-				new_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $category_id, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid, $dbh);
-				$packageID = last_insert_id($dbh);
+				new_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $category_id, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid);
+				$packageID = last_insert_id();
 
 			}
 
@@ -410,7 +410,7 @@ if ($uid):
 					else if ($deppkgname == "#") {
 						break;
 					}
-					add_pkg_dep($packageID, $deppkgname, $depcondition, $dbh);
+					add_pkg_dep($packageID, $deppkgname, $depcondition);
 				}
 			}
 
@@ -418,18 +418,18 @@ if ($uid):
 			if (!empty($new_pkgbuild['source'])) {
 				$sources = explode(" ", $new_pkgbuild['source']);
 				foreach ($sources as $src) {
-					add_pkg_src($packageID, $src, $dbh);
+					add_pkg_src($packageID, $src);
 				}
 			}
 
 			# If we just created this package, or it was an orphan and we
 			# auto-adopted, add submitting user to the notification list.
 			if (!$pdata || $pdata["MaintainerUID"] === NULL) {
-				pkg_notify(account_from_sid($_COOKIE["AURSID"], $dbh), array($packageID), true, $dbh);
+				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($packageID), true);
 			}
 
 			# Entire package creation process is atomic
-			end_atomic_commit($dbh);
+			end_atomic_commit();
 
 			header('Location: ' . get_pkg_uri($pkg_name));
 		}

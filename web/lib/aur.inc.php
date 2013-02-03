@@ -30,7 +30,7 @@ include_once("cachefuncs.inc.php");
  *
  * @return void
  */
-function check_sid($dbh=NULL) {
+function check_sid() {
 	global $_COOKIE;
 	global $LOGIN_TIMEOUT;
 
@@ -66,7 +66,7 @@ function check_sid($dbh=NULL) {
 		} elseif ($failed == 2) {
 			# session id timeout was reached and they must login again.
 			#
-			delete_session_id($_COOKIE["AURSID"], $dbh);
+			delete_session_id($_COOKIE["AURSID"]);
 
 			setcookie("AURSID", "", 1, "/", null, !empty($_SERVER['HTTPS']), true);
 			unset($_COOKIE['AURSID']);
@@ -141,7 +141,7 @@ function new_sid() {
  *
  * @return string Username if it exists, otherwise "None"
  */
-function username_from_id($id="", $dbh=NULL) {
+function username_from_id($id="") {
 	if (!$id) {
 		return "";
 	}
@@ -166,7 +166,7 @@ function username_from_id($id="", $dbh=NULL) {
  *
  * @return string Username of the visitor
  */
-function username_from_sid($sid="", $dbh=NULL) {
+function username_from_sid($sid="") {
 	if (!$sid) {
 		return "";
 	}
@@ -194,7 +194,7 @@ function username_from_sid($sid="", $dbh=NULL) {
  *
  * @return string User's e-mail address as given during registration
  */
-function email_from_sid($sid="", $dbh=NULL) {
+function email_from_sid($sid="") {
 	if (!$sid) {
 		return "";
 	}
@@ -222,7 +222,7 @@ function email_from_sid($sid="", $dbh=NULL) {
  *
  * @return string Account type of user ("User", "Trusted User", or "Developer")
  */
-function account_from_sid($sid="", $dbh=NULL) {
+function account_from_sid($sid="") {
 	if (!$sid) {
 		return "";
 	}
@@ -251,7 +251,7 @@ function account_from_sid($sid="", $dbh=NULL) {
  *
  * @return string|int The user's name, 0 on query failure
  */
-function uid_from_sid($sid="", $dbh=NULL) {
+function uid_from_sid($sid="") {
 	if (!$sid) {
 		return "";
 	}
@@ -311,7 +311,7 @@ function html_footer($ver="") {
  *
  * @return int 0 if the user can't submit, 1 if the user can submit
  */
-function can_submit_pkg($name="", $sid="", $dbh=NULL) {
+function can_submit_pkg($name="", $sid="") {
 	if (!$name || !$sid) {return 0;}
 	if(!$dbh) {
 		$dbh = DB::connect();
@@ -324,7 +324,7 @@ function can_submit_pkg($name="", $sid="", $dbh=NULL) {
 	if (!$row[0]) {
 		return 1;
 	}
-	$my_uid = uid_from_sid($sid, $dbh);
+	$my_uid = uid_from_sid($sid);
 
 	if ($row[0] === NULL || $row[0] == $my_uid) {
 		return 1;
@@ -368,7 +368,7 @@ function rm_tree($dirname) {
  *
  * @return string Return user ID if exists for username, otherwise "None"
  */
-function uid_from_username($username="", $dbh=NULL) {
+function uid_from_username($username="") {
 	if (!$username) {
 		return "";
 	}
@@ -393,7 +393,7 @@ function uid_from_username($username="", $dbh=NULL) {
  *
  * @return string The user's ID
  */
-function uid_from_email($email="", $dbh=NULL) {
+function uid_from_email($email="") {
 	if (!$email) {
 		return "";
 	}
@@ -462,7 +462,7 @@ function mkurl($append) {
  *
  * @return string|void Return the salt for the requested user, otherwise void
  */
-function get_salt($user_id, $dbh=NULL) {
+function get_salt($user_id) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -482,7 +482,7 @@ function get_salt($user_id, $dbh=NULL) {
  * @param string $passwd The password of the user logging in
  * @param \PDO $dbh Already established database connection
  */
-function save_salt($user_id, $passwd, $dbh=NULL) {
+function save_salt($user_id, $passwd) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -552,7 +552,7 @@ function parse_comment($comment) {
  *
  * @param \PDO $dbh Already established database connection
  */
-function begin_atomic_commit($dbh=NULL) {
+function begin_atomic_commit() {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -564,7 +564,7 @@ function begin_atomic_commit($dbh=NULL) {
  *
  * @param \PDO $dbh Already established database connection
  */
-function end_atomic_commit($dbh=NULL) {
+function end_atomic_commit() {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -579,7 +579,7 @@ function end_atomic_commit($dbh=NULL) {
  *
  * @return string The ID of the last inserted row
  */
-function last_insert_id($dbh=NULL) {
+function last_insert_id() {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}
@@ -594,7 +594,7 @@ function last_insert_id($dbh=NULL) {
  *
  * @return array $packages Package info for the specified number of recent packages
  */
-function latest_pkgs($numpkgs, $dbh=NULL) {
+function latest_pkgs($numpkgs) {
 	if(!$dbh) {
 		$dbh = DB::connect();
 	}

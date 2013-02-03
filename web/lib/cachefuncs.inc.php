@@ -67,7 +67,8 @@ function get_cache_value($key, &$status=false) {
 
 # Run a simple db query, retrieving and/or caching the value if APC is
 # available for use. Accepts an optional TTL value (defaults to 600 seconds).
-function db_cache_value($dbq, $dbh, $key, $ttl=600) {
+function db_cache_value($dbq, $key, $ttl=600) {
+	$dbh = DB::connect();
 	$status = false;
 	$value = get_cache_value($key, $status);
 	if (!$status) {
