@@ -10,8 +10,6 @@ include_once('stats.inc.php');
 
 html_header( __("Home") );
 
-$dbh = DB::connect();
-
 ?>
 
 <div id="content-left-wrapper">

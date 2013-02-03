@@ -20,7 +20,6 @@ $action = in_request("Action");
 if (isset($_COOKIE["AURSID"])) {
 	# visitor is logged in
 	#
-	$dbh = DB::connect();
 	$atype = account_from_sid($_COOKIE["AURSID"]);
 
 	if ($action == "SearchAccounts") {

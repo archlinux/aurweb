@@ -10,7 +10,6 @@ include_once("acctfuncs.inc.php");         # access AUR common functions
 # sending any HTML output.
 #
 if (isset($_COOKIE["AURSID"])) {
-	$dbh = DB::connect();
 	delete_session_id($_COOKIE["AURSID"]);
 	# setting expiration to 1 means '1 second after midnight January 1, 1970'
 	setcookie("AURSID", "", 1, "/", null, !empty($_SERVER['HTTPS']), true);
