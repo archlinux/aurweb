@@ -5,8 +5,6 @@ include_once('aur.inc.php');
 /**
  * Display the most recent 10 packages
  *
- * @param \PDO $dbh An already established database connection
- *
  * @return void
  */
 function updates_table() {
@@ -29,7 +27,6 @@ function updates_table() {
  * Display a user's statistics table
  *
  * @param string $userid The user ID of the person to get package statistics for
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -48,8 +45,6 @@ function user_table($userid) {
 
 /**
  * Display the general package statistics table
- *
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */

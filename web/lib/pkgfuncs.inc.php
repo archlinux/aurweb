@@ -10,7 +10,6 @@ include_once("config.inc.php");
  * @param string $comment_id The comment ID in the database
  * @param string $atype The account type of the user trying to delete a comment
  * @param string|int $uid The user ID of the individual trying to delete a comment
- * @param \PDO $dbh An already established database connection
  *
  * @return bool True if the user can delete the comment, otherwise false
  */
@@ -106,7 +105,6 @@ function pkgCategories() {
  * Check to see if the package name already exists in the database
  *
  * @param string $name The package name to check
- * @param \PDO $dbh An already established database connection
  *
  * @return string|void Package name if it already exists
  */
@@ -129,7 +127,6 @@ function pkgid_from_name($name="") {
  * Get package dependencies for a specific package
  *
  * @param int $pkgid The package to get dependencies for
- * @param \PDO $dbh An already established database connection
  *
  * @return array All package dependencies for the package
  */
@@ -159,7 +156,6 @@ function package_dependencies($pkgid) {
  * Determine packages that depend on a package
  *
  * @param string $name The package name for the dependency search
- * @param \PDO $dbh An already established database connection
  *
  * @return array All packages that depend on the specified package name
  */
@@ -186,7 +182,6 @@ function package_required($name="") {
  * Get the number of non-deleted comments for a specific package
  *
  * @param string $pkgid The package ID to get comment count for
- * @param \PDO $dbh An already established database connection
  *
  * @return string The number of comments left for a specific package
  */
@@ -218,7 +213,6 @@ function package_comments_count($pkgid) {
  * Get all package comment information for a specific package
  *
  * @param int $pkgid The package ID to get comments for
- * @param \PDO $dbh An already established database connection
  *
  * @return array All package comment information for a specific package
  */
@@ -260,7 +254,6 @@ function package_comments($pkgid) {
  * @param string $pkgid The package ID to add the comment on
  * @param string $uid The user ID of the individual who left the comment
  * @param string $comment The comment left on a package page
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -317,7 +310,6 @@ function add_package_comment($pkgid, $uid, $comment) {
  * Get all package sources for a specific package
  *
  * @param string $pkgid The package ID to get the sources for
- * @param \PDO $dbh An already established database connection
  *
  * @return array All sources associated with a specific package
  */
@@ -346,7 +338,6 @@ function package_sources($pkgid) {
  * Get a list of all packages a logged-in user has voted for
  *
  * @param string $sid The session ID of the visitor
- * @param \PDO $dbh An already established database connection
  *
  * @return array All packages the visitor has voted for
  */
@@ -374,7 +365,6 @@ function pkgvotes_from_sid($sid="") {
  * Determine package names from package IDs
  *
  * @param string|array $pkgids The package IDs to get names for
- * @param \PDO $dbh An already established database connection
  *
  * @return array|string All names if multiple package IDs, otherwise package name
  */
@@ -415,7 +405,6 @@ function pkgname_from_id($pkgids) {
  * Determine if a package name is on the database blacklist
  *
  * @param string $name The package name to check
- * @param \PDO $dbh An already established database connection
  *
  * @return bool True if the name is blacklisted, otherwise false
  */
@@ -435,7 +424,6 @@ function pkgname_is_blacklisted($name) {
  * Get the package details
  *
  * @param string $id The package ID to get description for
- * @param \PDO $dbh An already established database connection
  *
  * @return array The package's details OR error message
  **/
@@ -473,7 +461,6 @@ function get_package_details($id=0) {
  * @param string $id The package ID to get details page for
  * @param array $row Package details retrieved by get_package_details
  * @param string $SID The session ID of the visitor
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -1137,7 +1124,6 @@ function pkg_vote ($atype, $ids, $action=true) {
  * Get all usernames and IDs that voted for a specific package
  *
  * @param string $pkgid The package ID to get all votes for
- * @param \PDO $dbh An already established database connection
  *
  * @return array User IDs and usernames that voted for a specific package
  */
@@ -1169,7 +1155,6 @@ function getvotes($pkgid) {
  *
  * @param string $uid The user ID to check for an existing vote
  * @param string $pkgid The package ID to check for an existing vote
- * @param \PDO $dbh An already established database connection
  *
  * @return bool True if the user has already voted, otherwise false
  */
@@ -1195,7 +1180,6 @@ function user_voted($uid, $pkgid) {
  *
  * @param string $uid User ID to check in the database
  * @param string $pkgid Package ID to check notifications for
- * @param \PDO $dbh An already established database connection
  *
  * @return bool True if the user wants notifications, otherwise false
  */
@@ -1385,7 +1369,6 @@ function pkg_change_category($pid, $atype) {
  * Get all package information in the database for a specific package
  *
  * @param string $pkgname The name of the package to get details for
- * @param \PDO $dbh An already established database connection
  *
  * @return array All package details for a specific package
  */
@@ -1411,7 +1394,6 @@ function pkgdetails_by_pkgname($pkgname) {
  * @param string $pkgdesc Description of the new package
  * @param string $pkgurl Upstream URL for the new package
  * @param int $uid User ID of the package uploader
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -1442,7 +1424,6 @@ function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pk
  * @param string $pkgurl The upstream URL for the package
  * @param int $uid The user ID of the updater
  * @param int $pkgid The package ID of the updated package
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -1469,7 +1450,6 @@ function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid,
  * @param int $pkgid The package ID to add the dependency for
  * @param string $depname The name of the dependency to add
  * @param string $depcondition The  type of dependency for the package
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -1490,7 +1470,6 @@ function add_pkg_dep($pkgid, $depname, $depcondition) {
  *
  * @param int $pkgid The package ID to add the source for
  * @param string $pkgsrc The package source to add to the database
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -1509,7 +1488,6 @@ function add_pkg_src($pkgid, $pkgsrc) {
  *
  * @param int $pkgid The package ID to change the category for
  * @param int $category_id The new category ID for the package
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -1528,7 +1506,6 @@ function update_pkg_category($pkgid, $category_id) {
  * Remove package dependencies from a specific package
  *
  * @param string $pkgid The package ID to remove package dependencies from
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -1545,7 +1522,6 @@ function remove_pkg_deps($pkgid) {
  * Remove package sources from a specific package
  *
  * @param string $pkgid The package ID to remove package sources from
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */

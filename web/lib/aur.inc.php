@@ -26,7 +26,6 @@ include_once("cachefuncs.inc.php");
  *
  * @global array $_COOKIE User cookie values
  * @global string $LOGIN_TIMEOUT Time until session times out
- * @param \PDO $dbh Already established database connection
  *
  * @return void
  */
@@ -137,7 +136,6 @@ function new_sid() {
  * Determine the user's username in the database using a user ID
  *
  * @param string $id User's ID
- * @param \PDO $dbh Already established database connection
  *
  * @return string Username if it exists, otherwise "None"
  */
@@ -162,7 +160,6 @@ function username_from_id($id="") {
  * Determine the user's username in the database using a session ID
  *
  * @param string $sid User's session ID
- * @param \PDO $dbh Already established database connection
  *
  * @return string Username of the visitor
  */
@@ -190,7 +187,6 @@ function username_from_sid($sid="") {
  * Determine the user's e-mail address in the database using a session ID
  *
  * @param string $sid User's session ID
- * @param \PDO $dbh Already established database connection
  *
  * @return string User's e-mail address as given during registration
  */
@@ -218,7 +214,6 @@ function email_from_sid($sid="") {
  * Determine the user's account type in the database using a session ID
  *
  * @param string $sid User's session ID
- * @param \PDO $dbh Already established database connection
  *
  * @return string Account type of user ("User", "Trusted User", or "Developer")
  */
@@ -247,7 +242,6 @@ function account_from_sid($sid="") {
  * Determine the user's ID in the database using a session ID
  *
  * @param string $sid User's session ID
- * @param \PDO $dbh Already established database connection
  *
  * @return string|int The user's name, 0 on query failure
  */
@@ -307,7 +301,6 @@ function html_footer($ver="") {
  *
  * @param string $name Name of the package to be submitted
  * @param string $sid User's session ID
- * @param \PDO $dbh Already established database connection
  *
  * @return int 0 if the user can't submit, 1 if the user can submit
  */
@@ -364,7 +357,6 @@ function rm_tree($dirname) {
  * Determine the user's ID in the database using a username
  *
  * @param string $username The username of an account
- * @param \PDO $dbh Already established database connection
  *
  * @return string Return user ID if exists for username, otherwise "None"
  */
@@ -389,7 +381,6 @@ function uid_from_username($username="") {
  * Determine the user's ID in the database using an e-mail address
  *
  * @param string $email An e-mail address in foo@example.com format
- * @param \PDO $dbh Already established database connection
  *
  * @return string The user's ID
  */
@@ -458,7 +449,6 @@ function mkurl($append) {
  * Determine a user's salt from the database
  *
  * @param string $user_id The user ID of the user trying to log in
- * @param \PDO $dbh Already established database connection
  *
  * @return string|void Return the salt for the requested user, otherwise void
  */
@@ -480,7 +470,6 @@ function get_salt($user_id) {
  *
  * @param string $user_id The user ID of the user who is salting their password
  * @param string $passwd The password of the user logging in
- * @param \PDO $dbh Already established database connection
  */
 function save_salt($user_id, $passwd) {
 	if(!$dbh) {
@@ -549,8 +538,6 @@ function parse_comment($comment) {
 
 /**
  * Wrapper for beginning a database transaction
- *
- * @param \PDO $dbh Already established database connection
  */
 function begin_atomic_commit() {
 	if(!$dbh) {
@@ -561,8 +548,6 @@ function begin_atomic_commit() {
 
 /**
  * Wrapper for committing a database transaction
- *
- * @param \PDO $dbh Already established database connection
  */
 function end_atomic_commit() {
 	if(!$dbh) {
@@ -574,8 +559,6 @@ function end_atomic_commit() {
 /**
  *
  * Determine the row ID for the most recently insterted row
- *
- * @param \PDO $dbh Already established database connection
  *
  * @return string The ID of the last inserted row
  */
@@ -590,7 +573,6 @@ function last_insert_id() {
  * Determine package information for latest package
  *
  * @param int $numpkgs Number of packages to get information on
- * @param \PDO $dbh Already established database connection
  *
  * @return array $packages Package info for the specified number of recent packages
  */

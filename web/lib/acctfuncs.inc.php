@@ -84,7 +84,6 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
  * @param string $I The IRC nickname of the user
  * @param string $K The PGP fingerprint of the user
  * @param string $UID The user ID of the modified account
- * @param \PDO $dbh An already established database connection
  *
  * @return string|void Return void if successful, otherwise return error
  */
@@ -282,7 +281,6 @@ function search_accounts_form() {
  * @param string $R The real name search criteria
  * @param string $I The IRC nickname search criteria
  * @param string $K The PGP key fingerprint search criteria
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -385,7 +383,6 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
  *
  * @global int $MAX_SESSIONS_PER_USER Maximum sessions a single user may have open
  * @global int $PERSISTENT_COOKIE_TIMEOUT Time until cookie expires
- * @param \PDO $dbh An already established database connection
  *
  * @return array Session ID for user, error message if applicable
  */
@@ -514,7 +511,6 @@ function valid_username($user) {
  * Determine if a username exists in the database
  *
  * @param string $user Username to check in the database
- * @param \PDO $dbh An already established database connection
  *
  * @return string|void Return user ID if in database, otherwise void
  */
@@ -543,7 +539,6 @@ function valid_user($user) {
  * Determine if a user already has a proposal open about themselves
  *
  * @param string $user Username to checkout for open proposal
- * @param \PDO $dbh An already established database connection
  *
  * @return bool True if there is an open proposal about the user, otherwise false
  */
@@ -569,7 +564,6 @@ function open_user_proposals($user) {
  * @param string $user The use the vote is about
  * @param int $votelength The length of time for the vote to last
  * @param string $submitteruid The user ID of the individual who submitted the proposal
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -590,7 +584,6 @@ function add_tu_proposal($agenda, $user, $votelength, $submitteruid) {
  *
  * @param string $resetkey A password reset key to be stored in database
  * @param string $uid The user ID to store the reset key for
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -611,7 +604,6 @@ function create_resetkey($resetkey, $uid) {
  * @param string $salt New salt for the user's password
  * @param string $resetkey Code e-mailed to a user to reset a password
  * @param string $email E-mail address of the user resetting their password
- * @param \PDO $dbh An already established database connection
  *
  * @return string|void Redirect page if successful, otherwise return error message
  */
@@ -656,7 +648,6 @@ function good_passwd($passwd) {
  *
  * @param string $userID The user ID to check the password against
  * @param string $passwd The password the visitor sent
- * @param \PDO $dbh An already established database connection
  *
  * @return bool True if password was correct and properly salted, otherwise false
  */
@@ -718,7 +709,6 @@ function valid_pgp_fingerprint($fingerprint) {
  * Determine if the user account has been suspended
  *
  * @param string $id The ID of user to check if suspended
- * @param \PDO $dbh An already established database connection
  *
  * @return bool True if the user is suspended, otherwise false
  */
@@ -744,7 +734,6 @@ function user_suspended($id) {
  * Delete a specified user account from the database
  *
  * @param int $id The user ID of the account to be deleted
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -761,7 +750,6 @@ function user_delete($id) {
  * Determine if a user is either a Trusted User or Developer
  *
  * @param string $id The ID of the user to check if privileged
- * @param \PDO $dbh An already established database connection
  *
  * @return int|string Return  0 if un-privileged, "2" if Trusted User, "3" if Developer
  */
@@ -785,7 +773,6 @@ function user_is_privileged($id) {
  * Remove the session from the database on logout
  *
  * @param string $sid User's session ID
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -802,7 +789,6 @@ function delete_session_id($sid) {
  * Remove all sessions belonging to a particular user
  *
  * @param int $uid ID of user to remove all sessions for
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -819,7 +805,6 @@ function delete_user_sessions($uid) {
  * Remove sessions from the database that have exceed the timeout
  *
  * @global int $LOGIN_TIMEOUT Time until session expires
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
@@ -841,7 +826,6 @@ function clear_expired_sessions() {
  *
  * @param string $uid The User ID of account to get information for
  * @param string $username The username of the account to get for
- * @param \PDO $dbh An already established database connection
  *
  * @return array Account details for the specified user
  */
@@ -871,7 +855,6 @@ function account_details($uid, $username) {
  *
  * @param string $voteid The ID of the Trusted User proposal
  * @param string $uid The ID to check if the user already voted
- * @param \PDO $dbh An already established database connection
  *
  * @return bool True if the user has already voted, otherwise false
  */
@@ -895,7 +878,6 @@ function tu_voted($voteid, $uid) {
  * Get all current Trusted User proposals from the database
  *
  * @param string $order Ascending or descending order for the proposal listing
- * @param \PDO $dbh An already established database connection
  *
  * @return array The details for all current Trusted User proposals
  */
@@ -920,7 +902,6 @@ function current_proposal_list($order) {
  *
  * @param string $order Ascending or descending order for the proposal listing
  * @param string $lim The number of proposals to list with the offset
- * @param \PDO $dbh An already established database connection
  *
  * @return array The details for the subset of past Trusted User proposals
  */
@@ -943,8 +924,6 @@ function past_proposal_list($order, $lim) {
 /**
  * Determine the total number of Trusted User proposals
  *
- * @param \PDO $dbh An already established database connection
- *
  * @return string The total number of Trusted User proposals
  */
 function proposal_count() {
@@ -963,7 +942,6 @@ function proposal_count() {
  * Get all details related to a specific vote from the database
  *
  * @param string $voteid The ID of the Trusted User proposal
- * @param \PDO $dbh An already established database connection
  *
  * @return array All stored details for a specific vote
  */
@@ -985,7 +963,6 @@ function vote_details($voteid) {
  * Get an alphabetical list of users who voted for a proposal with HTML links
  *
  * @param string $voteid The ID of the Trusted User proposal
- * @param \PDO $dbh An already established database connection
  *
  * @return array All users who voted for a specific proposal
  */
@@ -1018,7 +995,6 @@ function voter_list($voteid) {
  * @param string $uid The user ID of the individual voting
  * @param string $vote Vote position, either "Yes", "No", or "Abstain"
  * @param int $newtotal The total number of votes after the user has voted
- * @param \PDO $dbh An already established database connection
  *
  * @return void
  */
