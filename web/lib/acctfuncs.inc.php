@@ -95,7 +95,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	global $SUPPORTED_LANGS;
 
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	if(isset($_COOKIE['AURSID'])) {
@@ -301,7 +301,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	$search_vars = array();
 
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "SELECT Users.*, AccountTypes.AccountType ";
@@ -367,7 +367,7 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 	$q.= "LIMIT " . $HITS_PER_PAGE . " OFFSET " . $OFFSET;
 
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$result = $dbh->query($q);
@@ -398,7 +398,7 @@ function try_login($dbh=NULL) {
 
 	if ( isset($_REQUEST['user']) || isset($_REQUEST['passwd']) ) {
 		if (!$dbh) {
-			$dbh = db_connect();
+			$dbh = DB::connect();
 		}
 		$userID = valid_user($_REQUEST['user'], $dbh);
 
@@ -522,7 +522,7 @@ function valid_user($user, $dbh=NULL) {
 	/*	if ( $user = valid_username($user) ) { */
 
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	if ( $user ) {
@@ -549,7 +549,7 @@ function valid_user($user, $dbh=NULL) {
  */
 function open_user_proposals($user, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT * FROM TU_VoteInfo WHERE User = " . $dbh->quote($user) . " ";
 	$q.= "AND End > UNIX_TIMESTAMP()";
@@ -575,7 +575,7 @@ function open_user_proposals($user, $dbh=NULL) {
  */
 function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
@@ -596,7 +596,7 @@ function add_tu_proposal($agenda, $user, $votelength, $submitteruid, $dbh=NULL) 
  */
 function create_resetkey($resetkey, $uid, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "UPDATE Users ";
 	$q.= "SET ResetKey = '" . $resetkey . "' ";
@@ -617,7 +617,7 @@ function create_resetkey($resetkey, $uid, $dbh=NULL) {
  */
 function password_reset($hash, $salt, $resetkey, $email, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "UPDATE Users ";
 	$q.= "SET Passwd = '$hash', ";
@@ -662,7 +662,7 @@ function good_passwd($passwd) {
  */
 function valid_passwd($userID, $passwd, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	if ( strlen($passwd) > 0 ) {
 		# get salt for this user
@@ -724,7 +724,7 @@ function valid_pgp_fingerprint($fingerprint) {
  */
 function user_suspended($id, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	if (!$id) {
 		return false;
@@ -750,7 +750,7 @@ function user_suspended($id, $dbh=NULL) {
  */
 function user_delete($id, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "DELETE FROM Users WHERE ID = " . $id;
 	$dbh->query($q);
@@ -767,7 +767,7 @@ function user_delete($id, $dbh=NULL) {
  */
 function user_is_privileged($id, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
 	$result = $dbh->query($q);
@@ -791,7 +791,7 @@ function user_is_privileged($id, $dbh=NULL) {
  */
 function delete_session_id($sid, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "DELETE FROM Sessions WHERE SessionID = " . $dbh->quote($sid);
@@ -808,7 +808,7 @@ function delete_session_id($sid, $dbh=NULL) {
  */
 function delete_user_sessions($uid, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "DELETE FROM Sessions WHERE UsersID = " . intval($uid);
@@ -827,7 +827,7 @@ function clear_expired_sessions($dbh=NULL) {
 	global $LOGIN_TIMEOUT;
 
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)";
@@ -847,7 +847,7 @@ function clear_expired_sessions($dbh=NULL) {
  */
 function account_details($uid, $username, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT Users.*, AccountTypes.AccountType ";
 	$q.= "FROM Users, AccountTypes ";
@@ -877,7 +877,7 @@ function account_details($uid, $username, $dbh=NULL) {
  */
 function tu_voted($voteid, $uid, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "SELECT COUNT(*) FROM TU_Votes ";
@@ -901,7 +901,7 @@ function tu_voted($voteid, $uid, $dbh=NULL) {
  */
 function current_proposal_list($order, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "SELECT * FROM TU_VoteInfo WHERE End > " . time() . " ORDER BY Submitted " . $order;
@@ -926,7 +926,7 @@ function current_proposal_list($order, $dbh=NULL) {
  */
 function past_proposal_list($order, $lim, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "SELECT * FROM TU_VoteInfo WHERE End < " . time() . " ORDER BY Submitted " . $order . $lim;
@@ -949,7 +949,7 @@ function past_proposal_list($order, $lim, $dbh=NULL) {
  */
 function proposal_count($dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "SELECT COUNT(*) FROM TU_VoteInfo";
@@ -969,7 +969,7 @@ function proposal_count($dbh=NULL) {
  */
 function vote_details($voteid, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "SELECT * FROM TU_VoteInfo ";
@@ -991,7 +991,7 @@ function vote_details($voteid, $dbh=NULL) {
  */
 function voter_list($voteid, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$whovoted = array();
@@ -1024,7 +1024,7 @@ function voter_list($voteid, $dbh=NULL) {
  */
 function cast_proposal_vote($voteid, $uid, $vote, $newtotal, $dbh=NULL) {
 	if (!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "UPDATE TU_VoteInfo SET " . $vote . " = (" . $newtotal . ") WHERE ID = " . $voteid;

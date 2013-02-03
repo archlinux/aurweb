@@ -10,7 +10,7 @@ include_once('stats.inc.php');
 
 html_header( __("Home") );
 
-$dbh = db_connect();
+$dbh = DB::connect();
 
 ?>
 

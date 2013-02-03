@@ -12,6 +12,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR
 #	print __("This is a %smajor%s problem!", "<strong>", "</strong>");
 
 include_once('config.inc.php');
+include_once('DB.class.php');
 include_once('gettext.php');
 include_once('streams.php');
 
@@ -69,7 +70,7 @@ function __() {
 
 # set up the visitor's language
 #
-function set_lang($dbh=NULL) {
+function set_lang() {
 	global $LANG;
 	global $SUPPORTED_LANGS;
 	global $PERSISTENT_COOKIE_TIMEOUT;
@@ -90,9 +91,7 @@ function set_lang($dbh=NULL) {
 	} elseif (isset($_COOKIE["AURSID"])) {
 		# No language but a session; use default lang preference
 		#
-		if(!$dbh) {
-			$dbh = db_connect();
-		}
+		$dbh = DB::connect();
 		$q = "SELECT LangPreference FROM Users, Sessions ";
 		$q.= "WHERE Users.ID = Sessions.UsersID ";
 		$q.= "AND Sessions.SessionID = '";

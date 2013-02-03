@@ -11,6 +11,7 @@ include_once('translator.inc.php');
 set_lang();
 
 include_once("config.inc.php");
+include_once("DB.class.php");
 include_once("routing.inc.php");
 include_once("version.inc.php");
 include_once("acctfuncs.inc.php");
@@ -38,7 +39,7 @@ function check_sid($dbh=NULL) {
 		# the visitor is logged in, try and update the session
 		#
 		if(!$dbh) {
-			$dbh = db_connect();
+			$dbh = DB::connect();
 		}
 		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
 		$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
@@ -145,7 +146,7 @@ function username_from_id($id="", $dbh=NULL) {
 		return "";
 	}
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT Username FROM Users WHERE ID = " . $dbh->quote($id);
 	$result = $dbh->query($q);
@@ -170,7 +171,7 @@ function username_from_sid($sid="", $dbh=NULL) {
 		return "";
 	}
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT Username ";
 	$q.= "FROM Users, Sessions ";
@@ -198,7 +199,7 @@ function email_from_sid($sid="", $dbh=NULL) {
 		return "";
 	}
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT Email ";
 	$q.= "FROM Users, Sessions ";
@@ -226,7 +227,7 @@ function account_from_sid($sid="", $dbh=NULL) {
 		return "";
 	}
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT AccountType ";
 	$q.= "FROM Users, AccountTypes, Sessions ";
@@ -255,7 +256,7 @@ function uid_from_sid($sid="", $dbh=NULL) {
 		return "";
 	}
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT Users.ID ";
 	$q.= "FROM Users, Sessions ";
@@ -268,24 +269,6 @@ function uid_from_sid($sid="", $dbh=NULL) {
 	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
-}
-
-/**
- * Establish a connection with a database using PDO
- *
- * @return \PDO A database connection
- */
-function db_connect() {
-	try {
-		$dbh = new PDO(AUR_db_DSN_prefix . ":" . AUR_db_host . ";dbname=" . AUR_db_name, AUR_db_user, AUR_db_pass);
-	}
-	catch (PDOException $e) {
-		echo "Error - Could not connect to AUR database: " . $e->getMessage();
-	}
-
-	$dbh->exec("SET NAMES 'utf8' COLLATE 'utf8_general_ci';");
-
-	return $dbh;
 }
 
 /**
@@ -331,7 +314,7 @@ function html_footer($ver="") {
 function can_submit_pkg($name="", $sid="", $dbh=NULL) {
 	if (!$name || !$sid) {return 0;}
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT MaintainerUID ";
 	$q.= "FROM Packages WHERE Name = " . $dbh->quote($name);
@@ -390,7 +373,7 @@ function uid_from_username($username="", $dbh=NULL) {
 		return "";
 	}
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT ID FROM Users WHERE Username = " . $dbh->quote($username);
 	$result = $dbh->query($q);
@@ -415,7 +398,7 @@ function uid_from_email($email="", $dbh=NULL) {
 		return "";
 	}
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT ID FROM Users WHERE Email = " . $dbh->quote($email);
 	$result = $dbh->query($q);
@@ -481,7 +464,7 @@ function mkurl($append) {
  */
 function get_salt($user_id, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
 	$result = $dbh->query($q);
@@ -501,7 +484,7 @@ function get_salt($user_id, $dbh=NULL) {
  */
 function save_salt($user_id, $passwd, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$salt = generate_salt();
 	$hash = salted_hash($passwd, $salt);
@@ -571,7 +554,7 @@ function parse_comment($comment) {
  */
 function begin_atomic_commit($dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$dbh->beginTransaction();
 }
@@ -583,7 +566,7 @@ function begin_atomic_commit($dbh=NULL) {
  */
 function end_atomic_commit($dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	$dbh->commit();
 }
@@ -598,7 +581,7 @@ function end_atomic_commit($dbh=NULL) {
  */
 function last_insert_id($dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 	return $dbh->lastInsertId();
 }
@@ -613,7 +596,7 @@ function last_insert_id($dbh=NULL) {
  */
 function latest_pkgs($numpkgs, $dbh=NULL) {
 	if(!$dbh) {
-		$dbh = db_connect();
+		$dbh = DB::connect();
 	}
 
 	$q = "SELECT * FROM Packages ";

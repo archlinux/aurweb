@@ -356,7 +356,7 @@ if ($uid):
 
 		# Update the backend database
 		if (!$error) {
-			$dbh = db_connect();
+			$dbh = DB::connect();
 			begin_atomic_commit($dbh);
 
 			$pdata = pkgdetails_by_pkgname($new_pkgbuild['pkgname'], $dbh);

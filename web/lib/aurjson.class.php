@@ -52,7 +52,7 @@ class AurJSON {
         // do the routing
         if ( in_array($http_data['type'], self::$exposed_methods) ) {
             // set up db connection.
-            $this->dbh = db_connect();
+            $this->dbh = DB::connect();
 
             // ugh. this works. I hate you php.
             $json = call_user_func(array(&$this, $http_data['type']),
