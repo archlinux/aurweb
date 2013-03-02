@@ -851,7 +851,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 
 	# If they're a TU or dev, can delete
 	if ($atype != "Trusted User" && $atype != "Developer") {
-		return __("You do have permission to delete packages.");
+		return __("You do not have permission to delete packages.");
 	}
 
 	$ids = sanitize_ids($ids);
