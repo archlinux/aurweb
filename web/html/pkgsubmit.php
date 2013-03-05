@@ -211,20 +211,6 @@ if ($uid):
 			}
 		}
 
-		# TODO This is where other additional error checking can be
-		# performed. Examples: #md5sums == #sources?, md5sums of any
-		# included files match?, install scriptlet file exists?
-		#
-
-		# Check for http:// or other protocol in url
-		#
-		if (!$error) {
-			$parsed_url = parse_url($pkgbuild['url']);
-			if (!$parsed_url['scheme']) {
-				$error = __("Package URL is missing a protocol (ie. http:// ,ftp://)");
-			}
-		}
-
 		# Now, run through the pkgbuild array, and do "eval" and simple substituions.
 		if (!$error) {
 			while (list($k, $v) = each($pkgbuild)) {
@@ -287,6 +273,18 @@ if ($uid):
 				$pkg_version = sprintf('%s-%s', $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
 			}
 		}
+
+		# Check for http:// or other protocol in url
+		if (!$error) {
+			$parsed_url = parse_url($new_pkgbuild['url']);
+			if (!$parsed_url['scheme']) {
+				$error = __("Package URL is missing a protocol (ie. http:// ,ftp://)");
+			}
+		}
+
+		# TODO: This is where other additional error checking can be
+		# performed. Examples: #md5sums == #sources?, md5sums of any
+		# included files match?, install scriptlet file exists?
 
 		# The DB schema imposes limitations on number of allowed characters
 		# Print error message when these limitations are exceeded
