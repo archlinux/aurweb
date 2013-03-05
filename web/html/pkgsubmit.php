@@ -81,8 +81,8 @@ if ($uid):
 		if (!$error) {
 			$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
 
-			# Extract PKGBUILD into a string
-			$pkgbuild_raw = '';
+			# Extract PKGBUILD and .AURINFO into a string
+			$pkgbuild_raw = $srcinfo_raw = '';
 			$dircount = 0;
 			foreach ($tar->listContent() as $tar_file) {
 				if ($tar_file['typeflag'] == 0) {
@@ -92,6 +92,9 @@ if ($uid):
 					}
 					elseif (substr($tar_file['filename'], -9) == '/PKGBUILD') {
 						$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
+					}
+					elseif (substr($tar_file['filename'], -9) == '/.AURINFO') {
+						$srcinfo_raw = $tar->extractInString($tar_file['filename']);
 					}
 				}
 				elseif ($tar_file['typeflag'] == 5) {
@@ -254,6 +257,30 @@ if ($uid):
 			}
 		}
 
+		# Parse .AURINFO and overwrite PKGBUILD fields accordingly
+		unset($pkg_version);
+		$depends = array();
+		foreach (explode("\n", $srcinfo_raw) as $line) {
+			if (empty($line) || $line[0] == '#') {
+				continue;
+			}
+			list($key, $value) = explode(' = ', $line, 2);
+			switch ($key) {
+			case 'pkgname':
+			case 'pkgdesc':
+			case 'url':
+			case 'license':
+				$new_pkgbuild[$key] = $value;
+				break;
+			case 'pkgver':
+				$pkg_version = $value;
+				break;
+			case 'depend':
+				$depends[] = $value;
+				break;
+			}
+		}
+
 		# Validate package name
 		if (!$error) {
 			$pkg_name = $new_pkgbuild['pkgname'];
@@ -266,7 +293,7 @@ if ($uid):
 		}
 
 		# Determine the full package version with epoch
-		if (!$error) {
+		if (!$error && !isset($pkg_version)) {
 			if (isset($new_pkgbuild['epoch']) && (int)$new_pkgbuild['epoch'] > 0) {
 				$pkg_version = sprintf('%d:%s-%s', $new_pkgbuild['epoch'], $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
 			} else {
@@ -389,8 +416,10 @@ if ($uid):
 			}
 
 			# Update package depends
-			if (!empty($new_pkgbuild['depends'])) {
+			if (empty($depends) && !empty($new_pkgbuild['depends'])) {
 				$depends = explode(" ", $new_pkgbuild['depends']);
+			}
+			if (!empty($depends)) {
 				foreach ($depends as $dep) {
 					$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
 					$depcondition = str_replace($deppkgname, "", $dep);
