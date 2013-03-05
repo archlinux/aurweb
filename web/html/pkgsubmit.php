@@ -268,19 +268,13 @@ if ($uid):
 			}
 		}
 
-		# Now we've parsed the pkgbuild, let's move it to where it belongs
-		if (!$error && $pkg_name[0] == '(') {
-			$error = __("Error - The AUR does not support split packages!");
-		}
-
+		# Validate package name
 		if (!$error) {
-			$pkg_name = str_replace("'", "", $new_pkgbuild['pkgname']);
-			$pkg_name = escapeshellarg($pkg_name);
-			$pkg_name = str_replace("'", "", $pkg_name);
-
-			$presult = preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name);
-
-			if (!$presult) {
+			$pkg_name = $new_pkgbuild['pkgname'];
+			if ($pkg_name[0] == '(') {
+				$error = __("Error - The AUR does not support split packages!");
+			}
+			if (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name)) {
 				$error = __("Invalid name: only lowercase letters are allowed.");
 			}
 		}
