@@ -5,15 +5,16 @@
 # Translators:
 #   <cadoc@gmx.de>, 2012.
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Matthias Gorissen <matthias@archlinux.de>, 2012.
 # Simon Schneider <SPAM.schneida@gmail.com>, 2011.
-# Thomas Scholzen <thomasdodo@arcor.de>, 2012.
+# Thomas Scholzen <thomasdodo@arcor.de>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-11-03 22:33+0000\n"
-"Last-Translator: FabianS_ <cadoc@gmx.de>\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-02-04 16:28+0000\n"
+"Last-Translator: Thomas Scholzen <thomasdodo@arcor.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/aur/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgid "Page Not Found"
 msgstr "Seite nicht gefunden"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr ""
+msgstr "Sorry, die angeforderte Seite existiert nicht."
 
 msgid "Accounts"
 msgstr "Konten"
@@ -52,7 +53,7 @@ msgid "Add Proposal"
 msgstr "Vorschlag hinzufügen"
 
 msgid "Invalid token for user action."
-msgstr ""
+msgstr "Ungültiges Zeichen für eine Benutzer-Aktion."
 
 msgid "Username does not exist."
 msgstr "Der Nutzername existiert nicht."
@@ -101,13 +102,13 @@ msgstr "Startseite"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
+msgstr "Willkommen im AUR! Für weitere Informationen lies bitte die %sAUR User Guidelines%s und die %sAUR TU Guidelines%s."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "Alle hier eingereichten PKGBUILDs %smüssen%s den %sArch Packaging Standards%s entsprechen. Andernfalls werden sie entfernt!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Denke daran, für Deine bevorzugten Pakete zu stimmen!"
@@ -124,10 +125,10 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "Allgemeine Diskussionen über das Arch User Repositorium (AUR) und die Struktur der Trusted User finden aus %saur-general%s statt. Die Liste kann für Anfragen zu verwaisten, zu verschmelzenden oder zu löschenden Paketen genutzt werden.  Für Diskussionen über die Entwichlung des AUR sollte die Mailing-Liste %saur-dev%s genutzt werden."
 
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Fehler melden"
 
 #, php-format
 msgid ""
@@ -135,7 +136,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr ""
+msgstr "Wenn Du einen Fehler im AUR findest, füll bitte einen entsprechenden Bericht im %sBug-Tracker%s aus. Benutze den Tracker %sausschiesslich%s, um Fehler im AUR zu melden. Um Paketierungs-Fehler zu melden, kontaktiere den Maintainer des Pakets, oder hinterlasse einen Kommentar auf der entsprechenden Seite des Pakets. "
 
 msgid "DISCLAIMER"
 msgstr "DISCLAIMER: Offiziell nicht unterstützte PKGBUILDS werden von den Benutzern erstellt - durch den Download willigt man ein, diese auf eigene Gefahr zu benutzen."
@@ -144,6 +145,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Nicht unterstützte Pakete sind von Benutzern erzeugte Inhalte. Jegliche Nutzung der zur Verfügung gestellten Dateien erfolgt auf eigene Gefahr."
+
+msgid "Package Search"
+msgstr "Paketsuche"
 
 msgid "Vote"
 msgstr "Abstimmen"
@@ -158,10 +162,10 @@ msgid "UnNotify"
 msgstr "Nicht mehr benachrichtigen"
 
 msgid "Flag"
-msgstr ""
+msgstr "Flag"
 
 msgid "UnFlag"
-msgstr ""
+msgstr "UnFlag"
 
 msgid "Login"
 msgstr "Anmelden"
@@ -250,13 +254,13 @@ msgstr "Weiter"
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
 " message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Wenn Du die E-Mail-Addresse vergessen hast, die Du für deine Registrierung benutzt hast, sende bitte eine Nachricht an die %saur-general%s Mailing-Liste."
 
 msgid "Enter your e-mail address:"
 msgstr "Gib deine E-Mail Adresse ein:"
 
 msgid "Package Deletion"
-msgstr ""
+msgstr "Pakete entfernen"
 
 #, php-format
 msgid "Delete Package: %s"
@@ -264,64 +268,64 @@ msgstr "Paket löschen: %s"
 
 #, php-format
 msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr ""
+msgstr "Benutze dieses Formular, um das Paket (%s%s%s) im AUR zu löschen. "
 
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "Die Löschung eines Pakets ist endgültig."
 
 msgid "Select the checkbox to confirm action."
-msgstr ""
+msgstr "Wähle ein Kästchen aus, um die Aktion zu bestätigen."
 
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "Bestätige das Entfernen des Paketes"
 
 msgid "Delete"
 msgstr "Löschen"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
+msgstr "Nur vertrauenswürdige Benutzer und Entwickler können Pakete löschen."
 
 msgid "Package Merging"
-msgstr ""
+msgstr "Pakete verschmelzen"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr ""
+msgstr "Verschmelze Paket: %s"
 
 #, php-format
 msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr ""
+msgstr "Benutze dieses Formular, um das Paket (%s%s%s) mit einem anderen Paket zu verschmelzen."
 
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
+msgstr "Wenn das Paket einmal verschmolzen ist, kann diese Aktion nicht mehr revidiert werden."
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "Trage den Namen des Paketes ein, in das du das vorliegende Paket verschmelzen willst."
 
 msgid "Merge into:"
-msgstr ""
+msgstr "Verschmelze in:"
 
 msgid "Confirm package merge"
-msgstr ""
+msgstr "Bestätige Verschmelzung der Pakete"
 
 msgid "Merge"
-msgstr ""
+msgstr "Verschmelzen"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
+msgstr "Nur Trusted User und Entwickler können Pakete verschmelzen."
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
 msgstr "Fehler - Hochgeladene Datei größer als die maximal erlaubte Größe (%s)"
 
 msgid "Error - File partially uploaded"
-msgstr ""
+msgstr "Fehler - Datei teilweise hochgeladen"
 
 msgid "Error - No file uploaded"
 msgstr "Fehler - Keine Datei hochgeladen."
 
 msgid "Error - Could not locate temporary upload folder"
-msgstr ""
+msgstr "Fehler - konnte das temporäre Upload-Verzeichnis nicht lokalisieren"
 
 msgid "Error - File could not be written"
 msgstr "Fehler - Datei konnte nicht geschrieben werden"
@@ -353,28 +357,31 @@ msgstr "Fehlende %s Variable im PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Der Paket-URL fehlt ein Protokoll (z.B. http:// oder ftp://)."
 
+msgid "Error - The AUR does not support split packages!"
+msgstr "Fehler - das AUR unterstützt keine geteilten Pakete!"
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Ungültiger Name: Es dürfen nur Kleinbuchstaben verwendet werden."
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
-msgstr ""
+msgstr "Fehler - Paketnamen dürfen nicht länger als %d Zeichen sein"
 
 #, php-format
 msgid "Error - Package URL cannot be greater than %d characters"
-msgstr ""
+msgstr "Fehler - Paket-URLs dürfen nicht länger als %d Zeichen sein"
 
 #, php-format
 msgid "Error - Package description cannot be greater than %d characters"
-msgstr ""
+msgstr "Fehler - Paketbeschreibungen dürfen nicht länger als %d Zeichen sein"
 
 #, php-format
 msgid "Error - Package license cannot be greater than %d characters"
-msgstr ""
+msgstr "Fehler - Paket-Lizenzen dürfen nicht länger als %d Zeichen sein"
 
 #, php-format
 msgid "Error - Package version cannot be greater than %d characters"
-msgstr ""
+msgstr "Fehler - Paketversionen dürfen nicht länger als %d Zeichen sein"
 
 #, php-format
 msgid "Could not create directory %s."
@@ -474,10 +481,10 @@ msgid "The email address is invalid."
 msgstr "Die E-Mail-Adresse ist ungültig."
 
 msgid "The PGP key fingerprint is invalid."
-msgstr ""
+msgstr "Der PGP-Schlüssel-Fingerabdruck ist ungültig."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Ein Vertrauenswürdiger Benutzer (TU) kann keinen Entwickler-Status erteilen."
+msgid "Cannot increase account permissions."
+msgstr "Kann die Zugriffsrechte auf das Konto nicht erweitern."
 
 msgid "Language is not currently supported."
 msgstr "Diese Sprache wird momentan noch nicht unterstützt."
@@ -502,8 +509,8 @@ msgid "Click on the Login link above to use your account."
 msgstr "Zur Anmeldung bitte auf den Login-Link oben klicken."
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
-msgstr "Beim Ändern des Kontos, %s%s%s, trat ein Fehler auf."
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Es wurden keine Änderungen am Konto %s%s%s vorgenommen."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
@@ -533,17 +540,17 @@ msgstr "Letzte"
 msgid "You must be logged in before you can flag packages."
 msgstr "Du musst Dich anmelden, um Pakete markieren zu können."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Du musst dich anmelden, um die Markierung von Paketen entfernen zu können."
-
 msgid "You did not select any packages to flag."
 msgstr "Du hast kein Paket zum Markieren ausgewählt."
 
-msgid "You did not select any packages to unflag."
-msgstr "Du hast kein Paket für das Entfernen der Markierung ausgewählt."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Die gewählten Pakete wurden als \"Veraltet\" markiert."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Du musst dich anmelden, um die Markierung von Paketen entfernen zu können."
+
+msgid "You did not select any packages to unflag."
+msgstr "Du hast kein Paket für das Entfernen der Markierung ausgewählt."
 
 msgid "The selected packages have been unflagged."
 msgstr "Die Markierungen der gewählten Pakete wurden entfernt."
@@ -647,7 +654,7 @@ msgid "IRC Nick"
 msgstr "IRC-Name"
 
 msgid "PGP Key Fingerprint"
-msgstr ""
+msgstr "PGP-Schlüssel-Fingerabdruck"
 
 msgid "Last Voted"
 msgstr "Zuletzt abgestimmt"
@@ -774,6 +781,9 @@ msgstr "unbekannt"
 msgid "Package Details"
 msgstr "Paket-Details"
 
+msgid "Package Actions"
+msgstr "Paketaktionen"
+
 msgid "View PKGBUILD"
 msgstr "PKGBUILD ansehen"
 
@@ -787,37 +797,40 @@ msgid "Flag package out-of-date"
 msgstr "Paket als veraltet markieren"
 
 msgid "Unflag package"
-msgstr ""
+msgstr "Entferne Paketmarkierung"
 
 msgid "Remove vote"
-msgstr ""
+msgstr "Votum entfernen"
 
 msgid "Vote for this package"
-msgstr ""
+msgstr "Für dieses Paket stimmen"
 
 msgid "Disable notifications"
 msgstr "Benachrichtigungen deaktivieren"
 
 msgid "Notify of new comments"
-msgstr ""
+msgstr "Benachrichtige über neue Kommentare"
 
 msgid "Delete Package"
 msgstr "Paket löschen"
 
 msgid "Merge Package"
-msgstr ""
+msgstr "Verschmelze Pakete"
 
-msgid "Adopt Packages"
-msgstr "Pakete übernehmen"
+msgid "Adopt Package"
+msgstr "Übernehme Paket"
 
-msgid "Disown Packages"
-msgstr "Betreuung der Pakete freigeben"
+msgid "Disown Package"
+msgstr "Gebe Paket ab"
 
 msgid "Description"
 msgstr "Beschreibung"
 
+msgid "Upstream URL"
+msgstr "Upstream URL"
+
 msgid "Visit the website for"
-msgstr ""
+msgstr "Besuche die Web-Seite für"
 
 msgid "Category"
 msgstr "Kategorie"
@@ -832,11 +845,14 @@ msgid "Submitter"
 msgstr "Eingereicht von"
 
 msgid "View account information for"
-msgstr ""
+msgstr "Rufe die Konto-Informationen auf für"
 
 #, php-format
 msgid "View account information for %s"
-msgstr ""
+msgstr "Rufe die Konto-Informationen auf für %s"
+
+msgid "None"
+msgstr "Keine"
 
 msgid "Maintainer"
 msgstr "Betreuer"
@@ -854,7 +870,7 @@ msgid "Dependencies"
 msgstr "Abhängigkeiten"
 
 msgid "View packages details for"
-msgstr ""
+msgstr "Rufe die Paket-Informationen auf für"
 
 msgid "Required by"
 msgstr "Benötigt von"
@@ -905,7 +921,7 @@ msgid "Search by"
 msgstr "Suche nach"
 
 msgid "Keywords"
-msgstr ""
+msgstr "Schlüsselwörter"
 
 msgid "Out of Date"
 msgstr "Veraltet"
@@ -949,6 +965,12 @@ msgstr "Aktionen"
 
 msgid "Unflag Out-of-date"
 msgstr "Markierung \"Veraltet\" entfernen"
+
+msgid "Adopt Packages"
+msgstr "Pakete übernehmen"
+
+msgid "Disown Packages"
+msgstr "Betreuung der Pakete freigeben"
 
 msgid "Any type"
 msgstr "Irgendein Typ"

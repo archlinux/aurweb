@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-22 17:06+0000\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-01-30 08:28+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/aur/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -142,6 +142,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Неподдерживаемые пакеты — это пакеты, созданные пользователями. Любой способ их использования осуществляется на ваш страх и риск."
+
+msgid "Package Search"
+msgstr ""
 
 msgid "Vote"
 msgstr "Голосовать"
@@ -351,6 +354,9 @@ msgstr "Отсутствует переменная %s в PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Не указан протокол в URL (т.е.  http:// ,ftp://)"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr ""
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Неверное имя: только нижний регистр допустим."
 
@@ -474,8 +480,8 @@ msgstr "Неправильный адрес электронной почты."
 msgid "The PGP key fingerprint is invalid."
 msgstr ""
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Доверенный пользователь не может устанавливать статус Разработчик."
+msgid "Cannot increase account permissions."
+msgstr ""
 
 msgid "Language is not currently supported."
 msgstr "Язык пока не поддерживается."
@@ -500,7 +506,7 @@ msgid "Click on the Login link above to use your account."
 msgstr ""
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
 msgstr ""
 
 #, php-format
@@ -531,17 +537,17 @@ msgstr "Последний"
 msgid "You must be logged in before you can flag packages."
 msgstr "Вы должны войти прежде чем расставлять флажки на пакеты."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Вы должны войти прежде чем снимать флажки."
-
 msgid "You did not select any packages to flag."
 msgstr "Вы не выбрали ниодного пакета для пометки."
 
-msgid "You did not select any packages to unflag."
-msgstr "Вы не выбрали ниодного пакета для снятия пометки."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Выбраные пакеты помечены как устаревшие."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Вы должны войти прежде чем снимать флажки."
+
+msgid "You did not select any packages to unflag."
+msgstr "Вы не выбрали ниодного пакета для снятия пометки."
 
 msgid "The selected packages have been unflagged."
 msgstr "С выбранных пакетов пометка снята."
@@ -772,6 +778,9 @@ msgstr "неизвестно"
 msgid "Package Details"
 msgstr "Информация о пакете"
 
+msgid "Package Actions"
+msgstr ""
+
 msgid "View PKGBUILD"
 msgstr ""
 
@@ -805,14 +814,17 @@ msgstr ""
 msgid "Merge Package"
 msgstr ""
 
-msgid "Adopt Packages"
-msgstr "Усыновить пакеты"
+msgid "Adopt Package"
+msgstr ""
 
-msgid "Disown Packages"
-msgstr "Бросить пакеты"
+msgid "Disown Package"
+msgstr ""
 
 msgid "Description"
 msgstr "Описание"
+
+msgid "Upstream URL"
+msgstr ""
 
 msgid "Visit the website for"
 msgstr ""
@@ -834,6 +846,9 @@ msgstr ""
 
 #, php-format
 msgid "View account information for %s"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "Maintainer"
@@ -947,6 +962,12 @@ msgstr "Действия"
 
 msgid "Unflag Out-of-date"
 msgstr "Убрать флаг Устаревший"
+
+msgid "Adopt Packages"
+msgstr "Усыновить пакеты"
+
+msgid "Disown Packages"
+msgstr "Бросить пакеты"
 
 msgid "Any type"
 msgstr "Любой тип"

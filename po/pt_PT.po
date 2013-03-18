@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-29 23:39+0000\n"
-"Last-Translator: DarkVenger <thedarkvenger@gmail.com>\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-01-30 08:28+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/aur/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -143,6 +143,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Os pacotes não suportados são produzidos por utilizadores. O seu uso é por sua conta e risco."
+
+msgid "Package Search"
+msgstr ""
 
 msgid "Vote"
 msgstr "Votar"
@@ -352,6 +355,9 @@ msgstr "Variável %s em falta no PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Falta um protocolo no URL do pacote (ex.: http:// ,ftp:// )"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr ""
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Nome inválido: apenas são permitidas letras minúsculas."
 
@@ -475,8 +481,8 @@ msgstr "O endereço de e-mail é inválido."
 msgid "The PGP key fingerprint is invalid."
 msgstr ""
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Um Utilizador de Confiança não pode atribuir o estatuto de Desenvolvedor."
+msgid "Cannot increase account permissions."
+msgstr ""
 
 msgid "Language is not currently supported."
 msgstr "Língua não suportada actualmente."
@@ -501,7 +507,7 @@ msgid "Click on the Login link above to use your account."
 msgstr ""
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
 msgstr ""
 
 #, php-format
@@ -532,17 +538,17 @@ msgstr "Ultimo."
 msgid "You must be logged in before you can flag packages."
 msgstr "Tem de iniciar sessão antes de poder marcar pacotes."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Tem de iniciar sessão antes de poder desmarcar pacotes."
-
 msgid "You did not select any packages to flag."
 msgstr "Não seleccionou nenhum pacote a marcar."
 
-msgid "You did not select any packages to unflag."
-msgstr "Não seleccionou nenhum pacote a desmarcar."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Os pacotes seleccionados foram marcados como desactualizados."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Tem de iniciar sessão antes de poder desmarcar pacotes."
+
+msgid "You did not select any packages to unflag."
+msgstr "Não seleccionou nenhum pacote a desmarcar."
 
 msgid "The selected packages have been unflagged."
 msgstr "Os pacotes seleccionados foram desmarcados."
@@ -773,6 +779,9 @@ msgstr "desconhecido"
 msgid "Package Details"
 msgstr "Detalhes do Pacote"
 
+msgid "Package Actions"
+msgstr ""
+
 msgid "View PKGBUILD"
 msgstr ""
 
@@ -806,14 +815,17 @@ msgstr ""
 msgid "Merge Package"
 msgstr ""
 
-msgid "Adopt Packages"
-msgstr "Adoptar Pacotes"
+msgid "Adopt Package"
+msgstr ""
 
-msgid "Disown Packages"
-msgstr "Renunciar Pacotes"
+msgid "Disown Package"
+msgstr ""
 
 msgid "Description"
 msgstr "Descrição"
+
+msgid "Upstream URL"
+msgstr ""
 
 msgid "Visit the website for"
 msgstr ""
@@ -835,6 +847,9 @@ msgstr ""
 
 #, php-format
 msgid "View account information for %s"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "Maintainer"
@@ -948,6 +963,12 @@ msgstr "Acções"
 
 msgid "Unflag Out-of-date"
 msgstr "Desmarcar como Desactualizado"
+
+msgid "Adopt Packages"
+msgstr "Adoptar Pacotes"
+
+msgid "Disown Packages"
+msgstr "Renunciar Pacotes"
 
 msgid "Any type"
 msgstr "Qualquer tipo"

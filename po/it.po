@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Giovanni Scafora <giovanni@archlinux.org>, 2011-2012.
+# Giovanni Scafora <giovanni@archlinux.org>, 2011-2013.
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-11-03 15:46+0000\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-03-10 13:16+0000\n"
 "Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/aur/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -142,6 +142,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "I pacchetti presenti in AUR sono stati inviati dagli utenti. Usali a tuo rischio e pericolo."
+
+msgid "Package Search"
+msgstr "Ricerca del pacchetto"
 
 msgid "Vote"
 msgstr "Vota"
@@ -351,6 +354,9 @@ msgstr "Manca la variabile %s nel PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Manca un protocollo nell'url del pacchetto (es: http:// ,ftp://)"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr "Errore: AUR non offre supporto per i pacchetti divisi!"
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Il nome non è valido: sono consentite solo le lettere minuscole."
 
@@ -474,8 +480,8 @@ msgstr "L'indirizzo email non risulta valido."
 msgid "The PGP key fingerprint is invalid."
 msgstr "L'impronta della chiave PGP non è valida."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Un TU non può assegnare lo stato di sviluppatore."
+msgid "Cannot increase account permissions."
+msgstr "Non è possibile aumentare i permessi dell'account."
 
 msgid "Language is not currently supported."
 msgstr "Lingua attualmente non supportata."
@@ -500,8 +506,8 @@ msgid "Click on the Login link above to use your account."
 msgstr "Per utilizzare il tuo account, clicca sul link Accedi."
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
-msgstr "Si è verificato un errore durante la modifica dell'account %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Non sono state apportate modifiche all'account %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
@@ -531,17 +537,17 @@ msgstr "Ultimo"
 msgid "You must be logged in before you can flag packages."
 msgstr "Devi autenticarti prima di poter contrassegnare i pacchetti."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Devi autenticarti prima di poter rimuovere il contrassegno ai pacchetti."
-
 msgid "You did not select any packages to flag."
 msgstr "Non hai selezionato nessun pacchetto da contrassegnare come non aggiornato."
 
-msgid "You did not select any packages to unflag."
-msgstr "Non hai selezionato nessun pacchetto da contrassegnare come aggiornato."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "I pacchetti selezionati sono stati contrassegnati come non aggiornati."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Devi autenticarti prima di poter rimuovere il contrassegno ai pacchetti."
+
+msgid "You did not select any packages to unflag."
+msgstr "Non hai selezionato nessun pacchetto da contrassegnare come aggiornato."
 
 msgid "The selected packages have been unflagged."
 msgstr "I pacchetti selezionati non sono più contrassegnati."
@@ -772,6 +778,9 @@ msgstr "sconosciuta"
 msgid "Package Details"
 msgstr "Dettagli del pacchetto"
 
+msgid "Package Actions"
+msgstr "Azioni del pacchetto"
+
 msgid "View PKGBUILD"
 msgstr "Visualizza il PKGBUILD"
 
@@ -805,14 +814,17 @@ msgstr "Elimina il pacchetto"
 msgid "Merge Package"
 msgstr "Unisci il pacchetto"
 
-msgid "Adopt Packages"
+msgid "Adopt Package"
 msgstr "Adotta il pacchetto"
 
-msgid "Disown Packages"
+msgid "Disown Package"
 msgstr "Abbandona il pacchetto"
 
 msgid "Description"
 msgstr "Descrizione"
+
+msgid "Upstream URL"
+msgstr "URL dell'upstream"
 
 msgid "Visit the website for"
 msgstr "Visita il sito web di"
@@ -835,6 +847,9 @@ msgstr "Visualizza le informazioni dell'account"
 #, php-format
 msgid "View account information for %s"
 msgstr "Visualizza le informazioni dell'account %s"
+
+msgid "None"
+msgstr "Nessuno"
 
 msgid "Maintainer"
 msgstr "Manutentore"
@@ -947,6 +962,12 @@ msgstr "Azioni"
 
 msgid "Unflag Out-of-date"
 msgstr "Il pacchetto è aggiornato"
+
+msgid "Adopt Packages"
+msgstr "Adotta il pacchetto"
+
+msgid "Disown Packages"
+msgstr "Abbandona il pacchetto"
 
 msgid "Any type"
 msgstr "Qualsiasi tipo"

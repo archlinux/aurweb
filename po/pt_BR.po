@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Albino Biasutti Neto Bino <biasuttin@gmail.com>, 2011.
-# Rafael Ferreira <rafael.f.f1@gmail.com>, 2012.
+# Rafael Ferreira <rafael.f.f1@gmail.com>, 2012-2013.
 # Rafael  <rafael.f.f1@gmail.com>, 2011.
 # Sandro  <sandrossv@hotmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-23 11:31+0000\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-02-02 16:42+0000\n"
 "Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/aur/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -144,6 +144,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Pacotes não suportados são pacotes produzidos pelos usuários. Qualquer utilização dos arquivos fornecidos é de sua própria conta e risco."
+
+msgid "Package Search"
+msgstr "Pesquisar pacote"
 
 msgid "Vote"
 msgstr "Votar"
@@ -353,6 +356,9 @@ msgstr "Está faltando a variável %s no PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "A URL do pacote não possui um protocolo (ex. http://, ftp://)"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr "Erro - O AUR não tem suporte a pacotes divididos (\"split\")!"
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Nome inválido: apenas letras minúsculas são permitidas."
 
@@ -445,7 +451,7 @@ msgid "Back"
 msgstr "Voltar"
 
 msgid "Next"
-msgstr "Próximo"
+msgstr "Próxima"
 
 msgid "Voters"
 msgstr "Eleitores"
@@ -476,8 +482,8 @@ msgstr "O endereço de e-mail é inválido."
 msgid "The PGP key fingerprint is invalid."
 msgstr "A impressão digital da chave PGP é inválida."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Um Trusted User não pode atribuir status de Desenvolvedor."
+msgid "Cannot increase account permissions."
+msgstr "Não foi possível aumentar as permissões da conta."
 
 msgid "Language is not currently supported."
 msgstr "O idioma não é suportado no momento."
@@ -502,8 +508,8 @@ msgid "Click on the Login link above to use your account."
 msgstr "Clique no link de Login acima para usar a sua conta."
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
-msgstr "Erro ao tentar modificar a conta, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Nenhuma alteração foi feita na conta, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
@@ -528,22 +534,22 @@ msgid "Previous"
 msgstr "Anterior"
 
 msgid "Last"
-msgstr "Último"
+msgstr "Última"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "Você deve estar conectado para marcar os pacotes."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Você deve estar conectado para desmarcar os pacotes."
-
 msgid "You did not select any packages to flag."
 msgstr "Você não selecionou nenhum pacote para marcar."
 
-msgid "You did not select any packages to unflag."
-msgstr "Você não selecionou nenhum pacote para desmarcar."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "O pacote selecionado foi marcado como desatualizado."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Você deve estar conectado para desmarcar os pacotes."
+
+msgid "You did not select any packages to unflag."
+msgstr "Você não selecionou nenhum pacote para desmarcar."
 
 msgid "The selected packages have been unflagged."
 msgstr "O pacote selecionado foi desmarcado."
@@ -774,17 +780,20 @@ msgstr "desconhecido"
 msgid "Package Details"
 msgstr "Detalhes do pacote"
 
+msgid "Package Actions"
+msgstr "Ações do pacote"
+
 msgid "View PKGBUILD"
-msgstr "Ver o PKGBUILD"
+msgstr "Visualizar PKGBUILD"
 
 msgid "Download tarball"
-msgstr "Baixar o tarball"
+msgstr "Baixar tarball"
 
 msgid "Flagged out-of-date"
 msgstr "Marcado como desatualizado"
 
 msgid "Flag package out-of-date"
-msgstr "Marcar pacote como desatualizado"
+msgstr "Marcar como desatualizado"
 
 msgid "Unflag package"
 msgstr "Desmarcar pacote"
@@ -807,14 +816,17 @@ msgstr "Excluir pacote"
 msgid "Merge Package"
 msgstr "Mesclar pacote"
 
-msgid "Adopt Packages"
-msgstr "Adotar pacotes"
+msgid "Adopt Package"
+msgstr "Adotar pacote"
 
-msgid "Disown Packages"
-msgstr "Abandonar pacotes"
+msgid "Disown Package"
+msgstr "Abandonar pacote"
 
 msgid "Description"
 msgstr "Descrição"
+
+msgid "Upstream URL"
+msgstr "URL"
 
 msgid "Visit the website for"
 msgstr "Visitar o site para"
@@ -837,6 +849,9 @@ msgstr "Ver informações da conta para"
 #, php-format
 msgid "View account information for %s"
 msgstr "Ver informações da conta para %s"
+
+msgid "None"
+msgstr "Nenhum"
 
 msgid "Maintainer"
 msgstr "Mantenedor"
@@ -908,7 +923,7 @@ msgid "Keywords"
 msgstr "Palavras-chave"
 
 msgid "Out of Date"
-msgstr "Desatualizados"
+msgstr "Desatualizado"
 
 msgid "Sort by"
 msgstr "Ordenar por"
@@ -949,6 +964,12 @@ msgstr "Ações"
 
 msgid "Unflag Out-of-date"
 msgstr "Desmarcar desatualizado"
+
+msgid "Adopt Packages"
+msgstr "Adotar pacotes"
+
+msgid "Disown Packages"
+msgstr "Abandonar pacotes"
 
 msgid "Any type"
 msgstr "Qualquer tipo"

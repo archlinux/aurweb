@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# Mihai Coman <mihai@m1x.ro>, 2011.
+# Mihai Coman <mihai@m1x.ro>, 2011-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-22 17:06+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-03-15 21:10+0000\n"
+"Last-Translator: Mihai Coman <mihai@m1x.ro>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,10 +20,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 msgid "Page Not Found"
-msgstr ""
+msgstr "Pagina nu a fost găsită"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr ""
+msgstr "Din păcate, pagina solicitată nu există."
 
 msgid "Accounts"
 msgstr "Conturi"
@@ -35,7 +35,7 @@ msgid "Could not retrieve information for the specified user."
 msgstr "Nu s-au putut prelua informații despre utilizatorul specificat."
 
 msgid "You do not have permission to edit this account."
-msgstr "Nu ai permisiune pentru a putea edita acest cont."
+msgstr "Nu ai permisiune pentru a modifica acest cont."
 
 msgid "Use this form to search existing accounts."
 msgstr "Folosește acest formular pentru a căuta conturi existente."
@@ -50,7 +50,7 @@ msgid "Add Proposal"
 msgstr "Adaugă o propunere"
 
 msgid "Invalid token for user action."
-msgstr ""
+msgstr "Invalid token for user action."
 
 msgid "Username does not exist."
 msgstr "Nume de utilizator inexistent."
@@ -84,7 +84,7 @@ msgid "Length in days"
 msgstr "Lungimea în zile"
 
 msgid "(defaults to 7 if empty)"
-msgstr "(implictit la 7 dacă este gol)"
+msgstr "(implicit  7 dacă este gol)"
 
 msgid "Proposal"
 msgstr "Propunere"
@@ -99,13 +99,13 @@ msgstr "Acasă"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
+msgstr "Bine ai venit la  AUR! Please read the %sAUR User Guidelines%s and %sAUR TU Guidelines%s for more information."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "PKGBUILDurile contribuite %strebuie%s să fie conforme cu %sStandardele de Împachetare Archs%s, altfel vor fi șterse!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Nu uita să votezi pentru pachetele tale favorite!"
@@ -122,10 +122,10 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "Discuțiile generale cu privire la Arch User Repository (AUR) și structura Trusted User are loc pe %saur-general%s. Această listă poate fi folosită pentru cereri de ștergere, fuzionare sau abandonare pachete. Pentru discuții cu privire la dezvoltarea AUR, folosește lista de discuții %saur-dev%s."
 
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Semnalare bug-uri"
 
 #, php-format
 msgid ""
@@ -133,7 +133,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr ""
+msgstr "If you find a bug in the AUR, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page."
 
 msgid "DISCLAIMER"
 msgstr "DECLARAȚIE DE NEASUMARE A RESPONSABILITĂȚII"
@@ -142,6 +142,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Pachetele fără suport sunt conținut produs de utilizatori. Orice folosire a fișierelor oferite este pe risc propriu!"
+
+msgid "Package Search"
+msgstr "Căutare pachete"
 
 msgid "Vote"
 msgstr "Vot"
@@ -156,10 +159,10 @@ msgid "UnNotify"
 msgstr "DeNotificare"
 
 msgid "Flag"
-msgstr ""
+msgstr "Marchează"
 
 msgid "UnFlag"
-msgstr ""
+msgstr "Elimină marcaj"
 
 msgid "Login"
 msgstr "Logare"
@@ -172,7 +175,7 @@ msgid "Logout"
 msgstr "Deautentificare"
 
 msgid "Enter login credentials"
-msgstr ""
+msgstr "Introdu datele de autentificare"
 
 msgid "Username"
 msgstr "Nume utilizator"
@@ -224,16 +227,16 @@ msgid ""
 msgstr "O cerere de resetare a parolei a fost trimisă pentru contul asociat cu adresa ta de e-mail. Dacă vrei să resetezi parola urmează legătura de mai jos, altfel ignoră acest mesaj și nu se va întâmpla nimic."
 
 msgid "Password Reset"
-msgstr "Parolă resetată"
+msgstr "Resetare parolă"
 
 msgid "Check your e-mail for the confirmation link."
-msgstr "Verifică e-mailul pentru legătura de confirmare."
+msgstr "Verifică e-mailul pentru adresa de confirmare."
 
 msgid "Your password has been reset successfully."
-msgstr "Parola ta a fost resetată cu succes"
+msgstr "Parola ta a fost resetată cu succes."
 
 msgid "Confirm your e-mail address:"
-msgstr "Confirmă adresa ta de e-mail:"
+msgstr "Confirmă adresa de e-mail:"
 
 msgid "Enter your new password:"
 msgstr "Introdu noua parolă:"
@@ -248,81 +251,81 @@ msgstr "Continuă"
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
 " message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Dacă ai uitat adresa de email folosită la înregistrare, trimite un mesaj la lista de discuții  %saur-general%s"
 
 msgid "Enter your e-mail address:"
 msgstr "Introdu adresa ta de e-mail:"
 
 msgid "Package Deletion"
-msgstr ""
+msgstr "Ștergere pachet"
 
 #, php-format
 msgid "Delete Package: %s"
-msgstr ""
+msgstr "Șterge pachetul: %s"
 
 #, php-format
 msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr ""
+msgstr "Folosește acest formular pentru a șterge pachetul (%s%s%s) din  AUR. "
 
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "Ștergerea unui pachet este permanentă."
 
 msgid "Select the checkbox to confirm action."
-msgstr ""
+msgstr "Bifează căsuța pentru a confirma acțiunea."
 
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "Confirmă ștergerea pachetului"
 
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
+msgstr "Numai Dezvoltatorii și Trusted Users pot șterge pachete."
 
 msgid "Package Merging"
-msgstr ""
+msgstr "Fuzionare pachet"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr ""
+msgstr "Fuzionează pachetul: %s"
 
 #, php-format
 msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr ""
+msgstr "Folosește acest formular pentru a fuziona pachetul (%s%s%s) cu un alt pachet."
 
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
+msgstr "Odată ce pachetul a fuzionat, acțiunea nu este reversibilă."
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "Introdu numele pachetului cu care vrei să fie fuzionat acest pachet."
 
 msgid "Merge into:"
-msgstr ""
+msgstr "Fuzionează cu:"
 
 msgid "Confirm package merge"
-msgstr ""
+msgstr "Confirmă fuzionarea pachetului"
 
 msgid "Merge"
-msgstr ""
+msgstr "Fuzionare"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
+msgstr "Numai Dezvoltatorii și Trusted Users pot fuziona pachete."
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr ""
+msgstr "Eroare - Fișierul încărcat depășește dimensiunea maximă permisă (%s)"
 
 msgid "Error - File partially uploaded"
-msgstr ""
+msgstr "Eroare - fișier încărcat parțial"
 
 msgid "Error - No file uploaded"
 msgstr "Eroare - Niciun fișier încărcat"
 
 msgid "Error - Could not locate temporary upload folder"
-msgstr ""
+msgstr "Eroare - Nu s-a putut localiza directorul temporar pentru încărcări"
 
 msgid "Error - File could not be written"
-msgstr ""
+msgstr "Eroare - Fișierul nu a putut fi scris"
 
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
@@ -330,7 +333,7 @@ msgid ""
 msgstr "Eroare - format fișier fără suport (te rugăm să trimiți arhive gzip generate doar de makepgk(8))."
 
 msgid "Error - uncompressed file size too large."
-msgstr "Eroare - mărimea fișierului necomprimate este prea mare."
+msgstr "Eroare - mărimea fișierului necomprimat este prea mare."
 
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Eroare - arhiva sursă nu poate conține fișiere în afara directorului."
@@ -342,7 +345,7 @@ msgid "Error - source tarball may not contain more than one directory."
 msgstr "Eroare - arhiva sursă nu poate conține mai mult de un director."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Eroarea la încercarea de a dezarhiva - PKGBUILD nu există."
+msgstr "Eroarea la dezarhiare - PKGBUILD nu există."
 
 #, php-format
 msgid "Missing %s variable in PKGBUILD."
@@ -351,28 +354,31 @@ msgstr "Lipsește variabila %s în PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "În URL-ul pachetului lipsește protocolul (exemplu: http://, ftp://)"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr "Eroare - AUR nu are suport pentru pachete împărțite!"
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Numele nu este valid: doar litere mici sunt permise."
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
-msgstr ""
+msgstr "Eroare - Numele pachetului nu poate fi mai lung de %d caractere"
 
 #, php-format
 msgid "Error - Package URL cannot be greater than %d characters"
-msgstr ""
+msgstr "Eroare - URL-ul pachetului nu poate fi mai lung de %d caractere"
 
 #, php-format
 msgid "Error - Package description cannot be greater than %d characters"
-msgstr ""
+msgstr "Eroare - Descrierea pachetului nu poate fi mai lungă de %d caractere."
 
 #, php-format
 msgid "Error - Package license cannot be greater than %d characters"
-msgstr ""
+msgstr "Eroare - Tipul licenței pachetului nu poate fi mai lung de %d caractere"
 
 #, php-format
 msgid "Error - Package version cannot be greater than %d characters"
-msgstr ""
+msgstr "Eroare - Versiunea pachetului nu poate fi mai lungă de %d caractere"
 
 #, php-format
 msgid "Could not create directory %s."
@@ -380,7 +386,7 @@ msgstr "Nu s-a putut crea directorul %s."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
+msgstr "Nu ai permisiunea de a suprascrie pachetul  %s%s%s."
 
 #, php-format
 msgid ""
@@ -390,7 +396,7 @@ msgstr "%s este pe lista neagră a pachetelor; verifică dacă este disponibil �
 
 #, php-format
 msgid "Could not change directory to %s."
-msgstr "Nu am putut schimba directorul la %s."
+msgstr "Nu s-a putut schimba directorul la %s."
 
 msgid ""
 "Upload your source packages here. Create source packages with `makepkg "
@@ -404,13 +410,13 @@ msgid "Select Category"
 msgstr "Selectează categoria"
 
 msgid "Upload package file"
-msgstr "Încarcă fișierul pachetului"
+msgstr "Încarcă pachetul"
 
 msgid "Upload"
-msgstr "Încărcat"
+msgstr "Încărcare"
 
 msgid "Sorry, uploads are not permitted by this server."
-msgstr "Îmi pare rău, nu sunt permise încărcări pe acest server."
+msgstr "Din păcate, nu sunt permise încărcări pe acest server."
 
 msgid "You must create an account before you can upload packages."
 msgstr "Trebuie să te înregistrezi înainte de a putea trimite pachete."
@@ -472,40 +478,40 @@ msgid "The email address is invalid."
 msgstr "Adresa de mail nu este validă."
 
 msgid "The PGP key fingerprint is invalid."
-msgstr ""
+msgstr "Amprenta cheii PGP este nevalidă."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Un Trusted User nu poate atribui statutul de Dezvoltator."
+msgid "Cannot increase account permissions."
+msgstr "Permisiunile contului nu pot fi ridicate."
 
 msgid "Language is not currently supported."
 msgstr "Limba nu este încă suportată."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
-msgstr ""
+msgstr "Numele de utilizator %s%s%s este deja folosit."
 
 #, php-format
 msgid "The address, %s%s%s, is already in use."
-msgstr ""
+msgstr "Adresa %s%s%s este deja folosită."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
-msgstr ""
+msgstr "Eroare la încercarea de a crea contul, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
-msgstr ""
+msgstr "Contul %s%s%s a fost creat cu succes."
 
 msgid "Click on the Login link above to use your account."
-msgstr ""
+msgstr "Clic pe legătura către Autentificare pentru a-ți folosi contul"
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
-msgstr ""
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Nu a fost efectuată nicio modificare asupra contului, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr ""
+msgstr "Contul %s%s%s a fost modificat cu succes."
 
 msgid "Bad username or password."
 msgstr "Nume de utilizator sau parolă greșite."
@@ -514,7 +520,7 @@ msgid "Invalid e-mail and reset key combination."
 msgstr "Combinație e-mail și cheie pentru resetare este nevalidă."
 
 msgid "Error retrieving package details."
-msgstr "Eroare în a prelua detaliile pachetului."
+msgstr "Eroare la preluarea detaliilor pachetului."
 
 msgid "Package details could not be found."
 msgstr "Detaliile pachetului nu pot fi găsite."
@@ -531,17 +537,17 @@ msgstr "Ultim"
 msgid "You must be logged in before you can flag packages."
 msgstr "Trebuie să fi autentificat înainte de a putea marca pachetele."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Trebuie să fi autentificat înainte de putea elimina marcajul de Neactualizat al pachetelor."
-
 msgid "You did not select any packages to flag."
 msgstr "Nu ai selectat niciun pachet pentru a fi marcat"
 
-msgid "You did not select any packages to unflag."
-msgstr "Nu ai selectat niciun pachet pentru a-i fi eliminat marcajul."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Pachetele selectate au fost marcate ca fiind Neactualizate."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Trebuie să fi autentificat înainte de putea elimina marcajul de Neactualizat al pachetelor."
+
+msgid "You did not select any packages to unflag."
+msgstr "Nu ai selectat niciun pachet pentru a-i fi eliminat marcajul."
 
 msgid "The selected packages have been unflagged."
 msgstr "La pachetele selectate a fost eliminat marcajul de Neactualizat."
@@ -562,19 +568,19 @@ msgid "You must be logged in before you can adopt packages."
 msgstr "Trebuie să fi autentificat înainte de a putea adopta pachete."
 
 msgid "You must be logged in before you can disown packages."
-msgstr "Trebuie să fi autentificat înainte de a renega pachete."
+msgstr "Trebuie să te autentifici înainte de a abandona pachete."
 
 msgid "You did not select any packages to adopt."
 msgstr "Nu ai selectat niciun pachet pentru a-l adopta."
 
 msgid "You did not select any packages to disown."
-msgstr "Nu ai selectat niciun pachet pentru a-l renega."
+msgstr "Nu ai selectat niciun pachet pentru a-l abandona."
 
 msgid "The selected packages have been adopted."
 msgstr "Pachetele selectate au fost adoptate."
 
 msgid "The selected packages have been disowned."
-msgstr "Pachetele selectate au fost renegate."
+msgstr "Pachetele selectate au fost abandonate."
 
 msgid "You must be logged in before you can vote for packages."
 msgstr "Trebuie să fi autentificat înainte de a putea vota pentru pachete."
@@ -645,7 +651,7 @@ msgid "IRC Nick"
 msgstr "Pseudonim IRC"
 
 msgid "PGP Key Fingerprint"
-msgstr ""
+msgstr "Amprentă cheie PGP"
 
 msgid "Last Voted"
 msgstr "Ultimul vot"
@@ -678,7 +684,7 @@ msgid "Update"
 msgstr "Actualizare"
 
 msgid "Create"
-msgstr "Creați"
+msgstr "Creează"
 
 msgid "Reset"
 msgstr "Resetează"
@@ -702,7 +708,7 @@ msgid "Active"
 msgstr "Activ"
 
 msgid "Edit"
-msgstr ""
+msgstr "Modifică"
 
 msgid "Less"
 msgstr "Mai puțin"
@@ -738,33 +744,33 @@ msgid "My Packages"
 msgstr "Pachetele mele"
 
 msgid " My Account"
-msgstr ""
+msgstr "Contul meu"
 
 msgid "Register"
-msgstr ""
+msgstr "Înregistrare"
 
 msgid "Add Comment"
-msgstr ""
+msgstr "Adaugă comentariu"
 
 msgid "Comment has been added."
 msgstr "Comentariul a fost adăugat."
 
 #, php-format
 msgid "View all %s comments"
-msgstr ""
+msgstr "Citește toate comentariile (%s)"
 
 msgid "Latest Comments"
-msgstr ""
+msgstr "Ultimele comentarii"
 
 msgid "Delete comment"
 msgstr "Șterge comentariu"
 
 #, php-format
 msgid "Comment by %s"
-msgstr ""
+msgstr "Comentariu de %s"
 
 msgid "All comments"
-msgstr ""
+msgstr "Toate comentariile"
 
 msgid "unknown"
 msgstr "necunoscut"
@@ -772,50 +778,56 @@ msgstr "necunoscut"
 msgid "Package Details"
 msgstr "Detalii pachet"
 
+msgid "Package Actions"
+msgstr "Operațiuni"
+
 msgid "View PKGBUILD"
-msgstr ""
+msgstr "Examinează PKGBUILD"
 
 msgid "Download tarball"
-msgstr ""
+msgstr "Descarcă arhiva"
 
 msgid "Flagged out-of-date"
-msgstr ""
+msgstr "Marcat ca Neactualizat"
 
 msgid "Flag package out-of-date"
-msgstr ""
+msgstr "Marchează pachetul ca Neactualizat"
 
 msgid "Unflag package"
-msgstr ""
+msgstr "Elimină marcaj pachet"
 
 msgid "Remove vote"
-msgstr ""
+msgstr "Elimină vot"
 
 msgid "Vote for this package"
-msgstr ""
+msgstr "Votează acest pachet"
 
 msgid "Disable notifications"
-msgstr ""
+msgstr "Dezactivează notificări"
 
 msgid "Notify of new comments"
-msgstr ""
+msgstr "Notifică pentru comentarii noi"
 
 msgid "Delete Package"
-msgstr ""
+msgstr "Șterge pachet"
 
 msgid "Merge Package"
-msgstr ""
+msgstr "Fuzionează pachet"
 
-msgid "Adopt Packages"
-msgstr "Adoptă pachete"
+msgid "Adopt Package"
+msgstr "Adoptă pachet"
 
-msgid "Disown Packages"
-msgstr "Reneagă pachete"
+msgid "Disown Package"
+msgstr "Abandonează pachet"
 
 msgid "Description"
 msgstr "Descriere"
 
+msgid "Upstream URL"
+msgstr "URL upstream"
+
 msgid "Visit the website for"
-msgstr ""
+msgstr "Vizitează pagina web pentru"
 
 msgid "Category"
 msgstr "Categorie"
@@ -830,11 +842,14 @@ msgid "Submitter"
 msgstr "Autor"
 
 msgid "View account information for"
-msgstr ""
+msgstr "Vezi informații despre cont pentru"
 
 #, php-format
 msgid "View account information for %s"
-msgstr ""
+msgstr "Vezi informații despre contul lui %s"
+
+msgid "None"
+msgstr "Nimic"
 
 msgid "Maintainer"
 msgstr "Responsabil"
@@ -852,7 +867,7 @@ msgid "Dependencies"
 msgstr "Dependențe"
 
 msgid "View packages details for"
-msgstr ""
+msgstr "Vezi detaliile pachetelor pentru"
 
 msgid "Required by"
 msgstr "Cerut de"
@@ -894,7 +909,7 @@ msgid "Descending"
 msgstr "Descrescător"
 
 msgid "Enter search criteria"
-msgstr ""
+msgstr "Introdu criteriul de căutare"
 
 msgid "Any"
 msgstr "Orice"
@@ -903,7 +918,7 @@ msgid "Search by"
 msgstr "Caută după"
 
 msgid "Keywords"
-msgstr ""
+msgstr "Cuvinte cheie"
 
 msgid "Out of Date"
 msgstr "Neactualizate"
@@ -931,10 +946,10 @@ msgstr "Niciun pachet nu s-a potrivit criteriului de căutare."
 
 #, php-format
 msgid "%d packages found. Page %d of %d."
-msgstr ""
+msgstr "%d pachete găsite. Pagina %d din %d."
 
 msgid "Version"
-msgstr ""
+msgstr "Versiune"
 
 msgid "Yes"
 msgstr "Da"
@@ -947,6 +962,12 @@ msgstr "Acțiuni"
 
 msgid "Unflag Out-of-date"
 msgstr "Elimină marcajul de Neactualizat"
+
+msgid "Adopt Packages"
+msgstr "Adoptă pachete"
+
+msgid "Disown Packages"
+msgstr "Abandonează pachete"
 
 msgid "Any type"
 msgstr "Orice tip"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Axilleas Pi <axilleas@archlinux.gr>, 2013.
 # Axilleas P <markeleas@gmail.com>, 2011.
 # axil Pι <axilleas@archlinux.gr>, 2012.
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
@@ -11,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-11-03 22:03+0000\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-03-12 22:11+0000\n"
 "Last-Translator: axil Pι <axilleas@archlinux.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/aur/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -144,6 +145,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Τα πακέτα στο \"Unsupported\" έχουν περιεχόμενο που παρέχεται απο τους χρήστες. Χρησιμοποιήστε τα με δική σας ευθύνη."
+
+msgid "Package Search"
+msgstr "Αναζήτηση Πακέτου"
 
 msgid "Vote"
 msgstr "Ψηφίστε"
@@ -353,6 +357,9 @@ msgstr "Λείπει η μεταβλητή %s στο PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου."
 
+msgid "Error - The AUR does not support split packages!"
+msgstr "Σφάλμα - Το AUR δεν υποστηρίζει διαχωρισμένα πακέτα!"
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Μη έγκυρο όνομα: μόνο πεζοί χαρακτήρες επιτρέπονται."
 
@@ -476,8 +483,8 @@ msgstr "Αυτή η διεύθυνση email δεν είναι έγκυρη."
 msgid "The PGP key fingerprint is invalid."
 msgstr "Το fingerprint του PGP κλειδιού δεν είναι έγκυρο."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Ένας Trusted User δεν μπορεί να αποδώσει στοιχεία Developer."
+msgid "Cannot increase account permissions."
+msgstr "Δε γίνεται να αυξηθούν τα δικαιώματα του λογαριασμού"
 
 msgid "Language is not currently supported."
 msgstr "Η γλώσσα αυτή δεν υποστηρίζεται ακόμη."
@@ -502,8 +509,8 @@ msgid "Click on the Login link above to use your account."
 msgstr "Πατήστε στον παραπάνω σύνδεσμο Σύνδεση για να χρησιμοποιήσετε το λογαριασμό σας."
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
-msgstr "Σφάλμα κατά την τροποποίηση του λογαριασμού, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Δεν έγιναν αλλαγές στο λογαριασμό, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
@@ -533,17 +540,17 @@ msgstr "Τελευταίο"
 msgid "You must be logged in before you can flag packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να επισημάνετε τα πακέτα."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να αποχαρακτηρίσετε πακέτα."
-
 msgid "You did not select any packages to flag."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για επισήμανση."
 
-msgid "You did not select any packages to unflag."
-msgstr "Δεν επιλέξατε κάποιο πακέτο για να αποχαρακτηρίσετε."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Τα συγκεκριμένα πακέτα έχουν επισημανθεί ως παρωχημένα."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να αποχαρακτηρίσετε πακέτα."
+
+msgid "You did not select any packages to unflag."
+msgstr "Δεν επιλέξατε κάποιο πακέτο για να αποχαρακτηρίσετε."
 
 msgid "The selected packages have been unflagged."
 msgstr "Τα συγκεκριμένα πακέτα έχουν αποεπισημανθεί."
@@ -774,6 +781,9 @@ msgstr "άγνωστο"
 msgid "Package Details"
 msgstr "Πληροφορίες Πακέτου"
 
+msgid "Package Actions"
+msgstr "Ενέργειες Πακέτου"
+
 msgid "View PKGBUILD"
 msgstr "Δείτε το PKGBUILD"
 
@@ -807,14 +817,17 @@ msgstr "Διαγράψτε πακέτο"
 msgid "Merge Package"
 msgstr "Συγχώνευση πακέτου"
 
-msgid "Adopt Packages"
-msgstr "Υιοθετήστε Πακέτα"
+msgid "Adopt Package"
+msgstr "Υιοθετήστε το Πακέτο"
 
-msgid "Disown Packages"
-msgstr "Aποδεσμεύστε Πακέτα"
+msgid "Disown Package"
+msgstr "Aποδεσμεύστε το Πακέτο"
 
 msgid "Description"
 msgstr "Περιγραφή"
+
+msgid "Upstream URL"
+msgstr "Upstream URL"
 
 msgid "Visit the website for"
 msgstr "Επισκεφτείτε την ιστοσελίδα για "
@@ -837,6 +850,9 @@ msgstr "Δείτε τις πληροφορίες λογαριασμού για"
 #, php-format
 msgid "View account information for %s"
 msgstr "Δείτε τις πληροφορίες λογαριασμού του %s"
+
+msgid "None"
+msgstr "Κανένα"
 
 msgid "Maintainer"
 msgstr "Συντηρητής"
@@ -949,6 +965,12 @@ msgstr "Ενέργειες"
 
 msgid "Unflag Out-of-date"
 msgstr "Αποχαρακτηρίστε το πακέτο ως Παρωχημένο"
+
+msgid "Adopt Packages"
+msgstr "Υιοθετήστε Πακέτα"
+
+msgid "Disown Packages"
+msgstr "Aποδεσμεύστε Πακέτα"
 
 msgid "Any type"
 msgstr "Κάθε είδος"

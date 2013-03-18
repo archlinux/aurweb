@@ -5,13 +5,14 @@
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
 #   <rainofchaos@gmail.com>, 2012.
+# Weiwen Zhao <panda.hust@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-22 17:06+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-02-28 11:23+0000\n"
+"Last-Translator: panda_z <panda.hust@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/aur/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,10 +21,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Page Not Found"
-msgstr ""
+msgstr "页面未找到"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr ""
+msgstr "请求的页面不存在。"
 
 msgid "Accounts"
 msgstr "帐户"
@@ -35,16 +36,16 @@ msgid "Could not retrieve information for the specified user."
 msgstr "无法获取指定用户的信息。"
 
 msgid "You do not have permission to edit this account."
-msgstr "缺少分类 ID."
+msgstr "您没有权限编辑此帐户。"
 
 msgid "Use this form to search existing accounts."
-msgstr "软件包分类已经修改"
+msgstr "使用此表单查找存在的帐户。"
 
 msgid "You must log in to view user information."
 msgstr "您需要登录后才能察看用户信息。"
 
 msgid "Use this form to create an account."
-msgstr "已经加入评论。"
+msgstr "使用此表单创建帐号。"
 
 msgid "Add Proposal"
 msgstr "添加提议"
@@ -75,7 +76,7 @@ msgid "Submit a proposal to vote on."
 msgstr "提交一个提议用于投票。"
 
 msgid "Applicant/TU"
-msgstr ""
+msgstr "申请人/信任用户（TU）"
 
 msgid "(empty if not applicable)"
 msgstr "（如果不符合可以留空）"
@@ -90,7 +91,7 @@ msgid "Proposal"
 msgstr "提议"
 
 msgid "Submit"
-msgstr "上传"
+msgstr "提交"
 
 msgid "Home"
 msgstr "首页"
@@ -108,10 +109,10 @@ msgid ""
 msgstr ""
 
 msgid "Remember to vote for your favourite packages!"
-msgstr "为您喜欢的包投票！"
+msgstr "记得为您喜欢的软件包投票！"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "部分包将以二进制包的形式提供于[community]仓库。"
+msgstr "部分包将在 [community] 仓库以二进制包的形式提供。"
 
 msgid "Discussion"
 msgstr "邮件列表"
@@ -143,6 +144,9 @@ msgid ""
 "files is at your own risk."
 msgstr "位于 unsupported 的包为用户产生的内容。使用它们造成的后果自负。"
 
+msgid "Package Search"
+msgstr "软件包搜索"
+
 msgid "Vote"
 msgstr "投票"
 
@@ -156,10 +160,10 @@ msgid "UnNotify"
 msgstr "取消通知"
 
 msgid "Flag"
-msgstr ""
+msgstr "标记"
 
 msgid "UnFlag"
-msgstr ""
+msgstr "取消标记"
 
 msgid "Login"
 msgstr "登录"
@@ -203,7 +207,7 @@ msgstr ""
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr "PKGBUILD 中缺少 %s 变量。"
+msgstr "选中的软件包未被删除，请检查确认复选框。"
 
 msgid "Error trying to retrieve package details."
 msgstr "尝试重新获取软件包详情时发生错误。"
@@ -221,10 +225,10 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr ""
+msgstr "重置密码的请求已经提交。如果您想要重置密码，请点击以下链接，否则忽略此消息。"
 
 msgid "Password Reset"
-msgstr "找回密码"
+msgstr "密码重置"
 
 msgid "Check your e-mail for the confirmation link."
 msgstr "请进入您的邮箱查看确认邮件。"
@@ -233,7 +237,7 @@ msgid "Your password has been reset successfully."
 msgstr "密码已经成功重置。"
 
 msgid "Confirm your e-mail address:"
-msgstr "确认Email:"
+msgstr "确认邮箱地址:"
 
 msgid "Enter your new password:"
 msgstr "输入新密码:"
@@ -251,10 +255,10 @@ msgid ""
 msgstr ""
 
 msgid "Enter your e-mail address:"
-msgstr "输入您的Email:"
+msgstr "输入您的邮箱地址:"
 
 msgid "Package Deletion"
-msgstr ""
+msgstr "软件包删除"
 
 #, php-format
 msgid "Delete Package: %s"
@@ -274,17 +278,17 @@ msgid "Confirm package deletion"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
+msgstr "只有受信用户和开发人员能删除软件包。"
 
 msgid "Package Merging"
-msgstr ""
+msgstr "软件包合并"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr ""
+msgstr "合并软件包: %s"
 
 #, php-format
 msgid "Use this form to merge the package (%s%s%s) into another package. "
@@ -297,16 +301,16 @@ msgid "Enter the package name you wish to merge the package into. "
 msgstr ""
 
 msgid "Merge into:"
-msgstr ""
+msgstr "合并到"
 
 msgid "Confirm package merge"
 msgstr ""
 
 msgid "Merge"
-msgstr ""
+msgstr "合并"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
+msgstr "只有受信用户和开发人员才能删除软件包。"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -350,6 +354,9 @@ msgstr "PKGBUILD 中缺少 %s 变量。"
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "包的 URL 缺少协议（如 http://，ftp://）"
+
+msgid "Error - The AUR does not support split packages!"
+msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "无效的名称: 只允许小写字母。"
@@ -419,19 +426,19 @@ msgid "Trusted User"
 msgstr "受信用户"
 
 msgid "Could not retrieve proposal details."
-msgstr "信任用户(TU)"
+msgstr "无法获取提议详情。"
 
 msgid "Voting is closed for this proposal."
 msgstr "该提议的投票已被关闭。"
 
 msgid "You cannot vote in an proposal about you."
-msgstr "无法找到要合并投票和评论的软件包。"
+msgstr "您不能在关于您的提议里投票。"
 
 msgid "You've already voted for this proposal."
-msgstr "合并进入"
+msgstr "您已经在这个提议上投票了。"
 
 msgid "Vote ID not valid."
-msgstr "修改分类"
+msgstr "非法的投票标识"
 
 msgid "Current Votes"
 msgstr "当前的投票"
@@ -474,8 +481,8 @@ msgstr "错误的 Email 地址。"
 msgid "The PGP key fingerprint is invalid."
 msgstr ""
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "受信用户不能指派开发人员状态。"
+msgid "Cannot increase account permissions."
+msgstr ""
 
 msgid "Language is not currently supported."
 msgstr "目前不支持此语言。"
@@ -500,7 +507,7 @@ msgid "Click on the Login link above to use your account."
 msgstr ""
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
 msgstr ""
 
 #, php-format
@@ -531,17 +538,17 @@ msgstr "末页"
 msgid "You must be logged in before you can flag packages."
 msgstr "您需要登录后才能标记包。"
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "您需要登录后才能移除包标记。"
-
 msgid "You did not select any packages to flag."
 msgstr "您没有选择要标记的包。"
 
-msgid "You did not select any packages to unflag."
-msgstr "您没有选择要取消标记的包。"
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "选择的包已被标记为过期。"
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "您需要登录后才能移除包标记。"
+
+msgid "You did not select any packages to unflag."
+msgstr "您没有选择要取消标记的包。"
 
 msgid "The selected packages have been unflagged."
 msgstr "选中的包的标记已被移除。"
@@ -702,7 +709,7 @@ msgid "Active"
 msgstr "激活"
 
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 msgid "Less"
 msgstr "更少"
@@ -738,13 +745,13 @@ msgid "My Packages"
 msgstr "我的包"
 
 msgid " My Account"
-msgstr ""
+msgstr "我的帐户"
 
 msgid "Register"
-msgstr ""
+msgstr "注册"
 
 msgid "Add Comment"
-msgstr ""
+msgstr "添加评论"
 
 msgid "Comment has been added."
 msgstr "已经添加评论。"
@@ -764,7 +771,7 @@ msgid "Comment by %s"
 msgstr ""
 
 msgid "All comments"
-msgstr ""
+msgstr "全部评论"
 
 msgid "unknown"
 msgstr "未知"
@@ -772,47 +779,53 @@ msgstr "未知"
 msgid "Package Details"
 msgstr "软件包详情"
 
+msgid "Package Actions"
+msgstr "软件包操作"
+
 msgid "View PKGBUILD"
 msgstr ""
 
 msgid "Download tarball"
-msgstr ""
+msgstr "下载压缩包"
 
 msgid "Flagged out-of-date"
-msgstr ""
+msgstr "已标记为过期"
 
 msgid "Flag package out-of-date"
-msgstr ""
+msgstr "标记为过期"
 
 msgid "Unflag package"
-msgstr ""
+msgstr "取消标记"
 
 msgid "Remove vote"
-msgstr ""
+msgstr "移除投票"
 
 msgid "Vote for this package"
-msgstr ""
+msgstr "为这个软件包投票"
 
 msgid "Disable notifications"
-msgstr ""
+msgstr "禁用通知"
 
 msgid "Notify of new comments"
 msgstr ""
 
 msgid "Delete Package"
-msgstr ""
+msgstr "删除软件包"
 
 msgid "Merge Package"
+msgstr "合并软件包"
+
+msgid "Adopt Package"
 msgstr ""
 
-msgid "Adopt Packages"
-msgstr "接管包"
-
-msgid "Disown Packages"
-msgstr "弃置包"
+msgid "Disown Package"
+msgstr ""
 
 msgid "Description"
 msgstr "描述"
+
+msgid "Upstream URL"
+msgstr ""
 
 msgid "Visit the website for"
 msgstr ""
@@ -834,6 +847,9 @@ msgstr ""
 
 #, php-format
 msgid "View account information for %s"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "Maintainer"
@@ -903,7 +919,7 @@ msgid "Search by"
 msgstr "搜索"
 
 msgid "Keywords"
-msgstr ""
+msgstr "关键字"
 
 msgid "Out of Date"
 msgstr "过期状态"
@@ -934,7 +950,7 @@ msgid "%d packages found. Page %d of %d."
 msgstr ""
 
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 msgid "Yes"
 msgstr "是"
@@ -947,6 +963,12 @@ msgstr "操作"
 
 msgid "Unflag Out-of-date"
 msgstr "移除过期标记"
+
+msgid "Adopt Packages"
+msgstr "接管包"
+
+msgid "Disown Packages"
+msgstr "弃置包"
 
 msgid "Any type"
 msgstr "所有类别"
@@ -979,7 +1001,7 @@ msgid "Registered Users"
 msgstr "注册用户"
 
 msgid "Trusted Users"
-msgstr ""
+msgstr "受信用户"
 
 msgid "Recent Updates"
 msgstr "最新更新"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-22 17:06+0000\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-01-30 08:28+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -140,6 +140,9 @@ msgstr ""
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
+msgstr ""
+
+msgid "Package Search"
 msgstr ""
 
 msgid "Vote"
@@ -350,6 +353,9 @@ msgstr ""
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "V URL balíčku chybý protokolo (např. http://, ftp://)"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr ""
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Chybný název: jsou povolena pouze malá písmena."
 
@@ -473,8 +479,8 @@ msgstr "Vadná emailová adresa."
 msgid "The PGP key fingerprint is invalid."
 msgstr ""
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Důvěryhodní uživatelé nemohou přidělit status vývojáře."
+msgid "Cannot increase account permissions."
+msgstr ""
 
 msgid "Language is not currently supported."
 msgstr "Jazyk není momentálné podporován."
@@ -499,7 +505,7 @@ msgid "Click on the Login link above to use your account."
 msgstr ""
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
 msgstr ""
 
 #, php-format
@@ -530,17 +536,17 @@ msgstr ""
 msgid "You must be logged in before you can flag packages."
 msgstr "Před nastavením příznaku balíčků se musíte přihlásit."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Musíte být příhlášeni, abyste mohli odznačit balíčky."
-
 msgid "You did not select any packages to flag."
 msgstr "Nezvolili jste žádný balíček k označení."
 
-msgid "You did not select any packages to unflag."
-msgstr "Nevybrali jste žádne balíčky k odebrání příznaku."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Zvoleným balíčkům byl nastaven příznak zastaralé."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Musíte být příhlášeni, abyste mohli odznačit balíčky."
+
+msgid "You did not select any packages to unflag."
+msgstr "Nevybrali jste žádne balíčky k odebrání příznaku."
 
 msgid "The selected packages have been unflagged."
 msgstr "Zvoleným bálíčkům bylo odebráno označení."
@@ -771,6 +777,9 @@ msgstr ""
 msgid "Package Details"
 msgstr "Detaily balíčku"
 
+msgid "Package Actions"
+msgstr ""
+
 msgid "View PKGBUILD"
 msgstr ""
 
@@ -804,14 +813,17 @@ msgstr ""
 msgid "Merge Package"
 msgstr ""
 
-msgid "Adopt Packages"
-msgstr "Osvojit balíček"
+msgid "Adopt Package"
+msgstr ""
 
-msgid "Disown Packages"
-msgstr "Odebrat vlastnictví"
+msgid "Disown Package"
+msgstr ""
 
 msgid "Description"
 msgstr "Popis"
+
+msgid "Upstream URL"
+msgstr ""
 
 msgid "Visit the website for"
 msgstr ""
@@ -833,6 +845,9 @@ msgstr ""
 
 #, php-format
 msgid "View account information for %s"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "Maintainer"
@@ -946,6 +961,12 @@ msgstr "Akce"
 
 msgid "Unflag Out-of-date"
 msgstr "Odebrat příznak zastaralý"
+
+msgid "Adopt Packages"
+msgstr "Osvojit balíček"
+
+msgid "Disown Packages"
+msgstr "Odebrat vlastnictví"
 
 msgid "Any type"
 msgstr "Jakýkoliv"

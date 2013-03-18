@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# Slobodan Terzić <githzerai06@gmail.com>, 2011.
+# Slobodan Terzić <githzerai06@gmail.com>, 2011-2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-22 17:06+0000\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-01-30 08:28+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/aur/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgid "Add Proposal"
 msgstr "Dodaj predlog"
 
 msgid "Invalid token for user action."
-msgstr ""
+msgstr "Neispravan token koriničke radnje."
 
 msgid "Username does not exist."
 msgstr "Koriničko ime ne postoji."
@@ -99,13 +99,13 @@ msgstr "- početna"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
+msgstr "Dobrodošli u AUR! Molimo pročitajte %sSmernice za korisnike AUR-a%s i %sSmernice za poverljive korinike%s za više informacija."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "Priloženi PKGBUILD-ovi %smoraju%s biti u skladu sa %sArčovim standardima pakiranja%s ili će biti obrisani!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Ne zaboravite da glasate za omiljene pakete!"
@@ -122,10 +122,10 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "Opšta diskusija vezana za Arčovu korisniču riznicu (AUR) i strukturu Poverljivih korisnika se vodi na dopisnoj listi %saur-general%s. On se može koristiti za zahteve spajanja, odricanja i brisanja. diskusija vezana za razvoj AUR-a se odvija na dopisnoj listi %saur-dev%s."
 
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Prijavljivanje grešaka"
 
 #, php-format
 msgid ""
@@ -133,7 +133,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr ""
+msgstr "Ukoliko naiđete na grešku, molimo da je prijavite na našem %sbubolovcu%s. Koristite ga %sisključivo%s za prijavljivanje grešaka u samom AUR-u. Za prijavljivanje grešaka u paketima, kontaktirajte održavaoca ili ostavite komentar na odgovarajućoj stranici posvećenoj paketu."
 
 msgid "DISCLAIMER"
 msgstr "UPOZORENJE"
@@ -142,6 +142,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Paketioznačeni sa [unsupported] su sadržaj koji stvaraju korisnici. Upotrebljavate ih na sopstvenu odgovornost."
+
+msgid "Package Search"
+msgstr ""
 
 msgid "Vote"
 msgstr "Daj glas"
@@ -156,10 +159,10 @@ msgid "UnNotify"
 msgstr "Ne obaveštavaj"
 
 msgid "Flag"
-msgstr ""
+msgstr "Označi"
 
 msgid "UnFlag"
-msgstr ""
+msgstr "Odznači"
 
 msgid "Login"
 msgstr "Prijava"
@@ -172,7 +175,7 @@ msgid "Logout"
 msgstr "Odjava"
 
 msgid "Enter login credentials"
-msgstr ""
+msgstr "Unesite podatke za prijavu"
 
 msgid "Username"
 msgstr "Korisničko ime"
@@ -248,81 +251,81 @@ msgstr "Nastavi"
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
 " message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Ukoliko ste zaboravili registracionu adresu e-pošte, molimo pošaljite poruku na poštansku listu %saur-general%s."
 
 msgid "Enter your e-mail address:"
 msgstr "Unesite adresu e-pošte:"
 
 msgid "Package Deletion"
-msgstr ""
+msgstr "Brisanje paketa"
 
 #, php-format
 msgid "Delete Package: %s"
-msgstr ""
+msgstr "Obriši paket: %s"
 
 #, php-format
 msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr ""
+msgstr "Ovim formularom brišete paket (%s%s%s) iz AUR-a."
 
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "Brisanje paketa je trajno."
 
 msgid "Select the checkbox to confirm action."
-msgstr ""
+msgstr "Označite kućicu za potvrdu."
 
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "Potvrdite brisanje paketa"
 
 msgid "Delete"
-msgstr ""
+msgstr "Obriši"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
+msgstr "Samo Poverljivi korisnici i Programeri mogu brisati pakete."
 
 msgid "Package Merging"
-msgstr ""
+msgstr "Spajanje paketa"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr ""
+msgstr "Spoji paket: %s"
 
 #, php-format
 msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr ""
+msgstr "Ovim formularom spajate paket (%s%s%s) sa drugim paketom."
 
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
+msgstr "Kada se jednom spoje, paketi ne mogu više biti razdvojeni."
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "Unesite ime paketa sa kojim želite da spojite ovaj paket."
 
 msgid "Merge into:"
-msgstr ""
+msgstr "Spoji sa:"
 
 msgid "Confirm package merge"
-msgstr ""
+msgstr "Potvrdite spajanje"
 
 msgid "Merge"
-msgstr ""
+msgstr "Spoji"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
+msgstr "Samo Poverljivi korisnici i Programeri mogu da spajaju pakete."
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr ""
+msgstr "Greška - Poslati fajl pervazilazi maksimalnu dozvoljenu veličinu (%s)"
 
 msgid "Error - File partially uploaded"
-msgstr ""
+msgstr "Greška - Fajl je delimično poslat"
 
 msgid "Error - No file uploaded"
 msgstr "Greška — nema poslatih fajlova"
 
 msgid "Error - Could not locate temporary upload folder"
-msgstr ""
+msgstr "Greška - Ne mogu da nađem privremenu otpremnu fasciklu "
 
 msgid "Error - File could not be written"
-msgstr ""
+msgstr "Greška - Fajl ne može biti upisan"
 
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
@@ -351,20 +354,23 @@ msgstr "U PKGBUILD-u nedostaje promenjiva %s."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Nedostaje protokol za URL paketa (npr. http://, ftp://)."
 
+msgid "Error - The AUR does not support split packages!"
+msgstr ""
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Neispravno ime: dozvoljena su samo mala slova."
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
-msgstr ""
+msgstr "Greška - Ime paketa ne može imati više od %d znakova"
 
 #, php-format
 msgid "Error - Package URL cannot be greater than %d characters"
-msgstr ""
+msgstr "Greška - URL paketa ne može imati više od %d znakova"
 
 #, php-format
 msgid "Error - Package description cannot be greater than %d characters"
-msgstr ""
+msgstr "Greška - Opis paketa ne može imati više od %d znakova"
 
 #, php-format
 msgid "Error - Package license cannot be greater than %d characters"
@@ -474,8 +480,8 @@ msgstr "Neispravna adresa e-pošte."
 msgid "The PGP key fingerprint is invalid."
 msgstr ""
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Poverljivi korisnik ne može dodeliti privilegije Programera."
+msgid "Cannot increase account permissions."
+msgstr ""
 
 msgid "Language is not currently supported."
 msgstr "Jezik trenutno nije podržan."
@@ -500,7 +506,7 @@ msgid "Click on the Login link above to use your account."
 msgstr ""
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
 msgstr ""
 
 #, php-format
@@ -531,17 +537,17 @@ msgstr "Zadnji"
 msgid "You must be logged in before you can flag packages."
 msgstr "Morate se prijaviti pre označavanja paketa."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Morate se prijaviti da bi uklonili oznake."
-
 msgid "You did not select any packages to flag."
 msgstr "Niste izabrali pakete za označavanje."
 
-msgid "You did not select any packages to unflag."
-msgstr "Niste izabrali paket za uklanjanje oznake."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Izabrani paketi su označeni kao zastareli."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Morate se prijaviti da bi uklonili oznake."
+
+msgid "You did not select any packages to unflag."
+msgstr "Niste izabrali paket za uklanjanje oznake."
 
 msgid "The selected packages have been unflagged."
 msgstr "Označenim paketima je uklonjena oznaka."
@@ -702,7 +708,7 @@ msgid "Active"
 msgstr "Aktivan"
 
 msgid "Edit"
-msgstr ""
+msgstr "Uredi"
 
 msgid "Less"
 msgstr "Manje"
@@ -738,13 +744,13 @@ msgid "My Packages"
 msgstr "Moji paketi"
 
 msgid " My Account"
-msgstr ""
+msgstr "Moj nalog"
 
 msgid "Register"
-msgstr ""
+msgstr "Registracija"
 
 msgid "Add Comment"
-msgstr ""
+msgstr "Dodaj komentar"
 
 msgid "Comment has been added."
 msgstr "Komentar je dodat."
@@ -771,6 +777,9 @@ msgstr "nepoznata"
 
 msgid "Package Details"
 msgstr "Podaci o paketu"
+
+msgid "Package Actions"
+msgstr ""
 
 msgid "View PKGBUILD"
 msgstr ""
@@ -805,14 +814,17 @@ msgstr ""
 msgid "Merge Package"
 msgstr ""
 
-msgid "Adopt Packages"
-msgstr "Usvoji paket"
+msgid "Adopt Package"
+msgstr ""
 
-msgid "Disown Packages"
-msgstr "Odrekni se paketa"
+msgid "Disown Package"
+msgstr ""
 
 msgid "Description"
 msgstr "Opis"
+
+msgid "Upstream URL"
+msgstr ""
 
 msgid "Visit the website for"
 msgstr ""
@@ -834,6 +846,9 @@ msgstr ""
 
 #, php-format
 msgid "View account information for %s"
+msgstr ""
+
+msgid "None"
 msgstr ""
 
 msgid "Maintainer"
@@ -947,6 +962,12 @@ msgstr "Radnje"
 
 msgid "Unflag Out-of-date"
 msgstr "Ukloni oznaku zastarelosti"
+
+msgid "Adopt Packages"
+msgstr "Usvoji paket"
+
+msgid "Disown Packages"
+msgstr "Odrekni se paketa"
 
 msgid "Any type"
 msgstr "Bilo koji tip"

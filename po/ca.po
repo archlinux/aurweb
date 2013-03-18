@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Hector Mtz-Seara <hseara@gmail.com>, 2011.
+# Hector Mtz-Seara <hseara@gmail.com>, 2011,2013.
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-22 17:06+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-01-30 12:09+0000\n"
+"Last-Translator: Hector Mtz-Seara <hseara@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/aur/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,10 +20,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Page Not Found"
-msgstr ""
+msgstr "Pàgina no trobada"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr ""
+msgstr "Ho sentim, la pàgina que ha sol·licitat no existeix."
 
 msgid "Accounts"
 msgstr "Compte"
@@ -50,7 +50,7 @@ msgid "Add Proposal"
 msgstr "Afegir proposta"
 
 msgid "Invalid token for user action."
-msgstr ""
+msgstr "Element invàlid per acció de l'usuari."
 
 msgid "Username does not exist."
 msgstr "Nom d'usuari no existeix."
@@ -99,13 +99,13 @@ msgstr "Inici"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
+msgstr "Benvingut a l'AUR! Si us plau, llegiu les %sdirectrius d'usuari d'AUR%s i les %sdirectrius de TU (usuari de confiança) d'AUR%s per més informació."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "És %sobligatori%s que els PKGBUILDs amb que es contribueix s'ajustin als %sEstandars d'empaquetament d'Arc%s, en cas contrari seran esborrats!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Recordeu votar els vostres paquets preferits!"
@@ -122,10 +122,10 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "El debat general sobre el repositori per usuaris d'Arch (AUR) i de l'estructura dels Usuaris de Confiança es realitza a %saur-general%s. Aquesta llista es pot utilitzar per sol·licitar l'orfandat, fusió i eliminació de paquets. Per discutir el desenvolupament de l'AUR, utilitzeu la llista de correu %saur-dev%s."
 
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Comunicar errada"
 
 #, php-format
 msgid ""
@@ -133,7 +133,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr ""
+msgstr "Si troba un error en l'AUR, si us plau, ompli un informe d'error al nostre %srastrejador d'errades%s. Utilitzeu el rastrejador per reportar %snomés%s errors d'AUR. Per informar d'errades en els paquets contacti directament amb el responsable del paquet o deixi un comentari a la pàgina del paquet corresponent."
 
 msgid "DISCLAIMER"
 msgstr "Avís legal"
@@ -142,6 +142,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Els paquets sense suport són creats per diferents usuaris. Qualsevol ús d'aquests és sempre sota el seu propi risc."
+
+msgid "Package Search"
+msgstr "Cercar Paquets"
 
 msgid "Vote"
 msgstr "Vota"
@@ -156,10 +159,10 @@ msgid "UnNotify"
 msgstr "Lleva notificació"
 
 msgid "Flag"
-msgstr ""
+msgstr "Marcar"
 
 msgid "UnFlag"
-msgstr ""
+msgstr "Desmarcar"
 
 msgid "Login"
 msgstr "Entra"
@@ -172,7 +175,7 @@ msgid "Logout"
 msgstr "Surt"
 
 msgid "Enter login credentials"
-msgstr ""
+msgstr "Introduïu les credencials d'inici de sessió"
 
 msgid "Username"
 msgstr "Nom d'usuari"
@@ -248,81 +251,81 @@ msgstr "Continuar"
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
 " message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Si ha oblidat l'adreça de correu electrònic utilitzada al registrar-se, si us plau envïi un missatge a la llista de correu %saur-general%s."
 
 msgid "Enter your e-mail address:"
 msgstr "Introduiu la vostra adreça de correu."
 
 msgid "Package Deletion"
-msgstr ""
+msgstr "Esborrament Paquet"
 
 #, php-format
 msgid "Delete Package: %s"
-msgstr ""
+msgstr "Esborrar Paquet: %s"
 
 #, php-format
 msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr ""
+msgstr "Utilitzi aquest formulari per eliminar el paquet (%s%s%s) de l'AUR."
 
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "L'esborrament del paquet és permanent."
 
 msgid "Select the checkbox to confirm action."
-msgstr ""
+msgstr "Marqueu el quadre de verificació per confirmar l'operació."
 
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "Confirmeu l'eliminació del paquet"
 
 msgid "Delete"
-msgstr ""
+msgstr "Esborra"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
+msgstr "Només els usuaris de confiança (TUs) i desenvolupadors poden eliminar paquets."
 
 msgid "Package Merging"
-msgstr ""
+msgstr "Fusió de Paquets"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr ""
+msgstr "Fusiona el Paquet: %s"
 
 #, php-format
 msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr ""
+msgstr "Utilitzi aquest formulari per fusionar el paquet (%s%s%s) amb un altre paquet."
 
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
+msgstr "Una vegada que el paquet s'ha fusionat que no es pot revertir."
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "Introdueixi el nom del paquet amb que voleu fusionar aquest paquet."
 
 msgid "Merge into:"
-msgstr ""
+msgstr "Fusionar amb:"
 
 msgid "Confirm package merge"
-msgstr ""
+msgstr "Confirmi la fusió del paquet"
 
 msgid "Merge"
-msgstr ""
+msgstr "Fusió"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
+msgstr "Només el usuaris de confiança (TUs) i desenvolupadors poden fusionar paquets."
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr ""
+msgstr "Error - L'arxiu pujat supera la grandària màxima permesa (%s)"
 
 msgid "Error - File partially uploaded"
-msgstr ""
+msgstr "Error - Arxiu parcialment pujat"
 
 msgid "Error - No file uploaded"
 msgstr "S'ha produït un error - El fitxer no s'ha pujat"
 
 msgid "Error - Could not locate temporary upload folder"
-msgstr ""
+msgstr "Error - No s'ha pogut trobar la carpeta de pujada temporal"
 
 msgid "Error - File could not be written"
-msgstr ""
+msgstr "Error - No s'ha pogut escriure l'arxiu"
 
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
@@ -351,28 +354,31 @@ msgstr "Manca la variable %s en PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Manca el protocol a la URL del paquet (per exemple: http:// , ftp://)"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr "Error - L'AUR no és compatible amb paquets partits!"
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Nom no vàlid: sols es permet lletres minúscules."
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
-msgstr ""
+msgstr "Error - El nom del paquet no pot se més gran de %d caràcters"
 
 #, php-format
 msgid "Error - Package URL cannot be greater than %d characters"
-msgstr ""
+msgstr "Error - L'enllaç del paquet no pot ser més gran de %d caràcters"
 
 #, php-format
 msgid "Error - Package description cannot be greater than %d characters"
-msgstr ""
+msgstr "Error - La descripció del paquet no pot ser més gran de %d caràcters"
 
 #, php-format
 msgid "Error - Package license cannot be greater than %d characters"
-msgstr ""
+msgstr "Error - La llicència del paquet no pot ser més gran de %d caràcters"
 
 #, php-format
 msgid "Error - Package version cannot be greater than %d characters"
-msgstr ""
+msgstr "Error - La versió del paquet no pot ser més gran de %d caràcters"
 
 #, php-format
 msgid "Could not create directory %s."
@@ -380,7 +386,7 @@ msgstr "No s'ha pogut crear el directori %s."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
+msgstr "No t'està permès sobreescriure el paquet %s%s%s."
 
 #, php-format
 msgid ""
@@ -472,40 +478,40 @@ msgid "The email address is invalid."
 msgstr "L'adreça del correu-e no és vàlida."
 
 msgid "The PGP key fingerprint is invalid."
-msgstr ""
+msgstr "L'empremta de la clau PGP no és vàlida."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Un Usuari de Confiança no pot assignar l'estat de desenvolupador."
+msgid "Cannot increase account permissions."
+msgstr "No es possible augmentar els permisos del compte."
 
 msgid "Language is not currently supported."
 msgstr "L'idioma no està suportat actualment."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
-msgstr ""
+msgstr "El nom d'usuari, %s%s%s, ja s'està fent servir."
 
 #, php-format
 msgid "The address, %s%s%s, is already in use."
-msgstr ""
+msgstr "L'adressa, %s%s%s, ja s'està fent servir."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
-msgstr ""
+msgstr "Error al intentar crear el compte, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
-msgstr ""
+msgstr "El compte, %s%s%s, s'ha creat correctament."
 
 msgid "Click on the Login link above to use your account."
-msgstr ""
+msgstr "Feu clic a l'enllaç superior d'Inici de sessió per utilitzar el seu compte."
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
-msgstr ""
+msgid "No changes were made to the account, %s%s%s."
+msgstr "No s'han fet canvis al compte, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr ""
+msgstr "El compte, %s%s%s, s'ha modificat correctament."
 
 msgid "Bad username or password."
 msgstr "nom d'usuari o contrasenya incorrectes."
@@ -531,17 +537,17 @@ msgstr "Darrer"
 msgid "You must be logged in before you can flag packages."
 msgstr "Heu d'identificar-vos abans de marcar paquets."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Heu d'identificar-vos abans de desmarcar paquets."
-
 msgid "You did not select any packages to flag."
 msgstr "No heu seleccionat cap paquet per a marcar."
 
-msgid "You did not select any packages to unflag."
-msgstr "No heu seleccionat cap paquet per a desmarcar."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Els paquets seleccionats s'han marcat com No-Actualitzats."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Heu d'identificar-vos abans de desmarcar paquets."
+
+msgid "You did not select any packages to unflag."
+msgstr "No heu seleccionat cap paquet per a desmarcar."
 
 msgid "The selected packages have been unflagged."
 msgstr "Els paquets seleccionats s'han desmarcat."
@@ -645,7 +651,7 @@ msgid "IRC Nick"
 msgstr "Nom d'usuari IRC"
 
 msgid "PGP Key Fingerprint"
-msgstr ""
+msgstr "Emprempta clau PGP"
 
 msgid "Last Voted"
 msgstr "Últim vot"
@@ -702,7 +708,7 @@ msgid "Active"
 msgstr "Actiu"
 
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 msgid "Less"
 msgstr "Menys"
@@ -738,33 +744,33 @@ msgid "My Packages"
 msgstr "Els meus paquets"
 
 msgid " My Account"
-msgstr ""
+msgstr "El meu Compte"
 
 msgid "Register"
-msgstr ""
+msgstr "Registrar-se"
 
 msgid "Add Comment"
-msgstr ""
+msgstr "Afegir un comentari"
 
 msgid "Comment has been added."
 msgstr "S'ha afegit el comentari."
 
 #, php-format
 msgid "View all %s comments"
-msgstr ""
+msgstr "Veure tots els %s comentaris."
 
 msgid "Latest Comments"
-msgstr ""
+msgstr "Darrers Comentaris"
 
 msgid "Delete comment"
 msgstr "Esborra comentari"
 
 #, php-format
 msgid "Comment by %s"
-msgstr ""
+msgstr "Comentari de %s"
 
 msgid "All comments"
-msgstr ""
+msgstr "Tots el comentaris"
 
 msgid "unknown"
 msgstr "desconegut"
@@ -772,50 +778,56 @@ msgstr "desconegut"
 msgid "Package Details"
 msgstr "Detalls del paquet"
 
+msgid "Package Actions"
+msgstr "Accions Paquet"
+
 msgid "View PKGBUILD"
-msgstr ""
+msgstr "Veure PKGBUILD"
 
 msgid "Download tarball"
-msgstr ""
+msgstr "Descarregar tarball"
 
 msgid "Flagged out-of-date"
-msgstr ""
+msgstr "Marcat com a no-actualitzat"
 
 msgid "Flag package out-of-date"
-msgstr ""
+msgstr "Marcar el paquet com a no-actualitzat"
 
 msgid "Unflag package"
-msgstr ""
+msgstr "Desmarcar el paquet"
 
 msgid "Remove vote"
-msgstr ""
+msgstr "eliminar vot"
 
 msgid "Vote for this package"
-msgstr ""
+msgstr "Vota per aquest paquet"
 
 msgid "Disable notifications"
-msgstr ""
+msgstr "Deshabilitar notificacions"
 
 msgid "Notify of new comments"
-msgstr ""
+msgstr "Notificar comentaris nous"
 
 msgid "Delete Package"
-msgstr ""
+msgstr "Esborrar el paquet"
 
 msgid "Merge Package"
-msgstr ""
+msgstr "Fusionar el paquet"
 
-msgid "Adopt Packages"
-msgstr "Apròpia paquets"
+msgid "Adopt Package"
+msgstr "Adoptar Paquet"
 
-msgid "Disown Packages"
-msgstr "Desapròpia els paquets"
+msgid "Disown Package"
+msgstr "Desposseir-se del paquet"
 
 msgid "Description"
 msgstr "Descripció"
 
+msgid "Upstream URL"
+msgstr "Enllaç URL Upstream"
+
 msgid "Visit the website for"
-msgstr ""
+msgstr "Visiti la pàgina web per"
 
 msgid "Category"
 msgstr "Categoria"
@@ -830,11 +842,14 @@ msgid "Submitter"
 msgstr "Remitent"
 
 msgid "View account information for"
-msgstr ""
+msgstr "Veure l'informació del compte per"
 
 #, php-format
 msgid "View account information for %s"
-msgstr ""
+msgstr "Veure l'informació del compte per %s"
+
+msgid "None"
+msgstr "Res"
 
 msgid "Maintainer"
 msgstr "Mantenidor"
@@ -852,7 +867,7 @@ msgid "Dependencies"
 msgstr "Dependències"
 
 msgid "View packages details for"
-msgstr ""
+msgstr "Veure els detalls del paquet per"
 
 msgid "Required by"
 msgstr "Requerit per"
@@ -894,7 +909,7 @@ msgid "Descending"
 msgstr "Descendent"
 
 msgid "Enter search criteria"
-msgstr ""
+msgstr "Introdueixi in criteri de cerca"
 
 msgid "Any"
 msgstr "Cap"
@@ -903,7 +918,7 @@ msgid "Search by"
 msgstr "Cerca per"
 
 msgid "Keywords"
-msgstr ""
+msgstr "Paraules Clau"
 
 msgid "Out of Date"
 msgstr "No-Actualitzat"
@@ -931,10 +946,10 @@ msgstr "No s'ha trobat cap coincidència amb el teu criteri de cerca."
 
 #, php-format
 msgid "%d packages found. Page %d of %d."
-msgstr ""
+msgstr "%d paquets trobats. Pàgina %d de %d."
 
 msgid "Version"
-msgstr ""
+msgstr "Versió"
 
 msgid "Yes"
 msgstr "Sí"
@@ -948,6 +963,12 @@ msgstr "Accions"
 msgid "Unflag Out-of-date"
 msgstr "Desmarca No-Actualitzat"
 
+msgid "Adopt Packages"
+msgstr "Apròpia paquets"
+
+msgid "Disown Packages"
+msgstr "Desapròpia els paquets"
+
 msgid "Any type"
 msgstr "Qualsevol tipus"
 
@@ -955,7 +976,7 @@ msgid "Last vote"
 msgstr "Últim vot"
 
 msgid "Search"
-msgstr "Cerca'"
+msgstr "Cerca"
 
 msgid "Statistics"
 msgstr "Estadístiques"

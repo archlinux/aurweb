@@ -4,17 +4,19 @@
 # 
 # Translators:
 #   <antoine@lubignon.info>, 2012.
+# Antoine Lubineau <antoine@lubignon.info>, 2013.
 # Cedric Girard <girard.cedric@gmail.com>, 2011.
 # lordheavy <lordheavym@gmail.com>, 2011.
+#  <lordheavym@gmail.com>, 2013.
 #   <lordheavym@gmail.com>, 2011-2012.
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-10-31 14:00+0000\n"
-"Last-Translator: alub <antoine@lubignon.info>\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-03-10 08:45+0000\n"
+"Last-Translator: lordheavy <lordheavym@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/aur/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -145,6 +147,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Les paquets non supportés sont produits par des utilisateurs. Toute utilisation des fichiers fournis se fait à vos propres risques."
+
+msgid "Package Search"
+msgstr "Recherche d'un paquet"
 
 msgid "Vote"
 msgstr "Voter"
@@ -354,6 +359,9 @@ msgstr "Variable %s manquante dans le PKGBUILD."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "L’URL du paquet ne contient pas de protocole (ex. : http://, ftp://)"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr "Erreur - AUR ne supporte pas les sous-paquets!"
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Nom invalide : seules les lettres minuscules sont autorisées."
 
@@ -477,8 +485,8 @@ msgstr "L'adresse email n'est pas valide."
 msgid "The PGP key fingerprint is invalid."
 msgstr "L’empreinte de clé PGP est invalide."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Un utilisateur de confiance (TU) ne peut pas assigner le statut de développeur."
+msgid "Cannot increase account permissions."
+msgstr "Ne peut pas augmenter les autorisations du compte."
 
 msgid "Language is not currently supported."
 msgstr "Cette langue n'est pas supportée pour le moment."
@@ -503,8 +511,8 @@ msgid "Click on the Login link above to use your account."
 msgstr "Cliquez sur le lien de connexion ci-dessus pour utiliser votre compte."
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
-msgstr "Erreur en essayant de modifier le compte %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Aucun changement n'ont été fait au compte, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
@@ -534,17 +542,17 @@ msgstr "Dernière"
 msgid "You must be logged in before you can flag packages."
 msgstr "Vous devez être authentifié avant de pouvoir étiqueter des paquets."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Vous devez être authentifié avant de pouvoir retirer l'étiquetage des paquets."
-
 msgid "You did not select any packages to flag."
 msgstr "Vous n'avez sélectionné aucun paquet à étiqueter."
 
-msgid "You did not select any packages to unflag."
-msgstr "Vous n'avez sélectionné aucun paquet auquel retirer l'étiquetage."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Les paquets sélectionnés ont été étiquetés comme périmés."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Vous devez être authentifié avant de pouvoir retirer l'étiquetage des paquets."
+
+msgid "You did not select any packages to unflag."
+msgstr "Vous n'avez sélectionné aucun paquet auquel retirer l'étiquetage."
 
 msgid "The selected packages have been unflagged."
 msgstr "Les paquets sélectionnés ne sont plus étiquetés."
@@ -775,6 +783,9 @@ msgstr "inconnu"
 msgid "Package Details"
 msgstr "Détails du paquet"
 
+msgid "Package Actions"
+msgstr "Actions du paquet"
+
 msgid "View PKGBUILD"
 msgstr "Voir le PKGBUILD"
 
@@ -808,14 +819,17 @@ msgstr "Supprimer le paquet"
 msgid "Merge Package"
 msgstr "Fusionner le paquet"
 
-msgid "Adopt Packages"
-msgstr "Adopter des paquets"
+msgid "Adopt Package"
+msgstr "Adopter ce paquet"
 
-msgid "Disown Packages"
-msgstr "Abandonner les paquets"
+msgid "Disown Package"
+msgstr "Destituer le paquet"
 
 msgid "Description"
 msgstr "Description"
+
+msgid "Upstream URL"
+msgstr ""
 
 msgid "Visit the website for"
 msgstr "Accéder au site web de"
@@ -838,6 +852,9 @@ msgstr "Voir les informations du compte"
 #, php-format
 msgid "View account information for %s"
 msgstr "Voir les informations du compte %s"
+
+msgid "None"
+msgstr "Aucun"
 
 msgid "Maintainer"
 msgstr "Mainteneur"
@@ -950,6 +967,12 @@ msgstr "Actions"
 
 msgid "Unflag Out-of-date"
 msgstr "Retirer l'étiquette « périmé »"
+
+msgid "Adopt Packages"
+msgstr "Adopter des paquets"
+
+msgid "Disown Packages"
+msgstr "Abandonner les paquets"
 
 msgid "Any type"
 msgstr "Tout type"

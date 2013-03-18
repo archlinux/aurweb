@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Atilla Öntaş <tarakbumba@gmail.com>, 2011.
+# Atilla Öntaş <tarakbumba@gmail.com>, 2011,2013.
 # Atilla ÖNTAŞ <tarakbumba@gmail.com>, 2012.
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011.
 # Samed Beyribey <ras0ir@eventualis.org>, 2012.
@@ -12,15 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2012-10-22 18:43+0200\n"
-"PO-Revision-Date: 2012-11-02 22:11+0000\n"
-"Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
+"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"PO-Revision-Date: 2013-02-26 15:40+0000\n"
+"Last-Translator: Atilla Öntaş <tarakbumba@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Page Not Found"
 msgstr "Sayfa Bulunamadı"
@@ -145,6 +145,9 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "Desteklenmeyen paketler kullanıcılar tarafından üretilen içeriğe sahiptirler. Bu paketlerin kullanımından doğan risk kullanıcının kendisine aittir."
+
+msgid "Package Search"
+msgstr "Paket Ara"
 
 msgid "Vote"
 msgstr "Oy ver"
@@ -354,6 +357,9 @@ msgstr "PKGBUILD içerisinde %s değişkeni eksik."
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr "Paket URL protokolü hatalı (ör. http:// ,ftp://)"
 
+msgid "Error - The AUR does not support split packages!"
+msgstr "Hata - AUR parçalı paketleri destekelememektedir!"
+
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Geçersiz isim: yalnızca küçük harf kullanılabilir."
 
@@ -477,8 +483,8 @@ msgstr "E-posta adresi geçerli değil."
 msgid "The PGP key fingerprint is invalid."
 msgstr "PGP anahtarı parmak izi hatalı."
 
-msgid "A Trusted User cannot assign Developer status."
-msgstr "Bir Güvenilen Kullanıcı, Geliştirici durumu belirleyemez."
+msgid "Cannot increase account permissions."
+msgstr "Hesap izinleri yükseltilemiyor."
 
 msgid "Language is not currently supported."
 msgstr "Dil henüz desteklenmiyor."
@@ -503,8 +509,8 @@ msgid "Click on the Login link above to use your account."
 msgstr "Hesabınızı kullanmak için Giriş bağlantısını kullanın."
 
 #, php-format
-msgid "Error trying to modify account, %s%s%s."
-msgstr "Hesap düzenlenirken hata meydana geldi, %s%s%s."
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Hesapta değişiklik yapılmadı, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
@@ -534,17 +540,17 @@ msgstr "Son"
 msgid "You must be logged in before you can flag packages."
 msgstr "Paketleri işaretleyebilmek için giriş yapmalısınız."
 
-msgid "You must be logged in before you can unflag packages."
-msgstr "Paketlerin işaretini kaldırabilmek için giriş yapmalısınız."
-
 msgid "You did not select any packages to flag."
 msgstr "İşaretlenecek paketleri seçmediniz."
 
-msgid "You did not select any packages to unflag."
-msgstr "İşareti kaldırılacak paketleri seçmediniz."
-
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Seçilen paketler güncelliğini yitirmiş olarak işaretlendi."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Paketlerin işaretini kaldırabilmek için giriş yapmalısınız."
+
+msgid "You did not select any packages to unflag."
+msgstr "İşareti kaldırılacak paketleri seçmediniz."
 
 msgid "The selected packages have been unflagged."
 msgstr "Seçilen paketlerin işareti kaldırıldı."
@@ -775,6 +781,9 @@ msgstr "bilinmiyor"
 msgid "Package Details"
 msgstr "Paket Ayrıntıları"
 
+msgid "Package Actions"
+msgstr "Paket Eylemleri"
+
 msgid "View PKGBUILD"
 msgstr "PKGBUILD görüntüle"
 
@@ -808,14 +817,17 @@ msgstr "Paketi Sil"
 msgid "Merge Package"
 msgstr "Paketi Birleştir"
 
-msgid "Adopt Packages"
-msgstr "Paketleri Sahiplen"
+msgid "Adopt Package"
+msgstr "Paketi Sahiplen"
 
-msgid "Disown Packages"
-msgstr "Paketleri sahiplenmeyi bırak"
+msgid "Disown Package"
+msgstr "Paket Sahipliğini Bırak"
 
 msgid "Description"
 msgstr "Açıklama"
+
+msgid "Upstream URL"
+msgstr "Geliştiricinin Bağlantısı"
 
 msgid "Visit the website for"
 msgstr "Web sayfasını görüntüle"
@@ -838,6 +850,9 @@ msgstr "Hesap bilgilerini görüntüle"
 #, php-format
 msgid "View account information for %s"
 msgstr "%s için hesap bilgilerini görüntüle"
+
+msgid "None"
+msgstr "Yok"
 
 msgid "Maintainer"
 msgstr "Sorumlu"
@@ -950,6 +965,12 @@ msgstr "Eylemler"
 
 msgid "Unflag Out-of-date"
 msgstr "\"Güncelliğini Yitirmiş\" İşaretini Kaldır"
+
+msgid "Adopt Packages"
+msgstr "Paketleri Sahiplen"
+
+msgid "Disown Packages"
+msgstr "Paketleri sahiplenmeyi bırak"
 
 msgid "Any type"
 msgstr "Herhangi bir tür"
