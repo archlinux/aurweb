@@ -582,6 +582,32 @@ function create_resetkey($resetkey, $uid) {
 }
 
 /**
+ * Send a reset key to a specific e-mail address
+ *
+ * @param string $email E-mail address of the user resetting their password
+ * @param string $body Body of the email
+ *
+ * @return void
+ */
+function send_resetkey($email, $body) {
+	global $AUR_LOCATION;
+
+	$uid = uid_from_email($email);
+	if ($uid != NULL && $uid != 'None') {
+		# We (ab)use new_sid() to get a random 32 characters long string
+		$resetkey = new_sid();
+		create_resetkey($resetkey, $uid);
+		# Send email with confirmation link
+		$body = wordwrap($body, 70);
+		$body .=  "\n\n".
+			  "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
+		          "resetkey={$resetkey}";
+		$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR";
+		@mail($email, 'AUR Password Reset', $body, $headers);
+	}
+}
+
+/**
  * Change a user's password in the database if reset key and e-mail are correct
  *
  * @param string $hash New MD5 hash of a user's password

@@ -37,24 +37,12 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 	}
 } elseif (isset($_POST['email'])) {
 	$email = $_POST['email'];
-	$uid = uid_from_email($email);
-	if ($uid != NULL && $uid != 'None') {
-		# We (ab)use new_sid() to get a random 32 characters long string
-		$resetkey = new_sid();
-		create_resetkey($resetkey, $uid);
-		# Send email with confirmation link
-		$body = __('A password reset request was submitted for the account '.
-		           'associated with your e-mail address. If you wish to reset '.
-		           'your password follow the link below, otherwise ignore '.
-		           'this message and nothing will happen.').
-		           "\n\n".
-			   "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
-		           "resetkey={$resetkey}";
-		$body = wordwrap($body, 70);
-		$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR";
-		@mail($email, 'AUR Password Reset', $body, $headers);
+	$body = __('A password reset request was submitted for the account '.
+	           'associated with your e-mail address. If you wish to reset '.
+	           'your password follow the link below, otherwise ignore '.
+	           'this message and nothing will happen.').
+	send_resetkey($email, $body);
 
-	}
 	header('Location: ' . get_uri('/passreset/') . '?step=confirm');
 	exit();
 }
