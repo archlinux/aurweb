@@ -175,7 +175,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		}
 	}
 	if ($error) {
-		print "<span class='error'>".$error."</span><br/>\n";
+		print "<ul class='errorlist'><li>".$error."</li></ul>\n";
 		display_account_form($UTYPE, $A, $U, $T, $S, $E, "", "",
 				$R, $L, $I, $K, $UID);
 	} else {
