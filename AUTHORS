@@ -1,141 +1,86 @@
-Names Sorted Alphabetically:
-
 Current Maintainers
---------------------
-Loui Chang (louipc) <louipc.ist@gmail.com>
-Lukas Fleischer (cryptocrack) <archlinux@cryptocrack.de>
+-------------------
+
+* canyonknight <canyonknight@gmail.com>
+* Lukas Fleischer (cryptocrack) <archlinux@cryptocrack.de>
 
 Contributors
---------------------
-Andrea Scarpino <bash.lnx@gmail.com>
-Angel Velasquez (angvp) <angvp@archlinux.com.ve>
-Athurg Gooth <athurg@gooth.cn>
-Callan Barrett (wizzo) <wizzomafizzo@gmail.com>
-Damir Perisa (dp)
-Dan McGee <dan@archlinux.org>
-Dusty Phillips (dusty)
-Douglas Soares de Andrade (dsa) <dsandrade at gmail dot com>
-Eli Janssen (eliott/cactus) <eliott@cactuswax.net>
-Eric Johnson (eric) <eric@coding-zone.com>
-Evangelos Foutras <foutrelis@gmail.com>
-Gergely Imreh <imrehg@gmail.com>
-Jaroslaw Swierczynski (swiergot)
-Jason Chu (jchu) <jason@archlinux.org>
-Joerie de Gram (Thralas) <j.de.gram@gmail.com>
-Laszlo Papp <djszapi2@gmail.com>
-Michael Klier <chi@chimeric.de>
-Nathan Jones <nathanj@insightbb.com>
-Paul Mattal (pjmattal) <paul@archlinux.org>
-Sebastian Nowicki (Xilon) <xilonmu@gmail.com>
-Simo Leone (simo) <simo@archlinux.org>
-tardo <tardo@nagi-fanboi.net>
+------------
+
+Use `git shortlog -s` for a list of AUR contributors.
 
 Translations
-====================
+------------
 
-Català
-------
-Sergio Jovani Guzman <moret.sjg@gmail.com>
+Our translations are currently maintained in Transifex; please read TRANSLATING
+for more details.
 
-Croatian
---------
-Dino Krtanjek <krtanjekdino@gmail.com>
+Below is a list of past translators before we switched to Transifex; more can
+be found by looking in the Git history.
 
-Czech
------
-Daniel Kozák <kozzi11@gmail.com>
-Jaroslav Lichtblau <dragonlord@aur.archlinux.org>
-
-Dansk
-------
-Jacob Bang <julemand101@gmail.com>
-
-Deutsch
--------
-Gerhard Brauer <gerbra@archlinux.de>
-Lukas Kropatschek
-Matthias Gorissen <matthias@archlinux.de>
-Niclas Pfeifer
-Pierre Schmitz <pierre@archlinux.de>
-Wieland Hoffmann <themineo@gmail.com>
-
-Español
--------
-Víctor Martínez Romanos <vmromanos@gmail.com>
-
-Français
---------
-Cédric Girard <girard.cedric@gmail.com>
-Cilyan Olowen <gaknar@gmail.com>
-Morgan Lefieux <comete@archlinuxfr.org>
-
-Greek
------
-artem
-dimpard
-Duryodhana
-gtklocker
-Panos Filip (flamelab) <panosfilip@gmail.com>
-paschalis.m
-ranger
-shadowman
-WAntilles
-Zaxariadis
-
-Hungarian
---------
-Gergely Imreh <imrehg@gmail.com>
-Laszlo Papp <djszapi2@gmail.com>
-
-Italiano
---------
-Andrea Scarpino <bash.lnx@gmail.com>
-Giovanni Scafora (voidnull) <giovanni@archlinux.org>
-Pierluigi Picciau <pierluigi88@gmail.com>
-
-Norwegian
----------
-Hans-Kristian Arntzen <maister@archlinux.us>
-
-Polski
-------
-Jaroslaw Swierczynski <swiergot@gmail.com>
-Mateusz Herych <heniekk@gmail.com>
-
-Português
----------
-Douglas Soares de Andrade (dsa) <dsandrade at gmail dot com>
-
-Русский
--------
-Pierre Schmitz
-Sergej Pupykin
-
-Română
-------
-Bîru Ionuț Mircea <ionut@archlinux.ro>
-
-Srpski
-------
-Slobodan Terzić <githzerai06@gmail.com>
-
-Türkçe
-------
-H.Gökhan SARI <hsa2@difuzyon.net>
-Samed Beyribey <ras0ir@eventualis.org>
-
-Українська
-----------
-Danylo Korostil <ted.korostiled@gmail.com>
-sevenfourk <sevenfourk@gmail.com>
-
-简体中文
---------
-gDD <usrgdd@gmail.com>
-Huntxu <mhuntxu@gmail.com>
-supern_lee <supern.lee@gmail.com>
-
-עברית
------
-Netanel Shine <netanelshine@gmail.com>
-
+Català:
+	Sergio Jovani Guzman <moret.sjg@gmail.com>
+Croatian:
+	Dino Krtanjek <krtanjekdino@gmail.com>
+Czech:
+	Daniel Kozák <kozzi11@gmail.com>
+	Jaroslav Lichtblau <dragonlord@aur.archlinux.org>
+Dansk:
+	Jacob Bang <julemand101@gmail.com>
+Deutsch:
+	Gerhard Brauer <gerbra@archlinux.de>
+	Lukas Kropatschek
+	Matthias Gorissen <matthias@archlinux.de>
+	Niclas Pfeifer
+	Pierre Schmitz <pierre@archlinux.de>
+	Wieland Hoffmann <themineo@gmail.com>
+Español:
+	Víctor Martínez Romanos <vmromanos@gmail.com>
+Français:
+	Cédric Girard <girard.cedric@gmail.com>
+	Cilyan Olowen <gaknar@gmail.com>
+	Morgan Lefieux <comete@archlinuxfr.org>
+Greek:
+	artem
+	dimpard
+	Duryodhana
+	gtklocker
+	Panos Filip (flamelab) <panosfilip@gmail.com>
+	paschalis.m
+	ranger
+	shadowman
+	WAntilles
+	Zaxariadis
+Hungarian:
+	Gergely Imreh <imrehg@gmail.com>
+	Laszlo Papp <djszapi2@gmail.com>
+Italiano:
+	Andrea Scarpino <bash.lnx@gmail.com>
+	Giovanni Scafora (voidnull) <giovanni@archlinux.org>
+	Pierluigi Picciau <pierluigi88@gmail.com>
+Norwegian:
+	Hans-Kristian Arntzen <maister@archlinux.us>
+Polski:
+	Jaroslaw Swierczynski <swiergot@gmail.com>
+	Mateusz Herych <heniekk@gmail.com>
+Português:
+	Douglas Soares de Andrade (dsa) <dsandrade at gmail dot com>
+Русский:
+	Pierre Schmitz
+	Sergej Pupykin
+Română:
+	Bîru Ionuț Mircea <ionut@archlinux.ro>
+Srpski:
+	Slobodan Terzić <githzerai06@gmail.com>
+Türkçe:
+	H.Gökhan SARI <hsa2@difuzyon.net>
+	Samed Beyribey <ras0ir@eventualis.org>
+Українська:
+	Danylo Korostil <ted.korostiled@gmail.com>
+	sevenfourk <sevenfourk@gmail.com>
+简体中文:
+	gDD <usrgdd@gmail.com>
+	Huntxu <mhuntxu@gmail.com>
+	supern_lee <supern.lee@gmail.com>
+עברית:
+	Netanel Shine <netanelshine@gmail.com>
