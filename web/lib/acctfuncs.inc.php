@@ -91,7 +91,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$P="",$C="",$R="",$L="",$I="",$K="",$UID=0) {
 
 	# error check and process request for a new/modified account
-	global $SUPPORTED_LANGS;
+	global $SUPPORTED_LANGS, $AUR_LOCATION;
 
 	$dbh = DB::connect();
 
@@ -107,16 +107,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("Missing a required field.");
 	}
 
-	if ($TYPE == "new") {
-		# they need password fields for this type of action
-		#
-		if (empty($P) || empty($C)) {
-			$error = __("Missing a required field.");
-		}
-	} else {
-		if (!$UID) {
-			$error = __("Missing User ID");
-		}
+	if ($TYPE != "new" && !$UID) {
+		$error = __("Missing User ID");
 	}
 
   if (!$error && !valid_username($U) && !user_is_privileged($editor_user))
@@ -190,7 +182,13 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		if ($TYPE == "new") {
 			# no errors, go ahead and create the unprivileged user
 			$salt = generate_salt();
-			$P = salted_hash($P, $salt);
+			if (empty($P)) {
+				$send_resetkey = true;
+				$email = $E;
+			} else {
+				$send_resetkey = false;
+				$P = salted_hash($P, $salt);
+			}
 			$U = $dbh->quote($U);
 			$E = $dbh->quote($E);
 			$P = $dbh->quote($P);
@@ -213,7 +211,21 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 				print __("The account, %s%s%s, has been successfully created.",
 						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 				print "<p>\n";
-				print __("Click on the Login link above to use your account.");
+				if ($send_resetkey) {
+					$body = __('Welcome to %s! In order ' .
+						'to set an initial password ' .
+						'for your new account, ' .
+						'please click the link ' .
+						'below. If the link does ' .
+						'not work try copying and ' .
+						'pasting it into your ' .
+						'browser.',
+						$AUR_LOCATION);
+					send_resetkey($email, $body);
+					print __("A password reset key has been sent to your e-mail address.");
+				} else {
+					print __("Click on the Login link above to use your account.");
+				}
 				print "</p>\n";
 			}
 
