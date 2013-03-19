@@ -105,8 +105,8 @@ if (isset($_COOKIE["AURSID"])) {
 		#
 		process_account_form("","new", "NewAccount",
 				in_request("U"), 1, 0, in_request("E"),
-				in_request("P"), in_request("C"), in_request("R"),
-				in_request("L"), in_request("I"), in_request("K"));
+				'', '', in_request("R"), in_request("L"),
+				in_request("I"), in_request("K"));
 
 	} else {
 		# display the account request form

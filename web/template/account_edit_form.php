@@ -60,17 +60,17 @@
 			<input type="text" size="30" maxlength="64" name="E" id="id_email" value="<?= htmlspecialchars($E,ENT_QUOTES) ?>" /> (<?= __("required") ?>)
 		</p>
 
+		<?php if ($A == "UpdateAccount"): ?>
 		<p>
 			<label for="id_passwd1"><?= __("Password") ?>:</label>
 			<input type="password" size="30" name="P" id="id_passwd1" value="<?= $P ?>" />
-			<?php if ($A != "UpdateAccount"): print " (".__("required").")"; endif; ?>
 		</p>
 
 		<p>
 			<label for="id_passwd2"><?= __("Re-type password") ?>:</label>
 			<input type="password" size="30" name="C" id="id_passwd2" value="<?= $C ?>" />
-			<?php if ($A != "UpdateAccount"): print " (".__("required").")"; endif; ?>
 		</p>
+		<?php endif; ?>
 
 		<p>
 			<label for="id_realname"><?= __("Real Name") ?>:</label>
