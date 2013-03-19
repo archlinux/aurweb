@@ -1,6 +1,16 @@
 Upgrading
 =========
 
+From 2.1.0 to 2.2.0
+-------------------
+
+1. Add new "Users" table login IP address column:
+
+----
+ALTER TABLE Users
+	ADD COLUMN LastLoginIPAddress INTEGER UNSIGNED NOT NULL DEFAULT 0;
+----
+
 From 2.0.0 to 2.1.0
 -------------------
 

@@ -444,7 +444,8 @@ function try_login() {
 			}
 
 			if ($logged_in) {
-				$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP() ";
+				$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP(), ";
+				$q.= "LastLoginIPAddress = " . $dbh->quote(ip2long($_SERVER['REMOTE_ADDR'])) . " ";
 				$q.= "WHERE ID = '$userID'";
 				$dbh->exec($q);
 
