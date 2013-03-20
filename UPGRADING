@@ -11,6 +11,16 @@ ALTER TABLE Users
 	ADD COLUMN LastLoginIPAddress INTEGER UNSIGNED NOT NULL DEFAULT 0;
 ----
 
+2. Add a new "Bans" table:
+
+----
+CREATE TABLE Bans (
+	IPAddress INTEGER UNSIGNED NOT NULL DEFAULT 0,
+	BanTS TIMESTAMP NOT NULL,
+	PRIMARY KEY (IPAddress)
+) ENGINE = InnoDB;
+----
+
 From 2.0.0 to 2.1.0
 -------------------
 
