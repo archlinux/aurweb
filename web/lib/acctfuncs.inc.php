@@ -93,6 +93,15 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	# error check and process request for a new/modified account
 	global $SUPPORTED_LANGS, $AUR_LOCATION;
 
+	$error = '';
+
+	if (is_ipbanned()) {
+		$error = __('Account registration has been disabled ' .
+					'for your IP address, probably due ' .
+					'to sustained spam attacks. Sorry for the ' .
+					'inconvenience.');
+	}
+
 	$dbh = DB::connect();
 
 	if(isset($_COOKIE['AURSID'])) {
@@ -102,7 +111,6 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		$editor_user = null;
 	}
 
-	$error = "";
 	if (empty($E) || empty($U)) {
 		$error = __("Missing a required field.");
 	}
@@ -400,6 +408,13 @@ function try_login() {
 	$userID = null;
 
 	if ( isset($_REQUEST['user']) || isset($_REQUEST['passwd']) ) {
+		if (is_ipbanned()) {
+			$login_error = __('The login form is currently disabled ' .
+							'for your IP address, probably due ' .
+							'to sustained spam attacks. Sorry for the ' .
+							'inconvenience.');
+			return array('SID' => '', 'error' => $login_error);
+		}
 		$dbh = DB::connect();
 		$userID = valid_user($_REQUEST['user']);
 
@@ -477,6 +492,24 @@ function try_login() {
 		}
 	}
 	return array('SID' => $new_sid, 'error' => $login_error);
+}
+
+/**
+ * Determine if the user is using a banned IP address
+ *
+ * @return bool True if IP address is banned, otherwise false
+ */
+function is_ipbanned() {
+	$dbh = DB::connect();
+
+	$q = "SELECT * FROM Bans WHERE IPAddress = " . $dbh->quote(ip2long($_SERVER['REMOTE_ADDR']));
+	$result = $dbh->query($q);
+
+	if ($result->fetchColumn()) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 /**
