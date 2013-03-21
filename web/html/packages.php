@@ -18,6 +18,12 @@ if (!isset($pkgid) || !isset($pkgname)) {
 	} else {
 		unset($pkgid, $pkgname);
 	}
+
+	if (isset($pkgid) && ($pkgid == 0 || $pkgid == NULL || $pkgname == NULL)) {
+		header("HTTP/1.0 404 Not Found");
+		include "./404.php";
+		return;
+	}
 }
 
 # Set the title to the current query and get package details if required
