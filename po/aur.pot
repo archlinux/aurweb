@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v2.0.1\n"
+"Project-Id-Version: AUR v2.1.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
+"POT-Creation-Date: 2013-03-24 22:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -348,13 +348,13 @@ msgstr ""
 msgid "Missing %s variable in PKGBUILD."
 msgstr ""
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr ""
-
 msgid "Error - The AUR does not support split packages!"
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
+msgstr ""
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
 msgstr ""
 
 #, php-format
@@ -451,6 +451,11 @@ msgstr ""
 msgid "Voters"
 msgstr ""
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
 msgid "Missing User ID"
 msgstr ""
 
@@ -499,6 +504,16 @@ msgstr ""
 msgid "The account, %s%s%s, has been successfully created."
 msgstr ""
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr ""
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr ""
+
 msgid "Click on the Login link above to use your account."
 msgstr ""
 
@@ -508,6 +523,11 @@ msgstr ""
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
+msgstr ""
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
 
 msgid "Bad username or password."
@@ -552,7 +572,7 @@ msgstr ""
 msgid "You must be logged in before you can delete packages."
 msgstr ""
 
-msgid "You do have permission to delete packages."
+msgid "You do not have permission to delete packages."
 msgstr ""
 
 msgid "You did not select any packages to delete."
