@@ -486,8 +486,16 @@ function try_login() {
 			else {
 				$login_error = "Error trying to generate session id.";
 			}
-		}
-		else {
+		} elseif (passwd_is_empty($userID)) {
+			$login_error = __('Your password has been reset. ' .
+				'If you just created a new account, please ' .
+				'use the link from the confirmation email ' .
+				'to set an initial password. Otherwise, ' .
+				'please request a reset key on the %s' .
+				'Password Reset%s page.', '<a href="' .
+				htmlspecialchars(get_uri('/passreset')) . '">',
+				'</a>');
+		} else {
 			$login_error = __("Bad username or password.");
 		}
 	}
@@ -743,6 +751,27 @@ function valid_passwd($userID, $passwd) {
 		}
 	}
 	return false;
+}
+
+/**
+ * Determine if a user's password is empty
+ *
+ * @param string $uid The user ID to check for an empty password
+ *
+ * @return bool True if the user's password is empty, otherwise false
+ */
+function passwd_is_empty($uid) {
+	$dbh = DB::connect();
+
+	$q = "SELECT * FROM Users WHERE ID = " . $dbh->quote($uid) . " ";
+	$q .= "AND Passwd = " . $dbh->quote('');
+	$result = $dbh->query($q);
+
+	if ($result->fetchColumn()) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 /**
