@@ -118,7 +118,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		header("Content-Type: image/png");
 		include "./$path";
 		break;
-	case "/js/bootstrap-typeahead.js":
+	case "/js/bootstrap-typeahead.min.js":
 		header("Content-Type: application/javascript");
 		include "./$path";
 		break;

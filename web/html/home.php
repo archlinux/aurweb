@@ -106,7 +106,7 @@ html_header( __("Home") );
 
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript" src="/js/bootstrap-typeahead.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     $('#pkgsearch-field').typeahead({
