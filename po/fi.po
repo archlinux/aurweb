@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
-"PO-Revision-Date: 2013-01-30 08:28+0000\n"
+"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"PO-Revision-Date: 2013-03-25 01:20+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/aur/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -350,14 +350,14 @@ msgstr "Virhe pureattaessa lähdepakettia - PKGBUILD tiedostoa ei löydy."
 msgid "Missing %s variable in PKGBUILD."
 msgstr "Muuttuja %s ei ole määriteltynä PKGBUILD-tiedostossa."
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Paketin osoitteesta puutuu protokolla (esim. http://, ftp://)"
-
 msgid "Error - The AUR does not support split packages!"
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Virheellinen nimi: vain pienet kirjaimet ovat sallittuja."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Paketin osoitteesta puutuu protokolla (esim. http://, ftp://)"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -453,6 +453,11 @@ msgstr "Seuraava"
 msgid "Voters"
 msgstr "Äänestäjät"
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
 msgid "Missing User ID"
 msgstr "Käyttäjän tunnus puuttuu"
 
@@ -501,6 +506,16 @@ msgstr ""
 msgid "The account, %s%s%s, has been successfully created."
 msgstr ""
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr ""
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr ""
+
 msgid "Click on the Login link above to use your account."
 msgstr ""
 
@@ -510,6 +525,18 @@ msgstr ""
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
+msgstr ""
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
 msgstr ""
 
 msgid "Bad username or password."
@@ -554,8 +581,8 @@ msgstr "Valittuilta paketeilta on poistettu merkintä."
 msgid "You must be logged in before you can delete packages."
 msgstr "Sinun pitää kirjautua sisään, ennen kuin voit poistaa paketteja."
 
-msgid "You do have permission to delete packages."
-msgstr "Sinulla on oikeudet pakettien poistamiseen."
+msgid "You do not have permission to delete packages."
+msgstr ""
 
 msgid "You did not select any packages to delete."
 msgstr "Et valinnut yhtään pakettia poistettavaksi."

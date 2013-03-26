@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
-"PO-Revision-Date: 2013-02-28 11:23+0000\n"
-"Last-Translator: panda_z <panda.hust@gmail.com>\n"
+"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/aur/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -352,14 +352,14 @@ msgstr "尝试解压上传的包发生错误 - 没有PKGBUILD文件。"
 msgid "Missing %s variable in PKGBUILD."
 msgstr "PKGBUILD 中缺少 %s 变量。"
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "包的 URL 缺少协议（如 http://，ftp://）"
-
 msgid "Error - The AUR does not support split packages!"
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "无效的名称: 只允许小写字母。"
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "包的 URL 缺少协议（如 http://，ftp://）"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -455,6 +455,11 @@ msgstr "下一页"
 msgid "Voters"
 msgstr "投票"
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
 msgid "Missing User ID"
 msgstr "缺少用户标识"
 
@@ -503,6 +508,16 @@ msgstr ""
 msgid "The account, %s%s%s, has been successfully created."
 msgstr ""
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr ""
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr ""
+
 msgid "Click on the Login link above to use your account."
 msgstr ""
 
@@ -512,6 +527,18 @@ msgstr ""
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
+msgstr ""
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
 msgstr ""
 
 msgid "Bad username or password."
@@ -556,8 +583,8 @@ msgstr "选中的包的标记已被移除。"
 msgid "You must be logged in before you can delete packages."
 msgstr "登陆后才能删除软件包。"
 
-msgid "You do have permission to delete packages."
-msgstr "您没有删除软件包的权限。"
+msgid "You do not have permission to delete packages."
+msgstr ""
 
 msgid "You did not select any packages to delete."
 msgstr "您没有选择要删除的包。"

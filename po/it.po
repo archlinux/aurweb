@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
-"PO-Revision-Date: 2013-03-10 13:16+0000\n"
+"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"PO-Revision-Date: 2013-03-25 19:35+0000\n"
 "Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/aur/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -351,14 +351,14 @@ msgstr "Si è verificato un errore nello scompattare il file inviato. Non esiste
 msgid "Missing %s variable in PKGBUILD."
 msgstr "Manca la variabile %s nel PKGBUILD."
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Manca un protocollo nell'url del pacchetto (es: http:// ,ftp://)"
-
 msgid "Error - The AUR does not support split packages!"
 msgstr "Errore: AUR non offre supporto per i pacchetti divisi!"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Il nome non è valido: sono consentite solo le lettere minuscole."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Manca un protocollo nell'url del pacchetto (es: http:// ,ftp://)"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -454,6 +454,11 @@ msgstr "Successivo"
 msgid "Voters"
 msgstr "Votanti"
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "È stato inviato un key reset della password al tuo indirizzo e-mail."
+
 msgid "Missing User ID"
 msgstr "Manca l'ID dell'utente"
 
@@ -502,6 +507,16 @@ msgstr "Si è verificato un errore durante la creazione dell'account %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "L'account %s%s%s è stato creato con successo."
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr "Benvenuto in %s! Per impostare una password iniziale del tuo nuovo account, clicca sul link sottostante. Se il link non dovesse funzionare, prova a copiarlo e ad incollarlo nella barra degli indirizzi del tuo browser."
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "È stato inviato un key reset della password al tuo indirizzo e-mail."
+
 msgid "Click on the Login link above to use your account."
 msgstr "Per utilizzare il tuo account, clicca sul link Accedi."
 
@@ -512,6 +527,18 @@ msgstr "Non sono state apportate modifiche all'account %s%s%s."
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "L'account %s%s%s è stato modificato con successo."
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Il modulo d'accesso è attualmente disabilitato per il tuo indirizzo IP, probabilmente a causa di prolungati attacchi di spam. Ci scusiamo per l'inconveniente."
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "La tua password è stata resettata. Se hai appena creato un nuovo account, usa il link presente nell'email di conferma, per impostare una password iniziale. Altrimenti, richiedi un key reset dalla pagina %sPassword Reset%s."
 
 msgid "Bad username or password."
 msgstr "Nome utente o password errati."
@@ -555,7 +582,7 @@ msgstr "I pacchetti selezionati non sono più contrassegnati."
 msgid "You must be logged in before you can delete packages."
 msgstr "Devi autenticarti prima di poter eliminare i pacchetti."
 
-msgid "You do have permission to delete packages."
+msgid "You do not have permission to delete packages."
 msgstr "Non hai il permesso di eliminare i pacchetti."
 
 msgid "You did not select any packages to delete."

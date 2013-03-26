@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
-"PO-Revision-Date: 2013-03-12 22:11+0000\n"
+"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"PO-Revision-Date: 2013-03-25 16:02+0000\n"
 "Last-Translator: axil Pι <axilleas@archlinux.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/aur/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -354,14 +354,14 @@ msgstr "Σφάλμα κατά το ξεπακετάρισμα του ανεβα�
 msgid "Missing %s variable in PKGBUILD."
 msgstr "Λείπει η μεταβλητή %s στο PKGBUILD."
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου."
-
 msgid "Error - The AUR does not support split packages!"
 msgstr "Σφάλμα - Το AUR δεν υποστηρίζει διαχωρισμένα πακέτα!"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Μη έγκυρο όνομα: μόνο πεζοί χαρακτήρες επιτρέπονται."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου."
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -457,6 +457,11 @@ msgstr "Επόμενο"
 msgid "Voters"
 msgstr "Ψηφίσαντες"
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Η εγγραφή λογαριασμών έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ενόχληση."
+
 msgid "Missing User ID"
 msgstr "Λείπει το ID Χρήστη"
 
@@ -505,6 +510,16 @@ msgstr "Σφάλμα κατά τη δημιουργία του λογαριασ�
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Ο λογαριασμός, %s%s%s, δημιουργήθηκε επιτυχώς."
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr "Καλώς ήρθατε στο %s! Για να ορίσετε έναν αρχικό κωδικό για το νέο σας λογαριασμό, παρακαλώ πατήστε τον παρακάτω σύνδεσμο. Αν ο σύνδεσμος δε δουλέψει προσπαθήστε να τον κάνετε αντιγραφή και επικόλληση στον browser σας."
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "Ένα κλειδί επαναφοράς του κωδικού έχει σταλεί στην ηλεκτρονική σας διεύθυνση."
+
 msgid "Click on the Login link above to use your account."
 msgstr "Πατήστε στον παραπάνω σύνδεσμο Σύνδεση για να χρησιμοποιήσετε το λογαριασμό σας."
 
@@ -515,6 +530,18 @@ msgstr "Δεν έγιναν αλλαγές στο λογαριασμό, %s%s%s."
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Ο λογαριασμός, %s%s%s, τροποποποιήθηκε επιτυχώς."
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "Η επαναφορά του κωδικού σας έχει πραγματοποιηθεί. Αν μόλις δημιουργήσατε ένα νέο λογαρισμό, παρακαλώ χρησιμοποιείστε τον σύνδεσμο από το email ενεργοποίησης για να ορίσετε έναν αρχικό κωδικό. Διαφορετικά, παρακαλείσθε να ζητήσετε ένα κλειδί επαναφοράς στη σελίδα %sPassword Reset%s."
 
 msgid "Bad username or password."
 msgstr "Λάθος όνομα χρήστη ή συνθηματικό."
@@ -558,8 +585,8 @@ msgstr "Τα συγκεκριμένα πακέτα έχουν αποεπισημ
 msgid "You must be logged in before you can delete packages."
 msgstr "Πρέπει να είστε συνδεδεμένοι για να μπορέσετε να διαγράψετε τα πακέτα."
 
-msgid "You do have permission to delete packages."
-msgstr "Έχετε τα απαραίτητα δικαιώματα για να διαγράψετε τα πακέτα."
+msgid "You do not have permission to delete packages."
+msgstr "Δεν έχετε τα απαραίτητα δικαιώματα για να διαγράψετε τα πακέτα."
 
 msgid "You did not select any packages to delete."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για να διαγράψετε."

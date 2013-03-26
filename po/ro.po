@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
-"PO-Revision-Date: 2013-03-15 21:10+0000\n"
-"Last-Translator: Mihai Coman <mihai@m1x.ro>\n"
+"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -351,14 +351,14 @@ msgstr "Eroarea la dezarhiare - PKGBUILD nu există."
 msgid "Missing %s variable in PKGBUILD."
 msgstr "Lipsește variabila %s în PKGBUILD."
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "În URL-ul pachetului lipsește protocolul (exemplu: http://, ftp://)"
-
 msgid "Error - The AUR does not support split packages!"
 msgstr "Eroare - AUR nu are suport pentru pachete împărțite!"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Numele nu este valid: doar litere mici sunt permise."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "În URL-ul pachetului lipsește protocolul (exemplu: http://, ftp://)"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -454,6 +454,11 @@ msgstr "Înainte"
 msgid "Voters"
 msgstr "Votanți"
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
 msgid "Missing User ID"
 msgstr "ID-ul utilizatorului lipsește"
 
@@ -502,6 +507,16 @@ msgstr "Eroare la încercarea de a crea contul, %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Contul %s%s%s a fost creat cu succes."
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr ""
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr ""
+
 msgid "Click on the Login link above to use your account."
 msgstr "Clic pe legătura către Autentificare pentru a-ți folosi contul"
 
@@ -512,6 +527,18 @@ msgstr "Nu a fost efectuată nicio modificare asupra contului, %s%s%s."
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Contul %s%s%s a fost modificat cu succes."
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr ""
 
 msgid "Bad username or password."
 msgstr "Nume de utilizator sau parolă greșite."
@@ -555,8 +582,8 @@ msgstr "La pachetele selectate a fost eliminat marcajul de Neactualizat."
 msgid "You must be logged in before you can delete packages."
 msgstr "Trebuie să fi autentificat înainte de a putea șterge pachete."
 
-msgid "You do have permission to delete packages."
-msgstr "Nu ai permisiunea de a șterge pachete."
+msgid "You do not have permission to delete packages."
+msgstr ""
 
 msgid "You did not select any packages to delete."
 msgstr "Nu ai selectat niciun pachet pentru a fi șters."

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
-"PO-Revision-Date: 2013-01-31 15:44+0000\n"
+"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"PO-Revision-Date: 2013-03-25 10:48+0000\n"
 "Last-Translator: Alexander Rødseth <rodseth@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/aur/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,7 @@ msgid ""
 msgstr "Innsendte PKGBUILD-filer %små%s følge %sStandarden for Arch Pakker%s ellers vil de bli slettet!"
 
 msgid "Remember to vote for your favourite packages!"
-msgstr "Husk å stemme på din favorittpakke!"
+msgstr "Husk å stemme på dine favorittpakker!"
 
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Noen pakker finnes som binærfiler i [community]."
@@ -351,14 +351,14 @@ msgstr "Feil oppstod under utpakking av opplastet fil - PKGBUILD finnes ikke."
 msgid "Missing %s variable in PKGBUILD."
 msgstr "Mangler variabelen %s i PKGBUILD."
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Pakkens URL mangler en protokoll (som http:// eller ftp://)"
-
 msgid "Error - The AUR does not support split packages!"
 msgstr "Feil - AUR støtter ikke splittede pakker!"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Ugyldig navn: kun små bokstaver er lov."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Pakkens URL mangler en protokoll (som http:// eller ftp://)"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -454,6 +454,11 @@ msgstr "Neste"
 msgid "Voters"
 msgstr "Velgere"
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Funksjonen for registrering av nye kontoer har blitt slått av for din IP adresse, sannsynligvis på grunn av vedvarende spam-angrep. Vi beklager ulempen dette medfører."
+
 msgid "Missing User ID"
 msgstr "Mangler bruker-ID"
 
@@ -502,6 +507,16 @@ msgstr "Feil ved oppretting av konto, %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Kontoen, %s%s%s, har nå blitt laget."
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr "Velkommen til %s! Lag et passord for din nye konto ved å trykke på lenken nedenfor. Dersom lenken ikke virker, kopier og lim adressen inn i nettleseren din."
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "Nullstillingskode har blitt sendt til e-post adressen din."
+
 msgid "Click on the Login link above to use your account."
 msgstr "Klikk på Logg inn lenken over for å bruke kontoen."
 
@@ -512,6 +527,18 @@ msgstr "Ingen endringer ble utført på kontoen, %s%s%s."
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Kontoen, %s%s%s, har nå blitt endret."
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Inlogging er slått av for din IP adresse, sannsynligvis på grunn av vedvarende spam-angrep. Beklager ulempen dette medfører."
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "Passordet ditt har blitt nullstilt. Dersom du akkurat laget en ny konto, vennligst følg lenken som ble sendt på e-post, for å sette et passord. Hvis ikke, bruk %sNullstill Passord% siden til å få tilsendt en nullstillingskode."
 
 msgid "Bad username or password."
 msgstr "Ugyldig brukernavn eller passord."
@@ -555,8 +582,8 @@ msgstr "De valgte pakkene fått fjernet markeringen."
 msgid "You must be logged in before you can delete packages."
 msgstr "Du må være logget inn før du kan slette pakker."
 
-msgid "You do have permission to delete packages."
-msgstr "Du har tilgang til å slette pakker."
+msgid "You do not have permission to delete packages."
+msgstr "Du har ikke rettighetene som skal til for å kunne slette pakker."
 
 msgid "You did not select any packages to delete."
 msgstr "Du valgte ingen pakker for sletting."

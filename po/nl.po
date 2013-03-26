@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
-"PO-Revision-Date: 2013-01-31 08:17+0000\n"
+"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"PO-Revision-Date: 2013-03-25 08:37+0000\n"
 "Last-Translator: Sietse <sietse@vdmolen.eu>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/aur/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -352,14 +352,14 @@ msgstr "Fout bij het uitpakken van de upload - PKGBUILD bestaat niet."
 msgid "Missing %s variable in PKGBUILD."
 msgstr "Missende %s variabele in PKGBUILD."
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Pakketurl mist een protocol (bv. http://, ftp://)"
-
 msgid "Error - The AUR does not support split packages!"
 msgstr "Fout - De AUR ondersteunt geen gedeelde pakketten!"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Ongeldige naam: alleen kleine letters zijn toegestaan."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Pakketurl mist een protocol (bv. http://, ftp://)"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -455,6 +455,11 @@ msgstr "Volgende"
 msgid "Voters"
 msgstr "Stemmers"
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Registratie is uitgeschakeld voor jouw IP adres, waarschijnlijk vanwege langdurige spam aanvallen. Excuses voor het ongemak."
+
 msgid "Missing User ID"
 msgstr "Missende User ID"
 
@@ -503,6 +508,16 @@ msgstr "Fout bij het aanmaken van account %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Het account %s%s%s is met succes aangemaakt."
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr "Welkom bij %s! Om een nieuw wachtwoord voor je account in te stellen, klik de link hier onder. Als de link niet werkt, probeer dan om het te kopiëren en te plakken in je browser."
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "Een sleutel voor het resetten van je wachtwoord is verstuurd naar je e-mail adres."
+
 msgid "Click on the Login link above to use your account."
 msgstr "Klik op de Login link hierboven om je account te gebruiken"
 
@@ -513,6 +528,18 @@ msgstr "Geen veranderingen zijn gemaakt aan het account, %s%s%s."
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Het account %s%s%s is met succes aangepast."
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Het log-in formulier is uitgeschakeld voor je IP adres, waarschijnlijk vanwege langdurige spam-aanvallen. Excuses voor het ongemak."
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "Je wachtwoord is gereset. Als je net een nieuwe account hebt aangemaakt, gebruik dan de link uit de bevestigingsmail om een wachtwoord te genereren.  In andere gevallen, vraag een herstelsleutel aan op de %sPassword Reset%s pagina."
 
 msgid "Bad username or password."
 msgstr "Verkeerd gebruiker of wachtwoord"
@@ -556,8 +583,8 @@ msgstr "De markering voor de geselecteerde pakketten is verwijderd."
 msgid "You must be logged in before you can delete packages."
 msgstr "Je moet ingelogd zijn voordat je pakketten kunt verwijderen."
 
-msgid "You do have permission to delete packages."
-msgstr "Je hebt toestemming om pakketten te verwijderen."
+msgid "You do not have permission to delete packages."
+msgstr "Je hebt geen toestemming om pakketten te verwijderen."
 
 msgid "You did not select any packages to delete."
 msgstr "Je hebt geen pakketten geselecteerd om te verwijderen."

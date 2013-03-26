@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-01-30 09:26+0100\n"
-"PO-Revision-Date: 2013-01-30 12:09+0000\n"
+"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"PO-Revision-Date: 2013-03-25 05:24+0000\n"
 "Last-Translator: Hector Mtz-Seara <hseara@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/aur/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -351,14 +351,14 @@ msgstr "S'ha produït un error en intentar desempaquetar la pujada - El PKGBUILD
 msgid "Missing %s variable in PKGBUILD."
 msgstr "Manca la variable %s en PKGBUILD."
 
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Manca el protocol a la URL del paquet (per exemple: http:// , ftp://)"
-
 msgid "Error - The AUR does not support split packages!"
 msgstr "Error - L'AUR no és compatible amb paquets partits!"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Nom no vàlid: sols es permet lletres minúscules."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "Manca el protocol a la URL del paquet (per exemple: http:// , ftp://)"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -454,6 +454,11 @@ msgstr "Següent"
 msgid "Voters"
 msgstr "Votants"
 
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "El registre de comptes ha estat inhabilitat per la seva adreça IP, probablement a causa de continus atacs d'spam. Disculpeu les molèsties."
+
 msgid "Missing User ID"
 msgstr "Manca l'identificador de l'usuari"
 
@@ -502,6 +507,16 @@ msgstr "Error al intentar crear el compte, %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "El compte, %s%s%s, s'ha creat correctament."
 
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr "Benvingut a %s! Per configurar una contrasenya inicial per la seu nou compte feu clic a l'enllaç de sota. Si l'enllaç no funciona, tracti de copiar-lo i enganxar-lo al seu navegador."
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "S'ha enviat una contrasenya nova al seu correu electrònic."
+
 msgid "Click on the Login link above to use your account."
 msgstr "Feu clic a l'enllaç superior d'Inici de sessió per utilitzar el seu compte."
 
@@ -512,6 +527,18 @@ msgstr "No s'han fet canvis al compte, %s%s%s."
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "El compte, %s%s%s, s'ha modificat correctament."
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "El formulari de registre està deshabilitat per la seva adreça IP, probablement a causa de continus atacs d'spam. Disculpeu les molèsties."
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "La seva contrasenya s'ha restablert. Si acaba de crear un nou compte, si us plau utilitzeu l'enllaç al correu electrònic de confirmació per configurar una contrasenya inicial. En cas contrari, sol·liciti una clau de reinici a la pàgina %s de restabliment de contanenya %s."
 
 msgid "Bad username or password."
 msgstr "nom d'usuari o contrasenya incorrectes."
@@ -555,8 +582,8 @@ msgstr "Els paquets seleccionats s'han desmarcat."
 msgid "You must be logged in before you can delete packages."
 msgstr "Ha d'estar registrat per poder esborrar els paquets."
 
-msgid "You do have permission to delete packages."
-msgstr "No te permís per esborrar paquets."
+msgid "You do not have permission to delete packages."
+msgstr "No té permís per eliminar paquets."
 
 msgid "You did not select any packages to delete."
 msgstr "No heu seleccionat cap paquet per a esborrar."
