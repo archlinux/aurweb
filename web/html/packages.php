@@ -26,12 +26,9 @@ if (!isset($pkgid) || !isset($pkgname)) {
 	}
 }
 
-# Set the title to the current query and get package details if required
-$details = array();
-
+# Set the title to the current query or package name
 if (isset($pkgname)) {
 	$title = $pkgname;
-	$details = get_package_details($pkgid);
 } else if (!empty($_GET['K'])) {
 	$title = __("Search Criteria") . ": " . $_GET['K'];
 } else {
@@ -100,6 +97,12 @@ if (check_token()) {
 	} elseif (current_action("do_ChangeCategory")) {
 		$output = pkg_change_category($pkgid, $atype);
 	}
+}
+
+# Get package details after package actions have been attempted, FS#34508
+$details = array();
+if (isset($pkgname)) {
+	$details = get_package_details($pkgid);
 }
 
 html_header($title, $details);
