@@ -88,7 +88,7 @@ if (isset($_COOKIE["AURSID"])) {
 			# display the search page if they're a TU/dev
 			#
 			print __("Use this form to search existing accounts.")."<br />\n";
-			search_accounts_form();
+			include('search_accounts_form.php');
 
 		} else {
 			print __("You are not allowed to access this area.");

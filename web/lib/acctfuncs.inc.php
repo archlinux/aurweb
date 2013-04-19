@@ -277,16 +277,6 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 }
 
 /**
- * Include the search accounts form
- *
- * @return void
- */
-function search_accounts_form() {
-	include("search_accounts_form.php");
-	return;
-}
-
-/**
  * Display the search results page
  *
  * @param string $UTYPE User type of the account accessing the form
