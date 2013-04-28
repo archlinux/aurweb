@@ -189,11 +189,11 @@ dblist_create(void)
   int i;
 
   for (i = 0; i < sizeof(alpm_repos) / sizeof(char *); i++) {
-    if (!alpm_db_register_sync(handle, alpm_repos[i], 0))
+    if (!alpm_register_syncdb(handle, alpm_repos[i], 0))
       alpm_die("failed to register sync db \"%s\": %s\n", alpm_repos[i]);
   }
 
-  if (!(dblist = alpm_option_get_syncdbs(handle)))
+  if (!(dblist = alpm_get_syncdbs(handle)))
     alpm_die("failed to get sync DBs: %s\n");
 
   for (d = dblist; d; d = alpm_list_next(d)) {
