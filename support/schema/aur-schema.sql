@@ -198,6 +198,7 @@ CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   User VARCHAR(32) NOT NULL,
   Submitted bigint(20) unsigned NOT NULL,
   End bigint(20) unsigned NOT NULL,
+  Quorum decimal(2, 2) unsigned NOT NULL,
   SubmitterID int(10) unsigned NOT NULL,
   Yes tinyint(3) unsigned NOT NULL default '0',
   No tinyint(3) unsigned NOT NULL default '0',
