@@ -618,10 +618,16 @@ function open_user_proposals($user) {
 function add_tu_proposal($agenda, $user, $votelength, $submitteruid) {
 	$dbh = DB::connect();
 
-	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, SubmitterID) VALUES ";
+	$q = "SELECT COUNT(*) FROM Users WHERE AccountTypeID = 2";
+	$result = $dbh->query($q);
+	$row = $result->fetch(PDO::FETCH_NUM);
+	$active_tus = $row[0];
+
+	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, ";
+	$q.= "SubmitterID, ActiveTUs) VALUES ";
 	$q.= "(" . $dbh->quote($agenda) . ", " . $dbh->quote($user) . ", ";
 	$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . $dbh->quote($votelength);
-	$q.= ", " . $submitteruid . ")";
+	$q.= ", " . $submitteruid . ", " . $active_tus . ")";
 	$result = $dbh->exec($q);
 }
 

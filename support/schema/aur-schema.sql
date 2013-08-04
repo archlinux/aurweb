@@ -202,6 +202,7 @@ CREATE TABLE IF NOT EXISTS TU_VoteInfo (
   Yes tinyint(3) unsigned NOT NULL default '0',
   No tinyint(3) unsigned NOT NULL default '0',
   Abstain tinyint(3) unsigned NOT NULL default '0',
+  ActiveTUs tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (ID),
   FOREIGN KEY (SubmitterID) REFERENCES Users(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
