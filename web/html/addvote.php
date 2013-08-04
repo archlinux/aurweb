@@ -37,16 +37,34 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 			}
 		}
 
-		if (!empty($_POST['length'])) {
-			if (!is_numeric($_POST['length'])) {
-				$error.=  __("Length must be a number.") ;
-			} else if ($_POST['length'] < 1) {
-				$error.= __("Length must be at least 1.");
-			} else {
-				$len = (60*60*24)*$_POST['length'];
+		if (!empty($_POST['type'])) {
+			switch ($_POST['type']) {
+			case "add_tu":
+				/* Addition of a TU */
+				$len = 7 * 24 * 60 * 60;
+				$quorum = 0.66;
+				break;
+			case "remove_tu":
+				/* Removal of a TU */
+				$len = 7 * 24 * 60 * 60;
+				$quorum = 0.75;
+				break;
+			case "remove_inactive_tu":
+				/* Removal of a TU (undeclared inactivity) */
+				$len = 5 * 24 * 60 * 60;
+				$quorum = 0.66;
+				break;
+			case "bylaws":
+				/* Amendment of Bylaws */
+				$len = 7 * 24 * 60 * 60;
+				$quorum = 0.75;
+				break;
+			default:
+				$error.=  __("Invalid type.") ;
+				break;
 			}
 		} else {
-			$len = 60*60*24*7;
+			$error.=  __("Invalid type.") ;
 		}
 
 		if (empty($_POST['agenda'])) {
@@ -55,7 +73,7 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 	}
 
 	if (!empty($_POST['addVote']) && empty($error)) {
-		add_tu_proposal($_POST['agenda'], $_POST['user'], $len, $uid);
+		add_tu_proposal($_POST['agenda'], $_POST['user'], $len, $quorum, $uid);
 
 		print "<p class=\"pkgoutput\">" . __("New proposal submitted.") . "</p>\n";
 	} else {
@@ -75,9 +93,13 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 			<?= __("(empty if not applicable)") ?>
 		</p>
 		<p>
-			<label for="id_length"><?= __("Length in days") ?></label>
-			<input type="text" name="length" id="id_length" value="<?php if (!empty($_POST['length'])) { print htmlentities($_POST['length'], ENT_QUOTES); } ?>" />
-			<?= __("(defaults to 7 if empty)") ?>
+			<label for="id_type"><?= __("Type") ?></label>
+			<select name="type" id="id_type">
+				<option value="add_tu"><?= __("Addition of a TU") ?></option>
+				<option value="remove_tu"><?= __("Removal of a TU") ?></option>
+				<option value="remove_inactive_tu"><?= __("Removal of a TU (undeclared inactivity)") ?></option>
+				<option value="bylaws"><?= __("Amendment of Bylaws") ?></option>
+			</select>
 		</p>
 		<p>
 		<label for="id_agenda"><?= __("Proposal") ?></label><br />
