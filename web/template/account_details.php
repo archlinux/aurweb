@@ -38,6 +38,12 @@
 					<td><?= html_format_pgp_fingerprint($row["PGPKey"]) ?></td>
 				</tr>
 				<tr>
+					<th><?= __("Status") . ":" ?></th>
+					<td>
+					<?= $row["InactivityTS"] ? __("Inactive since") . ' ' . date("Y-m-d H:i", $row["InactivityTS"]) : __("Active"); ?>
+					</td>
+				</tr>
+				<tr>
 					<th><?= __("Last Voted") . ":" ?></th>
 					<td>
 					<?= $row["LastVoted"] ? date("Y-m-d", $row["LastVoted"]) : __("Never"); ?>

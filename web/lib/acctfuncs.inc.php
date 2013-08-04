@@ -54,12 +54,13 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $L The language preference of the displayed user
  * @param string $I The IRC nickname of the displayed user
  * @param string $K The PGP key fingerprint of the displayed user
+ * @param string $J The inactivity status of the displayed user
  * @param string $UID The user ID of the displayed user
  *
  * @return void
  */
 function display_account_form($UTYPE,$A,$U="",$T="",$S="",
-			$E="",$P="",$C="",$R="",$L="",$I="",$K="",$UID=0) {
+		$E="",$P="",$C="",$R="",$L="",$I="",$K="",$J="", $UID=0) {
 	global $SUPPORTED_LANGS;
 
 	include("account_edit_form.php");
@@ -83,12 +84,13 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
  * @param string $L The language preference of the user
  * @param string $I The IRC nickname of the user
  * @param string $K The PGP fingerprint of the user
+ * @param string $J The inactivity status of the user
  * @param string $UID The user ID of the modified account
  *
  * @return string|void Return void if successful, otherwise return error
  */
 function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
-			$P="",$C="",$R="",$L="",$I="",$K="",$UID=0) {
+			$P="",$C="",$R="",$L="",$I="",$K="",$J="",$UID=0) {
 
 	# error check and process request for a new/modified account
 	global $SUPPORTED_LANGS, $AUR_LOCATION;
@@ -185,7 +187,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 	if ($error) {
 		print "<ul class='errorlist'><li>".$error."</li></ul>\n";
 		display_account_form($UTYPE, $A, $U, $T, $S, $E, "", "",
-				$R, $L, $I, $K, $UID);
+				$R, $L, $I, $K, $J, $UID);
 	} else {
 		if ($TYPE == "new") {
 			# no errors, go ahead and create the unprivileged user
@@ -206,9 +208,10 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$I = $dbh->quote($I);
 			$K = $dbh->quote(str_replace(" ", "", $K));
 			$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
-			$q.= "Username, Email, Passwd, Salt, RealName, ";
-			$q.= "LangPreference, IRCNick, PGPKey) VALUES (1, 0, ";
-			$q.= "$U, $E, $P, $salt, $R, $L, $I, $K)";
+			$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
+			$q.= "RealName, LangPreference, IRCNick, PGPKey) ";
+			$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, ";
+			$q.= "$I, $K)";
 			$result = $dbh->exec($q);
 			if (!$result) {
 				print __("Error trying to create account, %s%s%s.",
@@ -240,6 +243,18 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		} else {
 			# no errors, go ahead and modify the user account
 
+			$q = "SELECT InactivityTS FROM Users WHERE ";
+			$q.= "ID = " . intval($UID);
+			$result = $dbh->query($q);
+			$row = $result->fetch(PDO::FETCH_NUM);
+			if ($row[0] && $J) {
+				$inactivity_ts = $row[0];
+			} elseif ($J) {
+				$inactivity_ts = time();
+			} else {
+				$inactivity_ts = 0;
+			}
+
 			$q = "UPDATE Users SET ";
 			$q.= "Username = " . $dbh->quote($U);
 			if ($T) {
@@ -262,6 +277,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$q.= ", LangPreference = " . $dbh->quote($L);
 			$q.= ", IRCNick = " . $dbh->quote($I);
 			$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
+			$q.= ", InactivityTS = " . $inactivity_ts;
 			$q.= " WHERE ID = ".intval($UID);
 			$result = $dbh->exec($q);
 			if (!$result) {

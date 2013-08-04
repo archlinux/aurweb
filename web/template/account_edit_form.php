@@ -56,6 +56,11 @@
 		<?php endif; ?>
 
 		<p>
+			<label for="id_inactive"><?= __("Inactive") ?>:</label>
+			<input type="checkbox" name="J" id="id_inactive" <?= $J ? 'checked="checked"' : '' ?> />
+		</p>
+
+		<p>
 			<label for="id_email"><?= __("Email Address") ?>:</label>
 			<input type="text" size="30" maxlength="64" name="E" id="id_email" value="<?= htmlspecialchars($E,ENT_QUOTES) ?>" /> (<?= __("required") ?>)
 		</p>
