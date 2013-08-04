@@ -3,9 +3,18 @@ $yes = $row["Yes"];
 $no = $row["No"];
 $abstain = $row["Abstain"];
 $active_tus = $row["ActiveTUs"];
+$quorum = $row["Quorum"];
 
 $total = $yes + $no + $abstain;
 $participation = $total / $active_tus;
+
+if ($yes > $active_tus / 2) {
+	$vote_accepted = true;
+} elseif ($participation > $quorum && $yes > $no) {
+	$vote_accepted = true;
+} else {
+	$vote_accepted = false;
+}
 ?>
 <div class="box">
 	<h2><?= __("Proposal Details") ?></h2>
@@ -30,6 +39,17 @@ $participation = $total / $active_tus;
 		<br />
 		<?= __("End") ?>:
 		<strong><?= gmdate("Y-m-d H:i", $row['End']) ?></strong>
+		<?php if ($isrunning == 0): ?>
+		<br />
+		<?= __("Result") ?>:
+		<?php if (!$quorum): ?>
+		<span><?= __("unknown") ?></span>
+		<?php elseif ($vote_accepted): ?>
+		<span style="color: green; font-weight: bold"><?= __("Accepted") ?></span>
+		<?php else: ?>
+		<span style="color: red; font-weight: bold"><?= __("Rejected") ?></span>
+		<?php endif; ?>
+		<?php endif; ?>
 	</p>
 
 	<p>
