@@ -34,6 +34,7 @@
 			<th><?= __("Abstain") ?></th>
 			<th><?= __("Total") ?></th>
 			<th><?= __('Voted') ?></th>
+			<th><?= __('Participation') ?></th>
 		</tr>
 		<tr>
 			<td><?= $row['Yes'] ?></td>
@@ -47,6 +48,11 @@
 				<span style="color: green; font-weight: bold"><?= __("Yes") ?></span>
 				<?php endif; ?>
 			</td>
+			<?php if ($row['ActiveTUs'] > 0): ?>
+			<td><?= number_format(($row['Yes'] + $row['No'] + $row['Abstain']) / $row['ActiveTUs'] * 100, 2) ?>%</td>
+			<?php else: ?>
+			<td><?= __("unknown") ?></td>
+			<?php endif; ?>
 		</tr>
 	</table>
 </div>
