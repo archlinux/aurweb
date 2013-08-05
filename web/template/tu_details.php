@@ -1,3 +1,12 @@
+<?php
+$yes = $row["Yes"];
+$no = $row["No"];
+$abstain = $row["Abstain"];
+$active_tus = $row["ActiveTUs"];
+
+$total = $yes + $no + $abstain;
+$participation = $total / $active_tus;
+?>
 <div class="box">
 	<h2><?= __("Proposal Details") ?></h2>
 
@@ -37,10 +46,10 @@
 			<th><?= __('Participation') ?></th>
 		</tr>
 		<tr>
-			<td><?= $row['Yes'] ?></td>
-			<td><?= $row['No'] ?></td>
-			<td><?= $row['Abstain'] ?></td>
-			<td><?= ($row['Yes'] + $row['No'] + $row['Abstain']) ?></td>
+			<td><?= $yes ?></td>
+			<td><?= $no ?></td>
+			<td><?= $abstain ?></td>
+			<td><?= $total ?></td>
 			<td>
 				<?php if ($hasvoted == 0): ?>
 				<span style="color: red; font-weight: bold"><?= __("No") ?></span>
@@ -48,8 +57,8 @@
 				<span style="color: green; font-weight: bold"><?= __("Yes") ?></span>
 				<?php endif; ?>
 			</td>
-			<?php if ($row['ActiveTUs'] > 0): ?>
-			<td><?= number_format(($row['Yes'] + $row['No'] + $row['Abstain']) / $row['ActiveTUs'] * 100, 2) ?>%</td>
+			<?php if ($active_tus > 0): ?>
+			<td><?= number_format($participation * 100, 2) ?>%</td>
 			<?php else: ?>
 			<td><?= __("unknown") ?></td>
 			<?php endif; ?>
