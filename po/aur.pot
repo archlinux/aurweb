@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v2.1.0\n"
+"Project-Id-Version: AUR v2.2.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,10 +57,7 @@ msgstr ""
 msgid "%s already has proposal running for them."
 msgstr ""
 
-msgid "Length must be a number."
-msgstr ""
-
-msgid "Length must be at least 1."
+msgid "Invalid type."
 msgstr ""
 
 msgid "Proposal cannot be empty."
@@ -78,10 +75,19 @@ msgstr ""
 msgid "(empty if not applicable)"
 msgstr ""
 
-msgid "Length in days"
+msgid "Type"
 msgstr ""
 
-msgid "(defaults to 7 if empty)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
 msgstr ""
 
 msgid "Proposal"
@@ -442,12 +448,6 @@ msgstr ""
 msgid "Past Votes"
 msgstr ""
 
-msgid "Back"
-msgstr ""
-
-msgid "Next"
-msgstr ""
-
 msgid "Voters"
 msgstr ""
 
@@ -553,6 +553,9 @@ msgid "First"
 msgstr ""
 
 msgid "Previous"
+msgstr ""
+
+msgid "Next"
 msgstr ""
 
 msgid "Last"
@@ -677,6 +680,15 @@ msgstr ""
 msgid "PGP Key Fingerprint"
 msgstr ""
 
+msgid "Status"
+msgstr ""
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
 msgid "Last Voted"
 msgstr ""
 
@@ -698,6 +710,9 @@ msgstr ""
 msgid "Account Suspended"
 msgstr ""
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr ""
 
@@ -716,19 +731,10 @@ msgstr ""
 msgid "No results matched your search criteria."
 msgstr ""
 
-msgid "Type"
-msgstr ""
-
-msgid "Status"
-msgstr ""
-
 msgid "Edit Account"
 msgstr ""
 
 msgid "Suspended"
-msgstr ""
-
-msgid "Active"
 msgstr ""
 
 msgid "Edit"
@@ -1048,6 +1054,15 @@ msgstr ""
 msgid "End"
 msgstr ""
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr ""
 
@@ -1057,8 +1072,14 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr ""
 
 msgid "No results found."
+msgstr ""
+
+msgid "Back"
 msgstr ""
