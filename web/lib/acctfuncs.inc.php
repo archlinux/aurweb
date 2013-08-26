@@ -996,6 +996,25 @@ function past_proposal_list($order, $lim) {
 }
 
 /**
+ * Get the vote ID of the last vote of all Trusted Users
+ *
+ * @return array The vote ID of the last vote of each Trusted User
+ */
+function last_votes_list() {
+	$dbh = DB::connect();
+
+	$q = "SELECT UserID, MAX(VoteID) AS LastVote FROM TU_Votes GROUP BY UserID ORDER BY VoteID DESC";
+	$result = $dbh->query($q);
+
+	$details = array();
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$details[] = $row;
+	}
+
+	return $details;
+}
+
+/**
  * Determine the total number of Trusted User proposals
  *
  * @return string The total number of Trusted User proposals

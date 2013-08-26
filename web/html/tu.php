@@ -134,6 +134,8 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 	<?php endif; ?>
 </div>
 <?php
+		$result = last_votes_list();
+		include("tu_last_votes_list.php");
 	}
 }
 else {
