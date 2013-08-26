@@ -1,0 +1,1088 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# kusakata <shohei@kusakata.com>, 2013
+# kusakata <shohei@kusakata.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Arch User Repository (AUR)\n"
+"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/aur/language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Page Not Found"
+msgstr "ページが見つかりませんでした"
+
+msgid "Sorry, the page you've requested does not exist."
+msgstr "あなたがリクエストしたページは存在しませんでした。"
+
+msgid "Accounts"
+msgstr "アカウント"
+
+msgid "You are not allowed to access this area."
+msgstr "このページへのアクセスは許可されていません。"
+
+msgid "Could not retrieve information for the specified user."
+msgstr "指定のユーザーの情報が取得できませんでした。"
+
+msgid "You do not have permission to edit this account."
+msgstr "あなたはこのアカウントを編集する権利を持っていません。"
+
+msgid "Use this form to search existing accounts."
+msgstr "アカウントを検索するのにこのフォームを使って下さい。"
+
+msgid "You must log in to view user information."
+msgstr "ユーザー情報を見るにはログインする必要があります。"
+
+msgid "Use this form to create an account."
+msgstr "アカウントを作成するにはこのフォームを使って下さい。"
+
+msgid "Add Proposal"
+msgstr "提案を追加する"
+
+msgid "Invalid token for user action."
+msgstr "アクションの不正なトークン。"
+
+msgid "Username does not exist."
+msgstr "ユーザー名が存在しません。"
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s はすでにその提案を持っています。"
+
+msgid "Invalid type."
+msgstr ""
+
+msgid "Proposal cannot be empty."
+msgstr "提案が空です。"
+
+msgid "New proposal submitted."
+msgstr "新しい提案が投稿されました。"
+
+msgid "Submit a proposal to vote on."
+msgstr "採決する提案を提出してください。"
+
+msgid "Applicant/TU"
+msgstr "候補者/TU"
+
+msgid "(empty if not applicable)"
+msgstr "(適当なものがない場合は空に)"
+
+msgid "Type"
+msgstr "タイプ"
+
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
+
+msgid "Proposal"
+msgstr "提案"
+
+msgid "Submit"
+msgstr "投稿"
+
+msgid "Home"
+msgstr "ホーム"
+
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr "AUR にようこそ！AUR についての詳しい情報は %sAUR User Guidelines%s や %sAUR TU Guidelines%s を読んで下さい。"
+
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr "PKGBUILD を投稿するつもりならば %sArch Packaging Standards%s に%sかならず%s従って下さい。そうでないものは削除されます！"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "お気に入りのパッケージに投票しましょう！"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "パッケージによってはバイナリとして [community] で提供されているかもしれません。"
+
+msgid "Discussion"
+msgstr "議論"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. This list can be used for package"
+" orphan requests, merge requests, and deletion requests. For discussion "
+"relating to the development of the AUR, use the %saur-dev%s mailing list."
+msgstr "Arch User Repository (AUR) や Trusted User に関する一般的な議論は %saur-general%s で行なって下さい。このメーリングリストは、パッケージの孤立リクエスト・マージリクエスト・削除リクエストにも利用できます。AUR の開発に関する議論は、%saur-dev%s メーリングリストを使って下さい。"
+
+msgid "Bug Reporting"
+msgstr "バグレポート"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR, please fill out a bug report on our %sbug "
+"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
+"packaging bugs contact the package maintainer or leave a comment on the "
+"appropriate package page."
+msgstr "AUR にバグを見つけたら、私達の%sバグトラッカー%sにバグを報告してください。このトラッカーは AUR のバグ%sだけ%sを報告してください。パッケージのバグについては、パッケージメンテナに連絡するか適切なパッケージページにコメントを残して下さい。"
+
+msgid "DISCLAIMER"
+msgstr "免責事項"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr "ユーザーが作成したパッケージにサポートはありません。それぞれのファイルの利用は自己責任でお願いします。"
+
+msgid "Package Search"
+msgstr "パッケージ検索"
+
+msgid "Vote"
+msgstr "投票"
+
+msgid "UnVote"
+msgstr "投票を削除"
+
+msgid "Notify"
+msgstr "通知する"
+
+msgid "UnNotify"
+msgstr "通知を削除"
+
+msgid "Flag"
+msgstr "フラグ"
+
+msgid "UnFlag"
+msgstr "フラグを降ろす"
+
+msgid "Login"
+msgstr "ログイン"
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "ログイン中: %s"
+
+msgid "Logout"
+msgstr "ログアウト"
+
+msgid "Enter login credentials"
+msgstr "ログイン情報を入力してください"
+
+msgid "Username"
+msgstr "ユーザーネーム"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "Remember me"
+msgstr "ログインしたままにする"
+
+msgid "Forgot Password"
+msgstr "パスワードを忘れた"
+
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "HTTP ログインはできません。ログインするには %sHTTPs%s に切り替えてください。"
+
+msgid "Search Criteria"
+msgstr "検索条件"
+
+msgid "Packages"
+msgstr "パッケージ"
+
+msgid "Cannot find package to merge votes and comments into."
+msgstr "マージやコメントをするパッケージが見つかりません。"
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "選択されたパッケージは削除されませんでした、確認チェックボックスにチェックを入れてください。"
+
+msgid "Error trying to retrieve package details."
+msgstr "パッケージの詳細の取得エラー。"
+
+msgid "Missing a required field."
+msgstr "必須項目が埋められていません。"
+
+msgid "Password fields do not match."
+msgstr "パスワードが一致しません。"
+
+msgid "Invalid e-mail."
+msgstr "不正なメールアドレス。"
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr "あなたのメールアドレスと関連付けられたアカウントのパスワードのリセットリクエストが送信されました。パスワードをリセットしたいときは下のリンクを開いて下さい、そうでない場合はこのメッセージは無視して下さい。"
+
+msgid "Password Reset"
+msgstr "パスワードのリセット"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr "メールをチェックして確認リンクを開いて下さい。"
+
+msgid "Your password has been reset successfully."
+msgstr "パスワードのリセットが成功しました。"
+
+msgid "Confirm your e-mail address:"
+msgstr "メールアドレスの確認:"
+
+msgid "Enter your new password:"
+msgstr "新しいパスワードを入力:"
+
+msgid "Confirm your new password:"
+msgstr "新しいパスワードを再入力:"
+
+msgid "Continue"
+msgstr "続行"
+
+#, php-format
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "登録したメールアドレスを忘れてしまった場合は、%saur-general%s メーリングリストにメッセージを送って下さい。"
+
+msgid "Enter your e-mail address:"
+msgstr "メールアドレスを入力:"
+
+msgid "Package Deletion"
+msgstr "パッケージの削除"
+
+#, php-format
+msgid "Delete Package: %s"
+msgstr "削除するパッケージ: %s"
+
+#, php-format
+msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgstr "AUR からパッケージ (%s%s%s) を削除するにはこのフォームを使って下さい。"
+
+msgid "Deletion of a package is permanent. "
+msgstr "パッケージの削除は戻すことができません。"
+
+msgid "Select the checkbox to confirm action."
+msgstr "アクションを確認するためにチェックボックスを選択してください。"
+
+msgid "Confirm package deletion"
+msgstr "パッケージ削除の確認"
+
+msgid "Delete"
+msgstr "削除"
+
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr "Trusted User と開発者だけがパッケージを削除できます。"
+
+msgid "Package Merging"
+msgstr "パッケージのマージ"
+
+#, php-format
+msgid "Merge Package: %s"
+msgstr "マージするパッケージ: %s"
+
+#, php-format
+msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgstr "他のパッケージにパッケージ (%s%s%s) をマージするにはこのフォームを使って下さい。"
+
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr "一度パッケージがマージされると戻すことはできません。"
+
+msgid "Enter the package name you wish to merge the package into. "
+msgstr "このパッケージをマージしたいパッケージ名を入力してください。"
+
+msgid "Merge into:"
+msgstr "マージ先:"
+
+msgid "Confirm package merge"
+msgstr "パッケージマージの確認"
+
+msgid "Merge"
+msgstr "マージ"
+
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr "Trusted User と開発者だけがパッケージをマージできます。"
+
+#, php-format
+msgid "Error - Uploaded file larger than maximum allowed size (%s)"
+msgstr "エラー - アップロードされたファイルが最大許容サイズをオーバーしています (%s)"
+
+msgid "Error - File partially uploaded"
+msgstr "エラー - ファイルが部分的にアップロードされました"
+
+msgid "Error - No file uploaded"
+msgstr "エラー - ファイルがアップロードされませんでした"
+
+msgid "Error - Could not locate temporary upload folder"
+msgstr "エラー - 一時アップロードフォルダを作成できませんでした"
+
+msgid "Error - File could not be written"
+msgstr "エラー - ファイルを書き込むことができませんでした"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by"
+" makepkg(8) only)."
+msgstr "エラー - サポートされていないファイルフォーマットです (makepkg(8) で生成した gzip 圧縮された tarball だけ投稿してください)。"
+
+msgid "Error - uncompressed file size too large."
+msgstr "エラー - 展開後のファイルサイズが大きすぎます。"
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr "エラー - ソース tarball に入れるファイルはディレクトリに入れてください。"
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr "エラー - ソース tarball にサブディレクトリをネストすることはできません。"
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr "エラー - ソース tarball に複数のディレクトリを含めることはできません。"
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "アップロードの解凍エラー - PKGBUILD が存在しません。"
+
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "PKGBUILD に %s 変数がありません。"
+
+msgid "Error - The AUR does not support split packages!"
+msgstr "エラー - AUR は分割パッケージをサポートしていません!"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "不正な名前です: 小文字だけが使用できます。"
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "パッケージ URL にプロトコルがありません (ie. http:// ,ftp://)"
+
+#, php-format
+msgid "Error - Package name cannot be greater than %d characters"
+msgstr "エラー - パッケージ名は %d 文字以下にしてください"
+
+#, php-format
+msgid "Error - Package URL cannot be greater than %d characters"
+msgstr "エラー - パッケージ URL の文字数は %d 文字以内にしてください"
+
+#, php-format
+msgid "Error - Package description cannot be greater than %d characters"
+msgstr "エラー - パッケージの説明の文字数は %d 文字以内にしてください"
+
+#, php-format
+msgid "Error - Package license cannot be greater than %d characters"
+msgstr "エラー - パッケージのライセンスの文字数は %d 文字以内にしてください"
+
+#, php-format
+msgid "Error - Package version cannot be greater than %d characters"
+msgstr "エラー - パッケージのバージョンの文字数は %d 文字以内にしてください"
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "%s ディレクトリを作成できませんでした。"
+
+#, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr "あなたは %s%s%s パッケージを上書きすることはできません"
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr "%s はパッケージブラックリストに入っています、公式リポジトリから入手できないか確認してください。"
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "ディレクトリを %s に変更できませんでした。"
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg "
+"--source`."
+msgstr "あなたのソースパッケージをここでアップロードします。ソースパッケージは `makepkg --source` で作成してください。"
+
+msgid "Package Category"
+msgstr "パッケージカテゴリ"
+
+msgid "Select Category"
+msgstr "カテゴリを選んで下さい"
+
+msgid "Upload package file"
+msgstr "パッケージファイルのアップロード"
+
+msgid "Upload"
+msgstr "アップロード"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "申し訳ありませんが、このサーバーではアップロードはできません。"
+
+msgid "You must create an account before you can upload packages."
+msgstr "パッケージをアップロードするにはアカウントを作る必要があります。"
+
+msgid "Trusted User"
+msgstr "Trusted User"
+
+msgid "Could not retrieve proposal details."
+msgstr "提案内容が取得できませんでした。"
+
+msgid "Voting is closed for this proposal."
+msgstr "この提案への投票は締め切られています。"
+
+msgid "You cannot vote in an proposal about you."
+msgstr "あなたについての提案に投票することはできません。"
+
+msgid "You've already voted for this proposal."
+msgstr "既にこの提案に投票しています。"
+
+msgid "Vote ID not valid."
+msgstr "投票 ID が不正です。"
+
+msgid "Current Votes"
+msgstr "現在の投票"
+
+msgid "Past Votes"
+msgstr "過去の投票"
+
+msgid "Voters"
+msgstr "投票者"
+
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "スパムのために、あなたのIPアドレスからアカウント登録はできません。ご迷惑をおかけして申し訳ございません。"
+
+msgid "Missing User ID"
+msgstr "ユーザー ID の消失"
+
+msgid "The username is invalid."
+msgstr "ユーザーネームが不正です。"
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "文字の長さは %s から %s の間である必要があります"
+
+msgid "Start and end with a letter or number"
+msgstr "最初と最後の文字は英数字にしてください"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "ピリオド、アンダーライン、ハイフンはひとつだけ含めることができます。"
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "パスワードは最低でも %s 文字以上必要です。"
+
+msgid "The email address is invalid."
+msgstr "メールアドレスが不正です。"
+
+msgid "The PGP key fingerprint is invalid."
+msgstr "PGP 鍵のフィンガープリントが不正です。"
+
+msgid "Cannot increase account permissions."
+msgstr "アカウント権限を増やすことはできません。"
+
+msgid "Language is not currently supported."
+msgstr "言語は現在サポートされていません。"
+
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr "%s%s%s というユーザーネームは既に使われています。"
+
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr "%s%s%s というメールアドレスは既に使われています。"
+
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr "アカウントの作成エラー、%s%s%s。"
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr "アカウント %s%s%s の作成が完了しました。"
+
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr "%s にようこそ！アカウントのパスワードを設定するために、下のリンクをクリックしてください。リンクを押せないときは、一旦ブラウザにURLをコピーしてください。"
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "パスワードのリセットキーがあなたのメールアドレスに送られました。"
+
+msgid "Click on the Login link above to use your account."
+msgstr "あなたのアカウントを使うには上のログインリンクをクリックして下さい。"
+
+#, php-format
+msgid "No changes were made to the account, %s%s%s."
+msgstr "アカウントに変更は加えられませんでした、%s%s%s。"
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr "アカウント %s%s%s の修正は成功しました。"
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "スパムのために、現在あなたのIPアドレスからはログインフォームが無効になっています。ご迷惑をおかけして申し訳ございません。"
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "あなたのパスワードはリセットされました。新しいアカウントを作成したときは、確認メールにあるリンクからパスワードを設定してください。もしくは、%sPassword Reset%s ページでリセットキーを申請してください。"
+
+msgid "Bad username or password."
+msgstr "不正なユーザーネームまたはパスワードです。"
+
+msgid "Invalid e-mail and reset key combination."
+msgstr "メールアドレスとリセットキーの不正な組み合わせ。"
+
+msgid "Error retrieving package details."
+msgstr "パッケージの詳細の取得エラー。"
+
+msgid "Package details could not be found."
+msgstr "パッケージの詳細が見つかりませんでした。"
+
+msgid "First"
+msgstr "最初"
+
+msgid "Previous"
+msgstr "前へ"
+
+msgid "Next"
+msgstr "次へ"
+
+msgid "Last"
+msgstr "最後"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "パッケージのフラグを立てるにはログインする必要があります。"
+
+msgid "You did not select any packages to flag."
+msgstr "フラグを立てるパッケージが選ばれていません。"
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "選択されたパッケージの out-of-date フラグが立てられました。"
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "パッケージのフラグを降ろすにはログインする必要があります。"
+
+msgid "You did not select any packages to unflag."
+msgstr "フラグを降ろすパッケージが選ばれていません。"
+
+msgid "The selected packages have been unflagged."
+msgstr "選択されたパッケージのフラグが降ろされました。"
+
+msgid "You must be logged in before you can delete packages."
+msgstr "パッケージを削除するにはログインする必要があります。"
+
+msgid "You do not have permission to delete packages."
+msgstr "あなたはパッケージを削除する許可を持っていません。"
+
+msgid "You did not select any packages to delete."
+msgstr "削除するパッケージが選ばれていません。"
+
+msgid "The selected packages have been deleted."
+msgstr "選択されたパッケージが削除されました。"
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "パッケージを承認するにはログインする必要があります。"
+
+msgid "You must be logged in before you can disown packages."
+msgstr "パッケージを放棄するにはログインする必要があります。"
+
+msgid "You did not select any packages to adopt."
+msgstr "承認するパッケージが選択されていません。"
+
+msgid "You did not select any packages to disown."
+msgstr "放棄するパッケージが選択されていません。"
+
+msgid "The selected packages have been adopted."
+msgstr "選択されたパッケージを承認しました。"
+
+msgid "The selected packages have been disowned."
+msgstr "選択されたパッケージを放棄しました。"
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "パッケージに投票するにはログインする必要があります。"
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "パッケージへの投票を取り消すにはログインする必要があります。"
+
+msgid "You did not select any packages to vote for."
+msgstr "投票するパッケージが選ばれていません。"
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "選択されたパッケージからあなたの投票が削除されました。"
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "選択されたパッケージに投票しました。"
+
+msgid "Couldn't add to notification list."
+msgstr "通知リストに追加できませんでした。"
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "%s がコメントの通知リストに追加されました。"
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "%s がコメントの通知リストから削除されました。"
+
+msgid "You must be logged in before you can edit package information."
+msgstr "パッケージの情報を編集するにはログインする必要があります。"
+
+msgid "Missing comment ID."
+msgstr "コメント ID が見つかりません。"
+
+msgid "Comment has been deleted."
+msgstr "コメントが削除されました。"
+
+msgid "You are not allowed to delete this comment."
+msgstr "このコメントを削除することはできません。"
+
+msgid "Missing category ID."
+msgstr "カテゴリ ID がありません。"
+
+msgid "Invalid category ID."
+msgstr "不正なカテゴリ ID です。"
+
+msgid "You are not allowed to change this package category."
+msgstr "このパッケージのカテゴリを変更することはできません。"
+
+msgid "Package category changed."
+msgstr "パッケージのカテゴリが変更されました。"
+
+msgid "Account Type"
+msgstr "アカウントタイプ"
+
+msgid "User"
+msgstr "ユーザー"
+
+msgid "Developer"
+msgstr "開発者"
+
+msgid "Email Address"
+msgstr "メールアドレス"
+
+msgid "Real Name"
+msgstr "本名"
+
+msgid "IRC Nick"
+msgstr "IRC ニックネーム"
+
+msgid "PGP Key Fingerprint"
+msgstr "PGP 鍵のフィンガープリント"
+
+msgid "Status"
+msgstr "状態"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Last Voted"
+msgstr "最後の投票"
+
+msgid "Never"
+msgstr "Never"
+
+msgid "View this user's packages"
+msgstr "ユーザーのパッケージを見る"
+
+msgid "required"
+msgstr "必須"
+
+msgid "Normal user"
+msgstr "ノーマルユーザー"
+
+msgid "Trusted user"
+msgstr "Trusted user"
+
+msgid "Account Suspended"
+msgstr "休眠アカウント"
+
+msgid "Inactive"
+msgstr ""
+
+msgid "Re-type password"
+msgstr "パスワードの再入力"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Create"
+msgstr "作成"
+
+msgid "Reset"
+msgstr "リセット"
+
+msgid "No results matched your search criteria."
+msgstr "検索条件に一致する結果が見つかりませんでした。"
+
+msgid "Edit Account"
+msgstr "アカウントを編集"
+
+msgid "Suspended"
+msgstr "休止"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Less"
+msgstr "Less"
+
+msgid "More"
+msgstr "More"
+
+msgid "No more results to display."
+msgstr "表示する結果はもうありません。"
+
+msgid "No New Comment Notification"
+msgstr "新しいコメントの通知はありません"
+
+msgid "New Comment Notification"
+msgstr "新しいコメントの通知"
+
+msgid "Flag Out-of-date"
+msgstr "Out-of-date フラグを立てる"
+
+msgid "UnFlag Out-of-date"
+msgstr "Out-of-date フラグを降ろす"
+
+msgid "Delete Packages"
+msgstr "パッケージの削除"
+
+msgid "Merge into"
+msgstr "マージ"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "My Packages"
+msgstr "自分のパッケージ"
+
+msgid " My Account"
+msgstr "アカウント"
+
+msgid "Register"
+msgstr "登録"
+
+msgid "Add Comment"
+msgstr "コメントを投稿する"
+
+msgid "Comment has been added."
+msgstr "コメントが追加されました。"
+
+#, php-format
+msgid "View all %s comments"
+msgstr "全ての %s 件のコメントを見る"
+
+msgid "Latest Comments"
+msgstr "最新のコメント"
+
+msgid "Delete comment"
+msgstr "コメントを削除"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "%s によるコメント"
+
+msgid "All comments"
+msgstr "全てのコメント"
+
+msgid "unknown"
+msgstr "不明"
+
+msgid "Package Details"
+msgstr "パッケージの詳細"
+
+msgid "Package Actions"
+msgstr "パッケージアクション"
+
+msgid "View PKGBUILD"
+msgstr "PKGBUILD を見る"
+
+msgid "Download tarball"
+msgstr "tarball のダウンロード"
+
+msgid "Flagged out-of-date"
+msgstr "out-of-date フラグを立てる"
+
+msgid "Flag package out-of-date"
+msgstr "パッケージの out-of-date フラグを立てる"
+
+msgid "Unflag package"
+msgstr "パッケージのフラグを降ろす"
+
+msgid "Remove vote"
+msgstr "投票を削除する"
+
+msgid "Vote for this package"
+msgstr "このパッケージに投票する"
+
+msgid "Disable notifications"
+msgstr "通知を止める"
+
+msgid "Notify of new comments"
+msgstr "新しいコメントを通知"
+
+msgid "Delete Package"
+msgstr "パッケージを削除"
+
+msgid "Merge Package"
+msgstr "パッケージのマージ"
+
+msgid "Adopt Package"
+msgstr "パッケージの承認"
+
+msgid "Disown Package"
+msgstr "パッケージの放棄"
+
+msgid "Description"
+msgstr "説明"
+
+msgid "Upstream URL"
+msgstr "アップストリーム URL"
+
+msgid "Visit the website for"
+msgstr "ウェブサイトを見る"
+
+msgid "Category"
+msgstr "カテゴリ"
+
+msgid "Change category"
+msgstr "カテゴリの変更"
+
+msgid "License"
+msgstr "ライセンス"
+
+msgid "Submitter"
+msgstr "投稿者"
+
+msgid "View account information for"
+msgstr "アカウント情報を見る"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "%s のアカウント情報を見る"
+
+msgid "None"
+msgstr "なし"
+
+msgid "Maintainer"
+msgstr "メンテナ"
+
+msgid "Votes"
+msgstr "投票"
+
+msgid "First Submitted"
+msgstr "最初の投稿"
+
+msgid "Last Updated"
+msgstr "最終更新"
+
+msgid "Dependencies"
+msgstr "依存パッケージ"
+
+msgid "View packages details for"
+msgstr "パッケージの詳細を見る"
+
+msgid "Required by"
+msgstr "必要としているパッケージ"
+
+msgid "Sources"
+msgstr "ソース"
+
+msgid "Name, Description"
+msgstr "名前、説明"
+
+msgid "Name Only"
+msgstr "名前のみ"
+
+msgid "Exact name"
+msgstr "名前の完全一致"
+
+msgid "All"
+msgstr "全て"
+
+msgid "Flagged"
+msgstr "フラグ付き"
+
+msgid "Not Flagged"
+msgstr "フラグなし"
+
+msgid "Name"
+msgstr "名前"
+
+msgid "Voted"
+msgstr "投票済"
+
+msgid "Age"
+msgstr "年齢"
+
+msgid "Ascending"
+msgstr "昇順"
+
+msgid "Descending"
+msgstr "降順"
+
+msgid "Enter search criteria"
+msgstr "検索条件を入力"
+
+msgid "Any"
+msgstr "全て"
+
+msgid "Search by"
+msgstr "検索対象"
+
+msgid "Keywords"
+msgstr "キーワード"
+
+msgid "Out of Date"
+msgstr "Out of Date"
+
+msgid "Sort by"
+msgstr "ソート"
+
+msgid "Sort order"
+msgstr "ソート順"
+
+msgid "Per page"
+msgstr "表示件数"
+
+msgid "Go"
+msgstr "検索"
+
+msgid "Orphans"
+msgstr "孤立したパッケージ"
+
+msgid "Error retrieving package list."
+msgstr "パッケージリスト取得エラー。"
+
+msgid "No packages matched your search criteria."
+msgstr "検索条件に一致するパッケージがありません。"
+
+#, php-format
+msgid "%d packages found. Page %d of %d."
+msgstr "パッケージが %d 個見つかりました。ページ %d / %d。"
+
+msgid "Version"
+msgstr "バージョン"
+
+msgid "Yes"
+msgstr "はい"
+
+msgid "orphan"
+msgstr "孤立"
+
+msgid "Actions"
+msgstr "アクション"
+
+msgid "Unflag Out-of-date"
+msgstr "Out-of-date フラグを降ろす"
+
+msgid "Adopt Packages"
+msgstr "パッケージの承認"
+
+msgid "Disown Packages"
+msgstr "パッケージの放棄"
+
+msgid "Any type"
+msgstr "全てのタイプ"
+
+msgid "Last vote"
+msgstr "最後の投票"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Statistics"
+msgstr "統計"
+
+msgid "Orphan Packages"
+msgstr "孤立したパッケージ"
+
+msgid "Packages added in the past 7 days"
+msgstr "過去7日間で追加されたパッケージ"
+
+msgid "Packages updated in the past 7 days"
+msgstr "過去7日間で更新されたパッケージ"
+
+msgid "Packages updated in the past year"
+msgstr "過去1年間で更新されたパッケージ"
+
+msgid "Packages never updated"
+msgstr "更新されていないパッケージ"
+
+msgid "Registered Users"
+msgstr "登録ユーザー"
+
+msgid "Trusted Users"
+msgstr "Trusted User"
+
+msgid "Recent Updates"
+msgstr "最近のアップデート"
+
+msgid "My Statistics"
+msgstr "自分の統計"
+
+msgid "Packages in unsupported"
+msgstr "サポートされていないパッケージ"
+
+msgid "Proposal Details"
+msgstr "提案の詳細"
+
+msgid "This vote is still running."
+msgstr "投票が実行されています。"
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "投稿: %s by %s"
+
+msgid "End"
+msgstr "終了"
+
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
+msgid "No"
+msgstr "いいえ"
+
+msgid "Abstain"
+msgstr "Abstain"
+
+msgid "Total"
+msgstr "合計"
+
+msgid "Participation"
+msgstr ""
+
+msgid "Start"
+msgstr "開始"
+
+msgid "No results found."
+msgstr "結果が見つかりませんでした。"
+
+msgid "Back"
+msgstr "前へ"

@@ -14,6 +14,7 @@ POFILES = \
 	hr.po \
 	hu.po \
 	it.po \
+	ja.po \
 	nb.po \
 	nl.po \
 	pl.po \
@@ -21,6 +22,7 @@ POFILES = \
 	pt_PT.po \
 	ro.po \
 	ru.po \
+	sk.po \
 	sr.po \
 	tr.po \
 	uk.po \

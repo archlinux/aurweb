@@ -1,0 +1,1088 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# archetyp <archetyp@linuxmail.org>, 2013
+# Matej Ľach <matej.lach@gmail.com>, 2011
+msgid ""
+msgstr ""
+"Project-Id-Version: Arch User Repository (AUR)\n"
+"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/aur/language/sk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Page Not Found"
+msgstr "Stránka nebola nájdená"
+
+msgid "Sorry, the page you've requested does not exist."
+msgstr "Je nám ľúto, ale stránka ktorú ste žiadali, neexistuje."
+
+msgid "Accounts"
+msgstr "Účty"
+
+msgid "You are not allowed to access this area."
+msgstr "Nemáte potrebné práva pre prístup do tejto oblasti."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Nemožno získať informácie pre špecifikovaného užívateľa. "
+
+msgid "You do not have permission to edit this account."
+msgstr "Nemáte potrebné oprávnenia, pre úpravu tohoto účtu.  "
+
+msgid "Use this form to search existing accounts."
+msgstr "Použite tento formulár pre vyhľadávanie v existujúcich účtoch."
+
+msgid "You must log in to view user information."
+msgstr "Musíte sa prihlásiť, pre zobrazenie užívateľských informácií. "
+
+msgid "Use this form to create an account."
+msgstr "Použite tento formulár pre vytvorenie účtu. "
+
+msgid "Add Proposal"
+msgstr "Pridať návrh"
+
+msgid "Invalid token for user action."
+msgstr "Neplatný znak pre užívateľskú akciu."
+
+msgid "Username does not exist."
+msgstr "Užívateľské meno neexistuje."
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "O %s už návrh beží."
+
+msgid "Invalid type."
+msgstr ""
+
+msgid "Proposal cannot be empty."
+msgstr "Návrch nemôže byť prázdny."
+
+msgid "New proposal submitted."
+msgstr "Nový návrh bol odoslaný."
+
+msgid "Submit a proposal to vote on."
+msgstr "Odošli návrh na hlasovanie."
+
+msgid "Applicant/TU"
+msgstr "Adept/TU"
+
+msgid "(empty if not applicable)"
+msgstr "(prázdne ak nemožno uplatniť)"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
+
+msgid "Proposal"
+msgstr "Návrh"
+
+msgid "Submit"
+msgstr "Odoslať"
+
+msgid "Home"
+msgstr "Domov"
+
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr "Vitajte v AUR! Prečítajte si prosím %sAUR smernicu pre užívateľov%s a %sAUR smernicu pre TU%s pre ďalšie informácie."
+
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr "Prispené PKGBUILDy sa %smusia%s riadiť %sArch podmienkami pre balíčky%s, inak budú vymazané!"
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "Nezabudnite hlasovať za svoje obľúbené balíčky!"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "Niektoré balíčky môžu byť poskytnuté ako binárky v [community]. "
+
+msgid "Discussion"
+msgstr "Diskusia"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. This list can be used for package"
+" orphan requests, merge requests, and deletion requests. For discussion "
+"relating to the development of the AUR, use the %saur-dev%s mailing list."
+msgstr "Všeobecná diskusia týkajúca sa Arch užívateľského repozitára (AUR) a štruktúry dôverovaných užívateľov (TU)  je na %saur-general%s. Tento list sa využíva na žiadosti o vyvlastnenie, zlúčenie a vymazávanie balíčkov. Na diskusiu týkajúcu sa vývoja AUR je určený %saur-dev%s mailing list."
+
+msgid "Bug Reporting"
+msgstr "Ohlasovanie chýb"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR, please fill out a bug report on our %sbug "
+"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
+"packaging bugs contact the package maintainer or leave a comment on the "
+"appropriate package page."
+msgstr "Ak nájdete chybu v AUR, vyplňte prosím správu o chybe na našom %sbug trackeri%s. Použíte ho %slen%s na chyby AUR. Pre ohlásenie chýba balíčka kontaktujte spravovateľa balíčka alebo zanechajte komentár na stránke balíčka."
+
+msgid "DISCLAIMER"
+msgstr "UPOZORNENIE"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr "Nepodporované balíčky sú vytvárané užívateľmi. Akékoľvek použitie poskytnutých súborov je na vaše vlastné riziko. "
+
+msgid "Package Search"
+msgstr "Hľadanie balíčka"
+
+msgid "Vote"
+msgstr "Hlasuj"
+
+msgid "UnVote"
+msgstr "Odober hlas"
+
+msgid "Notify"
+msgstr "Upozorni"
+
+msgid "UnNotify"
+msgstr "Zruš upozornenie"
+
+msgid "Flag"
+msgstr "Označ"
+
+msgid "UnFlag"
+msgstr "Odznač"
+
+msgid "Login"
+msgstr "Prihlásiť"
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Prihlásený ako: %s"
+
+msgid "Logout"
+msgstr "Odhlásiť"
+
+msgid "Enter login credentials"
+msgstr "Zadajte prihlasovacie údaje"
+
+msgid "Username"
+msgstr "Užívateľské meno"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Remember me"
+msgstr "Zapamätaj si ma"
+
+msgid "Forgot Password"
+msgstr "Zabudnuté heslo"
+
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "HTTP prihlasovanie je zablokované. Pre prihlásenie prosím %sprepnite na HTTPs%s."
+
+msgid "Search Criteria"
+msgstr "Vyhľadávacie kritériá"
+
+msgid "Packages"
+msgstr "Balíčky"
+
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Nepodarilo sa nájsť balíček, do ktorého sa mali zlúčiť hlasy a komentáre."
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Vybrané balíčky neboli odstránené, začiarknite potvrdzujúce políčko."
+
+msgid "Error trying to retrieve package details."
+msgstr "Pri pokuse o získanie podrobností o balíčku nastala chyba."
+
+msgid "Missing a required field."
+msgstr "Povinné pole nie je vyplnené."
+
+msgid "Password fields do not match."
+msgstr "Heslá sa nezhodujú. "
+
+msgid "Invalid e-mail."
+msgstr "Neplatný e-mail."
+
+msgid ""
+"A password reset request was submitted for the account associated with your "
+"e-mail address. If you wish to reset your password follow the link below, "
+"otherwise ignore this message and nothing will happen."
+msgstr "Požiadava na resetovanie hesla bola zaslaná na účet spojený s vašou emailovou adresou. Ak si želáte heslo resetovať, kliknite na odkaz nižšie, inak môžete túto správu ignorovať, žiadna zmena sa nestane."
+
+msgid "Password Reset"
+msgstr "Obnova hesla"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr "Skontrolujte si svoj e-mail pre potvrdzujúci odkaz."
+
+msgid "Your password has been reset successfully."
+msgstr "Heslo bolo úspešne obnovené."
+
+msgid "Confirm your e-mail address:"
+msgstr "Potvrďte svoju e-mailovú adresu:"
+
+msgid "Enter your new password:"
+msgstr "Zadajte nové heslo:"
+
+msgid "Confirm your new password:"
+msgstr "Potvrďte nové heslo:"
+
+msgid "Continue"
+msgstr "Pokračuj"
+
+#, php-format
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "Ak ste zabudli e-mailovú adresu, ktorú ste použili pri registrácii, pošlite prosím správu na %saur-general%s mailing list."
+
+msgid "Enter your e-mail address:"
+msgstr "Zadajte svoju e-mailovú adresu:"
+
+msgid "Package Deletion"
+msgstr "Vymazanie balíčka"
+
+#, php-format
+msgid "Delete Package: %s"
+msgstr "Vymazať balíček: %s"
+
+#, php-format
+msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgstr "Použite túto podobu pre vymazanie balíčka (%s%s%s) z AUR."
+
+msgid "Deletion of a package is permanent. "
+msgstr "Vymazanie balíčka je nevratné."
+
+msgid "Select the checkbox to confirm action."
+msgstr "Zaškrtnite políčko pre potvrdenie akcie."
+
+msgid "Confirm package deletion"
+msgstr "Potvrďte vymazanie balíčka"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr "Len dôverovaní užívatelia a vývojári môžu vymazať balíčky."
+
+msgid "Package Merging"
+msgstr "Zlúčenie balíčkov"
+
+#, php-format
+msgid "Merge Package: %s"
+msgstr "Zlúčiť balíček: %s"
+
+#, php-format
+msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgstr "Použite túto podobu pre zlúčenie balíčka (%s%s%s) do druhého balíčka."
+
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr "Operácia zlúčenia balíčkov je nevratná."
+
+msgid "Enter the package name you wish to merge the package into. "
+msgstr "Zadajte meno balíčka, do ktorého chcete zlúčiť uvedený balíček."
+
+msgid "Merge into:"
+msgstr "Zlúčiť do:"
+
+msgid "Confirm package merge"
+msgstr "Potvrďte zlúčenie balíčka"
+
+msgid "Merge"
+msgstr "Zlúčiť"
+
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr "Len dôverovaní užívatelia a vývojári môžu zlúčiť balíčky."
+
+#, php-format
+msgid "Error - Uploaded file larger than maximum allowed size (%s)"
+msgstr "Chyba - veľkosť nahrávaného súboru je väčšia ako maximálna povolená veľkosť (%s)"
+
+msgid "Error - File partially uploaded"
+msgstr "Chyba - súbor bol nahraný iba čiastočne"
+
+msgid "Error - No file uploaded"
+msgstr "Chyba - súbor nebol nahraný"
+
+msgid "Error - Could not locate temporary upload folder"
+msgstr "Chyba - nepodarilo sa nájsť dočasný adresár pre nahrávanie"
+
+msgid "Error - File could not be written"
+msgstr "Chyba - súbor sa nepodarilo zapísať"
+
+msgid ""
+"Error - unsupported file format (please submit gzip'ed tarballs generated by"
+" makepkg(8) only)."
+msgstr "Chyba - nepodporovaný formát súboru (odosielajte prosím vylúčne gzip-ovaný tarball vytvorený makepkg(8))."
+
+msgid "Error - uncompressed file size too large."
+msgstr "Chyba - nekomprimovaný súbor je príliš veľký."
+
+msgid "Error - source tarball may not contain files outside a directory."
+msgstr "Chyba - zdrojový tarball nesmie obsahovať súbory mimo adresára."
+
+msgid "Error - source tarball may not contain nested subdirectories."
+msgstr "Chyba - zdrojový tarball nesmie obsahovať vnorené adresáre."
+
+msgid "Error - source tarball may not contain more than one directory."
+msgstr "Chyba - zdrojový archív nemôže obsahovať viac ako jeden adresár. "
+
+msgid "Error trying to unpack upload - PKGBUILD does not exist."
+msgstr "Chyba pri rozbaľovaní nahraného súboru - PKGBUILD neexistuje. "
+
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Premenná %s chýba v PKGBUILDe."
+
+msgid "Error - The AUR does not support split packages!"
+msgstr "Chyba - AUR nepodporuje rozčlenené balíčky!"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Neplatné meno: povolené sú iba malé písmená."
+
+msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
+msgstr "V URL balíčka chýba protokol (t.j. http://, ftp://)"
+
+#, php-format
+msgid "Error - Package name cannot be greater than %d characters"
+msgstr "Chyba - meno balíčka nemôže obsahovať viac ako %d znakov"
+
+#, php-format
+msgid "Error - Package URL cannot be greater than %d characters"
+msgstr "Chyba - URL balíčka nemôže obsahovať viac ako %d znakov"
+
+#, php-format
+msgid "Error - Package description cannot be greater than %d characters"
+msgstr "Chyba - popis balíčka nemôže obsahovať viac ako %d znakov"
+
+#, php-format
+msgid "Error - Package license cannot be greater than %d characters"
+msgstr "Chyba - licencia balíčka nemôže obsahovať viac ako %d znakov"
+
+#, php-format
+msgid "Error - Package version cannot be greater than %d characters"
+msgstr "Chyba - verzia balíčka nemôže obsahovať viac ako %d znakov"
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Nepodarilo sa vytvoriť adresár %s."
+
+#, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr "Nemáte práva na prepísanie %s%s%s balíčka."
+
+#, php-format
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
+msgstr "%s je na čiernej listine, overte prosím či balíček nie je dostupný v oficiálnych repozitároch."
+
+#, php-format
+msgid "Could not change directory to %s."
+msgstr "Nepodarilo sa zmeniť adresár na %s."
+
+msgid ""
+"Upload your source packages here. Create source packages with `makepkg "
+"--source`."
+msgstr "Tu nahrajte svoj zdrojový balíček. Zdrojový balíček vytvorte s `makepkg --source`."
+
+msgid "Package Category"
+msgstr "Kategória"
+
+msgid "Select Category"
+msgstr "Vyberte kategóriu"
+
+msgid "Upload package file"
+msgstr "Nahraj súbor balíčka"
+
+msgid "Upload"
+msgstr "Nahraj"
+
+msgid "Sorry, uploads are not permitted by this server."
+msgstr "Ospravelňujeme sa, ale nahrávanie nie je povolené týmto serverom."
+
+msgid "You must create an account before you can upload packages."
+msgstr "Musíte mať vytvorený účet ak chcete nahrať balíčky."
+
+msgid "Trusted User"
+msgstr "Dôverovaný užívateľ (TU)"
+
+msgid "Could not retrieve proposal details."
+msgstr "Nepodarilo sa načítať údaje o návrhu."
+
+msgid "Voting is closed for this proposal."
+msgstr "Hlasovanie o tomto návrhu bolo ukončené."
+
+msgid "You cannot vote in an proposal about you."
+msgstr "Nemôžete hlasovať v návrhu o Vás."
+
+msgid "You've already voted for this proposal."
+msgstr "O tomto návrhu ste už  hlasovali."
+
+msgid "Vote ID not valid."
+msgstr "ID hlasu nie je platné."
+
+msgid "Current Votes"
+msgstr "Súčasné hlasy"
+
+msgid "Past Votes"
+msgstr "Minulé hlasy"
+
+msgid "Voters"
+msgstr "Hlasujúci"
+
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Registrácia účtu bolo zablokovaná pre vašu IP adresu, pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
+
+msgid "Missing User ID"
+msgstr "Chýba ID užívateľa"
+
+msgid "The username is invalid."
+msgstr "Užívateľké meno je neplatné."
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Musí mať dĺžku medzi %s a %s znakmi"
+
+msgid "Start and end with a letter or number"
+msgstr "Začínať a končiť s písmenom alebo číslom"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Môže obsahovať len jednu bodku, podčiarkovník alebo pomlčku."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Heslo musí mať aspoň %s znakov."
+
+msgid "The email address is invalid."
+msgstr "E-mailová adresa nie je platná."
+
+msgid "The PGP key fingerprint is invalid."
+msgstr "PGP otlačok kľúča je neplatný."
+
+msgid "Cannot increase account permissions."
+msgstr "Nepodarilo sa rozšíriť práva účtu."
+
+msgid "Language is not currently supported."
+msgstr "Jazyk nie je momentálne podporovaný."
+
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr "Užívateľské meno %s%s%s sa už používa."
+
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr "Adresa %s%s%s sa už používa."
+
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr "Chyba pri vytváraní účtu, %s%s%s."
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr "Účer %s%s%s bol úspešne vytvorený."
+
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr "Vitajte na %s! Pre zadanie prvotného hesla pre nový účet, kliknite prosím na link nižšie. Ak link nefunguje, skúste ho skopírovať a vložiť do vašeho prehliadača."
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "Obnovovacie heslo vám bolo zaslané na vašu e-mailovú adresu."
+
+msgid "Click on the Login link above to use your account."
+msgstr "Kliknite na Prihlásenie pre použitie svojho účtu."
+
+#, php-format
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Žiadne zmeny neboli vykonané na účte %s%s%s."
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr "Účet %s%s%s bol úspešne zmenený."
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Prihlasovací formulár je v súčasnosti zablokovaný pre vašu IP adresu, pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "Vaše heslo bolo obnovené. Ak ste si práve vytvorili  nový účet, použite prosím link z potvrdzovacieho emailu na nastavenie prvotného hesla. Inak prosím zašlite požiadavku na obnovenie hesla na stránku %sObnova hesla%s."
+
+msgid "Bad username or password."
+msgstr "Nesprávne užívateľské meno alebo heslo."
+
+msgid "Invalid e-mail and reset key combination."
+msgstr "Neplatný email a kombinácia obnovovacích znakov."
+
+msgid "Error retrieving package details."
+msgstr "Chyba pri získavaní informácií o balíčku."
+
+msgid "Package details could not be found."
+msgstr "Informácie o balíčku sa nepodarilo nájsť."
+
+msgid "First"
+msgstr "Prvý"
+
+msgid "Previous"
+msgstr "Predchádzajúci"
+
+msgid "Next"
+msgstr "Ďaľej "
+
+msgid "Last"
+msgstr "Posledný"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "Musíte byť prihlásený ak chcete označovať balíčky."
+
+msgid "You did not select any packages to flag."
+msgstr "Nebol vybraný žiadny balíček na označenie."
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "Vybrané balíčky boli označené ako zastarané."
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "Musíte byť prihlásený ak chcete odznačiť balíčky."
+
+msgid "You did not select any packages to unflag."
+msgstr "Nebol vybraný žiadny balíček na odznačenie."
+
+msgid "The selected packages have been unflagged."
+msgstr "Vybrané balíčky boli odznačené."
+
+msgid "You must be logged in before you can delete packages."
+msgstr "Musíte byť prihlásený ak chcete vymazať balíčky."
+
+msgid "You do not have permission to delete packages."
+msgstr "Nemáte práve vymazať balíčky."
+
+msgid "You did not select any packages to delete."
+msgstr "Nebol vybraný žiadny balíček na vymazanie."
+
+msgid "The selected packages have been deleted."
+msgstr "Vybrané balíčky boli vymazané."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "Musíte byť prihlásený ak chcete adoptovať balíčky."
+
+msgid "You must be logged in before you can disown packages."
+msgstr "Musíte byť prihlásený ak chcete vyvlastniť balíčky."
+
+msgid "You did not select any packages to adopt."
+msgstr "Nebol vybraný žiadny balíček na adopciu."
+
+msgid "You did not select any packages to disown."
+msgstr "Neoznačili ste žiadne balíčky na vyvlastnenie."
+
+msgid "The selected packages have been adopted."
+msgstr "Vybrané balíčky boli adoptované."
+
+msgid "The selected packages have been disowned."
+msgstr "Vybrané balíčky boli vyvlastnené."
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "Musíte byť prihlásený ak chcete hlasovať za balíčky."
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Musíte byť prihlásený ak chcete odobrať hlas balíčkom."
+
+msgid "You did not select any packages to vote for."
+msgstr "Nebol vybraný žiadny balíček pre hlasovanie."
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "Váš hlas bol odobratý z vyznačených balíčkov."
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "Váš hlas bol pridaný vyznačeným balíčkom."
+
+msgid "Couldn't add to notification list."
+msgstr "Pridanie do zoznamu upozornení bolo neúspešné."
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "Boli ste pridaný na notifikačný zoznam komentárov pre %s."
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Boli ste odobraný z notifikačného zoznamu komentárov pre %s."
+
+msgid "You must be logged in before you can edit package information."
+msgstr "Musíte byť prihlásený ak chcete editovať informácie o balíčku."
+
+msgid "Missing comment ID."
+msgstr "Chýba ID komentára."
+
+msgid "Comment has been deleted."
+msgstr "Komentár bol vymazaný."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Nemáte práva na vymazanie tohto komentára."
+
+msgid "Missing category ID."
+msgstr "Chýba ID kategórie."
+
+msgid "Invalid category ID."
+msgstr "Neplatné ID kategórie."
+
+msgid "You are not allowed to change this package category."
+msgstr "Na zmenu kategórie balíčka nemáte oprávnenie."
+
+msgid "Package category changed."
+msgstr "Kategória balíčka bola zmenená."
+
+msgid "Account Type"
+msgstr "Typ účtu"
+
+msgid "User"
+msgstr "Užívateľ"
+
+msgid "Developer"
+msgstr "Vývojár"
+
+msgid "Email Address"
+msgstr "E-mailová adresa"
+
+msgid "Real Name"
+msgstr "Skutočné meno"
+
+msgid "IRC Nick"
+msgstr "IRC prezývka"
+
+msgid "PGP Key Fingerprint"
+msgstr "PGP otlačok kľúča"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktívny"
+
+msgid "Last Voted"
+msgstr "Naposledy hlasoval"
+
+msgid "Never"
+msgstr "Nikdy"
+
+msgid "View this user's packages"
+msgstr "Pozrieť balíčky tohto užívateľa"
+
+msgid "required"
+msgstr "povinný"
+
+msgid "Normal user"
+msgstr "Normálny užívateľ"
+
+msgid "Trusted user"
+msgstr "Dôverovaný užívateľ (TU)"
+
+msgid "Account Suspended"
+msgstr "Účet bol pozastavený"
+
+msgid "Inactive"
+msgstr ""
+
+msgid "Re-type password"
+msgstr "Potvrďte heslo"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "Update"
+msgstr "Aktualizácia"
+
+msgid "Create"
+msgstr "Vytvoriť"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "No results matched your search criteria."
+msgstr "Pre vaše vyhľadávacie kritériá neboli nájdené žiadne výsledky."
+
+msgid "Edit Account"
+msgstr "Editovať účet"
+
+msgid "Suspended"
+msgstr "Pozastavený"
+
+msgid "Edit"
+msgstr "Editovať"
+
+msgid "Less"
+msgstr "Menej"
+
+msgid "More"
+msgstr "Viac"
+
+msgid "No more results to display."
+msgstr "Nie sú ďalšie výsledky na zobrazenie."
+
+msgid "No New Comment Notification"
+msgstr "Zrušenie upozornenia na nové komentáre"
+
+msgid "New Comment Notification"
+msgstr "Upozornenie na nové komentáre"
+
+msgid "Flag Out-of-date"
+msgstr "Označ ako neaktuálny."
+
+msgid "UnFlag Out-of-date"
+msgstr "Odznač ako neaktuálny."
+
+msgid "Delete Packages"
+msgstr "Vymaž balíčky"
+
+msgid "Merge into"
+msgstr "Zlúčiť do"
+
+msgid "Confirm"
+msgstr "Potvrď"
+
+msgid "My Packages"
+msgstr "Moje balíčky"
+
+msgid " My Account"
+msgstr "Môj účet"
+
+msgid "Register"
+msgstr "Registrovať"
+
+msgid "Add Comment"
+msgstr "Pridať komentár"
+
+msgid "Comment has been added."
+msgstr "Komentár bol pridaný."
+
+#, php-format
+msgid "View all %s comments"
+msgstr "Zobraz všetky (%s) komentáre"
+
+msgid "Latest Comments"
+msgstr "Posledné komentáre"
+
+msgid "Delete comment"
+msgstr "Vymaž komentár"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "Komentár od %s"
+
+msgid "All comments"
+msgstr "Všetky komentáre"
+
+msgid "unknown"
+msgstr "neznámy"
+
+msgid "Package Details"
+msgstr "Deaily balíčku"
+
+msgid "Package Actions"
+msgstr "Akcie balíčka"
+
+msgid "View PKGBUILD"
+msgstr "Pozrieť PKGBUILD"
+
+msgid "Download tarball"
+msgstr "Stiahnuť tarball"
+
+msgid "Flagged out-of-date"
+msgstr "Označený ako neaktuálny"
+
+msgid "Flag package out-of-date"
+msgstr "Označ balíček ako neaktuálny"
+
+msgid "Unflag package"
+msgstr "Odznač balíček"
+
+msgid "Remove vote"
+msgstr "Odober hlas"
+
+msgid "Vote for this package"
+msgstr "Hlasuj za tento balíček"
+
+msgid "Disable notifications"
+msgstr "Vypni upozornenia"
+
+msgid "Notify of new comments"
+msgstr "Upozorni na nové komentáre"
+
+msgid "Delete Package"
+msgstr "Vymaž balíček"
+
+msgid "Merge Package"
+msgstr "Zlúč balíček"
+
+msgid "Adopt Package"
+msgstr "Adoptuj balíček"
+
+msgid "Disown Package"
+msgstr "Vyvlastni balíček"
+
+msgid "Description"
+msgstr "Popis"
+
+msgid "Upstream URL"
+msgstr "Upstream URL"
+
+msgid "Visit the website for"
+msgstr "Navštív web stránku pre"
+
+msgid "Category"
+msgstr "Kategória"
+
+msgid "Change category"
+msgstr "Zmeniť kategóriu"
+
+msgid "License"
+msgstr "Licencia"
+
+msgid "Submitter"
+msgstr "Prispievateľ:"
+
+msgid "View account information for"
+msgstr "Pozri informácie o účte pre"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "Pozri informácie o účte pre %s"
+
+msgid "None"
+msgstr "Žiadny"
+
+msgid "Maintainer"
+msgstr "Spravovateľ"
+
+msgid "Votes"
+msgstr "Hlasy"
+
+msgid "First Submitted"
+msgstr "Prvý príspevok"
+
+msgid "Last Updated"
+msgstr "Posledná aktualizácia"
+
+msgid "Dependencies"
+msgstr "Závislosti"
+
+msgid "View packages details for"
+msgstr "Pozri detaily balíčky pre"
+
+msgid "Required by"
+msgstr "Vyžadovaný"
+
+msgid "Sources"
+msgstr "Zdroje"
+
+msgid "Name, Description"
+msgstr "meno, popis"
+
+msgid "Name Only"
+msgstr "iba meno"
+
+msgid "Exact name"
+msgstr "presné meno"
+
+msgid "All"
+msgstr "Všetky"
+
+msgid "Flagged"
+msgstr "Označené"
+
+msgid "Not Flagged"
+msgstr "Neoznačené"
+
+msgid "Name"
+msgstr "Meno"
+
+msgid "Voted"
+msgstr "Hlasoval"
+
+msgid "Age"
+msgstr "vek"
+
+msgid "Ascending"
+msgstr "Vzostupne"
+
+msgid "Descending"
+msgstr "Zostupne"
+
+msgid "Enter search criteria"
+msgstr "Zadaj kritériá pre vyhľadávanie"
+
+msgid "Any"
+msgstr "Ľubovoľné"
+
+msgid "Search by"
+msgstr "Vyhľadávať podľa"
+
+msgid "Keywords"
+msgstr "Kľúčové slová"
+
+msgid "Out of Date"
+msgstr "Neaktuálny"
+
+msgid "Sort by"
+msgstr "Zotriediť podľa"
+
+msgid "Sort order"
+msgstr "Zotriediť"
+
+msgid "Per page"
+msgstr "Na stránku"
+
+msgid "Go"
+msgstr "Choď"
+
+msgid "Orphans"
+msgstr "Osirené"
+
+msgid "Error retrieving package list."
+msgstr "Chyba pri získavaní zoznamu balíčkov."
+
+msgid "No packages matched your search criteria."
+msgstr "Žiadne balíčky nezodpovedajú vaším vyhľadávacím kritériám."
+
+#, php-format
+msgid "%d packages found. Page %d of %d."
+msgstr "%d nájdených balíčkov. Strana %d z %d."
+
+msgid "Version"
+msgstr "Verzia"
+
+msgid "Yes"
+msgstr "Áno"
+
+msgid "orphan"
+msgstr "osirelý"
+
+msgid "Actions"
+msgstr "Akcie"
+
+msgid "Unflag Out-of-date"
+msgstr "Odznač ako neaktuálny"
+
+msgid "Adopt Packages"
+msgstr "Adoptuj balíčky"
+
+msgid "Disown Packages"
+msgstr "Vyvlastni balíčky"
+
+msgid "Any type"
+msgstr "Ľub. typ"
+
+msgid "Last vote"
+msgstr "Posledný hlas"
+
+msgid "Search"
+msgstr "Hľadaj"
+
+msgid "Statistics"
+msgstr "Štatistika"
+
+msgid "Orphan Packages"
+msgstr "Osirelé balíčky"
+
+msgid "Packages added in the past 7 days"
+msgstr "Balíčky pridané za posledných 7 dní"
+
+msgid "Packages updated in the past 7 days"
+msgstr "Balíčky aktualiz. za uplynulých 7 dní"
+
+msgid "Packages updated in the past year"
+msgstr "Balíčky aktualiz. za posledný rok"
+
+msgid "Packages never updated"
+msgstr "Nikdy neaktualizované balíčky"
+
+msgid "Registered Users"
+msgstr "Registrovaní užívatelia"
+
+msgid "Trusted Users"
+msgstr "Dôverovaní užívatelia (TU)"
+
+msgid "Recent Updates"
+msgstr "Nedávne aktualizácie"
+
+msgid "My Statistics"
+msgstr "Moja štatistika"
+
+msgid "Packages in unsupported"
+msgstr "Nepodporované balíčky"
+
+msgid "Proposal Details"
+msgstr "Detaily o návrhu"
+
+msgid "This vote is still running."
+msgstr "Hlasovanie stále prebieha."
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Prispené: %s od %s"
+
+msgid "End"
+msgstr "Koniec"
+
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
+msgid "No"
+msgstr "Nie"
+
+msgid "Abstain"
+msgstr "Zdržalo sa"
+
+msgid "Total"
+msgstr "Celkom"
+
+msgid "Participation"
+msgstr ""
+
+msgid "Start"
+msgstr "Začiatok"
+
+msgid "No results found."
+msgstr "Žiadne výsledky neboli nájdené."
+
+msgid "Back"
+msgstr "Späť"
