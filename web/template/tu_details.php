@@ -6,7 +6,11 @@ $active_tus = $row["ActiveTUs"];
 $quorum = $row["Quorum"];
 
 $total = $yes + $no + $abstain;
-$participation = $total / $active_tus;
+if ($active_tus > 0) {
+	$participation = $total / $active_tus;
+} else {
+	$participation = 0;
+}
 
 if ($yes > $active_tus / 2) {
 	$vote_accepted = true;
