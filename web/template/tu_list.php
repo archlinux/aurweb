@@ -53,4 +53,18 @@
 			?>
 		</tbody>
 	</table>
+	<div class="pkglist-stats">
+		<p class="pkglist-nav">
+		<?php if ($result):
+			$by = htmlentities($by, ENT_QUOTES); ?>
+			<?php if ($nextresult > 0 && $off != 0):
+				$back = (($off - $limit) <= 0) ? 0 : $off - $limit; ?>
+				<a class="page" href='<?= get_uri('/tu/'); ?>?off=<?= $back ?>&amp;by=<?= $by ?>'>&lsaquo; <?= __("Back") ?></a>
+			<?php endif; ?>
+			<?php if (($off + $limit) < $nextresult):
+				$forw = $off + $limit; ?>
+			<a class="page" href="<?= get_uri('/tu/'); ?>?off=<?= $forw ?>&amp;by=<?= $by ?>"><?= __("Next") ?> &rsaquo;</a>
+			<?php endif; ?>
+		<?php endif; ?>
+	</div>
 </div>

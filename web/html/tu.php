@@ -107,6 +107,7 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 
 		$result = current_proposal_list($order);
 		$type = __("Current Votes");
+		$nextresult = 0;
 		include("tu_list.php");
 ?>
 
@@ -114,25 +115,13 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 		$result = past_proposal_list($order, $lim);
 
 		$type = __("Past Votes");
-		include("tu_list.php");
-
 		$nextresult = proposal_count();
+		include("tu_list.php");
 ?>
 <div class="box">
 	<p><a href="<?= get_uri('/addvote/'); ?>"><?= __("Add Proposal") ?></a></p>
-
-	<?php if ($result):
-		$by = htmlentities($by, ENT_QUOTES); ?>
-		<?php if ($off != 0):
-			$back = (($off - $limit) <= 0) ? 0 : $off - $limit; ?>
-			<a href='<?= get_uri('/tu/'); ?>?off=<?= $back ?>&amp;by=<?= $by ?>'><?= __("Back") ?></a>
-		<?php endif; ?>
-		<?php if (($off + $limit) < $nextresult):
-			$forw = $off + $limit; ?>
-		<a href="<?= get_uri('/tu/'); ?>?off=<?= $forw ?>&amp;by=<?= $by ?>"><?= __("Next") ?></a>
-		<?php endif; ?>
-	<?php endif; ?>
 </div>
+	</p>
 <?php
 		$result = last_votes_list();
 		include("tu_last_votes_list.php");
