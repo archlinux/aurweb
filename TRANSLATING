@@ -4,9 +4,9 @@ AUR Translation
 This document describes how to create and maintain AUR translations. It was
 originally derived from https://wiki.archlinux.org/index.php/AUR_Translation
 
-Creating an AUR translation requires a Transifex (http://www.transifex.net/)
+Creating an AUR translation requires a Transifex (http://www.transifex.com/)
 account. You will need to register with a translation team on the AUR project
-page (http://www.transifex.net/projects/p/aur/).
+page (http://www.transifex.com/projects/p/aur/).
 
 
 Creating a New Translation
