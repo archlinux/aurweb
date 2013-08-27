@@ -41,6 +41,7 @@ $sources = package_sources($row["ID"]);
 				<?php if ($row["OutOfDateTS"] === NULL): ?>
 				<li>
 					<form action="<?= get_pkg_uri($row['Name']) . 'flag/'; ?>" method="post">
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_Flag" value="<?= __('Flag package out-of-date') ?>" />
 					</form>
 				</li>
@@ -48,6 +49,7 @@ $sources = package_sources($row["ID"]);
 				($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
 				<li>
 					<form action="<?= get_pkg_uri($row['Name']) . 'unflag/'; ?>" method="post">
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_UnFlag" value="<?= __('Unflag package') ?>" />
 					</form>
 				</li>
@@ -55,12 +57,14 @@ $sources = package_sources($row["ID"]);
 				<?php if (user_voted($uid, $row['ID'])): ?>
 				<li>
 					<form action="<?= get_pkg_uri($row['Name']) . 'unvote/'; ?>" method="post">
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_UnVote" value="<?= __('Remove vote') ?>" />
 					</form>
 				</li>
 				<?php else: ?>
 				<li>
 					<form action="<?= get_pkg_uri($row['Name']) . 'vote/'; ?>" method="post">
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_Vote" value="<?= __('Vote for this package') ?>" />
 					</form>
 				</li>
@@ -68,12 +72,14 @@ $sources = package_sources($row["ID"]);
 				<?php if (user_notify($uid, $row['ID'])): ?>
 				<li>
 					<form action="<?= get_pkg_uri($row['Name']) . 'unnotify/'; ?>" method="post">
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_UnNotify" value="<?= __('Disable notifications') ?>" />
 					</form>
 				</li>
 				<?php else: ?>
 				<li>
 					<form action="<?= get_pkg_uri($row['Name']) . 'notify/'; ?>" method="post">
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_Notify" value="<?= __('Notify of new comments') ?>" />
 					</form>
 				</li>

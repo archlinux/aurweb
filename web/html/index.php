@@ -59,10 +59,6 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				return;
 			}
 
-			if (isset($_COOKIE['AURSID'])) {
-				$_POST['token'] = $_COOKIE['AURSID'];
-			}
-
 			$_POST['IDs'] = array(pkgid_from_name($tokens[2]) => '1');
 		}
 	}
