@@ -19,6 +19,12 @@ ALTER TABLE TU_VoteInfo
 	ADD COLUMN Quorum decimal(2, 2) unsigned NOT NULL;
 ----
 
+3. Add a "fonts" category:
+
+----
+INSERT INTO PackageCategories (Category) VALUES ('fonts');
+----
+
 From 2.1.0 to 2.2.0
 -------------------
 
