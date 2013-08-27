@@ -54,30 +54,31 @@ if (isset($_POST['IDs'])) {
 }
 
 # Determine what action to do
+$ret = false;
 $output = "";
 if (check_token()) {
 	if (current_action("do_Flag")) {
-		$output = pkg_flag($atype, $ids);
+		list($ret, $output) = pkg_flag($atype, $ids);
 	} elseif (current_action("do_UnFlag")) {
-		$output = pkg_unflag($atype, $ids);
+		list($ret, $output) = pkg_unflag($atype, $ids);
 	} elseif (current_action("do_Adopt")) {
-		$output = pkg_adopt($atype, $ids, true);
+		list($ret, $output) = pkg_adopt($atype, $ids, true);
 	} elseif (current_action("do_Disown")) {
-		$output = pkg_adopt($atype, $ids, False);
+		list($ret, $output) = pkg_adopt($atype, $ids, False);
 	} elseif (current_action("do_Vote")) {
-		$output = pkg_vote($atype, $ids, true);
+		list($ret, $output) = pkg_vote($atype, $ids, true);
 	} elseif (current_action("do_UnVote")) {
-		$output = pkg_vote($atype, $ids, False);
+		list($ret, $output) = pkg_vote($atype, $ids, False);
 	} elseif (current_action("do_Delete")) {
 		if (isset($_POST['confirm_Delete'])) {
 			if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
-				$output = pkg_delete($atype, $ids, NULL);
+				list($ret, $output) = pkg_delete($atype, $ids, NULL);
 				unset($_GET['ID']);
 			}
 			else {
 				$mergepkgid = pkgid_from_name($_POST['merge_Into']);
 				if ($mergepkgid) {
-					$output = pkg_delete($atype, $ids, $mergepkgid);
+					list($ret, $output) = pkg_delete($atype, $ids, $mergepkgid);
 					unset($_GET['ID']);
 				}
 				else {
@@ -89,13 +90,13 @@ if (check_token()) {
 			$output = __("The selected packages have not been deleted, check the confirmation checkbox.");
 		}
 	} elseif (current_action("do_Notify")) {
-		$output = pkg_notify($atype, $ids);
+		list($ret, $output) = pkg_notify($atype, $ids);
 	} elseif (current_action("do_UnNotify")) {
-		$output = pkg_notify($atype, $ids, False);
+		list($ret, $output) = pkg_notify($atype, $ids, False);
 	} elseif (current_action("do_DeleteComment")) {
-		$output = pkg_delete_comment($atype);
+		list($ret, $output) = pkg_delete_comment($atype);
 	} elseif (current_action("do_ChangeCategory")) {
-		$output = pkg_change_category($pkgid, $atype);
+		list($ret, $output) = pkg_change_category($pkgid, $atype);
 	}
 }
 

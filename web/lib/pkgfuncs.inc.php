@@ -752,18 +752,18 @@ function sanitize_ids($ids) {
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to flag/unflag
  *
- * @return string Translated success or error messages
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkg_flag($atype, $ids) {
 	global $AUR_LOCATION;
 
 	if (!$atype) {
-		return __("You must be logged in before you can flag packages.");
+		return array(false, __("You must be logged in before you can flag packages."));
 	}
 
 	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
-		return __("You did not select any packages to flag.");
+		return array(false, __("You did not select any packages to flag."));
 	}
 
 	$dbh = DB::connect();
@@ -797,7 +797,7 @@ function pkg_flag($atype, $ids) {
 		}
 	}
 
-	return __("The selected packages have been flagged out-of-date.");
+	return array(true, __("The selected packages have been flagged out-of-date."));
 }
 
 /**
@@ -806,16 +806,16 @@ function pkg_flag($atype, $ids) {
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to flag/unflag
  *
- * @return string Translated success or error messages
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkg_unflag($atype, $ids) {
 	if (!$atype) {
-		return __("You must be logged in before you can unflag packages.");
+		return array(false, __("You must be logged in before you can unflag packages."));
 	}
 
 	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
-		return __("You did not select any packages to unflag.");
+		return array(false, __("You did not select any packages to unflag."));
 	}
 
 	$dbh = DB::connect();
@@ -831,7 +831,7 @@ function pkg_unflag($atype, $ids) {
 	$result = $dbh->exec($q);
 
 	if ($result) {
-		return __("The selected packages have been unflagged.");
+		return array(true, __("The selected packages have been unflagged."));
 	}
 }
 
@@ -842,21 +842,21 @@ function pkg_unflag($atype, $ids) {
  * @param array $ids Array of package IDs to delete
  * @param int $mergepkgid Package to merge the deleted ones into
  *
- * @return string Translated error or success message
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkg_delete ($atype, $ids, $mergepkgid) {
 	if (!$atype) {
-		return __("You must be logged in before you can delete packages.");
+		return array(false, __("You must be logged in before you can delete packages."));
 	}
 
 	# If they're a TU or dev, can delete
 	if ($atype != "Trusted User" && $atype != "Developer") {
-		return __("You do not have permission to delete packages.");
+		return array(false, __("You do not have permission to delete packages."));
 	}
 
 	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
-		return __("You did not select any packages to delete.");
+		return array(false, __("You did not select any packages to delete."));
 	}
 
 	$dbh = DB::connect();
@@ -929,7 +929,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 	$q = "DELETE FROM Packages WHERE ID IN (" . implode(",", $ids) . ")";
 	$result = $dbh->exec($q);
 
-	return __("The selected packages have been deleted.");
+	return array(true, __("The selected packages have been deleted."));
 }
 
 /**
@@ -939,23 +939,23 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
  * @param array $ids Array of package IDs to adopt/disown
  * @param bool $action Adopts if true, disowns if false. Adopts by default
  *
- * @return string Translated error or success message
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkg_adopt ($atype, $ids, $action=true) {
 	if (!$atype) {
 		if ($action) {
-			return __("You must be logged in before you can adopt packages.");
+			return array(false, __("You must be logged in before you can adopt packages."));
 		} else {
-			return __("You must be logged in before you can disown packages.");
+			return array(false, __("You must be logged in before you can disown packages."));
 		}
 	}
 
 	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
 		if ($action) {
-			return __("You did not select any packages to adopt.");
+			return array(false, __("You did not select any packages to adopt."));
 		} else {
-			return __("You did not select any packages to disown.");
+			return array(false, __("You did not select any packages to disown."));
 		}
 	}
 
@@ -984,9 +984,9 @@ function pkg_adopt ($atype, $ids, $action=true) {
 
 	if ($action) {
 		pkg_notify(account_from_sid($_COOKIE["AURSID"]), $ids);
-		return __("The selected packages have been adopted.");
+		return array(true, __("The selected packages have been adopted."));
 	} else {
-		return __("The selected packages have been disowned.");
+		return array(true, __("The selected packages have been disowned."));
 	}
 }
 
@@ -997,23 +997,23 @@ function pkg_adopt ($atype, $ids, $action=true) {
  * @param array $ids Array of package IDs to vote/un-vote
  * @param bool $action Votes if true, un-votes if false. Votes by default
  *
- * @return string Translated error or success message
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkg_vote ($atype, $ids, $action=true) {
 	if (!$atype) {
 		if ($action) {
-			return __("You must be logged in before you can vote for packages.");
+			return array(false, __("You must be logged in before you can vote for packages."));
 		} else {
-			return __("You must be logged in before you can un-vote for packages.");
+			return array(false, __("You must be logged in before you can un-vote for packages."));
 		}
 	}
 
 	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
 		if ($action) {
-			return __("You did not select any packages to vote for.");
+			return array(false, __("You did not select any packages to vote for."));
 		} else {
-			return __("Your votes have been removed from the selected packages.");
+			return array(false, __("Your votes have been removed from the selected packages."));
 		}
 	}
 
@@ -1070,9 +1070,9 @@ function pkg_vote ($atype, $ids, $action=true) {
 	}
 
 	if ($action) {
-		return __("Your votes have been cast for the selected packages.");
+		return array(true, __("Your votes have been cast for the selected packages."));
 	} else {
-		return __("Your votes have been removed from the selected packages.");
+		return array(true, __("Your votes have been removed from the selected packages."));
 	}
 }
 
@@ -1156,7 +1156,7 @@ function user_notify($uid, $pkgid) {
  * @param string $atype Account type, output of account_from_sid
  * @param array $ids Array of package IDs to toggle, formatted as $package_id
  *
- * @return string Translated error or success message
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkg_notify ($atype, $ids, $action=true) {
 	if (!$atype) {
@@ -1166,7 +1166,7 @@ function pkg_notify ($atype, $ids, $action=true) {
 
 	$ids = sanitize_ids($ids);
 	if (empty($ids)) {
-		return __("Couldn't add to notification list.");
+		return array(false, __("Couldn't add to notification list."));
 	}
 
 	$dbh = DB::connect();
@@ -1224,7 +1224,7 @@ function pkg_notify ($atype, $ids, $action=true) {
 		$output = __("You have been removed from the comment notification list for %s.", $output);
 	}
 
-	return $output;
+	return array(true, $output);
 }
 
 /**
@@ -1232,18 +1232,18 @@ function pkg_notify ($atype, $ids, $action=true) {
  *
  * @param string $atype Account type, output of account_from_sid
  *
- * @return string Translated error or success message
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkg_delete_comment($atype) {
 	if (!$atype) {
-		return __("You must be logged in before you can edit package information.");
+		return array(false, __("You must be logged in before you can edit package information."));
 	}
 
 	# Get ID of comment to be removed
 	if (isset($_POST["comment_id"])) {
 		$comment_id = $_POST["comment_id"];
 	} else {
-		return __("Missing comment ID.");
+		return array(false, __("Missing comment ID."));
 	}
 
 	$dbh = DB::connect();
@@ -1253,9 +1253,9 @@ function pkg_delete_comment($atype) {
 		   $q.= "SET DelUsersID = ".$uid." ";
 		   $q.= "WHERE ID = ".intval($comment_id);
 		$dbh->exec($q);
-		   return __("Comment has been deleted.");
+		   return array(true, __("Comment has been deleted."));
 	} else {
-		   return __("You are not allowed to delete this comment.");
+		   return array(false, __("You are not allowed to delete this comment."));
 	}
 }
 
@@ -1264,24 +1264,24 @@ function pkg_delete_comment($atype) {
  *
  * @param string $atype Account type, output of account_from_sid
  *
- * @return string Translated error or success message
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkg_change_category($pid, $atype) {
 	if (!$atype)  {
-		return __("You must be logged in before you can edit package information.");
+		return array(false, __("You must be logged in before you can edit package information."));
 	}
 
 	# Get ID of the new category
 	if (isset($_POST["category_id"])) {
 		$category_id = $_POST["category_id"];
 	} else {
-		return __("Missing category ID.");
+		return array(false, __("Missing category ID."));
 	}
 
 	$dbh = DB::connect();
 	$catArray = pkgCategories($dbh);
 	if (!array_key_exists($category_id, $catArray)) {
-		return __("Invalid category ID.");
+		return array(false, __("Invalid category ID."));
 	}
 
 	# Verify package ownership
@@ -1293,7 +1293,7 @@ function pkg_change_category($pid, $atype) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
 	}
 	else {
-		return __("You are not allowed to change this package category.");
+		return array(false, __("You are not allowed to change this package category."));
 	}
 
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
@@ -1303,9 +1303,9 @@ function pkg_change_category($pid, $atype) {
 		$q.= "SET CategoryID = ".intval($category_id)." ";
 		$q.= "WHERE ID = ".intval($pid);
 		$dbh->exec($q);
-		return __("Package category changed.");
+		return array(true, __("Package category changed."));
 	} else {
-		return __("You are not allowed to change this package category.");
+		return array(false, __("You are not allowed to change this package category."));
 	}
 }
 
