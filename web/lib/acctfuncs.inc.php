@@ -1004,9 +1004,10 @@ function last_votes_list() {
 	$dbh = DB::connect();
 
 	$q = "SELECT UserID, MAX(VoteID) AS LastVote FROM TU_Votes, ";
-	$q .= "TU_VoteInfo WHERE TU_VoteInfo.ID = TU_Votes.VoteID AND ";
-	$q .= "TU_VoteInfo.End < UNIX_TIMESTAMP() GROUP BY UserID ";
-	$q .= "ORDER BY VoteID DESC";
+	$q .= "TU_VoteInfo, Users WHERE TU_VoteInfo.ID = TU_Votes.VoteID AND ";
+	$q .= "TU_VoteInfo.End < UNIX_TIMESTAMP() AND ";
+	$q .= "Users.ID = TU_Votes.UserID AND Users.AccountTypeID = 2 ";
+	$q .= "GROUP BY UserID ORDER BY LastVote DESC";
 	$result = $dbh->query($q);
 
 	$details = array();
