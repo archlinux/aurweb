@@ -14,3 +14,22 @@
 #pkg-stats td.stat-desc {
   white-space: normal;
 }
+
+#actionlist form {
+	margin: 0;
+	padding: 0;
+}
+
+#actionlist .text-button {
+        color: #07b;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	font-size: 100%;
+}
+
+#actionlist .text-button:hover {
+	text-decoration: underline;
+	color: #666;
+}

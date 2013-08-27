@@ -39,20 +39,44 @@ $sources = package_sources($row["ID"]);
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
 				<?php if ($USE_VIRTUAL_URLS && $uid): ?>
 				<?php if ($row["OutOfDateTS"] === NULL): ?>
-				<li><a href="<?= get_pkg_uri($row['Name']) . 'flag/'; ?>"><?= __('Flag package out-of-date'); ?></a></li>
+				<li>
+					<form action="<?= get_pkg_uri($row['Name']) . 'flag/'; ?>" method="post">
+						<input type="submit" class="button text-button" name="do_Flag" value="<?= __('Flag package out-of-date') ?>" />
+					</form>
+				</li>
 				<?php elseif (($row["OutOfDateTS"] !== NULL) &&
 				($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
-				<li><a href="<?= get_pkg_uri($row['Name']) . 'unflag/'; ?>"><?= __('Unflag package'); ?></a></li>
+				<li>
+					<form action="<?= get_pkg_uri($row['Name']) . 'unflag/'; ?>" method="post">
+						<input type="submit" class="button text-button" name="do_UnFlag" value="<?= __('Unflag package') ?>" />
+					</form>
+				</li>
 				<?php endif; ?>
 				<?php if (user_voted($uid, $row['ID'])): ?>
-				<li><a href="<?= get_pkg_uri($row['Name']) . 'unvote/'; ?>"><?= __('Remove vote'); ?></a></li>
+				<li>
+					<form action="<?= get_pkg_uri($row['Name']) . 'unvote/'; ?>" method="post">
+						<input type="submit" class="button text-button" name="do_UnVote" value="<?= __('Remove vote') ?>" />
+					</form>
+				</li>
 				<?php else: ?>
-				<li><a href="<?= get_pkg_uri($row['Name']) . 'vote/'; ?>"><?= __('Vote for this package'); ?></a></li>
+				<li>
+					<form action="<?= get_pkg_uri($row['Name']) . 'vote/'; ?>" method="post">
+						<input type="submit" class="button text-button" name="do_Vote" value="<?= __('Vote for this package') ?>" />
+					</form>
+				</li>
 				<?php endif; ?>
 				<?php if (user_notify($uid, $row['ID'])): ?>
-				<li><a href="<?= get_pkg_uri($row['Name']) . 'unnotify/'; ?>"><?= __('Disable notifications'); ?></a></li>
+				<li>
+					<form action="<?= get_pkg_uri($row['Name']) . 'unnotify/'; ?>" method="post">
+						<input type="submit" class="button text-button" name="do_UnNotify" value="<?= __('Disable notifications') ?>" />
+					</form>
+				</li>
 				<?php else: ?>
-				<li><a href="<?= get_pkg_uri($row['Name']) . 'notify/'; ?>"><?= __('Notify of new comments'); ?></a></li>
+				<li>
+					<form action="<?= get_pkg_uri($row['Name']) . 'notify/'; ?>" method="post">
+						<input type="submit" class="button text-button" name="do_Notify" value="<?= __('Notify of new comments') ?>" />
+					</form>
+				</li>
 				<?php endif; ?>
 				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
 				<li><a href="<?= get_pkg_uri($row['Name']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
