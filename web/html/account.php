@@ -113,7 +113,7 @@ if (isset($_COOKIE["AURSID"])) {
 		# display the account request form
 		#
 		print __("Use this form to create an account.");
-		display_account_form("", "NewAccount");
+		display_account_form("", "NewAccount", "", "", "", "", "", "", "", $LANG);
 	}
 }
 
