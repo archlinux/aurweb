@@ -99,6 +99,12 @@ if (check_token()) {
 		list($ret, $output) = pkg_change_category($pkgid, $atype);
 	}
 
+	if (isset($_REQUEST['comment'])) {
+		$uid = uid_from_sid($_COOKIE["AURSID"]);
+		add_package_comment($pkgid, $uid, $_REQUEST['comment']);
+		$ret = true;
+	}
+
 	if ($ret) {
 		/* Redirect back to package page on success. */
 		header('Location: ' . get_pkg_uri($pkgname));
