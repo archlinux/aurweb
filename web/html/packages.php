@@ -98,6 +98,12 @@ if (check_token()) {
 	} elseif (current_action("do_ChangeCategory")) {
 		list($ret, $output) = pkg_change_category($pkgid, $atype);
 	}
+
+	if ($ret) {
+		/* Redirect back to package page on success. */
+		header('Location: ' . get_pkg_uri($pkgname));
+		exit();
+	}
 }
 
 # Get package details after package actions have been attempted, FS#34508
