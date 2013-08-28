@@ -4,10 +4,12 @@ Upgrading
 From 2.2.0 to 2.3.0
 -------------------
 
-1. Add an inactivity time stamp to the "Users" table:
+1. Add registration and inactivity time stamps to the "Users" table:
 
 ----
-ALTER TABLE Users ADD COLUMN InactivityTS BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE Users
+	ADD COLUMN RegistrationTS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	ADD COLUMN InactivityTS BIGINT NOT NULL DEFAULT 0;
 ----
 
 2. Add fields to store the total number of TUs and the quorum to the
