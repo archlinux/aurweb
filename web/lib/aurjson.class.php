@@ -43,6 +43,7 @@ class AurJSON {
 		// overwrite cache-control header set in aur.inc to allow caching, but
 		// require validation
 		header('Cache-Control: public, must-revalidate, max-age=0');
+		header('Content-Type: application/json, charset=utf-8');
 
         // handle error states
         if ( !isset($http_data['type']) || !isset($http_data['arg']) ) {
