@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Albino Biasutti Neto Bino <biasuttin@gmail.com>, 2011.
-# Rafael Ferreira <rafael.f.f1@gmail.com>, 2012-2013.
-# Rafael  <rafael.f.f1@gmail.com>, 2011.
-# Sandro  <sandrossv@hotmail.com>, 2011.
+# Albino Biasutti Neto Bino <biasuttin@gmail.com>, 2011
+# Rafael Ferreira <rafael.f.f1@gmail.com>, 2012-2013
+# Rafael Ferreira <rafael.f.f1@gmail.com>, 2011
+# Sandro <sandrossv@hotmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:49+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-27 16:58+0000\n"
 "Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/aur/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -61,11 +61,8 @@ msgstr "Usuário não existe."
 msgid "%s already has proposal running for them."
 msgstr "%s já tem uma proposta aberta para eles."
 
-msgid "Length must be a number."
-msgstr "Comprimento deve ser um número."
-
-msgid "Length must be at least 1."
-msgstr "Comprimento deve ser pelo menos 1."
+msgid "Invalid type."
+msgstr "Tipo inválido."
 
 msgid "Proposal cannot be empty."
 msgstr "Proposta não pode ser vazia."
@@ -82,11 +79,20 @@ msgstr "Requerente/TU"
 msgid "(empty if not applicable)"
 msgstr "(vazio se não aplicável)"
 
-msgid "Length in days"
-msgstr "Duração em dias"
+msgid "Type"
+msgstr "Tipo"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(padrão é 7 se estiver vazio)"
+msgid "Addition of a TU"
+msgstr "Adição de um TU"
+
+msgid "Removal of a TU"
+msgstr "Remoção de um TU"
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr "Remoção de um TU (inatividade não declarada)"
+
+msgid "Amendment of Bylaws"
+msgstr "Emenda ao Estatuto"
 
 msgid "Proposal"
 msgstr "Proposta"
@@ -447,12 +453,6 @@ msgstr "Votos atuais"
 msgid "Past Votes"
 msgstr "Votos anteriores"
 
-msgid "Back"
-msgstr "Voltar"
-
-msgid "Next"
-msgstr "Próxima"
-
 msgid "Voters"
 msgstr "Eleitores"
 
@@ -559,6 +559,9 @@ msgstr "Primeiro"
 
 msgid "Previous"
 msgstr "Anterior"
+
+msgid "Next"
+msgstr "Próxima"
 
 msgid "Last"
 msgstr "Última"
@@ -682,6 +685,15 @@ msgstr "Apelido no IRC"
 msgid "PGP Key Fingerprint"
 msgstr "Impressão digital de chave PGP"
 
+msgid "Status"
+msgstr "Status"
+
+msgid "Inactive since"
+msgstr "Inativo desde"
+
+msgid "Active"
+msgstr "Ativa"
+
 msgid "Last Voted"
 msgstr "Último voto"
 
@@ -703,6 +715,9 @@ msgstr "Trusted user"
 msgid "Account Suspended"
 msgstr "Conta suspensa"
 
+msgid "Inactive"
+msgstr "Inativo"
+
 msgid "Re-type password"
 msgstr "Re-digite a senha"
 
@@ -721,20 +736,11 @@ msgstr "Limpar"
 msgid "No results matched your search criteria."
 msgstr "Nenhum resultado correspondeu aos seus critérios de pesquisa."
 
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Status"
-msgstr "Status"
-
 msgid "Edit Account"
 msgstr "Editar conta"
 
 msgid "Suspended"
 msgstr "Suspensa"
-
-msgid "Active"
-msgstr "Ativa"
 
 msgid "Edit"
 msgstr "Editar"
@@ -823,7 +829,7 @@ msgid "Flag package out-of-date"
 msgstr "Marcar como desatualizado"
 
 msgid "Unflag package"
-msgstr "Desmarcar pacote"
+msgstr "Desmarcar desatualização"
 
 msgid "Remove vote"
 msgstr "Remover voto"
@@ -1053,6 +1059,15 @@ msgstr "Enviado: %s por %s"
 msgid "End"
 msgstr "Fim"
 
+msgid "Result"
+msgstr "Resultado"
+
+msgid "Accepted"
+msgstr "Aceito"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
 msgid "No"
 msgstr "Não"
 
@@ -1062,8 +1077,14 @@ msgstr "Abster"
 msgid "Total"
 msgstr "Total"
 
+msgid "Participation"
+msgstr "Participação"
+
 msgid "Start"
 msgstr "Iniciar"
 
 msgid "No results found."
 msgstr "Nenhum resultado encontrado."
+
+msgid "Back"
+msgstr "Voltar"

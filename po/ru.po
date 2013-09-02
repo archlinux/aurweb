@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Kirill Silin <kirill@silin.in>, 2011.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Kyrylo Silin <curacaothe@gmail.com>, 2011
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# rustam <rustam.tsurik@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/aur/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -20,10 +21,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "Page Not Found"
-msgstr ""
+msgstr "Страница не найдена"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr ""
+msgstr "Извините, запрошенная страница не существует."
 
 msgid "Accounts"
 msgstr "Учетные записи"
@@ -50,7 +51,7 @@ msgid "Add Proposal"
 msgstr "Добавить предложение"
 
 msgid "Invalid token for user action."
-msgstr ""
+msgstr "Неверная метка для действия пользователя."
 
 msgid "Username does not exist."
 msgstr "Имя пользователя не существует."
@@ -59,11 +60,8 @@ msgstr "Имя пользователя не существует."
 msgid "%s already has proposal running for them."
 msgstr "За %s уже идет голосование."
 
-msgid "Length must be a number."
-msgstr "Длина должна указываться числом."
-
-msgid "Length must be at least 1."
-msgstr "Длина должна быть не меньше 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Предложение не может быть пустым."
@@ -80,11 +78,20 @@ msgstr "Кандидат/TU"
 msgid "(empty if not applicable)"
 msgstr "(пусто если не нужно)"
 
-msgid "Length in days"
-msgstr "Продолжительность в днях"
+msgid "Type"
+msgstr "Тип"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(7 если не указано иного)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Предложение"
@@ -99,13 +106,13 @@ msgstr "Главная"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
+msgstr "Добро пожаловать в AUR! Пожалуйста, ознакомьтесь с %sРуководством пользователя AUR%s и с %sРуководством доверенного пользователя AUR%s, чтобы узнать больше."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "Присланные пэкиджбилды (англ. PKGBUILD) %sдолжны%s соответствовать %sстандартам создания пакетов для Арча%s, иначе они будут удалены!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Не забывайте голосовать за понравившиеся вам пакеты!"
@@ -122,10 +129,10 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "Общие дискуссии, касающиеся структуры пользовательского репозитория Арча(AUR) и  доверенных пользователей, происходят на %saur-general%s. Этот список рассылки можно использовать для запросов на лишение прав сопровождающего, объединение и удаление пакетов. Для дискуссий касающихся разработки AUR, используйте список %saur-dev%s."
 
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Отчет об ошибке"
 
 #, php-format
 msgid ""
@@ -133,7 +140,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr ""
+msgstr "Если вы нашли ошибку в AUR, пожалуйста заполните форму отправки отчета на нашем %sбагтрекере%s.  Используйте этот трекер %sисключительно%s для ошибок в AUR. Для отчетов об ошибках в пакетах, свяжитесь с сопровождающим пакета или оставьте комментарий на странице соответствующего пакета."
 
 msgid "DISCLAIMER"
 msgstr "Отказ от ответственности"
@@ -144,7 +151,7 @@ msgid ""
 msgstr "Неподдерживаемые пакеты — это пакеты, созданные пользователями. Любой способ их использования осуществляется на ваш страх и риск."
 
 msgid "Package Search"
-msgstr ""
+msgstr "Поиск пакетов"
 
 msgid "Vote"
 msgstr "Голосовать"
@@ -159,10 +166,10 @@ msgid "UnNotify"
 msgstr "Не извещать"
 
 msgid "Flag"
-msgstr ""
+msgstr "Пометить"
 
 msgid "UnFlag"
-msgstr ""
+msgstr "Снять метку"
 
 msgid "Login"
 msgstr "Войти"
@@ -175,7 +182,7 @@ msgid "Logout"
 msgstr "Выход"
 
 msgid "Enter login credentials"
-msgstr ""
+msgstr "Введите учётные данные"
 
 msgid "Username"
 msgstr "Имя пользователя"
@@ -192,7 +199,7 @@ msgstr "Забыли пароль?"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
+msgstr "Вход через HTTP отключен. Пожалуйста, %sпереключитесь на HTTPs%s, чтобы войти."
 
 msgid "Search Criteria"
 msgstr "Критерии поиска"
@@ -201,7 +208,7 @@ msgid "Packages"
 msgstr "Пакеты"
 
 msgid "Cannot find package to merge votes and comments into."
-msgstr ""
+msgstr "Не могу найти пакет для объединения с ним голосов и комментариев."
 
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
@@ -251,81 +258,81 @@ msgstr "Продолжить"
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
 " message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Если вы забыли электронный адрес, который вы использовали для регистрации, пожалуйста, отошлите сообщение в список рассылки %saur-general%s."
 
 msgid "Enter your e-mail address:"
 msgstr "Введите свой адрес электронной почты:"
 
 msgid "Package Deletion"
-msgstr ""
+msgstr "Удаление пакета"
 
 #, php-format
 msgid "Delete Package: %s"
-msgstr ""
+msgstr "Удалить пакет: %s"
 
 #, php-format
 msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr ""
+msgstr "Используйте эту форму, чтобы удалить пакет (%s%s%s) из AUR."
 
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "Удаление пакета необратимо."
 
 msgid "Select the checkbox to confirm action."
-msgstr ""
+msgstr "Активируйте чекбокс для подтверждения действия."
 
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "Подтвердите удаление пакета"
 
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
+msgstr "Только Доверенные Пользователи и Разработчики могут удалять пакеты."
 
 msgid "Package Merging"
-msgstr ""
+msgstr "Объединение пакетов"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr ""
+msgstr "Объединить пакет: %s"
 
 #, php-format
 msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr ""
+msgstr "Используйте эту форму, чтобы объединить пакет (%s%s%s) с другим пакетом."
 
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
+msgstr "Объединение пакетов — необратимое действие."
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "Введите имя пакета, с которым вы хотите объединить этот пакет."
 
 msgid "Merge into:"
-msgstr ""
+msgstr "Объединить с:"
 
 msgid "Confirm package merge"
-msgstr ""
+msgstr "Подтвердить объединение пакетов"
 
 msgid "Merge"
-msgstr ""
+msgstr "Объединить"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
+msgstr "Только Доверенные Пользователи и Разработчики могут объединять пакеты."
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr ""
+msgstr "Ошибка — Размер загруженного файла превышает допустимый (%s)"
 
 msgid "Error - File partially uploaded"
-msgstr ""
+msgstr "Ошибка — файл загружен не полностью"
 
 msgid "Error - No file uploaded"
 msgstr "Ошибка - нет загруженного файла"
 
 msgid "Error - Could not locate temporary upload folder"
-msgstr ""
+msgstr "Ошибка — Не найдена временная папка для загрузки"
 
 msgid "Error - File could not be written"
-msgstr ""
+msgstr "Ошибка — Файл не может быть записан"
 
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
@@ -352,7 +359,7 @@ msgid "Missing %s variable in PKGBUILD."
 msgstr "Отсутствует переменная %s в PKGBUILD."
 
 msgid "Error - The AUR does not support split packages!"
-msgstr ""
+msgstr "Ошибка — AUR не поддерживает сплит-пакеты!"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Неверное имя: только нижний регистр допустим."
@@ -362,23 +369,23 @@ msgstr "Не указан протокол в URL (т.е.  http:// ,ftp://)"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
-msgstr ""
+msgstr "Ошибка — Имя пакета должно быть короче %d символов"
 
 #, php-format
 msgid "Error - Package URL cannot be greater than %d characters"
-msgstr ""
+msgstr "Ошибка — URL пакета должен быть не длиннее %d символов"
 
 #, php-format
 msgid "Error - Package description cannot be greater than %d characters"
-msgstr ""
+msgstr "Ошибка — Описание пакета должно быть не длиннее %d символов"
 
 #, php-format
 msgid "Error - Package license cannot be greater than %d characters"
-msgstr ""
+msgstr "Ошибка — Имя лицензии пакета не должно быть длиннее %d символов"
 
 #, php-format
 msgid "Error - Package version cannot be greater than %d characters"
-msgstr ""
+msgstr "Ошибка — версия пакета должна быть короче %d символов."
 
 #, php-format
 msgid "Could not create directory %s."
@@ -386,7 +393,7 @@ msgstr "Нельзя создать директорию %s."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
+msgstr "Вы не имеете доступа для перезаписи пакета %s%s%s."
 
 #, php-format
 msgid ""
@@ -445,19 +452,13 @@ msgstr "Сейчас голосов"
 msgid "Past Votes"
 msgstr "Прошлые голоса"
 
-msgid "Back"
-msgstr "Назад"
-
-msgid "Next"
-msgstr "Далее"
-
 msgid "Voters"
 msgstr "Голосовавшие"
 
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Регистрация аккаунтов с вашего IP адреса запрещена, возможная причина проблемы — спам-атаки. Извините за неудобства."
 
 msgid "Missing User ID"
 msgstr "Отсутствует идентификатор пользователя"
@@ -483,62 +484,62 @@ msgid "The email address is invalid."
 msgstr "Неправильный адрес электронной почты."
 
 msgid "The PGP key fingerprint is invalid."
-msgstr ""
+msgstr "Неверный отпечаток ключа PGP."
 
 msgid "Cannot increase account permissions."
-msgstr ""
+msgstr "Невозможно повысить привилегии."
 
 msgid "Language is not currently supported."
 msgstr "Язык пока не поддерживается."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
-msgstr ""
+msgstr "Имя пользователя, %s%s%s, уже используется."
 
 #, php-format
 msgid "The address, %s%s%s, is already in use."
-msgstr ""
+msgstr "Адрес %s%s%s уже используется."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
-msgstr ""
+msgstr "Ошибка при создании аккаунта %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
-msgstr ""
+msgstr "Учетная запись %s%s%s была успешно создана."
 
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr ""
+msgstr "Добро пожаловать в %s!  Для того чтобы установить начальный пароль для нового аккаунта, пожалуйста нажмите на ссылку ниже. Если ссылка не работает, скопируйте и вставьте её в веб-браузер."
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
+msgstr "Ключ для смены пароля был отправлен на ваш электронный адрес."
 
 msgid "Click on the Login link above to use your account."
-msgstr ""
+msgstr "Нажмите на ссылку для входа вверху чтобы зайти."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
-msgstr ""
+msgstr "С аккаунтом %s%s%s не произведено никаких действий."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr ""
+msgstr "Учетная запись %s%s%s успешно изменена."
 
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Доступ к форме входа с вашего IP адреса запрещен, возможная причина проблемы — спам-атаки. Извините за неудобства."
 
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "Ваш пароль был сброшен. Если вы только что создали аккаунт, пожалуйста используйте ссылку из письма подтверждения чтобы установить начальный пароль. В противном случае, запросите ключ для сброса на странице %sСброс пароля%s."
 
 msgid "Bad username or password."
 msgstr "Неверно указаны имя пользователя или пароль."
@@ -557,6 +558,9 @@ msgstr "Первый"
 
 msgid "Previous"
 msgstr "Назад"
+
+msgid "Next"
+msgstr "Далее"
 
 msgid "Last"
 msgstr "Последний"
@@ -583,7 +587,7 @@ msgid "You must be logged in before you can delete packages."
 msgstr "Вы должны сначала представиться, чтобы можно было удалять пакеты."
 
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "У вас нет права на удаление пакетов."
 
 msgid "You did not select any packages to delete."
 msgstr "Вы не выбрали ниодного пакета для удаления."
@@ -678,7 +682,16 @@ msgid "IRC Nick"
 msgstr "IRC Ник"
 
 msgid "PGP Key Fingerprint"
+msgstr "Отпечаток ключа PGP"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Inactive since"
 msgstr ""
+
+msgid "Active"
+msgstr "Активный"
 
 msgid "Last Voted"
 msgstr "Последний проголосовавший"
@@ -701,6 +714,9 @@ msgstr "Доверенный пользователь"
 msgid "Account Suspended"
 msgstr "Действие учетной записи приостановлено"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Введите пароль еще раз"
 
@@ -719,23 +735,14 @@ msgstr "Очистить"
 msgid "No results matched your search criteria."
 msgstr "По вашему запросу ничего не найдено."
 
-msgid "Type"
-msgstr "Тип"
-
-msgid "Status"
-msgstr "Статус"
-
 msgid "Edit Account"
 msgstr "Изменить учетную запись"
 
 msgid "Suspended"
 msgstr "Приостановлена"
 
-msgid "Active"
-msgstr "Активный"
-
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 msgid "Less"
 msgstr "Назад"
@@ -762,7 +769,7 @@ msgid "Delete Packages"
 msgstr "Удалить пакеты"
 
 msgid "Merge into"
-msgstr ""
+msgstr "Объединить с"
 
 msgid "Confirm"
 msgstr "Подтвердить"
@@ -771,33 +778,33 @@ msgid "My Packages"
 msgstr "Мои пакеты"
 
 msgid " My Account"
-msgstr ""
+msgstr "Моя учётная запись"
 
 msgid "Register"
-msgstr ""
+msgstr "Регистрация"
 
 msgid "Add Comment"
-msgstr ""
+msgstr "Добавить комментарий"
 
 msgid "Comment has been added."
 msgstr "Коментарий добавлен."
 
 #, php-format
 msgid "View all %s comments"
-msgstr ""
+msgstr "Показать все комментарии(%s)"
 
 msgid "Latest Comments"
-msgstr ""
+msgstr "Последние комментарии"
 
 msgid "Delete comment"
 msgstr "Удалить коментарий"
 
 #, php-format
 msgid "Comment by %s"
-msgstr ""
+msgstr "Комментарий %s"
 
 msgid "All comments"
-msgstr ""
+msgstr "Все комментарии"
 
 msgid "unknown"
 msgstr "неизвестно"
@@ -806,61 +813,61 @@ msgid "Package Details"
 msgstr "Информация о пакете"
 
 msgid "Package Actions"
-msgstr ""
+msgstr "Действия над пакетом"
 
 msgid "View PKGBUILD"
-msgstr ""
+msgstr "Просмотреть PKGBUILD"
 
 msgid "Download tarball"
-msgstr ""
+msgstr "Скачать архив"
 
 msgid "Flagged out-of-date"
-msgstr ""
+msgstr "Помечен как устаревший"
 
 msgid "Flag package out-of-date"
-msgstr ""
+msgstr "Пометить пакет как устаревший"
 
 msgid "Unflag package"
-msgstr ""
+msgstr "Снять пометку"
 
 msgid "Remove vote"
-msgstr ""
+msgstr "Удалить голос"
 
 msgid "Vote for this package"
-msgstr ""
+msgstr "Проголосовать за пакет"
 
 msgid "Disable notifications"
-msgstr ""
+msgstr "Выключить уведомления"
 
 msgid "Notify of new comments"
-msgstr ""
+msgstr "Уведомлять о новых комментариях"
 
 msgid "Delete Package"
-msgstr ""
+msgstr "Удалить пакет"
 
 msgid "Merge Package"
-msgstr ""
+msgstr "Объединить пакеты"
 
 msgid "Adopt Package"
-msgstr ""
+msgstr "Усыновить пакет"
 
 msgid "Disown Package"
-msgstr ""
+msgstr "Бросить пакет"
 
 msgid "Description"
 msgstr "Описание"
 
 msgid "Upstream URL"
-msgstr ""
+msgstr "URL апстрима"
 
 msgid "Visit the website for"
-msgstr ""
+msgstr "Посетить сайт"
 
 msgid "Category"
 msgstr "Категория"
 
 msgid "Change category"
-msgstr ""
+msgstr "Изменить категорию"
 
 msgid "License"
 msgstr "Лицензия"
@@ -869,14 +876,14 @@ msgid "Submitter"
 msgstr "Автор"
 
 msgid "View account information for"
-msgstr ""
+msgstr "Просмотр информации об аккаунте"
 
 #, php-format
 msgid "View account information for %s"
-msgstr ""
+msgstr "Просмотр информации об акаунте %s"
 
 msgid "None"
-msgstr ""
+msgstr "Нет"
 
 msgid "Maintainer"
 msgstr "Ответственный"
@@ -894,7 +901,7 @@ msgid "Dependencies"
 msgstr "Зависимости"
 
 msgid "View packages details for"
-msgstr ""
+msgstr "Просмотреть информацию о пакете"
 
 msgid "Required by"
 msgstr "Требуется пакетами"
@@ -936,7 +943,7 @@ msgid "Descending"
 msgstr "По убыванию"
 
 msgid "Enter search criteria"
-msgstr ""
+msgstr "Введите критерии поиска"
 
 msgid "Any"
 msgstr "Любой"
@@ -945,7 +952,7 @@ msgid "Search by"
 msgstr "Искать по"
 
 msgid "Keywords"
-msgstr ""
+msgstr "Ключевые слова"
 
 msgid "Out of Date"
 msgstr "Устарел"
@@ -973,10 +980,10 @@ msgstr "Нет пакетов по выбранному критерию пои�
 
 #, php-format
 msgid "%d packages found. Page %d of %d."
-msgstr ""
+msgstr "Найдено %d пакетов. Страница %d из %d."
 
 msgid "Version"
-msgstr ""
+msgstr "Версия"
 
 msgid "Yes"
 msgstr "Да"
@@ -1051,6 +1058,15 @@ msgstr "Получено: %s %s"
 msgid "End"
 msgstr "Конец"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Нет"
 
@@ -1060,8 +1076,14 @@ msgstr "Воздерживаюсь"
 msgid "Total"
 msgstr "Всего"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Начало"
 
 msgid "No results found."
 msgstr "Нет результатов."
+
+msgid "Back"
+msgstr "Назад"

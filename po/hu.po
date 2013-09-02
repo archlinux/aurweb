@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Balló György <ballogy@freestart.hu>, 2013.
-# György Balló <ballogy@freestart.hu>, 2011.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# György Balló <ballogy@freestart.hu>, 2013
+# György Balló <ballogy@freestart.hu>, 2011,2013
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/aur/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -60,11 +60,8 @@ msgstr "Ez a felhasználói név nem létezik."
 msgid "%s already has proposal running for them."
 msgstr "%s már megpályázta őket."
 
-msgid "Length must be a number."
-msgstr "A hossznak egy számnak kell lennie."
-
-msgid "Length must be at least 1."
-msgstr "A hossznak legalább 1-nek kell lennie."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Az indítvány nem lehet üres."
@@ -81,11 +78,20 @@ msgstr "Jelölt/TU"
 msgid "(empty if not applicable)"
 msgstr "(üres, ha nem alkalmazható)"
 
-msgid "Length in days"
-msgstr "Hossz napokban"
+msgid "Type"
+msgstr "Típus"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(ha üresen van, 7 az alapértelmezett)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Indítvány"
@@ -446,19 +452,13 @@ msgstr "Jelenlegi szavazatok"
 msgid "Past Votes"
 msgstr "Korábbi szavazatok"
 
-msgid "Back"
-msgstr "Vissza"
-
-msgid "Next"
-msgstr "Következő"
-
 msgid "Voters"
 msgstr "Szavazók"
 
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "A felhasználói regisztráció jelenleg letiltásra került az IP címedre, valószínűleg rendszeres spam támadások miatt. Elnézést a kellemetlenségért."
 
 msgid "Missing User ID"
 msgstr "Hiányzó felhasználóazonosító"
@@ -513,10 +513,10 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr ""
+msgstr "Köszöntünk az %s-ban! Fiókodhoz tartozó kezdeti jelszó beállításához kattints az alábbi hivatkozásra. Ha nem működik a hivatkozás, akkor próbáld kimásolni és beilleszteni a böngészőbe."
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
+msgstr "Egy jelszó-visszaállító kulcs kiküldésre került az e-mail címedre."
 
 msgid "Click on the Login link above to use your account."
 msgstr "A fiókod használatához kattints a Bejelentkezés hivatkozásra feljebb."
@@ -532,14 +532,14 @@ msgstr "A(z) %s%s%s fiók sikeresen módosítva."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "A bejelentkező űrlap jelenleg letiltásra került az IP címedre, valószínűleg rendszeres spam támadások miatt. Elnézést a kellemetlenségért."
 
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "A jelszavad visszaállításra került. Ha most regisztráltál, akkor a megerősítő e-mailben található hivatkozással beállíthatsz egy kezdeti jelszót. Egyéb esetben kérj egy visszaállító kulcsot a %sJelszó visszaállítása%s oldalon."
 
 msgid "Bad username or password."
 msgstr "Hibás felhasználónév vagy jelszó."
@@ -558,6 +558,9 @@ msgstr "Első"
 
 msgid "Previous"
 msgstr "Előző"
+
+msgid "Next"
+msgstr "Következő"
 
 msgid "Last"
 msgstr "Utolsó"
@@ -584,7 +587,7 @@ msgid "You must be logged in before you can delete packages."
 msgstr "Csomagok törléséhez be kell jelentkezned."
 
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "Csomagok törléséhez nincs jogosultságod."
 
 msgid "You did not select any packages to delete."
 msgstr "Nem választottál ki egyetlen törlendő csomagot sem."
@@ -681,6 +684,15 @@ msgstr "IRC becenév"
 msgid "PGP Key Fingerprint"
 msgstr "PGP kulcs ujjlenyomata"
 
+msgid "Status"
+msgstr "Állapot"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktív"
+
 msgid "Last Voted"
 msgstr "Utolsó szavazat"
 
@@ -702,6 +714,9 @@ msgstr "Megbízható felhasználó"
 msgid "Account Suspended"
 msgstr "Felhasználói fiók felfüggesztve"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Megismételt jelszó"
 
@@ -720,20 +735,11 @@ msgstr "Visszaállítás"
 msgid "No results matched your search criteria."
 msgstr "Nincs a keresési feltételeknek megfelelő találat."
 
-msgid "Type"
-msgstr "Típus"
-
-msgid "Status"
-msgstr "Állapot"
-
 msgid "Edit Account"
 msgstr "Felhasználói fiók szerkesztése"
 
 msgid "Suspended"
 msgstr "Felfüggesztve"
-
-msgid "Active"
-msgstr "Aktív"
 
 msgid "Edit"
 msgstr "Szerkesztés"
@@ -1052,6 +1058,15 @@ msgstr "Benyújtva: %s (%s által)"
 msgid "End"
 msgstr "Vége"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Nem"
 
@@ -1061,8 +1076,14 @@ msgstr "Tartózkodik"
 msgid "Total"
 msgstr "Összesen"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Kezdés"
 
 msgid "No results found."
 msgstr "Nincs találat."
+
+msgid "Back"
+msgstr "Vissza"

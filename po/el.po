@@ -3,18 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Axilleas Pi <axilleas@archlinux.gr>, 2013.
-# Axilleas P <markeleas@gmail.com>, 2011.
-# axil Pι <axilleas@archlinux.gr>, 2012.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-#   <panosfilip@gmail.com>, 2011.
+# axil Pι <axilleas@archlinux.gr>, 2013
+# axil Pι <axilleas@archlinux.gr>, 2011
+# axil Pι <axilleas@archlinux.gr>, 2012
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# flamelab <panosfilip@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 16:02+0000\n"
-"Last-Translator: axil Pι <axilleas@archlinux.gr>\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/aur/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,11 +62,8 @@ msgstr "Αυτό το όνομα χρήστη δεν υπάρχει."
 msgid "%s already has proposal running for them."
 msgstr "%s έχει ήδη πρόταση σε εξέλιξη για αυτό το θέμα."
 
-msgid "Length must be a number."
-msgstr "Το μήκος πρέπει να είναι αριθμός."
-
-msgid "Length must be at least 1."
-msgstr "Το μήκος πρέπει να είναι τουλάχιστον 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Η πρόταση δεν μπορεί να είναι κενή."
@@ -83,11 +80,20 @@ msgstr "Αιτών / TU"
 msgid "(empty if not applicable)"
 msgstr "(κενό εάν δεν είναι εφαρμόσιμο)"
 
-msgid "Length in days"
-msgstr "Διάρκεια σε ημέρες"
+msgid "Type"
+msgstr "Είδος"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(7 από προεπιλογή εάν είναι άδειο)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Πρόταση"
@@ -448,12 +454,6 @@ msgstr "Τρέχουσες ψήφοι"
 msgid "Past Votes"
 msgstr "Παρελθόντες ψήφοι"
 
-msgid "Back"
-msgstr "Πίσω"
-
-msgid "Next"
-msgstr "Επόμενο"
-
 msgid "Voters"
 msgstr "Ψηφίσαντες"
 
@@ -560,6 +560,9 @@ msgstr "Πρώτο"
 
 msgid "Previous"
 msgstr "Προηγούμενο"
+
+msgid "Next"
+msgstr "Επόμενο"
 
 msgid "Last"
 msgstr "Τελευταίο"
@@ -683,6 +686,15 @@ msgstr "Ψευδώνυμο IRC"
 msgid "PGP Key Fingerprint"
 msgstr "PGP Key Fingerprint"
 
+msgid "Status"
+msgstr "Κατάσταση"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Ενεργός"
+
 msgid "Last Voted"
 msgstr "Πιο Πρόσφατα Ψηφισμένο"
 
@@ -704,6 +716,9 @@ msgstr "Αξιόπιστος χρήστης"
 msgid "Account Suspended"
 msgstr "Ο Λογαριασμός έχει Ανασταλεί."
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Πληκτρολογήστε ξανά τον κωδικό σας."
 
@@ -722,20 +737,11 @@ msgstr "Επαναφορά"
 msgid "No results matched your search criteria."
 msgstr "Δε βρέθηκε αποτέλεσμα που να ικανοποιεί τα κριτήρια αναζήτησης."
 
-msgid "Type"
-msgstr "Είδος"
-
-msgid "Status"
-msgstr "Κατάσταση"
-
 msgid "Edit Account"
 msgstr "Τροποποίηση Λογαριασμού"
 
 msgid "Suspended"
 msgstr "Έχει ανασταλεί"
-
-msgid "Active"
-msgstr "Ενεργός"
 
 msgid "Edit"
 msgstr "Επεξεργασία"
@@ -1054,6 +1060,15 @@ msgstr "Υποβλήθηκε: %s από %s"
 msgid "End"
 msgstr "Τέλος"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Όχι"
 
@@ -1063,8 +1078,14 @@ msgstr "Απέχουν"
 msgid "Total"
 msgstr "Σύνολο"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Ξεκινήστε"
 
 msgid "No results found."
 msgstr "Κανένα αποτέλεσμα δεν βρέθηκε."
+
+msgid "Back"
+msgstr "Πίσω"

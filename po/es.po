@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Angel Velasquez <angvp@archlinux.org>, 2011.
-#   <juantascon@gmail.com>, 2011.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# neiko <neikokz+tsfx@gmail.com>, 2011.
-# Nicolás de la Torre <ndelatorre@gmail.com>, 2012.
-# Pablo Lezaeta <prflr88@gmail.com>, 2012.
+# Angel Velasquez <angvp@archlinux.org>, 2011
+# juantascon <juantascon@gmail.com>, 2011
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# neiko <neikokz+tsfx@gmail.com>, 2011
+# Nicolás de la Torre <ndelatorre@gmail.com>, 2012
+# Pablo Lezaeta <prflr88@gmail.com>, 2012
+# Pablo Lezaeta <prflr88@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/aur/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -63,11 +64,8 @@ msgstr "El nombre de usuario no existe."
 msgid "%s already has proposal running for them."
 msgstr "%s ya tiene una propuesta activa."
 
-msgid "Length must be a number."
-msgstr "La longitud ha de ser un número."
-
-msgid "Length must be at least 1."
-msgstr "La longitud ha de ser, al menos, 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "La propuesta no puede estar vacía."
@@ -84,11 +82,20 @@ msgstr "Candidato/TU"
 msgid "(empty if not applicable)"
 msgstr "(vacío si no se aplica)"
 
-msgid "Length in days"
-msgstr "Longitud en días"
+msgid "Type"
+msgstr "Tipo"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(siete por defecto si se deja en blanco)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Propuesta"
@@ -449,12 +456,6 @@ msgstr "Votos actuales"
 msgid "Past Votes"
 msgstr "Votos antiguos"
 
-msgid "Back"
-msgstr "Atrás"
-
-msgid "Next"
-msgstr "Siguiente"
-
 msgid "Voters"
 msgstr "Votantes"
 
@@ -519,7 +520,7 @@ msgid ""
 msgstr ""
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
+msgstr "Una llave para reinicializar su contraseña a sido enviada a su correo electrónico."
 
 msgid "Click on the Login link above to use your account."
 msgstr "Haz click en el link de Iniciar Sesión para usar tu cuenta."
@@ -562,6 +563,9 @@ msgstr "Primero"
 msgid "Previous"
 msgstr "Anterior"
 
+msgid "Next"
+msgstr "Siguiente"
+
 msgid "Last"
 msgstr "Último"
 
@@ -587,7 +591,7 @@ msgid "You must be logged in before you can delete packages."
 msgstr "Debe haber iniciado sesión antes de poder eliminar paquetes."
 
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "No posee los permisos para borrar paquetes."
 
 msgid "You did not select any packages to delete."
 msgstr "No seleccionó ningún paquete para borrar."
@@ -684,6 +688,15 @@ msgstr "Nick del IRC"
 msgid "PGP Key Fingerprint"
 msgstr "Huella digital PGP"
 
+msgid "Status"
+msgstr "Estado"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Activo"
+
 msgid "Last Voted"
 msgstr "Último voto"
 
@@ -705,6 +718,9 @@ msgstr "Usuario de confianza"
 msgid "Account Suspended"
 msgstr "Cuenta suspendida"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Reescriba la contraseña"
 
@@ -723,20 +739,11 @@ msgstr "Limpiar"
 msgid "No results matched your search criteria."
 msgstr "No se encontraron resultados que coincidan con su criterio de búsqueda."
 
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Status"
-msgstr "Estado"
-
 msgid "Edit Account"
 msgstr "Editar cuenta"
 
 msgid "Suspended"
 msgstr "Suspendido"
-
-msgid "Active"
-msgstr "Activo"
 
 msgid "Edit"
 msgstr "Editar"
@@ -1055,6 +1062,15 @@ msgstr "Enviado: %s por %s"
 msgid "End"
 msgstr "Fin"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "No"
 
@@ -1064,8 +1080,14 @@ msgstr "Abstenerse"
 msgid "Total"
 msgstr "Total"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Inicio"
 
 msgid "No results found."
 msgstr "No se han encontrado resultados."
+
+msgid "Back"
+msgstr "Atrás"

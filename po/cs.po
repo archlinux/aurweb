@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/aur/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,11 +58,8 @@ msgstr "Uživatelské jméno neexistuje."
 msgid "%s already has proposal running for them."
 msgstr "Pro %s se již hlasuje."
 
-msgid "Length must be a number."
-msgstr "Délka musí být číslo."
-
-msgid "Length must be at least 1."
-msgstr "Minimální délka musí být 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Návrh nemůže být prázdný."
@@ -79,11 +76,20 @@ msgstr ""
 msgid "(empty if not applicable)"
 msgstr "(vynechat pokud neni vhodný)"
 
-msgid "Length in days"
+msgid "Type"
+msgstr "Typ"
+
+msgid "Addition of a TU"
 msgstr ""
 
-msgid "(defaults to 7 if empty)"
-msgstr "(předvoleno 7 pokud nezadáno)"
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Návrh"
@@ -444,12 +450,6 @@ msgstr "Současný počet hlasů"
 msgid "Past Votes"
 msgstr ""
 
-msgid "Back"
-msgstr "Zpět"
-
-msgid "Next"
-msgstr "Další"
-
 msgid "Voters"
 msgstr ""
 
@@ -556,6 +556,9 @@ msgstr ""
 
 msgid "Previous"
 msgstr ""
+
+msgid "Next"
+msgstr "Další"
 
 msgid "Last"
 msgstr ""
@@ -679,6 +682,15 @@ msgstr "IRC přezdívka"
 msgid "PGP Key Fingerprint"
 msgstr ""
 
+msgid "Status"
+msgstr "Status"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktivní"
+
 msgid "Last Voted"
 msgstr "Poslední hlasování"
 
@@ -700,6 +712,9 @@ msgstr "Důvěryhodný uživatel"
 msgid "Account Suspended"
 msgstr "Účet pozastaven"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Heslo znovu"
 
@@ -718,20 +733,11 @@ msgstr "Reset"
 msgid "No results matched your search criteria."
 msgstr "Pro Váš dotaz nebyl nalezen žádný odpovídající výsledek."
 
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Status"
-
 msgid "Edit Account"
 msgstr "Upravit účet"
 
 msgid "Suspended"
 msgstr "Pozastavený"
-
-msgid "Active"
-msgstr "Aktivní"
 
 msgid "Edit"
 msgstr ""
@@ -1050,6 +1056,15 @@ msgstr "Vloženo: %s od %s"
 msgid "End"
 msgstr "Konec"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Ne"
 
@@ -1059,8 +1074,14 @@ msgstr "Zdržet se"
 msgid "Total"
 msgstr "Celkem"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Začátek"
 
 msgid "No results found."
 msgstr "Žádné výsledky."
+
+msgid "Back"
+msgstr "Zpět"

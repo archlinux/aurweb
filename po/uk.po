@@ -3,18 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# Rax Garfield <admin@dvizho.ks.ua>, 2012.
-# Rax Garfield <rax@rax.pp.ua>, 2012.
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2013.
-# Данило Коростіль <ted.korostiled@gmail.com>, 2011.
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Rax Garfield <admin@dvizho.ks.ua>, 2012
+# Rax Garfield <admin@dvizho.ks.ua>, 2012
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2013
+# Данило Коростіль <ted.korostiled@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-09-01 19:43+0000\n"
+"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,11 +62,8 @@ msgstr "Користувача не існує."
 msgid "%s already has proposal running for them."
 msgstr "%s вже мають зареєстровану на себе пропозицію."
 
-msgid "Length must be a number."
-msgstr "Довжина повинна бути числом."
-
-msgid "Length must be at least 1."
-msgstr "Довжина повинна бути не менше 1."
+msgid "Invalid type."
+msgstr "Неправильний тип."
 
 msgid "Proposal cannot be empty."
 msgstr "Пропозиція не може бути порожньою."
@@ -83,11 +80,20 @@ msgstr "Претендент/Довірений користувач"
 msgid "(empty if not applicable)"
 msgstr "(Порожньо, якщо не застосовується)"
 
-msgid "Length in days"
-msgstr "Тривалість у днях"
+msgid "Type"
+msgstr "Тип"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(типово 7, якщо поле незаповнено)"
+msgid "Addition of a TU"
+msgstr "Додано TU"
+
+msgid "Removal of a TU"
+msgstr "Вилучення TU"
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr "Вилучення TU (неоголошена бездіяльність)"
+
+msgid "Amendment of Bylaws"
+msgstr "Поправки до Статуту"
 
 msgid "Proposal"
 msgstr "Пропозиція"
@@ -448,19 +454,13 @@ msgstr "Поточні голосування"
 msgid "Past Votes"
 msgstr "Минулі голосування"
 
-msgid "Back"
-msgstr "Назад"
-
-msgid "Next"
-msgstr "Далі"
-
 msgid "Voters"
 msgstr "Проголосували"
 
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Реєстрація рахунку закрита для Вашої адреси IP, можливо із-за інтенсивної спам-атаки. Вибачте за незручності."
 
 msgid "Missing User ID"
 msgstr "Бракує ідентифікатора користувача"
@@ -515,10 +515,10 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr ""
+msgstr "Вітаємо в %s! Щоб встановити початковий пароль для Вашого рахунку натисніть на посилання зверху. Якщо посилання не спрацьовує, скопіюйте його і вставте у Ваш переглядач інтернету."
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
+msgstr "Ключ скидання пароля висланий на Вашу адресу електронної пошти."
 
 msgid "Click on the Login link above to use your account."
 msgstr "Використовуйте обліковий запис, увійшовши за допомогою посилання «Увійти» (згори)."
@@ -534,14 +534,14 @@ msgstr "Рахунок %s%s%s успішно змінено."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Форма логування зараз заборонена для Вашої адреси IP, можливо із-за інтенсивної спам-атаки. Вибачте за незручності."
 
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "Ваш пароль скинуто. Якщо Ви щойно створили новий рахунок, тоді використайте посилання електронного листа-підтвердження для встановлення початкового пароля. В протилежному випадку використайте запит на скидання паролю на сторінці %sPassword Reset%s."
 
 msgid "Bad username or password."
 msgstr "Неправильний користувач або пароль. "
@@ -560,6 +560,9 @@ msgstr "Перший"
 
 msgid "Previous"
 msgstr "Попередній"
+
+msgid "Next"
+msgstr "Далі"
 
 msgid "Last"
 msgstr "Останній"
@@ -586,7 +589,7 @@ msgid "You must be logged in before you can delete packages."
 msgstr "Для вилучення пакунків слід увійти."
 
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "У Вас немає прав для вилучення пакунків."
 
 msgid "You did not select any packages to delete."
 msgstr "Не вибрано жодного пакунку для вилучення."
@@ -683,6 +686,15 @@ msgstr "Псевдонім IRC"
 msgid "PGP Key Fingerprint"
 msgstr "Відбиток ключа PGP"
 
+msgid "Status"
+msgstr "Статус"
+
+msgid "Inactive since"
+msgstr "Неактивний з"
+
+msgid "Active"
+msgstr "Активний"
+
 msgid "Last Voted"
 msgstr "Останнім проголосував"
 
@@ -704,6 +716,9 @@ msgstr "Довіренний користувач"
 msgid "Account Suspended"
 msgstr "Обліковий запис призупинено"
 
+msgid "Inactive"
+msgstr "Неактивний"
+
 msgid "Re-type password"
 msgstr "Введіть пароль ще раз"
 
@@ -722,20 +737,11 @@ msgstr "Очистити"
 msgid "No results matched your search criteria."
 msgstr "За вашим запитом нічого не знайдено."
 
-msgid "Type"
-msgstr "Тип"
-
-msgid "Status"
-msgstr "Статус"
-
 msgid "Edit Account"
 msgstr "Редагувати обліковий запис"
 
 msgid "Suspended"
 msgstr "Призупинено"
-
-msgid "Active"
-msgstr "Активний"
 
 msgid "Edit"
 msgstr "Редагувати"
@@ -1054,6 +1060,15 @@ msgstr "Подано: %s з %s"
 msgid "End"
 msgstr "Кінець"
 
+msgid "Result"
+msgstr "Результат"
+
+msgid "Accepted"
+msgstr "Прийнято"
+
+msgid "Rejected"
+msgstr "Відхилено"
+
 msgid "No"
 msgstr "Ні"
 
@@ -1063,8 +1078,14 @@ msgstr "Утриматися"
 msgid "Total"
 msgstr "Всього"
 
+msgid "Participation"
+msgstr "Участь"
+
 msgid "Start"
 msgstr "Початок"
 
 msgid "No results found."
 msgstr "Результатів не знайдено."
+
+msgid "Back"
+msgstr "Назад"

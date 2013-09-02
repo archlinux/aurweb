@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Hector Mtz-Seara <hseara@gmail.com>, 2011,2013.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Hector Mtz-Seara <hseara@gmail.com>, 2011,2013
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 05:24+0000\n"
-"Last-Translator: Hector Mtz-Seara <hseara@gmail.com>\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/aur/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,11 +59,8 @@ msgstr "Nom d'usuari no existeix."
 msgid "%s already has proposal running for them."
 msgstr "%s ja te una proposta corrent per ells."
 
-msgid "Length must be a number."
-msgstr "Longitud ha de ser un nombre."
-
-msgid "Length must be at least 1."
-msgstr "La longitud ha de ser almenys 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "La proposta no pot estar buit."
@@ -80,11 +77,20 @@ msgstr "Sol.licitant / TU"
 msgid "(empty if not applicable)"
 msgstr "(Buit si no s'aplica)"
 
-msgid "Length in days"
-msgstr "Durada en dies"
+msgid "Type"
+msgstr "Tipus"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(Per defecte 7 si està buit)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Proposta"
@@ -445,12 +451,6 @@ msgstr "Vots actuals"
 msgid "Past Votes"
 msgstr "Últims vots"
 
-msgid "Back"
-msgstr "Enrere"
-
-msgid "Next"
-msgstr "Següent"
-
 msgid "Voters"
 msgstr "Votants"
 
@@ -557,6 +557,9 @@ msgstr "Primer"
 
 msgid "Previous"
 msgstr "Anterior"
+
+msgid "Next"
+msgstr "Següent"
 
 msgid "Last"
 msgstr "Darrer"
@@ -680,6 +683,15 @@ msgstr "Nom d'usuari IRC"
 msgid "PGP Key Fingerprint"
 msgstr "Emprempta clau PGP"
 
+msgid "Status"
+msgstr "Estat"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Actiu"
+
 msgid "Last Voted"
 msgstr "Últim vot"
 
@@ -701,6 +713,9 @@ msgstr "Usuari de Confiança"
 msgid "Account Suspended"
 msgstr "El compte s'ha suspès"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Escriu altre cop la contrasenya"
 
@@ -719,20 +734,11 @@ msgstr "Restaura"
 msgid "No results matched your search criteria."
 msgstr "No s'ha trobat cap coindidència amb els criteris de cerca."
 
-msgid "Type"
-msgstr "Tipus"
-
-msgid "Status"
-msgstr "Estat"
-
 msgid "Edit Account"
 msgstr "Edita compte"
 
 msgid "Suspended"
 msgstr "Suspès"
-
-msgid "Active"
-msgstr "Actiu"
 
 msgid "Edit"
 msgstr "Editar"
@@ -1051,6 +1057,15 @@ msgstr "Enviat: %s per %s"
 msgid "End"
 msgstr "Fi"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "No"
 
@@ -1060,8 +1075,14 @@ msgstr "Abstenir-se"
 msgid "Total"
 msgstr "Nom exacte"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Inici"
 
 msgid "No results found."
 msgstr "No s'han trobat resultats."
+
+msgid "Back"
+msgstr "Enrere"

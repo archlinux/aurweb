@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Alexander Rødseth <rodseth@gmail.com>, 2011,2013.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Alexander Rødseth <rodseth@gmail.com>, 2011,2013
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 10:48+0000\n"
-"Last-Translator: Alexander Rødseth <rodseth@gmail.com>\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/aur/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,11 +59,8 @@ msgstr "Brukernavn finnes ikke."
 msgid "%s already has proposal running for them."
 msgstr "%s har allerede et forslag på gang."
 
-msgid "Length must be a number."
-msgstr "Lengden må være et nummer."
-
-msgid "Length must be at least 1."
-msgstr "Lengden må være minst 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Forslag kan ikke være tomme."
@@ -80,11 +77,20 @@ msgstr "Søker/TU"
 msgid "(empty if not applicable)"
 msgstr "(tomt hvis det ikke gjelder her)"
 
-msgid "Length in days"
-msgstr "Lengde i dager"
+msgid "Type"
+msgstr "Type"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(settes til 7 som standard, hvis den er tom)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Forslag"
@@ -111,7 +117,7 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Husk å stemme på dine favorittpakker!"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "Noen pakker finnes som binærfiler i [community]."
+msgstr "Mange pakker finnes ferdig pakket som binærfiler i [community]."
 
 msgid "Discussion"
 msgstr "Diskusjon"
@@ -141,7 +147,7 @@ msgstr "ANSVARSFRASKRIVELSE"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Ustøttede pakker har innhold produsert av andre brukere. All bruk av de tilgjengelige filene er på eget ansvar."
+msgstr "Uoffisielle pakker har innhold produsert av andre brukere. All bruk av de tilgjengelige filene er på eget ansvar."
 
 msgid "Package Search"
 msgstr "Pakkesøk"
@@ -445,12 +451,6 @@ msgstr "Foreløpige stemmer"
 msgid "Past Votes"
 msgstr "Tidligere stemmer"
 
-msgid "Back"
-msgstr "Tilbake"
-
-msgid "Next"
-msgstr "Neste"
-
 msgid "Voters"
 msgstr "Velgere"
 
@@ -538,7 +538,7 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Passordet ditt har blitt nullstilt. Dersom du akkurat laget en ny konto, vennligst følg lenken som ble sendt på e-post, for å sette et passord. Hvis ikke, bruk %sNullstill Passord% siden til å få tilsendt en nullstillingskode."
+msgstr "Passordet har blitt nullstilt. Dersom du akkurat laget en ny konto, vennligst følg lenken som ble sendt på e-post og sett så et nytt passord. Ellers kan du bruke %sNullstill Passord% siden til å få tilsendt en nullstillingskode."
 
 msgid "Bad username or password."
 msgstr "Ugyldig brukernavn eller passord."
@@ -558,26 +558,29 @@ msgstr "Første"
 msgid "Previous"
 msgstr "Forrige"
 
+msgid "Next"
+msgstr "Neste"
+
 msgid "Last"
 msgstr "Siste"
 
 msgid "You must be logged in before you can flag packages."
-msgstr "Du må være logget inn før du kan markere pakker."
+msgstr "Du må være logget inn før du kan flagge pakker."
 
 msgid "You did not select any packages to flag."
-msgstr "Du valgte å ikke noen pakker for å markere."
+msgstr "Du valgte ingen pakker for flagging."
 
 msgid "The selected packages have been flagged out-of-date."
-msgstr "De valgte pakkene har blitt markert som utdatert."
+msgstr "De valgte pakkene har nå blitt flagget som utdaterte."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr "Du må være logget inn før du kan fjerne \"utdatert\"-markeringen av pakker."
+msgstr "Du må være logget inn før du kan fjerne \"utdatert\"-flagget fra pakker."
 
 msgid "You did not select any packages to unflag."
-msgstr "Du valgte ingen pakker å fjerne markeringen fra."
+msgstr "Ingen pakker ble valgt for å fjerne flagg fra."
 
 msgid "The selected packages have been unflagged."
-msgstr "De valgte pakkene fått fjernet markeringen."
+msgstr "De valgte pakkene har nå fått fjernet flagget."
 
 msgid "You must be logged in before you can delete packages."
 msgstr "Du må være logget inn før du kan slette pakker."
@@ -680,6 +683,15 @@ msgstr "IRC-kallenavn"
 msgid "PGP Key Fingerprint"
 msgstr "PGP-nøkkel/fingeravtrykk"
 
+msgid "Status"
+msgstr "Status"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktiv"
+
 msgid "Last Voted"
 msgstr "Sist stemt"
 
@@ -701,6 +713,9 @@ msgstr "Betrodd bruker"
 msgid "Account Suspended"
 msgstr "Konto suspendert"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Skriv inn passordet på nytt"
 
@@ -719,20 +734,11 @@ msgstr "Omstart"
 msgid "No results matched your search criteria."
 msgstr "Ingen resultater stemte overens med dine søkekriterier."
 
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Status"
-
 msgid "Edit Account"
 msgstr "Endre brukerkonto"
 
 msgid "Suspended"
 msgstr "Suspendert"
-
-msgid "Active"
-msgstr "Aktiv"
 
 msgid "Edit"
 msgstr "Rediger"
@@ -753,10 +759,10 @@ msgid "New Comment Notification"
 msgstr "Ny påminnelse om kommentar"
 
 msgid "Flag Out-of-date"
-msgstr "Marker som utdatert"
+msgstr "Flagg som utdatert"
 
 msgid "UnFlag Out-of-date"
-msgstr "Fjern markering"
+msgstr "Fjern flagg"
 
 msgid "Delete Packages"
 msgstr "Slett pakker"
@@ -960,7 +966,7 @@ msgid "Per page"
 msgstr "Per side"
 
 msgid "Go"
-msgstr "Kjør"
+msgstr "Søk"
 
 msgid "Orphans"
 msgstr "Foreldreløse"
@@ -1012,16 +1018,16 @@ msgid "Orphan Packages"
 msgstr "Foreldreløse pakker"
 
 msgid "Packages added in the past 7 days"
-msgstr "Pakker som ble lagt til de siste 7 dagene"
+msgstr "Lagt til de siste 7 dagene"
 
 msgid "Packages updated in the past 7 days"
-msgstr "Pakker som ble oppdatert de siste 7 dagene"
+msgstr "Oppdaterte pakker de siste 7 dagene"
 
 msgid "Packages updated in the past year"
-msgstr "Pakker som ble oppdatert det siste året"
+msgstr "Oppdaterte pakker det siste året"
 
 msgid "Packages never updated"
-msgstr "Pakker som aldri ble oppdatert"
+msgstr "Aldri oppdaterte pakker"
 
 msgid "Registered Users"
 msgstr "Registrerte brukere"
@@ -1036,7 +1042,7 @@ msgid "My Statistics"
 msgstr "Min statistikk"
 
 msgid "Packages in unsupported"
-msgstr "Ustøttede pakker"
+msgstr "Uoffisielle pakker"
 
 msgid "Proposal Details"
 msgstr "Forslagsdetaljer"
@@ -1051,6 +1057,15 @@ msgstr "Innsendt: %s av %s"
 msgid "End"
 msgstr "Slutt"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Nei"
 
@@ -1060,8 +1075,14 @@ msgstr "Blank stemme"
 msgid "Total"
 msgstr "Totalt"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Start"
 
 msgid "No results found."
 msgstr "Ingen resultater."
+
+msgid "Back"
+msgstr "Tilbake"

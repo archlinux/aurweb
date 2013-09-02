@@ -3,18 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#  <agrsbm@gmail.com>, 2013.
-#   <cadoc@gmx.de>, 2012.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# Matthias Gorissen <matthias@archlinux.de>, 2012.
-# Simon Schneider <SPAM.schneida@gmail.com>, 2011.
-# Thomas Scholzen <thomasdodo@arcor.de>, 2012-2013.
+# gridcol <agrsbm@gmail.com>, 2013
+# gridcol <agrsbm@gmail.com>, 2013
+# bjo <bjo@nord-west.org>, 2013
+# FabianS_ <cadoc@gmx.de>, 2012
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Matthias Gorissen <matthias@archlinux.de>, 2012
+# Simon Schneider <SPAM.schneida@gmail.com>, 2011
+# Thomas Scholzen <thomasdodo@arcor.de>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/aur/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -63,11 +65,8 @@ msgstr "Der Nutzername existiert nicht."
 msgid "%s already has proposal running for them."
 msgstr "Es läuft bereits ein Vorschlag für %s."
 
-msgid "Length must be a number."
-msgstr "Die Länge muss eine Zahl sein."
-
-msgid "Length must be at least 1."
-msgstr "Die Länge muss mindestens 1 betragen."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Vorschlag darf nicht leer sein."
@@ -84,11 +83,20 @@ msgstr "Bewerber/TU"
 msgid "(empty if not applicable)"
 msgstr "(leer, falls nicht zutreffend)"
 
-msgid "Length in days"
-msgstr "Länge in Tagen"
+msgid "Type"
+msgstr "Typ"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(7, falls leer)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Vorschlag"
@@ -126,7 +134,7 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Allgemeine Diskussionen über das Arch User Repository (AUR) und die Struktur der vertrauenswürdigen Benutzer (TU) finden auf %saur-general%s statt. Die Liste kann für Anfragen zu verwaisten, verschmelzenden oder löschenden Paketen genutzt werden.  Für Diskussionen über die Entwicklung des AUR sollte die Mailing-Liste %saur-dev%s genutzt werden."
+msgstr "Allgemeine Diskussionen über das Arch User Repository (AUR) und die Struktur der vertrauenswürdigen Benutzer finden auf %saur-general%s statt. Die Liste kann für Anfragen zu verwaisten, zu verschmelzenden oder zu löschenden Paketen genutzt werden.  Für Diskussionen über die Entwicklung des AUR sollte die Mailing-Liste %saur-dev%s genutzt werden."
 
 msgid "Bug Reporting"
 msgstr "Fehler melden"
@@ -449,19 +457,13 @@ msgstr "Laufende Abstimmungen"
 msgid "Past Votes"
 msgstr "Abgeschlossene Abstimmungen"
 
-msgid "Back"
-msgstr "Zurück"
-
-msgid "Next"
-msgstr "Weiter"
-
 msgid "Voters"
 msgstr "Abstimmende"
 
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Die Registrierung ist aktuell für deine IP-Adresse deaktiviert. Ein möglicher Grund können anhaltende Spam-Attacken sein. Bitte entschuldige die Unannehmlichkeiten."
 
 msgid "Missing User ID"
 msgstr "Benutzer-ID fehlt"
@@ -516,10 +518,10 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr ""
+msgstr "Willkommen bei %s! Um ein Passwort für dein neues Konto festzulegen, klick bitte auf den unten stehenden Link. Sollte das nicht funktionieren, versuche den Link zu kopieren und in deinem Browser einzufügen."
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
+msgstr "Ein Rücksetzungscode wurde an deine E-Mail-Adresse gesendet."
 
 msgid "Click on the Login link above to use your account."
 msgstr "Klicke zur Anmeldung bitte oben auf den Login-Link."
@@ -535,14 +537,14 @@ msgstr "Das Konto %s%s%s wurde erfolgreich bearbeitet."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Das Loginformular ist aktuell für deine IP-Adresse deaktiviert. Ein möglicher Grund können anhaltende Spam-Attacken sein. Bitte entschuldige die Unannehmlichkeiten."
 
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "Dein Passwort wurde zurückgesetzt. Solltest du ein neues Konto erstellt haben, verwende bitte den Bestätigungslink aus der E-Mail, um dein Passwort festzulegen.  Fordere andernfalls bitte einen Rücksetzungscode über die %sPasswort zurücksetzen%s Seite an."
 
 msgid "Bad username or password."
 msgstr "Falscher Nutzername oder falsches Passwort."
@@ -561,6 +563,9 @@ msgstr "Erste"
 
 msgid "Previous"
 msgstr "Zurück"
+
+msgid "Next"
+msgstr "Weiter"
 
 msgid "Last"
 msgstr "Letzte"
@@ -587,7 +592,7 @@ msgid "You must be logged in before you can delete packages."
 msgstr "Du musst Dich anmelden, um Pakete zu löschen."
 
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "Du hast keine Berechtigung zum Löschen von Paketen."
 
 msgid "You did not select any packages to delete."
 msgstr "Du hast keine Pakete zum Löschen ausgewählt."
@@ -684,6 +689,15 @@ msgstr "IRC-Name"
 msgid "PGP Key Fingerprint"
 msgstr "PGP-Schlüssel-Fingerabdruck"
 
+msgid "Status"
+msgstr "Status"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktiv"
+
 msgid "Last Voted"
 msgstr "Zuletzt abgestimmt"
 
@@ -705,6 +719,9 @@ msgstr "Vertrauenswürdiger Benutzer (TU)"
 msgid "Account Suspended"
 msgstr "Konto gesperrt"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Bestätige das Passwort"
 
@@ -723,20 +740,11 @@ msgstr "Zurücksetzen"
 msgid "No results matched your search criteria."
 msgstr "Deine Suche enthält leider keine Ergebnisse."
 
-msgid "Type"
-msgstr "Typ"
-
-msgid "Status"
-msgstr "Status"
-
 msgid "Edit Account"
 msgstr "Konto bearbeiten"
 
 msgid "Suspended"
 msgstr "Gesperrt"
-
-msgid "Active"
-msgstr "Aktiv"
 
 msgid "Edit"
 msgstr "Ändern"
@@ -778,7 +786,7 @@ msgid " My Account"
 msgstr "Mein Konto"
 
 msgid "Register"
-msgstr "Anmelden"
+msgstr "Registrieren"
 
 msgid "Add Comment"
 msgstr "Kommentar hinzufügen"
@@ -1055,6 +1063,15 @@ msgstr "Eingereicht: %s von %s"
 msgid "End"
 msgstr "Ende"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Nein"
 
@@ -1064,8 +1081,14 @@ msgstr "Enthalten"
 msgid "Total"
 msgstr "Insgesamt"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Beginn"
 
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden"
+
+msgid "Back"
+msgstr "Zurück"

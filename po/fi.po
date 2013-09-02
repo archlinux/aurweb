@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Jesse Jaara <jesse.jaara@gmail.com>, 2011-2012.
+# Jesse Jaara <jesse.jaara@gmail.com>, 2011-2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/aur/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -58,11 +58,8 @@ msgstr "Käyttäjänimeä ei ole olemassa."
 msgid "%s already has proposal running for them."
 msgstr ""
 
-msgid "Length must be a number."
-msgstr "Pituuden pitää olla numero."
-
-msgid "Length must be at least 1."
-msgstr "Pituuden pitää olla vähintään 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Ehdotus ei voi olla tyhjä."
@@ -79,11 +76,20 @@ msgstr "Ehdokas/TU"
 msgid "(empty if not applicable)"
 msgstr "(tyhjä jos ei tiettyä henkilöä)"
 
-msgid "Length in days"
-msgstr "Pituus päivinä"
+msgid "Type"
+msgstr "Tyyppi"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(oletuksena 7)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Ehdotus"
@@ -444,12 +450,6 @@ msgstr "Avoimet äänestykset."
 msgid "Past Votes"
 msgstr "Sulkeutuneet äänestykset."
 
-msgid "Back"
-msgstr "Takaisin"
-
-msgid "Next"
-msgstr "Seuraava"
-
 msgid "Voters"
 msgstr "Äänestäjät"
 
@@ -556,6 +556,9 @@ msgstr "Ensimmäinen"
 
 msgid "Previous"
 msgstr "Edellinen"
+
+msgid "Next"
+msgstr "Seuraava"
 
 msgid "Last"
 msgstr "Viimeinen"
@@ -679,6 +682,15 @@ msgstr "IRC nikki"
 msgid "PGP Key Fingerprint"
 msgstr ""
 
+msgid "Status"
+msgstr "Tila"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktiivinen"
+
 msgid "Last Voted"
 msgstr "Viimeksi äänestetty"
 
@@ -700,6 +712,9 @@ msgstr "Luotettu käyttäjä (TU)"
 msgid "Account Suspended"
 msgstr "Käyttäjätili hyllytetty"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Salasana uudelleen:"
 
@@ -718,20 +733,11 @@ msgstr "Tyhjennä"
 msgid "No results matched your search criteria."
 msgstr "Hakuasi vastaavia paketteja ei löydy."
 
-msgid "Type"
-msgstr "Tyyppi"
-
-msgid "Status"
-msgstr "Tila"
-
 msgid "Edit Account"
 msgstr "Muokkaa käyttäjätiliä"
 
 msgid "Suspended"
 msgstr "Hyllytä"
-
-msgid "Active"
-msgstr "Aktiivinen"
 
 msgid "Edit"
 msgstr "Muokkaa"
@@ -1050,6 +1056,15 @@ msgstr "Lisätty: %s Lisääjä: %s"
 msgid "End"
 msgstr "Loppu"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Ei"
 
@@ -1059,8 +1074,14 @@ msgstr ""
 msgid "Total"
 msgstr "Yhteensä"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Alku"
 
 msgid "No results found."
 msgstr "Ei tuloksia."
+
+msgid "Back"
+msgstr "Takaisin"

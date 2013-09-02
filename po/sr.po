@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# Slobodan Terzić <githzerai06@gmail.com>, 2011-2012.
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Slobodan Terzić <githzerai06@gmail.com>, 2011-2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/aur/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -59,11 +59,8 @@ msgstr "Koriničko ime ne postoji."
 msgid "%s already has proposal running for them."
 msgstr "Predlog za %s već postoji."
 
-msgid "Length must be a number."
-msgstr "Dužina mora biti numerička."
-
-msgid "Length must be at least 1."
-msgstr "Dužina mora biti najmanje 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Predlog ne može biti prazan."
@@ -80,11 +77,20 @@ msgstr "Podnosioc/PK"
 msgid "(empty if not applicable)"
 msgstr "(prazno ako je nevažeće)"
 
-msgid "Length in days"
-msgstr "Trajanje u danima"
+msgid "Type"
+msgstr "Vrsta"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(ako je prazno podrazumevano je 7)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Predlog"
@@ -445,12 +451,6 @@ msgstr "Trenutno glasova"
 msgid "Past Votes"
 msgstr "Prethodni glasovi"
 
-msgid "Back"
-msgstr "Nazad"
-
-msgid "Next"
-msgstr "Sledeća"
-
 msgid "Voters"
 msgstr "Glasači"
 
@@ -557,6 +557,9 @@ msgstr "Prvi"
 
 msgid "Previous"
 msgstr "Prethodni"
+
+msgid "Next"
+msgstr "Sledeća"
 
 msgid "Last"
 msgstr "Zadnji"
@@ -680,6 +683,15 @@ msgstr "IRC nadimak"
 msgid "PGP Key Fingerprint"
 msgstr ""
 
+msgid "Status"
+msgstr "Status"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktivan"
+
 msgid "Last Voted"
 msgstr "Poslednje glasano"
 
@@ -701,6 +713,9 @@ msgstr "Poverljivi korisnik"
 msgid "Account Suspended"
 msgstr "Nalog je suspendovan"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Ponovo unesite lozinku"
 
@@ -719,20 +734,11 @@ msgstr "Resetuj"
 msgid "No results matched your search criteria."
 msgstr "Nema rezultata koji se poklapaju sa kriterijumom pretrage."
 
-msgid "Type"
-msgstr "Vrsta"
-
-msgid "Status"
-msgstr "Status"
-
 msgid "Edit Account"
 msgstr "Uredi nalog"
 
 msgid "Suspended"
 msgstr "Suspendovan"
-
-msgid "Active"
-msgstr "Aktivan"
 
 msgid "Edit"
 msgstr "Uredi"
@@ -1051,6 +1057,15 @@ msgstr "Priloženo: %s od %s"
 msgid "End"
 msgstr "Ističe"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Ne"
 
@@ -1060,8 +1075,14 @@ msgstr "Uzdržan"
 msgid "Total"
 msgstr "Ukupno"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Pokrenut"
 
 msgid "No results found."
 msgstr "Nema rezultata."
+
+msgid "Back"
+msgstr "Nazad"

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/aur/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,11 +58,8 @@ msgstr "Brugernavnet findes ikke."
 msgid "%s already has proposal running for them."
 msgstr "%s har allerede et forslag kørende for dem."
 
-msgid "Length must be a number."
-msgstr "Længden skal angives som talværdi."
-
-msgid "Length must be at least 1."
-msgstr "Længden skal være mindst 1."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Forslag må ikke være tomt."
@@ -79,11 +76,20 @@ msgstr ""
 msgid "(empty if not applicable)"
 msgstr "(tomt hvis ikke relevant)"
 
-msgid "Length in days"
+msgid "Type"
+msgstr "Type"
+
+msgid "Addition of a TU"
 msgstr ""
 
-msgid "(defaults to 7 if empty)"
-msgstr "(sat til 7 hvis tomt)"
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Forslag"
@@ -444,12 +450,6 @@ msgstr "Aktuelle stemmer"
 msgid "Past Votes"
 msgstr ""
 
-msgid "Back"
-msgstr "Tilbage"
-
-msgid "Next"
-msgstr "Næste"
-
 msgid "Voters"
 msgstr ""
 
@@ -556,6 +556,9 @@ msgstr ""
 
 msgid "Previous"
 msgstr ""
+
+msgid "Next"
+msgstr "Næste"
 
 msgid "Last"
 msgstr ""
@@ -679,6 +682,15 @@ msgstr "IRC kaldenavn"
 msgid "PGP Key Fingerprint"
 msgstr ""
 
+msgid "Status"
+msgstr "Status"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktiv"
+
 msgid "Last Voted"
 msgstr "Sidste stemme"
 
@@ -700,6 +712,9 @@ msgstr "Betroet bruger (TU)"
 msgid "Account Suspended"
 msgstr "Konto suspenderet"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Bekræft adgangskode"
 
@@ -718,20 +733,11 @@ msgstr "Nulstil"
 msgid "No results matched your search criteria."
 msgstr "Ingen resultater opfyldte dine søgekriterier."
 
-msgid "Type"
-msgstr "Type"
-
-msgid "Status"
-msgstr "Status"
-
 msgid "Edit Account"
 msgstr "Rediger konto"
 
 msgid "Suspended"
 msgstr "Suspenderet"
-
-msgid "Active"
-msgstr "Aktiv"
 
 msgid "Edit"
 msgstr ""
@@ -1050,6 +1056,15 @@ msgstr "Tilføjet: %s af %s"
 msgid "End"
 msgstr "Slut"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Nej"
 
@@ -1059,8 +1074,14 @@ msgstr "Undlad at stemme"
 msgid "Total"
 msgstr "Total"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Start"
 
 msgid "No results found."
 msgstr "Ingen resultater fundet."
+
+msgid "Back"
+msgstr "Tilbage"

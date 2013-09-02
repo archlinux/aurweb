@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Atilla Öntaş <tarakbumba@gmail.com>, 2011,2013.
-# Atilla ÖNTAŞ <tarakbumba@gmail.com>, 2012.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# Samed Beyribey <ras0ir@eventualis.org>, 2012.
-# Samed Beyribey <samed@ozguryazilim.com.tr>, 2012.
+# Atilla Öntaş <tarakbumba@gmail.com>, 2011,2013
+# Atilla Öntaş <tarakbumba@gmail.com>, 2012
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Samed Beyribey <ras0ir@eventualis.org>, 2012
+# Samed Beyribey <samed@ozguryazilim.com.tr>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-26 16:37+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -62,11 +62,8 @@ msgstr "Kullanıcı adı bulunamadı."
 msgid "%s already has proposal running for them."
 msgstr "%s için yürürlükte olan bir öneri var."
 
-msgid "Length must be a number."
-msgstr "Süre bir rakam olmalıdır"
-
-msgid "Length must be at least 1."
-msgstr "Süre en az 1 olmalıdır."
+msgid "Invalid type."
+msgstr ""
 
 msgid "Proposal cannot be empty."
 msgstr "Öneri boş olamaz."
@@ -83,11 +80,20 @@ msgstr "İstekli/TU"
 msgid "(empty if not applicable)"
 msgstr "(uygulanabilir değilse boş)"
 
-msgid "Length in days"
-msgstr "Gün bazında süre"
+msgid "Type"
+msgstr "Tür"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(eğer boş ise ön tanımlı olarak 7'dir)"
+msgid "Addition of a TU"
+msgstr ""
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
 
 msgid "Proposal"
 msgstr "Öneri"
@@ -448,12 +454,6 @@ msgstr "Mevcut Oylar"
 msgid "Past Votes"
 msgstr "Geçmiş Oylar"
 
-msgid "Back"
-msgstr "Geri"
-
-msgid "Next"
-msgstr "İleri"
-
 msgid "Voters"
 msgstr "Oy verenler"
 
@@ -541,7 +541,7 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "Parolanız sıfırlandı. Kısa süre önce yeni hesap oluşturduysanız lütfen, ilk parolanızı ayarlamak için onaylama e-postasındaki bağlantıyı kullanın. Aksi takdirde, %sParola Sıfırlama%s sayfasında bir sıfırlama anahtarı talep edin."
 
 msgid "Bad username or password."
 msgstr "Yanlış kullanıcı adı veya şifresi."
@@ -560,6 +560,9 @@ msgstr "İlk"
 
 msgid "Previous"
 msgstr "Önceki"
+
+msgid "Next"
+msgstr "İleri"
 
 msgid "Last"
 msgstr "Son"
@@ -683,6 +686,15 @@ msgstr "IRC Rumuzu"
 msgid "PGP Key Fingerprint"
 msgstr "PGP Anahtar Parmak İzi"
 
+msgid "Status"
+msgstr "Durum"
+
+msgid "Inactive since"
+msgstr ""
+
+msgid "Active"
+msgstr "Etkin"
+
 msgid "Last Voted"
 msgstr "Son Oylanan"
 
@@ -704,6 +716,9 @@ msgstr "Güvenilen kullanıcı"
 msgid "Account Suspended"
 msgstr "Hesap Donduruldu"
 
+msgid "Inactive"
+msgstr ""
+
 msgid "Re-type password"
 msgstr "Parolayı tekrar girin"
 
@@ -722,20 +737,11 @@ msgstr "Sıfırla"
 msgid "No results matched your search criteria."
 msgstr "Arama ölçütünzle eşleşen bir sonuç bulunamadı."
 
-msgid "Type"
-msgstr "Tür"
-
-msgid "Status"
-msgstr "Durum"
-
 msgid "Edit Account"
 msgstr "Hesap Bilgilerini Düzenle"
 
 msgid "Suspended"
 msgstr "Donduruldu"
-
-msgid "Active"
-msgstr "Etkin"
 
 msgid "Edit"
 msgstr "Düzenle"
@@ -1054,6 +1060,15 @@ msgstr "Yüklendi: %s %s tarafından"
 msgid "End"
 msgstr "Son"
 
+msgid "Result"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
 msgid "No"
 msgstr "Hayır"
 
@@ -1063,8 +1078,14 @@ msgstr "Çekimser"
 msgid "Total"
 msgstr "Toplam"
 
+msgid "Participation"
+msgstr ""
+
 msgid "Start"
 msgstr "Başlangıç"
 
 msgid "No results found."
 msgstr "Sonuç bulunamadı."
+
+msgid "Back"
+msgstr "Geri"

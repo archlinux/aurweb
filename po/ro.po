@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
-# Mihai Coman <mihai@m1x.ro>, 2011-2013.
+# roentgen <arthur.titeica@gmail.com>, 2013
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Mihai Coman <mihai@m1x.ro>, 2011-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 01:20+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-31 20:13+0000\n"
+"Last-Translator: roentgen <arthur.titeica@gmail.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +51,7 @@ msgid "Add Proposal"
 msgstr "Adaugă o propunere"
 
 msgid "Invalid token for user action."
-msgstr "Invalid token for user action."
+msgstr "Jeton nevalid pentru acțiunea utilizatorului."
 
 msgid "Username does not exist."
 msgstr "Nume de utilizator inexistent."
@@ -59,11 +60,8 @@ msgstr "Nume de utilizator inexistent."
 msgid "%s already has proposal running for them."
 msgstr "Pentru %s exista o propunere în desfășurare."
 
-msgid "Length must be a number."
-msgstr "Lungimea trebuie să fie un număr."
-
-msgid "Length must be at least 1."
-msgstr "Lungimea trebuie să fie de cel puțin 1."
+msgid "Invalid type."
+msgstr "Tip nevalid."
 
 msgid "Proposal cannot be empty."
 msgstr "Propunerea nu poate fi goală."
@@ -80,11 +78,20 @@ msgstr "Candidat/TU"
 msgid "(empty if not applicable)"
 msgstr "(gol dacă nu este cazul)"
 
-msgid "Length in days"
-msgstr "Lungimea în zile"
+msgid "Type"
+msgstr "Tip"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(implicit  7 dacă este gol)"
+msgid "Addition of a TU"
+msgstr "Adăugarea unui TU"
+
+msgid "Removal of a TU"
+msgstr "Înlăturarea unui TU"
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr "Înlăturarea unui TU (inactivitate nedeclarată)"
+
+msgid "Amendment of Bylaws"
+msgstr "Amendamentul Statutului"
 
 msgid "Proposal"
 msgstr "Propunere"
@@ -99,19 +106,19 @@ msgstr "Acasă"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "Bine ai venit la  AUR! Please read the %sAUR User Guidelines%s and %sAUR TU Guidelines%s for more information."
+msgstr "Bine ai venit la  AUR! Te rog citește %sGhidul utilizatorului AUR%s și %sGhidul AUR TU%s pentru mai multe informații."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "PKGBUILDurile contribuite %strebuie%s să fie conforme cu %sStandardele de Împachetare Archs%s, altfel vor fi șterse!"
+msgstr "PKGBUILDurile contribuite %strebuie%s să fie conforme cu %sStandardele de Împachetare Arch%s, altfel vor fi șterse!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Nu uita să votezi pentru pachetele tale favorite!"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "Unele pachete pot fi furnizate ca binare în [community]"
+msgstr "Unele pachete pot fi furnizate ca binare în [community]."
 
 msgid "Discussion"
 msgstr "Discuție"
@@ -122,10 +129,10 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Discuțiile generale cu privire la Arch User Repository (AUR) și structura Trusted User are loc pe %saur-general%s. Această listă poate fi folosită pentru cereri de ștergere, fuzionare sau abandonare pachete. Pentru discuții cu privire la dezvoltarea AUR, folosește lista de discuții %saur-dev%s."
+msgstr "Discuțiile generale cu privire la Arch User Repository (AUR) și structura Trusted User se desfășoară pe %saur-general%s. Această listă poate fi folosită pentru cereri de ștergere, fuzionare sau abandonare pachete. Pentru discuții cu privire la dezvoltarea AUR, folosește lista de discuții %saur-dev%s."
 
 msgid "Bug Reporting"
-msgstr "Semnalare bug-uri"
+msgstr "Semnalare buguri"
 
 #, php-format
 msgid ""
@@ -133,7 +140,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "If you find a bug in the AUR, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page."
+msgstr "Dacă găsești o hibă în AUR te rog completează un raport în %sbug tracker%s. Folosește trackerul %sdoar%s pentru a raporta erori în AUR. Pentru a raporta erori de împachetare contactează responsabilul pachetului sau lasă un comentariu în pagina pachetului respectiv."
 
 msgid "DISCLAIMER"
 msgstr "DECLARAȚIE DE NEASUMARE A RESPONSABILITĂȚII"
@@ -230,7 +237,7 @@ msgid "Password Reset"
 msgstr "Resetare parolă"
 
 msgid "Check your e-mail for the confirmation link."
-msgstr "Verifică e-mailul pentru adresa de confirmare."
+msgstr "Verifică e-mailul pentru legătura de confirmare."
 
 msgid "Your password has been reset successfully."
 msgstr "Parola ta a fost resetată cu succes."
@@ -345,7 +352,7 @@ msgid "Error - source tarball may not contain more than one directory."
 msgstr "Eroare - arhiva sursă nu poate conține mai mult de un director."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Eroarea la dezarhiare - PKGBUILD nu există."
+msgstr "Eroarea la dezarhivare - PKGBUILD nu există."
 
 #, php-format
 msgid "Missing %s variable in PKGBUILD."
@@ -404,7 +411,7 @@ msgid ""
 msgstr "Încarcă pachetele tale sursă aici. Creează pachete sursă cu „makepkg --source”."
 
 msgid "Package Category"
-msgstr "Categoria pachetului."
+msgstr "Categoria pachetului"
 
 msgid "Select Category"
 msgstr "Selectează categoria"
@@ -445,19 +452,13 @@ msgstr "Voturi curente"
 msgid "Past Votes"
 msgstr "Voturi precedente"
 
-msgid "Back"
-msgstr "Înapoi"
-
-msgid "Next"
-msgstr "Înainte"
-
 msgid "Voters"
 msgstr "Votanți"
 
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Înregistrarea de conturi noi a fost dezactivată pentru adresa ta IP, probabil datorită unor atacuri spam repetate. Ne cerem scuze pentru inconveniență."
 
 msgid "Missing User ID"
 msgstr "ID-ul utilizatorului lipsește"
@@ -480,7 +481,7 @@ msgid "Your password must be at least %s characters."
 msgstr "Parola trebuie să fie de cel puțin %s caractere."
 
 msgid "The email address is invalid."
-msgstr "Adresa de mail nu este validă."
+msgstr "Adresa de email nu este validă."
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "Amprenta cheii PGP este nevalidă."
@@ -512,10 +513,10 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr ""
+msgstr "Bun venit la %s! Pentru a seta o parolă inițială pentru cont, apasă pe legătura de jos. Dacă nu funcționează, încearcă să copiezi adresa și să o lipești în bara de adrese a navigatorului."
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
+msgstr "O cheie de resetare a parolei a fost trimisă la adresa ta de e-mail."
 
 msgid "Click on the Login link above to use your account."
 msgstr "Clic pe legătura către Autentificare pentru a-ți folosi contul"
@@ -531,20 +532,20 @@ msgstr "Contul %s%s%s a fost modificat cu succes."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "Formularul de autentificare a fost dezactivat pentru adresa ta IP, probabil datorită unor atacuri spam repetate. Ne cerem scuze pentru inconveniență."
 
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "Parola ta a fost resetată. Dacă tocmai ai creat un cont nou, folosește legătura din e-mailul de confirmare pentru a seta o parolă inițială. Altfel, cere o resetare a parolei din pagina %sResetare parolă%s."
 
 msgid "Bad username or password."
 msgstr "Nume de utilizator sau parolă greșite."
 
 msgid "Invalid e-mail and reset key combination."
-msgstr "Combinație e-mail și cheie pentru resetare este nevalidă."
+msgstr "Combinație e-mail și cheie pentru resetare nevalidă."
 
 msgid "Error retrieving package details."
 msgstr "Eroare la preluarea detaliilor pachetului."
@@ -557,6 +558,9 @@ msgstr "Prim"
 
 msgid "Previous"
 msgstr "Precedent"
+
+msgid "Next"
+msgstr "Înainte"
 
 msgid "Last"
 msgstr "Ultim"
@@ -583,7 +587,7 @@ msgid "You must be logged in before you can delete packages."
 msgstr "Trebuie să fi autentificat înainte de a putea șterge pachete."
 
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "Nu ai permisiune pentru a șterge pachete."
 
 msgid "You did not select any packages to delete."
 msgstr "Nu ai selectat niciun pachet pentru a fi șters."
@@ -648,7 +652,7 @@ msgid "You are not allowed to delete this comment."
 msgstr "Nu ai voie să ștergi acest comentariu."
 
 msgid "Missing category ID."
-msgstr "ID-ul categoriei lisește"
+msgstr "ID-ul categoriei lipsește."
 
 msgid "Invalid category ID."
 msgstr "ID-ul categoriei nu este valid."
@@ -669,7 +673,7 @@ msgid "Developer"
 msgstr "Dezvoltator"
 
 msgid "Email Address"
-msgstr "Adresă e-mail"
+msgstr "Adresă email"
 
 msgid "Real Name"
 msgstr "Nume real"
@@ -679,6 +683,15 @@ msgstr "Pseudonim IRC"
 
 msgid "PGP Key Fingerprint"
 msgstr "Amprentă cheie PGP"
+
+msgid "Status"
+msgstr "Stare"
+
+msgid "Inactive since"
+msgstr "Inactiv din"
+
+msgid "Active"
+msgstr "Activ"
 
 msgid "Last Voted"
 msgstr "Ultimul vot"
@@ -693,13 +706,16 @@ msgid "required"
 msgstr "cerut"
 
 msgid "Normal user"
-msgstr "Normal user"
+msgstr "Utilizator obișnuit"
 
 msgid "Trusted user"
 msgstr "Trusted user"
 
 msgid "Account Suspended"
 msgstr "Cont suspendat"
+
+msgid "Inactive"
+msgstr "Inactiv"
 
 msgid "Re-type password"
 msgstr "Rescrie parola"
@@ -719,20 +735,11 @@ msgstr "Resetează"
 msgid "No results matched your search criteria."
 msgstr "Nici un rezultat nu s-a încadrat în criteriile de căutare."
 
-msgid "Type"
-msgstr "Tip"
-
-msgid "Status"
-msgstr "Stare"
-
 msgid "Edit Account"
-msgstr "Modifcă cont"
+msgstr "Modificare cont"
 
 msgid "Suspended"
 msgstr "Suspendat"
-
-msgid "Active"
-msgstr "Activ"
 
 msgid "Edit"
 msgstr "Modifică"
@@ -744,10 +751,10 @@ msgid "More"
 msgstr "Mai mult"
 
 msgid "No more results to display."
-msgstr "Nu mai există rezultate pentru afișare."
+msgstr "Nu mai sunt rezultate de afișat."
 
 msgid "No New Comment Notification"
-msgstr "Nu sunt notificări de comentariu noi"
+msgstr "Fără notificare de comentariu nou"
 
 msgid "New Comment Notification"
 msgstr "Notificare de comentariu nouă"
@@ -885,10 +892,10 @@ msgid "Votes"
 msgstr "Voturi"
 
 msgid "First Submitted"
-msgstr "Prima trimitere:"
+msgstr "Prima trimitere"
 
 msgid "Last Updated"
-msgstr "Ultima actualizare:"
+msgstr "Ultima actualizare"
 
 msgid "Dependencies"
 msgstr "Dependențe"
@@ -1042,7 +1049,7 @@ msgid "Proposal Details"
 msgstr "Detaliile propunerii."
 
 msgid "This vote is still running."
-msgstr "Acest vot este în desfășurare."
+msgstr "Această votare este încă în desfășurare."
 
 #, php-format
 msgid "Submitted: %s by %s"
@@ -1050,6 +1057,15 @@ msgstr "Trimis: %s de %s "
 
 msgid "End"
 msgstr "Sfârșit"
+
+msgid "Result"
+msgstr "Rezultat"
+
+msgid "Accepted"
+msgstr "Acceptat"
+
+msgid "Rejected"
+msgstr "Respins"
 
 msgid "No"
 msgstr "Nu"
@@ -1060,8 +1076,14 @@ msgstr "Abținere"
 msgid "Total"
 msgstr "Total"
 
+msgid "Participation"
+msgstr "Participare"
+
 msgid "Start"
 msgstr "Start"
 
 msgid "No results found."
 msgstr "Niciun rezultat găsit"
+
+msgid "Back"
+msgstr "Înapoi"

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Giovanni Scafora <giovanni@archlinux.org>, 2011-2013.
-# Lukas Fleischer <transifex@cryptocrack.de>, 2011.
+# Giovanni Scafora <giovanni@archlinux.org>, 2011-2013
+# Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-03-25 02:19+0100\n"
-"PO-Revision-Date: 2013-03-25 19:35+0000\n"
+"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"PO-Revision-Date: 2013-08-27 16:13+0000\n"
 "Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/aur/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgid "You do not have permission to edit this account."
 msgstr "Non hai i permessi necessari per modificare questo account."
 
 msgid "Use this form to search existing accounts."
-msgstr "Usa questo modulo per ricercare gli account esistenti."
+msgstr "Usa questo modulo per cercare gli account esistenti."
 
 msgid "You must log in to view user information."
 msgstr "Devi autenticarti per visualizzare le informazioni dell'utente."
@@ -47,7 +47,7 @@ msgid "Use this form to create an account."
 msgstr "Usa questo modulo per creare un account."
 
 msgid "Add Proposal"
-msgstr "Aggiungi proposta"
+msgstr "Aggiungi una proposta"
 
 msgid "Invalid token for user action."
 msgstr "Il token non è valido per l'intervento da parte dell'utente."
@@ -59,11 +59,8 @@ msgstr "Il nome utente non esiste."
 msgid "%s already has proposal running for them."
 msgstr "%s ha già avviato una proposta per loro."
 
-msgid "Length must be a number."
-msgstr "La durata deve essere un numero."
-
-msgid "Length must be at least 1."
-msgstr "La durata deve essere almeno pari ad 1."
+msgid "Invalid type."
+msgstr "Tipo non valido."
 
 msgid "Proposal cannot be empty."
 msgstr "La proposta non può essere vuota."
@@ -80,11 +77,20 @@ msgstr "Candidato/TU"
 msgid "(empty if not applicable)"
 msgstr "(vuoto se non applicabile)"
 
-msgid "Length in days"
-msgstr "Durata in giorni"
+msgid "Type"
+msgstr "Tipo"
 
-msgid "(defaults to 7 if empty)"
-msgstr "(se vuoto, di default è impostata a 7)"
+msgid "Addition of a TU"
+msgstr "Aggiunta di un TU"
+
+msgid "Removal of a TU"
+msgstr "Rimozione di un TU"
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr "Rimozione di un TU (inattività non dichiarata)"
+
+msgid "Amendment of Bylaws"
+msgstr "Modifica dello statuto"
 
 msgid "Proposal"
 msgstr "Proposta"
@@ -122,7 +128,7 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "La discussione generale sull'Arch User Repository (AUR) e sulla struttura dei TU avviene in %saur-general%s. Questa lista di discussione può essere utilizzata per le richieste dei pacchetti orfani, per unire le richieste e per le richieste di cancellazione. Per la discussione relativa allo sviluppo di AUR, utilizzate la lista di discussione %saur-dev%s."
+msgstr "La discussione generale sull'Arch User Repository (AUR) e sulla struttura dei TU avviene in %saur-general%s. Questa lista di discussione può essere utilizzata per le richieste dei pacchetti orfani, per unire le richieste e per le richieste di cancellazione. Per la discussione relativa allo sviluppo di AUR, utilizza la lista di discussione %saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Segnalazione di un bug"
@@ -133,7 +139,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "Se trovate un bug in AUR, inviate un bug report al nostro %sbug tracker%s. Usate il tracker %ssolo%s per inviare i bug di AUR. Per inviare bug inerenti alla pacchettizzazione, contattate il manutentore del pacchetto o lasciate un commento sulla pagina del pacchetto."
+msgstr "Se trovi un bug in AUR, invia un bug report al nostro %sbug tracker%s. Usa il tracker %ssolo%s per inviare i bug di AUR. Per inviare bug inerenti alla pacchettizzazione, contatta il manutentore oppure lascia un commento sulla pagina del pacchetto."
 
 msgid "DISCLAIMER"
 msgstr "AVVISO"
@@ -144,7 +150,7 @@ msgid ""
 msgstr "I pacchetti presenti in AUR sono stati inviati dagli utenti. Usali a tuo rischio e pericolo."
 
 msgid "Package Search"
-msgstr "Ricerca del pacchetto"
+msgstr "Ricerca dei pacchetti"
 
 msgid "Vote"
 msgstr "Vota"
@@ -156,7 +162,7 @@ msgid "Notify"
 msgstr "Abilita la notifica"
 
 msgid "UnNotify"
-msgstr "Disabilita la notifica"
+msgstr "Disabilita le notifiche"
 
 msgid "Flag"
 msgstr "Seleziona"
@@ -268,13 +274,13 @@ msgid "Use this form to delete the package (%s%s%s) from the AUR. "
 msgstr "Usa questo modulo per eliminare il pacchetto (%s%s%s) da AUR."
 
 msgid "Deletion of a package is permanent. "
-msgstr "L'eliminazione di un pacchetto è permanente."
+msgstr "La rimozione di un pacchetto è permanente."
 
 msgid "Select the checkbox to confirm action."
 msgstr "Seleziona la casella di controllo per confermare l'azione richiesta."
 
 msgid "Confirm package deletion"
-msgstr "Conferma l'eliminazione del pacchetto"
+msgstr "Conferma la rimozione del pacchetto"
 
 msgid "Delete"
 msgstr "Elimina"
@@ -316,7 +322,7 @@ msgid "Error - Uploaded file larger than maximum allowed size (%s)"
 msgstr "Errore: il file inviato è più grande della dimensione massima consentita (%s)"
 
 msgid "Error - File partially uploaded"
-msgstr "Errore: file parzialmente inviato"
+msgstr "Errore: file inviato parzialmente"
 
 msgid "Error - No file uploaded"
 msgstr "Errore: nessun file è stato inviato."
@@ -330,7 +336,7 @@ msgstr "Errore: il file non può essere scritto"
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
 " makepkg(8) only)."
-msgstr "Errore: il formato del file non è supportato (inviate solo tarball compressi con gzip, generati solo con makepkg(8))."
+msgstr "Errore: il formato del file non è supportato (inviate solo tarball compressi con gzip, generati con makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Errore: il file decompresso supera la dimensione consentita."
@@ -445,12 +451,6 @@ msgstr "Voti attuali"
 msgid "Past Votes"
 msgstr "Vecchi voti"
 
-msgid "Back"
-msgstr "Precedente"
-
-msgid "Next"
-msgstr "Successivo"
-
 msgid "Voters"
 msgstr "Votanti"
 
@@ -558,6 +558,9 @@ msgstr "Primo"
 msgid "Previous"
 msgstr "Precedente"
 
+msgid "Next"
+msgstr "Successivo"
+
 msgid "Last"
 msgstr "Ultimo"
 
@@ -613,7 +616,7 @@ msgid "You must be logged in before you can vote for packages."
 msgstr "Devi autenticarti prima di poter votare i pacchetti."
 
 msgid "You must be logged in before you can un-vote for packages."
-msgstr "Devi autenticarti prima di poter rimuovere il voto ai pacchetti."
+msgstr "Devi autenticarti prima di poter rimuovere il voto dai pacchetti."
 
 msgid "You did not select any packages to vote for."
 msgstr "Non hai selezionato nessun pacchetto a cui assegnare il voto."
@@ -625,11 +628,11 @@ msgid "Your votes have been cast for the selected packages."
 msgstr "I voti sono stati assegnati ai pacchetti selezionati."
 
 msgid "Couldn't add to notification list."
-msgstr "Impossibile aggiungere alla lista di notifica."
+msgstr "Impossibile aggiungere alla lista delle notifiche."
 
 #, php-format
 msgid "You have been added to the comment notification list for %s."
-msgstr "Sei stato aggiunto alla lista di notifica dei commenti di %s."
+msgstr "Sei stato aggiunto alla lista delle notifiche dei commenti di %s."
 
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
@@ -678,7 +681,16 @@ msgid "IRC Nick"
 msgstr "Nick IRC"
 
 msgid "PGP Key Fingerprint"
-msgstr "Impronta della chiave PGP"
+msgstr "Fingerprint della chiave PGP"
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Inactive since"
+msgstr "Inattivo da"
+
+msgid "Active"
+msgstr "Attivo"
 
 msgid "Last Voted"
 msgstr "Ultimo votato"
@@ -701,6 +713,9 @@ msgstr "TU"
 msgid "Account Suspended"
 msgstr "Account sospeso"
 
+msgid "Inactive"
+msgstr "Inattivo"
+
 msgid "Re-type password"
 msgstr "Riscrivi la password"
 
@@ -719,20 +734,11 @@ msgstr "Cancella"
 msgid "No results matched your search criteria."
 msgstr "Nessun risultato corrisponde ai criteri della ricerca."
 
-msgid "Type"
-msgstr "Tipo"
-
-msgid "Status"
-msgstr "Stato"
-
 msgid "Edit Account"
 msgstr "Modifica l'account"
 
 msgid "Suspended"
 msgstr "Sospeso"
-
-msgid "Active"
-msgstr "Attivo"
 
 msgid "Edit"
 msgstr "Modifica"
@@ -960,7 +966,7 @@ msgid "Per page"
 msgstr "Per pagina"
 
 msgid "Go"
-msgstr "Esegui"
+msgstr "Vai"
 
 msgid "Orphans"
 msgstr "Orfani"
@@ -1051,6 +1057,15 @@ msgstr "Inviato: %s da %s"
 msgid "End"
 msgstr "Fine"
 
+msgid "Result"
+msgstr "Risultato"
+
+msgid "Accepted"
+msgstr "Accettato"
+
+msgid "Rejected"
+msgstr "Rifiutato"
+
 msgid "No"
 msgstr "No"
 
@@ -1060,8 +1075,14 @@ msgstr "Astenuto"
 msgid "Total"
 msgstr "Totale"
 
+msgid "Participation"
+msgstr "Partecipazione"
+
 msgid "Start"
 msgstr "Home"
 
 msgid "No results found."
 msgstr "La ricerca non ha prodotto nessun risultato."
+
+msgid "Back"
+msgstr "Precedente"
