@@ -7,6 +7,9 @@
 	</ul>
 	<?php endif; ?>
 
+	<?php if (empty($result)): ?>
+	<p><?= __("No results found.") ?></p>
+	<?php else: ?>
 	<table class="results">
 		<thead>
 			<tr>
@@ -21,14 +24,13 @@
 		</thead>
 
 		<tbody>
-			<?php if (empty($result)): ?>
-			<tr><td align="center" colspan="0"><?= __("No results found.") ?></td></tr>
-			<?php else: while (list($indx, $row) = each($result)):
-				if ($indx % 2):
-					$c = "even";
-				else:
-					$c = "odd";
-				endif;
+			<?php while (list($indx, $row) = each($result)): ?>
+			<?php
+			if ($indx % 2) {
+				$c = "even";
+			} else {
+				$c = "odd";
+			}
 			?>
 			<tr class="<?= $c ?>">
 				<td><?php $row["Agenda"] = htmlspecialchars(substr($row["Agenda"], 0, $prev_Len)); ?>
@@ -54,12 +56,10 @@
 					<?php endif; ?>
 				</td>
 			</tr>
-			<?php
-			endwhile;
-			endif;
-			?>
+			<?php endwhile; ?>
 		</tbody>
 	</table>
+
 	<div class="pkglist-stats">
 		<p class="pkglist-nav">
 		<?php if ($result):
@@ -74,4 +74,5 @@
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>
+	<?php endif; ?>
 </div>
