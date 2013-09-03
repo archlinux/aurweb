@@ -1,16 +1,36 @@
 /*
- * ARCH LINUX DJANGO (MAIN SITE)
- *
  * Font sizing based on 16px browser defaults (use em):
  *   14px = 0.875em
  *   13px = 0.812em
  *   12px = 0.75em
  *   11px = 0.6875em
- *
  */
 
-/* import the global navbar stylesheet */
-@import url('archnavbar/archnavbar.css');
+/*
+ * ARCH GLOBAL NAVBAR
+ * We're forcing all generic selectors with !important
+ * to help prevent other stylesheets from interfering.
+ */
+
+/* container for the entire bar */
+#archnavbar { height: 40px !important; padding: 10px 15px !important; background: #333 !important; border-bottom: 5px #08c solid !important; }
+#archnavbarlogo { float: left !important; margin: 0 !important; padding: 0 !important; height: 40px !important; width: 190px !important; background: url('archnavbar/archlogo.png') no-repeat !important; }
+
+/* move the heading text offscreen */
+#archnavbarlogo h1 { margin: 0 !important; padding: 0 !important; text-indent: -9999px !important; }
+
+/* make the link the same size as the logo */
+#archnavbarlogo a { display: block !important; height: 40px !important; width: 190px !important; }
+
+/* display the list inline, float it to the right and style it */
+#archnavbarlist { display: inline !important; float: right !important; list-style: none !important; margin: 0 !important; padding: 0 !important; }
+#archnavbarlist li { float: left !important; font-size: 14px !important; font-family: sans-serif !important; line-height: 45px !important; padding-right: 15px !important; padding-left: 15px !important; }
+
+/* style the links */
+#archnavbarlist li a { color: #999; font-weight: bold !important; text-decoration: none !important; }
+#archnavbarlist li a:hover { color: white !important; text-decoration: underline !important; }
+
+/* END ARCH GLOBAL NAVBAR */
 
 /* simple reset */
 * {
@@ -159,22 +179,22 @@ h5 {
 }
 
 /* general layout */
-div#content {
+#content {
     width: 95%;
     margin: 0 auto;
     text-align: left;
 }
 
-div#content-left-wrapper {
+#content-left-wrapper {
     float: left;
     width: 100%; /* req to keep content above sidebar in source code */
 }
 
-div#content-left {
+#content-left {
     margin: 0 340px 0 0;
 }
 
-div#content-right {
+#content-right {
     float: left;
     width: 300px;
     margin-left: -300px;
@@ -187,12 +207,12 @@ div.box {
     border: 1px solid #bcd;
 }
 
-div#footer {
+#footer {
     clear: both;
     margin: 2em 0 1em;
 }
 
-    div#footer p {
+    #footer p {
         margin: 0;
         text-align: center;
         font-size: 0.85em;
@@ -247,13 +267,13 @@ table.pretty1 {
     border: 1px solid #bcd;
 }
 
-    table.pretty1 th {
+    .pretty1 th {
         padding: 0.35em;
         background: #e4eeff;
         border: 1px solid #bcd;
     }
 
-    table.pretty1 td {
+    .pretty1 td {
         padding: 0.35em;
         border: 1px dotted #bcd;
     }
@@ -266,33 +286,25 @@ table.pretty2 {
     border: 1px solid #bbb;
 }
 
-    table.pretty2 th {
+    .pretty2 th {
         padding: 0.35em;
         background: #eee;
         border: 1px solid #bbb;
     }
 
-        /* additional styles for JS sorting */
-        table.pretty2 th.tablesorter-header {
-            padding-right: 20px;
-            background-image: url(nosort.gif);
-            background-repeat: no-repeat;
-            background-position: center right;
-            cursor: pointer;
-        }
-
-        table.pretty2 th.tablesorter-headerSortDown {
-            background-image: url(desc.gif);
-        }
-
-        table.pretty2 th.tablesorter-headerSortUp {
-            background-image: url(asc.gif);
-        }
-
-    table.pretty2 td {
+    .pretty2 td {
         padding: 0.35em;
         border: 1px dotted #bbb;
     }
+
+table.compact {
+    width: auto;
+}
+
+    .compact td {
+        padding: 0.25em 0 0.25em 1.5em;
+    }
+
 
 /* definition lists */
 dl {
@@ -302,7 +314,7 @@ dl {
     dl dt,
     dl dd {
         margin-bottom: 4px;
-        padding: 8px 0px 4px;
+        padding: 8px 0 4px;
         font-weight: bold;
         border-top: 1px dotted #bbb;
     }
@@ -348,24 +360,24 @@ form.general-form textarea {
 }
 
 /* archdev navbar */
-div#archdev-navbar {
+#archdev-navbar {
     margin: 1.5em 0;
 }
 
-    div#archdev-navbar ul {
+    #archdev-navbar ul {
         list-style: none;
         margin: -0.5em 0;
         padding: 0;
     }
 
-    div#archdev-navbar li {
+    #archdev-navbar li {
         display: inline;
         margin: 0;
         padding: 0;
         font-size: 0.9em;
     }
 
-        div#archdev-navbar li a {
+        #archdev-navbar li a {
             padding: 0 0.5em;
             color: #07b;
         }
@@ -386,6 +398,30 @@ div#archdev-navbar {
 
 ul.errorlist {
     color: red;
+}
+
+/* JS sorting via tablesorter */
+table th.tablesorter-header {
+    padding-right: 20px;
+    background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+table thead th.tablesorter-headerAsc {
+    background-color: #e4eeff;
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+}
+
+table thead th.tablesorter-headerDesc {
+    background-color: #e4eeff;
+    background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+}
+
+table thead th.sorter-false {
+    background-image: none;
+    cursor: default;
 }
 
 /**
@@ -454,13 +490,13 @@ ul.errorlist {
 
 h3 span.arrow {
     display: block;
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 6px solid #1794D1;
     margin: 0 auto;
-    font-size: 0px;
+    font-size: 0;
     line-height: 0px;
 }
 
@@ -547,20 +583,31 @@ h3 span.arrow {
     }
 
 /* home: sidebar navigation */
-div#nav-sidebar ul {
+#nav-sidebar ul {
     list-style: none;
     margin: 0.5em 0 0.5em 1em;
     padding: 0;
 }
 
 /* home: sponsor banners */
-div#arch-sponsors img {
+#arch-sponsors img {
     padding: 0.3em 0;
 }
 
 /* home: sidebar components (navlist, sponsors, pkgsearch, etc) */
 div.widget {
     margin-bottom: 1.5em;
+}
+
+/* home: other stuff */
+#konami {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    opacity: 0.6;
 }
 
 /* feeds page */
@@ -598,21 +645,21 @@ div.news-article .article-info {
 }
 
 /* news: add/edit article */
-form#newsform {
+#newsform {
     width: 60em;
 }
 
-    form#newsform input[type=text],
-    form#newsform textarea {
+    #newsform input[type=text],
+    #newsform textarea {
         width: 75%;
     }
 
 /* donate: donor list */
-div#donor-list ul {
+#donor-list ul {
     width: 100%;
 }
     /* max 4 columns, but possibly fewer if screen size doesn't allow for more */
-    div#donor-list li {
+    #donor-list li {
         float: left;
         width: 25%;
         min-width: 20em;
@@ -623,10 +670,6 @@ div#donor-list ul {
     border-bottom: 1px dotted #bbb;
 }
 
-table#download-torrents .cpu-arch {
-    text-align: center;
-}
-
 /* pkglists/devlists */
 table.results {
     font-size: 0.846em;
@@ -634,50 +677,31 @@ table.results {
     border-bottom: 1px dotted #999;
 }
 
-    table.results th {
+    .results th {
         padding: 0.5em 1em 0.25em 0.25em;
         border-bottom: 1px solid #999;
         white-space: nowrap;
         background-color:#fff;
     }
 
-        /* additional styles for JS sorting */
-        table.results th.tablesorter-header {
-            padding-right: 20px;
-            background-image: url(nosort.gif);
-            background-repeat: no-repeat;
-            background-position: center right;
-            cursor: pointer;
-        }
-
-        table.results th.tablesorter-headerSortDown {
-            background-color: #e4eeff;
-            background-image: url(desc.gif);
-        }
-
-        table.results th.tablesorter-headerSortUp {
-            background-color: #e4eeff;
-            background-image: url(asc.gif);
-        }
-
-    table.results td {
+    .results td {
         padding: .3em 1em .3em 3px;
     }
 
-    table.results tr.odd {
+    .results tr.odd {
         background: #fff;
     }
 
-    table.results tr.even {
+    .results tr.even {
         background: #e4eeff;
     }
 
-    table.results .flagged {
+    .results .flagged {
         color: red;
     }
 
 /* pkglist: layout */
-div#pkglist-about {
+#pkglist-about {
     margin-top: 1.5em;
 }
 
@@ -770,12 +794,12 @@ div#pkglist-about {
     }
 
 /* pkgdetails: flag package */
-form#flag-pkg-form label {
+#flag-pkg-form label {
     width: 10em;
 }
 
-form#flag-pkg-form textarea,
-form#flag-pkg-form input[type=text] {
+#flag-pkg-form textarea,
+#flag-pkg-form input[type=text] {
     width: 45%;
 }
 
@@ -851,54 +875,71 @@ table td.country {
     white-space: normal;
 }
 
-form#list-generator div ul {
+#list-generator div ul {
     list-style: none;
     display: inline;
     padding-left: 0;
 }
 
-    form#list-generator div ul li {
+    #list-generator div ul li {
         display: inline;
     }
 
+.visualize-mirror .axis path,
+.visualize-mirror .axis line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 3px;
+    shape-rendering: crispEdges;
+}
+
+.visualize-mirror .url-dot {
+    stroke: #000;
+}
+
+.visualize-mirror .url-line {
+    fill: none;
+    stroke-width: 1.5px;
+}
+
 /* dev/TU biographies */
-div#arch-bio-toc {
+#arch-bio-toc {
     width: 75%;
     margin: 0 auto;
     text-align: center;
 }
 
-    div#arch-bio-toc a {
+    #arch-bio-toc a {
         white-space: nowrap;
     }
 
-table.arch-bio-entry {
+.arch-bio-entry {
     width: 75%;
     min-width: 640px;
     margin: 0 auto;
 }
 
-    table.arch-bio-entry td.pic {
+    .arch-bio-entry td.pic {
         vertical-align: top;
         padding-right: 15px;
         padding-top: 2.25em;
     }
 
-        table.arch-bio-entry td.pic img {
+        .arch-bio-entry td.pic img {
             padding: 4px;
             border: 1px solid #ccc;
         }
 
-    table.arch-bio-entry td h3 {
+    .arch-bio-entry td h3 {
         border-bottom: 1px dotted #ccc;
         margin-bottom: 0.5em;
     }
 
-    table.arch-bio-entry table.bio {
+    .arch-bio-entry table.bio {
         margin-bottom: 2em;
     }
 
-        table.arch-bio-entry table.bio th {
+        .arch-bio-entry table.bio th {
             color: #666;
             font-weight: normal;
             text-align: right;
@@ -907,18 +948,19 @@ table.arch-bio-entry {
             white-space: nowrap;
         }
 
-        table.arch-bio-entry table.bio td {
+        .arch-bio-entry table.bio td {
             width: 100%;
             padding-bottom: 0.25em;
+            white-space: normal;
         }
 
 /* dev: login/out */
-table#dev-login {
+#dev-login {
     width: auto;
 }
 
 /* dev dashboard: flagged packages */
-form#dash-pkg-notify {
+#dash-pkg-notify {
     text-align: right;
     padding: 1em 0 0;
     margin-top: 1em;
@@ -926,21 +968,21 @@ form#dash-pkg-notify {
     border-top: 1px dotted #bbb;
 }
 
-    form#dash-pkg-notify label {
+    #dash-pkg-notify label {
         width: auto;
         font-weight: normal;
     }
 
-    form#dash-pkg-notify input {
+    #dash-pkg-notify input {
         vertical-align: middle;
         margin: 0 0.25em;
     }
 
-        form#dash-pkg-notify input[type=submit] {
+        #dash-pkg-notify input[type=submit] {
             margin-top: -0.25em;
         }
 
-    form#dash-pkg-notify p {
+    #dash-pkg-notify p {
         margin: 0;
     }
 
@@ -960,14 +1002,30 @@ ul.admin-actions {
         padding-left: 1.5em;
     }
 
-/* todo lists (public and private) */
-.todo-table .complete {
+/* colored yes/no type values */
+.todo-table .complete,
+.signoff-yes,
+#key-status .signed-yes,
+#releng-result .success-yes,
+#release-list .available-yes {
     color: green;
 }
 
-.todo-table .incomplete {
+.todo-table .incomplete,
+.signoff-no,
+#key-status .signed-no,
+#releng-result .success-no,
+#release-list .available-no {
     color: red;
 }
+
+.todo-table .inprogress,
+.signoff-bad {
+    color: darkorange;
+}
+
+
+/* todo lists (public and private) */
 .todo-info {
     margin: 0; color: #999;
 }
@@ -989,16 +1047,7 @@ ul.signoff-list {
 }
 
 .signoff-yes {
-    color: green;
     font-weight: bold;
-}
-
-.signoff-no {
-    color: red;
-}
-
-.signoff-bad {
-    color: darkorange;
 }
 
 .signoff-disabled {
@@ -1022,22 +1071,6 @@ ul.signoff-list {
 
 #releng-feedback ul+.helptext {
     position: relative; top: -0.9em;
-}
-
-#releng-result .success-yes {
-    color: green;
-}
-
-#releng-result .success-no {
-    color: red;
-}
-
-#key-status .signed-yes {
-    color: green;
-}
-
-#key-status .signed-no {
-    color: red;
 }
 
 /* highlight current website in the navbar */
