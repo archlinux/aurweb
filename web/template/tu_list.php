@@ -1,5 +1,12 @@
 <div class="box">
 	<h2><?= $type ?></h2>
+
+	<?php if ($type == __("Current Votes")): ?>
+	<ul class="admin-actions">
+		<li><a href="<?= get_uri('/addvote/'); ?>"><?= __("Add Proposal") ?></a></li>
+	</ul>
+	<?php endif; ?>
+
 	<table class="results">
 		<thead>
 			<tr>

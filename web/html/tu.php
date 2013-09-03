@@ -109,20 +109,12 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 		$type = __("Current Votes");
 		$nextresult = 0;
 		include("tu_list.php");
-?>
 
-<?php
 		$result = past_proposal_list($order, $lim);
-
 		$type = __("Past Votes");
 		$nextresult = proposal_count();
 		include("tu_list.php");
-?>
-<div class="box">
-	<p><a href="<?= get_uri('/addvote/'); ?>"><?= __("Add Proposal") ?></a></p>
-</div>
-	</p>
-<?php
+
 		$result = last_votes_list();
 		include("tu_last_votes_list.php");
 	}
