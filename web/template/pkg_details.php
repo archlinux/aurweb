@@ -89,24 +89,24 @@ $sources = package_sources($row["ID"]);
 				<li><a href="<?= get_pkg_uri($row['Name']) . 'merge/'; ?>"><?= __('Merge Package'); ?></a></li>
 				<?php endif; ?>
 				<?php endif; ?>
+
+				<?php if ($uid && $row["MaintainerUID"] === NULL): ?>
+				<li>
+					<form action="<?= get_pkg_uri($row['Name']) . 'adopt/'; ?>" method="post">
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+						<input type="submit" class="button text-button" name="do_Adopt" value="<?= __('Adopt Package') ?>" />
+					</form>
+				</li>
+				<?php elseif ($uid && $uid == $row["MaintainerUID"] ||
+					$atype == "Trusted User" || $atype == "Developer"): ?>
+				<li>
+					<form action="<?= get_pkg_uri($row['Name']) . 'disown/'; ?>" method="post">
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+						<input type="submit" class="button text-button" name="do_Disown" value="<?= __('Disown Package') ?>" />
+					</form>
+				</li>
+				<?php endif; ?>
 			</ul>
-			<?php if ($uid): ?>
-			<form action="<?= htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>" method="post">
-				<div>
-					<input type="hidden" name="IDs[<?= $row['ID'] ?>]" value="1" />
-					<input type="hidden" name="ID" value="<?= $row['ID'] ?>" />
-					<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-				</div>
-				<p>
-					<?php if ($row["MaintainerUID"] === NULL): ?>
-						<input type="submit" class="button" name="do_Adopt" value="<?= __("Adopt Package") ?>" />
-					<?php elseif ($uid == $row["MaintainerUID"] ||
-						$atype == "Trusted User" || $atype == "Developer"): ?>
-						<input type="submit" class="button" name="do_Disown" value="<?= __("Disown Package") ?>" />
-					<?php endif; ?>
-				</p>
-			</form>
-			<?php endif; ?>
 		</div>
 	</div>
 

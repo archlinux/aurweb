@@ -25,6 +25,12 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			/* TODO: Remove support for legacy URIs and move these
 			 * actions to separate modules. */
 			switch ($tokens[3]) {
+			case "adopt":
+				$_POST['do_Adopt'] = __('Adopt');
+				break;
+			case "disown":
+				$_POST['do_Disown'] = __('Disown');
+				break;
 			case "vote":
 				$_POST['do_Vote'] = __('Vote');
 				break;
