@@ -118,7 +118,11 @@ $(document).ready(function() {
         matcher: function(item) { return true; },
         sorter: function(items) { return items; },
         menu: '<ul class="pkgsearch-typeahead"></ul>',
-        items: 20
+        items: 20,
+        updater: function(item) {
+            document.location = '/packages/' + item;
+            return item;
+	}
     }).attr('autocomplete', 'off');
 });
 </script>
