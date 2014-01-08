@@ -56,16 +56,14 @@ html_header(__("Password Reset"));
 <div class="box">
 	<h2><?= __("Password Reset"); ?></h2>
 
+	<?php if ($step == 'confirm'): ?>
+	<p>Check your e-mail for the confirmation link.</p>
+	<?php elseif ($step == 'complete'): ?>
+	<p>Your password has been reset successfully.</p>
+	<?php elseif (isset($_GET['resetkey'])): ?>
 	<?php if ($error): ?>
-		<p><span class="error"><?= $error ?></span></p>
-	<?php endif;?>
-	<?php
-	if ($step == 'confirm') {
-		echo __('Check your e-mail for the confirmation link.');
-	} elseif ($step == 'complete') {
-		echo __('Your password has been reset successfully.');
-	} elseif (isset($_GET['resetkey'])) {
-	?>
+	<ul class="errorlist"><li><?= $error ?></li></ul>
+	<?php endif; ?>
 	<form action="" method="post">
 		<table>
 			<tr>
@@ -84,18 +82,19 @@ html_header(__("Password Reset"));
 		<br />
 		<input type="submit" class="button" value="<?= __('Continue') ?>" />
 	</form>
-	<?php
-	} else {
-	?>
+	<?php else: ?>
 	<p><?= __('If you have forgotten the e-mail address you used to register, please send a message to the %saur-general%s mailing list.',
 	'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-general">',
 	'</a>'); ?></p>
+	<?php if ($error): ?>
+	<ul class="errorlist"><li><?= $error ?></li></ul>
+	<?php endif; ?>
 	<form action="" method="post">
 		<p><?= __("Enter your e-mail address:"); ?>
 		<input type="text" name="email" size="30" maxlength="64" /></p>
 		<input type="submit" class="button" value="<?= __('Continue') ?>" />
 	</form>
-	<?php } ?>
+	<?php endif; ?>
 </div>
 
 <?php
