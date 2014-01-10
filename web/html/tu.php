@@ -39,6 +39,9 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 				if ($isrunning == 0) {
 					$canvote = 0;
 					$errorvote = __("Voting is closed for this proposal.");
+				} else if ($atype == "Developer") {
+					$canvote = 0;
+					$errorvote = __("Only Trusted Users are allowed to vote.");
 				} else if ($row['User'] == username_from_sid($_COOKIE["AURSID"])) {
 					$canvote = 0;
 					$errorvote = __("You cannot vote in an proposal about you.");
