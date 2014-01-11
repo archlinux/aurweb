@@ -180,10 +180,12 @@ if ($uid):
 				}
 
 				if (!empty($lparts)) {
-					# this is a variable/value pair, strip out
-					# array parens and any quoting, except in pkgdesc
-					# for pkgdesc, only remove start/end pairs of " or '
-					if ($lparts[0]=="pkgdesc") {
+					# this is a variable/value pair, strip
+					# out array parens and any quoting,
+					# except in pkgdesc for pkgname or
+					# pkgdesc, only remove start/end pairs
+					# of " or '
+					if ($lparts[0] == "pkgname" || $lparts[0] == "pkgdesc") {
 						if ($lparts[1]{0} == '"' &&
 								$lparts[1]{strlen($lparts[1])-1} == '"') {
 							$pkgbuild[$lparts[0]] = substr($lparts[1], 1, -1);
@@ -286,8 +288,7 @@ if ($uid):
 			$pkg_name = $new_pkgbuild['pkgname'];
 			if ($pkg_name[0] == '(') {
 				$error = __("Error - The AUR does not support split packages!");
-			}
-			if (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name)) {
+			} elseif (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name)) {
 				$error = __("Invalid name: only lowercase letters are allowed.");
 			}
 		}
