@@ -124,6 +124,15 @@ $(document).ready(function() {
             return item;
 	}
     }).attr('autocomplete', 'off');
+
+    $('#pkgsearch-field').keydown(function(e) {
+        if (e.keyCode == 13) {
+            var selectedItem = $('ul.pkgsearch-typeahead li.active');
+            if (selectedItem.length == 0) {
+                $('#pkgsearch-form').submit();
+            }
+        }
+    });
 });
 </script>
 <?php
