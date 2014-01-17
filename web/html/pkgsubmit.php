@@ -24,6 +24,7 @@ if ($uid):
 
 	# Track upload errors
 	$error = "";
+	$ignore_missing_aurinfo = 0;
 
 	if (isset($_REQUEST['pkgsubmit'])) {
 
@@ -115,6 +116,11 @@ if ($uid):
 
 			if (!$error && empty($pkgbuild_raw)) {
 				$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
+			}
+
+			if (!$error && empty($srcinfo_raw) && (!isset($_POST['ignore_missing_aurinfo']) || $_POST['ignore_missing_aurinfo'] != 1)) {
+				$ignore_missing_aurinfo = 1;
+				$error = __("The source package does not contain any meta data. Please use `mkaurball` to create AUR source packages. Support for source packages without .AURINFO entries will be removed in an upcoming release! You can resubmit the package if you want to proceed anyway.");
 			}
 		}
 
@@ -492,6 +498,7 @@ html_header("Submit");
 	<fieldset>
 		<div>
 			<input type="hidden" name="pkgsubmit" value="1" />
+			<input type="hidden" name="ignore_missing_aurinfo" value="<?= $ignore_missing_aurinfo ?>" />
 			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		</div>
 		<p>
