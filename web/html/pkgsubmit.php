@@ -277,7 +277,7 @@ if ($uid):
 			case 'pkgver':
 				$pkg_version = $value;
 				break;
-			case 'depend':
+			case 'depends':
 				$depends[] = $value;
 				break;
 			}
