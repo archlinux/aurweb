@@ -477,7 +477,7 @@ html_header("Submit");
 
 <div class="box">
 	<h2><?= __("Submit"); ?></h2>
-	<p><?= __("Upload your source packages here. Create source packages with `makepkg --source`.") ?></p>
+	<p><?= __("Upload your source packages here. Create source packages with `mkaurball`.") ?></p>
 
 <?php
 	if (empty($_REQUEST['pkgsubmit']) || $error):
