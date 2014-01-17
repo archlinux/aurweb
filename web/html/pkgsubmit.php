@@ -263,6 +263,7 @@ if ($uid):
 		unset($pkg_version);
 		$depends = array();
 		foreach (explode("\n", $srcinfo_raw) as $line) {
+			$line = trim($line);
 			if (empty($line) || $line[0] == '#') {
 				continue;
 			}
