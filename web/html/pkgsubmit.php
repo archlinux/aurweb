@@ -477,10 +477,6 @@ html_header("Submit");
 
 ?>
 
-<?php if ($error): ?>
-	<p class="pkgoutput"><?= $error ?></p>
-<?php endif; ?>
-
 <div class="box">
 	<h2><?= __("Submit"); ?></h2>
 	<p><?= __("Upload your source packages here. Create source packages with `mkaurball`.") ?></p>
@@ -493,6 +489,10 @@ html_header("Submit");
 
 			$pkg_categories = pkgCategories();
 ?>
+
+<?php if ($error): ?>
+	<ul class="errorlist"><li><?= $error ?></li></ul>
+<?php endif; ?>
 
 <form action="<?= get_uri('/submit/'); ?>" method="post" enctype="multipart/form-data">
 	<fieldset>
