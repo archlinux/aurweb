@@ -262,6 +262,7 @@ if ($uid):
 		# Parse .AURINFO and overwrite PKGBUILD fields accordingly
 		unset($pkg_version);
 		$depends = array();
+		$srcinfo_pkgname_count = 0;
 		foreach (explode("\n", $srcinfo_raw) as $line) {
 			$line = trim($line);
 			if (empty($line) || $line[0] == '#') {
@@ -270,6 +271,11 @@ if ($uid):
 			list($key, $value) = explode(' = ', $line, 2);
 			switch ($key) {
 			case 'pkgname':
+				$srcinfo_pkgname_count++;
+				if ($srcinfo_pkgname_count > 1) {
+					$error = __("Error - The AUR does not support split packages!");
+				}
+				/* Fall-through case. */
 			case 'pkgdesc':
 			case 'url':
 			case 'license':
