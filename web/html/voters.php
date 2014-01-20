@@ -4,8 +4,7 @@ include_once('aur.inc.php');
 include_once('pkgfuncs.inc.php');
 
 $SID = $_COOKIE['AURSID'];
-
-$pkgid = intval($_GET['ID']);
+$pkgname = pkgname_from_id(intval($_GET['ID']);
 $votes = getvotes($pkgid);
 $atype = account_from_sid($SID);
 
@@ -15,7 +14,7 @@ if ($atype == 'Trusted User' || $atype== 'Developer'):
 ?>
 
 <div class="box">
-	<h2>Votes for <a href="<?= get_pkg_uri(pkgname_from_id($pkgid)); ?>"><?= pkgname_from_id($pkgid) ?></a></h2>
+	<h2>Votes for <a href="<?= get_pkg_uri($pkgname); ?>"><?= $pkgname ?></a></h2>
 	<div class="boxbody">
 		<ul>
 			<?php while (list($indx, $row) = each($votes)): ?>
