@@ -425,7 +425,7 @@ function try_login() {
 		$userID = valid_user($_REQUEST['user']);
 
 		if ( user_suspended($userID) ) {
-			$login_error = "Account Suspended.";
+			$login_error = __('Account suspended');
 		}
 		elseif ( $userID && isset($_REQUEST['passwd'])
 		  && valid_passwd($userID, $_REQUEST['passwd']) ) {
@@ -490,7 +490,7 @@ function try_login() {
 
 			}
 			else {
-				$login_error = "Error trying to generate session id.";
+				$login_error = __('An error occurred trying to generate a user session.');
 			}
 		} elseif (passwd_is_empty($userID)) {
 			$login_error = __('Your password has been reset. ' .
