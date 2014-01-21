@@ -1075,16 +1075,17 @@ function pkg_vote ($atype, $ids, $action=true) {
 /**
  * Get all usernames and IDs that voted for a specific package
  *
- * @param string $pkgid The package ID to get all votes for
+ * @param string $pkgname The name of the package to retrieve votes for
  *
  * @return array User IDs and usernames that voted for a specific package
  */
-function getvotes($pkgid) {
+function votes_for_pkgname($pkgname) {
 	$dbh = DB::connect();
 
-	$q = "SELECT UsersID,Username FROM PackageVotes ";
-	$q.= "LEFT JOIN Users on (UsersID = ID) ";
-	$q.= "WHERE PackageID = ". $dbh->quote($pkgid) . " ";
+	$q = "SELECT UsersID,Username,Name FROM PackageVotes ";
+	$q.= "LEFT JOIN Users on (UsersID = Users.ID) ";
+	$q.= "LEFT JOIN Packages on (PackageID = Packages.ID) ";
+	$q.= "WHERE Name = ". $dbh->quote($pkgname) . " ";
 	$q.= "ORDER BY Username";
 	$result = $dbh->query($q);
 

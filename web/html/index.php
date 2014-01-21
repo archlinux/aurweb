@@ -56,7 +56,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				include('pkgmerge.php');
 				return;
 			case "voters":
-				$_GET['ID'] = pkgid_from_name($tokens[2]);
+				$_GET['N'] = $tokens[2];
 				include('voters.php');
 				return;
 			default:

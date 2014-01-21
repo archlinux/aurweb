@@ -4,8 +4,8 @@ include_once('aur.inc.php');
 include_once('pkgfuncs.inc.php');
 
 $SID = $_COOKIE['AURSID'];
-$pkgname = pkgname_from_id(intval($_GET['ID']);
-$votes = getvotes($pkgid);
+$pkgname = htmlspecialchars($_GET['N']);
+$votes = votes_for_pkgname($pkgname);
 $atype = account_from_sid($SID);
 
 html_header(__("Voters"));

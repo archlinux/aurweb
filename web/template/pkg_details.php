@@ -194,7 +194,7 @@ if ($row["MaintainerUID"]):
 <?php if ($USE_VIRTUAL_URLS): ?>
 			<td><a href="<?= get_pkg_uri($row['Name']); ?>voters/"><?= $votes ?></a></td>
 <?php else: ?>
-			<td><a href="<?= get_uri('/voters/'); ?>?ID=<?= $pkgid ?>"><?= $votes ?></a></td>
+			<td><a href="<?= get_uri('/voters/'); ?>?N=<?= htmlspecialchars($row['Name'], ENT_QUOTES) ?>"><?= $votes ?></a></td>
 <?php endif; ?>
 <?php else: ?>
 			<td><?= $votes ?></td>
