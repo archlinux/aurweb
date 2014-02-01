@@ -1007,7 +1007,7 @@ function last_votes_list() {
 	$q .= "TU_VoteInfo, Users WHERE TU_VoteInfo.ID = TU_Votes.VoteID AND ";
 	$q .= "TU_VoteInfo.End < UNIX_TIMESTAMP() AND ";
 	$q .= "Users.ID = TU_Votes.UserID AND Users.AccountTypeID = 2 ";
-	$q .= "GROUP BY UserID ORDER BY LastVote DESC";
+	$q .= "GROUP BY UserID ORDER BY LastVote DESC, UserName ASC";
 	$result = $dbh->query($q);
 
 	$details = array();
