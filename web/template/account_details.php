@@ -51,9 +51,12 @@
 				</tr>
 				<tr>
 					<th>Links:</th>
-					<td>
-						<a href="<?= get_uri('/packages/'); ?>?K=<?= $row['Username'] ?>&amp;SeB=m"><?= __("View this user's packages") ?></a>
-					</td>
+					<td><ul>
+						<li><a href="<?= get_uri('/packages/'); ?>?K=<?= $row['Username'] ?>&amp;SeB=m"><?= __("View this user's packages") ?></a></li>
+					<?php if (can_edit_account($atype, $row, uid_from_sid($_COOKIE['AURSID']))): ?>
+						<li><a href="<?= get_user_uri($row['Username']); ?>edit"><?= __("Edit this user's account") ?></a></li>
+					<?php endif; ?>
+					</ul></td>
 				</tr>
 			</table>
 		</td>

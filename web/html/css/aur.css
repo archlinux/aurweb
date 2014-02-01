@@ -33,3 +33,8 @@
 	text-decoration: underline;
 	color: #666;
 }
+
+.arch-bio-entry ul {
+	list-style: none;
+	padding: 0;
+}
