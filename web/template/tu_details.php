@@ -46,7 +46,7 @@ if ($yes > $active_tus / 2) {
 		<?php if ($isrunning == 0): ?>
 		<br />
 		<?= __("Result") ?>:
-		<?php if (!$quorum): ?>
+		<?php if ($active_tus == 0): ?>
 		<span><?= __("unknown") ?></span>
 		<?php elseif ($vote_accepted): ?>
 		<span style="color: green; font-weight: bold"><?= __("Accepted") ?></span>
