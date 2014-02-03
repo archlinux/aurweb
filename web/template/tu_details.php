@@ -62,17 +62,21 @@ if ($yes > $active_tus / 2) {
 
 	<table>
 		<tr>
+			<?php if (!$isrunning): ?>
 			<th><?= __("Yes") ?></th>
 			<th><?= __("No") ?></th>
 			<th><?= __("Abstain") ?></th>
+			<?php endif; ?>
 			<th><?= __("Total") ?></th>
 			<th><?= __('Voted') ?></th>
 			<th><?= __('Participation') ?></th>
 		</tr>
 		<tr>
+			<?php if (!$isrunning): ?>
 			<td><?= $yes ?></td>
 			<td><?= $no ?></td>
 			<td><?= $abstain ?></td>
+			<?php endif; ?>
 			<td><?= $total ?></td>
 			<td>
 				<?php if ($hasvoted == 0): ?>
