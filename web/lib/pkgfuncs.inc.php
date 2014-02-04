@@ -208,11 +208,11 @@ function package_comments($pkgid) {
 	if ($pkgid > 0) {
 		$dbh = DB::connect();
 		$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, CommentTS ";
-		$q.= "FROM PackageComments, Users ";
-		$q.= "WHERE PackageComments.UsersID = Users.ID";
-		$q.= " AND PackageID = " . $pkgid;
-		$q.= " AND DelUsersID IS NULL"; # only display non-deleted comments
-		$q.= " ORDER BY CommentTS DESC";
+		$q.= "FROM PackageComments LEFT JOIN Users ";
+		$q.= "ON PackageComments.UsersID = Users.ID ";
+		$q.= "WHERE PackageID = " . $pkgid . " ";
+		$q.= "AND DelUsersID IS NULL "; # only display non-deleted comments
+		$q.= "ORDER BY CommentTS DESC";
 
 		if (!isset($_GET['comments'])) {
 			$q.= " LIMIT 10";

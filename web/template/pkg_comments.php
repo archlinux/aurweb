@@ -10,7 +10,7 @@ $pkgname = $row['Name'];
 	</h3>
 
 	<?php while (list($indx, $row) = each($comments)): ?>
-		<?php if ($SID):
+		<?php if ($row['UserName'] && $SID):
 			$row['UserName'] = "<a href=\"" . get_user_uri($row['UserName']) . "\">{$row['UserName']}</a>";
 		endif; ?>
 		<h4>
@@ -22,10 +22,18 @@ $pkgname = $row['Name'];
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="image" src="/images/x.png" alt="<?= __('Delete comment') ?>" name="submit" value="1" />
 					</fieldset>
+					<?php if ($row['UserName']): ?>
 					<?= __('Comment by %s', $row['UserName']) ?>
+					<?php else: ?>
+					<?= __('Anonymous comment') ?>
+					<?php endif; ?>
 				</form>
 			<?php else: ?>
+			<?php if ($row['UserName']): ?>
 			<?= __('Comment by %s', $row['UserName']) ?>
+			<?php else: ?>
+			<?= __('Anonymous comment') ?>
+			<?php endif; ?>
 			<?php endif; ?>
 		</h4>
 		<p class="timestamp"><?= gmdate('Y-m-d H:i', $row['CommentTS']) ?></p>

@@ -1,6 +1,23 @@
 Upgrading
 =========
 
+From 2.3.1 to 3.0.0
+-------------------
+
+1. Drop the user ID foreign key from the "PackageComments" table:
+
+`ALTER TABLE PackageComments DROP FOREIGN KEY PackageComments_ibfk_1;` should
+work in most cases. Otherwise, check the output of `SHOW CREATE TABLE
+PackageComments;` and use the foreign key name shown there.
+
+2. Add support for anonymous comments:
+
+----
+ALTER TABLE PackageComments
+	MODIFY UsersID INTEGER UNSIGNED NULL DEFAULT NULL,
+	ADD FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE SET NULL;
+----
+
 From 2.2.0 to 2.3.0
 -------------------
 
