@@ -20,7 +20,7 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0) {
 	}
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
-		return TRUE;
+		return true;
 	}
 	$dbh = DB::connect();
 	$q = "SELECT COUNT(ID) AS CNT ";
@@ -31,10 +31,10 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0) {
 	if ($result != NULL) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
 		if ($row['CNT'] > 0) {
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 /**
@@ -55,12 +55,12 @@ function canDeleteCommentArray($comment, $atype="", $uid=0) {
 		return false;
 	} elseif ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
-		return TRUE;
+		return true;
 	} else if ($comment['UsersID'] == $uid) {
 		# User's own comment
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 /**
@@ -76,10 +76,10 @@ function canDeleteCommentArray($comment, $atype="", $uid=0) {
 function canSubmitBlacklisted($atype = "") {
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# Only TUs/Devs can submit blacklisted packages.
-		return TRUE;
+		return true;
 	}
 	else {
-		return FALSE;
+		return false;
 	}
 }
 
@@ -1194,7 +1194,7 @@ function pkg_notify ($atype, $ids, $action=true) {
 		}
 
 		if ($first)
-			$first = False;
+			$first = false;
 		else
 			$output .= ", ";
 

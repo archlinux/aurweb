@@ -1566,7 +1566,7 @@ class Archive_Tar extends PEAR
 
     while (strlen($v_binary_data = $this->_readBlock()) != 0)
     {
-      $v_extract_file = FALSE;
+      $v_extract_file = false;
       $v_extraction_stopped = 0;
 
       if (!$this->_readHeader($v_binary_data, $v_header))

@@ -64,11 +64,11 @@ if (check_token()) {
 	} elseif (current_action("do_Adopt")) {
 		list($ret, $output) = pkg_adopt($atype, $ids, true);
 	} elseif (current_action("do_Disown")) {
-		list($ret, $output) = pkg_adopt($atype, $ids, False);
+		list($ret, $output) = pkg_adopt($atype, $ids, false);
 	} elseif (current_action("do_Vote")) {
 		list($ret, $output) = pkg_vote($atype, $ids, true);
 	} elseif (current_action("do_UnVote")) {
-		list($ret, $output) = pkg_vote($atype, $ids, False);
+		list($ret, $output) = pkg_vote($atype, $ids, false);
 	} elseif (current_action("do_Delete")) {
 		if (isset($_POST['confirm_Delete'])) {
 			if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
@@ -92,7 +92,7 @@ if (check_token()) {
 	} elseif (current_action("do_Notify")) {
 		list($ret, $output) = pkg_notify($atype, $ids);
 	} elseif (current_action("do_UnNotify")) {
-		list($ret, $output) = pkg_notify($atype, $ids, False);
+		list($ret, $output) = pkg_notify($atype, $ids, false);
 	} elseif (current_action("do_DeleteComment")) {
 		list($ret, $output) = pkg_delete_comment($atype);
 	} elseif (current_action("do_ChangeCategory")) {
