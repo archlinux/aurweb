@@ -14,6 +14,10 @@ include_once("config.inc.php");
  * @return bool True if the user can delete the comment, otherwise false
  */
 function canDeleteComment($comment_id=0, $atype="", $uid=0) {
+	if (!$uid) {
+		/* Unauthenticated users cannot delete anything. */
+		return false;
+	}
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
 		return TRUE;
@@ -46,7 +50,10 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0) {
  * @return bool True if the user can delete the comment, otherwise false
  */
 function canDeleteCommentArray($comment, $atype="", $uid=0) {
-	if ($atype == "Trusted User" || $atype == "Developer") {
+	if (!$uid) {
+		/* Unauthenticated users cannot delete anything. */
+		return false;
+	} elseif ($atype == "Trusted User" || $atype == "Developer") {
 		# A TU/Dev can delete any comment
 		return TRUE;
 	} else if ($comment['UsersID'] == $uid) {
