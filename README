@@ -1,67 +1,50 @@
-===================
 Arch User Repository (AUR)
-===================
+==========================
 
-About:
-=====
 The Arch User Repository (AUR) is a framework for hosting a collection of
 packaging scripts that are created and submitted by the Arch community. The
-scripts contained in the repository (PKGBUILDS) can be built using the Arch
-building/packaging script (makepkg) and installed via the Arch pacman manager
-(pacman). The AUR project aims to provide the necessary web interface, database
-schema, and scripts for a multi-lingual community-driven repository.
+scripts contained in the repository (PKGBUILDs) can be built using the AUR
+building/packaging script `mkaurball` and installed via the Arch package
+manager `pacman`. The AUR project aims to provide the necessary web interface,
+database schema, and scripts for a multi-lingual community-driven repository.
 
-Functionality:
-=========
--Users may submit source packages that contain a PKGBUILD
--User accounts with varying permission levels (User, Trusted User, Developer)
--Ability to search for specific submitted packages (based on package name,
-package description, package submitter, package maintainer)
--Display submitted package information by parsing PKGBUILD (description,
-license, package dependencies, etc)
--Users can make comments on package information page
--Mark packages as out-of-date
--Vote for well-done and popular user submitted packages
--Trusted User and Developer have ability to search for and modify accounts
--Area for Trusted Users
-and Developers to post AUR-related proposals and vote on them
+Functionality
+-------------
 
-File Hierarchy:
-==========
+* Users may submit source packages that contain a PKGBUILD.
+* User accounts with varying permission levels (User, Trusted User, Developer).
+* Ability to search for specific submitted packages.
+* Display package information by parsing meta-data provided with the packages.
+* Users can make comments on package information page.
+* Mark packages as out-of-date.
+* Vote for well-done and popular user submitted packages.
+* Trusted User and Developer can search for and modify accounts.
+* Area for Trusted Users to post AUR-related proposals and vote on them.
 
-Directory Layout:
--------------------
-./po		- Translation files for strings in the AUR web
-		interface.
-./scripts	- aurblup package blacklist tool. Scripts for AUR
-		maintenance.
-./support	- Schema for SQL database. Script for dummy data generation.
-./web		- Web interface for the AUR.
+Directory Layout
+----------------
 
-Files:
-------
-AUTHORS		- List of maintainers, contributors, and translators for AUR
-		project.
-COPYING		- License information for AUR project (GPL version 2).
-HACKING		- Guidelines for modifying source and submitting
-		patches.
-INSTALL		- Installation procedure for AUR.
-TODO		- List of potential features and changes to be made to the AUR.
-TRANSLATING	- Directions for creating and updating string translations.
-UPGRADING	- Changes needed to upgrade older AUR version to newer version.
+po::
+	Translation files for strings in the AUR web interface.
 
-Code:
-=====
-Official repository hosted at git://projects.archlinux.org/aur.git
-See HACKING for information on submitting patches
+scripts::
+	aurblup package blacklist tool. Scripts for AUR maintenance.
 
-Bugs:
-=====
-Discovered bugs can be submitted to the AUR bug tracker:
-https://bugs.archlinux.org/index.php?project=2
+support::
+	Schema for SQL database. Script for dummy data generation.
 
-Contact:
-========
-Questions, comments, and patches related to the AUR can be sent to the AUR
-development mailing list: aur-dev@archlinux.org
-Mailing list archives: https://mailman.archlinux.org/mailman/listinfo/aur-dev
+web::
+	Web interface for the AUR.
+
+Links
+-----
+
+* The official repository is hosted at git://projects.archlinux.org/aur.git --
+  see HACKING for information on submitting patches.
+
+* Discovered bugs can be submitted to the AUR bug tracker:
+  https://bugs.archlinux.org/index.php?project=2
+
+* Questions, comments, and patches related to the AUR can be sent to the AUR
+  development mailing list: aur-dev@archlinux.org -- mailing list archives:
+  https://mailman.archlinux.org/mailman/listinfo/aur-dev
