@@ -22,19 +22,19 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0) {
 		/* TUs and developers can delete any comment. */
 		return true;
 	}
+
 	$dbh = DB::connect();
-	$q = "SELECT COUNT(ID) AS CNT ";
-	$q.= "FROM PackageComments ";
-	$q.= "WHERE ID = " . intval($comment_id);
-	$q.= " AND UsersID = " . $uid;
+
+	$q = "SELECT COUNT(*) FROM PackageComments ";
+	$q.= "WHERE ID = " . intval($comment_id) . " AND UsersID = " . $uid;
 	$result = $dbh->query($q);
-	if ($result != NULL) {
-		$row = $result->fetch(PDO::FETCH_ASSOC);
-		if ($row['CNT'] > 0) {
-			return true;
-		}
+
+	if (!$result) {
+		return false;
 	}
-	return false;
+
+	$row = $result->fetch(PDO::FETCH_NUM);
+	return ($row[0] > 0);
 }
 
 /**
