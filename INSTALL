@@ -66,12 +66,12 @@ Setup on Arch Linux:
    mysql> quit
 
  - Load the schema file
-   $ mysql -uaur -p AUR < ~/aur/support/schema/aur-schema.sql
+   $ mysql -uaur -p AUR < ~/aur/schema/aur-schema.sql
    (give password 'aur' at the prompt)
 
  - Optionally load some test data for development purposes.
    # pacman -S words fortune-mod
-   $ cd ~/aur/support/schema/
+   $ cd ~/aur/schema/
    $ python gendummydata.py dummy-data.sql
    $ bzip2 dummy-data.sql
    $ bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
