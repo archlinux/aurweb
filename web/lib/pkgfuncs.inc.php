@@ -19,7 +19,7 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0) {
 		return false;
 	}
 	if ($atype == "Trusted User" || $atype == "Developer") {
-		# A TU/Dev can delete any comment
+		/* TUs and developers can delete any comment. */
 		return true;
 	}
 	$dbh = DB::connect();
@@ -54,10 +54,10 @@ function canDeleteCommentArray($comment, $atype="", $uid=0) {
 		/* Unauthenticated users cannot delete anything. */
 		return false;
 	} elseif ($atype == "Trusted User" || $atype == "Developer") {
-		# A TU/Dev can delete any comment
+		/* TUs and developers can delete any comment. */
 		return true;
 	} else if ($comment['UsersID'] == $uid) {
-		# User's own comment
+		/* Users can delete their own comments. */
 		return true;
 	}
 	return false;
@@ -75,7 +75,7 @@ function canDeleteCommentArray($comment, $atype="", $uid=0) {
  */
 function canSubmitBlacklisted($atype = "") {
 	if ($atype == "Trusted User" || $atype == "Developer") {
-		# Only TUs/Devs can submit blacklisted packages.
+		/* Only TUs and developers can submit blacklisted packages. */
 		return true;
 	}
 	else {
@@ -218,7 +218,7 @@ function package_comments($pkgid) {
 		$q.= "FROM PackageComments LEFT JOIN Users ";
 		$q.= "ON PackageComments.UsersID = Users.ID ";
 		$q.= "WHERE PackageID = " . $pkgid . " ";
-		$q.= "AND DelUsersID IS NULL "; # only display non-deleted comments
+		$q.= "AND DelUsersID IS NULL ";
 		$q.= "ORDER BY CommentTS DESC";
 
 		if (!isset($_GET['comments'])) {
@@ -259,8 +259,10 @@ function add_package_comment($pkgid, $uid, $comment) {
 	$q.= $dbh->quote($comment) . ", UNIX_TIMESTAMP())";
 	$dbh->exec($q);
 
-        # TODO: Move notification logic to separate function where it belongs
-	# Send email notifications
+	/*
+	 * Send e-mail notifications.
+	 * TODO: Move notification logic to separate function where it belongs.
+	 */
 	$q = "SELECT CommentNotify.*, Users.Email ";
 	$q.= "FROM CommentNotify, Users ";
 	$q.= "WHERE Users.ID = CommentNotify.UserID ";
@@ -280,9 +282,12 @@ function add_package_comment($pkgid, $uid, $comment) {
 		$result = $dbh->query($q);
 		$row = $result->fetch(PDO::FETCH_ASSOC);
 
-		# TODO: native language emails for users, based on their prefs
-		# Simply making these strings translatable won't work, users would be
-		# getting emails in the language that the user who posted the comment was in
+		/*
+		 * TODO: Add native language emails for users, based on their
+		 * preferences. Simply making these strings translatable won't
+		 * work, users would be getting emails in the language that the
+		 * user who posted the comment was in.
+		 */
 		$body =
 		'from ' . $AUR_LOCATION . get_pkg_uri($row['Name']) . "\n"
 		. username_from_sid($_COOKIE['AURSID']) . " wrote:\n\n"
@@ -453,13 +458,11 @@ function display_package_details($id=0, $row, $SID="") {
 	else {
 		include('pkg_details.php');
 
-		# Actions Bar
 		if ($SID) {
 			include('actions_form.php');
 			include('pkg_comment_form.php');
 		}
 
-		# Print Comments
 		$comments = package_comments($id);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
@@ -515,16 +518,15 @@ function display_package_details($id=0, $row, $SID="") {
 function pkg_search_page($SID="") {
 	$dbh = DB::connect();
 
-	// get commonly used variables...
-	// TODO: REDUCE DB HITS.
-	// grab info for user if they're logged in
+	/*
+	 * Get commonly used variables.
+	 * TODO: Reduce the number of database queries!
+	 */
 	if ($SID)
 		$myuid = uid_from_sid($SID);
-	// get a list of package categories
-	$cats = pkgCategories($dbh); //meow
+	$cats = pkgCategories($dbh);
 
-	// sanitize paging variables
-	//
+	/* Sanitize paging variables. */
 	if (isset($_GET['O'])) {
 		$_GET['O'] = intval($_GET['O']);
 		if ($_GET['O'] < 0)
@@ -545,12 +547,12 @@ function pkg_search_page($SID="") {
 		$_GET["PP"] = 50;
 	}
 
-	// FIXME: pull out DB-related code. all of it.
-	//        this one's worth a choco-chip cookie,
-	//        one of those nice big soft ones
+	/*
+	 * FIXME: Pull out DB-related code. All of it! This one's worth a
+	 * choco-chip cookie, one of those nice big soft ones.
+	 */
 
-	// build the package search query
-	//
+	/* Build the package search query. */
 	$q_select = "SELECT ";
 	if ($SID) {
 		$q_select .= "CommentNotify.UserID AS Notify,
@@ -566,7 +568,7 @@ function pkg_search_page($SID="") {
 	LEFT JOIN PackageCategories
 	ON (Packages.CategoryID = PackageCategories.ID) ";
 	if ($SID) {
-		# this portion is not needed for the total row count query
+		/* This is not needed for the total row count query. */
 		$q_from_extra = "LEFT JOIN PackageVotes
 		ON (Packages.ID = PackageVotes.PackageID AND PackageVotes.UsersID = $myuid)
 		LEFT JOIN CommentNotify
@@ -576,32 +578,34 @@ function pkg_search_page($SID="") {
 	}
 
 	$q_where = "WHERE 1 = 1 ";
-	// TODO: possibly do string matching on category
-	//       to make request variable values more sensible
+	/*
+	 * TODO: Possibly do string matching on category to make request
+	 * variable values more sensible.
+	 */
 	if (isset($_GET["C"]) && intval($_GET["C"])) {
 		$q_where .= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
 	}
 
 	if (isset($_GET['K'])) {
-		# Search by maintainer
 		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {
+			/* Search by maintainer. */
 			$q_where .= "AND Users.Username = " . $dbh->quote($_GET['K']) . " ";
 		}
-		# Search by submitter
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
+			/* Search by submitter. */
 			$q_where .= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
 		}
-		# Search by name
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
+			/* Search by name. */
 			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
 			$q_where .= "AND (Name LIKE " . $dbh->quote($K) . ") ";
 		}
-		# Search by name (exact match)
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "x") {
+			/* Search by name (exact match). */
 			$q_where .= "AND (Name = " . $dbh->quote($_GET['K']) . ") ";
 		}
-		# Search by name and description (Default)
 		else {
+			/* Search by name and description (default). */
 			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
 			$q_where .= "AND (Name LIKE " . $dbh->quote($K) . " OR ";
 			$q_where .= "Description LIKE " . $dbh->quote($K) . ") ";
@@ -676,10 +680,10 @@ function pkg_search_page($SID="") {
 		}
 	}
 
-	// figure out the results to use
+	/* Calculate the results to use. */
 	$first = $_GET['O'] + 1;
 
-	# calculation of pagination links
+	/* Calculation of pagination links. */
 	$per_page = ($_GET['PP'] > 0) ? $_GET['PP'] : 50;
 	$current = ceil($first / $per_page);
 	$pages = ceil($total / $per_page);
@@ -779,7 +783,7 @@ function pkg_flag($atype, $ids) {
 	$affected_pkgs = $dbh->exec($q);
 
 	if ($affected_pkgs > 0) {
-		# Notify of flagging by email
+		/* Notify of flagging by e-mail. */
 		$f_name = username_from_sid($_COOKIE['AURSID']);
 		$f_email = email_from_sid($_COOKIE['AURSID']);
 		$f_uid = uid_from_sid($_COOKIE['AURSID']);
@@ -791,7 +795,6 @@ function pkg_flag($atype, $ids) {
 		$result = $dbh->query($q);
 		if ($result) {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				# construct email
 				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . get_pkg_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . get_user_uri($f_name);
 				$body = wordwrap($body, 70);
 				$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR\n";
@@ -852,7 +855,6 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 		return array(false, __("You must be logged in before you can delete packages."));
 	}
 
-	# If they're a TU or dev, can delete
 	if ($atype != "Trusted User" && $atype != "Developer") {
 		return array(false, __("You do not have permission to delete packages."));
 	}
@@ -868,7 +870,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 		$mergepkgname = pkgname_from_id($mergepkgid);
 	}
 
-	# Send email notifications
+	/* Send e-mail notifications. */
 	foreach ($ids as $pkgid) {
 		$q = "SELECT CommentNotify.*, Users.Email ";
 		$q.= "FROM CommentNotify, Users ";
@@ -884,9 +886,13 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 		if (!empty($bcc)) {
 			$pkgname = pkgname_from_id($pkgid);
 
-			# TODO: native language emails for users, based on their prefs
-			# Simply making these strings translatable won't work, users would be
-			# getting emails in the language that the user who posted the comment was in
+			/*
+			 * TODO: Add native language emails for users, based on
+			 * their preferences. Simply making these strings
+			 * translatable won't work, users would be getting
+			 * emails in the language that the user who posted the
+			 * comment was in.
+			 */
 			$body = "";
 			if ($mergepkgid) {
 				$body .= username_from_sid($_COOKIE['AURSID']) . " merged \"".$pkgname."\" into \"$mergepkgname\".\n\n";
@@ -977,7 +983,7 @@ function pkg_adopt ($atype, $ids, $action=true) {
 	$q.= "WHERE ID IN (" . implode(",", $ids) . ") ";
 
 	if ($action && $atype == "User") {
-		# Regular users may only adopt orphan packages from unsupported
+		/* Regular users may only adopt orphan packages. */
 		$q.= "AND $field IS NULL ";
 	} else if ($atype == "User") {
 		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"]);
@@ -1048,8 +1054,7 @@ function pkg_vote ($atype, $ids, $action=true) {
 		}
 	}
 
-	# only vote for packages the user hasn't already voted for
-	#
+	/* Only add votes for packages the user hasn't already voted for. */
 	$op = $action ? "+" : "-";
 	$q = "UPDATE Packages SET NumVotes = NumVotes $op 1 ";
 	$q.= "WHERE ID IN ($vote_ids)";
@@ -1164,7 +1169,6 @@ function user_notify($uid, $pkgid) {
  */
 function pkg_notify ($atype, $ids, $action=true) {
 	if (!$atype) {
-#		return __("You must be logged in before you can get notifications on comments.");
 		return;
 	}
 
@@ -1180,8 +1184,10 @@ function pkg_notify ($atype, $ids, $action=true) {
 
 	$first = true;
 
-	# There currently shouldn't be multiple requests here, but the
-	# format in which it's sent requires this.
+	/*
+	 * There currently shouldn't be multiple requests here, but the format
+	 * in which it's sent requires this.
+	 */
 	foreach ($ids as $pid) {
 		$q = "SELECT Name FROM Packages WHERE ID = $pid";
 		$result = $dbh->query($q);
@@ -1203,7 +1209,7 @@ function pkg_notify ($atype, $ids, $action=true) {
 			$q = "SELECT COUNT(*) FROM CommentNotify WHERE ";
 			$q .= "UserID = $uid AND PkgID = $pid";
 
-			# Notification already added. Don't add again.
+			/* Notification already added. Don't add again. */
 			$result = $dbh->query($q);
 			if ($result->fetchColumn() == 0) {
 				$q = "INSERT INTO CommentNotify (PkgID, UserID) VALUES ($pid, $uid)";
@@ -1243,7 +1249,6 @@ function pkg_delete_comment($atype) {
 		return array(false, __("You must be logged in before you can edit package information."));
 	}
 
-	# Get ID of comment to be removed
 	if (isset($_POST["comment_id"])) {
 		$comment_id = $_POST["comment_id"];
 	} else {
@@ -1275,7 +1280,6 @@ function pkg_change_category($pid, $atype) {
 		return array(false, __("You must be logged in before you can edit package information."));
 	}
 
-	# Get ID of the new category
 	if (isset($_POST["category_id"])) {
 		$category_id = $_POST["category_id"];
 	} else {
@@ -1288,7 +1292,7 @@ function pkg_change_category($pid, $atype) {
 		return array(false, __("Invalid category ID."));
 	}
 
-	# Verify package ownership
+	/* Verify package ownership. */
 	$q = "SELECT Packages.MaintainerUID ";
 	$q.= "FROM Packages ";
 	$q.= "WHERE Packages.ID = ".$pid;
@@ -1373,7 +1377,7 @@ function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pk
  */
 function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid, $pkgid) {
 	$dbh = DB::connect();
-	# This is an overwrite of an existing package
+	/* This is an overwrite of an existing package! */
 	$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = %s, Version = %s, License = %s, Description = %s, URL = %s, OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
 	$dbh->quote($pkgname),
 	$dbh->quote($pkgver),
