@@ -537,17 +537,14 @@ function is_ipbanned() {
  * @return bool True if username meets criteria, otherwise false
  */
 function valid_username($user) {
-	if (!empty($user)) {
-		if ( strlen($user) >= USERNAME_MIN_LEN &&
-		  strlen($user) <= USERNAME_MAX_LEN ) {
-			$user = strtolower($user);
-			if ( preg_match("/^[a-z0-9]+[.\-_]?[a-z0-9]+$/", $user) ) {
-				return true;
-			}
-		}
+	if (strlen($user) < USERNAME_MIN_LEN ||
+	    strlen($user) > USERNAME_MAX_LEN) {
+		return false;
+	} else if (!preg_match("/^[a-z0-9]+[.\-_]?[a-z0-9]+$/", $user)) {
+		return false;
 	}
 
-	return false;
+	return true;
 }
 
 /**
@@ -558,21 +555,17 @@ function valid_username($user) {
  * @return string|void Return user ID if in database, otherwise void
  */
 function valid_user($user) {
-	/*	if ( $user = valid_username($user) ) { */
+	if ($user) {
+		$dbh = DB::connect();
 
-	$dbh = DB::connect();
-
-	if ( $user ) {
-		$q = "SELECT ID FROM Users ";
-		$q.= "WHERE Username = " . $dbh->quote($user);
-
+		$q = "SELECT ID FROM Users WHERE ";
+		$q.= "Username = " . $dbh->quote($user);
 		$result = $dbh->query($q);
 		if ($result) {
 			$row = $result->fetch(PDO::FETCH_NUM);
 			return $row[0];
 		}
 	}
-	return;
 }
 
 /**
