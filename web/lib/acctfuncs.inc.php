@@ -65,7 +65,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
 
 	include("account_edit_form.php");
 	return;
-} # function display_account_form()
+}
 
 /**
  * Process information given to new/edit account form
@@ -91,8 +91,6 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
  */
 function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			$P="",$C="",$R="",$L="",$I="",$K="",$J="",$UID=0) {
-
-	# error check and process request for a new/modified account
 	global $SUPPORTED_LANGS, $AUR_LOCATION;
 
 	$error = '';
@@ -151,9 +149,10 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("Language is not currently supported.");
 	}
 	if (!$error) {
-		# check to see if this username is available
-		# NOTE: a race condition exists here if we care...
-		#
+		/*
+		 * Check whether the user name is available.
+		 * TODO: Fix race condition.
+		 */
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
 		$q.= "WHERE Username = " . $dbh->quote($U);
 		if ($TYPE == "edit") {
@@ -168,9 +167,10 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		}
 	}
 	if (!$error) {
-		# check to see if this email address is available
-		# NOTE: a race condition exists here if we care...
-		#
+		/*
+		 * Check whether the e-mail address is available.
+		 * TODO: Fix race condition.
+		 */
 		$q = "SELECT COUNT(*) AS CNT FROM Users ";
 		$q.= "WHERE Email = " . $dbh->quote($E);
 		if ($TYPE == "edit") {
@@ -190,7 +190,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 				$R, $L, $I, $K, $J, $UID);
 	} else {
 		if ($TYPE == "new") {
-			# no errors, go ahead and create the unprivileged user
+			/* Create an unprivileged user. */
 			$salt = generate_salt();
 			if (empty($P)) {
 				$send_resetkey = true;
@@ -217,8 +217,6 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 				print __("Error trying to create account, %s%s%s.",
 						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 			} else {
-				# account created/modified, tell them so.
-				#
 				print __("The account, %s%s%s, has been successfully created.",
 						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 				print "<p>\n";
@@ -241,8 +239,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 			}
 
 		} else {
-			# no errors, go ahead and modify the user account
-
+			/* Modify an existing account. */
 			$q = "SELECT InactivityTS FROM Users WHERE ";
 			$q.= "ID = " . intval($UID);
 			$result = $dbh->query($q);
@@ -433,12 +430,13 @@ function try_login() {
 			$logged_in = 0;
 			$num_tries = 0;
 
-			# Account looks good.  Generate a SID and store it.
-
+			/* Generate a session ID and store it. */
 			while (!$logged_in && $num_tries < 5) {
 				if ($MAX_SESSIONS_PER_USER) {
-					# Delete all user sessions except the
-					# last ($MAX_SESSIONS_PER_USER - 1).
+					/*
+					 * Delete all user sessions except the
+					 * last ($MAX_SESSIONS_PER_USER - 1).
+					 */
 					$q = "DELETE s.* FROM Sessions s ";
 					$q.= "LEFT JOIN (SELECT SessionID FROM Sessions ";
 					$q.= "WHERE UsersId = " . $userID . " ";
@@ -455,7 +453,7 @@ function try_login() {
 				  ." VALUES (" . $userID . ", '" . $new_sid . "', UNIX_TIMESTAMP())";
 				$result = $dbh->exec($q);
 
-				# Query will fail if $new_sid is not unique
+				/* Query will fail if $new_sid is not unique. */
 				if ($result) {
 					$logged_in = 1;
 					break;
@@ -470,13 +468,13 @@ function try_login() {
 				$q.= "WHERE ID = '$userID'";
 				$dbh->exec($q);
 
-				# set our SID cookie
+				/* Set the SID cookie. */
 				if (isset($_POST['remember_me']) &&
 					$_POST['remember_me'] == "on") {
-					# Set cookies for 30 days.
+					/* Set cookies for 30 days. */
 					$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
 
-					# Set session for 30 days.
+					/* Set session for 30 days. */
 					$q = "UPDATE Sessions SET LastUpdateTS = $cookie_time ";
 					$q.= "WHERE SessionID = '$new_sid'";
 					$dbh->exec($q);
@@ -540,16 +538,9 @@ function is_ipbanned() {
  */
 function valid_username($user) {
 	if (!empty($user)) {
-
-		#Is username at not too short or too long?
 		if ( strlen($user) >= USERNAME_MIN_LEN &&
 		  strlen($user) <= USERNAME_MAX_LEN ) {
-
 			$user = strtolower($user);
-			# Does username:
-			# start and end with a letter or number
-			# contain only letters and numbers,
-			#  and at most has one dash, period, or underscore
 			if ( preg_match("/^[a-z0-9]+[.\-_]?[a-z0-9]+$/", $user) ) {
 				return true;
 			}
@@ -576,7 +567,6 @@ function valid_user($user) {
 		$q.= "WHERE Username = " . $dbh->quote($user);
 
 		$result = $dbh->query($q);
-		# Is the username in the database?
 		if ($result) {
 			$row = $result->fetch(PDO::FETCH_NUM);
 			return $row[0];
@@ -661,10 +651,13 @@ function send_resetkey($email, $body) {
 
 	$uid = uid_from_email($email);
 	if ($uid != NULL && $uid != 'None') {
-		# We (ab)use new_sid() to get a random 32 characters long string
+		/*
+		 * We (ab)use new_sid() to get a random 32 characters long
+		 * string.
+		 */
 		$resetkey = new_sid();
 		create_resetkey($resetkey, $uid);
-		# Send email with confirmation link
+		/* Send e-mail with confirmation link. */
 		$body = wordwrap($body, 70);
 		$body .=  "\n\n".
 			  "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
@@ -729,10 +722,9 @@ function good_passwd($passwd) {
 function valid_passwd($userID, $passwd) {
 	$dbh = DB::connect();
 	if ( strlen($passwd) > 0 ) {
-		# get salt for this user
+		/* Get salt for this user. */
 		$salt = get_salt($userID);
 		if ($salt) {
-			# use salt
 			$q = "SELECT ID FROM Users ";
 			$q.= "WHERE ID = " . $userID . " ";
 			$q.= "AND Passwd = " . $dbh->quote(salted_hash($passwd, $salt));
@@ -744,7 +736,7 @@ function valid_passwd($userID, $passwd) {
 				}
 			}
 		} else {
-			# check without salt
+			/* Check password without using salt. */
 			$q = "SELECT ID FROM Users ";
 			$q.= "WHERE ID = " . $userID . " ";
 			$q.= "AND Passwd = " . $dbh->quote(md5($passwd));
@@ -752,7 +744,7 @@ function valid_passwd($userID, $passwd) {
 			if ($result) {
 				$row = $result->fetch(PDO::FETCH_NUM);
 				if ($row[0]) {
-					# password correct, but salt it first
+					/* Password correct, but salt it first! */
 					if (!save_salt($userID, $passwd)) {
 						trigger_error("Unable to salt user's password;" .
 							" ID " . $userID, E_USER_WARNING);
