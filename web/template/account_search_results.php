@@ -13,7 +13,6 @@ else:
 					<th><?= __("Real Name") ?></th>
 					<th><?= __("IRC Nick") ?></th>
 					<th><?= __("PGP Key Fingerprint") ?></th>
-					<th><?= __("Last Voted") ?></th>
 					<th><?= __("Edit Account") ?></th>
 				</tr>
 			</thead>
@@ -42,7 +41,6 @@ else:
 					<td><?php $row["RealName"] ? print htmlspecialchars($row["RealName"],ENT_QUOTES) : print "&nbsp;" ?></td>
 					<td><?php $row["IRCNick"] ? print htmlspecialchars($row["IRCNick"],ENT_QUOTES) : print "&nbsp;" ?></td>
 					<td><?php $row["PGPKey"] ? print html_format_pgp_fingerprint($row["PGPKey"]) : print "&nbsp;" ?></td>
-					<td><?php $row["LastVoted"] ? print date("Y-m-d", $row["LastVoted"]) : print __("Never") ?></td>
 					<td>
 					<?php
 						if ($UTYPE == "Trusted User" && $row["AccountType"] == "Developer"):

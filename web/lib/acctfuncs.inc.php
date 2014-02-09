@@ -373,9 +373,6 @@ function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
 		case 'i':
 			$q.= "ORDER BY IRCNick, AccountTypeID ";
 			break;
-		case 'v':
-			$q.= "ORDER BY LastVoted, Username ";
-			break;
 		default:
 			$q.= "ORDER BY Username, AccountTypeID ";
 			break;

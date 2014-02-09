@@ -44,12 +44,6 @@
 					</td>
 				</tr>
 				<tr>
-					<th><?= __("Last Voted") . ":" ?></th>
-					<td>
-					<?= $row["LastVoted"] ? date("Y-m-d", $row["LastVoted"]) : __("Never"); ?>
-					</td>
-				</tr>
-				<tr>
 					<th>Links:</th>
 					<td><ul>
 						<li><a href="<?= get_uri('/packages/'); ?>?K=<?= $row['Username'] ?>&amp;SeB=m"><?= __("View this user's packages") ?></a></li>

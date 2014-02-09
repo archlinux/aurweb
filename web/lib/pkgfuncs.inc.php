@@ -1072,12 +1072,6 @@ function pkg_vote ($atype, $ids, $action=true) {
 	$dbh->exec($q);
 
 	if ($action) {
-		$q = "UPDATE Users SET LastVoted = UNIX_TIMESTAMP() ";
-		$q.= "WHERE ID = $uid";
-		$dbh->exec($q);
-	}
-
-	if ($action) {
 		return array(true, __("Your votes have been cast for the selected packages."));
 	} else {
 		return array(true, __("Your votes have been removed from the selected packages."));

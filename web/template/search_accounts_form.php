@@ -57,7 +57,6 @@
 					<option value="t"><?= __("Account Type"); ?></option>
 					<option value="r"><?= __("Real Name"); ?></option>
 					<option value="i"><?= __("IRC Nick"); ?></option>
-					<option value="v"><?= __("Last vote"); ?></option>
 				</select>
 			</td>
 		</tr>
