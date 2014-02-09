@@ -43,6 +43,14 @@
 					<?= $row["InactivityTS"] ? __("Inactive since") . ' ' . date("Y-m-d H:i", $row["InactivityTS"]) : __("Active"); ?>
 					</td>
 				</tr>
+				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+				<tr>
+					<th><?= __("Last Login") . ":" ?></th>
+					<td>
+					<?= $row["LastLogin"] ? date("Y-m-d", $row["LastLogin"]) : __("Never"); ?>
+					</td>
+				</tr>
+				<?php endif; ?>
 				<tr>
 					<th>Links:</th>
 					<td><ul>
