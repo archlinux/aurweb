@@ -652,7 +652,10 @@ function send_resetkey($email, $body) {
 		$body .=  "\n\n".
 			  "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
 		          "resetkey={$resetkey}";
-		$headers = "Reply-to: nobody@archlinux.org\nFrom:aur-notify@archlinux.org\nX-Mailer: PHP\nX-MimeOLE: Produced By AUR";
+		$headers = "Reply-to: nobody@archlinux.org\r\n" .
+			   "From: aur-notify@archlinux.org\r\n" .
+			   "X-Mailer: PHP\r\n" .
+			   "X-MimeOLE: Produced By AUR";
 		@mail($email, 'AUR Password Reset', $body, $headers);
 	}
 }
