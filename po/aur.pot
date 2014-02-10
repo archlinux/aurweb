@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v2.2.1\n"
+"Project-Id-Version: AUR v2.3.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
+"POT-Creation-Date: 2014-02-10 22:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,6 +148,12 @@ msgid ""
 msgstr ""
 
 msgid "Package Search"
+msgstr ""
+
+msgid "Adopt"
+msgstr ""
+
+msgid "Disown"
 msgstr ""
 
 msgid "Vote"
@@ -350,6 +356,13 @@ msgstr ""
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr ""
 
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to "
+"create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package "
+"if you want to proceed anyway."
+msgstr ""
+
 #, php-format
 msgid "Missing %s variable in PKGBUILD."
 msgstr ""
@@ -402,8 +415,7 @@ msgid "Could not change directory to %s."
 msgstr ""
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
+"Upload your source packages here. Create source packages with `mkaurball`."
 msgstr ""
 
 msgid "Package Category"
@@ -431,6 +443,9 @@ msgid "Could not retrieve proposal details."
 msgstr ""
 
 msgid "Voting is closed for this proposal."
+msgstr ""
+
+msgid "Only Trusted Users are allowed to vote."
 msgstr ""
 
 msgid "You cannot vote in an proposal about you."
@@ -528,6 +543,12 @@ msgstr ""
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
+msgid "Account suspended"
+msgstr ""
+
+msgid "An error occurred trying to generate a user session."
 msgstr ""
 
 #, php-format
@@ -689,13 +710,16 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-msgid "Last Voted"
+msgid "Last Login"
 msgstr ""
 
 msgid "Never"
 msgstr ""
 
 msgid "View this user's packages"
+msgstr ""
+
+msgid "Edit this user's account"
 msgstr ""
 
 msgid "required"
@@ -797,6 +821,9 @@ msgstr ""
 
 #, php-format
 msgid "Comment by %s"
+msgstr ""
+
+msgid "Anonymous comment"
 msgstr ""
 
 msgid "All comments"
@@ -1002,9 +1029,6 @@ msgstr ""
 msgid "Any type"
 msgstr ""
 
-msgid "Last vote"
-msgstr ""
-
 msgid "Search"
 msgstr ""
 
@@ -1075,10 +1099,10 @@ msgstr ""
 msgid "Participation"
 msgstr ""
 
-msgid "Start"
+msgid "No results found."
 msgstr ""
 
-msgid "No results found."
+msgid "Start"
 msgstr ""
 
 msgid "Back"
