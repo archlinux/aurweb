@@ -62,9 +62,9 @@ html_header(__("Password Reset"));
 	<h2><?= __("Password Reset"); ?></h2>
 
 	<?php if ($step == 'confirm'): ?>
-	<p>Check your e-mail for the confirmation link.</p>
+	<p><?= __('Check your e-mail for the confirmation link.') ?></p>
 	<?php elseif ($step == 'complete'): ?>
-	<p>Your password has been reset successfully.</p>
+	<p><?= __('Your password has been reset successfully.') ?></p>
 	<?php elseif (isset($_GET['resetkey'])): ?>
 	<?php if ($error): ?>
 	<ul class="errorlist"><li><?= $error ?></li></ul>
