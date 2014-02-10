@@ -295,7 +295,9 @@ function add_package_comment($pkgid, $uid, $comment) {
 		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
 		$body = wordwrap($body, 70);
 		$bcc = implode(', ', $bcc);
-		$headers = "Bcc: $bcc\r\n" .
+		$headers = "MIME-Version: 1.0\r\n" .
+			   "Content-type: text/plain; charset=UTF-8\r\n" .
+			   "Bcc: $bcc\r\n" .
 			   "Reply-to: nobody@archlinux.org\r\n" .
 			   "From: aur-notify@archlinux.org\r\n" .
 			   "X-Mailer: AUR";
@@ -800,7 +802,9 @@ function pkg_flag($atype, $ids) {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . get_pkg_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . get_user_uri($f_name);
 				$body = wordwrap($body, 70);
-				$headers = "Reply-to: nobody@archlinux.org\r\n" .
+				$headers = "MIME-Version: 1.0\r\n" .
+					   "Content-type: text/plain; charset=UTF-8\r\n" .
+					   "Reply-to: nobody@archlinux.org\r\n" .
 					   "From: aur-notify@archlinux.org\r\n" .
 					   "X-Mailer: PHP\r\n" .
 					   "X-MimeOLE: Produced By AUR";
@@ -909,7 +913,9 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 			}
 			$body = wordwrap($body, 70);
 			$bcc = implode(', ', $bcc);
-			$headers = "Bcc: $bcc\r\n" .
+			$headers = "MIME-Version: 1.0\r\n" .
+				   "Content-type: text/plain; charset=UTF-8\r\n" .
+				   "Bcc: $bcc\r\n" .
 				   "Reply-to: nobody@archlinux.org\r\n" .
 				   "From: aur-notify@archlinux.org\r\n" .
 				   "X-Mailer: AUR";
