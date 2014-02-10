@@ -1,4 +1,8 @@
 /* AUR-specific customizations to "archweb.css". */
+#archnavbar.anb-aur ul li#anb-aur a {
+    color: white !important;
+}
+
 #lang_sub {
   float: right;
 }
