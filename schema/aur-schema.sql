@@ -92,16 +92,12 @@ INSERT INTO PackageCategories (Category) VALUES ('xfce');
 INSERT INTO PackageCategories (Category) VALUES ('fonts');
 
 
--- Information about the actual packages
+-- Information on package bases
 --
-CREATE TABLE Packages (
+CREATE TABLE PackageBases (
 	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 	Name VARCHAR(64) NOT NULL,
-	Version VARCHAR(32) NOT NULL DEFAULT '',
 	CategoryID TINYINT UNSIGNED NOT NULL DEFAULT 1,
-	Description VARCHAR(255) NOT NULL DEFAULT "An Arch Package",
-	URL VARCHAR(255) NOT NULL DEFAULT "https://www.archlinux.org",
-	License VARCHAR(40) NOT NULL DEFAULT '',
 	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
 	OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL,
 	SubmittedTS BIGINT UNSIGNED NOT NULL,
@@ -118,6 +114,22 @@ CREATE TABLE Packages (
 	-- deleting a user will cause packages to be orphaned, not deleted
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL
+) ENGINE = InnoDB;
+
+
+-- Information about the actual packages
+--
+CREATE TABLE Packages (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	PackageBaseID INTEGER UNSIGNED NOT NULL,
+	Name VARCHAR(64) NOT NULL,
+	Version VARCHAR(32) NOT NULL DEFAULT '',
+	Description VARCHAR(255) NOT NULL DEFAULT "An Arch Package",
+	URL VARCHAR(255) NOT NULL DEFAULT "https://www.archlinux.org",
+	License VARCHAR(40) NOT NULL DEFAULT '',
+	PRIMARY KEY (ID),
+	UNIQUE (Name),
+	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 
@@ -147,13 +159,13 @@ CREATE TABLE PackageSources (
 --
 CREATE TABLE PackageVotes (
 	UsersID INTEGER UNSIGNED NOT NULL,
-	PackageID INTEGER UNSIGNED NOT NULL,
+	PackageBaseID INTEGER UNSIGNED NOT NULL,
 	INDEX (UsersID),
-	INDEX (PackageID),
+	INDEX (PackageBaseID),
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
-	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
+	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
-CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageID);
+CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageBaseID);
 
 -- Record comments for packages
 --

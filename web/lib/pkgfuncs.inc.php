@@ -342,7 +342,7 @@ function pkgvotes_from_sid($sid="") {
 	$pkgs = array();
 	if (!$sid) {return $pkgs;}
 	$dbh = DB::connect();
-	$q = "SELECT PackageID ";
+	$q = "SELECT PackageBaseID ";
 	$q.= "FROM PackageVotes, Users, Sessions ";
 	$q.= "WHERE Users.ID = Sessions.UsersID ";
 	$q.= "AND Users.ID = PackageVotes.UsersID ";
@@ -419,9 +419,14 @@ function pkgname_is_blacklisted($name) {
 function get_package_details($id=0) {
 	$dbh = DB::connect();
 
-	$q = "SELECT Packages.*,Category ";
-	$q.= "FROM Packages,PackageCategories ";
-	$q.= "WHERE Packages.CategoryID = PackageCategories.ID ";
+	$q = "SELECT Packages.*, PackageBases.Name AS BaseName, ";
+	$q.= "PackageBases.CategoryID, PackageBases.NumVotes, ";
+	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
+	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
+	$q.= "PackageBases.MaintainerUID, PackageCategories.Category ";
+	$q.= "FROM Packages, PackageBases, PackageCategories ";
+	$q.= "WHERE PackageBases.ID = Packages.PackageBaseID ";
+	$q.= "AND PackageBases.CategoryID = PackageCategories.ID ";
 	$q.= "AND Packages.ID = " . intval($id);
 	$result = $dbh->query($q);
 
@@ -565,17 +570,18 @@ function pkg_search_page($SID="") {
 	}
 	$q_select .= "Users.Username AS Maintainer,
 	PackageCategories.Category,
-	Packages.Name, Packages.Version, Packages.Description, Packages.NumVotes,
-	Packages.ID, Packages.OutOfDateTS ";
+	Packages.Name, Packages.Version, Packages.Description,
+	PackageBases.NumVotes, Packages.ID, PackageBases.OutOfDateTS ";
 
 	$q_from = "FROM Packages
-	LEFT JOIN Users ON (Packages.MaintainerUID = Users.ID)
+	LEFT JOIN PackageBases ON (PackageBases.ID = Packages.PackageBaseID)
+	LEFT JOIN Users ON (PackageBases.MaintainerUID = Users.ID)
 	LEFT JOIN PackageCategories
-	ON (Packages.CategoryID = PackageCategories.ID) ";
+	ON (PackageBases.CategoryID = PackageCategories.ID) ";
 	if ($SID) {
 		/* This is not needed for the total row count query. */
 		$q_from_extra = "LEFT JOIN PackageVotes
-		ON (Packages.ID = PackageVotes.PackageID AND PackageVotes.UsersID = $myuid)
+		ON (PackageBases.ID = PackageVotes.PackageBaseID AND PackageVotes.UsersID = $myuid)
 		LEFT JOIN CommentNotify
 		ON (Packages.ID = CommentNotify.PkgID AND CommentNotify.UserID = $myuid) ";
 	} else {
@@ -603,16 +609,16 @@ function pkg_search_page($SID="") {
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
 			/* Search by name. */
 			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
-			$q_where .= "AND (Name LIKE " . $dbh->quote($K) . ") ";
+			$q_where .= "AND (Packages.Name LIKE " . $dbh->quote($K) . ") ";
 		}
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "x") {
 			/* Search by name (exact match). */
-			$q_where .= "AND (Name = " . $dbh->quote($_GET['K']) . ") ";
+			$q_where .= "AND (Packages.Name = " . $dbh->quote($_GET['K']) . ") ";
 		}
 		else {
 			/* Search by name and description (default). */
 			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
-			$q_where .= "AND (Name LIKE " . $dbh->quote($K) . " OR ";
+			$q_where .= "AND (Packages.Name LIKE " . $dbh->quote($K) . " OR ";
 			$q_where .= "Description LIKE " . $dbh->quote($K) . ") ";
 		}
 	}
@@ -632,34 +638,35 @@ function pkg_search_page($SID="") {
 
 	$order = (isset($_GET["SO"]) && $_GET["SO"] == 'd') ? 'DESC' : 'ASC';
 
-	$q_sort = "ORDER BY Name ".$order." ";
+	$q_sort = "ORDER BY ";
 	$sort_by = isset($_GET["SB"]) ? $_GET["SB"] : '';
 	switch ($sort_by) {
 	case 'c':
-		$q_sort = "ORDER BY CategoryID ".$order.", Name ASC ";
+		$q_sort .= "CategoryID " . $order . ", ";
 		break;
 	case 'v':
-		$q_sort = "ORDER BY NumVotes ".$order.", Name ASC ";
+		$q_sort .= "NumVotes " . $order . ", ";
 		break;
 	case 'w':
 		if ($SID) {
-			$q_sort = "ORDER BY Voted ".$order.", Name ASC ";
+			$q_sort .= "Voted " . $order . ", ";
 		}
 		break;
 	case 'o':
 		if ($SID) {
-			$q_sort = "ORDER BY Notify ".$order.", Name ASC ";
+			$q_sort .= "Notify " . $order . ", ";
 		}
 		break;
 	case 'm':
-		$q_sort = "ORDER BY Maintainer ".$order.", Name ASC ";
+		$q_sort .= "Maintainer " . $order . ", ";
 		break;
 	case 'a':
-		$q_sort = "ORDER BY ModifiedTS ".$order.", Name ASC ";
+		$q_sort .= "ModifiedTS " . $order . ", ";
 		break;
 	default:
 		break;
 	}
+	$q_sort .= " Packages.Name " . $order . " ";
 
 	$q_limit = "LIMIT ".$_GET["PP"]." OFFSET ".$_GET["O"];
 
@@ -758,6 +765,29 @@ function sanitize_ids($ids) {
 }
 
 /**
+ * Convert a list of package IDs into a list of corresponding package bases.
+ *
+ * @param array|int $ids Array of package IDs to convert
+ *
+ * @return array|int List of package base IDs
+ */
+function pkgbase_from_pkgid($ids) {
+	$dbh = DB::connect();
+
+	if (is_array($ids)) {
+		$q = "SELECT PackageBaseID FROM Packages ";
+		$q.= "WHERE ID IN (" . implode(",", $ids) . ")";
+		$result = $dbh->query($q);
+		return $result->fetchAll(PDO::FETCH_COLUMN, 0);
+	} else {
+		$q = "SELECT PackageBaseID FROM Packages ";
+		$q.= "WHERE ID = " . $ids;
+		$result = $dbh->query($q);
+		return $result->fetch(PDO::FETCH_COLUMN, 0);
+	}
+}
+
+/**
  * Flag package(s) as out-of-date
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
@@ -774,15 +804,16 @@ function pkg_flag($atype, $ids) {
 	}
 
 	$ids = sanitize_ids($ids);
+	$base_ids = pkgbase_from_pkgid($ids);
 	if (empty($ids)) {
 		return array(false, __("You did not select any packages to flag."));
 	}
 
 	$dbh = DB::connect();
 
-	$q = "UPDATE Packages SET";
+	$q = "UPDATE PackageBases SET";
 	$q.= " OutOfDateTS = UNIX_TIMESTAMP()";
-	$q.= " WHERE ID IN (" . implode(",", $ids) . ")";
+	$q.= " WHERE ID IN (" . implode(",", $base_ids) . ")";
 	$q.= " AND OutOfDateTS IS NULL";
 
 	$affected_pkgs = $dbh->exec($q);
@@ -830,15 +861,16 @@ function pkg_unflag($atype, $ids) {
 	}
 
 	$ids = sanitize_ids($ids);
+	$base_ids = pkgbase_from_pkgid($ids);
 	if (empty($ids)) {
 		return array(false, __("You did not select any packages to unflag."));
 	}
 
 	$dbh = DB::connect();
 
-	$q = "UPDATE Packages SET ";
+	$q = "UPDATE PackageBases SET ";
 	$q.= "OutOfDateTS = NULL ";
-	$q.= "WHERE ID IN (" . implode(",", $ids) . ") ";
+	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
 
 	if ($atype != "Trusted User" && $atype != "Developer") {
 		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"]);
@@ -870,6 +902,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 	}
 
 	$ids = sanitize_ids($ids);
+	$base_ids = pkgbase_from_pkgid($ids);
 	if (empty($ids)) {
 		return array(false, __("You did not select any packages to delete."));
 	}
@@ -878,6 +911,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 
 	if ($mergepkgid) {
 		$mergepkgname = pkgname_from_id($mergepkgid);
+		$mergepkgbase = pkgbase_from_pkgid($mergepkgid);
 	}
 
 	/* Send e-mail notifications. */
@@ -931,26 +965,30 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 		$dbh->exec($q);
 
 		/* Merge votes */
-		foreach ($ids as $pkgid) {
+		foreach ($base_ids as $base_id) {
 			$q = "UPDATE PackageVotes ";
-			$q.= "SET PackageID = " . intval($mergepkgid) . " ";
-			$q.= "WHERE PackageID = " . $pkgid . " ";
+			$q.= "SET PackageBaseID = " . intval($mergepkgbase) . " ";
+			$q.= "WHERE PackageBaseID = " . $base_id . " ";
 			$q.= "AND UsersID NOT IN (";
 			$q.= "SELECT * FROM (SELECT UsersID ";
 			$q.= "FROM PackageVotes ";
-			$q.= "WHERE PackageID = " . intval($mergepkgid);
+			$q.= "WHERE PackageBaseID = " . intval($mergepkgbase);
 			$q.= ") temp)";
 			$dbh->exec($q);
 		}
 
-		$q = "UPDATE Packages ";
+		$q = "UPDATE PackageBases ";
 		$q.= "SET NumVotes = (SELECT COUNT(*) FROM PackageVotes ";
-		$q.= "WHERE PackageID = " . intval($mergepkgid) . ") ";
-		$q.= "WHERE ID = " . intval($mergepkgid);
+		$q.= "WHERE PackageBaseID = " . intval($mergepkgbase) . ") ";
+		$q.= "WHERE ID = " . intval($mergepkgbase);
 		$dbh->exec($q);
 	}
 
 	$q = "DELETE FROM Packages WHERE ID IN (" . implode(",", $ids) . ")";
+	$result = $dbh->exec($q);
+
+	/* Deleting a package also removes the corresponding package base. */
+	$q = "DELETE FROM PackageBases WHERE ID IN (" . implode(",", $base_ids) . ")";
 	$result = $dbh->exec($q);
 
 	return array(true, __("The selected packages have been deleted."));
@@ -974,7 +1012,8 @@ function pkg_adopt ($atype, $ids, $action=true) {
 		}
 	}
 
-	$ids = sanitize_ids($ids);
+	$pkg_ids = sanitize_ids($ids);
+	$ids = pkgbase_from_pkgid($pkg_ids);
 	if (empty($ids)) {
 		if ($action) {
 			return array(false, __("You did not select any packages to adopt."));
@@ -986,7 +1025,7 @@ function pkg_adopt ($atype, $ids, $action=true) {
 	$dbh = DB::connect();
 
 	$field = "MaintainerUID";
-	$q = "UPDATE Packages ";
+	$q = "UPDATE PackageBases ";
 
 	if ($action) {
 		$user = uid_from_sid($_COOKIE["AURSID"]);
@@ -1007,7 +1046,7 @@ function pkg_adopt ($atype, $ids, $action=true) {
 	$dbh->exec($q);
 
 	if ($action) {
-		pkg_notify(account_from_sid($_COOKIE["AURSID"]), $ids);
+		pkg_notify(account_from_sid($_COOKIE["AURSID"]), $pkg_ids);
 		return array(true, __("The selected packages have been adopted."));
 	} else {
 		return array(true, __("The selected packages have been disowned."));
@@ -1033,6 +1072,7 @@ function pkg_vote ($atype, $ids, $action=true) {
 	}
 
 	$ids = sanitize_ids($ids);
+	$base_ids = pkgbase_from_pkgid($ids);
 	if (empty($ids)) {
 		if ($action) {
 			return array(false, __("You did not select any packages to vote for."));
@@ -1046,7 +1086,7 @@ function pkg_vote ($atype, $ids, $action=true) {
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 	$first = 1;
-	foreach ($ids as $pid) {
+	foreach ($base_ids as $pid) {
 		if ($action) {
 			$check = !isset($my_votes[$pid]);
 		} else {
@@ -1071,17 +1111,17 @@ function pkg_vote ($atype, $ids, $action=true) {
 
 	/* Only add votes for packages the user hasn't already voted for. */
 	$op = $action ? "+" : "-";
-	$q = "UPDATE Packages SET NumVotes = NumVotes $op 1 ";
+	$q = "UPDATE PackageBases SET NumVotes = NumVotes $op 1 ";
 	$q.= "WHERE ID IN ($vote_ids)";
 
 	$dbh->exec($q);
 
 	if ($action) {
-		$q = "INSERT INTO PackageVotes (UsersID, PackageID) VALUES ";
+		$q = "INSERT INTO PackageVotes (UsersID, PackageBaseID) VALUES ";
 		$q.= $vote_clauses;
 	} else {
 		$q = "DELETE FROM PackageVotes WHERE UsersID = $uid ";
-		$q.= "AND PackageID IN ($vote_ids)";
+		$q.= "AND PackageBaseID IN ($vote_ids)";
 	}
 
 	$dbh->exec($q);
@@ -1105,7 +1145,7 @@ function votes_for_pkgname($pkgname) {
 
 	$q = "SELECT UsersID,Username,Name FROM PackageVotes ";
 	$q.= "LEFT JOIN Users on (UsersID = Users.ID) ";
-	$q.= "LEFT JOIN Packages on (PackageID = Packages.ID) ";
+	$q.= "LEFT JOIN Packages on (PackageVotes.PackageBaseID = Packages.PackageBaseID) ";
 	$q.= "WHERE Name = ". $dbh->quote($pkgname) . " ";
 	$q.= "ORDER BY Username";
 	$result = $dbh->query($q);
@@ -1133,8 +1173,10 @@ function votes_for_pkgname($pkgname) {
 function user_voted($uid, $pkgid) {
 	$dbh = DB::connect();
 
-	$q = "SELECT * FROM PackageVotes WHERE UsersID = ". $dbh->quote($uid);
-	$q.= " AND PackageID = " . $dbh->quote($pkgid);
+	$q = "SELECT * FROM PackageVotes, Packages WHERE ";
+	$q.= "PackageVotes.UsersID = ". $dbh->quote($uid) . " AND ";
+	$q.= "PackageVotes.PackageBaseID = Packages.PackageBaseID AND ";
+	$q.= "Packages.ID = " . $dbh->quote($pkgid);
 	$result = $dbh->query($q);
 
 	if ($result->fetch(PDO::FETCH_NUM)) {
@@ -1301,10 +1343,10 @@ function pkg_change_category($pid, $atype) {
 		return array(false, __("Invalid category ID."));
 	}
 
+	$base_id = pkgbase_from_pkgid($pid);
+
 	/* Verify package ownership. */
-	$q = "SELECT Packages.MaintainerUID ";
-	$q.= "FROM Packages ";
-	$q.= "WHERE Packages.ID = ".$pid;
+	$q = "SELECT MaintainerUID FROM PackageBases WHERE ID = " . $base_id;
 	$result = $dbh->query($q);
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
@@ -1316,9 +1358,9 @@ function pkg_change_category($pid, $atype) {
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 	if ($uid == $row["MaintainerUID"] ||
 	($atype == "Developer" || $atype == "Trusted User")) {
-		$q = "UPDATE Packages ";
+		$q = "UPDATE PackageBases ";
 		$q.= "SET CategoryID = ".intval($category_id)." ";
-		$q.= "WHERE ID = ".intval($pid);
+		$q.= "WHERE ID = ".intval($base_id);
 		$dbh->exec($q);
 		return array(true, __("Package category changed."));
 	} else {
@@ -1335,7 +1377,14 @@ function pkg_change_category($pid, $atype) {
  */
 function pkgdetails_by_pkgname($pkgname) {
 	$dbh = DB::connect();
-	$q = "SELECT * FROM Packages WHERE Name = " . $dbh->quote($pkgname);
+	$q = "SELECT Packages.*, PackageBases.Name AS BaseName, ";
+	$q.= "PackageBases.CategoryID, PackageBases.NumVotes, ";
+	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
+	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
+	$q.= "PackageBases.MaintainerUID FROM Packages ";
+	$q.= "INNER JOIN PackageBases ";
+	$q.= "ON PackageBases.ID = Packages.PackageBaseID WHERE ";
+	$q.= "Packages.Name = " . $dbh->quote($pkgname);
 	$result = $dbh->query($q);
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
@@ -1344,30 +1393,62 @@ function pkgdetails_by_pkgname($pkgname) {
 }
 
 /**
+ * Add package base information to the database
+ *
+ * @param string $name Name of the new package base
+ * @param int $category_id Category for the new package base
+ * @param int $uid User ID of the package uploader
+ *
+ * @return int ID of the new package base
+ */
+function create_pkgbase($name, $category_id, $uid) {
+	$dbh = DB::connect();
+	$q = sprintf("INSERT INTO PackageBases (Name, CategoryID, " .
+		"SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) " .
+		"VALUES (%s, %d, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
+		$dbh->quote($name), $category_id, $uid, $uid);
+	$dbh->exec($q);
+	return $dbh->lastInsertId();
+}
+
+/**
  * Add package information to the database for a specific package
  *
+ * @param int $base_id ID of the package base
  * @param string $pkgname Name of the new package
  * @param string $license License of the new package
  * @param string $pkgver Version of the new package
- * @param int $category_id Category for the new package
  * @param string $pkgdesc Description of the new package
  * @param string $pkgurl Upstream URL for the new package
+ *
+ * @return int ID of the new package
+ */
+function create_pkg($base_id, $pkgname, $license, $pkgver, $pkgdesc, $pkgurl) {
+	$dbh = DB::connect();
+	$q = sprintf("INSERT INTO Packages (PackageBaseID, Name, License, " .
+		"Version, Description, URL) VALUES (%d, %s, %s, %s, %s, %s)",
+		$base_id, $dbh->quote($pkgname), $dbh->quote($license),
+		$dbh->quote($pkgver), $dbh->quote($pkgdesc),
+		$dbh->quote($pkgurl));
+	$dbh->exec($q);
+	return $dbh->lastInsertId();
+}
+
+/**
+ * Update package base information for a specific package base
+ *
+ * @param string $name Name of the updated package base
+ * @param int $base_id The package base ID of the affected package
  * @param int $uid User ID of the package uploader
  *
  * @return void
  */
-function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pkgurl, $uid) {
+function update_pkgbase($base_id, $name, $uid) {
 	$dbh = DB::connect();
-	$q = sprintf("INSERT INTO Packages (Name, License, Version, CategoryID, Description, URL, SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) VALUES (%s, %s, %s, %d, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
-	$dbh->quote($pkgname),
-	$dbh->quote($license),
-	$dbh->quote($pkgver),
-	$category_id,
-	$dbh->quote($pkgdesc),
-	$dbh->quote($pkgurl),
-	$uid,
-	$uid);
-
+	$q = sprintf("UPDATE PackageBases SET  " .
+		"Name = %s, ModifiedTS = UNIX_TIMESTAMP(), " .
+		"MaintainerUID = %d, OutOfDateTS = NULL WHERE ID = %d",
+		$dbh->quote($name), $uid, $base_id);
 	$dbh->exec($q);
 }
 
@@ -1384,18 +1465,16 @@ function new_pkgdetails($pkgname, $license, $pkgver, $category_id, $pkgdesc, $pk
  *
  * @return void
  */
-function update_pkgdetails($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $uid, $pkgid) {
+function update_pkg($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $pkgid) {
 	$dbh = DB::connect();
-	/* This is an overwrite of an existing package! */
-	$q = sprintf("UPDATE Packages SET ModifiedTS = UNIX_TIMESTAMP(), Name = %s, Version = %s, License = %s, Description = %s, URL = %s, OutOfDateTS = NULL, MaintainerUID = %d WHERE ID = %d",
-	$dbh->quote($pkgname),
-	$dbh->quote($pkgver),
-	$dbh->quote($license),
-	$dbh->quote($pkgdesc),
-	$dbh->quote($pkgurl),
-	$uid,
-	$pkgid);
-
+	$q = sprintf("UPDATE Packages SET Name = %s, Version = %s, " .
+		"License = %s, Description = %s, URL = %s WHERE ID = %d",
+		$dbh->quote($pkgname),
+		$dbh->quote($pkgver),
+		$dbh->quote($license),
+		$dbh->quote($pkgdesc),
+		$dbh->quote($pkgurl),
+		$pkgid);
 	$dbh->exec($q);
 }
 
@@ -1435,19 +1514,17 @@ function add_pkg_src($pkgid, $pkgsrc) {
 }
 
 /**
- * Change the category a package belongs to
+ * Change the category a package base belongs to
  *
- * @param int $pkgid The package ID to change the category for
+ * @param int $base_id The package base ID to change the category for
  * @param int $category_id The new category ID for the package
  *
  * @return void
  */
-function update_pkg_category($pkgid, $category_id) {
+function update_pkgbase_category($base_id, $category_id) {
 	$dbh = DB::connect();
-	$q = sprintf( "UPDATE Packages SET CategoryID = %d WHERE ID = %d",
-	$category_id,
-	$pkgid);
-
+	$q = sprintf("UPDATE PackageBases SET CategoryID = %d WHERE ID = %d",
+		$category_id, $base_id);
 	$dbh->exec($q);
 }
 

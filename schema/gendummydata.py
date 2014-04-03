@@ -199,12 +199,16 @@ for p in list(seen_pkgs.keys()):
 
 	uuid = genUID() # the submitter/user
 
-	s = ("INSERT INTO Packages (ID, Name, Version, CategoryID,"
-		 " SubmittedTS, SubmitterUID, MaintainerUID) VALUES "
-		 " (%d, '%s', '%s', %d, %d, %d, %s);\n")
-	s = s % (seen_pkgs[p], p, genVersion(), genCategory(), NOW, uuid, muid)
-
+	s = ("INSERT INTO PackageBases (ID, Name, CategoryID, SubmittedTS, "
+         "SubmitterUID, MaintainerUID) VALUES (%d, '%s', %d, %d, %d, %s);\n")
+	s = s % (seen_pkgs[p], p, genCategory(), NOW, uuid, muid)
 	out.write(s)
+
+	s = ("INSERT INTO Packages (ID, PackageBaseID, Name, Version) VALUES "
+         "(%d, %d, '%s', '%s');\n")
+	s = s % (seen_pkgs[p], seen_pkgs[p], p, genVersion())
+	out.write(s)
+
 	count += 1
 
 	# create random comments for this package
@@ -228,7 +232,7 @@ for u in user_keys:
 	for v in range(num_votes):
 		pkg = random.randrange(1, len(seen_pkgs) + 1)
 		if pkg not in pkgvote:
-			s = ("INSERT INTO PackageVotes (UsersID, PackageID)"
+			s = ("INSERT INTO PackageVotes (UsersID, PackageBaseID)"
 				 " VALUES (%d, %d);\n")
 			s = s % (seen_users[u], pkg)
 			pkgvote[pkg] = 1
@@ -240,7 +244,7 @@ for u in user_keys:
 # Update statements for package votes
 #
 for p in list(track_votes.keys()):
-	s = "UPDATE Packages SET NumVotes = %d WHERE ID = %d;\n"
+	s = "UPDATE PackageBases SET NumVotes = %d WHERE ID = %d;\n"
 	s = s % (track_votes[p], p)
 	out.write(s)
 

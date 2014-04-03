@@ -354,7 +354,7 @@ if ($uid):
 		if (!$error) {
 			# First, see if this package already exists, and if it can be overwritten
 			$pkg_id = pkgid_from_name($pkg_name);
-			if (can_submit_pkg($pkg_name, $_COOKIE["AURSID"])) {
+			if (can_submit_pkgbase($pkg_name, $_COOKIE["AURSID"])) {
 				if (file_exists($incoming_pkgdir)) {
 					# Blow away the existing file/dir and contents
 					rm_tree($incoming_pkgdir);
@@ -409,24 +409,25 @@ if ($uid):
 				# This is an overwrite of an existing package, the database ID
 				# needs to be preserved so that any votes are retained. However,
 				# PackageDepends and PackageSources can be purged.
-				$packageID = $pdata["ID"];
+				$pkgid = $pdata["ID"];
+				$base_id = pkgbase_from_pkgid($pkgid);
 
 				# Flush out old data that will be replaced with new data
-				remove_pkg_deps($packageID);
-				remove_pkg_sources($packageID);
+				remove_pkg_deps($pkgid);
+				remove_pkg_sources($pkgid);
 
 				# If a new category was chosen, change it to that
 				if ($category_id > 1) {
-					update_pkg_category($packageID, $category_id);
+					update_pkgbase_category($base_id, $category_id);
 				}
 
-				# Update package data
-				update_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid, $packageID);
+				# Update package base and package data
+				update_pkgbase($base_id, $new_pkgbuild['pkgname'], $uid);
+				update_pkg($pkgid, $new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url']);
 			} else {
 				# This is a brand new package
-				new_pkgdetails($new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $category_id, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url'], $uid);
-				$packageID = last_insert_id();
-
+				$base_id = create_pkgbase($new_pkgbuild['pkgname'], $category_id, $uid);
+				$pkgid = create_pkg($base_id, $new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url']);
 			}
 
 			# Update package depends
@@ -444,7 +445,7 @@ if ($uid):
 					else if ($deppkgname == "#") {
 						break;
 					}
-					add_pkg_dep($packageID, $deppkgname, $depcondition);
+					add_pkg_dep($pkgid, $deppkgname, $depcondition);
 				}
 			}
 
@@ -452,14 +453,14 @@ if ($uid):
 			if (!empty($new_pkgbuild['source'])) {
 				$sources = explode(" ", $new_pkgbuild['source']);
 				foreach ($sources as $src) {
-					add_pkg_src($packageID, $src);
+					add_pkg_src($pkgid, $src);
 				}
 			}
 
 			# If we just created this package, or it was an orphan and we
 			# auto-adopted, add submitting user to the notification list.
 			if (!$pdata || $pdata["MaintainerUID"] === NULL) {
-				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($packageID), true);
+				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($pkgid), true);
 			}
 
 			# Entire package creation process is atomic

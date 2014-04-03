@@ -292,11 +292,11 @@ function html_footer($ver="") {
  *
  * @return int 0 if the user can't submit, 1 if the user can submit
  */
-function can_submit_pkg($name="", $sid="") {
+function can_submit_pkgbase($name="", $sid="") {
 	if (!$name || !$sid) {return 0;}
 	$dbh = DB::connect();
 	$q = "SELECT MaintainerUID ";
-	$q.= "FROM Packages WHERE Name = " . $dbh->quote($name);
+	$q.= "FROM PackageBases WHERE Name = " . $dbh->quote($name);
 	$result = $dbh->query($q);
 	$row = $result->fetch(PDO::FETCH_NUM);
 
@@ -528,17 +528,6 @@ function begin_atomic_commit() {
 function end_atomic_commit() {
 	$dbh = DB::connect();
 	$dbh->commit();
-}
-
-/**
- *
- * Determine the row ID for the most recently insterted row
- *
- * @return string The ID of the last inserted row
- */
-function last_insert_id() {
-	$dbh = DB::connect();
-	return $dbh->lastInsertId();
 }
 
 /**
