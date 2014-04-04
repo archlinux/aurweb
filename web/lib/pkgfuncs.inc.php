@@ -176,20 +176,20 @@ function package_required($name="") {
 }
 
 /**
- * Get the number of non-deleted comments for a specific package
+ * Get the number of non-deleted comments for a specific package base
  *
- * @param string $pkgid The package ID to get comment count for
+ * @param string $pkgid The package base ID to get comment count for
  *
  * @return string The number of comments left for a specific package
  */
-function package_comments_count($pkgid) {
+function package_comments_count($base_id) {
 	$dbh = DB::connect();
 
-	$pkgid = intval($pkgid);
-	if ($pkgid > 0) {
+	$base_id = intval($base_id);
+	if ($base_id > 0) {
 		$dbh = DB::connect();
 		$q = "SELECT COUNT(*) FROM PackageComments ";
-		$q.= "WHERE PackageID = " . $pkgid;
+		$q.= "WHERE PackageBaseID = " . $base_id;
 		$q.= " AND DelUsersID IS NULL";
 	}
 	$result = $dbh->query($q);
@@ -203,21 +203,21 @@ function package_comments_count($pkgid) {
 }
 
 /**
- * Get all package comment information for a specific package
+ * Get all package comment information for a specific package base
  *
- * @param int $pkgid The package ID to get comments for
+ * @param int $pkgid The package base ID to get comments for
  *
- * @return array All package comment information for a specific package
+ * @return array All package comment information for a specific package base
  */
-function package_comments($pkgid) {
+function package_comments($base_id) {
+	$base_id = intval($base_id);
 	$comments = array();
-	$pkgid = intval($pkgid);
-	if ($pkgid > 0) {
+	if ($base_id > 0) {
 		$dbh = DB::connect();
 		$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, CommentTS ";
 		$q.= "FROM PackageComments LEFT JOIN Users ";
 		$q.= "ON PackageComments.UsersID = Users.ID ";
-		$q.= "WHERE PackageID = " . $pkgid . " ";
+		$q.= "WHERE PackageBaseID = " . $base_id . " ";
 		$q.= "AND DelUsersID IS NULL ";
 		$q.= "ORDER BY CommentTS DESC";
 
@@ -242,20 +242,20 @@ function package_comments($pkgid) {
  * Add a comment to a package page and send out appropriate notifications
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
- * @param string $pkgid The package ID to add the comment on
+ * @param string $base_id The package base ID to add the comment on
  * @param string $uid The user ID of the individual who left the comment
  * @param string $comment The comment left on a package page
  *
  * @return void
  */
-function add_package_comment($pkgid, $uid, $comment) {
+function add_package_comment($base_id, $uid, $comment) {
 	global $AUR_LOCATION;
 
 	$dbh = DB::connect();
 
 	$q = "INSERT INTO PackageComments ";
-	$q.= "(PackageID, UsersID, Comments, CommentTS) VALUES (";
-	$q.= intval($pkgid) . ", " . $uid . ", ";
+	$q.= "(PackageBaseID, UsersID, Comments, CommentTS) VALUES (";
+	$q.= intval($base_id) . ", " . $uid . ", ";
 	$q.= $dbh->quote($comment) . ", UNIX_TIMESTAMP())";
 	$dbh->exec($q);
 
@@ -267,7 +267,7 @@ function add_package_comment($pkgid, $uid, $comment) {
 	$q.= "FROM CommentNotify, Users ";
 	$q.= "WHERE Users.ID = CommentNotify.UserID ";
 	$q.= "AND CommentNotify.UserID != " . $uid . " ";
-	$q.= "AND CommentNotify.PkgID = " . intval($pkgid);
+	$q.= "AND CommentNotify.PackageBaseID = " . intval($base_id);
 	$result = $dbh->query($q);
 	$bcc = array();
 
@@ -276,9 +276,8 @@ function add_package_comment($pkgid, $uid, $comment) {
 			array_push($bcc, $row['Email']);
 		}
 
-		$q = "SELECT Packages.* ";
-		$q.= "FROM Packages ";
-		$q.= "WHERE Packages.ID = " . intval($pkgid);
+		$q = "SELECT Name FROM PackageBases WHERE ID = ";
+		$q.= intval($base_id);
 		$result = $dbh->query($q);
 		$row = $result->fetch(PDO::FETCH_ASSOC);
 
@@ -473,7 +472,8 @@ function display_package_details($id=0, $row, $SID="") {
 			include('pkg_comment_form.php');
 		}
 
-		$comments = package_comments($id);
+		$base_id = pkgbase_from_pkgid($id);
+		$comments = package_comments($base_id);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
 		}
@@ -583,7 +583,7 @@ function pkg_search_page($SID="") {
 		$q_from_extra = "LEFT JOIN PackageVotes
 		ON (PackageBases.ID = PackageVotes.PackageBaseID AND PackageVotes.UsersID = $myuid)
 		LEFT JOIN CommentNotify
-		ON (Packages.ID = CommentNotify.PkgID AND CommentNotify.UserID = $myuid) ";
+		ON (PackageBases.ID = CommentNotify.PackageBaseID AND CommentNotify.UserID = $myuid) ";
 	} else {
 		$q_from_extra = "";
 	}
@@ -920,7 +920,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 		$q.= "FROM CommentNotify, Users ";
 		$q.= "WHERE Users.ID = CommentNotify.UserID ";
 		$q.= "AND CommentNotify.UserID != " . uid_from_sid($_COOKIE['AURSID']) . " ";
-		$q.= "AND CommentNotify.PkgID = " . $pkgid;
+		$q.= "AND CommentNotify.PackageBaseID = " . pkgbase_from_pkgid($pkgid);
 		$result = $dbh->query($q);
 		$bcc = array();
 
@@ -960,8 +960,8 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 	if ($mergepkgid) {
 		/* Merge comments */
 		$q = "UPDATE PackageComments ";
-		$q.= "SET PackageID = " . intval($mergepkgid) . " ";
-		$q.= "WHERE PackageID IN (" . implode(",", $ids) . ")";
+		$q.= "SET PackageBaseID = " . intval($mergepkgbase) . " ";
+		$q.= "WHERE PackageBaseID IN (" . implode(",", $base_ids) . ")";
 		$dbh->exec($q);
 
 		/* Merge votes */
@@ -1188,18 +1188,18 @@ function user_voted($uid, $pkgid) {
 }
 
 /**
- * Determine if a user wants notifications for a specific package
+ * Determine if a user wants notifications for a specific package base
  *
  * @param string $uid User ID to check in the database
- * @param string $pkgid Package ID to check notifications for
+ * @param string $base_id Package base ID to check notifications for
  *
  * @return bool True if the user wants notifications, otherwise false
  */
-function user_notify($uid, $pkgid) {
+function user_notify($uid, $base_id) {
 	$dbh = DB::connect();
 
 	$q = "SELECT * FROM CommentNotify WHERE UserID = " . $dbh->quote($uid);
-	$q.= " AND PkgID = " . $dbh->quote($pkgid);
+	$q.= " AND PackageBaseID = " . $dbh->quote($base_id);
 	$result = $dbh->query($q);
 
 	if ($result->fetch(PDO::FETCH_NUM)) {
@@ -1224,6 +1224,7 @@ function pkg_notify ($atype, $ids, $action=true) {
 	}
 
 	$ids = sanitize_ids($ids);
+	$base_ids = pkgbase_from_pkgid($ids);
 	if (empty($ids)) {
 		return array(false, __("Couldn't add to notification list."));
 	}
@@ -1239,15 +1240,15 @@ function pkg_notify ($atype, $ids, $action=true) {
 	 * There currently shouldn't be multiple requests here, but the format
 	 * in which it's sent requires this.
 	 */
-	foreach ($ids as $pid) {
-		$q = "SELECT Name FROM Packages WHERE ID = $pid";
+	foreach ($base_ids as $bid) {
+		$q = "SELECT Name FROM PackageBases WHERE ID = $bid";
 		$result = $dbh->query($q);
 		if ($result) {
 			$row = $result->fetch(PDO::FETCH_NUM);
-			$pkgname = $row[0];
+			$basename = $row[0];
 		}
 		else {
-			$pkgname = '';
+			$basename = '';
 		}
 
 		if ($first)
@@ -1258,23 +1259,23 @@ function pkg_notify ($atype, $ids, $action=true) {
 
 		if ($action) {
 			$q = "SELECT COUNT(*) FROM CommentNotify WHERE ";
-			$q .= "UserID = $uid AND PkgID = $pid";
+			$q .= "UserID = $uid AND PackageBaseID = $bid";
 
 			/* Notification already added. Don't add again. */
 			$result = $dbh->query($q);
 			if ($result->fetchColumn() == 0) {
-				$q = "INSERT INTO CommentNotify (PkgID, UserID) VALUES ($pid, $uid)";
+				$q = "INSERT INTO CommentNotify (PackageBaseID, UserID) VALUES ($bid, $uid)";
 				$dbh->exec($q);
 			}
 
-			$output .= $pkgname;
+			$output .= $basename;
 		}
 		else {
-			$q = "DELETE FROM CommentNotify WHERE PkgID = $pid ";
+			$q = "DELETE FROM CommentNotify WHERE PackageBaseID = $bid ";
 			$q .= "AND UserID = $uid";
 			$dbh->exec($q);
 
-			$output .= $pkgname;
+			$output .= $basename;
 		}
 	}
 

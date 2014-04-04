@@ -216,7 +216,7 @@ for p in list(seen_pkgs.keys()):
 	num_comments = random.randrange(PKG_CMNTS[0], PKG_CMNTS[1])
 	for i in range(0, num_comments):
 		now = NOW + random.randrange(400, 86400*3)
-		s = ("INSERT INTO PackageComments (PackageID, UsersID,"
+		s = ("INSERT INTO PackageComments (PackageBaseID, UsersID,"
 			 " Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n")
 		s = s % (seen_pkgs[p], genUID(), genFortune(), now)
 		out.write(s)
