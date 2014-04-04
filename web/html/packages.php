@@ -72,13 +72,13 @@ if (check_token()) {
 	} elseif (current_action("do_Delete")) {
 		if (isset($_POST['confirm_Delete'])) {
 			if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
-				list($ret, $output) = pkg_delete($atype, $ids, NULL);
+				list($ret, $output) = pkg_delete($atype, pkgbase_from_pkgid($ids), NULL);
 				unset($_GET['ID']);
 			}
 			else {
-				$mergepkgid = pkgid_from_name($_POST['merge_Into']);
-				if ($mergepkgid) {
-					list($ret, $output) = pkg_delete($atype, $ids, $mergepkgid);
+				$merge_base_id = pkgbase_from_name($_POST['merge_Into']);
+				if ($merge_base_id) {
+					list($ret, $output) = pkg_delete($atype, pkgbase_from_pkgid($ids), $merge_base_id);
 					unset($_GET['ID']);
 				}
 				else {

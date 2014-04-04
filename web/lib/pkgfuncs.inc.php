@@ -788,6 +788,35 @@ function pkgbase_from_pkgid($ids) {
 }
 
 /**
+ * Retrieve ID of a package base by name
+ *
+ * @param string $name The package base name to retrieve the ID for
+ *
+ * @return int The ID of the package base
+ */
+function pkgbase_from_name($name) {
+	$dbh = DB::connect();
+	$q = "SELECT ID FROM PackageBases WHERE Name = " . $dbh->quote($name);
+	$result = $dbh->query($q);
+	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
+/**
+ * Retrieve the name of a package base given its ID
+ *
+ * @param int $base_id The ID of the package base to query
+ *
+ * @return string The name of the package base
+ */
+function pkgbase_name_from_id($base_id) {
+	$dbh = DB::connect();
+	$q = "SELECT Name FROM PackageBases WHERE ID = " . intval($base_id);
+	$result = $dbh->query($q);
+	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
+
+/**
  * Flag package(s) as out-of-date
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
@@ -884,15 +913,15 @@ function pkg_unflag($atype, $ids) {
 }
 
 /**
- * Delete packages
+ * Delete package bases
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to delete
- * @param int $mergepkgid Package to merge the deleted ones into
+ * @param array $base_ids Array of package base IDs to delete
+ * @param int $merge_base_id Package base to merge the deleted ones into
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkg_delete ($atype, $ids, $mergepkgid) {
+function pkg_delete ($atype, $base_ids, $merge_base_id) {
 	if (!$atype) {
 		return array(false, __("You must be logged in before you can delete packages."));
 	}
@@ -901,26 +930,24 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 		return array(false, __("You do not have permission to delete packages."));
 	}
 
-	$ids = sanitize_ids($ids);
-	$base_ids = pkgbase_from_pkgid($ids);
-	if (empty($ids)) {
+	$base_ids = sanitize_ids($base_ids);
+	if (empty($base_ids)) {
 		return array(false, __("You did not select any packages to delete."));
 	}
 
 	$dbh = DB::connect();
 
-	if ($mergepkgid) {
-		$mergepkgname = pkgname_from_id($mergepkgid);
-		$mergepkgbase = pkgbase_from_pkgid($mergepkgid);
+	if ($merge_base_id) {
+		$merge_base_name = pkgbase_name_from_id($merge_base_id);
 	}
 
 	/* Send e-mail notifications. */
-	foreach ($ids as $pkgid) {
+	foreach ($base_ids as $base_id) {
 		$q = "SELECT CommentNotify.*, Users.Email ";
 		$q.= "FROM CommentNotify, Users ";
 		$q.= "WHERE Users.ID = CommentNotify.UserID ";
 		$q.= "AND CommentNotify.UserID != " . uid_from_sid($_COOKIE['AURSID']) . " ";
-		$q.= "AND CommentNotify.PackageBaseID = " . pkgbase_from_pkgid($pkgid);
+		$q.= "AND CommentNotify.PackageBaseID = " . $base_id;
 		$result = $dbh->query($q);
 		$bcc = array();
 
@@ -928,7 +955,7 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 			array_push($bcc, $row['Email']);
 		}
 		if (!empty($bcc)) {
-			$pkgname = pkgname_from_id($pkgid);
+			$pkgbase_name = pkgbase_name_from_id($base_id);
 
 			/*
 			 * TODO: Add native language emails for users, based on
@@ -938,11 +965,11 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 			 * comment was in.
 			 */
 			$body = "";
-			if ($mergepkgid) {
-				$body .= username_from_sid($_COOKIE['AURSID']) . " merged \"".$pkgname."\" into \"$mergepkgname\".\n\n";
-				$body .= "You will no longer receive notifications about this package, please go to https://aur.archlinux.org" . get_pkg_uri($mergepkgname) . " and click the Notify button if you wish to recieve them again.";
+			if ($merge_base_id) {
+				$body .= username_from_sid($_COOKIE['AURSID']) . " merged \"".$pkgbase_name."\" into \"$merge_base_name\".\n\n";
+				$body .= "You will no longer receive notifications about this package, please go to https://aur.archlinux.org" . get_pkgbase_uri($merge_base_name) . " and click the Notify button if you wish to recieve them again.";
 			} else {
-				$body .= username_from_sid($_COOKIE['AURSID']) . " deleted \"".$pkgname."\".\n\n";
+				$body .= username_from_sid($_COOKIE['AURSID']) . " deleted \"".$pkgbase_name."\".\n\n";
 				$body .= "You will no longer receive notifications about this package.";
 			}
 			$body = wordwrap($body, 70);
@@ -953,43 +980,42 @@ function pkg_delete ($atype, $ids, $mergepkgid) {
 				   "Reply-to: nobody@archlinux.org\r\n" .
 				   "From: aur-notify@archlinux.org\r\n" .
 				   "X-Mailer: AUR";
-			@mail('undisclosed-recipients: ;', "AUR Package deleted: " . $pkgname, $body, $headers);
+			@mail('undisclosed-recipients: ;', "AUR Package deleted: " . $pkgbase_name, $body, $headers);
 		}
 	}
 
-	if ($mergepkgid) {
+	if ($merge_base_id) {
 		/* Merge comments */
 		$q = "UPDATE PackageComments ";
-		$q.= "SET PackageBaseID = " . intval($mergepkgbase) . " ";
+		$q.= "SET PackageBaseID = " . intval($merge_base_id) . " ";
 		$q.= "WHERE PackageBaseID IN (" . implode(",", $base_ids) . ")";
 		$dbh->exec($q);
 
 		/* Merge votes */
 		foreach ($base_ids as $base_id) {
 			$q = "UPDATE PackageVotes ";
-			$q.= "SET PackageBaseID = " . intval($mergepkgbase) . " ";
+			$q.= "SET PackageBaseID = " . intval($merge_base_id) . " ";
 			$q.= "WHERE PackageBaseID = " . $base_id . " ";
 			$q.= "AND UsersID NOT IN (";
 			$q.= "SELECT * FROM (SELECT UsersID ";
 			$q.= "FROM PackageVotes ";
-			$q.= "WHERE PackageBaseID = " . intval($mergepkgbase);
+			$q.= "WHERE PackageBaseID = " . intval($merge_base_id);
 			$q.= ") temp)";
 			$dbh->exec($q);
 		}
 
 		$q = "UPDATE PackageBases ";
 		$q.= "SET NumVotes = (SELECT COUNT(*) FROM PackageVotes ";
-		$q.= "WHERE PackageBaseID = " . intval($mergepkgbase) . ") ";
-		$q.= "WHERE ID = " . intval($mergepkgbase);
+		$q.= "WHERE PackageBaseID = " . intval($merge_base_id) . ") ";
+		$q.= "WHERE ID = " . intval($merge_base_id);
 		$dbh->exec($q);
 	}
 
-	$q = "DELETE FROM Packages WHERE ID IN (" . implode(",", $ids) . ")";
-	$result = $dbh->exec($q);
+	$q = "DELETE FROM Packages WHERE PackageBaseID IN (" . implode(",", $base_ids) . ")";
+	$dbh->exec($q);
 
-	/* Deleting a package also removes the corresponding package base. */
 	$q = "DELETE FROM PackageBases WHERE ID IN (" . implode(",", $base_ids) . ")";
-	$result = $dbh->exec($q);
+	$dbh->exec($q);
 
 	return array(true, __("The selected packages have been deleted."));
 }
