@@ -58,6 +58,10 @@ function get_pkg_uri($pkgname) {
 	}
 }
 
+function get_pkgbase_uri($pkgbase_name) {
+	return get_pkg_uri($pkgbase_name);
+}
+
 function get_user_route() {
 	global $USER_PATH;
 	return $USER_PATH;
