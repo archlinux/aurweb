@@ -82,7 +82,7 @@ if ($uid):
 		if (!$error) {
 			$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
 
-			# Extract PKGBUILD and .AURINFO into a string
+			/* Extract PKGBUILD and .AURINFO into a string. */
 			$pkgbuild_raw = $srcinfo_raw = '';
 			$dircount = 0;
 			foreach ($tar->listContent() as $tar_file) {
@@ -109,16 +109,22 @@ if ($uid):
 					}
 				}
 			}
+		}
 
-			if (!$error && $dircount !== 1) {
-				$error = __("Error - source tarball may not contain files outside a directory.");
-			}
+		if (!$error && $dircount !== 1) {
+			$error = __("Error - source tarball may not contain files outside a directory.");
+		}
 
-			if (!$error && empty($pkgbuild_raw)) {
+		if (empty($pkgbuild_raw)) {
+			$pkgbuild_raw = '';
+			if (!$error) {
 				$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
 			}
+		}
 
-			if (!$error && empty($srcinfo_raw) && (!isset($_POST['ignore_missing_aurinfo']) || $_POST['ignore_missing_aurinfo'] != 1)) {
+		if (empty($srcinfo_raw)) {
+			$srcinfo_raw = '';
+			if (!$error && (!isset($_POST['ignore_missing_aurinfo']) || $_POST['ignore_missing_aurinfo'] != 1)) {
 				$ignore_missing_aurinfo = 1;
 				$error = __("The source package does not contain any meta data. Please use `mkaurball` to create AUR source packages. Support for source packages without .AURINFO entries will be removed in an upcoming release! You can resubmit the package if you want to proceed anyway.");
 			}
@@ -223,6 +229,7 @@ if ($uid):
 		}
 
 		# Now, run through the pkgbuild array, and do "eval" and simple substituions.
+		$new_pkgbuild = array();
 		if (!$error) {
 			while (list($k, $v) = each($pkgbuild)) {
 				if (strpos($k,'eval ') !== false) {
@@ -265,10 +272,10 @@ if ($uid):
 			}
 		}
 
-		# Parse .AURINFO and overwrite PKGBUILD fields accordingly
-		unset($pkg_version);
-		$depends = array();
-		$srcinfo_pkgname_count = 0;
+		/* Parse .AURINFO and extract meta data. */
+		$pkgbase_info = array();
+		$pkginfo = array();
+		$section_info = array();
 		foreach (explode("\n", $srcinfo_raw) as $line) {
 			$line = trim($line);
 			if (empty($line) || $line[0] == '#') {
@@ -276,106 +283,157 @@ if ($uid):
 			}
 			list($key, $value) = explode(' = ', $line, 2);
 			switch ($key) {
+			case 'pkgbase':
 			case 'pkgname':
-				$srcinfo_pkgname_count++;
-				if ($srcinfo_pkgname_count > 1) {
-					$error = __("Error - The AUR does not support split packages!");
+				if (!empty($section_info)) {
+					if (isset($section_info['pkgbase'])) {
+						$pkgbase_info = $section_info;
+					} elseif (isset($section_info['pkgname'])) {
+						$pkginfo[] = array_merge($pkgbase_info, $section_info);
+					}
 				}
+				$section_info = array('depends' => array(), 'source' => array());
 				/* Fall-through case. */
+			case 'epoch':
 			case 'pkgdesc':
+			case 'pkgver':
+			case 'pkgrel':
 			case 'url':
 			case 'license':
-				$new_pkgbuild[$key] = $value;
+				$section_info[$key] = $value;
 				break;
-			case 'pkgver':
-				$pkg_version = $value;
-				break;
+			case 'source':
 			case 'depends':
-				$depends[] = $value;
+				$section_info[$key][] = $value;
 				break;
 			}
 		}
 
-		# Validate package name
+		if (!empty($section_info)) {
+			if (isset($section_info['pkgbase'])) {
+				$pkgbase_info = $section_info;
+			} elseif (isset($section_info['pkgname'])) {
+				$pkginfo[] = array_merge($pkgbase_info, $section_info);
+			}
+		} else {
+			/* Use data from the PKGBUILD parser (deprecated!) */
+			$pkgbase_info = $new_pkgbuild;
+			if (!isset($pkgbase_info['pkgbase'])) {
+				$pkgbase_info['pkgbase'] = $pkgbase_info['pkgname'];
+			}
+			if (empty($pkgbase_info['depends'])) {
+				$pkgbase_info['depends'] = array();
+			} else {
+				$pkgbase_info['depends'] = explode(" ", $pkgbase_info['depends']);
+			}
+			if (empty($pkgbase_info['source'])) {
+				$pkgbase_info['source'] = array();
+			} else {
+				$pkgbase_info['source'] = explode(" ", $pkgbase_info['source']);
+			}
+			$pkginfo[] = $pkgbase_info;
+		}
+
+		/* Validate package base name. */
 		if (!$error) {
-			$pkg_name = $new_pkgbuild['pkgname'];
-			if ($pkg_name[0] == '(') {
-				$error = __("Error - The AUR does not support split packages!");
-			} elseif (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name)) {
+			$pkgbase_name = $pkgbase_info['pkgbase'];
+			if (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkgbase_name)) {
 				$error = __("Invalid name: only lowercase letters are allowed.");
 			}
+
+			/* Check whether the package base already exists. */
+			$base_id = pkgbase_from_name($pkgbase_name);
 		}
 
-		# Determine the full package version with epoch
-		if (!$error && !isset($pkg_version)) {
-			if (isset($new_pkgbuild['epoch']) && (int)$new_pkgbuild['epoch'] > 0) {
-				$pkg_version = sprintf('%d:%s-%s', $new_pkgbuild['epoch'], $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
-			} else {
-				$pkg_version = sprintf('%s-%s', $new_pkgbuild['pkgver'], $new_pkgbuild['pkgrel']);
+		foreach ($pkginfo as $key => $pi) {
+			/* Bail out early if an error has occurred. */
+			if ($error) {
+				break;
 			}
-		}
 
-		# Check for http:// or other protocol in url
-		if (!$error) {
-			$parsed_url = parse_url($new_pkgbuild['url']);
+			/* Validate package names. */
+			$pkg_name = $pi['pkgname'];
+			if (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name)) {
+				$error = __("Invalid name: only lowercase letters are allowed.");
+				break;
+			}
+
+			/* Determine the full package versions with epoch. */
+			if (isset($pi['epoch']) && (int)$pi['epoch'] > 0) {
+				$pkginfo[$key]['full-version'] = sprintf('%d:%s-%s', $pi['epoch'], $pi['pkgver'], $pi['pkgrel']);
+			} else {
+				$pkginfo[$key]['full-version'] = sprintf('%s-%s', $pi['pkgver'], $pi['pkgrel']);
+			}
+
+			/* Check for http:// or other protocols in the URL. */
+			$parsed_url = parse_url($pi['url']);
 			if (!$parsed_url['scheme']) {
 				$error = __("Package URL is missing a protocol (ie. http:// ,ftp://)");
+				break;
 			}
-		}
 
-		# TODO: This is where other additional error checking can be
-		# performed. Examples: #md5sums == #sources?, md5sums of any
-		# included files match?, install scriptlet file exists?
-
-		# The DB schema imposes limitations on number of allowed characters
-		# Print error message when these limitations are exceeded
-		if (!$error) {
-			if (strlen($pkg_name) > 64) {
+			/*
+			 * The DB schema imposes limitations on number of
+			 * allowed characters. Print error message when these
+			 * limitations are exceeded.
+			 */
+			if (strlen($pi['pkgname']) > 64) {
 				$error = __("Error - Package name cannot be greater than %d characters", 64);
+				break;
 			}
-			if (strlen($new_pkgbuild['url']) > 255) {
+			if (strlen($pi['url']) > 255) {
 				$error = __("Error - Package URL cannot be greater than %d characters", 255);
+				break;
 			}
-			if (strlen($new_pkgbuild['pkgdesc']) > 255) {
+			if (strlen($pi['pkgdesc']) > 255) {
 				$error = __("Error - Package description cannot be greater than %d characters", 255);
+				break;
 			}
-			if (strlen($new_pkgbuild['license']) > 40) {
+			if (strlen($pi['license']) > 40) {
 				$error = __("Error - Package license cannot be greater than %d characters", 40);
+				break;
 			}
-			if (strlen($pkg_version) > 32) {
+			if (strlen($pkginfo[$key]['full-version']) > 32) {
 				$error = __("Error - Package version cannot be greater than %d characters", 32);
+				break;
+			}
+
+			/* Check if package name is blacklisted. */
+			if (!$base_id && pkgname_is_blacklisted($pi['pkgname']) && !canSubmitBlacklisted(account_from_sid($_COOKIE["AURSID"]))) {
+				$error = __( "%s is on the package blacklist, please check if it's available in the official repos.", $pi['pkgname']);
+				break;
 			}
 		}
 
-		if (isset($pkg_name)) {
-			$incoming_pkgdir = INCOMING_DIR . substr($pkg_name, 0, 2) . "/" . $pkg_name;
+		if (isset($pkgbase_name)) {
+			$incoming_pkgdir = INCOMING_DIR . substr($pkgbase_name, 0, 2) . "/" . $pkgbase_name;
 		}
 
+		/* Upload PKGBUILD and tarball. */
 		if (!$error) {
-			# First, see if this package already exists, and if it can be overwritten
-			$pkg_id = pkgid_from_name($pkg_name);
-			if (can_submit_pkgbase($pkg_name, $_COOKIE["AURSID"])) {
+			/*
+			 * First, check whether this package already exists and
+			 * whether it can be overwritten.
+			 */
+			if (can_submit_pkgbase($pkgbase_name, $_COOKIE["AURSID"])) {
 				if (file_exists($incoming_pkgdir)) {
-					# Blow away the existing file/dir and contents
+					/*
+					 * Blow away the existing directory and
+					 * its contents.
+					 */
 					rm_tree($incoming_pkgdir);
 				}
 
-				# The mode is masked by the current umask, so not as scary as it looks
+				/*
+				 * The mode is masked by the current umask, so
+				 * not as scary as it looks.
+				 */
 				if (!mkdir($incoming_pkgdir, 0777, true)) {
 					$error = __( "Could not create directory %s.", $incoming_pkgdir);
 				}
 			} else {
 				$error = __( "You are not allowed to overwrite the %s%s%s package.", "<strong>", $pkg_name, "</strong>");
 			}
-
-		if (!$error) {
-			# Check if package name is blacklisted.
-			if (!$pkg_id && pkgname_is_blacklisted($pkg_name)) {
-				if (!canSubmitBlacklisted(account_from_sid($_COOKIE["AURSID"]))) {
-					$error = __( "%s is on the package blacklist, please check if it's available in the official repos.", $pkg_name);
-				}
-			}
-		}
 		}
 
 		if (!$error) {
@@ -384,95 +442,74 @@ if ($uid):
 			}
 
 			file_put_contents('PKGBUILD', $pkgbuild_raw);
-			move_uploaded_file($_FILES['pfile']['tmp_name'], $pkg_name . '.tar.gz');
+			move_uploaded_file($_FILES['pfile']['tmp_name'], $pkgbase_name . '.tar.gz');
 		}
 
-		# Update the backend database
+		/* Update the backend database. */
 		if (!$error) {
 			begin_atomic_commit();
 
-			$pdata = pkgdetails_by_pkgname($new_pkgbuild['pkgname']);
-
-			# Check the category to use, "1" meaning "none" (or "keep category" for
-			# existing packages).
+			/*
+			 * Check the category to use, "1" meaning "none" (or
+			 * "keep category" for existing packages).
+			 */
 			if (isset($_POST['category'])) {
-				$category_id = intval($_POST['category']);
-				if ($category_id <= 0) {
-					$category_id = 1;
-				}
-			}
-			else {
+				$category_id = max(1, intval($_POST['category']));
+			} else {
 				$category_id = 1;
 			}
 
-			if ($pdata) {
-				# This is an overwrite of an existing package, the database ID
-				# needs to be preserved so that any votes are retained. However,
-				# PackageDepends and PackageSources can be purged.
-				$pkgid = $pdata["ID"];
-				$base_id = pkgbase_from_pkgid($pkgid);
+			if ($base_id) {
+				/*
+				 * This is an overwrite of an existing package
+				 * base, the database ID needs to be preserved
+				 * so that any votes are retained.
+				 */
+				$was_orphan = (pkgbase_maintainer_uid($base_id) === NULL);
 
-				# Flush out old data that will be replaced with new data
-				remove_pkg_deps($pkgid);
-				remove_pkg_sources($pkgid);
+				update_pkgbase($base_id, $pkgbase_info['pkgbase'], $uid);
 
-				# If a new category was chosen, change it to that
 				if ($category_id > 1) {
 					update_pkgbase_category($base_id, $category_id);
 				}
 
-				# Update package base and package data
-				update_pkgbase($base_id, $new_pkgbuild['pkgname'], $uid);
-				update_pkg($pkgid, $new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url']);
+				pkgbase_delete_packages($base_id);
 			} else {
-				# This is a brand new package
-				$base_id = create_pkgbase($new_pkgbuild['pkgname'], $category_id, $uid);
-				$pkgid = create_pkg($base_id, $new_pkgbuild['pkgname'], $new_pkgbuild['license'], $pkg_version, $new_pkgbuild['pkgdesc'], $new_pkgbuild['url']);
+				/* This is a brand new package. */
+				$was_orphan = true;
+				$base_id = create_pkgbase($pkgbase_name, $category_id, $uid);
 			}
 
-			# Update package depends
-			if (empty($depends) && !empty($new_pkgbuild['depends'])) {
-				$depends = explode(" ", $new_pkgbuild['depends']);
-			}
-			if (!empty($depends)) {
-				foreach ($depends as $dep) {
-					$deppkgname = preg_replace("/(<|<=|=|>=|>).*/", "", $dep);
+			foreach ($pkginfo as $pi) {
+				$pkgid = create_pkg($base_id, $pi['pkgname'], $pi['license'], $pi['full-version'], $pi['pkgdesc'], $pi['url']);
+
+				foreach ($pi['depends'] as $dep) {
+					$deppkgname = preg_replace("/(<|=|>).*/", "", $dep);
 					$depcondition = str_replace($deppkgname, "", $dep);
-
-					if ($deppkgname == "") {
-						continue;
-					}
-					else if ($deppkgname == "#") {
-						break;
-					}
 					add_pkg_dep($pkgid, $deppkgname, $depcondition);
 				}
-			}
 
-			# Insert sources
-			if (!empty($new_pkgbuild['source'])) {
-				$sources = explode(" ", $new_pkgbuild['source']);
-				foreach ($sources as $src) {
+				foreach ($pi['source'] as $src) {
 					add_pkg_src($pkgid, $src);
 				}
 			}
 
-			# If we just created this package, or it was an orphan and we
-			# auto-adopted, add submitting user to the notification list.
-			if (!$pdata || $pdata["MaintainerUID"] === NULL) {
-				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($pkgid), true);
+			/*
+			 * If we just created this package, or it was an orphan
+			 * and we auto-adopted, add submitting user to the
+			 * notification list.
+			 */
+			if ($was_orphan) {
+				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($base_id), true);
 			}
 
-			# Entire package creation process is atomic
 			end_atomic_commit();
 
-			header('Location: ' . get_pkg_uri($pkg_name));
+			header('Location: ' . get_pkg_uri($pi[0]['pkgname']));
 		}
 
 		chdir($cwd);
 	}
-
-# Logic over, let's do some output
 
 html_header("Submit");
 

@@ -815,6 +815,33 @@ function pkgbase_name_from_id($base_id) {
 	return $result->fetch(PDO::FETCH_COLUMN, 0);
 }
 
+/**
+ * Delete all packages belonging to a package base
+ *
+ * @param int $base_id The ID of the package base
+ *
+ * @return void
+ */
+function pkgbase_delete_packages($base_id) {
+	$dbh = DB::connect();
+	$q = "DELETE FROM Packages WHERE PackageBaseID = " . intval($base_id);
+	$dbh->exec($q);
+}
+
+/**
+ * Retrieve the maintainer of a package base given its ID
+ *
+ * @param int $base_id The ID of the package base to query
+ *
+ * @return int The user ID of the current package maintainer
+ */
+function pkgbase_maintainer_uid($base_id) {
+	$dbh = DB::connect();
+	$q = "SELECT MaintainerUID FROM PackageBases WHERE ID = " . intval($base_id);
+	$result = $dbh->query($q);
+	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
 
 /**
  * Flag package(s) as out-of-date
