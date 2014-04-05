@@ -2,11 +2,10 @@
 $uid = uid_from_sid($SID);
 $base_id = pkgbase_from_pkgid($row['ID']);
 $count = package_comments_count($base_id);
-$pkgname = $row['Name'];
 ?>
 <div id="news">
 	<h3>
-		<a href="<?= htmlentities(get_pkg_uri($pkgname), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all %s comments' , $count) ?>"><?= __('Latest Comments') ?></a>
+		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all %s comments' , $count) ?>"><?= __('Latest Comments') ?></a>
 		<span class="arrow"></span>
 	</h3>
 
@@ -16,7 +15,7 @@ $pkgname = $row['Name'];
 		endif; ?>
 		<h4>
 			<?php if (canDeleteCommentArray($row, $atype, $uid)): ?>
-				<form method="post" action="<?= htmlspecialchars(get_pkg_uri($pkgname), ENT_QUOTES); ?>">
+				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />
 						<input type="hidden" name="comment_id" value="<?= $row['ID'] ?>" />
@@ -49,7 +48,7 @@ $pkgname = $row['Name'];
 <?php if ($count > 10 && !isset($_GET['comments'])): ?>
 <div id="news">
 	<h3>
-		<a href="<?= htmlentities(get_pkg_uri($pkgname), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all %s comments', $count) ?>"><?= __('All comments', $count) ?></a>
+		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all %s comments', $count) ?>"><?= __('All comments', $count) ?></a>
 	</h3>
 </div>
 <?php endif; ?>

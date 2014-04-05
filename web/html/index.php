@@ -20,6 +20,22 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			include "./404.php";
 			return;
 		}
+	}
+
+	include get_route('/' . $tokens[1]);
+} elseif (!empty($tokens[1]) && '/' . $tokens[1] == get_pkgbase_route()) {
+	if (!empty($tokens[2])) {
+		/* TODO: Create a proper data structure to pass variables from
+		 * the routing framework to the individual pages instead of
+		 * initializing arbitrary variables here. */
+		$pkgbase_name = $tokens[2];
+		$base_id = pkgbase_from_name($pkgbase_name);
+
+		if (!$base_id) {
+			header("HTTP/1.0 404 Not Found");
+			include "./404.php";
+			return;
+		}
 
 		if (!empty($tokens[3])) {
 			/* TODO: Remove support for legacy URIs and move these
@@ -65,23 +81,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				return;
 			}
 
-			$_POST['IDs'] = array(pkgid_from_name($tokens[2]) => '1');
-		}
-	}
-
-	include get_route('/' . $tokens[1]);
-} elseif (!empty($tokens[1]) && '/' . $tokens[1] == get_pkgbase_route()) {
-	if (!empty($tokens[2])) {
-		/* TODO: Create a proper data structure to pass variables from
-		 * the routing framework to the individual pages instead of
-		 * initializing arbitrary variables here. */
-		$pkgbase_name = $tokens[2];
-		$base_id = pkgbase_from_name($pkgbase_name);
-
-		if (!$base_id) {
-			header("HTTP/1.0 404 Not Found");
-			include "./404.php";
-			return;
+			$_POST['IDs'] = array(pkgbase_from_name($tokens[2]) => '1');
 		}
 	}
 

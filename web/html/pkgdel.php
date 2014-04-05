@@ -18,17 +18,17 @@ if (isset($_COOKIE["AURSID"])) {
 
 if ($atype == "Trusted User" || $atype == "Developer"): ?>
 <div class="box">
-	<h2><?= __('Delete Package: %s', htmlspecialchars($pkgname)) ?></h2>
+	<h2><?= __('Delete Package: %s', htmlspecialchars($pkgbase_name)) ?></h2>
 	<p>
 		<?= __('Use this form to delete the package (%s%s%s) from the AUR. ',
-			'<strong>', htmlspecialchars($pkgname), '</strong>'); ?>
+			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>
 		<?= __('Deletion of a package is permanent. '); ?>
 		<?= __('Select the checkbox to confirm action.') ?>
 	</p>
-	<form action="<?= get_uri('/packages/'); ?>" method="post">
+	<form action="<?= get_uri('/pkgbase/'); ?>" method="post">
 		<fieldset>
-			<input type="hidden" name="IDs[<?= $pkgid ?>]" value="1" />
-			<input type="hidden" name="ID" value="<?= $pkgid ?>" />
+			<input type="hidden" name="IDs[<?= $base_id ?>]" value="1" />
+			<input type="hidden" name="ID" value="<?= $base_id ?>" />
 			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 			<p><input type="checkbox" name="confirm_Delete" value="1" />
 			<?= __("Confirm package deletion") ?></p>

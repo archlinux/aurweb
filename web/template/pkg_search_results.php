@@ -28,7 +28,7 @@ if (!$result): ?>
 			<?php endif; ?>
 		</div>
 
-		<form id="pkglist-results-form" method="post" action="<?= get_uri('/packages/'); ?>?<?= htmlentities($_SERVER['QUERY_STRING']) ?>">
+		<form id="pkglist-results-form" method="post" action="<?= get_uri('/pkgbase/'); ?>?<?= htmlentities($_SERVER['QUERY_STRING']) ?>">
 			<table class="results">
 			<thead>
 				<tr>
@@ -52,7 +52,7 @@ if (!$result): ?>
 	<?php while (list($indx, $row) = each($searchresults)): ?>
 		<tr class="<?= ($indx % 2 == 0) ? 'odd' : 'even' ?>">
 		<?php if ($SID): ?>
-		<td><input type="checkbox" name="IDs[<?= $row["ID"] ?>]" value="1" /></td>
+		<td><input type="checkbox" name="IDs[<?= $row["PackageBaseID"] ?>]" value="1" /></td>
 		<?php endif; ?>
 		<td><?= htmlspecialchars($row["Category"]) ?></td>
 		<td><a href="<?= htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) ?></a></td>

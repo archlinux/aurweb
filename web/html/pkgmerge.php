@@ -18,18 +18,18 @@ if (isset($_COOKIE["AURSID"])) {
 
 if ($atype == "Trusted User" || $atype == "Developer"): ?>
 <div class="box">
-	<h2><?= __('Merge Package: %s', htmlspecialchars($pkgname)) ?></h2>
+	<h2><?= __('Merge Package: %s', htmlspecialchars($pkgbase_name)) ?></h2>
 	<p>
 		<?= __('Use this form to merge the package (%s%s%s) into another package. ',
-			'<strong>', htmlspecialchars($pkgname), '</strong>'); ?>
+			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>
 		<?= __('Once the package has been merged it cannot be reversed. '); ?>
 		<?= __('Enter the package name you wish to merge the package into. '); ?>
 		<?= __('Select the checkbox to confirm action.') ?>
 	</p>
-	<form action="<?= get_uri('/packages/'); ?>" method="post">
+	<form action="<?= get_uri('/pkgbase/'); ?>" method="post">
 		<fieldset>
-			<input type="hidden" name="IDs[<?= $pkgid ?>]" value="1" />
-			<input type="hidden" name="ID" value="<?= $pkgid ?>" />
+			<input type="hidden" name="IDs[<?= $base_id ?>]" value="1" />
+			<input type="hidden" name="ID" value="<?= $base_id ?>" />
 			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 			<p><label for="merge_Into" ><?= __("Merge into:") ?></label>
 			<input type="text" id="merge_Into" name="merge_Into" /></p>

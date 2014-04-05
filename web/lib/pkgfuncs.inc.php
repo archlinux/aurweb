@@ -500,6 +500,9 @@ function display_package_details($id=0, $row, $SID="") {
 		print "<p>" . $row['error'] . "</p>\n";
 	}
 	else {
+		$base_id = pkgbase_from_pkgid($id);
+		$pkgbase_name = pkgbase_name_from_id($base_id);
+
 		include('pkg_details.php');
 
 		if ($SID) {
@@ -507,7 +510,6 @@ function display_package_details($id=0, $row, $SID="") {
 			include('pkg_comment_form.php');
 		}
 
-		$base_id = pkgbase_from_pkgid($id);
 		$comments = package_comments($base_id);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
@@ -536,6 +538,8 @@ function display_pkgbase_details($base_id, $row, $SID="") {
 		print "<p>" . $row['error'] . "</p>\n";
 	}
 	else {
+		$pkgbase_name = pkgbase_name_from_id($base_id);
+
 		include('pkgbase_details.php');
 
 		if ($SID) {
@@ -641,7 +645,8 @@ function pkg_search_page($SID="") {
 	$q_select .= "Users.Username AS Maintainer,
 	PackageCategories.Category,
 	Packages.Name, Packages.Version, Packages.Description,
-	PackageBases.NumVotes, Packages.ID, PackageBases.OutOfDateTS ";
+	PackageBases.NumVotes, Packages.ID, Packages.PackageBaseID,
+	PackageBases.OutOfDateTS ";
 
 	$q_from = "FROM Packages
 	LEFT JOIN PackageBases ON (PackageBases.ID = Packages.PackageBaseID)
@@ -941,20 +946,19 @@ function pkgbase_maintainer_uid($base_id) {
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to flag/unflag
+ * @param array $base_ids Array of package base IDs to flag/unflag
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkg_flag($atype, $ids) {
+function pkg_flag($atype, $base_ids) {
 	global $AUR_LOCATION;
 
 	if (!$atype) {
 		return array(false, __("You must be logged in before you can flag packages."));
 	}
 
-	$ids = sanitize_ids($ids);
-	$base_ids = pkgbase_from_pkgid($ids);
-	if (empty($ids)) {
+	$base_ids = pkgbase_from_pkgid($base_ids);
+	if (empty($base_ids)) {
 		return array(false, __("You did not select any packages to flag."));
 	}
 
@@ -972,10 +976,10 @@ function pkg_flag($atype, $ids) {
 		$f_name = username_from_sid($_COOKIE['AURSID']);
 		$f_email = email_from_sid($_COOKIE['AURSID']);
 		$f_uid = uid_from_sid($_COOKIE['AURSID']);
-		$q = "SELECT Packages.Name, Users.Email, Packages.ID ";
-		$q.= "FROM Packages, Users ";
-		$q.= "WHERE Packages.ID IN (" . implode(",", $ids) .") ";
-		$q.= "AND Users.ID = Packages.MaintainerUID ";
+		$q = "SELECT PackageBases.Name, Users.Email ";
+		$q.= "FROM PackageBases, Users ";
+		$q.= "WHERE PackageBases.ID IN (" . implode(",", $base_ids) .") ";
+		$q.= "AND Users.ID = PackageBases.MaintainerUID ";
 		$q.= "AND Users.ID != " . $f_uid;
 		$result = $dbh->query($q);
 		if ($result) {
@@ -1000,18 +1004,17 @@ function pkg_flag($atype, $ids) {
  * Unflag package(s) as out-of-date
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to flag/unflag
+ * @param array $base_ids Array of package base IDs to flag/unflag
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkg_unflag($atype, $ids) {
+function pkg_unflag($atype, $base_ids) {
 	if (!$atype) {
 		return array(false, __("You must be logged in before you can unflag packages."));
 	}
 
-	$ids = sanitize_ids($ids);
-	$base_ids = pkgbase_from_pkgid($ids);
-	if (empty($ids)) {
+	$base_ids = pkgbase_from_pkgid($base_ids);
+	if (empty($base_ids)) {
 		return array(false, __("You did not select any packages to unflag."));
 	}
 
@@ -1144,12 +1147,12 @@ function pkg_delete ($atype, $base_ids, $merge_base_id) {
  * Adopt or disown packages
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to adopt/disown
+ * @param array $base_ids Array of package base IDs to adopt/disown
  * @param bool $action Adopts if true, disowns if false. Adopts by default
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkg_adopt ($atype, $ids, $action=true) {
+function pkg_adopt ($atype, $base_ids, $action=true) {
 	if (!$atype) {
 		if ($action) {
 			return array(false, __("You must be logged in before you can adopt packages."));
@@ -1158,9 +1161,8 @@ function pkg_adopt ($atype, $ids, $action=true) {
 		}
 	}
 
-	$pkg_ids = sanitize_ids($ids);
-	$ids = pkgbase_from_pkgid($pkg_ids);
-	if (empty($ids)) {
+	$base_ids = sanitize_ids($base_ids);
+	if (empty($base_ids)) {
 		if ($action) {
 			return array(false, __("You did not select any packages to adopt."));
 		} else {
@@ -1180,7 +1182,7 @@ function pkg_adopt ($atype, $ids, $action=true) {
 	}
 
 	$q.= "SET $field = $user ";
-	$q.= "WHERE ID IN (" . implode(",", $ids) . ") ";
+	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
 
 	if ($action && $atype == "User") {
 		/* Regular users may only adopt orphan packages. */
@@ -1203,12 +1205,12 @@ function pkg_adopt ($atype, $ids, $action=true) {
  * Vote and un-vote for packages
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to vote/un-vote
+ * @param array $base_ids Array of package base IDs to vote/un-vote
  * @param bool $action Votes if true, un-votes if false. Votes by default
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkg_vote ($atype, $ids, $action=true) {
+function pkg_vote ($atype, $base_ids, $action=true) {
 	if (!$atype) {
 		if ($action) {
 			return array(false, __("You must be logged in before you can vote for packages."));
@@ -1217,9 +1219,8 @@ function pkg_vote ($atype, $ids, $action=true) {
 		}
 	}
 
-	$ids = sanitize_ids($ids);
-	$base_ids = pkgbase_from_pkgid($ids);
-	if (empty($ids)) {
+	$base_ids = sanitize_ids($base_ids);
+	if (empty($base_ids)) {
 		if ($action) {
 			return array(false, __("You did not select any packages to vote for."));
 		} else {
@@ -1360,18 +1361,17 @@ function user_notify($uid, $base_id) {
  * Toggle notification of packages
  *
  * @param string $atype Account type, output of account_from_sid
- * @param array $ids Array of package IDs to toggle, formatted as $package_id
+ * @param array $base_ids Array of package base IDs to toggle
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkg_notify ($atype, $ids, $action=true) {
+function pkg_notify ($atype, $base_ids, $action=true) {
 	if (!$atype) {
 		return;
 	}
 
-	$ids = sanitize_ids($ids);
-	$base_ids = pkgbase_from_pkgid($ids);
-	if (empty($ids)) {
+	$base_ids = sanitize_ids($base_ids);
+	if (empty($base_ids)) {
 		return array(false, __("Couldn't add to notification list."));
 	}
 

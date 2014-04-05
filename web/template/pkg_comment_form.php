@@ -1,6 +1,6 @@
 <div id="generic-form" class="box">
 	<h2><?= __("Add Comment"); ?></h2>
-	<form action="<?= get_pkg_uri($row['Name']) ?>" method="post">
+	<form action="<?= get_pkgbase_uri($pkgbase_name) ?>" method="post">
 		<fieldset>
 <?php
 if (isset($_REQUEST['comment']) && check_token()) {
@@ -8,7 +8,7 @@ if (isset($_REQUEST['comment']) && check_token()) {
 }
 ?>
 			<div>
-				<input type="hidden" name="ID" value="<?= intval($row['ID']) ?>" />
+				<input type="hidden" name="ID" value="<?= intval($base_id) ?>" />
 				<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 			</div>
 			<p>

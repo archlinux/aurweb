@@ -20,7 +20,7 @@ $updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($r
 $submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["SubmittedTS"]));
 $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
 
-$urlpath = URL_DIR . substr($row['Name'], 0, 2) . "/" . $row['Name'];
+$urlpath = URL_DIR . substr($row['BaseName'], 0, 2) . "/" . $row['BaseName'];
 
 $deps = package_dependencies($row["ID"]);
 $requiredby = package_required($row["Name"]);
@@ -35,12 +35,12 @@ $sources = package_sources($row["ID"]);
 			<h4><?= __('Package Actions') ?></h4>
 			<ul class="small">
 				<li><a href="<?= $urlpath ?>/PKGBUILD"><?= __('View PKGBUILD') ?></a></li>
-				<li><a href="<?= $urlpath . '/' . $row['Name'] ?>.tar.gz"><?= __('Download tarball') ?></a></li>
+				<li><a href="<?= $urlpath . '/' . $row['BaseName'] ?>.tar.gz"><?= __('Download tarball') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
 				<?php if ($USE_VIRTUAL_URLS && $uid): ?>
 				<?php if ($row["OutOfDateTS"] === NULL): ?>
 				<li>
-					<form action="<?= get_pkg_uri($row['Name']) . 'flag/'; ?>" method="post">
+					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'flag/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_Flag" value="<?= __('Flag package out-of-date') ?>" />
 					</form>
@@ -48,7 +48,7 @@ $sources = package_sources($row["ID"]);
 				<?php elseif (($row["OutOfDateTS"] !== NULL) &&
 				($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
 				<li>
-					<form action="<?= get_pkg_uri($row['Name']) . 'unflag/'; ?>" method="post">
+					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unflag/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_UnFlag" value="<?= __('Unflag package') ?>" />
 					</form>
@@ -56,14 +56,14 @@ $sources = package_sources($row["ID"]);
 				<?php endif; ?>
 				<?php if (user_voted($uid, $row['ID'])): ?>
 				<li>
-					<form action="<?= get_pkg_uri($row['Name']) . 'unvote/'; ?>" method="post">
+					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unvote/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_UnVote" value="<?= __('Remove vote') ?>" />
 					</form>
 				</li>
 				<?php else: ?>
 				<li>
-					<form action="<?= get_pkg_uri($row['Name']) . 'vote/'; ?>" method="post">
+					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'vote/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_Vote" value="<?= __('Vote for this package') ?>" />
 					</form>
@@ -71,28 +71,28 @@ $sources = package_sources($row["ID"]);
 				<?php endif; ?>
 				<?php if (user_notify($uid, $row['ID'])): ?>
 				<li>
-					<form action="<?= get_pkg_uri($row['Name']) . 'unnotify/'; ?>" method="post">
+					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unnotify/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_UnNotify" value="<?= __('Disable notifications') ?>" />
 					</form>
 				</li>
 				<?php else: ?>
 				<li>
-					<form action="<?= get_pkg_uri($row['Name']) . 'notify/'; ?>" method="post">
+					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'notify/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_Notify" value="<?= __('Notify of new comments') ?>" />
 					</form>
 				</li>
 				<?php endif; ?>
 				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
-				<li><a href="<?= get_pkg_uri($row['Name']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
-				<li><a href="<?= get_pkg_uri($row['Name']) . 'merge/'; ?>"><?= __('Merge Package'); ?></a></li>
+				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
+				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'merge/'; ?>"><?= __('Merge Package'); ?></a></li>
 				<?php endif; ?>
 				<?php endif; ?>
 
 				<?php if ($uid && $row["MaintainerUID"] === NULL): ?>
 				<li>
-					<form action="<?= get_pkg_uri($row['Name']) . 'adopt/'; ?>" method="post">
+					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'adopt/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_Adopt" value="<?= __('Adopt Package') ?>" />
 					</form>
@@ -100,7 +100,7 @@ $sources = package_sources($row["ID"]);
 				<?php elseif ($uid && $uid == $row["MaintainerUID"] ||
 					$atype == "Trusted User" || $atype == "Developer"): ?>
 				<li>
-					<form action="<?= get_pkg_uri($row['Name']) . 'disown/'; ?>" method="post">
+					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'disown/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<input type="submit" class="button text-button" name="do_Disown" value="<?= __('Disown Package') ?>" />
 					</form>
@@ -130,7 +130,7 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 	($atype == "Developer" || $atype == "Trusted User"))):
 ?>
 			<td>
-				<form method="post" action="<?= htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>">
+				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($row['BaseName']), ENT_QUOTES); ?>">
 					<div>
 						<input type="hidden" name="action" value="do_ChangeCategory" />
 						<?php if ($SID): ?>
@@ -196,9 +196,9 @@ if ($row["MaintainerUID"]):
 			<th><?= __('Votes') . ': ' ?></th>
 <?php if ($atype == "Developer" || $atype == "Trusted User"): ?>
 <?php if ($USE_VIRTUAL_URLS): ?>
-			<td><a href="<?= get_pkg_uri($row['Name']); ?>voters/"><?= $votes ?></a></td>
+			<td><a href="<?= get_pkgbase_uri($row['BaseName']); ?>voters/"><?= $votes ?></a></td>
 <?php else: ?>
-			<td><a href="<?= get_uri('/voters/'); ?>?N=<?= htmlspecialchars($row['Name'], ENT_QUOTES) ?>"><?= $votes ?></a></td>
+			<td><a href="<?= get_uri('/voters/'); ?>?N=<?= htmlspecialchars($row['BaseName'], ENT_QUOTES) ?>"><?= $votes ?></a></td>
 <?php endif; ?>
 <?php else: ?>
 			<td><?= $votes ?></td>
