@@ -73,7 +73,11 @@ if (!$result): ?>
 		<td class="wrap"><?= htmlspecialchars($row['Description'], ENT_QUOTES); ?></td>
 		<td>
 		<?php if (isset($row["Maintainer"])): ?>
+		<?php if ($SID): ?>
+		<a href="<?= get_uri('/account/') . htmlspecialchars($row['Maintainer'], ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($row['Maintainer'])) ?>"><?= htmlspecialchars($row['Maintainer']) ?></a>
+		<?php else: ?>
 		<a href="<?= get_uri('/packages/'); ?>?K=<?= htmlspecialchars($row['Maintainer'], ENT_QUOTES) ?>&amp;SeB=m"><?= htmlspecialchars($row['Maintainer']) ?></a>
+		<?php endif; ?>
 		<?php else: ?>
 		<span><?= __("orphan") ?></span>
 		<?php endif; ?>
