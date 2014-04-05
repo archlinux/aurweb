@@ -25,28 +25,26 @@ function pkgbase_categories() {
 /**
  * Get the number of non-deleted comments for a specific package base
  *
- * @param string $pkgid The package base ID to get comment count for
+ * @param string $base_id The package base ID to get comment count for
  *
  * @return string The number of comments left for a specific package
  */
 function pkgbase_comments_count($base_id) {
-	$dbh = DB::connect();
-
 	$base_id = intval($base_id);
-	if ($base_id > 0) {
-		$dbh = DB::connect();
-		$q = "SELECT COUNT(*) FROM PackageComments ";
-		$q.= "WHERE PackageBaseID = " . $base_id;
-		$q.= " AND DelUsersID IS NULL";
+	if (!$base_id) {
+		return null;
 	}
+
+	$dbh = DB::connect();
+	$q = "SELECT COUNT(*) FROM PackageComments ";
+	$q.= "WHERE PackageBaseID = " . $base_id . " ";
+	$q.= "AND DelUsersID IS NULL";
 	$result = $dbh->query($q);
-
 	if (!$result) {
-		return;
+		return null;
 	}
 
-	$row = $result->fetch(PDO::FETCH_NUM);
-	return $row[0];
+	return $result->fetchColumn(0);
 }
 
 /**
