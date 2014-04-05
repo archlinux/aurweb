@@ -20,8 +20,16 @@ if ($atype == "Trusted User" || $atype == "Developer"): ?>
 <div class="box">
 	<h2><?= __('Merge Package: %s', htmlspecialchars($pkgbase_name)) ?></h2>
 	<p>
-		<?= __('Use this form to merge the package (%s%s%s) into another package. ',
+		<?= __('Use this form to merge the package base %s%s%s into another package. ',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>
+		<?= __('The following packages will be deleted: '); ?>
+	</p>
+	<ul>
+		<?php foreach(pkgbase_get_pkgnames($base_id) as $pkgname): ?>
+		<li><?= htmlspecialchars($pkgname) ?></li>
+		<?php endforeach; ?>
+	</ul>
+	<p>
 		<?= __('Once the package has been merged it cannot be reversed. '); ?>
 		<?= __('Enter the package name you wish to merge the package into. '); ?>
 		<?= __('Select the checkbox to confirm action.') ?>

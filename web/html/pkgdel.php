@@ -20,8 +20,15 @@ if ($atype == "Trusted User" || $atype == "Developer"): ?>
 <div class="box">
 	<h2><?= __('Delete Package: %s', htmlspecialchars($pkgbase_name)) ?></h2>
 	<p>
-		<?= __('Use this form to delete the package (%s%s%s) from the AUR. ',
+		<?= __('Use this form to delete the package base %s%s%s and the following packages from the AUR: ',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>
+	</p>
+	<ul>
+		<?php foreach(pkgbase_get_pkgnames($base_id) as $pkgname): ?>
+		<li><?= htmlspecialchars($pkgname) ?></li>
+		<?php endforeach; ?>
+	</ul>
+	<p>
 		<?= __('Deletion of a package is permanent. '); ?>
 		<?= __('Select the checkbox to confirm action.') ?>
 	</p>
