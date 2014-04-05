@@ -135,7 +135,7 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 		 * user who posted the comment was in.
 		 */
 		$body =
-		'from ' . $AUR_LOCATION . get_pkg_uri($row['Name']) . "\n"
+		'from ' . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n"
 		. username_from_sid($_COOKIE['AURSID']) . " wrote:\n\n"
 		. $comment
 		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
@@ -384,7 +384,7 @@ function pkgbase_flag($atype, $base_ids) {
 		$result = $dbh->query($q);
 		if ($result) {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . get_pkg_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . get_user_uri($f_name);
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . get_user_uri($f_name);
 				$body = wordwrap($body, 70);
 				$headers = "MIME-Version: 1.0\r\n" .
 					   "Content-type: text/plain; charset=UTF-8\r\n" .
@@ -594,7 +594,7 @@ function pkgbase_adopt ($atype, $base_ids, $action=true) {
 	$dbh->exec($q);
 
 	if ($action) {
-		pkgbase_notify(account_from_sid($_COOKIE["AURSID"]), $pkg_ids);
+		pkgbase_notify(account_from_sid($_COOKIE["AURSID"]), $base_ids);
 		return array(true, __("The selected packages have been adopted."));
 	} else {
 		return array(true, __("The selected packages have been disowned."));
