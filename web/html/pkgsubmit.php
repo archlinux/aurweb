@@ -410,33 +410,35 @@ if ($uid):
 		}
 
 		/* Upload PKGBUILD and tarball. */
-		if (!$error) {
-			/*
-			 * First, check whether this package already exists and
-			 * whether it can be overwritten.
-			 */
-			if (can_submit_pkgbase($pkgbase_name, $_COOKIE["AURSID"])) {
-				if (file_exists($incoming_pkgdir)) {
-					/*
-					 * Blow away the existing directory and
-					 * its contents.
-					 */
-					rm_tree($incoming_pkgdir);
-				}
+		if (!$error && !can_submit_pkgbase($pkgbase_name, $_COOKIE["AURSID"])) {
+			$error = __( "You are not allowed to overwrite the %s%s%s package.", "<strong>", $pkgbase_name, "</strong>");
+		}
 
-				/*
-				 * The mode is masked by the current umask, so
-				 * not as scary as it looks.
-				 */
-				if (!mkdir($incoming_pkgdir, 0777, true)) {
-					$error = __( "Could not create directory %s.", $incoming_pkgdir);
+		if (!$error) {
+			foreach ($pkginfo as $pi) {
+				if (!can_submit_pkg($pi['pkgname'], $base_id)) {
+					$error = __( "You are not allowed to overwrite the %s%s%s package.", "<strong>", $pi['pkgname'], "</strong>");
+					break;
 				}
-			} else {
-				$error = __( "You are not allowed to overwrite the %s%s%s package.", "<strong>", $pkg_name, "</strong>");
 			}
 		}
 
 		if (!$error) {
+			/*
+			 * Blow away the existing directory and its contents.
+			 */
+			if (file_exists($incoming_pkgdir)) {
+				rm_tree($incoming_pkgdir);
+			}
+
+			/*
+			 * The mode is masked by the current umask, so not as
+			 * scary as it looks.
+			 */
+			if (!mkdir($incoming_pkgdir, 0777, true)) {
+				$error = __( "Could not create directory %s.", $incoming_pkgdir);
+			}
+
 			if (!chdir($incoming_pkgdir)) {
 				$error = __("Could not change directory to %s.", $incoming_pkgdir);
 			}

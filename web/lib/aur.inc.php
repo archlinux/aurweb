@@ -313,6 +313,25 @@ function can_submit_pkgbase($name="", $sid="") {
 }
 
 /**
+ * Determine if a package can be overwritten by some package base
+ *
+ * @param string $name Name of the package to be submitted
+ * @param int $base_id The ID of the package base
+ *
+ * @return bool True if the package can be overwritten, false if not
+ */
+function can_submit_pkg($name, $base_id) {
+	$dbh = DB::connect();
+	$q = "SELECT COUNT(*) FROM Packages WHERE ";
+	$q.= "Name = " . $dbh->quote($name) . " AND ";
+	$q.= "PackageBaseID <> " . intval($base_id);
+	$result = $dbh->query($q);
+
+	if (!$result) return false;
+	return ($result->fetchColumn() == 0);
+}
+
+/**
  * Recursively delete a directory
  *
  * @param string $dirname Name of the directory to be removed
