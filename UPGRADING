@@ -18,6 +18,130 @@ ALTER TABLE PackageComments
 	ADD FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE SET NULL;
 ----
 
+3. Create the PackageBases table:
+
+----
+CREATE TABLE PackageBases (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	CategoryID TINYINT UNSIGNED NOT NULL DEFAULT 1,
+	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
+	OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL,
+	SubmittedTS BIGINT UNSIGNED NOT NULL,
+	ModifiedTS BIGINT UNSIGNED NOT NULL,
+	SubmitterUID INTEGER UNSIGNED NULL DEFAULT NULL,
+	MaintainerUID INTEGER UNSIGNED NULL DEFAULT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name),
+	INDEX (CategoryID),
+	INDEX (NumVotes),
+	INDEX (SubmitterUID),
+	INDEX (MaintainerUID),
+	FOREIGN KEY (CategoryID) REFERENCES PackageCategories(ID) ON DELETE NO ACTION,
+	-- deleting a user will cause packages to be orphaned, not deleted
+	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE SET NULL,
+	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL
+) ENGINE = InnoDB;
+----
+
+4. Migrate data from Packages to PackageBases:
+
+----
+INSERT INTO PackageBases SELECT ID, Name, CategoryID, NumVotes, OutOfDateTS,
+	SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID FROM Packages;
+----
+
+5. Delete unneeded foreign keys from Packages:
+
+First, drop the foreign keys on CategoryID, SubmitterUID and MaintainerUID. The
+following queries should work in most cases:
+
+----
+ALTER TABLE Packages
+	DROP FOREIGN KEY Packages_ibfk_1,
+	DROP FOREIGN KEY Packages_ibfk_2,
+	DROP FOREIGN KEY Packages_ibfk_3;
+----
+
+You can use `SHOW CREATE TABLE Packages;` to check whether you should use
+different names for your setup.
+
+6. Delete unneeded fields from Packages:
+
+----
+ALTER TABLE Packages
+	DROP COLUMN CategoryID,
+	DROP COLUMN NumVotes,
+	DROP COLUMN OutOfDateTS,
+	DROP COLUMN SubmittedTS,
+	DROP COLUMN ModifiedTS,
+	DROP COLUMN SubmitterUID,
+	DROP COLUMN MaintainerUID;
+----
+
+7. Add package base references to the Packages table:
+
+----
+ALTER TABLE Packages
+	ADD COLUMN PackageBaseID INTEGER UNSIGNED NULL,
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE;
+UPDATE Packages SET PackageBaseID = ID;
+ALTER TABLE Packages MODIFY PackageBaseID INTEGER UNSIGNED NOT NULL;
+----
+
+8. Delete foreign keys from PackageVotes, PackageComments and CommentNotify:
+
+----
+ALTER TABLE PackageVotes
+	DROP FOREIGN KEY PackageVotes_ibfk_1,
+	DROP FOREIGN KEY PackageVotes_ibfk_2;
+ALTER TABLE PackageComments
+	DROP FOREIGN KEY PackageComments_ibfk_3;
+ALTER TABLE CommentNotify
+	DROP FOREIGN KEY CommentNotify_ibfk_1,
+	DROP FOREIGN KEY CommentNotify_ibfk_2;
+----
+
+We highly recommend to use `SHOW CREATE TABLE PackageVotes;` etc. to check
+whether you should use different names for your setup.
+
+9. Delete indexes from PackageVotes and CommentNotify:
+
+----
+ALTER TABLE PackageVotes DROP INDEX VoteUsersIDPackageID;
+ALTER TABLE CommentNotify DROP INDEX NotifyUserIDPkgID;
+----
+
+10. Migrate PackageVotes, PackageComments and CommentNotify to refer to package
+bases:
+
+----
+ALTER TABLE PackageVotes ADD COLUMN PackageBaseID INTEGER UNSIGNED NOT NULL;
+UPDATE PackageVotes SET PackageBaseID = PackageID;
+ALTER TABLE PackageVotes DROP COLUMN PackageID;
+ALTER TABLE PackageComments ADD COLUMN PackageBaseID INTEGER UNSIGNED NOT NULL;
+UPDATE PackageComments SET PackageBaseID = PackageID;
+ALTER TABLE PackageComments DROP COLUMN PackageID;
+ALTER TABLE CommentNotify ADD COLUMN PackageBaseID INTEGER UNSIGNED NOT NULL;
+UPDATE CommentNotify SET PackageBaseID = PkgID;
+ALTER TABLE CommentNotify DROP COLUMN PkgID;
+----
+
+11. Recreate missing foreign keys and indexes:
+
+----
+ALTER TABLE PackageVotes
+	ADD FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE;
+ALTER TABLE PackageComments
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE;
+ALTER TABLE CommentNotify
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE,
+	ADD FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE;
+CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageBaseID);
+CREATE UNIQUE INDEX NotifyUserIDPkgID ON CommentNotify (UserID, PackageBaseID);
+----
+
 From 2.2.0 to 2.3.0
 -------------------
 
