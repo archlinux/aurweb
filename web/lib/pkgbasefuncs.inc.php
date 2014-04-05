@@ -50,37 +50,33 @@ function pkgbase_comments_count($base_id) {
 /**
  * Get all package comment information for a specific package base
  *
- * @param int $pkgid The package base ID to get comments for
+ * @param int $base_id The package base ID to get comments for
+ * @param int $limit Maximum number of comments to return (0 means unlimited)
  *
  * @return array All package comment information for a specific package base
  */
-function pkgbase_comments($base_id) {
+function pkgbase_comments($base_id, $limit) {
 	$base_id = intval($base_id);
-	$comments = array();
-	if ($base_id > 0) {
-		$dbh = DB::connect();
-		$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, CommentTS ";
-		$q.= "FROM PackageComments LEFT JOIN Users ";
-		$q.= "ON PackageComments.UsersID = Users.ID ";
-		$q.= "WHERE PackageBaseID = " . $base_id . " ";
-		$q.= "AND DelUsersID IS NULL ";
-		$q.= "ORDER BY CommentTS DESC";
-
-		if (!isset($_GET['comments'])) {
-			$q.= " LIMIT 10";
-		}
-
-		$result = $dbh->query($q);
-
-		if (!$result) {
-			return;
-		}
-
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$comments[] = $row;
-		}
+	$limit = intval($limit);
+	if (!$base_id) {
+		return null;
 	}
-	return $comments;
+
+	$dbh = DB::connect();
+	$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, ";
+	$q.= "CommentTS FROM PackageComments LEFT JOIN Users ";
+	$q.= "ON PackageComments.UsersID = Users.ID ";
+	$q.= "WHERE PackageBaseID = " . $base_id . " ";
+	$q.= "AND DelUsersID IS NULL ORDER BY CommentTS DESC";
+	if ($limit > 0) {
+		$q.=" LIMIT " . $limit;
+	}
+	$result = $dbh->query($q);
+	if (!$result) {
+		return null;
+	}
+
+	return $result->fetchAll();
 }
 
 /**
@@ -239,7 +235,8 @@ function pkgbase_display_details($base_id, $row, $SID="") {
 			include('pkg_comment_form.php');
 		}
 
-		$comments = pkgbase_comments($base_id);
+		$limit = isset($_GET['comments']) ? 0 : 10;
+		$comments = pkgbase_comments($base_id, $limit);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
 		}
