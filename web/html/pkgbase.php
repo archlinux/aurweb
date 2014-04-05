@@ -115,6 +115,12 @@ if (check_token()) {
 	}
 }
 
+$pkgs = pkgbase_get_pkgnames($base_id);
+if (count($pkgs) == 1) {
+	/* Not a split package. Redirect to the package page. */
+	header('Location: ' . get_pkg_uri($pkgs[0]));
+}
+
 $details = pkgbase_get_details($base_id);
 html_header($title, $details);
 ?>
