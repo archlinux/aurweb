@@ -11,9 +11,9 @@ check_sid();                      # see if they're still logged in
 if (!isset($pkgid) || !isset($pkgname)) {
 	if (isset($_GET['ID'])) {
 		$pkgid = intval($_GET['ID']);
-		$pkgname = pkgname_from_id($_GET['ID']);
+		$pkgname = pkg_name_from_id($_GET['ID']);
 	} else if (isset($_GET['N'])) {
-		$pkgid = pkgid_from_name($_GET['N']);
+		$pkgid = pkg_from_name($_GET['N']);
 		$pkgname = $_GET['N'];
 	} else {
 		unset($pkgid, $pkgname);
@@ -44,7 +44,7 @@ if (isset($_COOKIE["AURSID"])) {
 
 $details = array();
 if (isset($pkgname)) {
-	$details = get_package_details($pkgid);
+	$details = pkg_get_details($pkgid);
 }
 
 html_header($title, $details);
@@ -55,10 +55,10 @@ if (isset($pkgid)) {
 	include('pkg_search_form.php');
 	if ($pkgid) {
 		if (isset($_COOKIE["AURSID"])) {
-			display_package_details($pkgid, $details, $_COOKIE["AURSID"]);
+			pkg_display_details($pkgid, $details, $_COOKIE["AURSID"]);
 		}
 		else {
-			display_package_details($pkgid, $details, null);
+			pkg_display_details($pkgid, $details, null);
 		}
 	} else {
 		print __("Error trying to retrieve package details.")."<br />\n";

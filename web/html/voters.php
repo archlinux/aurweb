@@ -5,7 +5,7 @@ include_once('pkgfuncs.inc.php');
 
 $SID = $_COOKIE['AURSID'];
 $pkgname = htmlspecialchars($_GET['N']);
-$votes = votes_for_pkgname($pkgname);
+$votes = pkgbase_votes_from_name($pkgname);
 $atype = account_from_sid($SID);
 
 html_header(__("Voters"));

@@ -6,13 +6,13 @@
 			<input type="hidden" name="ID" value="<?= $row['ID'] ?>" />
 			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 
-		<?php if (user_voted($uid, $row['ID'])): ?>
+		<?php if (pkgbase_user_voted($uid, $row['ID'])): ?>
 			<input type="submit" class="button" name="do_UnVote" value="<?= __("UnVote") ?>" />
 		<?php else: ?>
 			<input type="submit" class="button" name="do_Vote" value="<?= __("Vote") ?>" />
 		<?php endif; ?>
 
-		<?php if (user_notify($uid, $row['ID'])): ?>
+		<?php if (pkgbase_user_notify($uid, $row['ID'])): ?>
 			<input type="submit" class="button" name="do_UnNotify" value="<?= __("UnNotify") ?>" title="<?= __("No New Comment Notification") ?>" />
 		<?php else: ?>
 			<input type="submit" class="button" name="do_Notify" value="<?= __("Notify") ?>" title="<?= __("New Comment Notification") ?>" />

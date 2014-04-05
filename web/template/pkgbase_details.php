@@ -4,7 +4,7 @@ $uid = uid_from_sid($SID);
 
 $base_id = intval($row['ID']);
 
-$catarr = pkg_categories();
+$catarr = pkgbase_categories();
 
 $submitter = username_from_id($row["SubmitterUID"]);
 $maintainer = username_from_id($row["MaintainerUID"]);
@@ -49,7 +49,7 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 					</form>
 				</li>
 				<?php endif; ?>
-				<?php if (user_voted($uid, $row['ID'])): ?>
+				<?php if (pkgbase_user_voted($uid, $row['ID'])): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['Name']) . 'unvote/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
@@ -64,7 +64,7 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 					</form>
 				</li>
 				<?php endif; ?>
-				<?php if (user_notify($uid, $row['ID'])): ?>
+				<?php if (pkgbase_user_notify($uid, $row['ID'])): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['Name']) . 'unnotify/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />

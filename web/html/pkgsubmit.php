@@ -259,7 +259,7 @@ if ($uid):
 			}
 
 			/* Check if package name is blacklisted. */
-			if (!$base_id && pkgname_is_blacklisted($pi['pkgname']) && !can_submit_blacklisted(account_from_sid($_COOKIE["AURSID"]))) {
+			if (!$base_id && pkg_name_is_blacklisted($pi['pkgname']) && !can_submit_blacklisted(account_from_sid($_COOKIE["AURSID"]))) {
 				$error = __( "%s is on the package blacklist, please check if it's available in the official repos.", $pi['pkgname']);
 				break;
 			}
@@ -329,30 +329,30 @@ if ($uid):
 				 */
 				$was_orphan = (pkgbase_maintainer_uid($base_id) === NULL);
 
-				update_pkgbase($base_id, $pkgbase_info['pkgbase'], $uid);
+				pkgbase_update($base_id, $pkgbase_info['pkgbase'], $uid);
 
 				if ($category_id > 1) {
-					update_pkgbase_category($base_id, $category_id);
+					pkgbase_update_category($base_id, $category_id);
 				}
 
 				pkgbase_delete_packages($base_id);
 			} else {
 				/* This is a brand new package. */
 				$was_orphan = true;
-				$base_id = create_pkgbase($pkgbase_name, $category_id, $uid);
+				$base_id = pkgbase_create($pkgbase_name, $category_id, $uid);
 			}
 
 			foreach ($pkginfo as $pi) {
-				$pkgid = create_pkg($base_id, $pi['pkgname'], $pi['license'], $pi['full-version'], $pi['pkgdesc'], $pi['url']);
+				$pkgid = pkg_create($base_id, $pi['pkgname'], $pi['license'], $pi['full-version'], $pi['pkgdesc'], $pi['url']);
 
 				foreach ($pi['depends'] as $dep) {
 					$deppkgname = preg_replace("/(<|=|>).*/", "", $dep);
 					$depcondition = str_replace($deppkgname, "", $dep);
-					add_pkg_dep($pkgid, $deppkgname, $depcondition);
+					pkg_add_dep($pkgid, $deppkgname, $depcondition);
 				}
 
 				foreach ($pi['source'] as $src) {
-					add_pkg_src($pkgid, $src);
+					pkg_add_src($pkgid, $src);
 				}
 			}
 
@@ -362,7 +362,7 @@ if ($uid):
 			 * notification list.
 			 */
 			if ($was_orphan) {
-				pkg_notify(account_from_sid($_COOKIE["AURSID"]), array($base_id), true);
+				pkgbase_notify(account_from_sid($_COOKIE["AURSID"]), array($base_id), true);
 			}
 
 			end_atomic_commit();
@@ -387,7 +387,7 @@ html_header("Submit");
 		# give the visitor the default upload form
 		if (ini_get("file_uploads")):
 
-			$pkg_categories = pkg_categories();
+			$pkgbase_categories = pkgbase_categories();
 ?>
 
 <?php if ($error): ?>
@@ -406,7 +406,7 @@ html_header("Submit");
 			<select id="id_category" name="category">
 				<option value="1"><?= __("Select Category"); ?></option>
 				<?php
-					foreach ($pkg_categories as $num => $cat):
+					foreach ($pkgbase_categories as $num => $cat):
 						print '<option value="' . $num . '"';
 						if (isset($_POST['category']) && $_POST['category'] == $cat):
 							print ' selected="selected"';

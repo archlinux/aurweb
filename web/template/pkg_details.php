@@ -4,7 +4,7 @@ $uid = uid_from_sid($SID);
 
 $pkgid = intval($row['ID']);
 
-$catarr = pkg_categories();
+$catarr = pkgbase_categories();
 
 $submitter = username_from_id($row["SubmitterUID"]);
 $maintainer = username_from_id($row["MaintainerUID"]);
@@ -22,11 +22,11 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($
 
 $urlpath = URL_DIR . substr($row['BaseName'], 0, 2) . "/" . $row['BaseName'];
 
-$deps = package_dependencies($row["ID"]);
-$requiredby = package_required($row["Name"]);
+$deps = pkg_dependencies($row["ID"]);
+$requiredby = pkg_required($row["Name"]);
 
 # $sources[0] = 'src';
-$sources = package_sources($row["ID"]);
+$sources = pkg_sources($row["ID"]);
 ?>
 <div id="pkgdetails" class="box">
 	<h2><?= __('Package Details') . ': ' . htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></h2>
@@ -54,7 +54,7 @@ $sources = package_sources($row["ID"]);
 					</form>
 				</li>
 				<?php endif; ?>
-				<?php if (user_voted($uid, $row['ID'])): ?>
+				<?php if (pkgbase_user_voted($uid, $row['ID'])): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unvote/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
@@ -69,7 +69,7 @@ $sources = package_sources($row["ID"]);
 					</form>
 				</li>
 				<?php endif; ?>
-				<?php if (user_notify($uid, $row['ID'])): ?>
+				<?php if (pkgbase_user_notify($uid, $row['ID'])): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unnotify/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />

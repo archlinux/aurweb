@@ -55,27 +55,27 @@ $ret = false;
 $output = "";
 if (check_token()) {
 	if (current_action("do_Flag")) {
-		list($ret, $output) = pkg_flag($atype, $ids);
+		list($ret, $output) = pkgbase_flag($atype, $ids);
 	} elseif (current_action("do_UnFlag")) {
-		list($ret, $output) = pkg_unflag($atype, $ids);
+		list($ret, $output) = pkgbase_unflag($atype, $ids);
 	} elseif (current_action("do_Adopt")) {
-		list($ret, $output) = pkg_adopt($atype, $ids, true);
+		list($ret, $output) = pkgbase_adopt($atype, $ids, true);
 	} elseif (current_action("do_Disown")) {
-		list($ret, $output) = pkg_adopt($atype, $ids, false);
+		list($ret, $output) = pkgbase_adopt($atype, $ids, false);
 	} elseif (current_action("do_Vote")) {
-		list($ret, $output) = pkg_vote($atype, $ids, true);
+		list($ret, $output) = pkgbase_vote($atype, $ids, true);
 	} elseif (current_action("do_UnVote")) {
-		list($ret, $output) = pkg_vote($atype, $ids, false);
+		list($ret, $output) = pkgbase_vote($atype, $ids, false);
 	} elseif (current_action("do_Delete")) {
 		if (isset($_POST['confirm_Delete'])) {
 			if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
-				list($ret, $output) = pkg_delete($atype, $ids, NULL);
+				list($ret, $output) = pkgbase_delete($atype, $ids, NULL);
 				unset($_GET['ID']);
 			}
 			else {
 				$merge_base_id = pkgbase_from_name($_POST['merge_Into']);
 				if ($merge_base_id) {
-					list($ret, $output) = pkg_delete($atype, $ids, $merge_base_id);
+					list($ret, $output) = pkgbase_delete($atype, $ids, $merge_base_id);
 					unset($_GET['ID']);
 				}
 				else {
@@ -87,18 +87,18 @@ if (check_token()) {
 			$output = __("The selected packages have not been deleted, check the confirmation checkbox.");
 		}
 	} elseif (current_action("do_Notify")) {
-		list($ret, $output) = pkg_notify($atype, $ids);
+		list($ret, $output) = pkgbase_notify($atype, $ids);
 	} elseif (current_action("do_UnNotify")) {
-		list($ret, $output) = pkg_notify($atype, $ids, false);
+		list($ret, $output) = pkgbase_notify($atype, $ids, false);
 	} elseif (current_action("do_DeleteComment")) {
-		list($ret, $output) = pkg_delete_comment($atype);
+		list($ret, $output) = pkgbase_delete_comment($atype);
 	} elseif (current_action("do_ChangeCategory")) {
-		list($ret, $output) = pkg_change_category($base_id, $atype);
+		list($ret, $output) = pkgbase_change_category($base_id, $atype);
 	}
 
 	if (isset($_REQUEST['comment'])) {
 		$uid = uid_from_sid($_COOKIE["AURSID"]);
-		add_package_comment($base_id, $uid, $_REQUEST['comment']);
+		pkgbase_add_comment($base_id, $uid, $_REQUEST['comment']);
 		$ret = true;
 	}
 
@@ -115,7 +115,7 @@ if (check_token()) {
 	}
 }
 
-$details = get_pkgbase_details($base_id);
+$details = pkgbase_get_details($base_id);
 html_header($title, $details);
 ?>
 
@@ -126,9 +126,9 @@ html_header($title, $details);
 <?php
 include('pkg_search_form.php');
 if (isset($_COOKIE["AURSID"])) {
-	display_pkgbase_details($base_id, $details, $_COOKIE["AURSID"]);
+	pkgbase_display_details($base_id, $details, $_COOKIE["AURSID"]);
 } else {
-	display_pkgbase_details($base_id, $details, null);
+	pkgbase_display_details($base_id, $details, null);
 }
 
 html_footer(AUR_VERSION);

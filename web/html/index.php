@@ -13,7 +13,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		 * the routing framework to the individual pages instead of
 		 * initializing arbitrary variables here. */
 		$pkgname = $tokens[2];
-		$pkgid = pkgid_from_name($pkgname);
+		$pkgid = pkg_from_name($pkgname);
 
 		if (!$pkgid) {
 			header("HTTP/1.0 404 Not Found");

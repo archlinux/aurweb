@@ -1,7 +1,7 @@
 <?php
 $uid = uid_from_sid($SID);
 $base_id = pkgbase_from_pkgid($row['ID']);
-$count = package_comments_count($base_id);
+$count = pkgbase_comments_count($base_id);
 ?>
 <div id="news">
 	<h3>
