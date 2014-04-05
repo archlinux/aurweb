@@ -14,7 +14,7 @@ $count = package_comments_count($base_id);
 			$row['UserName'] = "<a href=\"" . get_user_uri($row['UserName']) . "\">{$row['UserName']}</a>";
 		endif; ?>
 		<h4>
-			<?php if (canDeleteCommentArray($row, $atype, $uid)): ?>
+			<?php if (can_delete_comment_array($row, $atype, $uid)): ?>
 				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />

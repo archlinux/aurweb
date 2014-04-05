@@ -259,7 +259,7 @@ if ($uid):
 			}
 
 			/* Check if package name is blacklisted. */
-			if (!$base_id && pkgname_is_blacklisted($pi['pkgname']) && !canSubmitBlacklisted(account_from_sid($_COOKIE["AURSID"]))) {
+			if (!$base_id && pkgname_is_blacklisted($pi['pkgname']) && !can_submit_blacklisted(account_from_sid($_COOKIE["AURSID"]))) {
 				$error = __( "%s is on the package blacklist, please check if it's available in the official repos.", $pi['pkgname']);
 				break;
 			}
@@ -387,7 +387,7 @@ html_header("Submit");
 		# give the visitor the default upload form
 		if (ini_get("file_uploads")):
 
-			$pkg_categories = pkgCategories();
+			$pkg_categories = pkg_categories();
 ?>
 
 <?php if ($error): ?>

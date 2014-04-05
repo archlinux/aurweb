@@ -4,7 +4,7 @@ $uid = uid_from_sid($SID);
 
 $pkgid = intval($row['ID']);
 
-$catarr = pkgCategories();
+$catarr = pkg_categories();
 
 $submitter = username_from_id($row["SubmitterUID"]);
 $maintainer = username_from_id($row["MaintainerUID"]);

@@ -47,7 +47,7 @@ $per_page = array(50, 100, 250);
 			<label for="id_category"><?= __("Category"); ?></label>
 			<select name='C' id="id_category">
 				<option value='0'><?= __("Any"); ?></option>
-				<?php foreach (pkgCategories() as $id => $cat): ?>
+				<?php foreach (pkg_categories() as $id => $cat): ?>
 				<?php if (isset($_REQUEST['C']) && $_REQUEST['C'] == $id): ?>
 				<option value="<?= $id ?>" selected="selected"><?= $cat; ?></option>
 				<?php else: ?>

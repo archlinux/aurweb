@@ -13,7 +13,7 @@ include_once("config.inc.php");
  *
  * @return bool True if the user can delete the comment, otherwise false
  */
-function canDeleteComment($comment_id=0, $atype="", $uid=0) {
+function can_delete_comment($comment_id=0, $atype="", $uid=0) {
 	if (!$uid) {
 		/* Unauthenticated users cannot delete anything. */
 		return false;
@@ -49,7 +49,7 @@ function canDeleteComment($comment_id=0, $atype="", $uid=0) {
  *
  * @return bool True if the user can delete the comment, otherwise false
  */
-function canDeleteCommentArray($comment, $atype="", $uid=0) {
+function can_delete_comment_array($comment, $atype="", $uid=0) {
 	if (!$uid) {
 		/* Unauthenticated users cannot delete anything. */
 		return false;
@@ -73,7 +73,7 @@ function canDeleteCommentArray($comment, $atype="", $uid=0) {
  *
  * @return bool True if the user can submit blacklisted packages, otherwise false
  */
-function canSubmitBlacklisted($atype = "") {
+function can_submit_blacklisted($atype = "") {
 	if ($atype == "Trusted User" || $atype == "Developer") {
 		/* Only TUs and developers can submit blacklisted packages. */
 		return true;
@@ -90,7 +90,7 @@ function canSubmitBlacklisted($atype = "") {
  *
  * @return array All package categories
  */
-function pkgCategories() {
+function pkg_categories() {
 	$cats = array();
 	$dbh = DB::connect();
 	$q = "SELECT * FROM PackageCategories WHERE ID != 1 ";
@@ -608,7 +608,7 @@ function pkg_search_page($SID="") {
 	 */
 	if ($SID)
 		$myuid = uid_from_sid($SID);
-	$cats = pkgCategories($dbh);
+	$cats = pkg_categories($dbh);
 
 	/* Sanitize paging variables. */
 	if (isset($_GET['O'])) {
@@ -1455,7 +1455,7 @@ function pkg_delete_comment($atype) {
 
 	$dbh = DB::connect();
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
-	if (canDeleteComment($comment_id, $atype, $uid)) {
+	if (can_delete_comment($comment_id, $atype, $uid)) {
 		   $q = "UPDATE PackageComments ";
 		   $q.= "SET DelUsersID = ".$uid." ";
 		   $q.= "WHERE ID = ".intval($comment_id);
@@ -1485,7 +1485,7 @@ function pkg_change_category($pid, $atype) {
 	}
 
 	$dbh = DB::connect();
-	$catArray = pkgCategories($dbh);
+	$catArray = pkg_categories($dbh);
 	if (!array_key_exists($category_id, $catArray)) {
 		return array(false, __("Invalid category ID."));
 	}
