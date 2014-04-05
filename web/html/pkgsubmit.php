@@ -130,8 +130,6 @@ if ($uid):
 			}
 		}
 
-		include('pkgbuild-parser.inc.php');
-
 		/* Parse .AURINFO and extract meta data. */
 		$pkgbase_info = array();
 		$pkginfo = array();
@@ -177,6 +175,8 @@ if ($uid):
 			}
 		} else {
 			/* Use data from the PKGBUILD parser (deprecated!) */
+			include('pkgbuild-parser.inc.php');
+
 			$pkgbase_info = $new_pkgbuild;
 			if (!isset($pkgbase_info['pkgbase'])) {
 				$pkgbase_info['pkgbase'] = $pkgbase_info['pkgname'];
