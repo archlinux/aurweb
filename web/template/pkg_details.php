@@ -112,6 +112,10 @@ $sources = package_sources($row["ID"]);
 
 	<table id="pkginfo">
 		<tr>
+			<th><?= __('Package Base') . ': ' ?></th>
+			<td class="wrap"><a href="<?= htmlspecialchars(get_pkgbase_uri($row['BaseName']), ENT_QUOTES); ?>"><?= htmlspecialchars($row['BaseName']); ?></a></td>
+		</tr>
+		<tr>
 			<th><?= __('Description') . ': ' ?></th>
 			<td class="wrap"><?= htmlspecialchars($row['Description']); ?></td>
 		</tr>
