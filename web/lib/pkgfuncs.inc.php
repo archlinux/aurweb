@@ -422,7 +422,7 @@ function pkg_search_page($SID="") {
 	 * variable values more sensible.
 	 */
 	if (isset($_GET["C"]) && intval($_GET["C"])) {
-		$q_where .= "AND Packages.CategoryID = ".intval($_GET["C"])." ";
+		$q_where .= "AND PackageBases.CategoryID = ".intval($_GET["C"])." ";
 	}
 
 	if (isset($_GET['K'])) {
