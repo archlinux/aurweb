@@ -4,7 +4,9 @@ include_once('pkgfuncs.inc.php');
 $searchby = array(
 	'nd' => __('Name, Description'),
 	'n' => __('Name Only'),
-	'x' => __('Exact name'),
+	'b' => __('Package Base'),
+	'N' => __('Exact Name'),
+	'B' => __('Exact Package Base'),
 	'm'  => __('Maintainer'),
 	's'  => __('Submitter')
 );

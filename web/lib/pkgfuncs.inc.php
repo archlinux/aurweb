@@ -681,9 +681,18 @@ function pkg_search_page($SID="") {
 			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
 			$q_where .= "AND (Packages.Name LIKE " . $dbh->quote($K) . ") ";
 		}
-		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "x") {
+		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "b") {
+			/* Search by package base name. */
+			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
+			$q_where .= "AND (PackageBases.Name LIKE " . $dbh->quote($K) . ") ";
+		}
+		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "N") {
 			/* Search by name (exact match). */
 			$q_where .= "AND (Packages.Name = " . $dbh->quote($_GET['K']) . ") ";
+		}
+		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "B") {
+			/* Search by package base name (exact match). */
+			$q_where .= "AND (PackageBases.Name = " . $dbh->quote($_GET['K']) . ") ";
 		}
 		else {
 			/* Search by name and description (default). */
