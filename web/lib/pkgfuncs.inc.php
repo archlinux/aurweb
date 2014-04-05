@@ -649,32 +649,6 @@ function pkg_create($base_id, $pkgname, $license, $pkgver, $pkgdesc, $pkgurl) {
 }
 
 /**
- * Update all database information for a specific package
- *
- * @param string $pkgname Name of the updated package
- * @param string $license License of the updated package
- * @param string $pkgver Version of the updated package
- * @param string $pkgdesc Description of updated package
- * @param string $pkgurl The upstream URL for the package
- * @param int $uid The user ID of the updater
- * @param int $pkgid The package ID of the updated package
- *
- * @return void
- */
-function pkg_update($pkgname, $license, $pkgver, $pkgdesc, $pkgurl, $pkgid) {
-	$dbh = DB::connect();
-	$q = sprintf("UPDATE Packages SET Name = %s, Version = %s, " .
-		"License = %s, Description = %s, URL = %s WHERE ID = %d",
-		$dbh->quote($pkgname),
-		$dbh->quote($pkgver),
-		$dbh->quote($license),
-		$dbh->quote($pkgdesc),
-		$dbh->quote($pkgurl),
-		$pkgid);
-	$dbh->exec($q);
-}
-
-/**
  * Add a dependency for a specific package to the database
  *
  * @param int $pkgid The package ID to add the dependency for
@@ -705,34 +679,6 @@ function pkg_add_src($pkgid, $pkgsrc) {
 	$dbh = DB::connect();
 	$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
 	$q .= $pkgid . ", " . $dbh->quote($pkgsrc) . ")";
-
-	$dbh->exec($q);
-}
-
-/**
- * Remove package dependencies from a specific package
- *
- * @param string $pkgid The package ID to remove package dependencies from
- *
- * @return void
- */
-function pkg_remove_deps($pkgid) {
-	$dbh = DB::connect();
-	$q = "DELETE FROM PackageDepends WHERE PackageID = " . $pkgid;
-
-	$dbh->exec($q);
-}
-
-/**
- * Remove package sources from a specific package
- *
- * @param string $pkgid The package ID to remove package sources from
- *
- * @return void
- */
-function pkg_remove_sources($pkgid) {
-	$dbh = DB::connect();
-	$q = "DELETE FROM PackageSources WHERE PackageID = " . $pkgid;
 
 	$dbh->exec($q);
 }
