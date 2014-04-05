@@ -9,17 +9,15 @@ include_once("config.inc.php");
  * @return array All package categories
  */
 function pkgbase_categories() {
-	$cats = array();
 	$dbh = DB::connect();
 	$q = "SELECT * FROM PackageCategories WHERE ID != 1 ";
 	$q.= "ORDER BY Category ASC";
 	$result = $dbh->query($q);
-	if ($result) {
-		while ($row = $result->fetch(PDO::FETCH_NUM)) {
-			$cats[$row[0]] = $row[1];
-		}
+	if (!$result) {
+		return null;
 	}
-	return $cats;
+
+	return $result->fetchAll(PDO::FETCH_KEY_PAIR);
 }
 
 /**
