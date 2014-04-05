@@ -445,6 +445,41 @@ function get_package_details($id=0) {
 }
 
 /**
+ * Get the package base details
+ *
+ * @param string $id The package base ID to get description for
+ *
+ * @return array The package base's details OR error message
+ **/
+function get_pkgbase_details($base_id) {
+	$dbh = DB::connect();
+
+	$q = "SELECT PackageBases.ID, PackageBases.Name, ";
+	$q.= "PackageBases.CategoryID, PackageBases.NumVotes, ";
+	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
+	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
+	$q.= "PackageBases.MaintainerUID, PackageCategories.Category ";
+	$q.= "FROM PackageBases, PackageCategories ";
+	$q.= "WHERE PackageBases.CategoryID = PackageCategories.ID ";
+	$q.= "AND PackageBases.ID = " . intval($base_id);
+	$result = $dbh->query($q);
+
+	$row = array();
+
+	if (!$result) {
+		$row['error'] = __("Error retrieving package details.");
+	}
+	else {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		if (empty($row)) {
+			$row['error'] = __("Package details could not be found.");
+		}
+	}
+
+	return $row;
+}
+
+/**
  * Display the package details page
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
@@ -473,6 +508,41 @@ function display_package_details($id=0, $row, $SID="") {
 		}
 
 		$base_id = pkgbase_from_pkgid($id);
+		$comments = package_comments($base_id);
+		if (!empty($comments)) {
+			include('pkg_comments.php');
+		}
+	}
+}
+
+/**
+ * Display the package base details page
+ *
+ * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
+ * @global bool $USE_VIRTUAL_URLS True if using URL rewriting, otherwise false
+ * @param string $id The package base ID to get details page for
+ * @param array $row Package base details retrieved by get_pkgbase_details
+ * @param string $SID The session ID of the visitor
+ *
+ * @return void
+ */
+function display_pkgbase_details($base_id, $row, $SID="") {
+	global $AUR_LOCATION;
+	global $USE_VIRTUAL_URLS;
+
+	$dbh = DB::connect();
+
+	if (isset($row['error'])) {
+		print "<p>" . $row['error'] . "</p>\n";
+	}
+	else {
+		include('pkgbase_details.php');
+
+		if ($SID) {
+			include('actions_form.php');
+			include('pkg_comment_form.php');
+		}
+
 		$comments = package_comments($base_id);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
@@ -813,6 +883,20 @@ function pkgbase_name_from_id($base_id) {
 	$q = "SELECT Name FROM PackageBases WHERE ID = " . intval($base_id);
 	$result = $dbh->query($q);
 	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
+/**
+ * Get the names of all packages belonging to a package base
+ *
+ * @param int $base_id The ID of the package base
+ *
+ * @return array The names of all packages belonging to the package base
+ */
+function pkgbase_get_pkgnames($base_id) {
+	$dbh = DB::connect();
+	$q = "SELECT Name FROM Packages WHERE PackageBaseID = " . intval($base_id);
+	$result = $dbh->query($q);
+	return $result->fetchAll(PDO::FETCH_COLUMN, 0);
 }
 
 /**

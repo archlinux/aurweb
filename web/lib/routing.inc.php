@@ -4,6 +4,7 @@ $ROUTES = array(
 	'' => 'home.php',
 	'/index.php' => 'home.php',
 	'/packages' => 'packages.php',
+	'/pkgbase' => 'pkgbase.php',
 	'/register' => 'account.php',
 	'/account' => 'account.php',
 	'/accounts' => 'account.php',
@@ -18,6 +19,7 @@ $ROUTES = array(
 );
 
 $PKG_PATH = '/packages';
+$PKGBASE_PATH = '/pkgbase';
 $USER_PATH = '/account';
 
 function get_route($path) {
@@ -47,6 +49,11 @@ function get_pkg_route() {
 	return $PKG_PATH;
 }
 
+function get_pkgbase_route() {
+	global $PKGBASE_PATH;
+	return $PKGBASE_PATH;
+}
+
 function get_pkg_uri($pkgname) {
 	global $USE_VIRTUAL_URLS;
 	global $PKG_PATH;
@@ -59,7 +66,14 @@ function get_pkg_uri($pkgname) {
 }
 
 function get_pkgbase_uri($pkgbase_name) {
-	return get_pkg_uri($pkgbase_name);
+	global $USE_VIRTUAL_URLS;
+	global $PKGBASE_PATH;
+
+	if ($USE_VIRTUAL_URLS) {
+		return $PKGBASE_PATH . '/' . urlencode($pkgbase_name) . '/';
+	} else {
+		return '/' . get_route($PKGBASE_PATH) . '?N=' . urlencode($pkgbase_name);
+	}
 }
 
 function get_user_route() {
