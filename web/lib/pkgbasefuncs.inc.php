@@ -703,28 +703,24 @@ function pkgbase_votes_from_name($pkgname) {
 }
 
 /**
- * Determine if a user has already voted for a specific package
+ * Determine if a user has already voted for a specific package base
  *
  * @param string $uid The user ID to check for an existing vote
- * @param string $pkgid The package ID to check for an existing vote
+ * @param string $base_id The package base ID to check for an existing vote
  *
  * @return bool True if the user has already voted, otherwise false
  */
-function pkgbase_user_voted($uid, $pkgid) {
+function pkgbase_user_voted($uid, $base_id) {
 	$dbh = DB::connect();
-
-	$q = "SELECT * FROM PackageVotes, Packages WHERE ";
-	$q.= "PackageVotes.UsersID = ". $dbh->quote($uid) . " AND ";
-	$q.= "PackageVotes.PackageBaseID = Packages.PackageBaseID AND ";
-	$q.= "Packages.ID = " . $dbh->quote($pkgid);
+	$q = "SELECT COUNT(*) FROM PackageVotes WHERE ";
+	$q.= "UsersID = ". $dbh->quote($uid) . " AND ";
+	$q.= "PackageBaseID = " . $dbh->quote($base_id);
 	$result = $dbh->query($q);
+	if (!$result) {
+		return null;
+	}
 
-	if ($result->fetch(PDO::FETCH_NUM)) {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return ($result->fetch(PDO::FETCH_COLUMN, 0) > 0);
 }
 
 /**
