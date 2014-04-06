@@ -350,7 +350,7 @@ function pkgbase_flag($atype, $base_ids) {
 		return array(false, __("You must be logged in before you can flag packages."));
 	}
 
-	$base_ids = pkgbase_from_pkgid($base_ids);
+	$base_ids = sanitize_ids($base_ids);
 	if (empty($base_ids)) {
 		return array(false, __("You did not select any packages to flag."));
 	}
@@ -406,7 +406,7 @@ function pkgbase_unflag($atype, $base_ids) {
 		return array(false, __("You must be logged in before you can unflag packages."));
 	}
 
-	$base_ids = pkgbase_from_pkgid($base_ids);
+	$base_ids = sanitize_ids($base_ids);
 	if (empty($base_ids)) {
 		return array(false, __("You did not select any packages to unflag."));
 	}
@@ -856,13 +856,14 @@ function pkgbase_delete_comment($atype) {
 }
 
 /**
- * Change package category
+ * Change package base category
  *
+ * @param int Package base ID of the package base to modify
  * @param string $atype Account type, output of account_from_sid
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_change_category($pid, $atype) {
+function pkgbase_change_category($base_id, $atype) {
 	if (!$atype)  {
 		return array(false, __("You must be logged in before you can edit package information."));
 	}
@@ -879,7 +880,7 @@ function pkgbase_change_category($pid, $atype) {
 		return array(false, __("Invalid category ID."));
 	}
 
-	$base_id = pkgbase_from_pkgid($pid);
+	$base_id = intval($base_id);
 
 	/* Verify package ownership. */
 	$q = "SELECT MaintainerUID FROM PackageBases WHERE ID = " . $base_id;
