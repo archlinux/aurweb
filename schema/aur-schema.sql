@@ -133,15 +133,30 @@ CREATE TABLE Packages (
 ) ENGINE = InnoDB;
 
 
+-- Define the package dependency types
+--
+CREATE TABLE DependencyTypes (
+	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(32) NOT NULL DEFAULT '',
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+INSERT INTO DependencyTypes VALUES (1, 'depends');
+INSERT INTO DependencyTypes VALUES (2, 'makedepends');
+INSERT INTO DependencyTypes VALUES (3, 'checkdepends');
+INSERT INTO DependencyTypes VALUES (4, 'optdepends');
+
+
 -- Track which dependencies a package has
 --
 CREATE TABLE PackageDepends (
 	PackageID INTEGER UNSIGNED NOT NULL,
+	DepTypeID TINYINT UNSIGNED NOT NULL,
 	DepName VARCHAR(64) NOT NULL,
 	DepCondition VARCHAR(20),
 	INDEX (PackageID),
 	INDEX (DepName),
-	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (DepTypeID) REFERENCES DependencyTypes(ID) ON DELETE NO ACTION
 ) ENGINE = InnoDB;
 
 

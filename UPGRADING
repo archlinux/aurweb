@@ -142,6 +142,29 @@ CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageBaseID
 CREATE UNIQUE INDEX NotifyUserIDPkgID ON CommentNotify (UserID, PackageBaseID);
 ----
 
+12. Create a new table to store package dependency types:
+
+----
+CREATE TABLE DependencyTypes (
+	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(32) NOT NULL DEFAULT '',
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+INSERT INTO DependencyTypes VALUES (1, 'depends');
+INSERT INTO DependencyTypes VALUES (2, 'makedepends');
+INSERT INTO DependencyTypes VALUES (3, 'checkdepends');
+INSERT INTO DependencyTypes VALUES (4, 'optdepends');
+----
+
+13. Add a field to store the dependency type to the PackageDepends table:
+
+----
+ALTER TABLE PackageDepends ADD COLUMN DepTypeID TINYINT UNSIGNED NOT NULL;
+UPDATE PackageDepends SET DepTypeID = 1;
+ALTER TABLE PackageDepends
+	ADD FOREIGN KEY (DepTypeID) REFERENCES DependencyTypes(ID) ON DELETE NO ACTION;
+----
+
 From 2.2.0 to 2.3.0
 -------------------
 

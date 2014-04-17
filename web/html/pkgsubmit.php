@@ -150,7 +150,13 @@ if ($uid):
 						$pkginfo[] = array_merge($pkgbase_info, $section_info);
 					}
 				}
-				$section_info = array('depends' => array(), 'source' => array());
+				$section_info = array(
+					'depends' => array(),
+					'makedepends' => array(),
+					'checkdepends' => array(),
+					'optdepends' => array(),
+					'source' => array()
+				);
 				/* Fall-through case. */
 			case 'epoch':
 			case 'pkgdesc':
@@ -162,6 +168,9 @@ if ($uid):
 				break;
 			case 'source':
 			case 'depends':
+			case 'makedepends':
+			case 'checkdepends':
+			case 'optdepends':
 				$section_info[$key][] = $value;
 				break;
 			}
@@ -181,15 +190,12 @@ if ($uid):
 			if (!isset($pkgbase_info['pkgbase'])) {
 				$pkgbase_info['pkgbase'] = $pkgbase_info['pkgname'];
 			}
-			if (empty($pkgbase_info['depends'])) {
-				$pkgbase_info['depends'] = array();
-			} else {
-				$pkgbase_info['depends'] = explode(" ", $pkgbase_info['depends']);
-			}
-			if (empty($pkgbase_info['source'])) {
-				$pkgbase_info['source'] = array();
-			} else {
-				$pkgbase_info['source'] = explode(" ", $pkgbase_info['source']);
+			foreach (array('source', 'depends', 'makedepends', 'checkdepends', 'optdepends') as $array_opt) {
+				if (empty($pkgbase_info[$array_opt])) {
+					$pkgbase_info[$array_opt] = array();
+				} else {
+					$pkgbase_info[$array_opt] = explode(" ", $pkgbase_info[$array_opt]);
+				}
 			}
 			$pkginfo[] = $pkgbase_info;
 		}
@@ -345,10 +351,12 @@ if ($uid):
 			foreach ($pkginfo as $pi) {
 				$pkgid = pkg_create($base_id, $pi['pkgname'], $pi['license'], $pi['full-version'], $pi['pkgdesc'], $pi['url']);
 
-				foreach ($pi['depends'] as $dep) {
-					$deppkgname = preg_replace("/(<|=|>).*/", "", $dep);
-					$depcondition = str_replace($deppkgname, "", $dep);
-					pkg_add_dep($pkgid, $deppkgname, $depcondition);
+				foreach (array('depends', 'makedepends', 'checkdepends', 'optdepends') as $deptype) {
+					foreach ($pi[$deptype] as $dep) {
+						$deppkgname = preg_replace("/(<|=|>).*/", "", $dep);
+						$depcondition = str_replace($deppkgname, "", $dep);
+						pkg_add_dep($pkgid, $deptype, $deppkgname, $depcondition);
+					}
 				}
 
 				foreach ($pi['source'] as $src) {

@@ -28,7 +28,7 @@ MAX_USERS = 300        # how many users to 'register'
 MAX_DEVS  = .1         # what percentage of MAX_USERS are Developers
 MAX_TUS   = .2         # what percentage of MAX_USERS are Trusted Users
 MAX_PKGS  = 900       # how many packages to load
-PKG_DEPS  = (1, 5)     # min/max depends a package has
+PKG_DEPS  = (1, 15)    # min/max depends a package has
 PKG_SRC   = (1, 3)     # min/max sources a package has
 PKG_CMNTS = (1, 5)     # min/max number of comments a package has
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
@@ -258,8 +258,11 @@ for p in list(seen_pkgs.keys()):
 	while i != num_deps:
 		dep = random.choice([k for k in seen_pkgs])
 		if dep not in this_deps:
-			s = "INSERT INTO PackageDepends VALUES (%d, '%s', NULL);\n"
-			s = s % (seen_pkgs[p], dep)
+			deptype = random.randrange(1, 5)
+			if deptype == 4:
+				dep += ": for " + random.choice([k for k in seen_pkgs])
+			s = "INSERT INTO PackageDepends VALUES (%d, %d, '%s', NULL);\n"
+			s = s % (seen_pkgs[p], deptype, dep)
 			out.write(s)
 			i += 1
 

@@ -132,6 +132,21 @@ function pkg_dependencies($pkgid) {
 }
 
 /**
+ * Get the ID of a dependency type given its name
+ *
+ * @param string $name The name of the dependency type
+ *
+ * @return int The ID of the dependency type
+ */
+function pkg_dependency_type_id_from_name($name) {
+	$dbh = DB::connect();
+	$q = "SELECT ID FROM DependencyTypes WHERE Name = ";
+	$q.= $dbh->quote($name);
+	$result = $dbh->query($q);
+	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
+/**
  * Determine packages that depend on a package
  *
  * @param string $name The package name for the dependency search
@@ -653,18 +668,20 @@ function pkg_create($base_id, $pkgname, $license, $pkgver, $pkgdesc, $pkgurl) {
  * Add a dependency for a specific package to the database
  *
  * @param int $pkgid The package ID to add the dependency for
+ * @param string $type The type of dependency to add
  * @param string $depname The name of the dependency to add
  * @param string $depcondition The  type of dependency for the package
  *
  * @return void
  */
-function pkg_add_dep($pkgid, $depname, $depcondition) {
+function pkg_add_dep($pkgid, $type, $depname, $depcondition) {
 	$dbh = DB::connect();
-	$q = sprintf("INSERT INTO PackageDepends (PackageID, DepName, DepCondition) VALUES (%d, %s, %s)",
-	$pkgid,
-	$dbh->quote($depname),
-	$dbh->quote($depcondition));
-
+	$q = sprintf("INSERT INTO PackageDepends (PackageID, DepTypeID, DepName, DepCondition) VALUES (%d, %d, %s, %s)",
+		$pkgid,
+		pkg_dependency_type_id_from_name($type),
+		$dbh->quote($depname),
+		$dbh->quote($depcondition)
+	);
 	$dbh->exec($q);
 }
 
