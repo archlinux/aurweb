@@ -219,16 +219,9 @@ if ($row["MaintainerUID"]):
 			<h3><?= __('Dependencies') . " (" . count($deps) . ")"?></h3>
 <?php if (count($deps) > 0): ?>
 			<ul>
-<?php
-	while (list($k, $darr) = each($deps)):
-		# darr: (DepName, DepCondition, PackageID), where ID is NULL if it didn't exist
-		if (!is_null($darr[2])):
-?>
-				<li><a href="<?= htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?= __('View packages details for').' '. htmlspecialchars($darr[0]) ?>"><?= htmlspecialchars($darr[0]) ?></a><?= htmlspecialchars($darr[1]) ?></li>
-		<?php else: ?>
-				<li><a href="https://www.archlinux.org/packages/?q=<?= urlencode($darr[0])?>" title="<?= __('View packages details for').' ' . htmlspecialchars($darr[0]) ?>"><?= htmlspecialchars($darr[0]) ?></a><?= htmlspecialchars($darr[1]) ?></li>
-		<?php endif; ?>
-	<?php endwhile; ?>
+<?php while (list($k, $darr) = each($deps)): ?>
+	<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3]); ?></li>
+<?php endwhile; ?>
 			</ul>
 <?php endif; ?>
 		</div>

@@ -116,8 +116,9 @@ function pkg_dependencies($pkgid) {
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
 		$dbh = DB::connect();
-		$q = "SELECT pd.DepName, pd.DepCondition, p.ID FROM PackageDepends pd ";
+		$q = "SELECT pd.DepName, dt.Name, pd.DepCondition, p.ID FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
+		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
 		$q.= "ORDER BY pd.DepName";
 		$result = $dbh->query($q);
@@ -144,6 +145,46 @@ function pkg_dependency_type_id_from_name($name) {
 	$q.= $dbh->quote($name);
 	$result = $dbh->query($q);
 	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
+/**
+ * Get the HTML code to display a package dependency link
+ *
+ * @param string $name The name of the dependency
+ * @param string $type The name of the dependency type
+ * @param string $cond The package dependency condition string
+ * @param int $pkg_id The package of the package to display the dependency for
+ *
+ * @return string The HTML code of the label to display
+ */
+function pkg_depend_link($name, $type, $cond, $pkg_id) {
+	if ($type == 'optdepends' && strpos($name, ':') !== false) {
+		$tokens = explode(':', $name, 2);
+		$name = $tokens[0];
+		$desc = $tokens[1];
+	} else {
+		$desc = '(unknown)';
+	}
+
+	$link = '<a href="';
+	if (is_null($pkg_id)) {
+		$link .= 'https://www.archlinux.org/packages/?q=' . urlencode($name);
+	} else {
+		$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
+	}
+	$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
+	$link .= htmlspecialchars($name) . '</a>';
+	$link .= htmlspecialchars($cond);
+
+	if ($type == 'makedepends') {
+		$link .= ' <em>(make)</em>';
+	} elseif ($type == 'checkdepends') {
+		$link .= ' <em>(check)</em>';
+	} elseif ($type == 'optdepends') {
+		$link .= ' <em>(optional) &ndash; ' . htmlspecialchars($desc) . ' </em>';
+	}
+
+	return $link;
 }
 
 /**
