@@ -165,6 +165,12 @@ ALTER TABLE PackageDepends
 	ADD FOREIGN KEY (DepTypeID) REFERENCES DependencyTypes(ID) ON DELETE NO ACTION;
 ----
 
+14. Resize the package dependency name field:
+
+----
+ALTER TABLE PackageDepends MODIFY DepName VARCHAR(255) NOT NULL;
+----
+
 From 2.2.0 to 2.3.0
 -------------------
 

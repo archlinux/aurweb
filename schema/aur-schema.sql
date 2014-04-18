@@ -151,7 +151,7 @@ INSERT INTO DependencyTypes VALUES (4, 'optdepends');
 CREATE TABLE PackageDepends (
 	PackageID INTEGER UNSIGNED NOT NULL,
 	DepTypeID TINYINT UNSIGNED NOT NULL,
-	DepName VARCHAR(64) NOT NULL,
+	DepName VARCHAR(255) NOT NULL,
 	DepCondition VARCHAR(20),
 	INDEX (PackageID),
 	INDEX (DepName),
