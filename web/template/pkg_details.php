@@ -218,7 +218,7 @@ if ($row["MaintainerUID"]):
 		<div id="pkgdeps" class="listing">
 			<h3><?= __('Dependencies') . " (" . count($deps) . ")"?></h3>
 <?php if (count($deps) > 0): ?>
-			<ul>
+			<ul id="pkgdepslist">
 <?php while (list($k, $darr) = each($deps)): ?>
 	<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3]); ?></li>
 <?php endwhile; ?>
@@ -228,7 +228,7 @@ if ($row["MaintainerUID"]):
 		<div id="pkgreqs" class="listing">
 			<h3><?= __('Required by') . " (" . count($requiredby) . ")"?></h3>
 <?php if (count($requiredby) > 0): ?>
-			<ul>
+			<ul id="pkgreqslist">
 <?php
 	# darr: (PackageName, PackageID)
 	while (list($k, $darr) = each($requiredby)):
