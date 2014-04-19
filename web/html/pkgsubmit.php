@@ -147,7 +147,7 @@ if ($uid):
 					if (isset($section_info['pkgbase'])) {
 						$pkgbase_info = $section_info;
 					} elseif (isset($section_info['pkgname'])) {
-						$pkginfo[] = array_merge($pkgbase_info, $section_info);
+						$pkginfo[] = array_pkgbuild_merge($pkgbase_info, $section_info);
 					}
 				}
 				$section_info = array(
@@ -180,7 +180,7 @@ if ($uid):
 			if (isset($section_info['pkgbase'])) {
 				$pkgbase_info = $section_info;
 			} elseif (isset($section_info['pkgname'])) {
-				$pkginfo[] = array_merge($pkgbase_info, $section_info);
+				$pkginfo[] = array_pkgbuild_merge($pkgbase_info, $section_info);
 			}
 		} else {
 			/* Use data from the PKGBUILD parser (deprecated!) */

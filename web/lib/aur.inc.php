@@ -572,3 +572,28 @@ function latest_pkgs($numpkgs) {
 
 	return $packages;
 }
+
+/**
+ * Merge pkgbase and package options
+ *
+ * Merges entries of the first and the second array. If any key appears in both
+ * arrays and the corresponding value is an array itself, the arrays are
+ * merged. If a key appears in both arrays and the corresponding value is not
+ * an array, the second value replaces the first one.
+ *
+ * @param array $pkgbase_info Options from the pkgbase section
+ * @param array $section_info Options from the package section
+ *
+ * @return array Merged information from both sections
+ */
+function array_pkgbuild_merge($pkgbase_info, $section_info) {
+	$pi = $pkgbase_info;
+	foreach ($section_info as $opt_key => $opt_val) {
+		if (is_array($opt_val)) {
+			$pi[$opt_key] += $opt_val;
+		} else {
+			$pi[$opt_key] = $opt_val;
+		}
+	}
+	return $pi;
+}
