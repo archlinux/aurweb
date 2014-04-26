@@ -148,6 +148,21 @@ function pkg_dependency_type_id_from_name($name) {
 }
 
 /**
+ * Get the ID of a relation type given its name
+ *
+ * @param string $name The name of the relation type
+ *
+ * @return int The ID of the relation type
+ */
+function pkg_relation_type_id_from_name($name) {
+	$dbh = DB::connect();
+	$q = "SELECT ID FROM RelationTypes WHERE Name = ";
+	$q.= $dbh->quote($name);
+	$result = $dbh->query($q);
+	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
+/**
  * Get the HTML code to display a package dependency link
  *
  * @param string $name The name of the dependency
@@ -722,6 +737,27 @@ function pkg_add_dep($pkgid, $type, $depname, $depcondition) {
 		pkg_dependency_type_id_from_name($type),
 		$dbh->quote($depname),
 		$dbh->quote($depcondition)
+	);
+	$dbh->exec($q);
+}
+
+/**
+ * Add a relation for a specific package to the database
+ *
+ * @param int $pkgid The package ID to add the relation for
+ * @param string $type The type of relation to add
+ * @param string $relname The name of the relation to add
+ * @param string $relcondition The version requirement of the relation
+ *
+ * @return void
+ */
+function pkg_add_rel($pkgid, $type, $relname, $relcondition) {
+	$dbh = DB::connect();
+	$q = sprintf("INSERT INTO PackageRelations (PackageID, RelTypeID, RelName, RelCondition) VALUES (%d, %d, %s, %s)",
+		$pkgid,
+		pkg_relation_type_id_from_name($type),
+		$dbh->quote($relname),
+		$dbh->quote($relcondition)
 	);
 	$dbh->exec($q);
 }

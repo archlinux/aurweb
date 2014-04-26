@@ -155,7 +155,10 @@ if ($uid):
 					'makedepends' => array(),
 					'checkdepends' => array(),
 					'optdepends' => array(),
-					'source' => array()
+					'source' => array(),
+					'conflicts' => array(),
+					'provides' => array(),
+					'replaces' => array()
 				);
 				/* Fall-through case. */
 			case 'epoch':
@@ -171,6 +174,9 @@ if ($uid):
 			case 'makedepends':
 			case 'checkdepends':
 			case 'optdepends':
+			case 'conflicts':
+			case 'provides':
+			case 'replaces':
 				$section_info[$key][] = $value;
 				break;
 			}
@@ -190,7 +196,7 @@ if ($uid):
 			if (!isset($pkgbase_info['pkgbase'])) {
 				$pkgbase_info['pkgbase'] = $pkgbase_info['pkgname'];
 			}
-			foreach (array('source', 'depends', 'makedepends', 'checkdepends', 'optdepends') as $array_opt) {
+			foreach (array('source', 'depends', 'makedepends', 'checkdepends', 'optdepends', 'conflicts', 'provides', 'replaces') as $array_opt) {
 				if (empty($pkgbase_info[$array_opt])) {
 					$pkgbase_info[$array_opt] = array();
 				} else {
@@ -356,6 +362,14 @@ if ($uid):
 						$deppkgname = preg_replace("/(<|=|>).*/", "", $dep);
 						$depcondition = str_replace($deppkgname, "", $dep);
 						pkg_add_dep($pkgid, $deptype, $deppkgname, $depcondition);
+					}
+				}
+
+				foreach (array('conflicts', 'provides', 'replaces') as $reltype) {
+					foreach ($pi[$reltype] as $rel) {
+						$relpkgname = preg_replace("/(<|=|>).*/", "", $rel);
+						$relcondition = str_replace($relpkgname, "", $rel);
+						pkg_add_rel($pkgid, $reltype, $relpkgname, $relcondition);
 					}
 				}
 

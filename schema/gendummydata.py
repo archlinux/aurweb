@@ -29,6 +29,7 @@ MAX_DEVS  = .1         # what percentage of MAX_USERS are Developers
 MAX_TUS   = .2         # what percentage of MAX_USERS are Trusted Users
 MAX_PKGS  = 900       # how many packages to load
 PKG_DEPS  = (1, 15)    # min/max depends a package has
+PKG_RELS  = (1, 5)     # min/max relations a package has
 PKG_SRC   = (1, 3)     # min/max sources a package has
 PKG_CMNTS = (1, 5)     # min/max number of comments a package has
 CATEGORIES_COUNT = 17  # the number of categories from aur-schema
@@ -253,18 +254,22 @@ for p in list(track_votes.keys()):
 log.debug("Creating statements for package depends/sources.")
 for p in list(seen_pkgs.keys()):
 	num_deps = random.randrange(PKG_DEPS[0], PKG_DEPS[1])
-	this_deps = {}
-	i = 0
-	while i != num_deps:
+	for i in range(0, num_deps):
 		dep = random.choice([k for k in seen_pkgs])
-		if dep not in this_deps:
-			deptype = random.randrange(1, 5)
-			if deptype == 4:
-				dep += ": for " + random.choice([k for k in seen_pkgs])
-			s = "INSERT INTO PackageDepends VALUES (%d, %d, '%s', NULL);\n"
-			s = s % (seen_pkgs[p], deptype, dep)
-			out.write(s)
-			i += 1
+		deptype = random.randrange(1, 5)
+		if deptype == 4:
+			dep += ": for " + random.choice([k for k in seen_pkgs])
+		s = "INSERT INTO PackageDepends VALUES (%d, %d, '%s', NULL);\n"
+		s = s % (seen_pkgs[p], deptype, dep)
+		out.write(s)
+
+	num_rels = random.randrange(PKG_RELS[0], PKG_RELS[1])
+	for i in range(0, num_deps):
+		rel = random.choice([k for k in seen_pkgs])
+		reltype = random.randrange(1, 4)
+		s = "INSERT INTO PackageRelations VALUES (%d, %d, '%s', NULL);\n"
+		s = s % (seen_pkgs[p], reltype, rel)
+		out.write(s)
 
 	num_sources = random.randrange(PKG_SRC[0], PKG_SRC[1])
 	for i in range(num_sources):

@@ -171,6 +171,34 @@ ALTER TABLE PackageDepends
 ALTER TABLE PackageDepends MODIFY DepName VARCHAR(255) NOT NULL;
 ----
 
+15. Create a new table to store package relation types:
+
+----
+CREATE TABLE RelationTypes (
+	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(32) NOT NULL DEFAULT '',
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+INSERT INTO RelationTypes VALUES (1, 'conflicts');
+INSERT INTO RelationTypes VALUES (2, 'provides');
+INSERT INTO RelationTypes VALUES (3, 'replaces');
+----
+
+16. Create a new table to store package relations:
+
+----
+CREATE TABLE PackageRelations (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	RelTypeID TINYINT UNSIGNED NOT NULL,
+	RelName VARCHAR(255) NOT NULL,
+	RelCondition VARCHAR(20),
+	INDEX (PackageID),
+	INDEX (RelName),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (RelTypeID) REFERENCES RelationTypes(ID) ON DELETE NO ACTION
+) ENGINE = InnoDB;
+----
+
 From 2.2.0 to 2.3.0
 -------------------
 

@@ -160,6 +160,32 @@ CREATE TABLE PackageDepends (
 ) ENGINE = InnoDB;
 
 
+-- Define the package relation types
+--
+CREATE TABLE RelationTypes (
+	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(32) NOT NULL DEFAULT '',
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+INSERT INTO RelationTypes VALUES (1, 'conflicts');
+INSERT INTO RelationTypes VALUES (2, 'provides');
+INSERT INTO RelationTypes VALUES (3, 'replaces');
+
+
+-- Track which conflicts, provides and replaces a package has
+--
+CREATE TABLE PackageRelations (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	RelTypeID TINYINT UNSIGNED NOT NULL,
+	RelName VARCHAR(255) NOT NULL,
+	RelCondition VARCHAR(20),
+	INDEX (PackageID),
+	INDEX (RelName),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (RelTypeID) REFERENCES RelationTypes(ID) ON DELETE NO ACTION
+) ENGINE = InnoDB;
+
+
 -- Track which sources a package has
 --
 CREATE TABLE PackageSources (
