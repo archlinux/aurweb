@@ -404,7 +404,7 @@ if ($uid):
 
 			end_atomic_commit();
 
-			header('Location: ' . get_pkg_uri($pi[0]['pkgname']));
+			header('Location: ' . get_pkgbase_uri($pkgbase_info['pkgbase']));
 		}
 
 		chdir($cwd);
