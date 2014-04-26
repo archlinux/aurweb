@@ -22,6 +22,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($
 
 $urlpath = URL_DIR . substr($row['BaseName'], 0, 2) . "/" . $row['BaseName'];
 
+$lics = pkg_licenses($row["ID"]);
 $grps = pkg_groups($row["ID"]);
 
 $deps = pkg_dependencies($row["ID"]);
@@ -170,10 +171,22 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 <?php endif; ?>
 			</td>
 		</tr>
+		<?php if (count($lics) > 0): ?>
 		<tr>
-			<th><?= __('License') . ': ' ?></th>
-			<td><?= htmlspecialchars($license) ?></td>
+			<th><?= __('Licenses') . ': ' ?></th>
+			<td class="wrap">
+				<?php foreach($lics as $lic): ?>
+				<span class="related">
+					<?php if ($lic !== end($lics)): ?>
+					<?= htmlspecialchars($lic) ?>,
+					<?php else: ?>
+					<?= htmlspecialchars($lic) ?>
+					<?php endif; ?>
+				</span>
+				<?php endforeach; ?>
+			</td>
 		</tr>
+		<?php endif; ?>
 		<?php if (count($grps) > 0): ?>
 		<tr>
 			<th><?= __('Groups') . ': ' ?></th>

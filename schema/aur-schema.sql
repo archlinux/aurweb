@@ -126,10 +126,30 @@ CREATE TABLE Packages (
 	Version VARCHAR(32) NOT NULL DEFAULT '',
 	Description VARCHAR(255) NOT NULL DEFAULT "An Arch Package",
 	URL VARCHAR(255) NOT NULL DEFAULT "https://www.archlinux.org",
-	License VARCHAR(40) NOT NULL DEFAULT '',
 	PRIMARY KEY (ID),
 	UNIQUE (Name),
 	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+
+-- Information about licenses
+--
+CREATE TABLE Licenses (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name)
+) ENGINE = InnoDB;
+
+
+-- Information about package-license-relations
+--
+CREATE TABLE PackageLicenses (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	LicenseID INTEGER UNSIGNED NOT NULL,
+	PRIMARY KEY (PackageID, LicenseID),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (LicenseID) REFERENCES Licenses(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 

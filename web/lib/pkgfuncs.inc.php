@@ -105,6 +105,32 @@ function pkg_from_name($name="") {
 }
 
 /**
+ * Get licenses for a specific package
+ *
+ * @param int $pkgid The package to get licenses for
+ *
+ * @return array All licenses for the package
+ */
+function pkg_licenses($pkgid) {
+	$lics = array();
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
+		$dbh = DB::connect();
+		$q = "SELECT l.Name FROM Licenses l ";
+		$q.= "INNER JOIN PackageLicenses pl ON pl.LicenseID = l.ID ";
+		$q.= "WHERE pl.PackageID = ". $pkgid;
+		$result = $dbh->query($q);
+		if (!$result) {
+			return array();
+		}
+		while ($row = $result->fetch(PDO::FETCH_COLUMN, 0)) {
+			$lics[] = $row;
+		}
+	}
+	return $lics;
+}
+
+/**
  * Get package groups for a specific package
  *
  * @param int $pkgid The package to get groups for
@@ -756,20 +782,18 @@ function pkg_details_by_name($pkgname) {
  *
  * @param int $base_id ID of the package base
  * @param string $pkgname Name of the new package
- * @param string $license License of the new package
  * @param string $pkgver Version of the new package
  * @param string $pkgdesc Description of the new package
  * @param string $pkgurl Upstream URL for the new package
  *
  * @return int ID of the new package
  */
-function pkg_create($base_id, $pkgname, $license, $pkgver, $pkgdesc, $pkgurl) {
+function pkg_create($base_id, $pkgname, $pkgver, $pkgdesc, $pkgurl) {
 	$dbh = DB::connect();
-	$q = sprintf("INSERT INTO Packages (PackageBaseID, Name, License, " .
-		"Version, Description, URL) VALUES (%d, %s, %s, %s, %s, %s)",
-		$base_id, $dbh->quote($pkgname), $dbh->quote($license),
-		$dbh->quote($pkgver), $dbh->quote($pkgdesc),
-		$dbh->quote($pkgurl));
+	$q = sprintf("INSERT INTO Packages (PackageBaseID, Name, Version, " .
+		"Description, URL) VALUES (%d, %s, %s, %s, %s)",
+		$base_id, $dbh->quote($pkgname), $dbh->quote($pkgver),
+		$dbh->quote($pkgdesc), $dbh->quote($pkgurl));
 	$dbh->exec($q);
 	return $dbh->lastInsertId();
 }
@@ -871,6 +895,49 @@ function pkg_add_grp($pkgid, $grpid) {
 	$q = sprintf("INSERT INTO PackageGroups (PackageID, GroupID) VALUES (%d, %d)",
 		$pkgid,
 		$grpid
+	);
+	$dbh->exec($q);
+}
+
+/**
+ * Creates a new license and returns its ID
+ *
+ * If the license already exists, the ID of the already existing license is
+ * returned.
+ *
+ * @param string $name The name of the license to create
+ *
+ * @return int The ID of the license
+ */
+function pkg_create_license($name) {
+	$dbh = DB::connect();
+	$q = sprintf("SELECT ID FROM Licenses WHERE Name = %s", $dbh->quote($name));
+	$result = $dbh->query($q);
+	if ($result) {
+		$licid = $result->fetch(PDO::FETCH_COLUMN, 0);
+		if ($licid > 0) {
+			return $licid;
+		}
+	}
+
+	$q = sprintf("INSERT INTO Licenses (Name) VALUES (%s)", $dbh->quote($name));
+	$dbh->exec($q);
+	return $dbh->lastInsertId();
+}
+
+/**
+ * Add a license to a package
+ *
+ * @param int $pkgid The package ID of the package
+ * @param int $grpid The ID of the license to add
+ *
+ * @return void
+ */
+function pkg_add_lic($pkgid, $licid) {
+	$dbh = DB::connect();
+	$q = sprintf("INSERT INTO PackageLicenses (PackageID, LicenseID) VALUES (%d, %d)",
+		$pkgid,
+		$licid
 	);
 	$dbh->exec($q);
 }

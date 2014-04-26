@@ -151,6 +151,7 @@ if ($uid):
 					}
 				}
 				$section_info = array(
+					'license' => array(),
 					'groups' => array(),
 					'depends' => array(),
 					'makedepends' => array(),
@@ -167,9 +168,9 @@ if ($uid):
 			case 'pkgver':
 			case 'pkgrel':
 			case 'url':
-			case 'license':
 				$section_info[$key] = $value;
 				break;
+			case 'license':
 			case 'groups':
 			case 'source':
 			case 'depends':
@@ -198,7 +199,7 @@ if ($uid):
 			if (!isset($pkgbase_info['pkgbase'])) {
 				$pkgbase_info['pkgbase'] = $pkgbase_info['pkgname'];
 			}
-			foreach (array('groups', 'source', 'depends', 'makedepends', 'checkdepends', 'optdepends', 'conflicts', 'provides', 'replaces') as $array_opt) {
+			foreach (array('license', 'groups', 'source', 'depends', 'makedepends', 'checkdepends', 'optdepends', 'conflicts', 'provides', 'replaces') as $array_opt) {
 				if (empty($pkgbase_info[$array_opt])) {
 					$pkgbase_info[$array_opt] = array();
 				} else {
@@ -263,9 +264,11 @@ if ($uid):
 				$error = __("Error - Package description cannot be greater than %d characters", 255);
 				break;
 			}
-			if (strlen($pi['license']) > 40) {
-				$error = __("Error - Package license cannot be greater than %d characters", 40);
-				break;
+			foreach ($pi['license'] as $lic) {
+				if (strlen($lic > 64)) {
+					$error = __("Error - Package license cannot be greater than %d characters", 64);
+					break;
+				}
 			}
 			if (strlen($pkginfo[$key]['full-version']) > 32) {
 				$error = __("Error - Package version cannot be greater than %d characters", 32);
@@ -357,7 +360,12 @@ if ($uid):
 			}
 
 			foreach ($pkginfo as $pi) {
-				$pkgid = pkg_create($base_id, $pi['pkgname'], $pi['license'], $pi['full-version'], $pi['pkgdesc'], $pi['url']);
+				$pkgid = pkg_create($base_id, $pi['pkgname'], $pi['full-version'], $pi['pkgdesc'], $pi['url']);
+
+				foreach ($pi['license'] as $lic) {
+					$licid = pkg_create_license($lic);
+					pkg_add_lic($pkgid, $licid);
+				}
 
 				foreach ($pi['groups'] as $grp) {
 					$grpid = pkg_create_group($grp);

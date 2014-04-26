@@ -217,6 +217,39 @@ CREATE TABLE PackageGroups (
 ) ENGINE = InnoDB;
 ----
 
+18. Create tables to store package licenses:
+
+----
+CREATE TABLE Licenses (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name)
+) ENGINE = InnoDB;
+CREATE TABLE PackageLicenses (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	LicenseID INTEGER UNSIGNED NOT NULL,
+	PRIMARY KEY (PackageID, LicenseID),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (LicenseID) REFERENCES Licenses(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
+----
+
+19. Convert existing licenses to the new storage format:
+
+----
+INSERT INTO Licenses (Name) SELECT DISTINCT License FROM Packages;
+INSERT INTO PackageLicenses (PackageID, LicenseID)
+	SELECT Packages.ID, Licenses.ID FROM Packages
+	INNER JOIN Licenses ON Licenses.Name = Packages.License;
+----
+
+20. Delete the license column from the Packages table:
+
+----
+ALTER TABLE Packages DROP COLUMN License;
+----
+
 From 2.2.0 to 2.3.0
 -------------------
 
