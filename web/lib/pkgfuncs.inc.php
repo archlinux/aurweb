@@ -805,3 +805,46 @@ function pkg_add_src($pkgid, $pkgsrc) {
 
 	$dbh->exec($q);
 }
+
+/**
+ * Creates a new group and returns its ID
+ *
+ * If the groups already exists, the ID of the already existing group is
+ * returned.
+ *
+ * @param string $name The name of the group to create
+ *
+ * @return int The ID of the group
+ */
+function pkg_create_group($name) {
+	$dbh = DB::connect();
+	$q = sprintf("SELECT ID FROM Groups WHERE Name = %s", $dbh->quote($name));
+	$result = $dbh->query($q);
+	if ($result) {
+		$grpid = $result->fetch(PDO::FETCH_COLUMN, 0);
+		if ($grpid > 0) {
+			return $grpid;
+		}
+	}
+
+	$q = sprintf("INSERT INTO Groups (Name) VALUES (%s)", $dbh->quote($name));
+	$dbh->exec($q);
+	return $dbh->lastInsertId();
+}
+
+/**
+ * Add a package to a group
+ *
+ * @param int $pkgid The package ID of the package to add
+ * @param int $grpid The group ID of the group to add the package to
+ *
+ * @return void
+ */
+function pkg_add_grp($pkgid, $grpid) {
+	$dbh = DB::connect();
+	$q = sprintf("INSERT INTO PackageGroups (PackageID, GroupID) VALUES (%d, %d)",
+		$pkgid,
+		$grpid
+	);
+	$dbh->exec($q);
+}

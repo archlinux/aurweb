@@ -151,6 +151,7 @@ if ($uid):
 					}
 				}
 				$section_info = array(
+					'groups' => array(),
 					'depends' => array(),
 					'makedepends' => array(),
 					'checkdepends' => array(),
@@ -169,6 +170,7 @@ if ($uid):
 			case 'license':
 				$section_info[$key] = $value;
 				break;
+			case 'groups':
 			case 'source':
 			case 'depends':
 			case 'makedepends':
@@ -196,7 +198,7 @@ if ($uid):
 			if (!isset($pkgbase_info['pkgbase'])) {
 				$pkgbase_info['pkgbase'] = $pkgbase_info['pkgname'];
 			}
-			foreach (array('source', 'depends', 'makedepends', 'checkdepends', 'optdepends', 'conflicts', 'provides', 'replaces') as $array_opt) {
+			foreach (array('groups', 'source', 'depends', 'makedepends', 'checkdepends', 'optdepends', 'conflicts', 'provides', 'replaces') as $array_opt) {
 				if (empty($pkgbase_info[$array_opt])) {
 					$pkgbase_info[$array_opt] = array();
 				} else {
@@ -356,6 +358,11 @@ if ($uid):
 
 			foreach ($pkginfo as $pi) {
 				$pkgid = pkg_create($base_id, $pi['pkgname'], $pi['license'], $pi['full-version'], $pi['pkgdesc'], $pi['url']);
+
+				foreach ($pi['groups'] as $grp) {
+					$grpid = pkg_create_group($grp);
+					pkg_add_grp($pkgid, $grpid);
+				}
 
 				foreach (array('depends', 'makedepends', 'checkdepends', 'optdepends') as $deptype) {
 					foreach ($pi[$deptype] as $dep) {

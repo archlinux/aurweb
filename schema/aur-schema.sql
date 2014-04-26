@@ -133,6 +133,27 @@ CREATE TABLE Packages (
 ) ENGINE = InnoDB;
 
 
+-- Information about groups
+--
+CREATE TABLE Groups (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name)
+) ENGINE = InnoDB;
+
+
+-- Information about package-group-relations
+--
+CREATE TABLE PackageGroups (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	GroupID INTEGER UNSIGNED NOT NULL,
+	PRIMARY KEY (PackageID, GroupID),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (GroupID) REFERENCES Groups(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+
 -- Define the package dependency types
 --
 CREATE TABLE DependencyTypes (
