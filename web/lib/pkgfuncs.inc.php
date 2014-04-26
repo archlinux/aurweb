@@ -133,6 +133,34 @@ function pkg_dependencies($pkgid) {
 }
 
 /**
+ * Get package relations for a specific package
+ *
+ * @param int $pkgid The package to get relations for
+ *
+ * @return array All package relations for the package
+ */
+function pkg_relations($pkgid) {
+	$rels = array();
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
+		$dbh = DB::connect();
+		$q = "SELECT pr.RelName, rt.Name, pr.RelCondition, p.ID FROM PackageRelations pr ";
+		$q.= "LEFT JOIN Packages p ON pr.RelName = p.Name ";
+		$q.= "LEFT JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
+		$q.= "WHERE pr.PackageID = ". $pkgid . " ";
+		$q.= "ORDER BY pr.RelName";
+		$result = $dbh->query($q);
+		if (!$result) {
+			return array();
+		}
+		while ($row = $result->fetch(PDO::FETCH_NUM)) {
+			$rels[] = $row;
+		}
+	}
+	return $rels;
+}
+
+/**
  * Get the ID of a dependency type given its name
  *
  * @param string $name The name of the dependency type

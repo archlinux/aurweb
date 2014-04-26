@@ -25,6 +25,22 @@ $urlpath = URL_DIR . substr($row['BaseName'], 0, 2) . "/" . $row['BaseName'];
 $deps = pkg_dependencies($row["ID"]);
 $requiredby = pkg_required($row["Name"]);
 
+$rels = pkg_relations($row["ID"]);
+$rels_c = $rels_p = $rels_r = array();
+foreach ($rels as $rel) {
+	switch ($rel[1]) {
+	case "conflicts":
+		$rels_c[] = $rel;
+		break;
+	case "provides":
+		$rels_p[] = $rel;
+		break;
+	case "replaces":
+		$rels_r[] = $rel;
+		break;
+	}
+}
+
 # $sources[0] = 'src';
 $sources = pkg_sources($row["ID"]);
 ?>
@@ -156,6 +172,54 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 			<th><?= __('License') . ': ' ?></th>
 			<td><?= htmlspecialchars($license) ?></td>
 		</tr>
+		<?php if (count($rels_c) > 0): ?>
+		<tr>
+			<th><?= __('Conflicts') . ': ' ?></th>
+			<td class="wrap relatedto">
+				<?php foreach($rels_c as $rarr): ?>
+				<span class="related">
+					<?php if ($rarr !== end($rels_c)): ?>
+					<?= htmlspecialchars($rarr[0]) ?>,
+					<?php else: ?>
+					<?= htmlspecialchars($rarr[0]) ?>
+					<?php endif; ?>
+				</span>
+				<?php endforeach; ?>
+			</td>
+		</tr>
+		<?php endif; ?>
+		<?php if (count($rels_p) > 0): ?>
+		<tr>
+			<th><?= __('Provides') . ': ' ?></th>
+			<td class="wrap relatedto">
+				<?php foreach($rels_p as $rarr): ?>
+				<span class="related">
+					<?php if ($rarr !== end($rels_p)): ?>
+					<?= htmlspecialchars($rarr[0]) ?>,
+					<?php else: ?>
+					<?= htmlspecialchars($rarr[0]) ?>
+					<?php endif; ?>
+				</span>
+				<?php endforeach; ?>
+			</td>
+		</tr>
+		<?php endif; ?>
+		<?php if (count($rels_r) > 0): ?>
+		<tr>
+			<th><?= __('Replaces') . ': ' ?></th>
+			<td class="wrap relatedto">
+				<?php foreach($rels_r as $rarr): ?>
+				<span class="related">
+					<?php if ($rarr !== end($rels_r)): ?>
+					<?= htmlspecialchars($rarr[0]) ?>,
+					<?php else: ?>
+					<?= htmlspecialchars($rarr[0]) ?>
+					<?php endif; ?>
+				</span>
+				<?php endforeach; ?>
+			</td>
+		</tr>
+		<?php endif; ?>
 		<tr>
 			<th><?= __('Submitter') .': ' ?></th>
 <?php
