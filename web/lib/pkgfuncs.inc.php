@@ -105,6 +105,32 @@ function pkg_from_name($name="") {
 }
 
 /**
+ * Get package groups for a specific package
+ *
+ * @param int $pkgid The package to get groups for
+ *
+ * @return array All package groups for the package
+ */
+function pkg_groups($pkgid) {
+	$grps = array();
+	$pkgid = intval($pkgid);
+	if ($pkgid > 0) {
+		$dbh = DB::connect();
+		$q = "SELECT g.Name FROM Groups g ";
+		$q.= "INNER JOIN PackageGroups pg ON pg.GroupID = g.ID ";
+		$q.= "WHERE pg.PackageID = ". $pkgid;
+		$result = $dbh->query($q);
+		if (!$result) {
+			return array();
+		}
+		while ($row = $result->fetch(PDO::FETCH_COLUMN, 0)) {
+			$grps[] = $row;
+		}
+	}
+	return $grps;
+}
+
+/**
  * Get package dependencies for a specific package
  *
  * @param int $pkgid The package to get dependencies for
