@@ -118,6 +118,55 @@ class AurJSON {
         return json_encode( array('type' => $type, 'resultcount' => $count, 'results' => $data) );
     }
 
+    private function get_extended_fields($pkgid) {
+        $query = "SELECT DependencyTypes.Name AS Type, " .
+            "PackageDepends.DepName AS Name, " .
+            "PackageDepends.DepCondition AS Cond " .
+            "FROM PackageDepends " .
+            "LEFT JOIN DependencyTypes " .
+            "ON DependencyTypes.ID = PackageDepends.DepTypeID " .
+            "WHERE PackageDepends.PackageID = " . $pkgid . " " .
+            "UNION SELECT RelationTypes.Name AS Type, " .
+            "PackageRelations.RelName AS Name, " .
+            "PackageRelations.RelCondition AS Cond " .
+            "FROM PackageRelations " .
+            "LEFT JOIN RelationTypes " .
+            "ON RelationTypes.ID = PackageRelations.RelTypeID " .
+            "WHERE PackageRelations.PackageID = " . $pkgid . " " .
+            "UNION SELECT 'groups' AS Type, Groups.Name, '' AS Cond " .
+            "FROM Groups INNER JOIN PackageGroups " .
+            "ON PackageGroups.PackageID = " . $pkgid . " " .
+            "AND PackageGroups.GroupID = Groups.ID " .
+            "UNION SELECT 'license' AS Type, Licenses.Name, '' AS Cond " .
+            "FROM Licenses INNER JOIN PackageLicenses " .
+            "ON PackageLicenses.PackageID = " . $pkgid . " " .
+            "AND PackageLicenses.LicenseID = Licenses.ID";
+        $result = $this->dbh->query($query);
+
+        if (!$result) {
+            return null;
+        }
+
+        $type_map = array(
+            'depends' => 'Depends',
+            'makedepends' => 'MakeDepends',
+            'checkdepends' => 'CheckDepends',
+            'optdepends' => 'OptDepends',
+            'conflicts' => 'Conflicts',
+            'provides' => 'Provides',
+            'replaces' => 'Replaces',
+            'groups' => 'Groups',
+            'license' => 'License',
+        );
+        $data = array();
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $type = $type_map[$row['Type']];
+            $data[$type][] = $row['Name'] . $row['Cond'];
+        }
+
+        return $data;
+    }
+
     private function process_query($type, $where_condition) {
         global $MAX_RPC_RESULTS;
         $fields = implode(',', self::$fields);
@@ -142,6 +191,10 @@ class AurJSON {
                  */
                 foreach (self::$numeric_fields as $field) {
                     $row[$field] = intval($row[$field]);
+                }
+
+                if ($type == 'info' || $type == 'multiinfo') {
+                    $row = array_merge($row, $this->get_extended_fields($row['ID']));
                 }
 
                 if ($type == 'info') {
