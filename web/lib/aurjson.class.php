@@ -115,7 +115,12 @@ class AurJSON {
      * @return mixed A json formatted result response.
      **/
     private function json_results($type, $count, $data) {
-        return json_encode( array('type' => $type, 'resultcount' => $count, 'results' => $data) );
+        return json_encode(array(
+            'version' => 2,
+            'type' => $type,
+            'resultcount' => $count,
+            'results' => $data
+        ));
     }
 
     private function get_extended_fields($pkgid) {
