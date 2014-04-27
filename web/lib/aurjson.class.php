@@ -18,8 +18,9 @@ class AurJSON {
         'search', 'info', 'multiinfo', 'msearch', 'suggest'
     );
     private static $fields = array(
-        'Packages.ID', 'Name', 'Version', 'CategoryID', 'Description', 'URL',
-        'License', 'NumVotes', 'OutOfDateTS AS OutOfDate',
+        'Packages.ID', 'Packages.Name', 'PackageBases.Name AS PackageBase',
+        'Version', 'CategoryID', 'Description', 'URL', 'NumVotes',
+        'OutOfDateTS AS OutOfDate', 'Users.UserName AS Maintainer',
         'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified'
     );
     private static $numeric_fields = array(
@@ -120,9 +121,10 @@ class AurJSON {
     private function process_query($type, $where_condition) {
         global $MAX_RPC_RESULTS;
         $fields = implode(',', self::$fields);
-        $query = "SELECT Users.Username as Maintainer, {$fields} " .
-            "FROM Packages LEFT JOIN Users " .
-            "ON Packages.MaintainerUID = Users.ID " .
+        $query = "SELECT {$fields} " .
+            "FROM Packages LEFT JOIN PackageBases " .
+            "ON PackageBases.ID = Packages.PackageBaseID " .
+            "LEFT JOIN Users ON PackageBases.MaintainerUID = Users.ID " .
             "WHERE ${where_condition}";
         $result = $this->dbh->query($query);
 
@@ -131,8 +133,8 @@ class AurJSON {
             $search_data = array();
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $resultcount++;
-                $name = $row['Name'];
-                $row['URLPath'] = URL_DIR . substr($name, 0, 2) . "/" . $name . "/" . $name . ".tar.gz";
+                $pkgbase_name = $row['PackageBase'];
+                $row['URLPath'] = URL_DIR . substr($pkgbase_name, 0, 2) . "/" . $pkgbase_name . "/" . $pkgbase_name . ".tar.gz";
 
                 /* Unfortunately, mysql_fetch_assoc() returns all fields as
                  * strings. We need to coerce numeric values into integers to
@@ -204,7 +206,7 @@ class AurJSON {
 
         $keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
 
-        $where_condition = "(Name LIKE {$keyword_string} OR ";
+        $where_condition = "(Packages.Name LIKE {$keyword_string} OR ";
         $where_condition.= "Description LIKE {$keyword_string}) ";
         $where_condition.= "LIMIT {$MAX_RPC_RESULTS}";
 
@@ -224,7 +226,7 @@ class AurJSON {
             $where_condition = "Packages.ID={$pqdata}";
         }
         else {
-            $where_condition = sprintf("Name=%s", $this->dbh->quote($pqdata));
+            $where_condition = sprintf("Packages.Name=%s", $this->dbh->quote($pqdata));
         }
         return $this->process_query('info', $where_condition);
     }
@@ -255,7 +257,7 @@ class AurJSON {
         if ($names) {
             // individual names were quoted in parse_multiinfo_args()
             $names_value = implode(',', $args['names']);
-            $where_condition .= "Name IN ({$names_value}) ";
+            $where_condition .= "Packages.Name IN ({$names_value}) ";
         }
 
         $where_condition .= "LIMIT {$MAX_RPC_RESULTS}";
