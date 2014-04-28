@@ -11,7 +11,7 @@ include_once("aur.inc.php");
  */
 class AurJSON {
 	private $dbh = false;
-	private $version = 2;
+	private $version = 1;
 	private static $exposed_methods = array(
 		'search', 'info', 'multiinfo', 'msearch', 'suggest'
 	);
