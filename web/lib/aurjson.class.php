@@ -11,10 +11,19 @@ include_once("aur.inc.php");
  */
 class AurJSON {
 	private $dbh = false;
+	private $version = 2;
 	private static $exposed_methods = array(
 		'search', 'info', 'multiinfo', 'msearch', 'suggest'
 	);
-	private static $fields = array(
+	private static $fields_v1 = array(
+		'Packages.ID', 'Packages.Name',
+		'PackageBases.Name AS PackageBase', 'Version', 'CategoryID',
+		'Description', 'URL', 'NumVotes', 'OutOfDateTS AS OutOfDate',
+		'Users.UserName AS Maintainer',
+		'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified',
+		'Licenses.Name AS License'
+	);
+	private static $fields_v2 = array(
 		'Packages.ID', 'Packages.Name',
 		'PackageBases.Name AS PackageBase', 'Version', 'CategoryID',
 		'Description', 'URL', 'NumVotes', 'OutOfDateTS AS OutOfDate',
@@ -46,6 +55,13 @@ class AurJSON {
 		 */
 		header('Cache-Control: public, must-revalidate, max-age=0');
 		header('Content-Type: application/json, charset=utf-8');
+
+		if (isset($http_data['v'])) {
+			$this->version = intval($http_data['v']);
+		}
+		if ($this->version < 1 || $this->version > 2) {
+			return $this->json_error('Invalid version specified.');
+		}
 
 		if (!isset($http_data['type']) || !isset($http_data['arg'])) {
 			return $this->json_error('No request type/data specified.');
@@ -104,7 +120,7 @@ class AurJSON {
 	 */
 	private function json_results($type, $count, $data) {
 		return json_encode(array(
-			'version' => 2,
+			'version' => $this->version,
 			'type' => $type,
 			'resultcount' => $count,
 			'results' => $data
@@ -162,12 +178,31 @@ class AurJSON {
 
 	private function process_query($type, $where_condition) {
 		global $MAX_RPC_RESULTS;
-		$fields = implode(',', self::$fields);
-		$query = "SELECT {$fields} " .
-			"FROM Packages LEFT JOIN PackageBases " .
-			"ON PackageBases.ID = Packages.PackageBaseID " .
-			"LEFT JOIN Users ON PackageBases.MaintainerUID = Users.ID " .
-			"WHERE ${where_condition}";
+
+		if ($this->version == 1) {
+			$fields = implode(',', self::$fields_v1);
+			$query = "SELECT {$fields} " .
+				"FROM Packages LEFT JOIN PackageBases " .
+				"ON PackageBases.ID = Packages.PackageBaseID " .
+				"LEFT JOIN Users " .
+				"ON PackageBases.MaintainerUID = Users.ID " .
+				"LEFT JOIN PackageLicenses " .
+				"ON PackageLicenses.PackageID = Packages.ID " .
+				"LEFT JOIN Licenses " .
+				"ON Licenses.ID = PackageLicenses.LicenseID " .
+				"WHERE ${where_condition} " .
+				"GROUP BY Packages.ID " .
+				"LIMIT $MAX_RPC_RESULTS";
+		} elseif ($this->version == 2) {
+			$fields = implode(',', self::$fields_v2);
+			$query = "SELECT {$fields} " .
+				"FROM Packages LEFT JOIN PackageBases " .
+				"ON PackageBases.ID = Packages.PackageBaseID " .
+				"LEFT JOIN Users " .
+				"ON PackageBases.MaintainerUID = Users.ID " .
+				"WHERE ${where_condition} " .
+				"LIMIT $MAX_RPC_RESULTS";
+		}
 		$result = $this->dbh->query($query);
 
 		if ($result) {
@@ -188,7 +223,7 @@ class AurJSON {
 					$row[$field] = intval($row[$field]);
 				}
 
-				if ($type == 'info' || $type == 'multiinfo') {
+				if ($this->version == 2 && ($type == 'info' || $type == 'multiinfo')) {
 					$row = array_merge($row, $this->get_extended_fields($row['ID']));
 				}
 
@@ -258,8 +293,7 @@ class AurJSON {
 		$keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
 
 		$where_condition = "(Packages.Name LIKE $keyword_string OR ";
-		$where_condition .= "Description LIKE $keyword_string) ";
-		$where_condition .= "LIMIT $MAX_RPC_RESULTS";
+		$where_condition .= "Description LIKE $keyword_string)";
 
 		return $this->process_query('search', $where_condition);
 	}
@@ -289,8 +323,6 @@ class AurJSON {
 	 * @return mixed Returns an array of results containing the package data
 	 */
 	private function multiinfo($pqdata) {
-		global $MAX_RPC_RESULTS;
-
 		$args = $this->parse_multiinfo_args($pqdata);
 		$ids = $args['ids'];
 		$names = $args['names'];
@@ -315,7 +347,6 @@ class AurJSON {
 			$names_value = implode(',', $args['names']);
 			$where_condition .= "Packages.Name IN ($names_value) ";
 		}
-		$where_condition .= "LIMIT $MAX_RPC_RESULTS";
 
 		return $this->process_query('multiinfo', $where_condition);
 	}
@@ -328,12 +359,9 @@ class AurJSON {
 	 * @return mixed Returns an array of value data containing the package data
 	 */
 	private function msearch($maintainer) {
-		global $MAX_RPC_RESULTS;
-
 		$maintainer = $this->dbh->quote($maintainer);
 
 		$where_condition = "Users.Username = $maintainer ";
-		$where_condition .= "LIMIT $MAX_RPC_RESULTS";
 
 		return $this->process_query('msearch', $where_condition);
 	}
