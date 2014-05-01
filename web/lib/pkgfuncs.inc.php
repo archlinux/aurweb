@@ -395,11 +395,12 @@ function pkg_name_is_blacklisted($name) {
 function pkg_get_details($id=0) {
 	$dbh = DB::connect();
 
-	$q = "SELECT Packages.*, PackageBases.Name AS BaseName, ";
-	$q.= "PackageBases.CategoryID, PackageBases.NumVotes, ";
-	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
-	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
-	$q.= "PackageBases.MaintainerUID, PackageCategories.Category ";
+	$q = "SELECT Packages.*, PackageBases.ID AS BaseID, ";
+	$q.= "PackageBases.Name AS BaseName, PackageBases.CategoryID, ";
+	$q.= "PackageBases.NumVotes, PackageBases.OutOfDateTS, ";
+	$q.= "PackageBases.SubmittedTS, PackageBases.ModifiedTS, ";
+	$q.= "PackageBases.SubmitterUID, PackageBases.MaintainerUID, ";
+	$q.= "PackageCategories.Category ";
 	$q.= "FROM Packages, PackageBases, PackageCategories ";
 	$q.= "WHERE PackageBases.ID = Packages.PackageBaseID ";
 	$q.= "AND PackageBases.CategoryID = PackageCategories.ID ";

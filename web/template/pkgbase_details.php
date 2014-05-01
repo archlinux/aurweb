@@ -49,7 +49,7 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 					</form>
 				</li>
 				<?php endif; ?>
-				<?php if (pkgbase_user_voted($uid, $row['ID'])): ?>
+				<?php if (pkgbase_user_voted($uid, $base_id)): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['Name']) . 'unvote/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
@@ -64,7 +64,7 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 					</form>
 				</li>
 				<?php endif; ?>
-				<?php if (pkgbase_user_notify($uid, $row['ID'])): ?>
+				<?php if (pkgbase_user_notify($uid, $base_id)): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['Name']) . 'unnotify/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />

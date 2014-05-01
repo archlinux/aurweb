@@ -3,6 +3,7 @@ $atype = account_from_sid($SID);
 $uid = uid_from_sid($SID);
 
 $pkgid = intval($row['ID']);
+$base_id = intval($row['BaseID']);
 
 $catarr = pkgbase_categories();
 
@@ -73,7 +74,7 @@ $sources = pkg_sources($row["ID"]);
 					</form>
 				</li>
 				<?php endif; ?>
-				<?php if (pkgbase_user_voted($uid, $row['ID'])): ?>
+				<?php if (pkgbase_user_voted($uid, $base_id)): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unvote/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
@@ -88,7 +89,7 @@ $sources = pkg_sources($row["ID"]);
 					</form>
 				</li>
 				<?php endif; ?>
-				<?php if (pkgbase_user_notify($uid, $row['ID'])): ?>
+				<?php if (pkgbase_user_notify($uid, $base_id)): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unnotify/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
