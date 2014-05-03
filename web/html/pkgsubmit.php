@@ -135,7 +135,7 @@ if ($uid):
 		$pkginfo = array();
 		$section_info = array();
 		foreach (explode("\n", $srcinfo_raw) as $line) {
-			$line = trim($line);
+			$line = ltrim($line);
 			if (empty($line) || $line[0] == '#') {
 				continue;
 			}
