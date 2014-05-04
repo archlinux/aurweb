@@ -7,6 +7,7 @@ html/login.php
 html/logout.php
 html/packages.php
 html/passreset.php
+html/pkgbase.php
 html/pkgdel.php
 html/pkgmerge.php
 html/pkgsubmit.php
@@ -15,11 +16,18 @@ html/rss.php
 html/tu.php
 html/voters.php
 lib/acctfuncs.inc.php
+lib/Archive/PEAR5.php
+lib/Archive/PEAR.php
+lib/Archive/Tar.php
 lib/aur.inc.php
 lib/aurjson.class.php
 lib/cachefuncs.inc.php
+lib/config.inc.php
+lib/DB.class.php
 lib/feedcreator.class.php
 lib/gettext.php
+lib/pkgbasefuncs.inc.php
+lib/pkgbuild-parser.inc.php
 lib/pkgfuncs.inc.php
 lib/routing.inc.php
 lib/stats.inc.php
@@ -32,6 +40,7 @@ template/account_search_results.php
 template/actions_form.php
 template/footer.php
 template/header.php
+template/pkgbase_details.php
 template/pkg_comment_form.php
 template/pkg_comments.php
 template/pkg_details.php
@@ -42,4 +51,5 @@ template/stats/general_stats_table.php
 template/stats/updates_table.php
 template/stats/user_table.php
 template/tu_details.php
+template/tu_last_votes_list.php
 template/tu_list.php

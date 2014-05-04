@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v2.3.1\n"
+"Project-Id-Version: AUR v3.0.0-rc1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-02-10 22:22+0100\n"
+"POT-Creation-Date: 2014-05-04 23:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -210,13 +210,6 @@ msgstr ""
 msgid "Packages"
 msgstr ""
 
-msgid "Cannot find package to merge votes and comments into."
-msgstr ""
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr ""
-
 msgid "Error trying to retrieve package details."
 msgstr ""
 
@@ -265,6 +258,13 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr ""
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr ""
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr ""
+
 msgid "Package Deletion"
 msgstr ""
 
@@ -273,7 +273,9 @@ msgid "Delete Package: %s"
 msgstr ""
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
 msgstr ""
 
 msgid "Deletion of a package is permanent. "
@@ -299,7 +301,10 @@ msgid "Merge Package: %s"
 msgstr ""
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
 msgstr ""
 
 msgid "Once the package has been merged it cannot be reversed. "
@@ -363,13 +368,6 @@ msgid ""
 "if you want to proceed anyway."
 msgstr ""
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr ""
-
-msgid "Error - The AUR does not support split packages!"
-msgstr ""
-
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr ""
 
@@ -397,7 +395,9 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr ""
 
 #, php-format
-msgid "Could not create directory %s."
+msgid ""
+"%s is on the package blacklist, please check if it's available in the "
+"official repos."
 msgstr ""
 
 #, php-format
@@ -405,9 +405,7 @@ msgid "You are not allowed to overwrite the %s%s%s package."
 msgstr ""
 
 #, php-format
-msgid ""
-"%s is on the package blacklist, please check if it's available in the "
-"official repos."
+msgid "Could not create directory %s."
 msgstr ""
 
 #, php-format
@@ -570,18 +568,6 @@ msgstr ""
 msgid "Package details could not be found."
 msgstr ""
 
-msgid "First"
-msgstr ""
-
-msgid "Previous"
-msgstr ""
-
-msgid "Next"
-msgstr ""
-
-msgid "Last"
-msgstr ""
-
 msgid "You must be logged in before you can flag packages."
 msgstr ""
 
@@ -678,6 +664,25 @@ msgid "You are not allowed to change this package category."
 msgstr ""
 
 msgid "Package category changed."
+msgstr ""
+
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr ""
+
+msgid "View packages details for"
+msgstr ""
+
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Last"
 msgstr ""
 
 msgid "Account Type"
@@ -803,36 +808,10 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-msgid "Add Comment"
-msgstr ""
-
-msgid "Comment has been added."
-msgstr ""
-
-#, php-format
-msgid "View all %s comments"
-msgstr ""
-
-msgid "Latest Comments"
-msgstr ""
-
-msgid "Delete comment"
-msgstr ""
-
-#, php-format
-msgid "Comment by %s"
-msgstr ""
-
-msgid "Anonymous comment"
-msgstr ""
-
-msgid "All comments"
-msgstr ""
-
 msgid "unknown"
 msgstr ""
 
-msgid "Package Details"
+msgid "Package Base Details"
 msgstr ""
 
 msgid "Package Actions"
@@ -877,22 +856,10 @@ msgstr ""
 msgid "Disown Package"
 msgstr ""
 
-msgid "Description"
-msgstr ""
-
-msgid "Upstream URL"
-msgstr ""
-
-msgid "Visit the website for"
-msgstr ""
-
 msgid "Category"
 msgstr ""
 
 msgid "Change category"
-msgstr ""
-
-msgid "License"
 msgstr ""
 
 msgid "Submitter"
@@ -920,10 +887,63 @@ msgstr ""
 msgid "Last Updated"
 msgstr ""
 
-msgid "Dependencies"
+msgid "Add Comment"
 msgstr ""
 
-msgid "View packages details for"
+msgid "Comment has been added."
+msgstr ""
+
+#, php-format
+msgid "View all %s comments"
+msgstr ""
+
+msgid "Latest Comments"
+msgstr ""
+
+msgid "Delete comment"
+msgstr ""
+
+#, php-format
+msgid "Comment by %s"
+msgstr ""
+
+msgid "Anonymous comment"
+msgstr ""
+
+msgid "All comments"
+msgstr ""
+
+msgid "Package Details"
+msgstr ""
+
+msgid "Package Base"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Upstream URL"
+msgstr ""
+
+msgid "Visit the website for"
+msgstr ""
+
+msgid "Licenses"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
+msgid "Dependencies"
 msgstr ""
 
 msgid "Required by"
@@ -938,7 +958,10 @@ msgstr ""
 msgid "Name Only"
 msgstr ""
 
-msgid "Exact name"
+msgid "Exact Name"
+msgstr ""
+
+msgid "Exact Package Base"
 msgstr ""
 
 msgid "All"
@@ -1097,6 +1120,12 @@ msgid "Total"
 msgstr ""
 
 msgid "Participation"
+msgstr ""
+
+msgid "Last Votes by TU"
+msgstr ""
+
+msgid "Last vote"
 msgstr ""
 
 msgid "No results found."
