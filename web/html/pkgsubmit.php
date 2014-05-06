@@ -90,20 +90,16 @@ if ($uid):
 					if (strchr($tar_file['filename'], '/') === false) {
 						$error = __("Error - source tarball may not contain files outside a directory.");
 						break;
-					}
-					elseif (substr($tar_file['filename'], -9) == '/PKGBUILD') {
+					} elseif (substr($tar_file['filename'], -9) == '/PKGBUILD') {
 						$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
-					}
-					elseif (substr($tar_file['filename'], -9) == '/.AURINFO') {
+					} elseif (substr($tar_file['filename'], -9) == '/.AURINFO') {
 						$srcinfo_raw = $tar->extractInString($tar_file['filename']);
 					}
-				}
-				elseif ($tar_file['typeflag'] == 5) {
+				} elseif ($tar_file['typeflag'] == 5) {
 					if (substr_count($tar_file['filename'], "/") > 1) {
 						$error = __("Error - source tarball may not contain nested subdirectories.");
 						break;
-					}
-					elseif (++$dircount > 1) {
+					} elseif (++$dircount > 1) {
 						$error = __("Error - source tarball may not contain more than one directory.");
 						break;
 					}
