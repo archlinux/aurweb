@@ -8,6 +8,7 @@ $catarr = pkgbase_categories();
 
 $submitter = username_from_id($row["SubmitterUID"]);
 $maintainer = username_from_id($row["MaintainerUID"]);
+$packager = username_from_id($row["PackagerUID"]);
 
 $votes = $row['NumVotes'];
 
@@ -166,6 +167,24 @@ if ($row["MaintainerUID"]):
 		<?php endif; ?>
 	<?php else: ?>
 		<td><?= htmlspecialchars($maintainer) ?></td>
+	<?php endif; ?>
+<?php else: ?>
+			<td><?= __('None') ?></td>
+<?php endif; ?>
+		</tr>
+		<tr>
+			<th><?= __('Last Packager') .': ' ?></th>
+<?php
+if ($row["PackagerUID"]):
+	if ($SID):
+		if (!$USE_VIRTUAL_URLS):
+?>
+			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['PackagerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= htmlspecialchars($packager) ?>"><?= htmlspecialchars($packager) ?></a></td>
+		<?php else: ?>
+			<td><a href="<?= get_uri('/account/') . htmlspecialchars($packager, ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($packager)) ?>"><?= htmlspecialchars($packager) ?></a></td>
+		<?php endif; ?>
+	<?php else: ?>
+		<td><?= htmlspecialchars($packager) ?></td>
 	<?php endif; ?>
 <?php else: ?>
 			<td><?= __('None') ?></td>

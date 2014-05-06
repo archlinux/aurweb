@@ -182,7 +182,8 @@ function pkgbase_get_details($base_id) {
 	$q.= "PackageBases.CategoryID, PackageBases.NumVotes, ";
 	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
 	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
-	$q.= "PackageBases.MaintainerUID, PackageCategories.Category ";
+	$q.= "PackageBases.MaintainerUID, PackageBases.PackagerUID, ";
+	$q.= "PackageCategories.Category ";
 	$q.= "FROM PackageBases, PackageCategories ";
 	$q.= "WHERE PackageBases.CategoryID = PackageCategories.ID ";
 	$q.= "AND PackageBases.ID = " . intval($base_id);
@@ -917,9 +918,10 @@ function pkgbase_change_category($base_id, $atype) {
 function pkgbase_create($name, $category_id, $uid) {
 	$dbh = DB::connect();
 	$q = sprintf("INSERT INTO PackageBases (Name, CategoryID, " .
-		"SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID) " .
-		"VALUES (%s, %d, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), %d, %d)",
-		$dbh->quote($name), $category_id, $uid, $uid);
+		"SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID, " .
+		"PackagerUID) VALUES (%s, %d, UNIX_TIMESTAMP(), " .
+		"UNIX_TIMESTAMP(), %d, %d, %d)",
+		$dbh->quote($name), $category_id, $uid, $uid, $uid);
 	$dbh->exec($q);
 	return $dbh->lastInsertId();
 }
@@ -937,8 +939,9 @@ function pkgbase_update($base_id, $name, $uid) {
 	$dbh = DB::connect();
 	$q = sprintf("UPDATE PackageBases SET  " .
 		"Name = %s, ModifiedTS = UNIX_TIMESTAMP(), " .
-		"MaintainerUID = %d, OutOfDateTS = NULL WHERE ID = %d",
-		$dbh->quote($name), $uid, $base_id);
+		"MaintainerUID = %d, PackagerUID = %d, OutOfDateTS = NULL " .
+		"WHERE ID = %d",
+		$dbh->quote($name), $uid, $uid, $base_id);
 	$dbh->exec($q);
 }
 

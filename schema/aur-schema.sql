@@ -104,16 +104,19 @@ CREATE TABLE PackageBases (
 	ModifiedTS BIGINT UNSIGNED NOT NULL,
 	SubmitterUID INTEGER UNSIGNED NULL DEFAULT NULL,     -- who submitted it?
 	MaintainerUID INTEGER UNSIGNED NULL DEFAULT NULL,    -- User
+	PackagerUID INTEGER UNSIGNED NULL DEFAULT NULL,      -- Last packager
 	PRIMARY KEY (ID),
 	UNIQUE (Name),
 	INDEX (CategoryID),
 	INDEX (NumVotes),
 	INDEX (SubmitterUID),
 	INDEX (MaintainerUID),
+	INDEX (PackagerUID),
 	FOREIGN KEY (CategoryID) REFERENCES PackageCategories(ID) ON DELETE NO ACTION,
 	-- deleting a user will cause packages to be orphaned, not deleted
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE SET NULL,
-	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL
+	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL,
+	FOREIGN KEY (PackagerUID) REFERENCES Users(ID) ON DELETE SET NULL
 ) ENGINE = InnoDB;
 
 
