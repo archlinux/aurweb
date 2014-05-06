@@ -90,6 +90,9 @@ if ($uid):
 					if (strchr($tar_file['filename'], '/') === false) {
 						$error = __("Error - source tarball may not contain files outside a directory.");
 						break;
+					} elseif ($tar_file['mode'] != 0644 && $tar_file['mode'] != 0755) {
+						$error = __("Error - all files must have permissions of 644 or 755.");
+						break;
 					} elseif (substr($tar_file['filename'], -9) == '/PKGBUILD') {
 						$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
 					} elseif (substr($tar_file['filename'], -9) == '/.AURINFO') {
@@ -101,6 +104,9 @@ if ($uid):
 						break;
 					} elseif (++$dircount > 1) {
 						$error = __("Error - source tarball may not contain more than one directory.");
+						break;
+					} elseif ($tar_file['mode'] != 0755) {
+						$error = __("Error - all directories must have permissions of 755.");
 						break;
 					}
 				}
