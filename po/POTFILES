@@ -22,7 +22,6 @@ lib/Archive/Tar.php
 lib/aur.inc.php
 lib/aurjson.class.php
 lib/cachefuncs.inc.php
-lib/config.inc.php
 lib/DB.class.php
 lib/feedcreator.class.php
 lib/gettext.php
