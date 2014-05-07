@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v3.0.0-rc1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-04 23:54+0200\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,10 +352,16 @@ msgstr ""
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr ""
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr ""
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr ""
 
 msgid "Error - source tarball may not contain more than one directory."
+msgstr ""
+
+msgid "Error - all directories must have permissions of 755."
 msgstr ""
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
@@ -876,6 +882,9 @@ msgid "None"
 msgstr ""
 
 msgid "Maintainer"
+msgstr ""
+
+msgid "Last Packager"
 msgstr ""
 
 msgid "Votes"
