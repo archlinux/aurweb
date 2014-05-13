@@ -79,10 +79,10 @@ function set_lang() {
 	global $streamer, $l10n;
 
 	$update_cookie = 0;
-	if (isset($_REQUEST['setlang'])) {
+	if (isset($_POST['setlang'])) {
 		# visitor is requesting a language change
 		#
-		$LANG = $_REQUEST['setlang'];
+		$LANG = $_POST['setlang'];
 		$update_cookie = 1;
 
 	} elseif (isset($_COOKIE['AURLANG'])) {

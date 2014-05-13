@@ -32,7 +32,7 @@
 
 		<div id="content">
 			<div id="lang_sub">
-				<form method="get" action="<?= htmlspecialchars($_SERVER["REQUEST_URI"], ENT_QUOTES) ?>">
+				<form method="post" action="<?= htmlspecialchars($_SERVER["REQUEST_URI"], ENT_QUOTES) ?>">
 					<fieldset>
 						<div>
 							<select name="setlang" id="id_setlang">
