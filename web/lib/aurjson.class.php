@@ -334,7 +334,7 @@ class AurJSON {
 		$where_condition = "";
 		if ($ids) {
 			$ids_value = implode(',', $args['ids']);
-			$where_condition .= "ID IN ($ids_value) ";
+			$where_condition .= "Packages.ID IN ($ids_value) ";
 		}
 		if ($ids && $names) {
 			$where_condition .= "OR ";
