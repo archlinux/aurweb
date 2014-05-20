@@ -133,11 +133,14 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
 		$body = wordwrap($body, 70);
 		$bcc = implode(', ', $bcc);
+		$thread_id = "<pkg-notifications-" . $row['Name'] . "@aur.archlinux.org>";
 		$headers = "MIME-Version: 1.0\r\n" .
 			   "Content-type: text/plain; charset=UTF-8\r\n" .
 			   "Bcc: $bcc\r\n" .
 			   "Reply-to: nobody@archlinux.org\r\n" .
 			   "From: aur-notify@archlinux.org\r\n" .
+			   "In-Reply-To: $thread_id\r\n" .
+			   "References: $thread_id\r\n" .
 			   "X-Mailer: AUR";
 		@mail('undisclosed-recipients: ;', "AUR Comment for " . $row['Name'], $body, $headers);
 	}
