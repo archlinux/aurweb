@@ -10,13 +10,14 @@
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Matthias Gorissen <matthias@archlinux.de>, 2012
 # Simon Schneider <SPAM.schneida@gmail.com>, 2011
+# Thomas Scholzen <thomasdodo@arcor.de>, 2013-2014
 # Thomas Scholzen <thomasdodo@arcor.de>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-07 09:22+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/aur/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +67,7 @@ msgid "%s already has proposal running for them."
 msgstr "Es läuft bereits ein Vorschlag für %s."
 
 msgid "Invalid type."
-msgstr ""
+msgstr "Ungültiger Typ."
 
 msgid "Proposal cannot be empty."
 msgstr "Vorschlag darf nicht leer sein."
@@ -87,16 +88,16 @@ msgid "Type"
 msgstr "Typ"
 
 msgid "Addition of a TU"
-msgstr ""
+msgstr "TU hinzugefügt"
 
 msgid "Removal of a TU"
-msgstr ""
+msgstr "TU entfernt"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "TU entfernt (unerklärte Inaktivität)"
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "Änderung der Bestimmungen"
 
 msgid "Proposal"
 msgstr "Vorschlag"
@@ -158,6 +159,12 @@ msgstr "Nicht unterstützte Pakete sind von Benutzern erzeugte Inhalte. Jegliche
 msgid "Package Search"
 msgstr "Paketsuche"
 
+msgid "Adopt"
+msgstr "Übernimm Paket"
+
+msgid "Disown"
+msgstr "Gebe Paket ab"
+
 msgid "Vote"
 msgstr "Abstimmen"
 
@@ -212,14 +219,6 @@ msgstr "Suchkriterien"
 msgid "Packages"
 msgstr "Pakete"
 
-msgid "Cannot find package to merge votes and comments into."
-msgstr "Das Paket, in das die Stimmen und Kommentare übernommen werden sollen, kann nicht gefunden werden."
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Die ausgewählten Pakete wurden nicht gelöscht, bitte aktiviere die Bestätigungs-Checkbox."
-
 msgid "Error trying to retrieve package details."
 msgstr "Während des Empfangs der Paket-Details ist ein Fehler aufgetreten."
 
@@ -268,6 +267,14 @@ msgstr "Wenn Du die E-Mail-Adresse vergessen hast, die Du für Deine Registrieru
 msgid "Enter your e-mail address:"
 msgstr "Gib Deine E-Mail-Adresse ein:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Das Paket, in das die Stimmen und Kommentare übernommen werden sollen, kann nicht gefunden werden."
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Die ausgewählten Pakete wurden nicht gelöscht, bitte aktiviere die Bestätigungs-Checkbox."
+
 msgid "Package Deletion"
 msgstr "Pakete entfernen"
 
@@ -276,8 +283,10 @@ msgid "Delete Package: %s"
 msgstr "Paket löschen: %s"
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr "Benutze dieses Formular, um das Paket (%s%s%s) aus dem AUR zu löschen. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr ""
 
 msgid "Deletion of a package is permanent. "
 msgstr "Die Löschung eines Pakets ist endgültig."
@@ -302,8 +311,11 @@ msgid "Merge Package: %s"
 msgstr "Verschmelze Paket: %s"
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr "Benutze dieses Formular, um das Paket (%s%s%s) mit einem anderen Paket zu verschmelzen."
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
+msgstr ""
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Wenn das Paket einmal verschmolzen ist, kann diese Aktion nicht mehr revidiert werden."
@@ -350,21 +362,27 @@ msgstr "Fehler - Unkomprimierte Datei zu groß."
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Fehler - Tarball darf keine Dateien außerhalb eines Verzeichnisses enthalten."
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr ""
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Fehler - Tarball darf keine verschachtelten Unterverzeichnisse enthalten."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "Fehler - Tarball darf nicht mehr als ein Verzeichnis enthalten."
 
+msgid "Error - all directories must have permissions of 755."
+msgstr ""
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Fehler beim Entpacken der hochgeladenen Datei - PKGBUILD existiert nicht."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Fehlende %s Variable im PKGBUILD."
-
-msgid "Error - The AUR does not support split packages!"
-msgstr "Fehler - Das AUR unterstützt keine geteilten Pakete!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
+msgstr "Das Quellpaket entält keine Metadaten. Bitte `mkaurball` benutzen, um ein AUR Quellpaket zu erzeugen. Die Unterstützung für Quellpakete ohne AURINFO wird in einem zukünftigen Release entfernt! Du kannst das Paket erneut einreichen, wenn du trotzdem fortfahren willst."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Ungültiger Name: Es dürfen nur Kleinbuchstaben verwendet werden."
@@ -393,27 +411,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr "Fehler - Paketversionen dürfen nicht länger als %d Zeichen sein"
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "Das Verzeichnis %s konnte nicht erstellt werden."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "Keine Berechtigung zum Überschreiben des Pakets %s%s%s."
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr "%s ist auf der Paket-Blacklist. Bitte sieh nach, ob es in einem offiziellen Repository ist."
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr "Keine Berechtigung zum Überschreiben des Pakets %s%s%s."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Das Verzeichnis %s konnte nicht erstellt werden."
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "Es konnte nicht in das Verzeichnis %s gewechselt werden."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "Lade Deine Quellpakete hier hoch. Generiere eines mit `makepkg --source`."
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr "Lade deine Quellpakete hier hoch. Erzeuge Quellpakete mit `mkaurball`."
 
 msgid "Package Category"
 msgstr "Paket-Kategorie"
@@ -441,6 +458,9 @@ msgstr "Es konnten keine Vorschlag-Details ermittelt werden."
 
 msgid "Voting is closed for this proposal."
 msgstr "Die Abstimmungsphase für diesen Vorschlag ist beendet."
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr "Nur Trusted User dürfen wählen."
 
 msgid "You cannot vote in an proposal about you."
 msgstr "Du kannst über einen Vorschlag, der dich selbst betrifft, nicht abstimmen."
@@ -539,6 +559,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Das Loginformular ist aktuell für deine IP-Adresse deaktiviert. Ein möglicher Grund können anhaltende Spam-Attacken sein. Bitte entschuldige die Unannehmlichkeiten."
 
+msgid "Account suspended"
+msgstr "Konto aufgehoben"
+
+msgid "An error occurred trying to generate a user session."
+msgstr "Es geschah ein Fehler beim Versuch eine Nutzersitzung zu erstellen."
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -557,18 +583,6 @@ msgstr "Fehler beim Aufrufen der Paket-Details."
 
 msgid "Package details could not be found."
 msgstr "Paket-Details konnten nicht gefunden werden."
-
-msgid "First"
-msgstr "Erste"
-
-msgid "Previous"
-msgstr "Zurück"
-
-msgid "Next"
-msgstr "Weiter"
-
-msgid "Last"
-msgstr "Letzte"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "Du musst Dich anmelden, um Pakete markieren zu können."
@@ -668,6 +682,25 @@ msgstr "Du darfst diese Paketkategorie nicht ändern."
 msgid "Package category changed."
 msgstr "Die Kategorie des Pakets wurde verändert."
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Fehlende %s Variable im PKGBUILD."
+
+msgid "View packages details for"
+msgstr "Paket-Informationen aufrufen für"
+
+msgid "First"
+msgstr "Erste"
+
+msgid "Previous"
+msgstr "Zurück"
+
+msgid "Next"
+msgstr "Weiter"
+
+msgid "Last"
+msgstr "Letzte"
+
 msgid "Account Type"
 msgstr "Konto-Typ"
 
@@ -693,19 +726,22 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Inactive since"
-msgstr ""
+msgstr "Nicht aktiv seit"
 
 msgid "Active"
 msgstr "Aktiv"
 
-msgid "Last Voted"
-msgstr "Zuletzt abgestimmt"
+msgid "Last Login"
+msgstr "Letzter Login"
 
 msgid "Never"
 msgstr "Niemals"
 
 msgid "View this user's packages"
 msgstr "Alle Pakete dieses Benutzers anzeigen"
+
+msgid "Edit this user's account"
+msgstr "Konto dieses Nutzers bearbeiten"
 
 msgid "required"
 msgstr "Notwendig"
@@ -720,7 +756,7 @@ msgid "Account Suspended"
 msgstr "Konto gesperrt"
 
 msgid "Inactive"
-msgstr ""
+msgstr "Inaktiv"
 
 msgid "Re-type password"
 msgstr "Bestätige das Passwort"
@@ -788,34 +824,11 @@ msgstr "Mein Konto"
 msgid "Register"
 msgstr "Registrieren"
 
-msgid "Add Comment"
-msgstr "Kommentar hinzufügen"
-
-msgid "Comment has been added."
-msgstr "Kommentar wurde hinzugefügt."
-
-#, php-format
-msgid "View all %s comments"
-msgstr "Zeige alle %s Kommentare"
-
-msgid "Latest Comments"
-msgstr "Neueste Kommentare"
-
-msgid "Delete comment"
-msgstr "Kommentar löschen"
-
-#, php-format
-msgid "Comment by %s"
-msgstr "Kommentar von %s"
-
-msgid "All comments"
-msgstr "Alle Kommentare"
-
 msgid "unknown"
 msgstr "unbekannt"
 
-msgid "Package Details"
-msgstr "Paket-Details"
+msgid "Package Base Details"
+msgstr ""
 
 msgid "Package Actions"
 msgstr "Paketaktionen"
@@ -859,23 +872,11 @@ msgstr "Paket übernehmen"
 msgid "Disown Package"
 msgstr "Paket abgeben"
 
-msgid "Description"
-msgstr "Beschreibung"
-
-msgid "Upstream URL"
-msgstr "Upstream URL"
-
-msgid "Visit the website for"
-msgstr "Besuche die Web-Seite für"
-
 msgid "Category"
 msgstr "Kategorie"
 
 msgid "Change category"
 msgstr "Kategorie wechseln"
-
-msgid "License"
-msgstr "Lizenz"
 
 msgid "Submitter"
 msgstr "Eingereicht von"
@@ -893,6 +894,9 @@ msgstr "Keine"
 msgid "Maintainer"
 msgstr "Betreuer"
 
+msgid "Last Packager"
+msgstr ""
+
 msgid "Votes"
 msgstr "Stimmen"
 
@@ -902,11 +906,64 @@ msgstr "Zuerst eingereicht am"
 msgid "Last Updated"
 msgstr "Letzte Aktualisierung"
 
+msgid "Add Comment"
+msgstr "Kommentar hinzufügen"
+
+msgid "Comment has been added."
+msgstr "Kommentar wurde hinzugefügt."
+
+#, php-format
+msgid "View all %s comments"
+msgstr "Zeige alle %s Kommentare"
+
+msgid "Latest Comments"
+msgstr "Neueste Kommentare"
+
+msgid "Delete comment"
+msgstr "Kommentar löschen"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "Kommentar von %s"
+
+msgid "Anonymous comment"
+msgstr "Anonymer Kommentar"
+
+msgid "All comments"
+msgstr "Alle Kommentare"
+
+msgid "Package Details"
+msgstr "Paket-Details"
+
+msgid "Package Base"
+msgstr ""
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Upstream URL"
+msgstr "Upstream URL"
+
+msgid "Visit the website for"
+msgstr "Besuche die Web-Seite für"
+
+msgid "Licenses"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
 msgid "Dependencies"
 msgstr "Abhängigkeiten"
-
-msgid "View packages details for"
-msgstr "Paket-Informationen aufrufen für"
 
 msgid "Required by"
 msgstr "Benötigt von"
@@ -920,8 +977,11 @@ msgstr "Name, Beschreibung"
 msgid "Name Only"
 msgstr "Nur Name"
 
-msgid "Exact name"
-msgstr "Genauer Name"
+msgid "Exact Name"
+msgstr ""
+
+msgid "Exact Package Base"
+msgstr ""
 
 msgid "All"
 msgstr "Alle"
@@ -1011,9 +1071,6 @@ msgstr "Betreuung der Pakete abgeben"
 msgid "Any type"
 msgstr "Beliebiger Typ"
 
-msgid "Last vote"
-msgstr "Letzte Stimme"
-
 msgid "Search"
 msgstr "Suche"
 
@@ -1064,13 +1121,13 @@ msgid "End"
 msgstr "Ende"
 
 msgid "Result"
-msgstr ""
+msgstr "Ergebnis"
 
 msgid "Accepted"
-msgstr ""
+msgstr "Akzeptiert"
 
 msgid "Rejected"
-msgstr ""
+msgstr "Zurückgewiesen"
 
 msgid "No"
 msgstr "Nein"
@@ -1082,13 +1139,19 @@ msgid "Total"
 msgstr "Insgesamt"
 
 msgid "Participation"
+msgstr "Teilnahme"
+
+msgid "Last Votes by TU"
 msgstr ""
 
-msgid "Start"
-msgstr "Beginn"
+msgid "Last vote"
+msgstr ""
 
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden"
+
+msgid "Start"
+msgstr "Beginn"
 
 msgid "Back"
 msgstr "Zurück"

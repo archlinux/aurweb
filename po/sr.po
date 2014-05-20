@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-07 09:22+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/aur/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -152,6 +152,12 @@ msgstr "Paketioznačeni sa [unsupported] su sadržaj koji stvaraju korisnici. Up
 msgid "Package Search"
 msgstr ""
 
+msgid "Adopt"
+msgstr ""
+
+msgid "Disown"
+msgstr ""
+
 msgid "Vote"
 msgstr "Daj glas"
 
@@ -206,14 +212,6 @@ msgstr "Kriterijum pretrage"
 msgid "Packages"
 msgstr "Paketi"
 
-msgid "Cannot find package to merge votes and comments into."
-msgstr "Ne mogu da nađem paket kako bih stopio glasove i komentare."
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Izabrani paketi nisu obrisani; pogledajte kućicu za potvrđivanje."
-
 msgid "Error trying to retrieve package details."
 msgstr "Greška pri dobavljanju detalja paketa."
 
@@ -262,6 +260,14 @@ msgstr "Ukoliko ste zaboravili registracionu adresu e-pošte, molimo pošaljite 
 msgid "Enter your e-mail address:"
 msgstr "Unesite adresu e-pošte:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Ne mogu da nađem paket kako bih stopio glasove i komentare."
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Izabrani paketi nisu obrisani; pogledajte kućicu za potvrđivanje."
+
 msgid "Package Deletion"
 msgstr "Brisanje paketa"
 
@@ -270,8 +276,10 @@ msgid "Delete Package: %s"
 msgstr "Obriši paket: %s"
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr "Ovim formularom brišete paket (%s%s%s) iz AUR-a."
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr ""
 
 msgid "Deletion of a package is permanent. "
 msgstr "Brisanje paketa je trajno."
@@ -296,8 +304,11 @@ msgid "Merge Package: %s"
 msgstr "Spoji paket: %s"
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr "Ovim formularom spajate paket (%s%s%s) sa drugim paketom."
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
+msgstr ""
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Kada se jednom spoje, paketi ne mogu više biti razdvojeni."
@@ -344,20 +355,26 @@ msgstr "Greška — raspakovan fajl je prevelik."
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Greška  — izvorna arhiva ne sme sadržati fajlove van fascikle."
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr ""
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Greška — izvorna arhiva ne sme sadržati ugneždene podfascikle."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "Greška — izvorna arhiva ne sme sadržati više od jedne fascikle."
 
+msgid "Error - all directories must have permissions of 755."
+msgstr ""
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Greška pri raspakivanju pošiljke  — ne postoji PKGBUILD."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "U PKGBUILD-u nedostaje promenjiva %s."
-
-msgid "Error - The AUR does not support split packages!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -387,27 +404,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr ""
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "Ne mogu da napravim fasciklu %s."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr "Paket %s je na crnoj listi, proverite da li postoji u zvaničnim riznicama."
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr ""
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Ne mogu da napravim fasciklu %s."
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "Ne mogu da promenim fasciklu u %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "Ovde šaljite pakete izvora. Izvorne paktete napravite pomoću „makepkg --source“."
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "Kategorija paketa"
@@ -435,6 +451,9 @@ msgstr "Ne mogu da dobavim detalje o predlogu."
 
 msgid "Voting is closed for this proposal."
 msgstr "Glasanje o ovom predlogu je završeno."
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr ""
 
 msgid "You cannot vote in an proposal about you."
 msgstr "Ne možete glasati za predlog koji se odnosi na vas."
@@ -533,6 +552,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
 
+msgid "Account suspended"
+msgstr ""
+
+msgid "An error occurred trying to generate a user session."
+msgstr ""
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -551,18 +576,6 @@ msgstr "Greška pri dobavaljanju podataka o paketu."
 
 msgid "Package details could not be found."
 msgstr "Ne mogu naći podatke o paketu."
-
-msgid "First"
-msgstr "Prvi"
-
-msgid "Previous"
-msgstr "Prethodni"
-
-msgid "Next"
-msgstr "Sledeća"
-
-msgid "Last"
-msgstr "Zadnji"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "Morate se prijaviti pre označavanja paketa."
@@ -662,6 +675,25 @@ msgstr "Nemate dozvolu da promenite kategoriju ovog paketa."
 msgid "Package category changed."
 msgstr "Kategorija paketa je izmenjena."
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "U PKGBUILD-u nedostaje promenjiva %s."
+
+msgid "View packages details for"
+msgstr ""
+
+msgid "First"
+msgstr "Prvi"
+
+msgid "Previous"
+msgstr "Prethodni"
+
+msgid "Next"
+msgstr "Sledeća"
+
+msgid "Last"
+msgstr "Zadnji"
+
 msgid "Account Type"
 msgstr "Tip naloga"
 
@@ -692,14 +724,17 @@ msgstr ""
 msgid "Active"
 msgstr "Aktivan"
 
-msgid "Last Voted"
-msgstr "Poslednje glasano"
+msgid "Last Login"
+msgstr ""
 
 msgid "Never"
 msgstr "Nikad"
 
 msgid "View this user's packages"
 msgstr "Pregledaj korisnikove pakete"
+
+msgid "Edit this user's account"
+msgstr ""
 
 msgid "required"
 msgstr "neophodno"
@@ -782,34 +817,11 @@ msgstr "Moj nalog"
 msgid "Register"
 msgstr "Registracija"
 
-msgid "Add Comment"
-msgstr "Dodaj komentar"
-
-msgid "Comment has been added."
-msgstr "Komentar je dodat."
-
-#, php-format
-msgid "View all %s comments"
-msgstr ""
-
-msgid "Latest Comments"
-msgstr ""
-
-msgid "Delete comment"
-msgstr "Obriši komentar"
-
-#, php-format
-msgid "Comment by %s"
-msgstr ""
-
-msgid "All comments"
-msgstr ""
-
 msgid "unknown"
 msgstr "nepoznata"
 
-msgid "Package Details"
-msgstr "Podaci o paketu"
+msgid "Package Base Details"
+msgstr ""
 
 msgid "Package Actions"
 msgstr ""
@@ -853,23 +865,11 @@ msgstr ""
 msgid "Disown Package"
 msgstr ""
 
-msgid "Description"
-msgstr "Opis"
-
-msgid "Upstream URL"
-msgstr ""
-
-msgid "Visit the website for"
-msgstr ""
-
 msgid "Category"
 msgstr "Kategorija"
 
 msgid "Change category"
 msgstr "Promeni kategoriju"
-
-msgid "License"
-msgstr "Licenca"
 
 msgid "Submitter"
 msgstr "Pošiljalac"
@@ -887,6 +887,9 @@ msgstr ""
 msgid "Maintainer"
 msgstr "Održavalac"
 
+msgid "Last Packager"
+msgstr ""
+
 msgid "Votes"
 msgstr "Glasova"
 
@@ -896,11 +899,64 @@ msgstr "Prvi put priloženo"
 msgid "Last Updated"
 msgstr "Poslednje ažuriranje"
 
+msgid "Add Comment"
+msgstr "Dodaj komentar"
+
+msgid "Comment has been added."
+msgstr "Komentar je dodat."
+
+#, php-format
+msgid "View all %s comments"
+msgstr ""
+
+msgid "Latest Comments"
+msgstr ""
+
+msgid "Delete comment"
+msgstr "Obriši komentar"
+
+#, php-format
+msgid "Comment by %s"
+msgstr ""
+
+msgid "Anonymous comment"
+msgstr ""
+
+msgid "All comments"
+msgstr ""
+
+msgid "Package Details"
+msgstr "Podaci o paketu"
+
+msgid "Package Base"
+msgstr ""
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Upstream URL"
+msgstr ""
+
+msgid "Visit the website for"
+msgstr ""
+
+msgid "Licenses"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
 msgid "Dependencies"
 msgstr "Zavisnosti"
-
-msgid "View packages details for"
-msgstr ""
 
 msgid "Required by"
 msgstr "Zahteva ga"
@@ -914,8 +970,11 @@ msgstr "ime, opis"
 msgid "Name Only"
 msgstr "samo ime"
 
-msgid "Exact name"
-msgstr "tačno ime"
+msgid "Exact Name"
+msgstr ""
+
+msgid "Exact Package Base"
+msgstr ""
 
 msgid "All"
 msgstr "svi"
@@ -1005,9 +1064,6 @@ msgstr "Odrekni se paketa"
 msgid "Any type"
 msgstr "Bilo koji tip"
 
-msgid "Last vote"
-msgstr "Poslednji glas"
-
 msgid "Search"
 msgstr "Pretraži"
 
@@ -1078,11 +1134,17 @@ msgstr "Ukupno"
 msgid "Participation"
 msgstr ""
 
-msgid "Start"
-msgstr "Pokrenut"
+msgid "Last Votes by TU"
+msgstr ""
+
+msgid "Last vote"
+msgstr ""
 
 msgid "No results found."
 msgstr "Nema rezultata."
+
+msgid "Start"
+msgstr "Pokrenut"
 
 msgid "Back"
 msgstr "Nazad"

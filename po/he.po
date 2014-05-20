@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-07 09:22+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hebrew (http://www.transifex.com/projects/p/aur/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -151,6 +151,12 @@ msgstr ""
 msgid "Package Search"
 msgstr ""
 
+msgid "Adopt"
+msgstr ""
+
+msgid "Disown"
+msgstr ""
+
 msgid "Vote"
 msgstr "הצבעה"
 
@@ -205,14 +211,6 @@ msgstr "קריטריונים לחיפוש"
 msgid "Packages"
 msgstr "חבילות"
 
-msgid "Cannot find package to merge votes and comments into."
-msgstr ""
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "החבילות שנבחרו לא נמחקו, נא לבחור בתיבת האישור."
-
 msgid "Error trying to retrieve package details."
 msgstr "ארעה שגיאה בזמן קבלת נתוני חבילה."
 
@@ -261,6 +259,14 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr "נא להזין את כתובת הדוא״ל שלך:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr ""
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "החבילות שנבחרו לא נמחקו, נא לבחור בתיבת האישור."
+
 msgid "Package Deletion"
 msgstr ""
 
@@ -269,7 +275,9 @@ msgid "Delete Package: %s"
 msgstr ""
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
 msgstr ""
 
 msgid "Deletion of a package is permanent. "
@@ -295,7 +303,10 @@ msgid "Merge Package: %s"
 msgstr ""
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
 msgstr ""
 
 msgid "Once the package has been merged it cannot be reversed. "
@@ -343,20 +354,26 @@ msgstr ""
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr ""
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr ""
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr ""
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr ""
 
+msgid "Error - all directories must have permissions of 755."
+msgstr ""
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "שגיאה בניסיון פריסת הקובץ שהועלה - PKGBUILD לא קיים."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr ""
-
-msgid "Error - The AUR does not support split packages!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -386,27 +403,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr ""
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "לא ניתן ליצור תיקייה %s."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr ""
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr ""
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "לא ניתן ליצור תיקייה %s."
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "לא ניתן לשנות את התיקייה אל %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "העלאת חבילות המקור שלך לכאן. ניתן ליצור חבילות מקור באמצעות הפקודה `makepkg --source`."
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "קטגוריית חבילה"
@@ -434,6 +450,9 @@ msgstr "לא ניתן לקבל נתוני הצעה."
 
 msgid "Voting is closed for this proposal."
 msgstr "ההצבעה סגורה עבור הצעה זו."
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr ""
 
 msgid "You cannot vote in an proposal about you."
 msgstr "אין באפשרותך להצביע עבור הצעה הקשורה בך."
@@ -532,6 +551,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
 
+msgid "Account suspended"
+msgstr ""
+
+msgid "An error occurred trying to generate a user session."
+msgstr ""
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -550,18 +575,6 @@ msgstr "שגיאה בקבלת נתוני חבילה."
 
 msgid "Package details could not be found."
 msgstr "נתוני חבילה לא נמצאו."
-
-msgid "First"
-msgstr ""
-
-msgid "Previous"
-msgstr ""
-
-msgid "Next"
-msgstr "הבא"
-
-msgid "Last"
-msgstr ""
 
 msgid "You must be logged in before you can flag packages."
 msgstr "עליך להיכנס לפני שיהיה באפשרותך לסמן חבילות."
@@ -661,6 +674,25 @@ msgstr ""
 msgid "Package category changed."
 msgstr ""
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr ""
+
+msgid "View packages details for"
+msgstr ""
+
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr "הבא"
+
+msgid "Last"
+msgstr ""
+
 msgid "Account Type"
 msgstr "סוג חשבון"
 
@@ -691,14 +723,17 @@ msgstr ""
 msgid "Active"
 msgstr "פעיל"
 
-msgid "Last Voted"
-msgstr "הצבעה אחרונה"
+msgid "Last Login"
+msgstr ""
 
 msgid "Never"
 msgstr "לעולם"
 
 msgid "View this user's packages"
 msgstr "צפייה בחבילות המשתמש"
+
+msgid "Edit this user's account"
+msgstr ""
 
 msgid "required"
 msgstr "נדרש"
@@ -781,34 +816,11 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-msgid "Add Comment"
-msgstr ""
-
-msgid "Comment has been added."
-msgstr ""
-
-#, php-format
-msgid "View all %s comments"
-msgstr ""
-
-msgid "Latest Comments"
-msgstr ""
-
-msgid "Delete comment"
-msgstr "מחיקת הערה"
-
-#, php-format
-msgid "Comment by %s"
-msgstr ""
-
-msgid "All comments"
-msgstr ""
-
 msgid "unknown"
 msgstr ""
 
-msgid "Package Details"
-msgstr "נתוני חבילה"
+msgid "Package Base Details"
+msgstr ""
 
 msgid "Package Actions"
 msgstr ""
@@ -852,22 +864,10 @@ msgstr ""
 msgid "Disown Package"
 msgstr ""
 
-msgid "Description"
-msgstr "תיאור"
-
-msgid "Upstream URL"
-msgstr ""
-
-msgid "Visit the website for"
-msgstr ""
-
 msgid "Category"
 msgstr "קטגוריה"
 
 msgid "Change category"
-msgstr ""
-
-msgid "License"
 msgstr ""
 
 msgid "Submitter"
@@ -886,6 +886,9 @@ msgstr ""
 msgid "Maintainer"
 msgstr "מתחזק"
 
+msgid "Last Packager"
+msgstr ""
+
 msgid "Votes"
 msgstr "הצבעות"
 
@@ -895,11 +898,64 @@ msgstr ""
 msgid "Last Updated"
 msgstr ""
 
+msgid "Add Comment"
+msgstr ""
+
+msgid "Comment has been added."
+msgstr ""
+
+#, php-format
+msgid "View all %s comments"
+msgstr ""
+
+msgid "Latest Comments"
+msgstr ""
+
+msgid "Delete comment"
+msgstr "מחיקת הערה"
+
+#, php-format
+msgid "Comment by %s"
+msgstr ""
+
+msgid "Anonymous comment"
+msgstr ""
+
+msgid "All comments"
+msgstr ""
+
+msgid "Package Details"
+msgstr "נתוני חבילה"
+
+msgid "Package Base"
+msgstr ""
+
+msgid "Description"
+msgstr "תיאור"
+
+msgid "Upstream URL"
+msgstr ""
+
+msgid "Visit the website for"
+msgstr ""
+
+msgid "Licenses"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
 msgid "Dependencies"
 msgstr "תלות"
-
-msgid "View packages details for"
-msgstr ""
 
 msgid "Required by"
 msgstr "נדרש על ידי"
@@ -913,7 +969,10 @@ msgstr ""
 msgid "Name Only"
 msgstr ""
 
-msgid "Exact name"
+msgid "Exact Name"
+msgstr ""
+
+msgid "Exact Package Base"
 msgstr ""
 
 msgid "All"
@@ -1004,9 +1063,6 @@ msgstr "שחרור בעלות על חבילות"
 msgid "Any type"
 msgstr "כל סוג"
 
-msgid "Last vote"
-msgstr "הצבעה אחרונה"
-
 msgid "Search"
 msgstr "חיפוש"
 
@@ -1077,11 +1133,17 @@ msgstr "סך הכול"
 msgid "Participation"
 msgstr ""
 
-msgid "Start"
-msgstr "התחלה"
+msgid "Last Votes by TU"
+msgstr ""
+
+msgid "Last vote"
+msgstr ""
 
 msgid "No results found."
 msgstr "תוצאות לא נמצאו."
+
+msgid "Start"
+msgstr "התחלה"
 
 msgid "Back"
 msgstr "חזרה"

@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# leonfeng <rainofchaos@gmail.com>, 2012
+# leonfeng <chaofeng111@gmail.com>, 2012
 # panda_z <panda.hust@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-07 09:22+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/aur/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -153,6 +153,12 @@ msgstr "位于 unsupported 的包为用户产生的内容。使用它们造成�
 msgid "Package Search"
 msgstr "软件包搜索"
 
+msgid "Adopt"
+msgstr ""
+
+msgid "Disown"
+msgstr ""
+
 msgid "Vote"
 msgstr "投票"
 
@@ -207,14 +213,6 @@ msgstr "搜索"
 msgid "Packages"
 msgstr "软件包"
 
-msgid "Cannot find package to merge votes and comments into."
-msgstr ""
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "选中的软件包未被删除，请检查确认复选框。"
-
 msgid "Error trying to retrieve package details."
 msgstr "尝试重新获取软件包详情时发生错误。"
 
@@ -263,6 +261,14 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr "输入您的邮箱地址:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr ""
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "选中的软件包未被删除，请检查确认复选框。"
+
 msgid "Package Deletion"
 msgstr "软件包删除"
 
@@ -271,7 +277,9 @@ msgid "Delete Package: %s"
 msgstr ""
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
 msgstr ""
 
 msgid "Deletion of a package is permanent. "
@@ -297,7 +305,10 @@ msgid "Merge Package: %s"
 msgstr "合并软件包: %s"
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
 msgstr ""
 
 msgid "Once the package has been merged it cannot be reversed. "
@@ -345,20 +356,26 @@ msgstr "错误 - 解压文件太大。"
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr ""
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr ""
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr ""
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr ""
 
+msgid "Error - all directories must have permissions of 755."
+msgstr ""
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "尝试解压上传的包发生错误 - 没有PKGBUILD文件。"
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "PKGBUILD 中缺少 %s 变量。"
-
-msgid "Error - The AUR does not support split packages!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -388,27 +405,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr ""
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "无法创建文件夹 %s。"
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr ""
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr ""
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "无法创建文件夹 %s。"
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "无法切换目录至 %s。"
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "在此上传包。使用`makepkg --source`创建包。"
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "包类别"
@@ -436,6 +452,9 @@ msgstr "无法获取提议详情。"
 
 msgid "Voting is closed for this proposal."
 msgstr "该提议的投票已被关闭。"
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr ""
 
 msgid "You cannot vote in an proposal about you."
 msgstr "您不能在关于您的提议里投票。"
@@ -534,6 +553,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
 
+msgid "Account suspended"
+msgstr ""
+
+msgid "An error occurred trying to generate a user session."
+msgstr ""
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -552,18 +577,6 @@ msgstr "获取软件包详情时发生错误。"
 
 msgid "Package details could not be found."
 msgstr "无法找到包的详细信息。"
-
-msgid "First"
-msgstr ""
-
-msgid "Previous"
-msgstr "上一页"
-
-msgid "Next"
-msgstr "下一页"
-
-msgid "Last"
-msgstr "末页"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "您需要登录后才能标记包。"
@@ -663,6 +676,25 @@ msgstr "您无权修改此软件包的类别。"
 msgid "Package category changed."
 msgstr "包分类已更改。"
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "PKGBUILD 中缺少 %s 变量。"
+
+msgid "View packages details for"
+msgstr ""
+
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr "上一页"
+
+msgid "Next"
+msgstr "下一页"
+
+msgid "Last"
+msgstr "末页"
+
 msgid "Account Type"
 msgstr "帐户类别"
 
@@ -693,14 +725,17 @@ msgstr ""
 msgid "Active"
 msgstr "激活"
 
-msgid "Last Voted"
-msgstr "最后投票"
+msgid "Last Login"
+msgstr ""
 
 msgid "Never"
 msgstr "从不"
 
 msgid "View this user's packages"
 msgstr "查看这个用户提交的包"
+
+msgid "Edit this user's account"
+msgstr ""
 
 msgid "required"
 msgstr "必填"
@@ -783,34 +818,11 @@ msgstr "我的帐户"
 msgid "Register"
 msgstr "注册"
 
-msgid "Add Comment"
-msgstr "添加评论"
-
-msgid "Comment has been added."
-msgstr "已经添加评论。"
-
-#, php-format
-msgid "View all %s comments"
-msgstr ""
-
-msgid "Latest Comments"
-msgstr ""
-
-msgid "Delete comment"
-msgstr "删除评论"
-
-#, php-format
-msgid "Comment by %s"
-msgstr ""
-
-msgid "All comments"
-msgstr "全部评论"
-
 msgid "unknown"
 msgstr "未知"
 
-msgid "Package Details"
-msgstr "软件包详情"
+msgid "Package Base Details"
+msgstr ""
 
 msgid "Package Actions"
 msgstr "软件包操作"
@@ -854,23 +866,11 @@ msgstr ""
 msgid "Disown Package"
 msgstr ""
 
-msgid "Description"
-msgstr "描述"
-
-msgid "Upstream URL"
-msgstr ""
-
-msgid "Visit the website for"
-msgstr ""
-
 msgid "Category"
 msgstr "类别"
 
 msgid "Change category"
 msgstr "修改分类"
-
-msgid "License"
-msgstr "许可协议"
 
 msgid "Submitter"
 msgstr "提交人"
@@ -888,6 +888,9 @@ msgstr ""
 msgid "Maintainer"
 msgstr "维护者"
 
+msgid "Last Packager"
+msgstr ""
+
 msgid "Votes"
 msgstr "得票"
 
@@ -897,11 +900,64 @@ msgstr "首次提交"
 msgid "Last Updated"
 msgstr "最后更新"
 
+msgid "Add Comment"
+msgstr "添加评论"
+
+msgid "Comment has been added."
+msgstr "已经添加评论。"
+
+#, php-format
+msgid "View all %s comments"
+msgstr ""
+
+msgid "Latest Comments"
+msgstr ""
+
+msgid "Delete comment"
+msgstr "删除评论"
+
+#, php-format
+msgid "Comment by %s"
+msgstr ""
+
+msgid "Anonymous comment"
+msgstr ""
+
+msgid "All comments"
+msgstr "全部评论"
+
+msgid "Package Details"
+msgstr "软件包详情"
+
+msgid "Package Base"
+msgstr ""
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Upstream URL"
+msgstr ""
+
+msgid "Visit the website for"
+msgstr ""
+
+msgid "Licenses"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
 msgid "Dependencies"
 msgstr "依赖于:"
-
-msgid "View packages details for"
-msgstr ""
 
 msgid "Required by"
 msgstr "被需要:"
@@ -915,7 +971,10 @@ msgstr "名称和描述"
 msgid "Name Only"
 msgstr "名称"
 
-msgid "Exact name"
+msgid "Exact Name"
+msgstr ""
+
+msgid "Exact Package Base"
 msgstr ""
 
 msgid "All"
@@ -1006,9 +1065,6 @@ msgstr "弃置包"
 msgid "Any type"
 msgstr "所有类别"
 
-msgid "Last vote"
-msgstr "最后投票"
-
 msgid "Search"
 msgstr "搜索"
 
@@ -1079,11 +1135,17 @@ msgstr "总数"
 msgid "Participation"
 msgstr ""
 
-msgid "Start"
-msgstr "开始"
+msgid "Last Votes by TU"
+msgstr ""
+
+msgid "Last vote"
+msgstr ""
 
 msgid "No results found."
 msgstr "没有找到结果。"
+
+msgid "Start"
+msgstr "开始"
 
 msgid "Back"
 msgstr "返回"

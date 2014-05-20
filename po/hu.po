@@ -4,15 +4,15 @@
 # 
 # Translators:
 # György Balló <ballogy@freestart.hu>, 2013
-# György Balló <ballogy@freestart.hu>, 2011,2013
+# György Balló <ballogy@freestart.hu>, 2011,2013-2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-08-26 16:37+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-09 21:09+0000\n"
+"Last-Translator: György Balló <ballogy@freestart.hu>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/aur/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +61,7 @@ msgid "%s already has proposal running for them."
 msgstr "%s már megpályázta őket."
 
 msgid "Invalid type."
-msgstr ""
+msgstr "Érvénytelen típus."
 
 msgid "Proposal cannot be empty."
 msgstr "Az indítvány nem lehet üres."
@@ -82,16 +82,16 @@ msgid "Type"
 msgstr "Típus"
 
 msgid "Addition of a TU"
-msgstr ""
+msgstr "TU hozzáadása"
 
 msgid "Removal of a TU"
-msgstr ""
+msgstr "TU eltávolítása"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "TU eltávolítása (be nem jelentett inaktivitás)"
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "Szabályzat módosítása"
 
 msgid "Proposal"
 msgstr "Indítvány"
@@ -153,6 +153,12 @@ msgstr "A nem támogatott csomagok felhasználók által készített tartalmak. 
 msgid "Package Search"
 msgstr "Csomag keresése"
 
+msgid "Adopt"
+msgstr "Örökbe fogadás"
+
+msgid "Disown"
+msgstr "Megtagadás"
+
 msgid "Vote"
 msgstr "Szavazás"
 
@@ -191,7 +197,7 @@ msgid "Password"
 msgstr "Jelszó"
 
 msgid "Remember me"
-msgstr "Maradj bejelentkezve"
+msgstr "Maradjak bejelentkezve"
 
 msgid "Forgot Password"
 msgstr "Elfelejtett jelszó"
@@ -206,14 +212,6 @@ msgstr "Keresési feltételek"
 
 msgid "Packages"
 msgstr "Csomagok"
-
-msgid "Cannot find package to merge votes and comments into."
-msgstr "Nem található csomag, amelybe a szavazatok és megjegyzések beolvaszthatók lennének."
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "A kiválasztott csomagok nem kerültek törlésre, ellenőrizd a megerősítő jelölőnégyzetet."
 
 msgid "Error trying to retrieve package details."
 msgstr "Hiba történt a csomag részletes információinak letöltése közben."
@@ -263,6 +261,14 @@ msgstr "Ha elfelejtetted az e-mail címet, amit a regisztrációhoz használtál
 msgid "Enter your e-mail address:"
 msgstr "Add meg az e-mail címedet:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Nem található csomag, amelybe a szavazatok és megjegyzések beolvaszthatók lennének."
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "A kiválasztott csomagok nem kerültek törlésre, ellenőrizd a megerősítő jelölőnégyzetet."
+
 msgid "Package Deletion"
 msgstr "Csomag törlése"
 
@@ -271,8 +277,10 @@ msgid "Delete Package: %s"
 msgstr "Csomag törlése: %s"
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr "Használd ezt az űrlapot a csomag (%s%s%s) AUR-ból történő törléséhez. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr "Használd ezt az űrlapot a(z) %s%s%s alapcsomag és az alábbi csomagok törléséhez az AUR-ból:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "Egy csomag törlése végleges. "
@@ -297,8 +305,11 @@ msgid "Merge Package: %s"
 msgstr "Csomag beolvasztása: %s"
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr "Használd ezt az űrlapot a csomag (%s%s%s) beolvasztásához egy másik csomagba. "
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr "Használd ezt az űrlapot a(z) %s%s%s alapcsomag másik csomagba történő beolvasztásához."
+
+msgid "The following packages will be deleted: "
+msgstr "A következő csomagok törlésre kerülnek:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Ha egyszer egy csomag beolvasztásra került, többé nem lehet visszaállítani. "
@@ -345,21 +356,27 @@ msgstr "Hiba – a fájl kibontott mérete túl nagy."
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Hiba – forrástarball nem tartalmazhat fájlokat könyvtáron kívül."
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr "Hiba - az összes fájlnak 644-es vagy 755-ös jogosultsággal kell rendelkeznie."
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Hiba – forrástarball nem tartalmazhat beágyazott alkönyvtárakat."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "Hiba – forrástarball nem tartalmazhat egynél több könyvtárat."
 
+msgid "Error - all directories must have permissions of 755."
+msgstr "Hiba - az összes könyvtárnak 755-ös jogosultsággal kell rendelkeznie."
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Hiba történt a feltöltés kibontása közben – a PKGBUILD nem létezik."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Hiányzó %s változó a PKGBUILD-ben."
-
-msgid "Error - The AUR does not support split packages!"
-msgstr "Hiba – Az AUR nem támogatja az osztott csomagokat!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
+msgstr "A forráscsomag nem tartalmaz metaadatot. Kérlek, hogy AUR forráscsomag létrehozásához használd az „mkaurball” parancsot. .AURINFO bejegyzések nélküli forráscsomagok támogatása eltávolításra kerül egy későbbi kiadásban! Beküldheted újra a csomagot, ha mindenképp folytatni szeretnéd."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Érvénytelen név: csak kisbetűk használata engedélyezett."
@@ -388,27 +405,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr "Hiba – A csomag verziója nem lehet több %d karakternél"
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "Nem sikerült létrehozni a(z) %s könyvtárat."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "A(z) %s%s%s csomag felülírása nem engedélyezett számodra."
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr "A(z) %s a csomagok feketelistáján van, kérünk ellenőrizd, hogy elérhető-e a hivatalos tárolókban."
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr "A(z) %s%s%s csomag felülírása nem engedélyezett számodra."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Nem sikerült létrehozni a(z) %s könyvtárat."
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "Nem sikerült a könyvtárat megváltoztatni erre: %s"
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "Itt töltsd fel a forráscsomagjaidat. A forráscsomagokat a „makepkg --source” paranccsal készítsd."
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr "Forráscsomagjaidat töltsd fel itt. A forráscsomagokat az „mkaurball” paranccsal hozd létre."
 
 msgid "Package Category"
 msgstr "Csomagkategória"
@@ -436,6 +452,9 @@ msgstr "Nem sikerült az indítvány részletes információinak letöltése."
 
 msgid "Voting is closed for this proposal."
 msgstr "A szavazás lezárult erre az indítványra."
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr "A szavazás csak megbízható felhasználóknak engedélyezett."
 
 msgid "You cannot vote in an proposal about you."
 msgstr "Nem szavazhatsz egy rólad szóló indítványra."
@@ -534,6 +553,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "A bejelentkező űrlap jelenleg letiltásra került az IP címedre, valószínűleg rendszeres spam támadások miatt. Elnézést a kellemetlenségért."
 
+msgid "Account suspended"
+msgstr "Fiók felfüggesztve"
+
+msgid "An error occurred trying to generate a user session."
+msgstr "Hiba történt a felhasználói munkamenet létrehozásának megkísérlésekor."
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -552,18 +577,6 @@ msgstr "Hiba történt a csomag részletes információinak letöltése közben.
 
 msgid "Package details could not be found."
 msgstr "A csomag részletes információi nem találhatók."
-
-msgid "First"
-msgstr "Első"
-
-msgid "Previous"
-msgstr "Előző"
-
-msgid "Next"
-msgstr "Következő"
-
-msgid "Last"
-msgstr "Utolsó"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "Csomagok megjelöléséhez be kell jelentkezned."
@@ -663,6 +676,25 @@ msgstr "Nem változtathatod meg ennek a csomagnak a kategóriáját."
 msgid "Package category changed."
 msgstr "A csomag kategóriája megváltoztatva."
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Hiányzó %s változó a PKGBUILD-ben."
+
+msgid "View packages details for"
+msgstr "Csomag részleteinek megtekintése –"
+
+msgid "First"
+msgstr "Első"
+
+msgid "Previous"
+msgstr "Előző"
+
+msgid "Next"
+msgstr "Következő"
+
+msgid "Last"
+msgstr "Utolsó"
+
 msgid "Account Type"
 msgstr "Fióktípus"
 
@@ -688,19 +720,22 @@ msgid "Status"
 msgstr "Állapot"
 
 msgid "Inactive since"
-msgstr ""
+msgstr "Ezóta inaktív:"
 
 msgid "Active"
 msgstr "Aktív"
 
-msgid "Last Voted"
-msgstr "Utolsó szavazat"
+msgid "Last Login"
+msgstr "Legutóbbi bejelentkezés"
 
 msgid "Never"
 msgstr "Soha"
 
 msgid "View this user's packages"
 msgstr "A felhasználó csomagjainak megtekintése"
+
+msgid "Edit this user's account"
+msgstr "Ezen felhasználó fiókjának szerkesztése"
 
 msgid "required"
 msgstr "kötelező"
@@ -715,7 +750,7 @@ msgid "Account Suspended"
 msgstr "Felhasználói fiók felfüggesztve"
 
 msgid "Inactive"
-msgstr ""
+msgstr "Inaktív"
 
 msgid "Re-type password"
 msgstr "Megismételt jelszó"
@@ -783,34 +818,11 @@ msgstr " Fiókom"
 msgid "Register"
 msgstr "Regisztráció"
 
-msgid "Add Comment"
-msgstr "Hosszászólás"
-
-msgid "Comment has been added."
-msgstr "A megjegyzés hozzáadva."
-
-#, php-format
-msgid "View all %s comments"
-msgstr "Mind a(z) %s hozzászólás megjelenítése"
-
-msgid "Latest Comments"
-msgstr "Legújabb hozzászólások"
-
-msgid "Delete comment"
-msgstr "Hozzászólás törlése"
-
-#, php-format
-msgid "Comment by %s"
-msgstr "%s hozzászólása"
-
-msgid "All comments"
-msgstr "Összes hozzászólás"
-
 msgid "unknown"
 msgstr "ismeretlen"
 
-msgid "Package Details"
-msgstr "Részletes csomaginformáció"
+msgid "Package Base Details"
+msgstr "Alapcsomag részletei"
 
 msgid "Package Actions"
 msgstr "Csomagműveletek"
@@ -854,23 +866,11 @@ msgstr "Csomag örökbe fogadása"
 msgid "Disown Package"
 msgstr "Csomag megtagadása"
 
-msgid "Description"
-msgstr "Leírás"
-
-msgid "Upstream URL"
-msgstr "Upstream URL"
-
-msgid "Visit the website for"
-msgstr "A webhely meglátogatása –"
-
 msgid "Category"
 msgstr "Kategória"
 
 msgid "Change category"
 msgstr "Kategória megváltoztatása"
-
-msgid "License"
-msgstr "Licenc"
 
 msgid "Submitter"
 msgstr "Beküldő"
@@ -888,6 +888,9 @@ msgstr "Nincs"
 msgid "Maintainer"
 msgstr "Karbantartó"
 
+msgid "Last Packager"
+msgstr "Legutóbbi csomagoló"
+
 msgid "Votes"
 msgstr "Szavazatok"
 
@@ -897,11 +900,64 @@ msgstr "Először beküldve"
 msgid "Last Updated"
 msgstr "Legutóbb frissítve"
 
+msgid "Add Comment"
+msgstr "Hosszászólás"
+
+msgid "Comment has been added."
+msgstr "A megjegyzés hozzáadva."
+
+#, php-format
+msgid "View all %s comments"
+msgstr "Mind a(z) %s hozzászólás megjelenítése"
+
+msgid "Latest Comments"
+msgstr "Legújabb hozzászólások"
+
+msgid "Delete comment"
+msgstr "Hozzászólás törlése"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "%s hozzászólása"
+
+msgid "Anonymous comment"
+msgstr "Névtelen megjegyzés"
+
+msgid "All comments"
+msgstr "Összes hozzászólás"
+
+msgid "Package Details"
+msgstr "Részletes csomaginformáció"
+
+msgid "Package Base"
+msgstr "Alapcsomag"
+
+msgid "Description"
+msgstr "Leírás"
+
+msgid "Upstream URL"
+msgstr "Upstream URL"
+
+msgid "Visit the website for"
+msgstr "A webhely meglátogatása –"
+
+msgid "Licenses"
+msgstr "Licencek"
+
+msgid "Groups"
+msgstr "Csoportok"
+
+msgid "Conflicts"
+msgstr "Ütközik"
+
+msgid "Provides"
+msgstr "Szolgáltatja"
+
+msgid "Replaces"
+msgstr "Lecseréli"
+
 msgid "Dependencies"
 msgstr "Függőségek"
-
-msgid "View packages details for"
-msgstr "Csomag részleteinek megtekintése –"
 
 msgid "Required by"
 msgstr "Igényli"
@@ -915,8 +971,11 @@ msgstr "Név, leírás"
 msgid "Name Only"
 msgstr "Csak név"
 
-msgid "Exact name"
+msgid "Exact Name"
 msgstr "Pontos név"
+
+msgid "Exact Package Base"
+msgstr "Pontos alapcsomag"
 
 msgid "All"
 msgstr "Összes"
@@ -1006,9 +1065,6 @@ msgstr "Csomagok megtagadása"
 msgid "Any type"
 msgstr "Bármilyen típus"
 
-msgid "Last vote"
-msgstr "Utolsó szavazat"
-
 msgid "Search"
 msgstr "Keresés"
 
@@ -1059,13 +1115,13 @@ msgid "End"
 msgstr "Vége"
 
 msgid "Result"
-msgstr ""
+msgstr "Eredmény"
 
 msgid "Accepted"
-msgstr ""
+msgstr "Elfogadva"
 
 msgid "Rejected"
-msgstr ""
+msgstr "Elutasítva"
 
 msgid "No"
 msgstr "Nem"
@@ -1077,13 +1133,19 @@ msgid "Total"
 msgstr "Összesen"
 
 msgid "Participation"
-msgstr ""
+msgstr "Részvétel"
 
-msgid "Start"
-msgstr "Kezdés"
+msgid "Last Votes by TU"
+msgstr "Legutóbbi szavazatok TU szerint"
+
+msgid "Last vote"
+msgstr "Legutóbbi szavazat"
 
 msgid "No results found."
 msgstr "Nincs találat."
+
+msgid "Start"
+msgstr "Kezdés"
 
 msgid "Back"
 msgstr "Vissza"

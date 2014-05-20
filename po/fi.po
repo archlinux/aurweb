@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-07 09:22+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/aur/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -151,6 +151,12 @@ msgstr "Nämä paketit eivät ole virallisesti tuettuja. Tämän sivun paketit o
 msgid "Package Search"
 msgstr ""
 
+msgid "Adopt"
+msgstr ""
+
+msgid "Disown"
+msgstr ""
+
 msgid "Vote"
 msgstr "Äänestä"
 
@@ -205,14 +211,6 @@ msgstr "Haku kriteerit"
 msgid "Packages"
 msgstr "Paketit"
 
-msgid "Cannot find package to merge votes and comments into."
-msgstr "Pakettia, johon haluat siirtää äänet ja kommentit, ei löydy."
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Valittuja paketteja ei ole poistettu. Muistitko laittaa raksin varmistus ruutuun?"
-
 msgid "Error trying to retrieve package details."
 msgstr "Valitun paketin tietoja ei löytynyt."
 
@@ -261,6 +259,14 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr "Sähköpostiosoitteesi:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Pakettia, johon haluat siirtää äänet ja kommentit, ei löydy."
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Valittuja paketteja ei ole poistettu. Muistitko laittaa raksin varmistus ruutuun?"
+
 msgid "Package Deletion"
 msgstr ""
 
@@ -269,7 +275,9 @@ msgid "Delete Package: %s"
 msgstr "Poista paketti: %s"
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
 msgstr ""
 
 msgid "Deletion of a package is permanent. "
@@ -295,7 +303,10 @@ msgid "Merge Package: %s"
 msgstr "Yhdistä paketit: %s"
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
 msgstr ""
 
 msgid "Once the package has been merged it cannot be reversed. "
@@ -343,20 +354,26 @@ msgstr "Virhe - Puretun tiedoston koko on liian suuri."
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Virhe - Lähdepaketissa ei saa olla tiedostoja kansion ulkopuolella."
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr ""
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Virhe - Lähdepaketti ei saa sisältää sisäkkäisiä alikansioita."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "Virhe - Lähdepaketissa saa olla vain yksi kansio."
 
+msgid "Error - all directories must have permissions of 755."
+msgstr ""
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Virhe pureattaessa lähdepakettia - PKGBUILD tiedostoa ei löydy."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Muuttuja %s ei ole määriteltynä PKGBUILD-tiedostossa."
-
-msgid "Error - The AUR does not support split packages!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -386,27 +403,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr ""
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "Kansion %s luonti epäonnistui."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr "%s on mustalla listalla. Tarkista onko se saatavilla virallisissa pakettivarastoissa."
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr ""
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Kansion %s luonti epäonnistui."
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "Ei voitu vaihtaa kansioon %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "Lisää ja päivitä paketteja täällä. Luo lähdepaketti komennolla `makepkg --source`."
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "Paketin kategoria"
@@ -434,6 +450,9 @@ msgstr "Ehdotuksen tietoja ei voitu noutaa."
 
 msgid "Voting is closed for this proposal."
 msgstr "Tämän ehdoksen äänestys on päättynyt."
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr ""
 
 msgid "You cannot vote in an proposal about you."
 msgstr "Et voi äänestää itseäsi koskevassa äänestyksessä."
@@ -532,6 +551,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
 
+msgid "Account suspended"
+msgstr ""
+
+msgid "An error occurred trying to generate a user session."
+msgstr ""
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -550,18 +575,6 @@ msgstr "Virhe haettaessa paketin tietoja."
 
 msgid "Package details could not be found."
 msgstr "Paketin tietoja ei löydetty."
-
-msgid "First"
-msgstr "Ensimmäinen"
-
-msgid "Previous"
-msgstr "Edellinen"
-
-msgid "Next"
-msgstr "Seuraava"
-
-msgid "Last"
-msgstr "Viimeinen"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit muuttaa merkintöjä."
@@ -661,6 +674,25 @@ msgstr "Sinulla ei ole oikeuksia tämän paketin kategorian muuttamiseen."
 msgid "Package category changed."
 msgstr "Paketin kategoria vaihdettu."
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Muuttuja %s ei ole määriteltynä PKGBUILD-tiedostossa."
+
+msgid "View packages details for"
+msgstr ""
+
+msgid "First"
+msgstr "Ensimmäinen"
+
+msgid "Previous"
+msgstr "Edellinen"
+
+msgid "Next"
+msgstr "Seuraava"
+
+msgid "Last"
+msgstr "Viimeinen"
+
 msgid "Account Type"
 msgstr "TIlin tyyppi"
 
@@ -691,14 +723,17 @@ msgstr ""
 msgid "Active"
 msgstr "Aktiivinen"
 
-msgid "Last Voted"
-msgstr "Viimeksi äänestetty"
+msgid "Last Login"
+msgstr ""
 
 msgid "Never"
 msgstr "Ei koskaan"
 
 msgid "View this user's packages"
 msgstr "Näytä käyttäjän paketit"
+
+msgid "Edit this user's account"
+msgstr ""
 
 msgid "required"
 msgstr "vaaditaan"
@@ -781,34 +816,11 @@ msgstr "Omat tiedot"
 msgid "Register"
 msgstr "Rekisteröidy"
 
-msgid "Add Comment"
-msgstr "Lisää kommentti"
-
-msgid "Comment has been added."
-msgstr "Kommentti lisätty."
-
-#, php-format
-msgid "View all %s comments"
-msgstr "Näytä kaikki %s kommenttia"
-
-msgid "Latest Comments"
-msgstr "Uusimmat kommentit"
-
-msgid "Delete comment"
-msgstr "Poista kommentti"
-
-#, php-format
-msgid "Comment by %s"
-msgstr "Kommentin kirjoitti %s"
-
-msgid "All comments"
-msgstr "Kaikki kommentit"
-
 msgid "unknown"
 msgstr "tuntematon"
 
-msgid "Package Details"
-msgstr "Paketin tiedot"
+msgid "Package Base Details"
+msgstr ""
 
 msgid "Package Actions"
 msgstr ""
@@ -852,23 +864,11 @@ msgstr ""
 msgid "Disown Package"
 msgstr ""
 
-msgid "Description"
-msgstr "Kuvaus"
-
-msgid "Upstream URL"
-msgstr ""
-
-msgid "Visit the website for"
-msgstr ""
-
 msgid "Category"
 msgstr "Kategoria"
 
 msgid "Change category"
 msgstr "Vaihda kategoriaa"
-
-msgid "License"
-msgstr "Lisenssi"
 
 msgid "Submitter"
 msgstr "Lisääjä"
@@ -886,6 +886,9 @@ msgstr ""
 msgid "Maintainer"
 msgstr "Ylläpitäjä"
 
+msgid "Last Packager"
+msgstr ""
+
 msgid "Votes"
 msgstr "Äänet"
 
@@ -895,11 +898,64 @@ msgstr "Lisättiin"
 msgid "Last Updated"
 msgstr "Päivitettiin"
 
+msgid "Add Comment"
+msgstr "Lisää kommentti"
+
+msgid "Comment has been added."
+msgstr "Kommentti lisätty."
+
+#, php-format
+msgid "View all %s comments"
+msgstr "Näytä kaikki %s kommenttia"
+
+msgid "Latest Comments"
+msgstr "Uusimmat kommentit"
+
+msgid "Delete comment"
+msgstr "Poista kommentti"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "Kommentin kirjoitti %s"
+
+msgid "Anonymous comment"
+msgstr ""
+
+msgid "All comments"
+msgstr "Kaikki kommentit"
+
+msgid "Package Details"
+msgstr "Paketin tiedot"
+
+msgid "Package Base"
+msgstr ""
+
+msgid "Description"
+msgstr "Kuvaus"
+
+msgid "Upstream URL"
+msgstr ""
+
+msgid "Visit the website for"
+msgstr ""
+
+msgid "Licenses"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
 msgid "Dependencies"
 msgstr "Riippuvuudet"
-
-msgid "View packages details for"
-msgstr ""
 
 msgid "Required by"
 msgstr "Riippuvuutena paketeille"
@@ -913,8 +969,11 @@ msgstr "Nimi, kuvaus"
 msgid "Name Only"
 msgstr "Pelkkä nimi"
 
-msgid "Exact name"
-msgstr "Nimi täsmälleen"
+msgid "Exact Name"
+msgstr ""
+
+msgid "Exact Package Base"
+msgstr ""
 
 msgid "All"
 msgstr "Kaikki"
@@ -1004,9 +1063,6 @@ msgstr "Hylkää paketit"
 msgid "Any type"
 msgstr "Mikä tahansa"
 
-msgid "Last vote"
-msgstr "Viimeisin ääni"
-
 msgid "Search"
 msgstr "Etsi"
 
@@ -1077,11 +1133,17 @@ msgstr "Yhteensä"
 msgid "Participation"
 msgstr ""
 
-msgid "Start"
-msgstr "Alku"
+msgid "Last Votes by TU"
+msgstr ""
+
+msgid "Last vote"
+msgstr ""
 
 msgid "No results found."
 msgstr "Ei tuloksia."
+
+msgid "Start"
+msgstr "Alku"
 
 msgid "Back"
 msgstr "Takaisin"

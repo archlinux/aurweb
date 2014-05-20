@@ -6,14 +6,14 @@
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2013
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2014
 # Данило Коростіль <ted.korostiled@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-09-01 19:43+0000\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-08 19:45+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -84,13 +84,13 @@ msgid "Type"
 msgstr "Тип"
 
 msgid "Addition of a TU"
-msgstr "Додано TU"
+msgstr "Додавання довіреного користувача"
 
 msgid "Removal of a TU"
-msgstr "Вилучення TU"
+msgstr "Вилучення довіреного користувача"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr "Вилучення TU (неоголошена бездіяльність)"
+msgstr "Вилучення довіреного користувача (неоголошена бездіяльність)"
 
 msgid "Amendment of Bylaws"
 msgstr "Поправки до Статуту"
@@ -117,7 +117,7 @@ msgid ""
 msgstr "Надіслані PKGBUILD %sповинні%s задовольняти %sстандарти пакування%s, інакше вони вилучаються."
 
 msgid "Remember to vote for your favourite packages!"
-msgstr "Проголосуйте за улюблені пакунки;"
+msgstr "Не забудьте проголосувати за улюблені пакунки!"
 
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Деякі пакунки можуть бути в бінарному вигляді у сховищі [community]."
@@ -150,10 +150,16 @@ msgstr "ВІДМОВА ВІД ВІДПОВІДАЛЬНОСТІ"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Непідтримувані пакунки створюються користувачами. Використовуйте їх на свій страх і ризик."
+msgstr "Пакунки, що не підтримуються - це пакунки, створені користувачами. Ви можете використовувати їх тільки на Ваш власний страх і ризик."
 
 msgid "Package Search"
 msgstr "Пошук пакунків"
+
+msgid "Adopt"
+msgstr "Прийняти"
+
+msgid "Disown"
+msgstr "Відректися"
 
 msgid "Vote"
 msgstr "Проголосувати"
@@ -209,14 +215,6 @@ msgstr "Критерії пошуку"
 msgid "Packages"
 msgstr "Пакунки"
 
-msgid "Cannot find package to merge votes and comments into."
-msgstr "Не вдалося знайти пакунок для об’єднання голосів та коментарів."
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Обрані пакунки не вилучено; перевірте, чи поставлено галочку в полі підтвердження."
-
 msgid "Error trying to retrieve package details."
 msgstr "Стався збій під час пошуку інформації про пакунок."
 
@@ -265,6 +263,14 @@ msgstr "Якщо Ви забули електронну адресу, викор
 msgid "Enter your e-mail address:"
 msgstr "Введіть адресу електронної пошти:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Не вдалося знайти пакунок для об’єднання голосів та коментарів."
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Обрані пакунки не вилучено, перевірте, чи поставлено галочку в полі підтвердження."
+
 msgid "Package Deletion"
 msgstr "Вилучення пакунку"
 
@@ -273,8 +279,10 @@ msgid "Delete Package: %s"
 msgstr "Вилучити пакунок: %s"
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr "Використовуйте цю форму для вилучення пакунку (%s%s%s) з AUR. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr "Використовуйте цю форму для вилучення пакунку %s%s%s з AUR. "
 
 msgid "Deletion of a package is permanent. "
 msgstr "Вилучення пакунку є безповоротне."
@@ -299,8 +307,11 @@ msgid "Merge Package: %s"
 msgstr "Об’єднати пакунки: %s"
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr "Використовуйте цю форму для об’єднання пакунку (%s%s%s) з іншим пакунком."
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr "Використовуйте цю форму для злиття пакунку %s%s%s з іншим пакунком."
+
+msgid "The following packages will be deleted: "
+msgstr "Наступні пакунки будуть вилучені:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Як тільки пакунок буде об’єднаний, його вже неможливо повернути."
@@ -347,21 +358,27 @@ msgstr "Помилка — розмір нестисненого файла на
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Помилка — архів з  кодом не може містити файли за межами теки."
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr "Помилка - всі файли повинні мати права доступу 644 або 755."
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Помилка — архів з  кодом не може містити вкладені підтеки."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "Помилка — архів з кодом не може містити понад одну теку."
 
+msgid "Error - all directories must have permissions of 755."
+msgstr "Помилка - всі теки повинні мати права доступу 755."
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Помилка під час  розпакування вивантаженого — немає PKGBUILD."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Пропущено змінну %s в PKGBUILD."
-
-msgid "Error - The AUR does not support split packages!"
-msgstr "Помилка - AUR не підтримує розділених пакунків!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
+msgstr "Джерельний пакунок не містить жодних мета-даних. Використайте `mkaurball` для створення пакунку для AUR. Підтримка джерельних пакунків без .AURINFO буде вилучена наступному випуску! Ви також можете ще раз надіслати пакунок, якщо будете і надалі підтримувати його."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Неправильна назва: дозволено тільки малі літери."
@@ -390,27 +407,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr "Помилка - Версія пакунку не може бути ніж %d символів"
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "Неможливо створити теку %s."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "Вам заборонено переписувати пакунок %s%s%s."
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr "%s міститься в «чорному» списку. Будь ласка, перевірте, чи він не міститься в офіційному сховищі."
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr "Вам заборонено переписувати пакунок %s%s%s."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Неможливо створити теку %s."
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "Неможливо змінити теку на %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "Надішліть за допомогою цієї форми початковий пакунок, створений за допомогою «makepkg --source»."
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr "Завантажте тут Ваш джерельний пакунок. Створіть джерельний пакунок за допомогою `mkaurball`."
 
 msgid "Package Category"
 msgstr "Категорія пакунка"
@@ -438,6 +454,9 @@ msgstr "Не вдалось отримати подробиць пропозиц
 
 msgid "Voting is closed for this proposal."
 msgstr "Голосування на цю пропозицію закрито."
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr "Тільки Довірені Користувачі мають право голосу."
 
 msgid "You cannot vote in an proposal about you."
 msgstr "Ви не можете голосувати за свою пропозицію."
@@ -536,6 +555,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Форма логування зараз заборонена для Вашої адреси IP, можливо із-за інтенсивної спам-атаки. Вибачте за незручності."
 
+msgid "Account suspended"
+msgstr "Рахунок вилучено"
+
+msgid "An error occurred trying to generate a user session."
+msgstr "Сталася помилка під час створення сесії користувача."
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -554,18 +579,6 @@ msgstr "Помилка пошуку інформації про пакунок."
 
 msgid "Package details could not be found."
 msgstr "Інформації про пакунок не знайдено."
-
-msgid "First"
-msgstr "Перший"
-
-msgid "Previous"
-msgstr "Попередній"
-
-msgid "Next"
-msgstr "Далі"
-
-msgid "Last"
-msgstr "Останній"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "Для встановлення мітки слід увійти."
@@ -665,6 +678,25 @@ msgstr "Ви не можете змінити катеогрію цього па
 msgid "Package category changed."
 msgstr "Категорію пакунку змінено."
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Пропущено змінну %s в PKGBUILD."
+
+msgid "View packages details for"
+msgstr "Показати деталі пакунку для "
+
+msgid "First"
+msgstr "Перший"
+
+msgid "Previous"
+msgstr "Попередній"
+
+msgid "Next"
+msgstr "Далі"
+
+msgid "Last"
+msgstr "Останній"
+
 msgid "Account Type"
 msgstr "Тип облікового запису"
 
@@ -695,14 +727,17 @@ msgstr "Неактивний з"
 msgid "Active"
 msgstr "Активний"
 
-msgid "Last Voted"
-msgstr "Останнім проголосував"
+msgid "Last Login"
+msgstr "Останній вхід"
 
 msgid "Never"
 msgstr "Ніколи"
 
 msgid "View this user's packages"
 msgstr "Переглянути пакунки цього користувача"
+
+msgid "Edit this user's account"
+msgstr "Редагування рахунку цього користувача"
 
 msgid "required"
 msgstr "обов'язково"
@@ -785,34 +820,11 @@ msgstr "Мій рахунок"
 msgid "Register"
 msgstr "Зареєструватись"
 
-msgid "Add Comment"
-msgstr "Додати коментар"
-
-msgid "Comment has been added."
-msgstr "Коментар додано."
-
-#, php-format
-msgid "View all %s comments"
-msgstr "Переглянути всі %s коментарі"
-
-msgid "Latest Comments"
-msgstr "Останні коментарі"
-
-msgid "Delete comment"
-msgstr "Вилучити коментар"
-
-#, php-format
-msgid "Comment by %s"
-msgstr "Автор коментаря — %s"
-
-msgid "All comments"
-msgstr "Всі коментарі"
-
 msgid "unknown"
 msgstr "невідомо"
 
-msgid "Package Details"
-msgstr "Подробиці пакунку"
+msgid "Package Base Details"
+msgstr "Деталі бази пакунків"
 
 msgid "Package Actions"
 msgstr "Дії над пакунком"
@@ -856,23 +868,11 @@ msgstr "Прийняти пакунок"
 msgid "Disown Package"
 msgstr "Зректися пакунку"
 
-msgid "Description"
-msgstr "Опис"
-
-msgid "Upstream URL"
-msgstr "Посилання"
-
-msgid "Visit the website for"
-msgstr "Відвідати веб-сторінку для"
-
 msgid "Category"
 msgstr "Категорія"
 
 msgid "Change category"
 msgstr "Змінити категорію"
-
-msgid "License"
-msgstr "Ліцензія"
 
 msgid "Submitter"
 msgstr "Подавач"
@@ -885,10 +885,13 @@ msgid "View account information for %s"
 msgstr "Показати інформацію про рахунок для %s"
 
 msgid "None"
-msgstr "Нічого"
+msgstr "Немає"
 
 msgid "Maintainer"
 msgstr "Супровідник"
+
+msgid "Last Packager"
+msgstr "Останній збирач пакунку"
 
 msgid "Votes"
 msgstr "Голоси"
@@ -899,11 +902,64 @@ msgstr "Вперше надіслано"
 msgid "Last Updated"
 msgstr "Останній раз оновлено"
 
+msgid "Add Comment"
+msgstr "Додати коментар"
+
+msgid "Comment has been added."
+msgstr "Коментар додано."
+
+#, php-format
+msgid "View all %s comments"
+msgstr "Переглянути всі %s коментарі"
+
+msgid "Latest Comments"
+msgstr "Останні коментарі"
+
+msgid "Delete comment"
+msgstr "Вилучити коментар"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "Автор коментаря — %s"
+
+msgid "Anonymous comment"
+msgstr "Анонімний коментар"
+
+msgid "All comments"
+msgstr "Всі коментарі"
+
+msgid "Package Details"
+msgstr "Подробиці пакунку"
+
+msgid "Package Base"
+msgstr "База пакунків"
+
+msgid "Description"
+msgstr "Опис"
+
+msgid "Upstream URL"
+msgstr "Посилання"
+
+msgid "Visit the website for"
+msgstr "Відвідати веб-сторінку для"
+
+msgid "Licenses"
+msgstr "Ліцензії"
+
+msgid "Groups"
+msgstr "Групи"
+
+msgid "Conflicts"
+msgstr "Конфлікти"
+
+msgid "Provides"
+msgstr "Забезпечує"
+
+msgid "Replaces"
+msgstr "Замінює"
+
 msgid "Dependencies"
 msgstr "Залежності"
-
-msgid "View packages details for"
-msgstr "Показати деталі пакунку для "
 
 msgid "Required by"
 msgstr "Потрібен для"
@@ -917,8 +973,11 @@ msgstr "Назва, опис"
 msgid "Name Only"
 msgstr "Назва"
 
-msgid "Exact name"
+msgid "Exact Name"
 msgstr "Точна назва"
+
+msgid "Exact Package Base"
+msgstr "Точна база пакунків"
 
 msgid "All"
 msgstr "Всі"
@@ -1008,9 +1067,6 @@ msgstr "Зректися пакунків"
 msgid "Any type"
 msgstr "Будь-який тип"
 
-msgid "Last vote"
-msgstr "Останній голос"
-
 msgid "Search"
 msgstr "Пошук"
 
@@ -1081,11 +1137,17 @@ msgstr "Всього"
 msgid "Participation"
 msgstr "Участь"
 
-msgid "Start"
-msgstr "Початок"
+msgid "Last Votes by TU"
+msgstr "Останні голосування через TU"
+
+msgid "Last vote"
+msgstr "Останнє голосування"
 
 msgid "No results found."
 msgstr "Результатів не знайдено."
+
+msgid "Start"
+msgstr "Початок"
 
 msgid "Back"
 msgstr "Назад"

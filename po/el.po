@@ -3,17 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# axil Pι <axilleas@archlinux.gr>, 2013
-# axil Pι <axilleas@archlinux.gr>, 2011
-# axil Pι <axilleas@archlinux.gr>, 2012
+# axil Pι, 2014
+# axil Pι, 2013
+# axil Pι, 2013
+# axil Pι, 2011
+# axil Pι, 2012
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # flamelab <panosfilip@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-07 09:22+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/aur/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +65,7 @@ msgid "%s already has proposal running for them."
 msgstr "%s έχει ήδη πρόταση σε εξέλιξη για αυτό το θέμα."
 
 msgid "Invalid type."
-msgstr ""
+msgstr "Άκυρος τύπος."
 
 msgid "Proposal cannot be empty."
 msgstr "Η πρόταση δεν μπορεί να είναι κενή."
@@ -84,16 +86,16 @@ msgid "Type"
 msgstr "Είδος"
 
 msgid "Addition of a TU"
-msgstr ""
+msgstr "Προσθήκη ενός TU"
 
 msgid "Removal of a TU"
-msgstr ""
+msgstr "Αφαίρεση ενός TU"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "Αφαίρεση ενός TU (αδήλωτη αδράνεια)"
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "Τροποποίηση των "
 
 msgid "Proposal"
 msgstr "Πρόταση"
@@ -155,6 +157,12 @@ msgstr "Τα πακέτα στο \"Unsupported\" έχουν περιεχόμεν
 msgid "Package Search"
 msgstr "Αναζήτηση Πακέτου"
 
+msgid "Adopt"
+msgstr "Υιοθέτηση"
+
+msgid "Disown"
+msgstr "Αποδέσμευση"
+
 msgid "Vote"
 msgstr "Ψηφίστε"
 
@@ -209,14 +217,6 @@ msgstr "Κριτήρια Αναζήτησης"
 msgid "Packages"
 msgstr "Πακέτα"
 
-msgid "Cannot find package to merge votes and comments into."
-msgstr "Δεν μπορεί να βρεθεί το πακέτο για τη συγχώνευση ψήφων και σχόλιων"
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι επιβεβαίωσης."
-
 msgid "Error trying to retrieve package details."
 msgstr "Σφάλμα στη διαδικασία λήψης των πληροφοριών του πακέτου."
 
@@ -265,6 +265,14 @@ msgstr "Εάν έχετε ξεχάσει την ηλεκτρονική διεύ�
 msgid "Enter your e-mail address:"
 msgstr "Εισάγετε την διεύθυνση e-mail σας:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Δεν μπορεί να βρεθεί το πακέτο για τη συγχώνευση ψήφων και σχόλιων"
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι επιβεβαίωσης."
+
 msgid "Package Deletion"
 msgstr "Διαγραφή Πακέτου"
 
@@ -273,8 +281,10 @@ msgid "Delete Package: %s"
 msgstr "Διαγράψτε Πακέτο: %s"
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να διαγράψετε το πακέτο (%s%s%s) από το AUR. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr ""
 
 msgid "Deletion of a package is permanent. "
 msgstr "Η διαγραφή ενός πακέτου είναι μόνιμη."
@@ -299,8 +309,11 @@ msgid "Merge Package: %s"
 msgstr "Συγχώνευσε Πακέτο: %s"
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να συγχωνεύσετε το πακέτο (%s%s%s) σε ένα άλλο πακέτο."
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
+msgstr ""
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Μόλις το πακέτο συγχωνευτεί, η διαδικασία δεν μπορεί να αντιστραφεί."
@@ -347,21 +360,27 @@ msgstr "Σφάλμα - το ασυμπίεστο μέγεθος αρχείου �
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Σφάλμα - το tarball δεν μπορεί να περιέχει αρχεία έξω από έναν κατάλογο."
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr ""
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Σφάλμα - το tarball δεν μπορεί να περιέχει παραπάνω υποκαταλόγους."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "Σφάλμα - το tarball δεν μπορεί να περιέχει περισσότερους από έναν καταλόγους."
 
+msgid "Error - all directories must have permissions of 755."
+msgstr ""
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Σφάλμα κατά το ξεπακετάρισμα του ανεβασμένου αρχείου - δεν υπάρχει PKGBUILD."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Λείπει η μεταβλητή %s στο PKGBUILD."
-
-msgid "Error - The AUR does not support split packages!"
-msgstr "Σφάλμα - Το AUR δεν υποστηρίζει διαχωρισμένα πακέτα!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
+msgstr "Το πηγαίο πακέτο δεν περιέχει meta data. Παρακαλώ χρησιμοποιήστε την εντολή `mkaurball` για να δημιουργήσετε πηγαία πακέτα του AUR. Η υποστήριξη πηγαίων πακέτων χωρίς .AURINFO εγγραφές θα αφαιρεθεί σε μία επερχόμενη έκδοση! Μπορείτε να υποβάλλετε ξανά το πακέτο αν θέλετε να προχωρήσετε."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Μη έγκυρο όνομα: μόνο πεζοί χαρακτήρες επιτρέπονται."
@@ -390,27 +409,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr "Σφάλμα - Η έκδοση του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d χαρακτήρες"
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "Aποτυχία κατά τη δημιουργία του καταλόγου %s."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "Δε σας επιτρέπεται να αντικαταστήσετε το πακέτο %s%s%s."
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr "Το πακέτο %s είναι σε μαύρη λίστα , παρακαλούμε να ελέγξετε αν είναι διαθέσιμο στα επίσημα repos."
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr "Δε σας επιτρέπεται να αντικαταστήσετε το πακέτο %s%s%s."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Aποτυχία κατά τη δημιουργία του καταλόγου %s."
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "Δεν είναι δυνατή η αλλαγή καταλόγου σε %s"
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "Ανεβάστε τα πηγαία πακέτα εδώ. Δημιουργήστε πηγαία πακέτα με την εντολή `makepkg --source`."
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr "Ανεβάστε τα πηγαία πακέτα εδώ. Δημιουργήστε πηγαία πακέτα με την εντολή `mkaurball`."
 
 msgid "Package Category"
 msgstr "Κατηγορία Πακέτου"
@@ -438,6 +456,9 @@ msgstr "Δεν ήταν δυνατή η ανάκτηση των στοιχείω
 
 msgid "Voting is closed for this proposal."
 msgstr "Η ψηφοφορία έχει κλείσει για αυτή την πρόταση."
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr "Μόνο οι Trusted Users έχουν δικαίωμα ψήφου."
 
 msgid "You cannot vote in an proposal about you."
 msgstr "Δεν μπορείτε να ψηφίσετε σε μία πρόταση που αφορά σε εσάς."
@@ -536,6 +557,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
 
+msgid "Account suspended"
+msgstr "Ο λογαριασμός έχει ανασταλεί"
+
+msgid "An error occurred trying to generate a user session."
+msgstr "Ένα σφάλμα προέκυψε προσπαθώντας να δημιουργήσετε μια συνεδρία χρήστη."
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -554,18 +581,6 @@ msgstr "Σφάλμα κατά τη διάρκεια φόρτωσης των πλ
 
 msgid "Package details could not be found."
 msgstr "Οι πληροφορίες του πακέτου δεν μπόρεσαν να βρεθούν."
-
-msgid "First"
-msgstr "Πρώτο"
-
-msgid "Previous"
-msgstr "Προηγούμενο"
-
-msgid "Next"
-msgstr "Επόμενο"
-
-msgid "Last"
-msgstr "Τελευταίο"
 
 msgid "You must be logged in before you can flag packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να επισημάνετε τα πακέτα."
@@ -665,6 +680,25 @@ msgstr "Δεν σας επιτρέπεται να αλλάξετε την κατ
 msgid "Package category changed."
 msgstr "Έγινε αλλαγή κατηγορίας πακέτου."
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Λείπει η μεταβλητή %s στο PKGBUILD."
+
+msgid "View packages details for"
+msgstr "Δείτε τις λεπτομέρειες πακέτου για το"
+
+msgid "First"
+msgstr "Πρώτο"
+
+msgid "Previous"
+msgstr "Προηγούμενο"
+
+msgid "Next"
+msgstr "Επόμενο"
+
+msgid "Last"
+msgstr "Τελευταίο"
+
 msgid "Account Type"
 msgstr "Είδος λογαριασμού"
 
@@ -690,19 +724,22 @@ msgid "Status"
 msgstr "Κατάσταση"
 
 msgid "Inactive since"
-msgstr ""
+msgstr "Αδρανής από"
 
 msgid "Active"
 msgstr "Ενεργός"
 
-msgid "Last Voted"
-msgstr "Πιο Πρόσφατα Ψηφισμένο"
+msgid "Last Login"
+msgstr "Τελευταία σύνδεση"
 
 msgid "Never"
 msgstr "Ποτέ"
 
 msgid "View this user's packages"
 msgstr "Δείτε τα πακέτα αυτού του χρήστη"
+
+msgid "Edit this user's account"
+msgstr "Τροποποιήστε το λογαριασμό αυτού του χρήστη"
 
 msgid "required"
 msgstr "απαιτούμενο"
@@ -717,7 +754,7 @@ msgid "Account Suspended"
 msgstr "Ο Λογαριασμός έχει Ανασταλεί."
 
 msgid "Inactive"
-msgstr ""
+msgstr "Αδρανής"
 
 msgid "Re-type password"
 msgstr "Πληκτρολογήστε ξανά τον κωδικό σας."
@@ -785,34 +822,11 @@ msgstr "Ο λογαριασμός μου"
 msgid "Register"
 msgstr "Εγγραφείτε"
 
-msgid "Add Comment"
-msgstr "Προσθέστε σχόλιο"
-
-msgid "Comment has been added."
-msgstr "Το σχόλιο έχει προστεθεί."
-
-#, php-format
-msgid "View all %s comments"
-msgstr "Δείτε ολα τα %s σχόλια"
-
-msgid "Latest Comments"
-msgstr "Τελευταία σχόλια"
-
-msgid "Delete comment"
-msgstr "Διαγράψτε το σχόλιο"
-
-#, php-format
-msgid "Comment by %s"
-msgstr "Σχόλιο από %s"
-
-msgid "All comments"
-msgstr "Όλα τα σχόλια"
-
 msgid "unknown"
 msgstr "άγνωστο"
 
-msgid "Package Details"
-msgstr "Πληροφορίες Πακέτου"
+msgid "Package Base Details"
+msgstr ""
 
 msgid "Package Actions"
 msgstr "Ενέργειες Πακέτου"
@@ -856,23 +870,11 @@ msgstr "Υιοθετήστε το Πακέτο"
 msgid "Disown Package"
 msgstr "Aποδεσμεύστε το Πακέτο"
 
-msgid "Description"
-msgstr "Περιγραφή"
-
-msgid "Upstream URL"
-msgstr "Upstream URL"
-
-msgid "Visit the website for"
-msgstr "Επισκεφτείτε την ιστοσελίδα για "
-
 msgid "Category"
 msgstr "Κατηγορία"
 
 msgid "Change category"
 msgstr "Αλλαγή κατηγορίας"
-
-msgid "License"
-msgstr "Άδεια"
 
 msgid "Submitter"
 msgstr "Υποβάλλων"
@@ -890,6 +892,9 @@ msgstr "Κανένα"
 msgid "Maintainer"
 msgstr "Συντηρητής"
 
+msgid "Last Packager"
+msgstr ""
+
 msgid "Votes"
 msgstr "Ψήφοι"
 
@@ -899,11 +904,64 @@ msgstr "Πρώτη Υποβολή"
 msgid "Last Updated"
 msgstr "Τελευταία Ενημέρωση"
 
+msgid "Add Comment"
+msgstr "Προσθέστε σχόλιο"
+
+msgid "Comment has been added."
+msgstr "Το σχόλιο έχει προστεθεί."
+
+#, php-format
+msgid "View all %s comments"
+msgstr "Δείτε ολα τα %s σχόλια"
+
+msgid "Latest Comments"
+msgstr "Τελευταία σχόλια"
+
+msgid "Delete comment"
+msgstr "Διαγράψτε το σχόλιο"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "Σχόλιο από %s"
+
+msgid "Anonymous comment"
+msgstr "Ανώνυμο σχόλιο"
+
+msgid "All comments"
+msgstr "Όλα τα σχόλια"
+
+msgid "Package Details"
+msgstr "Πληροφορίες Πακέτου"
+
+msgid "Package Base"
+msgstr ""
+
+msgid "Description"
+msgstr "Περιγραφή"
+
+msgid "Upstream URL"
+msgstr "Upstream URL"
+
+msgid "Visit the website for"
+msgstr "Επισκεφτείτε την ιστοσελίδα για "
+
+msgid "Licenses"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
 msgid "Dependencies"
 msgstr "Εξαρτήσεις"
-
-msgid "View packages details for"
-msgstr "Δείτε τις λεπτομέρειες πακέτου για το"
 
 msgid "Required by"
 msgstr "Απαιτείται από"
@@ -917,8 +975,11 @@ msgstr "Όνομα, Περιγραφή"
 msgid "Name Only"
 msgstr "Όνομα μόνο"
 
-msgid "Exact name"
-msgstr "Ακριβές όνομα"
+msgid "Exact Name"
+msgstr ""
+
+msgid "Exact Package Base"
+msgstr ""
 
 msgid "All"
 msgstr "Όλα"
@@ -1008,9 +1069,6 @@ msgstr "Aποδεσμεύστε Πακέτα"
 msgid "Any type"
 msgstr "Κάθε είδος"
 
-msgid "Last vote"
-msgstr "Τελευταία ψήφος"
-
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -1061,13 +1119,13 @@ msgid "End"
 msgstr "Τέλος"
 
 msgid "Result"
-msgstr ""
+msgstr "Αποτέλεσμα"
 
 msgid "Accepted"
-msgstr ""
+msgstr "Δεκτός"
 
 msgid "Rejected"
-msgstr ""
+msgstr "Απορριπτέος"
 
 msgid "No"
 msgstr "Όχι"
@@ -1079,13 +1137,19 @@ msgid "Total"
 msgstr "Σύνολο"
 
 msgid "Participation"
+msgstr "Συμμετοχή"
+
+msgid "Last Votes by TU"
 msgstr ""
 
-msgid "Start"
-msgstr "Ξεκινήστε"
+msgid "Last vote"
+msgstr ""
 
 msgid "No results found."
 msgstr "Κανένα αποτέλεσμα δεν βρέθηκε."
+
+msgid "Start"
+msgstr "Ξεκινήστε"
 
 msgid "Back"
 msgstr "Πίσω"

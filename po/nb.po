@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Alexander Rødseth <rodseth@gmail.com>, 2011,2013
+# Alexander Rødseth <rodseth@gmail.com>, 2011,2013-2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2013-08-26 18:35+0200\n"
-"PO-Revision-Date: 2013-08-26 16:37+0000\n"
+"POT-Creation-Date: 2014-05-07 11:11+0200\n"
+"PO-Revision-Date: 2014-05-07 09:22+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/aur/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgid "%s already has proposal running for them."
 msgstr "%s har allerede et forslag på gang."
 
 msgid "Invalid type."
-msgstr ""
+msgstr "Ugyldig type."
 
 msgid "Proposal cannot be empty."
 msgstr "Forslag kan ikke være tomme."
@@ -81,16 +81,16 @@ msgid "Type"
 msgstr "Type"
 
 msgid "Addition of a TU"
-msgstr ""
+msgstr "Oppnevnelse av TU"
 
 msgid "Removal of a TU"
-msgstr ""
+msgstr "Fjerning av TU"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "Fjerning av TU (uannonsert inaktivitet)"
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "Endring av vedtekter"
 
 msgid "Proposal"
 msgstr "Forslag"
@@ -117,7 +117,7 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "Husk å stemme på dine favorittpakker!"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "Mange pakker finnes ferdig pakket som binærfiler i [community]."
+msgstr "Noen pakker finnes som binærfiler i [community]."
 
 msgid "Discussion"
 msgstr "Diskusjon"
@@ -152,6 +152,12 @@ msgstr "Uoffisielle pakker har innhold produsert av andre brukere. All bruk av d
 msgid "Package Search"
 msgstr "Pakkesøk"
 
+msgid "Adopt"
+msgstr "Adopter"
+
+msgid "Disown"
+msgstr "Gjør foreldreløs"
+
 msgid "Vote"
 msgstr "Stem"
 
@@ -165,10 +171,10 @@ msgid "UnNotify"
 msgstr "Fjern påminnelse"
 
 msgid "Flag"
-msgstr "Flagg"
+msgstr "Markering"
 
 msgid "UnFlag"
-msgstr "Fjern flagg"
+msgstr "Fjern markering"
 
 msgid "Login"
 msgstr "Logg inn"
@@ -205,14 +211,6 @@ msgstr "Søkekriterier"
 
 msgid "Packages"
 msgstr "Pakker"
-
-msgid "Cannot find package to merge votes and comments into."
-msgstr "Kunne ikke finne pakke for å flette stemmer og kommentarer inn i."
-
-msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Den valgte pakken har ikke blitt slettet, kryss av i boksen for å bekrefte."
 
 msgid "Error trying to retrieve package details."
 msgstr "Feil oppstod ved uthenting av pakkedetaljer."
@@ -262,6 +260,14 @@ msgstr "Hvis du har glemt e-post adressen du brukte for å registrere deg, så k
 msgid "Enter your e-mail address:"
 msgstr "Fyll ut e-post adressen din:"
 
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Kunne ikke finne pakke for å flette stemmer og kommentarer inn i."
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Den valgte pakken har ikke blitt slettet, kryss av i boksen for å bekrefte."
+
 msgid "Package Deletion"
 msgstr "Sletting av pakke"
 
@@ -270,8 +276,10 @@ msgid "Delete Package: %s"
 msgstr "Slett pakke: %s"
 
 #, php-format
-msgid "Use this form to delete the package (%s%s%s) from the AUR. "
-msgstr "Bruk dette skjemaet for å slette pakken (%s%s%s) fra AUR. "
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr ""
 
 msgid "Deletion of a package is permanent. "
 msgstr "Slettingen av en pakke er permanent. "
@@ -296,8 +304,11 @@ msgid "Merge Package: %s"
 msgstr "Slå sammen pakke: %s"
 
 #, php-format
-msgid "Use this form to merge the package (%s%s%s) into another package. "
-msgstr "Bruk dette skjemaet for å slå sammen pakken (%s%s%s) med en annen."
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
+msgstr ""
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Når pakken har blitt sammenslått, så kan det ikke angres. "
@@ -344,21 +355,27 @@ msgstr "Feil - den ukomprimerte filstørrelsen er for stor."
 msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Feil - kildepakken kan ikke inneholde filer som ikke også er i en mappe."
 
+msgid "Error - all files must have permissions of 644 or 755."
+msgstr ""
+
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Feil - kildepakken kan ikke inneholde mapper inni mapper."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "Feil - kildepakken kan ikke inneholde mer enn en mappe."
 
+msgid "Error - all directories must have permissions of 755."
+msgstr ""
+
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Feil oppstod under utpakking av opplastet fil - PKGBUILD finnes ikke."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Mangler variabelen %s i PKGBUILD."
-
-msgid "Error - The AUR does not support split packages!"
-msgstr "Feil - AUR støtter ikke splittede pakker!"
+msgid ""
+"The source package does not contain any meta data. Please use `mkaurball` to"
+" create AUR source packages. Support for source packages without .AURINFO "
+"entries will be removed in an upcoming release! You can resubmit the package"
+" if you want to proceed anyway."
+msgstr "Kildepakken inneholder ikke metadata. Bruk `mkaurball` for å lage kildepakker for AUR. Støtte for kildepakker uten .AURINFO filer vil be fjernet i en senere utgave! Du kan sende inn pakken på nytt dersom du uansett vil gjøre dette."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Ugyldig navn: kun små bokstaver er lov."
@@ -387,27 +404,26 @@ msgid "Error - Package version cannot be greater than %d characters"
 msgstr "Feil - Pakkens versjon kan ikke inneholde mer enn %d bokstaver"
 
 #, php-format
-msgid "Could not create directory %s."
-msgstr "Kan ikke opprette mappen %s."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "Du har ikke tilgang til å overskrive pakken %s%s%s."
-
-#, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
 msgstr "Pakken %s er på svartelista. Sjekk om den allerede finnes i de offisielle pakkebrønnene."
 
 #, php-format
+msgid "You are not allowed to overwrite the %s%s%s package."
+msgstr "Du har ikke tilgang til å overskrive pakken %s%s%s."
+
+#, php-format
+msgid "Could not create directory %s."
+msgstr "Kan ikke opprette mappen %s."
+
+#, php-format
 msgid "Could not change directory to %s."
 msgstr "Kunne ikke åpne %s-mappen."
 
 msgid ""
-"Upload your source packages here. Create source packages with `makepkg "
-"--source`."
-msgstr "Last opp kildepakkene dine her. Lag kildepakker med `makepkg --source`."
+"Upload your source packages here. Create source packages with `mkaurball`."
+msgstr "Last opp kildepakken din her. Lag kildepakker med `mkaurball`."
 
 msgid "Package Category"
 msgstr "Pakkekategori"
@@ -435,6 +451,9 @@ msgstr "Kan ikke finne detaljer om forslaget."
 
 msgid "Voting is closed for this proposal."
 msgstr "Avstemningen er ferdig for dette forslaget."
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr "Bare betrodde brukere har stemmerett."
 
 msgid "You cannot vote in an proposal about you."
 msgstr "Du kan ikke stemme på et forslag som gjelder deg."
@@ -533,6 +552,12 @@ msgid ""
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr "Inlogging er slått av for din IP adresse, sannsynligvis på grunn av vedvarende spam-angrep. Beklager ulempen dette medfører."
 
+msgid "Account suspended"
+msgstr "Kontoen er stengt"
+
+msgid "An error occurred trying to generate a user session."
+msgstr "Feil oppstod ved generering av sesjon for bruker."
+
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -552,35 +577,23 @@ msgstr "Kunne ikke finne frem pakkedetaljer."
 msgid "Package details could not be found."
 msgstr "Kunne ikke finne pakkedetaljer."
 
-msgid "First"
-msgstr "Første"
-
-msgid "Previous"
-msgstr "Forrige"
-
-msgid "Next"
-msgstr "Neste"
-
-msgid "Last"
-msgstr "Siste"
-
 msgid "You must be logged in before you can flag packages."
-msgstr "Du må være logget inn før du kan flagge pakker."
+msgstr "Du må være logget inn før du kan markere pakker."
 
 msgid "You did not select any packages to flag."
-msgstr "Du valgte ingen pakker for flagging."
+msgstr "Ingen pakker ble valgt for å bli markert."
 
 msgid "The selected packages have been flagged out-of-date."
-msgstr "De valgte pakkene har nå blitt flagget som utdaterte."
+msgstr "De valgte pakkene har nå blitt markert som utdaterte."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr "Du må være logget inn før du kan fjerne \"utdatert\"-flagget fra pakker."
+msgstr "Du må være logget inn før du kan fjerne \"utdatert\"-markeringen fra pakker."
 
 msgid "You did not select any packages to unflag."
-msgstr "Ingen pakker ble valgt for å fjerne flagg fra."
+msgstr "Ingen pakker ble valgt for å fjerne markeringer fra."
 
 msgid "The selected packages have been unflagged."
-msgstr "De valgte pakkene har nå fått fjernet flagget."
+msgstr "De valgte pakkene har nå fått fjernet markeringen."
 
 msgid "You must be logged in before you can delete packages."
 msgstr "Du må være logget inn før du kan slette pakker."
@@ -662,6 +675,25 @@ msgstr "Du har ikke tilgang til å endre denne pakkekategorien."
 msgid "Package category changed."
 msgstr "Pakkekategori endret."
 
+#, php-format
+msgid "Missing %s variable in PKGBUILD."
+msgstr "Mangler variabelen %s i PKGBUILD."
+
+msgid "View packages details for"
+msgstr "Vis pakkedetaljer for"
+
+msgid "First"
+msgstr "Første"
+
+msgid "Previous"
+msgstr "Forrige"
+
+msgid "Next"
+msgstr "Neste"
+
+msgid "Last"
+msgstr "Siste"
+
 msgid "Account Type"
 msgstr "Konto-type"
 
@@ -687,13 +719,13 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Inactive since"
-msgstr ""
+msgstr "Inaktiv siden"
 
 msgid "Active"
 msgstr "Aktiv"
 
-msgid "Last Voted"
-msgstr "Sist stemt"
+msgid "Last Login"
+msgstr "Sist logget inn"
 
 msgid "Never"
 msgstr "Aldri"
@@ -701,8 +733,11 @@ msgstr "Aldri"
 msgid "View this user's packages"
 msgstr "Vis pakkene til denne brukereren"
 
+msgid "Edit this user's account"
+msgstr "Endre brukerkonto"
+
 msgid "required"
-msgstr "behøves av"
+msgstr "trengs"
 
 msgid "Normal user"
 msgstr "Vanlig bruker"
@@ -714,7 +749,7 @@ msgid "Account Suspended"
 msgstr "Konto suspendert"
 
 msgid "Inactive"
-msgstr ""
+msgstr "Inaktiv"
 
 msgid "Re-type password"
 msgstr "Skriv inn passordet på nytt"
@@ -732,7 +767,7 @@ msgid "Reset"
 msgstr "Omstart"
 
 msgid "No results matched your search criteria."
-msgstr "Ingen resultater stemte overens med dine søkekriterier."
+msgstr "Ingen treff for de oppgitte søkekriteriene."
 
 msgid "Edit Account"
 msgstr "Endre brukerkonto"
@@ -759,10 +794,10 @@ msgid "New Comment Notification"
 msgstr "Ny påminnelse om kommentar"
 
 msgid "Flag Out-of-date"
-msgstr "Flagg som utdatert"
+msgstr "Marker som utdatert"
 
 msgid "UnFlag Out-of-date"
-msgstr "Fjern flagg"
+msgstr "Fjern markering"
 
 msgid "Delete Packages"
 msgstr "Slett pakker"
@@ -782,34 +817,11 @@ msgstr " Min konto"
 msgid "Register"
 msgstr "Registrer"
 
-msgid "Add Comment"
-msgstr "Legg til kommentar"
-
-msgid "Comment has been added."
-msgstr "Kommentar har blitt lagt til."
-
-#, php-format
-msgid "View all %s comments"
-msgstr "Vis alle %s kommentarene"
-
-msgid "Latest Comments"
-msgstr "Siste kommentarer"
-
-msgid "Delete comment"
-msgstr "Slett kommentar"
-
-#, php-format
-msgid "Comment by %s"
-msgstr "Kommentert av %s"
-
-msgid "All comments"
-msgstr "Alle kommentarer"
-
 msgid "unknown"
 msgstr "ukjent"
 
-msgid "Package Details"
-msgstr "Pakkedetaljer"
+msgid "Package Base Details"
+msgstr ""
 
 msgid "Package Actions"
 msgstr "Pakkehandlinger"
@@ -821,13 +833,13 @@ msgid "Download tarball"
 msgstr "Last ned tarball"
 
 msgid "Flagged out-of-date"
-msgstr "Flagget som foreldet"
+msgstr "Markert som utdatert"
 
 msgid "Flag package out-of-date"
-msgstr "Flagg pakke som foreldet"
+msgstr "Marker pakke som utdatert"
 
 msgid "Unflag package"
-msgstr "Fjern flagget"
+msgstr "Fjern markering"
 
 msgid "Remove vote"
 msgstr "Angre stemme"
@@ -853,23 +865,11 @@ msgstr "Adopter pakke"
 msgid "Disown Package"
 msgstr "Gjør foreldreløs"
 
-msgid "Description"
-msgstr "Beskrivelse"
-
-msgid "Upstream URL"
-msgstr "Prosjektets URL"
-
-msgid "Visit the website for"
-msgstr "Besøk nettsiden til"
-
 msgid "Category"
 msgstr "Kategori"
 
 msgid "Change category"
 msgstr "Endre kategori"
-
-msgid "License"
-msgstr "Lisens"
 
 msgid "Submitter"
 msgstr "Innsender"
@@ -887,6 +887,9 @@ msgstr "Ingen"
 msgid "Maintainer"
 msgstr "Vedlikeholder"
 
+msgid "Last Packager"
+msgstr ""
+
 msgid "Votes"
 msgstr "Stemmer"
 
@@ -896,14 +899,67 @@ msgstr "Først innsendt"
 msgid "Last Updated"
 msgstr "Sist oppdatert"
 
+msgid "Add Comment"
+msgstr "Legg til kommentar"
+
+msgid "Comment has been added."
+msgstr "Kommentar har blitt lagt til."
+
+#, php-format
+msgid "View all %s comments"
+msgstr "Vis alle %s kommentarene"
+
+msgid "Latest Comments"
+msgstr "Siste kommentarer"
+
+msgid "Delete comment"
+msgstr "Slett kommentar"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "Kommentert av %s"
+
+msgid "Anonymous comment"
+msgstr "Anonym kommentar"
+
+msgid "All comments"
+msgstr "Alle kommentarer"
+
+msgid "Package Details"
+msgstr "Pakkedetaljer"
+
+msgid "Package Base"
+msgstr ""
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+msgid "Upstream URL"
+msgstr "Prosjektets URL"
+
+msgid "Visit the website for"
+msgstr "Besøk nettsiden til"
+
+msgid "Licenses"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
 msgid "Dependencies"
 msgstr "Avhengigheter"
 
-msgid "View packages details for"
-msgstr "Vis pakkedetaljer for"
-
 msgid "Required by"
-msgstr "Behøves av"
+msgstr "Trengs av"
 
 msgid "Sources"
 msgstr "Kilder"
@@ -914,17 +970,20 @@ msgstr "Navn, beskrivelse"
 msgid "Name Only"
 msgstr "Bare navn"
 
-msgid "Exact name"
-msgstr "Eksakt navn"
+msgid "Exact Name"
+msgstr ""
+
+msgid "Exact Package Base"
+msgstr ""
 
 msgid "All"
 msgstr "Alle"
 
 msgid "Flagged"
-msgstr "Flagget"
+msgstr "Markert"
 
 msgid "Not Flagged"
-msgstr "Ikke flagget"
+msgstr "Umarkert"
 
 msgid "Name"
 msgstr "Navn"
@@ -966,7 +1025,7 @@ msgid "Per page"
 msgstr "Per side"
 
 msgid "Go"
-msgstr "Søk"
+msgstr "Utfør"
 
 msgid "Orphans"
 msgstr "Foreldreløse"
@@ -994,7 +1053,7 @@ msgid "Actions"
 msgstr "Handlinger"
 
 msgid "Unflag Out-of-date"
-msgstr "Fjern flagg"
+msgstr "Fjern markering"
 
 msgid "Adopt Packages"
 msgstr "Adopter pakker"
@@ -1004,9 +1063,6 @@ msgstr "Gjør pakker foreldreløse"
 
 msgid "Any type"
 msgstr "Hvilken som helst type"
-
-msgid "Last vote"
-msgstr "Siste stemme"
 
 msgid "Search"
 msgstr "Søk"
@@ -1058,13 +1114,13 @@ msgid "End"
 msgstr "Slutt"
 
 msgid "Result"
-msgstr ""
+msgstr "Resultat"
 
 msgid "Accepted"
-msgstr ""
+msgstr "Akseptert"
 
 msgid "Rejected"
-msgstr ""
+msgstr "Avvist"
 
 msgid "No"
 msgstr "Nei"
@@ -1076,13 +1132,19 @@ msgid "Total"
 msgstr "Totalt"
 
 msgid "Participation"
+msgstr "Deltagelse"
+
+msgid "Last Votes by TU"
 msgstr ""
 
-msgid "Start"
-msgstr "Start"
+msgid "Last vote"
+msgstr ""
 
 msgid "No results found."
 msgstr "Ingen resultater."
+
+msgid "Start"
+msgstr "Start"
 
 msgid "Back"
 msgstr "Tilbake"
