@@ -7,7 +7,7 @@
 		<?php foreach ($newest_packages->getIterator() as $row): ?>
 		<tr>
 			<td class="pkg-name">
-				<a href="<?= get_pkg_uri($row["Name"]); ?>"><?= htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
+				<a href="<?= get_pkg_uri($row["Name"]); ?>" title="<?= htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?>"><?= htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
 			</td>
 			<td class="pkg-new">
 				<?php if ($row["ModifiedTS"] === $row["SubmittedTS"]): ?>
