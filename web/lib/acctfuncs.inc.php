@@ -221,6 +221,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 				print "<p>\n";
 				if ($send_resetkey) {
+					$subject = 'Welcome to the Arch User Repository';
 					$body = __('Welcome to %s! In order ' .
 						'to set an initial password ' .
 						'for your new account, ' .
@@ -230,7 +231,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 						'pasting it into your ' .
 						'browser.',
 						$AUR_LOCATION);
-					send_resetkey($email, $body);
+					send_resetkey($email, $subject, $body);
 					print __("A password reset key has been sent to your e-mail address.");
 				} else {
 					print __("Click on the Login link above to use your account.");
@@ -632,11 +633,12 @@ function create_resetkey($resetkey, $uid) {
  * Send a reset key to a specific e-mail address
  *
  * @param string $email E-mail address of the user resetting their password
+ * @param string $subject Subject of the email
  * @param string $body Body of the email
  *
  * @return void
  */
-function send_resetkey($email, $body) {
+function send_resetkey($email, $subject, $body) {
 	global $AUR_LOCATION;
 
 	$uid = uid_from_email($email);
@@ -658,7 +660,7 @@ function send_resetkey($email, $body) {
 			   "From: aur-notify@archlinux.org\r\n" .
 			   "X-Mailer: PHP\r\n" .
 			   "X-MimeOLE: Produced By AUR";
-		@mail($email, 'AUR Password Reset', $body, $headers);
+		@mail($email, $subject, $body, $headers);
 	}
 }
 
