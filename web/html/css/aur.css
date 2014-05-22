@@ -42,3 +42,22 @@
 	list-style: none;
 	padding: 0;
 }
+
+#pkg-updates table {
+	table-layout: fixed;
+	width:100%;
+}
+
+#pkg-updates td.pkg-name {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#pkg-updates td.pkg-new {
+	width: 16px;
+}
+
+#pkg-updates td.pkg-date {
+	text-align:right;
+}

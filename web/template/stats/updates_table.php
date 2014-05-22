@@ -14,7 +14,7 @@
 				<img src="images/new.png" alt="New!" />
 				<?php endif; ?>
 			</td>
-			<td>
+			<td class="pkg-date">
 				<span><?= gmdate("Y-m-d H:i", intval($row["ModifiedTS"])); ?></span>
 			</td>
 		</tr>
