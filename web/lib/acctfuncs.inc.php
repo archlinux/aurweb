@@ -656,8 +656,8 @@ function send_resetkey($email, $subject, $body) {
 		          "resetkey={$resetkey}";
 		$headers = "MIME-Version: 1.0\r\n" .
 			   "Content-type: text/plain; charset=UTF-8\r\n";
-			   "Reply-to: nobody@archlinux.org\r\n" .
-			   "From: aur-notify@archlinux.org\r\n" .
+			   "Reply-to: noreply@aur.archlinux.org\r\n" .
+			   "From: notify@aur.achlinux.org\r\n" .
 			   "X-Mailer: PHP\r\n" .
 			   "X-MimeOLE: Produced By AUR";
 		@mail($email, $subject, $body, $headers);

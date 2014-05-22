@@ -137,8 +137,8 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 		$headers = "MIME-Version: 1.0\r\n" .
 			   "Content-type: text/plain; charset=UTF-8\r\n" .
 			   "Bcc: $bcc\r\n" .
-			   "Reply-to: nobody@archlinux.org\r\n" .
-			   "From: aur-notify@archlinux.org\r\n" .
+			   "Reply-to: noreply@aur.archlinux.org\r\n" .
+			   "From: notify@aur.archlinux.org\r\n" .
 			   "In-Reply-To: $thread_id\r\n" .
 			   "References: $thread_id\r\n" .
 			   "X-Mailer: AUR";
@@ -385,8 +385,8 @@ function pkgbase_flag($atype, $base_ids) {
 				$body = wordwrap($body, 70);
 				$headers = "MIME-Version: 1.0\r\n" .
 					   "Content-type: text/plain; charset=UTF-8\r\n" .
-					   "Reply-to: nobody@archlinux.org\r\n" .
-					   "From: aur-notify@archlinux.org\r\n" .
+					   "Reply-to: noreply@aur.archlinux.org\r\n" .
+					   "From: notify@aur.archlinux.org\r\n" .
 					   "X-Mailer: PHP\r\n" .
 					   "X-MimeOLE: Produced By AUR";
 				@mail($row['Email'], "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
@@ -497,8 +497,8 @@ function pkgbase_delete ($atype, $base_ids, $merge_base_id) {
 			$headers = "MIME-Version: 1.0\r\n" .
 				   "Content-type: text/plain; charset=UTF-8\r\n" .
 				   "Bcc: $bcc\r\n" .
-				   "Reply-to: nobody@archlinux.org\r\n" .
-				   "From: aur-notify@archlinux.org\r\n" .
+				   "Reply-to: noreply@aur.archlinux.org\r\n" .
+				   "From: notify@aur.archlinux.org\r\n" .
 				   "X-Mailer: AUR";
 			@mail('undisclosed-recipients: ;', "AUR Package deleted: " . $pkgbase_name, $body, $headers);
 		}
