@@ -655,7 +655,7 @@ function send_resetkey($email, $subject, $body) {
 			  "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
 		          "resetkey={$resetkey}";
 		$headers = "MIME-Version: 1.0\r\n" .
-			   "Content-type: text/plain; charset=UTF-8\r\n";
+			   "Content-type: text/plain; charset=UTF-8\r\n" .
 			   "Reply-to: noreply@aur.archlinux.org\r\n" .
 			   "From: notify@aur.achlinux.org\r\n" .
 			   "X-Mailer: PHP\r\n" .
