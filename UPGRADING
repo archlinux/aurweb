@@ -50,8 +50,9 @@ CREATE TABLE PackageBases (
 4. Migrate data from Packages to PackageBases:
 
 ----
-INSERT INTO PackageBases SELECT ID, Name, CategoryID, NumVotes, OutOfDateTS,
-	SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID FROM Packages;
+INSERT INTO PackageBases
+	SELECT ID, Name, CategoryID, NumVotes, OutOfDateTS, SubmittedTS,
+	ModifiedTS, SubmitterUID, MaintainerUID, NULL FROM Packages;
 ----
 
 5. Delete unneeded foreign keys from Packages:
