@@ -86,11 +86,11 @@ ALTER TABLE Packages
 7. Add package base references to the Packages table:
 
 ----
-ALTER TABLE Packages
-	ADD COLUMN PackageBaseID INTEGER UNSIGNED NULL,
-	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE;
+ALTER TABLE Packages ADD COLUMN PackageBaseID INTEGER UNSIGNED NULL;
 UPDATE Packages SET PackageBaseID = ID;
-ALTER TABLE Packages MODIFY PackageBaseID INTEGER UNSIGNED NOT NULL;
+ALTER TABLE Packages
+	MODIFY PackageBaseID INTEGER UNSIGNED NOT NULL,
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE;
 ----
 
 8. Delete foreign keys from PackageVotes, PackageComments and CommentNotify:
