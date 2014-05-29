@@ -953,11 +953,13 @@ function pkg_add_lic($pkgid, $licid) {
 function latest_pkgs($numpkgs) {
 	$dbh = DB::connect();
 
-	$q = "SELECT * FROM Packages ";
+	$q = "SELECT * FROM Packages LEFT JOIN PackageBases ON ";
+	$q.= "PackageBases.ID = Packages.PackageBaseID ";
 	$q.= "ORDER BY SubmittedTS DESC ";
-	$q.= "LIMIT " .intval($numpkgs);
+	$q.= "LIMIT " . intval($numpkgs);
 	$result = $dbh->query($q);
 
+	$packages = array();
 	if ($result) {
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$packages[] = $row;
