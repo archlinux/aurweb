@@ -17,6 +17,7 @@ class AurJSON {
 	);
 	private static $fields_v1 = array(
 		'Packages.ID', 'Packages.Name',
+		'PackageBases.ID AS PackageBaseID',
 		'PackageBases.Name AS PackageBase', 'Version', 'CategoryID',
 		'Description', 'URL', 'NumVotes', 'OutOfDateTS AS OutOfDate',
 		'Users.UserName AS Maintainer',
@@ -25,14 +26,15 @@ class AurJSON {
 	);
 	private static $fields_v2 = array(
 		'Packages.ID', 'Packages.Name',
+		'PackageBases.ID AS PackageBaseID',
 		'PackageBases.Name AS PackageBase', 'Version', 'CategoryID',
 		'Description', 'URL', 'NumVotes', 'OutOfDateTS AS OutOfDate',
 		'Users.UserName AS Maintainer',
 		'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified'
 	);
 	private static $numeric_fields = array(
-		'ID', 'CategoryID', 'NumVotes', 'OutOfDate', 'FirstSubmitted',
-		'LastModified'
+		'ID', 'PackageBaseID', 'CategoryID', 'NumVotes', 'OutOfDate',
+		'FirstSubmitted', 'LastModified'
 	);
 
 	/*
