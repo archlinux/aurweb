@@ -57,6 +57,7 @@ $sources = pkg_sources($row["ID"]);
 			<ul class="small">
 				<li><a href="<?= $urlpath ?>/PKGBUILD"><?= __('View PKGBUILD') ?></a></li>
 				<li><a href="<?= $urlpath . '/' . $row['BaseName'] ?>.tar.gz"><?= __('Download tarball') ?></a></li>
+				<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
 				<?php if ($USE_VIRTUAL_URLS && $uid): ?>
 				<?php if ($row["OutOfDateTS"] === NULL): ?>
