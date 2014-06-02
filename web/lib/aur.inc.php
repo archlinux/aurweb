@@ -550,30 +550,6 @@ function end_atomic_commit() {
 }
 
 /**
- * Determine package information for latest package
- *
- * @param int $numpkgs Number of packages to get information on
- *
- * @return array $packages Package info for the specified number of recent packages
- */
-function latest_pkgs($numpkgs) {
-	$dbh = DB::connect();
-
-	$q = "SELECT * FROM Packages ";
-	$q.= "ORDER BY SubmittedTS DESC ";
-	$q.= "LIMIT " .intval($numpkgs);
-	$result = $dbh->query($q);
-
-	if ($result) {
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$packages[] = $row;
-		}
-	}
-
-	return $packages;
-}
-
-/**
  * Merge pkgbase and package options
  *
  * Merges entries of the first and the second array. If any key appears in both
