@@ -1,0 +1,5 @@
+1. Add a field for the SSH public key to the Users table:
+
+----
+ALTER TABLE Users ADD COLUMN SSHPubKey VARCHAR(4096) NULL DEFAULT NULL;
+----

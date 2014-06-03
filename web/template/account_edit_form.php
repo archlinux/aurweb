@@ -98,6 +98,11 @@
 		</p>
 
 		<p>
+			<label for="id_ssh"><?= __("SSH Public Key") ?>:</label>
+			<textarea name="PK" id="id_ssh" rows="5" cols="30"><?= htmlspecialchars($PK) ?></textarea>
+		</p>
+
+		<p>
 			<label for="id_language"><?= __("Language") ?>:</label>
 			<select name="L" id="id_language">
 <?php

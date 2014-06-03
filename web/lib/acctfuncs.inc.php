@@ -53,13 +53,14 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $L The language preference of the displayed user
  * @param string $I The IRC nickname of the displayed user
  * @param string $K The PGP key fingerprint of the displayed user
+ * @param string $PK The SSH public key of the displayed user
  * @param string $J The inactivity status of the displayed user
  * @param string $UID The user ID of the displayed user
  *
  * @return void
  */
-function display_account_form($A,$U="",$T="",$S="",
-		$E="",$P="",$C="",$R="",$L="",$I="",$K="",$J="", $UID=0) {
+function display_account_form($A,$U="",$T="",$S="",$E="",$P="",$C="",$R="",
+		$L="",$I="",$K="",$PK="",$J="", $UID=0) {
 	global $SUPPORTED_LANGS;
 
 	include("account_edit_form.php");
@@ -82,13 +83,14 @@ function display_account_form($A,$U="",$T="",$S="",
  * @param string $L The language preference of the user
  * @param string $I The IRC nickname of the user
  * @param string $K The PGP fingerprint of the user
+ * @param string $PK The SSH public key of the user
  * @param string $J The inactivity status of the user
  * @param string $UID The user ID of the modified account
  *
  * @return string|void Return void if successful, otherwise return error
  */
-function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
-			$P="",$C="",$R="",$L="",$I="",$K="",$J="",$UID=0) {
+function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
+		$R="",$L="",$I="",$K="",$PK="",$J="",$UID=0) {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
@@ -146,6 +148,15 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("The PGP key fingerprint is invalid.");
 	}
 
+	if (!$error && !empty($PK)) {
+		if (valid_ssh_pubkey($PK)) {
+			$tokens = explode(" ", $PK);
+			$PK = $tokens[0] . " " . $tokens[1];
+		} else {
+			$error = __("The SSH public key is invalid.");
+		}
+	}
+
 	if (isset($_COOKIE['AURSID'])) {
 		$atype = account_from_sid($_COOKIE['AURSID']);
 		if (($atype == "User" && $T > 1) || ($atype == "Trusted User" && $T > 2)) {
@@ -192,11 +203,29 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 					"<strong>", htmlspecialchars($E,ENT_QUOTES), "</strong>");
 		}
 	}
+	if (!$error) {
+		/*
+		 * Check whether the SSH public key is available.
+		 * TODO: Fix race condition.
+		 */
+		$q = "SELECT COUNT(*) FROM Users ";
+		$q.= "WHERE SSHPubKey = " . $dbh->quote($PK);
+		if ($TYPE == "edit") {
+			$q.= " AND ID != " . intval($UID);
+		}
+		$result = $dbh->query($q);
+		$row = $result->fetch(PDO::FETCH_NUM);
+
+		if ($row[0]) {
+			$error = __("The SSH public key, %s%s%s, is already in use.",
+					"<strong>", htmlspecialchars($PK, ENT_QUOTES), "</strong>");
+		}
+	}
 
 	if ($error) {
 		print "<ul class='errorlist'><li>".$error."</li></ul>\n";
 		display_account_form($A, $U, $T, $S, $E, "", "",
-				$R, $L, $I, $K, $J, $UID);
+				$R, $L, $I, $K, $PK, $J, $UID);
 		return;
 	}
 
@@ -218,11 +247,13 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 		$L = $dbh->quote($L);
 		$I = $dbh->quote($I);
 		$K = $dbh->quote(str_replace(" ", "", $K));
+		$PK = $dbh->quote($PK);
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
 		$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
-		$q.= "RealName, LangPreference, IRCNick, PGPKey) ";
+		$q.= "RealName, LangPreference, IRCNick, PGPKey, ";
+		$q.= "SSHPubKey) ";
 		$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, ";
-		$q.= "$I, $K)";
+		$q.= "$I, $K, $PK)";
 		$result = $dbh->exec($q);
 		if (!$result) {
 			print __("Error trying to create account, %s%s%s.",
@@ -290,6 +321,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 		$q.= ", LangPreference = " . $dbh->quote($L);
 		$q.= ", IRCNick = " . $dbh->quote($I);
 		$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
+		$q.= ", SSHPubKey = " . $dbh->quote($PK);
 		$q.= ", InactivityTS = " . $inactivity_ts;
 		$q.= " WHERE ID = ".intval($UID);
 		$result = $dbh->exec($q);
@@ -797,6 +829,38 @@ function passwd_is_empty($uid) {
 function valid_pgp_fingerprint($fingerprint) {
 	$fingerprint = str_replace(" ", "", $fingerprint);
 	return (strlen($fingerprint) == 40 && ctype_xdigit($fingerprint));
+}
+
+/**
+ * Determine if the SSH public key is valid
+ *
+ * @param string $pubkey SSH public key to check
+ *
+ * @return bool True if the SSH public key is valid, otherwise false
+ */
+function valid_ssh_pubkey($pubkey) {
+	$valid_prefixes = array(
+		"ssh-rsa", "ssh-dss", "ecdsa-sha2-nistp256",
+		"ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521", "ssh-ed25519"
+	);
+
+	$has_valid_prefix = false;
+	foreach ($valid_prefixes as $prefix) {
+		if (strpos($pubkey, $prefix . " ") === 0) {
+			$has_valid_prefix = true;
+			break;
+		}
+	}
+	if (!$has_valid_prefix) {
+		return false;
+	}
+
+	$tokens = explode(" ", $pubkey);
+	if (empty($tokens[1])) {
+		return false;
+	}
+
+	return (base64_encode(base64_decode($tokens[1], true)) == $tokens[1]);
 }
 
 /**
