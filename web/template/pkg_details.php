@@ -359,7 +359,7 @@ if ($row["PackagerUID"]):
 		</div>
 <?php if (count($sources) > 0): ?>
 		<div>
-			<ul>
+			<ul id="pkgsrcslist">
 <?php
 	while (list($k, $src) = each($sources)):
 		$src = explode('::', $src);

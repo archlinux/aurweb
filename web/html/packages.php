@@ -77,6 +77,7 @@ function collapseDependsList(list) {
 $(document).ready(function() {
     collapseDependsList("#pkgdepslist");
     collapseDependsList("#pkgreqslist");
+    collapseDependsList("#pkgsrcslist");
 });
 </script>
 
