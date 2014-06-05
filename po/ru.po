@@ -5,7 +5,7 @@
 # Translators:
 # Kyrylo Silin <curacaothe@gmail.com>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# rustam <rustam.tsurik@gmail.com>, 2013
+# Rustam Tsurik <rustam.tsurik@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"

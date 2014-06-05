@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# alub <antoine@lubignon.info>, 2012
-# alub <antoine@lubignon.info>, 2013
+# Antoine Lubineau <antoine@lubignon.info>, 2012
+# Antoine Lubineau <antoine@lubignon.info>, 2013
 # Cedric Girard <girard.cedric@gmail.com>, 2011,2014
 # lordheavy <lordheavym@gmail.com>, 2011
 # lordheavy <lordheavym@gmail.com>, 2013

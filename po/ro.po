@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# roentgen <arthur.titeica@gmail.com>, 2013-2014
+# Arthur Țițeică <arthur.titeica@gmail.com>, 2013-2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Mihai Coman <mihai@m1x.ro>, 2011-2013
 msgid ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2014-05-07 11:11+0200\n"
 "PO-Revision-Date: 2014-05-18 13:13+0000\n"
-"Last-Translator: roentgen <arthur.titeica@gmail.com>\n"
+"Last-Translator: Arthur Țițeică <arthur.titeica@gmail.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

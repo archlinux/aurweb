@@ -5,7 +5,7 @@
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # leonfeng <chaofeng111@gmail.com>, 2012
-# panda_z <panda.hust@gmail.com>, 2013
+# Weiwen Zhao <panda.hust@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
