@@ -170,6 +170,7 @@ function pkg_dependencies($pkgid) {
 		$dbh = DB::connect();
 		$q = "SELECT pd.DepName, dt.Name, pd.DepCondition, p.ID FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
+		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) = p.Name ";
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
 		$q.= "ORDER BY pd.DepName";
