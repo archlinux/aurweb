@@ -213,9 +213,9 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 				<?php foreach($rels_c as $rarr): ?>
 				<span class="related">
 					<?php if ($rarr !== end($rels_c)): ?>
-					<?= htmlspecialchars($rarr[0]) ?>,
+					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>,
 					<?php else: ?>
-					<?= htmlspecialchars($rarr[0]) ?>
+					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>
 					<?php endif; ?>
 				</span>
 				<?php endforeach; ?>
@@ -229,9 +229,9 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 				<?php foreach($rels_p as $rarr): ?>
 				<span class="related">
 					<?php if ($rarr !== end($rels_p)): ?>
-					<?= htmlspecialchars($rarr[0]) ?>,
+					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>,
 					<?php else: ?>
-					<?= htmlspecialchars($rarr[0]) ?>
+					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>
 					<?php endif; ?>
 				</span>
 				<?php endforeach; ?>
@@ -245,9 +245,9 @@ if ($SID && ($uid == $row["MaintainerUID"] ||
 				<?php foreach($rels_r as $rarr): ?>
 				<span class="related">
 					<?php if ($rarr !== end($rels_r)): ?>
-					<?= htmlspecialchars($rarr[0]) ?>,
+					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>,
 					<?php else: ?>
-					<?= htmlspecialchars($rarr[0]) ?>
+					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>
 					<?php endif; ?>
 				</span>
 				<?php endforeach; ?>
