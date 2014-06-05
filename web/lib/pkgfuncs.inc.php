@@ -586,7 +586,7 @@ function pkg_search_page($SID="") {
 		}
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
 			/* Search by submitter. */
-			$q_where .= "AND SubmitterUID = ".uid_from_username($_GET['K'])." ";
+			$q_where .= "AND SubmitterUID = " . intval(uid_from_username($_GET['K'])) . " ";
 		}
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
 			/* Search by name. */
