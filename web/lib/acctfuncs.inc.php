@@ -642,7 +642,7 @@ function send_resetkey($email, $subject, $body) {
 	global $AUR_LOCATION;
 
 	$uid = uid_from_email($email);
-	if ($uid != NULL && $uid != 'None') {
+	if ($uid != null) {
 		/*
 		 * We (ab)use new_sid() to get a random 32 characters long
 		 * string.

@@ -261,12 +261,12 @@ if ($row["SubmitterUID"]):
 	if ($SID):
 		if (!$USE_VIRTUAL_URLS):
 ?>
-			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= htmlspecialchars($submitter) ?>"><?= htmlspecialchars($submitter) ?></a></td>
+			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($submitter) ?>"><?= html_format_username($submitter) ?></a></td>
 		<?php else: ?>
-			<td><a href="<?= get_uri('/account/') . htmlspecialchars($submitter, ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($submitter)) ?>"><?= htmlspecialchars($submitter) ?></a></td>
+			<td><a href="<?= get_uri('/account/') . html_format_username($submitter) ?>" title="<?= __('View account information for %s', html_format_username($submitter)) ?>"><?= html_format_username($submitter) ?></a></td>
 		<?php endif; ?>
 <?php else: ?>
-		<td><?= htmlspecialchars($submitter) ?></td>
+		<td><?= html_format_username($submitter) ?></td>
 	<?php endif; ?>
 <?php else: ?>
 			<td><?= __('None') ?></td>
@@ -279,12 +279,12 @@ if ($row["MaintainerUID"]):
 	if ($SID):
 		if (!$USE_VIRTUAL_URLS):
 ?>
-			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= htmlspecialchars($maintainer) ?>"><?= htmlspecialchars($maintainer) ?></a></td>
+			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($maintainer) ?>"><?= html_format_username($maintainer) ?></a></td>
 		<?php else: ?>
-			<td><a href="<?= get_uri('/account/') . htmlspecialchars($maintainer, ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($maintainer)) ?>"><?= htmlspecialchars($maintainer) ?></a></td>
+			<td><a href="<?= get_uri('/account/') . html_format_username($maintainer) ?>" title="<?= __('View account information for %s', html_format_username($maintainer)) ?>"><?= html_format_username($maintainer) ?></a></td>
 		<?php endif; ?>
 	<?php else: ?>
-		<td><?= htmlspecialchars($maintainer) ?></td>
+		<td><?= html_format_username($maintainer) ?></td>
 	<?php endif; ?>
 <?php else: ?>
 			<td><?= __('None') ?></td>
@@ -297,12 +297,12 @@ if ($row["PackagerUID"]):
 	if ($SID):
 		if (!$USE_VIRTUAL_URLS):
 ?>
-			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['PackagerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= htmlspecialchars($packager) ?>"><?= htmlspecialchars($packager) ?></a></td>
+			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['PackagerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($packager) ?>"><?= html_format_username($packager) ?></a></td>
 		<?php else: ?>
-			<td><a href="<?= get_uri('/account/') . htmlspecialchars($packager, ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($packager)) ?>"><?= htmlspecialchars($packager) ?></a></td>
+			<td><a href="<?= get_uri('/account/') . html_format_username($packager) ?>" title="<?= __('View account information for %s', html_format_username($packager)) ?>"><?= html_format_username($packager) ?></a></td>
 		<?php endif; ?>
 	<?php else: ?>
-		<td><?= htmlspecialchars($packager) ?></td>
+		<td><?= html_format_username($packager) ?></td>
 	<?php endif; ?>
 <?php else: ?>
 			<td><?= __('None') ?></td>

@@ -25,7 +25,7 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 		$error = __('Missing a required field.');
 	} elseif ($password != $confirm) {
 		$error = __('Password fields do not match.');
-	} elseif ($uid == NULL || $uid == 'None') {
+	} elseif ($uid == null) {
 		$error = __('Invalid e-mail.');
 	}
 

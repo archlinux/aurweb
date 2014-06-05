@@ -135,20 +135,19 @@ function new_sid() {
  *
  * @param string $id User's ID
  *
- * @return string Username if it exists, otherwise "None"
+ * @return string Username if it exists, otherwise null
  */
-function username_from_id($id="") {
-	if (!$id) {
-		return "";
-	}
+function username_from_id($id) {
+	$id = intval($id);
+
 	$dbh = DB::connect();
 	$q = "SELECT Username FROM Users WHERE ID = " . $dbh->quote($id);
 	$result = $dbh->query($q);
 	if (!$result) {
-		return "None";
+		return null;
 	}
-	$row = $result->fetch(PDO::FETCH_NUM);
 
+	$row = $result->fetch(PDO::FETCH_NUM);
 	return $row[0];
 }
 
@@ -175,6 +174,17 @@ function username_from_sid($sid="") {
 	$row = $result->fetch(PDO::FETCH_NUM);
 
 	return $row[0];
+}
+
+/**
+ * Format a user name for inclusion in HTML data
+ *
+ * @param string $username The user name to format
+ *
+ * @return void
+ */
+function html_format_username($username) {
+	return $username ? htmlspecialchars($username) : __("None");
 }
 
 /**
@@ -363,20 +373,17 @@ function rm_tree($dirname) {
  *
  * @param string $username The username of an account
  *
- * @return string Return user ID if exists for username, otherwise "None"
+ * @return string Return user ID if exists for username, otherwise null
  */
-function uid_from_username($username="") {
-	if (!$username) {
-		return "";
-	}
+function uid_from_username($username) {
 	$dbh = DB::connect();
 	$q = "SELECT ID FROM Users WHERE Username = " . $dbh->quote($username);
 	$result = $dbh->query($q);
 	if (!$result) {
-		return "None";
+		return null;
 	}
-	$row = $result->fetch(PDO::FETCH_NUM);
 
+	$row = $result->fetch(PDO::FETCH_NUM);
 	return $row[0];
 }
 
@@ -387,18 +394,15 @@ function uid_from_username($username="") {
  *
  * @return string The user's ID
  */
-function uid_from_email($email="") {
-	if (!$email) {
-		return "";
-	}
+function uid_from_email($email) {
 	$dbh = DB::connect();
 	$q = "SELECT ID FROM Users WHERE Email = " . $dbh->quote($email);
 	$result = $dbh->query($q);
 	if (!$result) {
-		return "None";
+		return null;
 	}
-	$row = $result->fetch(PDO::FETCH_NUM);
 
+	$row = $result->fetch(PDO::FETCH_NUM);
 	return $row[0];
 }
 

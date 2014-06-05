@@ -22,9 +22,9 @@
 			<tr class="<?= $c ?>">
 				<td>
 					<?php if (!$USE_VIRTUAL_URLS): ?>
-					<a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['UserID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= htmlspecialchars($username) ?>"><?= htmlspecialchars($username) ?></a></td>
+					<a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['UserID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($username) ?>"><?= html_format_username($username) ?></a></td>
 					<?php else: ?>
-					<a href="<?= get_uri('/account/') . htmlspecialchars($username, ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($username)) ?>"><?= htmlspecialchars($username) ?></a>
+					<a href="<?= get_uri('/account/') . html_format_username($username) ?>" title="<?= __('View account information for %s', html_format_username($username)) ?>"><?= html_format_username($username) ?></a>
 					<?php endif; ?>
 				</td>
 				<td>
