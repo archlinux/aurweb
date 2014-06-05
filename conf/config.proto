@@ -36,4 +36,5 @@ ssh-options = no-port-forwarding,no-X11-forwarding,no-pty
 [serve]
 repo-base = /pub/git/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
+git-update-hook = /srv/http/aur/scripts/git-integration/git-update.py
 git-shell-cmd = /usr/bin/git-shell
