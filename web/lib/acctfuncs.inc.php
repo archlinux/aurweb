@@ -184,110 +184,115 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 					"<strong>", htmlspecialchars($E,ENT_QUOTES), "</strong>");
 		}
 	}
+
 	if ($error) {
 		print "<ul class='errorlist'><li>".$error."</li></ul>\n";
 		display_account_form($UTYPE, $A, $U, $T, $S, $E, "", "",
 				$R, $L, $I, $K, $J, $UID);
-	} else {
-		if ($TYPE == "new") {
-			/* Create an unprivileged user. */
-			$salt = generate_salt();
-			if (empty($P)) {
-				$send_resetkey = true;
-				$email = $E;
-			} else {
-				$send_resetkey = false;
-				$P = salted_hash($P, $salt);
-			}
-			$U = $dbh->quote($U);
-			$E = $dbh->quote($E);
-			$P = $dbh->quote($P);
-			$salt = $dbh->quote($salt);
-			$R = $dbh->quote($R);
-			$L = $dbh->quote($L);
-			$I = $dbh->quote($I);
-			$K = $dbh->quote(str_replace(" ", "", $K));
-			$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
-			$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
-			$q.= "RealName, LangPreference, IRCNick, PGPKey) ";
-			$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, ";
-			$q.= "$I, $K)";
-			$result = $dbh->exec($q);
-			if (!$result) {
-				print __("Error trying to create account, %s%s%s.",
-						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
-			} else {
-				print __("The account, %s%s%s, has been successfully created.",
-						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
-				print "<p>\n";
-				if ($send_resetkey) {
-					$subject = 'Welcome to the Arch User Repository';
-					$body = __('Welcome to %s! In order ' .
-						'to set an initial password ' .
-						'for your new account, ' .
-						'please click the link ' .
-						'below. If the link does ' .
-						'not work try copying and ' .
-						'pasting it into your ' .
-						'browser.',
-						$AUR_LOCATION);
-					send_resetkey($email, $subject, $body);
-					print __("A password reset key has been sent to your e-mail address.");
-				} else {
-					print __("Click on the Login link above to use your account.");
-				}
-				print "</p>\n";
-			}
+		return;
+	}
 
+	if ($TYPE == "new") {
+		/* Create an unprivileged user. */
+		$salt = generate_salt();
+		if (empty($P)) {
+			$send_resetkey = true;
+			$email = $E;
 		} else {
-			/* Modify an existing account. */
-			$q = "SELECT InactivityTS FROM Users WHERE ";
-			$q.= "ID = " . intval($UID);
-			$result = $dbh->query($q);
-			$row = $result->fetch(PDO::FETCH_NUM);
-			if ($row[0] && $J) {
-				$inactivity_ts = $row[0];
-			} elseif ($J) {
-				$inactivity_ts = time();
-			} else {
-				$inactivity_ts = 0;
-			}
+			$send_resetkey = false;
+			$P = salted_hash($P, $salt);
+		}
+		$U = $dbh->quote($U);
+		$E = $dbh->quote($E);
+		$P = $dbh->quote($P);
+		$salt = $dbh->quote($salt);
+		$R = $dbh->quote($R);
+		$L = $dbh->quote($L);
+		$I = $dbh->quote($I);
+		$K = $dbh->quote(str_replace(" ", "", $K));
+		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
+		$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
+		$q.= "RealName, LangPreference, IRCNick, PGPKey) ";
+		$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, ";
+		$q.= "$I, $K)";
+		$result = $dbh->exec($q);
+		if (!$result) {
+			print __("Error trying to create account, %s%s%s.",
+					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
+			return;
+		}
 
-			$q = "UPDATE Users SET ";
-			$q.= "Username = " . $dbh->quote($U);
-			if ($T) {
-				$q.= ", AccountTypeID = ".intval($T);
-			}
-			if ($S) {
-				/* Ensure suspended users can't keep an active session */
-				delete_user_sessions($UID);
-				$q.= ", Suspended = 1";
-			} else {
-				$q.= ", Suspended = 0";
-			}
-			$q.= ", Email = " . $dbh->quote($E);
-			if ($P) {
-				$salt = generate_salt();
-				$hash = salted_hash($P, $salt);
-				$q .= ", Passwd = '$hash', Salt = '$salt'";
-			}
-			$q.= ", RealName = " . $dbh->quote($R);
-			$q.= ", LangPreference = " . $dbh->quote($L);
-			$q.= ", IRCNick = " . $dbh->quote($I);
-			$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
-			$q.= ", InactivityTS = " . $inactivity_ts;
-			$q.= " WHERE ID = ".intval($UID);
-			$result = $dbh->exec($q);
-			if (!$result) {
-				print __("No changes were made to the account, %s%s%s.",
-						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
-			} else {
-				print __("The account, %s%s%s, has been successfully modified.",
-						"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
-			}
+		print __("The account, %s%s%s, has been successfully created.",
+				"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
+		print "<p>\n";
+
+		if (!$send_resetkey) {
+			print __("Click on the Login link above to use your account.");
+			print "</p>\n";
+			return;
+		}
+
+		$subject = 'Welcome to the Arch User Repository';
+		$body = __('Welcome to %s! In order ' .
+			'to set an initial password ' .
+			'for your new account, ' .
+			'please click the link ' .
+			'below. If the link does ' .
+			'not work try copying and ' .
+			'pasting it into your ' .
+			'browser.',
+			$AUR_LOCATION);
+		send_resetkey($email, $subject, $body);
+
+		print __("A password reset key has been sent to your e-mail address.");
+		print "</p>\n";
+	} else {
+		/* Modify an existing account. */
+		$q = "SELECT InactivityTS FROM Users WHERE ";
+		$q.= "ID = " . intval($UID);
+		$result = $dbh->query($q);
+		$row = $result->fetch(PDO::FETCH_NUM);
+		if ($row[0] && $J) {
+			$inactivity_ts = $row[0];
+		} elseif ($J) {
+			$inactivity_ts = time();
+		} else {
+			$inactivity_ts = 0;
+		}
+
+		$q = "UPDATE Users SET ";
+		$q.= "Username = " . $dbh->quote($U);
+		if ($T) {
+			$q.= ", AccountTypeID = ".intval($T);
+		}
+		if ($S) {
+			/* Ensure suspended users can't keep an active session */
+			delete_user_sessions($UID);
+			$q.= ", Suspended = 1";
+		} else {
+			$q.= ", Suspended = 0";
+		}
+		$q.= ", Email = " . $dbh->quote($E);
+		if ($P) {
+			$salt = generate_salt();
+			$hash = salted_hash($P, $salt);
+			$q .= ", Passwd = '$hash', Salt = '$salt'";
+		}
+		$q.= ", RealName = " . $dbh->quote($R);
+		$q.= ", LangPreference = " . $dbh->quote($L);
+		$q.= ", IRCNick = " . $dbh->quote($I);
+		$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
+		$q.= ", InactivityTS = " . $inactivity_ts;
+		$q.= " WHERE ID = ".intval($UID);
+		$result = $dbh->exec($q);
+		if (!$result) {
+			print __("No changes were made to the account, %s%s%s.",
+					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
+		} else {
+			print __("The account, %s%s%s, has been successfully modified.",
+					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 		}
 	}
-	return;
 }
 
 /**
@@ -408,100 +413,100 @@ function try_login() {
 	$new_sid = "";
 	$userID = null;
 
-	if ( isset($_REQUEST['user']) || isset($_REQUEST['passwd']) ) {
-		if (is_ipbanned()) {
-			$login_error = __('The login form is currently disabled ' .
-							'for your IP address, probably due ' .
-							'to sustained spam attacks. Sorry for the ' .
-							'inconvenience.');
-			return array('SID' => '', 'error' => $login_error);
-		}
-		$dbh = DB::connect();
-		$userID = valid_user($_REQUEST['user']);
-
-		if ( user_suspended($userID) ) {
-			$login_error = __('Account suspended');
-		}
-		elseif ( $userID && isset($_REQUEST['passwd'])
-		  && valid_passwd($userID, $_REQUEST['passwd']) ) {
-
-			$logged_in = 0;
-			$num_tries = 0;
-
-			/* Generate a session ID and store it. */
-			while (!$logged_in && $num_tries < 5) {
-				if ($MAX_SESSIONS_PER_USER) {
-					/*
-					 * Delete all user sessions except the
-					 * last ($MAX_SESSIONS_PER_USER - 1).
-					 */
-					$q = "DELETE s.* FROM Sessions s ";
-					$q.= "LEFT JOIN (SELECT SessionID FROM Sessions ";
-					$q.= "WHERE UsersId = " . $userID . " ";
-					$q.= "ORDER BY LastUpdateTS DESC ";
-					$q.= "LIMIT " . ($MAX_SESSIONS_PER_USER - 1) . ") q ";
-					$q.= "ON s.SessionID = q.SessionID ";
-					$q.= "WHERE s.UsersId = " . $userID . " ";
-					$q.= "AND q.SessionID IS NULL;";
-					$dbh->query($q);
-				}
-
-				$new_sid = new_sid();
-				$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
-				  ." VALUES (" . $userID . ", '" . $new_sid . "', UNIX_TIMESTAMP())";
-				$result = $dbh->exec($q);
-
-				/* Query will fail if $new_sid is not unique. */
-				if ($result) {
-					$logged_in = 1;
-					break;
-				}
-
-				$num_tries++;
-			}
-
-			if ($logged_in) {
-				$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP(), ";
-				$q.= "LastLoginIPAddress = " . $dbh->quote(ip2long($_SERVER['REMOTE_ADDR'])) . " ";
-				$q.= "WHERE ID = '$userID'";
-				$dbh->exec($q);
-
-				/* Set the SID cookie. */
-				if (isset($_POST['remember_me']) &&
-					$_POST['remember_me'] == "on") {
-					/* Set cookies for 30 days. */
-					$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
-
-					/* Set session for 30 days. */
-					$q = "UPDATE Sessions SET LastUpdateTS = $cookie_time ";
-					$q.= "WHERE SessionID = '$new_sid'";
-					$dbh->exec($q);
-				}
-				else
-					$cookie_time = 0;
-
-				setcookie("AURSID", $new_sid, $cookie_time, "/", null, !empty($_SERVER['HTTPS']), true);
-				header("Location: " . get_uri('/'));
-				$login_error = "";
-
-			}
-			else {
-				$login_error = __('An error occurred trying to generate a user session.');
-			}
-		} elseif (passwd_is_empty($userID)) {
-			$login_error = __('Your password has been reset. ' .
-				'If you just created a new account, please ' .
-				'use the link from the confirmation email ' .
-				'to set an initial password. Otherwise, ' .
-				'please request a reset key on the %s' .
-				'Password Reset%s page.', '<a href="' .
-				htmlspecialchars(get_uri('/passreset')) . '">',
-				'</a>');
-		} else {
-			$login_error = __("Bad username or password.");
-		}
+	if (!isset($_REQUEST['user']) && !isset($_REQUEST['passwd'])) {
+		return array('SID' => '', 'error' => null);
 	}
-	return array('SID' => $new_sid, 'error' => $login_error);
+
+	if (is_ipbanned()) {
+		$login_error = __('The login form is currently disabled ' .
+						'for your IP address, probably due ' .
+						'to sustained spam attacks. Sorry for the ' .
+						'inconvenience.');
+		return array('SID' => '', 'error' => $login_error);
+	}
+
+	$dbh = DB::connect();
+	$userID = valid_user($_REQUEST['user']);
+
+	if (user_suspended($userID)) {
+		$login_error = __('Account suspended');
+		return array('SID' => '', 'error' => $login_error);
+	} elseif (passwd_is_empty($userID)) {
+		$login_error = __('Your password has been reset. ' .
+			'If you just created a new account, please ' .
+			'use the link from the confirmation email ' .
+			'to set an initial password. Otherwise, ' .
+			'please request a reset key on the %s' .
+			'Password Reset%s page.', '<a href="' .
+			htmlspecialchars(get_uri('/passreset')) . '">',
+			'</a>');
+		return array('SID' => '', 'error' => $login_error);
+	} elseif (!valid_passwd($userID, $_REQUEST['passwd'])) {
+		$login_error = __("Bad username or password.");
+		return array('SID' => '', 'error' => $login_error);
+	}
+
+	$logged_in = 0;
+	$num_tries = 0;
+
+	/* Generate a session ID and store it. */
+	while (!$logged_in && $num_tries < 5) {
+		if ($MAX_SESSIONS_PER_USER) {
+			/*
+			 * Delete all user sessions except the
+			 * last ($MAX_SESSIONS_PER_USER - 1).
+			 */
+			$q = "DELETE s.* FROM Sessions s ";
+			$q.= "LEFT JOIN (SELECT SessionID FROM Sessions ";
+			$q.= "WHERE UsersId = " . $userID . " ";
+			$q.= "ORDER BY LastUpdateTS DESC ";
+			$q.= "LIMIT " . ($MAX_SESSIONS_PER_USER - 1) . ") q ";
+			$q.= "ON s.SessionID = q.SessionID ";
+			$q.= "WHERE s.UsersId = " . $userID . " ";
+			$q.= "AND q.SessionID IS NULL;";
+			$dbh->query($q);
+		}
+
+		$new_sid = new_sid();
+		$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
+		  ." VALUES (" . $userID . ", '" . $new_sid . "', UNIX_TIMESTAMP())";
+		$result = $dbh->exec($q);
+
+		/* Query will fail if $new_sid is not unique. */
+		if ($result) {
+			$logged_in = 1;
+			break;
+		}
+
+		$num_tries++;
+	}
+
+	if (!$logged_in) {
+		$login_error = __('An error occurred trying to generate a user session.');
+		return array('SID' => $new_sid, 'error' => $login_error);
+	}
+
+	$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP(), ";
+	$q.= "LastLoginIPAddress = " . $dbh->quote(ip2long($_SERVER['REMOTE_ADDR'])) . " ";
+	$q.= "WHERE ID = '$userID'";
+	$dbh->exec($q);
+
+	/* Set the SID cookie. */
+	if (isset($_POST['remember_me']) && $_POST['remember_me'] == "on") {
+		/* Set cookies for 30 days. */
+		$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
+
+		/* Set session for 30 days. */
+		$q = "UPDATE Sessions SET LastUpdateTS = $cookie_time ";
+		$q.= "WHERE SessionID = '$new_sid'";
+		$dbh->exec($q);
+	} else {
+		$cookie_time = 0;
+	}
+
+	setcookie("AURSID", $new_sid, $cookie_time, "/", null, !empty($_SERVER['HTTPS']), true);
+	header("Location: " . get_uri('/'));
+	$login_error = "";
 }
 
 /**
@@ -515,11 +520,7 @@ function is_ipbanned() {
 	$q = "SELECT * FROM Bans WHERE IPAddress = " . $dbh->quote(ip2long($_SERVER['REMOTE_ADDR']));
 	$result = $dbh->query($q);
 
-	if ($result->fetchColumn()) {
-		return true;
-	} else {
-		return false;
-	}
+	return ($result->fetchColumn() ? true : false);
 }
 
 /**
@@ -553,17 +554,21 @@ function valid_username($user) {
  * @return string|void Return user ID if in database, otherwise void
  */
 function valid_user($user) {
-	if ($user) {
-		$dbh = DB::connect();
-
-		$q = "SELECT ID FROM Users WHERE ";
-		$q.= "Username = " . $dbh->quote($user);
-		$result = $dbh->query($q);
-		if ($result) {
-			$row = $result->fetch(PDO::FETCH_NUM);
-			return $row[0];
-		}
+	if (!$user) {
+		return false;
 	}
+
+	$dbh = DB::connect();
+
+	$q = "SELECT ID FROM Users WHERE ";
+	$q.= "Username = " . $dbh->quote($user);
+	$result = $dbh->query($q);
+	if (!$result) {
+		return null;
+	}
+
+	$row = $result->fetch(PDO::FETCH_NUM);
+	return $row[0];
 }
 
 /**
@@ -578,12 +583,8 @@ function open_user_proposals($user) {
 	$q = "SELECT * FROM TU_VoteInfo WHERE User = " . $dbh->quote($user) . " ";
 	$q.= "AND End > UNIX_TIMESTAMP()";
 	$result = $dbh->query($q);
-	if ($result->fetchColumn()) {
-		return true;
-	}
-	else {
-		return false;
-	}
+
+	return ($result->fetchColumn() ? true : false);
 }
 
 /**
@@ -642,26 +643,26 @@ function send_resetkey($email, $subject, $body) {
 	global $AUR_LOCATION;
 
 	$uid = uid_from_email($email);
-	if ($uid != null) {
-		/*
-		 * We (ab)use new_sid() to get a random 32 characters long
-		 * string.
-		 */
-		$resetkey = new_sid();
-		create_resetkey($resetkey, $uid);
-		/* Send e-mail with confirmation link. */
-		$body = wordwrap($body, 70);
-		$body .=  "\n\n".
-			  "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
-		          "resetkey={$resetkey}";
-		$headers = "MIME-Version: 1.0\r\n" .
-			   "Content-type: text/plain; charset=UTF-8\r\n" .
-			   "Reply-to: noreply@aur.archlinux.org\r\n" .
-			   "From: notify@aur.achlinux.org\r\n" .
-			   "X-Mailer: PHP\r\n" .
-			   "X-MimeOLE: Produced By AUR";
-		@mail($email, $subject, $body, $headers);
+	if ($uid == null) {
+		return;
 	}
+
+	/* We (ab)use new_sid() to get a random 32 characters long string. */
+	$resetkey = new_sid();
+	create_resetkey($resetkey, $uid);
+
+	/* Send e-mail with confirmation link. */
+	$body = wordwrap($body, 70);
+	$body .=  "\n\n".
+		  "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
+		  "resetkey={$resetkey}";
+	$headers = "MIME-Version: 1.0\r\n" .
+		   "Content-type: text/plain; charset=UTF-8\r\n" .
+		   "Reply-to: noreply@aur.archlinux.org\r\n" .
+		   "From: notify@aur.achlinux.org\r\n" .
+		   "X-Mailer: PHP\r\n" .
+		   "X-MimeOLE: Produced By AUR";
+	@mail($email, $subject, $body, $headers);
 }
 
 /**
@@ -718,41 +719,47 @@ function good_passwd($passwd) {
  */
 function valid_passwd($userID, $passwd) {
 	$dbh = DB::connect();
-	if ( strlen($passwd) > 0 ) {
-		/* Get salt for this user. */
-		$salt = get_salt($userID);
-		if ($salt) {
-			$q = "SELECT ID FROM Users ";
-			$q.= "WHERE ID = " . $userID . " ";
-			$q.= "AND Passwd = " . $dbh->quote(salted_hash($passwd, $salt));
-			$result = $dbh->query($q);
-			if ($result) {
-				$row = $result->fetch(PDO::FETCH_NUM);
-				if ($row[0]) {
-					return true;
-				}
-			}
-		} else {
-			/* Check password without using salt. */
-			$q = "SELECT ID FROM Users ";
-			$q.= "WHERE ID = " . $userID . " ";
-			$q.= "AND Passwd = " . $dbh->quote(md5($passwd));
-			$result = $dbh->query($q);
-			if ($result) {
-				$row = $result->fetch(PDO::FETCH_NUM);
-				if ($row[0]) {
-					/* Password correct, but salt it first! */
-					if (!save_salt($userID, $passwd)) {
-						trigger_error("Unable to salt user's password;" .
-							" ID " . $userID, E_USER_WARNING);
-						return false;
-					}
-					return true;
-				}
-			}
-		}
+	if ($passwd == "") {
+		return false;
 	}
-	return false;
+
+	/* Get salt for this user. */
+	$salt = get_salt($userID);
+	if ($salt) {
+		$q = "SELECT ID FROM Users ";
+		$q.= "WHERE ID = " . $userID . " ";
+		$q.= "AND Passwd = " . $dbh->quote(salted_hash($passwd, $salt));
+		$result = $dbh->query($q);
+		if (!$result) {
+			return false;
+		}
+
+		$row = $result->fetch(PDO::FETCH_NUM);
+		return ($row[0] > 0);
+	} else {
+		/* Check password without using salt. */
+		$q = "SELECT ID FROM Users ";
+		$q.= "WHERE ID = " . $userID . " ";
+		$q.= "AND Passwd = " . $dbh->quote(md5($passwd));
+		$result = $dbh->query($q);
+		if (!$result) {
+			return false;
+		}
+
+		$row = $result->fetch(PDO::FETCH_NUM);
+		if (!$row[0]) {
+			return false;
+		}
+
+		/* Password correct, but salt it first! */
+		if (!save_salt($userID, $passwd)) {
+			trigger_error("Unable to salt user's password;" .
+				" ID " . $userID, E_USER_WARNING);
+			return false;
+		}
+
+		return true;
+	}
 }
 
 /**
