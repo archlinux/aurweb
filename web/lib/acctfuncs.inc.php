@@ -119,14 +119,15 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("Missing User ID");
 	}
 
-  if (!$error && !valid_username($U) && !user_is_privileged($editor_user))
-	$error = __("The username is invalid.") . "<ul>\n"
+	if (!$error && !valid_username($U) && !user_is_privileged($editor_user)) {
+		$error = __("The username is invalid.") . "<ul>\n"
 			."<li>" . __("It must be between %s and %s characters long",
 			USERNAME_MIN_LEN,  USERNAME_MAX_LEN )
 			. "</li>"
 			. "<li>" . __("Start and end with a letter or number") . "</li>"
 			. "<li>" . __("Can contain only one period, underscore or hyphen.")
 			. "</li>\n</ul>";
+	}
 
 	if (!$error && $P && $C && ($P != $C)) {
 		$error = __("Password fields do not match.");
