@@ -227,7 +227,6 @@ class AurJSON {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$resultcount++;
 				$pkgbase_name = $row['PackageBase'];
-				$row['URLPath'] = $package_url . substr($pkgbase_name, 0, 2) . "/" . $pkgbase_name . "/" . $pkgbase_name . ".tar.gz";
 
 				/*
 				 * Unfortunately, mysql_fetch_assoc() returns

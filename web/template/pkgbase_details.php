@@ -1,4 +1,7 @@
 <?php
+
+$cgit_uri = config_get('options', 'cgit_uri');
+
 $uid = uid_from_sid($SID);
 
 $base_id = intval($row['ID']);
@@ -19,9 +22,6 @@ $updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($r
 $submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["SubmittedTS"]));
 $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
 
-$package_url = config_get('options', 'package_url');
-$urlpath = $package_url . substr($row['Name'], 0, 2) . "/" . $row['Name'];
-
 $pkgs = pkgbase_get_pkgnames($base_id);
 ?>
 <div id="pkgdetails" class="box">
@@ -30,8 +30,8 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 		<div id="actionlist">
 			<h4><?= __('Package Actions') ?></h4>
 			<ul class="small">
-				<li><a href="<?= $urlpath ?>/PKGBUILD"><?= __('View PKGBUILD') ?></a></li>
-				<li><a href="<?= $urlpath . '/' . $row['Name'] ?>.tar.gz"><?= __('Download tarball') ?></a></li>
+				<li><a href="<?= $cgit_uri . $row['Name'] . '.git' ?>/tree/PKGBUILD"><?= __('View PKGBUILD') ?></a></li>
+				<li><a href="<?= $cgit_uri . $row['Name'] . '.git' ?>/snapshot/master.tar.gz"><?= __('Download snapshot') ?></a></li>
 				<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
 				<?php if ($uid): ?>

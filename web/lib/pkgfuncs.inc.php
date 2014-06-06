@@ -184,36 +184,6 @@ function pkg_relations($pkgid) {
 }
 
 /**
- * Get the ID of a dependency type given its name
- *
- * @param string $name The name of the dependency type
- *
- * @return int The ID of the dependency type
- */
-function pkg_dependency_type_id_from_name($name) {
-	$dbh = DB::connect();
-	$q = "SELECT ID FROM DependencyTypes WHERE Name = ";
-	$q.= $dbh->quote($name);
-	$result = $dbh->query($q);
-	return $result->fetch(PDO::FETCH_COLUMN, 0);
-}
-
-/**
- * Get the ID of a relation type given its name
- *
- * @param string $name The name of the relation type
- *
- * @return int The ID of the relation type
- */
-function pkg_relation_type_id_from_name($name) {
-	$dbh = DB::connect();
-	$q = "SELECT ID FROM RelationTypes WHERE Name = ";
-	$q.= $dbh->quote($name);
-	$result = $dbh->query($q);
-	return $result->fetch(PDO::FETCH_COLUMN, 0);
-}
-
-/**
  * Get the HTML code to display a package dependency link
  *
  * @param string $name The name of the dependency
@@ -779,6 +749,7 @@ function sanitize_ids($ids) {
 }
 
 /**
+<<<<<<< HEAD
  * Add package information to the database for a specific package
  *
  * @param int $base_id ID of the package base

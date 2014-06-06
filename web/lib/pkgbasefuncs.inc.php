@@ -915,45 +915,6 @@ function pkgbase_change_category($base_id) {
 }
 
 /**
- * Add package base information to the database
- *
- * @param string $name Name of the new package base
- * @param int $category_id Category for the new package base
- * @param int $uid User ID of the package uploader
- *
- * @return int ID of the new package base
- */
-function pkgbase_create($name, $category_id, $uid) {
-	$dbh = DB::connect();
-	$q = sprintf("INSERT INTO PackageBases (Name, CategoryID, " .
-		"SubmittedTS, ModifiedTS, SubmitterUID, MaintainerUID, " .
-		"PackagerUID) VALUES (%s, %d, UNIX_TIMESTAMP(), " .
-		"UNIX_TIMESTAMP(), %d, %d, %d)",
-		$dbh->quote($name), $category_id, $uid, $uid, $uid);
-	$dbh->exec($q);
-	return $dbh->lastInsertId();
-}
-
-/**
- * Update package base information for a specific package base
- *
- * @param string $name Name of the updated package base
- * @param int $base_id The package base ID of the affected package
- * @param int $uid User ID of the package uploader
- *
- * @return void
- */
-function pkgbase_update($base_id, $name, $uid) {
-	$dbh = DB::connect();
-	$q = sprintf("UPDATE PackageBases SET  " .
-		"Name = %s, ModifiedTS = UNIX_TIMESTAMP(), " .
-		"MaintainerUID = %d, PackagerUID = %d, OutOfDateTS = NULL " .
-		"WHERE ID = %d",
-		$dbh->quote($name), $uid, $uid, $base_id);
-	$dbh->exec($q);
-}
-
-/**
  * Change the category a package base belongs to
  *
  * @param int $base_id The package base ID to change the category for

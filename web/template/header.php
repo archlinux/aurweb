@@ -60,7 +60,6 @@
 						<?php if (has_credential(CRED_PKGREQ_LIST)): ?>
 						<li><a href="<?= get_uri('/requests/') ; ?>"><?= __("Requests"); ?></a></li>
 						<?php endif; ?>
-						<li><a href="<?= get_uri('/submit/'); ?>"><?= __("Submit"); ?></a></li>
 						<?php if (has_credential(CRED_ACCOUNT_SEARCH)): ?>
 						<li><a href="<?= get_uri('/accounts/') ; ?>"><?= __("Accounts"); ?></a></li>
 						<?php endif; ?>
