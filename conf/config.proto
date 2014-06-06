@@ -19,6 +19,7 @@ max_filesize_uncompressed = 8388608
 disable_http_login = 1
 aur_location = http://localhost
 cgit_uri = https://git.aur.archlinux.org/
+git_clone_uri = git://git.aur.archlinux.org/pub/git/%s.git/
 max_rpc_results = 5000
 aur_request_ml = aur-requests@archlinux.org
 request_idle_time = 1209600

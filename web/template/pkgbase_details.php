@@ -1,6 +1,7 @@
 <?php
 
 $cgit_uri = config_get('options', 'cgit_uri');
+$git_clone_uri = config_get('options', 'git_clone_uri');
 
 $uid = uid_from_sid($SID);
 
@@ -108,6 +109,10 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 	</div>
 
 	<table id="pkginfo">
+		<tr>
+			<th><?= __('Git Clone URL') . ': ' ?></th>
+			<td><?= sprintf($git_clone_uri, htmlspecialchars($row['Name'])) ?></td>
+		</tr>
 		<tr>
 			<th><?= __('Category') . ': ' ?></th>
 <?php
