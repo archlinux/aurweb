@@ -954,7 +954,8 @@ function pkg_add_lic($pkgid, $licid) {
 function latest_pkgs($numpkgs) {
 	$dbh = DB::connect();
 
-	$q = "SELECT * FROM Packages LEFT JOIN PackageBases ON ";
+	$q = "SELECT Packages.*, MaintainerUID, SubmittedTS ";
+	$q.= "FROM Packages LEFT JOIN PackageBases ON ";
 	$q.= "PackageBases.ID = Packages.PackageBaseID ";
 	$q.= "ORDER BY SubmittedTS DESC ";
 	$q.= "LIMIT " . intval($numpkgs);
