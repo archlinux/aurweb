@@ -81,6 +81,7 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 					</form>
 				</li>
 				<?php endif; ?>
+				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'request/'; ?>"><?= __('File Request'); ?></a></li>
 				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
 				<li><a href="<?= get_pkgbase_uri($row['Name']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
 				<li><a href="<?= get_pkgbase_uri($row['Name']) . 'merge/'; ?>"><?= __('Merge Package'); ?></a></li>

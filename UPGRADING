@@ -1,6 +1,37 @@
 Upgrading
 =========
 
+From 3.1.0 to 3.2.0
+-------------------
+
+1. Add support for package requests to the database:
+
+----
+CREATE TABLE RequestTypes (
+	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(32) NOT NULL DEFAULT '',
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+INSERT INTO RequestTypes VALUES (1, 'deletion');
+INSERT INTO RequestTypes VALUES (2, 'orphan');
+
+CREATE TABLE PackageRequests (
+	ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	ReqTypeID TINYINT UNSIGNED NOT NULL,
+	PackageBaseID INTEGER UNSIGNED NULL,
+	PackageBaseName VARCHAR(255) NOT NULL,
+	UsersID INTEGER UNSIGNED NULL DEFAULT NULL,
+	Comments TEXT NOT NULL DEFAULT '',
+	RequestTS BIGINT UNSIGNED NOT NULL DEFAULT 0,
+	PRIMARY KEY (ID),
+	INDEX (UsersID),
+	INDEX (PackageBaseID),
+	FOREIGN KEY (ReqTypeID) REFERENCES RequestTypes(ID) ON DELETE NO ACTION,
+	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE SET NULL,
+	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE SET NULL
+) ENGINE = InnoDB;
+----
+
 From 3.0.0 to 3.1.0
 -------------------
 

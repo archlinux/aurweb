@@ -106,6 +106,7 @@ $sources = pkg_sources($row["ID"]);
 					</form>
 				</li>
 				<?php endif; ?>
+				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'request/'; ?>"><?= __('File Request'); ?></a></li>
 				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
 				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
 				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'merge/'; ?>"><?= __('Merge Package'); ?></a></li>

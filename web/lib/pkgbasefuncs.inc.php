@@ -962,3 +962,91 @@ function pkgbase_update_category($base_id, $category_id) {
 		$category_id, $base_id);
 	$dbh->exec($q);
 }
+
+/**
+ * File a deletion/orphan request against a package base
+ *
+ * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
+ * @global string $AUR_REQUEST_ML The request notification mailing list
+ * @param string $ids The package base IDs to file the request against
+ * @param string $type The type of the request
+ * @param string $comments The comments to be added to the request
+ *
+ * @return void
+ */
+function pkgbase_file_request($ids, $type, $comments) {
+	global $AUR_LOCATION;
+	global $AUR_REQUEST_ML;
+
+	if (empty($comments)) {
+		return array(false, __("The comment field must not be empty."));
+	}
+
+	$dbh = DB::connect();
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+
+	/* TODO: Allow for filing multiple requests at once. */
+	$base_id = $ids[0];
+	$pkgbase_name = pkgbase_name_from_id($base_id);
+
+	$q = "SELECT ID FROM RequestTypes WHERE Name = " . $dbh->quote($type);
+	$result = $dbh->query($q);
+	if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$type_id = $row['ID'];
+	} else {
+		return array(false, __("Invalid request type."));
+	}
+
+	$q = "INSERT INTO PackageRequests ";
+	$q.= "(ReqTypeID, PackageBaseID, PackageBaseName, UsersID, ";
+	$q.= "Comments, RequestTS) VALUES (" . $type_id . ", ";
+	$q.= intval($base_id) . ", " .  $dbh->quote($pkgbase_name) . ", ";
+	$q.= $uid . ", " . $dbh->quote($comments) . ", UNIX_TIMESTAMP())";
+	$dbh->exec($q);
+
+	/*
+	 * Send e-mail notifications.
+	 * TODO: Move notification logic to separate function where it belongs.
+	 */
+	$q = "SELECT Users.Email ";
+	$q.= "FROM Users INNER JOIN PackageBases ";
+	$q.= "ON PackageBases.MaintainerUID = Users.ID ";
+	$q.= "WHERE PackageBases.ID = " . intval($base_id);
+	$result = $dbh->query($q);
+	if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$bcc = $row['Email'];
+	} else {
+		unset($bcc);
+	}
+
+	$q = "SELECT Name FROM PackageBases WHERE ID = ";
+	$q.= intval($base_id);
+	$result = $dbh->query($q);
+	$row = $result->fetch(PDO::FETCH_ASSOC);
+
+	/*
+	 * TODO: Add native language emails for users, based on their
+	 * preferences. Simply making these strings translatable won't
+	 * work, users would be getting emails in the language that the
+	 * user who posted the comment was in.
+	 */
+	$username = username_from_sid($_COOKIE['AURSID']);
+	$body =
+		$username . " [1] filed a " . $type . " request for " .
+		$row['Name'] . " [2]:\n\n" . $comments . "\n\n" .
+		"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n" .
+		"[2] " . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n";
+	$body = wordwrap($body, 70);
+	$headers = "MIME-Version: 1.0\r\n" .
+		   "Content-type: text/plain; charset=UTF-8\r\n";
+	if (!empty($bcc)) {
+		$headers .= "Bcc: $bcc\r\n";
+	}
+	$headers .= "Reply-to: noreply@aur.archlinux.org\r\n" .
+		    "From: notify@aur.archlinux.org\r\n" .
+		    "X-Mailer: AUR";
+	@mail($AUR_REQUEST_ML, "AUR " . ucfirst($type) . " Request for " .
+			       $row['Name'], $body, $headers);
+
+	return array(true, __("Added request successfully."));
+}

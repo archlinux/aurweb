@@ -94,6 +94,8 @@ if (check_token()) {
 		list($ret, $output) = pkgbase_delete_comment($atype);
 	} elseif (current_action("do_ChangeCategory")) {
 		list($ret, $output) = pkgbase_change_category($base_id, $atype);
+	} elseif (current_action("do_FileRequest")) {
+		list($ret, $output) = pkgbase_file_request($ids, $_POST['type'], $_POST['comments']);
 	}
 
 	if (isset($_REQUEST['comment'])) {

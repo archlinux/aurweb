@@ -75,6 +75,9 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				$_GET['N'] = $tokens[2];
 				include('voters.php');
 				return;
+			case "request":
+				include('pkgreq.php');
+				return;
 			default:
 				header("HTTP/1.0 404 Not Found");
 				include "./404.php";
