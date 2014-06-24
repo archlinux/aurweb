@@ -964,6 +964,26 @@ function pkgbase_update_category($base_id, $category_id) {
 }
 
 /**
+ * Get a list of all package requests
+ *
+ * @return array List of pacakge requests with details
+ */
+function pkgbase_request_list() {
+	$dbh = DB::connect();
+
+	$q = "SELECT PackageRequests.ID, ";
+	$q.= "PackageRequests.PackageBaseID AS BaseID, ";
+	$q.= "PackageRequests.PackageBaseName AS Name, ";
+	$q.= "RequestTypes.Name AS Type, PackageRequests.Comments, ";
+	$q.= "Users.Username AS User, PackageRequests.RequestTS ";
+	$q.= "FROM PackageRequests INNER JOIN RequestTypes ON ";
+	$q.= "RequestTypes.ID = PackageRequests.ReqTypeID ";
+	$q.= "INNER JOIN Users ON Users.ID = PackageRequests.UsersID";
+
+	return $dbh->query($q)->fetchAll();
+}
+
+/**
  * File a deletion/orphan request against a package base
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
