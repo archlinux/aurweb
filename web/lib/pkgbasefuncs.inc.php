@@ -1084,8 +1084,9 @@ function pkgbase_file_request($ids, $type, $merge_into, $comments) {
 		    "In-Reply-To: $thread_id\r\n" .
 		    "References: $thread_id\r\n" .
 		    "X-Mailer: AUR";
-	@mail($AUR_REQUEST_ML, "AUR " . ucfirst($type) . " Request for " .
-			       $row['Name'], $body, $headers);
+	@mail($AUR_REQUEST_ML, "[PRQ#" . $request_id . "] " . ucfirst($type) .
+			       " Request for " .  $row['Name'], $body,
+			       $headers);
 
 	return array(true, __("Added request successfully."));
 }
@@ -1104,6 +1105,7 @@ function pkgbase_close_request($id) {
 	global $AUR_REQUEST_ML;
 
 	$dbh = DB::connect();
+	$id = intval($id);
 
 	if (!check_user_privileges()) {
 		return array(false, __("Only TUs and developers can close requests."));
@@ -1121,7 +1123,7 @@ function pkgbase_close_request($id) {
 	$q.= "ON PackageBases.MaintainerUID = Users.ID ";
 	$q.= "INNER JOIN PackageRequests ";
 	$q.= "ON PackageRequests.PackageBaseID = PackageBases.ID ";
-	$q.= "WHERE PackageRequests.ID = " . intval($id);
+	$q.= "WHERE PackageRequests.ID = " . $id;
 	$result = $dbh->query($q);
 	if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$bcc = $row['Email'];
@@ -1150,7 +1152,8 @@ function pkgbase_close_request($id) {
 		    "In-Reply-To: $thread_id\r\n" .
 		    "References: $thread_id\r\n" .
 		    "X-Mailer: AUR";
-	@mail($AUR_REQUEST_ML, "AUR Request Closed", $body, $headers);
+	@mail($AUR_REQUEST_ML, "[PRQ#" . $id . "] Request Closed", $body,
+	      $headers);
 
 	return array(true, __("Request closed successfully."));
 }
