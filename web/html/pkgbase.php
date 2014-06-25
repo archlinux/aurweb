@@ -96,6 +96,8 @@ if (check_token()) {
 		list($ret, $output) = pkgbase_change_category($base_id, $atype);
 	} elseif (current_action("do_FileRequest")) {
 		list($ret, $output) = pkgbase_file_request($ids, $_POST['type'], $_POST['comments']);
+	} elseif (current_action("do_CloseRequest")) {
+		list($ret, $output) = pkgbase_close_request($_POST['reqid']);
 	}
 
 	if (isset($_REQUEST['comment'])) {
@@ -105,7 +107,11 @@ if (check_token()) {
 	}
 
 	if ($ret) {
-		if (isset($base_id)) {
+		if (current_action("do_CloseRequest")) {
+			/* Redirect back to package request page on success. */
+			header('Location: ' . get_pkgreq_route());
+			exit();
+		} if (isset($base_id)) {
 			/* Redirect back to package base page on success. */
 			header('Location: ' . get_pkgbase_uri($pkgbase_name));
 			exit();

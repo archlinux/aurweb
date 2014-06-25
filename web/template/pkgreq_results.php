@@ -24,6 +24,7 @@
 			<th><?= __("Comments") ?></th>
 			<th><?= __("Filed by") ?></th>
 			<th><?= __("Date") ?></th>
+			<th><?= __("Status") ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -41,6 +42,23 @@
 			<a href="<?= get_uri('/account/') . htmlspecialchars($row['User'], ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($row['User'])) ?>"><?= htmlspecialchars($row['User']) ?></a>
 			</td>
 			<td><?= gmdate("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
+			<?php if ($row['Status'] == 0): ?>
+			<td>
+				<form action="<?= get_uri('/pkgbase/'); ?>" method="post">
+					<fieldset>
+						<input type="hidden" name="IDs[<?= $row['BaseID'] ?>]" value="1" />
+						<input type="hidden" name="ID" value="<?= $row['BaseID'] ?>" />
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+						<input type="hidden" name="reqid" value="<?= $row['ID'] ?>" />
+						<div>
+							<input type="submit" class="button text-button" name="do_CloseRequest" value="<?= __("Close") ?>" />
+						</div>
+					</fieldset>
+				</form>
+			</td>
+			<?php else: ?>
+			<td><?= __("Closed") ?></td>
+			<?php endif; ?>
 		</tr>
 		<?php endwhile; ?>
 

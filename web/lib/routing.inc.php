@@ -21,6 +21,7 @@ $ROUTES = array(
 
 $PKG_PATH = '/packages';
 $PKGBASE_PATH = '/pkgbase';
+$PKGREQ_PATH = '/requests';
 $USER_PATH = '/account';
 
 function get_route($path) {
@@ -53,6 +54,11 @@ function get_pkg_route() {
 function get_pkgbase_route() {
 	global $PKGBASE_PATH;
 	return $PKGBASE_PATH;
+}
+
+function get_pkgreq_route() {
+	global $PKGREQ_PATH;
+	return $PKGREQ_PATH;
 }
 
 function get_pkg_uri($pkgname) {

@@ -975,10 +975,12 @@ function pkgbase_request_list() {
 	$q.= "PackageRequests.PackageBaseID AS BaseID, ";
 	$q.= "PackageRequests.PackageBaseName AS Name, ";
 	$q.= "RequestTypes.Name AS Type, PackageRequests.Comments, ";
-	$q.= "Users.Username AS User, PackageRequests.RequestTS ";
+	$q.= "Users.Username AS User, PackageRequests.RequestTS, ";
+	$q.= "PackageRequests.Status ";
 	$q.= "FROM PackageRequests INNER JOIN RequestTypes ON ";
 	$q.= "RequestTypes.ID = PackageRequests.ReqTypeID ";
-	$q.= "INNER JOIN Users ON Users.ID = PackageRequests.UsersID";
+	$q.= "INNER JOIN Users ON Users.ID = PackageRequests.UsersID ";
+	$q.= "ORDER BY Status ASC, RequestTS DESC";
 
 	return $dbh->query($q)->fetchAll();
 }
@@ -1069,4 +1071,24 @@ function pkgbase_file_request($ids, $type, $comments) {
 			       $row['Name'], $body, $headers);
 
 	return array(true, __("Added request successfully."));
+}
+
+/**
+ * Close a deletion/orphan request
+ *
+ * @param int $id The package request to close
+ *
+ * @return void
+ */
+function pkgbase_close_request($id) {
+	$dbh = DB::connect();
+
+	if (!check_user_privileges()) {
+		return array(false, __("Only TUs and developers can close requests."));
+	}
+
+	$q = "UPDATE PackageRequests SET Status = 1 WHERE ID = " . intval($id);
+	$dbh->exec($q);
+
+	return array(true, __("Request closed successfully."));
 }

@@ -24,20 +24,6 @@
 	padding: 0;
 }
 
-#actionlist .text-button {
-        color: #07b;
-	background: none;
-	border: none;
-	padding: 0;
-	cursor: pointer;
-	font-size: 100%;
-}
-
-#actionlist .text-button:hover {
-	text-decoration: underline;
-	color: #666;
-}
-
 .arch-bio-entry ul {
 	list-style: none;
 	padding: 0;
@@ -60,4 +46,20 @@
 
 #pkg-updates td.pkg-date {
 	text-align:right;
+}
+
+.text-button {
+	background: transparent;
+	border: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	font: normal 100% sans-serif;
+	text-decoration: none;
+	color: #07b;
+	cursor: pointer;
+}
+
+.text-button:hover {
+	text-decoration: underline;
+	color: #666;
 }
