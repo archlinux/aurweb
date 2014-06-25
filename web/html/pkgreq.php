@@ -10,12 +10,12 @@ check_sid();
 
 html_header(__("File Request"));
 
-if (!check_user_privileges()) {
-	header('Location: /');
-	exit();
-}
-
 if (!isset($base_id)) {
+	if (!check_user_privileges()) {
+		header('Location: /');
+		exit();
+	}
+
 	$results = pkgbase_request_list();
 	$total = count($results);
 
