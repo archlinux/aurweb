@@ -39,8 +39,11 @@ if ($atype == "Trusted User" || $atype == "Developer"): ?>
 			<input type="hidden" name="IDs[<?= $base_id ?>]" value="1" />
 			<input type="hidden" name="ID" value="<?= $base_id ?>" />
 			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+			<?php if (isset($_GET['via'])): ?>
+			<input type="hidden" name="via" value="<?= intval($_GET['via']) ?>" />
+			<?php endif; ?>
 			<p><label for="merge_Into" ><?= __("Merge into:") ?></label>
-			<input type="text" id="merge_Into" name="merge_Into" /></p>
+			<input type="text" id="merge_Into" name="merge_Into" value="<?= isset($_GET['into']) ? $_GET['into'] : '' ?>" /></p>
 			<p><input type="checkbox" name="confirm_Delete" value="1" />
 			<?= __("Confirm package merge") ?></p>
 			<p><input type="submit" class="button" name="do_Delete" value="<?= __("Merge") ?>" /></p>

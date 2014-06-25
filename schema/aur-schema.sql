@@ -297,6 +297,7 @@ CREATE TABLE RequestTypes (
 ) ENGINE = InnoDB;
 INSERT INTO RequestTypes VALUES (1, 'deletion');
 INSERT INTO RequestTypes VALUES (2, 'orphan');
+INSERT INTO RequestTypes VALUES (3, 'merge');
 
 -- Package requests
 --
@@ -305,6 +306,7 @@ CREATE TABLE PackageRequests (
 	ReqTypeID TINYINT UNSIGNED NOT NULL,
 	PackageBaseID INTEGER UNSIGNED NULL,
 	PackageBaseName VARCHAR(255) NOT NULL,
+	MergeBaseName VARCHAR(255) NULL,
 	UsersID INTEGER UNSIGNED NULL DEFAULT NULL,
 	Comments TEXT NOT NULL DEFAULT '',
 	RequestTS BIGINT UNSIGNED NOT NULL DEFAULT 0,

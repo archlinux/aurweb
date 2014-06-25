@@ -90,10 +90,29 @@ if (!isset($base_id)) {
 			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 			<p>
 				<label for="id_type"><?= __("Request type") ?>:</label>
-				<select name="type" id="id_type">
+				<select name="type" id="id_type" onchange="showHideMergeSection()">
 					<option value="deletion"><?= __('Deletion') ?></option>
+					<option value="merge"><?= __('Merge') ?></option>
 					<option value="orphan"><?= __('Orphan') ?></option>
 				</select>
+			</p>
+			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+			<script type="text/javascript">
+			function showHideMergeSection() {
+				if ($('#id_type').val() == 'merge') {
+					$('#merge_section').show();
+				} else {
+					$('#merge_section').hide();
+				}
+			}
+
+			$(document).ready(function() {
+				showHideMergeSection();
+			});
+			</script>
+			<p id="merge_section">
+				<label for="id_merge_into"><?= __("Merge into") ?>:</label>
+				<input type="text" name="merge_into" id="id_merge_into" />
 			</p>
 			<p>
 				<label for="id_comments"><?= __("Comments") ?>:</label>

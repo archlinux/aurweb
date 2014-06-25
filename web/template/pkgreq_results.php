@@ -36,7 +36,11 @@
 			<?php else: ?>
 			<td><?= htmlspecialchars($row["Name"]) ?></td>
 			<?php endif; ?>
+			<?php if ($row['Type'] == 'merge'): ?>
+			<td><?= htmlspecialchars(ucfirst($row['Type']), ENT_QUOTES); ?> (<?= htmlspecialchars(ucfirst($row['MergeInto']), ENT_QUOTES); ?>)</td>
+			<?php else: ?>
 			<td><?= htmlspecialchars(ucfirst($row['Type']), ENT_QUOTES); ?></td>
+			<?php endif; ?>
 			<td class="wrap"><?= htmlspecialchars($row['Comments'], ENT_QUOTES); ?></td>
 			<td>
 			<a href="<?= get_uri('/account/') . htmlspecialchars($row['User'], ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($row['User'])) ?>"><?= htmlspecialchars($row['User']) ?></a>
@@ -47,6 +51,8 @@
 				<?php if ($row['BaseID']): ?>
 				<?php if ($row['Type'] == 'deletion'): ?>
 				<a href="<?= get_pkgbase_uri($row['Name']) ?>delete/?via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
+				<?php elseif ($row['Type'] == 'merge'): ?>
+				<a href="<?= get_pkgbase_uri($row['Name']) ?>merge/?into=<?= urlencode($row['MergeInto']) ?>&via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
 				<?php elseif ($row['Type'] == 'orphan'): ?>
 				<form action="<?= get_pkgbase_uri($row['Name']) . 'disown/'; ?>" method="post">
 					<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />

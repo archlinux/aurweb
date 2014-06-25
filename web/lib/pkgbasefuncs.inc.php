@@ -984,6 +984,7 @@ function pkgbase_request_list() {
 	$q = "SELECT PackageRequests.ID, ";
 	$q.= "PackageRequests.PackageBaseID AS BaseID, ";
 	$q.= "PackageRequests.PackageBaseName AS Name, ";
+	$q.= "PackageRequests.MergeBaseName AS MergeInto, ";
 	$q.= "RequestTypes.Name AS Type, PackageRequests.Comments, ";
 	$q.= "Users.Username AS User, PackageRequests.RequestTS, ";
 	$q.= "PackageRequests.Status ";
@@ -1002,11 +1003,12 @@ function pkgbase_request_list() {
  * @global string $AUR_REQUEST_ML The request notification mailing list
  * @param string $ids The package base IDs to file the request against
  * @param string $type The type of the request
+ * @param string $merge_into The target of a merge operation
  * @param string $comments The comments to be added to the request
  *
  * @return void
  */
-function pkgbase_file_request($ids, $type, $comments) {
+function pkgbase_file_request($ids, $type, $merge_into, $comments) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
 
@@ -1030,10 +1032,11 @@ function pkgbase_file_request($ids, $type, $comments) {
 	}
 
 	$q = "INSERT INTO PackageRequests ";
-	$q.= "(ReqTypeID, PackageBaseID, PackageBaseName, UsersID, ";
-	$q.= "Comments, RequestTS) VALUES (" . $type_id . ", ";
+	$q.= "(ReqTypeID, PackageBaseID, PackageBaseName, MergeBaseName, ";
+	$q.= "UsersID, Comments, RequestTS) VALUES (" . $type_id . ", ";
 	$q.= intval($base_id) . ", " .  $dbh->quote($pkgbase_name) . ", ";
-	$q.= $uid . ", " . $dbh->quote($comments) . ", UNIX_TIMESTAMP())";
+	$q.= $dbh->quote($merge_into) . ", " . $uid . ", ";
+	$q.= $dbh->quote($comments) . ", UNIX_TIMESTAMP())";
 	$dbh->exec($q);
 
 	/*
