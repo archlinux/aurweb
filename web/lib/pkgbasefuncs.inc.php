@@ -438,10 +438,11 @@ function pkgbase_unflag($atype, $base_ids) {
  * @param string $atype Account type, output of account_from_sid
  * @param array $base_ids Array of package base IDs to delete
  * @param int $merge_base_id Package base to merge the deleted ones into
+ * @param int $via Package request to close upon deletion
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_delete ($atype, $base_ids, $merge_base_id) {
+function pkgbase_delete ($atype, $base_ids, $merge_base_id, $via) {
 	if (!$atype) {
 		return array(false, __("You must be logged in before you can delete packages."));
 	}
@@ -537,6 +538,10 @@ function pkgbase_delete ($atype, $base_ids, $merge_base_id) {
 	$q = "DELETE FROM PackageBases WHERE ID IN (" . implode(",", $base_ids) . ")";
 	$dbh->exec($q);
 
+	if ($via) {
+		pkgbase_close_request(intval($via));
+	}
+
 	return array(true, __("The selected packages have been deleted."));
 }
 
@@ -546,10 +551,11 @@ function pkgbase_delete ($atype, $base_ids, $merge_base_id) {
  * @param string $atype Account type, output of account_from_sid
  * @param array $base_ids Array of package base IDs to adopt/disown
  * @param bool $action Adopts if true, disowns if false. Adopts by default
+ * @param int $via Package request to close upon adoption
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_adopt ($atype, $base_ids, $action=true) {
+function pkgbase_adopt ($atype, $base_ids, $action=true, $via) {
 	if (!$atype) {
 		if ($action) {
 			return array(false, __("You must be logged in before you can adopt packages."));
@@ -589,6 +595,10 @@ function pkgbase_adopt ($atype, $base_ids, $action=true) {
 	}
 
 	$dbh->exec($q);
+
+	if ($via) {
+		pkgbase_close_request(intval($via));
+	}
 
 	if ($action) {
 		pkgbase_notify(account_from_sid($_COOKIE["AURSID"]), $base_ids);

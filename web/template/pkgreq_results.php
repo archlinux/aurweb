@@ -44,6 +44,17 @@
 			<td<?php if (time() - intval($row['RequestTS']) > $REQUEST_IDLE_TIME): ?> class="flagged"<?php endif; ?>><?= gmdate("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
 			<?php if ($row['Status'] == 0): ?>
 			<td>
+				<?php if ($row['BaseID']): ?>
+				<?php if ($row['Type'] == 'deletion'): ?>
+				<a href="<?= get_pkgbase_uri($row['Name']) ?>delete/?via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
+				<?php elseif ($row['Type'] == 'orphan'): ?>
+				<form action="<?= get_pkgbase_uri($row['Name']) . 'disown/'; ?>" method="post">
+					<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+					<input type="hidden" name="via" value="<?= intval($row['ID']) ?>" />
+					<input type="submit" class="button text-button" name="do_Disown" value="<?= __('Accept') ?>" />
+				</form>
+				<?php endif; ?>
+				<?php endif; ?>
 				<form action="<?= get_uri('/pkgbase/'); ?>" method="post">
 					<fieldset>
 						<input type="hidden" name="IDs[<?= $row['BaseID'] ?>]" value="1" />

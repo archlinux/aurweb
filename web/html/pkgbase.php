@@ -59,23 +59,25 @@ if (check_token()) {
 	} elseif (current_action("do_UnFlag")) {
 		list($ret, $output) = pkgbase_unflag($atype, $ids);
 	} elseif (current_action("do_Adopt")) {
-		list($ret, $output) = pkgbase_adopt($atype, $ids, true);
+		list($ret, $output) = pkgbase_adopt($atype, $ids, true, NULL);
 	} elseif (current_action("do_Disown")) {
-		list($ret, $output) = pkgbase_adopt($atype, $ids, false);
+		$via = isset($_POST['via']) ? $_POST['via'] : NULL;
+		list($ret, $output) = pkgbase_adopt($atype, $ids, false, $via);
 	} elseif (current_action("do_Vote")) {
 		list($ret, $output) = pkgbase_vote($atype, $ids, true);
 	} elseif (current_action("do_UnVote")) {
 		list($ret, $output) = pkgbase_vote($atype, $ids, false);
 	} elseif (current_action("do_Delete")) {
 		if (isset($_POST['confirm_Delete'])) {
+			$via = isset($_POST['via']) ? $_POST['via'] : NULL;
 			if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
-				list($ret, $output) = pkgbase_delete($atype, $ids, NULL);
+				list($ret, $output) = pkgbase_delete($atype, $ids, NULL, $via);
 				unset($_GET['ID']);
 			}
 			else {
 				$merge_base_id = pkgbase_from_name($_POST['merge_Into']);
 				if ($merge_base_id) {
-					list($ret, $output) = pkgbase_delete($atype, $ids, $merge_base_id);
+					list($ret, $output) = pkgbase_delete($atype, $ids, $merge_base_id, $via);
 					unset($_GET['ID']);
 				}
 				else {
