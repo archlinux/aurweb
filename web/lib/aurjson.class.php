@@ -61,7 +61,7 @@ class AurJSON {
 		if (isset($http_data['v'])) {
 			$this->version = intval($http_data['v']);
 		}
-		if ($this->version < 1 || $this->version > 2) {
+		if ($this->version < 1 || $this->version > 3) {
 			return $this->json_error('Invalid version specified.');
 		}
 
@@ -109,7 +109,11 @@ class AurJSON {
 	 */
 	private function json_error($msg) {
 		header('content-type: application/json');
-		return $this->json_results('error', 0, $msg);
+		if ($this->version < 3) {
+			return $this->json_results('error', 0, $msg, NULL);
+		} elseif ($this->version >= 3) {
+			return $this->json_results('error', 0, array(), $msg);
+		}
 	}
 
 	/*
@@ -117,16 +121,23 @@ class AurJSON {
 	 *
 	 * @param $type The response method type.
 	 * @param $data The result data to return
+	 * @param $error An error message to include in the response
 	 *
 	 * @return mixed A json formatted result response.
 	 */
-	private function json_results($type, $count, $data) {
-		return json_encode(array(
+	private function json_results($type, $count, $data, $error) {
+		$json_array = array(
 			'version' => $this->version,
 			'type' => $type,
 			'resultcount' => $count,
 			'results' => $data
-		));
+		);
+
+		if ($error) {
+			$json_array['error'] = $error;
+		}
+
+		return json_encode($json_array);
 	}
 
 	private function get_extended_fields($pkgid) {
@@ -195,7 +206,7 @@ class AurJSON {
 				"WHERE ${where_condition} " .
 				"GROUP BY Packages.ID " .
 				"LIMIT $MAX_RPC_RESULTS";
-		} elseif ($this->version == 2) {
+		} elseif ($this->version >= 2) {
 			$fields = implode(',', self::$fields_v2);
 			$query = "SELECT {$fields} " .
 				"FROM Packages LEFT JOIN PackageBases " .
@@ -225,14 +236,18 @@ class AurJSON {
 					$row[$field] = intval($row[$field]);
 				}
 
-				if ($this->version == 2 && ($type == 'info' || $type == 'multiinfo')) {
+				if ($this->version >= 2 && ($type == 'info' || $type == 'multiinfo')) {
 					$row = array_merge($row, $this->get_extended_fields($row['ID']));
 				}
 
-				if ($type == 'info') {
-					$search_data = $row;
-					break;
-				} else {
+				if ($this->version < 3) {
+					if ($type == 'info') {
+						$search_data = $row;
+						break;
+					} else {
+						array_push($search_data, $row);
+					}
+				} elseif ($this->version >= 3) {
 					array_push($search_data, $row);
 				}
 			}
@@ -241,9 +256,9 @@ class AurJSON {
 				return $this->json_error('Too many package results.');
 			}
 
-			return $this->json_results($type, $resultcount, $search_data);
+			return $this->json_results($type, $resultcount, $search_data, NULL);
 		} else {
-			return $this->json_results($type, 0, array());
+			return $this->json_results($type, 0, array(), NULL);
 		}
 	}
 
