@@ -61,7 +61,7 @@ $USE_VIRTUAL_URLS = true;
 $MAX_RPC_RESULTS = 5000;
 
 # Mailing list to send package request notifications to.
-$AUR_REQUEST_ML = "aur-general@archlinux.org";
+$AUR_REQUEST_ML = "aur-requests@archlinux.org";
 
 # Time to wait until a package request is due.
 $REQUEST_IDLE_TIME = 60 * 60 * 24 * 14;
