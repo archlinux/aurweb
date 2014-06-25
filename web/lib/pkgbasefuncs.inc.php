@@ -1038,6 +1038,7 @@ function pkgbase_file_request($ids, $type, $merge_into, $comments) {
 	$q.= $dbh->quote($merge_into) . ", " . $uid . ", ";
 	$q.= $dbh->quote($comments) . ", UNIX_TIMESTAMP())";
 	$dbh->exec($q);
+	$request_id = $dbh->lastInsertId();
 
 	/*
 	 * Send e-mail notifications.
@@ -1077,8 +1078,11 @@ function pkgbase_file_request($ids, $type, $merge_into, $comments) {
 	if (!empty($bcc)) {
 		$headers .= "Bcc: $bcc\r\n";
 	}
+	$thread_id = "<pkg-request-" . $request_id . "@aur.archlinux.org>";
 	$headers .= "Reply-to: noreply@aur.archlinux.org\r\n" .
 		    "From: notify@aur.archlinux.org\r\n" .
+		    "In-Reply-To: $thread_id\r\n" .
+		    "References: $thread_id\r\n" .
 		    "X-Mailer: AUR";
 	@mail($AUR_REQUEST_ML, "AUR " . ucfirst($type) . " Request for " .
 			       $row['Name'], $body, $headers);
