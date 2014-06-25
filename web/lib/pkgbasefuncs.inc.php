@@ -1093,11 +1093,16 @@ function pkgbase_file_request($ids, $type, $merge_into, $comments) {
 /**
  * Close a deletion/orphan request
  *
+ * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
+ * @global string $AUR_REQUEST_ML The request notification mailing list
  * @param int $id The package request to close
  *
  * @return void
  */
 function pkgbase_close_request($id) {
+	global $AUR_LOCATION;
+	global $AUR_REQUEST_ML;
+
 	$dbh = DB::connect();
 
 	if (!check_user_privileges()) {
@@ -1106,6 +1111,46 @@ function pkgbase_close_request($id) {
 
 	$q = "UPDATE PackageRequests SET Status = 1 WHERE ID = " . intval($id);
 	$dbh->exec($q);
+
+	/*
+	 * Send e-mail notifications.
+	 * TODO: Move notification logic to separate function where it belongs.
+	 */
+	$q = "SELECT Users.Email ";
+	$q.= "FROM Users INNER JOIN PackageBases ";
+	$q.= "ON PackageBases.MaintainerUID = Users.ID ";
+	$q.= "INNER JOIN PackageRequests ";
+	$q.= "ON PackageRequests.PackageBaseID = PackageBases.ID ";
+	$q.= "WHERE PackageRequests.ID = " . intval($id);
+	$result = $dbh->query($q);
+	if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$bcc = $row['Email'];
+	} else {
+		unset($bcc);
+	}
+
+	/*
+	 * TODO: Add native language emails for users, based on their
+	 * preferences. Simply making these strings translatable won't
+	 * work, users would be getting emails in the language that the
+	 * user who posted the comment was in.
+	 */
+	$username = username_from_sid($_COOKIE['AURSID']);
+	$body = $username . " [1] closed request #" . intval($id) . ".\n\n" .
+		"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n";
+	$body = wordwrap($body, 70);
+	$headers = "MIME-Version: 1.0\r\n" .
+		   "Content-type: text/plain; charset=UTF-8\r\n";
+	if (!empty($bcc)) {
+		$headers .= "Bcc: $bcc\r\n";
+	}
+	$thread_id = "<pkg-request-" . $id . "@aur.archlinux.org>";
+	$headers .= "Reply-to: noreply@aur.archlinux.org\r\n" .
+		    "From: notify@aur.archlinux.org\r\n" .
+		    "In-Reply-To: $thread_id\r\n" .
+		    "References: $thread_id\r\n" .
+		    "X-Mailer: AUR";
+	@mail($AUR_REQUEST_ML, "AUR Request Closed", $body, $headers);
 
 	return array(true, __("Request closed successfully."));
 }
