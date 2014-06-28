@@ -45,7 +45,7 @@
 			<td>
 			<a href="<?= get_uri('/account/') . htmlspecialchars($row['User'], ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($row['User'])) ?>"><?= htmlspecialchars($row['User']) ?></a>
 			</td>
-			<td<?php if (time() - intval($row['RequestTS']) > $REQUEST_IDLE_TIME): ?> class="flagged"<?php endif; ?>><?= gmdate("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
+			<td<?php if ($row['Status'] == 0 && time() - intval($row['RequestTS']) > $REQUEST_IDLE_TIME): ?> class="flagged"<?php endif; ?>><?= gmdate("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
 			<?php if ($row['Status'] == 0): ?>
 			<td>
 				<?php if ($row['BaseID']): ?>
