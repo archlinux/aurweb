@@ -1,0 +1,22 @@
+1. Add registration and inactivity time stamps to the "Users" table:
+
+----
+ALTER TABLE Users
+	ADD COLUMN RegistrationTS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	ADD COLUMN InactivityTS BIGINT NOT NULL DEFAULT 0;
+----
+
+2. Add fields to store the total number of TUs and the quorum to the
+   "TU_VoteInfo" table:
+
+----
+ALTER TABLE TU_VoteInfo
+	ADD COLUMN ActiveTUs tinyint(3) unsigned NOT NULL default '0',
+	ADD COLUMN Quorum decimal(2, 2) unsigned NOT NULL;
+----
+
+3. Add a "fonts" category:
+
+----
+INSERT INTO PackageCategories (Category) VALUES ('fonts');
+----

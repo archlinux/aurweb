@@ -1,0 +1,2 @@
+1. Update your aurblup setup to match configuration changes. See commit
+6dc61e7d9e87ad6821869dab61e5f005af2e0252 for details.

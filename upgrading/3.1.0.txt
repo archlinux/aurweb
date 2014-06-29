@@ -1,0 +1,13 @@
+1. Increase the size of all fields containing package names, license names,
+group names or package versions:
+
+----
+ALTER TABLE PackageBases MODIFY Name VARCHAR(255) NOT NULL;
+ALTER TABLE Packages
+	MODIFY Name VARCHAR(255) NOT NULL,
+	MODIFY Version VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE Licenses MODIFY Name VARCHAR(255) NOT NULL;
+ALTER TABLE Groups MODIFY Name VARCHAR(255) NOT NULL;
+ALTER TABLE PackageDepends MODIFY DepCondition VARCHAR(255);
+ALTER TABLE PackageRelations MODIFY RelCondition VARCHAR(255);
+----

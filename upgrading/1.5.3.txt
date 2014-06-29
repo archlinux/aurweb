@@ -1,0 +1,2 @@
+1. Ensure this appears in config.inc:
+   define("DEFAULT_LANG", "en");

@@ -1,0 +1,22 @@
+1. Ensure Pear and File/Find.php are in the path. See web/README.txt.
+
+2. Update your running copy of support/scripts/newpackage-notify.
+
+3. Run this in web/lib:
+<?php
+
+# Run the script from within lib
+include('config.inc');
+include('aur.inc');
+
+$query = "UPDATE Packages SET " .
+         "FSPath = CONCAT('" . INCOMING_DIR . "', Name, '/', Name,
+'.tar.gz'), " .
+         "URLPath = CONCAT('" . URL_DIR . "', Name, '/', Name, '.tar.gz') " .
+         "WHERE DummyPKG = 0 AND LocationID = 2;";
+
+$dbh = db_connect();
+db_query($query, $dbh);
+
+$query = "ALTER TABLE Packages DROP COLUMN AURMaintainerUID;";
+db_query($query, $dbh);

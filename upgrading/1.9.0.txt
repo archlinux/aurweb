@@ -1,0 +1,36 @@
+1. Translation files are now gettext compatible and need to be compiled after
+each AUR upgrade by running `make install` in the "po/" directory.
+
+2. Remove the "NewPkgNotify" column from the "Users" table:
+
+ALTER TABLE Users DROP COLUMN NewPkgNotify;
+
+3. Fix up issues with depends performance on large dataset.
+
+ALTER TABLE PackageDepends ADD INDEX (DepName);
+
+4. Rename "web/lib/config.inc" to "web/lib/config.inc.php".
+
+5. Merge "web/lib/config.inc.php.proto" with "web/lib/config.inc.php".
+
+6. Run the upload directory transform script ("scripts/uploadbuckets.sh") and
+rotate the converted directory structure into place.
+
+7. In order to to provide backward compatible package URLs, enable mod_rewrite
+and add the following to your Apache configuration (inside the "VirtualHost"
+container or optionally create a ".htaccess" file in the upload directory):
+
+----
+RewriteEngine on
+RewriteRule ^/packages/([^/]{1,2})([^/]*/(PKGBUILD|[^/]*\.tar\.gz|))$ /packages/$1/$1$2
+----
+
+The following equivalent rule can be used for lighttpd setups:
+
+----
+url.rewrite-once = ( "^/packages/([^/]{1,2})([^/]*/(PKGBUILD|[^/]*\.tar\.gz|))$" => "/packages/$1/$1$2" )
+----
+
+If you use a non-standard URL_DIR, slight modifications might be necessary.
+
+8. Merge "scripts/aurblup/config.h.proto" with "scripts/aurblup/config.h".

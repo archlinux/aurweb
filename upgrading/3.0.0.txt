@@ -1,0 +1,249 @@
+1. Drop the user ID foreign key from the "PackageComments" table:
+
+`ALTER TABLE PackageComments DROP FOREIGN KEY PackageComments_ibfk_1;` should
+work in most cases. Otherwise, check the output of `SHOW CREATE TABLE
+PackageComments;` and use the foreign key name shown there.
+
+2. Add support for anonymous comments:
+
+----
+ALTER TABLE PackageComments
+	MODIFY UsersID INTEGER UNSIGNED NULL DEFAULT NULL,
+	ADD FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE SET NULL;
+----
+
+3. Create the PackageBases table:
+
+----
+CREATE TABLE PackageBases (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	CategoryID TINYINT UNSIGNED NOT NULL DEFAULT 1,
+	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
+	OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL,
+	SubmittedTS BIGINT UNSIGNED NOT NULL,
+	ModifiedTS BIGINT UNSIGNED NOT NULL,
+	SubmitterUID INTEGER UNSIGNED NULL DEFAULT NULL,
+	MaintainerUID INTEGER UNSIGNED NULL DEFAULT NULL,
+	PackagerUID INTEGER UNSIGNED NULL DEFAULT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name),
+	INDEX (CategoryID),
+	INDEX (NumVotes),
+	INDEX (SubmitterUID),
+	INDEX (MaintainerUID),
+	INDEX (PackagerUID),
+	FOREIGN KEY (CategoryID) REFERENCES PackageCategories(ID) ON DELETE NO ACTION,
+	-- deleting a user will cause packages to be orphaned, not deleted
+	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE SET NULL,
+	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL,
+	FOREIGN KEY (PackagerUID) REFERENCES Users(ID) ON DELETE SET NULL
+) ENGINE = InnoDB;
+----
+
+4. Migrate data from Packages to PackageBases:
+
+----
+INSERT INTO PackageBases
+	SELECT ID, Name, CategoryID, NumVotes, OutOfDateTS, SubmittedTS,
+	ModifiedTS, SubmitterUID, MaintainerUID, NULL FROM Packages;
+----
+
+5. Delete unneeded foreign keys from Packages:
+
+First, drop the foreign keys on CategoryID, SubmitterUID and MaintainerUID. The
+following queries should work in most cases:
+
+----
+ALTER TABLE Packages
+	DROP FOREIGN KEY Packages_ibfk_1,
+	DROP FOREIGN KEY Packages_ibfk_2,
+	DROP FOREIGN KEY Packages_ibfk_3;
+----
+
+You can use `SHOW CREATE TABLE Packages;` to check whether you should use
+different names for your setup.
+
+6. Delete unneeded fields from Packages:
+
+----
+ALTER TABLE Packages
+	DROP COLUMN CategoryID,
+	DROP COLUMN NumVotes,
+	DROP COLUMN OutOfDateTS,
+	DROP COLUMN SubmittedTS,
+	DROP COLUMN ModifiedTS,
+	DROP COLUMN SubmitterUID,
+	DROP COLUMN MaintainerUID;
+----
+
+7. Add package base references to the Packages table:
+
+----
+ALTER TABLE Packages ADD COLUMN PackageBaseID INTEGER UNSIGNED NULL;
+UPDATE Packages SET PackageBaseID = ID;
+ALTER TABLE Packages
+	MODIFY PackageBaseID INTEGER UNSIGNED NOT NULL,
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE;
+----
+
+8. Delete foreign keys from PackageVotes, PackageComments and CommentNotify:
+
+----
+ALTER TABLE PackageVotes
+	DROP FOREIGN KEY PackageVotes_ibfk_1,
+	DROP FOREIGN KEY PackageVotes_ibfk_2;
+ALTER TABLE PackageComments
+	DROP FOREIGN KEY PackageComments_ibfk_3;
+ALTER TABLE CommentNotify
+	DROP FOREIGN KEY CommentNotify_ibfk_1,
+	DROP FOREIGN KEY CommentNotify_ibfk_2;
+----
+
+We highly recommend to use `SHOW CREATE TABLE PackageVotes;` etc. to check
+whether you should use different names for your setup.
+
+9. Delete indexes from PackageVotes and CommentNotify:
+
+----
+ALTER TABLE PackageVotes DROP INDEX VoteUsersIDPackageID;
+ALTER TABLE CommentNotify DROP INDEX NotifyUserIDPkgID;
+----
+
+10. Migrate PackageVotes, PackageComments and CommentNotify to refer to package
+bases:
+
+----
+ALTER TABLE PackageVotes ADD COLUMN PackageBaseID INTEGER UNSIGNED NOT NULL;
+UPDATE PackageVotes SET PackageBaseID = PackageID;
+ALTER TABLE PackageVotes DROP COLUMN PackageID;
+ALTER TABLE PackageComments ADD COLUMN PackageBaseID INTEGER UNSIGNED NOT NULL;
+UPDATE PackageComments SET PackageBaseID = PackageID;
+ALTER TABLE PackageComments DROP COLUMN PackageID;
+ALTER TABLE CommentNotify ADD COLUMN PackageBaseID INTEGER UNSIGNED NOT NULL;
+UPDATE CommentNotify SET PackageBaseID = PkgID;
+ALTER TABLE CommentNotify DROP COLUMN PkgID;
+----
+
+11. Recreate missing foreign keys and indexes:
+
+----
+ALTER TABLE PackageVotes
+	ADD FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE;
+ALTER TABLE PackageComments
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE;
+ALTER TABLE CommentNotify
+	ADD FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE,
+	ADD FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE;
+CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageBaseID);
+CREATE UNIQUE INDEX NotifyUserIDPkgID ON CommentNotify (UserID, PackageBaseID);
+----
+
+12. Create a new table to store package dependency types:
+
+----
+CREATE TABLE DependencyTypes (
+	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(32) NOT NULL DEFAULT '',
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+INSERT INTO DependencyTypes VALUES (1, 'depends');
+INSERT INTO DependencyTypes VALUES (2, 'makedepends');
+INSERT INTO DependencyTypes VALUES (3, 'checkdepends');
+INSERT INTO DependencyTypes VALUES (4, 'optdepends');
+----
+
+13. Add a field to store the dependency type to the PackageDepends table:
+
+----
+ALTER TABLE PackageDepends ADD COLUMN DepTypeID TINYINT UNSIGNED NOT NULL;
+UPDATE PackageDepends SET DepTypeID = 1;
+ALTER TABLE PackageDepends
+	ADD FOREIGN KEY (DepTypeID) REFERENCES DependencyTypes(ID) ON DELETE NO ACTION;
+----
+
+14. Resize the package dependency name field:
+
+----
+ALTER TABLE PackageDepends MODIFY DepName VARCHAR(255) NOT NULL;
+----
+
+15. Create a new table to store package relation types:
+
+----
+CREATE TABLE RelationTypes (
+	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(32) NOT NULL DEFAULT '',
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+INSERT INTO RelationTypes VALUES (1, 'conflicts');
+INSERT INTO RelationTypes VALUES (2, 'provides');
+INSERT INTO RelationTypes VALUES (3, 'replaces');
+----
+
+16. Create a new table to store package relations:
+
+----
+CREATE TABLE PackageRelations (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	RelTypeID TINYINT UNSIGNED NOT NULL,
+	RelName VARCHAR(255) NOT NULL,
+	RelCondition VARCHAR(20),
+	INDEX (PackageID),
+	INDEX (RelName),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (RelTypeID) REFERENCES RelationTypes(ID) ON DELETE NO ACTION
+) ENGINE = InnoDB;
+----
+
+17. Create tables to store package groups:
+
+----
+CREATE TABLE Groups (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name)
+) ENGINE = InnoDB;
+CREATE TABLE PackageGroups (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	GroupID INTEGER UNSIGNED NOT NULL,
+	PRIMARY KEY (PackageID, GroupID),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (GroupID) REFERENCES Groups(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
+----
+
+18. Create tables to store package licenses:
+
+----
+CREATE TABLE Licenses (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name)
+) ENGINE = InnoDB;
+CREATE TABLE PackageLicenses (
+	PackageID INTEGER UNSIGNED NOT NULL,
+	LicenseID INTEGER UNSIGNED NOT NULL,
+	PRIMARY KEY (PackageID, LicenseID),
+	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
+	FOREIGN KEY (LicenseID) REFERENCES Licenses(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
+----
+
+19. Convert existing licenses to the new storage format:
+
+----
+INSERT INTO Licenses (Name) SELECT DISTINCT License FROM Packages;
+INSERT INTO PackageLicenses (PackageID, LicenseID)
+	SELECT Packages.ID, Licenses.ID FROM Packages
+	INNER JOIN Licenses ON Licenses.Name = Packages.License;
+----
+
+20. Delete the license column from the Packages table:
+
+----
+ALTER TABLE Packages DROP COLUMN License;
+----

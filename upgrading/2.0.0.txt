@@ -1,0 +1,14 @@
+1. Add new "Users" table login date and PGP key columns:
+
+----
+ALTER TABLE Users ADD COLUMN LastLogin BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE Users ADD COLUMN PGPKey VARCHAR(40) NULL DEFAULT NULL;
+----
+
+2. Merge "web/lib/config.inc.php.proto" with "web/lib/config.inc.php".
+
+3. Enable the PDO MySQL extension (pdo_mysql.so) in "php.ini".
+
+4. Upgrade to PHP>=5.4.0 or enable "short_open_tag" in "php.ini".
+
+5. Install translations by running `make install` in "po/".

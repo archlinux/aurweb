@@ -1,0 +1,18 @@
+1. Update the modified package timestamp for new packages.
+
+UPDATE Packages SET ModifiedTS = SubmittedTS WHERE ModifiedTS = 0;
+
+2. Move to new method of storing package depends.
+
+----
+ALTER TABLE PackageDepends ADD COLUMN DepName VARCHAR(64) NOT NULL DEFAULT '' AFTER PackageID;
+UPDATE PackageDepends SET DepName = (SELECT Name FROM Packages WHERE ID = DepPkgID);
+ALTER TABLE PackageDepends MODIFY DepName VARCHAR(64) NOT NULL;
+ALTER TABLE PackageDepends DROP FOREIGN KEY `PackageDepends_ibfk_2`;
+ALTER TABLE PackageDepends DROP COLUMN DepPkgID;
+DELETE FROM Packages WHERE DummyPkg = 1;
+ALTER TABLE Packages DROP COLUMN DummyPkg;
+----
+
+3. The File_Find PEAR module is no longer required. You can safely uninstall it
+if nothing else depends on it.

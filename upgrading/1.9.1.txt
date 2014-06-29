@@ -1,0 +1,3 @@
+1. Merge "web/lib/config.inc.php.proto" with "web/lib/config.inc.php".
+
+2. Install translations by running `make install` in "po/".

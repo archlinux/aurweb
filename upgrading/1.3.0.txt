@@ -1,0 +1,2 @@
+ALTER TABLE PackageDepends ADD COLUMN DepCondition VARCHAR(20) AFTER DepPkgID;
+ALTER TABLE Packages ADD License CHAR(40) NOT NULL DEFAULT '';

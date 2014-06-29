@@ -1,0 +1,1 @@
+ALTER TABLE Packages MODIFY Description CHAR(255) NOT NULL DEFAULT "An Arch Package";

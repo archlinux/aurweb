@@ -1,0 +1,80 @@
+1. Run the following MySQL statements:
+
+----
+ALTER TABLE Packages ADD OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL;
+UPDATE Packages SET OutOfDateTS = UNIX_TIMESTAMP() WHERE OutOfDate = 1;
+ALTER TABLE Packages DROP OutOfDate, DROP FSPath, DROP URLPath, DROP LocationID;
+DROP TABLE PackageLocations, PackageContents;
+ALTER TABLE AccountTypes MODIFY AccountType VARCHAR(32) NOT NULL DEFAULT '';
+ALTER TABLE Users MODIFY Username VARCHAR(32) NOT NULL,
+	MODIFY Email VARCHAR(64) NOT NULL,
+	MODIFY RealName VARCHAR(64) NOT NULL DEFAULT '',
+	MODIFY LangPreference VARCHAR(5) NOT NULL DEFAULT 'en',
+	MODIFY IRCNick VARCHAR(32) NOT NULL DEFAULT '';
+ALTER TABLE PackageCategories MODIFY Category VARCHAR(32) NOT NULL;
+ALTER TABLE Packages MODIFY Name VARCHAR(64) NOT NULL,
+	MODIFY Version VARCHAR(32) NOT NULL DEFAULT '',
+	MODIFY Description VARCHAR(255) NOT NULL DEFAULT "An Arch Package",
+	MODIFY URL VARCHAR(255) NOT NULL DEFAULT "https://www.archlinux.org",
+	MODIFY License VARCHAR(40) NOT NULL DEFAULT '';
+ALTER TABLE PackageSources
+	MODIFY Source VARCHAR(255) NOT NULL DEFAULT "/dev/null";
+ALTER TABLE TU_VoteInfo
+	MODIFY User VARCHAR(32) collate latin1_general_ci NOT NULL;
+CREATE TABLE PackageBlacklist (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	PRIMARY KEY (ID),
+	UNIQUE (Name)
+);
+----
+
+2. Drop all fulltext indexes from the "Packages" table:
+
+Please do this with care. `ALTER TABLE Packages DROP INDEX Name;` will work in
+most cases but might remove the wrong index if your indexes have been created
+in a non-standard order (e.g. during some update process). You'd better run
+`SHOW INDEX FROM Packages;` before to ensure that your setup doesn't use a
+different naming.
+
+3. You will need to update all packages which are stored in the incoming dir as
+in 1.8.0, source tarballs are no longer extracted automatically and PKGBUILDs
+are from now on located in the same subdirectories as the tarballs themselves.
+The following script will do the conversion automatically when being run inside
+"$INCOMING_DIR":
+
+----
+#!/bin/bash
+
+for pkg in *; do
+	if [ -d "${pkg}" -a ! -f "${pkg}/PKGBUILD" ]; then
+		pkgbuild_file=$(find -P "${pkg}" -name PKGBUILD)
+		[ -n "${pkgbuild_file}" ] && \
+			cp "${pkgbuild_file}" "${pkg}/PKGBUILD"
+	fi
+done
+----
+
+4. (optional): 1.8.0 includes a helper utility called "aurblup" that can be
+used to prevent users from uploading source packages with names identical to
+packages in predefined binary repos, e.g. the official repositories of your
+distribution. In order to build and install aurblup, enter the following
+commands:
+
+	cd scripts/aurblup/
+	make config.h
+	$EDITOR config.h
+	make install  # as root
+
+Add something like "0 * * * * /usr/local/bin/aurblup" to root's crontab to make
+aurblup update the package blacklist every hour.
+
+NOTE: You can run aurblup as non-privileged user as well. Make sure that the
+user has read-write access to "/var/lib/aurblup/" (or whatever you defined with
+"ALPM_DBPATH") tho.
+
+5. (optional): As of 1.8.0, all MySQL tables should be InnoDB compatible. To
+convert a table, you can use this statement: `ALTER TABLE $foo ENGINE=InnoDB;`.
+If you want to stick with MyISAM or another storage engine that doesn't support
+transactions, you will need to disable the "MYSQL_USE_TRANSACTIONS" setting in
+"config.h" when setting up aurblup.
