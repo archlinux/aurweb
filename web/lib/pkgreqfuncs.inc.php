@@ -7,7 +7,7 @@ include_once("pkgbasefuncs.inc.php");
  *
  * @return array List of pacakge requests with details
  */
-function pkgbase_request_list() {
+function pkgreq_list() {
 	$dbh = DB::connect();
 
 	$q = "SELECT PackageRequests.ID, ";
@@ -37,7 +37,7 @@ function pkgbase_request_list() {
  *
  * @return void
  */
-function pkgbase_file_request($ids, $type, $merge_into, $comments) {
+function pkgreq_file($ids, $type, $merge_into, $comments) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
 
@@ -129,7 +129,7 @@ function pkgbase_file_request($ids, $type, $merge_into, $comments) {
  *
  * @return void
  */
-function pkgbase_close_request($id) {
+function pkgreq_close($id) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
 

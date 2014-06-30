@@ -97,9 +97,9 @@ if (check_token()) {
 	} elseif (current_action("do_ChangeCategory")) {
 		list($ret, $output) = pkgbase_change_category($base_id, $atype);
 	} elseif (current_action("do_FileRequest")) {
-		list($ret, $output) = pkgbase_file_request($ids, $_POST['type'], $_POST['merge_into'], $_POST['comments']);
+		list($ret, $output) = pkgreq_file($ids, $_POST['type'], $_POST['merge_into'], $_POST['comments']);
 	} elseif (current_action("do_CloseRequest")) {
-		list($ret, $output) = pkgbase_close_request($_POST['reqid']);
+		list($ret, $output) = pkgreq_close($_POST['reqid']);
 	}
 
 	if (isset($_REQUEST['comment'])) {

@@ -16,7 +16,7 @@ if (!isset($base_id)) {
 		exit();
 	}
 
-	$results = pkgbase_request_list();
+	$results = pkgreq_list();
 	$total = count($results);
 
 	/* Sanitize paging variables. */

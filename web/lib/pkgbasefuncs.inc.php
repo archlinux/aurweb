@@ -540,7 +540,7 @@ function pkgbase_delete ($atype, $base_ids, $merge_base_id, $via) {
 	$dbh->exec($q);
 
 	if ($via) {
-		pkgbase_close_request(intval($via));
+		pkgreq_close(intval($via));
 	}
 
 	return array(true, __("The selected packages have been deleted."));
@@ -598,7 +598,7 @@ function pkgbase_adopt ($atype, $base_ids, $action=true, $via) {
 	$dbh->exec($q);
 
 	if ($via) {
-		pkgbase_close_request(intval($via));
+		pkgreq_close(intval($via));
 	}
 
 	if ($action) {
