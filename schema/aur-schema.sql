@@ -322,28 +322,28 @@ CREATE TABLE PackageRequests (
 -- Vote information
 --
 CREATE TABLE IF NOT EXISTS TU_VoteInfo (
-  ID int(10) unsigned NOT NULL auto_increment,
-  Agenda text NOT NULL,
-  User VARCHAR(32) NOT NULL,
-  Submitted bigint(20) unsigned NOT NULL,
-  End bigint(20) unsigned NOT NULL,
-  Quorum decimal(2, 2) unsigned NOT NULL,
-  SubmitterID int(10) unsigned NOT NULL,
-  Yes tinyint(3) unsigned NOT NULL default '0',
-  No tinyint(3) unsigned NOT NULL default '0',
-  Abstain tinyint(3) unsigned NOT NULL default '0',
-  ActiveTUs tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY  (ID),
-  FOREIGN KEY (SubmitterID) REFERENCES Users(ID) ON DELETE CASCADE
+	ID int(10) unsigned NOT NULL auto_increment,
+	Agenda text NOT NULL,
+	User VARCHAR(32) NOT NULL,
+	Submitted bigint(20) unsigned NOT NULL,
+	End bigint(20) unsigned NOT NULL,
+	Quorum decimal(2, 2) unsigned NOT NULL,
+	SubmitterID int(10) unsigned NOT NULL,
+	Yes tinyint(3) unsigned NOT NULL default '0',
+	No tinyint(3) unsigned NOT NULL default '0',
+	Abstain tinyint(3) unsigned NOT NULL default '0',
+	ActiveTUs tinyint(3) unsigned NOT NULL default '0',
+	PRIMARY KEY  (ID),
+	FOREIGN KEY (SubmitterID) REFERENCES Users(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 -- Individual vote records
 --
 CREATE TABLE IF NOT EXISTS TU_Votes (
-  VoteID int(10) unsigned NOT NULL,
-  UserID int(10) unsigned NOT NULL,
-  FOREIGN KEY (VoteID) REFERENCES TU_VoteInfo(ID) ON DELETE CASCADE,
-  FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
+	VoteID int(10) unsigned NOT NULL,
+	UserID int(10) unsigned NOT NULL,
+	FOREIGN KEY (VoteID) REFERENCES TU_VoteInfo(ID) ON DELETE CASCADE,
+	FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 -- Malicious user banning
