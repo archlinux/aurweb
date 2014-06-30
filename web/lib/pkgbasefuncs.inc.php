@@ -860,13 +860,13 @@ function pkgbase_delete_comment($atype) {
 	$dbh = DB::connect();
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 	if (can_delete_comment($comment_id, $atype, $uid)) {
-		   $q = "UPDATE PackageComments ";
-		   $q.= "SET DelUsersID = ".$uid." ";
-		   $q.= "WHERE ID = ".intval($comment_id);
+		$q = "UPDATE PackageComments ";
+		$q.= "SET DelUsersID = ".$uid." ";
+		$q.= "WHERE ID = ".intval($comment_id);
 		$dbh->exec($q);
-		   return array(true, __("Comment has been deleted."));
+		return array(true, __("Comment has been deleted."));
 	} else {
-		   return array(false, __("You are not allowed to delete this comment."));
+		return array(false, __("You are not allowed to delete this comment."));
 	}
 }
 
