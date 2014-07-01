@@ -108,8 +108,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		$headers .= "Bcc: $bcc\r\n";
 	}
 	$thread_id = "<pkg-request-" . $request_id . "@aur.archlinux.org>";
-	$headers .= "Reply-to: noreply@aur.archlinux.org\r\n" .
-		    "From: notify@aur.archlinux.org\r\n" .
+	$headers .= "From: notify@aur.archlinux.org\r\n" .
 		    "In-Reply-To: $thread_id\r\n" .
 		    "References: $thread_id\r\n" .
 		    "X-Mailer: AUR";
@@ -179,8 +178,7 @@ function pkgreq_close($id, $accepted) {
 		$headers .= "Bcc: $bcc\r\n";
 	}
 	$thread_id = "<pkg-request-" . $id . "@aur.archlinux.org>";
-	$headers .= "Reply-to: noreply@aur.archlinux.org\r\n" .
-		    "From: notify@aur.archlinux.org\r\n" .
+	$headers .= "From: notify@aur.archlinux.org\r\n" .
 		    "In-Reply-To: $thread_id\r\n" .
 		    "References: $thread_id\r\n" .
 		    "X-Mailer: AUR";
