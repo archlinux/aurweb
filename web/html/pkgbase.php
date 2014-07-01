@@ -99,7 +99,7 @@ if (check_token()) {
 	} elseif (current_action("do_FileRequest")) {
 		list($ret, $output) = pkgreq_file($ids, $_POST['type'], $_POST['merge_into'], $_POST['comments']);
 	} elseif (current_action("do_CloseRequest")) {
-		list($ret, $output) = pkgreq_close($_POST['reqid']);
+		list($ret, $output) = pkgreq_close($_POST['reqid'], false);
 	}
 
 	if (isset($_REQUEST['comment'])) {
