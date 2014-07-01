@@ -519,22 +519,14 @@ function pkg_search_page($SID="") {
 
 	/* Sanitize paging variables. */
 	if (isset($_GET['O'])) {
-		$_GET['O'] = intval($_GET['O']);
-		if ($_GET['O'] < 0)
-			$_GET['O'] = 0;
-	}
-	else {
+		$_GET['O'] = max(intval($_GET['O']), 0);
+	} else {
 		$_GET['O'] = 0;
 	}
 
 	if (isset($_GET["PP"])) {
-		$_GET["PP"] = intval($_GET["PP"]);
-		if ($_GET["PP"] < 50)
-			$_GET["PP"] = 50;
-		else if ($_GET["PP"] > 250)
-			$_GET["PP"] = 250;
-	}
-	else {
+		$_GET["PP"] = bound(intval($_GET["PP"]), 50, 250);
+	} else {
 		$_GET["PP"] = 50;
 	}
 

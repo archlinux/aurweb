@@ -584,3 +584,16 @@ function array_pkgbuild_merge($pkgbase_info, $section_info) {
 	}
 	return $pi;
 }
+
+/**
+ * Bound an integer value between two values
+ *
+ * @param int $n Integer value to bound
+ * @param int $min Lower bound
+ * @param int $max Upper bound
+ *
+ * @return int Bounded integer value
+ */
+function bound($n, $min, $max) {
+	return min(max($n, $min), $max);
+}
