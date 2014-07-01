@@ -109,8 +109,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	}
 	$thread_id = "<pkg-request-" . $request_id . "@aur.archlinux.org>";
 	$headers .= "From: notify@aur.archlinux.org\r\n" .
-		    "In-Reply-To: $thread_id\r\n" .
-		    "References: $thread_id\r\n" .
+		    "Message-ID: $thread_id\r\n" .
 		    "X-Mailer: AUR";
 	@mail($AUR_REQUEST_ML, "[PRQ#" . $request_id . "] " . ucfirst($type) .
 			       " Request for " .  $row['Name'], $body,
