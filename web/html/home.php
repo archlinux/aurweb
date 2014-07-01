@@ -71,20 +71,6 @@ html_header( __("Home") );
 				<?= __('Unsupported packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</div>
 		</div>
-		<?php if (!empty($_COOKIE["AURSID"])): ?>
-			<div id="pkg-updates" class="widget box">
-				<table>
-					<tr>
-						<td class="pkg-name">
-							<?php
-							$userid = uid_from_sid($_COOKIE["AURSID"]);
-							user_table($userid);
-							?>
-						</td>
-					</tr>
-				</table>
-			</div>
-		<?php endif; ?>
 	</div>
 </div>
 <div id="content-right">
@@ -103,6 +89,11 @@ html_header( __("Home") );
 	<div id="pkg-stats" class="widget box">
 		<?php general_stats_table(); ?>
 	</div>
+	<?php if (!empty($_COOKIE["AURSID"])): ?>
+	<div id="pkg-stats" class="widget box">
+		<?php user_table(uid_from_sid($_COOKIE["AURSID"])); ?>
+	</div>
+	<?php endif; ?>
 
 </div>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
