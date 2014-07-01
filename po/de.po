@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/aur/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -533,6 +533,9 @@ msgstr "Beim Erstellen des Kontos %s%s%s ist ein Fehler aufgetreten."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Das Konto %s%s%s wurde erfolgreich erstellt."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Klicke zur Anmeldung bitte oben auf den Login-Link."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -542,9 +545,6 @@ msgstr "Willkommen bei %s! Um ein Passwort für dein neues Konto festzulegen, kl
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Ein Rücksetzungscode wurde an deine E-Mail-Adresse gesendet."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Klicke zur Anmeldung bitte oben auf den Login-Link."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -562,9 +562,6 @@ msgstr "Das Loginformular ist aktuell für deine IP-Adresse deaktiviert. Ein mö
 msgid "Account suspended"
 msgstr "Konto aufgehoben"
 
-msgid "An error occurred trying to generate a user session."
-msgstr "Es geschah ein Fehler beim Versuch eine Nutzersitzung zu erstellen."
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -575,8 +572,14 @@ msgstr "Dein Passwort wurde zurückgesetzt. Solltest du ein neues Konto erstellt
 msgid "Bad username or password."
 msgstr "Falscher Nutzername oder falsches Passwort."
 
+msgid "An error occurred trying to generate a user session."
+msgstr "Es geschah ein Fehler beim Versuch eine Nutzersitzung zu erstellen."
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Ungültige Kombination aus E-Mail und Reset-Schlüssel."
+
+msgid "None"
+msgstr "Keine"
 
 msgid "Error retrieving package details."
 msgstr "Fehler beim Aufrufen der Paket-Details."
@@ -818,6 +821,9 @@ msgstr "Bestätige"
 msgid "My Packages"
 msgstr "Meine Pakete"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "Mein Konto"
 
@@ -839,6 +845,9 @@ msgstr "PKGBUILD ansehen"
 msgid "Download tarball"
 msgstr "Tar-Archiv herunterladen"
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr "Als \"veraltet\" markiert"
 
@@ -859,6 +868,9 @@ msgstr "Benachrichtigungen deaktivieren"
 
 msgid "Notify of new comments"
 msgstr "Über neue Kommentare benachrichtigen"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Paket löschen"
@@ -887,9 +899,6 @@ msgstr "Konto-Informationen aufrufen für"
 #, php-format
 msgid "View account information for %s"
 msgstr "Konto-Informationen aufrufen für %s"
-
-msgid "None"
-msgstr "Keine"
 
 msgid "Maintainer"
 msgstr "Betreuer"

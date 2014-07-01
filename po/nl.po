@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/aur/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -527,6 +527,9 @@ msgstr "Fout bij het aanmaken van account %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Het account %s%s%s is met succes aangemaakt."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Klik op de Login link hierboven om je account te gebruiken"
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -536,9 +539,6 @@ msgstr "Welkom bij %s! Om een nieuw wachtwoord voor je account in te stellen, kl
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Een sleutel voor het resetten van je wachtwoord is verstuurd naar je e-mail adres."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Klik op de Login link hierboven om je account te gebruiken"
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -556,9 +556,6 @@ msgstr "Het log-in formulier is uitgeschakeld voor je IP adres, waarschijnlijk v
 msgid "Account suspended"
 msgstr ""
 
-msgid "An error occurred trying to generate a user session."
-msgstr ""
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -569,8 +566,14 @@ msgstr "Je wachtwoord is gereset. Als je net een nieuwe account hebt aangemaakt,
 msgid "Bad username or password."
 msgstr "Verkeerd gebruiker of wachtwoord"
 
+msgid "An error occurred trying to generate a user session."
+msgstr ""
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Ongeldige e-mail en reset-toets combinatie."
+
+msgid "None"
+msgstr "Geen"
 
 msgid "Error retrieving package details."
 msgstr "Fout bij het ophalen van pakketdetails."
@@ -812,6 +815,9 @@ msgstr "Bevestig"
 msgid "My Packages"
 msgstr "Mijn pakketten"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "Mijn Account"
 
@@ -833,6 +839,9 @@ msgstr "Toon PKGBUILD"
 msgid "Download tarball"
 msgstr "Download tarball"
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr "Markeer als verouderd"
 
@@ -853,6 +862,9 @@ msgstr "Schakel notificaties uit"
 
 msgid "Notify of new comments"
 msgstr "Notificatie bij nieuwe comment"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Verwijder Pakket"
@@ -881,9 +893,6 @@ msgstr "Toon accountinformatie voor"
 #, php-format
 msgid "View account information for %s"
 msgstr "Toon accountinformatie voor %s"
-
-msgid "None"
-msgstr "Geen"
 
 msgid "Maintainer"
 msgstr "Beheerder"

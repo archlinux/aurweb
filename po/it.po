@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/aur/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -526,6 +526,9 @@ msgstr "Si è verificato un errore durante la creazione dell'account %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "L'account %s%s%s è stato creato con successo."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Per utilizzare il tuo account, clicca sul link Accedi."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -535,9 +538,6 @@ msgstr "Benvenuto in %s! Per impostare una password iniziale del tuo nuovo accou
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "È stato inviato un key reset della password al tuo indirizzo e-mail."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Per utilizzare il tuo account, clicca sul link Accedi."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -555,9 +555,6 @@ msgstr "Il modulo d'accesso è attualmente disabilitato per il tuo indirizzo IP,
 msgid "Account suspended"
 msgstr "Account sospeso"
 
-msgid "An error occurred trying to generate a user session."
-msgstr "Si è verificato un errore provando a generare una sessione dell'utente."
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -568,8 +565,14 @@ msgstr "La tua password è stata resettata. Se hai appena creato un nuovo accoun
 msgid "Bad username or password."
 msgstr "Nome utente o password errati."
 
+msgid "An error occurred trying to generate a user session."
+msgstr "Si è verificato un errore provando a generare una sessione dell'utente."
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Combinazione non valida del pulsante reset e dell'e-mail."
+
+msgid "None"
+msgstr "Nessuno"
 
 msgid "Error retrieving package details."
 msgstr "Si è verificato un errore durante il recupero dei dettagli del pacchetto."
@@ -811,6 +814,9 @@ msgstr "Conferma"
 msgid "My Packages"
 msgstr "I miei pacchetti"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "Il mio account"
 
@@ -832,6 +838,9 @@ msgstr "Visualizza il PKGBUILD"
 msgid "Download tarball"
 msgstr "Scarica il tarball"
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr "Il pacchetto non è aggiornato"
 
@@ -852,6 +861,9 @@ msgstr "Disabilita le notifiche"
 
 msgid "Notify of new comments"
 msgstr "Notifica dei nuovi commenti"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Elimina il pacchetto"
@@ -880,9 +892,6 @@ msgstr "Visualizza le informazioni dell'account"
 #, php-format
 msgid "View account information for %s"
 msgstr "Visualizza le informazioni dell'account %s"
-
-msgid "None"
-msgstr "Nessuno"
 
 msgid "Maintainer"
 msgstr "Manutentore"

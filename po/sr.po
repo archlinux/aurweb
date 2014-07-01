@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/aur/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -526,6 +526,9 @@ msgstr ""
 msgid "The account, %s%s%s, has been successfully created."
 msgstr ""
 
+msgid "Click on the Login link above to use your account."
+msgstr ""
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -534,9 +537,6 @@ msgid ""
 msgstr ""
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
-
-msgid "Click on the Login link above to use your account."
 msgstr ""
 
 #, php-format
@@ -555,9 +555,6 @@ msgstr ""
 msgid "Account suspended"
 msgstr ""
 
-msgid "An error occurred trying to generate a user session."
-msgstr ""
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -568,8 +565,14 @@ msgstr ""
 msgid "Bad username or password."
 msgstr "Loše korisničko ime ili lozinka."
 
+msgid "An error occurred trying to generate a user session."
+msgstr ""
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Neispravna kombinacija e-pošte i ključa za resetovanje."
+
+msgid "None"
+msgstr ""
 
 msgid "Error retrieving package details."
 msgstr "Greška pri dobavaljanju podataka o paketu."
@@ -811,6 +814,9 @@ msgstr "Potvrdi"
 msgid "My Packages"
 msgstr "Moji paketi"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "Moj nalog"
 
@@ -832,6 +838,9 @@ msgstr ""
 msgid "Download tarball"
 msgstr ""
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr ""
 
@@ -851,6 +860,9 @@ msgid "Disable notifications"
 msgstr ""
 
 msgid "Notify of new comments"
+msgstr ""
+
+msgid "File Request"
 msgstr ""
 
 msgid "Delete Package"
@@ -879,9 +891,6 @@ msgstr ""
 
 #, php-format
 msgid "View account information for %s"
-msgstr ""
-
-msgid "None"
 msgstr ""
 
 msgid "Maintainer"

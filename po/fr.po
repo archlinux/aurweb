@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Antoine Lubineau <antoine@lubignon.info>, 2012
-# Antoine Lubineau <antoine@lubignon.info>, 2013
+# Antoine Lubineau <antoine@lubignon.info>, 2013-2014
 # Cedric Girard <girard.cedric@gmail.com>, 2011,2014
 # lordheavy <lordheavym@gmail.com>, 2011
 # lordheavy <lordheavym@gmail.com>, 2013
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/aur/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -310,7 +310,7 @@ msgstr "Fusionner le paquet : %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
+msgstr "Utilisez ce formulaire pour fusionner ce paquet de base %s%s%s dans un autre paquet."
 
 msgid "The following packages will be deleted: "
 msgstr "Les paquets suivants vont être supprimés :"
@@ -361,7 +361,7 @@ msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Erreur : l’archive source ne peut pas contenir des fichiers en dehors d'un répertoire."
 
 msgid "Error - all files must have permissions of 644 or 755."
-msgstr ""
+msgstr "Erreur : tous les fichiers doivent avoir 644 ou 755 comme permissions."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Erreur : l’archive source ne peut pas contenir de sous-répertoires imbriqués."
@@ -370,7 +370,7 @@ msgid "Error - source tarball may not contain more than one directory."
 msgstr "Erreur : l’archive source ne peut pas contenir plus d'un répertoire."
 
 msgid "Error - all directories must have permissions of 755."
-msgstr ""
+msgstr "Erreur : tous les dossiers doivent avoir 755 comme permissions."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Erreur en essayant de décompresser le fichier transféré : le fichier PKGBUILD n’existe pas."
@@ -531,6 +531,9 @@ msgstr "Erreur en essayant de créer le compte %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Le compte %s%s%s a été créé avec succès."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Cliquez sur le lien de connexion ci-dessus pour utiliser votre compte."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -540,9 +543,6 @@ msgstr "Bienvenue sur %s ! Afin de générer un mot de passe pour votre nouvea
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Une clé de réinitialisation de mot de passe vous a été envoyée par e-mail."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Cliquez sur le lien de connexion ci-dessus pour utiliser votre compte."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -560,9 +560,6 @@ msgstr "Le formulaire de connexion est actuellement désactivé pour votre adres
 msgid "Account suspended"
 msgstr "Compte suspendu."
 
-msgid "An error occurred trying to generate a user session."
-msgstr "Une erreur est survenue en essayant de générer une session utilisateur."
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -573,8 +570,14 @@ msgstr "Votre mot de passe a été réinitialisé. Si vous venez de créer un no
 msgid "Bad username or password."
 msgstr "Mauvais nom d'utilisateur ou mot de passe."
 
+msgid "An error occurred trying to generate a user session."
+msgstr "Une erreur est survenue en essayant de générer une session utilisateur."
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Combinaison entre l'e-mail et la clef de réinitialisation invalides."
+
+msgid "None"
+msgstr "Aucun"
 
 msgid "Error retrieving package details."
 msgstr "Erreur en recherchant les détails du paquet."
@@ -816,6 +819,9 @@ msgstr "Confirmer"
 msgid "My Packages"
 msgstr "Mes paquets"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "Mon compte"
 
@@ -837,6 +843,9 @@ msgstr "Voir le PKGBUILD"
 msgid "Download tarball"
 msgstr "Télécharger l’archive"
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr "Marqué comme périmé"
 
@@ -857,6 +866,9 @@ msgstr "Désactiver les notifications"
 
 msgid "Notify of new comments"
 msgstr "Avertir des nouveaux commentaires"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Supprimer le paquet"
@@ -885,9 +897,6 @@ msgstr "Voir les informations du compte"
 #, php-format
 msgid "View account information for %s"
 msgstr "Voir les informations du compte %s"
-
-msgid "None"
-msgstr "Aucun"
 
 msgid "Maintainer"
 msgstr "Mainteneur"
@@ -934,7 +943,7 @@ msgid "Package Details"
 msgstr "Détails du paquet"
 
 msgid "Package Base"
-msgstr ""
+msgstr "Paquet de base"
 
 msgid "Description"
 msgstr "Description"
@@ -949,16 +958,16 @@ msgid "Licenses"
 msgstr "Licences"
 
 msgid "Groups"
-msgstr ""
+msgstr "Groupes"
 
 msgid "Conflicts"
-msgstr ""
+msgstr "En conflit avec"
 
 msgid "Provides"
-msgstr ""
+msgstr "Fournit"
 
 msgid "Replaces"
-msgstr ""
+msgstr "Remplace"
 
 msgid "Dependencies"
 msgstr "Dépendances"
@@ -1140,7 +1149,7 @@ msgid "Participation"
 msgstr "Participation"
 
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "Derniers votes de TU"
 
 msgid "Last vote"
 msgstr "Dernier vote"

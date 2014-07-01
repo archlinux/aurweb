@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/aur/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -526,6 +526,9 @@ msgstr "Error al intentar crear el compte, %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "El compte, %s%s%s, s'ha creat correctament."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Feu clic a l'enllaç superior d'Inici de sessió per utilitzar el seu compte."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -535,9 +538,6 @@ msgstr "Benvingut a %s! Per configurar una contrasenya inicial per la seu nou co
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "S'ha enviat una contrasenya nova al seu correu electrònic."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Feu clic a l'enllaç superior d'Inici de sessió per utilitzar el seu compte."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -555,9 +555,6 @@ msgstr "El formulari de registre està deshabilitat per la seva adreça IP, prob
 msgid "Account suspended"
 msgstr ""
 
-msgid "An error occurred trying to generate a user session."
-msgstr ""
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -568,8 +565,14 @@ msgstr "La seva contrasenya s'ha restablert. Si acaba de crear un nou compte, si
 msgid "Bad username or password."
 msgstr "nom d'usuari o contrasenya incorrectes."
 
+msgid "An error occurred trying to generate a user session."
+msgstr ""
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Direcció de correu electrònic i combinació de tecles de restabliment no vàlida."
+
+msgid "None"
+msgstr "Res"
 
 msgid "Error retrieving package details."
 msgstr "No s'han pogut obtenir els detalls del paquet."
@@ -811,6 +814,9 @@ msgstr "Confirmar"
 msgid "My Packages"
 msgstr "Els meus paquets"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "El meu Compte"
 
@@ -832,6 +838,9 @@ msgstr "Veure PKGBUILD"
 msgid "Download tarball"
 msgstr "Descarregar tarball"
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr "Marcat com a no-actualitzat"
 
@@ -852,6 +861,9 @@ msgstr "Deshabilitar notificacions"
 
 msgid "Notify of new comments"
 msgstr "Notificar comentaris nous"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Esborrar el paquet"
@@ -880,9 +892,6 @@ msgstr "Veure l'informació del compte per"
 #, php-format
 msgid "View account information for %s"
 msgstr "Veure l'informació del compte per %s"
-
-msgid "None"
-msgstr "Res"
 
 msgid "Maintainer"
 msgstr "Mantenidor"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/aur/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -526,6 +526,9 @@ msgstr "Feil ved oppretting av konto, %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Kontoen, %s%s%s, har nå blitt laget."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Klikk på Logg inn lenken over for å bruke kontoen."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -535,9 +538,6 @@ msgstr "Velkommen til %s! Lag et passord for din nye konto ved å trykke på len
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Nullstillingskode har blitt sendt til e-post adressen din."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Klikk på Logg inn lenken over for å bruke kontoen."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -555,9 +555,6 @@ msgstr "Inlogging er slått av for din IP adresse, sannsynligvis på grunn av ve
 msgid "Account suspended"
 msgstr "Kontoen er stengt"
 
-msgid "An error occurred trying to generate a user session."
-msgstr "Feil oppstod ved generering av sesjon for bruker."
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -568,8 +565,14 @@ msgstr "Passordet har blitt nullstilt. Dersom du akkurat laget en ny konto, venn
 msgid "Bad username or password."
 msgstr "Ugyldig brukernavn eller passord."
 
+msgid "An error occurred trying to generate a user session."
+msgstr "Feil oppstod ved generering av sesjon for bruker."
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Ugyldig kombinasjon av e-post og nullstillingsnøkkel."
+
+msgid "None"
+msgstr "Ingen"
 
 msgid "Error retrieving package details."
 msgstr "Kunne ikke finne frem pakkedetaljer."
@@ -811,6 +814,9 @@ msgstr "Bekreft"
 msgid "My Packages"
 msgstr "Mine pakker"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr " Min konto"
 
@@ -832,6 +838,9 @@ msgstr "Vis PKGBUILD"
 msgid "Download tarball"
 msgstr "Last ned tarball"
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr "Markert som utdatert"
 
@@ -852,6 +861,9 @@ msgstr "Slå av beskjeder"
 
 msgid "Notify of new comments"
 msgstr "Gi beskjed om nye kommentarer"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Slett pakke"
@@ -880,9 +892,6 @@ msgstr "Vis kontoinformasjon for"
 #, php-format
 msgid "View account information for %s"
 msgstr "Vis kontoinformasjon for %s"
-
-msgid "None"
-msgstr "Ingen"
 
 msgid "Maintainer"
 msgstr "Vedlikeholder"

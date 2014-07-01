@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 10:45+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:25+0000\n"
 "Last-Translator: Atilla Öntaş <tarakbumba@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -530,6 +530,9 @@ msgstr "Hesap oluşturulurken hata oluştu, %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Hesap, %s%s%s, başarıyla oluşturuldu."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Hesabınızı kullanmak için Giriş bağlantısını kullanın."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -539,9 +542,6 @@ msgstr "%s hoş geldiniz! Hesabınız için parolayı ilk kez oluşturmak için 
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Bir parola sıfırlama anahtarı e-posta adresinize gönderildi."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Hesabınızı kullanmak için Giriş bağlantısını kullanın."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -559,9 +559,6 @@ msgstr "Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizde
 msgid "Account suspended"
 msgstr "Hesap donduruldu"
 
-msgid "An error occurred trying to generate a user session."
-msgstr "Bir kullanıcı oturumu üretilmeye çalışılırken sorun oluştu."
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -572,8 +569,14 @@ msgstr "Parolanız sıfırlandı. Kısa süre önce yeni hesap oluşturduysanız
 msgid "Bad username or password."
 msgstr "Yanlış kullanıcı adı veya şifresi."
 
+msgid "An error occurred trying to generate a user session."
+msgstr "Bir kullanıcı oturumu üretilmeye çalışılırken sorun oluştu."
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Geçersiz e-posta adresi ve sıfırlama anahtarı bileşimi"
+
+msgid "None"
+msgstr "Yok"
 
 msgid "Error retrieving package details."
 msgstr "Paket bilgileri alınırken hata oluştu."
@@ -815,6 +818,9 @@ msgstr "Onayla"
 msgid "My Packages"
 msgstr "Paketlerim"
 
+msgid "Requests"
+msgstr "Talepler"
+
 msgid " My Account"
 msgstr "Hesabım"
 
@@ -836,6 +842,9 @@ msgstr "PKGBUILD görüntüle"
 msgid "Download tarball"
 msgstr "Arşivi indir"
 
+msgid "Search wiki"
+msgstr "Wikide ara"
+
 msgid "Flagged out-of-date"
 msgstr "Güncelliğini yitirmiş olarak işaretlendi"
 
@@ -856,6 +865,9 @@ msgstr "Bildirimleri kapat"
 
 msgid "Notify of new comments"
 msgstr "Yeni yorumları bildir"
+
+msgid "File Request"
+msgstr "Bir talep doldur"
 
 msgid "Delete Package"
 msgstr "Paketi Sil"
@@ -884,9 +896,6 @@ msgstr "Hesap bilgilerini görüntüle"
 #, php-format
 msgid "View account information for %s"
 msgstr "%s için hesap bilgilerini görüntüle"
-
-msgid "None"
-msgstr "Yok"
 
 msgid "Maintainer"
 msgstr "Sorumlu"

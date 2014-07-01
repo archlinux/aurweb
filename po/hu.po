@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-09 21:09+0000\n"
-"Last-Translator: György Balló <ballogy@freestart.hu>\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/aur/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -527,6 +527,9 @@ msgstr "Hiba történt a(z) %s%s%s fiók létrehozása során."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "A(z) %s%s%s fiók sikeresen létrejött."
 
+msgid "Click on the Login link above to use your account."
+msgstr "A fiókod használatához kattints a Bejelentkezés hivatkozásra feljebb."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -536,9 +539,6 @@ msgstr "Köszöntünk az %s-ban! Fiókodhoz tartozó kezdeti jelszó beállítá
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Egy jelszó-visszaállító kulcs kiküldésre került az e-mail címedre."
-
-msgid "Click on the Login link above to use your account."
-msgstr "A fiókod használatához kattints a Bejelentkezés hivatkozásra feljebb."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -556,9 +556,6 @@ msgstr "A bejelentkező űrlap jelenleg letiltásra került az IP címedre, val�
 msgid "Account suspended"
 msgstr "Fiók felfüggesztve"
 
-msgid "An error occurred trying to generate a user session."
-msgstr "Hiba történt a felhasználói munkamenet létrehozásának megkísérlésekor."
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -569,8 +566,14 @@ msgstr "A jelszavad visszaállításra került. Ha most regisztráltál, akkor a
 msgid "Bad username or password."
 msgstr "Hibás felhasználónév vagy jelszó."
 
+msgid "An error occurred trying to generate a user session."
+msgstr "Hiba történt a felhasználói munkamenet létrehozásának megkísérlésekor."
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Érvénytelen e-mail és visszaállító kulcs kombináció."
+
+msgid "None"
+msgstr "Nincs"
 
 msgid "Error retrieving package details."
 msgstr "Hiba történt a csomag részletes információinak letöltése közben."
@@ -812,6 +815,9 @@ msgstr "Megerősítés"
 msgid "My Packages"
 msgstr "Csomagjaim"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr " Fiókom"
 
@@ -833,6 +839,9 @@ msgstr "PKGBUILD megtekintése"
 msgid "Download tarball"
 msgstr "Tarball letöltése"
 
+msgid "Search wiki"
+msgstr "Keresés wikiben"
+
 msgid "Flagged out-of-date"
 msgstr "Elavultnak jelölve"
 
@@ -853,6 +862,9 @@ msgstr "Értesítések kikapcsolása"
 
 msgid "Notify of new comments"
 msgstr "Értesítés új hozzászólásról"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Csomag törlése"
@@ -881,9 +893,6 @@ msgstr "Fiók információinak megtekintése –"
 #, php-format
 msgid "View account information for %s"
 msgstr "Fiók információinak megtekintése – %s"
-
-msgid "None"
-msgstr "Nincs"
 
 msgid "Maintainer"
 msgstr "Karbantartó"

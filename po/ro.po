@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-18 13:13+0000\n"
-"Last-Translator: Arthur Țițeică <arthur.titeica@gmail.com>\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -527,6 +527,9 @@ msgstr "Eroare la încercarea de a crea contul, %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Contul %s%s%s a fost creat cu succes."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Clic pe legătura către Autentificare pentru a-ți folosi contul."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -536,9 +539,6 @@ msgstr "Bun venit la %s! Pentru a seta o parolă inițială pentru cont, apasă 
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "O cheie de resetare a parolei a fost trimisă la adresa ta de e-mail."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Clic pe legătura către Autentificare pentru a-ți folosi contul."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -556,9 +556,6 @@ msgstr "Formularul de autentificare a fost dezactivat pentru adresa ta IP, proba
 msgid "Account suspended"
 msgstr "Cont suspendat"
 
-msgid "An error occurred trying to generate a user session."
-msgstr "A apărut o eroare în timp ce se genera sesiunea de utilizator."
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -569,8 +566,14 @@ msgstr "Parola ta a fost resetată. Dacă tocmai ai creat un cont nou, foloseșt
 msgid "Bad username or password."
 msgstr "Nume de utilizator sau parolă greșite."
 
+msgid "An error occurred trying to generate a user session."
+msgstr "A apărut o eroare în timp ce se genera sesiunea de utilizator."
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Combinație e-mail și cheie pentru resetare nevalidă."
+
+msgid "None"
+msgstr "Nimic"
 
 msgid "Error retrieving package details."
 msgstr "Eroare la preluarea detaliilor pachetului."
@@ -812,6 +815,9 @@ msgstr "Confirmare"
 msgid "My Packages"
 msgstr "Pachetele mele"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "Contul meu"
 
@@ -833,6 +839,9 @@ msgstr "Examinează PKGBUILD"
 msgid "Download tarball"
 msgstr "Descarcă arhiva"
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr "Marcat ca Neactualizat"
 
@@ -853,6 +862,9 @@ msgstr "Dezactivează notificări"
 
 msgid "Notify of new comments"
 msgstr "Notifică pentru comentarii noi"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Șterge pachet"
@@ -881,9 +893,6 @@ msgstr "Vezi informații despre cont pentru"
 #, php-format
 msgid "View account information for %s"
 msgstr "Vezi informații despre contul lui %s"
-
-msgid "None"
-msgstr "Nimic"
 
 msgid "Maintainer"
 msgstr "Responsabil"

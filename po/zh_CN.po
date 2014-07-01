@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Felix Yan <felixonmars@gmail.com>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # leonfeng <chaofeng111@gmail.com>, 2012
 # Weiwen Zhao <panda.hust@gmail.com>, 2013
@@ -10,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/aur/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +52,7 @@ msgid "Add Proposal"
 msgstr "添加提议"
 
 msgid "Invalid token for user action."
-msgstr ""
+msgstr "用户操作使用了无效的令牌。"
 
 msgid "Username does not exist."
 msgstr "此用户不存在。"
@@ -61,7 +62,7 @@ msgid "%s already has proposal running for them."
 msgstr "%s 已经有了关于他们的提议。"
 
 msgid "Invalid type."
-msgstr ""
+msgstr "无效的类别。"
 
 msgid "Proposal cannot be empty."
 msgstr "提议不能为空。"
@@ -82,16 +83,16 @@ msgid "Type"
 msgstr "类别"
 
 msgid "Addition of a TU"
-msgstr ""
+msgstr "添加受信用户"
 
 msgid "Removal of a TU"
-msgstr ""
+msgstr "移除受信用户"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "移除受信用户（无故不活跃）"
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "修订章程"
 
 msgid "Proposal"
 msgstr "提议"
@@ -106,13 +107,13 @@ msgstr "首页"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
+msgstr "欢迎来到 AUR！想了解更多信息，请阅读 %sAUR 用户指南%s和 %sAUR 受信用户指南%s。"
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "提交的 PKGBUILD %s必须%s遵守 %sArch 软件包规范%s，否则它们将被删除！"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "记得为您喜欢的软件包投票！"
@@ -129,10 +130,10 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "与 Arch 用户仓库（AUR）或者受信用户结构相关的一般讨论在 %saur-general%s 邮件列表。这个列表可以被用来提交软件包的弃置、合并以及删除申请。若是与 AUR 开发相关的讨论，请使用 %saur-dev%s 邮件列表。"
 
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Bug 报告"
 
 #, php-format
 msgid ""
@@ -140,7 +141,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr ""
+msgstr "如果你在 AUR 中发现了一个 Bug，请提交到我们的 %sBug 追踪系统%s。请%s仅仅%s使用追踪系统报告 AUR 自身的 Bug。如果想要报告打包方面的 Bug，请联系相应的包维护者，或者在相应的软件包页面中留下一条评论。"
 
 msgid "DISCLAIMER"
 msgstr "免责声明"
@@ -154,10 +155,10 @@ msgid "Package Search"
 msgstr "软件包搜索"
 
 msgid "Adopt"
-msgstr ""
+msgstr "接管"
 
 msgid "Disown"
-msgstr ""
+msgstr "弃置"
 
 msgid "Vote"
 msgstr "投票"
@@ -188,7 +189,7 @@ msgid "Logout"
 msgstr "退出"
 
 msgid "Enter login credentials"
-msgstr ""
+msgstr "输入账户信息"
 
 msgid "Username"
 msgstr "用户名"
@@ -256,13 +257,13 @@ msgstr "继续"
 msgid ""
 "If you have forgotten the e-mail address you used to register, please send a"
 " message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "如果您忘记了注册账号时使用的邮件地址，请向 %saur-general%s 邮件列表寻求帮助。"
 
 msgid "Enter your e-mail address:"
 msgstr "输入您的邮箱地址:"
 
 msgid "Cannot find package to merge votes and comments into."
-msgstr ""
+msgstr "找不到合并投票与评论的目标包。"
 
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
@@ -274,22 +275,22 @@ msgstr "软件包删除"
 
 #, php-format
 msgid "Delete Package: %s"
-msgstr ""
+msgstr "删除包：%s"
 
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
+msgstr "使用这个表单将包基础 %s%s%s 和下面的包从 AUR 中移除："
 
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "删除软件包是一个永久性的操作"
 
 msgid "Select the checkbox to confirm action."
-msgstr ""
+msgstr "选中文本框以确认操作。"
 
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "确认删除包"
 
 msgid "Delete"
 msgstr "删除"
@@ -306,22 +307,22 @@ msgstr "合并软件包: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
+msgstr "使用这个表单将包基础 %s%s%s 合并到另一个包。"
 
 msgid "The following packages will be deleted: "
-msgstr ""
+msgstr "下面这些包将被删除："
 
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
+msgstr "一旦包被合并，这个操作将是不可逆的。"
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "请输入合并的目标包名。"
 
 msgid "Merge into:"
 msgstr "合并到"
 
 msgid "Confirm package merge"
-msgstr ""
+msgstr "确认合并包"
 
 msgid "Merge"
 msgstr "合并"
@@ -331,42 +332,42 @@ msgstr "只有受信用户和开发人员才能删除软件包。"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr ""
+msgstr "错误 - 上传的文件超过了最大允许的大小（%s）"
 
 msgid "Error - File partially uploaded"
-msgstr ""
+msgstr "错误 - 文件只上传了一部分"
 
 msgid "Error - No file uploaded"
 msgstr "发生错误: 没有文件被上传"
 
 msgid "Error - Could not locate temporary upload folder"
-msgstr ""
+msgstr "错误 - 找不到临时上传目录"
 
 msgid "Error - File could not be written"
-msgstr ""
+msgstr "错误 - 文件不可写"
 
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
 " makepkg(8) only)."
-msgstr ""
+msgstr "错误 - 不支持的文件格式（请只提交由 makepkg(8) 生成的被 gzip 压缩过的 tar 包）"
 
 msgid "Error - uncompressed file size too large."
 msgstr "错误 - 解压文件太大。"
 
 msgid "Error - source tarball may not contain files outside a directory."
-msgstr ""
+msgstr "错误 - 源文件包不能在目录外含有文件。"
 
 msgid "Error - all files must have permissions of 644 or 755."
-msgstr ""
+msgstr "错误 - 所有文件必须拥有 644 或 755 权限。"
 
 msgid "Error - source tarball may not contain nested subdirectories."
-msgstr ""
+msgstr "错误 - 源代码包不能含有嵌套的子目录。"
 
 msgid "Error - source tarball may not contain more than one directory."
-msgstr ""
+msgstr "错误 - 源文件包不能包含多于一个目录。"
 
 msgid "Error - all directories must have permissions of 755."
-msgstr ""
+msgstr "错误 - 所有的目录必须设置为 755 权限。"
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "尝试解压上传的包发生错误 - 没有PKGBUILD文件。"
@@ -376,7 +377,7 @@ msgid ""
 " create AUR source packages. Support for source packages without .AURINFO "
 "entries will be removed in an upcoming release! You can resubmit the package"
 " if you want to proceed anyway."
-msgstr ""
+msgstr "源代码包里没有包括任何描述信息。请使用 mkaurball 来创建 AUR 源代码包。对不含 .AURINFO 的源码包的支持将在下一个版本中被移除！如果你仍想提交这个包，请再提交一次。"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "无效的名称: 只允许小写字母。"
@@ -386,33 +387,33 @@ msgstr "包的 URL 缺少协议（如 http://，ftp://）"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
-msgstr ""
+msgstr "错误 - 软件包名不能超过 %d 个字符"
 
 #, php-format
 msgid "Error - Package URL cannot be greater than %d characters"
-msgstr ""
+msgstr "错误 - 软件包地址不能超过 %d 个字符"
 
 #, php-format
 msgid "Error - Package description cannot be greater than %d characters"
-msgstr ""
+msgstr "错误 - 软件包描述不能超过 %d 个字符"
 
 #, php-format
 msgid "Error - Package license cannot be greater than %d characters"
-msgstr ""
+msgstr "错误 - 软件包版权信息不能超过 %d 个字符"
 
 #, php-format
 msgid "Error - Package version cannot be greater than %d characters"
-msgstr ""
+msgstr "错误 - 包版本不能超过 %d 个字符"
 
 #, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr ""
+msgstr "%s 在软件包黑名单上，请检查它是否已经在官方仓库中。"
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
+msgstr "您没有权限覆盖 %s%s%s 这个包。"
 
 #, php-format
 msgid "Could not create directory %s."
@@ -424,7 +425,7 @@ msgstr "无法切换目录至 %s。"
 
 msgid ""
 "Upload your source packages here. Create source packages with `mkaurball`."
-msgstr ""
+msgstr "将你的源代码包上传到这里。请使用 mkaurball 创建源代码包。"
 
 msgid "Package Category"
 msgstr "包类别"
@@ -454,7 +455,7 @@ msgid "Voting is closed for this proposal."
 msgstr "该提议的投票已被关闭。"
 
 msgid "Only Trusted Users are allowed to vote."
-msgstr ""
+msgstr "只有受信用户可以投票。"
 
 msgid "You cannot vote in an proposal about you."
 msgstr "您不能在关于您的提议里投票。"
@@ -477,7 +478,7 @@ msgstr "投票"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "账户注册目前对您所使用的 IP 地址禁用，原因可能是持续的垃圾攻击。我们对因此引起的不便表示抱歉。"
 
 msgid "Missing User ID"
 msgstr "缺少用户标识"
@@ -503,74 +504,77 @@ msgid "The email address is invalid."
 msgstr "错误的 Email 地址。"
 
 msgid "The PGP key fingerprint is invalid."
-msgstr ""
+msgstr "PGP 密钥指纹无效。"
 
 msgid "Cannot increase account permissions."
-msgstr ""
+msgstr "不能提高账户权限。"
 
 msgid "Language is not currently supported."
 msgstr "目前不支持此语言。"
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
-msgstr ""
+msgstr "用户名 %s%s%s 已被使用。"
 
 #, php-format
 msgid "The address, %s%s%s, is already in use."
-msgstr ""
+msgstr "该地址 %s%s%s 已被使用。"
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
-msgstr ""
+msgstr "尝试创建帐户 %s%s%s 失败。"
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
-msgstr ""
+msgstr "帐户 %s%s%s 创建成功。"
+
+msgid "Click on the Login link above to use your account."
+msgstr "点击上方的登陆链接以使用你的帐号。"
 
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr ""
+msgstr "欢迎来到 %s！想要为你的新账户设置初始密码，请点击下面的链接。如果链接不工作，请尝试复制它到你的浏览器中打开。"
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
-
-msgid "Click on the Login link above to use your account."
-msgstr ""
+msgstr "一个密码重置密钥已经发送到你的电子邮箱。"
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
-msgstr ""
+msgstr "账户 %s%s%s 没有被修改。"
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr ""
+msgstr "帐号 %s%s%s 已被成功修改。"
 
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
+msgstr "登陆表单目前对您所使用的 IP 地址禁用，原因可能是持续的垃圾攻击。我们对因此引起的不便表示抱歉。"
 
 msgid "Account suspended"
-msgstr ""
-
-msgid "An error occurred trying to generate a user session."
-msgstr ""
+msgstr "帐号被停用"
 
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "你的密码已经成功被重置。如果你刚刚创建了一个新账户，请使用确认邮件中的链接来设置一个初始密码。否则，请在 %s重置密码%s 页面申请一个重置密码密钥。"
 
 msgid "Bad username or password."
 msgstr "用户名或密码错误。"
 
+msgid "An error occurred trying to generate a user session."
+msgstr "在创建用户会话的过程中出现了一个错误。"
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "邮箱和重置 key 不匹配。"
+
+msgid "None"
+msgstr "无"
 
 msgid "Error retrieving package details."
 msgstr "获取软件包详情时发生错误。"
@@ -600,7 +604,7 @@ msgid "You must be logged in before you can delete packages."
 msgstr "登陆后才能删除软件包。"
 
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "您没有删除软件包的权限。"
 
 msgid "You did not select any packages to delete."
 msgstr "您没有选择要删除的包。"
@@ -681,10 +685,10 @@ msgid "Missing %s variable in PKGBUILD."
 msgstr "PKGBUILD 中缺少 %s 变量。"
 
 msgid "View packages details for"
-msgstr ""
+msgstr "查看软件包详细信息"
 
 msgid "First"
-msgstr ""
+msgstr "首先"
 
 msgid "Previous"
 msgstr "上一页"
@@ -714,19 +718,19 @@ msgid "IRC Nick"
 msgstr "IRC昵称"
 
 msgid "PGP Key Fingerprint"
-msgstr ""
+msgstr "PGP 密钥指纹"
 
 msgid "Status"
 msgstr "状态"
 
 msgid "Inactive since"
-msgstr ""
+msgstr "不活跃自"
 
 msgid "Active"
 msgstr "激活"
 
 msgid "Last Login"
-msgstr ""
+msgstr "最后登陆"
 
 msgid "Never"
 msgstr "从不"
@@ -735,7 +739,7 @@ msgid "View this user's packages"
 msgstr "查看这个用户提交的包"
 
 msgid "Edit this user's account"
-msgstr ""
+msgstr "编辑此用户的帐号"
 
 msgid "required"
 msgstr "必填"
@@ -750,7 +754,7 @@ msgid "Account Suspended"
 msgstr "帐户被暂停"
 
 msgid "Inactive"
-msgstr ""
+msgstr "不活跃"
 
 msgid "Re-type password"
 msgstr "确认密码"
@@ -812,6 +816,9 @@ msgstr "确认"
 msgid "My Packages"
 msgstr "我的包"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "我的帐户"
 
@@ -822,16 +829,19 @@ msgid "unknown"
 msgstr "未知"
 
 msgid "Package Base Details"
-msgstr ""
+msgstr "包基础详情"
 
 msgid "Package Actions"
 msgstr "软件包操作"
 
 msgid "View PKGBUILD"
-msgstr ""
+msgstr "查看 PKGBUILD"
 
 msgid "Download tarball"
 msgstr "下载压缩包"
+
+msgid "Search wiki"
+msgstr "搜索 Wiki"
 
 msgid "Flagged out-of-date"
 msgstr "已标记为过期"
@@ -852,6 +862,9 @@ msgid "Disable notifications"
 msgstr "禁用通知"
 
 msgid "Notify of new comments"
+msgstr "当有新评论的时候提醒我"
+
+msgid "File Request"
 msgstr ""
 
 msgid "Delete Package"
@@ -861,10 +874,10 @@ msgid "Merge Package"
 msgstr "合并软件包"
 
 msgid "Adopt Package"
-msgstr ""
+msgstr "接管包"
 
 msgid "Disown Package"
-msgstr ""
+msgstr "弃置包"
 
 msgid "Category"
 msgstr "类别"
@@ -876,20 +889,17 @@ msgid "Submitter"
 msgstr "提交人"
 
 msgid "View account information for"
-msgstr ""
+msgstr "查看账户信息"
 
 #, php-format
 msgid "View account information for %s"
-msgstr ""
-
-msgid "None"
-msgstr ""
+msgstr "查看 %s 的账户信息"
 
 msgid "Maintainer"
 msgstr "维护者"
 
 msgid "Last Packager"
-msgstr ""
+msgstr "最近一次打包者"
 
 msgid "Votes"
 msgstr "得票"
@@ -908,20 +918,20 @@ msgstr "已经添加评论。"
 
 #, php-format
 msgid "View all %s comments"
-msgstr ""
+msgstr "显示全部 %s 个评论"
 
 msgid "Latest Comments"
-msgstr ""
+msgstr "最新的评论"
 
 msgid "Delete comment"
 msgstr "删除评论"
 
 #, php-format
 msgid "Comment by %s"
-msgstr ""
+msgstr "%s 的评论"
 
 msgid "Anonymous comment"
-msgstr ""
+msgstr "匿名评论"
 
 msgid "All comments"
 msgstr "全部评论"
@@ -930,31 +940,31 @@ msgid "Package Details"
 msgstr "软件包详情"
 
 msgid "Package Base"
-msgstr ""
+msgstr "包基础"
 
 msgid "Description"
 msgstr "描述"
 
 msgid "Upstream URL"
-msgstr ""
+msgstr "上游 URL"
 
 msgid "Visit the website for"
-msgstr ""
+msgstr "访问网站"
 
 msgid "Licenses"
-msgstr ""
+msgstr "许可协议"
 
 msgid "Groups"
-msgstr ""
+msgstr "组"
 
 msgid "Conflicts"
-msgstr ""
+msgstr "冲突"
 
 msgid "Provides"
-msgstr ""
+msgstr "提供"
 
 msgid "Replaces"
-msgstr ""
+msgstr "取代"
 
 msgid "Dependencies"
 msgstr "依赖于:"
@@ -972,10 +982,10 @@ msgid "Name Only"
 msgstr "名称"
 
 msgid "Exact Name"
-msgstr ""
+msgstr "确切的名字"
 
 msgid "Exact Package Base"
-msgstr ""
+msgstr "准确包基础"
 
 msgid "All"
 msgstr "全部"
@@ -1002,7 +1012,7 @@ msgid "Descending"
 msgstr "从大到小"
 
 msgid "Enter search criteria"
-msgstr ""
+msgstr "输入搜索条件"
 
 msgid "Any"
 msgstr "所有"
@@ -1039,7 +1049,7 @@ msgstr "没有相关的包符合您的搜索条件。"
 
 #, php-format
 msgid "%d packages found. Page %d of %d."
-msgstr ""
+msgstr "找到了 %d 个软件包。第 %d 页，一共 %d 页。"
 
 msgid "Version"
 msgstr "版本"
@@ -1115,13 +1125,13 @@ msgid "End"
 msgstr "结束"
 
 msgid "Result"
-msgstr ""
+msgstr "结果"
 
 msgid "Accepted"
-msgstr ""
+msgstr "接受"
 
 msgid "Rejected"
-msgstr ""
+msgstr "拒绝"
 
 msgid "No"
 msgstr "否"
@@ -1133,13 +1143,13 @@ msgid "Total"
 msgstr "总数"
 
 msgid "Participation"
-msgstr ""
+msgstr "参与"
 
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "受信用户的最后投票"
 
 msgid "Last vote"
-msgstr ""
+msgstr "最后投票"
 
 msgid "No results found."
 msgstr "没有找到结果。"

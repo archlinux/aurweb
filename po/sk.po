@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-05-07 11:11+0200\n"
-"PO-Revision-Date: 2014-05-07 09:22+0000\n"
+"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"PO-Revision-Date: 2014-07-01 18:13+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/aur/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -308,7 +308,7 @@ msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr ""
 
 msgid "The following packages will be deleted: "
-msgstr ""
+msgstr "Nasledujúce balíčky budú vymazané:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Operácia zlúčenia balíčkov je nevratná."
@@ -356,7 +356,7 @@ msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Chyba - zdrojový tarball nesmie obsahovať súbory mimo adresára."
 
 msgid "Error - all files must have permissions of 644 or 755."
-msgstr ""
+msgstr "Chyba - všetky súbory musia mať práva 644 alebo 755."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Chyba - zdrojový tarball nesmie obsahovať vnorené adresáre."
@@ -365,7 +365,7 @@ msgid "Error - source tarball may not contain more than one directory."
 msgstr "Chyba - zdrojový archív nemôže obsahovať viac ako jeden adresár. "
 
 msgid "Error - all directories must have permissions of 755."
-msgstr ""
+msgstr "Chyba - všetky adresáre musia mať práva 755."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Chyba pri rozbaľovaní nahraného súboru - PKGBUILD neexistuje. "
@@ -526,6 +526,9 @@ msgstr "Chyba pri vytváraní účtu, %s%s%s."
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Účer %s%s%s bol úspešne vytvorený."
 
+msgid "Click on the Login link above to use your account."
+msgstr "Kliknite na Prihlásenie pre použitie svojho účtu."
+
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
@@ -535,9 +538,6 @@ msgstr "Vitajte na %s! Pre zadanie prvotného hesla pre nový účet, kliknite p
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Obnovovacie heslo vám bolo zaslané na vašu e-mailovú adresu."
-
-msgid "Click on the Login link above to use your account."
-msgstr "Kliknite na Prihlásenie pre použitie svojho účtu."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -555,9 +555,6 @@ msgstr "Prihlasovací formulár je v súčasnosti zablokovaný pre vašu IP adre
 msgid "Account suspended"
 msgstr "Účet bol pozastavený"
 
-msgid "An error occurred trying to generate a user session."
-msgstr "Pri vytváraní užívateľského sedenia sa vyskytla chyba."
-
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
@@ -568,8 +565,14 @@ msgstr "Vaše heslo bolo obnovené. Ak ste si práve vytvorili  nový účet, po
 msgid "Bad username or password."
 msgstr "Nesprávne užívateľské meno alebo heslo."
 
+msgid "An error occurred trying to generate a user session."
+msgstr "Pri vytváraní užívateľského sedenia sa vyskytla chyba."
+
 msgid "Invalid e-mail and reset key combination."
 msgstr "Neplatný email a kombinácia obnovovacích znakov."
+
+msgid "None"
+msgstr "Žiadny"
 
 msgid "Error retrieving package details."
 msgstr "Chyba pri získavaní informácií o balíčku."
@@ -811,6 +814,9 @@ msgstr "Potvrď"
 msgid "My Packages"
 msgstr "Moje balíčky"
 
+msgid "Requests"
+msgstr ""
+
 msgid " My Account"
 msgstr "Môj účet"
 
@@ -832,6 +838,9 @@ msgstr "Pozrieť PKGBUILD"
 msgid "Download tarball"
 msgstr "Stiahnuť tarball"
 
+msgid "Search wiki"
+msgstr ""
+
 msgid "Flagged out-of-date"
 msgstr "Označený ako neaktuálny"
 
@@ -852,6 +861,9 @@ msgstr "Vypni upozornenia"
 
 msgid "Notify of new comments"
 msgstr "Upozorni na nové komentáre"
+
+msgid "File Request"
+msgstr ""
 
 msgid "Delete Package"
 msgstr "Vymaž balíček"
@@ -881,14 +893,11 @@ msgstr "Pozri informácie o účte pre"
 msgid "View account information for %s"
 msgstr "Pozri informácie o účte pre %s"
 
-msgid "None"
-msgstr "Žiadny"
-
 msgid "Maintainer"
 msgstr "Spravovateľ"
 
 msgid "Last Packager"
-msgstr ""
+msgstr "Naposledy zabalil"
 
 msgid "Votes"
 msgstr "Hlasy"
@@ -941,19 +950,19 @@ msgid "Visit the website for"
 msgstr "Navštív web stránku pre"
 
 msgid "Licenses"
-msgstr ""
+msgstr "Licencie"
 
 msgid "Groups"
-msgstr ""
+msgstr "Skupiny"
 
 msgid "Conflicts"
-msgstr ""
+msgstr "Konflikt s"
 
 msgid "Provides"
-msgstr ""
+msgstr "Poskytuje"
 
 msgid "Replaces"
-msgstr ""
+msgstr "Nahrádza"
 
 msgid "Dependencies"
 msgstr "Závislosti"
@@ -971,7 +980,7 @@ msgid "Name Only"
 msgstr "iba meno"
 
 msgid "Exact Name"
-msgstr ""
+msgstr "Presné meno"
 
 msgid "Exact Package Base"
 msgstr ""
@@ -1135,10 +1144,10 @@ msgid "Participation"
 msgstr "Účasť"
 
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "Posledné hlasy od TU"
 
 msgid "Last vote"
-msgstr ""
+msgstr "Posledný hlas"
 
 msgid "No results found."
 msgstr "Žiadne výsledky neboli nájdené."
