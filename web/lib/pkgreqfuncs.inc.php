@@ -35,7 +35,7 @@ function pkgreq_list() {
  * @param string $merge_into The target of a merge operation
  * @param string $comments The comments to be added to the request
  *
- * @return void
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkgreq_file($ids, $type, $merge_into, $comments) {
 	global $AUR_LOCATION;
@@ -127,7 +127,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
  * @global string $AUR_REQUEST_ML The request notification mailing list
  * @param int $id The package request to close
  *
- * @return void
+ * @return array Tuple of success/failure indicator and error message
  */
 function pkgreq_close($id) {
 	global $AUR_LOCATION;
