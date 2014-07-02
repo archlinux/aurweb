@@ -8,8 +8,6 @@ include_once("pkgfuncs.inc.php");
 set_lang();
 check_sid();
 
-html_header(__("File Request"));
-
 if (!isset($base_id)) {
 	if (!check_user_privileges()) {
 		header('Location: /');
@@ -62,8 +60,11 @@ if (!isset($base_id)) {
 	}
 
 	$SID = $_COOKIE['AURSID'];
+
+	html_header(__("Requests"));
 	include('pkgreq_results.php');
 } else {
+	html_header(__("File Request"));
 	include('pkgreq_form.php');
 }
 
