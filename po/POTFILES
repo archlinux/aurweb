@@ -10,6 +10,7 @@ html/passreset.php
 html/pkgbase.php
 html/pkgdel.php
 html/pkgmerge.php
+html/pkgreq.php
 html/pkgsubmit.php
 html/rpc.php
 html/rss.php
@@ -28,6 +29,7 @@ lib/gettext.php
 lib/pkgbasefuncs.inc.php
 lib/pkgbuild-parser.inc.php
 lib/pkgfuncs.inc.php
+lib/pkgreqfuncs.inc.php
 lib/routing.inc.php
 lib/stats.inc.php
 lib/streams.php
@@ -43,6 +45,8 @@ template/pkgbase_details.php
 template/pkg_comment_form.php
 template/pkg_comments.php
 template/pkg_details.php
+template/pkgreq_form.php
+template/pkgreq_results.php
 template/pkg_search_form.php
 template/pkg_search_results.php
 template/search_accounts_form.php
