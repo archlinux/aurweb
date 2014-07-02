@@ -37,7 +37,7 @@
 			<td><?= htmlspecialchars($row["Name"]) ?></td>
 			<?php endif; ?>
 			<?php if ($row['Type'] == 'merge'): ?>
-			<td><?= htmlspecialchars(ucfirst($row['Type']), ENT_QUOTES); ?> (<?= htmlspecialchars(ucfirst($row['MergeInto']), ENT_QUOTES); ?>)</td>
+			<td><?= htmlspecialchars(ucfirst($row['Type']), ENT_QUOTES); ?> (<?= htmlspecialchars($row['MergeInto'], ENT_QUOTES); ?>)</td>
 			<?php else: ?>
 			<td><?= htmlspecialchars(ucfirst($row['Type']), ENT_QUOTES); ?></td>
 			<?php endif; ?>
