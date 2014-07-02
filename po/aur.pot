@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v3.1.0\n"
+"Project-Id-Version: AUR v3.2.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
+"POT-Creation-Date: 2014-07-02 08:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,6 +265,9 @@ msgid ""
 "The selected packages have not been deleted, check the confirmation checkbox."
 msgstr ""
 
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr ""
+
 msgid "Package Deletion"
 msgstr ""
 
@@ -325,6 +328,24 @@ msgstr ""
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr ""
 
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Last"
+msgstr ""
+
+msgid "Requests"
+msgstr ""
+
+msgid "File Request"
+msgstr ""
+
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
 msgstr ""
@@ -372,9 +393,6 @@ msgid ""
 "create AUR source packages. Support for source packages without .AURINFO "
 "entries will be removed in an upcoming release! You can resubmit the package "
 "if you want to proceed anyway."
-msgstr ""
-
-msgid "Invalid name: only lowercase letters are allowed."
 msgstr ""
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
@@ -682,16 +700,19 @@ msgstr ""
 msgid "View packages details for"
 msgstr ""
 
-msgid "First"
+msgid "The comment field must not be empty."
 msgstr ""
 
-msgid "Previous"
+msgid "Invalid request type."
 msgstr ""
 
-msgid "Next"
+msgid "Added request successfully."
 msgstr ""
 
-msgid "Last"
+msgid "Only TUs and developers can close requests."
+msgstr ""
+
+msgid "Request closed successfully."
 msgstr ""
 
 msgid "Account Type"
@@ -811,9 +832,6 @@ msgstr ""
 msgid "My Packages"
 msgstr ""
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr ""
 
@@ -857,9 +875,6 @@ msgid "Disable notifications"
 msgstr ""
 
 msgid "Notify of new comments"
-msgstr ""
-
-msgid "File Request"
 msgstr ""
 
 msgid "Delete Package"
@@ -968,6 +983,50 @@ msgid "Required by"
 msgstr ""
 
 msgid "Sources"
+msgstr ""
+
+#, php-format
+msgid "File Request: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr ""
+
+msgid "Request type"
+msgstr ""
+
+msgid "Deletion"
+msgstr ""
+
+msgid "Orphan"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+#, php-format
+msgid "%d package requests found. Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Filed by"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Closed"
 msgstr ""
 
 msgid "Name, Description"
