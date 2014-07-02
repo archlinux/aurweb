@@ -79,14 +79,15 @@ if (check_token()) {
 				if ($merge_base_id) {
 					list($ret, $output) = pkgbase_delete($atype, $ids, $merge_base_id, $via);
 					unset($_GET['ID']);
-				}
-				else {
+				} else {
 					$output = __("Cannot find package to merge votes and comments into.");
+					$ret = false;
 				}
 			}
 		}
 		else {
 			$output = __("The selected packages have not been deleted, check the confirmation checkbox.");
+			$ret = false;
 		}
 	} elseif (current_action("do_Notify")) {
 		list($ret, $output) = pkgbase_notify($atype, $ids);
@@ -145,7 +146,11 @@ html_header($title, $details);
 ?>
 
 <?php if ($output): ?>
+<?php if ($ret): ?>
 <p class="pkgoutput"><?= $output ?></p>
+<?php else: ?>
+<ul class="errorlist"><li><?= $output ?></li></ul>
+<?php endif; ?>
 <?php endif; ?>
 
 <?php
