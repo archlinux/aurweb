@@ -3,11 +3,25 @@ include_once("config.inc.php");
 include_once("pkgbasefuncs.inc.php");
 
 /**
+ * Get the number of package requests
+ *
+ * @return int The total number of package requests
+ */
+function pkgreq_count() {
+	$dbh = DB::connect();
+	$q = "SELECT COUNT(*) FROM PackageRequests";
+	return $dbh->query($q)->fetchColumn();
+}
+
+/**
  * Get a list of all package requests
+ *
+ * @param int $offset The index of the first request to return
+ * @param int $limit The maximum number of requests to return
  *
  * @return array List of pacakge requests with details
  */
-function pkgreq_list() {
+function pkgreq_list($offset, $limit) {
 	$dbh = DB::connect();
 
 	$q = "SELECT PackageRequests.ID, ";
@@ -20,7 +34,8 @@ function pkgreq_list() {
 	$q.= "FROM PackageRequests INNER JOIN RequestTypes ON ";
 	$q.= "RequestTypes.ID = PackageRequests.ReqTypeID ";
 	$q.= "INNER JOIN Users ON Users.ID = PackageRequests.UsersID ";
-	$q.= "ORDER BY Status ASC, RequestTS DESC";
+	$q.= "ORDER BY Status ASC, RequestTS DESC ";
+	$q.= "LIMIT " . $limit . " OFFSET " . $offset;
 
 	return $dbh->query($q)->fetchAll();
 }

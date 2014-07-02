@@ -14,9 +14,6 @@ if (!isset($base_id)) {
 		exit();
 	}
 
-	$results = pkgreq_list();
-	$total = count($results);
-
 	/* Sanitize paging variables. */
 	if (isset($_GET['O'])) {
 		$_GET['O'] = max(intval($_GET['O']), 0);
@@ -29,6 +26,9 @@ if (!isset($base_id)) {
 	} else {
 		$_GET["PP"] = 50;
 	}
+
+	$results = pkgreq_list($_GET['O'], $_GET['PP']);
+	$total = pkgreq_count();
 
 	/* Calculate the results to use. */
 	$first = $_GET['O'] + 1;
