@@ -97,7 +97,12 @@ if (check_token()) {
 	} elseif (current_action("do_ChangeCategory")) {
 		list($ret, $output) = pkgbase_change_category($base_id, $atype);
 	} elseif (current_action("do_FileRequest")) {
-		list($ret, $output) = pkgreq_file($ids, $_POST['type'], $_POST['merge_into'], $_POST['comments']);
+		if (empty($_POST['merge_into']) || preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $_POST['merge_into'])) {
+			list($ret, $output) = pkgreq_file($ids, $_POST['type'], $_POST['merge_into'], $_POST['comments']);
+		} else {
+			$output = __("Invalid name: only lowercase letters are allowed.");
+			$ret = false;
+		}
 	} elseif (current_action("do_CloseRequest")) {
 		list($ret, $output) = pkgreq_close($_POST['reqid'], false);
 	}
