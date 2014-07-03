@@ -72,6 +72,10 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
 
+	if (!empty($merge_into) && !preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $merge_into)) {
+		return array(false, __("Invalid name: only lowercase letters are allowed."));
+	}
+
 	if (empty($comments)) {
 		return array(false, __("The comment field must not be empty."));
 	}
