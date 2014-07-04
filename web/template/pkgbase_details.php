@@ -81,6 +81,7 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 					</form>
 				</li>
 				<?php endif; ?>
+				<li><span class="flagged"><?php if ($row["RequestCount"] > 0) { echo _n('%d pending request', '%d pending requests', $row["RequestCount"]); } ?></span></li>
 				<li><a href="<?= get_pkgbase_uri($row['Name']) . 'request/'; ?>"><?= __('File Request'); ?></a></li>
 				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
 				<li><a href="<?= get_pkgbase_uri($row['Name']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>

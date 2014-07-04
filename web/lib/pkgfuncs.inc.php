@@ -401,7 +401,10 @@ function pkg_get_details($id=0) {
 	$q.= "PackageBases.NumVotes, PackageBases.OutOfDateTS, ";
 	$q.= "PackageBases.SubmittedTS, PackageBases.ModifiedTS, ";
 	$q.= "PackageBases.SubmitterUID, PackageBases.MaintainerUID, ";
-	$q.= "PackageBases.PackagerUID, PackageCategories.Category ";
+	$q.= "PackageBases.PackagerUID, PackageCategories.Category, ";
+	$q.= "(SELECT COUNT(*) FROM PackageRequests ";
+	$q.= " WHERE PackageRequests.PackageBaseID = Packages.PackageBaseID ";
+	$q.= " AND PackageRequests.Status = 0) AS RequestCount ";
 	$q.= "FROM Packages, PackageBases, PackageCategories ";
 	$q.= "WHERE PackageBases.ID = Packages.PackageBaseID ";
 	$q.= "AND PackageBases.CategoryID = PackageCategories.ID ";

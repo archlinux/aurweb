@@ -187,7 +187,10 @@ function pkgbase_get_details($base_id) {
 	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
 	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
 	$q.= "PackageBases.MaintainerUID, PackageBases.PackagerUID, ";
-	$q.= "PackageCategories.Category ";
+	$q.= "PackageCategories.Category, ";
+	$q.= "(SELECT COUNT(*) FROM PackageRequests ";
+	$q.= " WHERE PackageRequests.PackageBaseID = PackageBases.ID ";
+	$q.= " AND PackageRequests.Status = 0) AS RequestCount ";
 	$q.= "FROM PackageBases, PackageCategories ";
 	$q.= "WHERE PackageBases.CategoryID = PackageCategories.ID ";
 	$q.= "AND PackageBases.ID = " . intval($base_id);
