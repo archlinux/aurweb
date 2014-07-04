@@ -30,11 +30,11 @@ function pkgreq_list($offset, $limit) {
 	$q.= "PackageRequests.MergeBaseName AS MergeInto, ";
 	$q.= "RequestTypes.Name AS Type, PackageRequests.Comments, ";
 	$q.= "Users.Username AS User, PackageRequests.RequestTS, ";
-	$q.= "PackageRequests.Status ";
+	$q.= "PackageRequests.Status, PackageRequests.Status = 0 AS Open ";
 	$q.= "FROM PackageRequests INNER JOIN RequestTypes ON ";
 	$q.= "RequestTypes.ID = PackageRequests.ReqTypeID ";
 	$q.= "INNER JOIN Users ON Users.ID = PackageRequests.UsersID ";
-	$q.= "ORDER BY Status ASC, RequestTS DESC ";
+	$q.= "ORDER BY Open DESC, RequestTS DESC ";
 	$q.= "LIMIT " . $limit . " OFFSET " . $offset;
 
 	return $dbh->query($q)->fetchAll();
@@ -164,7 +164,14 @@ function pkgreq_close($id, $reason, $comments) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
 
-	if ($reason != 'accepted' && $reason != 'rejected') {
+	switch ($reason) {
+	case 'accepted':
+		$status = 2;
+		break;
+	case 'rejected':
+		$status = 3;
+		break;
+	default:
 		return array(false, __("Invalid reason."));
 	}
 
@@ -175,7 +182,8 @@ function pkgreq_close($id, $reason, $comments) {
 		return array(false, __("Only TUs and developers can close requests."));
 	}
 
-	$q = "UPDATE PackageRequests SET Status = 1 WHERE ID = " . intval($id);
+	$q = "UPDATE PackageRequests SET Status = " . intval($status) . " ";
+	$q.= "WHERE ID = " . intval($id);
 	$dbh->exec($q);
 
 	/*

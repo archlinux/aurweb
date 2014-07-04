@@ -45,8 +45,8 @@
 			<td>
 			<a href="<?= get_uri('/account/') . htmlspecialchars($row['User'], ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($row['User'])) ?>"><?= htmlspecialchars($row['User']) ?></a>
 			</td>
-			<td<?php if ($row['Status'] == 0 && time() - intval($row['RequestTS']) > $REQUEST_IDLE_TIME): ?> class="flagged"<?php endif; ?>><?= gmdate("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
-			<?php if ($row['Status'] == 0): ?>
+			<td<?php if ($row['Open'] && time() - intval($row['RequestTS']) > $REQUEST_IDLE_TIME): ?> class="flagged"<?php endif; ?>><?= gmdate("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
+			<?php if ($row['Open']): ?>
 			<td>
 				<?php if ($row['BaseID']): ?>
 				<?php if ($row['Type'] == 'deletion'): ?>
@@ -66,7 +66,15 @@
 				<a href="<?= get_pkgreq_route() . '/' . intval($row['ID']) ?>/close/"><?= __('Close') ?></a>
 			</td>
 			<?php else: ?>
+			<?php if ($row['Status'] == 1): ?>
 			<td><?= __("Closed") ?></td>
+			<?php elseif ($row['Status'] == 2): ?>
+			<td><?= __("Accepted") ?></td>
+			<?php elseif ($row['Status'] == 3): ?>
+			<td><?= __("Rejected") ?></td>
+			<?php else: ?>
+			<td><?= __("unknown") ?></td>
+			<?php endif; ?>
 			<?php endif; ?>
 		</tr>
 		<?php endwhile; ?>
