@@ -47,9 +47,9 @@ all: ${MOFILES}
 update-pot:
 	pkgname=AUR; \
 	pkgver=`sed -n 's/.*"AUR_VERSION", "\(.*\)".*/\1/p' ../web/lib/version.inc.php`; \
-	xgettext --default-domain=aur -L php --keyword=__ --no-location \
-		--add-comments=TRANSLATORS: --package-name="$$pkgname" \
-		--package-version="$$pkgver" \
+	xgettext --default-domain=aur -L php --keyword=__ --keyword=_n:1,2 \
+		--no-location --add-comments=TRANSLATORS: \
+		--package-name="$$pkgname" --package-version="$$pkgver" \
 		--msgid-bugs-address='${MSGID_BUGS_ADDRESS}' \
 		--directory ../web --files-from POTFILES -o aur.pot
 

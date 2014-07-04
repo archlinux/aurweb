@@ -70,6 +70,13 @@ function __() {
 	return $translated;
 }
 
+function _n($msgid1, $msgid2, $n) {
+	global $l10n;
+
+	$translated = sprintf($l10n->ngettext($msgid1, $msgid2, $n), $n);
+	return htmlspecialchars($translated, ENT_QUOTES);
+}
+
 # set up the visitor's language
 #
 function set_lang() {

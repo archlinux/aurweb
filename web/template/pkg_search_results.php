@@ -12,7 +12,10 @@ if (!$result): ?>
 <?php else: ?>
 	<div id="pkglist-results" class="box">
 		<div class="pkglist-stats">
-			<p><?= __('%d packages found. Page %d of %d.', $total, $current, $pages) ?></p>
+			<p>
+				<?= _n('%d package found.', '%d packages found.', $total) ?>
+				<?= __('Page %d of %d.', $current, $pages) ?>
+			</p>
 			<?php if (count($templ_pages) > 1): ?>
 			<p class="pkglist-nav">
 				<?php foreach ($templ_pages as $pagenr => $pagestart): ?>
@@ -89,7 +92,10 @@ if (!$result): ?>
 			</table>
 
 			<div class="pkglist-stats">
-				<p><?= __('%d packages found. Page %d of %d.', $total, $current, $pages) ?></p>
+				<p>
+					<?= _n('%d package found.', '%d packages found.', $total) ?>
+					<?= __('Page %d of %d.', $current, $pages) ?>
+				</p>
 				<?php if (count($templ_pages) > 1): ?>
 				<p class="pkglist-nav">
 					<?php foreach ($templ_pages as $pagenr => $pagestart): ?>
