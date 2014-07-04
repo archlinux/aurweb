@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v3.2.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-02 08:30+0200\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 msgid "Page Not Found"
 msgstr ""
@@ -265,9 +266,6 @@ msgid ""
 "The selected packages have not been deleted, check the confirmation checkbox."
 msgstr ""
 
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr ""
-
 msgid "Package Deletion"
 msgstr ""
 
@@ -328,6 +326,12 @@ msgstr ""
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr ""
 
+msgid "File Request"
+msgstr ""
+
+msgid "Close Request"
+msgstr ""
+
 msgid "First"
 msgstr ""
 
@@ -341,9 +345,6 @@ msgid "Last"
 msgstr ""
 
 msgid "Requests"
-msgstr ""
-
-msgid "File Request"
 msgstr ""
 
 #, php-format
@@ -393,6 +394,9 @@ msgid ""
 "create AUR source packages. Support for source packages without .AURINFO "
 "entries will be removed in an upcoming release! You can resubmit the package "
 "if you want to proceed anyway."
+msgstr ""
+
+msgid "Invalid name: only lowercase letters are allowed."
 msgstr ""
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
@@ -709,6 +713,9 @@ msgstr ""
 msgid "Added request successfully."
 msgstr ""
 
+msgid "Invalid reason."
+msgstr ""
+
 msgid "Only TUs and developers can close requests."
 msgstr ""
 
@@ -877,6 +884,12 @@ msgstr ""
 msgid "Notify of new comments"
 msgstr ""
 
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Delete Package"
 msgstr ""
 
@@ -1008,7 +1021,13 @@ msgid "Comments"
 msgstr ""
 
 #, php-format
-msgid "%d package requests found. Page %d of %d."
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "Page %d of %d."
 msgstr ""
 
 msgid "Package"
@@ -1027,6 +1046,12 @@ msgid "Close"
 msgstr ""
 
 msgid "Closed"
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "Rejected"
 msgstr ""
 
 msgid "Name, Description"
@@ -1102,8 +1127,10 @@ msgid "No packages matched your search criteria."
 msgstr ""
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr ""
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Version"
 msgstr ""
@@ -1179,12 +1206,6 @@ msgid "End"
 msgstr ""
 
 msgid "Result"
-msgstr ""
-
-msgid "Accepted"
-msgstr ""
-
-msgid "Rejected"
 msgstr ""
 
 msgid "No"
