@@ -221,8 +221,8 @@ function pkgreq_close($id, $reason, $comments) {
 		    "In-Reply-To: $thread_id\r\n" .
 		    "References: $thread_id\r\n" .
 		    "X-Mailer: AUR";
-	@mail($AUR_REQUEST_ML, "[PRQ#" . $id . "] Request Closed", $body,
-	      $headers);
+	@mail($AUR_REQUEST_ML, "[PRQ#" . $id . "] Request " . ucfirst($reason),
+	      $body, $headers);
 
 	return array(true, __("Request closed successfully."));
 }
