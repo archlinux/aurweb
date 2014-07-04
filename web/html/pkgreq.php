@@ -8,7 +8,14 @@ include_once("pkgfuncs.inc.php");
 set_lang();
 check_sid();
 
-if (!isset($base_id)) {
+if (isset($base_id)) {
+	html_header(__("File Request"));
+	include('pkgreq_form.php');
+} elseif (isset($pkgreq_id)) {
+	html_header(__("Close Request"));
+	$pkgbase_name = pkgreq_get_pkgbase_name($pkgreq_id);
+	include('pkgreq_close_form.php');
+} else {
 	if (!check_user_privileges()) {
 		header('Location: /');
 		exit();
@@ -63,9 +70,6 @@ if (!isset($base_id)) {
 
 	html_header(__("Requests"));
 	include('pkgreq_results.php');
-} else {
-	html_header(__("File Request"));
-	include('pkgreq_form.php');
 }
 
 html_footer(AUR_VERSION);

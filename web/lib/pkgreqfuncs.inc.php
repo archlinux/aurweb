@@ -41,6 +41,22 @@ function pkgreq_list($offset, $limit) {
 }
 
 /**
+ * Obtain the package base that belongs to a package request.
+ *
+ * @param int $id Package request ID to retrieve the package base for
+ *
+ * @return int The name of the corresponding package base
+ */
+function pkgreq_get_pkgbase_name($id) {
+	$dbh = DB::connect();
+
+	$q = "SELECT PackageBaseName FROM PackageRequests ";
+	$q.= "WHERE ID = " . intval($id);
+	$result = $dbh->query($q);
+	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
+/**
  * File a deletion/orphan request against a package base
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
@@ -139,13 +155,17 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
  * @global string $AUR_REQUEST_ML The request notification mailing list
  * @param int $id The package request to close
- * @param bool $accepted True if the request has been accepted, false otherwise
+ * @param string $reason Whether the request was accepted or rejected
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgreq_close($id, $accepted) {
+function pkgreq_close($id, $reason) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
+
+	if ($reason != 'accepted' && $reason != 'rejected') {
+		return array(false, __("Invalid reason."));
+	}
 
 	$dbh = DB::connect();
 	$id = intval($id);
@@ -181,8 +201,7 @@ function pkgreq_close($id, $accepted) {
 	 * user who posted the comment was in.
 	 */
 	$username = username_from_sid($_COOKIE['AURSID']);
-	$body = "Request #" . intval($id) . " has been " .
-		($accepted ? "accepted" : "closed") . " by " .
+	$body = "Request #" . intval($id) . " has been " . $reason . " by " .
 		$username . " [1].\n\n" .
 		"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n";
 	$body = wordwrap($body, 70);

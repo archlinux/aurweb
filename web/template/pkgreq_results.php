@@ -51,8 +51,10 @@
 				<?php if ($row['BaseID']): ?>
 				<?php if ($row['Type'] == 'deletion'): ?>
 				<a href="<?= get_pkgbase_uri($row['Name']) ?>delete/?via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
+				<br/ >
 				<?php elseif ($row['Type'] == 'merge'): ?>
 				<a href="<?= get_pkgbase_uri($row['Name']) ?>merge/?into=<?= urlencode($row['MergeInto']) ?>&via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
+				<br />
 				<?php elseif ($row['Type'] == 'orphan'): ?>
 				<form action="<?= get_pkgbase_uri($row['Name']) . 'disown/'; ?>" method="post">
 					<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
@@ -61,17 +63,7 @@
 				</form>
 				<?php endif; ?>
 				<?php endif; ?>
-				<form action="<?= get_uri('/pkgbase/'); ?>" method="post">
-					<fieldset>
-						<input type="hidden" name="IDs[<?= $row['BaseID'] ?>]" value="1" />
-						<input type="hidden" name="ID" value="<?= $row['BaseID'] ?>" />
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="hidden" name="reqid" value="<?= $row['ID'] ?>" />
-						<div>
-							<input type="submit" class="button text-button" name="do_CloseRequest" value="<?= __("Close") ?>" />
-						</div>
-					</fieldset>
-				</form>
+				<a href="<?= get_pkgreq_route() . '/' . intval($row['ID']) ?>/close/"><?= __('Close') ?></a>
 			</td>
 			<?php else: ?>
 			<td><?= __("Closed") ?></td>

@@ -89,6 +89,25 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 	}
 
 	include get_route('/' . $tokens[1]);
+} elseif (!empty($tokens[1]) && '/' . $tokens[1] == get_pkgreq_route()) {
+	if (!empty($tokens[2])) {
+		/* TODO: Create a proper data structure to pass variables from
+		 * the routing framework to the individual pages instead of
+		 * initializing arbitrary variables here. */
+		if (!empty($tokens[3]) && $tokens[3] == 'close') {
+			$pkgreq_id = $tokens[2];
+		} else {
+			$pkgreq_id = null;
+		}
+
+		if (!$pkgreq_id) {
+			header("HTTP/1.0 404 Not Found");
+			include "./404.php";
+			return;
+		}
+	}
+
+	include get_route('/' . $tokens[1]);
 } elseif (!empty($tokens[1]) && '/' . $tokens[1] == get_user_route()) {
 	if (!empty($tokens[2])) {
 		$_REQUEST['ID'] = uid_from_username($tokens[2]);
