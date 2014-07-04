@@ -156,10 +156,11 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
  * @global string $AUR_REQUEST_ML The request notification mailing list
  * @param int $id The package request to close
  * @param string $reason Whether the request was accepted or rejected
+ * @param string $comments Comments to be added to the notification email
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgreq_close($id, $reason) {
+function pkgreq_close($id, $reason, $comments) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
 
@@ -202,8 +203,13 @@ function pkgreq_close($id, $reason) {
 	 */
 	$username = username_from_sid($_COOKIE['AURSID']);
 	$body = "Request #" . intval($id) . " has been " . $reason . " by " .
-		$username . " [1].\n\n" .
-		"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n";
+		$username . " [1]";
+	if (!empty(trim($comments))) {
+		$body .= ":\n\n" . $comments . "\n\n";
+	} else {
+		$body .= ".\n\n";
+	}
+	$body .= "[1] " . $AUR_LOCATION . get_user_uri($username) . "\n";
 	$body = wordwrap($body, 70);
 	$headers = "MIME-Version: 1.0\r\n" .
 		   "Content-type: text/plain; charset=UTF-8\r\n";

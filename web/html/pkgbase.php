@@ -105,7 +105,7 @@ if (check_token()) {
 			$ret = false;
 		}
 	} elseif (current_action("do_CloseRequest")) {
-		list($ret, $output) = pkgreq_close($_POST['reqid'], $_POST['reason']);
+		list($ret, $output) = pkgreq_close($_POST['reqid'], $_POST['reason'], $_POST['comments']);
 	}
 
 	if (isset($_REQUEST['comment'])) {
