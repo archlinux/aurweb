@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 10:30+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/aur/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -328,6 +328,27 @@ msgstr "マージ"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Trusted User と開発者だけがパッケージをマージできます。"
+
+msgid "File Request"
+msgstr "リクエストを送る"
+
+msgid "Close Request"
+msgstr ""
+
+msgid "First"
+msgstr "最初"
+
+msgid "Previous"
+msgstr "前へ"
+
+msgid "Next"
+msgstr "次へ"
+
+msgid "Last"
+msgstr "最後"
+
+msgid "Requests"
+msgstr "リクエスト"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -686,17 +707,23 @@ msgstr "PKGBUILD に %s 変数がありません。"
 msgid "View packages details for"
 msgstr "パッケージの詳細を見る"
 
-msgid "First"
-msgstr "最初"
+msgid "The comment field must not be empty."
+msgstr ""
 
-msgid "Previous"
-msgstr "前へ"
+msgid "Invalid request type."
+msgstr ""
 
-msgid "Next"
-msgstr "次へ"
+msgid "Added request successfully."
+msgstr ""
 
-msgid "Last"
-msgstr "最後"
+msgid "Invalid reason."
+msgstr ""
+
+msgid "Only TUs and developers can close requests."
+msgstr ""
+
+msgid "Request closed successfully."
+msgstr ""
 
 msgid "Account Type"
 msgstr "アカウントタイプ"
@@ -815,9 +842,6 @@ msgstr "確認"
 msgid "My Packages"
 msgstr "自分のパッケージ"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "アカウント"
 
@@ -863,8 +887,10 @@ msgstr "通知を止める"
 msgid "Notify of new comments"
 msgstr "新しいコメントを通知"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
 
 msgid "Delete Package"
 msgstr "パッケージを削除"
@@ -974,6 +1000,61 @@ msgstr "必要としているパッケージ"
 msgid "Sources"
 msgstr "ソース"
 
+#, php-format
+msgid "File Request: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr ""
+
+msgid "Request type"
+msgstr ""
+
+msgid "Deletion"
+msgstr ""
+
+msgid "Orphan"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Filed by"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "Accepted"
+msgstr "承認されました"
+
+msgid "Rejected"
+msgstr "却下されました"
+
 msgid "Name, Description"
 msgstr "名前、説明"
 
@@ -1047,8 +1128,9 @@ msgid "No packages matched your search criteria."
 msgstr "検索条件に一致するパッケージがありません。"
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "パッケージが %d 個見つかりました。ページ %d / %d。"
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
 
 msgid "Version"
 msgstr "バージョン"
@@ -1125,12 +1207,6 @@ msgstr "終了"
 
 msgid "Result"
 msgstr "結果"
-
-msgid "Accepted"
-msgstr "承認されました"
-
-msgid "Rejected"
-msgstr "却下されました"
 
 msgid "No"
 msgstr "いいえ"

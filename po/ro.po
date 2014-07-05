@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 10:30+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -328,6 +328,27 @@ msgstr "Fuzionare"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Numai Dezvoltatorii și Trusted Users pot fuziona pachete."
+
+msgid "File Request"
+msgstr ""
+
+msgid "Close Request"
+msgstr ""
+
+msgid "First"
+msgstr "Prim"
+
+msgid "Previous"
+msgstr "Precedent"
+
+msgid "Next"
+msgstr "Înainte"
+
+msgid "Last"
+msgstr "Ultim"
+
+msgid "Requests"
+msgstr ""
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -686,17 +707,23 @@ msgstr "Lipsește variabila %s în PKGBUILD."
 msgid "View packages details for"
 msgstr "Vezi detaliile pachetelor pentru"
 
-msgid "First"
-msgstr "Prim"
+msgid "The comment field must not be empty."
+msgstr ""
 
-msgid "Previous"
-msgstr "Precedent"
+msgid "Invalid request type."
+msgstr ""
 
-msgid "Next"
-msgstr "Înainte"
+msgid "Added request successfully."
+msgstr ""
 
-msgid "Last"
-msgstr "Ultim"
+msgid "Invalid reason."
+msgstr ""
+
+msgid "Only TUs and developers can close requests."
+msgstr ""
+
+msgid "Request closed successfully."
+msgstr ""
 
 msgid "Account Type"
 msgstr "Tip cont"
@@ -815,9 +842,6 @@ msgstr "Confirmare"
 msgid "My Packages"
 msgstr "Pachetele mele"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "Contul meu"
 
@@ -863,8 +887,12 @@ msgstr "Dezactivează notificări"
 msgid "Notify of new comments"
 msgstr "Notifică pentru comentarii noi"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Delete Package"
 msgstr "Șterge pachet"
@@ -974,6 +1002,63 @@ msgstr "Cerut de"
 msgid "Sources"
 msgstr "Surse"
 
+#, php-format
+msgid "File Request: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr ""
+
+msgid "Request type"
+msgstr ""
+
+msgid "Deletion"
+msgstr ""
+
+msgid "Orphan"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Filed by"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "Accepted"
+msgstr "Acceptat"
+
+msgid "Rejected"
+msgstr "Respins"
+
 msgid "Name, Description"
 msgstr "Nume, Descriere"
 
@@ -1047,8 +1132,11 @@ msgid "No packages matched your search criteria."
 msgstr "Niciun pachet nu s-a potrivit criteriului de căutare."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d pachete găsite. Pagina %d din %d."
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Version"
 msgstr "Versiune"
@@ -1125,12 +1213,6 @@ msgstr "Sfârșit"
 
 msgid "Result"
 msgstr "Rezultat"
-
-msgid "Accepted"
-msgstr "Acceptat"
-
-msgid "Rejected"
-msgstr "Respins"
 
 msgid "No"
 msgstr "Nu"

@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Giovanni Scafora <giovanni@archlinux.org>, 2011-2014
+# Lorenzo Porta <vindex17@outlook.it>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-05 09:22+0000\n"
+"Last-Translator: Lorenzo Porta <vindex17@outlook.it>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/aur/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -279,7 +280,7 @@ msgstr "Elimina il pacchetto: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
+msgstr "Usa questo modulo per eliminare il pacchetto di base %s%s%s e i seguenti pacchetti da AUR:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "La rimozione di un pacchetto è permanente."
@@ -305,10 +306,10 @@ msgstr "Inserisci il pacchetto: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
+msgstr "Usa questo modulo per inserire il pacchetto di base %s%s%s in un altro pacchetto."
 
 msgid "The following packages will be deleted: "
-msgstr ""
+msgstr "I seguenti pacchetti verranno eliminati:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Una volta che il pacchetto è stato inserito, non può essere recuperato."
@@ -327,6 +328,27 @@ msgstr "Inserisci"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Solo i TU e gli sviluppatori possono unire i pacchetti."
+
+msgid "File Request"
+msgstr ""
+
+msgid "Close Request"
+msgstr ""
+
+msgid "First"
+msgstr "Primo"
+
+msgid "Previous"
+msgstr "Precedente"
+
+msgid "Next"
+msgstr "Successivo"
+
+msgid "Last"
+msgstr "Ultimo"
+
+msgid "Requests"
+msgstr ""
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -356,7 +378,7 @@ msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Errore: il tarball dei sorgenti non può contenere file al di fuori di una directory."
 
 msgid "Error - all files must have permissions of 644 or 755."
-msgstr ""
+msgstr "Errore - tutti i file devono avere i permessi 644 o 755."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Errore: il tarball dei sorgenti non può contenere sottodirectory annidate."
@@ -365,7 +387,7 @@ msgid "Error - source tarball may not contain more than one directory."
 msgstr "Errore: il tarball dei sorgenti non può contenere più di una directory."
 
 msgid "Error - all directories must have permissions of 755."
-msgstr ""
+msgstr "Errore - tutte le cartelle devono avere i permessi 755."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Si è verificato un errore nello scompattare il file inviato. Non esiste il PKGBUILD."
@@ -685,17 +707,23 @@ msgstr "Manca la variabile %s nel PKGBUILD."
 msgid "View packages details for"
 msgstr "Visualizza i dettagli dei pacchetti di"
 
-msgid "First"
-msgstr "Primo"
+msgid "The comment field must not be empty."
+msgstr ""
 
-msgid "Previous"
-msgstr "Precedente"
+msgid "Invalid request type."
+msgstr ""
 
-msgid "Next"
-msgstr "Successivo"
+msgid "Added request successfully."
+msgstr ""
 
-msgid "Last"
-msgstr "Ultimo"
+msgid "Invalid reason."
+msgstr ""
+
+msgid "Only TUs and developers can close requests."
+msgstr ""
+
+msgid "Request closed successfully."
+msgstr ""
 
 msgid "Account Type"
 msgstr "Tipo di account"
@@ -814,9 +842,6 @@ msgstr "Conferma"
 msgid "My Packages"
 msgstr "I miei pacchetti"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "Il mio account"
 
@@ -827,7 +852,7 @@ msgid "unknown"
 msgstr "sconosciuta"
 
 msgid "Package Base Details"
-msgstr ""
+msgstr "Dettagli del pacchetto di base"
 
 msgid "Package Actions"
 msgstr "Azioni del pacchetto"
@@ -862,8 +887,11 @@ msgstr "Disabilita le notifiche"
 msgid "Notify of new comments"
 msgstr "Notifica dei nuovi commenti"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Delete Package"
 msgstr "Elimina il pacchetto"
@@ -938,7 +966,7 @@ msgid "Package Details"
 msgstr "Dettagli del pacchetto"
 
 msgid "Package Base"
-msgstr ""
+msgstr "Pacchetto di base"
 
 msgid "Description"
 msgstr "Descrizione"
@@ -950,19 +978,19 @@ msgid "Visit the website for"
 msgstr "Visita il sito web di"
 
 msgid "Licenses"
-msgstr ""
+msgstr "Licenze"
 
 msgid "Groups"
-msgstr ""
+msgstr "Gruppi"
 
 msgid "Conflicts"
-msgstr ""
+msgstr "Conflitti"
 
 msgid "Provides"
-msgstr ""
+msgstr "Fornisce"
 
 msgid "Replaces"
-msgstr ""
+msgstr "Rimpiazza"
 
 msgid "Dependencies"
 msgstr "Dipendenze"
@@ -973,6 +1001,62 @@ msgstr "Richiesto da"
 msgid "Sources"
 msgstr "Sorgenti"
 
+#, php-format
+msgid "File Request: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr ""
+
+msgid "Request type"
+msgstr ""
+
+msgid "Deletion"
+msgstr ""
+
+msgid "Orphan"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Filed by"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "Accepted"
+msgstr "Accettato"
+
+msgid "Rejected"
+msgstr "Rifiutato"
+
 msgid "Name, Description"
 msgstr "Nome, descrizione"
 
@@ -980,10 +1064,10 @@ msgid "Name Only"
 msgstr "Solo il nome"
 
 msgid "Exact Name"
-msgstr ""
+msgstr "Nome esatto"
 
 msgid "Exact Package Base"
-msgstr ""
+msgstr "Pacchetto di base esatto"
 
 msgid "All"
 msgstr "Tutti"
@@ -1046,8 +1130,10 @@ msgid "No packages matched your search criteria."
 msgstr "Nessun pacchetto corrisponde ai criteri della ricerca."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "Sono stati trovati %d pacchetti. Pagina %d di %d."
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Version"
 msgstr "Versione"
@@ -1125,12 +1211,6 @@ msgstr "Fine"
 msgid "Result"
 msgstr "Risultato"
 
-msgid "Accepted"
-msgstr "Accettato"
-
-msgid "Rejected"
-msgstr "Rifiutato"
-
 msgid "No"
 msgstr "No"
 
@@ -1144,10 +1224,10 @@ msgid "Participation"
 msgstr "Partecipazione"
 
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "Ultimi voti dai TU"
 
 msgid "Last vote"
-msgstr ""
+msgstr "Ultimo voto"
 
 msgid "No results found."
 msgstr "La ricerca non ha prodotto nessun risultato."

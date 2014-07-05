@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 10:30+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/aur/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -329,6 +329,27 @@ msgstr "合并"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "只有受信用户和开发人员才能删除软件包。"
+
+msgid "File Request"
+msgstr "提交请求"
+
+msgid "Close Request"
+msgstr ""
+
+msgid "First"
+msgstr "首先"
+
+msgid "Previous"
+msgstr "上一页"
+
+msgid "Next"
+msgstr "下一页"
+
+msgid "Last"
+msgstr "末页"
+
+msgid "Requests"
+msgstr "请求"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -687,17 +708,23 @@ msgstr "PKGBUILD 中缺少 %s 变量。"
 msgid "View packages details for"
 msgstr "查看软件包详细信息"
 
-msgid "First"
-msgstr "首先"
+msgid "The comment field must not be empty."
+msgstr "评论内容不能为空。"
 
-msgid "Previous"
-msgstr "上一页"
+msgid "Invalid request type."
+msgstr "无效的请求类型。"
 
-msgid "Next"
-msgstr "下一页"
+msgid "Added request successfully."
+msgstr "请求提交成功。"
 
-msgid "Last"
-msgstr "末页"
+msgid "Invalid reason."
+msgstr ""
+
+msgid "Only TUs and developers can close requests."
+msgstr "只有受信用户和开发者可以关闭请求。"
+
+msgid "Request closed successfully."
+msgstr "请求关闭成功。"
 
 msgid "Account Type"
 msgstr "帐户类别"
@@ -816,9 +843,6 @@ msgstr "确认"
 msgid "My Packages"
 msgstr "我的包"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "我的帐户"
 
@@ -864,8 +888,10 @@ msgstr "禁用通知"
 msgid "Notify of new comments"
 msgstr "当有新评论的时候提醒我"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
 
 msgid "Delete Package"
 msgstr "删除软件包"
@@ -975,6 +1001,61 @@ msgstr "被需要:"
 msgid "Sources"
 msgstr "源代码:"
 
+#, php-format
+msgid "File Request: %s"
+msgstr "提交请求：%s"
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "使用这个表格，提交一个针对包基础 %s%s%s 的请求，其中包括下列包："
+
+msgid "Request type"
+msgstr "请求类型"
+
+msgid "Deletion"
+msgstr "删除"
+
+msgid "Orphan"
+msgstr "弃置"
+
+msgid "Comments"
+msgstr "评论"
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr "软件包"
+
+msgid "Filed by"
+msgstr "提交者是"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Accept"
+msgstr "接受"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Closed"
+msgstr "已关闭"
+
+msgid "Accepted"
+msgstr "接受"
+
+msgid "Rejected"
+msgstr "拒绝"
+
 msgid "Name, Description"
 msgstr "名称和描述"
 
@@ -1048,8 +1129,9 @@ msgid "No packages matched your search criteria."
 msgstr "没有相关的包符合您的搜索条件。"
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "找到了 %d 个软件包。第 %d 页，一共 %d 页。"
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
 
 msgid "Version"
 msgstr "版本"
@@ -1126,12 +1208,6 @@ msgstr "结束"
 
 msgid "Result"
 msgstr "结果"
-
-msgid "Accepted"
-msgstr "接受"
-
-msgid "Rejected"
-msgstr "拒绝"
 
 msgid "No"
 msgstr "否"

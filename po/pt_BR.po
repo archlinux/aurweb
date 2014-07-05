@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:17+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 12:26+0000\n"
 "Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/aur/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -329,6 +329,27 @@ msgstr "Mesclar"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Somente Trusted Users e Desenvolvedores podem mesclar pacotes."
+
+msgid "File Request"
+msgstr "Fazer requisição"
+
+msgid "Close Request"
+msgstr "Fechar requisição"
+
+msgid "First"
+msgstr "Primeiro"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Próxima"
+
+msgid "Last"
+msgstr "Última"
+
+msgid "Requests"
+msgstr "Requisições"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -687,17 +708,23 @@ msgstr "Está faltando a variável %s no PKGBUILD."
 msgid "View packages details for"
 msgstr "Ver detalhes de pacotes para"
 
-msgid "First"
-msgstr "Primeiro"
+msgid "The comment field must not be empty."
+msgstr "O campo de comentário não pode estar vazio"
 
-msgid "Previous"
-msgstr "Anterior"
+msgid "Invalid request type."
+msgstr "Tipo de requisição inválida"
 
-msgid "Next"
-msgstr "Próxima"
+msgid "Added request successfully."
+msgstr "Requisição adicionada com sucesso"
 
-msgid "Last"
-msgstr "Última"
+msgid "Invalid reason."
+msgstr "Motivo inválido"
+
+msgid "Only TUs and developers can close requests."
+msgstr "Apenas TUs e desenvolvedores podem fechar requisições"
+
+msgid "Request closed successfully."
+msgstr "Requisição fechada com sucesso"
 
 msgid "Account Type"
 msgstr "Tipo de conta"
@@ -816,9 +843,6 @@ msgstr "Confirmar"
 msgid "My Packages"
 msgstr "Meus pacotes"
 
-msgid "Requests"
-msgstr "Requisições"
-
 msgid " My Account"
 msgstr " Minha conta"
 
@@ -864,8 +888,11 @@ msgstr "Desabilitar notificações"
 msgid "Notify of new comments"
 msgstr "Notificar sobre novos comentários"
 
-msgid "File Request"
-msgstr "Fazer requisição"
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] "%d requisição pentende"
+msgstr[1] "%d requisições pentendes"
 
 msgid "Delete Package"
 msgstr "Excluir pacote"
@@ -975,6 +1002,62 @@ msgstr "Necessário para"
 msgid "Sources"
 msgstr "Fontes"
 
+#, php-format
+msgid "File Request: %s"
+msgstr "Fazer requisição: %s"
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "Use esse formulário para fazer uma requisição sobre o pacote base %s%s%s que inclui os seguintes pacotes:"
+
+msgid "Request type"
+msgstr "Tipo de requisição"
+
+msgid "Deletion"
+msgstr "Exclusão"
+
+msgid "Orphan"
+msgstr ""
+
+msgid "Comments"
+msgstr "Comentários"
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] "%d requisição de pacote encontrada."
+msgstr[1] "%d requisições de pacotes encontradas."
+
+#, php-format
+msgid "Page %d of %d."
+msgstr "Página %d de %d."
+
+msgid "Package"
+msgstr "Pacote"
+
+msgid "Filed by"
+msgstr "Criada por"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Accept"
+msgstr "Aceitar"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "Closed"
+msgstr "Fechada"
+
+msgid "Accepted"
+msgstr "Aceito"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
 msgid "Name, Description"
 msgstr "Nome, descrição"
 
@@ -1048,8 +1131,10 @@ msgid "No packages matched your search criteria."
 msgstr "Nenhum pacote correspondeu aos seus critérios de pesquisa."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d pacotes encontrados. Página %d de %d."
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] "%d pacote encontrado."
+msgstr[1] "%d pacotes encontrados."
 
 msgid "Version"
 msgstr "Versão"
@@ -1126,12 +1211,6 @@ msgstr "Fim"
 
 msgid "Result"
 msgstr "Resultado"
-
-msgid "Accepted"
-msgstr "Aceito"
-
-msgid "Rejected"
-msgstr "Rejeitado"
 
 msgid "No"
 msgstr "Não"

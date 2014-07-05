@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 10:30+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/aur/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -327,6 +327,27 @@ msgstr "Zlúčiť"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Len dôverovaní užívatelia a vývojári môžu zlúčiť balíčky."
+
+msgid "File Request"
+msgstr ""
+
+msgid "Close Request"
+msgstr ""
+
+msgid "First"
+msgstr "Prvý"
+
+msgid "Previous"
+msgstr "Predchádzajúci"
+
+msgid "Next"
+msgstr "Ďaľej "
+
+msgid "Last"
+msgstr "Posledný"
+
+msgid "Requests"
+msgstr ""
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -685,17 +706,23 @@ msgstr "Premenná %s chýba v PKGBUILDe."
 msgid "View packages details for"
 msgstr "Pozri detaily balíčky pre"
 
-msgid "First"
-msgstr "Prvý"
+msgid "The comment field must not be empty."
+msgstr ""
 
-msgid "Previous"
-msgstr "Predchádzajúci"
+msgid "Invalid request type."
+msgstr ""
 
-msgid "Next"
-msgstr "Ďaľej "
+msgid "Added request successfully."
+msgstr ""
 
-msgid "Last"
-msgstr "Posledný"
+msgid "Invalid reason."
+msgstr ""
+
+msgid "Only TUs and developers can close requests."
+msgstr ""
+
+msgid "Request closed successfully."
+msgstr ""
 
 msgid "Account Type"
 msgstr "Typ účtu"
@@ -814,9 +841,6 @@ msgstr "Potvrď"
 msgid "My Packages"
 msgstr "Moje balíčky"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "Môj účet"
 
@@ -862,8 +886,12 @@ msgstr "Vypni upozornenia"
 msgid "Notify of new comments"
 msgstr "Upozorni na nové komentáre"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Delete Package"
 msgstr "Vymaž balíček"
@@ -973,6 +1001,63 @@ msgstr "Vyžadovaný"
 msgid "Sources"
 msgstr "Zdroje"
 
+#, php-format
+msgid "File Request: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr ""
+
+msgid "Request type"
+msgstr ""
+
+msgid "Deletion"
+msgstr ""
+
+msgid "Orphan"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Filed by"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "Accepted"
+msgstr "Prijatý"
+
+msgid "Rejected"
+msgstr "Zamietnutý"
+
 msgid "Name, Description"
 msgstr "meno, popis"
 
@@ -1046,8 +1131,11 @@ msgid "No packages matched your search criteria."
 msgstr "Žiadne balíčky nezodpovedajú vaším vyhľadávacím kritériám."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d nájdených balíčkov. Strana %d z %d."
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Version"
 msgstr "Verzia"
@@ -1124,12 +1212,6 @@ msgstr "Koniec"
 
 msgid "Result"
 msgstr "Výsledok"
-
-msgid "Accepted"
-msgstr "Prijatý"
-
-msgid "Rejected"
-msgstr "Zamietnutý"
 
 msgid "No"
 msgstr "Nie"

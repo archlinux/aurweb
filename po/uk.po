@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 11:55+0000\n"
+"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -330,6 +330,27 @@ msgstr "Об’єднати"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Тільки Довірені Користувачі та Розробники можуть об’єднувати пакунки."
+
+msgid "File Request"
+msgstr "Запит файлу"
+
+msgid "Close Request"
+msgstr "Замкнути запит"
+
+msgid "First"
+msgstr "Перший"
+
+msgid "Previous"
+msgstr "Попередній"
+
+msgid "Next"
+msgstr "Далі"
+
+msgid "Last"
+msgstr "Останній"
+
+msgid "Requests"
+msgstr "Запити"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -688,17 +709,23 @@ msgstr "Пропущено змінну %s в PKGBUILD."
 msgid "View packages details for"
 msgstr "Показати деталі пакунку для "
 
-msgid "First"
-msgstr "Перший"
+msgid "The comment field must not be empty."
+msgstr "Поле коментаря не повинно пустувати."
 
-msgid "Previous"
-msgstr "Попередній"
+msgid "Invalid request type."
+msgstr "Неправильний тип запиту."
 
-msgid "Next"
-msgstr "Далі"
+msgid "Added request successfully."
+msgstr "Запит успішно додано."
 
-msgid "Last"
-msgstr "Останній"
+msgid "Invalid reason."
+msgstr "Неправильна причина."
+
+msgid "Only TUs and developers can close requests."
+msgstr "Тільки TU (довірені користувачі) і розробники можуть закривати запити."
+
+msgid "Request closed successfully."
+msgstr "Запит успішно закритий."
 
 msgid "Account Type"
 msgstr "Тип облікового запису"
@@ -817,9 +844,6 @@ msgstr "Підтвердити"
 msgid "My Packages"
 msgstr "Мої пакунки"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "Мій рахунок"
 
@@ -865,8 +889,12 @@ msgstr "Відключити сповіщення"
 msgid "Notify of new comments"
 msgstr "Сповіщати про нові коментарі"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] "%d запит в обробці"
+msgstr[1] "%d запитів в обробці"
+msgstr[2] "%d запитів в обробці"
 
 msgid "Delete Package"
 msgstr "Вилучити пакунок"
@@ -976,6 +1004,63 @@ msgstr "Потрібен для"
 msgid "Sources"
 msgstr "Сирці"
 
+#, php-format
+msgid "File Request: %s"
+msgstr "Запит файлу: %s"
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "Використайте цю форму для запиту файлу з бази пакунків %s%s%s, який містить наступні пакунки:"
+
+msgid "Request type"
+msgstr "Тип запиту"
+
+msgid "Deletion"
+msgstr "Вилучення"
+
+msgid "Orphan"
+msgstr "Позначити застарілим"
+
+msgid "Comments"
+msgstr "Коментарі"
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] "Знайдено %d запит пакунку."
+msgstr[1] "Знайдено %d запитів пакунку."
+msgstr[2] "Знайдено %d запитів пакунку."
+
+#, php-format
+msgid "Page %d of %d."
+msgstr "Сторінка %d з %d."
+
+msgid "Package"
+msgstr "Пакунок"
+
+msgid "Filed by"
+msgstr "Запаковано через"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Accept"
+msgstr "Прийняти"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Closed"
+msgstr "Замкнено"
+
+msgid "Accepted"
+msgstr "Прийнято"
+
+msgid "Rejected"
+msgstr "Відхилено"
+
 msgid "Name, Description"
 msgstr "Назва, опис"
 
@@ -1049,8 +1134,11 @@ msgid "No packages matched your search criteria."
 msgstr "За вашим запитом не знайдено пакунків."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d пакунків знайдено. Сторінка %d з %d."
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] "Знайдено %d пакунок."
+msgstr[1] "Знайдено %d пакунків."
+msgstr[2] "Знайдено %d пакунків."
 
 msgid "Version"
 msgstr "Версія"
@@ -1127,12 +1215,6 @@ msgstr "Кінець"
 
 msgid "Result"
 msgstr "Результат"
-
-msgid "Accepted"
-msgstr "Прийнято"
-
-msgid "Rejected"
-msgstr "Відхилено"
 
 msgid "No"
 msgstr "Ні"

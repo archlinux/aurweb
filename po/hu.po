@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 10:30+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/aur/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -328,6 +328,27 @@ msgstr "Beolvasztás"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Csak megbízható felhasználók és fejlesztők tudnak csomagokat beolvasztani."
+
+msgid "File Request"
+msgstr ""
+
+msgid "Close Request"
+msgstr ""
+
+msgid "First"
+msgstr "Első"
+
+msgid "Previous"
+msgstr "Előző"
+
+msgid "Next"
+msgstr "Következő"
+
+msgid "Last"
+msgstr "Utolsó"
+
+msgid "Requests"
+msgstr ""
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -686,17 +707,23 @@ msgstr "Hiányzó %s változó a PKGBUILD-ben."
 msgid "View packages details for"
 msgstr "Csomag részleteinek megtekintése –"
 
-msgid "First"
-msgstr "Első"
+msgid "The comment field must not be empty."
+msgstr ""
 
-msgid "Previous"
-msgstr "Előző"
+msgid "Invalid request type."
+msgstr ""
 
-msgid "Next"
-msgstr "Következő"
+msgid "Added request successfully."
+msgstr ""
 
-msgid "Last"
-msgstr "Utolsó"
+msgid "Invalid reason."
+msgstr ""
+
+msgid "Only TUs and developers can close requests."
+msgstr ""
+
+msgid "Request closed successfully."
+msgstr ""
 
 msgid "Account Type"
 msgstr "Fióktípus"
@@ -815,9 +842,6 @@ msgstr "Megerősítés"
 msgid "My Packages"
 msgstr "Csomagjaim"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr " Fiókom"
 
@@ -863,8 +887,11 @@ msgstr "Értesítések kikapcsolása"
 msgid "Notify of new comments"
 msgstr "Értesítés új hozzászólásról"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Delete Package"
 msgstr "Csomag törlése"
@@ -974,6 +1001,62 @@ msgstr "Igényli"
 msgid "Sources"
 msgstr "Források"
 
+#, php-format
+msgid "File Request: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr ""
+
+msgid "Request type"
+msgstr ""
+
+msgid "Deletion"
+msgstr ""
+
+msgid "Orphan"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Filed by"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "Accepted"
+msgstr "Elfogadva"
+
+msgid "Rejected"
+msgstr "Elutasítva"
+
 msgid "Name, Description"
 msgstr "Név, leírás"
 
@@ -1047,8 +1130,10 @@ msgid "No packages matched your search criteria."
 msgstr "Nincs a keresési feltételeknek megfelelő csomag."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d csomag található. %d. oldal, összesen: %d."
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Version"
 msgstr "Verzió"
@@ -1125,12 +1210,6 @@ msgstr "Vége"
 
 msgid "Result"
 msgstr "Eredmény"
-
-msgid "Accepted"
-msgstr "Elfogadva"
-
-msgid "Rejected"
-msgstr "Elutasítva"
 
 msgid "No"
 msgstr "Nem"

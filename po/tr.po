@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:25+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 14:38+0000\n"
 "Last-Translator: Atilla Öntaş <tarakbumba@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -331,6 +331,27 @@ msgstr "Birleştir"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Sadece geliştiriciler ve güvenilir kullanıcılar paket birleştirebilir."
+
+msgid "File Request"
+msgstr "Bir talep doldur"
+
+msgid "Close Request"
+msgstr "Kapama Talebi"
+
+msgid "First"
+msgstr "İlk"
+
+msgid "Previous"
+msgstr "Önceki"
+
+msgid "Next"
+msgstr "İleri"
+
+msgid "Last"
+msgstr "Son"
+
+msgid "Requests"
+msgstr "Talepler"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -689,17 +710,23 @@ msgstr "PKGBUILD içerisinde %s değişkeni eksik."
 msgid "View packages details for"
 msgstr "Paket detaylarını görüntüle"
 
-msgid "First"
-msgstr "İlk"
+msgid "The comment field must not be empty."
+msgstr "Yorum alanı boş olmamalı."
 
-msgid "Previous"
-msgstr "Önceki"
+msgid "Invalid request type."
+msgstr "Geçersiz talep türü."
 
-msgid "Next"
-msgstr "İleri"
+msgid "Added request successfully."
+msgstr "Talep başarıyla eklendi."
 
-msgid "Last"
-msgstr "Son"
+msgid "Invalid reason."
+msgstr "Geçersiz sebep."
+
+msgid "Only TUs and developers can close requests."
+msgstr "Sadece GK'lar ve geliştiriciler talepleri kapatabilirler."
+
+msgid "Request closed successfully."
+msgstr "Talep başarıyla kapatıldı."
 
 msgid "Account Type"
 msgstr "Hesap Türü"
@@ -818,9 +845,6 @@ msgstr "Onayla"
 msgid "My Packages"
 msgstr "Paketlerim"
 
-msgid "Requests"
-msgstr "Talepler"
-
 msgid " My Account"
 msgstr "Hesabım"
 
@@ -866,8 +890,11 @@ msgstr "Bildirimleri kapat"
 msgid "Notify of new comments"
 msgstr "Yeni yorumları bildir"
 
-msgid "File Request"
-msgstr "Bir talep doldur"
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Delete Package"
 msgstr "Paketi Sil"
@@ -977,6 +1004,62 @@ msgstr "İhtiyaç duyanlar"
 msgid "Sources"
 msgstr "Kaynak kodlar"
 
+#, php-format
+msgid "File Request: %s"
+msgstr "Dosya Talebi: %s"
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "Bu formu kullanarak aşağıdaki paketleri içeren paket temeli %s%s%s için talep doldurun:"
+
+msgid "Request type"
+msgstr "Talep türü"
+
+msgid "Deletion"
+msgstr "Silme"
+
+msgid "Orphan"
+msgstr "Öksüz"
+
+msgid "Comments"
+msgstr "Yorumlar"
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr "Paket"
+
+msgid "Filed by"
+msgstr "Dolduran"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Accept"
+msgstr "Kabul"
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Closed"
+msgstr "Kapandı"
+
+msgid "Accepted"
+msgstr "Kabul edildi"
+
+msgid "Rejected"
+msgstr "Reddedildi"
+
 msgid "Name, Description"
 msgstr "İsim, Açıklama"
 
@@ -1050,8 +1133,10 @@ msgid "No packages matched your search criteria."
 msgstr "Arama ölçütünüz ile eşleşen paket bulunamadı."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d paket bulundu. Sayfa %d toplam %d"
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Version"
 msgstr "Sürüm"
@@ -1128,12 +1213,6 @@ msgstr "Son"
 
 msgid "Result"
 msgstr "Sonuç"
-
-msgid "Accepted"
-msgstr "Kabul edildi"
-
-msgid "Rejected"
-msgstr "Reddedildi"
 
 msgid "No"
 msgstr "Hayır"

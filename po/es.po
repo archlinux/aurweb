@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 10:30+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/aur/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -86,13 +86,13 @@ msgid "Type"
 msgstr "Tipo"
 
 msgid "Addition of a TU"
-msgstr "Agregar a un nuevo Usuario de confianza (TU)"
+msgstr "Agregar a un nuevo usuario de confianza"
 
 msgid "Removal of a TU"
-msgstr "Remover a un Usuario de confianza (TU)"
+msgstr "Remover a un usuario de confianza"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr "Remover a un Usuario de confianza (TU) (no declarado inactivo)"
+msgstr "Remover a un usuario de confianza (no declarado inactivo)"
 
 msgid "Amendment of Bylaws"
 msgstr "Enmienda a las Bylaws (Reglas de los TU)"
@@ -110,7 +110,7 @@ msgstr "Inicio"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "¡Bienvenido a AUR! Lea las %sDirectrices del usuario de AUR%s y las %sDirectrices del usuario de confianza (TU)%s para mayor información."
+msgstr "¡Bienvenido a AUR! Lea las %sDirectrices del usuario de AUR%s y las %sDirectrices del usuario de confianza de AUR%s para mayor información."
 
 #, php-format
 msgid ""
@@ -133,7 +133,7 @@ msgid ""
 " structure takes place on %saur-general%s. This list can be used for package"
 " orphan requests, merge requests, and deletion requests. For discussion "
 "relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "La discusión general acerca del «Repositorio de Usuarios de Arch» (AUR) y la estructura de los «Usuarios de confianza» (TU) se llevan lugar en %sla lista de correos aur-general%s. Esta lista puede ser usada para solicitudes de abandono de paquetes, solicitudes de unión, y solicitudes de eliminación. Para discusiones relacionadas con el desarrollo de AUR, use la %slista de correos aur-dev%s"
+msgstr "La discusión general acerca del repositorio de usuarios de Arch (AUR) y la estructura de los usuarios de confianza se llevan lugar en %sla lista de correos aur-general%s. Esta lista puede ser usada para solicitudes de orfandad de paquetes, solicitudes de unión, y solicitudes de eliminación. Para discusiones relacionadas con el desarrollo de AUR, use la %slista de correos aur-dev%s"
 
 msgid "Bug Reporting"
 msgstr "Informe de errores"
@@ -310,7 +310,7 @@ msgstr "Unir paquete: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Este formulario fusionará el paquete base %s%s%s en otro paquete."
+msgstr "Este formulario es para fusionar el paquete base %s%s%s en otro paquete."
 
 msgid "The following packages will be deleted: "
 msgstr "Los siguientes paquetes serán eliminados:"
@@ -328,10 +328,31 @@ msgid "Confirm package merge"
 msgstr "Confirmar unión de paquetes"
 
 msgid "Merge"
-msgstr "Unir"
+msgstr "Unión"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Solamente Usuarios de confianza y Desarrolladores pueden unir paquetes."
+
+msgid "File Request"
+msgstr "Archivo de solicitud"
+
+msgid "Close Request"
+msgstr ""
+
+msgid "First"
+msgstr "Primero"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Last"
+msgstr "Último"
+
+msgid "Requests"
+msgstr "Solicitud"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -467,7 +488,7 @@ msgid "You've already voted for this proposal."
 msgstr "Ya ha votado en esta propuesta."
 
 msgid "Vote ID not valid."
-msgstr "El identificador (ID) del voto no es válido."
+msgstr "El identificador del voto no es válido."
 
 msgid "Current Votes"
 msgstr "Votos actuales"
@@ -690,17 +711,23 @@ msgstr "Falta la variable %s en el PKGBUILD."
 msgid "View packages details for"
 msgstr "Ver detalles del paquete para"
 
-msgid "First"
-msgstr "Primero"
+msgid "The comment field must not be empty."
+msgstr "El campo de comentarios no debe estar vacío."
 
-msgid "Previous"
-msgstr "Anterior"
+msgid "Invalid request type."
+msgstr "Tipo de solicitud no válida."
 
-msgid "Next"
-msgstr "Siguiente"
+msgid "Added request successfully."
+msgstr "Solicitud agregada con éxito."
 
-msgid "Last"
-msgstr "Último"
+msgid "Invalid reason."
+msgstr ""
+
+msgid "Only TUs and developers can close requests."
+msgstr "Solamente los usuarios de confianza y desarrolladores pueden cerrar una solicitud."
+
+msgid "Request closed successfully."
+msgstr "Solicitud cerr.ada exitosamente"
 
 msgid "Account Type"
 msgstr "Tipo de cuenta"
@@ -819,9 +846,6 @@ msgstr "Confirmar"
 msgid "My Packages"
 msgstr "Mis paquetes"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "Mi cuenta"
 
@@ -867,8 +891,11 @@ msgstr "Deshabilitar notificaciones"
 msgid "Notify of new comments"
 msgstr "Notificación de nuevos comentarios"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Delete Package"
 msgstr "Eliminar paquete"
@@ -955,7 +982,7 @@ msgid "Visit the website for"
 msgstr "Visita el sitio web de"
 
 msgid "Licenses"
-msgstr "Licensias"
+msgstr "Licencias"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -977,6 +1004,62 @@ msgstr "Requerido por"
 
 msgid "Sources"
 msgstr "Fuentes"
+
+#, php-format
+msgid "File Request: %s"
+msgstr "Archivo de solicitud: %s"
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "Use este formulario para presentar una solicitud contra el paquete base %s%s%s el cual incluye los siguientes paquetes:"
+
+msgid "Request type"
+msgstr "Tipo de solicitud"
+
+msgid "Deletion"
+msgstr "Borrado"
+
+msgid "Orphan"
+msgstr "Orfandad"
+
+msgid "Comments"
+msgstr "Comentario"
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr "Paquete"
+
+msgid "Filed by"
+msgstr "Solicitado por"
+
+msgid "Date"
+msgstr "Fecha"
+
+msgid "Accept"
+msgstr "Aceptar"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Closed"
+msgstr "Cerrada"
+
+msgid "Accepted"
+msgstr "Aceptado"
+
+msgid "Rejected"
+msgstr "Rechazado"
 
 msgid "Name, Description"
 msgstr "Nombre, descripción"
@@ -1051,8 +1134,10 @@ msgid "No packages matched your search criteria."
 msgstr "Ningún paquete coincide con su criterio de búsqueda."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d paquetes encontrados. Página %d de %d"
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Version"
 msgstr "Versión"
@@ -1130,12 +1215,6 @@ msgstr "Fin"
 msgid "Result"
 msgstr "Resultado"
 
-msgid "Accepted"
-msgstr "Aceptado"
-
-msgid "Rejected"
-msgstr "Rechazado"
-
 msgid "No"
 msgstr "No"
 
@@ -1149,7 +1228,7 @@ msgid "Participation"
 msgstr "Participación"
 
 msgid "Last Votes by TU"
-msgstr "Último voto del Usuario de confianza (TU)"
+msgstr "Último voto del usuario de confianza"
 
 msgid "Last vote"
 msgstr "Último voto"

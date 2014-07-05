@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 10:46+0000\n"
+"Last-Translator: Antoine Lubineau <antoine@lubignon.info>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/aur/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -284,7 +284,7 @@ msgstr "Supprimer le paquet : %s."
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
+msgstr "Utilisez ce formulaire pour supprimer le paquet de base %s%s%s et les paquets suivants de AUR :"
 
 msgid "Deletion of a package is permanent. "
 msgstr "La suppression d’un paquet est permanente."
@@ -332,6 +332,27 @@ msgstr "Fusionner"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Seuls les utilisateurs de confiance et les développeurs peuvent fusionner des paquets."
+
+msgid "File Request"
+msgstr ""
+
+msgid "Close Request"
+msgstr "Fermer la requête"
+
+msgid "First"
+msgstr "Première"
+
+msgid "Previous"
+msgstr "Précédente"
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Last"
+msgstr "Dernière"
+
+msgid "Requests"
+msgstr "Requêtes"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -690,17 +711,23 @@ msgstr "Variable %s manquante dans le PKGBUILD."
 msgid "View packages details for"
 msgstr "Voir le paquet"
 
-msgid "First"
-msgstr "Première"
+msgid "The comment field must not be empty."
+msgstr "La zone de commentaire ne doit pas être vide."
 
-msgid "Previous"
-msgstr "Précédente"
+msgid "Invalid request type."
+msgstr "Type de requête invalide."
 
-msgid "Next"
-msgstr "Suivant"
+msgid "Added request successfully."
+msgstr "Requête ajouté avec succès."
 
-msgid "Last"
-msgstr "Dernière"
+msgid "Invalid reason."
+msgstr "Raison incorrecte."
+
+msgid "Only TUs and developers can close requests."
+msgstr "Seuls les utilisateurs de confiance et les développeurs peuvent fermer les requêtes."
+
+msgid "Request closed successfully."
+msgstr "Requête fermée avec succès."
 
 msgid "Account Type"
 msgstr "Type de compte"
@@ -819,9 +846,6 @@ msgstr "Confirmer"
 msgid "My Packages"
 msgstr "Mes paquets"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "Mon compte"
 
@@ -832,7 +856,7 @@ msgid "unknown"
 msgstr "inconnu"
 
 msgid "Package Base Details"
-msgstr ""
+msgstr "Détails du paquet de base"
 
 msgid "Package Actions"
 msgstr "Actions du paquet"
@@ -844,7 +868,7 @@ msgid "Download tarball"
 msgstr "Télécharger l’archive"
 
 msgid "Search wiki"
-msgstr ""
+msgstr "Rechercher sur le wiki"
 
 msgid "Flagged out-of-date"
 msgstr "Marqué comme périmé"
@@ -867,8 +891,11 @@ msgstr "Désactiver les notifications"
 msgid "Notify of new comments"
 msgstr "Avertir des nouveaux commentaires"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] "%d requête en attente"
+msgstr[1] "%d requêtes en attente"
 
 msgid "Delete Package"
 msgstr "Supprimer le paquet"
@@ -978,6 +1005,62 @@ msgstr "Requis par"
 msgid "Sources"
 msgstr "Sources"
 
+#, php-format
+msgid "File Request: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr ""
+
+msgid "Request type"
+msgstr "Type de requête"
+
+msgid "Deletion"
+msgstr "Suppression"
+
+msgid "Orphan"
+msgstr "Rendre orphelin"
+
+msgid "Comments"
+msgstr "Commentaires"
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr "Page %d sur %d."
+
+msgid "Package"
+msgstr "Paquet"
+
+msgid "Filed by"
+msgstr "Soumise par"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Accept"
+msgstr "Accepter"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Closed"
+msgstr "Fermé"
+
+msgid "Accepted"
+msgstr "Accepté"
+
+msgid "Rejected"
+msgstr "Rejeté"
+
 msgid "Name, Description"
 msgstr "Nom, Description"
 
@@ -1051,8 +1134,10 @@ msgid "No packages matched your search criteria."
 msgstr "Aucun paquet ne correspond à vos critères de recherche."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d paquets trouvés. Page %d sur %d."
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] "%d paquet trouvé."
+msgstr[1] "%d paquets trouvés."
 
 msgid "Version"
 msgstr "Version"
@@ -1129,12 +1214,6 @@ msgstr "Fin"
 
 msgid "Result"
 msgstr "Résultat"
-
-msgid "Accepted"
-msgstr "Accepté"
-
-msgid "Rejected"
-msgstr "Rejeté"
 
 msgid "No"
 msgstr "Non"

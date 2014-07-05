@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-01 20:11+0200\n"
-"PO-Revision-Date: 2014-07-01 18:13+0000\n"
+"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"PO-Revision-Date: 2014-07-04 10:30+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/aur/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -330,6 +330,27 @@ msgstr "Fundir"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Apenas Utilizadores de Confiança e Programadores podem fundir pacotes."
+
+msgid "File Request"
+msgstr "Pedido de Ficheiro"
+
+msgid "Close Request"
+msgstr "Fechar Pedido"
+
+msgid "First"
+msgstr "Primeiro"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Seguinte"
+
+msgid "Last"
+msgstr "Ultimo."
+
+msgid "Requests"
+msgstr "Pedidos"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -688,17 +709,23 @@ msgstr "Variável %s em falta no PKGBUILD."
 msgid "View packages details for"
 msgstr "Ver detalhes do pacote de"
 
-msgid "First"
-msgstr "Primeiro"
+msgid "The comment field must not be empty."
+msgstr "O campo \"comentários\" não pode ficar vazio."
 
-msgid "Previous"
-msgstr "Anterior"
+msgid "Invalid request type."
+msgstr "Tipo de pedido inválido."
 
-msgid "Next"
-msgstr "Seguinte"
+msgid "Added request successfully."
+msgstr "Pedido adicionado com sucesso."
 
-msgid "Last"
-msgstr "Ultimo."
+msgid "Invalid reason."
+msgstr "Razão inválida."
+
+msgid "Only TUs and developers can close requests."
+msgstr "Apenas programadores e TUs podem fechar pedidos."
+
+msgid "Request closed successfully."
+msgstr "Pedido fechado com sucesso."
 
 msgid "Account Type"
 msgstr "Tipo de conta"
@@ -817,9 +844,6 @@ msgstr "Confirmar"
 msgid "My Packages"
 msgstr "Os meus pacotes"
 
-msgid "Requests"
-msgstr ""
-
 msgid " My Account"
 msgstr "A minha Conta"
 
@@ -865,8 +889,11 @@ msgstr "Desativar notificações"
 msgid "Notify of new comments"
 msgstr "Notificar-me sobre novos comentários"
 
-msgid "File Request"
-msgstr ""
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Delete Package"
 msgstr "Eliminar Pacote"
@@ -976,6 +1003,62 @@ msgstr "Exigido por"
 msgid "Sources"
 msgstr "Fontes"
 
+#, php-format
+msgid "File Request: %s"
+msgstr "Pedido de Ficheiro: %s"
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "Use este formulário para enviar um pedido sobre o pacote base %s%s%s que inclui os seguintes pacotes:"
+
+msgid "Request type"
+msgstr "Tipo de pedido"
+
+msgid "Deletion"
+msgstr "Apagar"
+
+msgid "Orphan"
+msgstr "Orfão"
+
+msgid "Comments"
+msgstr "Comentários"
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr ""
+
+msgid "Package"
+msgstr "Pacote"
+
+msgid "Filed by"
+msgstr "Enviado por"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Accept"
+msgstr "Aceitar"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "Closed"
+msgstr "Fechado"
+
+msgid "Accepted"
+msgstr "Aceite"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
 msgid "Name, Description"
 msgstr "Nome, Descrição"
 
@@ -1049,8 +1132,10 @@ msgid "No packages matched your search criteria."
 msgstr "Nenhum pacote corresponde aos critérios de procura."
 
 #, php-format
-msgid "%d packages found. Page %d of %d."
-msgstr "%d pacotes encontrados. Página %d de %d."
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Version"
 msgstr "Versão"
@@ -1127,12 +1212,6 @@ msgstr "Fim"
 
 msgid "Result"
 msgstr "Resultado"
-
-msgid "Accepted"
-msgstr "Aceite"
-
-msgid "Rejected"
-msgstr "Rejeitado"
 
 msgid "No"
 msgstr "Não"
