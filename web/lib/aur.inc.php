@@ -16,6 +16,7 @@ include_once("routing.inc.php");
 include_once("version.inc.php");
 include_once("acctfuncs.inc.php");
 include_once("cachefuncs.inc.php");
+include_once("credentials.inc.php");
 
 /**
  * Check if a visitor is logged in
@@ -404,16 +405,6 @@ function uid_from_email($email) {
 
 	$row = $result->fetch(PDO::FETCH_NUM);
 	return $row[0];
-}
-
-/**
- * Determine if a user has TU or Developer privileges
- *
- * @return bool Return true if the user is a TU or developer, otherwise false
- */
-function check_user_privileges() {
-	$type = account_from_sid($_COOKIE['AURSID']);
-	return ($type == 'Trusted User' || $type == 'Developer');
 }
 
 /**

@@ -1,5 +1,4 @@
 <?php
-$atype = account_from_sid($SID);
 $uid = uid_from_sid($SID);
 
 $pkgid = intval($row['ID']);
@@ -67,8 +66,7 @@ $sources = pkg_sources($row["ID"]);
 						<input type="submit" class="button text-button" name="do_Flag" value="<?= __('Flag package out-of-date') ?>" />
 					</form>
 				</li>
-				<?php elseif (($row["OutOfDateTS"] !== NULL) &&
-				($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
+				<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, array($row["MaintainerUID"]))): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unflag/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
@@ -108,7 +106,7 @@ $sources = pkg_sources($row["ID"]);
 				<?php endif; ?>
 				<li><span class="flagged"><?php if ($row["RequestCount"] > 0) { echo _n('%d pending request', '%d pending requests', $row["RequestCount"]); } ?></span></li>
 				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'request/'; ?>"><?= __('File Request'); ?></a></li>
-				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+				<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>
 				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
 				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'merge/'; ?>"><?= __('Merge Package'); ?></a></li>
 				<?php endif; ?>
@@ -121,8 +119,7 @@ $sources = pkg_sources($row["ID"]);
 						<input type="submit" class="button text-button" name="do_Adopt" value="<?= __('Adopt Package') ?>" />
 					</form>
 				</li>
-				<?php elseif ($uid && $uid == $row["MaintainerUID"] ||
-					$atype == "Trusted User" || $atype == "Developer"): ?>
+				<?php elseif (has_credential(CRED_PKGBASE_DISOWN, array($row["MaintainerUID"]))): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'disown/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
@@ -150,8 +147,7 @@ $sources = pkg_sources($row["ID"]);
 		<tr>
 			<th><?= __('Category') . ': ' ?></th>
 <?php
-if ($SID && ($uid == $row["MaintainerUID"] ||
-	($atype == "Developer" || $atype == "Trusted User"))):
+if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
 ?>
 			<td>
 				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($row['BaseName']), ENT_QUOTES); ?>">
@@ -312,7 +308,7 @@ if ($row["PackagerUID"]):
 		</tr>
 		<tr>
 			<th><?= __('Votes') . ': ' ?></th>
-<?php if ($atype == "Developer" || $atype == "Trusted User"): ?>
+<?php if (has_credential(CRED_PKGBASE_LIST_VOTERS)): ?>
 <?php if ($USE_VIRTUAL_URLS): ?>
 			<td><a href="<?= get_pkgbase_uri($row['BaseName']); ?>voters/"><?= $votes ?></a></td>
 <?php else: ?>

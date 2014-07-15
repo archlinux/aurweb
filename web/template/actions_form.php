@@ -20,12 +20,11 @@
 
 		<?php if ($row["OutOfDateTS"] === NULL): ?>
 			<input type="submit" class="button" name="do_Flag" value="<?= __("Flag Out-of-date") ?>" />
-		<?php elseif (($row["OutOfDateTS"] !== NULL) &&
-		($uid == $row["MaintainerUID"] || $atype == "Trusted User" || $atype == "Developer")): ?>
+		<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, array($row["MaintainerUID"]))): ?>
 			<input type="submit" class="button" name="do_UnFlag" value="<?= __("UnFlag Out-of-date") ?>" />
 		<?php endif; ?>
 			
-		<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+		<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>
 			<input type="submit" class="button" name="do_Delete" value="<?= __("Delete Packages") ?>" />
 			<label for="merge_Into" ><?= __("Merge into") ?></label>
 			<input type="text" id="merge_Into" name="merge_Into" />

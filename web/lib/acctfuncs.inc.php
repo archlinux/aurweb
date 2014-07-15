@@ -42,7 +42,6 @@ function html_format_pgp_fingerprint($fingerprint) {
  * Loads the account editing form, with any values that are already saved
  *
  * @global array $SUPPORTED_LANGS Languages that are supported by the AUR
- * @param string $UTYPE User type of the account accessing the form
  * @param string $A Form to use, either UpdateAccount or NewAccount
  * @param string $U The username to display
  * @param string $T The account type of the displayed user
@@ -59,7 +58,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  *
  * @return void
  */
-function display_account_form($UTYPE,$A,$U="",$T="",$S="",
+function display_account_form($A,$U="",$T="",$S="",
 		$E="",$P="",$C="",$R="",$L="",$I="",$K="",$J="", $UID=0) {
 	global $SUPPORTED_LANGS;
 
@@ -71,7 +70,6 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
  * Process information given to new/edit account form
  *
  * @global array $SUPPORTED_LANGS Languages that are supported by the AUR
- * @param string $UTYPE The account type of the user modifying the account
  * @param string $TYPE Either "edit" for editing or "new" for registering an account
  * @param string $A Form to use, either UpdateAccount or NewAccount
  * @param string $U The username for the account
@@ -89,7 +87,7 @@ function display_account_form($UTYPE,$A,$U="",$T="",$S="",
  *
  * @return string|void Return void if successful, otherwise return error
  */
-function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
+function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 			$P="",$C="",$R="",$L="",$I="",$K="",$J="",$UID=0) {
 	global $SUPPORTED_LANGS, $AUR_LOCATION;
 
@@ -143,7 +141,8 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("The PGP key fingerprint is invalid.");
 	}
 
-	if (($UTYPE == "User" && $T > 1) || ($UTYPE == "Trusted User" && $T > 2)) {
+	$atype = account_from_sid($_COOKIE['AURSID']);
+	if (($atype == "User" && $T > 1) || ($atype == "Trusted User" && $T > 2)) {
 		$error = __("Cannot increase account permissions.");
 	}
 	if (!$error && !array_key_exists($L, $SUPPORTED_LANGS)) {
@@ -188,7 +187,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 
 	if ($error) {
 		print "<ul class='errorlist'><li>".$error."</li></ul>\n";
-		display_account_form($UTYPE, $A, $U, $T, $S, $E, "", "",
+		display_account_form($A, $U, $T, $S, $E, "", "",
 				$R, $L, $I, $K, $J, $UID);
 		return;
 	}
@@ -299,7 +298,6 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
 /**
  * Display the search results page
  *
- * @param string $UTYPE User type of the account accessing the form
  * @param string $O The offset for the results page
  * @param string $SB The column to sort the results page by
  * @param string $U The username search criteria
@@ -312,7 +310,7 @@ function process_account_form($UTYPE,$TYPE,$A,$U="",$T="",$S="",$E="",
  *
  * @return void
  */
-function search_results_page($UTYPE,$O=0,$SB="",$U="",$T="",
+function search_results_page($O=0,$SB="",$U="",$T="",
 		$S="",$E="",$R="",$I="",$K="") {
 
 	$HITS_PER_PAGE = 50;
@@ -1098,28 +1096,15 @@ function cast_proposal_vote($voteid, $uid, $vote, $newtotal) {
 /**
  * Verify a user has the proper permissions to edit an account
  *
- * @param string $atype Account type of the editing user
  * @param array $acctinfo User account information for edited account
- * @param int $uid User ID of the editing user
  *
  * @return bool True if permission to edit the account, otherwise false
  */
-function can_edit_account($atype, $acctinfo, $uid) {
-	/* Developers can edit any account */
-	if ($atype == 'Developer') {
-		return true;
+function can_edit_account($acctinfo) {
+	if ($acctinfo['AccountType'] == 'Developer') {
+		return has_credential(CRED_ACCOUNT_EDIT_DEV);
 	}
 
-	/* Trusted Users can edit all accounts except Developer accounts */
-	if ($atype == 'Trusted User' &&
-		$acctinfo['AccountType'] != 'Developer') {
-			return true;
-	}
-
-	/* Users can edit only their own account */
-	if ($acctinfo['ID'] == $uid) {
-		return true;
-	}
-
-	return false;
+	$uid = uid_from_sid($_COOKIE['AURSID']);
+	return has_credential(CRED_ACCOUNT_EDIT, array($uid));
 }

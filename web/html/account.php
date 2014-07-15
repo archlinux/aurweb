@@ -18,18 +18,14 @@ echo "  <h2>".__("Accounts")."</h2>\n";
 $action = in_request("Action");
 
 if (isset($_COOKIE["AURSID"])) {
-	# visitor is logged in
-	#
-	$atype = account_from_sid($_COOKIE["AURSID"]);
-
 	if ($action == "SearchAccounts") {
 
 		# security check
 		#
-		if ($atype == "Trusted User" || $atype == "Developer") {
+		if (has_credential(CRED_ACCOUNT_SEARCH)) {
 			# the user has entered search criteria, find any matching accounts
 			#
-			search_results_page($atype, in_request("O"), in_request("SB"),
+			search_results_page(in_request("O"), in_request("SB"),
 					in_request("U"), in_request("T"), in_request("S"),
 					in_request("E"), in_request("R"), in_request("I"),
 					in_request("K"));
@@ -48,8 +44,8 @@ if (isset($_COOKIE["AURSID"])) {
 			print __("Could not retrieve information for the specified user.");
 		} else {
 			/* Verify user has permission to edit the account */
-			if (can_edit_account($atype, $row, uid_from_sid($_COOKIE["AURSID"]))) {
-				display_account_form($atype, "UpdateAccount", $row["Username"],
+			if (can_edit_account($row)) {
+				display_account_form("UpdateAccount", $row["Username"],
 					$row["AccountTypeID"], $row["Suspended"], $row["Email"],
 					"", "", $row["RealName"], $row["LangPreference"],
 					$row["IRCNick"], $row["PGPKey"],
@@ -70,22 +66,20 @@ if (isset($_COOKIE["AURSID"])) {
 		}
 
 	} elseif ($action == "UpdateAccount") {
-		$uid = uid_from_sid($_COOKIE['AURSID']);
-
 		/* Details for account being updated */
 		$acctinfo = account_details(in_request('ID'), in_request('U'));
 
 		/* Verify user permissions and that the request is a valid POST */
-		if (can_edit_account($atype, $acctinfo, $uid) && check_token()) {
+		if (can_edit_account($acctinfo) && check_token()) {
 			/* Update the details for the existing account */
-			process_account_form($atype, "edit", "UpdateAccount",
+			process_account_form("edit", "UpdateAccount",
 					in_request("U"), in_request("T"), in_request("S"),
 					in_request("E"), in_request("P"), in_request("C"),
 					in_request("R"), in_request("L"), in_request("I"),
 					in_request("K"), in_request("J"), in_request("ID"));
 		}
 	} else {
-		if ($atype == "Trusted User" || $atype == "Developer") {
+		if (has_credential(CRED_ACCOUNT_SEARCH)) {
 			# display the search page if they're a TU/dev
 			#
 			print __("Use this form to search existing accounts.")."<br />\n";

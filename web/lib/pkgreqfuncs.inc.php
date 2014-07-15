@@ -182,7 +182,7 @@ function pkgreq_close($id, $reason, $comments) {
 	$dbh = DB::connect();
 	$id = intval($id);
 
-	if (!check_user_privileges()) {
+	if (!has_credential(CRED_PKGREQ_CLOSE)) {
 		return array(false, __("Only TUs and developers can close requests."));
 	}
 

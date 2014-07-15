@@ -6,11 +6,10 @@ include_once('pkgfuncs.inc.php');
 $SID = $_COOKIE['AURSID'];
 $pkgname = htmlspecialchars($_GET['N']);
 $votes = pkgbase_votes_from_name($pkgname);
-$atype = account_from_sid($SID);
 
 html_header(__("Voters"));
 
-if ($atype == 'Trusted User' || $atype== 'Developer'):
+if (has_credential(CRED_PKGBASE_LIST_VOTERS)):
 ?>
 
 <div class="box">

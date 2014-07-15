@@ -43,7 +43,7 @@
 					<?= $row["InactivityTS"] ? __("Inactive since") . ' ' . date("Y-m-d H:i", $row["InactivityTS"]) : __("Active"); ?>
 					</td>
 				</tr>
-				<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+				<?php if (has_credential(CRED_ACCOUNT_LAST_LOGIN)): ?>
 				<tr>
 					<th><?= __("Last Login") . ":" ?></th>
 					<td>
@@ -55,7 +55,7 @@
 					<th>Links:</th>
 					<td><ul>
 						<li><a href="<?= get_uri('/packages/'); ?>?K=<?= $row['Username'] ?>&amp;SeB=m"><?= __("View this user's packages") ?></a></li>
-					<?php if (can_edit_account($atype, $row, uid_from_sid($_COOKIE['AURSID']))): ?>
+					<?php if (can_edit_account($row)): ?>
 						<li><a href="<?= get_user_uri($row['Username']); ?>edit"><?= __("Edit this user's account") ?></a></li>
 					<?php endif; ?>
 					</ul></td>

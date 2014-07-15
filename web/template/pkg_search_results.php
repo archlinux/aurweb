@@ -1,10 +1,4 @@
 <?php
-if (isset($_COOKIE['AURSID'])) {
-	$atype = account_from_sid($_COOKIE['AURSID']);
-} else {
-	$atype = "";
-}
-
 if (!$result): ?>
 	<div class="box"><p><?= __("Error retrieving package list.") ?></p></div>
 <?php elseif ($total == 0): ?>
@@ -119,13 +113,13 @@ if (!$result): ?>
 						<option value="do_UnFlag"><?= __("Unflag Out-of-date") ?></option>
 						<option value="do_Adopt"><?= __("Adopt Packages") ?></option>
 						<option value="do_Disown"><?= __("Disown Packages") ?></option>
-						<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+						<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>
 						<option value="do_Delete"><?= __("Delete Packages") ?></option>
 						<?php endif; ?>
 						<option value="do_Notify"><?= __("Notify") ?></option>
 						<option value="do_UnNotify"><?= __("UnNotify") ?></option>
 					</select>
-					<?php if ($atype == "Trusted User" || $atype == "Developer"): ?>
+					<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>
 						<label for="merge_Into"><?= __("Merge into") ?></label>
 						<input type="text" id="merge_Into" name="merge_Into" />
 						<input type="checkbox" name="confirm_Delete" value="1" /> <?= __("Confirm") ?>

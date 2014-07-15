@@ -346,15 +346,14 @@ function pkgbase_maintainer_uid($base_id) {
  * Flag package(s) as out-of-date
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
- * @param string $atype Account type, output of account_from_sid
  * @param array $base_ids Array of package base IDs to flag/unflag
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_flag($atype, $base_ids) {
+function pkgbase_flag($base_ids) {
 	global $AUR_LOCATION;
 
-	if (!$atype) {
+	if (!has_credential(CRED_PKGBASE_FLAG)) {
 		return array(false, __("You must be logged in before you can flag packages."));
 	}
 
@@ -404,13 +403,13 @@ function pkgbase_flag($atype, $base_ids) {
 /**
  * Unflag package(s) as out-of-date
  *
- * @param string $atype Account type, output of account_from_sid
  * @param array $base_ids Array of package base IDs to flag/unflag
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_unflag($atype, $base_ids) {
-	if (!$atype) {
+function pkgbase_unflag($base_ids) {
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if (!$uid) {
 		return array(false, __("You must be logged in before you can unflag packages."));
 	}
 
@@ -425,8 +424,8 @@ function pkgbase_unflag($atype, $base_ids) {
 	$q.= "OutOfDateTS = NULL ";
 	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
 
-	if ($atype != "Trusted User" && $atype != "Developer") {
-		$q.= "AND MaintainerUID = " . uid_from_sid($_COOKIE["AURSID"]);
+	if (!has_credential(CRED_PKGBASE_UNFLAG)) {
+		$q.= "AND MaintainerUID = " . $uid;
 	}
 
 	$result = $dbh->exec($q);
@@ -439,19 +438,14 @@ function pkgbase_unflag($atype, $base_ids) {
 /**
  * Delete package bases
  *
- * @param string $atype Account type, output of account_from_sid
  * @param array $base_ids Array of package base IDs to delete
  * @param int $merge_base_id Package base to merge the deleted ones into
  * @param int $via Package request to close upon deletion
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_delete ($atype, $base_ids, $merge_base_id, $via) {
-	if (!$atype) {
-		return array(false, __("You must be logged in before you can delete packages."));
-	}
-
-	if ($atype != "Trusted User" && $atype != "Developer") {
+function pkgbase_delete ($base_ids, $merge_base_id, $via) {
+	if (!has_credential(CRED_PKGBASE_DELETE)) {
 		return array(false, __("You do not have permission to delete packages."));
 	}
 
@@ -552,15 +546,15 @@ function pkgbase_delete ($atype, $base_ids, $merge_base_id, $via) {
 /**
  * Adopt or disown packages
  *
- * @param string $atype Account type, output of account_from_sid
  * @param array $base_ids Array of package base IDs to adopt/disown
  * @param bool $action Adopts if true, disowns if false. Adopts by default
  * @param int $via Package request to close upon adoption
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_adopt ($atype, $base_ids, $action=true, $via) {
-	if (!$atype) {
+function pkgbase_adopt ($base_ids, $action=true, $via) {
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if (!$uid) {
 		if ($action) {
 			return array(false, __("You must be logged in before you can adopt packages."));
 		} else {
@@ -579,23 +573,21 @@ function pkgbase_adopt ($atype, $base_ids, $action=true, $via) {
 
 	$dbh = DB::connect();
 
-	$field = "MaintainerUID";
 	$q = "UPDATE PackageBases ";
-
 	if ($action) {
-		$user = uid_from_sid($_COOKIE["AURSID"]);
+		$q.= "SET MaintainerUID = $uid ";
 	} else {
-		$user = 'NULL';
+		$q.= "SET MaintainerUID = NULL ";
 	}
-
-	$q.= "SET $field = $user ";
 	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
 
-	if ($action && $atype == "User") {
+	if ($action && !has_credential(CRED_PKGBASE_ADOPT)) {
 		/* Regular users may only adopt orphan packages. */
-		$q.= "AND $field IS NULL ";
-	} else if ($atype == "User") {
-		$q.= "AND $field = " . uid_from_sid($_COOKIE["AURSID"]);
+		$q.= "AND MaintainerUID IS NULL";
+	}
+	if (!$action && !has_credential(CRED_PKGBASE_DISOWN)) {
+		/* Regular users may only disown their own packages. */
+		$q.= "AND MaintainerUID = " . $uid;
 	}
 
 	$dbh->exec($q);
@@ -615,14 +607,13 @@ function pkgbase_adopt ($atype, $base_ids, $action=true, $via) {
 /**
  * Vote and un-vote for packages
  *
- * @param string $atype Account type, output of account_from_sid
  * @param array $base_ids Array of package base IDs to vote/un-vote
  * @param bool $action Votes if true, un-votes if false. Votes by default
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_vote ($atype, $base_ids, $action=true) {
-	if (!$atype) {
+function pkgbase_vote ($base_ids, $action=true) {
+	if (!has_credential(CRED_PKGBASE_VOTE)) {
 		if ($action) {
 			return array(false, __("You must be logged in before you can vote for packages."));
 		} else {
@@ -767,13 +758,12 @@ function pkgbase_user_notify($uid, $base_id) {
 /**
  * Toggle notification of packages
  *
- * @param string $atype Account type, output of account_from_sid
  * @param array $base_ids Array of package base IDs to toggle
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_notify ($atype, $base_ids, $action=true) {
-	if (!$atype) {
+function pkgbase_notify ($base_ids, $action=true) {
+	if (!has_credential(CRED_PKGBASE_NOTIFY)) {
 		return;
 	}
 
@@ -845,12 +835,11 @@ function pkgbase_notify ($atype, $base_ids, $action=true) {
 /**
  * Delete a package comment
  *
- * @param string $atype Account type, output of account_from_sid
- *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_delete_comment($atype) {
-	if (!$atype) {
+function pkgbase_delete_comment() {
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if (!$uid) {
 		return array(false, __("You must be logged in before you can edit package information."));
 	}
 
@@ -861,8 +850,7 @@ function pkgbase_delete_comment($atype) {
 	}
 
 	$dbh = DB::connect();
-	$uid = uid_from_sid($_COOKIE["AURSID"]);
-	if (can_delete_comment($comment_id, $atype, $uid)) {
+	if (can_delete_comment($comment_id)) {
 		$q = "UPDATE PackageComments ";
 		$q.= "SET DelUsersID = ".$uid." ";
 		$q.= "WHERE ID = ".intval($comment_id);
@@ -877,12 +865,12 @@ function pkgbase_delete_comment($atype) {
  * Change package base category
  *
  * @param int Package base ID of the package base to modify
- * @param string $atype Account type, output of account_from_sid
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_change_category($base_id, $atype) {
-	if (!$atype)  {
+function pkgbase_change_category($base_id) {
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if (!$uid) {
 		return array(false, __("You must be logged in before you can edit package information."));
 	}
 
@@ -906,21 +894,16 @@ function pkgbase_change_category($base_id, $atype) {
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
 	}
-	else {
+
+	if (!$result || !has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))) {
 		return array(false, __("You are not allowed to change this package category."));
 	}
 
-	$uid = uid_from_sid($_COOKIE["AURSID"]);
-	if ($uid == $row["MaintainerUID"] ||
-	($atype == "Developer" || $atype == "Trusted User")) {
-		$q = "UPDATE PackageBases ";
-		$q.= "SET CategoryID = ".intval($category_id)." ";
-		$q.= "WHERE ID = ".intval($base_id);
-		$dbh->exec($q);
-		return array(true, __("Package category changed."));
-	} else {
-		return array(false, __("You are not allowed to change this package category."));
-	}
+	$q = "UPDATE PackageBases ";
+	$q.= "SET CategoryID = ".intval($category_id)." ";
+	$q.= "WHERE ID = ".intval($base_id);
+	$dbh->exec($q);
+	return array(true, __("Package category changed."));
 }
 
 /**

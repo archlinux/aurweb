@@ -42,13 +42,10 @@ else:
 					<td><?php $row["IRCNick"] ? print htmlspecialchars($row["IRCNick"],ENT_QUOTES) : print "&nbsp;" ?></td>
 					<td><?php $row["PGPKey"] ? print html_format_pgp_fingerprint($row["PGPKey"]) : print "&nbsp;" ?></td>
 					<td>
-					<?php
-						if ($UTYPE == "Trusted User" && $row["AccountType"] == "Developer"):
-							# TUs can't edit devs
-							print "&nbsp;";
-						else:
-					?>
-						<a href="<?= get_user_uri($row["Username"]) . "edit/" ?>"><?= __("Edit") ?></a>
+					<?php if (can_edit_account($row)): ?>
+					<a href="<?= get_user_uri($row["Username"]) . "edit/" ?>"><?= __("Edit") ?></a>
+					<?php else: ?>
+					&nbsp;
 					<?php endif; ?>
 					</td>
 				</tr>

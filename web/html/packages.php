@@ -35,13 +35,6 @@ if (isset($pkgname)) {
 	$title = __("Packages");
 }
 
-# Retrieve account type
-if (isset($_COOKIE["AURSID"])) {
-	$atype = account_from_sid($_COOKIE["AURSID"]);
-} else {
-	$atype = "";
-}
-
 $details = array();
 if (isset($pkgname)) {
 	$details = pkg_get_details($pkgid);

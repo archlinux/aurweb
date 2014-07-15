@@ -57,15 +57,15 @@
 					<li><a href="<?= get_uri('/packages/'); ?>"><?= __("Packages"); ?></a></li>
 					<?php if (isset($_COOKIE['AURSID'])): ?>
 						<li><a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __("My Packages"); ?></a></li>
-						<?php if (check_user_privileges()): ?>
+						<?php if (has_credential(CRED_PKGREQ_LIST)): ?>
 						<li><a href="<?= get_uri('/requests/') ; ?>"><?= __("Requests"); ?></a></li>
 						<?php endif; ?>
 						<li><a href="<?= get_uri('/submit/'); ?>"><?= __("Submit"); ?></a></li>
-						<?php if (check_user_privileges()): ?>
+						<?php if (has_credential(CRED_ACCOUNT_SEARCH)): ?>
 						<li><a href="<?= get_uri('/accounts/') ; ?>"><?= __("Accounts"); ?></a></li>
 						<?php endif; ?>
 						<li><a href="<?= get_user_uri(username_from_sid($_COOKIE['AURSID'])) . 'edit/'; ?>"><?= __(" My Account"); ?></a></li>
-						<?php if (check_user_privileges()): ?><li><a href="<?= get_uri('/tu/'); ?>"><?= __("Trusted User"); ?></a></li><?php endif; ?>
+						<?php if (has_credential(CRED_TU_LIST_VOTES)): ?><li><a href="<?= get_uri('/tu/'); ?>"><?= __("Trusted User"); ?></a></li><?php endif; ?>
 						<li><a href="<?= get_uri('/logout/'); ?>"><?= __("Logout"); ?></a></li>
 					<?php else: ?>
 						<li><a href="<?= get_uri('/register/'); ?>"><?= __("Register"); ?></a></li>

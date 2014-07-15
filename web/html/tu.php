@@ -14,12 +14,7 @@ html_header($title);
 $pp = 10;
 $prev_Len = 75;
 
-$atype = "";
-if (isset($_COOKIE["AURSID"])) {
-  $atype = account_from_sid($_COOKIE["AURSID"]);
-}
-
-if ($atype == "Trusted User" || $atype == "Developer") {
+if (has_credential(CRED_TU_LIST_VOTES)) {
 
 	if (isset($_GET['id'])) {
 		if (is_numeric($_GET['id'])) {
@@ -39,7 +34,7 @@ if ($atype == "Trusted User" || $atype == "Developer") {
 				if ($isrunning == 0) {
 					$canvote = 0;
 					$errorvote = __("Voting is closed for this proposal.");
-				} else if ($atype == "Developer") {
+				} else if (!has_credential(CRED_TU_VOTE)) {
 					$canvote = 0;
 					$errorvote = __("Only Trusted Users are allowed to vote.");
 				} else if ($row['User'] == username_from_sid($_COOKIE["AURSID"])) {

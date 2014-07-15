@@ -11,13 +11,10 @@ $title = __("Add Proposal");
 html_header($title);
 
 if (isset($_COOKIE["AURSID"])) {
-  $atype = account_from_sid($_COOKIE["AURSID"]);
-  $uid = uid_from_sid($_COOKIE["AURSID"]);
-} else {
-  $atype = "";
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
 }
 
-if ($atype == "Trusted User" || $atype == "Developer") {
+if (has_credential(CRED_TU_ADD_VOTE)) {
 
 	if (!empty($_POST['addVote']) && !check_token()) {
 		$error = __("Invalid token for user action.");

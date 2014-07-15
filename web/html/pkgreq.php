@@ -16,7 +16,7 @@ if (isset($base_id)) {
 	$pkgbase_name = pkgreq_get_pkgbase_name($pkgreq_id);
 	include('pkgreq_close_form.php');
 } else {
-	if (!check_user_privileges()) {
+	if (!has_credential(CRED_PKGREQ_LIST)) {
 		header('Location: /');
 		exit();
 	}

@@ -32,13 +32,6 @@ if (!isset($base_id) || !isset($pkgbase_name)) {
 /* Set the title to package base name. */
 $title = $pkgbase_name;
 
-/* Retrieve account type. */
-if (isset($_COOKIE["AURSID"])) {
-	$atype = account_from_sid($_COOKIE["AURSID"]);
-} else {
-	$atype = "";
-}
-
 /* Grab the list of package base IDs to be operated on. */
 $ids = array();
 if (isset($_POST['IDs'])) {
@@ -55,29 +48,29 @@ $ret = false;
 $output = "";
 if (check_token()) {
 	if (current_action("do_Flag")) {
-		list($ret, $output) = pkgbase_flag($atype, $ids);
+		list($ret, $output) = pkgbase_flag($ids);
 	} elseif (current_action("do_UnFlag")) {
-		list($ret, $output) = pkgbase_unflag($atype, $ids);
+		list($ret, $output) = pkgbase_unflag($ids);
 	} elseif (current_action("do_Adopt")) {
-		list($ret, $output) = pkgbase_adopt($atype, $ids, true, NULL);
+		list($ret, $output) = pkgbase_adopt($ids, true, NULL);
 	} elseif (current_action("do_Disown")) {
 		$via = isset($_POST['via']) ? $_POST['via'] : NULL;
-		list($ret, $output) = pkgbase_adopt($atype, $ids, false, $via);
+		list($ret, $output) = pkgbase_adopt($ids, false, $via);
 	} elseif (current_action("do_Vote")) {
-		list($ret, $output) = pkgbase_vote($atype, $ids, true);
+		list($ret, $output) = pkgbase_vote($ids, true);
 	} elseif (current_action("do_UnVote")) {
-		list($ret, $output) = pkgbase_vote($atype, $ids, false);
+		list($ret, $output) = pkgbase_vote($ids, false);
 	} elseif (current_action("do_Delete")) {
 		if (isset($_POST['confirm_Delete'])) {
 			$via = isset($_POST['via']) ? $_POST['via'] : NULL;
 			if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
-				list($ret, $output) = pkgbase_delete($atype, $ids, NULL, $via);
+				list($ret, $output) = pkgbase_delete($ids, NULL, $via);
 				unset($_GET['ID']);
 			}
 			else {
 				$merge_base_id = pkgbase_from_name($_POST['merge_Into']);
 				if ($merge_base_id) {
-					list($ret, $output) = pkgbase_delete($atype, $ids, $merge_base_id, $via);
+					list($ret, $output) = pkgbase_delete($ids, $merge_base_id, $via);
 					unset($_GET['ID']);
 				} else {
 					$output = __("Cannot find package to merge votes and comments into.");
@@ -90,13 +83,13 @@ if (check_token()) {
 			$ret = false;
 		}
 	} elseif (current_action("do_Notify")) {
-		list($ret, $output) = pkgbase_notify($atype, $ids);
+		list($ret, $output) = pkgbase_notify($ids);
 	} elseif (current_action("do_UnNotify")) {
-		list($ret, $output) = pkgbase_notify($atype, $ids, false);
+		list($ret, $output) = pkgbase_notify($ids, false);
 	} elseif (current_action("do_DeleteComment")) {
-		list($ret, $output) = pkgbase_delete_comment($atype);
+		list($ret, $output) = pkgbase_delete_comment();
 	} elseif (current_action("do_ChangeCategory")) {
-		list($ret, $output) = pkgbase_change_category($base_id, $atype);
+		list($ret, $output) = pkgbase_change_category($base_id);
 	} elseif (current_action("do_FileRequest")) {
 		list($ret, $output) = pkgreq_file($ids, $_POST['type'], $_POST['merge_into'], $_POST['comments']);
 	} elseif (current_action("do_CloseRequest")) {

@@ -9,17 +9,15 @@ include_once("pkgbasefuncs.inc.php");
  * comments. This function is used for the backend side of comment deletion.
  *
  * @param string $comment_id The comment ID in the database
- * @param string $atype The account type of the user trying to delete a comment
- * @param string|int $uid The user ID of the individual trying to delete a comment
  *
  * @return bool True if the user can delete the comment, otherwise false
  */
-function can_delete_comment($comment_id=0, $atype="", $uid=0) {
-	if (!$uid) {
+function can_delete_comment($comment_id=0) {
+	if (!uid_from_sid($_COOKIE["AURSID"])) {
 		/* Unauthenticated users cannot delete anything. */
 		return false;
 	}
-	if ($atype == "Trusted User" || $atype == "Developer") {
+	if (has_credential(CRED_COMMENT_DELETE)) {
 		/* TUs and developers can delete any comment. */
 		return true;
 	}
@@ -45,23 +43,11 @@ function can_delete_comment($comment_id=0, $atype="", $uid=0) {
  * comments. This function is used for the frontend side of comment deletion.
  *
  * @param array $comment All database information relating a specific comment
- * @param string $atype The account type of the user trying to delete a comment
- * @param string|int $uid The user ID of the individual trying to delete a comment
  *
  * @return bool True if the user can delete the comment, otherwise false
  */
-function can_delete_comment_array($comment, $atype="", $uid=0) {
-	if (!$uid) {
-		/* Unauthenticated users cannot delete anything. */
-		return false;
-	} elseif ($atype == "Trusted User" || $atype == "Developer") {
-		/* TUs and developers can delete any comment. */
-		return true;
-	} else if ($comment['UsersID'] == $uid) {
-		/* Users can delete their own comments. */
-		return true;
-	}
-	return false;
+function can_delete_comment_array($comment) {
+	return has_credential(CRED_COMMENT_DELETE, array($comment['UsersID']));
 }
 
 /**
@@ -70,18 +56,10 @@ function can_delete_comment_array($comment, $atype="", $uid=0) {
  * Only Trusted Users and Developers can delete blacklisted packages. Packages
  * are blacklisted if they are include in the official repositories.
  *
- * @param string $atype The account type of the user
- *
  * @return bool True if the user can submit blacklisted packages, otherwise false
  */
-function can_submit_blacklisted($atype = "") {
-	if ($atype == "Trusted User" || $atype == "Developer") {
-		/* Only TUs and developers can submit blacklisted packages. */
-		return true;
-	}
-	else {
-		return false;
-	}
+function can_submit_blacklisted() {
+	return has_credential(CRED_PKGBASE_SUBMIT_BLACKLISTED);
 }
 
 /**

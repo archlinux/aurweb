@@ -1,5 +1,4 @@
 <?php
-$uid = uid_from_sid($SID);
 $base_id = pkgbase_from_pkgid($row['ID']);
 $count = pkgbase_comments_count($base_id);
 ?>
@@ -14,7 +13,7 @@ $count = pkgbase_comments_count($base_id);
 			$row['UserName'] = "<a href=\"" . get_user_uri($row['UserName']) . "\">{$row['UserName']}</a>";
 		endif; ?>
 		<h4>
-			<?php if (can_delete_comment_array($row, $atype, $uid)): ?>
+			<?php if (can_delete_comment_array($row)): ?>
 				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />

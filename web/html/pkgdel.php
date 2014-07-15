@@ -10,13 +10,7 @@ check_sid();
 
 html_header(__("Package Deletion"));
 
-$atype = "";
-
-if (isset($_COOKIE["AURSID"])) {
-	$atype = account_from_sid($_COOKIE["AURSID"]);
-}
-
-if ($atype == "Trusted User" || $atype == "Developer"): ?>
+if (has_credential(CRED_PKGBASE_DELETE)): ?>
 <div class="box">
 	<h2><?= __('Delete Package: %s', htmlspecialchars($pkgbase_name)) ?></h2>
 	<p>

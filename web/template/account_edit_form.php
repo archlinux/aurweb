@@ -17,7 +17,7 @@
 		</p>
 		<?php
 		# Only TUs or Devs can promote/demote/suspend a user
-		if ($UTYPE == "Trusted User" || $UTYPE == "Developer"):
+		if (has_credential(CRED_ACCOUNT_CHANGE_TYPE)):
 		?>
 		<p>
 			<label for="id_type"><?= __("Account Type") ?>:</label>
@@ -32,10 +32,7 @@
 				<?php else: ?>
 				<option value="2"><?= __("Trusted user") ?></option>
 				<?php endif; ?>
-				<?php
-				# Only developers can make another account a developer
-				if ($UTYPE == "Developer"):
-				?>
+				<?php if (has_credential(CRED_ACCOUNT_EDIT_DEV)): ?>
 				<option value="3"
 				<?php $T == 3 ? print " selected=\"selected\">" : print ">";
 				print __("Developer")."\n"; ?>
