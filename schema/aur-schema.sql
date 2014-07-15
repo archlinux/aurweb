@@ -15,6 +15,7 @@ CREATE TABLE AccountTypes (
 INSERT INTO AccountTypes (ID, AccountType) VALUES (1, 'User');
 INSERT INTO AccountTypes (ID, AccountType) VALUES (2, 'Trusted User');
 INSERT INTO AccountTypes (ID, AccountType) VALUES (3, 'Developer');
+INSERT INTO AccountTypes (ID, AccountType) VALUES (4, 'Trusted User & Developer');
 
 
 -- User information for each user regardless of type.

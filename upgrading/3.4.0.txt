@@ -1,0 +1,5 @@
+1. Add the "Trusted User & Developer" user group:
+
+----
+INSERT INTO AccountTypes (ID, AccountType) VALUES (4, 'Trusted User & Developer');
+----

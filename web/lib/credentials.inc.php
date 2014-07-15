@@ -48,7 +48,8 @@ function has_credential($credential, $approved_users=array()) {
 	case CRED_PKGBASE_NOTIFY:
 	case CRED_PKGBASE_VOTE:
 		return ($atype == 'User' || $atype == 'Trusted User' ||
-			$atype == 'Developer');
+			$atype == 'Developer' ||
+			$atype == 'Trusted User & Developer');
 	case CRED_ACCOUNT_CHANGE_TYPE:
 	case CRED_ACCOUNT_EDIT:
 	case CRED_ACCOUNT_LAST_LOGIN:
@@ -63,13 +64,16 @@ function has_credential($credential, $approved_users=array()) {
 	case CRED_PKGBASE_UNFLAG:
 	case CRED_PKGREQ_CLOSE:
 	case CRED_PKGREQ_LIST:
-		return ($atype == 'Trusted User' || $atype == 'Developer');
+		return ($atype == 'Trusted User' || $atype == 'Developer' ||
+			$atype == 'Trusted User & Developer');
 	case CRED_TU_ADD_VOTE:
 	case CRED_TU_LIST_VOTES:
 	case CRED_TU_VOTE:
-		return ($atype == 'Trusted User');
+		return ($atype == 'Trusted User' ||
+			$atype == 'Trusted User & Developer');
 	case CRED_ACCOUNT_EDIT_DEV:
-		return ($atype == 'Developer');
+		return ($atype == 'Developer' ||
+			$atype == 'Trusted User & Developer');
 	}
 
 	return false;

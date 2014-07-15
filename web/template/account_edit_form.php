@@ -37,6 +37,10 @@
 				<?php $T == 3 ? print " selected=\"selected\">" : print ">";
 				print __("Developer")."\n"; ?>
 				</option>
+				<option value="4"
+				<?php $T == 4 ? print " selected=\"selected\">" : print ">";
+				print __("Trusted User & Developer")."\n"; ?>
+				</option>
 				<?php endif; ?>
 
 			</select>

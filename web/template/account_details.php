@@ -17,6 +17,8 @@
 							print __("Trusted User");
 						} elseif ($row["AccountType"] == "Developer") {
 							print __("Developer");
+						} elseif ($row["AccountType"] == "Trusted User & Developer") {
+							print __("Trusted User & Developer");
 						}
 						?>
 					</td>

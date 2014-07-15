@@ -15,6 +15,7 @@
 				<option value="u"><?= __("Normal user"); ?></option>
 				<option value="t"><?= __("Trusted user"); ?></option>
 				<option value="d"><?= __("Developer"); ?></option>
+				<option value="td"><?= __("Trusted User & Developer"); ?></option>
 			</select>
 		</p>
 		<p>

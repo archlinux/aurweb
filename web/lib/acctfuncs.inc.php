@@ -338,6 +338,9 @@ function search_results_page($O=0,$SB="",$U="",$T="",
 	} elseif ($T == "d") {
 		$q.= "AND AccountTypes.ID = 3 ";
 		$search_vars[] = "T";
+	} elseif ($T == "td") {
+		$q.= "AND AccountTypes.ID = 4 ";
+		$search_vars[] = "T";
 	}
 	if ($S) {
 		$q.= "AND Users.Suspended = 1 ";
@@ -1080,7 +1083,8 @@ function cast_proposal_vote($voteid, $uid, $vote, $newtotal) {
  * @return bool True if permission to edit the account, otherwise false
  */
 function can_edit_account($acctinfo) {
-	if ($acctinfo['AccountType'] == 'Developer') {
+	if ($acctinfo['AccountType'] == 'Developer' ||
+	    $acctinfo['AccountType'] == 'Trusted User & Developer') {
 		return has_credential(CRED_ACCOUNT_EDIT_DEV);
 	}
 
