@@ -117,7 +117,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("Missing User ID");
 	}
 
-	if (!$error && !valid_username($U) && !user_is_privileged($editor_user)) {
+	if (!$error && !valid_username($U)) {
 		$error = __("The username is invalid.") . "<ul>\n"
 			."<li>" . __("It must be between %s and %s characters long",
 			USERNAME_MIN_LEN,  USERNAME_MAX_LEN )
@@ -829,27 +829,6 @@ function user_delete($id) {
 	$q = "DELETE FROM Users WHERE ID = " . $id;
 	$dbh->query($q);
 	return;
-}
-
-/**
- * Determine if a user is either a Trusted User or Developer
- *
- * @param string $id The ID of the user to check if privileged
- *
- * @return int|string Return  0 if un-privileged, "2" if Trusted User, "3" if Developer
- */
-function user_is_privileged($id) {
-	$dbh = DB::connect();
-	$q = "SELECT AccountTypeID FROM Users WHERE ID = " . $id;
-	$result = $dbh->query($q);
-	if ($result) {
-		$row = $result->fetch(PDO::FETCH_NUM);
-		if($row[0] > 1) {
-			return $row[0];
-		}
-	}
-	return 0;
-
 }
 
 /**
