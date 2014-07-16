@@ -148,11 +148,21 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	 * user who posted the comment was in.
 	 */
 	$username = username_from_sid($_COOKIE['AURSID']);
-	$body =
-		$username . " [1] filed a " . $type . " request for " .
-		$row['Name'] . " [2]:\n\n" . $comments . "\n\n" .
-		"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n" .
-		"[2] " . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n";
+	if ($type == 'merge') {
+		$body =
+			$username . " [1] filed a request to merge " .
+			$row['Name'] . " [2] into " . $merge_into .
+			" [3]:\n\n" .  $comments . "\n\n" .
+			"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n" .
+			"[2] " . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n" .
+			"[3] " . $AUR_LOCATION . get_pkgbase_uri($merge_into) . "\n";
+	} else {
+		$body =
+			$username . " [1] filed a " . $type . " request for " .
+			$row['Name'] . " [2]:\n\n" . $comments . "\n\n" .
+			"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n" .
+			"[2] " . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n";
+	}
 	$body = wordwrap($body, 70);
 	$headers = "MIME-Version: 1.0\r\n" .
 		   "Content-type: text/plain; charset=UTF-8\r\n" .
