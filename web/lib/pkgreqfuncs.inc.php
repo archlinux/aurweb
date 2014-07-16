@@ -57,6 +57,23 @@ function pkgreq_get_pkgbase_name($id) {
 }
 
 /**
+ * Obtain the email address of the creator of a package request
+ *
+ * @param int $id Package request ID to retrieve the creator for
+ *
+ * @return int The email address of the creator
+ */
+function pkgreq_get_creator_email($id) {
+	$dbh = DB::connect();
+
+	$q = "SELECT Email FROM Users INNER JOIN PackageRequests ";
+	$q.= "ON Users.ID = PackageRequests.UsersID ";
+	$q.= "WHERE PackageRequests.ID = " . intval($id);
+	$result = $dbh->query($q);
+	return $result->fetch(PDO::FETCH_COLUMN, 0);
+}
+
+/**
  * File a deletion/orphan request against a package base
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
@@ -108,15 +125,15 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	 * Send e-mail notifications.
 	 * TODO: Move notification logic to separate function where it belongs.
 	 */
+	$bcc = array(pkgreq_get_creator_email($request_id));
+
 	$q = "SELECT Users.Email ";
 	$q.= "FROM Users INNER JOIN PackageBases ";
 	$q.= "ON PackageBases.MaintainerUID = Users.ID ";
 	$q.= "WHERE PackageBases.ID = " . intval($base_id);
 	$result = $dbh->query($q);
 	if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-		$bcc = $row['Email'];
-	} else {
-		unset($bcc);
+		$bcc[] = $row['Email'];
 	}
 
 	$q = "SELECT Name FROM PackageBases WHERE ID = ";
@@ -138,10 +155,8 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		"[2] " . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n";
 	$body = wordwrap($body, 70);
 	$headers = "MIME-Version: 1.0\r\n" .
-		   "Content-type: text/plain; charset=UTF-8\r\n";
-	if (!empty($bcc)) {
-		$headers .= "Bcc: $bcc\r\n";
-	}
+		   "Content-type: text/plain; charset=UTF-8\r\n" .
+		   "Bcc: " . implode(', ', $bcc) . "\r\n";
 	$thread_id = "<pkg-request-" . $request_id . "@aur.archlinux.org>";
 	$headers .= "From: notify@aur.archlinux.org\r\n" .
 		    "Message-ID: $thread_id\r\n" .
@@ -194,6 +209,8 @@ function pkgreq_close($id, $reason, $comments) {
 	 * Send e-mail notifications.
 	 * TODO: Move notification logic to separate function where it belongs.
 	 */
+	$bcc = array(pkgreq_get_creator_email($id));
+
 	$q = "SELECT Users.Email ";
 	$q.= "FROM Users INNER JOIN PackageBases ";
 	$q.= "ON PackageBases.MaintainerUID = Users.ID ";
@@ -202,9 +219,7 @@ function pkgreq_close($id, $reason, $comments) {
 	$q.= "WHERE PackageRequests.ID = " . $id;
 	$result = $dbh->query($q);
 	if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-		$bcc = $row['Email'];
-	} else {
-		unset($bcc);
+		$bcc[] = $row['Email'];
 	}
 
 	/*
@@ -224,10 +239,8 @@ function pkgreq_close($id, $reason, $comments) {
 	$body .= "[1] " . $AUR_LOCATION . get_user_uri($username) . "\n";
 	$body = wordwrap($body, 70);
 	$headers = "MIME-Version: 1.0\r\n" .
-		   "Content-type: text/plain; charset=UTF-8\r\n";
-	if (!empty($bcc)) {
-		$headers .= "Bcc: $bcc\r\n";
-	}
+		   "Content-type: text/plain; charset=UTF-8\r\n" .
+		   "Bcc: " . implode(', ', $bcc) . "\r\n";
 	$thread_id = "<pkg-request-" . $id . "@aur.archlinux.org>";
 	$headers .= "From: notify@aur.archlinux.org\r\n" .
 		    "In-Reply-To: $thread_id\r\n" .
