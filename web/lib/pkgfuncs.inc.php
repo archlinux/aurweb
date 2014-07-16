@@ -729,30 +729,6 @@ function sanitize_ids($ids) {
 }
 
 /**
- * Get all package information in the database for a specific package
- *
- * @param string $pkgname The name of the package to get details for
- *
- * @return array All package details for a specific package
- */
-function pkg_details_by_name($pkgname) {
-	$dbh = DB::connect();
-	$q = "SELECT Packages.*, PackageBases.Name AS BaseName, ";
-	$q.= "PackageBases.CategoryID, PackageBases.NumVotes, ";
-	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
-	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
-	$q.= "PackageBases.MaintainerUID FROM Packages ";
-	$q.= "INNER JOIN PackageBases ";
-	$q.= "ON PackageBases.ID = Packages.PackageBaseID WHERE ";
-	$q.= "Packages.Name = " . $dbh->quote($pkgname);
-	$result = $dbh->query($q);
-	if ($result) {
-		$row = $result->fetch(PDO::FETCH_ASSOC);
-	}
-	return $row;
-}
-
-/**
  * Add package information to the database for a specific package
  *
  * @param int $base_id ID of the package base
