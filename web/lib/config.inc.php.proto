@@ -65,3 +65,8 @@ $AUR_REQUEST_ML = "aur-requests@archlinux.org";
 
 # Time to wait until a package request is due.
 $REQUEST_IDLE_TIME = 60 * 60 * 24 * 14;
+
+# When an orphan request is filed for a package that has been flagged
+# out-of-date for the following number of seconds, it is disowned
+# automatically.
+$AUTO_ORPHAN_AGE = 60 * 60 * 24 * 180;

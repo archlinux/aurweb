@@ -78,6 +78,7 @@ function pkgreq_get_creator_email($id) {
  *
  * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
  * @global string $AUR_REQUEST_ML The request notification mailing list
+ * @global int $AUTO_ORPHAN_AGE The time to wait until auto-closing a request
  * @param string $ids The package base IDs to file the request against
  * @param string $type The type of the request
  * @param string $merge_into The target of a merge operation
@@ -88,6 +89,7 @@ function pkgreq_get_creator_email($id) {
 function pkgreq_file($ids, $type, $merge_into, $comments) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
+	global $AUTO_ORPHAN_AGE;
 
 	if (!empty($merge_into) && !preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $merge_into)) {
 		return array(false, __("Invalid name: only lowercase letters are allowed."));
@@ -101,7 +103,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 	/* TODO: Allow for filing multiple requests at once. */
-	$base_id = $ids[0];
+	$base_id = intval($ids[0]);
 	$pkgbase_name = pkgbase_name_from_id($base_id);
 
 	$q = "SELECT ID FROM RequestTypes WHERE Name = " . $dbh->quote($type);
@@ -115,7 +117,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	$q = "INSERT INTO PackageRequests ";
 	$q.= "(ReqTypeID, PackageBaseID, PackageBaseName, MergeBaseName, ";
 	$q.= "UsersID, Comments, RequestTS) VALUES (" . $type_id . ", ";
-	$q.= intval($base_id) . ", " .  $dbh->quote($pkgbase_name) . ", ";
+	$q.= $base_id . ", " .  $dbh->quote($pkgbase_name) . ", ";
 	$q.= $dbh->quote($merge_into) . ", " . $uid . ", ";
 	$q.= $dbh->quote($comments) . ", UNIX_TIMESTAMP())";
 	$dbh->exec($q);
@@ -130,14 +132,13 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	$q = "SELECT Users.Email ";
 	$q.= "FROM Users INNER JOIN PackageBases ";
 	$q.= "ON PackageBases.MaintainerUID = Users.ID ";
-	$q.= "WHERE PackageBases.ID = " . intval($base_id);
+	$q.= "WHERE PackageBases.ID = " . $base_id;
 	$result = $dbh->query($q);
 	if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$cc[] = $row['Email'];
 	}
 
-	$q = "SELECT Name FROM PackageBases WHERE ID = ";
-	$q.= intval($base_id);
+	$q = "SELECT Name FROM PackageBases WHERE ID = " . $base_id;
 	$result = $dbh->query($q);
 	$row = $result->fetch(PDO::FETCH_ASSOC);
 
@@ -175,6 +176,19 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 			       " Request for " .  $row['Name'], $body,
 			       $headers);
 
+	$details = pkgbase_get_details($base_id);
+	if ($type == 'orphan' && $details['OutOfDateTS'] > 0 &&
+	    time() - $details['OutOfDateTS'] >= $AUTO_ORPHAN_AGE &&
+	    $AUTO_ORPHAN_AGE > 0) {
+		$q = "UPDATE PackageBases SET MaintainerUID = NULL ";
+		$q.= "WHERE ID = " . $base_id;
+		$dbh->exec($q);
+		$out_of_date_time = gmdate("Y-m-d", intval($details["OutOfDateTS"]));
+		pkgreq_close($request_id, "accepted",
+			     "The package base has been flagged out-of-date " .
+			     "since " . $out_of_date_time . ".", true);
+	}
+
 	return array(true, __("Added request successfully."));
 }
 
@@ -186,10 +200,11 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
  * @param int $id The package request to close
  * @param string $reason Whether the request was accepted or rejected
  * @param string $comments Comments to be added to the notification email
+ * @param boolean $auto_close (optional) Whether the request is auto-closed
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgreq_close($id, $reason, $comments) {
+function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 	global $AUR_LOCATION;
 	global $AUR_REQUEST_ML;
 
@@ -238,15 +253,25 @@ function pkgreq_close($id, $reason, $comments) {
 	 * work, users would be getting emails in the language that the
 	 * user who posted the comment was in.
 	 */
-	$username = username_from_sid($_COOKIE['AURSID']);
-	$body = "Request #" . intval($id) . " has been " . $reason . " by " .
-		$username . " [1]";
-	if (!empty(trim($comments))) {
-		$body .= ":\n\n" . $comments . "\n\n";
+	if ($auto_close) {
+		$body = "Request #" . intval($id) . " has been " . $reason .
+			" automatically by the Arch User Repository package " .
+			"request system";
 	} else {
-		$body .= ".\n\n";
+		$username = username_from_sid($_COOKIE['AURSID']);
+		$body = "Request #" . intval($id) . " has been " . $reason .
+			" by " . $username . " [1]";
 	}
-	$body .= "[1] " . $AUR_LOCATION . get_user_uri($username) . "\n";
+	if (!empty(trim($comments))) {
+		$body .= ":\n\n" . $comments . "\n";
+	} else {
+		$body .= ".\n";
+	}
+	if (!$auto_close) {
+		$body .= "\n";
+		$body .= "[1] " . $AUR_LOCATION .  get_user_uri($username);
+		$body .= "\n";
+	}
 	$body = wordwrap($body, 70);
 	$headers = "MIME-Version: 1.0\r\n" .
 		   "Content-type: text/plain; charset=UTF-8\r\n" .
