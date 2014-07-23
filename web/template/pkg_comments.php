@@ -4,7 +4,7 @@ $count = pkgbase_comments_count($base_id);
 ?>
 <div id="news">
 	<h3>
-		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all %s comments' , $count) ?>"><?= __('Latest Comments') ?></a>
+		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all comments' , $count) ?> (<?= $count ?>)"><?= __('Latest Comments') ?></a>
 		<span class="arrow"></span>
 	</h3>
 
@@ -47,7 +47,7 @@ $count = pkgbase_comments_count($base_id);
 <?php if ($count > 10 && !isset($_GET['comments'])): ?>
 <div id="news">
 	<h3>
-		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all %s comments', $count) ?>"><?= __('All comments', $count) ?></a>
+		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all comments') ?> (<?= $count ?>)"><?= __('All comments', $count) ?></a>
 	</h3>
 </div>
 <?php endif; ?>
