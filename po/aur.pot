@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v3.2.0\n"
+"Project-Id-Version: AUR v3.3.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
+"POT-Creation-Date: 2014-07-23 15:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,9 +124,10 @@ msgstr ""
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. This list can be used for package "
-"orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
+"structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-dev"
+"%s mailing list."
 msgstr ""
 
 msgid "Bug Reporting"
@@ -262,6 +263,9 @@ msgstr ""
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
 
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation checkbox."
 msgstr ""
@@ -391,9 +395,7 @@ msgstr ""
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to "
-"create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package "
-"if you want to proceed anyway."
+"create AUR source packages."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -617,9 +619,6 @@ msgstr ""
 msgid "The selected packages have been unflagged."
 msgstr ""
 
-msgid "You must be logged in before you can delete packages."
-msgstr ""
-
 msgid "You do not have permission to delete packages."
 msgstr ""
 
@@ -697,10 +696,6 @@ msgstr ""
 msgid "Package category changed."
 msgstr ""
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr ""
-
 msgid "View packages details for"
 msgstr ""
 
@@ -729,6 +724,9 @@ msgid "User"
 msgstr ""
 
 msgid "Developer"
+msgstr ""
+
+msgid "Trusted User & Developer"
 msgstr ""
 
 msgid "Email Address"
@@ -939,8 +937,7 @@ msgstr ""
 msgid "Comment has been added."
 msgstr ""
 
-#, php-format
-msgid "View all %s comments"
+msgid "View all comments"
 msgstr ""
 
 msgid "Latest Comments"
