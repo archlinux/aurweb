@@ -1,5 +1,11 @@
 <?php
-$base_id = pkgbase_from_pkgid($row['ID']);
+if (isset($row['BaseID'])) {
+	/* On a package details page. */
+	$base_id = $row['BaseID'];
+} else {
+	/* On a package base details page. */
+	$base_id = $row['ID'];
+}
 $count = pkgbase_comments_count($base_id);
 ?>
 <div id="news">
