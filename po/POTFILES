@@ -27,7 +27,6 @@ lib/DB.class.php
 lib/feedcreator.class.php
 lib/gettext.php
 lib/pkgbasefuncs.inc.php
-lib/pkgbuild-parser.inc.php
 lib/pkgfuncs.inc.php
 lib/pkgreqfuncs.inc.php
 lib/routing.inc.php
