@@ -23,6 +23,7 @@
 				</select>
 			</p>
 			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+			<script type="text/javascript" src="/js/bootstrap-typeahead.min.js"></script>
 			<script type="text/javascript">
 			function showHideMergeSection() {
 				if ($('#id_type').val() == 'merge') {
@@ -34,6 +35,18 @@
 
 			$(document).ready(function() {
 				showHideMergeSection();
+
+				$('#id_merge_into').typeahead({
+					source: function(query, callback) {
+						$.getJSON('<?= get_uri('/rpc'); ?>', {type: "suggest-pkgbase", arg: query}, function(data) {
+							callback(data);
+						});
+					},
+					matcher: function(item) { return true; },
+					sorter: function(items) { return items; },
+					menu: '<ul class="pkgsearch-typeahead"></ul>',
+					items: 20
+				}).attr('autocomplete', 'off');
 			});
 			</script>
 			<p id="merge_section">

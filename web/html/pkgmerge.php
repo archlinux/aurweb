@@ -36,6 +36,23 @@ if (has_credential(CRED_PKGBASE_DELETE)): ?>
 			<?php if (isset($_GET['via'])): ?>
 			<input type="hidden" name="via" value="<?= intval($_GET['via']) ?>" />
 			<?php endif; ?>
+			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+			<script type="text/javascript" src="/js/bootstrap-typeahead.min.js"></script>
+			<script type="text/javascript">
+			$(document).ready(function() {
+				$('#merge_Into').typeahead({
+					source: function(query, callback) {
+						$.getJSON('<?= get_uri('/rpc'); ?>', {type: "suggest-pkgbase", arg: query}, function(data) {
+							callback(data);
+						});
+					},
+					matcher: function(item) { return true; },
+					sorter: function(items) { return items; },
+					menu: '<ul class="pkgsearch-typeahead"></ul>',
+					items: 20
+				}).attr('autocomplete', 'off');
+			});
+			</script>
 			<p><label for="merge_Into" ><?= __("Merge into:") ?></label>
 			<input type="text" id="merge_Into" name="merge_Into" value="<?= isset($_GET['into']) ? $_GET['into'] : '' ?>" /></p>
 			<p><input type="checkbox" name="confirm_Delete" value="1" />

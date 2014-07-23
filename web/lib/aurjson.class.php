@@ -13,7 +13,8 @@ class AurJSON {
 	private $dbh = false;
 	private $version = 1;
 	private static $exposed_methods = array(
-		'search', 'info', 'multiinfo', 'msearch', 'suggest'
+		'search', 'info', 'multiinfo', 'msearch', 'suggest',
+		'suggest-pkgbase'
 	);
 	private static $fields_v1 = array(
 		'Packages.ID', 'Packages.Name',
@@ -74,7 +75,8 @@ class AurJSON {
 
 		$this->dbh = DB::connect();
 
-		$json = call_user_func(array(&$this, $http_data['type']), $http_data['arg']);
+		$type = str_replace('-', '_', $http_data['type']);
+		$json = call_user_func(array(&$this, $type), $http_data['arg']);
 
 		$etag = md5($json);
 		header("Etag: \"$etag\"");
@@ -392,6 +394,28 @@ class AurJSON {
 	 */
 	private function suggest($search) {
 		$query = 'SELECT Name FROM Packages WHERE Name LIKE ' .
+			$this->dbh->quote(addcslashes($search, '%_') . '%') .
+			' ORDER BY Name ASC LIMIT 20';
+
+		$result = $this->dbh->query($query);
+		$result_array = array();
+
+		if ($result) {
+			$result_array = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+		}
+
+		return json_encode($result_array);
+	}
+
+	/*
+	 * Get all package base names that start with $search.
+	 *
+	 * @param string $search Search string.
+	 *
+	 * @return string The JSON formatted response data.
+	 */
+	private function suggest_pkgbase($search) {
+		$query = 'SELECT Name FROM PackageBases WHERE Name LIKE ' .
 			$this->dbh->quote(addcslashes($search, '%_') . '%') .
 			' ORDER BY Name ASC LIMIT 20';
 
