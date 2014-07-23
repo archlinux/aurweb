@@ -95,6 +95,10 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		return array(false, __("Invalid name: only lowercase letters are allowed."));
 	}
 
+	if (!empty($merge_into) && !pkgbase_from_name($merge_into)) {
+		return array(false, __("Cannot find package to merge votes and comments into."));
+	}
+
 	if (empty($comments)) {
 		return array(false, __("The comment field must not be empty."));
 	}
