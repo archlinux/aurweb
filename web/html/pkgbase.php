@@ -69,12 +69,15 @@ if (check_token()) {
 			}
 			else {
 				$merge_base_id = pkgbase_from_name($_POST['merge_Into']);
-				if ($merge_base_id) {
-					list($ret, $output) = pkgbase_delete($ids, $merge_base_id, $via);
-					unset($_GET['ID']);
-				} else {
+				if (!$merge_base_id) {
 					$output = __("Cannot find package to merge votes and comments into.");
 					$ret = false;
+				} elseif (in_array($merge_base_id, $ids)) {
+					$output = __("Cannot merge a package base with itself.");
+					$ret = false;
+				} else {
+					list($ret, $output) = pkgbase_delete($ids, $merge_base_id, $via);
+					unset($_GET['ID']);
 				}
 			}
 		}

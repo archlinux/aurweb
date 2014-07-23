@@ -110,6 +110,10 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	$base_id = intval($ids[0]);
 	$pkgbase_name = pkgbase_name_from_id($base_id);
 
+	if ($merge_into == $pkgbase_name) {
+		return array(false, __("Cannot merge a package base with itself."));
+	}
+
 	$q = "SELECT ID FROM RequestTypes WHERE Name = " . $dbh->quote($type);
 	$result = $dbh->query($q);
 	if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
