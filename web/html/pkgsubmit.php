@@ -24,7 +24,6 @@ if ($uid):
 
 	# Track upload errors
 	$error = "";
-	$ignore_missing_aurinfo = 0;
 
 	if (isset($_REQUEST['pkgsubmit'])) {
 
@@ -117,18 +116,14 @@ if ($uid):
 			$error = __("Error - source tarball may not contain files outside a directory.");
 		}
 
-		if (empty($pkgbuild_raw)) {
-			$pkgbuild_raw = '';
-			if (!$error) {
-				$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
-			}
+		if (empty($pkgbuild_raw) && !$error) {
+			$error = __("Error trying to unpack upload - PKGBUILD does not exist.");
 		}
 
 		if (empty($srcinfo_raw)) {
 			$srcinfo_raw = '';
-			if (!$error && (!isset($_POST['ignore_missing_aurinfo']) || $_POST['ignore_missing_aurinfo'] != 1)) {
-				$ignore_missing_aurinfo = 1;
-				$error = __("The source package does not contain any meta data. Please use `mkaurball` to create AUR source packages. Support for source packages without .AURINFO entries will be removed in an upcoming release! You can resubmit the package if you want to proceed anyway.");
+			if (!$error) {
+				$error = __("The source package does not contain any meta data. Please use `mkaurball` to create AUR source packages.");
 			}
 		}
 
@@ -193,22 +188,6 @@ if ($uid):
 			} elseif (isset($section_info['pkgname'])) {
 				$pkginfo[] = array_pkgbuild_merge($pkgbase_info, $section_info);
 			}
-		} else {
-			/* Use data from the PKGBUILD parser (deprecated!) */
-			include('pkgbuild-parser.inc.php');
-
-			$pkgbase_info = $new_pkgbuild;
-			if (!isset($pkgbase_info['pkgbase'])) {
-				$pkgbase_info['pkgbase'] = $pkgbase_info['pkgname'];
-			}
-			foreach (array('license', 'groups', 'source', 'depends', 'makedepends', 'checkdepends', 'optdepends', 'conflicts', 'provides', 'replaces') as $array_opt) {
-				if (empty($pkgbase_info[$array_opt])) {
-					$pkgbase_info[$array_opt] = array();
-				} else {
-					$pkgbase_info[$array_opt] = explode(" ", $pkgbase_info[$array_opt]);
-				}
-			}
-			$pkginfo[] = $pkgbase_info;
 		}
 
 		/* Validate package base name. */
@@ -437,7 +416,6 @@ html_header("Submit");
 	<fieldset>
 		<div>
 			<input type="hidden" name="pkgsubmit" value="1" />
-			<input type="hidden" name="ignore_missing_aurinfo" value="<?= $ignore_missing_aurinfo ?>" />
 			<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 		</div>
 		<p>
