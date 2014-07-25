@@ -829,6 +829,41 @@ function user_suspended($id) {
  */
 function user_delete($id) {
 	$dbh = DB::connect();
+	$id = intval($id);
+
+	/*
+	 * These are normally already taken care of by propagation constraints
+	 * but it is better to be explicit here.
+	 */
+	$fields_delete = array(
+		array("Sessions", "UsersID"),
+		array("PackageVotes", "UsersID"),
+		array("CommentNotify", "UsersID")
+	);
+
+	$fields_set_null = array(
+		array("PackageBases", "SubmitterUID"),
+		array("PackageBases", "MaintainerUID"),
+		array("PackageBases", "SubmitterUID"),
+		array("PackageComments", "UsersID"),
+		array("PackageComments", "DelUsersID"),
+		array("PackageRequests", "UsersID"),
+		array("TU_VoteInfo", "SubmitterID"),
+		array("TU_Votes", "UserID")
+	);
+
+	foreach($fields_delete as list($table, $field)) {
+		$q = "DELETE FROM " . $table . " ";
+		$q.= "WHERE " . $field . " = " . $id;
+		$dbh->query($q);
+	}
+
+	foreach($fields_set_null as list($table, $field)) {
+		$q = "UPDATE " . $table . " SET " . $field . " = NULL ";
+		$q.= "WHERE " . $field . " = " . $id;
+		$dbh->query($q);
+	}
+
 	$q = "DELETE FROM Users WHERE ID = " . $id;
 	$dbh->query($q);
 	return;
