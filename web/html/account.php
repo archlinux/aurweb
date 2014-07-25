@@ -55,6 +55,22 @@ if (isset($_COOKIE["AURSID"])) {
 			}
 		}
 
+	} elseif ($action == "DeleteAccount") {
+		/* Details for account being deleted. */
+		$acctinfo = account_details(in_request('ID'), in_request('U'));
+
+		if (can_edit_account($acctinfo)) {
+			$UID = $acctinfo['ID'];
+			if (in_request('confirm_Delete') && check_token()) {
+				user_delete($UID);
+				header('Location: /');
+			} else {
+				$username = $acctinfo['Username'];
+				include("account_delete.php");
+			}
+		} else {
+			print __("You do not have permission to edit this account.");
+		}
 	} elseif ($action == "AccountInfo") {
 		# no editing, just looking up user info
 		#

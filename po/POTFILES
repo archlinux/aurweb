@@ -34,6 +34,7 @@ lib/stats.inc.php
 lib/streams.php
 lib/translator.inc.php
 lib/version.inc.php
+template/account_delete.php
 template/account_details.php
 template/account_edit_form.php
 template/account_search_results.php

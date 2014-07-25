@@ -123,6 +123,8 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				$_REQUEST['Action'] = "DisplayAccount";
 			} elseif ($tokens[3] == 'update') {
 				$_REQUEST['Action'] = "UpdateAccount";
+			} elseif ($tokens[3] == 'delete') {
+				$_REQUEST['Action'] = "DeleteAccount";
 			} else {
 				header("HTTP/1.0 404 Not Found");
 				include "./404.php";
