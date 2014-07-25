@@ -436,7 +436,8 @@ function pkg_display_details($id=0, $row, $SID="") {
 		}
 
 		$limit = isset($_GET['comments']) ? 0 : 10;
-		$comments = pkgbase_comments($base_id, $limit);
+		$include_deleted = has_credential(CRED_COMMENT_VIEW_DELETED);
+		$comments = pkgbase_comments($base_id, $limit, $include_deleted);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
 		}

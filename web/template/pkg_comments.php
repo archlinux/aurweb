@@ -6,7 +6,8 @@ if (isset($row['BaseID'])) {
 	/* On a package base details page. */
 	$base_id = $row['ID'];
 }
-$count = pkgbase_comments_count($base_id);
+$include_deleted = has_credential(CRED_COMMENT_VIEW_DELETED);
+$count = pkgbase_comments_count($base_id, $include_deleted);
 ?>
 <div id="news">
 	<h3>
@@ -18,8 +19,8 @@ $count = pkgbase_comments_count($base_id);
 		<?php if ($row['UserName'] && $SID):
 			$row['UserName'] = "<a href=\"" . get_user_uri($row['UserName']) . "\">{$row['UserName']}</a>";
 		endif; ?>
-		<h4>
-			<?php if (can_delete_comment_array($row)): ?>
+		<h4<?php if ($row['DelUsersID']): ?> class="comment-deleted"<?php endif; ?>>
+			<?php if (!$row['DelUsersID'] && can_delete_comment_array($row)): ?>
 				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />
@@ -39,10 +40,13 @@ $count = pkgbase_comments_count($base_id);
 			<?php else: ?>
 			<?= __('Anonymous comment') ?>
 			<?php endif; ?>
+			<?php if ($row['DelUsersID']): ?>
+			(<?= __('deleted') ?>)
+			<?php endif; ?>
 			<?php endif; ?>
 		</h4>
 		<p class="timestamp"><?= gmdate('Y-m-d H:i', $row['CommentTS']) ?></p>
-		<div class="article-content">
+		<div class="article-content<?php if ($row['DelUsersID']): ?> comment-deleted<?php endif; ?>">
 			<p>
 				<?= parse_comment($row['Comments']) ?>
 			</p>

@@ -25,10 +25,11 @@ function pkgbase_categories() {
  * Get the number of non-deleted comments for a specific package base
  *
  * @param string $base_id The package base ID to get comment count for
+ * @param bool $include_deleted True if deleted comments should be included
  *
  * @return string The number of comments left for a specific package
  */
-function pkgbase_comments_count($base_id) {
+function pkgbase_comments_count($base_id, $include_deleted) {
 	$base_id = intval($base_id);
 	if (!$base_id) {
 		return null;
@@ -37,7 +38,9 @@ function pkgbase_comments_count($base_id) {
 	$dbh = DB::connect();
 	$q = "SELECT COUNT(*) FROM PackageComments ";
 	$q.= "WHERE PackageBaseID = " . $base_id . " ";
-	$q.= "AND DelUsersID IS NULL";
+	if (!$include_deleted) {
+		$q.= "AND DelUsersID IS NULL";
+	}
 	$result = $dbh->query($q);
 	if (!$result) {
 		return null;
@@ -51,10 +54,11 @@ function pkgbase_comments_count($base_id) {
  *
  * @param int $base_id The package base ID to get comments for
  * @param int $limit Maximum number of comments to return (0 means unlimited)
+ * @param bool $include_deleted True if deleted comments should be included
  *
  * @return array All package comment information for a specific package base
  */
-function pkgbase_comments($base_id, $limit) {
+function pkgbase_comments($base_id, $limit, $include_deleted) {
 	$base_id = intval($base_id);
 	$limit = intval($limit);
 	if (!$base_id) {
@@ -63,10 +67,13 @@ function pkgbase_comments($base_id, $limit) {
 
 	$dbh = DB::connect();
 	$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, ";
-	$q.= "CommentTS FROM PackageComments LEFT JOIN Users ";
+	$q.= "CommentTS, DelUsersID FROM PackageComments LEFT JOIN Users ";
 	$q.= "ON PackageComments.UsersID = Users.ID ";
 	$q.= "WHERE PackageBaseID = " . $base_id . " ";
-	$q.= "AND DelUsersID IS NULL ORDER BY CommentTS DESC";
+	if (!$include_deleted) {
+		$q.= "AND DelUsersID IS NULL ";
+	}
+	$q.= "ORDER BY CommentTS DESC";
 	if ($limit > 0) {
 		$q.=" LIMIT " . $limit;
 	}
@@ -242,7 +249,8 @@ function pkgbase_display_details($base_id, $row, $SID="") {
 		}
 
 		$limit = isset($_GET['comments']) ? 0 : 10;
-		$comments = pkgbase_comments($base_id, $limit);
+		$include_deleted = has_credential(CRED_COMMENT_VIEW_DELETED);
+		$comments = pkgbase_comments($base_id, $limit, $include_deleted);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
 		}
