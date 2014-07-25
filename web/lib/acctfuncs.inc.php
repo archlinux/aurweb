@@ -1123,6 +1123,6 @@ function can_edit_account($acctinfo) {
 		return has_credential(CRED_ACCOUNT_EDIT_DEV);
 	}
 
-	$uid = uid_from_sid($_COOKIE['AURSID']);
+	$uid = $acctinfo['ID'];
 	return has_credential(CRED_ACCOUNT_EDIT, array($uid));
 }
