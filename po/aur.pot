@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v3.3.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-23 15:59+0200\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -717,6 +717,17 @@ msgstr ""
 msgid "Request closed successfully."
 msgstr ""
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr ""
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
 msgid "Account Type"
 msgstr ""
 
@@ -760,6 +771,10 @@ msgid "View this user's packages"
 msgstr ""
 
 msgid "Edit this user's account"
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
 msgstr ""
 
 msgid "required"
@@ -951,6 +966,9 @@ msgid "Comment by %s"
 msgstr ""
 
 msgid "Anonymous comment"
+msgstr ""
+
+msgid "deleted"
 msgstr ""
 
 msgid "All comments"
