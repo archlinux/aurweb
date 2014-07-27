@@ -9,3 +9,4 @@ dummy-data.sql*
 web/locale/*/
 po/*.mo
 po/*.po~
+po/POTFILES

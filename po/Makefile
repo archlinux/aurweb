@@ -44,7 +44,10 @@ all: ${MOFILES}
 	lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
 	msgmerge -U --no-location --lang="$$lang" $< aur.pot
 
-update-pot:
+POTFILES:
+	find ../web -type f -name '*.php' -printf '%P\n' | sort >POTFILES
+
+update-pot: POTFILES
 	pkgname=AUR; \
 	pkgver=`sed -n 's/.*"AUR_VERSION", "\(.*\)".*/\1/p' ../web/lib/version.inc.php`; \
 	xgettext --default-domain=aur -L php --keyword=__ --keyword=_n:1,2 \
@@ -57,7 +60,7 @@ update-po:
 	${MAKE} ${UPDATEPOFILES}
 
 clean:
-	rm -f *.mo *.po\~
+	rm -f *.mo *.po\~ POTFILES
 
 install: all
 	for l in ${LOCALES}; do mkdir -p ${DESTDIR}${PREFIX}/$$l/LC_MESSAGES/; done
