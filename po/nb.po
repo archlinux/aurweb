@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-27 21:52+0000\n"
+"Last-Translator: Alexander Rødseth <rodseth@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/aur/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -125,10 +125,11 @@ msgstr "Diskusjon"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Generell diskusjon om strukturen rundt Arch sin brukerstyrte pakkebrønn (AUR), og betrodde brukere, foregår på %saur-general%s. Denne listen kan brukes for forespørsler om å gjøre pakker foreldreløse, slå sammen og slette pakker. For å diskutere selve utviklingen av AUR, bruk epostlisten %saur-dev%s."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr "Generell diskusjon om strukturen rundt Arch sin brukerstyrte pakkebrønn (AUR) og betrodde brukere, foregår på %saur-general%s. Nye forespørsler om å gjøre pakker foreldreløse, slå sammen og slette pakker kan opprettes i %sPakkehandling%s-boksen. For diskusjon om utviklingen av AUR, bruk epostlisten %saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Feilrapportering"
@@ -263,6 +264,9 @@ msgstr "Fyll ut e-post adressen din:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Kunne ikke finne pakke for å flette stemmer og kommentarer inn i."
 
+msgid "Cannot merge a package base with itself."
+msgstr "Kan ikke slå sammen en basispakke med seg selv."
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -279,7 +283,7 @@ msgstr "Slett pakke: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
+msgstr "Bruk dette skjemaet for å slette grunnpakken %s%s%s og følgende pakker fra AUR:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "Slettingen av en pakke er permanent. "
@@ -305,10 +309,10 @@ msgstr "Slå sammen pakke: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
+msgstr "Bruk dette skjemaet for å slå sammen grunnpakken %s%s%s med en annen pakke."
 
 msgid "The following packages will be deleted: "
-msgstr ""
+msgstr "Følgende pakker vil slettes:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Når pakken har blitt sammenslått, så kan det ikke angres. "
@@ -329,10 +333,10 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Bare betrodde brukere og utviklere kan slå sammen pakker."
 
 msgid "File Request"
-msgstr ""
+msgstr "Send inn forespørsel"
 
 msgid "Close Request"
-msgstr ""
+msgstr "Lukk forespørsel"
 
 msgid "First"
 msgstr "Første"
@@ -347,7 +351,7 @@ msgid "Last"
 msgstr "Siste"
 
 msgid "Requests"
-msgstr ""
+msgstr "Forespørsler"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -377,7 +381,7 @@ msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Feil - kildepakken kan ikke inneholde filer som ikke også er i en mappe."
 
 msgid "Error - all files must have permissions of 644 or 755."
-msgstr ""
+msgstr "Feil - alle filer må ha filtilgangen 644 eller 755 satt."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Feil - kildepakken kan ikke inneholde mapper inni mapper."
@@ -386,17 +390,15 @@ msgid "Error - source tarball may not contain more than one directory."
 msgstr "Feil - kildepakken kan ikke inneholde mer enn en mappe."
 
 msgid "Error - all directories must have permissions of 755."
-msgstr ""
+msgstr "Feil - alle mapper må ha filtilgangen 755."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Feil oppstod under utpakking av opplastet fil - PKGBUILD finnes ikke."
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "Kildepakken inneholder ikke metadata. Bruk `mkaurball` for å lage kildepakker for AUR. Støtte for kildepakker uten .AURINFO filer vil be fjernet i en senere utgave! Du kan sende inn pakken på nytt dersom du uansett vil gjøre dette."
+" create AUR source packages."
+msgstr "Kildepakken inneholder ingen metadata. Bruk `mkaurball` for å lage kildepakker for AUR."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Ugyldig navn: kun små bokstaver er lov."
@@ -619,9 +621,6 @@ msgstr "Ingen pakker ble valgt for å fjerne markeringer fra."
 msgid "The selected packages have been unflagged."
 msgstr "De valgte pakkene har nå fått fjernet markeringen."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Du må være logget inn før du kan slette pakker."
-
 msgid "You do not have permission to delete packages."
 msgstr "Du har ikke rettighetene som skal til for å kunne slette pakker."
 
@@ -699,30 +698,37 @@ msgstr "Du har ikke tilgang til å endre denne pakkekategorien."
 msgid "Package category changed."
 msgstr "Pakkekategori endret."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Mangler variabelen %s i PKGBUILD."
-
 msgid "View packages details for"
 msgstr "Vis pakkedetaljer for"
 
 msgid "The comment field must not be empty."
-msgstr ""
+msgstr "Kommentarfeltet kan ikke være tomt."
 
 msgid "Invalid request type."
-msgstr ""
+msgstr "Ugyldig type forspørsel."
 
 msgid "Added request successfully."
-msgstr ""
+msgstr "Forespørsel er registrert."
 
 msgid "Invalid reason."
-msgstr ""
+msgstr "Ugyldig grunn."
 
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "Bare betrodde brukere og utviklere kan lukke forespørsler."
 
 msgid "Request closed successfully."
-msgstr ""
+msgstr "Forespørselen ble lukket."
+
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "Dette skjemaet kan brukes for å permanent slette AUR kontoen %s."
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%sADVARSEL%s: Denne handlingen kan ikke angres."
+
+msgid "Confirm deletion"
+msgstr "Bekreft sletting"
 
 msgid "Account Type"
 msgstr "Konto-type"
@@ -732,6 +738,9 @@ msgstr "Bruker"
 
 msgid "Developer"
 msgstr "Utvikler"
+
+msgid "Trusted User & Developer"
+msgstr "Betrodd bruker & Utvikler"
 
 msgid "Email Address"
 msgstr "E-postadresse"
@@ -765,6 +774,10 @@ msgstr "Vis pakkene til denne brukereren"
 
 msgid "Edit this user's account"
 msgstr "Endre brukerkonto"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "Klikk %sher%s hvis du vil slette denne kontoen, for alltid."
 
 msgid "required"
 msgstr "trengs"
@@ -851,7 +864,7 @@ msgid "unknown"
 msgstr "ukjent"
 
 msgid "Package Base Details"
-msgstr ""
+msgstr "Grunnpakkedetaljer"
 
 msgid "Package Actions"
 msgstr "Pakkehandlinger"
@@ -863,7 +876,7 @@ msgid "Download tarball"
 msgstr "Last ned tarball"
 
 msgid "Search wiki"
-msgstr ""
+msgstr "Søk wiki"
 
 msgid "Flagged out-of-date"
 msgstr "Markert som utdatert"
@@ -889,8 +902,8 @@ msgstr "Gi beskjed om nye kommentarer"
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ventende forespørsel"
+msgstr[1] "%d ventende forespørsler"
 
 msgid "Delete Package"
 msgstr "Slett pakke"
@@ -924,7 +937,7 @@ msgid "Maintainer"
 msgstr "Vedlikeholder"
 
 msgid "Last Packager"
-msgstr ""
+msgstr "Siste innpakker"
 
 msgid "Votes"
 msgstr "Stemmer"
@@ -941,9 +954,8 @@ msgstr "Legg til kommentar"
 msgid "Comment has been added."
 msgstr "Kommentar har blitt lagt til."
 
-#, php-format
-msgid "View all %s comments"
-msgstr "Vis alle %s kommentarene"
+msgid "View all comments"
+msgstr "Vis alle kommentarer"
 
 msgid "Latest Comments"
 msgstr "Siste kommentarer"
@@ -958,6 +970,9 @@ msgstr "Kommentert av %s"
 msgid "Anonymous comment"
 msgstr "Anonym kommentar"
 
+msgid "deleted"
+msgstr "slettet"
+
 msgid "All comments"
 msgstr "Alle kommentarer"
 
@@ -965,7 +980,7 @@ msgid "Package Details"
 msgstr "Pakkedetaljer"
 
 msgid "Package Base"
-msgstr ""
+msgstr "Grunnpakke"
 
 msgid "Description"
 msgstr "Beskrivelse"
@@ -977,19 +992,19 @@ msgid "Visit the website for"
 msgstr "Besøk nettsiden til"
 
 msgid "Licenses"
-msgstr ""
+msgstr "Lisenser"
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupper"
 
 msgid "Conflicts"
-msgstr ""
+msgstr "Konflikter"
 
 msgid "Provides"
-msgstr ""
+msgstr "Tilbyr"
 
 msgid "Replaces"
-msgstr ""
+msgstr "Erstatter"
 
 msgid "Dependencies"
 msgstr "Avhengigheter"
@@ -1002,53 +1017,53 @@ msgstr "Kilder"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "Send inn forespørsel: %s"
 
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr ""
+msgstr "Bruk dette skjemaet for å registrere en forespørsel for grunnpakken %s%s%s som inkluderer følgende pakker:"
 
 msgid "Request type"
-msgstr ""
+msgstr "Type forespørsel"
 
 msgid "Deletion"
-msgstr ""
+msgstr "Sletting"
 
 msgid "Orphan"
-msgstr ""
+msgstr "Hjemløs"
 
 msgid "Comments"
-msgstr ""
+msgstr "Kommentarer"
 
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fant %d pakkeforespørsel."
+msgstr[1] "Fant %d pakkeforespørsler."
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Side %d av %d."
 
 msgid "Package"
-msgstr ""
+msgstr "Pakke"
 
 msgid "Filed by"
-msgstr ""
+msgstr "Registrert av"
 
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 msgid "Accept"
-msgstr ""
+msgstr "Godta"
 
 msgid "Close"
-msgstr ""
+msgstr "Lukk"
 
 msgid "Closed"
-msgstr ""
+msgstr "Lukket"
 
 msgid "Accepted"
 msgstr "Akseptert"
@@ -1063,10 +1078,10 @@ msgid "Name Only"
 msgstr "Bare navn"
 
 msgid "Exact Name"
-msgstr ""
+msgstr "Eksakt navn"
 
 msgid "Exact Package Base"
-msgstr ""
+msgstr "Eksakt grunnpakke"
 
 msgid "All"
 msgstr "Alle"
@@ -1131,8 +1146,8 @@ msgstr "Ingen pakker passer til dine søkekriterier."
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fant %d pakke."
+msgstr[1] "Fant %d pakker."
 
 msgid "Version"
 msgstr "Versjon"
@@ -1223,10 +1238,10 @@ msgid "Participation"
 msgstr "Deltagelse"
 
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "Siste stemmer fra TU"
 
 msgid "Last vote"
-msgstr ""
+msgstr "Siste stemme"
 
 msgid "No results found."
 msgstr "Ingen resultater."

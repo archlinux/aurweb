@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-25 09:31+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/aur/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -125,10 +125,11 @@ msgstr "Diskusia"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Všeobecná diskusia týkajúca sa Arch užívateľského repozitára (AUR) a štruktúry dôverovaných užívateľov (TU)  je na %saur-general%s. Tento list sa využíva na žiadosti o vyvlastnenie, zlúčenie a vymazávanie balíčkov. Na diskusiu týkajúcu sa vývoja AUR je určený %saur-dev%s mailing list."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr ""
 
 msgid "Bug Reporting"
 msgstr "Ohlasovanie chýb"
@@ -263,6 +264,9 @@ msgstr "Zadajte svoju e-mailovú adresu:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Nepodarilo sa nájsť balíček, do ktorého sa mali zlúčiť hlasy a komentáre."
 
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -329,10 +333,10 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Len dôverovaní užívatelia a vývojári môžu zlúčiť balíčky."
 
 msgid "File Request"
-msgstr ""
+msgstr "Vyplniť žiadosť"
 
 msgid "Close Request"
-msgstr ""
+msgstr "Zatvorit žiadosť"
 
 msgid "First"
 msgstr "Prvý"
@@ -347,7 +351,7 @@ msgid "Last"
 msgstr "Posledný"
 
 msgid "Requests"
-msgstr ""
+msgstr "Žiadosti"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
@@ -393,10 +397,8 @@ msgstr "Chyba pri rozbaľovaní nahraného súboru - PKGBUILD neexistuje. "
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "Zdrojový balíček neobsahuje žiadne metadáta. Použite prosím  `mkaurball` pre vytvorenie zdrojového balíčka AUR. Podpora zdrojových balíčkov bez .AURINFO záznamov bude odstránená v nasledujúcej verzii! Balíček môžete poslať znova v prípade, že sa rozhodnete pokračovať ďalej."
+" create AUR source packages."
+msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Neplatné meno: povolené sú iba malé písmená."
@@ -619,9 +621,6 @@ msgstr "Nebol vybraný žiadny balíček na odznačenie."
 msgid "The selected packages have been unflagged."
 msgstr "Vybrané balíčky boli odznačené."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Musíte byť prihlásený ak chcete vymazať balíčky."
-
 msgid "You do not have permission to delete packages."
 msgstr "Nemáte práve vymazať balíčky."
 
@@ -699,29 +698,36 @@ msgstr "Na zmenu kategórie balíčka nemáte oprávnenie."
 msgid "Package category changed."
 msgstr "Kategória balíčka bola zmenená."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Premenná %s chýba v PKGBUILDe."
-
 msgid "View packages details for"
 msgstr "Pozri detaily balíčky pre"
 
 msgid "The comment field must not be empty."
-msgstr ""
+msgstr "Pole s komentárom nemôže byť prázdne."
 
 msgid "Invalid request type."
-msgstr ""
+msgstr "Neplatný typ žiadosti."
 
 msgid "Added request successfully."
-msgstr ""
+msgstr "Požiadavka bola úspešne pridaná."
 
 msgid "Invalid reason."
-msgstr ""
+msgstr "Neplatný dôvod."
 
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "Len Dôverovaní Užívatelia (TU) a vývojári môžu zatvárať žiadosti."
 
 msgid "Request closed successfully."
+msgstr "Žiadosť bola úspešne uzavretá."
+
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr ""
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr ""
+
+msgid "Confirm deletion"
 msgstr ""
 
 msgid "Account Type"
@@ -732,6 +738,9 @@ msgstr "Užívateľ"
 
 msgid "Developer"
 msgstr "Vývojár"
+
+msgid "Trusted User & Developer"
+msgstr ""
 
 msgid "Email Address"
 msgstr "E-mailová adresa"
@@ -765,6 +774,10 @@ msgstr "Pozrieť balíčky tohto užívateľa"
 
 msgid "Edit this user's account"
 msgstr "Editovať účet tohto užívateľa"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr ""
 
 msgid "required"
 msgstr "povinný"
@@ -863,7 +876,7 @@ msgid "Download tarball"
 msgstr "Stiahnuť tarball"
 
 msgid "Search wiki"
-msgstr ""
+msgstr "Prehľadať wiki"
 
 msgid "Flagged out-of-date"
 msgstr "Označený ako neaktuálny"
@@ -889,9 +902,9 @@ msgstr "Upozorni na nové komentáre"
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d ostávajúcich žiadostí"
+msgstr[1] "%d ostávajúce žiadosti"
+msgstr[2] "%d ostávajúcich žiadostí"
 
 msgid "Delete Package"
 msgstr "Vymaž balíček"
@@ -942,9 +955,8 @@ msgstr "Pridať komentár"
 msgid "Comment has been added."
 msgstr "Komentár bol pridaný."
 
-#, php-format
-msgid "View all %s comments"
-msgstr "Zobraz všetky (%s) komentáre"
+msgid "View all comments"
+msgstr ""
 
 msgid "Latest Comments"
 msgstr "Posledné komentáre"
@@ -958,6 +970,9 @@ msgstr "Komentár od %s"
 
 msgid "Anonymous comment"
 msgstr "Anonymný komentár"
+
+msgid "deleted"
+msgstr ""
 
 msgid "All comments"
 msgstr "Všetky komentáre"
@@ -1003,7 +1018,7 @@ msgstr "Zdroje"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "Vyplniť žiadosť: %s"
 
 #, php-format
 msgid ""
@@ -1012,10 +1027,10 @@ msgid ""
 msgstr ""
 
 msgid "Request type"
-msgstr ""
+msgstr "Typ žiadosti"
 
 msgid "Deletion"
-msgstr ""
+msgstr "Vymazanie"
 
 msgid "Orphan"
 msgstr ""
@@ -1032,22 +1047,22 @@ msgstr[2] ""
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Strana %d z %d."
 
 msgid "Package"
 msgstr ""
 
 msgid "Filed by"
-msgstr ""
+msgstr "Vyplnil"
 
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 msgid "Accept"
-msgstr ""
+msgstr "Prijať"
 
 msgid "Close"
-msgstr ""
+msgstr "Zatvoriť"
 
 msgid "Closed"
 msgstr ""
@@ -1133,9 +1148,9 @@ msgstr "Žiadne balíčky nezodpovedajú vaším vyhľadávacím kritériám."
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d nájdených balíčkov."
+msgstr[1] "%d nájdené balíčky."
+msgstr[2] "%d nájdených balíčkov."
 
 msgid "Version"
 msgstr "Verzia"

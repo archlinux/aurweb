@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-25 09:31+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/aur/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -126,10 +126,11 @@ msgstr "Megbeszélés"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Az Arch User Repositoryval (AUR) és a Trusted User struktúrával kapcsolatos általános megbeszélés az %saur-general%s levelezőlistán történik. Ez a lista használható megtagadási, beolvasztási és törlési kérésekre. Az AUR fejlesztésével kapcsolatos megbeszélésre az %saur-dev%s levelezőlista használható."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr ""
 
 msgid "Bug Reporting"
 msgstr "Hibajelentés"
@@ -264,6 +265,9 @@ msgstr "Add meg az e-mail címedet:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Nem található csomag, amelybe a szavazatok és megjegyzések beolvaszthatók lennének."
 
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -394,10 +398,8 @@ msgstr "Hiba történt a feltöltés kibontása közben – a PKGBUILD nem léte
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "A forráscsomag nem tartalmaz metaadatot. Kérlek, hogy AUR forráscsomag létrehozásához használd az „mkaurball” parancsot. .AURINFO bejegyzések nélküli forráscsomagok támogatása eltávolításra kerül egy későbbi kiadásban! Beküldheted újra a csomagot, ha mindenképp folytatni szeretnéd."
+" create AUR source packages."
+msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Érvénytelen név: csak kisbetűk használata engedélyezett."
@@ -620,9 +622,6 @@ msgstr "Nem választottál ki egyetlen csomagot sem megjelölés visszavonásár
 msgid "The selected packages have been unflagged."
 msgstr "A kiválasztott csomagok bejelölése visszavonva."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Csomagok törléséhez be kell jelentkezned."
-
 msgid "You do not have permission to delete packages."
 msgstr "Csomagok törléséhez nincs jogosultságod."
 
@@ -700,10 +699,6 @@ msgstr "Nem változtathatod meg ennek a csomagnak a kategóriáját."
 msgid "Package category changed."
 msgstr "A csomag kategóriája megváltoztatva."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Hiányzó %s változó a PKGBUILD-ben."
-
 msgid "View packages details for"
 msgstr "Csomag részleteinek megtekintése –"
 
@@ -725,6 +720,17 @@ msgstr ""
 msgid "Request closed successfully."
 msgstr ""
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr ""
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
 msgid "Account Type"
 msgstr "Fióktípus"
 
@@ -733,6 +739,9 @@ msgstr "Felhasználó"
 
 msgid "Developer"
 msgstr "Fejlesztő"
+
+msgid "Trusted User & Developer"
+msgstr ""
 
 msgid "Email Address"
 msgstr "E-mail cím"
@@ -766,6 +775,10 @@ msgstr "A felhasználó csomagjainak megtekintése"
 
 msgid "Edit this user's account"
 msgstr "Ezen felhasználó fiókjának szerkesztése"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr ""
 
 msgid "required"
 msgstr "kötelező"
@@ -942,9 +955,8 @@ msgstr "Hosszászólás"
 msgid "Comment has been added."
 msgstr "A megjegyzés hozzáadva."
 
-#, php-format
-msgid "View all %s comments"
-msgstr "Mind a(z) %s hozzászólás megjelenítése"
+msgid "View all comments"
+msgstr ""
 
 msgid "Latest Comments"
 msgstr "Legújabb hozzászólások"
@@ -958,6 +970,9 @@ msgstr "%s hozzászólása"
 
 msgid "Anonymous comment"
 msgstr "Névtelen megjegyzés"
+
+msgid "deleted"
+msgstr ""
 
 msgid "All comments"
 msgstr "Összes hozzászólás"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-28 08:09+0000\n"
+"Last-Translator: kusakata <shohei@kusakata.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/aur/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -126,10 +126,11 @@ msgstr "議論"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Arch User Repository (AUR) や Trusted User に関する一般的な議論は %saur-general%s で行なって下さい。このメーリングリストは、パッケージの孤児リクエスト・マージリクエスト・削除リクエストにも利用できます。AUR の開発に関する議論は、%saur-dev%s メーリングリストを使って下さい。"
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr "Arch User Repository (AUR) や Trusted User の組織に関する議論は %saur-general%s で行なってください。パッケージの孤児リクエスト・マージリクエスト・削除リクエストについては%sパッケージアクション%sボックスから提出してください。AUR の開発に関わる議論については、%saur-dev%s メーリングリストを使って下さい。"
 
 msgid "Bug Reporting"
 msgstr "バグレポート"
@@ -264,6 +265,9 @@ msgstr "メールアドレスを入力:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "投票やコメントのマージをするパッケージが見つかりません。"
 
+msgid "Cannot merge a package base with itself."
+msgstr "パッケージベースをそれ自体とマージすることはできません。"
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -333,7 +337,7 @@ msgid "File Request"
 msgstr "リクエストを送る"
 
 msgid "Close Request"
-msgstr ""
+msgstr "リクエストをクローズ"
 
 msgid "First"
 msgstr "最初"
@@ -394,10 +398,8 @@ msgstr "アップロードの解凍エラー - PKGBUILD が存在しません。
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "ソースパッケージにメタデータが含まれていません。AUR のソースパッケージを作成する時は `mkaurball` を使って下さい。近日中のリリースでは .AURINFO エントリがないソースパッケージのサポートが削除されます。パッケージを維持したい場合はパッケージを再投稿することができます。"
+" create AUR source packages."
+msgstr "ソースパッケージにメタデータが含まれていません。AUR のソースパッケージを作成するときは `mkaurball` を使って下さい。"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "不正な名前です: 小文字だけが使用できます。"
@@ -567,7 +569,7 @@ msgstr "アカウントに変更は加えられませんでした、%s%s%s。"
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr "アカウント %s%s%s の修正は成功しました。"
+msgstr "アカウント %s%s%s の修正が完了しました。"
 
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
@@ -619,9 +621,6 @@ msgstr "フラグを降ろすパッケージが選ばれていません。"
 
 msgid "The selected packages have been unflagged."
 msgstr "選択されたパッケージのフラグが降ろされました。"
-
-msgid "You must be logged in before you can delete packages."
-msgstr "パッケージを削除するにはログインする必要があります。"
 
 msgid "You do not have permission to delete packages."
 msgstr "あなたはパッケージを削除する許可を持っていません。"
@@ -700,30 +699,37 @@ msgstr "このパッケージのカテゴリを変更することはできませ
 msgid "Package category changed."
 msgstr "パッケージのカテゴリが変更されました。"
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "PKGBUILD に %s 変数がありません。"
-
 msgid "View packages details for"
 msgstr "パッケージの詳細を見る"
 
 msgid "The comment field must not be empty."
-msgstr ""
+msgstr "コメント欄には何か記入して下さい。"
 
 msgid "Invalid request type."
-msgstr ""
+msgstr "不正なリクエストの種類。"
 
 msgid "Added request successfully."
-msgstr ""
+msgstr "リクエストの追加が完了しました。"
 
 msgid "Invalid reason."
-msgstr ""
+msgstr "不正な理由。"
 
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "TU と開発者だけがリクエストをクローズできます。"
 
 msgid "Request closed successfully."
-msgstr ""
+msgstr "リクエストのクローズが完了しました。"
+
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "このフォームを使って AUR アカウント %s を恒久的に削除することができます。"
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%s警告%s: この操作は元に戻すことができません。"
+
+msgid "Confirm deletion"
+msgstr "削除の確認"
 
 msgid "Account Type"
 msgstr "アカウントタイプ"
@@ -733,6 +739,9 @@ msgstr "ユーザー"
 
 msgid "Developer"
 msgstr "開発者"
+
+msgid "Trusted User & Developer"
+msgstr "Trusted User & 開発者"
 
 msgid "Email Address"
 msgstr "メールアドレス"
@@ -766,6 +775,10 @@ msgstr "ユーザーのパッケージを見る"
 
 msgid "Edit this user's account"
 msgstr "このユーザーのアカウントを編集"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "このアカウントを恒久的に削除したい場合は %sここ%s をクリック。"
 
 msgid "required"
 msgstr "必須"
@@ -890,7 +903,7 @@ msgstr "新しいコメントを通知"
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
+msgstr[0] "%d 個の保留リクエスト。"
 
 msgid "Delete Package"
 msgstr "パッケージを削除"
@@ -941,9 +954,8 @@ msgstr "コメントを投稿する"
 msgid "Comment has been added."
 msgstr "コメントが追加されました。"
 
-#, php-format
-msgid "View all %s comments"
-msgstr "全ての %s 件のコメントを見る"
+msgid "View all comments"
+msgstr "全てのコメントを表示"
 
 msgid "Latest Comments"
 msgstr "最新のコメント"
@@ -957,6 +969,9 @@ msgstr "%s によるコメント"
 
 msgid "Anonymous comment"
 msgstr "匿名のコメント"
+
+msgid "deleted"
+msgstr "削除済み"
 
 msgid "All comments"
 msgstr "全てのコメント"
@@ -1002,52 +1017,52 @@ msgstr "ソース"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "リクエストを送る: %s"
 
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr ""
+msgstr "このフォームを使って以下のパッケージを含むパッケージベース %s%s%s にリクエストを送ることができます:"
 
 msgid "Request type"
-msgstr ""
+msgstr "リクエストの種類"
 
 msgid "Deletion"
-msgstr ""
+msgstr "削除"
 
 msgid "Orphan"
-msgstr ""
+msgstr "孤児"
 
 msgid "Comments"
-msgstr ""
+msgstr "コメント"
 
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
+msgstr[0] "パッケージリクエストが %d 個見つかりました。"
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "ページ %d / %d。"
 
 msgid "Package"
-msgstr ""
+msgstr "パッケージ"
 
 msgid "Filed by"
-msgstr ""
+msgstr "送信者"
 
 msgid "Date"
-msgstr ""
+msgstr "日付"
 
 msgid "Accept"
-msgstr ""
+msgstr "承認"
 
 msgid "Close"
-msgstr ""
+msgstr "クローズ"
 
 msgid "Closed"
-msgstr ""
+msgstr "クローズされました"
 
 msgid "Accepted"
 msgstr "承認されました"
@@ -1130,7 +1145,7 @@ msgstr "検索条件に一致するパッケージがありません。"
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
+msgstr[0] "パッケージが %d 個見つかりました。"
 
 msgid "Version"
 msgstr "バージョン"

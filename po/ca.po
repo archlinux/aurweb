@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-25 09:31+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/aur/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -125,10 +125,11 @@ msgstr "Discussió"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "El debat general sobre el repositori per usuaris d'Arch (AUR) i de l'estructura dels Usuaris de Confiança es realitza a %saur-general%s. Aquesta llista es pot utilitzar per sol·licitar l'orfandat, fusió i eliminació de paquets. Per discutir el desenvolupament de l'AUR, utilitzeu la llista de correu %saur-dev%s."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr ""
 
 msgid "Bug Reporting"
 msgstr "Comunicar errada"
@@ -263,6 +264,9 @@ msgstr "Introduiu la vostra adreça de correu."
 msgid "Cannot find package to merge votes and comments into."
 msgstr "No es pot trobar el paquet on combinar vots i comentaris."
 
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -393,9 +397,7 @@ msgstr "S'ha produït un error en intentar desempaquetar la pujada - El PKGBUILD
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
+" create AUR source packages."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -619,9 +621,6 @@ msgstr "No heu seleccionat cap paquet per a desmarcar."
 msgid "The selected packages have been unflagged."
 msgstr "Els paquets seleccionats s'han desmarcat."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Ha d'estar registrat per poder esborrar els paquets."
-
 msgid "You do not have permission to delete packages."
 msgstr "No té permís per eliminar paquets."
 
@@ -699,10 +698,6 @@ msgstr "No esteu autoritzats a canviar la categoria del paquet."
 msgid "Package category changed."
 msgstr "Ha canviat la categoria del paquet."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Manca la variable %s en PKGBUILD."
-
 msgid "View packages details for"
 msgstr "Veure els detalls del paquet per"
 
@@ -724,6 +719,17 @@ msgstr ""
 msgid "Request closed successfully."
 msgstr ""
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr ""
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
 msgid "Account Type"
 msgstr "Tipus de compte"
 
@@ -732,6 +738,9 @@ msgstr "Usuari"
 
 msgid "Developer"
 msgstr "Desenvolupador"
+
+msgid "Trusted User & Developer"
+msgstr ""
 
 msgid "Email Address"
 msgstr "Adreça de correu-e"
@@ -764,6 +773,10 @@ msgid "View this user's packages"
 msgstr "Visualitza els paquets d'aquest usuari"
 
 msgid "Edit this user's account"
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
 msgstr ""
 
 msgid "required"
@@ -941,9 +954,8 @@ msgstr "Afegir un comentari"
 msgid "Comment has been added."
 msgstr "S'ha afegit el comentari."
 
-#, php-format
-msgid "View all %s comments"
-msgstr "Veure tots els %s comentaris."
+msgid "View all comments"
+msgstr ""
 
 msgid "Latest Comments"
 msgstr "Darrers Comentaris"
@@ -956,6 +968,9 @@ msgid "Comment by %s"
 msgstr "Comentari de %s"
 
 msgid "Anonymous comment"
+msgstr ""
+
+msgid "deleted"
 msgstr ""
 
 msgid "All comments"

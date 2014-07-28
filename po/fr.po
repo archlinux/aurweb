@@ -7,16 +7,16 @@
 # Antoine Lubineau <antoine@lubignon.info>, 2013-2014
 # Cedric Girard <girard.cedric@gmail.com>, 2011,2014
 # lordheavy <lordheavym@gmail.com>, 2011
-# lordheavy <lordheavym@gmail.com>, 2013
+# lordheavy <lordheavym@gmail.com>, 2013-2014
 # lordheavy <lordheavym@gmail.com>, 2011-2012
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:46+0000\n"
-"Last-Translator: Antoine Lubineau <antoine@lubignon.info>\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-27 09:17+0000\n"
+"Last-Translator: lordheavy <lordheavym@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/aur/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,10 +130,11 @@ msgstr "Discussion"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Les discussions en rapport avec AUR (Arch User Repository, dépôt des utilisateurs d’Arch Linux) et les utilisateurs de confiance (en anglais TU : Trusted Users) ont lieu sur %saur-general%s. Cette mailing-list peut servir aux demandes de libération, de fusion ou de suppression de paquets. Pour les discussions en rapport avec le développement d’AUR, utilisez la mailing-list %saur-dev%s."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr "Les discussions en rapport avec AUR (Arch User Repository, dépôt des utilisateurs d’Arch Linux) et les utilisateurs de confiance ont lieu sur %saur-general%s. Les demandes de libération, de fusion ou de suppression de paquets doivent se faire en utilisant la boite %sPackage Actions%s. Pour les discussions en rapport avec le développement d’AUR, utilisez la mailing-list %saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Rapports de bug"
@@ -268,6 +269,9 @@ msgstr "Entrez votre adresse e-mail :"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Impossible de trouver le paquet dans lequel fusionner les votes et les commentaires."
 
+msgid "Cannot merge a package base with itself."
+msgstr "Impossible de fusionner un paquet de base avec lui-même"
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -334,7 +338,7 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Seuls les utilisateurs de confiance et les développeurs peuvent fusionner des paquets."
 
 msgid "File Request"
-msgstr ""
+msgstr "Requête de Fichier"
 
 msgid "Close Request"
 msgstr "Fermer la requête"
@@ -398,10 +402,8 @@ msgstr "Erreur en essayant de décompresser le fichier transféré : le fichie
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "Le paquetage source ne contient aucune métadonnée. Veuillez utiliser `mkaurball` pour créer les paquetages AUR source. Le support pour les paquetages sources sans .AURINFO sera supprimé dans une prochaine version ! Vous pouvez resoumettre le paquetage pour continuer quand même."
+" create AUR source packages."
+msgstr "Le paquet source ne contient aucune méta-donnée. Utilisez `mkaurball` pour créer le paquet source pour AUR"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Nom invalide : seules les lettres minuscules sont autorisées."
@@ -624,9 +626,6 @@ msgstr "Vous n'avez sélectionné aucun paquet auquel retirer l'étiquetage."
 msgid "The selected packages have been unflagged."
 msgstr "Les paquets sélectionnés ne sont plus étiquetés."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Vous devez être connecté pour pouvoir supprimer des paquets."
-
 msgid "You do not have permission to delete packages."
 msgstr "Vous n’avez pas la permission de supprimer des paquets."
 
@@ -704,10 +703,6 @@ msgstr "Vous n'êtes pas autorisé à modifier la catégorie de ce paquet."
 msgid "Package category changed."
 msgstr "Catégorie du paquet changé."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Variable %s manquante dans le PKGBUILD."
-
 msgid "View packages details for"
 msgstr "Voir le paquet"
 
@@ -729,6 +724,17 @@ msgstr "Seuls les utilisateurs de confiance et les développeurs peuvent fermer 
 msgid "Request closed successfully."
 msgstr "Requête fermée avec succès."
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "Vous ne pouvez pas utiliser ce formulaire pour effacer le compte AUR %s de façon permanente."
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%sWARNING%s: cette action ne peut étre annulée"
+
+msgid "Confirm deletion"
+msgstr "Confirmer la suppression"
+
 msgid "Account Type"
 msgstr "Type de compte"
 
@@ -737,6 +743,9 @@ msgstr "Utilisateur"
 
 msgid "Developer"
 msgstr "Développeur"
+
+msgid "Trusted User & Developer"
+msgstr "Utilisateur de confiance (TU) et Développeur"
 
 msgid "Email Address"
 msgstr "Adresse e-mail"
@@ -770,6 +779,10 @@ msgstr "Visualiser les paquets de cet utilisateur."
 
 msgid "Edit this user's account"
 msgstr "Éditer le compte de cet utilisateur."
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "Cliquez %sici%s si vous voulez effacer ce compte de façon définitive."
 
 msgid "required"
 msgstr "requis"
@@ -929,7 +942,7 @@ msgid "Maintainer"
 msgstr "Mainteneur"
 
 msgid "Last Packager"
-msgstr ""
+msgstr "Dernier packageur"
 
 msgid "Votes"
 msgstr "Votes"
@@ -946,9 +959,8 @@ msgstr "Ajouter un commentaire"
 msgid "Comment has been added."
 msgstr "Le commentaire a été ajouté."
 
-#, php-format
-msgid "View all %s comments"
-msgstr "Voir tous les %s commentaires"
+msgid "View all comments"
+msgstr "Voir tous les commentaires"
 
 msgid "Latest Comments"
 msgstr "Derniers commentaires"
@@ -962,6 +974,9 @@ msgstr "Commentaire de %s"
 
 msgid "Anonymous comment"
 msgstr "Commentaire anonyme"
+
+msgid "deleted"
+msgstr "supprimé"
 
 msgid "All comments"
 msgstr "Tous les commentaires"
@@ -1007,13 +1022,13 @@ msgstr "Sources"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "Requête de Fichier: %s"
 
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr ""
+msgstr "Utilisez ce formulaire pour soumettre une requête concernant le paquet de base %s%s%s contenant les paquets suivant:"
 
 msgid "Request type"
 msgstr "Type de requête"
@@ -1030,8 +1045,8 @@ msgstr "Commentaires"
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d paquet demandé trouvé."
+msgstr[1] "%d paquets demandés trouvés."
 
 #, php-format
 msgid "Page %d of %d."
@@ -1071,7 +1086,7 @@ msgid "Exact Name"
 msgstr "Nom exact"
 
 msgid "Exact Package Base"
-msgstr ""
+msgstr "Paquet de base exact"
 
 msgid "All"
 msgstr "Tout"

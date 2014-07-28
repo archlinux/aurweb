@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-25 09:31+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/aur/language/sr/)\n"
 "MIME-Version: 1.0\n"
@@ -125,10 +125,11 @@ msgstr "Diskusija"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Opšta diskusija vezana za Arčovu korisniču riznicu (AUR) i strukturu Poverljivih korisnika se vodi na dopisnoj listi %saur-general%s. On se može koristiti za zahteve spajanja, odricanja i brisanja. diskusija vezana za razvoj AUR-a se odvija na dopisnoj listi %saur-dev%s."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr ""
 
 msgid "Bug Reporting"
 msgstr "Prijavljivanje grešaka"
@@ -263,6 +264,9 @@ msgstr "Unesite adresu e-pošte:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Ne mogu da nađem paket kako bih stopio glasove i komentare."
 
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -393,9 +397,7 @@ msgstr "Greška pri raspakivanju pošiljke  — ne postoji PKGBUILD."
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
+" create AUR source packages."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -619,9 +621,6 @@ msgstr "Niste izabrali paket za uklanjanje oznake."
 msgid "The selected packages have been unflagged."
 msgstr "Označenim paketima je uklonjena oznaka."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Morate se prijaviti da bi brisali pakete."
-
 msgid "You do not have permission to delete packages."
 msgstr ""
 
@@ -699,10 +698,6 @@ msgstr "Nemate dozvolu da promenite kategoriju ovog paketa."
 msgid "Package category changed."
 msgstr "Kategorija paketa je izmenjena."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "U PKGBUILD-u nedostaje promenjiva %s."
-
 msgid "View packages details for"
 msgstr ""
 
@@ -724,6 +719,17 @@ msgstr ""
 msgid "Request closed successfully."
 msgstr ""
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr ""
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
 msgid "Account Type"
 msgstr "Tip naloga"
 
@@ -732,6 +738,9 @@ msgstr "Korisnik"
 
 msgid "Developer"
 msgstr "Programer"
+
+msgid "Trusted User & Developer"
+msgstr ""
 
 msgid "Email Address"
 msgstr "Adresa e-pošte"
@@ -764,6 +773,10 @@ msgid "View this user's packages"
 msgstr "Pregledaj korisnikove pakete"
 
 msgid "Edit this user's account"
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
 msgstr ""
 
 msgid "required"
@@ -942,8 +955,7 @@ msgstr "Dodaj komentar"
 msgid "Comment has been added."
 msgstr "Komentar je dodat."
 
-#, php-format
-msgid "View all %s comments"
+msgid "View all comments"
 msgstr ""
 
 msgid "Latest Comments"
@@ -957,6 +969,9 @@ msgid "Comment by %s"
 msgstr ""
 
 msgid "Anonymous comment"
+msgstr ""
+
+msgid "deleted"
 msgstr ""
 
 msgid "All comments"

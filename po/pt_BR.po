@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 12:26+0000\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-25 14:58+0000\n"
 "Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/aur/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -127,10 +127,11 @@ msgstr "Discussão"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Discussões gerais no que se refere à estrutura de Arch User Repository (AUR) e Trusted User acontecem no %saur-general%s. Essa lista pode ser usada para requerer que pacotes se tornem órfãos, requerer mesclagens e também requerer exclusão de pacotes. Para discussão relacionada ao desenvolvimento do AUR, use a lista de discussão do %saur-dev%s."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr "Discussões gerais no que se refere à estrutura de Repositório de Usuário do AUR (AUR) e Trusted User acontecem no %saur-general%s. Requisições de exclusão de pacote e requisições para tornar  pacote órfão deveriam ser preenchidas na caixa %sAções do pacote%s. Para discussão relacionada ao desenvolvimento do AUR, use a lista de discussão do %saur-dev%s"
 
 msgid "Bug Reporting"
 msgstr "Relatório de erros"
@@ -265,6 +266,9 @@ msgstr "Digite o seu endereço de e-mail:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Não foi possível encontrar pacote para nele fundir votos e comentários."
 
+msgid "Cannot merge a package base with itself."
+msgstr "Não é possível mesclar um pacote base com ele mesmo"
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -395,10 +399,8 @@ msgstr "Erro ao tentar descompactar o arquivo - PKGBUILD não existe."
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "O pacote fonte não contém quaisquer meta dados. Por favor, use \"mkaurball\" para criar pacotes fontes do AUR. Suporte para pacotes fontes sem entradas .AURINFO será removido um lançamento próximo! Você pode re-enviar o pacote, se você desejar proceder mesmo assim."
+" create AUR source packages."
+msgstr "O pacote fonte não contém metadados. Por favor, use \"mkaurball\" para criar pacotes fonte do AUR."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Nome inválido: apenas letras minúsculas são permitidas."
@@ -446,7 +448,7 @@ msgstr "Não foi possível alterar o diretório para %s."
 
 msgid ""
 "Upload your source packages here. Create source packages with `mkaurball`."
-msgstr "Envie seus pacotes fontes aqui. Crie pacotes fontes com \"mkaurball\"."
+msgstr "Envie seus pacotes fonte aqui. Crie pacotes fonte com \"mkaurball\"."
 
 msgid "Package Category"
 msgstr "Categoria do pacote"
@@ -621,9 +623,6 @@ msgstr "Você não selecionou nenhum pacote para desmarcar."
 msgid "The selected packages have been unflagged."
 msgstr "O pacote selecionado foi desmarcado."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Você deve estar conectado para excluir pacotes."
-
 msgid "You do not have permission to delete packages."
 msgstr "Você não tem permissão para excluir pacotes."
 
@@ -701,10 +700,6 @@ msgstr "Você não tem permissão para alterar a categoria desse pacote."
 msgid "Package category changed."
 msgstr "Categoria do pacote alterada."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Está faltando a variável %s no PKGBUILD."
-
 msgid "View packages details for"
 msgstr "Ver detalhes de pacotes para"
 
@@ -726,6 +721,17 @@ msgstr "Apenas TUs e desenvolvedores podem fechar requisições"
 msgid "Request closed successfully."
 msgstr "Requisição fechada com sucesso"
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "Você pode usar esse formulário para excluir permanentemente a conta %s do AUR."
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%sAVISO%s: Essa ação não pode ser desfeita."
+
+msgid "Confirm deletion"
+msgstr "Confirmar exclusão"
+
 msgid "Account Type"
 msgstr "Tipo de conta"
 
@@ -734,6 +740,9 @@ msgstr "Usuário"
 
 msgid "Developer"
 msgstr "Desenvolvedor"
+
+msgid "Trusted User & Developer"
+msgstr "Trusted User & Desenvolvedor"
 
 msgid "Email Address"
 msgstr "Endereço de e-mail"
@@ -767,6 +776,10 @@ msgstr "Visualizar pacotes deste usuário"
 
 msgid "Edit this user's account"
 msgstr "Edite a conta desse usuário"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "Clique %saqui%s se você deseja excluir permanentemente esta conta."
 
 msgid "required"
 msgstr "obrigatório"
@@ -943,9 +956,8 @@ msgstr "Adicionar comentário"
 msgid "Comment has been added."
 msgstr "Comentário adicionado."
 
-#, php-format
-msgid "View all %s comments"
-msgstr "Ver todos os %s comentários"
+msgid "View all comments"
+msgstr "Ver todos os comentários"
 
 msgid "Latest Comments"
 msgstr "Últimos comentários"
@@ -959,6 +971,9 @@ msgstr "Comentário de %s"
 
 msgid "Anonymous comment"
 msgstr "Comentário anônimo"
+
+msgid "deleted"
+msgstr "excluída"
 
 msgid "All comments"
 msgstr "Todos os comentários"
@@ -1016,10 +1031,10 @@ msgid "Request type"
 msgstr "Tipo de requisição"
 
 msgid "Deletion"
-msgstr "Exclusão"
+msgstr "Excluir"
 
 msgid "Orphan"
-msgstr ""
+msgstr "Tornar órfão"
 
 msgid "Comments"
 msgstr "Comentários"

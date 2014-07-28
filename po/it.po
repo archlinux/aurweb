@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-05 09:22+0000\n"
-"Last-Translator: Lorenzo Porta <vindex17@outlook.it>\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-25 09:31+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/aur/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -126,10 +126,11 @@ msgstr "Discussione"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "La discussione generale sull'Arch User Repository (AUR) e sulla struttura dei TU avviene in %saur-general%s. Questa lista di discussione può essere utilizzata per le richieste dei pacchetti orfani, per unire le richieste e per le richieste di cancellazione. Per la discussione relativa allo sviluppo di AUR, utilizza la lista di discussione %saur-dev%s."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr ""
 
 msgid "Bug Reporting"
 msgstr "Segnalazione di un bug"
@@ -264,6 +265,9 @@ msgstr "Inserisci il tuo indirizzo email:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Impossibile trovare il pacchetto per inserire al suo interno i voti ed i commenti."
 
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -394,10 +398,8 @@ msgstr "Si è verificato un errore nello scompattare il file inviato. Non esiste
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "Il pacchetto non contiene metadati. Utilizza `mkaurball` per creare i pacchetti per AUR. Il supporto per i pacchetti senza .AURINFO sarà rimosso in una delle prossime release! Se vuoi procedere comunque, è possibile inviare nuovamente il pacchetto."
+" create AUR source packages."
+msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Il nome non è valido: sono consentite solo le lettere minuscole."
@@ -620,9 +622,6 @@ msgstr "Non hai selezionato nessun pacchetto da contrassegnare come aggiornato."
 msgid "The selected packages have been unflagged."
 msgstr "I pacchetti selezionati non sono più contrassegnati."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Devi autenticarti prima di poter eliminare i pacchetti."
-
 msgid "You do not have permission to delete packages."
 msgstr "Non hai il permesso di eliminare i pacchetti."
 
@@ -700,10 +699,6 @@ msgstr "Non puoi modificare la categoria di questo pacchetto."
 msgid "Package category changed."
 msgstr "La categoria del pacchetto è stata modificata."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Manca la variabile %s nel PKGBUILD."
-
 msgid "View packages details for"
 msgstr "Visualizza i dettagli dei pacchetti di"
 
@@ -725,6 +720,17 @@ msgstr ""
 msgid "Request closed successfully."
 msgstr ""
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr ""
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
 msgid "Account Type"
 msgstr "Tipo di account"
 
@@ -733,6 +739,9 @@ msgstr "Utente"
 
 msgid "Developer"
 msgstr "Sviluppatore"
+
+msgid "Trusted User & Developer"
+msgstr ""
 
 msgid "Email Address"
 msgstr "Indirizzo email"
@@ -766,6 +775,10 @@ msgstr "Visualizza i pacchetti di quest'utente"
 
 msgid "Edit this user's account"
 msgstr "Modifica l'account di questo utente"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr ""
 
 msgid "required"
 msgstr "obbligatorio"
@@ -942,9 +955,8 @@ msgstr "Aggiungi un commento"
 msgid "Comment has been added."
 msgstr "Il commento è stato inserito."
 
-#, php-format
-msgid "View all %s comments"
-msgstr "Vedi tutti i commenti di %s"
+msgid "View all comments"
+msgstr ""
 
 msgid "Latest Comments"
 msgstr "Ultimi commenti"
@@ -958,6 +970,9 @@ msgstr "Commento inviato da %s"
 
 msgid "Anonymous comment"
 msgstr "Commento anonimo"
+
+msgid "deleted"
+msgstr ""
 
 msgid "All comments"
 msgstr "Tutti i commenti"

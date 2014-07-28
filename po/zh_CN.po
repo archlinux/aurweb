@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-27 08:16+0000\n"
+"Last-Translator: Felix Yan <felixonmars@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/aur/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,7 +119,7 @@ msgid "Remember to vote for your favourite packages!"
 msgstr "记得为您喜欢的软件包投票！"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "部分包将在 [community] 仓库以二进制包的形式提供。"
+msgstr "部分软件包将在 [community] 仓库以二进制包的形式提供。"
 
 msgid "Discussion"
 msgstr "邮件列表"
@@ -127,10 +127,11 @@ msgstr "邮件列表"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "与 Arch 用户仓库（AUR）或者受信用户结构相关的一般讨论在 %saur-general%s 邮件列表。这个列表可以被用来提交软件包的弃置、合并以及删除申请。若是与 AUR 开发相关的讨论，请使用 %saur-dev%s 邮件列表。"
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr "与 Arch 用户仓库 (AUR) 或者受信用户结构相关的一般性讨论请使用 %saur-general%s 邮件列表。软件包弃置、合并以及删除等请求应该使用%s软件包操作%s表格来提出。与 AUR 开发相关的讨论请使用 %saur-dev%s 邮件列表。"
 
 msgid "Bug Reporting"
 msgstr "Bug 报告"
@@ -149,7 +150,7 @@ msgstr "免责声明"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "位于 unsupported 的包为用户产生的内容。使用它们造成的后果自负。"
+msgstr "位于 unsupported 的软件包为用户产生的内容。使用它们造成的后果自负。"
 
 msgid "Package Search"
 msgstr "软件包搜索"
@@ -265,6 +266,9 @@ msgstr "输入您的邮箱地址:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "找不到合并投票与评论的目标包。"
 
+msgid "Cannot merge a package base with itself."
+msgstr "无法将一个包基础合并到它自己。"
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -281,13 +285,13 @@ msgstr "删除包：%s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "使用这个表单将包基础 %s%s%s 和下面的包从 AUR 中移除："
+msgstr "使用这个表单将包基础 %s%s%s 和以下包从 AUR 中移除："
 
 msgid "Deletion of a package is permanent. "
 msgstr "删除软件包是一个永久性的操作"
 
 msgid "Select the checkbox to confirm action."
-msgstr "选中文本框以确认操作。"
+msgstr "选中复选框以确认操作。"
 
 msgid "Confirm package deletion"
 msgstr "确认删除包"
@@ -310,7 +314,7 @@ msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr "使用这个表单将包基础 %s%s%s 合并到另一个包。"
 
 msgid "The following packages will be deleted: "
-msgstr "下面这些包将被删除："
+msgstr "下面这些软件包将被删除："
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "一旦包被合并，这个操作将是不可逆的。"
@@ -334,7 +338,7 @@ msgid "File Request"
 msgstr "提交请求"
 
 msgid "Close Request"
-msgstr ""
+msgstr "关闭请求"
 
 msgid "First"
 msgstr "首先"
@@ -395,16 +399,14 @@ msgstr "尝试解压上传的包发生错误 - 没有PKGBUILD文件。"
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "源代码包里没有包括任何描述信息。请使用 mkaurball 来创建 AUR 源代码包。对不含 .AURINFO 的源码包的支持将在下一个版本中被移除！如果你仍想提交这个包，请再提交一次。"
+" create AUR source packages."
+msgstr "此源代码包没有包含摘要数据。请使用 `mkaurball` 来创建 AUR 源代码包。"
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "无效的名称: 只允许小写字母。"
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "包的 URL 缺少协议（如 http://，ftp://）"
+msgstr "软件包的 URL 缺少协议（如 http://，ftp://）"
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
@@ -434,7 +436,7 @@ msgstr "%s 在软件包黑名单上，请检查它是否已经在官方仓库中
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "您没有权限覆盖 %s%s%s 这个包。"
+msgstr "您没有权限覆盖 %s%s%s 这个软件包。"
 
 #, php-format
 msgid "Could not create directory %s."
@@ -449,13 +451,13 @@ msgid ""
 msgstr "将你的源代码包上传到这里。请使用 mkaurball 创建源代码包。"
 
 msgid "Package Category"
-msgstr "包类别"
+msgstr "软件包类别"
 
 msgid "Select Category"
 msgstr "选择类别"
 
 msgid "Upload package file"
-msgstr "上传包文件"
+msgstr "上传软件包文件"
 
 msgid "Upload"
 msgstr "上传"
@@ -464,7 +466,7 @@ msgid "Sorry, uploads are not permitted by this server."
 msgstr "抱歉，此服务器不允许上传。"
 
 msgid "You must create an account before you can upload packages."
-msgstr "您在创建帐号后才能上传包"
+msgstr "您在创建帐号后才能上传软件包"
 
 msgid "Trusted User"
 msgstr "受信用户"
@@ -601,70 +603,67 @@ msgid "Error retrieving package details."
 msgstr "获取软件包详情时发生错误。"
 
 msgid "Package details could not be found."
-msgstr "无法找到包的详细信息。"
+msgstr "无法找到软件包的详细信息。"
 
 msgid "You must be logged in before you can flag packages."
-msgstr "您需要登录后才能标记包。"
+msgstr "您需要登录后才能标记软件包。"
 
 msgid "You did not select any packages to flag."
-msgstr "您没有选择要标记的包。"
+msgstr "您没有选择要标记的软件包。"
 
 msgid "The selected packages have been flagged out-of-date."
-msgstr "选择的包已被标记为过期。"
+msgstr "选择的软件包已被标记为过期。"
 
 msgid "You must be logged in before you can unflag packages."
-msgstr "您需要登录后才能移除包标记。"
+msgstr "您需要登录后才能移除软件包标记。"
 
 msgid "You did not select any packages to unflag."
-msgstr "您没有选择要取消标记的包。"
+msgstr "您没有选择要取消标记的软件包。"
 
 msgid "The selected packages have been unflagged."
-msgstr "选中的包的标记已被移除。"
-
-msgid "You must be logged in before you can delete packages."
-msgstr "登陆后才能删除软件包。"
+msgstr "选中的软件包的标记已被移除。"
 
 msgid "You do not have permission to delete packages."
 msgstr "您没有删除软件包的权限。"
 
 msgid "You did not select any packages to delete."
-msgstr "您没有选择要删除的包。"
+msgstr "您没有选择要删除的软件包。"
 
 msgid "The selected packages have been deleted."
-msgstr "选中的包已经被删除。"
+msgstr "选中的软件包已经被删除。"
 
 msgid "You must be logged in before you can adopt packages."
-msgstr "您需要登陆后才能接管包"
+msgstr "您需要登陆后才能接管软件包"
 
 msgid "You must be logged in before you can disown packages."
-msgstr "您需要登录后才能弃置包。"
+msgstr "您需要登录后才能弃置软件包。"
 
 msgid "You did not select any packages to adopt."
-msgstr "您没有选择要接管的包。"
+msgstr "您没有选择要接管的软件包。"
 
 msgid "You did not select any packages to disown."
-msgstr "您没有选择要弃置的包。"
+msgstr "您没有选择要弃置的软件包。"
 
 msgid "The selected packages have been adopted."
-msgstr "选择的包已经被接管。"
+msgstr "选择的软件包已经被接管。"
 
 msgid "The selected packages have been disowned."
-msgstr "选中的包已经被弃置。"
+msgstr "选中的软件包已经被弃置。"
 
 msgid "You must be logged in before you can vote for packages."
-msgstr "您需要登录后才能为包投票。"
+msgstr "您需要登录后才能为软件包投票。"
 
 msgid "You must be logged in before you can un-vote for packages."
-msgstr "您需要登录后才能取消投票。"
+msgstr "您需要登录后才能为软件包取消投票。"
 
 msgid "You did not select any packages to vote for."
-msgstr "您没有选择要投票的包。"
+msgstr "您没有选择要投票的软件包。"
 
 msgid "Your votes have been removed from the selected packages."
-msgstr "您对所选包的投票已被取消。"
+msgstr "您对所选软件包的投票已被取消。"
 
 msgid "Your votes have been cast for the selected packages."
-msgstr "您的投票已被接受。"
+msgstr "您对所选软件包的投票已被记录。"
 
 msgid "Couldn't add to notification list."
 msgstr "无法将您添加到通知列表。"
@@ -678,7 +677,7 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "您将不再收到 %s 的评论通知。"
 
 msgid "You must be logged in before you can edit package information."
-msgstr "您需要登录后才能编辑包信息。"
+msgstr "您需要登录后才能编辑软件包信息。"
 
 msgid "Missing comment ID."
 msgstr "评论标识丢失。"
@@ -699,11 +698,7 @@ msgid "You are not allowed to change this package category."
 msgstr "您无权修改此软件包的类别。"
 
 msgid "Package category changed."
-msgstr "包分类已更改。"
-
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "PKGBUILD 中缺少 %s 变量。"
+msgstr "软件包分类已更改。"
 
 msgid "View packages details for"
 msgstr "查看软件包详细信息"
@@ -718,13 +713,24 @@ msgid "Added request successfully."
 msgstr "请求提交成功。"
 
 msgid "Invalid reason."
-msgstr ""
+msgstr "无效的理由。"
 
 msgid "Only TUs and developers can close requests."
 msgstr "只有受信用户和开发者可以关闭请求。"
 
 msgid "Request closed successfully."
 msgstr "请求关闭成功。"
+
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "你可以使用这个表单来彻底删除 AUR 帐号 %s。"
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%s警告%s：这个操作无法被撤销"
+
+msgid "Confirm deletion"
+msgstr "确认删除"
 
 msgid "Account Type"
 msgstr "帐户类别"
@@ -734,6 +740,9 @@ msgstr "用户"
 
 msgid "Developer"
 msgstr "开发人员"
+
+msgid "Trusted User & Developer"
+msgstr "受信用户 & 开发者"
 
 msgid "Email Address"
 msgstr "Email"
@@ -763,10 +772,14 @@ msgid "Never"
 msgstr "从不"
 
 msgid "View this user's packages"
-msgstr "查看这个用户提交的包"
+msgstr "查看这个用户提交的软件包"
 
 msgid "Edit this user's account"
 msgstr "编辑此用户的帐号"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "如果你想要彻底删除这个帐号，请点击%s这里%s。"
 
 msgid "required"
 msgstr "必填"
@@ -832,7 +845,7 @@ msgid "UnFlag Out-of-date"
 msgstr "移除过期标记"
 
 msgid "Delete Packages"
-msgstr "删除包"
+msgstr "删除软件包"
 
 msgid "Merge into"
 msgstr "合并到"
@@ -841,7 +854,7 @@ msgid "Confirm"
 msgstr "确认"
 
 msgid "My Packages"
-msgstr "我的包"
+msgstr "我的软件包"
 
 msgid " My Account"
 msgstr "我的帐户"
@@ -871,10 +884,10 @@ msgid "Flagged out-of-date"
 msgstr "已标记为过期"
 
 msgid "Flag package out-of-date"
-msgstr "标记为过期"
+msgstr "将软件包标记为过期"
 
 msgid "Unflag package"
-msgstr "取消标记"
+msgstr "取消标记软件包"
 
 msgid "Remove vote"
 msgstr "移除投票"
@@ -891,7 +904,7 @@ msgstr "当有新评论的时候提醒我"
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
+msgstr[0] "%d 个未处理的请求"
 
 msgid "Delete Package"
 msgstr "删除软件包"
@@ -900,10 +913,10 @@ msgid "Merge Package"
 msgstr "合并软件包"
 
 msgid "Adopt Package"
-msgstr "接管包"
+msgstr "接管软件包"
 
 msgid "Disown Package"
-msgstr "弃置包"
+msgstr "弃置软件包"
 
 msgid "Category"
 msgstr "类别"
@@ -942,9 +955,8 @@ msgstr "添加评论"
 msgid "Comment has been added."
 msgstr "已经添加评论。"
 
-#, php-format
-msgid "View all %s comments"
-msgstr "显示全部 %s 个评论"
+msgid "View all comments"
+msgstr "查看所有评论"
 
 msgid "Latest Comments"
 msgstr "最新的评论"
@@ -958,6 +970,9 @@ msgstr "%s 的评论"
 
 msgid "Anonymous comment"
 msgstr "匿名评论"
+
+msgid "deleted"
+msgstr "已删除"
 
 msgid "All comments"
 msgstr "全部评论"
@@ -1009,7 +1024,7 @@ msgstr "提交请求：%s"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "使用这个表格，提交一个针对包基础 %s%s%s 的请求，其中包括下列包："
+msgstr "使用这个表格，提交一个针对包基础 %s%s%s 的请求，其中包括下列软件包："
 
 msgid "Request type"
 msgstr "请求类型"
@@ -1026,11 +1041,11 @@ msgstr "评论"
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
+msgstr[0] "找到了 %d 个软件包请求。"
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "第 %d 页，共 %d 页。"
 
 msgid "Package"
 msgstr "软件包"
@@ -1051,10 +1066,10 @@ msgid "Closed"
 msgstr "已关闭"
 
 msgid "Accepted"
-msgstr "接受"
+msgstr "已接受"
 
 msgid "Rejected"
-msgstr "拒绝"
+msgstr "已拒绝"
 
 msgid "Name, Description"
 msgstr "名称和描述"
@@ -1126,12 +1141,12 @@ msgid "Error retrieving package list."
 msgstr "无法获取包列表。"
 
 msgid "No packages matched your search criteria."
-msgstr "没有相关的包符合您的搜索条件。"
+msgstr "没有相关的软件包符合您的搜索条件。"
 
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
+msgstr[0] "找到了 %d 个软件包。"
 
 msgid "Version"
 msgstr "版本"
@@ -1149,10 +1164,10 @@ msgid "Unflag Out-of-date"
 msgstr "移除过期标记"
 
 msgid "Adopt Packages"
-msgstr "接管包"
+msgstr "接管软件包"
 
 msgid "Disown Packages"
-msgstr "弃置包"
+msgstr "弃置软件包"
 
 msgid "Any type"
 msgstr "所有类别"
@@ -1164,19 +1179,19 @@ msgid "Statistics"
 msgstr "统计"
 
 msgid "Orphan Packages"
-msgstr "无人维护"
+msgstr "无人维护的软件包"
 
 msgid "Packages added in the past 7 days"
-msgstr "7天内新增"
+msgstr "7天内新增的软件包"
 
 msgid "Packages updated in the past 7 days"
-msgstr "7天内更新"
+msgstr "7天内更新的软件包"
 
 msgid "Packages updated in the past year"
-msgstr "一年内更新"
+msgstr "一年内更新的软件包"
 
 msgid "Packages never updated"
-msgstr "从未更新"
+msgstr "从未更新的软件包"
 
 msgid "Registered Users"
 msgstr "注册用户"
@@ -1191,7 +1206,7 @@ msgid "My Statistics"
 msgstr "我的统计"
 
 msgid "Packages in unsupported"
-msgstr "位于 unsupported 的包"
+msgstr "位于 unsupported 的软件包"
 
 msgid "Proposal Details"
 msgstr "提议详情"

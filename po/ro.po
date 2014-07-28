@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-25 09:31+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -126,10 +126,11 @@ msgstr "Discuție"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
-msgstr "Discuțiile generale cu privire la Arch User Repository (AUR) și structura Trusted User se desfășoară pe %saur-general%s. Această listă poate fi folosită pentru cereri de ștergere, fuzionare sau abandonare pachete. Pentru discuții cu privire la dezvoltarea AUR, folosește lista de discuții %saur-dev%s."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
+msgstr ""
 
 msgid "Bug Reporting"
 msgstr "Semnalare buguri"
@@ -264,6 +265,9 @@ msgstr "Introdu adresa ta de e-mail:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Nu s-a putut găsi pachet pentru fuzionare voturi și comentarii."
 
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -394,10 +398,8 @@ msgstr "Eroarea la dezarhivare - PKGBUILD nu există."
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
-msgstr "Pachetul sursă nu conține metadate. Te rog folosește `mkaurball` pentru a crea pachete sursă AUR. Suportul pentru pachetele sursă fără înregistrări .AURINFO va fi înlăturat la următoarea actualizare! Poți retrimite pachetul dacă totuși vrei să continui."
+" create AUR source packages."
+msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Numele nu este valid: doar litere mici sunt permise."
@@ -620,9 +622,6 @@ msgstr "Nu ai selectat niciun pachet pentru a-i fi eliminat marcajul."
 msgid "The selected packages have been unflagged."
 msgstr "La pachetele selectate a fost eliminat marcajul de Neactualizat."
 
-msgid "You must be logged in before you can delete packages."
-msgstr "Trebuie să fi autentificat înainte de a putea șterge pachete."
-
 msgid "You do not have permission to delete packages."
 msgstr "Nu ai permisiune pentru a șterge pachete."
 
@@ -700,10 +699,6 @@ msgstr "Nu ai permisiunea de a schimba categoria acestui pachet."
 msgid "Package category changed."
 msgstr "Categoria pachetului a fost schimbată."
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr "Lipsește variabila %s în PKGBUILD."
-
 msgid "View packages details for"
 msgstr "Vezi detaliile pachetelor pentru"
 
@@ -725,6 +720,17 @@ msgstr ""
 msgid "Request closed successfully."
 msgstr ""
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr ""
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
 msgid "Account Type"
 msgstr "Tip cont"
 
@@ -733,6 +739,9 @@ msgstr "Utilizator"
 
 msgid "Developer"
 msgstr "Dezvoltator"
+
+msgid "Trusted User & Developer"
+msgstr ""
 
 msgid "Email Address"
 msgstr "Adresă email"
@@ -766,6 +775,10 @@ msgstr "Vezi pachetele acestui utilizator"
 
 msgid "Edit this user's account"
 msgstr "Modifică contul acestui utilizator"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr ""
 
 msgid "required"
 msgstr "cerut"
@@ -943,9 +956,8 @@ msgstr "Adaugă comentariu"
 msgid "Comment has been added."
 msgstr "Comentariul a fost adăugat."
 
-#, php-format
-msgid "View all %s comments"
-msgstr "Citește toate comentariile (%s)"
+msgid "View all comments"
+msgstr ""
 
 msgid "Latest Comments"
 msgstr "Ultimele comentarii"
@@ -959,6 +971,9 @@ msgstr "Comentariu de %s"
 
 msgid "Anonymous comment"
 msgstr "Comentariu anonim"
+
+msgid "deleted"
+msgstr ""
 
 msgid "All comments"
 msgstr "Toate comentariile"

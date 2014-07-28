@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-04 12:29+0200\n"
-"PO-Revision-Date: 2014-07-04 10:30+0000\n"
+"POT-Creation-Date: 2014-07-25 11:29+0200\n"
+"PO-Revision-Date: 2014-07-25 09:31+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hebrew (http://www.transifex.com/projects/p/aur/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -124,9 +124,10 @@ msgstr "דיון"
 #, php-format
 msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. This list can be used for package"
-" orphan requests, merge requests, and deletion requests. For discussion "
-"relating to the development of the AUR, use the %saur-dev%s mailing list."
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR, use the %saur-"
+"dev%s mailing list."
 msgstr ""
 
 msgid "Bug Reporting"
@@ -262,6 +263,9 @@ msgstr "נא להזין את כתובת הדוא״ל שלך:"
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
 
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
@@ -392,9 +396,7 @@ msgstr "שגיאה בניסיון פריסת הקובץ שהועלה - PKGBUILD 
 
 msgid ""
 "The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages. Support for source packages without .AURINFO "
-"entries will be removed in an upcoming release! You can resubmit the package"
-" if you want to proceed anyway."
+" create AUR source packages."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -618,9 +620,6 @@ msgstr "לא בחרת שום חבילות לביטול סימון."
 msgid "The selected packages have been unflagged."
 msgstr "החבילות שנבחרו בוטלו מהסימון."
 
-msgid "You must be logged in before you can delete packages."
-msgstr ""
-
 msgid "You do not have permission to delete packages."
 msgstr ""
 
@@ -698,10 +697,6 @@ msgstr ""
 msgid "Package category changed."
 msgstr ""
 
-#, php-format
-msgid "Missing %s variable in PKGBUILD."
-msgstr ""
-
 msgid "View packages details for"
 msgstr ""
 
@@ -723,6 +718,17 @@ msgstr ""
 msgid "Request closed successfully."
 msgstr ""
 
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr ""
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr ""
+
+msgid "Confirm deletion"
+msgstr ""
+
 msgid "Account Type"
 msgstr "סוג חשבון"
 
@@ -731,6 +737,9 @@ msgstr "משתמש"
 
 msgid "Developer"
 msgstr "מפתח"
+
+msgid "Trusted User & Developer"
+msgstr ""
 
 msgid "Email Address"
 msgstr "כתובת דוא״ל"
@@ -763,6 +772,10 @@ msgid "View this user's packages"
 msgstr "צפייה בחבילות המשתמש"
 
 msgid "Edit this user's account"
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
 msgstr ""
 
 msgid "required"
@@ -940,8 +953,7 @@ msgstr ""
 msgid "Comment has been added."
 msgstr ""
 
-#, php-format
-msgid "View all %s comments"
+msgid "View all comments"
 msgstr ""
 
 msgid "Latest Comments"
@@ -955,6 +967,9 @@ msgid "Comment by %s"
 msgstr ""
 
 msgid "Anonymous comment"
+msgstr ""
+
+msgid "deleted"
 msgstr ""
 
 msgid "All comments"
