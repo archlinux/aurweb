@@ -189,13 +189,19 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	if ($type == 'orphan' && $details['OutOfDateTS'] > 0 &&
 	    time() - $details['OutOfDateTS'] >= $AUTO_ORPHAN_AGE &&
 	    $AUTO_ORPHAN_AGE > 0) {
+		/*
+		 * Close package request. NOTE: This needs to happen *before*
+		 * the actual disown operation. Otherwise, the former
+		 * maintainer will not be included in the Cc list of the
+		 * request notification email.
+		 */
+		pkgreq_close($request_id, "accepted",
+			     "The package base has been flagged out-of-date " .
+			     "since " . $out_of_date_time . ".", true);
 		$q = "UPDATE PackageBases SET MaintainerUID = NULL ";
 		$q.= "WHERE ID = " . $base_id;
 		$dbh->exec($q);
 		$out_of_date_time = gmdate("Y-m-d", intval($details["OutOfDateTS"]));
-		pkgreq_close($request_id, "accepted",
-			     "The package base has been flagged out-of-date " .
-			     "since " . $out_of_date_time . ".", true);
 	}
 
 	return array(true, __("Added request successfully."));

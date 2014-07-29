@@ -511,6 +511,16 @@ function pkgbase_delete ($base_ids, $merge_base_id, $via) {
 		}
 	}
 
+	/*
+	 * Close package request if the deletion was initiated through the
+	 * request interface. NOTE: This needs to happen *before* the actual
+	 * deletion. Otherwise, the former maintainer will not be included in
+	 * the Cc list of the request notification email.
+	 */
+	if ($via) {
+		pkgreq_close(intval($via), 'accepted', '');
+	}
+
 	if ($merge_base_id) {
 		/* Merge comments */
 		$q = "UPDATE PackageComments ";
@@ -544,10 +554,6 @@ function pkgbase_delete ($base_ids, $merge_base_id, $via) {
 	$q = "DELETE FROM PackageBases WHERE ID IN (" . implode(",", $base_ids) . ")";
 	$dbh->exec($q);
 
-	if ($via) {
-		pkgreq_close(intval($via), 'accepted', '');
-	}
-
 	return array(true, __("The selected packages have been deleted."));
 }
 
@@ -579,6 +585,16 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 		}
 	}
 
+	/*
+	 * Close package request if the disownment was initiated through the
+	 * request interface. NOTE: This needs to happen *before* the actual
+	 * disown operation. Otherwise, the former maintainer will not be
+	 * included in the Cc list of the request notification email.
+	 */
+	if ($via) {
+		pkgreq_close(intval($via), 'accepted', '');
+	}
+
 	$dbh = DB::connect();
 
 	$q = "UPDATE PackageBases ";
@@ -599,10 +615,6 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 	}
 
 	$dbh->exec($q);
-
-	if ($via) {
-		pkgreq_close(intval($via), 'accepted', '');
-	}
 
 	if ($action) {
 		pkgbase_notify(account_from_sid($_COOKIE["AURSID"]), $base_ids);
