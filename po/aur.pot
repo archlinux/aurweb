@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v3.4.0\n"
+"Project-Id-Version: AUR v3.4.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-29 14:30+0200\n"
+"POT-Creation-Date: 2014-07-29 18:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1079,7 +1079,23 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#, php-format
+msgid "~%d days left"
+msgstr ""
+
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "<1 hour left"
+msgstr ""
+
 msgid "Accept"
+msgstr ""
+
+msgid "Locked"
 msgstr ""
 
 msgid "Close"
