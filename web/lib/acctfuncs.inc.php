@@ -141,10 +141,13 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 		$error = __("The PGP key fingerprint is invalid.");
 	}
 
-	$atype = account_from_sid($_COOKIE['AURSID']);
-	if (($atype == "User" && $T > 1) || ($atype == "Trusted User" && $T > 2)) {
-		$error = __("Cannot increase account permissions.");
+	if (isset($_COOKIE['AURSID'])) {
+		$atype = account_from_sid($_COOKIE['AURSID']);
+		if (($atype == "User" && $T > 1) || ($atype == "Trusted User" && $T > 2)) {
+			$error = __("Cannot increase account permissions.");
+		}
 	}
+
 	if (!$error && !array_key_exists($L, $SUPPORTED_LANGS)) {
 		$error = __("Language is not currently supported.");
 	}
