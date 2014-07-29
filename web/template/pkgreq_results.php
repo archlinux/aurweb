@@ -33,6 +33,19 @@
 	<tbody>
 
 		<?php while (list($indx, $row) = each($results)): ?>
+		<?php
+		$due = ($row['Open'] && time() - intval($row['RequestTS']) > $REQUEST_IDLE_TIME);
+		if (!$due) {
+			$time_left = $REQUEST_IDLE_TIME - (time() - intval($row['RequestTS']));
+			if ($time_left > 48 * 3600) {
+				$time_left_fmt = __("~%d days left", round($time_left / (24 * 3600)));
+			} elseif ($time_left > 3600) {
+				$time_left_fmt = _n("~%d hour left", "~%d hours left", round($time_left / 3600));
+			} else {
+				$time_left_fmt = __("<1 hour left");
+			}
+		}
+		?>
 		<tr class="<?= ($indx % 2 == 0) ? 'odd' : 'even' ?>">
 			<?php if ($row['BaseID']): ?>
 			<td><a href="<?= htmlspecialchars(get_pkgbase_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) ?></a></td>
@@ -53,7 +66,7 @@
 			<td>
 			<a href="<?= get_uri('/account/') . htmlspecialchars($row['User'], ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($row['User'])) ?>"><?= htmlspecialchars($row['User']) ?></a>
 			</td>
-			<td<?php if ($row['Open'] && time() - intval($row['RequestTS']) > $REQUEST_IDLE_TIME): ?> class="flagged"<?php endif; ?>><?= gmdate("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
+			<td<?php if ($due): ?> class="flagged"<?php endif; ?>><?= gmdate("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
 			<?php if ($row['Open']): ?>
 			<td>
 				<?php if ($row['BaseID']): ?>
@@ -63,12 +76,15 @@
 				<?php elseif ($row['Type'] == 'merge'): ?>
 				<a href="<?= get_pkgbase_uri($row['Name']) ?>merge/?into=<?= urlencode($row['MergeInto']) ?>&via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
 				<br />
-				<?php elseif ($row['Type'] == 'orphan'): ?>
+				<?php elseif ($row['Type'] == 'orphan' && $due): ?>
 				<form action="<?= get_pkgbase_uri($row['Name']) . 'disown/'; ?>" method="post">
 					<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 					<input type="hidden" name="via" value="<?= intval($row['ID']) ?>" />
 					<input type="submit" class="button text-button" name="do_Disown" value="<?= __('Accept') ?>" />
 				</form>
+				<?php elseif ($row['Type'] == 'orphan' && !$due): ?>
+				<?= __('Locked') ?> (<?= $time_left_fmt ?>)
+				<br />
 				<?php endif; ?>
 				<?php endif; ?>
 				<a href="<?= get_pkgreq_route() . '/' . intval($row['ID']) ?>/close/"><?= __('Close') ?></a>
