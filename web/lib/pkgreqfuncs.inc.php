@@ -173,6 +173,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 			"[2] " . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n";
 	}
 	$body = wordwrap($body, 70);
+	$cc = array_unique($cc);
 	$headers = "MIME-Version: 1.0\r\n" .
 		   "Content-type: text/plain; charset=UTF-8\r\n" .
 		   "Cc: " . implode(', ', $cc) . "\r\n";
@@ -281,6 +282,7 @@ function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 		$body .= "\n";
 	}
 	$body = wordwrap($body, 70);
+	$cc = array_unique($cc);
 	$headers = "MIME-Version: 1.0\r\n" .
 		   "Content-type: text/plain; charset=UTF-8\r\n" .
 		   "Cc: " . implode(', ', $cc) . "\r\n";
