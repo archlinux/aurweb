@@ -13,27 +13,19 @@ include_once("pkgbasefuncs.inc.php");
  * @return bool True if the user can delete the comment, otherwise false
  */
 function can_delete_comment($comment_id=0) {
-	if (!uid_from_sid($_COOKIE["AURSID"])) {
-		/* Unauthenticated users cannot delete anything. */
-		return false;
-	}
-	if (has_credential(CRED_COMMENT_DELETE)) {
-		/* TUs and developers can delete any comment. */
-		return true;
-	}
-
 	$dbh = DB::connect();
 
-	$q = "SELECT COUNT(*) FROM PackageComments ";
-	$q.= "WHERE ID = " . intval($comment_id) . " AND UsersID = " . $uid;
+	$q = "SELECT UsersID FROM PackageComments ";
+	$q.= "WHERE ID = " . intval($comment_id);
 	$result = $dbh->query($q);
 
 	if (!$result) {
 		return false;
 	}
 
-	$row = $result->fetch(PDO::FETCH_NUM);
-	return ($row[0] > 0);
+	$uid = $result->fetch(PDO::FETCH_COLUMN, 0);
+
+	return has_credential(CRED_COMMENT_DELETE, array($uid));
 }
 
 /**
