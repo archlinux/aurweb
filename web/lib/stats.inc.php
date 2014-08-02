@@ -62,7 +62,7 @@ function general_stats_table() {
 	$q = "SELECT count(*) FROM Users";
 	$user_count = db_cache_value($q, 'user_count');
 
-	$q = "SELECT count(*) FROM Users,AccountTypes WHERE Users.AccountTypeID = AccountTypes.ID AND AccountTypes.AccountType = 'Trusted User'";
+	$q = "SELECT count(*) FROM Users,AccountTypes WHERE Users.AccountTypeID = AccountTypes.ID AND (AccountTypes.AccountType = 'Trusted User' OR AccountTypes.AccountType = 'Trusted User & Developer')";
 	$tu_count = db_cache_value($q, 'tu_count');
 
 	$targstamp = intval(strtotime("-7 days"));

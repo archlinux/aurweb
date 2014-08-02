@@ -605,7 +605,7 @@ function open_user_proposals($user) {
 function add_tu_proposal($agenda, $user, $votelength, $quorum, $submitteruid) {
 	$dbh = DB::connect();
 
-	$q = "SELECT COUNT(*) FROM Users WHERE AccountTypeID = 2";
+	$q = "SELECT COUNT(*) FROM Users WHERE (AccountTypeID = 2 OR AccountTypeID = 4)";
 	$result = $dbh->query($q);
 	$row = $result->fetch(PDO::FETCH_NUM);
 	$active_tus = $row[0];
@@ -1021,7 +1021,7 @@ function last_votes_list() {
 	$q = "SELECT UserID, MAX(VoteID) AS LastVote FROM TU_Votes, ";
 	$q .= "TU_VoteInfo, Users WHERE TU_VoteInfo.ID = TU_Votes.VoteID AND ";
 	$q .= "TU_VoteInfo.End < UNIX_TIMESTAMP() AND ";
-	$q .= "Users.ID = TU_Votes.UserID AND Users.AccountTypeID = 2 ";
+	$q .= "Users.ID = TU_Votes.UserID AND (Users.AccountTypeID = 2 OR Users.AccountTypeID = 4) ";
 	$q .= "GROUP BY UserID ORDER BY LastVote DESC, UserName ASC";
 	$result = $dbh->query($q);
 
