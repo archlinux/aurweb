@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-25 11:29+0200\n"
-"PO-Revision-Date: 2014-07-27 09:36+0000\n"
-"Last-Translator: Bartłomiej Piotrowski <spam@bpiotrowski.pl>\n"
+"POT-Creation-Date: 2014-07-29 18:33+0200\n"
+"PO-Revision-Date: 2014-07-29 16:34+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/aur/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1023,6 +1023,34 @@ msgid "Sources"
 msgstr "Źródła"
 
 #, php-format
+msgid "Close Request: %s"
+msgstr ""
+
+#, php-format
+msgid "Use this form to close the request for package base %s%s%s."
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid ""
+"The comments field can be left empty. However, it is highly recommended to "
+"add a comment when rejecting a request."
+msgstr ""
+
+msgid "Reason"
+msgstr ""
+
+msgid "Accepted"
+msgstr "Zaakceptowany"
+
+msgid "Rejected"
+msgstr "Odrzucony"
+
+msgid "Comments"
+msgstr "Kommentarze"
+
+#, php-format
 msgid "File Request: %s"
 msgstr "Propozycja Pliku: %s"
 
@@ -1040,9 +1068,6 @@ msgstr "Usunięcie"
 
 msgid "Orphan"
 msgstr "Bez opiekuna"
-
-msgid "Comments"
-msgstr "Kommentarze"
 
 #, php-format
 msgid "%d package request found."
@@ -1064,20 +1089,31 @@ msgstr "Złożone przez"
 msgid "Date"
 msgstr "Data"
 
+#, php-format
+msgid "~%d days left"
+msgstr ""
+
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "<1 hour left"
+msgstr ""
+
 msgid "Accept"
 msgstr "Akceptuj"
+
+msgid "Locked"
+msgstr ""
 
 msgid "Close"
 msgstr "Zamknij"
 
 msgid "Closed"
 msgstr "Zamknięte"
-
-msgid "Accepted"
-msgstr "Zaakceptowany"
-
-msgid "Rejected"
-msgstr "Odrzucony"
 
 msgid "Name, Description"
 msgstr "Nazwa, Opis"

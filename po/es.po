@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-25 11:29+0200\n"
-"PO-Revision-Date: 2014-07-25 19:15+0000\n"
+"POT-Creation-Date: 2014-07-29 18:33+0200\n"
+"PO-Revision-Date: 2014-07-29 22:11+0000\n"
 "Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/aur/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -134,7 +134,7 @@ msgid ""
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
 "box. For discussion relating to the development of the AUR, use the %saur-"
 "dev%s mailing list."
-msgstr "La discusión general sobre el repositorio de usuarios de Arch (AUR) y la estructura de usuarios de confianza se realiza en %sla lista de correos aur-general%s. Solicitudes de orfandad de paquete, de unión y o borrado deben ser presentadas en el enlace %sAcciones del paquete%s de cada paquete. Para la discusión en relación con el desarrollo de la AUR, utilice  %slista de correo aur-dev%s."
+msgstr "La discusión general sobre el repositorio de usuarios de Arch (AUR) y la estructura de usuarios de confianza se realiza en %sla lista de correos aur-general%s. Solicitudes de orfandad de paquete, de unión y o borrado deben ser presentadas en el enlace %sAcciones del paquete%s de cada paquete. Para la discusión en relación con el desarrollo de la AUR, utilice %sla lista de correo aur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Informe de errores"
@@ -1021,6 +1021,34 @@ msgid "Sources"
 msgstr "Fuentes"
 
 #, php-format
+msgid "Close Request: %s"
+msgstr "Cerrar solicitud: %s"
+
+#, php-format
+msgid "Use this form to close the request for package base %s%s%s."
+msgstr "Use este formulario para cerrar la solicitud del paquete base %s%s%s."
+
+msgid "Note"
+msgstr "Nota"
+
+msgid ""
+"The comments field can be left empty. However, it is highly recommended to "
+"add a comment when rejecting a request."
+msgstr "El campo de comentarios se puede dejar vacío. Sin embargo, se recomienda encarecidamente añadir un comentario al rechazar una solicitud."
+
+msgid "Reason"
+msgstr "Razón"
+
+msgid "Accepted"
+msgstr "Aceptado"
+
+msgid "Rejected"
+msgstr "Rechazado"
+
+msgid "Comments"
+msgstr "Comentario"
+
+#, php-format
 msgid "File Request: %s"
 msgstr "Archivo de solicitud: %s"
 
@@ -1038,9 +1066,6 @@ msgstr "Borrado"
 
 msgid "Orphan"
 msgstr "Orfandad"
-
-msgid "Comments"
-msgstr "Comentario"
 
 #, php-format
 msgid "%d package request found."
@@ -1061,20 +1086,30 @@ msgstr "Solicitado por"
 msgid "Date"
 msgstr "Fecha"
 
+#, php-format
+msgid "~%d days left"
+msgstr "Aprox. %d días restantes"
+
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] "Aprox. %d hora restante"
+msgstr[1] "Aprox. %d horas restantes"
+
+msgid "<1 hour left"
+msgstr "< 1 hora restante"
+
 msgid "Accept"
 msgstr "Aceptar"
+
+msgid "Locked"
+msgstr "Bloqueada"
 
 msgid "Close"
 msgstr "Cerrar"
 
 msgid "Closed"
 msgstr "Cerrada"
-
-msgid "Accepted"
-msgstr "Aceptado"
-
-msgid "Rejected"
-msgstr "Rechazado"
 
 msgid "Name, Description"
 msgstr "Nombre, descripción"

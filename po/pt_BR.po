@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-25 11:29+0200\n"
-"PO-Revision-Date: 2014-07-25 14:58+0000\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2014-07-29 18:33+0200\n"
+"PO-Revision-Date: 2014-07-29 16:34+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/aur/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1018,6 +1018,34 @@ msgid "Sources"
 msgstr "Fontes"
 
 #, php-format
+msgid "Close Request: %s"
+msgstr "Fechar requisição: %s"
+
+#, php-format
+msgid "Use this form to close the request for package base %s%s%s."
+msgstr "Use esse formulário para fechar a requisição para o pacote base %s%s%s."
+
+msgid "Note"
+msgstr "Nota"
+
+msgid ""
+"The comments field can be left empty. However, it is highly recommended to "
+"add a comment when rejecting a request."
+msgstr "O campo de comentários pode ser deixado vazio. Porém, é fortemente recomendado adicionar um comentário ao rejeitar uma requisição."
+
+msgid "Reason"
+msgstr "Motivo"
+
+msgid "Accepted"
+msgstr "Aceito"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
+msgid "Comments"
+msgstr "Comentários"
+
+#, php-format
 msgid "File Request: %s"
 msgstr "Fazer requisição: %s"
 
@@ -1035,9 +1063,6 @@ msgstr "Excluir"
 
 msgid "Orphan"
 msgstr "Tornar órfão"
-
-msgid "Comments"
-msgstr "Comentários"
 
 #, php-format
 msgid "%d package request found."
@@ -1058,20 +1083,30 @@ msgstr "Criada por"
 msgid "Date"
 msgstr "Data"
 
+#, php-format
+msgid "~%d days left"
+msgstr ""
+
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "<1 hour left"
+msgstr ""
+
 msgid "Accept"
 msgstr "Aceitar"
+
+msgid "Locked"
+msgstr ""
 
 msgid "Close"
 msgstr "Fechar"
 
 msgid "Closed"
 msgstr "Fechada"
-
-msgid "Accepted"
-msgstr "Aceito"
-
-msgid "Rejected"
-msgstr "Rejeitado"
 
 msgid "Name, Description"
 msgstr "Nome, descrição"

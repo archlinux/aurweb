@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-25 11:29+0200\n"
-"PO-Revision-Date: 2014-07-25 09:31+0000\n"
+"POT-Creation-Date: 2014-07-29 18:33+0200\n"
+"PO-Revision-Date: 2014-07-29 16:34+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -1020,6 +1020,34 @@ msgid "Sources"
 msgstr "Kaynak kodlar"
 
 #, php-format
+msgid "Close Request: %s"
+msgstr ""
+
+#, php-format
+msgid "Use this form to close the request for package base %s%s%s."
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid ""
+"The comments field can be left empty. However, it is highly recommended to "
+"add a comment when rejecting a request."
+msgstr ""
+
+msgid "Reason"
+msgstr ""
+
+msgid "Accepted"
+msgstr "Kabul edildi"
+
+msgid "Rejected"
+msgstr "Reddedildi"
+
+msgid "Comments"
+msgstr "Yorumlar"
+
+#, php-format
 msgid "File Request: %s"
 msgstr "Dosya Talebi: %s"
 
@@ -1037,9 +1065,6 @@ msgstr "Silme"
 
 msgid "Orphan"
 msgstr "Öksüz"
-
-msgid "Comments"
-msgstr "Yorumlar"
 
 #, php-format
 msgid "%d package request found."
@@ -1060,20 +1085,30 @@ msgstr "Dolduran"
 msgid "Date"
 msgstr "Tarih"
 
+#, php-format
+msgid "~%d days left"
+msgstr ""
+
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "<1 hour left"
+msgstr ""
+
 msgid "Accept"
 msgstr "Kabul"
+
+msgid "Locked"
+msgstr ""
 
 msgid "Close"
 msgstr "Kapat"
 
 msgid "Closed"
 msgstr "Kapandı"
-
-msgid "Accepted"
-msgstr "Kabul edildi"
-
-msgid "Rejected"
-msgstr "Reddedildi"
 
 msgid "Name, Description"
 msgstr "İsim, Açıklama"
