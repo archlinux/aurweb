@@ -380,7 +380,7 @@ if ($uid):
 			 * notification list.
 			 */
 			if ($was_orphan) {
-				pkgbase_notify(account_from_sid($_COOKIE["AURSID"]), array($base_id), true);
+				pkgbase_notify(array($base_id), true);
 			}
 
 			end_atomic_commit();
