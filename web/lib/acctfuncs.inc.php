@@ -544,7 +544,7 @@ function valid_username($user) {
 	if (strlen($user) < USERNAME_MIN_LEN ||
 	    strlen($user) > USERNAME_MAX_LEN) {
 		return false;
-	} else if (!preg_match("/^[a-z0-9]+[.\-_]?[a-z0-9]+$/i", $user)) {
+	} else if (!preg_match("/^[a-z0-9]+[.\-_]?[a-z0-9]+$/Di", $user)) {
 		return false;
 	}
 
