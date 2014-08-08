@@ -91,6 +91,10 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	global $AUR_REQUEST_ML;
 	global $AUTO_ORPHAN_AGE;
 
+	if (!has_credential(CRED_PKGREQ_FILE)) {
+		return array(false, __("You must be logged in to file package requests."));
+	}
+
 	if (!empty($merge_into) && !preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/D", $merge_into)) {
 		return array(false, __("Invalid name: only lowercase letters are allowed."));
 	}

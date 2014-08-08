@@ -18,6 +18,7 @@ define("CRED_PKGBASE_NOTIFY", 13);
 define("CRED_PKGBASE_SUBMIT_BLACKLISTED", 14);
 define("CRED_PKGBASE_UNFLAG", 15);
 define("CRED_PKGBASE_VOTE", 16);
+define("CRED_PKGREQ_FILE", 23);
 define("CRED_PKGREQ_CLOSE", 17);
 define("CRED_PKGREQ_LIST", 18);
 define("CRED_TU_ADD_VOTE", 19);
@@ -48,6 +49,7 @@ function has_credential($credential, $approved_users=array()) {
 	case CRED_PKGBASE_FLAG:
 	case CRED_PKGBASE_NOTIFY:
 	case CRED_PKGBASE_VOTE:
+	case CRED_PKGREQ_FILE:
 		return ($atype == 'User' || $atype == 'Trusted User' ||
 			$atype == 'Developer' ||
 			$atype == 'Trusted User & Developer');

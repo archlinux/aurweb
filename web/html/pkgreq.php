@@ -9,9 +9,17 @@ set_lang();
 check_sid();
 
 if (isset($base_id)) {
+	if (!has_credential(CRED_PKGREQ_FILE)) {
+		header('Location: /');
+		exit();
+	}
 	html_header(__("File Request"));
 	include('pkgreq_form.php');
 } elseif (isset($pkgreq_id)) {
+	if (!has_credential(CRED_PKGREQ_CLOSE)) {
+		header('Location: /');
+		exit();
+	}
 	html_header(__("Close Request"));
 	$pkgbase_name = pkgreq_get_pkgbase_name($pkgreq_id);
 	include('pkgreq_close_form.php');
