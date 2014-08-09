@@ -29,6 +29,16 @@ $grps = pkg_groups($row["ID"]);
 $deps = pkg_dependencies($row["ID"]);
 $requiredby = pkg_required($row["Name"]);
 
+usort($deps, function($x, $y) {
+	if ($x[1] == "depends" && $y[1] != "depends") {
+		return -1;
+	}
+	if ($y[1] == "depends" && $x[1] != "depends") {
+		return 1;
+	}
+	return $x[1] == $y[1] ? strcmp($x[0], $y[0]) : strcmp($x[1], $y[1]);
+});
+
 $rels = pkg_relations($row["ID"]);
 $rels_c = $rels_p = $rels_r = array();
 foreach ($rels as $rel) {
