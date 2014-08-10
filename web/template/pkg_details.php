@@ -30,16 +30,30 @@ $deps = pkg_dependencies($row["ID"]);
 $requiredby = pkg_required($row["Name"]);
 
 usort($deps, function($x, $y) {
-	if ($x[1] == "depends" && $y[1] != "depends") {
-		return -1;
+	if ($x[1] != $y[1]) {
+		if ($x[1] == "depends") {
+			return -1;
+		} elseif ($y[1] == "depends") {
+			return 1;
+		}
+		return strcmp($x[1], $y[1]);
+	} elseif ($x[3] != $y[3]) {
+		return strcmp($x[3], $y[3]);
+	} else {
+		return strcmp($x[0], $y[0]);
 	}
-	if ($y[1] == "depends" && $x[1] != "depends") {
-		return 1;
-	}
-	return $x[1] == $y[1] ? strcmp($x[0], $y[0]) : strcmp($x[1], $y[1]);
 });
 
 $rels = pkg_relations($row["ID"]);
+
+usort($rels, function($x, $y) {
+	if ($x[3] != $y[3]) {
+		return strcmp($x[3], $y[3]);
+	} else {
+		return strcmp($x[0], $y[0]);
+	}
+});
+
 $rels_c = $rels_p = $rels_r = array();
 foreach ($rels as $rel) {
 	switch ($rel[1]) {
@@ -221,9 +235,9 @@ if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
 				<?php foreach($rels_c as $rarr): ?>
 				<span class="related">
 					<?php if ($rarr !== end($rels_c)): ?>
-					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>,
+					<?= pkg_rel_html($rarr[0], $rarr[2], $rarr[3]) ?>,
 					<?php else: ?>
-					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>
+					<?= pkg_rel_html($rarr[0], $rarr[2], $rarr[3]) ?>
 					<?php endif; ?>
 				</span>
 				<?php endforeach; ?>
@@ -237,9 +251,9 @@ if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
 				<?php foreach($rels_p as $rarr): ?>
 				<span class="related">
 					<?php if ($rarr !== end($rels_p)): ?>
-					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>,
+					<?= pkg_rel_html($rarr[0], $rarr[2], $rarr[3]) ?>,
 					<?php else: ?>
-					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>
+					<?= pkg_rel_html($rarr[0], $rarr[2], $rarr[3]) ?>
 					<?php endif; ?>
 				</span>
 				<?php endforeach; ?>
@@ -253,9 +267,9 @@ if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
 				<?php foreach($rels_r as $rarr): ?>
 				<span class="related">
 					<?php if ($rarr !== end($rels_r)): ?>
-					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>,
+					<?= pkg_rel_html($rarr[0], $rarr[2], $rarr[3]) ?>,
 					<?php else: ?>
-					<?= htmlspecialchars($rarr[0] . $rarr[2]) ?>
+					<?= pkg_rel_html($rarr[0], $rarr[2], $rarr[3]) ?>
 					<?php endif; ?>
 				</span>
 				<?php endforeach; ?>
@@ -344,7 +358,7 @@ if ($row["PackagerUID"]):
 <?php if (count($deps) > 0): ?>
 			<ul id="pkgdepslist">
 <?php while (list($k, $darr) = each($deps)): ?>
-	<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3]); ?></li>
+	<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3], $darr[4]); ?></li>
 <?php endwhile; ?>
 			</ul>
 <?php endif; ?>

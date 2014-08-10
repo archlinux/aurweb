@@ -137,6 +137,13 @@ if ($uid):
 				continue;
 			}
 			list($key, $value) = explode(' = ', $line, 2);
+			$tokens = explode('_', $key, 2);
+			$key = $tokens[0];
+			if (count($tokens) > 1) {
+				$arch = $tokens[1];
+			} else {
+				$arch = NULL;
+			}
 			switch ($key) {
 			case 'pkgbase':
 			case 'pkgname':
@@ -170,6 +177,8 @@ if ($uid):
 			case 'license':
 			case 'groups':
 			case 'source':
+				$section_info[$key][] = $value;
+				break;
 			case 'depends':
 			case 'makedepends':
 			case 'checkdepends':
@@ -177,7 +186,7 @@ if ($uid):
 			case 'conflicts':
 			case 'provides':
 			case 'replaces':
-				$section_info[$key][] = $value;
+				$section_info[$key][$arch][] = $value;
 				break;
 			}
 		}
@@ -354,18 +363,22 @@ if ($uid):
 				}
 
 				foreach (array('depends', 'makedepends', 'checkdepends', 'optdepends') as $deptype) {
-					foreach ($pi[$deptype] as $dep) {
-						$deppkgname = preg_replace("/(<|=|>).*/", "", $dep);
-						$depcondition = str_replace($deppkgname, "", $dep);
-						pkg_add_dep($pkgid, $deptype, $deppkgname, $depcondition);
+					foreach ($pi[$deptype] as $deparch => $depgrp) {
+						foreach ($depgrp as $dep) {
+							$deppkgname = preg_replace("/(<|=|>).*/", "", $dep);
+							$depcondition = str_replace($deppkgname, "", $dep);
+							pkg_add_dep($pkgid, $deptype, $deppkgname, $depcondition, $deparch);
+						}
 					}
 				}
 
 				foreach (array('conflicts', 'provides', 'replaces') as $reltype) {
-					foreach ($pi[$reltype] as $rel) {
-						$relpkgname = preg_replace("/(<|=|>).*/", "", $rel);
-						$relcondition = str_replace($relpkgname, "", $rel);
-						pkg_add_rel($pkgid, $reltype, $relpkgname, $relcondition);
+					foreach ($pi[$reltype] as $relarch => $relgrp) {
+						foreach ($relgrp as $rel) {
+							$relpkgname = preg_replace("/(<|=|>).*/", "", $rel);
+							$relcondition = str_replace($relpkgname, "", $rel);
+							pkg_add_rel($pkgid, $reltype, $relpkgname, $relcondition, $relarch);
+						}
 					}
 				}
 

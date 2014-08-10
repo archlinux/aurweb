@@ -1,0 +1,6 @@
+1. Add support for architecture-specific dependencies to the database:
+
+----
+ALTER TABLE PackageDepends ADD COLUMN DepArch VARCHAR(255) NULL DEFAULT NULL;
+ALTER TABLE PackageRelations ADD COLUMN RelArch VARCHAR(255) NULL DEFAULT NULL;
+----

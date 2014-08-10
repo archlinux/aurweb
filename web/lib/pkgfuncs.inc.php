@@ -138,7 +138,7 @@ function pkg_dependencies($pkgid) {
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
 		$dbh = DB::connect();
-		$q = "SELECT pd.DepName, dt.Name, pd.DepCondition, p.ID FROM PackageDepends pd ";
+		$q = "SELECT pd.DepName, dt.Name, pd.DepCondition, pd.DepArch, p.ID FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
 		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) = p.Name ";
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
@@ -167,7 +167,7 @@ function pkg_relations($pkgid) {
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
 		$dbh = DB::connect();
-		$q = "SELECT pr.RelName, rt.Name, pr.RelCondition, p.ID FROM PackageRelations pr ";
+		$q = "SELECT pr.RelName, rt.Name, pr.RelCondition, pr.RelArch, p.ID FROM PackageRelations pr ";
 		$q.= "LEFT JOIN Packages p ON pr.RelName = p.Name ";
 		$q.= "LEFT JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
 		$q.= "WHERE pr.PackageID = ". $pkgid . " ";
@@ -219,11 +219,12 @@ function pkg_relation_type_id_from_name($name) {
  * @param string $name The name of the dependency
  * @param string $type The name of the dependency type
  * @param string $cond The package dependency condition string
+ * @param string $arch The package dependency architecture
  * @param int $pkg_id The package of the package to display the dependency for
  *
  * @return string The HTML code of the label to display
  */
-function pkg_depend_link($name, $type, $cond, $pkg_id) {
+function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
 	if ($type == 'optdepends' && strpos($name, ':') !== false) {
 		$tokens = explode(':', $name, 2);
 		$name = $tokens[0];
@@ -242,15 +243,52 @@ function pkg_depend_link($name, $type, $cond, $pkg_id) {
 	$link .= htmlspecialchars($name) . '</a>';
 	$link .= htmlspecialchars($cond);
 
-	if ($type == 'makedepends') {
-		$link .= ' <em>(make)</em>';
-	} elseif ($type == 'checkdepends') {
-		$link .= ' <em>(check)</em>';
-	} elseif ($type == 'optdepends') {
-		$link .= ' <em>(optional) &ndash; ' . htmlspecialchars($desc) . ' </em>';
+	if ($type != 'depends' || $arch) {
+		$link .= ' <em>(';
+
+		if ($type == 'makedepends') {
+			$link .= 'make';
+		} elseif ($type == 'checkdepends') {
+			$link .= 'check';
+		} elseif ($type == 'optdepends') {
+			$link .= 'optional';
+		}
+
+		if ($type != 'depends' && $arch) {
+			$link .= ', ';
+		}
+
+		if ($arch) {
+			$link .= htmlspecialchars($arch);
+		}
+
+		$link .= ')';
+		if ($type == 'optdepends') {
+			$link .= ' &ndash; ' . htmlspecialchars($desc) . ' </em>';
+		}
+		$link .= '</em>';
 	}
 
 	return $link;
+}
+
+/**
+ * Get the HTML code to display a package relation
+ *
+ * @param string $name The name of the relation
+ * @param string $cond The package relation condition string
+ * @param string $arch The package relation architecture
+ *
+ * @return string The HTML code of the label to display
+ */
+function pkg_rel_html($name, $cond, $arch) {
+	$html = htmlspecialchars($name) . htmlspecialchars($cond);
+
+	if ($arch) {
+		$html .= ' <em>(' . htmlspecialchars($arch) . ')</em>';
+	}
+
+	return $html;
 }
 
 /**
@@ -749,16 +787,18 @@ function pkg_create($base_id, $pkgname, $pkgver, $pkgdesc, $pkgurl) {
  * @param string $type The type of dependency to add
  * @param string $depname The name of the dependency to add
  * @param string $depcondition The  type of dependency for the package
+ * @param string $deparch The architecture of the dependency to add
  *
  * @return void
  */
-function pkg_add_dep($pkgid, $type, $depname, $depcondition) {
+function pkg_add_dep($pkgid, $type, $depname, $depcondition, $deparch) {
 	$dbh = DB::connect();
-	$q = sprintf("INSERT INTO PackageDepends (PackageID, DepTypeID, DepName, DepCondition) VALUES (%d, %d, %s, %s)",
+	$q = sprintf("INSERT INTO PackageDepends (PackageID, DepTypeID, DepName, DepCondition, DepArch) VALUES (%d, %d, %s, %s, %s)",
 		$pkgid,
 		pkg_dependency_type_id_from_name($type),
 		$dbh->quote($depname),
-		$dbh->quote($depcondition)
+		$dbh->quote($depcondition),
+		$deparch ? $dbh->quote($deparch) : 'NULL'
 	);
 	$dbh->exec($q);
 }
@@ -770,16 +810,18 @@ function pkg_add_dep($pkgid, $type, $depname, $depcondition) {
  * @param string $type The type of relation to add
  * @param string $relname The name of the relation to add
  * @param string $relcondition The version requirement of the relation
+ * @param string $relarch The architecture of the relation to add
  *
  * @return void
  */
-function pkg_add_rel($pkgid, $type, $relname, $relcondition) {
+function pkg_add_rel($pkgid, $type, $relname, $relcondition, $relarch) {
 	$dbh = DB::connect();
-	$q = sprintf("INSERT INTO PackageRelations (PackageID, RelTypeID, RelName, RelCondition) VALUES (%d, %d, %s, %s)",
+	$q = sprintf("INSERT INTO PackageRelations (PackageID, RelTypeID, RelName, RelCondition, RelArch) VALUES (%d, %d, %s, %s, %s)",
 		$pkgid,
 		pkg_relation_type_id_from_name($type),
 		$dbh->quote($relname),
-		$dbh->quote($relcondition)
+		$dbh->quote($relcondition),
+		$relarch ? $dbh->quote($relarch) : 'NULL'
 	);
 	$dbh->exec($q);
 }
