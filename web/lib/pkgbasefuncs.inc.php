@@ -617,7 +617,7 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 	$dbh->exec($q);
 
 	if ($action) {
-		pkgbase_notify(account_from_sid($_COOKIE["AURSID"]), $base_ids);
+		pkgbase_notify($base_ids);
 		return array(true, __("The selected packages have been adopted."));
 	} else {
 		return array(true, __("The selected packages have been disowned."));

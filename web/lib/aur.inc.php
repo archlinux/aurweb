@@ -471,7 +471,7 @@ function save_salt($user_id, $passwd) {
 	$hash = salted_hash($passwd, $salt);
 	$q = "UPDATE Users SET Salt = " . $dbh->quote($salt) . ", ";
 	$q.= "Passwd = " . $dbh->quote($hash) . " WHERE ID = " . $user_id;
-	$result = $dbh->exec($q);
+	return $dbh->exec($q);
 }
 
 /**

@@ -202,7 +202,7 @@ if ($uid):
 		/* Validate package base name. */
 		if (!$error) {
 			$pkgbase_name = $pkgbase_info['pkgbase'];
-			if (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkgbase_name)) {
+			if (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/D", $pkgbase_name)) {
 				$error = __("Invalid name: only lowercase letters are allowed.");
 			}
 
@@ -218,7 +218,7 @@ if ($uid):
 
 			/* Validate package names. */
 			$pkg_name = $pi['pkgname'];
-			if (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/", $pkg_name)) {
+			if (!preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/D", $pkg_name)) {
 				$error = __("Invalid name: only lowercase letters are allowed.");
 				break;
 			}
@@ -393,7 +393,7 @@ if ($uid):
 			 * notification list.
 			 */
 			if ($was_orphan) {
-				pkgbase_notify(account_from_sid($_COOKIE["AURSID"]), array($base_id), true);
+				pkgbase_notify(array($base_id), true);
 			}
 
 			end_atomic_commit();
