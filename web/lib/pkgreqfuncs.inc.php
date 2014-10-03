@@ -199,13 +199,13 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		 * maintainer will not be included in the Cc list of the
 		 * request notification email.
 		 */
+		$out_of_date_time = gmdate("Y-m-d", intval($details["OutOfDateTS"]));
 		pkgreq_close($request_id, "accepted",
 			     "The package base has been flagged out-of-date " .
 			     "since " . $out_of_date_time . ".", true);
 		$q = "UPDATE PackageBases SET MaintainerUID = NULL ";
 		$q.= "WHERE ID = " . $base_id;
 		$dbh->exec($q);
-		$out_of_date_time = gmdate("Y-m-d", intval($details["OutOfDateTS"]));
 	}
 
 	return array(true, __("Added request successfully."));
@@ -241,7 +241,7 @@ function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 	$dbh = DB::connect();
 	$id = intval($id);
 
-	if (!has_credential(CRED_PKGREQ_CLOSE)) {
+	if (!$auto_close && !has_credential(CRED_PKGREQ_CLOSE)) {
 		return array(false, __("Only TUs and developers can close requests."));
 	}
 
