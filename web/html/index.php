@@ -143,12 +143,12 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 	case "/css/aur.css":
 	case "/css/archnavbar/archnavbar.css":
 		header("Content-Type: text/css");
-		include "./$path";
+		readfile("./$path");
 		break;
 	case "/css/archnavbar/archlogo.gif":
 	case "/images/new.png":
 		header("Content-Type: image/png");
-		include "./$path";
+		readfile("./$path");
 		break;
 	case "/css/archnavbar/archlogo.png":
 	case "/images/AUR-logo-80.png":
@@ -158,11 +158,11 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 	case "/images/titlelogo.png":
 	case "/images/x.png":
 		header("Content-Type: image/png");
-		include "./$path";
+		readfile("./$path");
 		break;
 	case "/js/bootstrap-typeahead.min.js":
 		header("Content-Type: application/javascript");
-		include "./$path";
+		readfile("./$path");
 		break;
 	default:
 		header("HTTP/1.0 404 Not Found");
