@@ -379,28 +379,14 @@ if ($row["PackagerUID"]):
 		<div id="pkgfiles" class="listing">
 			<h3><?= __('Sources') ?></h3>
 		</div>
-<?php if (count($sources) > 0): ?>
+		<?php if (count($sources) > 0): ?>
 		<div>
 			<ul id="pkgsrcslist">
-<?php
-	while (list($k, $src) = each($sources)):
-		$src = explode('::', $src);
-		$parsed_url = parse_url($src[0]);
-
-		# It is an external source
-		if (isset($parsed_url['scheme']) || isset($src[1])):
-?>
-				<li><a href="<?= htmlspecialchars((isset($src[1]) ? $src[1] : $src[0]), ENT_QUOTES) ?>"><?= htmlspecialchars($src[0]) ?> </a></li>
-<?php
-		else:
-			# It is presumably an internal source
-			$src = $src[0];
-?>
-				<li><?= htmlspecialchars($src) ?></li>
-		<?php endif; ?>
-	<?php endwhile; ?>
+					<?php while (list($k, $src) = each($sources)): ?>
+					<li><?= pkg_source_link($src[0], $src[1]) ?></li>
+					<?php endwhile; ?>
 			</ul>
 		</div>
-<?php endif; ?>
+		<?php endif; ?>
 	</div>
 </div>

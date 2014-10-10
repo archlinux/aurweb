@@ -292,6 +292,31 @@ function pkg_rel_html($name, $cond, $arch) {
 }
 
 /**
+ * Get the HTML code to display a source link
+ *
+ * @param string $url The URL of the source
+ * @param string $arch The source architecture
+ *
+ * @return string The HTML code of the label to display
+ */
+function pkg_source_link($url, $arch) {
+	$url = explode('::', $url);
+	$parsed_url = parse_url($url[0]);
+
+	if (isset($parsed_url['scheme']) || isset($url[1])) {
+		$link = '<a href="' .  htmlspecialchars((isset($url[1]) ? $url[1] : $url[0]), ENT_QUOTES) . '">' . htmlspecialchars($url[0]) . '</a>';
+	} else {
+		$link = htmlspecialchars($url[0]);
+	}
+
+	if ($arch) {
+		$link .= ' <em>(' . htmlspecialchars($arch) . ')</em>';
+	}
+
+	return $link;
+}
+
+/**
  * Determine packages that depend on a package
  *
  * @param string $name The package name for the dependency search
@@ -327,7 +352,7 @@ function pkg_sources($pkgid) {
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
 		$dbh = DB::connect();
-		$q = "SELECT Source FROM PackageSources ";
+		$q = "SELECT Source, SourceArch FROM PackageSources ";
 		$q.= "WHERE PackageID = " . $pkgid;
 		$q.= " ORDER BY Source";
 		$result = $dbh->query($q);
@@ -335,7 +360,7 @@ function pkg_sources($pkgid) {
 			return array();
 		}
 		while ($row = $result->fetch(PDO::FETCH_NUM)) {
-			$sources[] = $row[0];
+			$sources[] = $row;
 		}
 	}
 	return $sources;
@@ -831,14 +856,17 @@ function pkg_add_rel($pkgid, $type, $relname, $relcondition, $relarch) {
  *
  * @param int $pkgid The package ID to add the source for
  * @param string $pkgsrc The package source to add to the database
+ * @param string $srcarch The architecture of the source to add
  *
  * @return void
  */
-function pkg_add_src($pkgid, $pkgsrc) {
+function pkg_add_src($pkgid, $pkgsrc, $srcarch) {
 	$dbh = DB::connect();
-	$q = "INSERT INTO PackageSources (PackageID, Source) VALUES (";
-	$q .= $pkgid . ", " . $dbh->quote($pkgsrc) . ")";
-
+	$q = sprintf("INSERT INTO PackageSources (PackageID, Source, SourceArch) VALUES (%d, %s, %s)",
+		$pkgid,
+		$dbh->quote($pkgsrc),
+		$srcarch ? $dbh->quote($srcarch) : 'NULL'
+	);
 	$dbh->exec($q);
 }
 

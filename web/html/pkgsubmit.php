@@ -176,7 +176,6 @@ if ($uid):
 				break;
 			case 'license':
 			case 'groups':
-			case 'source':
 				$section_info[$key][] = $value;
 				break;
 			case 'depends':
@@ -186,6 +185,7 @@ if ($uid):
 			case 'conflicts':
 			case 'provides':
 			case 'replaces':
+			case 'source':
 				$section_info[$key][$arch][] = $value;
 				break;
 			}
@@ -382,8 +382,10 @@ if ($uid):
 					}
 				}
 
-				foreach ($pi['source'] as $src) {
-					pkg_add_src($pkgid, $src);
+				foreach ($pi['source'] as $srcarch => $srcgrp) {
+					foreach ($srcgrp as $src) {
+						pkg_add_src($pkgid, $src, $srcarch);
+					}
 				}
 			}
 
