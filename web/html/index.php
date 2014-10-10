@@ -164,6 +164,12 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		header("Content-Type: application/javascript");
 		readfile("./$path");
 		break;
+	case "/packages.gz":
+	case "/pkgbase.gz":
+		header("Content-Type: text/plain");
+		header("Content-Encoding: gzip");
+		readfile("./$path");
+		break;
 	default:
 		header("HTTP/1.0 404 Not Found");
 		include "./404.php";

@@ -1,0 +1,5 @@
+[database]
+host = localhost
+name = AUR
+user = aur
+password = aur
