@@ -667,12 +667,12 @@ function pkgbase_vote ($base_ids, $action=true) {
 				$first = 0;
 				$vote_ids = $pid;
 				if ($action) {
-					$vote_clauses = "($uid, $pid)";
+					$vote_clauses = "($uid, $pid, UNIX_TIMESTAMP())";
 				}
 			} else {
 				$vote_ids .= ", $pid";
 				if ($action) {
-					$vote_clauses .= ", ($uid, $pid)";
+					$vote_clauses .= ", ($uid, $pid, UNIX_TIMESTAMP())";
 				}
 			}
 		}
@@ -686,7 +686,7 @@ function pkgbase_vote ($base_ids, $action=true) {
 	$dbh->exec($q);
 
 	if ($action) {
-		$q = "INSERT INTO PackageVotes (UsersID, PackageBaseID) VALUES ";
+		$q = "INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS) VALUES ";
 		$q.= $vote_clauses;
 	} else {
 		$q = "DELETE FROM PackageVotes WHERE UsersID = $uid ";

@@ -5,3 +5,9 @@ ALTER TABLE PackageDepends ADD COLUMN DepArch VARCHAR(255) NULL DEFAULT NULL;
 ALTER TABLE PackageRelations ADD COLUMN RelArch VARCHAR(255) NULL DEFAULT NULL;
 ALTER TABLE PackageSources ADD COLUMN SourceArch VARCHAR(255) NULL DEFAULT NULL;
 ----
+
+2. Add a time stamp column to the package votes table:
+
+----
+ALTER TABLE PackageVotes ADD COLUMN VoteTS BIGINT NULL DEFAULT NULL;
+----
