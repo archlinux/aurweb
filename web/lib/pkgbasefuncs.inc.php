@@ -712,7 +712,7 @@ function pkgbase_vote ($base_ids, $action=true) {
 function pkgbase_votes_from_name($pkgbase_name) {
 	$dbh = DB::connect();
 
-	$q = "SELECT UsersID, Username, Name FROM PackageVotes ";
+	$q = "SELECT UsersID, Username, Name, VoteTS FROM PackageVotes ";
 	$q.= "LEFT JOIN Users ON UsersID = Users.ID ";
 	$q.= "LEFT JOIN PackageBases ";
 	$q.= "ON PackageVotes.PackageBaseID = PackageBases.ID ";
