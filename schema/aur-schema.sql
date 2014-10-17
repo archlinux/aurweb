@@ -91,6 +91,7 @@ INSERT INTO PackageCategories (Category) VALUES ('system');
 INSERT INTO PackageCategories (Category) VALUES ('x11');
 INSERT INTO PackageCategories (Category) VALUES ('xfce');
 INSERT INTO PackageCategories (Category) VALUES ('fonts');
+INSERT INTO PackageCategories (Category) VALUES ('wayland');
 
 
 -- Information on package bases

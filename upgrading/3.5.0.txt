@@ -11,3 +11,9 @@ ALTER TABLE PackageSources ADD COLUMN SourceArch VARCHAR(255) NULL DEFAULT NULL;
 ----
 ALTER TABLE PackageVotes ADD COLUMN VoteTS BIGINT NULL DEFAULT NULL;
 ----
+
+3. Add a "wayland" category:
+
+----
+INSERT INTO PackageCategories (Category) VALUES ('wayland');
+----
