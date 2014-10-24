@@ -16,24 +16,25 @@ if (empty($dir)) {
 }
 
 set_include_path(get_include_path() . PATH_SEPARATOR . "$dir/lib");
-include("config.inc.php");
+include("confparser.inc.php");
 include("aur.inc.php");
 include("pkgfuncs.inc.php");
 
 $count = 0;
 
-$buckets = scandir(INCOMING_DIR);
+$incoming_dir = config_get('paths', 'storage');
+$buckets = scandir($incoming_dir);
 foreach ($buckets as $bucket) {
-	$bucketpath = INCOMING_DIR . $bucket;
+	$bucketpath = $incoming_dir . $bucket;
 	if ($bucket == '.' || $bucket == '..' || !is_dir($bucketpath)) {
 		continue;
 	}
-	$files = scandir(INCOMING_DIR . $bucket);
+	$files = scandir($incoming_dir . $bucket);
 	foreach ($files as $pkgname) {
 		if ($pkgname == '.' || $pkgname == '..') {
 			continue;
 		}
-		$fullpath = INCOMING_DIR . $bucket . "/" . $pkgname;
+		$fullpath = $incoming_dir . $bucket . "/" . $pkgname;
 		if (!pkg_from_name($pkgname) && is_dir($fullpath)) {
 			echo 'Removing ' . $fullpath . "\n";
 			rm_tree($fullpath);

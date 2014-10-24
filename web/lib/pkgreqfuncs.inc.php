@@ -1,5 +1,6 @@
 <?php
-include_once("config.inc.php");
+
+include_once("confparser.inc.php");
 include_once("pkgbasefuncs.inc.php");
 
 /**
@@ -76,9 +77,6 @@ function pkgreq_get_creator_email($id) {
 /**
  * File a deletion/orphan request against a package base
  *
- * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
- * @global string $AUR_REQUEST_ML The request notification mailing list
- * @global int $AUTO_ORPHAN_AGE The time to wait until auto-closing a request
  * @param string $ids The package base IDs to file the request against
  * @param string $type The type of the request
  * @param string $merge_into The target of a merge operation
@@ -87,10 +85,6 @@ function pkgreq_get_creator_email($id) {
  * @return array Tuple of success/failure indicator and error message
  */
 function pkgreq_file($ids, $type, $merge_into, $comments) {
-	global $AUR_LOCATION;
-	global $AUR_REQUEST_ML;
-	global $AUTO_ORPHAN_AGE;
-
 	if (!has_credential(CRED_PKGREQ_FILE)) {
 		return array(false, __("You must be logged in to file package requests."));
 	}
@@ -166,15 +160,15 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 			$username . " [1] filed a request to merge " .
 			$row['Name'] . " [2] into " . $merge_into .
 			" [3]:\n\n" .  $comments . "\n\n" .
-			"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n" .
-			"[2] " . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n" .
-			"[3] " . $AUR_LOCATION . get_pkgbase_uri($merge_into) . "\n";
+			"[1] " . aur_location() . get_user_uri($username) . "\n" .
+			"[2] " . aur_location() . get_pkgbase_uri($row['Name']) . "\n" .
+			"[3] " . aur_location() . get_pkgbase_uri($merge_into) . "\n";
 	} else {
 		$body =
 			$username . " [1] filed a " . $type . " request for " .
 			$row['Name'] . " [2]:\n\n" . $comments . "\n\n" .
-			"[1] " . $AUR_LOCATION . get_user_uri($username) . "\n" .
-			"[2] " . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n";
+			"[1] " . aur_location() . get_user_uri($username) . "\n" .
+			"[2] " . aur_location() . get_pkgbase_uri($row['Name']) . "\n";
 	}
 	$body = wordwrap($body, 70);
 	$cc = array_unique($cc);
@@ -185,14 +179,15 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	$headers .= "From: notify@aur.archlinux.org\r\n" .
 		    "Message-ID: $thread_id\r\n" .
 		    "X-Mailer: AUR";
-	@mail($AUR_REQUEST_ML, "[PRQ#" . $request_id . "] " . ucfirst($type) .
-			       " Request for " .  $row['Name'], $body,
-			       $headers);
+	$ml = config_get('options', 'aur_request_ml');
+	@mail($ml, "[PRQ#" . $request_id . "] " . ucfirst($type) .
+		   " Request for " .  $row['Name'], $body, $headers);
 
+	$auto_orphan_age = config_get('options', 'auto_orphan_age');
 	$details = pkgbase_get_details($base_id);
 	if ($type == 'orphan' && $details['OutOfDateTS'] > 0 &&
-	    time() - $details['OutOfDateTS'] >= $AUTO_ORPHAN_AGE &&
-	    $AUTO_ORPHAN_AGE > 0) {
+	    time() - $details['OutOfDateTS'] >= $auto_orphan_age &&
+	    $auto_orphan_age > 0) {
 		/*
 		 * Close package request. NOTE: This needs to happen *before*
 		 * the actual disown operation. Otherwise, the former
@@ -214,8 +209,6 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 /**
  * Close a deletion/orphan request
  *
- * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
- * @global string $AUR_REQUEST_ML The request notification mailing list
  * @param int $id The package request to close
  * @param string $reason Whether the request was accepted or rejected
  * @param string $comments Comments to be added to the notification email
@@ -224,9 +217,6 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
  * @return array Tuple of success/failure indicator and error message
  */
 function pkgreq_close($id, $reason, $comments, $auto_close=false) {
-	global $AUR_LOCATION;
-	global $AUR_REQUEST_ML;
-
 	switch ($reason) {
 	case 'accepted':
 		$status = 2;
@@ -288,7 +278,7 @@ function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 	}
 	if (!$auto_close) {
 		$body .= "\n";
-		$body .= "[1] " . $AUR_LOCATION .  get_user_uri($username);
+		$body .= "[1] " . aur_location() .  get_user_uri($username);
 		$body .= "\n";
 	}
 	$body = wordwrap($body, 70);
@@ -301,7 +291,8 @@ function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 		    "In-Reply-To: $thread_id\r\n" .
 		    "References: $thread_id\r\n" .
 		    "X-Mailer: AUR";
-	@mail($AUR_REQUEST_ML, "[PRQ#" . $id . "] Request " . ucfirst($reason),
+	$ml = config_get('options', 'aur_request_ml');
+	@mail($ml, "[PRQ#" . $id . "] Request " . ucfirst($reason),
 	      $body, $headers);
 
 	return array(true, __("Request closed successfully."));

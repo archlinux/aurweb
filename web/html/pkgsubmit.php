@@ -1,7 +1,6 @@
 <?php
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
-include_once("config.inc.php");
 
 require_once('Archive/Tar.php');
 
@@ -64,11 +63,12 @@ if ($uid):
 		}
 
 		# Check uncompressed file size (ZIP bomb protection)
-		if (!$error && $MAX_FILESIZE_UNCOMPRESSED) {
+		$max_filesize_uncompressed = config_get_int('options', 'max_filesize_uncompressed');
+		if (!$error && $max_filesize_uncompressed) {
 			fseek($fh, -4, SEEK_END);
 			list(, $filesize_uncompressed) = unpack('V', fread($fh, 4));
 
-			if ($filesize_uncompressed > $MAX_FILESIZE_UNCOMPRESSED) {
+			if ($filesize_uncompressed > $max_filesize_uncompressed) {
 				$error = __("Error - uncompressed file size too large.");
 			}
 		}
@@ -273,7 +273,7 @@ if ($uid):
 		}
 
 		if (isset($pkgbase_name)) {
-			$incoming_pkgdir = INCOMING_DIR . substr($pkgbase_name, 0, 2) . "/" . $pkgbase_name;
+			$incoming_pkgdir = config_get('paths', 'storage') . substr($pkgbase_name, 0, 2) . "/" . $pkgbase_name;
 		}
 
 		/* Upload PKGBUILD and tarball. */

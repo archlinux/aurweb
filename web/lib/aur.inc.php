@@ -10,12 +10,12 @@ date_default_timezone_set('UTC');
 include_once('translator.inc.php');
 set_lang();
 
-include_once("config.inc.php");
 include_once("DB.class.php");
 include_once("routing.inc.php");
 include_once("version.inc.php");
 include_once("acctfuncs.inc.php");
 include_once("cachefuncs.inc.php");
+include_once("confparser.inc.php");
 include_once("credentials.inc.php");
 
 /**
@@ -26,16 +26,15 @@ include_once("credentials.inc.php");
  * session timeout if it is still valid.
  *
  * @global array $_COOKIE User cookie values
- * @global string $LOGIN_TIMEOUT Time until session times out
  *
  * @return void
  */
 function check_sid() {
 	global $_COOKIE;
-	global $LOGIN_TIMEOUT;
 
 	if (isset($_COOKIE["AURSID"])) {
 		$failed = 0;
+		$timeout = config_get_int('options', 'login_timeout');
 		# the visitor is logged in, try and update the session
 		#
 		$dbh = DB::connect();
@@ -50,7 +49,7 @@ function check_sid() {
 			$failed = 1;
 		} else {
 			$last_update = $row[0];
-			if ($last_update + $LOGIN_TIMEOUT <= $row[1]) {
+			if ($last_update + $timeout <= $row[1]) {
 				$failed = 2;
 			}
 		}
@@ -73,11 +72,11 @@ function check_sid() {
 			# and update the idle timestamp
 
 			# Only update the timestamp if it is less than the
-			# current time plus $LOGIN_TIMEOUT.
+			# current time plus $timeout.
 			#
 			# This keeps 'remembered' sessions from being
 			# overwritten.
-			if ($last_update < time() + $LOGIN_TIMEOUT) {
+			if ($last_update < time() + $timeout) {
 				$q = "UPDATE Sessions SET LastUpdateTS = UNIX_TIMESTAMP() ";
 				$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
 				$dbh->exec($q);
@@ -274,8 +273,6 @@ function uid_from_sid($sid="") {
  * @return void
  */
 function html_header($title="", $details=array()) {
-	global $AUR_LOCATION;
-	global $DISABLE_HTTP_LOGIN;
 	global $LANG;
 	global $SUPPORTED_LANGS;
 
@@ -587,4 +584,17 @@ function array_pkgbuild_merge($pkgbase_info, $section_info) {
  */
 function bound($n, $min, $max) {
 	return min(max($n, $min), $max);
+}
+
+/**
+ * Return the URL of the AUR root
+ *
+ * @return string The URL of the AUR root
+ */
+function aur_location() {
+	$location = config_get('options', 'aur_location');
+	if (substr($location, -1) != '/') {
+		$location .= '/';
+	}
+	return $location;
 }

@@ -1,0 +1,29 @@
+[database]
+dsn_prefix = mysql
+host = localhost
+socket = /var/run/mysqld/mysqld.sock
+name = AUR
+user = aur
+password = aur
+
+[paths]
+storage = /srv/aur/unsupported/
+
+[options]
+username_min_len = 3
+username_max_len = 16
+passwd_min_len = 4
+default_lang = en
+sql_debug = 0
+max_sessions_per_user = 8
+login_timeout = 7200
+persistent_cookie_timeout = 2592000
+max_filesize_uncompressed = 8388608
+disable_http_login = 1
+aur_location = http://localhost
+package_url = /packages/
+use_virtual_urls = 1
+max_rpc_results = 5000
+aur_request_ml = aur-requests@archlinux.org
+request_idle_time = 1209600
+auto_orphan_age = 15552000

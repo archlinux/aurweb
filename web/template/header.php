@@ -69,7 +69,7 @@
 						<li><a href="<?= get_uri('/logout/'); ?>"><?= __("Logout"); ?></a></li>
 					<?php else: ?>
 						<li><a href="<?= get_uri('/register/'); ?>"><?= __("Register"); ?></a></li>
-						<?php if ($DISABLE_HTTP_LOGIN && empty($_SERVER['HTTPS'])): ?>
+						<?php if (config_get_bool('options', 'disable_http_login') && empty($_SERVER['HTTPS'])): ?>
 						<li><a href="<?= $AUR_LOCATION . get_uri('/login/'); ?>"><?= __("Login"); ?></a></li>
 						<?php else: ?>
 						<li><a href="<?= get_uri('/login/'); ?>"><?= __("Login"); ?></a></li>

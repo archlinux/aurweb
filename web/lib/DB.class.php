@@ -1,5 +1,7 @@
 <?php
 
+include_once("confparser.inc.php");
+
 class DB {
 
 	/**
@@ -15,8 +17,19 @@ class DB {
 	public static function connect() {
 		if (self::$dbh === null) {
 			try {
-				self::$dbh = new PDO(AUR_db_DSN_prefix . ":" . AUR_db_host
-					. ";dbname=" . AUR_db_name, AUR_db_user, AUR_db_pass);
+				$dsn_prefix = config_get('database', 'dsn_prefix');
+				$host = config_get('database', 'host');
+				$socket = config_get('database', 'socket');
+				$name = config_get('database', 'name');
+				$user = config_get('database', 'user');
+				$password = config_get('database', 'password');
+
+				$dsn = $dsn_prefix .
+				       ':host=' . $host .
+				       ';unix_socket=' . $socket .
+				       ';dbname=' . $name;
+
+				self::$dbh = new PDO($dsn, $user, $password);
 				self::$dbh->exec("SET NAMES 'utf8' COLLATE 'utf8_general_ci';");
 			} catch (PDOException $e) {
 				die('Error - Could not connect to AUR database');

@@ -1,5 +1,5 @@
 <?php
-include_once("config.inc.php");
+
 include_once("pkgbasefuncs.inc.php");
 
 /**
@@ -462,8 +462,6 @@ function pkg_get_details($id=0) {
 /**
  * Display the package details page
  *
- * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
- * @global bool $USE_VIRTUAL_URLS True if using URL rewriting, otherwise false
  * @param string $id The package ID to get details page for
  * @param array $row Package details retrieved by pkg_get_details()
  * @param string $SID The session ID of the visitor
@@ -471,9 +469,6 @@ function pkg_get_details($id=0) {
  * @return void
  */
 function pkg_display_details($id=0, $row, $SID="") {
-	global $AUR_LOCATION;
-	global $USE_VIRTUAL_URLS;
-
 	$dbh = DB::connect();
 
 	if (isset($row['error'])) {

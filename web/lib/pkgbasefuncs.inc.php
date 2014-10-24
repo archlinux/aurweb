@@ -1,5 +1,5 @@
 <?php
-include_once("config.inc.php");
+
 include_once("pkgreqfuncs.inc.php");
 
 /**
@@ -88,7 +88,6 @@ function pkgbase_comments($base_id, $limit, $include_deleted) {
 /**
  * Add a comment to a package page and send out appropriate notifications
  *
- * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
  * @param string $base_id The package base ID to add the comment on
  * @param string $uid The user ID of the individual who left the comment
  * @param string $comment The comment left on a package page
@@ -96,8 +95,6 @@ function pkgbase_comments($base_id, $limit, $include_deleted) {
  * @return void
  */
 function pkgbase_add_comment($base_id, $uid, $comment) {
-	global $AUR_LOCATION;
-
 	$dbh = DB::connect();
 
 	$q = "INSERT INTO PackageComments ";
@@ -135,7 +132,7 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 		 * user who posted the comment was in.
 		 */
 		$body =
-		'from ' . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n"
+		'from ' . aur_location() . get_pkgbase_uri($row['Name']) . "\n"
 		. username_from_sid($_COOKIE['AURSID']) . " wrote:\n\n"
 		. $comment
 		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
@@ -221,8 +218,6 @@ function pkgbase_get_details($base_id) {
 /**
  * Display the package base details page
  *
- * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
- * @global bool $USE_VIRTUAL_URLS True if using URL rewriting, otherwise false
  * @param string $id The package base ID to get details page for
  * @param array $row Package base details retrieved by pkgbase_get_details()
  * @param string $SID The session ID of the visitor
@@ -230,9 +225,6 @@ function pkgbase_get_details($base_id) {
  * @return void
  */
 function pkgbase_display_details($base_id, $row, $SID="") {
-	global $AUR_LOCATION;
-	global $USE_VIRTUAL_URLS;
-
 	$dbh = DB::connect();
 
 	if (isset($row['error'])) {
@@ -353,14 +345,11 @@ function pkgbase_maintainer_uid($base_id) {
 /**
  * Flag package(s) as out-of-date
  *
- * @global string $AUR_LOCATION The AUR's URL used for notification e-mails
  * @param array $base_ids Array of package base IDs to flag/unflag
  *
  * @return array Tuple of success/failure indicator and error message
  */
 function pkgbase_flag($base_ids) {
-	global $AUR_LOCATION;
-
 	if (!has_credential(CRED_PKGBASE_FLAG)) {
 		return array(false, __("You must be logged in before you can flag packages."));
 	}
@@ -392,7 +381,7 @@ function pkgbase_flag($base_ids) {
 		$result = $dbh->query($q);
 		if ($result) {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . $AUR_LOCATION . get_pkgbase_uri($row['Name']) . "\n\n[1] - " . $AUR_LOCATION . get_user_uri($f_name);
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . aur_location() . get_pkgbase_uri($row['Name']) . "\n\n[1] - " . aur_location() . get_user_uri($f_name);
 				$body = wordwrap($body, 70);
 				$headers = "MIME-Version: 1.0\r\n" .
 					   "Content-type: text/plain; charset=UTF-8\r\n" .

@@ -192,7 +192,8 @@ class AurJSON {
 	}
 
 	private function process_query($type, $where_condition) {
-		global $MAX_RPC_RESULTS;
+		$max_results = config_get_int('options', 'max_rpc_results');
+		$package_url = config_get('options', 'package_url');
 
 		if ($this->version == 1) {
 			$fields = implode(',', self::$fields_v1);
@@ -207,7 +208,7 @@ class AurJSON {
 				"ON Licenses.ID = PackageLicenses.LicenseID " .
 				"WHERE ${where_condition} " .
 				"GROUP BY Packages.ID " .
-				"LIMIT $MAX_RPC_RESULTS";
+				"LIMIT $max_results";
 		} elseif ($this->version >= 2) {
 			$fields = implode(',', self::$fields_v2);
 			$query = "SELECT {$fields} " .
@@ -216,7 +217,7 @@ class AurJSON {
 				"LEFT JOIN Users " .
 				"ON PackageBases.MaintainerUID = Users.ID " .
 				"WHERE ${where_condition} " .
-				"LIMIT $MAX_RPC_RESULTS";
+				"LIMIT $max_results";
 		}
 		$result = $this->dbh->query($query);
 
@@ -226,7 +227,7 @@ class AurJSON {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$resultcount++;
 				$pkgbase_name = $row['PackageBase'];
-				$row['URLPath'] = URL_DIR . substr($pkgbase_name, 0, 2) . "/" . $pkgbase_name . "/" . $pkgbase_name . ".tar.gz";
+				$row['URLPath'] = $package_url . substr($pkgbase_name, 0, 2) . "/" . $pkgbase_name . "/" . $pkgbase_name . ".tar.gz";
 
 				/*
 				 * Unfortunately, mysql_fetch_assoc() returns
@@ -254,7 +255,7 @@ class AurJSON {
 				}
 			}
 
-			if ($resultcount === $MAX_RPC_RESULTS) {
+			if ($resultcount === $max_results) {
 				return $this->json_error('Too many package results.');
 			}
 
@@ -303,8 +304,6 @@ class AurJSON {
 	 * @return mixed Returns an array of package matches.
 	 */
 	private function search($keyword_string) {
-		global $MAX_RPC_RESULTS;
-
 		if (strlen($keyword_string) < 2) {
 			return $this->json_error('Query arg too small');
 		}

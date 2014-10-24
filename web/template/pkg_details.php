@@ -21,7 +21,8 @@ $updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($r
 $submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["SubmittedTS"]));
 $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
 
-$urlpath = URL_DIR . substr($row['BaseName'], 0, 2) . "/" . $row['BaseName'];
+$package_url = config_get('options', 'package_url');
+$urlpath = $package_url . substr($row['BaseName'], 0, 2) . "/" . $row['BaseName'];
 
 $lics = pkg_licenses($row["ID"]);
 $grps = pkg_groups($row["ID"]);
@@ -82,7 +83,7 @@ $sources = pkg_sources($row["ID"]);
 				<li><a href="<?= $urlpath . '/' . $row['BaseName'] ?>.tar.gz"><?= __('Download tarball') ?></a></li>
 				<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
-				<?php if ($USE_VIRTUAL_URLS && $uid): ?>
+				<?php if (use_virtual_urls() && $uid): ?>
 				<?php if ($row["OutOfDateTS"] === NULL): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'flag/'; ?>" method="post">
@@ -281,7 +282,7 @@ if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
 <?php
 if ($row["SubmitterUID"]):
 	if ($SID):
-		if (!$USE_VIRTUAL_URLS):
+		if (!use_virtual_urls()):
 ?>
 			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($submitter) ?>"><?= html_format_username($submitter) ?></a></td>
 		<?php else: ?>
@@ -299,7 +300,7 @@ if ($row["SubmitterUID"]):
 <?php
 if ($row["MaintainerUID"]):
 	if ($SID):
-		if (!$USE_VIRTUAL_URLS):
+		if (!use_virtual_urls()):
 ?>
 			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($maintainer) ?>"><?= html_format_username($maintainer) ?></a></td>
 		<?php else: ?>
@@ -317,7 +318,7 @@ if ($row["MaintainerUID"]):
 <?php
 if ($row["PackagerUID"]):
 	if ($SID):
-		if (!$USE_VIRTUAL_URLS):
+		if (!use_virtual_urls()):
 ?>
 			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['PackagerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($packager) ?>"><?= html_format_username($packager) ?></a></td>
 		<?php else: ?>
@@ -333,7 +334,7 @@ if ($row["PackagerUID"]):
 		<tr>
 			<th><?= __('Votes') . ': ' ?></th>
 <?php if (has_credential(CRED_PKGBASE_LIST_VOTERS)): ?>
-<?php if ($USE_VIRTUAL_URLS): ?>
+<?php if (use_virtual_urls()): ?>
 			<td><a href="<?= get_pkgbase_uri($row['BaseName']); ?>voters/"><?= $votes ?></a></td>
 <?php else: ?>
 			<td><a href="<?= get_uri('/voters/'); ?>?N=<?= htmlspecialchars($row['BaseName'], ENT_QUOTES) ?>"><?= $votes ?></a></td>

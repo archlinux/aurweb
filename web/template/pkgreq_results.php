@@ -34,9 +34,10 @@
 
 		<?php while (list($indx, $row) = each($results)): ?>
 		<?php
-		$due = ($row['Open'] && time() - intval($row['RequestTS']) > $REQUEST_IDLE_TIME);
+		$idle_time = config_get_int('options', 'request_idle_time');
+		$due = ($row['Open'] && time() - intval($row['RequestTS']) > $idle_time);
 		if (!$due) {
-			$time_left = $REQUEST_IDLE_TIME - (time() - intval($row['RequestTS']));
+			$time_left = $idle_time - (time() - intval($row['RequestTS']));
 			if ($time_left > 48 * 3600) {
 				$time_left_fmt = __("~%d days left", round($time_left / (24 * 3600)));
 			} elseif ($time_left > 3600) {

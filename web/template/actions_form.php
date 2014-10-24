@@ -1,4 +1,4 @@
-<?php if (!$USE_VIRTUAL_URLS): ?>
+<?php if (!use_virtual_urls()): ?>
 <div class="box">
 	<form action="<?= htmlspecialchars(get_pkg_uri($row['Name']), ENT_QUOTES); ?>" method="post">
 		<fieldset>

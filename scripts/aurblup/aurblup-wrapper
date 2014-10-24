@@ -8,10 +8,14 @@ if (empty($dir)) {
 }
 
 set_include_path(get_include_path() . PATH_SEPARATOR . "$dir/lib");
-include("config.inc.php");
+include("confparser.inc.php");
+
+$user = config_get('database', 'user');
+$password = config_get('database', 'password');
+$name = config_get('database', 'name');
 
 exec($dir . "/../scripts/aurblup/aurblup " .
 	"-S /var/run/mysqld/mysqld.sock " .
-	"-u " . escapeshellarg(AUR_db_user) . " " .
-	"-p " . escapeshellarg(AUR_db_pass) . " " .
-	"-D " . escapeshellarg(AUR_db_name));
+	"-u " . escapeshellarg($user) . " " .
+	"-p " . escapeshellarg($password) . " " .
+	"-D " . escapeshellarg($name));

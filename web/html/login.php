@@ -5,7 +5,8 @@ include_once("aur.inc.php");
 set_lang();
 check_sid();
 
-if (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])) {
+$disable_http_login = config_get_bool('options', 'disable_http_login');
+if (!$disable_http_login || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])) {
 	$login = try_login();
 	$login_error = $login['error'];
 }
@@ -19,7 +20,7 @@ html_header('AUR ' . __("Login"));
 		<?= __("Logged-in as: %s", '<strong>' . username_from_sid($_COOKIE["AURSID"]) . '</strong>'); ?>
 		<a href="<?= get_uri('/logout/'); ?>">[<?= __("Logout"); ?>]</a>
 	</p>
-	<?php elseif (!$DISABLE_HTTP_LOGIN || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])): ?>
+	<?php elseif (!$disable_http_login || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])): ?>
 	<form method="post" action="<?= get_uri('/login') ?>">
 		<fieldset>
 			<legend><?= __('Enter login credentials') ?></legend>
@@ -28,7 +29,7 @@ html_header('AUR ' . __("Login"));
 			<?php endif; ?>
 			<p>
 				<label for="id_username"><?= __('Username') . ':'; ?></label>
-				<input id="id_username" type="text" name="user" size="30" maxlength="<?= USERNAME_MAX_LEN; ?>" value="<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>" />
+				<input id="id_username" type="text" name="user" size="30" maxlength="<?= config_get_int('options', 'username_max_len'); ?>" value="<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>" />
 			</p>
 			<p>
 				<label for="id_password"><?= __('Password') . ':'; ?></label>
@@ -47,7 +48,7 @@ html_header('AUR ' . __("Login"));
 	<?php else: ?>
 	<p>
 		<?php printf(__("HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."),
-			'<a href="' . $AUR_LOCATION . get_uri('/login') . '">', '</a>'); ?>
+			'<a href="' . aur_location() . get_uri('/login') . '">', '</a>'); ?>
 	</p>
 	<?php endif; ?>
 </div>

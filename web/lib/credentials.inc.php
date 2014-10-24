@@ -1,5 +1,4 @@
 <?php
-include_once("config.inc.php");
 
 define("CRED_ACCOUNT_CHANGE_TYPE", 1);
 define("CRED_ACCOUNT_EDIT", 2);

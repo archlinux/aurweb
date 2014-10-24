@@ -89,7 +89,7 @@ function display_account_form($A,$U="",$T="",$S="",
  */
 function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 			$P="",$C="",$R="",$L="",$I="",$K="",$J="",$UID=0) {
-	global $SUPPORTED_LANGS, $AUR_LOCATION;
+	global $SUPPORTED_LANGS;
 
 	$error = '';
 
@@ -118,9 +118,11 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 	}
 
 	if (!$error && !valid_username($U)) {
+		$length_min = config_get_int('options', 'username_min_len');
+		$length_max = config_get_int('options', 'username_max_len');
+
 		$error = __("The username is invalid.") . "<ul>\n"
-			."<li>" . __("It must be between %s and %s characters long",
-			USERNAME_MIN_LEN,  USERNAME_MAX_LEN )
+			. "<li>" . __("It must be between %s and %s characters long", $length_min, $length_max)
 			. "</li>"
 			. "<li>" . __("Start and end with a letter or number") . "</li>"
 			. "<li>" . __("Can contain only one period, underscore or hyphen.")
@@ -130,8 +132,11 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 	if (!$error && $P && $C && ($P != $C)) {
 		$error = __("Password fields do not match.");
 	}
-	if (!$error && $P != '' && !good_passwd($P))
-		$error = __("Your password must be at least %s characters.",PASSWD_MIN_LEN);
+	if (!$error && $P != '' && !good_passwd($P)) {
+		$length_min = config_get_int('options', 'passwd_min_len');
+		$error = __("Your password must be at least %s characters.",
+			$length_min);
+	}
 
 	if (!$error && !valid_email($E)) {
 		$error = __("The email address is invalid.");
@@ -244,7 +249,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",
 			'not work try copying and ' .
 			'pasting it into your ' .
 			'browser.',
-			$AUR_LOCATION);
+			aur_location());
 		send_resetkey($email, $subject, $body);
 
 		print __("A password reset key has been sent to your e-mail address.");
@@ -406,14 +411,9 @@ function search_results_page($O=0,$SB="",$U="",$T="",
 /**
  * Attempt to login and generate a session
  *
- * @global int $MAX_SESSIONS_PER_USER Maximum sessions a single user may have open
- * @global int $PERSISTENT_COOKIE_TIMEOUT Time until cookie expires
- *
  * @return array Session ID for user, error message if applicable
  */
 function try_login() {
-	global $MAX_SESSIONS_PER_USER, $PERSISTENT_COOKIE_TIMEOUT;
-
 	$login_error = "";
 	$new_sid = "";
 	$userID = null;
@@ -456,16 +456,17 @@ function try_login() {
 
 	/* Generate a session ID and store it. */
 	while (!$logged_in && $num_tries < 5) {
-		if ($MAX_SESSIONS_PER_USER) {
+		$session_limit = config_get_int('options', 'max_sessions_per_user');
+		if ($session_limit) {
 			/*
 			 * Delete all user sessions except the
-			 * last ($MAX_SESSIONS_PER_USER - 1).
+			 * last ($session_limit - 1).
 			 */
 			$q = "DELETE s.* FROM Sessions s ";
 			$q.= "LEFT JOIN (SELECT SessionID FROM Sessions ";
 			$q.= "WHERE UsersId = " . $userID . " ";
 			$q.= "ORDER BY LastUpdateTS DESC ";
-			$q.= "LIMIT " . ($MAX_SESSIONS_PER_USER - 1) . ") q ";
+			$q.= "LIMIT " . ($session_limit - 1) . ") q ";
 			$q.= "ON s.SessionID = q.SessionID ";
 			$q.= "WHERE s.UsersId = " . $userID . " ";
 			$q.= "AND q.SessionID IS NULL;";
@@ -499,7 +500,8 @@ function try_login() {
 	/* Set the SID cookie. */
 	if (isset($_POST['remember_me']) && $_POST['remember_me'] == "on") {
 		/* Set cookies for 30 days. */
-		$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
+		$timeout = config_get_int('options', 'persistent_cookie_timeout');
+		$cookie_time = time() + $timeout;
 
 		/* Set session for 30 days. */
 		$q = "UPDATE Sessions SET LastUpdateTS = $cookie_time ";
@@ -531,18 +533,20 @@ function is_ipbanned() {
 /**
  * Validate a username against a collection of rules
  *
- * The username must be longer or equal to USERNAME_MIN_LEN. It must be shorter
- * or equal to USERNAME_MAX_LEN. It must start and end with either a letter or
- * a number. It can contain one period, hypen, or underscore. Returns boolean
- * of whether name is valid.
+ * The username must be longer or equal to the configured minimum length. It
+ * must be shorter or equal to the configured maximum length. It must start and
+ * end with either a letter or a number. It can contain one period, hypen, or
+ * underscore. Returns boolean of whether name is valid.
  *
  * @param string $user Username to validate
  *
  * @return bool True if username meets criteria, otherwise false
  */
 function valid_username($user) {
-	if (strlen($user) < USERNAME_MIN_LEN ||
-	    strlen($user) > USERNAME_MAX_LEN) {
+	$length_min = config_get_int('options', 'username_min_len');
+	$length_max = config_get_int('options', 'username_max_len');
+
+	if (strlen($user) < $length_min || strlen($user) > $length_max) {
 		return false;
 	} else if (!preg_match("/^[a-z0-9]+[.\-_]?[a-z0-9]+$/Di", $user)) {
 		return false;
@@ -645,8 +649,6 @@ function create_resetkey($resetkey, $uid) {
  * @return void
  */
 function send_resetkey($email, $subject, $body) {
-	global $AUR_LOCATION;
-
 	$uid = uid_from_email($email);
 	if ($uid == null) {
 		return;
@@ -658,9 +660,8 @@ function send_resetkey($email, $subject, $body) {
 
 	/* Send e-mail with confirmation link. */
 	$body = wordwrap($body, 70);
-	$body .=  "\n\n".
-		  "{$AUR_LOCATION}/" . get_uri('/passreset/') . "?".
-		  "resetkey={$resetkey}";
+	$body .=  "\n\n". aur_location() . "/" .  get_uri('/passreset/') .
+		  "?resetkey={$resetkey}";
 	$headers = "MIME-Version: 1.0\r\n" .
 		   "Content-type: text/plain; charset=UTF-8\r\n" .
 		   "Reply-to: noreply@aur.archlinux.org\r\n" .
@@ -708,10 +709,8 @@ function password_reset($hash, $salt, $resetkey, $email) {
  * @return bool True if longer than minimum length, otherwise false
  */
 function good_passwd($passwd) {
-	if ( strlen($passwd) >= PASSWD_MIN_LEN ) {
-		return true;
-	}
-	return false;
+	$length_min = config_get_int('options', 'passwd_min_len');
+	return (strlen($passwd) >= $length_min);
 }
 
 /**
@@ -903,16 +902,13 @@ function delete_user_sessions($uid) {
 /**
  * Remove sessions from the database that have exceed the timeout
  *
- * @global int $LOGIN_TIMEOUT Time until session expires
- *
  * @return void
  */
 function clear_expired_sessions() {
-	global $LOGIN_TIMEOUT;
-
 	$dbh = DB::connect();
 
-	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - $LOGIN_TIMEOUT)";
+	$timeout = config_get_int('options', 'login_timeout');
+	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - " . $timeout . ")";
 	$dbh->query($q);
 
 	return;

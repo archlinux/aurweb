@@ -11,7 +11,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib' . PATH_SEPARATOR
 #	print __("%s has %s apples.", "Bill", "5");
 #	print __("This is a %smajor%s problem!", "<strong>", "</strong>");
 
-include_once('config.inc.php');
+include_once("confparser.inc.php");
 include_once('DB.class.php');
 include_once('gettext.php');
 include_once('streams.php');
@@ -82,7 +82,6 @@ function _n($msgid1, $msgid2, $n) {
 function set_lang() {
 	global $LANG;
 	global $SUPPORTED_LANGS;
-	global $PERSISTENT_COOKIE_TIMEOUT;
 	global $streamer, $l10n;
 
 	$update_cookie = 0;
@@ -116,11 +115,12 @@ function set_lang() {
 
 	# Set $LANG to default if nothing is valid.
 	if (!array_key_exists($LANG, $SUPPORTED_LANGS)) {
-		$LANG = DEFAULT_LANG;
+		$LANG = config_get('options', 'default_lang');
 	}
 
 	if ($update_cookie) {
-		$cookie_time = time() + $PERSISTENT_COOKIE_TIMEOUT;
+		$timeout = intval(config_get('options', 'persistent_cookie_timeout'));
+		$cookie_time = time() + $timeout;
 		setcookie("AURLANG", $LANG, $cookie_time, "/");
 	}
 
