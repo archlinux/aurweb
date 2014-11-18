@@ -81,7 +81,7 @@ if ($uid):
 		if (!$error) {
 			$tar = new Archive_Tar($_FILES['pfile']['tmp_name']);
 
-			/* Extract PKGBUILD and .AURINFO into a string. */
+			/* Extract PKGBUILD and .SRCINFO into a string. */
 			$pkgbuild_raw = $srcinfo_raw = '';
 			$dircount = 0;
 			foreach ($tar->listContent() as $tar_file) {
@@ -94,7 +94,8 @@ if ($uid):
 						break;
 					} elseif (substr($tar_file['filename'], -9) == '/PKGBUILD') {
 						$pkgbuild_raw = $tar->extractInString($tar_file['filename']);
-					} elseif (substr($tar_file['filename'], -9) == '/.AURINFO') {
+					} elseif (substr($tar_file['filename'], -9) == '/.AURINFO' ||
+						  substr($tar_file['filename'], -9) == '/.SRCINFO') {
 						$srcinfo_raw = $tar->extractInString($tar_file['filename']);
 					}
 				} elseif ($tar_file['typeflag'] == 5) {
@@ -127,7 +128,7 @@ if ($uid):
 			}
 		}
 
-		/* Parse .AURINFO and extract meta data. */
+		/* Parse .SRCINFO and extract meta data. */
 		$pkgbase_info = array();
 		$pkginfo = array();
 		$section_info = array();
