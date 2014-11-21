@@ -69,4 +69,4 @@ install: all
 uninstall:
 	for l in ${LOCALES}; do rm -rf ${DESTDIR}${PREFIX}/$$l/LC_MESSAGES/; done
 
-.PHONY: all update-pot update-po clean install uninstall
+.PHONY: all update-pot update-po clean install uninstall POTFILES
