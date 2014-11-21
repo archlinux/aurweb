@@ -25,6 +25,10 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 		$error = __('Missing a required field.');
 	} elseif ($password != $confirm) {
 		$error = __('Password fields do not match.');
+	} elseif (!good_passwd($password)) {
+		$length_min = config_get_int('options', 'passwd_min_len');
+		$error = __("Your password must be at least %s characters.",
+			$length_min);
 	} elseif ($uid == null) {
 		$error = __('Invalid e-mail.');
 	}
