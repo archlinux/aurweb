@@ -481,7 +481,6 @@ function pkg_display_details($id=0, $row, $SID="") {
 		include('pkg_details.php');
 
 		if ($SID) {
-			include('actions_form.php');
 			include('pkg_comment_form.php');
 		}
 

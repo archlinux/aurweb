@@ -236,7 +236,6 @@ function pkgbase_display_details($base_id, $row, $SID="") {
 		include('pkgbase_details.php');
 
 		if ($SID) {
-			include('actions_form.php');
 			include('pkg_comment_form.php');
 		}
 

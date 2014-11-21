@@ -21,3 +21,5 @@ INSERT INTO PackageCategories (Category) VALUES ('wayland');
 4. The configuration file format has been changed. Make sure you convert
 web/lib/config.inc.php to the new format (see conf/config.proto for an example
 configuration) and put the resulting file in conf/config.
+
+5. Support for non-virtual URLs has been removed.

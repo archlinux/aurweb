@@ -83,7 +83,7 @@ $sources = pkg_sources($row["ID"]);
 				<li><a href="<?= $urlpath . '/' . $row['BaseName'] ?>.tar.gz"><?= __('Download tarball') ?></a></li>
 				<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
-				<?php if (use_virtual_urls() && $uid): ?>
+				<?php if ($uid): ?>
 				<?php if ($row["OutOfDateTS"] === NULL): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'flag/'; ?>" method="post">
@@ -279,69 +279,41 @@ if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
 		<?php endif; ?>
 		<tr>
 			<th><?= __('Submitter') .': ' ?></th>
-<?php
-if ($row["SubmitterUID"]):
-	if ($SID):
-		if (!use_virtual_urls()):
-?>
-			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['SubmitterUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($submitter) ?>"><?= html_format_username($submitter) ?></a></td>
-		<?php else: ?>
-			<td><a href="<?= get_uri('/account/') . html_format_username($submitter) ?>" title="<?= __('View account information for %s', html_format_username($submitter)) ?>"><?= html_format_username($submitter) ?></a></td>
-		<?php endif; ?>
-<?php else: ?>
-		<td><?= html_format_username($submitter) ?></td>
-	<?php endif; ?>
-<?php else: ?>
+			<?php if ($row["SubmitterUID"] && $SID): ?>
+			<td><a href="<?= get_uri('/account/') . html_format_username($submitter, ENT_QUOTES) ?>" title="<?= __('View account information for %s', html_format_username($submitter)) ?>"><?= html_format_username($submitter) ?></a></td>
+			<?php elseif ($row["SubmitterUID"] && !$SID): ?>
+			<td><?= html_format_username($submitter) ?></td>
+			<?php else: ?>
 			<td><?= __('None') ?></td>
-<?php endif; ?>
+			<?php endif; ?>
 		</tr>
 		<tr>
 			<th><?= __('Maintainer') .': ' ?></th>
-<?php
-if ($row["MaintainerUID"]):
-	if ($SID):
-		if (!use_virtual_urls()):
-?>
-			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['MaintainerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($maintainer) ?>"><?= html_format_username($maintainer) ?></a></td>
-		<?php else: ?>
+			<?php if ($row["MaintainerUID"] && $SID): ?>
 			<td><a href="<?= get_uri('/account/') . html_format_username($maintainer) ?>" title="<?= __('View account information for %s', html_format_username($maintainer)) ?>"><?= html_format_username($maintainer) ?></a></td>
-		<?php endif; ?>
-	<?php else: ?>
-		<td><?= html_format_username($maintainer) ?></td>
-	<?php endif; ?>
-<?php else: ?>
+			<?php elseif ($row["MaintainerUID"] && !$SID): ?>
+			<td><?= html_format_username($maintainer) ?></td>
+			<?php else: ?>
 			<td><?= __('None') ?></td>
-<?php endif; ?>
+			<?php endif; ?>
 		</tr>
 		<tr>
-				<th><?= __('Last Packager') .': ' ?></th>
-<?php
-if ($row["PackagerUID"]):
-	if ($SID):
-		if (!use_virtual_urls()):
-?>
-			<td><a href="<?= get_uri('/account/'); ?>?Action=AccountInfo&amp;ID=<?= htmlspecialchars($row['PackagerUID'], ENT_QUOTES) ?>" title="<?= __('View account information for')?> <?= html_format_username($packager) ?>"><?= html_format_username($packager) ?></a></td>
-		<?php else: ?>
+			<th><?= __('Last Packager') .': ' ?></th>
+			<?php if ($row["PackagerUID"] && $SID): ?>
 			<td><a href="<?= get_uri('/account/') . html_format_username($packager) ?>" title="<?= __('View account information for %s', html_format_username($packager)) ?>"><?= html_format_username($packager) ?></a></td>
-		<?php endif; ?>
-	<?php else: ?>
-		<td><?= html_format_username($packager) ?></td>
-	<?php endif; ?>
-<?php else: ?>
+			<?php elseif ($row["PackagerUID"] && !$SID): ?>
+			<td><?= html_format_username($packager) ?></td>
+			<?php else: ?>
 			<td><?= __('None') ?></td>
-<?php endif; ?>
+			<?php endif; ?>
 		</tr>
 		<tr>
 			<th><?= __('Votes') . ': ' ?></th>
-<?php if (has_credential(CRED_PKGBASE_LIST_VOTERS)): ?>
-<?php if (use_virtual_urls()): ?>
-			<td><a href="<?= get_pkgbase_uri($row['BaseName']); ?>voters/"><?= $votes ?></a></td>
-<?php else: ?>
-			<td><a href="<?= get_uri('/voters/'); ?>?N=<?= htmlspecialchars($row['BaseName'], ENT_QUOTES) ?>"><?= $votes ?></a></td>
-<?php endif; ?>
-<?php else: ?>
+			<?php if (has_credential(CRED_PKGBASE_LIST_VOTERS)): ?>
+			<td><a href="<?= get_pkgbase_uri($row['Name']); ?>voters/"><?= $votes ?></a></td>
+			<?php else: ?>
 			<td><?= $votes ?></td>
-<?php endif; ?>
+			<?php endif; ?>
 		</tr>
 		<tr>
 			<th><?= __('First Submitted') . ': ' ?></th>
