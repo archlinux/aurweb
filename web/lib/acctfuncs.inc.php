@@ -660,7 +660,7 @@ function send_resetkey($email, $subject, $body) {
 
 	/* Send e-mail with confirmation link. */
 	$body = wordwrap($body, 70);
-	$body .=  "\n\n". aur_location() . "/" .  get_uri('/passreset/') .
+	$body .=  "\n\n". aur_location() . get_uri('/passreset/') .
 		  "?resetkey={$resetkey}";
 	$headers = "MIME-Version: 1.0\r\n" .
 		   "Content-type: text/plain; charset=UTF-8\r\n" .
