@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-29 16:34+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2014-11-16 16:44+0000\n"
+"Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/aur/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -972,7 +972,7 @@ msgid "Anonymous comment"
 msgstr "Commento anonimo"
 
 msgid "deleted"
-msgstr ""
+msgstr "eliminato"
 
 msgid "All comments"
 msgstr "Tutti i commenti"
@@ -1025,15 +1025,15 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr ""
+msgstr "Il campo dei commenti può essere lasciato vuoto. Tuttavia, è consigliabile aggiungere un commento quando non si accetta una richiesta."
 
 msgid "Reason"
-msgstr ""
+msgstr "Motivo"
 
 msgid "Accepted"
 msgstr "Accettato"
@@ -1042,7 +1042,7 @@ msgid "Rejected"
 msgstr "Rifiutato"
 
 msgid "Comments"
-msgstr ""
+msgstr "Commenti"
 
 #, php-format
 msgid "File Request: %s"
