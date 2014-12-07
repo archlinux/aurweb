@@ -259,7 +259,7 @@ for p in list(seen_pkgs.keys()):
 		deptype = random.randrange(1, 5)
 		if deptype == 4:
 			dep += ": for " + random.choice([k for k in seen_pkgs])
-		s = "INSERT INTO PackageDepends VALUES (%d, %d, '%s', NULL);\n"
+		s = "INSERT INTO PackageDepends(PackageID, DepTypeID, DepName) VALUES (%d, %d, '%s');\n"
 		s = s % (seen_pkgs[p], deptype, dep)
 		out.write(s)
 
@@ -267,7 +267,7 @@ for p in list(seen_pkgs.keys()):
 	for i in range(0, num_deps):
 		rel = random.choice([k for k in seen_pkgs])
 		reltype = random.randrange(1, 4)
-		s = "INSERT INTO PackageRelations VALUES (%d, %d, '%s', NULL);\n"
+		s = "INSERT INTO PackageRelations(PackageID, RelTypeID, RelName) VALUES (%d, %d, '%s');\n"
 		s = s % (seen_pkgs[p], reltype, rel)
 		out.write(s)
 
@@ -279,7 +279,7 @@ for p in list(seen_pkgs.keys()):
 				p, RANDOM_TLDS[random.randrange(0,len(RANDOM_TLDS))],
 				RANDOM_LOCS[random.randrange(0,len(RANDOM_LOCS))],
 				src_file, genVersion())
-		s = "INSERT INTO PackageSources VALUES (%d, '%s');\n"
+		s = "INSERT INTO PackageSources(PackageID, Source) VALUES (%d, '%s');\n"
 		s = s % (seen_pkgs[p], src)
 		out.write(s)
 
