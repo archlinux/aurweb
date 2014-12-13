@@ -160,15 +160,15 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 			$username . " [1] filed a request to merge " .
 			$row['Name'] . " [2] into " . $merge_into .
 			" [3]:\n\n" .  $comments . "\n\n" .
-			"[1] " . aur_location() . get_user_uri($username) . "\n" .
-			"[2] " . aur_location() . get_pkgbase_uri($row['Name']) . "\n" .
-			"[3] " . aur_location() . get_pkgbase_uri($merge_into) . "\n";
+			"[1] " . get_user_uri($username, true) . "\n" .
+			"[2] " . get_pkgbase_uri($row['Name'], true) . "\n" .
+			"[3] " . get_pkgbase_uri($merge_into, true) . "\n";
 	} else {
 		$body =
 			$username . " [1] filed a " . $type . " request for " .
 			$row['Name'] . " [2]:\n\n" . $comments . "\n\n" .
-			"[1] " . aur_location() . get_user_uri($username) . "\n" .
-			"[2] " . aur_location() . get_pkgbase_uri($row['Name']) . "\n";
+			"[1] " . get_user_uri($username, true) . "\n" .
+			"[2] " . get_pkgbase_uri($row['Name'], true) . "\n";
 	}
 	$body = wordwrap($body, 70);
 	$cc = array_unique($cc);
@@ -278,7 +278,7 @@ function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 	}
 	if (!$auto_close) {
 		$body .= "\n";
-		$body .= "[1] " . aur_location() .  get_user_uri($username);
+		$body .= "[1] " . get_user_uri($username, true);
 		$body .= "\n";
 	}
 	$body = wordwrap($body, 70);

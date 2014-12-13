@@ -37,8 +37,12 @@ function get_route($path) {
 	}
 }
 
-function get_uri($path) {
-	return $path;
+function get_uri($path, $absolute=false) {
+	if ($absolute) {
+		return rtrim(aur_location(), '/') . $path;
+	} else {
+		return $path;
+	}
 }
 
 function get_pkg_route() {
@@ -56,14 +60,16 @@ function get_pkgreq_route() {
 	return $PKGREQ_PATH;
 }
 
-function get_pkg_uri($pkgname) {
+function get_pkg_uri($pkgname, $absolute=false) {
 	global $PKG_PATH;
-	return $PKG_PATH . '/' . urlencode($pkgname) . '/';
+	$path = $PKG_PATH . '/' . urlencode($pkgname) . '/';
+	return get_uri($path, $absolute);
 }
 
-function get_pkgbase_uri($pkgbase_name) {
+function get_pkgbase_uri($pkgbase_name, $absolute=false) {
 	global $PKGBASE_PATH;
-	return $PKGBASE_PATH . '/' . urlencode($pkgbase_name) . '/';
+	$path = $PKGBASE_PATH . '/' . urlencode($pkgbase_name) . '/';
+	return get_uri($path, $absolute);
 }
 
 function get_user_route() {
@@ -71,7 +77,8 @@ function get_user_route() {
 	return $USER_PATH;
 }
 
-function get_user_uri($username) {
+function get_user_uri($username, $absolute=false) {
 	global $USER_PATH;
-	return $USER_PATH . '/' . urlencode($username) . '/';
+	$path = $USER_PATH . '/' . urlencode($username) . '/';
+	return get_uri($path, $absolute);
 }

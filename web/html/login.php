@@ -48,7 +48,7 @@ html_header('AUR ' . __("Login"));
 	<?php else: ?>
 	<p>
 		<?php printf(__("HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."),
-			'<a href="' . aur_location() . get_uri('/login') . '">', '</a>'); ?>
+			'<a href="' . get_uri('/login', true) . '">', '</a>'); ?>
 	</p>
 	<?php endif; ?>
 </div>

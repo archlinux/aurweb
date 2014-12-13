@@ -131,8 +131,7 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 		 * work, users would be getting emails in the language that the
 		 * user who posted the comment was in.
 		 */
-		$body =
-		'from ' . aur_location() . get_pkgbase_uri($row['Name']) . "\n"
+		$body = 'from ' . get_pkgbase_uri($row['Name'], true) . "\n"
 		. username_from_sid($_COOKIE['AURSID']) . " wrote:\n\n"
 		. $comment
 		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
@@ -380,7 +379,7 @@ function pkgbase_flag($base_ids) {
 		$result = $dbh->query($q);
 		if ($result) {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . aur_location() . get_pkgbase_uri($row['Name']) . "\n\n[1] - " . aur_location() . get_user_uri($f_name);
+				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . get_pkgbase_uri($row['Name'], true) . "\n\n[1] - " . get_user_uri($f_name, true);
 				$body = wordwrap($body, 70);
 				$headers = "MIME-Version: 1.0\r\n" .
 					   "Content-type: text/plain; charset=UTF-8\r\n" .
