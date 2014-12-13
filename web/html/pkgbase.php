@@ -106,7 +106,8 @@ if (check_token()) {
 	}
 
 	if ($ret) {
-		if (current_action("do_CloseRequest")) {
+		if (current_action("do_CloseRequest") ||
+		    (current_action("do_Delete") && $_POST['via'])) {
 			/* Redirect back to package request page on success. */
 			header('Location: ' . get_pkgreq_route());
 			exit();
