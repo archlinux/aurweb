@@ -8,14 +8,26 @@ include_once('acctfuncs.inc.php');   # access Account specific functions
 set_lang();                 # this sets up the visitor's language
 check_sid();                # see if they're still logged in
 
-html_header(__('Accounts'));
+$action = in_request("Action");
+
+$need_userinfo = array(
+	"DisplayAccount", "DeleteAccount", "AccountInfo", "UpdateAccount"
+);
+
+if (in_array($action, $need_userinfo)) {
+	$row = account_details(in_request("ID"), in_request("U"));
+}
+
+if ($action == "AccountInfo") {
+	html_header(__('Account') . ' ' . $row['Username']);
+} else {
+	html_header(__('Accounts'));
+}
 
 # Main page processing here
 #
 echo "<div class=\"box\">\n";
 echo "  <h2>".__("Accounts")."</h2>\n";
-
-$action = in_request("Action");
 
 if (isset($_COOKIE["AURSID"])) {
 	if ($action == "SearchAccounts") {
@@ -39,7 +51,6 @@ if (isset($_COOKIE["AURSID"])) {
 	} elseif ($action == "DisplayAccount") {
 		# the user has clicked 'edit', display the account details in a form
 		#
-		$row = account_details(in_request("ID"), in_request("U"));
 		if (empty($row)) {
 			print __("Could not retrieve information for the specified user.");
 		} else {
@@ -57,15 +68,13 @@ if (isset($_COOKIE["AURSID"])) {
 
 	} elseif ($action == "DeleteAccount") {
 		/* Details for account being deleted. */
-		$acctinfo = account_details(in_request('ID'), in_request('U'));
-
-		if (can_edit_account($acctinfo)) {
-			$UID = $acctinfo['ID'];
+		if (can_edit_account($row)) {
+			$UID = $row['ID'];
 			if (in_request('confirm_Delete') && check_token()) {
 				user_delete($UID);
 				header('Location: /');
 			} else {
-				$username = $acctinfo['Username'];
+				$username = $row['Username'];
 				include("account_delete.php");
 			}
 		} else {
@@ -74,7 +83,6 @@ if (isset($_COOKIE["AURSID"])) {
 	} elseif ($action == "AccountInfo") {
 		# no editing, just looking up user info
 		#
-		$row = account_details(in_request("ID"), in_request("U"));
 		if (empty($row)) {
 			print __("Could not retrieve information for the specified user.");
 		} else {
@@ -83,10 +91,8 @@ if (isset($_COOKIE["AURSID"])) {
 
 	} elseif ($action == "UpdateAccount") {
 		/* Details for account being updated */
-		$acctinfo = account_details(in_request('ID'), in_request('U'));
-
 		/* Verify user permissions and that the request is a valid POST */
-		if (can_edit_account($acctinfo) && check_token()) {
+		if (can_edit_account($row) && check_token()) {
 			/* Update the details for the existing account */
 			process_account_form("edit", "UpdateAccount",
 					in_request("U"), in_request("T"), in_request("S"),
