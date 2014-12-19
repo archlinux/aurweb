@@ -3,10 +3,10 @@ Arch User Repository (AUR)
 
 The Arch User Repository (AUR) is a framework for hosting a collection of
 packaging scripts that are created and submitted by the Arch community. The
-scripts contained in the repository (PKGBUILDs) can be built using the AUR
-building/packaging script `mkaurball` and installed via the Arch package
-manager `pacman`. The AUR project aims to provide the necessary web interface,
-database schema, and scripts for a multi-lingual community-driven repository.
+scripts contained in the repository (PKGBUILDs) can be built using makepkg and
+installed via the Arch package manager pacman. The AUR project aims to provide
+the necessary web interface, database schema, and scripts for a multi-lingual
+community-driven repository.
 
 Functionality
 -------------

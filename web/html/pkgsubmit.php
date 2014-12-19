@@ -124,7 +124,7 @@ if ($uid):
 		if (empty($srcinfo_raw)) {
 			$srcinfo_raw = '';
 			if (!$error) {
-				$error = __("The source package does not contain any meta data. Please use `mkaurball` to create AUR source packages.");
+				$error = __("The source package does not contain any meta data. Please use `makepkg --source` from pacman 4.2.0 or newer to create AUR source packages.");
 			}
 		}
 
@@ -413,7 +413,7 @@ html_header("Submit");
 
 <div class="box">
 	<h2><?= __("Submit"); ?></h2>
-	<p><?= __("Upload your source packages here. Create source packages with `mkaurball`.") ?></p>
+	<p><?= __("Upload your source packages here. Create source packages with `makepkg --source`.") ?></p>
 
 <?php
 	if (empty($_REQUEST['pkgsubmit']) || $error):
