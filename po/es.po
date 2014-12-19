@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-29 22:11+0000\n"
+"PO-Revision-Date: 2014-12-09 05:15+0000\n"
 "Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/aur/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid "Page Not Found"
 msgstr "Página no encontrada"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr "Disculpa, la página que solicistaste no existe."
+msgstr "Disculpe, la página que solicitó no existe."
 
 msgid "Accounts"
 msgstr "Cuentas"
@@ -46,7 +46,7 @@ msgid "Use this form to search existing accounts."
 msgstr "Use este formulario para buscar cuentas existentes."
 
 msgid "You must log in to view user information."
-msgstr "Debe identificarse para ver la información del usuario."
+msgstr "Debe autentificarse para ver la información del usuario."
 
 msgid "Use this form to create an account."
 msgstr "Use este formulario para crear una cuenta."
@@ -110,13 +110,13 @@ msgstr "Inicio"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "¡Bienvenido a AUR! Lea las %sDirectrices del usuario de AUR%s y las %sDirectrices del usuario de confianza de AUR%s para mayor información."
+msgstr "¡Bienvenido al repositorio de usuarios de Arch! Lea las %sDirectrices del usuario del AUR%s y las %sDirectrices del usuario de confianza del AUR%s para mayor información."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "PKGBUILD contribuidos %sdeben%s ser compatibles con el %sEstándar de empaquetado de Arch%s de otra forma serán eliminados."
+msgstr "Los PKGBUILD contribuidos %sdeben%s ser compatibles con el %sEstándar de empaquetado de Arch%s de otra forma serán eliminados."
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "¡Recuerde votar sus paquetes favoritos!"
@@ -134,7 +134,7 @@ msgid ""
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
 "box. For discussion relating to the development of the AUR, use the %saur-"
 "dev%s mailing list."
-msgstr "La discusión general sobre el repositorio de usuarios de Arch (AUR) y la estructura de usuarios de confianza se realiza en %sla lista de correos aur-general%s. Solicitudes de orfandad de paquete, de unión y o borrado deben ser presentadas en el enlace %sAcciones del paquete%s de cada paquete. Para la discusión en relación con el desarrollo de la AUR, utilice %sla lista de correo aur-dev%s."
+msgstr "La discusión general sobre el repositorio de usuarios de Arch (AUR) y la estructura de usuarios de confianza se realiza en %sla lista de correos aur-general%s. Solicitudes de orfandad de paquete, de unión y/o borrado deben ser presentadas en el enlace %sAcciones del paquete%s de cada paquete. Para la discusión en relación con el desarrollo del AUR, utilice %sla lista de correo aur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Informe de errores"
@@ -145,7 +145,7 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "Si encuentra un error en AUR, llene un informe de error en nuestro %srastreador de errores o «bug tracker»%s. Use este para reportar %súnicamente%s errores de AUR. Para reportar errores de empaquetado debe contactar al encargado o deje un comentario en la página respectiva del paquete."
+msgstr "Si encuentra un error en el AUR, llene un informe de error en nuestro %srastreador de errores o «bug tracker»%s. Use este para reportar %súnicamente%s errores del AUR. Para reportar errores de empaquetado debe contactar al encargado o deje un comentario en la página respectiva del paquete."
 
 msgid "DISCLAIMER"
 msgstr "ACLARATORIA"
@@ -156,7 +156,7 @@ msgid ""
 msgstr "Los paquetes no soportados son producidos por los usuarios. Cualquier uso de los archivos de estos es a su propio riesgo."
 
 msgid "Package Search"
-msgstr "Búsqueda de paquete"
+msgstr "Buscar paquetes"
 
 msgid "Adopt"
 msgstr "Adoptar"
@@ -187,7 +187,7 @@ msgstr "Autentificarse"
 
 #, php-format
 msgid "Logged-in as: %s"
-msgstr "Identificado como: %s"
+msgstr "Autentificado como: %s"
 
 msgid "Logout"
 msgstr "Salir"
@@ -219,7 +219,7 @@ msgid "Packages"
 msgstr "Paquetes"
 
 msgid "Error trying to retrieve package details."
-msgstr "No se pudo recuperar correctamente los detalles del paquete."
+msgstr "No se pudieron recuperar correctamente los detalles del paquete."
 
 msgid "Missing a required field."
 msgstr "Falta un campo obligatorio."
@@ -288,7 +288,7 @@ msgstr "Eliminar paquete: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Use este formulario para eliminar el paquete base %s%s%s y los siguientes paquetes en AUR:"
+msgstr "Use este formulario para eliminar el paquete base %s%s%s y los siguientes paquetes en el AUR:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "El eliminado de un paquete es permanente."
@@ -335,7 +335,7 @@ msgid "Merge"
 msgstr "Unión"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr "Solamente Usuarios de confianza y Desarrolladores pueden unir paquetes."
+msgstr "Solamente usuarios de confianza y desarrolladores pueden unir paquetes."
 
 msgid "File Request"
 msgstr "Archivo de solicitud"
@@ -360,7 +360,7 @@ msgstr "Solicitud"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Error - El archivo subido es más grande que el maximo permitido (%s)"
+msgstr "Error - El archivo subido es mayor al máximo permitido (%s)"
 
 msgid "Error - File partially uploaded"
 msgstr "Error - Archivo parcialmente subido"
@@ -377,7 +377,7 @@ msgstr "Error - El archivo no pudo ser escrito"
 msgid ""
 "Error - unsupported file format (please submit gzip'ed tarballs generated by"
 " makepkg(8) only)."
-msgstr "Error - El archivo tiene un formato no compatible (envíe archivos comprimidos únicamente en .tar.gz generados por «makepkg(8)» o «mkaurball»)."
+msgstr "Error - El archivo tiene un formato no compatible (envíe archivos comprimidos únicamente en .tar.gz generados por «makepkg(8)»)."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Error - el tamaño del archivo descomprimido es demasiado grande."
@@ -386,7 +386,7 @@ msgid "Error - source tarball may not contain files outside a directory."
 msgstr "Error - el archivo comprimido no puede contener archivos fuera de un directorio."
 
 msgid "Error - all files must have permissions of 644 or 755."
-msgstr "Error - todos los archivos deben tener perimsos Unix 644 o 755."
+msgstr "Error - todos los archivos deben tener permisos Unix 644 o 755."
 
 msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Error - el archivo comprimido no puede contener subdirectorios anidados."
@@ -413,23 +413,23 @@ msgstr "Falta el protocolo en la dirección URL del paquete (es decir, http://, 
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
-msgstr "Error - El nombre de paquete no puede ser mayor a %d caracteres."
+msgstr "Error - El nombre de paquete no puede superar los %d caracteres."
 
 #, php-format
 msgid "Error - Package URL cannot be greater than %d characters"
-msgstr "Error - La dirección URL del paquete no puede ser mayor a %d caracteres"
+msgstr "Error - La dirección URL del paquete no puede superara los %d caracteres"
 
 #, php-format
 msgid "Error - Package description cannot be greater than %d characters"
-msgstr "Error - La descripción del paquete no puede ser mayor a %d caracteres"
+msgstr "Error - La descripción del paquete no puede superar los %d caracteres"
 
 #, php-format
 msgid "Error - Package license cannot be greater than %d characters"
-msgstr "Error - La licencia del paquete no puede ser mayor a %d caracteres"
+msgstr "Error - La licencia del paquete no puede superar los %d caracteres"
 
 #, php-format
 msgid "Error - Package version cannot be greater than %d characters"
-msgstr "Error - La versión del paquete no puede ser mayor a %d caracteres"
+msgstr "Error - La versión del paquete no puede superar los %d caracteres"
 
 #, php-format
 msgid ""
@@ -466,7 +466,7 @@ msgid "Upload"
 msgstr "Subir"
 
 msgid "Sorry, uploads are not permitted by this server."
-msgstr "Perdón, las subidas no están permitidas en este servidor."
+msgstr "Perdone, las subidas no están permitidas en este servidor."
 
 msgid "You must create an account before you can upload packages."
 msgstr "Debe crear una cuenta antes de poder subir paquetes."
@@ -481,7 +481,7 @@ msgid "Voting is closed for this proposal."
 msgstr "Las votaciones para esta propuesta están cerradas."
 
 msgid "Only Trusted Users are allowed to vote."
-msgstr "Solamente Usuarios de confianza pueden votar."
+msgstr "Solamente usuarios de confianza pueden votar."
 
 msgid "You cannot vote in an proposal about you."
 msgstr "No puede votar en una propuesta sobre usted."
@@ -496,7 +496,7 @@ msgid "Current Votes"
 msgstr "Votos actuales"
 
 msgid "Past Votes"
-msgstr "Votos antiguos"
+msgstr "Últimos votos"
 
 msgid "Voters"
 msgstr "Votantes"
@@ -578,7 +578,7 @@ msgstr "La cuenta, %s%s%s, fue modificada satisfactoriamente"
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "El formulario de registro ha sido desabilitado para su dirección IP, probablemente debido a numerosos ataque de correo basura. Perdone los inconvenientes"
+msgstr "El formulario de registro ha sido deshabilitado para su dirección IP, probablemente debido a numerosos ataque de correo basura. Perdone los inconvenientes"
 
 msgid "Account suspended"
 msgstr "Cuenta suspendida"
@@ -609,7 +609,7 @@ msgid "Package details could not be found."
 msgstr "Los detalles del paquete no se han podido encontrar."
 
 msgid "You must be logged in before you can flag packages."
-msgstr "Debe identificarse antes de poder marcar paquetes."
+msgstr "Debe autentificarse antes de poder marcar paquetes."
 
 msgid "You did not select any packages to flag."
 msgstr "No seleccionó ningún paquete para marcar."
@@ -618,7 +618,7 @@ msgid "The selected packages have been flagged out-of-date."
 msgstr "Los paquetes seleccionados han sido marcados como desactualizados."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr "Debe identificarse antes de poder desmarcar paquetes."
+msgstr "Debe autentificarse antes de poder desmarcar paquetes."
 
 msgid "You did not select any packages to unflag."
 msgstr "No seleccionó ningún paquete para desmarcar."
@@ -636,10 +636,10 @@ msgid "The selected packages have been deleted."
 msgstr "Los paquetes seleccionados se han borrado."
 
 msgid "You must be logged in before you can adopt packages."
-msgstr "Debe indentificarse antes de poder adoptar paquetes."
+msgstr "Debe autentificarse antes de poder adoptar paquetes."
 
 msgid "You must be logged in before you can disown packages."
-msgstr "Debe identificarse antes de poder abandonar paquetes."
+msgstr "Debe autentificarse antes de poder abandonar paquetes."
 
 msgid "You did not select any packages to adopt."
 msgstr "No ha seleccionado ningún paquete para ser adoptado."
@@ -654,10 +654,10 @@ msgid "The selected packages have been disowned."
 msgstr "Los paquetes seleccionados han sido abandonados."
 
 msgid "You must be logged in before you can vote for packages."
-msgstr "Debe identificarse antes de poder votar paquetes."
+msgstr "Debe autentificarse antes de poder votar paquetes."
 
 msgid "You must be logged in before you can un-vote for packages."
-msgstr "Debe identificarse antes de poder quitar votos a los paquetes"
+msgstr "Debe autentificarse antes de poder quitar votos a los paquetes"
 
 msgid "You did not select any packages to vote for."
 msgstr "No seleccionó ningún paquete para votarlo."
@@ -680,7 +680,7 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Ha sido eliminado de la lista de notificaciones de comentarios de %s."
 
 msgid "You must be logged in before you can edit package information."
-msgstr "Debe identificarse antes de editar la información del paquete."
+msgstr "Debe autentificarse antes de editar la información del paquete."
 
 msgid "Missing comment ID."
 msgstr "Falta el identificador del comentario."

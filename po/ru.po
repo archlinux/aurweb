@@ -8,13 +8,14 @@
 # Kyrylo Silin <curacaothe@gmail.com>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Rustam Tsurik <rustam.tsurik@gmail.com>, 2013
+# Sergey Shepelev <temotor@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-29 16:34+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2014-11-23 16:37+0000\n"
+"Last-Translator: Sergey Shepelev <temotor@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/aur/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1021,22 +1022,22 @@ msgstr "Исходники"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Закрыть запрос %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
+msgstr "Используйте эту форму, чтобы закрыть запрос о группе пакетов %s%s%s."
 
 msgid "Note"
-msgstr ""
+msgstr "Примечание"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr ""
+msgstr "При отклонении запроса рекомендуется заполнить поле комментарий (не обязательно)."
 
 msgid "Reason"
-msgstr ""
+msgstr "Причина"
 
 msgid "Accepted"
 msgstr "Принято"
@@ -1088,23 +1089,23 @@ msgstr "Дата"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "осталось ~%d дней"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "остался ~%d час"
+msgstr[1] "осталось ~%d часа"
+msgstr[2] "осталось ~%d часов"
 
 msgid "<1 hour left"
-msgstr ""
+msgstr "осталось меньше часа"
 
 msgid "Accept"
 msgstr "Принять"
 
 msgid "Locked"
-msgstr ""
+msgstr "Заблокировано"
 
 msgid "Close"
 msgstr "Закрыть"

@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Jaroslav Lichtblau <jlichtblau@seznam.cz>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Pavel Ševeček <pavel.sevecek@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-29 16:34+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2014-12-12 07:59+0000\n"
+"Last-Translator: Jaroslav Lichtblau <jlichtblau@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/aur/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,10 +21,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 msgid "Page Not Found"
-msgstr ""
+msgstr "Stránka nenalezena"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr ""
+msgstr "Omlouváme se, požadovaná stránka neexistuje."
 
 msgid "Accounts"
 msgstr "Účet"
@@ -46,10 +48,10 @@ msgid "Use this form to create an account."
 msgstr "Použíte tento formulář k založení účtu."
 
 msgid "Add Proposal"
-msgstr ""
+msgstr "Přidat návrh"
 
 msgid "Invalid token for user action."
-msgstr ""
+msgstr "Chybný token uživatelské akce."
 
 msgid "Username does not exist."
 msgstr "Uživatelské jméno neexistuje."
@@ -59,7 +61,7 @@ msgid "%s already has proposal running for them."
 msgstr "Pro %s se již hlasuje."
 
 msgid "Invalid type."
-msgstr ""
+msgstr "Chybný typ."
 
 msgid "Proposal cannot be empty."
 msgstr "Návrh nemůže být prázdný."
@@ -71,7 +73,7 @@ msgid "Submit a proposal to vote on."
 msgstr "Předložit návrh na hlasování."
 
 msgid "Applicant/TU"
-msgstr ""
+msgstr "Uchazeč/TU"
 
 msgid "(empty if not applicable)"
 msgstr "(vynechat pokud neni vhodný)"
@@ -89,7 +91,7 @@ msgid "Removal of a TU (undeclared inactivity)"
 msgstr ""
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "Úprava směrnic"
 
 msgid "Proposal"
 msgstr "Návrh"
@@ -131,7 +133,7 @@ msgid ""
 msgstr ""
 
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Hlášení chyb"
 
 #, php-format
 msgid ""
@@ -153,7 +155,7 @@ msgid "Package Search"
 msgstr ""
 
 msgid "Adopt"
-msgstr ""
+msgstr "Adoptovat"
 
 msgid "Disown"
 msgstr ""
@@ -171,10 +173,10 @@ msgid "UnNotify"
 msgstr "Neoznamovat"
 
 msgid "Flag"
-msgstr ""
+msgstr "Označit"
 
 msgid "UnFlag"
-msgstr ""
+msgstr "Odznačit"
 
 msgid "Login"
 msgstr "Přihlašovací jméno"
@@ -187,7 +189,7 @@ msgid "Logout"
 msgstr "Odhlásit"
 
 msgid "Enter login credentials"
-msgstr ""
+msgstr "Vložit přihlašovací údaje"
 
 msgid "Username"
 msgstr "Uživatelské jméno"
@@ -199,7 +201,7 @@ msgid "Remember me"
 msgstr "Pamatuj si mě"
 
 msgid "Forgot Password"
-msgstr ""
+msgstr "Zapomenuté heslo"
 
 #, php-format
 msgid ""
@@ -222,7 +224,7 @@ msgid "Password fields do not match."
 msgstr "Hesla se neshodují"
 
 msgid "Invalid e-mail."
-msgstr ""
+msgstr "Neplatný e-mail."
 
 msgid ""
 "A password reset request was submitted for the account associated with your "
@@ -231,7 +233,7 @@ msgid ""
 msgstr ""
 
 msgid "Password Reset"
-msgstr ""
+msgstr "Reset hesla"
 
 msgid "Check your e-mail for the confirmation link."
 msgstr ""
@@ -240,7 +242,7 @@ msgid "Your password has been reset successfully."
 msgstr ""
 
 msgid "Confirm your e-mail address:"
-msgstr ""
+msgstr "Potvrďte svou e-mailovou adresu:"
 
 msgid "Enter your new password:"
 msgstr ""
@@ -249,7 +251,7 @@ msgid "Confirm your new password:"
 msgstr ""
 
 msgid "Continue"
-msgstr ""
+msgstr "Pokračovat"
 
 #, php-format
 msgid ""
@@ -294,7 +296,7 @@ msgid "Confirm package deletion"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr ""
@@ -338,19 +340,19 @@ msgid "Close Request"
 msgstr ""
 
 msgid "First"
-msgstr ""
+msgstr "První"
 
 msgid "Previous"
-msgstr ""
+msgstr "Předchozí"
 
 msgid "Next"
 msgstr "Další"
 
 msgid "Last"
-msgstr ""
+msgstr "Poslední"
 
 msgid "Requests"
-msgstr ""
+msgstr "Požadavky"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
