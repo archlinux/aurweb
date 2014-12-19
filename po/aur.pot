@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v3.4.3\n"
+"Project-Id-Version: AUR v3.5.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-08-11 22:50+0200\n"
+"POT-Creation-Date: 2014-12-19 10:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,9 @@ msgid "Page Not Found"
 msgstr ""
 
 msgid "Sorry, the page you've requested does not exist."
+msgstr ""
+
+msgid "Account"
 msgstr ""
 
 msgid "Accounts"
@@ -221,6 +224,10 @@ msgstr ""
 msgid "Password fields do not match."
 msgstr ""
 
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr ""
+
 msgid "Invalid e-mail."
 msgstr ""
 
@@ -394,8 +401,8 @@ msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr ""
 
 msgid ""
-"The source package does not contain any meta data. Please use `mkaurball` to "
-"create AUR source packages."
+"The source package does not contain any meta data. Please use `makepkg --"
+"source` from pacman 4.2.0 or newer to create AUR source packages."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -443,7 +450,8 @@ msgid "Could not change directory to %s."
 msgstr ""
 
 msgid ""
-"Upload your source packages here. Create source packages with `mkaurball`."
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
 msgstr ""
 
 msgid "Package Category"
@@ -513,10 +521,6 @@ msgid "Start and end with a letter or number"
 msgstr ""
 
 msgid "Can contain only one period, underscore or hyphen."
-msgstr ""
-
-#, php-format
-msgid "Your password must be at least %s characters."
 msgstr ""
 
 msgid "The email address is invalid."
@@ -831,27 +835,6 @@ msgstr ""
 msgid "No more results to display."
 msgstr ""
 
-msgid "No New Comment Notification"
-msgstr ""
-
-msgid "New Comment Notification"
-msgstr ""
-
-msgid "Flag Out-of-date"
-msgstr ""
-
-msgid "UnFlag Out-of-date"
-msgstr ""
-
-msgid "Delete Packages"
-msgstr ""
-
-msgid "Merge into"
-msgstr ""
-
-msgid "Confirm"
-msgstr ""
-
 msgid "My Packages"
 msgstr ""
 
@@ -925,9 +908,6 @@ msgid "Change category"
 msgstr ""
 
 msgid "Submitter"
-msgstr ""
-
-msgid "View account information for"
 msgstr ""
 
 #, php-format
@@ -1061,6 +1041,9 @@ msgid "Deletion"
 msgstr ""
 
 msgid "Orphan"
+msgstr ""
+
+msgid "Merge into"
 msgstr ""
 
 #, php-format
@@ -1197,6 +1180,9 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
+msgid "Flag Out-of-date"
+msgstr ""
+
 msgid "Unflag Out-of-date"
 msgstr ""
 
@@ -1204,6 +1190,12 @@ msgid "Adopt Packages"
 msgstr ""
 
 msgid "Disown Packages"
+msgstr ""
+
+msgid "Delete Packages"
+msgstr ""
+
+msgid "Confirm"
 msgstr ""
 
 msgid "Any type"
