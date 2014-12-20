@@ -1,0 +1,152 @@
+From e23745b61a46f034bca3cab9936c24c249afdc7f Mon Sep 17 00:00:00 2001
+From: Lukas Fleischer <archlinux@cryptocrack.de>
+Date: Sun, 21 Dec 2014 22:17:48 +0100
+Subject: [PATCH] Patch sshd for the AUR
+
+* Add SSH_KEY_FINGERPRINT and SSH_KEY variables to the environment of
+  the AuthorizedKeysCommand which allows for efficiently looking up SSH
+  keys in the AUR database.
+
+* Remove the secure path check for the AuthorizedKeysCommand. We are
+  running the sshd under a non-privileged user who has as little
+  permissions as possible. In particular, he does not own the directory
+  that contains the scripts for the Git backend.
+
+* Prevent from running the sshd as root.
+
+Signed-off-by: Lukas Fleischer <archlinux@cryptocrack.de>
+---
+ auth2-pubkey.c | 48 +++++++++++++++++++++++++++++++++++++++++++-----
+ ssh.h          | 12 ++++++++++++
+ sshd.c         |  5 +++++
+ sshd_config.5  |  5 +++++
+ 4 files changed, 65 insertions(+), 5 deletions(-)
+
+diff --git a/auth2-pubkey.c b/auth2-pubkey.c
+index 0a3c1de..baf4922 100644
+--- a/auth2-pubkey.c
++++ b/auth2-pubkey.c
+@@ -510,6 +510,8 @@ user_key_command_allowed2(struct passwd *user_pw, Key *key)
+ 	int status, devnull, p[2], i;
+ 	pid_t pid;
+ 	char *username, errmsg[512];
++	struct sshbuf *b = NULL, *bb = NULL;
++	char *keytext, *uu = NULL;
+ 
+ 	if (options.authorized_keys_command == NULL ||
+ 	    options.authorized_keys_command[0] != '/')
+@@ -538,11 +540,6 @@ user_key_command_allowed2(struct passwd *user_pw, Key *key)
+ 		    options.authorized_keys_command, strerror(errno));
+ 		goto out;
+ 	}
+-	if (auth_secure_path(options.authorized_keys_command, &st, NULL, 0,
+-	    errmsg, sizeof(errmsg)) != 0) {
+-		error("Unsafe AuthorizedKeysCommand: %s", errmsg);
+-		goto out;
+-	}
+ 
+ 	if (pipe(p) != 0) {
+ 		error("%s: pipe: %s", __func__, strerror(errno));
+@@ -568,6 +565,47 @@ user_key_command_allowed2(struct passwd *user_pw, Key *key)
+ 		for (i = 0; i < NSIG; i++)
+ 			signal(i, SIG_DFL);
+ 
++		keytext = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
++		if (setenv(SSH_KEY_FINGERPRINT_ENV_NAME, keytext, 1) == -1) {
++			error("%s: setenv: %s", __func__, strerror(errno));
++			_exit(1);
++		}
++
++		if (!(b = sshbuf_new()) || !(bb = sshbuf_new())) {
++			error("%s: sshbuf_new: %s", __func__, strerror(errno));
++			_exit(1);
++		}
++		if (sshkey_to_blob_buf(key, bb) != 0) {
++			error("%s: sshkey_to_blob_buf: %s", __func__,
++			    strerror(errno));
++			_exit(1);
++		}
++		if (!(uu = sshbuf_dtob64(bb))) {
++			error("%s: sshbuf_dtob64: %s", __func__,
++			    strerror(errno));
++			_exit(1);
++		}
++		if (sshbuf_putf(b, "%s ", sshkey_ssh_name(key))) {
++			error("%s: sshbuf_putf: %s", __func__,
++			    strerror(errno));
++			_exit(1);
++		}
++		if (sshbuf_put(b, uu, strlen(uu) + 1)) {
++			error("%s: sshbuf_put: %s", __func__,
++			    strerror(errno));
++			_exit(1);
++		}
++		if (setenv(SSH_KEY_ENV_NAME, sshbuf_ptr(b), 1) == -1) {
++			error("%s: setenv: %s", __func__, strerror(errno));
++			_exit(1);
++		}
++		if (uu)
++			free(uu);
++		if (b)
++			sshbuf_free(b);
++		if (bb)
++			sshbuf_free(bb);
++
+ 		if ((devnull = open(_PATH_DEVNULL, O_RDWR)) == -1) {
+ 			error("%s: open %s: %s", __func__, _PATH_DEVNULL,
+ 			    strerror(errno));
+diff --git a/ssh.h b/ssh.h
+index c94633b..411ea86 100644
+--- a/ssh.h
++++ b/ssh.h
+@@ -97,3 +97,15 @@
+ 
+ /* Listen backlog for sshd, ssh-agent and forwarding sockets */
+ #define SSH_LISTEN_BACKLOG		128
++
++/*
++ * Name of the environment variable containing the incoming key passed
++ * to AuthorizedKeysCommand.
++ */
++#define SSH_KEY_ENV_NAME "SSH_KEY"
++
++/*
++ * Name of the environment variable containing the incoming key fingerprint
++ * passed to AuthorizedKeysCommand.
++ */
++#define SSH_KEY_FINGERPRINT_ENV_NAME "SSH_KEY_FINGERPRINT"
+diff --git a/sshd.c b/sshd.c
+index 4e01855..60c676f 100644
+--- a/sshd.c
++++ b/sshd.c
+@@ -1424,6 +1424,11 @@ main(int ac, char **av)
+ 	av = saved_argv;
+ #endif
+ 
++	if (geteuid() == 0) {
++		fprintf(stderr, "this is a patched version of the sshd that must not be run as root.\n");
++		exit(1);
++	}
++
+ 	if (geteuid() == 0 && setgroups(0, NULL) == -1)
+ 		debug("setgroups(): %.200s", strerror(errno));
+ 
+diff --git a/sshd_config.5 b/sshd_config.5
+index ef36d33..1d7bade 100644
+--- a/sshd_config.5
++++ b/sshd_config.5
+@@ -223,6 +223,11 @@ It will be invoked with a single argument of the username
+ being authenticated, and should produce on standard output zero or
+ more lines of authorized_keys output (see AUTHORIZED_KEYS in
+ .Xr sshd 8 ) .
++The key being used for authentication (the key's type and the key text itself,
++separated by a space) will be available in the
++.Ev SSH_KEY
++environment variable, and the fingerprint of the key will be available in the
++.Ev SSH_KEY_FINGERPRINT environment variable.
+ If a key supplied by AuthorizedKeysCommand does not successfully authenticate
+ and authorize the user then public key authentication continues using the usual
+ .Cm AuthorizedKeysFile
+-- 
+2.2.1
+

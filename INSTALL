@@ -1,96 +1,42 @@
-Setup on Arch Linux:
-====================
-1) Install Apache, MySQL, PHP, git and php-pear
-  # pacman -Syu apache mysql php git php-pear
+Setup on Arch Linux
+===================
 
-2) Set a local 'hostname' of 'aur'
- - Edit /etc/hosts and append 'aur' to loopback address
-   127.0.0.1    localhost aur
+1) Clone the AUR project:
 
-3) Configure Apache
-
- - Edit /etc/httpd/conf/httpd.conf and enable PHP support
-   by adding the following lines.
-
-   LoadModule php5_module modules/libphp5.so
-   Include conf/extra/php5_module.conf
-
- - Also append the following snippet to enable the aur
-   Virtual Host in /etc/httpd/conf/extra/httpd-vhosts.conf.
-	 Comment out the example vhosts and replace MYUSER with your username.
-	 (You could put aur in /srv/http/aur and then create a symlink in ~ )
-
-   <VirtualHost aur:80>
-   Servername    aur
-   DocumentRoot  /home/MYUSER/aur/web/html
-   ErrorLog    /var/log/httpd/aur-error.log
-   CustomLog   /var/log/httpd/aur-access.log combined
-     <Directory /home/MYUSER/aur/web/html>
-       Options Indexes FollowSymLinks
-       AllowOverride All
-       Order allow,deny
-       Allow from all
-     </Directory>
-   </VirtualHost>
-
- - In httpd.conf, uncomment this line:
-
-   Include conf/extra/httpd-vhosts.conf
-
-4) Clone the AUR project (using the MYUSER from above)
-   $ cd
+   $ cd /srv/http/
    $ git clone git://projects.archlinux.org/aur.git
 
-5) Configure PHP
-   Make sure you have mysql and json enabled in PHP.
+2) Setup a web server with PHP and MySQL.
 
- - Edit php.ini and uncomment/add this line:
-   extension=pdo_mysql.so
+3) Copy conf/config.proto to conf/config and adjust the configuration.
 
-   If this PHP extension is a separate package on your system, install it.
+4) Create a new MySQL database and a user and import the AUR SQL schema:
 
-6) Configure MySQL
- - Start the MySQL service. Example:
-   # systemctl start mysqld
+   $ mysql -uaur -p AUR </srv/http/aur/schema/aur-schema.sql
 
- - Create database
-   # mysqladmin -p create AUR
+5) Clone the OpenSSH project, apply the AUR sshd patch and run `make`:
 
- - Connect to the mysql client
-   $ mysql -uroot -p AUR
+   $ cd /srv/http/aur/
+   $ git clone git://anongit.mindrot.org/openssh.git
+   $ cd openssh
+   $ git am ../scripts/git-integration/0001-Patch-sshd-for-the-AUR.patch
+   $ autoreconf
+   $ ./configure
+   $ make
 
- - Issue the following commands to the mysql client
-   mysql> GRANT ALL PRIVILEGES ON AUR.* to aur@localhost
-       -> identified by 'aur';
-   mysql> FLUSH PRIVILEGES;
-   mysql> quit
+6) Create and edit the sshd configuration:
 
- - Load the schema file
-   $ mysql -uaur -p AUR < ~/aur/schema/aur-schema.sql
-   (give password 'aur' at the prompt)
+   $ cd /srv/http/aur/
+   $ umask 077
+   $ mkdir .ssh/
+   $ ssh-keygen -f .ssh/ssh_host_rsa_key -N '' -t rsa
+   $ cp scripts/git-integration/sshd_config .ssh/
 
- - Optionally load some test data for development purposes.
-   # pacman -S words fortune-mod
-   $ cd ~/aur/schema/
-   $ python gendummydata.py dummy-data.sql
-   $ bzip2 dummy-data.sql
-   $ bzcat dummy-data.sql.bz2 | mysql -uaur -p AUR
-   (give password 'aur' at the prompt)
+7) Create a new user and change ownership of the .ssh directory:
 
-   If your test data consists of real people and real email addresses consider
-   inserting bogus addressess to avoid sending unwanted spam from testing. You
-   can insert garbage addresses with:
-   mysql> UPDATE Users SET Email = RAND() * RAND();
+   # useradd -U -d /srv/http/aur -c 'AUR user' aur
+   # chown aur:aur /srv/http/aur/.ssh/
 
-7) Copy the config.inc.php.proto file to config.inc.php. Modify as needed.
-   $ cd ~/aur/web/lib/
-   $ cp config.inc.php.proto config.inc.php
+8) Run the sshd as the new user.
 
-   In case you set $USE_VIRTUAL_URLS to true (default nowadays) you should add
-   a rewrite rule. For Apache, add this ~/aur/web/html/.htaccess:
-
-   RewriteEngine on
-   RewriteCond %{REQUEST_URI} !^/index.php
-   RewriteRule ^(.*)$ /index.php/$1
-
-8) Point your browser to http://aur
+   $ /srv/http/aur/openssh/sshd -f /srv/http/aur/.ssh/sshd_config

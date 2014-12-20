@@ -1,0 +1,6 @@
+Port 2222
+HostKey ~/.ssh/ssh_host_rsa_key
+PasswordAuthentication no
+UsePrivilegeSeparation no
+AuthorizedKeysCommand /srv/http/aur/scripts/git-integration/git-auth.py
+AuthorizedKeysCommandUser aur
