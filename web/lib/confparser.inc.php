@@ -4,7 +4,7 @@ function config_get($section, $key) {
 	global $AUR_CONFIG;
 
 	if (!isset($AUR_CONFIG)) {
-		$AUR_CONFIG = parse_ini_file("../../conf/config", true);
+		$AUR_CONFIG = parse_ini_file("../../conf/config", true, INI_SCANNER_RAW);
 	}
 
 	return $AUR_CONFIG[$section][$key];
