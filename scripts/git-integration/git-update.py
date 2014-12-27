@@ -211,3 +211,7 @@ db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
 cur = db.cursor()
 save_srcinfo(srcinfo, db, cur, user)
 db.close()
+
+with open(git_dir + '/description', 'w') as f:
+    pkginfo = srcinfo.GetMergedPackage(list(srcinfo.GetPackageNames())[0])
+    f.write(pkginfo['pkgdesc'])
