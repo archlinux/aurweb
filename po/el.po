@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Achilleas Pipinellis, 2014
 # Achilleas Pipinellis, 2013
@@ -14,14 +14,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-29 16:34+0000\n"
+"POT-Creation-Date: 2014-12-19 10:50+0100\n"
+"PO-Revision-Date: 2014-12-19 09:51+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/aur/language/el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Page Not Found"
@@ -29,6 +29,9 @@ msgstr "Η σελίδα δε βρέθηκε"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Μας συγχωρείτε, η σελίδα που ζητήσατε δεν υπάρχει."
+
+msgid "Account"
+msgstr ""
 
 msgid "Accounts"
 msgstr "Λογαριασμοί"
@@ -43,7 +46,8 @@ msgid "You do not have permission to edit this account."
 msgstr "Δεν έχετε την άδεια να επεξεργαστείτε αυτόν τον λογαριασμό."
 
 msgid "Use this form to search existing accounts."
-msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε υπάρχοντες λογαριασμούς."
+msgstr ""
+"Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε υπάρχοντες λογαριασμούς."
 
 msgid "You must log in to view user information."
 msgstr "Πρέπει να συνδεθείτε για να δείτε πληροφορίες χρήστη."
@@ -110,13 +114,17 @@ msgstr "Αρχική"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %sOδηγό Χρηστών του AUR%s και τον %sΟδηγό των Trusted Users%s για περισσότερες πληροφορίες. "
+msgstr ""
+"Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %sOδηγό Χρηστών του AUR%s και τον "
+"%sΟδηγό των Trusted Users%s για περισσότερες πληροφορίες. "
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Τα συνεισφέροντα PKGBUILDs %sπρέπει%s να ακολουθούν τα %sΠρότυπα δημιουργίας πακέτων του Arch%s αλλιώς θα διαγράφονται! "
+msgstr ""
+"Τα συνεισφέροντα PKGBUILDs %sπρέπει%s να ακολουθούν τα %sΠρότυπα δημιουργίας "
+"πακέτων του Arch%s αλλιώς θα διαγράφονται! "
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Θυμηθείτε να ψηφίσετε τα αγαπημένα σας πακέτα!"
@@ -129,11 +137,11 @@ msgstr "Συζήτηση"
 
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-"
-"dev%s mailing list."
+"box. For discussion relating to the development of the AUR, use the %saur-dev"
+"%s mailing list."
 msgstr ""
 
 msgid "Bug Reporting"
@@ -145,7 +153,12 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "Εάν βρείτε κάποιο σφάλμα στο AUR, παρακαλώ συμπληρώστε μία αναφορά σφάλματος στον %sbug tracker%s μας. Χρησιμοποιήστε τον tracker για αναφορές σφάλματος %sμόνο%s όσον αφορά στην πλατφόρμα του AUR. Για να αναφέρετε σφάλματα πακέτων, έρθετε σε επαφή με τον εκάστοτε maintainer ή αφήστε ένα μήνυμα στην κατάλληλη σελίδα του πακέτου."
+msgstr ""
+"Εάν βρείτε κάποιο σφάλμα στο AUR, παρακαλώ συμπληρώστε μία αναφορά σφάλματος "
+"στον %sbug tracker%s μας. Χρησιμοποιήστε τον tracker για αναφορές σφάλματος "
+"%sμόνο%s όσον αφορά στην πλατφόρμα του AUR. Για να αναφέρετε σφάλματα "
+"πακέτων, έρθετε σε επαφή με τον εκάστοτε maintainer ή αφήστε ένα μήνυμα στην "
+"κατάλληλη σελίδα του πακέτου."
 
 msgid "DISCLAIMER"
 msgstr "ΑΠΟΠΟΙΗΣΗ ΕΥΘΥΝΗΣ"
@@ -153,7 +166,9 @@ msgstr "ΑΠΟΠΟΙΗΣΗ ΕΥΘΥΝΗΣ"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Τα πακέτα στο \"Unsupported\" έχουν περιεχόμενο που παρέχεται απο τους χρήστες. Χρησιμοποιήστε τα με δική σας ευθύνη."
+msgstr ""
+"Τα πακέτα στο \"Unsupported\" έχουν περιεχόμενο που παρέχεται απο τους "
+"χρήστες. Χρησιμοποιήστε τα με δική σας ευθύνη."
 
 msgid "Package Search"
 msgstr "Αναζήτηση Πακέτου"
@@ -210,7 +225,9 @@ msgstr "Ξεχάσατε τον κωδικό σας"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Το HTTP είναι απενεργοποιημένο. Παρακαλώ %sγυρίστε σε HTTPs%s αν θέλετε να εισέλθετε."
+msgstr ""
+"Το HTTP είναι απενεργοποιημένο. Παρακαλώ %sγυρίστε σε HTTPs%s αν θέλετε να "
+"εισέλθετε."
 
 msgid "Search Criteria"
 msgstr "Κριτήρια Αναζήτησης"
@@ -225,7 +242,13 @@ msgid "Missing a required field."
 msgstr "Λείπει ένα απαραίτητο πεδίο."
 
 msgid "Password fields do not match."
-msgstr "Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν είναι ίδιες."
+msgstr ""
+"Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν "
+"είναι ίδιες."
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Ο κωδικός πρέπει να αποτελείται τουλάχιστον %s χαρακτήρες."
 
 msgid "Invalid e-mail."
 msgstr "Μη έγκυρο e-mail."
@@ -234,7 +257,11 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr "Ένα αίτημα επαναφοράς κωδικού έχει αποσταλλεί στον λογαριασμό που συσχετίζεται με την διεύθυνση e-mail σας. Εαν επιθυμείτε να επαναφέρετε τον κωδικό σας, ακολουθείστε τον σύνδεσμο που ακολουθεί, αλλιώς αγνοείστε αυτό το μήνυμα."
+msgstr ""
+"Ένα αίτημα επαναφοράς κωδικού έχει αποσταλλεί στον λογαριασμό που "
+"συσχετίζεται με την διεύθυνση e-mail σας. Εαν επιθυμείτε να επαναφέρετε τον "
+"κωδικό σας, ακολουθείστε τον σύνδεσμο που ακολουθεί, αλλιώς αγνοείστε αυτό "
+"το μήνυμα."
 
 msgid "Password Reset"
 msgstr "Επαναφορά Κωδικού"
@@ -259,9 +286,12 @@ msgstr "Συνεχίστε"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Εάν έχετε ξεχάσει την ηλεκτρονική διεύθυνση που χρησιμοποιήσατε για να εγγραφείτε, παρακαλώ στείλτε ένα μήνυμα στη λίστα ταχυδρομείου %saur-general%s."
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"Εάν έχετε ξεχάσει την ηλεκτρονική διεύθυνση που χρησιμοποιήσατε για να "
+"εγγραφείτε, παρακαλώ στείλτε ένα μήνυμα στη λίστα ταχυδρομείου %saur-general"
+"%s."
 
 msgid "Enter your e-mail address:"
 msgstr "Εισάγετε την διεύθυνση e-mail σας:"
@@ -273,9 +303,10 @@ msgid "Cannot merge a package base with itself."
 msgstr ""
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι επιβεβαίωσης."
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr ""
+"Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι "
+"επιβεβαίωσης."
 
 msgid "Package Deletion"
 msgstr "Διαγραφή Πακέτου"
@@ -323,7 +354,9 @@ msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Μόλις το πακέτο συγχωνευτεί, η διαδικασία δεν μπορεί να αντιστραφεί."
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr "Εισάγετε το όνομα του πακέτου με το οποίο επιθυμείτε να συγχωνεύσετε το τρέχον πακέτο."
+msgstr ""
+"Εισάγετε το όνομα του πακέτου με το οποίο επιθυμείτε να συγχωνεύσετε το "
+"τρέχον πακέτο."
 
 msgid "Merge into:"
 msgstr "Συγχωνεύστε σε:"
@@ -335,7 +368,8 @@ msgid "Merge"
 msgstr "Συγχώνευση"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr "Μόνο οι Trusted Users και οι Developers μπορούν να συγχωνεύσουν πακέτα."
+msgstr ""
+"Μόνο οι Trusted Users και οι Developers μπορούν να συγχωνεύσουν πακέτα."
 
 msgid "File Request"
 msgstr ""
@@ -360,7 +394,8 @@ msgstr ""
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Σφάλμα - Το αρχείο που καταχωρήσατε υπερέβει το μέγιστο δυνατό μέγεθος (%s)"
+msgstr ""
+"Σφάλμα - Το αρχείο που καταχωρήσατε υπερέβει το μέγιστο δυνατό μέγεθος (%s)"
 
 msgid "Error - File partially uploaded"
 msgstr "Σφάλμα - Το αρχείο καταχωρήθηκε μερικώς"
@@ -375,15 +410,18 @@ msgid "Error - File could not be written"
 msgstr "Σφάλμα - Το αρχείο δεν  μπόρεσε να εγγραφεί"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by"
-" makepkg(8) only)."
-msgstr "Σφάλμα - δεν υποστηρίζεται η μορφή αρχείου (παρακαλείστε να υποβάλετε gzip tarballs που παράγονται από το makepkg (8) μόνο)."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+"Σφάλμα - δεν υποστηρίζεται η μορφή αρχείου (παρακαλείστε να υποβάλετε gzip "
+"tarballs που παράγονται από το makepkg (8) μόνο)."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Σφάλμα - το ασυμπίεστο μέγεθος αρχείου είναι πολύ μεγάλο."
 
 msgid "Error - source tarball may not contain files outside a directory."
-msgstr "Σφάλμα - το tarball δεν μπορεί να περιέχει αρχεία έξω από έναν κατάλογο."
+msgstr ""
+"Σφάλμα - το tarball δεν μπορεί να περιέχει αρχεία έξω από έναν κατάλογο."
 
 msgid "Error - all files must have permissions of 644 or 755."
 msgstr ""
@@ -392,50 +430,64 @@ msgid "Error - source tarball may not contain nested subdirectories."
 msgstr "Σφάλμα - το tarball δεν μπορεί να περιέχει παραπάνω υποκαταλόγους."
 
 msgid "Error - source tarball may not contain more than one directory."
-msgstr "Σφάλμα - το tarball δεν μπορεί να περιέχει περισσότερους από έναν καταλόγους."
+msgstr ""
+"Σφάλμα - το tarball δεν μπορεί να περιέχει περισσότερους από έναν καταλόγους."
 
 msgid "Error - all directories must have permissions of 755."
 msgstr ""
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Σφάλμα κατά το ξεπακετάρισμα του ανεβασμένου αρχείου - δεν υπάρχει PKGBUILD."
+msgstr ""
+"Σφάλμα κατά το ξεπακετάρισμα του ανεβασμένου αρχείου - δεν υπάρχει PKGBUILD."
 
 msgid ""
-"The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages."
+"The source package does not contain any meta data. Please use `makepkg --"
+"source` from pacman 4.2.0 or newer to create AUR source packages."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Μη έγκυρο όνομα: μόνο πεζοί χαρακτήρες επιτρέπονται."
 
 msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου."
+msgstr ""
+"Λείπει κάποιο πρωτόκολλο (πχ. http:// , ftp://) από το URL του πακέτου."
 
 #, php-format
 msgid "Error - Package name cannot be greater than %d characters"
-msgstr "Σφάλμα -  Το όνομα του πακέτου δεν μπορεί να είναι μεγαλύτερο από %d χαρακτήρες"
+msgstr ""
+"Σφάλμα -  Το όνομα του πακέτου δεν μπορεί να είναι μεγαλύτερο από %d "
+"χαρακτήρες"
 
 #, php-format
 msgid "Error - Package URL cannot be greater than %d characters"
-msgstr "Σφάλμα - Η διεύθυνση URL του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d χαρακτήρες"
+msgstr ""
+"Σφάλμα - Η διεύθυνση URL του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d "
+"χαρακτήρες"
 
 #, php-format
 msgid "Error - Package description cannot be greater than %d characters"
-msgstr "Σφάλμα - Η περιγραφή του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d χαρακτήρες"
+msgstr ""
+"Σφάλμα - Η περιγραφή του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d "
+"χαρακτήρες"
 
 #, php-format
 msgid "Error - Package license cannot be greater than %d characters"
-msgstr "Σφάλμα - Η άδεια του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d χαρακτήρες"
+msgstr ""
+"Σφάλμα - Η άδεια του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d χαρακτήρες"
 
 #, php-format
 msgid "Error - Package version cannot be greater than %d characters"
-msgstr "Σφάλμα - Η έκδοση του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d χαρακτήρες"
+msgstr ""
+"Σφάλμα - Η έκδοση του πακέτου δεν μπορεί να είναι μεγαλύτερη από %d "
+"χαρακτήρες"
 
 #, php-format
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr "Το πακέτο %s είναι σε μαύρη λίστα , παρακαλούμε να ελέγξετε αν είναι διαθέσιμο στα επίσημα repos."
+msgstr ""
+"Το πακέτο %s είναι σε μαύρη λίστα , παρακαλούμε να ελέγξετε αν είναι "
+"διαθέσιμο στα επίσημα repos."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
@@ -450,8 +502,9 @@ msgid "Could not change directory to %s."
 msgstr "Δεν είναι δυνατή η αλλαγή καταλόγου σε %s"
 
 msgid ""
-"Upload your source packages here. Create source packages with `mkaurball`."
-msgstr "Ανεβάστε τα πηγαία πακέτα εδώ. Δημιουργήστε πηγαία πακέτα με την εντολή `mkaurball`."
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "Κατηγορία Πακέτου"
@@ -504,7 +557,9 @@ msgstr "Ψηφίσαντες"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Η εγγραφή λογαριασμών έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ενόχληση."
+msgstr ""
+"Η εγγραφή λογαριασμών έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω "
+"επιθέσεων spam. Μας συγχωρείτε για την ενόχληση."
 
 msgid "Missing User ID"
 msgstr "Λείπει το ID Χρήστη"
@@ -521,10 +576,6 @@ msgstr "Ξεκινήστε και τελειώστε με γράμμα ή αρι
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Μπορεί να περιλαμβάνει μόνο μία τελεία, κάτω παύλα ή παύλα."
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr "Ο κωδικός πρέπει να αποτελείται τουλάχιστον %s χαρακτήρες."
 
 msgid "The email address is invalid."
 msgstr "Αυτή η διεύθυνση email δεν είναι έγκυρη."
@@ -555,17 +606,23 @@ msgid "The account, %s%s%s, has been successfully created."
 msgstr "Ο λογαριασμός, %s%s%s, δημιουργήθηκε επιτυχώς."
 
 msgid "Click on the Login link above to use your account."
-msgstr "Πατήστε στον παραπάνω σύνδεσμο Σύνδεση για να χρησιμοποιήσετε το λογαριασμό σας."
+msgstr ""
+"Πατήστε στον παραπάνω σύνδεσμο Σύνδεση για να χρησιμοποιήσετε το λογαριασμό "
+"σας."
 
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "Καλώς ήρθατε στο %s! Για να ορίσετε έναν αρχικό κωδικό για το νέο σας λογαριασμό, παρακαλώ πατήστε τον παρακάτω σύνδεσμο. Αν ο σύνδεσμος δε δουλέψει προσπαθήστε να τον κάνετε αντιγραφή και επικόλληση στον browser σας."
+msgstr ""
+"Καλώς ήρθατε στο %s! Για να ορίσετε έναν αρχικό κωδικό για το νέο σας "
+"λογαριασμό, παρακαλώ πατήστε τον παρακάτω σύνδεσμο. Αν ο σύνδεσμος δε "
+"δουλέψει προσπαθήστε να τον κάνετε αντιγραφή και επικόλληση στον browser σας."
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr "Ένα κλειδί επαναφοράς του κωδικού έχει σταλεί στην ηλεκτρονική σας διεύθυνση."
+msgstr ""
+"Ένα κλειδί επαναφοράς του κωδικού έχει σταλεί στην ηλεκτρονική σας διεύθυνση."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -578,7 +635,9 @@ msgstr "Ο λογαριασμός, %s%s%s, τροποποποιήθηκε επι
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
+msgstr ""
+"Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν "
+"λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
 
 msgid "Account suspended"
 msgstr "Ο λογαριασμός έχει ανασταλεί"
@@ -588,7 +647,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Η επαναφορά του κωδικού σας έχει πραγματοποιηθεί. Αν μόλις δημιουργήσατε ένα νέο λογαρισμό, παρακαλώ χρησιμοποιείστε τον σύνδεσμο από το email ενεργοποίησης για να ορίσετε έναν αρχικό κωδικό. Διαφορετικά, παρακαλείσθε να ζητήσετε ένα κλειδί επαναφοράς στη σελίδα %sPassword Reset%s."
+msgstr ""
+"Η επαναφορά του κωδικού σας έχει πραγματοποιηθεί. Αν μόλις δημιουργήσατε ένα "
+"νέο λογαρισμό, παρακαλώ χρησιμοποιείστε τον σύνδεσμο από το email "
+"ενεργοποίησης για να ορίσετε έναν αρχικό κωδικό. Διαφορετικά, παρακαλείσθε "
+"να ζητήσετε ένα κλειδί επαναφοράς στη σελίδα %sPassword Reset%s."
 
 msgid "Bad username or password."
 msgstr "Λάθος όνομα χρήστη ή συνθηματικό."
@@ -657,7 +720,9 @@ msgid "You must be logged in before you can vote for packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ψηφίσετε για πακέτα."
 
 msgid "You must be logged in before you can un-vote for packages."
-msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για πακέτα."
+msgstr ""
+"Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για "
+"πακέτα."
 
 msgid "You did not select any packages to vote for."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για να το ψηφίσετε."
@@ -680,7 +745,9 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Έχετε αφαιρεθεί από τη λίστα ειδοποίησης σχολίων για το %s."
 
 msgid "You must be logged in before you can edit package information."
-msgstr "Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις πληροφορίες του πακέτου."
+msgstr ""
+"Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις "
+"πληροφορίες του πακέτου."
 
 msgid "Missing comment ID."
 msgstr "Λείπει το ID του σχολίου."
@@ -705,6 +772,9 @@ msgstr "Έγινε αλλαγή κατηγορίας πακέτου."
 
 msgid "View packages details for"
 msgstr "Δείτε τις λεπτομέρειες πακέτου για το"
+
+msgid "You must be logged in to file package requests."
+msgstr ""
 
 msgid "The comment field must not be empty."
 msgstr ""
@@ -835,27 +905,6 @@ msgstr "Περισσότερα"
 msgid "No more results to display."
 msgstr "Δεν υπάρχουν άλλα αποτελέσματα για να δείτε."
 
-msgid "No New Comment Notification"
-msgstr "Ακύρωση Ειδοποίησης Για Νέα Πακέτα"
-
-msgid "New Comment Notification"
-msgstr "Ειδοποίηση για νέα σχόλια"
-
-msgid "Flag Out-of-date"
-msgstr "Επισημάνετε ως Παρωχημένο"
-
-msgid "UnFlag Out-of-date"
-msgstr "Αποχαρακτηρίστε ως Παρωχημένο"
-
-msgid "Delete Packages"
-msgstr "Διαγράψτε Πακέτα"
-
-msgid "Merge into"
-msgstr "Συγχώνευση σε"
-
-msgid "Confirm"
-msgstr "Επιβεβαιώστε"
-
 msgid "My Packages"
 msgstr "Τα πακέτα μου"
 
@@ -930,9 +979,6 @@ msgstr "Αλλαγή κατηγορίας"
 
 msgid "Submitter"
 msgstr "Υποβάλλων"
-
-msgid "View account information for"
-msgstr "Δείτε τις πληροφορίες λογαριασμού για"
 
 #, php-format
 msgid "View account information for %s"
@@ -1066,6 +1112,9 @@ msgstr ""
 
 msgid "Orphan"
 msgstr ""
+
+msgid "Merge into"
+msgstr "Συγχώνευση σε"
 
 #, php-format
 msgid "%d package request found."
@@ -1201,6 +1250,9 @@ msgstr "ορφανό"
 msgid "Actions"
 msgstr "Ενέργειες"
 
+msgid "Flag Out-of-date"
+msgstr "Επισημάνετε ως Παρωχημένο"
+
 msgid "Unflag Out-of-date"
 msgstr "Αποχαρακτηρίστε το πακέτο ως Παρωχημένο"
 
@@ -1209,6 +1261,12 @@ msgstr "Υιοθετήστε Πακέτα"
 
 msgid "Disown Packages"
 msgstr "Aποδεσμεύστε Πακέτα"
+
+msgid "Delete Packages"
+msgstr "Διαγράψτε Πακέτα"
+
+msgid "Confirm"
+msgstr "Επιβεβαιώστε"
 
 msgid "Any type"
 msgstr "Κάθε είδος"

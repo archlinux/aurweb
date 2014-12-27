@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Atilla Öntaş <tarakbumba@gmail.com>, 2011,2013-2014
 # Atilla Öntaş <tarakbumba@gmail.com>, 2012,2014
@@ -13,14 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-29 16:34+0000\n"
+"POT-Creation-Date: 2014-12-19 10:50+0100\n"
+"PO-Revision-Date: 2014-12-19 09:51+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/tr/)\n"
+"Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/"
+"tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Page Not Found"
@@ -28,6 +29,9 @@ msgstr "Sayfa Bulunamadı"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Üzgünüz, talep ettiğiniz sayfa bulunamadı."
+
+msgid "Account"
+msgstr ""
 
 msgid "Accounts"
 msgstr "Hesaplar"
@@ -109,31 +113,41 @@ msgstr "Anasayfa"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "AUR'a hoş geldiniz! Bilgi almak için lütfen %sAUR Kullanıcı Rehberi%s ve %sGK Rehberini%s okuyun."
+msgstr ""
+"AUR'a hoş geldiniz! Bilgi almak için lütfen %sAUR Kullanıcı Rehberi%s ve "
+"%sGK Rehberini%s okuyun."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Eklenen PKGBUILD dosyaları %smutlaka%s %sArch Paket Standartlarına%s uymalıdır aksi takdirde silinecektir. "
+msgstr ""
+"Eklenen PKGBUILD dosyaları %smutlaka%s %sArch Paket Standartlarına%s "
+"uymalıdır aksi takdirde silinecektir. "
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Beğendiğiniz paketleri oylamayı unutmayın!"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "Burada listelenen paketlerin bazıları [community] deposunda yer almaktadır."
+msgstr ""
+"Burada listelenen paketlerin bazıları [community] deposunda yer almaktadır."
 
 msgid "Discussion"
 msgstr "Tartışma"
 
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-"
-"dev%s mailing list."
+"box. For discussion relating to the development of the AUR, use the %saur-dev"
+"%s mailing list."
 msgstr ""
+"Arch Kullanıcı Deposu (AUR) ve Güvenilir Kullanıcı yapısı ile ilgili genel "
+"tartışmalar %saur-general%s üzerinde yapılır. Paketleri öksüz bırakma, "
+"birleştirme ve silme talepleri %sPaket Eylemleri%s kutusunda yapılmalıdır. "
+"AUR geliştirme süreci ilgili tartışmalar %saur-dev%s listesinde "
+"yapılmaktadır."
 
 msgid "Bug Reporting"
 msgstr "Hata Bildirimi"
@@ -144,7 +158,11 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "Eğer AUR'da bir hata ile karşılaştırsanız lütfen %shata takip sistemine%s bildirin. Hata takip sistemini lütfen %ssadece%s AUR sistemi için kullanın. Paketleme hatalarıyla ilgili görüşlerinizi ilgili paketin sayfasında iletebilirsiniz."
+msgstr ""
+"Eğer AUR'da bir hata ile karşılaştırsanız lütfen %shata takip sistemine%s "
+"bildirin. Hata takip sistemini lütfen %ssadece%s AUR sistemi için kullanın. "
+"Paketleme hatalarıyla ilgili görüşlerinizi ilgili paketin sayfasında "
+"iletebilirsiniz."
 
 msgid "DISCLAIMER"
 msgstr "FERAGATNAME"
@@ -152,7 +170,10 @@ msgstr "FERAGATNAME"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Desteklenmeyen paketler kullanıcılar tarafından üretilen içeriğe sahiptirler. Bu paketlerin kullanımından doğan risk kullanıcının kendisine aittir."
+msgstr ""
+"Desteklenmeyen paketler kullanıcılar tarafından üretilen içeriğe "
+"sahiptirler. Bu paketlerin kullanımından doğan risk kullanıcının kendisine "
+"aittir."
 
 msgid "Package Search"
 msgstr "Paket Ara"
@@ -209,7 +230,8 @@ msgstr "Parolamı Unuttum"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "HTTP oturum açma devredışı. Lütfen oturum açmak için %sHTTPS kullanın%s."
+msgstr ""
+"HTTP oturum açma devredışı. Lütfen oturum açmak için %sHTTPS kullanın%s."
 
 msgid "Search Criteria"
 msgstr "Arama Ölçütü"
@@ -226,6 +248,10 @@ msgstr "Gerekli bir alan doldurulmamış."
 msgid "Password fields do not match."
 msgstr "Parolalar eşleşmiyor."
 
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Şifreniz en az %s karakterden oluşmalıdır."
+
 msgid "Invalid e-mail."
 msgstr "Geçersiz e-posta adresi"
 
@@ -233,7 +259,10 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr "E-posta hesabınızla ilişkilendirilmiş bir hesap için parola sıfırlama isteği gönderilmiş. Parolanızı sıfırlamak istiyorsanız aşağıdaki bağlantıyı izleyin; aksi takdirde bu iletiyi yok sayın ve herhangi bir işlem yapılmasın."
+msgstr ""
+"E-posta hesabınızla ilişkilendirilmiş bir hesap için parola sıfırlama isteği "
+"gönderilmiş. Parolanızı sıfırlamak istiyorsanız aşağıdaki bağlantıyı "
+"izleyin; aksi takdirde bu iletiyi yok sayın ve herhangi bir işlem yapılmasın."
 
 msgid "Password Reset"
 msgstr "Parola sıfırlama"
@@ -258,22 +287,24 @@ msgstr "Devam"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Kayıt olurken kullandığınız e-posta adresini hatırlamıyorsanız lütfen %saur-general%s posta listesine mesaj gönderin."
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"Kayıt olurken kullandığınız e-posta adresini hatırlamıyorsanız lütfen %saur-"
+"general%s posta listesine mesaj gönderin."
 
 msgid "Enter your e-mail address:"
 msgstr "E-posta adresinizi girin:"
 
 msgid "Cannot find package to merge votes and comments into."
-msgstr "Oyların ve yorumların ilişkilendirilebileceği herhangi bir paket bulunamadı."
+msgstr ""
+"Oyların ve yorumların ilişkilendirilebileceği herhangi bir paket bulunamadı."
 
 msgid "Cannot merge a package base with itself."
-msgstr ""
+msgstr "Paket temeli kendisi ile birleştirilemiyor."
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
+"The selected packages have not been deleted, check the confirmation checkbox."
 msgstr "Seçilen paketler silinmedi. Onaylama kutucuğunu işaretleyin."
 
 msgid "Package Deletion"
@@ -287,7 +318,9 @@ msgstr "Paketi sil: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Bu formu paket temeli %s%s%s ve şu paketleri AUR üzerinden silmek için kullanın: "
+msgstr ""
+"Bu formu paket temeli %s%s%s ve şu paketleri AUR üzerinden silmek için "
+"kullanın: "
 
 msgid "Deletion of a package is permanent. "
 msgstr "Paket silme işlemi kalıcıdır."
@@ -313,7 +346,9 @@ msgstr "Paket Birleştir: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Bu formu paket temeli %s%s%s ile bir başka paketi birleştirmek için kullanın. "
+msgstr ""
+"Bu formu paket temeli %s%s%s ile bir başka paketi birleştirmek için "
+"kullanın. "
 
 msgid "The following packages will be deleted: "
 msgstr "Şu paketler silinecek: "
@@ -374,9 +409,11 @@ msgid "Error - File could not be written"
 msgstr "Hata - Dosya yazılamadı"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by"
-" makepkg(8) only)."
-msgstr "Hata - desteklenmeyen dosya biçimi (lütfen sadece makepkg(8) aracılığıyla üretilmiş gzip ile sıkıştırılmış tar arşivi gönderin)."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+"Hata - desteklenmeyen dosya biçimi (lütfen sadece makepkg(8) aracılığıyla "
+"üretilmiş gzip ile sıkıştırılmış tar arşivi gönderin)."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Hata - sıkıştırılmamış dosya boyutu çok büyük."
@@ -400,8 +437,8 @@ msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Yüklenen dosya açılırken hata - PKGBUILD mevcut değil."
 
 msgid ""
-"The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages."
+"The source package does not contain any meta data. Please use `makepkg --"
+"source` from pacman 4.2.0 or newer to create AUR source packages."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -434,7 +471,9 @@ msgstr "Hata - Paket sürümü %d karakterden uzun olamaz"
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr "%s, paket kara listesinde yer alıyor. Lütfen bu paketin resmi depolarda olup olmadığını denetleyin."
+msgstr ""
+"%s, paket kara listesinde yer alıyor. Lütfen bu paketin resmi depolarda olup "
+"olmadığını denetleyin."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
@@ -449,8 +488,9 @@ msgid "Could not change directory to %s."
 msgstr "%s dizinine geçilemedi."
 
 msgid ""
-"Upload your source packages here. Create source packages with `mkaurball`."
-msgstr "Kaynak paketlerinizi burada yükleyin. Kaynak paketlerinizi 'mkaurball' komutu ile oluşturun."
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "Paket Kategorisi"
@@ -503,7 +543,9 @@ msgstr "Oy verenler"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizden hesap oluşturma devre dışı bırakılmış. Bu durumdan dolayı üzgünüz."
+msgstr ""
+"Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizden hesap "
+"oluşturma devre dışı bırakılmış. Bu durumdan dolayı üzgünüz."
 
 msgid "Missing User ID"
 msgstr "Kullanıcı kimliği eksik"
@@ -520,10 +562,6 @@ msgstr "Bir rakam veya harf ile başlatıp bitirmelisiniz"
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Sadece bir nokta, alt çizgi veya tire barındırabilir."
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr "Şifreniz en az %s karakterden oluşmalıdır."
 
 msgid "The email address is invalid."
 msgstr "E-posta adresi geçerli değil."
@@ -561,7 +599,10 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "%s hoş geldiniz! Hesabınız için parolayı ilk kez oluşturmak için lütfen aşağıdaki bağlanıtıyı tıklayın. Bağlantı çalışmazsa onu kopyalayıp tarayıcınıza yapıştırmayı deneyin."
+msgstr ""
+"%s hoş geldiniz! Hesabınız için parolayı ilk kez oluşturmak için lütfen "
+"aşağıdaki bağlanıtıyı tıklayın. Bağlantı çalışmazsa onu kopyalayıp "
+"tarayıcınıza yapıştırmayı deneyin."
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Bir parola sıfırlama anahtarı e-posta adresinize gönderildi."
@@ -577,7 +618,9 @@ msgstr "Hesap, %s%s%s, başarıyla düzenlendi."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizden giriş yapma devre dışı bırakılmış. Bu durumdan dolayı üzgünüz."
+msgstr ""
+"Muhtemelen sürekli spam saldırıları olması nedeniyle IP adresinizden giriş "
+"yapma devre dışı bırakılmış. Bu durumdan dolayı üzgünüz."
 
 msgid "Account suspended"
 msgstr "Hesap donduruldu"
@@ -587,7 +630,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Parolanız sıfırlandı. Kısa süre önce yeni hesap oluşturduysanız lütfen, ilk parolanızı ayarlamak için onaylama e-postasındaki bağlantıyı kullanın. Aksi takdirde, %sParola Sıfırlama%s sayfasında bir sıfırlama anahtarı talep edin."
+msgstr ""
+"Parolanız sıfırlandı. Kısa süre önce yeni hesap oluşturduysanız lütfen, ilk "
+"parolanızı ayarlamak için onaylama e-postasındaki bağlantıyı kullanın. Aksi "
+"takdirde, %sParola Sıfırlama%s sayfasında bir sıfırlama anahtarı talep edin."
 
 msgid "Bad username or password."
 msgstr "Yanlış kullanıcı adı veya şifresi."
@@ -705,6 +751,9 @@ msgstr "Paket kategorisi değiştirildi."
 msgid "View packages details for"
 msgstr "Paket detaylarını görüntüle"
 
+msgid "You must be logged in to file package requests."
+msgstr ""
+
 msgid "The comment field must not be empty."
 msgstr "Yorum alanı boş olmamalı."
 
@@ -725,14 +774,14 @@ msgstr "Talep başarıyla kapatıldı."
 
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr ""
+msgstr "Bu formu kullanarak %s AUR hesabını temelli silebilirsiniz."
 
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
-msgstr ""
+msgstr "%sUYARI%s: Bu eylem geri döndürülemez."
 
 msgid "Confirm deletion"
-msgstr ""
+msgstr "Silmeyi onayla"
 
 msgid "Account Type"
 msgstr "Hesap Türü"
@@ -744,7 +793,7 @@ msgid "Developer"
 msgstr "Geliştirici"
 
 msgid "Trusted User & Developer"
-msgstr ""
+msgstr "Güvenilir Kullanıcı & Geliştirici"
 
 msgid "Email Address"
 msgstr "E-posta adresi"
@@ -781,7 +830,7 @@ msgstr "Bu kullanıcının hesabını düzenleyin"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr ""
+msgstr "Bu hesabı temelli olarak silmek istiyorsanız %sburaya%s tıklayın."
 
 msgid "required"
 msgstr "gerekli"
@@ -833,27 +882,6 @@ msgstr "Fazla"
 
 msgid "No more results to display."
 msgstr "Gösterilecek daha fazla sonuç yok."
-
-msgid "No New Comment Notification"
-msgstr "Yeni Yorum Bildirim Yok"
-
-msgid "New Comment Notification"
-msgstr "Yeni Yorum Bildirimi"
-
-msgid "Flag Out-of-date"
-msgstr "Güncelliğini yitirmiş olarak işaretle"
-
-msgid "UnFlag Out-of-date"
-msgstr "\"Güncelliğini  yitirmiş\" işaretini kaldır"
-
-msgid "Delete Packages"
-msgstr "Paketleri Sil"
-
-msgid "Merge into"
-msgstr "Şununla ilişkilendir:"
-
-msgid "Confirm"
-msgstr "Onayla"
 
 msgid "My Packages"
 msgstr "Paketlerim"
@@ -930,9 +958,6 @@ msgstr "Kategori değiştir"
 msgid "Submitter"
 msgstr "Yükleyen"
 
-msgid "View account information for"
-msgstr "Hesap bilgilerini görüntüle"
-
 #, php-format
 msgid "View account information for %s"
 msgstr "%s için hesap bilgilerini görüntüle"
@@ -959,7 +984,7 @@ msgid "Comment has been added."
 msgstr "Yorum eklendi."
 
 msgid "View all comments"
-msgstr ""
+msgstr "Tüm yorumları görünüle"
 
 msgid "Latest Comments"
 msgstr "Son Yorumlar"
@@ -975,7 +1000,7 @@ msgid "Anonymous comment"
 msgstr "İsimsiz yorum"
 
 msgid "deleted"
-msgstr ""
+msgstr "silindi"
 
 msgid "All comments"
 msgstr "Tüm yorumlar"
@@ -1021,22 +1046,25 @@ msgstr "Kaynak kodlar"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Kapatma Talebi: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
+"Bu formu %s%s%s paket temeli için yapılan talebi kapatmak için kullanın."
 
 msgid "Note"
-msgstr ""
+msgstr "Not"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
+"Yorum alanı boş bırakılabilir. Ancak, bir talebi reddederken bir yorum "
+"eklemeniz şiddetle önerilir."
 
 msgid "Reason"
-msgstr ""
+msgstr "Sebep"
 
 msgid "Accepted"
 msgstr "Kabul edildi"
@@ -1055,7 +1083,9 @@ msgstr "Dosya Talebi: %s"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Bu formu kullanarak aşağıdaki paketleri içeren paket temeli %s%s%s için talep doldurun:"
+msgstr ""
+"Bu formu kullanarak aşağıdaki paketleri içeren paket temeli %s%s%s için "
+"talep doldurun:"
 
 msgid "Request type"
 msgstr "Talep türü"
@@ -1065,6 +1095,9 @@ msgstr "Silme"
 
 msgid "Orphan"
 msgstr "Öksüz"
+
+msgid "Merge into"
+msgstr "Şununla ilişkilendir:"
 
 #, php-format
 msgid "%d package request found."
@@ -1087,22 +1120,22 @@ msgstr "Tarih"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "~%d gün kaldı"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d saat kaldı"
+msgstr[1] "~%d saat kaldı"
 
 msgid "<1 hour left"
-msgstr ""
+msgstr "<1 saat kaldı"
 
 msgid "Accept"
 msgstr "Kabul"
 
 msgid "Locked"
-msgstr ""
+msgstr "Kilitli"
 
 msgid "Close"
 msgstr "Kapat"
@@ -1200,6 +1233,9 @@ msgstr "sahipsiz"
 msgid "Actions"
 msgstr "Eylemler"
 
+msgid "Flag Out-of-date"
+msgstr "Güncelliğini yitirmiş olarak işaretle"
+
 msgid "Unflag Out-of-date"
 msgstr "\"Güncelliğini Yitirmiş\" İşaretini Kaldır"
 
@@ -1208,6 +1244,12 @@ msgstr "Paketleri Sahiplen"
 
 msgid "Disown Packages"
 msgstr "Paketleri sahiplenmeyi bırak"
+
+msgid "Delete Packages"
+msgstr "Paketleri Sil"
+
+msgid "Confirm"
+msgstr "Onayla"
 
 msgid "Any type"
 msgstr "Herhangi bir tür"

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
@@ -12,21 +12,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-11-11 16:21+0000\n"
+"POT-Creation-Date: 2014-12-19 10:50+0100\n"
+"PO-Revision-Date: 2014-12-22 08:33+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/uk/)\n"
+"Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/"
+"uk/)\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "Page Not Found"
 msgstr "Сторінку не знайдено"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "На жаль, запитаної сторінки не існує."
+
+msgid "Account"
+msgstr "Обліковий запис"
 
 msgid "Accounts"
 msgstr "Облікові записи"
@@ -108,13 +113,18 @@ msgstr "Початкова сторінка"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "Раді вітати вас в «AUR» — у сховищі користувацьких пакунків. Розширена довідка надана в %sінструкції користувача AUR%s та %sінструкції довіреного користувача (TU) AUR%s."
+msgstr ""
+"Раді вітати вас в «AUR» — у сховищі користувацьких пакунків. Розширена "
+"довідка надана в %sінструкції користувача AUR%s та %sінструкції довіреного "
+"користувача (TU) AUR%s."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Надіслані PKGBUILD %sповинні%s задовольняти %sстандарти пакування%s, інакше вони вилучаються."
+msgstr ""
+"Надіслані PKGBUILD %sповинні%s задовольняти %sстандарти пакування%s, інакше "
+"вони вилучаються."
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Не забудьте проголосувати за улюблені пакунки!"
@@ -127,12 +137,17 @@ msgstr "Обговорення"
 
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-"
-"dev%s mailing list."
-msgstr "Загальне обговорення сховища користувацьких пакунків AUR та структури довірених користувачів відбувається в %saur-general%s. Для запитів щодо відмови від пакунка, злиття пакунків та вилучення пишіть в %sPackage Actions%s. Для дискусій про розробку AUR використовуйте список розсилання %saur-dev%s."
+"box. For discussion relating to the development of the AUR, use the %saur-dev"
+"%s mailing list."
+msgstr ""
+"Загальне обговорення сховища користувацьких пакунків AUR та структури "
+"довірених користувачів відбувається в %saur-general%s. Для запитів щодо "
+"відмови від пакунка, злиття пакунків та вилучення пишіть в %sPackage Actions"
+"%s. Для дискусій про розробку AUR використовуйте список розсилання %saur-dev"
+"%s."
 
 msgid "Bug Reporting"
 msgstr "Повідомлення про вади"
@@ -143,7 +158,10 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "Якщо ви знайдете ваду в AUR, %sповідомте нам%s. Таким чином слід сповіщати %sлише%s про проблеми AUR. При виявленні вади конкретного пакунка зв’яжіться з його супровідником або залиште коментар на сторінці цього пакунка."
+msgstr ""
+"Якщо ви знайдете ваду в AUR, %sповідомте нам%s. Таким чином слід сповіщати "
+"%sлише%s про проблеми AUR. При виявленні вади конкретного пакунка зв’яжіться "
+"з його супровідником або залиште коментар на сторінці цього пакунка."
 
 msgid "DISCLAIMER"
 msgstr "ВІДМОВА ВІД ВІДПОВІДАЛЬНОСТІ"
@@ -151,7 +169,9 @@ msgstr "ВІДМОВА ВІД ВІДПОВІДАЛЬНОСТІ"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Пакунки, що не підтримуються - це пакунки, створені користувачами. Ви можете використовувати їх тільки на Ваш власний страх і ризик."
+msgstr ""
+"Пакунки, що не підтримуються - це пакунки, створені користувачами. Ви можете "
+"використовувати їх тільки на Ваш власний страх і ризик."
 
 msgid "Package Search"
 msgstr "Пошук пакунків"
@@ -208,7 +228,9 @@ msgstr "Забули пароль?"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Реєстрування через HTTP вимкнено. Будь-ласка, %sперейдіть на HTTPs%s для входу."
+msgstr ""
+"Реєстрування через HTTP вимкнено. Будь-ласка, %sперейдіть на HTTPs%s для "
+"входу."
 
 msgid "Search Criteria"
 msgstr "Критерії пошуку"
@@ -225,6 +247,10 @@ msgstr "Бракує обов’язкового рядка."
 msgid "Password fields do not match."
 msgstr "Паролі не збігаються."
 
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Ваш пароль має містити щонайменше %s символів."
+
 msgid "Invalid e-mail."
 msgstr "Неправильна електронна адреса."
 
@@ -232,7 +258,10 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr "Запит на скинення паролю для облікового запису надісланий на пов’язану з ним адресу електронної пошти. Щоб скинути пароль, натисніть на посилання нижче; щоб залишити все як є, проігноруйте це повідомлення."
+msgstr ""
+"Запит на скинення паролю для облікового запису надісланий на пов’язану з ним "
+"адресу електронної пошти. Щоб скинути пароль, натисніть на посилання нижче; "
+"щоб залишити все як є, проігноруйте це повідомлення."
 
 msgid "Password Reset"
 msgstr "Скидання паролю"
@@ -257,9 +286,11 @@ msgstr "Продовжити"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Якщо Ви забули електронну адресу, використану при реєстрації, зверніться до списку розсилання %saur-general%s"
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"Якщо Ви забули електронну адресу, використану при реєстрації, зверніться до "
+"списку розсилання %saur-general%s"
 
 msgid "Enter your e-mail address:"
 msgstr "Введіть адресу електронної пошти:"
@@ -271,9 +302,10 @@ msgid "Cannot merge a package base with itself."
 msgstr "Неможливо злити пакунок з самим собою."
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Обрані пакунки не вилучено, перевірте, чи поставлено галочку в полі підтвердження."
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr ""
+"Обрані пакунки не вилучено, перевірте, чи поставлено галочку в полі "
+"підтвердження."
 
 msgid "Package Deletion"
 msgstr "Вилучення пакунку"
@@ -373,9 +405,11 @@ msgid "Error - File could not be written"
 msgstr "Помилка - Файл неможливо записати"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by"
-" makepkg(8) only)."
-msgstr "Помилка — формат файлу не підтримується (приймаються лише архіви формату tar.gz, створені за допомогою makepkg(8))."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+"Помилка — формат файлу не підтримується (приймаються лише архіви формату tar."
+"gz, створені за допомогою makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Помилка — розмір нестисненого файла надто великий."
@@ -399,9 +433,11 @@ msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Помилка під час  розпакування вивантаженого — немає PKGBUILD."
 
 msgid ""
-"The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages."
-msgstr "Джерельний пакунок не містить жодних мета-даних. Використайте `mkaurball` для створення джерельного пакунка для AUR."
+"The source package does not contain any meta data. Please use `makepkg --"
+"source` from pacman 4.2.0 or newer to create AUR source packages."
+msgstr ""
+"Джерельний пакунок не містить жодних мета-даних. Використайте `makepkg --"
+"source` з pacman 4.2.0 для створення джерельного пакунка для AUR."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Неправильна назва: дозволено тільки малі літери."
@@ -433,7 +469,9 @@ msgstr "Помилка - Версія пакунку не може бути ні
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr "%s міститься в «чорному» списку. Будь ласка, перевірте, чи він не міститься в офіційному сховищі."
+msgstr ""
+"%s міститься в «чорному» списку. Будь ласка, перевірте, чи він не міститься "
+"в офіційному сховищі."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
@@ -448,8 +486,11 @@ msgid "Could not change directory to %s."
 msgstr "Неможливо змінити теку на %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `mkaurball`."
-msgstr "Завантажте тут Ваш джерельний пакунок. Створіть джерельний пакунок за допомогою `mkaurball`."
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
+"Тут додайте Ваш джерельний пакунок. Створіть джерельні пакунки за допомогою "
+"команди `makepkg --source`."
 
 msgid "Package Category"
 msgstr "Категорія пакунка"
@@ -502,7 +543,9 @@ msgstr "Проголосували"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Реєстрація рахунку закрита для Вашої адреси IP, можливо із-за інтенсивної спам-атаки. Вибачте за незручності."
+msgstr ""
+"Реєстрація рахунку закрита для Вашої адреси IP, можливо із-за інтенсивної "
+"спам-атаки. Вибачте за незручності."
 
 msgid "Missing User ID"
 msgstr "Бракує ідентифікатора користувача"
@@ -519,10 +562,6 @@ msgstr "Початок та кінець з літери або цифри"
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Може містити тільки один період, підкреслення або дефіс."
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr "Ваш пароль має містити щонайменше %s символів."
 
 msgid "The email address is invalid."
 msgstr "Адреса електронної пошти неправильна."
@@ -553,14 +592,19 @@ msgid "The account, %s%s%s, has been successfully created."
 msgstr "Рахунок %s%s%s успішно створено."
 
 msgid "Click on the Login link above to use your account."
-msgstr "Використовуйте обліковий запис, увійшовши за допомогою посилання «Увійти» (згори)."
+msgstr ""
+"Використовуйте обліковий запис, увійшовши за допомогою посилання "
+"«Увійти» (згори)."
 
 #, php-format
 msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "Вітаємо в %s! Щоб встановити початковий пароль для Вашого рахунку натисніть на посилання зверху. Якщо посилання не спрацьовує, скопіюйте його і вставте у Ваш переглядач інтернету."
+msgstr ""
+"Вітаємо в %s! Щоб встановити початковий пароль для Вашого рахунку натисніть "
+"на посилання зверху. Якщо посилання не спрацьовує, скопіюйте його і вставте "
+"у Ваш переглядач інтернету."
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Ключ скидання пароля висланий на Вашу адресу електронної пошти."
@@ -576,7 +620,9 @@ msgstr "Рахунок %s%s%s успішно змінено."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Форма логування зараз заборонена для Вашої адреси IP, можливо із-за інтенсивної спам-атаки. Вибачте за незручності."
+msgstr ""
+"Форма логування зараз заборонена для Вашої адреси IP, можливо із-за "
+"інтенсивної спам-атаки. Вибачте за незручності."
 
 msgid "Account suspended"
 msgstr "Рахунок вилучено"
@@ -586,7 +632,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Ваш пароль скинуто. Якщо Ви щойно створили новий рахунок, тоді використайте посилання електронного листа-підтвердження для встановлення початкового пароля. В протилежному випадку використайте запит на скидання паролю на сторінці %sPassword Reset%s."
+msgstr ""
+"Ваш пароль скинуто. Якщо Ви щойно створили новий рахунок, тоді використайте "
+"посилання електронного листа-підтвердження для встановлення початкового "
+"пароля. В протилежному випадку використайте запит на скидання паролю на "
+"сторінці %sPassword Reset%s."
 
 msgid "Bad username or password."
 msgstr "Неправильний користувач або пароль. "
@@ -678,7 +728,9 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Вас вилучено із списку сповіщень про коментарі для %s."
 
 msgid "You must be logged in before you can edit package information."
-msgstr "Ви повинні увійти у систему, щоб мати можливість редагувати інформацію про пакунок."
+msgstr ""
+"Ви повинні увійти у систему, щоб мати можливість редагувати інформацію про "
+"пакунок."
 
 msgid "Missing comment ID."
 msgstr "Немає ідентифікатора коментаря."
@@ -703,6 +755,9 @@ msgstr "Категорію пакунку змінено."
 
 msgid "View packages details for"
 msgstr "Показати деталі пакунку для "
+
+msgid "You must be logged in to file package requests."
+msgstr "Ви повинні увійти, щоб робити запит пакунків."
 
 msgid "The comment field must not be empty."
 msgstr "Поле коментаря не повинно пустувати."
@@ -833,27 +888,6 @@ msgstr "Більше"
 msgid "No more results to display."
 msgstr "Більше немає результатів."
 
-msgid "No New Comment Notification"
-msgstr "Немає нових сповіщень про коментарі"
-
-msgid "New Comment Notification"
-msgstr "Сповіщення про новий коментар"
-
-msgid "Flag Out-of-date"
-msgstr "Призначити мітку «застарілий»"
-
-msgid "UnFlag Out-of-date"
-msgstr "Зняти мітку «застарілий»"
-
-msgid "Delete Packages"
-msgstr "Вилучити пакунки"
-
-msgid "Merge into"
-msgstr "Об'єднати в"
-
-msgid "Confirm"
-msgstr "Підтвердити"
-
 msgid "My Packages"
 msgstr "Мої пакунки"
 
@@ -929,9 +963,6 @@ msgstr "Змінити категорію"
 
 msgid "Submitter"
 msgstr "Подавач"
-
-msgid "View account information for"
-msgstr "Показати інформацію про рахунок для"
 
 #, php-format
 msgid "View account information for %s"
@@ -1033,7 +1064,9 @@ msgstr "Примітка"
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "Поле коментарів може залишатися пустим. Тим не менше, рекомендовано залишити коментар при відкиданні запиту."
+msgstr ""
+"Поле коментарів може залишатися пустим. Тим не менше, рекомендовано залишити "
+"коментар при відкиданні запиту."
 
 msgid "Reason"
 msgstr "Причина"
@@ -1055,7 +1088,9 @@ msgstr "Запит файлу: %s"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Використайте цю форму для запиту файлу з бази пакунків %s%s%s, який містить наступні пакунки:"
+msgstr ""
+"Використайте цю форму для запиту файлу з бази пакунків %s%s%s, який містить "
+"наступні пакунки:"
 
 msgid "Request type"
 msgstr "Тип запиту"
@@ -1065,6 +1100,9 @@ msgstr "Вилучення"
 
 msgid "Orphan"
 msgstr "Позначити застарілим"
+
+msgid "Merge into"
+msgstr "Об'єднати в"
 
 #, php-format
 msgid "%d package request found."
@@ -1203,6 +1241,9 @@ msgstr "покинутий"
 msgid "Actions"
 msgstr "Дії"
 
+msgid "Flag Out-of-date"
+msgstr "Призначити мітку «застарілий»"
+
 msgid "Unflag Out-of-date"
 msgstr "Зняти мітку «застарілий»"
 
@@ -1211,6 +1252,12 @@ msgstr "Прийняти пакунки"
 
 msgid "Disown Packages"
 msgstr "Зректися пакунків"
+
+msgid "Delete Packages"
+msgstr "Вилучити пакунки"
+
+msgid "Confirm"
+msgstr "Підтвердити"
 
 msgid "Any type"
 msgstr "Будь-який тип"

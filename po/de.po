@@ -1,10 +1,10 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Alexander Griesbaum <agrsbm@gmail.com>, 2013
-# Alexander Griesbaum <agrsbm@gmail.com>, 2013
+# Alexander Griesbaum <agrsbm@gmail.com>, 2013-2014
 # bjo <bjo@nord-west.org>, 2013
 # FabianS_ <cadoc@gmx.de>, 2012
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
@@ -17,14 +17,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-29 16:34+0000\n"
+"POT-Creation-Date: 2014-12-19 10:50+0100\n"
+"PO-Revision-Date: 2014-12-19 09:51+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/aur/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/projects/p/aur/language/"
+"de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Page Not Found"
@@ -33,6 +34,9 @@ msgstr "Seite nicht gefunden"
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Die angeforderte Seite existiert leider nicht."
 
+msgid "Account"
+msgstr ""
+
 msgid "Accounts"
 msgstr "Konten"
 
@@ -40,7 +44,8 @@ msgid "You are not allowed to access this area."
 msgstr "Es ist Dir nicht erlaubt, auf diesen Bereich zuzugreifen."
 
 msgid "Could not retrieve information for the specified user."
-msgstr "Es konnten keine Informationen für den angegebenen Benutzer geladen werden."
+msgstr ""
+"Es konnten keine Informationen für den angegebenen Benutzer geladen werden."
 
 msgid "You do not have permission to edit this account."
 msgstr "Du hast keine Berechtigung, dieses Konto zu ändern."
@@ -113,31 +118,41 @@ msgstr "Startseite"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "Willkommen im AUR! Für weitere Informationen lies bitte die %sAUR User Guidelines%s und die %sAUR TU Guidelines%s."
+msgstr ""
+"Willkommen im AUR! Für weitere Informationen lies bitte die %sAUR User "
+"Guidelines%s und die %sAUR TU Guidelines%s."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Alle hier eingereichten PKGBUILDs %smüssen%s den %sArch Packaging Standards%s entsprechen. Andernfalls werden sie entfernt!"
+msgstr ""
+"Alle hier eingereichten PKGBUILDs %smüssen%s den %sArch Packaging Standards"
+"%s entsprechen. Andernfalls werden sie entfernt!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Denk daran, für Deine bevorzugten Pakete zu stimmen!"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "Manche Pakete könnten als Binär-Pakete in [community] bereitgestellt sein."
+msgstr ""
+"Manche Pakete könnten als Binär-Pakete in [community] bereitgestellt sein."
 
 msgid "Discussion"
 msgstr "Diskussion"
 
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-"
-"dev%s mailing list."
+"box. For discussion relating to the development of the AUR, use the %saur-dev"
+"%s mailing list."
 msgstr ""
+"Allgemeine Diskussionen rund um das Arch User Repository (AUR) und die "
+"Struktur der vertrauenswürdigen Benutzer finden auf %saur-general%s statt. "
+"Anfragen zu verwaisten Paketen sowie zu Verschmelzung und dem Entfernen von "
+"Paketen sollten auf %saur-requests%s gestellt werden. Um über Themen der "
+"Entwicklung des AUR zu diskutieren, verwende die %saur-dev%s Mailingliste."
 
 msgid "Bug Reporting"
 msgstr "Fehler melden"
@@ -148,15 +163,25 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "Wenn Du einen Fehler im AUR findest, füll bitte einen entsprechenden Bericht im %sBug-Tracker%s aus. Benutze den Tracker %sausschließlich%s, um Fehler im AUR zu melden. Um Paketierungs-Fehler zu melden, kontaktiere den Betreuer des Pakets oder hinterlasse einen Kommentar auf der entsprechenden Seite des Pakets. "
+msgstr ""
+"Wenn Du einen Fehler im AUR findest, füll bitte einen entsprechenden Bericht "
+"im %sBug-Tracker%s aus. Benutze den Tracker %sausschließlich%s, um Fehler im "
+"AUR zu melden. Um Paketierungs-Fehler zu melden, kontaktiere den Betreuer "
+"des Pakets oder hinterlasse einen Kommentar auf der entsprechenden Seite des "
+"Pakets. "
 
 msgid "DISCLAIMER"
-msgstr "DISCLAIMER: Offiziell nicht unterstützte PKGBUILDS werden von den Benutzern erstellt - durch den Download willigt man ein, diese auf eigene Gefahr zu benutzen."
+msgstr ""
+"DISCLAIMER: Offiziell nicht unterstützte PKGBUILDS werden von den Benutzern "
+"erstellt - durch den Download willigt man ein, diese auf eigene Gefahr zu "
+"benutzen."
 
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Nicht unterstützte Pakete sind von Benutzern erzeugte Inhalte. Jegliche Nutzung der zur Verfügung gestellten Dateien erfolgt auf eigene Gefahr."
+msgstr ""
+"Nicht unterstützte Pakete sind von Benutzern erzeugte Inhalte. Jegliche "
+"Nutzung der zur Verfügung gestellten Dateien erfolgt auf eigene Gefahr."
 
 msgid "Package Search"
 msgstr "Paketsuche"
@@ -213,7 +238,9 @@ msgstr "Passwort vergessen"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Die Anmeldung über HTTP wurde deaktiviert. Zum Anmelden %swechsle bitte zu HTTPS%s."
+msgstr ""
+"Die Anmeldung über HTTP wurde deaktiviert. Zum Anmelden %swechsle bitte zu "
+"HTTPS%s."
 
 msgid "Search Criteria"
 msgstr "Suchkriterien"
@@ -230,6 +257,10 @@ msgstr "Ein benötigtes Feld ist nicht ausgefüllt."
 msgid "Password fields do not match."
 msgstr "Passwort-Felder sind unterschiedlich."
 
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Dein Passwort muss mindestens %s Zeichen lang sein."
+
 msgid "Invalid e-mail."
 msgstr "Ungültige E-Mail-Adresse."
 
@@ -237,7 +268,11 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr "Es wurde ein Passwort-Reset für den Account, der mit dieser E-Mail-Adresse verknüpft ist, angefordert. Wenn Du Dein Passwort zurücksetzen möchtest, folge dem untenstehenden Link, ansonsten kannst Du diese Nachricht ignorieren und nichts wird geschehen."
+msgstr ""
+"Es wurde ein Passwort-Reset für den Account, der mit dieser E-Mail-Adresse "
+"verknüpft ist, angefordert. Wenn Du Dein Passwort zurücksetzen möchtest, "
+"folge dem untenstehenden Link, ansonsten kannst Du diese Nachricht "
+"ignorieren und nichts wird geschehen."
 
 msgid "Password Reset"
 msgstr "Passwort zurücksetzen"
@@ -262,23 +297,29 @@ msgstr "Weiter"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Wenn Du die E-Mail-Adresse vergessen hast, die Du für Deine Registrierung benutzt hast, sende bitte eine Nachricht an die %saur-general%s Mailing-Liste."
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"Wenn Du die E-Mail-Adresse vergessen hast, die Du für Deine Registrierung "
+"benutzt hast, sende bitte eine Nachricht an die %saur-general%s Mailing-"
+"Liste."
 
 msgid "Enter your e-mail address:"
 msgstr "Gib Deine E-Mail-Adresse ein:"
 
 msgid "Cannot find package to merge votes and comments into."
-msgstr "Das Paket, in das die Stimmen und Kommentare übernommen werden sollen, kann nicht gefunden werden."
+msgstr ""
+"Das Paket, in das die Stimmen und Kommentare übernommen werden sollen, kann "
+"nicht gefunden werden."
 
 msgid "Cannot merge a package base with itself."
-msgstr ""
+msgstr "Eine Paketbasis kann nicht mit sich selbst verschmolzen werden."
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Die ausgewählten Pakete wurden nicht gelöscht, bitte aktiviere die Bestätigungs-Checkbox."
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr ""
+"Die ausgewählten Pakete wurden nicht gelöscht, bitte aktiviere die "
+"Bestätigungs-Checkbox."
 
 msgid "Package Deletion"
 msgstr "Pakete entfernen"
@@ -291,7 +332,9 @@ msgstr "Paket löschen: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Benutze dieses Formular um die Paketbasis %s%s%s und die folgenden Pakete vom AUR zu löschen:"
+msgstr ""
+"Benutze dieses Formular um die Paketbasis %s%s%s und die folgenden Pakete "
+"vom AUR zu löschen:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "Die Löschung eines Pakets ist endgültig."
@@ -317,16 +360,22 @@ msgstr "Verschmelze Paket: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Benutze dieses Formular um die Paketbasis %s%s%s in ein anderes Paket zu verschmelzen."
+msgstr ""
+"Benutze dieses Formular um die Paketbasis %s%s%s in ein anderes Paket zu "
+"verschmelzen."
 
 msgid "The following packages will be deleted: "
 msgstr "Die folgenden Pakete werden gelöscht:"
 
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr "Wenn das Paket einmal verschmolzen ist, kann diese Aktion nicht mehr revidiert werden."
+msgstr ""
+"Wenn das Paket einmal verschmolzen ist, kann diese Aktion nicht mehr "
+"revidiert werden."
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr "Trag den Namen des Pakets ein, in welches Du das vorliegende Paket verschmelzen willst."
+msgstr ""
+"Trag den Namen des Pakets ein, in welches Du das vorliegende Paket "
+"verschmelzen willst."
 
 msgid "Merge into:"
 msgstr "Verschmelze in:"
@@ -338,7 +387,8 @@ msgid "Merge"
 msgstr "Verschmelzen"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr "Nur vertrauenswürdige Benutzer und Entwickler können Pakete verschmelzen."
+msgstr ""
+"Nur vertrauenswürdige Benutzer und Entwickler können Pakete verschmelzen."
 
 msgid "File Request"
 msgstr "Datei Anfrage"
@@ -363,7 +413,8 @@ msgstr "Anfragen"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Fehler - Hochgeladene Datei ist größer als die maximal erlaubte Größe (%s)"
+msgstr ""
+"Fehler - Hochgeladene Datei ist größer als die maximal erlaubte Größe (%s)"
 
 msgid "Error - File partially uploaded"
 msgstr "Fehler - Datei wurde teilweise hochgeladen"
@@ -378,21 +429,25 @@ msgid "Error - File could not be written"
 msgstr "Fehler - Datei konnte nicht geschrieben werden"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by"
-" makepkg(8) only)."
-msgstr "Fehler - Nicht unterstütztes Dateiformat (bitte übermittle nur Dateien im tar.gz-Format von makepkg(8))."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+"Fehler - Nicht unterstütztes Dateiformat (bitte übermittle nur Dateien im "
+"tar.gz-Format von makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Fehler - Unkomprimierte Datei zu groß."
 
 msgid "Error - source tarball may not contain files outside a directory."
-msgstr "Fehler - Tarball darf keine Dateien außerhalb eines Verzeichnisses enthalten."
+msgstr ""
+"Fehler - Tarball darf keine Dateien außerhalb eines Verzeichnisses enthalten."
 
 msgid "Error - all files must have permissions of 644 or 755."
 msgstr "Fehler - alle Dateien brauchen Berechtigungen von 644 oder 755."
 
 msgid "Error - source tarball may not contain nested subdirectories."
-msgstr "Fehler - Tarball darf keine verschachtelten Unterverzeichnisse enthalten."
+msgstr ""
+"Fehler - Tarball darf keine verschachtelten Unterverzeichnisse enthalten."
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "Fehler - Tarball darf nicht mehr als ein Verzeichnis enthalten."
@@ -401,11 +456,12 @@ msgid "Error - all directories must have permissions of 755."
 msgstr "Fehler - alle Verzeichnisse brauchen Berechtigungen von 755."
 
 msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Fehler beim Entpacken der hochgeladenen Datei - PKGBUILD existiert nicht."
+msgstr ""
+"Fehler beim Entpacken der hochgeladenen Datei - PKGBUILD existiert nicht."
 
 msgid ""
-"The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages."
+"The source package does not contain any meta data. Please use `makepkg --"
+"source` from pacman 4.2.0 or newer to create AUR source packages."
 msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
@@ -438,7 +494,9 @@ msgstr "Fehler - Paketversionen dürfen nicht länger als %d Zeichen sein"
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr "%s ist auf der Paket-Blacklist. Bitte sieh nach, ob es in einem offiziellen Repository ist."
+msgstr ""
+"%s ist auf der Paket-Blacklist. Bitte sieh nach, ob es in einem offiziellen "
+"Repository ist."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
@@ -453,8 +511,9 @@ msgid "Could not change directory to %s."
 msgstr "Es konnte nicht in das Verzeichnis %s gewechselt werden."
 
 msgid ""
-"Upload your source packages here. Create source packages with `mkaurball`."
-msgstr "Lade deine Quellpakete hier hoch. Erzeuge Quellpakete mit `mkaurball`."
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "Paket-Kategorie"
@@ -487,7 +546,8 @@ msgid "Only Trusted Users are allowed to vote."
 msgstr "Nur Trusted User dürfen wählen."
 
 msgid "You cannot vote in an proposal about you."
-msgstr "Du kannst über einen Vorschlag, der dich selbst betrifft, nicht abstimmen."
+msgstr ""
+"Du kannst über einen Vorschlag, der dich selbst betrifft, nicht abstimmen."
 
 msgid "You've already voted for this proposal."
 msgstr "Du hast über diesen Vorschlag bereits abgestimmt."
@@ -507,7 +567,10 @@ msgstr "Abstimmende"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Die Registrierung ist aktuell für deine IP-Adresse deaktiviert. Ein möglicher Grund können anhaltende Spam-Attacken sein. Bitte entschuldige die Unannehmlichkeiten."
+msgstr ""
+"Die Registrierung ist aktuell für deine IP-Adresse deaktiviert. Ein "
+"möglicher Grund können anhaltende Spam-Attacken sein. Bitte entschuldige die "
+"Unannehmlichkeiten."
 
 msgid "Missing User ID"
 msgstr "Benutzer-ID fehlt"
@@ -524,10 +587,6 @@ msgstr "Muss mit einem Buchstaben oder einer Zahl beginnen und enden"
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Kann nur einen Punkt, Unter- oder Bindestrich enthalten."
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr "Dein Passwort muss mindestens %s Zeichen lang sein."
 
 msgid "The email address is invalid."
 msgstr "Die E-Mail-Adresse ist ungültig."
@@ -565,7 +624,10 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "Willkommen bei %s! Um ein Passwort für dein neues Konto festzulegen, klick bitte auf den unten stehenden Link. Sollte das nicht funktionieren, versuche den Link zu kopieren und in deinem Browser einzufügen."
+msgstr ""
+"Willkommen bei %s! Um ein Passwort für dein neues Konto festzulegen, klick "
+"bitte auf den unten stehenden Link. Sollte das nicht funktionieren, versuche "
+"den Link zu kopieren und in deinem Browser einzufügen."
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Ein Rücksetzungscode wurde an deine E-Mail-Adresse gesendet."
@@ -581,7 +643,10 @@ msgstr "Das Konto %s%s%s wurde erfolgreich bearbeitet."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Das Loginformular ist aktuell für deine IP-Adresse deaktiviert. Ein möglicher Grund können anhaltende Spam-Attacken sein. Bitte entschuldige die Unannehmlichkeiten."
+msgstr ""
+"Das Loginformular ist aktuell für deine IP-Adresse deaktiviert. Ein "
+"möglicher Grund können anhaltende Spam-Attacken sein. Bitte entschuldige die "
+"Unannehmlichkeiten."
 
 msgid "Account suspended"
 msgstr "Konto aufgehoben"
@@ -591,7 +656,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Dein Passwort wurde zurückgesetzt. Solltest du ein neues Konto erstellt haben, verwende bitte den Bestätigungslink aus der E-Mail, um dein Passwort festzulegen.  Fordere andernfalls bitte einen Rücksetzungscode über die %sPasswort zurücksetzen%s Seite an."
+msgstr ""
+"Dein Passwort wurde zurückgesetzt. Solltest du ein neues Konto erstellt "
+"haben, verwende bitte den Bestätigungslink aus der E-Mail, um dein Passwort "
+"festzulegen.  Fordere andernfalls bitte einen Rücksetzungscode über die "
+"%sPasswort zurücksetzen%s Seite an."
 
 msgid "Bad username or password."
 msgstr "Falscher Nutzername oder falsches Passwort."
@@ -621,7 +690,8 @@ msgid "The selected packages have been flagged out-of-date."
 msgstr "Die gewählten Pakete wurden als \"veraltet\" markiert."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr "Du musst Dich anmelden, um die Markierung von Paketen entfernen zu können."
+msgstr ""
+"Du musst Dich anmelden, um die Markierung von Paketen entfernen zu können."
 
 msgid "You did not select any packages to unflag."
 msgstr "Du hast kein Paket für das Entfernen der Markierung ausgewählt."
@@ -709,6 +779,9 @@ msgstr "Die Kategorie des Pakets wurde verändert."
 msgid "View packages details for"
 msgstr "Paket-Informationen aufrufen für"
 
+msgid "You must be logged in to file package requests."
+msgstr ""
+
 msgid "The comment field must not be empty."
 msgstr "Das Kommentarfeld darf nicht leer sein."
 
@@ -730,13 +803,15 @@ msgstr "Anfrage erfolgreich geschlossen."
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr ""
+"Du kannst dieses Formular verwenden, um den AUR Account unwiderruflich zu "
+"entfernen %s."
 
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
-msgstr ""
+msgstr "%sWARNUNG%s: Diese Aktion kann nicht rückgängig gemacht werden."
 
 msgid "Confirm deletion"
-msgstr ""
+msgstr "Bestätige das Entfernen"
 
 msgid "Account Type"
 msgstr "Konto-Typ"
@@ -748,7 +823,7 @@ msgid "Developer"
 msgstr "Entwickler"
 
 msgid "Trusted User & Developer"
-msgstr ""
+msgstr "Vertrauenswürdiger Benutzer & Entwickler"
 
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
@@ -786,6 +861,7 @@ msgstr "Konto dieses Nutzers bearbeiten"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr ""
+"Klicke %shier%s, wenn du diesen Account unwiderruflich entfernen möchtest."
 
 msgid "required"
 msgstr "Notwendig"
@@ -837,27 +913,6 @@ msgstr "Mehr"
 
 msgid "No more results to display."
 msgstr "Keine weiteren Ergebnisse."
-
-msgid "No New Comment Notification"
-msgstr "Keine neue Kommentar-Benachrichtigung"
-
-msgid "New Comment Notification"
-msgstr "Neue Kommentar-Benachrichtigung"
-
-msgid "Flag Out-of-date"
-msgstr "Als \"veraltet\" markieren"
-
-msgid "UnFlag Out-of-date"
-msgstr "\"veraltet\"-Markierung entfernen"
-
-msgid "Delete Packages"
-msgstr "Pakete löschen"
-
-msgid "Merge into"
-msgstr "Verschmelzen mit"
-
-msgid "Confirm"
-msgstr "Bestätige"
 
 msgid "My Packages"
 msgstr "Meine Pakete"
@@ -934,9 +989,6 @@ msgstr "Kategorie wechseln"
 msgid "Submitter"
 msgstr "Eingereicht von"
 
-msgid "View account information for"
-msgstr "Konto-Informationen aufrufen für"
-
 #, php-format
 msgid "View account information for %s"
 msgstr "Konto-Informationen aufrufen für %s"
@@ -963,7 +1015,7 @@ msgid "Comment has been added."
 msgstr "Kommentar wurde hinzugefügt."
 
 msgid "View all comments"
-msgstr ""
+msgstr "Zeige alle Kommentare"
 
 msgid "Latest Comments"
 msgstr "Neueste Kommentare"
@@ -979,7 +1031,7 @@ msgid "Anonymous comment"
 msgstr "Anonymer Kommentar"
 
 msgid "deleted"
-msgstr ""
+msgstr "gelöscht"
 
 msgid "All comments"
 msgstr "Alle Kommentare"
@@ -1025,22 +1077,26 @@ msgstr "Quellen"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Anfrage schließen: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
+"Benutze dieses Formular, um die Anfrage für die Paketbasis %s%s%s zu "
+"schließen."
 
 msgid "Note"
-msgstr ""
+msgstr "Anmerkung"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
+"Das Kommentarfeld kann leer gelassen werden, es wird jedoch strengstens "
+"empfohlen, beim Ablehnen einer Anfrage einen Kommentar hinzuzufügen."
 
 msgid "Reason"
-msgstr ""
+msgstr "Grund"
 
 msgid "Accepted"
 msgstr "Akzeptiert"
@@ -1059,7 +1115,9 @@ msgstr "Dateianfrage: %s"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Benutze dieses Formular um eine Anfrage für die Paketbasis %s%s%s einzureichen, welche die folgenden Pakete enthält:"
+msgstr ""
+"Benutze dieses Formular um eine Anfrage für die Paketbasis %s%s%s "
+"einzureichen, welche die folgenden Pakete enthält:"
 
 msgid "Request type"
 msgstr "Anfragetyp"
@@ -1069,6 +1127,9 @@ msgstr "Löschung"
 
 msgid "Orphan"
 msgstr "Verwaist"
+
+msgid "Merge into"
+msgstr "Verschmelzen mit"
 
 #, php-format
 msgid "%d package request found."
@@ -1091,22 +1152,22 @@ msgstr "Datum"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "~%d Tage verbleibend"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d Stunde verbleibend"
+msgstr[1] "~%d Stunden verbleibend"
 
 msgid "<1 hour left"
-msgstr ""
+msgstr "<1 Stunde verbleibend"
 
 msgid "Accept"
 msgstr "Akzeptieren"
 
 msgid "Locked"
-msgstr ""
+msgstr "Gesperrt"
 
 msgid "Close"
 msgstr "Schließen"
@@ -1204,6 +1265,9 @@ msgstr "Verwaist"
 msgid "Actions"
 msgstr "Aktionen"
 
+msgid "Flag Out-of-date"
+msgstr "Als \"veraltet\" markieren"
+
 msgid "Unflag Out-of-date"
 msgstr "\"veraltet\"-Markierung entfernen"
 
@@ -1212,6 +1276,12 @@ msgstr "Pakete übernehmen"
 
 msgid "Disown Packages"
 msgstr "Betreuung der Pakete abgeben"
+
+msgid "Delete Packages"
+msgstr "Pakete löschen"
+
+msgid "Confirm"
+msgstr "Bestätige"
 
 msgid "Any type"
 msgstr "Beliebiger Typ"

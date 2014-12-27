@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # kusakata <shohei@kusakata.com>, 2013
 # kusakata <shohei@kusakata.com>, 2013
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-31 12:16+0000\n"
-"Last-Translator: kusakata <shohei@kusakata.com>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/aur/language/ja/)\n"
+"POT-Creation-Date: 2014-12-19 10:50+0100\n"
+"PO-Revision-Date: 2014-12-19 09:51+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/aur/language/"
+"ja/)\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Page Not Found"
@@ -25,6 +26,9 @@ msgstr "ページが見つかりませんでした"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "あなたがリクエストしたページは存在しませんでした。"
+
+msgid "Account"
+msgstr ""
 
 msgid "Accounts"
 msgstr "アカウント"
@@ -106,31 +110,40 @@ msgstr "ホーム"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "AUR にようこそ！AUR についての詳しい情報は %sAUR User Guidelines%s や %sAUR TU Guidelines%s を読んで下さい。"
+msgstr ""
+"AUR にようこそ！AUR についての詳しい情報は %sAUR User Guidelines%s や %sAUR "
+"TU Guidelines%s を読んで下さい。"
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "PKGBUILD を投稿するつもりならば%s必ず%s %sArch Packaging Standards%s に従って下さい。従っていないパッケージは削除されます！"
+msgstr ""
+"PKGBUILD を投稿するつもりならば%s必ず%s %sArch Packaging Standards%s に従って"
+"下さい。従っていないパッケージは削除されます！"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "お気に入りのパッケージに投票しましょう！"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "パッケージがバイナリとして [community] で提供されることになるかもしれません。"
+msgstr ""
+"パッケージがバイナリとして [community] で提供されることになるかもしれません。"
 
 msgid "Discussion"
 msgstr "議論"
 
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-"
-"dev%s mailing list."
-msgstr "Arch User Repository (AUR) や Trusted User の組織に関する議論は %saur-general%s で行なってください。パッケージの孤児リクエスト・マージリクエスト・削除リクエストについては%sパッケージアクション%sボックスから提出してください。AUR の開発に関わる議論については、%saur-dev%s メーリングリストを使って下さい。"
+"box. For discussion relating to the development of the AUR, use the %saur-dev"
+"%s mailing list."
+msgstr ""
+"Arch User Repository (AUR) や Trusted User の組織に関する議論は %saur-general"
+"%s で行なってください。パッケージの孤児リクエスト・マージリクエスト・削除リク"
+"エストについては%sパッケージアクション%sボックスから提出してください。AUR の"
+"開発に関わる議論については、%saur-dev%s メーリングリストを使って下さい。"
 
 msgid "Bug Reporting"
 msgstr "バグレポート"
@@ -141,7 +154,11 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "AUR にバグを見つけたら、私達の%sバグトラッカー%sにバグを報告してください。このトラッカーは AUR のバグ%sだけ%sを報告してください。パッケージのバグについては、パッケージメンテナに連絡するか適切なパッケージページにコメントを残して下さい。"
+msgstr ""
+"AUR にバグを見つけたら、私達の%sバグトラッカー%sにバグを報告してください。こ"
+"のトラッカーは AUR のバグ%sだけ%sを報告してください。パッケージのバグについて"
+"は、パッケージメンテナに連絡するか適切なパッケージページにコメントを残して下"
+"さい。"
 
 msgid "DISCLAIMER"
 msgstr "免責事項"
@@ -149,7 +166,9 @@ msgstr "免責事項"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "ユーザーが作成したパッケージにサポートはありません。それぞれのファイルの利用は自己責任でお願いします。"
+msgstr ""
+"ユーザーが作成したパッケージにサポートはありません。それぞれのファイルの利用"
+"は自己責任でお願いします。"
 
 msgid "Package Search"
 msgstr "パッケージ検索"
@@ -206,7 +225,8 @@ msgstr "パスワードを忘れた"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "HTTP ログインはできません。ログインするには %sHTTPs%s に切り替えてください。"
+msgstr ""
+"HTTP ログインはできません。ログインするには %sHTTPs%s に切り替えてください。"
 
 msgid "Search Criteria"
 msgstr "検索条件"
@@ -223,6 +243,10 @@ msgstr "必須項目が埋められていません。"
 msgid "Password fields do not match."
 msgstr "パスワードが一致しません。"
 
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "パスワードは最低でも %s 文字以上必要です。"
+
 msgid "Invalid e-mail."
 msgstr "不正なメールアドレス。"
 
@@ -230,7 +254,10 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr "あなたのメールアドレスと関連付けられたアカウントのパスワードのリセットリクエストが送信されました。パスワードをリセットしたいときは下のリンクを開いて下さい、そうでない場合はこのメッセージは無視して下さい。"
+msgstr ""
+"あなたのメールアドレスと関連付けられたアカウントのパスワードのリセットリクエ"
+"ストが送信されました。パスワードをリセットしたいときは下のリンクを開いて下さ"
+"い、そうでない場合はこのメッセージは無視して下さい。"
 
 msgid "Password Reset"
 msgstr "パスワードのリセット"
@@ -255,9 +282,11 @@ msgstr "続行"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "登録したメールアドレスを忘れてしまった場合は、%saur-general%s メーリングリストにメッセージを送って下さい。"
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"登録したメールアドレスを忘れてしまった場合は、%saur-general%s メーリングリス"
+"トにメッセージを送って下さい。"
 
 msgid "Enter your e-mail address:"
 msgstr "メールアドレスを入力:"
@@ -269,9 +298,10 @@ msgid "Cannot merge a package base with itself."
 msgstr "パッケージベースをそれ自体とマージすることはできません。"
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "選択されたパッケージは削除されませんでした、確認チェックボックスにチェックを入れてください。"
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr ""
+"選択されたパッケージは削除されませんでした、確認チェックボックスにチェックを"
+"入れてください。"
 
 msgid "Package Deletion"
 msgstr "パッケージの削除"
@@ -284,7 +314,9 @@ msgstr "削除するパッケージ: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "AUR からパッケージベース %s%s%s と以下のパッケージを削除するにはこのフォームを使って下さい:"
+msgstr ""
+"AUR からパッケージベース %s%s%s と以下のパッケージを削除するにはこのフォーム"
+"を使って下さい:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "パッケージの削除は戻すことができません。"
@@ -310,7 +342,9 @@ msgstr "マージするパッケージ: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "他のパッケージにパッケージベース %s%s%s をマージするにはこのフォームを使って下さい。"
+msgstr ""
+"他のパッケージにパッケージベース %s%s%s をマージするにはこのフォームを使って"
+"下さい。"
 
 msgid "The following packages will be deleted: "
 msgstr "次のパッケージが削除されます:"
@@ -356,7 +390,8 @@ msgstr "リクエスト"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "エラー - アップロードされたファイルが最大許容サイズをオーバーしています (%s)"
+msgstr ""
+"エラー - アップロードされたファイルが最大許容サイズをオーバーしています (%s)"
 
 msgid "Error - File partially uploaded"
 msgstr "エラー - ファイルが部分的にアップロードされました"
@@ -371,21 +406,25 @@ msgid "Error - File could not be written"
 msgstr "エラー - ファイルを書き込むことができませんでした"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by"
-" makepkg(8) only)."
-msgstr "エラー - サポートされていないファイルフォーマットです (makepkg(8) で生成した gzip 圧縮された tarball だけ投稿してください)。"
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+"エラー - サポートされていないファイルフォーマットです (makepkg(8) で生成した "
+"gzip 圧縮された tarball だけ投稿してください)。"
 
 msgid "Error - uncompressed file size too large."
 msgstr "エラー - 展開後のファイルサイズが大きすぎます。"
 
 msgid "Error - source tarball may not contain files outside a directory."
-msgstr "エラー - ソース tarball に入れるファイルはディレクトリに入れてください。"
+msgstr ""
+"エラー - ソース tarball に入れるファイルはディレクトリに入れてください。"
 
 msgid "Error - all files must have permissions of 644 or 755."
 msgstr "エラー - ファイルのパーミッションは全て644か755である必要があります。"
 
 msgid "Error - source tarball may not contain nested subdirectories."
-msgstr "エラー - ソース tarball にサブディレクトリをネストすることはできません。"
+msgstr ""
+"エラー - ソース tarball にサブディレクトリをネストすることはできません。"
 
 msgid "Error - source tarball may not contain more than one directory."
 msgstr "エラー - ソース tarball に複数のディレクトリを含めることはできません。"
@@ -397,9 +436,9 @@ msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "アップロードの解凍エラー - PKGBUILD が存在しません。"
 
 msgid ""
-"The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages."
-msgstr "ソースパッケージにメタデータが含まれていません。AUR のソースパッケージを作成するときは `mkaurball` を使って下さい。"
+"The source package does not contain any meta data. Please use `makepkg --"
+"source` from pacman 4.2.0 or newer to create AUR source packages."
+msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "不正な名前です: 小文字だけが使用できます。"
@@ -431,7 +470,9 @@ msgstr "エラー - パッケージのバージョンの文字数は %d 文字�
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr "%s はパッケージブラックリストに入っています、公式リポジトリから入手できないか確認してください。"
+msgstr ""
+"%s はパッケージブラックリストに入っています、公式リポジトリから入手できないか"
+"確認してください。"
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
@@ -446,8 +487,9 @@ msgid "Could not change directory to %s."
 msgstr "ディレクトリを %s に変更できませんでした。"
 
 msgid ""
-"Upload your source packages here. Create source packages with `mkaurball`."
-msgstr "あなたのソースパッケージをここでアップロードします。ソースパッケージは `mkaurball` で作成してください。"
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "パッケージカテゴリ"
@@ -500,7 +542,9 @@ msgstr "投票者"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "スパムのために、あなたのIPアドレスからアカウント登録はできません。ご迷惑をおかけして申し訳ございません。"
+msgstr ""
+"スパムのために、あなたのIPアドレスからアカウント登録はできません。ご迷惑をお"
+"かけして申し訳ございません。"
 
 msgid "Missing User ID"
 msgstr "ユーザー ID の消失"
@@ -517,10 +561,6 @@ msgstr "最初と最後の文字は英数字にしてください"
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "ピリオド、アンダーライン、ハイフンはひとつだけ含めることができます。"
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr "パスワードは最低でも %s 文字以上必要です。"
 
 msgid "The email address is invalid."
 msgstr "メールアドレスが不正です。"
@@ -558,7 +598,9 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "%s にようこそ！アカウントのパスワードを設定するために、下のリンクをクリックしてください。リンクを押せないときは、一旦ブラウザにURLをコピーしてください。"
+msgstr ""
+"%s にようこそ！アカウントのパスワードを設定するために、下のリンクをクリックし"
+"てください。リンクを押せないときは、一旦ブラウザにURLをコピーしてください。"
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "パスワードのリセットキーがあなたのメールアドレスに送られました。"
@@ -574,7 +616,9 @@ msgstr "アカウント %s%s%s の修正が完了しました。"
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "スパムのために、現在あなたのIPアドレスからはログインフォームが無効になっています。ご迷惑をおかけして申し訳ございません。"
+msgstr ""
+"スパムのために、現在あなたのIPアドレスからはログインフォームが無効になってい"
+"ます。ご迷惑をおかけして申し訳ございません。"
 
 msgid "Account suspended"
 msgstr "休眠アカウント"
@@ -584,7 +628,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "あなたのパスワードはリセットされました。新しいアカウントを作成したときは、確認メールにあるリンクからパスワードを設定してください。もしくは、%sPassword Reset%s ページでリセットキーを申請してください。"
+msgstr ""
+"あなたのパスワードはリセットされました。新しいアカウントを作成したときは、確"
+"認メールにあるリンクからパスワードを設定してください。もしくは、%sPassword "
+"Reset%s ページでリセットキーを申請してください。"
 
 msgid "Bad username or password."
 msgstr "不正なユーザー名またはパスワードです。"
@@ -702,6 +749,9 @@ msgstr "パッケージのカテゴリが変更されました。"
 msgid "View packages details for"
 msgstr "パッケージの詳細を見る"
 
+msgid "You must be logged in to file package requests."
+msgstr ""
+
 msgid "The comment field must not be empty."
 msgstr "コメント欄には何か記入して下さい。"
 
@@ -722,7 +772,8 @@ msgstr "リクエストのクローズが完了しました。"
 
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr "このフォームを使って AUR アカウント %s を恒久的に削除することができます。"
+msgstr ""
+"このフォームを使って AUR アカウント %s を恒久的に削除することができます。"
 
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
@@ -831,27 +882,6 @@ msgstr "More"
 msgid "No more results to display."
 msgstr "表示する結果はもうありません。"
 
-msgid "No New Comment Notification"
-msgstr "新しいコメントの通知はありません"
-
-msgid "New Comment Notification"
-msgstr "新しいコメントの通知"
-
-msgid "Flag Out-of-date"
-msgstr "Out-of-date フラグを立てる"
-
-msgid "UnFlag Out-of-date"
-msgstr "Out-of-date フラグを降ろす"
-
-msgid "Delete Packages"
-msgstr "パッケージの削除"
-
-msgid "Merge into"
-msgstr "マージ"
-
-msgid "Confirm"
-msgstr "確認"
-
 msgid "My Packages"
 msgstr "自分のパッケージ"
 
@@ -925,9 +955,6 @@ msgstr "カテゴリの変更"
 
 msgid "Submitter"
 msgstr "投稿者"
-
-msgid "View account information for"
-msgstr "アカウント情報を見る"
 
 #, php-format
 msgid "View account information for %s"
@@ -1021,7 +1048,9 @@ msgstr "クローズリクエスト: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr "このフォームを使ってパッケージベース %s%s%s のリクエストをクローズすることができます。"
+msgstr ""
+"このフォームを使ってパッケージベース %s%s%s のリクエストをクローズすることが"
+"できます。"
 
 msgid "Note"
 msgstr "ノート"
@@ -1029,7 +1058,9 @@ msgstr "ノート"
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "コメント欄は空でもかまいません。ただし、リクエストを却下されたときはコメントを追加することを強く推奨します。"
+msgstr ""
+"コメント欄は空でもかまいません。ただし、リクエストを却下されたときはコメント"
+"を追加することを強く推奨します。"
 
 msgid "Reason"
 msgstr "理由"
@@ -1051,7 +1082,9 @@ msgstr "リクエストを送る: %s"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "このフォームを使って以下のパッケージを含むパッケージベース %s%s%s にリクエストを送ることができます:"
+msgstr ""
+"このフォームを使って以下のパッケージを含むパッケージベース %s%s%s にリクエス"
+"トを送ることができます:"
 
 msgid "Request type"
 msgstr "リクエストの種類"
@@ -1061,6 +1094,9 @@ msgstr "削除"
 
 msgid "Orphan"
 msgstr "孤児"
+
+msgid "Merge into"
+msgstr "マージ"
 
 #, php-format
 msgid "%d package request found."
@@ -1111,10 +1147,10 @@ msgid "Name Only"
 msgstr "名前のみ"
 
 msgid "Exact Name"
-msgstr "正確な名前"
+msgstr "名前完全一致"
 
 msgid "Exact Package Base"
-msgstr "正確なパッケージベース"
+msgstr "パッケージベース完全一致"
 
 msgid "All"
 msgstr "全て"
@@ -1193,6 +1229,9 @@ msgstr "孤児"
 msgid "Actions"
 msgstr "アクション"
 
+msgid "Flag Out-of-date"
+msgstr "Out-of-date フラグを立てる"
+
 msgid "Unflag Out-of-date"
 msgstr "Out-of-date フラグを降ろす"
 
@@ -1201,6 +1240,12 @@ msgstr "パッケージの承継"
 
 msgid "Disown Packages"
 msgstr "パッケージの放棄"
+
+msgid "Delete Packages"
+msgstr "パッケージの削除"
+
+msgid "Confirm"
+msgstr "確認"
 
 msgid "Any type"
 msgstr "全てのタイプ"

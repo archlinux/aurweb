@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # archetyp <archetyp@linuxmail.org>, 2013-2014
 # Matej Ľach <matej.lach@gmail.com>, 2011
@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-11-19 20:52+0000\n"
-"Last-Translator: archetyp <archetyp@linuxmail.org>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/aur/language/sk/)\n"
+"POT-Creation-Date: 2014-12-19 10:50+0100\n"
+"PO-Revision-Date: 2014-12-19 09:51+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/aur/language/"
+"sk/)\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 msgid "Page Not Found"
@@ -24,6 +25,9 @@ msgstr "Stránka nebola nájdená"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Mrzí nás to, ale stránka, ktorú ste zadali, neexistuje."
+
+msgid "Account"
+msgstr ""
 
 msgid "Accounts"
 msgstr "Účty"
@@ -105,13 +109,17 @@ msgstr "Domov"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "Vitajte v AUR! Prečítajte si prosím %sAUR smernicu pre užívateľov%s a %sAUR smernicu pre TU%s pre ďalšie informácie."
+msgstr ""
+"Vitajte v AUR! Prečítajte si prosím %sAUR smernicu pre užívateľov%s a %sAUR "
+"smernicu pre TU%s pre ďalšie informácie."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Prispené PKGBUILDy sa %smusia%s riadiť %sArch podmienkami pre balíčky%s, inak budú vymazané!"
+msgstr ""
+"Prispené PKGBUILDy sa %smusia%s riadiť %sArch podmienkami pre balíčky%s, "
+"inak budú vymazané!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Nezabudnite hlasovať za svoje obľúbené balíčky!"
@@ -124,12 +132,16 @@ msgstr "Diskusia"
 
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-"
-"dev%s mailing list."
-msgstr "Všeobecná diskusia týkajúca sa Arch Užívateľského Repozitára (AUR) a Dôverovaných užívateľov (TU) sa koná na %saur-general%s. Žiadosti o vyvlastnenie, zlúčenie a vymazanie balíčkov treba vyplniť v kolonke %sAkcie balíčka%s. Pre diskusiu ohľadom vývoja AUR použite %saur-dev%s mailing list."
+"box. For discussion relating to the development of the AUR, use the %saur-dev"
+"%s mailing list."
+msgstr ""
+"Všeobecná diskusia týkajúca sa Arch Užívateľského Repozitára (AUR) a "
+"Dôverovaných užívateľov (TU) sa koná na %saur-general%s. Žiadosti o "
+"vyvlastnenie, zlúčenie a vymazanie balíčkov treba vyplniť v kolonke %sAkcie "
+"balíčka%s. Pre diskusiu ohľadom vývoja AUR použite %saur-dev%s mailing list."
 
 msgid "Bug Reporting"
 msgstr "Ohlasovanie chýb"
@@ -140,7 +152,10 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "Ak nájdete chybu v AUR, vyplňte prosím správu o chybe na našom %sbug trackeri%s. Použíte ho %slen%s na chyby AUR. Pre ohlásenie chýba balíčka kontaktujte spravovateľa balíčka alebo zanechajte komentár na stránke balíčka."
+msgstr ""
+"Ak nájdete chybu v AUR, vyplňte prosím správu o chybe na našom %sbug trackeri"
+"%s. Použíte ho %slen%s na chyby AUR. Pre ohlásenie chýba balíčka kontaktujte "
+"spravovateľa balíčka alebo zanechajte komentár na stránke balíčka."
 
 msgid "DISCLAIMER"
 msgstr "UPOZORNENIE"
@@ -148,7 +163,9 @@ msgstr "UPOZORNENIE"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Nepodporované balíčky sú vytvárané užívateľmi. Akékoľvek použitie poskytnutých súborov je na vaše vlastné riziko. "
+msgstr ""
+"Nepodporované balíčky sú vytvárané užívateľmi. Akékoľvek použitie "
+"poskytnutých súborov je na vaše vlastné riziko. "
 
 msgid "Package Search"
 msgstr "Hľadanie balíčka"
@@ -205,7 +222,9 @@ msgstr "Zabudnuté heslo"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "HTTP prihlasovanie je zablokované. Pre prihlásenie prosím %sprepnite na HTTPs%s."
+msgstr ""
+"HTTP prihlasovanie je zablokované. Pre prihlásenie prosím %sprepnite na HTTPs"
+"%s."
 
 msgid "Search Criteria"
 msgstr "Vyhľadávacie kritériá"
@@ -222,6 +241,10 @@ msgstr "Povinné pole nie je vyplnené."
 msgid "Password fields do not match."
 msgstr "Heslá sa nezhodujú. "
 
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Heslo musí mať aspoň %s znakov."
+
 msgid "Invalid e-mail."
 msgstr "Neplatný e-mail."
 
@@ -229,7 +252,10 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr "Požiadava na resetovanie hesla bola zaslaná na účet spojený s vašou emailovou adresou. Ak si želáte heslo resetovať, kliknite na odkaz nižšie, inak môžete túto správu ignorovať, žiadna zmena sa nestane."
+msgstr ""
+"Požiadava na resetovanie hesla bola zaslaná na účet spojený s vašou "
+"emailovou adresou. Ak si želáte heslo resetovať, kliknite na odkaz nižšie, "
+"inak môžete túto správu ignorovať, žiadna zmena sa nestane."
 
 msgid "Password Reset"
 msgstr "Obnova hesla"
@@ -254,22 +280,24 @@ msgstr "Pokračuj"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Ak ste zabudli e-mailovú adresu, ktorú ste použili pri registrácii, pošlite prosím správu na %saur-general%s mailing list."
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"Ak ste zabudli e-mailovú adresu, ktorú ste použili pri registrácii, pošlite "
+"prosím správu na %saur-general%s mailing list."
 
 msgid "Enter your e-mail address:"
 msgstr "Zadajte svoju e-mailovú adresu:"
 
 msgid "Cannot find package to merge votes and comments into."
-msgstr "Nepodarilo sa nájsť balíček, do ktorého sa mali zlúčiť hlasy a komentáre."
+msgstr ""
+"Nepodarilo sa nájsť balíček, do ktorého sa mali zlúčiť hlasy a komentáre."
 
 msgid "Cannot merge a package base with itself."
 msgstr "Nemožno zlúčiť základňu balíčka so sebou samou."
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
+"The selected packages have not been deleted, check the confirmation checkbox."
 msgstr "Vybrané balíčky neboli odstránené, začiarknite potvrdzujúce políčko."
 
 msgid "Package Deletion"
@@ -283,7 +311,9 @@ msgstr "Vymazať balíček: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Použite tento formulár pre vymazanie základne balíčka %s%s%s a nasledovných balíčkov z AUR: "
+msgstr ""
+"Použite tento formulár pre vymazanie základne balíčka %s%s%s a nasledovných "
+"balíčkov z AUR: "
 
 msgid "Deletion of a package is permanent. "
 msgstr "Vymazanie balíčka je nevratné."
@@ -309,7 +339,9 @@ msgstr "Zlúčiť balíček: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Použite tento formulár pre zlúčenie základne balíčka %s%s%s do iného balíčka. "
+msgstr ""
+"Použite tento formulár pre zlúčenie základne balíčka %s%s%s do iného "
+"balíčka. "
 
 msgid "The following packages will be deleted: "
 msgstr "Nasledujúce balíčky budú vymazané:"
@@ -355,7 +387,9 @@ msgstr "Žiadosti"
 
 #, php-format
 msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Chyba - veľkosť nahrávaného súboru je väčšia ako maximálna povolená veľkosť (%s)"
+msgstr ""
+"Chyba - veľkosť nahrávaného súboru je väčšia ako maximálna povolená veľkosť "
+"(%s)"
 
 msgid "Error - File partially uploaded"
 msgstr "Chyba - súbor bol nahraný iba čiastočne"
@@ -370,9 +404,11 @@ msgid "Error - File could not be written"
 msgstr "Chyba - súbor sa nepodarilo zapísať"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by"
-" makepkg(8) only)."
-msgstr "Chyba - nepodporovaný formát súboru (odosielajte prosím vylúčne gzip-ovaný tarball vytvorený makepkg(8))."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+"Chyba - nepodporovaný formát súboru (odosielajte prosím vylúčne gzip-ovaný "
+"tarball vytvorený makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Chyba - nekomprimovaný súbor je príliš veľký."
@@ -396,9 +432,9 @@ msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Chyba pri rozbaľovaní nahraného súboru - PKGBUILD neexistuje. "
 
 msgid ""
-"The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages."
-msgstr "Zdrojový balíček neobsahuje žiadne metadáta. Použite prosím `mkaurball` pre vytvorenie zdrojových balíčkov pre AUR."
+"The source package does not contain any meta data. Please use `makepkg --"
+"source` from pacman 4.2.0 or newer to create AUR source packages."
+msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Neplatné meno: povolené sú iba malé písmená."
@@ -430,7 +466,9 @@ msgstr "Chyba - verzia balíčka nemôže obsahovať viac ako %d znakov"
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr "%s je na čiernej listine, overte prosím či balíček nie je dostupný v oficiálnych repozitároch."
+msgstr ""
+"%s je na čiernej listine, overte prosím či balíček nie je dostupný v "
+"oficiálnych repozitároch."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
@@ -445,8 +483,9 @@ msgid "Could not change directory to %s."
 msgstr "Nepodarilo sa zmeniť adresár na %s."
 
 msgid ""
-"Upload your source packages here. Create source packages with `mkaurball`."
-msgstr "Tu môžete nahrať svoje zdrojové balíčky. Zdrojové balíčky vytvoríte príkazom  `mkaurball`."
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "Kategória"
@@ -499,7 +538,9 @@ msgstr "Hlasujúci"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Registrácia účtu bolo zablokovaná pre vašu IP adresu, pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
+msgstr ""
+"Registrácia účtu bolo zablokovaná pre vašu IP adresu, pravdepodobne z dôvodu "
+"stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
 
 msgid "Missing User ID"
 msgstr "Chýba ID užívateľa"
@@ -516,10 +557,6 @@ msgstr "Začínať a končiť s písmenom alebo číslom"
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Môže obsahovať len jednu bodku, podčiarkovník alebo pomlčku."
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr "Heslo musí mať aspoň %s znakov."
 
 msgid "The email address is invalid."
 msgstr "E-mailová adresa nie je platná."
@@ -557,7 +594,10 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "Vitajte na %s! Pre zadanie prvotného hesla pre nový účet, kliknite prosím na link nižšie. Ak link nefunguje, skúste ho skopírovať a vložiť do vašeho prehliadača."
+msgstr ""
+"Vitajte na %s! Pre zadanie prvotného hesla pre nový účet, kliknite prosím na "
+"link nižšie. Ak link nefunguje, skúste ho skopírovať a vložiť do vašeho "
+"prehliadača."
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Obnovovacie heslo vám bolo zaslané na vašu e-mailovú adresu."
@@ -573,7 +613,10 @@ msgstr "Účet %s%s%s bol úspešne zmenený."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Prihlasovací formulár je v súčasnosti zablokovaný pre vašu IP adresu, pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa ospravedlňujeme."
+msgstr ""
+"Prihlasovací formulár je v súčasnosti zablokovaný pre vašu IP adresu, "
+"pravdepodobne z dôvodu stálych spamových útokov. Za nepríjemnosť sa "
+"ospravedlňujeme."
 
 msgid "Account suspended"
 msgstr "Účet bol pozastavený"
@@ -583,7 +626,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Vaše heslo bolo obnovené. Ak ste si práve vytvorili  nový účet, použite prosím link z potvrdzovacieho emailu na nastavenie prvotného hesla. Inak prosím zašlite požiadavku na obnovenie hesla na stránku %sObnova hesla%s."
+msgstr ""
+"Vaše heslo bolo obnovené. Ak ste si práve vytvorili  nový účet, použite "
+"prosím link z potvrdzovacieho emailu na nastavenie prvotného hesla. Inak "
+"prosím zašlite požiadavku na obnovenie hesla na stránku %sObnova hesla%s."
 
 msgid "Bad username or password."
 msgstr "Nesprávne užívateľské meno alebo heslo."
@@ -700,6 +746,9 @@ msgstr "Kategória balíčka bola zmenená."
 
 msgid "View packages details for"
 msgstr "Pozri detaily balíčky pre"
+
+msgid "You must be logged in to file package requests."
+msgstr ""
 
 msgid "The comment field must not be empty."
 msgstr "Pole s komentárom nemôže byť prázdne."
@@ -830,27 +879,6 @@ msgstr "Viac"
 msgid "No more results to display."
 msgstr "Nie sú ďalšie výsledky na zobrazenie."
 
-msgid "No New Comment Notification"
-msgstr "Zrušenie upozornenia na nové komentáre"
-
-msgid "New Comment Notification"
-msgstr "Upozornenie na nové komentáre"
-
-msgid "Flag Out-of-date"
-msgstr "Označ ako neaktuálny."
-
-msgid "UnFlag Out-of-date"
-msgstr "Odznač ako neaktuálny."
-
-msgid "Delete Packages"
-msgstr "Vymaž balíčky"
-
-msgid "Merge into"
-msgstr "Zlúčiť do"
-
-msgid "Confirm"
-msgstr "Potvrď"
-
 msgid "My Packages"
 msgstr "Moje balíčky"
 
@@ -926,9 +954,6 @@ msgstr "Zmeniť kategóriu"
 
 msgid "Submitter"
 msgstr "Prispievateľ"
-
-msgid "View account information for"
-msgstr "Pozri informácie o účte pre"
 
 #, php-format
 msgid "View account information for %s"
@@ -1022,7 +1047,8 @@ msgstr "Uzavrieť požiadavku: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr "Použite tento formulár pre zatvorenie požiadavky na základňu balíčka %s%s%s."
+msgstr ""
+"Použite tento formulár pre zatvorenie požiadavky na základňu balíčka %s%s%s."
 
 msgid "Note"
 msgstr "Poznámka"
@@ -1030,7 +1056,9 @@ msgstr "Poznámka"
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "Políčko pre komentár možno nechať prázdne. Napriek tomu sa odporúča zanechať komentár pri zamietnutí požiadavky."
+msgstr ""
+"Políčko pre komentár možno nechať prázdne. Napriek tomu sa odporúča zanechať "
+"komentár pri zamietnutí požiadavky."
 
 msgid "Reason"
 msgstr "Dôvod"
@@ -1052,7 +1080,9 @@ msgstr "Vyplniť žiadosť: %s"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Použite tento formulár na vyplnenie požiadavky ohľadom základne balíčka %s%s%s ktorá zahrňuje nasledovné balíčky:"
+msgstr ""
+"Použite tento formulár na vyplnenie požiadavky ohľadom základne balíčka %s%s"
+"%s ktorá zahrňuje nasledovné balíčky:"
 
 msgid "Request type"
 msgstr "Typ žiadosti"
@@ -1062,6 +1092,9 @@ msgstr "Vymazanie"
 
 msgid "Orphan"
 msgstr "Vyvlastniť"
+
+msgid "Merge into"
+msgstr "Zlúčiť do"
 
 #, php-format
 msgid "%d package request found."
@@ -1200,6 +1233,9 @@ msgstr "osirelý"
 msgid "Actions"
 msgstr "Akcie"
 
+msgid "Flag Out-of-date"
+msgstr "Označ ako neaktuálny."
+
 msgid "Unflag Out-of-date"
 msgstr "Odznač ako neaktuálny"
 
@@ -1208,6 +1244,12 @@ msgstr "Adoptuj balíčky"
 
 msgid "Disown Packages"
 msgstr "Vyvlastni balíčky"
+
+msgid "Delete Packages"
+msgstr "Vymaž balíčky"
+
+msgid "Confirm"
+msgstr "Potvrď"
 
 msgid "Any type"
 msgstr "Ľub. typ"

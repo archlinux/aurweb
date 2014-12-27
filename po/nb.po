@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Alexander F Rødseth <rodseth@gmail.com>, 2011,2013-2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
@@ -9,14 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-07-29 18:33+0200\n"
-"PO-Revision-Date: 2014-07-30 11:23+0000\n"
-"Last-Translator: Alexander F Rødseth <rodseth@gmail.com>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/aur/language/nb/)\n"
+"POT-Creation-Date: 2014-12-19 10:50+0100\n"
+"PO-Revision-Date: 2014-12-19 09:51+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/aur/"
+"language/nb/)\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Page Not Found"
@@ -24,6 +25,9 @@ msgstr "Finner ikke siden"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Den ønskede siden finnes ikke."
+
+msgid "Account"
+msgstr ""
 
 msgid "Accounts"
 msgstr "Kontoer"
@@ -105,13 +109,17 @@ msgstr "Hjem"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "Velkommen til AUR! Vennligst les %sAUR Brukerveiledning%s og %sAUR TU Veiledning%s for mer informasjon."
+msgstr ""
+"Velkommen til AUR! Vennligst les %sAUR Brukerveiledning%s og %sAUR TU "
+"Veiledning%s for mer informasjon."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Innsendte PKGBUILD-filer %små%s følge %sStandarden for Arch Pakker%s ellers vil de bli slettet!"
+msgstr ""
+"Innsendte PKGBUILD-filer %små%s følge %sStandarden for Arch Pakker%s ellers "
+"vil de bli slettet!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "Husk å stemme på dine favorittpakker!"
@@ -124,12 +132,17 @@ msgstr "Diskusjon"
 
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-"
-"dev%s mailing list."
-msgstr "Generell diskusjon om strukturen rundt Arch sin brukerstyrte pakkebrønn (AUR) og betrodde brukere, foregår på %saur-general%s. Nye forespørsler om å gjøre pakker foreldreløse, slå sammen og slette pakker kan opprettes i %sPakkehandling%s-boksen. For diskusjon om utviklingen av AUR, bruk epostlisten %saur-dev%s."
+"box. For discussion relating to the development of the AUR, use the %saur-dev"
+"%s mailing list."
+msgstr ""
+"Generell diskusjon om strukturen rundt Arch sin brukerstyrte pakkebrønn "
+"(AUR) og betrodde brukere, foregår på %saur-general%s. Nye forespørsler om å "
+"gjøre pakker foreldreløse, slå sammen og slette pakker kan opprettes i "
+"%sPakkehandling%s-boksen. For diskusjon om utviklingen av AUR, bruk "
+"epostlisten %saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Feilrapportering"
@@ -140,7 +153,11 @@ msgid ""
 "tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
 "packaging bugs contact the package maintainer or leave a comment on the "
 "appropriate package page."
-msgstr "Hvis du finner en feil i AUR, vennligst fyll ut en feilrepport i vårt %sfeilregister%s. Bruk %skun%s registeret for å rapportere feil om AUR. For å rapportere feil i pakker, kontakt eieren av pakken eller legg igjen en kommentar for pakken det gjelder."
+msgstr ""
+"Hvis du finner en feil i AUR, vennligst fyll ut en feilrepport i vårt "
+"%sfeilregister%s. Bruk %skun%s registeret for å rapportere feil om AUR. For "
+"å rapportere feil i pakker, kontakt eieren av pakken eller legg igjen en "
+"kommentar for pakken det gjelder."
 
 msgid "DISCLAIMER"
 msgstr "ANSVARSFRASKRIVELSE"
@@ -148,7 +165,9 @@ msgstr "ANSVARSFRASKRIVELSE"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Uoffisielle pakker har innhold produsert av andre brukere. All bruk av de tilgjengelige filene er på eget ansvar."
+msgstr ""
+"Uoffisielle pakker har innhold produsert av andre brukere. All bruk av de "
+"tilgjengelige filene er på eget ansvar."
 
 msgid "Package Search"
 msgstr "Pakkesøk"
@@ -222,6 +241,10 @@ msgstr "Mangler et nødvendig felt."
 msgid "Password fields do not match."
 msgstr "Passord-feltene stemmer ikke overens."
 
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Passordet ditt må være minst %s tegn."
+
 msgid "Invalid e-mail."
 msgstr "Ugyldig e-post."
 
@@ -229,13 +252,18 @@ msgid ""
 "A password reset request was submitted for the account associated with your "
 "e-mail address. If you wish to reset your password follow the link below, "
 "otherwise ignore this message and nothing will happen."
-msgstr "Tilbakestilling av passord for kontoen som er knyttet til din e-post adresse ble sendt. Følg lenken nedenfor hvis du ønsker å tilbakestille passordet ditt, eller ignorer denne beskjeden og ingenting vil skje."
+msgstr ""
+"Tilbakestilling av passord for kontoen som er knyttet til din e-post adresse "
+"ble sendt. Følg lenken nedenfor hvis du ønsker å tilbakestille passordet "
+"ditt, eller ignorer denne beskjeden og ingenting vil skje."
 
 msgid "Password Reset"
 msgstr "Tilbakestill passord"
 
 msgid "Check your e-mail for the confirmation link."
-msgstr "Sjekk e-posten din og bruk den tilsendte lenken for å bekrefte registreringen."
+msgstr ""
+"Sjekk e-posten din og bruk den tilsendte lenken for å bekrefte "
+"registreringen."
 
 msgid "Your password has been reset successfully."
 msgstr "Passordet ditt har blitt tilbakestilt."
@@ -254,9 +282,11 @@ msgstr "Fortsett"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Hvis du har glemt e-post adressen du brukte for å registrere deg, så kan du sende en e-post til listen %saur-general%s."
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"Hvis du har glemt e-post adressen du brukte for å registrere deg, så kan du "
+"sende en e-post til listen %saur-general%s."
 
 msgid "Enter your e-mail address:"
 msgstr "Fyll ut e-post adressen din:"
@@ -268,9 +298,9 @@ msgid "Cannot merge a package base with itself."
 msgstr "Kan ikke slå sammen en basispakke med seg selv."
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr "Den valgte pakken har ikke blitt slettet, kryss av i boksen for å bekrefte."
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr ""
+"Den valgte pakken har ikke blitt slettet, kryss av i boksen for å bekrefte."
 
 msgid "Package Deletion"
 msgstr "Sletting av pakke"
@@ -283,7 +313,9 @@ msgstr "Slett pakke: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Bruk dette skjemaet for å slette grunnpakken %s%s%s og følgende pakker fra AUR:"
+msgstr ""
+"Bruk dette skjemaet for å slette grunnpakken %s%s%s og følgende pakker fra "
+"AUR:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "Slettingen av en pakke er permanent. "
@@ -309,7 +341,8 @@ msgstr "Slå sammen pakke: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Bruk dette skjemaet for å slå sammen grunnpakken %s%s%s med en annen pakke."
+msgstr ""
+"Bruk dette skjemaet for å slå sammen grunnpakken %s%s%s med en annen pakke."
 
 msgid "The following packages will be deleted: "
 msgstr "Følgende pakker vil slettes:"
@@ -370,15 +403,18 @@ msgid "Error - File could not be written"
 msgstr "Feil - Kunne ikke skrive til fil"
 
 msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by"
-" makepkg(8) only)."
-msgstr "Feil - filformatet støttes ikke (vennligst send kun inn gzippede kildepakker som er laget med makepkg(8))."
+"Error - unsupported file format (please submit gzip'ed tarballs generated by "
+"makepkg(8) only)."
+msgstr ""
+"Feil - filformatet støttes ikke (vennligst send kun inn gzippede kildepakker "
+"som er laget med makepkg(8))."
 
 msgid "Error - uncompressed file size too large."
 msgstr "Feil - den ukomprimerte filstørrelsen er for stor."
 
 msgid "Error - source tarball may not contain files outside a directory."
-msgstr "Feil - kildepakken kan ikke inneholde filer som ikke også er i en mappe."
+msgstr ""
+"Feil - kildepakken kan ikke inneholde filer som ikke også er i en mappe."
 
 msgid "Error - all files must have permissions of 644 or 755."
 msgstr "Feil - alle filer må ha filtilgangen 644 eller 755 satt."
@@ -396,9 +432,9 @@ msgid "Error trying to unpack upload - PKGBUILD does not exist."
 msgstr "Feil oppstod under utpakking av opplastet fil - PKGBUILD finnes ikke."
 
 msgid ""
-"The source package does not contain any meta data. Please use `mkaurball` to"
-" create AUR source packages."
-msgstr "Kildepakken inneholder ingen metadata. Bruk `mkaurball` for å lage kildepakker for AUR."
+"The source package does not contain any meta data. Please use `makepkg --"
+"source` from pacman 4.2.0 or newer to create AUR source packages."
+msgstr ""
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Ugyldig navn: kun små bokstaver er lov."
@@ -430,7 +466,9 @@ msgstr "Feil - Pakkens versjon kan ikke inneholde mer enn %d bokstaver"
 msgid ""
 "%s is on the package blacklist, please check if it's available in the "
 "official repos."
-msgstr "Pakken %s er på svartelista. Sjekk om den allerede finnes i de offisielle pakkebrønnene."
+msgstr ""
+"Pakken %s er på svartelista. Sjekk om den allerede finnes i de offisielle "
+"pakkebrønnene."
 
 #, php-format
 msgid "You are not allowed to overwrite the %s%s%s package."
@@ -445,8 +483,9 @@ msgid "Could not change directory to %s."
 msgstr "Kunne ikke åpne %s-mappen."
 
 msgid ""
-"Upload your source packages here. Create source packages with `mkaurball`."
-msgstr "Last opp kildepakken din her. Lag kildepakker med `mkaurball`."
+"Upload your source packages here. Create source packages with `makepkg --"
+"source`."
+msgstr ""
 
 msgid "Package Category"
 msgstr "Pakkekategori"
@@ -499,7 +538,10 @@ msgstr "Velgere"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Funksjonen for registrering av nye kontoer har blitt slått av for din IP adresse, sannsynligvis på grunn av vedvarende spam-angrep. Vi beklager ulempen dette medfører."
+msgstr ""
+"Funksjonen for registrering av nye kontoer har blitt slått av for din IP "
+"adresse, sannsynligvis på grunn av vedvarende spam-angrep. Vi beklager "
+"ulempen dette medfører."
 
 msgid "Missing User ID"
 msgstr "Mangler bruker-ID"
@@ -516,10 +558,6 @@ msgstr "Start og slutt med en bokstav eller et siffer"
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Kan kun innehold ett punktum, en understrek, eller en bindestrek."
-
-#, php-format
-msgid "Your password must be at least %s characters."
-msgstr "Passordet ditt må være minst %s tegn."
 
 msgid "The email address is invalid."
 msgstr "E-postadressen er ugyldig."
@@ -557,7 +595,10 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "Velkommen til %s! Lag et passord for din nye konto ved å trykke på lenken nedenfor. Dersom lenken ikke virker, kopier og lim adressen inn i nettleseren din."
+msgstr ""
+"Velkommen til %s! Lag et passord for din nye konto ved å trykke på lenken "
+"nedenfor. Dersom lenken ikke virker, kopier og lim adressen inn i "
+"nettleseren din."
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Nullstillingskode har blitt sendt til e-post adressen din."
@@ -573,7 +614,9 @@ msgstr "Kontoen, %s%s%s, har nå blitt endret."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Inlogging er slått av for din IP adresse, sannsynligvis på grunn av vedvarende spam-angrep. Beklager ulempen dette medfører."
+msgstr ""
+"Inlogging er slått av for din IP adresse, sannsynligvis på grunn av "
+"vedvarende spam-angrep. Beklager ulempen dette medfører."
 
 msgid "Account suspended"
 msgstr "Kontoen er stengt"
@@ -583,7 +626,11 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Passordet har blitt nullstilt. Dersom du akkurat laget en ny konto, vennligst følg lenken som ble sendt på e-post og sett så et nytt passord. Ellers kan du bruke %sNullstill Passord% siden til å få tilsendt en nullstillingskode."
+msgstr ""
+"Passordet har blitt nullstilt. Dersom du akkurat laget en ny konto, "
+"vennligst følg lenken som ble sendt på e-post og sett så et nytt passord. "
+"Ellers kan du bruke %sNullstill Passord% siden til å få tilsendt en "
+"nullstillingskode."
 
 msgid "Bad username or password."
 msgstr "Ugyldig brukernavn eller passord."
@@ -613,7 +660,8 @@ msgid "The selected packages have been flagged out-of-date."
 msgstr "De valgte pakkene har nå blitt markert som utdaterte."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr "Du må være logget inn før du kan fjerne \"utdatert\"-markeringen fra pakker."
+msgstr ""
+"Du må være logget inn før du kan fjerne \"utdatert\"-markeringen fra pakker."
 
 msgid "You did not select any packages to unflag."
 msgstr "Ingen pakker ble valgt for å fjerne markeringer fra."
@@ -700,6 +748,9 @@ msgstr "Pakkekategori endret."
 
 msgid "View packages details for"
 msgstr "Vis pakkedetaljer for"
+
+msgid "You must be logged in to file package requests."
+msgstr ""
 
 msgid "The comment field must not be empty."
 msgstr "Kommentarfeltet kan ikke være tomt."
@@ -830,27 +881,6 @@ msgstr "Flere"
 msgid "No more results to display."
 msgstr "Ingen flere resultater å vise."
 
-msgid "No New Comment Notification"
-msgstr "Ingen ny påminnelse om kommentarer"
-
-msgid "New Comment Notification"
-msgstr "Ny påminnelse om kommentar"
-
-msgid "Flag Out-of-date"
-msgstr "Marker som utdatert"
-
-msgid "UnFlag Out-of-date"
-msgstr "Fjern markering"
-
-msgid "Delete Packages"
-msgstr "Slett pakker"
-
-msgid "Merge into"
-msgstr "Flett med"
-
-msgid "Confirm"
-msgstr "Bekreft"
-
 msgid "My Packages"
 msgstr "Mine pakker"
 
@@ -925,9 +955,6 @@ msgstr "Endre kategori"
 
 msgid "Submitter"
 msgstr "Innsender"
-
-msgid "View account information for"
-msgstr "Vis kontoinformasjon for"
 
 #, php-format
 msgid "View account information for %s"
@@ -1029,7 +1056,9 @@ msgstr "OBS"
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "Kommentarfeltet kan stå tomt, men det anbefales å legge igjen en melding når en forespørsel avvises."
+msgstr ""
+"Kommentarfeltet kan stå tomt, men det anbefales å legge igjen en melding når "
+"en forespørsel avvises."
 
 msgid "Reason"
 msgstr "Begrunnelse"
@@ -1051,7 +1080,9 @@ msgstr "Send inn forespørsel: %s"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Bruk dette skjemaet for å registrere en forespørsel for grunnpakken %s%s%s som inkluderer følgende pakker:"
+msgstr ""
+"Bruk dette skjemaet for å registrere en forespørsel for grunnpakken %s%s%s "
+"som inkluderer følgende pakker:"
 
 msgid "Request type"
 msgstr "Type forespørsel"
@@ -1061,6 +1092,9 @@ msgstr "Sletting"
 
 msgid "Orphan"
 msgstr "Hjemløs"
+
+msgid "Merge into"
+msgstr "Flett med"
 
 #, php-format
 msgid "%d package request found."
@@ -1196,6 +1230,9 @@ msgstr "foreldreløs"
 msgid "Actions"
 msgstr "Handlinger"
 
+msgid "Flag Out-of-date"
+msgstr "Marker som utdatert"
+
 msgid "Unflag Out-of-date"
 msgstr "Fjern markering"
 
@@ -1204,6 +1241,12 @@ msgstr "Adopter pakker"
 
 msgid "Disown Packages"
 msgstr "Gjør pakker foreldreløse"
+
+msgid "Delete Packages"
+msgstr "Slett pakker"
+
+msgid "Confirm"
+msgstr "Bekreft"
 
 msgid "Any type"
 msgstr "Hvilken som helst type"
