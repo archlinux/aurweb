@@ -14,6 +14,7 @@ function updates_table() {
 		$q = 'SELECT Packages.Name, Version, ModifiedTS, SubmittedTS ';
 		$q.= 'FROM Packages INNER JOIN PackageBases ON ';
 		$q.= 'Packages.PackageBaseID = PackageBases.ID ';
+		$q.= 'WHERE PackageBases.PackagerUID IS NOT NULL ';
 		$q.= 'ORDER BY ModifiedTS DESC LIMIT 10';
 		$result = $dbh->query($q);
 

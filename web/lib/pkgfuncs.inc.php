@@ -563,7 +563,7 @@ function pkg_search_page($SID="") {
 		$q_from_extra = "";
 	}
 
-	$q_where = "WHERE 1 = 1 ";
+	$q_where = 'WHERE PackageBases.PackagerUID IS NOT NULL ';
 	/*
 	 * TODO: Possibly do string matching on category to make request
 	 * variable values more sensible.
