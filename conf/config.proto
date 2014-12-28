@@ -17,9 +17,9 @@ login_timeout = 7200
 persistent_cookie_timeout = 2592000
 max_filesize_uncompressed = 8388608
 disable_http_login = 1
-aur_location = http://localhost
-cgit_uri = https://git.aur.archlinux.org/
-git_clone_uri = git://git.aur.archlinux.org/pub/git/%s.git/
+aur_location = https://aur.archlinux.org
+cgit_uri = https://aur.archlinux.org/cgit/
+git_clone_uri = ssh+git://aur@aur.archlinux.org:2222/%s.git/
 max_rpc_results = 5000
 aur_request_ml = aur-requests@archlinux.org
 request_idle_time = 1209600
@@ -32,7 +32,7 @@ git-serve-cmd = /srv/http/aur/scripts/git-integration/git-serve.py
 ssh-options = no-port-forwarding,no-X11-forwarding,no-pty
 
 [serve]
-repo-base = /pub/git/
+repo-base = /srv/http/aur/repos/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
 git-update-hook = /srv/http/aur/scripts/git-integration/git-update.py
 git-shell-cmd = /usr/bin/git-shell
