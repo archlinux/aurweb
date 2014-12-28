@@ -89,7 +89,7 @@ cmdargv = shlex.split(cmd)
 action = cmdargv[0]
 
 if action == 'git-upload-pack' or action == 'git-receive-pack':
-    path = cmdargv[1]
+    path = repo_base_path.rstrip('/') + cmdargv[1]
     if not repo_path_validate(path):
         die('invalid path: %s' % (path))
     pkgbase = repo_path_get_pkgbase(path)
@@ -99,6 +99,7 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
     os.environ["AUR_USER"] = user
     os.environ["AUR_GIT_DIR"] = path
     os.environ["AUR_PKGBASE"] = pkgbase
+    cmd = action + " '" + path + "'"
     os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
 elif action == 'setup-repo':
     if len(cmdargv) < 2:
