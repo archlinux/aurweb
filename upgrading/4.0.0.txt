@@ -3,3 +3,17 @@
 ----
 ALTER TABLE Users ADD COLUMN SSHPubKey VARCHAR(4096) NULL DEFAULT NULL;
 ----
+
+2. Create a new user and set up a patched version of the sshd as
+described in INSTALL.
+
+3. Create a directory for the package base Git repositories and run
+init-repos.py to initialize them.
+
+4. Reset the packager field of all package bases:
+
+----
+UPDATE PackageBases SET PackagerUID = NULL;
+----
+
+5. (optional) Setup cgit to browse the Git repositories via HTTP.
