@@ -1,7 +1,8 @@
 <?php
 
 $cgit_uri = config_get('options', 'cgit_uri');
-$git_clone_uri = config_get('options', 'git_clone_uri');
+$git_clone_uri_anon = sprintf(config_get('options', 'git_clone_uri_anon'), htmlspecialchars($row['Name']));
+$git_clone_uri_priv = sprintf(config_get('options', 'git_clone_uri_priv'), htmlspecialchars($row['Name']));
 
 $uid = uid_from_sid($SID);
 
@@ -160,7 +161,12 @@ $sources = pkg_sources($row["ID"]);
 	<table id="pkginfo">
 		<tr>
 			<th><?= __('Git Clone URL') . ': ' ?></th>
-			<td><?= sprintf($git_clone_uri, htmlspecialchars($row['BaseName'])) ?></td>
+			<td>
+				<a href="<?= $git_clone_uri_anon ?>"><?= $git_clone_uri_anon ?></a>
+				<?php if ($uid == $row["MaintainerUID"]): ?>
+				<br /> <a href="<?= $git_clone_uri_priv ?>"><?= $git_clone_uri_priv ?></a>
+				<?php endif; ?>
+			</td>
 		</tr>
 		<tr>
 			<th><?= __('Package Base') . ': ' ?></th>

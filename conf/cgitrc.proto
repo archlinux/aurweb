@@ -24,6 +24,6 @@ footer=/srv/http/aur/web/template/cgit/footer.html
 max-repodesc-length=50
 max-blob-size=2048
 max-stats=year
-enable-http-clone=0
+enable-http-clone=1
 
 scan-path=/srv/http/aur/repos/
