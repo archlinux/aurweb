@@ -37,6 +37,9 @@ Setup on Arch Linux
    # useradd -U -d /srv/http/aur -c 'AUR user' aur
    # chown aur:aur /srv/http/aur/.ssh/
 
-8) Run the sshd as the new user.
+8) Add, enable and start systemd unit files for the new sshd:
 
-   $ /srv/http/aur/openssh/sshd -f /srv/http/aur/.ssh/sshd_config
+   # cp /srv/http/aur/conf/aur-sshd.socket /etc/systemd/system/
+   # cp /srv/http/aur/conf/aur-sshd@.service /etc/systemd/system/
+   # systemctl enable aur-sshd.socket
+   # systemctl start aur-sshd.socket
