@@ -152,6 +152,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		readfile("./$path");
 		break;
 	case "/css/archnavbar/archlogo.png":
+	case "/css/archnavbar/aurlogo.png":
 	case "/images/AUR-logo-80.png":
 	case "/images/AUR-logo.png":
 	case "/images/favicon.ico":

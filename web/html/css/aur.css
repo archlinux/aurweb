@@ -3,6 +3,10 @@
     color: white !important;
 }
 
+#archnavbarlogo {
+    background: url('archnavbar/aurlogo.png') !important;
+}
+
 #lang_sub {
   float: right;
 }

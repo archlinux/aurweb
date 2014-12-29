@@ -28,6 +28,10 @@
     color: white !important;
 }
 
+#archnavbarlogo {
+    background: url('archnavbar/aurlogo.png') !important;
+}
+
 body {
 	padding: 0;
 	margin: 0;
