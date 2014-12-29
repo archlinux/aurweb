@@ -24,6 +24,15 @@
 
 /* END ARCH GLOBAL NAVBAR */
 
+#footer {
+    clear: both;
+    margin: 0;
+}
+
+#footer p {
+    margin: 1em;
+}
+
 #archnavbar.anb-aur ul li#anb-aur a {
     color: white !important;
 }
