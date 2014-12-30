@@ -42,8 +42,8 @@ def save_srcinfo(srcinfo, db, cur, user):
     for pkgname in srcinfo.GetPackageNames():
         pkginfo = srcinfo.GetMergedPackage(pkgname)
 
-        if 'epoch' in pkginfo and pkginfo['epoch'] > 0:
-            ver = '%d:%s-%s' % (pkginfo['epoch'], pkginfo['pkgver'],
+        if 'epoch' in pkginfo and int(pkginfo['epoch']) > 0:
+            ver = '%d:%s-%s' % (int(pkginfo['epoch']), pkginfo['pkgver'],
                                 pkginfo['pkgrel'])
         else:
             ver = '%s-%s' % (pkginfo['pkgver'], pkginfo['pkgrel'])
@@ -188,6 +188,9 @@ for commit in walker:
 
     for pkgname in srcinfo.GetPackageNames():
         pkginfo = srcinfo.GetMergedPackage(pkgname)
+
+        if 'epoch' in pkginfo and not pkginfo['epoch'].isdigit():
+            die_commit('invalid epoch: %s' % (pkginfo['epoch']), commit.id)
 
         if not re.match(r'[a-z0-9][a-z0-9\.+_-]*$', pkginfo['pkgname']):
             die_commit('invalid package name: %s' % (pkginfo['pkgname']),
