@@ -6,7 +6,12 @@ Setup on Arch Linux
    $ cd /srv/http/
    $ git clone git://projects.archlinux.org/aur.git
 
-2) Setup a web server with PHP and MySQL.
+2) Setup a web server with PHP and MySQL. Configure the web server to redirect
+   all URLs to /index.php/foo/bar/. The following block can be used with nginx:
+
+    location ~ .* {
+        rewrite ^/(.*)$ /index.php/$1 last;
+    }
 
 3) Copy conf/config.proto to conf/config and adjust the configuration.
 
@@ -19,6 +24,7 @@ Setup on Arch Linux
    $ cd /srv/http/aur/
    $ git clone git://anongit.mindrot.org/openssh.git
    $ cd openssh
+   $ git checkout V_6_7_P1
    $ git am ../scripts/git-integration/0001-Patch-sshd-for-the-AUR.patch
    $ autoreconf
    $ ./configure
