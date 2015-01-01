@@ -21,6 +21,7 @@ repo_base_path = config.get('serve', 'repo-base')
 repo_regex = config.get('serve', 'repo-regex')
 git_update_hook = config.get('serve', 'git-update-hook')
 git_shell_cmd = config.get('serve', 'git-shell-cmd')
+ssh_cmdline = config.get('serve', 'ssh-cmdline')
 
 def repo_path_validate(path):
     if not path.startswith(repo_base_path):
@@ -38,7 +39,7 @@ def repo_path_get_pkgbase(path):
 
 def setup_repo(repo, user):
     if not re.match(repo_regex, repo):
-        die('invalid repository name: %s' % (repo))
+        die('%s: invalid repository name: %s' % (action, repo))
 
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
@@ -47,12 +48,12 @@ def setup_repo(repo, user):
 
     cur.execute("SELECT COUNT(*) FROM PackageBases WHERE Name = %s ", [repo])
     if cur.fetchone()[0] > 0:
-        die('package base already exists: %s' % (repo))
+        die('%s: package base already exists: %s' % (action, repo))
 
     cur.execute("SELECT ID FROM Users WHERE Username = %s ", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
-        die('unknown user: %s' % (user))
+        die('%s: unknown user: %s' % (action, user))
 
     cur.execute("INSERT INTO PackageBases (Name, SubmittedTS, ModifiedTS, " +
                 "SubmitterUID) VALUES (%s, UNIX_TIMESTAMP(), " +
@@ -81,21 +82,26 @@ def die(msg):
     sys.stderr.write("%s\n" % (msg))
     exit(1)
 
+def die_with_help(msg):
+    die(msg + "\nTry `%s help` for a list of commands." % (ssh_cmdline))
+
 user = sys.argv[1]
 cmd = os.environ.get("SSH_ORIGINAL_COMMAND")
 if not cmd:
-    die('no command specified')
+    die_with_help("Interactive shell is disabled.")
 cmdargv = shlex.split(cmd)
 action = cmdargv[0]
 
 if action == 'git-upload-pack' or action == 'git-receive-pack':
+    if len(cmdargv) < 2:
+        die_with_help("%s: missing path" % (action))
     path = repo_base_path.rstrip('/') + cmdargv[1]
     if not repo_path_validate(path):
-        die('invalid path: %s' % (path))
+        die('%s: invalid path: %s' % (action, path))
     pkgbase = repo_path_get_pkgbase(path)
     if action == 'git-receive-pack':
         if not check_permissions(pkgbase, user):
-            die('permission denied: %s' % (user))
+            die('%s: permission denied: %s' % (action, user))
     os.environ["AUR_USER"] = user
     os.environ["AUR_GIT_DIR"] = path
     os.environ["AUR_PKGBASE"] = pkgbase
@@ -103,7 +109,15 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
     os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
 elif action == 'setup-repo':
     if len(cmdargv) < 2:
-        die('missing repository name')
+        die_with_help("%s: missing repository name" % (action))
+    if len(cmdargv) > 2:
+        die_with_help("%s: too many arguments" % (action))
     setup_repo(cmdargv[1], user)
+elif action == 'help':
+    die("Commands:\n" +
+        "  help                 Show this help message and exit.\n" +
+        "  setup-repo <name>    Create an empty repository.\n" +
+        "  git-receive-pack     Internal command used with Git.\n" +
+        "  git-upload-pack      Internal command used with Git.")
 else:
-    die('invalid command: %s' % (action))
+    die_with_help("invalid command: %s" % (action))
