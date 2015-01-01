@@ -37,6 +37,23 @@ def repo_path_get_pkgbase(path):
         pkgbase = pkgbase[:-4]
     return pkgbase
 
+def list_repos(user):
+    db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
+                                 passwd=aur_db_pass, db=aur_db_name,
+                                 unix_socket=aur_db_socket)
+    cur = db.cursor()
+
+    cur.execute("SELECT ID FROM Users WHERE Username = %s ", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        die('%s: unknown user: %s' % (action, user))
+
+    cur.execute("SELECT Name, PackagerUID FROM PackageBases " +
+                "WHERE MaintainerUID = %s ", [userid])
+    for row in cur:
+        print((' ' if row[1] else '*') + row[0])
+    db.close()
+
 def setup_repo(repo, user):
     if not re.match(repo_regex, repo):
         die('%s: invalid repository name: %s' % (action, repo))
@@ -107,6 +124,10 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
     os.environ["AUR_PKGBASE"] = pkgbase
     cmd = action + " '" + path + "'"
     os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
+elif action == 'list-repos':
+    if len(cmdargv) > 1:
+        die_with_help("%s: too many arguments" % (action))
+    list_repos(user)
 elif action == 'setup-repo':
     if len(cmdargv) < 2:
         die_with_help("%s: missing repository name" % (action))
@@ -116,6 +137,7 @@ elif action == 'setup-repo':
 elif action == 'help':
     die("Commands:\n" +
         "  help                 Show this help message and exit.\n" +
+        "  list-repos           List all your repositories.\n" +
         "  setup-repo <name>    Create an empty repository.\n" +
         "  git-receive-pack     Internal command used with Git.\n" +
         "  git-upload-pack      Internal command used with Git.")
