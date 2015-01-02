@@ -26,9 +26,12 @@ ssh_cmdline = config.get('serve', 'ssh-cmdline')
 def repo_path_validate(path):
     if not path.startswith(repo_base_path):
         return False
-    if not path.endswith('.git/'):
+    if path.endswith('.git'):
+        repo = path[len(repo_base_path):-4]
+    elif path.endswith('.git/'):
+        repo = path[len(repo_base_path):-5]
+    else:
         return False
-    repo = path[len(repo_base_path):-5]
     return re.match(repo_regex, repo)
 
 def repo_path_get_pkgbase(path):
