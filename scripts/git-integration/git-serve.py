@@ -76,8 +76,8 @@ def setup_repo(repo, user):
         die('%s: unknown user: %s' % (action, user))
 
     cur.execute("INSERT INTO PackageBases (Name, SubmittedTS, ModifiedTS, " +
-                "SubmitterUID) VALUES (%s, UNIX_TIMESTAMP(), " +
-                "UNIX_TIMESTAMP(), %s)", [repo, userid])
+                "SubmitterUID, MaintainerUID) VALUES (%s, UNIX_TIMESTAMP(), " +
+                "UNIX_TIMESTAMP(), %s, %s)", [repo, userid, userid])
 
     db.commit()
     db.close()
