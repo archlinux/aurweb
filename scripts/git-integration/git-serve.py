@@ -119,6 +119,8 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
     if not repo_path_validate(path):
         die('%s: invalid path: %s' % (action, path))
     pkgbase = repo_path_get_pkgbase(path)
+    if not os.path.exists(path):
+        setup_repo(pkgbase, user)
     if action == 'git-receive-pack':
         if not check_permissions(pkgbase, user):
             die('%s: permission denied: %s' % (action, user))
