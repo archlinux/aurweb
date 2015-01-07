@@ -310,7 +310,7 @@ if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
 		<tr>
 			<th><?= __('Votes') . ': ' ?></th>
 			<?php if (has_credential(CRED_PKGBASE_LIST_VOTERS)): ?>
-			<td><a href="<?= get_pkgbase_uri($row['Name']); ?>voters/"><?= $votes ?></a></td>
+			<td><a href="<?= get_pkgbase_uri($row['BaseName']); ?>voters/"><?= $votes ?></a></td>
 			<?php else: ?>
 			<td><?= $votes ?></td>
 			<?php endif; ?>
