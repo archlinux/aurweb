@@ -19,6 +19,20 @@ aur_db_user = config.get('database', 'user')
 aur_db_pass = config.get('database', 'password')
 aur_db_socket = config.get('database', 'socket')
 
+def extract_arch_fields(pkginfo, field):
+    values = []
+
+    if field in pkginfo:
+        for val in pkginfo[field]:
+            values.append({"value": val, "arch": None})
+
+    for arch in ['i686', 'x86_64']:
+        if field + '_' + arch in pkginfo:
+            for val in pkginfo[field + '_' + arch]:
+                values.append({"value": val, "arch": arch})
+
+    return values
+
 def save_srcinfo(srcinfo, db, cur, user):
     # Obtain package base ID and previous maintainer.
     pkgbase = srcinfo._pkgbase['pkgname']
@@ -58,40 +72,39 @@ def save_srcinfo(srcinfo, db, cur, user):
         pkgid = cur.lastrowid
 
         # Add package sources.
-        for source in pkginfo['source']:
-            cur.execute("INSERT INTO PackageSources (PackageID, Source) " +
-                        "VALUES (%s, %s)", [pkgid, source])
+        for source_info in extract_arch_fields(pkginfo, 'source'):
+            cur.execute("INSERT INTO PackageSources (PackageID, Source, " +
+                        "SourceArch) VALUES (%s, %s, %s)",
+                        [pkgid, source_info['value'], source_info['arch']])
 
         # Add package dependencies.
         for deptype in ('depends', 'makedepends',
                         'checkdepends', 'optdepends'):
-            if not deptype in pkginfo:
-                continue
             cur.execute("SELECT ID FROM DependencyTypes WHERE Name = %s",
                         [deptype])
             deptypeid = cur.fetchone()[0]
-            for dep in pkginfo[deptype]:
-                depname = re.sub(r'(<|=|>).*', '', dep)
-                depcond = dep[len(depname):]
+            for dep_info in extract_arch_fields(pkginfo, deptype):
+                depname = re.sub(r'(<|=|>).*', '', dep_info['value'])
+                depcond = dep_info['value'][len(depname):]
+                deparch = dep_info['arch']
                 cur.execute("INSERT INTO PackageDepends (PackageID, " +
-                            "DepTypeID, DepName, DepCondition) " +
-                            "VALUES (%s, %s, %s, %s)", [pkgid, deptypeid,
-                                                        depname, depcond])
+                            "DepTypeID, DepName, DepCondition, DepArch) " +
+                            "VALUES (%s, %s, %s, %s, %s)",
+                            [pkgid, deptypeid, depname, depcond, deparch])
 
         # Add package relations (conflicts, provides, replaces).
         for reltype in ('conflicts', 'provides', 'replaces'):
-            if not reltype in pkginfo:
-                continue
             cur.execute("SELECT ID FROM RelationTypes WHERE Name = %s",
                         [reltype])
             reltypeid = cur.fetchone()[0]
-            for rel in pkginfo[reltype]:
-                relname = re.sub(r'(<|=|>).*', '', rel)
-                relcond = rel[len(relname):]
+            for rel_info in extract_arch_fields(pkginfo, reltype):
+                relname = re.sub(r'(<|=|>).*', '', rel_info['value'])
+                relcond = rel_info['value'][len(relname):]
+                relarch = rel_info['arch']
                 cur.execute("INSERT INTO PackageRelations (PackageID, " +
-                            "RelTypeID, RelName, RelCondition) " +
-                            "VALUES (%s, %s, %s, %s)", [pkgid, reltypeid,
-                                                        relname, relcond])
+                            "RelTypeID, RelName, RelCondition, RelArch) " +
+                            "VALUES (%s, %s, %s, %s, %s)",
+                            [pkgid, reltypeid, relname, relcond, relarch])
 
         # Add package licenses.
         if 'license' in pkginfo:
