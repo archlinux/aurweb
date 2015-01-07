@@ -928,3 +928,67 @@ function pkgbase_update_category($base_id, $category_id) {
 		$category_id, $base_id);
 	$dbh->exec($q);
 }
+
+/**
+ * Get a list of package base co-maintainers
+ *
+ * @param int $base_id The package base ID to retrieve the co-maintainers for
+ *
+ * @return array An array of co-maintainer user names
+ */
+function pkgbase_get_comaintainers($base_id) {
+	$dbh = DB::connect();
+	$q = "SELECT UserName FROM PackageComaintainers ";
+	$q .= "INNER JOIN Users ON Users.ID = PackageComaintainers.UsersID ";
+	$q .= "WHERE PackageComaintainers.PackageBaseID = " . intval($base_id);
+	$result = $dbh->query($q);
+
+	if ($result) {
+		return $result->fetchAll(PDO::FETCH_COLUMN, 0);
+	} else {
+		return array();
+	}
+}
+
+/**
+ * Update the list of co-maintainers of a package base
+ *
+ * @param int $base_id The package base ID to update the co-maintainers of
+ * @param array $users Array of co-maintainer user names
+ *
+ * @return array Tuple of success/failure indicator and error message
+ */
+function pkgbase_set_comaintainers($base_id, $users) {
+	if (!has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array(pkgbase_maintainer_uid($base_id)))) {
+		return array(false, __("You are not allowed to manage co-maintainers of this package base."));
+	}
+
+	/* Remove empty and duplicate user names. */
+	$users = array_unique(array_filter(array_map('trim', $users)));
+
+	$dbh = DB::connect();
+
+	$uids = array();
+	foreach($users as $user) {
+		$q = "SELECT ID FROM Users ";
+		$q .= "WHERE UserName = " . $dbh->quote($user);
+		$result = $dbh->query($q);
+		$uid = $result->fetchColumn(0);
+
+		if (!$uid) {
+			return array(false, __("Invalid user name: %s", $user));
+		}
+
+		$uids[] = $uid;
+	}
+
+	$q = sprintf("DELETE FROM PackageComaintainers WHERE PackageBaseID = %d", $base_id);
+	$dbh->exec($q);
+
+	foreach ($uids as $uid) {
+		$q = sprintf("INSERT INTO PackageComaintainers (PackageBaseID, UsersID) VALUES (%d, %d)", $base_id, $uid);
+		$dbh->exec($q);
+	}
+
+	return array(true, __("The package base co-maintainers have been updated."));
+}

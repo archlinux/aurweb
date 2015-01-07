@@ -47,9 +47,11 @@ def save_srcinfo(srcinfo, db, cur, user):
 
     # Update package base details and delete current packages.
     cur.execute("UPDATE PackageBases SET ModifiedTS = UNIX_TIMESTAMP(), " +
-                "MaintainerUID = %s, PackagerUID = %s, " +
-                "OutOfDateTS = NULL WHERE ID = %s",
-                [user_id, user_id, pkgbase_id])
+                "PackagerUID = %s, OutOfDateTS = NULL WHERE ID = %s",
+                [user_id, pkgbase_id])
+    cur.execute("UPDATE PackageBases SET MaintainerUID = %s " +
+                "WHERE ID = %s AND MaintainerUID IS NULL",
+                [user_id, pkgbase_id])
     cur.execute("DELETE FROM Packages WHERE PackageBaseID = %s",
                 [pkgbase_id])
 

@@ -92,10 +92,13 @@ def check_permissions(pkgbase, user):
                                  unix_socket=aur_db_socket, buffered=True)
     cur = db.cursor()
 
-    cur.execute("SELECT COUNT(*) FROM PackageBases INNER JOIN Users " +
-                "ON Users.ID = PackageBases.MaintainerUID OR " +
-                "PackageBases.MaintainerUID IS NULL WHERE " +
-                "Name = %s AND Username = %s", [pkgbase, user])
+    cur.execute("SELECT COUNT(*) FROM PackageBases " +
+                "LEFT JOIN PackageComaintainers " +
+                "ON PackageComaintainers.PackageBaseID = PackageBases.ID " +
+                "INNER JOIN Users ON Users.ID = PackageBases.MaintainerUID " +
+                "OR PackageBases.MaintainerUID IS NULL " +
+                "OR Users.ID = PackageComaintainers.UsersID " +
+                "WHERE Name = %s AND Username = %s", [pkgbase, user])
     return cur.fetchone()[0] > 0
 
 def die(msg):

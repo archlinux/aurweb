@@ -97,6 +97,8 @@ if (check_token()) {
 		list($ret, $output) = pkgreq_file($ids, $_POST['type'], $_POST['merge_into'], $_POST['comments']);
 	} elseif (current_action("do_CloseRequest")) {
 		list($ret, $output) = pkgreq_close($_POST['reqid'], $_POST['reason'], $_POST['comments']);
+	} elseif (current_action("do_EditComaintainers")) {
+		list($ret, $output) = pkgbase_set_comaintainers($base_id, explode("\n", $_POST['users']));
 	}
 
 	if (isset($_REQUEST['comment'])) {
@@ -124,7 +126,7 @@ if (check_token()) {
 }
 
 $pkgs = pkgbase_get_pkgnames($base_id);
-if (count($pkgs) == 1) {
+if (!$output && count($pkgs) == 1) {
 	/* Not a split package. Redirect to the package page. */
 	if (empty($_SERVER['QUERY_STRING'])) {
 		header('Location: ' . get_pkg_uri($pkgs[0]));

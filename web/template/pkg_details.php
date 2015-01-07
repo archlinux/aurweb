@@ -131,6 +131,9 @@ $sources = pkg_sources($row["ID"]);
 					</form>
 				</li>
 				<?php endif; ?>
+				<?php if (has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array($row["MaintainerUID"]))): ?>
+				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'comaintainers/'; ?>"><?= __('Manage Co-Maintainers'); ?></a></li>
+				<?php endif; ?>
 				<li><span class="flagged"><?php if ($row["RequestCount"] > 0) { echo _n('%d pending request', '%d pending requests', $row["RequestCount"]); } ?></span></li>
 				<li><a href="<?= get_pkgbase_uri($row['BaseName']) . 'request/'; ?>"><?= __('File Request'); ?></a></li>
 				<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>

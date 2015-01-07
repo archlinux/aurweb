@@ -276,6 +276,17 @@ CREATE TABLE PackageComments (
 	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
+-- Package base co-maintainers
+--
+CREATE TABLE PackageComaintainers (
+	UsersID INTEGER UNSIGNED NOT NULL,
+	PackageBaseID INTEGER UNSIGNED NOT NULL,
+	INDEX (UsersID),
+	INDEX (PackageBaseID),
+	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
+	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
 -- Comment addition notifications
 --
 CREATE TABLE CommentNotify (

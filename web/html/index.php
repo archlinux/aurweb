@@ -78,6 +78,9 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			case "request":
 				include('pkgreq.php');
 				return;
+			case "comaintainers":
+				include('comaintainers.php');
+				return;
 			default:
 				header("HTTP/1.0 404 Not Found");
 				include "./404.php";

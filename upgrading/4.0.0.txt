@@ -16,4 +16,17 @@ init-repos.py to initialize them.
 UPDATE PackageBases SET PackagerUID = NULL;
 ----
 
-5. (optional) Setup cgit to browse the Git repositories via HTTP.
+5. Create a new table for package base co-maintainers:
+
+----
+CREATE TABLE PackageComaintainers (
+	UsersID INTEGER UNSIGNED NOT NULL,
+	PackageBaseID INTEGER UNSIGNED NOT NULL,
+	INDEX (UsersID),
+	INDEX (PackageBaseID),
+	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
+	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
+----
+
+6. (optional) Setup cgit to browse the Git repositories via HTTP.
