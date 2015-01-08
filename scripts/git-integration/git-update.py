@@ -239,6 +239,8 @@ save_srcinfo(srcinfo, db, cur, user)
 
 db.close()
 
-with open(git_dir + '/description', 'w') as f:
-    pkginfo = srcinfo.GetMergedPackage(list(srcinfo.GetPackageNames())[0])
-    f.write(pkginfo['pkgdesc'])
+pkglist = list(srcinfo.GetPackageNames())
+if len(pkglist) > 0:
+    with open(git_dir + '/description', 'w') as f:
+        pkginfo = srcinfo.GetMergedPackage(pkglist[0])
+        f.write(pkginfo['pkgdesc'])
