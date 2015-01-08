@@ -19,7 +19,7 @@ aur_db_socket = config.get('database', 'socket')
 
 repo_base_path = config.get('serve', 'repo-base')
 repo_regex = config.get('serve', 'repo-regex')
-git_update_hook = config.get('serve', 'git-update-hook')
+template_path = config.get('serve', 'template-path')
 
 def die(msg):
     sys.stderr.write("%s\n" % (msg))
@@ -45,7 +45,6 @@ for repo in repos:
     print("[%s/%d] %s" % (str(i).rjust(len(str(n))), n, repo))
 
     repo_path = repo_base_path + '/' + repo + '.git/'
-    pygit2.init_repository(repo_path, True)
-    os.symlink(git_update_hook, repo_path + 'hooks/update')
+    pygit2.init_repository(repo_path, True, 48, template_path=template_path)
 
     i += 1

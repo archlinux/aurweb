@@ -19,9 +19,9 @@ aur_db_socket = config.get('database', 'socket')
 
 repo_base_path = config.get('serve', 'repo-base')
 repo_regex = config.get('serve', 'repo-regex')
-git_update_hook = config.get('serve', 'git-update-hook')
 git_shell_cmd = config.get('serve', 'git-shell-cmd')
 ssh_cmdline = config.get('serve', 'ssh-cmdline')
+template_path = config.get('serve', 'template-path')
 
 def repo_path_validate(path):
     if not path.startswith(repo_base_path):
@@ -87,8 +87,7 @@ def setup_repo(repo, user):
     db.close()
 
     repo_path = repo_base_path + '/' + repo + '.git/'
-    pygit2.init_repository(repo_path, True)
-    os.symlink(git_update_hook, repo_path + 'hooks/update')
+    pygit2.init_repository(repo_path, True, 48, template_path=template_path)
 
 def check_permissions(pkgbase, user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,

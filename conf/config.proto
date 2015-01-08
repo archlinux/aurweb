@@ -35,6 +35,7 @@ ssh-options = no-port-forwarding,no-X11-forwarding,no-pty
 [serve]
 repo-base = /srv/http/aur/repos/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
+template-path =  /srv/http/aur/scripts/git-integration/templates/
 git-update-hook = /srv/http/aur/scripts/git-integration/git-update.py
 git-shell-cmd = /usr/bin/git-shell
 ssh-cmdline = ssh -p 2222 aur@aur.archlinux.org

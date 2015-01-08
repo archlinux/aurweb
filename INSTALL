@@ -19,7 +19,11 @@ Setup on Arch Linux
 
    $ mysql -uaur -p AUR </srv/http/aur/schema/aur-schema.sql
 
-5) Clone the OpenSSH project, apply the AUR sshd patch and run `make`:
+5) Generate templates for new Git repositories:
+
+   $ /srv/http/aur/scripts/git-integration/gen-templates.py
+
+6) Clone the OpenSSH project, apply the AUR sshd patch and run `make`:
 
    $ cd /srv/http/aur/
    $ git clone git://anongit.mindrot.org/openssh.git
@@ -30,7 +34,7 @@ Setup on Arch Linux
    $ ./configure
    $ make
 
-6) Create and edit the sshd configuration:
+7) Create and edit the sshd configuration:
 
    $ cd /srv/http/aur/
    $ umask 077
@@ -38,12 +42,12 @@ Setup on Arch Linux
    $ ssh-keygen -f .ssh/ssh_host_rsa_key -N '' -t rsa
    $ cp scripts/git-integration/sshd_config .ssh/
 
-7) Create a new user and change ownership of the .ssh directory:
+8) Create a new user and change ownership of the .ssh directory:
 
    # useradd -U -d /srv/http/aur -c 'AUR user' aur
    # chown aur:aur /srv/http/aur/.ssh/
 
-8) Add, enable and start systemd unit files for the new sshd:
+9) Add, enable and start systemd unit files for the new sshd:
 
    # cp /srv/http/aur/conf/aur-sshd.socket /etc/systemd/system/
    # cp /srv/http/aur/conf/aur-sshd@.service /etc/systemd/system/
