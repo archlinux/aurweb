@@ -176,6 +176,14 @@ walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
 if sha1_old != "0000000000000000000000000000000000000000":
     walker.hide(sha1_old)
 
+db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
+                             passwd=aur_db_pass, db=aur_db_name,
+                             unix_socket=aur_db_socket, buffered=True)
+cur = db.cursor()
+
+cur.execute("SELECT Name FROM PackageBlacklist")
+blacklist = [row[0] for row in cur.fetchall()]
+
 for commit in walker:
     if not '.SRCINFO' in commit.tree:
         die_commit("missing .SRCINFO", commit.id)
@@ -211,6 +219,10 @@ for commit in walker:
             die_commit('invalid package name: %s' % (pkginfo['pkgname']),
                        commit.id)
 
+        if pkginfo['pkgname'] in blacklist:
+            die_commit('package is blacklisted: %s' % (pkginfo['pkgname']),
+                       commit.id)
+
         if not re.match(r'(?:http|ftp)s?://.*', pkginfo['url']):
             die_commit('invalid URL: %s' % (pkginfo['url']), commit.id)
 
@@ -223,11 +235,8 @@ srcinfo_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
 srcinfo_raw = srcinfo_raw.split('\n')
 srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw)
 
-db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
-                             passwd=aur_db_pass, db=aur_db_name,
-                             unix_socket=aur_db_socket, buffered=True)
-cur = db.cursor()
 save_srcinfo(srcinfo, db, cur, user)
+
 db.close()
 
 with open(git_dir + '/description', 'w') as f:
