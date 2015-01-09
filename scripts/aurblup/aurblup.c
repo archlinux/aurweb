@@ -166,11 +166,6 @@ dblist_get_pkglist(alpm_list_t *dblist)
 
       pkglist = pkglist_append(pkglist, alpm_pkg_get_name(pkg));
 
-      for (q = alpm_pkg_get_provides(pkg); q; q = alpm_list_next(q)) {
-        alpm_depend_t *provide = q->data;
-        pkglist = pkglist_append(pkglist, provide->name);
-      }
-
       for (q = alpm_pkg_get_replaces(pkg); q; q = alpm_list_next(q)) {
         alpm_depend_t *replace = q->data;
         pkglist = pkglist_append(pkglist, replace->name);
