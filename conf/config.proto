@@ -37,3 +37,8 @@ repo-base = /srv/http/aur/repos/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
 git-update-hook = /srv/http/aur/scripts/git-integration/git-update.py
 git-shell-cmd = /usr/bin/git-shell
+
+[aurblup]
+db-path = /srv/http/aur/scripts/aurblup/
+sync-dbs = core extra community multilib testing community-testing
+servers = ftp://mirrors.kernel.org/archlinux/%s/os/x86_64
