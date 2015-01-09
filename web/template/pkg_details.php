@@ -81,7 +81,10 @@ $sources = pkg_sources($row["ID"]);
 		<div id="actionlist">
 			<h4><?= __('Package Actions') ?></h4>
 			<ul class="small">
-				<li><a href="<?= $cgit_uri . $row['BaseName'] . '.git' ?>/tree/PKGBUILD"><?= __('View PKGBUILD') ?></a></li>
+				<li>
+					<a href="<?= $cgit_uri . $row['BaseName'] . '.git' ?>/tree/PKGBUILD"><?= __('View PKGBUILD') ?></a> /
+					<a href="<?= $cgit_uri . $row['BaseName'] . '.git' ?>/log/"><?= __('View Changes') ?></a>
+				</li>
 				<li><a href="<?= $cgit_uri . $row['BaseName'] . '.git' ?>/snapshot/master.tar.gz"><?= __('Download snapshot') ?></a></li>
 				<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
