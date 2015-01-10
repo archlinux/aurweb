@@ -78,6 +78,10 @@ def setup_repo(repo, user):
     cur.execute("INSERT INTO PackageBases (Name, SubmittedTS, ModifiedTS, " +
                 "SubmitterUID, MaintainerUID) VALUES (%s, UNIX_TIMESTAMP(), " +
                 "UNIX_TIMESTAMP(), %s, %s)", [repo, userid, userid])
+    pkgbase_id = cur.lastrowid
+
+    cur.execute("INSERT INTO CommentNotify (PackageBaseID, UserID) " +
+                "VALUES (%s, %s)", [pkgbase_id, userid])
 
     db.commit()
     db.close()
