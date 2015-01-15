@@ -212,6 +212,10 @@ for commit in walker:
     for pkgname in srcinfo.GetPackageNames():
         pkginfo = srcinfo.GetMergedPackage(pkgname)
 
+        for field in ('pkgver', 'pkgrel', 'pkgname', 'pkgdesc', 'url'):
+            if not field in pkginfo:
+                die_commit('missing mandatory field: %s' % (field), commit.id)
+
         if 'epoch' in pkginfo and not pkginfo['epoch'].isdigit():
             die_commit('invalid epoch: %s' % (pkginfo['epoch']), commit.id)
 
