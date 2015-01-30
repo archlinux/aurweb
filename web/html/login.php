@@ -53,4 +53,4 @@ html_header('AUR ' . __("Login"));
 	<?php endif; ?>
 </div>
 <?php
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);

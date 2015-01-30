@@ -16,5 +16,5 @@ html_header();              # print out the HTML header
 print __("Hi, this is worth reading!")."<br />\n";
 
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
 

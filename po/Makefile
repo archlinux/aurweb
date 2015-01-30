@@ -49,7 +49,7 @@ POTFILES:
 
 update-pot: POTFILES
 	pkgname=AUR; \
-	pkgver=`sed -n 's/.*"AUR_VERSION", "\(.*\)".*/\1/p' ../web/lib/version.inc.php`; \
+	pkgver=`sed -n 's/.*"AURWEB_VERSION", "\(.*\)".*/\1/p' ../web/lib/version.inc.php`; \
 	xgettext --default-domain=aur -L php --keyword=__ --keyword=_n:1,2 \
 		--no-location --add-comments=TRANSLATORS: \
 		--package-name="$$pkgname" --package-version="$$pkgver" \

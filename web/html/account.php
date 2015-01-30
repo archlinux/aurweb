@@ -136,6 +136,6 @@ if (isset($_COOKIE["AURSID"])) {
 
 echo "</div>";
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
 
 ?>

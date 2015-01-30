@@ -99,5 +99,5 @@ if (isset($pkgid)) {
 	}
 }
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
 

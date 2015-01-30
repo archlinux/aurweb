@@ -80,5 +80,5 @@ if (isset($base_id)) {
 	include('pkgreq_results.php');
 }
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
 

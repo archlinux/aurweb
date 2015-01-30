@@ -45,7 +45,7 @@ html_header( __("Home") );
 			<p>
 			<?php
 			echo __(
-				'General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. Package orphan requests, merge requests, and deletion requests should be filed in the %sPackage Actions%s box. For discussion relating to the development of the AUR, use the %saur-dev%s mailing list.',
+				'General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. Package orphan requests, merge requests, and deletion requests should be filed in the %sPackage Actions%s box. For discussion relating to the development of the AUR web interface, use the %saur-dev%s mailing list.',
 				'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-general">',
 				'</a>',
 				'<var>',
@@ -129,4 +129,4 @@ $(document).ready(function() {
 });
 </script>
 <?php
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);

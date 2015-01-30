@@ -113,5 +113,5 @@ if (has_credential(CRED_TU_ADD_VOTE)) {
 	print __("You are not allowed to access this area.");
 }
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
 

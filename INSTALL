@@ -4,7 +4,7 @@ Setup on Arch Linux
 1) Clone the AUR project:
 
    $ cd /srv/http/
-   $ git clone git://projects.archlinux.org/aur.git
+   $ git clone git://projects.archlinux.org/aurweb.git
 
 2) Setup a web server with PHP and MySQL. Configure the web server to redirect
    all URLs to /index.php/foo/bar/. The following block can be used with nginx:
@@ -17,15 +17,15 @@ Setup on Arch Linux
 
 4) Create a new MySQL database and a user and import the AUR SQL schema:
 
-   $ mysql -uaur -p AUR </srv/http/aur/schema/aur-schema.sql
+   $ mysql -uaur -p AUR </srv/http/aurweb/schema/aur-schema.sql
 
 5) Generate templates for new Git repositories:
 
-   $ /srv/http/aur/scripts/git-integration/gen-templates.py
+   $ /srv/http/aurweb/scripts/git-integration/gen-templates.py
 
-6) Clone the OpenSSH project, apply the AUR sshd patch and run `make`:
+6) Clone the OpenSSH project, apply the aurweb sshd patch and run `make`:
 
-   $ cd /srv/http/aur/
+   $ cd /srv/http/aurweb/
    $ git clone git://anongit.mindrot.org/openssh.git
    $ cd openssh
    $ git checkout V_6_7_P1
@@ -36,7 +36,7 @@ Setup on Arch Linux
 
 7) Create and edit the sshd configuration:
 
-   $ cd /srv/http/aur/
+   $ cd /srv/http/aurweb/
    $ umask 077
    $ mkdir .ssh/
    $ ssh-keygen -f .ssh/ssh_host_rsa_key -N '' -t rsa
@@ -44,12 +44,12 @@ Setup on Arch Linux
 
 8) Create a new user and change ownership of the .ssh directory:
 
-   # useradd -U -d /srv/http/aur -c 'AUR user' aur
-   # chown aur:aur /srv/http/aur/.ssh/
+   # useradd -U -d /srv/http/aurweb -c 'AUR user' aur
+   # chown aur:aur /srv/http/aurweb/.ssh/
 
 9) Add, enable and start systemd unit files for the new sshd:
 
-   # cp /srv/http/aur/conf/aur-sshd.socket /etc/systemd/system/
-   # cp /srv/http/aur/conf/aur-sshd@.service /etc/systemd/system/
+   # cp /srv/http/aurweb/conf/aur-sshd.socket /etc/systemd/system/
+   # cp /srv/http/aurweb/conf/aur-sshd@.service /etc/systemd/system/
    # systemctl enable aur-sshd.socket
    # systemctl start aur-sshd.socket

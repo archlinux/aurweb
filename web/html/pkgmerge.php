@@ -66,4 +66,4 @@ if (has_credential(CRED_PKGBASE_DELETE)): ?>
 	print __("Only Trusted Users and Developers can merge packages.");
 endif;
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);

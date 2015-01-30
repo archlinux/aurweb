@@ -1,12 +1,12 @@
-Arch User Repository (AUR)
-==========================
+aurweb
+======
 
-The Arch User Repository (AUR) is a framework for hosting a collection of
-packaging scripts that are created and submitted by the Arch community. The
-scripts contained in the repository (PKGBUILDs) can be built using makepkg and
-installed via the Arch package manager pacman. The AUR project aims to provide
-the necessary web interface, database schema, and scripts for a multi-lingual
-community-driven repository.
+aurweb is a framework for hosting the Arch User Repository (AUR), a collection
+of packaging scripts that are created and submitted by the Arch Linux
+community. The scripts contained in the repository (PKGBUILDs) can be built
+using makepkg and installed via the Arch Linux package manager pacman. The
+aurweb project aims to provide the necessary web interface, database schema,
+and scripts for a multi-lingual community-driven repository.
 
 Functionality
 -------------
@@ -25,7 +25,7 @@ Directory Layout
 ----------------
 
 po::
-	Translation files for strings in the AUR web interface.
+	Translation files for strings in the aurweb interface.
 
 scripts::
 	aurblup package blacklist tool. Scripts for AUR maintenance.
@@ -42,9 +42,9 @@ Links
 * The official repository is hosted at git://projects.archlinux.org/aur.git --
   see HACKING for information on submitting patches.
 
-* Discovered bugs can be submitted to the AUR bug tracker:
+* Discovered bugs can be submitted to the aurweb bug tracker:
   https://bugs.archlinux.org/index.php?project=2
 
-* Questions, comments, and patches related to the AUR can be sent to the AUR
+* Questions, comments, and patches related to aurweb can be sent to the aurweb
   development mailing list: aur-dev@archlinux.org -- mailing list archives:
   https://mailman.archlinux.org/mailman/listinfo/aur-dev

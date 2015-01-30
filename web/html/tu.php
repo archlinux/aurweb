@@ -121,5 +121,5 @@ else {
 	header('Location: /');
 }
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
 

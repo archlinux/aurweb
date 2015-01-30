@@ -155,5 +155,5 @@ if (isset($_COOKIE["AURSID"])) {
 	pkgbase_display_details($base_id, $details, null);
 }
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
 

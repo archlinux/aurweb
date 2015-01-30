@@ -31,4 +31,4 @@ if (has_credential(CRED_PKGBASE_LIST_VOTERS)):
 <?php
 endif;
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);

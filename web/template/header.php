@@ -6,7 +6,7 @@
   <head>
     <title>AUR (<?= htmlspecialchars($LANG); ?>)<?php if ($title != "") { print " - " . htmlspecialchars($title); } ?></title>
 	<link rel='stylesheet' type='text/css' href='/css/archweb.css' />
-	<link rel='stylesheet' type='text/css' href='/css/aur.css' />
+	<link rel='stylesheet' type='text/css' href='/css/aurweb.css' />
 	<link rel='shortcut icon' href='/images/favicon.ico' />
 	<link rel='alternate' type='application/rss+xml' title='Newest Packages RSS' href='<?= get_uri('/rss/'); ?>' />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

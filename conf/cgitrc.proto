@@ -19,11 +19,11 @@ cache-static-ttl=60
 
 root-title=AUR Package Repositories
 root-desc=Web interface to the AUR Package Repositories
-header=/srv/http/aur/web/template/cgit/header.html
-footer=/srv/http/aur/web/template/cgit/footer.html
+header=/srv/http/aurweb/web/template/cgit/header.html
+footer=/srv/http/aurweb/web/template/cgit/footer.html
 max-repodesc-length=50
 max-blob-size=2048
 max-stats=year
 enable-http-clone=1
 
-scan-path=/srv/http/aur/repos/
+scan-path=/srv/http/aurweb/repos/

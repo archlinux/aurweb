@@ -143,7 +143,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 } else {
 	switch ($path) {
 	case "/css/archweb.css":
-	case "/css/aur.css":
+	case "/css/aurweb.css":
 	case "/css/cgit.css":
 	case "/css/archnavbar/archnavbar.css":
 		header("Content-Type: text/css");

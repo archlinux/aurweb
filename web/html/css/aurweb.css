@@ -1,4 +1,5 @@
-/* AUR-specific customizations to "archweb.css". */
+/* aurweb-specific customizations to archweb.css */
+
 #archnavbar.anb-aur ul li#anb-aur a {
     color: white !important;
 }

@@ -109,4 +109,4 @@ html_header(__("Password Reset"));
 
 <?php
 
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);

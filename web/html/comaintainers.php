@@ -16,6 +16,6 @@ if (!isset($base_id) || !has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array(p
 html_header(__("Manage Co-maintainers"));
 $users = pkgbase_get_comaintainers($base_id);
 include('comaintainers_form.php');
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
 
 

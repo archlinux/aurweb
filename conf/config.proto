@@ -29,18 +29,18 @@ auto_orphan_age = 15552000
 [auth]
 key-prefixes = ssh-rsa ssh-dss ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-ed25519
 username-regex = [a-zA-Z0-9]+[.\-_]?[a-zA-Z0-9]+$
-git-serve-cmd = /srv/http/aur/scripts/git-integration/git-serve.py
+git-serve-cmd = /srv/http/aurweb/scripts/git-integration/git-serve.py
 ssh-options = no-port-forwarding,no-X11-forwarding,no-pty
 
 [serve]
-repo-base = /srv/http/aur/repos/
+repo-base = /srv/http/aurweb/repos/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
-template-path =  /srv/http/aur/scripts/git-integration/templates/
-git-update-hook = /srv/http/aur/scripts/git-integration/git-update.py
+template-path =  /srv/http/aurweb/scripts/git-integration/templates/
+git-update-hook = /srv/http/aurweb/scripts/git-integration/git-update.py
 git-shell-cmd = /usr/bin/git-shell
 ssh-cmdline = ssh -p 2222 aur@aur.archlinux.org
 
 [aurblup]
-db-path = /srv/http/aur/scripts/aurblup/
+db-path = /srv/http/aurweb/scripts/aurblup/
 sync-dbs = core extra community multilib testing community-testing
 servers = ftp://mirrors.kernel.org/archlinux/%s/os/x86_64

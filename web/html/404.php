@@ -11,4 +11,4 @@ html_header( __("Page Not Found") );
 </div>
 
 <?php
-html_footer(AUR_VERSION);
+html_footer(AURWEB_VERSION);
