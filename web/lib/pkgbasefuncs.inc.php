@@ -509,6 +509,22 @@ function pkgbase_delete ($base_ids, $merge_base_id, $via, $grant=false) {
 		pkgreq_close(intval($via), 'accepted', '');
 	}
 
+	/* Scan through pending deletion requests and close them. */
+	if (!$action) {
+		$username = username_from_sid($_COOKIE['AURSID']);
+		foreach ($base_ids as $base_id) {
+			$pkgreq_ids = array_merge(
+				pkgreq_by_pkgbase($base_id, 'deletion'),
+				pkgreq_by_pkgbase($base_id, 'merge'),
+				pkgreq_by_pkgbase($base_id, 'orphan'));
+			foreach ($pkgreq_ids as $pkgreq_id) {
+				pkgreq_close(intval($pkgreq_id), 'accepted',
+					'The user ' .  $username .
+					' deleted the package.', true);
+			}
+		}
+	}
+
 	if ($merge_base_id) {
 		/* Merge comments */
 		$q = "UPDATE PackageComments ";
@@ -555,6 +571,8 @@ function pkgbase_delete ($base_ids, $merge_base_id, $via, $grant=false) {
  * @return array Tuple of success/failure indicator and error message
  */
 function pkgbase_adopt ($base_ids, $action=true, $via) {
+	$dbh = DB::connect();
+
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 	if (!$uid) {
 		if ($action) {
@@ -583,7 +601,18 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 		pkgreq_close(intval($via), 'accepted', '');
 	}
 
-	$dbh = DB::connect();
+	/* Scan through pending orphan requests and close them. */
+	if (!$action) {
+		$username = username_from_sid($_COOKIE['AURSID']);
+		foreach ($base_ids as $base_id) {
+			$pkgreq_ids = pkgreq_by_pkgbase($base_id, 'orphan');
+			foreach ($pkgreq_ids as $pkgreq_id) {
+				pkgreq_close(intval($pkgreq_id), 'accepted',
+					'The user ' .  $username .
+					' disowned the package.', true);
+			}
+		}
+	}
 
 	$q = "UPDATE PackageBases ";
 	if ($action) {

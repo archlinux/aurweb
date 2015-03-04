@@ -42,6 +42,27 @@ function pkgreq_list($offset, $limit) {
 }
 
 /**
+ * Get a list of all open package requests belonging to a certain package base
+ *
+ * @param int $baseid The package base ID to retrieve requests for
+ * @param int $type The type of requests to obtain
+ *
+ * @return array List of package request IDs
+ */
+function pkgreq_by_pkgbase($baseid, $type) {
+	$dbh = DB::connect();
+
+	$q = "SELECT PackageRequests.ID ";
+	$q.= "FROM PackageRequests INNER JOIN RequestTypes ON ";
+	$q.= "RequestTypes.ID = PackageRequests.ReqTypeID ";
+	$q.= "WHERE PackageRequests.Status = 0 ";
+	$q.= "AND PackageRequests.PackageBaseID = " . intval($baseid) . " ";
+	$q.= "AND RequestTypes.Name = " . $dbh->quote($type);
+
+	return $dbh->query($q)->fetchAll(PDO::FETCH_COLUMN, 0);
+}
+
+/**
  * Obtain the package base that belongs to a package request.
  *
  * @param int $id Package request ID to retrieve the package base for
