@@ -184,6 +184,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		   " Request for " .  $row['Name'], $body, $headers);
 
 	$auto_orphan_age = config_get('options', 'auto_orphan_age');
+	$auto_delete_age = config_get('options', 'auto_delete_age');
 	$details = pkgbase_get_details($base_id);
 	if ($type == 'orphan' && $details['OutOfDateTS'] > 0 &&
 	    time() - $details['OutOfDateTS'] >= $auto_orphan_age &&
@@ -201,6 +202,19 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		$q = "UPDATE PackageBases SET MaintainerUID = NULL ";
 		$q.= "WHERE ID = " . $base_id;
 		$dbh->exec($q);
+	} else if ($type == 'deletion' && $details['MaintainerUID'] == $uid &&
+	    $details['SubmittedTS'] > 0 && $auto_delete_age > 0 &&
+	    time() - $details['SubmittedTS'] <= $auto_delete_age) {
+		/*
+		 * Close package request. NOTE: This needs to happen *before*
+		 * the actual deletion operation. Otherwise, the former
+		 * maintainer will not be included in the Cc list of the
+		 * request notification email.
+		 */
+		pkgreq_close($request_id, "accepted",
+			     "Deletion of a fresh package requested by its " .
+			     "current maintainer.", true);
+		pkgbase_delete(array($base_id), NULL, NULL, true);
 	}
 
 	return array(true, __("Added request successfully."));

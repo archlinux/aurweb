@@ -25,6 +25,7 @@ max_rpc_results = 5000
 aur_request_ml = aur-requests@archlinux.org
 request_idle_time = 1209600
 auto_orphan_age = 15552000
+auto_delete_age = 86400
 
 [auth]
 key-prefixes = ssh-rsa ssh-dss ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-ed25519

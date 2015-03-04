@@ -436,11 +436,12 @@ function pkgbase_unflag($base_ids) {
  * @param array $base_ids Array of package base IDs to delete
  * @param int $merge_base_id Package base to merge the deleted ones into
  * @param int $via Package request to close upon deletion
+ * @param bool $grant Allow anyone to delete the package base
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_delete ($base_ids, $merge_base_id, $via) {
-	if (!has_credential(CRED_PKGBASE_DELETE)) {
+function pkgbase_delete ($base_ids, $merge_base_id, $via, $grant=false) {
+	if (!$grant && !has_credential(CRED_PKGBASE_DELETE)) {
 		return array(false, __("You do not have permission to delete packages."));
 	}
 
