@@ -28,7 +28,7 @@ Setup on Arch Linux
    $ cd /srv/http/aurweb/
    $ git clone git://anongit.mindrot.org/openssh.git
    $ cd openssh
-   $ git checkout V_6_7_P1
+   $ git checkout V_6_8_P1
    $ git am ../scripts/git-integration/0001-Patch-sshd-for-the-AUR.patch
    $ autoreconf
    $ ./configure
