@@ -39,12 +39,12 @@ web::
 Links
 -----
 
-* The official repository is hosted at git://projects.archlinux.org/aur.git --
-  see HACKING for information on submitting patches.
+* The repository is hosted at git://projects.archlinux.org/aurweb.git -- see
+  HACKING for information on submitting patches.
 
 * Discovered bugs can be submitted to the aurweb bug tracker:
   https://bugs.archlinux.org/index.php?project=2
 
-* Questions, comments, and patches related to aurweb can be sent to the aurweb
+* Questions, comments, and patches related to aurweb can be sent to the AUR
   development mailing list: aur-dev@archlinux.org -- mailing list archives:
   https://mailman.archlinux.org/mailman/listinfo/aur-dev
