@@ -49,7 +49,7 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 		$body = __('A password reset request was submitted for the account '.
 			   'associated with your e-mail address. If you wish to reset '.
 			   'your password follow the link below, otherwise ignore '.
-			   'this message and nothing will happen.').
+			   'this message and nothing will happen.');
 		send_resetkey($email, $subject, $body);
 
 		header('Location: ' . get_uri('/passreset/') . '?step=confirm');
