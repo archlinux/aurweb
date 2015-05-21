@@ -49,15 +49,18 @@ function pkgreq_list($offset, $limit) {
  *
  * @return array List of package request IDs
  */
-function pkgreq_by_pkgbase($baseid, $type) {
+function pkgreq_by_pkgbase($baseid, $type=false) {
 	$dbh = DB::connect();
 
 	$q = "SELECT PackageRequests.ID ";
 	$q.= "FROM PackageRequests INNER JOIN RequestTypes ON ";
 	$q.= "RequestTypes.ID = PackageRequests.ReqTypeID ";
 	$q.= "WHERE PackageRequests.Status = 0 ";
-	$q.= "AND PackageRequests.PackageBaseID = " . intval($baseid) . " ";
-	$q.= "AND RequestTypes.Name = " . $dbh->quote($type);
+	$q.= "AND PackageRequests.PackageBaseID = " . intval($baseid);
+
+	if ($type) {
+		$q .= " AND RequestTypes.Name = " . $dbh->quote($type);
+	}
 
 	return $dbh->query($q)->fetchAll(PDO::FETCH_COLUMN, 0);
 }
