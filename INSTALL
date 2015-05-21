@@ -17,39 +17,28 @@ Setup on Arch Linux
 
 4) Create a new MySQL database and a user and import the AUR SQL schema:
 
-   $ mysql -uaur -p AUR </srv/http/aurweb/schema/aur-schema.sql
+    $ mysql -uaur -p AUR </srv/http/aurweb/schema/aur-schema.sql
 
 5) Generate templates for new Git repositories:
 
-   $ /srv/http/aurweb/scripts/git-integration/gen-templates.py
+    $ /srv/http/aurweb/scripts/git-integration/gen-templates.py
 
-6) Clone the OpenSSH project, apply the aurweb sshd patch and run `make`:
+6) Create a new user:
 
-   $ cd /srv/http/aurweb/
-   $ git clone git://anongit.mindrot.org/openssh.git
-   $ cd openssh
-   $ git checkout V_6_8_P1
-   $ git am ../scripts/git-integration/0001-Patch-sshd-for-the-AUR.patch
-   $ autoreconf
-   $ ./configure
-   $ make
+    # useradd -U -d /srv/http/aurweb -c 'AUR user' aur
 
-7) Create and edit the sshd configuration:
+7) Install the git-auth wrapper script:
 
-   $ cd /srv/http/aurweb/
-   $ umask 077
-   $ mkdir .ssh/
-   $ ssh-keygen -f .ssh/ssh_host_rsa_key -N '' -t rsa
-   $ cp scripts/git-integration/sshd_config .ssh/
+    # cd /srv/http/aurweb/scripts/git-integration/
+    # cp git-auth.sh /usr/local/bin/aur-git-auth
+    # chmod 755 /usr/local/bin/aur-git-auth
 
-8) Create a new user and change ownership of the .ssh directory:
+8) Configure sshd(8) for the AUR. Add the following lines at the end of your
+   sshd_config(5) and restart the sshd. Note that OpenSSH 6.9 or newer is
+   needed!
 
-   # useradd -U -d /srv/http/aurweb -c 'AUR user' aur
-   # chown aur:aur /srv/http/aurweb/.ssh/
+    Match User aur
+        PasswordAuthentication no
+        AuthorizedKeysCommand /usr/local/bin/aur-git-auth "%t" "%k"
+        AuthorizedKeysCommandUser aur
 
-9) Add, enable and start systemd unit files for the new sshd:
-
-   # cp /srv/http/aurweb/conf/aur-sshd.socket /etc/systemd/system/
-   # cp /srv/http/aurweb/conf/aur-sshd@.service /etc/systemd/system/
-   # systemctl enable aur-sshd.socket
-   # systemctl start aur-sshd.socket
