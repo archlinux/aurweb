@@ -1,6 +1,0 @@
-Port 2222
-HostKey ~/.ssh/ssh_host_rsa_key
-PasswordAuthentication no
-UsePrivilegeSeparation no
-AuthorizedKeysCommand /srv/http/aurweb/scripts/git-integration/git-auth.py "%t" "%k"
-AuthorizedKeysCommandUser aur

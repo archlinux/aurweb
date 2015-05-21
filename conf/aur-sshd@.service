@@ -1,8 +1,0 @@
-[Unit]
-Description=AUR OpenSSH Per-Connection Daemon
-
-[Service]
-ExecStart=-/srv/http/aurweb/openssh/sshd -i -f /srv/http/aurweb/.ssh/sshd_config
-User=aur
-StandardInput=socket
-StandardError=syslog
