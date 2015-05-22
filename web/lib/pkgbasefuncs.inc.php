@@ -646,12 +646,15 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 			}
 		} else {
 			foreach ($base_ids as $base_id) {
-				$uids = pkgbase_get_comaintainers($base_id);
+				$comaintainers = pkgbase_get_comaintainers($base_id);
 
-				$q = "UPDATE PackageBases ";
-				$q.= "SET MaintainerUID = " . $uids[0] .  " ";
-				$q.= "WHERE ID = " . $base_id;
-				$dbh->exec($q);
+				if (count($comaintainers) > 0) {
+					$uid = uid_from_username($comaintainers[0]);
+					$q = "UPDATE PackageBases ";
+					$q.= "SET MaintainerUID = " . $uid .  " ";
+					$q.= "WHERE ID = " . $base_id;
+					$dbh->exec($q);
+				}
 			}
 		}
 	}

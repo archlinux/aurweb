@@ -11,7 +11,7 @@ check_sid();
 html_header(__("Disown Package"));
 
 $maintainer_uids = array(pkgbase_maintainer_uid($base_id));
-$comaintainer_uids = pkgbase_get_comaintainers($base_id);
+$comaintainers = pkgbase_get_comaintainers($base_id);
 
 if (has_credential(CRED_PKGBASE_DISOWN, $maintainer_uids)): ?>
 <div class="box">
@@ -26,9 +26,9 @@ if (has_credential(CRED_PKGBASE_DISOWN, $maintainer_uids)): ?>
 		<?php endforeach; ?>
 	</ul>
 	<p>
-		<?php if (count($comaintainer_uids) > 0 && !has_credential(CRED_PKGBASE_DISOWN)): ?>
+		<?php if (count($comaintainers) > 0 && !has_credential(CRED_PKGBASE_DISOWN)): ?>
 		<?= __('By selecting the checkbox, you confirm that you want to disown the package and transfer ownership to %s%s%s.',
-			'<strong>', $comaintainer_uids[0], '</strong>'); ?>
+			'<strong>', $comaintainers[0], '</strong>'); ?>
 		<?php else: ?>
 		<?= __('By selecting the checkbox, you confirm that you want to disown the package.') ?>
 		<?php endif; ?>
