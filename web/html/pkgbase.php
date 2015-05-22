@@ -54,8 +54,13 @@ if (check_token()) {
 	} elseif (current_action("do_Adopt")) {
 		list($ret, $output) = pkgbase_adopt($ids, true, NULL);
 	} elseif (current_action("do_Disown")) {
-		$via = isset($_POST['via']) ? $_POST['via'] : NULL;
-		list($ret, $output) = pkgbase_adopt($ids, false, $via);
+		if (isset($_POST['confirm_Disown'])) {
+			$via = isset($_POST['via']) ? $_POST['via'] : NULL;
+			list($ret, $output) = pkgbase_adopt($ids, false, $via);
+		} else {
+			$output = __("The selected packages have not been disowned, check the confirmation checkbox.");
+			$ret = false;
+		}
 	} elseif (current_action("do_Vote")) {
 		list($ret, $output) = pkgbase_vote($ids, true);
 	} elseif (current_action("do_UnVote")) {

@@ -45,8 +45,8 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				$_POST['do_Adopt'] = __('Adopt');
 				break;
 			case "disown":
-				$_POST['do_Disown'] = __('Disown');
-				break;
+				include('pkgdisown.php');
+				return;
 			case "vote":
 				$_POST['do_Vote'] = __('Vote');
 				break;
