@@ -967,7 +967,8 @@ function pkgbase_get_comaintainers($base_id) {
 	$dbh = DB::connect();
 	$q = "SELECT UserName FROM PackageComaintainers ";
 	$q .= "INNER JOIN Users ON Users.ID = PackageComaintainers.UsersID ";
-	$q .= "WHERE PackageComaintainers.PackageBaseID = " . intval($base_id);
+	$q .= "WHERE PackageComaintainers.PackageBaseID = " . intval($base_id) . " ";
+	$q .= "ORDER BY Priority ASC";
 	$result = $dbh->query($q);
 
 	if ($result) {
@@ -1012,9 +1013,11 @@ function pkgbase_set_comaintainers($base_id, $users) {
 	$q = sprintf("DELETE FROM PackageComaintainers WHERE PackageBaseID = %d", $base_id);
 	$dbh->exec($q);
 
+	$i = 1;
 	foreach ($uids as $uid) {
-		$q = sprintf("INSERT INTO PackageComaintainers (PackageBaseID, UsersID) VALUES (%d, %d)", $base_id, $uid);
+		$q = sprintf("INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (%d, %d, %d)", $base_id, $uid, $i);
 		$dbh->exec($q);
+		$i++;
 	}
 
 	return array(true, __("The package base co-maintainers have been updated."));
