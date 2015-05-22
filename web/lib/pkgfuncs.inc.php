@@ -601,9 +601,11 @@ function pkg_search_page($SID="") {
 		}
 		else {
 			/* Search by name and description (default). */
-			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
-			$q_where .= "AND (Packages.Name LIKE " . $dbh->quote($K) . " OR ";
-			$q_where .= "Description LIKE " . $dbh->quote($K) . ") ";
+			foreach (str_getcsv($_GET['K'], ' ') as $term) {
+				$term = "%" . addcslashes($term, '%_') . "%";
+				$q_where .= "AND (Packages.Name LIKE " . $dbh->quote($term) . " OR ";
+				$q_where .= "Description LIKE " . $dbh->quote($term) . ") ";
+			}
 		}
 	}
 
