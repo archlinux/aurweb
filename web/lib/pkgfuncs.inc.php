@@ -602,21 +602,38 @@ function pkg_search_page($SID="") {
 		else {
 			/* Search by name and description (default). */
 			$count = 0;
+			$q_where .= "AND (";
+			$op = "";
 
 			foreach (str_getcsv($_GET['K'], ' ') as $term) {
 				if ($term == "") {
 					continue;
 				}
+				if ($count > 0 && strtolower($term) == "and") {
+					$op = "AND ";
+					continue;
+				}
+				if ($count > 0 && strtolower($term) == "or") {
+					$op = "OR ";
+					continue;
+				}
+			        if ($count > 0 && strtolower($term) == "not") {
+					$op .= "NOT ";
+					continue;
+				}
 
 				$term = "%" . addcslashes($term, '%_') . "%";
-				$q_where .= "AND (Packages.Name LIKE " . $dbh->quote($term) . " OR ";
+				$q_where .= $op . " (Packages.Name LIKE " . $dbh->quote($term) . " OR ";
 				$q_where .= "Description LIKE " . $dbh->quote($term) . ") ";
 
 				$count++;
 				if ($count >= 20) {
 					break;
 				}
+				$op = "AND ";
 			}
+
+			$q_where .= ") ";
 		}
 	}
 
