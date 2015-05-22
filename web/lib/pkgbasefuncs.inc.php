@@ -629,32 +629,39 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 		}
 	}
 
-	$q = "UPDATE PackageBases ";
+	/* Adopt or disown the package. */
 	if ($action) {
+		$q = "UPDATE PackageBases ";
 		$q.= "SET MaintainerUID = $uid ";
+		$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
+		$dbh->exec($q);
 	} else {
-		$q.= "SET MaintainerUID = NULL ";
-	}
-	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
-	$dbh->exec($q);
-
-	/* Update package co-maintainers when disowning a package. */
-	if (!$action) {
+		/* Update the co-maintainer list when disowning a package. */
 		if (has_credential(CRED_PKGBASE_DISOWN)) {
 			foreach ($base_ids as $base_id) {
-				pkgbase_set_comaintainers($base_id, "");
+				pkgbase_set_comaintainers($base_id, array());
 			}
+
+			$q = "UPDATE PackageBases ";
+			$q.= "SET MaintainerUID = NULL ";
+			$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
+			$dbh->exec($q);
 		} else {
 			foreach ($base_ids as $base_id) {
 				$comaintainers = pkgbase_get_comaintainers($base_id);
 
 				if (count($comaintainers) > 0) {
 					$uid = uid_from_username($comaintainers[0]);
-					$q = "UPDATE PackageBases ";
-					$q.= "SET MaintainerUID = " . $uid .  " ";
-					$q.= "WHERE ID = " . $base_id;
-					$dbh->exec($q);
+					$comaintainers = array_diff($comaintainers, array($comaintainers[0]));
+					pkgbase_set_comaintainers($base_id, $comaintainers);
+				} else {
+					$uid = "NULL";
 				}
+
+				$q = "UPDATE PackageBases ";
+				$q.= "SET MaintainerUID = " . $uid .  " ";
+				$q.= "WHERE ID = " . $base_id;
+				$dbh->exec($q);
 			}
 		}
 	}
