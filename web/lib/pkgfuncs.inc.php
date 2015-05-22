@@ -601,10 +601,21 @@ function pkg_search_page($SID="") {
 		}
 		else {
 			/* Search by name and description (default). */
+			$count = 0;
+
 			foreach (str_getcsv($_GET['K'], ' ') as $term) {
+				if ($term == "") {
+					continue;
+				}
+
 				$term = "%" . addcslashes($term, '%_') . "%";
 				$q_where .= "AND (Packages.Name LIKE " . $dbh->quote($term) . " OR ";
 				$q_where .= "Description LIKE " . $dbh->quote($term) . ") ";
+
+				$count++;
+				if ($count >= 20) {
+					break;
+				}
 			}
 		}
 	}
