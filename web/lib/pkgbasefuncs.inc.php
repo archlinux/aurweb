@@ -638,6 +638,24 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
 	$dbh->exec($q);
 
+	/* Update package co-maintainers when disowning a package. */
+	if (!$action) {
+		if (has_credential(CRED_PKGBASE_DISOWN)) {
+			foreach ($base_ids as $base_id) {
+				pkgbase_set_comaintainers($base_id, "");
+			}
+		} else {
+			foreach ($base_ids as $base_id) {
+				$uids = pkgbase_get_comaintainers($base_id);
+
+				$q = "UPDATE PackageBases ";
+				$q.= "SET MaintainerUID = " . $uids[0] .  " ";
+				$q.= "WHERE ID = " . $base_id;
+				$dbh->exec($q);
+			}
+		}
+	}
+
 	if ($action) {
 		pkgbase_notify($base_ids);
 		return array(true, __("The selected packages have been adopted."));
