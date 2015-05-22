@@ -1,14 +1,18 @@
+WARNING! Following these upgrade instructions will reset all packages! If you
+want to keep the package contents, please create a backup before starting the
+upgrade process and import the source tarballs into the Git repositories
+afterwards.
+
 1. Add a field for the SSH public key to the Users table:
 
 ----
 ALTER TABLE Users ADD COLUMN SSHPubKey VARCHAR(4096) NULL DEFAULT NULL;
 ----
 
-2. Create a new user and set up a patched version of the sshd as
-described in INSTALL.
+2. Create a new user and configure the sshd as described in INSTALL.
 
-3. Create a directory for the package base Git repositories and run
-init-repos.py to initialize them.
+3. Run gen-templates.py to initialize the Git repository template. Create a
+directory for the Git repositories and run init-repos.py to initialize them.
 
 4. Reset the packager field of all package bases:
 
