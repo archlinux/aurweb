@@ -579,7 +579,25 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 		}
 	}
 
+	/* Verify package ownership. */
 	$base_ids = sanitize_ids($base_ids);
+
+	$q = "SELECT ID FROM PackageBases ";
+	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
+
+	if ($action && !has_credential(CRED_PKGBASE_ADOPT)) {
+		/* Regular users may only adopt orphan packages. */
+		$q.= "AND MaintainerUID IS NULL";
+	}
+	if (!$action && !has_credential(CRED_PKGBASE_DISOWN)) {
+		/* Regular users may only disown their own packages. */
+		$q.= "AND MaintainerUID = " . $uid;
+	}
+
+	$result = $dbh->query($q);
+	$base_ids = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+
+	/* Error out if the list of remaining packages is empty. */
 	if (empty($base_ids)) {
 		if ($action) {
 			return array(false, __("You did not select any packages to adopt."));
@@ -618,16 +636,6 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 		$q.= "SET MaintainerUID = NULL ";
 	}
 	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
-
-	if ($action && !has_credential(CRED_PKGBASE_ADOPT)) {
-		/* Regular users may only adopt orphan packages. */
-		$q.= "AND MaintainerUID IS NULL";
-	}
-	if (!$action && !has_credential(CRED_PKGBASE_DISOWN)) {
-		/* Regular users may only disown their own packages. */
-		$q.= "AND MaintainerUID = " . $uid;
-	}
-
 	$dbh->exec($q);
 
 	if ($action) {
