@@ -39,7 +39,7 @@ repo-regex = [a-z0-9][a-z0-9.+_-]*$
 template-path =  /srv/http/aurweb/scripts/git-integration/templates/
 git-update-hook = /srv/http/aurweb/scripts/git-integration/git-update.py
 git-shell-cmd = /usr/bin/git-shell
-ssh-cmdline = ssh -p 2222 aur@aur.archlinux.org
+ssh-cmdline = ssh aur@aur.archlinux.org
 
 [aurblup]
 db-path = /srv/http/aurweb/scripts/aurblup/
