@@ -29,7 +29,7 @@ html_header('AUR ' . __("Login"));
 			<?php endif; ?>
 			<p>
 				<label for="id_username"><?= __('Username') . ':'; ?></label>
-				<input id="id_username" type="text" name="user" size="30" maxlength="<?= config_get_int('options', 'username_max_len'); ?>" value="<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>" />
+				<input id="id_username" type="text" name="user" size="30" maxlength="<?= config_get_int('options', 'username_max_len'); ?>" value="<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>" autofocus="autofocus" />
 			</p>
 			<p>
 				<label for="id_password"><?= __('Password') . ':'; ?></label>
