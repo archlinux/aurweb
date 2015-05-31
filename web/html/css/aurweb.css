@@ -77,3 +77,7 @@
 .comment-deleted {
 	color: #999;
 }
+
+legend {
+	padding: 1em 0;
+}

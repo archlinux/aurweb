@@ -97,13 +97,6 @@
 			<input type="text" size="30" maxlength="50" name="K" id="id_pgp" value="<?= html_format_pgp_fingerprint($K) ?>" />
 		</p>
 
-		<?php if ($A == "UpdateAccount"): ?>
-		<p>
-			<label for="id_ssh"><?= __("SSH Public Key") ?>:</label>
-			<textarea name="PK" id="id_ssh" rows="5" cols="30"><?= htmlspecialchars($PK) ?></textarea>
-		</p>
-		<?php endif; ?>
-
 		<p>
 			<label for="id_language"><?= __("Language") ?>:</label>
 			<select name="L" id="id_language">
@@ -119,7 +112,19 @@
 ?>
 			</select>
 		</p>
+	</fieldset>
 
+	<?php if ($A == "UpdateAccount"): ?>
+	<fieldset>
+		<legend><?= __("The following information is only required if you want to submit packages to the Arch User Repository.") ?></legend>
+		<p>
+			<label for="id_ssh"><?= __("SSH Public Key") ?>:</label>
+			<textarea name="PK" id="id_ssh" rows="5" cols="30"><?= htmlspecialchars($PK) ?></textarea>
+		</p>
+	</fieldset>
+	<?php endif; ?>
+
+	<fieldset>
 		<p>
 			<label></label>
 			<?php if ($A == "UpdateAccount"): ?>
