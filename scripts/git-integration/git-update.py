@@ -236,6 +236,17 @@ for commit in walker:
                 die_commit('%s field too long: %s' % (field, pkginfo[field]),
                            commit.id)
 
+        for field in ('install', 'changelog'):
+            if field in pkginfo and not pkginfo[field] in commit.tree:
+                die_commit('missing %s file: %s' % (field, pkginfo[field]),
+                           commit.id)
+
+        for fname in pkginfo['source']:
+            if "://" in fname or "lp:" in fname:
+                continue
+            if not fname in commit.tree:
+                die_commit('missing source file: %s' % (fname), commit.id)
+
 srcinfo_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
 srcinfo_raw = srcinfo_raw.split('\n')
 srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw)
