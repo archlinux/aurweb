@@ -203,7 +203,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 					"<strong>", htmlspecialchars($E,ENT_QUOTES), "</strong>");
 		}
 	}
-	if (!$error) {
+	if (!$error && !empty($PK)) {
 		/*
 		 * Check whether the SSH public key is available.
 		 * TODO: Fix race condition.
@@ -247,7 +247,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 		$L = $dbh->quote($L);
 		$I = $dbh->quote($I);
 		$K = $dbh->quote(str_replace(" ", "", $K));
-		$PK = $dbh->quote($PK);
+		$PK = empty($PK) ? "NULL" : $dbh->quote($PK);
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
 		$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
 		$q.= "RealName, LangPreference, IRCNick, PGPKey, ";
