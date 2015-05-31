@@ -114,7 +114,6 @@
 		</p>
 	</fieldset>
 
-	<?php if ($A == "UpdateAccount"): ?>
 	<fieldset>
 		<legend><?= __("The following information is only required if you want to submit packages to the Arch User Repository.") ?></legend>
 		<p>
@@ -122,7 +121,6 @@
 			<textarea name="PK" id="id_ssh" rows="5" cols="30"><?= htmlspecialchars($PK) ?></textarea>
 		</p>
 	</fieldset>
-	<?php endif; ?>
 
 	<fieldset>
 		<p>
