@@ -60,10 +60,12 @@
 		</p>
 		<?php endif; ?>
 
+		<?php if ($A == "UpdateAccount"): ?>
 		<p>
 			<label for="id_inactive"><?= __("Inactive") ?>:</label>
 			<input type="checkbox" name="J" id="id_inactive" <?= $J ? 'checked="checked"' : '' ?> />
 		</p>
+		<?php endif; ?>
 
 		<p>
 			<label for="id_email"><?= __("Email Address") ?>:</label>
