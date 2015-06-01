@@ -28,12 +28,12 @@ Setup on Arch Linux
     # mkdir /srv/http/aurweb/aur.git/
     # cd /srv/http/aurweb/aur.git/
     # git init --bare
-    # ln -s ../../scripts/git-integration/git-update.py hooks/update
+    # ln -s ../../git-interface/git-update.py hooks/update
     # chown -R aur .
 
 7) Install the git-auth wrapper script:
 
-    # cd /srv/http/aurweb/scripts/git-integration/
+    # cd /srv/http/aurweb/git-interface/
     # cp git-auth.sh /usr/local/bin/aur-git-auth
     # chmod 755 /usr/local/bin/aur-git-auth
 
