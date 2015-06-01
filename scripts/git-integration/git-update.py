@@ -19,6 +19,8 @@ aur_db_user = config.get('database', 'user')
 aur_db_pass = config.get('database', 'password')
 aur_db_socket = config.get('database', 'socket')
 
+repo_path = config.get('serve', 'repo-path')
+
 def extract_arch_fields(pkginfo, field):
     values = []
 
@@ -166,12 +168,11 @@ sha1_new = sys.argv[3]
 
 user = os.environ.get("AUR_USER")
 pkgbase = os.environ.get("AUR_PKGBASE")
-git_dir = os.environ.get("AUR_GIT_DIR")
 
 if refname != "refs/heads/master":
     die("pushing to a branch other than master is restricted")
 
-repo = pygit2.Repository(git_dir)
+repo = pygit2.Repository(repo_path)
 walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
 if sha1_old != "0000000000000000000000000000000000000000":
     walker.hide(sha1_old)
@@ -245,6 +246,6 @@ db.close()
 
 pkglist = list(srcinfo.GetPackageNames())
 if len(pkglist) > 0:
-    with open(git_dir + '/description', 'w') as f:
+    with open(repo_path + '/description', 'w') as f:
         pkginfo = srcinfo.GetMergedPackage(pkglist[0])
         f.write(pkginfo['pkgdesc'])

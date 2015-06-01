@@ -17,28 +17,23 @@ aur_db_user = config.get('database', 'user')
 aur_db_pass = config.get('database', 'password')
 aur_db_socket = config.get('database', 'socket')
 
-repo_base_path = config.get('serve', 'repo-base')
+repo_path = config.get('serve', 'repo-path')
 repo_regex = config.get('serve', 'repo-regex')
 git_shell_cmd = config.get('serve', 'git-shell-cmd')
 ssh_cmdline = config.get('serve', 'ssh-cmdline')
 template_path = config.get('serve', 'template-path')
 
-def repo_path_validate(path):
-    if not path.startswith(repo_base_path):
-        return False
-    if path.endswith('.git'):
-        repo = path[len(repo_base_path):-4]
-    elif path.endswith('.git/'):
-        repo = path[len(repo_base_path):-5]
-    else:
-        return False
-    return re.match(repo_regex, repo)
+def pkgbase_exists(pkgbase):
+    db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
+                                 passwd=aur_db_pass, db=aur_db_name,
+                                 unix_socket=aur_db_socket)
+    cur = db.cursor()
 
-def repo_path_get_pkgbase(path):
-    pkgbase = path.rstrip('/').rpartition('/')[2]
-    if pkgbase.endswith('.git'):
-        pkgbase = pkgbase[:-4]
-    return pkgbase
+    cur.execute("SELECT COUNT(*) FROM PackageBases WHERE Name = %s ",
+                [pkgbase])
+
+    db.close()
+    return (cur.fetchone()[0] > 0)
 
 def list_repos(user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
@@ -57,18 +52,16 @@ def list_repos(user):
         print((' ' if row[1] else '*') + row[0])
     db.close()
 
-def setup_repo(repo, user):
-    if not re.match(repo_regex, repo):
-        die('%s: invalid repository name: %s' % (action, repo))
+def setup_repo(pkgbase, user):
+    if not re.match(repo_regex, pkgbase):
+        die('%s: invalid repository name: %s' % (action, pkgbase))
+    if pkgbase_exists(pkgbase):
+        die('%s: package base already exists: %s' % (action, pkgbase))
 
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
                                  unix_socket=aur_db_socket)
     cur = db.cursor()
-
-    cur.execute("SELECT COUNT(*) FROM PackageBases WHERE Name = %s ", [repo])
-    if cur.fetchone()[0] > 0:
-        die('%s: package base already exists: %s' % (action, repo))
 
     cur.execute("SELECT ID FROM Users WHERE Username = %s ", [user])
     userid = cur.fetchone()[0]
@@ -77,7 +70,7 @@ def setup_repo(repo, user):
 
     cur.execute("INSERT INTO PackageBases (Name, SubmittedTS, ModifiedTS, " +
                 "SubmitterUID, MaintainerUID) VALUES (%s, UNIX_TIMESTAMP(), " +
-                "UNIX_TIMESTAMP(), %s, %s)", [repo, userid, userid])
+                "UNIX_TIMESTAMP(), %s, %s)", [pkgbase, userid, userid])
     pkgbase_id = cur.lastrowid
 
     cur.execute("INSERT INTO CommentNotify (PackageBaseID, UserID) " +
@@ -86,8 +79,11 @@ def setup_repo(repo, user):
     db.commit()
     db.close()
 
-    repo_path = repo_base_path + '/' + repo + '.git/'
-    pygit2.init_repository(repo_path, True, 48, template_path=template_path)
+    repo = pygit2.Repository(repo_path)
+    repo.create_reference('refs/heads/' + pkgbase,
+                          'refs/namespaces/' + pkgbase + '/refs/heads/master')
+    repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD',
+                          'refs/namespaces/' + pkgbase + '/refs/heads/master')
 
 def check_permissions(pkgbase, user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
@@ -125,19 +121,25 @@ action = cmdargv[0]
 if action == 'git-upload-pack' or action == 'git-receive-pack':
     if len(cmdargv) < 2:
         die_with_help("%s: missing path" % (action))
-    path = repo_base_path.rstrip('/') + cmdargv[1]
-    if not repo_path_validate(path):
+
+    path = cmdargv[1].rstrip('/')
+    if not path.startswith('/') or not path.endswith('.git'):
         die('%s: invalid path: %s' % (action, path))
-    pkgbase = repo_path_get_pkgbase(path)
-    if not os.path.exists(path):
+    pkgbase = path[1:-4]
+    if not re.match(repo_regex, pkgbase):
+        die('%s: invalid repository name: %s' % (action, repo))
+
+    if not pkgbase_exists(pkgbase):
         setup_repo(pkgbase, user)
+
     if action == 'git-receive-pack':
         if not check_permissions(pkgbase, user):
             die('%s: permission denied: %s' % (action, user))
+
     os.environ["AUR_USER"] = user
-    os.environ["AUR_GIT_DIR"] = path
     os.environ["AUR_PKGBASE"] = pkgbase
-    cmd = action + " '" + path + "'"
+    os.environ["GIT_NAMESPACE"] = pkgbase
+    cmd = action + " '" + repo_path + "'"
     os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
 elif action == 'list-repos':
     if len(cmdargv) > 1:

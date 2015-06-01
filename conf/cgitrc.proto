@@ -26,4 +26,6 @@ max-blob-size=2048
 max-stats=year
 enable-http-clone=1
 
-scan-path=/srv/http/aurweb/repos/
+repo.url=aur.git
+repo.path=/srv/http/aurweb/aur.git
+repo.desc=AUR Package Repositories

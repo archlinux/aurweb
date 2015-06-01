@@ -19,13 +19,17 @@ Setup on Arch Linux
 
     $ mysql -uaur -p AUR </srv/http/aurweb/schema/aur-schema.sql
 
-5) Generate templates for new Git repositories:
-
-    $ /srv/http/aurweb/scripts/git-integration/gen-templates.py
-
-6) Create a new user:
+5) Create a new user:
 
     # useradd -U -d /srv/http/aurweb -c 'AUR user' aur
+
+6) Initialize the Git repository:
+
+    # mkdir /srv/http/aurweb/aur.git/
+    # cd /srv/http/aurweb/aur.git/
+    # git init --bare
+    # ln -s ../../scripts/git-integration/git-update.py hooks/update
+    # chown -R aur .
 
 7) Install the git-auth wrapper script:
 
@@ -42,3 +46,24 @@ Setup on Arch Linux
         AuthorizedKeysCommand /usr/local/bin/aur-git-auth "%t" "%k"
         AuthorizedKeysCommandUser aur
 
+9) If you want to enable smart HTTP support with nginx and uWSGI, you can use
+   the following directives:
+
+    location ~ ^/([a-z0-9][a-z0-9.+_-]*)\.git/(.*)$ {
+        include uwsgi_params;
+        uwsgi_modifier1 9;
+        uwsgi_param PATH_INFO /aur.git/$2;
+        uwsgi_param GIT_NAMESPACE $1;
+        uwsgi_pass unix:/run/uwsgi/smarthttp/aurweb.sock;
+    }
+
+   For the uWSGI configuration, the following template can be used:
+
+    [uwsgi]
+    plugins = cgi
+    uid = aur
+    processes = 1
+    threads = 8
+    env = GIT_HTTP_EXPORT_ALL=
+    env = GIT_PROJECT_ROOT=/srv/http/aurweb
+    cgi = /usr/lib/git-core/git-http-backend
