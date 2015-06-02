@@ -21,7 +21,6 @@ repo_path = config.get('serve', 'repo-path')
 repo_regex = config.get('serve', 'repo-regex')
 git_shell_cmd = config.get('serve', 'git-shell-cmd')
 ssh_cmdline = config.get('serve', 'ssh-cmdline')
-template_path = config.get('serve', 'template-path')
 
 def pkgbase_exists(pkgbase):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,

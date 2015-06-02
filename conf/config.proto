@@ -19,7 +19,7 @@ max_filesize_uncompressed = 8388608
 disable_http_login = 1
 aur_location = https://aur.archlinux.org
 cgit_uri = https://aur.archlinux.org/cgit/aur.git
-git_clone_uri_anon = https://aur.archlinux.org/cgit/%s.git/
+git_clone_uri_anon = https://aur.archlinux.org/%s.git/
 git_clone_uri_priv = ssh+git://aur@aur.archlinux.org/%s.git/
 max_rpc_results = 5000
 aur_request_ml = aur-requests@archlinux.org
@@ -36,8 +36,6 @@ ssh-options = no-port-forwarding,no-X11-forwarding,no-pty
 [serve]
 repo-path = /srv/http/aurweb/aur.git/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
-template-path =  /srv/http/aurweb/git-interface/templates/
-git-update-hook = /srv/http/aurweb/git-interface/git-update.py
 git-shell-cmd = /usr/bin/git-shell
 ssh-cmdline = ssh aur@aur.archlinux.org
 
