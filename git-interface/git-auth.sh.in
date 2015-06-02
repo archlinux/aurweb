@@ -1,0 +1,3 @@
+#!/bin/sh
+
+%GIT_INTERFACE_DIR%/git-auth.py "$1" "$2"

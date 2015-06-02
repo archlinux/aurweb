@@ -34,8 +34,7 @@ Setup on Arch Linux
 7) Install the git-auth wrapper script:
 
     # cd /srv/http/aurweb/git-interface/
-    # cp git-auth.sh /usr/local/bin/aur-git-auth
-    # chmod 755 /usr/local/bin/aur-git-auth
+    # make && make install
 
 8) Configure sshd(8) for the AUR. Add the following lines at the end of your
    sshd_config(5) and restart the sshd. Note that OpenSSH 6.9 or newer is
