@@ -52,7 +52,7 @@ def list_repos(user):
         print((' ' if row[1] else '*') + row[0])
     db.close()
 
-def setup_repo(pkgbase, user):
+def create_pkgbase(pkgbase, user):
     if not re.match(repo_regex, pkgbase):
         die('%s: invalid repository name: %s' % (action, pkgbase))
     if pkgbase_exists(pkgbase):
@@ -79,11 +79,20 @@ def setup_repo(pkgbase, user):
     db.commit()
     db.close()
 
+def setup_repo(pkgbase):
+    if not re.match(repo_regex, pkgbase):
+        die('%s: invalid repository name: %s' % (action, pkgbase))
+
     repo = pygit2.Repository(repo_path)
-    repo.create_reference('refs/heads/' + pkgbase,
-                          'refs/namespaces/' + pkgbase + '/refs/heads/master')
-    repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD',
-                          'refs/namespaces/' + pkgbase + '/refs/heads/master')
+    refs = repo.listall_references()
+
+    if not 'refs/heads/' + pkgbase in refs:
+        repo.create_reference('refs/heads/' + pkgbase, 'refs/namespaces/' +
+                              pkgbase + '/refs/heads/master')
+    if not 'refs/namespaces/' + pkgbase + '/HEAD' in refs:
+        repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD',
+                              'refs/namespaces/' + pkgbase +
+                              '/refs/heads/master')
 
 def check_permissions(pkgbase, user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
@@ -130,7 +139,8 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
         die('%s: invalid repository name: %s' % (action, repo))
 
     if not pkgbase_exists(pkgbase):
-        setup_repo(pkgbase, user)
+        create_pkgbase(pkgbase, user)
+    setup_repo(pkgbase);
 
     if action == 'git-receive-pack':
         if not check_permissions(pkgbase, user):
@@ -150,7 +160,7 @@ elif action == 'setup-repo':
         die_with_help("%s: missing repository name" % (action))
     if len(cmdargv) > 2:
         die_with_help("%s: too many arguments" % (action))
-    setup_repo(cmdargv[1], user)
+    create_pkgbase(cmdargv[1], user)
 elif action == 'help':
     die("Commands:\n" +
         "  help                 Show this help message and exit.\n" +
