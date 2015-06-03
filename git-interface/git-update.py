@@ -20,6 +20,7 @@ aur_db_pass = config.get('database', 'password')
 aur_db_socket = config.get('database', 'socket')
 
 repo_path = config.get('serve', 'repo-path')
+repo_regex = config.get('serve', 'repo-regex')
 
 def extract_arch_fields(pkginfo, field):
     values = []
@@ -207,7 +208,7 @@ for commit in walker:
         exit(1)
 
     srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
-    if srcinfo_pkgbase != pkgbase:
+    if not re.match(repo_regex, srcinfo_pkgbase):
         die_commit('invalid pkgbase: %s' % (srcinfo_pkgbase), commit.id)
 
     for pkgname in srcinfo.GetPackageNames():
@@ -250,6 +251,10 @@ for commit in walker:
 srcinfo_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
 srcinfo_raw = srcinfo_raw.split('\n')
 srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw)
+
+srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
+if srcinfo_pkgbase != pkgbase:
+    die('invalid pkgbase: %s' % (srcinfo_pkgbase))
 
 save_srcinfo(srcinfo, db, cur, user)
 
