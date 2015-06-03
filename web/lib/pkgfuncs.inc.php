@@ -779,7 +779,6 @@ function sanitize_ids($ids) {
 }
 
 /**
-<<<<<<< HEAD
  * Add package information to the database for a specific package
  *
  * @param int $base_id ID of the package base
