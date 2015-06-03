@@ -6,7 +6,7 @@ import os
 import pyalpm
 
 config = configparser.RawConfigParser()
-config.read(os.path.dirname(os.path.realpath(__file__)) + "/../../conf/config")
+config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
 
 aur_db_host = config.get('database', 'host')
 aur_db_name = config.get('database', 'name')
