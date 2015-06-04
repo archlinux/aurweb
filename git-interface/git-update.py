@@ -225,10 +225,6 @@ for commit in walker:
             die_commit('invalid package name: %s' % (pkginfo['pkgname']),
                        commit.id)
 
-        if pkginfo['pkgname'] in blacklist:
-            die_commit('package is blacklisted: %s' % (pkginfo['pkgname']),
-                       commit.id)
-
         if not re.match(r'(?:http|ftp)s?://.*', pkginfo['url']):
             die_commit('invalid URL: %s' % (pkginfo['url']), commit.id)
 
@@ -255,6 +251,12 @@ srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw)
 srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
 if srcinfo_pkgbase != pkgbase:
     die('invalid pkgbase: %s' % (srcinfo_pkgbase))
+
+for pkgname in srcinfo.GetPackageNames():
+    pkginfo = srcinfo.GetMergedPackage(pkgname)
+
+    if pkginfo['pkgname'] in blacklist:
+        die('package is blacklisted: %s' % (pkginfo['pkgname']))
 
 save_srcinfo(srcinfo, db, cur, user)
 
