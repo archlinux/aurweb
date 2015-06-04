@@ -1,5 +1,5 @@
 virtual-root=/cgit/
-clone-prefix=git+ssh://aur@aur.archlinux.org
+clone-prefix=https://aur.archlinux.org
 noheader=0
 logo=
 css=/css/cgit.css
