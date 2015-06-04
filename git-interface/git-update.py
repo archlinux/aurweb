@@ -252,11 +252,21 @@ srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
 if srcinfo_pkgbase != pkgbase:
     die('invalid pkgbase: %s' % (srcinfo_pkgbase))
 
+pkgbase = srcinfo._pkgbase['pkgname']
+cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
+pkgbase_id = cur.fetchone()[0]
+
 for pkgname in srcinfo.GetPackageNames():
     pkginfo = srcinfo.GetMergedPackage(pkgname)
+    pkgname = pkginfo['pkgname']
 
-    if pkginfo['pkgname'] in blacklist:
+    if pkgname in blacklist:
         die('package is blacklisted: %s' % (pkginfo['pkgname']))
+
+    cur.execute("SELECT COUNT(*) FROM Packages WHERE Name = %s AND " +
+                "PackageBaseID <> %s", [pkgname, pkgbase_id])
+    if cur.fetchone()[0] > 0:
+        die('cannot overwrite package: %s' % (pkgname))
 
 save_srcinfo(srcinfo, db, cur, user)
 
