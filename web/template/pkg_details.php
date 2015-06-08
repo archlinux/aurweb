@@ -1,8 +1,8 @@
 <?php
 
 $cgit_uri = config_get('options', 'cgit_uri');
-$git_clone_uri_anon = sprintf(config_get('options', 'git_clone_uri_anon'), htmlspecialchars($row['Name']));
-$git_clone_uri_priv = sprintf(config_get('options', 'git_clone_uri_priv'), htmlspecialchars($row['Name']));
+$git_clone_uri_anon = sprintf(config_get('options', 'git_clone_uri_anon'), htmlspecialchars($row['BaseName']));
+$git_clone_uri_priv = sprintf(config_get('options', 'git_clone_uri_priv'), htmlspecialchars($row['BaseName']));
 
 $uid = uid_from_sid($SID);
 
