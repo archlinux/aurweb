@@ -191,7 +191,16 @@ for commit in walker:
         die_commit("missing .SRCINFO", commit.id)
 
     for treeobj in commit.tree:
-        if repo[treeobj.id].size > 250000:
+        blob = repo[treeobj.id]
+
+        if isinstance(blob, pygit2.Tree):
+            die_commit("the repository must not contain subdirectories",
+                       commit.id)
+
+        if not isinstance(blob, pygit2.Blob):
+            die_commit("not a blob object: %s" % (treeobj), commit.id)
+
+        if blob.size > 250000:
             die_commit("maximum blob size (250kB) exceeded", commit.id)
 
     srcinfo_raw = repo[commit.tree['.SRCINFO'].id].data.decode()
