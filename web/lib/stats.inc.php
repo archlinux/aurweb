@@ -35,12 +35,17 @@ function updates_table() {
  * @return void
  */
 function user_table($userid) {
-	$base_q = "SELECT COUNT(*) FROM PackageBases WHERE MaintainerUID = " . $userid;
+	$base_q = "SELECT COUNT(*) FROM PackageBases ";
+	$base_q.= "WHERE MaintainerUID = " . $userid . " ";
+	$base_q.= "AND PackagerUID IS NOT NULL";
 
 	$maintainer_unsupported_count = db_cache_value($base_q,
 		'user_unsupported_count:' . $userid);
 
-	$q = "SELECT COUNT(*) FROM PackageBases WHERE OutOfDateTS IS NOT NULL AND MaintainerUID = " . $userid;
+	$q = "SELECT COUNT(*) FROM PackageBases ";
+	$q.= "WHERE OutOfDateTS IS NOT NULL ";
+	$q.= "AND MaintainerUID = " . $userid . " ";
+	$q.= "AND PackagerUID IS NOT NULL";
 
 	$flagged_outdated = db_cache_value($q, 'user_flagged_outdated:' . $userid);
 
@@ -54,10 +59,12 @@ function user_table($userid) {
  */
 function general_stats_table() {
 	# AUR statistics
-	$q = "SELECT COUNT(*) FROM PackageBases";
+	$q = "SELECT COUNT(*) FROM PackageBases WHERE PackagerUID IS NOT NULL";
 	$unsupported_count = db_cache_value($q, 'unsupported_count');
 
-	$q = "SELECT COUNT(*) FROM PackageBases WHERE MaintainerUID IS NULL";
+	$q = "SELECT COUNT(*) FROM PackageBases ";
+	$q.= "WHERE MaintainerUID IS NULL ";
+	$q.= "AND PackagerUID IS NOT NULL";
 	$orphan_count = db_cache_value($q, 'orphan_count');
 
 	$q = "SELECT count(*) FROM Users";
@@ -69,16 +76,27 @@ function general_stats_table() {
 	$targstamp = intval(strtotime("-7 days"));
 	$yearstamp = intval(strtotime("-1 year"));
 
-	$q = "SELECT COUNT(*) FROM PackageBases WHERE ModifiedTS >= $targstamp AND ModifiedTS = SubmittedTS";
+	$q = "SELECT COUNT(*) FROM PackageBases ";
+	$q.= "WHERE ModifiedTS >= $targstamp ";
+	$q.= "AND ModifiedTS = SubmittedTS ";
+	$q.= "AND PackagerUID IS NOT NULL";
 	$add_count = db_cache_value($q, 'add_count');
 
-	$q = "SELECT COUNT(*) FROM PackageBases WHERE ModifiedTS >= $targstamp AND ModifiedTS != SubmittedTS";
+	$q = "SELECT COUNT(*) FROM PackageBases ";
+	$q.= "WHERE ModifiedTS >= $targstamp ";
+	$q.= "AND ModifiedTS != SubmittedTS ";
+	$q.= "AND PackagerUID IS NOT NULL";
 	$update_count = db_cache_value($q, 'update_count');
 
-	$q = "SELECT COUNT(*) FROM PackageBases WHERE ModifiedTS >= $yearstamp AND ModifiedTS != SubmittedTS";
+	$q = "SELECT COUNT(*) FROM PackageBases ";
+	$q.= "WHERE ModifiedTS >= $yearstamp ";
+	$q.= "AND ModifiedTS != SubmittedTS ";
+	$q.= "AND PackagerUID IS NOT NULL";
 	$update_year_count = db_cache_value($q, 'update_year_count');
 
-	$q = "SELECT COUNT(*) FROM PackageBases WHERE ModifiedTS = SubmittedTS";
+	$q = "SELECT COUNT(*) FROM PackageBases ";
+	$q.= "WHERE ModifiedTS = SubmittedTS ";
+	$q.= "AND PackagerUID IS NOT NULL";
 	$never_update_count = db_cache_value($q, 'never_update_count');
 
 	include('stats/general_stats_table.php');
