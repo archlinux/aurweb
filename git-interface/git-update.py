@@ -281,9 +281,3 @@ for pkgname in srcinfo.GetPackageNames():
 save_srcinfo(srcinfo, db, cur, user)
 
 db.close()
-
-pkglist = list(srcinfo.GetPackageNames())
-if len(pkglist) > 0:
-    with open(repo_path + '/description', 'w') as f:
-        pkginfo = srcinfo.GetMergedPackage(pkglist[0])
-        f.write(pkginfo['pkgdesc'])
