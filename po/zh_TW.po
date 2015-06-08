@@ -1,0 +1,1251 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Jeff Huang <s8321414@gmail.com>, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Arch User Repository (AUR)\n"
+"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-05 00:43+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/aur/language/zh_TW/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Page Not Found"
+msgstr "頁面找不到"
+
+msgid "Sorry, the page you've requested does not exist."
+msgstr "抱歉，您所請求的頁面不存在。"
+
+msgid "Account"
+msgstr "帳號"
+
+msgid "Accounts"
+msgstr "帳號"
+
+msgid "You are not allowed to access this area."
+msgstr "您不被允許存取此區域。"
+
+msgid "Could not retrieve information for the specified user."
+msgstr "無法擷取指定使用者的資訊。"
+
+msgid "You do not have permission to edit this account."
+msgstr "您沒有權限編輯此帳號。"
+
+msgid "Use this form to search existing accounts."
+msgstr "使用此表單來搜尋已有的帳號。"
+
+msgid "You must log in to view user information."
+msgstr "您必須登入以檢視使用者資訊。"
+
+msgid "Use this form to create an account."
+msgstr "使用此表單來新建一個帳號。"
+
+msgid "Add Proposal"
+msgstr "添加建議"
+
+msgid "Invalid token for user action."
+msgstr "無效的使用者動作標誌。"
+
+msgid "Username does not exist."
+msgstr "使用者名稱不存在。"
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s 已經有了關於他們的建議。"
+
+msgid "Invalid type."
+msgstr "無效的類型。"
+
+msgid "Proposal cannot be empty."
+msgstr "建議不能為空。"
+
+msgid "New proposal submitted."
+msgstr "已提交新的建議。"
+
+msgid "Submit a proposal to vote on."
+msgstr "提交一個建議用於投票。"
+
+msgid "Applicant/TU"
+msgstr "申請人／受信使用者"
+
+msgid "(empty if not applicable)"
+msgstr "（如果不符合可以留空）"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "Addition of a TU"
+msgstr "添加受信使用者"
+
+msgid "Removal of a TU"
+msgstr "移除受信使用者"
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr "移除受信使用者（無故不活躍）"
+
+msgid "Amendment of Bylaws"
+msgstr "修定規則"
+
+msgid "Proposal"
+msgstr "建議"
+
+msgid "Submit"
+msgstr "提交"
+
+msgid "Manage Co-maintainers"
+msgstr "管理共同維護者"
+
+msgid "Home"
+msgstr "首頁"
+
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr "歡迎來到 AUR！請閱讀 %sAUR 使用者指導方針%s 和 %sAUR 受信使用者指導方針%s 以獲取更多的詳細資訊。"
+
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr "所貢獻的 PKGBUILDs 和 PKGINFOs %s必須%s 符合 %sArch 打包標準%s 否則將被被刪除！ "
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "記得投一票給您喜愛的套件！"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "某些套件可能會在 [community] 提供二進位檔案。"
+
+msgid "Discussion"
+msgstr "討論"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
+msgstr "與 Arch 使用者套件庫(AUR)及受信使用者結構相關的一般性討論請見 %saur-general%s 。棄置套件、合併及刪除等等的請求請見 %sPackage Actions%s box。討論關於 AUR 網頁介面的開發，請使用 %saur-dev%s 郵件列表。"
+
+msgid "Bug Reporting"
+msgstr "臭蟲回報"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR, please fill out a bug report on our %sbug "
+"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
+"packaging bugs contact the package maintainer or leave a comment on the "
+"appropriate package page."
+msgstr "如果您在 AUR 中發現了臭蟲，請在我們的 %s臭蟲追蹤系統%s 中回報。請%s只%s回報 AUR 本身的臭蟲。要回報打包臭蟲，請連絡套件的維護者或是在對應的套件頁面中留下評論。"
+
+msgid "DISCLAIMER"
+msgstr "免責聲明"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr "AUR 上的檔案是使用者產生的內容。任何使用檔案的風險由您自行承擔。"
+
+msgid "Package Search"
+msgstr "搜尋套件"
+
+msgid "Adopt"
+msgstr "接管"
+
+msgid "Vote"
+msgstr "投票"
+
+msgid "UnVote"
+msgstr "取消投票"
+
+msgid "Notify"
+msgstr "通知"
+
+msgid "UnNotify"
+msgstr "取消通知"
+
+msgid "Flag"
+msgstr "標記"
+
+msgid "UnFlag"
+msgstr "取消標記"
+
+msgid "Login"
+msgstr "登入"
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "已登入為： %s"
+
+msgid "Logout"
+msgstr "登出"
+
+msgid "Enter login credentials"
+msgstr "輸入登入資訊"
+
+msgid "Username"
+msgstr "使用者名稱"
+
+msgid "Password"
+msgstr "密碼"
+
+msgid "Remember me"
+msgstr "記住我"
+
+msgid "Forgot Password"
+msgstr "忘記密碼"
+
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "HTTP 登入已被停用。如果您想要登入的話，請 %s切換至HTTPs%s 。"
+
+msgid "Search Criteria"
+msgstr "搜尋條件"
+
+msgid "Packages"
+msgstr "套件"
+
+msgid "Error trying to retrieve package details."
+msgstr "嘗試擷取套件細節時發生錯誤。"
+
+msgid "Missing a required field."
+msgstr "缺少必填項目。"
+
+msgid "Password fields do not match."
+msgstr "密碼不符合。"
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "您的密碼必須至少 %s 個字節。"
+
+msgid "Invalid e-mail."
+msgstr "無效的電子郵件。"
+
+#, php-format
+msgid ""
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
+msgstr "一個關聯到您的電子郵件地址的帳號 %s 已遞交了密碼重置請求。如果您想要重置您的密碼，請使用以下的連結，否則您可以忽略這則訊息，且不會發生任何事情。"
+
+msgid "Password Reset"
+msgstr "密碼重置"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr "請檢查您的電子郵件信箱裡是否有確認連結。"
+
+msgid "Your password has been reset successfully."
+msgstr "您的密碼已成功重置。"
+
+msgid "Confirm your e-mail address:"
+msgstr "確認您的電子郵件位置："
+
+msgid "Enter your new password:"
+msgstr "輸入您的新密碼："
+
+msgid "Confirm your new password:"
+msgstr "確認您的新密碼："
+
+msgid "Continue"
+msgstr "繼續"
+
+#, php-format
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "如果您忘了您用來註冊的電子郵件地址，請寄一封訊息到 %saur-general%s 郵件列表中。"
+
+msgid "Enter your e-mail address:"
+msgstr "輸入您的電子郵件地址："
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr "選取的套件未被棄置，請檢查確認的核取方塊。"
+
+msgid "Cannot find package to merge votes and comments into."
+msgstr "找不到合併投票與評論的目標套件。"
+
+msgid "Cannot merge a package base with itself."
+msgstr "無法將一個套件基礎與它自己合併。"
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "選取的套件未被刪除，請檢查確認的核取方塊。"
+
+msgid "Package Deletion"
+msgstr "套件刪除"
+
+#, php-format
+msgid "Delete Package: %s"
+msgstr "刪除套件： %s"
+
+#, php-format
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr "使用這個表單以從 AUR 刪除套件基礎 %s%s%s 以及以下的套件。"
+
+msgid "Deletion of a package is permanent. "
+msgstr "套件刪除是永久性的操作。"
+
+msgid "Select the checkbox to confirm action."
+msgstr "選取核取方塊以確認動作。"
+
+msgid "Confirm package deletion"
+msgstr "確認套件刪除"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr "只有受信使用者和開發者可以刪除套件。"
+
+msgid "Disown Package"
+msgstr "棄置套件"
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr "棄置套件：%s"
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
+msgstr "使用這個表單以棄置一個包含以下套件的套件基礎 %s%s%s ："
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr "透過選取核取方塊，您就會確認您想要棄置此套件並轉移所有權給 %s%s%s。"
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr "透過選取核取方塊，您就會確認您想要棄置此套件。"
+
+msgid "Confirm to disown the package"
+msgstr "確認棄置此套件"
+
+msgid "Disown"
+msgstr "棄置"
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr "只有受信使用者和開發者可以棄置套件。"
+
+msgid "Package Merging"
+msgstr "套件合併"
+
+#, php-format
+msgid "Merge Package: %s"
+msgstr "合併套件：: %s"
+
+#, php-format
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr "使用這個表單以合併套件基礎 %s%s%s 以及其他套件。"
+
+msgid "The following packages will be deleted: "
+msgstr "以下套件將會被刪除："
+
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr "套件一經合併即無法回復。"
+
+msgid "Enter the package name you wish to merge the package into. "
+msgstr "請輸入您想要合併到該套件的套件名稱。"
+
+msgid "Merge into:"
+msgstr "合併到："
+
+msgid "Confirm package merge"
+msgstr "確認套件合併"
+
+msgid "Merge"
+msgstr "合併"
+
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr "只有受信使用者和開發者可以合併套件。"
+
+msgid "File Request"
+msgstr "提交請求"
+
+msgid "Close Request"
+msgstr "關閉請求"
+
+msgid "First"
+msgstr "第一頁"
+
+msgid "Previous"
+msgstr "上一頁"
+
+msgid "Next"
+msgstr "下一頁"
+
+msgid "Last"
+msgstr "最後一頁"
+
+msgid "Requests"
+msgstr "請求"
+
+msgid "Trusted User"
+msgstr "受信使用者"
+
+msgid "Could not retrieve proposal details."
+msgstr "無法取得建議的細節。"
+
+msgid "Voting is closed for this proposal."
+msgstr "這個建議的投票已被關閉。"
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr "只有受信使用者可以投票。"
+
+msgid "You cannot vote in an proposal about you."
+msgstr "您不能在關於您的建議中投票。"
+
+msgid "You've already voted for this proposal."
+msgstr "您已經在此建議上投過票了。"
+
+msgid "Vote ID not valid."
+msgstr "投票的 ID 無效。"
+
+msgid "Current Votes"
+msgstr "目前的投票"
+
+msgid "Past Votes"
+msgstr "過去投票"
+
+msgid "Voters"
+msgstr "投票者"
+
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "帳號註冊在您目前所使用的 IP 位址被停用，可能是因為一些持續性的垃圾攻擊。我們為您的不便致歉。"
+
+msgid "Missing User ID"
+msgstr "遺失使用者 ID"
+
+msgid "The username is invalid."
+msgstr "使用者名稱無效。"
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "使用者名稱的長度必須在 %s 到 %s 個字節間。"
+
+msgid "Start and end with a letter or number"
+msgstr "以字母或數字當做開頭或結尾"
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "最多包含一個「.」、「_」或「-」。"
+
+msgid "The email address is invalid."
+msgstr "電子郵件地址無效。"
+
+msgid "The PGP key fingerprint is invalid."
+msgstr "PGP 密鑰指紋無效。"
+
+msgid "The SSH public key is invalid."
+msgstr "SSH 公開金鑰無效。"
+
+msgid "Cannot increase account permissions."
+msgstr "無法提升帳號權限。"
+
+msgid "Language is not currently supported."
+msgstr "目前不支援此語言。"
+
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr "使用者名稱 %s%s%s 已被使用。"
+
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr "該位址 %s%s%s 已被使用。"
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr "SSH 公開金鑰，%s%s%s，已在使用中。"
+
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr "嘗試建立帳號 %s%s%s 時發生錯誤。"
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr "帳號 %s%s%s 已成功建立。"
+
+msgid "Click on the Login link above to use your account."
+msgstr "點擊上面的登入連結以使用您的帳號。"
+
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr "歡迎來到 %s ！為了幫您的新帳號設定一個初始密碼，請點擊下面的連結。如果該連結無法運作，請嘗試複置它並將其貼到您瀏覽器的網址列中。"
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "一個密碼重置密鑰已寄到您的電子郵件信箱中。"
+
+#, php-format
+msgid "No changes were made to the account, %s%s%s."
+msgstr "帳號 %s%s%s 沒有被修改。"
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr "帳號 %s%s%s 已成功修改。"
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "登入表單在您目前所使用的 IP 位址被停用，可能是因為一些持續性的垃圾攻擊。我們為您的不便致歉。"
+
+msgid "Account suspended"
+msgstr "帳號被暫停"
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "您的密碼已成功重置。如果您剛建立了一個新帳號，請使用確認郵件中的連結來設定一個初始密碼。否則，請在 %s密碼重置%s 頁面上請求一個重置密鑰。"
+
+msgid "Bad username or password."
+msgstr "使用者名稱或密碼錯誤。"
+
+msgid "An error occurred trying to generate a user session."
+msgstr "嘗試生成使用者工作階段時發生錯誤。"
+
+msgid "Invalid e-mail and reset key combination."
+msgstr "無效的電子郵件與密鑰組合。"
+
+msgid "None"
+msgstr "無"
+
+msgid "Error retrieving package details."
+msgstr "擷取套件細節時發生錯誤。"
+
+msgid "Package details could not be found."
+msgstr "找不到套件的詳細資訊。"
+
+msgid "You must be logged in before you can flag packages."
+msgstr "您必須先登入才能標記套件。"
+
+msgid "You did not select any packages to flag."
+msgstr "您沒有選擇任何要標記的套件。"
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr "選定的套件已被標記為過期。"
+
+msgid "You must be logged in before you can unflag packages."
+msgstr "您必須先登入才能取消標記套件。"
+
+msgid "You did not select any packages to unflag."
+msgstr "您沒有選擇任何要取消標記的套件。"
+
+msgid "The selected packages have been unflagged."
+msgstr "選定的套件已被取消標記。"
+
+msgid "You do not have permission to delete packages."
+msgstr "您沒有權限刪除套件。"
+
+msgid "You did not select any packages to delete."
+msgstr "您無法選取任何套件刪除。"
+
+msgid "The selected packages have been deleted."
+msgstr "選取的套件已刪除。"
+
+msgid "You must be logged in before you can adopt packages."
+msgstr "您必須先登入才能接管套件。"
+
+msgid "You must be logged in before you can disown packages."
+msgstr "您必須先登入才能棄置套件。"
+
+msgid "You did not select any packages to adopt."
+msgstr "您沒有選擇任何要接管的套件。"
+
+msgid "You did not select any packages to disown."
+msgstr "您沒有選擇任何要棄置的套件。"
+
+msgid "The selected packages have been adopted."
+msgstr "選定的套件已接管。"
+
+msgid "The selected packages have been disowned."
+msgstr "選定的套件已棄置。"
+
+msgid "You must be logged in before you can vote for packages."
+msgstr "您必須先登入才能對套件投票。"
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "您必須先登入才能對套件取消投票。"
+
+msgid "You did not select any packages to vote for."
+msgstr "您沒有選擇任何要投票的套件。"
+
+msgid "Your votes have been removed from the selected packages."
+msgstr "您的投票已從選定的套件中被移除。"
+
+msgid "Your votes have been cast for the selected packages."
+msgstr "您的投票已加入選定的套件中。"
+
+msgid "Couldn't add to notification list."
+msgstr "無法加入到通知清單中。"
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "您已經成功加入到 %s 的評論通知列表。"
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "您已經成功從 %s 的評論通知列表移除。"
+
+msgid "You must be logged in before you can edit package information."
+msgstr "您必須先登入才能編輯套件資訊。"
+
+msgid "Missing comment ID."
+msgstr "遺失評論 ID。"
+
+msgid "Comment has been deleted."
+msgstr "評論已被刪除。"
+
+msgid "You are not allowed to delete this comment."
+msgstr "您不被允許刪除此則評論。"
+
+msgid "Missing category ID."
+msgstr "遺失分類 ID。"
+
+msgid "Invalid category ID."
+msgstr "無效的分類 ID。"
+
+msgid "You are not allowed to change this package category."
+msgstr "您不被允許改變此套件的分類。"
+
+msgid "Package category changed."
+msgstr "套件分類已變更。"
+
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr "您不被允許管理此套件基礎的共同維護者。"
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr "無效的使用者名稱：%s"
+
+msgid "The package base co-maintainers have been updated."
+msgstr "套件基礎共同維護者已更新。"
+
+msgid "View packages details for"
+msgstr "檢視套件的詳細資訊"
+
+msgid "You must be logged in to file package requests."
+msgstr "您必須先登入才能匯報套件請求。"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "無效的名稱：只允許小寫字母。"
+
+msgid "The comment field must not be empty."
+msgstr "評論區域不能為空。"
+
+msgid "Invalid request type."
+msgstr "無效的請求類型。"
+
+msgid "Added request successfully."
+msgstr "成功加入請求。"
+
+msgid "Invalid reason."
+msgstr "無效的理由。"
+
+msgid "Only TUs and developers can close requests."
+msgstr "只有受信使用者和開發者可以關閉請求。"
+
+msgid "Request closed successfully."
+msgstr "請求關閉成功。"
+
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "您可以使用這個表單來永久刪除 AUR 帳號 %s 。"
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%s警告%s ：此動作無法回復。"
+
+msgid "Confirm deletion"
+msgstr "確認刪除"
+
+msgid "Account Type"
+msgstr "帳號類型"
+
+msgid "User"
+msgstr "使用者"
+
+msgid "Developer"
+msgstr "開發者"
+
+msgid "Trusted User & Developer"
+msgstr "受信使用者 & 開發者"
+
+msgid "Email Address"
+msgstr "電子郵件地址"
+
+msgid "Real Name"
+msgstr "真實名稱"
+
+msgid "IRC Nick"
+msgstr "IRC 暱稱"
+
+msgid "PGP Key Fingerprint"
+msgstr "PGP 密鑰指紋"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Inactive since"
+msgstr "不活躍自"
+
+msgid "Active"
+msgstr "活躍"
+
+msgid "Last Login"
+msgstr "最後登入"
+
+msgid "Never"
+msgstr "從未"
+
+msgid "View this user's packages"
+msgstr "檢視此使用者的套件"
+
+msgid "Edit this user's account"
+msgstr "編輯此使用者的帳號"
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "如果您想要永久刪除此帳號，請點擊 %s這裡%s 。"
+
+msgid "required"
+msgstr "必填"
+
+msgid "Normal user"
+msgstr "一般使用者"
+
+msgid "Trusted user"
+msgstr "受信使用者"
+
+msgid "Account Suspended"
+msgstr "帳號被暫停"
+
+msgid "Inactive"
+msgstr "不活躍"
+
+msgid "Re-type password"
+msgstr "重新輸入密碼"
+
+msgid "Language"
+msgstr "語言"
+
+msgid ""
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
+msgstr "以下的資訊僅在您想要遞交套件到 Arch 使用者套件庫時是必須的。"
+
+msgid "SSH Public Key"
+msgstr "SSH 公開金鑰"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Create"
+msgstr "建立"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "No results matched your search criteria."
+msgstr "沒有符合您搜尋條件的搜尋結果。"
+
+msgid "Edit Account"
+msgstr "編輯帳號"
+
+msgid "Suspended"
+msgstr "暫停"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Less"
+msgstr "更少"
+
+msgid "More"
+msgstr "更多"
+
+msgid "No more results to display."
+msgstr "無更多結果可顯示。"
+
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr "管理共同維護者：%s"
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr "使用此表單來加入 %s%s%s 的共同維護者（每個使用者名稱一行）："
+
+msgid "Users"
+msgstr "使用者"
+
+msgid "Save"
+msgstr "儲存"
+
+msgid "My Packages"
+msgstr "我的套件"
+
+msgid " My Account"
+msgstr "我的帳號"
+
+msgid "Register"
+msgstr "註冊"
+
+msgid "unknown"
+msgstr "未知"
+
+msgid "Package Base Details"
+msgstr "套件基礎詳細資訊"
+
+msgid "Package Actions"
+msgstr "套件動作"
+
+msgid "View PKGBUILD"
+msgstr "檢視 PKGBUILD"
+
+msgid "View Changes"
+msgstr "檢視變更"
+
+msgid "Download snapshot"
+msgstr "下載快照"
+
+msgid "Search wiki"
+msgstr "搜尋 wiki"
+
+msgid "Flagged out-of-date"
+msgstr "已標記為過期"
+
+msgid "Flag package out-of-date"
+msgstr "將套件標記為過期"
+
+msgid "Unflag package"
+msgstr "取消標記套件"
+
+msgid "Remove vote"
+msgstr "移除投票"
+
+msgid "Vote for this package"
+msgstr "為此套件投票"
+
+msgid "Disable notifications"
+msgstr "停用通知"
+
+msgid "Notify of new comments"
+msgstr "新評論通知"
+
+msgid "Manage Co-Maintainers"
+msgstr "管理共同維護者"
+
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] "%d 個擱置的請求"
+
+msgid "Delete Package"
+msgstr "刪除套件"
+
+msgid "Merge Package"
+msgstr "合併套件"
+
+msgid "Adopt Package"
+msgstr "接管套件"
+
+msgid "Git Clone URL"
+msgstr "Git Clone URL"
+
+msgid "Category"
+msgstr "分類"
+
+msgid "Change category"
+msgstr "變更分類"
+
+msgid "Submitter"
+msgstr "提交人"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "檢視 %s 的帳號資訊"
+
+msgid "Maintainer"
+msgstr "維護者"
+
+msgid "Last Packager"
+msgstr "最近一次打包者"
+
+msgid "Votes"
+msgstr "得票"
+
+msgid "First Submitted"
+msgstr "首次提交"
+
+msgid "Last Updated"
+msgstr "最後更新"
+
+msgid "Add Comment"
+msgstr "新增評論"
+
+msgid "Comment has been added."
+msgstr "評論已新增。"
+
+msgid "View all comments"
+msgstr "檢視所有評論"
+
+msgid "Latest Comments"
+msgstr "最新的評論"
+
+msgid "Delete comment"
+msgstr "刪除評論"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "%s 的評論"
+
+msgid "Anonymous comment"
+msgstr "匿名評論"
+
+msgid "deleted"
+msgstr "已刪除"
+
+msgid "All comments"
+msgstr "所有評論"
+
+msgid "Package Details"
+msgstr "套件詳細資訊"
+
+msgid "Package Base"
+msgstr "套件基礎"
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Upstream URL"
+msgstr "上游 URL"
+
+msgid "Visit the website for"
+msgstr "參觀網頁"
+
+msgid "Licenses"
+msgstr "授權條款"
+
+msgid "Groups"
+msgstr "軟體群組"
+
+msgid "Conflicts"
+msgstr "衝突"
+
+msgid "Provides"
+msgstr "它提供"
+
+msgid "Replaces"
+msgstr "它會取代"
+
+msgid "Dependencies"
+msgstr "它依賴"
+
+msgid "Required by"
+msgstr "需要它"
+
+msgid "Sources"
+msgstr "來源"
+
+#, php-format
+msgid "Close Request: %s"
+msgstr "關閉請求： %s"
+
+#, php-format
+msgid "Use this form to close the request for package base %s%s%s."
+msgstr "使用這個表單以關閉請求套件基礎 %s%s%s 。"
+
+msgid "Note"
+msgstr "注意"
+
+msgid ""
+"The comments field can be left empty. However, it is highly recommended to "
+"add a comment when rejecting a request."
+msgstr "評論區域可以留空。但強烈建議在拒絕一個請求時加入一些評論。"
+
+msgid "Reason"
+msgstr "理由"
+
+msgid "Accepted"
+msgstr "已接受"
+
+msgid "Rejected"
+msgstr "已拒絕"
+
+msgid "Comments"
+msgstr "評論"
+
+#, php-format
+msgid "File Request: %s"
+msgstr "檔案請求： %s"
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "使用這個表單以提交一個針對包含以下套件的套件基礎 %s%s%s ："
+
+msgid "Request type"
+msgstr "請求類型"
+
+msgid "Deletion"
+msgstr "刪除"
+
+msgid "Orphan"
+msgstr "棄置"
+
+msgid "Merge into"
+msgstr "合併到"
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] "找到了 %d 個套件請求。"
+
+#, php-format
+msgid "Page %d of %d."
+msgstr "第 %d 頁，共 %d 頁。"
+
+msgid "Package"
+msgstr "套件"
+
+msgid "Filed by"
+msgstr "提交人為"
+
+msgid "Date"
+msgstr "日期"
+
+#, php-format
+msgid "~%d days left"
+msgstr "剩餘 ~%d 天"
+
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] "剩餘 ~%d 小時"
+
+msgid "<1 hour left"
+msgstr "剩餘 <1 小時"
+
+msgid "Accept"
+msgstr "接受"
+
+msgid "Locked"
+msgstr "已鎖定"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Closed"
+msgstr "已關閉"
+
+msgid "Name, Description"
+msgstr "名稱，描述"
+
+msgid "Name Only"
+msgstr "只有名稱"
+
+msgid "Exact Name"
+msgstr "確切的名稱"
+
+msgid "Exact Package Base"
+msgstr "確切的套件基礎"
+
+msgid "All"
+msgstr "全部"
+
+msgid "Flagged"
+msgstr "已標記"
+
+msgid "Not Flagged"
+msgstr "未標記"
+
+msgid "Name"
+msgstr "名稱"
+
+msgid "Voted"
+msgstr "已投票"
+
+msgid "Age"
+msgstr "時間"
+
+msgid "Ascending"
+msgstr "遞增"
+
+msgid "Descending"
+msgstr "遞減"
+
+msgid "Enter search criteria"
+msgstr "輸入搜尋條件"
+
+msgid "Any"
+msgstr "任意"
+
+msgid "Search by"
+msgstr "以何種方式搜尋"
+
+msgid "Keywords"
+msgstr "關鍵字"
+
+msgid "Out of Date"
+msgstr "過期狀態"
+
+msgid "Sort by"
+msgstr "排列依據"
+
+msgid "Sort order"
+msgstr "排列方式"
+
+msgid "Per page"
+msgstr "每頁顯示"
+
+msgid "Go"
+msgstr "到"
+
+msgid "Orphans"
+msgstr "被棄置的套件"
+
+msgid "Error retrieving package list."
+msgstr "擷取套件列表時發生錯誤。"
+
+msgid "No packages matched your search criteria."
+msgstr "沒有套件符合您的搜尋條件。"
+
+#, php-format
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] "找到 %d 個套件。"
+
+msgid "Version"
+msgstr "版本"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "orphan"
+msgstr "被棄置的套件"
+
+msgid "Actions"
+msgstr "動作"
+
+msgid "Flag Out-of-date"
+msgstr "標記為過期"
+
+msgid "Unflag Out-of-date"
+msgstr "取消過期標誌"
+
+msgid "Adopt Packages"
+msgstr "接管套件"
+
+msgid "Disown Packages"
+msgstr "棄置套件"
+
+msgid "Delete Packages"
+msgstr "刪除套件"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "Any type"
+msgstr "任何類型"
+
+msgid "Search"
+msgstr "搜尋"
+
+msgid "Statistics"
+msgstr "統計"
+
+msgid "Orphan Packages"
+msgstr "棄置套件"
+
+msgid "Packages added in the past 7 days"
+msgstr "過去 7 天內加入的套件"
+
+msgid "Packages updated in the past 7 days"
+msgstr "過去 7 天內更新的套件"
+
+msgid "Packages updated in the past year"
+msgstr "過去一年內更新的套件"
+
+msgid "Packages never updated"
+msgstr "從未更新過的套件"
+
+msgid "Registered Users"
+msgstr "已註冊的使用者"
+
+msgid "Trusted Users"
+msgstr "受信使用者"
+
+msgid "Recent Updates"
+msgstr "最近更新"
+
+msgid "My Statistics"
+msgstr "我的統計"
+
+msgid "Packages in unsupported"
+msgstr "不支援的套件"
+
+msgid "Proposal Details"
+msgstr "建議詳情"
+
+msgid "This vote is still running."
+msgstr "此投票仍在繼續。"
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "已提交 %s 由 %s"
+
+msgid "End"
+msgstr "結束"
+
+msgid "Result"
+msgstr "結果"
+
+msgid "No"
+msgstr "否"
+
+msgid "Abstain"
+msgstr "棄權"
+
+msgid "Total"
+msgstr "總數"
+
+msgid "Participation"
+msgstr "參與"
+
+msgid "Last Votes by TU"
+msgstr "受信使用者的最後投票"
+
+msgid "Last vote"
+msgstr "最後投票"
+
+msgid "No results found."
+msgstr "沒有找到結果。"
+
+msgid "Start"
+msgstr "開始"
+
+msgid "Back"
+msgstr "返回"

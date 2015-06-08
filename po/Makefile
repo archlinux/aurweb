@@ -26,7 +26,8 @@ POFILES = \
 	sr.po \
 	tr.po \
 	uk.po \
-	zh_CN.po
+	zh_CN.po \
+	zh_TW.po
 
 MOFILES = ${POFILES:.po=.mo}
 LOCALES = ${MOFILES:.mo=}

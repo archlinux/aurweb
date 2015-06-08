@@ -45,7 +45,8 @@ $SUPPORTED_LANGS = array(
 	"sr" => "Srpski",
 	"tr" => "Türkçe",
 	"uk" => "Українська",
-	"zh_CN" => "简体中文"
+	"zh_CN" => "简体中文",
+	"zh_TW" => "正體中文"
 );
 
 function __() {
