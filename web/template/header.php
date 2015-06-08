@@ -42,7 +42,7 @@
 
 			print '<option value="' . htmlspecialchars($lang, ENT_QUOTES) . '"' .
 				($lang == $LANG ? ' selected="selected"' : '') .
-				'>' . htmlspecialchars($lang) . "</option>\n";
+				'>' . htmlspecialchars($lang_name) . "</option>\n";
 		}
 		?>
 							</select>
