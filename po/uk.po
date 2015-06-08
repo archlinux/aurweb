@@ -6,14 +6,14 @@
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2014
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2015
 # Данило Коростіль <ted.korostiled@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-12-19 10:50+0100\n"
-"PO-Revision-Date: 2014-12-22 08:33+0000\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-05 09:39+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/"
 "uk/)\n"
@@ -106,6 +106,9 @@ msgstr "Пропозиція"
 msgid "Submit"
 msgstr "Надіслати пакунок"
 
+msgid "Manage Co-maintainers"
+msgstr "Керування супровідниками"
+
 msgid "Home"
 msgstr "Початкова сторінка"
 
@@ -140,10 +143,10 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User "
 "structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-dev"
-"%s mailing list."
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
 msgstr ""
-"Загальне обговорення сховища користувацьких пакунків AUR та структури "
+"Загальне обговорення сховища користувацьких пакунків (AUR) та структури "
 "довірених користувачів відбувається в %saur-general%s. Для запитів щодо "
 "відмови від пакунка, злиття пакунків та вилучення пишіть в %sPackage Actions"
 "%s. Для дискусій про розробку AUR використовуйте список розсилання %saur-dev"
@@ -178,9 +181,6 @@ msgstr "Пошук пакунків"
 
 msgid "Adopt"
 msgstr "Прийняти"
-
-msgid "Disown"
-msgstr "Відректися"
 
 msgid "Vote"
 msgstr "Проголосувати"
@@ -254,14 +254,15 @@ msgstr "Ваш пароль має містити щонайменше %s сим
 msgid "Invalid e-mail."
 msgstr "Неправильна електронна адреса."
 
+#, php-format
 msgid ""
-"A password reset request was submitted for the account associated with your "
-"e-mail address. If you wish to reset your password follow the link below, "
-"otherwise ignore this message and nothing will happen."
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
 msgstr ""
-"Запит на скинення паролю для облікового запису надісланий на пов’язану з ним "
-"адресу електронної пошти. Щоб скинути пароль, натисніть на посилання нижче; "
-"щоб залишити все як є, проігноруйте це повідомлення."
+"Запит на скинення паролю для облікового запису %s надісланий на пов’язану з "
+"ним адресу електронної пошти. Щоб скинути пароль, натисніть на посилання "
+"нижче; щоб залишити все як є, проігноруйте це повідомлення."
 
 msgid "Password Reset"
 msgstr "Скидання паролю"
@@ -294,6 +295,11 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Введіть адресу електронної пошти:"
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr "Вибрані пакунки все ще мають власника, підтвердіть дію."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Не вдалося знайти пакунок для об’єднання голосів та коментарів."
@@ -334,6 +340,44 @@ msgstr "Вилучити"
 
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Тільки Довірені Користувачі та Розробники можуть вилучати пакунки."
+
+msgid "Disown Package"
+msgstr "Зректися пакунку"
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr "Позбавлення пакунка власника: %s"
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+"Використайте ці форму для позбавлення базового пакунка %s%s%s власника, який "
+"містить наступні пакунки:"
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr ""
+"Вибираючи це, Ви підтверджуєте, що бажаєте позбавити пакунок власника і "
+"перенести права власності до %s%s%s."
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr "Вибираючи це, Ви підтверджуєте, що бажаєте позбавити пакунок власника."
+
+msgid "Confirm to disown the package"
+msgstr "Підтвердіть позбавлення пакунка власника"
+
+msgid "Disown"
+msgstr "Відректися"
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
+"Тільки Довірені Користувачі та Розробники можуть забирати права власності на "
+"пакунок."
 
 msgid "Package Merging"
 msgstr "Об’єднання пакунків"
@@ -387,128 +431,6 @@ msgstr "Останній"
 
 msgid "Requests"
 msgstr "Запити"
-
-#, php-format
-msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Помилка - Вивантажений файл має більший розмір ніж дозволяється (%s)"
-
-msgid "Error - File partially uploaded"
-msgstr "Помилка - Файл частково вивантажений"
-
-msgid "Error - No file uploaded"
-msgstr "Помилка — жодного файла не вивантажено"
-
-msgid "Error - Could not locate temporary upload folder"
-msgstr "Помилка - Не можу знайти тимчасову теку для вивантаження"
-
-msgid "Error - File could not be written"
-msgstr "Помилка - Файл неможливо записати"
-
-msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-"Помилка — формат файлу не підтримується (приймаються лише архіви формату tar."
-"gz, створені за допомогою makepkg(8))."
-
-msgid "Error - uncompressed file size too large."
-msgstr "Помилка — розмір нестисненого файла надто великий."
-
-msgid "Error - source tarball may not contain files outside a directory."
-msgstr "Помилка — архів з  кодом не може містити файли за межами теки."
-
-msgid "Error - all files must have permissions of 644 or 755."
-msgstr "Помилка - всі файли повинні мати права доступу 644 або 755."
-
-msgid "Error - source tarball may not contain nested subdirectories."
-msgstr "Помилка — архів з  кодом не може містити вкладені підтеки."
-
-msgid "Error - source tarball may not contain more than one directory."
-msgstr "Помилка — архів з кодом не може містити понад одну теку."
-
-msgid "Error - all directories must have permissions of 755."
-msgstr "Помилка - всі теки повинні мати права доступу 755."
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Помилка під час  розпакування вивантаженого — немає PKGBUILD."
-
-msgid ""
-"The source package does not contain any meta data. Please use `makepkg --"
-"source` from pacman 4.2.0 or newer to create AUR source packages."
-msgstr ""
-"Джерельний пакунок не містить жодних мета-даних. Використайте `makepkg --"
-"source` з pacman 4.2.0 для створення джерельного пакунка для AUR."
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Неправильна назва: дозволено тільки малі літери."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Не вказано протокол посилання (напр., http:// , ftp://)"
-
-#, php-format
-msgid "Error - Package name cannot be greater than %d characters"
-msgstr "Помилка - Назва пакунку не може бути більшою ніж %d символів"
-
-#, php-format
-msgid "Error - Package URL cannot be greater than %d characters"
-msgstr "Помилка - URL пакунку не може бути більшим ніж %d символів"
-
-#, php-format
-msgid "Error - Package description cannot be greater than %d characters"
-msgstr "Помилка - Опис пакунку не може бути більшим ніж %d символів"
-
-#, php-format
-msgid "Error - Package license cannot be greater than %d characters"
-msgstr "Помилка - Ліцензія пакунку не може бути більшою ніж %d символів"
-
-#, php-format
-msgid "Error - Package version cannot be greater than %d characters"
-msgstr "Помилка - Версія пакунку не може бути ніж %d символів"
-
-#, php-format
-msgid ""
-"%s is on the package blacklist, please check if it's available in the "
-"official repos."
-msgstr ""
-"%s міститься в «чорному» списку. Будь ласка, перевірте, чи він не міститься "
-"в офіційному сховищі."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "Вам заборонено переписувати пакунок %s%s%s."
-
-#, php-format
-msgid "Could not create directory %s."
-msgstr "Неможливо створити теку %s."
-
-#, php-format
-msgid "Could not change directory to %s."
-msgstr "Неможливо змінити теку на %s."
-
-msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-"Тут додайте Ваш джерельний пакунок. Створіть джерельні пакунки за допомогою "
-"команди `makepkg --source`."
-
-msgid "Package Category"
-msgstr "Категорія пакунка"
-
-msgid "Select Category"
-msgstr "Виберіть категорію"
-
-msgid "Upload package file"
-msgstr "Початковий пакунок"
-
-msgid "Upload"
-msgstr "Вивантажити"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Вибачте, вивантаження не дозволені цим сервером."
-
-msgid "You must create an account before you can upload packages."
-msgstr "Для надсилання пакунків слід створити обліковий запис."
 
 msgid "Trusted User"
 msgstr "Довірений користувач"
@@ -569,6 +491,9 @@ msgstr "Адреса електронної пошти неправильна."
 msgid "The PGP key fingerprint is invalid."
 msgstr "Відбиток ключа PGP недійсний."
 
+msgid "The SSH public key is invalid."
+msgstr "Неправильний публічний ключ SSH."
+
 msgid "Cannot increase account permissions."
 msgstr "Неможливо збільшити дозволи рахунку."
 
@@ -582,6 +507,10 @@ msgstr "Назва користувача %s%s%s вже використовує
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Адрес %s%s%s вже використовується."
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr "Публічний ключ SSH, %s%s%s, вже використовується."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -753,11 +682,24 @@ msgstr "Ви не можете змінити катеогрію цього па
 msgid "Package category changed."
 msgstr "Категорію пакунку змінено."
 
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr "Ви не має прав для керування супровідниками цього базового пакунку."
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr "Неправильна назва користувача: %s"
+
+msgid "The package base co-maintainers have been updated."
+msgstr "Оновлено супровідників базового пакунку."
+
 msgid "View packages details for"
 msgstr "Показати деталі пакунку для "
 
 msgid "You must be logged in to file package requests."
 msgstr "Ви повинні увійти, щоб робити запит пакунків."
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Неправильна назва: дозволено тільки малі літери."
 
 msgid "The comment field must not be empty."
 msgstr "Поле коментаря не повинно пустувати."
@@ -858,6 +800,16 @@ msgstr "Введіть пароль ще раз"
 msgid "Language"
 msgstr "Мова"
 
+msgid ""
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+"Наступну інформацію потрібно, якщо Ви бажаєте надіслати пакунки до Сховища "
+"Користувацьких Пакунків AUR."
+
+msgid "SSH Public Key"
+msgstr "Публічний ключ SSH"
+
 msgid "Update"
 msgstr "Оновити"
 
@@ -888,6 +840,23 @@ msgstr "Більше"
 msgid "No more results to display."
 msgstr "Більше немає результатів."
 
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr "Керування супровідниками: %s"
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+"Використайте цю форму для додавання супровідника для %s%s%s (одна назва "
+"користувача в одній стрічці):"
+
+msgid "Users"
+msgstr "Користувачі"
+
+msgid "Save"
+msgstr "Зберегти"
+
 msgid "My Packages"
 msgstr "Мої пакунки"
 
@@ -909,8 +878,11 @@ msgstr "Дії над пакунком"
 msgid "View PKGBUILD"
 msgstr "Переглянути PKGBUILD"
 
-msgid "Download tarball"
-msgstr "Звантажити tar-архів"
+msgid "View Changes"
+msgstr "Переглянути зміни"
+
+msgid "Download snapshot"
+msgstr "Звантажити поточну версію"
 
 msgid "Search wiki"
 msgstr "Шукати у Вікі"
@@ -936,6 +908,9 @@ msgstr "Відключити сповіщення"
 msgid "Notify of new comments"
 msgstr "Сповіщати про нові коментарі"
 
+msgid "Manage Co-Maintainers"
+msgstr "Керування Супровідниками"
+
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
@@ -952,8 +927,8 @@ msgstr "Об’єднати пакунок"
 msgid "Adopt Package"
 msgstr "Прийняти пакунок"
 
-msgid "Disown Package"
-msgstr "Зректися пакунку"
+msgid "Git Clone URL"
+msgstr "Адреса URL для клонування Git"
 
 msgid "Category"
 msgstr "Категорія"

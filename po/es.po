@@ -9,13 +9,13 @@
 # neiko <neikokz+tsfx@gmail.com>, 2011
 # Nicolás de la Torre <ndelatorre@gmail.com>, 2012
 # Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2012
-# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2013-2014
+# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-12-19 10:50+0100\n"
-"PO-Revision-Date: 2014-12-21 04:54+0000\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-05 21:39+0000\n"
 "Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/aur/language/"
 "es/)\n"
@@ -107,6 +107,9 @@ msgstr "Propuesta"
 msgid "Submit"
 msgstr "Subir"
 
+msgid "Manage Co-maintainers"
+msgstr "Administrar coencargados"
+
 msgid "Home"
 msgstr "Inicio"
 
@@ -142,15 +145,15 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User "
 "structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-dev"
-"%s mailing list."
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
 msgstr ""
 "La discusión general sobre el repositorio de usuarios de Arch (AUR) y la "
-"estructura de usuarios de confianza se realiza en %sla lista de correos aur-"
-"general%s. Solicitudes de orfandad de paquete, de unión y/o borrado deben "
-"ser presentadas en el enlace %sSolicitudes para el paquete%s de cada "
-"paquete. Para la discusión en relación con el desarrollo del AUR, utilice "
-"%sla lista de correo aur-dev%s."
+"estructura de usuarios de confianza se realiza en la lista de correos %saur-"
+"general%s. Peticiones de orfandad, unión y borrado de paquetes deben ser "
+"presentadas en el cuadro de %sAcciones del paquete%s. Para la discusión en "
+"relación con el desarrollo de la interfaz web de AUR, utilice la lista de "
+"correo %saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Informe de errores"
@@ -183,9 +186,6 @@ msgstr "Buscar paquetes"
 
 msgid "Adopt"
 msgstr "Adoptar"
-
-msgid "Disown"
-msgstr "Abandonar"
 
 msgid "Vote"
 msgstr "Votar"
@@ -259,14 +259,16 @@ msgstr "Su contraseña debe tener como mínimo %s letras."
 msgid "Invalid e-mail."
 msgstr "Dirección de correo no válida."
 
+#, php-format
 msgid ""
-"A password reset request was submitted for the account associated with your "
-"e-mail address. If you wish to reset your password follow the link below, "
-"otherwise ignore this message and nothing will happen."
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
 msgstr ""
-"Una petición de reinicio de contraseña ha sido enviada para la cuenta "
-"asociada a su dirección. Si quiere reiniciar su contraseña siga el siguiente "
-"enlace, si no es así, ignore este mensaje y no ocurrirá nada."
+"Una solicitud de restablecimiento de contraseña se presentó para la cuenta "
+"%s asociado a su dirección de correo electrónico. Si desea restablecer su "
+"contraseña siga el enlace de abajo, si no ignore este mensaje y no pasará "
+"nada."
 
 msgid "Password Reset"
 msgstr "Reiniciar la contraseña"
@@ -299,6 +301,13 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Introduzca su dirección de correo:"
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr ""
+"Los paquetes seleccionados no se han abandonado, marque la casilla de "
+"confirmación."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
@@ -342,7 +351,47 @@ msgstr "Eliminar"
 
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr ""
-"Solamente Usuarios de confiaza y Desarrolladores pueden eliminar paquetes."
+"Solamente usuarios de confianza y desarrolladores pueden eliminar paquetes."
+
+msgid "Disown Package"
+msgstr "Abandonar paquete"
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr "Abandonar paquete: %s"
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+"Utilice este formulario para abandonar el paquete base %s %s %s que incluye "
+"los siguientes paquetes:"
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr ""
+"Al seleccionar la casilla de verificación, confirma que desea abandonar el "
+"paquete y transferir su propiedad a %s%s%s."
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr ""
+"Al seleccionar la casilla de verificación, confirma que desea abandonar el "
+"paquete."
+
+msgid "Confirm to disown the package"
+msgstr "Confirme para abandonar el paquete"
+
+msgid "Disown"
+msgstr "Abandonar"
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
+"Solamente usuarios de confianza y desarrolladores puede forzar el abandono "
+"de paquetes."
 
 msgid "Package Merging"
 msgstr "Unión de paquetes"
@@ -398,133 +447,6 @@ msgstr "Último"
 
 msgid "Requests"
 msgstr "Solicitud"
-
-#, php-format
-msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Error - El archivo subido es mayor al máximo permitido (%s)"
-
-msgid "Error - File partially uploaded"
-msgstr "Error - Archivo parcialmente subido"
-
-msgid "Error - No file uploaded"
-msgstr "Error - No se pudo subir el fichero"
-
-msgid "Error - Could not locate temporary upload folder"
-msgstr "Error - No se pudo encontrar la carpeta temporal de subidas"
-
-msgid "Error - File could not be written"
-msgstr "Error - El archivo no pudo ser escrito"
-
-msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-"Error - El archivo tiene un formato no compatible (envíe archivos "
-"comprimidos únicamente en .tar.gz generados por «makepkg(8)»)."
-
-msgid "Error - uncompressed file size too large."
-msgstr "Error - el tamaño del archivo descomprimido es demasiado grande."
-
-msgid "Error - source tarball may not contain files outside a directory."
-msgstr ""
-"Error - el archivo comprimido no puede contener archivos fuera de un "
-"directorio."
-
-msgid "Error - all files must have permissions of 644 or 755."
-msgstr "Error - todos los archivos deben tener permisos Unix 644 o 755."
-
-msgid "Error - source tarball may not contain nested subdirectories."
-msgstr ""
-"Error - el archivo comprimido no puede contener subdirectorios anidados."
-
-msgid "Error - source tarball may not contain more than one directory."
-msgstr "Error - el archivo comprimido no puede contener más de un directorio."
-
-msgid "Error - all directories must have permissions of 755."
-msgstr "Error - todos los directorios deben tener permisos Unix 755."
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "No se pudo desempaquetar - no existe el fichero PKGBUILD."
-
-msgid ""
-"The source package does not contain any meta data. Please use `makepkg --"
-"source` from pacman 4.2.0 or newer to create AUR source packages."
-msgstr ""
-"El paquete fuente no contiene metadato alguno. Utilice «makepkg --source» "
-"con pacman 4.2.0 o superior para crear paquetes fuente para el AUR."
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Nombre no válido: solamente se permiten letras minúsculas."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr ""
-"Falta el protocolo en la dirección URL del paquete (es decir, http://, "
-"ftp://)"
-
-#, php-format
-msgid "Error - Package name cannot be greater than %d characters"
-msgstr "Error - El nombre de paquete no puede superar los %d caracteres."
-
-#, php-format
-msgid "Error - Package URL cannot be greater than %d characters"
-msgstr ""
-"Error - La dirección URL del paquete no puede superara los %d caracteres"
-
-#, php-format
-msgid "Error - Package description cannot be greater than %d characters"
-msgstr "Error - La descripción del paquete no puede superar los %d caracteres"
-
-#, php-format
-msgid "Error - Package license cannot be greater than %d characters"
-msgstr "Error - La licencia del paquete no puede superar los %d caracteres"
-
-#, php-format
-msgid "Error - Package version cannot be greater than %d characters"
-msgstr "Error - La versión del paquete no puede superar los %d caracteres"
-
-#, php-format
-msgid ""
-"%s is on the package blacklist, please check if it's available in the "
-"official repos."
-msgstr ""
-"%s está en la lista negra de paquetes, compruebe si está disponible en los "
-"repositorios oficiales."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "No tiene permitido sobrescribir el paquete %s%s%s."
-
-#, php-format
-msgid "Could not create directory %s."
-msgstr "No se pudo crear el directorio %s."
-
-#, php-format
-msgid "Could not change directory to %s."
-msgstr "No se pudo cambiar el directorio a %s."
-
-msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-"Suba sus paquetes fuente aquí. Cree el paquete fuente con «makepkg --source»."
-
-msgid "Package Category"
-msgstr "Categoría del paquete"
-
-msgid "Select Category"
-msgstr "Seleccionar Categoría"
-
-msgid "Upload package file"
-msgstr "Subir archivo del paquete"
-
-msgid "Upload"
-msgstr "Subir"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Perdone, las subidas no están permitidas en este servidor."
-
-msgid "You must create an account before you can upload packages."
-msgstr "Debe crear una cuenta antes de poder subir paquetes."
 
 msgid "Trusted User"
 msgstr "Usuario de confianza"
@@ -586,6 +508,9 @@ msgstr "La dirección de correo no es válida."
 msgid "The PGP key fingerprint is invalid."
 msgstr "La huella digital PGP no es válida."
 
+msgid "The SSH public key is invalid."
+msgstr "La clave pública SSH no es válida."
+
 msgid "Cannot increase account permissions."
 msgstr "No se puede incrementar los permisos de la cuenta."
 
@@ -599,6 +524,10 @@ msgstr "El nombre de usuario, %s%s%s, ya está en uso."
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "La dirección, %s%s%s, ya está en uso."
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr "La clave pública SSH %s%s%s ya está en uso."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -767,11 +696,24 @@ msgstr "No puede cambiar la categoría de este paquete."
 msgid "Package category changed."
 msgstr "Categoría del paquete cambiada."
 
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr "No se le permite administrar los coencargados de este paquete base."
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr "Nombre de usuario no válido: %s"
+
+msgid "The package base co-maintainers have been updated."
+msgstr "Los coencargados del paquete base han sido actualizados."
+
 msgid "View packages details for"
 msgstr "Ver detalles del paquete para"
 
 msgid "You must be logged in to file package requests."
 msgstr "Debe estar identificado para realizar solicitudes para el paquete."
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Nombre no válido: solamente se permiten letras minúsculas."
 
 msgid "The comment field must not be empty."
 msgstr "El campo de comentarios no debe estar vacío."
@@ -876,6 +818,16 @@ msgstr "Reescriba la contraseña"
 msgid "Language"
 msgstr "Idioma"
 
+msgid ""
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+"La siguiente información solamente es necesaria si desea subir paquetes al "
+"Repositorio de Usuarios de Arch."
+
+msgid "SSH Public Key"
+msgstr "Clave pública SSH"
+
 msgid "Update"
 msgstr "Actualizar"
 
@@ -907,6 +859,23 @@ msgstr "Más"
 msgid "No more results to display."
 msgstr "No hay más resultados que mostrar."
 
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr "Administrar coencargados: %s"
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+"Utilice este formulario para agregar coencargados para %s%s%s (un nombre de "
+"usuario por línea):"
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "Save"
+msgstr "Guardar"
+
 msgid "My Packages"
 msgstr "Mis paquetes"
 
@@ -928,8 +897,11 @@ msgstr "Acciones del paquete"
 msgid "View PKGBUILD"
 msgstr "Ver PKGBUILD"
 
-msgid "Download tarball"
-msgstr "Descargar archivo comprimido"
+msgid "View Changes"
+msgstr "Ver cambios"
+
+msgid "Download snapshot"
+msgstr "Descargar instantánea"
 
 msgid "Search wiki"
 msgstr "Buscar en la wiki"
@@ -955,6 +927,9 @@ msgstr "Deshabilitar notificaciones"
 msgid "Notify of new comments"
 msgstr "Notificación de nuevos comentarios"
 
+msgid "Manage Co-Maintainers"
+msgstr "Administrar coencargados"
+
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
@@ -970,8 +945,8 @@ msgstr "Unir paquete"
 msgid "Adopt Package"
 msgstr "Adoptar paquete"
 
-msgid "Disown Package"
-msgstr "Abandonar paquete"
+msgid "Git Clone URL"
+msgstr "Dirección URL de clonado con Git"
 
 msgid "Category"
 msgstr "Categoría"

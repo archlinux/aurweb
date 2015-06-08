@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arthur Țițeică <arthur.titeica@gmail.com>, 2013-2014
+# Arthur Țițeică <arthur.titeica@gmail.com>, 2013-2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Mihai Coman <mihai@m1x.ro>, 2011-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-12-19 10:50+0100\n"
-"PO-Revision-Date: 2014-12-19 09:51+0000\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-04 11:51+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/"
 "ro/)\n"
@@ -29,7 +29,7 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "Din păcate, pagina solicitată nu există."
 
 msgid "Account"
-msgstr ""
+msgstr "Cont"
 
 msgid "Accounts"
 msgstr "Conturi"
@@ -106,6 +106,9 @@ msgstr "Propunere"
 msgid "Submit"
 msgstr "Trimite"
 
+msgid "Manage Co-maintainers"
+msgstr ""
+
 msgid "Home"
 msgstr "Acasă"
 
@@ -139,15 +142,9 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User "
 "structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-dev"
-"%s mailing list."
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
 msgstr ""
-"Discuțiile generale cu privire la Arch User Repository (AUR) și structura "
-"Trusted User au loc pe %saur-general%s. Cererile de abandonare, fuzionare și "
-"ștergere de pachete trebuie se fac în chenarul %sAcțiuni pachet%s. Această "
-"listă poate fi folosită pentru cereri de ștergere, fuzionare sau abandonare "
-"pachete. Pentru discuții cu privire la dezvoltarea AUR, folosește lista de "
-"discuții %saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Semnalare buguri"
@@ -179,9 +176,6 @@ msgstr "Căutare pachete"
 
 msgid "Adopt"
 msgstr "Adoptă"
-
-msgid "Disown"
-msgstr "Abandonează"
 
 msgid "Vote"
 msgstr "Vot"
@@ -255,14 +249,12 @@ msgstr "Parola trebuie să fie de cel puțin %s caractere."
 msgid "Invalid e-mail."
 msgstr "E-mail nevalid"
 
+#, php-format
 msgid ""
-"A password reset request was submitted for the account associated with your "
-"e-mail address. If you wish to reset your password follow the link below, "
-"otherwise ignore this message and nothing will happen."
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
 msgstr ""
-"O cerere de resetare a parolei a fost trimisă pentru contul asociat cu "
-"adresa ta de e-mail. Dacă vrei să resetezi parola urmează legătura de mai "
-"jos, altfel ignoră acest mesaj și nu se va întâmpla nimic."
 
 msgid "Password Reset"
 msgstr "Resetare parolă"
@@ -295,6 +287,11 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Introdu adresa ta de e-mail:"
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr ""
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Nu s-a putut găsi pachet pentru fuzionare voturi și comentarii."
@@ -335,6 +332,38 @@ msgstr "Șterge"
 
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Numai Dezvoltatorii și Trusted Users pot șterge pachete."
+
+msgid "Disown Package"
+msgstr "Abandonează pachet"
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr ""
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr ""
+
+msgid "Confirm to disown the package"
+msgstr ""
+
+msgid "Disown"
+msgstr "Abandonează"
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
 
 msgid "Package Merging"
 msgstr "Fuzionare pachet"
@@ -390,125 +419,6 @@ msgstr "Ultim"
 
 msgid "Requests"
 msgstr "Cereri"
-
-#, php-format
-msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Eroare - Fișierul încărcat depășește dimensiunea maximă permisă (%s)"
-
-msgid "Error - File partially uploaded"
-msgstr "Eroare - fișier încărcat parțial"
-
-msgid "Error - No file uploaded"
-msgstr "Eroare - Niciun fișier încărcat"
-
-msgid "Error - Could not locate temporary upload folder"
-msgstr "Eroare - Nu s-a putut localiza directorul temporar pentru încărcări"
-
-msgid "Error - File could not be written"
-msgstr "Eroare - Fișierul nu a putut fi scris"
-
-msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-"Eroare - format fișier fără suport (te rugăm să trimiți arhive gzip generate "
-"doar de makepgk(8))."
-
-msgid "Error - uncompressed file size too large."
-msgstr "Eroare - mărimea fișierului necomprimat este prea mare."
-
-msgid "Error - source tarball may not contain files outside a directory."
-msgstr "Eroare - arhiva sursă nu poate conține fișiere în afara directorului."
-
-msgid "Error - all files must have permissions of 644 or 755."
-msgstr "Eroare - toate fișierele trebuie să aibă permisiuni 644 sau 755."
-
-msgid "Error - source tarball may not contain nested subdirectories."
-msgstr "Eroare - arhiva sursă nu poate să conțină subdirectoare  imbricate."
-
-msgid "Error - source tarball may not contain more than one directory."
-msgstr "Eroare - arhiva sursă nu poate conține mai mult de un director."
-
-msgid "Error - all directories must have permissions of 755."
-msgstr "Eroare - toate dosarele trebuie sa aibă permisiuni 755."
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Eroarea la dezarhivare - PKGBUILD nu există."
-
-msgid ""
-"The source package does not contain any meta data. Please use `makepkg --"
-"source` from pacman 4.2.0 or newer to create AUR source packages."
-msgstr ""
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Numele nu este valid: doar litere mici sunt permise."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "În URL-ul pachetului lipsește protocolul (exemplu: http://, ftp://)"
-
-#, php-format
-msgid "Error - Package name cannot be greater than %d characters"
-msgstr "Eroare - Numele pachetului nu poate fi mai lung de %d caractere"
-
-#, php-format
-msgid "Error - Package URL cannot be greater than %d characters"
-msgstr "Eroare - URL-ul pachetului nu poate fi mai lung de %d caractere"
-
-#, php-format
-msgid "Error - Package description cannot be greater than %d characters"
-msgstr "Eroare - Descrierea pachetului nu poate fi mai lungă de %d caractere."
-
-#, php-format
-msgid "Error - Package license cannot be greater than %d characters"
-msgstr ""
-"Eroare - Tipul licenței pachetului nu poate fi mai lung de %d caractere"
-
-#, php-format
-msgid "Error - Package version cannot be greater than %d characters"
-msgstr "Eroare - Versiunea pachetului nu poate fi mai lungă de %d caractere"
-
-#, php-format
-msgid ""
-"%s is on the package blacklist, please check if it's available in the "
-"official repos."
-msgstr ""
-"%s este pe lista neagră a pachetelor; verifică dacă este disponibil în "
-"depozitele oficiale."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "Nu ai permisiunea de a suprascrie pachetul  %s%s%s."
-
-#, php-format
-msgid "Could not create directory %s."
-msgstr "Nu s-a putut crea directorul %s."
-
-#, php-format
-msgid "Could not change directory to %s."
-msgstr "Nu s-a putut schimba directorul la %s."
-
-msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-
-msgid "Package Category"
-msgstr "Categoria pachetului"
-
-msgid "Select Category"
-msgstr "Selectează categoria"
-
-msgid "Upload package file"
-msgstr "Încarcă pachetul"
-
-msgid "Upload"
-msgstr "Încărcare"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Din păcate, nu sunt permise încărcări pe acest server."
-
-msgid "You must create an account before you can upload packages."
-msgstr "Trebuie să te înregistrezi înainte de a putea trimite pachete."
 
 msgid "Trusted User"
 msgstr "Trusted User"
@@ -570,6 +480,9 @@ msgstr "Adresa de email nu este validă."
 msgid "The PGP key fingerprint is invalid."
 msgstr "Amprenta cheii PGP este nevalidă."
 
+msgid "The SSH public key is invalid."
+msgstr ""
+
 msgid "Cannot increase account permissions."
 msgstr "Permisiunile contului nu pot fi ridicate."
 
@@ -583,6 +496,10 @@ msgstr "Numele de utilizator %s%s%s este deja folosit."
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Adresa %s%s%s este deja folosită."
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr ""
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -755,40 +672,53 @@ msgstr "Nu ai permisiunea de a schimba categoria acestui pachet."
 msgid "Package category changed."
 msgstr "Categoria pachetului a fost schimbată."
 
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr ""
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr ""
+
+msgid "The package base co-maintainers have been updated."
+msgstr ""
+
 msgid "View packages details for"
 msgstr "Vezi detaliile pachetelor pentru"
 
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "Trebuie să fi autentificat pentru a înregistra cereri pentru pachet."
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Numele nu este valid: doar litere mici sunt permise."
 
 msgid "The comment field must not be empty."
-msgstr ""
+msgstr "Câmpul pentru comentariu nu trebuie lăsat necompletat."
 
 msgid "Invalid request type."
-msgstr ""
+msgstr "Tip de cerere nevalidă."
 
 msgid "Added request successfully."
-msgstr ""
+msgstr "Cererea a fost adăugată cu succes."
 
 msgid "Invalid reason."
 msgstr "Motiv nevalid."
 
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "Doar TU și dezvoltatorii pot închide cererile."
 
 msgid "Request closed successfully."
 msgstr "Cerere închisă cu succes."
 
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr ""
+msgstr "Poți folosi acest formular pentru a șterge permanent contul AUR %s."
 
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
-msgstr ""
+msgstr "%sWARNING%s: Acestă acțiune nu poate fi anulată."
 
 msgid "Confirm deletion"
-msgstr ""
+msgstr "Confirmă ștergerea"
 
 msgid "Account Type"
 msgstr "Tip cont"
@@ -800,7 +730,7 @@ msgid "Developer"
 msgstr "Dezvoltator"
 
 msgid "Trusted User & Developer"
-msgstr ""
+msgstr "Utilizator de încredere (TU) & Dezvoltator"
 
 msgid "Email Address"
 msgstr "Adresă email"
@@ -837,7 +767,7 @@ msgstr "Modifică contul acestui utilizator"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr ""
+msgstr "Clic %saici%s dacă dorești să ștergi definitiv acest cont."
 
 msgid "required"
 msgstr "cerut"
@@ -859,6 +789,14 @@ msgstr "Rescrie parola"
 
 msgid "Language"
 msgstr "Limbă"
+
+msgid ""
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+
+msgid "SSH Public Key"
+msgstr ""
 
 msgid "Update"
 msgstr "Actualizare"
@@ -890,6 +828,21 @@ msgstr "Mai mult"
 msgid "No more results to display."
 msgstr "Nu mai sunt rezultate de afișat."
 
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
 msgid "My Packages"
 msgstr "Pachetele mele"
 
@@ -911,8 +864,11 @@ msgstr "Operațiuni"
 msgid "View PKGBUILD"
 msgstr "Examinează PKGBUILD"
 
-msgid "Download tarball"
-msgstr "Descarcă arhiva"
+msgid "View Changes"
+msgstr ""
+
+msgid "Download snapshot"
+msgstr ""
 
 msgid "Search wiki"
 msgstr "Caută în wiki"
@@ -938,12 +894,15 @@ msgstr "Dezactivează notificări"
 msgid "Notify of new comments"
 msgstr "Notifică pentru comentarii noi"
 
+msgid "Manage Co-Maintainers"
+msgstr ""
+
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d cerere în așteptare"
+msgstr[1] "%d cereri în așteptare"
+msgstr[2] "%d de cereri în așteptare"
 
 msgid "Delete Package"
 msgstr "Șterge pachet"
@@ -954,8 +913,8 @@ msgstr "Fuzionează pachet"
 msgid "Adopt Package"
 msgstr "Adoptă pachet"
 
-msgid "Disown Package"
-msgstr "Abandonează pachet"
+msgid "Git Clone URL"
+msgstr ""
 
 msgid "Category"
 msgstr "Categorie"
@@ -992,7 +951,7 @@ msgid "Comment has been added."
 msgstr "Comentariul a fost adăugat."
 
 msgid "View all comments"
-msgstr ""
+msgstr "Vizualizează toate comentariile"
 
 msgid "Latest Comments"
 msgstr "Ultimele comentarii"
@@ -1008,7 +967,7 @@ msgid "Anonymous comment"
 msgstr "Comentariu anonim"
 
 msgid "deleted"
-msgstr ""
+msgstr "șters"
 
 msgid "All comments"
 msgstr "Toate comentariile"
@@ -1054,22 +1013,26 @@ msgstr "Surse"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Închide cererea: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
+"Folosește acest formular pentru a închide cererea pentru pachetul de bază %s"
+"%s%s."
 
 msgid "Note"
-msgstr ""
+msgstr "Notă"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
+"Câmpul pentru comentarii poate fi lăsat necompletat. Este totuși foarte "
+"recomandat să adaugi un comentariu când respingi o cerere."
 
 msgid "Reason"
-msgstr ""
+msgstr "Motiv"
 
 msgid "Accepted"
 msgstr "Acceptat"
@@ -1078,26 +1041,28 @@ msgid "Rejected"
 msgstr "Respins"
 
 msgid "Comments"
-msgstr ""
+msgstr "Comentarii"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "Înregistrează cerere: %s"
 
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
+"Folosește acest formular pentru a înregistra o cerere pentru pachetul de "
+"bază %s%s%s care cuprinde următoarele pachete:"
 
 msgid "Request type"
-msgstr ""
+msgstr "Tipul de cerere"
 
 msgid "Deletion"
-msgstr ""
+msgstr "Ștergere"
 
 msgid "Orphan"
-msgstr ""
+msgstr "Orfan"
 
 msgid "Merge into"
 msgstr "Fuzionează"
@@ -1105,42 +1070,42 @@ msgstr "Fuzionează"
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d cerere pentru pachet găsită"
+msgstr[1] "%d cereri pentru pachet găsite"
+msgstr[2] "%d de cereri pentru pachet găsite"
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Pagina %d din %d."
 
 msgid "Package"
-msgstr ""
+msgstr "Pachet"
 
 msgid "Filed by"
-msgstr ""
+msgstr "Depusă de"
 
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "~%d zile rămase"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "~%d oră rămasă"
+msgstr[1] "~%d ore rămase"
+msgstr[2] "~%d de ore rămase"
 
 msgid "<1 hour left"
-msgstr ""
+msgstr "<1 oră a rămas"
 
 msgid "Accept"
-msgstr ""
+msgstr "Acceptă"
 
 msgid "Locked"
-msgstr ""
+msgstr "Blocat"
 
 msgid "Close"
 msgstr "Închide"
@@ -1223,9 +1188,9 @@ msgstr "Niciun pachet nu s-a potrivit criteriului de căutare."
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d pachet găsit"
+msgstr[1] "%d pachete găsite"
+msgstr[2] "%d de pachete găsite"
 
 msgid "Version"
 msgstr "Versiune"

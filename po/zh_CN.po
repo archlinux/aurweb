@@ -3,6 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# leonfeng <chaofeng111@gmail.com>, 2015
+# dongfengweixiao <dongfengweixiao@gmail.com>, 2015
 # Felix Yan <felixonmars@gmail.com>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # leonfeng <chaofeng111@gmail.com>, 2012
@@ -11,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-12-19 10:50+0100\n"
-"PO-Revision-Date: 2014-12-19 09:51+0000\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-04 11:51+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/aur/"
 "language/zh_CN/)\n"
@@ -29,7 +31,7 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "请求的页面不存在。"
 
 msgid "Account"
-msgstr ""
+msgstr "帐户"
 
 msgid "Accounts"
 msgstr "帐户"
@@ -104,6 +106,9 @@ msgstr "提议"
 msgid "Submit"
 msgstr "提交"
 
+msgid "Manage Co-maintainers"
+msgstr ""
+
 msgid "Home"
 msgstr "首页"
 
@@ -135,12 +140,9 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User "
 "structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-dev"
-"%s mailing list."
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
 msgstr ""
-"与 Arch 用户仓库 (AUR) 或者受信用户结构相关的一般性讨论请使用 %saur-general"
-"%s 邮件列表。软件包弃置、合并以及删除等请求应该使用%s软件包操作%s表格来提出。"
-"与 AUR 开发相关的讨论请使用 %saur-dev%s 邮件列表。"
 
 msgid "Bug Reporting"
 msgstr "Bug 报告"
@@ -170,9 +172,6 @@ msgstr "软件包搜索"
 msgid "Adopt"
 msgstr "接管"
 
-msgid "Disown"
-msgstr "弃置"
-
 msgid "Vote"
 msgstr "投票"
 
@@ -196,7 +195,7 @@ msgstr "登录"
 
 #, php-format
 msgid "Logged-in as: %s"
-msgstr "登陆为: %s"
+msgstr "登录为: %s"
 
 msgid "Logout"
 msgstr "退出"
@@ -222,7 +221,7 @@ msgid ""
 msgstr "HTTP 登陆已被禁用，请使用%s切换到HTTPS%s。"
 
 msgid "Search Criteria"
-msgstr "搜索"
+msgstr "搜索标准"
 
 msgid "Packages"
 msgstr "软件包"
@@ -234,7 +233,7 @@ msgid "Missing a required field."
 msgstr "缺少必填项。"
 
 msgid "Password fields do not match."
-msgstr "密码项不符合。"
+msgstr "密码字段不匹配。"
 
 #, php-format
 msgid "Your password must be at least %s characters."
@@ -243,12 +242,12 @@ msgstr "密码至少要 %s 个字符。"
 msgid "Invalid e-mail."
 msgstr "电子邮箱不正确。"
 
+#, php-format
 msgid ""
-"A password reset request was submitted for the account associated with your "
-"e-mail address. If you wish to reset your password follow the link below, "
-"otherwise ignore this message and nothing will happen."
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
 msgstr ""
-"重置密码的请求已经提交。如果您想要重置密码，请点击以下链接，否则忽略此消息。"
 
 msgid "Password Reset"
 msgstr "密码重置"
@@ -280,6 +279,11 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "输入您的邮箱地址:"
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr ""
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "找不到合并投票与评论的目标包。"
@@ -319,6 +323,38 @@ msgstr "删除"
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "只有受信用户和开发人员能删除软件包。"
 
+msgid "Disown Package"
+msgstr "弃置软件包"
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr ""
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr ""
+
+msgid "Confirm to disown the package"
+msgstr ""
+
+msgid "Disown"
+msgstr "弃置"
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
+
 msgid "Package Merging"
 msgstr "软件包合并"
 
@@ -340,7 +376,7 @@ msgid "Enter the package name you wish to merge the package into. "
 msgstr "请输入合并的目标包名。"
 
 msgid "Merge into:"
-msgstr "合并到"
+msgstr "合并到："
 
 msgid "Confirm package merge"
 msgstr "确认合并包"
@@ -358,7 +394,7 @@ msgid "Close Request"
 msgstr "关闭请求"
 
 msgid "First"
-msgstr "首先"
+msgstr "第一页"
 
 msgid "Previous"
 msgstr "上一页"
@@ -371,122 +407,6 @@ msgstr "末页"
 
 msgid "Requests"
 msgstr "请求"
-
-#, php-format
-msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "错误 - 上传的文件超过了最大允许的大小（%s）"
-
-msgid "Error - File partially uploaded"
-msgstr "错误 - 文件只上传了一部分"
-
-msgid "Error - No file uploaded"
-msgstr "发生错误: 没有文件被上传"
-
-msgid "Error - Could not locate temporary upload folder"
-msgstr "错误 - 找不到临时上传目录"
-
-msgid "Error - File could not be written"
-msgstr "错误 - 文件不可写"
-
-msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-"错误 - 不支持的文件格式（请只提交由 makepkg(8) 生成的被 gzip 压缩过的 tar "
-"包）"
-
-msgid "Error - uncompressed file size too large."
-msgstr "错误 - 解压文件太大。"
-
-msgid "Error - source tarball may not contain files outside a directory."
-msgstr "错误 - 源文件包不能在目录外含有文件。"
-
-msgid "Error - all files must have permissions of 644 or 755."
-msgstr "错误 - 所有文件必须拥有 644 或 755 权限。"
-
-msgid "Error - source tarball may not contain nested subdirectories."
-msgstr "错误 - 源代码包不能含有嵌套的子目录。"
-
-msgid "Error - source tarball may not contain more than one directory."
-msgstr "错误 - 源文件包不能包含多于一个目录。"
-
-msgid "Error - all directories must have permissions of 755."
-msgstr "错误 - 所有的目录必须设置为 755 权限。"
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "尝试解压上传的包发生错误 - 没有PKGBUILD文件。"
-
-msgid ""
-"The source package does not contain any meta data. Please use `makepkg --"
-"source` from pacman 4.2.0 or newer to create AUR source packages."
-msgstr ""
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "无效的名称: 只允许小写字母。"
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "软件包的 URL 缺少协议（如 http://，ftp://）"
-
-#, php-format
-msgid "Error - Package name cannot be greater than %d characters"
-msgstr "错误 - 软件包名不能超过 %d 个字符"
-
-#, php-format
-msgid "Error - Package URL cannot be greater than %d characters"
-msgstr "错误 - 软件包地址不能超过 %d 个字符"
-
-#, php-format
-msgid "Error - Package description cannot be greater than %d characters"
-msgstr "错误 - 软件包描述不能超过 %d 个字符"
-
-#, php-format
-msgid "Error - Package license cannot be greater than %d characters"
-msgstr "错误 - 软件包版权信息不能超过 %d 个字符"
-
-#, php-format
-msgid "Error - Package version cannot be greater than %d characters"
-msgstr "错误 - 包版本不能超过 %d 个字符"
-
-#, php-format
-msgid ""
-"%s is on the package blacklist, please check if it's available in the "
-"official repos."
-msgstr "%s 在软件包黑名单上，请检查它是否已经在官方仓库中。"
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "您没有权限覆盖 %s%s%s 这个软件包。"
-
-#, php-format
-msgid "Could not create directory %s."
-msgstr "无法创建文件夹 %s。"
-
-#, php-format
-msgid "Could not change directory to %s."
-msgstr "无法切换目录至 %s。"
-
-msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-
-msgid "Package Category"
-msgstr "软件包类别"
-
-msgid "Select Category"
-msgstr "选择类别"
-
-msgid "Upload package file"
-msgstr "上传软件包文件"
-
-msgid "Upload"
-msgstr "上传"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "抱歉，此服务器不允许上传。"
-
-msgid "You must create an account before you can upload packages."
-msgstr "您在创建帐号后才能上传软件包"
 
 msgid "Trusted User"
 msgstr "受信用户"
@@ -547,6 +467,9 @@ msgstr "错误的 Email 地址。"
 msgid "The PGP key fingerprint is invalid."
 msgstr "PGP 密钥指纹无效。"
 
+msgid "The SSH public key is invalid."
+msgstr ""
+
 msgid "Cannot increase account permissions."
 msgstr "不能提高账户权限。"
 
@@ -560,6 +483,10 @@ msgstr "用户名 %s%s%s 已被使用。"
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "该地址 %s%s%s 已被使用。"
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr ""
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -657,7 +584,7 @@ msgid "The selected packages have been deleted."
 msgstr "选中的软件包已经被删除。"
 
 msgid "You must be logged in before you can adopt packages."
-msgstr "您需要登陆后才能接管软件包"
+msgstr "登陆后才能接管软件包"
 
 msgid "You must be logged in before you can disown packages."
 msgstr "您需要登录后才能弃置软件包。"
@@ -724,11 +651,24 @@ msgstr "您无权修改此软件包的类别。"
 msgid "Package category changed."
 msgstr "软件包分类已更改。"
 
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr ""
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr ""
+
+msgid "The package base co-maintainers have been updated."
+msgstr ""
+
 msgid "View packages details for"
 msgstr "查看软件包详细信息"
 
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "登录之后才能提交软件包需求。"
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "无效的名称: 只允许小写字母。"
 
 msgid "The comment field must not be empty."
 msgstr "评论内容不能为空。"
@@ -829,6 +769,14 @@ msgstr "确认密码"
 msgid "Language"
 msgstr "语言"
 
+msgid ""
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+
+msgid "SSH Public Key"
+msgstr ""
+
 msgid "Update"
 msgstr "更新"
 
@@ -859,6 +807,21 @@ msgstr "更多"
 msgid "No more results to display."
 msgstr "没有更多的结果供显示。"
 
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
 msgid "My Packages"
 msgstr "我的软件包"
 
@@ -880,8 +843,11 @@ msgstr "软件包操作"
 msgid "View PKGBUILD"
 msgstr "查看 PKGBUILD"
 
-msgid "Download tarball"
-msgstr "下载压缩包"
+msgid "View Changes"
+msgstr ""
+
+msgid "Download snapshot"
+msgstr ""
 
 msgid "Search wiki"
 msgstr "搜索 Wiki"
@@ -907,6 +873,9 @@ msgstr "禁用通知"
 msgid "Notify of new comments"
 msgstr "当有新评论的时候提醒我"
 
+msgid "Manage Co-Maintainers"
+msgstr ""
+
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
@@ -921,8 +890,8 @@ msgstr "合并软件包"
 msgid "Adopt Package"
 msgstr "接管软件包"
 
-msgid "Disown Package"
-msgstr "弃置软件包"
+msgid "Git Clone URL"
+msgstr ""
 
 msgid "Category"
 msgstr "类别"

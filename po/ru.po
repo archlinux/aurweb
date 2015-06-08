@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-12-19 10:50+0100\n"
-"PO-Revision-Date: 2014-12-19 09:51+0000\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-04 11:51+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/aur/language/"
 "ru/)\n"
@@ -22,8 +22,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "Page Not Found"
 msgstr "Страница не найдена"
@@ -108,6 +109,9 @@ msgstr "Предложение"
 msgid "Submit"
 msgstr "Прислать"
 
+msgid "Manage Co-maintainers"
+msgstr ""
+
 msgid "Home"
 msgstr "Главная"
 
@@ -144,14 +148,9 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User "
 "structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-dev"
-"%s mailing list."
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
 msgstr ""
-"Общие дискуссии, касающиеся Пользовательского репозитория Archlinux (AUR) и "
-"Доверенных пользователей, проходят в списке рассылки %saur-general%s. "
-"Запросы на осиротение, объединение и удаление пакетов должны быть направлены "
-"через %sДействия над пакетом%s. Для обсуждения вопросов, связанных с "
-"разработкой AUR, используйте список рассылки %saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Отчет об ошибке"
@@ -183,9 +182,6 @@ msgstr "Поиск пакетов"
 
 msgid "Adopt"
 msgstr "Усыновить"
-
-msgid "Disown"
-msgstr "Бросить"
 
 msgid "Vote"
 msgstr "Голосовать"
@@ -259,14 +255,12 @@ msgstr "Пароль должен быть не менее %s символов."
 msgid "Invalid e-mail."
 msgstr "Неверная электронная почта."
 
+#, php-format
 msgid ""
-"A password reset request was submitted for the account associated with your "
-"e-mail address. If you wish to reset your password follow the link below, "
-"otherwise ignore this message and nothing will happen."
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
 msgstr ""
-"Для вашей учетной записи, которую вы использовали при регистрации, был "
-"запрошен сброс пароля. Если вы желаете сбросить ваш пароль, то перейдите по "
-"ссылке ниже. В противном случае проигнорируйте это сообщение."
 
 msgid "Password Reset"
 msgstr "Сброс пароля"
@@ -299,6 +293,11 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Введите свой адрес электронной почты:"
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr ""
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Не могу найти пакет для объединения с ним голосов и комментариев."
@@ -337,6 +336,38 @@ msgstr "Удалить"
 
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Только Доверенные Пользователи и Разработчики могут удалять пакеты."
+
+msgid "Disown Package"
+msgstr "Бросить пакет"
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr ""
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr ""
+
+msgid "Confirm to disown the package"
+msgstr ""
+
+msgid "Disown"
+msgstr "Бросить"
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
 
 msgid "Package Merging"
 msgstr "Объединение пакетов"
@@ -392,124 +423,6 @@ msgstr "Последний"
 
 msgid "Requests"
 msgstr "Запросы"
-
-#, php-format
-msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Ошибка — Размер загруженного файла превышает допустимый (%s)"
-
-msgid "Error - File partially uploaded"
-msgstr "Ошибка — файл загружен не полностью"
-
-msgid "Error - No file uploaded"
-msgstr "Ошибка - нет загруженного файла"
-
-msgid "Error - Could not locate temporary upload folder"
-msgstr "Ошибка — Не найдена временная папка для загрузки"
-
-msgid "Error - File could not be written"
-msgstr "Ошибка — Файл не может быть записан"
-
-msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-"Ошибка - неподдерживаемый формат файла (пожалуйста, присылайте только "
-"архивы, сжатые gzip при помощи makepkg(8))."
-
-msgid "Error - uncompressed file size too large."
-msgstr "Ошибка - размер несжатого файла слишком большой."
-
-msgid "Error - source tarball may not contain files outside a directory."
-msgstr "Ошибка - исходный архив, вероятно, не содержит файлов вне директории."
-
-msgid "Error - all files must have permissions of 644 or 755."
-msgstr "Ошибка - все файлы должны иметь права доступа 644 или 755."
-
-msgid "Error - source tarball may not contain nested subdirectories."
-msgstr "Ошибка - исходный архив, вероятно, не содержит вложенных директорий."
-
-msgid "Error - source tarball may not contain more than one directory."
-msgstr "Ошибка - исходный архив, вероятно, не содержит более одной директории."
-
-msgid "Error - all directories must have permissions of 755."
-msgstr "Ошибка - все директории должны иметь права доступа 755."
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Ошибка во время распаковки - PKGBUILD отсутствует."
-
-msgid ""
-"The source package does not contain any meta data. Please use `makepkg --"
-"source` from pacman 4.2.0 or newer to create AUR source packages."
-msgstr ""
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Неверное имя: только нижний регистр допустим."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Не указан протокол в URL (т.е.  http:// ,ftp://)"
-
-#, php-format
-msgid "Error - Package name cannot be greater than %d characters"
-msgstr "Ошибка — Имя пакета должно быть короче %d символов"
-
-#, php-format
-msgid "Error - Package URL cannot be greater than %d characters"
-msgstr "Ошибка — URL пакета должен быть не длиннее %d символов"
-
-#, php-format
-msgid "Error - Package description cannot be greater than %d characters"
-msgstr "Ошибка — Описание пакета должно быть не длиннее %d символов"
-
-#, php-format
-msgid "Error - Package license cannot be greater than %d characters"
-msgstr "Ошибка — Имя лицензии пакета не должно быть длиннее %d символов"
-
-#, php-format
-msgid "Error - Package version cannot be greater than %d characters"
-msgstr "Ошибка — версия пакета должна быть короче %d символов."
-
-#, php-format
-msgid ""
-"%s is on the package blacklist, please check if it's available in the "
-"official repos."
-msgstr ""
-"Пакет %s находится в черном списке пакетов. Пожалуйста, проверьте, наличие "
-"этого пакета в официальном хранилище."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "Вы не имеете доступа для перезаписи пакета %s%s%s."
-
-#, php-format
-msgid "Could not create directory %s."
-msgstr "Нельзя создать директорию %s."
-
-#, php-format
-msgid "Could not change directory to %s."
-msgstr "Невозможно сменить директорию в %s."
-
-msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-
-msgid "Package Category"
-msgstr "Категория пакета"
-
-msgid "Select Category"
-msgstr "Выберите категорию"
-
-msgid "Upload package file"
-msgstr "Файл пакета"
-
-msgid "Upload"
-msgstr "Загрузить"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Извините, загрузки не разрешены этим сервером."
-
-msgid "You must create an account before you can upload packages."
-msgstr "Вы должны создать учетную запись для загрузки пакетов."
 
 msgid "Trusted User"
 msgstr "Доверенный пользователь"
@@ -570,6 +483,9 @@ msgstr "Неправильный адрес электронной почты."
 msgid "The PGP key fingerprint is invalid."
 msgstr "Неверный отпечаток ключа PGP."
 
+msgid "The SSH public key is invalid."
+msgstr ""
+
 msgid "Cannot increase account permissions."
 msgstr "Невозможно повысить привилегии."
 
@@ -583,6 +499,10 @@ msgstr "Имя пользователя, %s%s%s, уже используется
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Адрес %s%s%s уже используется."
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr ""
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -750,11 +670,24 @@ msgstr "Вам не позволено менять категорию этог�
 msgid "Package category changed."
 msgstr "Категория пакета изменилась."
 
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr ""
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr ""
+
+msgid "The package base co-maintainers have been updated."
+msgstr ""
+
 msgid "View packages details for"
 msgstr "Просмотреть информацию о пакете"
 
 msgid "You must be logged in to file package requests."
 msgstr ""
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Неверное имя: только нижний регистр допустим."
 
 msgid "The comment field must not be empty."
 msgstr "Поле комментариев должно быть заполнено."
@@ -857,6 +790,14 @@ msgstr "Введите пароль еще раз"
 msgid "Language"
 msgstr "Язык"
 
+msgid ""
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+
+msgid "SSH Public Key"
+msgstr ""
+
 msgid "Update"
 msgstr "Обновить"
 
@@ -887,6 +828,21 @@ msgstr "Далее"
 msgid "No more results to display."
 msgstr "Больше нет результатов."
 
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
 msgid "My Packages"
 msgstr "Мои пакеты"
 
@@ -908,8 +864,11 @@ msgstr "Действия над пакетом"
 msgid "View PKGBUILD"
 msgstr "Просмотреть PKGBUILD"
 
-msgid "Download tarball"
-msgstr "Скачать архив"
+msgid "View Changes"
+msgstr ""
+
+msgid "Download snapshot"
+msgstr ""
 
 msgid "Search wiki"
 msgstr "Искать в Wiki"
@@ -935,12 +894,16 @@ msgstr "Выключить уведомления"
 msgid "Notify of new comments"
 msgstr "Уведомлять о новых комментариях"
 
+msgid "Manage Co-Maintainers"
+msgstr ""
+
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] "%d запрос в обработке"
 msgstr[1] "%d запроса в обработке"
 msgstr[2] "%d запросов в обработке"
+msgstr[3] "%d запросов в обработке"
 
 msgid "Delete Package"
 msgstr "Удалить пакет"
@@ -951,8 +914,8 @@ msgstr "Объединить пакеты"
 msgid "Adopt Package"
 msgstr "Усыновить пакет"
 
-msgid "Disown Package"
-msgstr "Бросить пакет"
+msgid "Git Clone URL"
+msgstr ""
 
 msgid "Category"
 msgstr "Категория"
@@ -1109,6 +1072,7 @@ msgid_plural "%d package requests found."
 msgstr[0] "Найдены запросы для %d пакета."
 msgstr[1] "Найдены запросы для %d пакетов."
 msgstr[2] "Найдены запросы для %d пакетов."
+msgstr[3] "Найдены запросы для %d пакетов."
 
 #, php-format
 msgid "Page %d of %d."
@@ -1133,6 +1097,7 @@ msgid_plural "~%d hours left"
 msgstr[0] "остался ~%d час"
 msgstr[1] "осталось ~%d часа"
 msgstr[2] "осталось ~%d часов"
+msgstr[3] "осталось ~%d часов"
 
 msgid "<1 hour left"
 msgstr "осталось меньше часа"
@@ -1227,6 +1192,7 @@ msgid_plural "%d packages found."
 msgstr[0] "Найдено %d пакет."
 msgstr[1] "Найдено %d пакета."
 msgstr[2] "Найдено %d пакетов."
+msgstr[3] "Найдено %d пакетов."
 
 msgid "Version"
 msgstr "Версия"

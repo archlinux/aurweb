@@ -3,8 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Atilla Öntaş <tarakbumba@gmail.com>, 2011,2013-2014
+# Atilla Öntaş <tarakbumba@gmail.com>, 2011,2013-2015
 # Atilla Öntaş <tarakbumba@gmail.com>, 2012,2014
+# Demiray Muhterem <mdemiray@msn.com>, 2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Samed Beyribey <ras0ir@eventualis.org>, 2012
 # Samed Beyribey <samed@ozguryazilim.com.tr>, 2012
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-12-19 10:50+0100\n"
-"PO-Revision-Date: 2014-12-19 09:51+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-04 12:21+0000\n"
+"Last-Translator: Atilla Öntaş <tarakbumba@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/"
 "tr/)\n"
 "Language: tr\n"
@@ -31,7 +32,7 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "Üzgünüz, talep ettiğiniz sayfa bulunamadı."
 
 msgid "Account"
-msgstr ""
+msgstr "Hesap"
 
 msgid "Accounts"
 msgstr "Hesaplar"
@@ -106,6 +107,9 @@ msgstr "Öneri"
 msgid "Submit"
 msgstr "Gönder"
 
+msgid "Manage Co-maintainers"
+msgstr "Yardımcı bakımcıları Yönet"
+
 msgid "Home"
 msgstr "Anasayfa"
 
@@ -140,8 +144,8 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User "
 "structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-dev"
-"%s mailing list."
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
 msgstr ""
 "Arch Kullanıcı Deposu (AUR) ve Güvenilir Kullanıcı yapısı ile ilgili genel "
 "tartışmalar %saur-general%s üzerinde yapılır. Paketleri öksüz bırakma, "
@@ -180,9 +184,6 @@ msgstr "Paket Ara"
 
 msgid "Adopt"
 msgstr "Sorumluluğunu Al"
-
-msgid "Disown"
-msgstr "Sorumluluğunu bırak"
 
 msgid "Vote"
 msgstr "Oy ver"
@@ -255,13 +256,14 @@ msgstr "Şifreniz en az %s karakterden oluşmalıdır."
 msgid "Invalid e-mail."
 msgstr "Geçersiz e-posta adresi"
 
+#, php-format
 msgid ""
-"A password reset request was submitted for the account associated with your "
-"e-mail address. If you wish to reset your password follow the link below, "
-"otherwise ignore this message and nothing will happen."
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
 msgstr ""
-"E-posta hesabınızla ilişkilendirilmiş bir hesap için parola sıfırlama isteği "
-"gönderilmiş. Parolanızı sıfırlamak istiyorsanız aşağıdaki bağlantıyı "
+"E-posta hesabınızla ilişkilendirilmiş bir %s hesabı için parola sıfırlama "
+"isteği gönderilmiş. Parolanızı sıfırlamak istiyorsanız aşağıdaki bağlantıyı "
 "izleyin; aksi takdirde bu iletiyi yok sayın ve herhangi bir işlem yapılmasın."
 
 msgid "Password Reset"
@@ -295,6 +297,12 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "E-posta adresinizi girin:"
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr ""
+"Seçilen paketler için sahiplik bırakılamadı. Onaylama kutucuğunu işaretleyin."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
@@ -336,6 +344,40 @@ msgstr "Sil"
 
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Sadece geliştiriciler ve güvenilir kullanıcılar paket silebilir."
+
+msgid "Disown Package"
+msgstr "Paket Sahipliğini Bırak"
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr "Paketi sahiplenmeyi bırak: %s"
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+"Şu paketleri içeren %s%s%s paket temelinin sahipliğini bırakmak için bu "
+"formu kullanın:"
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr ""
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr ""
+
+msgid "Confirm to disown the package"
+msgstr ""
+
+msgid "Disown"
+msgstr "Sorumluluğunu bırak"
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
 
 msgid "Package Merging"
 msgstr "Paket birleştirme"
@@ -391,124 +433,6 @@ msgstr "Son"
 
 msgid "Requests"
 msgstr "Talepler"
-
-#, php-format
-msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr "Hata - Yüklenen dosyanın boyutu izin verilenden daha büyük (%s)"
-
-msgid "Error - File partially uploaded"
-msgstr "Hata - Dosya kısmen yüklendi"
-
-msgid "Error - No file uploaded"
-msgstr "Hata - Yüklenecek dosya yok"
-
-msgid "Error - Could not locate temporary upload folder"
-msgstr "Hata - Geçici yükleme dizini bulunamadı"
-
-msgid "Error - File could not be written"
-msgstr "Hata - Dosya yazılamadı"
-
-msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-"Hata - desteklenmeyen dosya biçimi (lütfen sadece makepkg(8) aracılığıyla "
-"üretilmiş gzip ile sıkıştırılmış tar arşivi gönderin)."
-
-msgid "Error - uncompressed file size too large."
-msgstr "Hata - sıkıştırılmamış dosya boyutu çok büyük."
-
-msgid "Error - source tarball may not contain files outside a directory."
-msgstr "Hata - kaynak tar arşivi dizinin dışında dosyalar barındırmamalıdır."
-
-msgid "Error - all files must have permissions of 644 or 755."
-msgstr "Hata - tüm dosyalar ya 644 ya da 755 dosya izni taşımalıdır."
-
-msgid "Error - source tarball may not contain nested subdirectories."
-msgstr "Hata - kaynak tar arşivi içi içe alt dizinler içermemelidir."
-
-msgid "Error - source tarball may not contain more than one directory."
-msgstr "Hata - kaynak tar arşivi birden fazla dizin içermemelidir."
-
-msgid "Error - all directories must have permissions of 755."
-msgstr "Hata - tüm dizinler 755 dosya iznini taşımalıdır."
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Yüklenen dosya açılırken hata - PKGBUILD mevcut değil."
-
-msgid ""
-"The source package does not contain any meta data. Please use `makepkg --"
-"source` from pacman 4.2.0 or newer to create AUR source packages."
-msgstr ""
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Geçersiz isim: yalnızca küçük harf kullanılabilir."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "Paket URL protokolü hatalı (ör. http:// ,ftp://)"
-
-#, php-format
-msgid "Error - Package name cannot be greater than %d characters"
-msgstr "Hata - Paket ismi %d karakterden uzun olamaz"
-
-#, php-format
-msgid "Error - Package URL cannot be greater than %d characters"
-msgstr "Hata - Paket adresi %d karakterden uzun olamaz"
-
-#, php-format
-msgid "Error - Package description cannot be greater than %d characters"
-msgstr "Hata - Paket açıklaması %d karakterden uzun olamaz"
-
-#, php-format
-msgid "Error - Package license cannot be greater than %d characters"
-msgstr "Hata - Paket lisansı %d karakterden uzun olamaz"
-
-#, php-format
-msgid "Error - Package version cannot be greater than %d characters"
-msgstr "Hata - Paket sürümü %d karakterden uzun olamaz"
-
-#, php-format
-msgid ""
-"%s is on the package blacklist, please check if it's available in the "
-"official repos."
-msgstr ""
-"%s, paket kara listesinde yer alıyor. Lütfen bu paketin resmi depolarda olup "
-"olmadığını denetleyin."
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr "%s%s%s paketinin üzerine yazma yetkiniz bulunmuyor."
-
-#, php-format
-msgid "Could not create directory %s."
-msgstr "%s dizini oluşturulamadı."
-
-#, php-format
-msgid "Could not change directory to %s."
-msgstr "%s dizinine geçilemedi."
-
-msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-
-msgid "Package Category"
-msgstr "Paket Kategorisi"
-
-msgid "Select Category"
-msgstr "Kategori Seçin"
-
-msgid "Upload package file"
-msgstr "Paket yükle"
-
-msgid "Upload"
-msgstr "Yükle"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Üzgünüm, bu sunucu üzerinden yükleme kabul edilmiyor."
-
-msgid "You must create an account before you can upload packages."
-msgstr "Paket yükleyebilmek için bir hesap oluşturmalısınız."
 
 msgid "Trusted User"
 msgstr "Güvenilen Kullanıcı"
@@ -569,6 +493,9 @@ msgstr "E-posta adresi geçerli değil."
 msgid "The PGP key fingerprint is invalid."
 msgstr "PGP anahtarı parmak izi hatalı."
 
+msgid "The SSH public key is invalid."
+msgstr ""
+
 msgid "Cannot increase account permissions."
 msgstr "Hesap izinleri yükseltilemiyor."
 
@@ -582,6 +509,10 @@ msgstr "Kullanıcı adı, %s%s%s, zaten kullanılıyor."
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Adres, %s%s%s, zaten kullanılıyor."
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr ""
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -748,11 +679,24 @@ msgstr "Bu paket kategorisini değiştirmek için gerekli izne sahip değilsiniz
 msgid "Package category changed."
 msgstr "Paket kategorisi değiştirildi."
 
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr ""
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr ""
+
+msgid "The package base co-maintainers have been updated."
+msgstr ""
+
 msgid "View packages details for"
 msgstr "Paket detaylarını görüntüle"
 
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "Paket gereksinimlerinin kaydını tutmalısın."
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Geçersiz isim: yalnızca küçük harf kullanılabilir."
 
 msgid "The comment field must not be empty."
 msgstr "Yorum alanı boş olmamalı."
@@ -853,6 +797,14 @@ msgstr "Parolayı tekrar girin"
 msgid "Language"
 msgstr "Dil"
 
+msgid ""
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+
+msgid "SSH Public Key"
+msgstr ""
+
 msgid "Update"
 msgstr "Güncelle"
 
@@ -883,6 +835,21 @@ msgstr "Fazla"
 msgid "No more results to display."
 msgstr "Gösterilecek daha fazla sonuç yok."
 
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
 msgid "My Packages"
 msgstr "Paketlerim"
 
@@ -904,8 +871,11 @@ msgstr "Paket Eylemleri"
 msgid "View PKGBUILD"
 msgstr "PKGBUILD görüntüle"
 
-msgid "Download tarball"
-msgstr "Arşivi indir"
+msgid "View Changes"
+msgstr ""
+
+msgid "Download snapshot"
+msgstr ""
 
 msgid "Search wiki"
 msgstr "Wikide ara"
@@ -931,6 +901,9 @@ msgstr "Bildirimleri kapat"
 msgid "Notify of new comments"
 msgstr "Yeni yorumları bildir"
 
+msgid "Manage Co-Maintainers"
+msgstr ""
+
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
@@ -946,8 +919,8 @@ msgstr "Paketi Birleştir"
 msgid "Adopt Package"
 msgstr "Paketi Sahiplen"
 
-msgid "Disown Package"
-msgstr "Paket Sahipliğini Bırak"
+msgid "Git Clone URL"
+msgstr ""
 
 msgid "Category"
 msgstr "Kategori"

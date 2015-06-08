@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jaroslav Lichtblau <jlichtblau@seznam.cz>, 2014
+# Jaroslav Lichtblau <dragonlord@seznam.cz>, 2015
+# Jaroslav Lichtblau <dragonlord@seznam.cz>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Pavel Ševeček <pavel.sevecek@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2014-12-19 10:50+0100\n"
-"PO-Revision-Date: 2014-12-19 10:43+0000\n"
-"Last-Translator: Jaroslav Lichtblau <jlichtblau@seznam.cz>\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-04 11:51+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/aur/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -102,6 +103,9 @@ msgstr "Návrh"
 msgid "Submit"
 msgstr "Odeslat"
 
+msgid "Manage Co-maintainers"
+msgstr ""
+
 msgid "Home"
 msgstr "Domů"
 
@@ -133,8 +137,8 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User "
 "structure takes place on %saur-general%s. Package orphan requests, merge "
 "requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR, use the %saur-dev"
-"%s mailing list."
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
 msgstr ""
 
 msgid "Bug Reporting"
@@ -157,13 +161,10 @@ msgid ""
 msgstr ""
 
 msgid "Package Search"
-msgstr ""
+msgstr "Vyhledávání balíčků"
 
 msgid "Adopt"
 msgstr "Adoptovat"
-
-msgid "Disown"
-msgstr ""
 
 msgid "Vote"
 msgstr "Hlasovat"
@@ -235,10 +236,11 @@ msgstr "Heslo musí mít nejméně %s znaků."
 msgid "Invalid e-mail."
 msgstr "Neplatný e-mail."
 
+#, php-format
 msgid ""
-"A password reset request was submitted for the account associated with your "
-"e-mail address. If you wish to reset your password follow the link below, "
-"otherwise ignore this message and nothing will happen."
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
 msgstr ""
 
 msgid "Password Reset"
@@ -248,16 +250,16 @@ msgid "Check your e-mail for the confirmation link."
 msgstr ""
 
 msgid "Your password has been reset successfully."
-msgstr ""
+msgstr "Heslo bylo úspěšně resetováno."
 
 msgid "Confirm your e-mail address:"
 msgstr "Potvrďte svou e-mailovou adresu:"
 
 msgid "Enter your new password:"
-msgstr ""
+msgstr "Zadejte nové heslo:"
 
 msgid "Confirm your new password:"
-msgstr ""
+msgstr "Potvrďte nové heslo:"
 
 msgid "Continue"
 msgstr "Pokračovat"
@@ -267,8 +269,15 @@ msgid ""
 "If you have forgotten the e-mail address you used to register, please send a "
 "message to the %saur-general%s mailing list."
 msgstr ""
+"Pokud jste zapomněli emailovou adresu použitou při registraci, pošlete "
+"zprávu na %saur-general%s mailing list."
 
 msgid "Enter your e-mail address:"
+msgstr "Zadejte emailovou adresu:"
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
 msgstr ""
 
 msgid "Cannot find package to merge votes and comments into."
@@ -295,13 +304,13 @@ msgid ""
 msgstr ""
 
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "Smazání balíčku je trvalé."
 
 msgid "Select the checkbox to confirm action."
-msgstr ""
+msgstr "Zaškrtnout políčko pro potvrzení akce."
 
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "Potvrdit smazání balíčku"
 
 msgid "Delete"
 msgstr "Smazat"
@@ -309,8 +318,40 @@ msgstr "Smazat"
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr ""
 
-msgid "Package Merging"
+msgid "Disown Package"
 msgstr ""
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr ""
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr ""
+
+msgid "Confirm to disown the package"
+msgstr ""
+
+msgid "Disown"
+msgstr ""
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
+
+msgid "Package Merging"
+msgstr "Spojení balíčku"
 
 #, php-format
 msgid "Merge Package: %s"
@@ -333,10 +374,10 @@ msgid "Merge into:"
 msgstr ""
 
 msgid "Confirm package merge"
-msgstr ""
+msgstr "Potvrdit spojení balíčku"
 
 msgid "Merge"
-msgstr ""
+msgstr "Spojit"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr ""
@@ -361,120 +402,6 @@ msgstr "Poslední"
 
 msgid "Requests"
 msgstr "Požadavky"
-
-#, php-format
-msgid "Error - Uploaded file larger than maximum allowed size (%s)"
-msgstr ""
-
-msgid "Error - File partially uploaded"
-msgstr ""
-
-msgid "Error - No file uploaded"
-msgstr "Chyba - soubor nebyl nahrán"
-
-msgid "Error - Could not locate temporary upload folder"
-msgstr ""
-
-msgid "Error - File could not be written"
-msgstr ""
-
-msgid ""
-"Error - unsupported file format (please submit gzip'ed tarballs generated by "
-"makepkg(8) only)."
-msgstr ""
-
-msgid "Error - uncompressed file size too large."
-msgstr ""
-
-msgid "Error - source tarball may not contain files outside a directory."
-msgstr ""
-
-msgid "Error - all files must have permissions of 644 or 755."
-msgstr ""
-
-msgid "Error - source tarball may not contain nested subdirectories."
-msgstr ""
-
-msgid "Error - source tarball may not contain more than one directory."
-msgstr ""
-
-msgid "Error - all directories must have permissions of 755."
-msgstr ""
-
-msgid "Error trying to unpack upload - PKGBUILD does not exist."
-msgstr "Došlo k chybě při snaze rozbalit archiv - PKGBUILD nenalezen."
-
-msgid ""
-"The source package does not contain any meta data. Please use `makepkg --"
-"source` from pacman 4.2.0 or newer to create AUR source packages."
-msgstr ""
-
-msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Chybný název: jsou povolena pouze malá písmena."
-
-msgid "Package URL is missing a protocol (ie. http:// ,ftp://)"
-msgstr "V URL balíčku chybý protokolo (např. http://, ftp://)"
-
-#, php-format
-msgid "Error - Package name cannot be greater than %d characters"
-msgstr ""
-
-#, php-format
-msgid "Error - Package URL cannot be greater than %d characters"
-msgstr ""
-
-#, php-format
-msgid "Error - Package description cannot be greater than %d characters"
-msgstr ""
-
-#, php-format
-msgid "Error - Package license cannot be greater than %d characters"
-msgstr ""
-
-#, php-format
-msgid "Error - Package version cannot be greater than %d characters"
-msgstr ""
-
-#, php-format
-msgid ""
-"%s is on the package blacklist, please check if it's available in the "
-"official repos."
-msgstr ""
-
-#, php-format
-msgid "You are not allowed to overwrite the %s%s%s package."
-msgstr ""
-
-#, php-format
-msgid "Could not create directory %s."
-msgstr "Nelze vytvořit adresář %s."
-
-#, php-format
-msgid "Could not change directory to %s."
-msgstr "Nelze se přesunout do adresáře %s."
-
-msgid ""
-"Upload your source packages here. Create source packages with `makepkg --"
-"source`."
-msgstr ""
-
-msgid "Package Category"
-msgstr "Kategorie balíčku"
-
-msgid "Select Category"
-msgstr "Vybrat kategorii"
-
-msgid "Upload package file"
-msgstr "Nahrát soubor balíčku"
-
-msgid "Upload"
-msgstr "Nahrát"
-
-msgid "Sorry, uploads are not permitted by this server."
-msgstr "Omlouváme se, tento server neumožňuje nahrávání."
-
-msgid "You must create an account before you can upload packages."
-msgstr "Před vkládáním balíčků je zapotřebí si založit účet."
 
 msgid "Trusted User"
 msgstr "Důvěryhodný uživatel"
@@ -501,7 +428,7 @@ msgid "Current Votes"
 msgstr "Současný počet hlasů"
 
 msgid "Past Votes"
-msgstr ""
+msgstr "Předešlá hlasování"
 
 msgid "Voters"
 msgstr "Hlasující"
@@ -533,6 +460,9 @@ msgstr "Vadná emailová adresa."
 msgid "The PGP key fingerprint is invalid."
 msgstr ""
 
+msgid "The SSH public key is invalid."
+msgstr ""
+
 msgid "Cannot increase account permissions."
 msgstr ""
 
@@ -545,6 +475,10 @@ msgstr ""
 
 #, php-format
 msgid "The address, %s%s%s, is already in use."
+msgstr ""
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
 msgstr ""
 
 #, php-format
@@ -582,7 +516,7 @@ msgid ""
 msgstr ""
 
 msgid "Account suspended"
-msgstr ""
+msgstr "Účet pozastaven"
 
 #, php-format
 msgid ""
@@ -592,7 +526,7 @@ msgid ""
 msgstr ""
 
 msgid "Bad username or password."
-msgstr ""
+msgstr "Chybné uživatelské jméno nebo heslo."
 
 msgid "An error occurred trying to generate a user session."
 msgstr ""
@@ -705,11 +639,24 @@ msgstr ""
 msgid "Package category changed."
 msgstr ""
 
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr ""
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr ""
+
+msgid "The package base co-maintainers have been updated."
+msgstr ""
+
 msgid "View packages details for"
 msgstr ""
 
 msgid "You must be logged in to file package requests."
 msgstr ""
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Chybný název: jsou povolena pouze malá písmena."
 
 msgid "The comment field must not be empty."
 msgstr ""
@@ -768,13 +715,13 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Inactive since"
-msgstr ""
+msgstr "Neaktivní od"
 
 msgid "Active"
 msgstr "Aktivní"
 
 msgid "Last Login"
-msgstr ""
+msgstr "Poslední přihlášení"
 
 msgid "Never"
 msgstr "Nikdy"
@@ -783,7 +730,7 @@ msgid "View this user's packages"
 msgstr "Zobrazit balíčky tohoto uživatele"
 
 msgid "Edit this user's account"
-msgstr ""
+msgstr "Upravit tento uživatelský účet"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -802,13 +749,21 @@ msgid "Account Suspended"
 msgstr "Účet pozastaven"
 
 msgid "Inactive"
-msgstr ""
+msgstr "Neaktivní"
 
 msgid "Re-type password"
 msgstr "Heslo znovu"
 
 msgid "Language"
 msgstr "Jazyk"
+
+msgid ""
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+
+msgid "SSH Public Key"
+msgstr ""
 
 msgid "Update"
 msgstr "Aktualizovat"
@@ -829,7 +784,7 @@ msgid "Suspended"
 msgstr "Pozastavený"
 
 msgid "Edit"
-msgstr ""
+msgstr "Upravit"
 
 msgid "Less"
 msgstr "Méně"
@@ -840,17 +795,32 @@ msgstr "Více"
 msgid "No more results to display."
 msgstr "Žádné další výsledky."
 
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+
+msgid "Users"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
 msgid "My Packages"
 msgstr "Moje balíčky"
 
 msgid " My Account"
-msgstr ""
+msgstr "Můj účet"
 
 msgid "Register"
-msgstr ""
+msgstr "Registrovat"
 
 msgid "unknown"
-msgstr ""
+msgstr "neznámý"
 
 msgid "Package Base Details"
 msgstr ""
@@ -859,59 +829,65 @@ msgid "Package Actions"
 msgstr ""
 
 msgid "View PKGBUILD"
+msgstr "Zobrazit PKGBUILD"
+
+msgid "View Changes"
 msgstr ""
 
-msgid "Download tarball"
+msgid "Download snapshot"
 msgstr ""
 
 msgid "Search wiki"
-msgstr ""
+msgstr "Prohledat wiki"
 
 msgid "Flagged out-of-date"
-msgstr ""
+msgstr "Označeno jako zastaralé"
 
 msgid "Flag package out-of-date"
-msgstr ""
+msgstr "Označit balíček jako zastaralý"
 
 msgid "Unflag package"
-msgstr ""
+msgstr "Zrušit označení balíčku"
 
 msgid "Remove vote"
-msgstr ""
+msgstr "Vzít zpět hlas"
 
 msgid "Vote for this package"
-msgstr ""
+msgstr "Hlasovat pro tento balíček"
 
 msgid "Disable notifications"
-msgstr ""
+msgstr "Vypnout oznámení"
 
 msgid "Notify of new comments"
+msgstr "Oznamovat nové komentáře"
+
+msgid "Manage Co-Maintainers"
 msgstr ""
 
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d čekající požadavek"
+msgstr[1] "%d čekající požadavky"
+msgstr[2] "%d čekajících požadavků"
 
 msgid "Delete Package"
-msgstr ""
+msgstr "Smazat balíček"
 
 msgid "Merge Package"
 msgstr ""
 
 msgid "Adopt Package"
-msgstr ""
+msgstr "Adoptovat balíček"
 
-msgid "Disown Package"
+msgid "Git Clone URL"
 msgstr ""
 
 msgid "Category"
 msgstr "Kategorie"
 
 msgid "Change category"
-msgstr ""
+msgstr "Upravit kategorii"
 
 msgid "Submitter"
 msgstr ""
@@ -933,19 +909,19 @@ msgid "First Submitted"
 msgstr ""
 
 msgid "Last Updated"
-msgstr ""
+msgstr "Naposledy aktualizováno"
 
 msgid "Add Comment"
-msgstr ""
+msgstr "Přidat komentář"
 
 msgid "Comment has been added."
-msgstr ""
+msgstr "Komentář byl přidán"
 
 msgid "View all comments"
-msgstr ""
+msgstr "Zobrazit všechny komentáře"
 
 msgid "Latest Comments"
-msgstr ""
+msgstr "Nejnovější komentáře"
 
 msgid "Delete comment"
 msgstr "Smazat komentář"
@@ -955,13 +931,13 @@ msgid "Comment by %s"
 msgstr ""
 
 msgid "Anonymous comment"
-msgstr ""
+msgstr "Anonymní komentář"
 
 msgid "deleted"
-msgstr ""
+msgstr "smazáno"
 
 msgid "All comments"
-msgstr ""
+msgstr "Všechny komentáře"
 
 msgid "Package Details"
 msgstr "Detaily balíčku"
@@ -979,19 +955,19 @@ msgid "Visit the website for"
 msgstr ""
 
 msgid "Licenses"
-msgstr ""
+msgstr "Licence"
 
 msgid "Groups"
-msgstr ""
+msgstr "Skupiny"
 
 msgid "Conflicts"
-msgstr ""
+msgstr "Konflikty"
 
 msgid "Provides"
-msgstr ""
+msgstr "Poskytuje"
 
 msgid "Replaces"
-msgstr ""
+msgstr "Nahrazuje"
 
 msgid "Dependencies"
 msgstr "Závislosti"
@@ -1000,11 +976,11 @@ msgid "Required by"
 msgstr "Vyžadováno"
 
 msgid "Sources"
-msgstr ""
+msgstr "Zdroje"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Zavřít požadavek: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
@@ -1019,20 +995,20 @@ msgid ""
 msgstr ""
 
 msgid "Reason"
-msgstr ""
+msgstr "Důvod"
 
 msgid "Accepted"
-msgstr ""
+msgstr "Přijato"
 
 msgid "Rejected"
-msgstr ""
+msgstr "Zamítnuto"
 
 msgid "Comments"
-msgstr ""
+msgstr "Komentáře"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "Zadat požadavek: %s"
 
 #, php-format
 msgid ""
@@ -1041,10 +1017,10 @@ msgid ""
 msgstr ""
 
 msgid "Request type"
-msgstr ""
+msgstr "Typ požadavku"
 
 msgid "Deletion"
-msgstr ""
+msgstr "Smazání"
 
 msgid "Orphan"
 msgstr ""
@@ -1070,7 +1046,7 @@ msgid "Filed by"
 msgstr ""
 
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #, php-format
 msgid "~%d days left"
@@ -1278,7 +1254,7 @@ msgid "Last Votes by TU"
 msgstr ""
 
 msgid "Last vote"
-msgstr ""
+msgstr "Naposledy hlasováno"
 
 msgid "No results found."
 msgstr "Žádné výsledky."
