@@ -191,8 +191,8 @@ for commit in walker:
         die_commit("missing .SRCINFO", commit.id)
 
     for treeobj in commit.tree:
-        if repo[treeobj.id].size > 100000:
-            die_commit("maximum blob size (100kB) exceeded", commit.id)
+        if repo[treeobj.id].size > 250000:
+            die_commit("maximum blob size (250kB) exceeded", commit.id)
 
     srcinfo_raw = repo[commit.tree['.SRCINFO'].id].data.decode()
     srcinfo_raw = srcinfo_raw.split('\n')
