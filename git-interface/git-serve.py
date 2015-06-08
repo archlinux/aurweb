@@ -135,7 +135,7 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
         die('%s: invalid path: %s' % (action, path))
     pkgbase = path[1:-4]
     if not re.match(repo_regex, pkgbase):
-        die('%s: invalid repository name: %s' % (action, repo))
+        die('%s: invalid repository name: %s' % (action, pkgbase))
 
     if not pkgbase_exists(pkgbase):
         create_pkgbase(pkgbase, user)
