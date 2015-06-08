@@ -602,7 +602,7 @@ function pkg_search_page($SID="") {
 		else {
 			/* Search by name and description (default). */
 			$count = 0;
-			$q_where .= "AND (";
+			$q_keywords = "";
 			$op = "";
 
 			foreach (str_getcsv($_GET['K'], ' ') as $term) {
@@ -623,8 +623,8 @@ function pkg_search_page($SID="") {
 				}
 
 				$term = "%" . addcslashes($term, '%_') . "%";
-				$q_where .= $op . " (Packages.Name LIKE " . $dbh->quote($term) . " OR ";
-				$q_where .= "Description LIKE " . $dbh->quote($term) . ") ";
+				$q_keywords .= $op . " (Packages.Name LIKE " . $dbh->quote($term) . " OR ";
+				$q_keywords .= "Description LIKE " . $dbh->quote($term) . ") ";
 
 				$count++;
 				if ($count >= 20) {
@@ -633,7 +633,9 @@ function pkg_search_page($SID="") {
 				$op = "AND ";
 			}
 
-			$q_where .= ") ";
+			if (!empty($q_keywords)) {
+				$q_where .= "AND (" . $q_keywords . ") ";
+			}
 		}
 	}
 
