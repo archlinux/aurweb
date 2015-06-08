@@ -238,7 +238,8 @@ for commit in walker:
                 die_commit('missing %s file: %s' % (field, pkginfo[field]),
                            commit.id)
 
-        for fname in pkginfo['source']:
+        for field in extract_arch_fields(pkginfo, 'source'):
+            fname = field['value']
             if "://" in fname or "lp:" in fname:
                 continue
             if not fname in commit.tree:
