@@ -207,6 +207,7 @@ class AurJSON {
 				"LEFT JOIN Licenses " .
 				"ON Licenses.ID = PackageLicenses.LicenseID " .
 				"WHERE ${where_condition} " .
+				"AND PackageBases.PackagerUID IS NOT NULL " .
 				"GROUP BY Packages.ID " .
 				"LIMIT $max_results";
 		} elseif ($this->version >= 2) {
@@ -217,6 +218,7 @@ class AurJSON {
 				"LEFT JOIN Users " .
 				"ON PackageBases.MaintainerUID = Users.ID " .
 				"WHERE ${where_condition} " .
+				"AND PackageBases.PackagerUID IS NOT NULL " .
 				"LIMIT $max_results";
 		}
 		$result = $this->dbh->query($query);
@@ -391,9 +393,13 @@ class AurJSON {
 	 * @return string The JSON formatted response data.
 	 */
 	private function suggest($search) {
-		$query = 'SELECT Name FROM Packages WHERE Name LIKE ' .
-			$this->dbh->quote(addcslashes($search, '%_') . '%') .
-			' ORDER BY Name ASC LIMIT 20';
+		$query = "SELECT Packages.Name FROM Packages ";
+		$query.= "LEFT JOIN PackageBases ";
+		$query.= "ON PackageBases.ID = Packages.PackageBaseID ";
+		$query.= "WHERE Packages.Name LIKE ";
+		$query.= $this->dbh->quote(addcslashes($search, '%_') . '%');
+		$query.= " AND PackageBases.PackagerUID IS NOT NULL ";
+		$query.= "ORDER BY Name ASC LIMIT 20";
 
 		$result = $this->dbh->query($query);
 		$result_array = array();
@@ -413,9 +419,10 @@ class AurJSON {
 	 * @return string The JSON formatted response data.
 	 */
 	private function suggest_pkgbase($search) {
-		$query = 'SELECT Name FROM PackageBases WHERE Name LIKE ' .
-			$this->dbh->quote(addcslashes($search, '%_') . '%') .
-			' ORDER BY Name ASC LIMIT 20';
+		$query = "SELECT Name FROM PackageBases WHERE Name LIKE ";
+		$query.= $this->dbh->quote(addcslashes($search, '%_') . '%');
+		$query.= " AND PackageBases.PackagerUID IS NOT NULL ";
+		$query.= "ORDER BY Name ASC LIMIT 20";
 
 		$result = $this->dbh->query($query);
 		$result_array = array();
