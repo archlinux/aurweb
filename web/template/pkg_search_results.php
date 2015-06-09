@@ -122,8 +122,8 @@ if (!$result): ?>
 					<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>
 						<label for="merge_Into"><?= __("Merge into") ?></label>
 						<input type="text" id="merge_Into" name="merge_Into" />
-						<input type="checkbox" name="confirm" value="1" /> <?= __("Confirm") ?>
 					<?php endif; ?>
+					<input type="checkbox" name="confirm" value="1" /> <?= __("Confirm") ?>
 					<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 					<input type="submit" class="button" style="width: 80px" value="<?= __("Go") ?>" />
 				</p>
