@@ -21,7 +21,7 @@ global $streamer, $l10n;
 # Languages we have translations for
 $SUPPORTED_LANGS = array(
 	"ca" => "Català",
-	"cs" => "česky",
+	"cs" => "Český",
 	"da" => "Dansk",
 	"de" => "Deutsch",
 	"en" => "English",
