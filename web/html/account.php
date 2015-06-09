@@ -70,7 +70,7 @@ if (isset($_COOKIE["AURSID"])) {
 		/* Details for account being deleted. */
 		if (can_edit_account($row)) {
 			$UID = $row['ID'];
-			if (in_request('confirm_Delete') && check_token()) {
+			if (in_request('confirm') && check_token()) {
 				user_delete($UID);
 				header('Location: /');
 			} else {

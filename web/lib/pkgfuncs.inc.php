@@ -503,7 +503,7 @@ function pkg_display_details($id=0, $row, $SID="") {
  *                     do_UnFlag - Remove out-of-date flag
  *                     do_Adopt  - Adopt
  *                     do_Disown - Disown
- *                     do_Delete - Delete (requires confirm_Delete to be set)
+ *                     do_Delete - Delete
  *                     do_Notify - Enable notification
  *                     do_UnNotify - Disable notification
  */

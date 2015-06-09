@@ -54,7 +54,7 @@ if (check_token()) {
 	} elseif (current_action("do_Adopt")) {
 		list($ret, $output) = pkgbase_adopt($ids, true, NULL);
 	} elseif (current_action("do_Disown")) {
-		if (isset($_POST['confirm_Disown'])) {
+		if (isset($_POST['confirm'])) {
 			$via = isset($_POST['via']) ? $_POST['via'] : NULL;
 			list($ret, $output) = pkgbase_adopt($ids, false, $via);
 		} else {
@@ -66,7 +66,7 @@ if (check_token()) {
 	} elseif (current_action("do_UnVote")) {
 		list($ret, $output) = pkgbase_vote($ids, false);
 	} elseif (current_action("do_Delete")) {
-		if (isset($_POST['confirm_Delete'])) {
+		if (isset($_POST['confirm'])) {
 			$via = isset($_POST['via']) ? $_POST['via'] : NULL;
 			if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
 				list($ret, $output) = pkgbase_delete($ids, NULL, $via);
