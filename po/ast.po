@@ -1,0 +1,1257 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# enolp <enolp@softastur.org>, 2014-2015
+# Ḷḷumex03 <tornes@opmbx.org>, 2014
+# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Arch User Repository (AUR)\n"
+"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"POT-Creation-Date: 2015-06-04 13:48+0200\n"
+"PO-Revision-Date: 2015-06-08 19:50+0000\n"
+"Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
+"Language-Team: Asturian (http://www.transifex.com/projects/p/aur/language/ast/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ast\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Page Not Found"
+msgstr "Nun s'alcontró la páxina"
+
+msgid "Sorry, the page you've requested does not exist."
+msgstr "Perdón, la páxina que pidisti nun esiste."
+
+msgid "Account"
+msgstr "Cuenta"
+
+msgid "Accounts"
+msgstr "Cuentes"
+
+msgid "You are not allowed to access this area."
+msgstr "Nun tienes permisu p'acceder a esta area."
+
+msgid "Could not retrieve information for the specified user."
+msgstr "Nun pudo recibise la información pal usuariu especificáu."
+
+msgid "You do not have permission to edit this account."
+msgstr "Nun tienes permisu pa editar esta cuenta."
+
+msgid "Use this form to search existing accounts."
+msgstr "Usa esti formulariu pa guetar cuentes esistentes."
+
+msgid "You must log in to view user information."
+msgstr "Tienes d'aniciar sesión pa ver la información del usuariu."
+
+msgid "Use this form to create an account."
+msgstr "Usa esti formulariu pa crear una cuenta."
+
+msgid "Add Proposal"
+msgstr "Amestar propuesta"
+
+msgid "Invalid token for user action."
+msgstr "Token non válidu pa la aición del usuariu"
+
+msgid "Username does not exist."
+msgstr "El nome d'usuariu nun esiste."
+
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s yá tien la propuesta que cuerre pa ellos."
+
+msgid "Invalid type."
+msgstr "Triba non válida."
+
+msgid "Proposal cannot be empty."
+msgstr "La propuesta nun pue tar balera"
+
+msgid "New proposal submitted."
+msgstr ""
+
+msgid "Submit a proposal to vote on."
+msgstr ""
+
+msgid "Applicant/TU"
+msgstr "Aplicante/Usuariu d'Enfotu."
+
+msgid "(empty if not applicable)"
+msgstr ""
+
+msgid "Type"
+msgstr "Triba"
+
+msgid "Addition of a TU"
+msgstr "Añedir un Usuariu d'Enfotu"
+
+msgid "Removal of a TU"
+msgstr ""
+
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr ""
+
+msgid "Amendment of Bylaws"
+msgstr ""
+
+msgid "Proposal"
+msgstr "Propuesta"
+
+msgid "Submit"
+msgstr ""
+
+msgid "Manage Co-maintainers"
+msgstr ""
+
+msgid "Home"
+msgstr "Aniciu"
+
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr "¡Bienllegáu al AUR! Llei la %sGuía d'usuariu del AUR%s y la %sGuía d'usuariu TU del AUR%s pa más información."
+
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr "Los PKGBUILD contribuyíos %stienen%s de ser compatibles col %sEstándar de empaquetado de Arch%s d'otra forma van ser esaniciaos."
+
+msgid "Remember to vote for your favourite packages!"
+msgstr "¡Recuerda votar los tos paquetes favoritos!"
+
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "Dellos paquetes puen apurrise como binarios en [community]."
+
+msgid "Discussion"
+msgstr "Discutiniu"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. Package orphan requests, merge "
+"requests, and deletion requests should be filed in the %sPackage Actions%s "
+"box. For discussion relating to the development of the AUR web interface, "
+"use the %saur-dev%s mailing list."
+msgstr "Discutiniu xeneral con respectu al Repositoriu d'Usuarius d'Arch (AUR) y estructura d'Usuariu Confiáu en tien llugar en %saur-xeneral%s. Peticiones de haer paquetes güérfanes, fundir o borrar tendríen que ser archivaes na caxa %sAcciones de Paquetes%s. Pal discutiniu que rellaciona al desenvolvimientu de l'interfaz web del AUR, uso la llista de correu %saur-dev%s."
+
+msgid "Bug Reporting"
+msgstr "Informe de fallos"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR, please fill out a bug report on our %sbug "
+"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
+"packaging bugs contact the package maintainer or leave a comment on the "
+"appropriate package page."
+msgstr "Si alcuentres un fallu nel AUR, enllena por favor un informe de fallu nel nuesu %srastrexador de fallos%s. Usa'l rastrexador pa informar fallos %snamái%s nel AUR. Pa informar fallos d'empaquetamientu contauta col caltenerdor del paquete o dexa un comentariu na páxina del paquete afayadiza."
+
+msgid "DISCLAIMER"
+msgstr "ACLARATORIA"
+
+msgid ""
+"Unsupported packages are user produced content. Any use of the provided "
+"files is at your own risk."
+msgstr "Los paquetes ensin sofitu son producíos polos usuarios. Cualesquier usu de los ficheros apurríos ta baxo'l to propiu riesgu."
+
+msgid "Package Search"
+msgstr "Gueta de paquete"
+
+msgid "Adopt"
+msgstr ""
+
+msgid "Vote"
+msgstr ""
+
+msgid "UnVote"
+msgstr ""
+
+msgid "Notify"
+msgstr ""
+
+msgid "UnNotify"
+msgstr ""
+
+msgid "Flag"
+msgstr ""
+
+msgid "UnFlag"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+#, php-format
+msgid "Logged-in as: %s"
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
+msgid "Enter login credentials"
+msgstr ""
+
+msgid "Username"
+msgstr "Nome d'usuariu"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Remember me"
+msgstr "Recordáime"
+
+msgid "Forgot Password"
+msgstr "Escaecí la contraseña"
+
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr ""
+
+msgid "Search Criteria"
+msgstr "Criteriu de gueta"
+
+msgid "Packages"
+msgstr "Paquetes"
+
+msgid "Error trying to retrieve package details."
+msgstr ""
+
+msgid "Missing a required field."
+msgstr ""
+
+msgid "Password fields do not match."
+msgstr ""
+
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "La to contraseña tien de tener polo menos %s carauteres."
+
+msgid "Invalid e-mail."
+msgstr "Corréu electrónicu non válidu"
+
+#, php-format
+msgid ""
+"A password reset request was submitted for the account %s associated with "
+"your e-mail address. If you wish to reset your password follow the link "
+"below, otherwise ignore this message and nothing will happen."
+msgstr ""
+
+msgid "Password Reset"
+msgstr "Reaniciu de contraseña"
+
+msgid "Check your e-mail for the confirmation link."
+msgstr ""
+
+msgid "Your password has been reset successfully."
+msgstr "La to contraseña reanicióse con ésitu."
+
+msgid "Confirm your e-mail address:"
+msgstr ""
+
+msgid "Enter your new password:"
+msgstr ""
+
+msgid "Confirm your new password:"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+#, php-format
+msgid ""
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "Si escaecisti la dirección de corréu electrónicu utilizasti pa rexistrar, complacer unviar un mensaxe a la llista de orréu %saur-xeneral%s."
+
+msgid "Enter your e-mail address:"
+msgstr ""
+
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr ""
+
+msgid "Cannot find package to merge votes and comments into."
+msgstr ""
+
+msgid "Cannot merge a package base with itself."
+msgstr ""
+
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr ""
+
+msgid "Package Deletion"
+msgstr "Desaniciu de paquete"
+
+#, php-format
+msgid "Delete Package: %s"
+msgstr "Desaniciar paquete: %s"
+
+#, php-format
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr "Usa esti formulariu pa desaniciar el paquete base %s%s%s y los paquetes siguientes d'AUR:"
+
+msgid "Deletion of a package is permanent. "
+msgstr "El desaniciu d'un paquete ye permanente."
+
+msgid "Select the checkbox to confirm action."
+msgstr ""
+
+msgid "Confirm package deletion"
+msgstr ""
+
+msgid "Delete"
+msgstr "Desaniciar"
+
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr ""
+
+msgid "Disown Package"
+msgstr ""
+
+#, php-format
+msgid "Disown Package: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
+msgstr ""
+
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr ""
+
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr ""
+
+msgid "Confirm to disown the package"
+msgstr ""
+
+msgid "Disown"
+msgstr ""
+
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
+
+msgid "Package Merging"
+msgstr ""
+
+#, php-format
+msgid "Merge Package: %s"
+msgstr ""
+
+#, php-format
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr ""
+
+msgid "The following packages will be deleted: "
+msgstr "Los paquetes siguientes desaniciaránse:"
+
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr ""
+
+msgid "Enter the package name you wish to merge the package into. "
+msgstr ""
+
+msgid "Merge into:"
+msgstr ""
+
+msgid "Confirm package merge"
+msgstr ""
+
+msgid "Merge"
+msgstr ""
+
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr ""
+
+msgid "File Request"
+msgstr "Solicitñu de ficheru"
+
+msgid "Close Request"
+msgstr "Zarar solicitú"
+
+msgid "First"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Last"
+msgstr ""
+
+msgid "Requests"
+msgstr ""
+
+msgid "Trusted User"
+msgstr ""
+
+msgid "Could not retrieve proposal details."
+msgstr ""
+
+msgid "Voting is closed for this proposal."
+msgstr ""
+
+msgid "Only Trusted Users are allowed to vote."
+msgstr ""
+
+msgid "You cannot vote in an proposal about you."
+msgstr ""
+
+msgid "You've already voted for this proposal."
+msgstr ""
+
+msgid "Vote ID not valid."
+msgstr ""
+
+msgid "Current Votes"
+msgstr ""
+
+msgid "Past Votes"
+msgstr ""
+
+msgid "Voters"
+msgstr ""
+
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
+msgid "Missing User ID"
+msgstr ""
+
+msgid "The username is invalid."
+msgstr "El nome d'usuariu nun ye válidu"
+
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Tien de tar ente %s y %s carauteres de llargor"
+
+msgid "Start and end with a letter or number"
+msgstr ""
+
+msgid "Can contain only one period, underscore or hyphen."
+msgstr ""
+
+msgid "The email address is invalid."
+msgstr "La direición de corréu nun ye válida."
+
+msgid "The PGP key fingerprint is invalid."
+msgstr ""
+
+msgid "The SSH public key is invalid."
+msgstr "La llave pública SSH ye nula."
+
+msgid "Cannot increase account permissions."
+msgstr "Nun puen aumentase los permisos de la cuenta."
+
+msgid "Language is not currently supported."
+msgstr "La llingua nun ta anguaño sofitada."
+
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr "El nome d'usuariu, %s%s%s, yá ta n'usu."
+
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr "La direición, %s%s%s, yá ta n'usu."
+
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr "La llave pública SSH, %s%s%s, ye yá n'usu."
+
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr "Fallu intentando crear la cuenta, %s%s%s."
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr "La cuenta, %s%s%s, creóse con ésitu."
+
+msgid "Click on the Login link above to use your account."
+msgstr ""
+
+#, php-format
+msgid ""
+"Welcome to %s! In order to set an initial password for your new account, "
+"please click the link below. If the link does not work try copying and "
+"pasting it into your browser."
+msgstr ""
+
+msgid "A password reset key has been sent to your e-mail address."
+msgstr ""
+
+#, php-format
+msgid "No changes were made to the account, %s%s%s."
+msgstr ""
+
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr "La cuenta, %s%s%s, modificóse con ésitu."
+
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr ""
+
+msgid "Account suspended"
+msgstr "Cuenta suspendida"
+
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr ""
+
+msgid "Bad username or password."
+msgstr ""
+
+msgid "An error occurred trying to generate a user session."
+msgstr "Asocedió un fallu intentando xenerar una sesión d'usuariu."
+
+msgid "Invalid e-mail and reset key combination."
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Error retrieving package details."
+msgstr ""
+
+msgid "Package details could not be found."
+msgstr ""
+
+msgid "You must be logged in before you can flag packages."
+msgstr ""
+
+msgid "You did not select any packages to flag."
+msgstr ""
+
+msgid "The selected packages have been flagged out-of-date."
+msgstr ""
+
+msgid "You must be logged in before you can unflag packages."
+msgstr ""
+
+msgid "You did not select any packages to unflag."
+msgstr ""
+
+msgid "The selected packages have been unflagged."
+msgstr ""
+
+msgid "You do not have permission to delete packages."
+msgstr ""
+
+msgid "You did not select any packages to delete."
+msgstr "Nun esbillesti dengún ficheru pa desaniciar."
+
+msgid "The selected packages have been deleted."
+msgstr "El paquete esbilláu desanicióse."
+
+msgid "You must be logged in before you can adopt packages."
+msgstr ""
+
+msgid "You must be logged in before you can disown packages."
+msgstr ""
+
+msgid "You did not select any packages to adopt."
+msgstr ""
+
+msgid "You did not select any packages to disown."
+msgstr ""
+
+msgid "The selected packages have been adopted."
+msgstr ""
+
+msgid "The selected packages have been disowned."
+msgstr ""
+
+msgid "You must be logged in before you can vote for packages."
+msgstr ""
+
+msgid "You must be logged in before you can un-vote for packages."
+msgstr ""
+
+msgid "You did not select any packages to vote for."
+msgstr ""
+
+msgid "Your votes have been removed from the selected packages."
+msgstr ""
+
+msgid "Your votes have been cast for the selected packages."
+msgstr ""
+
+msgid "Couldn't add to notification list."
+msgstr ""
+
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr ""
+
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr ""
+
+msgid "You must be logged in before you can edit package information."
+msgstr ""
+
+msgid "Missing comment ID."
+msgstr ""
+
+msgid "Comment has been deleted."
+msgstr "El comentariu amestóse."
+
+msgid "You are not allowed to delete this comment."
+msgstr "Nun tienes permisu pa desaniciar esti comentariu."
+
+msgid "Missing category ID."
+msgstr ""
+
+msgid "Invalid category ID."
+msgstr "ID d'estaya non válida"
+
+msgid "You are not allowed to change this package category."
+msgstr "Nun tienes permisu pa camudar la estaya d'esti paquete."
+
+msgid "Package category changed."
+msgstr "La estaya'l paquete camudó."
+
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr ""
+
+#, php-format
+msgid "Invalid user name: %s"
+msgstr ""
+
+msgid "The package base co-maintainers have been updated."
+msgstr ""
+
+msgid "View packages details for"
+msgstr "Ver detalles de paquetes pa"
+
+msgid "You must be logged in to file package requests."
+msgstr ""
+
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr ""
+
+msgid "The comment field must not be empty."
+msgstr "El campu del comentariu nun tien de tar baleru."
+
+msgid "Invalid request type."
+msgstr "Triba de solicitú non válida."
+
+msgid "Added request successfully."
+msgstr "Amestada con ésitu la solicitú."
+
+msgid "Invalid reason."
+msgstr "Razón non válida."
+
+msgid "Only TUs and developers can close requests."
+msgstr ""
+
+msgid "Request closed successfully."
+msgstr "Solicitú zarrada con ésitu."
+
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "Pues usar esti formulariu pa desaniciar la cuenta del AUR %s dafechu."
+
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%sAVISU%s: Esta aición nun pue desfacese."
+
+msgid "Confirm deletion"
+msgstr "Confirmar desaniciu"
+
+msgid "Account Type"
+msgstr "Triba de cuenta"
+
+msgid "User"
+msgstr "Usuariu"
+
+msgid "Developer"
+msgstr "Desendolcador"
+
+msgid "Trusted User & Developer"
+msgstr ""
+
+msgid "Email Address"
+msgstr "Direición de corréu"
+
+msgid "Real Name"
+msgstr "Nome real"
+
+msgid "IRC Nick"
+msgstr "Alcuñu nel IRC"
+
+msgid "PGP Key Fingerprint"
+msgstr ""
+
+msgid "Status"
+msgstr "Estáu"
+
+msgid "Inactive since"
+msgstr "Inactivu dende"
+
+msgid "Active"
+msgstr "Activu"
+
+msgid "Last Login"
+msgstr ""
+
+msgid "Never"
+msgstr "Enxamás"
+
+msgid "View this user's packages"
+msgstr ""
+
+msgid "Edit this user's account"
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "Primi %sequí%s si quies desaniciar esta cuenta dafechu."
+
+msgid "required"
+msgstr "riquíu"
+
+msgid "Normal user"
+msgstr "Usuariu normal"
+
+msgid "Trusted user"
+msgstr "Usuariu d'Enfotu"
+
+msgid "Account Suspended"
+msgstr "Cuenta suspendida"
+
+msgid "Inactive"
+msgstr "Inactivu"
+
+msgid "Re-type password"
+msgstr "Rescriba la so contraseña"
+
+msgid "Language"
+msgstr "Llingua"
+
+msgid ""
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
+msgstr "La información siguiente ye namá riquíu si quies apurrir paquetes al Repositoriu d'Usuarios d'Arch."
+
+msgid "SSH Public Key"
+msgstr "Llave pública SSH"
+
+msgid "Update"
+msgstr "Anovar"
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "Reset"
+msgstr "Reaniciar"
+
+msgid "No results matched your search criteria."
+msgstr ""
+
+msgid "Edit Account"
+msgstr "Editar cuenta"
+
+msgid "Suspended"
+msgstr "Suspendíu"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Less"
+msgstr "Menos"
+
+msgid "More"
+msgstr "Más"
+
+msgid "No more results to display."
+msgstr ""
+
+#, php-format
+msgid "Manage Co-maintainers: %s"
+msgstr "Alministra comantenedores: %s"
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "My Packages"
+msgstr "Los mios paquetes"
+
+msgid " My Account"
+msgstr "La mio cuenta"
+
+msgid "Register"
+msgstr "Rexistrase"
+
+msgid "unknown"
+msgstr "Desconocíu"
+
+msgid "Package Base Details"
+msgstr "Detalles del paquete base"
+
+msgid "Package Actions"
+msgstr "Aiciones de paquete"
+
+msgid "View PKGBUILD"
+msgstr "Ver PKGBUILD"
+
+msgid "View Changes"
+msgstr "Ver cambeos"
+
+msgid "Download snapshot"
+msgstr "Baxar instantánea"
+
+msgid "Search wiki"
+msgstr "Buscar na wiki"
+
+msgid "Flagged out-of-date"
+msgstr "Marcar como non actualizáu"
+
+msgid "Flag package out-of-date"
+msgstr "Marcáu como non actualizáu"
+
+msgid "Unflag package"
+msgstr "Quitar marca de non actualizáu"
+
+msgid "Remove vote"
+msgstr "Quitar votu"
+
+msgid "Vote for this package"
+msgstr "Votar pol paquete"
+
+msgid "Disable notifications"
+msgstr ""
+
+msgid "Notify of new comments"
+msgstr ""
+
+msgid "Manage Co-Maintainers"
+msgstr "Alministra comantenedores"
+
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Delete Package"
+msgstr ""
+
+msgid "Merge Package"
+msgstr ""
+
+msgid "Adopt Package"
+msgstr ""
+
+msgid "Git Clone URL"
+msgstr "URL pa clonar con Git"
+
+msgid "Category"
+msgstr ""
+
+msgid "Change category"
+msgstr ""
+
+msgid "Submitter"
+msgstr ""
+
+#, php-format
+msgid "View account information for %s"
+msgstr ""
+
+msgid "Maintainer"
+msgstr "Caltenedor"
+
+msgid "Last Packager"
+msgstr ""
+
+msgid "Votes"
+msgstr ""
+
+msgid "First Submitted"
+msgstr ""
+
+msgid "Last Updated"
+msgstr ""
+
+msgid "Add Comment"
+msgstr "Amestar comentariu"
+
+msgid "Comment has been added."
+msgstr "Amestóse'l comentariu."
+
+msgid "View all comments"
+msgstr "Ver tolos comentarios"
+
+msgid "Latest Comments"
+msgstr ""
+
+msgid "Delete comment"
+msgstr "Desaniciar comentariu"
+
+#, php-format
+msgid "Comment by %s"
+msgstr "Comentáu por %s"
+
+msgid "Anonymous comment"
+msgstr "Comentariu anónimu"
+
+msgid "deleted"
+msgstr "desaniciáu"
+
+msgid "All comments"
+msgstr "Tolos comentarios"
+
+msgid "Package Details"
+msgstr "Detalles del paquete"
+
+msgid "Package Base"
+msgstr "Paquete base"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Upstream URL"
+msgstr ""
+
+msgid "Visit the website for"
+msgstr ""
+
+msgid "Licenses"
+msgstr "Llicencies"
+
+msgid "Groups"
+msgstr "Grupos"
+
+msgid "Conflicts"
+msgstr ""
+
+msgid "Provides"
+msgstr "Apurre"
+
+msgid "Replaces"
+msgstr "Troca"
+
+msgid "Dependencies"
+msgstr "Dependencies"
+
+msgid "Required by"
+msgstr "Riquíu por"
+
+msgid "Sources"
+msgstr "Fontes"
+
+#, php-format
+msgid "Close Request: %s"
+msgstr "Zarrar solicitú: %s"
+
+#, php-format
+msgid "Use this form to close the request for package base %s%s%s."
+msgstr "Usa esti formulariu pa zarrar la solicitú pal paquete base %s%s%s."
+
+msgid "Note"
+msgstr "Nota"
+
+msgid ""
+"The comments field can be left empty. However, it is highly recommended to "
+"add a comment when rejecting a request."
+msgstr "El campu de comentarios pue dexase baleru, Por embargu, encamiéntase amestar un comentariu al refugar una solicitú."
+
+msgid "Reason"
+msgstr "Razón"
+
+msgid "Accepted"
+msgstr "Aceutáu"
+
+msgid "Rejected"
+msgstr "Refugáu"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+#, php-format
+msgid "File Request: %s"
+msgstr ""
+
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr ""
+
+msgid "Request type"
+msgstr "Triba de solicitú"
+
+msgid "Deletion"
+msgstr "Desaniciu"
+
+msgid "Orphan"
+msgstr "Güérfanu"
+
+msgid "Merge into"
+msgstr ""
+
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "Page %d of %d."
+msgstr "Páxina %d de %d"
+
+msgid "Package"
+msgstr "Paquete"
+
+msgid "Filed by"
+msgstr ""
+
+msgid "Date"
+msgstr "Data"
+
+#, php-format
+msgid "~%d days left"
+msgstr "Falten ~%d díes"
+
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] "Falta ~%d hora"
+msgstr[1] "Falten ~%d hores"
+
+msgid "<1 hour left"
+msgstr "Falta menos d'una hora"
+
+msgid "Accept"
+msgstr "Aceutar"
+
+msgid "Locked"
+msgstr "Bloquiáu"
+
+msgid "Close"
+msgstr "Zarrar"
+
+msgid "Closed"
+msgstr "Zarráu"
+
+msgid "Name, Description"
+msgstr "Nome, descripción"
+
+msgid "Name Only"
+msgstr "Namái nome"
+
+msgid "Exact Name"
+msgstr "Nome exautu"
+
+msgid "Exact Package Base"
+msgstr "Paquete base exautu"
+
+msgid "All"
+msgstr "Too"
+
+msgid "Flagged"
+msgstr ""
+
+msgid "Not Flagged"
+msgstr ""
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Voted"
+msgstr ""
+
+msgid "Age"
+msgstr "Edá"
+
+msgid "Ascending"
+msgstr ""
+
+msgid "Descending"
+msgstr ""
+
+msgid "Enter search criteria"
+msgstr ""
+
+msgid "Any"
+msgstr ""
+
+msgid "Search by"
+msgstr "Guetar per"
+
+msgid "Keywords"
+msgstr "Pallabres clave"
+
+msgid "Out of Date"
+msgstr "Ensin anovar"
+
+msgid "Sort by"
+msgstr ""
+
+msgid "Sort order"
+msgstr ""
+
+msgid "Per page"
+msgstr ""
+
+msgid "Go"
+msgstr "Dir"
+
+msgid "Orphans"
+msgstr "Güérfanos"
+
+msgid "Error retrieving package list."
+msgstr ""
+
+msgid "No packages matched your search criteria."
+msgstr "Nun hai paquetes que concasen col criteriu de gueta."
+
+#, php-format
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] "%d paquete alcontráu."
+msgstr[1] "%d paquetes alcontraos."
+
+msgid "Version"
+msgstr "Versión"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "orphan"
+msgstr "güérfanu"
+
+msgid "Actions"
+msgstr "Aiciones"
+
+msgid "Flag Out-of-date"
+msgstr ""
+
+msgid "Unflag Out-of-date"
+msgstr ""
+
+msgid "Adopt Packages"
+msgstr ""
+
+msgid "Disown Packages"
+msgstr ""
+
+msgid "Delete Packages"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Any type"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Statistics"
+msgstr "Estadístias"
+
+msgid "Orphan Packages"
+msgstr "Paquetes güerfanos"
+
+msgid "Packages added in the past 7 days"
+msgstr "Los paquetes añedieron d'antiguo 7 díes"
+
+msgid "Packages updated in the past 7 days"
+msgstr "Paquetes anovaos nos pasaos 7 díes"
+
+msgid "Packages updated in the past year"
+msgstr "Paquetes anovaos nel añu caberu"
+
+msgid "Packages never updated"
+msgstr "Paquetes qu'enxamás s'anovaron"
+
+msgid "Registered Users"
+msgstr "Usuarios rexistraos."
+
+msgid "Trusted Users"
+msgstr "Usuarios d'enfotu."
+
+msgid "Recent Updates"
+msgstr "Anovamientos recientes"
+
+msgid "My Statistics"
+msgstr "Les mios estadístiques"
+
+msgid "Packages in unsupported"
+msgstr "Paquetes en non sofitáu."
+
+msgid "Proposal Details"
+msgstr ""
+
+msgid "This vote is still running."
+msgstr ""
+
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr ""
+
+msgid "End"
+msgstr "Fin"
+
+msgid "Result"
+msgstr "Resultáu"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Abstain"
+msgstr "Astención"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Participation"
+msgstr ""
+
+msgid "Last Votes by TU"
+msgstr ""
+
+msgid "Last vote"
+msgstr ""
+
+msgid "No results found."
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Back"
+msgstr ""

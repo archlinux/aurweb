@@ -2,12 +2,14 @@ DESTDIR = ..
 PREFIX = /web/locale
 
 POFILES = \
+	ast.po \
 	ca.po \
 	cs.po \
 	da.po \
 	de.po \
 	el.po \
 	es.po \
+	es_419.po \
 	fi.po \
 	fr.po \
 	he.po \

@@ -20,6 +20,7 @@ global $streamer, $l10n;
 
 # Languages we have translations for
 $SUPPORTED_LANGS = array(
+	"ast" => "Asturianu",
 	"ca" => "Català",
 	"cs" => "Český",
 	"da" => "Dansk",
@@ -27,6 +28,7 @@ $SUPPORTED_LANGS = array(
 	"en" => "English",
 	"el" => "Ελληνικά",
 	"es" => "Español",
+	"es_419" => "Español (Latinoamérica)",
 	"fi" => "Finnish",
 	"fr" => "Français",
 	"he" => "עברית",
