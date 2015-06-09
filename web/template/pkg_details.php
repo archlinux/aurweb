@@ -82,10 +82,10 @@ $sources = pkg_sources($row["ID"]);
 			<h4><?= __('Package Actions') ?></h4>
 			<ul class="small">
 				<li>
-					<a href="<?= $cgit_uri . '/tree/PKGBUILD?h=' . $row['BaseName'] ?>"><?= __('View PKGBUILD') ?></a> /
-					<a href="<?= $cgit_uri . '/log/?h=' . $row['BaseName'] ?>"><?= __('View Changes') ?></a>
+					<a href="<?= $cgit_uri . '/tree/PKGBUILD?h=' . urlencode($row['BaseName']) ?>"><?= __('View PKGBUILD') ?></a> /
+					<a href="<?= $cgit_uri . '/log/?h=' . urlencode($row['BaseName']) ?>"><?= __('View Changes') ?></a>
 				</li>
-				<li><a href="<?= $cgit_uri . '/snapshot/' . $row['BaseName'] . '.tar.gz' ?>"><?= __('Download snapshot') ?></a>
+				<li><a href="<?= $cgit_uri . '/snapshot/' . urlencode($row['BaseName']) . '.tar.gz' ?>"><?= __('Download snapshot') ?></a>
 				<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
 				<?php if ($uid): ?>
