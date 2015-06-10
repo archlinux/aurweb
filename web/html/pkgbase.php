@@ -146,9 +146,9 @@ html_header($title, $details);
 
 <?php if ($output): ?>
 <?php if ($ret): ?>
-<p class="pkgoutput"><?= $output ?></p>
+<p class="pkgoutput"><?= htmlspecialchars($output) ?></p>
 <?php else: ?>
-<ul class="errorlist"><li><?= $output ?></li></ul>
+<ul class="errorlist"><li><?= htmlspecialchars($output) ?></li></ul>
 <?php endif; ?>
 <?php endif; ?>
 
