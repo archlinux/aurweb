@@ -8,9 +8,11 @@ $path = $_SERVER['PATH_INFO'];
 $tokens = explode('/', $path);
 
 if (config_get_bool('options', 'enable-maintenance') && (empty($tokens[1]) || ($tokens[1] != "css" && $tokens[1] != "images"))) {
-	header("HTTP/1.0 503 Service Unavailable");
-	include "./503.php";
-	return;
+	if (!in_array($_SERVER['REMOTE_ADDR'], explode(" ", config_get('options', 'maintenance-exceptions')))) {
+		header("HTTP/1.0 503 Service Unavailable");
+		include "./503.php";
+		return;
+	}
 }
 
 if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {

@@ -22,6 +22,7 @@ git_shell_cmd = config.get('serve', 'git-shell-cmd')
 ssh_cmdline = config.get('serve', 'ssh-cmdline')
 
 enable_maintenance = config.getboolean('options', 'enable-maintenance')
+maintenance_exc = config.get('options', 'maintenance-exceptions').split()
 
 def pkgbase_exists(pkgbase):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
@@ -113,7 +114,9 @@ cmdargv = shlex.split(cmd)
 action = cmdargv[0]
 
 if enable_maintenance:
-	die("The AUR is down due to maintenance. We will be back soon.")
+    remote_addr = os.environ["SSH_CLIENT"].split(" ")[0]
+    if not remote_addr in maintenance_exc:
+        die("The AUR is down due to maintenance. We will be back soon.")
 
 if action == 'git-upload-pack' or action == 'git-receive-pack':
     if len(cmdargv) < 2:
