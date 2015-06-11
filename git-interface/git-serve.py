@@ -3,7 +3,6 @@
 import configparser
 import mysql.connector
 import os
-import pygit2
 import re
 import shlex
 import sys
@@ -78,21 +77,6 @@ def create_pkgbase(pkgbase, user):
     db.commit()
     db.close()
 
-def setup_repo(pkgbase):
-    if not re.match(repo_regex, pkgbase):
-        die('%s: invalid repository name: %s' % (action, pkgbase))
-
-    repo = pygit2.Repository(repo_path)
-    refs = repo.listall_references()
-
-    if not 'refs/heads/' + pkgbase in refs:
-        repo.create_reference('refs/heads/' + pkgbase, 'refs/namespaces/' +
-                              pkgbase + '/refs/heads/master')
-    if not 'refs/namespaces/' + pkgbase + '/HEAD' in refs:
-        repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD',
-                              'refs/namespaces/' + pkgbase +
-                              '/refs/heads/master')
-
 def check_permissions(pkgbase, user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
@@ -139,7 +123,6 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
 
     if not pkgbase_exists(pkgbase):
         create_pkgbase(pkgbase, user)
-    setup_repo(pkgbase);
 
     if action == 'git-receive-pack':
         if not check_permissions(pkgbase, user):

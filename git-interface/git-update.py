@@ -285,3 +285,13 @@ for pkgname in srcinfo.GetPackageNames():
 save_srcinfo(srcinfo, db, cur, user)
 
 db.close()
+
+# Create (or update) a branch with the name of the package base for better
+# accessibility.
+repo.create_reference('refs/heads/' + pkgbase, sha1_new, True)
+
+# Work around a Git bug: The HEAD ref is not updated when using gitnamespaces.
+# This can be removed once the bug fix is included in Git mainline. See
+# http://git.661346.n2.nabble.com/PATCH-receive-pack-Create-a-HEAD-ref-for-ref-namespace-td7632149.html
+# for details.
+repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD', sha1_new, True)
