@@ -21,6 +21,8 @@ repo_regex = config.get('serve', 'repo-regex')
 git_shell_cmd = config.get('serve', 'git-shell-cmd')
 ssh_cmdline = config.get('serve', 'ssh-cmdline')
 
+enable_maintenance = config.getboolean('options', 'enable-maintenance')
+
 def pkgbase_exists(pkgbase):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
@@ -109,6 +111,9 @@ if not cmd:
     die_with_help("Interactive shell is disabled.")
 cmdargv = shlex.split(cmd)
 action = cmdargv[0]
+
+if enable_maintenance:
+	die("The AUR is down due to maintenance. We will be back soon.")
 
 if action == 'git-upload-pack' or action == 'git-receive-pack':
     if len(cmdargv) < 2:
