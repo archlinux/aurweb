@@ -21,6 +21,7 @@ $sortby = array(
 	'n' => __('Name'),
 	'c' => __('Category'),
 	'v' => __('Votes'),
+	'p' => __('Popularity'),
 	'w' => __('Voted'),
 	'o' => __('Notify'),
 	'm' => __('Maintainer'),

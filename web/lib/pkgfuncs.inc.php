@@ -545,8 +545,8 @@ function pkg_search_page($SID="") {
 	$q_select .= "Users.Username AS Maintainer,
 	PackageCategories.Category,
 	Packages.Name, Packages.Version, Packages.Description,
-	PackageBases.NumVotes, Packages.ID, Packages.PackageBaseID,
-	PackageBases.OutOfDateTS ";
+	PackageBases.NumVotes, PackageBases.Popularity, Packages.ID,
+	Packages.PackageBaseID, PackageBases.OutOfDateTS ";
 
 	$q_from = "FROM Packages
 	LEFT JOIN PackageBases ON (PackageBases.ID = Packages.PackageBaseID)
@@ -662,6 +662,9 @@ function pkg_search_page($SID="") {
 		break;
 	case 'v':
 		$q_sort .= "NumVotes " . $order . ", ";
+		break;
+	case 'p':
+		$q_sort .= "Popularity " . $order . ", ";
 		break;
 	case 'w':
 		if ($SID) {

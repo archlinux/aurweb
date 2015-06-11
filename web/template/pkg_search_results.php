@@ -36,6 +36,7 @@ if (!$result): ?>
 					<th><a href="?<?= mkurl('SB=n&SO=' . $SO_next) ?>"><?= __("Name") ?></a></th>
 					<th><?= __("Version") ?></th>
 					<th><a href="?<?= mkurl('SB=v&SO=' . $SO_next) ?>"><?= __("Votes") ?></a></th>
+					<th><a href="?<?= mkurl('SB=p&SO=' . $SO_next) ?>"><?= __("Popularity") ?></a></th>
 					<?php if ($SID): ?>
 					<th><a href="?<?= mkurl('SB=w&SO=' . $SO_next) ?>"><?= __("Voted") ?></a></th>
 					<th><a href="?<?= mkurl('SB=o&SO=' . $SO_next) ?>"><?= __("Notify") ?></a></th>
@@ -55,6 +56,7 @@ if (!$result): ?>
 		<td><a href="<?= htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) ?></a></td>
 		<td<?php if ($row["OutOfDateTS"]): ?> class="flagged"<?php endif; ?>><?= htmlspecialchars($row["Version"]) ?></td>
 		<td><?= $row["NumVotes"] ?></td>
+		<td><?= $row["Popularity"] ?></td>
 		<?php if ($SID): ?>
 		<td>
 		<?php if (isset($row["Voted"])): ?>
