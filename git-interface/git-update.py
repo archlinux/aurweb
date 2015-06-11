@@ -179,22 +179,25 @@ if refname != "refs/heads/master":
 
 repo = pygit2.Repository(repo_path)
 
+db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
+                             passwd=aur_db_pass, db=aur_db_name,
+                             unix_socket=aur_db_socket, buffered=True)
+cur = db.cursor()
+
 # Detect and deny non-fast-forwards.
 if sha1_old != "0000000000000000000000000000000000000000":
     walker = repo.walk(sha1_old, pygit2.GIT_SORT_TOPOLOGICAL)
     walker.hide(sha1_new)
     if next(walker, None) != None:
-        die("denying non-fast-forward (you should pull first)")
+        cur.execute("SELECT AccountTypeID FROM Users WHERE UserName = %s ",
+                    [user])
+        if cur.fetchone()[0] == 1:
+            die("denying non-fast-forward (you should pull first)")
 
 # Prepare the walker that validates new commits.
 walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
 if sha1_old != "0000000000000000000000000000000000000000":
     walker.hide(sha1_old)
-
-db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
-                             passwd=aur_db_pass, db=aur_db_name,
-                             unix_socket=aur_db_socket, buffered=True)
-cur = db.cursor()
 
 cur.execute("SELECT Name FROM PackageBlacklist")
 blacklist = [row[0] for row in cur.fetchall()]
