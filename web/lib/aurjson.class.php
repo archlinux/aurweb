@@ -228,7 +228,7 @@ class AurJSON {
 			$search_data = array();
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$resultcount++;
-				$pkgbase_name = $row['PackageBase'];
+				$row['URLPath'] = sprintf(config_get('options', 'snapshot_uri'), urlencode($row['PackageBase']));
 
 				/*
 				 * Unfortunately, mysql_fetch_assoc() returns
