@@ -26,8 +26,6 @@ html_header( __("Home") );
 				'</a>'
 				);
 			?>
-			</p>
-			<p>
 			<?php
 			echo __(
 				'Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!',
@@ -36,30 +34,63 @@ html_header( __("Home") );
 				'</a>'
 				);
 			?>
-			</p>
-			<p>
 			<?= __('Remember to vote for your favourite packages!'); ?>
 			<?= __('Some packages may be provided as binaries in [community].'); ?>
 			</p>
-			<h4><?= __('Discussion') ?></h4>
+			<p class="important">
+			<?= __('DISCLAIMER') ?>:
+			<?= __('Unsupported packages are user produced content. Any use of the provided files is at your own risk.'); ?>
+			</p>
+			<p class="readmore"><a href="https://wiki.archlinux.org/index.php/AUR">Learn more...</a></p>
+		</div>
+		<div id="news">
+			<h3><a><?= __('Support') ?></a><span class="arrow"></span></h3>
+			<h4><?= __('Package Requests') ?></h4>
+			<div class="article-content">
 			<p>
 			<?php
 			echo __(
-				'General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. Package orphan requests, merge requests, and deletion requests should be filed in the %sPackage Actions%s box. For discussion relating to the development of the AUR web interface, use the %saur-dev%s mailing list.',
+				'There are three types of requests that can be filed in the %sPackage Actions%s box on the package details page:',
+				'<var>',
+				'</var>'
+				);
+			?>
+			</p>
+			<ul>
+				<li><em><?= __('Orphan Request') ?></em>: <?= __('Request a package to be disowned, e.g. when the maintainer is inactive and the package has been flagged out-of-date for a long time.') ?></li>
+				<li><em><?= __('Deletion Request') ?></em>: <?= __('Request a package to be removed from the Arch User Repository. Please do not use this if a package is broken and can be fixed easily. Instead, contact the package maintainer and file orphan request if necessary.') ?></li>
+				<li><em><?= __('Merge Request') ?></em>: <?= __('Request a package to be merged into another one. Can be used when a package needs to be renamed or replaced by a split package.') ?></li>
+			</ul>
+			<p>
+			<?php
+			echo __(
+				'If you want to discuss a request, you can use the %saur-requests%s mailing list. However, please do not use that list to file requests.',
+				'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-requests">',
+				'</a>'
+				);
+			?>
+			</p>
+			</div>
+			<h4><?= __('Discussion') ?></h4>
+			<div class="article-content">
+			<p>
+			<?php
+			echo __(
+				'General discussion regarding the Arch User Repository (AUR) and Trusted User structure takes place on %saur-general%s. For discussion relating to the development of the AUR web interface, use the %saur-dev%s mailing list.',
 				'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-general">',
 				'</a>',
-				'<var>',
-				'</var>',
 				'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-dev">',
 				'</a>'
 				);
 			?>
 			</p>
+			</div>
 			<h4><?= __('Bug Reporting') ?></h4>
+			<div class="article-content">
 			<p>
 			<?php
 			echo __(
-				'If you find a bug in the AUR, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page.',
+				'If you find a bug in the AUR web interface, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page.',
 				'<a href="https://bugs.archlinux.org/index.php?project=2">',
 				'</a>',
 				'<strong>',
@@ -67,10 +98,6 @@ html_header( __("Home") );
 				);
 			?>
 			</p>
-
-			<h4><?= __('DISCLAIMER') ?></h4>
-			<div class="important">
-				<?= __('Unsupported packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</div>
 		</div>
 	</div>
