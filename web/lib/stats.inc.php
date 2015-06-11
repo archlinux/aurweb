@@ -15,7 +15,7 @@ function updates_table() {
 		$q.= 'FROM Packages INNER JOIN PackageBases ON ';
 		$q.= 'Packages.PackageBaseID = PackageBases.ID ';
 		$q.= 'WHERE PackageBases.PackagerUID IS NOT NULL ';
-		$q.= 'ORDER BY ModifiedTS DESC LIMIT 10';
+		$q.= 'ORDER BY ModifiedTS DESC LIMIT 15';
 		$result = $dbh->query($q);
 
 		$newest_packages = new ArrayObject();
