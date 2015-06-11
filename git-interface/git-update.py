@@ -178,6 +178,15 @@ if refname != "refs/heads/master":
     die("pushing to a branch other than master is restricted")
 
 repo = pygit2.Repository(repo_path)
+
+# Detect and deny non-fast-forwards.
+if sha1_old != "0000000000000000000000000000000000000000":
+    walker = repo.walk(sha1_old, pygit2.GIT_SORT_TOPOLOGICAL)
+    walker.hide(sha1_new)
+    if next(walker, None) != None:
+        die("denying non-fast-forward (you should pull first)")
+
+# Prepare the walker that validates new commits.
 walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
 if sha1_old != "0000000000000000000000000000000000000000":
     walker.hide(sha1_old)

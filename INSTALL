@@ -29,7 +29,6 @@ Setup on Arch Linux
     # cd /srv/http/aurweb/aur.git/
     # git init --bare
     # ln -s ../../git-interface/git-update.py hooks/update
-    # git config --local receive.denyNonFastForwards true
     # chown -R aur .
 
 7) Install the git-auth wrapper script:
