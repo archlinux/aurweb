@@ -31,4 +31,11 @@ CREATE TABLE PackageComaintainers (
 ) ENGINE = InnoDB;
 ----
 
-5. (optional) Setup cgit to browse the Git repositories via HTTP.
+5. Add a field for the package base popularity to the PackageBases table:
+
+----
+ALTER TABLE PackageBases
+	ADD COLUMN Popularity DECIMAL(6,2) UNSIGNED NOT NULL DEFAULT 0;
+----
+
+6. (optional) Setup cgit to browse the Git repositories via HTTP.
