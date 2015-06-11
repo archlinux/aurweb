@@ -89,7 +89,7 @@ if (isset($pkgid)) {
 	}
 } else {
 	if (!isset($_GET['K']) && !isset($_GET['SB'])) {
-		$_GET['SB'] = 'v';
+		$_GET['SB'] = 'p';
 		$_GET['SO'] = 'd';
 	}
 	if (isset($_COOKIE["AURSID"])) {
