@@ -1,6 +1,8 @@
 <?php
 
-$cgit_uri = config_get('options', 'cgit_uri');
+$pkgbuild_uri = sprintf(config_get('options', 'pkgbuild_uri'), urlencode($row['Name']));
+$log_uri = sprintf(config_get('options', 'log_uri'), urlencode($row['Name']));
+$snapshot_uri = sprintf(config_get('options', 'snapshot_uri'), urlencode($row['Name']));
 $git_clone_uri_anon = sprintf(config_get('options', 'git_clone_uri_anon'), htmlspecialchars($row['Name']));
 $git_clone_uri_priv = sprintf(config_get('options', 'git_clone_uri_priv'), htmlspecialchars($row['Name']));
 
@@ -33,10 +35,10 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 			<h4><?= __('Package Actions') ?></h4>
 			<ul class="small">
 				<li>
-					<a href="<?= $cgit_uri . '/tree/PKGBUILD?h=' . urlencode($row['Name']) ?>"><?= __('View PKGBUILD') ?></a> /
-					<a href="<?= $cgit_uri . '/log/?h=' . urlencode($row['Name']) ?>"><?= __('View Changes') ?></a>
+					<a href="<?= $pkgbuild_uri ?>"><?= __('View PKGBUILD') ?></a> /
+					<a href="<?= $log_uri ?>"><?= __('View Changes') ?></a>
 				</li>
-				<li><a href="<?= $cgit_uri . '/snapshot/' . urlencode($row['Name']) . '.tar.gz' ?>"><?= __('Download snapshot') ?></a>
+				<li><a href="<?= $snapshot_uri ?>"><?= __('Download snapshot') ?></a>
 				<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
 				<?php if ($uid): ?>
