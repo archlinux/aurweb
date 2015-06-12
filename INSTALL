@@ -48,7 +48,7 @@ Setup on Arch Linux
 9) If you want to enable smart HTTP support with nginx and uWSGI, you can use
    the following directives:
 
-    location ~ ^/([a-z0-9][a-z0-9.+_-]*)\.git/(.*)$ {
+    location ~ "^/([a-z0-9][a-z0-9.+_-]*?)(\.git)?/(git-(receive|upload)-pack|HEAD|info/refs|objects/(info/(http-)?alternates|packs)|[0-9a-f]{2}/[0-9a-f]{38}|pack/pack-[0-9a-f]{40}\.(pack|idx))$" {
         include uwsgi_params;
         uwsgi_modifier1 9;
         uwsgi_param PATH_INFO /aur.git/$2;
