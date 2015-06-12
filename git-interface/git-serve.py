@@ -123,8 +123,10 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
         die_with_help("%s: missing path" % (action))
 
     path = cmdargv[1].rstrip('/')
-    if not path.startswith('/') or not path.endswith('.git'):
-        die('%s: invalid path: %s' % (action, path))
+    if not path.startswith('/'):
+        path = '/' + path
+    if not path.endswith('.git'):
+        path = path + '.git'
     pkgbase = path[1:-4]
     if not re.match(repo_regex, pkgbase):
         die('%s: invalid repository name: %s' % (action, pkgbase))
