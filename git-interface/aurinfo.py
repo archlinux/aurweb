@@ -132,8 +132,12 @@ def ParseAurinfoFromIterable(iterable, ecatcher=None):
 
             if key == 'pkgbase':
                 current_package = aurinfo.SetPkgbase(value)
-            else:
+            elif key == 'pkgname':
                 current_package = aurinfo.AddPackage(value)
+            else:
+                ecatcher.Catch(lineno, 'unexpected new section not starting '
+                               'with \'pkgname\' found')
+                continue
         else:
             # package attribute
             if current_package is None:
