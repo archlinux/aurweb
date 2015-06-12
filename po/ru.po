@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-04 11:51+0000\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-11 21:46+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/aur/language/"
 "ru/)\n"
@@ -31,6 +31,13 @@ msgstr "Страница не найдена"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Извините, запрошенная страница не существует."
+
+msgid "Service Unavailable"
+msgstr ""
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
 
 msgid "Account"
 msgstr ""
@@ -140,33 +147,6 @@ msgstr ""
 "В хранилище [community] некоторые пакеты могут быть представлены в бинарном "
 "виде."
 
-msgid "Discussion"
-msgstr "Обсуждение"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-
-msgid "Bug Reporting"
-msgstr "Отчет об ошибке"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Если вы нашли ошибку в AUR, пожалуйста заполните форму отправки отчета на "
-"нашем %sбагтрекере%s.  Используйте этот трекер %sисключительно%s для ошибок "
-"в AUR. Для отчетов об ошибках в пакетах, свяжитесь с сопровождающим пакета "
-"или оставьте комментарий на странице соответствующего пакета."
-
 msgid "DISCLAIMER"
 msgstr "Отказ от ответственности"
 
@@ -176,6 +156,70 @@ msgid ""
 msgstr ""
 "Неподдерживаемые пакеты — это пакеты, созданные пользователями. Любой способ "
 "их использования осуществляется на ваш страх и риск."
+
+msgid "Support"
+msgstr ""
+
+msgid "Package Requests"
+msgstr ""
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+
+msgid "Orphan Request"
+msgstr ""
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+
+msgid "Deletion Request"
+msgstr ""
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+
+msgid "Merge Request"
+msgstr ""
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Discussion"
+msgstr "Обсуждение"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr "Отчет об ошибке"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
 
 msgid "Package Search"
 msgstr "Поиск пакетов"
@@ -1137,6 +1181,9 @@ msgstr "Неотмеченные"
 
 msgid "Name"
 msgstr "Имя"
+
+msgid "Popularity"
+msgstr ""
 
 msgid "Voted"
 msgstr "Мой голос"

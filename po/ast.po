@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # enolp <enolp@softastur.org>, 2014-2015
 # Ḷḷumex03 <tornes@opmbx.org>, 2014
@@ -10,14 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-08 19:50+0000\n"
-"Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
-"Language-Team: Asturian (http://www.transifex.com/projects/p/aur/language/ast/)\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"Language-Team: Asturian (http://www.transifex.com/projects/p/aur/language/"
+"ast/)\n"
+"Language: ast\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ast\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Page Not Found"
@@ -25,6 +26,13 @@ msgstr "Nun s'alcontró la páxina"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Perdón, la páxina que pidisti nun esiste."
+
+msgid "Service Unavailable"
+msgstr ""
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
 
 msgid "Account"
 msgstr "Cuenta"
@@ -112,13 +120,17 @@ msgstr "Aniciu"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "¡Bienllegáu al AUR! Llei la %sGuía d'usuariu del AUR%s y la %sGuía d'usuariu TU del AUR%s pa más información."
+msgstr ""
+"¡Bienllegáu al AUR! Llei la %sGuía d'usuariu del AUR%s y la %sGuía d'usuariu "
+"TU del AUR%s pa más información."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Los PKGBUILD contribuyíos %stienen%s de ser compatibles col %sEstándar de empaquetado de Arch%s d'otra forma van ser esaniciaos."
+msgstr ""
+"Los PKGBUILD contribuyíos %stienen%s de ser compatibles col %sEstándar de "
+"empaquetado de Arch%s d'otra forma van ser esaniciaos."
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "¡Recuerda votar los tos paquetes favoritos!"
@@ -126,36 +138,79 @@ msgstr "¡Recuerda votar los tos paquetes favoritos!"
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Dellos paquetes puen apurrise como binarios en [community]."
 
-msgid "Discussion"
-msgstr "Discutiniu"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr "Discutiniu xeneral con respectu al Repositoriu d'Usuarius d'Arch (AUR) y estructura d'Usuariu Confiáu en tien llugar en %saur-xeneral%s. Peticiones de haer paquetes güérfanes, fundir o borrar tendríen que ser archivaes na caxa %sAcciones de Paquetes%s. Pal discutiniu que rellaciona al desenvolvimientu de l'interfaz web del AUR, uso la llista de correu %saur-dev%s."
-
-msgid "Bug Reporting"
-msgstr "Informe de fallos"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr "Si alcuentres un fallu nel AUR, enllena por favor un informe de fallu nel nuesu %srastrexador de fallos%s. Usa'l rastrexador pa informar fallos %snamái%s nel AUR. Pa informar fallos d'empaquetamientu contauta col caltenerdor del paquete o dexa un comentariu na páxina del paquete afayadiza."
-
 msgid "DISCLAIMER"
 msgstr "ACLARATORIA"
 
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "Los paquetes ensin sofitu son producíos polos usuarios. Cualesquier usu de los ficheros apurríos ta baxo'l to propiu riesgu."
+msgstr ""
+"Los paquetes ensin sofitu son producíos polos usuarios. Cualesquier usu de "
+"los ficheros apurríos ta sol to propiu riesgu."
+
+msgid "Support"
+msgstr ""
+
+msgid "Package Requests"
+msgstr ""
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+
+msgid "Orphan Request"
+msgstr ""
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+
+msgid "Deletion Request"
+msgstr ""
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+
+msgid "Merge Request"
+msgstr ""
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Discussion"
+msgstr "Discutiniu"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr "Informe de fallos"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
 
 msgid "Package Search"
 msgstr "Gueta de paquete"
@@ -182,17 +237,17 @@ msgid "UnFlag"
 msgstr ""
 
 msgid "Login"
-msgstr ""
+msgstr "Aniciar sesión"
 
 #, php-format
 msgid "Logged-in as: %s"
 msgstr ""
 
 msgid "Logout"
-msgstr ""
+msgstr "Zarrar sesión"
 
 msgid "Enter login credentials"
-msgstr ""
+msgstr "Introduz les tos credenciales d'aniuciu sesión"
 
 msgid "Username"
 msgstr "Nome d'usuariu"
@@ -221,7 +276,7 @@ msgid "Error trying to retrieve package details."
 msgstr ""
 
 msgid "Missing a required field."
-msgstr ""
+msgstr "Falta un campu riquíu."
 
 msgid "Password fields do not match."
 msgstr ""
@@ -253,7 +308,7 @@ msgid "Confirm your e-mail address:"
 msgstr ""
 
 msgid "Enter your new password:"
-msgstr ""
+msgstr "Introduz la to contraseña nueva:"
 
 msgid "Confirm your new password:"
 msgstr ""
@@ -263,12 +318,14 @@ msgstr ""
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Si escaecisti la dirección de corréu electrónicu utilizasti pa rexistrar, complacer unviar un mensaxe a la llista de orréu %saur-xeneral%s."
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"Si escaecisti la dirección de corréu electrónicu utilizasti pa rexistrar, "
+"complacer unviar un mensaxe a la llista de orréu %saur-xeneral%s."
 
 msgid "Enter your e-mail address:"
-msgstr ""
+msgstr "Introduz la to direción de corréu:"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -282,8 +339,7 @@ msgid "Cannot merge a package base with itself."
 msgstr ""
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
+"The selected packages have not been deleted, check the confirmation checkbox."
 msgstr ""
 
 msgid "Package Deletion"
@@ -297,7 +353,9 @@ msgstr "Desaniciar paquete: %s"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Usa esti formulariu pa desaniciar el paquete base %s%s%s y los paquetes siguientes d'AUR:"
+msgstr ""
+"Usa esti formulariu pa desaniciar el paquete base %s%s%s y los paquetes "
+"siguientes d'AUR:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "El desaniciu d'un paquete ye permanente."
@@ -323,8 +381,8 @@ msgstr ""
 
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following"
-" packages: "
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
 msgstr ""
 
 #, php-format
@@ -358,13 +416,13 @@ msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr ""
 
 msgid "The following packages will be deleted: "
-msgstr "Los paquetes siguientes desaniciaránse:"
+msgstr "Desaniciaránse los paquetes de darréu:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr ""
 
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "Introduz el nome del paquete al que deseyes amestar"
 
 msgid "Merge into:"
 msgstr ""
@@ -379,7 +437,7 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr ""
 
 msgid "File Request"
-msgstr "Solicitñu de ficheru"
+msgstr "Solicitú de ficheru"
 
 msgid "Close Request"
 msgstr "Zarar solicitú"
@@ -397,7 +455,7 @@ msgid "Last"
 msgstr ""
 
 msgid "Requests"
-msgstr ""
+msgstr "Solicitúes"
 
 msgid "Trusted User"
 msgstr ""
@@ -418,7 +476,7 @@ msgid "You've already voted for this proposal."
 msgstr ""
 
 msgid "Vote ID not valid."
-msgstr ""
+msgstr "Nun ye válida la ID del votu."
 
 msgid "Current Votes"
 msgstr ""
@@ -435,7 +493,7 @@ msgid ""
 msgstr ""
 
 msgid "Missing User ID"
-msgstr ""
+msgstr "Falta la ID d'usuariu"
 
 msgid "The username is invalid."
 msgstr "El nome d'usuariu nun ye válidu"
@@ -454,10 +512,10 @@ msgid "The email address is invalid."
 msgstr "La direición de corréu nun ye válida."
 
 msgid "The PGP key fingerprint is invalid."
-msgstr ""
+msgstr "La buelga de la clave PGP nun ye válida."
 
 msgid "The SSH public key is invalid."
-msgstr "La llave pública SSH ye nula."
+msgstr "La clave SSH pública nun ye válida."
 
 msgid "Cannot increase account permissions."
 msgstr "Nun puen aumentase los permisos de la cuenta."
@@ -522,7 +580,7 @@ msgid ""
 msgstr ""
 
 msgid "Bad username or password."
-msgstr ""
+msgstr "Nome d'usuariu o contraseña incorreutos"
 
 msgid "An error occurred trying to generate a user session."
 msgstr "Asocedió un fallu intentando xenerar una sesión d'usuariu."
@@ -537,7 +595,7 @@ msgid "Error retrieving package details."
 msgstr ""
 
 msgid "Package details could not be found."
-msgstr ""
+msgstr "Nun pudieron alcontrase los detalles del paquete."
 
 msgid "You must be logged in before you can flag packages."
 msgstr ""
@@ -564,7 +622,7 @@ msgid "You did not select any packages to delete."
 msgstr "Nun esbillesti dengún ficheru pa desaniciar."
 
 msgid "The selected packages have been deleted."
-msgstr "El paquete esbilláu desanicióse."
+msgstr "Desaniciáronse los paquetes esbillaos."
 
 msgid "You must be logged in before you can adopt packages."
 msgstr ""
@@ -614,7 +672,7 @@ msgid "You must be logged in before you can edit package information."
 msgstr ""
 
 msgid "Missing comment ID."
-msgstr ""
+msgstr "Falta la ID del comentariu."
 
 msgid "Comment has been deleted."
 msgstr "El comentariu amestóse."
@@ -623,7 +681,7 @@ msgid "You are not allowed to delete this comment."
 msgstr "Nun tienes permisu pa desaniciar esti comentariu."
 
 msgid "Missing category ID."
-msgstr ""
+msgstr "Falta la ID de la estaya."
 
 msgid "Invalid category ID."
 msgstr "ID d'estaya non válida"
@@ -704,7 +762,7 @@ msgid "IRC Nick"
 msgstr "Alcuñu nel IRC"
 
 msgid "PGP Key Fingerprint"
-msgstr ""
+msgstr "Buelga de clave PGP"
 
 msgid "Status"
 msgstr "Estáu"
@@ -747,18 +805,19 @@ msgid "Inactive"
 msgstr "Inactivu"
 
 msgid "Re-type password"
-msgstr "Rescriba la so contraseña"
+msgstr "Teclexa de nueves la contraseña"
 
 msgid "Language"
 msgstr "Llingua"
 
 msgid ""
-"The following information is only required if you want to submit packages to"
-" the Arch User Repository."
-msgstr "La información siguiente ye namá riquíu si quies apurrir paquetes al Repositoriu d'Usuarios d'Arch."
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+"La información de darréu namái se rique si quies xubir paquetes al AUR."
 
 msgid "SSH Public Key"
-msgstr "Llave pública SSH"
+msgstr "Clave SSH pública"
 
 msgid "Update"
 msgstr "Anovar"
@@ -767,7 +826,7 @@ msgid "Create"
 msgstr "Crear"
 
 msgid "Reset"
-msgstr "Reaniciar"
+msgstr "Reafitar"
 
 msgid "No results matched your search criteria."
 msgstr ""
@@ -827,13 +886,13 @@ msgid "View PKGBUILD"
 msgstr "Ver PKGBUILD"
 
 msgid "View Changes"
-msgstr "Ver cambeos"
+msgstr "Ver camudancies"
 
 msgid "Download snapshot"
 msgstr "Baxar instantánea"
 
 msgid "Search wiki"
-msgstr "Buscar na wiki"
+msgstr "Guetar na wiki"
 
 msgid "Flagged out-of-date"
 msgstr "Marcar como non actualizáu"
@@ -878,10 +937,10 @@ msgid "Git Clone URL"
 msgstr "URL pa clonar con Git"
 
 msgid "Category"
-msgstr ""
+msgstr "Estaya"
 
 msgid "Change category"
-msgstr ""
+msgstr "Camudar estaya"
 
 msgid "Submitter"
 msgstr ""
@@ -897,7 +956,7 @@ msgid "Last Packager"
 msgstr ""
 
 msgid "Votes"
-msgstr ""
+msgstr "Votos"
 
 msgid "First Submitted"
 msgstr ""
@@ -915,7 +974,7 @@ msgid "View all comments"
 msgstr "Ver tolos comentarios"
 
 msgid "Latest Comments"
-msgstr ""
+msgstr "Comentarios caberos"
 
 msgid "Delete comment"
 msgstr "Desaniciar comentariu"
@@ -986,7 +1045,9 @@ msgstr "Nota"
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "El campu de comentarios pue dexase baleru, Por embargu, encamiéntase amestar un comentariu al refugar una solicitú."
+msgstr ""
+"El campu de comentarios pue dexase baleru, Por embargu, encamiéntase amestar "
+"un comentariu al refugar una solicitú."
 
 msgid "Reason"
 msgstr "Razón"
@@ -1090,6 +1151,9 @@ msgstr ""
 msgid "Name"
 msgstr "Nome"
 
+msgid "Popularity"
+msgstr ""
+
 msgid "Voted"
 msgstr ""
 
@@ -1097,10 +1161,10 @@ msgid "Age"
 msgstr "Edá"
 
 msgid "Ascending"
-msgstr ""
+msgstr "Ascendente"
 
 msgid "Descending"
-msgstr ""
+msgstr "Descendente"
 
 msgid "Enter search criteria"
 msgstr ""
@@ -1118,13 +1182,13 @@ msgid "Out of Date"
 msgstr "Ensin anovar"
 
 msgid "Sort by"
-msgstr ""
+msgstr "Ordenar per"
 
 msgid "Sort order"
-msgstr ""
+msgstr "Mou d'ordenación"
 
 msgid "Per page"
-msgstr ""
+msgstr "Per páxina"
 
 msgid "Go"
 msgstr "Dir"
@@ -1141,8 +1205,8 @@ msgstr "Nun hai paquetes que concasen col criteriu de gueta."
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] "%d paquete alcontráu."
-msgstr[1] "%d paquetes alcontraos."
+msgstr[0] "Alcontróse %d paquete."
+msgstr[1] "Alcontráronse %d paquetes"
 
 msgid "Version"
 msgstr "Versión"
@@ -1181,13 +1245,13 @@ msgid "Search"
 msgstr ""
 
 msgid "Statistics"
-msgstr "Estadístias"
+msgstr "Estadístiques"
 
 msgid "Orphan Packages"
-msgstr "Paquetes güerfanos"
+msgstr "Paquetes güérfanos"
 
 msgid "Packages added in the past 7 days"
-msgstr "Los paquetes añedieron d'antiguo 7 díes"
+msgstr "Paquetes amestaos nos pasaos 7 díes"
 
 msgid "Packages updated in the past 7 days"
 msgstr "Paquetes anovaos nos pasaos 7 díes"
@@ -1211,7 +1275,7 @@ msgid "My Statistics"
 msgstr "Les mios estadístiques"
 
 msgid "Packages in unsupported"
-msgstr "Paquetes en non sofitáu."
+msgstr "Paquetes ensin sofitu"
 
 msgid "Proposal Details"
 msgstr ""
@@ -1248,7 +1312,7 @@ msgid "Last vote"
 msgstr ""
 
 msgid "No results found."
-msgstr ""
+msgstr "Nun s'alcontró dengún resultáu."
 
 msgid "Start"
 msgstr ""

@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-04 11:51+0000\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-11 21:46+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/aur/language/"
 "pl/)\n"
@@ -32,6 +32,13 @@ msgstr "Nie znaleziono strony"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Przepraszamy, strona o którą prosiłeś nie istnieje."
+
+msgid "Service Unavailable"
+msgstr ""
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
 
 msgid "Account"
 msgstr ""
@@ -137,33 +144,6 @@ msgstr "Nie zapomnij zagłosować na swoje ulubione pakiety!"
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Część pakietów może być dostępna w formie binarnej w [community]."
 
-msgid "Discussion"
-msgstr "Dyskusja"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-
-msgid "Bug Reporting"
-msgstr "Zgłaszanie błędów"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Jeśli znalazłeś błąd w AUR, zgłoś go w naszym %ssystemie śledzenia błędów%s. "
-"Używaj go %swyłącznie%s do zgłaszania błędów związanych z AUR. Błędy "
-"powiązane z pakietami zgłaszaj ich opiekunom lub zostaw komentarz pod "
-"odpowiednim pakietem."
-
 msgid "DISCLAIMER"
 msgstr "ZRZECZENIE"
 
@@ -173,6 +153,70 @@ msgid ""
 msgstr ""
 "Zamieszczone pakiety są niewspierane i utworzone przez użytkowników. Używasz "
 "ich na własne ryzyko."
+
+msgid "Support"
+msgstr ""
+
+msgid "Package Requests"
+msgstr ""
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+
+msgid "Orphan Request"
+msgstr ""
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+
+msgid "Deletion Request"
+msgstr ""
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+
+msgid "Merge Request"
+msgstr ""
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Discussion"
+msgstr "Dyskusja"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr "Zgłaszanie błędów"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
 
 msgid "Package Search"
 msgstr "Wyszukiwanie pakietów"
@@ -1133,6 +1177,9 @@ msgstr "Nieoznaczony"
 
 msgid "Name"
 msgstr "Nazwa"
+
+msgid "Popularity"
+msgstr ""
 
 msgid "Voted"
 msgstr "Głos"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-04 11:51+0000\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-11 21:46+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/aur/language/nl/)\n"
 "Language: nl\n"
@@ -25,6 +25,13 @@ msgstr "Pagina niet gevonden"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Sorry, de pagina die je hebt aangevraagd bestaat niet."
+
+msgid "Service Unavailable"
+msgstr ""
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
 
 msgid "Account"
 msgstr ""
@@ -130,33 +137,6 @@ msgstr "Vergeet niet te stemmen voor je favoriete pakketten!"
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Sommige pakketten kunnen worden geleverd als binaries in [community]."
 
-msgid "Discussion"
-msgstr "Discussie"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-
-msgid "Bug Reporting"
-msgstr "Bug Rapportage"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Als je een bug in de AUR vindt, maak dan een bug report op onze %sbug tracker"
-"%s aan. Gebruik de tracker %salleen%s om bugs in de AUR te rapporteren. Neem "
-"contact op met een pakket beheerder om bugs in een pakket te rapporteren of "
-"laat een comment achter op de pagina van het pakket."
-
 msgid "DISCLAIMER"
 msgstr "DISCLAIMER"
 
@@ -166,6 +146,70 @@ msgid ""
 msgstr ""
 "Niet-ondersteunde pakketten zijn door gebruikers geproduceerde content. Elk "
 "gebruik van de geleverde bestanden is op eigen risico."
+
+msgid "Support"
+msgstr ""
+
+msgid "Package Requests"
+msgstr ""
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+
+msgid "Orphan Request"
+msgstr ""
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+
+msgid "Deletion Request"
+msgstr ""
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+
+msgid "Merge Request"
+msgstr ""
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Discussion"
+msgstr "Discussie"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr "Bug Rapportage"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
 
 msgid "Package Search"
 msgstr "Pakketten Zoeken"
@@ -1120,6 +1164,9 @@ msgstr "Ongemarkeerd"
 
 msgid "Name"
 msgstr "Naam"
+
+msgid "Popularity"
+msgstr ""
 
 msgid "Voted"
 msgstr "Gestemd"

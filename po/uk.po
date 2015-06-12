@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-05 09:39+0000\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-12 12:02+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/"
 "uk/)\n"
@@ -29,6 +29,15 @@ msgstr "Сторінку не знайдено"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "На жаль, запитаної сторінки не існує."
+
+msgid "Service Unavailable"
+msgstr "Сервіс недоступний"
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
+"Не панікуйте! Сторінка закрита на технічне обслуговування. Ми швидко "
+"повернемося."
 
 msgid "Account"
 msgstr "Обліковий запис"
@@ -135,37 +144,6 @@ msgstr "Не забудьте проголосувати за улюблені �
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Деякі пакунки можуть бути в бінарному вигляді у сховищі [community]."
 
-msgid "Discussion"
-msgstr "Обговорення"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-"Загальне обговорення сховища користувацьких пакунків (AUR) та структури "
-"довірених користувачів відбувається в %saur-general%s. Для запитів щодо "
-"відмови від пакунка, злиття пакунків та вилучення пишіть в %sPackage Actions"
-"%s. Для дискусій про розробку AUR використовуйте список розсилання %saur-dev"
-"%s."
-
-msgid "Bug Reporting"
-msgstr "Повідомлення про вади"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Якщо ви знайдете ваду в AUR, %sповідомте нам%s. Таким чином слід сповіщати "
-"%sлише%s про проблеми AUR. При виявленні вади конкретного пакунка зв’яжіться "
-"з його супровідником або залиште коментар на сторінці цього пакунка."
-
 msgid "DISCLAIMER"
 msgstr "ВІДМОВА ВІД ВІДПОВІДАЛЬНОСТІ"
 
@@ -175,6 +153,88 @@ msgid ""
 msgstr ""
 "Пакунки, що не підтримуються - це пакунки, створені користувачами. Ви можете "
 "використовувати їх тільки на Ваш власний страх і ризик."
+
+msgid "Support"
+msgstr "Підтримка"
+
+msgid "Package Requests"
+msgstr "Запит пакунку"
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+"Існують три типи запитів, які можна заповнити в полі %sДія над пакунком%s на "
+"сторінці подробиць пакунку:"
+
+msgid "Orphan Request"
+msgstr "Запит на покинення пакунку"
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+"Запит на позбавлення пакунка власника, наприклад, коли супровідник пакунку "
+"неактивний і пакунок позначений як застарілий вже довгий період часу."
+
+msgid "Deletion Request"
+msgstr "Запит на вилучення"
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+"Запит на вилучення пакунку зі Сховища Користувацьких Пакунків AUR. Будь "
+"ласка, не використовуйте це, якщо пакунок є зламаний і його можна легко "
+"направити. Для цього зв’яжіться з супровідником пакунку і заповніть форму на "
+"покинення пакунку в разі необхідності."
+
+msgid "Merge Request"
+msgstr "Запит на злиття"
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+"Запит на злиття пакунку з іншим пакунком. Цей запит можна використати, коли "
+"потрібно перейменувати пакунок або замінити на розділений пакунок."
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+"Якщо Ви бажаєте обговорити запит, використайте список розсилки %saur-requests"
+"%s. Будь ласка, не використовуйте цю розсилку для подання запитів."
+
+msgid "Discussion"
+msgstr "Обговорення"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+"Загальне обговорення сховища користувацьких пакунків (AUR) та структури "
+"довірених користувачів відбувається в %saur-general%s. Для дискусій про "
+"розробку AUR використовуйте список розсилання %saur-dev%s."
+
+msgid "Bug Reporting"
+msgstr "Повідомлення про вади"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
+"Якщо Ви знайдете ваду в AUR, %sповідомте нам%s. Таким чином слід сповіщати "
+"%sлише%s про проблеми AUR. При виявленні вади конкретного пакунка зв’яжіться "
+"з його супровідником або залиште коментар на сторінці цього пакунка."
 
 msgid "Package Search"
 msgstr "Пошук пакунків"
@@ -1148,6 +1208,9 @@ msgstr "Не позначені"
 
 msgid "Name"
 msgstr "Назва"
+
+msgid "Popularity"
+msgstr "Популярність"
 
 msgid "Voted"
 msgstr "Проголосовано"

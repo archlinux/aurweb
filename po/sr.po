@@ -4,15 +4,15 @@
 #
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Slobodan Terzić <githzerai06@gmail.com>, 2011-2012
+# Slobodan Terzić <githzerai06@gmail.com>, 2011-2012,2015
 # Slobodan Terzić <githzerai06@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-04 11:51+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-12 02:57+0000\n"
+"Last-Translator: Slobodan Terzić <githzerai06@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/aur/language/"
 "sr/)\n"
 "Language: sr\n"
@@ -28,6 +28,14 @@ msgstr "Stranica nije nađena"
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Stranica koju ste zahtevali ne postoji."
 
+msgid "Service Unavailable"
+msgstr "Servis nije dostupan"
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
+"Ne paničite! Sajt je van mreže usled održavanja. Povratak se očekuje uskoro."
+
 msgid "Account"
 msgstr "Nalog"
 
@@ -38,7 +46,7 @@ msgid "You are not allowed to access this area."
 msgstr "Nije vam dozvoljen pristup ovoj oblasti."
 
 msgid "Could not retrieve information for the specified user."
-msgstr "Ne mogu da dobavim podatke o naznačenom korisniku."
+msgstr "Ne mogu da dobavim podatke o izabranom korisniku."
 
 msgid "You do not have permission to edit this account."
 msgstr "Nemate dozvole za uređivanje ovog naloga."
@@ -53,13 +61,13 @@ msgid "Use this form to create an account."
 msgstr "Ovim formularom pravite nalog."
 
 msgid "Add Proposal"
-msgstr "Dodaj predlog"
+msgstr "Dodavanje predloga"
 
 msgid "Invalid token for user action."
-msgstr "Neispravan token koriničke radnje."
+msgstr "Neispravan token korisničke radnje."
 
 msgid "Username does not exist."
-msgstr "Koriničko ime ne postoji."
+msgstr "Korisničko ime ne postoji."
 
 #, php-format
 msgid "%s already has proposal running for them."
@@ -78,7 +86,7 @@ msgid "Submit a proposal to vote on."
 msgstr "Pošaljite predlog za glasanje."
 
 msgid "Applicant/TU"
-msgstr "Podnosioc/PK"
+msgstr "Podnosioc/TU"
 
 msgid "(empty if not applicable)"
 msgstr "(prazno ako je nevažeće)"
@@ -93,22 +101,22 @@ msgid "Removal of a TU"
 msgstr "Uklanjanje TU"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "Uklanjanje TU (nedeklarisana neaktivnost)"
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "Dopuna o podzakonskim aktima"
 
 msgid "Proposal"
 msgstr "Predlog"
 
 msgid "Submit"
-msgstr "Pošalji"
+msgstr "Slanje"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "Upravljanje koodržavaocima"
 
 msgid "Home"
-msgstr "- početna"
+msgstr "Početna"
 
 #, php-format
 msgid ""
@@ -132,33 +140,6 @@ msgstr "Ne zaboravite da glasate za omiljene pakete!"
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Neki paketi se dostavljaju u binarnom obliku u riznici [community]."
 
-msgid "Discussion"
-msgstr "Diskusija"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-
-msgid "Bug Reporting"
-msgstr "Prijavljivanje grešaka"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Ukoliko naiđete na grešku, molimo da je prijavite na našem %sbubolovcu%s. "
-"Koristite ga %sisključivo%s za prijavljivanje grešaka u samom AUR-u. Za "
-"prijavljivanje grešaka u paketima, kontaktirajte održavaoca ili ostavite "
-"komentar na odgovarajućoj stranici posvećenoj paketu."
-
 msgid "DISCLAIMER"
 msgstr "UPOZORENJE"
 
@@ -168,6 +149,89 @@ msgid ""
 msgstr ""
 "Paketi označeni sa [unsupported] su sadržaj koji stvaraju korisnici. "
 "Upotrebljavate ih na sopstvenu odgovornost."
+
+msgid "Support"
+msgstr "Podrška"
+
+msgid "Package Requests"
+msgstr "Zahtevi za pakete"
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+"Postoje tri vrste zahteva koji mogu biti podneti kroz kućicu %sRadnje nad "
+"paketima%s na stranici sa detaljima o paketu:"
+
+msgid "Orphan Request"
+msgstr "Zahtevi za odricanje"
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+"zahtev za odricanje od paketa, npr. kada je održavalac neaktivan a paket je "
+"predugo označen kao zastareo."
+
+msgid "Deletion Request"
+msgstr "Zahtevi za brisanje"
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+"zahtev za brisanje paketa iz Arčove Korisničke Riznice. Ne koristite ovo ako "
+"je paket polomljen i može se lako ispraviti. Umesto toga, kontaktirajte "
+"održavaoca paketa i podnesite zahtev za odricanje ukoliko je potreban."
+
+msgid "Merge Request"
+msgstr "Zahtevi za spajanje"
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+"tahtev za spajanje paketa sa drugim paketom. Koristi se kada je paketu "
+"potrebno novo ime ili ga je potrebno razdeliti ma manje pakete."
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+"Ukoliko želite da diskutujete o zahtevu, možete koristiti dopisnu listu "
+"%saur-requests%s. Međutim, molimo da ne koristite tu listu za podnošenje "
+"zahteva."
+
+msgid "Discussion"
+msgstr "Diskusija"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+"Opšta diskusija vezana za Arčovu Korisničku Riznicu (AUR) i strukturu "
+"Poverljivih korisnika se vodi na dopisnoj listi %saur-general%s.Za diskusiju "
+"o razvoju samog web sučelja AUR-a, pogedajte dopisnu listu %saur-dev%s."
+
+msgid "Bug Reporting"
+msgstr "Prijavljivanje grešaka"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
+"Ukoliko nađete grešku u web sučelju AUR-a. molimo da je prijavite na našem "
+"%sbubolovcu%s. Bubolovac koristite %sisključivo%s za prjavljivanje grešaka u "
+"samom AUR-u. Za prijavu grešaka u samim paketima kontaktirajte održavaoce "
+"paketa ili ostavite komentar na odgovarajućoj stranici paketa."
 
 msgid "Package Search"
 msgstr "Pretraga paketa"
@@ -213,7 +277,7 @@ msgid "Password"
 msgstr "Lozinka"
 
 msgid "Remember me"
-msgstr "Upamti me"
+msgstr "Pamti me"
 
 msgid "Forgot Password"
 msgstr "Zaboravljena lozinka"
@@ -222,7 +286,7 @@ msgstr "Zaboravljena lozinka"
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
 msgstr ""
-"Prijavljivanje putem HTTp je isključeno. Koristite %sHTTPs%s da bi se "
+"Prijavljivanje preko HTTP je isključeno. Koristite %sHTTPs%s da bi se "
 "prijavili."
 
 msgid "Search Criteria"
@@ -253,6 +317,9 @@ msgid ""
 "your e-mail address. If you wish to reset your password follow the link "
 "below, otherwise ignore this message and nothing will happen."
 msgstr ""
+"Zahtev za resetovanje lozinke za nalog %s je poslat na adresu e-pošte. "
+"Ukoliko želite da resetujete lozinku, ispratite vezu ispod; u suprotnom "
+"ignorišite ovu poruku i ništa se neće desiti."
 
 msgid "Password Reset"
 msgstr "Resetovanje lozinke"
@@ -281,7 +348,7 @@ msgid ""
 "message to the %saur-general%s mailing list."
 msgstr ""
 "Ukoliko ste zaboravili registracionu adresu e-pošte, molimo pošaljite poruku "
-"na poštansku listu %saur-general%s."
+"na dopisnu listu %saur-general%s."
 
 msgid "Enter your e-mail address:"
 msgstr "Unesite adresu e-pošte:"
@@ -289,7 +356,7 @@ msgstr "Unesite adresu e-pošte:"
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "Izabrani paketi nisu odreknuti, pogledajte kućicu za potvrdu."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Ne mogu da nađem paket kako bih stopio glasove i komentare."
@@ -313,6 +380,7 @@ msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
 msgstr ""
+"Ovim formularom brišete osnovu paketa %s%s%s i sledeće pakete iz AUR-a:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "Brisanje paketa je trajno."
@@ -334,43 +402,46 @@ msgstr "Odrekni se paketa"
 
 #, php-format
 msgid "Disown Package: %s"
-msgstr ""
+msgstr "Odricanje paketa: %s"
 
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"Ovim formularom se odričete osnove paketa %s%s%s i sledećih pripadajučih "
+"pakete:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"Označavanjem kućice potvrđujete odricanje prenos vlasništva paketa na %s%s%s."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr ""
+msgstr "Označavanjem kućice potvrđujete da želite da se odreknete od paketa."
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Potvrdite odricanje od paketa"
 
 msgid "Disown"
 msgstr "Odrekni se"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
+msgstr "Samo Poverljivi korisnici i Programeri mogu vršiti odricanje paketa."
 
 msgid "Package Merging"
 msgstr "Spajanje paketa"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr "Spoji paket: %s"
+msgstr "Spajanje paketa: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
+msgstr "Ovim formularom spajate osnovu paketa %s%s%s sa drugim paketom."
 
 msgid "The following packages will be deleted: "
 msgstr "Sledeći paketi će biti obrisani:"
@@ -400,16 +471,16 @@ msgid "Close Request"
 msgstr "Zatvori zahtev"
 
 msgid "First"
-msgstr "Prvi"
+msgstr "Prva"
 
 msgid "Previous"
-msgstr "Prethodni"
+msgstr "Prethodna"
 
 msgid "Next"
 msgstr "Sledeća"
 
 msgid "Last"
-msgstr "Zadnji"
+msgstr "Zadnja"
 
 msgid "Requests"
 msgstr "Zahtevi"
@@ -448,6 +519,8 @@ msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
+"Registrovanje naloga sa vaše IP adrese je onemogućeno, najverovatnije usled "
+"napada spama. Oprostite na neprijatnosti."
 
 msgid "Missing User ID"
 msgstr "Nedostaje ID korisnika"
@@ -460,7 +533,7 @@ msgid "It must be between %s and %s characters long"
 msgstr "Mora imati između %s i %s znakova."
 
 msgid "Start and end with a letter or number"
-msgstr "Počni i završi slovom ili brojem"
+msgstr "Počnje i završava slovom ili brojem"
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Može sadržati samo jedan razmak, podvlaku ili crticu."
@@ -472,7 +545,7 @@ msgid "The PGP key fingerprint is invalid."
 msgstr "Otisak PGP ključa nije ispravan."
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "Neispravan javni SSH ključ."
 
 msgid "Cannot increase account permissions."
 msgstr "Ne mogu da uvećam dozvole naloga."
@@ -482,23 +555,23 @@ msgstr "Jezik trenutno nije podržan."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
-msgstr ""
+msgstr "Korisničko ime %s%s%s je već u upotrebi."
 
 #, php-format
 msgid "The address, %s%s%s, is already in use."
-msgstr ""
+msgstr "Adresa %s%s%s je već u upotrebi."
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "Javni SSH ključ %s%s%s je već u upotrebi."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
-msgstr ""
+msgstr "Greška pri pravljenju naloga %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
-msgstr ""
+msgstr "Nalog %s%s%s je uspešno napravljen."
 
 msgid "Click on the Login link above to use your account."
 msgstr "Kliknite iznad na vezu Prijava da bi koristili svoj nalog."
@@ -509,22 +582,27 @@ msgid ""
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
 msgstr ""
+"Dobrodošli u %s! Da bi postavili početnu lozinku za vaš novi nalog, kliknite "
+"na vezu ispod. Ukoliko veza ne radi, probate da je iskopirate u vaš veb "
+"pregledač."
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Ključ za resetovanje lozinke je poslat na vašu adresu e-pošte."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
-msgstr ""
+msgstr "Nisu izvršene nikakve izmene naloga %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr ""
+msgstr "Nalog %s%s%s je uspešno izmenjen."
 
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
+"Formular za prijavljivanje je trenutno onemogućen za vašu IP adresu, "
+"najverovatnije usled napada spama. Oprostite na neprijatnosti."
 
 msgid "Account suspended"
 msgstr "Nalog je suspendovan"
@@ -535,12 +613,16 @@ msgid ""
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
 msgstr ""
+"Vaša lozinka je resetovana. Ukoliko ste tek napravili nov nalog, molimo "
+"upotrebite vezu iz e-pisma za potvrdu kako bi postavili početnu lozinku. U "
+"suprotnom, zatražite resetovajne ključa putem stranice %sResetovanje lozinke"
+"%s."
 
 msgid "Bad username or password."
 msgstr "Loše korisničko ime ili lozinka."
 
 msgid "An error occurred trying to generate a user session."
-msgstr ""
+msgstr "Došlo je do greške pri pravljenju korisničke sesije."
 
 msgid "Invalid e-mail and reset key combination."
 msgstr "Neispravna kombinacija e-pošte i ključa za resetovanje."
@@ -615,15 +697,15 @@ msgid "Your votes have been cast for the selected packages."
 msgstr "Dali ste glas izabranim paketima."
 
 msgid "Couldn't add to notification list."
-msgstr "Ne mogu da dodam na spisak obaveštenja."
+msgstr "Ne mogu da dodam na spisak za obaveštenja."
 
 #, php-format
 msgid "You have been added to the comment notification list for %s."
-msgstr "Dodati ste na spisak za obaveštenja za %s."
+msgstr "Dodati ste na spisak za obaveštenja o %s."
 
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr "Uklonjeni ste sa spiska obaveštavanja o komentaru za %s."
+msgstr "Uklonjeni ste sa spiska obaveštavanja o komentarima za %s."
 
 msgid "You must be logged in before you can edit package information."
 msgstr "Morate se prijaviti da bi ste uređivali podatke o paketu."
@@ -650,14 +732,14 @@ msgid "Package category changed."
 msgstr "Kategorija paketa je izmenjena."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "Nije vam dozvvoljeno da upravljate koodržavaocima ove osnove paketa."
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Neispravno korisničko ime: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "Koodržavaoci osnove baze paketa su ažurirani."
 
 msgid "View packages details for"
 msgstr "Prikaži detalje paketa za"
@@ -688,7 +770,7 @@ msgstr "Zahtev je uspešno zatvoren."
 
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr ""
+msgstr "Ovim možete trajno obrisati nalog %s iz AUR-a."
 
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
@@ -740,11 +822,11 @@ msgid "View this user's packages"
 msgstr "Pregledaj korisnikove pakete"
 
 msgid "Edit this user's account"
-msgstr ""
+msgstr "Uređivanje naloga ovog korisnika"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr ""
+msgstr "Kliknite %sovde%s ako želite trajno brisanje ovog naloga."
 
 msgid "required"
 msgstr "neophodno"
@@ -771,9 +853,11 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"Sledeće informacije su neophodne ako želite da prilažete pakete u Arčovu "
+"korisničku riznicu."
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "Javni SSH ključ"
 
 msgid "Update"
 msgstr "Ažuriraj"
@@ -807,18 +891,20 @@ msgstr "Nema daljih rezultata."
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr ""
+msgstr "Upravljanje koodržavaocima: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"Ovim formularom dodajete koodržavaoce za %s%s%s (jedno korisničko ime po "
+"liniji):"
 
 msgid "Users"
-msgstr ""
+msgstr "Korisnici"
 
 msgid "Save"
-msgstr ""
+msgstr "Sačuvaj"
 
 msgid "My Packages"
 msgstr "Moji paketi"
@@ -842,10 +928,10 @@ msgid "View PKGBUILD"
 msgstr "Prikaži PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Prikaz izmena"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Preuzimanje snimka"
 
 msgid "Search wiki"
 msgstr "Pretraži wiki"
@@ -863,16 +949,16 @@ msgid "Remove vote"
 msgstr "Ukloni glas"
 
 msgid "Vote for this package"
-msgstr ""
+msgstr "Glasajte za paket"
 
 msgid "Disable notifications"
-msgstr "Onemogući obaveštenja"
+msgstr "Ugasi obaveštenja"
 
 msgid "Notify of new comments"
 msgstr "Obavesti o novim komentarima"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Upravljanje koodržavaocima"
 
 #, php-format
 msgid "%d pending request"
@@ -891,7 +977,7 @@ msgid "Adopt Package"
 msgstr "Usvoji paket"
 
 msgid "Git Clone URL"
-msgstr ""
+msgstr "URL za git kloniranje"
 
 msgid "Category"
 msgstr "Kategorija"
@@ -938,7 +1024,7 @@ msgstr "Obriši komentar"
 
 #, php-format
 msgid "Comment by %s"
-msgstr ""
+msgstr "Komentar od %s"
 
 msgid "Anonymous comment"
 msgstr "Anoniman komentar"
@@ -990,11 +1076,11 @@ msgstr "Izvori"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Zatvaranje zahteva: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
+msgstr "Ovim formularom zatvarate zahteve za osnovu paketa %s%s%s."
 
 msgid "Note"
 msgstr "Beleška"
@@ -1003,6 +1089,8 @@ msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
+"Polje komentara može ostati prazno. Međutim, preporučujemo da uvek dodate "
+"komentar pri odbijanju zahteva."
 
 msgid "Reason"
 msgstr "Razlog"
@@ -1018,13 +1106,15 @@ msgstr "Komentari"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "Slanje zahteva: %s"
 
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
+"Ovim formularom pošaljite zahtev vezan za osnovu paketa %s%s%s koja sadrži "
+"sledeće pakete:"
 
 msgid "Request type"
 msgstr "Tip zahteva"
@@ -1041,33 +1131,33 @@ msgstr "Stopi sa"
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d zahtev za paket."
+msgstr[1] "%d zahteva za paket."
+msgstr[2] "%d zahteva za paket."
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Stranica %d od %d."
 
 msgid "Package"
 msgstr "Paket"
 
 msgid "Filed by"
-msgstr ""
+msgstr "Posla"
 
 msgid "Date"
 msgstr "Datum"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "Preostalo dana: ~%d"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Preostao ~%d čas"
+msgstr[1] "Preostala ~%d časa"
+msgstr[2] "Preostalo ~%d časova"
 
 msgid "<1 hour left"
 msgstr "<1 sata preostalo"
@@ -1094,7 +1184,7 @@ msgid "Exact Name"
 msgstr "Tačno ime"
 
 msgid "Exact Package Base"
-msgstr "Raspakuj bazu paketa"
+msgstr "Tačna osnova paketa"
 
 msgid "All"
 msgstr "svi"
@@ -1107,6 +1197,9 @@ msgstr "neoznačeni"
 
 msgid "Name"
 msgstr "Ime"
+
+msgid "Popularity"
+msgstr "Popularnost"
 
 msgid "Voted"
 msgstr "Dat glas"
@@ -1133,7 +1226,7 @@ msgid "Keywords"
 msgstr "Ključne reči"
 
 msgid "Out of Date"
-msgstr "Zastarelih paketi"
+msgstr "Zastareli paketi"
 
 msgid "Sort by"
 msgstr "Složi prema"
@@ -1159,9 +1252,9 @@ msgstr "Nijedan paket ne odgovara kriterijumu pretrage."
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Nađen %d paket."
+msgstr[1] "Nađena %d paketa."
+msgstr[2] "Nađeno %d paketa."
 
 msgid "Version"
 msgstr "Verzija"
@@ -1261,7 +1354,7 @@ msgid "Participation"
 msgstr "Učešće"
 
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "Poslednji glasovi od TU"
 
 msgid "Last vote"
 msgstr "Poslednji glas"

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-04 12:21+0000\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-12 08:15+0000\n"
 "Last-Translator: Atilla Öntaş <tarakbumba@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/"
 "tr/)\n"
@@ -30,6 +30,15 @@ msgstr "Sayfa Bulunamadı"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Üzgünüz, talep ettiğiniz sayfa bulunamadı."
+
+msgid "Service Unavailable"
+msgstr "Hizmete Erişilemiyor"
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
+"Paniklemeyin! Bu site bakım çalışmaları nedeniyle erişime kapatıldı. Kısa "
+"süre sonra yeniden çalışmaya başlayacak"
 
 msgid "Account"
 msgstr "Hesap"
@@ -136,38 +145,6 @@ msgid "Some packages may be provided as binaries in [community]."
 msgstr ""
 "Burada listelenen paketlerin bazıları [community] deposunda yer almaktadır."
 
-msgid "Discussion"
-msgstr "Tartışma"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-"Arch Kullanıcı Deposu (AUR) ve Güvenilir Kullanıcı yapısı ile ilgili genel "
-"tartışmalar %saur-general%s üzerinde yapılır. Paketleri öksüz bırakma, "
-"birleştirme ve silme talepleri %sPaket Eylemleri%s kutusunda yapılmalıdır. "
-"AUR geliştirme süreci ilgili tartışmalar %saur-dev%s listesinde "
-"yapılmaktadır."
-
-msgid "Bug Reporting"
-msgstr "Hata Bildirimi"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Eğer AUR'da bir hata ile karşılaştırsanız lütfen %shata takip sistemine%s "
-"bildirin. Hata takip sistemini lütfen %ssadece%s AUR sistemi için kullanın. "
-"Paketleme hatalarıyla ilgili görüşlerinizi ilgili paketin sayfasında "
-"iletebilirsiniz."
-
 msgid "DISCLAIMER"
 msgstr "FERAGATNAME"
 
@@ -178,6 +155,91 @@ msgstr ""
 "Desteklenmeyen paketler kullanıcılar tarafından üretilen içeriğe "
 "sahiptirler. Bu paketlerin kullanımından doğan risk kullanıcının kendisine "
 "aittir."
+
+msgid "Support"
+msgstr "Destek"
+
+msgid "Package Requests"
+msgstr "Paket Talepleri"
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+"Paket ayrıntıları sayfasındaki %sPaket Eylemleri%s kutusunda "
+"doldurulabilecek üç tür talep vardır:"
+
+msgid "Orphan Request"
+msgstr "Sahipsiz Bırakma Talebi"
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+"Bir paketin sahipliğinin bırakılması talebi, mesela bakımcısının etkin "
+"olmaması ve paketin uzun zamandır güncel değil olarak işaretlenmiş olması."
+
+msgid "Deletion Request"
+msgstr "Silme Talebi"
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+"Bir paketin Arch Kullanıcı Deposundan kaldırılması talebidir. Lütfen bunu, "
+"bir paket çalışmıyor fakat kolayca düzeltilebiliyorsa kullanmayın. Bunun "
+"yerine, paket bakımcısı ile iletişim kurun ve mecbur kalınırsa paketin "
+"sahipsiz bırakılması talebinde bulunun."
+
+msgid "Merge Request"
+msgstr "Birleştirme Talebi"
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+"Bir paketin bir başkası ile birleştirilmesi talebidir. Bir paketin yeniden "
+"adlandırılması veya bir ayrılmış paketle değiştirilmesi gerekiyorsa "
+"kullanılabilir."
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+"Bir talep hakkında tartışmak istiyorsanız, %saur-requests%s e-posta "
+"listesini kullanabilirsiniz. Bununla birlikte o e-posta listesini dosya "
+"talepleri için kullanmamalısınız."
+
+msgid "Discussion"
+msgstr "Tartışma"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+"Arch Kullanıcı Deposu (AUR) ve Güvenilir Kullanıcı yapısı ile ilgili genel "
+"tartışmalar %saur-general%s üzerinde yapılır. AUR web arayüzü geliştirme "
+"süreci ilgili tartışmalar %saur-dev%s listesinde yapılmaktadır."
+
+msgid "Bug Reporting"
+msgstr "Hata Bildirimi"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
+"Eğer AUR'da bir hata ile karşılaştırsanız lütfen %shata takip sistemine%s "
+"bildirin. Hata takip sistemini lütfen %ssadece%s AUR sistemi için kullanın. "
+"Paketleme hatalarını paket bakımcısı ile iletişime geçerek bildirebilir veya "
+"paketle ilgili görüşlerinizi ilgili paketin sayfasında iletebilirsiniz."
 
 msgid "Package Search"
 msgstr "Paket Ara"
@@ -365,19 +427,24 @@ msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"İşaretleme kutucuğunu seçerek paketin sahipliğini bırakmayı ve sahipliği %s%s"
+"%s üzerine geçirmeyi kabul ediyorsunuz."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
+"Kutucuğu işaretleyerek paketin sahipliğini bırakmayı kabul ediyorsunuz."
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Paket sahipliğini bırakmayı onayla"
 
 msgid "Disown"
 msgstr "Sorumluluğunu bırak"
 
 msgid "Only Trusted Users and Developers can disown packages."
 msgstr ""
+"Sadece geliştiriciler ve güvenilir kullanıcılar paketleri sahipsiz "
+"bırakabilir."
 
 msgid "Package Merging"
 msgstr "Paket birleştirme"
@@ -494,7 +561,7 @@ msgid "The PGP key fingerprint is invalid."
 msgstr "PGP anahtarı parmak izi hatalı."
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "SSH kamu anahtarı geçersiz."
 
 msgid "Cannot increase account permissions."
 msgstr "Hesap izinleri yükseltilemiyor."
@@ -512,7 +579,7 @@ msgstr "Adres, %s%s%s, zaten kullanılıyor."
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "SSH kamu anahtarı, %s%s%s, zaten kullanımda."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -681,13 +748,14 @@ msgstr "Paket kategorisi değiştirildi."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
+"Bu paket temelinin yardımcı bakımcılarını yönetme yetkisine sahip değilsiniz."
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Geçersiz kullanıcı adı: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "Paket temeli yardımcı bakımcıları güncellendi."
 
 msgid "View packages details for"
 msgstr "Paket detaylarını görüntüle"
@@ -801,9 +869,11 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"Aşağıdaki bilgi sadece Arch Kullanıcı Deposu' na paket göndermek "
+"istiyorsanız gereklidir."
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "SSH Kamu Anahtarı"
 
 msgid "Update"
 msgstr "Güncelle"
@@ -837,18 +907,20 @@ msgstr "Gösterilecek daha fazla sonuç yok."
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr ""
+msgstr "Yardımcı bakımcıları yönet: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"%s%s%s için yardımcı bakımcı eklemek istiyorsanız bu formu kullannı (her "
+"satırda bir kullanıcı adı):"
 
 msgid "Users"
-msgstr ""
+msgstr "Kullanıcılar"
 
 msgid "Save"
-msgstr ""
+msgstr "Kaydet"
 
 msgid "My Packages"
 msgstr "Paketlerim"
@@ -872,10 +944,10 @@ msgid "View PKGBUILD"
 msgstr "PKGBUILD görüntüle"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Değişiklikleri Görüntüle"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Anlık görüntüsünü indir"
 
 msgid "Search wiki"
 msgstr "Wikide ara"
@@ -902,7 +974,7 @@ msgid "Notify of new comments"
 msgstr "Yeni yorumları bildir"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Yardımcı Bakımcıları Yönet"
 
 #, php-format
 msgid "%d pending request"
@@ -920,7 +992,7 @@ msgid "Adopt Package"
 msgstr "Paketi Sahiplen"
 
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git Clone URL"
 
 msgid "Category"
 msgstr "Kategori"
@@ -1139,6 +1211,9 @@ msgstr "İşaretlenmemiş"
 
 msgid "Name"
 msgstr "İsim"
+
+msgid "Popularity"
+msgstr "Beğenilme"
 
 msgid "Voted"
 msgstr "Oylanmış"

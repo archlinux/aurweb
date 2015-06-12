@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-04 14:54+0000\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/aur/"
 "language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -27,6 +27,13 @@ msgstr "Página não encontrada"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Desculpe, a página que você solicitou não existe."
+
+msgid "Service Unavailable"
+msgstr ""
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
 
 msgid "Account"
 msgstr "Conta"
@@ -133,38 +140,6 @@ msgid "Some packages may be provided as binaries in [community]."
 msgstr ""
 "Alguns pacotes podem ser fornecidos como binários no repositório [community]."
 
-msgid "Discussion"
-msgstr "Discussão"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-"Discussões gerais no que se refere à estrutura de Repositório de Usuário do "
-"AUR (AUR) e Trusted User acontecem no %saur-general%s. Requisições para "
-"exclusão e mesclagem de pacote e para tornar pacote órfão devem ser "
-"preenchidas na caixa %sAções do pacote%s. Para discussão relacionada ao "
-"desenvolvimento do AUR web, use a lista de discussão do %saur-dev%s"
-
-msgid "Bug Reporting"
-msgstr "Relatório de erros"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Se você encontrar um erro no AUR, por favor preencha um relatório de erro no "
-"nosso %sbug tracker%s. Use o tracker para relatar erros encontrados no AUR, "
-"%ssomente%s. Para relatar erros de empacotamento, contate o mantenedor do "
-"pacote ou deixe um comentário na página de pacote apropriada."
-
 msgid "DISCLAIMER"
 msgstr "AVISO LEGAL"
 
@@ -174,6 +149,70 @@ msgid ""
 msgstr ""
 "Pacotes sem suporte são pacotes produzidos pelos usuários. Qualquer uso dos "
 "arquivos fornecidos é de sua própria conta e risco."
+
+msgid "Support"
+msgstr ""
+
+msgid "Package Requests"
+msgstr ""
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+
+msgid "Orphan Request"
+msgstr ""
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+
+msgid "Deletion Request"
+msgstr ""
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+
+msgid "Merge Request"
+msgstr ""
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Discussion"
+msgstr "Discussão"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr "Relatório de erros"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
 
 msgid "Package Search"
 msgstr "Pesquisar pacote"
@@ -1149,6 +1188,9 @@ msgstr "Não marcado"
 
 msgid "Name"
 msgstr "Nome"
+
+msgid "Popularity"
+msgstr ""
 
 msgid "Voted"
 msgstr "Votado"

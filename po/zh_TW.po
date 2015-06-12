@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Jeff Huang <s8321414@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-05 00:43+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/aur/language/zh_TW/)\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/aur/"
+"language/zh_TW/)\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Page Not Found"
@@ -23,6 +24,13 @@ msgstr "頁面找不到"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "抱歉，您所請求的頁面不存在。"
+
+msgid "Service Unavailable"
+msgstr "服務不可用"
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr "別緊張！這個頁面因維護而暫時下線。我們很快就會回來。"
 
 msgid "Account"
 msgstr "帳號"
@@ -110,42 +118,23 @@ msgstr "首頁"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "歡迎來到 AUR！請閱讀 %sAUR 使用者指導方針%s 和 %sAUR 受信使用者指導方針%s 以獲取更多的詳細資訊。"
+msgstr ""
+"歡迎來到 AUR！請閱讀 %sAUR 使用者指導方針%s 和 %sAUR 受信使用者指導方針%s 以"
+"獲取更多的詳細資訊。"
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "所貢獻的 PKGBUILDs 和 PKGINFOs %s必須%s 符合 %sArch 打包標準%s 否則將被被刪除！ "
+msgstr ""
+"所貢獻的 PKGBUILDs 和 PKGINFOs %s必須%s 符合 %sArch 打包標準%s 否則將被被刪"
+"除！ "
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "記得投一票給您喜愛的套件！"
 
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "某些套件可能會在 [community] 提供二進位檔案。"
-
-msgid "Discussion"
-msgstr "討論"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr "與 Arch 使用者套件庫(AUR)及受信使用者結構相關的一般性討論請見 %saur-general%s 。棄置套件、合併及刪除等等的請求請見 %sPackage Actions%s box。討論關於 AUR 網頁介面的開發，請使用 %saur-dev%s 郵件列表。"
-
-msgid "Bug Reporting"
-msgstr "臭蟲回報"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr "如果您在 AUR 中發現了臭蟲，請在我們的 %s臭蟲追蹤系統%s 中回報。請%s只%s回報 AUR 本身的臭蟲。要回報打包臭蟲，請連絡套件的維護者或是在對應的套件頁面中留下評論。"
 
 msgid "DISCLAIMER"
 msgstr "免責聲明"
@@ -154,6 +143,70 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr "AUR 上的檔案是使用者產生的內容。任何使用檔案的風險由您自行承擔。"
+
+msgid "Support"
+msgstr ""
+
+msgid "Package Requests"
+msgstr ""
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+
+msgid "Orphan Request"
+msgstr ""
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+
+msgid "Deletion Request"
+msgstr ""
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+
+msgid "Merge Request"
+msgstr ""
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Discussion"
+msgstr "討論"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr "臭蟲回報"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
 
 msgid "Package Search"
 msgstr "搜尋套件"
@@ -236,7 +289,9 @@ msgid ""
 "A password reset request was submitted for the account %s associated with "
 "your e-mail address. If you wish to reset your password follow the link "
 "below, otherwise ignore this message and nothing will happen."
-msgstr "一個關聯到您的電子郵件地址的帳號 %s 已遞交了密碼重置請求。如果您想要重置您的密碼，請使用以下的連結，否則您可以忽略這則訊息，且不會發生任何事情。"
+msgstr ""
+"一個關聯到您的電子郵件地址的帳號 %s 已遞交了密碼重置請求。如果您想要重置您的"
+"密碼，請使用以下的連結，否則您可以忽略這則訊息，且不會發生任何事情。"
 
 msgid "Password Reset"
 msgstr "密碼重置"
@@ -261,9 +316,11 @@ msgstr "繼續"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "如果您忘了您用來註冊的電子郵件地址，請寄一封訊息到 %saur-general%s 郵件列表中。"
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"如果您忘了您用來註冊的電子郵件地址，請寄一封訊息到 %saur-general%s 郵件列表"
+"中。"
 
 msgid "Enter your e-mail address:"
 msgstr "輸入您的電子郵件地址："
@@ -280,8 +337,7 @@ msgid "Cannot merge a package base with itself."
 msgstr "無法將一個套件基礎與它自己合併。"
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
+"The selected packages have not been deleted, check the confirmation checkbox."
 msgstr "選取的套件未被刪除，請檢查確認的核取方塊。"
 
 msgid "Package Deletion"
@@ -321,8 +377,8 @@ msgstr "棄置套件：%s"
 
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following"
-" packages: "
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
 msgstr "使用這個表單以棄置一個包含以下套件的套件基礎 %s%s%s ："
 
 #, php-format
@@ -430,7 +486,9 @@ msgstr "投票者"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "帳號註冊在您目前所使用的 IP 位址被停用，可能是因為一些持續性的垃圾攻擊。我們為您的不便致歉。"
+msgstr ""
+"帳號註冊在您目前所使用的 IP 位址被停用，可能是因為一些持續性的垃圾攻擊。我們"
+"為您的不便致歉。"
 
 msgid "Missing User ID"
 msgstr "遺失使用者 ID"
@@ -491,7 +549,9 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "歡迎來到 %s ！為了幫您的新帳號設定一個初始密碼，請點擊下面的連結。如果該連結無法運作，請嘗試複置它並將其貼到您瀏覽器的網址列中。"
+msgstr ""
+"歡迎來到 %s ！為了幫您的新帳號設定一個初始密碼，請點擊下面的連結。如果該連結"
+"無法運作，請嘗試複置它並將其貼到您瀏覽器的網址列中。"
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "一個密碼重置密鑰已寄到您的電子郵件信箱中。"
@@ -507,7 +567,9 @@ msgstr "帳號 %s%s%s 已成功修改。"
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "登入表單在您目前所使用的 IP 位址被停用，可能是因為一些持續性的垃圾攻擊。我們為您的不便致歉。"
+msgstr ""
+"登入表單在您目前所使用的 IP 位址被停用，可能是因為一些持續性的垃圾攻擊。我們"
+"為您的不便致歉。"
 
 msgid "Account suspended"
 msgstr "帳號被暫停"
@@ -517,7 +579,9 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "您的密碼已成功重置。如果您剛建立了一個新帳號，請使用確認郵件中的連結來設定一個初始密碼。否則，請在 %s密碼重置%s 頁面上請求一個重置密鑰。"
+msgstr ""
+"您的密碼已成功重置。如果您剛建立了一個新帳號，請使用確認郵件中的連結來設定一"
+"個初始密碼。否則，請在 %s密碼重置%s 頁面上請求一個重置密鑰。"
 
 msgid "Bad username or password."
 msgstr "使用者名稱或密碼錯誤。"
@@ -751,8 +815,8 @@ msgid "Language"
 msgstr "語言"
 
 msgid ""
-"The following information is only required if you want to submit packages to"
-" the Arch User Repository."
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
 msgstr "以下的資訊僅在您想要遞交套件到 Arch 使用者套件庫時是必須的。"
 
 msgid "SSH Public Key"
@@ -1084,6 +1148,9 @@ msgstr "未標記"
 
 msgid "Name"
 msgstr "名稱"
+
+msgid "Popularity"
+msgstr ""
 
 msgid "Voted"
 msgstr "已投票"

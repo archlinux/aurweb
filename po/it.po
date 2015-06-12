@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Giovanni Scafora <giovanni@archlinux.org>, 2011-2014
+# Giovanni Scafora <giovanni@archlinux.org>, 2011-2015
 # Lorenzo Porta <vindex17@outlook.it>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-04 11:51+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-12 13:45+0000\n"
+"Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/aur/language/"
 "it/)\n"
 "Language: it\n"
@@ -27,8 +27,17 @@ msgstr "Impossibile trovare la pagina"
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Spiacenti, la pagina che hai richiesto non esiste."
 
-msgid "Account"
+msgid "Service Unavailable"
+msgstr "Servizio non disponibile"
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
+"Niente panico! Il sito è fuori servizio per lavori di manutenzione. "
+"Torneremo presto."
+
+msgid "Account"
+msgstr "Account"
 
 msgid "Accounts"
 msgstr "Account"
@@ -104,7 +113,7 @@ msgid "Submit"
 msgstr "Invia"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "Gestisci i co-manutentori"
 
 msgid "Home"
 msgstr "Home"
@@ -133,33 +142,6 @@ msgstr ""
 "Alcuni pacchetti potrebbero essere disponibili come precompilati in "
 "[community]."
 
-msgid "Discussion"
-msgstr "Discussione"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-
-msgid "Bug Reporting"
-msgstr "Segnalazione di un bug"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Se trovi un bug in AUR, invia un bug report al nostro %sbug tracker%s. Usa "
-"il tracker %ssolo%s per inviare i bug di AUR. Per inviare bug inerenti alla "
-"pacchettizzazione, contatta il manutentore oppure lascia un commento sulla "
-"pagina del pacchetto."
-
 msgid "DISCLAIMER"
 msgstr "AVVISO"
 
@@ -169,6 +151,91 @@ msgid ""
 msgstr ""
 "I pacchetti presenti in AUR sono stati inviati dagli utenti. Usali a tuo "
 "rischio e pericolo."
+
+msgid "Support"
+msgstr "Supporto"
+
+msgid "Package Requests"
+msgstr "Richieste dei pacchetti"
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+"Ci sono tre tipi di richieste che possono essere effettuate tramite il box "
+"%sAzioni del pacchetto%s, presente sulla pagina dei dettagli del pacchetto:"
+
+msgid "Orphan Request"
+msgstr "Richiesta di un pacchetto orfano"
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+"richiesta di un pacchetto che si vuole abbandonare, ad esempio, quando il "
+"manutentore è inattivo ed il pacchetto è stato contrassegnato come non "
+"aggiornato da molto tempo."
+
+msgid "Deletion Request"
+msgstr "Richiesta di rimozione di un pacchetto"
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+"richiesta per rimuovere un pacchetto dall'Arch User Repository. Non usate "
+"questo se il pacchetto non funziona e se può essere sistemato facilmente. "
+"Contattate il manutentore del pacchetto e, se necessario, inviate una "
+"richiesta per renderlo orfano."
+
+msgid "Merge Request"
+msgstr "Richiesta di unione"
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+"richiesta di un pacchetto da unire con un altro. Può essere usata quando un "
+"pacchetto necessita di essere rinominato o sostituito da un pacchetto "
+"suddiviso"
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+"Se vuoi discutere una richiesta, puoi usare la lista di discussione %saur-"
+"requests%s. Non usare questa lista per inoltrare le tue richieste."
+
+msgid "Discussion"
+msgstr "Discussione"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+"La discussione generale sull'Arch User Repository (AUR) e sulla struttura "
+"dei TU avviene in %saur-general%s. Per la discussione relativa allo sviluppo "
+"dell'interfaccia web di AUR, utilizza la lista di discussione %saur-dev%s."
+
+msgid "Bug Reporting"
+msgstr "Segnalazione di un bug"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
+"Se trovi un bug nell'interfaccia web di AUR, invia un report al nostro %sbug "
+"tracker%s. Usa il tracker %ssolo%s per inviare i bug di AUR. Per inviare bug "
+"inerenti alla pacchettizzazione, contatta il manutentore oppure lascia un "
+"commento sulla pagina del pacchetto."
 
 msgid "Package Search"
 msgstr "Ricerca dei pacchetti"
@@ -183,7 +250,7 @@ msgid "UnVote"
 msgstr "Rimuovi il voto"
 
 msgid "Notify"
-msgstr "Abilita la notifica"
+msgstr "Abilita le notifiche"
 
 msgid "UnNotify"
 msgstr "Disabilita le notifiche"
@@ -255,6 +322,10 @@ msgid ""
 "your e-mail address. If you wish to reset your password follow the link "
 "below, otherwise ignore this message and nothing will happen."
 msgstr ""
+"È stata inviata una richiesta per resettare la password dell'account %s "
+"associato al tuo indirizzo e-mail. Se desideri resettare la tua password, "
+"clicca sul link sottostante, altrimenti ignora questo messaggio e non "
+"succederà nulla."
 
 msgid "Password Reset"
 msgstr "Resetta la password"
@@ -292,14 +363,16 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
+"I pacchetti selezionati non sono stati abbandonati, conferma la tua scelta "
+"inserendo un segno di spunta nell'apposita casella di controllo."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
-"Impossibile trovare il pacchetto per inserire al suo interno i voti ed i "
+"Impossibile trovare il pacchetto da unire al suo interno i voti ed i "
 "commenti."
 
 msgid "Cannot merge a package base with itself."
-msgstr ""
+msgstr "Impossibile unire un pacchetto base con se stesso."
 
 msgid ""
 "The selected packages have not been deleted, check the confirmation checkbox."
@@ -319,7 +392,7 @@ msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
 msgstr ""
-"Usa questo modulo per eliminare il pacchetto di base %s%s%s e i seguenti "
+"Usa questo modulo per eliminare il pacchetto base %s%s%s e i seguenti "
 "pacchetti da AUR:"
 
 msgid "Deletion of a package is permanent. "
@@ -342,74 +415,79 @@ msgstr "Abbandona il pacchetto"
 
 #, php-format
 msgid "Disown Package: %s"
-msgstr ""
+msgstr "Abbandona il pacchetto: %s"
 
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"Usa questo modulo per abbandonare il pacchetto base %s%s%s che contiene i "
+"seguenti pacchetti:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"Selezionando la casella di controllo, confermi che vuoi abbandonare il "
+"pacchetto e trasferirlo a %s%s%s."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
+"Selezionando la casella di controllo, confermi che vuoi abbandonare il "
+"pacchetto."
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Conferma di abbandonare il pacchetto"
 
 msgid "Disown"
 msgstr "Abbandona"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
+msgstr "Solo i TU e gli sviluppatori possono abbandonare i pacchetti."
 
 msgid "Package Merging"
 msgstr "Fusione dei pacchetti"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr "Inserisci il pacchetto: %s"
+msgstr "Unisci il pacchetto: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr ""
-"Usa questo modulo per inserire il pacchetto di base %s%s%s in un altro "
-"pacchetto."
+"Usa questo modulo per unire il pacchetto base %s%s%s in un altro pacchetto."
 
 msgid "The following packages will be deleted: "
 msgstr "I seguenti pacchetti verranno eliminati:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr ""
-"Una volta che il pacchetto è stato inserito, non può essere recuperato."
+"Una volta che il pacchetto è stato unito, non può essere più recuperato."
 
 msgid "Enter the package name you wish to merge the package into. "
 msgstr ""
-"Digita il nome del pacchetto che desideri inserire all'interno del pacchetto."
+"Digita il nome del pacchetto che desideri unire all'interno del pacchetto."
 
 msgid "Merge into:"
-msgstr "Inserisci in:"
+msgstr "Unisci con:"
 
 msgid "Confirm package merge"
-msgstr "Conferma l'inserimento del pacchetto"
+msgstr "Conferma l'unione del pacchetto"
 
 msgid "Merge"
-msgstr "Inserisci"
+msgstr "Unisci"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Solo i TU e gli sviluppatori possono unire i pacchetti."
 
 msgid "File Request"
-msgstr ""
+msgstr "Richiesta di file"
 
 msgid "Close Request"
-msgstr ""
+msgstr "Chiudi la richiesta"
 
 msgid "First"
 msgstr "Primo"
@@ -424,7 +502,7 @@ msgid "Last"
 msgstr "Ultimo"
 
 msgid "Requests"
-msgstr ""
+msgstr "Richieste"
 
 msgid "Trusted User"
 msgstr "TU"
@@ -484,7 +562,7 @@ msgid "The PGP key fingerprint is invalid."
 msgstr "L'impronta della chiave PGP non è valida."
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "La chiave pubblica SSH non è valida."
 
 msgid "Cannot increase account permissions."
 msgstr "Non è possibile aumentare i permessi dell'account."
@@ -502,7 +580,7 @@ msgstr "L'indirizzo %s%s%s è già in uso."
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "La chiave pubblica SSH, %s%s%s, è già in uso."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -599,7 +677,7 @@ msgid "The selected packages have been unflagged."
 msgstr "I pacchetti selezionati non sono più contrassegnati."
 
 msgid "You do not have permission to delete packages."
-msgstr "Non hai il permesso di eliminare i pacchetti."
+msgstr "Non hai il permesso per eliminare i pacchetti."
 
 msgid "You did not select any packages to delete."
 msgstr "Non hai selezionato nessun pacchetto da eliminare."
@@ -662,7 +740,7 @@ msgid "Comment has been deleted."
 msgstr "Il commento è stato rimosso."
 
 msgid "You are not allowed to delete this comment."
-msgstr "Non puoi eliminare questo commento."
+msgstr "Non puoi rimuovere questo commento."
 
 msgid "Missing category ID."
 msgstr "Manca l'ID della categoria."
@@ -678,51 +756,53 @@ msgstr "La categoria del pacchetto è stata modificata."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
+"Non sei autorizzato a gestire i co-manutentori di questo pacchetto base."
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Il nome utente non è valido: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "I co-menutentori del pacchetto base sono stati aggiornati."
 
 msgid "View packages details for"
 msgstr "Visualizza i dettagli dei pacchetti di"
 
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "Devi autenticarti per richiedere i pacchetti."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Il nome non è valido: sono consentite solo le lettere minuscole."
 
 msgid "The comment field must not be empty."
-msgstr ""
+msgstr "Il campo dei commenti non deve essere vuoto."
 
 msgid "Invalid request type."
-msgstr ""
+msgstr "Il tipo di richiesta non è valido."
 
 msgid "Added request successfully."
-msgstr ""
+msgstr "La richiesta è stata aggiunta con successo."
 
 msgid "Invalid reason."
-msgstr ""
+msgstr "Il motivo non è valido."
 
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "Solo i TU e gli sviluppatori possono chiudere le richieste."
 
 msgid "Request closed successfully."
-msgstr ""
+msgstr "La richiesta è stata chiusa con successo."
 
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr ""
+"Puoi usare questo modulo per eliminare definitivamente l'account %s di AUR."
 
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
-msgstr ""
+msgstr "%sATTENZIONE%s: questa azione non può essere incompiuta."
 
 msgid "Confirm deletion"
-msgstr ""
+msgstr "Conferma l'eliminazione"
 
 msgid "Account Type"
 msgstr "Tipo di account"
@@ -734,7 +814,7 @@ msgid "Developer"
 msgstr "Sviluppatore"
 
 msgid "Trusted User & Developer"
-msgstr ""
+msgstr "Trusted User e Sviluppatore"
 
 msgid "Email Address"
 msgstr "Indirizzo email"
@@ -771,7 +851,7 @@ msgstr "Modifica l'account di questo utente"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr ""
+msgstr "Clicca %squi%s se vuoi eliminare definitivamente questo account."
 
 msgid "required"
 msgstr "obbligatorio"
@@ -798,9 +878,11 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"La seguente informazione è richiesta solo se vuoi inviare i pacchetti "
+"nell'Arch User Repository."
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "Chiave pubblica SSH"
 
 msgid "Update"
 msgstr "Aggiorna"
@@ -834,18 +916,20 @@ msgstr "Non vi sono ulteriori risultati da visualizzare."
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr ""
+msgstr "Gestisci i co-manutentori: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"Usa questo modulo per aggiungere i co-manutentori di %s%s%s (un nome utente "
+"per linea):"
 
 msgid "Users"
-msgstr ""
+msgstr "Utenti"
 
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 msgid "My Packages"
 msgstr "I miei pacchetti"
@@ -860,7 +944,7 @@ msgid "unknown"
 msgstr "sconosciuta"
 
 msgid "Package Base Details"
-msgstr "Dettagli del pacchetto di base"
+msgstr "Dettagli del pacchetto base"
 
 msgid "Package Actions"
 msgstr "Azioni del pacchetto"
@@ -869,13 +953,13 @@ msgid "View PKGBUILD"
 msgstr "Visualizza il PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Mostra i cambiamenti"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Scarica lo snapshot"
 
 msgid "Search wiki"
-msgstr ""
+msgstr "Cerca nella wiki"
 
 msgid "Flagged out-of-date"
 msgstr "Il pacchetto non è aggiornato"
@@ -899,13 +983,13 @@ msgid "Notify of new comments"
 msgstr "Notifica dei nuovi commenti"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Gestisci i co-manutentori"
 
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d richiesta in attesa"
+msgstr[1] "%d richieste in attesa"
 
 msgid "Delete Package"
 msgstr "Elimina il pacchetto"
@@ -917,7 +1001,7 @@ msgid "Adopt Package"
 msgstr "Adotta il pacchetto"
 
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git Clone URL"
 
 msgid "Category"
 msgstr "Categoria"
@@ -936,7 +1020,7 @@ msgid "Maintainer"
 msgstr "Manutentore"
 
 msgid "Last Packager"
-msgstr ""
+msgstr "Ultimo pacchettizzatore"
 
 msgid "Votes"
 msgstr "Voti"
@@ -954,13 +1038,13 @@ msgid "Comment has been added."
 msgstr "Il commento è stato inserito."
 
 msgid "View all comments"
-msgstr ""
+msgstr "Vedi tutti i commenti"
 
 msgid "Latest Comments"
 msgstr "Ultimi commenti"
 
 msgid "Delete comment"
-msgstr "Elimina il commento"
+msgstr "Rimuovi il commento"
 
 #, php-format
 msgid "Comment by %s"
@@ -979,7 +1063,7 @@ msgid "Package Details"
 msgstr "Dettagli del pacchetto"
 
 msgid "Package Base"
-msgstr "Pacchetto di base"
+msgstr "Pacchetto base"
 
 msgid "Description"
 msgstr "Descrizione"
@@ -1016,11 +1100,11 @@ msgstr "Sorgenti"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Chiudi la richiesta: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
+msgstr "Usa questo modulo per chiudere la richiesta del pacchetto base %s%s%s."
 
 msgid "Note"
 msgstr "Nota"
@@ -1046,69 +1130,71 @@ msgstr "Commenti"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "Richiesta di file: %s"
 
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
+"Usa questo modulo per inviare una richiesta per il pacchetto base %s%s%s che "
+"include i seguenti pacchetti:"
 
 msgid "Request type"
-msgstr ""
+msgstr "Tipo di richiesta"
 
 msgid "Deletion"
-msgstr ""
+msgstr "Eliminazione"
 
 msgid "Orphan"
-msgstr ""
+msgstr "Orfano"
 
 msgid "Merge into"
-msgstr "Inserisci in"
+msgstr "Unisci con"
 
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "È stato trovato %d pacchetto."
+msgstr[1] "Sono stati trovati %d pacchetti."
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Pagina %d du %d."
 
 msgid "Package"
-msgstr ""
+msgstr "Pacchetto"
 
 msgid "Filed by"
-msgstr ""
+msgstr "Inviato da"
 
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "~%d giorni rimanenti"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d ora rimanente"
+msgstr[1] "~%d ore rimanenti"
 
 msgid "<1 hour left"
-msgstr ""
+msgstr "<1 ora rimanente"
 
 msgid "Accept"
-msgstr ""
+msgstr "Accetta"
 
 msgid "Locked"
-msgstr ""
+msgstr "Bloccato"
 
 msgid "Close"
-msgstr ""
+msgstr "Chiudi"
 
 msgid "Closed"
-msgstr ""
+msgstr "Chiuso"
 
 msgid "Name, Description"
 msgstr "Nome, descrizione"
@@ -1120,7 +1206,7 @@ msgid "Exact Name"
 msgstr "Nome esatto"
 
 msgid "Exact Package Base"
-msgstr "Pacchetto di base esatto"
+msgstr "Pacchetto base esatto"
 
 msgid "All"
 msgstr "Tutti"
@@ -1133,6 +1219,9 @@ msgstr "Aggiornati"
 
 msgid "Name"
 msgstr "Nome"
+
+msgid "Popularity"
+msgstr "Popolarità"
 
 msgid "Voted"
 msgstr "Votato"
@@ -1186,8 +1275,8 @@ msgstr "Nessun pacchetto corrisponde ai criteri della ricerca."
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "È stato trovato %d pacchetto."
+msgstr[1] "Sono stati trovati %d pacchetti."
 
 msgid "Version"
 msgstr "Versione"

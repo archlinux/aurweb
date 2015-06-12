@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-04 13:48+0200\n"
-"PO-Revision-Date: 2015-06-05 21:39+0000\n"
-"Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
+"POT-Creation-Date: 2015-06-11 23:45+0200\n"
+"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/aur/language/"
 "es/)\n"
 "Language: es\n"
@@ -30,6 +30,13 @@ msgstr "Página no encontrada"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Disculpe, la página que solicitó no existe."
+
+msgid "Service Unavailable"
+msgstr ""
+
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr ""
 
 msgid "Account"
 msgstr "Cuenta"
@@ -137,40 +144,6 @@ msgid "Some packages may be provided as binaries in [community]."
 msgstr ""
 "Algunos paquetes pueden estar provistos de forma binaria en [community]."
 
-msgid "Discussion"
-msgstr "Debate"
-
-#, php-format
-msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. Package orphan requests, merge "
-"requests, and deletion requests should be filed in the %sPackage Actions%s "
-"box. For discussion relating to the development of the AUR web interface, "
-"use the %saur-dev%s mailing list."
-msgstr ""
-"La discusión general sobre el repositorio de usuarios de Arch (AUR) y la "
-"estructura de usuarios de confianza se realiza en la lista de correos %saur-"
-"general%s. Peticiones de orfandad, unión y borrado de paquetes deben ser "
-"presentadas en el cuadro de %sAcciones del paquete%s. Para la discusión en "
-"relación con el desarrollo de la interfaz web de AUR, utilice la lista de "
-"correo %saur-dev%s."
-
-msgid "Bug Reporting"
-msgstr "Informe de errores"
-
-#, php-format
-msgid ""
-"If you find a bug in the AUR, please fill out a bug report on our %sbug "
-"tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report "
-"packaging bugs contact the package maintainer or leave a comment on the "
-"appropriate package page."
-msgstr ""
-"Si encuentra un error en el AUR, llene un informe de error en nuestro "
-"%srastreador de errores o «bug tracker»%s. Use este para reportar "
-"%súnicamente%s errores del AUR. Para reportar errores de empaquetado debe "
-"contactar al encargado o deje un comentario en la página respectiva del "
-"paquete."
-
 msgid "DISCLAIMER"
 msgstr "ACLARATORIA"
 
@@ -180,6 +153,70 @@ msgid ""
 msgstr ""
 "Los paquetes no soportados son producidos por los usuarios. Cualquier uso de "
 "los archivos de estos es a su propio riesgo."
+
+msgid "Support"
+msgstr ""
+
+msgid "Package Requests"
+msgstr ""
+
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+
+msgid "Orphan Request"
+msgstr ""
+
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr ""
+
+msgid "Deletion Request"
+msgstr ""
+
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr ""
+
+msgid "Merge Request"
+msgstr ""
+
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr ""
+
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Discussion"
+msgstr "Debate"
+
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr ""
+
+msgid "Bug Reporting"
+msgstr "Informe de errores"
+
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
+"report packaging bugs contact the package maintainer or leave a comment on "
+"the appropriate package page."
+msgstr ""
 
 msgid "Package Search"
 msgstr "Buscar paquetes"
@@ -402,8 +439,7 @@ msgstr "Unir paquete: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
-"Este formulario es para fusionar el paquete base %s%s%s en otro paquete."
+msgstr "Este formulario es para unir el paquete base %s%s%s en otro paquete."
 
 msgid "The following packages will be deleted: "
 msgstr "Los siguientes paquetes serán eliminados:"
@@ -620,13 +656,13 @@ msgid "The selected packages have been unflagged."
 msgstr "Los paquetes seleccionados han sido desmarcados."
 
 msgid "You do not have permission to delete packages."
-msgstr "No posee los permisos para borrar paquetes."
+msgstr "No posee los permisos para eliminar paquetes."
 
 msgid "You did not select any packages to delete."
-msgstr "No seleccionó ningún paquete para borrar."
+msgstr "No seleccionó ningún paquete para eliminar."
 
 msgid "The selected packages have been deleted."
-msgstr "Los paquetes seleccionados se han borrado."
+msgstr "Los paquetes seleccionados se han eliminado."
 
 msgid "You must be logged in before you can adopt packages."
 msgstr "Debe autentificarse antes de poder adoptar paquetes."
@@ -679,10 +715,10 @@ msgid "Missing comment ID."
 msgstr "Falta el identificador del comentario."
 
 msgid "Comment has been deleted."
-msgstr "Comentario borrado."
+msgstr "Comentario eliminado."
 
 msgid "You are not allowed to delete this comment."
-msgstr "No está autorizado a borrar este comentario."
+msgstr "No está autorizado a eliminar este comentario."
 
 msgid "Missing category ID."
 msgstr "Falta el Identificador de categoría."
@@ -738,7 +774,7 @@ msgstr "Solicitud cerrada exitosamente"
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr ""
-"Puede usar este formulario para borrar la cuenta de %s en AUR "
+"Puede usar este formulario para eliminar la cuenta de %s en AUR "
 "permanentemente."
 
 #, php-format
@@ -795,7 +831,7 @@ msgstr "Editar la cuenta de este usuario"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr "Haga clic %saquí%s si desea borrar permanentemente esa cuenta."
+msgstr "Haga clic %saquí%s si desea eliminar permanentemente esta cuenta."
 
 msgid "required"
 msgstr "obligatorio"
@@ -989,7 +1025,7 @@ msgid "Latest Comments"
 msgstr "Últimos comentarios"
 
 msgid "Delete comment"
-msgstr "Borrar comentario"
+msgstr "Eliminar comentario"
 
 #, php-format
 msgid "Comment by %s"
@@ -999,7 +1035,7 @@ msgid "Anonymous comment"
 msgstr "Comentario anónimo"
 
 msgid "deleted"
-msgstr "borrado"
+msgstr "eliminado"
 
 msgid "All comments"
 msgstr "Todos los comentarios"
@@ -1166,6 +1202,9 @@ msgstr "No marcados"
 msgid "Name"
 msgstr "Nombre"
 
+msgid "Popularity"
+msgstr ""
+
 msgid "Voted"
 msgstr "Votado"
 
@@ -1245,7 +1284,7 @@ msgid "Disown Packages"
 msgstr "Abandonar paquetes"
 
 msgid "Delete Packages"
-msgstr "Borrar paquetes"
+msgstr "Eliminar paquetes"
 
 msgid "Confirm"
 msgstr "Confirmar"
