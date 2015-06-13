@@ -32,7 +32,6 @@ if (!$result): ?>
 					<?php if ($SID): ?>
 					<th>&nbsp;</th>
 					<?php endif; ?>
-					<th><a href="?<?= mkurl('SB=c&SO=' . $SO_next) ?>"><?= __("Category") ?></a></th>
 					<th><a href="?<?= mkurl('SB=n&SO=' . $SO_next) ?>"><?= __("Name") ?></a></th>
 					<th><?= __("Version") ?></th>
 					<th><a href="?<?= mkurl('SB=v&SO=' . $SO_next) ?>"><?= __("Votes") ?></a></th>
@@ -52,7 +51,6 @@ if (!$result): ?>
 		<?php if ($SID): ?>
 		<td><input type="checkbox" name="IDs[<?= $row["PackageBaseID"] ?>]" value="1" /></td>
 		<?php endif; ?>
-		<td><?= htmlspecialchars($row["Category"]) ?></td>
 		<td><a href="<?= htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) ?></a></td>
 		<td<?php if ($row["OutOfDateTS"]): ?> class="flagged"<?php endif; ?>><?= htmlspecialchars($row["Version"]) ?></td>
 		<td><?= $row["NumVotes"] ?></td>

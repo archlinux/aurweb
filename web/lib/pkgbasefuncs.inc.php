@@ -3,25 +3,6 @@
 include_once("pkgreqfuncs.inc.php");
 
 /**
- * Get all package categories stored in the database
- *
- * @param \PDO An already established database connection
- *
- * @return array All package categories
- */
-function pkgbase_categories() {
-	$dbh = DB::connect();
-	$q = "SELECT * FROM PackageCategories WHERE ID != 1 ";
-	$q.= "ORDER BY Category ASC";
-	$result = $dbh->query($q);
-	if (!$result) {
-		return null;
-	}
-
-	return $result->fetchAll(PDO::FETCH_KEY_PAIR);
-}
-
-/**
  * Get the number of non-deleted comments for a specific package base
  *
  * @param string $base_id The package base ID to get comment count for
@@ -186,17 +167,15 @@ function pkgbase_get_details($base_id) {
 	$dbh = DB::connect();
 
 	$q = "SELECT PackageBases.ID, PackageBases.Name, ";
-	$q.= "PackageBases.CategoryID, PackageBases.NumVotes, ";
+	$q.= "PackageBases.NumVotes, ";
 	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
 	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
 	$q.= "PackageBases.MaintainerUID, PackageBases.PackagerUID, ";
-	$q.= "PackageCategories.Category, ";
 	$q.= "(SELECT COUNT(*) FROM PackageRequests ";
 	$q.= " WHERE PackageRequests.PackageBaseID = PackageBases.ID ";
 	$q.= " AND PackageRequests.Status = 0) AS RequestCount ";
-	$q.= "FROM PackageBases, PackageCategories ";
-	$q.= "WHERE PackageBases.CategoryID = PackageCategories.ID ";
-	$q.= "AND PackageBases.ID = " . intval($base_id);
+	$q.= "FROM PackageBases ";
+	$q.= "WHERE PackageBases.ID = " . intval($base_id);
 	$result = $dbh->query($q);
 
 	$row = array();
@@ -933,63 +912,62 @@ function pkgbase_delete_comment() {
 }
 
 /**
- * Change package base category
+ * Get a list of package base keywords
  *
- * @param int Package base ID of the package base to modify
+ * @param int $base_id The package base ID to retrieve the keywords for
  *
- * @return array Tuple of success/failure indicator and error message
+ * @return array An array of keywords
  */
-function pkgbase_change_category($base_id) {
-	$uid = uid_from_sid($_COOKIE["AURSID"]);
-	if (!$uid) {
-		return array(false, __("You must be logged in before you can edit package information."));
-	}
-
-	if (isset($_POST["category_id"])) {
-		$category_id = $_POST["category_id"];
-	} else {
-		return array(false, __("Missing category ID."));
-	}
-
+function pkgbase_get_keywords($base_id) {
 	$dbh = DB::connect();
-	$catArray = pkgbase_categories($dbh);
-	if (!array_key_exists($category_id, $catArray)) {
-		return array(false, __("Invalid category ID."));
-	}
-
-	$base_id = intval($base_id);
-
-	/* Verify package ownership. */
-	$q = "SELECT MaintainerUID FROM PackageBases WHERE ID = " . $base_id;
+	$q = "SELECT Keyword FROM PackageKeywords ";
+	$q .= "WHERE PackageBaseID = " . intval($base_id) . " ";
+	$q .= "ORDER BY Keyword ASC";
 	$result = $dbh->query($q);
+
 	if ($result) {
-		$row = $result->fetch(PDO::FETCH_ASSOC);
+		return $result->fetchAll(PDO::FETCH_COLUMN, 0);
+	} else {
+		return array();
 	}
-
-	if (!$result || !has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))) {
-		return array(false, __("You are not allowed to change this package category."));
-	}
-
-	$q = "UPDATE PackageBases ";
-	$q.= "SET CategoryID = ".intval($category_id)." ";
-	$q.= "WHERE ID = ".intval($base_id);
-	$dbh->exec($q);
-	return array(true, __("Package category changed."));
 }
 
 /**
- * Change the category a package base belongs to
+ * Update the list of keywords of a package base
  *
- * @param int $base_id The package base ID to change the category for
- * @param int $category_id The new category ID for the package
+ * @param int $base_id The package base ID to update the keywords of
+ * @param array $users Array of keywords
  *
- * @return void
+ * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_update_category($base_id, $category_id) {
+function pkgbase_set_keywords($base_id, $keywords) {
+	$base_id = intval($base_id);
+
+	if (!has_credential(CRED_PKGBASE_SET_KEYWORDS, array(pkgbase_maintainer_uid($base_id)))) {
+		return array(false, __("You are not allowed to edit the keywords of this package base."));
+	}
+
+	/* Remove empty and duplicate user names. */
+	$keywords = array_unique(array_filter(array_map('trim', $keywords)));
+
 	$dbh = DB::connect();
-	$q = sprintf("UPDATE PackageBases SET CategoryID = %d WHERE ID = %d",
-		$category_id, $base_id);
+
+	$q = sprintf("DELETE FROM PackageKeywords WHERE PackageBaseID = %d", $base_id);
 	$dbh->exec($q);
+
+	$i = 0;
+	foreach ($keywords as $keyword) {
+		$q = sprintf("INSERT INTO PackageKeywords (PackageBaseID, Keyword) VALUES (%d, %s)", $base_id, $dbh->quote($keyword));
+		var_dump($q);
+		$dbh->exec($q);
+
+		$i++;
+		if ($i >= 20) {
+			break;
+		}
+	}
+
+	return array(true, __("The package base keywords have been updated."));
 }
 
 /**

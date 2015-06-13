@@ -19,7 +19,7 @@ class AurJSON {
 	private static $fields_v1 = array(
 		'Packages.ID', 'Packages.Name',
 		'PackageBases.ID AS PackageBaseID',
-		'PackageBases.Name AS PackageBase', 'Version', 'CategoryID',
+		'PackageBases.Name AS PackageBase', 'Version',
 		'Description', 'URL', 'NumVotes', 'OutOfDateTS AS OutOfDate',
 		'Users.UserName AS Maintainer',
 		'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified',
@@ -28,13 +28,13 @@ class AurJSON {
 	private static $fields_v2 = array(
 		'Packages.ID', 'Packages.Name',
 		'PackageBases.ID AS PackageBaseID',
-		'PackageBases.Name AS PackageBase', 'Version', 'CategoryID',
+		'PackageBases.Name AS PackageBase', 'Version',
 		'Description', 'URL', 'NumVotes', 'OutOfDateTS AS OutOfDate',
 		'Users.UserName AS Maintainer',
 		'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified'
 	);
 	private static $numeric_fields = array(
-		'ID', 'PackageBaseID', 'CategoryID', 'NumVotes', 'OutOfDate',
+		'ID', 'PackageBaseID', 'NumVotes', 'OutOfDate',
 		'FirstSubmitted', 'LastModified'
 	);
 
@@ -62,7 +62,7 @@ class AurJSON {
 		if (isset($http_data['v'])) {
 			$this->version = intval($http_data['v']);
 		}
-		if ($this->version < 1 || $this->version > 3) {
+		if ($this->version < 1 || $this->version > 4) {
 			return $this->json_error('Invalid version specified.');
 		}
 
@@ -229,6 +229,9 @@ class AurJSON {
 			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$resultcount++;
 				$row['URLPath'] = sprintf(config_get('options', 'snapshot_uri'), urlencode($row['PackageBase']));
+				if ($this->version < 4) {
+					$row['CategoryID'] = 1;
+				}
 
 				/*
 				 * Unfortunately, mysql_fetch_assoc() returns

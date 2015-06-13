@@ -11,7 +11,7 @@ $uid = uid_from_sid($SID);
 $pkgid = intval($row['ID']);
 $base_id = intval($row['BaseID']);
 
-$catarr = pkgbase_categories();
+$keywords = pkgbase_get_keywords($base_id);
 
 $submitter = username_from_id($row["SubmitterUID"]);
 $maintainer = username_from_id($row["MaintainerUID"]);
@@ -188,34 +188,25 @@ $sources = pkg_sources($row["ID"]);
 			<th><?= __('Upstream URL') . ': ' ?></th>
 			<td><a href="<?= htmlspecialchars($row['URL'], ENT_QUOTES) ?>" title="<?= __('Visit the website for') . ' ' . htmlspecialchars( $row['Name'])?>"><?= htmlspecialchars($row['URL'], ENT_QUOTES) ?></a></td>
 		</tr>
-		<tr>
-			<th><?= __('Category') . ': ' ?></th>
 <?php
-if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
+if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"]))):
 ?>
+		<tr>
+			<th><?= __('Keywords') . ': ' ?></th>
 			<td>
 				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($row['BaseName']), ENT_QUOTES); ?>">
 					<div>
-						<input type="hidden" name="action" value="do_ChangeCategory" />
+						<input type="hidden" name="action" value="do_SetKeywords" />
 						<?php if ($SID): ?>
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<?php endif; ?>
-						<select name="category_id">
-<?php
-	foreach ($catarr as $cid => $catname):
-?>
-							<option value="<?= $cid ?>"<?php if ($cid == $row["CategoryID"]) { ?> selected="selected" <?php } ?>><?= $catname ?></option>
-	<?php endforeach; ?>
-						</select>
-						<input type="submit" value="<?= __('Change category') ?>"/>
+						<input type="text" name="keywords" value="<?= htmlspecialchars(implode(" ", $keywords), ENT_QUOTES) ?>"/>
+						<input type="submit" value="<?= __('Update') ?>"/>
 					</div>
 				</form>
-<?php else: ?>
-			<td>
-				<a href="<?= get_uri('/packages/'); ?>?C=<?= $row['CategoryID'] ?>"><?= $row['Category'] ?></a>
-<?php endif; ?>
 			</td>
 		</tr>
+<?php endif; ?>
 		<?php if (count($lics) > 0): ?>
 		<tr>
 			<th><?= __('Licenses') . ': ' ?></th>

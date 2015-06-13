@@ -64,43 +64,11 @@ CREATE TABLE Sessions (
 ) ENGINE = InnoDB;
 
 
--- Categories for grouping packages when they reside in
--- Unsupported or the AUR - based on the categories defined
--- in 'extra'.
---
-CREATE TABLE PackageCategories (
-	ID TINYINT UNSIGNED NOT NULL AUTO_INCREMENT,
-	Category VARCHAR(32) NOT NULL,
-	PRIMARY KEY (ID)
-) ENGINE = InnoDB;
-INSERT INTO PackageCategories (Category) VALUES ('none');
-INSERT INTO PackageCategories (Category) VALUES ('daemons');
-INSERT INTO PackageCategories (Category) VALUES ('devel');
-INSERT INTO PackageCategories (Category) VALUES ('editors');
-INSERT INTO PackageCategories (Category) VALUES ('emulators');
-INSERT INTO PackageCategories (Category) VALUES ('games');
-INSERT INTO PackageCategories (Category) VALUES ('gnome');
-INSERT INTO PackageCategories (Category) VALUES ('i18n');
-INSERT INTO PackageCategories (Category) VALUES ('kde');
-INSERT INTO PackageCategories (Category) VALUES ('lib');
-INSERT INTO PackageCategories (Category) VALUES ('modules');
-INSERT INTO PackageCategories (Category) VALUES ('multimedia');
-INSERT INTO PackageCategories (Category) VALUES ('network');
-INSERT INTO PackageCategories (Category) VALUES ('office');
-INSERT INTO PackageCategories (Category) VALUES ('science');
-INSERT INTO PackageCategories (Category) VALUES ('system');
-INSERT INTO PackageCategories (Category) VALUES ('x11');
-INSERT INTO PackageCategories (Category) VALUES ('xfce');
-INSERT INTO PackageCategories (Category) VALUES ('fonts');
-INSERT INTO PackageCategories (Category) VALUES ('wayland');
-
-
 -- Information on package bases
 --
 CREATE TABLE PackageBases (
 	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 	Name VARCHAR(255) NOT NULL,
-	CategoryID TINYINT UNSIGNED NOT NULL DEFAULT 1,
 	NumVotes INTEGER UNSIGNED NOT NULL DEFAULT 0,
 	Popularity DECIMAL(6,2) UNSIGNED NOT NULL DEFAULT 0,
 	OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL,
@@ -111,16 +79,24 @@ CREATE TABLE PackageBases (
 	PackagerUID INTEGER UNSIGNED NULL DEFAULT NULL,      -- Last packager
 	PRIMARY KEY (ID),
 	UNIQUE (Name),
-	INDEX (CategoryID),
 	INDEX (NumVotes),
 	INDEX (SubmitterUID),
 	INDEX (MaintainerUID),
 	INDEX (PackagerUID),
-	FOREIGN KEY (CategoryID) REFERENCES PackageCategories(ID) ON DELETE NO ACTION,
 	-- deleting a user will cause packages to be orphaned, not deleted
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (PackagerUID) REFERENCES Users(ID) ON DELETE SET NULL
+) ENGINE = InnoDB;
+
+
+-- Keywords of package bases
+--
+CREATE TABLE PackageKeywords (
+	PackageBaseID INTEGER UNSIGNED NOT NULL,
+	Keyword VARCHAR(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (PackageBaseID, Keyword),
+	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 

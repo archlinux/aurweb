@@ -10,7 +10,7 @@ $uid = uid_from_sid($SID);
 
 $base_id = intval($row['ID']);
 
-$catarr = pkgbase_categories();
+$keywords = pkgbase_get_keywords($base_id);
 
 $submitter = username_from_id($row["SubmitterUID"]);
 $maintainer = username_from_id($row["MaintainerUID"]);
@@ -127,34 +127,25 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 				<?php endif; ?>
 			</td>
 		</tr>
-		<tr>
-			<th><?= __('Category') . ': ' ?></th>
 <?php
-if (has_credential(CRED_PKGBASE_CHANGE_CATEGORY, array($row["MaintainerUID"]))):
+if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"]))):
 ?>
+		<tr>
+			<th><?= __('Keywords') . ': ' ?></th>
 			<td>
 				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($row['Name']), ENT_QUOTES); ?>">
 					<div>
-						<input type="hidden" name="action" value="do_ChangeCategory" />
+						<input type="hidden" name="action" value="do_SetKeywords" />
 						<?php if ($SID): ?>
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 						<?php endif; ?>
-						<select name="category_id">
-<?php
-	foreach ($catarr as $cid => $catname):
-?>
-							<option value="<?= $cid ?>"<?php if ($cid == $row["CategoryID"]) { ?> selected="selected" <?php } ?>><?= $catname ?></option>
-	<?php endforeach; ?>
-						</select>
-						<input type="submit" value="<?= __('Change category') ?>"/>
+						<input type="text" name="keywords" value="<?= htmlspecialchars(implode(" ", $keywords), ENT_QUOTES) ?>"/>
+						<input type="submit" value="<?= __('Update') ?>"/>
 					</div>
 				</form>
-<?php else: ?>
-			<td>
-				<a href="<?= get_uri('/packages/'); ?>?C=<?= $row['CategoryID'] ?>"><?= $row['Category'] ?></a>
-<?php endif; ?>
 			</td>
 		</tr>
+<?php endif; ?>
 		<tr>
 			<th><?= __('Submitter') .': ' ?></th>
 			<?php if ($row["SubmitterUID"] && $SID): ?>

@@ -38,4 +38,24 @@ ALTER TABLE PackageBases
 	ADD COLUMN Popularity DECIMAL(6,2) UNSIGNED NOT NULL DEFAULT 0;
 ----
 
-6. (optional) Setup cgit to browse the Git repositories via HTTP.
+6. Drop the category ID foreign key from the PackageBases table:
+
+`ALTER TABLE PackageBases DROP FOREIGN KEY PackageBases_ibfk_1;` should
+work in most cases. Otherwise, check the output of `SHOW CREATE TABLE
+PackageBases;` and use the foreign key name shown there.
+
+7. Replace the package base categories with keywords:
+
+----
+ALTER TABLE PackageBases DROP COLUMN CategoryID;
+DROP TABLE PackageCategories;
+
+CREATE TABLE PackageKeywords (
+	PackageBaseID INTEGER UNSIGNED NOT NULL,
+	Keyword VARCHAR(255) NOT NULL DEFAULT '',
+	PRIMARY KEY (PackageBaseID, Keyword),
+	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
+----
+
+8. (optional) Setup cgit to browse the Git repositories via HTTP.

@@ -19,7 +19,6 @@ $outdated_flags = array(
 
 $sortby = array(
 	'n' => __('Name'),
-	'c' => __('Category'),
 	'v' => __('Votes'),
 	'p' => __('Popularity'),
 	'w' => __('Voted'),
@@ -44,19 +43,6 @@ $per_page = array(50, 100, 250);
 
 	<fieldset>
 		<legend><?= __('Enter search criteria') ?></legend>
-		<div>
-			<label for="id_category"><?= __("Category"); ?></label>
-			<select name='C' id="id_category">
-				<option value='0'><?= __("Any"); ?></option>
-				<?php foreach (pkgbase_categories() as $id => $cat): ?>
-				<?php if (isset($_REQUEST['C']) && $_REQUEST['C'] == $id): ?>
-				<option value="<?= $id ?>" selected="selected"><?= $cat; ?></option>
-				<?php else: ?>
-				<option value="<?= $id ?>"><?= $cat; ?></option>
-				<?php endif; ?>
-				<?php endforeach; ?>
-			</select>
-		</div>
 		<div>
 			<label for="id_method"><?= __("Search by"); ?></label>
 			<select name='SeB'>

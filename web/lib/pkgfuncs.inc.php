@@ -400,17 +400,16 @@ function pkg_get_details($id=0) {
 	$dbh = DB::connect();
 
 	$q = "SELECT Packages.*, PackageBases.ID AS BaseID, ";
-	$q.= "PackageBases.Name AS BaseName, PackageBases.CategoryID, ";
+	$q.= "PackageBases.Name AS BaseName, ";
 	$q.= "PackageBases.NumVotes, PackageBases.OutOfDateTS, ";
 	$q.= "PackageBases.SubmittedTS, PackageBases.ModifiedTS, ";
 	$q.= "PackageBases.SubmitterUID, PackageBases.MaintainerUID, ";
-	$q.= "PackageBases.PackagerUID, PackageCategories.Category, ";
+	$q.= "PackageBases.PackagerUID, ";
 	$q.= "(SELECT COUNT(*) FROM PackageRequests ";
 	$q.= " WHERE PackageRequests.PackageBaseID = Packages.PackageBaseID ";
 	$q.= " AND PackageRequests.Status = 0) AS RequestCount ";
-	$q.= "FROM Packages, PackageBases, PackageCategories ";
+	$q.= "FROM Packages, PackageBases ";
 	$q.= "WHERE PackageBases.ID = Packages.PackageBaseID ";
-	$q.= "AND PackageBases.CategoryID = PackageCategories.ID ";
 	$q.= "AND Packages.ID = " . intval($id);
 	$result = $dbh->query($q);
 
@@ -475,14 +474,12 @@ function pkg_display_details($id=0, $row, $SID="") {
  *  request vars:
  *    O  - starting result number
  *    PP - number of search hits per page
- *    C  - package category ID number
  *    K  - package search string
  *    SO - search hit sort order:
  *          values: a - ascending
  *                  d - descending
  *    SB - sort search hits by:
- *          values: c - package category
- *                  n - package name
+ *          values: n - package name
  *                  v - number of votes
  *                  m - maintainer username
  *    SeB- property that search string (K) represents
@@ -516,7 +513,6 @@ function pkg_search_page($SID="") {
 	 */
 	if ($SID)
 		$myuid = uid_from_sid($SID);
-	$cats = pkgbase_categories($dbh);
 
 	/* Sanitize paging variables. */
 	if (isset($_GET['O'])) {
@@ -543,16 +539,13 @@ function pkg_search_page($SID="") {
 			   PackageVotes.UsersID AS Voted, ";
 	}
 	$q_select .= "Users.Username AS Maintainer,
-	PackageCategories.Category,
 	Packages.Name, Packages.Version, Packages.Description,
 	PackageBases.NumVotes, PackageBases.Popularity, Packages.ID,
 	Packages.PackageBaseID, PackageBases.OutOfDateTS ";
 
 	$q_from = "FROM Packages
 	LEFT JOIN PackageBases ON (PackageBases.ID = Packages.PackageBaseID)
-	LEFT JOIN Users ON (PackageBases.MaintainerUID = Users.ID)
-	LEFT JOIN PackageCategories
-	ON (PackageBases.CategoryID = PackageCategories.ID) ";
+	LEFT JOIN Users ON (PackageBases.MaintainerUID = Users.ID) ";
 	if ($SID) {
 		/* This is not needed for the total row count query. */
 		$q_from_extra = "LEFT JOIN PackageVotes
@@ -564,13 +557,6 @@ function pkg_search_page($SID="") {
 	}
 
 	$q_where = 'WHERE PackageBases.PackagerUID IS NOT NULL ';
-	/*
-	 * TODO: Possibly do string matching on category to make request
-	 * variable values more sensible.
-	 */
-	if (isset($_GET["C"]) && intval($_GET["C"])) {
-		$q_where .= "AND PackageBases.CategoryID = ".intval($_GET["C"])." ";
-	}
 
 	if (isset($_GET['K'])) {
 		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {
@@ -600,7 +586,7 @@ function pkg_search_page($SID="") {
 			$q_where .= "AND (PackageBases.Name = " . $dbh->quote($_GET['K']) . ") ";
 		}
 		else {
-			/* Search by name and description (default). */
+			/* Keyword search (default). */
 			$count = 0;
 			$q_keywords = "";
 			$op = "";
@@ -624,7 +610,10 @@ function pkg_search_page($SID="") {
 
 				$term = "%" . addcslashes($term, '%_') . "%";
 				$q_keywords .= $op . " (Packages.Name LIKE " . $dbh->quote($term) . " OR ";
-				$q_keywords .= "Description LIKE " . $dbh->quote($term) . ") ";
+				$q_keywords .= "Description LIKE " . $dbh->quote($term) . " OR ";
+				$q_keywords .= "EXISTS (SELECT * FROM PackageKeywords WHERE ";
+				$q_keywords .= "PackageKeywords.PackageBaseID = Packages.PackageBaseID AND ";
+				$q_keywords .= "PackageKeywords.Keyword LIKE " . $dbh->quote($term) . ")) ";
 
 				$count++;
 				if ($count >= 20) {
@@ -657,9 +646,6 @@ function pkg_search_page($SID="") {
 	$q_sort = "ORDER BY ";
 	$sort_by = isset($_GET["SB"]) ? $_GET["SB"] : '';
 	switch ($sort_by) {
-	case 'c':
-		$q_sort .= "CategoryID " . $order . ", ";
-		break;
 	case 'v':
 		$q_sort .= "NumVotes " . $order . ", ";
 		break;
