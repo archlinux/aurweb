@@ -53,7 +53,7 @@ Setup on Arch Linux
 
 7) Install needed Python modules:
 
-    # pacman -S python-mysql-connector python-pygit2
+    # pacman -S python-mysql-connector python-pygit2 python-srcinfo
 
 8) Install the git-auth wrapper script:
 

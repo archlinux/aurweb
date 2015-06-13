@@ -7,7 +7,8 @@ import pygit2
 import re
 import sys
 
-import aurinfo
+import srcinfo.parse
+import srcinfo.utils
 
 config = configparser.RawConfigParser()
 config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
@@ -48,9 +49,9 @@ def parse_dep(depstring):
         return (depname, depcond)
 
 
-def save_srcinfo(srcinfo, db, cur, user):
+def save_metadata(metadata, db, cur, user):
     # Obtain package base ID and previous maintainer.
-    pkgbase = srcinfo._pkgbase['pkgname']
+    pkgbase = metadata['pkgbase']
     cur.execute("SELECT ID, MaintainerUID FROM PackageBases "
                 "WHERE Name = %s", [pkgbase])
     (pkgbase_id, maintainer_uid) = cur.fetchone()
@@ -70,8 +71,8 @@ def save_srcinfo(srcinfo, db, cur, user):
     cur.execute("DELETE FROM Packages WHERE PackageBaseID = %s",
                 [pkgbase_id])
 
-    for pkgname in srcinfo.GetPackageNames():
-        pkginfo = srcinfo.GetMergedPackage(pkgname)
+    for pkgname in srcinfo.utils.get_package_names(metadata):
+        pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
 
         if 'epoch' in pkginfo and int(pkginfo['epoch']) > 0:
             ver = '{:d}:{:s}-{:s}'.format(int(pkginfo['epoch']),
@@ -245,26 +246,24 @@ for commit in walker:
         if blob.size > 250000:
             die_commit("maximum blob size (250kB) exceeded", str(commit.id))
 
-    srcinfo_raw = repo[commit.tree['.SRCINFO'].id].data.decode()
-    srcinfo_raw = srcinfo_raw.split('\n')
-    ecatcher = aurinfo.CollectionECatcher()
-    srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw, ecatcher)
-    errors = ecatcher.Errors()
+    metadata_raw = repo[commit.tree['.SRCINFO'].id].data.decode()
+    (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
     if errors:
         sys.stderr.write("error: The following errors occurred "
                          "when parsing .SRCINFO in commit\n")
         sys.stderr.write("error: {:s}:\n".format(str(commit.id)))
         for error in errors:
-            sys.stderr.write("error: line {:d}: {:s}\n".format(*error))
+            for err in error['error']:
+                sys.stderr.write("error: line {:d}: {:s}\n".format(error['line'], err))
         exit(1)
 
-    srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
-    if not re.match(repo_regex, srcinfo_pkgbase):
-        die_commit('invalid pkgbase: {:s}'.format(srcinfo_pkgbase),
+    metadata_pkgbase = metadata['pkgbase']
+    if not re.match(repo_regex, metadata_pkgbase):
+        die_commit('invalid pkgbase: {:s}'.format(metadata_pkgbase),
                    str(commit.id))
 
-    for pkgname in srcinfo.GetPackageNames():
-        pkginfo = srcinfo.GetMergedPackage(pkgname)
+    for pkgname in set(metadata['packages'].keys()):
+        pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
 
         for field in ('pkgver', 'pkgrel', 'pkgname'):
             if field not in pkginfo:
@@ -306,28 +305,28 @@ if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):
         warn(".SRCINFO unchanged. The package database will not be updated!")
 
 # Read .SRCINFO from the HEAD commit.
-srcinfo_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
-srcinfo_raw = srcinfo_raw.split('\n')
-srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw)
+metadata_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
+(metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
 
 # Ensure that the package base name matches the repository name.
-srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
-if srcinfo_pkgbase != pkgbase:
-    die('invalid pkgbase: {:s}, expected {:s}'.format(srcinfo_pkgbase, pkgbase))
+metadata_pkgbase = metadata['pkgbase']
+if metadata_pkgbase != pkgbase:
+    die('invalid pkgbase: {:s}, expected {:s}'.format(metadata_pkgbase, pkgbase))
 
 # Ensure that packages are neither blacklisted nor overwritten.
+pkgbase = metadata['pkgbase']
 cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
 pkgbase_id = cur.fetchone()[0] if cur.rowcount == 1 else 0
 
 cur.execute("SELECT Name FROM PackageBlacklist")
 blacklist = [row[0] for row in cur.fetchall()]
 
-for pkgname in srcinfo.GetPackageNames():
-    pkginfo = srcinfo.GetMergedPackage(pkgname)
+for pkgname in srcinfo.utils.get_package_names(metadata):
+    pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
     pkgname = pkginfo['pkgname']
 
     if pkgname in blacklist and not privileged:
-        die('package is blacklisted: {:s}'.format(pkginfo['pkgname']))
+        die('package is blacklisted: {:s}'.format(pkgname))
 
     cur.execute("SELECT COUNT(*) FROM Packages WHERE Name = %s AND " +
                 "PackageBaseID <> %s", [pkgname, pkgbase_id])
@@ -335,7 +334,7 @@ for pkgname in srcinfo.GetPackageNames():
         die('cannot overwrite package: {:s}'.format(pkgname))
 
 # Store package base details in the database.
-save_srcinfo(srcinfo, db, cur, user)
+save_metadata(metadata, db, cur, user)
 
 db.close()
 
