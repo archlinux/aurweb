@@ -36,6 +36,16 @@ def extract_arch_fields(pkginfo, field):
 
     return values
 
+def parse_dep(depstring):
+    dep, _, desc = depstring.partition(': ')
+    depname = re.sub(r'(<|=|>).*', '', dep)
+    depcond = dep[len(depname):]
+
+    if (desc):
+        return (depname + ': ' + desc, depcond)
+    else:
+        return (depname, depcond)
+
 def save_srcinfo(srcinfo, db, cur, user):
     # Obtain package base ID and previous maintainer.
     pkgbase = srcinfo._pkgbase['pkgname']
@@ -89,8 +99,7 @@ def save_srcinfo(srcinfo, db, cur, user):
                         [deptype])
             deptypeid = cur.fetchone()[0]
             for dep_info in extract_arch_fields(pkginfo, deptype):
-                depname = re.sub(r'(<|=|>).*', '', dep_info['value'])
-                depcond = dep_info['value'][len(depname):]
+                depname, depcond = parse_dep(dep_info['value'])
                 deparch = dep_info['arch']
                 cur.execute("INSERT INTO PackageDepends (PackageID, " +
                             "DepTypeID, DepName, DepCondition, DepArch) " +
@@ -103,8 +112,7 @@ def save_srcinfo(srcinfo, db, cur, user):
                         [reltype])
             reltypeid = cur.fetchone()[0]
             for rel_info in extract_arch_fields(pkginfo, reltype):
-                relname = re.sub(r'(<|=|>).*', '', rel_info['value'])
-                relcond = rel_info['value'][len(relname):]
+                relname, relcond = parse_dep(rel_info['value'])
                 relarch = rel_info['arch']
                 cur.execute("INSERT INTO PackageRelations (PackageID, " +
                             "RelTypeID, RelName, RelCondition, RelArch) " +
