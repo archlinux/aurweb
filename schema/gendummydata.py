@@ -193,16 +193,18 @@ for p in list(seen_pkgs.keys()):
 	NOW = int(time.time())
 	if count % 2 == 0:
 		muid = developers[random.randrange(0,len(developers))]
+		puid = developers[random.randrange(0,len(developers))]
 	else:
 		muid = trustedusers[random.randrange(0,len(trustedusers))]
+		puid = trustedusers[random.randrange(0,len(trustedusers))]
 	if count % 20 == 0: # every so often, there are orphans...
 		muid = "NULL"
 
 	uuid = genUID() # the submitter/user
 
 	s = ("INSERT INTO PackageBases (ID, Name, CategoryID, SubmittedTS, "
-         "SubmitterUID, MaintainerUID) VALUES (%d, '%s', %d, %d, %d, %s);\n")
-	s = s % (seen_pkgs[p], p, genCategory(), NOW, uuid, muid)
+         "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', %d, %d, %d, %s, %s);\n")
+	s = s % (seen_pkgs[p], p, genCategory(), NOW, uuid, muid, puid)
 	out.write(s)
 
 	s = ("INSERT INTO Packages (ID, PackageBaseID, Name, Version) VALUES "
