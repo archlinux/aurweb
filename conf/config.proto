@@ -31,6 +31,11 @@ snapshot_uri = https://aur.archlinux.org/cgit/aur.git/snapshot/%s.tar.gz
 enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
 
+[fingerprints]
+Ed25519 = SHA256:HQ03dn6EasJHNDlt51KpQpFkT3yBX83x7BoIkA1iv2k
+ECDSA = SHA256:L71Q91yHwmHPYYkJMDgj0xmUuw16qFOhJbBr1mzsiOI
+RSA = SHA256:Ju+yWiMb/2O+gKQ9RJCDqvRg7l+Q95KFAeqM5sr6l2s
+
 [auth]
 valid-keytypes = ssh-rsa ssh-dss ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-ed25519
 username-regex = [a-zA-Z0-9]+[.\-_]?[a-zA-Z0-9]+$
