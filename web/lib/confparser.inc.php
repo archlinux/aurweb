@@ -23,3 +23,10 @@ function config_get_bool($section, $key) {
 	$val = strtolower(config_get($section, $key));
 	return ($val == 'yes' || $val == 'true' || $val == '1');
 }
+
+function config_section_exists($key) {
+	global $AUR_CONFIG;
+	config_load();
+
+	return array_key_exists($key, $AUR_CONFIG);
+}
