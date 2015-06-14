@@ -71,6 +71,28 @@ html_header( __("Home") );
 			?>
 			</p>
 			</div>
+			<h4><?= __('Submitting Packages') ?></h4>
+			<div class="article-content">
+			<p>
+			<?php
+			echo __(
+				'Git over SSH is now used to submit packages to the AUR. See the %sSubmitting packages%s section of the Arch User Repository ArchWiki page for more details.',
+				'<a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#AUR_4">',
+				'</a>'
+				);
+			?>
+			</p>
+			<?php if (config_section_exists('fingerprints')): ?>
+			<p>
+				<?= __('The following SSH fingerprints are used for the AUR:') ?>
+			</p>
+			<ul>
+				<?php foreach (config_items('fingerprints') as $type => $fingerprint): ?>
+				<li><code><?= htmlspecialchars($type) ?></code>: <code><?= htmlspecialchars($fingerprint) ?></code></li>
+				<?php endforeach; ?>
+			</ul>
+			<?php endif; ?>
+			</div>
 			<h4><?= __('Discussion') ?></h4>
 			<div class="article-content">
 			<p>
