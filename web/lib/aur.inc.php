@@ -181,10 +181,19 @@ function username_from_sid($sid="") {
  *
  * @param string $username The user name to format
  *
- * @return void
+ * @return string The generated HTML code for the account link
  */
 function html_format_username($username) {
-	return $username ? htmlspecialchars($username) : __("None");
+	$username_fmt = $username ? htmlspecialchars($username, ENT_QUOTES) : __("None");
+
+	if ($username && $_COOKIE["AURSID"]) {
+		$link = '<a href="' . get_uri('/account/') . $username_fmt;
+		$link .= '" title="' . __('View account information for %s', $username_fmt);
+		$link .= '">' . $username_fmt . '</a>';
+		return $link;
+	} else {
+		return $username_fmt;
+	}
 }
 
 /**

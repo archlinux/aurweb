@@ -21,7 +21,7 @@
 			?>
 			<tr class="<?= $c ?>">
 				<td>
-					<a href="<?= get_uri('/account/') . html_format_username($username) ?>" title="<?= __('View account information for %s', html_format_username($username)) ?>"><?= html_format_username($username) ?></a>
+					<?= html_format_username($username) ?>
 				</td>
 				<td>
 					<a href="<?= get_uri('/tu/'); ?>?id=<?= $row['LastVote'] ?>"><?= intval($row["LastVote"]) ?></a>

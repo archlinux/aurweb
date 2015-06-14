@@ -289,33 +289,15 @@ if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"]))):
 		<?php endif; ?>
 		<tr>
 			<th><?= __('Submitter') .': ' ?></th>
-			<?php if ($row["SubmitterUID"] && $SID): ?>
-			<td><a href="<?= get_uri('/account/') . html_format_username($submitter, ENT_QUOTES) ?>" title="<?= __('View account information for %s', html_format_username($submitter)) ?>"><?= html_format_username($submitter) ?></a></td>
-			<?php elseif ($row["SubmitterUID"] && !$SID): ?>
 			<td><?= html_format_username($submitter) ?></td>
-			<?php else: ?>
-			<td><?= __('None') ?></td>
-			<?php endif; ?>
 		</tr>
 		<tr>
 			<th><?= __('Maintainer') .': ' ?></th>
-			<?php if ($row["MaintainerUID"] && $SID): ?>
-			<td><a href="<?= get_uri('/account/') . html_format_username($maintainer) ?>" title="<?= __('View account information for %s', html_format_username($maintainer)) ?>"><?= html_format_username($maintainer) ?></a></td>
-			<?php elseif ($row["MaintainerUID"] && !$SID): ?>
 			<td><?= html_format_username($maintainer) ?></td>
-			<?php else: ?>
-			<td><?= __('None') ?></td>
-			<?php endif; ?>
 		</tr>
 		<tr>
 			<th><?= __('Last Packager') .': ' ?></th>
-			<?php if ($row["PackagerUID"] && $SID): ?>
-			<td><a href="<?= get_uri('/account/') . html_format_username($packager) ?>" title="<?= __('View account information for %s', html_format_username($packager)) ?>"><?= html_format_username($packager) ?></a></td>
-			<?php elseif ($row["PackagerUID"] && !$SID): ?>
 			<td><?= html_format_username($packager) ?></td>
-			<?php else: ?>
-			<td><?= __('None') ?></td>
-			<?php endif; ?>
 		</tr>
 		<tr>
 			<th><?= __('Votes') . ': ' ?></th>
