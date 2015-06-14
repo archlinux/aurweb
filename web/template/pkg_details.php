@@ -15,6 +15,7 @@ $keywords = pkgbase_get_keywords($base_id);
 
 $submitter = username_from_id($row["SubmitterUID"]);
 $maintainer = username_from_id($row["MaintainerUID"]);
+$comaintainers = pkgbase_get_comaintainers($base_id);
 $packager = username_from_id($row["PackagerUID"]);
 
 $votes = $row['NumVotes'];
@@ -293,7 +294,7 @@ if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"]))):
 		</tr>
 		<tr>
 			<th><?= __('Maintainer') .': ' ?></th>
-			<td><?= html_format_username($maintainer) ?></td>
+			<td><?= html_format_maintainers($maintainer, $comaintainers) ?></td>
 		</tr>
 		<tr>
 			<th><?= __('Last Packager') .': ' ?></th>

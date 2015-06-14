@@ -197,6 +197,31 @@ function html_format_username($username) {
 }
 
 /**
+ * Format the maintainer and co-maintainers for inclusion in HTML data
+ *
+ * @param string $maintainer The user name of the maintainer
+ * @param array $comaintainers The list of co-maintainer user names
+ *
+ * @return string The generated HTML code for the account links
+ */
+function html_format_maintainers($maintainer, $comaintainers) {
+	$code = html_format_username($maintainer);
+
+	if (count($comaintainers) > 0) {
+		$code .= ' (';
+		foreach ($comaintainers as $comaintainer) {
+			$code .= html_format_username($comaintainer);
+			if ($comaintainer !== end($comaintainers)) {
+				$code .= ', ';
+			}
+		}
+		$code .= ')';
+	}
+
+	return $code;
+}
+
+/**
  * Determine the user's e-mail address in the database using a session ID
  *
  * @param string $sid User's session ID
