@@ -24,6 +24,13 @@ function config_get_bool($section, $key) {
 	return ($val == 'yes' || $val == 'true' || $val == '1');
 }
 
+function config_items($section) {
+	global $AUR_CONFIG;
+	config_load();
+
+	return $AUR_CONFIG[$section];
+}
+
 function config_section_exists($key) {
 	global $AUR_CONFIG;
 	config_load();
