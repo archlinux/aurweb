@@ -85,3 +85,8 @@ legend {
 p.important {
 	font-weight: bold;
 }
+
+span.hover-help {
+	border-bottom: 1px dotted black;
+	cursor:help;
+}

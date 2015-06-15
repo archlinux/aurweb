@@ -35,7 +35,7 @@ if (!$result): ?>
 					<th><a href="?<?= mkurl('SB=n&SO=' . $SO_next) ?>"><?= __("Name") ?></a></th>
 					<th><?= __("Version") ?></th>
 					<th><a href="?<?= mkurl('SB=v&SO=' . $SO_next) ?>"><?= __("Votes") ?></a></th>
-					<th><a href="?<?= mkurl('SB=p&SO=' . $SO_next) ?>"><?= __("Popularity") ?></a></th>
+					<th><a href="?<?= mkurl('SB=p&SO=' . $SO_next) ?>"><?= __("Popularity") ?></a><span title="<?= __('Popularity is calculated as the sum of all votes with each vote being weighted with a factor of 0.98 per day since its creation.') ?>" class="hover-help"><sup>?</sup></span></th>
 					<?php if ($SID): ?>
 					<th><a href="?<?= mkurl('SB=w&SO=' . $SO_next) ?>"><?= __("Voted") ?></a></th>
 					<th><a href="?<?= mkurl('SB=o&SO=' . $SO_next) ?>"><?= __("Notify") ?></a></th>
