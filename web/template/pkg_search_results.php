@@ -54,7 +54,7 @@ if (!$result): ?>
 		<td><a href="<?= htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) ?></a></td>
 		<td<?php if ($row["OutOfDateTS"]): ?> class="flagged"<?php endif; ?>><?= htmlspecialchars($row["Version"]) ?></td>
 		<td><?= $row["NumVotes"] ?></td>
-		<td><?= $row["Popularity"] ?></td>
+		<td><?= number_format($row["Popularity"], 2) ?></td>
 		<?php if ($SID): ?>
 		<td>
 		<?php if (isset($row["Voted"])): ?>

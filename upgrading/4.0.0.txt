@@ -35,7 +35,7 @@ CREATE TABLE PackageComaintainers (
 
 ----
 ALTER TABLE PackageBases
-	ADD COLUMN Popularity DECIMAL(6,2) UNSIGNED NOT NULL DEFAULT 0;
+	ADD COLUMN Popularity DECIMAL(10,6) UNSIGNED NOT NULL DEFAULT 0;
 ----
 
 6. Drop the category ID foreign key from the PackageBases table:
