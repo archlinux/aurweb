@@ -6,3 +6,5 @@ po/POTFILES
 scripts/git-integration/__pycache__/
 scripts/git-integration/templates/
 web/locale/*/
+aur.git/
+git-interface/git-auth.sh
