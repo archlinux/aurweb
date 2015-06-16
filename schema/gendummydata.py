@@ -202,9 +202,9 @@ for p in list(seen_pkgs.keys()):
 
 	uuid = genUID() # the submitter/user
 
-	s = ("INSERT INTO PackageBases (ID, Name, CategoryID, SubmittedTS, "
-         "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', %d, %d, %d, %s, %s);\n")
-	s = s % (seen_pkgs[p], p, genCategory(), NOW, uuid, muid, puid)
+	s = ("INSERT INTO PackageBases (ID, Name, SubmittedTS, "
+         "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', %d, %d, %s, %s);\n")
+	s = s % (seen_pkgs[p], p, NOW, uuid, muid, puid)
 	out.write(s)
 
 	s = ("INSERT INTO Packages (ID, PackageBaseID, Name, Version) VALUES "
