@@ -11,7 +11,7 @@ echo "Using database $DB_NAME, user $DB_USER, host $DB_HOST"
 
 mydir=$(pwd)
 if [ $(basename $mydir) != "schema" ]; then
-	echo "you must be in the aur/schema directory to run this script"
+	echo "you must be in the aurweb/schema directory to run this script"
 	exit 1
 fi
 
