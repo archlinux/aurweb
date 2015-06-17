@@ -122,7 +122,7 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 		<tr>
 			<th><?= __('Git Clone URL') . ': ' ?></th>
 			<td>
-				<a href="<?= $git_clone_uri_anon ?>"><?= $git_clone_uri_anon ?></a>
+				<a href="<?= $git_clone_uri_anon ?>"><?= $git_clone_uri_anon ?></a> (<?= __('read-only') ?>)
 				<?php if ($uid == $row["MaintainerUID"]): ?>
 				<br /> <a href="<?= $git_clone_uri_priv ?>"><?= $git_clone_uri_priv ?></a>
 				<?php endif; ?>
