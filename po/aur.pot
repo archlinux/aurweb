@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v4.0.0-rc4\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-14 21:56+0200\n"
+"POT-Creation-Date: 2015-06-18 10:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -936,6 +936,9 @@ msgstr ""
 msgid "Git Clone URL"
 msgstr ""
 
+msgid "read-only"
+msgstr ""
+
 msgid "Keywords"
 msgstr ""
 
@@ -1194,6 +1197,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Version"
+msgstr ""
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
 msgstr ""
 
 msgid "Yes"
