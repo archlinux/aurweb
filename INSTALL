@@ -9,11 +9,29 @@ Setup on Arch Linux
 2) Setup a web server with PHP and MySQL. Configure the web server to redirect
    all URLs to /index.php/foo/bar/. The following block can be used with nginx:
 
-    location ~ .* {
-        rewrite ^/(.*)$ /index.php/$1 last;
+    server {
+        listen       80;
+        server_name  aur.local aur;
+
+        root   /srv/http/aurweb/web/html;
+        index  index.php;
+
+        location ~ ^/[^/]+\.php($|/) {
+            fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+            fastcgi_index  index.php;
+            fastcgi_split_path_info ^(/[^/]+\.php)(/.*)$;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_param  PATH_INFO        $fastcgi_path_info;
+            include        fastcgi_params;
+        }
+
+        location ~ .* {
+            rewrite ^/(.*)$ /index.php/$1 last;
+        }
     }
 
-3) Copy conf/config.proto to conf/config and adjust the configuration.
+3) Copy conf/config.proto to conf/config and adjust the configuration (pay
+   attention to disable_http_login, enable_maintenance and aur_location).
 
 4) Create a new MySQL database and a user and import the AUR SQL schema:
 
