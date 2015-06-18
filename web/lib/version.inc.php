@@ -1,3 +1,3 @@
 <?php
-define("AURWEB_VERSION", "v4.0.0-rc4");
+define("AURWEB_VERSION", "v4.0.0-rc5");
 
