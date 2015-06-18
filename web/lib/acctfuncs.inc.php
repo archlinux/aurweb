@@ -544,7 +544,12 @@ function try_login() {
 	}
 
 	setcookie("AURSID", $new_sid, $cookie_time, "/", null, !empty($_SERVER['HTTPS']), true);
-	header("Location: " . get_uri('/'));
+
+	$referer = in_request('referer');
+	if (strpos($referer, aur_location()) !== 0) {
+		$referer = '/';
+	}
+	header("Location: " . get_uri($referer));
 	$login_error = "";
 }
 
