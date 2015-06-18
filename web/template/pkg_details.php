@@ -190,11 +190,14 @@ $sources = pkg_sources($row["ID"]);
 			<td><a href="<?= htmlspecialchars($row['URL'], ENT_QUOTES) ?>" title="<?= __('Visit the website for') . ' ' . htmlspecialchars( $row['Name'])?>"><?= htmlspecialchars($row['URL'], ENT_QUOTES) ?></a></td>
 		</tr>
 <?php
-if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"]))):
+if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"])) || count($keywords) > 0):
 ?>
 		<tr>
 			<th><?= __('Keywords') . ': ' ?></th>
 			<td>
+<?php
+if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"]))):
+?>
 				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($row['BaseName']), ENT_QUOTES); ?>">
 					<div>
 						<input type="hidden" name="action" value="do_SetKeywords" />
@@ -205,6 +208,15 @@ if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"]))):
 						<input type="submit" value="<?= __('Update') ?>"/>
 					</div>
 				</form>
+<?php
+else:
+	foreach ($keywords as $kw) {
+		echo '<a class="keyword" href="';
+		echo get_uri('/packages/') . '?K=' . urlencode($kw) . '&amp;SB=p';
+		echo '">' . htmlspecialchars($kw) . "</a>\n";
+	}
+endif;
+?>
 			</td>
 		</tr>
 <?php endif; ?>

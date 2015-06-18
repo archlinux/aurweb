@@ -53,6 +53,24 @@
 	text-align:right;
 }
 
+.keyword:link, .keyword:visited {
+	float: left;
+	margin: 1px .5ex 1px 0;
+	padding: 0 1em;
+	color: white;
+	background-color: #36a;
+	border: 1px solid transparent;
+	border-radius: 2px;
+}
+
+.keyword:hover {
+	cursor: pointer;
+}
+
+.keyword:focus {
+	border: 1px dotted #000;
+}
+
 .text-button {
 	background: transparent;
 	border: none !important;
