@@ -43,18 +43,6 @@ function can_delete_comment_array($comment) {
 }
 
 /**
- * Determine if the visitor can submit blacklisted packages.
- *
- * Only Trusted Users and Developers can delete blacklisted packages. Packages
- * are blacklisted if they are include in the official repositories.
- *
- * @return bool True if the user can submit blacklisted packages, otherwise false
- */
-function can_submit_blacklisted() {
-	return has_credential(CRED_PKGBASE_SUBMIT_BLACKLISTED);
-}
-
-/**
  * Check to see if the package name already exists in the database
  *
  * @param string $name The package name to check
