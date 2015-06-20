@@ -186,7 +186,7 @@ function username_from_sid($sid="") {
 function html_format_username($username) {
 	$username_fmt = $username ? htmlspecialchars($username, ENT_QUOTES) : __("None");
 
-	if ($username && $_COOKIE["AURSID"]) {
+	if ($username && isset($_COOKIE["AURSID"])) {
 		$link = '<a href="' . get_uri('/account/') . $username_fmt;
 		$link .= '" title="' . __('View account information for %s', $username_fmt);
 		$link .= '">' . $username_fmt . '</a>';
