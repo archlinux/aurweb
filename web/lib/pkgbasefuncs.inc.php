@@ -318,6 +318,19 @@ function pkgbase_maintainer_uid($base_id) {
 	return $result->fetch(PDO::FETCH_COLUMN, 0);
 }
 
+/**
+ * Retrieve the maintainers of an array of package bases given by their ID
+ *
+ * @param int $base_ids The array of IDs of the package bases to query
+ *
+ * @return int The user ID of the current package maintainer
+ */
+function pkgbase_maintainer_uids($base_ids) {
+	$dbh = DB::connect();
+	$q = "SELECT MaintainerUID FROM PackageBases WHERE ID IN (" . implode(",", $base_ids) . ")";
+	$result = $dbh->query($q);
+	return $result->fetchAll(PDO::FETCH_COLUMN, 0);
+}
 
 /**
  * Flag package(s) as out-of-date
@@ -982,6 +995,28 @@ function pkgbase_get_comaintainers($base_id) {
 	$q = "SELECT UserName FROM PackageComaintainers ";
 	$q .= "INNER JOIN Users ON Users.ID = PackageComaintainers.UsersID ";
 	$q .= "WHERE PackageComaintainers.PackageBaseID = " . intval($base_id) . " ";
+	$q .= "ORDER BY Priority ASC";
+	$result = $dbh->query($q);
+
+	if ($result) {
+		return $result->fetchAll(PDO::FETCH_COLUMN, 0);
+	} else {
+		return array();
+	}
+}
+
+/**
+ * Get a list of package base co-maintainer IDs
+ *
+ * @param int $base_id The package base ID to retrieve the co-maintainers for
+ *
+ * @return array An array of co-maintainer user UDs
+ */
+function pkgbase_get_comaintainer_uids($base_ids) {
+	$dbh = DB::connect();
+	$q = "SELECT UsersID FROM PackageComaintainers ";
+	$q .= "INNER JOIN Users ON Users.ID = PackageComaintainers.UsersID ";
+	$q .= "WHERE PackageComaintainers.PackageBaseID IN (" . implode(",", $base_ids) . ") ";
 	$q .= "ORDER BY Priority ASC";
 	$result = $dbh->query($q);
 
