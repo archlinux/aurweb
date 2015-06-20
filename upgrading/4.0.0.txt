@@ -58,4 +58,11 @@ CREATE TABLE PackageKeywords (
 ) ENGINE = InnoDB;
 ----
 
-8. (optional) Setup cgit to browse the Git repositories via HTTP.
+8. Let Description and URL store nulls
+
+----
+ALTER TABLE Packages MODIFY Description VARCHAR(255) NULL DEFAULT NULL,
+                     MODIFY URL VARCHAR(255) NULL DEFAULT NULL;
+----
+
+9. (optional) Setup cgit to browse the Git repositories via HTTP.

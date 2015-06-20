@@ -77,6 +77,10 @@ def save_srcinfo(srcinfo, db, cur, user):
         else:
             ver = '%s-%s' % (pkginfo['pkgver'], pkginfo['pkgrel'])
 
+        for field in ('pkgdesc', 'url'):
+            if not field in pkginfo:
+                pkginfo[field] = None
+
         # Create a new package.
         cur.execute("INSERT INTO Packages (PackageBaseID, Name, " +
                     "Version, Description, URL) " +
@@ -247,7 +251,7 @@ for commit in walker:
     for pkgname in srcinfo.GetPackageNames():
         pkginfo = srcinfo.GetMergedPackage(pkgname)
 
-        for field in ('pkgver', 'pkgrel', 'pkgname', 'pkgdesc', 'url'):
+        for field in ('pkgver', 'pkgrel', 'pkgname'):
             if not field in pkginfo:
                 die_commit('missing mandatory field: %s' % (field), commit.id)
 
@@ -259,7 +263,7 @@ for commit in walker:
                        commit.id)
 
         for field in ('pkgname', 'pkgdesc', 'url'):
-            if len(pkginfo[field]) > 255:
+            if field in pkginfo and len(pkginfo[field]) > 255:
                 die_commit('%s field too long: %s' % (field, pkginfo[field]),
                            commit.id)
 

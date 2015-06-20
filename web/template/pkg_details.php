@@ -189,11 +189,19 @@ $sources = pkg_sources($row["ID"]);
 		</tr>
 		<tr>
 			<th><?= __('Description') . ': ' ?></th>
+<?php if (!empty($row['Description'])): ?>
 			<td class="wrap"><?= htmlspecialchars($row['Description']); ?></td>
+<?php else: ?>
+			<td class="wrap"><?= __('None') ?></td>
+<?php endif; ?>
 		</tr>
 		<tr>
 			<th><?= __('Upstream URL') . ': ' ?></th>
+<?php if (!empty($row['URL'])): ?>
 			<td><a href="<?= htmlspecialchars($row['URL'], ENT_QUOTES) ?>" title="<?= __('Visit the website for') . ' ' . htmlspecialchars( $row['Name'])?>"><?= htmlspecialchars($row['URL'], ENT_QUOTES) ?></a></td>
+<?php else: ?>
+			<td class="wrap"><?= __('None') ?></td>
+<?php endif; ?>
 		</tr>
 <?php
 if (has_credential(CRED_PKGBASE_SET_KEYWORDS, $maintainers) || count($keywords) > 0):
