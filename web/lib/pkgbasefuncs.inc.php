@@ -957,7 +957,8 @@ function pkgbase_get_keywords($base_id) {
 function pkgbase_set_keywords($base_id, $keywords) {
 	$base_id = intval($base_id);
 
-	if (!has_credential(CRED_PKGBASE_SET_KEYWORDS, array(pkgbase_maintainer_uid($base_id)))) {
+	$maintainers = array_merge(array(pkgbase_maintainer_uid($base_id)), pkgbase_get_comaintainer_uids(array($base_id)));
+	if (!has_credential(CRED_PKGBASE_SET_KEYWORDS, $maintainers)) {
 		return array(false, __("You are not allowed to edit the keywords of this package base."));
 	}
 

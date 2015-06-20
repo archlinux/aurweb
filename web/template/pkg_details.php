@@ -196,13 +196,13 @@ $sources = pkg_sources($row["ID"]);
 			<td><a href="<?= htmlspecialchars($row['URL'], ENT_QUOTES) ?>" title="<?= __('Visit the website for') . ' ' . htmlspecialchars( $row['Name'])?>"><?= htmlspecialchars($row['URL'], ENT_QUOTES) ?></a></td>
 		</tr>
 <?php
-if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"])) || count($keywords) > 0):
+if (has_credential(CRED_PKGBASE_SET_KEYWORDS, $maintainers) || count($keywords) > 0):
 ?>
 		<tr>
 			<th><?= __('Keywords') . ': ' ?></th>
 			<td>
 <?php
-if (has_credential(CRED_PKGBASE_SET_KEYWORDS, array($row["MaintainerUID"]))):
+if (has_credential(CRED_PKGBASE_SET_KEYWORDS, $maintainers)):
 ?>
 				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($row['BaseName']), ENT_QUOTES); ?>">
 					<div>
