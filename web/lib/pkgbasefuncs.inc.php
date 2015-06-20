@@ -411,7 +411,8 @@ function pkgbase_unflag($base_ids) {
 	$q.= "OutOfDateTS = NULL ";
 	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
 
-	if (!has_credential(CRED_PKGBASE_UNFLAG)) {
+	$maintainers = array_merge(pkgbase_maintainer_uids($base_ids), pkgbase_get_comaintainer_uids($base_ids));
+	if (!has_credential(CRED_PKGBASE_UNFLAG, $maintainers)) {
 		$q.= "AND MaintainerUID = " . $uid;
 	}
 

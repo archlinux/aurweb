@@ -18,6 +18,12 @@ $maintainer = username_from_id($row["MaintainerUID"]);
 $comaintainers = pkgbase_get_comaintainers($base_id);
 $packager = username_from_id($row["PackagerUID"]);
 
+if ($row["MaintainerUID"] !== NULL) {
+	$maintainers = array_merge(array($row["MaintainerUID"]), pkgbase_get_comaintainer_uids(array($base_id)));
+} else {
+	$maintainers = NULL;
+}
+
 $votes = $row['NumVotes'];
 
 # In case of wanting to put a custom message
@@ -99,7 +105,7 @@ $sources = pkg_sources($row["ID"]);
 						<input type="submit" class="button text-button" name="do_Flag" value="<?= __('Flag package out-of-date') ?>" />
 					</form>
 				</li>
-				<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, array($row["MaintainerUID"]))): ?>
+				<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, $maintainers)): ?>
 				<li>
 					<form action="<?= get_pkgbase_uri($row['BaseName']) . 'unflag/'; ?>" method="post">
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
