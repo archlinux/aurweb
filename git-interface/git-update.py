@@ -258,9 +258,6 @@ for commit in walker:
             die_commit('invalid package name: %s' % (pkginfo['pkgname']),
                        commit.id)
 
-        if not re.match(r'(?:http|ftp)s?://.*', pkginfo['url']):
-            die_commit('invalid URL: %s' % (pkginfo['url']), commit.id)
-
         for field in ('pkgname', 'pkgdesc', 'url'):
             if len(pkginfo[field]) > 255:
                 die_commit('%s field too long: %s' % (field, pkginfo[field]),
