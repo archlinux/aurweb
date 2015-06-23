@@ -47,18 +47,20 @@ db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                              unix_socket=aur_db_socket, buffered=True)
 
 cur = db.cursor()
-cur.execute("SELECT Username FROM Users WHERE SSHPubKey = %s " +
+cur.execute("SELECT Username, AccountTypeID FROM Users WHERE SSHPubKey = %s " +
             "AND Suspended = 0", (keytype + " " + keytext,))
 
 if cur.rowcount != 1:
     exit(1)
 
-user = cur.fetchone()[0]
+user, account_type = cur.fetchone()
 if not re.match(username_regex, user):
     exit(1)
 
+
 env_vars = {
     'AUR_USER': user,
+    'AUR_PRIVILEGED': '1' if account_type > 1 else '0',
 }
 key = keytype + ' ' + keytext
 
