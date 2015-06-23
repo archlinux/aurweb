@@ -12,8 +12,8 @@
 		<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 	</fieldset>
 	<fieldset>
-		<p><input type="checkbox" name="confirm" value="1" />
-		<?= __("Confirm deletion") ?></p>
+		<p><label><input type="checkbox" name="confirm" value="1" />
+		<?= __("Confirm deletion") ?></label></p>
 
 		<p>
 			<input type="submit" class="button" value="<?= __("Delete") ?>" />
