@@ -109,6 +109,7 @@ span.hover-help {
 	cursor:help;
 }
 
-label.confirmation {
+label.confirmation,
+#merge-into {
 	width: auto;
 }

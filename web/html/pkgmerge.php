@@ -53,7 +53,7 @@ if (has_credential(CRED_PKGBASE_DELETE)): ?>
 				}).attr('autocomplete', 'off');
 			});
 			</script>
-			<p><label for="merge_Into" ><?= __("Merge into:") ?></label>
+			<p><label id="merge-into" for="merge_Into" ><?= __("Merge into:") ?></label>
 			<input type="text" id="merge_Into" name="merge_Into" value="<?= isset($_GET['into']) ? $_GET['into'] : '' ?>" /></p>
 			<p><label class="confirmation"><input type="checkbox" name="confirm" value="1" />
 			<?= __("Confirm package merge") ?></label></p>
