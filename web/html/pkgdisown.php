@@ -41,7 +41,7 @@ if (has_credential(CRED_PKGBASE_DISOWN, $maintainer_uids)): ?>
 			<?php if (isset($_GET['via'])): ?>
 			<input type="hidden" name="via" value="<?= intval($_GET['via']) ?>" />
 			<?php endif; ?>
-			<p><label><input type="checkbox" name="confirm" value="1" />
+			<p><label class="confirmation"><input type="checkbox" name="confirm" value="1" />
 			<?= __("Confirm to disown the package") ?></label</p>
 			<p><input type="submit" class="button" name="do_Disown" value="<?= __("Disown") ?>" /></p>
 		</fieldset>

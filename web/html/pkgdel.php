@@ -34,7 +34,7 @@ if (has_credential(CRED_PKGBASE_DELETE)): ?>
 			<?php if (isset($_GET['via'])): ?>
 			<input type="hidden" name="via" value="<?= intval($_GET['via']) ?>" />
 			<?php endif; ?>
-			<p><label><input type="checkbox" name="confirm" value="1" />
+			<p><label class="confirmation"><input type="checkbox" name="confirm" value="1" />
 			<?= __("Confirm package deletion") ?></label></p>
 			<p><input type="submit" class="button" name="do_Delete" value="<?= __("Delete") ?>" /></p>
 		</fieldset>
