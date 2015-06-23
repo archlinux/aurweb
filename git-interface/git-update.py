@@ -185,6 +185,7 @@ sha1_new = sys.argv[3]
 
 user = os.environ.get("AUR_USER")
 pkgbase = os.environ.get("AUR_PKGBASE")
+privileged = (os.environ.get("AUR_PRIVILEGED", '0') == '1')
 
 if refname != "refs/heads/master":
     die("pushing to a branch other than master is restricted")
@@ -295,7 +296,7 @@ for pkgname in srcinfo.GetPackageNames():
     pkginfo = srcinfo.GetMergedPackage(pkgname)
     pkgname = pkginfo['pkgname']
 
-    if pkgname in blacklist:
+    if pkgname in blacklist and not privileged:
         die('package is blacklisted: {:s}'.format(pkginfo['pkgname']))
 
     cur.execute("SELECT COUNT(*) FROM Packages WHERE Name = %s AND " +
