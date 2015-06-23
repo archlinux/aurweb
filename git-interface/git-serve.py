@@ -106,7 +106,7 @@ def die(msg):
 def die_with_help(msg):
     die(msg + "\nTry `{:s} help` for a list of commands.".format(ssh_cmdline))
 
-user = sys.argv[1]
+user = os.environ.get("AUR_USER")
 cmd = os.environ.get("SSH_ORIGINAL_COMMAND")
 if not cmd:
     die_with_help("Interactive shell is disabled.")

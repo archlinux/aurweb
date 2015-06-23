@@ -2,9 +2,26 @@
 
 import configparser
 import mysql.connector
+import shlex
 import os
 import re
 import sys
+
+
+def format_command(env_vars, command, ssh_opts, ssh_key):
+    environment = ''
+    for key, var in env_vars.items():
+        environment += '{}={} '.format(key, shlex.quote(var))
+
+    command = shlex.quote(command)
+    command = '{}{}'.format(environment, command)
+
+    # The command is being substituted into an authorized_keys line below,
+    # so we need to escape the double quotes.
+    command = command.replace('"', '\\"')
+    msg = 'command="{}",{} {}'.format(command, ssh_opts, ssh_key)
+    return msg
+
 
 config = configparser.RawConfigParser()
 config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
@@ -40,5 +57,9 @@ user = cur.fetchone()[0]
 if not re.match(username_regex, user):
     exit(1)
 
-print('command="%s %s",%s %s' % (git_serve_cmd, user, ssh_opts,
-    keytype + " " + keytext))
+env_vars = {
+    'AUR_USER': user,
+}
+key = keytype + ' ' + keytext
+
+print(format_command(env_vars, git_serve_cmd, ssh_opts, key))
