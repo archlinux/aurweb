@@ -86,8 +86,7 @@ def check_permissions(pkgbase, user):
                                  unix_socket=aur_db_socket, buffered=True)
     cur = db.cursor()
 
-    cur.execute("SELECT AccountTypeID FROM Users WHERE UserName = %s ", [user])
-    if cur.fetchone()[0] > 1:
+    if os.environ.get('AUR_PRIVILEGED', '0') == '1':
         return True
 
     cur.execute("SELECT COUNT(*) FROM PackageBases " +
