@@ -20,6 +20,7 @@ global $streamer, $l10n;
 
 # Languages we have translations for
 $SUPPORTED_LANGS = array(
+	"ar" => "العربية",
 	"ast" => "Asturianu",
 	"ca" => "Català",
 	"cs" => "Český",
