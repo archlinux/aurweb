@@ -116,23 +116,7 @@ if (isset($_COOKIE["AURSID"])) {
 } else {
 	# visitor is not logged in
 	#
-	if ($action == "AccountInfo") {
-		print __("You must log in to view user information.");
-	} elseif ($action == "NewAccount") {
-		# process the form input for creating a new account
-		#
-		process_account_form("new", "NewAccount",
-				in_request("U"), 1, 0, in_request("E"),
-				'', '', in_request("R"), in_request("L"),
-				in_request("I"), in_request("K"),
-				in_request("PK"));
-
-	} else {
-		# display the account request form
-		#
-		print __("Use this form to create an account.");
-		display_account_form("NewAccount", "", "", "", "", "", "", "", $LANG);
-	}
+	print __("You must log in to view user information.");
 }
 
 echo "</div>";
