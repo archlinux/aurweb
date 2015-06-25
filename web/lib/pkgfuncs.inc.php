@@ -179,10 +179,11 @@ function pkg_relations($pkgid) {
  * @param string $cond The package dependency condition string
  * @param string $arch The package dependency architecture
  * @param int $pkg_id The package of the package to display the dependency for
+ * @param bool $show_desc Whether the description of optdepends is shown
  *
  * @return string The HTML code of the label to display
  */
-function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
+function pkg_depend_link($name, $type, $cond, $arch, $pkg_id, $show_desc=true) {
 	if ($type == 'optdepends' && strpos($name, ':') !== false) {
 		$tokens = explode(':', $name, 2);
 		$name = $tokens[0];
@@ -221,7 +222,7 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
 		}
 
 		$link .= ')';
-		if ($type == 'optdepends') {
+		if ($show_desc && $type == 'optdepends') {
 			$link .= ' &ndash; ' . htmlspecialchars($desc) . ' </em>';
 		}
 		$link .= '</em>';
@@ -285,9 +286,11 @@ function pkg_required($name="") {
 	$deps = array();
 	if ($name != "") {
 		$dbh = DB::connect();
-		$q = "SELECT DISTINCT p.Name, PackageID FROM PackageDepends pd ";
-		$q.= "JOIN Packages p ON pd.PackageID = p.ID ";
-		$q.= "WHERE DepName = " . $dbh->quote($name) . " ";
+		$q = "SELECT p.Name, dt.Name, '' AS DepCondition, pd.DepArch, p.ID FROM PackageDepends pd ";
+		$q.= "LEFT JOIN Packages p ON p.ID = pd.PackageID ";
+		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
+		$q.= "WHERE pd.DepName = " . $dbh->quote($name) . " ";
+		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) = " . $dbh->quote($name) . " ";
 		$q.= "ORDER BY p.Name";
 		$result = $dbh->query($q);
 		if (!$result) {return array();}

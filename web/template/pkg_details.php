@@ -359,12 +359,9 @@ endif;
 			<h3><?= __('Required by') . " (" . count($requiredby) . ")"?></h3>
 <?php if (count($requiredby) > 0): ?>
 			<ul id="pkgreqslist">
-<?php
-	# darr: (PackageName, PackageID)
-	while (list($k, $darr) = each($requiredby)):
-?>
-				<li><a href="<?= htmlspecialchars(get_pkg_uri($darr[0]), ENT_QUOTES); ?>" title="<?= __('View packages details for').' ' . htmlspecialchars($darr[0]) ?>"><?= htmlspecialchars($darr[0]) ?></a></li>
-	<?php endwhile; ?>
+				<?php while (list($k, $darr) = each($requiredby)): ?>
+				<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3], $darr[4], false); ?></li>
+				<?php endwhile; ?>
 			</ul>
 <?php endif; ?>
 		</div>
