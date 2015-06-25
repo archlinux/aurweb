@@ -33,6 +33,14 @@ class AurJSON {
 		'Users.UserName AS Maintainer',
 		'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified'
 	);
+	private static $fields_v4 = array(
+		'Packages.ID', 'Packages.Name',
+		'PackageBases.ID AS PackageBaseID',
+		'PackageBases.Name AS PackageBase', 'Version',
+		'Description', 'URL', 'NumVotes', 'Popularity',
+		'OutOfDateTS AS OutOfDate', 'Users.UserName AS Maintainer',
+		'SubmittedTS AS FirstSubmitted', 'ModifiedTS AS LastModified'
+	);
 	private static $numeric_fields = array(
 		'ID', 'PackageBaseID', 'NumVotes', 'OutOfDate',
 		'FirstSubmitted', 'LastModified'
@@ -211,7 +219,11 @@ class AurJSON {
 				"GROUP BY Packages.ID " .
 				"LIMIT $max_results";
 		} elseif ($this->version >= 2) {
-			$fields = implode(',', self::$fields_v2);
+			if ($this->version == 2 || $this->version == 3) {
+				$fields = implode(',', self::$fields_v2);
+			} else if ($this->version == 4) {
+				$fields = implode(',', self::$fields_v4);
+			}
 			$query = "SELECT {$fields} " .
 				"FROM Packages LEFT JOIN PackageBases " .
 				"ON PackageBases.ID = Packages.PackageBaseID " .
