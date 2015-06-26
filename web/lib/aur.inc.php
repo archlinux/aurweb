@@ -222,6 +222,43 @@ function html_format_maintainers($maintainer, $comaintainers) {
 }
 
 /**
+ * Format a link in the package actions box
+ *
+ * @param string $uri The link target
+ * @param string $desc The link label
+ *
+ * @return string The generated HTML code for the action link
+ */
+function html_action_link($uri, $desc) {
+	$code = '<a href="' . htmlspecialchars($uri, ENT_QUOTES) . '">';
+	$code .= htmlspecialchars($desc) . '</a>';
+
+	return $code;
+}
+
+/**
+ * Format a form in the package actions box
+ *
+ * @param string $uri The link target
+ * @param string $action The action name (passed as HTTP POST parameter)
+ * @param string $desc The link label
+ *
+ * @return string The generated HTML code for the action link
+ */
+function html_action_form($uri, $action, $desc) {
+	$code = '<form action="' . htmlspecialchars($uri, ENT_QUOTES) . '" ';
+	$code .= 'method="post">';
+	$code .= '<input type="hidden" name="token" value="';
+	$code .= htmlspecialchars($_COOKIE['AURSID'], ENT_QUOTES) . '" />';
+	$code .= '<input type="submit" class="button text-button" name="';
+	$code .= htmlspecialchars($action, ENT_QUOTES) . '" ';
+	$code .= 'value="' . htmlspecialchars($desc, ENT_QUOTES) . '" />';
+	$code .= '</form>';
+
+	return $code;
+}
+
+/**
  * Determine the user's e-mail address in the database using a session ID
  *
  * @param string $sid User's session ID

@@ -17,6 +17,12 @@ $maintainer = username_from_id($row["MaintainerUID"]);
 $comaintainers = pkgbase_get_comaintainers($base_id);
 $packager = username_from_id($row["PackagerUID"]);
 
+if ($row["MaintainerUID"] !== NULL) {
+	$maintainers = array_merge(array($row["MaintainerUID"]), pkgbase_get_comaintainer_uids(array($base_id)));
+} else {
+	$maintainers = NULL;
+}
+
 $votes = $row['NumVotes'];
 
 # In case of wanting to put a custom message
@@ -28,6 +34,9 @@ $submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval
 $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
 
 $pkgs = pkgbase_get_pkgnames($base_id);
+
+$base_uri = get_pkgbase_uri($row['Name']);
+
 ?>
 <div id="pkgdetails" class="box">
 	<h2><?= __('Package Base Details') . ': ' . htmlspecialchars($row['Name']) ?></h2>
@@ -44,75 +53,40 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
 				<?php if ($uid): ?>
 				<?php if ($row["OutOfDateTS"] === NULL): ?>
-				<li>
-					<form action="<?= get_pkgbase_uri($row['Name']) . 'flag/'; ?>" method="post">
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="submit" class="button text-button" name="do_Flag" value="<?= __('Flag package out-of-date') ?>" />
-					</form>
-				</li>
-				<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, array($row["MaintainerUID"]))): ?>
-				<li>
-					<form action="<?= get_pkgbase_uri($row['Name']) . 'unflag/'; ?>" method="post">
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="submit" class="button text-button" name="do_UnFlag" value="<?= __('Unflag package') ?>" />
-					</form>
-				</li>
+				<li><?= html_action_form($base_uri . 'flag/', "do_Flag", __('Flag package out-of-date')) ?></li>
+				<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, $maintainers)): ?>
+				<li><?= html_action_form($base_uri . 'unflag/', "do_UnFlag", __('Unflag package')) ?></li>
 				<?php endif; ?>
+
 				<?php if (pkgbase_user_voted($uid, $base_id)): ?>
-				<li>
-					<form action="<?= get_pkgbase_uri($row['Name']) . 'unvote/'; ?>" method="post">
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="submit" class="button text-button" name="do_UnVote" value="<?= __('Remove vote') ?>" />
-					</form>
-				</li>
+				<li><?= html_action_form($base_uri . 'unvote/', "do_UnVote", __('Remove vote')) ?></li>
 				<?php else: ?>
-				<li>
-					<form action="<?= get_pkgbase_uri($row['Name']) . 'vote/'; ?>" method="post">
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="submit" class="button text-button" name="do_Vote" value="<?= __('Vote for this package') ?>" />
-					</form>
-				</li>
+				<li><?= html_action_form($base_uri . 'vote/', "do_Vote", __('Vote for this package')) ?></li>
 				<?php endif; ?>
+
 				<?php if (pkgbase_user_notify($uid, $base_id)): ?>
-				<li>
-					<form action="<?= get_pkgbase_uri($row['Name']) . 'unnotify/'; ?>" method="post">
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="submit" class="button text-button" name="do_UnNotify" value="<?= __('Disable notifications') ?>" />
-					</form>
-				</li>
+				<li><?= html_action_form($base_uri . 'unnotify/', "do_UnNotify", __('Disable notifications')) ?></li>
 				<?php else: ?>
-				<li>
-					<form action="<?= get_pkgbase_uri($row['Name']) . 'notify/'; ?>" method="post">
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="submit" class="button text-button" name="do_Notify" value="<?= __('Notify of new comments') ?>" />
-					</form>
-				</li>
+				<li><?= html_action_form($base_uri . 'notify/', "do_Notify", __('Notify of new comments')) ?></li>
 				<?php endif; ?>
+
 				<?php if (has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array($row["MaintainerUID"]))): ?>
-				<li><a href="<?= get_pkgbase_uri($row['Name']) . 'comaintainers/'; ?>"><?= __('Manage Co-Maintainers'); ?></a></li>
+				<li><?= html_action_link($base_uri . 'comaintainers/', __('Manage Co-Maintainers')) ?></a></li>
 				<?php endif; ?>
+
 				<li><span class="flagged"><?php if ($row["RequestCount"] > 0) { echo _n('%d pending request', '%d pending requests', $row["RequestCount"]); } ?></span></li>
-				<li><a href="<?= get_pkgbase_uri($row['Name']) . 'request/'; ?>"><?= __('File Request'); ?></a></li>
+				<li><?= html_action_link($base_uri . 'request/', __('File Request')) ?></a></li>
+
 				<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>
-				<li><a href="<?= get_pkgbase_uri($row['Name']) . 'delete/'; ?>"><?= __('Delete Package'); ?></a></li>
-				<li><a href="<?= get_pkgbase_uri($row['Name']) . 'merge/'; ?>"><?= __('Merge Package'); ?></a></li>
-				<?php endif; ?>
+				<li><?= html_action_link($base_uri . 'delete/', __('Delete Package')) ?></a></li>
+				<li><?= html_action_link($base_uri . 'merge/', __('Merge Package')) ?></a></li>
 				<?php endif; ?>
 
 				<?php if ($uid && $row["MaintainerUID"] === NULL): ?>
-				<li>
-					<form action="<?= get_pkgbase_uri($row['Name']) . 'adopt/'; ?>" method="post">
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="submit" class="button text-button" name="do_Adopt" value="<?= __('Adopt Package') ?>" />
-					</form>
-				</li>
+				<li><?= html_action_form($base_uri . 'adopt/', "do_Adopt", __('Adopt Package')) ?></li>
 				<?php elseif (has_credential(CRED_PKGBASE_DISOWN, array($row["MaintainerUID"]))): ?>
-				<li>
-					<form action="<?= get_pkgbase_uri($row['Name']) . 'disown/'; ?>" method="post">
-						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="submit" class="button text-button" name="do_Disown" value="<?= __('Disown Package') ?>" />
-					</form>
-				</li>
+				<li><?= html_action_form($base_uri . 'disown/', "do_Disown", __('Disown Package')) ?></li>
+				<?php endif; ?>
 				<?php endif; ?>
 			</ul>
 		</div>
