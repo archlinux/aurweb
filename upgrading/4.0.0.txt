@@ -3,10 +3,16 @@ want to keep the package contents, please create a backup before starting the
 upgrade process and import the source tarballs into the Git repositories
 afterwards.
 
-1. Add a field for the SSH public key to the Users table:
+1. Add a table to store SSH public keys:
 
 ----
-ALTER TABLE Users ADD COLUMN SSHPubKey VARCHAR(4096) NULL DEFAULT NULL;
+CREATE TABLE SSHPubKeys (
+	UserID INTEGER UNSIGNED NOT NULL,
+	Fingerprint VARCHAR(44) NOT NULL,
+	PubKey VARCHAR(4096) NOT NULL,
+	PRIMARY KEY (Fingerprint),
+	FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
 ----
 
 2. Create a new user and configure Git/SSH as described in INSTALL.

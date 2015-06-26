@@ -16,6 +16,7 @@ $need_userinfo = array(
 
 if (in_array($action, $need_userinfo)) {
 	$row = account_details(in_request("ID"), in_request("U"));
+	$PK = implode("\n", account_get_ssh_keys($row["ID"]));
 }
 
 if ($action == "AccountInfo") {
@@ -59,7 +60,7 @@ if (isset($_COOKIE["AURSID"])) {
 				display_account_form("UpdateAccount", $row["Username"],
 					$row["AccountTypeID"], $row["Suspended"], $row["Email"],
 					"", "", $row["RealName"], $row["LangPreference"],
-					$row["IRCNick"], $row["PGPKey"], $row["SSHPubKey"],
+					$row["IRCNick"], $row["PGPKey"], $PK,
 					$row["InactivityTS"] ? 1 : 0, $row["ID"]);
 			} else {
 				print __("You do not have permission to edit this account.");

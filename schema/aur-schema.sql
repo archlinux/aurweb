@@ -33,7 +33,6 @@ CREATE TABLE Users (
 	LangPreference VARCHAR(5) NOT NULL DEFAULT 'en',
 	IRCNick VARCHAR(32) NOT NULL DEFAULT '',
 	PGPKey VARCHAR(40) NULL DEFAULT NULL,
-	SSHPubKey VARCHAR(4096) NULL DEFAULT NULL,
 	LastLogin BIGINT UNSIGNED NOT NULL DEFAULT 0,
 	LastLoginIPAddress INTEGER UNSIGNED NOT NULL DEFAULT 0,
 	InactivityTS BIGINT UNSIGNED NOT NULL DEFAULT 0,
@@ -51,6 +50,17 @@ INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
 	2, 2, 'tu', 'tu@localhost', MD5('tu'));
 INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
 	3, 1, 'user', 'user@localhost', MD5('user'));
+
+
+-- SSH public keys used for the aurweb SSH/Git interface.
+--
+CREATE TABLE SSHPubKeys (
+	UserID INTEGER UNSIGNED NOT NULL,
+	Fingerprint VARCHAR(44) NOT NULL,
+	PubKey VARCHAR(4096) NOT NULL,
+	PRIMARY KEY (Fingerprint),
+	FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
+) ENGINE = InnoDB;
 
 
 -- Track Users logging in/out of AUR web site.

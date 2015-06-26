@@ -53,7 +53,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $L The language preference of the displayed user
  * @param string $I The IRC nickname of the displayed user
  * @param string $K The PGP key fingerprint of the displayed user
- * @param string $PK The SSH public key of the displayed user
+ * @param string $PK The list of SSH public keys
  * @param string $J The inactivity status of the displayed user
  * @param string $UID The user ID of the displayed user
  *
@@ -83,7 +83,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$P="",$C="",$R="",
  * @param string $L The language preference of the user
  * @param string $I The IRC nickname of the user
  * @param string $K The PGP fingerprint of the user
- * @param string $PK The SSH public key of the user
+ * @param string $PK The list of public SSH keys
  * @param string $J The inactivity status of the user
  * @param string $UID The user ID of the modified account
  *
@@ -149,12 +149,32 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 	}
 
 	if (!$error && !empty($PK)) {
-		if (valid_ssh_pubkey($PK)) {
-			$tokens = explode(" ", $PK);
-			$PK = $tokens[0] . " " . $tokens[1];
-		} else {
-			$error = __("The SSH public key is invalid.");
+		$ssh_keys = array_filter(array_map('trim', explode("\n", $PK)));
+		$ssh_fingerprints = array();
+
+		foreach ($ssh_keys as &$ssh_key) {
+			if (!valid_ssh_pubkey($ssh_key)) {
+				$error = __("The SSH public key is invalid.");
+				break;
+			}
+
+			$ssh_fingerprint = ssh_key_fingerprint($ssh_key);
+			if (!$ssh_fingerprint) {
+				$error = __("The SSH public key is invalid.");
+				break;
+			}
+
+			$tokens = explode(" ", $ssh_key);
+			$ssh_key = $tokens[0] . " " . $tokens[1];
+
+			$ssh_fingerprints[] = $ssh_fingerprint;
 		}
+
+		/*
+		 * Destroy last reference to prevent accidentally overwriting
+		 * an array element.
+		 */
+		unset($ssh_key);
 	}
 
 	if (isset($_COOKIE['AURSID'])) {
@@ -203,22 +223,24 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 					"<strong>", htmlspecialchars($E,ENT_QUOTES), "</strong>");
 		}
 	}
-	if (!$error && !empty($PK)) {
+	if (!$error && count($ssh_keys) > 0) {
 		/*
-		 * Check whether the SSH public key is available.
+		 * Check whether any of the SSH public keys is already in use.
 		 * TODO: Fix race condition.
 		 */
-		$q = "SELECT COUNT(*) FROM Users ";
-		$q.= "WHERE SSHPubKey = " . $dbh->quote($PK);
+		$q = "SELECT Fingerprint FROM SSHPubKeys ";
+		$q.= "WHERE Fingerprint IN (";
+		$q.= implode(',', array_map(array($dbh, 'quote'), $ssh_fingerprints));
+		$q.= ")";
 		if ($TYPE == "edit") {
-			$q.= " AND ID != " . intval($UID);
+			$q.= " AND UserID != " . intval($UID);
 		}
 		$result = $dbh->query($q);
 		$row = $result->fetch(PDO::FETCH_NUM);
 
-		if ($row[0]) {
+		if ($row) {
 			$error = __("The SSH public key, %s%s%s, is already in use.",
-					"<strong>", htmlspecialchars($PK, ENT_QUOTES), "</strong>");
+					"<strong>", htmlspecialchars($row[0], ENT_QUOTES), "</strong>");
 		}
 	}
 
@@ -247,19 +269,20 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 		$L = $dbh->quote($L);
 		$I = $dbh->quote($I);
 		$K = $dbh->quote(str_replace(" ", "", $K));
-		$PK = empty($PK) ? "NULL" : $dbh->quote($PK);
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
 		$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
-		$q.= "RealName, LangPreference, IRCNick, PGPKey, ";
-		$q.= "SSHPubKey) ";
+		$q.= "RealName, LangPreference, IRCNick, PGPKey) ";
 		$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, ";
-		$q.= "$I, $K, $PK)";
+		$q.= "$I, $K)";
 		$result = $dbh->exec($q);
 		if (!$result) {
 			print __("Error trying to create account, %s%s%s.",
 					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 			return;
 		}
+
+		$uid = $dbh->lastInsertId();
+		account_set_ssh_keys($uid, $ssh_keys, $ssh_fingerprints);
 
 		print __("The account, %s%s%s, has been successfully created.",
 				"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
@@ -321,10 +344,12 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 		$q.= ", LangPreference = " . $dbh->quote($L);
 		$q.= ", IRCNick = " . $dbh->quote($I);
 		$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
-		$q.= ", SSHPubKey = " . $dbh->quote($PK);
 		$q.= ", InactivityTS = " . $inactivity_ts;
 		$q.= " WHERE ID = ".intval($UID);
 		$result = $dbh->exec($q);
+
+		account_set_ssh_keys($UID, $ssh_keys, $ssh_fingerprints);
+
 		if (!$result) {
 			print __("No changes were made to the account, %s%s%s.",
 					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
@@ -1193,4 +1218,94 @@ function can_edit_account($acctinfo) {
 
 	$uid = $acctinfo['ID'];
 	return has_credential(CRED_ACCOUNT_EDIT, array($uid));
+}
+
+/*
+ * Compute the fingerprint of an SSH key.
+ *
+ * @param string $ssh_key The SSH public key to retrieve the fingerprint for
+ *
+ * @return string The SSH key fingerprint
+ */
+function ssh_key_fingerprint($ssh_key) {
+	$tmpfile = tempnam(sys_get_temp_dir(), "aurweb");
+	file_put_contents($tmpfile, $ssh_key);
+
+	/*
+	 * The -l option of ssh-keygen can be used to show the fingerprint of
+	 * the specified public key file. Expected output format:
+	 *
+	 *     2048 SHA256:uBBTXmCNjI2CnLfkuz9sG8F+e9/T4C+qQQwLZWIODBY user@host (RSA)
+	 *
+	 * ... where 2048 is the key length, the second token is the actual
+	 * fingerprint, followed by the key comment and the key type.
+	 */
+
+	$cmd = "/usr/bin/ssh-keygen -l -f " . escapeshellarg($tmpfile);
+	exec($cmd, $out, $ret);
+	if ($ret !== 0 || count($out) !== 1) {
+		return false;
+	}
+
+	unlink($tmpfile);
+
+	$tokens = explode(' ', $out[0]);
+	if (count($tokens) != 4) {
+		return false;
+	}
+
+	$tokens = explode(':', $tokens[1]);
+	if (count($tokens) != 2 || $tokens[0] != 'SHA256') {
+		return false;
+	}
+
+	return $tokens[1];
+}
+
+/*
+ * Get the SSH public keys associated with an account.
+ *
+ * @param int $uid The user ID of the account to retrieve the keys for.
+ *
+ * @return array An array representing the keys
+ */
+function account_get_ssh_keys($uid) {
+	$dbh = DB::connect();
+	$q = "SELECT PubKey FROM SSHPubKeys WHERE UserID = " . intval($uid);
+	$result = $dbh->query($q);
+
+	if ($result) {
+		return $result->fetchAll(PDO::FETCH_COLUMN, 0);
+	} else {
+		return array();
+	}
+}
+
+/*
+ * Set the SSH public keys associated with an account.
+ *
+ * @param int $uid The user ID of the account to assign the keys to.
+ * @param array $ssh_keys The SSH public keys.
+ * @param array $ssh_fingerprints The corresponding SSH key fingerprints.
+ *
+ * @return bool Boolean flag indicating success or failure.
+ */
+function account_set_ssh_keys($uid, $ssh_keys, $ssh_fingerprints) {
+	$dbh = DB::connect();
+
+	$q = sprintf("DELETE FROM SSHPubKeys WHERE UserID = %d", $uid);
+	$dbh->exec($q);
+
+	$ssh_fingerprint = reset($ssh_fingerprints);
+	foreach ($ssh_keys as $ssh_key) {
+		$q = sprintf(
+			"INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) " .
+			"VALUES (%d, %s, %s)", $uid,
+			$dbh->quote($ssh_fingerprint), $dbh->quote($ssh_key)
+		);
+		$dbh->exec($q);
+		$ssh_fingerprint = next($ssh_fingerprints);
+	}
+
+	return true;
 }

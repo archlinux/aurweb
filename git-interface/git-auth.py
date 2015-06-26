@@ -47,8 +47,10 @@ db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                              unix_socket=aur_db_socket, buffered=True)
 
 cur = db.cursor()
-cur.execute("SELECT Username, AccountTypeID FROM Users WHERE SSHPubKey = %s " +
-            "AND Suspended = 0", (keytype + " " + keytext,))
+cur.execute("SELECT Users.Username, Users.AccountTypeID FROM Users " +
+            "INNER JOIN SSHPubKeys ON SSHPubKeys.UserID = Users.ID "
+            "WHERE SSHPubKeys.PubKey = %s AND Users.Suspended = 0",
+            (keytype + " " + keytext,))
 
 if cur.rowcount != 1:
     exit(1)
