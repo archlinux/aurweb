@@ -89,57 +89,8 @@ $base_uri = get_pkgbase_uri($row['BaseName']);
 ?>
 <div id="pkgdetails" class="box">
 	<h2><?= __('Package Details') . ': ' . htmlspecialchars($row['Name']) . ' ' . htmlspecialchars($row['Version']) ?></h2>
-	<div id="detailslinks" class="listing">
-		<div id="actionlist">
-			<h4><?= __('Package Actions') ?></h4>
-			<ul class="small">
-				<li>
-					<a href="<?= $pkgbuild_uri ?>"><?= __('View PKGBUILD') ?></a> /
-					<a href="<?= $log_uri ?>"><?= __('View Changes') ?></a>
-				</li>
-				<li><a href="<?= $snapshot_uri ?>"><?= __('Download snapshot') ?></a>
-				<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
-				<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
-				<?php if ($uid): ?>
-				<?php if ($row["OutOfDateTS"] === NULL): ?>
-				<li><?= html_action_form($base_uri . 'flag/', "do_Flag", __('Flag package out-of-date')) ?></li>
-				<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, $maintainers)): ?>
-				<li><?= html_action_form($base_uri . 'unflag/', "do_UnFlag", __('Unflag package')) ?></li>
-				<?php endif; ?>
 
-				<?php if (pkgbase_user_voted($uid, $base_id)): ?>
-				<li><?= html_action_form($base_uri . 'unvote/', "do_UnVote", __('Remove vote')) ?></li>
-				<?php else: ?>
-				<li><?= html_action_form($base_uri . 'vote/', "do_Vote", __('Vote for this package')) ?></li>
-				<?php endif; ?>
-
-				<?php if (pkgbase_user_notify($uid, $base_id)): ?>
-				<li><?= html_action_form($base_uri . 'unnotify/', "do_UnNotify", __('Disable notifications')) ?></li>
-				<?php else: ?>
-				<li><?= html_action_form($base_uri . 'notify/', "do_Notify", __('Notify of new comments')) ?></li>
-				<?php endif; ?>
-
-				<?php if (has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array($row["MaintainerUID"]))): ?>
-				<li><?= html_action_link($base_uri . 'comaintainers/', __('Manage Co-Maintainers')) ?></a></li>
-				<?php endif; ?>
-
-				<li><span class="flagged"><?php if ($row["RequestCount"] > 0) { echo _n('%d pending request', '%d pending requests', $row["RequestCount"]); } ?></span></li>
-				<li><?= html_action_link($base_uri . 'request/', __('File Request')) ?></a></li>
-
-				<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>
-				<li><?= html_action_link($base_uri . 'delete/', __('Delete Package')) ?></a></li>
-				<li><?= html_action_link($base_uri . 'merge/', __('Merge Package')) ?></a></li>
-				<?php endif; ?>
-
-				<?php if ($uid && $row["MaintainerUID"] === NULL): ?>
-				<li><?= html_action_form($base_uri . 'adopt/', "do_Adopt", __('Adopt Package')) ?></li>
-				<?php elseif (has_credential(CRED_PKGBASE_DISOWN, array($row["MaintainerUID"]))): ?>
-				<li><?= html_action_form($base_uri . 'disown/', "do_Disown", __('Disown Package')) ?></li>
-				<?php endif; ?>
-				<?php endif; ?>
-			</ul>
-		</div>
-	</div>
+	<?php include('pkgbase_actions.php') ?>
 
 	<table id="pkginfo">
 		<tr>
