@@ -230,7 +230,12 @@ function html_format_maintainers($maintainer, $comaintainers) {
  * @return string The generated HTML code for the action link
  */
 function html_action_link($uri, $desc) {
-	$code = '<a href="' . htmlspecialchars($uri, ENT_QUOTES) . '">';
+	if (isset($_COOKIE["AURSID"])) {
+		$code = '<a href="' . htmlspecialchars($uri, ENT_QUOTES) . '">';
+	} else {
+		$code = '<a href="' . get_uri('/login/', true) . '?referer=';
+		$code .= urlencode(rtrim(aur_location(), '/') . $uri) . '">';
+	}
 	$code .= htmlspecialchars($desc) . '</a>';
 
 	return $code;
@@ -246,14 +251,19 @@ function html_action_link($uri, $desc) {
  * @return string The generated HTML code for the action link
  */
 function html_action_form($uri, $action, $desc) {
-	$code = '<form action="' . htmlspecialchars($uri, ENT_QUOTES) . '" ';
-	$code .= 'method="post">';
-	$code .= '<input type="hidden" name="token" value="';
-	$code .= htmlspecialchars($_COOKIE['AURSID'], ENT_QUOTES) . '" />';
-	$code .= '<input type="submit" class="button text-button" name="';
-	$code .= htmlspecialchars($action, ENT_QUOTES) . '" ';
-	$code .= 'value="' . htmlspecialchars($desc, ENT_QUOTES) . '" />';
-	$code .= '</form>';
+	if (isset($_COOKIE["AURSID"])) {
+		$code = '<form action="' . htmlspecialchars($uri, ENT_QUOTES) . '" ';
+		$code .= 'method="post">';
+		$code .= '<input type="hidden" name="token" value="';
+		$code .= htmlspecialchars($_COOKIE['AURSID'], ENT_QUOTES) . '" />';
+		$code .= '<input type="submit" class="button text-button" name="';
+		$code .= htmlspecialchars($action, ENT_QUOTES) . '" ';
+		$code .= 'value="' . htmlspecialchars($desc, ENT_QUOTES) . '" />';
+		$code .= '</form>';
+	} else {
+		$code = '<a href="' . get_uri('/login/', true) . '">';
+		$code .= htmlspecialchars($desc) . '</a>';
+	}
 
 	return $code;
 }

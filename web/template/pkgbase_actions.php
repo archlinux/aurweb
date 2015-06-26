@@ -9,7 +9,6 @@
 			<li><a href="<?= $snapshot_uri ?>"><?= __('Download snapshot') ?></a>
 			<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
 			<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
-			<?php if ($uid): ?>
 			<?php if ($row["OutOfDateTS"] === NULL): ?>
 			<li><?= html_action_form($base_uri . 'flag/', "do_Flag", __('Flag package out-of-date')) ?></li>
 			<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, $maintainers)): ?>
@@ -44,7 +43,6 @@
 			<li><?= html_action_form($base_uri . 'adopt/', "do_Adopt", __('Adopt Package')) ?></li>
 			<?php elseif (has_credential(CRED_PKGBASE_DISOWN, array($row["MaintainerUID"]))): ?>
 			<li><?= html_action_form($base_uri . 'disown/', "do_Disown", __('Disown Package')) ?></li>
-			<?php endif; ?>
 			<?php endif; ?>
 		</ul>
 	</div>
