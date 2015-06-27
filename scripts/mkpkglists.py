@@ -28,12 +28,14 @@ pkgbaselist_header = "# AUR package base list, generated on " + datestr
 
 with gzip.open(docroot + "packages.gz", "w") as f:
     f.write(bytes(pkglist_header + "\n", "UTF-8"))
-    cur.execute("SELECT Name FROM Packages")
+    cur.execute("SELECT Packages.Name FROM Packages INNER JOIN PackageBases " +
+                "ON PackageBases.ID = Packages.PackageBaseID " +
+                "WHERE PackageBases.PackagerUID IS NOT NULL")
     f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
 
 with gzip.open(docroot + "pkgbase.gz", "w") as f:
     f.write(bytes(pkgbaselist_header + "\n", "UTF-8"))
-    cur.execute("SELECT Name FROM PackageBases")
+    cur.execute("SELECT Name FROM PackageBases WHERE PackagerUID IS NOT NULL")
     f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
 
 db.close()
