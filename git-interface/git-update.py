@@ -286,7 +286,7 @@ srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw)
 
 srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
 if srcinfo_pkgbase != pkgbase:
-    die('invalid pkgbase: {:s}'.format(srcinfo_pkgbase))
+    die('invalid pkgbase: {:s}, expected {:s}'.format(srcinfo_pkgbase, pkgbase))
 
 pkgbase = srcinfo._pkgbase['pkgname']
 cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
