@@ -97,37 +97,7 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 	$bcc = array();
 
 	if ($result) {
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			array_push($bcc, $row['Email']);
-		}
-
-		$q = "SELECT Name FROM PackageBases WHERE ID = ";
-		$q.= intval($base_id);
-		$result = $dbh->query($q);
-		$row = $result->fetch(PDO::FETCH_ASSOC);
-
-		/*
-		 * TODO: Add native language emails for users, based on their
-		 * preferences. Simply making these strings translatable won't
-		 * work, users would be getting emails in the language that the
-		 * user who posted the comment was in.
-		 */
-		$body = 'from ' . get_pkgbase_uri($row['Name'], true) . "\n"
-		. username_from_sid($_COOKIE['AURSID']) . " wrote:\n\n"
-		. $comment
-		. "\n\n---\nIf you no longer wish to receive notifications about this package, please go the the above package page and click the UnNotify button.";
-		$body = wordwrap($body, 70);
-		$bcc = implode(', ', $bcc);
-		$thread_id = "<pkg-notifications-" . $row['Name'] . "@aur.archlinux.org>";
-		$headers = "MIME-Version: 1.0\r\n" .
-			   "Content-type: text/plain; charset=UTF-8\r\n" .
-			   "Bcc: $bcc\r\n" .
-			   "Reply-to: noreply@aur.archlinux.org\r\n" .
-			   "From: notify@aur.archlinux.org\r\n" .
-			   "In-Reply-To: $thread_id\r\n" .
-			   "References: $thread_id\r\n" .
-			   "X-Mailer: AUR";
-		@mail('undisclosed-recipients: ;', "AUR Comment for " . $row['Name'], $body, $headers);
+		notify(array('comment', $uid, $base_id), $comment);
 	}
 }
 
@@ -355,33 +325,11 @@ function pkgbase_flag($base_ids) {
 	$q.= " OutOfDateTS = UNIX_TIMESTAMP()";
 	$q.= " WHERE ID IN (" . implode(",", $base_ids) . ")";
 	$q.= " AND OutOfDateTS IS NULL";
+	$dbh->exec($q);
 
-	$affected_pkgs = $dbh->exec($q);
-
-	if ($affected_pkgs > 0) {
-		/* Notify of flagging by e-mail. */
-		$f_name = username_from_sid($_COOKIE['AURSID']);
-		$f_email = email_from_sid($_COOKIE['AURSID']);
-		$f_uid = uid_from_sid($_COOKIE['AURSID']);
-		$q = "SELECT PackageBases.Name, Users.Email ";
-		$q.= "FROM PackageBases, Users ";
-		$q.= "WHERE PackageBases.ID IN (" . implode(",", $base_ids) .") ";
-		$q.= "AND Users.ID = PackageBases.MaintainerUID ";
-		$q.= "AND Users.ID != " . $f_uid;
-		$result = $dbh->query($q);
-		if ($result) {
-			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$body = "Your package " . $row['Name'] . " has been flagged out of date by " . $f_name . " [1]. You may view your package at:\n" . get_pkgbase_uri($row['Name'], true) . "\n\n[1] - " . get_user_uri($f_name, true);
-				$body = wordwrap($body, 70);
-				$headers = "MIME-Version: 1.0\r\n" .
-					   "Content-type: text/plain; charset=UTF-8\r\n" .
-					   "Reply-to: noreply@aur.archlinux.org\r\n" .
-					   "From: notify@aur.archlinux.org\r\n" .
-					   "X-Mailer: PHP\r\n" .
-					   "X-MimeOLE: Produced By AUR";
-				@mail($row['Email'], "AUR Out-of-date Notification for ".$row['Name'], $body, $headers);
-			}
-		}
+	$uid = uid_from_sid($_COOKIE['AURSID']);
+	foreach ($base_ids as $base_id) {
+		notify(array('flag', $uid, $base_id));
 	}
 
 	return array(true, __("The selected packages have been flagged out-of-date."));
@@ -449,46 +397,12 @@ function pkgbase_delete ($base_ids, $merge_base_id, $via, $grant=false) {
 		$merge_base_name = pkgbase_name_from_id($merge_base_id);
 	}
 
-	/* Send e-mail notifications. */
+	$uid = uid_from_sid($_COOKIE['AURSID']);
 	foreach ($base_ids as $base_id) {
-		$q = "SELECT CommentNotify.*, Users.Email ";
-		$q.= "FROM CommentNotify, Users ";
-		$q.= "WHERE Users.ID = CommentNotify.UserID ";
-		$q.= "AND CommentNotify.UserID != " . uid_from_sid($_COOKIE['AURSID']) . " ";
-		$q.= "AND CommentNotify.PackageBaseID = " . $base_id;
-		$result = $dbh->query($q);
-		$bcc = array();
-
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			array_push($bcc, $row['Email']);
-		}
-		if (!empty($bcc)) {
-			$pkgbase_name = pkgbase_name_from_id($base_id);
-
-			/*
-			 * TODO: Add native language emails for users, based on
-			 * their preferences. Simply making these strings
-			 * translatable won't work, users would be getting
-			 * emails in the language that the user who posted the
-			 * comment was in.
-			 */
-			$body = "";
-			if ($merge_base_id) {
-				$body .= username_from_sid($_COOKIE['AURSID']) . " merged \"".$pkgbase_name."\" into \"$merge_base_name\".\n\n";
-				$body .= "You will no longer receive notifications about this package, please go to https://aur.archlinux.org" . get_pkgbase_uri($merge_base_name) . " and click the Notify button if you wish to recieve them again.";
-			} else {
-				$body .= username_from_sid($_COOKIE['AURSID']) . " deleted \"".$pkgbase_name."\".\n\n";
-				$body .= "You will no longer receive notifications about this package.";
-			}
-			$body = wordwrap($body, 70);
-			$bcc = implode(', ', $bcc);
-			$headers = "MIME-Version: 1.0\r\n" .
-				   "Content-type: text/plain; charset=UTF-8\r\n" .
-				   "Bcc: $bcc\r\n" .
-				   "Reply-to: noreply@aur.archlinux.org\r\n" .
-				   "From: notify@aur.archlinux.org\r\n" .
-				   "X-Mailer: AUR";
-			@mail('undisclosed-recipients: ;', "AUR Package deleted: " . $pkgbase_name, $body, $headers);
+		if ($merge_base_id) {
+			notify(array('delete', $uid, $base_id, $merge_base_id));
+		} else {
+			notify(array('delete', $uid, $base_id));
 		}
 	}
 

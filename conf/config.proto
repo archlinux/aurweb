@@ -31,6 +31,11 @@ snapshot_uri = /cgit/aur.git/snapshot/%s.tar.gz
 enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
 
+[notifications]
+sendmail = /usr/bin/sendmail
+sender = notify@aur.archlinux.org
+reply-to = noreply@aur.archlinux.org
+
 [fingerprints]
 Ed25519 = SHA256:HQ03dn6EasJHNDlt51KpQpFkT3yBX83x7BoIkA1iv2k
 ECDSA = SHA256:L71Q91yHwmHPYYkJMDgj0xmUuw16qFOhJbBr1mzsiOI

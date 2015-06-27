@@ -288,26 +288,14 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 				"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 		print "<p>\n";
 
-		if (!$send_resetkey) {
+		if ($send_resetkey) {
+			send_resetkey($email, true);
+			print __("A password reset key has been sent to your e-mail address.");
+			print "</p>\n";
+		} else {
 			print __("Click on the Login link above to use your account.");
 			print "</p>\n";
-			return;
 		}
-
-		$subject = 'Welcome to the Arch User Repository';
-		$body = __('Welcome to %s! In order ' .
-			'to set an initial password ' .
-			'for your new account, ' .
-			'please click the link ' .
-			'below. If the link does ' .
-			'not work try copying and ' .
-			'pasting it into your ' .
-			'browser.',
-			aur_location());
-		send_resetkey($email, $subject, $body);
-
-		print __("A password reset key has been sent to your e-mail address.");
-		print "</p>\n";
 	} else {
 		/* Modify an existing account. */
 		$q = "SELECT InactivityTS FROM Users WHERE ";
@@ -705,12 +693,11 @@ function create_resetkey($resetkey, $uid) {
  * Send a reset key to a specific e-mail address
  *
  * @param string $email E-mail address of the user resetting their password
- * @param string $subject Subject of the email
- * @param string $body Body of the email
+ * @param bool $welcome Whether to use the welcome message
  *
  * @return void
  */
-function send_resetkey($email, $subject, $body) {
+function send_resetkey($email, $welcome=false) {
 	$uid = uid_from_email($email);
 	if ($uid == null) {
 		return;
@@ -721,16 +708,7 @@ function send_resetkey($email, $subject, $body) {
 	create_resetkey($resetkey, $uid);
 
 	/* Send e-mail with confirmation link. */
-	$body = wordwrap($body, 70);
-	$body .=  "\n\n". get_uri('/passreset/', true) .
-		  "?resetkey={$resetkey}";
-	$headers = "MIME-Version: 1.0\r\n" .
-		   "Content-type: text/plain; charset=UTF-8\r\n" .
-		   "Reply-to: noreply@aur.archlinux.org\r\n" .
-		   "From: notify@aur.archlinux.org\r\n" .
-		   "X-Mailer: PHP\r\n" .
-		   "X-MimeOLE: Produced By AUR";
-	@mail($email, $subject, $body, $headers);
+	notify(array($welcome ? 'welcome' : 'send-resetkey', $uid));
 }
 
 /**
@@ -1308,4 +1286,38 @@ function account_set_ssh_keys($uid, $ssh_keys, $ssh_fingerprints) {
 	}
 
 	return true;
+}
+
+/*
+ * Invoke the email notification script.
+ *
+ * @param string $params Command line parameters for the script.
+ * @param string $text Text to pass via stdin.
+ *
+ * @return void
+ */
+function notify($params, $text='') {
+	$cmd = realpath('../../scripts/notify.py');
+	foreach ($params as $param) {
+		$cmd .= ' ' . escapeshellarg($param);
+	}
+
+	$descspec = array(
+		0 => array('pipe', 'r'),
+		1 => array('pipe', 'w'),
+		2 => array('pipe', 'w')
+	);
+
+	$p = proc_open($cmd, $descspec, $pipes);
+
+	if (!is_resource($p)) {
+		return false;
+	}
+
+	fwrite($pipes[0], $text);
+	fclose($pipes[0]);
+	fclose($pipes[1]);
+	fclose($pipes[2]);
+
+	return proc_close($p);
 }
