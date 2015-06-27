@@ -84,7 +84,7 @@ class AurInfo(object):
 
 class StderrECatcher(object):
     def Catch(self, lineno, error):
-        print('ERROR[%d]: %s' % (lineno, error), file=sys.stderr)
+        print('ERROR[{:d}]: {:s}'.format(lineno, error), file=sys.stderr)
 
 
 class CollectionECatcher(object):
@@ -126,8 +126,8 @@ def ParseAurinfoFromIterable(iterable, ecatcher=None):
             try:
                 key, value = map(str.strip, line.split('=', 1))
             except ValueError:
-                ecatcher.Catch(lineno, 'unexpected header format in section=%s' %
-                    current_package['pkgname'])
+                ecatcher.Catch(lineno, 'unexpected header format in section={:s}'.format(
+                               current_package['pkgname']))
                 continue
 
             if key == 'pkgbase':
@@ -149,7 +149,7 @@ def ParseAurinfoFromIterable(iterable, ecatcher=None):
                 key, value = map(str.strip, line.split('=', 1))
             except ValueError:
                 ecatcher.Catch(lineno, 'unexpected attribute format in '
-                               'section=%s' % current_package['pkgname'])
+                                       'section={:s}'.format(current_package['pkgname']))
 
             if IsMultiValued(key):
                 if not current_package.get(key):
@@ -161,8 +161,8 @@ def ParseAurinfoFromIterable(iterable, ecatcher=None):
                     current_package[key] = value
                 else:
                     ecatcher.Catch(lineno, 'overwriting attribute '
-                                   '%s: %s -> %s' % (key, current_package[key],
-                                                     value))
+                                           '{:s}: {:s} -> {:s}'.format(key,
+                                           current_package[key], value))
 
     return aurinfo
 
@@ -177,7 +177,7 @@ def ValidateAurinfo(filename='.AURINFO'):
     ParseAurinfo(filename, ecatcher)
     errors = ecatcher.Errors()
     for error in errors:
-        print('error on line %d: %s' % error, file=sys.stderr)
+        print('error on line {:d}: {:s}'.format(error), file=sys.stderr)
     return not errors
 
 
@@ -196,13 +196,13 @@ if __name__ == '__main__':
     if action == 'parse':
         aurinfo = ParseAurinfo()
         for pkgname in aurinfo.GetPackageNames():
-            print(">>> merged package: %s" % pkgname)
+            print(">>> merged package: {:s}".format(pkgname))
             pp.pprint(aurinfo.GetMergedPackage(pkgname))
             print()
     elif action == 'validate':
         sys.exit(not ValidateAurinfo(filename))
     else:
-        print('unknown action: %s' % action)
+        print('unknown action: {:s}'.format(action))
         sys.exit(1)
 
 # vim: set et ts=4 sw=4:

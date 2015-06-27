@@ -45,7 +45,7 @@ def list_repos(user):
     cur.execute("SELECT ID FROM Users WHERE Username = %s ", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
-        die('%s: unknown user: %s' % (action, user))
+        die('{:s}: unknown user: {:s}'.format(action, user))
 
     cur.execute("SELECT Name, PackagerUID FROM PackageBases " +
                 "WHERE MaintainerUID = %s ", [userid])
@@ -55,9 +55,9 @@ def list_repos(user):
 
 def create_pkgbase(pkgbase, user):
     if not re.match(repo_regex, pkgbase):
-        die('%s: invalid repository name: %s' % (action, pkgbase))
+        die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
     if pkgbase_exists(pkgbase):
-        die('%s: package base already exists: %s' % (action, pkgbase))
+        die('{:s}: package base already exists: {:s}'.format(action, pkgbase))
 
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
@@ -67,7 +67,7 @@ def create_pkgbase(pkgbase, user):
     cur.execute("SELECT ID FROM Users WHERE Username = %s ", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
-        die('%s: unknown user: %s' % (action, user))
+        die('{:s}: unknown user: {:s}'.format(action, user))
 
     cur.execute("INSERT INTO PackageBases (Name, SubmittedTS, ModifiedTS, " +
                 "SubmitterUID, MaintainerUID) VALUES (%s, UNIX_TIMESTAMP(), " +
@@ -100,11 +100,11 @@ def check_permissions(pkgbase, user):
     return cur.fetchone()[0] > 0
 
 def die(msg):
-    sys.stderr.write("%s\n" % (msg))
+    sys.stderr.write("{:s}\n".format(msg))
     exit(1)
 
 def die_with_help(msg):
-    die(msg + "\nTry `%s help` for a list of commands." % (ssh_cmdline))
+    die(msg + "\nTry `{:s} help` for a list of commands.".format(ssh_cmdline))
 
 user = sys.argv[1]
 cmd = os.environ.get("SSH_ORIGINAL_COMMAND")
@@ -120,7 +120,7 @@ if enable_maintenance:
 
 if action == 'git-upload-pack' or action == 'git-receive-pack':
     if len(cmdargv) < 2:
-        die_with_help("%s: missing path" % (action))
+        die_with_help("{:s}: missing path".format(action))
 
     path = cmdargv[1].rstrip('/')
     if not path.startswith('/'):
@@ -129,14 +129,14 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
         path = path + '.git'
     pkgbase = path[1:-4]
     if not re.match(repo_regex, pkgbase):
-        die('%s: invalid repository name: %s' % (action, pkgbase))
+        die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
 
     if not pkgbase_exists(pkgbase):
         create_pkgbase(pkgbase, user)
 
     if action == 'git-receive-pack':
         if not check_permissions(pkgbase, user):
-            die('%s: permission denied: %s' % (action, user))
+            die('{:s}: permission denied: {:s}'.format(action, user))
 
     os.environ["AUR_USER"] = user
     os.environ["AUR_PKGBASE"] = pkgbase
@@ -145,13 +145,13 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
     os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
 elif action == 'list-repos':
     if len(cmdargv) > 1:
-        die_with_help("%s: too many arguments" % (action))
+        die_with_help("{:s}: too many arguments".format(action))
     list_repos(user)
 elif action == 'setup-repo':
     if len(cmdargv) < 2:
-        die_with_help("%s: missing repository name" % (action))
+        die_with_help("{:s}: missing repository name".format(action))
     if len(cmdargv) > 2:
-        die_with_help("%s: too many arguments" % (action))
+        die_with_help("{:s}: too many arguments".format(action))
     create_pkgbase(cmdargv[1], user)
 elif action == 'help':
     die("Commands:\n" +
@@ -161,4 +161,4 @@ elif action == 'help':
         "  git-receive-pack     Internal command used with Git.\n" +
         "  git-upload-pack      Internal command used with Git.")
 else:
-    die_with_help("invalid command: %s" % (action))
+    die_with_help("invalid command: {:s}".format(action))

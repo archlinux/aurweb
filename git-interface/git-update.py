@@ -72,10 +72,10 @@ def save_srcinfo(srcinfo, db, cur, user):
         pkginfo = srcinfo.GetMergedPackage(pkgname)
 
         if 'epoch' in pkginfo and int(pkginfo['epoch']) > 0:
-            ver = '%d:%s-%s' % (int(pkginfo['epoch']), pkginfo['pkgver'],
-                                pkginfo['pkgrel'])
+            ver = '{:d}:{:s}-{:s}'.format(int(pkginfo['epoch']), pkginfo['pkgver'],
+                                          pkginfo['pkgrel'])
         else:
-            ver = '%s-%s' % (pkginfo['pkgver'], pkginfo['pkgrel'])
+            ver = '{:s}-{:s}'.format(pkginfo['pkgver'], pkginfo['pkgrel'])
 
         for field in ('pkgdesc', 'url'):
             if not field in pkginfo:
@@ -166,14 +166,14 @@ def save_srcinfo(srcinfo, db, cur, user):
     db.commit()
 
 def die(msg):
-    sys.stderr.write("error: %s\n" % (msg))
+    sys.stderr.write("error: {:s}\n".format(msg))
     exit(1)
 
 def die_commit(msg, commit):
     sys.stderr.write("error: The following error " +
                      "occurred when parsing commit\n")
-    sys.stderr.write("error: %s:\n" % (commit))
-    sys.stderr.write("error: %s\n" % (msg))
+    sys.stderr.write("error: {:s}:\n".format(commit))
+    sys.stderr.write("error: {:s}\n".format(msg))
     exit(1)
 
 if len(sys.argv) != 4:
@@ -216,20 +216,20 @@ blacklist = [row[0] for row in cur.fetchall()]
 
 for commit in walker:
     if not '.SRCINFO' in commit.tree:
-        die_commit("missing .SRCINFO", commit.id)
+        die_commit("missing .SRCINFO", str(commit.id))
 
     for treeobj in commit.tree:
         blob = repo[treeobj.id]
 
         if isinstance(blob, pygit2.Tree):
             die_commit("the repository must not contain subdirectories",
-                       commit.id)
+                       str(commit.id))
 
         if not isinstance(blob, pygit2.Blob):
-            die_commit("not a blob object: %s" % (treeobj), commit.id)
+            die_commit("not a blob object: {:s}".format(treeobj), str(commit.id))
 
         if blob.size > 250000:
-            die_commit("maximum blob size (250kB) exceeded", commit.id)
+            die_commit("maximum blob size (250kB) exceeded", str(commit.id))
 
     srcinfo_raw = repo[commit.tree['.SRCINFO'].id].data.decode()
     srcinfo_raw = srcinfo_raw.split('\n')
@@ -239,45 +239,45 @@ for commit in walker:
     if errors:
         sys.stderr.write("error: The following errors occurred "
                          "when parsing .SRCINFO in commit\n")
-        sys.stderr.write("error: %s:\n" % (commit.id))
+        sys.stderr.write("error: {:s}:\n".format(str(commit.id)))
         for error in errors:
-            sys.stderr.write("error: line %d: %s\n" % error)
+            sys.stderr.write("error: line {:d}: {:s}\n".format(error))
         exit(1)
 
     srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
     if not re.match(repo_regex, srcinfo_pkgbase):
-        die_commit('invalid pkgbase: %s' % (srcinfo_pkgbase), commit.id)
+        die_commit('invalid pkgbase: {:s}'.format(srcinfo_pkgbase), str(commit.id))
 
     for pkgname in srcinfo.GetPackageNames():
         pkginfo = srcinfo.GetMergedPackage(pkgname)
 
         for field in ('pkgver', 'pkgrel', 'pkgname'):
             if not field in pkginfo:
-                die_commit('missing mandatory field: %s' % (field), commit.id)
+                die_commit('missing mandatory field: {:s}'.format(field), str(commit.id))
 
         if 'epoch' in pkginfo and not pkginfo['epoch'].isdigit():
-            die_commit('invalid epoch: %s' % (pkginfo['epoch']), commit.id)
+            die_commit('invalid epoch: {:s}'.format(pkginfo['epoch']), str(commit.id))
 
         if not re.match(r'[a-z0-9][a-z0-9\.+_-]*$', pkginfo['pkgname']):
-            die_commit('invalid package name: %s' % (pkginfo['pkgname']),
-                       commit.id)
+            die_commit('invalid package name: {:s}'.format(pkginfo['pkgname']),
+                       str(commit.id))
 
         for field in ('pkgname', 'pkgdesc', 'url'):
             if field in pkginfo and len(pkginfo[field]) > 255:
-                die_commit('%s field too long: %s' % (field, pkginfo[field]),
-                           commit.id)
+                die_commit('{:s} field too long: {:s}'.format(field, pkginfo[field]),
+                           str(commit.id))
 
         for field in ('install', 'changelog'):
             if field in pkginfo and not pkginfo[field] in commit.tree:
-                die_commit('missing %s file: %s' % (field, pkginfo[field]),
-                           commit.id)
+                die_commit('missing {:s} file: {:s}'.format(field, pkginfo[field]),
+                           str(commit.id))
 
         for field in extract_arch_fields(pkginfo, 'source'):
             fname = field['value']
             if "://" in fname or "lp:" in fname:
                 continue
             if not fname in commit.tree:
-                die_commit('missing source file: %s' % (fname), commit.id)
+                die_commit('missing source file: {:s}'.format(fname), str(commit.id))
 
 srcinfo_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
 srcinfo_raw = srcinfo_raw.split('\n')
@@ -285,7 +285,7 @@ srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw)
 
 srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
 if srcinfo_pkgbase != pkgbase:
-    die('invalid pkgbase: %s' % (srcinfo_pkgbase))
+    die('invalid pkgbase: {:s}'.format(srcinfo_pkgbase))
 
 pkgbase = srcinfo._pkgbase['pkgname']
 cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
@@ -296,12 +296,12 @@ for pkgname in srcinfo.GetPackageNames():
     pkgname = pkginfo['pkgname']
 
     if pkgname in blacklist:
-        die('package is blacklisted: %s' % (pkginfo['pkgname']))
+        die('package is blacklisted: {:s}'.format(pkginfo['pkgname']))
 
     cur.execute("SELECT COUNT(*) FROM Packages WHERE Name = %s AND " +
                 "PackageBaseID <> %s", [pkgname, pkgbase_id])
     if cur.fetchone()[0] > 0:
-        die('cannot overwrite package: %s' % (pkgname))
+        die('cannot overwrite package: {:s}'.format(pkgname))
 
 save_srcinfo(srcinfo, db, cur, user)
 
