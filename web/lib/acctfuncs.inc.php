@@ -348,9 +348,9 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 		$q.= " WHERE ID = ".intval($UID);
 		$result = $dbh->exec($q);
 
-		account_set_ssh_keys($UID, $ssh_keys, $ssh_fingerprints);
+		$ssh_key_result = account_set_ssh_keys($UID, $ssh_keys, $ssh_fingerprints);
 
-		if (!$result) {
+		if ($result === false || $ssh_key_result === false) {
 			print __("No changes were made to the account, %s%s%s.",
 					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 		} else {
