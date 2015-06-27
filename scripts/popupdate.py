@@ -4,8 +4,6 @@ import configparser
 import mysql.connector
 import os
 
-docroot = os.path.dirname(os.path.realpath(__file__)) + "/../web/html/"
-
 config = configparser.RawConfigParser()
 config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
 
