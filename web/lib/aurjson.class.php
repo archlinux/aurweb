@@ -204,7 +204,6 @@ class AurJSON {
 
 	private function process_query($type, $where_condition) {
 		$max_results = config_get_int('options', 'max_rpc_results');
-		$package_url = config_get('options', 'package_url');
 
 		if ($this->version == 1) {
 			$fields = implode(',', self::$fields_v1);
