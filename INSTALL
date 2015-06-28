@@ -63,24 +63,17 @@ Setup on Arch Linux
         AuthorizedKeysCommand /usr/local/bin/aur-git-auth "%t" "%k"
         AuthorizedKeysCommandUser aur
 
-9) If you want to enable smart HTTP support with nginx and uWSGI, you can use
-   the following directives:
+9) If you want to enable smart HTTP support with nginx and fcgiwrap, you can
+   use the following directives:
 
     location ~ "^/([a-z0-9][a-z0-9.+_-]*?)(\.git)?/(git-(receive|upload)-pack|HEAD|info/refs|objects/(info/(http-)?alternates|packs)|[0-9a-f]{2}/[0-9a-f]{38}|pack/pack-[0-9a-f]{40}\.(pack|idx))$" {
-        include uwsgi_params;
-        uwsgi_modifier1 9;
-        uwsgi_param PATH_INFO /aur.git/$2;
-        uwsgi_param GIT_NAMESPACE $1;
-        uwsgi_pass unix:/run/uwsgi/smarthttp/aurweb.sock;
+        fastcgi_pass   unix:/run/fcgiwrap.sock;
+        include        fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME /usr/lib/git-core/git-http-backend;
+        fastcgi_param  PATH_INFO /aur.git/$3;
+        fastcgi_param  GIT_HTTP_EXPORT_ALL "";
+        fastcgi_param  GIT_NAMESPACE $1;
+        fastcgi_param  GIT_PROJECT_ROOT /srv/http/aurweb/;
     }
 
-   For the uWSGI configuration, the following template can be used:
-
-    [uwsgi]
-    plugins = cgi
-    uid = aur
-    processes = 1
-    threads = 8
-    env = GIT_HTTP_EXPORT_ALL=
-    env = GIT_PROJECT_ROOT=/srv/http/aurweb
-    cgi = /usr/lib/git-core/git-http-backend
+   Sample systemd unit files for fcgiwrap can be found under conf/.

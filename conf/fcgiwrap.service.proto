@@ -1,0 +1,11 @@
+[Unit]
+Description=Simple CGI Server
+After=nss-user-lookup.target
+
+[Service]
+ExecStart=/usr/sbin/fcgiwrap
+User=aur
+Group=aur
+
+[Install]
+Also=fcgiwrap.socket

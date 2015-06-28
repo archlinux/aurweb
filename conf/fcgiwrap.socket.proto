@@ -1,0 +1,11 @@
+[Unit]
+Description=fcgiwrap Socket
+
+[Socket]
+ListenStream=/run/fcgiwrap.sock
+SocketUser=http
+SocketGroup=http
+SocketMode=0700
+
+[Install]
+WantedBy=sockets.target
