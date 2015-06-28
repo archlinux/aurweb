@@ -87,7 +87,7 @@ class AurJSON {
 		$this->dbh = DB::connect();
 
 		$type = str_replace('-', '_', $http_data['type']);
-		$json = call_user_func(array(&$this, $type), $http_data['arg']);
+		$json = call_user_func(array(&$this, $type), $http_data);
 
 		$etag = md5($json);
 		header("Etag: \"$etag\"");
@@ -293,11 +293,12 @@ class AurJSON {
 	 * IDs and package names are valid; sort them into the relevant arrays and
 	 * escape/quote the names.
 	 *
-	 * @param $args the arg string or array to parse.
+	 * @param array $http_data Query parameters.
 	 *
 	 * @return mixed An array containing 'ids' and 'names'.
 	 */
-	private function parse_multiinfo_args($args) {
+	private function parse_multiinfo_args($http_data) {
+		$args = $http_data['arg'];
 		if (!is_array($args)) {
 			$args = array($args);
 		}
@@ -321,11 +322,13 @@ class AurJSON {
 	/*
 	 * Performs a fulltext mysql search of the package database.
 	 *
-	 * @param $keyword_string A string of keywords to search with.
+	 * @param array $http_data Query parameters.
 	 *
 	 * @return mixed Returns an array of package matches.
 	 */
-	private function search($keyword_string) {
+	private function search($http_data) {
+		$keyword_string = $http_data['arg'];
+
 		if (strlen($keyword_string) < 2) {
 			return $this->json_error('Query arg too small');
 		}
@@ -341,11 +344,12 @@ class AurJSON {
 	/*
 	 * Returns the info on a specific package.
 	 *
-	 * @param $pqdata The ID or name of the package. Package Query Data.
+	 * @param array $http_data Query parameters.
 	 *
 	 * @return mixed Returns an array of value data containing the package data
 	 */
-	private function info($pqdata) {
+	private function info($http_data) {
+		$pqdata = $http_data['arg'];
 		if (is_numeric($pqdata)) {
 			$where_condition = "Packages.ID = $pqdata";
 		} else {
@@ -358,11 +362,12 @@ class AurJSON {
 	/*
 	 * Returns the info on multiple packages.
 	 *
-	 * @param $pqdata A comma-separated list of IDs or names of the packages.
+	 * @param array $http_data Query parameters.
 	 *
 	 * @return mixed Returns an array of results containing the package data
 	 */
-	private function multiinfo($pqdata) {
+	private function multiinfo($http_data) {
+		$pqdata = $http_data['arg'];
 		$args = $this->parse_multiinfo_args($pqdata);
 		$ids = $args['ids'];
 		$names = $args['names'];
@@ -394,11 +399,12 @@ class AurJSON {
 	/*
 	 * Returns all the packages for a specific maintainer.
 	 *
-	 * @param $maintainer The name of the maintainer.
+	 * @param array $http_data Query parameters.
 	 *
 	 * @return mixed Returns an array of value data containing the package data
 	 */
-	private function msearch($maintainer) {
+	private function msearch($http_data) {
+		$maintainer = $http_data['arg'];
 		$maintainer = $this->dbh->quote($maintainer);
 
 		$where_condition = "Users.Username = $maintainer ";
@@ -409,11 +415,12 @@ class AurJSON {
 	/*
 	 * Get all package names that start with $search.
 	 *
-	 * @param string $search Search string.
+	 * @param array $http_data Query parameters.
 	 *
 	 * @return string The JSON formatted response data.
 	 */
-	private function suggest($search) {
+	private function suggest($http_data) {
+		$search = $http_data['arg'];
 		$query = "SELECT Packages.Name FROM Packages ";
 		$query.= "LEFT JOIN PackageBases ";
 		$query.= "ON PackageBases.ID = Packages.PackageBaseID ";
@@ -435,11 +442,12 @@ class AurJSON {
 	/*
 	 * Get all package base names that start with $search.
 	 *
-	 * @param string $search Search string.
+	 * @param array $http_data Query parameters.
 	 *
 	 * @return string The JSON formatted response data.
 	 */
-	private function suggest_pkgbase($search) {
+	private function suggest_pkgbase($http_data) {
+		$search = $http_data['arg'];
 		$query = "SELECT Name FROM PackageBases WHERE Name LIKE ";
 		$query.= $this->dbh->quote(addcslashes($search, '%_') . '%');
 		$query.= " AND PackageBases.PackagerUID IS NOT NULL ";
