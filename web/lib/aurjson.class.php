@@ -16,6 +16,9 @@ class AurJSON {
 		'search', 'info', 'multiinfo', 'msearch', 'suggest',
 		'suggest-pkgbase'
 	);
+	private static $exposed_fields = array(
+		'name', 'name-desc'
+	);
 	private static $fields_v1 = array(
 		'Packages.ID', 'Packages.Name',
 		'PackageBases.ID AS PackageBaseID',
@@ -82,6 +85,9 @@ class AurJSON {
 		}
 		if (!in_array($http_data['type'], self::$exposed_methods)) {
 			return $this->json_error('Incorrect request type specified.');
+		}
+		if (isset($http_data['search_by']) && !in_array($http_data['search_by'], self::$exposed_fields)) {
+			return $this->json_error('Incorrect search_by field specified.');
 		}
 
 		$this->dbh = DB::connect();
@@ -328,6 +334,11 @@ class AurJSON {
 	 */
 	private function search($http_data) {
 		$keyword_string = $http_data['arg'];
+		if (isset($http_data['search_by'])) {
+			$search_by = $http_data['search_by'];
+		} else {
+			$search_by = 'name-desc';
+		}
 
 		if (strlen($keyword_string) < 2) {
 			return $this->json_error('Query arg too small');
@@ -335,8 +346,12 @@ class AurJSON {
 
 		$keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
 
-		$where_condition = "(Packages.Name LIKE $keyword_string OR ";
-		$where_condition .= "Description LIKE $keyword_string)";
+		if ($search_by === 'name') {
+			$where_condition = "(Packages.Name LIKE $keyword_string)";
+		} else if ($search_by === 'name-desc') {
+			$where_condition = "(Packages.Name LIKE $keyword_string OR ";
+			$where_condition .= "Description LIKE $keyword_string)";
+		}
 
 		return $this->process_query('search', $where_condition);
 	}
