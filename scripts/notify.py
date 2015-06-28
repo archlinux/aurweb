@@ -88,9 +88,9 @@ def send_resetkey(cur, uid):
 
     subject = 'AUR Password Reset'
     body = 'A password reset request was submitted for the account %s ' \
-           'associated with your e-mail address. If you wish to reset your ' \
-           'password follow the link below, otherwise ignore this message ' \
-           'and nothing will happen.' % (username)
+           'associated with your email address. If you wish to reset your ' \
+           'password follow the link [1] below, otherwise ignore this ' \
+           'message and nothing will happen.' % (username)
     body += '\n\n'
     body += '[1] ' + aur_location + '/passreset/?resetkey=' + resetkey
 
@@ -102,9 +102,10 @@ def welcome(cur, uid):
     username, to, resetkey = cur.fetchone()
 
     subject = 'Welcome to the Arch User Repository'
-    body = 'Welcome to %s! In order to set an initial password for your new ' \
-           'account, please click the link below. If the link does not work ' \
-           'try copying and pasting it into your browser.' % (aur_location)
+    body = 'Welcome to the Arch User Repository! In order to set an initial ' \
+           'password for your new account, please click the link [1] below. ' \
+           'If the link does not work, try copying and pasting it into your ' \
+           'browser.'
     body += '\n\n'
     body += '[1] ' + aur_location + '/passreset/?resetkey=' + resetkey
 
@@ -118,11 +119,18 @@ def comment(cur, uid, pkgbase_id):
 
     uri = aur_location + '/pkgbase/' + pkgbase + '/'
 
+    user_uri = aur_location + '/account/' + user + '/'
+    pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
+
     subject = 'AUR Comment for %s' % (pkgbase)
-    body = 'from %s\n%s wrote:\n\n%s\n\n--- \n' \
-           'If you no longer wish to receive notifications about this ' \
-           'package, please go the the above package page and click the ' \
-           'UnNotify button.' % (uri, user, text)
+    body = '%s [1] added the following comment to %s [2]:' % (user, pkgbase)
+    body += '\n\n' + text + '\n\n'
+    body += 'If you no longer wish to receive notifications about this ' \
+            'package, please go to the package page [2] and select "%s".' % \
+            ('Disable notifications')
+    body += '\n\n'
+    body += '[1] ' + user_uri + '\n'
+    body += '[2] ' + pkgbase_uri
     thread_id = '<pkg-notifications-' + pkgbase + '@aur.archlinux.org>'
 
     send_notification(to, subject, body, reference=thread_id)
@@ -136,9 +144,11 @@ def flag(cur, uid, pkgbase_id):
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
 
     subject = 'AUR Out-of-date Notification for %s' % (pkgbase)
-    body = 'Your package %s has been flagged out of date by %s [1]. ' \
-           'You may view your package at:\n%s\n\n[1] %s' % \
-           (pkgbase, user, pkgbase_uri, user_uri)
+    body = 'Your package %s [1] has been flagged out-of-date by %s [2]. ' % \
+           (pkgbase, user)
+    body += '\n\n'
+    body += '[1] ' + pkgbase_uri + '\n'
+    body += '[2] ' + user_uri
 
     send_notification(to, subject, body)
 
@@ -149,16 +159,28 @@ def delete(cur, uid, old_pkgbase_id, new_pkgbase_id=None):
         new_pkgbase = pkgbase_from_id(cur, new_pkgbase_id)
     to = get_recipients(cur, old_pkgbase_id, uid)
 
+    user_uri = aur_location + '/account/' + user + '/'
+    pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
+
     subject = 'AUR Package deleted: %s' % (old_pkgbase)
     if new_pkgbase_id:
         new_pkgbase_uri = aur_location + '/pkgbase/' + new_pkgbase + '/'
-        body = '%s merged "%s" into "%s".\n\nYou will no longer receive ' \
-               'notifications about this package, please go to %s and click ' \
-               'the Notify button if you wish to recieve them again.' % \
-               (user, old_pkgbase, new_pkgbase, new_pkgbase_uri)
+        body = '%s [1] merged %s [2] into %s [3].\n\n' \
+               'You will no longer receive notifications about this ' \
+               'package, please go to [3] and click "%s" if you wish to ' \
+               'receive them again.' % \
+               (user, old_pkgbase, new_pkgbase, 'Notify of new comments')
+        body += '\n\n'
+        body += '[1] ' + user_uri + '\n'
+        body += '[2] ' + pkgbase_uri + '\n'
+        body += '[3] ' + new_pkgbase_uri
     else:
-        body = '%s deleted "%s".\n\nYou will no longer receive ' \
-               'notifications about this package.' % (user, old_pkgbase)
+        body = '%s [1] deleted %s [2].\n\n' \
+               'You will no longer receive notifications about this ' \
+               'package.' % (user, old_pkgbase)
+        body += '\n\n'
+        body += '[1] ' + user_uri + '\n'
+        body += '[2] ' + pkgbase_uri
 
     send_notification(to, subject, body)
 
@@ -176,14 +198,18 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
               (int(reqid), reqtype.title(), pkgbase)
     if merge_into:
         merge_into_uri = aur_location + '/pkgbase/' + merge_into + '/'
-        body = '%s [1] filed a request to merge %s [2] into %s [3]:\n\n' \
-               '%s\n\n[1] %s\n[2] %s\n[3] %s\n' % \
-               (user, pkgbase, merge_into, text, user_uri, pkgbase_uri,
-                merge_into_uri)
+        body = '%s [1] filed a request to merge %s [2] into %s [3]:' % \
+               (user, pkgbase, merge_into)
+        body += '\n\n' + text + '\n\n'
+        body += '[1] ' + user_uri + '\n'
+        body += '[2] ' + pkgbase_uri + '\n'
+        body += '[3] ' + merge_into_uri
     else:
-        body = '%s [1] filed a %s request for %s [2]:\n\n' \
-               '%s\n\n[1] %s\n[2] %s\n' % \
-               (user, reqtype, pkgbase, text, user_uri, pkgbase_uri)
+        body = '%s [1] filed a %s request for %s [2]:' % \
+               (user, reqtype, pkgbase)
+        body += '\n\n' + text + '\n\n'
+        body += '[1] ' + user_uri + '\n'
+        body += '[2] ' + pkgbase_uri + '\n'
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
 
     send_notification(to, subject, body, cc, thread_id)
