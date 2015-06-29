@@ -1250,7 +1250,7 @@ function ssh_key_fingerprint($ssh_key) {
 	unlink($tmpfile);
 
 	$tokens = explode(' ', $out[0]);
-	if (count($tokens) != 4) {
+	if (count($tokens) < 4) {
 		return false;
 	}
 
