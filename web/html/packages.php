@@ -46,31 +46,31 @@ html_header($title, $details);
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script type="text/javascript">
 function collapseDependsList(list) {
-    list = $(list);
-    // Hide everything past a given limit. Don't do anything if we don't have
-    // enough items, or the link already exists.
-    var limit = 20,
-        linkid = list.attr('id') + 'link',
-        items = list.find('li').slice(limit);
-    if (items.length <= 1 || $('#' + linkid).length > 0) {
-        return;
-    }
-    items.hide();
-    list.after('<p><a id="' + linkid + '" href="#">Show More…</a></p>');
+	list = $(list);
+	// Hide everything past a given limit. Don't do anything if we don't have
+	// enough items, or the link already exists.
+	var limit = 20,
+		linkid = list.attr('id') + 'link',
+		items = list.find('li').slice(limit);
+	if (items.length <= 1 || $('#' + linkid).length > 0) {
+		return;
+	}
+	items.hide();
+	list.after('<p><a id="' + linkid + '" href="#">Show More…</a></p>');
 
-    // add link and wire it up to show the hidden items
-    $('#' + linkid).click(function(event) {
-        event.preventDefault();
-        list.find('li').show();
-        // remove the full <p/> node from the DOM
-        $(this).parent().remove();
-    });
+	// add link and wire it up to show the hidden items
+	$('#' + linkid).click(function(event) {
+		event.preventDefault();
+		list.find('li').show();
+		// remove the full <p/> node from the DOM
+		$(this).parent().remove();
+	});
 }
 
 $(document).ready(function() {
-    collapseDependsList("#pkgdepslist");
-    collapseDependsList("#pkgreqslist");
-    collapseDependsList("#pkgsrcslist");
+	collapseDependsList("#pkgdepslist");
+	collapseDependsList("#pkgreqslist");
+	collapseDependsList("#pkgsrcslist");
 });
 </script>
 
