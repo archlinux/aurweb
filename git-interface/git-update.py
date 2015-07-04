@@ -242,7 +242,7 @@ for commit in walker:
                          "when parsing .SRCINFO in commit\n")
         sys.stderr.write("error: {:s}:\n".format(str(commit.id)))
         for error in errors:
-            sys.stderr.write("error: line {:d}: {:s}\n".format(error))
+            sys.stderr.write("error: line {:d}: {:s}\n".format(*error))
         exit(1)
 
     srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
