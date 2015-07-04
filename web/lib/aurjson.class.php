@@ -45,6 +45,9 @@ class AurJSON {
 		'ID', 'PackageBaseID', 'NumVotes', 'OutOfDate',
 		'FirstSubmitted', 'LastModified'
 	);
+	private static $decimal_fields = array(
+		'Popularity'
+	);
 
 	/*
 	 * Handles post data, and routes the request.
@@ -253,6 +256,10 @@ class AurJSON {
 				 */
 				foreach (self::$numeric_fields as $field) {
 					$row[$field] = intval($row[$field]);
+				}
+
+				foreach (self::$decimal_fields as $field) {
+					$row[$field] = floatval($row[$field]);
 				}
 
 				if ($this->version >= 2 && ($type == 'info' || $type == 'multiinfo')) {
