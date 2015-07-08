@@ -173,6 +173,10 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		header("Content-Type: image/png");
 		readfile("./$path");
 		break;
+	case "/images/x.min.svg":
+		header("Content-Type: image/svg+xml");
+		readfile("./$path");
+		break;
 	case "/js/bootstrap-typeahead.min.js":
 		header("Content-Type: application/javascript");
 		readfile("./$path");

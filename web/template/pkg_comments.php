@@ -20,32 +20,26 @@ $count = pkgbase_comments_count($base_id, $include_deleted);
 			$row['UserName'] = "<a href=\"" . get_user_uri($row['UserName']) . "\">{$row['UserName']}</a>";
 		endif; ?>
 		<h4<?php if ($row['DelUsersID']): ?> class="comment-deleted"<?php endif; ?>>
+			<?php if ($row['UserName']): ?>
+			<?= __('%s commented', $row['UserName']) ?>
+			<?php else: ?>
+			<?= __('Anonymous comment') ?>
+			<?php endif; ?>
+			<?= __('on %s', gmdate('Y-m-d H:i', $row['CommentTS'])) ?>
+			<?php if ($row['DelUsersID']): ?>
+			(<?= __('deleted') ?>)
+			<?php endif; ?>
 			<?php if (!$row['DelUsersID'] && can_delete_comment_array($row)): ?>
-				<form method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
+				<form class="delete-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />
 						<input type="hidden" name="comment_id" value="<?= $row['ID'] ?>" />
 						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-						<input type="image" src="/images/x.png" alt="<?= __('Delete comment') ?>" name="submit" value="1" />
+						<input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="<?= __('Delete comment') ?>" title="<?= __('Delete comment') ?>" name="submit" value="1" />
 					</fieldset>
-					<?php if ($row['UserName']): ?>
-					<?= __('Comment by %s', $row['UserName']) ?>
-					<?php else: ?>
-					<?= __('Anonymous comment') ?>
-					<?php endif; ?>
 				</form>
-			<?php else: ?>
-			<?php if ($row['UserName']): ?>
-			<?= __('Comment by %s', $row['UserName']) ?>
-			<?php else: ?>
-			<?= __('Anonymous comment') ?>
-			<?php endif; ?>
-			<?php if ($row['DelUsersID']): ?>
-			(<?= __('deleted') ?>)
-			<?php endif; ?>
 			<?php endif; ?>
 		</h4>
-		<p class="timestamp"><?= gmdate('Y-m-d H:i', $row['CommentTS']) ?></p>
 		<div class="article-content<?php if ($row['DelUsersID']): ?> comment-deleted<?php endif; ?>">
 			<p>
 				<?= parse_comment($row['Comments']) ?>

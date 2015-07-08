@@ -96,6 +96,22 @@
 	color: #999;
 }
 
+.delete-comment-form {
+	float: right;
+}
+
+.delete-comment {
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+	opacity: 0.6;
+}
+
+.delete-comment:hover {
+	-webkit-filter: none;
+	filter: none;
+	opacity: 1;
+}
+
 legend {
 	padding: 1em 0;
 }
