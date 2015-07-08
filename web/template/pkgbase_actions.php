@@ -28,15 +28,15 @@
 			<?php endif; ?>
 
 			<?php if (has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array($row["MaintainerUID"]))): ?>
-			<li><?= html_action_link($base_uri . 'comaintainers/', __('Manage Co-Maintainers')) ?></a></li>
+			<li><?= html_action_link($base_uri . 'comaintainers/', __('Manage Co-Maintainers')) ?></li>
 			<?php endif; ?>
 
 			<li><span class="flagged"><?php if ($row["RequestCount"] > 0) { echo _n('%d pending request', '%d pending requests', $row["RequestCount"]); } ?></span></li>
-			<li><?= html_action_link($base_uri . 'request/', __('File Request')) ?></a></li>
+			<li><?= html_action_link($base_uri . 'request/', __('File Request')) ?></li>
 
 			<?php if (has_credential(CRED_PKGBASE_DELETE)): ?>
-			<li><?= html_action_link($base_uri . 'delete/', __('Delete Package')) ?></a></li>
-			<li><?= html_action_link($base_uri . 'merge/', __('Merge Package')) ?></a></li>
+			<li><?= html_action_link($base_uri . 'delete/', __('Delete Package')) ?></li>
+			<li><?= html_action_link($base_uri . 'merge/', __('Merge Package')) ?></li>
 			<?php endif; ?>
 
 			<?php if ($uid && $row["MaintainerUID"] === NULL): ?>
