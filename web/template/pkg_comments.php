@@ -41,7 +41,7 @@ $count = pkgbase_comments_count($base_id, $include_deleted);
 		$row['DelUserName'] = html_format_username($row['DelUserName']);
 		$row['EditUserName'] = html_format_username($row['EditUserName']);
 		?>
-		<h4<?php if ($row['DelUsersID']): ?> class="comment-deleted"<?php endif; ?>>
+		<h4 id="comment-<?= $row['ID'] ?>"<?php if ($row['DelUsersID']): ?> class="comment-deleted"<?php endif; ?>>
 			<?= $heading ?>
 			<?php if (!$row['DelUsersID'] && can_delete_comment_array($row)): ?>
 				<form class="delete-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
