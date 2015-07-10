@@ -89,6 +89,9 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			case "comaintainers":
 				include('comaintainers.php');
 				return;
+			case "edit-comment":
+				include('commentedit.php');
+				return;
 			default:
 				header("HTTP/1.0 404 Not Found");
 				include "./404.php";
@@ -174,6 +177,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		readfile("./$path");
 		break;
 	case "/images/x.min.svg":
+	case "/images/pencil.min.svg":
 		header("Content-Type: image/svg+xml");
 		readfile("./$path");
 		break;

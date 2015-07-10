@@ -43,6 +43,20 @@ function can_delete_comment_array($comment) {
 }
 
 /**
+ * Determine if the user can edit a specific package comment using an array
+ *
+ * Only the comment submitter, Trusted Users, and Developers can edit
+ * comments. This function is used for the frontend side of comment editing.
+ *
+ * @param array $comment All database information relating a specific comment
+ *
+ * @return bool True if the user can edit the comment, otherwise false
+ */
+function can_edit_comment_array($comment) {
+	return has_credential(CRED_COMMENT_EDIT, array($comment['UsersID']));
+}
+
+/**
  * Check to see if the package name already exists in the database
  *
  * @param string $name The package name to check

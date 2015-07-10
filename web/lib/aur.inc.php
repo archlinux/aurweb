@@ -577,6 +577,25 @@ function salted_hash($passwd, $salt) {
 }
 
 /**
+ * Get a package comment
+ *
+ * @param  int $comment_id The ID of the comment
+ *
+ * @return array The user ID and comment OR null, null in case of an error
+ */
+function comment_by_id($comment_id) {
+	$dbh = DB::connect();
+	$q = "SELECT UsersID, Comments FROM PackageComments ";
+	$q.= "WHERE ID = " . intval($comment_id);
+	$result = $dbh->query($q);
+	if (!$result) {
+		return array(null, null);
+	}
+
+	return $result->fetch(PDO::FETCH_NUM);
+}
+
+/**
  * Process submitted comments so any links can be followed
  *
  * @param string $comment Raw user submitted package comment

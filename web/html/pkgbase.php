@@ -104,9 +104,7 @@ if (check_token()) {
 		list($ret, $output) = pkgreq_close($_POST['reqid'], $_POST['reason'], $_POST['comments']);
 	} elseif (current_action("do_EditComaintainers")) {
 		list($ret, $output) = pkgbase_set_comaintainers($base_id, explode("\n", $_POST['users']));
-	}
-
-	if (isset($_REQUEST['comment'])) {
+	} elseif (current_action("do_AddComment")) {
 		$uid = uid_from_sid($_COOKIE["AURSID"]);
 		pkgbase_add_comment($base_id, $uid, $_REQUEST['comment']);
 		$ret = true;

@@ -39,6 +39,9 @@ $count = pkgbase_comments_count($base_id, $include_deleted);
 					</fieldset>
 				</form>
 			<?php endif; ?>
+			<?php if (!$row['DelUsersID'] && can_edit_comment_array($row)): ?>
+			<a href="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name) . 'edit-comment/?comment_id=' . $row['ID'], ENT_QUOTES) ?>" class="edit-comment" title="<?= __('Edit comment') ?>"><img src="/images/pencil.min.svg" alt="<?= __('Edit comment') ?>" width="11" height="11"></a>
+			<?php endif; ?>
 		</h4>
 		<div class="article-content<?php if ($row['DelUsersID']): ?> comment-deleted<?php endif; ?>">
 			<p>
