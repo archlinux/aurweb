@@ -108,6 +108,8 @@ if (check_token()) {
 		$uid = uid_from_sid($_COOKIE["AURSID"]);
 		pkgbase_add_comment($base_id, $uid, $_REQUEST['comment']);
 		$ret = true;
+	} elseif (current_action("do_EditComment")) {
+		list($ret, $output) = pkgbase_edit_comment($_REQUEST['comment']);
 	}
 
 	if ($ret) {

@@ -830,12 +830,44 @@ function pkgbase_delete_comment() {
 	$dbh = DB::connect();
 	if (can_delete_comment($comment_id)) {
 		$q = "UPDATE PackageComments ";
-		$q.= "SET DelUsersID = ".$uid." ";
+		$q.= "SET DelUsersID = ".$uid.", ";
+		$q.= "EditedTS = UNIX_TIMESTAMP() ";
 		$q.= "WHERE ID = ".intval($comment_id);
 		$dbh->exec($q);
 		return array(true, __("Comment has been deleted."));
 	} else {
 		return array(false, __("You are not allowed to delete this comment."));
+	}
+}
+
+/**
+ * Edit a package comment
+ *
+ * @return array Tuple of success/failure indicator and error message
+ */
+function pkgbase_edit_comment($comment) {
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+	if (!$uid) {
+		return array(false, __("You must be logged in before you can edit package information."));
+	}
+
+	if (isset($_POST["comment_id"])) {
+		$comment_id = $_POST["comment_id"];
+	} else {
+		return array(false, __("Missing comment ID."));
+	}
+
+	$dbh = DB::connect();
+	if (can_edit_comment($comment_id)) {
+		$q = "UPDATE PackageComments ";
+		$q.= "SET EditedUsersID = ".$uid.", ";
+		$q.= "Comments = ".$dbh->quote($comment).", ";
+		$q.= "EditedTS = UNIX_TIMESTAMP() ";
+		$q.= "WHERE ID = ".intval($comment_id);
+		$dbh->exec($q);
+		return array(true, __("Comment has been edited."));
+	} else {
+		return array(false, __("You are not allowed to edit this comment."));
 	}
 }
 

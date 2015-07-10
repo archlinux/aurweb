@@ -1,0 +1,9 @@
+1. Add a timestamp for comment editing/deletion and an ID of the last user
+who edited a comment:
+
+----
+ALTER TABLE PackageComments
+	ADD COLUMN EditedTS BIGINT UNSIGNED NULL DEFAULT NULL,
+	ADD COLUMN EditedUsersID INTEGER UNSIGNED NULL DEFAULT NULL,
+	ADD FOREIGN KEY (EditedUsersID) REFERENCES Users(ID) ON DELETE SET NULL;
+----

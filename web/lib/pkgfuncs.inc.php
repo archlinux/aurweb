@@ -43,6 +43,32 @@ function can_delete_comment_array($comment) {
 }
 
 /**
+ * Determine if the user can edit a specific package comment
+ *
+ * Only the comment submitter, Trusted Users, and Developers can edit
+ * comments. This function is used for the backend side of comment editing.
+ *
+ * @param string $comment_id The comment ID in the database
+ *
+ * @return bool True if the user can edit the comment, otherwise false
+ */
+function can_edit_comment($comment_id=0) {
+	$dbh = DB::connect();
+
+	$q = "SELECT UsersID FROM PackageComments ";
+	$q.= "WHERE ID = " . intval($comment_id);
+	$result = $dbh->query($q);
+
+	if (!$result) {
+		return false;
+	}
+
+	$uid = $result->fetch(PDO::FETCH_COLUMN, 0);
+
+	return has_credential(CRED_COMMENT_EDIT, array($uid));
+}
+
+/**
  * Determine if the user can edit a specific package comment using an array
  *
  * Only the comment submitter, Trusted Users, and Developers can edit
