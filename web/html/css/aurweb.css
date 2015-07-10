@@ -96,6 +96,11 @@
 	color: #999;
 }
 
+.edited {
+	font-size: 0.9em;
+	color: #999;
+}
+
 .delete-comment-form, .edit-comment {
 	float: right;
 	margin-left: 8px;

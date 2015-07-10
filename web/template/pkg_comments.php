@@ -16,19 +16,33 @@ $count = pkgbase_comments_count($base_id, $include_deleted);
 	</h3>
 
 	<?php while (list($indx, $row) = each($comments)): ?>
-		<?php if ($row['UserName'] && $SID):
-			$row['UserName'] = "<a href=\"" . get_user_uri($row['UserName']) . "\">{$row['UserName']}</a>";
-		endif; ?>
+		<?php
+		$date_fmtd = gmdate('Y-m-d H:i', $row['CommentTS']);
+		if ($row['UserName']) {
+			$user_fmtd = html_format_username($row['UserName']);
+			$heading = __('%s commented on %s', $user_fmtd, $date_fmtd);
+		} else {
+			$heading = __('Anonymous comment on %s', $date_fmtd);
+		}
+
+		if ($row['EditedTS']) {
+			$date_fmtd = gmdate('Y-m-d H:i', $row['EditedTS']);
+			$heading .= ' <span class="edited">(';
+			if ($row['DelUsersID']) {
+				$user_fmtd = html_format_username($row['DelUserName']);
+				$heading .= __('deleted on %s by %s', $date_fmtd, $user_fmtd);
+			} else {
+				$user_fmtd = html_format_username($row['EditUserName']);
+				$heading .= __('last edited on %s by %s', $date_fmtd, $user_fmtd);
+			}
+			$heading .= ')</span>';
+		}
+
+		$row['DelUserName'] = html_format_username($row['DelUserName']);
+		$row['EditUserName'] = html_format_username($row['EditUserName']);
+		?>
 		<h4<?php if ($row['DelUsersID']): ?> class="comment-deleted"<?php endif; ?>>
-			<?php if ($row['UserName']): ?>
-			<?= __('%s commented', $row['UserName']) ?>
-			<?php else: ?>
-			<?= __('Anonymous comment') ?>
-			<?php endif; ?>
-			<?= __('on %s', gmdate('Y-m-d H:i', $row['CommentTS'])) ?>
-			<?php if ($row['DelUsersID']): ?>
-			(<?= __('deleted') ?>)
-			<?php endif; ?>
+			<?= $heading ?>
 			<?php if (!$row['DelUsersID'] && can_delete_comment_array($row)): ?>
 				<form class="delete-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">

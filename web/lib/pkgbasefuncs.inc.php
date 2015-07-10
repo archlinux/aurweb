@@ -47,9 +47,12 @@ function pkgbase_comments($base_id, $limit, $include_deleted) {
 	}
 
 	$dbh = DB::connect();
-	$q = "SELECT PackageComments.ID, UserName, UsersID, Comments, ";
-	$q.= "CommentTS, DelUsersID FROM PackageComments LEFT JOIN Users ";
-	$q.= "ON PackageComments.UsersID = Users.ID ";
+	$q = "SELECT PackageComments.ID, A.UserName AS UserName, UsersID, Comments, ";
+	$q.= "CommentTS, EditedTS, B.UserName AS EditUserName, ";
+	$q.= "DelUsersID, C.UserName AS DelUserName FROM PackageComments ";
+	$q.= "LEFT JOIN Users A ON PackageComments.UsersID = A.ID ";
+	$q.= "LEFT JOIN Users B ON PackageComments.EditedUsersID = B.ID ";
+	$q.= "LEFT JOIN Users C ON PackageComments.DelUsersID = C.ID ";
 	$q.= "WHERE PackageBaseID = " . $base_id . " ";
 	if (!$include_deleted) {
 		$q.= "AND DelUsersID IS NULL ";
