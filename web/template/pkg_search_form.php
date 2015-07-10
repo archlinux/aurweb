@@ -57,7 +57,7 @@ $per_page = array(50, 100, 250);
 		</div>
 		<div>
 			<label for="id_q"><?= __("Keywords"); ?></label>
-			<input type='text' name='K' size='30' value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength='35' autofocus="autofocus" />
+			<input type='text' name='K' size='30' value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength='35' <?= (empty($tokens[1])) ? 'autofocus="autofocus"' : '' ?> />
 		</div>
 		<div>
 			<label for="id_out_of_date"><?= __('Out of Date'); ?></label>
