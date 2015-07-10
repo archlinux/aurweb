@@ -46,6 +46,7 @@ if (isset($_POST['IDs'])) {
 /* Perform package base actions. */
 $ret = false;
 $output = "";
+$fragment = "";
 if (check_token()) {
 	if (current_action("do_Flag")) {
 		list($ret, $output) = pkgbase_flag($ids);
@@ -110,6 +111,9 @@ if (check_token()) {
 		$ret = true;
 	} elseif (current_action("do_EditComment")) {
 		list($ret, $output) = pkgbase_edit_comment($_REQUEST['comment']);
+		if ($ret && isset($_POST["comment_id"])) {
+			$fragment = '#comment-' . intval($_POST["comment_id"]);
+		}
 	}
 
 	if ($ret) {
@@ -120,7 +124,7 @@ if (check_token()) {
 			exit();
 		} if (isset($base_id)) {
 			/* Redirect back to package base page on success. */
-			header('Location: ' . get_pkgbase_uri($pkgbase_name));
+			header('Location: ' . get_pkgbase_uri($pkgbase_name) . $fragment);
 			exit();
 		} else {
 			/* Redirect back to package search page. */
@@ -134,9 +138,9 @@ $pkgs = pkgbase_get_pkgnames($base_id);
 if (!$output && count($pkgs) == 1) {
 	/* Not a split package. Redirect to the package page. */
 	if (empty($_SERVER['QUERY_STRING'])) {
-		header('Location: ' . get_pkg_uri($pkgs[0]));
+		header('Location: ' . get_pkg_uri($pkgs[0]) . $fragment);
 	} else {
-		header('Location: ' . get_pkg_uri($pkgs[0]) . '?' . $_SERVER['QUERY_STRING']);
+		header('Location: ' . get_pkg_uri($pkgs[0]) . '?' . $_SERVER['QUERY_STRING'] . $fragment);
 	}
 }
 
