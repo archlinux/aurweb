@@ -595,7 +595,7 @@ function parse_comment($comment) {
 		if ($i % 2) {
 			# convert links
 			$html .= '<a href="' . htmlspecialchars($matches[$i]) .
-				'">' .	htmlspecialchars($matches[$i]) . '</a>';
+				'" rel="nofollow">' .	htmlspecialchars($matches[$i]) . '</a>';
 		}
 		else {
 			# convert everything else
