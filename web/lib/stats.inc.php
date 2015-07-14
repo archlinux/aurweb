@@ -77,25 +77,29 @@ function general_stats_table() {
 	$yearstamp = intval(strtotime("-1 year"));
 
 	$q = "SELECT COUNT(*) FROM PackageBases ";
-	$q.= "WHERE ModifiedTS >= $targstamp ";
-	$q.= "AND ModifiedTS = SubmittedTS ";
+	$q.= "WHERE SubmittedTS >= $targstamp ";
 	$q.= "AND PackagerUID IS NOT NULL";
 	$add_count = db_cache_value($q, 'add_count');
 
+	/*
+	 * A package whose last modification time differs less than an hour
+	 * from the initial submission time is considered new.
+	 */
+
 	$q = "SELECT COUNT(*) FROM PackageBases ";
 	$q.= "WHERE ModifiedTS >= $targstamp ";
-	$q.= "AND ModifiedTS != SubmittedTS ";
+	$q.= "AND ModifiedTS - SubmittedTS >= 3600 ";
 	$q.= "AND PackagerUID IS NOT NULL";
 	$update_count = db_cache_value($q, 'update_count');
 
 	$q = "SELECT COUNT(*) FROM PackageBases ";
 	$q.= "WHERE ModifiedTS >= $yearstamp ";
-	$q.= "AND ModifiedTS != SubmittedTS ";
+	$q.= "AND ModifiedTS - SubmittedTS >= 3600 ";
 	$q.= "AND PackagerUID IS NOT NULL";
 	$update_year_count = db_cache_value($q, 'update_year_count');
 
 	$q = "SELECT COUNT(*) FROM PackageBases ";
-	$q.= "WHERE ModifiedTS = SubmittedTS ";
+	$q.= "WHERE ModifiedTS - SubmittedTS < 3600 ";
 	$q.= "AND PackagerUID IS NOT NULL";
 	$never_update_count = db_cache_value($q, 'never_update_count');
 
