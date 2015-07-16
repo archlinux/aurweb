@@ -216,8 +216,9 @@ cur.execute("SELECT Name FROM PackageBlacklist")
 blacklist = [row[0] for row in cur.fetchall()]
 
 for commit in walker:
-    if not '.SRCINFO' in commit.tree:
-        die_commit("missing .SRCINFO", str(commit.id))
+    for fname in ('.SRCINFO', 'PKGBUILD'):
+        if not fname in commit.tree:
+            die_commit("missing {:s}".format(fname), str(commit.id))
 
     for treeobj in commit.tree:
         blob = repo[treeobj.id]
