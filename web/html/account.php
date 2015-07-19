@@ -19,6 +19,26 @@ if (in_array($action, $need_userinfo)) {
 	$PK = implode("\n", account_get_ssh_keys($row["ID"]));
 }
 
+/* This has to be done before the navigation headers are written,
+ * because html_header() fetches the current username from the database,
+ * which could be changed by process_account_form()
+ */
+if ($action == "UpdateAccount") {
+	$update_account_message = '';
+	/* Details for account being updated */
+	/* Verify user permissions and that the request is a valid POST */
+	if (can_edit_account($row) && check_token()) {
+		/* Update the details for the existing account */
+		list($success, $update_account_message) = process_account_form(
+			"edit", "UpdateAccount",
+			in_request("U"), in_request("T"), in_request("S"),
+			in_request("E"), in_request("P"), in_request("C"),
+			in_request("R"), in_request("L"), in_request("I"),
+			in_request("K"), in_request("PK"), in_request("J"),
+			in_request("ID"), $row["Username"]);
+	}
+}
+
 if ($action == "AccountInfo") {
 	html_header(__('Account') . ' ' . $row['Username']);
 } else {
@@ -91,17 +111,15 @@ if (isset($_COOKIE["AURSID"])) {
 		}
 
 	} elseif ($action == "UpdateAccount") {
-		/* Details for account being updated */
-		/* Verify user permissions and that the request is a valid POST */
-		if (can_edit_account($row) && check_token()) {
-			/* Update the details for the existing account */
-			process_account_form("edit", "UpdateAccount",
-					in_request("U"), in_request("T"), in_request("S"),
-					in_request("E"), in_request("P"), in_request("C"),
-					in_request("R"), in_request("L"), in_request("I"),
-					in_request("K"), in_request("PK"), in_request("J"),
-					in_request("ID"), $row["Username"]);
+		print $update_account_message;
+
+		if (!$success) {
+			display_account_form("UpdateAccount", in_request("U"), in_request("T"),
+				in_request("S"), in_request("E"), in_request("P"), in_request("C"),
+				in_request("R"), in_request("L"), in_request("I"), in_request("K"),
+				in_request("PK"), in_request("J"), in_request("ID"), $row["Username"]);
 		}
+
 	} else {
 		if (has_credential(CRED_ACCOUNT_SEARCH)) {
 			# display the search page if they're a TU/dev

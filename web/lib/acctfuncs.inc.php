@@ -89,13 +89,14 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$P="",$C="",$R="",
  * @param string $UID The user ID of the modified account
  * @param string $N The username as present in the database
  *
- * @return string|void Return void if successful, otherwise return error
+ * @return array Boolean indicating success and message to be printed
  */
 function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 		$R="",$L="",$I="",$K="",$PK="",$J="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
+	$message = '';
 
 	if (is_ipbanned()) {
 		$error = __('Account registration has been disabled ' .
@@ -247,10 +248,8 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 	}
 
 	if ($error) {
-		print "<ul class='errorlist'><li>".$error."</li></ul>\n";
-		display_account_form($A, $U, $T, $S, $E, "", "",
-				$R, $L, $I, $K, $PK, $J, $UID, $N);
-		return;
+		$message = "<ul class='errorlist'><li>".$error."</li></ul>\n";
+		return array(false, $message);
 	}
 
 	if ($TYPE == "new") {
@@ -278,25 +277,25 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 		$q.= "$I, $K)";
 		$result = $dbh->exec($q);
 		if (!$result) {
-			print __("Error trying to create account, %s%s%s.",
+			$message = __("Error trying to create account, %s%s%s.",
 					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
-			return;
+			return array(false, $message);
 		}
 
 		$uid = $dbh->lastInsertId();
 		account_set_ssh_keys($uid, $ssh_keys, $ssh_fingerprints);
 
-		print __("The account, %s%s%s, has been successfully created.",
+		$message = __("The account, %s%s%s, has been successfully created.",
 				"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
-		print "<p>\n";
+		$message .= "<p>\n";
 
 		if ($send_resetkey) {
 			send_resetkey($email, true);
-			print __("A password reset key has been sent to your e-mail address.");
-			print "</p>\n";
+			$message .= __("A password reset key has been sent to your e-mail address.");
+			$message .= "</p>\n";
 		} else {
-			print __("Click on the Login link above to use your account.");
-			print "</p>\n";
+			$message .= __("Click on the Login link above to use your account.");
+			$message .= "</p>\n";
 		}
 	} else {
 		/* Modify an existing account. */
@@ -341,13 +340,15 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 		$ssh_key_result = account_set_ssh_keys($UID, $ssh_keys, $ssh_fingerprints);
 
 		if ($result === false || $ssh_key_result === false) {
-			print __("No changes were made to the account, %s%s%s.",
+			$message = __("No changes were made to the account, %s%s%s.",
 					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 		} else {
-			print __("The account, %s%s%s, has been successfully modified.",
+			$message = __("The account, %s%s%s, has been successfully modified.",
 					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
 		}
 	}
+
+	return array(true, $message);
 }
 
 /**
