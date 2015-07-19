@@ -56,11 +56,12 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $PK The list of SSH public keys
  * @param string $J The inactivity status of the displayed user
  * @param string $UID The user ID of the displayed user
+ * @param string $N The username as present in the database
  *
  * @return void
  */
 function display_account_form($A,$U="",$T="",$S="",$E="",$P="",$C="",$R="",
-		$L="",$I="",$K="",$PK="",$J="", $UID=0) {
+		$L="",$I="",$K="",$PK="",$J="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	include("account_edit_form.php");
@@ -86,11 +87,12 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$P="",$C="",$R="",
  * @param string $PK The list of public SSH keys
  * @param string $J The inactivity status of the user
  * @param string $UID The user ID of the modified account
+ * @param string $N The username as present in the database
  *
  * @return string|void Return void if successful, otherwise return error
  */
 function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
-		$R="",$L="",$I="",$K="",$PK="",$J="",$UID=0) {
+		$R="",$L="",$I="",$K="",$PK="",$J="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
@@ -247,7 +249,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 	if ($error) {
 		print "<ul class='errorlist'><li>".$error."</li></ul>\n";
 		display_account_form($A, $U, $T, $S, $E, "", "",
-				$R, $L, $I, $K, $PK, $J, $UID);
+				$R, $L, $I, $K, $PK, $J, $UID, $N);
 		return;
 	}
 

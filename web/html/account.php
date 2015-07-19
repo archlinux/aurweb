@@ -61,7 +61,7 @@ if (isset($_COOKIE["AURSID"])) {
 					$row["AccountTypeID"], $row["Suspended"], $row["Email"],
 					"", "", $row["RealName"], $row["LangPreference"],
 					$row["IRCNick"], $row["PGPKey"], $PK,
-					$row["InactivityTS"] ? 1 : 0, $row["ID"]);
+					$row["InactivityTS"] ? 1 : 0, $row["ID"], $row["Username"]);
 			} else {
 				print __("You do not have permission to edit this account.");
 			}
@@ -100,7 +100,7 @@ if (isset($_COOKIE["AURSID"])) {
 					in_request("E"), in_request("P"), in_request("C"),
 					in_request("R"), in_request("L"), in_request("I"),
 					in_request("K"), in_request("PK"), in_request("J"),
-					in_request("ID"));
+					in_request("ID"), $row["Username"]);
 		}
 	} else {
 		if (has_credential(CRED_ACCOUNT_SEARCH)) {

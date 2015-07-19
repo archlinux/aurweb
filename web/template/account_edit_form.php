@@ -1,9 +1,9 @@
 <?php if ($A == "UpdateAccount"): ?>
 <p>
-	<?= __('Click %shere%s if you want to permanently delete this account.', '<a href="' . get_user_uri($U) . 'delete/' . '">', '</a>') ?>
+	<?= __('Click %shere%s if you want to permanently delete this account.', '<a href="' . get_user_uri($N) . 'delete/' . '">', '</a>') ?>
 </p>
 
-<form id="edit-profile-form" action="<?= get_user_uri($U) . 'update/'; ?>" method="post">
+<form id="edit-profile-form" action="<?= get_user_uri($N) . 'update/'; ?>" method="post">
 <?php else: ?>
 <form id="edit-profile-form" action="<?= get_uri('/register/'); ?>" method="post">
 <?php endif; ?>
