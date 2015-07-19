@@ -25,7 +25,7 @@ if (in_request("Action") == "NewAccount") {
 			in_request("PK"));
 
 } else {
-	print __("Use this form to create an account.");
+	print '<p>' . __("Use this form to create an account.") . '</p>';
 	display_account_form("NewAccount", "", "", "", "", "", "", "", $LANG);
 }
 
