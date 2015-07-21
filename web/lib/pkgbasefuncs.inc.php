@@ -187,7 +187,7 @@ function pkgbase_display_details($base_id, $row, $SID="") {
 		include('pkgbase_details.php');
 
 		if ($SID) {
-			include('pkg_comment_form.php');
+			include('pkg_comment_box.php');
 		}
 
 		$limit = isset($_GET['comments']) ? 0 : 10;

@@ -17,5 +17,5 @@ if (!isset($base_id) || !has_credential(CRED_COMMENT_EDIT, array($user_id)) || i
 }
 
 html_header(__("Edit comment"));
-include('pkg_comment_form.php');
+include('pkg_comment_box.php');
 html_footer(AURWEB_VERSION);

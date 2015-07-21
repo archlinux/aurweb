@@ -1,5 +1,3 @@
-<div id="generic-form" class="box">
-	<h2><?= (isset($comment_id)) ? __('Edit comment for: %s', htmlspecialchars($pkgbase_name)) : __("Add Comment"); ?></h2>
 	<form action="<?= get_pkgbase_uri($pkgbase_name) ?>" method="post">
 		<fieldset>
 <?php
@@ -23,5 +21,3 @@ if (isset($_REQUEST['comment']) && check_token()) {
 			</p>
 		</fieldset>
 	</form>
-</div>
-

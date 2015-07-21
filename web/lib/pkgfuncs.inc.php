@@ -481,7 +481,7 @@ function pkg_display_details($id=0, $row, $SID="") {
 		include('pkg_details.php');
 
 		if ($SID) {
-			include('pkg_comment_form.php');
+			include('pkg_comment_box.php');
 		}
 
 		$limit = isset($_GET['comments']) ? 0 : 10;
