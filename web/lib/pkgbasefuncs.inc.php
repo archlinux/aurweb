@@ -140,7 +140,7 @@ function pkgbase_get_details($base_id) {
 	$dbh = DB::connect();
 
 	$q = "SELECT PackageBases.ID, PackageBases.Name, ";
-	$q.= "PackageBases.NumVotes, ";
+	$q.= "PackageBases.NumVotes, PackageBases.Popularity, ";
 	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
 	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
 	$q.= "PackageBases.MaintainerUID, PackageBases.PackagerUID, ";

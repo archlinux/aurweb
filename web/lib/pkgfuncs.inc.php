@@ -431,8 +431,8 @@ function pkg_get_details($id=0) {
 	$dbh = DB::connect();
 
 	$q = "SELECT Packages.*, PackageBases.ID AS BaseID, ";
-	$q.= "PackageBases.Name AS BaseName, ";
-	$q.= "PackageBases.NumVotes, PackageBases.OutOfDateTS, ";
+	$q.= "PackageBases.Name AS BaseName, PackageBases.NumVotes, ";
+	$q.= "PackageBases.Popularity, PackageBases.OutOfDateTS, ";
 	$q.= "PackageBases.SubmittedTS, PackageBases.ModifiedTS, ";
 	$q.= "PackageBases.SubmitterUID, PackageBases.MaintainerUID, ";
 	$q.= "PackageBases.PackagerUID, ";
