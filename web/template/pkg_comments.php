@@ -63,12 +63,10 @@ $count = pkgbase_comments_count($base_id, $include_deleted);
 			</p>
 		</div>
 	<?php endwhile; ?>
-</div>
 
 <?php if ($count > 10 && !isset($_GET['comments'])): ?>
-<div id="news">
 	<h3>
 		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all comments') ?> (<?= $count ?>)"><?= __('All comments', $count) ?></a>
 	</h3>
-</div>
 <?php endif; ?>
+</div>
