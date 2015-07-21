@@ -8,9 +8,9 @@ $username = username_from_sid($_COOKIE["AURSID"]);
 	<tr>
 		<td>
 			<a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;K=<?= $username; ?>">
-<?= __("Packages in unsupported"); ?></a>
+<?= __("Packages"); ?></a>
 		</td>
-		<td><?= $maintainer_unsupported_count; ?></td>
+		<td><?= $user_pkg_count; ?></td>
 	</tr>
 	<tr>
 		<td>

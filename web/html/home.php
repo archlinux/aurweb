@@ -39,7 +39,7 @@ html_header( __("Home") );
 			</p>
 			<p class="important">
 			<?= __('DISCLAIMER') ?>:
-			<?= __('Unsupported packages are user produced content. Any use of the provided files is at your own risk.'); ?>
+			<?= __('AUR packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</p>
 			<p class="readmore"><a href="https://wiki.archlinux.org/index.php/AUR"><?= __('Learn more...') ?></a></p>
 		</div>

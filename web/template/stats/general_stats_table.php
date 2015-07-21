@@ -3,7 +3,7 @@
 <table>
 	<tr>
 		<td class="stat-desc"><?= __("Packages"); ?></td>
-		<td><?= $unsupported_count; ?></td>
+		<td><?= $pkg_count; ?></td>
 	</tr>
 	<tr>
 		<td class="stat-desc"><?= __("Orphan Packages"); ?></td>
