@@ -124,6 +124,12 @@
 	opacity: 1;
 }
 
+.ajax-loader {
+	float: right;
+	position: relative;
+	top: 4px;
+}
+
 legend {
 	padding: 1em 0;
 }

@@ -160,6 +160,10 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		header("Content-Type: text/css");
 		readfile("./$path");
 		break;
+	case "/images/ajax-loader.gif":
+		header("Content-Type: image/gif");
+		readfile("./$path");
+		break;
 	case "/css/archnavbar/archlogo.gif":
 	case "/images/new.png":
 		header("Content-Type: image/png");

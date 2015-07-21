@@ -70,3 +70,38 @@ $count = pkgbase_comments_count($base_id, $include_deleted);
 	</h3>
 <?php endif; ?>
 </div>
+<script>
+$(document).ready(function() {
+	$('.edit-comment').click(function () {
+		var parent_element = this.parentElement,
+			parent_id = parent_element.id,
+			comment_id = parent_id.substr(parent_id.indexOf('-') + 1),
+			edit_form = $(parent_element).next(),
+			_this = $(this);
+		add_busy_indicator(_this);
+		$.getJSON('<?= get_uri('/rpc') ?>', {
+			type: 'get-comment-form',
+			arg: comment_id,
+			base_id: <?= intval($base_id) ?>,
+			pkgbase_name: <?= json_encode($pkgbase_name) ?>
+		}, function (data) {
+			remove_busy_indicator(_this);
+			if (data.success) {
+				edit_form.html(data.form);
+				edit_form.find('textarea').focus();
+			} else {
+				alert(data.error);
+			}
+		});
+		return false;
+	});
+
+	function add_busy_indicator(sibling) {
+		sibling.after('<img src="/images/ajax-loader.gif" class="ajax-loader" width="16" height="11" alt="Busy…" />');
+	}
+
+	function remove_busy_indicator(sibling) {
+		sibling.next().remove();
+	}
+});
+</script>
