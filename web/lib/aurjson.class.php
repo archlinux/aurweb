@@ -14,7 +14,7 @@ class AurJSON {
 	private $version = 1;
 	private static $exposed_methods = array(
 		'search', 'info', 'multiinfo', 'msearch', 'suggest',
-		'suggest-pkgbase'
+		'suggest-pkgbase', 'get-comment-form'
 	);
 	private static $exposed_fields = array(
 		'name', 'name-desc'
@@ -476,6 +476,53 @@ class AurJSON {
 		}
 
 		return json_encode($result_array);
+	}
+
+	/**
+	 * Get the HTML markup of the comment form.
+	 *
+	 * @param array $http_data Query parameters.
+	 *
+	 * @return string The JSON formatted response data.
+	 */
+	private function get_comment_form($http_data) {
+		if (!isset($http_data['base_id']) || !isset($http_data['pkgbase_name'])) {
+			$output = array(
+				'success' => 0,
+				'error' => __('Package base ID or package base name missing.')
+			);
+			return json_encode($output);
+		}
+
+		$comment_id = intval($http_data['arg']);
+		$base_id = intval($http_data['base_id']);
+		$pkgbase_name = $http_data['pkgbase_name'];
+
+		list($user_id, $comment) = comment_by_id($comment_id);
+
+		if (!has_credential(CRED_COMMENT_EDIT, array($user_id))) {
+			$output = array(
+				'success' => 0,
+				'error' => __('You do not have the right to edit this comment.')
+			);
+			return json_encode($output);
+		} elseif (is_null($comment)) {
+			$output = array(
+				'success' => 0,
+				'error' => __('Comment does not exist.')
+			);
+			return json_encode($output);
+		}
+
+		ob_start();
+		include('pkg_comment_form.php');
+		$html = ob_get_clean();
+		$output = array(
+			'success' => 1,
+			'form' => $html
+		);
+
+		return json_encode($output);
 	}
 }
 
