@@ -24,6 +24,9 @@ Functionality
 Directory Layout
 ----------------
 
+doc::
+	aurweb documentation.
+
 po::
 	Translation files for strings in the aurweb interface.
 
@@ -40,7 +43,7 @@ Links
 -----
 
 * The repository is hosted at git://projects.archlinux.org/aurweb.git -- see
-  HACKING for information on submitting patches.
+  doc/CodingGuidelines for information on submitting patches.
 
 * Discovered bugs can be submitted to the aurweb bug tracker:
   https://bugs.archlinux.org/index.php?project=2

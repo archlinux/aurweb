@@ -23,8 +23,8 @@ Use `git shortlog -s` for a list of aurweb contributors.
 Translations
 ------------
 
-Our translations are currently maintained in Transifex; please read TRANSLATING
-for more details.
+Our translations are currently maintained in Transifex; please read
+doc/i18n.txt for more details.
 
 Below is a list of past translators before we switched to Transifex; more can
 be found by looking in the Git history.

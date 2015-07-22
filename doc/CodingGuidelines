@@ -1,11 +1,13 @@
-HACKING
+Coding Guidelines
+=================
 
 DISCLAIMER: We realise the code doesn't necessarily follow all the rules.
 This is an attempt to establish a standard coding style for future
 development.
 
-Coding style guidelines
------------------------
+Coding style
+------------
+
 Column width: 79 columns or less within reason.
 
 Indentation: tabs (standard eight column width)
@@ -28,6 +30,7 @@ MySQL queries should generally go into functions.
 
 Submitting patches
 ------------------
+
 !!! PLEASE TEST YOUR PATCHES BEFORE SUBMITTING !!!
 Submit uncompressed git-formatted patches to aur-dev@archlinux.org.
 
@@ -49,4 +52,3 @@ Glossary
 git-formatted patch:
 	A patch that is produced via `git format-patch` and is sent via
 	`git send-email` or as an inline attachment of an email.
-
