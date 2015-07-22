@@ -139,6 +139,7 @@ class AurJSON {
 	 * Returns a JSON formatted result data.
 	 *
 	 * @param $type The response method type.
+	 * @param $count The number of results to return
 	 * @param $data The result data to return
 	 * @param $error An error message to include in the response
 	 *
@@ -159,6 +160,13 @@ class AurJSON {
 		return json_encode($json_array);
 	}
 
+	/*
+	 * Get extended package details (for info and multiinfo queries).
+	 *
+	 * @param $pkgid The ID of the package to retrieve details for.
+	 *
+	 * @return array An array containing package details.
+	 */
 	private function get_extended_fields($pkgid) {
 		$query = "SELECT DependencyTypes.Name AS Type, " .
 			"PackageDepends.DepName AS Name, " .
@@ -208,6 +216,15 @@ class AurJSON {
 		return $data;
 	}
 
+	/*
+	 * Retrieve package information (used in info, multiinfo, search and
+	 * msearch requests).
+	 *
+	 * @param $type The request type.
+	 * @param $where_condition An SQL WHERE-condition to filter packages.
+	 *
+	 * @return mixed Returns an array of package matches.
+	 */
 	private function process_query($type, $where_condition) {
 		$max_results = config_get_int('options', 'max_rpc_results');
 
