@@ -1,0 +1,81 @@
+The aurweb Git and SSH interface
+================================
+
+Git storage
+-----------
+
+Since release 4.0.0, aurweb uses Git repositories to store packages. Git
+namespaces (see gitnamespaces(7)) are used to share the object database, such
+that delta compression can be applied across package base boundaries.
+
+Internally, all packages are stored in a single Git repository. Special refs,
+so-called namespaced branches, are used to refer to the commits corresponding
+to the actual package bases. For convenience, we also create a branch for each
+package repository that carries the name of the corresponding package base,
+such that one can easily access the history of a given package base by running
+`git log <pkgbase>`. To the end-user, the individual namespaced branches are
+presented as separate Git repositories.
+
+Authentication: git-auth
+------------------------
+
+Pushing to package repositories is possible via SSH. In order to access the SSH
+interface, users first need to add an SSH public key to their account using the
+web interface. Authentication is performed by the git-auth
+AuthorizedKeysCommand script (see sshd_config(5) for details) that looks up the
+public key in the AUR user table. Using this concept of "virtual users", there
+is no need to create separate UNIX accounts for each registered AUR user.
+
+If the public key is found, the corresponding authorized_keys line is printed
+to stdout. If the public key does not exist, the login is denied. The
+authorized_keys line also contains a forced command such that authenticated
+users cannot access anything on the server except for the aurweb SSH interface.
+The forced command can be configured in the aurweb configuration file and
+usually points to the git-serve program.
+
+The INSTALL file in the top-level directory contains detailed instructions on
+how to configure sshd(8) to use git-auth for authentication.
+
+The Shell: git-serve
+--------------------
+
+The git-serve command, the "aurweb shell", provides different subcommands:
+
+* The help command shows a list of available commands.
+* The list-repos command lists all repositories of the authenticated user.
+* The setup-repo command can be used to create a new repository.
+* The git-{receive,upload}-pack commands are redirected to git-shell(1).
+
+The requested command is extracted from the SSH_ORIGINAL_COMMAND environment
+variable which is usually set by the SSH daemon. If no command is specified,
+git-serve displays a message that aurweb does not provide an interactive shell.
+
+When invoking git-shell(1), the git-serve command also redirects all paths to
+the shared Git repository and sets up the GIT_NAMESPACE environment variable
+such that Git updates the right namespaced branch.
+
+The Update Hook: git-update
+---------------------------
+
+The Git update hook, called git-update, performs several subtasks:
+
+* Prevent from creating branches or tags other than master.
+* Deny non-fast-forwards, except for Trusted Users and Developers.
+* Check each new commit (validate meta data, impose file size limits, ...)
+* Update package base information and package information in the database.
+* Update the named branch and the namespaced HEAD ref of the package.
+
+It needs to be added to the shared Git repository, see INSTALL in the top-level
+directory for further information.
+
+Accessing Git repositories via HTTP
+-----------------------------------
+
+Git repositories can also be accessed via HTTP by configuring the web server to
+forward specific requests to git-http-backend(1). Note that, since Git
+namespaces are used internally, the web server also needs to rewrite URIs and
+setup the GIT_NAMESPACE environment variable accordingly before forwarding a
+request.
+
+An example configuration for nginx and fcgiwrap can be found in the INSTALL
+instructions in the top-level directory.
