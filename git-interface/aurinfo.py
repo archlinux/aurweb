@@ -194,7 +194,7 @@ if __name__ == '__main__':
         action, filename = sys.argv[1:3]
 
     if action == 'parse':
-        aurinfo = ParseAurinfo()
+        aurinfo = ParseAurinfo(filename)
         for pkgname in aurinfo.GetPackageNames():
             print(">>> merged package: {:s}".format(pkgname))
             pp.pprint(aurinfo.GetMergedPackage(pkgname))
