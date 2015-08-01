@@ -121,7 +121,7 @@ def ParseAurinfoFromIterable(iterable, ecatcher=None):
             current_package = None
             continue
 
-        if not line.startswith('\t'):
+        if not (line.startswith('\t') or line.startswith(' ')):
             # start of new package
             try:
                 key, value = map(str.strip, line.split('=', 1))
