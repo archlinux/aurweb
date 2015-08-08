@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Adolfo Jayme Barrientos, 2015
 # Angel Velasquez <angvp@archlinux.org>, 2011
 # juantascon <juantascon@gmail.com>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
@@ -14,10 +15,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/aur/language/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-21 21:28+0000\n"
+"Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/lfleischer/aur/language/"
 "es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -29,14 +30,16 @@ msgid "Page Not Found"
 msgstr "Página no encontrada"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr "Disculpe, la página que solicitó no existe."
+msgstr "La página solicitada no existe."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Servicio no disponible"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
+"¡No se asuste! El sitio está desactivado por tareas de mantenimiento. "
+"Volveremos pronto."
 
 msgid "Account"
 msgstr "Cuenta"
@@ -59,14 +62,11 @@ msgstr "Use este formulario para buscar cuentas existentes."
 msgid "You must log in to view user information."
 msgstr "Debe autentificarse para ver la información del usuario."
 
-msgid "Use this form to create an account."
-msgstr "Use este formulario para crear una cuenta."
-
 msgid "Add Proposal"
 msgstr "Añadir propuesta"
 
 msgid "Invalid token for user action."
-msgstr "Elemento inválido para la acción del usuario."
+msgstr "La ficha no es válida para la acción de usuario."
 
 msgid "Username does not exist."
 msgstr "El nombre de usuario no existe."
@@ -106,7 +106,7 @@ msgid "Removal of a TU (undeclared inactivity)"
 msgstr "Remover a un usuario de confianza (no declarado inactivo)"
 
 msgid "Amendment of Bylaws"
-msgstr "Enmienda a las Bylaws (Reglas de los TU)"
+msgstr "Enmienda a los Estatutos"
 
 msgid "Proposal"
 msgstr "Propuesta"
@@ -154,48 +154,81 @@ msgstr ""
 "Los paquetes no soportados son producidos por los usuarios. Cualquier uso de "
 "los archivos de estos es a su propio riesgo."
 
+msgid "Learn more..."
+msgstr "Más información…"
+
 msgid "Support"
-msgstr ""
+msgstr "Ayuda"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "Solicitudes para los paquetes"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
 msgstr ""
+"Hay tres tipos de solicitudes que puede presentar en el cuadro %sAcciones "
+"del paquete%s en la página de detalles del paquete:"
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "Solicitud de orfandad"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"Solicitar la orfandad de un paquete, por ejemplo, cuando el encargado está "
+"inactivo y el paquete se ha marcado como desactualizado por un largo tiempo."
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "Solicitud de eliminación"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"Solicitar la eliminación de un paquete del repositorio de usuarios de Arch. "
+"No utilice esta opción si un paquete está roto pero puede ser arreglado "
+"fácilmente. En cambio, contacte al encargado del paquete y presentar "
+"solicitud orfandad si es necesario."
 
 msgid "Merge Request"
-msgstr ""
+msgstr "Solicitud de unión"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"Solicitar que un paquete sea unido con otro. Puede ser utilizado cuando un "
+"paquete tiene que ser cambiado de nombre o sustituido por un paquete "
+"dividido."
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"Si quiere discutir una solicitud, puede utilizar la lista de correo %saur-"
+"requests%s. Sin embargo, por favor no utilice esa lista para presentar "
+"solicitudes."
+
+msgid "Submitting Packages"
+msgstr "Subir paquetes"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Ahora se utiliza Git sobre SSH para subir paquetes al AUR. Vea la sección "
+"%sSubir paquetes%s de la wiki del repositorio de usuarios de Arch para más "
+"detalles."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "Las siguientes huellas SSH están en uso para AUR."
 
 msgid "Discussion"
 msgstr "Debate"
@@ -206,6 +239,10 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"La discusión general sobre el repositorio de usuarios de Arch (AUR) y la "
+"estructura de usuarios de confianza se realiza en la lista de correos %saur-"
+"general%s. Para la discusión en relación con el desarrollo de la interfaz "
+"web del AUR, utilice la lista de correo %saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "Informe de errores"
@@ -217,6 +254,11 @@ msgid ""
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
 msgstr ""
+"Si encuentra un error en la interfaz web del AUR, llene un informe de error "
+"en nuestro %srastreador de errores o «bug tracker»%s. Use este para reportar "
+"%súnicamente%s errores del AUR. Para reportar errores de empaquetado debe "
+"contactar al encargado o deje un comentario en la página respectiva del "
+"paquete."
 
 msgid "Package Search"
 msgstr "Buscar paquetes"
@@ -253,7 +295,7 @@ msgid "Logout"
 msgstr "Salir"
 
 msgid "Enter login credentials"
-msgstr "Introduce las credenciales de autentificación"
+msgstr "Proporcione sus datos de acceso"
 
 msgid "Username"
 msgstr "Nombre de usuario"
@@ -265,7 +307,7 @@ msgid "Remember me"
 msgstr "Recordarme"
 
 msgid "Forgot Password"
-msgstr "Olvidó su cotraseña"
+msgstr "¿Olvidó su contraseña?"
 
 #, php-format
 msgid ""
@@ -308,22 +350,22 @@ msgstr ""
 "nada."
 
 msgid "Password Reset"
-msgstr "Reiniciar la contraseña"
+msgstr "Restablecer la contraseña"
 
 msgid "Check your e-mail for the confirmation link."
 msgstr "Compruebe su correo para ver el enlace de confirmación."
 
 msgid "Your password has been reset successfully."
-msgstr "Su contraseña ha sido reiniciada con éxito."
+msgstr "Se ha restablecido la contraseña correctamente."
 
 msgid "Confirm your e-mail address:"
 msgstr "Confirme su dirección de correo:"
 
 msgid "Enter your new password:"
-msgstr "Introduzca su nueva contraseña:"
+msgstr "Escriba su contraseña nueva:"
 
 msgid "Confirm your new password:"
-msgstr "Confirme su nueva contraseña:"
+msgstr "Confirme la contraseña nueva:"
 
 msgid "Continue"
 msgstr "Continuar"
@@ -484,6 +526,12 @@ msgstr "Último"
 msgid "Requests"
 msgstr "Solicitud"
 
+msgid "Register"
+msgstr "Registro"
+
+msgid "Use this form to create an account."
+msgstr "Use este formulario para crear una cuenta."
+
 msgid "Trusted User"
 msgstr "Usuario de confianza"
 
@@ -574,7 +622,7 @@ msgid "The account, %s%s%s, has been successfully created."
 msgstr "La cuenta, %s%s%s, fue creada satisfactoriamente."
 
 msgid "Click on the Login link above to use your account."
-msgstr "Haz clic en el enlace de autentificación para usar su cuenta."
+msgstr "Pulse en el enlace de acceso anterior para utilizar la cuenta."
 
 #, php-format
 msgid ""
@@ -587,7 +635,9 @@ msgstr ""
 "la barra de direcciones de su navegador web."
 
 msgid "A password reset key has been sent to your e-mail address."
-msgstr "Una llave para reiniciar su contraseña a sido enviada a su correo."
+msgstr ""
+"Se envió una clave de restablecimiento de contraseña a su dirección de "
+"correo electrónico."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -630,6 +680,10 @@ msgstr "Combinación de dirección de correo y clave no válida."
 
 msgid "None"
 msgstr "Nada"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "Ver información de la cuenta para %s"
 
 msgid "Error retrieving package details."
 msgstr "Error al recuperar los detalles del paquete."
@@ -720,17 +774,11 @@ msgstr "Comentario eliminado."
 msgid "You are not allowed to delete this comment."
 msgstr "No está autorizado a eliminar este comentario."
 
-msgid "Missing category ID."
-msgstr "Falta el Identificador de categoría."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr "No está autorizado a editar las palabras clave de este paquete base."
 
-msgid "Invalid category ID."
-msgstr "El identificador de categoría no es válido."
-
-msgid "You are not allowed to change this package category."
-msgstr "No puede cambiar la categoría de este paquete."
-
-msgid "Package category changed."
-msgstr "Categoría del paquete cambiada."
+msgid "The package base keywords have been updated."
+msgstr "Las palabras clave del paquete base se han actualizado."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "No se le permite administrar los coencargados de este paquete base."
@@ -858,8 +906,8 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
-"La siguiente información solamente es necesaria si desea subir paquetes al "
-"Repositorio de Usuarios de Arch."
+"La siguiente información únicamente es necesaria si desea subir paquetes al "
+"repositorio de usuarios de Arch."
 
 msgid "SSH Public Key"
 msgstr "Clave pública SSH"
@@ -918,15 +966,6 @@ msgstr "Mis paquetes"
 msgid " My Account"
 msgstr "Mi cuenta"
 
-msgid "Register"
-msgstr "Registro"
-
-msgid "unknown"
-msgstr "desconocido"
-
-msgid "Package Base Details"
-msgstr "Detalles del paquete base"
-
 msgid "Package Actions"
 msgstr "Acciones del paquete"
 
@@ -981,21 +1020,23 @@ msgstr "Unir paquete"
 msgid "Adopt Package"
 msgstr "Adoptar paquete"
 
+msgid "unknown"
+msgstr "desconocido"
+
+msgid "Package Base Details"
+msgstr "Detalles del paquete base"
+
 msgid "Git Clone URL"
 msgstr "Dirección URL de clonado con Git"
 
-msgid "Category"
-msgstr "Categoría"
+msgid "read-only"
+msgstr "Solamente lectura"
 
-msgid "Change category"
-msgstr "Cambiar categoría"
+msgid "Keywords"
+msgstr "Palabras claves"
 
 msgid "Submitter"
 msgstr "Primer encargado"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Ver información de la cuenta para %s"
 
 msgid "Maintainer"
 msgstr "Encargado"
@@ -1203,7 +1244,7 @@ msgid "Name"
 msgstr "Nombre"
 
 msgid "Popularity"
-msgstr ""
+msgstr "Popularidad"
 
 msgid "Voted"
 msgstr "Votado"
@@ -1220,14 +1261,8 @@ msgstr "Descendente"
 msgid "Enter search criteria"
 msgstr "Introduzca el criterio de búsqueda"
 
-msgid "Any"
-msgstr "Cualquiera"
-
 msgid "Search by"
 msgstr "Buscar por"
-
-msgid "Keywords"
-msgstr "Palabras claves"
 
 msgid "Out of Date"
 msgstr "Desactualizado"
@@ -1261,6 +1296,13 @@ msgstr[1] "%d paquetes fueron encontrados."
 
 msgid "Version"
 msgstr "Versión"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
+"La popularidad se calcula como la suma de todos los votos con cada voto "
+"ponderado con un factor de 0,98 por día desde la creación del paquete."
 
 msgid "Yes"
 msgstr "Sí"

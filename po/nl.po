@@ -3,17 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Heimen Stoffels <vistausss@outlook.com>, 2015
 # jelly <jelle@vdwaa.nl>, 2011
 # Sietse <sietse@vdmolen.eu>, 2013
 # Sietse <sietse@vdmolen.eu>, 2013
+# Wijnand Modderman-Lenstra <accounts-transifex@maze.io>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Dutch (http://www.transifex.com/projects/p/aur/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/lfleischer/aur/language/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,63 +23,62 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Page Not Found"
-msgstr "Pagina niet gevonden"
+msgstr "De pagina kon niet worden gevonden"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr "Sorry, de pagina die je hebt aangevraagd bestaat niet."
+msgstr "Sorry, de pagina die u heeft aangevraagd bestaat niet."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "De dienst is niet beschikbaar"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
+"Raak niet in paniek! De website is uit de lucht wegens werkzaamheden. We "
+"zullen snel weer terug in de lucht zijn."
 
 msgid "Account"
-msgstr ""
+msgstr "Account"
 
 msgid "Accounts"
 msgstr "Accounts"
 
 msgid "You are not allowed to access this area."
-msgstr "Geen toegang tot dit gebied."
+msgstr "U heeft geen toegang tot dit gebied."
 
 msgid "Could not retrieve information for the specified user."
 msgstr "Kon geen informatie ophalen voor de opgegeven gebruiker."
 
 msgid "You do not have permission to edit this account."
-msgstr "Je hebt geen toestemming om dit account te bewerken."
+msgstr "U heeft geen toestemming om dit account te bewerken."
 
 msgid "Use this form to search existing accounts."
-msgstr "Gebruik dit formulier om bestaande accounts zoeken."
+msgstr "Gebruik dit formulier om bestaande accounts te zoeken."
 
 msgid "You must log in to view user information."
 msgstr "U moet inloggen om de gebruikersinformatie te bekijken."
 
-msgid "Use this form to create an account."
-msgstr "Gebruik dit formulier om een ​​account aan te maken."
-
 msgid "Add Proposal"
-msgstr "Voeg Voorstel Toe"
+msgstr "Voorstel toevoegen"
 
 msgid "Invalid token for user action."
 msgstr "Ongeldige token voor gebruikersactie."
 
 msgid "Username does not exist."
-msgstr "Gebruikersnaam bestaat niet."
+msgstr "De gebruikersnaam bestaat niet."
 
 #, php-format
 msgid "%s already has proposal running for them."
-msgstr "Er loopt al een voorstel voor %s."
+msgstr "%s heeft al een voorstel ervoor lopen."
 
 msgid "Invalid type."
-msgstr ""
+msgstr "Ongeldig type."
 
 msgid "Proposal cannot be empty."
-msgstr "Voorstel kan niet leeg zijn."
+msgstr "Het voorstel mag niet leeg worden gelaten."
 
 msgid "New proposal submitted."
-msgstr "Nieuw voorstel ingediend."
+msgstr "Het nieuwe voorstel is ingediend."
 
 msgid "Submit a proposal to vote on."
 msgstr "Een voorstel indienen om op te stemmen."
@@ -86,56 +87,58 @@ msgid "Applicant/TU"
 msgstr "Aanvrager/TU"
 
 msgid "(empty if not applicable)"
-msgstr "(Leeg indien niet van toepassing)"
+msgstr "(laat leeg indien niet van toepassing)"
 
 msgid "Type"
 msgstr "Type"
 
 msgid "Addition of a TU"
-msgstr ""
+msgstr "Toevoeging van een TU"
 
 msgid "Removal of a TU"
-msgstr ""
+msgstr "Verwijdering van een TU"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "Verwijdering van een TU (onverklaarbare inactiviteit)"
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "Wijziging van de statuten"
 
 msgid "Proposal"
 msgstr "Voorstel"
 
 msgid "Submit"
-msgstr "Opsturen"
+msgstr "Versturen"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "Mede-onderhouders beheren"
 
 msgid "Home"
-msgstr "Home"
+msgstr "Startgedeelte"
 
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
 msgstr ""
-"Welkom bij de AUR! Lees de %sAUR Gebruikersvoorschriften%s en %sAUR "
-"Ontwikkelaarsvoorschriften%s voor meer informatie."
+"Welkom bij de AUR! Lees de %sAUR-gebruikersrichtlijnen%s en de %sAUR-"
+"ontwikkelaarsrichtlijnen%s voor meer informatie."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
 msgstr ""
-"PKGBUILDs %smoeten%s voeldoen aan de %sArch Packaging Standaarden%s anders "
-"zullen ze verwijderd worden!"
+"Bijgedragen PKGBUILDs %smoeten%s voldoen aan de %sArch-pakketstandaarden%s, "
+"anders zullen ze worden verwijderd!"
 
 msgid "Remember to vote for your favourite packages!"
-msgstr "Vergeet niet te stemmen voor je favoriete pakketten!"
+msgstr "Vergeet niet te stemmen op uw favoriete pakketten!"
 
 msgid "Some packages may be provided as binaries in [community]."
-msgstr "Sommige pakketten kunnen worden geleverd als binaries in [community]."
+msgstr ""
+"Sommige pakketten kunnen worden geleverd als uitvoerbare bestanden in "
+"[community]."
 
 msgid "DISCLAIMER"
 msgstr "DISCLAIMER"
@@ -144,51 +147,83 @@ msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
 msgstr ""
-"Niet-ondersteunde pakketten zijn door gebruikers geproduceerde content. Elk "
+"Niet-ondersteunde pakketten zijn door gebruikers geproduceerde inhoud. Elk "
 "gebruik van de geleverde bestanden is op eigen risico."
 
+msgid "Learn more..."
+msgstr "Meer leren..."
+
 msgid "Support"
-msgstr ""
+msgstr "Ondersteuning"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "Pakketaanvragen"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
 msgstr ""
+"Er zijn drie typen aanvragen die kunnen worden ingedeeld in het "
+"%sPakketacties%s-veld op de pakketdetails-pagina:"
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "Weesaanvraag"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"Vragen om het pakket te markeren als wees, bijv. wanneer de onderhouder "
+"inactief is en het pakket langere tijd als verouderd gemarkeerd is."
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "Verwijderaanvraag"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"Verzoek om een pakket uit de Arch User Repository te laten verwijderen. "
+"Gebruik dit niet als een pakket niet naar behoren functioneert en eenvoudig "
+"gerepareerd kan worden. Neem in zo'n geval contact op met de "
+"pakketontwikkelaar en open zo nodig een weesverzoek."
 
 msgid "Merge Request"
-msgstr ""
+msgstr "Aanvraag samenvoegen"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"Verzoek om een pakket samen te laten voegen met een ander pakket. Dit kan "
+"gebruikt worden als een pakket hernoemd moet worden of vervangen wordt door "
+"een opgesplitst pakket."
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"Indien je het verzoek wilt bediscussiëren, dan kun je de %saur-requests%s "
+"maillijst gebruiken. Gebruik deze lijst niet om verzoeken in te dienen."
+
+msgid "Submitting Packages"
+msgstr "Het bijdragen van pakketten"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Git via SSA is nu in gebruik om pakketten bij te dragen aan de AUR. Zie de "
+"%sHet bijdragen van pakketten%s-gedeelte van de Arch User Repository "
+"ArchWiki-pagina voor meer details."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "De volgende SSH-vingerafdrukken worden gebruikt voor de AUR:"
 
 msgid "Discussion"
 msgstr "Discussie"
@@ -199,9 +234,13 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"Algemene discussies met betrekking tot de Arch User Repository (AUR) en de "
+"opzet van Trusted Users vinden plaats op %saur-general%s. Voor discussies "
+"gerelateerd aan de ontwikkeling van de AUR web interface, gebruik de %saur-"
+"dev%s mailinglijst."
 
 msgid "Bug Reporting"
-msgstr "Bug Rapportage"
+msgstr "Bug-rapportage"
 
 #, php-format
 msgid ""
@@ -210,43 +249,47 @@ msgid ""
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
 msgstr ""
+"Als u een bug tegenkomt in de AUR web interface, maak dan een melding in "
+"onze %sbugtracker%s. Gebruik de bugtracker %salléén%s om bugs over AUR te "
+"melden. Om fouten in de pakketsamenstelling te melden, neem contact op met "
+"de pakketontwikkelaar of laat commentaar achter op de relevante pakketpagina."
 
 msgid "Package Search"
-msgstr "Pakketten Zoeken"
+msgstr "Pakketten zoeken"
 
 msgid "Adopt"
-msgstr ""
+msgstr "Adopteren"
 
 msgid "Vote"
-msgstr "Stem"
+msgstr "Stemmen"
 
 msgid "UnVote"
-msgstr "Verwijder Stem"
+msgstr "Stem verwijderen"
 
 msgid "Notify"
 msgstr "Informeren"
 
 msgid "UnNotify"
-msgstr "Informeer niet"
+msgstr "Niet informeren"
 
 msgid "Flag"
-msgstr "Markeer"
+msgstr "Markeren"
 
 msgid "UnFlag"
-msgstr "Markering Verwijderen"
+msgstr "De-markeren"
 
 msgid "Login"
-msgstr "Login"
+msgstr "Inloggen"
 
 #, php-format
 msgid "Logged-in as: %s"
-msgstr "Ingelogd as: %s"
+msgstr "Ingelogd als: %s"
 
 msgid "Logout"
-msgstr "Log uit"
+msgstr "Uitloggen"
 
 msgid "Enter login credentials"
-msgstr "Voer login gegevens in"
+msgstr "Vul uw inloggegevens in"
 
 msgid "Username"
 msgstr "Gebruikersnaam"
@@ -263,7 +306,8 @@ msgstr "Wachtwoord vergeten"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "HTTP login is uitgeschakeld. %sVerander naar HTTPs%s om in te loggen."
+msgstr ""
+"HTTP-inloggen is uitgeschakeld. %sVerander naar HTTPs%s om in te loggen."
 
 msgid "Search Criteria"
 msgstr "Zoekcriteria"
@@ -278,14 +322,14 @@ msgid "Missing a required field."
 msgstr "Er ontbreekt een verplicht veld."
 
 msgid "Password fields do not match."
-msgstr "Wachtwoord velden komen niet overeen."
+msgstr "Wachtwoordvelden komen niet overeen."
 
 #, php-format
 msgid "Your password must be at least %s characters."
-msgstr "Je wachtwoord moet minimaal %s karakters lang zijn."
+msgstr "Uw wachtwoord moet minimaal %s karakters lang zijn."
 
 msgid "Invalid e-mail."
-msgstr "Ongeldig e-mail adres."
+msgstr "Ongeldig e-mailadres."
 
 #, php-format
 msgid ""
@@ -293,9 +337,13 @@ msgid ""
 "your e-mail address. If you wish to reset your password follow the link "
 "below, otherwise ignore this message and nothing will happen."
 msgstr ""
+"Een verzoek om het wachtwoord te resetten was ingediend voor het account %s "
+"wat geassocieerd is met uw e-mailadres. Indien u uw wachtwoord wilt resetten "
+"volg dan onderstaande link. Als u uw wachtwoord niet wilt wijzigen kunt u "
+"deze mail negeren, er gebeurt dan niets."
 
 msgid "Password Reset"
-msgstr "Wachtwoord Reset"
+msgstr "Wachtwoordherstel"
 
 msgid "Check your e-mail for the confirmation link."
 msgstr "Controleer uw e-mail voor de bevestigingslink."
@@ -304,7 +352,7 @@ msgid "Your password has been reset successfully."
 msgstr "Uw wachtwoord is met succes teruggezet."
 
 msgid "Confirm your e-mail address:"
-msgstr "Bevestig uw e-mail adres:"
+msgstr "Bevestig uw e-mailadres:"
 
 msgid "Enter your new password:"
 msgstr "Voer uw nieuwe wachtwoord in:"
@@ -330,12 +378,14 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
+"De geselecteerde pakketten zijn niet onteigend, vink het bevestigingsvakje "
+"aan."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Kan geen pakket vinden om stemmen en comments mee samen te voegen"
 
 msgid "Cannot merge a package base with itself."
-msgstr ""
+msgstr "Het basispakket kan niet met zichzelf worden samengevoegd."
 
 msgid ""
 "The selected packages have not been deleted, check the confirmation checkbox."
@@ -343,17 +393,19 @@ msgstr ""
 "De geselecteerde pakketten zijn niet gewist, vink het bevestigingsvakje aan."
 
 msgid "Package Deletion"
-msgstr "Pakket Verwijdering."
+msgstr "Pakketverwijdering"
 
 #, php-format
 msgid "Delete Package: %s"
-msgstr "Verwijder Pakket: %s"
+msgstr "Pakket verwijderen: %s"
 
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
 msgstr ""
+"Gebruik dit formulier om basispakket %s%s%s te verwijderen van AUR met "
+"inbegrip van de volgende pakketten:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "Verwijdering van een pakket is permanent."
@@ -365,57 +417,65 @@ msgid "Confirm package deletion"
 msgstr "Bevestig pakketverwijdering"
 
 msgid "Delete"
-msgstr "Verwijder"
+msgstr "Verwijderen"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
-"Alleen Vertrouwde Gebruikers en Ontwikkelaars kunnen pakketten verwijderen."
+msgstr "Alleen Trusted Users en Ontwikkelaars kunnen pakketten verwijderen."
 
 msgid "Disown Package"
-msgstr "Onteigen Pakket"
+msgstr "Pakket onteigenen"
 
 #, php-format
 msgid "Disown Package: %s"
-msgstr ""
+msgstr "Pakket onteigenen: %s"
 
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"Gebruik dit formulier om basispakket %s%s%s te onteigenen met inbegrip van "
+"de volgende pakketten:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"Door het bevestigingsvakje aan te vinken, stem je in met het onteigenen het "
+"pakket en het eigendom over te dragen aan %s%s%s."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
+"Door het bevestigingsvakje aan te vinken, stem je in met het onteigenen van "
+"het pakket."
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Bevestig de onteigening van het pakket"
 
 msgid "Disown"
-msgstr ""
+msgstr "Onteigenen"
 
 msgid "Only Trusted Users and Developers can disown packages."
 msgstr ""
+"Alleen Vertouwde Gebruikers en ontwikkelaars kunnen pakketten onteigenen."
 
 msgid "Package Merging"
 msgstr "Pakketsamenvoeging"
 
 #, php-format
 msgid "Merge Package: %s"
-msgstr "Voeg Pakket Samen: %s"
+msgstr "Pakket samenvoegen: %s"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr ""
+"Gebruik dit formulier om basispakkete %s%s%s samen te voegen met een ander "
+"pakket."
 
 msgid "The following packages will be deleted: "
-msgstr ""
+msgstr "De volgende pakketten zullen worden verwijderd:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Als dit pakket samengevoegd is kan dit niet teruggedraaid worden."
@@ -425,23 +485,22 @@ msgstr ""
 "Geef de naam van het pakket waarmee dit pakket samengevoegd moet worden."
 
 msgid "Merge into:"
-msgstr "Voeg samen met:"
+msgstr "Samenvoegen naar:"
 
 msgid "Confirm package merge"
-msgstr "Bevestig samenvoeging"
+msgstr "Samenvoeging bevestigen"
 
 msgid "Merge"
-msgstr "Voeg samen"
+msgstr "Samenvoegen"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
-"Alleen Vertrouwde Gebruikers en Ontwikkelaars kunnen pakketten samen voegen."
+msgstr "Alleen Trusted Users en Ontwikkelaars kunnen pakketten samen voegen."
 
 msgid "File Request"
-msgstr ""
+msgstr "Aanvraag indienen"
 
 msgid "Close Request"
-msgstr ""
+msgstr "Aanvraag sluiten"
 
 msgid "First"
 msgstr "Eerste"
@@ -456,34 +515,40 @@ msgid "Last"
 msgstr "Laatste"
 
 msgid "Requests"
-msgstr ""
+msgstr "Aanvragen"
+
+msgid "Register"
+msgstr "Registreren"
+
+msgid "Use this form to create an account."
+msgstr "Gebruik dit formulier om een ​​account aan te maken."
 
 msgid "Trusted User"
-msgstr "Vertrouwde Gebruiker"
+msgstr "Trusted User"
 
 msgid "Could not retrieve proposal details."
-msgstr "Voorstel details kunnen niet opgehaald worden."
+msgstr "Voorsteldetails kunnen niet opgehaald worden."
 
 msgid "Voting is closed for this proposal."
 msgstr "Stemmen is gesloten voor dit voorstel."
 
 msgid "Only Trusted Users are allowed to vote."
-msgstr ""
+msgstr "Alleen Trusted Users kunnen stemmen."
 
 msgid "You cannot vote in an proposal about you."
-msgstr "Je kunt niet stemmen in een voorstel over jou."
+msgstr "U kunt niet stemmen op een voorstel over u."
 
 msgid "You've already voted for this proposal."
-msgstr "Je hebt al gestemd voor dit voorstel."
+msgstr "U heeft al gestemd op dit voorstel."
 
 msgid "Vote ID not valid."
-msgstr "Stem ID niet geldig."
+msgstr "Uw stem-ID is ongeldig."
 
 msgid "Current Votes"
-msgstr "Huidige Stemmen"
+msgstr "Huidig aantal stemmen"
 
 msgid "Past Votes"
-msgstr "Eerdere Stemmen"
+msgstr "Eerdere stemmen"
 
 msgid "Voters"
 msgstr "Stemmers"
@@ -496,7 +561,7 @@ msgstr ""
 "langdurige spam aanvallen. Excuses voor het ongemak."
 
 msgid "Missing User ID"
-msgstr "Missende User ID"
+msgstr "Gebruikers-ID ontbreekt"
 
 msgid "The username is invalid."
 msgstr "De gebruikersnaam is ongeldig."
@@ -506,19 +571,19 @@ msgid "It must be between %s and %s characters long"
 msgstr "Het moet tussen de %s en %s karakters lang zijn"
 
 msgid "Start and end with a letter or number"
-msgstr "Begin en eindig met een letter of nummer"
+msgstr "Beginnen en eindigen met een letter of nummer"
 
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Kan maar één punt, komma of koppelteken bevatten."
 
 msgid "The email address is invalid."
-msgstr "Het e-mail adres is ongeldig."
+msgstr "Het e-mailadres is ongeldig."
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "De vingerafdruk van de PGP sleutel is ongeldig."
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "De publieke SSH-sleutel is ongeldig."
 
 msgid "Cannot increase account permissions."
 msgstr "Kan de account permissies niet verhogen."
@@ -536,7 +601,7 @@ msgstr "Het adres %s%s%s is al in gebruik."
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "De SSH publieke sleutel, %s%s%s, is al ingebruik."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -580,7 +645,7 @@ msgstr ""
 "vanwege langdurige spam-aanvallen. Excuses voor het ongemak."
 
 msgid "Account suspended"
-msgstr ""
+msgstr "Account is geschorst"
 
 #, php-format
 msgid ""
@@ -597,13 +662,17 @@ msgid "Bad username or password."
 msgstr "Verkeerd gebruiker of wachtwoord"
 
 msgid "An error occurred trying to generate a user session."
-msgstr ""
+msgstr "Er is een fout opgetreden bij het aanmaken van een gebruikerssessie."
 
 msgid "Invalid e-mail and reset key combination."
 msgstr "Ongeldige e-mail en reset-toets combinatie."
 
 msgid "None"
 msgstr "Geen"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "Toon accountinformatie voor %s"
 
 msgid "Error retrieving package details."
 msgstr "Fout bij het ophalen van pakketdetails."
@@ -697,65 +766,62 @@ msgstr "Comment is verwijderd."
 msgid "You are not allowed to delete this comment."
 msgstr "Je hebt geen toestemming deze comment te verwijderen."
 
-msgid "Missing category ID."
-msgstr "Missende categorie ID."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
+"Je hebt geen toestemming de sleutelwoorden van dit basispakket aan te passen."
 
-msgid "Invalid category ID."
-msgstr "Ongeldige categorie ID."
-
-msgid "You are not allowed to change this package category."
-msgstr "Je hebt geen toestemming deze pakketcategorie aan te passen."
-
-msgid "Package category changed."
-msgstr "Pakketcategorie aangepast."
+msgid "The package base keywords have been updated."
+msgstr "De sleutelwoorden van het basispakket zijn bijgewerkt."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
+"Je hebt geen toestemming om de mede-eigenaren van dit basispakket aan te "
+"passen."
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Ongeldige gebruikersnaam: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "De mede-onderhouders van het basispakket zijn bijgewerkt."
 
 msgid "View packages details for"
 msgstr "Toon pakketdetails voor"
 
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "Je moet ingelogd zijn voordat je pekketverzoeken kunt indienen."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Ongeldige naam: alleen kleine letters zijn toegestaan."
 
 msgid "The comment field must not be empty."
-msgstr ""
+msgstr "Het commentaarveld mag niet leeg zijn."
 
 msgid "Invalid request type."
-msgstr ""
+msgstr "Ongeldig verzoektype."
 
 msgid "Added request successfully."
-msgstr ""
+msgstr "Verzoek succesvol toegevoegd."
 
 msgid "Invalid reason."
-msgstr ""
+msgstr "Ongeldige reden."
 
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "Alleen TUs en ontwikkelaars mogen verzoeken sluiten."
 
 msgid "Request closed successfully."
-msgstr ""
+msgstr "Verzoek succesvol gesloten."
 
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr ""
+msgstr "Gebruik dit formulier om permanent AUR account %s te verwijderen."
 
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
-msgstr ""
+msgstr "%sWAARSCHUWING%s: Deze actie kan niet ongedaan worden gemaakt."
 
 msgid "Confirm deletion"
-msgstr ""
+msgstr "Bevestig verwijdering"
 
 msgid "Account Type"
 msgstr "Account Type"
@@ -767,7 +833,7 @@ msgid "Developer"
 msgstr "Ontwikkelaar"
 
 msgid "Trusted User & Developer"
-msgstr ""
+msgstr "Trusted User & Ontwikkelaar"
 
 msgid "Email Address"
 msgstr "E-mail adres"
@@ -785,13 +851,13 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Inactive since"
-msgstr ""
+msgstr "Geen activiteit sinds"
 
 msgid "Active"
 msgstr "Actief"
 
 msgid "Last Login"
-msgstr ""
+msgstr "Laatste Login"
 
 msgid "Never"
 msgstr "Nooit"
@@ -800,11 +866,11 @@ msgid "View this user's packages"
 msgstr "Bekijk gebruiker zijn pakketten"
 
 msgid "Edit this user's account"
-msgstr ""
+msgstr "Bewerk account van deze gebruiker"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr ""
+msgstr "Klik %shier%s als u dit account permanent wilt verwijderen."
 
 msgid "required"
 msgstr "verplicht"
@@ -813,13 +879,13 @@ msgid "Normal user"
 msgstr "Normale gebruiker"
 
 msgid "Trusted user"
-msgstr "Vertrouwde gebruiker"
+msgstr "Trusted user"
 
 msgid "Account Suspended"
 msgstr "Account Geschorst"
 
 msgid "Inactive"
-msgstr ""
+msgstr "Inactief"
 
 msgid "Re-type password"
 msgstr "Voer wachtwoord opnieuw in"
@@ -831,9 +897,11 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"De volgende informatie is alleen verplicht als u pakketten aan de Arch User "
+"Repository wilt toevoegen."
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "SSH Publieke Sleutel"
 
 msgid "Update"
 msgstr "Update"
@@ -867,33 +935,26 @@ msgstr "Geen andere resultaten gevonden "
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr ""
+msgstr "Beheer mede-onderhouders: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"Gebruik dit formulier om mede-onderhouders voor %s%s%s toe te voegen (een "
+"gebruikersnaam per regel):"
 
 msgid "Users"
-msgstr ""
+msgstr "Gebruikers"
 
 msgid "Save"
-msgstr ""
+msgstr "Bewaren"
 
 msgid "My Packages"
 msgstr "Mijn pakketten"
 
 msgid " My Account"
 msgstr "Mijn Account"
-
-msgid "Register"
-msgstr "Registreren"
-
-msgid "unknown"
-msgstr "onbekend"
-
-msgid "Package Base Details"
-msgstr ""
 
 msgid "Package Actions"
 msgstr "Pakket Acties"
@@ -902,13 +963,13 @@ msgid "View PKGBUILD"
 msgstr "Toon PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Bekijk Wijzigingen"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Download momentopname"
 
 msgid "Search wiki"
-msgstr ""
+msgstr "Doorzoek wiki"
 
 msgid "Flagged out-of-date"
 msgstr "Markeer als verouderd"
@@ -932,13 +993,13 @@ msgid "Notify of new comments"
 msgstr "Notificatie bij nieuwe comment"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Beheer mede-onderhouders"
 
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d verzoek in wachtrij"
+msgstr[1] "%d verzoeken in wachtrij"
 
 msgid "Delete Package"
 msgstr "Verwijder Pakket"
@@ -949,27 +1010,29 @@ msgstr "Voeg Pakket Samen"
 msgid "Adopt Package"
 msgstr "Adopteer Pakket"
 
+msgid "unknown"
+msgstr "onbekend"
+
+msgid "Package Base Details"
+msgstr "Details van Basispakket"
+
 msgid "Git Clone URL"
+msgstr "Git Clone URL"
+
+msgid "read-only"
 msgstr ""
 
-msgid "Category"
-msgstr "Categorie"
-
-msgid "Change category"
-msgstr "Verander categorie"
+msgid "Keywords"
+msgstr "Sleutelwoorden"
 
 msgid "Submitter"
 msgstr "Inzender"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Toon accountinformatie voor %s"
 
 msgid "Maintainer"
 msgstr "Beheerder"
 
 msgid "Last Packager"
-msgstr ""
+msgstr "Laatste Packager"
 
 msgid "Votes"
 msgstr "Stemmen"
@@ -987,7 +1050,7 @@ msgid "Comment has been added."
 msgstr "Opmerking is toegevoegd."
 
 msgid "View all comments"
-msgstr ""
+msgstr "Bekijk alle commentaar"
 
 msgid "Latest Comments"
 msgstr "Nieuwste Comments"
@@ -1000,10 +1063,10 @@ msgid "Comment by %s"
 msgstr "Comment door %s"
 
 msgid "Anonymous comment"
-msgstr ""
+msgstr "Anoniem commentaar"
 
 msgid "deleted"
-msgstr ""
+msgstr "verwijderd"
 
 msgid "All comments"
 msgstr "Alle comments"
@@ -1012,7 +1075,7 @@ msgid "Package Details"
 msgstr "Pakketdetails"
 
 msgid "Package Base"
-msgstr ""
+msgstr "Basispakket"
 
 msgid "Description"
 msgstr "Omschrijving"
@@ -1024,19 +1087,19 @@ msgid "Visit the website for"
 msgstr "Bezoek de website voor"
 
 msgid "Licenses"
-msgstr ""
+msgstr "Licenties"
 
 msgid "Groups"
-msgstr ""
+msgstr "Groepen"
 
 msgid "Conflicts"
-msgstr ""
+msgstr "Conflicten"
 
 msgid "Provides"
-msgstr ""
+msgstr "Voorziet in"
 
 msgid "Replaces"
-msgstr ""
+msgstr "Vervangt"
 
 msgid "Dependencies"
 msgstr "Afhankelijkheden"
@@ -1049,50 +1112,55 @@ msgstr "Bronnen"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Sluit Verzoek: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
+"Gebruik dit formulier om het verzoek voor basispakket %s%s%s te sluiten."
 
 msgid "Note"
-msgstr ""
+msgstr "Notitie"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
+"Het commentaarveld mag leeg blijven. Echter, het wordt sterk aanbevolen om "
+"een afwijzing van commentaar te voorzien."
 
 msgid "Reason"
-msgstr ""
+msgstr "Reden"
 
 msgid "Accepted"
-msgstr ""
+msgstr "Geaccepteerd"
 
 msgid "Rejected"
-msgstr ""
+msgstr "Afgewezen"
 
 msgid "Comments"
-msgstr ""
+msgstr "Commentaar"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "Nieuw Verzoek: %s"
 
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
+"Gebruik dit formulier om een verzoek in te dienen voor basispakket %s%s%s "
+"welke de volgende pakketten omvat:"
 
 msgid "Request type"
-msgstr ""
+msgstr "Verzoektype"
 
 msgid "Deletion"
-msgstr ""
+msgstr "Verwijdering"
 
 msgid "Orphan"
-msgstr ""
+msgstr "Wees"
 
 msgid "Merge into"
 msgstr "Voeg samen met"
@@ -1100,46 +1168,46 @@ msgstr "Voeg samen met"
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d pakketverzoek gevonden"
+msgstr[1] "%d pakketverzoeken gevonden"
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Pagina %d van %d."
 
 msgid "Package"
-msgstr ""
+msgstr "Pakket"
 
 msgid "Filed by"
-msgstr ""
+msgstr "Ingediend door"
 
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "~%d dagen resterend"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d uur resterend"
+msgstr[1] "~%d uur resterend"
 
 msgid "<1 hour left"
-msgstr ""
+msgstr "<1 uur resterend"
 
 msgid "Accept"
-msgstr ""
+msgstr "Accepteer"
 
 msgid "Locked"
-msgstr ""
+msgstr "Vergrendeld"
 
 msgid "Close"
-msgstr ""
+msgstr "Sluit"
 
 msgid "Closed"
-msgstr ""
+msgstr "Gesloten"
 
 msgid "Name, Description"
 msgstr "Naam, omschrijving"
@@ -1148,10 +1216,10 @@ msgid "Name Only"
 msgstr "Alleen de naam"
 
 msgid "Exact Name"
-msgstr ""
+msgstr "Exacte Naam"
 
 msgid "Exact Package Base"
-msgstr ""
+msgstr "Exact Basispakket"
 
 msgid "All"
 msgstr "Alle"
@@ -1166,7 +1234,7 @@ msgid "Name"
 msgstr "Naam"
 
 msgid "Popularity"
-msgstr ""
+msgstr "Populariteit"
 
 msgid "Voted"
 msgstr "Gestemd"
@@ -1183,14 +1251,8 @@ msgstr "Aflopend"
 msgid "Enter search criteria"
 msgstr "Voer zoekcriteria in"
 
-msgid "Any"
-msgstr "Elke"
-
 msgid "Search by"
 msgstr "Zoek op"
-
-msgid "Keywords"
-msgstr "Sleutelwoorden"
 
 msgid "Out of Date"
 msgstr "Verouderd"
@@ -1219,11 +1281,16 @@ msgstr "Geen pakketen gevonden die aan uw zoekcriteria voldoen"
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d pakket gevonden"
+msgstr[1] "%d pakketten gevonden"
 
 msgid "Version"
 msgstr "Versie"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Ja"
@@ -1280,7 +1347,7 @@ msgid "Registered Users"
 msgstr "Geregistreerde Gebruikers"
 
 msgid "Trusted Users"
-msgstr "Vertrouwde Gebruikers"
+msgstr "Trusted Users"
 
 msgid "Recent Updates"
 msgstr "Recente updates"
@@ -1305,7 +1372,7 @@ msgid "End"
 msgstr "Einde"
 
 msgid "Result"
-msgstr ""
+msgstr "Resultaat"
 
 msgid "No"
 msgstr "Nee"
@@ -1317,13 +1384,13 @@ msgid "Total"
 msgstr "Totaal"
 
 msgid "Participation"
-msgstr ""
+msgstr "Participatie"
 
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "Laatste stemmen door TU"
 
 msgid "Last vote"
-msgstr ""
+msgstr "Laatste stem"
 
 msgid "No results found."
 msgstr "Geen resultaten gevonden."

@@ -4,16 +4,16 @@
 #
 # Translators:
 # György Balló <ballogy@freestart.hu>, 2013
-# György Balló <ballogy@freestart.hu>, 2011,2013-2014
+# György Balló <ballogy@freestart.hu>, 2011,2013-2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/aur/language/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-07-18 23:05+0000\n"
+"Last-Translator: György Balló <ballogy@freestart.hu>\n"
+"Language-Team: Hungarian (http://www.transifex.com/lfleischer/aur/language/"
 "hu/)\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,12 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "Sajnálom, a megtekinteni kívánt oldal nem létezik."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Szolgáltatás nem elérhető"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
+"Nyugalom! Ez a webhely karbantartás miatt nem üzemel. Hamarosan visszajövünk."
 
 msgid "Account"
 msgstr "Fiók"
@@ -54,9 +55,6 @@ msgstr "Már meglévő felhasználói fiókok kereséséhez használd ezt az űr
 
 msgid "You must log in to view user information."
 msgstr "A felhasználói információ megtekintéshez be kell jelentkezned."
-
-msgid "Use this form to create an account."
-msgstr "Használd ezt a űrlapot felhasználói fiók létrehozására."
 
 msgid "Add Proposal"
 msgstr "Indítvány hozzáadása"
@@ -111,7 +109,7 @@ msgid "Submit"
 msgstr "Feltöltés"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "Társkarbantartók kezelése"
 
 msgid "Home"
 msgstr "Honlap"
@@ -149,48 +147,80 @@ msgstr ""
 "szolgáltatott fájlok bármilyen felhasználása csak saját felelősségre "
 "történik."
 
+msgid "Learn more..."
+msgstr "Tudj meg többet..."
+
 msgid "Support"
-msgstr ""
+msgstr "Támogatás"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "Csomagkérelmek"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
 msgstr ""
+"Háromfajta kérelem tölthető ki a %sCsomagműveletek%s dobozban a csomag "
+"részletei oldalon:"
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "Megtagadási kérelem"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"Egy csomag megtagadásának kérése, pl. amikor a karbantartó inaktív, és a "
+"csomag régóta elavultnak lett jelölve."
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "Törlési kérelem"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"Egy csomag Arch User Repositoriból való törlésének kérése. Kérünk, ne "
+"használd ezt, ha a csomag törött, és könnyen javítható. Ehelyett vedd fel a "
+"kapcsolatot a csomag karbantartójával, és tölts ki megtagadási kérelmet, ha "
+"szükséges."
 
 msgid "Merge Request"
-msgstr ""
+msgstr "Beolvasztási kérelem"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"Egy csomag másik csomagba történő beolvasztásának kérése. Akkor használható, "
+"amikor egy csomagot át kell nevezni, vagy lecserélésre kerül egy osztott "
+"csomagra."
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"Ha meg szeretnél tárgyalni egy kérelmet, használd az %saur-requests%s "
+"levelezőlistát. Azonban ne használd ezt a listát kérvények beadására."
+
+msgid "Submitting Packages"
+msgstr "Csomagok beküldése"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Jelenleg SSH-n keresztüli Git használandó a csomagok beküldéséhez az AUR-ba. "
+"További részletekért lásd a %sCsomagok beküldése%s szakaszt az Arch User "
+"Repository ArchWiki oldalon."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "Az alábbi SSH ujjlenyomatokat használjuk az AUR-hoz:"
 
 msgid "Discussion"
 msgstr "Megbeszélés"
@@ -201,6 +231,10 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"Az Arch User Repositoryval (AUR) és a Trusted User struktúrával kapcsolatos "
+"általános tanácskozás helye az %saur-general%s. Az AUR webes felületének "
+"fejlesztésével kapcsolatos tanácskozáshoz az %saur-dev%s levelezőlista "
+"használandó."
 
 msgid "Bug Reporting"
 msgstr "Hibajelentés"
@@ -212,6 +246,10 @@ msgid ""
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
 msgstr ""
+"Ha hibát találsz az AUR webes felületén, kérjük, tölts ki egy hibajelentést "
+"a %shibabejelentőnkön%s. %sCsak%s az AUR-ban lévő hibák jelentésére használd "
+"a bejelentőt. Csomagolási hibák jelentéséhez vedd fel a kapcsolatot a csomag "
+"karbantartójával, vagy hagyj egy hozzászólást a megfelelő csomag oldalán."
 
 msgid "Package Search"
 msgstr "Csomag keresése"
@@ -297,6 +335,10 @@ msgid ""
 "your e-mail address. If you wish to reset your password follow the link "
 "below, otherwise ignore this message and nothing will happen."
 msgstr ""
+"Egy jelszó-visszaállítási kérelem került beküldésre az e-mail címedhez "
+"tartozó %s felhasználói fiókhoz. Ha szeretnéd visszaállítani a jelszavad, "
+"kövesd az alábbi hivatkozást, egyébként hagyd figyelmen kívül ezt az "
+"üzenetet, és nem történik semmi."
 
 msgid "Password Reset"
 msgstr "Jelszó visszaállítása"
@@ -334,6 +376,8 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
+"A kiválasztott csomagok nem kerültek megtagadásra, ellenőrizd a megerősítő "
+"jelölőnégyzetet."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
@@ -384,32 +428,39 @@ msgstr "Csomag megtagadása"
 
 #, php-format
 msgid "Disown Package: %s"
-msgstr ""
+msgstr "Csomag megtagadása: %s"
 
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"Használd ezt az űrlapot a(z) %s%s%s alapcsomag megtagadásához, amely a "
+"következő csomagokat tartalmazza:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"A jelölőnégyzet kiválasztásával megerősíted, hogy szeretnéd megtagadni a "
+"csomagot, és átadni a tulajdonjogot neki: %s%s%s."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
+"A jelölőnégyzet kiválasztásával megerősíted, hogy szeretnéd megtagadni a "
+"csomagot."
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Csomag megtagadásának megerősítése."
 
 msgid "Disown"
 msgstr "Megtagadás"
 
 msgid "Only Trusted Users and Developers can disown packages."
 msgstr ""
+"Csak megbízható felhasználók és fejlesztők tudnak megtagadni csomagokat."
 
 msgid "Package Merging"
 msgstr "Csomag beolvasztása"
@@ -467,6 +518,12 @@ msgstr "Utolsó"
 
 msgid "Requests"
 msgstr "Kérelmek"
+
+msgid "Register"
+msgstr "Regisztráció"
+
+msgid "Use this form to create an account."
+msgstr "Használd ezt a űrlapot felhasználói fiók létrehozására."
 
 msgid "Trusted User"
 msgstr "Megbízható felhasználó"
@@ -528,7 +585,7 @@ msgid "The PGP key fingerprint is invalid."
 msgstr "A PGP kulcs ujjlenyomata érvénytelen."
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "A nyilvános SSH kulcs érvénytelen."
 
 msgid "Cannot increase account permissions."
 msgstr "Nem lehet megnövelni a fiók jogosultságait."
@@ -546,7 +603,7 @@ msgstr "A(z) %s%s%s cím már használatban van."
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "A(z) %s%s%s nyilvános SSH kulcs már használatban van."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -612,6 +669,10 @@ msgstr "Érvénytelen e-mail és visszaállító kulcs kombináció."
 
 msgid "None"
 msgstr "Nincs"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "Fiók információinak megtekintése – %s"
 
 msgid "Error retrieving package details."
 msgstr "Hiba történt a csomag részletes információinak letöltése közben."
@@ -703,27 +764,21 @@ msgstr "Megjegyzés törölve."
 msgid "You are not allowed to delete this comment."
 msgstr "Nem törölheted ezt a megjegyzést."
 
-msgid "Missing category ID."
-msgstr "Hiányzó kategóriaazonosító."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr "Nem szerkesztheted ennek az alapcsomagnak a kulcsszavait."
 
-msgid "Invalid category ID."
-msgstr "Érvénytelen kategóriaazonosító."
-
-msgid "You are not allowed to change this package category."
-msgstr "Nem változtathatod meg ennek a csomagnak a kategóriáját."
-
-msgid "Package category changed."
-msgstr "A csomag kategóriája megváltoztatva."
+msgid "The package base keywords have been updated."
+msgstr "Az alapcsomag kulcsszavai frissítve lettek."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "Nem szerkesztheted ennek az alapcsomagnak a társkarbantartóit."
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Érvénytelen felhasználónév: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "Az alapcsomag társkarbantartói frissítve lettek."
 
 msgid "View packages details for"
 msgstr "Csomag részleteinek megtekintése –"
@@ -837,9 +892,11 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"Az alábbi információ csak akkor szükséges, ha csomagokat szeretnél beküldeni "
+"az Arch User Repositoryba."
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "Nyilvános SSH kulcs"
 
 msgid "Update"
 msgstr "Frissítés"
@@ -873,33 +930,26 @@ msgstr "Nincs több kijelezhető eredmény."
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr ""
+msgstr "Társkarbantartók kezelése: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"Használd ezt az űrlapot társszerkesztők hozzáadásához a(z) %s%s%s csomaghoz "
+"(soronként egy felhasználónév):"
 
 msgid "Users"
-msgstr ""
+msgstr "Felhasználók"
 
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 msgid "My Packages"
 msgstr "Csomagjaim"
 
 msgid " My Account"
 msgstr " Fiókom"
-
-msgid "Register"
-msgstr "Regisztráció"
-
-msgid "unknown"
-msgstr "ismeretlen"
-
-msgid "Package Base Details"
-msgstr "Alapcsomag részletei"
 
 msgid "Package Actions"
 msgstr "Csomagműveletek"
@@ -908,10 +958,10 @@ msgid "View PKGBUILD"
 msgstr "PKGBUILD megtekintése"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Módosítások megtekintése"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Pillanatkép letöltése"
 
 msgid "Search wiki"
 msgstr "Keresés wikiben"
@@ -938,7 +988,7 @@ msgid "Notify of new comments"
 msgstr "Értesítés új hozzászólásról"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Társszerkesztők kezelése"
 
 #, php-format
 msgid "%d pending request"
@@ -955,21 +1005,23 @@ msgstr "Csomag beolvasztása"
 msgid "Adopt Package"
 msgstr "Csomag örökbe fogadása"
 
+msgid "unknown"
+msgstr "ismeretlen"
+
+msgid "Package Base Details"
+msgstr "Alapcsomag részletei"
+
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git klónozási URL"
 
-msgid "Category"
-msgstr "Kategória"
+msgid "read-only"
+msgstr "csak olvasható"
 
-msgid "Change category"
-msgstr "Kategória megváltoztatása"
+msgid "Keywords"
+msgstr "Kulcsszavak"
 
 msgid "Submitter"
 msgstr "Beküldő"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Fiók információinak megtekintése – %s"
 
 msgid "Maintainer"
 msgstr "Karbantartó"
@@ -1104,7 +1156,7 @@ msgid "Deletion"
 msgstr "Törlés"
 
 msgid "Orphan"
-msgstr "Árva"
+msgstr "Megtagadás"
 
 msgid "Merge into"
 msgstr "Beolvasztás ebbe:"
@@ -1178,7 +1230,7 @@ msgid "Name"
 msgstr "Név"
 
 msgid "Popularity"
-msgstr ""
+msgstr "Népszerűség"
 
 msgid "Voted"
 msgstr "Szavazva"
@@ -1195,14 +1247,8 @@ msgstr "Csökkenő"
 msgid "Enter search criteria"
 msgstr "Keresési feltételek megadása"
 
-msgid "Any"
-msgstr "Bármi"
-
 msgid "Search by"
 msgstr "Keresés eszerint"
-
-msgid "Keywords"
-msgstr "Kulcsszavak"
 
 msgid "Out of Date"
 msgstr "Elavult"
@@ -1236,6 +1282,13 @@ msgstr[1] "%d csomag található."
 
 msgid "Version"
 msgstr "Verzió"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
+"A népszerűség az összes szavazatból kerül számításra. Minden egyes szavazat "
+"súlyozásra kerül naponta 0,98-as faktorral a létrehozása óta."
 
 msgid "Yes"
 msgstr "Igen"

@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Asturian (http://www.transifex.com/projects/p/aur/language/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-07-06 14:08+0000\n"
+"Last-Translator: enolp <enolp@softastur.org>\n"
+"Language-Team: Asturian (http://www.transifex.com/lfleischer/aur/language/"
 "ast/)\n"
 "Language: ast\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "Perdón, la páxina que pidisti nun esiste."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Serviciu non disponible"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
@@ -54,9 +54,6 @@ msgstr "Usa esti formulariu pa guetar cuentes esistentes."
 
 msgid "You must log in to view user information."
 msgstr "Tienes d'aniciar sesión pa ver la información del usuariu."
-
-msgid "Use this form to create an account."
-msgstr "Usa esti formulariu pa crear una cuenta."
 
 msgid "Add Proposal"
 msgstr "Amestar propuesta"
@@ -148,11 +145,14 @@ msgstr ""
 "Los paquetes ensin sofitu son producíos polos usuarios. Cualesquier usu de "
 "los ficheros apurríos ta sol to propiu riesgu."
 
+msgid "Learn more..."
+msgstr "Llei más..."
+
 msgid "Support"
-msgstr ""
+msgstr "Sofitu"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "Solicitúes de paquetes"
 
 #, php-format
 msgid ""
@@ -161,7 +161,7 @@ msgid ""
 msgstr ""
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "Solicitú güérfana"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
@@ -169,7 +169,7 @@ msgid ""
 msgstr ""
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "Solicitú de desaniciu"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
@@ -178,7 +178,7 @@ msgid ""
 msgstr ""
 
 msgid "Merge Request"
-msgstr ""
+msgstr "Solicitú de desanciu"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
@@ -189,6 +189,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -457,6 +470,12 @@ msgstr ""
 msgid "Requests"
 msgstr "Solicitúes"
 
+msgid "Register"
+msgstr "Rexistrase"
+
+msgid "Use this form to create an account."
+msgstr "Usa esti formulariu pa crear una cuenta."
+
 msgid "Trusted User"
 msgstr ""
 
@@ -479,13 +498,13 @@ msgid "Vote ID not valid."
 msgstr "Nun ye válida la ID del votu."
 
 msgid "Current Votes"
-msgstr ""
+msgstr "Votos actuales"
 
 msgid "Past Votes"
-msgstr ""
+msgstr "Votos pasaos"
 
 msgid "Voters"
-msgstr ""
+msgstr "Votantes"
 
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
@@ -591,6 +610,10 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+#, php-format
+msgid "View account information for %s"
+msgstr ""
+
 msgid "Error retrieving package details."
 msgstr ""
 
@@ -680,17 +703,11 @@ msgstr "El comentariu amestóse."
 msgid "You are not allowed to delete this comment."
 msgstr "Nun tienes permisu pa desaniciar esti comentariu."
 
-msgid "Missing category ID."
-msgstr "Falta la ID de la estaya."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "ID d'estaya non válida"
-
-msgid "You are not allowed to change this package category."
-msgstr "Nun tienes permisu pa camudar la estaya d'esti paquete."
-
-msgid "Package category changed."
-msgstr "La estaya'l paquete camudó."
+msgid "The package base keywords have been updated."
+msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
@@ -870,15 +887,6 @@ msgstr "Los mios paquetes"
 msgid " My Account"
 msgstr "La mio cuenta"
 
-msgid "Register"
-msgstr "Rexistrase"
-
-msgid "unknown"
-msgstr "Desconocíu"
-
-msgid "Package Base Details"
-msgstr "Detalles del paquete base"
-
 msgid "Package Actions"
 msgstr "Aiciones de paquete"
 
@@ -933,20 +941,22 @@ msgstr ""
 msgid "Adopt Package"
 msgstr ""
 
+msgid "unknown"
+msgstr "Desconocíu"
+
+msgid "Package Base Details"
+msgstr "Detalles del paquete base"
+
 msgid "Git Clone URL"
 msgstr "URL pa clonar con Git"
 
-msgid "Category"
-msgstr "Estaya"
-
-msgid "Change category"
-msgstr "Camudar estaya"
-
-msgid "Submitter"
+msgid "read-only"
 msgstr ""
 
-#, php-format
-msgid "View account information for %s"
+msgid "Keywords"
+msgstr "Pallabres clave"
+
+msgid "Submitter"
 msgstr ""
 
 msgid "Maintainer"
@@ -1169,14 +1179,8 @@ msgstr "Descendente"
 msgid "Enter search criteria"
 msgstr ""
 
-msgid "Any"
-msgstr ""
-
 msgid "Search by"
 msgstr "Guetar per"
-
-msgid "Keywords"
-msgstr "Pallabres clave"
 
 msgid "Out of Date"
 msgstr "Ensin anovar"
@@ -1210,6 +1214,11 @@ msgstr[1] "Alcontráronse %d paquetes"
 
 msgid "Version"
 msgstr "Versión"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Sí"

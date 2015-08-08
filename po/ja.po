@@ -5,15 +5,15 @@
 # Translators:
 # kusakata <shohei@kusakata.com>, 2013
 # kusakata <shohei@kusakata.com>, 2013
-# kusakata <shohei@kusakata.com>, 2013-2014
+# kusakata <shohei@kusakata.com>, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/aur/language/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-08-04 12:23+0000\n"
+"Last-Translator: kusakata <shohei@kusakata.com>\n"
+"Language-Team: Japanese (http://www.transifex.com/lfleischer/aur/language/"
 "ja/)\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,13 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "あなたがリクエストしたページは存在しませんでした。"
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Service Unavailable"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
+"落ち着いて下さい！このサイトはメンテナンスのためにダウンしています。すぐに復"
+"帰する予定です。"
 
 msgid "Account"
 msgstr "アカウント"
@@ -54,9 +56,6 @@ msgstr "アカウントの検索はこのフォームを使って下さい。"
 
 msgid "You must log in to view user information."
 msgstr "ユーザー情報を見るにはログインする必要があります。"
-
-msgid "Use this form to create an account."
-msgstr "このフォームを使ってアカウントを作成してください。"
 
 msgid "Add Proposal"
 msgstr "提案を追加する"
@@ -111,7 +110,7 @@ msgid "Submit"
 msgstr "投稿"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "共同メンテナの管理"
 
 msgid "Home"
 msgstr "ホーム"
@@ -149,48 +148,80 @@ msgstr ""
 "ユーザーが作成したパッケージにサポートはありません。それぞれのファイルの利用"
 "は自己責任でお願いします。"
 
+msgid "Learn more..."
+msgstr "詳細..."
+
 msgid "Support"
-msgstr ""
+msgstr "サポート"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "パッケージリクエスト"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
 msgstr ""
+"各パッケージの詳細ページにある%sパッケージアクション%sボックスから送信するこ"
+"とができるリクエストは3種類あります:"
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "孤児リクエスト"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"パッケージを孤児にするようにリクエストします。メンテナが活動を停止していて"
+"パッケージが長い間 out-of-date のまま放置されている場合などに使います。"
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "削除リクエスト"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"Arch User Repository からパッケージを削除するようにリクエストします。パッケー"
+"ジが壊れていて、その不具合を簡単に修正できるような場合、このリクエストは使わ"
+"ないで下さい。代わりに、パッケージのメンテナに連絡したり、必要に応じて孤児リ"
+"クエストを送りましょう。"
 
 msgid "Merge Request"
-msgstr ""
+msgstr "マージリクエスト"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"あるパッケージを他のパッケージとマージするようにリクエストします。パッケージ"
+"の名前を変更する必要があるときや分割パッケージによって置き換えるときに使用し"
+"ます。"
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"リクエストについて議論したい場合、%saur-requests%s メーリングリストを使いま"
+"す。ただし、このメーリングリスト宛にリクエストを送るのは止めて下さい。"
+
+msgid "Submitting Packages"
+msgstr "パッケージの投稿"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"現在 AUR にパッケージを送信するときは SSH を介して Git を使うことになっていま"
+"す。詳しくは ArchWiki の Arch User Repository のページの%sパッケージの投稿%s"
+"セクションを見て下さい。"
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "AUR では以下の SSH フィンガープリントが使われます:"
 
 msgid "Discussion"
 msgstr "議論"
@@ -201,6 +232,9 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"Arch User Repository (AUR) や Trusted User に関する一般的な議論は %saur-"
+"general%s で行って下さい。AUR ウェブインターフェイスの開発に関しては、%saur-"
+"dev%s メーリングリストを使用します。"
 
 msgid "Bug Reporting"
 msgstr "バグレポート"
@@ -212,6 +246,10 @@ msgid ""
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
 msgstr ""
+"AUR ウェブインターフェイスにバグを発見した場合、私たちの%sバグトラッカー%sに"
+"バグを報告してください。AUR のバグを報告するとき%sのみ%sにこのトラッカーを"
+"使って下さい。パッケージのバグについては、パッケージメンテナに連絡するか適切"
+"なパッケージページにコメントを残して下さい。"
 
 msgid "Package Search"
 msgstr "パッケージ検索"
@@ -296,6 +334,9 @@ msgid ""
 "your e-mail address. If you wish to reset your password follow the link "
 "below, otherwise ignore this message and nothing will happen."
 msgstr ""
+"あなたのメールアドレスと関連付けられたアカウント %s のパスワードのリセットリ"
+"クエストが送信されました。パスワードをリセットしたいときは下のリンクを開いて"
+"下さい、そうでない場合はこのメッセージは無視して下さい。"
 
 msgid "Password Reset"
 msgstr "パスワードのリセット"
@@ -333,6 +374,8 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
+"選択されたパッケージは孤児になっていません。確認チェックボックスにチェックを"
+"入れて下さい。"
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "投票やコメントのマージをするパッケージが見つかりません。"
@@ -381,32 +424,37 @@ msgstr "パッケージの放棄"
 
 #, php-format
 msgid "Disown Package: %s"
-msgstr ""
+msgstr "孤児にするパッケージ: %s"
 
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"このフォームを使って以下のパッケージを含むパッケージベース %s%s%s を孤児にす"
+"ることができます:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"チェックボックスを選択して、パッケージを孤児にして所有権を %s%s%s に移すこと"
+"を確定して下さい。"
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
+"チェックボックスを選択して、パッケージを孤児にすることを確定してください。"
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "パッケージを孤児にすることの確認"
 
 msgid "Disown"
 msgstr "放棄"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
+msgstr "Trusted User と開発者だけがパッケージを孤児にできます。"
 
 msgid "Package Merging"
 msgstr "パッケージのマージ"
@@ -462,6 +510,12 @@ msgstr "最後"
 
 msgid "Requests"
 msgstr "リクエスト"
+
+msgid "Register"
+msgstr "登録"
+
+msgid "Use this form to create an account."
+msgstr "このフォームを使ってアカウントを作成してください。"
 
 msgid "Trusted User"
 msgstr "Trusted User"
@@ -523,7 +577,7 @@ msgid "The PGP key fingerprint is invalid."
 msgstr "PGP 鍵のフィンガープリントが不正です。"
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "SSH 公開鍵が不正です。"
 
 msgid "Cannot increase account permissions."
 msgstr "アカウント権限を増やすことはできません。"
@@ -541,7 +595,7 @@ msgstr "%s%s%s というメールアドレスは既に使われています。"
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "SSH 公開鍵、%s%s%s は既に使われています。"
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -605,6 +659,10 @@ msgstr "メールアドレスとリセットキーの不正な組み合わせ。
 
 msgid "None"
 msgstr "なし"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "%s のアカウント情報を見る"
 
 msgid "Error retrieving package details."
 msgstr "パッケージの詳細の取得エラー。"
@@ -695,27 +753,21 @@ msgstr "コメントが削除されました。"
 msgid "You are not allowed to delete this comment."
 msgstr "このコメントを削除することはできません。"
 
-msgid "Missing category ID."
-msgstr "カテゴリ ID がありません。"
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr "このパッケージベースのキーワードを編集することはできません。"
 
-msgid "Invalid category ID."
-msgstr "不正なカテゴリ ID です。"
-
-msgid "You are not allowed to change this package category."
-msgstr "このパッケージのカテゴリを変更することはできません。"
-
-msgid "Package category changed."
-msgstr "パッケージのカテゴリが変更されました。"
+msgid "The package base keywords have been updated."
+msgstr "パッケージベースのキーワードは更新されました。"
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "このパッケージベースの共同メンテナを管理することはできません。"
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "不正なユーザー名: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "パッケージベースの共同メンテナが更新されました。"
 
 msgid "View packages details for"
 msgstr "パッケージの詳細を見る"
@@ -830,9 +882,11 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"以下の情報は Arch User Repository にパッケージを送信したい場合にのみ必要にな"
+"ります。"
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "SSH 公開鍵"
 
 msgid "Update"
 msgstr "更新"
@@ -866,33 +920,26 @@ msgstr "表示する結果はもうありません。"
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr ""
+msgstr "共同メンテナの管理: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"このフォームを使って %s%s%s の共同メンテナを追加することができます (一行につ"
+"き一人のユーザー名を入力):"
 
 msgid "Users"
-msgstr ""
+msgstr "ユーザー"
 
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 msgid "My Packages"
 msgstr "自分のパッケージ"
 
 msgid " My Account"
 msgstr "アカウント"
-
-msgid "Register"
-msgstr "登録"
-
-msgid "unknown"
-msgstr "不明"
-
-msgid "Package Base Details"
-msgstr "パッケージベースの詳細"
 
 msgid "Package Actions"
 msgstr "パッケージアクション"
@@ -901,10 +948,10 @@ msgid "View PKGBUILD"
 msgstr "PKGBUILD を見る"
 
 msgid "View Changes"
-msgstr ""
+msgstr "変更履歴"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "スナップショットのダウンロード"
 
 msgid "Search wiki"
 msgstr "wiki を検索"
@@ -931,7 +978,7 @@ msgid "Notify of new comments"
 msgstr "新しいコメントを通知"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "共同メンテナの管理"
 
 #, php-format
 msgid "%d pending request"
@@ -947,21 +994,23 @@ msgstr "パッケージのマージ"
 msgid "Adopt Package"
 msgstr "パッケージを承継する"
 
+msgid "unknown"
+msgstr "不明"
+
+msgid "Package Base Details"
+msgstr "パッケージベースの詳細"
+
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git クローン URL"
 
-msgid "Category"
-msgstr "カテゴリ"
+msgid "read-only"
+msgstr "リードオンリー"
 
-msgid "Change category"
-msgstr "カテゴリの変更"
+msgid "Keywords"
+msgstr "キーワード"
 
 msgid "Submitter"
 msgstr "投稿者"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "%s のアカウント情報を見る"
 
 msgid "Maintainer"
 msgstr "メンテナ"
@@ -1168,7 +1217,7 @@ msgid "Name"
 msgstr "名前"
 
 msgid "Popularity"
-msgstr ""
+msgstr "人気度"
 
 msgid "Voted"
 msgstr "投票済"
@@ -1185,14 +1234,8 @@ msgstr "降順"
 msgid "Enter search criteria"
 msgstr "検索条件を入力"
 
-msgid "Any"
-msgstr "全て"
-
 msgid "Search by"
 msgstr "検索対象"
-
-msgid "Keywords"
-msgstr "キーワード"
 
 msgid "Out of Date"
 msgstr "Out of Date"
@@ -1225,6 +1268,12 @@ msgstr[0] "パッケージが %d 個見つかりました。"
 
 msgid "Version"
 msgstr "バージョン"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
+"人気度は各投票に作成日からの日数を0.98倍した全投票の合計で計算されます。"
 
 msgid "Yes"
 msgstr "はい"

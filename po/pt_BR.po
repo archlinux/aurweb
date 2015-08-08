@@ -4,17 +4,17 @@
 #
 # Translators:
 # Albino Biasutti Neto Bino <biasuttin@gmail.com>, 2011
-# Rafael Ferreira <rafael.f.f1@gmail.com>, 2012-2015
-# Rafael Ferreira <rafael.f.f1@gmail.com>, 2011
+# Rafael Fontenelle <rffontenelle@gmail.com>, 2012-2015
+# Rafael Fontenelle <rffontenelle@gmail.com>, 2011
 # Sandro <sandrossv@hotmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/aur/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-20 15:11+0000\n"
+"Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/lfleischer/aur/"
 "language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -29,11 +29,13 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "Desculpe, a página que você solicitou não existe."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Serviço Indisponível"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
+"Sem pânico! Este site está fechado para manutenção. Voltaremos às atividades "
+"em breve."
 
 msgid "Account"
 msgstr "Conta"
@@ -55,9 +57,6 @@ msgstr "Utilize este formulário para procurar contas existentes."
 
 msgid "You must log in to view user information."
 msgstr "Você precisa fazer login para ver as informações do usuário."
-
-msgid "Use this form to create an account."
-msgstr "Utilize este formulário para criar uma conta."
 
 msgid "Add Proposal"
 msgstr "Adicionar proposta"
@@ -150,48 +149,80 @@ msgstr ""
 "Pacotes sem suporte são pacotes produzidos pelos usuários. Qualquer uso dos "
 "arquivos fornecidos é de sua própria conta e risco."
 
+msgid "Learn more..."
+msgstr "Aprenda mais..."
+
 msgid "Support"
-msgstr ""
+msgstr "Suporte"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "Requisições de pacote"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
 msgstr ""
+"Há três tipos de requisições que podem ser realizadas na caixa %sAções do "
+"pacote%s na página de detalhes do pacote:"
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "Requisição para tornar o pacote órfão"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"Requisite que seja desvinculado um pacote de seu mantenedor, de forma que o "
+"pacote fique órfão, quando, por exemplo, o mantenedor está inativo e o "
+"pacote foi marcado como desatualizado há muito tempo."
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "Requisição de exclusão"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"Requisite que um pacote seja removido do Arch User Repository. Por favor, "
+"não use esta opção se um pacote está quebrado, mas que pode ser corrigido "
+"facilmente. Ao invés disso, contate o mantenedor do pacote e, se necessário, "
+"preencha uma requisição para tornar esse pacote órfão."
 
 msgid "Merge Request"
-msgstr ""
+msgstr "Requisição de mesclagem"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"Requisite que um pacote seja mesclado com outro. Pode ser usado quando um "
+"pacote precisa ser renomeado ou substituído por um pacote dividido."
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"Se você quiser discutir uma requisição, você pode user a lista de discussão "
+"%saur-request%s. Porém, por favor não use essa lista para fazer requisições."
+
+msgid "Submitting Packages"
+msgstr "Enviando pacotes"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Git sobre SSH agora é usado para enviar pacotes para o AUR. Veja a seção "
+"%sEnviando pacotes%s da página wiki do Arch User Repository para mais "
+"detalhes."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "As seguintes fingeprints SSH são usadas para o AUR:"
 
 msgid "Discussion"
 msgstr "Discussão"
@@ -202,6 +233,9 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"Discussões gerais no que se refere à estrutura do Arch User Repository (AUR) "
+"e do Trusted User acontecem no %saur-general%s. Para discussão relacionada "
+"ao desenvolvimento do AUR web, use a lista de discussão do %saur-dev%s"
 
 msgid "Bug Reporting"
 msgstr "Relatório de erros"
@@ -213,6 +247,11 @@ msgid ""
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
 msgstr ""
+"Se você encontrar um erro na interface web do AUR, por favor preencha um "
+"relatório de erro no nosso %sbug tracker%s. Use o tracker para relatar erros "
+"encontrados no AUR, %ssomente%s. Para relatar erros de empacotamento, "
+"contate o mantenedor do pacote ou deixe um comentário na página de pacote "
+"apropriada."
 
 msgid "Package Search"
 msgstr "Pesquisar pacote"
@@ -474,6 +513,12 @@ msgstr "Última"
 msgid "Requests"
 msgstr "Requisições"
 
+msgid "Register"
+msgstr "Registrar"
+
+msgid "Use this form to create an account."
+msgstr "Utilize este formulário para criar uma conta."
+
 msgid "Trusted User"
 msgstr "Trusted User"
 
@@ -620,6 +665,10 @@ msgstr "Combinação entre email e chave de redefinição é inválida"
 msgid "None"
 msgstr "Nenhum"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "Ver informações da conta para %s"
+
 msgid "Error retrieving package details."
 msgstr "Erro ao obter detalhes do pacote."
 
@@ -709,28 +758,23 @@ msgstr "O comentário foi excluído."
 msgid "You are not allowed to delete this comment."
 msgstr "Você não tem permissão para excluir esse comentário."
 
-msgid "Missing category ID."
-msgstr "Faltando ID de categoria."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
+"Você não tem permissão para editar as palavras-chaves deste pacote base."
 
-msgid "Invalid category ID."
-msgstr "ID de categoria inválido."
-
-msgid "You are not allowed to change this package category."
-msgstr "Você não tem permissão para alterar a categoria desse pacote."
-
-msgid "Package category changed."
-msgstr "Categoria do pacote alterada."
+msgid "The package base keywords have been updated."
+msgstr "As palavras-chave do pacote base foram atualizadas."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
-"Você não tem permissão para gerenciar co-mantenedores deste pacote base."
+"Você não tem permissão para gerenciar comantenedores deste pacote base."
 
 #, php-format
 msgid "Invalid user name: %s"
 msgstr "Nome de usuário inválido: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr "Os co-mantenedores do pacote base foram atualizados."
+msgstr "Os comantenedores do pacote base foram atualizados."
 
 msgid "View packages details for"
 msgstr "Ver detalhes de pacotes para"
@@ -884,13 +928,13 @@ msgstr "Não há mais resultados para serem exibidos."
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr "Gerenciar co-mantenedores: %s"
+msgstr "Gerenciar comantenedores: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
-"Use este formulário para adicionar co-mantenedores para %s%s%s (um nome de "
+"Use este formulário para adicionar comantenedores para %s%s%s (um nome de "
 "usuário por linha):"
 
 msgid "Users"
@@ -904,15 +948,6 @@ msgstr "Meus pacotes"
 
 msgid " My Account"
 msgstr " Minha conta"
-
-msgid "Register"
-msgstr "Registrar"
-
-msgid "unknown"
-msgstr "desconhecido"
-
-msgid "Package Base Details"
-msgstr "Detalhes do pacote base"
 
 msgid "Package Actions"
 msgstr "Ações do pacote"
@@ -951,7 +986,7 @@ msgid "Notify of new comments"
 msgstr "Notificar sobre novos comentários"
 
 msgid "Manage Co-Maintainers"
-msgstr "Gerenciar co-mantenedores"
+msgstr "Gerenciar comantenedores"
 
 #, php-format
 msgid "%d pending request"
@@ -968,21 +1003,23 @@ msgstr "Mesclar pacote"
 msgid "Adopt Package"
 msgstr "Adotar pacote"
 
+msgid "unknown"
+msgstr "desconhecido"
+
+msgid "Package Base Details"
+msgstr "Detalhes do pacote base"
+
 msgid "Git Clone URL"
 msgstr "Git Clone URL"
 
-msgid "Category"
-msgstr "Categoria"
+msgid "read-only"
+msgstr "somente leitura"
 
-msgid "Change category"
-msgstr "Alterar categoria"
+msgid "Keywords"
+msgstr "Palavras-chave"
 
 msgid "Submitter"
 msgstr "Criado por"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Ver informações da conta para %s"
 
 msgid "Maintainer"
 msgstr "Mantenedor"
@@ -1190,7 +1227,7 @@ msgid "Name"
 msgstr "Nome"
 
 msgid "Popularity"
-msgstr ""
+msgstr "Popularidade"
 
 msgid "Voted"
 msgstr "Votado"
@@ -1207,14 +1244,8 @@ msgstr "Decrescente"
 msgid "Enter search criteria"
 msgstr "Digite os critérios de pesquisa"
 
-msgid "Any"
-msgstr "Qualquer"
-
 msgid "Search by"
 msgstr "Pesquisar por"
-
-msgid "Keywords"
-msgstr "Palavras-chave"
 
 msgid "Out of Date"
 msgstr "Desatualizado"
@@ -1248,6 +1279,13 @@ msgstr[1] "%d pacotes encontrados."
 
 msgid "Version"
 msgstr "Versão"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
+"Popularidade é calculada como a soma de todos os votos, sendo cada voto "
+"pesado com um fator de 0.98 por dia desde sua criação."
 
 msgid "Yes"
 msgstr "Sim"

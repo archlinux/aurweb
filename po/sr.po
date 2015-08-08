@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-12 02:57+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 12:30+0000\n"
 "Last-Translator: Slobodan Terzić <githzerai06@gmail.com>\n"
-"Language-Team: Serbian (http://www.transifex.com/projects/p/aur/language/"
+"Language-Team: Serbian (http://www.transifex.com/lfleischer/aur/language/"
 "sr/)\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -56,9 +56,6 @@ msgstr "Ovim obrascem pretražujete postojeće naloge."
 
 msgid "You must log in to view user information."
 msgstr "Morate se prijaviti da bi videli podatke o korisniku."
-
-msgid "Use this form to create an account."
-msgstr "Ovim formularom pravite nalog."
 
 msgid "Add Proposal"
 msgstr "Dodavanje predloga"
@@ -150,6 +147,9 @@ msgstr ""
 "Paketi označeni sa [unsupported] su sadržaj koji stvaraju korisnici. "
 "Upotrebljavate ih na sopstvenu odgovornost."
 
+msgid "Learn more..."
+msgstr "Saznajte više..."
+
 msgid "Support"
 msgstr "Podrška"
 
@@ -204,6 +204,21 @@ msgstr ""
 "Ukoliko želite da diskutujete o zahtevu, možete koristiti dopisnu listu "
 "%saur-requests%s. Međutim, molimo da ne koristite tu listu za podnošenje "
 "zahteva."
+
+msgid "Submitting Packages"
+msgstr "Prilaganje paketa"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Za prilaganje paketa u AUR sada se koristi Git reko SSH. Pogledajte sekciju "
+"%sPrilaganje paketa%s na stranici or AUR-u na Arčovom wikiju."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "Sledeći SSH otisci se koriste za AUR:"
 
 msgid "Discussion"
 msgstr "Diskusija"
@@ -485,6 +500,12 @@ msgstr "Zadnja"
 msgid "Requests"
 msgstr "Zahtevi"
 
+msgid "Register"
+msgstr "Registracija"
+
+msgid "Use this form to create an account."
+msgstr "Ovim formularom pravite nalog."
+
 msgid "Trusted User"
 msgstr "Poverljivi korisnik"
 
@@ -630,6 +651,10 @@ msgstr "Neispravna kombinacija e-pošte i ključa za resetovanje."
 msgid "None"
 msgstr "Nema"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "Prikaži podatke o nalogu za %s"
+
 msgid "Error retrieving package details."
 msgstr "Greška pri dobavaljanju podataka o paketu."
 
@@ -719,17 +744,11 @@ msgstr "Komentar je obrisan."
 msgid "You are not allowed to delete this comment."
 msgstr "Nije vam dozvoljeno brisanje ovog komentara."
 
-msgid "Missing category ID."
-msgstr "Nedostaje ID kategorije."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr "Nije vam dozvoljeno da uređujete ključne reči za ovu osnovu paketa."
 
-msgid "Invalid category ID."
-msgstr "Neispravan ID kategorije."
-
-msgid "You are not allowed to change this package category."
-msgstr "Nemate dozvolu da promenite kategoriju ovog paketa."
-
-msgid "Package category changed."
-msgstr "Kategorija paketa je izmenjena."
+msgid "The package base keywords have been updated."
+msgstr "Ključne reči baze paketa su ažurirane."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Nije vam dozvvoljeno da upravljate koodržavaocima ove osnove paketa."
@@ -912,15 +931,6 @@ msgstr "Moji paketi"
 msgid " My Account"
 msgstr "Moj nalog"
 
-msgid "Register"
-msgstr "Registracija"
-
-msgid "unknown"
-msgstr "nepoznata"
-
-msgid "Package Base Details"
-msgstr "Podaci o bazi paketa"
-
 msgid "Package Actions"
 msgstr "Radnje nad paketom"
 
@@ -976,21 +986,23 @@ msgstr "Spoji paket"
 msgid "Adopt Package"
 msgstr "Usvoji paket"
 
+msgid "unknown"
+msgstr "nepoznata"
+
+msgid "Package Base Details"
+msgstr "Podaci o bazi paketa"
+
 msgid "Git Clone URL"
 msgstr "URL za git kloniranje"
 
-msgid "Category"
-msgstr "Kategorija"
+msgid "read-only"
+msgstr "samo za čitanje"
 
-msgid "Change category"
-msgstr "Promeni kategoriju"
+msgid "Keywords"
+msgstr "Ključne reči"
 
 msgid "Submitter"
 msgstr "Pošiljalac"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Prikaži podatke o nalogu za %s"
 
 msgid "Maintainer"
 msgstr "Održavalac"
@@ -1216,14 +1228,8 @@ msgstr "opadajući"
 msgid "Enter search criteria"
 msgstr "Unesite kriterijum pretrage"
 
-msgid "Any"
-msgstr "bilo koja"
-
 msgid "Search by"
 msgstr "Traži se"
-
-msgid "Keywords"
-msgstr "Ključne reči"
 
 msgid "Out of Date"
 msgstr "Zastareli paketi"
@@ -1258,6 +1264,13 @@ msgstr[2] "Nađeno %d paketa."
 
 msgid "Version"
 msgstr "Verzija"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
+"Popularnost se izračunava kao suma svih glasova, gde glas ima faktor težine "
+"0,98 za svaki dan od njegovog nastanka."
 
 msgid "Yes"
 msgstr "Da"

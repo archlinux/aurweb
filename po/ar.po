@@ -1,22 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
+# safa1996alfulaij <safa1996alfulaij@gmail.com>, 2015
 # صفا الفليج <safaalfulaij@hotmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-18 10:15+0200\n"
-"PO-Revision-Date: 2015-06-24 20:42+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-25 09:44+0000\n"
 "Last-Translator: صفا الفليج <safaalfulaij@hotmail.com>\n"
-"Language-Team: Arabic (http://www.transifex.com/projects/p/aur/language/ar/)\n"
+"Language-Team: Arabic (http://www.transifex.com/lfleischer/aur/language/"
+"ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Page Not Found"
 msgstr "لم يُعثر على الصّفحة"
@@ -52,11 +55,8 @@ msgstr "استخدم هذه الاستمارة للبحث عن الحسابات 
 msgid "You must log in to view user information."
 msgstr "عليك الولوج لعرض معلومات المستخدمين."
 
-msgid "Use this form to create an account."
-msgstr "استخدم هذه الاستمارة لإنشاء حساب."
-
 msgid "Add Proposal"
-msgstr ""
+msgstr "أضف رأيًا"
 
 msgid "Invalid token for user action."
 msgstr ""
@@ -72,28 +72,28 @@ msgid "Invalid type."
 msgstr "النّوع غير صالح."
 
 msgid "Proposal cannot be empty."
-msgstr ""
+msgstr "لا يمكن أن يكون الرّأي فارغًا."
 
 msgid "New proposal submitted."
-msgstr ""
+msgstr "قُدّم رأي جديد."
 
 msgid "Submit a proposal to vote on."
-msgstr ""
+msgstr "قدّم رأيًا للتّصويت عليه."
 
 msgid "Applicant/TU"
 msgstr ""
 
 msgid "(empty if not applicable)"
-msgstr ""
+msgstr "(فارغ إن لم ينطبق)"
 
 msgid "Type"
 msgstr "النّوع"
 
 msgid "Addition of a TU"
-msgstr ""
+msgstr "إضافة م‌م"
 
 msgid "Removal of a TU"
-msgstr ""
+msgstr "إزالة م‌م"
 
 msgid "Removal of a TU (undeclared inactivity)"
 msgstr ""
@@ -102,13 +102,13 @@ msgid "Amendment of Bylaws"
 msgstr ""
 
 msgid "Proposal"
-msgstr ""
+msgstr "الرّأي"
 
 msgid "Submit"
-msgstr ""
+msgstr "قدّم"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "أدر المصينين المشاركين"
 
 msgid "Home"
 msgstr "الرّئيسيّة"
@@ -117,13 +117,17 @@ msgstr "الرّئيسيّة"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "مرحبًا بك في م‌م‌آ! فضلًا اقرأ %sإرشادات مستخدمي م‌م‌آ%s و%sإرشادات مستخدمي م‌م‌آ الموثوقين (م‌م)%s لمعلومات أكثر."
+msgstr ""
+"مرحبًا بك في م‌م‌آ! فضلًا اقرأ %sإرشادات مستخدمي م‌م‌آ%s و%sإرشادات مستخدمي م‌م‌آ "
+"الموثوقين (م‌م)%s لمعلومات أكثر."
 
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "ملفّات PKGBUILD المساعم بها %sيجب%s أن تتبع %sمعايير التّحزيم في آرتش%s وإلا ستُحذف!"
+msgstr ""
+"ملفّات PKGBUILD المساهم بها %sيجب%s أن تتبع %sمعايير التّحزيم في آرتش%s وإلا "
+"ستُحذف!"
 
 msgid "Remember to vote for your favourite packages!"
 msgstr "تذكّر أن تصوّت لحزمك المفضّلة!"
@@ -137,7 +141,9 @@ msgstr "إخلاء مسؤوليّة"
 msgid ""
 "Unsupported packages are user produced content. Any use of the provided "
 "files is at your own risk."
-msgstr "الحزم غير المدعومة محتوًى قدّمه المستخدمون. أيّ استخدام للملفّات الموفّرة هي على مسؤوليّتك الخاصّة."
+msgstr ""
+"الحزم غير المدعومة محتوًى قدّمه المستخدمون. أيّ استخدام للملفّات الموفّرة هي على "
+"مسؤوليّتك الخاصّة."
 
 msgid "Learn more..."
 msgstr "تعلّم أكثر..."
@@ -150,9 +156,11 @@ msgstr "طلبات الحزم"
 
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage "
-"Actions%s box on the package details page:"
-msgstr "هناك ثلاث أنواع من الحزم التي يمكن ملؤها في مربّع %sإجراءات الحزم%s في صفحة تفاصيل الحزمة:"
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+"هناك ثلاث أنواع من الحزم التي يمكن ملؤها في مربّع %sإجراءات الحزم%s في صفحة "
+"تفاصيل الحزمة:"
 
 msgid "Orphan Request"
 msgstr "طلب \"يتيمة\""
@@ -160,16 +168,21 @@ msgstr "طلب \"يتيمة\""
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "اطلب أن يُتبرّأ من الحزمة، مثلًا عندما يكون مصينها غير نشط وقد عُلّمت الحزمة كقديمة لوقت طويل."
+msgstr ""
+"اطلب أن يُتبرّأ من الحزمة، مثلًا عندما يكون مصينها غير نشط وقد عُلّمت الحزمة "
+"كقديمة لوقت طويل."
 
 msgid "Deletion Request"
 msgstr "طلب الحذف"
 
 msgid ""
-"Request a package to be removed from the Arch User Repository. Please do not"
-" use this if a package is broken and can be fixed easily. Instead, contact "
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
-msgstr "اطلب أن تُزال الحزمة من مستودع مستخدمي آرتش. فضلًا لا تستخدم هذه إن كانت الحزمة معطوبة ويمكن إصلاحها بسهولة. بدل ذلك تواصل مع مصين الحزمة وأبلغ عن طلب \"يتيمة\" إن تطلّب الأمر."
+msgstr ""
+"اطلب أن تُزال الحزمة من مستودع مستخدمي آرتش. فضلًا لا تستخدم هذه إن كانت "
+"الحزمة معطوبة ويمكن إصلاحها بسهولة. بدل ذلك تواصل مع مصين الحزمة وأبلغ عن "
+"طلب \"يتيمة\" إن تطلّب الأمر."
 
 msgid "Merge Request"
 msgstr "طلب الدّمج"
@@ -177,23 +190,29 @@ msgstr "طلب الدّمج"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "اطل دمج حزمة مع أخرى. يمكن استخدامه عندما تحتاج حزمة ما إعادة تسمية أو استبدال بحزمة تقسيميّة."
+msgstr ""
+"اطل دمج حزمة مع أخرى. يمكن استخدامه عندما تحتاج حزمة ما إعادة تسمية أو "
+"استبدال بحزمة تقسيميّة."
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "إن أردت النّقاش حول طلب ما، يمكنك استخدام قائمة %saur-requests%s البريديّة. لكن فضلًا لا تستخدمها للإبلاغ عن الطلبات."
+msgstr ""
+"إن أردت النّقاش حول طلب ما، يمكنك استخدام قائمة %saur-requests%s البريديّة. "
+"لكن فضلًا لا تستخدمها للإبلاغ عن الطلبات."
 
 msgid "Submitting Packages"
 msgstr "تقديم الحزم"
 
 #, php-format
 msgid ""
-"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
-" packages%s section of the Arch User Repository ArchWiki page for more "
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "غِت Git عبر SSH يُستخدم الآن لتقديم الحزم إلى مستودع مستخدمي آرتش (م‌م‌آ). طالع قسم %sتقديم الحزم%s في صفحة مستودع مستخدمي آرتش في ويكي آرتش لتفاصيل أكثر."
+msgstr ""
+"غِت Git عبر SSH يُستخدم الآن لتقديم الحزم إلى مستودع مستخدمي آرتش (م‌م‌آ). طالع "
+"قسم %sتقديم الحزم%s في صفحة مستودع مستخدمي آرتش في ويكي آرتش لتفاصيل أكثر."
 
 msgid "The following SSH fingerprints are used for the AUR:"
 msgstr "بصمات SSH الآتية مستخدمة في م‌م‌آ:"
@@ -203,10 +222,13 @@ msgstr "النّقاش"
 
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. For discussion relating to the "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "النّقاشات العاّمة حول مستودع مستخدمي آرتش (م‌م‌آ) وبنية المستخدمين الموثوقين تكون في  %saur-general%s. للنّقاشات المتعلّقة لتطوير واجهة وِب م‌م‌آ، استخدم قائمة %saur-dev%s البريديّة."
+msgstr ""
+"النّقاشات العاّمة حول مستودع مستخدمي آرتش (م‌م‌آ) وبنية المستخدمين الموثوقين "
+"تكون في  %saur-general%s. للنّقاشات المتعلّقة بتطوير واجهة وِب م‌م‌آ، استخدم "
+"قائمة %saur-dev%s البريديّة."
 
 msgid "Bug Reporting"
 msgstr "الإبلاغ عن العلل"
@@ -217,31 +239,34 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
-msgstr "إن وجدت علّة في واجهة وِب م‌م‌آ، فضلًا املأ تقريرًا بها في %sمتعقّب العلل%s. استخدم المتعقّب للإبلاغ عن العلل في م‌م‌آ %sفقط%s. للإبلاغ عن علل الحزم راسل مديرها أو اترك تعليقًا في صفحة الحزمة المناسبة."
+msgstr ""
+"إن وجدت علّة في واجهة وِب م‌م‌آ، فضلًا املأ تقريرًا بها في %sمتعقّب العلل%s. استخدم "
+"المتعقّب للإبلاغ عن العلل في م‌م‌آ %sفقط%s. للإبلاغ عن علل الحزم راسل مديرها أو "
+"اترك تعليقًا في صفحة الحزمة المناسبة."
 
 msgid "Package Search"
 msgstr "ابحث عن حزمة"
 
 msgid "Adopt"
-msgstr ""
+msgstr "تبنّ"
 
 msgid "Vote"
-msgstr ""
+msgstr "صوّت"
 
 msgid "UnVote"
-msgstr ""
+msgstr "أزل التّصويت"
 
 msgid "Notify"
-msgstr ""
+msgstr "الإخطار"
 
 msgid "UnNotify"
-msgstr ""
+msgstr "أزل الإخطار"
 
 msgid "Flag"
-msgstr ""
+msgstr "علّم"
 
 msgid "UnFlag"
-msgstr ""
+msgstr "أزل التّعليم"
 
 msgid "Login"
 msgstr "لِج"
@@ -300,7 +325,9 @@ msgid ""
 "A password reset request was submitted for the account %s associated with "
 "your e-mail address. If you wish to reset your password follow the link "
 "below, otherwise ignore this message and nothing will happen."
-msgstr "قُدّم طلب تصفير كلمة مرور الحساب %s المرتبط بعنوان بريدك الإلكتروني. إن رغبت بتصغير كلمة مرورك اتبع الوصلة أدناه، وإلّا تجاهل هذه الرّسالة ولن يحدث شيء."
+msgstr ""
+"قُدّم طلب تصفير كلمة مرور الحساب %s المرتبط بعنوان بريدك الإلكتروني. إن رغبت "
+"بتصغير كلمة مرورك اتبع الوصلة أدناه، وإلّا تجاهل هذه الرّسالة ولن يحدث شيء."
 
 msgid "Password Reset"
 msgstr "صفّر كلمة المرور"
@@ -325,9 +352,11 @@ msgstr "تابع"
 
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "إن نسيت عنوان البريد الإلكترونيّ الذي استخدمته للتّسجيل، فضلًا أرسل رسالة إلى قائمة %saur-general%s البريديّة."
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"إن نسيت عنوان البريد الإلكترونيّ الذي استخدمته للتّسجيل، فضلًا أرسل رسالة إلى "
+"قائمة %saur-general%s البريديّة."
 
 msgid "Enter your e-mail address:"
 msgstr "أدخل عنوان بريدك الإلكترونيّ:"
@@ -335,7 +364,7 @@ msgstr "أدخل عنوان بريدك الإلكترونيّ:"
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "لم يُتنازل عن الحزم المحدّدة، افحص مربع تأشير التّأكيد."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "تعذّر العثور على الحزمة لدمج التّصويتات والتّعليقات معها."
@@ -344,9 +373,8 @@ msgid "Cannot merge a package base with itself."
 msgstr "لا يمكن الدّمج بلا أساس الحزمة نفسه."
 
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
-msgstr ""
+"The selected packages have not been deleted, check the confirmation checkbox."
+msgstr "لم تُحذف الحزم المحدّدة، افحص مربع تأشير التّأكيد."
 
 msgid "Package Deletion"
 msgstr "احذف حزمة"
@@ -385,19 +413,21 @@ msgstr "تنازل عن الحزمة: %s"
 
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following"
-" packages: "
-msgstr "استخدم هذه الاستمارة للتّنازل عن أساس الحزمة %s%s%s المتضمّنة الحزم الآتية:"
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+"استخدم هذه الاستمارة للتّنازل عن أساس الحزمة %s%s%s المتضمّنة الحزم الآتية:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"بتأشير مربع التّأشير، أنت تؤكّد على تنازلك عن الحزمة ونقل ملكيّتها إلى %s%s%s."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr ""
+msgstr "بتأشير مربع التّأشير، أنت تؤكّد على تنازلك عن الحزمة."
 
 msgid "Confirm to disown the package"
 msgstr "أكّد التّنازل عن الحزمة"
@@ -435,13 +465,13 @@ msgid "Confirm package merge"
 msgstr "أكّد دمج الحزم"
 
 msgid "Merge"
-msgstr ""
+msgstr "دمج"
 
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "يمكن فقط للمستخدمين الموثوقين والمطوّرين دمج الحزم."
 
 msgid "File Request"
-msgstr ""
+msgstr "افتح طلبًا"
 
 msgid "Close Request"
 msgstr "أغلق الطّلب"
@@ -459,25 +489,31 @@ msgid "Last"
 msgstr "الأخيرة"
 
 msgid "Requests"
-msgstr ""
+msgstr "الطّلبات"
+
+msgid "Register"
+msgstr "سجّل"
+
+msgid "Use this form to create an account."
+msgstr "استخدم هذه الاستمارة لإنشاء حساب."
 
 msgid "Trusted User"
 msgstr "مستخدم موثوق"
 
 msgid "Could not retrieve proposal details."
-msgstr ""
+msgstr "تعذّر استرجاع تفاصيل الرّأي."
 
 msgid "Voting is closed for this proposal."
-msgstr ""
+msgstr "أُغلق التّصويت على هذا الرّأي."
 
 msgid "Only Trusted Users are allowed to vote."
 msgstr "فقط المستخدمين الموثوقين مسموح لهم بالتّصويت."
 
 msgid "You cannot vote in an proposal about you."
-msgstr ""
+msgstr "لا يمكنك التّصويت على رأي عنك."
 
 msgid "You've already voted for this proposal."
-msgstr ""
+msgstr "لقد صوّتّ على هذا الرّأي بالفعل."
 
 msgid "Vote ID not valid."
 msgstr "معرّف التّصويت غير صالح."
@@ -494,7 +530,9 @@ msgstr "المصوّتون"
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "تسجيل الحسابات معطّل حاليًّا لعنوان IP خاصّتك، لربمّا بسبب هجماتك السّخاميّة المتكرّرة. آسفون لإزاعجك"
+msgstr ""
+"تسجيل الحسابات معطّل حاليًّا لعنوان IP خاصّتك، لربمّا بسبب هجماتك السّخاميّة "
+"المتكرّرة. آسفون لإزاعجك"
 
 msgid "Missing User ID"
 msgstr "معرّف المستخدم ناقص"
@@ -555,7 +593,9 @@ msgid ""
 "Welcome to %s! In order to set an initial password for your new account, "
 "please click the link below. If the link does not work try copying and "
 "pasting it into your browser."
-msgstr "مرحبًا بك في %s! لتعيين كلمة مرور أوليّة لحسابك الجديد، فضلًأ انقر الوصلة أدناه. إن لم تعمل الوصلة جرّب النّسخ واللصق في متصفّحك."
+msgstr ""
+"مرحبًا بك في %s! لتعيين كلمة مرور أوليّة لحسابك الجديد، فضلًأ انقر الوصلة "
+"أدناه. إن لم تعمل الوصلة جرّب النّسخ واللصق في متصفّحك."
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "مفتاح تصفير كلمة المرور أُرسل إلى عنوان بريدك الإلكترونيّ."
@@ -571,7 +611,9 @@ msgstr "عُدّل الحساب %s%s%s بنجاح."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "استمارة الولوج معطّلة حاليًّا لعنوان IP خاصّتك، لربمّا بسبب هجماتك السّخاميّة المتكرّرة. آسفون لإزاعجك."
+msgstr ""
+"استمارة الولوج معطّلة حاليًّا لعنوان IP خاصّتك، لربمّا بسبب هجماتك السّخاميّة "
+"المتكرّرة. آسفون لإزاعجك."
 
 msgid "Account suspended"
 msgstr "عُلّق الحساب"
@@ -581,7 +623,10 @@ msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "لقد صُفّرت كلمة مرورك. إن أنشئت حسابًا جديدًا للتّوّ، فضلًا استخدم الوصلة من الريد الإلكتروني التّأكيديّ لتعيين كلمة مرور أوّليّة. وإلّا، فضلًا اطلب مفتاح تصفير من صفحة %sصفّر كلمة المرور%s."
+msgstr ""
+"لقد صُفّرت كلمة مرورك. إن أنشئت حسابًا جديدًا للتّوّ، فضلًا استخدم الوصلة من الريد "
+"الإلكتروني التّأكيديّ لتعيين كلمة مرور أوّليّة. وإلّا، فضلًا اطلب مفتاح تصفير من "
+"صفحة %sصفّر كلمة المرور%s."
 
 msgid "Bad username or password."
 msgstr "اسم مستخدم أو كلمة مرور سيئّة."
@@ -590,7 +635,7 @@ msgid "An error occurred trying to generate a user session."
 msgstr "حدث خطأ أثناء توليد جلسة مستخدم."
 
 msgid "Invalid e-mail and reset key combination."
-msgstr ""
+msgstr "البريد الإلكترونيّ وتجميعة مفاتيح التّصفير غير صالحة."
 
 msgid "None"
 msgstr "بلا"
@@ -621,7 +666,7 @@ msgid "You did not select any packages to unflag."
 msgstr "لم تحدّد أيّ حزم لإزالة تعليمها."
 
 msgid "The selected packages have been unflagged."
-msgstr "أُزيل تعليم الحزم المحدّدة."
+msgstr "أزثيل تعليم الحزم المحدّدة."
 
 msgid "You do not have permission to delete packages."
 msgstr "لا صلاحيّة لديك لحذف الحزم."
@@ -645,10 +690,10 @@ msgid "You did not select any packages to disown."
 msgstr "لم تحدّد أيّ حزم للتّنازل عنها."
 
 msgid "The selected packages have been adopted."
-msgstr ""
+msgstr "تُبنّيت الحزم المحدّدة."
 
 msgid "The selected packages have been disowned."
-msgstr ""
+msgstr "تُنوزل عن الحزم المحدّدة."
 
 msgid "You must be logged in before you can vote for packages."
 msgstr "عليك الولوج قبل التّصويت للحزم."
@@ -663,18 +708,18 @@ msgid "Your votes have been removed from the selected packages."
 msgstr "أُزيلت تصويتاتك من الحزم المحدّدة."
 
 msgid "Your votes have been cast for the selected packages."
-msgstr ""
+msgstr "أُدليت تصويتاتك على الحزم المحدّدة."
 
 msgid "Couldn't add to notification list."
 msgstr "تعذّرت الإضافة إلى قائمة الإخطارات."
 
 #, php-format
 msgid "You have been added to the comment notification list for %s."
-msgstr ""
+msgstr "أُضفت إلى قائمة إخطار التّعليقات لِـ %s."
 
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr ""
+msgstr "أُزلت من قائمة إخطار التّعليقات لِـ %s."
 
 msgid "You must be logged in before you can edit package information."
 msgstr "عليك الولوج قبل تحرير معلومات الحزم."
@@ -695,20 +740,20 @@ msgid "The package base keywords have been updated."
 msgstr "حُدّثت كلمات أساس الحزمة المفتاحيّة."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "ليس مسموحًا لك بإدارة مصيني أساس الحزمة هذا المشاركين."
 
 #, php-format
 msgid "Invalid user name: %s"
 msgstr "اسم مستخدم غير صالح: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "حُدّث مصيني أساس الحزمة المشاركين."
 
 msgid "View packages details for"
 msgstr "اعرض تفاصيل حزمة"
 
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "عليك الولوج لفتح طلبات حزم."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "اسم غير صالح: فقط الأحرف بالحالة الصغيرة مسموح بها."
@@ -746,13 +791,13 @@ msgid "Account Type"
 msgstr "نوع الحساب"
 
 msgid "User"
-msgstr ""
+msgstr "مستخدم"
 
 msgid "Developer"
-msgstr ""
+msgstr "مطوّر"
 
 msgid "Trusted User & Developer"
-msgstr ""
+msgstr "مستخدم موثوق ومطوّر"
 
 msgid "Email Address"
 msgstr "البريد الإلكترونيّ"
@@ -767,7 +812,7 @@ msgid "PGP Key Fingerprint"
 msgstr "بصمة مفتاح PGP"
 
 msgid "Status"
-msgstr ""
+msgstr "الحالة"
 
 msgid "Inactive since"
 msgstr "غير نشط منذ"
@@ -792,7 +837,7 @@ msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "انقر %sهنا%s إن أردت حذف هذا الحساب نهائيًّا."
 
 msgid "required"
-msgstr ""
+msgstr "مطلوب"
 
 msgid "Normal user"
 msgstr "مستخدم عاديّ"
@@ -813,8 +858,8 @@ msgid "Language"
 msgstr "اللغة"
 
 msgid ""
-"The following information is only required if you want to submit packages to"
-" the Arch User Repository."
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
 msgstr "المعلومات الآتية مطلوبة فقط إن أردت تقديم حزم إلى مستودع مستخدمي آرتش."
 
 msgid "SSH Public Key"
@@ -852,12 +897,12 @@ msgstr "لا نتائج أخرى لعرضها."
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr ""
+msgstr "أدر المصينين المشاركين: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr ""
+msgstr "استخدم هذه الاستمارة لإضافة مصينين مشاركين لِـ %s%s%s (اسم في كلّ سطر):"
 
 msgid "Users"
 msgstr "المستخدمون"
@@ -870,15 +915,6 @@ msgstr "حزمي"
 
 msgid " My Account"
 msgstr "حسابي"
-
-msgid "Register"
-msgstr "سجّل"
-
-msgid "unknown"
-msgstr ""
-
-msgid "Package Base Details"
-msgstr "تفاصيل أساس الحزمة"
 
 msgid "Package Actions"
 msgstr "إجراءات الحزمة"
@@ -905,7 +941,7 @@ msgid "Unflag package"
 msgstr "أزل تعليم الحزمة"
 
 msgid "Remove vote"
-msgstr ""
+msgstr "أزل التّصويت"
 
 msgid "Vote for this package"
 msgstr "صوّت لهذه الحزمة"
@@ -917,17 +953,17 @@ msgid "Notify of new comments"
 msgstr "أخطرني بالتّعليقات الجديدة"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "أدر المصينين المشاركين"
 
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لا طلبات منتظرة"
+msgstr[1] "طلب واحد منتظر"
+msgstr[2] "طلبان منتظران"
+msgstr[3] "%d طلبات منتظرة"
+msgstr[4] "%d طلبًا منتظرًا"
+msgstr[5] "%d طلب منتظر"
 
 msgid "Delete Package"
 msgstr "احذف الحزمة"
@@ -938,11 +974,17 @@ msgstr "ادمج الحزم"
 msgid "Adopt Package"
 msgstr "تبنّ الحزمة"
 
+msgid "unknown"
+msgstr "مجهول"
+
+msgid "Package Base Details"
+msgstr "تفاصيل أساس الحزمة"
+
 msgid "Git Clone URL"
 msgstr "عنوان غِت للاستنساخ"
 
 msgid "read-only"
-msgstr ""
+msgstr "للقراءة فقط"
 
 msgid "Keywords"
 msgstr "الكلمات المفتاحيّة"
@@ -1034,7 +1076,7 @@ msgstr "المصادر"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "أغلق الطّلب: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
@@ -1046,7 +1088,8 @@ msgstr "ملاحظة"
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "يمكن ترك حقل التّعليقات فارغًا. مع ذلك، من المستحسن إضافة تعليق عند رفض طلب ما."
+msgstr ""
+"يمكن ترك حقل التّعليقات فارغًا. مع ذلك، من المستحسن إضافة تعليق عند رفض طلب ما."
 
 msgid "Reason"
 msgstr "السّبب"
@@ -1062,13 +1105,14 @@ msgstr "التّعليقات"
 
 #, php-format
 msgid "File Request: %s"
-msgstr ""
+msgstr "افتح طلبًا: %s"
 
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
+"استخدم هذه الاستمارة لفتح طلب لأساس الحزمة %s%s%s المتضمّنة الحزم الآتية:"
 
 msgid "Request type"
 msgstr "نوع الطّلب"
@@ -1085,12 +1129,12 @@ msgstr "ادمج مع"
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لم تُعثر على أيّة طلبات حزم."
+msgstr[1] "عُثر على طلب حزمة واحد."
+msgstr[2] "عُثر على طلبا حزم."
+msgstr[3] "عُثر على %d طلبات حزم."
+msgstr[4] "عُثر على %d طلب حزمة."
+msgstr[5] "عُثر على %d طلب حزمة."
 
 #, php-format
 msgid "Page %d of %d."
@@ -1100,7 +1144,7 @@ msgid "Package"
 msgstr "الحزم"
 
 msgid "Filed by"
-msgstr ""
+msgstr "فتحه:"
 
 msgid "Date"
 msgstr "التّاريخ"
@@ -1112,12 +1156,12 @@ msgstr ""
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "بقي بضع دقائق"
+msgstr[1] "بقي حوالي ساعة"
+msgstr[2] "بقي حوالي ساعتين"
+msgstr[3] "بقي حوالي %d ساعات"
+msgstr[4] "بقي حوالي %d ساعةً"
+msgstr[5] "بقي حوالي %d ساعة"
 
 msgid "<1 hour left"
 msgstr "بقيت أقلّ من ساعة"
@@ -1162,7 +1206,7 @@ msgid "Popularity"
 msgstr "الشّعبيّة"
 
 msgid "Voted"
-msgstr ""
+msgstr "مصوّت عليها"
 
 msgid "Age"
 msgstr "العمر"
@@ -1180,7 +1224,7 @@ msgid "Search by"
 msgstr "ابحث حسب"
 
 msgid "Out of Date"
-msgstr "قديمة"
+msgstr "القديمة"
 
 msgid "Sort by"
 msgstr "افرز حسب"
@@ -1206,12 +1250,12 @@ msgstr "لا حزم طابقت معايير بحثك."
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لم يُعثر على أيّة حزمة."
+msgstr[1] "عُثر على حزمة واحدة."
+msgstr[2] "عُثر على حزمتين."
+msgstr[3] "عُثر على %d حزم."
+msgstr[4] "عُثر على %d حزمةً."
+msgstr[5] "عُثر على %d حزمة."
 
 msgid "Version"
 msgstr "الإصدارة"
@@ -1285,20 +1329,20 @@ msgid "My Statistics"
 msgstr "إحصائيّاتي"
 
 msgid "Packages in unsupported"
-msgstr ""
+msgstr "الحزم في \"غير مدعوم\""
 
 msgid "Proposal Details"
-msgstr ""
+msgstr "تفاصيل الرّأي"
 
 msgid "This vote is still running."
 msgstr "ما زال هذا التّصويت قائمًا."
 
 #, php-format
 msgid "Submitted: %s by %s"
-msgstr ""
+msgstr "قدّمه (في %s) ‏%s"
 
 msgid "End"
-msgstr ""
+msgstr "النّهاية"
 
 msgid "Result"
 msgstr "النّتيجة"
@@ -1307,25 +1351,25 @@ msgid "No"
 msgstr "لا"
 
 msgid "Abstain"
-msgstr ""
+msgstr "الامتناع"
 
 msgid "Total"
 msgstr "المجموع"
 
 msgid "Participation"
-msgstr ""
+msgstr "المشاركة"
 
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "آخر التّصويتات لِـ م‌م"
 
 msgid "Last vote"
-msgstr ""
+msgstr "آخر تصويت"
 
 msgid "No results found."
 msgstr "لم يُعثر على أيّ نتيجة."
 
 msgid "Start"
-msgstr ""
+msgstr "البداية"
 
 msgid "Back"
-msgstr ""
+msgstr "السّابق"

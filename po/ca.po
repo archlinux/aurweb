@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/aur/language/"
+"Language-Team: Catalan (http://www.transifex.com/lfleischer/aur/language/"
 "ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -54,9 +54,6 @@ msgstr "Utilitzeu aquest formulari per a cercar comptes existents."
 
 msgid "You must log in to view user information."
 msgstr "Heu d'identificar-vos per a veure la inforació de l'usuari."
-
-msgid "Use this form to create an account."
-msgstr "Utilitzeu aquest formulari per a crear un compte."
 
 msgid "Add Proposal"
 msgstr "Afegeix proposta"
@@ -148,6 +145,9 @@ msgstr ""
 "Els paquets sense suport són creats per diferents usuaris. Qualsevol ús "
 "d'aquests és sempre sota el seu propi risc."
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -189,6 +189,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -461,6 +474,12 @@ msgstr "Darrer"
 msgid "Requests"
 msgstr ""
 
+msgid "Register"
+msgstr "Registrar-se"
+
+msgid "Use this form to create an account."
+msgstr "Utilitzeu aquest formulari per a crear un compte."
+
 msgid "Trusted User"
 msgstr "Usuari de Confiança"
 
@@ -609,6 +628,10 @@ msgstr ""
 msgid "None"
 msgstr "Res"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "Veure l'informació del compte per %s"
+
 msgid "Error retrieving package details."
 msgstr "No s'han pogut obtenir els detalls del paquet."
 
@@ -698,17 +721,11 @@ msgstr "S'ha esborrat el comentari."
 msgid "You are not allowed to delete this comment."
 msgstr "No esteu autoritzat per esborrar aquest comentari."
 
-msgid "Missing category ID."
-msgstr "Manca la identificació de categoria."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "L'identificador de la categoria no és vàlid."
-
-msgid "You are not allowed to change this package category."
-msgstr "No esteu autoritzats a canviar la categoria del paquet."
-
-msgid "Package category changed."
-msgstr "Ha canviat la categoria del paquet."
+msgid "The package base keywords have been updated."
+msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
@@ -887,15 +904,6 @@ msgstr "Els meus paquets"
 msgid " My Account"
 msgstr "El meu Compte"
 
-msgid "Register"
-msgstr "Registrar-se"
-
-msgid "unknown"
-msgstr "desconegut"
-
-msgid "Package Base Details"
-msgstr ""
-
 msgid "Package Actions"
 msgstr "Accions Paquet"
 
@@ -950,21 +958,23 @@ msgstr "Fusionar el paquet"
 msgid "Adopt Package"
 msgstr "Adoptar Paquet"
 
+msgid "unknown"
+msgstr "desconegut"
+
+msgid "Package Base Details"
+msgstr ""
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "Categoria"
+msgid "read-only"
+msgstr ""
 
-msgid "Change category"
-msgstr "Canvi de categoria"
+msgid "Keywords"
+msgstr "Paraules Clau"
 
 msgid "Submitter"
 msgstr "Remitent"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Veure l'informació del compte per %s"
 
 msgid "Maintainer"
 msgstr "Mantenidor"
@@ -1184,14 +1194,8 @@ msgstr "Descendent"
 msgid "Enter search criteria"
 msgstr "Introdueixi in criteri de cerca"
 
-msgid "Any"
-msgstr "Cap"
-
 msgid "Search by"
 msgstr "Cerca per"
-
-msgid "Keywords"
-msgstr "Paraules Clau"
 
 msgid "Out of Date"
 msgstr "No-Actualitzat"
@@ -1225,6 +1229,11 @@ msgstr[1] ""
 
 msgid "Version"
 msgstr "Versió"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Sí"

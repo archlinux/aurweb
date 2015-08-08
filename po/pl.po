@@ -10,15 +10,15 @@
 # Kwpolska <kwpolska@kwpolska.tk>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Nuc1eoN <nucrap@hotmail.com>, 2014
-# Piotr Strębski <strebski@o2.pl>, 2013-2014
+# Piotr Strębski <strebski@o2.pl>, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/aur/language/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-30 13:02+0000\n"
+"Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
+"Language-Team: Polish (http://www.transifex.com/lfleischer/aur/language/"
 "pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -34,14 +34,16 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "Przepraszamy, strona o którą prosiłeś nie istnieje."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Usługa niedostępna"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
+"Nie panikuj! W związku z przeprowadzanymi pracami technicznymi strona jest "
+"chwilowo niedostępna. Już wkrótce wrócimy."
 
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 msgid "Accounts"
 msgstr "Konta"
@@ -60,9 +62,6 @@ msgstr "Przy użyciu tego formularza możesz przeszukać istniejące konta."
 
 msgid "You must log in to view user information."
 msgstr "Musisz być zalogowany aby móc oglądać informacje o użytkownikach."
-
-msgid "Use this form to create an account."
-msgstr "Przy użyciu tego formularza możesz utworzyć konto."
 
 msgid "Add Proposal"
 msgstr "Dodaj Propozycję"
@@ -117,7 +116,7 @@ msgid "Submit"
 msgstr "Wyślij"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "Zarządzanie współutrzymującymi"
 
 msgid "Home"
 msgstr "Start"
@@ -154,11 +153,14 @@ msgstr ""
 "Zamieszczone pakiety są niewspierane i utworzone przez użytkowników. Używasz "
 "ich na własne ryzyko."
 
+msgid "Learn more..."
+msgstr "Dowiedz się więcej..."
+
 msgid "Support"
-msgstr ""
+msgstr "Wsparcie"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "Prośby o pakiet"
 
 #, php-format
 msgid ""
@@ -175,7 +177,7 @@ msgid ""
 msgstr ""
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "Prośba o usunięcie"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
@@ -184,7 +186,7 @@ msgid ""
 msgstr ""
 
 msgid "Merge Request"
-msgstr ""
+msgstr "Prośba o połączenie"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
@@ -195,6 +197,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr "Przesyłanie pakietów"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -469,6 +484,12 @@ msgstr "Ostatnia"
 msgid "Requests"
 msgstr "Propozcje"
 
+msgid "Register"
+msgstr "Zarejestruj się"
+
+msgid "Use this form to create an account."
+msgstr "Przy użyciu tego formularza możesz utworzyć konto."
+
 msgid "Trusted User"
 msgstr "Zaufany Użytkownik"
 
@@ -616,6 +637,10 @@ msgstr "Nieprawidłowy e-mail i klucz do resetowania."
 msgid "None"
 msgstr "Żaden"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "Wyświetl informacje o koncie %s"
+
 msgid "Error retrieving package details."
 msgstr "Błąd podczas pobierania informacji o pakiecie."
 
@@ -705,24 +730,18 @@ msgstr "Komentarz został usunięty."
 msgid "You are not allowed to delete this comment."
 msgstr "Nie masz uprawnień do usunięcia tego komentarza."
 
-msgid "Missing category ID."
-msgstr "Brakujące ID kategorii."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "Nieprawidłowy identyfikator kategorii."
-
-msgid "You are not allowed to change this package category."
-msgstr "Nie masz uprawnień, by zmienić kategorię tego pakietu."
-
-msgid "Package category changed."
-msgstr "Kategoria pakietu zmieniona."
+msgid "The package base keywords have been updated."
+msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Niepoprawna nazwa użytkownika: %s"
 
 msgid "The package base co-maintainers have been updated."
 msgstr ""
@@ -841,7 +860,7 @@ msgid ""
 msgstr ""
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "Klucz publiczny SSH"
 
 msgid "Update"
 msgstr "Aktualizuj"
@@ -883,25 +902,16 @@ msgid ""
 msgstr ""
 
 msgid "Users"
-msgstr ""
+msgstr "Użytkownicy"
 
 msgid "Save"
-msgstr ""
+msgstr "Zapisz"
 
 msgid "My Packages"
 msgstr "Moje pakiety"
 
 msgid " My Account"
 msgstr "Moje konto"
-
-msgid "Register"
-msgstr "Zarejestruj się"
-
-msgid "unknown"
-msgstr "nieznana"
-
-msgid "Package Base Details"
-msgstr "Szczegóły bazy pakietu"
 
 msgid "Package Actions"
 msgstr "Działania na pakietach"
@@ -910,7 +920,7 @@ msgid "View PKGBUILD"
 msgstr "Pokaż PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Zobacz zmiany"
 
 msgid "Download snapshot"
 msgstr ""
@@ -958,21 +968,23 @@ msgstr "Scal pakiet"
 msgid "Adopt Package"
 msgstr "Przejmij pakiet"
 
+msgid "unknown"
+msgstr "nieznana"
+
+msgid "Package Base Details"
+msgstr "Szczegóły bazy pakietu"
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "Kategoria"
+msgid "read-only"
+msgstr ""
 
-msgid "Change category"
-msgstr "Zmień kategorię."
+msgid "Keywords"
+msgstr "Słowa kluczowe"
 
 msgid "Submitter"
 msgstr "Nadesłał"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Wyświetl informacje o koncie %s"
 
 msgid "Maintainer"
 msgstr "Opiekun"
@@ -1065,7 +1077,7 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 
 msgid "Note"
-msgstr ""
+msgstr "Uwaga"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
@@ -1073,7 +1085,7 @@ msgid ""
 msgstr ""
 
 msgid "Reason"
-msgstr ""
+msgstr "Powód"
 
 msgid "Accepted"
 msgstr "Zaakceptowany"
@@ -1130,23 +1142,23 @@ msgstr "Data"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "pozostało ~%d  dni"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "pozostała ~%d godzina"
+msgstr[1] "pozostały ~%d godziny"
+msgstr[2] "pozostało ~%d godzin"
 
 msgid "<1 hour left"
-msgstr ""
+msgstr "pozostała <1 godzina"
 
 msgid "Accept"
 msgstr "Akceptuj"
 
 msgid "Locked"
-msgstr ""
+msgstr "Zablokowane"
 
 msgid "Close"
 msgstr "Zamknij"
@@ -1179,7 +1191,7 @@ msgid "Name"
 msgstr "Nazwa"
 
 msgid "Popularity"
-msgstr ""
+msgstr "Popularność"
 
 msgid "Voted"
 msgstr "Głos"
@@ -1196,14 +1208,8 @@ msgstr "Malejąco"
 msgid "Enter search criteria"
 msgstr "Podaj kryteria wyszukiwania"
 
-msgid "Any"
-msgstr "Dowolna"
-
 msgid "Search by"
 msgstr "Szukaj według"
-
-msgid "Keywords"
-msgstr "Słowa kluczowe"
 
 msgid "Out of Date"
 msgstr "Nieaktualny"
@@ -1238,6 +1244,11 @@ msgstr[2] "%d pakietów znaleziono"
 
 msgid "Version"
 msgstr "Wersja"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Tak"

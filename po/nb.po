@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/aur/"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/lfleischer/aur/"
 "language/nb/)\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -54,9 +54,6 @@ msgstr "Bruk dette skjemaet for å lete etter eksisterende kontoer."
 
 msgid "You must log in to view user information."
 msgstr "Du må logge inn for å se brukerinformasjon."
-
-msgid "Use this form to create an account."
-msgstr "Bruk dette feltet for å opprette en konto."
 
 msgid "Add Proposal"
 msgstr "Legg til forslag"
@@ -148,6 +145,9 @@ msgstr ""
 "Uoffisielle pakker har innhold produsert av andre brukere. All bruk av de "
 "tilgjengelige filene er på eget ansvar."
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -189,6 +189,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -461,6 +474,12 @@ msgstr "Siste"
 msgid "Requests"
 msgstr "Forespørsler"
 
+msgid "Register"
+msgstr "Registrer"
+
+msgid "Use this form to create an account."
+msgstr "Bruk dette feltet for å opprette en konto."
+
 msgid "Trusted User"
 msgstr "Betrodd bruker"
 
@@ -607,6 +626,10 @@ msgstr "Ugyldig kombinasjon av e-post og nullstillingsnøkkel."
 msgid "None"
 msgstr "Ingen"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "Vis kontoinformasjon for %s"
+
 msgid "Error retrieving package details."
 msgstr "Kunne ikke finne frem pakkedetaljer."
 
@@ -697,17 +720,11 @@ msgstr "Kommentar slettet."
 msgid "You are not allowed to delete this comment."
 msgstr "Du har ikke tilgang til å slette denne kommentaren."
 
-msgid "Missing category ID."
-msgstr "Manglende kategori-ID."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "Ugyldig kategori-ID."
-
-msgid "You are not allowed to change this package category."
-msgstr "Du har ikke tilgang til å endre denne pakkekategorien."
-
-msgid "Package category changed."
-msgstr "Pakkekategori endret."
+msgid "The package base keywords have been updated."
+msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
@@ -886,15 +903,6 @@ msgstr "Mine pakker"
 msgid " My Account"
 msgstr " Min konto"
 
-msgid "Register"
-msgstr "Registrer"
-
-msgid "unknown"
-msgstr "ukjent"
-
-msgid "Package Base Details"
-msgstr "Grunnpakkedetaljer"
-
 msgid "Package Actions"
 msgstr "Pakkehandlinger"
 
@@ -949,21 +957,23 @@ msgstr "Slå sammen pakke"
 msgid "Adopt Package"
 msgstr "Adopter pakke"
 
+msgid "unknown"
+msgstr "ukjent"
+
+msgid "Package Base Details"
+msgstr "Grunnpakkedetaljer"
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "Kategori"
+msgid "read-only"
+msgstr ""
 
-msgid "Change category"
-msgstr "Endre kategori"
+msgid "Keywords"
+msgstr "Nøkkelord"
 
 msgid "Submitter"
 msgstr "Innsender"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Vis kontoinformasjon for %s"
 
 msgid "Maintainer"
 msgstr "Vedlikeholder"
@@ -1187,14 +1197,8 @@ msgstr "Synkende"
 msgid "Enter search criteria"
 msgstr "Fyll ut søkekriterier"
 
-msgid "Any"
-msgstr "Hvilken som helst"
-
 msgid "Search by"
 msgstr "Søk etter"
-
-msgid "Keywords"
-msgstr "Nøkkelord"
 
 msgid "Out of Date"
 msgstr "Foreldet"
@@ -1228,6 +1232,11 @@ msgstr[1] "Fant %d pakker."
 
 msgid "Version"
 msgstr "Versjon"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Ja"

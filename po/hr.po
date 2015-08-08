@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Croatian (http://www.transifex.com/projects/p/aur/language/"
+"Language-Team: Croatian (http://www.transifex.com/lfleischer/aur/language/"
 "hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -53,9 +53,6 @@ msgstr "Koristite ovaj formular za pretraživanj postoječih računa."
 
 msgid "You must log in to view user information."
 msgstr "Morate se logirati kako bi pregledali informacije o korisniku."
-
-msgid "Use this form to create an account."
-msgstr "Koristite ovaj formular za kreiranje računa."
 
 msgid "Add Proposal"
 msgstr ""
@@ -141,6 +138,9 @@ msgid ""
 "files is at your own risk."
 msgstr ""
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -182,6 +182,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -446,6 +459,12 @@ msgstr ""
 msgid "Requests"
 msgstr ""
 
+msgid "Register"
+msgstr ""
+
+msgid "Use this form to create an account."
+msgstr "Koristite ovaj formular za kreiranje računa."
+
 msgid "Trusted User"
 msgstr "Pouzdan korisnik"
 
@@ -580,6 +599,10 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+#, php-format
+msgid "View account information for %s"
+msgstr ""
+
 msgid "Error retrieving package details."
 msgstr "Došlo je do greške prilikom preuzimanja detalja o paketu."
 
@@ -669,16 +692,10 @@ msgstr "Komentar je izbrisan."
 msgid "You are not allowed to delete this comment."
 msgstr "Brisanje ovog komentara Vam nije dozvoljeno."
 
-msgid "Missing category ID."
+msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
 
-msgid "Invalid category ID."
-msgstr "Neispravan ID kategorije."
-
-msgid "You are not allowed to change this package category."
-msgstr ""
-
-msgid "Package category changed."
+msgid "The package base keywords have been updated."
 msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
@@ -858,15 +875,6 @@ msgstr "Moji paketi"
 msgid " My Account"
 msgstr ""
 
-msgid "Register"
-msgstr ""
-
-msgid "unknown"
-msgstr "nepoznato"
-
-msgid "Package Base Details"
-msgstr ""
-
 msgid "Package Actions"
 msgstr ""
 
@@ -922,20 +930,22 @@ msgstr ""
 msgid "Adopt Package"
 msgstr ""
 
+msgid "unknown"
+msgstr "nepoznato"
+
+msgid "Package Base Details"
+msgstr ""
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "Kategorija"
+msgid "read-only"
+msgstr ""
 
-msgid "Change category"
+msgid "Keywords"
 msgstr ""
 
 msgid "Submitter"
-msgstr ""
-
-#, php-format
-msgid "View account information for %s"
 msgstr ""
 
 msgid "Maintainer"
@@ -1158,14 +1168,8 @@ msgstr ""
 msgid "Enter search criteria"
 msgstr ""
 
-msgid "Any"
-msgstr "Bilo koji"
-
 msgid "Search by"
 msgstr "Traži po"
-
-msgid "Keywords"
-msgstr ""
 
 msgid "Out of Date"
 msgstr "Zastario"
@@ -1199,6 +1203,11 @@ msgstr[1] ""
 msgstr[2] ""
 
 msgid "Version"
+msgstr ""
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
 msgstr ""
 
 msgid "Yes"

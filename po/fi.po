@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jesse Jaara <jesse.jaara@gmail.com>, 2011-2012
+# Jesse Jaara <jesse.jaara@gmail.com>, 2011-2012,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Finnish (http://www.transifex.com/projects/p/aur/language/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-20 23:09+0000\n"
+"Last-Translator: Jesse Jaara <jesse.jaara@gmail.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/lfleischer/aur/language/"
 "fi/)\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -52,9 +52,6 @@ msgstr "Etsi käyttäjätilejä."
 
 msgid "You must log in to view user information."
 msgstr "Sinun pitää kirjautua sisään tarkastellaksesi käyttäjien tietoja."
-
-msgid "Use this form to create an account."
-msgstr "Käytä tätä lomaketta uuden käyttäjätilin luomiseen."
 
 msgid "Add Proposal"
 msgstr "Lisää ehdotus"
@@ -148,48 +145,82 @@ msgstr ""
 "Nämä paketit eivät ole virallisesti tuettuja. Tämän sivun paketit ovat "
 "käyttäjien tuotosta. Näiden käyttäminen on omalla vastuullaasi"
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
 msgid "Package Requests"
-msgstr ""
+msgstr "Pakettienhallintapyydöt"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
 msgstr ""
+"Pakettien sivuilta löytyvän %spakettitoiminnot%s -laatikon kautta voi "
+"lähettää TU-käyttäjille kolme erilaista pakettienhallintapyyntöä."
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "Hylkäämispyyntö"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"Hallintapyyntö paketin poistamiseksi sen nykyiseltä ylläpitäjältä, esimerksi "
+"jos ylläpitäjä ei vastaa kommentteihin eikä sähköpostiin ja paketti on "
+"merkitty vanhentuneeksi jo kauan sitten."
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "Poistopyyntö"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"Hallintapyyntö paketin poistamiseksi AUR:ista. Jos paketti on jollain tapaa "
+"rikki tai huono, mutta helposti korjattavissa, tulisi ensisijaisesti olla "
+"yhteydessä paketin ylläpitäjään ja viimekädessä pistää paketin "
+"hylkäämispyyntö menemään."
 
 msgid "Merge Request"
-msgstr ""
+msgstr "Yhdistämispyyntö"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"Hallintapyyntö kahden eri paketin yhdistämiseksi. Voidaan käyttää muun "
+"muassa silloin kun jokin paketti on nimettyuudelleen tai korvattu "
+"monipaketilla (split package)."
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"Pakettienhallintapyynnöistä voi keskustella niin yleisellä- kuin myös "
+"tiettyyn pyyntöön littyvällä tasolla %saur-requests%s -postituslistalla. Älä "
+"kuitenkaan lähetä hallintapyyntöjä postituslistalle."
+
+msgid "Submitting Packages"
+msgstr "Paketien lisääminen ja päivittäminen"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Pakettien lisääminen ja päivittäminen uudessa AUR versiossa tapahtuu SSH-"
+"yhteyden yli Git-versionhallinan avulla. Tarkemman ohjeet löytyvät Arch "
+"Linuxin wiki-oppaan AUR-sivulta kohdasta %sPakettien lisääminen%s."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "AUR käyttää seuraavia SSH-tunnisteita:"
 
 msgid "Discussion"
 msgstr "Keskustelu"
@@ -211,9 +242,14 @@ msgid ""
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
 msgstr ""
+"Jos löydät AUR:in verkkokäyttöliittymästä jonkin virheen, niin voit "
+"raportoida sen %svirheidenhallinta%s -sivulla. Virheidenhallinta -sivulle "
+"tulee raportoida vain ja ainoastaan %sitsessään%s AUR:iin liittyviä "
+"virheitä, jos virhe liittyy johonkin tiettyyn pakettiin tulee ensisijaisesti "
+"ottaa yhteyttä paketin ylläpitäjään tai kirjoittaa kommentti paketin sivulle."
 
 msgid "Package Search"
-msgstr ""
+msgstr "Pakettihaku"
 
 msgid "Adopt"
 msgstr ""
@@ -461,6 +497,12 @@ msgstr "Viimeinen"
 msgid "Requests"
 msgstr ""
 
+msgid "Register"
+msgstr "Rekisteröidy"
+
+msgid "Use this form to create an account."
+msgstr "Käytä tätä lomaketta uuden käyttäjätilin luomiseen."
+
 msgid "Trusted User"
 msgstr "Luotettu käyttäjä (TU)"
 
@@ -595,6 +637,10 @@ msgstr "Epäkelvollinen sähköposti ja palautusavain yhdistelmä."
 msgid "None"
 msgstr ""
 
+#, php-format
+msgid "View account information for %s"
+msgstr ""
+
 msgid "Error retrieving package details."
 msgstr "Virhe haettaessa paketin tietoja."
 
@@ -684,17 +730,11 @@ msgstr "Kommentti on poistettu."
 msgid "You are not allowed to delete this comment."
 msgstr "Sinulla ei ole oikeuksia tämän kommentin poistamiseen."
 
-msgid "Missing category ID."
-msgstr "Kategorian ID puuttuu."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "Kategorian ID ei ole kelvollinen."
-
-msgid "You are not allowed to change this package category."
-msgstr "Sinulla ei ole oikeuksia tämän paketin kategorian muuttamiseen."
-
-msgid "Package category changed."
-msgstr "Paketin kategoria vaihdettu."
+msgid "The package base keywords have been updated."
+msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
@@ -820,7 +860,7 @@ msgid ""
 msgstr ""
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "Julkinen SSH avain"
 
 msgid "Update"
 msgstr "Päivitä"
@@ -873,29 +913,20 @@ msgstr "Omat paketit"
 msgid " My Account"
 msgstr "Omat tiedot"
 
-msgid "Register"
-msgstr "Rekisteröidy"
-
-msgid "unknown"
-msgstr "tuntematon"
-
-msgid "Package Base Details"
-msgstr ""
-
 msgid "Package Actions"
-msgstr ""
+msgstr "Pakettitoiminnot"
 
 msgid "View PKGBUILD"
 msgstr "Näytö PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Näytä muutoshistoria"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Lataa tuorein versio"
 
 msgid "Search wiki"
-msgstr ""
+msgstr "Etsi wikistä"
 
 msgid "Flagged out-of-date"
 msgstr "Merkitty vanhentuneeksi"
@@ -904,59 +935,61 @@ msgid "Flag package out-of-date"
 msgstr "Merkitse paketti vanhentuneeksi"
 
 msgid "Unflag package"
-msgstr ""
+msgstr "Poista merkintä"
 
 msgid "Remove vote"
-msgstr ""
+msgstr "Poista ääneni"
 
 msgid "Vote for this package"
-msgstr "Äännestä tätä pakettia"
+msgstr "Äännestä pakettia"
 
 msgid "Disable notifications"
-msgstr ""
+msgstr "En halua enää ilmoituksia"
 
 msgid "Notify of new comments"
 msgstr "Lähetä ilmoitus uusista kommnteista"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Hallitse ylläpitäjäkumppaneita"
 
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d käsittelemätön hallintapyyntö"
+msgstr[1] "%d käsittelemätöntä hallintapyyntöä"
 
 msgid "Delete Package"
 msgstr "Poista paketti"
 
 msgid "Merge Package"
-msgstr ""
+msgstr "Yhdistä toiseen pakettiin"
 
 msgid "Adopt Package"
+msgstr "Ryhdy ylläpitäjäksi"
+
+msgid "unknown"
+msgstr "tuntematon"
+
+msgid "Package Base Details"
 msgstr ""
 
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git kopionti osoite"
 
-msgid "Category"
-msgstr "Kategoria"
+msgid "read-only"
+msgstr "vain luku"
 
-msgid "Change category"
-msgstr "Vaihda kategoriaa"
+msgid "Keywords"
+msgstr "Avainsanat"
 
 msgid "Submitter"
 msgstr "Lisääjä"
-
-#, php-format
-msgid "View account information for %s"
-msgstr ""
 
 msgid "Maintainer"
 msgstr "Ylläpitäjä"
 
 msgid "Last Packager"
-msgstr ""
+msgstr "Uusimman versionn luoja"
 
 msgid "Votes"
 msgstr "Äänet"
@@ -974,7 +1007,7 @@ msgid "Comment has been added."
 msgstr "Kommentti lisätty."
 
 msgid "View all comments"
-msgstr ""
+msgstr "Näytä kaikki kommentit"
 
 msgid "Latest Comments"
 msgstr "Uusimmat kommentit"
@@ -987,10 +1020,10 @@ msgid "Comment by %s"
 msgstr "Kommentin kirjoitti %s"
 
 msgid "Anonymous comment"
-msgstr ""
+msgstr "Tuntematon kommentoija"
 
 msgid "deleted"
-msgstr ""
+msgstr "poistettu"
 
 msgid "All comments"
 msgstr "Kaikki kommentit"
@@ -999,31 +1032,31 @@ msgid "Package Details"
 msgstr "Paketin tiedot"
 
 msgid "Package Base"
-msgstr ""
+msgstr "Ylipaketti"
 
 msgid "Description"
 msgstr "Kuvaus"
 
 msgid "Upstream URL"
-msgstr ""
+msgstr "Kotisivu"
 
 msgid "Visit the website for"
 msgstr ""
 
 msgid "Licenses"
-msgstr ""
+msgstr "Lisenssit"
 
 msgid "Groups"
 msgstr ""
 
 msgid "Conflicts"
-msgstr ""
+msgstr "Ristiriidat"
 
 msgid "Provides"
-msgstr ""
+msgstr "Tarjoaa paketit"
 
 msgid "Replaces"
-msgstr ""
+msgstr "Korvaa paketit"
 
 msgid "Dependencies"
 msgstr "Riippuvuudet"
@@ -1170,14 +1203,8 @@ msgstr "Laskeva"
 msgid "Enter search criteria"
 msgstr ""
 
-msgid "Any"
-msgstr "Mikä tahansa"
-
 msgid "Search by"
 msgstr "Etsintäperuste"
-
-msgid "Keywords"
-msgstr "Avainsanat"
 
 msgid "Out of Date"
 msgstr "Vanhentunut"
@@ -1211,6 +1238,11 @@ msgstr[1] ""
 
 msgid "Version"
 msgstr "Versio"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Kyllä"
@@ -1246,7 +1278,7 @@ msgid "Search"
 msgstr "Etsi"
 
 msgid "Statistics"
-msgstr "Statistiikkat"
+msgstr "Tilastoja"
 
 msgid "Orphan Packages"
 msgstr "Hylättyjä paketteja"
@@ -1273,7 +1305,7 @@ msgid "Recent Updates"
 msgstr "Viimeisimmät päivitykset"
 
 msgid "My Statistics"
-msgstr "Statistiikkani"
+msgstr "Tilastoni"
 
 msgid "Packages in unsupported"
 msgstr "Pakettieni määrä"

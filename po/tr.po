@@ -14,10 +14,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-12 08:15+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:45+0000\n"
 "Last-Translator: Atilla Öntaş <tarakbumba@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/aur/language/"
+"Language-Team: Turkish (http://www.transifex.com/lfleischer/aur/language/"
 "tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -60,9 +60,6 @@ msgstr "Mevcut hesaplar içinde arama yapmak için bu formu kullanın."
 
 msgid "You must log in to view user information."
 msgstr "Kullanıcı bilgilerini görmek için giriş yapmalısınız."
-
-msgid "Use this form to create an account."
-msgstr "Yeni bir hesap oluşturmak için bu formu kullanın."
 
 msgid "Add Proposal"
 msgstr "Öneri ekle"
@@ -156,6 +153,9 @@ msgstr ""
 "sahiptirler. Bu paketlerin kullanımından doğan risk kullanıcının kendisine "
 "aittir."
 
+msgid "Learn more..."
+msgstr "Daha fazlasını öğrenin..."
+
 msgid "Support"
 msgstr "Destek"
 
@@ -212,6 +212,22 @@ msgstr ""
 "Bir talep hakkında tartışmak istiyorsanız, %saur-requests%s e-posta "
 "listesini kullanabilirsiniz. Bununla birlikte o e-posta listesini dosya "
 "talepleri için kullanmamalısınız."
+
+msgid "Submitting Packages"
+msgstr "Paketleri göndermek"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Artık AUR' a paket göndermek için SSH üzerinden Git kullanılmaktadır. Daha "
+"fazla bilgi için Arch Kullanıcı Deposu ArchWiki sayfasındaki %sPaketleri "
+"Göndermek%s bölümüne bakın."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "AUR için şu SSH parmak izleri kullanılmaktadır:"
 
 msgid "Discussion"
 msgstr "Tartışma"
@@ -501,6 +517,12 @@ msgstr "Son"
 msgid "Requests"
 msgstr "Talepler"
 
+msgid "Register"
+msgstr "Kayıt ol"
+
+msgid "Use this form to create an account."
+msgstr "Yeni bir hesap oluşturmak için bu formu kullanın."
+
 msgid "Trusted User"
 msgstr "Güvenilen Kullanıcı"
 
@@ -645,6 +667,10 @@ msgstr "Geçersiz e-posta adresi ve sıfırlama anahtarı bileşimi"
 msgid "None"
 msgstr "Yok"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "%s için hesap bilgilerini görüntüle"
+
 msgid "Error retrieving package details."
 msgstr "Paket bilgileri alınırken hata oluştu."
 
@@ -734,17 +760,12 @@ msgstr "Yorum silindi."
 msgid "You are not allowed to delete this comment."
 msgstr "Bu yorumu silme yetkiniz yok."
 
-msgid "Missing category ID."
-msgstr "Kategori kimliği bulunamadı."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
+"Bu paket temelinin anahtar kelimelerini düzenleme yetkisine sahip değilsiniz."
 
-msgid "Invalid category ID."
-msgstr "Geçersiz kategori."
-
-msgid "You are not allowed to change this package category."
-msgstr "Bu paket kategorisini değiştirmek için gerekli izne sahip değilsiniz."
-
-msgid "Package category changed."
-msgstr "Paket kategorisi değiştirildi."
+msgid "The package base keywords have been updated."
+msgstr "Paket temeli anahtar kelimeleri güncellendi."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
@@ -928,15 +949,6 @@ msgstr "Paketlerim"
 msgid " My Account"
 msgstr "Hesabım"
 
-msgid "Register"
-msgstr "Kayıt ol"
-
-msgid "unknown"
-msgstr "bilinmiyor"
-
-msgid "Package Base Details"
-msgstr "Paket Temeli Ayrıntıları"
-
 msgid "Package Actions"
 msgstr "Paket Eylemleri"
 
@@ -991,21 +1003,23 @@ msgstr "Paketi Birleştir"
 msgid "Adopt Package"
 msgstr "Paketi Sahiplen"
 
+msgid "unknown"
+msgstr "bilinmiyor"
+
+msgid "Package Base Details"
+msgstr "Paket Temeli Ayrıntıları"
+
 msgid "Git Clone URL"
 msgstr "Git Clone URL"
 
-msgid "Category"
-msgstr "Kategori"
+msgid "read-only"
+msgstr "salt okunur"
 
-msgid "Change category"
-msgstr "Kategori değiştir"
+msgid "Keywords"
+msgstr "Anahtar kelimeler"
 
 msgid "Submitter"
 msgstr "Yükleyen"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "%s için hesap bilgilerini görüntüle"
 
 msgid "Maintainer"
 msgstr "Sorumlu"
@@ -1230,14 +1244,8 @@ msgstr "Yeniden eskiye"
 msgid "Enter search criteria"
 msgstr "Arama kriteri girin"
 
-msgid "Any"
-msgstr "Tümü"
-
 msgid "Search by"
 msgstr "Buna göre ara"
-
-msgid "Keywords"
-msgstr "Anahtar kelimeler"
 
 msgid "Out of Date"
 msgstr "Güncelliğini Yitirmiş"
@@ -1271,6 +1279,13 @@ msgstr[1] "%d adet paket bulundu."
 
 msgid "Version"
 msgstr "Sürüm"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
+"Beğenilirlik, oluşturulmasından itibaren günlük 0.98 oranı ile çarpılarak "
+"bulunan her oyun toplamı ile ölçülür."
 
 msgid "Yes"
 msgstr "Evet"

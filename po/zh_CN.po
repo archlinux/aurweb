@@ -13,10 +13,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/aur/"
+"Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_CN/)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -57,9 +57,6 @@ msgstr "使用此表单查找存在的帐户。"
 
 msgid "You must log in to view user information."
 msgstr "您需要登录后才能察看用户信息。"
-
-msgid "Use this form to create an account."
-msgstr "使用此表单创建帐号。"
 
 msgid "Add Proposal"
 msgstr "添加提议"
@@ -147,6 +144,9 @@ msgid ""
 "files is at your own risk."
 msgstr "位于 unsupported 的软件包为用户产生的内容。使用它们造成的后果自负。"
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -188,6 +188,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -453,6 +466,12 @@ msgstr "末页"
 msgid "Requests"
 msgstr "请求"
 
+msgid "Register"
+msgstr "注册"
+
+msgid "Use this form to create an account."
+msgstr "使用此表单创建帐号。"
+
 msgid "Trusted User"
 msgstr "受信用户"
 
@@ -595,6 +614,10 @@ msgstr "邮箱和重置 key 不匹配。"
 msgid "None"
 msgstr "无"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "查看 %s 的账户信息"
+
 msgid "Error retrieving package details."
 msgstr "获取软件包详情时发生错误。"
 
@@ -684,17 +707,11 @@ msgstr "评论已被删除。"
 msgid "You are not allowed to delete this comment."
 msgstr "您没有权限删除此评论。"
 
-msgid "Missing category ID."
-msgstr "缺少分类 ID。"
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "非法的类别标识"
-
-msgid "You are not allowed to change this package category."
-msgstr "您无权修改此软件包的类别。"
-
-msgid "Package category changed."
-msgstr "软件包分类已更改。"
+msgid "The package base keywords have been updated."
+msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
@@ -873,15 +890,6 @@ msgstr "我的软件包"
 msgid " My Account"
 msgstr "我的帐户"
 
-msgid "Register"
-msgstr "注册"
-
-msgid "unknown"
-msgstr "未知"
-
-msgid "Package Base Details"
-msgstr "包基础详情"
-
 msgid "Package Actions"
 msgstr "软件包操作"
 
@@ -935,21 +943,23 @@ msgstr "合并软件包"
 msgid "Adopt Package"
 msgstr "接管软件包"
 
+msgid "unknown"
+msgstr "未知"
+
+msgid "Package Base Details"
+msgstr "包基础详情"
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "类别"
+msgid "read-only"
+msgstr ""
 
-msgid "Change category"
-msgstr "修改分类"
+msgid "Keywords"
+msgstr "关键字"
 
 msgid "Submitter"
 msgstr "提交人"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "查看 %s 的账户信息"
 
 msgid "Maintainer"
 msgstr "维护者"
@@ -1167,14 +1177,8 @@ msgstr "从大到小"
 msgid "Enter search criteria"
 msgstr "输入搜索条件"
 
-msgid "Any"
-msgstr "所有"
-
 msgid "Search by"
 msgstr "搜索"
-
-msgid "Keywords"
-msgstr "关键字"
 
 msgid "Out of Date"
 msgstr "过期状态"
@@ -1207,6 +1211,11 @@ msgstr[0] "找到了 %d 个软件包。"
 
 msgid "Version"
 msgstr "版本"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "是"

@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Romanian (http://www.transifex.com/projects/p/aur/language/"
+"Language-Team: Romanian (http://www.transifex.com/lfleischer/aur/language/"
 "ro/)\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -57,9 +57,6 @@ msgid "You must log in to view user information."
 msgstr ""
 "Trebuie să fi autentificat pentru a putea vedea informații despre "
 "utilizatori."
-
-msgid "Use this form to create an account."
-msgstr "Folosește acest formular pentru a crea un cont."
 
 msgid "Add Proposal"
 msgstr "Adaugă o propunere"
@@ -151,6 +148,9 @@ msgstr ""
 "Pachetele fără suport sunt conținut produs de utilizatori. Orice folosire a "
 "fișierelor oferite este pe risc propriu!"
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -192,6 +192,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -464,6 +477,12 @@ msgstr "Ultim"
 msgid "Requests"
 msgstr "Cereri"
 
+msgid "Register"
+msgstr "Înregistrare"
+
+msgid "Use this form to create an account."
+msgstr "Folosește acest formular pentru a crea un cont."
+
 msgid "Trusted User"
 msgstr "Trusted User"
 
@@ -609,6 +628,10 @@ msgstr "Combinație e-mail și cheie pentru resetare nevalidă."
 msgid "None"
 msgstr "Nimic"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "Vezi informații despre contul lui %s"
+
 msgid "Error retrieving package details."
 msgstr "Eroare la preluarea detaliilor pachetului."
 
@@ -704,17 +727,11 @@ msgstr "Comentariul a fost șters."
 msgid "You are not allowed to delete this comment."
 msgstr "Nu ai voie să ștergi acest comentariu."
 
-msgid "Missing category ID."
-msgstr "ID-ul categoriei lipsește."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "ID-ul categoriei nu este valid."
-
-msgid "You are not allowed to change this package category."
-msgstr "Nu ai permisiunea de a schimba categoria acestui pachet."
-
-msgid "Package category changed."
-msgstr "Categoria pachetului a fost schimbată."
+msgid "The package base keywords have been updated."
+msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
@@ -893,15 +910,6 @@ msgstr "Pachetele mele"
 msgid " My Account"
 msgstr "Contul meu"
 
-msgid "Register"
-msgstr "Înregistrare"
-
-msgid "unknown"
-msgstr "necunoscut"
-
-msgid "Package Base Details"
-msgstr "Detalii pachet de bază"
-
 msgid "Package Actions"
 msgstr "Operațiuni"
 
@@ -957,21 +965,23 @@ msgstr "Fuzionează pachet"
 msgid "Adopt Package"
 msgstr "Adoptă pachet"
 
+msgid "unknown"
+msgstr "necunoscut"
+
+msgid "Package Base Details"
+msgstr "Detalii pachet de bază"
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "Categorie"
+msgid "read-only"
+msgstr ""
 
-msgid "Change category"
-msgstr "Schimbă categoria"
+msgid "Keywords"
+msgstr "Cuvinte cheie"
 
 msgid "Submitter"
 msgstr "Autor"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Vezi informații despre contul lui %s"
 
 msgid "Maintainer"
 msgstr "Responsabil"
@@ -1199,14 +1209,8 @@ msgstr "Descrescător"
 msgid "Enter search criteria"
 msgstr "Introdu criteriul de căutare"
 
-msgid "Any"
-msgstr "Orice"
-
 msgid "Search by"
 msgstr "Caută după"
-
-msgid "Keywords"
-msgstr "Cuvinte cheie"
 
 msgid "Out of Date"
 msgstr "Neactualizate"
@@ -1241,6 +1245,11 @@ msgstr[2] "%d de pachete găsite"
 
 msgid "Version"
 msgstr "Versiune"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Da"

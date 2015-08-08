@@ -12,10 +12,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-12 12:02+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:54+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/projects/p/aur/language/"
+"Language-Team: Ukrainian (http://www.transifex.com/lfleischer/aur/language/"
 "uk/)\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -59,9 +59,6 @@ msgstr "Шукайте облікові записи за допомогою ц�
 
 msgid "You must log in to view user information."
 msgstr "Ви повинні увійти в систему для перегляду даних користувача."
-
-msgid "Use this form to create an account."
-msgstr "Створіть обліковий запис за допомогою цієї форми."
 
 msgid "Add Proposal"
 msgstr "Додати пропозицію"
@@ -154,6 +151,9 @@ msgstr ""
 "Пакунки, що не підтримуються - це пакунки, створені користувачами. Ви можете "
 "використовувати їх тільки на Ваш власний страх і ризик."
 
+msgid "Learn more..."
+msgstr "Дізнатись більше..."
+
 msgid "Support"
 msgstr "Підтримка"
 
@@ -208,6 +208,22 @@ msgid ""
 msgstr ""
 "Якщо Ви бажаєте обговорити запит, використайте список розсилки %saur-requests"
 "%s. Будь ласка, не використовуйте цю розсилку для подання запитів."
+
+msgid "Submitting Packages"
+msgstr "Надсилання пакунків"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Git через SSH тепер використовується для надсилання пакунків до AUR. Для "
+"деталей дивіться розділ %sНадсилання пакунків%s на сторінці ArchWiki про "
+"Сховище Користувацьких Пакунків AUR."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "Наступні відбитки ключів SSH використовуються в AUR:"
 
 msgid "Discussion"
 msgstr "Обговорення"
@@ -492,6 +508,12 @@ msgstr "Останній"
 msgid "Requests"
 msgstr "Запити"
 
+msgid "Register"
+msgstr "Зареєструватись"
+
+msgid "Use this form to create an account."
+msgstr "Створіть обліковий запис за допомогою цієї форми."
+
 msgid "Trusted User"
 msgstr "Довірений користувач"
 
@@ -639,6 +661,10 @@ msgstr "Неприпустима адреса електронної пошти 
 msgid "None"
 msgstr "Немає"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "Показати інформацію про рахунок для %s"
+
 msgid "Error retrieving package details."
 msgstr "Помилка пошуку інформації про пакунок."
 
@@ -730,17 +756,12 @@ msgstr "Коментар вилучено."
 msgid "You are not allowed to delete this comment."
 msgstr "У вас немає прав, щоб вилучити цей коментар."
 
-msgid "Missing category ID."
-msgstr "Пропущено ідентифікатор категорії."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
+"Ви не маєте прав для редагування ключових слів для цього базового пакунку."
 
-msgid "Invalid category ID."
-msgstr "Неправильний ідентифікатор категорії."
-
-msgid "You are not allowed to change this package category."
-msgstr "Ви не можете змінити катеогрію цього пакунку."
-
-msgid "Package category changed."
-msgstr "Категорію пакунку змінено."
+msgid "The package base keywords have been updated."
+msgstr "Ключові слова базового пакунку оновлено."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Ви не має прав для керування супровідниками цього базового пакунку."
@@ -923,15 +944,6 @@ msgstr "Мої пакунки"
 msgid " My Account"
 msgstr "Мій рахунок"
 
-msgid "Register"
-msgstr "Зареєструватись"
-
-msgid "unknown"
-msgstr "невідомо"
-
-msgid "Package Base Details"
-msgstr "Деталі бази пакунків"
-
 msgid "Package Actions"
 msgstr "Дії над пакунком"
 
@@ -987,21 +999,23 @@ msgstr "Об’єднати пакунок"
 msgid "Adopt Package"
 msgstr "Прийняти пакунок"
 
+msgid "unknown"
+msgstr "невідомо"
+
+msgid "Package Base Details"
+msgstr "Деталі бази пакунків"
+
 msgid "Git Clone URL"
 msgstr "Адреса URL для клонування Git"
 
-msgid "Category"
-msgstr "Категорія"
+msgid "read-only"
+msgstr "тільки для читання"
 
-msgid "Change category"
-msgstr "Змінити категорію"
+msgid "Keywords"
+msgstr "Ключові слова"
 
 msgid "Submitter"
 msgstr "Подавач"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Показати інформацію про рахунок для %s"
 
 msgid "Maintainer"
 msgstr "Супровідник"
@@ -1227,14 +1241,8 @@ msgstr "Спадний"
 msgid "Enter search criteria"
 msgstr "Введіть критерії пошуку"
 
-msgid "Any"
-msgstr "Будь-який"
-
 msgid "Search by"
 msgstr "Де шукати"
-
-msgid "Keywords"
-msgstr "Ключові слова"
 
 msgid "Out of Date"
 msgstr "Застарілих"
@@ -1269,6 +1277,13 @@ msgstr[2] "Знайдено %d пакунків."
 
 msgid "Version"
 msgstr "Версія"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
+"Популярність розраховується як сума всіх голосувань, де кожен голос береться "
+"з ваговим коефіцієнтом 0.98 за кожен день з часу створення."
 
 msgid "Yes"
 msgstr "Так"

@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Hebrew (http://www.transifex.com/projects/p/aur/language/"
+"Language-Team: Hebrew (http://www.transifex.com/lfleischer/aur/language/"
 "he/)\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -52,9 +52,6 @@ msgstr "נא להשתמש בטופס על מנת לחפש אחר חשבונות 
 
 msgid "You must log in to view user information."
 msgstr "עליך להתחבר על מנת לצפות בנתוני משתמש."
-
-msgid "Use this form to create an account."
-msgstr "ניתן להשתמש בטופס זה על מנת ליצור חשבון."
 
 msgid "Add Proposal"
 msgstr "הוספת הצעה"
@@ -140,6 +137,9 @@ msgid ""
 "files is at your own risk."
 msgstr ""
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -181,6 +181,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -445,6 +458,12 @@ msgstr ""
 msgid "Requests"
 msgstr ""
 
+msgid "Register"
+msgstr ""
+
+msgid "Use this form to create an account."
+msgstr "ניתן להשתמש בטופס זה על מנת ליצור חשבון."
+
 msgid "Trusted User"
 msgstr "משתמש אמין"
 
@@ -579,6 +598,10 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+#, php-format
+msgid "View account information for %s"
+msgstr ""
+
 msgid "Error retrieving package details."
 msgstr "שגיאה בקבלת נתוני חבילה."
 
@@ -668,16 +691,10 @@ msgstr "הערה נמחקה."
 msgid "You are not allowed to delete this comment."
 msgstr "אין לך הרשאה למחוק הערה זו."
 
-msgid "Missing category ID."
+msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
 
-msgid "Invalid category ID."
-msgstr "מס׳ הזיהוי של הקטגוריה אינו תקין"
-
-msgid "You are not allowed to change this package category."
-msgstr ""
-
-msgid "Package category changed."
+msgid "The package base keywords have been updated."
 msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
@@ -857,15 +874,6 @@ msgstr "החבילות שלי"
 msgid " My Account"
 msgstr ""
 
-msgid "Register"
-msgstr ""
-
-msgid "unknown"
-msgstr ""
-
-msgid "Package Base Details"
-msgstr ""
-
 msgid "Package Actions"
 msgstr ""
 
@@ -920,20 +928,22 @@ msgstr ""
 msgid "Adopt Package"
 msgstr ""
 
+msgid "unknown"
+msgstr ""
+
+msgid "Package Base Details"
+msgstr ""
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "קטגוריה"
+msgid "read-only"
+msgstr ""
 
-msgid "Change category"
+msgid "Keywords"
 msgstr ""
 
 msgid "Submitter"
-msgstr ""
-
-#, php-format
-msgid "View account information for %s"
 msgstr ""
 
 msgid "Maintainer"
@@ -1154,14 +1164,8 @@ msgstr ""
 msgid "Enter search criteria"
 msgstr ""
 
-msgid "Any"
-msgstr "כל"
-
 msgid "Search by"
 msgstr "חיפוש לפי"
-
-msgid "Keywords"
-msgstr ""
 
 msgid "Out of Date"
 msgstr ""
@@ -1194,6 +1198,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Version"
+msgstr ""
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
 msgstr ""
 
 msgid "Yes"

@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/aur/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 10:37+0000\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_TW/)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -52,9 +52,6 @@ msgstr "使用此表單來搜尋已有的帳號。"
 
 msgid "You must log in to view user information."
 msgstr "您必須登入以檢視使用者資訊。"
-
-msgid "Use this form to create an account."
-msgstr "使用此表單來新建一個帳號。"
 
 msgid "Add Proposal"
 msgstr "添加建議"
@@ -144,48 +141,74 @@ msgid ""
 "files is at your own risk."
 msgstr "AUR 上的檔案是使用者產生的內容。任何使用檔案的風險由您自行承擔。"
 
+msgid "Learn more..."
+msgstr "了解更多..."
+
 msgid "Support"
-msgstr ""
+msgstr "支援"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "套件請求"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
-msgstr ""
+msgstr "有三種您可以在套件細節頁面中的 %s套件動作%s 中使用的請求："
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "棄置請求"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"請求一個套件被解除擁有權，例如：當維護者不活躍且套件已經被標記為過期很長一段"
+"時間。"
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "刪除請求"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"請求套件從 Arch 使用者套件庫中移除。如果套件損毀但可以很容易的被修復，請不要"
+"使用這個請求。您應該聯絡套件維護者，並在必要時提出棄置請求。"
 
 msgid "Merge Request"
-msgstr ""
+msgstr "合併請求"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"請求將一個套件合併到另一個。可以使用在需要重新命名或是由分裂的套件所取代的套"
+"件。"
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"如果您想要討論某一個請求，您可以使用 %saur-requests%s 郵件列表。但請不要使用"
+"這個列表來提出請求。"
+
+msgid "Submitting Packages"
+msgstr "遞交套件"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"現在透過 SSH 的 Git 開始用於遞交套件到 AUR 上。參見 ArchWiki 上的 Arch User "
+"Repository 頁面之 %s遞交套件%s 章節以取得更多資訊。"
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "下列 SSH 指紋被用於 AUR："
 
 msgid "Discussion"
 msgstr "討論"
@@ -196,6 +219,8 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"與 Arch 使用者套件庫(AUR)及受信使用者結構相關的一般性討論請見 %saur-general"
+"%s 。討論關於 AUR 網頁介面的開發，請使用 %saur-dev%s 郵件列表。"
 
 msgid "Bug Reporting"
 msgstr "臭蟲回報"
@@ -207,6 +232,9 @@ msgid ""
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
 msgstr ""
+"如果您在 AUR 網頁介面中發現了臭蟲，請在我們的 %s臭蟲追蹤系統%s 中回報。請%s"
+"只%s回報 AUR 本身的臭蟲。要回報打包臭蟲，請連絡套件的維護者或是在對應的套件頁"
+"面中留下評論。"
 
 msgid "Package Search"
 msgstr "搜尋套件"
@@ -453,6 +481,12 @@ msgstr "最後一頁"
 msgid "Requests"
 msgstr "請求"
 
+msgid "Register"
+msgstr "註冊"
+
+msgid "Use this form to create an account."
+msgstr "使用此表單來新建一個帳號。"
+
 msgid "Trusted User"
 msgstr "受信使用者"
 
@@ -595,6 +629,10 @@ msgstr "無效的電子郵件與密鑰組合。"
 msgid "None"
 msgstr "無"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "檢視 %s 的帳號資訊"
+
 msgid "Error retrieving package details."
 msgstr "擷取套件細節時發生錯誤。"
 
@@ -684,17 +722,11 @@ msgstr "評論已被刪除。"
 msgid "You are not allowed to delete this comment."
 msgstr "您不被允許刪除此則評論。"
 
-msgid "Missing category ID."
-msgstr "遺失分類 ID。"
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr "您不被允許編輯此套件基礎的關鍵字。"
 
-msgid "Invalid category ID."
-msgstr "無效的分類 ID。"
-
-msgid "You are not allowed to change this package category."
-msgstr "您不被允許改變此套件的分類。"
-
-msgid "Package category changed."
-msgstr "套件分類已變更。"
+msgid "The package base keywords have been updated."
+msgstr "套件基礎關鍵字已更新。"
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "您不被允許管理此套件基礎的共同維護者。"
@@ -873,15 +905,6 @@ msgstr "我的套件"
 msgid " My Account"
 msgstr "我的帳號"
 
-msgid "Register"
-msgstr "註冊"
-
-msgid "unknown"
-msgstr "未知"
-
-msgid "Package Base Details"
-msgstr "套件基礎詳細資訊"
-
 msgid "Package Actions"
 msgstr "套件動作"
 
@@ -935,21 +958,23 @@ msgstr "合併套件"
 msgid "Adopt Package"
 msgstr "接管套件"
 
+msgid "unknown"
+msgstr "未知"
+
+msgid "Package Base Details"
+msgstr "套件基礎詳細資訊"
+
 msgid "Git Clone URL"
 msgstr "Git Clone URL"
 
-msgid "Category"
-msgstr "分類"
+msgid "read-only"
+msgstr "唯讀"
 
-msgid "Change category"
-msgstr "變更分類"
+msgid "Keywords"
+msgstr "關鍵字"
 
 msgid "Submitter"
 msgstr "提交人"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "檢視 %s 的帳號資訊"
 
 msgid "Maintainer"
 msgstr "維護者"
@@ -1150,7 +1175,7 @@ msgid "Name"
 msgstr "名稱"
 
 msgid "Popularity"
-msgstr ""
+msgstr "人氣"
 
 msgid "Voted"
 msgstr "已投票"
@@ -1167,14 +1192,8 @@ msgstr "遞減"
 msgid "Enter search criteria"
 msgstr "輸入搜尋條件"
 
-msgid "Any"
-msgstr "任意"
-
 msgid "Search by"
 msgstr "以何種方式搜尋"
-
-msgid "Keywords"
-msgstr "關鍵字"
 
 msgid "Out of Date"
 msgstr "過期狀態"
@@ -1207,6 +1226,11 @@ msgstr[0] "找到 %d 個套件。"
 
 msgid "Version"
 msgstr "版本"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr "人氣的計算方式為，將所有票數加總，且每一票自建立以來每天乘上 0.98。"
 
 msgid "Yes"
 msgstr "是"

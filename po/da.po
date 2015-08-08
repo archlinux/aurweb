@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Louis Tim Larsen <louis@louis.dk>, 2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/aur/language/"
+"Language-Team: Danish (http://www.transifex.com/lfleischer/aur/language/"
 "da/)\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -20,20 +21,20 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Page Not Found"
-msgstr ""
+msgstr "Siden blev ikke fundet"
 
 msgid "Sorry, the page you've requested does not exist."
-msgstr ""
+msgstr "Beklager, den forspurgte side findes ikke."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Service utilgængelig"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
 
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 msgid "Accounts"
 msgstr "Konti"
@@ -52,9 +53,6 @@ msgstr "Brug denne formular til at søge i eksisterende konti."
 
 msgid "You must log in to view user information."
 msgstr "Du skal være logget ind for at se brugerinformation."
-
-msgid "Use this form to create an account."
-msgstr "Brug denne formular til at oprette en konto."
 
 msgid "Add Proposal"
 msgstr ""
@@ -140,6 +138,9 @@ msgid ""
 "files is at your own risk."
 msgstr ""
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -183,6 +184,19 @@ msgid ""
 "list. However, please do not use that list to file requests."
 msgstr ""
 
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr ""
+
 msgid "Discussion"
 msgstr "Diskussion"
 
@@ -205,10 +219,10 @@ msgid ""
 msgstr ""
 
 msgid "Package Search"
-msgstr ""
+msgstr "Pakkesøgning"
 
 msgid "Adopt"
-msgstr ""
+msgstr "Adopter"
 
 msgid "Vote"
 msgstr "Stem"
@@ -251,7 +265,7 @@ msgid "Remember me"
 msgstr "Husk mig"
 
 msgid "Forgot Password"
-msgstr ""
+msgstr "Glemt adgangskode"
 
 #, php-format
 msgid ""
@@ -278,7 +292,7 @@ msgid "Your password must be at least %s characters."
 msgstr "Din adgangskode skal være mindst %s tegn."
 
 msgid "Invalid e-mail."
-msgstr ""
+msgstr "Ugyldig mail."
 
 #, php-format
 msgid ""
@@ -288,25 +302,25 @@ msgid ""
 msgstr ""
 
 msgid "Password Reset"
-msgstr ""
+msgstr "Nulstil adgangskode"
 
 msgid "Check your e-mail for the confirmation link."
-msgstr ""
+msgstr "Tjek din mail for bekræftelses-link."
 
 msgid "Your password has been reset successfully."
-msgstr ""
+msgstr "Din adgangskode blev nulstillet."
 
 msgid "Confirm your e-mail address:"
-msgstr ""
+msgstr "Bekræft din nye mail-adresse:"
 
 msgid "Enter your new password:"
-msgstr ""
+msgstr "Indtast din nye adgangskode:"
 
 msgid "Confirm your new password:"
-msgstr ""
+msgstr "Bekræft din nye adgangskode:"
 
 msgid "Continue"
-msgstr ""
+msgstr "Forsæt"
 
 #, php-format
 msgid ""
@@ -315,7 +329,7 @@ msgid ""
 msgstr ""
 
 msgid "Enter your e-mail address:"
-msgstr ""
+msgstr "Indtast din mail-adresse:"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -337,7 +351,7 @@ msgstr ""
 
 #, php-format
 msgid "Delete Package: %s"
-msgstr ""
+msgstr "Slet pakke: %s"
 
 #, php-format
 msgid ""
@@ -346,19 +360,19 @@ msgid ""
 msgstr ""
 
 msgid "Deletion of a package is permanent. "
-msgstr ""
+msgstr "Sletning af en pakke er permanent"
 
 msgid "Select the checkbox to confirm action."
 msgstr ""
 
 msgid "Confirm package deletion"
-msgstr ""
+msgstr "Bekræft sletning af pakke"
 
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
+msgstr "Kun betroede brugere og udviklere kan slette pakker."
 
 msgid "Disown Package"
 msgstr ""
@@ -404,7 +418,7 @@ msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr ""
 
 msgid "The following packages will be deleted: "
-msgstr ""
+msgstr "Følgende pakker vil blive slettet:"
 
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr ""
@@ -425,25 +439,31 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr ""
 
 msgid "File Request"
-msgstr ""
+msgstr "Udfyld forspørgsel"
 
 msgid "Close Request"
-msgstr ""
+msgstr "Luk forspørgsel"
 
 msgid "First"
-msgstr ""
+msgstr "Første"
 
 msgid "Previous"
-msgstr ""
+msgstr "Tidligere"
 
 msgid "Next"
 msgstr "Næste"
 
 msgid "Last"
-msgstr ""
+msgstr "Sidste"
 
 msgid "Requests"
-msgstr ""
+msgstr "Forspørgelser"
+
+msgid "Register"
+msgstr "Register"
+
+msgid "Use this form to create an account."
+msgstr "Brug denne formular til at oprette en konto."
 
 msgid "Trusted User"
 msgstr "Betroet bruger (TU)"
@@ -558,7 +578,7 @@ msgid ""
 msgstr ""
 
 msgid "Account suspended"
-msgstr ""
+msgstr "Konto suspenderet"
 
 #, php-format
 msgid ""
@@ -568,7 +588,7 @@ msgid ""
 msgstr ""
 
 msgid "Bad username or password."
-msgstr ""
+msgstr "Forkert brugernavn eller adgangskode"
 
 msgid "An error occurred trying to generate a user session."
 msgstr ""
@@ -577,6 +597,10 @@ msgid "Invalid e-mail and reset key combination."
 msgstr ""
 
 msgid "None"
+msgstr "Ingen"
+
+#, php-format
+msgid "View account information for %s"
 msgstr ""
 
 msgid "Error retrieving package details."
@@ -604,7 +628,7 @@ msgid "The selected packages have been unflagged."
 msgstr "De valgte pakker er afmarkeret."
 
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "Du har ikke tilladelse til, at slette pakker."
 
 msgid "You did not select any packages to delete."
 msgstr "Du har ikke valgt nogle pakker at slette."
@@ -668,16 +692,10 @@ msgstr "Kommentaren er slettet."
 msgid "You are not allowed to delete this comment."
 msgstr "Du har ikke rettigheder til at slette denne kommentar."
 
-msgid "Missing category ID."
+msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
 
-msgid "Invalid category ID."
-msgstr "Ugyldigt kategori ID."
-
-msgid "You are not allowed to change this package category."
-msgstr ""
-
-msgid "Package category changed."
+msgid "The package base keywords have been updated."
 msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
@@ -685,13 +703,13 @@ msgstr ""
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Ugyldigt brugernavn: %s"
 
 msgid "The package base co-maintainers have been updated."
 msgstr ""
 
 msgid "View packages details for"
-msgstr ""
+msgstr "Vis pakkedeltaljer for"
 
 msgid "You must be logged in to file package requests."
 msgstr ""
@@ -709,7 +727,7 @@ msgid "Added request successfully."
 msgstr ""
 
 msgid "Invalid reason."
-msgstr ""
+msgstr "Ugyldig årsag"
 
 msgid "Only TUs and developers can close requests."
 msgstr ""
@@ -726,7 +744,7 @@ msgid "%sWARNING%s: This action cannot be undone."
 msgstr ""
 
 msgid "Confirm deletion"
-msgstr ""
+msgstr "Bekræft sletning"
 
 msgid "Account Type"
 msgstr "Kontotype"
@@ -738,7 +756,7 @@ msgid "Developer"
 msgstr "Udvikler"
 
 msgid "Trusted User & Developer"
-msgstr ""
+msgstr "Betroet bruger og udvikler"
 
 msgid "Email Address"
 msgstr "E-mail adresse"
@@ -756,13 +774,13 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Inactive since"
-msgstr ""
+msgstr "Inaktiv siden"
 
 msgid "Active"
 msgstr "Aktiv"
 
 msgid "Last Login"
-msgstr ""
+msgstr "Sidste login"
 
 msgid "Never"
 msgstr "Aldrig"
@@ -790,7 +808,7 @@ msgid "Account Suspended"
 msgstr "Konto suspenderet"
 
 msgid "Inactive"
-msgstr ""
+msgstr "Inaktiv"
 
 msgid "Re-type password"
 msgstr "Bekræft adgangskode"
@@ -846,34 +864,25 @@ msgid ""
 msgstr ""
 
 msgid "Users"
-msgstr ""
+msgstr "Brugere"
 
 msgid "Save"
-msgstr ""
+msgstr "Gem"
 
 msgid "My Packages"
 msgstr "Mine pakker"
 
 msgid " My Account"
-msgstr ""
-
-msgid "Register"
-msgstr ""
-
-msgid "unknown"
-msgstr ""
-
-msgid "Package Base Details"
-msgstr ""
+msgstr "Min konto"
 
 msgid "Package Actions"
 msgstr ""
 
 msgid "View PKGBUILD"
-msgstr ""
+msgstr "Vis PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Vis ændringer"
 
 msgid "Download snapshot"
 msgstr ""
@@ -891,13 +900,13 @@ msgid "Unflag package"
 msgstr ""
 
 msgid "Remove vote"
-msgstr ""
+msgstr "Fjern stemme"
 
 msgid "Vote for this package"
-msgstr ""
+msgstr "Stem på denne pakke"
 
 msgid "Disable notifications"
-msgstr ""
+msgstr "Deaktiver notifikationer"
 
 msgid "Notify of new comments"
 msgstr ""
@@ -912,72 +921,74 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Delete Package"
-msgstr ""
+msgstr "Slet pakke"
 
 msgid "Merge Package"
 msgstr ""
 
 msgid "Adopt Package"
+msgstr "Adopter pakke"
+
+msgid "unknown"
+msgstr "ukendt"
+
+msgid "Package Base Details"
 msgstr ""
 
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "Kategori"
-
-msgid "Change category"
+msgid "read-only"
 msgstr ""
+
+msgid "Keywords"
+msgstr "Nøgleord"
 
 msgid "Submitter"
-msgstr ""
-
-#, php-format
-msgid "View account information for %s"
-msgstr ""
+msgstr "Indsender"
 
 msgid "Maintainer"
 msgstr "Ejer"
 
 msgid "Last Packager"
-msgstr ""
+msgstr "Sidste pakker"
 
 msgid "Votes"
 msgstr "Stemmer"
 
 msgid "First Submitted"
-msgstr ""
+msgstr "Først tilføjet"
 
 msgid "Last Updated"
-msgstr ""
+msgstr "Sidst opdateret"
 
 msgid "Add Comment"
-msgstr ""
+msgstr "Tilføj kommentar"
 
 msgid "Comment has been added."
-msgstr ""
+msgstr "Kommentaren blev tilføjet"
 
 msgid "View all comments"
-msgstr ""
+msgstr "Vis alle kommentarer"
 
 msgid "Latest Comments"
-msgstr ""
+msgstr "Seneste kommentarer"
 
 msgid "Delete comment"
 msgstr "Slet kommentar"
 
 #, php-format
 msgid "Comment by %s"
-msgstr ""
+msgstr "Kommentar fra %s"
 
 msgid "Anonymous comment"
-msgstr ""
+msgstr "Anonym kommentar"
 
 msgid "deleted"
-msgstr ""
+msgstr "slettet"
 
 msgid "All comments"
-msgstr ""
+msgstr "Alle kommentarer"
 
 msgid "Package Details"
 msgstr "Detaljer om pakken"
@@ -992,22 +1003,22 @@ msgid "Upstream URL"
 msgstr ""
 
 msgid "Visit the website for"
-msgstr ""
+msgstr "Besøg hjemmesiden for"
 
 msgid "Licenses"
-msgstr ""
+msgstr "Licenser"
 
 msgid "Groups"
-msgstr ""
+msgstr "Grupper"
 
 msgid "Conflicts"
-msgstr ""
+msgstr "Konflikter"
 
 msgid "Provides"
-msgstr ""
+msgstr "Tilbyder"
 
 msgid "Replaces"
-msgstr ""
+msgstr "Erstatter"
 
 msgid "Dependencies"
 msgstr "Afhængigheder"
@@ -1016,11 +1027,11 @@ msgid "Required by"
 msgstr "Påkrævet af"
 
 msgid "Sources"
-msgstr ""
+msgstr "Kilder"
 
 #, php-format
 msgid "Close Request: %s"
-msgstr ""
+msgstr "Luk forspørgsel: %s"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
@@ -1038,13 +1049,13 @@ msgid "Reason"
 msgstr ""
 
 msgid "Accepted"
-msgstr ""
+msgstr "Accepteret"
 
 msgid "Rejected"
-msgstr ""
+msgstr "Afvist"
 
 msgid "Comments"
-msgstr ""
+msgstr "Kommentarer"
 
 #, php-format
 msgid "File Request: %s"
@@ -1060,10 +1071,10 @@ msgid "Request type"
 msgstr ""
 
 msgid "Deletion"
-msgstr ""
+msgstr "Sletning"
 
 msgid "Orphan"
-msgstr ""
+msgstr "Forladt"
 
 msgid "Merge into"
 msgstr ""
@@ -1076,56 +1087,56 @@ msgstr[1] ""
 
 #, php-format
 msgid "Page %d of %d."
-msgstr ""
+msgstr "Side %d af %d."
 
 msgid "Package"
-msgstr ""
+msgstr "Pakke"
 
 msgid "Filed by"
-msgstr ""
+msgstr "Udfyldt af"
 
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #, php-format
 msgid "~%d days left"
-msgstr ""
+msgstr "~%d dage tilbage"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d time tilbage"
+msgstr[1] "~%d timer tilbage"
 
 msgid "<1 hour left"
-msgstr ""
+msgstr "<1 time tilbage"
 
 msgid "Accept"
-msgstr ""
+msgstr "Accepter"
 
 msgid "Locked"
-msgstr ""
+msgstr "Låst"
 
 msgid "Close"
-msgstr ""
+msgstr "Luk"
 
 msgid "Closed"
-msgstr ""
+msgstr "Lukket"
 
 msgid "Name, Description"
-msgstr ""
+msgstr "Navn, beskrivelse"
 
 msgid "Name Only"
-msgstr ""
+msgstr "Kun navn"
 
 msgid "Exact Name"
-msgstr ""
+msgstr "Præcist navn"
 
 msgid "Exact Package Base"
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 msgid "Flagged"
 msgstr ""
@@ -1137,13 +1148,13 @@ msgid "Name"
 msgstr "Navn"
 
 msgid "Popularity"
-msgstr ""
+msgstr "Popularitet"
 
 msgid "Voted"
 msgstr "Stemt"
 
 msgid "Age"
-msgstr ""
+msgstr "Alder"
 
 msgid "Ascending"
 msgstr ""
@@ -1154,17 +1165,11 @@ msgstr ""
 msgid "Enter search criteria"
 msgstr ""
 
-msgid "Any"
-msgstr "Alle"
-
 msgid "Search by"
 msgstr "Søg efter"
 
-msgid "Keywords"
-msgstr ""
-
 msgid "Out of Date"
-msgstr ""
+msgstr "Forældet"
 
 msgid "Sort by"
 msgstr "Sortér efter"
@@ -1190,10 +1195,15 @@ msgstr "Ingen pakker opfylder dine søgekriterier."
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d pakke fundet."
+msgstr[1] "%d pakker fundet."
 
 msgid "Version"
+msgstr "Version"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
 msgstr ""
 
 msgid "Yes"
@@ -1221,7 +1231,7 @@ msgid "Delete Packages"
 msgstr "Slet pakker"
 
 msgid "Confirm"
-msgstr ""
+msgstr "Forsæt"
 
 msgid "Any type"
 msgstr "Vilkårlig type"
@@ -1230,34 +1240,34 @@ msgid "Search"
 msgstr "Søg"
 
 msgid "Statistics"
-msgstr ""
+msgstr "Statistikker"
 
 msgid "Orphan Packages"
-msgstr ""
+msgstr "Forladte pakker"
 
 msgid "Packages added in the past 7 days"
-msgstr ""
+msgstr "Pakker tilføjet indenfor de seneste 7 dage"
 
 msgid "Packages updated in the past 7 days"
-msgstr ""
+msgstr "Pakker opdateret indenfor de seneste 7 dage"
 
 msgid "Packages updated in the past year"
-msgstr ""
+msgstr "Pakker opdateret indenfor det seneste år"
 
 msgid "Packages never updated"
-msgstr ""
+msgstr "Pakker aldrig opdateret"
 
 msgid "Registered Users"
-msgstr ""
+msgstr "Registerede brugere"
 
 msgid "Trusted Users"
-msgstr ""
+msgstr "Betroede brugere"
 
 msgid "Recent Updates"
-msgstr ""
+msgstr "Seneste opdateringer"
 
 msgid "My Statistics"
-msgstr ""
+msgstr "Mine statistikker"
 
 msgid "Packages in unsupported"
 msgstr ""
@@ -1276,7 +1286,7 @@ msgid "End"
 msgstr "Slut"
 
 msgid "Result"
-msgstr ""
+msgstr "Resultat"
 
 msgid "No"
 msgstr "Nej"
@@ -1288,13 +1298,13 @@ msgid "Total"
 msgstr "Total"
 
 msgid "Participation"
-msgstr ""
+msgstr "Deltagelse"
 
 msgid "Last Votes by TU"
 msgstr ""
 
 msgid "Last vote"
-msgstr ""
+msgstr "Sidste stemme"
 
 msgid "No results found."
 msgstr "Ingen resultater fundet."

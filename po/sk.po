@@ -9,10 +9,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/aur/language/"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-07-22 19:39+0000\n"
+"Last-Translator: archetyp <archetyp@linuxmail.org>\n"
+"Language-Team: Slovak (http://www.transifex.com/lfleischer/aur/language/"
 "sk/)\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,12 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "Mrzí nás to, ale stránka, ktorú ste zadali, neexistuje."
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "Služba nie je dostupná"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
+"Zachovajte pokoj. Na stránke momentálne prebieha údržba. Vrátime sa čoskoro."
 
 msgid "Account"
 msgstr "Účet"
@@ -53,9 +54,6 @@ msgstr "Použite tento formulár pre vyhľadávanie v existujúcich účtoch."
 
 msgid "You must log in to view user information."
 msgstr "Musíte sa prihlásiť, pre zobrazenie užívateľských informácií. "
-
-msgid "Use this form to create an account."
-msgstr "Použite tento formulár pre vytvorenie účtu. "
 
 msgid "Add Proposal"
 msgstr "Pridať návrh"
@@ -110,7 +108,7 @@ msgid "Submit"
 msgstr "Odoslať"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "Manažovať spolupracovníkov"
 
 msgid "Home"
 msgstr "Domov"
@@ -147,48 +145,79 @@ msgstr ""
 "Nepodporované balíčky sú vytvárané užívateľmi. Akékoľvek použitie "
 "poskytnutých súborov je na vaše vlastné riziko. "
 
+msgid "Learn more..."
+msgstr "Dozvedieť sa viac..."
+
 msgid "Support"
-msgstr ""
+msgstr "Podpora"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "Žiadosti ohľadom balíčkov"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
 msgstr ""
+"V súčasnosti existujú tri typy žiadostí, ktoré možno vyplniť v časti %sAkcie "
+"balíčka%s na stránke s detailami balíčka, a to:"
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "Žiadosť o osirenie"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"Žiadosť o odobratie vlastníctva balíčka, napr. ak správca balíčka nie je "
+"aktívny a balíček bol dlhšiu dobu označený ako neaktuálny."
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "Žiadosť o vymazanie"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"Žiadosť o odstránenie balíčka z AUR. Nepoužívajte prosím túto možnosť v "
+"prípade, že balíček je pokazený a možno ho ľahko opraviť. Namiesto toho "
+"radšej kontaktujte jeho správcu alebo v prípade nutnosti požiadajte o jeho "
+"osirenie."
 
 msgid "Merge Request"
-msgstr ""
+msgstr "Žiadosť o zlúčenie"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"Žiadosť o zlúčenie balíčka do iného. Možno použiť tiež v prípade, že balíček "
+"potrebuje byť premenovaný alebo nahradený rozdeleným balíčkom."
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"Ak potrebujete prediskutovať nejakú požiadavku, kedykoľvek môžete napísať na "
+"mailing list %saur-requests%s. Nepoužívajte však tento mailing list na "
+"posielanie požiadaviek."
+
+msgid "Submitting Packages"
+msgstr "Podanie balíčkov"
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+"Git cez SSH sa teraz používa na podanie balíčkov do AUR. Pre ďalšie "
+"informácie pozri tiež sekciu %sPodanie balíčkov%s na AUR stránke v ArchWiki."
+
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "Uvedené SSH fingerprints sa používajú pre AUR:"
 
 msgid "Discussion"
 msgstr "Diskusia"
@@ -199,6 +228,9 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"Všeobecná diskusia týkajúca sa Arch Užívateľského Repozitára (AUR) a "
+"štruktúry dôverovaných užívateľov (TU)  je na %saur-general%s.  Na diskusiu "
+"týkajúcu sa vývoja AUR webu použite %saur-dev%s mailing list."
 
 msgid "Bug Reporting"
 msgstr "Ohlasovanie chýb"
@@ -210,6 +242,10 @@ msgid ""
 "report packaging bugs contact the package maintainer or leave a comment on "
 "the appropriate package page."
 msgstr ""
+"Ak nájdete chybu na AUR webe, napíšte prosím správu o chybe na náš %sbug "
+"tracker%s. Používajte ho %slen%s na chyby AUR webu. Ohľadom chýb balíčka "
+"kontaktujte prosím jeho spravovateľa alebo zanechajte komentár na stránke "
+"balíčka."
 
 msgid "Package Search"
 msgstr "Hľadanie balíčka"
@@ -295,6 +331,9 @@ msgid ""
 "your e-mail address. If you wish to reset your password follow the link "
 "below, otherwise ignore this message and nothing will happen."
 msgstr ""
+"Na účet %s spojený s Vašou emailovou adresou bola zaslaná požiadava na "
+"resetovanie hesla. Ak si želáte heslo resetovať, kliknite na odkaz nižšie, "
+"inak môžete túto správu ignorovať, žiadna zmena sa nestane."
 
 msgid "Password Reset"
 msgstr "Obnova hesla"
@@ -332,6 +371,8 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
+"Vybrané balíčky neboli vyvlastnené, pozrite potvrdzovacie zaškrtávacie "
+"políčko."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
@@ -379,32 +420,37 @@ msgstr "Vyvlastni balíček"
 
 #, php-format
 msgid "Disown Package: %s"
-msgstr ""
+msgstr "Vyvlastni balíček: %s"
 
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"Použite tento formulár na vyvlastnenie základne balíčka %s%s%s, ktorá "
+"zahrňuje nasledujúce balíčky:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"Označením zaškrtávacieho políčka potvrdzujete, že chcete vyvlastniť balíček "
+"a presunúť vlastníctvo na %s%s%s."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
+"Označením zaškrtávacieho políčka potvrdzujete, že chcete vyvlastniť balíček."
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Potvrďte na vyvlastnenie balíčka"
 
 msgid "Disown"
 msgstr "Vyvlastniť"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
+msgstr "Len dôverovaní užívatelia a vývojári môžu vyvlastňovať balíčky."
 
 msgid "Package Merging"
 msgstr "Zlúčenie balíčkov"
@@ -460,6 +506,12 @@ msgstr "Posledný"
 
 msgid "Requests"
 msgstr "Žiadosti"
+
+msgid "Register"
+msgstr "Registrovať"
+
+msgid "Use this form to create an account."
+msgstr "Použite tento formulár pre vytvorenie účtu. "
 
 msgid "Trusted User"
 msgstr "Dôverovaný užívateľ (TU)"
@@ -521,7 +573,7 @@ msgid "The PGP key fingerprint is invalid."
 msgstr "PGP otlačok kľúča je neplatný."
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "Verejný SSH kľúč nie je platný."
 
 msgid "Cannot increase account permissions."
 msgstr "Nepodarilo sa rozšíriť práva účtu."
@@ -539,7 +591,7 @@ msgstr "Adresa %s%s%s sa už používa."
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "Verejný SSH kľúč %s%s%s sa už používa."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -605,6 +657,10 @@ msgstr "Neplatný email a kombinácia obnovovacích znakov."
 
 msgid "None"
 msgstr "Žiadny"
+
+#, php-format
+msgid "View account information for %s"
+msgstr "Pozri informácie o účte pre %s"
 
 msgid "Error retrieving package details."
 msgstr "Chyba pri získavaní informácií o balíčku."
@@ -695,27 +751,21 @@ msgstr "Komentár bol vymazaný."
 msgid "You are not allowed to delete this comment."
 msgstr "Nemáte práva na vymazanie tohto komentára."
 
-msgid "Missing category ID."
-msgstr "Chýba ID kategórie."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr "Nemáte oprávnenie na editovanie kľúčových slov tejto základne balíčka."
 
-msgid "Invalid category ID."
-msgstr "Neplatné ID kategórie."
-
-msgid "You are not allowed to change this package category."
-msgstr "Na zmenu kategórie balíčka nemáte oprávnenie."
-
-msgid "Package category changed."
-msgstr "Kategória balíčka bola zmenená."
+msgid "The package base keywords have been updated."
+msgstr "Kľúčové slová základne balíčka boli aktualizované."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "Nie ste oprávnený manažovať spolupracovníkov tejto základne balíčka."
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Neplatné užívateľské meno: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "Spolupracovníci základne balíčka boli aktualizovaní."
 
 msgid "View packages details for"
 msgstr "Pozri detaily balíčky pre"
@@ -829,9 +879,11 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"Nasledujúca informácia je dôležitá iba v prípade, že chcete podať balíčky do "
+"AUR."
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "Verejný SSH kľúč"
 
 msgid "Update"
 msgstr "Aktualizácia"
@@ -865,33 +917,26 @@ msgstr "Nie sú ďalšie výsledky na zobrazenie."
 
 #, php-format
 msgid "Manage Co-maintainers: %s"
-msgstr ""
+msgstr "Manažovať spolupracovníkov: %s"
 
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"Použite tento formulár pre pridanie spolupracovníkov pre %s%s%s (jedno "
+"užívateľké meno na riadok):"
 
 msgid "Users"
-msgstr ""
+msgstr "Užívatelia"
 
 msgid "Save"
-msgstr ""
+msgstr "Uložiť"
 
 msgid "My Packages"
 msgstr "Moje balíčky"
 
 msgid " My Account"
 msgstr "Môj účet"
-
-msgid "Register"
-msgstr "Registrovať"
-
-msgid "unknown"
-msgstr "neznámy"
-
-msgid "Package Base Details"
-msgstr "Detaily základne balíčka"
 
 msgid "Package Actions"
 msgstr "Akcie balíčka"
@@ -900,10 +945,10 @@ msgid "View PKGBUILD"
 msgstr "Pozrieť PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Prezrieť zmeny"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Stiahnuť snapshot"
 
 msgid "Search wiki"
 msgstr "Prehľadať wiki"
@@ -930,7 +975,7 @@ msgid "Notify of new comments"
 msgstr "Upozorni na nové komentáre"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Manažovať spolupracovníkov"
 
 #, php-format
 msgid "%d pending request"
@@ -948,21 +993,23 @@ msgstr "Zlúč balíček"
 msgid "Adopt Package"
 msgstr "Adoptuj balíček"
 
+msgid "unknown"
+msgstr "neznámy"
+
+msgid "Package Base Details"
+msgstr "Detaily základne balíčka"
+
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git Clone URL"
 
-msgid "Category"
-msgstr "Kategória"
+msgid "read-only"
+msgstr "len na čítanie"
 
-msgid "Change category"
-msgstr "Zmeniť kategóriu"
+msgid "Keywords"
+msgstr "Kľúčové slová"
 
 msgid "Submitter"
 msgstr "Prispievateľ"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Pozri informácie o účte pre %s"
 
 msgid "Maintainer"
 msgstr "Spravovateľ"
@@ -1172,7 +1219,7 @@ msgid "Name"
 msgstr "Meno"
 
 msgid "Popularity"
-msgstr ""
+msgstr "Popularita"
 
 msgid "Voted"
 msgstr "Hlasoval"
@@ -1189,14 +1236,8 @@ msgstr "Zostupne"
 msgid "Enter search criteria"
 msgstr "Zadaj kritériá pre vyhľadávanie"
 
-msgid "Any"
-msgstr "Ľubovoľné"
-
 msgid "Search by"
 msgstr "Vyhľadávať podľa"
-
-msgid "Keywords"
-msgstr "Kľúčové slová"
 
 msgid "Out of Date"
 msgstr "Neaktuálny"
@@ -1231,6 +1272,13 @@ msgstr[2] "%d nájdených balíčkov."
 
 msgid "Version"
 msgstr "Verzia"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
+"Popularita sa počíta ako suma všetkých hlasov, pričom každý hlas je násobený "
+"váhovým faktorom 0.98 za deň od dátumu vzniku."
 
 msgid "Yes"
 msgstr "Áno"

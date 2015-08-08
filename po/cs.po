@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/aur/language/cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/lfleischer/aur/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,9 +54,6 @@ msgstr "Pro vyhledání existujících účtů použíte tento formulář."
 
 msgid "You must log in to view user information."
 msgstr "Musíte se přihlásit, pro zobrazení informací o uživateli."
-
-msgid "Use this form to create an account."
-msgstr "Použíte tento formulář k založení účtu."
 
 msgid "Add Proposal"
 msgstr "Přidat návrh"
@@ -144,6 +141,9 @@ msgid ""
 "files is at your own risk."
 msgstr ""
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -185,6 +185,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -451,6 +464,12 @@ msgstr "Poslední"
 msgid "Requests"
 msgstr "Požadavky"
 
+msgid "Register"
+msgstr "Registrovat"
+
+msgid "Use this form to create an account."
+msgstr "Použíte tento formulář k založení účtu."
+
 msgid "Trusted User"
 msgstr "Důvěryhodný uživatel"
 
@@ -585,6 +604,10 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+#, php-format
+msgid "View account information for %s"
+msgstr ""
+
 msgid "Error retrieving package details."
 msgstr "Došlo k chybě při získávání detailů o balíčku."
 
@@ -675,16 +698,10 @@ msgstr "Komentář byl smazán."
 msgid "You are not allowed to delete this comment."
 msgstr "Nemáte oprávnění pro smazání tohoto komentáře."
 
-msgid "Missing category ID."
+msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
 
-msgid "Invalid category ID."
-msgstr "Chybné ID kategorie."
-
-msgid "You are not allowed to change this package category."
-msgstr ""
-
-msgid "Package category changed."
+msgid "The package base keywords have been updated."
 msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
@@ -864,15 +881,6 @@ msgstr "Moje balíčky"
 msgid " My Account"
 msgstr "Můj účet"
 
-msgid "Register"
-msgstr "Registrovat"
-
-msgid "unknown"
-msgstr "neznámý"
-
-msgid "Package Base Details"
-msgstr ""
-
 msgid "Package Actions"
 msgstr ""
 
@@ -928,20 +936,22 @@ msgstr ""
 msgid "Adopt Package"
 msgstr "Adoptovat balíček"
 
+msgid "unknown"
+msgstr "neznámý"
+
+msgid "Package Base Details"
+msgstr ""
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "Kategorie"
-
-msgid "Change category"
-msgstr "Upravit kategorii"
-
-msgid "Submitter"
+msgid "read-only"
 msgstr ""
 
-#, php-format
-msgid "View account information for %s"
+msgid "Keywords"
+msgstr "Klíčová slova"
+
+msgid "Submitter"
 msgstr ""
 
 msgid "Maintainer"
@@ -1164,14 +1174,8 @@ msgstr "Sestupně"
 msgid "Enter search criteria"
 msgstr "Zadat kritéria vyhledávání"
 
-msgid "Any"
-msgstr "jakákoliv"
-
 msgid "Search by"
 msgstr "Vyhledat dle"
-
-msgid "Keywords"
-msgstr "Klíčová slova"
 
 msgid "Out of Date"
 msgstr "Zastaralé"
@@ -1206,6 +1210,11 @@ msgstr[2] "Nalezeno %d balíčků."
 
 msgid "Version"
 msgstr "Verze"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Ano"

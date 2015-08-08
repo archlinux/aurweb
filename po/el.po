@@ -14,10 +14,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-11 23:45+0200\n"
-"PO-Revision-Date: 2015-06-11 21:46+0000\n"
+"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"PO-Revision-Date: 2015-06-18 08:16+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/aur/language/el/)\n"
+"Language-Team: Greek (http://www.transifex.com/lfleischer/aur/language/el/)\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,9 +58,6 @@ msgstr ""
 
 msgid "You must log in to view user information."
 msgstr "Πρέπει να συνδεθείτε για να δείτε πληροφορίες χρήστη."
-
-msgid "Use this form to create an account."
-msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να δημιουργήσετε λογαριασμό."
 
 msgid "Add Proposal"
 msgstr "Προσθέστε Πρόταση"
@@ -152,6 +149,9 @@ msgstr ""
 "Τα πακέτα στο \"Unsupported\" έχουν περιεχόμενο που παρέχεται απο τους "
 "χρήστες. Χρησιμοποιήστε τα με δική σας ευθύνη."
 
+msgid "Learn more..."
+msgstr ""
+
 msgid "Support"
 msgstr ""
 
@@ -193,6 +193,19 @@ msgstr ""
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
+msgstr ""
+
+msgid "Submitting Packages"
+msgstr ""
+
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr ""
+
+msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
 msgid "Discussion"
@@ -469,6 +482,12 @@ msgstr "Τελευταίο"
 msgid "Requests"
 msgstr ""
 
+msgid "Register"
+msgstr "Εγγραφείτε"
+
+msgid "Use this form to create an account."
+msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να δημιουργήσετε λογαριασμό."
+
 msgid "Trusted User"
 msgstr "Trusted User"
 
@@ -617,6 +636,10 @@ msgstr "Μη έγκυρο e-mail και συνδυασμός κλειδιού ε
 msgid "None"
 msgstr "Κανένα"
 
+#, php-format
+msgid "View account information for %s"
+msgstr "Δείτε τις πληροφορίες λογαριασμού του %s"
+
 msgid "Error retrieving package details."
 msgstr "Σφάλμα κατά τη διάρκεια φόρτωσης των πληροφοριών του πακέτου."
 
@@ -710,17 +733,11 @@ msgstr "Το σχόλιο έχει διαγραφεί."
 msgid "You are not allowed to delete this comment."
 msgstr "Δεν σας επιτρέπεται να διαγράψετε αυτό το σχόλιο."
 
-msgid "Missing category ID."
-msgstr "Μη υπαρκτό ID κατηγορίας."
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr ""
 
-msgid "Invalid category ID."
-msgstr "Μη έγκυρο ID κατηγορίας."
-
-msgid "You are not allowed to change this package category."
-msgstr "Δεν σας επιτρέπεται να αλλάξετε την κατηγορία αυτού του πακέτου."
-
-msgid "Package category changed."
-msgstr "Έγινε αλλαγή κατηγορίας πακέτου."
+msgid "The package base keywords have been updated."
+msgstr ""
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
@@ -899,15 +916,6 @@ msgstr "Τα πακέτα μου"
 msgid " My Account"
 msgstr "Ο λογαριασμός μου"
 
-msgid "Register"
-msgstr "Εγγραφείτε"
-
-msgid "unknown"
-msgstr "άγνωστο"
-
-msgid "Package Base Details"
-msgstr ""
-
 msgid "Package Actions"
 msgstr "Ενέργειες Πακέτου"
 
@@ -962,21 +970,23 @@ msgstr "Συγχώνευση πακέτου"
 msgid "Adopt Package"
 msgstr "Υιοθετήστε το Πακέτο"
 
+msgid "unknown"
+msgstr "άγνωστο"
+
+msgid "Package Base Details"
+msgstr ""
+
 msgid "Git Clone URL"
 msgstr ""
 
-msgid "Category"
-msgstr "Κατηγορία"
+msgid "read-only"
+msgstr ""
 
-msgid "Change category"
-msgstr "Αλλαγή κατηγορίας"
+msgid "Keywords"
+msgstr "Λέξεις κλειδιά"
 
 msgid "Submitter"
 msgstr "Υποβάλλων"
-
-#, php-format
-msgid "View account information for %s"
-msgstr "Δείτε τις πληροφορίες λογαριασμού του %s"
 
 msgid "Maintainer"
 msgstr "Συντηρητής"
@@ -1196,14 +1206,8 @@ msgstr "Φθίνουσα"
 msgid "Enter search criteria"
 msgstr "Εισάγετε κριτήρια αναζήτησης"
 
-msgid "Any"
-msgstr "Οποιαδήποτε"
-
 msgid "Search by"
 msgstr "Αναζήτηση κατά"
-
-msgid "Keywords"
-msgstr "Λέξεις κλειδιά"
 
 msgid "Out of Date"
 msgstr "Παρωχημένα"
@@ -1237,6 +1241,11 @@ msgstr[1] ""
 
 msgid "Version"
 msgstr "Έκδοση"
+
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of 0.98 per day since its creation."
+msgstr ""
 
 msgid "Yes"
 msgstr "Ναι"
