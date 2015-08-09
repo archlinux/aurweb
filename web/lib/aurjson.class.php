@@ -437,9 +437,13 @@ class AurJSON {
 	 */
 	private function msearch($http_data) {
 		$maintainer = $http_data['arg'];
-		$maintainer = $this->dbh->quote($maintainer);
 
-		$where_condition = "Users.Username = $maintainer ";
+		if (empty($maintainer)) {
+			$where_condition = "Users.ID is NULL";
+		} else {
+			$maintainer = $this->dbh->quote($maintainer);
+			$where_condition = "Users.Username = $maintainer ";
+		}
 
 		return $this->process_query('msearch', $where_condition);
 	}
