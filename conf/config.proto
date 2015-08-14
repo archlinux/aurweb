@@ -51,6 +51,7 @@ ssh-options = no-port-forwarding,no-X11-forwarding,no-pty
 repo-path = /srv/http/aurweb/aur.git/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
 git-shell-cmd = /usr/bin/git-shell
+git-update-cmd = /srv/http/aurweb/git-interface/git-update.py
 ssh-cmdline = ssh aur@aur.archlinux.org
 
 [aurblup]

@@ -19,6 +19,7 @@ aur_db_socket = config.get('database', 'socket')
 repo_path = config.get('serve', 'repo-path')
 repo_regex = config.get('serve', 'repo-regex')
 git_shell_cmd = config.get('serve', 'git-shell-cmd')
+git_update_cmd = config.get('serve', 'git-update-cmd')
 ssh_cmdline = config.get('serve', 'ssh-cmdline')
 
 enable_maintenance = config.getboolean('options', 'enable-maintenance')
@@ -152,10 +153,28 @@ elif action == 'setup-repo':
     if len(cmdargv) > 2:
         die_with_help("{:s}: too many arguments".format(action))
     create_pkgbase(cmdargv[1], user)
+elif action == 'restore':
+    if len(cmdargv) < 2:
+        die_with_help("{:s}: missing repository name".format(action))
+    if len(cmdargv) > 2:
+        die_with_help("{:s}: too many arguments".format(action))
+
+    pkgbase = cmdargv[1]
+    if not re.match(repo_regex, pkgbase):
+        die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
+
+    if pkgbase_exists(pkgbase):
+        die('{:s}: package base exists: {:s}'.format(action, pkgbase))
+    create_pkgbase(pkgbase, user)
+
+    os.environ["AUR_USER"] = user
+    os.environ["AUR_PKGBASE"] = pkgbase
+    os.execl(git_update_cmd, git_update_cmd, 'restore')
 elif action == 'help':
     die("Commands:\n" +
         "  help                 Show this help message and exit.\n" +
         "  list-repos           List all your repositories.\n" +
+        "  restore <name>       Restore a deleted package base.\n" +
         "  setup-repo <name>    Create an empty repository.\n" +
         "  git-receive-pack     Internal command used with Git.\n" +
         "  git-upload-pack      Internal command used with Git.")

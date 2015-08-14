@@ -176,21 +176,24 @@ def die_commit(msg, commit):
     sys.stderr.write("error: {:s}\n".format(msg))
     exit(1)
 
-if len(sys.argv) != 4:
-    die("invalid arguments")
-
-refname = sys.argv[1]
-sha1_old = sys.argv[2]
-sha1_new = sys.argv[3]
+repo = pygit2.Repository(repo_path)
 
 user = os.environ.get("AUR_USER")
 pkgbase = os.environ.get("AUR_PKGBASE")
 privileged = (os.environ.get("AUR_PRIVILEGED", '0') == '1')
 
+if len(sys.argv) == 2 and sys.argv[1] == "restore":
+    if 'refs/heads/' + pkgbase not in repo.listall_references():
+        die('{:s}: repository not found: {:s}'.format(sys.argv[1], pkgbase))
+    refname = "refs/heads/master"
+    sha1_old = sha1_new = repo.lookup_reference('refs/heads/' + pkgbase).target
+elif len(sys.argv) == 4:
+    refname, sha1_old, sha1_new = sys.argv[1:3]
+else:
+    die("invalid arguments")
+
 if refname != "refs/heads/master":
     die("pushing to a branch other than master is restricted")
-
-repo = pygit2.Repository(repo_path)
 
 db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                              passwd=aur_db_pass, db=aur_db_name,
@@ -291,7 +294,7 @@ if srcinfo_pkgbase != pkgbase:
 
 # Ensure that packages are neither blacklisted nor overwritten.
 cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
-pkgbase_id = cur.fetchone()[0]
+pkgbase_id = cur.fetchone()[0] if cur.rowcount == 1 else 0
 
 cur.execute("SELECT Name FROM PackageBlacklist")
 blacklist = [row[0] for row in cur.fetchall()]

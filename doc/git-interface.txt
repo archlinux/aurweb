@@ -44,6 +44,7 @@ The git-serve command, the "aurweb shell", provides different subcommands:
 * The help command shows a list of available commands.
 * The list-repos command lists all repositories of the authenticated user.
 * The setup-repo command can be used to create a new repository.
+* The restore command can be used to restore a deleted package base.
 * The git-{receive,upload}-pack commands are redirected to git-shell(1).
 
 The requested command is extracted from the SSH_ORIGINAL_COMMAND environment
