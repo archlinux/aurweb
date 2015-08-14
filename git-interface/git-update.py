@@ -212,9 +212,6 @@ walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
 if sha1_old != "0000000000000000000000000000000000000000":
     walker.hide(sha1_old)
 
-cur.execute("SELECT Name FROM PackageBlacklist")
-blacklist = [row[0] for row in cur.fetchall()]
-
 for commit in walker:
     for fname in ('.SRCINFO', 'PKGBUILD'):
         if not fname in commit.tree:
@@ -292,6 +289,9 @@ if srcinfo_pkgbase != pkgbase:
 pkgbase = srcinfo._pkgbase['pkgname']
 cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
 pkgbase_id = cur.fetchone()[0]
+
+cur.execute("SELECT Name FROM PackageBlacklist")
+blacklist = [row[0] for row in cur.fetchall()]
 
 for pkgname in srcinfo.GetPackageNames():
     pkginfo = srcinfo.GetMergedPackage(pkgname)
