@@ -212,6 +212,7 @@ walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
 if sha1_old != "0000000000000000000000000000000000000000":
     walker.hide(sha1_old)
 
+# Validate all new commits.
 for commit in walker:
     for fname in ('.SRCINFO', 'PKGBUILD'):
         if not fname in commit.tree:
@@ -278,14 +279,17 @@ for commit in walker:
             if not fname in commit.tree:
                 die_commit('missing source file: {:s}'.format(fname), str(commit.id))
 
+# Read .SRCINFO from the HEAD commit.
 srcinfo_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
 srcinfo_raw = srcinfo_raw.split('\n')
 srcinfo = aurinfo.ParseAurinfoFromIterable(srcinfo_raw)
 
+# Ensure that the package base name matches the repository name.
 srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
 if srcinfo_pkgbase != pkgbase:
     die('invalid pkgbase: {:s}, expected {:s}'.format(srcinfo_pkgbase, pkgbase))
 
+# Ensure that packages are neither blacklisted nor overwritten.
 cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
 pkgbase_id = cur.fetchone()[0]
 
@@ -304,6 +308,7 @@ for pkgname in srcinfo.GetPackageNames():
     if cur.fetchone()[0] > 0:
         die('cannot overwrite package: {:s}'.format(pkgname))
 
+# Store package base details in the database.
 save_srcinfo(srcinfo, db, cur, user)
 
 db.close()
