@@ -107,8 +107,7 @@ if (check_token()) {
 		list($ret, $output) = pkgbase_set_comaintainers($base_id, explode("\n", $_POST['users']));
 	} elseif (current_action("do_AddComment")) {
 		$uid = uid_from_sid($_COOKIE["AURSID"]);
-		pkgbase_add_comment($base_id, $uid, $_REQUEST['comment']);
-		$ret = true;
+		list($ret, $output) = pkgbase_add_comment($base_id, $uid, $_REQUEST['comment']);
 		$fragment = '#news';
 	} elseif (current_action("do_EditComment")) {
 		list($ret, $output) = pkgbase_edit_comment($_REQUEST['comment']);

@@ -81,6 +81,10 @@ function pkgbase_comments($base_id, $limit, $include_deleted) {
 function pkgbase_add_comment($base_id, $uid, $comment) {
 	$dbh = DB::connect();
 
+	if (trim($comment) == '') {
+		return array(false, __('Comment cannot be empty.'));
+	}
+
 	$q = "INSERT INTO PackageComments ";
 	$q.= "(PackageBaseID, UsersID, Comments, CommentTS) VALUES (";
 	$q.= intval($base_id) . ", " . $uid . ", ";
@@ -102,6 +106,8 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 	if ($result) {
 		notify(array('comment', $uid, $base_id), $comment);
 	}
+
+	return array(true, __('Comment has been added.'));
 }
 
 /**
@@ -858,6 +864,10 @@ function pkgbase_edit_comment($comment) {
 		$comment_id = $_POST["comment_id"];
 	} else {
 		return array(false, __("Missing comment ID."));
+	}
+
+	if (trim($comment) == '') {
+		return array(false, __('Comment cannot be empty.'));
 	}
 
 	$dbh = DB::connect();
