@@ -290,7 +290,7 @@ endif;
 <?php endif; ?>
 		</div>
 		<div id="pkgfiles" class="listing">
-			<h3><?= __('Sources') ?></h3>
+			<h3><?= __('Sources') . " (" . count($sources) . ")"?></h3>
 		</div>
 		<?php if (count($sources) > 0): ?>
 		<div>
