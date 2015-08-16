@@ -77,7 +77,7 @@ html_header( __("Home") );
 			<?php
 			echo __(
 				'Git over SSH is now used to submit packages to the AUR. See the %sSubmitting packages%s section of the Arch User Repository ArchWiki page for more details.',
-				'<a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#AUR_4">',
+				'<a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#Submitting_packages">',
 				'</a>'
 				);
 			?>
