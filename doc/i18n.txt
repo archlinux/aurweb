@@ -1,12 +1,11 @@
 aurweb Translation
 ==================
 
-This document describes how to create and maintain aurweb translations. It was
-originally derived from https://wiki.archlinux.org/index.php/aurweb_Translation
+This document describes how to create and maintain aurweb translations.
 
 Creating an aurweb translation requires a Transifex (http://www.transifex.com/)
 account. You will need to register with a translation team on the aurweb
-project page (http://www.transifex.com/projects/p/aurweb/).
+project page (http://www.transifex.com/projects/p/aur/).
 
 
 Creating a New Translation
