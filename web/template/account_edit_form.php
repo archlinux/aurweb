@@ -72,6 +72,10 @@
 			<input type="text" size="30" maxlength="64" name="E" id="id_email" value="<?= htmlspecialchars($E,ENT_QUOTES) ?>" /> (<?= __("required") ?>)
 		</p>
 
+		<p>
+			<em><?= __("Please ensure you correctly entered your email address, otherwise you will be locked out.") ?></em>
+		</p>
+
 		<?php if ($A == "UpdateAccount"): ?>
 		<p>
 			<label for="id_passwd1"><?= __("Password") ?>:</label>
