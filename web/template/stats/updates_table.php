@@ -10,7 +10,7 @@
 				<a href="<?= get_pkg_uri($row["Name"]); ?>" title="<?= htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?>"><?= htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
 			</td>
 			<td class="pkg-new">
-				<?php if ($row["ModifiedTS"] === $row["SubmittedTS"]): ?>
+				<?php if ($row["ModifiedTS"] - $row["SubmittedTS"] < 3600): ?>
 				<img src="images/new.png" alt="New!" />
 				<?php endif; ?>
 			</td>
