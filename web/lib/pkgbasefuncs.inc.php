@@ -328,15 +328,15 @@ function pkgbase_flag($base_ids) {
 		return array(false, __("You did not select any packages to flag."));
 	}
 
+	$uid = uid_from_sid($_COOKIE['AURSID']);
 	$dbh = DB::connect();
 
 	$q = "UPDATE PackageBases SET";
-	$q.= " OutOfDateTS = UNIX_TIMESTAMP()";
+	$q.= " OutOfDateTS = UNIX_TIMESTAMP(), FlaggerUID = " . $uid;
 	$q.= " WHERE ID IN (" . implode(",", $base_ids) . ")";
 	$q.= " AND OutOfDateTS IS NULL";
 	$dbh->exec($q);
 
-	$uid = uid_from_sid($_COOKIE['AURSID']);
 	foreach ($base_ids as $base_id) {
 		notify(array('flag', $uid, $base_id));
 	}

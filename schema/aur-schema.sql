@@ -84,6 +84,7 @@ CREATE TABLE PackageBases (
 	OutOfDateTS BIGINT UNSIGNED NULL DEFAULT NULL,
 	SubmittedTS BIGINT UNSIGNED NOT NULL,
 	ModifiedTS BIGINT UNSIGNED NOT NULL,
+	FlaggerUID BIGINT UNSIGNED NULL DEFAULT NULL,        -- who flagged the package out-of-date?
 	SubmitterUID INTEGER UNSIGNED NULL DEFAULT NULL,     -- who submitted it?
 	MaintainerUID INTEGER UNSIGNED NULL DEFAULT NULL,    -- User
 	PackagerUID INTEGER UNSIGNED NULL DEFAULT NULL,      -- Last packager
@@ -93,6 +94,7 @@ CREATE TABLE PackageBases (
 	INDEX (SubmitterUID),
 	INDEX (MaintainerUID),
 	INDEX (PackagerUID),
+	FOREIGN KEY (FlaggerUID) REFERENCES Users(ID) ON DELETE SET NULL,
 	-- deleting a user will cause packages to be orphaned, not deleted
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL,
