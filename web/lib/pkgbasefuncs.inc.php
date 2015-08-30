@@ -150,6 +150,7 @@ function pkgbase_get_details($base_id) {
 	$q.= "PackageBases.OutOfDateTS, PackageBases.SubmittedTS, ";
 	$q.= "PackageBases.ModifiedTS, PackageBases.SubmitterUID, ";
 	$q.= "PackageBases.MaintainerUID, PackageBases.PackagerUID, ";
+	$q.= "PackageBases.FlaggerUID, ";
 	$q.= "(SELECT COUNT(*) FROM PackageRequests ";
 	$q.= " WHERE PackageRequests.PackageBaseID = PackageBases.ID ";
 	$q.= " AND PackageRequests.Status = 0) AS RequestCount ";
@@ -370,7 +371,7 @@ function pkgbase_unflag($base_ids) {
 
 	$maintainers = array_merge(pkgbase_maintainer_uids($base_ids), pkgbase_get_comaintainer_uids($base_ids));
 	if (!has_credential(CRED_PKGBASE_UNFLAG, $maintainers)) {
-		$q.= "AND MaintainerUID = " . $uid;
+		$q.= "AND (MaintainerUID = " . $uid . " OR FlaggerUID = " . $uid. ")";
 	}
 
 	$result = $dbh->exec($q);

@@ -435,7 +435,7 @@ function pkg_get_details($id=0) {
 	$q.= "PackageBases.Popularity, PackageBases.OutOfDateTS, ";
 	$q.= "PackageBases.SubmittedTS, PackageBases.ModifiedTS, ";
 	$q.= "PackageBases.SubmitterUID, PackageBases.MaintainerUID, ";
-	$q.= "PackageBases.PackagerUID, ";
+	$q.= "PackageBases.PackagerUID, PackageBases.FlaggerUID, ";
 	$q.= "(SELECT COUNT(*) FROM PackageRequests ";
 	$q.= " WHERE PackageRequests.PackageBaseID = Packages.PackageBaseID ";
 	$q.= " AND PackageRequests.Status = 0) AS RequestCount ";

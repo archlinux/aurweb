@@ -11,7 +11,7 @@
 			<li><span class="flagged"><?php if ($row["OutOfDateTS"] !== NULL) { echo __('Flagged out-of-date')." (${out_of_date_time})"; } ?></span></li>
 			<?php if ($row["OutOfDateTS"] === NULL): ?>
 			<li><?= html_action_form($base_uri . 'flag/', "do_Flag", __('Flag package out-of-date')) ?></li>
-			<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, $maintainers)): ?>
+			<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, $unflaggers)): ?>
 			<li><?= html_action_form($base_uri . 'unflag/', "do_UnFlag", __('Unflag package')) ?></li>
 			<?php endif; ?>
 

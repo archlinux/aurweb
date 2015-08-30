@@ -21,8 +21,9 @@ $packager = username_from_id($row["PackagerUID"]);
 if ($row["MaintainerUID"] !== NULL) {
 	$maintainers = array_merge(array($row["MaintainerUID"]), pkgbase_get_comaintainer_uids(array($base_id)));
 } else {
-	$maintainers = NULL;
+	$maintainers = array();
 }
+$unflaggers = array_merge($maintainers, array($row["FlaggerUID"]));
 
 $votes = $row['NumVotes'];
 $popularity = $row['Popularity'];
