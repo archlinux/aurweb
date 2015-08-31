@@ -225,18 +225,18 @@ function html_format_maintainers($maintainer, $comaintainers) {
  * Format a link in the package actions box
  *
  * @param string $uri The link target
- * @param string $desc The link label
+ * @param string $inner The HTML code to use for the link label
  *
  * @return string The generated HTML code for the action link
  */
-function html_action_link($uri, $desc) {
+function html_action_link($uri, $inner) {
 	if (isset($_COOKIE["AURSID"])) {
 		$code = '<a href="' . htmlspecialchars($uri, ENT_QUOTES) . '">';
 	} else {
 		$code = '<a href="' . get_uri('/login/', true) . '?referer=';
 		$code .= urlencode(rtrim(aur_location(), '/') . $uri) . '">';
 	}
-	$code .= htmlspecialchars($desc) . '</a>';
+	$code .= $inner . '</a>';
 
 	return $code;
 }
@@ -246,11 +246,11 @@ function html_action_link($uri, $desc) {
  *
  * @param string $uri The link target
  * @param string $action The action name (passed as HTTP POST parameter)
- * @param string $desc The link label
+ * @param string $inner The HTML code to use for the link label
  *
  * @return string The generated HTML code for the action link
  */
-function html_action_form($uri, $action, $desc) {
+function html_action_form($uri, $action, $inner) {
 	if (isset($_COOKIE["AURSID"])) {
 		$code = '<form action="' . htmlspecialchars($uri, ENT_QUOTES) . '" ';
 		$code .= 'method="post">';
@@ -258,11 +258,11 @@ function html_action_form($uri, $action, $desc) {
 		$code .= htmlspecialchars($_COOKIE['AURSID'], ENT_QUOTES) . '" />';
 		$code .= '<input type="submit" class="button text-button" name="';
 		$code .= htmlspecialchars($action, ENT_QUOTES) . '" ';
-		$code .= 'value="' . htmlspecialchars($desc, ENT_QUOTES) . '" />';
+		$code .= 'value="' . $inner . '" />';
 		$code .= '</form>';
 	} else {
 		$code = '<a href="' . get_uri('/login/', true) . '">';
-		$code .= htmlspecialchars($desc) . '</a>';
+		$code .= $inner . '</a>';
 	}
 
 	return $code;
