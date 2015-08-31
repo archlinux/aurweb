@@ -316,10 +316,11 @@ function pkgbase_maintainer_uids($base_ids) {
  * Flag package(s) as out-of-date
  *
  * @param array $base_ids Array of package base IDs to flag/unflag
+ * @param string $comment The comment to add
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_flag($base_ids) {
+function pkgbase_flag($base_ids, $comment) {
 	if (!has_credential(CRED_PKGBASE_FLAG)) {
 		return array(false, __("You must be logged in before you can flag packages."));
 	}
@@ -332,14 +333,15 @@ function pkgbase_flag($base_ids) {
 	$uid = uid_from_sid($_COOKIE['AURSID']);
 	$dbh = DB::connect();
 
-	$q = "UPDATE PackageBases SET";
-	$q.= " OutOfDateTS = UNIX_TIMESTAMP(), FlaggerUID = " . $uid;
-	$q.= " WHERE ID IN (" . implode(",", $base_ids) . ")";
-	$q.= " AND OutOfDateTS IS NULL";
+	$q = "UPDATE PackageBases SET ";
+	$q.= "OutOfDateTS = UNIX_TIMESTAMP(), FlaggerUID = " . $uid . ", ";
+	$q.= "FlaggerComment = " . $dbh->quote($comment) . " ";
+	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
+	$q.= "AND OutOfDateTS IS NULL";
 	$dbh->exec($q);
 
 	foreach ($base_ids as $base_id) {
-		notify(array('flag', $uid, $base_id));
+		notify(array('flag', $uid, $base_id), $comment);
 	}
 
 	return array(true, __("The selected packages have been flagged out-of-date."));

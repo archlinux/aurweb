@@ -8,10 +8,11 @@ ALTER TABLE PackageComments
 	ADD FOREIGN KEY (EditedUsersID) REFERENCES Users(ID) ON DELETE SET NULL;
 ----
 
-2. Add a field to store the ID of the last user who flagged a package
-out-of-date:
+2. Add fields to store the ID and comment of the last user who flagged a
+package out-of-date:
 
 ----
 ALTER TABLE PackageBases
-	ADD COLUMN FlaggerUID BIGINT UNSIGNED NULL DEFAULT NULL;
+	ADD COLUMN FlaggerUID BIGINT UNSIGNED NULL DEFAULT NULL,
+	ADD COLUMN FlaggerComment VARCHAR(255) NOT NULL;
 ----

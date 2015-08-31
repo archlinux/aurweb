@@ -139,14 +139,15 @@ def flag(cur, uid, pkgbase_id):
     user = username_from_id(cur, uid)
     pkgbase = pkgbase_from_id(cur, pkgbase_id)
     to = [get_maintainer_email(cur, pkgbase_id)]
+    text = sys.stdin.read()
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
 
     subject = 'AUR Out-of-date Notification for %s' % (pkgbase)
-    body = 'Your package %s [1] has been flagged out-of-date by %s [2]. ' % \
+    body = 'Your package %s [1] has been flagged out-of-date by %s [2]:' % \
            (pkgbase, user)
-    body += '\n\n'
+    body += '\n\n' + text + '\n\n'
     body += '[1] ' + pkgbase_uri + '\n'
     body += '[2] ' + user_uri
 
