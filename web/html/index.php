@@ -68,8 +68,8 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 				$_POST['do_UnNotify'] = __('UnNotify');
 				break;
 			case "flag":
-				$_POST['do_Flag'] = __('Flag');
-				break;
+				include('pkgflag.php');
+				return;
 			case "unflag":
 				$_POST['do_UnFlag'] = __('UnFlag');
 				break;
