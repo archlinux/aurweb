@@ -467,6 +467,21 @@ function uid_from_username($username) {
 }
 
 /**
+ * Determine the user's ID in the database using a username or email address
+ *
+ * @param string $username The username or email address of an account
+ *
+ * @return string Return user ID if exists, otherwise null
+ */
+function uid_from_loginname($loginname) {
+	$uid = uid_from_username($loginname);
+	if (!$uid) {
+		$uid = uid_from_email($loginname);
+	}
+	return $uid;
+}
+
+/**
  * Determine the user's ID in the database using an e-mail address
  *
  * @param string $email An e-mail address in foo@example.com format

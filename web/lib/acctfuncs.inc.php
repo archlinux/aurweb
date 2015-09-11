@@ -479,7 +479,7 @@ function try_login() {
 	}
 
 	$dbh = DB::connect();
-	$userID = uid_from_username($_REQUEST['user']);
+	$userID = uid_from_loginname($_REQUEST['user']);
 
 	if (user_suspended($userID)) {
 		$login_error = __('Account suspended');
