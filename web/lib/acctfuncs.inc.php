@@ -479,7 +479,7 @@ function try_login() {
 	}
 
 	$dbh = DB::connect();
-	$userID = valid_user($_REQUEST['user']);
+	$userID = uid_from_username($_REQUEST['user']);
 
 	if (user_suspended($userID)) {
 		$login_error = __('Account suspended');
@@ -606,31 +606,6 @@ function valid_username($user) {
 	}
 
 	return true;
-}
-
-/**
- * Determine if a username exists in the database
- *
- * @param string $user Username to check in the database
- *
- * @return string|void Return user ID if in database, otherwise void
- */
-function valid_user($user) {
-	if (!$user) {
-		return false;
-	}
-
-	$dbh = DB::connect();
-
-	$q = "SELECT ID FROM Users WHERE ";
-	$q.= "Username = " . $dbh->quote($user);
-	$result = $dbh->query($q);
-	if (!$result) {
-		return null;
-	}
-
-	$row = $result->fetch(PDO::FETCH_NUM);
-	return $row[0];
 }
 
 /**

@@ -24,7 +24,7 @@ if (has_credential(CRED_TU_ADD_VOTE)) {
 		$error = "";
 
 		if (!empty($_POST['user'])) {
-			if (!valid_user($_POST['user'])) {
+			if (!uid_from_username($_POST['user'])) {
 				$error.= __("Username does not exist.");
 			} else {
 
