@@ -448,6 +448,20 @@ function pkgbase_delete ($base_ids, $merge_base_id, $via, $grant=false) {
 		$q.= "WHERE PackageBaseID IN (" . implode(",", $base_ids) . ")";
 		$dbh->exec($q);
 
+		/* Merge notifications */
+		$q = "SELECT DISTINCT UserID FROM CommentNotify cn ";
+		$q.= "WHERE PackageBaseID IN (" . implode(",", $base_ids) . ") ";
+		$q.= "AND NOT EXISTS (SELECT * FROM CommentNotify cn2 ";
+		$q.= "WHERE cn2.PackageBaseID = " . intval($merge_base_id) . " ";
+		$q.= "AND cn2.UserID = cn.UserID)";
+		$result = $dbh->query($q);
+
+		while ($notify_uid = $result->fetch(PDO::FETCH_COLUMN, 0)) {
+			$q = "INSERT INTO CommentNotify (UserID, PackageBaseID) ";
+			$q.= "VALUES (" . intval($notify_uid) . ", " . intval($merge_base_id) . ")";
+			$dbh->exec($q);
+		}
+
 		/* Merge votes */
 		foreach ($base_ids as $base_id) {
 			$q = "UPDATE PackageVotes ";

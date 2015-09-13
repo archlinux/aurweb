@@ -167,10 +167,9 @@ def delete(cur, uid, old_pkgbase_id, new_pkgbase_id=None):
     if new_pkgbase_id:
         new_pkgbase_uri = aur_location + '/pkgbase/' + new_pkgbase + '/'
         body = '%s [1] merged %s [2] into %s [3].\n\n' \
-               'You will no longer receive notifications about this ' \
-               'package, please go to [3] and click "%s" if you wish to ' \
-               'receive them again.' % \
-               (user, old_pkgbase, new_pkgbase, 'Notify of new comments')
+               'If you no longer wish receive notifications about the new ' \
+               'package, please go to [3] and click "%s".' %\
+               (user, old_pkgbase, new_pkgbase, 'Disable notifications')
         body += '\n\n'
         body += '[1] ' + user_uri + '\n'
         body += '[2] ' + pkgbase_uri + '\n'
