@@ -155,6 +155,33 @@ function pkg_groups($pkgid) {
 }
 
 /**
+ * Get providers for a specific package
+ *
+ * @param string $name The name of the "package" to get providers for
+ *
+ * @return array The IDs and names of all providers of the package
+ */
+function pkg_providers($name) {
+	$dbh = DB::connect();
+	$q = "SELECT p.ID, p.Name FROM Packages p ";
+	$q.= "INNER JOIN PackageRelations pr ON pr.PackageID = p.ID ";
+	$q.= "INNER JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
+	$q.= "WHERE rt.Name = 'provides' ";
+	$q.= "AND pr.RelName = " . $dbh->quote($name);
+	$result = $dbh->query($q);
+
+	if (!$result) {
+		return array();
+	}
+
+	$providers = array();
+	while ($row = $result->fetch(PDO::FETCH_NUM)) {
+		$providers[] = $row;
+	}
+	return $providers;
+}
+
+/**
  * Get package dependencies for a specific package
  *
  * @param int $pkgid The package to get dependencies for
@@ -232,15 +259,41 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id, $show_desc=true) {
 		$desc = '(unknown)';
 	}
 
-	$link = '<a href="';
+	$providers = array();
 	if (is_null($pkg_id)) {
-		$link .= 'https://www.archlinux.org/packages/?q=' . urlencode($name);
-	} else {
-		$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
+		/*
+		 * TODO: We currently perform one SQL query per nonexistent
+		 * package dependency. It would be much better if we could
+		 * annotate dependency data with providers so that we already
+		 * know whether a dependency is a "provision name" or a package
+		 * from the official repositories at this point.
+		 */
+		$providers = pkg_providers($name);
 	}
-	$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
-	$link .= htmlspecialchars($name) . '</a>';
-	$link .= htmlspecialchars($cond);
+
+	if (count($providers) > 0) {
+		$link = htmlspecialchars($name) . ' ';
+		$link .= '<span class="virtual-dep">(';
+		foreach ($providers as $provider) {
+			$name = $provider[1];
+			$link .= '<a href="';
+			$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
+			$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
+			$link .= htmlspecialchars($name) . '</a>, ';
+		}
+		$link = substr($link, 0, -2);
+		$link .= ')</span>';
+	} else {
+		$link = '<a href="';
+		if (is_null($pkg_id)) {
+			$link .= 'https://www.archlinux.org/packages/?q=' . urlencode($name);
+		} else {
+			$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
+		}
+		$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
+		$link .= htmlspecialchars($name) . '</a>';
+		$link .= htmlspecialchars($cond);
+	}
 
 	if ($type != 'depends' || $arch) {
 		$link .= ' <em>(';
