@@ -188,7 +188,7 @@ if len(sys.argv) == 2 and sys.argv[1] == "restore":
     refname = "refs/heads/master"
     sha1_old = sha1_new = repo.lookup_reference('refs/heads/' + pkgbase).target
 elif len(sys.argv) == 4:
-    refname, sha1_old, sha1_new = sys.argv[1:3]
+    refname, sha1_old, sha1_new = sys.argv[1:4]
 else:
     die("invalid arguments")
 
