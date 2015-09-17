@@ -239,6 +239,48 @@ function pkg_relations($pkgid) {
 }
 
 /**
+ * Get the HTML code to display a package dependency link annotation
+ * (dependency type, architecture, ...)
+ *
+ * @param string $type The name of the dependency type
+ * @param string $arch The package dependency architecture
+ * @param string $desc An optdepends description
+ *
+ * @return string The HTML code of the label to display
+ */
+function pkg_deplink_annotation($type, $arch, $desc=false) {
+	if ($type == 'depends' && !$arch) {
+		return '';
+	}
+
+	$link = ' <em>(';
+
+	if ($type == 'makedepends') {
+		$link .= 'make';
+	} elseif ($type == 'checkdepends') {
+		$link .= 'check';
+	} elseif ($type == 'optdepends') {
+		$link .= 'optional';
+	}
+
+	if ($type != 'depends' && $arch) {
+		$link .= ', ';
+	}
+
+	if ($arch) {
+		$link .= htmlspecialchars($arch);
+	}
+
+	$link .= ')';
+	if ($type == 'optdepends' && $desc) {
+		$link .= ' &ndash; ' . htmlspecialchars($desc) . ' </em>';
+	}
+	$link .= '</em>';
+
+	return $link;
+}
+
+/**
  * Get the HTML code to display a package dependency link
  *
  * @param string $name The name of the dependency
@@ -246,11 +288,10 @@ function pkg_relations($pkgid) {
  * @param string $cond The package dependency condition string
  * @param string $arch The package dependency architecture
  * @param int $pkg_id The package of the package to display the dependency for
- * @param bool $show_desc Whether the description of optdepends is shown
  *
  * @return string The HTML code of the label to display
  */
-function pkg_depend_link($name, $type, $cond, $arch, $pkg_id, $show_desc=true) {
+function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
 	if ($type == 'optdepends' && strpos($name, ':') !== false) {
 		$tokens = explode(':', $name, 2);
 		$name = $tokens[0];
@@ -295,33 +336,30 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id, $show_desc=true) {
 		$link .= htmlspecialchars($cond);
 	}
 
-	if ($type != 'depends' || $arch) {
-		$link .= ' <em>(';
+	return $link . pkg_deplink_annotation($type, $arch, $desc);
+}
 
-		if ($type == 'makedepends') {
-			$link .= 'make';
-		} elseif ($type == 'checkdepends') {
-			$link .= 'check';
-		} elseif ($type == 'optdepends') {
-			$link .= 'optional';
-		}
-
-		if ($type != 'depends' && $arch) {
-			$link .= ', ';
-		}
-
-		if ($arch) {
-			$link .= htmlspecialchars($arch);
-		}
-
-		$link .= ')';
-		if ($show_desc && $type == 'optdepends') {
-			$link .= ' &ndash; ' . htmlspecialchars($desc) . ' </em>';
-		}
-		$link .= '</em>';
+/**
+ * Get the HTML code to display a package requirement link
+ *
+ * @param string $name The name of the requirement
+ * @param string $type The name of the dependency type
+ * @param string $arch The package dependency architecture
+ *
+ * @return string The HTML code of the link to display
+ */
+function pkg_requiredby_link($name, $type, $arch) {
+	if ($type == 'optdepends' && strpos($name, ':') !== false) {
+		$tokens = explode(':', $name, 2);
+		$name = $tokens[0];
 	}
 
-	return $link;
+	$link = '<a href="';
+	$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
+	$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
+	$link .= htmlspecialchars($name) . '</a>';
+
+	return $link . pkg_deplink_annotation($type, $arch);
 }
 
 /**
@@ -379,7 +417,7 @@ function pkg_required($name="") {
 	$deps = array();
 	if ($name != "") {
 		$dbh = DB::connect();
-		$q = "SELECT p.Name, dt.Name, '' AS DepCondition, pd.DepArch, p.ID FROM PackageDepends pd ";
+		$q = "SELECT p.Name, dt.Name, pd.DepArch FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON p.ID = pd.PackageID ";
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 		$q.= "WHERE pd.DepName = " . $dbh->quote($name) . " ";

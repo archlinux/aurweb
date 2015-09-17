@@ -285,7 +285,7 @@ endif;
 <?php if (count($requiredby) > 0): ?>
 			<ul id="pkgreqslist">
 				<?php while (list($k, $darr) = each($requiredby)): ?>
-				<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3], $darr[4], false); ?></li>
+				<li><?= pkg_requiredby_link($darr[0], $darr[1], $darr[2]); ?></li>
 				<?php endwhile; ?>
 			</ul>
 <?php endif; ?>
