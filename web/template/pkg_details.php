@@ -40,9 +40,6 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($
 $lics = pkg_licenses($row["ID"]);
 $grps = pkg_groups($row["ID"]);
 
-$deps = pkg_dependencies($row["ID"]);
-$requiredby = pkg_required($row["Name"]);
-
 usort($deps, function($x, $y) {
 	if ($x[1] != $y[1]) {
 		if ($x[1] == "depends") {
@@ -82,6 +79,9 @@ foreach ($rels as $rel) {
 		break;
 	}
 }
+
+$deps = pkg_dependencies($row["ID"]);
+$requiredby = pkg_required($row["Name"], $rels_p);
 
 # $sources[0] = 'src';
 $sources = pkg_sources($row["ID"]);
@@ -285,7 +285,7 @@ endif;
 <?php if (count($requiredby) > 0): ?>
 			<ul id="pkgreqslist">
 				<?php while (list($k, $darr) = each($requiredby)): ?>
-				<li><?= pkg_requiredby_link($darr[0], $darr[1], $darr[2]); ?></li>
+				<li><?= pkg_requiredby_link($darr[0], $darr[1], $darr[2], $darr[3], $row['Name']); ?></li>
 				<?php endwhile; ?>
 			</ul>
 <?php endif; ?>

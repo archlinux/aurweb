@@ -343,12 +343,14 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
  * Get the HTML code to display a package requirement link
  *
  * @param string $name The name of the requirement
+ * @param string $depends The (literal) name of the dependency of $name
  * @param string $type The name of the dependency type
  * @param string $arch The package dependency architecture
+ * @param string $pkgname The name of dependant package
  *
  * @return string The HTML code of the link to display
  */
-function pkg_requiredby_link($name, $type, $arch) {
+function pkg_requiredby_link($name, $depends, $type, $arch, $pkgname) {
 	if ($type == 'optdepends' && strpos($name, ':') !== false) {
 		$tokens = explode(':', $name, 2);
 		$name = $tokens[0];
@@ -358,6 +360,18 @@ function pkg_requiredby_link($name, $type, $arch) {
 	$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
 	$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
 	$link .= htmlspecialchars($name) . '</a>';
+
+	if ($depends != $pkgname) {
+		$depname = $depends;
+		if (strpos($depends, ':') !== false) {
+			$tokens = explode(':', $depname, 2);
+			$depname = $tokens[0];
+		}
+
+		$link .= ' <span class="virtual-dep">(';
+		$link .= __('requires %s', htmlspecialchars($depname));
+		$link .= ')</span>';
+	}
 
 	return $link . pkg_deplink_annotation($type, $arch);
 }
@@ -410,18 +424,25 @@ function pkg_source_link($url, $arch) {
  * Determine packages that depend on a package
  *
  * @param string $name The package name for the dependency search
+ * @param array $provides A list of virtual provisions of the package
  *
  * @return array All packages that depend on the specified package name
  */
-function pkg_required($name="") {
+function pkg_required($name="", $provides) {
 	$deps = array();
 	if ($name != "") {
 		$dbh = DB::connect();
-		$q = "SELECT p.Name, dt.Name, pd.DepArch FROM PackageDepends pd ";
+
+		$name_list = $dbh->quote($name);
+		foreach ($provides as $p) {
+			$name_list .= ',' . $dbh->quote($p[0]);
+		}
+
+		$q = "SELECT p.Name, pd.DepName, dt.Name, pd.DepArch FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON p.ID = pd.PackageID ";
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
-		$q.= "WHERE pd.DepName = " . $dbh->quote($name) . " ";
-		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) = " . $dbh->quote($name) . " ";
+		$q.= "WHERE pd.DepName IN (" . $name_list . ") ";
+		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) IN (" . $name_list . ") ";
 		$q.= "ORDER BY p.Name";
 		$result = $dbh->query($q);
 		if (!$result) {return array();}
