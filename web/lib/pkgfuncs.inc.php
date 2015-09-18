@@ -480,42 +480,6 @@ function pkg_sources($pkgid) {
 }
 
 /**
- * Determine package names from package IDs
- *
- * @param string|array $pkgids The package IDs to get names for
- *
- * @return array|string All names if multiple package IDs, otherwise package name
- */
-function pkg_name_from_id($pkgids) {
-	if (is_array($pkgids)) {
-		$pkgids = sanitize_ids($pkgids);
-		$names = array();
-		$dbh = DB::connect();
-		$q = "SELECT Name FROM Packages WHERE ID IN (";
-		$q.= implode(",", $pkgids) . ")";
-		$result = $dbh->query($q);
-		if ($result) {
-			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$names[] = $row['Name'];
-			}
-		}
-		return $names;
-	}
-	elseif ($pkgids > 0) {
-		$dbh = DB::connect();
-		$q = "SELECT Name FROM Packages WHERE ID = " . $pkgids;
-		$result = $dbh->query($q);
-		if ($result) {
-			$name = $result->fetch(PDO::FETCH_NUM);
-		}
-		return $name[0];
-	}
-	else {
-		return NULL;
-	}
-}
-
-/**
  * Get the package details
  *
  * @param string $id The package ID to get description for

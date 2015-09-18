@@ -11,19 +11,25 @@ check_sid();                      # see if they're still logged in
 if (!isset($pkgid) || !isset($pkgname)) {
 	if (isset($_GET['ID'])) {
 		$pkgid = intval($_GET['ID']);
-		$pkgname = pkg_name_from_id($_GET['ID']);
 	} else if (isset($_GET['N'])) {
 		$pkgid = pkg_from_name($_GET['N']);
-		$pkgname = $_GET['N'];
 	} else {
-		unset($pkgid, $pkgname);
+		unset($pkgid);
 	}
+}
 
-	if (isset($pkgid) && ($pkgid == 0 || $pkgid == NULL || $pkgname == NULL)) {
-		header("HTTP/1.0 404 Not Found");
-		include "./404.php";
-		return;
-	}
+$details = array();
+if (isset($pkgid)) {
+	$details = pkg_get_details($pkgid);
+	$pkgname = $details['Name'];
+} else {
+	unset($pkgname);
+}
+
+if (isset($pkgid) && ($pkgid == 0 || $pkgid == NULL || $pkgname == NULL)) {
+	header("HTTP/1.0 404 Not Found");
+	include "./404.php";
+	return;
 }
 
 # Set the title to the current query or package name
@@ -33,11 +39,6 @@ if (isset($pkgname)) {
 	$title = __("Search Criteria") . ": " . $_GET['K'];
 } else {
 	$title = __("Packages");
-}
-
-$details = array();
-if (isset($pkgname)) {
-	$details = pkg_get_details($pkgid);
 }
 
 html_header($title, $details);
