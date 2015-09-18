@@ -85,7 +85,7 @@ CREATE TABLE PackageBases (
 	FlaggerComment VARCHAR(255) NOT NULL,
 	SubmittedTS BIGINT UNSIGNED NOT NULL,
 	ModifiedTS BIGINT UNSIGNED NOT NULL,
-	FlaggerUID BIGINT UNSIGNED NULL DEFAULT NULL,        -- who flagged the package out-of-date?
+	FlaggerUID INTEGER UNSIGNED NULL DEFAULT NULL,       -- who flagged the package out-of-date?
 	SubmitterUID INTEGER UNSIGNED NULL DEFAULT NULL,     -- who submitted it?
 	MaintainerUID INTEGER UNSIGNED NULL DEFAULT NULL,    -- User
 	PackagerUID INTEGER UNSIGNED NULL DEFAULT NULL,      -- Last packager
