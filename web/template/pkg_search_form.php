@@ -24,7 +24,7 @@ $sortby = array(
 	'w' => __('Voted'),
 	'o' => __('Notify'),
 	'm' => __('Maintainer'),
-	'a' => __('Age')
+	'l' => __('Last modified')
 );
 
 $orderby = array(

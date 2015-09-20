@@ -755,7 +755,11 @@ function pkg_search_page($SID="") {
 	case 'm':
 		$q_sort .= "Maintainer " . $order . ", ";
 		break;
+	case 'l':
+		$q_sort .= "ModifiedTS " . $order . ", ";
+		break;
 	case 'a':
+		/* For compatibility with old search links. */
 		$q_sort .= "-ModifiedTS " . $order . ", ";
 		break;
 	default:
