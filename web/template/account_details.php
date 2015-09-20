@@ -25,7 +25,17 @@
 				</tr>
 				<tr>
 					<th><?= __("Email Address") . ":" ?></th>
-					<td><a href="mailto:<?= htmlspecialchars($row["Email"], ENT_QUOTES) ?>"><?= htmlspecialchars($row["Email"], ENT_QUOTES) ?></a></td>
+					<td>
+						<?php
+						if ($row["HideEmail"] == 1 && !has_credential(CRED_ACCOUNT_SEARCH)):
+							print "<em>" . __("hidden") . "</em>";
+						else:
+						?>
+							<a href="mailto:<?= htmlspecialchars($row["Email"], ENT_QUOTES) ?>"><?= htmlspecialchars($row["Email"], ENT_QUOTES) ?></a>
+						<?php
+						endif;
+						?>
+					</td>
 				</tr>
 				<tr>
 					<th><?= __("Real Name") . ":" ?></th>

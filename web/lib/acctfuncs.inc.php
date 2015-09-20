@@ -47,6 +47,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $T The account type of the displayed user
  * @param string $S Whether the displayed user has a suspended account
  * @param string $E The e-mail address of the displayed user
+ * @param string $H Whether the e-mail address of the displayed user is hidden
  * @param string $P The password value of the displayed user
  * @param string $C The confirmed password value of the displayed user
  * @param string $R The real name of the displayed user
@@ -60,7 +61,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  *
  * @return void
  */
-function display_account_form($A,$U="",$T="",$S="",$E="",$P="",$C="",$R="",
+function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R="",
 		$L="",$I="",$K="",$PK="",$J="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
@@ -78,6 +79,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$P="",$C="",$R="",
  * @param string $T The account type for the user
  * @param string $S Whether or not the account is suspended
  * @param string $E The e-mail address for the user
+ * @param string $H Whether or not the e-mail address should be hidden
  * @param string $P The password for the user
  * @param string $C The confirmed password for the user
  * @param string $R The real name of the user
@@ -91,7 +93,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$P="",$C="",$R="",
  *
  * @return array Boolean indicating success and message to be printed
  */
-function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
+function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
 		$R="",$L="",$I="",$K="",$PK="",$J="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
@@ -324,6 +326,11 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$P="",$C="",
 			$q.= ", Suspended = 0";
 		}
 		$q.= ", Email = " . $dbh->quote($E);
+		if ($H) {
+			$q.= ", HideEmail = 1";
+		} else {
+			$q.= ", HideEmail = 0";
+		}
 		if ($P) {
 			$salt = generate_salt();
 			$hash = salted_hash($P, $salt);

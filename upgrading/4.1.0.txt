@@ -17,3 +17,10 @@ ALTER TABLE PackageBases
 	ADD COLUMN FlaggerComment VARCHAR(255) NOT NULL,
 	ADD FOREIGN KEY (FlaggerUID) REFERENCES Users(ID) ON DELETE SET NULL;
 ----
+
+3. Add field to store the state of a user's email address:
+
+----
+ALTER TABLE Users
+	ADD COLUMN HideEmail TINYINT UNSIGNED NOT NULL DEFAULT 0;
+----

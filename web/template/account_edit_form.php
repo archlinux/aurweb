@@ -76,6 +76,11 @@
 			<em><?= __("Please ensure you correctly entered your email address, otherwise you will be locked out.") ?></em>
 		</p>
 
+		<p>
+			<label for="id_hide"><?= __("Hide Email Address") ?>:</label>
+			<input type="checkbox" name="H" id="id_hide" <?= $H ? 'checked="checked"' : '' ?> />
+		</p>
+
 		<?php if ($A == "UpdateAccount"): ?>
 		<p>
 			<label for="id_passwd1"><?= __("Password") ?>:</label>
