@@ -575,7 +575,10 @@ function pkg_display_details($id=0, $row, $SID="") {
  *    SeB- property that search string (K) represents
  *          values: n  - package name
  *                  nd - package name & description
- *                  x  - package name (exact match)
+ *                  b  - package base name
+ *                  N  - package name (exact match)
+ *                  B  - package base name (exact match)
+ *                  k  - package keyword(s)
  *                  m  - package maintainer's username
  *                  s  - package submitter's username
  *    do_Orphans    - boolean. whether to search packages
@@ -667,6 +670,10 @@ function pkg_search_page($SID="") {
 			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
 			$q_where .= "AND (PackageBases.Name LIKE " . $dbh->quote($K) . ") ";
 		}
+		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "k") {
+			/* Search by keywords. */
+			$q_where .= construct_keyword_search($dbh, false);
+		}
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "N") {
 			/* Search by name (exact match). */
 			$q_where .= "AND (Packages.Name = " . $dbh->quote($_GET['K']) . ") ";
@@ -677,44 +684,7 @@ function pkg_search_page($SID="") {
 		}
 		else {
 			/* Keyword search (default). */
-			$count = 0;
-			$q_keywords = "";
-			$op = "";
-
-			foreach (str_getcsv($_GET['K'], ' ') as $term) {
-				if ($term == "") {
-					continue;
-				}
-				if ($count > 0 && strtolower($term) == "and") {
-					$op = "AND ";
-					continue;
-				}
-				if ($count > 0 && strtolower($term) == "or") {
-					$op = "OR ";
-					continue;
-				}
-			        if ($count > 0 && strtolower($term) == "not") {
-					$op .= "NOT ";
-					continue;
-				}
-
-				$term = "%" . addcslashes($term, '%_') . "%";
-				$q_keywords .= $op . " (Packages.Name LIKE " . $dbh->quote($term) . " OR ";
-				$q_keywords .= "Description LIKE " . $dbh->quote($term) . " OR ";
-				$q_keywords .= "EXISTS (SELECT * FROM PackageKeywords WHERE ";
-				$q_keywords .= "PackageKeywords.PackageBaseID = Packages.PackageBaseID AND ";
-				$q_keywords .= "PackageKeywords.Keyword LIKE " . $dbh->quote($term) . ")) ";
-
-				$count++;
-				if ($count >= 20) {
-					break;
-				}
-				$op = "AND ";
-			}
-
-			if (!empty($q_keywords)) {
-				$q_where .= "AND (" . $q_keywords . ") ";
-			}
+			$q_where .= construct_keyword_search($dbh, true);
 		}
 	}
 
@@ -831,6 +801,61 @@ function pkg_search_page($SID="") {
 	include('pkg_search_results.php');
 
 	return;
+}
+
+/**
+ * Construct the WHERE part of the sophisticated keyword search
+ *
+ * @param handle $dbh Database handle
+ * @param boolean $namedesc Search name and description fields
+ *
+ * @return string WHERE part of the SQL clause
+ */
+function construct_keyword_search($dbh, $namedesc) {
+	$count = 0;
+	$where_part = "";
+	$q_keywords = "";
+	$op = "";
+
+	foreach (str_getcsv($_GET['K'], ' ') as $term) {
+		if ($term == "") {
+			continue;
+		}
+		if ($count > 0 && strtolower($term) == "and") {
+			$op = "AND ";
+			continue;
+		}
+		if ($count > 0 && strtolower($term) == "or") {
+			$op = "OR ";
+			continue;
+		}
+	        if ($count > 0 && strtolower($term) == "not") {
+			$op .= "NOT ";
+			continue;
+		}
+
+		$term = "%" . addcslashes($term, '%_') . "%";
+		$q_keywords .= $op . " (";
+		if ($namedesc) {
+			$q_keywords .= "Packages.Name LIKE " . $dbh->quote($term) . " OR ";
+			$q_keywords .= "Description LIKE " . $dbh->quote($term) . " OR ";
+		}
+		$q_keywords .= "EXISTS (SELECT * FROM PackageKeywords WHERE ";
+		$q_keywords .= "PackageKeywords.PackageBaseID = Packages.PackageBaseID AND ";
+		$q_keywords .= "PackageKeywords.Keyword LIKE " . $dbh->quote($term) . ")) ";
+
+		$count++;
+		if ($count >= 20) {
+			break;
+		}
+		$op = "AND ";
+	}
+
+	if (!empty($q_keywords)) {
+		$where_part = "AND (" . $q_keywords . ") ";
+	}
+
+	return $where_part;
 }
 
 /**

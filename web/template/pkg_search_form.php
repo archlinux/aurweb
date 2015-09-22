@@ -7,6 +7,7 @@ $searchby = array(
 	'b' => __('Package Base'),
 	'N' => __('Exact Name'),
 	'B' => __('Exact Package Base'),
+	'k' => __('Keywords'),
 	'm'  => __('Maintainer'),
 	's'  => __('Submitter')
 );
