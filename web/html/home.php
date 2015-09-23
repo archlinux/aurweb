@@ -112,7 +112,7 @@ html_header( __("Home") );
 			<p>
 			<?php
 			echo __(
-				'If you find a bug in the AUR web interface, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page.',
+				'If you find a bug in the AUR web interface, please fill out a bug report on our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface %sonly%s. To report packaging bugs contact the package maintainer or leave a comment on the appropriate package page.',
 				'<a href="https://bugs.archlinux.org/index.php?project=2">',
 				'</a>',
 				'<strong>',
