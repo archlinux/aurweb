@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the AUR package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v4.0.0-rc5\n"
+"Project-Id-Version: AUR v4.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-28 10:09+0200\n"
+"POT-Creation-Date: 2015-09-23 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,6 +137,10 @@ msgstr ""
 msgid "Manage Co-maintainers"
 msgstr ""
 
+#: html/commentedit.php template/pkg_comments.php
+msgid "Edit comment"
+msgstr ""
+
 #: html/home.php template/header.php
 msgid "Home"
 msgstr ""
@@ -169,8 +173,8 @@ msgstr ""
 
 #: html/home.php template/footer.php
 msgid ""
-"Unsupported packages are user produced content. Any use of the provided "
-"files is at your own risk."
+"AUR packages are user produced content. Any use of the provided files is at "
+"your own risk."
 msgstr ""
 
 #: html/home.php
@@ -296,10 +300,6 @@ msgid "UnNotify"
 msgstr ""
 
 #: html/index.php
-msgid "Flag"
-msgstr ""
-
-#: html/index.php
 msgid "UnFlag"
 msgstr ""
 
@@ -320,9 +320,8 @@ msgstr ""
 msgid "Enter login credentials"
 msgstr ""
 
-#: html/login.php template/account_details.php template/account_edit_form.php
-#: template/account_search_results.php template/search_accounts_form.php
-msgid "Username"
+#: html/login.php
+msgid "User name or email address"
 msgstr ""
 
 #: html/login.php template/account_edit_form.php
@@ -348,7 +347,7 @@ msgid "Search Criteria"
 msgstr ""
 
 #: html/packages.php template/header.php template/pkgbase_details.php
-#: template/stats/general_stats_table.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
 msgid "Packages"
 msgstr ""
 
@@ -371,14 +370,6 @@ msgstr ""
 
 #: html/passreset.php
 msgid "Invalid e-mail."
-msgstr ""
-
-#: html/passreset.php
-#, php-format
-msgid ""
-"A password reset request was submitted for the account %s associated with "
-"your e-mail address. If you wish to reset your password follow the link "
-"below, otherwise ignore this message and nothing will happen."
 msgstr ""
 
 #: html/passreset.php
@@ -418,6 +409,10 @@ msgstr ""
 
 #: html/passreset.php
 msgid "Enter your e-mail address:"
+msgstr ""
+
+#: html/pkgbase.php
+msgid "The selected packages have not been flagged, please enter a comment."
 msgstr ""
 
 #: html/pkgbase.php
@@ -513,6 +508,48 @@ msgstr ""
 
 #: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
+msgstr ""
+
+#: html/pkgflag.php
+msgid "Flag Package Out-Of-Date"
+msgstr ""
+
+#: html/pkgflag.php
+#, php-format
+msgid "Flag Package Out-Of-Date: %s"
+msgstr ""
+
+#: html/pkgflag.php
+#, php-format
+msgid ""
+"Use this form to flag the package base %s%s%s and the following packages out-"
+"of-date: "
+msgstr ""
+
+#: html/pkgflag.php
+#, php-format
+msgid ""
+"Please do %snot%s use this form to report bugs. Use the package comments "
+"instead."
+msgstr ""
+
+#: html/pkgflag.php
+msgid ""
+"Enter details on why the package is out-of-date below, preferably including "
+"links to the release announcement or the new release tarball."
+msgstr ""
+
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
+msgid "Comments"
+msgstr ""
+
+#: html/pkgflag.php
+msgid "Flag"
+msgstr ""
+
+#: html/pkgflag.php
+msgid "Only registered users can flag packages out-of-date."
 msgstr ""
 
 #: html/pkgmerge.php
@@ -706,19 +743,11 @@ msgid "The account, %s%s%s, has been successfully created."
 msgstr ""
 
 #: lib/acctfuncs.inc.php
-msgid "Click on the Login link above to use your account."
-msgstr ""
-
-#: lib/acctfuncs.inc.php
-#, php-format
-msgid ""
-"Welcome to %s! In order to set an initial password for your new account, "
-"please click the link below. If the link does not work try copying and "
-"pasting it into your browser."
-msgstr ""
-
-#: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "Click on the Login link above to use your account."
 msgstr ""
 
 #: lib/acctfuncs.inc.php
@@ -768,6 +797,26 @@ msgstr ""
 #: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
+msgstr ""
+
+#: lib/aurjson.class.php
+msgid "Package base ID or package base name missing."
+msgstr ""
+
+#: lib/aurjson.class.php
+msgid "You do not have the right to edit this comment."
+msgstr ""
+
+#: lib/aurjson.class.php
+msgid "Comment does not exist."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment cannot be empty."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been added."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
@@ -889,6 +938,14 @@ msgid "You are not allowed to delete this comment."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
+msgid "Comment has been edited."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to edit this comment."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
 
@@ -911,6 +968,11 @@ msgstr ""
 
 #: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
+msgstr ""
+
+#: lib/pkgfuncs.inc.php
+#, php-format
+msgid "requires %s"
 msgstr ""
 
 #: lib/pkgreqfuncs.inc.php
@@ -960,6 +1022,11 @@ msgid "Confirm deletion"
 msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
+msgid "Username"
+msgstr ""
+
+#: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Account Type"
 msgstr ""
@@ -982,6 +1049,10 @@ msgstr ""
 #: template/account_details.php template/account_edit_form.php
 #: template/search_accounts_form.php
 msgid "Email Address"
+msgstr ""
+
+#: template/account_details.php
+msgid "hidden"
 msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
@@ -1051,6 +1122,16 @@ msgstr ""
 
 #: template/account_edit_form.php
 msgid "Inactive"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Please ensure you correctly entered your email address, otherwise you will "
+"be locked out."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Hide Email Address"
 msgstr ""
 
 #: template/account_edit_form.php
@@ -1127,7 +1208,7 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: template/comaintainers_form.php
+#: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
 msgstr ""
 
@@ -1252,6 +1333,11 @@ msgid "Votes"
 msgstr ""
 
 #: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Popularity"
+msgstr ""
+
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
 msgstr ""
 
@@ -1259,12 +1345,13 @@ msgstr ""
 msgid "Last Updated"
 msgstr ""
 
-#: template/pkg_comment_form.php
-msgid "Add Comment"
+#: template/pkg_comment_box.php
+#, php-format
+msgid "Edit comment for: %s"
 msgstr ""
 
-#: template/pkg_comment_form.php
-msgid "Comment has been added."
+#: template/pkg_comment_box.php template/pkg_comment_form.php
+msgid "Add Comment"
 msgstr ""
 
 #: template/pkg_comments.php
@@ -1276,20 +1363,27 @@ msgid "Latest Comments"
 msgstr ""
 
 #: template/pkg_comments.php
-msgid "Delete comment"
+#, php-format
+msgid "%s commented on %s"
 msgstr ""
 
 #: template/pkg_comments.php
 #, php-format
-msgid "Comment by %s"
+msgid "Anonymous comment on %s"
 msgstr ""
 
 #: template/pkg_comments.php
-msgid "Anonymous comment"
+#, php-format
+msgid "deleted on %s by %s"
 msgstr ""
 
 #: template/pkg_comments.php
-msgid "deleted"
+#, php-format
+msgid "last edited on %s by %s"
+msgstr ""
+
+#: template/pkg_comments.php
+msgid "Delete comment"
 msgstr ""
 
 #: template/pkg_comments.php
@@ -1380,11 +1474,6 @@ msgstr ""
 #: template/pkgreq_close_form.php template/pkgreq_results.php
 #: template/tu_details.php
 msgid "Rejected"
-msgstr ""
-
-#: template/pkgreq_close_form.php template/pkgreq_form.php
-#: template/pkgreq_results.php
-msgid "Comments"
 msgstr ""
 
 #: template/pkgreq_form.php
@@ -1504,16 +1593,12 @@ msgid "Name"
 msgstr ""
 
 #: template/pkg_search_form.php template/pkg_search_results.php
-msgid "Popularity"
-msgstr ""
-
-#: template/pkg_search_form.php template/pkg_search_results.php
 #: template/tu_details.php template/tu_list.php
 msgid "Voted"
 msgstr ""
 
 #: template/pkg_search_form.php
-msgid "Age"
+msgid "Last modified"
 msgstr ""
 
 #: template/pkg_search_form.php
@@ -1581,8 +1666,7 @@ msgid ""
 "weighted with a factor of 0.98 per day since its creation."
 msgstr ""
 
-#: template/pkg_search_results.php template/tu_details.php
-#: template/tu_list.php
+#: template/pkg_search_results.php template/tu_details.php template/tu_list.php
 msgid "Yes"
 msgstr ""
 
@@ -1664,10 +1748,6 @@ msgstr ""
 
 #: template/stats/user_table.php
 msgid "My Statistics"
-msgstr ""
-
-#: template/stats/user_table.php
-msgid "Packages in unsupported"
 msgstr ""
 
 #: template/tu_details.php
