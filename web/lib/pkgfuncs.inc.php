@@ -792,6 +792,7 @@ function pkg_search_page($SID="") {
 
 	include('pkg_search_form.php');
 
+	$searchresults = array();
 	if ($result) {
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$searchresults[] = $row;
