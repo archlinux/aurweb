@@ -110,8 +110,8 @@ class AurJSON {
 			return;
 		}
 
-		$callback = $http_data['callback'];
-		if (isset($callback)) {
+		if (isset($http_data['callback'])) {
+			$callback = $http_data['callback'];
 			if (!preg_match('/^[a-zA-Z0-9().]{1,128}$/D', $callback)) {
 				return $this->json_error('Invalid callback name.');
 			}
@@ -281,11 +281,15 @@ class AurJSON {
 				 * proper data types in the JSON response.
 				 */
 				foreach (self::$numeric_fields as $field) {
-					$row[$field] = intval($row[$field]);
+					if (isset($row[$field])) {
+						$row[$field] = intval($row[$field]);
+					}
 				}
 
 				foreach (self::$decimal_fields as $field) {
-					$row[$field] = floatval($row[$field]);
+					if (isset($row[$field])) {
+						$row[$field] = floatval($row[$field]);
+					}
 				}
 
 				if ($this->version >= 2 && ($type == 'info' || $type == 'multiinfo')) {
