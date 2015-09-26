@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v4.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-09-23 21:46+0200\n"
+"POT-Creation-Date: 2015-09-26 07:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,9 +270,9 @@ msgstr ""
 #, php-format
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
-"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
-"report packaging bugs contact the package maintainer or leave a comment on "
-"the appropriate package page."
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface "
+"%sonly%s. To report packaging bugs contact the package maintainer or leave a "
+"comment on the appropriate package page."
 msgstr ""
 
 #: html/home.php
@@ -803,8 +803,8 @@ msgstr ""
 msgid "Package base ID or package base name missing."
 msgstr ""
 
-#: lib/aurjson.class.php
-msgid "You do not have the right to edit this comment."
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to edit this comment."
 msgstr ""
 
 #: lib/aurjson.class.php
@@ -939,10 +939,6 @@ msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been edited."
-msgstr ""
-
-#: lib/pkgbasefuncs.inc.php
-msgid "You are not allowed to edit this comment."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
