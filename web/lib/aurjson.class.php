@@ -532,7 +532,7 @@ class AurJSON {
 		if (!has_credential(CRED_COMMENT_EDIT, array($user_id))) {
 			$output = array(
 				'success' => 0,
-				'error' => __('You do not have the right to edit this comment.')
+				'error' => __('You are not allowed to edit this comment.')
 			);
 			return json_encode($output);
 		} elseif (is_null($comment)) {
