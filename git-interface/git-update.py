@@ -169,6 +169,9 @@ def die(msg):
     sys.stderr.write("error: {:s}\n".format(msg))
     exit(1)
 
+def warn(msg):
+    sys.stderr.write("warning: {:s}\n".format(msg))
+
 def die_commit(msg, commit):
     sys.stderr.write("error: The following error " +
                      "occurred when parsing commit\n")
@@ -281,6 +284,13 @@ for commit in walker:
                 continue
             if not fname in commit.tree:
                 die_commit('missing source file: {:s}'.format(fname), str(commit.id))
+
+# Display a warning if .SRCINFO is unchanged.
+if sha1_old != "0000000000000000000000000000000000000000":
+    srcinfo_id_old = repo[sha1_old].tree['.SRCINFO'].id
+    srcinfo_id_new = repo[sha1_new].tree['.SRCINFO'].id
+    if srcinfo_id_old == srcinfo_id_new:
+        warn(".SRCINFO unchanged. The package database will not be updated!")
 
 # Read .SRCINFO from the HEAD commit.
 srcinfo_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
