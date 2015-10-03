@@ -21,7 +21,11 @@ if (!isset($pkgid) || !isset($pkgname)) {
 $details = array();
 if (isset($pkgid)) {
 	$details = pkg_get_details($pkgid);
-	$pkgname = $details['Name'];
+	if (isset($details['Name'])) {
+		$pkgname = $details['Name'];
+	} else {
+		$pkgname = null;
+	}
 } else {
 	unset($pkgname);
 }
