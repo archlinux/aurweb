@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
+# This file is distributed under the same license as the AUR package.
+# 
 # Translators:
 # leonfeng <chaofeng111@gmail.com>, 2015
 # dongfengweixiao <dongfengweixiao@gmail.com>, 2015
@@ -13,1315 +13,1795 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-06-28 10:09+0200\n"
-"PO-Revision-Date: 2015-06-18 08:16+0000\n"
+"POT-Creation-Date: 2015-09-26 07:44+0200\n"
+"PO-Revision-Date: 2015-09-26 05:50+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aur/"
-"language/zh_CN/)\n"
-"Language: zh_CN\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aur/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: html/404.php
 msgid "Page Not Found"
 msgstr "页面未找到"
 
+#: html/404.php
 msgid "Sorry, the page you've requested does not exist."
 msgstr "请求的页面不存在。"
 
+#: html/503.php
 msgid "Service Unavailable"
 msgstr ""
 
+#: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
 
+#: html/account.php
 msgid "Account"
 msgstr "帐户"
 
+#: html/account.php template/header.php
 msgid "Accounts"
 msgstr "帐户"
 
+#: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
 msgstr "您无权访问此区域。"
 
+#: html/account.php
 msgid "Could not retrieve information for the specified user."
 msgstr "无法获取指定用户的信息。"
 
+#: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "您没有权限编辑此帐户。"
 
+#: html/account.php
 msgid "Use this form to search existing accounts."
 msgstr "使用此表单查找存在的帐户。"
 
+#: html/account.php
 msgid "You must log in to view user information."
 msgstr "您需要登录后才能察看用户信息。"
 
+#: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
 msgstr "添加提议"
 
+#: html/addvote.php
 msgid "Invalid token for user action."
 msgstr "用户操作使用了无效的令牌。"
 
+#: html/addvote.php
 msgid "Username does not exist."
 msgstr "此用户不存在。"
 
+#: html/addvote.php
 #, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s 已经有了关于他们的提议。"
 
+#: html/addvote.php
 msgid "Invalid type."
 msgstr "无效的类别。"
 
+#: html/addvote.php
 msgid "Proposal cannot be empty."
 msgstr "提议不能为空。"
 
+#: html/addvote.php
 msgid "New proposal submitted."
 msgstr "新提议已被提交。"
 
+#: html/addvote.php
 msgid "Submit a proposal to vote on."
 msgstr "提交一个提议用于投票。"
 
+#: html/addvote.php
 msgid "Applicant/TU"
 msgstr "申请人/信任用户（TU）"
 
+#: html/addvote.php
 msgid "(empty if not applicable)"
 msgstr "（如果不符合可以留空）"
 
+#: html/addvote.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Type"
 msgstr "类别"
 
+#: html/addvote.php
 msgid "Addition of a TU"
 msgstr "添加受信用户"
 
+#: html/addvote.php
 msgid "Removal of a TU"
 msgstr "移除受信用户"
 
+#: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
 msgstr "移除受信用户（无故不活跃）"
 
+#: html/addvote.php
 msgid "Amendment of Bylaws"
 msgstr "修订章程"
 
+#: html/addvote.php template/tu_list.php
 msgid "Proposal"
 msgstr "提议"
 
+#: html/addvote.php
 msgid "Submit"
 msgstr "提交"
 
+#: html/comaintainers.php
 msgid "Manage Co-maintainers"
 msgstr ""
 
+#: html/commentedit.php template/pkg_comments.php
+msgid "Edit comment"
+msgstr ""
+
+#: html/home.php template/header.php
 msgid "Home"
 msgstr "首页"
 
+#: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
-"欢迎来到 AUR！想了解更多信息，请阅读 %sAUR 用户指南%s和 %sAUR 受信用户指"
-"南%s。"
+msgstr "欢迎来到 AUR！想了解更多信息，请阅读 %sAUR 用户指南%s和 %sAUR 受信用户指南%s。"
 
+#: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
 msgstr "提交的 PKGBUILD %s必须%s遵守 %sArch 软件包规范%s，否则它们将被删除！"
 
+#: html/home.php
 msgid "Remember to vote for your favourite packages!"
 msgstr "记得为您喜欢的软件包投票！"
 
+#: html/home.php
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "部分软件包将在 [community] 仓库以二进制包的形式提供。"
 
+#: html/home.php
 msgid "DISCLAIMER"
 msgstr "免责声明"
 
+#: html/home.php template/footer.php
 msgid ""
-"Unsupported packages are user produced content. Any use of the provided "
-"files is at your own risk."
-msgstr "位于 unsupported 的软件包为用户产生的内容。使用它们造成的后果自负。"
+"AUR packages are user produced content. Any use of the provided files is at "
+"your own risk."
+msgstr ""
 
+#: html/home.php
 msgid "Learn more..."
 msgstr ""
 
+#: html/home.php
 msgid "Support"
 msgstr ""
 
+#: html/home.php
 msgid "Package Requests"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage Actions"
-"%s box on the package details page:"
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
 msgstr ""
 
+#: html/home.php
 msgid "Orphan Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
 
+#: html/home.php
 msgid "Deletion Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
-"Request a package to be removed from the Arch User Repository. Please do not "
-"use this if a package is broken and can be fixed easily. Instead, contact "
+"Request a package to be removed from the Arch User Repository. Please do not"
+" use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
 
+#: html/home.php
 msgid "Merge Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
 
+#: html/home.php
 msgid "Submitting Packages"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
-"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
-"packages%s section of the Arch User Repository ArchWiki page for more "
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
+" packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
 msgstr ""
 
+#: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
+#: html/home.php
 msgid "Discussion"
 msgstr "邮件列表"
 
+#: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. For discussion relating to the "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
 
+#: html/home.php
 msgid "Bug Reporting"
 msgstr "Bug 报告"
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
-"our %sbug tracker%s. Use the tracker to report bugs in the AUR %sonly%s. To "
-"report packaging bugs contact the package maintainer or leave a comment on "
-"the appropriate package page."
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
+" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+"a comment on the appropriate package page."
 msgstr ""
 
+#: html/home.php
 msgid "Package Search"
 msgstr "软件包搜索"
 
+#: html/index.php
 msgid "Adopt"
 msgstr "接管"
 
+#: html/index.php
 msgid "Vote"
 msgstr "投票"
 
+#: html/index.php
 msgid "UnVote"
 msgstr "取消投票"
 
+#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
 msgstr "通知"
 
+#: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
 msgstr "取消通知"
 
-msgid "Flag"
-msgstr "标记"
-
+#: html/index.php
 msgid "UnFlag"
 msgstr "取消标记"
 
+#: html/login.php template/header.php
 msgid "Login"
 msgstr "登录"
 
+#: html/login.php
 #, php-format
 msgid "Logged-in as: %s"
 msgstr "登录为: %s"
 
+#: html/login.php template/header.php
 msgid "Logout"
 msgstr "退出"
 
+#: html/login.php
 msgid "Enter login credentials"
 msgstr "输入账户信息"
 
-msgid "Username"
-msgstr "用户名"
+#: html/login.php
+msgid "User name or email address"
+msgstr ""
 
+#: html/login.php template/account_edit_form.php
 msgid "Password"
 msgstr "密码"
 
+#: html/login.php
 msgid "Remember me"
 msgstr "记住我"
 
+#: html/login.php
 msgid "Forgot Password"
 msgstr "找回密码"
 
+#: html/login.php
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
 msgstr "HTTP 登陆已被禁用，请使用%s切换到HTTPS%s。"
 
+#: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
 msgstr "搜索标准"
 
+#: html/packages.php template/header.php template/pkgbase_details.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
 msgid "Packages"
 msgstr "软件包"
 
+#: html/packages.php
 msgid "Error trying to retrieve package details."
 msgstr "尝试重新获取软件包详情时发生错误。"
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
 msgstr "缺少必填项。"
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
 msgstr "密码字段不匹配。"
 
+#: html/passreset.php lib/acctfuncs.inc.php
 #, php-format
 msgid "Your password must be at least %s characters."
 msgstr "密码至少要 %s 个字符。"
 
+#: html/passreset.php
 msgid "Invalid e-mail."
 msgstr "电子邮箱不正确。"
 
-#, php-format
-msgid ""
-"A password reset request was submitted for the account %s associated with "
-"your e-mail address. If you wish to reset your password follow the link "
-"below, otherwise ignore this message and nothing will happen."
-msgstr ""
-
+#: html/passreset.php
 msgid "Password Reset"
 msgstr "密码重置"
 
+#: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
 msgstr "请进入您的邮箱查看确认邮件。"
 
+#: html/passreset.php
 msgid "Your password has been reset successfully."
 msgstr "密码已经成功重置。"
 
+#: html/passreset.php
 msgid "Confirm your e-mail address:"
 msgstr "确认邮箱地址:"
 
+#: html/passreset.php
 msgid "Enter your new password:"
 msgstr "输入新密码:"
 
+#: html/passreset.php
 msgid "Confirm your new password:"
 msgstr "确认新密码:"
 
+#: html/passreset.php
 msgid "Continue"
 msgstr "继续"
 
+#: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %saur-general%s mailing list."
-msgstr ""
-"如果您忘记了注册账号时使用的邮件地址，请向 %saur-general%s 邮件列表寻求帮助。"
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "如果您忘记了注册账号时使用的邮件地址，请向 %saur-general%s 邮件列表寻求帮助。"
 
+#: html/passreset.php
 msgid "Enter your e-mail address:"
 msgstr "输入您的邮箱地址:"
 
+#: html/pkgbase.php
+msgid "The selected packages have not been flagged, please enter a comment."
+msgstr ""
+
+#: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "找不到合并投票与评论的目标包。"
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
 msgstr "无法将一个包基础合并到它自己。"
 
+#: html/pkgbase.php
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
 msgstr "选中的软件包未被删除，请检查确认复选框。"
 
+#: html/pkgdel.php
 msgid "Package Deletion"
 msgstr "软件包删除"
 
+#: html/pkgdel.php
 #, php-format
 msgid "Delete Package: %s"
 msgstr "删除包：%s"
 
+#: html/pkgdel.php
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
 msgstr "使用这个表单将包基础 %s%s%s 和以下包从 AUR 中移除："
 
+#: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
 msgstr "删除软件包是一个永久性的操作"
 
+#: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
 msgstr "选中复选框以确认操作。"
 
+#: html/pkgdel.php
 msgid "Confirm package deletion"
 msgstr "确认删除包"
 
+#: html/pkgdel.php template/account_delete.php
 msgid "Delete"
 msgstr "删除"
 
+#: html/pkgdel.php
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "只有受信用户和开发人员能删除软件包。"
 
+#: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
 msgstr "弃置软件包"
 
+#: html/pkgdisown.php
 #, php-format
 msgid "Disown Package: %s"
 msgstr ""
 
+#: html/pkgdisown.php
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following "
-"packages: "
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
 msgstr ""
 
+#: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
 
+#: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
 
+#: html/pkgdisown.php
 msgid "Confirm to disown the package"
 msgstr ""
 
+#: html/pkgdisown.php
 msgid "Disown"
 msgstr "弃置"
 
+#: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
 msgstr ""
 
+#: html/pkgflag.php
+msgid "Flag Package Out-Of-Date"
+msgstr ""
+
+#: html/pkgflag.php
+#, php-format
+msgid "Flag Package Out-Of-Date: %s"
+msgstr ""
+
+#: html/pkgflag.php
+#, php-format
+msgid ""
+"Use this form to flag the package base %s%s%s and the following packages "
+"out-of-date: "
+msgstr ""
+
+#: html/pkgflag.php
+#, php-format
+msgid ""
+"Please do %snot%s use this form to report bugs. Use the package comments "
+"instead."
+msgstr ""
+
+#: html/pkgflag.php
+msgid ""
+"Enter details on why the package is out-of-date below, preferably including "
+"links to the release announcement or the new release tarball."
+msgstr ""
+
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
+msgid "Comments"
+msgstr "评论"
+
+#: html/pkgflag.php
+msgid "Flag"
+msgstr "标记"
+
+#: html/pkgflag.php
+msgid "Only registered users can flag packages out-of-date."
+msgstr ""
+
+#: html/pkgmerge.php
 msgid "Package Merging"
 msgstr "软件包合并"
 
+#: html/pkgmerge.php
 #, php-format
 msgid "Merge Package: %s"
 msgstr "合并软件包: %s"
 
+#: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr "使用这个表单将包基础 %s%s%s 合并到另一个包。"
 
+#: html/pkgmerge.php
 msgid "The following packages will be deleted: "
 msgstr "下面这些软件包将被删除："
 
+#: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "一旦包被合并，这个操作将是不可逆的。"
 
+#: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
 msgstr "请输入合并的目标包名。"
 
+#: html/pkgmerge.php
 msgid "Merge into:"
 msgstr "合并到："
 
+#: html/pkgmerge.php
 msgid "Confirm package merge"
 msgstr "确认合并包"
 
+#: html/pkgmerge.php template/pkgreq_form.php
 msgid "Merge"
 msgstr "合并"
 
+#: html/pkgmerge.php
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "只有受信用户和开发人员才能删除软件包。"
 
+#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "File Request"
 msgstr "提交请求"
 
+#: html/pkgreq.php template/pkgreq_close_form.php
 msgid "Close Request"
 msgstr "关闭请求"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "第一页"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "上一页"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "下一页"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "末页"
 
+#: html/pkgreq.php template/header.php
 msgid "Requests"
 msgstr "请求"
 
+#: html/register.php template/header.php
 msgid "Register"
 msgstr "注册"
 
+#: html/register.php
 msgid "Use this form to create an account."
 msgstr "使用此表单创建帐号。"
 
+#: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
 msgstr "受信用户"
 
+#: html/tu.php
 msgid "Could not retrieve proposal details."
 msgstr "无法获取提议详情。"
 
+#: html/tu.php
 msgid "Voting is closed for this proposal."
 msgstr "该提议的投票已被关闭。"
 
+#: html/tu.php
 msgid "Only Trusted Users are allowed to vote."
 msgstr "只有受信用户可以投票。"
 
+#: html/tu.php
 msgid "You cannot vote in an proposal about you."
 msgstr "您不能在关于您的提议里投票。"
 
+#: html/tu.php
 msgid "You've already voted for this proposal."
 msgstr "您已经在这个提议上投票了。"
 
+#: html/tu.php
 msgid "Vote ID not valid."
 msgstr "非法的投票标识"
 
+#: html/tu.php template/tu_list.php
 msgid "Current Votes"
 msgstr "当前的投票"
 
+#: html/tu.php
 msgid "Past Votes"
 msgstr "历史投票"
 
+#: html/voters.php template/tu_details.php
 msgid "Voters"
 msgstr "投票"
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"账户注册目前对您所使用的 IP 地址禁用，原因可能是持续的垃圾攻击。我们对因此引"
-"起的不便表示抱歉。"
+msgstr "账户注册目前对您所使用的 IP 地址禁用，原因可能是持续的垃圾攻击。我们对因此引起的不便表示抱歉。"
 
+#: lib/acctfuncs.inc.php
 msgid "Missing User ID"
 msgstr "缺少用户标识"
 
+#: lib/acctfuncs.inc.php
 msgid "The username is invalid."
 msgstr "用户名需要符合以下条件："
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "在 %s 到 %s 个字符之间"
 
+#: lib/acctfuncs.inc.php
 msgid "Start and end with a letter or number"
 msgstr "开头和结尾是数字/英文字母"
 
+#: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "最多包含一个“.”，“_”，或“-”"
 
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "错误的 Email 地址。"
 
+#: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
 msgstr "PGP 密钥指纹无效。"
 
+#: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
 msgstr "不能提高账户权限。"
 
+#: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
 msgstr "目前不支持此语言。"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "用户名 %s%s%s 已被使用。"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "该地址 %s%s%s 已被使用。"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
 msgstr "尝试创建帐户 %s%s%s 失败。"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "帐户 %s%s%s 创建成功。"
 
-msgid "Click on the Login link above to use your account."
-msgstr "点击上方的登陆链接以使用你的帐号。"
-
-#, php-format
-msgid ""
-"Welcome to %s! In order to set an initial password for your new account, "
-"please click the link below. If the link does not work try copying and "
-"pasting it into your browser."
-msgstr ""
-"欢迎来到 %s！想要为你的新账户设置初始密码，请点击下面的链接。如果链接不工作，"
-"请尝试复制它到你的浏览器中打开。"
-
+#: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "一个密码重置密钥已经发送到你的电子邮箱。"
 
+#: lib/acctfuncs.inc.php
+msgid "Click on the Login link above to use your account."
+msgstr "点击上方的登陆链接以使用你的帐号。"
+
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
 msgstr "账户 %s%s%s 没有被修改。"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "帐号 %s%s%s 已被成功修改。"
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"登陆表单目前对您所使用的 IP 地址禁用，原因可能是持续的垃圾攻击。我们对因此引"
-"起的不便表示抱歉。"
+msgstr "登陆表单目前对您所使用的 IP 地址禁用，原因可能是持续的垃圾攻击。我们对因此引起的不便表示抱歉。"
 
+#: lib/acctfuncs.inc.php
 msgid "Account suspended"
 msgstr "帐号被停用"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
-"你的密码已经成功被重置。如果你刚刚创建了一个新账户，请使用确认邮件中的链接来"
-"设置一个初始密码。否则，请在 %s重置密码%s 页面申请一个重置密码密钥。"
+msgstr "你的密码已经成功被重置。如果你刚刚创建了一个新账户，请使用确认邮件中的链接来设置一个初始密码。否则，请在 %s重置密码%s 页面申请一个重置密码密钥。"
 
+#: lib/acctfuncs.inc.php
 msgid "Bad username or password."
 msgstr "用户名或密码错误。"
 
+#: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
 msgstr "在创建用户会话的过程中出现了一个错误。"
 
+#: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
 msgstr "邮箱和重置 key 不匹配。"
 
+#: lib/aur.inc.php template/pkg_details.php
 msgid "None"
 msgstr "无"
 
+#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
 msgstr "查看 %s 的账户信息"
 
+#: lib/aurjson.class.php
+msgid "Package base ID or package base name missing."
+msgstr ""
+
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to edit this comment."
+msgstr ""
+
+#: lib/aurjson.class.php
+msgid "Comment does not exist."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment cannot be empty."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been added."
+msgstr "已经添加评论。"
+
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
 msgstr "获取软件包详情时发生错误。"
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
 msgstr "无法找到软件包的详细信息。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "您需要登录后才能标记软件包。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
 msgstr "您没有选择要标记的软件包。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
 msgstr "选择的软件包已被标记为过期。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
 msgstr "您需要登录后才能移除软件包标记。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
 msgstr "您没有选择要取消标记的软件包。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
 msgstr "选中的软件包的标记已被移除。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
 msgstr "您没有删除软件包的权限。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
 msgstr "您没有选择要删除的软件包。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "选中的软件包已经被删除。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
 msgstr "登陆后才能接管软件包"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "您需要登录后才能弃置软件包。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
 msgstr "您没有选择要接管的软件包。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
 msgstr "您没有选择要弃置的软件包。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
 msgstr "选择的软件包已经被接管。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
 msgstr "选中的软件包已经被弃置。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
 msgstr "您需要登录后才能为软件包投票。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
 msgstr "您需要登录后才能为软件包取消投票。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
 msgstr "您没有选择要投票的软件包。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
 msgstr "您对所选软件包的投票已被取消。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
 msgstr "您对所选软件包的投票已被记录。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
 msgstr "无法将您添加到通知列表。"
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
 msgstr "您已被成功添加到 %s 的评论通知列表。"
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
 msgstr "您将不再收到 %s 的评论通知。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
 msgstr "您需要登录后才能编辑软件包信息。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
 msgstr "评论标识丢失。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been deleted."
 msgstr "评论已被删除。"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
 msgstr "您没有权限删除此评论。"
 
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been edited."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "Invalid user name: %s"
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
 msgstr ""
 
+#: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
 msgstr "查看软件包详细信息"
 
+#: lib/pkgfuncs.inc.php
+#, php-format
+msgid "requires %s"
+msgstr ""
+
+#: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
 msgstr "登录之后才能提交软件包需求。"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "无效的名称: 只允许小写字母。"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
 msgstr "评论内容不能为空。"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
 msgstr "无效的请求类型。"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
 msgstr "请求提交成功。"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
 msgstr "无效的理由。"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
 msgstr "只有受信用户和开发者可以关闭请求。"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
 msgstr "请求关闭成功。"
 
+#: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr "你可以使用这个表单来彻底删除 AUR 帐号 %s。"
 
+#: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
 msgstr "%s警告%s：这个操作无法被撤销"
 
+#: template/account_delete.php
 msgid "Confirm deletion"
 msgstr "确认删除"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
+msgid "Username"
+msgstr "用户名"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Account Type"
 msgstr "帐户类别"
 
+#: template/account_details.php template/tu_details.php
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "User"
 msgstr "用户"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Developer"
 msgstr "开发人员"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Trusted User & Developer"
 msgstr "受信用户 & 开发者"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Email Address"
 msgstr "Email"
 
+#: template/account_details.php
+msgid "hidden"
+msgstr ""
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Real Name"
 msgstr "真实名字"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr "IRC昵称"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php
 msgid "PGP Key Fingerprint"
 msgstr "PGP 密钥指纹"
 
+#: template/account_details.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Status"
 msgstr "状态"
 
+#: template/account_details.php
 msgid "Inactive since"
 msgstr "不活跃自"
 
+#: template/account_details.php template/account_search_results.php
 msgid "Active"
 msgstr "激活"
 
+#: template/account_details.php
 msgid "Last Login"
 msgstr "最后登陆"
 
+#: template/account_details.php
 msgid "Never"
 msgstr "从不"
 
+#: template/account_details.php
 msgid "View this user's packages"
 msgstr "查看这个用户提交的软件包"
 
+#: template/account_details.php
 msgid "Edit this user's account"
 msgstr "编辑此用户的帐号"
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "如果你想要彻底删除这个帐号，请点击%s这里%s。"
 
+#: template/account_edit_form.php
 msgid "required"
 msgstr "必填"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "普通用户"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Trusted user"
 msgstr "受信用户"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
 msgstr "帐户被暂停"
 
+#: template/account_edit_form.php
 msgid "Inactive"
 msgstr "不活跃"
 
+#: template/account_edit_form.php
+msgid ""
+"Please ensure you correctly entered your email address, otherwise you will "
+"be locked out."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Hide Email Address"
+msgstr ""
+
+#: template/account_edit_form.php
 msgid "Re-type password"
 msgstr "确认密码"
 
+#: template/account_edit_form.php
 msgid "Language"
 msgstr "语言"
 
+#: template/account_edit_form.php
 msgid ""
-"The following information is only required if you want to submit packages to "
-"the Arch User Repository."
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr ""
 
+#: template/account_edit_form.php template/pkgbase_details.php
+#: template/pkg_details.php
 msgid "Update"
 msgstr "更新"
 
+#: template/account_edit_form.php
 msgid "Create"
 msgstr "创建"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Reset"
 msgstr "重填"
 
+#: template/account_search_results.php
 msgid "No results matched your search criteria."
 msgstr "没有结果符合您的搜索条件。"
 
+#: template/account_search_results.php
 msgid "Edit Account"
 msgstr "编辑帐户"
 
+#: template/account_search_results.php
 msgid "Suspended"
 msgstr "暂停"
 
+#: template/account_search_results.php
 msgid "Edit"
 msgstr "编辑"
 
+#: template/account_search_results.php
 msgid "Less"
 msgstr "更少"
 
+#: template/account_search_results.php
 msgid "More"
 msgstr "更多"
 
+#: template/account_search_results.php
 msgid "No more results to display."
 msgstr "没有更多的结果供显示。"
 
+#: template/comaintainers_form.php
 #, php-format
 msgid "Manage Co-maintainers: %s"
 msgstr ""
 
+#: template/comaintainers_form.php
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
 
+#: template/comaintainers_form.php
 msgid "Users"
 msgstr ""
 
+#: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
 msgstr ""
 
+#: template/header.php
 msgid "My Packages"
 msgstr "我的软件包"
 
+#: template/header.php
 msgid " My Account"
 msgstr "我的帐户"
 
+#: template/pkgbase_actions.php
 msgid "Package Actions"
 msgstr "软件包操作"
 
+#: template/pkgbase_actions.php
 msgid "View PKGBUILD"
 msgstr "查看 PKGBUILD"
 
+#: template/pkgbase_actions.php
 msgid "View Changes"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Download snapshot"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Search wiki"
 msgstr "搜索 Wiki"
 
+#: template/pkgbase_actions.php
 msgid "Flagged out-of-date"
 msgstr "已标记为过期"
 
+#: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
 msgstr "将软件包标记为过期"
 
+#: template/pkgbase_actions.php
 msgid "Unflag package"
 msgstr "取消标记软件包"
 
+#: template/pkgbase_actions.php
 msgid "Remove vote"
 msgstr "移除投票"
 
+#: template/pkgbase_actions.php
 msgid "Vote for this package"
 msgstr "为这个软件包投票"
 
+#: template/pkgbase_actions.php
 msgid "Disable notifications"
 msgstr "禁用通知"
 
+#: template/pkgbase_actions.php
 msgid "Notify of new comments"
 msgstr "当有新评论的时候提醒我"
 
+#: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
 msgstr ""
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] "%d 个未处理的请求"
 
+#: template/pkgbase_actions.php
 msgid "Delete Package"
 msgstr "删除软件包"
 
+#: template/pkgbase_actions.php
 msgid "Merge Package"
 msgstr "合并软件包"
 
+#: template/pkgbase_actions.php
 msgid "Adopt Package"
 msgstr "接管软件包"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkgreq_results.php template/tu_details.php
 msgid "unknown"
 msgstr "未知"
 
+#: template/pkgbase_details.php
 msgid "Package Base Details"
 msgstr "包基础详情"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Keywords"
 msgstr "关键字"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Submitter"
 msgstr "提交人"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Maintainer"
 msgstr "维护者"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
 msgstr "最近一次打包者"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Votes"
 msgstr "得票"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Popularity"
+msgstr ""
+
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
 msgstr "首次提交"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
 msgstr "最后更新"
 
+#: template/pkg_comment_box.php
+#, php-format
+msgid "Edit comment for: %s"
+msgstr ""
+
+#: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
 msgstr "添加评论"
 
-msgid "Comment has been added."
-msgstr "已经添加评论。"
-
+#: template/pkg_comments.php
 msgid "View all comments"
 msgstr "查看所有评论"
 
+#: template/pkg_comments.php
 msgid "Latest Comments"
 msgstr "最新的评论"
 
+#: template/pkg_comments.php
+#, php-format
+msgid "%s commented on %s"
+msgstr ""
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Anonymous comment on %s"
+msgstr ""
+
+#: template/pkg_comments.php
+#, php-format
+msgid "deleted on %s by %s"
+msgstr ""
+
+#: template/pkg_comments.php
+#, php-format
+msgid "last edited on %s by %s"
+msgstr ""
+
+#: template/pkg_comments.php
 msgid "Delete comment"
 msgstr "删除评论"
 
-#, php-format
-msgid "Comment by %s"
-msgstr "%s 的评论"
-
-msgid "Anonymous comment"
-msgstr "匿名评论"
-
-msgid "deleted"
-msgstr "已删除"
-
+#: template/pkg_comments.php
 msgid "All comments"
 msgstr "全部评论"
 
+#: template/pkg_details.php
 msgid "Package Details"
 msgstr "软件包详情"
 
+#: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
 msgstr "包基础"
 
+#: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
 msgstr "描述"
 
+#: template/pkg_details.php
 msgid "Upstream URL"
 msgstr "上游 URL"
 
+#: template/pkg_details.php
 msgid "Visit the website for"
 msgstr "访问网站"
 
+#: template/pkg_details.php
 msgid "Licenses"
 msgstr "许可协议"
 
+#: template/pkg_details.php
 msgid "Groups"
 msgstr "组"
 
+#: template/pkg_details.php
 msgid "Conflicts"
 msgstr "冲突"
 
+#: template/pkg_details.php
 msgid "Provides"
 msgstr "提供"
 
+#: template/pkg_details.php
 msgid "Replaces"
 msgstr "取代"
 
+#: template/pkg_details.php
 msgid "Dependencies"
 msgstr "依赖于:"
 
+#: template/pkg_details.php
 msgid "Required by"
 msgstr "被需要:"
 
+#: template/pkg_details.php
 msgid "Sources"
 msgstr "源代码:"
 
+#: template/pkgreq_close_form.php
 #, php-format
 msgid "Close Request: %s"
 msgstr "关闭请求：%s"
 
+#: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "使用这个表单来关闭对包基础 %s%s%s 的请求。"
 
+#: template/pkgreq_close_form.php
 msgid "Note"
 msgstr "提示"
 
+#: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr "评论可以留空。不过，当拒绝一个请求的时候，强烈推荐提供一条评论。"
 
+#: template/pkgreq_close_form.php
 msgid "Reason"
 msgstr "原因"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Accepted"
 msgstr "已接受"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Rejected"
 msgstr "已拒绝"
 
-msgid "Comments"
-msgstr "评论"
-
+#: template/pkgreq_form.php
 #, php-format
 msgid "File Request: %s"
 msgstr "提交请求：%s"
 
+#: template/pkgreq_form.php
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr "使用这个表格，提交一个针对包基础 %s%s%s 的请求，其中包括下列软件包："
 
+#: template/pkgreq_form.php
 msgid "Request type"
 msgstr "请求类型"
 
+#: template/pkgreq_form.php
 msgid "Deletion"
 msgstr "删除"
 
+#: template/pkgreq_form.php
 msgid "Orphan"
 msgstr "弃置"
 
+#: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
 msgstr "合并到"
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
 msgstr[0] "找到了 %d 个软件包请求。"
 
+#: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
 msgstr "第 %d 页，共 %d 页。"
 
+#: template/pkgreq_results.php
 msgid "Package"
 msgstr "软件包"
 
+#: template/pkgreq_results.php
 msgid "Filed by"
 msgstr "提交者是"
 
+#: template/pkgreq_results.php
 msgid "Date"
 msgstr "日期"
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d days left"
 msgstr "剩余～%d天"
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
 msgstr[0] "剩余～%d小时"
 
+#: template/pkgreq_results.php
 msgid "<1 hour left"
 msgstr "剩余<1小时"
 
+#: template/pkgreq_results.php
 msgid "Accept"
 msgstr "接受"
 
+#: template/pkgreq_results.php
 msgid "Locked"
 msgstr "已锁定"
 
+#: template/pkgreq_results.php
 msgid "Close"
 msgstr "关闭"
 
+#: template/pkgreq_results.php
 msgid "Closed"
 msgstr "已关闭"
 
+#: template/pkg_search_form.php
 msgid "Name, Description"
 msgstr "名称和描述"
 
+#: template/pkg_search_form.php
 msgid "Name Only"
 msgstr "名称"
 
+#: template/pkg_search_form.php
 msgid "Exact Name"
 msgstr "确切的名字"
 
+#: template/pkg_search_form.php
 msgid "Exact Package Base"
 msgstr "准确包基础"
 
+#: template/pkg_search_form.php
 msgid "All"
 msgstr "全部"
 
+#: template/pkg_search_form.php
 msgid "Flagged"
 msgstr "已标记"
 
+#: template/pkg_search_form.php
 msgid "Not Flagged"
 msgstr "未标记"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Name"
 msgstr "名称"
 
-msgid "Popularity"
-msgstr ""
-
+#: template/pkg_search_form.php template/pkg_search_results.php
+#: template/tu_details.php template/tu_list.php
 msgid "Voted"
 msgstr "已投票"
 
-msgid "Age"
-msgstr "时间"
+#: template/pkg_search_form.php
+msgid "Last modified"
+msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Ascending"
 msgstr "从小到大"
 
+#: template/pkg_search_form.php
 msgid "Descending"
 msgstr "从大到小"
 
+#: template/pkg_search_form.php
 msgid "Enter search criteria"
 msgstr "输入搜索条件"
 
+#: template/pkg_search_form.php
 msgid "Search by"
 msgstr "搜索"
 
+#: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
 msgstr "过期状态"
 
+#: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
 msgstr "排列依据"
 
+#: template/pkg_search_form.php
 msgid "Sort order"
 msgstr "排列方式"
 
+#: template/pkg_search_form.php
 msgid "Per page"
 msgstr "每页显示"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
 msgstr "Go"
 
+#: template/pkg_search_form.php
 msgid "Orphans"
 msgstr "孤儿包"
 
+#: template/pkg_search_results.php
 msgid "Error retrieving package list."
 msgstr "无法获取包列表。"
 
+#: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
 msgstr "没有相关的软件包符合您的搜索条件。"
 
+#: template/pkg_search_results.php
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
 msgstr[0] "找到了 %d 个软件包。"
 
+#: template/pkg_search_results.php
 msgid "Version"
 msgstr "版本"
 
+#: template/pkg_search_results.php
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of 0.98 per day since its creation."
 msgstr ""
 
+#: template/pkg_search_results.php template/tu_details.php
+#: template/tu_list.php
 msgid "Yes"
 msgstr "是"
 
+#: template/pkg_search_results.php
 msgid "orphan"
 msgstr "孤儿包"
 
+#: template/pkg_search_results.php
 msgid "Actions"
 msgstr "操作"
 
+#: template/pkg_search_results.php
 msgid "Flag Out-of-date"
 msgstr "标记为过期"
 
+#: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
 msgstr "移除过期标记"
 
+#: template/pkg_search_results.php
 msgid "Adopt Packages"
 msgstr "接管软件包"
 
+#: template/pkg_search_results.php
 msgid "Disown Packages"
 msgstr "弃置软件包"
 
+#: template/pkg_search_results.php
 msgid "Delete Packages"
 msgstr "删除软件包"
 
+#: template/pkg_search_results.php
 msgid "Confirm"
 msgstr "确认"
 
+#: template/search_accounts_form.php
 msgid "Any type"
 msgstr "所有类别"
 
+#: template/search_accounts_form.php
 msgid "Search"
 msgstr "搜索"
 
+#: template/stats/general_stats_table.php
 msgid "Statistics"
 msgstr "统计"
 
+#: template/stats/general_stats_table.php
 msgid "Orphan Packages"
 msgstr "无人维护的软件包"
 
+#: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
 msgstr "7天内新增的软件包"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
 msgstr "7天内更新的软件包"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
 msgstr "一年内更新的软件包"
 
+#: template/stats/general_stats_table.php
 msgid "Packages never updated"
 msgstr "从未更新的软件包"
 
+#: template/stats/general_stats_table.php
 msgid "Registered Users"
 msgstr "注册用户"
 
+#: template/stats/general_stats_table.php
 msgid "Trusted Users"
 msgstr "受信用户"
 
+#: template/stats/updates_table.php
 msgid "Recent Updates"
 msgstr "最新更新"
 
+#: template/stats/user_table.php
 msgid "My Statistics"
 msgstr "我的统计"
 
-msgid "Packages in unsupported"
-msgstr "位于 unsupported 的软件包"
-
+#: template/tu_details.php
 msgid "Proposal Details"
 msgstr "提议详情"
 
+#: template/tu_details.php
 msgid "This vote is still running."
 msgstr "投票仍在继续。"
 
+#: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
 msgstr "已提交 %s 由 %s"
 
+#: template/tu_details.php template/tu_list.php
 msgid "End"
 msgstr "结束"
 
+#: template/tu_details.php
 msgid "Result"
 msgstr "结果"
 
+#: template/tu_details.php template/tu_list.php
 msgid "No"
 msgstr "否"
 
+#: template/tu_details.php
 msgid "Abstain"
 msgstr "弃权"
 
+#: template/tu_details.php
 msgid "Total"
 msgstr "总数"
 
+#: template/tu_details.php
 msgid "Participation"
 msgstr "参与"
 
+#: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
 msgstr "受信用户的最后投票"
 
+#: template/tu_last_votes_list.php
 msgid "Last vote"
 msgstr "最后投票"
 
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
 msgstr "没有找到结果。"
 
+#: template/tu_list.php
 msgid "Start"
 msgstr "开始"
 
+#: template/tu_list.php
 msgid "Back"
 msgstr "返回"
