@@ -286,7 +286,7 @@ for commit in walker:
                 die_commit('missing source file: {:s}'.format(fname), str(commit.id))
 
 # Display a warning if .SRCINFO is unchanged.
-if sha1_old != "0000000000000000000000000000000000000000":
+if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):
     srcinfo_id_old = repo[sha1_old].tree['.SRCINFO'].id
     srcinfo_id_new = repo[sha1_new].tree['.SRCINFO'].id
     if srcinfo_id_old == srcinfo_id_new:
