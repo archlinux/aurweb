@@ -26,8 +26,9 @@ sender = config.get('notifications', 'sender')
 reply_to = config.get('notifications', 'reply-to')
 
 
-def send_notification(to, subject, body, cc=None, reference=None):
-    body = str.join('\n', [textwrap.fill(line) for line in body.splitlines()])
+def send_notification(to, subject, body, refs, cc=None, reference=None):
+    body = '\n'.join([textwrap.fill(line) for line in body.splitlines()])
+    body += '\n\n' + refs
 
     for recipient in to:
         msg = email.mime.text.MIMEText(body, 'plain', 'utf-8')
@@ -91,10 +92,9 @@ def send_resetkey(cur, uid):
            'associated with your email address. If you wish to reset your ' \
            'password follow the link [1] below, otherwise ignore this ' \
            'message and nothing will happen.' % (username)
-    body += '\n\n'
-    body += '[1] ' + aur_location + '/passreset/?resetkey=' + resetkey
+    refs = '[1] ' + aur_location + '/passreset/?resetkey=' + resetkey
 
-    send_notification([to], subject, body)
+    send_notification([to], subject, body, refs)
 
 def welcome(cur, uid):
     cur.execute('SELECT UserName, Email, ResetKey FROM Users WHERE ID = %s',
@@ -106,10 +106,9 @@ def welcome(cur, uid):
            'password for your new account, please click the link [1] below. ' \
            'If the link does not work, try copying and pasting it into your ' \
            'browser.'
-    body += '\n\n'
-    body += '[1] ' + aur_location + '/passreset/?resetkey=' + resetkey
+    body = '[1] ' + aur_location + '/passreset/?resetkey=' + resetkey
 
-    send_notification([to], subject, body)
+    send_notification([to], subject, body, refs)
 
 def comment(cur, uid, pkgbase_id):
     user = username_from_id(cur, uid)
@@ -128,12 +127,11 @@ def comment(cur, uid, pkgbase_id):
     body += 'If you no longer wish to receive notifications about this ' \
             'package, please go to the package page [2] and select "%s".' % \
             ('Disable notifications')
-    body += '\n\n'
-    body += '[1] ' + user_uri + '\n'
-    body += '[2] ' + pkgbase_uri
+    refs = '[1] ' + user_uri + '\n'
+    refs += '[2] ' + pkgbase_uri
     thread_id = '<pkg-notifications-' + pkgbase + '@aur.archlinux.org>'
 
-    send_notification(to, subject, body, reference=thread_id)
+    send_notification(to, subject, body, refs, reference=thread_id)
 
 def flag(cur, uid, pkgbase_id):
     user = username_from_id(cur, uid)
@@ -170,19 +168,17 @@ def delete(cur, uid, old_pkgbase_id, new_pkgbase_id=None):
                'If you no longer wish receive notifications about the new ' \
                'package, please go to [3] and click "%s".' %\
                (user, old_pkgbase, new_pkgbase, 'Disable notifications')
-        body += '\n\n'
-        body += '[1] ' + user_uri + '\n'
-        body += '[2] ' + pkgbase_uri + '\n'
-        body += '[3] ' + new_pkgbase_uri
+        refs = '[1] ' + user_uri + '\n'
+        refs += '[2] ' + pkgbase_uri + '\n'
+        refs += '[3] ' + new_pkgbase_uri
     else:
         body = '%s [1] deleted %s [2].\n\n' \
                'You will no longer receive notifications about this ' \
                'package.' % (user, old_pkgbase)
-        body += '\n\n'
-        body += '[1] ' + user_uri + '\n'
-        body += '[2] ' + pkgbase_uri
+        refs = '[1] ' + user_uri + '\n'
+        refs += '[2] ' + pkgbase_uri
 
-    send_notification(to, subject, body)
+    send_notification(to, subject, body, refs)
 
 def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
     user = username_from_id(cur, uid)
@@ -200,19 +196,19 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
         merge_into_uri = aur_location + '/pkgbase/' + merge_into + '/'
         body = '%s [1] filed a request to merge %s [2] into %s [3]:' % \
                (user, pkgbase, merge_into)
-        body += '\n\n' + text + '\n\n'
-        body += '[1] ' + user_uri + '\n'
-        body += '[2] ' + pkgbase_uri + '\n'
-        body += '[3] ' + merge_into_uri
+        body += '\n\n' + text
+        refs = '[1] ' + user_uri + '\n'
+        refs += '[2] ' + pkgbase_uri + '\n'
+        refs += '[3] ' + merge_into_uri
     else:
         body = '%s [1] filed a %s request for %s [2]:' % \
                (user, reqtype, pkgbase)
-        body += '\n\n' + text + '\n\n'
-        body += '[1] ' + user_uri + '\n'
-        body += '[2] ' + pkgbase_uri + '\n'
+        body += '\n\n' + text
+        refs = '[1] ' + user_uri + '\n'
+        refs += '[2] ' + pkgbase_uri + '\n'
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
 
-    send_notification(to, subject, body, cc, thread_id)
+    send_notification(to, subject, body, refs, cc, thread_id)
 
 def request_close(cur, uid, reqid, reason):
     user = username_from_id(cur, uid)
@@ -226,13 +222,13 @@ def request_close(cur, uid, reqid, reason):
     subject = '[PRQ#%d] Request %s' % (int(reqid), reason.title())
     body = 'Request #%d has been %s by %s [1]' % (int(reqid), reason, user)
     if text.strip() == '':
-        body += '.\n\n'
+        body += '.'
     else:
-        body += ':\n\n' + text + '\n\n'
-    body += '[1] ' + user_uri
+        body += ':\n\n' + text
+    refs = '[1] ' + user_uri
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
 
-    send_notification(to, subject, body, cc, thread_id)
+    send_notification(to, subject, body, refs, cc, thread_id)
 
 
 if __name__ == '__main__':
