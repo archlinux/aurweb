@@ -324,12 +324,11 @@ class AurJSON {
 	 * IDs and package names are valid; sort them into the relevant arrays and
 	 * escape/quote the names.
 	 *
-	 * @param array $http_data Query parameters.
+	 * @param array $args Query parameters.
 	 *
 	 * @return mixed An array containing 'ids' and 'names'.
 	 */
-	private function parse_multiinfo_args($http_data) {
-		$args = $http_data['arg'];
+	private function parse_multiinfo_args($args) {
 		if (!is_array($args)) {
 			$args = array($args);
 		}
