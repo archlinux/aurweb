@@ -27,7 +27,7 @@ if (has_credential(CRED_PKGBASE_FLAG)): ?>
 			'<strong>', '</strong>'); ?>
 		<?= __('Enter details on why the package is out-of-date below, preferably including links to the release announcement or the new release tarball.'); ?>
 	</p>
-	<form action="<?= get_uri('/pkgbase/'); ?>" method="post">
+	<form action="<?= get_pkgbase_uri($pkgbase_name); ?>" method="post">
 		<fieldset>
 			<input type="hidden" name="IDs[<?= $base_id ?>]" value="1" />
 			<input type="hidden" name="ID" value="<?= $base_id ?>" />

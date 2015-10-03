@@ -33,7 +33,7 @@ if (has_credential(CRED_PKGBASE_DISOWN, $maintainer_uids)): ?>
 		<?= __('By selecting the checkbox, you confirm that you want to disown the package.') ?>
 		<?php endif; ?>
 	</p>
-	<form action="<?= get_uri('/pkgbase/'); ?>" method="post">
+	<form action="<?= get_pkgbase_uri($pkgbase_name); ?>" method="post">
 		<fieldset>
 			<input type="hidden" name="IDs[<?= $base_id ?>]" value="1" />
 			<input type="hidden" name="ID" value="<?= $base_id ?>" />
