@@ -40,6 +40,8 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($
 $lics = pkg_licenses($row["ID"]);
 $grps = pkg_groups($row["ID"]);
 
+$deps = pkg_dependencies($row["ID"]);
+
 usort($deps, function($x, $y) {
 	if ($x[1] != $y[1]) {
 		if ($x[1] == "depends") {
@@ -80,7 +82,6 @@ foreach ($rels as $rel) {
 	}
 }
 
-$deps = pkg_dependencies($row["ID"]);
 $requiredby = pkg_required($row["Name"], $rels_p);
 
 # $sources[0] = 'src';
