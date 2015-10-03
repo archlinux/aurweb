@@ -77,6 +77,7 @@ if (check_token()) {
 			if (!isset($_POST['merge_Into']) || empty($_POST['merge_Into'])) {
 				list($ret, $output) = pkgbase_delete($ids, NULL, $via);
 				unset($_GET['ID']);
+				unset($base_id);
 			}
 			else {
 				$merge_base_id = pkgbase_from_name($_POST['merge_Into']);
@@ -89,6 +90,7 @@ if (check_token()) {
 				} else {
 					list($ret, $output) = pkgbase_delete($ids, $merge_base_id, $via);
 					unset($_GET['ID']);
+					unset($base_id);
 				}
 			}
 		}
