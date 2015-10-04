@@ -1,0 +1,33 @@
+aurweb RPC interface
+====================
+
+Allowed methods
+---------------
+
+* `search`
+* `info`
+* `multiinfo`
+* `msearch`
+
+Each method requires the following HTTP GET syntax:
++type=_methodname_&arg=_data_+
+
+Where _methodname_ is the name of an allowed method, and _data_ is the argument
+to the call.
+
+If you need jsonp type callback specification, you can provide an additional
+variable _callback_.
+
+Examples
+--------
+
+`search`::
+  `http://aur-url/rpc.php?type=search&arg=foobar`
+`info`::
+  `http://aur-url/rpc.php?type=info&arg=foobar`
+`multiinfo`::
+  `http://aur-url/rpc.php?type=multiinfo&arg[]=foo&arg[]=bar`
+`msearch`::
+  `http://aur-url/rpc.php?type=msearch&arg=john`
+Callback::
+  `http://aur-url/rpc.php?type=search&arg=foobar&callback=jsonp1192244621103`
