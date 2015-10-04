@@ -76,7 +76,7 @@ class AurJSON {
 		if (isset($http_data['v'])) {
 			$this->version = intval($http_data['v']);
 		}
-		if ($this->version < 1 || $this->version > 4) {
+		if ($this->version < 1 || $this->version > 5) {
 			return $this->json_error('Invalid version specified.');
 		}
 
@@ -93,6 +93,9 @@ class AurJSON {
 		$this->dbh = DB::connect();
 
 		$type = str_replace('-', '_', $http_data['type']);
+		if ($type == 'info' && $this->version >= 5) {
+			$type = 'multiinfo';
+		}
 		$json = call_user_func(array(&$this, $type), $http_data);
 
 		$etag = md5($json);
@@ -250,7 +253,7 @@ class AurJSON {
 		} elseif ($this->version >= 2) {
 			if ($this->version == 2 || $this->version == 3) {
 				$fields = implode(',', self::$fields_v2);
-			} else if ($this->version == 4) {
+			} else if ($this->version == 4 || $this->version == 5) {
 				$fields = implode(',', self::$fields_v4);
 			}
 			$query = "SELECT {$fields} " .
