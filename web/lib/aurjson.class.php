@@ -17,7 +17,7 @@ class AurJSON {
 		'suggest-pkgbase', 'get-comment-form'
 	);
 	private static $exposed_fields = array(
-		'name', 'name-desc'
+		'name', 'name-desc', 'maintainer'
 	);
 	private static $fields_v1 = array(
 		'Packages.ID', 'Packages.Name',
@@ -358,23 +358,32 @@ class AurJSON {
 	 */
 	private function search($http_data) {
 		$keyword_string = $http_data['arg'];
+
 		if (isset($http_data['search_by'])) {
 			$search_by = $http_data['search_by'];
 		} else {
 			$search_by = 'name-desc';
 		}
 
-		if (strlen($keyword_string) < 2) {
-			return $this->json_error('Query arg too small');
-		}
+		if ($search_by === 'name' || $search_by === 'name-desc') {
+			if (strlen($keyword_string) < 2) {
+				return $this->json_error('Query arg too small');
+			}
+			$keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
 
-		$keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
-
-		if ($search_by === 'name') {
-			$where_condition = "(Packages.Name LIKE $keyword_string)";
-		} else if ($search_by === 'name-desc') {
-			$where_condition = "(Packages.Name LIKE $keyword_string OR ";
-			$where_condition .= "Description LIKE $keyword_string)";
+			if ($search_by === 'name') {
+				$where_condition = "(Packages.Name LIKE $keyword_string)";
+			} else if ($search_by === 'name-desc') {
+				$where_condition = "(Packages.Name LIKE $keyword_string OR ";
+				$where_condition .= "Description LIKE $keyword_string)";
+			}
+		} else if ($search_by === 'maintainer') {
+			if (empty($keyword_string)) {
+				$where_condition = "Users.ID is NULL";
+			} else {
+				$keyword_string = $this->dbh->quote($keyword_string);
+				$where_condition = "Users.Username = $keyword_string ";
+			}
 		}
 
 		return $this->process_query('search', $where_condition);
@@ -443,16 +452,8 @@ class AurJSON {
 	 * @return mixed Returns an array of value data containing the package data
 	 */
 	private function msearch($http_data) {
-		$maintainer = $http_data['arg'];
-
-		if (empty($maintainer)) {
-			$where_condition = "Users.ID is NULL";
-		} else {
-			$maintainer = $this->dbh->quote($maintainer);
-			$where_condition = "Users.Username = $maintainer ";
-		}
-
-		return $this->process_query('msearch', $where_condition);
+		$http_data['search_by'] = 'maintainer';
+		return $this->search($http_data);
 	}
 
 	/*
