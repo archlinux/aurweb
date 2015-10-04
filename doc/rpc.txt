@@ -1,33 +1,36 @@
-aurweb RPC interface
+aurweb RPC Interface
 ====================
 
-Allowed methods
+Package Search
+--------------
+
+Package searches can be performed by issuing HTTP GET requests of the form
++/rpc/?v=5&type=search&search_by=_by_&arg=_keywords_+ where _by_ is either
+`name` (search by package name only), `name-desc` (search by package name and
+description) or `maintainer` (search by package maintainer) and _keywords_ is
+the search argument. The _search_by_ parameter can be skipped and defaults to
+`name-desc`.
+
+If a maintainer search is performed and the search argument is left empty, a
+list of orphan packages is returned.
+
+Package Details
 ---------------
 
-* `search`
-* `info`
-* `multiinfo`
-* `msearch`
-
-Each method requires the following HTTP GET syntax:
-+type=_methodname_&arg=_data_+
-
-Where _methodname_ is the name of an allowed method, and _data_ is the argument
-to the call.
-
-If you need jsonp type callback specification, you can provide an additional
-variable _callback_.
+Package information can be obtained by issuing HTTP GET requests of the form
++/rpc/?v=5&type=info&arg[]=_pkg1_&arg[]=_pkg2_&...+ where _pkg1_, _pkg2_, ...
+are the names of packages to retrieve package details for.
 
 Examples
 --------
 
 `search`::
-  `http://aur-url/rpc.php?type=search&arg=foobar`
+  `/rpc/?v=5&type=search&arg=foobar`
+`search` by maintainer::
+  `/rpc/?v=5&type=search&search_by=maintainer&arg=john`
+`search` with callback::
+  `/rpc/?v=5&type=search&arg=foobar&callback=jsonp1192244621103`
 `info`::
-  `http://aur-url/rpc.php?type=info&arg=foobar`
-`multiinfo`::
-  `http://aur-url/rpc.php?type=multiinfo&arg[]=foo&arg[]=bar`
-`msearch`::
-  `http://aur-url/rpc.php?type=msearch&arg=john`
-Callback::
-  `http://aur-url/rpc.php?type=search&arg=foobar&callback=jsonp1192244621103`
+  `/rpc/?v=5&type=info&arg[]=foobar`
+`info` with multiple packages::
+  `/rpc/?v=5&type=info&arg[]=foo&arg[]=bar`
