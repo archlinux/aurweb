@@ -5,11 +5,14 @@ Package Search
 --------------
 
 Package searches can be performed by issuing HTTP GET requests of the form
-+/rpc/?v=5&type=search&search_by=_by_&arg=_keywords_+ where _by_ is either
-`name` (search by package name only), `name-desc` (search by package name and
-description) or `maintainer` (search by package maintainer) and _keywords_ is
-the search argument. The _search_by_ parameter can be skipped and defaults to
-`name-desc`.
++/rpc/?v=5&type=search&by=_field_&arg=_keywords_+ where _keywords_ is the
+search argument and _field_ is one of the following values:
+
+* `name` (search by package name only)
+* `name-desc` (search by package name and description)
+* `maintainer` (search by package maintainer)
+
+The _by_ parameter can be skipped and defaults to `name-desc`.
 
 If a maintainer search is performed and the search argument is left empty, a
 list of orphan packages is returned.

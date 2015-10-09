@@ -86,8 +86,12 @@ class AurJSON {
 		if (!in_array($http_data['type'], self::$exposed_methods)) {
 			return $this->json_error('Incorrect request type specified.');
 		}
-		if (isset($http_data['search_by']) && !in_array($http_data['search_by'], self::$exposed_fields)) {
-			return $this->json_error('Incorrect search_by field specified.');
+
+		if (isset($http_data['search_by']) && !isset($http_data['by'])) {
+			$http_data['by'] = $http_data['search_by'];
+		}
+		if (isset($http_data['by']) && !in_array($http_data['by'], self::$exposed_fields)) {
+			return $this->json_error('Incorrect by field specified.');
 		}
 
 		$this->dbh = DB::connect();
@@ -362,8 +366,8 @@ class AurJSON {
 	private function search($http_data) {
 		$keyword_string = $http_data['arg'];
 
-		if (isset($http_data['search_by'])) {
-			$search_by = $http_data['search_by'];
+		if (isset($http_data['by'])) {
+			$search_by = $http_data['by'];
 		} else {
 			$search_by = 'name-desc';
 		}
@@ -455,7 +459,7 @@ class AurJSON {
 	 * @return mixed Returns an array of value data containing the package data
 	 */
 	private function msearch($http_data) {
-		$http_data['search_by'] = 'maintainer';
+		$http_data['by'] = 'maintainer';
 		return $this->search($http_data);
 	}
 
