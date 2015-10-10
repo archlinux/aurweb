@@ -26,7 +26,13 @@ sender = config.get('notifications', 'sender')
 reply_to = config.get('notifications', 'reply-to')
 
 
-def send_notification(to, subject, body, refs, cc=None, reference=None):
+def headers_cc(cclist):
+    return {'Cc': str.join(', ', cclist)}
+
+def headers_reply(thread_id):
+    return {'In-Reply-To': thread_id, 'References': thread_id}
+
+def send_notification(to, subject, body, refs, headers={}):
     body = '\n'.join([textwrap.fill(line) for line in body.splitlines()])
     body += '\n\n' + refs
 
@@ -37,12 +43,8 @@ def send_notification(to, subject, body, refs, cc=None, reference=None):
         msg['Reply-to'] = reply_to
         msg['To'] = recipient
 
-        if cc:
-            msg['Cc'] = str.join(', ', cc)
-
-        if reference:
-            msg['In-Reply-To'] = reference
-            msg['References'] = reference
+        for key, value in headers.items():
+            msg[key] = value
 
         p = subprocess.Popen([sendmail, '-t', '-oi'], stdin=subprocess.PIPE)
         p.communicate(msg.as_bytes())
@@ -130,8 +132,9 @@ def comment(cur, uid, pkgbase_id):
     refs = '[1] ' + user_uri + '\n'
     refs += '[2] ' + pkgbase_uri
     thread_id = '<pkg-notifications-' + pkgbase + '@aur.archlinux.org>'
+    headers = headers_reply(thread_id)
 
-    send_notification(to, subject, body, refs, reference=thread_id)
+    send_notification(to, subject, body, refs, headers)
 
 def flag(cur, uid, pkgbase_id):
     user = username_from_id(cur, uid)
@@ -207,8 +210,9 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
         refs = '[1] ' + user_uri + '\n'
         refs += '[2] ' + pkgbase_uri + '\n'
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
+    headers = headers_reply(thread_id) + headers_cc(cc)
 
-    send_notification(to, subject, body, refs, cc, thread_id)
+    send_notification(to, subject, body, refs, headers)
 
 def request_close(cur, uid, reqid, reason):
     user = username_from_id(cur, uid)
@@ -227,8 +231,9 @@ def request_close(cur, uid, reqid, reason):
         body += ':\n\n' + text
     refs = '[1] ' + user_uri
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
+    headers = headers_reply(thread_id) + headers_cc(cc)
 
-    send_notification(to, subject, body, refs, cc, thread_id)
+    send_notification(to, subject, body, refs, headers)
 
 
 if __name__ == '__main__':
