@@ -111,7 +111,7 @@ def welcome(cur, uid):
            'password for your new account, please click the link [1] below. ' \
            'If the link does not work, try copying and pasting it into your ' \
            'browser.'
-    body = '[1] ' + aur_location + '/passreset/?resetkey=' + resetkey
+    refs = '[1] ' + aur_location + '/passreset/?resetkey=' + resetkey
 
     send_notification([to], subject, body, refs)
 
@@ -151,11 +151,11 @@ def flag(cur, uid, pkgbase_id):
     subject = 'AUR Out-of-date Notification for %s' % (pkgbase)
     body = 'Your package %s [1] has been flagged out-of-date by %s [2]:' % \
            (pkgbase, user)
-    body += '\n\n' + text + '\n\n'
-    body += '[1] ' + pkgbase_uri + '\n'
-    body += '[2] ' + user_uri
+    body += '\n\n' + text
+    refs = '[1] ' + pkgbase_uri + '\n'
+    refs += '[2] ' + user_uri
 
-    send_notification(to, subject, body)
+    send_notification(to, subject, body, refs)
 
 def delete(cur, uid, old_pkgbase_id, new_pkgbase_id=None):
     user = username_from_id(cur, uid)
