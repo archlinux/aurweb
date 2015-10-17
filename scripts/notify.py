@@ -65,6 +65,10 @@ def pkgbase_from_pkgreq(cur, reqid):
                 [reqid])
     return cur.fetchone()[0]
 
+def get_user_email(cur, uid):
+    cur.execute('SELECT Email FROM Users WHERE ID = %s', [uid])
+    return cur.fetchone()[0]
+
 def get_maintainer_email(cur, pkgbase_id):
     cur.execute('SELECT Users.Email FROM Users ' +
                 'INNER JOIN PackageBases ' +
@@ -157,6 +161,31 @@ def flag(cur, uid, pkgbase_id):
 
     send_notification(to, subject, body, refs)
 
+def comaintainer_add(cur, pkgbase_id, uid):
+    pkgbase = pkgbase_from_id(cur, pkgbase_id)
+    to = [get_user_email(cur, uid)]
+
+    pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
+
+    subject = 'AUR Co-Maintainer Notification for %s' % (pkgbase)
+    body = 'You were added to the co-maintainer list of %s [1].' % (pkgbase)
+    refs = '[1] ' + pkgbase_uri + '\n'
+
+    send_notification(to, subject, body, refs)
+
+def comaintainer_remove(cur, pkgbase_id, uid):
+    pkgbase = pkgbase_from_id(cur, pkgbase_id)
+    to = [get_user_email(cur, uid)]
+
+    pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
+
+    subject = 'AUR Co-Maintainer Notification for %s' % (pkgbase)
+    body = 'You were removed from the co-maintainer list of %s [1].' % \
+            (pkgbase)
+    refs = '[1] ' + pkgbase_uri + '\n'
+
+    send_notification(to, subject, body, refs)
+
 def delete(cur, uid, old_pkgbase_id, new_pkgbase_id=None):
     user = username_from_id(cur, uid)
     old_pkgbase = pkgbase_from_id(cur, old_pkgbase_id)
@@ -246,6 +275,8 @@ if __name__ == '__main__':
         'welcome': welcome,
         'comment': comment,
         'flag': flag,
+        'comaintainer-add': comaintainer_add,
+        'comaintainer-remove': comaintainer_remove,
         'delete': delete,
         'request-open': request_open,
         'request-close': request_close,
