@@ -1023,7 +1023,7 @@ function pkgbase_set_comaintainers($base_id, $users) {
 
 	$dbh = DB::connect();
 
-	$uids = array();
+	$uids_new = array();
 	foreach($users as $user) {
 		$q = "SELECT ID FROM Users ";
 		$q .= "WHERE UserName = " . $dbh->quote($user);
@@ -1034,17 +1034,31 @@ function pkgbase_set_comaintainers($base_id, $users) {
 			return array(false, __("Invalid user name: %s", $user));
 		}
 
-		$uids[] = $uid;
+		$uids_new[] = $uid;
 	}
 
-	$q = sprintf("DELETE FROM PackageComaintainers WHERE PackageBaseID = %d", $base_id);
-	$dbh->exec($q);
+	$q = sprintf("SELECT UsersID FROM PackageComaintainers WHERE PackageBaseID = %d", $base_id);
+	$result = $dbh->query($q);
+	$uids_old = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+
+	$uids_add = array_diff($uids_new, $uids_old);
+	$uids_rem = array_diff($uids_old, $uids_new);
 
 	$i = 1;
-	foreach ($uids as $uid) {
-		$q = sprintf("INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (%d, %d, %d)", $base_id, $uid, $i);
+	foreach ($uids_new as $uid) {
+		if (in_array($uid, $uids_add)) {
+			$q = sprintf("INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (%d, %d, %d)", $base_id, $uid, $i);
+		} else {
+			$q = sprintf("UPDATE PackageComaintainers SET Priority = %d WHERE PackageBaseID = %d AND UsersID = %d", $i, $base_id, $uid);
+		}
+
 		$dbh->exec($q);
 		$i++;
+	}
+
+	foreach ($uids_rem as $uid) {
+		$q = sprintf("DELETE FROM PackageComaintainers WHERE PackageBaseID = %d AND UsersID = %d", $base_id, $uid);
+		$dbh->exec($q);
 	}
 
 	return array(true, __("The package base co-maintainers have been updated."));
