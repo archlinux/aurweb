@@ -168,6 +168,9 @@ function pkg_providers($name) {
 	$q.= "INNER JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
 	$q.= "WHERE rt.Name = 'provides' ";
 	$q.= "AND pr.RelName = " . $dbh->quote($name);
+	$q.= "UNION ";
+	$q.= "SELECT 0, Name FROM OfficialProviders ";
+	$q.= "WHERE Provides = " . $dbh->quote($name);
 	$result = $dbh->query($q);
 
 	if (!$result) {
@@ -281,6 +284,29 @@ function pkg_deplink_annotation($type, $arch, $desc=false) {
 }
 
 /**
+ * Get the HTML code to display a package provider link
+ *
+ * @param string $name The name of the provider
+ * @param bool $official True if the package is in the official repositories
+ *
+ * @return string The HTML code of the link to display
+ */
+function pkg_provider_link($name, $official) {
+	$link = '<a href="';
+	if ($official) {
+		$link .= 'https://www.archlinux.org/packages/?q=' .
+			urlencode($name);
+	} else {
+		$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
+	}
+	$link .= '" title="' . __('View packages details for') . ' ';
+	$link .= htmlspecialchars($name) . '">';
+	$link .= htmlspecialchars($name) . '</a>';
+
+	return $link;
+}
+
+/**
  * Get the HTML code to display a package dependency link
  *
  * @param string $name The name of the dependency
@@ -312,31 +338,37 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
 		$providers = pkg_providers($name);
 	}
 
+	$link = htmlspecialchars($name);
+	foreach ($providers as $provider) {
+		if ($provider[1] == $name) {
+			$is_official = ($provider[0] == 0);
+			$name = $provider[1];
+			$link = pkg_provider_link($name, $is_official);
+			break;
+		}
+	}
+	$link .= ' ' . htmlspecialchars($cond);
+
+	foreach ($providers as $key => $provider) {
+		if ($provider[1] == $name) {
+			unset($providers[$key]);
+		}
+	}
+
 	if (count($providers) > 0) {
-		$link = htmlspecialchars($name) . ' ';
 		$link .= '<span class="virtual-dep">(';
 		foreach ($providers as $provider) {
+			$is_official = ($provider[0] == 0);
 			$name = $provider[1];
-			$link .= '<a href="';
-			$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
-			$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
-			$link .= htmlspecialchars($name) . '</a>, ';
+			$link .= pkg_provider_link($name, $is_official) . ', ';
 		}
 		$link = substr($link, 0, -2);
 		$link .= ')</span>';
-	} else {
-		$link = '<a href="';
-		if (is_null($pkg_id)) {
-			$link .= 'https://www.archlinux.org/packages/?q=' . urlencode($name);
-		} else {
-			$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
-		}
-		$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
-		$link .= htmlspecialchars($name) . '</a>';
-		$link .= htmlspecialchars($cond);
 	}
 
-	return $link . pkg_deplink_annotation($type, $arch, $desc);
+	$link .= pkg_deplink_annotation($type, $arch, $desc);
+
+	return $link;
 }
 
 /**

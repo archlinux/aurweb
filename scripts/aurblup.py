@@ -18,6 +18,7 @@ sync_dbs = config.get('aurblup', 'sync-dbs').split(' ')
 servers = config.get('aurblup', 'servers').split(' ')
 
 blacklist = set()
+providers = set()
 
 h = pyalpm.Handle("/", db_path)
 for sync_db in sync_dbs:
@@ -30,6 +31,8 @@ for sync_db in sync_dbs:
     for pkg in repo.pkgcache:
         blacklist.add(pkg.name)
         [blacklist.add(x) for x in pkg.replaces]
+        providers.add((pkg.name, pkg.name))
+        [providers.add((pkg.name, x)) for x in pkg.provides]
 
 db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                              passwd=aur_db_pass, db=aur_db_name,
@@ -43,6 +46,16 @@ for pkg in blacklist.difference(oldblacklist):
     cur.execute("INSERT INTO PackageBlacklist (Name) VALUES (%s)", [pkg])
 for pkg in oldblacklist.difference(blacklist):
     cur.execute("DELETE FROM PackageBlacklist WHERE Name = %s", [pkg])
+
+cur.execute("SELECT Name, Provides FROM OfficialProviders")
+oldproviders = set(cur.fetchall())
+
+for pkg, provides in providers.difference(oldproviders):
+    cur.execute("INSERT INTO OfficialProviders (Name, Provides) "
+                "VALUES (%s, %s)", [pkg, provides])
+for pkg, provides in oldproviders.difference(providers):
+    cur.execute("DELETE FROM OfficialProviders "
+                "WHERE Name = %s AND Provides = %s", [pkg, provides])
 
 db.commit()
 db.close()

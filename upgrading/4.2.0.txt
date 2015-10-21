@@ -1,0 +1,11 @@
+1. Add a new table to store providers from official packages:
+
+----
+CREATE TABLE OfficialProviders (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	Provides VARCHAR(64) NOT NULL,
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+CREATE UNIQUE INDEX ProviderNameProvides ON OfficialProviders (Name, Provides);
+----

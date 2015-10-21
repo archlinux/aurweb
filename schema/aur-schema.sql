@@ -301,6 +301,16 @@ CREATE TABLE PackageBlacklist (
 	UNIQUE (Name)
 ) ENGINE = InnoDB;
 
+-- Providers in the official repositories
+--
+CREATE TABLE OfficialProviders (
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(64) NOT NULL,
+	Provides VARCHAR(64) NOT NULL,
+	PRIMARY KEY (ID)
+) ENGINE = InnoDB;
+CREATE UNIQUE INDEX ProviderNameProvides ON OfficialProviders (Name, Provides);
+
 -- Define package request types
 --
 CREATE TABLE RequestTypes (
