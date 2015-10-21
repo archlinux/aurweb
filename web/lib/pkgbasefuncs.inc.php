@@ -330,6 +330,10 @@ function pkgbase_flag($base_ids, $comment) {
 		return array(false, __("You did not select any packages to flag."));
 	}
 
+	if (strlen($comment) < 3) {
+		return array(false, __("The selected packages have not been flagged, please enter a comment."));
+	}
+
 	$uid = uid_from_sid($_COOKIE['AURSID']);
 	$dbh = DB::connect();
 

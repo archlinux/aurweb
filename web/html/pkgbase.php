@@ -49,12 +49,7 @@ $output = "";
 $fragment = "";
 if (check_token()) {
 	if (current_action("do_Flag")) {
-		if (strlen($_POST['comments']) >= 3) {
-			list($ret, $output) = pkgbase_flag($ids, $_POST['comments']);
-		} else {
-			$output = __("The selected packages have not been flagged, please enter a comment.");
-			$ret = false;
-		}
+		list($ret, $output) = pkgbase_flag($ids, $_POST['comments']);
 	} elseif (current_action("do_UnFlag")) {
 		list($ret, $output) = pkgbase_unflag($ids);
 	} elseif (current_action("do_Adopt")) {
