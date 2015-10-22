@@ -25,17 +25,19 @@ ssh_cmdline = config.get('serve', 'ssh-cmdline')
 enable_maintenance = config.getboolean('options', 'enable-maintenance')
 maintenance_exc = config.get('options', 'maintenance-exceptions').split()
 
-def pkgbase_exists(pkgbase):
+def pkgbase_from_name(pkgbase):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
                                  unix_socket=aur_db_socket)
     cur = db.cursor()
-
-    cur.execute("SELECT COUNT(*) FROM PackageBases WHERE Name = %s ",
-                [pkgbase])
-
+    cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
     db.close()
-    return (cur.fetchone()[0] > 0)
+
+    row = cur.fetchone()
+    return row[0] if row else None
+
+def pkgbase_exists(pkgbase):
+    return (pkgbase_from_name(pkgbase) > 0)
 
 def list_repos(user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
@@ -77,6 +79,25 @@ def create_pkgbase(pkgbase, user):
 
     cur.execute("INSERT INTO CommentNotify (PackageBaseID, UserID) " +
                 "VALUES (%s, %s)", [pkgbase_id, userid])
+
+    db.commit()
+    db.close()
+
+def pkgbase_config_keywords(pkgbase, keywords):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+
+    db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
+                                 passwd=aur_db_pass, db=aur_db_name,
+                                 unix_socket=aur_db_socket)
+    cur = db.cursor()
+
+    cur.execute("DELETE FROM PackageKeywords WHERE PackageBaseID = %s",
+                [pkgbase_id])
+    for keyword in keywords:
+        cur.execute("INSERT INTO PackageKeywords (PackageBaseID, Keyword) "
+                    "VALUES (%s, %s)", [pkgbase_id, keyword])
 
     db.commit()
     db.close()
@@ -143,6 +164,17 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
     os.environ["GIT_NAMESPACE"] = pkgbase
     cmd = action + " '" + repo_path + "'"
     os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
+elif action == 'config':
+    if len(cmdargv) < 2:
+        die_with_help("{:s}: missing repository name".format(action))
+    if len(cmdargv) < 3:
+        die_with_help("{:s}: missing option name".format(action))
+    pkgbase = cmdargv[1]
+    option = cmdargv[2]
+
+    if option == 'keywords':
+        pkgbase_config_keywords(pkgbase, cmdargv[3:])
+
 elif action == 'list-repos':
     if len(cmdargv) > 1:
         die_with_help("{:s}: too many arguments".format(action))
@@ -172,11 +204,12 @@ elif action == 'restore':
     os.execl(git_update_cmd, git_update_cmd, 'restore')
 elif action == 'help':
     die("Commands:\n" +
-        "  help                 Show this help message and exit.\n" +
-        "  list-repos           List all your repositories.\n" +
-        "  restore <name>       Restore a deleted package base.\n" +
-        "  setup-repo <name>    Create an empty repository.\n" +
-        "  git-receive-pack     Internal command used with Git.\n" +
-        "  git-upload-pack      Internal command used with Git.")
+        "  config <name> <param>... Change package base settings.\n" +
+        "  help                     Show this help message and exit.\n" +
+        "  list-repos               List all your repositories.\n" +
+        "  restore <name>           Restore a deleted package base.\n" +
+        "  setup-repo <name>        Create an empty repository.\n" +
+        "  git-receive-pack         Internal command used with Git.\n" +
+        "  git-upload-pack          Internal command used with Git.")
 else:
     die_with_help("invalid command: {:s}".format(action))
