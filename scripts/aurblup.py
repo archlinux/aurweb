@@ -4,6 +4,7 @@ import configparser
 import mysql.connector
 import os
 import pyalpm
+import re
 
 config = configparser.RawConfigParser()
 config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
@@ -32,7 +33,9 @@ for sync_db in sync_dbs:
         blacklist.add(pkg.name)
         [blacklist.add(x) for x in pkg.replaces]
         providers.add((pkg.name, pkg.name))
-        [providers.add((pkg.name, x)) for x in pkg.provides]
+        for provision in pkg.provides:
+            provisionname = re.sub(r'(<|=|>).*', '', provision)
+            providers.add((pkg.name, provisionname))
 
 db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                              passwd=aur_db_pass, db=aur_db_name,
