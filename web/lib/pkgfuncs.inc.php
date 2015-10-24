@@ -324,7 +324,7 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
 		$name = $tokens[0];
 		$desc = $tokens[1];
 	} else {
-		$desc = '(unknown)';
+		$desc = '';
 	}
 
 	/*
