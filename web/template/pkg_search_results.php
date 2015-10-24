@@ -109,7 +109,6 @@ if (!$result): ?>
 				<p>
 					<select name="action">
 						<option><?= __("Actions") ?></option>
-						<option value="do_Flag"><?= __("Flag Out-of-date") ?></option>
 						<option value="do_UnFlag"><?= __("Unflag Out-of-date") ?></option>
 						<option value="do_Adopt"><?= __("Adopt Packages") ?></option>
 						<option value="do_Disown"><?= __("Disown Packages") ?></option>
