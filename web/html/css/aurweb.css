@@ -147,3 +147,8 @@ label.confirmation,
 #merge-into {
 	width: auto;
 }
+
+#pkgdepslist .broken {
+	color: red;
+	font-weight: bold;
+}

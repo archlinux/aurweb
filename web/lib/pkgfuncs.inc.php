@@ -336,6 +336,15 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
 	 */
 	$providers = pkg_providers($name);
 
+	if (count($providers) == 0) {
+		$link = '<span class="broken">';
+		$link .= htmlspecialchars($name);
+		$link .= '</span>';
+		$link .= htmlspecialchars($cond) . ' ';
+		$link .= pkg_deplink_annotation($type, $arch, $desc);
+		return $link;
+	}
+
 	$link = htmlspecialchars($name);
 	foreach ($providers as $provider) {
 		if ($provider[1] == $name) {
