@@ -326,17 +326,14 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
 		$desc = '(unknown)';
 	}
 
-	$providers = array();
-	if (is_null($pkg_id)) {
-		/*
-		 * TODO: We currently perform one SQL query per nonexistent
-		 * package dependency. It would be much better if we could
-		 * annotate dependency data with providers so that we already
-		 * know whether a dependency is a "provision name" or a package
-		 * from the official repositories at this point.
-		 */
-		$providers = pkg_providers($name);
-	}
+	/*
+	 * TODO: We currently perform one SQL query per nonexistent package
+	 * dependency. It would be much better if we could annotate dependency
+	 * data with providers so that we already know whether a dependency is
+	 * a "provision name" or a package from the official repositories at
+	 * this point.
+	 */
+	$providers = pkg_providers($name);
 
 	$link = htmlspecialchars($name);
 	foreach ($providers as $provider) {
