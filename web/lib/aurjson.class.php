@@ -119,7 +119,7 @@ class AurJSON {
 
 		if (isset($http_data['callback'])) {
 			$callback = $http_data['callback'];
-			if (!preg_match('/^[a-zA-Z0-9().]{1,128}$/D', $callback)) {
+			if (!preg_match('/^[a-zA-Z0-9()_.]{1,128}$/D', $callback)) {
 				return $this->json_error('Invalid callback name.');
 			}
 			header('content-type: text/javascript');
