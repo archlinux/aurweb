@@ -164,10 +164,11 @@ function pkg_groups($pkgid) {
 function pkg_providers($name) {
 	$dbh = DB::connect();
 	$q = "SELECT p.ID, p.Name FROM Packages p ";
-	$q.= "INNER JOIN PackageRelations pr ON pr.PackageID = p.ID ";
-	$q.= "INNER JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
-	$q.= "WHERE rt.Name = 'provides' ";
-	$q.= "AND pr.RelName = " . $dbh->quote($name);
+	$q.= "LEFT JOIN PackageRelations pr ON pr.PackageID = p.ID ";
+	$q.= "LEFT JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
+	$q.= "WHERE p.Name = " . $dbh->quote($name) . " ";
+	$q.= "OR (rt.Name = 'provides' ";
+	$q.= "AND pr.RelName = " . $dbh->quote($name) . ")";
 	$q.= "UNION ";
 	$q.= "SELECT 0, Name FROM OfficialProviders ";
 	$q.= "WHERE Provides = " . $dbh->quote($name);
