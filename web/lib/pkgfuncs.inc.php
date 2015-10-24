@@ -347,7 +347,7 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
 			break;
 		}
 	}
-	$link .= ' ' . htmlspecialchars($cond);
+	$link .= htmlspecialchars($cond) . ' ';
 
 	foreach ($providers as $key => $provider) {
 		if ($provider[1] == $name) {
