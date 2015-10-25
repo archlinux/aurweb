@@ -9,3 +9,9 @@ CREATE TABLE OfficialProviders (
 ) ENGINE = InnoDB;
 CREATE UNIQUE INDEX ProviderNameProvides ON OfficialProviders (Name, Provides);
 ----
+
+2. Resize the email address field:
+
+----
+ALTER TABLE Users MODIFY Email VARCHAR(256) NOT NULL;
+----
