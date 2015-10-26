@@ -242,7 +242,8 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
         refs = '[1] ' + user_uri + '\n'
         refs += '[2] ' + pkgbase_uri + '\n'
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
-    headers = headers_msgid(thread_id) + headers_cc(cc)
+    headers = headers_reply(thread_id)
+    headers.update(headers_cc(cc))
 
     send_notification(to, subject, body, refs, headers)
 
@@ -263,7 +264,8 @@ def request_close(cur, uid, reqid, reason):
         body += ':\n\n' + text
     refs = '[1] ' + user_uri
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
-    headers = headers_reply(thread_id) + headers_cc(cc)
+    headers = headers_reply(thread_id)
+    headers.update(headers_cc(cc))
 
     send_notification(to, subject, body, refs, headers)
 
