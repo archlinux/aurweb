@@ -139,6 +139,10 @@
 			<label for="id_commentnotify"><?= __("Notify of new comments") ?>:</label>
 			<input type="checkbox" name="CN" id="id_commentnotify" <?= $CN ? 'checked="checked"' : '' ?> />
 		</p>
+		<p>
+			<label for="id_updatenotify"><?= __("Notify of package updates") ?>:</label>
+			<input type="checkbox" name="UN" id="id_updatenotify" <?= $UN ? 'checked="checked"' : '' ?> />
+		</p>
 	</fieldset>
 
 	<fieldset>

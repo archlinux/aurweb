@@ -5,6 +5,7 @@ import mysql.connector
 import os
 import pygit2
 import re
+import subprocess
 import sys
 
 import srcinfo.parse
@@ -18,6 +19,8 @@ aur_db_name = config.get('database', 'name')
 aur_db_user = config.get('database', 'user')
 aur_db_pass = config.get('database', 'password')
 aur_db_socket = config.get('database', 'socket')
+
+notify_cmd = config.get('notifications', 'notify-cmd')
 
 repo_path = config.get('serve', 'repo-path')
 repo_regex = config.get('serve', 'repo-regex')
@@ -169,6 +172,13 @@ def save_metadata(metadata, db, cur, user):
 
     db.commit()
 
+def update_notify(db, cur, user, pkgbase_id):
+    # Obtain the user ID of the new maintainer.
+    cur.execute("SELECT ID FROM Users WHERE Username = %s", [user])
+    user_id = int(cur.fetchone()[0])
+
+    # Execute the notification script.
+    subprocess.Popen((notify_cmd, 'update', str(user_id), str(pkgbase_id)))
 
 def die(msg):
     sys.stderr.write("error: {:s}\n".format(msg))
@@ -336,8 +346,6 @@ for pkgname in srcinfo.utils.get_package_names(metadata):
 # Store package base details in the database.
 save_metadata(metadata, db, cur, user)
 
-db.close()
-
 # Create (or update) a branch with the name of the package base for better
 # accessibility.
 repo.create_reference('refs/heads/' + pkgbase, sha1_new, True)
@@ -347,3 +355,9 @@ repo.create_reference('refs/heads/' + pkgbase, sha1_new, True)
 # http://git.661346.n2.nabble.com/PATCH-receive-pack-Create-a-HEAD-ref-for-ref-namespace-td7632149.html
 # for details.
 repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD', sha1_new, True)
+
+# Send package update notifications.
+update_notify(db, cur, user, pkgbase_id)
+
+# Close the database.
+db.close()

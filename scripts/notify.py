@@ -105,6 +105,16 @@ def get_comment_recipients(cur, pkgbase_id, uid):
     return [row[0] for row in cur.fetchall()]
 
 
+def get_update_recipients(cur, pkgbase_id, uid):
+    cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
+                'INNER JOIN PackageNotifications ' +
+                'ON PackageNotifications.UserID = Users.ID WHERE ' +
+                'Users.UpdateNotify = 1 AND ' +
+                'PackageNotifications.UserID != %s AND ' +
+                'PackageNotifications.PackageBaseID = %s', [uid, pkgbase_id])
+    return [row[0] for row in cur.fetchall()]
+
+
 def get_request_recipients(cur, pkgbase_id, uid):
     cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
                 'INNER JOIN PackageBases ' +
@@ -178,6 +188,28 @@ def comment(cur, uid, pkgbase_id, comment_id):
     subject = 'AUR Comment for %s' % (pkgbase)
     body = '%s [1] added the following comment to %s [2]:' % (user, pkgbase)
     body += '\n\n' + text + '\n\n'
+    body += 'If you no longer wish to receive notifications about this ' \
+            'package, please go to the package page [2] and select "%s".' % \
+            ('Disable notifications')
+    refs = '[1] ' + user_uri + '\n'
+    refs += '[2] ' + pkgbase_uri
+    thread_id = '<pkg-notifications-' + pkgbase + '@aur.archlinux.org>'
+    headers = headers_reply(thread_id)
+
+    send_notification(to, subject, body, refs, headers)
+
+
+def update(cur, uid, pkgbase_id):
+    user = username_from_id(cur, uid)
+    pkgbase = pkgbase_from_id(cur, pkgbase_id)
+    to = get_update_recipients(cur, pkgbase_id, uid)
+
+    user_uri = aur_location + '/account/' + user + '/'
+    pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
+
+    subject = 'AUR Package Update: %s' % (pkgbase)
+    body = '%s [1] pushed a new commit to %s [2].' % (user, pkgbase)
+    body += '\n\n'
     body += 'If you no longer wish to receive notifications about this ' \
             'package, please go to the package page [2] and select "%s".' % \
             ('Disable notifications')
@@ -327,6 +359,7 @@ if __name__ == '__main__':
         'send-resetkey': send_resetkey,
         'welcome': welcome,
         'comment': comment,
+        'update': update,
         'flag': flag,
         'comaintainer-add': comaintainer_add,
         'comaintainer-remove': comaintainer_remove,

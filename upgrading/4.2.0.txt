@@ -52,5 +52,6 @@ ALTER TABLE CommentNotify RENAME TO PackageNotifications;
 
 ----
 ALTER TABLE Users
-	ADD COLUMN CommentNotify TINYINT(1) NOT NULL DEFAULT 1;
+	ADD COLUMN CommentNotify TINYINT(1) NOT NULL DEFAULT 1,
+	ADD COLUMN UpdateNotify TINYINT(1) NOT NULL DEFAULT 0;
 ----

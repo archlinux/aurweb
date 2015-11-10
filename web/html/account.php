@@ -35,8 +35,8 @@ if ($action == "UpdateAccount") {
 			in_request("E"), in_request("H"), in_request("P"),
 			in_request("C"), in_request("R"), in_request("L"),
 			in_request("I"), in_request("K"), in_request("PK"),
-			in_request("J"), in_request("CN"), in_request("ID"),
-			$row["Username"]);
+			in_request("J"), in_request("CN"), in_request("UN"),
+			in_request("ID"), $row["Username"]);
 	}
 }
 
@@ -83,7 +83,7 @@ if (isset($_COOKIE["AURSID"])) {
 					$row["HideEmail"], "", "", $row["RealName"],
 					$row["LangPreference"], $row["IRCNick"], $row["PGPKey"], $PK,
 					$row["InactivityTS"] ? 1 : 0, $row["CommentNotify"],
-					$row["ID"], $row["Username"]);
+					$row["UpdateNotify"], $row["ID"], $row["Username"]);
 			} else {
 				print __("You do not have permission to edit this account.");
 			}
@@ -123,8 +123,8 @@ if (isset($_COOKIE["AURSID"])) {
 				in_request("R"), in_request("L"),
 				in_request("I"), in_request("K"),
 				in_request("PK"), in_request("J"),
-				in_request("CN"), in_request("ID"),
-				$row["Username"]);
+				in_request("CN"), in_request("UN"),
+				in_request("ID"), $row["Username"]);
 		}
 
 	} else {
