@@ -716,7 +716,7 @@ function pkg_search_page($SID="") {
 	/* Build the package search query. */
 	$q_select = "SELECT ";
 	if ($SID) {
-		$q_select .= "CommentNotify.UserID AS Notify,
+		$q_select .= "PackageNotifications.UserID AS Notify,
 			   PackageVotes.UsersID AS Voted, ";
 	}
 	$q_select .= "Users.Username AS Maintainer,
@@ -731,8 +731,8 @@ function pkg_search_page($SID="") {
 		/* This is not needed for the total row count query. */
 		$q_from_extra = "LEFT JOIN PackageVotes
 		ON (PackageBases.ID = PackageVotes.PackageBaseID AND PackageVotes.UsersID = $myuid)
-		LEFT JOIN CommentNotify
-		ON (PackageBases.ID = CommentNotify.PackageBaseID AND CommentNotify.UserID = $myuid) ";
+		LEFT JOIN PackageNotifications
+		ON (PackageBases.ID = PackageNotifications.PackageBaseID AND PackageNotifications.UserID = $myuid) ";
 	} else {
 		$q_from_extra = "";
 	}

@@ -41,3 +41,9 @@ ALTER TABLE PackageRequests ADD COLUMN ClosureComment TEXT NOT NULL DEFAULT '';
 ----
 ALTER TABLE PackageBases MODIFY COLUMN FlaggerComment TEXT NOT NULL DEFAULT '';
 ----
+
+7. Rename the CommentNotify table to PackageNotifications:
+
+----
+ALTER TABLE CommentNotify RENAME TO PackageNotifications;
+----

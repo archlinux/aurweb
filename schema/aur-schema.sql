@@ -284,15 +284,15 @@ CREATE TABLE PackageComaintainers (
 	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
--- Comment addition notifications
+-- Package base notifications
 --
-CREATE TABLE CommentNotify (
+CREATE TABLE PackageNotifications (
 	PackageBaseID INTEGER UNSIGNED NOT NULL,
 	UserID INTEGER UNSIGNED NOT NULL,
 	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE,
 	FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
-CREATE UNIQUE INDEX NotifyUserIDPkgID ON CommentNotify (UserID, PackageBaseID);
+CREATE UNIQUE INDEX NotifyUserIDPkgID ON PackageNotifications (UserID, PackageBaseID);
 
 -- Package name blacklist
 --

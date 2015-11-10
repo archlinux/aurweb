@@ -160,11 +160,11 @@ def save_metadata(metadata, db, cur, user):
 
     # Add user to notification list on adoption.
     if was_orphan:
-        cur.execute("SELECT COUNT(*) FROM CommentNotify WHERE " +
+        cur.execute("SELECT COUNT(*) FROM PackageNotifications WHERE " +
                     "PackageBaseID = %s AND UserID = %s",
                     [pkgbase_id, user_id])
         if cur.fetchone()[0] == 0:
-            cur.execute("INSERT INTO CommentNotify (PackageBaseID, UserID) " +
+            cur.execute("INSERT INTO PackageNotifications (PackageBaseID, UserID) " +
                         "VALUES (%s, %s)", [pkgbase_id, user_id])
 
     db.commit()

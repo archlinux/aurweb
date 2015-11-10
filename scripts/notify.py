@@ -88,10 +88,10 @@ def get_maintainer_email(cur, pkgbase_id):
 
 def get_recipients(cur, pkgbase_id, uid):
     cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
-                'INNER JOIN CommentNotify ' +
-                'ON CommentNotify.UserID = Users.ID WHERE ' +
-                'CommentNotify.UserID != %s AND ' +
-                'CommentNotify.PackageBaseID = %s', [uid, pkgbase_id])
+                'INNER JOIN PackageNotifications ' +
+                'ON PackageNotifications.UserID = Users.ID WHERE ' +
+                'PackageNotifications.UserID != %s AND ' +
+                'PackageNotifications.PackageBaseID = %s', [uid, pkgbase_id])
     return [row[0] for row in cur.fetchall()]
 
 

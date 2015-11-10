@@ -542,15 +542,15 @@ function pkgbase_delete ($base_ids, $merge_base_id, $via, $grant=false) {
 		$dbh->exec($q);
 
 		/* Merge notifications */
-		$q = "SELECT DISTINCT UserID FROM CommentNotify cn ";
+		$q = "SELECT DISTINCT UserID FROM PackageNotifications cn ";
 		$q.= "WHERE PackageBaseID IN (" . implode(",", $base_ids) . ") ";
-		$q.= "AND NOT EXISTS (SELECT * FROM CommentNotify cn2 ";
+		$q.= "AND NOT EXISTS (SELECT * FROM PackageNotifications cn2 ";
 		$q.= "WHERE cn2.PackageBaseID = " . intval($merge_base_id) . " ";
 		$q.= "AND cn2.UserID = cn.UserID)";
 		$result = $dbh->query($q);
 
 		while ($notify_uid = $result->fetch(PDO::FETCH_COLUMN, 0)) {
-			$q = "INSERT INTO CommentNotify (UserID, PackageBaseID) ";
+			$q = "INSERT INTO PackageNotifications (UserID, PackageBaseID) ";
 			$q.= "VALUES (" . intval($notify_uid) . ", " . intval($merge_base_id) . ")";
 			$dbh->exec($q);
 		}
@@ -840,7 +840,7 @@ function pkgbase_user_voted($uid, $base_id) {
 function pkgbase_user_notify($uid, $base_id) {
 	$dbh = DB::connect();
 
-	$q = "SELECT * FROM CommentNotify WHERE UserID = " . $dbh->quote($uid);
+	$q = "SELECT * FROM PackageNotifications WHERE UserID = " . $dbh->quote($uid);
 	$q.= " AND PackageBaseID = " . $dbh->quote($base_id);
 	$result = $dbh->query($q);
 
@@ -898,20 +898,20 @@ function pkgbase_notify ($base_ids, $action=true) {
 
 
 		if ($action) {
-			$q = "SELECT COUNT(*) FROM CommentNotify WHERE ";
+			$q = "SELECT COUNT(*) FROM PackageNotifications WHERE ";
 			$q .= "UserID = $uid AND PackageBaseID = $bid";
 
 			/* Notification already added. Don't add again. */
 			$result = $dbh->query($q);
 			if ($result->fetchColumn() == 0) {
-				$q = "INSERT INTO CommentNotify (PackageBaseID, UserID) VALUES ($bid, $uid)";
+				$q = "INSERT INTO PackageNotifications (PackageBaseID, UserID) VALUES ($bid, $uid)";
 				$dbh->exec($q);
 			}
 
 			$output .= $basename;
 		}
 		else {
-			$q = "DELETE FROM CommentNotify WHERE PackageBaseID = $bid ";
+			$q = "DELETE FROM PackageNotifications WHERE PackageBaseID = $bid ";
 			$q .= "AND UserID = $uid";
 			$dbh->exec($q);
 

@@ -81,7 +81,7 @@ def create_pkgbase(pkgbase, user):
                 "UNIX_TIMESTAMP(), %s, %s)", [pkgbase, userid, userid])
     pkgbase_id = cur.lastrowid
 
-    cur.execute("INSERT INTO CommentNotify (PackageBaseID, UserID) " +
+    cur.execute("INSERT INTO PackageNotifications (PackageBaseID, UserID) " +
                 "VALUES (%s, %s)", [pkgbase_id, userid])
 
     db.commit()
