@@ -1282,7 +1282,7 @@ function account_set_ssh_keys($uid, $ssh_keys, $ssh_fingerprints) {
  * @return void
  */
 function notify($params, $text='') {
-	$cmd = realpath('../../scripts/notify.py');
+	$cmd = config_get('notifications', 'notify-cmd');
 	foreach ($params as $param) {
 		$cmd .= ' ' . escapeshellarg($param);
 	}
