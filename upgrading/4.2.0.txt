@@ -47,3 +47,10 @@ ALTER TABLE PackageBases MODIFY COLUMN FlaggerComment TEXT NOT NULL DEFAULT '';
 ----
 ALTER TABLE CommentNotify RENAME TO PackageNotifications;
 ----
+
+8. Add new columns to store notification settings:
+
+----
+ALTER TABLE Users
+	ADD COLUMN CommentNotify TINYINT(1) NOT NULL DEFAULT 1;
+----

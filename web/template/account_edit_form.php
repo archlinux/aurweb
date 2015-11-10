@@ -134,6 +134,14 @@
 	</fieldset>
 
 	<fieldset>
+		<legend><?= __("Notification settings") ?>:</legend>
+		<p>
+			<label for="id_commentnotify"><?= __("Notify of new comments") ?>:</label>
+			<input type="checkbox" name="CN" id="id_commentnotify" <?= $CN ? 'checked="checked"' : '' ?> />
+		</p>
+	</fieldset>
+
+	<fieldset>
 		<p>
 			<label></label>
 			<?php if ($A == "UpdateAccount"): ?>

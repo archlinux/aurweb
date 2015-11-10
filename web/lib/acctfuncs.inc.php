@@ -56,13 +56,14 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $K The PGP key fingerprint of the displayed user
  * @param string $PK The list of SSH public keys
  * @param string $J The inactivity status of the displayed user
+ * @param string $CN Whether to notify of new comments
  * @param string $UID The user ID of the displayed user
  * @param string $N The username as present in the database
  *
  * @return void
  */
 function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R="",
-		$L="",$I="",$K="",$PK="",$J="",$UID=0,$N="") {
+		$L="",$I="",$K="",$PK="",$J="",$CN="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	include("account_edit_form.php");
@@ -88,13 +89,14 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $K The PGP fingerprint of the user
  * @param string $PK The list of public SSH keys
  * @param string $J The inactivity status of the user
+ * @param string $CN Whether to notify of new comments
  * @param string $UID The user ID of the modified account
  * @param string $N The username as present in the database
  *
  * @return array Boolean indicating success and message to be printed
  */
 function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
-		$R="",$L="",$I="",$K="",$PK="",$J="",$UID=0,$N="") {
+		$R="",$L="",$I="",$K="",$PK="",$J="",$CN="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
@@ -341,6 +343,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$q.= ", IRCNick = " . $dbh->quote($I);
 		$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
 		$q.= ", InactivityTS = " . $inactivity_ts;
+		$q.= ", CommentNotify = " . ($CN ? "1" : "0");
 		$q.= " WHERE ID = ".intval($UID);
 		$result = $dbh->exec($q);
 

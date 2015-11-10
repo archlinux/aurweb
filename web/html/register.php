@@ -23,7 +23,7 @@ if (in_request("Action") == "NewAccount") {
 			"new", "NewAccount", in_request("U"), 1, 0,
 			in_request("E"), in_request("H"), '', '', in_request("R"),
 			in_request("L"), in_request("I"), in_request("K"),
-			in_request("PK"));
+			in_request("PK"), 0, in_request("CN"));
 
 	print $message;
 
@@ -31,7 +31,7 @@ if (in_request("Action") == "NewAccount") {
 		display_account_form("NewAccount", in_request("U"), 1, 0,
 			in_request("E"), in_request("H"), '', '', in_request("R"),
 			in_request("L"), in_request("I"), in_request("K"),
-			in_request("PK"));
+			in_request("PK"), 0, in_request("CN"));
 	}
 } else {
 	print '<p>' . __("Use this form to create an account.") . '</p>';

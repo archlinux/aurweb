@@ -95,6 +95,16 @@ def get_recipients(cur, pkgbase_id, uid):
     return [row[0] for row in cur.fetchall()]
 
 
+def get_comment_recipients(cur, pkgbase_id, uid):
+    cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
+                'INNER JOIN PackageNotifications ' +
+                'ON PackageNotifications.UserID = Users.ID WHERE ' +
+                'Users.CommentNotify = 1 AND ' +
+                'PackageNotifications.UserID != %s AND ' +
+                'PackageNotifications.PackageBaseID = %s', [uid, pkgbase_id])
+    return [row[0] for row in cur.fetchall()]
+
+
 def get_request_recipients(cur, pkgbase_id, uid):
     cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
                 'INNER JOIN PackageBases ' +
@@ -159,7 +169,7 @@ def welcome(cur, uid):
 def comment(cur, uid, pkgbase_id, comment_id):
     user = username_from_id(cur, uid)
     pkgbase = pkgbase_from_id(cur, pkgbase_id)
-    to = get_recipients(cur, pkgbase_id, uid)
+    to = get_comment_recipients(cur, pkgbase_id, uid)
     text = get_comment(cur, comment_id)
 
     user_uri = aur_location + '/account/' + user + '/'

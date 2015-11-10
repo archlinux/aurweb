@@ -35,7 +35,8 @@ if ($action == "UpdateAccount") {
 			in_request("E"), in_request("H"), in_request("P"),
 			in_request("C"), in_request("R"), in_request("L"),
 			in_request("I"), in_request("K"), in_request("PK"),
-			in_request("J"), in_request("ID"), $row["Username"]);
+			in_request("J"), in_request("CN"), in_request("ID"),
+			$row["Username"]);
 	}
 }
 
@@ -81,7 +82,8 @@ if (isset($_COOKIE["AURSID"])) {
 					$row["AccountTypeID"], $row["Suspended"], $row["Email"],
 					$row["HideEmail"], "", "", $row["RealName"],
 					$row["LangPreference"], $row["IRCNick"], $row["PGPKey"], $PK,
-					$row["InactivityTS"] ? 1 : 0, $row["ID"], $row["Username"]);
+					$row["InactivityTS"] ? 1 : 0, $row["CommentNotify"],
+					$row["ID"], $row["Username"]);
 			} else {
 				print __("You do not have permission to edit this account.");
 			}
@@ -114,10 +116,14 @@ if (isset($_COOKIE["AURSID"])) {
 		print $update_account_message;
 
 		if (!$success) {
-			display_account_form("UpdateAccount", in_request("U"), in_request("T"),
-				in_request("S"), in_request("E"), in_request("H"), in_request("P"),
-				in_request("C"), in_request("R"), in_request("L"), in_request("I"),
-				in_request("K"), in_request("PK"), in_request("J"), in_request("ID"),
+			display_account_form("UpdateAccount", in_request("U"),
+				in_request("T"), in_request("S"),
+				in_request("E"), in_request("H"),
+				in_request("P"), in_request("C"),
+				in_request("R"), in_request("L"),
+				in_request("I"), in_request("K"),
+				in_request("PK"), in_request("J"),
+				in_request("CN"), in_request("ID"),
 				$row["Username"]);
 		}
 
