@@ -91,21 +91,7 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 	$q.= $dbh->quote($comment) . ", UNIX_TIMESTAMP())";
 	$dbh->exec($q);
 
-	/*
-	 * Send e-mail notifications.
-	 * TODO: Move notification logic to separate function where it belongs.
-	 */
-	$q = "SELECT CommentNotify.*, Users.Email ";
-	$q.= "FROM CommentNotify, Users ";
-	$q.= "WHERE Users.ID = CommentNotify.UserID ";
-	$q.= "AND CommentNotify.UserID != " . $uid . " ";
-	$q.= "AND CommentNotify.PackageBaseID = " . intval($base_id);
-	$result = $dbh->query($q);
-	$bcc = array();
-
-	if ($result) {
-		notify(array('comment', $uid, $base_id), $comment);
-	}
+	notify(array('comment', $uid, $base_id), $comment);
 
 	return array(true, __('Comment has been added.'));
 }
