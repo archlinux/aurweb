@@ -12,7 +12,7 @@ html_header(__("Package Merging"));
 
 if (has_credential(CRED_PKGBASE_DELETE)): ?>
 <div class="box">
-	<h2><?= __('Merge Package: %s', htmlspecialchars($pkgbase_name)) ?></h2>
+	<h2><?= __('Merge Package') ?>: <? htmlspecialchars($pkgbase_name) ?></h2>
 	<p>
 		<?= __('Use this form to merge the package base %s%s%s into another package. ',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>

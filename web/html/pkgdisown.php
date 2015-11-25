@@ -15,7 +15,7 @@ $comaintainers = pkgbase_get_comaintainers($base_id);
 
 if (has_credential(CRED_PKGBASE_DISOWN, $maintainer_uids)): ?>
 <div class="box">
-	<h2><?= __('Disown Package: %s', htmlspecialchars($pkgbase_name)) ?></h2>
+	<h2><?= __('Disown Package') ?>: <? htmlspecialchars($pkgbase_name) ?></h2>
 	<p>
 		<?= __('Use this form to disown the package base %s%s%s which includes the following packages: ',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>

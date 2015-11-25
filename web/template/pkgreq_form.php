@@ -1,5 +1,5 @@
 <div class="box">
-	<h2><?= __('Submit Request: %s', htmlspecialchars($pkgbase_name)) ?></h2>
+	<h2><?= __('Submit Request') ?>: <? htmlspecialchars($pkgbase_name) ?></h2>
 	<p>
 		<?= __('Use this form to file a request against package base %s%s%s which includes the following packages:',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>

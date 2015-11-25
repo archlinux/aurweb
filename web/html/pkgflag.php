@@ -43,7 +43,7 @@ html_header(__("Flag Package Out-Of-Date"));
 
 if (has_credential(CRED_PKGBASE_FLAG)): ?>
 <div class="box">
-	<h2><?= __('Flag Package Out-Of-Date: %s', htmlspecialchars($pkgbase_name)) ?></h2>
+	<h2><?= __('Flag Package Out-Of-Date') ?>: <? htmlspecialchars($pkgbase_name) ?></h2>
 	<p>
 		<?= __('Use this form to flag the package base %s%s%s and the following packages out-of-date: ',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>

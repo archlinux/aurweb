@@ -1,5 +1,5 @@
 <div class="box">
-	<h2><?= __('Close Request: %s', htmlspecialchars($pkgbase_name)) ?></h2>
+	<h2><?= __('Close Request') ?>: <? htmlspecialchars($pkgbase_name) ?></h2>
 	<p>
 		<?= __('Use this form to close the request for package base %s%s%s.',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>
