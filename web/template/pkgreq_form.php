@@ -1,5 +1,5 @@
 <div class="box">
-	<h2><?= __('File Request: %s', htmlspecialchars($pkgbase_name)) ?></h2>
+	<h2><?= __('Submit Request: %s', htmlspecialchars($pkgbase_name)) ?></h2>
 	<p>
 		<?= __('Use this form to file a request against package base %s%s%s which includes the following packages:',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>
@@ -58,7 +58,7 @@
 				<textarea name="comments" id="id_comments" rows="5" cols="50"></textarea>
 			</p>
 			<p>
-				<input type="submit" class="button" name="do_FileRequest" value="<?= __("File Request") ?>" />
+				<input type="submit" class="button" name="do_FileRequest" value="<?= __("Submit Request") ?>" />
 			</p>
 		</fieldset>
 	</form>

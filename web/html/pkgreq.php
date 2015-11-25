@@ -13,7 +13,7 @@ if (isset($base_id)) {
 		header('Location: /');
 		exit();
 	}
-	html_header(__("File Request"));
+	html_header(__("Submit Request"));
 	include('pkgreq_form.php');
 } elseif (isset($pkgreq_id)) {
 	if (!has_credential(CRED_PKGREQ_CLOSE)) {
