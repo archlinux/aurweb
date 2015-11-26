@@ -37,7 +37,7 @@ def pkgbase_from_name(pkgbase):
     return row[0] if row else None
 
 def pkgbase_exists(pkgbase):
-    return (pkgbase_from_name(pkgbase) > 0)
+    return pkgbase_from_name(pkgbase) is not None
 
 def list_repos(user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
