@@ -158,7 +158,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	if ($type === 'merge') {
 		$params[] = $merge_into;
 	}
-	notify($params, $comments);
+	notify($params);
 
 	$auto_orphan_age = config_get('options', 'auto_orphan_age');
 	$auto_delete_age = config_get('options', 'auto_delete_age');
@@ -233,7 +233,7 @@ function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 	$dbh->exec($q);
 
 	/* Send e-mail notifications. */
-	notify(array('request-close', $uid, $id, $reason), $comments);
+	notify(array('request-close', $uid, $id, $reason));
 
 	return array(true, __("Request closed successfully."));
 }

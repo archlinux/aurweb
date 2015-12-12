@@ -1277,11 +1277,10 @@ function account_set_ssh_keys($uid, $ssh_keys, $ssh_fingerprints) {
  * Invoke the email notification script.
  *
  * @param string $params Command line parameters for the script.
- * @param string $text Text to pass via stdin.
  *
  * @return void
  */
-function notify($params, $text='') {
+function notify($params) {
 	$cmd = config_get('notifications', 'notify-cmd');
 	foreach ($params as $param) {
 		$cmd .= ' ' . escapeshellarg($param);
@@ -1299,7 +1298,6 @@ function notify($params, $text='') {
 		return false;
 	}
 
-	fwrite($pipes[0], $text);
 	fclose($pipes[0]);
 	fclose($pipes[1]);
 	fclose($pipes[2]);

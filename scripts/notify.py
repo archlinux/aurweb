@@ -91,6 +91,25 @@ def get_request_recipients(cur, pkgbase_id, uid):
                 'Users.ID = %s OR PackageBases.ID = %s', [uid, pkgbase_id])
     return [row[0] for row in cur.fetchall()]
 
+def get_comment(cur, comment_id):
+    cur.execute('SELECT Comments FROM PackageComments WHERE ID = %s',
+                [comment_id])
+    return cur.fetchone()[0]
+
+def get_flagger_comment(cur, pkgbase_id):
+    cur.execute('SELECT FlaggerComment FROM PackageBases WHERE ID = %s',
+                [pkgbase_id])
+    return cur.fetchone()[0]
+
+def get_request_comment(cur, reqid):
+    cur.execute('SELECT Comments FROM PackageRequests WHERE ID = %s', [reqid])
+    return cur.fetchone()[0]
+
+def get_request_closure_comment(cur, reqid):
+    cur.execute('SELECT ClosureComment FROM PackageRequests WHERE ID = %s',
+                [reqid])
+    return cur.fetchone()[0]
+
 def send_resetkey(cur, uid):
     cur.execute('SELECT UserName, Email, ResetKey FROM Users WHERE ID = %s',
                 [uid])
@@ -119,11 +138,11 @@ def welcome(cur, uid):
 
     send_notification([to], subject, body, refs)
 
-def comment(cur, uid, pkgbase_id):
+def comment(cur, uid, pkgbase_id, comment_id):
     user = username_from_id(cur, uid)
     pkgbase = pkgbase_from_id(cur, pkgbase_id)
     to = get_recipients(cur, pkgbase_id, uid)
-    text = sys.stdin.read()
+    text = get_comment(cur, comment_id)
 
     uri = aur_location + '/pkgbase/' + pkgbase + '/'
 
@@ -147,7 +166,7 @@ def flag(cur, uid, pkgbase_id):
     user = username_from_id(cur, uid)
     pkgbase = pkgbase_from_id(cur, pkgbase_id)
     to = [get_maintainer_email(cur, pkgbase_id)]
-    text = sys.stdin.read()
+    text = get_flagger_comment(cur, pkgbase_id)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
@@ -220,7 +239,7 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
     pkgbase = pkgbase_from_id(cur, pkgbase_id)
     to = [aur_request_ml]
     cc = get_request_recipients(cur, pkgbase_id, uid)
-    text = sys.stdin.read()
+    text = get_request_comment(cur, reqid)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
@@ -252,7 +271,7 @@ def request_close(cur, uid, reqid, reason):
     pkgbase_id = pkgbase_from_pkgreq(cur, reqid)
     to = [aur_request_ml]
     cc = get_request_recipients(cur, pkgbase_id, uid)
-    text = sys.stdin.read()
+    text = get_request_closure_comment(cur, reqid);
 
     user_uri = aur_location + '/account/' + user + '/'
 

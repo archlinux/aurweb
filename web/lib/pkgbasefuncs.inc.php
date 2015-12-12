@@ -100,8 +100,9 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 	$q.= intval($base_id) . ", " . $uid . ", ";
 	$q.= $dbh->quote($comment) . ", UNIX_TIMESTAMP())";
 	$dbh->exec($q);
+	$comment_id = $dbh->lastInsertId();
 
-	notify(array('comment', $uid, $base_id), $comment);
+	notify(array('comment', $uid, $base_id, $comment_id));
 
 	return array(true, __('Comment has been added.'));
 }
@@ -401,7 +402,7 @@ function pkgbase_flag($base_ids, $comment) {
 	$dbh->exec($q);
 
 	foreach ($base_ids as $base_id) {
-		notify(array('flag', $uid, $base_id), $comment);
+		notify(array('flag', $uid, $base_id));
 	}
 
 	return array(true, __("The selected packages have been flagged out-of-date."));
