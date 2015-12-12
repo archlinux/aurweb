@@ -1,4 +1,4 @@
-<h3><?= __("Recent Updates") ?></h3>
+<h3><?= __("Recent Updates") ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SB=l&SO=d"><?= _('more') ?></a>)</span></h3>
 
 <a href="<?= get_uri('/rss/') ?>" title="Arch Package Updates RSS Feed" class="rss-icon"><img src="/images/rss.svg" alt="RSS Feed" /></a>
 
