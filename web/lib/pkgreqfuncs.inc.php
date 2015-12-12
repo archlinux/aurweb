@@ -227,7 +227,8 @@ function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 		return array(false, __("Only TUs and developers can close requests."));
 	}
 
-	$q = "UPDATE PackageRequests SET Status = " . intval($status) . " ";
+	$q = "UPDATE PackageRequests SET Status = " . intval($status) . ", ";
+	$q.= "ClosureComment = " . $dbh->quote($comments) . " ";
 	$q.= "WHERE ID = " . intval($id);
 	$dbh->exec($q);
 

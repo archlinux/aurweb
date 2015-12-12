@@ -21,3 +21,10 @@ ALTER TABLE Users MODIFY Email VARCHAR(254) NOT NULL;
 ----
 ALTER TABLE PackageComments ADD COLUMN PinnedTS BIGINT UNSIGNED NOT NULL DEFAULT 0;
 ----
+
+
+3. Add new column to store the closure comment of package requests:
+
+----
+ALTER TABLE PackageRequests ADD COLUMN ClosureComment TEXT NOT NULL DEFAULT '';
+----
