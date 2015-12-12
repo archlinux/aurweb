@@ -15,3 +15,9 @@ CREATE UNIQUE INDEX ProviderNameProvides ON OfficialProviders (Name, Provides);
 ----
 ALTER TABLE Users MODIFY Email VARCHAR(254) NOT NULL;
 ----
+
+3. Add new column in PackageComments for pinning system.
+
+----
+ALTER TABLE PackageComments ADD COLUMN PinnedTS BIGINT UNSIGNED NOT NULL DEFAULT 0;
+----

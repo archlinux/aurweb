@@ -99,6 +99,10 @@ if (check_token()) {
 		list($ret, $output) = pkgbase_notify($ids, false);
 	} elseif (current_action("do_DeleteComment")) {
 		list($ret, $output) = pkgbase_delete_comment();
+	} elseif (current_action("do_PinComment")) {
+		list($ret, $output) = pkgbase_pin_comment();
+	} elseif (current_action("do_UnpinComment")) {
+		list($ret, $output) = pkgbase_pin_comment(true);
 	} elseif (current_action("do_SetKeywords")) {
 		list($ret, $output) = pkgbase_set_keywords($base_id, preg_split("/[\s,;]+/", $_POST['keywords'], -1, PREG_SPLIT_NO_EMPTY));
 	} elseif (current_action("do_FileRequest")) {

@@ -1,11 +1,18 @@
 <?php
-$include_deleted = has_credential(CRED_COMMENT_VIEW_DELETED);
-$count = pkgbase_comments_count($base_id, $include_deleted);
+if (!isset($count)) {
+	$count = pkgbase_comments_count($base_id, $include_deleted);
+}
 ?>
 <div id="news">
 	<h3>
-		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all comments' , $count) ?> (<?= $count ?>)"><?= __('Latest Comments') ?></a>
-		<span class="arrow"></span>
+		<?php if (!isset($comments)): ?>
+			<?php $comments = $pinned ?>
+			<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all comments' , $count) ?> (<?= $count ?>)"><?= __('Pinned Comments') ?></a>
+			<span class="arrow"></span>
+		<?php else: ?>
+			<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all comments' , $count) ?> (<?= $count ?>)"><?= __('Latest Comments') ?></a>
+			<span class="arrow"></span>
+		<?php endif; ?>
 	</h3>
 
 	<?php while (list($indx, $row) = each($comments)): ?>
@@ -49,6 +56,29 @@ $count = pkgbase_comments_count($base_id, $include_deleted);
 			<?php if (!$row['DelUsersID'] && can_edit_comment_array($row)): ?>
 			<a href="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name) . 'edit-comment/?comment_id=' . $row['ID'], ENT_QUOTES) ?>" class="edit-comment" title="<?= __('Edit comment') ?>"><img src="/images/pencil.min.svg" alt="<?= __('Edit comment') ?>" width="11" height="11"></a>
 			<?php endif; ?>
+
+			<?php if (!$row['DelUsersID'] && !$row['PinnedTS'] && can_pin_comment_array($row) && !(pkgbase_comments_count($base_id, false, true) >= 5)): ?>
+				<form class="pin-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
+					<fieldset style="display:inline;">
+						<input type="hidden" name="action" value="do_PinComment" />
+						<input type="hidden" name="comment_id" value="<?= $row['ID'] ?>" />
+						<input type="hidden" name="package_base" value="<?= $base_id ?>" />
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+						<input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="<?= __('Pin comment') ?>" title="<?= __('Pin comment') ?>" name="submit" value="1" />
+					</fieldset>
+				</form>
+			<?php endif; ?>
+
+			<?php if (!$row['DelUsersID'] && $row['PinnedTS'] && can_pin_comment_array($row)): ?>
+				<form class="pin-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
+					<fieldset style="display:inline;">
+						<input type="hidden" name="action" value="do_UnpinComment" />
+						<input type="hidden" name="comment_id" value="<?= $row['ID'] ?>" />
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+						<input type="image" class="pin-comment" src="/images/unpin.min.svg" width="11" height="11" alt="<?= __('Unpin comment') ?>" title="<?= __('Unpin comment') ?>" name="submit" value="1" />
+					</fieldset>
+				</form>
+			<?php endif; ?>
 		</h4>
 		<div class="article-content<?php if ($row['DelUsersID']): ?> comment-deleted<?php endif; ?>">
 			<p>
@@ -57,7 +87,7 @@ $count = pkgbase_comments_count($base_id, $include_deleted);
 		</div>
 	<?php endwhile; ?>
 
-<?php if ($count > 10 && !isset($_GET['comments'])): ?>
+<?php if ($count > 10 && !isset($_GET['comments']) && !isset($pinned)): ?>
 	<h3>
 		<a href="<?= htmlentities(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) . '?' . mkurl('comments=all') ?>" title="<?= __('View all comments') ?> (<?= $count ?>)"><?= __('All comments', $count) ?></a>
 	</h3>

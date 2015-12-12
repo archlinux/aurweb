@@ -8,6 +8,7 @@ define("CRED_ACCOUNT_SEARCH", 5);
 define("CRED_COMMENT_DELETE", 6);
 define("CRED_COMMENT_VIEW_DELETED", 22);
 define("CRED_COMMENT_EDIT", 25);
+define("CRED_COMMENT_PIN", 26);
 define("CRED_PKGBASE_ADOPT", 7);
 define("CRED_PKGBASE_SET_KEYWORDS", 8);
 define("CRED_PKGBASE_DELETE", 9);
@@ -60,6 +61,7 @@ function has_credential($credential, $approved_users=array()) {
 	case CRED_COMMENT_DELETE:
 	case CRED_COMMENT_VIEW_DELETED:
 	case CRED_COMMENT_EDIT:
+	case CRED_COMMENT_PIN:
 	case CRED_PKGBASE_ADOPT:
 	case CRED_PKGBASE_SET_KEYWORDS:
 	case CRED_PKGBASE_DELETE:

@@ -7,10 +7,11 @@ include_once("pkgreqfuncs.inc.php");
  *
  * @param string $base_id The package base ID to get comment count for
  * @param bool $include_deleted True if deleted comments should be included
+ * @param bool $only_pinned True if only pinned comments should be included
  *
  * @return string The number of comments left for a specific package
  */
-function pkgbase_comments_count($base_id, $include_deleted) {
+function pkgbase_comments_count($base_id, $include_deleted, $only_pinned=false) {
 	$base_id = intval($base_id);
 	if (!$base_id) {
 		return null;
@@ -21,6 +22,9 @@ function pkgbase_comments_count($base_id, $include_deleted) {
 	$q.= "WHERE PackageBaseID = " . $base_id . " ";
 	if (!$include_deleted) {
 		$q.= "AND DelUsersID IS NULL";
+	}
+	if ($only_pinned) {
+		$q.= "AND NOT PinnedTS = 0";
 	}
 	$result = $dbh->query($q);
 	if (!$result) {
@@ -36,10 +40,11 @@ function pkgbase_comments_count($base_id, $include_deleted) {
  * @param int $base_id The package base ID to get comments for
  * @param int $limit Maximum number of comments to return (0 means unlimited)
  * @param bool $include_deleted True if deleted comments should be included
+ * @param bool $only_pinned True when only pinned comments are to be included
  *
  * @return array All package comment information for a specific package base
  */
-function pkgbase_comments($base_id, $limit, $include_deleted) {
+function pkgbase_comments($base_id, $limit, $include_deleted, $only_pinned=false) {
 	$base_id = intval($base_id);
 	$limit = intval($limit);
 	if (!$base_id) {
@@ -48,14 +53,19 @@ function pkgbase_comments($base_id, $limit, $include_deleted) {
 
 	$dbh = DB::connect();
 	$q = "SELECT PackageComments.ID, A.UserName AS UserName, UsersID, Comments, ";
-	$q.= "CommentTS, EditedTS, B.UserName AS EditUserName, ";
-	$q.= "DelUsersID, C.UserName AS DelUserName FROM PackageComments ";
+	$q.= "PackageBaseID, CommentTS, EditedTS, B.UserName AS EditUserName, ";
+	$q.= "DelUsersID, C.UserName AS DelUserName, ";
+	$q.= "PinnedTS FROM PackageComments ";
 	$q.= "LEFT JOIN Users A ON PackageComments.UsersID = A.ID ";
 	$q.= "LEFT JOIN Users B ON PackageComments.EditedUsersID = B.ID ";
 	$q.= "LEFT JOIN Users C ON PackageComments.DelUsersID = C.ID ";
 	$q.= "WHERE PackageBaseID = " . $base_id . " ";
+
 	if (!$include_deleted) {
 		$q.= "AND DelUsersID IS NULL ";
+	}
+	if ($only_pinned) {
+		$q.= "AND NOT PinnedTS = 0 ";
 	}
 	$q.= "ORDER BY CommentTS DESC";
 	if ($limit > 0) {
@@ -97,6 +107,58 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 }
 
 /**
+ * Pin/unpin a package comment
+ *
+ * @param bool $unpin True if unpinning rather than pinning
+ *
+ * @return array Tuple of success/failure indicator and error message
+ */
+function pkgbase_pin_comment($unpin=false) {
+	$uid = uid_from_sid($_COOKIE["AURSID"]);
+
+	if (!$uid) {
+		return array(false, __("You must be logged in before you can edit package information."));
+	}
+
+	if (isset($_POST["comment_id"])) {
+		$comment_id = $_POST["comment_id"];
+	} else {
+		return array(false, __("Missing comment ID."));
+	}
+
+	if (!$unpin) {
+		if (pkgbase_comments_count($_POST['package_base'], false, true) >= 5){
+			return array(false, __("No more than 5 comments can be pinned."));
+		}
+	}
+
+	if (!can_pin_comment($comment_id)) {
+		if (!$unpin) {
+			return array(false, __("You are not allowed to pin this comment."));
+		} else {
+			return array(false, __("You are not allowed to unpin this comment."));
+		}
+	}
+
+	$dbh = DB::connect();
+	$q = "UPDATE PackageComments ";
+	if (!$unpin) {
+		$q.= "SET PinnedTS = UNIX_TIMESTAMP() ";
+	} else {
+		$q.= "SET PinnedTS = 0 ";
+	}
+	$q.= "WHERE ID = " . intval($comment_id);
+	$dbh->exec($q);
+
+	if (!$unpin) {
+		return array(true, __("Comment has been pinned."));
+	} else {
+		return array(true, __("Comment has been unpinned."));
+	}
+}
+
+/**
+
  * Get a list of all packages a logged-in user has voted for
  *
  * @param string $sid The session ID of the visitor
@@ -183,8 +245,16 @@ function pkgbase_display_details($base_id, $row, $SID="") {
 			include('pkg_comment_box.php');
 		}
 
-		$limit = isset($_GET['comments']) ? 0 : 10;
 		$include_deleted = has_credential(CRED_COMMENT_VIEW_DELETED);
+
+		$limit_pinned = isset($_GET['pinned']) ? 0 : 5;
+		$pinned = pkgbase_comments($base_id, $limit_pinned, false, true);
+		if (!empty($pinned)) {
+			include('pkg_comments.php');
+			unset($pinned);
+		}
+
+		$limit = isset($_GET['comments']) ? 0 : 10;
 		$comments = pkgbase_comments($base_id, $limit, $include_deleted);
 		if (!empty($comments)) {
 			include('pkg_comments.php');

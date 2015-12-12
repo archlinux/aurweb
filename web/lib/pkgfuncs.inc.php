@@ -83,6 +83,47 @@ function can_edit_comment_array($comment) {
 }
 
 /**
+ * Determine if the user can pin a specific package comment
+ *
+ * Only the Package Maintainer, Trusted Users, and Developers can pin
+ * comments. This function is used for the backend side of comment pinning.
+ *
+ * @param string $comment_id The comment ID in the database
+ *
+ * @return bool True if the user can pin the comment, otherwise false
+ */
+function can_pin_comment($comment_id=0) {
+	$dbh = DB::connect();
+
+	$q = "SELECT MaintainerUID FROM PackageBases AS pb ";
+	$q.= "LEFT JOIN PackageComments AS pc ON pb.ID = pc.PackageBaseID ";
+	$q.= "WHERE pc.ID = " . intval($comment_id);
+	$result = $dbh->query($q);
+
+	if (!$result) {
+		return false;
+	}
+
+	$uid = $result->fetch(PDO::FETCH_COLUMN, 0);
+
+	return has_credential(CRED_COMMENT_PIN, array($uid));
+}
+
+/**
+ * Determine if the user can edit a specific package comment using an array
+ *
+ * Only the Package Maintainer, Trusted Users, and Developers can pin
+ * comments. This function is used for the frontend side of comment pinning.
+ *
+ * @param array $comment All database information relating a specific comment
+ *
+ * @return bool True if the user can edit the comment, otherwise false
+ */
+function can_pin_comment_array($comment) {
+	return can_pin_comment($comment['ID']);
+}
+
+/**
  * Check to see if the package name already exists in the database
  *
  * @param string $name The package name to check
@@ -582,8 +623,16 @@ function pkg_display_details($id=0, $row, $SID="") {
 			include('pkg_comment_box.php');
 		}
 
-		$limit = isset($_GET['comments']) ? 0 : 10;
 		$include_deleted = has_credential(CRED_COMMENT_VIEW_DELETED);
+
+		$limit_pinned = isset($_GET['pinned']) ? 0 : 5;
+		$pinned = pkgbase_comments($base_id, $limit_pinned, false, true);
+		if (!empty($pinned)) {
+			include('pkg_comments.php');
+			unset($pinned);
+		}
+
+		$limit = isset($_GET['comments']) ? 0 : 10;
 		$comments = pkgbase_comments($base_id, $limit, $include_deleted);
 		if (!empty($comments)) {
 			include('pkg_comments.php');
