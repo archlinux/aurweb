@@ -36,8 +36,10 @@ def headers_reply(thread_id):
     return {'In-Reply-To': thread_id, 'References': thread_id}
 
 def send_notification(to, subject, body, refs, headers={}):
-    body = '\n'.join([textwrap.fill(line) for line in body.splitlines()])
-    body += '\n\n' + refs
+    wrapped = ''
+    for line in body.splitlines():
+        wrapped += textwrap.fill(line, break_long_words=False) + '\n'
+    body = wrapped + '\n' + refs
 
     for recipient in to:
         msg = email.mime.text.MIMEText(body, 'plain', 'utf-8')
