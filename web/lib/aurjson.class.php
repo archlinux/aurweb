@@ -346,7 +346,7 @@ class AurJSON {
 			if (!$arg) {
 				continue;
 			}
-			if (is_numeric($arg)) {
+			if ($this->version < 5 && is_numeric($arg)) {
 				$id_args[] = intval($arg);
 			} else {
 				$name_args[] = $this->dbh->quote($arg);
@@ -405,7 +405,7 @@ class AurJSON {
 	 */
 	private function info($http_data) {
 		$pqdata = $http_data['arg'];
-		if (is_numeric($pqdata)) {
+		if ($this->version < 5 && is_numeric($pqdata)) {
 			$where_condition = "Packages.ID = $pqdata";
 		} else {
 			$where_condition = "Packages.Name = " . $this->dbh->quote($pqdata);
