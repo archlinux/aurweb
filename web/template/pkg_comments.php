@@ -25,7 +25,7 @@ if (!isset($count)) {
 			$heading = __('Anonymous comment on %s', $date_fmtd);
 		}
 
-		if ($row['EditedTS']) {
+		if ($uid && $row['EditedTS']) {
 			$date_fmtd = gmdate('Y-m-d H:i', $row['EditedTS']);
 			$heading .= ' <span class="edited">(';
 			if ($row['DelUsersID']) {
