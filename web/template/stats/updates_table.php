@@ -11,7 +11,7 @@
 			</td>
 			<td class="pkg-new">
 				<?php if ($row["ModifiedTS"] - $row["SubmittedTS"] < 3600): ?>
-				<img src="images/new.png" alt="New!" />
+				<img src="images/new.svg" alt="New!" />
 				<?php endif; ?>
 			</td>
 			<td class="pkg-date">
