@@ -1,6 +1,6 @@
 <h3><?= __("Recent Updates") ?></h3>
 
-<a href="<?= get_uri('/rss/') ?>" title="Arch Package Updates RSS Feed" class="rss-icon"><img src="/images/feed-icon-14x14.png" alt="RSS Feed" /></a>
+<a href="<?= get_uri('/rss/') ?>" title="Arch Package Updates RSS Feed" class="rss-icon"><img src="/images/rss.svg" alt="RSS Feed" /></a>
 
 <table>
 	<tbody>
