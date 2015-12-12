@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v4.0.0\n"
+"Project-Id-Version: AUR v4.1.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-09-26 07:44+0200\n"
+"POT-Creation-Date: 2015-12-12 15:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,7 +133,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: html/comaintainers.php
+#: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
 msgstr ""
 
@@ -412,10 +412,6 @@ msgid "Enter your e-mail address:"
 msgstr ""
 
 #: html/pkgbase.php
-msgid "The selected packages have not been flagged, please enter a comment."
-msgstr ""
-
-#: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
@@ -438,9 +434,8 @@ msgstr ""
 msgid "Package Deletion"
 msgstr ""
 
-#: html/pkgdel.php
-#, php-format
-msgid "Delete Package: %s"
+#: html/pkgdel.php template/pkgbase_actions.php
+msgid "Delete Package"
 msgstr ""
 
 #: html/pkgdel.php
@@ -472,11 +467,6 @@ msgstr ""
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
-msgstr ""
-
-#: html/pkgdisown.php
-#, php-format
-msgid "Disown Package: %s"
 msgstr ""
 
 #: html/pkgdisown.php
@@ -516,11 +506,6 @@ msgstr ""
 
 #: html/pkgflag.php
 #, php-format
-msgid "Flag Package Out-Of-Date: %s"
-msgstr ""
-
-#: html/pkgflag.php
-#, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages out-"
 "of-date: "
@@ -556,9 +541,8 @@ msgstr ""
 msgid "Package Merging"
 msgstr ""
 
-#: html/pkgmerge.php
-#, php-format
-msgid "Merge Package: %s"
+#: html/pkgmerge.php template/pkgbase_actions.php
+msgid "Merge Package"
 msgstr ""
 
 #: html/pkgmerge.php
@@ -595,7 +579,7 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr ""
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
-msgid "File Request"
+msgid "Submit Request"
 msgstr ""
 
 #: html/pkgreq.php template/pkgreq_close_form.php
@@ -819,6 +803,34 @@ msgstr ""
 msgid "Comment has been added."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can edit package information."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Missing comment ID."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "No more than 5 comments can be pinned."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to pin this comment."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to unpin this comment."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been pinned."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been unpinned."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
 msgstr ""
@@ -833,6 +845,10 @@ msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have not been flagged, please enter a comment."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
@@ -919,14 +935,6 @@ msgstr ""
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr ""
-
-#: lib/pkgbasefuncs.inc.php
-msgid "You must be logged in before you can edit package information."
-msgstr ""
-
-#: lib/pkgbasefuncs.inc.php
-msgid "Missing comment ID."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
@@ -1191,11 +1199,6 @@ msgstr ""
 
 #: template/comaintainers_form.php
 #, php-format
-msgid "Manage Co-maintainers: %s"
-msgstr ""
-
-#: template/comaintainers_form.php
-#, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
@@ -1206,6 +1209,11 @@ msgstr ""
 
 #: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
+msgstr ""
+
+#: template/footer.php
+#, php-format
+msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
 #: template/header.php
@@ -1274,14 +1282,6 @@ msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] ""
 msgstr[1] ""
-
-#: template/pkgbase_actions.php
-msgid "Delete Package"
-msgstr ""
-
-#: template/pkgbase_actions.php
-msgid "Merge Package"
-msgstr ""
 
 #: template/pkgbase_actions.php
 msgid "Adopt Package"
@@ -1355,6 +1355,10 @@ msgid "View all comments"
 msgstr ""
 
 #: template/pkg_comments.php
+msgid "Pinned Comments"
+msgstr ""
+
+#: template/pkg_comments.php
 msgid "Latest Comments"
 msgstr ""
 
@@ -1380,6 +1384,14 @@ msgstr ""
 
 #: template/pkg_comments.php
 msgid "Delete comment"
+msgstr ""
+
+#: template/pkg_comments.php
+msgid "Pin comment"
+msgstr ""
+
+#: template/pkg_comments.php
+msgid "Unpin comment"
 msgstr ""
 
 #: template/pkg_comments.php
@@ -1440,11 +1452,6 @@ msgstr ""
 
 #: template/pkgreq_close_form.php
 #, php-format
-msgid "Close Request: %s"
-msgstr ""
-
-#: template/pkgreq_close_form.php
-#, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 
@@ -1470,11 +1477,6 @@ msgstr ""
 #: template/pkgreq_close_form.php template/pkgreq_results.php
 #: template/tu_details.php
 msgid "Rejected"
-msgstr ""
-
-#: template/pkgreq_form.php
-#, php-format
-msgid "File Request: %s"
 msgstr ""
 
 #: template/pkgreq_form.php
@@ -1672,10 +1674,6 @@ msgstr ""
 
 #: template/pkg_search_results.php
 msgid "Actions"
-msgstr ""
-
-#: template/pkg_search_results.php
-msgid "Flag Out-of-date"
 msgstr ""
 
 #: template/pkg_search_results.php
