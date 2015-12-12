@@ -1,11 +1,4 @@
 <?php
-if (isset($row['BaseID'])) {
-	/* On a package details page. */
-	$base_id = $row['BaseID'];
-} else {
-	/* On a package base details page. */
-	$base_id = $row['ID'];
-}
 $include_deleted = has_credential(CRED_COMMENT_VIEW_DELETED);
 $count = pkgbase_comments_count($base_id, $include_deleted);
 ?>
