@@ -1,6 +1,7 @@
 virtual-root=/cgit/
 clone-prefix=https://aur.archlinux.org
 noheader=0
+favicon=/images/favicon.ico
 logo=
 css=/css/cgit.css
 snapshots=tar.gz
