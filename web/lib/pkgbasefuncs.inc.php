@@ -21,7 +21,7 @@ function pkgbase_comments_count($base_id, $include_deleted, $only_pinned=false) 
 	$q = "SELECT COUNT(*) FROM PackageComments ";
 	$q.= "WHERE PackageBaseID = " . $base_id . " ";
 	if (!$include_deleted) {
-		$q.= "AND DelUsersID IS NULL";
+		$q.= "AND DelTS IS NULL";
 	}
 	if ($only_pinned) {
 		$q.= "AND NOT PinnedTS = 0";
@@ -53,7 +53,7 @@ function pkgbase_comments($base_id, $limit, $include_deleted, $only_pinned=false
 
 	$dbh = DB::connect();
 	$q = "SELECT PackageComments.ID, A.UserName AS UserName, UsersID, Comments, ";
-	$q.= "PackageBaseID, CommentTS, EditedTS, B.UserName AS EditUserName, ";
+	$q.= "PackageBaseID, CommentTS, DelTS, EditedTS, B.UserName AS EditUserName, ";
 	$q.= "DelUsersID, C.UserName AS DelUserName, ";
 	$q.= "PinnedTS FROM PackageComments ";
 	$q.= "LEFT JOIN Users A ON PackageComments.UsersID = A.ID ";
@@ -62,7 +62,7 @@ function pkgbase_comments($base_id, $limit, $include_deleted, $only_pinned=false
 	$q.= "WHERE PackageBaseID = " . $base_id . " ";
 
 	if (!$include_deleted) {
-		$q.= "AND DelUsersID IS NULL ";
+		$q.= "AND DelTS IS NULL ";
 	}
 	if ($only_pinned) {
 		$q.= "AND NOT PinnedTS = 0 ";
@@ -918,7 +918,7 @@ function pkgbase_delete_comment() {
 	if (can_delete_comment($comment_id)) {
 		$q = "UPDATE PackageComments ";
 		$q.= "SET DelUsersID = ".$uid.", ";
-		$q.= "EditedTS = UNIX_TIMESTAMP() ";
+		$q.= "DelTS = UNIX_TIMESTAMP() ";
 		$q.= "WHERE ID = ".intval($comment_id);
 		$dbh->exec($q);
 		return array(true, __("Comment has been deleted."));

@@ -16,14 +16,21 @@ CREATE UNIQUE INDEX ProviderNameProvides ON OfficialProviders (Name, Provides);
 ALTER TABLE Users MODIFY Email VARCHAR(254) NOT NULL;
 ----
 
-3. Add new column in PackageComments for pinning system.
+3. Add new columns to the PackageComments table:
 
 ----
-ALTER TABLE PackageComments ADD COLUMN PinnedTS BIGINT UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE PackageComments
+	ADD COLUMN DelTS BIGINT UNSIGNED NULL DEFAULT NULL,
+	ADD COLUMN PinnedTS BIGINT UNSIGNED NOT NULL DEFAULT 0;
 ----
 
+4. Update the deletion time stamp of all deleted comments:
 
-3. Add new column to store the closure comment of package requests:
+----
+UPDATE PackageComments SET DelTS = EditedTS WHERE DelUsersID IS NOT NULL;
+----
+
+5. Add new column to store the closure comment of package requests:
 
 ----
 ALTER TABLE PackageRequests ADD COLUMN ClosureComment TEXT NOT NULL DEFAULT '';

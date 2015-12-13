@@ -25,25 +25,30 @@ if (!isset($count)) {
 			$heading = __('Anonymous comment on %s', $date_fmtd);
 		}
 
-		if ($uid && $row['EditedTS']) {
-			$date_fmtd = gmdate('Y-m-d H:i', $row['EditedTS']);
+		$is_deleted = $row['DelTS'];
+		$is_edited = $row['EditedTS'];
+		$is_pinned = $row['PinnedTS'];
+
+		if ($uid && $is_deleted) {
+			$date_fmtd = gmdate('Y-m-d H:i', $row['DelTS']);
+			$user_fmtd = html_format_username($row['DelUserName']);
 			$heading .= ' <span class="edited">(';
-			if ($row['DelUsersID']) {
-				$user_fmtd = html_format_username($row['DelUserName']);
-				$heading .= __('deleted on %s by %s', $date_fmtd, $user_fmtd);
-			} else {
-				$user_fmtd = html_format_username($row['EditUserName']);
-				$heading .= __('last edited on %s by %s', $date_fmtd, $user_fmtd);
-			}
+			$heading .= __('deleted on %s by %s', $date_fmtd, $user_fmtd);
+			$heading .= ')</span>';
+		} elseif ($uid && $is_edited) {
+			$date_fmtd = gmdate('Y-m-d H:i', $row['EditedTS']);
+			$user_fmtd = html_format_username($row['EditUserName']);
+			$heading .= ' <span class="edited">(';
+			$heading .= __('edited on %s by %s', $date_fmtd, $user_fmtd);
 			$heading .= ')</span>';
 		}
 
 		$row['DelUserName'] = html_format_username($row['DelUserName']);
 		$row['EditUserName'] = html_format_username($row['EditUserName']);
 		?>
-		<h4 id="comment-<?= $row['ID'] ?>"<?php if ($row['DelUsersID']): ?> class="comment-deleted"<?php endif; ?>>
+		<h4 id="comment-<?= $row['ID'] ?>"<?php if ($is_deleted): ?> class="comment-deleted"<?php endif; ?>>
 			<?= $heading ?>
-			<?php if (!$row['DelUsersID'] && can_delete_comment_array($row)): ?>
+			<?php if (!$is_deleted && can_delete_comment_array($row)): ?>
 				<form class="delete-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_DeleteComment" />
@@ -53,11 +58,12 @@ if (!isset($count)) {
 					</fieldset>
 				</form>
 			<?php endif; ?>
-			<?php if (!$row['DelUsersID'] && can_edit_comment_array($row)): ?>
+
+			<?php if (!$is_deleted && can_edit_comment_array($row)): ?>
 			<a href="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name) . 'edit-comment/?comment_id=' . $row['ID'], ENT_QUOTES) ?>" class="edit-comment" title="<?= __('Edit comment') ?>"><img src="/images/pencil.min.svg" alt="<?= __('Edit comment') ?>" width="11" height="11"></a>
 			<?php endif; ?>
 
-			<?php if (!$row['DelUsersID'] && !$row['PinnedTS'] && can_pin_comment_array($row) && !(pkgbase_comments_count($base_id, false, true) >= 5)): ?>
+			<?php if (!$is_deleted && !$is_pinned && can_pin_comment_array($row) && !(pkgbase_comments_count($base_id, false, true) >= 5)): ?>
 				<form class="pin-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_PinComment" />
@@ -69,7 +75,7 @@ if (!isset($count)) {
 				</form>
 			<?php endif; ?>
 
-			<?php if (!$row['DelUsersID'] && $row['PinnedTS'] && can_pin_comment_array($row)): ?>
+			<?php if (!$is_deleted && $is_pinned && can_pin_comment_array($row)): ?>
 				<form class="pin-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">
 						<input type="hidden" name="action" value="do_UnpinComment" />
@@ -80,7 +86,7 @@ if (!isset($count)) {
 				</form>
 			<?php endif; ?>
 		</h4>
-		<div class="article-content<?php if ($row['DelUsersID']): ?> comment-deleted<?php endif; ?>">
+		<div class="article-content<?php if ($is_deleted): ?> comment-deleted<?php endif; ?>">
 			<p>
 				<?= parse_comment($row['Comments']) ?>
 			</p>
