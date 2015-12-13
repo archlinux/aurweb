@@ -51,12 +51,16 @@ Setup on Arch Linux
     # ln -s ../../git-interface/git-update.py hooks/update
     # chown -R aur .
 
-7) Install the git-auth wrapper script:
+7) Install needed Python modules:
+
+    # pacman -S python-mysql-connector python-pygit2
+
+8) Install the git-auth wrapper script:
 
     # cd /srv/http/aurweb/git-interface/
     # make && make install
 
-8) Configure sshd(8) for the AUR. Add the following lines at the end of your
+9) Configure sshd(8) for the AUR. Add the following lines at the end of your
    sshd_config(5) and restart the sshd. Note that OpenSSH 6.9 or newer is
    needed!
 
@@ -65,8 +69,8 @@ Setup on Arch Linux
         AuthorizedKeysCommand /usr/local/bin/aur-git-auth "%t" "%k"
         AuthorizedKeysCommandUser aur
 
-9) If you want to enable smart HTTP support with nginx and fcgiwrap, you can
-   use the following directives:
+10) If you want to enable smart HTTP support with nginx and fcgiwrap, you can
+    use the following directives:
 
     location ~ "^/([a-z0-9][a-z0-9.+_-]*?)(\.git)?/(git-(receive|upload)-pack|HEAD|info/refs|objects/(info/(http-)?alternates|packs)|[0-9a-f]{2}/[0-9a-f]{38}|pack/pack-[0-9a-f]{40}\.(pack|idx))$" {
         fastcgi_pass   unix:/run/fcgiwrap.sock;
