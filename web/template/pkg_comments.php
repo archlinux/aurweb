@@ -31,20 +31,25 @@ if (!isset($count)) {
 
 		if ($uid && $is_deleted) {
 			$date_fmtd = gmdate('Y-m-d H:i', $row['DelTS']);
-			$user_fmtd = html_format_username($row['DelUserName']);
 			$heading .= ' <span class="edited">(';
-			$heading .= __('deleted on %s by %s', $date_fmtd, $user_fmtd);
+			if ($row['DelUserName']) {
+				$user_fmtd = html_format_username($row['DelUserName']);
+				$heading .= __('deleted on %s by %s', $date_fmtd, $user_fmtd);
+			} else {
+				$heading .= __('deleted on %s', $date_fmtd);
+			}
 			$heading .= ')</span>';
 		} elseif ($uid && $is_edited) {
 			$date_fmtd = gmdate('Y-m-d H:i', $row['EditedTS']);
-			$user_fmtd = html_format_username($row['EditUserName']);
 			$heading .= ' <span class="edited">(';
-			$heading .= __('edited on %s by %s', $date_fmtd, $user_fmtd);
+			if ($row['EditUserName']) {
+				$user_fmtd = html_format_username($row['EditUserName']);
+				$heading .= __('edited on %s by %s', $date_fmtd, $user_fmtd);
+			} else {
+				$heading .= __('edited on %s', $date_fmtd);
+			}
 			$heading .= ')</span>';
 		}
-
-		$row['DelUserName'] = html_format_username($row['DelUserName']);
-		$row['EditUserName'] = html_format_username($row['EditUserName']);
 		?>
 		<h4 id="comment-<?= $row['ID'] ?>"<?php if ($is_deleted): ?> class="comment-deleted"<?php endif; ?>>
 			<?= $heading ?>
