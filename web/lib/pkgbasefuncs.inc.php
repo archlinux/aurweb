@@ -445,6 +445,38 @@ function pkgbase_unflag($base_ids) {
 }
 
 /**
+ * Get package flag OOD comment
+ *
+ * @param int $base_id
+ *
+ * @return array Tuple of pkgbase ID, reason for OOD, and user who flagged
+ */
+function pkgbase_get_flag_comment($base_id) {
+	$base_id = intval($base_id);
+	$dbh = DB::connect();
+
+	$q = "SELECT FlaggerComment,OutOfDateTS,Username FROM PackageBases ";
+	$q.= "LEFT JOIN Users ON FlaggerUID = Users.ID ";
+	$q.= "WHERE PackageBases.ID = " . $base_id . " ";
+	$q.= "AND PackageBases.OutOfDateTS IS NOT NULL";
+	$result = $dbh->query($q);
+
+	$row = array();
+
+	if (!$result) {
+		$row['error'] = __("Error retrieving package details.");
+	}
+	else {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		if (empty($row)) {
+			$row['error'] = __("Package details could not be found.");
+		}
+	}
+
+	return $row;
+}
+
+/**
  * Delete package bases
  *
  * @param array $base_ids Array of package base IDs to delete

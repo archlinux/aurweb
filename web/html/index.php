@@ -73,6 +73,9 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 			case "unflag":
 				$_POST['do_UnFlag'] = __('UnFlag');
 				break;
+			case "flag-comment":
+				include('pkgflagcomment.php');
+				return;
 			case "delete":
 				include('pkgdel.php');
 				return;

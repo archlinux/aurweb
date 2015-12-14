@@ -130,6 +130,10 @@
 	top: 4px;
 }
 
+.flagged a {
+	color: inherit;
+}
+
 legend {
 	padding: 1em 0;
 }
