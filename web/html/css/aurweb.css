@@ -101,7 +101,7 @@
 	color: #999;
 }
 
-.delete-comment-form, .pin-comment-form, .edit-comment {
+.delete-comment-form, .undelete-comment-form, .pin-comment-form, .edit-comment {
 	float: right;
 	margin-left: 8px;
 }
@@ -112,13 +112,13 @@
 	top: 1px;
 }
 
-.delete-comment, .edit-comment, .pin-comment {
+.delete-comment, .undelete-comment, .edit-comment, .pin-comment {
 	-webkit-filter: grayscale(100%);
 	filter: grayscale(100%);
 	opacity: 0.6;
 }
 
-.delete-comment:hover, .edit-comment:hover, .pin-comment:hover {
+.delete-comment:hover, .undelete-comment:hover, .edit-comment:hover, .pin-comment:hover {
 	-webkit-filter: none;
 	filter: none;
 	opacity: 1;

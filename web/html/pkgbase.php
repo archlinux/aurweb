@@ -99,6 +99,11 @@ if (check_token()) {
 		list($ret, $output) = pkgbase_notify($ids, false);
 	} elseif (current_action("do_DeleteComment")) {
 		list($ret, $output) = pkgbase_delete_comment();
+	} elseif (current_action("do_UndeleteComment")) {
+		list($ret, $output) = pkgbase_delete_comment(true);
+		if ($ret && isset($_POST["comment_id"])) {
+			$fragment = '#comment-' . intval($_POST["comment_id"]);
+		}
 	} elseif (current_action("do_PinComment")) {
 		list($ret, $output) = pkgbase_pin_comment();
 	} elseif (current_action("do_UnpinComment")) {

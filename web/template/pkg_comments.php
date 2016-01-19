@@ -53,6 +53,17 @@ if (!isset($count)) {
 		?>
 		<h4 id="comment-<?= $row['ID'] ?>"<?php if ($is_deleted): ?> class="comment-deleted"<?php endif; ?>>
 			<?= $heading ?>
+			<?php if ($is_deleted && has_credential(CRED_COMMENT_UNDELETE)): ?>
+				<form class="undelete-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
+					<fieldset style="display:inline;">
+						<input type="hidden" name="action" value="do_UndeleteComment" />
+						<input type="hidden" name="comment_id" value="<?= $row['ID'] ?>" />
+						<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
+						<input type="image" class="undelete-comment" src="/images/action-undo.min.svg" width="11" height="11" alt="<?= __('Undelete comment') ?>" title="<?= __('Undelete comment') ?>" name="submit" value="1" />
+					</fieldset>
+				</form>
+			<?php endif;?>
+
 			<?php if (!$is_deleted && can_delete_comment_array($row)): ?>
 				<form class="delete-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
 					<fieldset style="display:inline;">

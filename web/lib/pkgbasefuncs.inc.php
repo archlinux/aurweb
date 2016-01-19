@@ -932,9 +932,10 @@ function pkgbase_notify ($base_ids, $action=true) {
 /**
  * Delete a package comment
  *
+ * @param  boolean $undelete True if undeleting rather than deleting
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_delete_comment() {
+function pkgbase_delete_comment($undelete=false) {
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 	if (!$uid) {
 		return array(false, __("You must be logged in before you can edit package information."));
@@ -947,15 +948,28 @@ function pkgbase_delete_comment() {
 	}
 
 	$dbh = DB::connect();
-	if (can_delete_comment($comment_id)) {
+	if ($undelete) {
+		if (!has_credential(CRED_COMMENT_UNDELETE)) {
+			return array(false, __("You are not allowed to undelete this comment."));
+		}
+
+		$q = "UPDATE PackageComments ";
+		$q.= "SET DelUsersID = NULL, ";
+		$q.= "DelTS = NULL ";
+		$q.= "WHERE ID = ".intval($comment_id);
+		$dbh->exec($q);
+		return array(true, __("Comment has been undeleted."));
+	} else {
+		if (!can_delete_comment($comment_id)) {
+			return array(false, __("You are not allowed to delete this comment."));
+		}
+
 		$q = "UPDATE PackageComments ";
 		$q.= "SET DelUsersID = ".$uid.", ";
 		$q.= "DelTS = UNIX_TIMESTAMP() ";
 		$q.= "WHERE ID = ".intval($comment_id);
 		$dbh->exec($q);
 		return array(true, __("Comment has been deleted."));
-	} else {
-		return array(false, __("You are not allowed to delete this comment."));
 	}
 }
 

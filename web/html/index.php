@@ -180,6 +180,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		readfile("./$path");
 		break;
 	case "/images/x.min.svg":
+	case "/images/action-undo.min.svg":
 	case "/images/pencil.min.svg":
 	case "/images/pin.min.svg":
 	case "/images/unpin.min.svg":
