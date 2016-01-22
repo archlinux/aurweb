@@ -51,7 +51,7 @@ if (!isset($count)) {
 			$heading .= ')</span>';
 		}
 		?>
-		<h4 id="comment-<?= $row['ID'] ?>"<?php if ($is_deleted): ?> class="comment-deleted"<?php endif; ?>>
+		<h4 id="<?= isset($pinned) ? "pinned-" : "comment-" ?><?= $row['ID'] ?>"<?php if ($is_deleted): ?> class="comment-deleted"<?php endif; ?>>
 			<?= $heading ?>
 			<?php if ($is_deleted && has_credential(CRED_COMMENT_UNDELETE)): ?>
 				<form class="undelete-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
