@@ -8,7 +8,7 @@
 			</li>
 			<li><a href="<?= $snapshot_uri ?>"><?= __('Download snapshot') ?></a>
 			<li><a href="https://wiki.archlinux.org/index.php/Special:Search?search=<?= urlencode($row['Name']) ?>"><?= __('Search wiki') ?></a></li>
-			<li><span class="flagged"><?= $row["OutOfDateTS"] !== NULL ? html_action_link($base_uri . 'flag-comment/', __('Flagged out-of-date %s', "(${out_of_date_time})")) : "" ?></span></li>
+			<li><span class="flagged"><?= $row["OutOfDateTS"] !== NULL ? html_action_link($base_uri . 'flag-comment/', __('Flagged out-of-date (%s)', "$out_of_date_time")) : "" ?></span></li>
 			<?php if ($row["OutOfDateTS"] === NULL): ?>
 			<li><?= html_action_link($base_uri . 'flag/', __('Flag package out-of-date')) ?></li>
 			<?php elseif (($row["OutOfDateTS"] !== NULL) && has_credential(CRED_PKGBASE_UNFLAG, $unflaggers)): ?>
