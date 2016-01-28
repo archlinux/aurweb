@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v4.1.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-12-12 15:11+0100\n"
+"POT-Creation-Date: 2016-01-28 23:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -500,6 +500,10 @@ msgstr ""
 msgid "Only Trusted Users and Developers can disown packages."
 msgstr ""
 
+#: html/pkgflagcomment.php
+msgid "Flag Comment"
+msgstr ""
+
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr ""
@@ -938,11 +942,19 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
-msgid "Comment has been deleted."
+msgid "You are not allowed to undelete this comment."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been undeleted."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been deleted."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
@@ -1211,6 +1223,25 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: template/flag_comment.php
+#, php-format
+msgid "Flagged Out-of-Date Comment: %s"
+msgstr ""
+
+#: template/flag_comment.php
+#, php-format
+msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
+msgstr ""
+
+#: template/flag_comment.php
+#, php-format
+msgid "%s%s%s is not flagged out-of-date."
+msgstr ""
+
+#: template/flag_comment.php
+msgid "Return to Details"
+msgstr ""
+
 #: template/footer.php
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
@@ -1245,7 +1276,8 @@ msgid "Search wiki"
 msgstr ""
 
 #: template/pkgbase_actions.php
-msgid "Flagged out-of-date"
+#, php-format
+msgid "Flagged out-of-date (%s)"
 msgstr ""
 
 #: template/pkgbase_actions.php
@@ -1379,7 +1411,21 @@ msgstr ""
 
 #: template/pkg_comments.php
 #, php-format
-msgid "last edited on %s by %s"
+msgid "deleted on %s"
+msgstr ""
+
+#: template/pkg_comments.php
+#, php-format
+msgid "edited on %s by %s"
+msgstr ""
+
+#: template/pkg_comments.php
+#, php-format
+msgid "edited on %s"
+msgstr ""
+
+#: template/pkg_comments.php
+msgid "Undelete comment"
 msgstr ""
 
 #: template/pkg_comments.php
@@ -1738,6 +1784,10 @@ msgstr ""
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
+msgstr ""
+
+#: template/stats/updates_table.php
+msgid "more"
 msgstr ""
 
 #: template/stats/user_table.php
