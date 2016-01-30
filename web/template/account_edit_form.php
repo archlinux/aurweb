@@ -69,7 +69,7 @@
 
 		<p>
 			<label for="id_email"><?= __("Email Address") ?>:</label>
-			<input type="text" size="30" maxlength="256" name="E" id="id_email" value="<?= htmlspecialchars($E,ENT_QUOTES) ?>" /> (<?= __("required") ?>)
+			<input type="text" size="30" maxlength="254" name="E" id="id_email" value="<?= htmlspecialchars($E,ENT_QUOTES) ?>" /> (<?= __("required") ?>)
 		</p>
 
 		<p>
