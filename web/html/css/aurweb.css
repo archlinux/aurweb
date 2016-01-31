@@ -16,10 +16,6 @@
     margin: 0 .25em;
 }
 
-#pkg-updates td.pkg-new {
-  padding: 0 .5em;
-}
-
 #pkg-stats td.stat-desc {
   white-space: normal;
 }
@@ -43,10 +39,6 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-}
-
-#pkg-updates td.pkg-new {
-	width: 16px;
 }
 
 #pkg-updates td.pkg-date {

@@ -11,7 +11,7 @@ function updates_table() {
 	$dbh = DB::connect();
 	$key = 'recent_updates';
 	if(!($newest_packages = get_cache_value($key))) {
-		$q = 'SELECT Packages.Name, Version, ModifiedTS, SubmittedTS ';
+		$q = 'SELECT Packages.Name, Version, ModifiedTS ';
 		$q.= 'FROM Packages INNER JOIN PackageBases ON ';
 		$q.= 'Packages.PackageBaseID = PackageBases.ID ';
 		$q.= 'WHERE PackageBases.PackagerUID IS NOT NULL ';
