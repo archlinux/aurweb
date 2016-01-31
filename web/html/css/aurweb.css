@@ -112,13 +112,13 @@
 	top: 1px;
 }
 
-.delete-comment, .undelete-comment, .edit-comment, .pin-comment {
+.rss-icon, .delete-comment, .undelete-comment, .edit-comment, .pin-comment {
 	-webkit-filter: grayscale(100%);
 	filter: grayscale(100%);
 	opacity: 0.6;
 }
 
-.delete-comment:hover, .undelete-comment:hover, .edit-comment:hover, .pin-comment:hover {
+.rss-icon:hover, .delete-comment:hover, .undelete-comment:hover, .edit-comment:hover, .pin-comment:hover {
 	-webkit-filter: none;
 	filter: none;
 	opacity: 1;
