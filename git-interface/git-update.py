@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from copy import copy, deepcopy
 import configparser
 import mysql.connector
 import os
@@ -22,6 +21,7 @@ aur_db_socket = config.get('database', 'socket')
 repo_path = config.get('serve', 'repo-path')
 repo_regex = config.get('serve', 'repo-regex')
 
+
 def extract_arch_fields(pkginfo, field):
     values = []
 
@@ -36,6 +36,7 @@ def extract_arch_fields(pkginfo, field):
 
     return values
 
+
 def parse_dep(depstring):
     dep, _, desc = depstring.partition(': ')
     depname = re.sub(r'(<|=|>).*', '', dep)
@@ -45,6 +46,7 @@ def parse_dep(depstring):
         return (depname + ': ' + desc, depcond)
     else:
         return (depname, depcond)
+
 
 def save_srcinfo(srcinfo, db, cur, user):
     # Obtain package base ID and previous maintainer.
@@ -72,13 +74,14 @@ def save_srcinfo(srcinfo, db, cur, user):
         pkginfo = srcinfo.GetMergedPackage(pkgname)
 
         if 'epoch' in pkginfo and int(pkginfo['epoch']) > 0:
-            ver = '{:d}:{:s}-{:s}'.format(int(pkginfo['epoch']), pkginfo['pkgver'],
+            ver = '{:d}:{:s}-{:s}'.format(int(pkginfo['epoch']),
+                                          pkginfo['pkgver'],
                                           pkginfo['pkgrel'])
         else:
             ver = '{:s}-{:s}'.format(pkginfo['pkgver'], pkginfo['pkgrel'])
 
         for field in ('pkgdesc', 'url'):
-            if not field in pkginfo:
+            if field not in pkginfo:
                 pkginfo[field] = None
 
         # Create a new package.
@@ -165,12 +168,15 @@ def save_srcinfo(srcinfo, db, cur, user):
 
     db.commit()
 
+
 def die(msg):
     sys.stderr.write("error: {:s}\n".format(msg))
     exit(1)
 
+
 def warn(msg):
     sys.stderr.write("warning: {:s}\n".format(msg))
+
 
 def die_commit(msg, commit):
     sys.stderr.write("error: The following error " +
@@ -178,6 +184,7 @@ def die_commit(msg, commit):
     sys.stderr.write("error: {:s}:\n".format(commit))
     sys.stderr.write("error: {:s}\n".format(msg))
     exit(1)
+
 
 repo = pygit2.Repository(repo_path)
 
@@ -207,7 +214,7 @@ cur = db.cursor()
 if sha1_old != "0000000000000000000000000000000000000000":
     walker = repo.walk(sha1_old, pygit2.GIT_SORT_TOPOLOGICAL)
     walker.hide(sha1_new)
-    if next(walker, None) != None:
+    if next(walker, None) is not None:
         cur.execute("SELECT AccountTypeID FROM Users WHERE UserName = %s ",
                     [user])
         if cur.fetchone()[0] == 1:
@@ -221,7 +228,7 @@ if sha1_old != "0000000000000000000000000000000000000000":
 # Validate all new commits.
 for commit in walker:
     for fname in ('.SRCINFO', 'PKGBUILD'):
-        if not fname in commit.tree:
+        if fname not in commit.tree:
             die_commit("missing {:s}".format(fname), str(commit.id))
 
     for treeobj in commit.tree:
@@ -232,7 +239,8 @@ for commit in walker:
                        str(commit.id))
 
         if not isinstance(blob, pygit2.Blob):
-            die_commit("not a blob object: {:s}".format(treeobj), str(commit.id))
+            die_commit("not a blob object: {:s}".format(treeobj),
+                       str(commit.id))
 
         if blob.size > 250000:
             die_commit("maximum blob size (250kB) exceeded", str(commit.id))
@@ -252,17 +260,20 @@ for commit in walker:
 
     srcinfo_pkgbase = srcinfo._pkgbase['pkgname']
     if not re.match(repo_regex, srcinfo_pkgbase):
-        die_commit('invalid pkgbase: {:s}'.format(srcinfo_pkgbase), str(commit.id))
+        die_commit('invalid pkgbase: {:s}'.format(srcinfo_pkgbase),
+                   str(commit.id))
 
     for pkgname in srcinfo.GetPackageNames():
         pkginfo = srcinfo.GetMergedPackage(pkgname)
 
         for field in ('pkgver', 'pkgrel', 'pkgname'):
-            if not field in pkginfo:
-                die_commit('missing mandatory field: {:s}'.format(field), str(commit.id))
+            if field not in pkginfo:
+                die_commit('missing mandatory field: {:s}'.format(field),
+                           str(commit.id))
 
         if 'epoch' in pkginfo and not pkginfo['epoch'].isdigit():
-            die_commit('invalid epoch: {:s}'.format(pkginfo['epoch']), str(commit.id))
+            die_commit('invalid epoch: {:s}'.format(pkginfo['epoch']),
+                       str(commit.id))
 
         if not re.match(r'[a-z0-9][a-z0-9\.+_-]*$', pkginfo['pkgname']):
             die_commit('invalid package name: {:s}'.format(pkginfo['pkgname']),
@@ -282,8 +293,10 @@ for commit in walker:
             fname = field['value']
             if "://" in fname or "lp:" in fname:
                 continue
-            if not fname in commit.tree:
-                die_commit('missing source file: {:s}'.format(fname), str(commit.id))
+            if fname not in commit.tree:
+                die_commit('missing source file: {:s}'.format(fname),
+                           str(commit.id))
+
 
 # Display a warning if .SRCINFO is unchanged.
 if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):

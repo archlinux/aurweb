@@ -39,7 +39,7 @@ ssh_opts = config.get('auth', 'ssh-options')
 
 keytype = sys.argv[1]
 keytext = sys.argv[2]
-if not keytype in valid_keytypes:
+if keytype not in valid_keytypes:
     exit(1)
 
 db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,

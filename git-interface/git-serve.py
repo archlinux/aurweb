@@ -25,6 +25,7 @@ ssh_cmdline = config.get('serve', 'ssh-cmdline')
 enable_maintenance = config.getboolean('options', 'enable-maintenance')
 maintenance_exc = config.get('options', 'maintenance-exceptions').split()
 
+
 def pkgbase_from_name(pkgbase):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
@@ -36,8 +37,10 @@ def pkgbase_from_name(pkgbase):
     row = cur.fetchone()
     return row[0] if row else None
 
+
 def pkgbase_exists(pkgbase):
     return pkgbase_from_name(pkgbase) is not None
+
 
 def list_repos(user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
@@ -55,6 +58,7 @@ def list_repos(user):
     for row in cur:
         print((' ' if row[1] else '*') + row[0])
     db.close()
+
 
 def create_pkgbase(pkgbase, user):
     if not re.match(repo_regex, pkgbase):
@@ -83,6 +87,7 @@ def create_pkgbase(pkgbase, user):
     db.commit()
     db.close()
 
+
 def pkgbase_config_keywords(pkgbase, keywords):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
@@ -102,6 +107,7 @@ def pkgbase_config_keywords(pkgbase, keywords):
     db.commit()
     db.close()
 
+
 def check_permissions(pkgbase, user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
@@ -120,12 +126,15 @@ def check_permissions(pkgbase, user):
                 "WHERE Name = %s AND Username = %s", [pkgbase, user])
     return cur.fetchone()[0] > 0
 
+
 def die(msg):
     sys.stderr.write("{:s}\n".format(msg))
     exit(1)
 
+
 def die_with_help(msg):
     die(msg + "\nTry `{:s} help` for a list of commands.".format(ssh_cmdline))
+
 
 user = os.environ.get("AUR_USER")
 cmd = os.environ.get("SSH_ORIGINAL_COMMAND")
@@ -136,7 +145,7 @@ action = cmdargv[0]
 
 if enable_maintenance:
     remote_addr = os.environ["SSH_CLIENT"].split(" ")[0]
-    if not remote_addr in maintenance_exc:
+    if remote_addr not in maintenance_exc:
         die("The AUR is down due to maintenance. We will be back soon.")
 
 if action == 'git-upload-pack' or action == 'git-receive-pack':
