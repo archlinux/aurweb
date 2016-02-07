@@ -36,7 +36,7 @@ UPDATE PackageComments SET DelTS = EditedTS WHERE DelUsersID IS NOT NULL;
 ALTER TABLE PackageRequests ADD COLUMN ClosureComment TEXT NOT NULL DEFAULT '';
 ----
 
-4. Change FlaggerComment from varchar to text.
+6. Change FlaggerComment from VARCHAR to TEXT:
 
 ----
 ALTER TABLE PackageBases MODIFY COLUMN FlaggerComment TEXT NOT NULL DEFAULT '';
