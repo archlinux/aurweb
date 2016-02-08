@@ -88,7 +88,7 @@ def create_pkgbase(pkgbase, user):
     db.close()
 
 
-def pkgbase_config_keywords(pkgbase, keywords):
+def pkgbase_set_keywords(pkgbase, keywords):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
         die('{:s}: package base not found: {:s}'.format(action, pkgbase))
@@ -173,17 +173,10 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
     os.environ["GIT_NAMESPACE"] = pkgbase
     cmd = action + " '" + repo_path + "'"
     os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
-elif action == 'config':
+elif action == 'set-keywords':
     if len(cmdargv) < 2:
         die_with_help("{:s}: missing repository name".format(action))
-    if len(cmdargv) < 3:
-        die_with_help("{:s}: missing option name".format(action))
-    pkgbase = cmdargv[1]
-    option = cmdargv[2]
-
-    if option == 'keywords':
-        pkgbase_config_keywords(pkgbase, cmdargv[3:])
-
+    pkgbase_set_keywords(cmdargv[1], cmdargv[2:])
 elif action == 'list-repos':
     if len(cmdargv) > 1:
         die_with_help("{:s}: too many arguments".format(action))
@@ -213,12 +206,12 @@ elif action == 'restore':
     os.execl(git_update_cmd, git_update_cmd, 'restore')
 elif action == 'help':
     die("Commands:\n" +
-        "  config <name> <param>... Change package base settings.\n" +
-        "  help                     Show this help message and exit.\n" +
-        "  list-repos               List all your repositories.\n" +
-        "  restore <name>           Restore a deleted package base.\n" +
-        "  setup-repo <name>        Create an empty repository.\n" +
-        "  git-receive-pack         Internal command used with Git.\n" +
-        "  git-upload-pack          Internal command used with Git.")
+        "  help                         Show this help message and exit.\n" +
+        "  list-repos                   List all your repositories.\n" +
+        "  restore <name>               Restore a deleted package base.\n" +
+        "  set-keywords <name> [...]    Change package base keywords.\n" +
+        "  setup-repo <name>            Create an empty repository.\n" +
+        "  git-receive-pack             Internal command used with Git.\n" +
+        "  git-upload-pack              Internal command used with Git.")
 else:
     die_with_help("invalid command: {:s}".format(action))
