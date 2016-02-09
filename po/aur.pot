@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v4.1.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-01-28 23:03+0100\n"
+"POT-Creation-Date: 2016-02-09 21:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1168,6 +1168,18 @@ msgstr ""
 msgid "SSH Public Key"
 msgstr ""
 
+#: template/account_edit_form.php
+msgid "Notification settings"
+msgstr ""
+
+#: template/account_edit_form.php template/pkgbase_actions.php
+msgid "Notify of new comments"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Notify of package updates"
+msgstr ""
+
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
 msgid "Update"
@@ -1298,10 +1310,6 @@ msgstr ""
 
 #: template/pkgbase_actions.php
 msgid "Disable notifications"
-msgstr ""
-
-#: template/pkgbase_actions.php
-msgid "Notify of new comments"
 msgstr ""
 
 #: template/pkgbase_actions.php
