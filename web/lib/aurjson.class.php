@@ -175,10 +175,11 @@ class AurJSON {
 	 * Get extended package details (for info and multiinfo queries).
 	 *
 	 * @param $pkgid The ID of the package to retrieve details for.
+	 * @param $base_id The ID of the package base to retrieve details for.
 	 *
 	 * @return array An array containing package details.
 	 */
-	private function get_extended_fields($pkgid) {
+	private function get_extended_fields($pkgid, $base_id) {
 		$query = "SELECT DependencyTypes.Name AS Type, " .
 			"PackageDepends.DepName AS Name, " .
 			"PackageDepends.DepCondition AS Cond " .
@@ -222,6 +223,19 @@ class AurJSON {
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$type = $type_map[$row['Type']];
 			$data[$type][] = $row['Name'] . $row['Cond'];
+		}
+
+		if ($this->version >= 5) {
+			$query = "SELECT Keyword FROM PackageKeywords " .
+				"WHERE PackageBaseID = " . intval($base_id) . " " .
+				"ORDER BY Keyword ASC";
+			$result = $this->dbh->query($query);
+
+			if (!$result) {
+				return null;
+			}
+
+			$data['Keywords'] = $result->fetchAll(PDO::FETCH_COLUMN, 0);
 		}
 
 		return $data;
@@ -300,7 +314,7 @@ class AurJSON {
 				}
 
 				if ($this->version >= 2 && ($type == 'info' || $type == 'multiinfo')) {
-					$row = array_merge($row, $this->get_extended_fields($row['ID']));
+					$row = array_merge($row, $this->get_extended_fields($row['ID'], $row['PackageBaseID']));
 				}
 
 				if ($this->version < 3) {
