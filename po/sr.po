@@ -1,1277 +1,1071 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AUR package.
-# 
+#
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Slobodan Terzić <githzerai06@gmail.com>, 2011-2012,2015
+# Slobodan Terzić <githzerai06@gmail.com>, 2011-2012,2015-2016
 # Slobodan Terzić <githzerai06@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2015-09-26 07:44+0200\n"
-"PO-Revision-Date: 2015-09-26 12:23+0000\n"
+"POT-Creation-Date: 2016-02-09 21:58+0100\n"
+"PO-Revision-Date: 2016-02-11 01:46+0000\n"
 "Last-Translator: Slobodan Terzić <githzerai06@gmail.com>\n"
-"Language-Team: Serbian (http://www.transifex.com/lfleischer/aur/language/sr/)\n"
+"Language-Team: Serbian (http://www.transifex.com/lfleischer/aur/language/"
+"sr/)\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sr\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: html/404.php
 msgid "Page Not Found"
 msgstr "Stranica nije nađena"
 
-#: html/404.php
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Stranica koju ste zahtevali ne postoji."
 
-#: html/503.php
 msgid "Service Unavailable"
 msgstr "Servis nije dostupan"
 
-#: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "Ne paničite! Sajt je van mreže usled održavanja. Povratak se očekuje uskoro."
+msgstr ""
+"Ne paničite! Sajt je van mreže usled održavanja. Povratak se očekuje uskoro."
 
-#: html/account.php
 msgid "Account"
 msgstr "Nalog"
 
-#: html/account.php template/header.php
 msgid "Accounts"
 msgstr "Nalozi"
 
-#: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
 msgstr "Nije vam dozvoljen pristup ovoj oblasti."
 
-#: html/account.php
 msgid "Could not retrieve information for the specified user."
 msgstr "Ne mogu da dobavim podatke o izabranom korisniku."
 
-#: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "Nemate dozvole za uređivanje ovog naloga."
 
-#: html/account.php
 msgid "Use this form to search existing accounts."
 msgstr "Ovim obrascem pretražujete postojeće naloge."
 
-#: html/account.php
 msgid "You must log in to view user information."
 msgstr "Morate se prijaviti da bi videli podatke o korisniku."
 
-#: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
 msgstr "Dodavanje predloga"
 
-#: html/addvote.php
 msgid "Invalid token for user action."
 msgstr "Neispravan token korisničke radnje."
 
-#: html/addvote.php
 msgid "Username does not exist."
 msgstr "Korisničko ime ne postoji."
 
-#: html/addvote.php
 #, php-format
 msgid "%s already has proposal running for them."
 msgstr "Predlog za %s već postoji."
 
-#: html/addvote.php
 msgid "Invalid type."
 msgstr "Nedozvoljen tip."
 
-#: html/addvote.php
 msgid "Proposal cannot be empty."
 msgstr "Predlog ne može biti prazan."
 
-#: html/addvote.php
 msgid "New proposal submitted."
 msgstr "Novi predlog je poslat."
 
-#: html/addvote.php
 msgid "Submit a proposal to vote on."
 msgstr "Pošaljite predlog za glasanje."
 
-#: html/addvote.php
 msgid "Applicant/TU"
 msgstr "Podnosioc/TU"
 
-#: html/addvote.php
 msgid "(empty if not applicable)"
 msgstr "(prazno ako je nevažeće)"
 
-#: html/addvote.php template/account_search_results.php
-#: template/pkgreq_results.php
 msgid "Type"
 msgstr "Vrsta"
 
-#: html/addvote.php
 msgid "Addition of a TU"
 msgstr "Dodavanje TU"
 
-#: html/addvote.php
 msgid "Removal of a TU"
 msgstr "Uklanjanje TU"
 
-#: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
 msgstr "Uklanjanje TU (nedeklarisana neaktivnost)"
 
-#: html/addvote.php
 msgid "Amendment of Bylaws"
 msgstr "Dopuna o podzakonskim aktima"
 
-#: html/addvote.php template/tu_list.php
 msgid "Proposal"
 msgstr "Predlog"
 
-#: html/addvote.php
 msgid "Submit"
 msgstr "Slanje"
 
-#: html/comaintainers.php
 msgid "Manage Co-maintainers"
 msgstr "Upravljanje koodržavaocima"
 
-#: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
 msgstr "Uređivanje komentara"
 
-#: html/home.php template/header.php
 msgid "Home"
 msgstr "Početna"
 
-#: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "Dobrodošli u AUR! Molimo pročitajte %sSmernice za korisnike AUR-a%s i %sSmernice za poverljive korinike%s za više informacija."
+msgstr ""
+"Dobrodošli u AUR! Molimo pročitajte %sSmernice za korisnike AUR-a%s i "
+"%sSmernice za poverljive korinike%s za više informacija."
 
-#: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "Priloženi PKGBUILD-ovi %smoraju%s biti u skladu sa %sArčovim standardima pakiranja%s ili će biti obrisani!"
+msgstr ""
+"Priloženi PKGBUILD-ovi %smoraju%s biti u skladu sa %sArčovim standardima "
+"pakiranja%s ili će biti obrisani!"
 
-#: html/home.php
 msgid "Remember to vote for your favourite packages!"
 msgstr "Ne zaboravite da glasate za omiljene pakete!"
 
-#: html/home.php
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Neki paketi se dostavljaju u binarnom obliku u riznici [community]."
 
-#: html/home.php
 msgid "DISCLAIMER"
 msgstr "UPOZORENJE"
 
-#: html/home.php template/footer.php
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "Paketi u AUR-u su sadržaj koji stvaraju korisnici. Upotrebljavate ih na sopstvenu odgovornost."
+msgstr ""
+"Paketi u AUR-u su sadržaj koji stvaraju korisnici. Upotrebljavate ih na "
+"sopstvenu odgovornost."
 
-#: html/home.php
 msgid "Learn more..."
 msgstr "Saznajte više..."
 
-#: html/home.php
 msgid "Support"
 msgstr "Podrška"
 
-#: html/home.php
 msgid "Package Requests"
 msgstr "Zahtevi za pakete"
 
-#: html/home.php
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage "
-"Actions%s box on the package details page:"
-msgstr "Postoje tri vrste zahteva koji mogu biti podneti kroz kućicu %sRadnje nad paketima%s na stranici sa detaljima o paketu:"
+"There are three types of requests that can be filed in the %sPackage Actions"
+"%s box on the package details page:"
+msgstr ""
+"Postoje tri vrste zahteva koji mogu biti podneti kroz kućicu %sRadnje nad "
+"paketima%s na stranici sa detaljima o paketu:"
 
-#: html/home.php
 msgid "Orphan Request"
 msgstr "Zahtevi za odricanje"
 
-#: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "zahtev za odricanje od paketa, npr. kada je održavalac neaktivan a paket je predugo označen kao zastareo."
+msgstr ""
+"zahtev za odricanje od paketa, npr. kada je održavalac neaktivan a paket je "
+"predugo označen kao zastareo."
 
-#: html/home.php
 msgid "Deletion Request"
 msgstr "Zahtevi za brisanje"
 
-#: html/home.php
 msgid ""
-"Request a package to be removed from the Arch User Repository. Please do not"
-" use this if a package is broken and can be fixed easily. Instead, contact "
+"Request a package to be removed from the Arch User Repository. Please do not "
+"use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
-msgstr "zahtev za brisanje paketa iz Arčove Korisničke Riznice. Ne koristite ovo ako je paket polomljen i može se lako ispraviti. Umesto toga, kontaktirajte održavaoca paketa i podnesite zahtev za odricanje ukoliko je potreban."
+msgstr ""
+"zahtev za brisanje paketa iz Arčove Korisničke Riznice. Ne koristite ovo ako "
+"je paket polomljen i može se lako ispraviti. Umesto toga, kontaktirajte "
+"održavaoca paketa i podnesite zahtev za odricanje ukoliko je potreban."
 
-#: html/home.php
 msgid "Merge Request"
 msgstr "Zahtevi za spajanje"
 
-#: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr "tahtev za spajanje paketa sa drugim paketom. Koristi se kada je paketu potrebno novo ime ili ga je potrebno razdeliti ma manje pakete."
+msgstr ""
+"zahtev za spajanje paketa sa drugim paketom. Koristi se kada je paketu "
+"potrebno novo ime ili ga je potrebno razdeliti ma manje pakete."
 
-#: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "Ukoliko želite da diskutujete o zahtevu, možete koristiti dopisnu listu %saur-requests%s. Međutim, molimo da ne koristite tu listu za podnošenje zahteva."
+msgstr ""
+"Ukoliko želite da diskutujete o zahtevu, možete koristiti dopisnu listu "
+"%saur-requests%s. Međutim, molimo da ne koristite tu listu za podnošenje "
+"zahteva."
 
-#: html/home.php
 msgid "Submitting Packages"
 msgstr "Prilaganje paketa"
 
-#: html/home.php
 #, php-format
 msgid ""
-"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
-" packages%s section of the Arch User Repository ArchWiki page for more "
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
+"packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr "Za prilaganje paketa u AUR sada se koristi Git preko SSH. Pogledajte sekciju %sPrilaganje paketa%s na stranici o AUR-u na Arčovom wikiju."
+msgstr ""
+"Za prilaganje paketa u AUR sada se koristi Git preko SSH. Pogledajte sekciju "
+"%sPrilaganje paketa%s na stranici o AUR-u na Arčovom wikiju."
 
-#: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
 msgstr "Sledeći SSH otisci se koriste za AUR:"
 
-#: html/home.php
 msgid "Discussion"
 msgstr "Diskusija"
 
-#: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User"
-" structure takes place on %saur-general%s. For discussion relating to the "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User "
+"structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr "Opšta diskusija vezana za Arčovu Korisničku Riznicu (AUR) i strukturu Poverljivih korisnika se vodi na dopisnoj listi %saur-general%s.Za diskusiju o razvoju samog web sučelja AUR-a, pogedajte dopisnu listu %saur-dev%s."
+msgstr ""
+"Opšta diskusija vezana za Arčovu Korisničku Riznicu (AUR) i strukturu "
+"Poverljivih korisnika se vodi na dopisnoj listi %saur-general%s.Za diskusiju "
+"o razvoju samog web sučelja AUR-a, pogedajte dopisnu listu %saur-dev%s."
 
-#: html/home.php
 msgid "Bug Reporting"
 msgstr "Prijavljivanje grešaka"
 
-#: html/home.php
 #, php-format
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
-"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
-" %sonly%s. To report packaging bugs contact the package maintainer or leave "
-"a comment on the appropriate package page."
-msgstr "Ukoliko nađete grešku u web sučelju AUR-a. molimo da je prijavite na našem %sbubolovcu%s. Bubolovac koristite %sisključivo%s za prjavljivanje grešaka u samom AUR-u. Za prijavu grešaka u samim paketima kontaktirajte održavaoce paketa ili ostavite komentar na odgovarajućoj stranici paketa."
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface "
+"%sonly%s. To report packaging bugs contact the package maintainer or leave a "
+"comment on the appropriate package page."
+msgstr ""
+"Ukoliko nađete grešku u web sučelju AUR-a. molimo da je prijavite na našem "
+"%sbubolovcu%s. Bubolovac koristite %sisključivo%s za prjavljivanje grešaka u "
+"samom AUR-u. Za prijavu grešaka u samim paketima kontaktirajte održavaoce "
+"paketa ili ostavite komentar na odgovarajućoj stranici paketa."
 
-#: html/home.php
 msgid "Package Search"
 msgstr "Pretraga paketa"
 
-#: html/index.php
 msgid "Adopt"
 msgstr "Usvoji"
 
-#: html/index.php
 msgid "Vote"
 msgstr "Daj glas"
 
-#: html/index.php
 msgid "UnVote"
 msgstr "Ukloni glas"
 
-#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
-msgstr "Obaveštavaj"
+msgstr "Obaveštenja"
 
-#: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
 msgstr "Ne obaveštavaj"
 
-#: html/index.php
 msgid "UnFlag"
 msgstr "Odznači"
 
-#: html/login.php template/header.php
 msgid "Login"
 msgstr "Prijava"
 
-#: html/login.php
 #, php-format
 msgid "Logged-in as: %s"
 msgstr "Prijavljeni ste kao: %s"
 
-#: html/login.php template/header.php
 msgid "Logout"
 msgstr "Odjava"
 
-#: html/login.php
 msgid "Enter login credentials"
 msgstr "Unesite podatke za prijavu"
 
-#: html/login.php
 msgid "User name or email address"
 msgstr "Korisničko ime ili adresa e-pošte"
 
-#: html/login.php template/account_edit_form.php
 msgid "Password"
 msgstr "Lozinka"
 
-#: html/login.php
 msgid "Remember me"
 msgstr "Pamti me"
 
-#: html/login.php
 msgid "Forgot Password"
 msgstr "Zaboravljena lozinka"
 
-#: html/login.php
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "Prijavljivanje preko HTTP je isključeno. Koristite %sHTTPs%s da bi se prijavili."
+msgstr ""
+"Prijavljivanje preko HTTP je isključeno. Koristite %sHTTPs%s da bi se "
+"prijavili."
 
-#: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
 msgstr "Kriterijum pretrage"
 
-#: html/packages.php template/header.php template/pkgbase_details.php
-#: template/stats/general_stats_table.php template/stats/user_table.php
 msgid "Packages"
 msgstr "Paketi"
 
-#: html/packages.php
 msgid "Error trying to retrieve package details."
 msgstr "Greška pri dobavljanju detalja paketa."
 
-#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
 msgstr "Nedostaje neophodno polje."
 
-#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
 msgstr "Polja lozinke se ne poklapaju."
 
-#: html/passreset.php lib/acctfuncs.inc.php
 #, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Lozinka mora imati najmanje %s znaka."
 
-#: html/passreset.php
 msgid "Invalid e-mail."
 msgstr "Neispravna e-pošta."
 
-#: html/passreset.php
 msgid "Password Reset"
 msgstr "Resetovanje lozinke"
 
-#: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
 msgstr "Proverite e-poštu za vezu za potvrđivanje."
 
-#: html/passreset.php
 msgid "Your password has been reset successfully."
 msgstr "Vaša lozinka je uspešno resetovana."
 
-#: html/passreset.php
 msgid "Confirm your e-mail address:"
 msgstr "Potvrdite adresu e-pošte:"
 
-#: html/passreset.php
 msgid "Enter your new password:"
 msgstr "Unesite novu lozinku:"
 
-#: html/passreset.php
 msgid "Confirm your new password:"
 msgstr "Potvrdite novu lozinku:"
 
-#: html/passreset.php
 msgid "Continue"
 msgstr "Nastavi"
 
-#: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Ukoliko ste zaboravili registracionu adresu e-pošte, molimo pošaljite poruku na dopisnu listu %saur-general%s."
+"If you have forgotten the e-mail address you used to register, please send a "
+"message to the %saur-general%s mailing list."
+msgstr ""
+"Ukoliko ste zaboravili registracionu adresu e-pošte, molimo pošaljite poruku "
+"na dopisnu listu %saur-general%s."
 
-#: html/passreset.php
 msgid "Enter your e-mail address:"
 msgstr "Unesite adresu e-pošte:"
 
-#: html/pkgbase.php
-msgid "The selected packages have not been flagged, please enter a comment."
-msgstr "Izabrani paketi nisu označeni, molimo unesite komentar."
-
-#: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr "Izabrani paketi nisu odreknuti, pogledajte kućicu za potvrdu."
 
-#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Ne mogu da nađem paket kako bih stopio glasove i komentare."
 
-#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
 msgstr "Ne mogu da spojim osnovu paketa sa samom sobom."
 
-#: html/pkgbase.php
 msgid ""
-"The selected packages have not been deleted, check the confirmation "
-"checkbox."
+"The selected packages have not been deleted, check the confirmation checkbox."
 msgstr "Izabrani paketi nisu obrisani; pogledajte kućicu za potvrđivanje."
 
-#: html/pkgdel.php
 msgid "Package Deletion"
 msgstr "Brisanje paketa"
 
-#: html/pkgdel.php
-#, php-format
-msgid "Delete Package: %s"
-msgstr "Obriši paket: %s"
+msgid "Delete Package"
+msgstr "Obriši paket"
 
-#: html/pkgdel.php
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Ovim formularom brišete osnovu paketa %s%s%s i sledeće pakete iz AUR-a:"
+msgstr ""
+"Ovim formularom brišete osnovu paketa %s%s%s i sledeće pakete iz AUR-a:"
 
-#: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
 msgstr "Brisanje paketa je trajno."
 
-#: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
 msgstr "Označite kućicu za potvrdu."
 
-#: html/pkgdel.php
 msgid "Confirm package deletion"
 msgstr "Potvrdite brisanje paketa"
 
-#: html/pkgdel.php template/account_delete.php
 msgid "Delete"
 msgstr "Obriši"
 
-#: html/pkgdel.php
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Samo Poverljivi korisnici i Programeri mogu brisati pakete."
 
-#: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
 msgstr "Odrekni se paketa"
 
-#: html/pkgdisown.php
-#, php-format
-msgid "Disown Package: %s"
-msgstr "Odricanje paketa: %s"
-
-#: html/pkgdisown.php
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following"
-" packages: "
-msgstr "Ovim formularom se odričete osnove paketa %s%s%s i sledećih pripadajučih pakete:"
+"Use this form to disown the package base %s%s%s which includes the following "
+"packages: "
+msgstr ""
+"Ovim formularom se odričete osnove paketa %s%s%s i sledećih pripadajučih "
+"pakete:"
 
-#: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "Označavanjem kućice potvrđujete odricanje prenos vlasništva paketa na %s%s%s."
+msgstr ""
+"Označavanjem kućice potvrđujete odricanje prenos vlasništva paketa na %s%s%s."
 
-#: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr "Označavanjem kućice potvrđujete da želite da se odreknete od paketa."
 
-#: html/pkgdisown.php
 msgid "Confirm to disown the package"
 msgstr "Potvrdite odricanje od paketa"
 
-#: html/pkgdisown.php
 msgid "Disown"
 msgstr "Odrekni se"
 
-#: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
 msgstr "Samo Poverljivi korisnici i Programeri mogu vršiti odricanje paketa."
 
-#: html/pkgflag.php
+msgid "Flag Comment"
+msgstr "Označi komentar"
+
 msgid "Flag Package Out-Of-Date"
 msgstr "Označi paket kao zastareo"
 
-#: html/pkgflag.php
-#, php-format
-msgid "Flag Package Out-Of-Date: %s"
-msgstr "Označavanje paketa zastarelim: %s"
-
-#: html/pkgflag.php
 #, php-format
 msgid ""
-"Use this form to flag the package base %s%s%s and the following packages "
-"out-of-date: "
-msgstr "Ovim formularom označavate osnovu paketa %s%s%s i sledeće pakete kao zastarele:"
+"Use this form to flag the package base %s%s%s and the following packages out-"
+"of-date: "
+msgstr ""
+"Ovim formularom označavate osnovu paketa %s%s%s i sledeće pakete kao "
+"zastarele:"
 
-#: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr "Molimo da ovim formularom %sNE%s prijavljujete greške. Umesto toga koristite komentare o paketu."
+msgstr ""
+"Molimo da ovim formularom %sNE%s prijavljujete greške. Umesto toga koristite "
+"komentare o paketu."
 
-#: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "Ispod unesite razloge zbog kojih je paket zastareo, poželjno i veze ka objavi novog izdanja ili izvornom kodu nove verzije."
+msgstr ""
+"Ispod unesite razloge zbog kojih je paket zastareo, poželjno i veze ka "
+"objavi novog izdanja ili izvornom kodu nove verzije."
 
-#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
-#: template/pkgreq_results.php
 msgid "Comments"
 msgstr "Komentari"
 
-#: html/pkgflag.php
 msgid "Flag"
 msgstr "Označi"
 
-#: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
 msgstr "Samo registrovani korisnici mogu označavati pakete zastarelim."
 
-#: html/pkgmerge.php
 msgid "Package Merging"
 msgstr "Spajanje paketa"
 
-#: html/pkgmerge.php
-#, php-format
-msgid "Merge Package: %s"
-msgstr "Spajanje paketa: %s"
+msgid "Merge Package"
+msgstr "Spoji paket"
 
-#: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr "Ovim formularom spajate osnovu paketa %s%s%s sa drugim paketom."
 
-#: html/pkgmerge.php
 msgid "The following packages will be deleted: "
 msgstr "Sledeći paketi će biti obrisani:"
 
-#: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Kada se jednom spoje, paketi ne mogu više biti razdvojeni."
 
-#: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
 msgstr "Unesite ime paketa sa kojim želite da spojite ovaj paket."
 
-#: html/pkgmerge.php
 msgid "Merge into:"
 msgstr "Spoji sa:"
 
-#: html/pkgmerge.php
 msgid "Confirm package merge"
 msgstr "Potvrdite spajanje"
 
-#: html/pkgmerge.php template/pkgreq_form.php
 msgid "Merge"
 msgstr "Spoji"
 
-#: html/pkgmerge.php
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Samo Poverljivi korisnici i Programeri mogu da spajaju pakete."
 
-#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
-msgid "File Request"
+msgid "Submit Request"
 msgstr "Podnesi zahtev"
 
-#: html/pkgreq.php template/pkgreq_close_form.php
 msgid "Close Request"
 msgstr "Zatvori zahtev"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Prva"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Prethodna"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Sledeća"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Zadnja"
 
-#: html/pkgreq.php template/header.php
 msgid "Requests"
 msgstr "Zahtevi"
 
-#: html/register.php template/header.php
 msgid "Register"
 msgstr "Registracija"
 
-#: html/register.php
 msgid "Use this form to create an account."
 msgstr "Ovim formularom pravite nalog."
 
-#: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
 msgstr "Poverljivi korisnik"
 
-#: html/tu.php
 msgid "Could not retrieve proposal details."
 msgstr "Ne mogu da dobavim detalje o predlogu."
 
-#: html/tu.php
 msgid "Voting is closed for this proposal."
 msgstr "Glasanje o ovom predlogu je završeno."
 
-#: html/tu.php
 msgid "Only Trusted Users are allowed to vote."
 msgstr "Samo poverljivi korisnici mogu da glasaju."
 
-#: html/tu.php
 msgid "You cannot vote in an proposal about you."
 msgstr "Ne možete glasati za predlog koji se odnosi na vas."
 
-#: html/tu.php
 msgid "You've already voted for this proposal."
 msgstr "Već ste glasali za ovaj predlog."
 
-#: html/tu.php
 msgid "Vote ID not valid."
 msgstr "Neispravan ID glasa."
 
-#: html/tu.php template/tu_list.php
 msgid "Current Votes"
 msgstr "Trenutno glasova"
 
-#: html/tu.php
 msgid "Past Votes"
 msgstr "Prethodni glasovi"
 
-#: html/voters.php template/tu_details.php
 msgid "Voters"
 msgstr "Glasači"
 
-#: lib/acctfuncs.inc.php
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Registrovanje naloga sa vaše IP adrese je onemogućeno, najverovatnije usled napada spama. Oprostite na neprijatnosti."
+msgstr ""
+"Registrovanje naloga sa vaše IP adrese je onemogućeno, najverovatnije usled "
+"napada spama. Oprostite na neprijatnosti."
 
-#: lib/acctfuncs.inc.php
 msgid "Missing User ID"
 msgstr "Nedostaje ID korisnika"
 
-#: lib/acctfuncs.inc.php
 msgid "The username is invalid."
 msgstr "Neispravno korisničko ime."
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Mora imati između %s i %s znakova."
 
-#: lib/acctfuncs.inc.php
 msgid "Start and end with a letter or number"
 msgstr "Počnje i završava slovom ili brojem"
 
-#: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Može sadržati samo jedan razmak, podvlaku ili crticu."
 
-#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "Neispravna adresa e-pošte."
 
-#: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
 msgstr "Otisak PGP ključa nije ispravan."
 
-#: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
 msgstr "Neispravan javni SSH ključ."
 
-#: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
 msgstr "Ne mogu da uvećam dozvole naloga."
 
-#: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
 msgstr "Jezik trenutno nije podržan."
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Korisničko ime %s%s%s je već u upotrebi."
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Adresa %s%s%s je već u upotrebi."
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Javni SSH ključ %s%s%s je već u upotrebi."
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
 msgstr "Greška pri pravljenju naloga %s%s%s."
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Nalog %s%s%s je uspešno napravljen."
 
-#: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Ključ za resetovanje lozinke je poslat na vašu adresu e-pošte."
 
-#: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
 msgstr "Kliknite iznad na vezu Prijava da bi koristili svoj nalog."
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
 msgstr "Nisu izvršene nikakve izmene naloga %s%s%s."
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Nalog %s%s%s je uspešno izmenjen."
 
-#: lib/acctfuncs.inc.php
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Formular za prijavljivanje je trenutno onemogućen za vašu IP adresu, najverovatnije usled napada spama. Oprostite na neprijatnosti."
+msgstr ""
+"Formular za prijavljivanje je trenutno onemogućen za vašu IP adresu, "
+"najverovatnije usled napada spama. Oprostite na neprijatnosti."
 
-#: lib/acctfuncs.inc.php
 msgid "Account suspended"
 msgstr "Nalog je suspendovan"
 
-#: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "Vaša lozinka je resetovana. Ukoliko ste tek napravili nov nalog, molimo upotrebite vezu iz e-pisma za potvrdu kako bi postavili početnu lozinku. U suprotnom, zatražite resetovajne ključa putem stranice %sResetovanje lozinke%s."
+msgstr ""
+"Vaša lozinka je resetovana. Ukoliko ste tek napravili nov nalog, molimo "
+"upotrebite vezu iz e-pisma za potvrdu kako bi postavili početnu lozinku. U "
+"suprotnom, zatražite resetovajne ključa putem stranice %sResetovanje lozinke"
+"%s."
 
-#: lib/acctfuncs.inc.php
 msgid "Bad username or password."
 msgstr "Loše korisničko ime ili lozinka."
 
-#: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
 msgstr "Došlo je do greške pri pravljenju korisničke sesije."
 
-#: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
 msgstr "Neispravna kombinacija e-pošte i ključa za resetovanje."
 
-#: lib/aur.inc.php template/pkg_details.php
 msgid "None"
 msgstr "Nema"
 
-#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
 msgstr "Prikaži podatke o nalogu za %s"
 
-#: lib/aurjson.class.php
 msgid "Package base ID or package base name missing."
 msgstr "Nedostaje ID ili ime baze paketa."
 
-#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
 msgstr "Nemate dozvolu za uređivanje ovog komentara."
 
-#: lib/aurjson.class.php
 msgid "Comment does not exist."
 msgstr "Komentar ne postoji."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "Comment cannot be empty."
 msgstr "Komentar ne sme biti prazan."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been added."
 msgstr "Komentar je dodat."
 
-#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
+msgid "You must be logged in before you can edit package information."
+msgstr "Morate se prijaviti da bi ste uređivali podatke o paketu."
+
+msgid "Missing comment ID."
+msgstr "Nedostaje ID komentara."
+
+msgid "No more than 5 comments can be pinned."
+msgstr "Ne može se izdvojiti više od 5 komentara."
+
+msgid "You are not allowed to pin this comment."
+msgstr "Nemate dozvole za izdvajanje ovog komentara."
+
+msgid "You are not allowed to unpin this comment."
+msgstr "Nemate dozvole da odvajanje ovog komentara."
+
+msgid "Comment has been pinned."
+msgstr "Komentar je izdvojen."
+
+msgid "Comment has been unpinned."
+msgstr "Komentar je odvojen."
+
 msgid "Error retrieving package details."
 msgstr "Greška pri dobavaljanju podataka o paketu."
 
-#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
 msgstr "Ne mogu naći podatke o paketu."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Morate se prijaviti pre označavanja paketa."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
 msgstr "Niste izabrali pakete za označavanje."
 
-#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have not been flagged, please enter a comment."
+msgstr "Izabrani paketi nisu označeni, molimo unesite komentar."
+
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Izabrani paketi su označeni kao zastareli."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
 msgstr "Morate se prijaviti da bi uklonili oznake."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
 msgstr "Niste izabrali paket za uklanjanje oznake."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
 msgstr "Označenim paketima je uklonjena oznaka."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
 msgstr "Nemate dozvole za brisanje paketa."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
 msgstr "Niste izabrali pakete za brisanje."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Izbrani paketi su obrisani."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
 msgstr "Morate se prijaviti da bi usvojili pakete."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Morate se prijaviti da bi ste se odrekli paketa."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
 msgstr "Niste izabrali paketa za usvajanje."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
 msgstr "Niste izabrali pakete kojih bi da se odreknete."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
 msgstr "Izabrani paketi su usvojeni."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
 msgstr "Odrekli ste se izabranog paketa."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
 msgstr "Morate se prijaviti da bi glasali za pakete."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
 msgstr "Morate se prijaviti da bi uklonili glasove za pakete."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
 msgstr "Niste izabrali pakete za koje glasate."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
 msgstr "Vaši glasovi su uklonjeni za izabrane paketa."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
 msgstr "Dali ste glas izabranim paketima."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
 msgstr "Ne mogu da dodam na spisak za obaveštenja."
 
-#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
 msgstr "Dodati ste na spisak za obaveštenja o %s."
 
-#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Uklonjeni ste sa spiska obaveštavanja o komentarima za %s."
 
-#: lib/pkgbasefuncs.inc.php
-msgid "You must be logged in before you can edit package information."
-msgstr "Morate se prijaviti da bi ste uređivali podatke o paketu."
+msgid "You are not allowed to undelete this comment."
+msgstr "Nemate dozvole za povraćaj ovog komentara."
 
-#: lib/pkgbasefuncs.inc.php
-msgid "Missing comment ID."
-msgstr "Nedostaje ID komentara."
+msgid "Comment has been undeleted."
+msgstr "Komentar je povraćen."
 
-#: lib/pkgbasefuncs.inc.php
-msgid "Comment has been deleted."
-msgstr "Komentar je obrisan."
-
-#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
 msgstr "Nije vam dozvoljeno brisanje ovog komentara."
 
-#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been deleted."
+msgstr "Komentar je obrisan."
+
 msgid "Comment has been edited."
 msgstr "Komentar je uređen."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr "Nije vam dozvoljeno da uređujete ključne reči za ovu osnovu paketa."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
 msgstr "Ključne reči baze paketa su ažurirane."
 
-#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Nije vam dozvvoljeno da upravljate koodržavaocima ove osnove paketa."
 
-#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "Invalid user name: %s"
 msgstr "Neispravno korisničko ime: %s"
 
-#: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
 msgstr "Koodržavaoci osnove baze paketa su ažurirani."
 
-#: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
 msgstr "Prikaži detalje paketa za"
 
-#: lib/pkgfuncs.inc.php
 #, php-format
 msgid "requires %s"
 msgstr "zahteva %s"
 
-#: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
 msgstr "Morate se prijaviti da bi slali zahteve za pakete."
 
-#: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Neispravno ime: dozvoljena su samo mala slova."
 
-#: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
 msgstr "Polje komentara ne sme biti prazno."
 
-#: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
 msgstr "Neispravan tip zahteva"
 
-#: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
 msgstr "Zahtev je uspešno dodat."
 
-#: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
 msgstr "Neispravan razlog."
 
-#: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
 msgstr "Samo Poverljivi korisnici i programeri mogu zatvarati zahteve."
 
-#: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
 msgstr "Zahtev je uspešno zatvoren."
 
-#: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr "Ovim možete trajno obrisati nalog %s iz AUR-a."
 
-#: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
 msgstr "%sUPOZORENJE%s: ova radnja se ne može opozvati"
 
-#: template/account_delete.php
 msgid "Confirm deletion"
 msgstr "Potvrda brisanja"
 
-#: template/account_details.php template/account_edit_form.php
-#: template/account_search_results.php template/search_accounts_form.php
 msgid "Username"
 msgstr "Korisničko ime"
 
-#: template/account_details.php template/account_edit_form.php
-#: template/search_accounts_form.php
 msgid "Account Type"
 msgstr "Tip naloga"
 
-#: template/account_details.php template/tu_details.php
-#: template/tu_last_votes_list.php template/tu_list.php
 msgid "User"
 msgstr "Korisnik"
 
-#: template/account_details.php template/account_edit_form.php
-#: template/search_accounts_form.php
 msgid "Developer"
 msgstr "Programer"
 
-#: template/account_details.php template/account_edit_form.php
-#: template/search_accounts_form.php
 msgid "Trusted User & Developer"
 msgstr "Poverljivi korisnik i programer"
 
-#: template/account_details.php template/account_edit_form.php
-#: template/search_accounts_form.php
 msgid "Email Address"
 msgstr "Adresa e-pošte"
 
-#: template/account_details.php
 msgid "hidden"
 msgstr "skrivena"
 
-#: template/account_details.php template/account_edit_form.php
-#: template/account_search_results.php template/search_accounts_form.php
 msgid "Real Name"
 msgstr "Pravo ime"
 
-#: template/account_details.php template/account_edit_form.php
-#: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr "IRC nadimak"
 
-#: template/account_details.php template/account_edit_form.php
-#: template/account_search_results.php
 msgid "PGP Key Fingerprint"
 msgstr "Otisak PGP ključa"
 
-#: template/account_details.php template/account_search_results.php
-#: template/pkgreq_results.php
 msgid "Status"
 msgstr "Status"
 
-#: template/account_details.php
 msgid "Inactive since"
 msgstr "Neaktivan od"
 
-#: template/account_details.php template/account_search_results.php
 msgid "Active"
 msgstr "Aktivan"
 
-#: template/account_details.php
 msgid "Last Login"
 msgstr "Poslednje prijavljivanje"
 
-#: template/account_details.php
 msgid "Never"
 msgstr "Nikad"
 
-#: template/account_details.php
 msgid "View this user's packages"
 msgstr "Pregledaj korisnikove pakete"
 
-#: template/account_details.php
 msgid "Edit this user's account"
 msgstr "Uređivanje naloga ovog korisnika"
 
-#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Kliknite %sovde%s ako želite trajno brisanje ovog naloga."
 
-#: template/account_edit_form.php
 msgid "required"
 msgstr "neophodno"
 
-#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Običan korisnik"
 
-#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Trusted user"
 msgstr "Poverljivi korisnik"
 
-#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
 msgstr "Nalog je suspendovan"
 
-#: template/account_edit_form.php
 msgid "Inactive"
 msgstr "Neaktivan"
 
-#: template/account_edit_form.php
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr "Proverite da li ste ispravno uneli adresu e-pošte, inače će vam pristup biti odbijen."
+msgstr ""
+"Proverite da li ste ispravno uneli adresu e-pošte, inače će vam pristup biti "
+"odbijen."
 
-#: template/account_edit_form.php
 msgid "Hide Email Address"
 msgstr "Skrij adresu e-pošte"
 
-#: template/account_edit_form.php
 msgid "Re-type password"
 msgstr "Ponovo unesite lozinku"
 
-#: template/account_edit_form.php
 msgid "Language"
 msgstr "Jezik"
 
-#: template/account_edit_form.php
 msgid ""
-"The following information is only required if you want to submit packages to"
-" the Arch User Repository."
-msgstr "Sledeće informacije su neophodne ako želite da prilažete pakete u Arčovu korisničku riznicu."
+"The following information is only required if you want to submit packages to "
+"the Arch User Repository."
+msgstr ""
+"Sledeće informacije su neophodne ako želite da prilažete pakete u Arčovu "
+"korisničku riznicu."
 
-#: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr "Javni SSH ključ"
 
-#: template/account_edit_form.php template/pkgbase_details.php
-#: template/pkg_details.php
-msgid "Update"
-msgstr "Ažuriraj"
+msgid "Notification settings"
+msgstr "Postavke obaveštenja"
 
-#: template/account_edit_form.php
-msgid "Create"
-msgstr "Napravi"
-
-#: template/account_edit_form.php template/search_accounts_form.php
-msgid "Reset"
-msgstr "Resetuj"
-
-#: template/account_search_results.php
-msgid "No results matched your search criteria."
-msgstr "Nema rezultata koji se poklapaju sa kriterijumom pretrage."
-
-#: template/account_search_results.php
-msgid "Edit Account"
-msgstr "Uredi nalog"
-
-#: template/account_search_results.php
-msgid "Suspended"
-msgstr "Suspendovan"
-
-#: template/account_search_results.php
-msgid "Edit"
-msgstr "Uredi"
-
-#: template/account_search_results.php
-msgid "Less"
-msgstr "Manje"
-
-#: template/account_search_results.php
-msgid "More"
-msgstr "Više"
-
-#: template/account_search_results.php
-msgid "No more results to display."
-msgstr "Nema daljih rezultata."
-
-#: template/comaintainers_form.php
-#, php-format
-msgid "Manage Co-maintainers: %s"
-msgstr "Upravljanje koodržavaocima: %s"
-
-#: template/comaintainers_form.php
-#, php-format
-msgid ""
-"Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "Ovim formularom dodajete koodržavaoce za %s%s%s (jedno korisničko ime po liniji):"
-
-#: template/comaintainers_form.php
-msgid "Users"
-msgstr "Korisnici"
-
-#: template/comaintainers_form.php template/pkg_comment_form.php
-msgid "Save"
-msgstr "Sačuvaj"
-
-#: template/header.php
-msgid "My Packages"
-msgstr "Moji paketi"
-
-#: template/header.php
-msgid " My Account"
-msgstr "Moj nalog"
-
-#: template/pkgbase_actions.php
-msgid "Package Actions"
-msgstr "Radnje nad paketom"
-
-#: template/pkgbase_actions.php
-msgid "View PKGBUILD"
-msgstr "Prikaži PKGBUILD"
-
-#: template/pkgbase_actions.php
-msgid "View Changes"
-msgstr "Prikaz izmena"
-
-#: template/pkgbase_actions.php
-msgid "Download snapshot"
-msgstr "Preuzimanje snimka"
-
-#: template/pkgbase_actions.php
-msgid "Search wiki"
-msgstr "Pretraži wiki"
-
-#: template/pkgbase_actions.php
-msgid "Flagged out-of-date"
-msgstr "Označen kao zastareo"
-
-#: template/pkgbase_actions.php
-msgid "Flag package out-of-date"
-msgstr "Označi kao zastareo"
-
-#: template/pkgbase_actions.php
-msgid "Unflag package"
-msgstr "Odznači paket"
-
-#: template/pkgbase_actions.php
-msgid "Remove vote"
-msgstr "Ukloni glas"
-
-#: template/pkgbase_actions.php
-msgid "Vote for this package"
-msgstr "Glasajte za paket"
-
-#: template/pkgbase_actions.php
-msgid "Disable notifications"
-msgstr "Ugasi obaveštenja"
-
-#: template/pkgbase_actions.php
 msgid "Notify of new comments"
 msgstr "Obavesti o novim komentarima"
 
-#: template/pkgbase_actions.php
+msgid "Notify of package updates"
+msgstr "Obavesti o nadogradnjama paketa"
+
+msgid "Update"
+msgstr "Ažuriraj"
+
+msgid "Create"
+msgstr "Napravi"
+
+msgid "Reset"
+msgstr "Resetuj"
+
+msgid "No results matched your search criteria."
+msgstr "Nema rezultata koji se poklapaju sa kriterijumom pretrage."
+
+msgid "Edit Account"
+msgstr "Uredi nalog"
+
+msgid "Suspended"
+msgstr "Suspendovan"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Less"
+msgstr "Manje"
+
+msgid "More"
+msgstr "Više"
+
+msgid "No more results to display."
+msgstr "Nema daljih rezultata."
+
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr ""
+"Ovim formularom dodajete koodržavaoce za %s%s%s (jedno korisničko ime po "
+"liniji):"
+
+msgid "Users"
+msgstr "Korisnici"
+
+msgid "Save"
+msgstr "Sačuvaj"
+
+#, php-format
+msgid "Flagged Out-of-Date Comment: %s"
+msgstr "Komentar o oznaci zastarelosti: %s"
+
+#, php-format
+msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
+msgstr "%s%s%s označi %s%s%s kao zastareo %s%s%s iz sledećeg razloga:"
+
+#, php-format
+msgid "%s%s%s is not flagged out-of-date."
+msgstr "%s%s%s nije označen kao zastareo."
+
+msgid "Return to Details"
+msgstr "Nazad na detalje"
+
+#, php-format
+msgid "Copyright %s 2004-%d aurweb Development Team."
+msgstr "Copyright %s 2004-%d aurweb Development Team."
+
+msgid "My Packages"
+msgstr "Moji paketi"
+
+msgid " My Account"
+msgstr "Moj nalog"
+
+msgid "Package Actions"
+msgstr "Radnje nad paketom"
+
+msgid "View PKGBUILD"
+msgstr "Prikaži PKGBUILD"
+
+msgid "View Changes"
+msgstr "Prikaz izmena"
+
+msgid "Download snapshot"
+msgstr "Preuzimanje snimka"
+
+msgid "Search wiki"
+msgstr "Pretraži wiki"
+
+#, php-format
+msgid "Flagged out-of-date (%s)"
+msgstr "Označen kao zastareo (%s)"
+
+msgid "Flag package out-of-date"
+msgstr "Označi kao zastareo"
+
+msgid "Unflag package"
+msgstr "Odznači paket"
+
+msgid "Remove vote"
+msgstr "Ukloni glas"
+
+msgid "Vote for this package"
+msgstr "Glasajte za paket"
+
+msgid "Disable notifications"
+msgstr "Ugasi obaveštenja"
+
 msgid "Manage Co-Maintainers"
 msgstr "Upravljanje koodržavaocima"
 
-#: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
@@ -1279,232 +1073,182 @@ msgstr[0] "%d zahtev na čekanju"
 msgstr[1] "%d zahteva na čekanju"
 msgstr[2] "%d zahteva na čekanju"
 
-#: template/pkgbase_actions.php
-msgid "Delete Package"
-msgstr "Obriši paket"
-
-#: template/pkgbase_actions.php
-msgid "Merge Package"
-msgstr "Spoji paket"
-
-#: template/pkgbase_actions.php
 msgid "Adopt Package"
 msgstr "Usvoji paket"
 
-#: template/pkgbase_details.php template/pkg_details.php
-#: template/pkgreq_results.php template/tu_details.php
 msgid "unknown"
 msgstr "nepoznata"
 
-#: template/pkgbase_details.php
 msgid "Package Base Details"
 msgstr "Podaci o bazi paketa"
 
-#: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
 msgstr "URL za git kloniranje"
 
-#: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "samo za čitanje"
 
-#: template/pkgbase_details.php template/pkg_details.php
-#: template/pkg_search_form.php
 msgid "Keywords"
 msgstr "Ključne reči"
 
-#: template/pkgbase_details.php template/pkg_details.php
-#: template/pkg_search_form.php
 msgid "Submitter"
 msgstr "Pošiljalac"
 
-#: template/pkgbase_details.php template/pkg_details.php
-#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Maintainer"
 msgstr "Održavalac"
 
-#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
 msgstr "Poslednji paketar"
 
-#: template/pkgbase_details.php template/pkg_details.php
-#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Votes"
-msgstr "Glasova"
+msgstr "Glasovi"
 
-#: template/pkgbase_details.php template/pkg_details.php
-#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Popularity"
 msgstr "Popularnost"
 
-#: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
 msgstr "Prvi put priloženo"
 
-#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
 msgstr "Poslednje ažuriranje"
 
-#: template/pkg_comment_box.php
 #, php-format
 msgid "Edit comment for: %s"
 msgstr "Uređivanje komentara za: %s"
 
-#: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
 msgstr "Dodaj komentar"
 
-#: template/pkg_comments.php
 msgid "View all comments"
 msgstr "Prikaži sve komentare"
 
-#: template/pkg_comments.php
+msgid "Pinned Comments"
+msgstr "Izdvojeni komentari"
+
 msgid "Latest Comments"
 msgstr "Poslednji komentari"
 
-#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "%s postavi komentar za %s"
 
-#: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "Anoniman komentar za %s"
 
-#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
 msgstr "%s obrisa %s"
 
-#: template/pkg_comments.php
 #, php-format
-msgid "last edited on %s by %s"
-msgstr "poslednja izmena %s od %s"
+msgid "deleted on %s"
+msgstr "obrisan %s"
 
-#: template/pkg_comments.php
+#, php-format
+msgid "edited on %s by %s"
+msgstr "%s izmeni  %s "
+
+#, php-format
+msgid "edited on %s"
+msgstr "izmenjen %s"
+
+msgid "Undelete comment"
+msgstr "Povraćeni komentar"
+
 msgid "Delete comment"
 msgstr "Obriši komentar"
 
-#: template/pkg_comments.php
+msgid "Pin comment"
+msgstr "Izdvoji komentar"
+
+msgid "Unpin comment"
+msgstr "Odvoji komentar"
+
 msgid "All comments"
 msgstr "Svi komentari"
 
-#: template/pkg_details.php
 msgid "Package Details"
 msgstr "Podaci o paketu"
 
-#: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
 msgstr "Osnova paketa"
 
-#: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
 msgstr "Opis"
 
-#: template/pkg_details.php
 msgid "Upstream URL"
 msgstr "Uzvodni URL"
 
-#: template/pkg_details.php
 msgid "Visit the website for"
 msgstr "Poseti sajt za"
 
-#: template/pkg_details.php
 msgid "Licenses"
 msgstr "Licence"
 
-#: template/pkg_details.php
 msgid "Groups"
 msgstr "Grupe"
 
-#: template/pkg_details.php
 msgid "Conflicts"
 msgstr "Sukobi"
 
-#: template/pkg_details.php
 msgid "Provides"
 msgstr "Dostavlja"
 
-#: template/pkg_details.php
 msgid "Replaces"
 msgstr "Smenjuje"
 
-#: template/pkg_details.php
 msgid "Dependencies"
 msgstr "Zavisnosti"
 
-#: template/pkg_details.php
 msgid "Required by"
 msgstr "Zahteva ga"
 
-#: template/pkg_details.php
 msgid "Sources"
 msgstr "Izvori"
 
-#: template/pkgreq_close_form.php
-#, php-format
-msgid "Close Request: %s"
-msgstr "Zatvaranje zahteva: %s"
-
-#: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "Ovim formularom zatvarate zahteve za osnovu paketa %s%s%s."
 
-#: template/pkgreq_close_form.php
 msgid "Note"
 msgstr "Beleška"
 
-#: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr "Polje komentara može ostati prazno. Međutim, preporučujemo da uvek dodate komentar pri odbijanju zahteva."
+msgstr ""
+"Polje komentara može ostati prazno. Međutim, preporučujemo da uvek dodate "
+"komentar pri odbijanju zahteva."
 
-#: template/pkgreq_close_form.php
 msgid "Reason"
 msgstr "Razlog"
 
-#: template/pkgreq_close_form.php template/pkgreq_results.php
-#: template/tu_details.php
 msgid "Accepted"
 msgstr "Prihvaćeno"
 
-#: template/pkgreq_close_form.php template/pkgreq_results.php
-#: template/tu_details.php
 msgid "Rejected"
 msgstr "Odbijeno"
 
-#: template/pkgreq_form.php
-#, php-format
-msgid "File Request: %s"
-msgstr "Slanje zahteva: %s"
-
-#: template/pkgreq_form.php
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Ovim formularom pošaljite zahtev vezan za osnovu paketa %s%s%s koja sadrži sledeće pakete:"
+msgstr ""
+"Ovim formularom pošaljite zahtev vezan za osnovu paketa %s%s%s koja sadrži "
+"sledeće pakete:"
 
-#: template/pkgreq_form.php
 msgid "Request type"
 msgstr "Tip zahteva"
 
-#: template/pkgreq_form.php
 msgid "Deletion"
 msgstr "Brisanje"
 
-#: template/pkgreq_form.php
 msgid "Orphan"
 msgstr "Siročić"
 
-#: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
 msgstr "Stopi sa"
 
-#: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1512,29 +1256,23 @@ msgstr[0] "%d zahtev za paket."
 msgstr[1] "%d zahteva za paket."
 msgstr[2] "%d zahteva za paket."
 
-#: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
 msgstr "Stranica %d od %d."
 
-#: template/pkgreq_results.php
 msgid "Package"
 msgstr "Paket"
 
-#: template/pkgreq_results.php
 msgid "Filed by"
 msgstr "Posla"
 
-#: template/pkgreq_results.php
 msgid "Date"
 msgstr "Datum"
 
-#: template/pkgreq_results.php
 #, php-format
 msgid "~%d days left"
 msgstr "Preostalo dana: ~%d"
 
-#: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
@@ -1542,116 +1280,87 @@ msgstr[0] "Preostao ~%d čas"
 msgstr[1] "Preostala ~%d časa"
 msgstr[2] "Preostalo ~%d časova"
 
-#: template/pkgreq_results.php
 msgid "<1 hour left"
 msgstr "<1 sata preostalo"
 
-#: template/pkgreq_results.php
 msgid "Accept"
 msgstr "Prihvati"
 
-#: template/pkgreq_results.php
 msgid "Locked"
 msgstr "Zaključano"
 
-#: template/pkgreq_results.php
 msgid "Close"
 msgstr "Zatvori"
 
-#: template/pkgreq_results.php
 msgid "Closed"
 msgstr "Zatvoreno"
 
-#: template/pkg_search_form.php
 msgid "Name, Description"
 msgstr "Ime, opis"
 
-#: template/pkg_search_form.php
 msgid "Name Only"
-msgstr "samo ime"
+msgstr "Samo ime"
 
-#: template/pkg_search_form.php
 msgid "Exact Name"
 msgstr "Tačno ime"
 
-#: template/pkg_search_form.php
 msgid "Exact Package Base"
 msgstr "Tačna osnova paketa"
 
-#: template/pkg_search_form.php
 msgid "All"
 msgstr "svi"
 
-#: template/pkg_search_form.php
 msgid "Flagged"
 msgstr "označeni"
 
-#: template/pkg_search_form.php
 msgid "Not Flagged"
 msgstr "neoznačeni"
 
-#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Name"
 msgstr "Ime"
 
-#: template/pkg_search_form.php template/pkg_search_results.php
-#: template/tu_details.php template/tu_list.php
 msgid "Voted"
 msgstr "Dat glas"
 
-#: template/pkg_search_form.php
 msgid "Last modified"
 msgstr "Poslednja izmena"
 
-#: template/pkg_search_form.php
 msgid "Ascending"
 msgstr "rastući"
 
-#: template/pkg_search_form.php
 msgid "Descending"
 msgstr "opadajući"
 
-#: template/pkg_search_form.php
 msgid "Enter search criteria"
 msgstr "Unesite kriterijum pretrage"
 
-#: template/pkg_search_form.php
 msgid "Search by"
 msgstr "Traži se"
 
-#: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
 msgstr "Zastareli paketi"
 
-#: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
 msgstr "Složi prema"
 
-#: template/pkg_search_form.php
 msgid "Sort order"
 msgstr "Način ređanja"
 
-#: template/pkg_search_form.php
 msgid "Per page"
 msgstr "Po stranici"
 
-#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
 msgstr "Idi"
 
-#: template/pkg_search_form.php
 msgid "Orphans"
 msgstr "Siročići"
 
-#: template/pkg_search_results.php
 msgid "Error retrieving package list."
 msgstr "Greška pri pruzimanju spiska paketa."
 
-#: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
 msgstr "Nijedan paket ne odgovara kriterijumu pretrage."
 
-#: template/pkg_search_results.php
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
@@ -1659,154 +1368,118 @@ msgstr[0] "Nađen %d paket."
 msgstr[1] "Nađena %d paketa."
 msgstr[2] "Nađeno %d paketa."
 
-#: template/pkg_search_results.php
 msgid "Version"
 msgstr "Verzija"
 
-#: template/pkg_search_results.php
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of 0.98 per day since its creation."
-msgstr "Popularnost se izračunava kao suma svih glasova, gde glas ima faktor težine 0,98 za svaki dan od njegovog nastanka."
+msgstr ""
+"Popularnost se izračunava kao suma svih glasova, gde glas ima faktor težine "
+"0,98 za svaki dan od njegovog nastanka."
 
-#: template/pkg_search_results.php template/tu_details.php
-#: template/tu_list.php
 msgid "Yes"
 msgstr "Da"
 
-#: template/pkg_search_results.php
 msgid "orphan"
 msgstr "sirčoić"
 
-#: template/pkg_search_results.php
 msgid "Actions"
 msgstr "Radnje"
 
-#: template/pkg_search_results.php
-msgid "Flag Out-of-date"
-msgstr "Označi kao zastareo"
-
-#: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
 msgstr "Ukloni oznaku zastarelosti"
 
-#: template/pkg_search_results.php
 msgid "Adopt Packages"
 msgstr "Usvoji paket"
 
-#: template/pkg_search_results.php
 msgid "Disown Packages"
 msgstr "Odrekni se paketa"
 
-#: template/pkg_search_results.php
 msgid "Delete Packages"
 msgstr "Obriši pakete"
 
-#: template/pkg_search_results.php
 msgid "Confirm"
 msgstr "Potvrdi"
 
-#: template/search_accounts_form.php
 msgid "Any type"
 msgstr "Bilo koji tip"
 
-#: template/search_accounts_form.php
 msgid "Search"
 msgstr "Pretraži"
 
-#: template/stats/general_stats_table.php
 msgid "Statistics"
 msgstr "Statistika"
 
-#: template/stats/general_stats_table.php
 msgid "Orphan Packages"
 msgstr "Paketa siročića"
 
-#: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
 msgstr "Paketa dodato u zadnjih 7 dana"
 
-#: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
 msgstr "Paketa ažurirano u zadnjih 7 dana"
 
-#: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
 msgstr "Paketa ažurirano prethodne godine"
 
-#: template/stats/general_stats_table.php
 msgid "Packages never updated"
 msgstr "Paketa koji nikad nisu ažurirani"
 
-#: template/stats/general_stats_table.php
 msgid "Registered Users"
 msgstr "Registrovanih korisnika"
 
-#: template/stats/general_stats_table.php
 msgid "Trusted Users"
 msgstr "Poverljivih korisnika"
 
-#: template/stats/updates_table.php
 msgid "Recent Updates"
 msgstr "Nedavno ažurirano"
 
-#: template/stats/user_table.php
+msgid "more"
+msgstr "više"
+
 msgid "My Statistics"
 msgstr "Moja statistika"
 
-#: template/tu_details.php
 msgid "Proposal Details"
 msgstr "Detalji predloga"
 
-#: template/tu_details.php
 msgid "This vote is still running."
 msgstr "Glasanje u toku."
 
-#: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
 msgstr "Priloženo: %s od %s"
 
-#: template/tu_details.php template/tu_list.php
 msgid "End"
 msgstr "Ističe"
 
-#: template/tu_details.php
 msgid "Result"
 msgstr "Rezultat"
 
-#: template/tu_details.php template/tu_list.php
 msgid "No"
 msgstr "Ne"
 
-#: template/tu_details.php
 msgid "Abstain"
 msgstr "Uzdržan"
 
-#: template/tu_details.php
 msgid "Total"
 msgstr "Ukupno"
 
-#: template/tu_details.php
 msgid "Participation"
 msgstr "Učešće"
 
-#: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
 msgstr "Poslednji glasovi od TU"
 
-#: template/tu_last_votes_list.php
 msgid "Last vote"
 msgstr "Poslednji glas"
 
-#: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
 msgstr "Nema rezultata."
 
-#: template/tu_list.php
 msgid "Start"
 msgstr "Pokrenut"
 
-#: template/tu_list.php
 msgid "Back"
 msgstr "Nazad"
