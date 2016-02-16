@@ -252,8 +252,8 @@ function pkgbase_display_details($base_id, $row, $SID="") {
 		$pinned = pkgbase_comments($base_id, $limit_pinned, false, true);
 		if (!empty($pinned)) {
 			include('pkg_comments.php');
-			unset($pinned);
 		}
+		unset($pinned);
 
 		$limit = isset($_GET['comments']) ? 0 : 10;
 		$comments = pkgbase_comments($base_id, $limit, $include_deleted);
