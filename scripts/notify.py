@@ -324,7 +324,8 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
         refs = '[1] ' + user_uri + '\n'
         refs += '[2] ' + pkgbase_uri + '\n'
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
-    headers = headers_reply(thread_id)
+    # Use a deterministic Message-ID for the first email referencing a request.
+    headers = headers_msgid(thread_id)
     headers.update(headers_cc(cc))
 
     send_notification(to, subject, body, refs, headers)
