@@ -19,7 +19,9 @@
 				<select name="type" id="id_type" onchange="showHideMergeSection()">
 					<option value="deletion"><?= __('Deletion') ?></option>
 					<option value="merge"><?= __('Merge') ?></option>
+					<?php if (pkgbase_maintainer_uid($base_id)): ?>
 					<option value="orphan"><?= __('Orphan') ?></option>
+					<?php endif; ?>
 				</select>
 			</p>
 			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
