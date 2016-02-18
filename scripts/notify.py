@@ -115,11 +115,14 @@ def get_update_recipients(cur, pkgbase_id, uid):
     return [row[0] for row in cur.fetchall()]
 
 
-def get_request_recipients(cur, pkgbase_id, uid):
-    cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
+def get_request_recipients(cur, reqid):
+    cur.execute('SELECT DISTINCT Users.Email FROM PackageRequests ' +
                 'INNER JOIN PackageBases ' +
-                'ON PackageBases.MaintainerUID = Users.ID WHERE ' +
-                'Users.ID = %s OR PackageBases.ID = %s', [uid, pkgbase_id])
+                'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
+                'INNER JOIN Users ' +
+                'ON Users.ID = PackageRequests.UsersID ' +
+                'OR Users.ID = PackageBases.MaintainerUID ' +
+                'WHERE PackageRequests.ID = %s', [reqid])
     return [row[0] for row in cur.fetchall()]
 
 
@@ -301,7 +304,7 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
     user = username_from_id(cur, uid)
     pkgbase = pkgbase_from_id(cur, pkgbase_id)
     to = [aur_request_ml]
-    cc = get_request_recipients(cur, pkgbase_id, uid)
+    cc = get_request_recipients(cur, reqid)
     text = get_request_comment(cur, reqid)
 
     user_uri = aur_location + '/account/' + user + '/'
@@ -333,9 +336,8 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
 
 def request_close(cur, uid, reqid, reason):
     user = username_from_id(cur, uid)
-    pkgbase_id = pkgbase_from_pkgreq(cur, reqid)
     to = [aur_request_ml]
-    cc = get_request_recipients(cur, pkgbase_id, uid)
+    cc = get_request_recipients(cur, reqid)
     text = get_request_closure_comment(cur, reqid)
 
     user_uri = aur_location + '/account/' + user + '/'
