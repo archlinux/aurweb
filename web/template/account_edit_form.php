@@ -143,6 +143,10 @@
 			<label for="id_updatenotify"><?= __("Notify of package updates") ?>:</label>
 			<input type="checkbox" name="UN" id="id_updatenotify" <?= $UN ? 'checked="checked"' : '' ?> />
 		</p>
+		<p>
+			<label for="id_ownershipnotify"><?= __("Notify of ownership changes") ?>:</label>
+			<input type="checkbox" name="ON" id="id_ownershipnotify" <?= $ON ? 'checked="checked"' : '' ?> />
+		</p>
 	</fieldset>
 
 	<fieldset>

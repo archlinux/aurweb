@@ -1,0 +1,5 @@
+1. Add a column to store ownership notification settings:
+
+----
+ALTER TABLE Users ADD COLUMN OwnershipNotify TINYINT(1) NOT NULL DEFAULT 1;
+----

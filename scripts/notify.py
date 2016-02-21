@@ -115,6 +115,16 @@ def get_update_recipients(cur, pkgbase_id, uid):
     return [row[0] for row in cur.fetchall()]
 
 
+def get_ownership_recipients(cur, pkgbase_id, uid):
+    cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
+                'INNER JOIN PackageNotifications ' +
+                'ON PackageNotifications.UserID = Users.ID WHERE ' +
+                'Users.OwnershipNotify = 1 AND ' +
+                'PackageNotifications.UserID != %s AND ' +
+                'PackageNotifications.PackageBaseID = %s', [uid, pkgbase_id])
+    return [row[0] for row in cur.fetchall()]
+
+
 def get_request_recipients(cur, reqid):
     cur.execute('SELECT DISTINCT Users.Email FROM PackageRequests ' +
                 'INNER JOIN PackageBases ' +
@@ -243,6 +253,38 @@ def flag(cur, uid, pkgbase_id):
     send_notification(to, subject, body, refs)
 
 
+def adopt(cur, pkgbase_id, uid):
+    user = username_from_id(cur, uid)
+    pkgbase = pkgbase_from_id(cur, pkgbase_id)
+    to = get_ownership_recipients(cur, pkgbase_id, uid)
+
+    user_uri = aur_location + '/account/' + user + '/'
+    pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
+
+    subject = 'AUR Ownership Notification for %s' % (pkgbase)
+    body = 'The package %s [1] was adopted by %s [2].' % (pkgbase, user)
+    refs = '[1] ' + pkgbase_uri + '\n'
+    refs += '[2] ' + user_uri
+
+    send_notification(to, subject, body, refs)
+
+
+def disown(cur, pkgbase_id, uid):
+    user = username_from_id(cur, uid)
+    pkgbase = pkgbase_from_id(cur, pkgbase_id)
+    to = get_ownership_recipients(cur, pkgbase_id, uid)
+
+    user_uri = aur_location + '/account/' + user + '/'
+    pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
+
+    subject = 'AUR Ownership Notification for %s' % (pkgbase)
+    body = 'The package %s [1] was disowned by %s [2].' % (pkgbase, user)
+    refs = '[1] ' + pkgbase_uri + '\n'
+    refs += '[2] ' + user_uri
+
+    send_notification(to, subject, body, refs)
+
+
 def comaintainer_add(cur, pkgbase_id, uid):
     pkgbase = pkgbase_from_id(cur, pkgbase_id)
     to = [get_user_email(cur, uid)]
@@ -364,6 +406,8 @@ if __name__ == '__main__':
         'comment': comment,
         'update': update,
         'flag': flag,
+        'adopt': adopt,
+        'disown': disown,
         'comaintainer-add': comaintainer_add,
         'comaintainer-remove': comaintainer_remove,
         'delete': delete,
