@@ -22,7 +22,7 @@ cur.execute("UPDATE PackageBases SET NumVotes = (SELECT COUNT(*) FROM " +
             "PackageVotes WHERE PackageVotes.PackageBaseID = PackageBases.ID)")
 
 cur.execute("UPDATE PackageBases SET Popularity = (" +
-            "SELECT SUM(POWER(0.98, (UNIX_TIMESTAMP() - VoteTS) / 86400)) " +
+            "SELECT COALESCE(SUM(POWER(0.98, (UNIX_TIMESTAMP() - VoteTS) / 86400)), 0.0) " +
             "FROM PackageVotes WHERE PackageVotes.PackageBaseID = " +
             "PackageBases.ID AND NOT VoteTS IS NULL)")
 
