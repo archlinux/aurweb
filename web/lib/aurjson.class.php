@@ -266,7 +266,6 @@ class AurJSON {
 				"ON Licenses.ID = PackageLicenses.LicenseID " .
 				"WHERE ${where_condition} " .
 				"AND PackageBases.PackagerUID IS NOT NULL " .
-				"GROUP BY Packages.ID " .
 				"LIMIT $max_results";
 		} elseif ($this->version >= 2) {
 			if ($this->version == 2 || $this->version == 3) {
