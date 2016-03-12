@@ -148,3 +148,8 @@ label.confirmation,
 	color: red;
 	font-weight: bold;
 }
+
+#news div p {
+	max-height: 15em;
+	overflow: auto;
+}
