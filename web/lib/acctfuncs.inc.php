@@ -554,8 +554,8 @@ function try_login() {
 	}
 
 	$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP(), ";
-	$q.= "LastLoginIPAddress = " . $dbh->quote(ip2long($_SERVER['REMOTE_ADDR'])) . " ";
-	$q.= "WHERE ID = '$userID'";
+	$q.= "LastLoginIPAddress = " . $dbh->quote($_SERVER['REMOTE_ADDR']) . " ";
+	$q.= "WHERE ID = $userID";
 	$dbh->exec($q);
 
 	/* Set the SID cookie. */

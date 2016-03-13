@@ -1,0 +1,5 @@
+1. Convert the LastLoginIPAddress column to VARCHAR(40):
+
+----
+ALTER TABLE Users MODIFY LastLoginIPAddress VARCHAR(40) NULL DEFAULT NULL;
+----
