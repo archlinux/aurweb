@@ -3,3 +3,9 @@
 ----
 ALTER TABLE Users ADD COLUMN OwnershipNotify TINYINT(1) NOT NULL DEFAULT 1;
 ----
+
+2. Resize the LastLoginIPAddress column:
+
+----
+ALTER TABLE Users MODIFY LastLoginIPAddress VARCHAR(45) NULL DEFAULT NULL;
+----
