@@ -47,7 +47,8 @@ Setup on Arch Linux
     # cd /srv/http/aurweb/aur.git/
     # git init --bare
     # git config --local transfer.hideRefs '^refs/'
-    # git config --local transfer.hideRefs '!refs/'
+    # git config --local --add transfer.hideRefs '!refs/'
+    # git config --local --add transfer.hideRefs '!HEAD'
     # ln -s ../../git-interface/git-update.py hooks/update
     # chown -R aur .
 

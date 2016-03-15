@@ -89,7 +89,7 @@ so-called "have" lines. This is normally used to reduce traffic but it has the
 opposite effect in the case of aurweb: Many essentially useless lines are
 transferred to the Git client during `git push` operations.
 
-In order to omit these advertisements, add the strings "^refs/" and "!refs/" to
-the transfer.hideRefs configuration setting. Note that the order of these
-patterns is important ("^refs/" must come first) and that Git 2.7 or newer is
-required for them to work.
+In order to omit these advertisements, add the strings "^refs/", "!refs/" and
+"!HEAD" to the transfer.hideRefs configuration setting. Note that the order of
+these patterns is important ("^refs/" must come first) and that Git 2.7 or
+newer is required for them to work.
