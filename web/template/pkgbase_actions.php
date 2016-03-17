@@ -24,7 +24,7 @@
 			<?php if (pkgbase_user_notify($uid, $base_id)): ?>
 			<li><?= html_action_form($base_uri . 'unnotify/', "do_UnNotify", __('Disable notifications')) ?></li>
 			<?php else: ?>
-			<li><?= html_action_form($base_uri . 'notify/', "do_Notify", __('Notify of new comments')) ?></li>
+			<li><?= html_action_form($base_uri . 'notify/', "do_Notify", __('Enable notifications')) ?></li>
 			<?php endif; ?>
 
 			<?php if (has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array($row["MaintainerUID"]))): ?>
