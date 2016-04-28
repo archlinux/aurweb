@@ -5,6 +5,7 @@ $log_uri = sprintf(config_get('options', 'log_uri'), urlencode($row['BaseName'])
 $snapshot_uri = sprintf(config_get('options', 'snapshot_uri'), urlencode($row['BaseName']));
 $git_clone_uri_anon = sprintf(config_get('options', 'git_clone_uri_anon'), htmlspecialchars($row['BaseName']));
 $git_clone_uri_priv = sprintf(config_get('options', 'git_clone_uri_priv'), htmlspecialchars($row['BaseName']));
+$max_depends = config_get_int('options', 'max_depends');
 
 $uid = uid_from_sid($SID);
 
@@ -40,7 +41,7 @@ $out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($
 $lics = pkg_licenses($row["ID"]);
 $grps = pkg_groups($row["ID"]);
 
-$deps = pkg_dependencies($row["ID"]);
+$deps = pkg_dependencies($row["ID"], $max_depends);
 
 usort($deps, function($x, $y) {
 	if ($x[1] != $y[1]) {
@@ -82,7 +83,7 @@ foreach ($rels as $rel) {
 	}
 }
 
-$requiredby = pkg_required($row["Name"], $rels_p);
+$requiredby = pkg_required($row["Name"], $rels_p, $max_depends);
 
 # $sources[0] = 'src';
 $sources = pkg_sources($row["ID"]);
