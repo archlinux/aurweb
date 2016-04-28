@@ -21,6 +21,7 @@ aur_location = https://aur.archlinux.org
 git_clone_uri_anon = https://aur.archlinux.org/%s.git
 git_clone_uri_priv = ssh://aur@aur.archlinux.org/%s.git
 max_rpc_results = 5000
+max_depends = 1000
 aur_request_ml = aur-requests@archlinux.org
 request_idle_time = 1209600
 auto_orphan_age = 15552000

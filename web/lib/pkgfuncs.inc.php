@@ -230,10 +230,11 @@ function pkg_providers($name) {
  * Get package dependencies for a specific package
  *
  * @param int $pkgid The package to get dependencies for
+ * @param int $limit An upper bound on the number of packages to retrieve
  *
  * @return array All package dependencies for the package
  */
-function pkg_dependencies($pkgid) {
+function pkg_dependencies($pkgid, $limit) {
 	$deps = array();
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
@@ -243,7 +244,7 @@ function pkg_dependencies($pkgid) {
 		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) = p.Name ";
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
-		$q.= "ORDER BY pd.DepName";
+		$q.= "ORDER BY pd.DepName LIMIT " . intval($limit);
 		$result = $dbh->query($q);
 		if (!$result) {
 			return array();
@@ -505,10 +506,11 @@ function pkg_source_link($url, $arch) {
  *
  * @param string $name The package name for the dependency search
  * @param array $provides A list of virtual provisions of the package
+ * @param int $limit An upper bound on the number of packages to retrieve
  *
  * @return array All packages that depend on the specified package name
  */
-function pkg_required($name="", $provides) {
+function pkg_required($name="", $provides, $limit) {
 	$deps = array();
 	if ($name != "") {
 		$dbh = DB::connect();
@@ -523,7 +525,7 @@ function pkg_required($name="", $provides) {
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 		$q.= "WHERE pd.DepName IN (" . $name_list . ") ";
 		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) IN (" . $name_list . ") ";
-		$q.= "ORDER BY p.Name";
+		$q.= "ORDER BY p.Name LIMIT " . intval($limit);
 		$result = $dbh->query($q);
 		if (!$result) {return array();}
 		while ($row = $result->fetch(PDO::FETCH_NUM)) {
