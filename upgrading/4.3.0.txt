@@ -9,3 +9,9 @@ ALTER TABLE Users ADD COLUMN OwnershipNotify TINYINT(1) NOT NULL DEFAULT 1;
 ----
 ALTER TABLE Users MODIFY LastLoginIPAddress VARCHAR(45) NULL DEFAULT NULL;
 ----
+
+3. Add a new column to store repository information of official providers:
+
+----
+ALTER TABLE OfficialProviders ADD COLUMN Repo VARCHAR(64) NOT NULL;
+----
