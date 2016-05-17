@@ -331,12 +331,18 @@ pkgbase_id = cur.fetchone()[0] if cur.rowcount == 1 else 0
 cur.execute("SELECT Name FROM PackageBlacklist")
 blacklist = [row[0] for row in cur.fetchall()]
 
+cur.execute("SELECT Name, Repo FROM OfficialProviders")
+providers = dict(cur.fetchall())
+
 for pkgname in srcinfo.utils.get_package_names(metadata):
     pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
     pkgname = pkginfo['pkgname']
 
     if pkgname in blacklist and not privileged:
         die('package is blacklisted: {:s}'.format(pkgname))
+    if pkgname in providers and not privileged:
+        repo = providers[pkgname]
+        die('package already provided by [{:s}]: {:s}'.format(repo, pkgname))
 
     cur.execute("SELECT COUNT(*) FROM Packages WHERE Name = %s AND " +
                 "PackageBaseID <> %s", [pkgname, pkgbase_id])

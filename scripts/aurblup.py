@@ -45,14 +45,6 @@ db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                              unix_socket=aur_db_socket, buffered=True)
 cur = db.cursor()
 
-cur.execute("SELECT Name FROM PackageBlacklist")
-oldblacklist = set([row[0] for row in cur.fetchall()])
-
-for pkg in blacklist.difference(oldblacklist):
-    cur.execute("INSERT INTO PackageBlacklist (Name) VALUES (%s)", [pkg])
-for pkg in oldblacklist.difference(blacklist):
-    cur.execute("DELETE FROM PackageBlacklist WHERE Name = %s", [pkg])
-
 cur.execute("SELECT Name, Provides FROM OfficialProviders")
 oldproviders = set(cur.fetchall())
 
