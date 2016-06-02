@@ -42,6 +42,10 @@
 					<td><?= htmlspecialchars($row["RealName"], ENT_QUOTES) ?></td>
 				</tr>
 				<tr>
+					<th><?= __("Homepage") . ":" ?></th>
+					<td><?= htmlspecialchars($row["Homepage"], ENT_QUOTES) ?></td>
+				</tr>
+				<tr>
 					<th><?= __("IRC Nick") . ":" ?></th>
 					<td><?= htmlspecialchars($row["IRCNick"], ENT_QUOTES) ?></td>
 				</tr>

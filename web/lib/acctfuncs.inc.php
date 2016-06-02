@@ -52,6 +52,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $C The confirmed password value of the displayed user
  * @param string $R The real name of the displayed user
  * @param string $L The language preference of the displayed user
+ * @param string $HP The homepage of the displayed user
  * @param string $I The IRC nickname of the displayed user
  * @param string $K The PGP key fingerprint of the displayed user
  * @param string $PK The list of SSH public keys
@@ -65,7 +66,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @return void
  */
 function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R="",
-		$L="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
+		$L="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	include("account_edit_form.php");
@@ -87,6 +88,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $C The confirmed password for the user
  * @param string $R The real name of the user
  * @param string $L The language preference of the user
+ * @param string $HP The homepage of the displayed user
  * @param string $I The IRC nickname of the user
  * @param string $K The PGP fingerprint of the user
  * @param string $PK The list of public SSH keys
@@ -100,7 +102,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @return array Boolean indicating success and message to be printed
  */
 function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
-		$R="",$L="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
+		$R="",$L="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
@@ -276,13 +278,14 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$salt = $dbh->quote($salt);
 		$R = $dbh->quote($R);
 		$L = $dbh->quote($L);
+		$HP = $dbh->quote($HP);
 		$I = $dbh->quote($I);
 		$K = $dbh->quote(str_replace(" ", "", $K));
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
 		$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
-		$q.= "RealName, LangPreference, IRCNick, PGPKey) ";
+		$q.= "RealName, LangPreference, Homepage, IRCNick, PGPKey) ";
 		$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, ";
-		$q.= "$I, $K)";
+		$q.= "$HP, $I, $K)";
 		$result = $dbh->exec($q);
 		if (!$result) {
 			$message = __("Error trying to create account, %s%s%s.",
@@ -344,6 +347,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		}
 		$q.= ", RealName = " . $dbh->quote($R);
 		$q.= ", LangPreference = " . $dbh->quote($L);
+		$q.= ", Homepage = " . $dbh->quote($HP);
 		$q.= ", IRCNick = " . $dbh->quote($I);
 		$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
 		$q.= ", InactivityTS = " . $inactivity_ts;

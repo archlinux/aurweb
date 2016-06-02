@@ -99,6 +99,11 @@
 		</p>
 
 		<p>
+			<label for="id_homepage"><?= __("Homepage") ?>:</label>
+			<input type="text" size="30" name="HP" id="id_homepage" value="<?= htmlspecialchars($HP,ENT_QUOTES) ?>" />
+		</p>
+
+		<p>
 			<label for="id_irc"><?= __("IRC Nick") ?>:</label>
 			<input type="text" size="30" maxlength="32" name="I" id="id_irc" value="<?= htmlspecialchars($I,ENT_QUOTES) ?>" />
 		</p>
