@@ -1062,7 +1062,6 @@ function pkgbase_set_keywords($base_id, $keywords) {
 	$i = 0;
 	foreach ($keywords as $keyword) {
 		$q = sprintf("INSERT INTO PackageKeywords (PackageBaseID, Keyword) VALUES (%d, %s)", $base_id, $dbh->quote($keyword));
-		var_dump($q);
 		$dbh->exec($q);
 
 		$i++;
