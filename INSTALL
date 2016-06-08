@@ -4,7 +4,7 @@ Setup on Arch Linux
 1) Clone the AUR project:
 
    $ cd /srv/http/
-   $ git clone git://projects.archlinux.org/aurweb.git
+   $ git clone git://git.archlinux.org/aurweb.git
 
 2) Setup a web server with PHP and MySQL. Configure the web server to redirect
    all URLs to /index.php/foo/bar/. The following block can be used with nginx:

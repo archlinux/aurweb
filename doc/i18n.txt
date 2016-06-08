@@ -21,7 +21,7 @@ strings for the translation to be usable, and it may have to be disabled.
 
 1. Check out the aurweb source using git:
 
-$ git clone git://projects.archlinux.org/aurweb.git aurweb-git
+$ git clone git://git.archlinux.org/aurweb.git aurweb-git
 
 2. Go into the "po/" directory in the aurweb source and run msginit(1) to
    create a initial translation file from our translation catalog:
