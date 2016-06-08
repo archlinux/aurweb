@@ -1,40 +1,42 @@
 aurweb
 ======
 
-aurweb is a framework for hosting the Arch User Repository (AUR), a collection
+aurweb is a hosting platform for the Arch User Repository (AUR), a collection
 of packaging scripts that are created and submitted by the Arch Linux
-community. The scripts contained in the repository (PKGBUILDs) can be built
-using makepkg and installed via the Arch Linux package manager pacman. The
-aurweb project aims to provide the necessary web interface, database schema,
-and scripts for a multi-lingual community-driven repository.
+community. The scripts contained in the repository can be built using `makepkg`
+and installed using the Arch Linux package manager `pacman`.
 
-Functionality
--------------
+The aurweb project includes
 
-* Users may submit source packages that contain a PKGBUILD.
-* User accounts with varying permission levels (User, Trusted User, Developer).
-* Ability to search for specific submitted packages.
-* Display package information by parsing meta-data provided with the packages.
-* Users can make comments on package information page.
-* Mark packages as out-of-date.
-* Vote for well-done and popular user submitted packages.
-* Trusted User and Developer can search for and modify accounts.
+* A web interface to search for packaging scripts and display package details.
+* A SSH/Git interface to submit and update packages and package meta data.
+* Community features such as comments, votes, package flagging and requests.
+* Editing/deletion of packages and accounts by Trusted Users and Developers.
 * Area for Trusted Users to post AUR-related proposals and vote on them.
 
 Directory Layout
 ----------------
 
+conf::
+	Configuration and configuration templates.
+
 doc::
-	aurweb documentation.
+	Project documentation.
+
+git-interface::
+	Scripts that make up the Git and SSH interface.
 
 po::
 	Translation files for strings in the aurweb interface.
 
-scripts::
-	aurblup package blacklist tool. Scripts for AUR maintenance.
+schema::
+	Schema for the SQL database. Script for dummy data generation.
 
-support::
-	Schema for SQL database. Script for dummy data generation.
+scripts::
+	Scripts for AUR maintenance.
+
+upgrading::
+	Instructions for upgrading setups from one release to another.
 
 web::
 	Web interface for the AUR.
@@ -43,9 +45,9 @@ Links
 -----
 
 * The repository is hosted at git://git.archlinux.org/aurweb.git -- see
-  doc/CodingGuidelines for information on submitting patches.
+  doc/CodingGuidelines for information on the patch submission process.
 
-* Discovered bugs can be submitted to the aurweb bug tracker:
+* Bugs can (and should) be submitted to the aurweb bug tracker:
   https://bugs.archlinux.org/index.php?project=2
 
 * Questions, comments, and patches related to aurweb can be sent to the AUR
