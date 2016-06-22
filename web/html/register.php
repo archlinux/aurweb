@@ -20,18 +20,47 @@ echo '<h2>' . __('Register') . '</h2>';
 
 if (in_request("Action") == "NewAccount") {
 	list($success, $message) = process_account_form(
-			"new", "NewAccount", in_request("U"), 1, 0,
-			in_request("E"), in_request("H"), '', '', in_request("R"),
-			in_request("L"), in_request("I"), in_request("K"),
-			in_request("PK"), 0, in_request("CN"), in_request("UN"));
+		"new",
+		"NewAccount",
+		in_request("U"),
+		1,
+		0,
+		in_request("E"),
+		in_request("H"),
+		'',
+		'',
+		in_request("R"),
+		in_request("L"),
+		in_request("HP"),
+		in_request("I"),
+		in_request("K"),
+		in_request("PK"),
+		0,
+		in_request("CN"),
+		in_request("UN"),
+		in_request("ON"));
 
 	print $message;
 
 	if (!$success) {
-		display_account_form("NewAccount", in_request("U"), 1, 0,
-			in_request("E"), in_request("H"), '', '', in_request("R"),
-			in_request("L"), in_request("I"), in_request("K"),
-			in_request("PK"), 0, in_request("CN"), in_request("UN"));
+		display_account_form("NewAccount",
+			in_request("U"),
+			1,
+			0,
+			in_request("E"),
+			in_request("H"),
+			'',
+			'',
+			in_request("R"),
+			in_request("L"),
+			in_request("HP"),
+			in_request("I"),
+			in_request("K"),
+			in_request("PK"),
+			0,
+			in_request("CN"),
+			in_request("UN"),
+			in_request("ON"));
 	}
 } else {
 	print '<p>' . __("Use this form to create an account.") . '</p>';
