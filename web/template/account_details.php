@@ -43,7 +43,7 @@
 				</tr>
 				<tr>
 					<th><?= __("Homepage") . ":" ?></th>
-					<td><?= htmlspecialchars($row["Homepage"], ENT_QUOTES) ?></td>
+					<td><a href="<?= htmlspecialchars($row["Homepage"], ENT_QUOTES) ?>" rel="nofollow"><?= htmlspecialchars($row["Homepage"], ENT_QUOTES) ?></a></td>
 				</tr>
 				<tr>
 					<th><?= __("IRC Nick") . ":" ?></th>
