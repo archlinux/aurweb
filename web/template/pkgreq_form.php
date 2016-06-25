@@ -68,13 +68,13 @@
 				<textarea name="comments" id="id_comments" rows="5" cols="50"></textarea>
 			</p>
 			<p id="deletion_hint">
-				<?= 'By submitting a deletion request, you ask a Trusted User to delete the package base. This type of request should be used for duplicates, software abandoned by upstream, as well as illegal and irreparably broken packages.' ?>
+				<?= __('By submitting a deletion request, you ask a Trusted User to delete the package base. This type of request should be used for duplicates, software abandoned by upstream, as well as illegal and irreparably broken packages.') ?>
 			</p>
 			<p id="merge_hint">
-				<?= 'By submitting a merge request, you ask a Trusted User to delete the package base and transfer its votes and comments to another package base. Merging a package does not affect the corresponding Git repositories. Make sure you update the Git history of the target package yourself.' ?>
+				<?= __('By submitting a merge request, you ask a Trusted User to delete the package base and transfer its votes and comments to another package base. Merging a package does not affect the corresponding Git repositories. Make sure you update the Git history of the target package yourself.') ?>
 			</p>
 			<p id="orphan_hint">
-				<?= 'By submitting an orphan request, you ask a Trusted User to disown the package base. Please only do this if the package needs maintainer action, the maintainer is MIA and you already tried to contact the maintainer previously.' ?>
+				<?= __('By submitting an orphan request, you ask a Trusted User to disown the package base. Please only do this if the package needs maintainer action, the maintainer is MIA and you already tried to contact the maintainer previously.') ?>
 			</p>
 			<p>
 				<input type="submit" class="button" name="do_FileRequest" value="<?= __("Submit Request") ?>" />
