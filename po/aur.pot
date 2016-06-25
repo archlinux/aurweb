@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v4.1.1\n"
+"Project-Id-Version: AUR v4.2.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
+"POT-Creation-Date: 2016-06-25 16:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1077,6 +1077,10 @@ msgid "Real Name"
 msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
+msgid "Homepage"
+msgstr ""
+
+#: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr ""
@@ -1172,12 +1176,16 @@ msgstr ""
 msgid "Notification settings"
 msgstr ""
 
-#: template/account_edit_form.php template/pkgbase_actions.php
+#: template/account_edit_form.php
 msgid "Notify of new comments"
 msgstr ""
 
 #: template/account_edit_form.php
 msgid "Notify of package updates"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Notify of ownership changes"
 msgstr ""
 
 #: template/account_edit_form.php template/pkgbase_details.php
@@ -1310,6 +1318,10 @@ msgstr ""
 
 #: template/pkgbase_actions.php
 msgid "Disable notifications"
+msgstr ""
+
+#: template/pkgbase_actions.php
+msgid "Enable notifications"
 msgstr ""
 
 #: template/pkgbase_actions.php
@@ -1554,6 +1566,29 @@ msgstr ""
 
 #: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
+msgstr ""
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
 msgstr ""
 
 #: template/pkgreq_results.php
