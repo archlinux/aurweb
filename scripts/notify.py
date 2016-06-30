@@ -41,7 +41,10 @@ def send_notification(to, subject, body, refs, headers={}):
     wrapped = ''
     for line in body.splitlines():
         wrapped += textwrap.fill(line, break_long_words=False) + '\n'
-    body = wrapped + '\n' + refs
+    if refs:
+        body = wrapped + '\n' + refs
+    else:
+        body = wrapped
 
     for recipient in to:
         msg = email.mime.text.MIMEText(body, 'plain', 'utf-8')
@@ -377,20 +380,24 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
 
 
 def request_close(cur, uid, reqid, reason):
-    user = username_from_id(cur, uid)
     to = [aur_request_ml]
     cc = get_request_recipients(cur, reqid)
     text = get_request_closure_comment(cur, reqid)
 
-    user_uri = aur_location + '/account/' + user + '/'
-
     subject = '[PRQ#%d] Request %s' % (int(reqid), reason.title())
-    body = 'Request #%d has been %s by %s [1]' % (int(reqid), reason, user)
+    if int(uid):
+        user = username_from_id(cur, uid)
+        user_uri = aur_location + '/account/' + user + '/'
+        body = 'Request #%d has been %s by %s [1]' % (int(reqid), reason, user)
+        refs = '[1] ' + user_uri
+    else:
+        body = 'Request #%d has been %s automatically by the Arch User ' \
+               'Repository package request system' % (int(reqid), reason)
+        refs = None
     if text.strip() == '':
         body += '.'
     else:
         body += ':\n\n' + text
-    refs = '[1] ' + user_uri
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
     headers = headers_reply(thread_id)
     headers.update(headers_cc(cc))
