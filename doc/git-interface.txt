@@ -22,15 +22,15 @@ Authentication: git-auth
 Pushing to package repositories is possible via SSH. In order to access the SSH
 interface, users first need to add an SSH public key to their account using the
 web interface. Authentication is performed by the git-auth
-AuthorizedKeysCommand script (see sshd_config(5) for details) that looks up the
-public key in the AUR user table. Using this concept of "virtual users", there
-is no need to create separate UNIX accounts for each registered AUR user.
+AuthorizedKeysCommand script (see sshd_config(5) for details) which looks up
+the public key in the AUR user table. Using this concept of "virtual users",
+there is no need to create separate UNIX accounts for each registered AUR user.
 
 If the public key is found, the corresponding authorized_keys line is printed
 to stdout. If the public key does not exist, the login is denied. The
 authorized_keys line also contains a forced command such that authenticated
 users cannot access anything on the server except for the aurweb SSH interface.
-The forced command can be configured in the aurweb configuration file and
+The forced command can be configured in the aurweb configuration file and it
 usually points to the git-serve program.
 
 The INSTALL file in the top-level directory contains detailed instructions on
@@ -43,17 +43,18 @@ The git-serve command, the "aurweb shell", provides different subcommands:
 
 * The help command shows a list of available commands.
 * The list-repos command lists all repositories of the authenticated user.
+* The set-keywords command modifies the keywords assigned to a package base.
 * The setup-repo command can be used to create a new repository.
 * The restore command can be used to restore a deleted package base.
 * The git-{receive,upload}-pack commands are redirected to git-shell(1).
 
-The requested command is extracted from the SSH_ORIGINAL_COMMAND environment
-variable which is usually set by the SSH daemon. If no command is specified,
-git-serve displays a message that aurweb does not provide an interactive shell.
+The command is extracted from the SSH_ORIGINAL_COMMAND environment variable
+which is usually set by the SSH daemon. If no command is specified, git-serve
+displays a message stating that aurweb does not provide an interactive shell.
 
 When invoking git-shell(1), the git-serve command also redirects all paths to
 the shared Git repository and sets up the GIT_NAMESPACE environment variable
-such that Git updates the right namespaced branch.
+such that Git updates the correct namespaced branch.
 
 The Update Hook: git-update
 ---------------------------
@@ -62,7 +63,7 @@ The Git update hook, called git-update, performs several subtasks:
 
 * Prevent from creating branches or tags other than master.
 * Deny non-fast-forwards, except for Trusted Users and Developers.
-* Check each new commit (validate meta data, impose file size limits, ...)
+* Verify each new commit (validate meta data, impose file size limits, ...)
 * Update package base information and package information in the database.
 * Update the named branch and the namespaced HEAD ref of the package.
 
@@ -74,9 +75,8 @@ Accessing Git repositories via HTTP
 
 Git repositories can also be accessed via HTTP by configuring the web server to
 forward specific requests to git-http-backend(1). Note that, since Git
-namespaces are used internally, the web server also needs to rewrite URIs and
-setup the GIT_NAMESPACE environment variable accordingly before forwarding a
-request.
+namespaces are used internally, the web server needs to rewrite URIs and setup
+the GIT_NAMESPACE environment variable accordingly before forwarding a request.
 
 An example configuration for nginx and fcgiwrap can be found in the INSTALL
 instructions in the top-level directory.
@@ -86,10 +86,11 @@ Further Configuration
 
 When using Git namespaces, Git advertises refs outside the current namespace as
 so-called "have" lines. This is normally used to reduce traffic but it has the
-opposite effect in the case of aurweb: Many essentially useless lines are
-transferred to the Git client during `git push` operations.
+opposite effect in the case of aurweb: Most of the refs transferred to the
+client during `git push` operations belong to branches of other package bases
+and are essentially useless.
 
-In order to omit these advertisements, add the strings "^refs/", "!refs/" and
-"!HEAD" to the transfer.hideRefs configuration setting. Note that the order of
-these patterns is important ("^refs/" must come first) and that Git 2.7 or
-newer is required for them to work.
+In order to omit these advertisements, one can add the strings "^refs/",
+"!refs/" and "!HEAD" to the transfer.hideRefs configuration setting. Note that
+the order of these patterns is important ("^refs/" must come first) and that
+Git 2.7 or newer is required for them to work.
