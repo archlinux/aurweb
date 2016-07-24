@@ -133,6 +133,10 @@ def die_with_help(msg):
     die(msg + "\nTry `{:s} help` for a list of commands.".format(ssh_cmdline))
 
 
+def warn(msg):
+    sys.stderr.write("warning: {:s}\n".format(msg))
+
+
 user = os.environ.get('AUR_USER')
 privileged = (os.environ.get('AUR_PRIVILEGED', '0') == '1')
 ssh_cmd = os.environ.get('SSH_ORIGINAL_COMMAND')
@@ -186,6 +190,7 @@ elif action == 'setup-repo':
         die_with_help("{:s}: missing repository name".format(action))
     if len(cmdargv) > 2:
         die_with_help("{:s}: too many arguments".format(action))
+    warn('{:s} is deprecated. Use `git push` to create new repositories.'.format(action))
     create_pkgbase(cmdargv[1], user)
 elif action == 'restore':
     if len(cmdargv) < 2:
