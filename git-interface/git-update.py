@@ -167,10 +167,12 @@ def save_metadata(metadata, db, cur, user):
                     "PackageBaseID = %s AND UserID = %s",
                     [pkgbase_id, user_id])
         if cur.fetchone()[0] == 0:
-            cur.execute("INSERT INTO PackageNotifications (PackageBaseID, UserID) " +
-                        "VALUES (%s, %s)", [pkgbase_id, user_id])
+            cur.execute("INSERT INTO PackageNotifications " +
+                        "(PackageBaseID, UserID) VALUES (%s, %s)",
+                        [pkgbase_id, user_id])
 
     db.commit()
+
 
 def update_notify(db, cur, user, pkgbase_id):
     # Obtain the user ID of the new maintainer.
@@ -179,6 +181,7 @@ def update_notify(db, cur, user, pkgbase_id):
 
     # Execute the notification script.
     subprocess.Popen((notify_cmd, 'update', str(user_id), str(pkgbase_id)))
+
 
 def die(msg):
     sys.stderr.write("error: {:s}\n".format(msg))
