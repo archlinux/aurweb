@@ -108,14 +108,11 @@ def pkgbase_set_keywords(pkgbase, keywords):
     db.close()
 
 
-def check_permissions(pkgbase, user):
+def pkgbase_has_write_access(pkgbase, user):
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
                                  passwd=aur_db_pass, db=aur_db_name,
                                  unix_socket=aur_db_socket, buffered=True)
     cur = db.cursor()
-
-    if os.environ.get('AUR_PRIVILEGED', '0') == '1':
-        return True
 
     cur.execute("SELECT COUNT(*) FROM PackageBases " +
                 "LEFT JOIN PackageComaintainers " +
@@ -136,15 +133,18 @@ def die_with_help(msg):
     die(msg + "\nTry `{:s} help` for a list of commands.".format(ssh_cmdline))
 
 
-user = os.environ.get("AUR_USER")
-cmd = os.environ.get("SSH_ORIGINAL_COMMAND")
-if not cmd:
+user = os.environ.get('AUR_USER')
+privileged = (os.environ.get('AUR_PRIVILEGED', '0') == '1')
+ssh_cmd = os.environ.get('SSH_ORIGINAL_COMMAND')
+ssh_client = os.environ.get('SSH_CLIENT')
+
+if not ssh_cmd:
     die_with_help("Interactive shell is disabled.")
-cmdargv = shlex.split(cmd)
+cmdargv = shlex.split(ssh_cmd)
 action = cmdargv[0]
+remote_addr = ssh_client.split(' ')[0] if ssh_client else None
 
 if enable_maintenance:
-    remote_addr = os.environ["SSH_CLIENT"].split(" ")[0]
     if remote_addr not in maintenance_exc:
         die("The AUR is down due to maintenance. We will be back soon.")
 
@@ -165,7 +165,7 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
         create_pkgbase(pkgbase, user)
 
     if action == 'git-receive-pack':
-        if not check_permissions(pkgbase, user):
+        if not privileged and not pkgbase_has_write_access(pkgbase, user):
             die('{:s}: permission denied: {:s}'.format(action, user))
 
     os.environ["AUR_USER"] = user
