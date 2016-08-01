@@ -202,6 +202,7 @@ repo = pygit2.Repository(repo_path)
 user = os.environ.get("AUR_USER")
 pkgbase = os.environ.get("AUR_PKGBASE")
 privileged = (os.environ.get("AUR_PRIVILEGED", '0') == '1')
+warn_or_die = warn if privileged else die
 
 if len(sys.argv) == 2 and sys.argv[1] == "restore":
     if 'refs/heads/' + pkgbase not in repo.listall_references():
@@ -338,11 +339,11 @@ for pkgname in srcinfo.utils.get_package_names(metadata):
     pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
     pkgname = pkginfo['pkgname']
 
-    if pkgname in blacklist and not privileged:
-        die('package is blacklisted: {:s}'.format(pkgname))
-    if pkgname in providers and not privileged:
+    if pkgname in blacklist:
+        warn_or_die('package is blacklisted: {:s}'.format(pkgname))
+    if pkgname in providers:
         repo = providers[pkgname]
-        die('package already provided by [{:s}]: {:s}'.format(repo, pkgname))
+        warn_or_die('package already provided by [{:s}]: {:s}'.format(repo, pkgname))
 
     cur.execute("SELECT COUNT(*) FROM Packages WHERE Name = %s AND " +
                 "PackageBaseID <> %s", [pkgname, pkgbase_id])
