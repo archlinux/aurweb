@@ -226,14 +226,11 @@ db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
 cur = db.cursor()
 
 # Detect and deny non-fast-forwards.
-if sha1_old != "0000000000000000000000000000000000000000":
+if sha1_old != "0000000000000000000000000000000000000000" and not privileged:
     walker = repo.walk(sha1_old, pygit2.GIT_SORT_TOPOLOGICAL)
     walker.hide(sha1_new)
     if next(walker, None) is not None:
-        cur.execute("SELECT AccountTypeID FROM Users WHERE UserName = %s ",
-                    [user])
-        if cur.fetchone()[0] == 1:
-            die("denying non-fast-forward (you should pull first)")
+        die("denying non-fast-forward (you should pull first)")
 
 # Prepare the walker that validates new commits.
 walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
