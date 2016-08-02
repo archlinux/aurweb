@@ -25,6 +25,19 @@ notify_cmd = config.get('notifications', 'notify-cmd')
 repo_path = config.get('serve', 'repo-path')
 repo_regex = config.get('serve', 'repo-regex')
 
+max_blob_size = config.getint('update', 'max-blob-size')
+
+
+def size_humanize(num):
+    for unit in ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB']:
+        if abs(num) < 2048.0:
+            if isinstance(num, int):
+                return "{}{}".format(num, unit)
+            else:
+                return "{:.2f}{}".format(num, unit)
+        num /= 1024.0
+    return "{:.2f}{}".format(num, 'YiB')
+
 
 def extract_arch_fields(pkginfo, field):
     values = []
@@ -254,8 +267,8 @@ for commit in walker:
             die_commit("not a blob object: {:s}".format(treeobj),
                        str(commit.id))
 
-        if blob.size > 250000:
-            die_commit("maximum blob size (250kB) exceeded", str(commit.id))
+        if blob.size > max_blob_size:
+            die_commit("maximum blob size ({:s}) exceeded".format(size_humanize(max_blob_size)), str(commit.id))
 
     metadata_raw = repo[commit.tree['.SRCINFO'].id].data.decode()
     (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
