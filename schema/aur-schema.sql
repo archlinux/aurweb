@@ -45,16 +45,9 @@ CREATE TABLE Users (
 	PRIMARY KEY (ID),
 	UNIQUE (Username),
 	UNIQUE (Email),
-	INDEX (AccountTypeID),
 	FOREIGN KEY (AccountTypeID) REFERENCES AccountTypes(ID) ON DELETE NO ACTION
 ) ENGINE = InnoDB;
--- A default developer account for testing purposes
-INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
-	1, 3, 'dev', 'dev@localhost', MD5('dev'));
-INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
-	2, 2, 'tu', 'tu@localhost', MD5('tu'));
-INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd) VALUES (
-	3, 1, 'user', 'user@localhost', MD5('user'));
+CREATE INDEX UsersAccountTypeID ON Users (AccountTypeID);
 
 
 -- SSH public keys used for the aurweb SSH/Git interface.
@@ -96,16 +89,16 @@ CREATE TABLE PackageBases (
 	PackagerUID INTEGER UNSIGNED NULL DEFAULT NULL,      -- Last packager
 	PRIMARY KEY (ID),
 	UNIQUE (Name),
-	INDEX (NumVotes),
-	INDEX (SubmitterUID),
-	INDEX (MaintainerUID),
-	INDEX (PackagerUID),
 	FOREIGN KEY (FlaggerUID) REFERENCES Users(ID) ON DELETE SET NULL,
 	-- deleting a user will cause packages to be orphaned, not deleted
 	FOREIGN KEY (SubmitterUID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (MaintainerUID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (PackagerUID) REFERENCES Users(ID) ON DELETE SET NULL
 ) ENGINE = InnoDB;
+CREATE INDEX BasesNumVotes ON PackageBases (NumVotes);
+CREATE INDEX BasesSubmitterUID ON PackageBases (SubmitterUID);
+CREATE INDEX BasesMaintainerUID ON PackageBases (MaintainerUID);
+CREATE INDEX BasesPackagerUID ON PackageBases (PackagerUID);
 
 
 -- Keywords of package bases
@@ -196,11 +189,11 @@ CREATE TABLE PackageDepends (
 	DepName VARCHAR(255) NOT NULL,
 	DepCondition VARCHAR(255),
 	DepArch VARCHAR(255) NULL DEFAULT NULL,
-	INDEX (PackageID),
-	INDEX (DepName),
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
 	FOREIGN KEY (DepTypeID) REFERENCES DependencyTypes(ID) ON DELETE NO ACTION
 ) ENGINE = InnoDB;
+CREATE INDEX DependsPackageID ON PackageDepends (PackageID);
+CREATE INDEX DependsDepName ON PackageDepends (DepName);
 
 
 -- Define the package relation types
@@ -223,11 +216,11 @@ CREATE TABLE PackageRelations (
 	RelName VARCHAR(255) NOT NULL,
 	RelCondition VARCHAR(255),
 	RelArch VARCHAR(255) NULL DEFAULT NULL,
-	INDEX (PackageID),
-	INDEX (RelName),
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE,
 	FOREIGN KEY (RelTypeID) REFERENCES RelationTypes(ID) ON DELETE NO ACTION
 ) ENGINE = InnoDB;
+CREATE INDEX RelationsPackageID ON PackageRelations (PackageID);
+CREATE INDEX RelationsRelName ON PackageRelations (RelName);
 
 
 -- Track which sources a package has
@@ -236,9 +229,9 @@ CREATE TABLE PackageSources (
 	PackageID INTEGER UNSIGNED NOT NULL,
 	Source VARCHAR(255) NOT NULL DEFAULT "/dev/null",
 	SourceArch VARCHAR(255) NULL DEFAULT NULL,
-	INDEX (PackageID),
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
+CREATE INDEX SourcesPackageID ON PackageSources (PackageID);
 
 
 -- Track votes for packages
@@ -247,12 +240,12 @@ CREATE TABLE PackageVotes (
 	UsersID INTEGER UNSIGNED NOT NULL,
 	PackageBaseID INTEGER UNSIGNED NOT NULL,
 	VoteTS BIGINT UNSIGNED NULL DEFAULT NULL,
-	INDEX (UsersID),
-	INDEX (PackageBaseID),
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 CREATE UNIQUE INDEX VoteUsersIDPackageID ON PackageVotes (UsersID, PackageBaseID);
+CREATE INDEX VotesUsersID ON PackageVotes (UsersID);
+CREATE INDEX VotesPackageBaseID ON PackageVotes (PackageBaseID);
 
 -- Record comments for packages
 --
@@ -268,13 +261,13 @@ CREATE TABLE PackageComments (
 	DelUsersID INTEGER UNSIGNED NULL DEFAULT NULL,
 	PinnedTS BIGINT UNSIGNED NOT NULL DEFAULT 0,
 	PRIMARY KEY (ID),
-	INDEX (UsersID),
-	INDEX (PackageBaseID),
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (EditedUsersID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (DelUsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
+CREATE INDEX CommentsUsersID ON PackageComments (UsersID);
+CREATE INDEX CommentsPackageBaseID ON PackageComments (PackageBaseID);
 
 -- Package base co-maintainers
 --
@@ -282,11 +275,11 @@ CREATE TABLE PackageComaintainers (
 	UsersID INTEGER UNSIGNED NOT NULL,
 	PackageBaseID INTEGER UNSIGNED NOT NULL,
 	Priority INTEGER UNSIGNED NOT NULL,
-	INDEX (UsersID),
-	INDEX (PackageBaseID),
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
+CREATE INDEX ComaintainersUsersID ON PackageComaintainers (UsersID);
+CREATE INDEX ComaintainersPackageBaseID ON PackageComaintainers (PackageBaseID);
 
 -- Package base notifications
 --
@@ -343,27 +336,27 @@ CREATE TABLE PackageRequests (
 	RequestTS BIGINT UNSIGNED NOT NULL DEFAULT 0,
 	Status TINYINT UNSIGNED NOT NULL DEFAULT 0,
 	PRIMARY KEY (ID),
-	INDEX (UsersID),
-	INDEX (PackageBaseID),
 	FOREIGN KEY (ReqTypeID) REFERENCES RequestTypes(ID) ON DELETE NO ACTION,
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE SET NULL,
 	FOREIGN KEY (PackageBaseID) REFERENCES PackageBases(ID) ON DELETE SET NULL
 ) ENGINE = InnoDB;
+CREATE INDEX RequestsUsersID ON PackageRequests (UsersID);
+CREATE INDEX RequestsPackageBaseID ON PackageRequests (PackageBaseID);
 
 -- Vote information
 --
 CREATE TABLE IF NOT EXISTS TU_VoteInfo (
-	ID int(10) unsigned NOT NULL auto_increment,
-	Agenda text NOT NULL,
+	ID INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+	Agenda TEXT NOT NULL,
 	User VARCHAR(32) NOT NULL,
-	Submitted bigint(20) unsigned NOT NULL,
-	End bigint(20) unsigned NOT NULL,
-	Quorum decimal(2, 2) unsigned NOT NULL,
-	SubmitterID int(10) unsigned NOT NULL,
-	Yes tinyint(3) unsigned NOT NULL default '0',
-	No tinyint(3) unsigned NOT NULL default '0',
-	Abstain tinyint(3) unsigned NOT NULL default '0',
-	ActiveTUs tinyint(3) unsigned NOT NULL default '0',
+	Submitted BIGINT UNSIGNED NOT NULL,
+	End BIGINT UNSIGNED NOT NULL,
+	Quorum DECIMAL(2, 2) UNSIGNED NOT NULL,
+	SubmitterID INTEGER UNSIGNED NOT NULL,
+	Yes TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+	No TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+	Abstain TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+	ActiveTUs TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
 	PRIMARY KEY  (ID),
 	FOREIGN KEY (SubmitterID) REFERENCES Users(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
@@ -371,8 +364,8 @@ CREATE TABLE IF NOT EXISTS TU_VoteInfo (
 -- Individual vote records
 --
 CREATE TABLE IF NOT EXISTS TU_Votes (
-	VoteID int(10) unsigned NOT NULL,
-	UserID int(10) unsigned NOT NULL,
+	VoteID INTEGER UNSIGNED NOT NULL,
+	UserID INTEGER UNSIGNED NOT NULL,
 	FOREIGN KEY (VoteID) REFERENCES TU_VoteInfo(ID) ON DELETE CASCADE,
 	FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
