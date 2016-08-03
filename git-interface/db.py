@@ -1,15 +1,12 @@
-import configparser
 import mysql.connector
-import os
+
+import config
 
 
 class Connection:
     _conn = None
 
     def __init__(self):
-        config = configparser.RawConfigParser()
-        config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
-
         aur_db_host = config.get('database', 'host')
         aur_db_name = config.get('database', 'name')
         aur_db_user = config.get('database', 'user')

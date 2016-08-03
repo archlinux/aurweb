@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import configparser
 import os
 import pygit2
 import re
@@ -10,10 +9,8 @@ import sys
 import srcinfo.parse
 import srcinfo.utils
 
+import config
 import db
-
-config = configparser.RawConfigParser()
-config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
 
 notify_cmd = config.get('notifications', 'notify-cmd')
 

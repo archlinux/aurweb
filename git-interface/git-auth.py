@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 
-import configparser
 import shlex
-import os
 import re
 import sys
 
+import config
 import db
 
 
@@ -23,9 +22,6 @@ def format_command(env_vars, command, ssh_opts, ssh_key):
     msg = 'command="{}",{} {}'.format(command, ssh_opts, ssh_key)
     return msg
 
-
-config = configparser.RawConfigParser()
-config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
 
 valid_keytypes = config.get('auth', 'valid-keytypes').split()
 username_regex = config.get('auth', 'username-regex')

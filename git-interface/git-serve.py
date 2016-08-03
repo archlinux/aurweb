@@ -1,15 +1,12 @@
 #!/usr/bin/python3
 
-import configparser
 import os
 import re
 import shlex
 import sys
 
+import config
 import db
-
-config = configparser.RawConfigParser()
-config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
 
 repo_path = config.get('serve', 'repo-path')
 repo_regex = config.get('serve', 'repo-regex')
