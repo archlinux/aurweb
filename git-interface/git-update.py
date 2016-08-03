@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import configparser
-import mysql.connector
 import os
 import pygit2
 import re
@@ -11,14 +10,10 @@ import sys
 import srcinfo.parse
 import srcinfo.utils
 
+import db
+
 config = configparser.RawConfigParser()
 config.read(os.path.dirname(os.path.realpath(__file__)) + "/../conf/config")
-
-aur_db_host = config.get('database', 'host')
-aur_db_name = config.get('database', 'name')
-aur_db_user = config.get('database', 'user')
-aur_db_pass = config.get('database', 'password')
-aur_db_socket = config.get('database', 'socket')
 
 notify_cmd = config.get('notifications', 'notify-cmd')
 
@@ -65,27 +60,27 @@ def parse_dep(depstring):
         return (depname, depcond)
 
 
-def save_metadata(metadata, db, cur, user):
+def save_metadata(metadata, conn, user):
     # Obtain package base ID and previous maintainer.
     pkgbase = metadata['pkgbase']
-    cur.execute("SELECT ID, MaintainerUID FROM PackageBases "
-                "WHERE Name = %s", [pkgbase])
+    cur = conn.execute("SELECT ID, MaintainerUID FROM PackageBases "
+                       "WHERE Name = ?", [pkgbase])
     (pkgbase_id, maintainer_uid) = cur.fetchone()
     was_orphan = not maintainer_uid
 
     # Obtain the user ID of the new maintainer.
-    cur.execute("SELECT ID FROM Users WHERE Username = %s", [user])
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     user_id = int(cur.fetchone()[0])
 
     # Update package base details and delete current packages.
-    cur.execute("UPDATE PackageBases SET ModifiedTS = UNIX_TIMESTAMP(), " +
-                "PackagerUID = %s, OutOfDateTS = NULL WHERE ID = %s",
-                [user_id, pkgbase_id])
-    cur.execute("UPDATE PackageBases SET MaintainerUID = %s " +
-                "WHERE ID = %s AND MaintainerUID IS NULL",
-                [user_id, pkgbase_id])
-    cur.execute("DELETE FROM Packages WHERE PackageBaseID = %s",
-                [pkgbase_id])
+    conn.execute("UPDATE PackageBases SET ModifiedTS = UNIX_TIMESTAMP(), " +
+                 "PackagerUID = ?, OutOfDateTS = NULL WHERE ID = ?",
+                 [user_id, pkgbase_id])
+    conn.execute("UPDATE PackageBases SET MaintainerUID = ? " +
+                 "WHERE ID = ? AND MaintainerUID IS NULL",
+                 [user_id, pkgbase_id])
+    conn.execute("DELETE FROM Packages WHERE PackageBaseID = ?",
+                 [pkgbase_id])
 
     for pkgname in srcinfo.utils.get_package_names(metadata):
         pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
@@ -102,94 +97,94 @@ def save_metadata(metadata, db, cur, user):
                 pkginfo[field] = None
 
         # Create a new package.
-        cur.execute("INSERT INTO Packages (PackageBaseID, Name, " +
-                    "Version, Description, URL) " +
-                    "VALUES (%s, %s, %s, %s, %s)",
-                    [pkgbase_id, pkginfo['pkgname'], ver,
-                     pkginfo['pkgdesc'], pkginfo['url']])
-        db.commit()
+        cur = conn.execute("INSERT INTO Packages (PackageBaseID, Name, " +
+                           "Version, Description, URL) " +
+                           "VALUES (?, ?, ?, ?, ?)",
+                           [pkgbase_id, pkginfo['pkgname'], ver,
+                            pkginfo['pkgdesc'], pkginfo['url']])
+        conn.commit()
         pkgid = cur.lastrowid
 
         # Add package sources.
         for source_info in extract_arch_fields(pkginfo, 'source'):
-            cur.execute("INSERT INTO PackageSources (PackageID, Source, " +
-                        "SourceArch) VALUES (%s, %s, %s)",
-                        [pkgid, source_info['value'], source_info['arch']])
+            conn.execute("INSERT INTO PackageSources (PackageID, Source, " +
+                         "SourceArch) VALUES (?, ?, ?)",
+                         [pkgid, source_info['value'], source_info['arch']])
 
         # Add package dependencies.
         for deptype in ('depends', 'makedepends',
                         'checkdepends', 'optdepends'):
-            cur.execute("SELECT ID FROM DependencyTypes WHERE Name = %s",
-                        [deptype])
+            cur = conn.execute("SELECT ID FROM DependencyTypes WHERE Name = ?",
+                               [deptype])
             deptypeid = cur.fetchone()[0]
             for dep_info in extract_arch_fields(pkginfo, deptype):
                 depname, depcond = parse_dep(dep_info['value'])
                 deparch = dep_info['arch']
-                cur.execute("INSERT INTO PackageDepends (PackageID, " +
-                            "DepTypeID, DepName, DepCondition, DepArch) " +
-                            "VALUES (%s, %s, %s, %s, %s)",
-                            [pkgid, deptypeid, depname, depcond, deparch])
+                conn.execute("INSERT INTO PackageDepends (PackageID, " +
+                             "DepTypeID, DepName, DepCondition, DepArch) " +
+                             "VALUES (?, ?, ?, ?, ?)",
+                             [pkgid, deptypeid, depname, depcond, deparch])
 
         # Add package relations (conflicts, provides, replaces).
         for reltype in ('conflicts', 'provides', 'replaces'):
-            cur.execute("SELECT ID FROM RelationTypes WHERE Name = %s",
-                        [reltype])
+            cur = conn.execute("SELECT ID FROM RelationTypes WHERE Name = ?",
+                               [reltype])
             reltypeid = cur.fetchone()[0]
             for rel_info in extract_arch_fields(pkginfo, reltype):
                 relname, relcond = parse_dep(rel_info['value'])
                 relarch = rel_info['arch']
-                cur.execute("INSERT INTO PackageRelations (PackageID, " +
-                            "RelTypeID, RelName, RelCondition, RelArch) " +
-                            "VALUES (%s, %s, %s, %s, %s)",
-                            [pkgid, reltypeid, relname, relcond, relarch])
+                conn.execute("INSERT INTO PackageRelations (PackageID, " +
+                             "RelTypeID, RelName, RelCondition, RelArch) " +
+                             "VALUES (?, ?, ?, ?, ?)",
+                             [pkgid, reltypeid, relname, relcond, relarch])
 
         # Add package licenses.
         if 'license' in pkginfo:
             for license in pkginfo['license']:
-                cur.execute("SELECT ID FROM Licenses WHERE Name = %s",
-                            [license])
+                cur = conn.execute("SELECT ID FROM Licenses WHERE Name = ?",
+                                   [license])
                 if cur.rowcount == 1:
                     licenseid = cur.fetchone()[0]
                 else:
-                    cur.execute("INSERT INTO Licenses (Name) VALUES (%s)",
-                                [license])
-                    db.commit()
+                    cur = conn.execute("INSERT INTO Licenses (Name) " +
+                                       "VALUES (?)", [license])
+                    conn.commit()
                     licenseid = cur.lastrowid
-                cur.execute("INSERT INTO PackageLicenses (PackageID, " +
-                            "LicenseID) VALUES (%s, %s)",
-                            [pkgid, licenseid])
+                conn.execute("INSERT INTO PackageLicenses (PackageID, " +
+                             "LicenseID) VALUES (?, ?)",
+                             [pkgid, licenseid])
 
         # Add package groups.
         if 'groups' in pkginfo:
             for group in pkginfo['groups']:
-                cur.execute("SELECT ID FROM Groups WHERE Name = %s",
-                            [group])
+                cur = conn.execute("SELECT ID FROM Groups WHERE Name = ?",
+                                   [group])
                 if cur.rowcount == 1:
                     groupid = cur.fetchone()[0]
                 else:
-                    cur.execute("INSERT INTO Groups (Name) VALUES (%s)",
-                                [group])
-                    db.commit()
+                    cur = conn.execute("INSERT INTO Groups (Name) VALUES (?)",
+                                       [group])
+                    conn.commit()
                     groupid = cur.lastrowid
-                cur.execute("INSERT INTO PackageGroups (PackageID, "
-                            "GroupID) VALUES (%s, %s)", [pkgid, groupid])
+                conn.execute("INSERT INTO PackageGroups (PackageID, "
+                             "GroupID) VALUES (?, ?)", [pkgid, groupid])
 
     # Add user to notification list on adoption.
     if was_orphan:
-        cur.execute("SELECT COUNT(*) FROM PackageNotifications WHERE " +
-                    "PackageBaseID = %s AND UserID = %s",
-                    [pkgbase_id, user_id])
+        cur = conn.execute("SELECT COUNT(*) FROM PackageNotifications WHERE " +
+                           "PackageBaseID = ? AND UserID = ?",
+                           [pkgbase_id, user_id])
         if cur.fetchone()[0] == 0:
-            cur.execute("INSERT INTO PackageNotifications " +
-                        "(PackageBaseID, UserID) VALUES (%s, %s)",
-                        [pkgbase_id, user_id])
+            conn.execute("INSERT INTO PackageNotifications " +
+                         "(PackageBaseID, UserID) VALUES (?, ?)",
+                         [pkgbase_id, user_id])
 
-    db.commit()
+    conn.commit()
 
 
-def update_notify(db, cur, user, pkgbase_id):
+def update_notify(conn, user, pkgbase_id):
     # Obtain the user ID of the new maintainer.
-    cur.execute("SELECT ID FROM Users WHERE Username = %s", [user])
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     user_id = int(cur.fetchone()[0])
 
     # Execute the notification script.
@@ -233,10 +228,7 @@ else:
 if refname != "refs/heads/master":
     die("pushing to a branch other than master is restricted")
 
-db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
-                             passwd=aur_db_pass, db=aur_db_name,
-                             unix_socket=aur_db_socket, buffered=True)
-cur = db.cursor()
+conn = db.Connection()
 
 # Detect and deny non-fast-forwards.
 if sha1_old != "0000000000000000000000000000000000000000" and not privileged:
@@ -339,13 +331,13 @@ if metadata_pkgbase != pkgbase:
 
 # Ensure that packages are neither blacklisted nor overwritten.
 pkgbase = metadata['pkgbase']
-cur.execute("SELECT ID FROM PackageBases WHERE Name = %s", [pkgbase])
+cur = conn.execute("SELECT ID FROM PackageBases WHERE Name = ?", [pkgbase])
 pkgbase_id = cur.fetchone()[0] if cur.rowcount == 1 else 0
 
-cur.execute("SELECT Name FROM PackageBlacklist")
+cur = conn.execute("SELECT Name FROM PackageBlacklist")
 blacklist = [row[0] for row in cur.fetchall()]
 
-cur.execute("SELECT Name, Repo FROM OfficialProviders")
+cur = conn.execute("SELECT Name, Repo FROM OfficialProviders")
 providers = dict(cur.fetchall())
 
 for pkgname in srcinfo.utils.get_package_names(metadata):
@@ -358,13 +350,13 @@ for pkgname in srcinfo.utils.get_package_names(metadata):
         repo = providers[pkgname]
         warn_or_die('package already provided by [{:s}]: {:s}'.format(repo, pkgname))
 
-    cur.execute("SELECT COUNT(*) FROM Packages WHERE Name = %s AND " +
-                "PackageBaseID <> %s", [pkgname, pkgbase_id])
+    cur = conn.execute("SELECT COUNT(*) FROM Packages WHERE Name = ? AND " +
+                       "PackageBaseID <> ?", [pkgname, pkgbase_id])
     if cur.fetchone()[0] > 0:
         die('cannot overwrite package: {:s}'.format(pkgname))
 
 # Store package base details in the database.
-save_metadata(metadata, db, cur, user)
+save_metadata(metadata, conn, user)
 
 # Create (or update) a branch with the name of the package base for better
 # accessibility.
@@ -377,7 +369,7 @@ repo.create_reference('refs/heads/' + pkgbase, sha1_new, True)
 repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD', sha1_new, True)
 
 # Send package update notifications.
-update_notify(db, cur, user, pkgbase_id)
+update_notify(conn, user, pkgbase_id)
 
 # Close the database.
-db.close()
+conn.close()
