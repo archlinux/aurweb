@@ -1,5 +1,5 @@
 [database]
-dsn_prefix = mysql
+backend = mysql
 host = localhost
 socket = /var/run/mysqld/mysqld.sock
 name = AUR
