@@ -9,7 +9,11 @@ def _get_parser():
 
     if not _parser:
         _parser = configparser.RawConfigParser()
-        path = os.path.dirname(os.path.realpath(__file__)) + "/../conf/config"
+        if 'AUR_CONFIG' in os.environ:
+            path = os.environ.get('AUR_CONFIG')
+        else:
+            relpath = "/../conf/config"
+            path = os.path.dirname(os.path.realpath(__file__)) + relpath
         _parser.read(path)
 
     return _parser
