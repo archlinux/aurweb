@@ -140,8 +140,9 @@ def save_metadata(metadata, conn, user):
             for license in pkginfo['license']:
                 cur = conn.execute("SELECT ID FROM Licenses WHERE Name = ?",
                                    [license])
-                if cur.rowcount == 1:
-                    licenseid = cur.fetchone()[0]
+                row = cur.fetchone()
+                if row:
+                    licenseid = row[0]
                 else:
                     cur = conn.execute("INSERT INTO Licenses (Name) " +
                                        "VALUES (?)", [license])
@@ -156,8 +157,9 @@ def save_metadata(metadata, conn, user):
             for group in pkginfo['groups']:
                 cur = conn.execute("SELECT ID FROM Groups WHERE Name = ?",
                                    [group])
-                if cur.rowcount == 1:
-                    groupid = cur.fetchone()[0]
+                row = cur.fetchone()
+                if row:
+                    groupid = row[0]
                 else:
                     cur = conn.execute("INSERT INTO Groups (Name) VALUES (?)",
                                        [group])
@@ -329,7 +331,8 @@ if metadata_pkgbase != pkgbase:
 # Ensure that packages are neither blacklisted nor overwritten.
 pkgbase = metadata['pkgbase']
 cur = conn.execute("SELECT ID FROM PackageBases WHERE Name = ?", [pkgbase])
-pkgbase_id = cur.fetchone()[0] if cur.rowcount == 1 else 0
+row = cur.fetchone()
+pkgbase_id = row[0] if row else 0
 
 cur = conn.execute("SELECT Name FROM PackageBlacklist")
 blacklist = [row[0] for row in cur.fetchall()]

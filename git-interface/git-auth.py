@@ -40,10 +40,11 @@ cur = conn.execute("SELECT Users.Username, Users.AccountTypeID FROM Users " +
                    "WHERE SSHPubKeys.PubKey = ? AND Users.Suspended = 0",
                    (keytype + " " + keytext,))
 
-if cur.rowcount != 1:
+row = cur.fetchone()
+if not row or cur.fetchone():
     exit(1)
 
-user, account_type = cur.fetchone()
+user, account_type = row
 if not re.match(username_regex, user):
     exit(1)
 
