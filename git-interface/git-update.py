@@ -5,6 +5,7 @@ import pygit2
 import re
 import subprocess
 import sys
+import time
 
 import srcinfo.parse
 import srcinfo.utils
@@ -70,9 +71,10 @@ def save_metadata(metadata, conn, user):
     user_id = int(cur.fetchone()[0])
 
     # Update package base details and delete current packages.
-    conn.execute("UPDATE PackageBases SET ModifiedTS = UNIX_TIMESTAMP(), " +
+    now = int(time.time())
+    conn.execute("UPDATE PackageBases SET ModifiedTS = ?, " +
                  "PackagerUID = ?, OutOfDateTS = NULL WHERE ID = ?",
-                 [user_id, pkgbase_id])
+                 [now, user_id, pkgbase_id])
     conn.execute("UPDATE PackageBases SET MaintainerUID = ? " +
                  "WHERE ID = ? AND MaintainerUID IS NULL",
                  [user_id, pkgbase_id])

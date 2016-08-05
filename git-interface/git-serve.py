@@ -4,6 +4,7 @@ import os
 import re
 import shlex
 import sys
+import time
 
 import config
 import db
@@ -58,10 +59,10 @@ def create_pkgbase(pkgbase, user):
     if userid == 0:
         die('{:s}: unknown user: {:s}'.format(action, user))
 
+    now = int(time.time())
     cur = conn.execute("INSERT INTO PackageBases (Name, SubmittedTS, " +
                        "ModifiedTS, SubmitterUID, MaintainerUID) VALUES " +
-                       "(?, UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), ?, ?)",
-                       [pkgbase, userid, userid])
+                       "(?, ?, ?, ?, ?)", [pkgbase, now, now, userid, userid])
     pkgbase_id = cur.lastrowid
 
     cur = conn.execute("INSERT INTO PackageNotifications " +
