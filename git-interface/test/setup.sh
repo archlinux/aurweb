@@ -90,20 +90,23 @@ echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (2, 
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (1, '$AUTH_FINGERPRINT_USER', '$AUTH_KEYTYPE_USER $AUTH_KEYTEXT_USER');" | sqlite3 aur.db
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (2, '$AUTH_FINGERPRINT_TU', '$AUTH_KEYTYPE_TU $AUTH_KEYTEXT_TU');" | sqlite3 aur.db
 
-# Initialize a Git repository to store test packages in.
-(
-	GIT_AUTHOR_EMAIL=author@example.com
-	GIT_AUTHOR_NAME='A U Thor'
-	GIT_COMMITTER_EMAIL=committer@example.com
-	GIT_COMMITTER_NAME='C O Mitter'
-	export GIT_AUTHOR_EMAIL GIT_AUTHOR_NAME
-	export GIT_COMMITTER_EMAIL GIT_COMMITTER_NAME
+echo "INSERT INTO PackageBlacklist (Name) VALUES ('forbidden');" | sqlite3 aur.db
+echo "INSERT INTO OfficialProviders (Name, Repo, Provides) VALUES ('official', 'core', 'official');" | sqlite3 aur.db
 
+# Initialize a Git repository and test packages.
+GIT_AUTHOR_EMAIL=author@example.com
+GIT_AUTHOR_NAME='A U Thor'
+GIT_COMMITTER_EMAIL=committer@example.com
+GIT_COMMITTER_NAME='C O Mitter'
+export GIT_AUTHOR_EMAIL GIT_AUTHOR_NAME
+export GIT_COMMITTER_EMAIL GIT_COMMITTER_NAME
+
+(
 	mkdir aur.git
 	cd aur.git
-
 	git init -q
-	git checkout -q -b refs/namespaces/foobar/refs/heads/master
+
+	git checkout -q --orphan refs/namespaces/foobar/refs/heads/master
 
 	cat >PKGBUILD <<-EOF
 	pkgname=foobar
@@ -136,5 +139,48 @@ echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (2, '$AUTH_FIN
 	EOF
 
 	git add PKGBUILD .SRCINFO
-	git commit -q -am 'Initial import'
+	git commit -q -m 'Initial import'
+
+	sed 's/\(pkgrel.*\)1/\12/' PKGBUILD >PKGBUILD.new
+	sed 's/\(pkgrel.*\)1/\12/' .SRCINFO >.SRCINFO.new
+	mv PKGBUILD.new PKGBUILD
+	mv .SRCINFO.new .SRCINFO
+	git commit -q -am 'Bump pkgrel'
+
+	git checkout -q --orphan refs/namespaces/foobar2/refs/heads/master
+
+	cat >PKGBUILD <<-EOF
+	pkgname=foobar2
+	pkgver=1
+	pkgrel=1
+	pkgdesc='aurweb test package.'
+	url='https://aur.archlinux.org/'
+	license=('MIT')
+	arch=('any')
+	depends=('python-pygit2')
+	source=()
+	md5sums=()
+
+	package() {
+		echo 'Hello world!'
+	}
+	EOF
+
+	cat >.SRCINFO <<-EOF
+	pkgbase = foobar2
+		pkgdesc = aurweb test package.
+		pkgver = 1
+		pkgrel = 1
+		url = https://aur.archlinux.org/
+		arch = any
+		license = MIT
+		depends = python-pygit2
+
+	pkgname = foobar2
+	EOF
+
+	git add PKGBUILD .SRCINFO
+	git commit -q -m 'Initial import'
+
+	git checkout -q refs/namespaces/foobar/refs/heads/master
 )
