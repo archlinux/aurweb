@@ -78,8 +78,13 @@ def save_metadata(metadata, conn, user):
     conn.execute("UPDATE PackageBases SET MaintainerUID = ? " +
                  "WHERE ID = ? AND MaintainerUID IS NULL",
                  [user_id, pkgbase_id])
-    conn.execute("DELETE FROM Packages WHERE PackageBaseID = ?",
-                 [pkgbase_id])
+    for table in ('Sources', 'Depends', 'Relations', 'Licenses', 'Groups'):
+        conn.execute("DELETE FROM Package" + table + " WHERE EXISTS (" +
+                     "SELECT * FROM Packages " +
+                     "WHERE Packages.PackageBaseID = ? AND " +
+                     "Package" + table + ".PackageID = Packages.ID)",
+                     [pkgbase_id])
+    conn.execute("DELETE FROM Packages WHERE PackageBaseID = ?", [pkgbase_id])
 
     for pkgname in srcinfo.utils.get_package_names(metadata):
         pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
