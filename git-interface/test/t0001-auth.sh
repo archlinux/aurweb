@@ -16,4 +16,13 @@ test_expect_success 'Test Trusted User authentication.' '
 	grep -q AUR_PRIVILEGED=1 out
 '
 
+test_expect_success 'Test authentication with an unsupported key type.' '
+	test_must_fail "$GIT_AUTH" ssh-xxx "$AUTH_KEYTEXT_USER"
+'
+
+test_expect_success 'Test authentication with a wrong key.' '
+	"$GIT_AUTH" "$AUTH_KEYTYPE_MISSING" "$AUTH_KEYTEXT_MISSING" >out
+	test_must_be_empty out
+'
+
 test_done
