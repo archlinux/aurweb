@@ -85,6 +85,35 @@ test_expect_success 'Test update hook on an updated repository.' '
 	test_cmp expected actual
 '
 
+test_expect_success 'Test restore mode.' '
+	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" restore 2>&1 &&
+	cat >expected <<-EOF &&
+	2|2|foobar2|1-1|aurweb test package.|https://aur.archlinux.org/
+	3|1|foobar|1-2|aurweb test package.|https://aur.archlinux.org/
+	1|GPL
+	2|MIT
+	2|2
+	3|1
+	2|1|python-pygit2||
+	3|1|python-pygit2||
+	1|1
+	2|1
+	EOF
+	>actual &&
+	for t in Packages Licenses PackageLicenses Groups PackageGroups \
+		PackageDepends PackageRelations PackageSources \
+		PackageNotifications; do
+		echo "SELECT * FROM $t;" | sqlite3 aur.db >>actual
+	done &&
+	test_cmp expected actual
+'
+
+test_expect_success 'Test restore mode on a non-existent repository.' '
+	AUR_USER=user AUR_PKGBASE=foobar3 AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_UPDATE" restore 2>&1
+'
+
 test_expect_success 'Pushing to a branch other than master.' '
 	old=0000000000000000000000000000000000000000 &&
 	new=$(git -C aur.git rev-parse HEAD) &&

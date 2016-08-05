@@ -85,4 +85,21 @@ test_expect_success "Try to push to someone else's repository as Trusted User." 
 	test_cmp expected actual
 '
 
+test_expect_success "Test restore." '
+	echo "DELETE FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db &&
+	cat >expected <<-EOF &&
+	user
+	foobar
+	EOF
+	SSH_ORIGINAL_COMMAND="restore foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 >actual
+	test_cmp expected actual
+'
+
+test_expect_success "Try to restore an existing package base." '
+	SSH_ORIGINAL_COMMAND="restore foobar2" AUR_USER=user AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_SERVE" 2>&1
+'
+
 test_done
