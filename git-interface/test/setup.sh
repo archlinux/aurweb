@@ -29,8 +29,8 @@ ssh-options = restrict
 [serve]
 repo-path = ./aur.git/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
-git-shell-cmd = /usr/bin/git-shell
-git-update-cmd = /srv/http/aurweb/git-interface/git-update.py
+git-shell-cmd = ./git-shell.sh
+git-update-cmd = ./update.sh
 ssh-cmdline = ssh aur@aur.archlinux.org
 
 [update]
@@ -41,6 +41,21 @@ cat >notify.sh <<-EOF
 #!/bin/sh
 EOF
 chmod +x notify.sh
+
+cat >git-shell.sh <<-\EOF
+#!/bin/sh
+echo $AUR_USER
+echo $AUR_PKGBASE
+echo $GIT_NAMESPACE
+EOF
+chmod +x git-shell.sh
+
+cat >update.sh <<-\EOF
+#!/bin/sh
+echo $AUR_USER
+echo $AUR_PKGBASE
+EOF
+chmod +x update.sh
 
 AUR_CONFIG=config
 export AUR_CONFIG
