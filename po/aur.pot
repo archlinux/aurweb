@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v4.2.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-06-25 16:09+0200\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1617,8 +1617,10 @@ msgstr ""
 
 #: template/pkgreq_results.php
 #, php-format
-msgid "~%d days left"
-msgstr ""
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
 
 #: template/pkgreq_results.php
 #, php-format
@@ -1748,9 +1750,10 @@ msgid "Version"
 msgstr ""
 
 #: template/pkg_search_results.php
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
 #: template/pkg_search_results.php template/tu_details.php template/tu_list.php
