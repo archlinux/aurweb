@@ -4,11 +4,6 @@ test_description='git-update tests'
 
 . ./setup.sh
 
-test_expect_success 'Setup repositories and create package bases.' '
-	SSH_ORIGINAL_COMMAND="setup-repo foobar" AUR_USER=user "$GIT_SERVE"
-	SSH_ORIGINAL_COMMAND="setup-repo foobar2" AUR_USER=user "$GIT_SERVE"
-'
-
 test_expect_success 'Test update hook on a fresh repository.' '
 	old=0000000000000000000000000000000000000000 &&
 	new=$(git -C aur.git rev-parse HEAD^) &&
@@ -20,7 +15,6 @@ test_expect_success 'Test update hook on a fresh repository.' '
 	1|1
 	1|1|python-pygit2||
 	1|1
-	2|1
 	EOF
 	>actual &&
 	for t in Packages Licenses PackageLicenses Groups PackageGroups \
