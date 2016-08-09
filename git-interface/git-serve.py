@@ -145,10 +145,7 @@ if action == 'git-upload-pack' or action == 'git-receive-pack':
     if not re.match(repo_regex, pkgbase):
         die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
 
-    if not pkgbase_exists(pkgbase):
-        create_pkgbase(pkgbase, user)
-
-    if action == 'git-receive-pack':
+    if action == 'git-receive-pack' and pkgbase_exists(pkgbase):
         if not privileged and not pkgbase_has_write_access(pkgbase, user):
             die('{:s}: permission denied: {:s}'.format(action, user))
 

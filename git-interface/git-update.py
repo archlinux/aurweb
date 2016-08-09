@@ -58,6 +58,25 @@ def parse_dep(depstring):
         return (depname, depcond)
 
 
+def create_pkgbase(conn, pkgbase, user):
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+
+    now = int(time.time())
+    cur = conn.execute("INSERT INTO PackageBases (Name, SubmittedTS, " +
+                       "ModifiedTS, SubmitterUID, MaintainerUID) VALUES " +
+                       "(?, ?, ?, ?, ?)", [pkgbase, now, now, userid, userid])
+    pkgbase_id = cur.lastrowid
+
+    cur = conn.execute("INSERT INTO PackageNotifications " +
+                       "(PackageBaseID, UserID) VALUES (?, ?)",
+                       [pkgbase_id, userid])
+
+    conn.commit()
+
+    return pkgbase_id
+
+
 def save_metadata(metadata, conn, user):
     # Obtain package base ID and previous maintainer.
     pkgbase = metadata['pkgbase']
@@ -361,6 +380,10 @@ for pkgname in srcinfo.utils.get_package_names(metadata):
                        "PackageBaseID <> ?", [pkgname, pkgbase_id])
     if cur.fetchone()[0] > 0:
         die('cannot overwrite package: {:s}'.format(pkgname))
+
+# Create a new package base if it does not exist yet.
+if pkgbase_id == 0:
+    pkgbase_id = create_pkgbase(conn, pkgbase, user)
 
 # Store package base details in the database.
 save_metadata(metadata, conn, user)
