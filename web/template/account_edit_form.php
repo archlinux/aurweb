@@ -1,6 +1,7 @@
 <?php if ($A == "UpdateAccount"): ?>
 <p>
 	<?= __('Click %shere%s if you want to permanently delete this account.', '<a href="' . get_user_uri($N) . 'delete/' . '">', '</a>') ?>
+	<?= __('Click %shere%s for user details.', '<a href="' . get_user_uri($N) . '">', '</a>') ?>
 </p>
 
 <form id="edit-profile-form" action="<?= get_user_uri($N) . 'update/'; ?>" method="post">
