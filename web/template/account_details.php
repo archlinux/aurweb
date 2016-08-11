@@ -59,6 +59,10 @@
 					<?= $row["InactivityTS"] ? __("Inactive since") . ' ' . date("Y-m-d H:i", $row["InactivityTS"]) : __("Active"); ?>
 					</td>
 				</tr>
+				<tr>
+					<th><?= __("Registration date:") ?></th>
+					<td><?= (new DateTime($row["RegistrationTS"]))->format('Y-m-d') ?></td>
+				</tr>
 				<?php if (has_credential(CRED_ACCOUNT_LAST_LOGIN)): ?>
 				<tr>
 					<th><?= __("Last Login") . ":" ?></th>
