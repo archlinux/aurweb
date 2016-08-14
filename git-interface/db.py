@@ -32,7 +32,7 @@ class Connection:
             raise ValueError('unsupported database backend')
 
     def execute(self, query, params=()):
-        if self._paramstyle == 'format':
+        if self._paramstyle in ('format', 'pyformat'):
             query = query.replace('%', '%%').replace('?', '%s')
         elif self._paramstyle == 'qmark':
             pass
