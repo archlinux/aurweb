@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# leonfeng <chaofeng111@gmail.com>, 2015
+# leonfeng <chaofeng111@gmail.com>, 2015-2016
 # dongfengweixiao <dongfengweixiao@gmail.com>, 2015
 # Felix Yan <felixonmars@gmail.com>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # leonfeng <chaofeng111@gmail.com>, 2012
 # Weiwen Zhao <panda.hust@gmail.com>, 2013
+# Xiaodong Qi <xiaodong.que+github@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-06 09:48+0000\n"
+"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -31,11 +32,11 @@ msgid "Sorry, the page you've requested does not exist."
 msgstr "请求的页面不存在。"
 
 msgid "Service Unavailable"
-msgstr ""
+msgstr "服务不可用"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr ""
+msgstr "别怕！本站正在维护中，我们会回来的。"
 
 msgid "Account"
 msgstr "帐户"
@@ -111,10 +112,10 @@ msgid "Submit"
 msgstr "提交"
 
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "管理共同维护者"
 
 msgid "Edit comment"
-msgstr ""
+msgstr "编辑评论"
 
 msgid "Home"
 msgstr "首页"
@@ -145,56 +146,64 @@ msgstr "免责声明"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr ""
+msgstr "AUR 包为用户产生的内容。使用它们造成的后果自负。"
 
 msgid "Learn more..."
-msgstr ""
+msgstr "了解更多..."
 
 msgid "Support"
-msgstr ""
+msgstr "支持"
 
 msgid "Package Requests"
-msgstr ""
+msgstr "软件包请求"
 
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
-msgstr ""
+msgstr "在软件包详情页面上有三种可以在 %s软件包操作%s 框中提交的请求："
 
 msgid "Orphan Request"
-msgstr ""
+msgstr "弃置请求"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"请求标记这个软件包为无主的，比如维护者不活跃而且这个软件包已经被标记为过时很"
+"久了。"
 
 msgid "Deletion Request"
-msgstr ""
+msgstr "删除请求"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"请求软件包从 AUR 中移除。如果这个包虽然损坏了但是可以被轻易地修好，请不要进行"
+"此操作，您应该联系包的维护者或者有必要的情况下发送 orphan request。"
 
 msgid "Merge Request"
-msgstr ""
+msgstr "合并请求"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"请求一个软件包被合并到另一个中。在一个包需要被重命名或者被分离成多个包的情况"
+"下使用。"
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"如果你想讨论一个请求，你可以在 %saur-requests%s 邮件列表上发送消息。然而，不"
+"要在那里发送请求。"
 
 msgid "Submitting Packages"
-msgstr ""
+msgstr "提交软件包"
 
 #, php-format
 msgid ""
@@ -202,9 +211,11 @@ msgid ""
 "packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
 msgstr ""
+"现在请使用 Git over SSH 来向 AUR 提交软件包。如果想知道更多，请查看 Arch "
+"Wiki 上的 Arch User Repository (简体中文) 页面中 %s提交软件包%s 章节。"
 
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr ""
+msgstr "AUR 使用以下 SSH 指纹："
 
 msgid "Discussion"
 msgstr "邮件列表"
@@ -215,6 +226,8 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"与 Arch 用户仓库（AUR）或者受信用户结构相关的一般讨论在 %saur-general%s 邮件"
+"列表。若是与 AUR web 页面开发相关的讨论，请使用 %saur-dev%s 邮件列表。"
 
 msgid "Bug Reporting"
 msgstr "Bug 报告"
@@ -226,6 +239,9 @@ msgid ""
 "%sonly%s. To report packaging bugs contact the package maintainer or leave a "
 "comment on the appropriate package page."
 msgstr ""
+"如果你在 AUR web 页面中发现了一个 Bug，请提交到我们的 %sBug 追踪系统%s。请%s"
+"仅仅%s使用追踪系统报告 AUR 自身的 Bug。如果想要报告打包方面的 Bug，请联系相应"
+"的包维护者，或者在相应的软件包页面中留下一条评论。"
 
 msgid "Package Search"
 msgstr "软件包搜索"
@@ -262,7 +278,7 @@ msgid "Enter login credentials"
 msgstr "输入账户信息"
 
 msgid "User name or email address"
-msgstr ""
+msgstr "用户名或 E-mail"
 
 msgid "Password"
 msgstr "密码"
@@ -334,7 +350,7 @@ msgstr "输入您的邮箱地址:"
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "选中的软件包未被弃置，请检查确认复选框。"
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "找不到合并投票与评论的目标包。"
@@ -380,49 +396,51 @@ msgstr "弃置软件包"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
-msgstr ""
+msgstr "使用这个表格来弃置包基础 %s%s%s，其中包括下列软件包："
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr ""
+msgstr "通过选中复选框，您将确认您将弃置这个包并将其所有权转移给 %s%s%s。"
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr ""
+msgstr "通过选中复选框，您将确认您将弃置这个包。"
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "继续以弃置包"
 
 msgid "Disown"
 msgstr "弃置"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
+msgstr "只有受信用户和开发人员能弃置软件包。"
 
 msgid "Flag Comment"
-msgstr ""
+msgstr "标记评论"
 
 msgid "Flag Package Out-Of-Date"
-msgstr ""
+msgstr "将软件包标记为过期"
 
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages out-"
 "of-date: "
-msgstr ""
+msgstr "使用这个表单将包基础 %s%s%s 和以下包标记为已过期 ："
 
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr ""
+msgstr "请 %s不%s 要用这个表单提交问题。请您使用包评论功能。"
 
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
 msgstr ""
+"在下面输入为什么这个软件包过期了，最好写一下更新日志的链接或者新版软件压缩包"
+"的地址。"
 
 msgid "Comments"
 msgstr "评论"
@@ -431,7 +449,7 @@ msgid "Flag"
 msgstr "标记"
 
 msgid "Only registered users can flag packages out-of-date."
-msgstr ""
+msgstr "只有已注册的用户才能把软件标记为已过期。"
 
 msgid "Package Merging"
 msgstr "软件包合并"
@@ -465,7 +483,7 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr "只有受信用户和开发人员才能删除软件包。"
 
 msgid "Submit Request"
-msgstr ""
+msgstr "提交请求"
 
 msgid "Close Request"
 msgstr "关闭请求"
@@ -551,7 +569,7 @@ msgid "The PGP key fingerprint is invalid."
 msgstr "PGP 密钥指纹无效。"
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "此 SSH 公钥无效。"
 
 msgid "Cannot increase account permissions."
 msgstr "不能提高账户权限。"
@@ -569,7 +587,7 @@ msgstr "该地址 %s%s%s 已被使用。"
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "SSH 公钥 %s%s%s 已被使用。"
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -629,16 +647,16 @@ msgid "View account information for %s"
 msgstr "查看 %s 的账户信息"
 
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "缺少软件包基础 ID 或软件包名。"
 
 msgid "You are not allowed to edit this comment."
-msgstr ""
+msgstr "你没有权限编辑评论。"
 
 msgid "Comment does not exist."
-msgstr ""
+msgstr "评论不存在。"
 
 msgid "Comment cannot be empty."
-msgstr ""
+msgstr "评论不能为空。"
 
 msgid "Comment has been added."
 msgstr "已经添加评论。"
@@ -650,19 +668,19 @@ msgid "Missing comment ID."
 msgstr "评论标识丢失。"
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "不能同时锁定 5 条以上的评论。"
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "你没有权限锁定这条评论。"
 
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "你没有权限解锁这条评论。"
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "评论已锁定。"
 
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "评论已解锁。"
 
 msgid "Error retrieving package details."
 msgstr "获取软件包详情时发生错误。"
@@ -677,7 +695,7 @@ msgid "You did not select any packages to flag."
 msgstr "您没有选择要标记的软件包。"
 
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr ""
+msgstr "选中的软件包已被标记，请输入评论。"
 
 msgid "The selected packages have been flagged out-of-date."
 msgstr "选择的软件包已被标记为过期。"
@@ -745,10 +763,10 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "您将不再收到 %s 的评论通知。"
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "你没有权限恢复这条评论。"
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "评论已恢复。"
 
 msgid "You are not allowed to delete this comment."
 msgstr "您没有权限删除此评论。"
@@ -757,30 +775,30 @@ msgid "Comment has been deleted."
 msgstr "评论已被删除。"
 
 msgid "Comment has been edited."
-msgstr ""
+msgstr "评论已编辑。"
 
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr ""
+msgstr "你没有权限编辑这个软件包基础的关键词。"
 
 msgid "The package base keywords have been updated."
-msgstr ""
+msgstr "软件包基础的关键词已被更新。"
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "你没有权限管理这个软件包基础的共同管理者。"
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "非法用户名：%s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "软件包基础的共同维护者已更新。"
 
 msgid "View packages details for"
 msgstr "查看软件包详细信息"
 
 #, php-format
 msgid "requires %s"
-msgstr ""
+msgstr "需要 %s"
 
 msgid "You must be logged in to file package requests."
 msgstr "登录之后才能提交软件包需求。"
@@ -836,10 +854,13 @@ msgid "Email Address"
 msgstr "Email"
 
 msgid "hidden"
-msgstr ""
+msgstr "已隐藏"
 
 msgid "Real Name"
 msgstr "真实名字"
+
+msgid "Homepage"
+msgstr ""
 
 msgid "IRC Nick"
 msgstr "IRC昵称"
@@ -890,10 +911,10 @@ msgstr "不活跃"
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr ""
+msgstr "请确认你正确地输入了你的 E-mail，或者你将会被锁定。"
 
 msgid "Hide Email Address"
-msgstr ""
+msgstr "隐藏 E-mail"
 
 msgid "Re-type password"
 msgstr "确认密码"
@@ -904,18 +925,21 @@ msgstr "语言"
 msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
-msgstr ""
+msgstr "仅仅当你想要向 AUR 提交软件包时才需要填写以下信息。"
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "SSH 公钥"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "提醒设置"
 
 msgid "Notify of new comments"
 msgstr "当有新评论的时候提醒我"
 
 msgid "Notify of package updates"
+msgstr "软件包更新提醒"
+
+msgid "Notify of ownership changes"
 msgstr ""
 
 msgid "Update"
@@ -951,32 +975,32 @@ msgstr "没有更多的结果供显示。"
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr ""
+msgstr "使用这个表单来添加 %s%s%s 的共同维护者（一个用户名一行）："
 
 msgid "Users"
-msgstr ""
+msgstr "用户"
 
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "已标记为过期的评论：%s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
+msgstr "%s%s%s 标记了 %s%s%s 为过期，在 %s%s%s，因为以下原因："
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s 未被标记为过期。"
 
 msgid "Return to Details"
-msgstr ""
+msgstr "返回详情"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
+msgstr "版权所有 %s 2004-%d aurweb 开发组"
 
 msgid "My Packages"
 msgstr "我的软件包"
@@ -991,17 +1015,17 @@ msgid "View PKGBUILD"
 msgstr "查看 PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "查看更改"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "下载快照"
 
 msgid "Search wiki"
 msgstr "搜索 Wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "已标记为过期 (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "将软件包标记为过期"
@@ -1018,8 +1042,11 @@ msgstr "为这个软件包投票"
 msgid "Disable notifications"
 msgstr "禁用通知"
 
-msgid "Manage Co-Maintainers"
+msgid "Enable notifications"
 msgstr ""
+
+msgid "Manage Co-Maintainers"
+msgstr "管理共同维护者"
 
 #, php-format
 msgid "%d pending request"
@@ -1036,10 +1063,10 @@ msgid "Package Base Details"
 msgstr "包基础详情"
 
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git 克隆地址"
 
 msgid "read-only"
-msgstr ""
+msgstr "只读"
 
 msgid "Keywords"
 msgstr "关键字"
@@ -1057,7 +1084,7 @@ msgid "Votes"
 msgstr "得票"
 
 msgid "Popularity"
-msgstr ""
+msgstr "受欢迎度"
 
 msgid "First Submitted"
 msgstr "首次提交"
@@ -1067,7 +1094,7 @@ msgstr "最后更新"
 
 #, php-format
 msgid "Edit comment for: %s"
-msgstr ""
+msgstr "编辑 %s 的评论"
 
 msgid "Add Comment"
 msgstr "添加评论"
@@ -1076,46 +1103,46 @@ msgid "View all comments"
 msgstr "查看所有评论"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "已锁定评论"
 
 msgid "Latest Comments"
 msgstr "最新的评论"
 
 #, php-format
 msgid "%s commented on %s"
-msgstr ""
+msgstr "%s 在 %s 发表了评论"
 
 #, php-format
 msgid "Anonymous comment on %s"
-msgstr ""
+msgstr "在 %s 发表的匿名评论"
 
 #, php-format
 msgid "deleted on %s by %s"
-msgstr ""
+msgstr "在 %s 被 %s 删除"
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "在 %s 被删除"
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "在 %s 被 %s 编辑"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "在 %s 被编辑"
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "恢复评论"
 
 msgid "Delete comment"
 msgstr "删除评论"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "锁定评论"
 
 msgid "Unpin comment"
-msgstr ""
+msgstr "解锁评论"
 
 msgid "All comments"
 msgstr "全部评论"
@@ -1198,6 +1225,26 @@ msgstr "弃置"
 msgid "Merge into"
 msgstr "合并到"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1217,8 +1264,9 @@ msgid "Date"
 msgstr "日期"
 
 #, php-format
-msgid "~%d days left"
-msgstr "剩余～%d天"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1268,7 +1316,7 @@ msgid "Voted"
 msgstr "已投票"
 
 msgid "Last modified"
-msgstr ""
+msgstr "上次修改"
 
 msgid "Ascending"
 msgstr "从小到大"
@@ -1314,9 +1362,10 @@ msgstr[0] "找到了 %d 个软件包。"
 msgid "Version"
 msgstr "版本"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
 msgid "Yes"
@@ -1377,7 +1426,7 @@ msgid "Recent Updates"
 msgstr "最新更新"
 
 msgid "more"
-msgstr ""
+msgstr "更多"
 
 msgid "My Statistics"
 msgstr "我的统计"

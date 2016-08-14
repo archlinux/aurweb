@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-06 09:48+0000\n"
+"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
 "Language-Team: Dutch (http://www.transifex.com/lfleischer/aur/language/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -892,6 +892,9 @@ msgstr ""
 msgid "Real Name"
 msgstr "Echte naam"
 
+msgid "Homepage"
+msgstr ""
+
 msgid "IRC Nick"
 msgstr "IRC Nick"
 
@@ -969,6 +972,9 @@ msgid "Notify of new comments"
 msgstr "Notificatie bij nieuwe comment"
 
 msgid "Notify of package updates"
+msgstr ""
+
+msgid "Notify of ownership changes"
 msgstr ""
 
 msgid "Update"
@@ -1072,6 +1078,9 @@ msgstr "Stem voor dit pakket"
 
 msgid "Disable notifications"
 msgstr "Schakel notificaties uit"
+
+msgid "Enable notifications"
+msgstr ""
 
 msgid "Manage Co-Maintainers"
 msgstr "Beheer mede-onderhouders"
@@ -1259,6 +1268,26 @@ msgstr "Wees"
 msgid "Merge into"
 msgstr "Voeg samen met"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1279,8 +1308,10 @@ msgid "Date"
 msgstr "Datum"
 
 #, php-format
-msgid "~%d days left"
-msgstr "~%d dagen resterend"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1378,9 +1409,10 @@ msgstr[1] "%d pakketten gevonden"
 msgid "Version"
 msgstr "Versie"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
 msgid "Yes"

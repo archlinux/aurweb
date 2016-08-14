@@ -3,21 +3,22 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# Adolfo Jayme Barrientos, 2015
+# Adolfo Jayme-Barrientos, 2015
 # Angel Velasquez <angvp@archlinux.org>, 2011
 # juantascon <juantascon@gmail.com>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # neiko <neikokz+tsfx@gmail.com>, 2011
 # Nicolás de la Torre <ndelatorre@gmail.com>, 2012
-# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2012
-# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2013-2015
+# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2012
+# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
+# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2013-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-06 09:48+0000\n"
+"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
 "Language-Team: Spanish (http://www.transifex.com/lfleischer/aur/language/"
 "es/)\n"
 "Language: es\n"
@@ -457,7 +458,7 @@ msgstr ""
 "de paquetes."
 
 msgid "Flag Comment"
-msgstr ""
+msgstr "Marcar comentario"
 
 msgid "Flag Package Out-Of-Date"
 msgstr "Marcado como desactualizado"
@@ -528,7 +529,7 @@ msgstr ""
 "Solamente usuarios de confianza y desarrolladores pueden unir paquetes."
 
 msgid "Submit Request"
-msgstr ""
+msgstr "Enviar solicitud"
 
 msgid "Close Request"
 msgstr "Cerrar solicitud"
@@ -719,19 +720,19 @@ msgid "Missing comment ID."
 msgstr "Falta el identificador del comentario."
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "No pueden fijarse más de 5 comentarios."
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "No tienes permitido fijar este comentario."
 
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "No tienes permitido desfijar este comentario."
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "El comentario ha sido fijado."
 
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "El comentario ha sido desfijado."
 
 msgid "Error retrieving package details."
 msgstr "Error al recuperar los detalles del paquete."
@@ -816,10 +817,10 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Haz sido eliminado de la lista de notificaciones de comentarios de %s."
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "No estás autorizado a restablecer este comentario."
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "El comentario se ha restablecido."
 
 msgid "You are not allowed to delete this comment."
 msgstr "No estás autorizado para eliminar este comentario."
@@ -917,6 +918,9 @@ msgstr "oculto"
 msgid "Real Name"
 msgstr "Nombre real"
 
+msgid "Homepage"
+msgstr "Página principal"
+
 msgid "IRC Nick"
 msgstr "Alias de IRC"
 
@@ -990,13 +994,16 @@ msgid "SSH Public Key"
 msgstr "Clave pública SSH"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "Gestión de notificaciones"
 
 msgid "Notify of new comments"
 msgstr "Notificación de nuevos comentarios"
 
 msgid "Notify of package updates"
-msgstr ""
+msgstr "Notificar de actualizaciones de un paquete"
+
+msgid "Notify of ownership changes"
+msgstr "Notificar de cambios de propietario"
 
 msgid "Update"
 msgstr "Actualizar"
@@ -1044,22 +1051,25 @@ msgstr "Guardar"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Marcar comentario como desactualizado: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr ""
+"%s%s%s se ha marcado %s%s%s como desactualizado %s%s%s por la siguiente "
+"razón:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s no está marcado como desactualizado."
 
 msgid "Return to Details"
-msgstr ""
+msgstr "Regresar a detalles"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
+"Derechos de autor %s 2004 - %d, equipo desarrollador de la web del AUR."
 
 msgid "My Packages"
 msgstr "Mis paquetes"
@@ -1084,7 +1094,7 @@ msgstr "Buscar en la wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Marcado como desactualizado (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "Marcar paquete como desactualizado"
@@ -1100,6 +1110,9 @@ msgstr "Votar por este paquete"
 
 msgid "Disable notifications"
 msgstr "Deshabilitar notificaciones"
+
+msgid "Enable notifications"
+msgstr "Habilitar notificaciones"
 
 msgid "Manage Co-Maintainers"
 msgstr "Administrar coencargados"
@@ -1160,7 +1173,7 @@ msgid "View all comments"
 msgstr "Ver todos los comentarios"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "Comentarios fijados"
 
 msgid "Latest Comments"
 msgstr "Últimos comentarios"
@@ -1179,27 +1192,27 @@ msgstr "borrado el %s por %s"
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "borrado el %s"
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "editado el %s por %s"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "editado el %s"
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "Comentario restablecido"
 
 msgid "Delete comment"
 msgstr "Eliminar comentario"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "Comentario fijado"
 
 msgid "Unpin comment"
-msgstr ""
+msgstr "Comentario desfijado"
 
 msgid "All comments"
 msgstr "Todos los comentarios"
@@ -1287,6 +1300,40 @@ msgstr "Orfandad"
 msgid "Merge into"
 msgstr "Unir en"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"Al enviar una solicitud de eliminación, le preguntas a un usuario de "
+"confianza que elimine el paquete base. Este tipo de solicitud debe ser "
+"utilizado para los duplicados, programas abandonados por el desarrollador "
+"principal o encargado, así como programas ilegales e irreparablemente rotos."
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"Al enviar una solicitud de unión, le preguntas a un usuario de confianza que "
+"elimine el paquete base y transfiera sus votos y comentarios a otro paquete "
+"base. La unión de un paquete no afecta a los correspondientes repositorios "
+"Git. Por tanto asegúrate de actualizar el historia Git del paquete de "
+"destino tú mismo."
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"Al enviar una solicitud de orfandad, le preguntas a un usuario de confianza "
+"que remueva la propiedad sobre el paquete base al encargado principal de "
+"este. Por favor, haz esto solamente si el paquete necesita una acción de "
+"mantenención, el encargado no presenta signos de actividad y ya intentaste "
+"ponerte en contacto con él anteriormente."
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1307,8 +1354,10 @@ msgid "Date"
 msgstr "Fecha"
 
 #, php-format
-msgid "~%d days left"
-msgstr "Aprox. %d días restantes"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1406,12 +1455,11 @@ msgstr[1] "%d paquetes fueron encontrados."
 msgid "Version"
 msgstr "Versión"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
-"La popularidad se calcula como la suma de todos los votos con cada voto "
-"ponderado con un factor de 0,98 por día desde la creación del paquete."
 
 msgid "Yes"
 msgstr "Sí"
@@ -1471,7 +1519,7 @@ msgid "Recent Updates"
 msgstr "Actualizaciones recientes"
 
 msgid "more"
-msgstr ""
+msgstr "más"
 
 msgid "My Statistics"
 msgstr "Mis estadísticas"

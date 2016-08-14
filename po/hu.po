@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# György Balló <ballogy@freestart.hu>, 2013
-# György Balló <ballogy@freestart.hu>, 2011,2013-2015
+# György Balló <ballogyor@gmail.com>, 2013
+# György Balló <ballogyor@gmail.com>, 2011,2013-2016
+# György Balló <ballogyor@gmail.com>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-08 08:56+0000\n"
+"Last-Translator: György Balló <ballogyor@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/lfleischer/aur/language/"
 "hu/)\n"
 "Language: hu\n"
@@ -112,7 +113,7 @@ msgid "Manage Co-maintainers"
 msgstr "Társkarbantartók kezelése"
 
 msgid "Edit comment"
-msgstr ""
+msgstr "Hozzászólás szerkesztése"
 
 msgid "Home"
 msgstr "Honlap"
@@ -146,6 +147,8 @@ msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
 msgstr ""
+"Az AUR csomagok felhasználók által készített tartalmak. A szolgáltatott "
+"fájlok használata csak saját felelősségre."
 
 msgid "Learn more..."
 msgstr "Tudj meg többet..."
@@ -246,6 +249,11 @@ msgid ""
 "%sonly%s. To report packaging bugs contact the package maintainer or leave a "
 "comment on the appropriate package page."
 msgstr ""
+"Ha találsz egy hibát az AUR webes felületén, kérünk, tölts ki egy "
+"hibajelentést a %shibakövetőnkben%s. A hibakövetőt %scsak%s az AUR webes "
+"felületén található hibák jelentésére használd. Csomagolási hibák "
+"jelentéséhez lépj kapcsolatba a csomag fenntartójával, vagy hagyj egy "
+"hozzászólást a megfelelő csomag oldalán."
 
 msgid "Package Search"
 msgstr "Csomag keresése"
@@ -282,7 +290,7 @@ msgid "Enter login credentials"
 msgstr "Bejelentkezési adatok megadása"
 
 msgid "User name or email address"
-msgstr ""
+msgstr "Felhasználónév vagy e-mail cím"
 
 msgid "Password"
 msgstr "Jelszó"
@@ -363,7 +371,7 @@ msgstr ""
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
-"Nem található csomag, amelybe a szavazatok és megjegyzések beolvaszthatók "
+"Nem található csomag, amelybe a szavazatok és hozzászólások beolvaszthatók "
 "lennének."
 
 msgid "Cannot merge a package base with itself."
@@ -440,36 +448,42 @@ msgstr ""
 "Csak megbízható felhasználók és fejlesztők tudnak megtagadni csomagokat."
 
 msgid "Flag Comment"
-msgstr ""
+msgstr "Hozzászólás jelölése"
 
 msgid "Flag Package Out-Of-Date"
-msgstr ""
+msgstr "Csomag elvaultnak jelölése"
 
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages out-"
 "of-date: "
 msgstr ""
+"Használd ezt az űrlapot annak jelzésére, hogy a(z) %s%s%s alapcsomag és a "
+"következő csomagok elavultak:"
 
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
 msgstr ""
+"Kérünk, %sne%s használd ezt az űrlapot hibák jelentéséhez. Használd a "
+"csomaghozzászólásokat helyette."
 
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
 msgstr ""
+"Add meg alább a részleteit, hogy miért avult el a csomag, lehetőleg "
+"hivatkozásokkal a kiadási közleményre vagy az új kiadás tarballjára."
 
 msgid "Comments"
-msgstr "Megjegyzések"
+msgstr "Hozzászólások"
 
 msgid "Flag"
 msgstr "Megjelölés"
 
 msgid "Only registered users can flag packages out-of-date."
-msgstr ""
+msgstr "Csak regisztrált felhasználók jelölhetnek csomagokat elavultnak."
 
 msgid "Package Merging"
 msgstr "Csomag beolvasztása"
@@ -507,7 +521,7 @@ msgstr ""
 "Csak megbízható felhasználók és fejlesztők tudnak csomagokat beolvasztani."
 
 msgid "Submit Request"
-msgstr ""
+msgstr "Kérelem beküldése"
 
 msgid "Close Request"
 msgstr "Kérelem lezárása"
@@ -673,40 +687,40 @@ msgid "View account information for %s"
 msgstr "Fiók információinak megtekintése – %s"
 
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "Alapcsomag-azonosító vagy alapcsomagnév hiányzik."
 
 msgid "You are not allowed to edit this comment."
-msgstr ""
+msgstr "Nem szerkesztheted ezt a hozzászólást."
 
 msgid "Comment does not exist."
-msgstr ""
+msgstr "A hozzászólás nem létezik."
 
 msgid "Comment cannot be empty."
-msgstr ""
+msgstr "A hozzászólás nem lehet üres."
 
 msgid "Comment has been added."
-msgstr "A megjegyzés hozzáadva."
+msgstr "A hozzászólás hozzáadva."
 
 msgid "You must be logged in before you can edit package information."
 msgstr "A csomag információinak szerkesztéséhez be kell jelentkezned."
 
 msgid "Missing comment ID."
-msgstr "Hiányzó megjegyzésazonosító."
+msgstr "Hiányzó hozzászólásazonosító."
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "5-nél több hozzászólás nem rögzíthető."
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "Nem rögzítheted ezt a hozzászólást."
 
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "Nem oldhatod fel ezt a hozzászólást."
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "A hozzászólás rögzítésre került."
 
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "A hozzászólás feloldásra került."
 
 msgid "Error retrieving package details."
 msgstr "Hiba történt a csomag részletes információinak letöltése közben."
@@ -721,7 +735,7 @@ msgid "You did not select any packages to flag."
 msgstr "Nem választottál ki egyetlen csomagot sem megjelölésre."
 
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr ""
+msgstr "A kiválasztott csomagok nem lettek jelölve, adj meg egy megjegyzést."
 
 msgid "The selected packages have been flagged out-of-date."
 msgstr "A kiválasztott csomagok elavultnak lettek jelölve."
@@ -783,26 +797,26 @@ msgstr "Nem sikerült hozzáadni az értesítési listához."
 #, php-format
 msgid "You have been added to the comment notification list for %s."
 msgstr ""
-"Sikeresen fel lettél véve a(z) %s csomag megjegyzésértesítési listájára."
+"Sikeresen fel lettél véve a(z) %s csomag hozzászólásértesítési listájára."
 
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr "El lettél távolítva a(z) %s csomag megjegyzésértesítési listájáról."
+msgstr "El lettél távolítva a(z) %s csomag hozzászólásértesítési listájáról."
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "Ennek a hozzászólásnak nem vonhatod vissza a törlését."
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "A hozzászólás törlése visszavonásra került."
 
 msgid "You are not allowed to delete this comment."
-msgstr "Nem törölheted ezt a megjegyzést."
+msgstr "Nem törölheted ezt a hozzászólást."
 
 msgid "Comment has been deleted."
-msgstr "Megjegyzés törölve."
+msgstr "Hozzászólás törölve."
 
 msgid "Comment has been edited."
-msgstr ""
+msgstr "A hozzászólás szerkesztve lett."
 
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr "Nem szerkesztheted ennek az alapcsomagnak a kulcsszavait."
@@ -825,7 +839,7 @@ msgstr "Csomag részleteinek megtekintése –"
 
 #, php-format
 msgid "requires %s"
-msgstr ""
+msgstr "igényli ezt: %s"
 
 msgid "You must be logged in to file package requests."
 msgstr "Csomagkérelmek beküldéséhez be kell jelentkezned."
@@ -834,7 +848,7 @@ msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Érvénytelen név: csak kisbetűk használata engedélyezett."
 
 msgid "The comment field must not be empty."
-msgstr "A megjegyzés mező nem lehet üres."
+msgstr "A hozászólás mező nem lehet üres."
 
 msgid "Invalid request type."
 msgstr "Érvénytelen kérelemtípus."
@@ -881,10 +895,13 @@ msgid "Email Address"
 msgstr "E-mail cím"
 
 msgid "hidden"
-msgstr ""
+msgstr "rejtett"
 
 msgid "Real Name"
 msgstr "Valós név"
+
+msgid "Homepage"
+msgstr "Honlap"
 
 msgid "IRC Nick"
 msgstr "IRC becenév"
@@ -936,9 +953,11 @@ msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
 msgstr ""
+"Kérünk, győződj meg arról, hogy helyesen adtad meg az e-mail címedet, "
+"különben ki leszel zárva."
 
 msgid "Hide Email Address"
-msgstr ""
+msgstr "E-mail cím elrejtése"
 
 msgid "Re-type password"
 msgstr "Megismételt jelszó"
@@ -957,13 +976,16 @@ msgid "SSH Public Key"
 msgstr "Nyilvános SSH kulcs"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "Értesítési beállítások"
 
 msgid "Notify of new comments"
 msgstr "Értesítés új hozzászólásról"
 
 msgid "Notify of package updates"
-msgstr ""
+msgstr "Értesítés csomagfrissítésekről."
+
+msgid "Notify of ownership changes"
+msgstr "Értesítés tulajdonváltozásokról"
 
 msgid "Update"
 msgstr "Frissítés"
@@ -1010,22 +1032,24 @@ msgstr "Mentés"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Elavultnak jelölő hozzászólás: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr ""
+"%s%s%s elavultnak jelölte a(z) %s%s%s csomagot ekkor: %s%s%s a következő "
+"okból:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s nincs elavultnak jelölve."
 
 msgid "Return to Details"
-msgstr ""
+msgstr "Vissza a részletekhez"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
+msgstr "Copyright %s 2004-%d aurweb fejlesztői csapat."
 
 msgid "My Packages"
 msgstr "Csomagjaim"
@@ -1050,7 +1074,7 @@ msgstr "Keresés wikiben"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Elavultnak jelölve (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "Csomag elavultnak jelölése"
@@ -1066,6 +1090,9 @@ msgstr "Szavazás erre a csomagra"
 
 msgid "Disable notifications"
 msgstr "Értesítések kikapcsolása"
+
+msgid "Enable notifications"
+msgstr "Értesítések engedélyezése"
 
 msgid "Manage Co-Maintainers"
 msgstr "Társszerkesztők kezelése"
@@ -1117,7 +1144,7 @@ msgstr "Legutóbb frissítve"
 
 #, php-format
 msgid "Edit comment for: %s"
-msgstr ""
+msgstr "Hozzászólás szerkesztése ehhez: %s"
 
 msgid "Add Comment"
 msgstr "Hosszászólás"
@@ -1126,46 +1153,46 @@ msgid "View all comments"
 msgstr "Összes megjegyzés megjelenítése"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "Rögzített hozzászólások"
 
 msgid "Latest Comments"
 msgstr "Legújabb hozzászólások"
 
 #, php-format
 msgid "%s commented on %s"
-msgstr ""
+msgstr "%s hozzászólt ekkor: %s"
 
 #, php-format
 msgid "Anonymous comment on %s"
-msgstr ""
+msgstr "Névtelen hozzászólás ekkor: %s"
 
 #, php-format
 msgid "deleted on %s by %s"
-msgstr ""
+msgstr "törölve ekkor: %s %s által"
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "törölve ekkor: %s"
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "szerkesztve ekkor: %s %s által"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "szerkesztve ekkor: %s"
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "Hozzászólás törlésének visszavonása"
 
 msgid "Delete comment"
 msgstr "Hozzászólás törlése"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "Hozzászólás rögzítése"
 
 msgid "Unpin comment"
-msgstr ""
+msgstr "Hozzászólás feloldása"
 
 msgid "All comments"
 msgstr "Összes hozzászólás"
@@ -1254,6 +1281,39 @@ msgstr "Megtagadás"
 msgid "Merge into"
 msgstr "Beolvasztás ebbe:"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"Törlési kérelem beküldésével megkérsz egy megbízható felhasználót, hogy "
+"törölje az alapcsomagot. Ez a típusú kérelem duplikátumok, főági fejlesztők "
+"által felhagyott szoftverek, valamint illegális és helyrehozhatatlanul "
+"elromlott csomagokhoz használható."
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"Beolvasztási kérelem beküldésével megkérsz egy megbízható felhasználót, hogy "
+"törölje az alapcsomagot, és vigye át a szavazatait és hozzászólásait egy "
+"másik alapcsomaghoz. Egy csomag egyesítése nem érinti a kapcsolódó Git "
+"tárolókat. Győződj meg róla, hogy frissítetted magadnak a célcsomag Git "
+"történetét."
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"Megtagadási kérelem beküldésével megkérsz egy megbízható felhasználót, hogy "
+"tegye árvává az alapcsomagot. Kérünk, hogy ezt csak akkor tedd, ha a csomag "
+"igényel fenntartói műveletet, a fenntartó eltűnt, és előzőleg már "
+"megpróbáltad felvenni a kapcsolatot a fenntartóval."
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1274,8 +1334,10 @@ msgid "Date"
 msgstr "Dátum"
 
 #, php-format
-msgid "~%d days left"
-msgstr "~%d nap van hátra"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "~%d nap van hátra"
+msgstr[1] "~%d nap van hátra"
 
 #, php-format
 msgid "~%d hour left"
@@ -1326,7 +1388,7 @@ msgid "Voted"
 msgstr "Szavazva"
 
 msgid "Last modified"
-msgstr ""
+msgstr "Legutóbb módosítva"
 
 msgid "Ascending"
 msgstr "Növekvő"
@@ -1373,12 +1435,13 @@ msgstr[1] "%d csomag található."
 msgid "Version"
 msgstr "Verzió"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 "A népszerűség az összes szavazatból kerül számításra. Minden egyes szavazat "
-"súlyozásra kerül naponta 0,98-as faktorral a létrehozása óta."
+"súlyozásra kerül naponta %.2f-as faktorral a létrehozása óta."
 
 msgid "Yes"
 msgstr "Igen"
@@ -1438,7 +1501,7 @@ msgid "Recent Updates"
 msgstr "Legutóbbi frissítések"
 
 msgid "more"
-msgstr ""
+msgstr "több"
 
 msgid "My Statistics"
 msgstr "Statisztikám"

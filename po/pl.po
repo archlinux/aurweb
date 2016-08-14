@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-13 13:13+0000\n"
-"Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-06 09:48+0000\n"
+"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
 "Language-Team: Polish (http://www.transifex.com/lfleischer/aur/language/"
 "pl/)\n"
 "Language: pl\n"
@@ -61,13 +61,13 @@ msgid "Use this form to search existing accounts."
 msgstr "Przy użyciu tego formularza możesz przeszukać istniejące konta."
 
 msgid "You must log in to view user information."
-msgstr "Musisz być zalogowany aby móc oglądać informacje o użytkownikach."
+msgstr "Musisz być zalogowany, aby móc przeglądać informacje o użytkownikach."
 
 msgid "Add Proposal"
-msgstr "Dodaj Propozycję"
+msgstr "Dodaj propozycję"
 
 msgid "Invalid token for user action."
-msgstr "Nieprawidłowy token dla akcji użytkownika."
+msgstr "Nieprawidłowy token dla czynności użytkownika."
 
 msgid "Username does not exist."
 msgstr "Nazwa użytkownika nie istnieje."
@@ -89,10 +89,10 @@ msgid "Submit a proposal to vote on."
 msgstr "Wyślij propozycję do głosowania."
 
 msgid "Applicant/TU"
-msgstr "Wnioskodawca/TU"
+msgstr "Wnioskodawca/ZU"
 
 msgid "(empty if not applicable)"
-msgstr "(puste jeśli nie dotyczy)"
+msgstr "(puste, jeśli nie dotyczy)"
 
 msgid "Type"
 msgstr "Rodzaj"
@@ -153,6 +153,7 @@ msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
 msgstr ""
+"Pakiety w AUR są tworzone przez użytkowników. Używasz ich na własne ryzyko."
 
 msgid "Learn more..."
 msgstr "Dowiedz się więcej..."
@@ -161,7 +162,7 @@ msgid "Support"
 msgstr "Wsparcie"
 
 msgid "Package Requests"
-msgstr "Propozycje pakietu"
+msgstr "Prośby o pakiet"
 
 #, php-format
 msgid ""
@@ -178,7 +179,7 @@ msgid ""
 msgstr ""
 
 msgid "Deletion Request"
-msgstr "Propozycja usunięcia"
+msgstr "Prośba o usunięcie"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
@@ -187,7 +188,7 @@ msgid ""
 msgstr ""
 
 msgid "Merge Request"
-msgstr "Propozycja połączenia"
+msgstr "Prośba o połączenie"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
@@ -351,7 +352,7 @@ msgid "Cannot find package to merge votes and comments into."
 msgstr "Nie można znaleźć pakietu do scalenia głosów i komentarzy."
 
 msgid "Cannot merge a package base with itself."
-msgstr "Nie można połączyć bazowego pakietu z nim samym."
+msgstr "Nie można połączyć bazy pakietu z nią samą."
 
 msgid ""
 "The selected packages have not been deleted, check the confirmation checkbox."
@@ -404,16 +405,16 @@ msgstr ""
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr ""
+msgstr "Zaznaczając pole wyboru potwierdzasz, że chcesz porzucić pakiet."
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Potwierdź porzucenie pakietu"
 
 msgid "Disown"
 msgstr "Porzuć"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
+msgstr "Tylko Zaufani Użytkownicy i Programiści mogą porzucać pakiety."
 
 msgid "Flag Comment"
 msgstr "Oznacz komentarz"
@@ -426,17 +427,24 @@ msgid ""
 "Use this form to flag the package base %s%s%s and the following packages out-"
 "of-date: "
 msgstr ""
+"Użyj tego formularza, aby oznaczyć bazę pakietu %s%s%s i następujące pakiety "
+"jako nieaktualne:"
 
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
 msgstr ""
+"Prosimy %snie%s używać tego formularza do zgłaszania błędów. Użyj do tego "
+"systemu komentowania pakietu."
 
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
 msgstr ""
+"Wprowadź poniżej szczegóły, dlaczego pakiet został oznaczony jako "
+"nieaktualny, najlepiej łącznie z odnośnikiem do ogłoszenia o nowym wydaniu "
+"lub do archiwum tarball nowego wydania."
 
 msgid "Comments"
 msgstr "Kommentarze"
@@ -446,6 +454,7 @@ msgstr "Oznacz"
 
 msgid "Only registered users can flag packages out-of-date."
 msgstr ""
+"Tylko zarejestrowani użytkownicy mogą oznaczać pakiety jako nieaktualne."
 
 msgid "Package Merging"
 msgstr "Scalanie pakietów"
@@ -481,10 +490,10 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Tylko Zaufani Użytkownicy i Deweloperzy mogą scalać pakiety."
 
 msgid "Submit Request"
-msgstr "Prześlij propozycję"
+msgstr "Prześlij prośbę"
 
 msgid "Close Request"
-msgstr "Zamknij propozycję"
+msgstr "Zamknij prośbę"
 
 msgid "First"
 msgstr "Pierwsza"
@@ -499,7 +508,7 @@ msgid "Last"
 msgstr "Ostatnia"
 
 msgid "Requests"
-msgstr "Propozycje"
+msgstr "Prośby"
 
 msgid "Register"
 msgstr "Zarejestruj się"
@@ -526,13 +535,13 @@ msgid "You've already voted for this proposal."
 msgstr "Już zagłosowałeś na tą propozycję"
 
 msgid "Vote ID not valid."
-msgstr "ID głosowania nieprawidłowe."
+msgstr "Nieprawidłowy identyfikator głosowania."
 
 msgid "Current Votes"
-msgstr "Obecne Głosy"
+msgstr "Obecne głosy"
 
 msgid "Past Votes"
-msgstr "Poprzednie Głosy"
+msgstr "Poprzednie głosy"
 
 msgid "Voters"
 msgstr "Głosujących"
@@ -586,7 +595,7 @@ msgstr "Adres, %s%s%s, jest już używany."
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "Publiczny klucz SSH, %s%s%s, jest już używany."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -649,16 +658,16 @@ msgid "View account information for %s"
 msgstr "Wyświetl informacje o koncie %s"
 
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "Brakuje identyfikatora lub nazwy bazy pakietów."
 
 msgid "You are not allowed to edit this comment."
-msgstr ""
+msgstr "Nie masz uprawnień do edycji tego komentarza."
 
 msgid "Comment does not exist."
-msgstr ""
+msgstr "Komentarz nie istnieje."
 
 msgid "Comment cannot be empty."
-msgstr ""
+msgstr "Komentarz nie może być pusty."
 
 msgid "Comment has been added."
 msgstr "Komentarz został dodany."
@@ -670,19 +679,19 @@ msgid "Missing comment ID."
 msgstr "Brakuje identyfikatora komentarza."
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "Można przypiąć nie więcej niż 5 komentarzy."
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "Nie masz uprawnień do przypięcia tego komentarza."
 
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "Nie masz uprawnień do odpięcia tego komentarza."
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "Komentarz został przypięty."
 
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "Komentarz został odpięty."
 
 msgid "Error retrieving package details."
 msgstr "Błąd podczas pobierania informacji o pakiecie."
@@ -698,6 +707,7 @@ msgstr "Nie wybrałeś żadnych pakietów do oznaczenia."
 
 msgid "The selected packages have not been flagged, please enter a comment."
 msgstr ""
+"Zaznaczone pakiety nie zostały oznaczone, prosimy o wpisanie komentarza."
 
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Wybrane pakiety zostały oznaczone jako nieaktualne."
@@ -724,7 +734,7 @@ msgid "You must be logged in before you can adopt packages."
 msgstr "Musisz być zalogowany aby móc przejmować pakiety."
 
 msgid "You must be logged in before you can disown packages."
-msgstr "Musisz być zalogowany aby móc porzucać pakiety."
+msgstr "Musisz być zalogowany, aby móc porzucać pakiety."
 
 msgid "You did not select any packages to adopt."
 msgstr "Nie wybrałeś żadnych pakietów do przejęcia."
@@ -765,10 +775,10 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Zostałeś usunięty z listy powiadamiania o komentarzach dla %s."
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "Nie masz uprawnień do cofnięcia usunięcia tego komentarza."
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "Zostało cofnięte usunięcie komentarza."
 
 msgid "You are not allowed to delete this comment."
 msgstr "Nie masz uprawnień do usunięcia tego komentarza."
@@ -777,33 +787,33 @@ msgid "Comment has been deleted."
 msgstr "Komentarz został usunięty."
 
 msgid "Comment has been edited."
-msgstr ""
+msgstr "Komentarz został zmodyfikowany."
 
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr ""
+msgstr "Nie masz uprawnień, by modyfikować słowa kluczowe tej bazy pakietów."
 
 msgid "The package base keywords have been updated."
-msgstr ""
+msgstr "Słowa kluczowe bazy pakietu zostały zaktualizowane."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "Nie masz uprawnień, by zarządzać współutrzymującymi tej bazy pakietu."
 
 #, php-format
 msgid "Invalid user name: %s"
 msgstr "Niepoprawna nazwa użytkownika: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "Współutrzymujący bazy pakietu zostali zaktualizowani."
 
 msgid "View packages details for"
 msgstr "Wyświetl informacje o pakiecie"
 
 #, php-format
 msgid "requires %s"
-msgstr ""
+msgstr "wymaga %s"
 
 msgid "You must be logged in to file package requests."
-msgstr "Musisz być zalogowanym, aby złożyć propozycje pakietu."
+msgstr "Musisz być zalogowanym, aby złożyć prośbę o pakiet."
 
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Nieprawidłowa nazwa: tylko małe litery są dozwolone."
@@ -812,19 +822,19 @@ msgid "The comment field must not be empty."
 msgstr "Pole komentarzy nie może pozostać pustę."
 
 msgid "Invalid request type."
-msgstr "Nieprawidłowy rodzaj propozycji."
+msgstr "Nieprawidłowy rodzaj prośby."
 
 msgid "Added request successfully."
-msgstr "Pomyślnie dodano propozycję."
+msgstr "Pomyślnie dodano prośbę."
 
 msgid "Invalid reason."
 msgstr "Nieprawidłowy powód."
 
 msgid "Only TUs and developers can close requests."
-msgstr "Tylko Zaufani Użytkownicy i Deweloperzy mogą zamykać propozycje."
+msgstr "Tylko Zaufani Użytkownicy i programiści mogą zamykać prośby."
 
 msgid "Request closed successfully."
-msgstr "Pomyślnie zamknięto propozycję."
+msgstr "Pomyślnie zamknięto prośbę."
 
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
@@ -856,10 +866,13 @@ msgid "Email Address"
 msgstr "Adres e-mail"
 
 msgid "hidden"
-msgstr ""
+msgstr "ukryte"
 
 msgid "Real Name"
 msgstr "Imię i nazwisko"
+
+msgid "Homepage"
+msgstr ""
 
 msgid "IRC Nick"
 msgstr "Nick na IRC-u"
@@ -890,7 +903,7 @@ msgstr "Edycja tego konta użytkownika"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr "Kliknij %stutaj%s jeśli chcesz nieodwracalnie usunąć to konto."
+msgstr "Kliknij %stutaj%s, jeśli chcesz nieodwracalnie usunąć to konto."
 
 msgid "required"
 msgstr "wymagane"
@@ -911,9 +924,11 @@ msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
 msgstr ""
+"Upewnij się, czy poprawnie wpisano adres e-mail, w przeciwnym razie "
+"zostaniesz zablokowany."
 
 msgid "Hide Email Address"
-msgstr ""
+msgstr "Ukryj adres e-mail"
 
 msgid "Re-type password"
 msgstr "Hasło (ponownie)"
@@ -925,17 +940,22 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"Następująca informacja jest wymagana jedynie w sytuacji, gdy chcesz przesłać "
+"pakiety do Repozytorium Użytkowników Arch."
 
 msgid "SSH Public Key"
 msgstr "Klucz publiczny SSH"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "Ustawienia powiadomień"
 
 msgid "Notify of new comments"
 msgstr "Powiadom o nowych komentarzach"
 
 msgid "Notify of package updates"
+msgstr "Powiadom o aktualizacjach pakietu"
+
+msgid "Notify of ownership changes"
 msgstr ""
 
 msgid "Update"
@@ -972,6 +992,8 @@ msgstr "Brak wyników do wyświetlenia."
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"Użyj tego formularza, aby dodać współutrzymujących %s%s%s (jedna nazwa "
+"użytkownika na wiersz):"
 
 msgid "Users"
 msgstr "Użytkownicy"
@@ -981,22 +1003,23 @@ msgstr "Zapisz"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Komentarz do oznaczenia jako nieaktualny: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr ""
+"%s%s%s oznaczył %s%s%s jako nieaktualny dnia %s%s%s z następującego powodu:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s nie jest oznaczone jako nieaktualne."
 
 msgid "Return to Details"
-msgstr ""
+msgstr "Powrót do szczegółów"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
+msgstr "Prawa autorskie %s 2004-%d Zespół Programistów aurweb."
 
 msgid "My Packages"
 msgstr "Moje pakiety"
@@ -1014,14 +1037,14 @@ msgid "View Changes"
 msgstr "Zobacz zmiany"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Pobierz migawkę"
 
 msgid "Search wiki"
 msgstr "Przeszukaj wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Oznaczono jako nieaktualny (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "Oznacz pakiet jako nieaktualny"
@@ -1038,15 +1061,18 @@ msgstr "Zagłosuj na ten pakiet"
 msgid "Disable notifications"
 msgstr "Wyłącz powiadomienia"
 
-msgid "Manage Co-Maintainers"
+msgid "Enable notifications"
 msgstr ""
+
+msgid "Manage Co-Maintainers"
+msgstr "Zarządzanie współutrzymującymi"
 
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] "%d propozycja w toku"
-msgstr[1] "%d propozycje w toku"
-msgstr[2] "%d propozycji w toku"
+msgstr[0] "%d prośba w toku"
+msgstr[1] "%d prośby w toku"
+msgstr[2] "%d próśb w toku"
 
 msgid "Adopt Package"
 msgstr "Przejmij pakiet"
@@ -1058,10 +1084,10 @@ msgid "Package Base Details"
 msgstr "Szczegóły bazy pakietu"
 
 msgid "Git Clone URL"
-msgstr ""
+msgstr "URL klonu Git"
 
 msgid "read-only"
-msgstr ""
+msgstr "tylko do odczytu"
 
 msgid "Keywords"
 msgstr "Słowa kluczowe"
@@ -1082,14 +1108,14 @@ msgid "Popularity"
 msgstr "Popularność"
 
 msgid "First Submitted"
-msgstr "Wysłany"
+msgstr "Umieszczony"
 
 msgid "Last Updated"
 msgstr "Ostatnia aktualizacja"
 
 #, php-format
 msgid "Edit comment for: %s"
-msgstr ""
+msgstr "Edycja komentarza do: %s"
 
 msgid "Add Comment"
 msgstr "Dodaj komentarz"
@@ -1098,46 +1124,46 @@ msgid "View all comments"
 msgstr "Pokaż wszystkie komentarze"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "Przypięte komentarze"
 
 msgid "Latest Comments"
 msgstr "Ostatnie komentarze"
 
 #, php-format
 msgid "%s commented on %s"
-msgstr ""
+msgstr "%s skomentował dnia %s"
 
 #, php-format
 msgid "Anonymous comment on %s"
-msgstr ""
+msgstr "Anonimowy komentarz do %s"
 
 #, php-format
 msgid "deleted on %s by %s"
-msgstr ""
+msgstr "usunięte %s przez %s"
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "usunięte %s"
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "edytowane %s przez %s"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "edytowane %s"
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "Cofnij usunięcie komentarza"
 
 msgid "Delete comment"
 msgstr "Usuń komentarz"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "Przypnij komentarz"
 
 msgid "Unpin comment"
-msgstr ""
+msgstr "Odepnij komentarz"
 
 msgid "All comments"
 msgstr "Wszystkie komentarze"
@@ -1152,7 +1178,7 @@ msgid "Description"
 msgstr "Opis"
 
 msgid "Upstream URL"
-msgstr "URL upstreamu"
+msgstr "URL źródła"
 
 msgid "Visit the website for"
 msgstr "Odwiedź stronę pakietu"
@@ -1183,7 +1209,7 @@ msgstr "Źródła"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
+msgstr "Użyj tego formularza, aby zamknąć prośbę o bazę pakietów %s%s%s."
 
 msgid "Note"
 msgstr "Uwaga"
@@ -1192,6 +1218,8 @@ msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
+"Pole komentarza może zostać pozostawione pustym. Jednakże w przypadku "
+"odrzucenia prośby dodanie komentarza jest wysoce polecane."
 
 msgid "Reason"
 msgstr "Powód"
@@ -1207,11 +1235,11 @@ msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
-"Użyj tego formularza, aby złożyć propozycję na bazę pakietu %s%s%s i "
-"następujące pakiety:"
+"Użyj tego formularza, aby złożyć prośbę przeciwko bazie pakietu %s%s%s, "
+"która zawiera następujące pakiety:"
 
 msgid "Request type"
-msgstr "Rodzaj propozycji"
+msgstr "Rodzaj prośby"
 
 msgid "Deletion"
 msgstr "Usunięcie"
@@ -1222,12 +1250,32 @@ msgstr "Bez opiekuna"
 msgid "Merge into"
 msgstr "Scal z"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] "%d propozycje znaleziono"
-msgstr[1] "%d propozycje znaleziono."
-msgstr[2] "%d propozycji znaleziono."
+msgstr[0] "%d prośba odnaleziona."
+msgstr[1] "%d prośby odnalezione."
+msgstr[2] "%d próśb odnaleziono."
 
 #, php-format
 msgid "Page %d of %d."
@@ -1243,8 +1291,11 @@ msgid "Date"
 msgstr "Data"
 
 #, php-format
-msgid "~%d days left"
-msgstr "pozostało ~%d  dni"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1293,10 +1344,10 @@ msgid "Name"
 msgstr "Nazwa"
 
 msgid "Voted"
-msgstr "Głos"
+msgstr "Zagłosowany"
 
 msgid "Last modified"
-msgstr ""
+msgstr "Ostatnio zmienione"
 
 msgid "Ascending"
 msgstr "Rosnąco"
@@ -1344,9 +1395,10 @@ msgstr[2] "%d pakietów znaleziono"
 msgid "Version"
 msgstr "Wersja"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
 msgid "Yes"
@@ -1407,7 +1459,7 @@ msgid "Recent Updates"
 msgstr "Ostatnie aktualizacje"
 
 msgid "more"
-msgstr ""
+msgstr "więcej"
 
 msgid "My Statistics"
 msgstr "Moje statystyki"

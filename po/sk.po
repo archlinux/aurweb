@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-06 09:48+0000\n"
+"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
 "Language-Team: Slovak (http://www.transifex.com/lfleischer/aur/language/"
 "sk/)\n"
 "Language: sk\n"
@@ -887,6 +887,9 @@ msgstr "skrytý"
 msgid "Real Name"
 msgstr "Skutočné meno"
 
+msgid "Homepage"
+msgstr ""
+
 msgid "IRC Nick"
 msgstr "IRC prezývka"
 
@@ -965,6 +968,9 @@ msgid "Notify of new comments"
 msgstr "Upozorni na nové komentáre"
 
 msgid "Notify of package updates"
+msgstr ""
+
+msgid "Notify of ownership changes"
 msgstr ""
 
 msgid "Update"
@@ -1068,6 +1074,9 @@ msgstr "Hlasuj za tento balíček"
 
 msgid "Disable notifications"
 msgstr "Vypni upozornenia"
+
+msgid "Enable notifications"
+msgstr ""
 
 msgid "Manage Co-Maintainers"
 msgstr "Manažovať spolupracovníkov"
@@ -1256,6 +1265,26 @@ msgstr "Vyvlastniť"
 msgid "Merge into"
 msgstr "Zlúčiť do"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1277,8 +1306,11 @@ msgid "Date"
 msgstr "Dátum"
 
 #, php-format
-msgid "~%d days left"
-msgstr "~%d dní ostáva"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1378,12 +1410,11 @@ msgstr[2] "%d nájdených balíčkov."
 msgid "Version"
 msgstr "Verzia"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
-"Popularita sa počíta ako suma všetkých hlasov, pričom každý hlas je násobený "
-"váhovým faktorom 0.98 za deň od dátumu vzniku."
 
 msgid "Yes"
 msgstr "Áno"

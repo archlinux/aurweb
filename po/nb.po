@@ -6,16 +6,16 @@
 # Alexander F Rødseth <rodseth@gmail.com>, 2015
 # Alexander F Rødseth <rodseth@gmail.com>, 2011,2013-2014
 # Harald H. <haarektrans@gmail.com>, 2015
-# AdmiringWorm <kim.nordmo@gmail.com>, 2016
+# Kim Nordmo <kim.nordmo@gmail.com>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Thor K. H. <nitrolinken@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-06 09:48+0000\n"
+"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/lfleischer/aur/"
 "language/nb/)\n"
 "Language: nb\n"
@@ -866,6 +866,9 @@ msgstr ""
 msgid "Real Name"
 msgstr "Ekte navn"
 
+msgid "Homepage"
+msgstr ""
+
 msgid "IRC Nick"
 msgstr "IRC-kallenavn"
 
@@ -943,6 +946,9 @@ msgid "Notify of new comments"
 msgstr "Gi beskjed om nye kommentarer"
 
 msgid "Notify of package updates"
+msgstr ""
+
+msgid "Notify of ownership changes"
 msgstr ""
 
 msgid "Update"
@@ -1044,6 +1050,9 @@ msgstr "Stem på denne pakken"
 
 msgid "Disable notifications"
 msgstr "Slå av beskjeder"
+
+msgid "Enable notifications"
+msgstr ""
 
 msgid "Manage Co-Maintainers"
 msgstr ""
@@ -1230,6 +1239,26 @@ msgstr "Foreldreløs"
 msgid "Merge into"
 msgstr "Flett med"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1250,8 +1279,10 @@ msgid "Date"
 msgstr "Dato"
 
 #, php-format
-msgid "~%d days left"
-msgstr "~%d dager igjen"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1349,9 +1380,10 @@ msgstr[1] "Fant %d pakker."
 msgid "Version"
 msgstr "Versjon"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
 msgid "Yes"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-11 13:26+0000\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-08 07:33+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_TW/)\n"
@@ -857,6 +857,9 @@ msgstr "已隱藏"
 msgid "Real Name"
 msgstr "真實名稱"
 
+msgid "Homepage"
+msgstr "首頁"
+
 msgid "IRC Nick"
 msgstr "IRC 暱稱"
 
@@ -933,6 +936,9 @@ msgstr "接收新評論通知"
 
 msgid "Notify of package updates"
 msgstr "通知套件更新"
+
+msgid "Notify of ownership changes"
+msgstr "擁有者變更通知"
 
 msgid "Update"
 msgstr "更新"
@@ -1033,6 +1039,9 @@ msgstr "為此套件投票"
 
 msgid "Disable notifications"
 msgstr "停用通知"
+
+msgid "Enable notifications"
+msgstr "啟用通知"
 
 msgid "Manage Co-Maintainers"
 msgstr "管理共同維護者"
@@ -1214,6 +1223,33 @@ msgstr "棄置"
 msgid "Merge into"
 msgstr "合併到"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"透過遞交刪除請求，您會請求受信使用者刪除套件基礎。這個類型的請求應該用於重"
+"複、被上游放棄的軟體，以及違法與無法修復的損壞套件。"
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"透過遞交合併請求，您會請求受信使用者刪除套件基礎並轉移其投票數到其他的套件基"
+"礎。合併一個套件不會影響相對應的 Git 倉庫。確保您可以自己更新目標套件的 Git "
+"歷史。"
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"透過遞交棄置請求，您會請求受信使用者棄置套件基礎。請僅在該套件需要有維護者動"
+"作、維護者突然消失且您先前已經連絡過維護者時做此動作。"
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1233,8 +1269,9 @@ msgid "Date"
 msgstr "日期"
 
 #, php-format
-msgid "~%d days left"
-msgstr "剩餘 ~%d 天"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "剩餘 ~%d 天"
 
 #, php-format
 msgid "~%d hour left"
@@ -1330,10 +1367,11 @@ msgstr[0] "找到 %d 個套件。"
 msgid "Version"
 msgstr "版本"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
-msgstr "人氣的計算方式為，將所有票數加總，且每一票自建立以來每天乘上 0.98。"
+"weighted with a factor of %.2f per day since its creation."
+msgstr "人氣的計算方式為，將所有票數加總，且每一票自建立以來每天乘上 %.2f。"
 
 msgid "Yes"
 msgstr "是"

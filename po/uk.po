@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 23:36+0000\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-06 11:02+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/lfleischer/aur/language/"
 "uk/)\n"
@@ -895,6 +895,9 @@ msgstr "приховано"
 msgid "Real Name"
 msgstr "Справжнє ім'я"
 
+msgid "Homepage"
+msgstr "Домашня сторінка"
+
 msgid "IRC Nick"
 msgstr "Псевдонім IRC"
 
@@ -976,6 +979,9 @@ msgstr "Сповіщати про нові коментарі"
 msgid "Notify of package updates"
 msgstr "Повідомлення про оновлення пакунків"
 
+msgid "Notify of ownership changes"
+msgstr "Сповіщення про зміну власника"
+
 msgid "Update"
 msgstr "Оновити"
 
@@ -1021,7 +1027,7 @@ msgstr "Зберегти"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Позначено як застарілий коментар: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
@@ -1077,6 +1083,9 @@ msgstr "Голосувати за цей пакунок"
 
 msgid "Disable notifications"
 msgstr "Відключити сповіщення"
+
+msgid "Enable notifications"
+msgstr "Включити сповіщення"
 
 msgid "Manage Co-Maintainers"
 msgstr "Керування Супровідниками"
@@ -1264,6 +1273,36 @@ msgstr "Позначити застарілим"
 msgid "Merge into"
 msgstr "Об'єднати в"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"Надсилаючи запит на вилучення, Ви просите Довіреного Користувача вилучити "
+"пакунок з бази. Цей тип запиту повинен використовуватися для дублікатів, "
+"неоновлюваних програм, а також нелегальних і невиправно пошкоджених пакунків."
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"Надсилаючи запит на об'єднання, Ви просите Довіреного Користувача вилучити "
+"пакунок і перенести всі його голосування і коментарі до іншого пакунку. "
+"Об'єднання пакунку не впливає на відповідні сховища Git. Впевніться, що Ви "
+"оновили самі історію Git доцільового пакунку."
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"Надсилаючи запит на зречення, Ви просите Довіреного Користувача позбавити "
+"пакунок власника. Робіть це, якщо пакунок потребує якоїсь дії, супровідник "
+"не робить жодних дій і Ви вже попередньо намагалися зв'язатися з ним."
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1285,8 +1324,11 @@ msgid "Date"
 msgstr "Дата"
 
 #, php-format
-msgid "~%d days left"
-msgstr "~%d днів залишилося"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "~%d день залишився"
+msgstr[1] "~%d днів залишилося"
+msgstr[2] "~%d днів залишилося"
 
 #, php-format
 msgid "~%d hour left"
@@ -1386,12 +1428,13 @@ msgstr[2] "Знайдено %d пакунків."
 msgid "Version"
 msgstr "Версія"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 "Популярність розраховується як сума всіх голосувань, де кожен голос береться "
-"з ваговим коефіцієнтом 0.98 за кожен день з часу створення."
+"з ваговим коефіцієнтом %.2f за кожен день з часу створення."
 
 msgid "Yes"
 msgstr "Так"

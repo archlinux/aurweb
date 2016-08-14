@@ -9,14 +9,15 @@
 # Kyrylo Silin <curacaothe@gmail.com>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Rustam Tsurik <rustam.tsurik@gmail.com>, 2013
-# Sergey Shepelev <temotor@gmail.com>, 2014
+# Sergey Shepelev <temotor@gmail.com>, 2014,2016
+# Аскольд <HaskuldNihil@protonmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-11 08:38+0000\n"
-"Last-Translator: Evgeniy Alekseev <darkarcanis@mail.ru>\n"
+"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"PO-Revision-Date: 2016-08-06 09:48+0000\n"
+"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
 "Language-Team: Russian (http://www.transifex.com/lfleischer/aur/language/"
 "ru/)\n"
 "Language: ru\n"
@@ -342,7 +343,7 @@ msgid "Check your e-mail for the confirmation link."
 msgstr "Проверьте свою электронную почту на наличие ссылки подтверждения."
 
 msgid "Your password has been reset successfully."
-msgstr "Ваш пароль был успешно переустановлен."
+msgstr "Ваш пароль успешно сброшен."
 
 msgid "Confirm your e-mail address:"
 msgstr "Подтвердите адрес своей электронной почты:"
@@ -373,7 +374,7 @@ msgid ""
 msgstr "Выбранные пакеты будут брошены."
 
 msgid "Cannot find package to merge votes and comments into."
-msgstr "Не могу найти пакет для объединения с ним голосов и комментариев."
+msgstr "Не могу найти пакет для объединения голосов и комментариев."
 
 msgid "Cannot merge a package base with itself."
 msgstr "Невозможно объединить группу пакетов с самой собой."
@@ -591,7 +592,7 @@ msgid "Start and end with a letter or number"
 msgstr "Начинаются и заканчиваются цифрой или буквой"
 
 msgid "Can contain only one period, underscore or hyphen."
-msgstr "Может содержать только одну запятую, подчёркивание или тире."
+msgstr "Может содержать только одну точку, подчёркивание или тире."
 
 msgid "The email address is invalid."
 msgstr "Неправильный адрес электронной почты."
@@ -610,7 +611,7 @@ msgstr "Язык пока не поддерживается."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
-msgstr "Имя пользователя, %s%s%s, уже используется."
+msgstr "Имя %s%s%s уже занято."
 
 #, php-format
 msgid "The address, %s%s%s, is already in use."
@@ -632,7 +633,7 @@ msgid "A password reset key has been sent to your e-mail address."
 msgstr "Ключ для смены пароля был отправлен на ваш электронный адрес."
 
 msgid "Click on the Login link above to use your account."
-msgstr "Нажмите на ссылку для входа вверху чтобы зайти."
+msgstr "Нажмите на ссылку Войти выше."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
@@ -722,7 +723,7 @@ msgid "Package details could not be found."
 msgstr "Не найдена информация о пакете."
 
 msgid "You must be logged in before you can flag packages."
-msgstr "Вы должны войти прежде чем расставлять флажки на пакеты."
+msgstr "Вы должны войти чтобы ставить флажки на пакеты."
 
 msgid "You did not select any packages to flag."
 msgstr "Вы не выбрали ни одного пакета для пометки."
@@ -734,7 +735,7 @@ msgid "The selected packages have been flagged out-of-date."
 msgstr "Выбранные пакеты помечены как устаревшие."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr "Вы должны войти прежде чем снимать флажки."
+msgstr "Вы должны войти чтобы снимать флажки."
 
 msgid "You did not select any packages to unflag."
 msgstr "Вы не выбрали ни одного пакета для снятия пометки."
@@ -752,10 +753,10 @@ msgid "The selected packages have been deleted."
 msgstr "Выбранные пакеты удалены."
 
 msgid "You must be logged in before you can adopt packages."
-msgstr "Вы должны войти прежде чем усыновлять пакеты."
+msgstr "Вы должны войти чтобы усыновлять пакеты."
 
 msgid "You must be logged in before you can disown packages."
-msgstr "Вы должны войти прежде чем бросать пакеты."
+msgstr "Вы должны войти чтобы бросать пакеты."
 
 msgid "You did not select any packages to adopt."
 msgstr "Вы не выбрали ни одного пакета для усыновления."
@@ -770,10 +771,10 @@ msgid "The selected packages have been disowned."
 msgstr "Выбранные пакеты брошены."
 
 msgid "You must be logged in before you can vote for packages."
-msgstr "Вы должны войти прежде чем голосовать."
+msgstr "Вы должны войти чтобы голосовать."
 
 msgid "You must be logged in before you can un-vote for packages."
-msgstr "Вы должны войти прежде чем снимать голос с пакета."
+msgstr "Вы должны войти чтобы снимать голос с пакета."
 
 msgid "You did not select any packages to vote for."
 msgstr "Вы не выбрали ни одного пакета для голосования."
@@ -837,7 +838,7 @@ msgid "You must be logged in to file package requests."
 msgstr "Вы должны войти, чтобы отправить запрос по пакету."
 
 msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Неверное имя: только нижний регистр допустим."
+msgstr "Неверное имя: допустим только нижний регистр."
 
 msgid "The comment field must not be empty."
 msgstr "Поле комментариев должно быть заполнено."
@@ -893,6 +894,9 @@ msgstr "скрыто"
 
 msgid "Real Name"
 msgstr "Настоящее имя"
+
+msgid "Homepage"
+msgstr "Домашняя страница"
 
 msgid "IRC Nick"
 msgstr "IRC Ник"
@@ -959,7 +963,9 @@ msgstr "Язык"
 msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
-msgstr "Только следующая необходима, если вы хотите загрузить пакеты в AUR."
+msgstr ""
+"Следующая информация необходима, только если вы хотите загружать пакеты в "
+"AUR."
 
 msgid "SSH Public Key"
 msgstr "Публичный SSH ключ"
@@ -972,6 +978,9 @@ msgstr "Уведомлять о новых комментариях"
 
 msgid "Notify of package updates"
 msgstr "Уведомлять об обновлении пакета"
+
+msgid "Notify of ownership changes"
+msgstr "Уведомлять об измененях собственности"
 
 msgid "Update"
 msgstr "Обновить"
@@ -1007,8 +1016,8 @@ msgstr "Больше нет результатов."
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
-"Используйте данную форму, чтобы добавить сопровождающих для %s%s%s "
-"(используйте одно имя на строку):"
+"Используйте данную форму, чтобы добавить сопровождающих для %s%s%s (одно имя "
+"на строку):"
 
 msgid "Users"
 msgstr "Пользователи"
@@ -1058,7 +1067,7 @@ msgstr "Искать в Wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr "Отмечет устаревшим (%s)"
+msgstr "Отмечен устаревшим (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "Пометить пакет как устаревший"
@@ -1074,6 +1083,9 @@ msgstr "Проголосовать за пакет"
 
 msgid "Disable notifications"
 msgstr "Выключить уведомления"
+
+msgid "Enable notifications"
+msgstr "Включить уведомления"
 
 msgid "Manage Co-Maintainers"
 msgstr "Управление сопровождающими"
@@ -1262,6 +1274,37 @@ msgstr "Сделать сиротой"
 msgid "Merge into"
 msgstr "Объединить с"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"Отправляя запрос удаления, Вы просите Доверенного Пользователя удалить "
+"основной пакет. Этот тип запроса должен использоваться для дубликатов, "
+"заброшенных, а также незаконных и безнадёжно сломанных пакетов."
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"Отправляя запрос на слияние, Вы просите Доверенного Пользователя удалить "
+"основной пакет, переместить голоса и комментарии к другому основному пакету. "
+"Слияние пакета не влияет на соответствующие Git репозитории. Обновите Git "
+"историю целевого пакета самостоятельно."
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"Отправляя сиротский запрос, Вы просите Доверенного Пользователя бросить "
+"основной пакет. Пожалуйста, делайте это, только если пакет нуждается в "
+"действиях обслуживающего, который недоступен и вы уже пытались связаться с "
+"ним ранее."
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1284,8 +1327,12 @@ msgid "Date"
 msgstr "Дата"
 
 #, php-format
-msgid "~%d days left"
-msgstr "осталось ~%d дней"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1387,19 +1434,17 @@ msgstr[3] "Найдено %d пакетов."
 msgid "Version"
 msgstr "Версия"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
-"Популярность считается, как сумма всех голосов, где каждый голос взвешен с "
-"коэффициентом 0.98 за каждый день разницы между днем голосования и днем "
-"загрузки пакета."
 
 msgid "Yes"
 msgstr "Да"
 
 msgid "orphan"
-msgstr "сирота"
+msgstr "брошеный"
 
 msgid "Actions"
 msgstr "Действия"
@@ -1429,7 +1474,7 @@ msgid "Statistics"
 msgstr "Статистика"
 
 msgid "Orphan Packages"
-msgstr "Пакеты-сироты"
+msgstr "Брошеные пакеты"
 
 msgid "Packages added in the past 7 days"
 msgstr "Пакеты, добавленные за прошедшие 7 дней"
@@ -1459,7 +1504,7 @@ msgid "My Statistics"
 msgstr "Моя статистика"
 
 msgid "Proposal Details"
-msgstr "Подробнее о предложении"
+msgstr "Подробности предложения"
 
 msgid "This vote is still running."
 msgstr "Голосование продолжается."
