@@ -368,7 +368,7 @@ test_expect_success 'Pushing a blacklisted package.' '
 	test_cmp expected actual
 '
 
-test_expect_failure 'Pushing a blacklisted package as Trusted User.' '
+test_expect_success 'Pushing a blacklisted package as Trusted User.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
 	echo "pkgname = forbidden" >>aur.git/.SRCINFO &&

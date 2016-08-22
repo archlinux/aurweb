@@ -402,4 +402,5 @@ repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD', sha1_new, True)
 update_notify(conn, user, pkgbase_id)
 
 # Close the database.
+cur.close()
 conn.close()
