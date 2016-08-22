@@ -396,7 +396,7 @@ test_expect_success 'Pushing a package already in the official repositories.' '
 	test_cmp expected actual
 '
 
-test_expect_failure 'Pushing a package already in the official repositories as Trusted User.' '
+test_expect_success 'Pushing a package already in the official repositories as Trusted User.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&
 	echo "pkgname = official" >>aur.git/.SRCINFO &&

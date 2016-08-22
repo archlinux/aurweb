@@ -373,8 +373,7 @@ for pkgname in srcinfo.utils.get_package_names(metadata):
     if pkgname in blacklist:
         warn_or_die('package is blacklisted: {:s}'.format(pkgname))
     if pkgname in providers:
-        repo = providers[pkgname]
-        warn_or_die('package already provided by [{:s}]: {:s}'.format(repo, pkgname))
+        warn_or_die('package already provided by [{:s}]: {:s}'.format(providers[pkgname], pkgname))
 
     cur = conn.execute("SELECT COUNT(*) FROM Packages WHERE Name = ? AND " +
                        "PackageBaseID <> ?", [pkgname, pkgbase_id])
