@@ -192,7 +192,7 @@ elif action == 'help':
         "  list-repos                   List all your repositories.\n" +
         "  restore <name>               Restore a deleted package base.\n" +
         "  set-keywords <name> [...]    Change package base keywords.\n" +
-        "  setup-repo <name>            Create an empty repository.\n" +
+        "  setup-repo <name>            Create a repository (deprecated).\n" +
         "  git-receive-pack             Internal command used with Git.\n" +
         "  git-upload-pack              Internal command used with Git.")
 else:
