@@ -3,11 +3,14 @@
 import os
 import re
 import shlex
+import subprocess
 import sys
 import time
 
 import config
 import db
+
+notify_cmd = config.get('notifications', 'notify-cmd')
 
 repo_path = config.get('serve', 'repo-path')
 repo_regex = config.get('serve', 'repo-regex')
@@ -70,6 +73,40 @@ def create_pkgbase(pkgbase, user):
                        [pkgbase_id, userid])
 
     conn.commit()
+    conn.close()
+
+
+def pkgbase_adopt(pkgbase):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+
+    conn = db.Connection()
+
+    cur = conn.execute("SELECT ID FROM PackageBases WHERE ID = ? AND " +
+                       "MaintainerUID IS NULL", [pkgbase_id])
+    if not privileged and not cur.fetchone():
+        die('{:s}: permission denied: {:s}'.format(action, user))
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        die('{:s}: unknown user: {:s}'.format(action, user))
+
+    cur = conn.execute("UPDATE PackageBases SET MaintainerUID = ? " +
+                       "WHERE ID = ?", [userid, pkgbase_id])
+
+    cur = conn.execute("SELECT COUNT(*) FROM PackageNotifications WHERE " +
+                       "PackageBaseID = ? AND UserID = ?",
+                       [pkgbase_id, userid])
+    if cur.fetchone()[0] == 0:
+        cur = conn.execute("INSERT INTO PackageNotifications " +
+                           "(PackageBaseID, UserID) VALUES (?, ?)",
+                           [pkgbase_id, userid])
+    conn.commit()
+
+    subprocess.Popen((notify_cmd, 'adopt', str(pkgbase_id), str(userid)))
+
     conn.close()
 
 
@@ -194,8 +231,17 @@ elif action == 'restore':
     os.environ["AUR_USER"] = user
     os.environ["AUR_PKGBASE"] = pkgbase
     os.execl(git_update_cmd, git_update_cmd, 'restore')
+elif action == 'adopt':
+    if len(cmdargv) < 2:
+        die_with_help("{:s}: missing repository name".format(action))
+    if len(cmdargv) > 2:
+        die_with_help("{:s}: too many arguments".format(action))
+
+    pkgbase = cmdargv[1]
+    pkgbase_adopt(pkgbase)
 elif action == 'help':
     cmds = {
+        "adopt <name>": "Adopt a package base.",
         "help": "Show this help message and exit.",
         "list-repos": "List all your repositories.",
         "restore <name>": "Restore a deleted package base.",
