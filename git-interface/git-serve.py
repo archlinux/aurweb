@@ -110,6 +110,123 @@ def pkgbase_adopt(pkgbase):
     conn.close()
 
 
+def pkgbase_get_comaintainers(pkgbase):
+    conn = db.Connection()
+
+    cur = conn.execute("SELECT UserName FROM PackageComaintainers " +
+                       "INNER JOIN Users " +
+                       "ON Users.ID = PackageComaintainers.UsersID " +
+                       "INNER JOIN PackageBases " +
+                       "ON PackageBases.ID = PackageComaintainers.PackageBaseID " +
+                       "WHERE PackageBases.Name = ? " +
+                       "ORDER BY Priority ASC", [pkgbase])
+
+    return [row[0] for row in cur.fetchall()]
+
+
+def pkgbase_set_comaintainers(pkgbase, userlist):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+
+    if not privileged and not pkgbase_has_full_access(pkgbase, user):
+        die('{:s}: permission denied: {:s}'.format(action, user))
+
+    conn = db.Connection()
+
+    userlist_old = set(pkgbase_get_comaintainers(pkgbase))
+
+    uids_old = set()
+    for olduser in userlist_old:
+        cur = conn.execute("SELECT ID FROM Users WHERE Username = ?",
+                           [olduser])
+        userid = cur.fetchone()[0]
+        if userid == 0:
+            die('{:s}: unknown user: {:s}'.format(action, user))
+        uids_old.add(userid)
+
+    uids_new = set()
+    for newuser in userlist:
+        cur = conn.execute("SELECT ID FROM Users WHERE Username = ?",
+                           [newuser])
+        userid = cur.fetchone()[0]
+        if userid == 0:
+            die('{:s}: unknown user: {:s}'.format(action, user))
+        uids_new.add(userid)
+
+    uids_add = uids_new - uids_old
+    uids_rem = uids_old - uids_new
+
+    i = 1
+    for userid in uids_new:
+        if userid in uids_add:
+            cur = conn.execute("INSERT INTO PackageComaintainers " +
+                               "(PackageBaseID, UsersID, Priority) " +
+                               "VALUES (?, ?, ?)", [pkgbase_id, userid, i])
+            subprocess.Popen((notify_cmd, 'comaintainer-add', str(pkgbase_id),
+                              str(userid)))
+        else:
+            cur = conn.execute("UPDATE PackageComaintainers " +
+                               "SET Priority = ? " +
+                               "WHERE PackageBaseID = ? AND UsersID = ?",
+                               [i, pkgbase_id, userid])
+        i += 1
+
+    for userid in uids_rem:
+            cur = conn.execute("DELETE FROM PackageComaintainers " +
+                               "WHERE PackageBaseID = ? AND UsersID = ?",
+                               [pkgbase_id, userid])
+            subprocess.Popen((notify_cmd, 'comaintainer-remove',
+                              str(pkgbase_id), str(userid)))
+
+    conn.commit()
+    conn.close()
+
+
+def pkgbase_disown(pkgbase):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+
+    initialized_by_owner = pkgbase_has_full_access(pkgbase, user)
+    if not privileged and not initialized_by_owner:
+        die('{:s}: permission denied: {:s}'.format(action, user))
+
+    # TODO: Support disowning package bases via package request.
+    # TODO: Scan through pending orphan requests and close them.
+
+    comaintainers = []
+    new_maintainer_userid = None
+
+    conn = db.Connection()
+
+    # Make the first co-maintainer the new maintainer, unless the action was
+    # enforced by a Trusted User.
+    if initialized_by_owner:
+        comaintainers = pkgbase_get_comaintainers(pkgbase)
+        if len(comaintainers) > 0:
+            new_maintainer = comaintainers[0]
+            cur = conn.execute("SELECT ID FROM Users WHERE Username = ?",
+                               [new_maintainer])
+            new_maintainer_userid = cur.fetchone()[0]
+            comaintainers.remove(new_maintainer)
+
+    pkgbase_set_comaintainers(pkgbase, comaintainers)
+    cur = conn.execute("UPDATE PackageBases SET MaintainerUID = ? " +
+                       "WHERE ID = ?", [new_maintainer_userid, pkgbase_id])
+
+    conn.commit()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        die('{:s}: unknown user: {:s}'.format(action, user))
+
+    subprocess.Popen((notify_cmd, 'disown', str(pkgbase_id), str(userid)))
+
+    conn.close()
+
+
 def pkgbase_set_keywords(pkgbase, keywords):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
@@ -137,6 +254,16 @@ def pkgbase_has_write_access(pkgbase, user):
                        "ON Users.ID = PackageBases.MaintainerUID " +
                        "OR PackageBases.MaintainerUID IS NULL " +
                        "OR Users.ID = PackageComaintainers.UsersID " +
+                       "WHERE Name = ? AND Username = ?", [pkgbase, user])
+    return cur.fetchone()[0] > 0
+
+
+def pkgbase_has_full_access(pkgbase, user):
+    conn = db.Connection()
+
+    cur = conn.execute("SELECT COUNT(*) FROM PackageBases " +
+                       "INNER JOIN Users " +
+                       "ON Users.ID = PackageBases.MaintainerUID " +
                        "WHERE Name = ? AND Username = ?", [pkgbase, user])
     return cur.fetchone()[0] > 0
 
@@ -239,9 +366,18 @@ elif action == 'adopt':
 
     pkgbase = cmdargv[1]
     pkgbase_adopt(pkgbase)
+elif action == 'disown':
+    if len(cmdargv) < 2:
+        die_with_help("{:s}: missing repository name".format(action))
+    if len(cmdargv) > 2:
+        die_with_help("{:s}: too many arguments".format(action))
+
+    pkgbase = cmdargv[1]
+    pkgbase_disown(pkgbase)
 elif action == 'help':
     cmds = {
         "adopt <name>": "Adopt a package base.",
+        "disown <name>": "Disown a package base.",
         "help": "Show this help message and exit.",
         "list-repos": "List all your repositories.",
         "restore <name>": "Restore a deleted package base.",
