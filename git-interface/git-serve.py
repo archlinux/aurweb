@@ -374,6 +374,13 @@ elif action == 'disown':
 
     pkgbase = cmdargv[1]
     pkgbase_disown(pkgbase)
+elif action == 'set-comaintainers':
+    if len(cmdargv) < 2:
+        die_with_help("{:s}: missing repository name".format(action))
+
+    pkgbase = cmdargv[1]
+    userlist = cmdargv[2:]
+    pkgbase_set_comaintainers(pkgbase, userlist)
 elif action == 'help':
     cmds = {
         "adopt <name>": "Adopt a package base.",
@@ -381,6 +388,7 @@ elif action == 'help':
         "help": "Show this help message and exit.",
         "list-repos": "List all your repositories.",
         "restore <name>": "Restore a deleted package base.",
+        "set-comaintainers <name> [...]": "Set package base co-maintainers.",
         "set-keywords <name> [...]": "Change package base keywords.",
         "setup-repo <name>": "Create a repository (deprecated).",
         "git-receive-pack": "Internal command used with Git.",
