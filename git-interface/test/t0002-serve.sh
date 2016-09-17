@@ -9,7 +9,15 @@ test_expect_success 'Test interactive shell.' '
 '
 
 test_expect_success 'Test help.' '
-	SSH_ORIGINAL_COMMAND=help "$GIT_SERVE" 2>&1 | grep -q "^Commands:$"
+	SSH_ORIGINAL_COMMAND=help "$GIT_SERVE" 2>actual &&
+	save_IFS=$IFS
+	IFS=
+	while read -r line; do
+		echo $line | grep -q "^Commands:$" && continue
+		echo $line | grep -q "^  [a-z]" || return 1
+		[ ${#line} -le 80 ] || return 1
+	done <actual
+	IFS=$save_IFS
 '
 
 test_expect_success 'Test setup-repo and list-repos.' '

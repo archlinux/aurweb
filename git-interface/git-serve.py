@@ -117,6 +117,14 @@ def warn(msg):
     sys.stderr.write("warning: {:s}\n".format(msg))
 
 
+def usage(cmds):
+    sys.stderr.write("Commands:\n")
+    colwidth = max([len(cmd) for cmd in cmds.keys()]) + 4
+    for key in sorted(cmds):
+        sys.stderr.write("  " + key.ljust(colwidth) + cmds[key] + "\n")
+    exit(0)
+
+
 user = os.environ.get('AUR_USER')
 privileged = (os.environ.get('AUR_PRIVILEGED', '0') == '1')
 ssh_cmd = os.environ.get('SSH_ORIGINAL_COMMAND')
@@ -187,13 +195,15 @@ elif action == 'restore':
     os.environ["AUR_PKGBASE"] = pkgbase
     os.execl(git_update_cmd, git_update_cmd, 'restore')
 elif action == 'help':
-    die("Commands:\n" +
-        "  help                         Show this help message and exit.\n" +
-        "  list-repos                   List all your repositories.\n" +
-        "  restore <name>               Restore a deleted package base.\n" +
-        "  set-keywords <name> [...]    Change package base keywords.\n" +
-        "  setup-repo <name>            Create a repository (deprecated).\n" +
-        "  git-receive-pack             Internal command used with Git.\n" +
-        "  git-upload-pack              Internal command used with Git.")
+    cmds = {
+        "help": "Show this help message and exit.",
+        "list-repos": "List all your repositories.",
+        "restore <name>": "Restore a deleted package base.",
+        "set-keywords <name> [...]": "Change package base keywords.",
+        "setup-repo <name>": "Create a repository (deprecated).",
+        "git-receive-pack": "Internal command used with Git.",
+        "git-upload-pack": "Internal command used with Git.",
+    }
+    usage(cmds)
 else:
     die_with_help("invalid command: {:s}".format(action))
