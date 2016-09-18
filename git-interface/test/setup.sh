@@ -86,6 +86,10 @@ sed \
 
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (1, 'user', '!', 'user@localhost', 1);" | sqlite3 aur.db
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (2, 'tu', '!', 'tu@localhost', 2);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (3, 'dev', '!', 'dev@localhost', 3);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (4, 'user2', '!', 'user2@localhost', 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (5, 'user3', '!', 'user3@localhost', 1);" | sqlite3 aur.db
+echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (6, 'user4', '!', 'user4@localhost', 1);" | sqlite3 aur.db
 
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (1, '$AUTH_FINGERPRINT_USER', '$AUTH_KEYTYPE_USER $AUTH_KEYTEXT_USER');" | sqlite3 aur.db
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (2, '$AUTH_FINGERPRINT_TU', '$AUTH_KEYTYPE_TU $AUTH_KEYTEXT_TU');" | sqlite3 aur.db
