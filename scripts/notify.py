@@ -139,6 +139,15 @@ def get_request_recipients(cur, reqid):
     return [row[0] for row in cur.fetchall()]
 
 
+def get_tu_vote_reminder_recipients(cur, vote_id):
+    cur.execute('SELECT Users.Email FROM Users WHERE AccountTypeID = 2 ' +
+                'EXCEPT SELECT Users.Email FROM Users ' +
+                'INNER JOIN TU_Votes ' +
+                'ON TU_Votes.UserID = Users.ID ' +
+                'WHERE TU_Votes.VoteID = %s', [vote_id])
+    return [row[0] for row in cur.fetchall()]
+
+
 def get_comment(cur, comment_id):
     cur.execute('SELECT Comments FROM PackageComments WHERE ID = %s',
                 [comment_id])
@@ -405,6 +414,19 @@ def request_close(cur, uid, reqid, reason):
     send_notification(to, subject, body, refs, headers)
 
 
+def tu_vote_reminder(cur, vote_id):
+    to = get_tu_vote_reminder_recipients(cur, vote_id)
+
+    vote_uri = aur_location + '/tu/?id=' + vote_id
+
+    subject = 'TU Vote Reminder: Proposal %d' % (int(vote_id))
+    body = 'Please remember to cast your vote on proposal %d [1]. ' \
+           'The voting period ends in less than 48 hours.' % (int(vote_id))
+    refs = '[1] ' + vote_uri
+
+    send_notification(to, subject, body, refs)
+
+
 if __name__ == '__main__':
     action = sys.argv[1]
     action_map = {
@@ -420,6 +442,7 @@ if __name__ == '__main__':
         'delete': delete,
         'request-open': request_open,
         'request-close': request_close,
+        'tu-vote-reminder': tu_vote_reminder,
     }
 
     db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
