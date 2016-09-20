@@ -10,15 +10,15 @@ import time
 import srcinfo.parse
 import srcinfo.utils
 
-import config
-import db
+import aurweb.config
+import aurweb.db
 
-notify_cmd = config.get('notifications', 'notify-cmd')
+notify_cmd = aurweb.config.get('notifications', 'notify-cmd')
 
-repo_path = config.get('serve', 'repo-path')
-repo_regex = config.get('serve', 'repo-regex')
+repo_path = aurweb.config.get('serve', 'repo-path')
+repo_regex = aurweb.config.get('serve', 'repo-regex')
 
-max_blob_size = config.getint('update', 'max-blob-size')
+max_blob_size = aurweb.config.getint('update', 'max-blob-size')
 
 
 def size_humanize(num):
@@ -256,7 +256,7 @@ def main():
     if refname != "refs/heads/master":
         die("pushing to a branch other than master is restricted")
 
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     # Detect and deny non-fast-forwards.
     if sha1_old != "0" * 40 and not privileged:

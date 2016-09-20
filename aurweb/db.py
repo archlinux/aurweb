@@ -1,7 +1,7 @@
 import mysql.connector
 import sqlite3
 
-import config
+import aurweb.config
 
 
 class Connection:
@@ -9,14 +9,14 @@ class Connection:
     _paramstyle = None
 
     def __init__(self):
-        aur_db_backend = config.get('database', 'backend')
+        aur_db_backend = aurweb.config.get('database', 'backend')
 
         if aur_db_backend == 'mysql':
-            aur_db_host = config.get('database', 'host')
-            aur_db_name = config.get('database', 'name')
-            aur_db_user = config.get('database', 'user')
-            aur_db_pass = config.get('database', 'password')
-            aur_db_socket = config.get('database', 'socket')
+            aur_db_host = aurweb.config.get('database', 'host')
+            aur_db_name = aurweb.config.get('database', 'name')
+            aur_db_user = aurweb.config.get('database', 'user')
+            aur_db_pass = aurweb.config.get('database', 'password')
+            aur_db_socket = aurweb.config.get('database', 'socket')
             self._conn = mysql.connector.connect(host=aur_db_host,
                                                  user=aur_db_user,
                                                  passwd=aur_db_pass,
@@ -25,7 +25,7 @@ class Connection:
                                                  buffered=True)
             self._paramstyle = mysql.connector.paramstyle
         elif aur_db_backend == 'sqlite':
-            aur_db_name = config.get('database', 'name')
+            aur_db_name = aurweb.config.get('database', 'name')
             self._conn = sqlite3.connect(aur_db_name)
             self._paramstyle = sqlite3.paramstyle
         else:

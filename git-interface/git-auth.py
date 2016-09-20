@@ -4,8 +4,8 @@ import shlex
 import re
 import sys
 
-import config
-import db
+import aurweb.config
+import aurweb.db
 
 
 def format_command(env_vars, command, ssh_opts, ssh_key):
@@ -24,17 +24,17 @@ def format_command(env_vars, command, ssh_opts, ssh_key):
 
 
 def main():
-    valid_keytypes = config.get('auth', 'valid-keytypes').split()
-    username_regex = config.get('auth', 'username-regex')
-    git_serve_cmd = config.get('auth', 'git-serve-cmd')
-    ssh_opts = config.get('auth', 'ssh-options')
+    valid_keytypes = aurweb.config.get('auth', 'valid-keytypes').split()
+    username_regex = aurweb.config.get('auth', 'username-regex')
+    git_serve_cmd = aurweb.config.get('auth', 'git-serve-cmd')
+    ssh_opts = aurweb.config.get('auth', 'ssh-options')
 
     keytype = sys.argv[1]
     keytext = sys.argv[2]
     if keytype not in valid_keytypes:
         exit(1)
 
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT Users.Username, Users.AccountTypeID FROM Users "
                        "INNER JOIN SSHPubKeys ON SSHPubKeys.UserID = Users.ID "

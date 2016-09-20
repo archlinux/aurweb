@@ -2,6 +2,10 @@ TEST_DIRECTORY="$(pwd)"
 
 . ./sharness.sh
 
+# Configure python search path.
+PYTHONPATH="$TEST_DIRECTORY/../../"
+export PYTHONPATH
+
 # Configure paths to the Git interface scripts.
 GIT_AUTH="$TEST_DIRECTORY/../git-auth.py"
 GIT_SERVE="$TEST_DIRECTORY/../git-serve.py"

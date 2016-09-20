@@ -7,23 +7,23 @@ import subprocess
 import sys
 import time
 
-import config
-import db
+import aurweb.config
+import aurweb.db
 
-notify_cmd = config.get('notifications', 'notify-cmd')
+notify_cmd = aurweb.config.get('notifications', 'notify-cmd')
 
-repo_path = config.get('serve', 'repo-path')
-repo_regex = config.get('serve', 'repo-regex')
-git_shell_cmd = config.get('serve', 'git-shell-cmd')
-git_update_cmd = config.get('serve', 'git-update-cmd')
-ssh_cmdline = config.get('serve', 'ssh-cmdline')
+repo_path = aurweb.config.get('serve', 'repo-path')
+repo_regex = aurweb.config.get('serve', 'repo-regex')
+git_shell_cmd = aurweb.config.get('serve', 'git-shell-cmd')
+git_update_cmd = aurweb.config.get('serve', 'git-update-cmd')
+ssh_cmdline = aurweb.config.get('serve', 'ssh-cmdline')
 
-enable_maintenance = config.getboolean('options', 'enable-maintenance')
-maintenance_exc = config.get('options', 'maintenance-exceptions').split()
+enable_maintenance = aurweb.config.getboolean('options', 'enable-maintenance')
+maintenance_exc = aurweb.config.get('options', 'maintenance-exceptions').split()
 
 
 def pkgbase_from_name(pkgbase):
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
     cur = conn.execute("SELECT ID FROM PackageBases WHERE Name = ?", [pkgbase])
 
     row = cur.fetchone()
@@ -35,7 +35,7 @@ def pkgbase_exists(pkgbase):
 
 
 def list_repos(user):
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
@@ -55,7 +55,7 @@ def create_pkgbase(pkgbase, user):
     if pkgbase_exists(pkgbase):
         die('{:s}: package base already exists: {:s}'.format(action, pkgbase))
 
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
@@ -81,7 +81,7 @@ def pkgbase_adopt(pkgbase, user, privileged):
     if not pkgbase_id:
         die('{:s}: package base not found: {:s}'.format(action, pkgbase))
 
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT ID FROM PackageBases WHERE ID = ? AND " +
                        "MaintainerUID IS NULL", [pkgbase_id])
@@ -111,7 +111,7 @@ def pkgbase_adopt(pkgbase, user, privileged):
 
 
 def pkgbase_get_comaintainers(pkgbase):
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT UserName FROM PackageComaintainers " +
                        "INNER JOIN Users " +
@@ -132,7 +132,7 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
     if not privileged and not pkgbase_has_full_access(pkgbase, user):
         die('{:s}: permission denied: {:s}'.format(action, user))
 
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     userlist_old = set(pkgbase_get_comaintainers(pkgbase))
 
@@ -198,7 +198,7 @@ def pkgbase_disown(pkgbase, user, privileged):
     comaintainers = []
     new_maintainer_userid = None
 
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     # Make the first co-maintainer the new maintainer, unless the action was
     # enforced by a Trusted User.
@@ -232,7 +232,7 @@ def pkgbase_set_keywords(pkgbase, keywords):
     if not pkgbase_id:
         die('{:s}: package base not found: {:s}'.format(action, pkgbase))
 
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     conn.execute("DELETE FROM PackageKeywords WHERE PackageBaseID = ?",
                  [pkgbase_id])
@@ -245,7 +245,7 @@ def pkgbase_set_keywords(pkgbase, keywords):
 
 
 def pkgbase_has_write_access(pkgbase, user):
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT COUNT(*) FROM PackageBases " +
                        "LEFT JOIN PackageComaintainers " +
@@ -259,7 +259,7 @@ def pkgbase_has_write_access(pkgbase, user):
 
 
 def pkgbase_has_full_access(pkgbase, user):
-    conn = db.Connection()
+    conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT COUNT(*) FROM PackageBases " +
                        "INNER JOIN Users " +
