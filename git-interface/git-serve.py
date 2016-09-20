@@ -76,7 +76,7 @@ def create_pkgbase(pkgbase, user):
     conn.close()
 
 
-def pkgbase_adopt(pkgbase):
+def pkgbase_adopt(pkgbase, user, privileged):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
         die('{:s}: package base not found: {:s}'.format(action, pkgbase))
@@ -124,7 +124,7 @@ def pkgbase_get_comaintainers(pkgbase):
     return [row[0] for row in cur.fetchall()]
 
 
-def pkgbase_set_comaintainers(pkgbase, userlist):
+def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
         die('{:s}: package base not found: {:s}'.format(action, pkgbase))
@@ -183,7 +183,7 @@ def pkgbase_set_comaintainers(pkgbase, userlist):
     conn.close()
 
 
-def pkgbase_disown(pkgbase):
+def pkgbase_disown(pkgbase, user, privileged):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
         die('{:s}: package base not found: {:s}'.format(action, pkgbase))
@@ -211,7 +211,7 @@ def pkgbase_disown(pkgbase):
             new_maintainer_userid = cur.fetchone()[0]
             comaintainers.remove(new_maintainer)
 
-    pkgbase_set_comaintainers(pkgbase, comaintainers)
+    pkgbase_set_comaintainers(pkgbase, comaintainers, user, privileged)
     cur = conn.execute("UPDATE PackageBases SET MaintainerUID = ? " +
                        "WHERE ID = ?", [new_maintainer_userid, pkgbase_id])
 
@@ -365,7 +365,7 @@ elif action == 'adopt':
         die_with_help("{:s}: too many arguments".format(action))
 
     pkgbase = cmdargv[1]
-    pkgbase_adopt(pkgbase)
+    pkgbase_adopt(pkgbase, user, privileged)
 elif action == 'disown':
     if len(cmdargv) < 2:
         die_with_help("{:s}: missing repository name".format(action))
@@ -373,14 +373,14 @@ elif action == 'disown':
         die_with_help("{:s}: too many arguments".format(action))
 
     pkgbase = cmdargv[1]
-    pkgbase_disown(pkgbase)
+    pkgbase_disown(pkgbase, user, privileged)
 elif action == 'set-comaintainers':
     if len(cmdargv) < 2:
         die_with_help("{:s}: missing repository name".format(action))
 
     pkgbase = cmdargv[1]
     userlist = cmdargv[2:]
-    pkgbase_set_comaintainers(pkgbase, userlist)
+    pkgbase_set_comaintainers(pkgbase, userlist, user, privileged)
 elif action == 'help':
     cmds = {
         "adopt <name>": "Adopt a package base.",
