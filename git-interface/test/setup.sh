@@ -1,15 +1,16 @@
 TEST_DIRECTORY="$(pwd)"
+TOPLEVEL="$(cd ../.. && pwd)"
 
 . ./sharness.sh
 
 # Configure python search path.
-PYTHONPATH="$TEST_DIRECTORY/../../"
+PYTHONPATH="$TOPLEVEL"
 export PYTHONPATH
 
 # Configure paths to the Git interface scripts.
-GIT_AUTH="$TEST_DIRECTORY/../git-auth.py"
-GIT_SERVE="$TEST_DIRECTORY/../git-serve.py"
-GIT_UPDATE="$TEST_DIRECTORY/../git-update.py"
+GIT_AUTH="$TOPLEVEL/git-interface/git-auth.py"
+GIT_SERVE="$TOPLEVEL/git-interface/git-serve.py"
+GIT_UPDATE="$TOPLEVEL/git-interface/git-update.py"
 
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
@@ -86,7 +87,7 @@ sed \
 	-e 's/ ENGINE = InnoDB//' \
 	-e 's/ [A-Z]* UNSIGNED NOT NULL AUTO_INCREMENT/ INTEGER NOT NULL/' \
 	-e 's/([0-9, ]*) UNSIGNED / UNSIGNED /' \
-	"$TEST_DIRECTORY/../../schema/aur-schema.sql" | sqlite3 aur.db
+	"$TOPLEVEL/schema/aur-schema.sql" | sqlite3 aur.db
 
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (1, 'user', '!', 'user@localhost', 1);" | sqlite3 aur.db
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (2, 'tu', '!', 'tu@localhost', 2);" | sqlite3 aur.db
