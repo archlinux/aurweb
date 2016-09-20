@@ -23,36 +23,40 @@ def format_command(env_vars, command, ssh_opts, ssh_key):
     return msg
 
 
-valid_keytypes = config.get('auth', 'valid-keytypes').split()
-username_regex = config.get('auth', 'username-regex')
-git_serve_cmd = config.get('auth', 'git-serve-cmd')
-ssh_opts = config.get('auth', 'ssh-options')
+def main():
+    valid_keytypes = config.get('auth', 'valid-keytypes').split()
+    username_regex = config.get('auth', 'username-regex')
+    git_serve_cmd = config.get('auth', 'git-serve-cmd')
+    ssh_opts = config.get('auth', 'ssh-options')
 
-keytype = sys.argv[1]
-keytext = sys.argv[2]
-if keytype not in valid_keytypes:
-    exit(1)
+    keytype = sys.argv[1]
+    keytext = sys.argv[2]
+    if keytype not in valid_keytypes:
+        exit(1)
 
-conn = db.Connection()
+    conn = db.Connection()
 
-cur = conn.execute("SELECT Users.Username, Users.AccountTypeID FROM Users " +
-                   "INNER JOIN SSHPubKeys ON SSHPubKeys.UserID = Users.ID "
-                   "WHERE SSHPubKeys.PubKey = ? AND Users.Suspended = 0",
-                   (keytype + " " + keytext,))
+    cur = conn.execute("SELECT Users.Username, Users.AccountTypeID FROM Users "
+                       "INNER JOIN SSHPubKeys ON SSHPubKeys.UserID = Users.ID "
+                       "WHERE SSHPubKeys.PubKey = ? AND Users.Suspended = 0",
+                       (keytype + " " + keytext,))
 
-row = cur.fetchone()
-if not row or cur.fetchone():
-    exit(1)
+    row = cur.fetchone()
+    if not row or cur.fetchone():
+        exit(1)
 
-user, account_type = row
-if not re.match(username_regex, user):
-    exit(1)
+    user, account_type = row
+    if not re.match(username_regex, user):
+        exit(1)
+
+    env_vars = {
+        'AUR_USER': user,
+        'AUR_PRIVILEGED': '1' if account_type > 1 else '0',
+    }
+    key = keytype + ' ' + keytext
+
+    print(format_command(env_vars, git_serve_cmd, ssh_opts, key))
 
 
-env_vars = {
-    'AUR_USER': user,
-    'AUR_PRIVILEGED': '1' if account_type > 1 else '0',
-}
-key = keytype + ' ' + keytext
-
-print(format_command(env_vars, git_serve_cmd, ssh_opts, key))
+if __name__ == '__main__':
+    main()
