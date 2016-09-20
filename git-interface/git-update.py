@@ -233,173 +233,187 @@ def die_commit(msg, commit):
     exit(1)
 
 
-repo = pygit2.Repository(repo_path)
+def main():
+    repo = pygit2.Repository(repo_path)
 
-user = os.environ.get("AUR_USER")
-pkgbase = os.environ.get("AUR_PKGBASE")
-privileged = (os.environ.get("AUR_PRIVILEGED", '0') == '1')
-warn_or_die = warn if privileged else die
+    user = os.environ.get("AUR_USER")
+    pkgbase = os.environ.get("AUR_PKGBASE")
+    privileged = (os.environ.get("AUR_PRIVILEGED", '0') == '1')
+    warn_or_die = warn if privileged else die
 
-if len(sys.argv) == 2 and sys.argv[1] == "restore":
-    if 'refs/heads/' + pkgbase not in repo.listall_references():
-        die('{:s}: repository not found: {:s}'.format(sys.argv[1], pkgbase))
-    refname = "refs/heads/master"
-    sha1_old = sha1_new = repo.lookup_reference('refs/heads/' + pkgbase).target
-elif len(sys.argv) == 4:
-    refname, sha1_old, sha1_new = sys.argv[1:4]
-else:
-    die("invalid arguments")
+    if len(sys.argv) == 2 and sys.argv[1] == "restore":
+        if 'refs/heads/' + pkgbase not in repo.listall_references():
+            die('{:s}: repository not found: {:s}'.format(sys.argv[1],
+                pkgbase))
+        refname = "refs/heads/master"
+        branchref = 'refs/heads/' + pkgbase
+        sha1_old = sha1_new = repo.lookup_reference(branchref).target
+    elif len(sys.argv) == 4:
+        refname, sha1_old, sha1_new = sys.argv[1:4]
+    else:
+        die("invalid arguments")
 
-if refname != "refs/heads/master":
-    die("pushing to a branch other than master is restricted")
+    if refname != "refs/heads/master":
+        die("pushing to a branch other than master is restricted")
 
-conn = db.Connection()
+    conn = db.Connection()
 
-# Detect and deny non-fast-forwards.
-if sha1_old != "0000000000000000000000000000000000000000" and not privileged:
-    walker = repo.walk(sha1_old, pygit2.GIT_SORT_TOPOLOGICAL)
-    walker.hide(sha1_new)
-    if next(walker, None) is not None:
-        die("denying non-fast-forward (you should pull first)")
+    # Detect and deny non-fast-forwards.
+    if sha1_old != "0" * 40 and not privileged:
+        walker = repo.walk(sha1_old, pygit2.GIT_SORT_TOPOLOGICAL)
+        walker.hide(sha1_new)
+        if next(walker, None) is not None:
+            die("denying non-fast-forward (you should pull first)")
 
-# Prepare the walker that validates new commits.
-walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
-if sha1_old != "0000000000000000000000000000000000000000":
-    walker.hide(sha1_old)
+    # Prepare the walker that validates new commits.
+    walker = repo.walk(sha1_new, pygit2.GIT_SORT_TOPOLOGICAL)
+    if sha1_old != "0" * 40:
+        walker.hide(sha1_old)
 
-# Validate all new commits.
-for commit in walker:
-    for fname in ('.SRCINFO', 'PKGBUILD'):
-        if fname not in commit.tree:
-            die_commit("missing {:s}".format(fname), str(commit.id))
-
-    for treeobj in commit.tree:
-        blob = repo[treeobj.id]
-
-        if isinstance(blob, pygit2.Tree):
-            die_commit("the repository must not contain subdirectories",
-                       str(commit.id))
-
-        if not isinstance(blob, pygit2.Blob):
-            die_commit("not a blob object: {:s}".format(treeobj),
-                       str(commit.id))
-
-        if blob.size > max_blob_size:
-            die_commit("maximum blob size ({:s}) exceeded".format(size_humanize(max_blob_size)), str(commit.id))
-
-    metadata_raw = repo[commit.tree['.SRCINFO'].id].data.decode()
-    (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
-    if errors:
-        sys.stderr.write("error: The following errors occurred "
-                         "when parsing .SRCINFO in commit\n")
-        sys.stderr.write("error: {:s}:\n".format(str(commit.id)))
-        for error in errors:
-            for err in error['error']:
-                sys.stderr.write("error: line {:d}: {:s}\n".format(error['line'], err))
-        exit(1)
-
-    metadata_pkgbase = metadata['pkgbase']
-    if not re.match(repo_regex, metadata_pkgbase):
-        die_commit('invalid pkgbase: {:s}'.format(metadata_pkgbase),
-                   str(commit.id))
-
-    for pkgname in set(metadata['packages'].keys()):
-        pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
-
-        for field in ('pkgver', 'pkgrel', 'pkgname'):
-            if field not in pkginfo:
-                die_commit('missing mandatory field: {:s}'.format(field),
-                           str(commit.id))
-
-        if 'epoch' in pkginfo and not pkginfo['epoch'].isdigit():
-            die_commit('invalid epoch: {:s}'.format(pkginfo['epoch']),
-                       str(commit.id))
-
-        if not re.match(r'[a-z0-9][a-z0-9\.+_-]*$', pkginfo['pkgname']):
-            die_commit('invalid package name: {:s}'.format(pkginfo['pkgname']),
-                       str(commit.id))
-
-        for field in ('pkgname', 'pkgdesc', 'url'):
-            if field in pkginfo and len(pkginfo[field]) > 255:
-                die_commit('{:s} field too long: {:s}'.format(field, pkginfo[field]),
-                           str(commit.id))
-
-        for field in ('install', 'changelog'):
-            if field in pkginfo and not pkginfo[field] in commit.tree:
-                die_commit('missing {:s} file: {:s}'.format(field, pkginfo[field]),
-                           str(commit.id))
-
-        for field in extract_arch_fields(pkginfo, 'source'):
-            fname = field['value']
-            if "://" in fname or "lp:" in fname:
-                continue
+    # Validate all new commits.
+    for commit in walker:
+        for fname in ('.SRCINFO', 'PKGBUILD'):
             if fname not in commit.tree:
-                die_commit('missing source file: {:s}'.format(fname),
+                die_commit("missing {:s}".format(fname), str(commit.id))
+
+        for treeobj in commit.tree:
+            blob = repo[treeobj.id]
+
+            if isinstance(blob, pygit2.Tree):
+                die_commit("the repository must not contain subdirectories",
                            str(commit.id))
 
+            if not isinstance(blob, pygit2.Blob):
+                die_commit("not a blob object: {:s}".format(treeobj),
+                           str(commit.id))
 
-# Display a warning if .SRCINFO is unchanged.
-if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):
-    srcinfo_id_old = repo[sha1_old].tree['.SRCINFO'].id
-    srcinfo_id_new = repo[sha1_new].tree['.SRCINFO'].id
-    if srcinfo_id_old == srcinfo_id_new:
-        warn(".SRCINFO unchanged. The package database will not be updated!")
+            if blob.size > max_blob_size:
+                die_commit("maximum blob size ({:s}) exceeded".format(
+                           size_humanize(max_blob_size)), str(commit.id))
 
-# Read .SRCINFO from the HEAD commit.
-metadata_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
-(metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
+        metadata_raw = repo[commit.tree['.SRCINFO'].id].data.decode()
+        (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
+        if errors:
+            sys.stderr.write("error: The following errors occurred "
+                             "when parsing .SRCINFO in commit\n")
+            sys.stderr.write("error: {:s}:\n".format(str(commit.id)))
+            for error in errors:
+                for err in error['error']:
+                    sys.stderr.write("error: line {:d}: {:s}\n".format(
+                                     error['line'], err))
+            exit(1)
 
-# Ensure that the package base name matches the repository name.
-metadata_pkgbase = metadata['pkgbase']
-if metadata_pkgbase != pkgbase:
-    die('invalid pkgbase: {:s}, expected {:s}'.format(metadata_pkgbase, pkgbase))
+        metadata_pkgbase = metadata['pkgbase']
+        if not re.match(repo_regex, metadata_pkgbase):
+            die_commit('invalid pkgbase: {:s}'.format(metadata_pkgbase),
+                       str(commit.id))
 
-# Ensure that packages are neither blacklisted nor overwritten.
-pkgbase = metadata['pkgbase']
-cur = conn.execute("SELECT ID FROM PackageBases WHERE Name = ?", [pkgbase])
-row = cur.fetchone()
-pkgbase_id = row[0] if row else 0
+        for pkgname in set(metadata['packages'].keys()):
+            pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
 
-cur = conn.execute("SELECT Name FROM PackageBlacklist")
-blacklist = [row[0] for row in cur.fetchall()]
+            for field in ('pkgver', 'pkgrel', 'pkgname'):
+                if field not in pkginfo:
+                    die_commit('missing mandatory field: {:s}'.format(field),
+                               str(commit.id))
 
-cur = conn.execute("SELECT Name, Repo FROM OfficialProviders")
-providers = dict(cur.fetchall())
+            if 'epoch' in pkginfo and not pkginfo['epoch'].isdigit():
+                die_commit('invalid epoch: {:s}'.format(pkginfo['epoch']),
+                           str(commit.id))
 
-for pkgname in srcinfo.utils.get_package_names(metadata):
-    pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
-    pkgname = pkginfo['pkgname']
+            if not re.match(r'[a-z0-9][a-z0-9\.+_-]*$', pkginfo['pkgname']):
+                die_commit('invalid package name: {:s}'.format(
+                           pkginfo['pkgname']), str(commit.id))
 
-    if pkgname in blacklist:
-        warn_or_die('package is blacklisted: {:s}'.format(pkgname))
-    if pkgname in providers:
-        warn_or_die('package already provided by [{:s}]: {:s}'.format(providers[pkgname], pkgname))
+            for field in ('pkgname', 'pkgdesc', 'url'):
+                if field in pkginfo and len(pkginfo[field]) > 255:
+                    die_commit('{:s} field too long: {:s}'.format(field,
+                               pkginfo[field]), str(commit.id))
 
-    cur = conn.execute("SELECT COUNT(*) FROM Packages WHERE Name = ? AND " +
-                       "PackageBaseID <> ?", [pkgname, pkgbase_id])
-    if cur.fetchone()[0] > 0:
-        die('cannot overwrite package: {:s}'.format(pkgname))
+            for field in ('install', 'changelog'):
+                if field in pkginfo and not pkginfo[field] in commit.tree:
+                    die_commit('missing {:s} file: {:s}'.format(field,
+                               pkginfo[field]), str(commit.id))
 
-# Create a new package base if it does not exist yet.
-if pkgbase_id == 0:
-    pkgbase_id = create_pkgbase(conn, pkgbase, user)
+            for field in extract_arch_fields(pkginfo, 'source'):
+                fname = field['value']
+                if "://" in fname or "lp:" in fname:
+                    continue
+                if fname not in commit.tree:
+                    die_commit('missing source file: {:s}'.format(fname),
+                               str(commit.id))
 
-# Store package base details in the database.
-save_metadata(metadata, conn, user)
+    # Display a warning if .SRCINFO is unchanged.
+    if sha1_old not in ("0000000000000000000000000000000000000000", sha1_new):
+        srcinfo_id_old = repo[sha1_old].tree['.SRCINFO'].id
+        srcinfo_id_new = repo[sha1_new].tree['.SRCINFO'].id
+        if srcinfo_id_old == srcinfo_id_new:
+            warn(".SRCINFO unchanged. "
+                 "The package database will not be updated!")
 
-# Create (or update) a branch with the name of the package base for better
-# accessibility.
-repo.create_reference('refs/heads/' + pkgbase, sha1_new, True)
+    # Read .SRCINFO from the HEAD commit.
+    metadata_raw = repo[repo[sha1_new].tree['.SRCINFO'].id].data.decode()
+    (metadata, errors) = srcinfo.parse.parse_srcinfo(metadata_raw)
 
-# Work around a Git bug: The HEAD ref is not updated when using gitnamespaces.
-# This can be removed once the bug fix is included in Git mainline. See
-# http://git.661346.n2.nabble.com/PATCH-receive-pack-Create-a-HEAD-ref-for-ref-namespace-td7632149.html
-# for details.
-repo.create_reference('refs/namespaces/' + pkgbase + '/HEAD', sha1_new, True)
+    # Ensure that the package base name matches the repository name.
+    metadata_pkgbase = metadata['pkgbase']
+    if metadata_pkgbase != pkgbase:
+        die('invalid pkgbase: {:s}, expected {:s}'.format(metadata_pkgbase,
+                                                          pkgbase))
 
-# Send package update notifications.
-update_notify(conn, user, pkgbase_id)
+    # Ensure that packages are neither blacklisted nor overwritten.
+    pkgbase = metadata['pkgbase']
+    cur = conn.execute("SELECT ID FROM PackageBases WHERE Name = ?", [pkgbase])
+    row = cur.fetchone()
+    pkgbase_id = row[0] if row else 0
 
-# Close the database.
-cur.close()
-conn.close()
+    cur = conn.execute("SELECT Name FROM PackageBlacklist")
+    blacklist = [row[0] for row in cur.fetchall()]
+
+    cur = conn.execute("SELECT Name, Repo FROM OfficialProviders")
+    providers = dict(cur.fetchall())
+
+    for pkgname in srcinfo.utils.get_package_names(metadata):
+        pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
+        pkgname = pkginfo['pkgname']
+
+        if pkgname in blacklist:
+            warn_or_die('package is blacklisted: {:s}'.format(pkgname))
+        if pkgname in providers:
+            warn_or_die('package already provided by [{:s}]: {:s}'.format(
+                        providers[pkgname], pkgname))
+
+        cur = conn.execute("SELECT COUNT(*) FROM Packages WHERE Name = ? " +
+                           "AND PackageBaseID <> ?", [pkgname, pkgbase_id])
+        if cur.fetchone()[0] > 0:
+            die('cannot overwrite package: {:s}'.format(pkgname))
+
+    # Create a new package base if it does not exist yet.
+    if pkgbase_id == 0:
+        pkgbase_id = create_pkgbase(conn, pkgbase, user)
+
+    # Store package base details in the database.
+    save_metadata(metadata, conn, user)
+
+    # Create (or update) a branch with the name of the package base for better
+    # accessibility.
+    branchref = 'refs/heads/' + pkgbase
+    repo.create_reference(branchref, sha1_new, True)
+
+    # Work around a Git bug: The HEAD ref is not updated when using
+    # gitnamespaces. This can be removed once the bug fix is included in Git
+    # mainline. See
+    # http://git.661346.n2.nabble.com/PATCH-receive-pack-Create-a-HEAD-ref-for-ref-namespace-td7632149.html
+    # for details.
+    headref = 'refs/namespaces/' + pkgbase + '/HEAD'
+    repo.create_reference(headref, sha1_new, True)
+
+    # Send package update notifications.
+    update_notify(conn, user, pkgbase_id)
+
+    # Close the database.
+    cur.close()
+    conn.close()
+
+
+if __name__ == '__main__':
+    main()
