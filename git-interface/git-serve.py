@@ -289,111 +289,117 @@ def usage(cmds):
     exit(0)
 
 
-user = os.environ.get('AUR_USER')
-privileged = (os.environ.get('AUR_PRIVILEGED', '0') == '1')
-ssh_cmd = os.environ.get('SSH_ORIGINAL_COMMAND')
-ssh_client = os.environ.get('SSH_CLIENT')
+def main():
+    user = os.environ.get('AUR_USER')
+    privileged = (os.environ.get('AUR_PRIVILEGED', '0') == '1')
+    ssh_cmd = os.environ.get('SSH_ORIGINAL_COMMAND')
+    ssh_client = os.environ.get('SSH_CLIENT')
 
-if not ssh_cmd:
-    die_with_help("Interactive shell is disabled.")
-cmdargv = shlex.split(ssh_cmd)
-action = cmdargv[0]
-remote_addr = ssh_client.split(' ')[0] if ssh_client else None
+    if not ssh_cmd:
+        die_with_help("Interactive shell is disabled.")
+    cmdargv = shlex.split(ssh_cmd)
+    action = cmdargv[0]
+    remote_addr = ssh_client.split(' ')[0] if ssh_client else None
 
-if enable_maintenance:
-    if remote_addr not in maintenance_exc:
-        die("The AUR is down due to maintenance. We will be back soon.")
+    if enable_maintenance:
+        if remote_addr not in maintenance_exc:
+            die("The AUR is down due to maintenance. We will be back soon.")
 
-if action == 'git-upload-pack' or action == 'git-receive-pack':
-    if len(cmdargv) < 2:
-        die_with_help("{:s}: missing path".format(action))
+    if action == 'git-upload-pack' or action == 'git-receive-pack':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing path".format(action))
 
-    path = cmdargv[1].rstrip('/')
-    if not path.startswith('/'):
-        path = '/' + path
-    if not path.endswith('.git'):
-        path = path + '.git'
-    pkgbase = path[1:-4]
-    if not re.match(repo_regex, pkgbase):
-        die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
+        path = cmdargv[1].rstrip('/')
+        if not path.startswith('/'):
+            path = '/' + path
+        if not path.endswith('.git'):
+            path = path + '.git'
+        pkgbase = path[1:-4]
+        if not re.match(repo_regex, pkgbase):
+            die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
 
-    if action == 'git-receive-pack' and pkgbase_exists(pkgbase):
-        if not privileged and not pkgbase_has_write_access(pkgbase, user):
-            die('{:s}: permission denied: {:s}'.format(action, user))
+        if action == 'git-receive-pack' and pkgbase_exists(pkgbase):
+            if not privileged and not pkgbase_has_write_access(pkgbase, user):
+                die('{:s}: permission denied: {:s}'.format(action, user))
 
-    os.environ["AUR_USER"] = user
-    os.environ["AUR_PKGBASE"] = pkgbase
-    os.environ["GIT_NAMESPACE"] = pkgbase
-    cmd = action + " '" + repo_path + "'"
-    os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
-elif action == 'set-keywords':
-    if len(cmdargv) < 2:
-        die_with_help("{:s}: missing repository name".format(action))
-    pkgbase_set_keywords(cmdargv[1], cmdargv[2:])
-elif action == 'list-repos':
-    if len(cmdargv) > 1:
-        die_with_help("{:s}: too many arguments".format(action))
-    list_repos(user)
-elif action == 'setup-repo':
-    if len(cmdargv) < 2:
-        die_with_help("{:s}: missing repository name".format(action))
-    if len(cmdargv) > 2:
-        die_with_help("{:s}: too many arguments".format(action))
-    warn('{:s} is deprecated. Use `git push` to create new repositories.'.format(action))
-    create_pkgbase(cmdargv[1], user)
-elif action == 'restore':
-    if len(cmdargv) < 2:
-        die_with_help("{:s}: missing repository name".format(action))
-    if len(cmdargv) > 2:
-        die_with_help("{:s}: too many arguments".format(action))
+        os.environ["AUR_USER"] = user
+        os.environ["AUR_PKGBASE"] = pkgbase
+        os.environ["GIT_NAMESPACE"] = pkgbase
+        cmd = action + " '" + repo_path + "'"
+        os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
+    elif action == 'set-keywords':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing repository name".format(action))
+        pkgbase_set_keywords(cmdargv[1], cmdargv[2:])
+    elif action == 'list-repos':
+        if len(cmdargv) > 1:
+            die_with_help("{:s}: too many arguments".format(action))
+        list_repos(user)
+    elif action == 'setup-repo':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing repository name".format(action))
+        if len(cmdargv) > 2:
+            die_with_help("{:s}: too many arguments".format(action))
+        warn('{:s} is deprecated. '
+             'Use `git push` to create new repositories.'.format(action))
+        create_pkgbase(cmdargv[1], user)
+    elif action == 'restore':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing repository name".format(action))
+        if len(cmdargv) > 2:
+            die_with_help("{:s}: too many arguments".format(action))
 
-    pkgbase = cmdargv[1]
-    if not re.match(repo_regex, pkgbase):
-        die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
+        pkgbase = cmdargv[1]
+        if not re.match(repo_regex, pkgbase):
+            die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
 
-    if pkgbase_exists(pkgbase):
-        die('{:s}: package base exists: {:s}'.format(action, pkgbase))
-    create_pkgbase(pkgbase, user)
+        if pkgbase_exists(pkgbase):
+            die('{:s}: package base exists: {:s}'.format(action, pkgbase))
+        create_pkgbase(pkgbase, user)
 
-    os.environ["AUR_USER"] = user
-    os.environ["AUR_PKGBASE"] = pkgbase
-    os.execl(git_update_cmd, git_update_cmd, 'restore')
-elif action == 'adopt':
-    if len(cmdargv) < 2:
-        die_with_help("{:s}: missing repository name".format(action))
-    if len(cmdargv) > 2:
-        die_with_help("{:s}: too many arguments".format(action))
+        os.environ["AUR_USER"] = user
+        os.environ["AUR_PKGBASE"] = pkgbase
+        os.execl(git_update_cmd, git_update_cmd, 'restore')
+    elif action == 'adopt':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing repository name".format(action))
+        if len(cmdargv) > 2:
+            die_with_help("{:s}: too many arguments".format(action))
 
-    pkgbase = cmdargv[1]
-    pkgbase_adopt(pkgbase, user, privileged)
-elif action == 'disown':
-    if len(cmdargv) < 2:
-        die_with_help("{:s}: missing repository name".format(action))
-    if len(cmdargv) > 2:
-        die_with_help("{:s}: too many arguments".format(action))
+        pkgbase = cmdargv[1]
+        pkgbase_adopt(pkgbase, user, privileged)
+    elif action == 'disown':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing repository name".format(action))
+        if len(cmdargv) > 2:
+            die_with_help("{:s}: too many arguments".format(action))
 
-    pkgbase = cmdargv[1]
-    pkgbase_disown(pkgbase, user, privileged)
-elif action == 'set-comaintainers':
-    if len(cmdargv) < 2:
-        die_with_help("{:s}: missing repository name".format(action))
+        pkgbase = cmdargv[1]
+        pkgbase_disown(pkgbase, user, privileged)
+    elif action == 'set-comaintainers':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing repository name".format(action))
 
-    pkgbase = cmdargv[1]
-    userlist = cmdargv[2:]
-    pkgbase_set_comaintainers(pkgbase, userlist, user, privileged)
-elif action == 'help':
-    cmds = {
-        "adopt <name>": "Adopt a package base.",
-        "disown <name>": "Disown a package base.",
-        "help": "Show this help message and exit.",
-        "list-repos": "List all your repositories.",
-        "restore <name>": "Restore a deleted package base.",
-        "set-comaintainers <name> [...]": "Set package base co-maintainers.",
-        "set-keywords <name> [...]": "Change package base keywords.",
-        "setup-repo <name>": "Create a repository (deprecated).",
-        "git-receive-pack": "Internal command used with Git.",
-        "git-upload-pack": "Internal command used with Git.",
-    }
-    usage(cmds)
-else:
-    die_with_help("invalid command: {:s}".format(action))
+        pkgbase = cmdargv[1]
+        userlist = cmdargv[2:]
+        pkgbase_set_comaintainers(pkgbase, userlist, user, privileged)
+    elif action == 'help':
+        cmds = {
+            "adopt <name>": "Adopt a package base.",
+            "disown <name>": "Disown a package base.",
+            "help": "Show this help message and exit.",
+            "list-repos": "List all your repositories.",
+            "restore <name>": "Restore a deleted package base.",
+            "set-comaintainers <name> [...]": "Set package base co-maintainers.",
+            "set-keywords <name> [...]": "Change package base keywords.",
+            "setup-repo <name>": "Create a repository (deprecated).",
+            "git-receive-pack": "Internal command used with Git.",
+            "git-upload-pack": "Internal command used with Git.",
+        }
+        usage(cmds)
+    else:
+        die_with_help("invalid command: {:s}".format(action))
+
+
+if __name__ == '__main__':
+    main()
