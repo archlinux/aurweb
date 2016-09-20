@@ -1,5 +1,5 @@
 TEST_DIRECTORY="$(pwd)"
-TOPLEVEL="$(cd ../.. && pwd)"
+TOPLEVEL="$(cd .. && pwd)"
 
 . ./sharness.sh
 
