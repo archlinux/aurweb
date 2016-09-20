@@ -1,28 +1,19 @@
 #!/usr/bin/python3
 
-import configparser
 import email.mime.text
-import mysql.connector
-import os
 import subprocess
 import sys
 import textwrap
 
-config = configparser.RawConfigParser()
-config.read(os.path.dirname(os.path.realpath(__file__)) + '/../conf/config')
+import aurweb.config
+import aurweb.db
 
-aur_db_host = config.get('database', 'host')
-aur_db_name = config.get('database', 'name')
-aur_db_user = config.get('database', 'user')
-aur_db_pass = config.get('database', 'password')
-aur_db_socket = config.get('database', 'socket')
+aur_location = aurweb.config.get('options', 'aur_location')
+aur_request_ml = aurweb.config.get('options', 'aur_request_ml')
 
-aur_location = config.get('options', 'aur_location')
-aur_request_ml = config.get('options', 'aur_request_ml')
-
-sendmail = config.get('notifications', 'sendmail')
-sender = config.get('notifications', 'sender')
-reply_to = config.get('notifications', 'reply-to')
+sendmail = aurweb.config.get('notifications', 'sendmail')
+sender = aurweb.config.get('notifications', 'sender')
+reply_to = aurweb.config.get('notifications', 'reply-to')
 
 
 def headers_cc(cclist):
@@ -60,120 +51,127 @@ def send_notification(to, subject, body, refs, headers={}):
         p.communicate(msg.as_bytes())
 
 
-def username_from_id(cur, uid):
-    cur.execute('SELECT UserName FROM Users WHERE ID = %s', [uid])
+def username_from_id(conn, uid):
+    cur = conn.execute('SELECT UserName FROM Users WHERE ID = ?', [uid])
     return cur.fetchone()[0]
 
 
-def pkgbase_from_id(cur, pkgbase_id):
-    cur.execute('SELECT Name FROM PackageBases WHERE ID = %s', [pkgbase_id])
+def pkgbase_from_id(conn, pkgbase_id):
+    cur = conn.execute('SELECT Name FROM PackageBases WHERE ID = ?',
+                       [pkgbase_id])
     return cur.fetchone()[0]
 
 
-def pkgbase_from_pkgreq(cur, reqid):
-    cur.execute('SELECT PackageBaseID FROM PackageRequests WHERE ID = %s',
-                [reqid])
+def pkgbase_from_pkgreq(conn, reqid):
+    cur = conn.execute('SELECT PackageBaseID FROM PackageRequests ' +
+                       'WHERE ID = ?', [reqid])
     return cur.fetchone()[0]
 
 
-def get_user_email(cur, uid):
-    cur.execute('SELECT Email FROM Users WHERE ID = %s', [uid])
+def get_user_email(conn, uid):
+    cur = conn.execute('SELECT Email FROM Users WHERE ID = ?', [uid])
     return cur.fetchone()[0]
 
 
-def get_maintainer_email(cur, pkgbase_id):
-    cur.execute('SELECT Users.Email FROM Users ' +
-                'INNER JOIN PackageBases ' +
-                'ON PackageBases.MaintainerUID = Users.ID WHERE ' +
-                'PackageBases.ID = %s', [pkgbase_id])
+def get_maintainer_email(conn, pkgbase_id):
+    cur = conn.execute('SELECT Users.Email FROM Users ' +
+                       'INNER JOIN PackageBases ' +
+                       'ON PackageBases.MaintainerUID = Users.ID WHERE ' +
+                       'PackageBases.ID = ?', [pkgbase_id])
     return cur.fetchone()[0]
 
 
-def get_recipients(cur, pkgbase_id, uid):
-    cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
-                'INNER JOIN PackageNotifications ' +
-                'ON PackageNotifications.UserID = Users.ID WHERE ' +
-                'PackageNotifications.UserID != %s AND ' +
-                'PackageNotifications.PackageBaseID = %s', [uid, pkgbase_id])
+def get_recipients(conn, pkgbase_id, uid):
+    cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+                       'INNER JOIN PackageNotifications ' +
+                       'ON PackageNotifications.UserID = Users.ID WHERE ' +
+                       'PackageNotifications.UserID != ? AND ' +
+                       'PackageNotifications.PackageBaseID = ?',
+                       [uid, pkgbase_id])
     return [row[0] for row in cur.fetchall()]
 
 
-def get_comment_recipients(cur, pkgbase_id, uid):
-    cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
-                'INNER JOIN PackageNotifications ' +
-                'ON PackageNotifications.UserID = Users.ID WHERE ' +
-                'Users.CommentNotify = 1 AND ' +
-                'PackageNotifications.UserID != %s AND ' +
-                'PackageNotifications.PackageBaseID = %s', [uid, pkgbase_id])
+def get_comment_recipients(conn, pkgbase_id, uid):
+    cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+                       'INNER JOIN PackageNotifications ' +
+                       'ON PackageNotifications.UserID = Users.ID WHERE ' +
+                       'Users.CommentNotify = 1 AND ' +
+                       'PackageNotifications.UserID != ? AND ' +
+                       'PackageNotifications.PackageBaseID = ?',
+                       [uid, pkgbase_id])
     return [row[0] for row in cur.fetchall()]
 
 
-def get_update_recipients(cur, pkgbase_id, uid):
-    cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
-                'INNER JOIN PackageNotifications ' +
-                'ON PackageNotifications.UserID = Users.ID WHERE ' +
-                'Users.UpdateNotify = 1 AND ' +
-                'PackageNotifications.UserID != %s AND ' +
-                'PackageNotifications.PackageBaseID = %s', [uid, pkgbase_id])
+def get_update_recipients(conn, pkgbase_id, uid):
+    cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+                       'INNER JOIN PackageNotifications ' +
+                       'ON PackageNotifications.UserID = Users.ID WHERE ' +
+                       'Users.UpdateNotify = 1 AND ' +
+                       'PackageNotifications.UserID != ? AND ' +
+                       'PackageNotifications.PackageBaseID = ?',
+                       [uid, pkgbase_id])
     return [row[0] for row in cur.fetchall()]
 
 
-def get_ownership_recipients(cur, pkgbase_id, uid):
-    cur.execute('SELECT DISTINCT Users.Email FROM Users ' +
-                'INNER JOIN PackageNotifications ' +
-                'ON PackageNotifications.UserID = Users.ID WHERE ' +
-                'Users.OwnershipNotify = 1 AND ' +
-                'PackageNotifications.UserID != %s AND ' +
-                'PackageNotifications.PackageBaseID = %s', [uid, pkgbase_id])
+def get_ownership_recipients(conn, pkgbase_id, uid):
+    cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+                       'INNER JOIN PackageNotifications ' +
+                       'ON PackageNotifications.UserID = Users.ID WHERE ' +
+                       'Users.OwnershipNotify = 1 AND ' +
+                       'PackageNotifications.UserID != ? AND ' +
+                       'PackageNotifications.PackageBaseID = ?',
+                       [uid, pkgbase_id])
     return [row[0] for row in cur.fetchall()]
 
 
-def get_request_recipients(cur, reqid):
-    cur.execute('SELECT DISTINCT Users.Email FROM PackageRequests ' +
-                'INNER JOIN PackageBases ' +
-                'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
-                'INNER JOIN Users ' +
-                'ON Users.ID = PackageRequests.UsersID ' +
-                'OR Users.ID = PackageBases.MaintainerUID ' +
-                'WHERE PackageRequests.ID = %s', [reqid])
+def get_request_recipients(conn, reqid):
+    cur = conn.execute('SELECT DISTINCT Users.Email FROM PackageRequests ' +
+                       'INNER JOIN PackageBases ' +
+                       'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
+                       'INNER JOIN Users ' +
+                       'ON Users.ID = PackageRequests.UsersID ' +
+                       'OR Users.ID = PackageBases.MaintainerUID ' +
+                       'WHERE PackageRequests.ID = ?', [reqid])
     return [row[0] for row in cur.fetchall()]
 
 
-def get_tu_vote_reminder_recipients(cur, vote_id):
-    cur.execute('SELECT Users.Email FROM Users WHERE AccountTypeID = 2 ' +
-                'EXCEPT SELECT Users.Email FROM Users ' +
-                'INNER JOIN TU_Votes ' +
-                'ON TU_Votes.UserID = Users.ID ' +
-                'WHERE TU_Votes.VoteID = %s', [vote_id])
+def get_tu_vote_reminder_recipients(conn, vote_id):
+    cur = conn.execute('SELECT Users.Email FROM Users ' +
+                       'WHERE AccountTypeID = 2 ' +
+                       'EXCEPT SELECT Users.Email FROM Users ' +
+                       'INNER JOIN TU_Votes ' +
+                       'ON TU_Votes.UserID = Users.ID ' +
+                       'WHERE TU_Votes.VoteID = ?', [vote_id])
     return [row[0] for row in cur.fetchall()]
 
 
-def get_comment(cur, comment_id):
-    cur.execute('SELECT Comments FROM PackageComments WHERE ID = %s',
-                [comment_id])
+def get_comment(conn, comment_id):
+    cur = conn.execute('SELECT Comments FROM PackageComments WHERE ID = ?',
+                       [comment_id])
     return cur.fetchone()[0]
 
 
-def get_flagger_comment(cur, pkgbase_id):
-    cur.execute('SELECT FlaggerComment FROM PackageBases WHERE ID = %s',
-                [pkgbase_id])
+def get_flagger_comment(conn, pkgbase_id):
+    cur = conn.execute('SELECT FlaggerComment FROM PackageBases WHERE ID = ?',
+                       [pkgbase_id])
     return cur.fetchone()[0]
 
 
-def get_request_comment(cur, reqid):
-    cur.execute('SELECT Comments FROM PackageRequests WHERE ID = %s', [reqid])
+def get_request_comment(conn, reqid):
+    cur = conn.execute('SELECT Comments FROM PackageRequests WHERE ID = ?',
+                       [reqid])
     return cur.fetchone()[0]
 
 
-def get_request_closure_comment(cur, reqid):
-    cur.execute('SELECT ClosureComment FROM PackageRequests WHERE ID = %s',
-                [reqid])
+def get_request_closure_comment(conn, reqid):
+    cur = conn.execute('SELECT ClosureComment FROM PackageRequests ' +
+                       'WHERE ID = ?', [reqid])
     return cur.fetchone()[0]
 
 
-def send_resetkey(cur, uid):
-    cur.execute('SELECT UserName, Email, ResetKey FROM Users WHERE ID = %s',
-                [uid])
+def send_resetkey(conn, uid):
+    cur = conn.execute('SELECT UserName, Email, ResetKey FROM Users ' +
+                       'WHERE ID = ?', [uid])
     username, to, resetkey = cur.fetchone()
 
     subject = 'AUR Password Reset'
@@ -186,9 +184,9 @@ def send_resetkey(cur, uid):
     send_notification([to], subject, body, refs)
 
 
-def welcome(cur, uid):
-    cur.execute('SELECT UserName, Email, ResetKey FROM Users WHERE ID = %s',
-                [uid])
+def welcome(conn, uid):
+    cur = conn.execute('SELECT UserName, Email, ResetKey FROM Users ' +
+                       'WHERE ID = ?', [uid])
     username, to, resetkey = cur.fetchone()
 
     subject = 'Welcome to the Arch User Repository'
@@ -201,11 +199,11 @@ def welcome(cur, uid):
     send_notification([to], subject, body, refs)
 
 
-def comment(cur, uid, pkgbase_id, comment_id):
-    user = username_from_id(cur, uid)
-    pkgbase = pkgbase_from_id(cur, pkgbase_id)
-    to = get_comment_recipients(cur, pkgbase_id, uid)
-    text = get_comment(cur, comment_id)
+def comment(conn, uid, pkgbase_id, comment_id):
+    user = username_from_id(conn, uid)
+    pkgbase = pkgbase_from_id(conn, pkgbase_id)
+    to = get_comment_recipients(conn, pkgbase_id, uid)
+    text = get_comment(conn, comment_id)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
@@ -224,10 +222,10 @@ def comment(cur, uid, pkgbase_id, comment_id):
     send_notification(to, subject, body, refs, headers)
 
 
-def update(cur, uid, pkgbase_id):
-    user = username_from_id(cur, uid)
-    pkgbase = pkgbase_from_id(cur, pkgbase_id)
-    to = get_update_recipients(cur, pkgbase_id, uid)
+def update(conn, uid, pkgbase_id):
+    user = username_from_id(conn, uid)
+    pkgbase = pkgbase_from_id(conn, pkgbase_id)
+    to = get_update_recipients(conn, pkgbase_id, uid)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
@@ -246,11 +244,11 @@ def update(cur, uid, pkgbase_id):
     send_notification(to, subject, body, refs, headers)
 
 
-def flag(cur, uid, pkgbase_id):
-    user = username_from_id(cur, uid)
-    pkgbase = pkgbase_from_id(cur, pkgbase_id)
-    to = [get_maintainer_email(cur, pkgbase_id)]
-    text = get_flagger_comment(cur, pkgbase_id)
+def flag(conn, uid, pkgbase_id):
+    user = username_from_id(conn, uid)
+    pkgbase = pkgbase_from_id(conn, pkgbase_id)
+    to = [get_maintainer_email(conn, pkgbase_id)]
+    text = get_flagger_comment(conn, pkgbase_id)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
@@ -265,10 +263,10 @@ def flag(cur, uid, pkgbase_id):
     send_notification(to, subject, body, refs)
 
 
-def adopt(cur, pkgbase_id, uid):
-    user = username_from_id(cur, uid)
-    pkgbase = pkgbase_from_id(cur, pkgbase_id)
-    to = get_ownership_recipients(cur, pkgbase_id, uid)
+def adopt(conn, pkgbase_id, uid):
+    user = username_from_id(conn, uid)
+    pkgbase = pkgbase_from_id(conn, pkgbase_id)
+    to = get_ownership_recipients(conn, pkgbase_id, uid)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
@@ -281,10 +279,10 @@ def adopt(cur, pkgbase_id, uid):
     send_notification(to, subject, body, refs)
 
 
-def disown(cur, pkgbase_id, uid):
-    user = username_from_id(cur, uid)
-    pkgbase = pkgbase_from_id(cur, pkgbase_id)
-    to = get_ownership_recipients(cur, pkgbase_id, uid)
+def disown(conn, pkgbase_id, uid):
+    user = username_from_id(conn, uid)
+    pkgbase = pkgbase_from_id(conn, pkgbase_id)
+    to = get_ownership_recipients(conn, pkgbase_id, uid)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
@@ -297,9 +295,9 @@ def disown(cur, pkgbase_id, uid):
     send_notification(to, subject, body, refs)
 
 
-def comaintainer_add(cur, pkgbase_id, uid):
-    pkgbase = pkgbase_from_id(cur, pkgbase_id)
-    to = [get_user_email(cur, uid)]
+def comaintainer_add(conn, pkgbase_id, uid):
+    pkgbase = pkgbase_from_id(conn, pkgbase_id)
+    to = [get_user_email(conn, uid)]
 
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
 
@@ -310,9 +308,9 @@ def comaintainer_add(cur, pkgbase_id, uid):
     send_notification(to, subject, body, refs)
 
 
-def comaintainer_remove(cur, pkgbase_id, uid):
-    pkgbase = pkgbase_from_id(cur, pkgbase_id)
-    to = [get_user_email(cur, uid)]
+def comaintainer_remove(conn, pkgbase_id, uid):
+    pkgbase = pkgbase_from_id(conn, pkgbase_id)
+    to = [get_user_email(conn, uid)]
 
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
 
@@ -324,12 +322,12 @@ def comaintainer_remove(cur, pkgbase_id, uid):
     send_notification(to, subject, body, refs)
 
 
-def delete(cur, uid, old_pkgbase_id, new_pkgbase_id=None):
-    user = username_from_id(cur, uid)
-    old_pkgbase = pkgbase_from_id(cur, old_pkgbase_id)
+def delete(conn, uid, old_pkgbase_id, new_pkgbase_id=None):
+    user = username_from_id(conn, uid)
+    old_pkgbase = pkgbase_from_id(conn, old_pkgbase_id)
     if new_pkgbase_id:
-        new_pkgbase = pkgbase_from_id(cur, new_pkgbase_id)
-    to = get_recipients(cur, old_pkgbase_id, uid)
+        new_pkgbase = pkgbase_from_id(conn, new_pkgbase_id)
+    to = get_recipients(conn, old_pkgbase_id, uid)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + old_pkgbase + '/'
@@ -354,12 +352,12 @@ def delete(cur, uid, old_pkgbase_id, new_pkgbase_id=None):
     send_notification(to, subject, body, refs)
 
 
-def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
-    user = username_from_id(cur, uid)
-    pkgbase = pkgbase_from_id(cur, pkgbase_id)
+def request_open(conn, uid, reqid, reqtype, pkgbase_id, merge_into=None):
+    user = username_from_id(conn, uid)
+    pkgbase = pkgbase_from_id(conn, pkgbase_id)
     to = [aur_request_ml]
-    cc = get_request_recipients(cur, reqid)
-    text = get_request_comment(cur, reqid)
+    cc = get_request_recipients(conn, reqid)
+    text = get_request_comment(conn, reqid)
 
     user_uri = aur_location + '/account/' + user + '/'
     pkgbase_uri = aur_location + '/pkgbase/' + pkgbase + '/'
@@ -388,14 +386,14 @@ def request_open(cur, uid, reqid, reqtype, pkgbase_id, merge_into=None):
     send_notification(to, subject, body, refs, headers)
 
 
-def request_close(cur, uid, reqid, reason):
+def request_close(conn, uid, reqid, reason):
     to = [aur_request_ml]
-    cc = get_request_recipients(cur, reqid)
-    text = get_request_closure_comment(cur, reqid)
+    cc = get_request_recipients(conn, reqid)
+    text = get_request_closure_comment(conn, reqid)
 
     subject = '[PRQ#%d] Request %s' % (int(reqid), reason.title())
     if int(uid):
-        user = username_from_id(cur, uid)
+        user = username_from_id(conn, uid)
         user_uri = aur_location + '/account/' + user + '/'
         body = 'Request #%d has been %s by %s [1]' % (int(reqid), reason, user)
         refs = '[1] ' + user_uri
@@ -414,8 +412,8 @@ def request_close(cur, uid, reqid, reason):
     send_notification(to, subject, body, refs, headers)
 
 
-def tu_vote_reminder(cur, vote_id):
-    to = get_tu_vote_reminder_recipients(cur, vote_id)
+def tu_vote_reminder(conn, vote_id):
+    to = get_tu_vote_reminder_recipients(conn, vote_id)
 
     vote_uri = aur_location + '/tu/?id=' + vote_id
 
@@ -445,15 +443,12 @@ def main():
         'tu-vote-reminder': tu_vote_reminder,
     }
 
-    db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
-                                 passwd=aur_db_pass, db=aur_db_name,
-                                 unix_socket=aur_db_socket, buffered=True)
-    cur = db.cursor()
+    conn = aurweb.db.Connection()
 
-    action_map[action](cur, *sys.argv[2:])
+    action_map[action](conn, *sys.argv[2:])
 
-    db.commit()
-    db.close()
+    conn.commit()
+    conn.close()
 
 
 if __name__ == '__main__':
