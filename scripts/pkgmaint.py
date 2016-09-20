@@ -13,13 +13,20 @@ aur_db_user = config.get('database', 'user')
 aur_db_pass = config.get('database', 'password')
 aur_db_socket = config.get('database', 'socket')
 
-db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
-                             passwd=aur_db_pass, db=aur_db_name,
-                             unix_socket=aur_db_socket, buffered=True)
-cur = db.cursor()
 
-cur.execute("DELETE FROM PackageBases WHERE " +
-            "UNIX_TIMESTAMP() - SubmittedTS > 86400 AND PackagerUID IS NULL")
+def main():
+    db = mysql.connector.connect(host=aur_db_host, user=aur_db_user,
+                                 passwd=aur_db_pass, db=aur_db_name,
+                                 unix_socket=aur_db_socket, buffered=True)
+    cur = db.cursor()
 
-db.commit()
-db.close()
+    cur.execute("DELETE FROM PackageBases WHERE " +
+                "UNIX_TIMESTAMP() - SubmittedTS > 86400 " +
+                "AND PackagerUID IS NULL")
+
+    db.commit()
+    db.close()
+
+
+if __name__ == '__main__':
+    main()

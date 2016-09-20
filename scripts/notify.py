@@ -427,7 +427,7 @@ def tu_vote_reminder(cur, vote_id):
     send_notification(to, subject, body, refs)
 
 
-if __name__ == '__main__':
+def main():
     action = sys.argv[1]
     action_map = {
         'send-resetkey': send_resetkey,
@@ -454,3 +454,7 @@ if __name__ == '__main__':
 
     db.commit()
     db.close()
+
+
+if __name__ == '__main__':
+    main()
