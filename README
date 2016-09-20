@@ -17,6 +17,9 @@ The aurweb project includes
 Directory Layout
 ----------------
 
+aurweb::
+	Shared aurweb Python modules.
+
 conf::
 	Configuration and configuration templates.
 
@@ -34,6 +37,9 @@ schema::
 
 scripts::
 	Scripts for AUR maintenance.
+
+test::
+	Test suite and test cases.
 
 upgrading::
 	Instructions for upgrading setups from one release to another.
