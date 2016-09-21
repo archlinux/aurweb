@@ -12,6 +12,7 @@ GIT_AUTH="$TOPLEVEL/git-interface/git-auth.py"
 GIT_SERVE="$TOPLEVEL/git-interface/git-serve.py"
 GIT_UPDATE="$TOPLEVEL/git-interface/git-update.py"
 MKPKGLISTS="$TOPLEVEL/scripts/mkpkglists.py"
+TUVOTEREMINDER="$TOPLEVEL/scripts/tuvotereminder.py"
 
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
@@ -47,8 +48,9 @@ packagesfile = packages.gz
 pkgbasefile = pkgbase.gz
 EOF
 
-cat >notify.sh <<-EOF
+cat >notify.sh <<-\EOF
 #!/bin/sh
+echo $* >>notify.out
 EOF
 chmod +x notify.sh
 
