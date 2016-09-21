@@ -13,6 +13,7 @@ GIT_SERVE="$TOPLEVEL/git-interface/git-serve.py"
 GIT_UPDATE="$TOPLEVEL/git-interface/git-update.py"
 MKPKGLISTS="$TOPLEVEL/scripts/mkpkglists.py"
 TUVOTEREMINDER="$TOPLEVEL/scripts/tuvotereminder.py"
+PKGMAINT="$TOPLEVEL/scripts/pkgmaint.py"
 
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
