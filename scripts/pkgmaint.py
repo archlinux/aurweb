@@ -1,14 +1,16 @@
 #!/usr/bin/python3
 
+import time
+
 import aurweb.db
 
 
 def main():
     conn = aurweb.db.Connection()
 
+    limit_to = int(time.time()) - 86400
     conn.execute("DELETE FROM PackageBases WHERE " +
-                 "UNIX_TIMESTAMP() - SubmittedTS > 86400 " +
-                 "AND PackagerUID IS NULL")
+                 "SubmittedTS < ? AND PackagerUID IS NULL", [limit_to])
 
     conn.commit()
     conn.close()

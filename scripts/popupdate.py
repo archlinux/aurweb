@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import time
+
 import aurweb.db
 
 
@@ -10,10 +12,11 @@ def main():
                  "SELECT COUNT(*) FROM PackageVotes " +
                  "WHERE PackageVotes.PackageBaseID = PackageBases.ID)")
 
+    now = int(time.time())
     conn.execute("UPDATE PackageBases SET Popularity = (" +
-                 "SELECT COALESCE(SUM(POWER(0.98, (UNIX_TIMESTAMP() - VoteTS) / 86400)), 0.0) " +
+                 "SELECT COALESCE(SUM(POWER(0.98, (? - VoteTS) / 86400)), 0.0) " +
                  "FROM PackageVotes WHERE PackageVotes.PackageBaseID = " +
-                 "PackageBases.ID AND NOT VoteTS IS NULL)")
+                 "PackageBases.ID AND NOT VoteTS IS NULL)", [now])
 
     conn.commit()
     conn.close()
