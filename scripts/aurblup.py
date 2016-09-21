@@ -8,7 +8,7 @@ import aurweb.db
 
 db_path = aurweb.config.get('aurblup', 'db-path')
 sync_dbs = aurweb.config.get('aurblup', 'sync-dbs').split(' ')
-servers = aurweb.config.get('aurblup', 'servers').split(' ')
+server = aurweb.config.get('aurblup', 'server')
 
 
 def main():
@@ -19,7 +19,7 @@ def main():
     h = pyalpm.Handle("/", db_path)
     for sync_db in sync_dbs:
         repo = h.register_syncdb(sync_db, pyalpm.SIG_DATABASE_OPTIONAL)
-        repo.servers = [server.replace("%s", sync_db) for server in servers]
+        repo.servers = [server.replace("%s", sync_db)]
         t = h.init_transaction()
         repo.update(False)
         t.release()
