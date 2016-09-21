@@ -2,11 +2,12 @@
 
 import datetime
 import gzip
-import os
 
+import aurweb.config
 import aurweb.db
 
-docroot = os.path.dirname(os.path.realpath(__file__)) + "/../web/html/"
+packagesfile = aurweb.config.get('mkpkglists', 'packagesfile')
+pkgbasefile = aurweb.config.get('mkpkglists', 'pkgbasefile')
 
 
 def main():
@@ -16,7 +17,7 @@ def main():
     pkglist_header = "# AUR package list, generated on " + datestr
     pkgbaselist_header = "# AUR package base list, generated on " + datestr
 
-    with gzip.open(docroot + "packages.gz", "w") as f:
+    with gzip.open(packagesfile, "w") as f:
         f.write(bytes(pkglist_header + "\n", "UTF-8"))
         cur = conn.execute("SELECT Packages.Name FROM Packages " +
                            "INNER JOIN PackageBases " +
@@ -24,7 +25,7 @@ def main():
                            "WHERE PackageBases.PackagerUID IS NOT NULL")
         f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
 
-    with gzip.open(docroot + "pkgbase.gz", "w") as f:
+    with gzip.open(pkgbasefile, "w") as f:
         f.write(bytes(pkgbaselist_header + "\n", "UTF-8"))
         cur = conn.execute("SELECT Name FROM PackageBases " +
                            "WHERE PackagerUID IS NOT NULL")
