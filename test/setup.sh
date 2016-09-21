@@ -11,6 +11,7 @@ export PYTHONPATH
 GIT_AUTH="$TOPLEVEL/git-interface/git-auth.py"
 GIT_SERVE="$TOPLEVEL/git-interface/git-serve.py"
 GIT_UPDATE="$TOPLEVEL/git-interface/git-update.py"
+MKPKGLISTS="$TOPLEVEL/scripts/mkpkglists.py"
 
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
@@ -40,6 +41,10 @@ ssh-cmdline = ssh aur@aur.archlinux.org
 
 [update]
 max-blob-size = 256000
+
+[mkpkglists]
+packagesfile = packages.gz
+pkgbasefile = pkgbase.gz
 EOF
 
 cat >notify.sh <<-EOF
