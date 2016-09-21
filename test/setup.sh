@@ -14,6 +14,7 @@ GIT_UPDATE="$TOPLEVEL/git-interface/git-update.py"
 MKPKGLISTS="$TOPLEVEL/scripts/mkpkglists.py"
 TUVOTEREMINDER="$TOPLEVEL/scripts/tuvotereminder.py"
 PKGMAINT="$TOPLEVEL/scripts/pkgmaint.py"
+AURBLUP="$TOPLEVEL/scripts/aurblup.py"
 
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
@@ -43,6 +44,11 @@ ssh-cmdline = ssh aur@aur.archlinux.org
 
 [update]
 max-blob-size = 256000
+
+[aurblup]
+db-path = $(pwd)/sync/
+sync-dbs = test
+server = file://$(pwd)/remote/
 
 [mkpkglists]
 packagesfile = packages.gz
