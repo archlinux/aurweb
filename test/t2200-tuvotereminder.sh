@@ -14,13 +14,12 @@ test_expect_success 'Test Trusted User vote reminders.' '
 	INSERT INTO TU_VoteInfo (ID, Agenda, User, Submitted, End, Quorum, SubmitterID) VALUES (3, "Lorem ipsum.", "user", 0, $tomorrow, 0.00, 2);
 	INSERT INTO TU_VoteInfo (ID, Agenda, User, Submitted, End, Quorum, SubmitterID) VALUES (4, "Lorem ipsum.", "user", 0, $threedays, 0.00, 2);
 	EOD
-	>notify.out &&
+	>sendmail.out &&
 	"$TUVOTEREMINDER" &&
-	cat <<-EOD >expected &&
-	tu-vote-reminder 2
-	tu-vote-reminder 3
-	EOD
-	test_cmp notify.out expected
+	grep -q "Proposal 2" sendmail.out &&
+	grep -q "Proposal 3" sendmail.out &&
+	test_must_fail grep -q "Proposal 1" sendmail.out &&
+	test_must_fail grep -q "Proposal 4" sendmail.out
 '
 
 test_done

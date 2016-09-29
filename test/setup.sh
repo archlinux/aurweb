@@ -15,6 +15,7 @@ MKPKGLISTS="$TOPLEVEL/scripts/mkpkglists.py"
 TUVOTEREMINDER="$TOPLEVEL/scripts/tuvotereminder.py"
 PKGMAINT="$TOPLEVEL/scripts/pkgmaint.py"
 AURBLUP="$TOPLEVEL/scripts/aurblup.py"
+NOTIFY="$TOPLEVEL/scripts/notify.py"
 
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
@@ -23,11 +24,16 @@ backend = sqlite
 name = aur.db
 
 [options]
+aur_location = https://aur.archlinux.org
+aur_request_ml = aur-requests@archlinux.org
 enable-maintenance = 0
 maintenance-exceptions = 127.0.0.1
 
 [notifications]
-notify-cmd = ./notify.sh
+notify-cmd = $NOTIFY
+sendmail = ./sendmail.sh
+sender = notify@aur.archlinux.org
+reply-to = noreply@aur.archlinux.org
 
 [auth]
 valid-keytypes = ssh-rsa ssh-dss ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-ed25519
@@ -55,11 +61,11 @@ packagesfile = packages.gz
 pkgbasefile = pkgbase.gz
 EOF
 
-cat >notify.sh <<-\EOF
+cat >sendmail.sh <<-\EOF
 #!/bin/sh
-echo $* >>notify.out
+cat >>sendmail.out
 EOF
-chmod +x notify.sh
+chmod +x sendmail.sh
 
 cat >git-shell.sh <<-\EOF
 #!/bin/sh
