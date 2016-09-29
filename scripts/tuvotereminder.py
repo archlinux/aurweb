@@ -21,7 +21,7 @@ def main():
                        [filter_from, filter_to])
 
     for vote_id in [row[0] for row in cur.fetchall()]:
-        subprocess.Popen((notify_cmd, 'tu-vote-reminder', str(vote_id)))
+        subprocess.Popen((notify_cmd, 'tu-vote-reminder', str(vote_id))).wait()
 
 
 if __name__ == '__main__':
