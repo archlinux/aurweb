@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v4.2.1\n"
+"Project-Id-Version: AUR v4.3.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
+"POT-Creation-Date: 2016-09-30 17:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1104,6 +1104,10 @@ msgid "Active"
 msgstr ""
 
 #: template/account_details.php
+msgid "Registration date:"
+msgstr ""
+
+#: template/account_details.php
 msgid "Last Login"
 msgstr ""
 
@@ -1122,6 +1126,11 @@ msgstr ""
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s for user details."
 msgstr ""
 
 #: template/account_edit_form.php
