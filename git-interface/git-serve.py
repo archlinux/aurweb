@@ -305,6 +305,10 @@ def main():
         if remote_addr not in maintenance_exc:
             die("The AUR is down due to maintenance. We will be back soon.")
 
+    if action == 'git' and cmdargv[1] in ('upload-pack', 'receive-pack'):
+        action = action + '-' + cmdargv[1]
+        del cmdargv[1]
+
     if action == 'git-upload-pack' or action == 'git-receive-pack':
         if len(cmdargv) < 2:
             die_with_help("{:s}: missing path".format(action))
