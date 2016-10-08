@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AUR v4.3.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-09-30 17:48+0200\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,24 @@ msgstr ""
 
 #: html/404.php
 msgid "Sorry, the page you've requested does not exist."
+msgstr ""
+
+#: html/404.php template/pkgreq_close_form.php
+msgid "Note"
+msgstr ""
+
+#: html/404.php
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#: html/404.php
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#: html/404.php
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
 msgstr ""
 
 #: html/503.php
@@ -1528,10 +1546,6 @@ msgstr ""
 #: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
-
-#: template/pkgreq_close_form.php
-msgid "Note"
 msgstr ""
 
 #: template/pkgreq_close_form.php
