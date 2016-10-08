@@ -18,16 +18,13 @@ Directory Layout
 ----------------
 
 aurweb::
-	Shared aurweb Python modules.
+	aurweb Python modules.
 
 conf::
 	Configuration and configuration templates.
 
 doc::
 	Project documentation.
-
-git-interface::
-	Scripts that make up the Git and SSH interface.
 
 po::
 	Translation files for strings in the aurweb interface.

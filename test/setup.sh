@@ -8,9 +8,9 @@ PYTHONPATH="$TOPLEVEL"
 export PYTHONPATH
 
 # Configure paths to the Git interface scripts.
-GIT_AUTH="$TOPLEVEL/git-interface/git-auth.py"
-GIT_SERVE="$TOPLEVEL/git-interface/git-serve.py"
-GIT_UPDATE="$TOPLEVEL/git-interface/git-update.py"
+GIT_AUTH="$TOPLEVEL/aurweb/git/auth.py"
+GIT_SERVE="$TOPLEVEL/aurweb/git/serve.py"
+GIT_UPDATE="$TOPLEVEL/aurweb/git/update.py"
 MKPKGLISTS="$TOPLEVEL/scripts/mkpkglists.py"
 TUVOTEREMINDER="$TOPLEVEL/scripts/tuvotereminder.py"
 PKGMAINT="$TOPLEVEL/scripts/pkgmaint.py"
@@ -38,7 +38,7 @@ reply-to = noreply@aur.archlinux.org
 [auth]
 valid-keytypes = ssh-rsa ssh-dss ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-ed25519
 username-regex = [a-zA-Z0-9]+[.\-_]?[a-zA-Z0-9]+$
-git-serve-cmd = /srv/http/aurweb/git-interface/git-serve.py
+git-serve-cmd = $GIT_SERVE
 ssh-options = restrict
 
 [serve]

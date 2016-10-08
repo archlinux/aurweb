@@ -17,4 +17,11 @@ setup(
     name="aurweb",
     version=version,
     packages=find_packages(),
+    entry_points={
+        'console_scripts': [
+            'aurweb-git-auth = aurweb.git.auth:main',
+            'aurweb-git-serve = aurweb.git.serve:main',
+            'aurweb-git-update = aurweb.git.update:main',
+        ],
+    },
 )
