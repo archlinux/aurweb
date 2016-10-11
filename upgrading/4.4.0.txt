@@ -10,3 +10,8 @@ ALTER TABLE Packages MODIFY URL VARCHAR(8000) NULL DEFAULT NULL;
 ALTER TABLE PackageSources
 	MODIFY Source VARCHAR(8000) NOT NULL DEFAULT "/dev/null";
 ----
+
+3. The location of the Git interface scripts was changed. Make sure you update
+   your aurweb configuration, as well as the SSH daemon and AUR Git repository
+   configurations to point to the new wrapper scripts which are located in
+   /usr/local/bin/ by default.
