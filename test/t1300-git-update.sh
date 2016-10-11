@@ -370,6 +370,22 @@ test_expect_success 'Missing source file.' '
 	grep -q "^error: missing source file: file$" actual
 '
 
+test_expect_success 'Pushing .SRCINFO with too long source URL.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	url="http://$(printf "%7993s" x | sed "s/ /x/g")/" &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	(
+		cd aur.git &&
+		sed "s#.*depends.*#\\0\\nsource = $url#" .SRCINFO >.SRCINFO.new
+		mv .SRCINFO.new .SRCINFO
+		git commit -q -am "Add huge source URL"
+	) &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: source entry too long: $url\$" actual
+'
+
 test_expect_success 'Pushing a blacklisted package.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&

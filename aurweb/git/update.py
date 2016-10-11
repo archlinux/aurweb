@@ -337,6 +337,9 @@ def main():
 
             for field in extract_arch_fields(pkginfo, 'source'):
                 fname = field['value']
+                if len(fname) > 8000:
+                    die_commit('source entry too long: {:s}'.format(fname),
+                               str(commit.id))
                 if "://" in fname or "lp:" in fname:
                     continue
                 if fname not in commit.tree:
