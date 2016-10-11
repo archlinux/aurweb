@@ -317,4 +317,27 @@ test_expect_success "Force-disown a package base and check (co-)maintainer list.
 	test_cmp expected actual
 '
 
+test_expect_success "Check whether package requests are closed when disowning." '
+	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat <<-EOD | sqlite3 aur.db &&
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID) VALUES (1, 2, 3, "foobar", 4);
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID) VALUES (2, 3, 3, "foobar", 5);
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID) VALUES (3, 2, 2, "foobar2", 6);
+	EOD
+	>sendmail.out &&
+	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat <<-EOD >expected &&
+	Subject: [PRQ#1] Request Accepted
+	EOD
+	grep "^Subject.*PRQ" sendmail.out >sendmail.parts &&
+	test_cmp sendmail.parts expected &&
+	cat <<-EOD >expected &&
+	1|2|3|foobar||4||The user user disowned the package.|0|2
+	EOD
+	echo "SELECT * FROM PackageRequests WHERE Status = 2;" | sqlite3 aur.db >actual &&
+	test_cmp actual expected
+'
+
 test_done

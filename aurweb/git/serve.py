@@ -183,6 +183,44 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
     conn.close()
 
 
+def pkgreq_by_pkgbase(pkgbase_id, reqtype):
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT PackageRequests.ID FROM PackageRequests " +
+                       "INNER JOIN RequestTypes ON " +
+                       "RequestTypes.ID = PackageRequests.ReqTypeID " +
+                       "WHERE PackageRequests.Status = 0 " +
+                       "AND PackageRequests.PackageBaseID = ?" +
+                       "AND RequestTypes.Name = ?", [pkgbase_id, reqtype])
+
+    return [row[0] for row in cur.fetchall()]
+
+
+def pkgreq_close(reqid, reason, comments, autoclose=False):
+    statusmap = {'accepted': 2, 'rejected': 3}
+    if reason not in statusmap:
+        die('{:s}: invalid reason: {:s}'.format(action, reason))
+    status = statusmap[reason]
+
+    conn = aurweb.db.Connection()
+
+    if autoclose:
+        userid = 0
+    else:
+        cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+        userid = cur.fetchone()[0]
+        if userid == 0:
+            die('{:s}: unknown user: {:s}'.format(action, user))
+
+    conn.execute("UPDATE PackageRequests SET Status = ?, ClosureComment = ? " +
+                 "WHERE ID = ?", [status, comments, reqid])
+    conn.commit()
+    conn.close()
+
+    subprocess.Popen((notify_cmd, 'request-close', str(userid), str(reqid),
+                      reason)).wait()
+
+
 def pkgbase_disown(pkgbase, user, privileged):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
@@ -193,7 +231,11 @@ def pkgbase_disown(pkgbase, user, privileged):
         die('{:s}: permission denied: {:s}'.format(action, user))
 
     # TODO: Support disowning package bases via package request.
-    # TODO: Scan through pending orphan requests and close them.
+
+    # Scan through pending orphan requests and close them.
+    comment = 'The user {:s} disowned the package.'.format(user)
+    for reqid in pkgreq_by_pkgbase(pkgbase_id, 'orphan'):
+        pkgreq_close(reqid, 'accepted', comment, True)
 
     comaintainers = []
     new_maintainer_userid = None
