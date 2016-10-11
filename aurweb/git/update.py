@@ -324,8 +324,9 @@ def main():
                 die_commit('invalid package name: {:s}'.format(
                            pkginfo['pkgname']), str(commit.id))
 
-            for field in ('pkgname', 'pkgdesc', 'url'):
-                if field in pkginfo and len(pkginfo[field]) > 255:
+            max_len = {'pkgname': 255, 'pkgdesc': 255, 'url': 8000}
+            for field in max_len.keys():
+                if field in pkginfo and len(pkginfo[field]) > max_len[field]:
                     die_commit('{:s} field too long: {:s}'.format(field,
                                pkginfo[field]), str(commit.id))
 

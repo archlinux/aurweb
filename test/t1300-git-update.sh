@@ -309,6 +309,22 @@ test_expect_success 'Pushing .SRCINFO with invalid epoch.' '
 	grep -q "^error: invalid epoch: !$" actual
 '
 
+test_expect_success 'Pushing .SRCINFO with too long URL.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	url="http://$(printf "%7993s" x | sed "s/ /x/g")/" &&
+	test_when_finished "git -C aur.git reset --hard $old" &&
+	(
+		cd aur.git &&
+		sed "s#.*url.*#\\0\\nurl = $url#" .SRCINFO >.SRCINFO.new
+		mv .SRCINFO.new .SRCINFO
+		git commit -q -am "Change URL"
+	) &&
+	new=$(git -C aur.git rev-parse HEAD) &&
+	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	grep -q "^error: url field too long: $url\$" actual
+'
+
 test_expect_success 'Missing install file.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	test_when_finished "git -C aur.git reset --hard $old" &&

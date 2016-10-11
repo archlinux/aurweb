@@ -1,0 +1,12 @@
+1. Resize the URL column of the Packages table:
+
+----
+ALTER TABLE Packages MODIFY URL VARCHAR(8000) NULL DEFAULT NULL;
+----
+
+2. Resize the Source column of the PackageSources table:
+
+----
+ALTER TABLE PackageSources
+	MODIFY Source VARCHAR(8000) NOT NULL DEFAULT "/dev/null";
+----
