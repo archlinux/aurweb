@@ -9,15 +9,16 @@
 # Chris Warrick <kwpolska@gmail.com>, 2012
 # Kwpolska <kwpolska@kwpolska.tk>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Michal T <zorza2@gmail.com>, 2016
 # Nuc1eoN <nucrap@hotmail.com>, 2014
 # Piotr Strębski <strebski@o2.pl>, 2013-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-06 09:48+0000\n"
-"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-12 09:11+0000\n"
+"Last-Translator: Michal T <zorza2@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/lfleischer/aur/language/"
 "pl/)\n"
 "Language: pl\n"
@@ -32,6 +33,20 @@ msgstr "Nie znaleziono strony"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Przepraszamy, strona o którą prosiłeś nie istnieje."
+
+msgid "Note"
+msgstr "Uwaga"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr "Adresy URL GIT clone nie są przeznaczone do otwierania w przeglądarce."
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "Aby sklonować repozytorium GIT-a %s, uruchom %s."
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "Kliknij %stutaj%s by powrócić do strony szczegółów %s."
 
 msgid "Service Unavailable"
 msgstr "Usługa niedostępna"
@@ -177,6 +192,8 @@ msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
+"Wnioskuj o wyrzeczenie własności pakietu - np. gdy zarządzający jest "
+"nieaktywny i pakiet został oznaczony jako przestarzały dawno temu."
 
 msgid "Deletion Request"
 msgstr "Prośba o usunięcie"
@@ -212,7 +229,7 @@ msgid ""
 msgstr ""
 
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr ""
+msgstr "Następujące odciski SSH są używane przez AUR:"
 
 msgid "Discussion"
 msgstr "Dyskusja"
@@ -223,6 +240,10 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"Ogólna dyskusja dotycząca Repozytorium Użytkowników Arch (AUR) i struktury "
+"Zaufanych Użytkowników odbywa się na %saur-general%s. Dyskusja dotycząca "
+"rozwoju interfejsu webowego AUR odbywa się zaś na liście dyskusyjnej %saur-"
+"dev%s."
 
 msgid "Bug Reporting"
 msgstr "Zgłaszanie błędów"
@@ -234,6 +255,10 @@ msgid ""
 "%sonly%s. To report packaging bugs contact the package maintainer or leave a "
 "comment on the appropriate package page."
 msgstr ""
+"Jeśli znalazłeś błąd w interfejsie webowym AUR, zgłoś go w naszym %ssystemie "
+"śledzenia błędów%s. Używaj go %swyłącznie%s do zgłaszania błędów związanych "
+"z interfejsem webowym AUR. Błędy powiązane z pakietami zgłaszaj ich "
+"opiekunom lub zostaw komentarz pod odpowiednim pakietem."
 
 msgid "Package Search"
 msgstr "Wyszukiwanie pakietów"
@@ -347,6 +372,7 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
+"Wybrane pakiety nie zostały porzucone, sprawdź pole wyboru potwierdzenia."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Nie można znaleźć pakietu do scalenia głosów i komentarzy."
@@ -396,12 +422,16 @@ msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"Użyj tego formularza, aby złożyć prośbę wyrzeczenie własności bazie pakietu "
+"%s%s%s, która zawiera następujące pakiety:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"Zaznaczając pole wyboru potwierdzasz, że chcesz porzucić pakiet i przenieść "
+"własność na %s%s%s."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
@@ -872,7 +902,7 @@ msgid "Real Name"
 msgstr "Imię i nazwisko"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Strona główna"
 
 msgid "IRC Nick"
 msgstr "Nick na IRC-u"
@@ -889,6 +919,9 @@ msgstr "Nieaktywny od"
 msgid "Active"
 msgstr "Aktywne"
 
+msgid "Registration date:"
+msgstr "Data rejestracji:"
+
 msgid "Last Login"
 msgstr "Ostatnie logowanie"
 
@@ -904,6 +937,10 @@ msgstr "Edycja tego konta użytkownika"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Kliknij %stutaj%s, jeśli chcesz nieodwracalnie usunąć to konto."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Kliknij %stutaj%s by wyświetlić szczegóły użytkownika."
 
 msgid "required"
 msgstr "wymagane"
@@ -956,7 +993,7 @@ msgid "Notify of package updates"
 msgstr "Powiadom o aktualizacjach pakietu"
 
 msgid "Notify of ownership changes"
-msgstr ""
+msgstr "Powiadom o zmianie właściciela"
 
 msgid "Update"
 msgstr "Aktualizuj"
@@ -1062,7 +1099,7 @@ msgid "Disable notifications"
 msgstr "Wyłącz powiadomienia"
 
 msgid "Enable notifications"
-msgstr ""
+msgstr "Włącz powiadomienia"
 
 msgid "Manage Co-Maintainers"
 msgstr "Zarządzanie współutrzymującymi"
@@ -1211,9 +1248,6 @@ msgstr "Źródła"
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "Użyj tego formularza, aby zamknąć prośbę o bazę pakietów %s%s%s."
 
-msgid "Note"
-msgstr "Uwaga"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1293,9 +1327,9 @@ msgstr "Data"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "pozostało ~%d  dzień"
+msgstr[1] "pozostało ~%d  dni"
+msgstr[2] "pozostało ~%d  dni"
 
 #, php-format
 msgid "~%d hour left"

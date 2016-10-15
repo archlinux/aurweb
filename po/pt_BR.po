@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-06 12:23+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 14:05+0000\n"
 "Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/lfleischer/aur/"
 "language/pt_BR/)\n"
@@ -30,6 +30,20 @@ msgstr "Página não encontrada"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Desculpe, a página que você solicitou não existe."
+
+msgid "Note"
+msgstr "Nota"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr "URLs de git-clone não servem para ser abertas em um navegador."
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "Para clonar o repositório Git de %s, execute %s."
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "Clique %saqui%s para retornar para a página de detalhes de %s."
 
 msgid "Service Unavailable"
 msgstr "Serviço indisponível"
@@ -923,6 +937,9 @@ msgstr "Inativo desde"
 msgid "Active"
 msgstr "Ativa"
 
+msgid "Registration date:"
+msgstr "Data de registro:"
+
 msgid "Last Login"
 msgstr "Último login"
 
@@ -938,6 +955,10 @@ msgstr "Edite a conta desse usuário"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Clique %saqui%s se você deseja excluir permanentemente esta conta."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Clique %saqui%s para os detalhes do usuário."
 
 msgid "required"
 msgstr "obrigatório"
@@ -1244,9 +1265,6 @@ msgstr "Fontes"
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 "Use esse formulário para fechar a requisição para o pacote base %s%s%s."
-
-msgid "Note"
-msgstr "Nota"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "

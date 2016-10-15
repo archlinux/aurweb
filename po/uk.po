@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-06 11:02+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 15:11+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/lfleischer/aur/language/"
 "uk/)\n"
@@ -29,6 +29,21 @@ msgstr "Сторінку не знайдено"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "На жаль, запитаної сторінки не існує."
+
+msgid "Note"
+msgstr "Примітка"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+"Посилання на клонування сховища Git не вдасться відкрити в переглядарці."
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "Щоб клонувати сховище Git з %s, виконайте %s."
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "Клацніть %sтут%s для повернення на сторінку деталей %s."
 
 msgid "Service Unavailable"
 msgstr "Сервіс недоступний"
@@ -913,6 +928,9 @@ msgstr "Неактивний з"
 msgid "Active"
 msgstr "Активний"
 
+msgid "Registration date:"
+msgstr "Дата реєстрації:"
+
 msgid "Last Login"
 msgstr "Останній вхід"
 
@@ -928,6 +946,10 @@ msgstr "Редагування рахунку цього користувача"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Натисніть %sтут%s, якщо Ви бажаєте безповоротно вилучити цей рахунок."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Клацніть %sтут%s для деталей про користувача."
 
 msgid "required"
 msgstr "обов'язково"
@@ -1233,9 +1255,6 @@ msgstr "Сирці"
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "Використайте цю форму для закриття запиту щодо бази пакетів %s%s%s."
-
-msgid "Note"
-msgstr "Примітка"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "

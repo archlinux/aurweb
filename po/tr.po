@@ -9,14 +9,15 @@
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Samed Beyribey <ras0ir@eventualis.org>, 2012
 # Samed Beyribey <samed@ozguryazilim.com.tr>, 2012
+# Serpil Acar <acarserpil89@gmail.com>, 2016
 # Atilla Öntaş <tarakbumba@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-06 09:48+0000\n"
-"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-09 05:38+0000\n"
+"Last-Translator: Serpil Acar <acarserpil89@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/lfleischer/aur/language/"
 "tr/)\n"
 "Language: tr\n"
@@ -30,6 +31,20 @@ msgstr "Sayfa Bulunamadı"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Üzgünüz, talep ettiğiniz sayfa bulunamadı."
+
+msgid "Note"
+msgstr "Not"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr "Git clone linkleri bir tarayıcıda açılamazlar."
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "%s'in Git deposunu kopyalamak için, %s komutunu çalıştırın."
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "Detaylar sayfasına %s geri dönmek için %sburaya%s tıklayınız."
 
 msgid "Service Unavailable"
 msgstr "Hizmete Erişilemiyor"
@@ -290,7 +305,7 @@ msgid "Enter login credentials"
 msgstr "Giriş bilgilerinizi doldurun"
 
 msgid "User name or email address"
-msgstr ""
+msgstr "Kullanıcı adı veya e-posta adresi"
 
 msgid "Password"
 msgstr "Parola"
@@ -443,10 +458,10 @@ msgstr ""
 "bırakabilir."
 
 msgid "Flag Comment"
-msgstr ""
+msgstr "Yorumu İşaretle"
 
 msgid "Flag Package Out-Of-Date"
-msgstr ""
+msgstr "Paketi güncel değil olarak işaretle"
 
 #, php-format
 msgid ""
@@ -464,6 +479,8 @@ msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
 msgstr ""
+"Paketin neden güncel olmadığıyla ilgili detayları aşağıya girin, tercihen "
+"sürüm bildirilerinin veya yeni tarball sürümünün linklerini dahil ederek."
 
 msgid "Comments"
 msgstr "Yorumlar"
@@ -473,6 +490,7 @@ msgstr "İşaretle"
 
 msgid "Only registered users can flag packages out-of-date."
 msgstr ""
+"Sadece kayıtlı kullanıcılar paketleri güncel değil olarak işaretleyebilir."
 
 msgid "Package Merging"
 msgstr "Paket birleştirme"
@@ -673,16 +691,16 @@ msgid "View account information for %s"
 msgstr "%s için hesap bilgilerini görüntüle"
 
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "Paket ID'si veya paket ismi eksik."
 
 msgid "You are not allowed to edit this comment."
-msgstr ""
+msgstr "Bu yorumu düzenlemek için yetkiniz yok."
 
 msgid "Comment does not exist."
-msgstr ""
+msgstr "Yorum bulunamadı."
 
 msgid "Comment cannot be empty."
-msgstr ""
+msgstr "Yorum boş olamaz."
 
 msgid "Comment has been added."
 msgstr "Yorum eklendi."
@@ -694,16 +712,16 @@ msgid "Missing comment ID."
 msgstr "Yorum kimliği bulunamadı."
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "5 taneden fazla yorum iğnelenemez."
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "Bu yorumu iğnelemek için yetkiniz yok."
 
 msgid "You are not allowed to unpin this comment."
 msgstr ""
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "Yorum iğnelendi."
 
 msgid "Comment has been unpinned."
 msgstr ""
@@ -721,7 +739,7 @@ msgid "You did not select any packages to flag."
 msgstr "İşaretlenecek paketleri seçmediniz."
 
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr ""
+msgstr "Seçilen paketler işaretlenmedi, lütfen bir yorum giriniz."
 
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Seçilen paketler güncelliğini yitirmiş olarak işaretlendi."
@@ -789,10 +807,10 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "%s bildirim listesinden başarıyla çıktınız."
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "Bu silinmiş yorumu geri almak için yetkili değilsiniz."
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "Yorum silindi."
 
 msgid "You are not allowed to delete this comment."
 msgstr "Bu yorumu silme yetkiniz yok."
@@ -801,7 +819,7 @@ msgid "Comment has been deleted."
 msgstr "Yorum silindi."
 
 msgid "Comment has been edited."
-msgstr ""
+msgstr "Yorum düzenlendi."
 
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
@@ -826,7 +844,7 @@ msgstr "Paket detaylarını görüntüle"
 
 #, php-format
 msgid "requires %s"
-msgstr ""
+msgstr "%s'ye ihtiyaç duyuyor."
 
 msgid "You must be logged in to file package requests."
 msgstr "Paket gereksinimlerinin kaydını tutmalısın."
@@ -882,13 +900,13 @@ msgid "Email Address"
 msgstr "E-posta adresi"
 
 msgid "hidden"
-msgstr ""
+msgstr "gizli"
 
 msgid "Real Name"
 msgstr "Gerçek İsim"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Anasayfa"
 
 msgid "IRC Nick"
 msgstr "IRC Rumuzu"
@@ -905,6 +923,9 @@ msgstr "Şu tarihten beri etkin değil:"
 msgid "Active"
 msgstr "Etkin"
 
+msgid "Registration date:"
+msgstr "Kayıt tarihi:"
+
 msgid "Last Login"
 msgstr "Son giriş"
 
@@ -920,6 +941,10 @@ msgstr "Bu kullanıcının hesabını düzenleyin"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Bu hesabı temelli olarak silmek istiyorsanız %sburaya%s tıklayın."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Kullanıcı detayları için %sburaya%s tıklayın."
 
 msgid "required"
 msgstr "gerekli"
@@ -940,9 +965,11 @@ msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
 msgstr ""
+"Lütfen e-posta adresinizi doğru girdiğinizden emin olun, aksi halde "
+"hesabınız kilitlenecektir."
 
 msgid "Hide Email Address"
-msgstr ""
+msgstr "E-posta Adresini Gizle"
 
 msgid "Re-type password"
 msgstr "Parolayı tekrar girin"
@@ -961,16 +988,16 @@ msgid "SSH Public Key"
 msgstr "SSH Kamu Anahtarı"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "Bildirim ayarları"
 
 msgid "Notify of new comments"
 msgstr "Yeni yorumları bildir"
 
 msgid "Notify of package updates"
-msgstr ""
+msgstr "Paket güncellemelerini bildir"
 
 msgid "Notify of ownership changes"
-msgstr ""
+msgstr "Sahiplik değişikliklerini bildir."
 
 msgid "Update"
 msgstr "Güncelle"
@@ -1017,7 +1044,7 @@ msgstr "Kaydet"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Güncel olmayan olarak işaretli yorum: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
@@ -1025,10 +1052,10 @@ msgstr ""
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s güncel değil olarak işaretlenmedi."
 
 msgid "Return to Details"
-msgstr ""
+msgstr "Detaylara Geri Dön."
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
@@ -1057,7 +1084,7 @@ msgstr "Wikide ara"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Güncel değil olarak işaretlendi (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "Güncelliğini yitirmiş olarak işaretle"
@@ -1075,7 +1102,7 @@ msgid "Disable notifications"
 msgstr "Bildirimleri kapat"
 
 msgid "Enable notifications"
-msgstr ""
+msgstr "Bildirimleri etkinleştir"
 
 msgid "Manage Co-Maintainers"
 msgstr "Yardımcı Bakımcıları Yönet"
@@ -1127,7 +1154,7 @@ msgstr "Son Güncelleme"
 
 #, php-format
 msgid "Edit comment for: %s"
-msgstr ""
+msgstr "Yorumu düzenle: %s"
 
 msgid "Add Comment"
 msgstr "Yorum Ekle"
@@ -1136,43 +1163,43 @@ msgid "View all comments"
 msgstr "Tüm yorumları görünüle"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "İğnelenmiş Yorumlar"
 
 msgid "Latest Comments"
 msgstr "Son Yorumlar"
 
 #, php-format
 msgid "%s commented on %s"
-msgstr ""
+msgstr "%s, %s'e yorum yaptı."
 
 #, php-format
 msgid "Anonymous comment on %s"
-msgstr ""
+msgstr "%s'e isimsiz yorum"
 
 #, php-format
 msgid "deleted on %s by %s"
-msgstr ""
+msgstr "%s'te, %s tarafından silindi."
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "%s'te silindi."
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "%s'te, %s tarafından düzenlendi"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "%s'te düzenlendi."
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "Yorumu silmeyi geri al."
 
 msgid "Delete comment"
 msgstr "Yorumu sil"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "Yorumu iğnele"
 
 msgid "Unpin comment"
 msgstr ""
@@ -1224,9 +1251,6 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 "Bu formu %s%s%s paket temeli için yapılan talebi kapatmak için kullanın."
 
-msgid "Note"
-msgstr "Not"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1268,6 +1292,10 @@ msgid ""
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
+"Silme talebi göndererek, Güvenilir Kullanıcıdan paketi silmesini "
+"istiyorsunuz. Bu tür bir istek birden fazla olan paketlerde, geliştirilmesi "
+"durdurulmuş yazılımlarda, ve aynı zamanda yasadışı ve onarılamaz bozuklukta "
+"olan paketler için kullanılmalıdır."
 
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
@@ -1275,6 +1303,10 @@ msgid ""
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
 msgstr ""
+"Birleştirme talebi göndererek, Güvenilir Kullanıcıdan paketi silmesini ve bu "
+"paketin oylarını ve yorumlarını diğer pakete transfer etmesini istiyorsunuz. "
+"Bir paketi birleştirmek ilgili Git deposunu etkilemeyecektir. Hedef paketin "
+"Git geçmişini bizzat güncellediğinizden emin olun. "
 
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
@@ -1305,8 +1337,8 @@ msgstr "Tarih"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d gün kaldı"
+msgstr[1] "~%d gün kaldı"
 
 #, php-format
 msgid "~%d hour left"
@@ -1357,7 +1389,7 @@ msgid "Voted"
 msgstr "Oylanmış"
 
 msgid "Last modified"
-msgstr ""
+msgstr "Son düzenleme"
 
 msgid "Ascending"
 msgstr "Eskiden yeniye"
@@ -1409,6 +1441,8 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"Popülarite, oluşturulmasından itibaren günlük %.2f oranı ile "
+"ağırlaştırılarak bulunan her oyun toplamı ile ölçülür."
 
 msgid "Yes"
 msgstr "Evet"

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-08 08:56+0000\n"
-"Last-Translator: György Balló <ballogyor@gmail.com>\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hungarian (http://www.transifex.com/lfleischer/aur/language/"
 "hu/)\n"
 "Language: hu\n"
@@ -27,6 +27,20 @@ msgstr "Az oldal nem található"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Sajnálom, a megtekinteni kívánt oldal nem létezik."
+
+msgid "Note"
+msgstr "Megjegyzés"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
 
 msgid "Service Unavailable"
 msgstr "Szolgáltatás nem elérhető"
@@ -918,6 +932,9 @@ msgstr "Ezóta inaktív:"
 msgid "Active"
 msgstr "Aktív"
 
+msgid "Registration date:"
+msgstr "Regisztráció dátuma:"
+
 msgid "Last Login"
 msgstr "Legutóbbi bejelentkezés"
 
@@ -933,6 +950,10 @@ msgstr "Ezen felhasználó fiókjának szerkesztése"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Kattints %side%s, ha véglegesen törölni szeretnéd ezt a fiókot."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Kattints %side%s a felhasználó részleteihez."
 
 msgid "required"
 msgstr "kötelező"
@@ -1241,9 +1262,6 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 "Használd ezt az űrlapot a(z) %s%s%s alapcsomaggal kapcsolatos kérelem "
 "lezárásához."
-
-msgid "Note"
-msgstr "Megjegyzés"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "

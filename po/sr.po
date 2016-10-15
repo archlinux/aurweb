@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-06 09:48+0000\n"
-"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-11 14:07+0000\n"
+"Last-Translator: Slobodan Terzić <githzerai06@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/lfleischer/aur/language/"
 "sr/)\n"
 "Language: sr\n"
@@ -27,6 +27,20 @@ msgstr "Stranica nije nađena"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Stranica koju ste zahtevali ne postoji."
+
+msgid "Note"
+msgstr "Beleška"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr "URL-ovi za Git kloniranje nisu namenjeni za otvaranje u pregledaču."
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "Da bi klonirali git riznicu %s, pokrenite %s."
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "Kliknite %sovde%s da bi se vratili na stranicu o %s."
 
 msgid "Service Unavailable"
 msgstr "Servis nije dostupan"
@@ -898,6 +912,9 @@ msgstr "Neaktivan od"
 msgid "Active"
 msgstr "Aktivan"
 
+msgid "Registration date:"
+msgstr "Datum registracije:"
+
 msgid "Last Login"
 msgstr "Poslednje prijavljivanje"
 
@@ -913,6 +930,10 @@ msgstr "Uređivanje naloga ovog korisnika"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Kliknite %sovde%s ako želite trajno brisanje ovog naloga."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Kliknite %sovde%s za podatke o korisniku."
 
 msgid "required"
 msgstr "neophodno"
@@ -1219,9 +1240,6 @@ msgstr "Izvori"
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "Ovim formularom zatvarate zahteve za osnovu paketa %s%s%s."
 
-msgid "Note"
-msgstr "Beleška"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1312,9 +1330,9 @@ msgstr "Datum"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Preostaje još ~%d dan"
+msgstr[1] "Preostaje još ~%d dana"
+msgstr[2] "Preostaje još ~%d dana"
 
 #, php-format
 msgid "~%d hour left"
@@ -1419,6 +1437,8 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"Popularnost se izračunava kao suma svih glasova, gde svaki glas ima teži "
+"%.2f po danu od kada je dat."
 
 msgid "Yes"
 msgstr "Da"

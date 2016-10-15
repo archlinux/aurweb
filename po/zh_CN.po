@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-06 09:48+0000\n"
-"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -30,6 +30,20 @@ msgstr "页面未找到"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "请求的页面不存在。"
+
+msgid "Note"
+msgstr "提示"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
 
 msgid "Service Unavailable"
 msgstr "服务不可用"
@@ -877,6 +891,9 @@ msgstr "不活跃自"
 msgid "Active"
 msgstr "激活"
 
+msgid "Registration date:"
+msgstr ""
+
 msgid "Last Login"
 msgstr "最后登陆"
 
@@ -892,6 +909,10 @@ msgstr "编辑此用户的帐号"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "如果你想要彻底删除这个帐号，请点击%s这里%s。"
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr ""
 
 msgid "required"
 msgstr "必填"
@@ -1189,9 +1210,6 @@ msgstr "源代码:"
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "使用这个表单来关闭对包基础 %s%s%s 的请求。"
-
-msgid "Note"
-msgstr "提示"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-08 07:33+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-09 09:21+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_TW/)\n"
@@ -24,6 +24,20 @@ msgstr "頁面找不到"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "抱歉，您所請求的頁面不存在。"
+
+msgid "Note"
+msgstr "注意"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr "Git clone 的網址並不代表可以在瀏覽器中開啟。"
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "要 clone %s 的 Git 倉庫，執行 %s。"
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "點選 %s此處%s 以回到 %s 的詳細資訊頁面。"
 
 msgid "Service Unavailable"
 msgstr "服務不可用"
@@ -875,6 +889,9 @@ msgstr "不活躍自"
 msgid "Active"
 msgstr "活躍"
 
+msgid "Registration date:"
+msgstr "註冊日期："
+
 msgid "Last Login"
 msgstr "最後登入"
 
@@ -890,6 +907,10 @@ msgstr "編輯此使用者的帳號"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "如果您想要永久刪除此帳號，請點擊 %s這裡%s 。"
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "點選 %s此處%s 來取得使用者的詳細資訊。"
 
 msgid "required"
 msgstr "必填"
@@ -1187,9 +1208,6 @@ msgstr "來源"
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "使用這個表單以關閉請求套件基礎 %s%s%s 。"
-
-msgid "Note"
-msgstr "注意"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "

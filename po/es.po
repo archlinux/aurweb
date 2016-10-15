@@ -12,13 +12,15 @@
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2012
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2013-2016
+# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
+# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-06 09:48+0000\n"
-"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Spanish (http://www.transifex.com/lfleischer/aur/language/"
 "es/)\n"
 "Language: es\n"
@@ -32,6 +34,20 @@ msgstr "Página no encontrada"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "La página solicitada no existe."
+
+msgid "Note"
+msgstr "Nota"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
 
 msgid "Service Unavailable"
 msgstr "Servicio no disponible"
@@ -89,7 +105,7 @@ msgid "Submit a proposal to vote on."
 msgstr "Envía una propuesta a la cual votar."
 
 msgid "Applicant/TU"
-msgstr "Candidato/Usuario de confianza (TU)"
+msgstr "Candidato/Usuario de confianza (UC)"
 
 msgid "(empty if not applicable)"
 msgstr "(vacío si no aplica)"
@@ -232,7 +248,7 @@ msgstr ""
 "detalles."
 
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr "Las siguientes huellas SSH están en uso para AUR."
+msgstr "Las siguientes huellas SSH están en uso para el AUR."
 
 msgid "Discussion"
 msgstr "Debate"
@@ -366,7 +382,7 @@ msgid ""
 "message to the %saur-general%s mailing list."
 msgstr ""
 "Si olvidaste la dirección de correo que usaste para registrarte, envía un "
-"mensaje a la %slista de correo aur-general%s."
+"mensaje a la %slista de correo general del AUR%s."
 
 msgid "Enter your e-mail address:"
 msgstr "Introduce tu dirección de correo:"
@@ -936,6 +952,9 @@ msgstr "Inactivo desde"
 msgid "Active"
 msgstr "Activo"
 
+msgid "Registration date:"
+msgstr ""
+
 msgid "Last Login"
 msgstr "Última autentificación"
 
@@ -951,6 +970,10 @@ msgstr "Editar la cuenta de este usuario"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Haz clic %saquí%s si deseas eliminar permanentemente esta cuenta."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr ""
 
 msgid "required"
 msgstr "obligatorio"
@@ -1261,9 +1284,6 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 "Usa este formulario para cerrar la solicitud para el paquete base %s%s%s."
 
-msgid "Note"
-msgstr "Nota"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1356,8 +1376,8 @@ msgstr "Fecha"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d día restante"
+msgstr[1] "~%d días restantes"
 
 #, php-format
 msgid "~%d hour left"
@@ -1460,6 +1480,8 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"La popularidad se calcula como la suma de todos los votos y cada uno "
+"ponderado con un factor de %.2f por día desde la creación del paquete."
 
 msgid "Yes"
 msgstr "Sí"

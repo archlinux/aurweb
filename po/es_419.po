@@ -10,13 +10,15 @@
 # Nicolás de la Torre <ndelatorre@gmail.com>, 2012
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2012,2015-2016
+# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
+# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-08-06 11:44+0200\n"
-"PO-Revision-Date: 2016-08-06 09:48+0000\n"
-"Last-Translator: Lukas Fleischer <lfleischer@lfos.de>\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Spanish (Latin America) (http://www.transifex.com/lfleischer/"
 "aur/language/es_419/)\n"
 "Language: es_419\n"
@@ -30,6 +32,20 @@ msgstr "Página no encontrada"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Disculpe, la página que solicitó no existe."
+
+msgid "Note"
+msgstr "Nota"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
 
 msgid "Service Unavailable"
 msgstr "Servicio no disponible"
@@ -87,7 +103,7 @@ msgid "Submit a proposal to vote on."
 msgstr "Envíe una propuesta a la cual votar."
 
 msgid "Applicant/TU"
-msgstr "Candidato/Usuario de confianza (TU)"
+msgstr "Candidato/Usuario de confianza (UC)"
 
 msgid "(empty if not applicable)"
 msgstr "(vacío si no aplica)"
@@ -96,13 +112,13 @@ msgid "Type"
 msgstr "Tipo"
 
 msgid "Addition of a TU"
-msgstr "Agregar a un nuevo usuario de confianza"
+msgstr "Agregar a un nuevo Usuario de Confianza"
 
 msgid "Removal of a TU"
-msgstr "Remover a un usuario de confianza"
+msgstr "Remover a un Usuario de Confianza"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr "Remover a un usuario de confianza (no declarado inactivo)"
+msgstr "Remover a un Usuario de Confianza (no declarado inactivo)"
 
 msgid "Amendment of Bylaws"
 msgstr "Enmienda a las Bylaws (Reglas de los TU)"
@@ -128,7 +144,7 @@ msgid ""
 "Guidelines%s for more information."
 msgstr ""
 "¡Bienvenido al repositorio de usuarios de Arch! Lea la %sGuía del usuario "
-"del AUR%s y la %sGuía del usuario de confianza del AUR%s para mayor "
+"del AUR%s y la %sGuía del usuario de Confianza del AUR%s para mayor "
 "información."
 
 #, php-format
@@ -153,8 +169,8 @@ msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
 msgstr ""
-"Los paquetes en AUR son producidos por los usuarios. Cualquier uso de ellos "
-"o sus archivos es a su propio riesgo."
+"Los paquetes en el AUR son producidos por los usuarios. Cualquier uso de "
+"ellos o sus archivos es a su propio riesgo."
 
 msgid "Learn more..."
 msgstr "Aprenda más..."
@@ -229,7 +245,7 @@ msgstr ""
 "información."
 
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr "Las siguientes huellas SSH están en uso para AUR."
+msgstr "Las siguientes huellas SSH están en uso para el AUR."
 
 msgid "Discussion"
 msgstr "Debate"
@@ -929,6 +945,9 @@ msgstr "Inactivo desde"
 msgid "Active"
 msgstr "Activo"
 
+msgid "Registration date:"
+msgstr ""
+
 msgid "Last Login"
 msgstr "Última autentificación"
 
@@ -944,6 +963,10 @@ msgstr "Editar la cuenta de este usuario"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Haga clic %saquí%s si desea borrar permanentemente esa cuenta."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr ""
 
 msgid "required"
 msgstr "obligatorio"
@@ -1061,7 +1084,7 @@ msgstr "Regresar a detalles"
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
-"Derechos de autor %s 2004 - %d, equipo desarrollador de la web del AUR."
+"Derechos de autor %s 2004 - %d, equipo de desarrollo de la web del AUR."
 
 msgid "My Packages"
 msgstr "Mis paquetes"
@@ -1253,9 +1276,6 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 "Use este formulario para cerrar la petición para el paquete base %s%s%s."
 
-msgid "Note"
-msgstr "Nota"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1348,8 +1368,8 @@ msgstr "Fecha"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d día restante"
+msgstr[1] "~%d días restantes"
 
 #, php-format
 msgid "~%d hour left"
@@ -1452,6 +1472,8 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"La Popularidad es calculada como la suma de todos los votos ponderados con "
+"un factor de %.2f por día desde la creación del paquete."
 
 msgid "Yes"
 msgstr "Sí"
@@ -1545,7 +1567,7 @@ msgid "Participation"
 msgstr "Participación"
 
 msgid "Last Votes by TU"
-msgstr "Último voto del usuario de confianza"
+msgstr "Último voto del Usuario de Confianza"
 
 msgid "Last vote"
 msgstr "Último voto"
