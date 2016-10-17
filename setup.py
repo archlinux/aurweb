@@ -22,6 +22,12 @@ setup(
             'aurweb-git-auth = aurweb.git.auth:main',
             'aurweb-git-serve = aurweb.git.serve:main',
             'aurweb-git-update = aurweb.git.update:main',
+            'aurweb-aurblup = aurweb.scripts.aurblup:main',
+            'aurweb-mkpkglists = aurweb.scripts.mkpkglists:main',
+            'aurweb-notify = aurweb.scripts.notify:main',
+            'aurweb-pkgmaint = aurweb.scripts.pkgmaint:main',
+            'aurweb-popupdate = aurweb.scripts.popupdate:main',
+            'aurweb-tuvotereminder = aurweb.scripts.tuvotereminder:main',
         ],
     },
 )
