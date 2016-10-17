@@ -61,7 +61,11 @@
 				</tr>
 				<tr>
 					<th><?= __("Registration date:") ?></th>
+					<?php if ($row["RegistrationTS"]): ?>
 					<td><?= (new DateTime($row["RegistrationTS"]))->format('Y-m-d') ?></td>
+					<?php else: ?>
+					<td><?= __("unknown") ?></td>
+					<?php endif; ?>
 				</tr>
 				<?php if (has_credential(CRED_ACCOUNT_LAST_LOGIN)): ?>
 				<tr>
