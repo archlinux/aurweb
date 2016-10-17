@@ -4,7 +4,7 @@ function config_load() {
 	global $AUR_CONFIG;
 
 	if (!isset($AUR_CONFIG)) {
-		$AUR_CONFIG = parse_ini_file("../../conf/config", true, INI_SCANNER_RAW);
+		$AUR_CONFIG = parse_ini_file("/etc/aurweb/config", true, INI_SCANNER_RAW);
 	}
 }
 

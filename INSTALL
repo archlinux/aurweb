@@ -30,8 +30,8 @@ Setup on Arch Linux
         }
     }
 
-3) Copy conf/config.proto to conf/config and adjust the configuration (pay
-   attention to disable_http_login, enable_maintenance and aur_location).
+3) Copy conf/config.proto to /etc/aurweb/config and adjust the configuration
+   (pay attention to disable_http_login, enable_maintenance and aur_location).
 
 4) Create a new MySQL database and a user and import the AUR SQL schema:
 

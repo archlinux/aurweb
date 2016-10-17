@@ -12,8 +12,7 @@ def _get_parser():
         if 'AUR_CONFIG' in os.environ:
             path = os.environ.get('AUR_CONFIG')
         else:
-            relpath = "/../conf/config"
-            path = os.path.dirname(os.path.realpath(__file__)) + relpath
+            path = "/etc/aurweb/config"
         _parser.read(path)
 
     return _parser
