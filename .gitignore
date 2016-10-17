@@ -1,10 +1,9 @@
-conf/config
 dummy-data.sql*
 po/*.mo
 po/*.po~
 po/POTFILES
-scripts/git-integration/__pycache__/
-scripts/git-integration/templates/
 web/locale/*/
 aur.git/
-git-interface/git-auth.sh
+__pycache__/
+*.py[cod]
+test/test-results/

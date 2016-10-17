@@ -167,10 +167,6 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		header("Content-Type: image/gif");
 		readfile("./$path");
 		break;
-	case "/css/archnavbar/archlogo.gif":
-		header("Content-Type: image/png");
-		readfile("./$path");
-		break;
 	case "/css/archnavbar/archlogo.png":
 	case "/css/archnavbar/aurlogo.png":
 	case "/images/favicon.ico":

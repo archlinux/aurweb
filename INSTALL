@@ -4,7 +4,7 @@ Setup on Arch Linux
 1) Clone the AUR project:
 
    $ cd /srv/http/
-   $ git clone git://projects.archlinux.org/aurweb.git
+   $ git clone git://git.archlinux.org/aurweb.git
 
 2) Setup a web server with PHP and MySQL. Configure the web server to redirect
    all URLs to /index.php/foo/bar/. The following block can be used with nginx:
@@ -30,47 +30,44 @@ Setup on Arch Linux
         }
     }
 
-3) Copy conf/config.proto to conf/config and adjust the configuration (pay
-   attention to disable_http_login, enable_maintenance and aur_location).
+3) Copy conf/config.proto to /etc/aurweb/config and adjust the configuration
+   (pay attention to disable_http_login, enable_maintenance and aur_location).
 
 4) Create a new MySQL database and a user and import the AUR SQL schema:
 
     $ mysql -uaur -p AUR </srv/http/aurweb/schema/aur-schema.sql
 
-5) Create a new user:
+5) Install Python modules and dependencies:
+
+    # pacman -S python-mysql-connector python-pygit2 python-srcinfo
+    # python3 setup.py install
+
+6) Create a new user:
 
     # useradd -U -d /srv/http/aurweb -c 'AUR user' aur
 
-6) Initialize the Git repository:
+7) Initialize the Git repository:
 
     # mkdir /srv/http/aurweb/aur.git/
     # cd /srv/http/aurweb/aur.git/
     # git init --bare
     # git config --local transfer.hideRefs '^refs/'
-    # git config --local transfer.hideRefs '!refs/'
-    # ln -s ../../git-interface/git-update.py hooks/update
+    # git config --local --add transfer.hideRefs '!refs/'
+    # git config --local --add transfer.hideRefs '!HEAD'
+    # ln -s /usr/local/bin/aurweb-git-update hooks/update
     # chown -R aur .
 
-7) Install needed Python modules:
-
-    # pacman -S python-mysql-connector python-pygit2 python-srcinfo
-
-8) Install the git-auth wrapper script:
-
-    # cd /srv/http/aurweb/git-interface/
-    # make && make install
-
-9) Configure sshd(8) for the AUR. Add the following lines at the end of your
+8) Configure sshd(8) for the AUR. Add the following lines at the end of your
    sshd_config(5) and restart the sshd. Note that OpenSSH 6.9 or newer is
    needed!
 
     Match User aur
         PasswordAuthentication no
-        AuthorizedKeysCommand /usr/local/bin/aur-git-auth "%t" "%k"
+        AuthorizedKeysCommand /usr/local/bin/aurweb-git-auth "%t" "%k"
         AuthorizedKeysCommandUser aur
 
-10) If you want to enable smart HTTP support with nginx and fcgiwrap, you can
-    use the following directives:
+9) If you want to enable smart HTTP support with nginx and fcgiwrap, you can
+   use the following directives:
 
     location ~ "^/([a-z0-9][a-z0-9.+_-]*?)(\.git)?/(git-(receive|upload)-pack|HEAD|info/refs|objects/(info/(http-)?alternates|packs)|[0-9a-f]{2}/[0-9a-f]{38}|pack/pack-[0-9a-f]{40}\.(pack|idx))$" {
         fastcgi_pass   unix:/run/fcgiwrap.sock;

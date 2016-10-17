@@ -1,5 +1,5 @@
 [database]
-dsn_prefix = mysql
+backend = mysql
 host = localhost
 socket = /var/run/mysqld/mysqld.sock
 name = AUR
@@ -46,17 +46,24 @@ RSA = SHA256:Ju+yWiMb/2O+gKQ9RJCDqvRg7l+Q95KFAeqM5sr6l2s
 [auth]
 valid-keytypes = ssh-rsa ssh-dss ecdsa-sha2-nistp256 ecdsa-sha2-nistp384 ecdsa-sha2-nistp521 ssh-ed25519
 username-regex = [a-zA-Z0-9]+[.\-_]?[a-zA-Z0-9]+$
-git-serve-cmd = /srv/http/aurweb/git-interface/git-serve.py
-ssh-options = no-port-forwarding,no-X11-forwarding,no-pty
+git-serve-cmd = /usr/local/bin/aurweb-git-serve
+ssh-options = restrict
 
 [serve]
 repo-path = /srv/http/aurweb/aur.git/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
 git-shell-cmd = /usr/bin/git-shell
-git-update-cmd = /srv/http/aurweb/git-interface/git-update.py
+git-update-cmd = /usr/local/bin/aurweb-git-update
 ssh-cmdline = ssh aur@aur.archlinux.org
+
+[update]
+max-blob-size = 256000
 
 [aurblup]
 db-path = /srv/http/aurweb/aurblup/
 sync-dbs = core extra community multilib testing community-testing
-servers = ftp://mirrors.kernel.org/archlinux/%s/os/x86_64
+server = ftp://mirrors.kernel.org/archlinux/%s/os/x86_64
+
+[mkpkglists]
+packagesfile = /srv/http/aurweb/web/html/packages.gz
+pkgbasefile = /srv/http/aurweb/web/html/pkgbase.gz

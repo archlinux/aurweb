@@ -1,0 +1,29 @@
+1. Add a column to store ownership notification settings:
+
+----
+ALTER TABLE Users ADD COLUMN OwnershipNotify TINYINT(1) NOT NULL DEFAULT 1;
+----
+
+2. Resize the LastLoginIPAddress column:
+
+----
+ALTER TABLE Users MODIFY LastLoginIPAddress VARCHAR(45) NULL DEFAULT NULL;
+----
+
+3. Add a new column to store repository information of official providers:
+
+----
+ALTER TABLE OfficialProviders ADD COLUMN Repo VARCHAR(64) NOT NULL;
+----
+
+4. Add a column to store users' homepages:
+
+----
+ALTER TABLE Users ADD COLUMN Homepage TEXT NULL DEFAULT NULL;
+----
+
+5. Resize LangPreference to fit Latin American Spanish language code:
+
+--
+ALTER TABLE Users MODIFY LangPreference VARCHAR(6);
+--

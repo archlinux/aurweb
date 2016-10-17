@@ -5,7 +5,7 @@
 # Translators:
 # Antoine Lubineau <antoine@lubignon.info>, 2012
 # Antoine Lubineau <antoine@lubignon.info>, 2012-2016
-# Cedric Girard <girard.cedric@gmail.com>, 2011,2014
+# Cedric Girard <girard.cedric@gmail.com>, 2011,2014,2016
 # lordheavy <lordheavym@gmail.com>, 2011
 # lordheavy <lordheavym@gmail.com>, 2013-2014
 # lordheavy <lordheavym@gmail.com>, 2011-2012
@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 21:38+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-11 20:06+0000\n"
 "Last-Translator: Antoine Lubineau <antoine@lubignon.info>\n"
 "Language-Team: French (http://www.transifex.com/lfleischer/aur/language/"
 "fr/)\n"
@@ -31,6 +31,21 @@ msgstr "Page non trouvée"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Désolé, la page que vous avez demandée n’existe pas."
+
+msgid "Note"
+msgstr "Note"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+"Les URL de clone Git ne sont pas censées être ouvertes depuis un navigateur."
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "Pour cloner le dépôt Git de %s, exécutez %s."
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "Cliquez %sici%s pour retourner à la page des détails de %s."
 
 msgid "Service Unavailable"
 msgstr "Service indisponible"
@@ -536,7 +551,7 @@ msgstr ""
 "paquets."
 
 msgid "Submit Request"
-msgstr "Soumettre la demande"
+msgstr "Soumettre une demande"
 
 msgid "Close Request"
 msgstr "Fermer la requête"
@@ -931,6 +946,9 @@ msgstr "caché"
 msgid "Real Name"
 msgstr "Nom réel"
 
+msgid "Homepage"
+msgstr "Accueil"
+
 msgid "IRC Nick"
 msgstr "Pseudo IRC"
 
@@ -945,6 +963,9 @@ msgstr "Inactif depuis"
 
 msgid "Active"
 msgstr "Actif"
+
+msgid "Registration date:"
+msgstr "Date d'enregistrement :"
 
 msgid "Last Login"
 msgstr "Dernière connexion."
@@ -961,6 +982,10 @@ msgstr "Éditer le compte de cet utilisateur."
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Cliquez %sici%s si vous voulez effacer ce compte de façon définitive."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Cliquer %sici%s pour obtenir les détails de l'utilisateur."
 
 msgid "required"
 msgstr "requis"
@@ -1011,6 +1036,9 @@ msgstr "Avertir des nouveaux commentaires"
 
 msgid "Notify of package updates"
 msgstr "Notifications de mises à jour de paquets"
+
+msgid "Notify of ownership changes"
+msgstr "Notifier des changements de propriétaire"
 
 msgid "Update"
 msgstr "Mise à jour"
@@ -1114,6 +1142,9 @@ msgstr "Voter pour ce paquet"
 
 msgid "Disable notifications"
 msgstr "Désactiver les notifications"
+
+msgid "Enable notifications"
+msgstr "Activer les notifications"
 
 msgid "Manage Co-Maintainers"
 msgstr "Gérer les co-mainteneurs"
@@ -1262,9 +1293,6 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 "Utiliser ce formulaire pour fermer la requête pour le paquet de base %s%s%s."
 
-msgid "Note"
-msgstr "Note"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1301,6 +1329,40 @@ msgstr "Rendre orphelin"
 msgid "Merge into"
 msgstr "Fusionner dans"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"En soumettant une requète de suppression, vous demandez à un utilisateur de "
+"confiance de supprimer le paquet de base. Ce type de requète doit être "
+"utilisé pour les doublons, les logiciels abandonnés par l'upstream ainsi que "
+"pour les paquets illégaux ou irréparables."
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"En soumettant une requète de fusion, vous demandez à un utilisateur de "
+"confiance de supprimer le paquet de base et de transférer les votes et les "
+"commentaires vers un autre paquet de base. Fusionner un paquet n'impacte pas "
+"le dépot Git correspondant. Assurez-vous de mettre à jour l'historique Git "
+"du paquet cible vous-même."
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"En soumettant une requète pour rendre orphelin, vous demandez à un "
+"utilisateur de confiance de retirer le mainteneur du paquet de base. Merci "
+"de ne faire ceci que si le paquet nécessite l'action d'un mainteneur, que le "
+"mainteneur ne répond pas et que vous avez préalablement essayé de contacter "
+"le mainteneur."
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1321,8 +1383,10 @@ msgid "Date"
 msgstr "Date"
 
 #, php-format
-msgid "~%d days left"
-msgstr "~%d jours restants"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "~%d jour restant"
+msgstr[1] "~%d jours restants"
 
 #, php-format
 msgid "~%d hour left"
@@ -1420,12 +1484,13 @@ msgstr[1] "%d paquets trouvés."
 msgid "Version"
 msgstr "Version"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 "La popularité est calculée à partir de la somme de tous les votes, chacun "
-"étant pondéré par un facteur de 0.98 par jour depuis sa création."
+"étant pondéré par un facteur de %.2f par jour depuis sa création."
 
 msgid "Yes"
 msgstr "Oui"

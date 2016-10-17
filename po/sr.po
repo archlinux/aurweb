@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-11 01:46+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-11 14:07+0000\n"
 "Last-Translator: Slobodan Terzić <githzerai06@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/lfleischer/aur/language/"
 "sr/)\n"
@@ -27,6 +27,20 @@ msgstr "Stranica nije nađena"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Stranica koju ste zahtevali ne postoji."
+
+msgid "Note"
+msgstr "Beleška"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr "URL-ovi za Git kloniranje nisu namenjeni za otvaranje u pregledaču."
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "Da bi klonirali git riznicu %s, pokrenite %s."
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "Kliknite %sovde%s da bi se vratili na stranicu o %s."
 
 msgid "Service Unavailable"
 msgstr "Servis nije dostupan"
@@ -880,6 +894,9 @@ msgstr "skrivena"
 msgid "Real Name"
 msgstr "Pravo ime"
 
+msgid "Homepage"
+msgstr "Domaća stranica"
+
 msgid "IRC Nick"
 msgstr "IRC nadimak"
 
@@ -894,6 +911,9 @@ msgstr "Neaktivan od"
 
 msgid "Active"
 msgstr "Aktivan"
+
+msgid "Registration date:"
+msgstr "Datum registracije:"
 
 msgid "Last Login"
 msgstr "Poslednje prijavljivanje"
@@ -910,6 +930,10 @@ msgstr "Uređivanje naloga ovog korisnika"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Kliknite %sovde%s ako želite trajno brisanje ovog naloga."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Kliknite %sovde%s za podatke o korisniku."
 
 msgid "required"
 msgstr "neophodno"
@@ -960,6 +984,9 @@ msgstr "Obavesti o novim komentarima"
 
 msgid "Notify of package updates"
 msgstr "Obavesti o nadogradnjama paketa"
+
+msgid "Notify of ownership changes"
+msgstr "Obavesti o promenama vlasništva"
 
 msgid "Update"
 msgstr "Ažuriraj"
@@ -1063,6 +1090,9 @@ msgstr "Glasajte za paket"
 msgid "Disable notifications"
 msgstr "Ugasi obaveštenja"
 
+msgid "Enable notifications"
+msgstr "Uključi obaveštenja"
+
 msgid "Manage Co-Maintainers"
 msgstr "Upravljanje koodržavaocima"
 
@@ -1130,7 +1160,7 @@ msgstr "Poslednji komentari"
 
 #, php-format
 msgid "%s commented on %s"
-msgstr "%s postavi komentar za %s"
+msgstr "%s postavi komentar %s u"
 
 #, php-format
 msgid "Anonymous comment on %s"
@@ -1210,9 +1240,6 @@ msgstr "Izvori"
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "Ovim formularom zatvarate zahteve za osnovu paketa %s%s%s."
 
-msgid "Note"
-msgstr "Beleška"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1249,6 +1276,37 @@ msgstr "Siročić"
 msgid "Merge into"
 msgstr "Stopi sa"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"Podnošenjem zahteva za brisanje tražili ste of poverljivog korisnika da "
+"obriše bazu paketa. Ovaj tip zahteva treba koristiti za duplikate, uzvodno "
+"napišten softver, kao i nelegalne ili nepopravljivo pokvarene pakete."
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"Podnošenjem zahteva za spajanje tražili ste of poverljivog korisnika da "
+"obriše bazu paketa i spoji njene glasove sa drugom bazom paketa. Spajanje "
+"paketa ne utiče na pripadajuće Git riznice. Postarajte se sami da ažurirate "
+"Git istorijat ciljanog paketa."
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"Podnošenjem zahteva za odricanje tražili ste od poverljivog korisnika da "
+"izvrži odricanje od baze paketa. Molimo da ovo tražite samo ukoliko paket "
+"zahteva održavanje, a održavalac je nedosupan i već ste pokušali da ga "
+"kontaktirate."
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1270,8 +1328,11 @@ msgid "Date"
 msgstr "Datum"
 
 #, php-format
-msgid "~%d days left"
-msgstr "Preostalo dana: ~%d"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "Preostaje još ~%d dan"
+msgstr[1] "Preostaje još ~%d dana"
+msgstr[2] "Preostaje još ~%d dana"
 
 #, php-format
 msgid "~%d hour left"
@@ -1371,12 +1432,13 @@ msgstr[2] "Nađeno %d paketa."
 msgid "Version"
 msgstr "Verzija"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
-"Popularnost se izračunava kao suma svih glasova, gde glas ima faktor težine "
-"0,98 za svaki dan od njegovog nastanka."
+"Popularnost se izračunava kao suma svih glasova, gde svaki glas ima teži "
+"%.2f po danu od kada je dat."
 
 msgid "Yes"
 msgstr "Da"

@@ -9,7 +9,7 @@
 # FabianS_ <cadoc@gmx.de>, 2012
 # go2sh <c.seitz@tu-bs.de>, 2015
 # FabianS_ <cadoc@gmx.de>, 2012
-# Giuliano Schneider <gs93@gmx.net>, 2015
+# Giuliano Schneider <gs93@gmx.net>, 2015-2016
 # go2sh <c.seitz@tu-bs.de>, 2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Mark Gerlach, 2015
@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 12:59+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: German (http://www.transifex.com/lfleischer/aur/language/"
 "de/)\n"
@@ -40,6 +40,20 @@ msgstr "Seite nicht gefunden"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Die angeforderte Seite existiert leider nicht."
+
+msgid "Note"
+msgstr "Anmerkung"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
 
 msgid "Service Unavailable"
 msgstr "Dienst nicht verfügbr"
@@ -830,10 +844,10 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Du wurdest von der Benachrichtigungsliste für %s entfernt."
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "Du bist nicht berechtigt diesen Kommentar wiederherzustellen."
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "Kommentar wurde wiederhergestellt."
 
 msgid "You are not allowed to delete this comment."
 msgstr "Du darfst diesen Kommentar nicht löschen."
@@ -928,6 +942,9 @@ msgstr "versteckt"
 msgid "Real Name"
 msgstr "Echter Name"
 
+msgid "Homepage"
+msgstr ""
+
 msgid "IRC Nick"
 msgstr "IRC-Name"
 
@@ -942,6 +959,9 @@ msgstr "Nicht aktiv seit"
 
 msgid "Active"
 msgstr "Aktiv"
+
+msgid "Registration date:"
+msgstr ""
 
 msgid "Last Login"
 msgstr "Letzter Login"
@@ -959,6 +979,10 @@ msgstr "Konto dieses Nutzers bearbeiten"
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr ""
 "Klicke %shier%s, wenn du diesen Account unwiderruflich entfernen möchtest."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr ""
 
 msgid "required"
 msgstr "Notwendig"
@@ -1008,6 +1032,9 @@ msgid "Notify of new comments"
 msgstr "Über neue Kommentare benachrichtigen"
 
 msgid "Notify of package updates"
+msgstr ""
+
+msgid "Notify of ownership changes"
 msgstr ""
 
 msgid "Update"
@@ -1070,7 +1097,7 @@ msgstr ""
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
+msgstr "Copyright %s 2004-%d aurweb Development Team."
 
 msgid "My Packages"
 msgstr "Meine Pakete"
@@ -1095,7 +1122,7 @@ msgstr "Durchsuche Wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Als \"veraltet\" markiert (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "Paket als \"veraltet\" markieren"
@@ -1111,6 +1138,9 @@ msgstr "Für dieses Paket stimmen"
 
 msgid "Disable notifications"
 msgstr "Benachrichtigungen deaktivieren"
+
+msgid "Enable notifications"
+msgstr ""
 
 msgid "Manage Co-Maintainers"
 msgstr "Verwalte Ko-Maintainer"
@@ -1190,18 +1220,18 @@ msgstr "gelöscht am %s von %s"
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "gelöscht am %s"
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "geändert am %s von %s"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "geändert am %s"
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "Kommentar wiederherstellen"
 
 msgid "Delete comment"
 msgstr "Kommentar löschen"
@@ -1260,9 +1290,6 @@ msgstr ""
 "Benutze dieses Formular, um die Anfrage für die Paketbasis %s%s%s zu "
 "schließen."
 
-msgid "Note"
-msgstr "Anmerkung"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1299,6 +1326,26 @@ msgstr "Verwaist"
 msgid "Merge into"
 msgstr "Verschmelzen mit"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1319,8 +1366,10 @@ msgid "Date"
 msgstr "Datum"
 
 #, php-format
-msgid "~%d days left"
-msgstr "~%d Tage verbleibend"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1418,12 +1467,11 @@ msgstr[1] "%d Pakete gefunden."
 msgid "Version"
 msgstr "Version"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
-"Die Beliebtheit berechnet sich als Summe aller Stimmen, wobei jede Stimme "
-"mit einem Faktor von 0,98 pro Tag seit der Erstellung gewichtet wird."
 
 msgid "Yes"
 msgstr "Ja"
@@ -1483,7 +1531,7 @@ msgid "Recent Updates"
 msgstr "Letzte Aktualisierungen"
 
 msgid "more"
-msgstr ""
+msgstr "mehr"
 
 msgid "My Statistics"
 msgstr "Meine Statistiken"

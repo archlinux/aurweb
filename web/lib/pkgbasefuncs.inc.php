@@ -661,6 +661,9 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 		$q.= "SET MaintainerUID = $uid ";
 		$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
 		$dbh->exec($q);
+
+		/* Add the new maintainer to the notification list. */
+		pkgbase_notify($base_ids);
 	} else {
 		/* Update the co-maintainer list when disowning a package. */
 		if (has_credential(CRED_PKGBASE_DISOWN)) {
@@ -692,8 +695,11 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 		}
 	}
 
+	foreach ($base_ids as $base_id) {
+		notify(array($action ? 'adopt' : 'disown', $base_id, $uid));
+	}
+
 	if ($action) {
-		pkgbase_notify($base_ids);
 		return array(true, __("The selected packages have been adopted."));
 	} else {
 		return array(true, __("The selected packages have been disowned."));
@@ -1056,7 +1062,6 @@ function pkgbase_set_keywords($base_id, $keywords) {
 	$i = 0;
 	foreach ($keywords as $keyword) {
 		$q = sprintf("INSERT INTO PackageKeywords (PackageBaseID, Keyword) VALUES (%d, %s)", $base_id, $dbh->quote($keyword));
-		var_dump($q);
 		$dbh->exec($q);
 
 		$i++;

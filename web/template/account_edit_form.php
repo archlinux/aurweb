@@ -1,6 +1,7 @@
 <?php if ($A == "UpdateAccount"): ?>
 <p>
 	<?= __('Click %shere%s if you want to permanently delete this account.', '<a href="' . get_user_uri($N) . 'delete/' . '">', '</a>') ?>
+	<?= __('Click %shere%s for user details.', '<a href="' . get_user_uri($N) . '">', '</a>') ?>
 </p>
 
 <form id="edit-profile-form" action="<?= get_user_uri($N) . 'update/'; ?>" method="post">
@@ -99,6 +100,11 @@
 		</p>
 
 		<p>
+			<label for="id_homepage"><?= __("Homepage") ?>:</label>
+			<input type="text" size="30" name="HP" id="id_homepage" value="<?= htmlspecialchars($HP,ENT_QUOTES) ?>" />
+		</p>
+
+		<p>
 			<label for="id_irc"><?= __("IRC Nick") ?>:</label>
 			<input type="text" size="30" maxlength="32" name="I" id="id_irc" value="<?= htmlspecialchars($I,ENT_QUOTES) ?>" />
 		</p>
@@ -142,6 +148,10 @@
 		<p>
 			<label for="id_updatenotify"><?= __("Notify of package updates") ?>:</label>
 			<input type="checkbox" name="UN" id="id_updatenotify" <?= $UN ? 'checked="checked"' : '' ?> />
+		</p>
+		<p>
+			<label for="id_ownershipnotify"><?= __("Notify of ownership changes") ?>:</label>
+			<input type="checkbox" name="ON" id="id_ownershipnotify" <?= $ON ? 'checked="checked"' : '' ?> />
 		</p>
 	</fieldset>
 

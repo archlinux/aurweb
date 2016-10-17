@@ -4,13 +4,13 @@
 #
 # Translators:
 # safa1996alfulaij <safa1996alfulaij@gmail.com>, 2015
-# صفا الفليج <safaalfulaij@hotmail.com>, 2015
+# صفا الفليج <safaalfulaij@hotmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 12:59+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Arabic (http://www.transifex.com/lfleischer/aur/language/"
 "ar/)\n"
@@ -26,6 +26,20 @@ msgstr "لم يُعثر على الصّفحة"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "آسفون، الصّفحة التي طلبتها غير موجودة."
+
+msgid "Note"
+msgstr "ملاحظة"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
 
 msgid "Service Unavailable"
 msgstr "الخدمة غير متوفّرة"
@@ -145,6 +159,7 @@ msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
 msgstr ""
+"حزم م‌م‌آ هي حزم قدّمها المستخدمين. أيّ استخدام للملفّات يكون على مسؤوليّتك الخاصّة."
 
 msgid "Learn more..."
 msgstr "اطّلع على المزيد..."
@@ -228,7 +243,7 @@ msgid ""
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
 "النّقاشات العاّمة حول مستودع مستخدمي آرتش (م‌م‌آ) وبنية المستخدمين الموثوقين "
-"تكون في  %saur-general%s. للنّقاشات المتعلّقة بتطوير واجهة وِب م‌م‌آ، استخدم "
+"تكون في  %saur-general%s. للنّقاشات المتعلّقة بتطوير واجهة وِبّ م‌م‌آ، استخدم "
 "قائمة %saur-dev%s البريديّة."
 
 msgid "Bug Reporting"
@@ -241,6 +256,9 @@ msgid ""
 "%sonly%s. To report packaging bugs contact the package maintainer or leave a "
 "comment on the appropriate package page."
 msgstr ""
+"إن وجدت علّة في واجهة وِبّ م‌م‌آ، فضلًا املأ تقريرًا بها في %sمتعقّب العلل%s. استخدم "
+"المتعقّب للإبلاغ عن العلل في واجهة وِبّ م‌م‌آ %sفقط%s. للإبلاغ عن علل الحزم راسل "
+"مديرها أو اترك تعليقًا في صفحة الحزمة المناسبة."
 
 msgid "Package Search"
 msgstr "ابحث عن حزمة"
@@ -429,7 +447,7 @@ msgstr "علّم الحزمة كقديمة"
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages out-"
 "of-date: "
-msgstr ""
+msgstr "استخدم هذه الاستمارة لتعليم أساس الحزمة %s%s%s والحزم الآتية كقديمة:"
 
 #, php-format
 msgid ""
@@ -450,7 +468,7 @@ msgid "Flag"
 msgstr "علّم"
 
 msgid "Only registered users can flag packages out-of-date."
-msgstr ""
+msgstr "يمكن فقط للمستخدمين المسجّلين تعليم الحزم كقديمة."
 
 msgid "Package Merging"
 msgstr "ادمج حزمة"
@@ -606,7 +624,7 @@ msgstr "انقر وصلة الولوج أعلاه لاستخدام حسابك."
 
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
-msgstr "لم تتمّ أيّ تغييرات على الحساب %s%s%s."
+msgstr "لم تجري أيّ تغييرات على الحساب %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
@@ -649,16 +667,16 @@ msgid "View account information for %s"
 msgstr "اعرض معلومات حساب %s"
 
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "معرّف أساس الحزمة أو اسمه ناقص."
 
 msgid "You are not allowed to edit this comment."
-msgstr ""
+msgstr "ليس مسموحًا لك بتحرير هذا التّعليق."
 
 msgid "Comment does not exist."
 msgstr "التّعليق غير موجود."
 
 msgid "Comment cannot be empty."
-msgstr ""
+msgstr "لا يمكن أن يكون التّعليق فارغًا."
 
 msgid "Comment has been added."
 msgstr "أُضيف التّعليق"
@@ -670,19 +688,19 @@ msgid "Missing comment ID."
 msgstr "معرّف التّعليق ناقص."
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "لا يمكن تثبيت أكثر من 5 تعليقات."
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "ليس مسموحًا لك بتثبيت هذا التّعليق."
 
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "ليس مسموحًا لك بفكّ تثبيت هذا التّعليق."
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "ثّبّت التّعليق."
 
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "فُكّ تثبيت التعليق."
 
 msgid "Error retrieving package details."
 msgstr "خطأ في استرجاع تفاصيل الحزمة."
@@ -697,7 +715,7 @@ msgid "You did not select any packages to flag."
 msgstr "لم تحدّد أيّ حزم لتعليمها."
 
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr ""
+msgstr "لم تعلّم الحزم المحدّدة، فضلًا أدخل تعليقًا."
 
 msgid "The selected packages have been flagged out-of-date."
 msgstr "عُلّمت الحزم المحدّدة كقديمة."
@@ -777,7 +795,7 @@ msgid "Comment has been deleted."
 msgstr "حُذف التّعليق."
 
 msgid "Comment has been edited."
-msgstr ""
+msgstr "حُرّر التّعليق."
 
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr "ليس مسموحًا لك بتحرير كلمات أساس الحزمة المفتاحيّة."
@@ -856,10 +874,13 @@ msgid "Email Address"
 msgstr "البريد الإلكترونيّ"
 
 msgid "hidden"
-msgstr ""
+msgstr "مخفيّ"
 
 msgid "Real Name"
 msgstr "الاسم الحقيقيّ"
+
+msgid "Homepage"
+msgstr "الرّئيسيّة"
 
 msgid "IRC Nick"
 msgstr "اسم آي‌آر‌سي المستعار"
@@ -876,6 +897,9 @@ msgstr "غير نشط منذ"
 msgid "Active"
 msgstr "نشط"
 
+msgid "Registration date:"
+msgstr ""
+
 msgid "Last Login"
 msgstr "آخر ولوج"
 
@@ -891,6 +915,10 @@ msgstr "حرّر حساب هذا المستخدم"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "انقر %sهنا%s إن أردت حذف هذا الحساب نهائيًّا."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr ""
 
 msgid "required"
 msgstr "مطلوب"
@@ -910,7 +938,7 @@ msgstr "غير نشط"
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr ""
+msgstr "فضلًا تأكّد من إدخال البريد الإلكترونيّ الصّحيح، وإلّا فسيُقفل الحساب."
 
 msgid "Hide Email Address"
 msgstr "أخفِ عنوان البريد الإلكترونيّ"
@@ -930,13 +958,16 @@ msgid "SSH Public Key"
 msgstr "مفتاح SSH العموميّ"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "إعدادات الإخطارات"
 
 msgid "Notify of new comments"
 msgstr "أخطرني بالتّعليقات الجديدة"
 
 msgid "Notify of package updates"
-msgstr ""
+msgstr "أخطرني بتحديثات الحزم"
+
+msgid "Notify of ownership changes"
+msgstr "أخطرني بتغيير المُلّاك"
 
 msgid "Update"
 msgstr "حدّث"
@@ -981,22 +1012,22 @@ msgstr "احفظ"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "تعليق التّعليم كقديمة: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
+msgstr "علّم %s%s%s الحزمة %s%s%s بقديمة في %s%s%s وذلك للأسباب الآتية:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "لم تُعلّم الحزمة %s%s%s كقديمة."
 
 msgid "Return to Details"
-msgstr ""
+msgstr "عُد إلى التّفاصيل"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
+msgstr "الحقوق محفوظة %s 2004-%d فريق تطوير aurweb."
 
 msgid "My Packages"
 msgstr "حزمي"
@@ -1021,7 +1052,7 @@ msgstr "ابحث في الويكي"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "معلّمة كقديمة (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "علّم الحزمة كقديمة"
@@ -1037,6 +1068,9 @@ msgstr "صوّت لهذه الحزمة"
 
 msgid "Disable notifications"
 msgstr "عطّل الإخطارات"
+
+msgid "Enable notifications"
+msgstr "فعّل الإخطارات"
 
 msgid "Manage Co-Maintainers"
 msgstr "أدر المصينين المشاركين"
@@ -1092,7 +1126,7 @@ msgstr "آخر تحديث"
 
 #, php-format
 msgid "Edit comment for: %s"
-msgstr ""
+msgstr "حرّر تعليق: %s"
 
 msgid "Add Comment"
 msgstr "أضف تعليقًا"
@@ -1101,7 +1135,7 @@ msgid "View all comments"
 msgstr "اعرض كلّ التّعليقات"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "التّعليقات المثبّتة"
 
 msgid "Latest Comments"
 msgstr "آخر التّعليقات"
@@ -1137,10 +1171,10 @@ msgid "Delete comment"
 msgstr "احذف التّعليق"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "ثبّت التّعليق"
 
 msgid "Unpin comment"
-msgstr ""
+msgstr "فكّ تثبيت التّعليق"
 
 msgid "All comments"
 msgstr "كلّ التّعليقات"
@@ -1158,7 +1192,7 @@ msgid "Upstream URL"
 msgstr "عنوان المنبع"
 
 msgid "Visit the website for"
-msgstr "زُر موقع وِب"
+msgstr "زُر موقع وِبّ"
 
 msgid "Licenses"
 msgstr "الرّخص"
@@ -1187,9 +1221,6 @@ msgstr "المصادر"
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "استخدم هذه الاستمارة لإغلاق طلب أساس الحزمة %s%s%s."
-
-msgid "Note"
-msgstr "ملاحظة"
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
@@ -1225,6 +1256,26 @@ msgstr "يتيمة"
 msgid "Merge into"
 msgstr "ادمج مع"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1249,8 +1300,14 @@ msgid "Date"
 msgstr "التّاريخ"
 
 #, php-format
-msgid "~%d days left"
-msgstr ""
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1305,7 +1362,7 @@ msgid "Voted"
 msgstr "مصوّت عليها"
 
 msgid "Last modified"
-msgstr ""
+msgstr "آخر تعديل"
 
 msgid "Ascending"
 msgstr "تصاعديًّا"
@@ -1356,9 +1413,10 @@ msgstr[5] "عُثر على %d حزمة."
 msgid "Version"
 msgstr "الإصدارة"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
 msgid "Yes"
@@ -1419,7 +1477,7 @@ msgid "Recent Updates"
 msgstr "التّحديثات الأخيرة"
 
 msgid "more"
-msgstr ""
+msgstr "أخرى"
 
 msgid "My Statistics"
 msgstr "إحصائيّاتي"

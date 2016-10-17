@@ -5,13 +5,13 @@
 # Translators:
 # kusakata, 2013
 # kusakata, 2013
-# kusakata, 2013-2015
+# kusakata, 2013-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 12:59+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Japanese (http://www.transifex.com/lfleischer/aur/language/"
 "ja/)\n"
@@ -26,6 +26,20 @@ msgstr "ページが見つかりませんでした"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "あなたがリクエストしたページは存在しませんでした。"
+
+msgid "Note"
+msgstr "ノート"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
 
 msgid "Service Unavailable"
 msgstr "Service Unavailable"
@@ -442,7 +456,7 @@ msgid "Only Trusted Users and Developers can disown packages."
 msgstr "Trusted User と開発者だけがパッケージを孤児にできます。"
 
 msgid "Flag Comment"
-msgstr ""
+msgstr "コメントのフラグを立てる"
 
 msgid "Flag Package Out-Of-Date"
 msgstr "パッケージの Out-Of-Date フラグを立てる"
@@ -798,10 +812,10 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "%s がコメントの通知リストから削除されました。"
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "このコメントを復元する権限がありません。"
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "コメントは復元されました。"
 
 msgid "You are not allowed to delete this comment."
 msgstr "このコメントを削除することはできません。"
@@ -895,6 +909,9 @@ msgstr "非公開"
 msgid "Real Name"
 msgstr "本名"
 
+msgid "Homepage"
+msgstr "ホームページ"
+
 msgid "IRC Nick"
 msgstr "IRC ニックネーム"
 
@@ -909,6 +926,9 @@ msgstr "休止開始"
 
 msgid "Active"
 msgstr "活動中"
+
+msgid "Registration date:"
+msgstr "登録日:"
 
 msgid "Last Login"
 msgstr "最後のログイン"
@@ -925,6 +945,10 @@ msgstr "このユーザーのアカウントを編集"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "このアカウントを恒久的に削除したい場合は%sこちら%sをクリック。"
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "ユーザーの詳細は%sこちら%sをクリック。"
 
 msgid "required"
 msgstr "必須"
@@ -968,13 +992,16 @@ msgid "SSH Public Key"
 msgstr "SSH 公開鍵"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "通知設定"
 
 msgid "Notify of new comments"
 msgstr "新しいコメントを通知"
 
 msgid "Notify of package updates"
-msgstr ""
+msgstr "パッケージアップデートの通知"
+
+msgid "Notify of ownership changes"
+msgstr "所有者の変更の通知"
 
 msgid "Update"
 msgstr "更新"
@@ -1021,18 +1048,19 @@ msgstr "保存"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Out-of-Date フラグが立てられたコメント: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr ""
+"%s%s%s は %s%s%s を %s%s%s に以下の理由で out-of-date フラグを立てました:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s は out-of-date フラグが立てられていません。"
 
 msgid "Return to Details"
-msgstr ""
+msgstr "詳細に戻る"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
@@ -1061,7 +1089,7 @@ msgstr "wiki を検索"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "out-of-date フラグが立てられています (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "パッケージの out-of-date フラグを立てる"
@@ -1077,6 +1105,9 @@ msgstr "このパッケージに投票する"
 
 msgid "Disable notifications"
 msgstr "通知を止める"
+
+msgid "Enable notifications"
+msgstr "通知を有効にする"
 
 msgid "Manage Co-Maintainers"
 msgstr "共同メンテナの管理"
@@ -1155,18 +1186,18 @@ msgstr "%s によって %s に削除"
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "%s に削除"
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "%s に %s によって編集"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "%s に編集"
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "コメントを復元"
 
 msgid "Delete comment"
 msgstr "コメントを削除"
@@ -1225,9 +1256,6 @@ msgstr ""
 "このフォームを使ってパッケージベース %s%s%s のリクエストをクローズすることが"
 "できます。"
 
-msgid "Note"
-msgstr "ノート"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1264,6 +1292,38 @@ msgstr "孤児"
 msgid "Merge into"
 msgstr "マージ"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"削除リクエストを送信することで、Trusted User にパッケージベースの削除を要求で"
+"きます。削除リクエストを使用するケース: パッケージの重複や、上流によってソフ"
+"トウェアの開発が放棄された場合、違法なパッケージ、あるいはパッケージがどうし"
+"ようもなく壊れてしまっている場合など。"
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"マージリクエストを送信することで、パッケージベースを削除して\n"
+"投票数とコメントを他のパッケージベースに移動することを Trusted User に要求で"
+"きます。パッケージのマージは Git リポジトリに影響を与えません。マージ先のパッ"
+"ケージの Git 履歴は自分で更新してください。"
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"孤児リクエストを送信することで、パッケージベースの所有権が放棄されるように "
+"Trusted User に要求できます。パッケージにメンテナが何らかの手を加える必要があ"
+"り、現在のメンテナが行方不明で、メンテナに連絡を取ろうとしても返答がない場合"
+"にのみ、リクエストを送信してください。"
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1283,8 +1343,9 @@ msgid "Date"
 msgstr "日付"
 
 #, php-format
-msgid "~%d days left"
-msgstr "残り ~%d 日"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "残り ~%d 日"
 
 #, php-format
 msgid "~%d hour left"
@@ -1380,11 +1441,13 @@ msgstr[0] "パッケージが %d 個見つかりました。"
 msgid "Version"
 msgstr "バージョン"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
-"人気度は各投票に作成日からの日数を0.98倍した全投票の合計で計算されます。"
+"人気度は各投票にパッケージ作成日からの日数を %.2f 倍した全投票の合計で計算さ"
+"れます。"
 
 msgid "Yes"
 msgstr "はい"
@@ -1444,7 +1507,7 @@ msgid "Recent Updates"
 msgstr "最近のアップデート"
 
 msgid "more"
-msgstr ""
+msgstr "詳細"
 
 msgid "My Statistics"
 msgstr "自分の統計"

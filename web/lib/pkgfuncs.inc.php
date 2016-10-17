@@ -230,7 +230,7 @@ function pkg_providers($name) {
  * Get package dependencies for a specific package
  *
  * @param int $pkgid The package to get dependencies for
- * @param int $limit An upper bound on the number of packages to retrieve
+ * @param int $limit An upper bound for the number of packages to retrieve
  *
  * @return array All package dependencies for the package
  */
@@ -506,7 +506,7 @@ function pkg_source_link($url, $arch) {
  *
  * @param string $name The package name for the dependency search
  * @param array $provides A list of virtual provisions of the package
- * @param int $limit An upper bound on the number of packages to retrieve
+ * @param int $limit An upper bound for the number of packages to retrieve
  *
  * @return array All packages that depend on the specified package name
  */

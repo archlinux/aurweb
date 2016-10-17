@@ -1,0 +1,6 @@
+1. The default configuration file search path now points to /etc/aurweb/config.
+   Make sure you copy your aurweb configuration to the new location before
+   upgrading.
+
+2. The maintenance scripts have been prefixed by "aurweb-" and can now be
+   installed using `python3 setup.py install`.

@@ -4,8 +4,9 @@
 #
 # Translators:
 # Albino Biasutti Neto Bino <biasuttin@gmail.com>, 2011
+# Fábio Nogueira <deb.user.ba@gmail.com>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2012-2015
-# Rafael Fontenelle <rffontenelle@gmail.com>, 2011,2015
+# Rafael Fontenelle <rffontenelle@gmail.com>, 2011,2015-2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2011
 # Sandro <sandrossv@hotmail.com>, 2011
 # Sandro <sandrossv@hotmail.com>, 2011
@@ -13,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 21:44+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 14:05+0000\n"
 "Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/lfleischer/aur/"
 "language/pt_BR/)\n"
@@ -30,8 +31,22 @@ msgstr "Página não encontrada"
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Desculpe, a página que você solicitou não existe."
 
+msgid "Note"
+msgstr "Nota"
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr "URLs de git-clone não servem para ser abertas em um navegador."
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr "Para clonar o repositório Git de %s, execute %s."
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr "Clique %saqui%s para retornar para a página de detalhes de %s."
+
 msgid "Service Unavailable"
-msgstr "Serviço Indisponível"
+msgstr "Serviço indisponível"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
@@ -86,7 +101,7 @@ msgid "Submit a proposal to vote on."
 msgstr "Enviar uma proposta para ser votada."
 
 msgid "Applicant/TU"
-msgstr "Requerente/TU"
+msgstr "Requerente/UC"
 
 msgid "(empty if not applicable)"
 msgstr "(vazio se não aplicável)"
@@ -95,13 +110,13 @@ msgid "Type"
 msgstr "Tipo"
 
 msgid "Addition of a TU"
-msgstr "Adição de um TU"
+msgstr "Adição de um UC"
 
 msgid "Removal of a TU"
-msgstr "Remoção de um TU"
+msgstr "Remoção de um UC"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr "Remoção de um TU (inatividade não declarada)"
+msgstr "Remoção de um UC (inatividade não declarada)"
 
 msgid "Amendment of Bylaws"
 msgstr "Emenda ao Estatuto"
@@ -127,7 +142,7 @@ msgid ""
 "Guidelines%s for more information."
 msgstr ""
 "Bem-vindo ao AUR! Por favor, leia as %sDiretrizes de Usuário do AUR%s e "
-"%sDiretrizes de TU do AUR%s para mais informações."
+"%sDiretrizes de UC do AUR%s para mais informações."
 
 #, php-format
 msgid ""
@@ -227,7 +242,7 @@ msgstr ""
 "detalhes."
 
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr "As seguintes fingeprints SSH são usadas para o AUR:"
+msgstr "As seguintes impressões digitais SSH são usadas para o AUR:"
 
 msgid "Discussion"
 msgstr "Discussão"
@@ -239,8 +254,9 @@ msgid ""
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
 "Discussões gerais no que se refere à estrutura do Arch User Repository (AUR) "
-"e do Trusted User acontecem no %saur-general%s. Para discussão relacionada "
-"ao desenvolvimento do AUR web, use a lista de discussão do %saur-dev%s"
+"e do Usuário Confiável acontecem no %saur-general%s. Para discussão "
+"relacionada ao desenvolvimento do AUR web, use a lista de discussão do %saur-"
+"dev%s"
 
 msgid "Bug Reporting"
 msgstr "Relatório de erros"
@@ -410,7 +426,7 @@ msgid "Delete"
 msgstr "Excluir"
 
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr "Somente Trusted Users e Desenvolvedores podem excluir pacotes."
+msgstr "Somente Usuários Confiáveis e Desenvolvedores podem excluir pacotes."
 
 msgid "Disown Package"
 msgstr "Abandonar pacote"
@@ -443,7 +459,7 @@ msgid "Disown"
 msgstr "Abandonar"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr "Apenas Trusted Users e Desenvolvedores podem abandonar pacotes."
+msgstr "Apenas Usuários Confiáveis e Desenvolvedores podem abandonar pacotes."
 
 msgid "Flag Comment"
 msgstr "Comentário da marcação"
@@ -515,7 +531,7 @@ msgid "Merge"
 msgstr "Mesclar"
 
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr "Somente Trusted Users e Desenvolvedores podem mesclar pacotes."
+msgstr "Somente Usuários Confiáveis e Desenvolvedores podem mesclar pacotes."
 
 msgid "Submit Request"
 msgstr "Enviar requisição"
@@ -545,7 +561,7 @@ msgid "Use this form to create an account."
 msgstr "Utilize este formulário para criar uma conta."
 
 msgid "Trusted User"
-msgstr "Trusted User"
+msgstr "Usuário confiável"
 
 msgid "Could not retrieve proposal details."
 msgstr "Não foi possível adquirir detalhes da proposta."
@@ -554,7 +570,7 @@ msgid "Voting is closed for this proposal."
 msgstr "A votação está encerrada para esta proposta."
 
 msgid "Only Trusted Users are allowed to vote."
-msgstr "Apenas Trusted Users têm permissão para votar."
+msgstr "Apenas Usuários Confiáveis têm permissão para votar."
 
 msgid "You cannot vote in an proposal about you."
 msgstr "Você não pode votar em uma proposta sobre você."
@@ -630,7 +646,7 @@ msgstr "Erro ao tentar criar uma conta, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
-msgstr "A conta, %s%s%s, foi criada com sucesso."
+msgstr "A conta %s%s%s foi criada com sucesso."
 
 msgid "A password reset key has been sent to your e-mail address."
 msgstr ""
@@ -645,7 +661,7 @@ msgstr "Nenhuma alteração foi feita na conta, %s%s%s."
 
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
-msgstr "A conta, %s%s%s, foi modificada com sucesso."
+msgstr "A conta %s%s%s foi modificada com sucesso."
 
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
@@ -861,7 +877,7 @@ msgid "Invalid reason."
 msgstr "Motivo inválido"
 
 msgid "Only TUs and developers can close requests."
-msgstr "Apenas TUs e desenvolvedores podem fechar requisições"
+msgstr "Apenas UCs e desenvolvedores podem fechar requisições."
 
 msgid "Request closed successfully."
 msgstr "Requisição fechada com sucesso"
@@ -892,7 +908,7 @@ msgid "Developer"
 msgstr "Desenvolvedor"
 
 msgid "Trusted User & Developer"
-msgstr "Trusted User & Desenvolvedor"
+msgstr "Usuário Confiável & Desenvolvedor"
 
 msgid "Email Address"
 msgstr "Endereço de e-mail"
@@ -902,6 +918,9 @@ msgstr "oculto"
 
 msgid "Real Name"
 msgstr "Nome real"
+
+msgid "Homepage"
+msgstr "Página inicial"
 
 msgid "IRC Nick"
 msgstr "Apelido no IRC"
@@ -918,6 +937,9 @@ msgstr "Inativo desde"
 msgid "Active"
 msgstr "Ativa"
 
+msgid "Registration date:"
+msgstr "Data de registro:"
+
 msgid "Last Login"
 msgstr "Último login"
 
@@ -933,6 +955,10 @@ msgstr "Edite a conta desse usuário"
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Clique %saqui%s se você deseja excluir permanentemente esta conta."
+
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Clique %saqui%s para os detalhes do usuário."
 
 msgid "required"
 msgstr "obrigatório"
@@ -983,6 +1009,9 @@ msgstr "Notificar sobre novos comentários"
 
 msgid "Notify of package updates"
 msgstr "Notificar sobre atualizações de pacotes"
+
+msgid "Notify of ownership changes"
+msgstr "Notificar sobre mudanças de mantenedor"
 
 msgid "Update"
 msgstr "Atualizar"
@@ -1086,6 +1115,9 @@ msgstr "Votar neste pacote"
 
 msgid "Disable notifications"
 msgstr "Desabilitar notificações"
+
+msgid "Enable notifications"
+msgstr "Habilitar notificações"
 
 msgid "Manage Co-Maintainers"
 msgstr "Gerenciar comantenedores"
@@ -1234,9 +1266,6 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 "Use esse formulário para fechar a requisição para o pacote base %s%s%s."
 
-msgid "Note"
-msgstr "Nota"
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1273,6 +1302,39 @@ msgstr "Tornar órfão"
 msgid "Merge into"
 msgstr "Mesclar em"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+"Ao enviar uma requisição de exclusão, você solicita que um Trusted User "
+"exclua o pacote base. Esse tipo de requisição deveria ser usada em caso de "
+"duplicidade, softwares abandonados pelo upstream, assim como pacotes ilegais "
+"ou irreparavelmente quebrados."
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+"Ao enviar uma requisição de mesclagem, você solicita que um Trusted User "
+"exclua o pacote base e transfira seus votos e comentários para um outro "
+"pacote base. Mesclar um pacote não afeta os repositórios Git "
+"correspondentes. Certifique-se de você mesmo atualizar o histórico Git do "
+"pacote alvo."
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+"Ao enviar uma requisição de tornar órfão, você pede que um Trusted User "
+"abandona o pacote base. Por favor, apenas faça isto se o pacote precise de "
+"ação do mantenedor, estando este ausente por muito tempo, e você já tentou - "
+"e não conseguiu - contatá-lo anteriormente."
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1293,8 +1355,10 @@ msgid "Date"
 msgstr "Data"
 
 #, php-format
-msgid "~%d days left"
-msgstr "~%d dias restantes"
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "~%d dia restante"
+msgstr[1] "~%d dias restantes"
 
 #, php-format
 msgid "~%d hour left"
@@ -1392,12 +1456,13 @@ msgstr[1] "%d pacotes encontrados."
 msgid "Version"
 msgstr "Versão"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 "Popularidade é calculada como a soma de todos os votos, sendo cada voto "
-"pesado com um fator de 0.98 por dia desde sua criação."
+"pesado com um fator de %.2f por dia desde sua criação."
 
 msgid "Yes"
 msgstr "Sim"
@@ -1451,7 +1516,7 @@ msgid "Registered Users"
 msgstr "Usuários registrados"
 
 msgid "Trusted Users"
-msgstr "Trusted Users"
+msgstr "Usuários Confiáveis"
 
 msgid "Recent Updates"
 msgstr "Atualizações recentes"
@@ -1491,7 +1556,7 @@ msgid "Participation"
 msgstr "Participação"
 
 msgid "Last Votes by TU"
-msgstr "Últimos votos por TU"
+msgstr "Últimos votos por UC"
 
 msgid "Last vote"
 msgstr "Último voto"

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
-"PO-Revision-Date: 2016-02-09 20:59+0000\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"PO-Revision-Date: 2016-10-08 12:59+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/lfleischer/"
 "aur/language/pt_PT/)\n"
@@ -28,6 +28,20 @@ msgstr "Página Não Encontrada"
 
 msgid "Sorry, the page you've requested does not exist."
 msgstr "As nossas desculpas, a página que pediu não existe."
+
+msgid "Note"
+msgstr ""
+
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
 
 msgid "Service Unavailable"
 msgstr "Serviço não disponível"
@@ -876,6 +890,9 @@ msgstr ""
 msgid "Real Name"
 msgstr "Nome real"
 
+msgid "Homepage"
+msgstr ""
+
 msgid "IRC Nick"
 msgstr "Nick IRC"
 
@@ -891,6 +908,9 @@ msgstr "Inativo desde"
 msgid "Active"
 msgstr "Activo"
 
+msgid "Registration date:"
+msgstr ""
+
 msgid "Last Login"
 msgstr "Última sessão"
 
@@ -905,6 +925,10 @@ msgstr "Editar a conta deste utilizador"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
+msgstr ""
+
+#, php-format
+msgid "Click %shere%s for user details."
 msgstr ""
 
 msgid "required"
@@ -951,6 +975,9 @@ msgid "Notify of new comments"
 msgstr "Notificar-me sobre novos comentários"
 
 msgid "Notify of package updates"
+msgstr ""
+
+msgid "Notify of ownership changes"
 msgstr ""
 
 msgid "Update"
@@ -1052,6 +1079,9 @@ msgstr "Votar neste pacote"
 
 msgid "Disable notifications"
 msgstr "Desativar notificações"
+
+msgid "Enable notifications"
+msgstr ""
 
 msgid "Manage Co-Maintainers"
 msgstr ""
@@ -1199,9 +1229,6 @@ msgstr "Fontes"
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 
-msgid "Note"
-msgstr ""
-
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1236,6 +1263,26 @@ msgstr "Orfão"
 msgid "Merge into"
 msgstr "Juntar em"
 
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1256,8 +1303,10 @@ msgid "Date"
 msgstr "Data"
 
 #, php-format
-msgid "~%d days left"
-msgstr ""
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
 
 #, php-format
 msgid "~%d hour left"
@@ -1355,9 +1404,10 @@ msgstr[1] "%d pacotes encontrados."
 msgid "Version"
 msgstr "Versão"
 
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
 msgid "Yes"

@@ -42,6 +42,10 @@
 					<td><?= htmlspecialchars($row["RealName"], ENT_QUOTES) ?></td>
 				</tr>
 				<tr>
+					<th><?= __("Homepage") . ":" ?></th>
+					<td><a href="<?= htmlspecialchars($row["Homepage"], ENT_QUOTES) ?>" rel="nofollow"><?= htmlspecialchars($row["Homepage"], ENT_QUOTES) ?></a></td>
+				</tr>
+				<tr>
 					<th><?= __("IRC Nick") . ":" ?></th>
 					<td><?= htmlspecialchars($row["IRCNick"], ENT_QUOTES) ?></td>
 				</tr>
@@ -54,6 +58,14 @@
 					<td>
 					<?= $row["InactivityTS"] ? __("Inactive since") . ' ' . date("Y-m-d H:i", $row["InactivityTS"]) : __("Active"); ?>
 					</td>
+				</tr>
+				<tr>
+					<th><?= __("Registration date:") ?></th>
+					<?php if ($row["RegistrationTS"]): ?>
+					<td><?= (new DateTime($row["RegistrationTS"]))->format('Y-m-d') ?></td>
+					<?php else: ?>
+					<td><?= __("unknown") ?></td>
+					<?php endif; ?>
 				</tr>
 				<?php if (has_credential(CRED_ACCOUNT_LAST_LOGIN)): ?>
 				<tr>

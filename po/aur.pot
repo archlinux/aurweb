@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v4.1.1\n"
+"Project-Id-Version: AUR v4.3.0\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-02-09 21:58+0100\n"
+"POT-Creation-Date: 2016-10-08 14:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,6 +24,24 @@ msgstr ""
 
 #: html/404.php
 msgid "Sorry, the page you've requested does not exist."
+msgstr ""
+
+#: html/404.php template/pkgreq_close_form.php
+msgid "Note"
+msgstr ""
+
+#: html/404.php
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#: html/404.php
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#: html/404.php
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
 msgstr ""
 
 #: html/503.php
@@ -1077,6 +1095,10 @@ msgid "Real Name"
 msgstr ""
 
 #: template/account_details.php template/account_edit_form.php
+msgid "Homepage"
+msgstr ""
+
+#: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr ""
@@ -1100,6 +1122,10 @@ msgid "Active"
 msgstr ""
 
 #: template/account_details.php
+msgid "Registration date:"
+msgstr ""
+
+#: template/account_details.php
 msgid "Last Login"
 msgstr ""
 
@@ -1118,6 +1144,11 @@ msgstr ""
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s for user details."
 msgstr ""
 
 #: template/account_edit_form.php
@@ -1172,12 +1203,16 @@ msgstr ""
 msgid "Notification settings"
 msgstr ""
 
-#: template/account_edit_form.php template/pkgbase_actions.php
+#: template/account_edit_form.php
 msgid "Notify of new comments"
 msgstr ""
 
 #: template/account_edit_form.php
 msgid "Notify of package updates"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Notify of ownership changes"
 msgstr ""
 
 #: template/account_edit_form.php template/pkgbase_details.php
@@ -1310,6 +1345,10 @@ msgstr ""
 
 #: template/pkgbase_actions.php
 msgid "Disable notifications"
+msgstr ""
+
+#: template/pkgbase_actions.php
+msgid "Enable notifications"
 msgstr ""
 
 #: template/pkgbase_actions.php
@@ -1510,10 +1549,6 @@ msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 
 #: template/pkgreq_close_form.php
-msgid "Note"
-msgstr ""
-
-#: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
@@ -1556,6 +1591,29 @@ msgstr ""
 msgid "Merge into"
 msgstr ""
 
+#: template/pkgreq_form.php
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
 #: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
@@ -1582,8 +1640,10 @@ msgstr ""
 
 #: template/pkgreq_results.php
 #, php-format
-msgid "~%d days left"
-msgstr ""
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] ""
+msgstr[1] ""
 
 #: template/pkgreq_results.php
 #, php-format
@@ -1713,9 +1773,10 @@ msgid "Version"
 msgstr ""
 
 #: template/pkg_search_results.php
+#, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
-"weighted with a factor of 0.98 per day since its creation."
+"weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
 #: template/pkg_search_results.php template/tu_details.php template/tu_list.php

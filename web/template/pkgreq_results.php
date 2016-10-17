@@ -39,7 +39,7 @@
 		if (!$due) {
 			$time_left = $idle_time - (time() - intval($row['RequestTS']));
 			if ($time_left > 48 * 3600) {
-				$time_left_fmt = __("~%d days left", round($time_left / (24 * 3600)));
+				$time_left_fmt = _n("~%d day left", "~%d days left", round($time_left / (24 * 3600)));
 			} elseif ($time_left > 3600) {
 				$time_left_fmt = _n("~%d hour left", "~%d hours left", round($time_left / 3600));
 			} else {
