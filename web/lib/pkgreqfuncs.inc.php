@@ -149,7 +149,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	$q.= "UsersID, Comments, RequestTS) VALUES (" . $type_id . ", ";
 	$q.= $base_id . ", " .  $dbh->quote($pkgbase_name) . ", ";
 	$q.= $dbh->quote($merge_into) . ", " . $uid . ", ";
-	$q.= $dbh->quote($comments) . ", UNIX_TIMESTAMP())";
+	$q.= $dbh->quote($comments) . ", " . strval(time()) . ")";
 	$dbh->exec($q);
 	$request_id = $dbh->lastInsertId();
 

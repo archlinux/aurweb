@@ -98,7 +98,7 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 	$q = "INSERT INTO PackageComments ";
 	$q.= "(PackageBaseID, UsersID, Comments, CommentTS) VALUES (";
 	$q.= intval($base_id) . ", " . $uid . ", ";
-	$q.= $dbh->quote($comment) . ", UNIX_TIMESTAMP())";
+	$q.= $dbh->quote($comment) . ", " . strval(time()) . ")";
 	$dbh->exec($q);
 	$comment_id = $dbh->lastInsertId();
 
@@ -144,7 +144,7 @@ function pkgbase_pin_comment($unpin=false) {
 	$dbh = DB::connect();
 	$q = "UPDATE PackageComments ";
 	if (!$unpin) {
-		$q.= "SET PinnedTS = UNIX_TIMESTAMP() ";
+		$q.= "SET PinnedTS = " . strval(time()) . " ";
 	} else {
 		$q.= "SET PinnedTS = 0 ";
 	}
@@ -395,7 +395,7 @@ function pkgbase_flag($base_ids, $comment) {
 	$dbh = DB::connect();
 
 	$q = "UPDATE PackageBases SET ";
-	$q.= "OutOfDateTS = UNIX_TIMESTAMP(), FlaggerUID = " . $uid . ", ";
+	$q.= "OutOfDateTS = " . strval(time()) . ", FlaggerUID = " . $uid . ", ";
 	$q.= "FlaggerComment = " . $dbh->quote($comment) . " ";
 	$q.= "WHERE ID IN (" . implode(",", $base_ids) . ") ";
 	$q.= "AND OutOfDateTS IS NULL";
@@ -749,12 +749,12 @@ function pkgbase_vote ($base_ids, $action=true) {
 				$first = 0;
 				$vote_ids = $pid;
 				if ($action) {
-					$vote_clauses = "($uid, $pid, UNIX_TIMESTAMP())";
+					$vote_clauses = "($uid, $pid, " . strval(time()) . ")";
 				}
 			} else {
 				$vote_ids .= ", $pid";
 				if ($action) {
-					$vote_clauses .= ", ($uid, $pid, UNIX_TIMESTAMP())";
+					$vote_clauses .= ", ($uid, $pid, " . strval(time()) . ")";
 				}
 			}
 		}
@@ -972,7 +972,7 @@ function pkgbase_delete_comment($undelete=false) {
 
 		$q = "UPDATE PackageComments ";
 		$q.= "SET DelUsersID = ".$uid.", ";
-		$q.= "DelTS = UNIX_TIMESTAMP() ";
+		$q.= "DelTS = " . strval(time()) . " ";
 		$q.= "WHERE ID = ".intval($comment_id);
 		$dbh->exec($q);
 		return array(true, __("Comment has been deleted."));
@@ -1005,7 +1005,7 @@ function pkgbase_edit_comment($comment) {
 		$q = "UPDATE PackageComments ";
 		$q.= "SET EditedUsersID = ".$uid.", ";
 		$q.= "Comments = ".$dbh->quote($comment).", ";
-		$q.= "EditedTS = UNIX_TIMESTAMP() ";
+		$q.= "EditedTS = " . strval(time()) . " ";
 		$q.= "WHERE ID = ".intval($comment_id);
 		$dbh->exec($q);
 		return array(true, __("Comment has been edited."));

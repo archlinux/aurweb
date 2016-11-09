@@ -38,7 +38,7 @@ function check_sid() {
 		# the visitor is logged in, try and update the session
 		#
 		$dbh = DB::connect();
-		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
+		$q = "SELECT LastUpdateTS, " . strval(time()) . " FROM Sessions ";
 		$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
 		$result = $dbh->query($q);
 		$row = $result->fetch(PDO::FETCH_NUM);
@@ -77,7 +77,7 @@ function check_sid() {
 			# This keeps 'remembered' sessions from being
 			# overwritten.
 			if ($last_update < time() + $timeout) {
-				$q = "UPDATE Sessions SET LastUpdateTS = UNIX_TIMESTAMP() ";
+				$q = "UPDATE Sessions SET LastUpdateTS = " . strval(time()) . " ";
 				$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
 				$dbh->exec($q);
 			}

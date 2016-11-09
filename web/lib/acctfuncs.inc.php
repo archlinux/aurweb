@@ -543,7 +543,7 @@ function try_login() {
 
 		$new_sid = new_sid();
 		$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
-		  ." VALUES (" . $userID . ", '" . $new_sid . "', UNIX_TIMESTAMP())";
+		  ." VALUES (" . $userID . ", '" . $new_sid . "', " . strval(time()) . ")";
 		$result = $dbh->exec($q);
 
 		/* Query will fail if $new_sid is not unique. */
@@ -560,7 +560,7 @@ function try_login() {
 		return array('SID' => $new_sid, 'error' => $login_error);
 	}
 
-	$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP(), ";
+	$q = "UPDATE Users SET LastLogin = " . strval(time()) . ", ";
 	$q.= "LastLoginIPAddress = " . $dbh->quote($_SERVER['REMOTE_ADDR']) . " ";
 	$q.= "WHERE ID = $userID";
 	$dbh->exec($q);
@@ -638,7 +638,7 @@ function valid_username($user) {
 function open_user_proposals($user) {
 	$dbh = DB::connect();
 	$q = "SELECT * FROM TU_VoteInfo WHERE User = " . $dbh->quote($user) . " ";
-	$q.= "AND End > UNIX_TIMESTAMP()";
+	$q.= "AND End > " . strval(time());
 	$result = $dbh->query($q);
 
 	return ($result->fetchColumn() ? true : false);
@@ -665,7 +665,7 @@ function add_tu_proposal($agenda, $user, $votelength, $quorum, $submitteruid) {
 	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, Quorum, ";
 	$q.= "SubmitterID, ActiveTUs) VALUES ";
 	$q.= "(" . $dbh->quote($agenda) . ", " . $dbh->quote($user) . ", ";
-	$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . $dbh->quote($votelength);
+	$q.= strval(time()) . ", " . strval(time()) . " + " . $dbh->quote($votelength);
 	$q.= ", " . $dbh->quote($quorum) . ", " . $submitteruid . ", ";
 	$q.= $active_tus . ")";
 	$result = $dbh->exec($q);
@@ -978,7 +978,7 @@ function clear_expired_sessions() {
 	$dbh = DB::connect();
 
 	$timeout = config_get_int('options', 'login_timeout');
-	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - " . $timeout . ")";
+	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (" . strval(time()) . " - " . $timeout . ")";
 	$dbh->query($q);
 
 	return;
@@ -1086,7 +1086,7 @@ function last_votes_list() {
 
 	$q = "SELECT UserID, MAX(VoteID) AS LastVote FROM TU_Votes, ";
 	$q .= "TU_VoteInfo, Users WHERE TU_VoteInfo.ID = TU_Votes.VoteID AND ";
-	$q .= "TU_VoteInfo.End < UNIX_TIMESTAMP() AND ";
+	$q .= "TU_VoteInfo.End < " . strval(time()) . " AND ";
 	$q .= "Users.ID = TU_Votes.UserID AND (Users.AccountTypeID = 2 OR Users.AccountTypeID = 4) ";
 	$q .= "GROUP BY UserID ORDER BY LastVote DESC, UserName ASC";
 	$result = $dbh->query($q);
