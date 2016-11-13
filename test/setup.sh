@@ -11,11 +11,11 @@ export PYTHONPATH
 GIT_AUTH="$TOPLEVEL/aurweb/git/auth.py"
 GIT_SERVE="$TOPLEVEL/aurweb/git/serve.py"
 GIT_UPDATE="$TOPLEVEL/aurweb/git/update.py"
-MKPKGLISTS="$TOPLEVEL/scripts/mkpkglists.py"
-TUVOTEREMINDER="$TOPLEVEL/scripts/tuvotereminder.py"
-PKGMAINT="$TOPLEVEL/scripts/pkgmaint.py"
-AURBLUP="$TOPLEVEL/scripts/aurblup.py"
-NOTIFY="$TOPLEVEL/scripts/notify.py"
+MKPKGLISTS="$TOPLEVEL/aurweb/scripts/mkpkglists.py"
+TUVOTEREMINDER="$TOPLEVEL/aurweb/scripts/tuvotereminder.py"
+PKGMAINT="$TOPLEVEL/aurweb/scripts/pkgmaint.py"
+AURBLUP="$TOPLEVEL/aurweb/scripts/aurblup.py"
+NOTIFY="$TOPLEVEL/aurweb/scripts/notify.py"
 
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
