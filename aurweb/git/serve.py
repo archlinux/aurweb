@@ -269,6 +269,52 @@ def pkgbase_disown(pkgbase, user, privileged):
     conn.close()
 
 
+def pkgbase_flag(pkgbase, user, comment):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        die('{:s}: unknown user: {:s}'.format(action, user))
+
+    now = int(time.time())
+    conn.execute("UPDATE PackageBases SET " +
+                 "OutOfDateTS = ?, FlaggerUID = ?, FlaggerComment = ? " +
+                 "WHERE ID = ? AND OutOfDateTS IS NULL",
+                 [now, userid, comment, pkgbase_id])
+
+    conn.commit()
+
+    subprocess.Popen((notify_cmd, 'flag', str(userid), str(pkgbase_id)))
+
+
+def pkgbase_unflag(pkgbase, user):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        die('{:s}: unknown user: {:s}'.format(action, user))
+
+    if user in pkgbase_get_comaintainers(pkgbase):
+        conn.execute("UPDATE PackageBases SET OutOfDateTS = NULL " +
+                     "WHERE ID = ?", [pkgbase_id])
+    else:
+        conn.execute("UPDATE PackageBases SET OutOfDateTS = NULL " +
+                     "WHERE ID = ? AND (MaintainerUID = ? OR FlaggerUID = ?)",
+                     [pkgbase_id, userid, userid])
+
+    conn.commit()
+
+
 def pkgbase_set_keywords(pkgbase, keywords):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
@@ -422,6 +468,28 @@ def main():
 
         pkgbase = cmdargv[1]
         pkgbase_disown(pkgbase, user, privileged)
+    elif action == 'flag':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing repository name".format(action))
+        if len(cmdargv) < 3:
+            die_with_help("{:s}: missing comment".format(action))
+        if len(cmdargv) > 3:
+            die_with_help("{:s}: too many arguments".format(action))
+
+        pkgbase = cmdargv[1]
+        comment = cmdargv[2]
+        if len(comment) < 3:
+            die_with_help("{:s}: comment is too short".format(action))
+
+        pkgbase_flag(pkgbase, user, comment)
+    elif action == 'unflag':
+        if len(cmdargv) < 2:
+            die_with_help("{:s}: missing repository name".format(action))
+        if len(cmdargv) > 2:
+            die_with_help("{:s}: too many arguments".format(action))
+
+        pkgbase = cmdargv[1]
+        pkgbase_unflag(pkgbase, user)
     elif action == 'set-comaintainers':
         if len(cmdargv) < 2:
             die_with_help("{:s}: missing repository name".format(action))
@@ -433,12 +501,14 @@ def main():
         cmds = {
             "adopt <name>": "Adopt a package base.",
             "disown <name>": "Disown a package base.",
+            "flag <name> <comment>": "Flag a package base out-of-date.",
             "help": "Show this help message and exit.",
             "list-repos": "List all your repositories.",
             "restore <name>": "Restore a deleted package base.",
             "set-comaintainers <name> [...]": "Set package base co-maintainers.",
             "set-keywords <name> [...]": "Change package base keywords.",
             "setup-repo <name>": "Create a repository (deprecated).",
+            "unflag <name>": "Remove out-of-date flag from a package base.",
             "git-receive-pack": "Internal command used with Git.",
             "git-upload-pack": "Internal command used with Git.",
         }
