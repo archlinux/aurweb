@@ -351,4 +351,67 @@ test_expect_success "Check whether package requests are closed when disowning." 
 	test_cmp actual expected
 '
 
+test_expect_success "Flag a package base out-of-date." '
+	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	1|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Unflag a package base as flagger." '
+	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	0|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Unflag a package base as maintainer." '
+	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	0|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Unflag a package base as random user." '
+	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user3 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	1|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Flag using a comment which is too short." '
+	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	SSH_ORIGINAL_COMMAND="flag foobar xx" AUR_USER=user2 AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	0|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
 test_done
