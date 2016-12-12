@@ -139,12 +139,10 @@ def get_request_recipients(conn, reqid):
 
 
 def get_tu_vote_reminder_recipients(conn, vote_id):
-    cur = conn.execute('SELECT Users.Email FROM Users ' +
-                       'WHERE AccountTypeID = 2 ' +
-                       'EXCEPT SELECT Users.Email FROM Users ' +
-                       'INNER JOIN TU_Votes ' +
-                       'ON TU_Votes.UserID = Users.ID ' +
-                       'WHERE TU_Votes.VoteID = ?', [vote_id])
+    cur = conn.execute('SELECT Email FROM Users ' +
+                       'WHERE AccountTypeID = 2 AND ID NOT IN ' +
+                       '(SELECT UserID FROM TU_Votes ' +
+                       'WHERE TU_Votes.VoteID = ?)', [vote_id])
     return [row[0] for row in cur.fetchall()]
 
 
