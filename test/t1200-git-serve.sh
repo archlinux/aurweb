@@ -20,6 +20,17 @@ test_expect_success 'Test help.' '
 	IFS=$save_IFS
 '
 
+test_expect_success 'Test maintenance mode.' '
+	mv config config.old &&
+	sed "s/^\(enable-maintenance = \)0$/\\11/" config.old >config &&
+	SSH_ORIGINAL_COMMAND=help test_must_fail "$GIT_SERVE" 2>actual &&
+	cat >expected <<-EOF &&
+	The AUR is down due to maintenance. We will be back soon.
+	EOF
+	test_cmp expected actual &&
+	mv config.old config
+'
+
 test_expect_success 'Test setup-repo and list-repos.' '
 	SSH_ORIGINAL_COMMAND="setup-repo foobar" AUR_USER=user \
 	"$GIT_SERVE" 2>&1 &&
