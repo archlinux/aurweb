@@ -1,7 +1,7 @@
 Setup on Arch Linux
 ===================
 
-1) Clone the AUR project:
+1) Clone the aurweb project:
 
    $ cd /srv/http/
    $ git clone git://git.archlinux.org/aurweb.git
@@ -33,7 +33,7 @@ Setup on Arch Linux
 3) Copy conf/config.proto to /etc/aurweb/config and adjust the configuration
    (pay attention to disable_http_login, enable_maintenance and aur_location).
 
-4) Create a new MySQL database and a user and import the AUR SQL schema:
+4) Create a new MySQL database and a user and import the aurweb SQL schema:
 
     $ mysql -uaur -p AUR </srv/http/aurweb/schema/aur-schema.sql
 
