@@ -57,6 +57,9 @@ Setup on Arch Linux
     # ln -s /usr/local/bin/aurweb-git-update hooks/update
     # chown -R aur .
 
+   It is recommended to read doc/git-interface.txt for more information on the
+   administration of the package Git repository.
+
 8) Configure sshd(8) for the AUR. Add the following lines at the end of your
    sshd_config(5) and restart the sshd. Note that OpenSSH 6.9 or newer is
    needed!

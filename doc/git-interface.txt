@@ -81,8 +81,8 @@ the GIT_NAMESPACE environment variable accordingly before forwarding a request.
 An example configuration for nginx and fcgiwrap can be found in the INSTALL
 instructions in the top-level directory.
 
-Further Configuration
----------------------
+Further Configuration and Administration
+----------------------------------------
 
 When using Git namespaces, Git advertises refs outside the current namespace as
 so-called "have" lines. This is normally used to reduce traffic but it has the
@@ -94,3 +94,10 @@ In order to omit these advertisements, one can add the strings "^refs/",
 "!refs/" and "!HEAD" to the transfer.hideRefs configuration setting. Note that
 the order of these patterns is important ("^refs/" must come first) and that
 Git 2.7 or newer is required for them to work.
+
+Since garbage collection always affects all objects (from all namespaces), it
+is also recommended to disable automatic garbage collection by setting
+receive.autogc to false. Remember to periodically run `git gc` manually or
+setup a maintenance script which initiates the garbage collection if you follow
+this advice. For gc.pruneExpire, we recommend "3.months.ago", such that commits
+that became unreachable by TU intervention are kept for a while.
