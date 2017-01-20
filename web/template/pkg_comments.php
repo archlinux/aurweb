@@ -17,7 +17,7 @@ if (!isset($count)) {
 
 	<?php while (list($indx, $row) = each($comments)): ?>
 		<?php
-		$date_fmtd = gmdate('Y-m-d H:i', $row['CommentTS']);
+		$date_fmtd = date('Y-m-d H:i', $row['CommentTS']);
 		if ($row['UserName']) {
 			$user_fmtd = html_format_username($row['UserName']);
 			$heading = __('%s commented on %s', $user_fmtd, $date_fmtd);
@@ -30,7 +30,7 @@ if (!isset($count)) {
 		$is_pinned = $row['PinnedTS'];
 
 		if ($uid && $is_deleted) {
-			$date_fmtd = gmdate('Y-m-d H:i', $row['DelTS']);
+			$date_fmtd = date('Y-m-d H:i', $row['DelTS']);
 			$heading .= ' <span class="edited">(';
 			if ($row['DelUserName']) {
 				$user_fmtd = html_format_username($row['DelUserName']);
@@ -40,7 +40,7 @@ if (!isset($count)) {
 			}
 			$heading .= ')</span>';
 		} elseif ($uid && $is_edited) {
-			$date_fmtd = gmdate('Y-m-d H:i', $row['EditedTS']);
+			$date_fmtd = date('Y-m-d H:i', $row['EditedTS']);
 			$heading .= ' <span class="edited">(';
 			if ($row['EditUserName']) {
 				$user_fmtd = html_format_username($row['EditUserName']);

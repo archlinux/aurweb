@@ -11,6 +11,7 @@ username_min_len = 3
 username_max_len = 16
 passwd_min_len = 8
 default_lang = en
+default_timezone = UTC
 sql_debug = 0
 max_sessions_per_user = 8
 login_timeout = 7200

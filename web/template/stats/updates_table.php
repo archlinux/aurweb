@@ -10,7 +10,7 @@
 				<a href="<?= get_pkg_uri($row["Name"]); ?>" title="<?= htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?>"><?= htmlspecialchars($row["Name"]) . ' ' . htmlspecialchars($row["Version"]); ?></a>
 			</td>
 			<td class="pkg-date">
-				<span><?= gmdate("Y-m-d H:i", intval($row["ModifiedTS"])); ?></span>
+				<span><?= date("Y-m-d H:i", intval($row["ModifiedTS"])); ?></span>
 			</td>
 		</tr>
 		<?php endforeach; ?>

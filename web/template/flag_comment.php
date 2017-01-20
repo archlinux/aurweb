@@ -5,7 +5,7 @@
 			<?= __('%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:',
 				'<strong>', html_format_username($message['Username']), '</strong>',
 				'<strong>', htmlspecialchars($pkgbase_name), '</strong>',
-				'<strong>', gmdate('Y-m-d', $message['OutOfDateTS']), '</strong>'); ?>
+				'<strong>', date('Y-m-d', $message['OutOfDateTS']), '</strong>'); ?>
 		<?php else: ?>
 			<?= __('%s%s%s is not flagged out-of-date.',
 				'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>

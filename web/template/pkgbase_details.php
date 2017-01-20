@@ -31,9 +31,9 @@ $popularity = $row['Popularity'];
 $msg = __('unknown');
 
 # Print the timestamps for last updates
-$updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["ModifiedTS"]));
-$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["SubmittedTS"]));
-$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
+$updated_time = ($row["ModifiedTS"] == 0) ? $msg : date("Y-m-d H:i", intval($row["ModifiedTS"]));
+$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : date("Y-m-d H:i", intval($row["SubmittedTS"]));
+$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : date("Y-m-d", intval($row["OutOfDateTS"]));
 
 $pkgs = pkgbase_get_pkgnames($base_id);
 

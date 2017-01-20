@@ -129,6 +129,21 @@
 ?>
 			</select>
 		</p>
+		<p>
+			<label for="id_timezone"><?= __("Timezone") ?></label>
+			<select name="TZ" id="id_timezone">
+<?php
+	$timezones = generate_timezone_list();
+	while (list($key, $val) = each($timezones)) {
+		if ($TZ == $key) {
+			print "<option value=\"".$key."\" selected=\"selected\"> ".$val."</option>\n";
+		} else {
+			print "<option value=\"".$key."\"> ".$val."</option>\n";
+		}
+	}
+?>
+			</select>
+		</p>
 	</fieldset>
 
 	<fieldset>

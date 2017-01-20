@@ -1,0 +1,5 @@
+1. Add Timezone column to Users:
+
+---
+ALTER TABLE Users ADD COLUMN Timezone VARCHAR(32) NOT NULL DEFAULT 'UTC';
+---

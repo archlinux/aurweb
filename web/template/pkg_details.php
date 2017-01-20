@@ -34,9 +34,9 @@ $msg = __('unknown');
 $license = empty($row['License']) ? $msg : $row['License'];
 
 # Print the timestamps for last updates
-$updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["ModifiedTS"]));
-$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["SubmittedTS"]));
-$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
+$updated_time = ($row["ModifiedTS"] == 0) ? $msg : date("Y-m-d H:i", intval($row["ModifiedTS"]));
+$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : date("Y-m-d H:i", intval($row["SubmittedTS"]));
+$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : date("Y-m-d", intval($row["OutOfDateTS"]));
 
 $lics = pkg_licenses($row["ID"]);
 $grps = pkg_groups($row["ID"]);

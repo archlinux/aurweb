@@ -172,7 +172,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		 * maintainer will not be included in the Cc list of the
 		 * request notification email.
 		 */
-		$out_of_date_time = gmdate("Y-m-d", intval($details["OutOfDateTS"]));
+		$out_of_date_time = date("Y-m-d", intval($details["OutOfDateTS"]));
 		pkgreq_close($request_id, "accepted",
 			     "The package base has been flagged out-of-date " .
 			     "since " . $out_of_date_time . ".", true);

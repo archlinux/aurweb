@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Determine if an HTTP request variable is set
  *
@@ -52,6 +51,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $C The confirmed password value of the displayed user
  * @param string $R The real name of the displayed user
  * @param string $L The language preference of the displayed user
+ * @param string $TZ The timezone preference of the displayed user
  * @param string $HP The homepage of the displayed user
  * @param string $I The IRC nickname of the displayed user
  * @param string $K The PGP key fingerprint of the displayed user
@@ -66,8 +66,12 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @return void
  */
 function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R="",
-		$L="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
+		$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
+
+	if ($TZ == "") {
+		$TZ = config_get("options", "default_timezone");
+	}
 
 	include("account_edit_form.php");
 	return;
@@ -88,6 +92,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $C The confirmed password for the user
  * @param string $R The real name of the user
  * @param string $L The language preference of the user
+ * @param string $TZ The timezone preference of the user
  * @param string $HP The homepage of the displayed user
  * @param string $I The IRC nickname of the user
  * @param string $K The PGP fingerprint of the user
@@ -102,7 +107,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @return array Boolean indicating success and message to be printed
  */
 function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
-		$R="",$L="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
+		$R="",$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
@@ -200,6 +205,9 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 	if (!$error && !array_key_exists($L, $SUPPORTED_LANGS)) {
 		$error = __("Language is not currently supported.");
 	}
+	if (!$error && !array_key_exists($TZ, generate_timezone_list())) {
+		$error = __("Timezone is not currently supported.");
+	}
 	if (!$error) {
 		/*
 		 * Check whether the user name is available.
@@ -278,13 +286,14 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$salt = $dbh->quote($salt);
 		$R = $dbh->quote($R);
 		$L = $dbh->quote($L);
+		$TZ = $dbh->quote($TZ);
 		$HP = $dbh->quote($HP);
 		$I = $dbh->quote($I);
 		$K = $dbh->quote(str_replace(" ", "", $K));
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
 		$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
-		$q.= "RealName, LangPreference, Homepage, IRCNick, PGPKey) ";
-		$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, ";
+		$q.= "RealName, LangPreference, Timezone, Homepage, IRCNick, PGPKey) ";
+		$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, $TZ ";
 		$q.= "$HP, $I, $K)";
 		$result = $dbh->exec($q);
 		if (!$result) {
@@ -347,6 +356,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		}
 		$q.= ", RealName = " . $dbh->quote($R);
 		$q.= ", LangPreference = " . $dbh->quote($L);
+		$q.= ", Timezone = " . $dbh->quote($TZ);
 		$q.= ", Homepage = " . $dbh->quote($HP);
 		$q.= ", IRCNick = " . $dbh->quote($I);
 		$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
@@ -358,6 +368,13 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$result = $dbh->exec($q);
 
 		$ssh_key_result = account_set_ssh_keys($UID, $ssh_keys, $ssh_fingerprints);
+
+		if (isset($_COOKIE["AURTZ"]) && ($_COOKIE["AURTZ"] != $TZ)) {
+			/* set new cookie for timezone */
+			$timeout = intval(config_get("options", "persistent_cookie_timeout"));
+			$cookie_time = time() + $timeout;
+			setcookie("AURTZ", $TZ, $cookie_time, "/");
+		}
 
 		if ($result === false || $ssh_key_result === false) {
 			$message = __("No changes were made to the account, %s%s%s.",

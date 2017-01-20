@@ -18,6 +18,9 @@ include_once("cachefuncs.inc.php");
 include_once("confparser.inc.php");
 include_once("credentials.inc.php");
 
+include_once('timezone.inc.php');
+set_tz();
+
 /**
  * Check if a visitor is logged in
  *
