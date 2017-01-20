@@ -31,13 +31,25 @@ if ($action == "UpdateAccount") {
 		/* Update the details for the existing account */
 		list($success, $update_account_message) = process_account_form(
 			"edit", "UpdateAccount",
-			in_request("U"), in_request("T"), in_request("S"),
-			in_request("E"), in_request("H"), in_request("P"),
-			in_request("C"), in_request("R"), in_request("L"),
+			in_request("U"),
+			in_request("T"),
+			in_request("S"),
+			in_request("E"),
+			in_request("H"),
+			in_request("P"),
+			in_request("C"),
+			in_request("R"),
+			in_request("L"),
 			in_request("TZ"),
-			in_request("HP"), in_request("I"), in_request("K"),
-			in_request("PK"), in_request("J"), in_request("CN"),
-			in_request("UN"), in_request("ON"), in_request("ID"),
+			in_request("HP"),
+			in_request("I"),
+			in_request("K"),
+			in_request("PK"),
+			in_request("J"),
+			in_request("CN"),
+			in_request("UN"),
+			in_request("ON"),
+			in_request("ID"),
 			$row["Username"]);
 	}
 }
