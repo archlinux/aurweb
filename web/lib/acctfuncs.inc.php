@@ -376,6 +376,13 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 			setcookie("AURTZ", $TZ, $cookie_time, "/");
 		}
 
+		if (isset($_COOKIE["AURLANG"]) && ($_COOKIE["AURLANG"] != $L)) {
+			/* set new cookie for language */
+			$timeout = intval(config_get("options", "persistent_cookie_timeout"));
+			$cookie_time = time() + $timeout;
+			setcookie("AURLANG", $L, $cookie_time, "/");
+		}
+
 		if ($result === false || $ssh_key_result === false) {
 			$message = __("No changes were made to the account, %s%s%s.",
 					"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
