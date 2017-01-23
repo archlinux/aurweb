@@ -48,6 +48,18 @@ class InvalidCommentException(AurwebException):
         super(InvalidCommentException, self).__init__(msg)
 
 
+class AlreadyVotedException(AurwebException):
+    def __init__(self, comment):
+        msg = 'already voted for package base: {:s}'.format(comment)
+        super(AlreadyVotedException, self).__init__(msg)
+
+
+class NotVotedException(AurwebException):
+    def __init__(self, comment):
+        msg = 'missing vote for package base: {:s}'.format(comment)
+        super(NotVotedException, self).__init__(msg)
+
+
 class InvalidArgumentsException(AurwebException):
     def __init__(self, msg):
         super(InvalidArgumentsException, self).__init__(msg)

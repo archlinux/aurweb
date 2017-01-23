@@ -318,6 +318,57 @@ def pkgbase_unflag(pkgbase, user):
     conn.commit()
 
 
+def pkgbase_vote(pkgbase, user):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
+
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        raise aurweb.exceptions.InvalidUserException(user)
+
+    cur = conn.execute("SELECT COUNT(*) FROM PackageVotes " +
+                       "WHERE UsersID = ? AND PackageBaseID = ?",
+                       [userid, pkgbase_id])
+    if cur.fetchone()[0] > 0:
+        raise aurweb.exceptions.AlreadyVotedException(pkgbase)
+
+    now = int(time.time())
+    conn.execute("INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS) " +
+                 "VALUES (?, ?, ?)", [userid, pkgbase_id, now])
+    conn.execute("UPDATE PackageBases SET NumVotes = NumVotes + 1 " +
+                 "WHERE ID = ?", [pkgbase_id])
+    conn.commit()
+
+
+def pkgbase_unvote(pkgbase, user):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
+
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        raise aurweb.exceptions.InvalidUserException(user)
+
+    cur = conn.execute("SELECT COUNT(*) FROM PackageVotes " +
+                       "WHERE UsersID = ? AND PackageBaseID = ?",
+                       [userid, pkgbase_id])
+    if cur.fetchone()[0] == 0:
+        raise aurweb.exceptions.NotVotedException(pkgbase)
+
+    conn.execute("DELETE FROM PackageVotes WHERE UsersID = ? AND " +
+                 "PackageBaseID = ?", [userid, pkgbase_id])
+    conn.execute("UPDATE PackageBases SET NumVotes = NumVotes - 1 " +
+                 "WHERE ID = ?", [pkgbase_id])
+    conn.commit()
+
+
 def pkgbase_set_keywords(pkgbase, keywords):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
@@ -467,6 +518,16 @@ def serve(action, cmdargv, user, privileged, remote_addr):
 
         pkgbase = cmdargv[1]
         pkgbase_unflag(pkgbase, user)
+    elif action == 'vote':
+        checkarg(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        pkgbase_vote(pkgbase, user)
+    elif action == 'unvote':
+        checkarg(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        pkgbase_unvote(pkgbase, user)
     elif action == 'set-comaintainers':
         checkarg_atleast(cmdargv, 'repository name')
 
@@ -485,6 +546,8 @@ def serve(action, cmdargv, user, privileged, remote_addr):
             "set-keywords <name> [...]": "Change package base keywords.",
             "setup-repo <name>": "Create a repository (deprecated).",
             "unflag <name>": "Remove out-of-date flag from a package base.",
+            "unvote <name>": "Remove vote from a package base.",
+            "vote <name>": "Vote for a package base.",
             "git-receive-pack": "Internal command used with Git.",
             "git-upload-pack": "Internal command used with Git.",
         }
