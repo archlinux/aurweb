@@ -414,4 +414,70 @@ test_expect_success "Flag using a comment which is too short." '
 	test_cmp expected actual
 '
 
+test_expect_success "Vote for a package base." '
+	SSH_ORIGINAL_COMMAND="vote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	3|1
+	EOF
+	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	1
+	EOF
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Vote for a package base twice." '
+	SSH_ORIGINAL_COMMAND="vote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	3|1
+	EOF
+	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	1
+	EOF
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Remove vote from a package base." '
+	SSH_ORIGINAL_COMMAND="unvote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	EOF
+	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	0
+	EOF
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Try to remove the vote again." '
+	SSH_ORIGINAL_COMMAND="unvote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	EOF
+	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	0
+	EOF
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
 test_done
