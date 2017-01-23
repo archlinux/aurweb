@@ -50,7 +50,7 @@ $base_uri = get_pkgbase_uri($row['Name']);
 			<th><?= __('Git Clone URL') . ': ' ?></th>
 			<td>
 				<a href="<?= $git_clone_uri_anon ?>"><?= $git_clone_uri_anon ?></a> (<?= __('read-only') ?>)
-				<?php if ($uid == $row["MaintainerUID"]): ?>
+				<?php if (in_array($uid, $maintainers)): ?>
 				<br /> <a href="<?= $git_clone_uri_priv ?>"><?= $git_clone_uri_priv ?></a>
 				<?php endif; ?>
 			</td>
