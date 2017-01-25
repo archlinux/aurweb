@@ -98,6 +98,12 @@ AUTH_KEYTYPE_MISSING=sha-rsa
 AUTH_KEYTEXT_MISSING=AAAAB3NzaC1yc2EAAAADAQABAAABAQC9UTpssBunuTBCT3KFtv+yb+cN0VmI2C9O9U7wHlkEZWxNBK8is6tnDHXBxRuvRk0LHILkTidLLFX22ZF0+TFgSz7uuEvGZVNpa2Fn2+vKJJYMvZEvb/f8VHF5/Jddt21VOyu23royTN/duiT7WIZdCtEmq5C9Y43NPfsB8FbUc+FVSYT2Lq7g1/bzvFF+CZxwCrGjC3qC7p3pshICfFR8bbWgRN33ClxIQ7MvkcDtfNu38dLotJqdfEa7NdQgba5/S586f1A4OWKc/mQJFyTaGhRBxw/cBSjqonvO0442VYLHFxlrTHoUunKyOJ8+BJfKgjWmfENC9ESY3mL/IEn5
 AUTH_FINGERPRINT_MISSING=SHA256:uB0B+30r2WA1TDMUmFcaEBjosjnFGzn33XFhiyvTL9w
 
+# Setup fake SSH environment.
+SSH_CLIENT='1.2.3.4 1234 22'
+SSH_CONNECTION='1.2.3.4 1234 4.3.2.1 22'
+SSH_TTY=/dev/pts/0
+export SSH_CLIENT SSH_CONNECTION SSH_TTY
+
 # Initialize the test database.
 rm -f aur.db
 sed \
@@ -121,6 +127,8 @@ echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (9, 
 
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (1, '$AUTH_FINGERPRINT_USER', '$AUTH_KEYTYPE_USER $AUTH_KEYTEXT_USER');" | sqlite3 aur.db
 echo "INSERT INTO SSHPubKeys (UserID, Fingerprint, PubKey) VALUES (2, '$AUTH_FINGERPRINT_TU', '$AUTH_KEYTYPE_TU $AUTH_KEYTEXT_TU');" | sqlite3 aur.db
+
+echo "INSERT INTO Bans (IPAddress, BanTS) VALUES ('1.3.3.7', 0);" | sqlite3 aur.db
 
 echo "INSERT INTO PackageBlacklist (Name) VALUES ('forbidden');" | sqlite3 aur.db
 echo "INSERT INTO OfficialProviders (Name, Repo, Provides) VALUES ('official', 'core', 'official');" | sqlite3 aur.db

@@ -31,6 +31,27 @@ test_expect_success 'Test maintenance mode.' '
 	mv config.old config
 '
 
+test_expect_success 'Test IP address logging.' '
+	SSH_ORIGINAL_COMMAND=help AUR_USER=user "$GIT_SERVE" 2>actual &&
+	cat >expected <<-EOF &&
+	1.2.3.4
+	EOF
+	echo "SELECT LastSSHLoginIPAddress FROM Users WHERE UserName = \"user\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success 'Test IP address bans.' '
+	SSH_CLIENT_ORIG="$SSH_CLIENT" &&
+	SSH_CLIENT="1.3.3.7 1337 22" &&
+	SSH_ORIGINAL_COMMAND=help test_must_fail "$GIT_SERVE" 2>actual &&
+	cat >expected <<-EOF &&
+	The SSH interface is disabled for your IP address.
+	EOF
+	test_cmp expected actual &&
+	SSH_CLIENT="$SSH_CLIENT_ORIG"
+'
+
 test_expect_success 'Test setup-repo and list-repos.' '
 	SSH_ORIGINAL_COMMAND="setup-repo foobar" AUR_USER=user \
 	"$GIT_SERVE" 2>&1 &&
