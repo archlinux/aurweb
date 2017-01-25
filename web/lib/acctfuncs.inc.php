@@ -621,7 +621,7 @@ function try_login() {
 function is_ipbanned() {
 	$dbh = DB::connect();
 
-	$q = "SELECT * FROM Bans WHERE IPAddress = " . $dbh->quote(ip2long($_SERVER['REMOTE_ADDR']));
+	$q = "SELECT * FROM Bans WHERE IPAddress = " . $dbh->quote($_SERVER['REMOTE_ADDR']);
 	$result = $dbh->query($q);
 
 	return ($result->fetchColumn() ? true : false);

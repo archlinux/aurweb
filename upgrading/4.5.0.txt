@@ -11,3 +11,10 @@ ALTER TABLE Users
 	ADD COLUMN LastSSHLogin BIGINT UNSIGNED NOT NULL DEFAULT 0,
 	ADD COLUMN LastSSHLoginIPAddress VARCHAR(45) NULL DEFAULT NULL;
 ---
+
+3. Convert the IPAddress column of the Bans table to VARCHAR(45). If the table
+   contains any active bans, convert them accordingly:
+
+----
+ALTER TABLE Bans MODIFY IPAddress VARCHAR(45) NULL DEFAULT NULL;
+----
