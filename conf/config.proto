@@ -34,7 +34,7 @@ enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
 
 [notifications]
-notify-cmd = /srv/http/aurweb/scripts/notify.py
+notify-cmd = /usr/local/bin/aurweb-notify
 sendmail = /usr/bin/sendmail
 sender = notify@aur.archlinux.org
 reply-to = noreply@aur.archlinux.org
