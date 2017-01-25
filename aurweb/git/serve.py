@@ -422,6 +422,14 @@ def log_ssh_login(user, remote_addr):
     conn.close()
 
 
+def bans_match(remote_addr):
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT COUNT(*) FROM Bans WHERE IPAddress = ?",
+                       [remote_addr])
+    return cur.fetchone()[0] > 0
+
+
 def die(msg):
     sys.stderr.write("{:s}\n".format(msg))
     exit(1)
@@ -463,6 +471,8 @@ def serve(action, cmdargv, user, privileged, remote_addr):
     if enable_maintenance:
         if remote_addr not in maintenance_exc:
             raise aurweb.exceptions.MaintenanceException
+    if bans_match(remote_addr):
+        raise aurweb.exceptions.BannedException
     log_ssh_login(user, remote_addr)
 
     if action == 'git' and cmdargv[1] in ('upload-pack', 'receive-pack'):
@@ -586,6 +596,8 @@ def main():
         serve(action, cmdargv, user, privileged, remote_addr)
     except aurweb.exceptions.MaintenanceException:
         die("The AUR is down due to maintenance. We will be back soon.")
+    except aurweb.exceptions.BannedException:
+        die("The SSH interface is disabled for your IP address.")
     except aurweb.exceptions.InvalidArgumentsException as e:
         die_with_help('{:s}: {}'.format(action, e))
     except aurweb.exceptions.AurwebException as e:

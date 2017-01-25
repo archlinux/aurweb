@@ -6,6 +6,10 @@ class MaintenanceException(AurwebException):
     pass
 
 
+class BannedException(AurwebException):
+    pass
+
+
 class PermissionDeniedException(AurwebException):
     def __init__(self, user):
         msg = 'permission denied: {:s}'.format(user)
