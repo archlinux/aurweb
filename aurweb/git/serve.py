@@ -410,6 +410,18 @@ def pkgbase_has_full_access(pkgbase, user):
     return cur.fetchone()[0] > 0
 
 
+def log_ssh_login(user, remote_addr):
+    conn = aurweb.db.Connection()
+
+    now = int(time.time())
+    conn.execute("UPDATE Users SET LastSSHLogin = ?, " +
+                 "LastSSHLoginIPAddress = ? WHERE Username = ?",
+                 [now, remote_addr, user])
+
+    conn.commit()
+    conn.close()
+
+
 def die(msg):
     sys.stderr.write("{:s}\n".format(msg))
     exit(1)
@@ -451,6 +463,7 @@ def serve(action, cmdargv, user, privileged, remote_addr):
     if enable_maintenance:
         if remote_addr not in maintenance_exc:
             raise aurweb.exceptions.MaintenanceException
+    log_ssh_login(user, remote_addr)
 
     if action == 'git' and cmdargv[1] in ('upload-pack', 'receive-pack'):
         action = action + '-' + cmdargv[1]

@@ -3,3 +3,11 @@
 ---
 ALTER TABLE Users ADD COLUMN Timezone VARCHAR(32) NOT NULL DEFAULT 'UTC';
 ---
+
+2. Add LastSSHLogin and LastSSHLoginIPAddress columns to the Users table:
+
+---
+ALTER TABLE Users
+	ADD COLUMN LastSSHLogin BIGINT UNSIGNED NOT NULL DEFAULT 0,
+	ADD COLUMN LastSSHLoginIPAddress VARCHAR(45) NULL DEFAULT NULL;
+---
