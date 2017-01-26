@@ -670,6 +670,7 @@ function pkg_display_details($id=0, $row, $SID="") {
  *                  B  - package base name (exact match)
  *                  k  - package keyword(s)
  *                  m  - package maintainer's username
+ *                  c  - package co-maintainer's username
  *                  s  - package submitter's username
  *    do_Orphans    - boolean. whether to search packages
  *                     without a maintainer
@@ -745,6 +746,13 @@ function pkg_search_page($SID="") {
 		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {
 			/* Search by maintainer. */
 			$q_where .= "AND Users.Username = " . $dbh->quote($_GET['K']) . " ";
+		}
+		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "c") {
+			/* Search by co-maintainer. */
+			$q_where .= "AND EXISTS (SELECT * FROM PackageComaintainers ";
+			$q_where .= "INNER JOIN Users ON Users.ID = PackageComaintainers.UsersID ";
+			$q_where .= "WHERE PackageComaintainers.PackageBaseID = PackageBases.ID ";
+			$q_where .= "AND Users.Username = " . $dbh->quote($_GET['K']) . ")";
 		}
 		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
 			/* Search by submitter. */
