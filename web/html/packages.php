@@ -98,11 +98,13 @@ if (isset($pkgid)) {
 		$_GET['SB'] = 'p';
 		$_GET['SO'] = 'd';
 	}
+	echo '<div id="pkglist-results" class="box">';
 	if (isset($_COOKIE["AURSID"])) {
 		pkg_search_page($_GET, true, $_COOKIE["AURSID"]);
 	} else {
 		pkg_search_page($_GET, true);
 	}
+	echo '</div>';
 }
 
 html_footer(AURWEB_VERSION);
