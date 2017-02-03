@@ -80,8 +80,9 @@ $(document).ready(function() {
 </script>
 
 <?php
+include('pkg_search_form.php');
+
 if (isset($pkgid)) {
-	include('pkg_search_form.php');
 	if ($pkgid) {
 		if (isset($_COOKIE["AURSID"])) {
 			pkg_display_details($pkgid, $details, $_COOKIE["AURSID"]);

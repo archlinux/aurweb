@@ -888,8 +888,6 @@ function pkg_search_page($SID="") {
 		$templ_pages[__('Last') . ' &raquo;'] = ($pages - 1) * $per_page;
 	}
 
-	include('pkg_search_form.php');
-
 	$searchresults = array();
 	if ($result) {
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
