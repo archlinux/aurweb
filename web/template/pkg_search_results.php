@@ -5,6 +5,7 @@ if (!$result): ?>
 	<div class="box"><p><?= __("No packages matched your search criteria.") ?></p></div>
 <?php else: ?>
 	<div id="pkglist-results" class="box">
+		<?php if ($show_headers): ?>
 		<div class="pkglist-stats">
 			<p>
 				<?= _n('%d package found.', '%d packages found.', $total) ?>
@@ -24,12 +25,13 @@ if (!$result): ?>
 			</p>
 			<?php endif; ?>
 		</div>
+		<?php endif; ?>
 
 		<form id="pkglist-results-form" method="post" action="<?= get_uri('/pkgbase/'); ?>?<?= htmlentities($_SERVER['QUERY_STRING']) ?>">
 			<table class="results">
 			<thead>
 				<tr>
-					<?php if ($SID): ?>
+					<?php if ($SID && $show_headers): ?>
 					<th>&nbsp;</th>
 					<?php endif; ?>
 					<th><a href="?<?= mkurl('SB=n&SO=' . $SO_next) ?>"><?= __("Name") ?></a></th>
@@ -48,7 +50,7 @@ if (!$result): ?>
 
 	<?php while (list($indx, $row) = each($searchresults)): ?>
 		<tr class="<?= ($indx % 2 == 0) ? 'odd' : 'even' ?>">
-		<?php if ($SID): ?>
+		<?php if ($SID && $show_headers): ?>
 		<td><input type="checkbox" name="IDs[<?= $row["PackageBaseID"] ?>]" value="1" /></td>
 		<?php endif; ?>
 		<td><a href="<?= htmlspecialchars(get_pkg_uri($row["Name"]), ENT_QUOTES); ?>"><?= htmlspecialchars($row["Name"]) ?></a></td>
@@ -85,6 +87,7 @@ if (!$result): ?>
 			</tbody>
 			</table>
 
+			<?php if ($show_headers): ?>
 			<div class="pkglist-stats">
 				<p>
 					<?= _n('%d package found.', '%d packages found.', $total) ?>
@@ -127,6 +130,7 @@ if (!$result): ?>
 					<input type="submit" class="button" style="width: 80px" value="<?= __("Go") ?>" />
 				</p>
 			<?php endif; # if ($SID) ?>
+			<?php endif; ?>
 		</form>
 	</div>
 <?php endif; # search was successful and returned multiple results ?>

@@ -642,53 +642,16 @@ function pkg_display_details($id=0, $row, $SID="") {
 	}
 }
 
-/* pkg_search_page(SID)
- * outputs the body of search/search results page
+/**
+ * Output the body of the search results page
  *
- * parameters:
- *  SID - current Session ID
- * preconditions:
- *  package search page has been accessed
- *  request variables have not been sanitized
+ * @param array $params Search parameters
+ * @param bool $show_headers True if statistics should be included
+ * @param string $SID The session ID of the visitor
  *
- *  request vars:
- *    O  - starting result number
- *    PP - number of search hits per page
- *    K  - package search string
- *    SO - search hit sort order:
- *          values: a - ascending
- *                  d - descending
- *    SB - sort search hits by:
- *          values: n - package name
- *                  v - number of votes
- *                  m - maintainer username
- *    SeB- property that search string (K) represents
- *          values: n  - package name
- *                  nd - package name & description
- *                  b  - package base name
- *                  N  - package name (exact match)
- *                  B  - package base name (exact match)
- *                  k  - package keyword(s)
- *                  m  - package maintainer's username
- *                  c  - package co-maintainer's username
- *                  s  - package submitter's username
- *    do_Orphans    - boolean. whether to search packages
- *                     without a maintainer
- *
- *
- *    These two are actually handled in packages.php.
- *
- *    IDs- integer array of ticked packages' IDs
- *    action - action to be taken on ticked packages
- *             values: do_Flag   - Flag out-of-date
- *                     do_UnFlag - Remove out-of-date flag
- *                     do_Adopt  - Adopt
- *                     do_Disown - Disown
- *                     do_Delete - Delete
- *                     do_Notify - Enable notification
- *                     do_UnNotify - Disable notification
+ * @return void
  */
-function pkg_search_page($SID="") {
+function pkg_search_page($params, $show_headers=true, $SID="") {
 	$dbh = DB::connect();
 
 	/*
@@ -699,16 +662,16 @@ function pkg_search_page($SID="") {
 		$myuid = uid_from_sid($SID);
 
 	/* Sanitize paging variables. */
-	if (isset($_GET['O'])) {
-		$_GET['O'] = max(intval($_GET['O']), 0);
+	if (isset($params['O'])) {
+		$params['O'] = max(intval($params['O']), 0);
 	} else {
-		$_GET['O'] = 0;
+		$params['O'] = 0;
 	}
 
-	if (isset($_GET["PP"])) {
-		$_GET["PP"] = bound(intval($_GET["PP"]), 50, 250);
+	if (isset($params["PP"])) {
+		$params["PP"] = bound(intval($params["PP"]), 50, 250);
 	} else {
-		$_GET["PP"] = 50;
+		$params["PP"] = 50;
 	}
 
 	/*
@@ -742,67 +705,67 @@ function pkg_search_page($SID="") {
 
 	$q_where = 'WHERE PackageBases.PackagerUID IS NOT NULL ';
 
-	if (isset($_GET['K'])) {
-		if (isset($_GET["SeB"]) && $_GET["SeB"] == "m") {
+	if (isset($params['K'])) {
+		if (isset($params["SeB"]) && $params["SeB"] == "m") {
 			/* Search by maintainer. */
-			$q_where .= "AND Users.Username = " . $dbh->quote($_GET['K']) . " ";
+			$q_where .= "AND Users.Username = " . $dbh->quote($params['K']) . " ";
 		}
-		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "c") {
+		elseif (isset($params["SeB"]) && $params["SeB"] == "c") {
 			/* Search by co-maintainer. */
 			$q_where .= "AND EXISTS (SELECT * FROM PackageComaintainers ";
 			$q_where .= "INNER JOIN Users ON Users.ID = PackageComaintainers.UsersID ";
 			$q_where .= "WHERE PackageComaintainers.PackageBaseID = PackageBases.ID ";
-			$q_where .= "AND Users.Username = " . $dbh->quote($_GET['K']) . ")";
+			$q_where .= "AND Users.Username = " . $dbh->quote($params['K']) . ")";
 		}
-		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "s") {
+		elseif (isset($params["SeB"]) && $params["SeB"] == "s") {
 			/* Search by submitter. */
-			$q_where .= "AND SubmitterUID = " . intval(uid_from_username($_GET['K'])) . " ";
+			$q_where .= "AND SubmitterUID = " . intval(uid_from_username($params['K'])) . " ";
 		}
-		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "n") {
+		elseif (isset($params["SeB"]) && $params["SeB"] == "n") {
 			/* Search by name. */
-			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
+			$K = "%" . addcslashes($params['K'], '%_') . "%";
 			$q_where .= "AND (Packages.Name LIKE " . $dbh->quote($K) . ") ";
 		}
-		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "b") {
+		elseif (isset($params["SeB"]) && $params["SeB"] == "b") {
 			/* Search by package base name. */
-			$K = "%" . addcslashes($_GET['K'], '%_') . "%";
+			$K = "%" . addcslashes($params['K'], '%_') . "%";
 			$q_where .= "AND (PackageBases.Name LIKE " . $dbh->quote($K) . ") ";
 		}
-		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "k") {
+		elseif (isset($params["SeB"]) && $params["SeB"] == "k") {
 			/* Search by keywords. */
-			$q_where .= construct_keyword_search($dbh, false);
+			$q_where .= construct_keyword_search($dbh, $params['K'], false);
 		}
-		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "N") {
+		elseif (isset($params["SeB"]) && $params["SeB"] == "N") {
 			/* Search by name (exact match). */
-			$q_where .= "AND (Packages.Name = " . $dbh->quote($_GET['K']) . ") ";
+			$q_where .= "AND (Packages.Name = " . $dbh->quote($params['K']) . ") ";
 		}
-		elseif (isset($_GET["SeB"]) && $_GET["SeB"] == "B") {
+		elseif (isset($params["SeB"]) && $params["SeB"] == "B") {
 			/* Search by package base name (exact match). */
-			$q_where .= "AND (PackageBases.Name = " . $dbh->quote($_GET['K']) . ") ";
+			$q_where .= "AND (PackageBases.Name = " . $dbh->quote($params['K']) . ") ";
 		}
 		else {
 			/* Keyword search (default). */
-			$q_where .= construct_keyword_search($dbh, true);
+			$q_where .= construct_keyword_search($dbh, $params['K'], true);
 		}
 	}
 
-	if (isset($_GET["do_Orphans"])) {
+	if (isset($params["do_Orphans"])) {
 		$q_where .= "AND MaintainerUID IS NULL ";
 	}
 
-	if (isset($_GET['outdated'])) {
-		if ($_GET['outdated'] == 'on') {
+	if (isset($params['outdated'])) {
+		if ($params['outdated'] == 'on') {
 			$q_where .= "AND OutOfDateTS IS NOT NULL ";
 		}
-		elseif ($_GET['outdated'] == 'off') {
+		elseif ($params['outdated'] == 'off') {
 			$q_where .= "AND OutOfDateTS IS NULL ";
 		}
 	}
 
-	$order = (isset($_GET["SO"]) && $_GET["SO"] == 'd') ? 'DESC' : 'ASC';
+	$order = (isset($params["SO"]) && $params["SO"] == 'd') ? 'DESC' : 'ASC';
 
 	$q_sort = "ORDER BY ";
-	$sort_by = isset($_GET["SB"]) ? $_GET["SB"] : '';
+	$sort_by = isset($params["SB"]) ? $params["SB"] : '';
 	switch ($sort_by) {
 	case 'v':
 		$q_sort .= "NumVotes " . $order . ", ";
@@ -835,7 +798,7 @@ function pkg_search_page($SID="") {
 	}
 	$q_sort .= " Packages.Name " . $order . " ";
 
-	$q_limit = "LIMIT ".$_GET["PP"]." OFFSET ".$_GET["O"];
+	$q_limit = "LIMIT ".$params["PP"]." OFFSET ".$params["O"];
 
 	$q = $q_select . $q_from . $q_from_extra . $q_where . $q_sort . $q_limit;
 	$q_total = "SELECT COUNT(*) " . $q_from . $q_where;
@@ -851,7 +814,7 @@ function pkg_search_page($SID="") {
 	}
 
 	if ($result && $total > 0) {
-		if (isset($_GET["SO"]) && $_GET["SO"] == "d"){
+		if (isset($params["SO"]) && $params["SO"] == "d"){
 			$SO_next = "a";
 		}
 		else {
@@ -860,10 +823,10 @@ function pkg_search_page($SID="") {
 	}
 
 	/* Calculate the results to use. */
-	$first = $_GET['O'] + 1;
+	$first = $params['O'] + 1;
 
 	/* Calculation of pagination links. */
-	$per_page = ($_GET['PP'] > 0) ? $_GET['PP'] : 50;
+	$per_page = ($params['PP'] > 0) ? $params['PP'] : 50;
 	$current = ceil($first / $per_page);
 	$pages = ceil($total / $per_page);
 	$templ_pages = array();
@@ -904,17 +867,18 @@ function pkg_search_page($SID="") {
  * Construct the WHERE part of the sophisticated keyword search
  *
  * @param handle $dbh Database handle
- * @param boolean $namedesc Search name and description fields
+ * @param string $keywords The search term
+ * @param bool $namedesc Search name and description fields
  *
  * @return string WHERE part of the SQL clause
  */
-function construct_keyword_search($dbh, $namedesc) {
+function construct_keyword_search($dbh, $keywords, $namedesc) {
 	$count = 0;
 	$where_part = "";
 	$q_keywords = "";
 	$op = "";
 
-	foreach (str_getcsv($_GET['K'], ' ') as $term) {
+	foreach (str_getcsv($keywords, ' ') as $term) {
 		if ($term == "") {
 			continue;
 		}

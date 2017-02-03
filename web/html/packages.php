@@ -99,9 +99,9 @@ if (isset($pkgid)) {
 		$_GET['SO'] = 'd';
 	}
 	if (isset($_COOKIE["AURSID"])) {
-		pkg_search_page($_COOKIE["AURSID"]);
+		pkg_search_page($_GET, true, $_COOKIE["AURSID"]);
 	} else {
-		pkg_search_page();
+		pkg_search_page($_GET, true);
 	}
 }
 
