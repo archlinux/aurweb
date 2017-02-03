@@ -53,10 +53,9 @@
 			</div>
 			<div id="archdev-navbar">
 				<ul>
-					<li><a href="<?= get_uri('/'); ?>">AUR <?= __("Home"); ?></a></li>
-					<li><a href="<?= get_uri('/packages/'); ?>"><?= __("Packages"); ?></a></li>
 					<?php if (isset($_COOKIE['AURSID'])): ?>
-						<li><a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __("My Packages"); ?></a></li>
+						<li><a href="<?= get_uri('/'); ?>"><?= __("Dashboard"); ?></a></li>
+						<li><a href="<?= get_uri('/packages/'); ?>"><?= __("Packages"); ?></a></li>
 						<?php if (has_credential(CRED_PKGREQ_LIST)): ?>
 						<li><a href="<?= get_uri('/requests/') ; ?>"><?= __("Requests"); ?></a></li>
 						<?php endif; ?>
@@ -67,6 +66,8 @@
 						<?php if (has_credential(CRED_TU_LIST_VOTES)): ?><li><a href="<?= get_uri('/tu/'); ?>"><?= __("Trusted User"); ?></a></li><?php endif; ?>
 						<li><a href="<?= get_uri('/logout/'); ?>"><?= __("Logout"); ?></a></li>
 					<?php else: ?>
+						<li><a href="<?= get_uri('/'); ?>">AUR <?= __("Home"); ?></a></li>
+						<li><a href="<?= get_uri('/packages/'); ?>"><?= __("Packages"); ?></a></li>
 						<li><a href="<?= get_uri('/register/'); ?>"><?= __("Register"); ?></a></li>
 						<?php if (config_get_bool('options', 'disable_http_login') && empty($_SERVER['HTTPS'])): ?>
 						<li><a href="<?= get_uri('/login/', true); ?>"><?= __("Login"); ?></a></li>

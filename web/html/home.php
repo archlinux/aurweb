@@ -8,13 +8,42 @@ check_sid();
 
 include_once('stats.inc.php');
 
-html_header( __("Home") );
+if (isset($_COOKIE["AURSID"])) {
+	html_header( __("Dashboard") );
+} else {
+	html_header( __("Home") );
+}
 
 ?>
 
 <div id="content-left-wrapper">
 	<div id="content-left">
 		<div id="intro" class="box">
+			<?php if (isset($_COOKIE["AURSID"])): ?>
+			<h2><?= __("Dashboard"); ?></h2>
+			<h3><?= __("My Packages"); ?></h3>
+			<?php
+			$params = array(
+				'PP' => 50,
+				'SeB' => 'm',
+				'K' => username_from_sid($_COOKIE["AURSID"]),
+				'SB' => 'l',
+				'SO' => 'd'
+			);
+			pkg_search_page($params, false, $_COOKIE["AURSID"]);
+			?>
+			<h3><?= __("Co-Maintained Packages"); ?></h3>
+			<?php
+			$params = array(
+				'PP' => 50,
+				'SeB' => 'c',
+				'K' => username_from_sid($_COOKIE["AURSID"]),
+				'SB' => 'l',
+				'SO' => 'd'
+			);
+			pkg_search_page($params, false, $_COOKIE["AURSID"]);
+			?>
+			<?php else: ?>
 			<h2>AUR <?= __("Home"); ?></h2>
 			<p>
 			<?php
@@ -42,7 +71,9 @@ html_header( __("Home") );
 			<?= __('AUR packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</p>
 			<p class="readmore"><a href="https://wiki.archlinux.org/index.php/AUR"><?= __('Learn more...') ?></a></p>
+			<?php endif; ?>
 		</div>
+		<?php if (!isset($_COOKIE["AURSID"])): ?>
 		<div id="news">
 			<h3><a><?= __('Support') ?></a><span class="arrow"></span></h3>
 			<h4><?= __('Package Requests') ?></h4>
@@ -122,6 +153,7 @@ html_header( __("Home") );
 			</p>
 			</div>
 		</div>
+		<?php endif; ?>
 	</div>
 </div>
 <div id="content-right">
@@ -140,7 +172,7 @@ html_header( __("Home") );
 	<div id="pkg-stats" class="widget box">
 		<?php general_stats_table(); ?>
 	</div>
-	<?php if (!empty($_COOKIE["AURSID"])): ?>
+	<?php if (isset($_COOKIE["AURSID"])): ?>
 	<div id="pkg-stats" class="widget box">
 		<?php user_table(uid_from_sid($_COOKIE["AURSID"])); ?>
 	</div>
