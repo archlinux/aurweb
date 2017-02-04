@@ -649,7 +649,7 @@ function pkg_display_details($id=0, $row, $SID="") {
  * @param bool $show_headers True if statistics should be included
  * @param string $SID The session ID of the visitor
  *
- * @return void
+ * @return int The total number of packages matching the query
  */
 function pkg_search_page($params, $show_headers=true, $SID="") {
 	$dbh = DB::connect();
@@ -860,7 +860,7 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
 
 	include('pkg_search_results.php');
 
-	return;
+	return $total;
 }
 
 /**
