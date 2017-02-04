@@ -21,7 +21,7 @@ if (isset($_COOKIE["AURSID"])) {
 		<div id="intro" class="box">
 			<?php if (isset($_COOKIE["AURSID"])): ?>
 			<h2><?= __("Dashboard"); ?></h2>
-			<h3><?= __("My Packages"); ?></h3>
+			<h3><?= __("My Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h3>
 			<?php
 			$params = array(
 				'PP' => 50,
@@ -32,7 +32,7 @@ if (isset($_COOKIE["AURSID"])) {
 			);
 			pkg_search_page($params, false, $_COOKIE["AURSID"]);
 			?>
-			<h3><?= __("Co-Maintained Packages"); ?></h3>
+			<h3><?= __("Co-Maintained Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=c&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h3>
 			<?php
 			$params = array(
 				'PP' => 50,
