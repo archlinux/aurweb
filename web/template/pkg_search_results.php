@@ -1,4 +1,23 @@
 <?php
+if ($show_headers) {
+	$fmtth = function($title, $sb=false, $so=false, $hint=false) {
+		echo '<th>';
+		if ($sb) {
+			echo '<a href="?' . mkurl('SB=' . $sb . '&SO = ' . $so) . '">' . $title . '</a>';
+		} else {
+			echo $title;
+		}
+		if ($hint) {
+			echo '<span title="' . $hint . '" class="hover-help"><sup>?</sup></span>';
+		}
+		echo '</th>';
+	};
+} else {
+	$fmtth = function($title, $sb=false, $so=false, $hint=false) {
+		echo '<th>' . $title . '</th>';
+	};
+}
+
 if (!$result): ?>
 	<p><?= __("Error retrieving package list.") ?></p>
 <?php elseif ($total == 0): ?>
@@ -33,16 +52,16 @@ if (!$result): ?>
 				<?php if ($SID && $show_headers): ?>
 				<th>&nbsp;</th>
 				<?php endif; ?>
-				<th><a href="?<?= mkurl('SB=n&SO=' . $SO_next) ?>"><?= __("Name") ?></a></th>
-				<th><?= __("Version") ?></th>
-				<th><a href="?<?= mkurl('SB=v&SO=' . $SO_next) ?>"><?= __("Votes") ?></a></th>
-				<th><a href="?<?= mkurl('SB=p&SO=' . $SO_next) ?>"><?= __("Popularity") ?></a><span title="<?= __('Popularity is calculated as the sum of all votes with each vote being weighted with a factor of %.2f per day since its creation.', 0.98) ?>" class="hover-help"><sup>?</sup></span></th>
+				<?php $fmtth(__('Name'), 'n', $SO_next) ?>
+				<?php $fmtth(__('Version')) ?>
+				<?php $fmtth(__('Votes'), 'v', $SO_next) ?>
+				<?php $fmtth(__('Popularity'), 'p', $SO_next, __('Popularity is calculated as the sum of all votes with each vote being weighted with a factor of %.2f per day since its creation.', 0.98)) ?>
 				<?php if ($SID): ?>
-				<th><a href="?<?= mkurl('SB=w&SO=' . $SO_next) ?>"><?= __("Voted") ?></a></th>
-				<th><a href="?<?= mkurl('SB=o&SO=' . $SO_next) ?>"><?= __("Notify") ?></a></th>
+				<?php $fmtth(__('Voted'), 'w', $SO_next) ?>
+				<?php $fmtth(__('Notify'), 'o', $SO_next) ?>
 				<?php endif; ?>
-				<th><?= __("Description") ?></th>
-				<th><a href="?<?= mkurl('SB=m&SO=' . $SO_next) ?>"><?= __("Maintainer") ?></a></th>
+				<?php $fmtth(__('Description')) ?>
+				<?php $fmtth(__('Maintainer'), 'm', $SO_next) ?>
 			</tr>
 		</thead>
 		<tbody>
