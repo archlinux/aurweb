@@ -18,8 +18,8 @@ if (isset($_COOKIE["AURSID"])) {
 
 <div id="content-left-wrapper">
 	<div id="content-left">
+		<?php if (isset($_COOKIE["AURSID"])): ?>
 		<div id="intro" class="box">
-			<?php if (isset($_COOKIE["AURSID"])): ?>
 			<h2><?= __("Dashboard"); ?></h2>
 			<h3><?= __("My Flagged Packages"); ?></h3>
 			<?php
@@ -39,7 +39,9 @@ if (isset($_COOKIE["AURSID"])) {
 			$show_headers = false;
 			include('pkgreq_results.php');
 			?>
-			<h3><?= __("My Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h3>
+		</div>
+		<div id="intro" class="box">
+			<h2><?= __("My Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h2>
 			<?php
 			$params = array(
 				'PP' => 50,
@@ -50,7 +52,9 @@ if (isset($_COOKIE["AURSID"])) {
 			);
 			pkg_search_page($params, false, $_COOKIE["AURSID"]);
 			?>
-			<h3><?= __("Co-Maintained Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=c&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h3>
+		</div>
+		<div id="intro" class="box">
+			<h2><?= __("Co-Maintained Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=c&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h2>
 			<?php
 			$params = array(
 				'PP' => 50,
@@ -61,7 +65,9 @@ if (isset($_COOKIE["AURSID"])) {
 			);
 			pkg_search_page($params, false, $_COOKIE["AURSID"]);
 			?>
-			<?php else: ?>
+		</div>
+		<?php else: ?>
+		<div id="intro" class="box">
 			<h2>AUR <?= __("Home"); ?></h2>
 			<p>
 			<?php
@@ -89,9 +95,7 @@ if (isset($_COOKIE["AURSID"])) {
 			<?= __('AUR packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</p>
 			<p class="readmore"><a href="https://wiki.archlinux.org/index.php/AUR"><?= __('Learn more...') ?></a></p>
-			<?php endif; ?>
 		</div>
-		<?php if (!isset($_COOKIE["AURSID"])): ?>
 		<div id="news">
 			<h3><a><?= __('Support') ?></a><span class="arrow"></span></h3>
 			<h4><?= __('Package Requests') ?></h4>
