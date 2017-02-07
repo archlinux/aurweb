@@ -1,3 +1,4 @@
+<?php if ($show_headers): ?>
 <div class="pkglist-stats">
 	<p>
 		<?= _n('%d package request found.', '%d package requests found.', $total) ?>
@@ -17,6 +18,7 @@
 	</p>
 	<?php endif; ?>
 </div>
+<?php endif; ?>
 
 <table class="results">
 <thead>
@@ -67,7 +69,7 @@
 		<a href="<?= get_uri('/account/') . htmlspecialchars($row['User'], ENT_QUOTES) ?>" title="<?= __('View account information for %s', htmlspecialchars($row['User'])) ?>"><?= htmlspecialchars($row['User']) ?></a>
 		</td>
 		<td<?php if ($due): ?> class="flagged"<?php endif; ?>><?= date("Y-m-d H:i", intval($row['RequestTS'])) ?></td>
-		<?php if ($row['Open']): ?>
+		<?php if ($row['Open'] && $show_headers): ?>
 		<td>
 			<?php if ($row['BaseID']): ?>
 			<?php if ($row['Type'] == 'deletion'): ?>
@@ -89,8 +91,9 @@
 			<?php endif; ?>
 			<a href="<?= get_pkgreq_route() . '/' . intval($row['ID']) ?>/close/"><?= __('Close') ?></a>
 		</td>
-		<?php else: ?>
-		<?php if ($row['Status'] == 1): ?>
+		<?php elseif ($row['Open'] && !$show_headers): ?>
+		<td><?= __("Pending") ?></td>
+		<?php elseif ($row['Status'] == 1): ?>
 		<td><?= __("Closed") ?></td>
 		<?php elseif ($row['Status'] == 2): ?>
 		<td><?= __("Accepted") ?></td>
@@ -99,13 +102,13 @@
 		<?php else: ?>
 		<td><?= __("unknown") ?></td>
 		<?php endif; ?>
-		<?php endif; ?>
 	</tr>
 	<?php endwhile; ?>
 
 </tbody>
 </table>
 
+<?php if ($show_headers): ?>
 <div class="pkglist-stats">
 	<p>
 		<?= _n('%d package request found.', '%d package requests found.', $total) ?>
@@ -125,3 +128,4 @@
 	</p>
 	<?php endif; ?>
 </div>
+<?php endif; ?>

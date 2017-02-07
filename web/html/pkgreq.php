@@ -78,6 +78,7 @@ if (isset($base_id)) {
 
 	html_header(__("Requests"));
 	echo '<div id="pkglist-results" class="box">';
+	$show_headers = true;
 	include('pkgreq_results.php');
 	echo '</div>';
 }
