@@ -33,6 +33,12 @@ if (isset($_COOKIE["AURSID"])) {
 			);
 			pkg_search_page($params, false, $_COOKIE["AURSID"]);
 			?>
+			<h3><?= __("My Requests"); ?></h3>
+			<?php
+			$results = pkgreq_list(0, 50, uid_from_sid($_COOKIE["AURSID"]));
+			$show_headers = false;
+			include('pkgreq_results.php');
+			?>
 			<h3><?= __("My Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h3>
 			<?php
 			$params = array(
