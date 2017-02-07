@@ -19,10 +19,11 @@ function pkgreq_count() {
  *
  * @param int $offset The index of the first request to return
  * @param int $limit The maximum number of requests to return
+ * @param int $uid Only return packages affecting the given user
  *
  * @return array List of pacakge requests with details
  */
-function pkgreq_list($offset, $limit) {
+function pkgreq_list($offset, $limit, $uid=false) {
 	$dbh = DB::connect();
 
 	$q = "SELECT PackageRequests.ID, ";
@@ -35,6 +36,12 @@ function pkgreq_list($offset, $limit) {
 	$q.= "FROM PackageRequests INNER JOIN RequestTypes ON ";
 	$q.= "RequestTypes.ID = PackageRequests.ReqTypeID ";
 	$q.= "INNER JOIN Users ON Users.ID = PackageRequests.UsersID ";
+
+	if ($uid) {
+		$q.= "WHERE PackageRequests.UsersID = " . intval($uid). " ";
+		$q.= "OR Users.ID = " . intval($uid) . " ";
+	}
+
 	$q.= "ORDER BY Open DESC, RequestTS DESC ";
 	$q.= "LIMIT " . $limit . " OFFSET " . $offset;
 
