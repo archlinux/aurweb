@@ -77,7 +77,9 @@ if (isset($base_id)) {
 	$SID = $_COOKIE['AURSID'];
 
 	html_header(__("Requests"));
+	echo '<div id="pkglist-results" class="box">';
 	include('pkgreq_results.php');
+	echo '</div>';
 }
 
 html_footer(AURWEB_VERSION);
