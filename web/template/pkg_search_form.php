@@ -10,6 +10,7 @@ $searchby = array(
 	'k' => __('Keywords'),
 	'm'  => __('Maintainer'),
 	'c'  => __('Co-maintainer'),
+	'M'  => __('Maintainer, Co-maintainer'),
 	's'  => __('Submitter')
 );
 

@@ -717,6 +717,14 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
 			$q_where .= "WHERE PackageComaintainers.PackageBaseID = PackageBases.ID ";
 			$q_where .= "AND Users.Username = " . $dbh->quote($params['K']) . ")";
 		}
+		elseif (isset($params["SeB"]) && $params["SeB"] == "M") {
+			/* Search by maintainer and co-maintainer. */
+			$q_where .= "AND (Users.Username = " . $dbh->quote($params['K']) . " ";
+			$q_where .= "OR EXISTS (SELECT * FROM PackageComaintainers ";
+			$q_where .= "INNER JOIN Users ON Users.ID = PackageComaintainers.UsersID ";
+			$q_where .= "WHERE PackageComaintainers.PackageBaseID = PackageBases.ID ";
+			$q_where .= "AND Users.Username = " . $dbh->quote($params['K']) . "))";
+		}
 		elseif (isset($params["SeB"]) && $params["SeB"] == "s") {
 			/* Search by submitter. */
 			$q_where .= "AND SubmitterUID = " . intval(uid_from_username($params['K'])) . " ";
