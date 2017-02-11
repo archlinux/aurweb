@@ -41,7 +41,8 @@ if (isset($_COOKIE["AURSID"])) {
 			?>
 		</div>
 		<div id="intro" class="box">
-			<h2><?= __("My Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h2>
+			<h2><?= __("My Packages"); ?></h2>
+			<p><a href="<?= get_uri('/packages/') ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('Search for packages I maintain') ?></a></p>
 			<?php
 			$params = array(
 				'PP' => 50,
@@ -54,7 +55,8 @@ if (isset($_COOKIE["AURSID"])) {
 			?>
 		</div>
 		<div id="intro" class="box">
-			<h2><?= __("Co-Maintained Packages"); ?> <span class="more">(<a href="<?= get_uri('/packages/') ?>?SeB=c&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('more') ?></a>)</span></h2>
+			<h2><?= __("Co-Maintained Packages"); ?></h2>
+			<p><a href="<?= get_uri('/packages/') ?>?SeB=c&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('Search for packages I co-maintain') ?></a></p>
 			<?php
 			$params = array(
 				'PP' => 50,
