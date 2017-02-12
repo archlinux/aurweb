@@ -481,17 +481,19 @@ function pkg_rel_html($name, $cond, $arch) {
  *
  * @param string $url The URL of the source
  * @param string $arch The source architecture
+ * @param string $package The name of the package
  *
  * @return string The HTML code of the label to display
  */
-function pkg_source_link($url, $arch) {
+function pkg_source_link($url, $arch, $package) {
 	$url = explode('::', $url);
 	$parsed_url = parse_url($url[0]);
 
 	if (isset($parsed_url['scheme']) || isset($url[1])) {
 		$link = '<a href="' .  htmlspecialchars((isset($url[1]) ? $url[1] : $url[0]), ENT_QUOTES) . '">' . htmlspecialchars($url[0]) . '</a>';
 	} else {
-		$link = htmlspecialchars($url[0]);
+		$file_url = sprintf(config_get('options', 'source_file_uri'), htmlspecialchars($url[0]), $package);
+		$link = '<a href="' . $file_url . '">' . htmlspecialchars($url[0]) . '</a>';
 	}
 
 	if ($arch) {

@@ -27,7 +27,7 @@ aur_request_ml = aur-requests@archlinux.org
 request_idle_time = 1209600
 auto_orphan_age = 15552000
 auto_delete_age = 86400
-pkgbuild_uri = https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=%s
+source_file_uri =  https://aur.archlinux.org/cgit/aur.git/tree/%s?h=%s
 log_uri = https://aur.archlinux.org/cgit/aur.git/log/?h=%s
 snapshot_uri = /cgit/aur.git/snapshot/%s.tar.gz
 enable-maintenance = 1

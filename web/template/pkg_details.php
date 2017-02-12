@@ -1,6 +1,6 @@
 <?php
 
-$pkgbuild_uri = sprintf(config_get('options', 'pkgbuild_uri'), urlencode($row['BaseName']));
+$pkgbuild_uri = sprintf(config_get('options', 'source_file_uri'), 'PKGBUILD', urlencode($row['BaseName']));
 $log_uri = sprintf(config_get('options', 'log_uri'), urlencode($row['BaseName']));
 $snapshot_uri = sprintf(config_get('options', 'snapshot_uri'), urlencode($row['BaseName']));
 $git_clone_uri_anon = sprintf(config_get('options', 'git_clone_uri_anon'), htmlspecialchars($row['BaseName']));
@@ -299,7 +299,7 @@ endif;
 		<div>
 			<ul id="pkgsrcslist">
 					<?php while (list($k, $src) = each($sources)): ?>
-					<li><?= pkg_source_link($src[0], $src[1]) ?></li>
+					<li><?= pkg_source_link($src[0], $src[1], urlencode($row['BaseName'])) ?></li>
 					<?php endwhile; ?>
 			</ul>
 		</div>
