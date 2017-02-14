@@ -387,7 +387,7 @@ class AurJSON {
 
 		if ($search_by === 'name' || $search_by === 'name-desc') {
 			if (strlen($keyword_string) < 2) {
-				return $this->json_error('Query arg too small');
+				return $this->json_error('Query arg too small.');
 			}
 			$keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
 
@@ -441,7 +441,7 @@ class AurJSON {
 		$names = $args['names'];
 
 		if (!$ids && !$names) {
-			return $this->json_error('Invalid query arguments');
+			return $this->json_error('Invalid query arguments.');
 		}
 
 		$where_condition = "";
