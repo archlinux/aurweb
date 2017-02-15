@@ -25,6 +25,7 @@ max_rpc_results = 5000
 max_depends = 1000
 aur_request_ml = aur-requests@archlinux.org
 request_idle_time = 1209600
+request_archive_time = 15552000
 auto_orphan_age = 15552000
 auto_delete_age = 86400
 source_file_uri =  https://aur.archlinux.org/cgit/aur.git/tree/%s?h=%s

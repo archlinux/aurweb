@@ -35,7 +35,9 @@ if (isset($_COOKIE["AURSID"])) {
 			?>
 			<h3><?= __("My Requests"); ?></h3>
 			<?php
-			$results = pkgreq_list(0, 50, uid_from_sid($_COOKIE["AURSID"]));
+			$archive_time = config_get_int('options', 'request_archive_time');
+			$from = time() - $archive_time;
+			$results = pkgreq_list(0, 50, uid_from_sid($_COOKIE["AURSID"]), $from);
 			$show_headers = false;
 			include('pkgreq_results.php');
 			?>
