@@ -1,5 +1,5 @@
 <div class="box">
-	<h2><?= __('Manage Co-maintainers') ?>: <? htmlspecialchars($pkgbase_name) ?></h2>
+	<h2><?= __('Manage Co-maintainers') ?>: <?= htmlspecialchars($pkgbase_name) ?></h2>
 	<p>
 		<?= __('Use this form to add co-maintainers for %s%s%s (one user name per line):',
 			'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>
