@@ -30,7 +30,7 @@ if (!isset($base_id) || !isset($pkgbase_name)) {
 }
 
 /* Set the title to package base name. */
-$title = $pkgbase_name;
+$title = isset($pkgbase_name) ? $pkgbase_name : __("Package Bases");
 
 /* Grab the list of package base IDs to be operated on. */
 $ids = array();
