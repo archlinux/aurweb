@@ -680,15 +680,15 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 				$comaintainers = pkgbase_get_comaintainers($base_id);
 
 				if (count($comaintainers) > 0) {
-					$uid = uid_from_username($comaintainers[0]);
+					$comaintainer_uid = uid_from_username($comaintainers[0]);
 					$comaintainers = array_diff($comaintainers, array($comaintainers[0]));
 					pkgbase_set_comaintainers($base_id, $comaintainers);
 				} else {
-					$uid = "NULL";
+					$comaintainer_uid = "NULL";
 				}
 
 				$q = "UPDATE PackageBases ";
-				$q.= "SET MaintainerUID = " . $uid .  " ";
+				$q.= "SET MaintainerUID = " . $comaintainer_uid .  " ";
 				$q.= "WHERE ID = " . $base_id;
 				$dbh->exec($q);
 			}
