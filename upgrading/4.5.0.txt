@@ -18,3 +18,9 @@ ALTER TABLE Users
 ----
 ALTER TABLE Bans MODIFY IPAddress VARCHAR(45) NULL DEFAULT NULL;
 ----
+
+4. Resize the Passwd column of the Users table:
+
+---
+ALTER TABLE Users MODIFY Passwd VARCHAR(255) NOT NULL;
+---

@@ -272,13 +272,12 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 
 	if ($TYPE == "new") {
 		/* Create an unprivileged user. */
-		$salt = generate_salt();
 		if (empty($P)) {
 			$send_resetkey = true;
 			$email = $E;
 		} else {
 			$send_resetkey = false;
-			$P = salted_hash($P, $salt);
+			$P = password_hash($P, PASSWORD_DEFAULT);
 		}
 		$U = $dbh->quote($U);
 		$E = $dbh->quote($E);
@@ -291,9 +290,9 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$I = $dbh->quote($I);
 		$K = $dbh->quote(str_replace(" ", "", $K));
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
-		$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
+		$q.= "InactivityTS, Username, Email, Passwd , ";
 		$q.= "RealName, LangPreference, Timezone, Homepage, IRCNick, PGPKey) ";
-		$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, $TZ ";
+		$q.= "VALUES (1, 0, 0, $U, $E, $P, $R, $L, $TZ ";
 		$q.= "$HP, $I, $K)";
 		$result = $dbh->exec($q);
 		if (!$result) {
@@ -350,9 +349,8 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 			$q.= ", HideEmail = 0";
 		}
 		if ($P) {
-			$salt = generate_salt();
-			$hash = salted_hash($P, $salt);
-			$q .= ", Passwd = '$hash', Salt = '$salt'";
+			$hash = password_hash($P, PASSWORD_DEFAULT);
+			$q .= ", Passwd = " . $dbh->quote($hash);
 		}
 		$q.= ", RealName = " . $dbh->quote($R);
 		$q.= ", LangPreference = " . $dbh->quote($L);
@@ -528,19 +526,24 @@ function try_login() {
 	if (user_suspended($userID)) {
 		$login_error = __('Account suspended');
 		return array('SID' => '', 'error' => $login_error);
-	} elseif (passwd_is_empty($userID)) {
-		$login_error = __('Your password has been reset. ' .
-			'If you just created a new account, please ' .
-			'use the link from the confirmation email ' .
-			'to set an initial password. Otherwise, ' .
-			'please request a reset key on the %s' .
-			'Password Reset%s page.', '<a href="' .
-			htmlspecialchars(get_uri('/passreset')) . '">',
-			'</a>');
-		return array('SID' => '', 'error' => $login_error);
-	} elseif (!valid_passwd($userID, $_REQUEST['passwd'])) {
-		$login_error = __("Bad username or password.");
-		return array('SID' => '', 'error' => $login_error);
+	}
+
+	switch (check_passwd($userID, $_REQUEST['passwd'])) {
+		case -1:
+			$login_error = __('Your password has been reset. ' .
+				'If you just created a new account, please ' .
+				'use the link from the confirmation email ' .
+				'to set an initial password. Otherwise, ' .
+				'please request a reset key on the %s' .
+				'Password Reset%s page.', '<a href="' .
+				htmlspecialchars(get_uri('/passreset')) . '">',
+				'</a>');
+			return array('SID' => '', 'error' => $login_error);
+		case 0:
+			$login_error = __("Bad username or password.");
+			return array('SID' => '', 'error' => $login_error);
+		case 1:
+			break;
 	}
 
 	$logged_in = 0;
@@ -736,18 +739,18 @@ function send_resetkey($email, $welcome=false) {
 /**
  * Change a user's password in the database if reset key and e-mail are correct
  *
- * @param string $hash New MD5 hash of a user's password
- * @param string $salt New salt for the user's password
+ * @param string $password The new password
  * @param string $resetkey Code e-mailed to a user to reset a password
  * @param string $email E-mail address of the user resetting their password
  *
  * @return string|void Redirect page if successful, otherwise return error message
  */
-function password_reset($hash, $salt, $resetkey, $email) {
+function password_reset($password, $resetkey, $email) {
+	$hash = password_hash($password, PASSWORD_DEFAULT);
+
 	$dbh = DB::connect();
-	$q = "UPDATE Users ";
-	$q.= "SET Passwd = '$hash', ";
-	$q.= "Salt = '$salt', ";
+	$q = "UPDATE Users SET ";
+	$q.= "Passwd = " . $dbh->quote($hash) . ", ";
 	$q.= "ResetKey = '' ";
 	$q.= "WHERE ResetKey != '' ";
 	$q.= "AND ResetKey = " . $dbh->quote($resetkey) . " ";
@@ -778,75 +781,48 @@ function good_passwd($passwd) {
 /**
  * Determine if the password is correct and salt it if it hasn't been already
  *
- * @param string $userID The user ID to check the password against
+ * @param int $user_id The user ID to check the password against
  * @param string $passwd The password the visitor sent
  *
- * @return bool True if password was correct and properly salted, otherwise false
+ * @return int Positive if password is correct, negative if password is unset
  */
-function valid_passwd($userID, $passwd) {
-	$dbh = DB::connect();
-	if ($passwd == "") {
-		return false;
-	}
-
-	/* Get salt for this user. */
-	$salt = get_salt($userID);
-	if ($salt) {
-		$q = "SELECT ID FROM Users ";
-		$q.= "WHERE ID = " . $userID . " ";
-		$q.= "AND Passwd = " . $dbh->quote(salted_hash($passwd, $salt));
-		$result = $dbh->query($q);
-		if (!$result) {
-			return false;
-		}
-
-		$row = $result->fetch(PDO::FETCH_NUM);
-		return ($row[0] > 0);
-	} else {
-		/* Check password without using salt. */
-		$q = "SELECT ID FROM Users ";
-		$q.= "WHERE ID = " . $userID . " ";
-		$q.= "AND Passwd = " . $dbh->quote(md5($passwd));
-		$result = $dbh->query($q);
-		if (!$result) {
-			return false;
-		}
-
-		$row = $result->fetch(PDO::FETCH_NUM);
-		if (!$row[0]) {
-			return false;
-		}
-
-		/* Password correct, but salt it first! */
-		if (!save_salt($userID, $passwd)) {
-			trigger_error("Unable to salt user's password;" .
-				" ID " . $userID, E_USER_WARNING);
-			return false;
-		}
-
-		return true;
-	}
-}
-
-/**
- * Determine if a user's password is empty
- *
- * @param string $uid The user ID to check for an empty password
- *
- * @return bool True if the user's password is empty, otherwise false
- */
-function passwd_is_empty($uid) {
+function check_passwd($user_id, $passwd) {
 	$dbh = DB::connect();
 
-	$q = "SELECT * FROM Users WHERE ID = " . $dbh->quote($uid) . " ";
-	$q .= "AND Passwd = " . $dbh->quote('');
+	/* Get password hash and salt. */
+	$q = "SELECT Passwd, Salt FROM Users WHERE ID = " . intval($user_id);
 	$result = $dbh->query($q);
-
-	if ($result->fetchColumn()) {
-		return true;
-	} else {
-		return false;
+	if (!$result) {
+		return 0;
 	}
+	$row = $result->fetch(PDO::FETCH_ASSOC);
+	if (!$row) {
+		return 0;
+	}
+	$hash = $row['Passwd'];
+	$salt = $row['Salt'];
+	if (!$hash) {
+		return -1;
+	}
+
+	/* Verify the password hash. */
+	if (!password_verify($passwd, $hash)) {
+		/* Invalid password, fall back to MD5. */
+		if (md5($salt . $passwd) != $hash) {
+			return 0;
+		}
+	}
+
+	/* Password correct, migrate the hash if necessary. */
+	if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+		$hash = password_hash($passwd, PASSWORD_DEFAULT);
+
+		$q = "UPDATE Users SET Passwd = " . $dbh->quote($hash) . " ";
+		$q.= "WHERE ID = " . intval($user_id);
+		$dbh->query($q);
+	}
+
+	return 1;
 }
 
 /**
