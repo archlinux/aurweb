@@ -1,3 +1,6 @@
+<?php if (count($results) == 0): ?>
+<p><?= __("No requests matched your search criteria.") ?></p>
+<?php else: ?>
 <?php if ($show_headers): ?>
 <div class="pkglist-stats">
 	<p>
@@ -128,4 +131,5 @@
 	</p>
 	<?php endif; ?>
 </div>
+<?php endif; ?>
 <?php endif; ?>
