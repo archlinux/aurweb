@@ -292,7 +292,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
 		$q.= "InactivityTS, Username, Email, Passwd , ";
 		$q.= "RealName, LangPreference, Timezone, Homepage, IRCNick, PGPKey) ";
-		$q.= "VALUES (1, 0, 0, $U, $E, $P, $R, $L, $TZ ";
+		$q.= "VALUES (1, 0, 0, $U, $E, $P, $R, $L, $TZ, ";
 		$q.= "$HP, $I, $K)";
 		$result = $dbh->exec($q);
 		if (!$result) {
