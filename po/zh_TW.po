@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# Jeff Huang <s8321414@gmail.com>, 2014-2016
+# Jeff Huang <s8321414@gmail.com>, 2014-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-09 09:21+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-26 03:10+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_TW/)\n"
@@ -125,8 +125,29 @@ msgstr "管理共同維護者"
 msgid "Edit comment"
 msgstr "編輯評論"
 
+msgid "Dashboard"
+msgstr "儀表板"
+
 msgid "Home"
 msgstr "首頁"
+
+msgid "My Flagged Packages"
+msgstr "我標記的套件"
+
+msgid "My Requests"
+msgstr "我的請求"
+
+msgid "My Packages"
+msgstr "我的套件"
+
+msgid "Search for packages I maintain"
+msgstr "搜尋我維護的套件"
+
+msgid "Co-Maintained Packages"
+msgstr "共同維護的套件"
+
+msgid "Search for packages I co-maintain"
+msgstr "搜尋我共同維護的套件"
 
 #, php-format
 msgid ""
@@ -358,6 +379,9 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr "輸入您的電子郵件地址："
 
+msgid "Package Bases"
+msgstr "套件基礎"
+
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
@@ -588,6 +612,9 @@ msgstr "無法提升帳號權限。"
 
 msgid "Language is not currently supported."
 msgstr "目前不支援此語言。"
+
+msgid "Timezone is not currently supported."
+msgstr "目前不支援時區。"
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -892,6 +919,9 @@ msgstr "活躍"
 msgid "Registration date:"
 msgstr "註冊日期："
 
+msgid "unknown"
+msgstr "未知"
+
 msgid "Last Login"
 msgstr "最後登入"
 
@@ -940,6 +970,9 @@ msgstr "重新輸入密碼"
 
 msgid "Language"
 msgstr "語言"
+
+msgid "Timezone"
+msgstr "時區"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1021,9 +1054,6 @@ msgstr "回到詳情"
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Copyright %s 2004-%d aurweb 開發團隊。"
 
-msgid "My Packages"
-msgstr "我的套件"
-
 msgid " My Account"
 msgstr "我的帳號"
 
@@ -1074,9 +1104,6 @@ msgstr[0] "%d 個擱置的請求"
 
 msgid "Adopt Package"
 msgstr "接管套件"
-
-msgid "unknown"
-msgstr "未知"
 
 msgid "Package Base Details"
 msgstr "套件基礎詳細資訊"
@@ -1268,6 +1295,9 @@ msgstr ""
 "透過遞交棄置請求，您會請求受信使用者棄置套件基礎。請僅在該套件需要有維護者動"
 "作、維護者突然消失且您先前已經連絡過維護者時做此動作。"
 
+msgid "No requests matched your search criteria."
+msgstr "沒有符合您搜尋條件的搜尋結果。"
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1308,6 +1338,9 @@ msgstr "已鎖定"
 msgid "Close"
 msgstr "關閉"
 
+msgid "Pending"
+msgstr "擱置中"
+
 msgid "Closed"
 msgstr "已關閉"
 
@@ -1322,6 +1355,12 @@ msgstr "確切的名稱"
 
 msgid "Exact Package Base"
 msgstr "確切的套件基礎"
+
+msgid "Co-maintainer"
+msgstr "共同維護者"
+
+msgid "Maintainer, Co-maintainer"
+msgstr "維護者、共同維護者"
 
 msgid "All"
 msgstr "全部"

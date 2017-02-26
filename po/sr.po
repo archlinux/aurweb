@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-11 14:07+0000\n"
-"Last-Translator: Slobodan Terzić <githzerai06@gmail.com>\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Serbian (http://www.transifex.com/lfleischer/aur/language/"
 "sr/)\n"
 "Language: sr\n"
@@ -129,8 +129,29 @@ msgstr "Upravljanje koodržavaocima"
 msgid "Edit comment"
 msgstr "Uređivanje komentara"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Početna"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Moji paketi"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -372,6 +393,9 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr "Unesite adresu e-pošte:"
 
+msgid "Package Bases"
+msgstr ""
+
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
@@ -609,6 +633,9 @@ msgstr "Ne mogu da uvećam dozvole naloga."
 
 msgid "Language is not currently supported."
 msgstr "Jezik trenutno nije podržan."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -915,6 +942,9 @@ msgstr "Aktivan"
 msgid "Registration date:"
 msgstr "Datum registracije:"
 
+msgid "unknown"
+msgstr "nepoznata"
+
 msgid "Last Login"
 msgstr "Poslednje prijavljivanje"
 
@@ -965,6 +995,9 @@ msgstr "Ponovo unesite lozinku"
 
 msgid "Language"
 msgstr "Jezik"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1050,9 +1083,6 @@ msgstr "Nazad na detalje"
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Copyright %s 2004-%d aurweb Development Team."
 
-msgid "My Packages"
-msgstr "Moji paketi"
-
 msgid " My Account"
 msgstr "Moj nalog"
 
@@ -1105,9 +1135,6 @@ msgstr[2] "%d zahteva na čekanju"
 
 msgid "Adopt Package"
 msgstr "Usvoji paket"
-
-msgid "unknown"
-msgstr "nepoznata"
 
 msgid "Package Base Details"
 msgstr "Podaci o bazi paketa"
@@ -1307,6 +1334,9 @@ msgstr ""
 "zahteva održavanje, a održavalac je nedosupan i već ste pokušali da ga "
 "kontaktirate."
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1353,6 +1383,9 @@ msgstr "Zaključano"
 msgid "Close"
 msgstr "Zatvori"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Zatvoreno"
 
@@ -1367,6 +1400,12 @@ msgstr "Tačno ime"
 
 msgid "Exact Package Base"
 msgstr "Tačna osnova paketa"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "svi"

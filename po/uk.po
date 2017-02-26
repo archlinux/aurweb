@@ -6,14 +6,14 @@
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2016
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2017
 # Данило Коростіль <ted.korostiled@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 15:11+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 16:47+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/lfleischer/aur/language/"
 "uk/)\n"
@@ -43,7 +43,7 @@ msgstr "Щоб клонувати сховище Git з %s, виконайте %
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr "Клацніть %sтут%s для повернення на сторінку деталей %s."
+msgstr "Клацніть %sтут%s для повернення на сторінку інформації %s."
 
 msgid "Service Unavailable"
 msgstr "Сервіс недоступний"
@@ -128,13 +128,34 @@ msgid "Submit"
 msgstr "Надіслати пакунок"
 
 msgid "Manage Co-maintainers"
-msgstr "Керування супровідниками"
+msgstr "Керування ко-супровідниками"
 
 msgid "Edit comment"
 msgstr "Редагувати коментар"
 
+msgid "Dashboard"
+msgstr "Панель знарядь"
+
 msgid "Home"
 msgstr "Початкова сторінка"
+
+msgid "My Flagged Packages"
+msgstr "Мої відмічені пакунки"
+
+msgid "My Requests"
+msgstr "Мої запити"
+
+msgid "My Packages"
+msgstr "Мої пакунки"
+
+msgid "Search for packages I maintain"
+msgstr "Пошук пакунків які я підтримую"
+
+msgid "Co-Maintained Packages"
+msgstr "Пакунки з сумісним супроводом"
+
+msgid "Search for packages I co-maintain"
+msgstr "Пошук пакунків з сумісним супроводом"
 
 #, php-format
 msgid ""
@@ -378,6 +399,9 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr "Введіть адресу електронної пошти:"
 
+msgid "Package Bases"
+msgstr "Бази пакунків"
+
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
@@ -405,7 +429,9 @@ msgstr "Вилучити пакунок"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "Використовуйте цю форму для вилучення пакунку %s%s%s з AUR. "
+msgstr ""
+"Використовуйте цю форму для вилучення бази пакунків %s%s%s і наступних "
+"пакунків з AUR. "
 
 msgid "Deletion of a package is permanent. "
 msgstr "Вилучення пакунку є безповоротне."
@@ -430,7 +456,7 @@ msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
-"Використайте ці форму для позбавлення базового пакунка %s%s%s власника, який "
+"Використайте ці форму для позбавлення бази пакунків %s%s%s власника, яка "
 "містить наступні пакунки:"
 
 #, php-format
@@ -467,7 +493,7 @@ msgid ""
 "Use this form to flag the package base %s%s%s and the following packages out-"
 "of-date: "
 msgstr ""
-"Використовуйте цю форму для позначення базового пакунку %s%s%s і наступні "
+"Використовуйте цю форму для позначення бази пакунків %s%s%s і наступні "
 "пакунки як застарілі:"
 
 #, php-format
@@ -503,7 +529,8 @@ msgstr "Об’єднати пакунок"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "Використовуйте цю форму для злиття пакунку %s%s%s з іншим пакунком."
+msgstr ""
+"Використовуйте цю форму для злиття бази пакунків %s%s%s з іншим пакунком."
 
 msgid "The following packages will be deleted: "
 msgstr "Наступні пакунки будуть вилучені:"
@@ -621,6 +648,9 @@ msgstr "Неможливо збільшити дозволи рахунку."
 msgid "Language is not currently supported."
 msgstr "Наразі ця мова не підтримується."
 
+msgid "Timezone is not currently supported."
+msgstr "Наразі часова зона не підтримується."
+
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Назва користувача %s%s%s вже використовується."
@@ -695,7 +725,7 @@ msgid "View account information for %s"
 msgstr "Показати інформацію про рахунок для %s"
 
 msgid "Package base ID or package base name missing."
-msgstr "ID базового пакунку або ж назва базового пакунку пропущена."
+msgstr "ID бази пакунків або ж назва бази пакунків пропущена."
 
 msgid "You are not allowed to edit this comment."
 msgstr "У вас немає прав, щоб редагувати цей коментар."
@@ -828,21 +858,20 @@ msgid "Comment has been edited."
 msgstr "Коментар редаговано."
 
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr ""
-"Ви не маєте прав для редагування ключових слів для цього базового пакунку."
+msgstr "Ви не маєте прав для редагування ключових слів для цієї бази пакунків."
 
 msgid "The package base keywords have been updated."
-msgstr "Ключові слова базового пакунку оновлено."
+msgstr "Ключові слова бази пакунків оновлено."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr "Ви не має прав для керування супровідниками цього базового пакунку."
+msgstr "Ви не має прав для керування ко-супровідниками цієї бази пакунків."
 
 #, php-format
 msgid "Invalid user name: %s"
 msgstr "Неправильна назва користувача: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr "Оновлено супровідників базового пакунку."
+msgstr "Оновлено ко-супровідників бази пакунків."
 
 msgid "View packages details for"
 msgstr "Показати деталі пакунку для "
@@ -931,6 +960,9 @@ msgstr "Активний"
 msgid "Registration date:"
 msgstr "Дата реєстрації:"
 
+msgid "unknown"
+msgstr "невідомо"
+
 msgid "Last Login"
 msgstr "Останній вхід"
 
@@ -949,7 +981,7 @@ msgstr "Натисніть %sтут%s, якщо Ви бажаєте безпов
 
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr "Клацніть %sтут%s для деталей про користувача."
+msgstr "Клацніть %sтут%s, щоб дізнатися більше про користувача."
 
 msgid "required"
 msgstr "обов'язково"
@@ -981,6 +1013,9 @@ msgstr "Введіть пароль ще раз"
 
 msgid "Language"
 msgstr "Мова"
+
+msgid "Timezone"
+msgstr "Часова зона"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1038,7 +1073,7 @@ msgstr "Більше немає результатів."
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
-"Використайте цю форму для додавання супровідника для %s%s%s (одна назва "
+"Використайте цю форму для додавання ко-супровідника для %s%s%s (одна назва "
 "користувача в одній стрічці):"
 
 msgid "Users"
@@ -1065,9 +1100,6 @@ msgstr "Повернення до подробиць."
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Всі права застережено %s 2004-%d Команда Розробників aurweb."
-
-msgid "My Packages"
-msgstr "Мої пакунки"
 
 msgid " My Account"
 msgstr "Мій рахунок"
@@ -1110,7 +1142,7 @@ msgid "Enable notifications"
 msgstr "Включити сповіщення"
 
 msgid "Manage Co-Maintainers"
-msgstr "Керування Супровідниками"
+msgstr "Керування ко-супровідниками"
 
 #, php-format
 msgid "%d pending request"
@@ -1121,9 +1153,6 @@ msgstr[2] "%d запитів в обробці"
 
 msgid "Adopt Package"
 msgstr "Прийняти пакунок"
-
-msgid "unknown"
-msgstr "невідомо"
 
 msgid "Package Base Details"
 msgstr "Деталі бази пакунків"
@@ -1254,7 +1283,7 @@ msgstr "Сирці"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr "Використайте цю форму для закриття запиту щодо бази пакетів %s%s%s."
+msgstr "Використайте цю форму для закриття запиту щодо бази пакунків %s%s%s."
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
@@ -1298,8 +1327,9 @@ msgid ""
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
 "Надсилаючи запит на вилучення, Ви просите Довіреного Користувача вилучити "
-"пакунок з бази. Цей тип запиту повинен використовуватися для дублікатів, "
-"неоновлюваних програм, а також нелегальних і невиправно пошкоджених пакунків."
+"пакунок з бази пакунків. Цей тип запиту повинен використовуватися для "
+"дублікатів, неоновлюваних програм, а також нелегальних і невиправно "
+"пошкоджених пакунків."
 
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
@@ -1308,9 +1338,9 @@ msgid ""
 "update the Git history of the target package yourself."
 msgstr ""
 "Надсилаючи запит на об'єднання, Ви просите Довіреного Користувача вилучити "
-"пакунок і перенести всі його голосування і коментарі до іншого пакунку. "
-"Об'єднання пакунку не впливає на відповідні сховища Git. Впевніться, що Ви "
-"оновили самі історію Git доцільового пакунку."
+"базу пакунків і перенести всі його голосування і коментарі до іншої бази "
+"пакунків. Об'єднання пакунку не впливає на відповідні сховища Git. "
+"Впевніться, що Ви самостійно оновили історію Git доцільового пакунку."
 
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
@@ -1319,8 +1349,12 @@ msgid ""
 "previously."
 msgstr ""
 "Надсилаючи запит на зречення, Ви просите Довіреного Користувача позбавити "
-"пакунок власника. Робіть це, якщо пакунок потребує якоїсь дії, супровідник "
-"не робить жодних дій і Ви вже попередньо намагалися зв'язатися з ним."
+"базу пакунків власника. Робіть це, якщо пакунок потребує якоїсь дії від "
+"супровідника, супровідник не робить жодних дій і Ви вже попередньо "
+"намагалися зв'язатися з ним."
+
+msgid "No requests matched your search criteria."
+msgstr "Жоден запит не відповідає Вашим критеріям пошуку."
 
 #, php-format
 msgid "%d package request found."
@@ -1368,6 +1402,9 @@ msgstr "Замкнено"
 msgid "Close"
 msgstr "Закрити"
 
+msgid "Pending"
+msgstr "В очікуванні"
+
 msgid "Closed"
 msgstr "Замкнено"
 
@@ -1382,6 +1419,12 @@ msgstr "Точна назва"
 
 msgid "Exact Package Base"
 msgstr "Точна база пакунків"
+
+msgid "Co-maintainer"
+msgstr "Ко-супровідник"
+
+msgid "Maintainer, Co-maintainer"
+msgstr "Супровідник, ко-супровідник"
 
 msgid "All"
 msgstr "Всі"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Czech (http://www.transifex.com/lfleischer/aur/language/cs/)\n"
 "Language: cs\n"
@@ -127,8 +127,29 @@ msgstr ""
 msgid "Edit comment"
 msgstr "Upravit komentář"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Domů"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Moje balíčky"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -342,6 +363,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Zadejte emailovou adresu:"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -568,6 +592,9 @@ msgstr ""
 
 msgid "Language is not currently supported."
 msgstr "Jazyk není momentálné podporován."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -869,6 +896,9 @@ msgstr "Aktivní"
 msgid "Registration date:"
 msgstr ""
 
+msgid "unknown"
+msgstr "neznámý"
+
 msgid "Last Login"
 msgstr "Poslední přihlášení"
 
@@ -917,6 +947,9 @@ msgstr "Heslo znovu"
 
 msgid "Language"
 msgstr "Jazyk"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -998,9 +1031,6 @@ msgstr ""
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
-msgid "My Packages"
-msgstr "Moje balíčky"
-
 msgid " My Account"
 msgstr "Můj účet"
 
@@ -1053,9 +1083,6 @@ msgstr[2] "%d čekajících požadavků"
 
 msgid "Adopt Package"
 msgstr "Adoptovat balíček"
-
-msgid "unknown"
-msgstr "neznámý"
 
 msgid "Package Base Details"
 msgstr ""
@@ -1240,6 +1267,9 @@ msgid ""
 "previously."
 msgstr ""
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1286,6 +1316,9 @@ msgstr "Zamčeno"
 msgid "Close"
 msgstr "Uzavřít"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Uzavřeno"
 
@@ -1299,6 +1332,12 @@ msgid "Exact Name"
 msgstr "Přesné jméno"
 
 msgid "Exact Package Base"
+msgstr ""
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
 msgstr ""
 
 msgid "All"

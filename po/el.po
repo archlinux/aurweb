@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Greek (http://www.transifex.com/lfleischer/aur/language/el/)\n"
 "Language: el\n"
@@ -131,8 +131,29 @@ msgstr ""
 msgid "Edit comment"
 msgstr ""
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Αρχική"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Τα πακέτα μου"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -353,6 +374,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Εισάγετε την διεύθυνση e-mail σας:"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -586,6 +610,9 @@ msgstr "Δε γίνεται να αυξηθούν τα δικαιώματα το
 
 msgid "Language is not currently supported."
 msgstr "Η γλώσσα αυτή δεν υποστηρίζεται ακόμη."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -899,6 +926,9 @@ msgstr "Ενεργός"
 msgid "Registration date:"
 msgstr ""
 
+msgid "unknown"
+msgstr "άγνωστο"
+
 msgid "Last Login"
 msgstr "Τελευταία σύνδεση"
 
@@ -947,6 +977,9 @@ msgstr "Πληκτρολογήστε ξανά τον κωδικό σας."
 
 msgid "Language"
 msgstr "Γλώσσα"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1028,9 +1061,6 @@ msgstr ""
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
-msgid "My Packages"
-msgstr "Τα πακέτα μου"
-
 msgid " My Account"
 msgstr "Ο λογαριασμός μου"
 
@@ -1082,9 +1112,6 @@ msgstr[1] ""
 
 msgid "Adopt Package"
 msgstr "Υιοθετήστε το Πακέτο"
-
-msgid "unknown"
-msgstr "άγνωστο"
 
 msgid "Package Base Details"
 msgstr ""
@@ -1269,6 +1296,9 @@ msgid ""
 "previously."
 msgstr ""
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1312,6 +1342,9 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr ""
 
@@ -1325,6 +1358,12 @@ msgid "Exact Name"
 msgstr ""
 
 msgid "Exact Package Base"
+msgstr ""
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
 msgstr ""
 
 msgid "All"
