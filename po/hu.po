@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hungarian (http://www.transifex.com/lfleischer/aur/language/"
 "hu/)\n"
@@ -129,8 +129,29 @@ msgstr "Társkarbantartók kezelése"
 msgid "Edit comment"
 msgstr "Hozzászólás szerkesztése"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Honlap"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Csomagjaim"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -375,6 +396,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Add meg az e-mail címedet:"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -628,6 +652,9 @@ msgstr "Nem lehet megnövelni a fiók jogosultságait."
 
 msgid "Language is not currently supported."
 msgstr "A nyelv jelenleg nem támogatott."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -935,6 +962,9 @@ msgstr "Aktív"
 msgid "Registration date:"
 msgstr "Regisztráció dátuma:"
 
+msgid "unknown"
+msgstr "ismeretlen"
+
 msgid "Last Login"
 msgstr "Legutóbbi bejelentkezés"
 
@@ -985,6 +1015,9 @@ msgstr "Megismételt jelszó"
 
 msgid "Language"
 msgstr "Nyelv"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1072,9 +1105,6 @@ msgstr "Vissza a részletekhez"
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Copyright %s 2004-%d aurweb fejlesztői csapat."
 
-msgid "My Packages"
-msgstr "Csomagjaim"
-
 msgid " My Account"
 msgstr " Fiókom"
 
@@ -1126,9 +1156,6 @@ msgstr[1] "%d függő kérelem"
 
 msgid "Adopt Package"
 msgstr "Csomag örökbe fogadása"
-
-msgid "unknown"
-msgstr "ismeretlen"
 
 msgid "Package Base Details"
 msgstr "Alapcsomag részletei"
@@ -1332,6 +1359,9 @@ msgstr ""
 "igényel fenntartói műveletet, a fenntartó eltűnt, és előzőleg már "
 "megpróbáltad felvenni a kapcsolatot a fenntartóval."
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1375,6 +1405,9 @@ msgstr "Zárolva"
 msgid "Close"
 msgstr "Lezárás"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Lezárva"
 
@@ -1389,6 +1422,12 @@ msgstr "Pontos név"
 
 msgid "Exact Package Base"
 msgstr "Pontos alapcsomag"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "Összes"

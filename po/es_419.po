@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Spanish (Latin America) (http://www.transifex.com/lfleischer/"
 "aur/language/es_419/)\n"
@@ -38,14 +38,15 @@ msgstr "Nota"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
 msgstr ""
+"Las direcciones de clonado de Git no deberían ser habiertas en un navegador."
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "Para clonar el repositorio Git de %s, ejecute %s."
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Haga clic %saquí%s para regresar a la página de detalles de %s."
 
 msgid "Service Unavailable"
 msgstr "Servicio no disponible"
@@ -135,8 +136,29 @@ msgstr "Administrar coencargados"
 msgid "Edit comment"
 msgstr "Editar comentario"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Inicio"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Mis paquetes"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -383,6 +405,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Introduzca su dirección de correo:"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -635,6 +660,9 @@ msgstr "No se puede incrementar los permisos de la cuenta."
 
 msgid "Language is not currently supported."
 msgstr "El idioma no está soportado actualmente."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -946,7 +974,10 @@ msgid "Active"
 msgstr "Activo"
 
 msgid "Registration date:"
-msgstr ""
+msgstr "Fecha de registración:"
+
+msgid "unknown"
+msgstr "desconocido"
 
 msgid "Last Login"
 msgstr "Última autentificación"
@@ -966,7 +997,7 @@ msgstr "Haga clic %saquí%s si desea borrar permanentemente esa cuenta."
 
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Haga clic %saquí%s para ver los detalles del usuario."
 
 msgid "required"
 msgstr "obligatorio"
@@ -998,6 +1029,9 @@ msgstr "Reescriba la contraseña"
 
 msgid "Language"
 msgstr "Idioma"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1086,9 +1120,6 @@ msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 "Derechos de autor %s 2004 - %d, equipo de desarrollo de la web del AUR."
 
-msgid "My Packages"
-msgstr "Mis paquetes"
-
 msgid " My Account"
 msgstr "Mi cuenta"
 
@@ -1140,9 +1171,6 @@ msgstr[1] "Hay %d peticiones pendientes"
 
 msgid "Adopt Package"
 msgstr "Adoptar paquete"
-
-msgid "unknown"
-msgstr "desconocido"
 
 msgid "Package Base Details"
 msgstr "Detalles del paquete base"
@@ -1346,6 +1374,9 @@ msgstr ""
 "mantenención para funcionar, el encargado no presenta da de actividad y ya "
 "intentó ponerse en contacto con él anteriormente."
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1389,6 +1420,9 @@ msgstr "Bloqueada"
 msgid "Close"
 msgstr "Cerrar"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Cerrada"
 
@@ -1403,6 +1437,12 @@ msgstr "Nombre exacto"
 
 msgid "Exact Package Base"
 msgstr "Paquete base exacto"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "Todos"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Romanian (http://www.transifex.com/lfleischer/aur/language/"
 "ro/)\n"
@@ -130,8 +130,29 @@ msgstr ""
 msgid "Edit comment"
 msgstr ""
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Acasă"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Pachetele mele"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -349,6 +370,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Introdu adresa ta de e-mail:"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -582,6 +606,9 @@ msgstr "Permisiunile contului nu pot fi ridicate."
 
 msgid "Language is not currently supported."
 msgstr "Limba nu este încă suportată."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -893,6 +920,9 @@ msgstr "Activ"
 msgid "Registration date:"
 msgstr ""
 
+msgid "unknown"
+msgstr "necunoscut"
+
 msgid "Last Login"
 msgstr "Ultima autentificare"
 
@@ -941,6 +971,9 @@ msgstr "Rescrie parola"
 
 msgid "Language"
 msgstr "Limbă"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1022,9 +1055,6 @@ msgstr ""
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
-msgid "My Packages"
-msgstr "Pachetele mele"
-
 msgid " My Account"
 msgstr "Contul meu"
 
@@ -1077,9 +1107,6 @@ msgstr[2] "%d de cereri în așteptare"
 
 msgid "Adopt Package"
 msgstr "Adoptă pachet"
-
-msgid "unknown"
-msgstr "necunoscut"
 
 msgid "Package Base Details"
 msgstr "Detalii pachet de bază"
@@ -1270,6 +1297,9 @@ msgid ""
 "previously."
 msgstr ""
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1316,6 +1346,9 @@ msgstr "Blocat"
 msgid "Close"
 msgstr "Închide"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Închis"
 
@@ -1330,6 +1363,12 @@ msgstr "Nume exact"
 
 msgid "Exact Package Base"
 msgstr "Pachet de bază exact"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "Toate"

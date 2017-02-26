@@ -38,8 +38,8 @@
 				<td><?php $row["Agenda"] = htmlspecialchars(substr($row["Agenda"], 0, $prev_Len)); ?>
 					<a href="<?= get_uri('/tu/'); ?>?id=<?= $row['ID'] ?>"><?= $row["Agenda"] ?></a>
 				</td>
-				<td><?= gmdate("Y-m-d", $row["Submitted"]) ?></td>
-				<td><?= gmdate("Y-m-d", $row["End"]) ?></td>
+				<td><?= date("Y-m-d", $row["Submitted"]) ?></td>
+				<td><?= date("Y-m-d", $row["End"]) ?></td>
 				<td>
 				<?php if (!empty($row['User'])): ?>
 					<a href="<?= get_uri('/packages/'); ?>?K=<?= $row['User'] ?>&amp;SeB=m"><?= $row['User'] ?></a>

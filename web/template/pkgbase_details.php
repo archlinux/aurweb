@@ -31,9 +31,9 @@ $popularity = $row['Popularity'];
 $msg = __('unknown');
 
 # Print the timestamps for last updates
-$updated_time = ($row["ModifiedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["ModifiedTS"]));
-$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : gmdate("Y-m-d H:i", intval($row["SubmittedTS"]));
-$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : gmdate("Y-m-d", intval($row["OutOfDateTS"]));
+$updated_time = ($row["ModifiedTS"] == 0) ? $msg : date("Y-m-d H:i", intval($row["ModifiedTS"]));
+$submitted_time = ($row["SubmittedTS"] == 0) ? $msg : date("Y-m-d H:i", intval($row["SubmittedTS"]));
+$out_of_date_time = ($row["OutOfDateTS"] == 0) ? $msg : date("Y-m-d", intval($row["OutOfDateTS"]));
 
 $pkgs = pkgbase_get_pkgnames($base_id);
 
@@ -50,7 +50,7 @@ $base_uri = get_pkgbase_uri($row['Name']);
 			<th><?= __('Git Clone URL') . ': ' ?></th>
 			<td>
 				<a href="<?= $git_clone_uri_anon ?>"><?= $git_clone_uri_anon ?></a> (<?= __('read-only') ?>)
-				<?php if ($uid == $row["MaintainerUID"]): ?>
+				<?php if (in_array($uid, $maintainers)): ?>
 				<br /> <a href="<?= $git_clone_uri_priv ?>"><?= $git_clone_uri_priv ?></a>
 				<?php endif; ?>
 			</td>

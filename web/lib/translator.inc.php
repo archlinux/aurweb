@@ -106,7 +106,7 @@ function set_lang() {
 		$dbh = DB::connect();
 		$q = "SELECT LangPreference FROM Users, Sessions ";
 		$q.= "WHERE Users.ID = Sessions.UsersID ";
-		$q.= "AND Sessions.SessionID = '";
+		$q.= "AND Sessions.SessionID = ";
 		$q.= $dbh->quote($_COOKIE["AURSID"]);
 		$result = $dbh->query($q);
 

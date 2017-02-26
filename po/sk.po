@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# archetyp <archetyp@linuxmail.org>, 2013-2015
+# archetyp <archetyp@linuxmail.org>, 2013-2016
 # Matej Ľach <matej.lach@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Slovak (http://www.transifex.com/lfleischer/aur/language/"
 "sk/)\n"
@@ -31,14 +31,16 @@ msgstr "Poznámka"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
 msgstr ""
+"URL adresy na klonovanie Git repozitárov nie sú určené pre otváranie v "
+"prehliadači."
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "Na klonovanie Git repozitáre pre %s spustite %s."
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Kliknite %ssem%s pre návrat na stránku s detailami o %s."
 
 msgid "Service Unavailable"
 msgstr "Služba nie je dostupná"
@@ -127,8 +129,29 @@ msgstr "Manažovať spolupracovníkov"
 msgid "Edit comment"
 msgstr "Editovať komentár"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Domov"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Moje balíčky"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -371,6 +394,9 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr "Zadajte svoju e-mailovú adresu:"
 
+msgid "Package Bases"
+msgstr ""
+
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
@@ -452,7 +478,7 @@ msgid "Only Trusted Users and Developers can disown packages."
 msgstr "Len dôverovaní užívatelia a vývojári môžu vyvlastňovať balíčky."
 
 msgid "Flag Comment"
-msgstr ""
+msgstr "Označ komentár"
 
 msgid "Flag Package Out-Of-Date"
 msgstr "Označ balíček ako zastaranú verziu"
@@ -523,10 +549,10 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Len dôverovaní užívatelia a vývojári môžu zlúčiť balíčky."
 
 msgid "Submit Request"
-msgstr ""
+msgstr "Odoslať žiadosť"
 
 msgid "Close Request"
-msgstr "Zatvorit žiadosť"
+msgstr "Zatvoriť žiadosť"
 
 msgid "First"
 msgstr "Prvý"
@@ -616,6 +642,9 @@ msgstr "Nepodarilo sa rozšíriť práva účtu."
 
 msgid "Language is not currently supported."
 msgstr "Jazyk nie je momentálne podporovaný."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -710,19 +739,19 @@ msgid "Missing comment ID."
 msgstr "Chýba ID komentára."
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "Nemôže byť pripnutých viac ako 5 komentárov."
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "Nemáte oprávnenie na pripnutie tohoto komentára."
 
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "Nemáte oprávnenie na odopnutie tohoto komentára."
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "Komentár bol pripnutý."
 
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "Komentár bol odopnutý."
 
 msgid "Error retrieving package details."
 msgstr "Chyba pri získavaní informácií o balíčku."
@@ -805,10 +834,10 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Boli ste odobraný z notifikačného zoznamu komentárov pre %s."
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "Nemáte práva na obnovenie tohto komentára."
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "Komentár bol obnovený."
 
 msgid "You are not allowed to delete this comment."
 msgstr "Nemáte práva na vymazanie tohto komentára."
@@ -902,7 +931,7 @@ msgid "Real Name"
 msgstr "Skutočné meno"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Domovská stránka"
 
 msgid "IRC Nick"
 msgstr "IRC prezývka"
@@ -920,7 +949,10 @@ msgid "Active"
 msgstr "Aktívny"
 
 msgid "Registration date:"
-msgstr ""
+msgstr "Dátum registrácie"
+
+msgid "unknown"
+msgstr "neznámy"
 
 msgid "Last Login"
 msgstr "Posledné prihlásenie"
@@ -940,7 +972,7 @@ msgstr "Kliknite %ssem%s ak chcete natrvalo vymazať tento účet."
 
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Kliknite %ssem%s pre informácie o užívateľovi."
 
 msgid "required"
 msgstr "povinný"
@@ -972,6 +1004,9 @@ msgstr "Potvrďte heslo"
 msgid "Language"
 msgstr "Jazyk"
 
+msgid "Timezone"
+msgstr ""
+
 msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
@@ -983,16 +1018,16 @@ msgid "SSH Public Key"
 msgstr "Verejný SSH kľúč"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "Nastavenia upozornení"
 
 msgid "Notify of new comments"
 msgstr "Upozorni na nové komentáre"
 
 msgid "Notify of package updates"
-msgstr ""
+msgstr "Upozorni na aktualizácie balíčkov"
 
 msgid "Notify of ownership changes"
-msgstr ""
+msgstr "Upozorni na zmeny vo vlastníctve balíčka"
 
 msgid "Update"
 msgstr "Aktualizácia"
@@ -1039,25 +1074,23 @@ msgstr "Uložiť"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Komentár k označeniu balíčka ako zastaranej verzie: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr ""
+"%s%s%s bol označený %s%s%s ako zastaraný %s%s%s z nasledujúceho dôvodu:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s nie je označený ako zastarný."
 
 msgid "Return to Details"
-msgstr ""
+msgstr "Návrat na detaily"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
-
-msgid "My Packages"
-msgstr "Moje balíčky"
+msgstr "Copyright %s 2004-%d aurweb Development Team."
 
 msgid " My Account"
 msgstr "Môj účet"
@@ -1079,7 +1112,7 @@ msgstr "Prehľadať wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Označený ako zastaraný (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "Označ balíček ako neaktuálny"
@@ -1097,7 +1130,7 @@ msgid "Disable notifications"
 msgstr "Vypni upozornenia"
 
 msgid "Enable notifications"
-msgstr ""
+msgstr "Povoliť upozornenia"
 
 msgid "Manage Co-Maintainers"
 msgstr "Manažovať spolupracovníkov"
@@ -1111,9 +1144,6 @@ msgstr[2] "%d ostávajúcich žiadostí"
 
 msgid "Adopt Package"
 msgstr "Adoptuj balíček"
-
-msgid "unknown"
-msgstr "neznámy"
 
 msgid "Package Base Details"
 msgstr "Detaily základne balíčka"
@@ -1159,7 +1189,7 @@ msgid "View all comments"
 msgstr "Pozrieť všetky komentáre"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "Pripnuté komentáre"
 
 msgid "Latest Comments"
 msgstr "Posledné komentáre"
@@ -1178,27 +1208,27 @@ msgstr "vymazal %s %s"
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "vymazaný %s"
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "editovaný %s %s"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "editovaný %s"
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "Obnoviť komentár"
 
 msgid "Delete comment"
 msgstr "Vymaž komentár"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "Pripnúť komentár"
 
 msgid "Unpin comment"
-msgstr ""
+msgstr "Odopnúť komentár"
 
 msgid "All comments"
 msgstr "Všetky komentáre"
@@ -1288,6 +1318,10 @@ msgid ""
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
+"Odoslaním žiadosti na vymazanie balíčka žiadate dôverovaného užívateľa t.j. "
+"Trusted User, aby vymazal balíček aj s jeho základňou. Tento typ požiadavky "
+"by mal použitý pre duplikáty, softvér ku ktorému už nie sú zdroje ako aj "
+"nelegálne a neopraviteľné balíčky."
 
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
@@ -1295,12 +1329,24 @@ msgid ""
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
 msgstr ""
+"Odoslaním žiadosti na zlúčenie balíčka žiadate dôverovaného užívateľa t.j. "
+"Trusted User, aby vymazal balíček aj s jeho základňou a preniesol hlasy a "
+"komentáre na inú základňu balíčka. Zlúčenie balíčka nezasiahne prináležiace "
+"Git repozitáre, preto sa uistite, že Git história cieľového balíčka je "
+"aktuálna."
 
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
+msgstr ""
+"Odoslaním žiadosti na osirotenie balíčka žiadate dôverovaného užívateľa t.j. "
+"Trusted User, aby vyvlastnil balíček aj s jeho základňou. Toto urobte len "
+"vtedy, ak balíček vyžaduje zásah od vlastníka, vlastník nie je zastihnuteľný "
+"a už ste sa niekoľkokrát pokúšali vlastníka kontaktovať."
+
+msgid "No requests matched your search criteria."
 msgstr ""
 
 #, php-format
@@ -1326,9 +1372,9 @@ msgstr "Dátum"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "ostáva ~%d deň"
+msgstr[1] "ostáva ~%d dni"
+msgstr[2] "ostáva ~%d dní"
 
 #, php-format
 msgid "~%d hour left"
@@ -1349,6 +1395,9 @@ msgstr "Uzamknuté"
 msgid "Close"
 msgstr "Zatvoriť"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Zatvorené"
 
@@ -1363,6 +1412,12 @@ msgstr "Presné meno"
 
 msgid "Exact Package Base"
 msgstr "Presná základňa balíčka"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "Všetky"
@@ -1433,6 +1488,8 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"Popularita sa počíta ako súčet všetkých hlasov, pričom každý hlas je "
+"prenásobený váhovým koeficientom %.2f každý deň od jeho pridania."
 
 msgid "Yes"
 msgstr "Áno"
@@ -1492,7 +1549,7 @@ msgid "Recent Updates"
 msgstr "Nedávne aktualizácie"
 
 msgid "more"
-msgstr ""
+msgstr "viac"
 
 msgid "My Statistics"
 msgstr "Moja štatistika"

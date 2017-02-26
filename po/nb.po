@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# Alexander F Rødseth <rodseth@gmail.com>, 2015
+# Alexander F Rødseth <rodseth@gmail.com>, 2015,2017
 # Alexander F Rødseth <rodseth@gmail.com>, 2011,2013-2014
 # Harald H. <haarektrans@gmail.com>, 2015
 # Kim Nordmo <kim.nordmo@gmail.com>, 2016
@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/lfleischer/aur/"
 "language/nb/)\n"
@@ -34,15 +34,15 @@ msgid "Note"
 msgstr "OBS"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Git clone URL-er er ikke ment til å åpnes i nettleseren."
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "For å klone et Git arkiv fra %s, kjør %s."
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Trykk %sher%s for å returnere til detalj-siden for %s."
 
 msgid "Service Unavailable"
 msgstr "Tjenesten er utilgjengelig"
@@ -130,8 +130,29 @@ msgstr "Administrer Med-Vedlikeholdere"
 msgid "Edit comment"
 msgstr "Rediger kommentar"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Hjem"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Mine pakker"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -179,6 +200,8 @@ msgid ""
 "There are three types of requests that can be filed in the %sPackage Actions"
 "%s box on the package details page:"
 msgstr ""
+"Det er tre forskjellige forespørsler som kan velges i %sPakkenhandling%s-"
+"boksen på siden til en pakke:"
 
 msgid "Orphan Request"
 msgstr "Foreldreløs-forespørsel"
@@ -361,6 +384,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Angi din e-postadresse:"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -594,6 +620,9 @@ msgstr "Kan ikke gi flere tillatelser til kontoen."
 
 msgid "Language is not currently supported."
 msgstr "Språket støttes ikke på dette tidspunktet."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -901,6 +930,9 @@ msgstr "Aktiv"
 msgid "Registration date:"
 msgstr ""
 
+msgid "unknown"
+msgstr "ukjent"
+
 msgid "Last Login"
 msgstr "Sist logget inn"
 
@@ -951,6 +983,9 @@ msgstr "Skriv inn passordet på nytt"
 
 msgid "Language"
 msgstr "Språk"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1032,9 +1067,6 @@ msgstr ""
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
-msgid "My Packages"
-msgstr "Mine pakker"
-
 msgid " My Account"
 msgstr " Min konto"
 
@@ -1086,9 +1118,6 @@ msgstr[1] "%d ventende forespørsler"
 
 msgid "Adopt Package"
 msgstr "Adopter pakke"
-
-msgid "unknown"
-msgstr "ukjent"
 
 msgid "Package Base Details"
 msgstr "Grunnpakkedetaljer"
@@ -1277,6 +1306,9 @@ msgid ""
 "previously."
 msgstr ""
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1320,6 +1352,9 @@ msgstr "Låst"
 msgid "Close"
 msgstr "Lukk"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Lukket"
 
@@ -1334,6 +1369,12 @@ msgstr "Eksakt navn"
 
 msgid "Exact Package Base"
 msgstr "Eksakt grunnpakke"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "Alle"

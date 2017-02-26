@@ -8,12 +8,69 @@ check_sid();
 
 include_once('stats.inc.php');
 
-html_header( __("Home") );
+if (isset($_COOKIE["AURSID"])) {
+	html_header( __("Dashboard") );
+} else {
+	html_header( __("Home") );
+}
 
 ?>
 
 <div id="content-left-wrapper">
 	<div id="content-left">
+		<?php if (isset($_COOKIE["AURSID"])): ?>
+		<div id="intro" class="box">
+			<h2><?= __("Dashboard"); ?></h2>
+			<h3><?= __("My Flagged Packages"); ?></h3>
+			<?php
+			$params = array(
+				'PP' => 50,
+				'SeB' => 'M',
+				'K' => username_from_sid($_COOKIE["AURSID"]),
+				'outdated' => 'on',
+				'SB' => 'l',
+				'SO' => 'a'
+			);
+			pkg_search_page($params, false, $_COOKIE["AURSID"]);
+			?>
+			<h3><?= __("My Requests"); ?></h3>
+			<?php
+			$archive_time = config_get_int('options', 'request_archive_time');
+			$from = time() - $archive_time;
+			$results = pkgreq_list(0, 50, uid_from_sid($_COOKIE["AURSID"]), $from);
+			$show_headers = false;
+			include('pkgreq_results.php');
+			?>
+		</div>
+		<div id="intro" class="box">
+			<h2><?= __("My Packages"); ?></h2>
+			<p><a href="<?= get_uri('/packages/') ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('Search for packages I maintain') ?></a></p>
+			<?php
+			$params = array(
+				'PP' => 50,
+				'SeB' => 'm',
+				'K' => username_from_sid($_COOKIE["AURSID"]),
+				'SB' => 'l',
+				'SO' => 'd'
+			);
+			pkg_search_page($params, false, $_COOKIE["AURSID"]);
+			?>
+		</div>
+		<div id="intro" class="box">
+			<h2><?= __("Co-Maintained Packages"); ?></h2>
+			<p><a href="<?= get_uri('/packages/') ?>?SeB=c&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __('Search for packages I co-maintain') ?></a></p>
+			<?php
+			$params = array(
+				'PP' => 50,
+				'SeB' => 'c',
+				'K' => username_from_sid($_COOKIE["AURSID"]),
+				'SB' => 'l',
+				'SO' => 'd'
+			);
+			pkg_search_page($params, false, $_COOKIE["AURSID"]);
+			?>
+		</div>
+		<?php else: ?>
 		<div id="intro" class="box">
 			<h2>AUR <?= __("Home"); ?></h2>
 			<p>
@@ -122,6 +179,7 @@ html_header( __("Home") );
 			</p>
 			</div>
 		</div>
+		<?php endif; ?>
 	</div>
 </div>
 <div id="content-right">
@@ -140,7 +198,7 @@ html_header( __("Home") );
 	<div id="pkg-stats" class="widget box">
 		<?php general_stats_table(); ?>
 	</div>
-	<?php if (!empty($_COOKIE["AURSID"])): ?>
+	<?php if (isset($_COOKIE["AURSID"])): ?>
 	<div id="pkg-stats" class="widget box">
 		<?php user_table(uid_from_sid($_COOKIE["AURSID"])); ?>
 	</div>

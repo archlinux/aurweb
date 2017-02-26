@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Determine if an HTTP request variable is set
  *
@@ -52,6 +51,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $C The confirmed password value of the displayed user
  * @param string $R The real name of the displayed user
  * @param string $L The language preference of the displayed user
+ * @param string $TZ The timezone preference of the displayed user
  * @param string $HP The homepage of the displayed user
  * @param string $I The IRC nickname of the displayed user
  * @param string $K The PGP key fingerprint of the displayed user
@@ -66,8 +66,12 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @return void
  */
 function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R="",
-		$L="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
+		$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
+
+	if ($TZ == "") {
+		$TZ = config_get("options", "default_timezone");
+	}
 
 	include("account_edit_form.php");
 	return;
@@ -88,6 +92,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $C The confirmed password for the user
  * @param string $R The real name of the user
  * @param string $L The language preference of the user
+ * @param string $TZ The timezone preference of the user
  * @param string $HP The homepage of the displayed user
  * @param string $I The IRC nickname of the user
  * @param string $K The PGP fingerprint of the user
@@ -102,7 +107,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @return array Boolean indicating success and message to be printed
  */
 function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
-		$R="",$L="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
+		$R="",$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
@@ -200,6 +205,9 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 	if (!$error && !array_key_exists($L, $SUPPORTED_LANGS)) {
 		$error = __("Language is not currently supported.");
 	}
+	if (!$error && !array_key_exists($TZ, generate_timezone_list())) {
+		$error = __("Timezone is not currently supported.");
+	}
 	if (!$error) {
 		/*
 		 * Check whether the user name is available.
@@ -264,13 +272,12 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 
 	if ($TYPE == "new") {
 		/* Create an unprivileged user. */
-		$salt = generate_salt();
 		if (empty($P)) {
 			$send_resetkey = true;
 			$email = $E;
 		} else {
 			$send_resetkey = false;
-			$P = salted_hash($P, $salt);
+			$P = password_hash($P, PASSWORD_DEFAULT);
 		}
 		$U = $dbh->quote($U);
 		$E = $dbh->quote($E);
@@ -278,13 +285,14 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$salt = $dbh->quote($salt);
 		$R = $dbh->quote($R);
 		$L = $dbh->quote($L);
+		$TZ = $dbh->quote($TZ);
 		$HP = $dbh->quote($HP);
 		$I = $dbh->quote($I);
 		$K = $dbh->quote(str_replace(" ", "", $K));
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
-		$q.= "InactivityTS, Username, Email, Passwd, Salt, ";
-		$q.= "RealName, LangPreference, Homepage, IRCNick, PGPKey) ";
-		$q.= "VALUES (1, 0, 0, $U, $E, $P, $salt, $R, $L, ";
+		$q.= "InactivityTS, Username, Email, Passwd , ";
+		$q.= "RealName, LangPreference, Timezone, Homepage, IRCNick, PGPKey) ";
+		$q.= "VALUES (1, 0, 0, $U, $E, $P, $R, $L, $TZ ";
 		$q.= "$HP, $I, $K)";
 		$result = $dbh->exec($q);
 		if (!$result) {
@@ -341,12 +349,12 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 			$q.= ", HideEmail = 0";
 		}
 		if ($P) {
-			$salt = generate_salt();
-			$hash = salted_hash($P, $salt);
-			$q .= ", Passwd = '$hash', Salt = '$salt'";
+			$hash = password_hash($P, PASSWORD_DEFAULT);
+			$q .= ", Passwd = " . $dbh->quote($hash);
 		}
 		$q.= ", RealName = " . $dbh->quote($R);
 		$q.= ", LangPreference = " . $dbh->quote($L);
+		$q.= ", Timezone = " . $dbh->quote($TZ);
 		$q.= ", Homepage = " . $dbh->quote($HP);
 		$q.= ", IRCNick = " . $dbh->quote($I);
 		$q.= ", PGPKey = " . $dbh->quote(str_replace(" ", "", $K));
@@ -358,6 +366,20 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$result = $dbh->exec($q);
 
 		$ssh_key_result = account_set_ssh_keys($UID, $ssh_keys, $ssh_fingerprints);
+
+		if (isset($_COOKIE["AURTZ"]) && ($_COOKIE["AURTZ"] != $TZ)) {
+			/* set new cookie for timezone */
+			$timeout = intval(config_get("options", "persistent_cookie_timeout"));
+			$cookie_time = time() + $timeout;
+			setcookie("AURTZ", $TZ, $cookie_time, "/");
+		}
+
+		if (isset($_COOKIE["AURLANG"]) && ($_COOKIE["AURLANG"] != $L)) {
+			/* set new cookie for language */
+			$timeout = intval(config_get("options", "persistent_cookie_timeout"));
+			$cookie_time = time() + $timeout;
+			setcookie("AURLANG", $L, $cookie_time, "/");
+		}
 
 		if ($result === false || $ssh_key_result === false) {
 			$message = __("No changes were made to the account, %s%s%s.",
@@ -504,19 +526,24 @@ function try_login() {
 	if (user_suspended($userID)) {
 		$login_error = __('Account suspended');
 		return array('SID' => '', 'error' => $login_error);
-	} elseif (passwd_is_empty($userID)) {
-		$login_error = __('Your password has been reset. ' .
-			'If you just created a new account, please ' .
-			'use the link from the confirmation email ' .
-			'to set an initial password. Otherwise, ' .
-			'please request a reset key on the %s' .
-			'Password Reset%s page.', '<a href="' .
-			htmlspecialchars(get_uri('/passreset')) . '">',
-			'</a>');
-		return array('SID' => '', 'error' => $login_error);
-	} elseif (!valid_passwd($userID, $_REQUEST['passwd'])) {
-		$login_error = __("Bad username or password.");
-		return array('SID' => '', 'error' => $login_error);
+	}
+
+	switch (check_passwd($userID, $_REQUEST['passwd'])) {
+		case -1:
+			$login_error = __('Your password has been reset. ' .
+				'If you just created a new account, please ' .
+				'use the link from the confirmation email ' .
+				'to set an initial password. Otherwise, ' .
+				'please request a reset key on the %s' .
+				'Password Reset%s page.', '<a href="' .
+				htmlspecialchars(get_uri('/passreset')) . '">',
+				'</a>');
+			return array('SID' => '', 'error' => $login_error);
+		case 0:
+			$login_error = __("Bad username or password.");
+			return array('SID' => '', 'error' => $login_error);
+		case 1:
+			break;
 	}
 
 	$logged_in = 0;
@@ -543,7 +570,7 @@ function try_login() {
 
 		$new_sid = new_sid();
 		$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
-		  ." VALUES (" . $userID . ", '" . $new_sid . "', UNIX_TIMESTAMP())";
+		  ." VALUES (" . $userID . ", '" . $new_sid . "', " . strval(time()) . ")";
 		$result = $dbh->exec($q);
 
 		/* Query will fail if $new_sid is not unique. */
@@ -560,7 +587,7 @@ function try_login() {
 		return array('SID' => $new_sid, 'error' => $login_error);
 	}
 
-	$q = "UPDATE Users SET LastLogin = UNIX_TIMESTAMP(), ";
+	$q = "UPDATE Users SET LastLogin = " . strval(time()) . ", ";
 	$q.= "LastLoginIPAddress = " . $dbh->quote($_SERVER['REMOTE_ADDR']) . " ";
 	$q.= "WHERE ID = $userID";
 	$dbh->exec($q);
@@ -597,7 +624,7 @@ function try_login() {
 function is_ipbanned() {
 	$dbh = DB::connect();
 
-	$q = "SELECT * FROM Bans WHERE IPAddress = " . $dbh->quote(ip2long($_SERVER['REMOTE_ADDR']));
+	$q = "SELECT * FROM Bans WHERE IPAddress = " . $dbh->quote($_SERVER['REMOTE_ADDR']);
 	$result = $dbh->query($q);
 
 	return ($result->fetchColumn() ? true : false);
@@ -638,7 +665,7 @@ function valid_username($user) {
 function open_user_proposals($user) {
 	$dbh = DB::connect();
 	$q = "SELECT * FROM TU_VoteInfo WHERE User = " . $dbh->quote($user) . " ";
-	$q.= "AND End > UNIX_TIMESTAMP()";
+	$q.= "AND End > " . strval(time());
 	$result = $dbh->query($q);
 
 	return ($result->fetchColumn() ? true : false);
@@ -665,7 +692,7 @@ function add_tu_proposal($agenda, $user, $votelength, $quorum, $submitteruid) {
 	$q = "INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End, Quorum, ";
 	$q.= "SubmitterID, ActiveTUs) VALUES ";
 	$q.= "(" . $dbh->quote($agenda) . ", " . $dbh->quote($user) . ", ";
-	$q.= "UNIX_TIMESTAMP(), UNIX_TIMESTAMP() + " . $dbh->quote($votelength);
+	$q.= strval(time()) . ", " . strval(time()) . " + " . $dbh->quote($votelength);
 	$q.= ", " . $dbh->quote($quorum) . ", " . $submitteruid . ", ";
 	$q.= $active_tus . ")";
 	$result = $dbh->exec($q);
@@ -712,18 +739,18 @@ function send_resetkey($email, $welcome=false) {
 /**
  * Change a user's password in the database if reset key and e-mail are correct
  *
- * @param string $hash New MD5 hash of a user's password
- * @param string $salt New salt for the user's password
+ * @param string $password The new password
  * @param string $resetkey Code e-mailed to a user to reset a password
  * @param string $email E-mail address of the user resetting their password
  *
  * @return string|void Redirect page if successful, otherwise return error message
  */
-function password_reset($hash, $salt, $resetkey, $email) {
+function password_reset($password, $resetkey, $email) {
+	$hash = password_hash($password, PASSWORD_DEFAULT);
+
 	$dbh = DB::connect();
-	$q = "UPDATE Users ";
-	$q.= "SET Passwd = '$hash', ";
-	$q.= "Salt = '$salt', ";
+	$q = "UPDATE Users SET ";
+	$q.= "Passwd = " . $dbh->quote($hash) . ", ";
 	$q.= "ResetKey = '' ";
 	$q.= "WHERE ResetKey != '' ";
 	$q.= "AND ResetKey = " . $dbh->quote($resetkey) . " ";
@@ -754,75 +781,48 @@ function good_passwd($passwd) {
 /**
  * Determine if the password is correct and salt it if it hasn't been already
  *
- * @param string $userID The user ID to check the password against
+ * @param int $user_id The user ID to check the password against
  * @param string $passwd The password the visitor sent
  *
- * @return bool True if password was correct and properly salted, otherwise false
+ * @return int Positive if password is correct, negative if password is unset
  */
-function valid_passwd($userID, $passwd) {
-	$dbh = DB::connect();
-	if ($passwd == "") {
-		return false;
-	}
-
-	/* Get salt for this user. */
-	$salt = get_salt($userID);
-	if ($salt) {
-		$q = "SELECT ID FROM Users ";
-		$q.= "WHERE ID = " . $userID . " ";
-		$q.= "AND Passwd = " . $dbh->quote(salted_hash($passwd, $salt));
-		$result = $dbh->query($q);
-		if (!$result) {
-			return false;
-		}
-
-		$row = $result->fetch(PDO::FETCH_NUM);
-		return ($row[0] > 0);
-	} else {
-		/* Check password without using salt. */
-		$q = "SELECT ID FROM Users ";
-		$q.= "WHERE ID = " . $userID . " ";
-		$q.= "AND Passwd = " . $dbh->quote(md5($passwd));
-		$result = $dbh->query($q);
-		if (!$result) {
-			return false;
-		}
-
-		$row = $result->fetch(PDO::FETCH_NUM);
-		if (!$row[0]) {
-			return false;
-		}
-
-		/* Password correct, but salt it first! */
-		if (!save_salt($userID, $passwd)) {
-			trigger_error("Unable to salt user's password;" .
-				" ID " . $userID, E_USER_WARNING);
-			return false;
-		}
-
-		return true;
-	}
-}
-
-/**
- * Determine if a user's password is empty
- *
- * @param string $uid The user ID to check for an empty password
- *
- * @return bool True if the user's password is empty, otherwise false
- */
-function passwd_is_empty($uid) {
+function check_passwd($user_id, $passwd) {
 	$dbh = DB::connect();
 
-	$q = "SELECT * FROM Users WHERE ID = " . $dbh->quote($uid) . " ";
-	$q .= "AND Passwd = " . $dbh->quote('');
+	/* Get password hash and salt. */
+	$q = "SELECT Passwd, Salt FROM Users WHERE ID = " . intval($user_id);
 	$result = $dbh->query($q);
-
-	if ($result->fetchColumn()) {
-		return true;
-	} else {
-		return false;
+	if (!$result) {
+		return 0;
 	}
+	$row = $result->fetch(PDO::FETCH_ASSOC);
+	if (!$row) {
+		return 0;
+	}
+	$hash = $row['Passwd'];
+	$salt = $row['Salt'];
+	if (!$hash) {
+		return -1;
+	}
+
+	/* Verify the password hash. */
+	if (!password_verify($passwd, $hash)) {
+		/* Invalid password, fall back to MD5. */
+		if (md5($salt . $passwd) != $hash) {
+			return 0;
+		}
+	}
+
+	/* Password correct, migrate the hash if necessary. */
+	if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+		$hash = password_hash($passwd, PASSWORD_DEFAULT);
+
+		$q = "UPDATE Users SET Passwd = " . $dbh->quote($hash) . " ";
+		$q.= "WHERE ID = " . intval($user_id);
+		$dbh->query($q);
+	}
+
+	return 1;
 }
 
 /**
@@ -978,7 +978,7 @@ function clear_expired_sessions() {
 	$dbh = DB::connect();
 
 	$timeout = config_get_int('options', 'login_timeout');
-	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (UNIX_TIMESTAMP() - " . $timeout . ")";
+	$q = "DELETE FROM Sessions WHERE LastUpdateTS < (" . strval(time()) . " - " . $timeout . ")";
 	$dbh->query($q);
 
 	return;
@@ -1086,7 +1086,7 @@ function last_votes_list() {
 
 	$q = "SELECT UserID, MAX(VoteID) AS LastVote FROM TU_Votes, ";
 	$q .= "TU_VoteInfo, Users WHERE TU_VoteInfo.ID = TU_Votes.VoteID AND ";
-	$q .= "TU_VoteInfo.End < UNIX_TIMESTAMP() AND ";
+	$q .= "TU_VoteInfo.End < " . strval(time()) . " AND ";
 	$q .= "Users.ID = TU_Votes.UserID AND (Users.AccountTypeID = 2 OR Users.AccountTypeID = 4) ";
 	$q .= "GROUP BY UserID ORDER BY LastVote DESC, UserName ASC";
 	$result = $dbh->query($q);

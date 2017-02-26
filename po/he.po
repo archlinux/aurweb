@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hebrew (http://www.transifex.com/lfleischer/aur/language/"
 "he/)\n"
@@ -127,8 +127,29 @@ msgstr "ניהול שותפים לתחזוקה"
 msgid "Edit comment"
 msgstr "עריכת תגובה"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "בית"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "החבילות שלי"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -352,6 +373,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "נא להזין את כתובת הדוא״ל שלך:"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -582,6 +606,9 @@ msgstr "לא ניתן להגדיל את הרשאות החשבון."
 
 msgid "Language is not currently supported."
 msgstr "שפה כרגע לא נתמכת."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -884,6 +911,9 @@ msgstr "פעיל"
 msgid "Registration date:"
 msgstr ""
 
+msgid "unknown"
+msgstr "לא מוכר"
+
 msgid "Last Login"
 msgstr "כניסה אחרונה"
 
@@ -932,6 +962,9 @@ msgstr "הקלדת הססמה מחדש"
 
 msgid "Language"
 msgstr "שפה"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1014,9 +1047,6 @@ msgstr "חזרה לפרטים"
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "כל הזכויות שמורות %s 2004-%d לצוות הפיתוח של aurweb."
 
-msgid "My Packages"
-msgstr "החבילות שלי"
-
 msgid " My Account"
 msgstr "החשבון שלי"
 
@@ -1068,9 +1098,6 @@ msgstr[1] "%d בקשות ממתינות"
 
 msgid "Adopt Package"
 msgstr "אימוץ חבילה"
-
-msgid "unknown"
-msgstr "לא מוכר"
 
 msgid "Package Base Details"
 msgstr "פרטי בסיס החבילה"
@@ -1255,6 +1282,9 @@ msgid ""
 "previously."
 msgstr ""
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1298,6 +1328,9 @@ msgstr "ננעל"
 msgid "Close"
 msgstr "סגירה"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "סגור"
 
@@ -1312,6 +1345,12 @@ msgstr "שם מדויק"
 
 msgid "Exact Package Base"
 msgstr "בסיס החבילה המדויק"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "הכול"

@@ -6,7 +6,7 @@
 # Albino Biasutti Neto Bino <biasuttin@gmail.com>, 2011
 # Fábio Nogueira <deb.user.ba@gmail.com>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2012-2015
-# Rafael Fontenelle <rffontenelle@gmail.com>, 2011,2015-2016
+# Rafael Fontenelle <rffontenelle@gmail.com>, 2011,2015-2017
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2011
 # Sandro <sandrossv@hotmail.com>, 2011
 # Sandro <sandrossv@hotmail.com>, 2011
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 14:05+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 15:12+0000\n"
 "Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/lfleischer/aur/"
 "language/pt_BR/)\n"
@@ -133,8 +133,29 @@ msgstr "Gerenciar co-mantenedores"
 msgid "Edit comment"
 msgstr "Editar comentário"
 
+msgid "Dashboard"
+msgstr "Dashboard"
+
 msgid "Home"
 msgstr "Início"
+
+msgid "My Flagged Packages"
+msgstr "Meus pacotes sinalizados"
+
+msgid "My Requests"
+msgstr "Minhas requisições"
+
+msgid "My Packages"
+msgstr "Meus pacotes"
+
+msgid "Search for packages I maintain"
+msgstr "Pesquisar por pacotes que eu mantenho"
+
+msgid "Co-Maintained Packages"
+msgstr "Pacote comantidos"
+
+msgid "Search for packages I co-maintain"
+msgstr "Pesquisar por pacotes que eu comantenho"
 
 #, php-format
 msgid ""
@@ -380,6 +401,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Digite o seu endereço de e-mail:"
+
+msgid "Package Bases"
+msgstr "Pacotes base"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -627,6 +651,9 @@ msgstr "Não foi possível aumentar as permissões da conta."
 
 msgid "Language is not currently supported."
 msgstr "Idioma sem suporte no momento."
+
+msgid "Timezone is not currently supported."
+msgstr "Fuso horário sem suporte no momento."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -940,6 +967,9 @@ msgstr "Ativa"
 msgid "Registration date:"
 msgstr "Data de registro:"
 
+msgid "unknown"
+msgstr "desconhecido"
+
 msgid "Last Login"
 msgstr "Último login"
 
@@ -990,6 +1020,9 @@ msgstr "Re-digite a senha"
 
 msgid "Language"
 msgstr "Idioma"
+
+msgid "Timezone"
+msgstr "Fuso horário"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1076,9 +1109,6 @@ msgstr "Retornar para Detalhes"
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Copyright %s 2004-%d Equipe de Desenvolvimento do aurweb."
 
-msgid "My Packages"
-msgstr "Meus pacotes"
-
 msgid " My Account"
 msgstr " Minha conta"
 
@@ -1130,9 +1160,6 @@ msgstr[1] "%d requisições pentendes"
 
 msgid "Adopt Package"
 msgstr "Adotar pacote"
-
-msgid "unknown"
-msgstr "desconhecido"
 
 msgid "Package Base Details"
 msgstr "Detalhes do pacote base"
@@ -1335,6 +1362,9 @@ msgstr ""
 "ação do mantenedor, estando este ausente por muito tempo, e você já tentou - "
 "e não conseguiu - contatá-lo anteriormente."
 
+msgid "No requests matched your search criteria."
+msgstr "Nenhuma requisição correspondeu aos seus critérios de pesquisa."
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1378,6 +1408,9 @@ msgstr "Travado"
 msgid "Close"
 msgstr "Fechar"
 
+msgid "Pending"
+msgstr "Pendente"
+
 msgid "Closed"
 msgstr "Fechada"
 
@@ -1392,6 +1425,12 @@ msgstr "Nome exato"
 
 msgid "Exact Package Base"
 msgstr "Pacote base exato"
+
+msgid "Co-maintainer"
+msgstr "Comantenedor"
+
+msgid "Maintainer, Co-maintainer"
+msgstr "Mantenedor, comantenedor"
 
 msgid "All"
 msgstr "Todos"

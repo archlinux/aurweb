@@ -20,7 +20,7 @@ if (has_credential(CRED_PKGBASE_LIST_VOTERS)):
 			<li>
 				<a href="<?= get_user_uri($row['Username']); ?>"><?= htmlspecialchars($row['Username']) ?></a>
 				<?php if ($row["VoteTS"] > 0): ?>
-				(<?= gmdate("Y-m-d H:i", intval($row["VoteTS"])) ?>)
+				(<?= date("Y-m-d H:i", intval($row["VoteTS"])) ?>)
 				<?php endif; ?>
 			</li>
 			<?php endwhile; ?>

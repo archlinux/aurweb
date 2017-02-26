@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v4.3.0\n"
+"Project-Id-Version: AUR v4.4.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,7 +160,35 @@ msgid "Edit comment"
 msgstr ""
 
 #: html/home.php template/header.php
+msgid "Dashboard"
+msgstr ""
+
+#: html/home.php template/header.php
 msgid "Home"
+msgstr ""
+
+#: html/home.php
+msgid "My Flagged Packages"
+msgstr ""
+
+#: html/home.php
+msgid "My Requests"
+msgstr ""
+
+#: html/home.php
+msgid "My Packages"
+msgstr ""
+
+#: html/home.php
+msgid "Search for packages I maintain"
+msgstr ""
+
+#: html/home.php
+msgid "Co-Maintained Packages"
+msgstr ""
+
+#: html/home.php
+msgid "Search for packages I co-maintain"
 msgstr ""
 
 #: html/home.php
@@ -427,6 +455,10 @@ msgstr ""
 
 #: html/passreset.php
 msgid "Enter your e-mail address:"
+msgstr ""
+
+#: html/pkgbase.php
+msgid "Package Bases"
 msgstr ""
 
 #: html/pkgbase.php
@@ -721,6 +753,10 @@ msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "Timezone is not currently supported."
 msgstr ""
 
 #: lib/acctfuncs.inc.php
@@ -1125,6 +1161,11 @@ msgstr ""
 msgid "Registration date:"
 msgstr ""
 
+#: template/account_details.php template/pkgbase_details.php
+#: template/pkg_details.php template/pkgreq_results.php template/tu_details.php
+msgid "unknown"
+msgstr ""
+
 #: template/account_details.php
 msgid "Last Login"
 msgstr ""
@@ -1187,6 +1228,10 @@ msgstr ""
 
 #: template/account_edit_form.php
 msgid "Language"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Timezone"
 msgstr ""
 
 #: template/account_edit_form.php
@@ -1295,10 +1340,6 @@ msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
 #: template/header.php
-msgid "My Packages"
-msgstr ""
-
-#: template/header.php
 msgid " My Account"
 msgstr ""
 
@@ -1364,11 +1405,6 @@ msgstr[1] ""
 
 #: template/pkgbase_actions.php
 msgid "Adopt Package"
-msgstr ""
-
-#: template/pkgbase_details.php template/pkg_details.php
-#: template/pkgreq_results.php template/tu_details.php
-msgid "unknown"
 msgstr ""
 
 #: template/pkgbase_details.php
@@ -1615,6 +1651,10 @@ msgid ""
 msgstr ""
 
 #: template/pkgreq_results.php
+msgid "No requests matched your search criteria."
+msgstr ""
+
+#: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1669,6 +1709,10 @@ msgid "Close"
 msgstr ""
 
 #: template/pkgreq_results.php
+msgid "Pending"
+msgstr ""
+
+#: template/pkgreq_results.php
 msgid "Closed"
 msgstr ""
 
@@ -1686,6 +1730,14 @@ msgstr ""
 
 #: template/pkg_search_form.php
 msgid "Exact Package Base"
+msgstr ""
+
+#: template/pkg_search_form.php
+msgid "Co-maintainer"
+msgstr ""
+
+#: template/pkg_search_form.php
+msgid "Maintainer, Co-maintainer"
 msgstr ""
 
 #: template/pkg_search_form.php

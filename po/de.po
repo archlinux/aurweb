@@ -7,7 +7,7 @@
 # Alexander Griesbaum <agrsbm@gmail.com>, 2013-2014
 # bjo <bjo@nord-west.org>, 2013
 # FabianS_ <cadoc@gmx.de>, 2012
-# go2sh <c.seitz@tu-bs.de>, 2015
+# go2sh <c.seitz@tu-bs.de>, 2015-2016
 # FabianS_ <cadoc@gmx.de>, 2012
 # Giuliano Schneider <gs93@gmx.net>, 2015-2016
 # go2sh <c.seitz@tu-bs.de>, 2015
@@ -18,15 +18,16 @@
 # Nuc1eoN <nucrap@hotmail.com>, 2014
 # Nuc1eoN <nucrap@hotmail.com>, 2014
 # Simon Schneider <SPAM.schneida@gmail.com>, 2011
+# Stefan Auditor <stefan.auditor@erdfisch.de>, 2017
 # Thomas_Do <thomasdodo@arcor.de>, 2013-2014
 # Thomas_Do <thomasdodo@arcor.de>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 16:16+0000\n"
+"Last-Translator: Stefan Auditor <stefan.auditor@erdfisch.de>\n"
 "Language-Team: German (http://www.transifex.com/lfleischer/aur/language/"
 "de/)\n"
 "Language: de\n"
@@ -45,15 +46,15 @@ msgid "Note"
 msgstr "Anmerkung"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Git clone URLs sind nicht dafür gedacht im Browser geöffnet zu werden."
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "Um das Git Repository von %s zu clonen, führe %s aus."
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Klicke %shere%s um zur %s Detailseite zurückzukehren."
 
 msgid "Service Unavailable"
 msgstr "Dienst nicht verfügbr"
@@ -144,8 +145,29 @@ msgstr "Verwalte Ko-Maintainer"
 msgid "Edit comment"
 msgstr "Kommentar bearbeiten"
 
+msgid "Dashboard"
+msgstr "Dashboard"
+
 msgid "Home"
 msgstr "Startseite"
+
+msgid "My Flagged Packages"
+msgstr "Mein markierten Pakete"
+
+msgid "My Requests"
+msgstr "Meine Anfragen"
+
+msgid "My Packages"
+msgstr "Meine Pakete"
+
+msgid "Search for packages I maintain"
+msgstr "Suche nach Paketen die ich betreue"
+
+msgid "Co-Maintained Packages"
+msgstr "Ko-Maintainer Pakete"
+
+msgid "Search for packages I co-maintain"
+msgstr "Suche nach Paketen die ich betreue ko-maintaine"
 
 #, php-format
 msgid ""
@@ -201,7 +223,7 @@ msgstr ""
 "Paketdetailseite eingereicht werden können:"
 
 msgid "Orphan Request"
-msgstr "Verweisungsanfrage"
+msgstr "Verwaisanfrage"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
@@ -211,7 +233,7 @@ msgstr ""
 "das Paket vor einer ganzen Weile als veraltet makiert wurde."
 
 msgid "Deletion Request"
-msgstr "Lösch-Antrag"
+msgstr "Löschanfrage"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
@@ -396,6 +418,9 @@ msgstr ""
 msgid "Enter your e-mail address:"
 msgstr "Gib Deine E-Mail-Adresse ein:"
 
+msgid "Package Bases"
+msgstr "Paketbasis"
+
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
@@ -481,7 +506,7 @@ msgid "Only Trusted Users and Developers can disown packages."
 msgstr "Nur Tus und Developer können die Paket-Betreuung abgeben."
 
 msgid "Flag Comment"
-msgstr ""
+msgstr "Kommentar markieren"
 
 msgid "Flag Package Out-Of-Date"
 msgstr "Paket als \"veraltet\" makieren"
@@ -557,7 +582,7 @@ msgstr ""
 "Nur vertrauenswürdige Benutzer und Entwickler können Pakete verschmelzen."
 
 msgid "Submit Request"
-msgstr ""
+msgstr "Anfrage absenden"
 
 msgid "Close Request"
 msgstr "Anfrage schließen"
@@ -653,6 +678,9 @@ msgstr "Die Zugriffsrechte des Kontos können nicht erweitert werden."
 msgid "Language is not currently supported."
 msgstr "Diese Sprache wird momentan noch nicht unterstützt."
 
+msgid "Timezone is not currently supported."
+msgstr "Diese Zeitzone wird momentan noch nicht unterstützt."
+
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Der Nutzername %s%s%s ist bereits vergeben."
@@ -747,19 +775,19 @@ msgid "Missing comment ID."
 msgstr "Kommentar-ID fehlt."
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "Mehr als 5 Kommentare können nicht angeheftet werden."
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "Du bist nicht berechtigt diesen Kommentar anzuheften."
 
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "Du bist nicht berechtigt diesen Kommentar loszuheften."
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "Kommentar wurde angeheftet."
 
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "Kommentar wurde losgeheftet."
 
 msgid "Error retrieving package details."
 msgstr "Fehler beim Aufrufen der Paket-Details."
@@ -943,7 +971,7 @@ msgid "Real Name"
 msgstr "Echter Name"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Homepage"
 
 msgid "IRC Nick"
 msgstr "IRC-Name"
@@ -961,7 +989,10 @@ msgid "Active"
 msgstr "Aktiv"
 
 msgid "Registration date:"
-msgstr ""
+msgstr "Registrierungsdatum:"
+
+msgid "unknown"
+msgstr "unbekannt"
 
 msgid "Last Login"
 msgstr "Letzter Login"
@@ -982,7 +1013,7 @@ msgstr ""
 
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Klicke %shere%s für Benutzerdetails."
 
 msgid "required"
 msgstr "Notwendig"
@@ -1015,6 +1046,9 @@ msgstr "Bestätige das Passwort"
 msgid "Language"
 msgstr "Sprache"
 
+msgid "Timezone"
+msgstr "Zeitzone"
+
 msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
@@ -1026,16 +1060,16 @@ msgid "SSH Public Key"
 msgstr "Öffentlicher SSH Schlüssel"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "Benachrichtigungseinstellungen"
 
 msgid "Notify of new comments"
 msgstr "Über neue Kommentare benachrichtigen"
 
 msgid "Notify of package updates"
-msgstr ""
+msgstr "Benachrichtige Paketaktualisierungen"
 
 msgid "Notify of ownership changes"
-msgstr ""
+msgstr "Benachrichtige Besitzeränderungen"
 
 msgid "Update"
 msgstr "Aktualisieren"
@@ -1047,7 +1081,7 @@ msgid "Reset"
 msgstr "Zurücksetzen"
 
 msgid "No results matched your search criteria."
-msgstr "Deine Suche enthält leider keine Ergebnisse."
+msgstr "Die Suchkriterien erzielten keine Treffer."
 
 msgid "Edit Account"
 msgstr "Konto bearbeiten"
@@ -1082,25 +1116,22 @@ msgstr "Speichern"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Markiert als \"veraltet\" Kommentar: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
+msgstr "%s%s%s markiert %s%s%s als \"veraltet\" am %s%s%s auf Grund von:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s wurde nicht als \"veraltet\" markiert."
 
 msgid "Return to Details"
-msgstr ""
+msgstr "Zu den Details zurückkehren"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Copyright %s 2004-%d aurweb Development Team."
-
-msgid "My Packages"
-msgstr "Meine Pakete"
 
 msgid " My Account"
 msgstr "Mein Konto"
@@ -1140,7 +1171,7 @@ msgid "Disable notifications"
 msgstr "Benachrichtigungen deaktivieren"
 
 msgid "Enable notifications"
-msgstr ""
+msgstr "Benachritigungen aktivieren"
 
 msgid "Manage Co-Maintainers"
 msgstr "Verwalte Ko-Maintainer"
@@ -1153,9 +1184,6 @@ msgstr[1] "%d ausstehende Anfragen"
 
 msgid "Adopt Package"
 msgstr "Paket übernehmen"
-
-msgid "unknown"
-msgstr "unbekannt"
 
 msgid "Package Base Details"
 msgstr "Paketbasis Details"
@@ -1201,7 +1229,7 @@ msgid "View all comments"
 msgstr "Zeige alle Kommentare"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "Angeheftete Kommentare"
 
 msgid "Latest Comments"
 msgstr "Neueste Kommentare"
@@ -1237,10 +1265,10 @@ msgid "Delete comment"
 msgstr "Kommentar löschen"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "Kommentar anheften"
 
 msgid "Unpin comment"
-msgstr ""
+msgstr "Kommentar losheften"
 
 msgid "All comments"
 msgstr "Alle Kommentare"
@@ -1331,6 +1359,10 @@ msgid ""
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
+"Durch das Absenden einer Löschanfrage wird ein vertrauenswürdiger Benutzer "
+"gefragt die Paketbasis zu löschen. Dieser Typ von Anfragen soll für doppelte "
+"Pakete, vom Upstream aufgegebene Software sowie illegale und unreparierbar "
+"kaputte Pakete verwendet werden."
 
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
@@ -1338,6 +1370,11 @@ msgid ""
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
 msgstr ""
+"Durch das Absenden einer Zusammenfüranfrage wird ein vertrauenswürdiger "
+"Benutzer gefragt die Paketbasis zu löschen und die Stimmen und Kommentare zu "
+"einer anderen Paketbasis zu transferieren. Das Zusammenführen eines Paketes "
+"betrifft nicht die zugehörigen Git Repositories. Stelle sicher, dass die Git "
+"Historie des Zielpakets von dir aktualisiert wird."
 
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
@@ -1345,6 +1382,13 @@ msgid ""
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
 msgstr ""
+"Durch das absenden eines Verwaisanfrage wird ein vertrauenswürdiger Benutzer "
+"gefragt die Paketbasis zu enteignen. Bitte mache das nur, wenn das Paket "
+"Aktionen vom Betreuer braucht, der Betreuer nicht reagiert und du ihn vorher "
+"bereits versucht hast zu kontaktieren."
+
+msgid "No requests matched your search criteria."
+msgstr "Die Suchkriterien erzielten keine Treffer in Anfragen."
 
 #, php-format
 msgid "%d package request found."
@@ -1368,8 +1412,8 @@ msgstr "Datum"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "noch ~%d Tag"
+msgstr[1] "noch ~%d Tage"
 
 #, php-format
 msgid "~%d hour left"
@@ -1389,6 +1433,9 @@ msgstr "Gesperrt"
 msgid "Close"
 msgstr "Schließen"
 
+msgid "Pending"
+msgstr "Ausstehend"
+
 msgid "Closed"
 msgstr "Geschlossen"
 
@@ -1403,6 +1450,12 @@ msgstr "Exakter Name"
 
 msgid "Exact Package Base"
 msgstr "Exakte Paketbasis"
+
+msgid "Co-maintainer"
+msgstr "Ko-Maintainer"
+
+msgid "Maintainer, Co-maintainer"
+msgstr "Betreuer, Ko-Maintainer"
 
 msgid "All"
 msgstr "Alle"
@@ -1456,7 +1509,7 @@ msgid "Error retrieving package list."
 msgstr "Fehler beim Aufrufen der Paket-Liste."
 
 msgid "No packages matched your search criteria."
-msgstr "Keine Pakete entsprachen deinen Suchkriterien."
+msgstr "Die Suchkriterien erzielten keine Treffer in Pakete."
 
 #, php-format
 msgid "%d package found."
@@ -1472,6 +1525,8 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"Die Beliebtheit wird als die Summe aller Stimmen berechnet, wobei jede "
+"Stimme mit dem Faktor %.2f pro Tag seit der Erstellung gewichtet wird."
 
 msgid "Yes"
 msgstr "Ja"

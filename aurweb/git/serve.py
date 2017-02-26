@@ -9,6 +9,7 @@ import time
 
 import aurweb.config
 import aurweb.db
+import aurweb.exceptions
 
 notify_cmd = aurweb.config.get('notifications', 'notify-cmd')
 
@@ -40,7 +41,7 @@ def list_repos(user):
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
-        die('{:s}: unknown user: {:s}'.format(action, user))
+        raise aurweb.exceptions.InvalidUserException(user)
 
     cur = conn.execute("SELECT Name, PackagerUID FROM PackageBases " +
                        "WHERE MaintainerUID = ?", [userid])
@@ -51,16 +52,16 @@ def list_repos(user):
 
 def create_pkgbase(pkgbase, user):
     if not re.match(repo_regex, pkgbase):
-        die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
+        raise aurweb.exceptions.InvalidRepositoryNameException(pkgbase)
     if pkgbase_exists(pkgbase):
-        die('{:s}: package base already exists: {:s}'.format(action, pkgbase))
+        raise aurweb.exceptions.PackageBaseExistsException(pkgbase)
 
     conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
-        die('{:s}: unknown user: {:s}'.format(action, user))
+        raise aurweb.exceptions.InvalidUserException(user)
 
     now = int(time.time())
     cur = conn.execute("INSERT INTO PackageBases (Name, SubmittedTS, " +
@@ -79,19 +80,19 @@ def create_pkgbase(pkgbase, user):
 def pkgbase_adopt(pkgbase, user, privileged):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
-        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
 
     conn = aurweb.db.Connection()
 
     cur = conn.execute("SELECT ID FROM PackageBases WHERE ID = ? AND " +
                        "MaintainerUID IS NULL", [pkgbase_id])
     if not privileged and not cur.fetchone():
-        die('{:s}: permission denied: {:s}'.format(action, user))
+        raise aurweb.exceptions.PermissionDeniedException(user)
 
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
-        die('{:s}: unknown user: {:s}'.format(action, user))
+        raise aurweb.exceptions.InvalidUserException(user)
 
     cur = conn.execute("UPDATE PackageBases SET MaintainerUID = ? " +
                        "WHERE ID = ?", [userid, pkgbase_id])
@@ -127,10 +128,10 @@ def pkgbase_get_comaintainers(pkgbase):
 def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
-        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
 
     if not privileged and not pkgbase_has_full_access(pkgbase, user):
-        die('{:s}: permission denied: {:s}'.format(action, user))
+        raise aurweb.exceptions.PermissionDeniedException(user)
 
     conn = aurweb.db.Connection()
 
@@ -142,7 +143,7 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
                            [olduser])
         userid = cur.fetchone()[0]
         if userid == 0:
-            die('{:s}: unknown user: {:s}'.format(action, user))
+            raise aurweb.exceptions.InvalidUserException(user)
         uids_old.add(userid)
 
     uids_new = set()
@@ -151,7 +152,7 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
                            [newuser])
         userid = cur.fetchone()[0]
         if userid == 0:
-            die('{:s}: unknown user: {:s}'.format(action, user))
+            raise aurweb.exceptions.InvalidUserException(user)
         uids_new.add(userid)
 
     uids_add = uids_new - uids_old
@@ -196,10 +197,10 @@ def pkgreq_by_pkgbase(pkgbase_id, reqtype):
     return [row[0] for row in cur.fetchall()]
 
 
-def pkgreq_close(reqid, reason, comments, autoclose=False):
+def pkgreq_close(reqid, user, reason, comments, autoclose=False):
     statusmap = {'accepted': 2, 'rejected': 3}
     if reason not in statusmap:
-        die('{:s}: invalid reason: {:s}'.format(action, reason))
+        raise aurweb.exceptions.InvalidReasonException(reason)
     status = statusmap[reason]
 
     conn = aurweb.db.Connection()
@@ -210,7 +211,7 @@ def pkgreq_close(reqid, reason, comments, autoclose=False):
         cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
         userid = cur.fetchone()[0]
         if userid == 0:
-            die('{:s}: unknown user: {:s}'.format(action, user))
+            raise aurweb.exceptions.InvalidUserException(user)
 
     conn.execute("UPDATE PackageRequests SET Status = ?, ClosureComment = ? " +
                  "WHERE ID = ?", [status, comments, reqid])
@@ -224,18 +225,18 @@ def pkgreq_close(reqid, reason, comments, autoclose=False):
 def pkgbase_disown(pkgbase, user, privileged):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
-        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
 
     initialized_by_owner = pkgbase_has_full_access(pkgbase, user)
     if not privileged and not initialized_by_owner:
-        die('{:s}: permission denied: {:s}'.format(action, user))
+        raise aurweb.exceptions.PermissionDeniedException(user)
 
     # TODO: Support disowning package bases via package request.
 
     # Scan through pending orphan requests and close them.
     comment = 'The user {:s} disowned the package.'.format(user)
     for reqid in pkgreq_by_pkgbase(pkgbase_id, 'orphan'):
-        pkgreq_close(reqid, 'accepted', comment, True)
+        pkgreq_close(reqid, user, 'accepted', comment, True)
 
     comaintainers = []
     new_maintainer_userid = None
@@ -262,17 +263,116 @@ def pkgbase_disown(pkgbase, user, privileged):
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
-        die('{:s}: unknown user: {:s}'.format(action, user))
+            raise aurweb.exceptions.InvalidUserException(user)
 
     subprocess.Popen((notify_cmd, 'disown', str(pkgbase_id), str(userid)))
 
     conn.close()
 
 
+def pkgbase_flag(pkgbase, user, comment):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
+    if len(comment) < 3:
+        raise aurweb.exceptions.InvalidCommentException(comment)
+
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        raise aurweb.exceptions.InvalidUserException(user)
+
+    now = int(time.time())
+    conn.execute("UPDATE PackageBases SET " +
+                 "OutOfDateTS = ?, FlaggerUID = ?, FlaggerComment = ? " +
+                 "WHERE ID = ? AND OutOfDateTS IS NULL",
+                 [now, userid, comment, pkgbase_id])
+
+    conn.commit()
+
+    subprocess.Popen((notify_cmd, 'flag', str(userid), str(pkgbase_id)))
+
+
+def pkgbase_unflag(pkgbase, user):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
+
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        raise aurweb.exceptions.InvalidUserException(user)
+
+    if user in pkgbase_get_comaintainers(pkgbase):
+        conn.execute("UPDATE PackageBases SET OutOfDateTS = NULL " +
+                     "WHERE ID = ?", [pkgbase_id])
+    else:
+        conn.execute("UPDATE PackageBases SET OutOfDateTS = NULL " +
+                     "WHERE ID = ? AND (MaintainerUID = ? OR FlaggerUID = ?)",
+                     [pkgbase_id, userid, userid])
+
+    conn.commit()
+
+
+def pkgbase_vote(pkgbase, user):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
+
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        raise aurweb.exceptions.InvalidUserException(user)
+
+    cur = conn.execute("SELECT COUNT(*) FROM PackageVotes " +
+                       "WHERE UsersID = ? AND PackageBaseID = ?",
+                       [userid, pkgbase_id])
+    if cur.fetchone()[0] > 0:
+        raise aurweb.exceptions.AlreadyVotedException(pkgbase)
+
+    now = int(time.time())
+    conn.execute("INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS) " +
+                 "VALUES (?, ?, ?)", [userid, pkgbase_id, now])
+    conn.execute("UPDATE PackageBases SET NumVotes = NumVotes + 1 " +
+                 "WHERE ID = ?", [pkgbase_id])
+    conn.commit()
+
+
+def pkgbase_unvote(pkgbase, user):
+    pkgbase_id = pkgbase_from_name(pkgbase)
+    if not pkgbase_id:
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
+
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
+    userid = cur.fetchone()[0]
+    if userid == 0:
+        raise aurweb.exceptions.InvalidUserException(user)
+
+    cur = conn.execute("SELECT COUNT(*) FROM PackageVotes " +
+                       "WHERE UsersID = ? AND PackageBaseID = ?",
+                       [userid, pkgbase_id])
+    if cur.fetchone()[0] == 0:
+        raise aurweb.exceptions.NotVotedException(pkgbase)
+
+    conn.execute("DELETE FROM PackageVotes WHERE UsersID = ? AND " +
+                 "PackageBaseID = ?", [userid, pkgbase_id])
+    conn.execute("UPDATE PackageBases SET NumVotes = NumVotes - 1 " +
+                 "WHERE ID = ?", [pkgbase_id])
+    conn.commit()
+
+
 def pkgbase_set_keywords(pkgbase, keywords):
     pkgbase_id = pkgbase_from_name(pkgbase)
     if not pkgbase_id:
-        die('{:s}: package base not found: {:s}'.format(action, pkgbase))
+        raise aurweb.exceptions.InvalidPackageBaseException(pkgbase)
 
     conn = aurweb.db.Connection()
 
@@ -310,6 +410,26 @@ def pkgbase_has_full_access(pkgbase, user):
     return cur.fetchone()[0] > 0
 
 
+def log_ssh_login(user, remote_addr):
+    conn = aurweb.db.Connection()
+
+    now = int(time.time())
+    conn.execute("UPDATE Users SET LastSSHLogin = ?, " +
+                 "LastSSHLoginIPAddress = ? WHERE Username = ?",
+                 [now, remote_addr, user])
+
+    conn.commit()
+    conn.close()
+
+
+def bans_match(remote_addr):
+    conn = aurweb.db.Connection()
+
+    cur = conn.execute("SELECT COUNT(*) FROM Bans WHERE IPAddress = ?",
+                       [remote_addr])
+    return cur.fetchone()[0] > 0
+
+
 def die(msg):
     sys.stderr.write("{:s}\n".format(msg))
     exit(1)
@@ -331,6 +451,135 @@ def usage(cmds):
     exit(0)
 
 
+def checkarg_atleast(cmdargv, *argdesc):
+    if len(cmdargv) - 1 < len(argdesc):
+        msg = 'missing {:s}'.format(argdesc[len(cmdargv) - 1])
+        raise aurweb.exceptions.InvalidArgumentsException(msg)
+
+
+def checkarg_atmost(cmdargv, *argdesc):
+    if len(cmdargv) - 1 > len(argdesc):
+        raise aurweb.exceptions.InvalidArgumentsException('too many arguments')
+
+
+def checkarg(cmdargv, *argdesc):
+    checkarg_atleast(cmdargv, *argdesc)
+    checkarg_atmost(cmdargv, *argdesc)
+
+
+def serve(action, cmdargv, user, privileged, remote_addr):
+    if enable_maintenance:
+        if remote_addr not in maintenance_exc:
+            raise aurweb.exceptions.MaintenanceException
+    if bans_match(remote_addr):
+        raise aurweb.exceptions.BannedException
+    log_ssh_login(user, remote_addr)
+
+    if action == 'git' and cmdargv[1] in ('upload-pack', 'receive-pack'):
+        action = action + '-' + cmdargv[1]
+        del cmdargv[1]
+
+    if action == 'git-upload-pack' or action == 'git-receive-pack':
+        checkarg(cmdargv, 'path')
+
+        path = cmdargv[1].rstrip('/')
+        if not path.startswith('/'):
+            path = '/' + path
+        if not path.endswith('.git'):
+            path = path + '.git'
+        pkgbase = path[1:-4]
+        if not re.match(repo_regex, pkgbase):
+            raise aurweb.exceptions.InvalidRepositoryNameException(pkgbase)
+
+        if action == 'git-receive-pack' and pkgbase_exists(pkgbase):
+            if not privileged and not pkgbase_has_write_access(pkgbase, user):
+                raise aurweb.exceptions.PermissionDeniedException(user)
+
+        os.environ["AUR_USER"] = user
+        os.environ["AUR_PKGBASE"] = pkgbase
+        os.environ["GIT_NAMESPACE"] = pkgbase
+        cmd = action + " '" + repo_path + "'"
+        os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
+    elif action == 'set-keywords':
+        checkarg(cmdargv, 'repository name')
+        pkgbase_set_keywords(cmdargv[1], cmdargv[2:])
+    elif action == 'list-repos':
+        checkarg(cmdargv)
+        list_repos(user)
+    elif action == 'setup-repo':
+        checkarg(cmdargv, 'repository name')
+        warn('{:s} is deprecated. '
+             'Use `git push` to create new repositories.'.format(action))
+        create_pkgbase(cmdargv[1], user)
+    elif action == 'restore':
+        checkarg(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        create_pkgbase(pkgbase, user)
+
+        os.environ["AUR_USER"] = user
+        os.environ["AUR_PKGBASE"] = pkgbase
+        os.execl(git_update_cmd, git_update_cmd, 'restore')
+    elif action == 'adopt':
+        checkarg(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        pkgbase_adopt(pkgbase, user, privileged)
+    elif action == 'disown':
+        checkarg(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        pkgbase_disown(pkgbase, user, privileged)
+    elif action == 'flag':
+        checkarg(cmdargv, 'repository name', 'comment')
+
+        pkgbase = cmdargv[1]
+        comment = cmdargv[2]
+        pkgbase_flag(pkgbase, user, comment)
+    elif action == 'unflag':
+        checkarg(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        pkgbase_unflag(pkgbase, user)
+    elif action == 'vote':
+        checkarg(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        pkgbase_vote(pkgbase, user)
+    elif action == 'unvote':
+        checkarg(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        pkgbase_unvote(pkgbase, user)
+    elif action == 'set-comaintainers':
+        checkarg_atleast(cmdargv, 'repository name')
+
+        pkgbase = cmdargv[1]
+        userlist = cmdargv[2:]
+        pkgbase_set_comaintainers(pkgbase, userlist, user, privileged)
+    elif action == 'help':
+        cmds = {
+            "adopt <name>": "Adopt a package base.",
+            "disown <name>": "Disown a package base.",
+            "flag <name> <comment>": "Flag a package base out-of-date.",
+            "help": "Show this help message and exit.",
+            "list-repos": "List all your repositories.",
+            "restore <name>": "Restore a deleted package base.",
+            "set-comaintainers <name> [...]": "Set package base co-maintainers.",
+            "set-keywords <name> [...]": "Change package base keywords.",
+            "setup-repo <name>": "Create a repository (deprecated).",
+            "unflag <name>": "Remove out-of-date flag from a package base.",
+            "unvote <name>": "Remove vote from a package base.",
+            "vote <name>": "Vote for a package base.",
+            "git-receive-pack": "Internal command used with Git.",
+            "git-upload-pack": "Internal command used with Git.",
+        }
+        usage(cmds)
+    else:
+        msg = 'invalid command: {:s}'.format(action)
+        raise aurweb.exceptions.InvalidArgumentsException(msg)
+
+
 def main():
     user = os.environ.get('AUR_USER')
     privileged = (os.environ.get('AUR_PRIVILEGED', '0') == '1')
@@ -343,108 +592,16 @@ def main():
     action = cmdargv[0]
     remote_addr = ssh_client.split(' ')[0] if ssh_client else None
 
-    if enable_maintenance:
-        if remote_addr not in maintenance_exc:
-            die("The AUR is down due to maintenance. We will be back soon.")
-
-    if action == 'git' and cmdargv[1] in ('upload-pack', 'receive-pack'):
-        action = action + '-' + cmdargv[1]
-        del cmdargv[1]
-
-    if action == 'git-upload-pack' or action == 'git-receive-pack':
-        if len(cmdargv) < 2:
-            die_with_help("{:s}: missing path".format(action))
-
-        path = cmdargv[1].rstrip('/')
-        if not path.startswith('/'):
-            path = '/' + path
-        if not path.endswith('.git'):
-            path = path + '.git'
-        pkgbase = path[1:-4]
-        if not re.match(repo_regex, pkgbase):
-            die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
-
-        if action == 'git-receive-pack' and pkgbase_exists(pkgbase):
-            if not privileged and not pkgbase_has_write_access(pkgbase, user):
-                die('{:s}: permission denied: {:s}'.format(action, user))
-
-        os.environ["AUR_USER"] = user
-        os.environ["AUR_PKGBASE"] = pkgbase
-        os.environ["GIT_NAMESPACE"] = pkgbase
-        cmd = action + " '" + repo_path + "'"
-        os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
-    elif action == 'set-keywords':
-        if len(cmdargv) < 2:
-            die_with_help("{:s}: missing repository name".format(action))
-        pkgbase_set_keywords(cmdargv[1], cmdargv[2:])
-    elif action == 'list-repos':
-        if len(cmdargv) > 1:
-            die_with_help("{:s}: too many arguments".format(action))
-        list_repos(user)
-    elif action == 'setup-repo':
-        if len(cmdargv) < 2:
-            die_with_help("{:s}: missing repository name".format(action))
-        if len(cmdargv) > 2:
-            die_with_help("{:s}: too many arguments".format(action))
-        warn('{:s} is deprecated. '
-             'Use `git push` to create new repositories.'.format(action))
-        create_pkgbase(cmdargv[1], user)
-    elif action == 'restore':
-        if len(cmdargv) < 2:
-            die_with_help("{:s}: missing repository name".format(action))
-        if len(cmdargv) > 2:
-            die_with_help("{:s}: too many arguments".format(action))
-
-        pkgbase = cmdargv[1]
-        if not re.match(repo_regex, pkgbase):
-            die('{:s}: invalid repository name: {:s}'.format(action, pkgbase))
-
-        if pkgbase_exists(pkgbase):
-            die('{:s}: package base exists: {:s}'.format(action, pkgbase))
-        create_pkgbase(pkgbase, user)
-
-        os.environ["AUR_USER"] = user
-        os.environ["AUR_PKGBASE"] = pkgbase
-        os.execl(git_update_cmd, git_update_cmd, 'restore')
-    elif action == 'adopt':
-        if len(cmdargv) < 2:
-            die_with_help("{:s}: missing repository name".format(action))
-        if len(cmdargv) > 2:
-            die_with_help("{:s}: too many arguments".format(action))
-
-        pkgbase = cmdargv[1]
-        pkgbase_adopt(pkgbase, user, privileged)
-    elif action == 'disown':
-        if len(cmdargv) < 2:
-            die_with_help("{:s}: missing repository name".format(action))
-        if len(cmdargv) > 2:
-            die_with_help("{:s}: too many arguments".format(action))
-
-        pkgbase = cmdargv[1]
-        pkgbase_disown(pkgbase, user, privileged)
-    elif action == 'set-comaintainers':
-        if len(cmdargv) < 2:
-            die_with_help("{:s}: missing repository name".format(action))
-
-        pkgbase = cmdargv[1]
-        userlist = cmdargv[2:]
-        pkgbase_set_comaintainers(pkgbase, userlist, user, privileged)
-    elif action == 'help':
-        cmds = {
-            "adopt <name>": "Adopt a package base.",
-            "disown <name>": "Disown a package base.",
-            "help": "Show this help message and exit.",
-            "list-repos": "List all your repositories.",
-            "restore <name>": "Restore a deleted package base.",
-            "set-comaintainers <name> [...]": "Set package base co-maintainers.",
-            "set-keywords <name> [...]": "Change package base keywords.",
-            "setup-repo <name>": "Create a repository (deprecated).",
-            "git-receive-pack": "Internal command used with Git.",
-            "git-upload-pack": "Internal command used with Git.",
-        }
-        usage(cmds)
-    else:
-        die_with_help("invalid command: {:s}".format(action))
+    try:
+        serve(action, cmdargv, user, privileged, remote_addr)
+    except aurweb.exceptions.MaintenanceException:
+        die("The AUR is down due to maintenance. We will be back soon.")
+    except aurweb.exceptions.BannedException:
+        die("The SSH interface is disabled for your IP address.")
+    except aurweb.exceptions.InvalidArgumentsException as e:
+        die_with_help('{:s}: {}'.format(action, e))
+    except aurweb.exceptions.AurwebException as e:
+        die('{:s}: {}'.format(action, e))
 
 
 if __name__ == '__main__':

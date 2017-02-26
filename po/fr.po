@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-11 20:06+0000\n"
-"Last-Translator: Antoine Lubineau <antoine@lubignon.info>\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: French (http://www.transifex.com/lfleischer/aur/language/"
 "fr/)\n"
 "Language: fr\n"
@@ -136,8 +136,29 @@ msgstr "Gérer les co-mainteneurs"
 msgid "Edit comment"
 msgstr "Éditer le commentaire"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Accueil"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Mes paquets"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -386,6 +407,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "Entrez votre adresse e-mail :"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -644,6 +668,9 @@ msgstr "Ne peut pas augmenter les autorisations du compte."
 
 msgid "Language is not currently supported."
 msgstr "Cette langue n'est pas supportée pour le moment."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -967,6 +994,9 @@ msgstr "Actif"
 msgid "Registration date:"
 msgstr "Date d'enregistrement :"
 
+msgid "unknown"
+msgstr "inconnu"
+
 msgid "Last Login"
 msgstr "Dernière connexion."
 
@@ -1017,6 +1047,9 @@ msgstr "Retapez le mot de passe"
 
 msgid "Language"
 msgstr "Langue"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1103,9 +1136,6 @@ msgstr "Retourner aux détails"
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Copyright %s 2004-%d aurweb Development Team."
 
-msgid "My Packages"
-msgstr "Mes paquets"
-
 msgid " My Account"
 msgstr "Mon compte"
 
@@ -1157,9 +1187,6 @@ msgstr[1] "%d requêtes en attente"
 
 msgid "Adopt Package"
 msgstr "Adopter ce paquet"
-
-msgid "unknown"
-msgstr "inconnu"
 
 msgid "Package Base Details"
 msgstr "Détails du paquet de base"
@@ -1363,6 +1390,9 @@ msgstr ""
 "mainteneur ne répond pas et que vous avez préalablement essayé de contacter "
 "le mainteneur."
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1406,6 +1436,9 @@ msgstr "Verrouillé"
 msgid "Close"
 msgstr "Fermer"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Fermé"
 
@@ -1420,6 +1453,12 @@ msgstr "Nom exact"
 
 msgid "Exact Package Base"
 msgstr "Paquet de base exact"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "Tout"

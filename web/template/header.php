@@ -24,6 +24,7 @@
 					<li id="anb-forums"><a href="https://bbs.archlinux.org/" title="Community forums">Forums</a></li>
 					<li id="anb-wiki"><a href="https://wiki.archlinux.org/" title="Community documentation">Wiki</a></li>
 					<li id="anb-bugs"><a href="https://bugs.archlinux.org/" title="Report and track bugs">Bugs</a></li>
+					<li id="anb-security"><a href="https://security.archlinux.org/" title="Arch Linux Security Tracker">Security</a></li>
 					<li id="anb-aur"><a href="/" title="Arch Linux User Repository">AUR</a></li>
 					<li id="anb-download"><a href="https://www.archlinux.org/download/" title="Get Arch Linux">Download</a></li>
 				</ul>
@@ -53,10 +54,9 @@
 			</div>
 			<div id="archdev-navbar">
 				<ul>
-					<li><a href="<?= get_uri('/'); ?>">AUR <?= __("Home"); ?></a></li>
-					<li><a href="<?= get_uri('/packages/'); ?>"><?= __("Packages"); ?></a></li>
 					<?php if (isset($_COOKIE['AURSID'])): ?>
-						<li><a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;K=<?= username_from_sid($_COOKIE["AURSID"]); ?>"><?= __("My Packages"); ?></a></li>
+						<li><a href="<?= get_uri('/'); ?>"><?= __("Dashboard"); ?></a></li>
+						<li><a href="<?= get_uri('/packages/'); ?>"><?= __("Packages"); ?></a></li>
 						<?php if (has_credential(CRED_PKGREQ_LIST)): ?>
 						<li><a href="<?= get_uri('/requests/') ; ?>"><?= __("Requests"); ?></a></li>
 						<?php endif; ?>
@@ -67,6 +67,8 @@
 						<?php if (has_credential(CRED_TU_LIST_VOTES)): ?><li><a href="<?= get_uri('/tu/'); ?>"><?= __("Trusted User"); ?></a></li><?php endif; ?>
 						<li><a href="<?= get_uri('/logout/'); ?>"><?= __("Logout"); ?></a></li>
 					<?php else: ?>
+						<li><a href="<?= get_uri('/'); ?>">AUR <?= __("Home"); ?></a></li>
+						<li><a href="<?= get_uri('/packages/'); ?>"><?= __("Packages"); ?></a></li>
 						<li><a href="<?= get_uri('/register/'); ?>"><?= __("Register"); ?></a></li>
 						<?php if (config_get_bool('options', 'disable_http_login') && empty($_SERVER['HTTPS'])): ?>
 						<li><a href="<?= get_uri('/login/', true); ?>"><?= __("Login"); ?></a></li>

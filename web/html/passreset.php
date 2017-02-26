@@ -34,10 +34,7 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 	}
 
 	if (empty($error)) {
-		$salt = generate_salt();
-		$hash = salted_hash($password, $salt);
-
-		$error = password_reset($hash, $salt, $resetkey, $email);
+		$error = password_reset($password, $resetkey, $email);
 	}
 } elseif (isset($_POST['email'])) {
 	$email = $_POST['email'];

@@ -73,12 +73,15 @@ def get_user_email(conn, uid):
     return cur.fetchone()[0]
 
 
-def get_maintainer_email(conn, pkgbase_id):
-    cur = conn.execute('SELECT Users.Email FROM Users ' +
+def get_flag_recipients(conn, pkgbase_id):
+    cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+                       'LEFT JOIN PackageComaintainers ' +
+                       'ON PackageComaintainers.UsersID = Users.ID ' +
                        'INNER JOIN PackageBases ' +
-                       'ON PackageBases.MaintainerUID = Users.ID WHERE ' +
-                       'PackageBases.ID = ?', [pkgbase_id])
-    return cur.fetchone()[0]
+                       'ON PackageBases.MaintainerUID = Users.ID OR ' +
+                       'PackageBases.ID = PackageComaintainers.PackageBaseID ' +
+                       'WHERE PackageBases.ID = ?', [pkgbase_id])
+    return [row[0] for row in cur.fetchall()]
 
 
 def get_recipients(conn, pkgbase_id, uid):
@@ -136,12 +139,10 @@ def get_request_recipients(conn, reqid):
 
 
 def get_tu_vote_reminder_recipients(conn, vote_id):
-    cur = conn.execute('SELECT Users.Email FROM Users ' +
-                       'WHERE AccountTypeID = 2 ' +
-                       'EXCEPT SELECT Users.Email FROM Users ' +
-                       'INNER JOIN TU_Votes ' +
-                       'ON TU_Votes.UserID = Users.ID ' +
-                       'WHERE TU_Votes.VoteID = ?', [vote_id])
+    cur = conn.execute('SELECT Email FROM Users ' +
+                       'WHERE AccountTypeID = 2 AND ID NOT IN ' +
+                       '(SELECT UserID FROM TU_Votes ' +
+                       'WHERE TU_Votes.VoteID = ?)', [vote_id])
     return [row[0] for row in cur.fetchall()]
 
 
@@ -247,7 +248,7 @@ def update(conn, uid, pkgbase_id):
 def flag(conn, uid, pkgbase_id):
     user = username_from_id(conn, uid)
     pkgbase = pkgbase_from_id(conn, pkgbase_id)
-    to = [get_maintainer_email(conn, pkgbase_id)]
+    to = get_flag_recipients(conn, pkgbase_id)
     text = get_flagger_comment(conn, pkgbase_id)
 
     user_uri = aur_location + '/account/' + user + '/'

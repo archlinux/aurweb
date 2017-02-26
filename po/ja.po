@@ -5,13 +5,14 @@
 # Translators:
 # kusakata, 2013
 # kusakata, 2013
-# kusakata, 2013-2016
+# kusakata, 2013-2017
+# 尾ノ上卓朗 <onoue@showway.biz>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-08 12:59+0000\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Japanese (http://www.transifex.com/lfleischer/aur/language/"
 "ja/)\n"
@@ -31,18 +32,18 @@ msgid "Note"
 msgstr "ノート"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Git のクローン URL はブラウザで開いてはいけません。"
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "%s の Git リポジトリを複製するには、%s を実行してください。"
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "%sこちら%sをクリックすると %s の詳細ページに戻ります。"
 
 msgid "Service Unavailable"
-msgstr "Service Unavailable"
+msgstr "サービスは利用できません。"
 
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
@@ -129,8 +130,29 @@ msgstr "共同メンテナの管理"
 msgid "Edit comment"
 msgstr "コメントを編集"
 
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
 msgid "Home"
 msgstr "ホーム"
+
+msgid "My Flagged Packages"
+msgstr "自分のフラグが立っているパッケージ"
+
+msgid "My Requests"
+msgstr "自分のリクエスト"
+
+msgid "My Packages"
+msgstr "自分のパッケージ"
+
+msgid "Search for packages I maintain"
+msgstr "メンテしているパッケージを検索"
+
+msgid "Co-Maintained Packages"
+msgstr "共同メンテしているパッケージ"
+
+msgid "Search for packages I co-maintain"
+msgstr "共同メンテしているパッケージを検索"
 
 #, php-format
 msgid ""
@@ -373,6 +395,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "メールアドレスを入力:"
+
+msgid "Package Bases"
+msgstr "パッケージベース"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -622,6 +647,9 @@ msgstr "アカウント権限を増やすことはできません。"
 
 msgid "Language is not currently supported."
 msgstr "言語は現在サポートされていません。"
+
+msgid "Timezone is not currently supported."
+msgstr "タイムゾーンは現在サポートされていません。"
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -930,6 +958,9 @@ msgstr "活動中"
 msgid "Registration date:"
 msgstr "登録日:"
 
+msgid "unknown"
+msgstr "不明"
+
 msgid "Last Login"
 msgstr "最後のログイン"
 
@@ -980,6 +1011,9 @@ msgstr "パスワードの再入力"
 
 msgid "Language"
 msgstr "言語"
+
+msgid "Timezone"
+msgstr "タイムゾーン"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1066,9 +1100,6 @@ msgstr "詳細に戻る"
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Copyright %s 2004-%d aurweb Development Team."
 
-msgid "My Packages"
-msgstr "自分のパッケージ"
-
 msgid " My Account"
 msgstr "アカウント"
 
@@ -1119,9 +1150,6 @@ msgstr[0] "%d 件の保留リクエスト。"
 
 msgid "Adopt Package"
 msgstr "パッケージを承継する"
-
-msgid "unknown"
-msgstr "不明"
 
 msgid "Package Base Details"
 msgstr "パッケージベースの詳細"
@@ -1324,6 +1352,9 @@ msgstr ""
 "り、現在のメンテナが行方不明で、メンテナに連絡を取ろうとしても返答がない場合"
 "にのみ、リクエストを送信してください。"
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1364,6 +1395,9 @@ msgstr "ロックされています"
 msgid "Close"
 msgstr "クローズ"
 
+msgid "Pending"
+msgstr "保留中"
+
 msgid "Closed"
 msgstr "クローズされました"
 
@@ -1378,6 +1412,12 @@ msgstr "名前完全一致"
 
 msgid "Exact Package Base"
 msgstr "パッケージベース完全一致"
+
+msgid "Co-maintainer"
+msgstr "共同メンテナ"
+
+msgid "Maintainer, Co-maintainer"
+msgstr "メンテナ, 共同メンテナ"
 
 msgid "All"
 msgstr "全て"
@@ -1532,7 +1572,7 @@ msgid "No"
 msgstr "いいえ"
 
 msgid "Abstain"
-msgstr "Abstain"
+msgstr "棄権"
 
 msgid "Total"
 msgstr "合計"

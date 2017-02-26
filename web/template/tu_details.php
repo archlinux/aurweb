@@ -39,10 +39,10 @@ if ($yes > $active_tus / 2) {
 			<?php endif; ?>
 		</strong>
 		<br />
-		<?= __("Submitted: %s by %s", gmdate("Y-m-d H:i", $row['Submitted']), html_format_username(username_from_id($row['SubmitterID']))) ?>
+		<?= __("Submitted: %s by %s", date("Y-m-d H:i", $row['Submitted']), html_format_username(username_from_id($row['SubmitterID']))) ?>
 		<br />
 		<?= __("End") ?>:
-		<strong><?= gmdate("Y-m-d H:i", $row['End']) ?></strong>
+		<strong><?= date("Y-m-d H:i", $row['End']) ?></strong>
 		<?php if ($isrunning == 0): ?>
 		<br />
 		<?= __("Result") ?>:

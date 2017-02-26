@@ -19,10 +19,12 @@ function pkgreq_count() {
  *
  * @param int $offset The index of the first request to return
  * @param int $limit The maximum number of requests to return
+ * @param int $uid Only return packages affecting the given user
+ * @param int $from Do not return packages older than the given date
  *
- * @return array List of pacakge requests with details
+ * @return array List of package requests with details
  */
-function pkgreq_list($offset, $limit) {
+function pkgreq_list($offset, $limit, $uid=false, $from=false) {
 	$dbh = DB::connect();
 
 	$q = "SELECT PackageRequests.ID, ";
@@ -35,6 +37,18 @@ function pkgreq_list($offset, $limit) {
 	$q.= "FROM PackageRequests INNER JOIN RequestTypes ON ";
 	$q.= "RequestTypes.ID = PackageRequests.ReqTypeID ";
 	$q.= "INNER JOIN Users ON Users.ID = PackageRequests.UsersID ";
+
+	if ($uid || $from) {
+		$q.= "WHERE ";
+		if ($uid) {
+			$q.= "(PackageRequests.UsersID = " . intval($uid). " ";
+			$q.= "OR Users.ID = " . intval($uid) . ") AND ";
+		}
+		if ($from) {
+			$q.= "RequestTS >= " . intval($from). " ";
+		}
+	}
+
 	$q.= "ORDER BY Open DESC, RequestTS DESC ";
 	$q.= "LIMIT " . $limit . " OFFSET " . $offset;
 
@@ -149,7 +163,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 	$q.= "UsersID, Comments, RequestTS) VALUES (" . $type_id . ", ";
 	$q.= $base_id . ", " .  $dbh->quote($pkgbase_name) . ", ";
 	$q.= $dbh->quote($merge_into) . ", " . $uid . ", ";
-	$q.= $dbh->quote($comments) . ", UNIX_TIMESTAMP())";
+	$q.= $dbh->quote($comments) . ", " . strval(time()) . ")";
 	$dbh->exec($q);
 	$request_id = $dbh->lastInsertId();
 
@@ -172,7 +186,7 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		 * maintainer will not be included in the Cc list of the
 		 * request notification email.
 		 */
-		$out_of_date_time = gmdate("Y-m-d", intval($details["OutOfDateTS"]));
+		$out_of_date_time = date("Y-m-d", intval($details["OutOfDateTS"]));
 		pkgreq_close($request_id, "accepted",
 			     "The package base has been flagged out-of-date " .
 			     "since " . $out_of_date_time . ".", true);

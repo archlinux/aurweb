@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# Atilla Öntaş <tarakbumba@gmail.com>, 2011,2013-2015
-# Atilla Öntaş <tarakbumba@gmail.com>, 2012,2014
+# tarakbumba <tarakbumba@gmail.com>, 2011,2013-2015
+# tarakbumba <tarakbumba@gmail.com>, 2012,2014
 # Demiray Muhterem <mdemiray@msn.com>, 2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Samed Beyribey <ras0ir@eventualis.org>, 2012
 # Samed Beyribey <samed@ozguryazilim.com.tr>, 2012
 # Serpil Acar <acarserpil89@gmail.com>, 2016
-# Atilla Öntaş <tarakbumba@gmail.com>, 2012
+# tarakbumba <tarakbumba@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2016-10-08 14:59+0200\n"
-"PO-Revision-Date: 2016-10-09 05:38+0000\n"
-"Last-Translator: Serpil Acar <acarserpil89@gmail.com>\n"
+"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Turkish (http://www.transifex.com/lfleischer/aur/language/"
 "tr/)\n"
 "Language: tr\n"
@@ -134,8 +134,29 @@ msgstr "Yardımcı bakımcıları Yönet"
 msgid "Edit comment"
 msgstr "Yorumu düzenle"
 
+msgid "Dashboard"
+msgstr ""
+
 msgid "Home"
 msgstr "Anasayfa"
+
+msgid "My Flagged Packages"
+msgstr ""
+
+msgid "My Requests"
+msgstr ""
+
+msgid "My Packages"
+msgstr "Paketlerim"
+
+msgid "Search for packages I maintain"
+msgstr ""
+
+msgid "Co-Maintained Packages"
+msgstr ""
+
+msgid "Search for packages I co-maintain"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -375,6 +396,9 @@ msgstr ""
 
 msgid "Enter your e-mail address:"
 msgstr "E-posta adresinizi girin:"
+
+msgid "Package Bases"
+msgstr ""
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -619,6 +643,9 @@ msgstr "Hesap izinleri yükseltilemiyor."
 
 msgid "Language is not currently supported."
 msgstr "Dil henüz desteklenmiyor."
+
+msgid "Timezone is not currently supported."
+msgstr ""
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -926,6 +953,9 @@ msgstr "Etkin"
 msgid "Registration date:"
 msgstr "Kayıt tarihi:"
 
+msgid "unknown"
+msgstr "bilinmiyor"
+
 msgid "Last Login"
 msgstr "Son giriş"
 
@@ -976,6 +1006,9 @@ msgstr "Parolayı tekrar girin"
 
 msgid "Language"
 msgstr "Dil"
+
+msgid "Timezone"
+msgstr ""
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1061,9 +1094,6 @@ msgstr "Detaylara Geri Dön."
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
-msgid "My Packages"
-msgstr "Paketlerim"
-
 msgid " My Account"
 msgstr "Hesabım"
 
@@ -1115,9 +1145,6 @@ msgstr[1] "%d adet bekleyen talep"
 
 msgid "Adopt Package"
 msgstr "Paketi Sahiplen"
-
-msgid "unknown"
-msgstr "bilinmiyor"
 
 msgid "Package Base Details"
 msgstr "Paket Temeli Ayrıntıları"
@@ -1315,6 +1342,9 @@ msgid ""
 "previously."
 msgstr ""
 
+msgid "No requests matched your search criteria."
+msgstr ""
+
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1358,6 +1388,9 @@ msgstr "Kilitli"
 msgid "Close"
 msgstr "Kapat"
 
+msgid "Pending"
+msgstr ""
+
 msgid "Closed"
 msgstr "Kapandı"
 
@@ -1372,6 +1405,12 @@ msgstr "Tam Ad"
 
 msgid "Exact Package Base"
 msgstr "Tam Paket Temeli"
+
+msgid "Co-maintainer"
+msgstr ""
+
+msgid "Maintainer, Co-maintainer"
+msgstr ""
 
 msgid "All"
 msgstr "Tümü"

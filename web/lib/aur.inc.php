@@ -18,6 +18,9 @@ include_once("cachefuncs.inc.php");
 include_once("confparser.inc.php");
 include_once("credentials.inc.php");
 
+include_once('timezone.inc.php');
+set_tz();
+
 /**
  * Check if a visitor is logged in
  *
@@ -38,7 +41,7 @@ function check_sid() {
 		# the visitor is logged in, try and update the session
 		#
 		$dbh = DB::connect();
-		$q = "SELECT LastUpdateTS, UNIX_TIMESTAMP() FROM Sessions ";
+		$q = "SELECT LastUpdateTS, " . strval(time()) . " FROM Sessions ";
 		$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
 		$result = $dbh->query($q);
 		$row = $result->fetch(PDO::FETCH_NUM);
@@ -77,7 +80,7 @@ function check_sid() {
 			# This keeps 'remembered' sessions from being
 			# overwritten.
 			if ($last_update < time() + $timeout) {
-				$q = "UPDATE Sessions SET LastUpdateTS = UNIX_TIMESTAMP() ";
+				$q = "UPDATE Sessions SET LastUpdateTS = " . strval(time()) . " ";
 				$q.= "WHERE SessionID = " . $dbh->quote($_COOKIE["AURSID"]);
 				$dbh->exec($q);
 			}
@@ -532,63 +535,6 @@ function mkurl($append) {
 	}
 
 	return substr($out, 5);
-}
-
-/**
- * Determine a user's salt from the database
- *
- * @param string $user_id The user ID of the user trying to log in
- *
- * @return string|void Return the salt for the requested user, otherwise void
- */
-function get_salt($user_id) {
-	$dbh = DB::connect();
-	$q = "SELECT Salt FROM Users WHERE ID = " . $user_id;
-	$result = $dbh->query($q);
-	if ($result) {
-		$row = $result->fetch(PDO::FETCH_NUM);
-		return $row[0];
-	}
-	return;
-}
-
-/**
- * Save a user's salted password in the database
- *
- * @param string $user_id The user ID of the user who is salting their password
- * @param string $passwd The password of the user logging in
- */
-function save_salt($user_id, $passwd) {
-	$dbh = DB::connect();
-	$salt = generate_salt();
-	$hash = salted_hash($passwd, $salt);
-	$q = "UPDATE Users SET Salt = " . $dbh->quote($salt) . ", ";
-	$q.= "Passwd = " . $dbh->quote($hash) . " WHERE ID = " . $user_id;
-	return $dbh->exec($q);
-}
-
-/**
- * Generate a string to be used for salting passwords
- *
- * @return string MD5 hash of concatenated random number and current time
- */
-function generate_salt() {
-	return md5(uniqid(mt_rand(), true));
-}
-
-/**
- * Combine salt and password to form a hash
- *
- * @param string $passwd User plaintext password
- * @param string $salt MD5 hash to be used as user salt
- *
- * @return string The MD5 hash of the concatenated salt and user password
- */
-function salted_hash($passwd, $salt) {
-	if (strlen($salt) != 32) {
-		trigger_error('Salt does not look like an md5 hash', E_USER_WARNING);
-	}
-	return md5($salt . $passwd);
 }
 
 /**

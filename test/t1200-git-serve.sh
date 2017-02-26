@@ -20,6 +20,38 @@ test_expect_success 'Test help.' '
 	IFS=$save_IFS
 '
 
+test_expect_success 'Test maintenance mode.' '
+	mv config config.old &&
+	sed "s/^\(enable-maintenance = \)0$/\\11/" config.old >config &&
+	SSH_ORIGINAL_COMMAND=help test_must_fail "$GIT_SERVE" 2>actual &&
+	cat >expected <<-EOF &&
+	The AUR is down due to maintenance. We will be back soon.
+	EOF
+	test_cmp expected actual &&
+	mv config.old config
+'
+
+test_expect_success 'Test IP address logging.' '
+	SSH_ORIGINAL_COMMAND=help AUR_USER=user "$GIT_SERVE" 2>actual &&
+	cat >expected <<-EOF &&
+	1.2.3.4
+	EOF
+	echo "SELECT LastSSHLoginIPAddress FROM Users WHERE UserName = \"user\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success 'Test IP address bans.' '
+	SSH_CLIENT_ORIG="$SSH_CLIENT" &&
+	SSH_CLIENT="1.3.3.7 1337 22" &&
+	SSH_ORIGINAL_COMMAND=help test_must_fail "$GIT_SERVE" 2>actual &&
+	cat >expected <<-EOF &&
+	The SSH interface is disabled for your IP address.
+	EOF
+	test_cmp expected actual &&
+	SSH_CLIENT="$SSH_CLIENT_ORIG"
+'
+
 test_expect_success 'Test setup-repo and list-repos.' '
 	SSH_ORIGINAL_COMMAND="setup-repo foobar" AUR_USER=user \
 	"$GIT_SERVE" 2>&1 &&
@@ -338,6 +370,135 @@ test_expect_success "Check whether package requests are closed when disowning." 
 	EOD
 	echo "SELECT * FROM PackageRequests WHERE Status = 2;" | sqlite3 aur.db >actual &&
 	test_cmp actual expected
+'
+
+test_expect_success "Flag a package base out-of-date." '
+	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	1|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Unflag a package base as flagger." '
+	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	0|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Unflag a package base as maintainer." '
+	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	0|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Unflag a package base as random user." '
+	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user3 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	1|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Flag using a comment which is too short." '
+	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user2 AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	SSH_ORIGINAL_COMMAND="flag foobar xx" AUR_USER=user2 AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	0|Because.
+	EOF
+	echo "SELECT OutOfDateTS IS NOT NULL, FlaggerComment FROM PackageBases WHERE ID = 3;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Vote for a package base." '
+	SSH_ORIGINAL_COMMAND="vote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	3|1
+	EOF
+	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	1
+	EOF
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Vote for a package base twice." '
+	SSH_ORIGINAL_COMMAND="vote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	3|1
+	EOF
+	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	1
+	EOF
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Remove vote from a package base." '
+	SSH_ORIGINAL_COMMAND="unvote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	"$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	EOF
+	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	0
+	EOF
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
+'
+
+test_expect_success "Try to remove the vote again." '
+	SSH_ORIGINAL_COMMAND="unvote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
+	test_must_fail "$GIT_SERVE" 2>&1 &&
+	cat >expected <<-EOF &&
+	EOF
+	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual &&
+	cat >expected <<-EOF &&
+	0
+	EOF
+	echo "SELECT NumVotes FROM PackageBases WHERE Name = \"foobar\";" | \
+	sqlite3 aur.db >actual &&
+	test_cmp expected actual
 '
 
 test_done
