@@ -244,7 +244,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 					"<strong>", htmlspecialchars($E,ENT_QUOTES), "</strong>");
 		}
 	}
-	if (!$error && count($ssh_keys) > 0) {
+	if (!$error && isset($ssh_keys) && count($ssh_keys) > 0) {
 		/*
 		 * Check whether any of the SSH public keys is already in use.
 		 * TODO: Fix race condition.
