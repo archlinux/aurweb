@@ -1,6 +1,6 @@
 <?php
 
-$pkgbuild_uri = sprintf(config_get('options', 'pkgbuild_uri'), urlencode($row['Name']));
+$pkgbuild_uri = sprintf(config_get('options', 'source_file_uri'), 'PKGBUILD', urlencode($row['Name']));
 $log_uri = sprintf(config_get('options', 'log_uri'), urlencode($row['Name']));
 $snapshot_uri = sprintf(config_get('options', 'snapshot_uri'), urlencode($row['Name']));
 $git_clone_uri_anon = sprintf(config_get('options', 'git_clone_uri_anon'), htmlspecialchars($row['Name']));
