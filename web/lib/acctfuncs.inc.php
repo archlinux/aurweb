@@ -282,7 +282,6 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$U = $dbh->quote($U);
 		$E = $dbh->quote($E);
 		$P = $dbh->quote($P);
-		$salt = $dbh->quote($salt);
 		$R = $dbh->quote($R);
 		$L = $dbh->quote($L);
 		$TZ = $dbh->quote($TZ);
