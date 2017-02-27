@@ -301,7 +301,9 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		}
 
 		$uid = $dbh->lastInsertId();
-		account_set_ssh_keys($uid, $ssh_keys, $ssh_fingerprints);
+		if (isset($ssh_keys) && count($ssh_keys) > 0) {
+			account_set_ssh_keys($uid, $ssh_keys, $ssh_fingerprints);
+		}
 
 		$message = __("The account, %s%s%s, has been successfully created.",
 				"<strong>", htmlspecialchars($U,ENT_QUOTES), "</strong>");
@@ -364,7 +366,11 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$q.= " WHERE ID = ".intval($UID);
 		$result = $dbh->exec($q);
 
-		$ssh_key_result = account_set_ssh_keys($UID, $ssh_keys, $ssh_fingerprints);
+		if (isset($ssh_keys) && count($ssh_keys) > 0) {
+			$ssh_key_result = account_set_ssh_keys($UID, $ssh_keys, $ssh_fingerprints);
+		} else {
+			$ssh_key_result = true;
+		}
 
 		if (isset($_COOKIE["AURTZ"]) && ($_COOKIE["AURTZ"] != $TZ)) {
 			/* set new cookie for timezone */
