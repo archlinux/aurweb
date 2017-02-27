@@ -522,15 +522,13 @@ function pkgbase_delete ($base_ids, $merge_base_id, $via, $grant=false) {
 	}
 
 	/* Scan through pending deletion requests and close them. */
-	if (!$action) {
-		$username = username_from_sid($_COOKIE['AURSID']);
-		foreach ($base_ids as $base_id) {
-			$pkgreq_ids = array_merge(pkgreq_by_pkgbase($base_id));
-			foreach ($pkgreq_ids as $pkgreq_id) {
-				pkgreq_close(intval($pkgreq_id), 'accepted',
-					'The user ' .  $username .
-					' deleted the package.', true);
-			}
+	$username = username_from_sid($_COOKIE['AURSID']);
+	foreach ($base_ids as $base_id) {
+		$pkgreq_ids = array_merge(pkgreq_by_pkgbase($base_id));
+		foreach ($pkgreq_ids as $pkgreq_id) {
+			pkgreq_close(intval($pkgreq_id), 'accepted',
+				'The user ' .  $username .
+				' deleted the package.', true);
 		}
 	}
 
