@@ -5,7 +5,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 $path = $_SERVER['PATH_INFO'];
 $tokens = explode('/', $path);
 
-if (preg_match('/^([a-z0-9][a-z0-9.+_-]*?)(\.git)?$/', $tokens[1], $matches)) {
+if (isset($tokens[1]) && preg_match('/^([a-z0-9][a-z0-9.+_-]*?)(\.git)?$/', $tokens[1], $matches)) {
 	$gitpkg = $matches[1];
 	if (pkg_from_name($gitpkg)) {
 		$gitcmd = 'git clone ' . sprintf(config_get('options', 'git_clone_uri_anon'), htmlspecialchars($gitpkg));
