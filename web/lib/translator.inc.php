@@ -111,14 +111,16 @@ function set_lang() {
 		$result = $dbh->query($q);
 
 		if ($result) {
-			$row = $result->fetchAll();
-			$LANG = $row[0];
+			$LANG = $result->fetchColumn(0);
+			if (!$LANG) {
+				unset($LANG);
+			}
 		}
 		$update_cookie = 1;
 	}
 
 	# Set $LANG to default if nothing is valid.
-	if (!array_key_exists($LANG, $SUPPORTED_LANGS)) {
+	if (!isset($LANG) || !array_key_exists($LANG, $SUPPORTED_LANGS)) {
 		$LANG = config_get('options', 'default_lang');
 	}
 
