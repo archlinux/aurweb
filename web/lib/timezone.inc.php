@@ -42,6 +42,9 @@ function set_tz() {
 
 		if ($result) {
 			$timezone = $result->fetchColumn(0);
+			if (!$timezone) {
+				unset($timezone);
+			}
 		}
 
 		$update_cookie = true;
