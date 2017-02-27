@@ -735,6 +735,8 @@ function pkgbase_vote ($base_ids, $action=true) {
 	$uid = uid_from_sid($_COOKIE["AURSID"]);
 
 	$first = 1;
+	$vote_ids = "";
+	$vote_clauses = "";
 	foreach ($base_ids as $pid) {
 		if ($action) {
 			$check = !isset($my_votes[$pid]);
@@ -758,22 +760,24 @@ function pkgbase_vote ($base_ids, $action=true) {
 		}
 	}
 
-	/* Only add votes for packages the user hasn't already voted for. */
-	$op = $action ? "+" : "-";
-	$q = "UPDATE PackageBases SET NumVotes = NumVotes $op 1 ";
-	$q.= "WHERE ID IN ($vote_ids)";
+	if (!empty($vote_ids)) {
+		/* Only add votes for packages the user hasn't already voted for. */
+		$op = $action ? "+" : "-";
+		$q = "UPDATE PackageBases SET NumVotes = NumVotes $op 1 ";
+		$q.= "WHERE ID IN ($vote_ids)";
 
-	$dbh->exec($q);
+		$dbh->exec($q);
 
-	if ($action) {
-		$q = "INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS) VALUES ";
-		$q.= $vote_clauses;
-	} else {
-		$q = "DELETE FROM PackageVotes WHERE UsersID = $uid ";
-		$q.= "AND PackageBaseID IN ($vote_ids)";
+		if ($action) {
+			$q = "INSERT INTO PackageVotes (UsersID, PackageBaseID, VoteTS) VALUES ";
+			$q.= $vote_clauses;
+		} else {
+			$q = "DELETE FROM PackageVotes WHERE UsersID = $uid ";
+			$q.= "AND PackageBaseID IN ($vote_ids)";
+		}
+
+		$dbh->exec($q);
 	}
-
-	$dbh->exec($q);
 
 	if ($action) {
 		return array(true, __("Your votes have been cast for the selected packages."));
