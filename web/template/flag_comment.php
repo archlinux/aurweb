@@ -11,11 +11,13 @@
 				'<strong>', htmlspecialchars($pkgbase_name), '</strong>'); ?>
 		<?php endif; ?>
 	</p>
+	<?php if (isset($message['Username'])): ?>
 	<p>
 		<div class="article-content">
 			<blockquote><p><?= parse_comment($message['FlaggerComment']) ?></p></blockquote>
 		</div>
 	</p>
+	<?php endif; ?>
 	<p>
 		<form action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES) ?>">
 			<input type="submit" value="<?= __("Return to Details") ?>" />
