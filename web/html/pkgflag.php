@@ -28,7 +28,7 @@ if (check_token()) {
 	}
 
 	if ($ret) {
-		header('Location: ' . get_pkgbase_uri($pkgbase_name) . $fragment);
+		header('Location: ' . get_pkgbase_uri($pkgbase_name));
 		exit();
 	}
 }
