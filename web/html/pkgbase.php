@@ -145,17 +145,21 @@ if (check_token()) {
 	}
 }
 
-$pkgs = pkgbase_get_pkgnames($base_id);
-if (!$output && count($pkgs) == 1) {
-	/* Not a split package. Redirect to the package page. */
-	if (empty($_SERVER['QUERY_STRING'])) {
-		header('Location: ' . get_pkg_uri($pkgs[0]) . $fragment);
-	} else {
-		header('Location: ' . get_pkg_uri($pkgs[0]) . '?' . $_SERVER['QUERY_STRING'] . $fragment);
+if (isset($base_id)) {
+	$pkgs = pkgbase_get_pkgnames($base_id);
+	if (!$output && count($pkgs) == 1) {
+		/* Not a split package. Redirect to the package page. */
+		if (empty($_SERVER['QUERY_STRING'])) {
+			header('Location: ' . get_pkg_uri($pkgs[0]) . $fragment);
+		} else {
+			header('Location: ' . get_pkg_uri($pkgs[0]) . '?' . $_SERVER['QUERY_STRING'] . $fragment);
+		}
 	}
-}
 
-$details = pkgbase_get_details($base_id);
+	$details = pkgbase_get_details($base_id);
+} else {
+	$details = array();
+}
 html_header($title, $details);
 ?>
 
@@ -169,10 +173,12 @@ html_header($title, $details);
 
 <?php
 include('pkg_search_form.php');
-if (isset($_COOKIE["AURSID"])) {
-	pkgbase_display_details($base_id, $details, $_COOKIE["AURSID"]);
-} else {
-	pkgbase_display_details($base_id, $details, null);
+if (isset($base_id)) {
+	if (isset($_COOKIE["AURSID"])) {
+		pkgbase_display_details($base_id, $details, $_COOKIE["AURSID"]);
+	} else {
+		pkgbase_display_details($base_id, $details, null);
+	}
 }
 
 html_footer(AURWEB_VERSION);
