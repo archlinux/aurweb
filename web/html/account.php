@@ -24,6 +24,7 @@ if (in_array($action, $need_userinfo)) {
  * which could be changed by process_account_form()
  */
 if ($action == "UpdateAccount") {
+	$success = false;
 	$update_account_message = '';
 	/* Details for account being updated */
 	/* Verify user permissions and that the request is a valid POST */
