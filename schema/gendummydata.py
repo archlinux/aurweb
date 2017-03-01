@@ -9,6 +9,7 @@ usage: gendummydata.py outputfilename.sql
 # package names.  It generates the SQL statements to
 # insert these users/packages into the AUR database.
 #
+import hashlib
 import random
 import time
 import os
@@ -170,9 +171,11 @@ for u in user_keys:
 			#
 			pass
 
+	h = hashlib.new('md5')
+	h.update(u.encode());
 	s = ("INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd)"
-		 " VALUES (%d, %d, '%s', '%s@example.com', MD5('%s'));\n")
-	s = s % (seen_users[u], account_type, u, u, u)
+		 " VALUES (%d, %d, '%s', '%s@example.com', '%s');\n")
+	s = s % (seen_users[u], account_type, u, u, h.hexdigest())
 	out.write(s)
 
 log.debug("Number of developers: %d" % len(developers))
@@ -202,9 +205,9 @@ for p in list(seen_pkgs.keys()):
 
 	uuid = genUID() # the submitter/user
 
-	s = ("INSERT INTO PackageBases (ID, Name, SubmittedTS, "
-         "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', %d, %d, %s, %s);\n")
-	s = s % (seen_pkgs[p], p, NOW, uuid, muid, puid)
+	s = ("INSERT INTO PackageBases (ID, Name, SubmittedTS, ModifiedTS, "
+         "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', %d, %d, %d, %s, %s);\n")
+	s = s % (seen_pkgs[p], p, NOW, NOW, uuid, muid, puid)
 	out.write(s)
 
 	s = ("INSERT INTO Packages (ID, PackageBaseID, Name, Version) VALUES "
@@ -303,7 +306,7 @@ for t in range(0, OPEN_PROPOSALS+CLOSE_PROPOSALS):
 		user = user_keys[random.randrange(0,len(user_keys))]
 	suid = trustedusers[random.randrange(0,len(trustedusers))]
 	s = ("INSERT INTO TU_VoteInfo (Agenda, User, Submitted, End,"
-	" SubmitterID) VALUES ('%s', '%s', %d, %d, %d);\n")
+	" Quorum, SubmitterID) VALUES ('%s', '%s', %d, %d, 0.0, %d);\n")
 	s = s % (genFortune(), user, start, end, suid)
 	out.write(s)
 	count += 1
