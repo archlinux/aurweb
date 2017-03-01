@@ -227,7 +227,7 @@ CREATE INDEX RelationsRelName ON PackageRelations (RelName);
 --
 CREATE TABLE PackageSources (
 	PackageID INTEGER UNSIGNED NOT NULL,
-	Source VARCHAR(8000) NOT NULL DEFAULT "/dev/null",
+	Source VARCHAR(8000) NOT NULL DEFAULT '/dev/null',
 	SourceArch VARCHAR(255) NULL DEFAULT NULL,
 	FOREIGN KEY (PackageID) REFERENCES Packages(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
