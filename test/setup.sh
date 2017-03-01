@@ -106,14 +106,7 @@ export SSH_CLIENT SSH_CONNECTION SSH_TTY
 
 # Initialize the test database.
 rm -f aur.db
-sed \
-	-e '/^DROP DATABASE /d' \
-	-e '/^CREATE DATABASE /d' \
-	-e '/^USE /d' \
-	-e 's/ ENGINE = InnoDB//' \
-	-e 's/ [A-Z]* UNSIGNED NOT NULL AUTO_INCREMENT/ INTEGER NOT NULL/' \
-	-e 's/([0-9, ]*) UNSIGNED / UNSIGNED /' \
-	"$TOPLEVEL/schema/aur-schema.sql" | sqlite3 aur.db
+sqlite3 aur.db <"$TOPLEVEL/schema/aur-schema-sqlite.sql"
 
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (1, 'user', '!', 'user@localhost', 1);" | sqlite3 aur.db
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, AccountTypeID) VALUES (2, 'tu', '!', 'tu@localhost', 2);" | sqlite3 aur.db
