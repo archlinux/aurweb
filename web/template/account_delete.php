@@ -7,7 +7,7 @@
 
 <form id="edit-profile-form" action="<?= get_user_uri($username) . 'delete/'; ?>" method="post">
 	<fieldset>
-		<input type="hidden" name="Action" value="<?= $A ?>" />
+		<input type="hidden" name="Action" value="<?= $action ?>" />
 		<input type="hidden" name="ID" value="<?= $UID ?>" />
 		<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 	</fieldset>
