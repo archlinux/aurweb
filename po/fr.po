@@ -10,14 +10,14 @@
 # lordheavy <lordheavym@gmail.com>, 2013-2014
 # lordheavy <lordheavym@gmail.com>, 2011-2012
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Xorg <xorgbreaker@gmail.com>, 2015
+# Xorg <xorgbreaker@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2017-02-28 19:55+0000\n"
+"Last-Translator: Xorg <xorgbreaker@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/lfleischer/aur/language/"
 "fr/)\n"
 "Language: fr\n"
@@ -137,28 +137,28 @@ msgid "Edit comment"
 msgstr "Éditer le commentaire"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Tableau de bord"
 
 msgid "Home"
 msgstr "Accueil"
 
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Mes paquets périmés"
 
 msgid "My Requests"
-msgstr ""
+msgstr "Mes requêtes"
 
 msgid "My Packages"
 msgstr "Mes paquets"
 
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Rechercher les paquets que je maintiens"
 
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Paquets co-maintenus"
 
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Rechercher les paquets que je co-maintiens"
 
 #, php-format
 msgid ""
@@ -409,7 +409,7 @@ msgid "Enter your e-mail address:"
 msgstr "Entrez votre adresse e-mail :"
 
 msgid "Package Bases"
-msgstr ""
+msgstr "Bases du paquet"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -670,7 +670,7 @@ msgid "Language is not currently supported."
 msgstr "Cette langue n'est pas supportée pour le moment."
 
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "Le fuseau horaire n'est actuellement pas pris en charge"
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -1049,7 +1049,7 @@ msgid "Language"
 msgstr "Langue"
 
 msgid "Timezone"
-msgstr ""
+msgstr "Fuseau horaire"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1391,7 +1391,7 @@ msgstr ""
 "le mainteneur."
 
 msgid "No requests matched your search criteria."
-msgstr ""
+msgstr "Aucune requête ne correspond à vos critères de recherche."
 
 #, php-format
 msgid "%d package request found."
@@ -1437,7 +1437,7 @@ msgid "Close"
 msgstr "Fermer"
 
 msgid "Pending"
-msgstr ""
+msgstr "En attente"
 
 msgid "Closed"
 msgstr "Fermé"
@@ -1455,10 +1455,10 @@ msgid "Exact Package Base"
 msgstr "Paquet de base exact"
 
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Co-mainteneurs"
 
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Mainteneur, co-mainteneur"
 
 msgid "All"
 msgstr "Tout"

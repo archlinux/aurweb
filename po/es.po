@@ -12,15 +12,15 @@
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2012
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2013-2016
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
+# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016-2017
 # Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2017-03-01 05:08+0000\n"
+"Last-Translator: Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/lfleischer/aur/language/"
 "es/)\n"
 "Language: es\n"
@@ -139,28 +139,28 @@ msgid "Edit comment"
 msgstr "Editar comentario"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Tablero"
 
 msgid "Home"
 msgstr "Inicio"
 
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Mis paquetes marcados"
 
 msgid "My Requests"
-msgstr ""
+msgstr "Mis solicitudes"
 
 msgid "My Packages"
 msgstr "Mis paquetes"
 
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Buscar paquetes que mantengo"
 
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Paquetes que soy coencargado"
 
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Buscar paquetes que soy coencargado"
 
 #, php-format
 msgid ""
@@ -410,7 +410,7 @@ msgid "Enter your e-mail address:"
 msgstr "Introduce tu dirección de correo:"
 
 msgid "Package Bases"
-msgstr ""
+msgstr "Paquetes base"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -666,7 +666,7 @@ msgid "Language is not currently supported."
 msgstr "El idioma no está soportado actualmente."
 
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "El huso horario no es admitido actualmente."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -1038,7 +1038,7 @@ msgid "Language"
 msgstr "Idioma"
 
 msgid "Timezone"
-msgstr ""
+msgstr "Huso horario"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1383,7 +1383,7 @@ msgstr ""
 "ponerte en contacto con él anteriormente."
 
 msgid "No requests matched your search criteria."
-msgstr ""
+msgstr "Ninguna solicitud coincide con tu criterio de búsqueda."
 
 #, php-format
 msgid "%d package request found."
@@ -1429,7 +1429,7 @@ msgid "Close"
 msgstr "Cerrar"
 
 msgid "Pending"
-msgstr ""
+msgstr "Pendiente"
 
 msgid "Closed"
 msgstr "Cerrada"
@@ -1447,10 +1447,10 @@ msgid "Exact Package Base"
 msgstr "Paquete base exacto"
 
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Coencargado"
 
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Encargado y coencargado"
 
 msgid "All"
 msgstr "Todos"
@@ -1504,7 +1504,7 @@ msgid "Error retrieving package list."
 msgstr "Error al recuperar la lista de paquetes."
 
 msgid "No packages matched your search criteria."
-msgstr "Ningún paquete coincide con su criterio de búsqueda."
+msgstr "Ningún paquete coincide con tu criterio de búsqueda."
 
 #, php-format
 msgid "%d package found."

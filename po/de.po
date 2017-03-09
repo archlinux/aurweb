@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 16:16+0000\n"
+"PO-Revision-Date: 2017-02-26 19:30+0000\n"
 "Last-Translator: Stefan Auditor <stefan.auditor@erdfisch.de>\n"
 "Language-Team: German (http://www.transifex.com/lfleischer/aur/language/"
 "de/)\n"
@@ -152,7 +152,7 @@ msgid "Home"
 msgstr "Startseite"
 
 msgid "My Flagged Packages"
-msgstr "Mein markierten Pakete"
+msgstr "Meine markierten Pakete"
 
 msgid "My Requests"
 msgstr "Meine Anfragen"
@@ -167,7 +167,7 @@ msgid "Co-Maintained Packages"
 msgstr "Ko-Maintainer Pakete"
 
 msgid "Search for packages I co-maintain"
-msgstr "Suche nach Paketen die ich betreue ko-maintaine"
+msgstr "Suche nach Paketen die ich mitbetreue"
 
 #, php-format
 msgid ""

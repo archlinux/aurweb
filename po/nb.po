@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2017-03-02 10:39+0000\n"
+"Last-Translator: Alexander F Rødseth <rodseth@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/lfleischer/aur/"
 "language/nb/)\n"
 "Language: nb\n"
@@ -131,28 +131,28 @@ msgid "Edit comment"
 msgstr "Rediger kommentar"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Instrumentpanel"
 
 msgid "Home"
 msgstr "Hjem"
 
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Mine pakker med anmerkninger"
 
 msgid "My Requests"
-msgstr ""
+msgstr "Mine forespørsler"
 
 msgid "My Packages"
 msgstr "Mine pakker"
 
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Søk etter pakker jeg vedlikeholder"
 
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Med-vedlikeholdte pakker"
 
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Søk etter pakker jeg er med på å vedlikeholde"
 
 #, php-format
 msgid ""
@@ -240,6 +240,8 @@ msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"Hvis du vil diskutere en forespørsel kan du bruke %saur-request%s e-post "
+"listen. Vennligst ikke send nye forespørsler dit."
 
 msgid "Submitting Packages"
 msgstr "Innsending av pakker"
@@ -266,6 +268,10 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"Generell diskusjon rundt Arch sitt brukerstyrte pakkebibliotek (AUR) og "
+"strukturen rundt betrodde brukere, foregår på %saur-general%s. For "
+"diskusjoner relatert til utviklingen av AUR web-grensesnittet, bruk %saur-dev"
+"%s e-postlisten."
 
 msgid "Bug Reporting"
 msgstr "Feilrapportering"
@@ -277,6 +283,11 @@ msgid ""
 "%sonly%s. To report packaging bugs contact the package maintainer or leave a "
 "comment on the appropriate package page."
 msgstr ""
+"Vennligst fyll ut en feilrapport i %sfeilrapporteringssystemet%s dersom du "
+"finner en feil i AUR sitt web-grensesnitt. Bruk denne %skun%s til å "
+"rapportere feil som gjelder AUR sitt web-grensesnitt. For å rapportere feil "
+"med pakker, kontakt personen som vedlikeholder pakken eller legg igjen en "
+"kommentar på siden til den aktuelle pakken."
 
 msgid "Package Search"
 msgstr "Pakkesøk"
@@ -386,12 +397,14 @@ msgid "Enter your e-mail address:"
 msgstr "Angi din e-postadresse:"
 
 msgid "Package Bases"
-msgstr ""
+msgstr "Pakkebaser"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
+"De valgte pakkene har ikke blitt gjort foreldreløse, husk å krysse av i "
+"boksen for å bekrefte."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Kunne ikke finne pakke for å flette stemmer og kommentarer inn i."
@@ -441,48 +454,60 @@ msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"Bruk dette skjemaet for å gjøre pakkebasen %s%s%s foreldreløs. Den "
+"inkluderer følgende pakker:"
 
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
+"Ved å krysse av i boksen bekrefter du at du ønsker å si fra deg pakken samt "
+"overføre eierskapet til %s%s%s."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
+"Ved å krysse av i boksen bekrefter du at du ønsker å gjøre pakken "
+"foreldreløs."
 
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Bekreft at du ønsker å gjøre pakken foreldreløs."
 
 msgid "Disown"
 msgstr "Gjør foreldreløs"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
+msgstr "Bare betrodde brukere og Arch utviklere kan gjøre pakker foreldreløse."
 
 msgid "Flag Comment"
-msgstr ""
+msgstr "Flagg kommentar"
 
 msgid "Flag Package Out-Of-Date"
-msgstr ""
+msgstr "Flagg pakke som utdatert"
 
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages out-"
 "of-date: "
 msgstr ""
+"Bruk skjemaet for å flagge pakkebasen %s%s%s og følgende pakker som "
+"utdaterte:"
 
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
 msgstr ""
+"Vennligst %sikke%s bruk dette skjemaet for å rapportere feil. Bruk "
+"kommentarfeltet for pakken istedenfor."
 
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
 msgstr ""
+"Skriv inn hvorfor pakken er utdatert nedenfor, helst med lenker til teksten "
+"som annonserer slippet av den nye versjonen, eller den nye kildekodepakken."
 
 msgid "Comments"
 msgstr "Kommentarer"
@@ -491,7 +516,7 @@ msgid "Flag"
 msgstr "Markering"
 
 msgid "Only registered users can flag packages out-of-date."
-msgstr ""
+msgstr "Bare registrerte brukere kan flagge pakker som utdaterte."
 
 msgid "Package Merging"
 msgstr "Pakkesammenslåing"
@@ -526,7 +551,7 @@ msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Bare betrodde brukere og utviklere kan slå sammen pakker."
 
 msgid "Submit Request"
-msgstr ""
+msgstr "Send inn forespørsel"
 
 msgid "Close Request"
 msgstr "Lukk forespørsel"
@@ -613,7 +638,7 @@ msgid "The PGP key fingerprint is invalid."
 msgstr "PGP fingeravtrykket er ikke gyldig."
 
 msgid "The SSH public key is invalid."
-msgstr ""
+msgstr "Den offentlige SSH-nøkkelen er ugyldig."
 
 msgid "Cannot increase account permissions."
 msgstr "Kan ikke gi flere tillatelser til kontoen."
@@ -622,7 +647,7 @@ msgid "Language is not currently supported."
 msgstr "Språket støttes ikke på dette tidspunktet."
 
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "Den tidssonen støttes ikke akkurat nå"
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -634,7 +659,7 @@ msgstr "Adressen, %s%s%s, er allerede i bruk."
 
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
-msgstr ""
+msgstr "Den offentlige SSH-nøkkelen, %s%s%s, er allerede i bruk."
 
 #, php-format
 msgid "Error trying to create account, %s%s%s."
@@ -696,16 +721,16 @@ msgid "View account information for %s"
 msgstr "Vis kontoinformasjon for %s"
 
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "ID eller navn for pakkebasen mangler."
 
 msgid "You are not allowed to edit this comment."
-msgstr ""
+msgstr "Du får ikke lov til å redigere denne kommentaren."
 
 msgid "Comment does not exist."
-msgstr ""
+msgstr "Kommentaren finnes ikke."
 
 msgid "Comment cannot be empty."
-msgstr ""
+msgstr "Kommentaren kan ikke være tom."
 
 msgid "Comment has been added."
 msgstr "Kommentar har blitt lagt til."
@@ -717,19 +742,19 @@ msgid "Missing comment ID."
 msgstr "Mangler kommentar-ID."
 
 msgid "No more than 5 comments can be pinned."
-msgstr ""
+msgstr "Maks 5 kommentarer kan festes."
 
 msgid "You are not allowed to pin this comment."
-msgstr ""
+msgstr "Du får ikke lov til å feste denne kommentaren."
 
 msgid "You are not allowed to unpin this comment."
-msgstr ""
+msgstr "Du får ikke lov til å løsrive denne kommentaren."
 
 msgid "Comment has been pinned."
-msgstr ""
+msgstr "Kommentar har blitt festet."
 
 msgid "Comment has been unpinned."
-msgstr ""
+msgstr "Kommentar har blitt løsrevet."
 
 msgid "Error retrieving package details."
 msgstr "Kunne ikke finne frem pakkedetaljer."
@@ -745,6 +770,7 @@ msgstr "Ingen pakker ble valgt for å bli markert."
 
 msgid "The selected packages have not been flagged, please enter a comment."
 msgstr ""
+"De valgte pakkene har ikke blitt flagget. Vennligst skriv inn en kommentar."
 
 msgid "The selected packages have been flagged out-of-date."
 msgstr "De valgte pakkene har nå blitt markert som utdaterte."
@@ -813,10 +839,10 @@ msgid "You have been removed from the comment notification list for %s."
 msgstr "Du har blitt fjernet fra kommentarpåminnelselisten for %s."
 
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "Du får ikke lov til å angre på å slette denne kommentaren."
 
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "Kommentaren har ikke blitt slettet allikevel."
 
 msgid "You are not allowed to delete this comment."
 msgstr "Du har ikke tilgang til å slette denne kommentaren."
@@ -825,30 +851,31 @@ msgid "Comment has been deleted."
 msgstr "Kommentar slettet."
 
 msgid "Comment has been edited."
-msgstr ""
+msgstr "Kommentaren har blitt redigert."
 
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr ""
+msgstr "Du får ikke lov til å redigere nøkkelordene til denne pakkebasen."
 
 msgid "The package base keywords have been updated."
-msgstr ""
+msgstr "Pakkebasenøkkelordene har blitt oppdatert."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
+"Du får ikke lov til å håndtere med-vedlikeholdere for denne pakkebasen."
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Ugyldig brukernavn: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "Med-vedlikeholdere for denne pakkebasen har blitt oppdatert."
 
 msgid "View packages details for"
 msgstr "Vis pakkedetaljer for"
 
 #, php-format
 msgid "requires %s"
-msgstr ""
+msgstr "behøver %s"
 
 msgid "You must be logged in to file package requests."
 msgstr "Du må være logget inn for å kunne sende inn forespørsler om pakker."
@@ -904,13 +931,13 @@ msgid "Email Address"
 msgstr "E-postadresse"
 
 msgid "hidden"
-msgstr ""
+msgstr "gjemt"
 
 msgid "Real Name"
 msgstr "Ekte navn"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Hjemmeside"
 
 msgid "IRC Nick"
 msgstr "IRC-kallenavn"
@@ -928,7 +955,7 @@ msgid "Active"
 msgstr "Aktiv"
 
 msgid "Registration date:"
-msgstr ""
+msgstr "Registreringsdato:"
 
 msgid "unknown"
 msgstr "ukjent"
@@ -951,7 +978,7 @@ msgstr "Klikk %sher%s hvis du vil slette denne kontoen, for alltid."
 
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Klikk %sher%s for brukerdetaljer."
 
 msgid "required"
 msgstr "trengs"
@@ -976,7 +1003,7 @@ msgstr ""
 "låst ute."
 
 msgid "Hide Email Address"
-msgstr ""
+msgstr "Gjem e-postadresse"
 
 msgid "Re-type password"
 msgstr "Skriv inn passordet på nytt"
@@ -985,27 +1012,29 @@ msgid "Language"
 msgstr "Språk"
 
 msgid "Timezone"
-msgstr ""
+msgstr "Tidssone"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
+"Følgende informasjon trengs bare dersom du vil sende inn pakker til Arch "
+"sitt brukerstyrte pakkebibliotek."
 
 msgid "SSH Public Key"
-msgstr ""
+msgstr "Offentlig SSH-nøkkel"
 
 msgid "Notification settings"
-msgstr ""
+msgstr "Varslingsinstillinger"
 
 msgid "Notify of new comments"
 msgstr "Gi beskjed om nye kommentarer"
 
 msgid "Notify of package updates"
-msgstr ""
+msgstr "Varsle om pakkeoppdateringer"
 
 msgid "Notify of ownership changes"
-msgstr ""
+msgstr "Varsle om endring av eierskap"
 
 msgid "Update"
 msgstr "Oppdater"
@@ -1041,31 +1070,33 @@ msgstr "Ingen flere resultater å vise."
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
+"Bruk dette skjemaet for å legge til med-vedlikeholdere for %s%s%s (ett "
+"brukernavn per linje):"
 
 msgid "Users"
-msgstr ""
+msgstr "Brukere"
 
 msgid "Save"
-msgstr ""
+msgstr "Lagre"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Flagget kommentar som utdatert: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
+msgstr "%s%s%s flagget %s%s%s som utdatert den %s%s%s av følgende årsak:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s er ikke flagget som utdatert."
 
 msgid "Return to Details"
-msgstr ""
+msgstr "Returner til detaljer"
 
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
+msgstr "Kopibeskyttet %s 2004-%d aurweb utviklingsgruppe."
 
 msgid " My Account"
 msgstr " Min konto"
@@ -1077,17 +1108,17 @@ msgid "View PKGBUILD"
 msgstr "Vis PKGBUILD"
 
 msgid "View Changes"
-msgstr ""
+msgstr "Vis endringer"
 
 msgid "Download snapshot"
-msgstr ""
+msgstr "Last ned fryst bilde"
 
 msgid "Search wiki"
 msgstr "Søk wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Flagget som utdatert (%s)"
 
 msgid "Flag package out-of-date"
 msgstr "Marker pakke som utdatert"
@@ -1105,10 +1136,10 @@ msgid "Disable notifications"
 msgstr "Slå av beskjeder"
 
 msgid "Enable notifications"
-msgstr ""
+msgstr "Få beskjed"
 
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Behandle med-vedlikeholdere"
 
 #, php-format
 msgid "%d pending request"
@@ -1123,10 +1154,10 @@ msgid "Package Base Details"
 msgstr "Grunnpakkedetaljer"
 
 msgid "Git Clone URL"
-msgstr ""
+msgstr "Git clone URL"
 
 msgid "read-only"
-msgstr ""
+msgstr "skrivebeskyttet"
 
 msgid "Keywords"
 msgstr "Nøkkelord"
@@ -1144,7 +1175,7 @@ msgid "Votes"
 msgstr "Stemmer"
 
 msgid "Popularity"
-msgstr ""
+msgstr "Popularitet"
 
 msgid "First Submitted"
 msgstr "Først innsendt"
@@ -1154,7 +1185,7 @@ msgstr "Sist oppdatert"
 
 #, php-format
 msgid "Edit comment for: %s"
-msgstr ""
+msgstr "Rediger kommentar for: %s"
 
 msgid "Add Comment"
 msgstr "Legg til kommentar"
@@ -1163,46 +1194,46 @@ msgid "View all comments"
 msgstr "Vis alle kommentarer"
 
 msgid "Pinned Comments"
-msgstr ""
+msgstr "La stå"
 
 msgid "Latest Comments"
 msgstr "Siste kommentarer"
 
 #, php-format
 msgid "%s commented on %s"
-msgstr ""
+msgstr "%s kommenterte %s"
 
 #, php-format
 msgid "Anonymous comment on %s"
-msgstr ""
+msgstr "Anonym kommenterte %s"
 
 #, php-format
 msgid "deleted on %s by %s"
-msgstr ""
+msgstr "slettet %s av %s"
 
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "slettet %s"
 
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "redigert %s av %s"
 
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "redigert %s"
 
 msgid "Undelete comment"
-msgstr ""
+msgstr "Angre sletting av kommentar"
 
 msgid "Delete comment"
 msgstr "Slett kommentar"
 
 msgid "Pin comment"
-msgstr ""
+msgstr "Fest kommentar"
 
 msgid "Unpin comment"
-msgstr ""
+msgstr "Løsne kommentar"
 
 msgid "All comments"
 msgstr "Alle kommentarer"
@@ -1291,6 +1322,10 @@ msgid ""
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
+"Ved å sende inn en forespørsel om sletting spør du en betrodd bruker om å "
+"slette pakken. Slike forespørsler bør brukes om duplikater, forlatt "
+"programvare samt ulovlige eller pakker som er så ødelagte at de ikke lenger "
+"kan fikses."
 
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
@@ -1298,6 +1333,10 @@ msgid ""
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
 msgstr ""
+"Ved å sende inn en forespørsel om sammenslåing spør du en betrodd bruker om "
+"å slette pakken. Stemmer og kommentarer vil bli overført til en annen pakke. "
+"Å slå sammen en pakke har ingen effekt på korresponderende Git repo. Pass på "
+"å oppdatere Git historikken til målpakken selv."
 
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
@@ -1305,9 +1344,13 @@ msgid ""
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
 msgstr ""
+"Ved å sende inn en forespørsel om å gjøre en pakke foreldreløs spør du en "
+"betrodd bruker om å utføre dette. Vennligst bare send inn forespørselen "
+"dersom pakken trenger vedlikehold, nåværende vedlikeholder er fraværende og "
+"du allerede har prøvd å kontakte den som vedlikeholder pakken."
 
 msgid "No requests matched your search criteria."
-msgstr ""
+msgstr "Ingen treff på forespørsler."
 
 #, php-format
 msgid "%d package request found."
@@ -1331,8 +1374,8 @@ msgstr "Dato"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "~%d dag igjen"
+msgstr[1] "~%d dager igjen"
 
 #, php-format
 msgid "~%d hour left"
@@ -1353,7 +1396,7 @@ msgid "Close"
 msgstr "Lukk"
 
 msgid "Pending"
-msgstr ""
+msgstr "I kø"
 
 msgid "Closed"
 msgstr "Lukket"
@@ -1371,10 +1414,10 @@ msgid "Exact Package Base"
 msgstr "Eksakt grunnpakke"
 
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Med-vedlikeholder"
 
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Vedlikeholder, med-vedlikeholder"
 
 msgid "All"
 msgstr "Alle"
@@ -1392,7 +1435,7 @@ msgid "Voted"
 msgstr "Stemt"
 
 msgid "Last modified"
-msgstr ""
+msgstr "Sist endret"
 
 msgid "Ascending"
 msgstr "Stigende"
@@ -1444,6 +1487,8 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"Populariteten beregnes som summen av alle stemmer der hver stemme vekktes "
+"med en faktor på %.2f per dag siden den ble avlagt."
 
 msgid "Yes"
 msgstr "Ja"
@@ -1500,10 +1545,10 @@ msgid "Trusted Users"
 msgstr "Betrodde Brukere"
 
 msgid "Recent Updates"
-msgstr "Nylige oppdateringer"
+msgstr "Nylig oppdatert"
 
 msgid "more"
-msgstr ""
+msgstr "mer"
 
 msgid "My Statistics"
 msgstr "Min statistikk"
