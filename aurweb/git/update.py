@@ -308,6 +308,9 @@ def main():
             die_commit('invalid pkgbase: {:s}'.format(metadata_pkgbase),
                        str(commit.id))
 
+        if not metadata['packages']:
+            die_commit('missing pkgname entry', str(commit.id))
+
         for pkgname in set(metadata['packages'].keys()):
             pkginfo = srcinfo.utils.get_merged_package(pkgname, metadata)
 
