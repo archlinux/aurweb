@@ -1,0 +1,32 @@
+Setup Testing Environment
+=========================
+
+Note that this setup is only to test the web interface. If you need to have a
+full aurweb instance with cgit, ssh interface, etc, follow the directions in
+INSTALL.
+
+1) Clone the aurweb project:
+
+    $ git clone git://git.archlinux.org/aurweb.git
+
+2) Install php and necessary modules:
+
+    # pacman -S php php-sqlite sqlite
+
+3) Prepare the testing database:
+
+    $ cd /path/to/aurweb/schema
+    $ make
+    $ ./gendummydata.py out.sql
+    $ sqlite3 ../aurweb.sqlite3 < aur-schema-sqlite.sql
+    $ sqlite3 ../aurweb.sqlite3 < out.sql
+
+4) Copy conf/config.proto to conf/config and adjust the configuration
+   (pay attention to disable_http_login, enable_maintenance and aur_location).
+
+   Be sure to change backend to sqlite and name to the file location of your
+   created test database.
+
+5) Run the PHP built-in web server:
+
+   $ AUR_CONFIG='/path/to/aurweb/conf/config' php -S localhost:8080 -t /path/to/aurweb/web/html
