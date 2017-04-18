@@ -313,7 +313,10 @@ class AurJSON {
 				}
 
 				if ($this->version >= 2 && ($type == 'info' || $type == 'multiinfo')) {
-					$row = array_merge($row, $this->get_extended_fields($row['ID'], $row['PackageBaseID']));
+					$extfields = $this->get_extended_fields($row['ID'], $row['PackageBaseID']);
+					if ($extfields) {
+						$row = array_merge($row, $extfields);
+					}
 				}
 
 				if ($this->version < 3) {
