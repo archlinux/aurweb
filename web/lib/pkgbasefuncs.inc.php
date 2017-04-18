@@ -852,12 +852,11 @@ function pkgbase_user_notify($uid, $base_id) {
 	$q.= " AND PackageBaseID = " . $dbh->quote($base_id);
 	$result = $dbh->query($q);
 
-	if ($result->fetch(PDO::FETCH_NUM)) {
-		return true;
-	}
-	else {
+	if (!$result) {
 		return false;
 	}
+
+	return ($result->fetch(PDO::FETCH_NUM) > 0);
 }
 
 /**
