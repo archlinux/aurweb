@@ -495,8 +495,11 @@ function search_results_page($O=0,$SB="",$U="",$T="",
 
 	$result = $dbh->query($q);
 
-	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-		$userinfo[] = $row;
+	$userinfo = array();
+	if ($result) {
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$userinfo[] = $row;
+		}
 	}
 
 	include("account_search_results.php");
