@@ -73,6 +73,9 @@ function db_cache_value($dbq, $key, $ttl=600) {
 	$value = get_cache_value($key, $status);
 	if (!$status) {
 		$result = $dbh->query($dbq);
+		if (!$result) {
+			return false;
+		}
 		$row = $result->fetch(PDO::FETCH_NUM);
 		$value = $row[0];
 		set_cache_value($key, $value, $ttl);
