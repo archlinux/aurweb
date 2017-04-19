@@ -239,9 +239,10 @@ function pkg_dependencies($pkgid, $limit) {
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
 		$dbh = DB::connect();
-		$q = "SELECT pd.DepName, dt.Name, pd.DepCondition, pd.DepArch, p.ID FROM PackageDepends pd ";
+		$q = "SELECT pd.DepName, dt.Name, pd.DepDesc, ";
+		$q.= "pd.DepCondition, pd.DepArch, p.ID ";
+		$q.= "FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
-		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) = p.Name ";
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
 		$q.= "ORDER BY pd.DepName LIMIT " . intval($limit);
@@ -354,21 +355,14 @@ function pkg_provider_link($name, $official) {
  *
  * @param string $name The name of the dependency
  * @param string $type The name of the dependency type
+ * @param string $desc The (optional) description of the dependency
  * @param string $cond The package dependency condition string
  * @param string $arch The package dependency architecture
  * @param int $pkg_id The package of the package to display the dependency for
  *
  * @return string The HTML code of the label to display
  */
-function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
-	if ($type == 'optdepends' && strpos($name, ':') !== false) {
-		$tokens = explode(':', $name, 2);
-		$name = $tokens[0];
-		$desc = $tokens[1];
-	} else {
-		$desc = '';
-	}
-
+function pkg_depend_link($name, $type, $desc, $cond, $arch, $pkg_id) {
 	/*
 	 * TODO: We currently perform one SQL query per nonexistent package
 	 * dependency. It would be much better if we could annotate dependency
@@ -432,25 +426,14 @@ function pkg_depend_link($name, $type, $cond, $arch, $pkg_id) {
  * @return string The HTML code of the link to display
  */
 function pkg_requiredby_link($name, $depends, $type, $arch, $pkgname) {
-	if ($type == 'optdepends' && strpos($name, ':') !== false) {
-		$tokens = explode(':', $name, 2);
-		$name = $tokens[0];
-	}
-
 	$link = '<a href="';
 	$link .= htmlspecialchars(get_pkg_uri($name), ENT_QUOTES);
 	$link .= '" title="' . __('View packages details for') .' ' . htmlspecialchars($name) . '">';
 	$link .= htmlspecialchars($name) . '</a>';
 
 	if ($depends != $pkgname) {
-		$depname = $depends;
-		if (strpos($depends, ':') !== false) {
-			$tokens = explode(':', $depname, 2);
-			$depname = $tokens[0];
-		}
-
 		$link .= ' <span class="virtual-dep">(';
-		$link .= __('requires %s', htmlspecialchars($depname));
+		$link .= __('requires %s', htmlspecialchars($depends));
 		$link .= ')</span>';
 	}
 
@@ -522,11 +505,11 @@ function pkg_required($name="", $provides, $limit) {
 			$name_list .= ',' . $dbh->quote($p[0]);
 		}
 
-		$q = "SELECT p.Name, pd.DepName, dt.Name, pd.DepArch FROM PackageDepends pd ";
+		$q = "SELECT p.Name, pd.DepName, dt.Name, pd.DepArch ";
+		$q.= "FROM PackageDepends pd ";
 		$q.= "LEFT JOIN Packages p ON p.ID = pd.PackageID ";
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 		$q.= "WHERE pd.DepName IN (" . $name_list . ") ";
-		$q.= "OR SUBSTRING(pd.DepName FROM 1 FOR POSITION(': ' IN pd.DepName) - 1) IN (" . $name_list . ") ";
 		$q.= "ORDER BY p.Name LIMIT " . intval($limit);
 		$result = $dbh->query($q);
 		if (!$result) {return array();}

@@ -1,0 +1,11 @@
+1. Add DepDesc column to PackageDepends and split dependency names:
+
+---
+ALTER TABLE PackageDepends ADD COLUMN DepDesc VARCHAR(255) NULL DEFAULT NULL;
+UPDATE PackageDepends
+	SET DepDesc = SUBSTRING(DepName FROM POSITION(': ' IN DepName) + 2)
+	WHERE POSITION(': ' IN DepName) > 0;
+UPDATE PackageDepends
+	SET DepName = SUBSTRING(DepName FROM 1 FOR POSITION(': ' IN DepName) - 1)
+	WHERE POSITION(': ' IN DepName) > 0;
+---

@@ -277,7 +277,7 @@ endif;
 <?php if (count($deps) > 0): ?>
 			<ul id="pkgdepslist">
 <?php while (list($k, $darr) = each($deps)): ?>
-	<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3], $darr[4]); ?></li>
+	<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3], $darr[4], $darr[5]); ?></li>
 <?php endwhile; ?>
 			</ul>
 <?php endif; ?>

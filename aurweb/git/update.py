@@ -52,10 +52,7 @@ def parse_dep(depstring):
     depname = re.sub(r'(<|=|>).*', '', dep)
     depcond = dep[len(depname):]
 
-    if (desc):
-        return (depname + ': ' + desc, depcond)
-    else:
-        return (depname, depcond)
+    return (depname, desc, depcond)
 
 
 def create_pkgbase(conn, pkgbase, user):
@@ -141,12 +138,13 @@ def save_metadata(metadata, conn, user):
                                [deptype])
             deptypeid = cur.fetchone()[0]
             for dep_info in extract_arch_fields(pkginfo, deptype):
-                depname, depcond = parse_dep(dep_info['value'])
+                depname, depdesc, depcond = parse_dep(dep_info['value'])
                 deparch = dep_info['arch']
                 conn.execute("INSERT INTO PackageDepends (PackageID, " +
-                             "DepTypeID, DepName, DepCondition, DepArch) " +
-                             "VALUES (?, ?, ?, ?, ?)",
-                             [pkgid, deptypeid, depname, depcond, deparch])
+                             "DepTypeID, DepName, DepDesc, DepCondition, " +
+                             "DepArch) VALUES (?, ?, ?, ?, ?, ?)",
+                             [pkgid, deptypeid, depname, depdesc, depcond,
+                              deparch])
 
         # Add package relations (conflicts, provides, replaces).
         for reltype in ('conflicts', 'provides', 'replaces'):
@@ -154,7 +152,7 @@ def save_metadata(metadata, conn, user):
                                [reltype])
             reltypeid = cur.fetchone()[0]
             for rel_info in extract_arch_fields(pkginfo, reltype):
-                relname, relcond = parse_dep(rel_info['value'])
+                relname, _, relcond = parse_dep(rel_info['value'])
                 relarch = rel_info['arch']
                 conn.execute("INSERT INTO PackageRelations (PackageID, " +
                              "RelTypeID, RelName, RelCondition, RelArch) " +
