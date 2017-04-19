@@ -72,10 +72,45 @@ function collapseDependsList(list) {
 	});
 }
 
+function collapseComment(div) {
+	var linkid = div.attr('id') + 'link',
+		par = div.find('p'),
+		height = par.height(),
+		maxheight = 200;
+
+	if (height <= maxheight)
+		return;
+
+	par.css({ 'overflow': 'hidden', 'height': maxheight + 'px' });
+	par.addClass('collapsed');
+	par.after('<p><a id="' + linkid + '" href="#">Show More…</a></p>');
+
+	$('#' + linkid).click(function(event) {
+		var newheight;
+
+		if (par.hasClass('collapsed')) {
+			par.css({ 'height': 'auto' });
+			newheight = par.height();
+			par.css({ 'height': maxheight });
+			$(this).text('Collapse');
+		} else {
+			newheight = maxheight;
+			$(this).text('Show More…');
+		}
+
+		par.animate({ 'height': newheight });
+		par.toggleClass('collapsed');
+		event.preventDefault();
+	});
+}
+
 $(document).ready(function() {
 	collapseDependsList("#pkgdepslist");
 	collapseDependsList("#pkgreqslist");
 	collapseDependsList("#pkgsrcslist");
+	$(".article-content").each(function() {
+		collapseComment($(this));
+	});
 });
 </script>
 

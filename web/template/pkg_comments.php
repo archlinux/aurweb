@@ -102,7 +102,7 @@ if (!isset($count)) {
 				</form>
 			<?php endif; ?>
 		</h4>
-		<div class="article-content<?php if ($is_deleted): ?> comment-deleted<?php endif; ?>">
+		<div id="<?= isset($pinned) ? "pinned-" : "comment-" ?><?= $row['ID'] ?>-content" class="article-content<?php if ($is_deleted): ?> comment-deleted<?php endif; ?>">
 			<p>
 				<?= parse_comment($row['Comments']) ?>
 			</p>
