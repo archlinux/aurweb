@@ -1041,6 +1041,9 @@ function pkgbase_edit_comment($comment) {
 		$q.= "EditedTS = " . strval(time()) . " ";
 		$q.= "WHERE ID = ".intval($comment_id);
 		$dbh->exec($q);
+
+		render_comment($comment_id);
+
 		return array(true, __("Comment has been edited."));
 	} else {
 		return array(false, __("You are not allowed to edit this comment."));
