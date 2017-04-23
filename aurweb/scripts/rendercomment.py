@@ -1,10 +1,24 @@
 #!/usr/bin/python3
 
+import re
 import sys
 import bleach
 import markdown
 
 import aurweb.db
+
+
+class LinkifyPreprocessor(markdown.preprocessors.Preprocessor):
+    _urlre = re.compile(r'(\b(?:https?|ftp):\/\/[\w\/\#~:.?+=&%@!\-;,]+?'
+                        r'(?=[.:?\-;,]*(?:[^\w\/\#~:.?+=&%@!\-;,]|$)))')
+
+    def run(self, lines):
+        return [self._urlre.sub(r'<\1>', line) for line in lines]
+
+
+class LinkifyExtension(markdown.extensions.Extension):
+    def extendMarkdown(self, md, md_globals):
+        md.preprocessors.add('linkify', LinkifyPreprocessor(md), '_end')
 
 
 def get_comment(conn, commentid):
@@ -24,7 +38,7 @@ def main():
     conn = aurweb.db.Connection()
 
     text = get_comment(conn, commentid)
-    html = markdown.markdown(text, extensions=['nl2br'])
+    html = markdown.markdown(text, extensions=['nl2br', LinkifyExtension()])
     allowed_tags = bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']
     html = bleach.clean(html, tags=allowed_tags)
     save_rendered_comment(conn, commentid, html)
