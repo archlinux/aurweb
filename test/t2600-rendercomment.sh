@@ -11,7 +11,8 @@ test_expect_success 'Test comment rendering.' '
 	EOD
 	"$RENDERCOMMENT" 1 &&
 	cat <<-EOD >expected &&
-	Hello world!<br>This is a comment.
+	<p>Hello world!<br>
+	This is a comment.</p>
 	EOD
 	cat <<-EOD | sqlite3 aur.db >actual &&
 	SELECT RenderedComment FROM PackageComments WHERE ID = 1;

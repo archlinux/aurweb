@@ -2,6 +2,7 @@
 
 import sys
 import bleach
+import markdown
 
 import aurweb.db
 
@@ -22,9 +23,10 @@ def main():
 
     conn = aurweb.db.Connection()
 
-    html = get_comment(conn, commentid)
-    html = html.replace('\n', '<br>')
-    html = bleach.clean(html, tags=['br'])
+    text = get_comment(conn, commentid)
+    html = markdown.markdown(text, extensions=['nl2br'])
+    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']
+    html = bleach.clean(html, tags=allowed_tags)
     save_rendered_comment(conn, commentid, html)
 
     conn.commit()
