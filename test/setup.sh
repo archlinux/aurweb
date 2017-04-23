@@ -16,6 +16,7 @@ TUVOTEREMINDER="$TOPLEVEL/aurweb/scripts/tuvotereminder.py"
 PKGMAINT="$TOPLEVEL/aurweb/scripts/pkgmaint.py"
 AURBLUP="$TOPLEVEL/aurweb/scripts/aurblup.py"
 NOTIFY="$TOPLEVEL/aurweb/scripts/notify.py"
+RENDERCOMMENT="$TOPLEVEL/aurweb/scripts/rendercomment.py"
 
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF

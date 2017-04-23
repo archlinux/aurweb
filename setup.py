@@ -27,6 +27,7 @@ setup(
             'aurweb-notify = aurweb.scripts.notify:main',
             'aurweb-pkgmaint = aurweb.scripts.pkgmaint:main',
             'aurweb-popupdate = aurweb.scripts.popupdate:main',
+            'aurweb-rendercomment = aurweb.scripts.rendercomment:main',
             'aurweb-tuvotereminder = aurweb.scripts.tuvotereminder:main',
         ],
     },

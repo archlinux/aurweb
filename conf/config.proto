@@ -33,6 +33,7 @@ log_uri = https://aur.archlinux.org/cgit/aur.git/log/?h=%s
 snapshot_uri = /cgit/aur.git/snapshot/%s.tar.gz
 enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
+render-comment-cmd = /usr/local/bin/aurweb-rendercomment
 
 [notifications]
 notify-cmd = /usr/local/bin/aurweb-notify

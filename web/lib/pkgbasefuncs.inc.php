@@ -54,7 +54,7 @@ function pkgbase_comments($base_id, $limit, $include_deleted, $only_pinned=false
 	$dbh = DB::connect();
 	$q = "SELECT PackageComments.ID, A.UserName AS UserName, UsersID, Comments, ";
 	$q.= "PackageBaseID, CommentTS, DelTS, EditedTS, B.UserName AS EditUserName, ";
-	$q.= "DelUsersID, C.UserName AS DelUserName, ";
+	$q.= "DelUsersID, C.UserName AS DelUserName, RenderedComment, ";
 	$q.= "PinnedTS FROM PackageComments ";
 	$q.= "LEFT JOIN Users A ON PackageComments.UsersID = A.ID ";
 	$q.= "LEFT JOIN Users B ON PackageComments.EditedUsersID = B.ID ";
@@ -79,6 +79,36 @@ function pkgbase_comments($base_id, $limit, $include_deleted, $only_pinned=false
 	return $result->fetchAll();
 }
 
+/*
+ * Invoke the comment rendering script.
+ *
+ * @param int $id ID of the comment to render
+ *
+ * @return void
+ */
+function render_comment($id) {
+	$cmd = config_get('options', 'render-comment-cmd');
+	$cmd .= ' ' . intval($id);
+
+	$descspec = array(
+		0 => array('pipe', 'r'),
+		1 => array('pipe', 'w'),
+		2 => array('pipe', 'w')
+	);
+
+	$p = proc_open($cmd, $descspec, $pipes);
+
+	if (!is_resource($p)) {
+		return false;
+	}
+
+	fclose($pipes[0]);
+	fclose($pipes[1]);
+	fclose($pipes[2]);
+
+	return proc_close($p);
+}
+
 /**
  * Add a comment to a package page and send out appropriate notifications
  *
@@ -96,11 +126,13 @@ function pkgbase_add_comment($base_id, $uid, $comment) {
 	}
 
 	$q = "INSERT INTO PackageComments ";
-	$q.= "(PackageBaseID, UsersID, Comments, CommentTS) VALUES (";
-	$q.= intval($base_id) . ", " . $uid . ", ";
-	$q.= $dbh->quote($comment) . ", " . strval(time()) . ")";
+	$q.= "(PackageBaseID, UsersID, Comments, RenderedComment, CommentTS) ";
+	$q.= "VALUES (" . intval($base_id) . ", " . $uid . ", ";
+	$q.= $dbh->quote($comment) . ", '', " . strval(time()) . ")";
 	$dbh->exec($q);
 	$comment_id = $dbh->lastInsertId();
+
+	render_comment($comment_id);
 
 	notify(array('comment', $uid, $base_id, $comment_id));
 

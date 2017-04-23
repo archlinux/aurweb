@@ -9,3 +9,9 @@ UPDATE PackageDepends
 	SET DepName = SUBSTRING(DepName FROM 1 FOR POSITION(': ' IN DepName) - 1)
 	WHERE POSITION(': ' IN DepName) > 0;
 ---
+
+2. Add RenderedComment column to PackageComments:
+
+---
+ALTER TABLE PackageComments ADD COLUMN RenderedComment TEXT NOT NULL;
+---
