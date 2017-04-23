@@ -6,6 +6,7 @@ test_description='rendercomment tests'
 
 test_expect_success 'Test comment rendering.' '
 	cat <<-EOD | sqlite3 aur.db &&
+	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (1, "foobar", 1, 0, 0, "");
 	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (1, 1, "Hello world!
 	This is a comment.", "");
 	EOD

@@ -30,6 +30,7 @@ auto_orphan_age = 15552000
 auto_delete_age = 86400
 source_file_uri =  https://aur.archlinux.org/cgit/aur.git/tree/%s?h=%s
 log_uri = https://aur.archlinux.org/cgit/aur.git/log/?h=%s
+commit_uri = https://aur.archlinux.org/cgit/aur.git/commit/?h=%s&id=%s
 snapshot_uri = /cgit/aur.git/snapshot/%s.tar.gz
 enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
