@@ -353,9 +353,9 @@ test_expect_success "Check whether package requests are closed when disowning." 
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	"$GIT_SERVE" 2>&1 &&
 	cat <<-EOD | sqlite3 aur.db &&
-	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID) VALUES (1, 2, 3, "foobar", 4);
-	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID) VALUES (2, 3, 3, "foobar", 5);
-	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID) VALUES (3, 2, 2, "foobar2", 6);
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (1, 2, 3, "foobar", 4, "", "");
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (2, 3, 3, "foobar", 5, "", "");
+	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (3, 2, 2, "foobar2", 6, "", "");
 	EOD
 	>sendmail.out &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
