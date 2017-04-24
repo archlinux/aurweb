@@ -86,9 +86,10 @@ def main():
     conn = aurweb.db.Connection()
 
     text, pkgbase = get_comment(conn, commentid)
-    html = markdown.markdown(text, extensions=[LinkifyExtension(),
+    html = markdown.markdown(text, extensions=['fenced_code',
+                                               LinkifyExtension(),
                                                GitCommitsExtension(pkgbase)])
-    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + ['p']
+    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + ['p', 'pre']
     html = bleach.clean(html, tags=allowed_tags)
     save_rendered_comment(conn, commentid, html)
 
