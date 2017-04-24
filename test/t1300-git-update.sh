@@ -21,7 +21,7 @@ test_expect_success 'Test update hook on a fresh repository.' '
 	1|1|foobar|1-1|aurweb test package.|https://aur.archlinux.org/
 	1|GPL
 	1|1
-	1|1|python-pygit2||
+	1|1|python-pygit2|||
 	1|1
 	EOF
 	dump_package_info >actual &&
@@ -42,8 +42,8 @@ test_expect_success 'Test update hook on another fresh repository.' '
 	2|MIT
 	1|1
 	2|2
-	1|1|python-pygit2||
-	2|1|python-pygit2||
+	1|1|python-pygit2|||
+	2|1|python-pygit2|||
 	1|1
 	2|1
 	EOF
@@ -63,8 +63,8 @@ test_expect_success 'Test update hook on an updated repository.' '
 	2|MIT
 	2|2
 	3|1
-	2|1|python-pygit2||
-	3|1|python-pygit2||
+	2|1|python-pygit2|||
+	3|1|python-pygit2|||
 	1|1
 	2|1
 	EOF
@@ -82,8 +82,8 @@ test_expect_success 'Test restore mode.' '
 	2|MIT
 	2|2
 	3|1
-	2|1|python-pygit2||
-	3|1|python-pygit2||
+	2|1|python-pygit2|||
+	3|1|python-pygit2|||
 	1|1
 	2|1
 	EOF

@@ -6,10 +6,10 @@ test_description='notify tests'
 
 test_expect_success 'Test out-of-date notifications.' '
 	cat <<-EOD | sqlite3 aur.db &&
-	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS) VALUES (1, "foobar", 1, 0, 0);
-	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS) VALUES (2, "foobar2", 2, 0, 0);
-	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS) VALUES (3, "foobar3", NULL, 0, 0);
-	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS) VALUES (4, "foobar4", 1, 0, 0);
+	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (1, "foobar", 1, 0, 0, "");
+	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (2, "foobar2", 2, 0, 0, "");
+	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (3, "foobar3", NULL, 0, 0, "");
+	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (4, "foobar4", 1, 0, 0, "");
 	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1, 2, 1);
 	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1, 4, 2);
 	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (2, 3, 1);

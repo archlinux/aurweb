@@ -14,10 +14,10 @@ test_expect_success 'Test package list generation with no packages.' '
 
 test_expect_success 'Test package list generation.' '
 	cat <<-EOD | sqlite3 aur.db &&
-	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS) VALUES (1, "foobar", 1, 0, 0);
-	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS) VALUES (2, "foobar2", 2, 0, 0);
-	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS) VALUES (3, "foobar3", NULL, 0, 0);
-	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS) VALUES (4, "foobar4", 1, 0, 0);
+	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (1, "foobar", 1, 0, 0, "");
+	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (2, "foobar2", 2, 0, 0, "");
+	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (3, "foobar3", NULL, 0, 0, "");
+	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (4, "foobar4", 1, 0, 0, "");
 	INSERT INTO Packages (ID, PackageBaseID, Name) VALUES (1, 1, "pkg1");
 	INSERT INTO Packages (ID, PackageBaseID, Name) VALUES (2, 1, "pkg2");
 	INSERT INTO Packages (ID, PackageBaseID, Name) VALUES (3, 1, "pkg3");

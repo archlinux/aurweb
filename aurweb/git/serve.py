@@ -65,8 +65,9 @@ def create_pkgbase(pkgbase, user):
 
     now = int(time.time())
     cur = conn.execute("INSERT INTO PackageBases (Name, SubmittedTS, " +
-                       "ModifiedTS, SubmitterUID, MaintainerUID) VALUES " +
-                       "(?, ?, ?, ?, ?)", [pkgbase, now, now, userid, userid])
+                       "ModifiedTS, SubmitterUID, MaintainerUID, " +
+                       "FlaggerComment) VALUES (?, ?, ?, ?, ?, '')",
+                       [pkgbase, now, now, userid, userid])
     pkgbase_id = cur.lastrowid
 
     cur = conn.execute("INSERT INTO PackageNotifications " +
