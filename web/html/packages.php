@@ -74,32 +74,33 @@ function collapseDependsList(list) {
 
 function collapseComment(div) {
 	var linkid = div.attr('id') + 'link',
-		par = div.find('p'),
-		height = par.height(),
+		inner = div.find('div'),
+		height = inner.height(),
 		maxheight = 200;
 
 	if (height <= maxheight)
 		return;
 
-	par.css({ 'overflow': 'hidden', 'height': maxheight + 'px' });
-	par.addClass('collapsed');
-	par.after('<p><a id="' + linkid + '" href="#">Show More…</a></p>');
+	inner.css({ 'overflow': 'hidden', 'height': maxheight + 'px' });
+	inner.addClass('collapsed');
+	inner.after('<p><a id="' + linkid + '" href="#">Show More…</a></p>');
 
 	$('#' + linkid).click(function(event) {
+		var inner = $(this).parent().parent().find('div');
 		var newheight;
 
-		if (par.hasClass('collapsed')) {
-			par.css({ 'height': 'auto' });
-			newheight = par.height();
-			par.css({ 'height': maxheight });
+		if (inner.hasClass('collapsed')) {
+			inner.css({ 'height': 'auto' });
+			newheight = inner.height();
+			inner.css({ 'height': maxheight });
 			$(this).text('Collapse');
 		} else {
 			newheight = maxheight;
 			$(this).text('Show More…');
 		}
 
-		par.animate({ 'height': newheight });
-		par.toggleClass('collapsed');
+		inner.animate({ 'height': newheight });
+		inner.toggleClass('collapsed');
 		event.preventDefault();
 	});
 }

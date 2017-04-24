@@ -103,13 +103,15 @@ if (!isset($count)) {
 			<?php endif; ?>
 		</h4>
 		<div id="<?= isset($pinned) ? "pinned-" : "comment-" ?><?= $row['ID'] ?>-content" class="article-content<?php if ($is_deleted): ?> comment-deleted<?php endif; ?>">
-			<?php if (!empty($row['RenderedComment'])): ?>
-			<?= $row['RenderedComment'] ?>
-			<?php else: ?>
-			<p>
-				<?= parse_comment($row['Comments']) ?>
-			</p>
-			<?php endif; ?>
+			<div>
+				<?php if (!empty($row['RenderedComment'])): ?>
+				<?= $row['RenderedComment'] ?>
+				<?php else: ?>
+				<p>
+					<?= parse_comment($row['Comments']) ?>
+				</p>
+				<?php endif; ?>
+			</div>
 		</div>
 	<?php endwhile; ?>
 
