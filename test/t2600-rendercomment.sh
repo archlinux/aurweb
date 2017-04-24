@@ -12,7 +12,7 @@ test_expect_success 'Test comment rendering.' '
 	EOD
 	"$RENDERCOMMENT" 1 &&
 	cat <<-EOD >expected &&
-	<p>Hello world!<br>
+	<p>Hello world!
 	This is a comment.</p>
 	EOD
 	cat <<-EOD | sqlite3 aur.db >actual &&
