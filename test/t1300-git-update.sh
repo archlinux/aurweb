@@ -4,6 +4,14 @@ test_description='git-update tests'
 
 . ./setup.sh
 
+dump_package_info() {
+	for t in Packages Licenses PackageLicenses Groups PackageGroups \
+		PackageDepends PackageRelations PackageSources \
+		PackageNotifications; do
+		echo "SELECT * FROM $t;" | sqlite3 aur.db
+	done
+}
+
 test_expect_success 'Test update hook on a fresh repository.' '
 	old=0000000000000000000000000000000000000000 &&
 	new=$(git -C aur.git rev-parse HEAD^) &&
@@ -16,12 +24,7 @@ test_expect_success 'Test update hook on a fresh repository.' '
 	1|1|python-pygit2||
 	1|1
 	EOF
-	>actual &&
-	for t in Packages Licenses PackageLicenses Groups PackageGroups \
-		PackageDepends PackageRelations PackageSources \
-		PackageNotifications; do
-		echo "SELECT * FROM $t;" | sqlite3 aur.db >>actual
-	done &&
+	dump_package_info >actual &&
 	test_cmp expected actual
 '
 
@@ -44,12 +47,7 @@ test_expect_success 'Test update hook on another fresh repository.' '
 	1|1
 	2|1
 	EOF
-	>actual &&
-	for t in Packages Licenses PackageLicenses Groups PackageGroups \
-		PackageDepends PackageRelations PackageSources \
-		PackageNotifications; do
-		echo "SELECT * FROM $t;" | sqlite3 aur.db >>actual
-	done &&
+	dump_package_info >actual &&
 	test_cmp expected actual
 '
 
@@ -70,12 +68,7 @@ test_expect_success 'Test update hook on an updated repository.' '
 	1|1
 	2|1
 	EOF
-	>actual &&
-	for t in Packages Licenses PackageLicenses Groups PackageGroups \
-		PackageDepends PackageRelations PackageSources \
-		PackageNotifications; do
-		echo "SELECT * FROM $t;" | sqlite3 aur.db >>actual
-	done &&
+	dump_package_info >actual &&
 	test_cmp expected actual
 '
 
@@ -94,12 +87,7 @@ test_expect_success 'Test restore mode.' '
 	1|1
 	2|1
 	EOF
-	>actual &&
-	for t in Packages Licenses PackageLicenses Groups PackageGroups \
-		PackageDepends PackageRelations PackageSources \
-		PackageNotifications; do
-		echo "SELECT * FROM $t;" | sqlite3 aur.db >>actual
-	done &&
+	dump_package_info >actual &&
 	test_cmp expected actual
 '
 
