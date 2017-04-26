@@ -67,6 +67,20 @@ class GitCommitsExtension(markdown.extensions.Extension):
         md.preprocessors.add('git-commits', preprocessor, '_end')
 
 
+class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
+    def run(self, doc):
+        for elem in doc:
+            if elem.tag == 'h1':
+                elem.tag = 'h5'
+            elif elem.tag in ['h2', 'h3', 'h4', 'h5']:
+                elem.tag = 'h6'
+
+
+class HeadingExtension(markdown.extensions.Extension):
+    def extendMarkdown(self, md, md_globals):
+        md.treeprocessors.add('heading', HeadingTreeprocessor(md), '_end')
+
+
 def get_comment(conn, commentid):
     cur = conn.execute('SELECT PackageComments.Comments, PackageBases.Name '
                        'FROM PackageComments INNER JOIN PackageBases '
@@ -88,8 +102,10 @@ def main():
     text, pkgbase = get_comment(conn, commentid)
     html = markdown.markdown(text, extensions=['fenced_code',
                                                LinkifyExtension(),
-                                               GitCommitsExtension(pkgbase)])
-    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + ['p', 'pre']
+                                               GitCommitsExtension(pkgbase),
+                                               HeadingExtension()])
+    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + \
+                   ['p', 'pre', 'h4', 'h5', 'h6']
     html = bleach.clean(html, tags=allowed_tags)
     save_rendered_comment(conn, commentid, html)
 
