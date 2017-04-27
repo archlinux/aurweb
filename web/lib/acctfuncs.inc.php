@@ -1325,3 +1325,77 @@ function notify($params) {
 
 	return proc_close($p);
 }
+
+/*
+ * Obtain a list of terms a given user has not yet accepted.
+ *
+ * @param int $uid The ID of the user to obtain terms for.
+ *
+ * @return array A list of terms the user has not yet accepted.
+ */
+function fetch_updated_terms($uid) {
+	$dbh = DB::connect();
+
+	$q = "SELECT ID, Terms.Revision, Description, URL ";
+	$q .= "FROM Terms LEFT JOIN AcceptedTerms ";
+	$q .= "ON AcceptedTerms.TermsID = Terms.ID ";
+	$q .= "AND AcceptedTerms.UsersID = " . intval($uid) . " ";
+	$q .= "WHERE AcceptedTerms.Revision IS NULL OR ";
+	$q .= "AcceptedTerms.Revision < Terms.Revision";
+
+	$result = $dbh->query($q);
+
+	if ($result) {
+		return $result->fetchAll();
+	} else {
+		return array();
+	}
+}
+
+/*
+ * Accept a list of given terms.
+ *
+ * @param int $uid The ID of the user to accept the terms.
+ * @param array $termrev An array mapping each term to the accepted revision.
+ *
+ * @return void
+ */
+function accept_terms($uid, $termrev) {
+	$dbh = DB::connect();
+
+	$q = "SELECT TermsID, Revision FROM AcceptedTerms ";
+	$q .= "WHERE UsersID = " . intval($uid);
+
+	$result = $dbh->query($q);
+
+	if (!$result) {
+		return;
+	}
+
+	$termrev_update = array();
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$id = $row['TermsID'];
+		if (!array_key_exists($id, $termrev)) {
+			continue;
+		}
+		if ($row['Revision'] < $termrev[$id]) {
+			$termrev_update[$id] = $termrev[$id];
+		}
+	}
+	$termrev_add = array_diff_key($termrev, $termrev_update);
+
+	foreach ($termrev_add as $id => $rev) {
+		$q = "INSERT INTO AcceptedTerms (TermsID, UsersID, Revision) ";
+		$q .= "VALUES (" . intval($id) . ", " . intval($uid) . ", ";
+		$q .= intval($rev) . ")";
+		$dbh->exec($q);
+	}
+
+	foreach ($termrev_update as $id => $rev) {
+		$q = "UPDATE AcceptedTerms ";
+		$q .= "SET Revision = " . intval($rev) . " ";
+		$q .= "WHERE TermsID = " . intval($id) . " AND ";
+		$q .= "UsersID = " . intval($uid);
+		$dbh->exec($q);
+	}
+}

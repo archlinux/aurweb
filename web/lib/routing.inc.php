@@ -16,6 +16,7 @@ $ROUTES = array(
 	'/passreset' => 'passreset.php',
 	'/rpc' => 'rpc.php',
 	'/rss' => 'rss.php',
+	'/tos' => 'tos.php',
 	'/tu' => 'tu.php',
 	'/addvote' => 'addvote.php',
 );

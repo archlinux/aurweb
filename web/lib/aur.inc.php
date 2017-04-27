@@ -22,6 +22,7 @@ include_once('timezone.inc.php');
 set_tz();
 
 check_sid();
+check_tos();
 
 /**
  * Check if a visitor is logged in
@@ -89,6 +90,28 @@ function check_sid() {
 		}
 	}
 	return;
+}
+
+/**
+ * Redirect user to the Terms of Service agreement if there are updated terms.
+ *
+ * @return void
+ */
+function check_tos() {
+	if (!isset($_COOKIE["AURSID"])) {
+		return;
+	}
+
+	$path = $_SERVER['PATH_INFO'];
+	$route = get_route($path);
+	if (!$route || $route == "tos.php") {
+		return;
+	}
+
+	if (count(fetch_updated_terms(uid_from_sid($_COOKIE["AURSID"]))) > 0) {
+		header('Location: ' . get_uri('/tos'));
+		exit();
+	}
 }
 
 /**
