@@ -21,6 +21,8 @@ include_once("credentials.inc.php");
 include_once('timezone.inc.php');
 set_tz();
 
+check_sid();
+
 /**
  * Check if a visitor is logged in
  *

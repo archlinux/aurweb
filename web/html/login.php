@@ -2,8 +2,6 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
 include_once("aur.inc.php");
-set_lang();
-check_sid();
 
 $disable_http_login = config_get_bool('options', 'disable_http_login');
 if (!$disable_http_login || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])) {

@@ -3,9 +3,6 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
 include_once("aur.inc.php");
-set_lang();
-check_sid();
-
 include_once('stats.inc.php');
 
 if (isset($_COOKIE["AURSID"])) {

@@ -3,9 +3,7 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
 include_once("aur.inc.php");
-set_lang();
 include_once('pkgfuncs.inc.php');
-check_sid();
 
 /*
  * Retrieve package base ID and name, unless initialized by the routing

@@ -5,9 +5,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 include_once("aur.inc.php");
 include_once("pkgfuncs.inc.php");
 
-set_lang();
-check_sid();
-
 html_header(__("Disown Package"));
 
 $maintainer_uids = array(pkgbase_maintainer_uid($base_id));

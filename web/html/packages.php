@@ -3,9 +3,7 @@
 set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 
 include_once("aur.inc.php");      # access AUR common functions
-set_lang();                       # this sets up the visitor's language
 include_once('pkgfuncs.inc.php'); # package specific functions
-check_sid();                      # see if they're still logged in
 
 # Retrieve package ID and name, unless initialized by the routing framework
 if (!isset($pkgid) || !isset($pkgname)) {

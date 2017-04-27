@@ -5,9 +5,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../lib');
 include_once("aur.inc.php");
 include_once("pkgfuncs.inc.php");
 
-set_lang();
-check_sid();
-
 /* Grab the list of package base IDs to be operated on. */
 $ids = array();
 if (isset($_POST['IDs'])) {
