@@ -205,8 +205,8 @@ for p in list(seen_pkgs.keys()):
 
 	uuid = genUID() # the submitter/user
 
-	s = ("INSERT INTO PackageBases (ID, Name, SubmittedTS, ModifiedTS, "
-         "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', %d, %d, %d, %s, %s);\n")
+	s = ("INSERT INTO PackageBases (ID, Name, FlaggerComment, SubmittedTS, ModifiedTS, "
+         "SubmitterUID, MaintainerUID, PackagerUID) VALUES (%d, '%s', '', %d, %d, %d, %s, %s);\n")
 	s = s % (seen_pkgs[p], p, NOW, NOW, uuid, muid, puid)
 	out.write(s)
 
@@ -223,7 +223,7 @@ for p in list(seen_pkgs.keys()):
 	for i in range(0, num_comments):
 		now = NOW + random.randrange(400, 86400*3)
 		s = ("INSERT INTO PackageComments (PackageBaseID, UsersID,"
-			 " Comments, CommentTS) VALUES (%d, %d, '%s', %d);\n")
+			 " Comments, RenderedComment, CommentTS) VALUES (%d, %d, '%s', '', %d);\n")
 		s = s % (seen_pkgs[p], genUID(), genFortune(), now)
 		out.write(s)
 
