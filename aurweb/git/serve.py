@@ -502,7 +502,7 @@ def serve(action, cmdargv, user, privileged, remote_addr):
         cmd = action + " '" + repo_path + "'"
         os.execl(git_shell_cmd, git_shell_cmd, '-c', cmd)
     elif action == 'set-keywords':
-        checkarg(cmdargv, 'repository name')
+        checkarg_atleast(cmdargv, 'repository name')
         pkgbase_set_keywords(cmdargv[1], cmdargv[2:])
     elif action == 'list-repos':
         checkarg(cmdargv)
