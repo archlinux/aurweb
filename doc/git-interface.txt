@@ -41,11 +41,15 @@ The Shell: git-serve
 
 The git-serve command, the "aurweb shell", provides different subcommands:
 
+* The adopt/disown commands can be used to change ownership of a package base.
+* The flag/unflag commands can be used to flag/unflag a package.
 * The help command shows a list of available commands.
 * The list-repos command lists all repositories of the authenticated user.
+* The restore command can be used to restore a deleted package base.
+* The set-comaintainers command modifies the co-maintainers of a package base.
 * The set-keywords command modifies the keywords assigned to a package base.
 * The setup-repo command can be used to create a new repository.
-* The restore command can be used to restore a deleted package base.
+* The vote/unvote command can be used to vote/unvote for a package base.
 * The git-{receive,upload}-pack commands are redirected to git-shell(1).
 
 The command is extracted from the SSH_ORIGINAL_COMMAND environment variable
