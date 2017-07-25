@@ -76,6 +76,7 @@ read the instructions below.
         PasswordAuthentication no
         AuthorizedKeysCommand /usr/local/bin/aurweb-git-auth "%t" "%k"
         AuthorizedKeysCommandUser aur
+        AcceptEnv AUR_OVERWRITE
 
 9) If you want to enable smart HTTP support with nginx and fcgiwrap, you can
    use the following directives:

@@ -33,6 +33,11 @@ users cannot access anything on the server except for the aurweb SSH interface.
 The forced command can be configured in the aurweb configuration file and it
 usually points to the git-serve program.
 
+If SSH has been configured to pass on the AUR_OVERWRITE environment variable
+(via SendEnv, see ssh_config(5) for details) and the user's account is a
+registered Trusted User or Developer, this will be passed on to the git-update
+program in order to enable a non-fast-forward push.
+
 The INSTALL file in the top-level directory contains detailed instructions on
 how to configure sshd(8) to use git-auth for authentication.
 
@@ -67,6 +72,7 @@ The Git update hook, called git-update, performs several subtasks:
 
 * Prevent from creating branches or tags other than master.
 * Deny non-fast-forwards, except for Trusted Users and Developers.
+* Deny blacklisted packages, except for Trusted Users and Developers.
 * Verify each new commit (validate meta data, impose file size limits, ...)
 * Update package base information and package information in the database.
 * Update the named branch and the namespaced HEAD ref of the package.

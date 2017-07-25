@@ -238,6 +238,7 @@ def main():
     user = os.environ.get("AUR_USER")
     pkgbase = os.environ.get("AUR_PKGBASE")
     privileged = (os.environ.get("AUR_PRIVILEGED", '0') == '1')
+    allow_overwrite = (os.environ.get("AUR_OVERWRITE", '0') == '1')
     warn_or_die = warn if privileged else die
 
     if len(sys.argv) == 2 and sys.argv[1] == "restore":
@@ -258,7 +259,7 @@ def main():
     conn = aurweb.db.Connection()
 
     # Detect and deny non-fast-forwards.
-    if sha1_old != "0" * 40 and not privileged:
+    if sha1_old != "0" * 40 and not allow_overwrite:
         walker = repo.walk(sha1_old, pygit2.GIT_SORT_TOPOLOGICAL)
         walker.hide(sha1_new)
         if next(walker, None) is not None:
