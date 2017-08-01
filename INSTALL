@@ -48,6 +48,7 @@ read the instructions below.
 5) Install Python modules and dependencies:
 
     # pacman -S python-mysql-connector python-pygit2 python-srcinfo
+    # pacman -S python-bleach python-markdown
     # python3 setup.py install
 
 6) Create a new user:
