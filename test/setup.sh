@@ -61,6 +61,7 @@ server = file://$(pwd)/remote/
 [mkpkglists]
 packagesfile = packages.gz
 pkgbasefile = pkgbase.gz
+userfile = users.gz
 EOF
 
 cat >sendmail.sh <<-\EOF

@@ -44,4 +44,22 @@ test_expect_success 'Test package list generation.' '
 	test_cmp actual expected
 '
 
+test_expect_success 'Test user list generation.' '
+	"$MKPKGLISTS" &&
+	cat <<-EOD >expected &&
+	dev
+	tu
+	tu2
+	tu3
+	tu4
+	user
+	user2
+	user3
+	user4
+	EOD
+	gunzip users.gz &&
+	sed "/^#/d" users >actual &&
+	test_cmp actual expected
+'
+
 test_done
