@@ -924,7 +924,7 @@ function user_delete($id) {
 	$fields_set_null = array(
 		array("PackageBases", "SubmitterUID"),
 		array("PackageBases", "MaintainerUID"),
-		array("PackageBases", "SubmitterUID"),
+		array("PackageBases", "PackagerUID"),
 		array("PackageComments", "UsersID"),
 		array("PackageComments", "DelUsersID"),
 		array("PackageRequests", "UsersID"),
