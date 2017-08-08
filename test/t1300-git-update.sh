@@ -125,7 +125,18 @@ test_expect_success 'Performing a non-fast-forward ref update.' '
 test_expect_success 'Performing a non-fast-forward ref update as Trusted User.' '
 	old=$(git -C aur.git rev-parse HEAD) &&
 	new=$(git -C aur.git rev-parse HEAD^) &&
+	cat >expected <<-EOD &&
+	error: denying non-fast-forward (you should pull first)
+	EOD
 	AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
+	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1 &&
+	test_cmp expected actual
+'
+
+test_expect_success 'Performing a non-fast-forward ref update with AUR_OVERWRITE=1.' '
+	old=$(git -C aur.git rev-parse HEAD) &&
+	new=$(git -C aur.git rev-parse HEAD^) &&
+	AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 AUR_OVERWRITE=1 \
 	"$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1
 '
 
