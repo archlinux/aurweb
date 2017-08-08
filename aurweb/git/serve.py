@@ -192,7 +192,7 @@ def pkgreq_by_pkgbase(pkgbase_id, reqtype):
                        "INNER JOIN RequestTypes ON " +
                        "RequestTypes.ID = PackageRequests.ReqTypeID " +
                        "WHERE PackageRequests.Status = 0 " +
-                       "AND PackageRequests.PackageBaseID = ?" +
+                       "AND PackageRequests.PackageBaseID = ? " +
                        "AND RequestTypes.Name = ?", [pkgbase_id, reqtype])
 
     return [row[0] for row in cur.fetchall()]
