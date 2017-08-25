@@ -95,8 +95,9 @@ test_expect_success 'Test restore mode on a non-existent repository.' '
 	cat >expected <<-EOD &&
 	error: restore: repository not found: foobar3
 	EOD
-	AUR_USER=user AUR_PKGBASE=foobar3 AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" restore >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar3 AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" restore >actual 2>&1 &&
 	test_cmp expected actual
 '
 
@@ -106,8 +107,9 @@ test_expect_success 'Pushing to a branch other than master.' '
 	cat >expected <<-EOD &&
 	error: pushing to a branch other than master is restricted
 	EOD
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/pu "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/pu "$old" "$new" >actual 2>&1 &&
 	test_cmp expected actual
 '
 
@@ -117,8 +119,9 @@ test_expect_success 'Performing a non-fast-forward ref update.' '
 	cat >expected <<-EOD &&
 	error: denying non-fast-forward (you should pull first)
 	EOD
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	test_cmp expected actual
 '
 
@@ -128,8 +131,9 @@ test_expect_success 'Performing a non-fast-forward ref update as Trusted User.' 
 	cat >expected <<-EOD &&
 	error: denying non-fast-forward (you should pull first)
 	EOD
-	AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1 &&
+	test_must_fail \
+	env AUR_USER=tu AUR_PKGBASE=foobar AUR_PRIVILEGED=1 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1 &&
 	test_cmp expected actual
 '
 
@@ -146,8 +150,9 @@ test_expect_success 'Removing .SRCINFO.' '
 	git -C aur.git rm -q .SRCINFO &&
 	git -C aur.git commit -q -m "Remove .SRCINFO" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: missing .SRCINFO$" actual
 '
 
@@ -158,8 +163,9 @@ test_expect_success 'Removing .SRCINFO with a follow-up fix.' '
 	git -C aur.git commit -q -m "Remove .SRCINFO" &&
 	git -C aur.git revert --no-edit HEAD &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: missing .SRCINFO$" actual
 '
 
@@ -169,8 +175,9 @@ test_expect_success 'Removing PKGBUILD.' '
 	git -C aur.git rm -q PKGBUILD &&
 	git -C aur.git commit -q -m "Remove PKGBUILD" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: missing PKGBUILD$" actual
 '
 
@@ -182,8 +189,9 @@ test_expect_success 'Pushing a tree with a subdirectory.' '
 	git -C aur.git add subdir/file &&
 	git -C aur.git commit -q -m "Add subdirectory" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: the repository must not contain subdirectories$" actual
 '
 
@@ -194,8 +202,9 @@ test_expect_success 'Pushing a tree with a large blob.' '
 	git -C aur.git add file &&
 	git -C aur.git commit -q -m "Add large blob" &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: maximum blob size (250.00KiB) exceeded$" actual
 '
 
@@ -209,8 +218,9 @@ test_expect_success 'Pushing .SRCINFO with a non-matching package base.' '
 		git commit -q -am "Change package base"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: invalid pkgbase: foobar2, expected foobar$" actual
 '
 
@@ -224,8 +234,9 @@ test_expect_success 'Pushing .SRCINFO with invalid syntax.' '
 		git commit -q -am "Break .SRCINFO"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" 2>&1
 '
 
 test_expect_success 'Pushing .SRCINFO without pkgver.' '
@@ -238,8 +249,9 @@ test_expect_success 'Pushing .SRCINFO without pkgver.' '
 		git commit -q -am "Remove pkgver"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: missing mandatory field: pkgver$" actual
 '
 
@@ -253,8 +265,9 @@ test_expect_success 'Pushing .SRCINFO without pkgrel.' '
 		git commit -q -am "Remove pkgrel"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: missing mandatory field: pkgrel$" actual
 '
 
@@ -288,8 +301,9 @@ test_expect_success 'Pushing .SRCINFO with invalid pkgname.' '
 		git commit -q -am "Change pkgname"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: invalid package name: !$" actual
 '
 
@@ -303,8 +317,9 @@ test_expect_success 'Pushing .SRCINFO with invalid epoch.' '
 		git commit -q -am "Change epoch"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: invalid epoch: !$" actual
 '
 
@@ -319,8 +334,9 @@ test_expect_success 'Pushing .SRCINFO with too long URL.' '
 		git commit -q -am "Change URL"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: url field too long: $url\$" actual
 '
 
@@ -334,8 +350,9 @@ test_expect_success 'Missing install file.' '
 		git commit -q -am "Add install field"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: missing install file: install$" actual
 '
 
@@ -349,8 +366,9 @@ test_expect_success 'Missing changelog file.' '
 		git commit -q -am "Add changelog field"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: missing changelog file: changelog$" actual
 '
 
@@ -364,8 +382,9 @@ test_expect_success 'Missing source file.' '
 		git commit -q -am "Add file to the source array"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: missing source file: file$" actual
 '
 
@@ -380,8 +399,9 @@ test_expect_success 'Pushing .SRCINFO with too long source URL.' '
 		git commit -q -am "Add huge source URL"
 	) &&
 	new=$(git -C aur.git rev-parse HEAD) &&
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	grep -q "^error: source entry too long: $url\$" actual
 '
 
@@ -394,8 +414,9 @@ test_expect_success 'Pushing a blacklisted package.' '
 	cat >expected <<-EOD &&
 	error: package is blacklisted: forbidden
 	EOD
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	test_cmp expected actual
 '
 
@@ -422,8 +443,9 @@ test_expect_success 'Pushing a package already in the official repositories.' '
 	cat >expected <<-EOD &&
 	error: package already provided by [core]: official
 	EOD
-	AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	test_cmp expected actual
 '
 
@@ -455,8 +477,9 @@ test_expect_success 'Trying to hijack a package.' '
 	cat >expected <<-EOD &&
 	error: cannot overwrite package: foobar
 	EOD
-	AUR_USER=user AUR_PKGBASE=foobar2 AUR_PRIVILEGED=0 \
-	test_must_fail "$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
+	test_must_fail \
+	env AUR_USER=user AUR_PKGBASE=foobar2 AUR_PRIVILEGED=0 \
+	"$GIT_UPDATE" refs/heads/master "$old" "$new" >actual 2>&1 &&
 	test_cmp expected actual
 '
 
