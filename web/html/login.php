@@ -41,7 +41,7 @@ html_header('AUR ' . __("Login"));
 				<input type="submit" class="button" value="<?php  print __("Login"); ?>" />
 				<a href="<?= get_uri('/passreset/') ?>">[<?= __('Forgot Password') ?>]</a>
 				<?php if (in_request('referer') !== ""): ?>
-				<input id="id_referer" type="hidden" name="referer" value="<?= in_request('referer') ?>" />
+				<input id="id_referer" type="hidden" name="referer" value="<?= htmlspecialchars(in_request('referer'), ENT_QUOTES) ?>" />
 				<?php elseif (isset($_SERVER['HTTP_REFERER'])): ?>
 				<input id="id_referer" type="hidden" name="referer" value="<?= htmlspecialchars($_SERVER['HTTP_REFERER'], ENT_QUOTES) ?>" />
 				<?php endif; ?>
