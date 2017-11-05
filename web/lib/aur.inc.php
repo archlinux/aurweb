@@ -151,6 +151,26 @@ function valid_email($addy) {
 }
 
 /**
+ * Verify that a given URL is valid and uses the HTTP(s) protocol
+ *
+ * @param string $url URL of the home page to be validated
+ *
+ * @return bool True if URL passes validity checks, false otherwise
+ */
+function valid_homepage($url) {
+	if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+		return false;
+	}
+
+	$url_components = parse_url($url);
+	if (!in_array($url_components['scheme'], array('http', 'https'))) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
  * Generate a unique session ID
  *
  * @return string MD5 hash of the concatenated user IP, random number, and current time
