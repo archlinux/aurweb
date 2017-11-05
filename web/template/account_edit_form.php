@@ -20,6 +20,9 @@
 			<label for="id_username"><?= __("Username") ?>:</label>
 			<input type="text" size="30" maxlength="<?= config_get_int('options', 'username_max_len'); ?>" name="U" id="id_username" value="<?= htmlspecialchars($U,ENT_QUOTES) ?>" /> (<?= __("required") ?>)
 		</p>
+		<p>
+			<em><?= __("Your user name is the name you will use to login. It is visible to the general public, even if your account is inactive.") ?></em>
+		</p>
 		<?php
 		# Only TUs or Devs can promote/demote/suspend a user
 		if (has_credential(CRED_ACCOUNT_CHANGE_TYPE)):
