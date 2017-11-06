@@ -85,8 +85,9 @@ function can_edit_comment_array($comment) {
 /**
  * Determine if the user can pin a specific package comment
  *
- * Only the Package Maintainer, Trusted Users, and Developers can pin
- * comments. This function is used for the backend side of comment pinning.
+ * Only the Package Maintainer, Package Co-maintainers, Trusted Users, and
+ * Developers can pin comments. This function is used for the backend side of
+ * comment pinning.
  *
  * @param string $comment_id The comment ID in the database
  *
@@ -97,6 +98,11 @@ function can_pin_comment($comment_id=0) {
 
 	$q = "SELECT MaintainerUID FROM PackageBases AS pb ";
 	$q.= "LEFT JOIN PackageComments AS pc ON pb.ID = pc.PackageBaseID ";
+	$q.= "WHERE pc.ID = " . intval($comment_id) . " ";
+	$q.= "UNION ";
+	$q = "SELECT pcm.UsersID FROM PackageComaintainers AS pcm ";
+	$q.= "LEFT JOIN PackageComments AS pc ";
+	$q.= "ON pcm.PackageBaseID = pc.PackageBaseID ";
 	$q.= "WHERE pc.ID = " . intval($comment_id);
 	$result = $dbh->query($q);
 
@@ -104,16 +110,17 @@ function can_pin_comment($comment_id=0) {
 		return false;
 	}
 
-	$uid = $result->fetch(PDO::FETCH_COLUMN, 0);
+	$uids = $result->fetchAll(PDO::FETCH_COLUMN, 0);
 
-	return has_credential(CRED_COMMENT_PIN, array($uid));
+	return has_credential(CRED_COMMENT_PIN, $uids);
 }
 
 /**
  * Determine if the user can edit a specific package comment using an array
  *
- * Only the Package Maintainer, Trusted Users, and Developers can pin
- * comments. This function is used for the frontend side of comment pinning.
+ * Only the Package Maintainer, Package Co-maintainers, Trusted Users, and
+ * Developers can pin comments. This function is used for the frontend side of
+ * comment pinning.
  *
  * @param array $comment All database information relating a specific comment
  *
