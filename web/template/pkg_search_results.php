@@ -3,7 +3,7 @@ if ($show_headers) {
 	$fmtth = function($title, $sb=false, $so=false, $hint=false) {
 		echo '<th>';
 		if ($sb) {
-			echo '<a href="?' . mkurl('SB=' . $sb . '&SO = ' . $so) . '">' . $title . '</a>';
+			echo '<a href="?' . mkurl('SB=' . $sb . '&SO=' . $so) . '">' . $title . '</a>';
 		} else {
 			echo $title;
 		}
