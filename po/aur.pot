@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AUR v4.4.1\n"
+"Project-Id-Version: AUR v4.5.1\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -353,7 +353,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: html/login.php
+#: html/login.php html/tos.php
 #, php-format
 msgid "Logged-in as: %s"
 msgstr ""
@@ -442,7 +442,7 @@ msgstr ""
 msgid "Confirm your new password:"
 msgstr ""
 
-#: html/passreset.php
+#: html/passreset.php html/tos.php
 msgid "Continue"
 msgstr ""
 
@@ -668,6 +668,24 @@ msgstr ""
 msgid "Use this form to create an account."
 msgstr ""
 
+#: html/tos.php
+msgid "Terms of Service"
+msgstr ""
+
+#: html/tos.php
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#: html/tos.php
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+#: html/tos.php
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 #: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
 msgstr ""
@@ -737,6 +755,10 @@ msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
 msgstr ""
 
 #: lib/acctfuncs.inc.php
@@ -1194,6 +1216,12 @@ msgstr ""
 
 #: template/account_edit_form.php
 msgid "required"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
 msgstr ""
 
 #: template/account_edit_form.php template/search_accounts_form.php
