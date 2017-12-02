@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 16:47+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-29 13:25+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/lfleischer/aur/language/"
 "uk/)\n"
@@ -580,6 +580,20 @@ msgstr "Зареєструватись"
 msgid "Use this form to create an account."
 msgstr "Створіть обліковий запис за допомогою цієї форми."
 
+msgid "Terms of Service"
+msgstr "Умови обслуговування"
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr "Наступні документи оновлено. Перевірте їх уважно: "
+
+#, php-format
+msgid "revision %d"
+msgstr "перегляд %d"
+
+msgid "I accept the terms and conditions above."
+msgstr "Я приймаю подані вище терміни і умови.  "
+
 msgid "Trusted User"
 msgstr "Довірений користувач"
 
@@ -635,6 +649,9 @@ msgstr "Може містити тільки один період, підкре
 
 msgid "The email address is invalid."
 msgstr "Адреса електронної пошти неправильна."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr "Неправильна домашня сторінка, вкажіть повну адресу HTTP(s)."
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "Відбиток ключа PGP недійсний."
@@ -985,6 +1002,13 @@ msgstr "Клацніть %sтут%s, щоб дізнатися більше пр
 
 msgid "required"
 msgstr "обов'язково"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
+"Ваша назва користувача є назвою, що буде використовуватися для входу. Вона "
+"буде видимою для всіх, навіть якщо Ваш рахунок неактивний."
 
 msgid "Normal user"
 msgstr "Звичайний користувач"

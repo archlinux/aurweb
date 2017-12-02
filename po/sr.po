@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-26 16:21+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-12-02 00:35+0000\n"
 "Last-Translator: Slobodan Terzić <githzerai06@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/lfleischer/aur/language/"
 "sr/)\n"
@@ -566,6 +566,20 @@ msgstr "Registracija"
 msgid "Use this form to create an account."
 msgstr "Ovim formularom pravite nalog."
 
+msgid "Terms of Service"
+msgstr "Uslovi korišćenja"
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr "Sledeći dokumenti su ažurirani. Molimo da ih pažljivo pročitate:"
+
+#, php-format
+msgid "revision %d"
+msgstr "revizija %d"
+
+msgid "I accept the terms and conditions above."
+msgstr "Prihvatam gore navedene uslove."
+
 msgid "Trusted User"
 msgstr "Poverljivi korisnik"
 
@@ -621,6 +635,9 @@ msgstr "Može sadržati samo jedan razmak, podvlaku ili crticu."
 
 msgid "The email address is invalid."
 msgstr "Neispravna adresa e-pošte."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr "Domaća stranica je neispravna, molimo navedite puni HTTP(s) URL."
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "Otisak PGP ključa nije ispravan."
@@ -968,6 +985,13 @@ msgstr "Kliknite %sovde%s za podatke o korisniku."
 msgid "required"
 msgstr "neophodno"
 
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
+"Vaše korisničko ime kojim se prijavljujete. Vidljivo je u javnosti, čak i "
+"ako je vaš nalog neaktivan."
+
 msgid "Normal user"
 msgstr "Običan korisnik"
 
@@ -1310,7 +1334,7 @@ msgid ""
 msgstr ""
 "Podnošenjem zahteva za brisanje tražili ste of poverljivog korisnika da "
 "obriše bazu paketa. Ovaj tip zahteva treba koristiti za duplikate, uzvodno "
-"napišten softver, kao i nelegalne ili nepopravljivo pokvarene pakete."
+"napušten softver, kao i nelegalne ili nepopravljivo pokvarene pakete."
 
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# enolp <enolp@softastur.org>, 2014-2015
+# enolp <enolp@softastur.org>, 2014-2015,2017
 # Ḷḷumex03 <tornes@opmbx.org>, 2014
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2014-2015
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Asturian (http://www.transifex.com/lfleischer/aur/language/"
 "ast/)\n"
@@ -89,7 +89,7 @@ msgid "Proposal cannot be empty."
 msgstr "La propuesta nun pue tar balera"
 
 msgid "New proposal submitted."
-msgstr ""
+msgstr "Unvióse la propuesta nueva."
 
 msgid "Submit a proposal to vote on."
 msgstr ""
@@ -269,16 +269,16 @@ msgid "Package Search"
 msgstr "Gueta de paquetes"
 
 msgid "Adopt"
-msgstr ""
+msgstr "Adoptar"
 
 msgid "Vote"
-msgstr ""
+msgstr "Votar"
 
 msgid "UnVote"
-msgstr ""
+msgstr "Retirar votu"
 
 msgid "Notify"
-msgstr ""
+msgstr "Avisar"
 
 msgid "UnNotify"
 msgstr ""
@@ -537,6 +537,20 @@ msgstr "Rexistrase"
 msgid "Use this form to create an account."
 msgstr "Usa esti formulariu pa crear una cuenta."
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
 msgstr ""
 
@@ -590,6 +604,9 @@ msgstr ""
 
 msgid "The email address is invalid."
 msgstr "La direición de corréu nun ye válida."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "La buelga de la clave PGP nun ye válida."
@@ -934,6 +951,11 @@ msgstr ""
 
 msgid "required"
 msgstr "riquíu"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
 
 msgid "Normal user"
 msgstr "Usuariu normal"

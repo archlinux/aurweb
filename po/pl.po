@@ -9,16 +9,17 @@
 # Chris Warrick <kwpolska@gmail.com>, 2012
 # Kwpolska <kwpolska@kwpolska.tk>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# m4sk1n <m4sk1n@o2.pl>, 2017
+# m4sk1n <m4sk1n@vivaldi.net>, 2017
 # Michal T <zorza2@gmail.com>, 2016
 # Nuc1eoN <nucrap@hotmail.com>, 2014
-# Piotr Strębski <strebski@o2.pl>, 2013-2016
+# Piotr Strębski <strebski@gmail.com>, 2017
+# Piotr Strębski <strebski@gmail.com>, 2013-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Polish (http://www.transifex.com/lfleischer/aur/language/"
 "pl/)\n"
@@ -27,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
-"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Page Not Found"
@@ -139,22 +140,22 @@ msgid "Edit comment"
 msgstr "Edytuj komentarz"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Tablica rozdzielcza"
 
 msgid "Home"
 msgstr "Start"
 
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Moje oflagowane pakiety"
 
 msgid "My Requests"
-msgstr ""
+msgstr "Moje prośby"
 
 msgid "My Packages"
 msgstr "Moje pakiety"
 
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Wyszukaj pakiety, którymi się opiekuję"
 
 msgid "Co-Maintained Packages"
 msgstr ""
@@ -572,6 +573,20 @@ msgstr "Zarejestruj się"
 msgid "Use this form to create an account."
 msgstr "Przy użyciu tego formularza możesz utworzyć konto."
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
 msgstr "Zaufany Użytkownik"
 
@@ -628,6 +643,9 @@ msgstr "Może zawierać tylko jedną kropkę, podkreślnik lub myślnik."
 
 msgid "The email address is invalid."
 msgstr "Adres e-mail jest nieprawidłowy."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "Odcisk palca klucza PGP jest nieprawidłowy."
@@ -977,6 +995,11 @@ msgstr "Kliknij %stutaj%s by wyświetlić szczegóły użytkownika."
 msgid "required"
 msgstr "wymagane"
 
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
+
 msgid "Normal user"
 msgstr "Zwykły użytkownik"
 
@@ -1006,7 +1029,7 @@ msgid "Language"
 msgstr "Język"
 
 msgid "Timezone"
-msgstr ""
+msgstr "Strefa czasowa"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1396,37 +1419,37 @@ msgid "Name, Description"
 msgstr "Nazwa, Opis"
 
 msgid "Name Only"
-msgstr "Tylko nazwa"
+msgstr "Tylko nazwy"
 
 msgid "Exact Name"
-msgstr "Dokładna nazwa"
+msgstr "Dokładnej nazwy"
 
 msgid "Exact Package Base"
-msgstr "Dokładna baza pakietu"
+msgstr "Dokładnej bazy pakietu"
 
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Współopiekuna"
 
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Opiekuna, współopiekuna"
 
 msgid "All"
-msgstr "Wszystkie"
+msgstr "Wszystko"
 
 msgid "Flagged"
-msgstr "Oznaczony"
+msgstr "Oznaczone"
 
 msgid "Not Flagged"
-msgstr "Nieoznaczony"
+msgstr "Nieoznaczone"
 
 msgid "Name"
-msgstr "Nazwa"
+msgstr "Nazwy"
 
 msgid "Voted"
-msgstr "Zagłosowany"
+msgstr "Liczby głosów"
 
 msgid "Last modified"
-msgstr "Ostatnio zmienione"
+msgstr "Ostatniej modyfikacji"
 
 msgid "Ascending"
 msgstr "Rosnąco"
@@ -1435,34 +1458,34 @@ msgid "Descending"
 msgstr "Malejąco"
 
 msgid "Enter search criteria"
-msgstr "Podaj kryteria wyszukiwania"
+msgstr "Wprowadź kryteria wyszukiwania"
 
 msgid "Search by"
 msgstr "Szukaj według"
 
 msgid "Out of Date"
-msgstr "Nieaktualny"
+msgstr "Nieaktualne"
 
 msgid "Sort by"
 msgstr "Sortuj według"
 
 msgid "Sort order"
-msgstr "Porządek"
+msgstr "Porządek sortowania"
 
 msgid "Per page"
-msgstr "Na stronie"
+msgstr "Elementów na stronę"
 
 msgid "Go"
-msgstr "Wykonaj"
+msgstr "Szukaj"
 
 msgid "Orphans"
-msgstr "Bez opiekuna"
+msgstr "Osierocone pakiety"
 
 msgid "Error retrieving package list."
-msgstr "Błąd podczas pobierania listy pakietów."
+msgstr "Wystąpił błąd podczas otrzymywania listy pakietów."
 
 msgid "No packages matched your search criteria."
-msgstr "Żaden pakiet nie spełnia podanych kryteriów."
+msgstr "Nie znaleziono pakietów spełniających kryteria wyszukiwania."
 
 #, php-format
 msgid "%d package found."
@@ -1485,13 +1508,13 @@ msgid "Yes"
 msgstr "Tak"
 
 msgid "orphan"
-msgstr "bez opiekuna"
+msgstr "pakiet osierocony"
 
 msgid "Actions"
 msgstr "Działania"
 
 msgid "Unflag Out-of-date"
-msgstr "Usuń flagę nieaktualności"
+msgstr "Odznacz jako nieaktualny"
 
 msgid "Adopt Packages"
 msgstr "Przejmij pakiety"
@@ -1506,7 +1529,7 @@ msgid "Confirm"
 msgstr "Potwierdź"
 
 msgid "Any type"
-msgstr "Dowolny rodzaj"
+msgstr "Dowolnego typu"
 
 msgid "Search"
 msgstr "Szukaj"
@@ -1515,28 +1538,28 @@ msgid "Statistics"
 msgstr "Statystyki"
 
 msgid "Orphan Packages"
-msgstr "Osierocone"
+msgstr "Osierocone pakiety"
 
 msgid "Packages added in the past 7 days"
-msgstr "Dodane przez ostatnie 7 dni"
+msgstr "Pakiety dodane w ciągu ostatniego tygodnia"
 
 msgid "Packages updated in the past 7 days"
-msgstr "Zaktualizowane przez ostatnie 7 dni"
+msgstr "Pakiety zaktualizowane w ciągu ostatniego tygodnia"
 
 msgid "Packages updated in the past year"
-msgstr "Zaktualizowane przez ostatni rok"
+msgstr "Pakiety zaktualizowane w ostatnim roku"
 
 msgid "Packages never updated"
-msgstr "Nigdy nieaktualizowane"
+msgstr "Pakiety nigdy nie aktualizowane"
 
 msgid "Registered Users"
 msgstr "Zarejestrowani użytkownicy"
 
 msgid "Trusted Users"
-msgstr "Zaufani Użytkownicy"
+msgstr "Zaufani użytkownicy"
 
 msgid "Recent Updates"
-msgstr "Ostatnie aktualizacje"
+msgstr "Ostatnio aktualizowane"
 
 msgid "more"
 msgstr "więcej"

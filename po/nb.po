@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-03-02 10:39+0000\n"
-"Last-Translator: Alexander F Rødseth <rodseth@gmail.com>\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
+"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/lfleischer/aur/"
 "language/nb/)\n"
 "Language: nb\n"
@@ -34,7 +34,7 @@ msgid "Note"
 msgstr "OBS"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr "Git clone URL-er er ikke ment til å åpnes i nettleseren."
+msgstr "Nettleseren kan ikke åpne Git URL-er."
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
@@ -42,7 +42,7 @@ msgstr "For å klone et Git arkiv fra %s, kjør %s."
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr "Trykk %sher%s for å returnere til detalj-siden for %s."
+msgstr "Klikk %sher%s for å returnere til detalj-siden for %s."
 
 msgid "Service Unavailable"
 msgstr "Tjenesten er utilgjengelig"
@@ -61,25 +61,25 @@ msgid "You are not allowed to access this area."
 msgstr "Du har ikke adgang til dette området."
 
 msgid "Could not retrieve information for the specified user."
-msgstr "Kunne ikke motta informasjon for den valgte brukeren."
+msgstr "Kunne ikke hente informasjon om den valgte brukeren."
 
 msgid "You do not have permission to edit this account."
-msgstr "Du har ikke adgang til å endre denne kontoen."
+msgstr "Du har ikke tilgang til å endre denne kontoen."
 
 msgid "Use this form to search existing accounts."
-msgstr "Bruk dette skjemaet for å lete etter eksisterende kontoer."
+msgstr "Bruk skjemaet for å søke etter eksisterende kontoer."
 
 msgid "You must log in to view user information."
-msgstr "Du må logge inn for å se brukerinformasjon."
+msgstr "Du må logge inn for å kunne se brukerinformasjon."
 
 msgid "Add Proposal"
 msgstr "Legg til forslag"
 
 msgid "Invalid token for user action."
-msgstr "Ugyldig billett for brukerens handling."
+msgstr "Ugyldig billett for brukerhandling."
 
 msgid "Username does not exist."
-msgstr "Brukernavn finnes ikke."
+msgstr "Brukernavnet finnes ikke."
 
 #, php-format
 msgid "%s already has proposal running for them."
@@ -107,13 +107,13 @@ msgid "Type"
 msgstr "Type"
 
 msgid "Addition of a TU"
-msgstr "Oppnevnelse av TU"
+msgstr "Utnevnelse av TU"
 
 msgid "Removal of a TU"
 msgstr "Fjerning av TU"
 
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr "Fjerning av TU (uannonsert inaktivitet)"
+msgstr "Fjerning av TU (inaktiv uten å si i fra)"
 
 msgid "Amendment of Bylaws"
 msgstr "Endring av vedtekter"
@@ -125,7 +125,7 @@ msgid "Submit"
 msgstr "Send inn"
 
 msgid "Manage Co-maintainers"
-msgstr "Administrer Med-Vedlikeholdere"
+msgstr "Administrer med-vedlikeholdere"
 
 msgid "Edit comment"
 msgstr "Rediger kommentar"
@@ -137,7 +137,7 @@ msgid "Home"
 msgstr "Hjem"
 
 msgid "My Flagged Packages"
-msgstr "Mine pakker med anmerkninger"
+msgstr "Mine flaggede pakker"
 
 msgid "My Requests"
 msgstr "Mine forespørsler"
@@ -183,17 +183,17 @@ msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
 msgstr ""
-"AUR pakker er bruker produsert innhold. All bruk av de tilgjengelige filene "
-"er på eget ansvar."
+"Pakker i AUR kan lages av hvem som helst. All bruk av filer herfra skjer på "
+"eget ansvar."
 
 msgid "Learn more..."
 msgstr "Lær mer..."
 
 msgid "Support"
-msgstr "Støtte"
+msgstr "Brukerstøtte"
 
 msgid "Package Requests"
-msgstr "Pakke Forespørsler"
+msgstr "Pakkeforespørsler"
 
 #, php-format
 msgid ""
@@ -204,36 +204,36 @@ msgstr ""
 "boksen på siden til en pakke:"
 
 msgid "Orphan Request"
-msgstr "Foreldreløs-forespørsel"
+msgstr "Forespør at pakken gjøres eierløs"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
-"Forespør at pakken frigjøres fra eieren, dvs. at når vedlikeholderen er "
-"inaktiv og pakken har vært markert som utdatert i en lengre periode."
+"Forespør at pakken gjøres eierløs, f.eks. når vedlikeholderen er inaktiv og "
+"pakken har vært flagget som utdatert i en lengre periode."
 
 msgid "Deletion Request"
-msgstr "Slettingsforespørsel"
+msgstr "Forespør sletting"
 
 msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not "
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
-"Forespør at pakken fjernes fra Arch User Repository. Ikke bruk dette hvis "
-"pakken er ødelagt og kan relativt lett rettes. Ta i stedet kontakt med "
-"vedlikeholderen og send i verste fall en foreldreløs-forespørsel."
+"Forespør at pakken fjernes fra Arch User Repository. Ikke gjør dette hvis "
+"pakken er ødelagt og lett kan fikses. Ta kontakt med vedlikeholderen i "
+"stedet, eller forespør at pakken gjøres eierløs."
 
 msgid "Merge Request"
-msgstr "Flettingsforespørsel"
+msgstr "Fletteforespørsel"
 
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
-"Forespør at pakken blir flettet inn i en annen en. Kan brukes når en pakke "
-"trenger et navnebytte eller å bli erstattet av en oppsplittet pakke."
+"Forespør at pakken flettes inn i en annen. Kan brukes når en pakke trenger å "
+"bytte navn eller å bli erstattet av en oppsplittet pakke."
 
 #, php-format
 msgid ""
@@ -257,7 +257,7 @@ msgstr ""
 "nærmere detaljer."
 
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr "De følgende SSH-fingeravtrykkene brukes for AUR-en:"
+msgstr "Følgende SSH-fingeravtrykk brukes for AUR:"
 
 msgid "Discussion"
 msgstr "Diskusjon"
@@ -308,7 +308,7 @@ msgid "UnNotify"
 msgstr "Fjern påminnelse"
 
 msgid "UnFlag"
-msgstr "Fjern markering"
+msgstr "Ta bort flagg"
 
 msgid "Login"
 msgstr "Logg inn"
@@ -347,7 +347,7 @@ msgid "Packages"
 msgstr "Pakker"
 
 msgid "Error trying to retrieve package details."
-msgstr "Feil oppstod ved uthenting av pakkedetaljer."
+msgstr "Feil oppstod ved henting av pakkedetaljer."
 
 msgid "Missing a required field."
 msgstr "Mangler et nødvendig felt."
@@ -357,7 +357,7 @@ msgstr "Passord-feltene stemmer ikke overens."
 
 #, php-format
 msgid "Your password must be at least %s characters."
-msgstr "Passordet ditt må være minst %s tegn."
+msgstr "Passordet må være på minst %s tegn."
 
 msgid "Invalid e-mail."
 msgstr "Ugyldig e-post."
@@ -367,17 +367,16 @@ msgstr "Tilbakestill passord"
 
 msgid "Check your e-mail for the confirmation link."
 msgstr ""
-"Sjekk e-posten din og bruk den tilsendte lenken for å bekrefte "
-"registreringen."
+"Sjekk e-posten og bruk den tilsendte lenken for å bekrefte registreringen."
 
 msgid "Your password has been reset successfully."
-msgstr "Passordet ditt har blitt tilbakestilt."
+msgstr "Passordet ditt er nullstilt."
 
 msgid "Confirm your e-mail address:"
 msgstr "Bekreft e-postadressen din:"
 
 msgid "Enter your new password:"
-msgstr "Angi ditt nye passord:"
+msgstr "Angi et nytt passord:"
 
 msgid "Confirm your new password:"
 msgstr "Bekreft ditt nye passord:"
@@ -403,8 +402,8 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
-"De valgte pakkene har ikke blitt gjort foreldreløse, husk å krysse av i "
-"boksen for å bekrefte."
+"De valgte pakkene har ikke blitt gjort eierløse, kryss av i boksen for å "
+"bekrefte."
 
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Kunne ikke finne pakke for å flette stemmer og kommentarer inn i."
@@ -415,7 +414,7 @@ msgstr "Kan ikke slå sammen en basispakke med seg selv."
 msgid ""
 "The selected packages have not been deleted, check the confirmation checkbox."
 msgstr ""
-"Den valgte pakken har ikke blitt slettet, kryss av i boksen for å bekrefte."
+"De valgte pakkene har ikke blitt slettet, kryss av i boksen for å bekrefte."
 
 msgid "Package Deletion"
 msgstr "Sletting av pakke"
@@ -428,11 +427,11 @@ msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
 msgstr ""
-"Bruk dette skjemaet for å slette grunnpakken %s%s%s og følgende pakker fra "
+"Bruk dette skjemaet for å slette basispakken %s%s%s og følgende pakker fra "
 "AUR:"
 
 msgid "Deletion of a package is permanent. "
-msgstr "Slettingen av en pakke er permanent. "
+msgstr "Slettingen av en pakke er endelig. "
 
 msgid "Select the checkbox to confirm action."
 msgstr "Kryss av i boksen for å bekrefte."
@@ -447,15 +446,15 @@ msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Bare betrodde brukere og utviklere kan slette pakker."
 
 msgid "Disown Package"
-msgstr "Gjør foreldreløs"
+msgstr "Gjør eierløs"
 
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
-"Bruk dette skjemaet for å gjøre pakkebasen %s%s%s foreldreløs. Den "
-"inkluderer følgende pakker:"
+"Bruk dette skjemaet for å gjøre pakkebasen %s%s%s eierløs. Den inkluderer "
+"følgende pakker:"
 
 #, php-format
 msgid ""
@@ -468,23 +467,22 @@ msgstr ""
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
-"Ved å krysse av i boksen bekrefter du at du ønsker å gjøre pakken "
-"foreldreløs."
+"Ved å krysse av i boksen bekrefter du at du ønsker å gjøre pakken eierløs."
 
 msgid "Confirm to disown the package"
-msgstr "Bekreft at du ønsker å gjøre pakken foreldreløs."
+msgstr "Bekreft at du ønsker å gjøre pakken eierløs."
 
 msgid "Disown"
-msgstr "Gjør foreldreløs"
+msgstr "Gjør eierløs"
 
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr "Bare betrodde brukere og Arch utviklere kan gjøre pakker foreldreløse."
+msgstr "Bare betrodde brukere og Arch utviklere kan gjøre pakker eierløse."
 
 msgid "Flag Comment"
 msgstr "Flagg kommentar"
 
 msgid "Flag Package Out-Of-Date"
-msgstr "Flagg pakke som utdatert"
+msgstr "Rapporter utdatert pakke"
 
 #, php-format
 msgid ""
@@ -510,10 +508,10 @@ msgstr ""
 "som annonserer slippet av den nye versjonen, eller den nye kildekodepakken."
 
 msgid "Comments"
-msgstr "Kommentarer"
+msgstr "Kommentar"
 
 msgid "Flag"
-msgstr "Markering"
+msgstr "Flagg"
 
 msgid "Only registered users can flag packages out-of-date."
 msgstr "Bare registrerte brukere kan flagge pakker som utdaterte."
@@ -522,18 +520,18 @@ msgid "Package Merging"
 msgstr "Pakkesammenslåing"
 
 msgid "Merge Package"
-msgstr "Slå sammen pakke"
+msgstr "Slå sammen med en annen"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr ""
-"Bruk dette skjemaet for å slå sammen grunnpakken %s%s%s med en annen pakke."
+"Bruk dette skjemaet for å slå sammen basispakken %s%s%s med en annen pakke."
 
 msgid "The following packages will be deleted: "
 msgstr "Følgende pakker vil slettes:"
 
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr "Når pakken har blitt sammenslått, så kan det ikke angres. "
+msgstr "Når pakken har blitt slått sammen med en annen, kan det ikke angres."
 
 msgid "Enter the package name you wish to merge the package into. "
 msgstr "Angi navnet på pakken du ønsker å slå denne pakken sammen med."
@@ -577,6 +575,20 @@ msgstr "Registrer"
 msgid "Use this form to create an account."
 msgstr "Bruk dette feltet for å opprette en konto."
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
 msgstr "Betrodd bruker"
 
@@ -599,10 +611,10 @@ msgid "Vote ID not valid."
 msgstr "Stemme-ID ikke gyldig."
 
 msgid "Current Votes"
-msgstr "Foreløpige stemmer"
+msgstr "Pågående avstemninger"
 
 msgid "Past Votes"
-msgstr "Tidligere stemmer"
+msgstr "Tidligere avstemninger"
 
 msgid "Voters"
 msgstr "Velgere"
@@ -616,7 +628,7 @@ msgstr ""
 "ulempen dette medfører."
 
 msgid "Missing User ID"
-msgstr "Mangler bruker-ID"
+msgstr "Manglende bruker-ID"
 
 msgid "The username is invalid."
 msgstr "Brukernavnet er ugyldig."
@@ -633,6 +645,9 @@ msgstr "Kan kun innehold ett punktum, en understrek, eller en bindestrek."
 
 msgid "The email address is invalid."
 msgstr "E-postadressen er ugyldig."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "PGP fingeravtrykket er ikke gyldig."
@@ -773,17 +788,16 @@ msgstr ""
 "De valgte pakkene har ikke blitt flagget. Vennligst skriv inn en kommentar."
 
 msgid "The selected packages have been flagged out-of-date."
-msgstr "De valgte pakkene har nå blitt markert som utdaterte."
+msgstr "De valgte pakkene har nå blitt flagget som utdaterte."
 
 msgid "You must be logged in before you can unflag packages."
-msgstr ""
-"Du må være logget inn for å kunne fjerne \"utdatert\"-markeringen fra pakker."
+msgstr "Du må være logget inn for å kunne fjerne flagg fra pakker."
 
 msgid "You did not select any packages to unflag."
-msgstr "Ingen pakker ble valgt for å fjerne markeringer fra."
+msgstr "Ingen pakker ble valgt for å fjerne flagg fra."
 
 msgid "The selected packages have been unflagged."
-msgstr "De valgte pakkene har nå fått fjernet markeringen."
+msgstr "De valgte pakkene har nå fått fjernet flaggene."
 
 msgid "You do not have permission to delete packages."
 msgstr "Du har ikke rettighetene som skal til for å kunne slette pakker."
@@ -798,19 +812,19 @@ msgid "You must be logged in before you can adopt packages."
 msgstr "Du må være logget inn for å kunne adoptere pakker."
 
 msgid "You must be logged in before you can disown packages."
-msgstr "Du må være logget inn for å kunne gjøre pakker foreldreløse."
+msgstr "Du må være logget inn for å kunne gjøre pakker eierløse."
 
 msgid "You did not select any packages to adopt."
 msgstr "Du valgte ingen pakker for adopsjon."
 
 msgid "You did not select any packages to disown."
-msgstr "Du valgte ingen pakker for å gjøre de foreldreløse."
+msgstr "Du valgte ingen pakker som skal gjøres eierløse."
 
 msgid "The selected packages have been adopted."
 msgstr "Den valgte pakken har blitt adoptert."
 
 msgid "The selected packages have been disowned."
-msgstr "De valgte pakkene er nå foreldreløse."
+msgstr "De valgte pakkene er nå eierløse."
 
 msgid "You must be logged in before you can vote for packages."
 msgstr "Du må være logget inn for å kunne stemme på pakker."
@@ -848,7 +862,7 @@ msgid "You are not allowed to delete this comment."
 msgstr "Du har ikke tilgang til å slette denne kommentaren."
 
 msgid "Comment has been deleted."
-msgstr "Kommentar slettet."
+msgstr "Kommentaren har blitt slettet."
 
 msgid "Comment has been edited."
 msgstr "Kommentaren har blitt redigert."
@@ -875,7 +889,7 @@ msgstr "Vis pakkedetaljer for"
 
 #, php-format
 msgid "requires %s"
-msgstr "behøver %s"
+msgstr "trenger %s"
 
 msgid "You must be logged in to file package requests."
 msgstr "Du må være logget inn for å kunne sende inn forespørsler om pakker."
@@ -974,7 +988,7 @@ msgstr "Endre brukerkonto"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr "Klikk %sher%s hvis du vil slette denne kontoen, for alltid."
+msgstr "Klikk %sher%s hvis du vil slette denne kontoen for alltid."
 
 #, php-format
 msgid "Click %shere%s for user details."
@@ -982,6 +996,11 @@ msgstr "Klikk %sher%s for brukerdetaljer."
 
 msgid "required"
 msgstr "trengs"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
 
 msgid "Normal user"
 msgstr "Vanlig bruker"
@@ -1000,7 +1019,7 @@ msgid ""
 "be locked out."
 msgstr ""
 "Kontroller at du har skrevet e-postadressen din korrekt, ellers vil du bli "
-"låst ute."
+"utestengt."
 
 msgid "Hide Email Address"
 msgstr "Gjem e-postadresse"
@@ -1018,8 +1037,8 @@ msgid ""
 "The following information is only required if you want to submit packages to "
 "the Arch User Repository."
 msgstr ""
-"Følgende informasjon trengs bare dersom du vil sende inn pakker til Arch "
-"sitt brukerstyrte pakkebibliotek."
+"Følgende informasjon behøves bare hvis du har tenkt til å sende inn pakker "
+"til Arch sitt brukerstyrte pakkebibliotek."
 
 msgid "SSH Public Key"
 msgstr "Offentlig SSH-nøkkel"
@@ -1031,10 +1050,10 @@ msgid "Notify of new comments"
 msgstr "Gi beskjed om nye kommentarer"
 
 msgid "Notify of package updates"
-msgstr "Varsle om pakkeoppdateringer"
+msgstr "Gi beskjed om pakkeoppdateringer"
 
 msgid "Notify of ownership changes"
-msgstr "Varsle om endring av eierskap"
+msgstr "Gi beskjed om endring av eierskap"
 
 msgid "Update"
 msgstr "Oppdater"
@@ -1043,7 +1062,7 @@ msgid "Create"
 msgstr "Opprett"
 
 msgid "Reset"
-msgstr "Omstart"
+msgstr "Nullstill"
 
 msgid "No results matched your search criteria."
 msgstr "Ingen treff for de oppgitte søkekriteriene."
@@ -1111,20 +1130,20 @@ msgid "View Changes"
 msgstr "Vis endringer"
 
 msgid "Download snapshot"
-msgstr "Last ned fryst bilde"
+msgstr "Last ned kildekode"
 
 msgid "Search wiki"
-msgstr "Søk wiki"
+msgstr "Søk på wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
 msgstr "Flagget som utdatert (%s)"
 
 msgid "Flag package out-of-date"
-msgstr "Marker pakke som utdatert"
+msgstr "Marker som utdatert"
 
 msgid "Unflag package"
-msgstr "Fjern markering"
+msgstr "Fjern flagg"
 
 msgid "Remove vote"
 msgstr "Angre stemme"
@@ -1136,10 +1155,10 @@ msgid "Disable notifications"
 msgstr "Slå av beskjeder"
 
 msgid "Enable notifications"
-msgstr "Få beskjed"
+msgstr "Gi beskjed"
 
 msgid "Manage Co-Maintainers"
-msgstr "Behandle med-vedlikeholdere"
+msgstr "Med-vedlikeholdere"
 
 #, php-format
 msgid "%d pending request"
@@ -1151,10 +1170,10 @@ msgid "Adopt Package"
 msgstr "Adopter pakke"
 
 msgid "Package Base Details"
-msgstr "Grunnpakkedetaljer"
+msgstr "Basispakkedetaljer"
 
 msgid "Git Clone URL"
-msgstr "Git clone URL"
+msgstr "Git-arkiv"
 
 msgid "read-only"
 msgstr "skrivebeskyttet"
@@ -1166,10 +1185,10 @@ msgid "Submitter"
 msgstr "Innsender"
 
 msgid "Maintainer"
-msgstr "Vedlikeholder"
+msgstr "Eier"
 
 msgid "Last Packager"
-msgstr "Siste innpakker"
+msgstr "Forrige innpakker"
 
 msgid "Votes"
 msgstr "Stemmer"
@@ -1178,7 +1197,7 @@ msgid "Popularity"
 msgstr "Popularitet"
 
 msgid "First Submitted"
-msgstr "Først innsendt"
+msgstr "Opprettet"
 
 msgid "Last Updated"
 msgstr "Sist oppdatert"
@@ -1239,16 +1258,16 @@ msgid "All comments"
 msgstr "Alle kommentarer"
 
 msgid "Package Details"
-msgstr "Pakkedetaljer"
+msgstr "Om pakken"
 
 msgid "Package Base"
-msgstr "Grunnpakke"
+msgstr "Basispakke"
 
 msgid "Description"
 msgstr "Beskrivelse"
 
 msgid "Upstream URL"
-msgstr "Prosjektets URL"
+msgstr "Prosjektside"
 
 msgid "Visit the website for"
 msgstr "Besøk nettsiden til"
@@ -1279,7 +1298,7 @@ msgstr "Kilder"
 
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr "Bruk dette skjemaet for å lukke forespørselen for grunnpakken %s%s%s."
+msgstr "Bruk dette skjemaet for å lukke forespørselen for basispakken %s%s%s."
 
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
@@ -1302,7 +1321,7 @@ msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
-"Bruk dette skjemaet for å registrere en forespørsel for grunnpakken %s%s%s "
+"Bruk dette skjemaet for å registrere en forespørsel for basispakken %s%s%s "
 "som inkluderer følgende pakker:"
 
 msgid "Request type"
@@ -1312,7 +1331,7 @@ msgid "Deletion"
 msgstr "Sletting"
 
 msgid "Orphan"
-msgstr "Foreldreløs"
+msgstr "Eierløs"
 
 msgid "Merge into"
 msgstr "Flett med"
@@ -1344,7 +1363,7 @@ msgid ""
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
 msgstr ""
-"Ved å sende inn en forespørsel om å gjøre en pakke foreldreløs spør du en "
+"Ved å sende inn en forespørsel om å gjøre en pakke eierløs spør du en "
 "betrodd bruker om å utføre dette. Vennligst bare send inn forespørselen "
 "dersom pakken trenger vedlikehold, nåværende vedlikeholder er fraværende og "
 "du allerede har prøvd å kontakte den som vedlikeholder pakken."
@@ -1411,7 +1430,7 @@ msgid "Exact Name"
 msgstr "Eksakt navn"
 
 msgid "Exact Package Base"
-msgstr "Eksakt grunnpakke"
+msgstr "Eksakt basispakke"
 
 msgid "Co-maintainer"
 msgstr "Med-vedlikeholder"
@@ -1432,7 +1451,7 @@ msgid "Name"
 msgstr "Navn"
 
 msgid "Voted"
-msgstr "Stemt"
+msgstr "Din stemme"
 
 msgid "Last modified"
 msgstr "Sist endret"
@@ -1450,28 +1469,28 @@ msgid "Search by"
 msgstr "Søk etter"
 
 msgid "Out of Date"
-msgstr "Foreldet"
+msgstr "Ut på dato"
 
 msgid "Sort by"
 msgstr "Sorter etter"
 
 msgid "Sort order"
-msgstr "Sorteringsrekkefølge"
+msgstr "Sortering"
 
 msgid "Per page"
-msgstr "Per side"
+msgstr "Treff per side"
 
 msgid "Go"
-msgstr "Utfør"
+msgstr "Søk nå"
 
 msgid "Orphans"
-msgstr "Foreldreløse"
+msgstr "Eierløse"
 
 msgid "Error retrieving package list."
 msgstr "Feil ved mottagelse av pakkeliste."
 
 msgid "No packages matched your search criteria."
-msgstr "Ingen pakker passer til dine søkekriterier."
+msgstr "Ingen pakker her."
 
 #, php-format
 msgid "%d package found."
@@ -1494,19 +1513,19 @@ msgid "Yes"
 msgstr "Ja"
 
 msgid "orphan"
-msgstr "foreldreløs"
+msgstr "eierløs"
 
 msgid "Actions"
 msgstr "Handlinger"
 
 msgid "Unflag Out-of-date"
-msgstr "Fjern markering"
+msgstr "Fjern flagg"
 
 msgid "Adopt Packages"
 msgstr "Adopter pakker"
 
 msgid "Disown Packages"
-msgstr "Gjør pakker foreldreløse"
+msgstr "Gjør pakker eierløse"
 
 msgid "Delete Packages"
 msgstr "Slett pakker"
@@ -1524,7 +1543,7 @@ msgid "Statistics"
 msgstr "Statistikk"
 
 msgid "Orphan Packages"
-msgstr "Foreldreløse pakker"
+msgstr "Eierløse pakker"
 
 msgid "Packages added in the past 7 days"
 msgstr "Lagt til de siste 7 dagene"
@@ -1542,7 +1561,7 @@ msgid "Registered Users"
 msgstr "Registrerte brukere"
 
 msgid "Trusted Users"
-msgstr "Betrodde Brukere"
+msgstr "Betrodde brukere"
 
 msgid "Recent Updates"
 msgstr "Nylig oppdatert"
@@ -1582,10 +1601,10 @@ msgid "Participation"
 msgstr "Deltagelse"
 
 msgid "Last Votes by TU"
-msgstr "Siste stemmer fra TU"
+msgstr "Betrodde brukeres avgitte stemmer"
 
 msgid "Last vote"
-msgstr "Siste stemme"
+msgstr "Forrige avstemning"
 
 msgid "No results found."
 msgstr "Ingen resultater."

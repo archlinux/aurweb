@@ -7,6 +7,7 @@
 # dongfengweixiao <dongfengweixiao@gmail.com>, 2015
 # Felix Yan <felixonmars@gmail.com>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# pingplug <pingplug@foxmail.com>, 2017
 # leonfeng <chaofeng111@gmail.com>, 2012
 # Weiwen Zhao <panda.hust@gmail.com>, 2013
 # Xiaodong Qi <xiaodong.que+github@gmail.com>, 2016
@@ -14,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_CN/)\n"
@@ -35,15 +36,15 @@ msgid "Note"
 msgstr "提示"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Git 克隆地址并不意味着能被浏览器打开"
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "要克隆 Git 项目 %s，运行 %s。"
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "点击 %s这里%s 以回到 %s 的软件包详情页面"
 
 msgid "Service Unavailable"
 msgstr "服务不可用"
@@ -132,28 +133,28 @@ msgid "Edit comment"
 msgstr "编辑评论"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "仪表面板"
 
 msgid "Home"
 msgstr "首页"
 
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "被标记的软件包"
 
 msgid "My Requests"
-msgstr ""
+msgstr "我的请求"
 
 msgid "My Packages"
 msgstr "我的软件包"
 
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "搜索我维护的软件包"
 
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "共同维护的软件包"
 
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "搜索共同维护的软件包"
 
 #, php-format
 msgid ""
@@ -217,7 +218,7 @@ msgid ""
 "the package maintainer and file orphan request if necessary."
 msgstr ""
 "请求软件包从 AUR 中移除。如果这个包虽然损坏了但是可以被轻易地修好，请不要进行"
-"此操作，您应该联系包的维护者或者有必要的情况下发送 orphan request。"
+"此操作，您应该联系包的维护者或者有必要的情况下发送弃置请求。"
 
 msgid "Merge Request"
 msgstr "合并请求"
@@ -383,7 +384,7 @@ msgid "Enter your e-mail address:"
 msgstr "输入您的邮箱地址:"
 
 msgid "Package Bases"
-msgstr ""
+msgstr "包基础"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -547,6 +548,20 @@ msgstr "注册"
 msgid "Use this form to create an account."
 msgstr "使用此表单创建帐号。"
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
 msgstr "受信用户"
 
@@ -603,6 +618,9 @@ msgstr "最多包含一个“.”，“_”，或“-”"
 msgid "The email address is invalid."
 msgstr "错误的 Email 地址。"
 
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
+
 msgid "The PGP key fingerprint is invalid."
 msgstr "PGP 密钥指纹无效。"
 
@@ -616,7 +634,7 @@ msgid "Language is not currently supported."
 msgstr "目前不支持此语言。"
 
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "目前不支持此时区。"
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -901,7 +919,7 @@ msgid "Real Name"
 msgstr "真实名字"
 
 msgid "Homepage"
-msgstr ""
+msgstr "首页"
 
 msgid "IRC Nick"
 msgstr "IRC昵称"
@@ -919,7 +937,7 @@ msgid "Active"
 msgstr "激活"
 
 msgid "Registration date:"
-msgstr ""
+msgstr "注册日期："
 
 msgid "unknown"
 msgstr "未知"
@@ -942,10 +960,15 @@ msgstr "如果你想要彻底删除这个帐号，请点击%s这里%s。"
 
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "点击 %s这里%s 访问用户详情页面"
 
 msgid "required"
 msgstr "必填"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
 
 msgid "Normal user"
 msgstr "普通用户"
@@ -974,7 +997,7 @@ msgid "Language"
 msgstr "语言"
 
 msgid "Timezone"
-msgstr ""
+msgstr "时区"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -994,7 +1017,7 @@ msgid "Notify of package updates"
 msgstr "软件包更新提醒"
 
 msgid "Notify of ownership changes"
-msgstr ""
+msgstr "所有权更改提醒"
 
 msgid "Update"
 msgstr "更新"
@@ -1094,7 +1117,7 @@ msgid "Disable notifications"
 msgstr "禁用通知"
 
 msgid "Enable notifications"
-msgstr ""
+msgstr "启用通知"
 
 msgid "Manage Co-Maintainers"
 msgstr "管理共同维护者"
@@ -1275,6 +1298,8 @@ msgid ""
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
+"通过提交删除请求，您请求受信用户进行包基础的删除。这种请求应当被用于重复，软"
+"件被上游放弃，非法或损坏且无法修复的软件包。"
 
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
@@ -1282,6 +1307,9 @@ msgid ""
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
 msgstr ""
+"通过提交合并请求，您请求受信用户进行包基础的删除，并转移其投票和评论到另一包"
+"基础。合并一个软件包不会影响对应的 Git 项目，因此您需要自己更新目标软件包的 "
+"Git 项目。"
 
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
@@ -1289,9 +1317,11 @@ msgid ""
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
 msgstr ""
+"通过提交弃置请求，您请求受信用户进行包基础的弃置。请仅在软件包需要维护者操"
+"作，您之前已经尝试联系过维护者但没有回应时提交请求。"
 
 msgid "No requests matched your search criteria."
-msgstr ""
+msgstr "没有请求符合您的搜索条件。"
 
 #, php-format
 msgid "%d package request found."
@@ -1314,15 +1344,15 @@ msgstr "日期"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
+msgstr[0] "剩余约 %d 天"
 
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] "剩余～%d小时"
+msgstr[0] "剩余约 %d 小时"
 
 msgid "<1 hour left"
-msgstr "剩余<1小时"
+msgstr "剩余不到 1 小时"
 
 msgid "Accept"
 msgstr "接受"
@@ -1334,7 +1364,7 @@ msgid "Close"
 msgstr "关闭"
 
 msgid "Pending"
-msgstr ""
+msgstr "等待中"
 
 msgid "Closed"
 msgstr "已关闭"
@@ -1352,10 +1382,10 @@ msgid "Exact Package Base"
 msgstr "准确包基础"
 
 msgid "Co-maintainer"
-msgstr ""
+msgstr "共同维护者"
 
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "维护者，共同维护者"
 
 msgid "All"
 msgstr "全部"
@@ -1423,7 +1453,7 @@ msgstr "版本"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr ""
+msgstr "受欢迎度通过将每次投票以系数为每天 %.2f 的权重加权求和计算。"
 
 msgid "Yes"
 msgstr "是"

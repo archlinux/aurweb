@@ -5,18 +5,20 @@
 # Translators:
 # Evgeniy Alekseev <esalexeev@gmail.com>, 2014-2015
 # Evgeniy Alekseev <esalexeev@gmail.com>, 2014-2015, 2016
+# Igor <f2404@yandex.ru>, 2017
 # Kyrylo Silin <curacaothe@gmail.com>, 2011
 # Kyrylo Silin <curacaothe@gmail.com>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Rustam Tsurik <rustam.tsurik@gmail.com>, 2013
 # Sergey Shepelev <temotor@gmail.com>, 2014,2016
+# Александр Яворский <kekcuha@gmail.com>, 2017
 # Аскольд <HaskuldNihil@protonmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Russian (http://www.transifex.com/lfleischer/aur/language/"
 "ru/)\n"
@@ -38,15 +40,16 @@ msgid "Note"
 msgstr "Примечание"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Клонирование репозитория Git не подразумевает открытие в браузере."
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "Для клонирования репозитория Git «%s» выполните «%s»."
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
 msgstr ""
+"Нажмите %sздесь%s, для возврата на страницу с подробной информацией о «%s»."
 
 msgid "Service Unavailable"
 msgstr "Сервис недоступен"
@@ -130,34 +133,34 @@ msgid "Submit"
 msgstr "Прислать"
 
 msgid "Manage Co-maintainers"
-msgstr "Управление ответственными"
+msgstr "Управление сопровождающими"
 
 msgid "Edit comment"
 msgstr "Редактировать комментарий"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "Панель настроек"
 
 msgid "Home"
 msgstr "Главная"
 
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Мои отмеченные пакеты"
 
 msgid "My Requests"
-msgstr ""
+msgstr "Мои заявки"
 
 msgid "My Packages"
 msgstr "Мои пакеты"
 
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Искать пакеты, которые я сопровождаю"
 
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Пакеты, в сопровождении которых я участвую"
 
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Поиск пакетов, в которых я сопровождающий"
 
 #, php-format
 msgid ""
@@ -404,7 +407,7 @@ msgid "Enter your e-mail address:"
 msgstr "Введите свой адрес электронной почты:"
 
 msgid "Package Bases"
-msgstr ""
+msgstr "Группы пакетов"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -579,6 +582,20 @@ msgstr "Регистрация"
 msgid "Use this form to create an account."
 msgstr "Используйте эту форму для создания учетной записи."
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
 msgstr "Доверенный пользователь"
 
@@ -635,6 +652,9 @@ msgstr "Может содержать только одну точку, подч
 msgid "The email address is invalid."
 msgstr "Неправильный адрес электронной почты."
 
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
+
 msgid "The PGP key fingerprint is invalid."
 msgstr "Неверный отпечаток ключа PGP."
 
@@ -648,7 +668,7 @@ msgid "Language is not currently supported."
 msgstr "Язык пока не поддерживается."
 
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "Часовые пояса пока не поддерживаются."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -955,7 +975,7 @@ msgid "Active"
 msgstr "Активный"
 
 msgid "Registration date:"
-msgstr ""
+msgstr "Дата регистрации:"
 
 msgid "unknown"
 msgstr "неизвестно"
@@ -978,10 +998,15 @@ msgstr "Нажмите %sздесь%s, если Вы хотите удалить
 
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Нажмите %sздесь%s, чтобы просмотреть данные о пользователе."
 
 msgid "required"
 msgstr "необходимо"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
 
 msgid "Normal user"
 msgstr "Обычный пользователь"
@@ -1012,7 +1037,7 @@ msgid "Language"
 msgstr "Язык"
 
 msgid "Timezone"
-msgstr ""
+msgstr "Часовой пояс"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1058,10 +1083,10 @@ msgid "Edit"
 msgstr "Редактировать"
 
 msgid "Less"
-msgstr "Назад"
+msgstr "Меньше"
 
 msgid "More"
-msgstr "Далее"
+msgstr "Больше"
 
 msgid "No more results to display."
 msgstr "Больше нет результатов."
@@ -1211,11 +1236,11 @@ msgstr "Анонимный комментарий для %s"
 
 #, php-format
 msgid "deleted on %s by %s"
-msgstr "удален для %s %s"
+msgstr "удалён %s %s"
 
 #, php-format
 msgid "deleted on %s"
-msgstr "удален %s"
+msgstr "удалён %s"
 
 #, php-format
 msgid "edited on %s by %s"
@@ -1351,7 +1376,7 @@ msgstr ""
 "ним ранее."
 
 msgid "No requests matched your search criteria."
-msgstr ""
+msgstr "Нет запросов по выбранному критерию поиска."
 
 #, php-format
 msgid "%d package request found."
@@ -1377,10 +1402,10 @@ msgstr "Дата"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "остался ~%d день"
+msgstr[1] "осталось ~%d дня"
+msgstr[2] "осталось ~%d дней"
+msgstr[3] "осталось ~%d дней"
 
 #, php-format
 msgid "~%d hour left"
@@ -1403,7 +1428,7 @@ msgid "Close"
 msgstr "Закрыть"
 
 msgid "Pending"
-msgstr ""
+msgstr "Ожидает"
 
 msgid "Closed"
 msgstr "Закрыт"
@@ -1421,10 +1446,10 @@ msgid "Exact Package Base"
 msgstr "Точное имя группы"
 
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Сопровождающий"
 
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Ответственный, сопровождающий"
 
 msgid "All"
 msgstr "Все"
@@ -1496,6 +1521,9 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"Популярность считается, как сумма всех голосов, где каждый голос взвешен с "
+"коэффициентом %.2f за каждый день разницы между днём голосования и днём "
+"загрузки пакета."
 
 msgid "Yes"
 msgstr "Да"

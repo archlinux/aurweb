@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-26 03:10+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 11:49+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/lfleischer/aur/"
 "language/zh_TW/)\n"
@@ -545,6 +545,20 @@ msgstr "註冊"
 msgid "Use this form to create an account."
 msgstr "使用此表單來新建一個帳號。"
 
+msgid "Terms of Service"
+msgstr "服務條款"
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr "以下的文件已更新。請小心審閱它們："
+
+#, php-format
+msgid "revision %d"
+msgstr "修訂版本：%d"
+
+msgid "I accept the terms and conditions above."
+msgstr "我接受上述條款與條件。"
+
 msgid "Trusted User"
 msgstr "受信使用者"
 
@@ -600,6 +614,9 @@ msgstr "最多包含一個「.」、「_」或「-」。"
 
 msgid "The email address is invalid."
 msgstr "電子郵件地址無效。"
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr "首頁無效，請指定完整的 HTTP(s) URL。"
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "PGP 密鑰指紋無效。"
@@ -944,6 +961,11 @@ msgstr "點選 %s此處%s 來取得使用者的詳細資訊。"
 
 msgid "required"
 msgstr "必填"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr "您的使用者名稱是您要用於登入的名稱。它是公開的，即使您的帳號已停用。"
 
 msgid "Normal user"
 msgstr "一般使用者"

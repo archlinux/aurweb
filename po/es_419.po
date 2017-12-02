@@ -8,17 +8,18 @@
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # neiko <neikokz+tsfx@gmail.com>, 2011
 # Nicolás de la Torre <ndelatorre@gmail.com>, 2012
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2012,2015-2016
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016-2017
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016-2017
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2012,2015-2016
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016-2017
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-03-01 05:08+0000\n"
-"Last-Translator: Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-29 14:11+0000\n"
+"Last-Translator: Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail."
+"com>\n"
 "Language-Team: Spanish (Latin America) (http://www.transifex.com/lfleischer/"
 "aur/language/es_419/)\n"
 "Language: es_419\n"
@@ -592,6 +593,22 @@ msgstr "Registro"
 msgid "Use this form to create an account."
 msgstr "Use este formulario para crear una cuenta."
 
+msgid "Terms of Service"
+msgstr "Terminos y condiciones"
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+"Los siguientes documentos han sido actualizados. Por favor revíselos "
+"cuidadosamente:"
+
+#, php-format
+msgid "revision %d"
+msgstr "Revisión %d"
+
+msgid "I accept the terms and conditions above."
+msgstr "Acepto las Terminos y condiciones anteriores."
+
 msgid "Trusted User"
 msgstr "Usuario de Confianza"
 
@@ -648,6 +665,10 @@ msgstr "Solo puede contener un punto, guion bajo o guion."
 
 msgid "The email address is invalid."
 msgstr "La dirección de correo no es válida."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
+"La página de inicio no es válida. Especifique la URL en HTTP(S) completa."
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "La huella digital PGP no es válida."
@@ -1002,6 +1023,13 @@ msgstr "Haga clic %saquí%s para ver los detalles del usuario."
 msgid "required"
 msgstr "obligatorio"
 
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
+"Su nombre de usuario es el nombre que usará para iniciar sesión. Es visible "
+"al público en general, incluso si su cuenta está inactiva."
+
 msgid "Normal user"
 msgstr "Usuario normal"
 
@@ -1018,7 +1046,7 @@ msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
 msgstr ""
-"Asegúrese de escribir su correo correctamente o de lo contrario terminará "
+"Asegúrese de escribir su correo correctamente o de lo contrario quedará "
 "bloqueado."
 
 msgid "Hide Email Address"
@@ -1525,7 +1553,7 @@ msgid "Actions"
 msgstr "Acciones"
 
 msgid "Unflag Out-of-date"
-msgstr "Marcar como actualizado"
+msgstr "Desmarcar como actualizado"
 
 msgid "Adopt Packages"
 msgstr "Adoptar paquetes"

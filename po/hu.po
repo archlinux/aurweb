@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# György Balló <ballogyor@gmail.com>, 2013
-# György Balló <ballogyor@gmail.com>, 2011,2013-2016
-# György Balló <ballogyor@gmail.com>, 2016
+# Balló György <ballogyor@gmail.com>, 2013
+# Balló György <ballogyor@gmail.com>, 2011,2013-2016
+# Balló György <ballogyor@gmail.com>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hungarian (http://www.transifex.com/lfleischer/aur/language/"
 "hu/)\n"
@@ -585,6 +585,20 @@ msgstr "Regisztráció"
 msgid "Use this form to create an account."
 msgstr "Használd ezt a űrlapot felhasználói fiók létrehozására."
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
 msgstr "Megbízható felhasználó"
 
@@ -640,6 +654,9 @@ msgstr "Csak egyetlen pontot, aláhúzást vagy kötőjelet tartalmazhat."
 
 msgid "The email address is invalid."
 msgstr "Érvénytelen e-mail cím."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "A PGP kulcs ujjlenyomata érvénytelen."
@@ -987,6 +1004,11 @@ msgstr "Kattints %side%s a felhasználó részleteihez."
 
 msgid "required"
 msgstr "kötelező"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
 
 msgid "Normal user"
 msgstr "Normál felhasználó"

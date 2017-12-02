@@ -19,14 +19,14 @@
 # Nuc1eoN <nucrap@hotmail.com>, 2014
 # Simon Schneider <SPAM.schneida@gmail.com>, 2011
 # Stefan Auditor <stefan.auditor@erdfisch.de>, 2017
-# Thomas_Do <thomasdodo@arcor.de>, 2013-2014
-# Thomas_Do <thomasdodo@arcor.de>, 2012-2013
+# Thomas_Do <thomasdodo@buche17.de>, 2013-2014
+# Thomas_Do <thomasdodo@buche17.de>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-26 19:30+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-30 12:23+0000\n"
 "Last-Translator: Stefan Auditor <stefan.auditor@erdfisch.de>\n"
 "Language-Team: German (http://www.transifex.com/lfleischer/aur/language/"
 "de/)\n"
@@ -50,7 +50,7 @@ msgstr "Git clone URLs sind nicht dafür gedacht im Browser geöffnet zu werden.
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr "Um das Git Repository von %s zu clonen, führe %s aus."
+msgstr "Um das Git-Repository von %s zu clonen, führe %s aus."
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
@@ -63,7 +63,7 @@ msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
 "Keine Panik! Diese Seite ist wegen Verwaltungs-Aufgaben geschlossen. Wir "
-"werden gleich zurück sein ..."
+"werden gleich zurück sein."
 
 msgid "Account"
 msgstr "Konto"
@@ -94,7 +94,7 @@ msgid "Invalid token for user action."
 msgstr "Ungültiges Zeichen für eine Benutzer-Aktion."
 
 msgid "Username does not exist."
-msgstr "Der Nutzername existiert nicht."
+msgstr "Der Benutzername existiert nicht."
 
 #, php-format
 msgid "%s already has proposal running for them."
@@ -140,7 +140,7 @@ msgid "Submit"
 msgstr "Abschicken"
 
 msgid "Manage Co-maintainers"
-msgstr "Verwalte Ko-Maintainer"
+msgstr "Verwalte Mit-Betreuer"
 
 msgid "Edit comment"
 msgstr "Kommentar bearbeiten"
@@ -164,7 +164,7 @@ msgid "Search for packages I maintain"
 msgstr "Suche nach Paketen die ich betreue"
 
 msgid "Co-Maintained Packages"
-msgstr "Ko-Maintainer Pakete"
+msgstr "Mitbetreute Pakete"
 
 msgid "Search for packages I co-maintain"
 msgstr "Suche nach Paketen die ich mitbetreue"
@@ -203,7 +203,7 @@ msgid ""
 "your own risk."
 msgstr ""
 "AUR Pakete sind von Benutzern erstellter Inhalt. Die Benutzung der "
-"angebotenen Dateien erfolgt auf eingenes Risiko."
+"angebotenen Dateien erfolgt auf eigenes Risiko."
 
 msgid "Learn more..."
 msgstr "Erfahre mehr ..."
@@ -229,8 +229,8 @@ msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
-"Anfrage eine Pakte abzugeben, z.B. wenn der Verwalten nicht aktiv ist und "
-"das Paket vor einer ganzen Weile als veraltet makiert wurde."
+"Anfrage eine Pakte abzugeben, z.B. wenn der Betreuer nicht aktiv ist und das "
+"Paket vor einer ganzen Weile als veraltet makiert wurde."
 
 msgid "Deletion Request"
 msgstr "Löschanfrage"
@@ -241,9 +241,9 @@ msgid ""
 "the package maintainer and file orphan request if necessary."
 msgstr ""
 "Anfrage zum Entfernen eines Pakets aus dem Arch User Repository. Bitte "
-"benutzen Sie diese nicht, wenn das Paket kaputt ist und leich repariert "
-"werden kann. Sondern kontaktieren Sie den Paketverwalter und reichen Sie "
-"eine Verwaisungsanfrage ein wenn nötig."
+"benutze diese nicht, wenn das Paket kaputt ist und leich repariert werden "
+"kann. Sondern kontaktiere den Betreuer und reiche eine Verwaisungsanfrage "
+"ein, wenn nötig."
 
 msgid "Merge Request"
 msgstr "Zusammenführungsanfrage"
@@ -260,9 +260,8 @@ msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
-"Wenn Sie eine Anfrage diskutieren wollen, können sie die %saur-requests%s "
-"Mailingliste benutzen. Jedoch benutzen Sie diese nicht um Anfragen "
-"einzureichen."
+"Wenn Du eine Anfrage diskutieren willst, kannst Du die %saur-requests%s "
+"Mailingliste benutzen. Benutze diese jedoch nicht um Anfragen einzureichen."
 
 msgid "Submitting Packages"
 msgstr "Pakete einreichen"
@@ -291,8 +290,8 @@ msgid ""
 msgstr ""
 "Grundsätzliche Diskussionen bezüglich des Arch User Repository (AUR) und "
 "vertrauenswürdigen Benutzern finden auf %saur-general%s statt. Für "
-"Diskussionen im Bezug auf die Entwicklung des AUR Web-Interface nutzen Sie "
-"die %saur-dev%s Mailingliste."
+"Diskussionen im Bezug auf die Entwicklung des AUR Web-Interface benutze die "
+"%saur-dev%s Mailingliste."
 
 msgid "Bug Reporting"
 msgstr "Fehler melden"
@@ -307,7 +306,7 @@ msgstr ""
 "Wenn du einen Fehler im AUR Web-Interface findest, fülle bitte eine Fehler-"
 "Meldung in unserem %sbug-tracker%s aus. Benutze den Tracker %snur%s, um "
 "Fehler im AUR zu melden. Für falsch gepackte Pakete, wende dich bitte direkt "
-"an den zuständigen Maintainer, oder hinterlaß einen Kommentar auf der "
+"an den zuständigen Betreuer, oder hinterlasse einen Kommentar auf der "
 "entsprechenden Seite des Paketes."
 
 msgid "Package Search"
@@ -479,7 +478,7 @@ msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
-"Benutzen Sie dieses Formular um die Paketbasis %s%s%s, welche die folgenden "
+"Benutze dieses Formular um die Paketbasis %s%s%s, welche die folgenden "
 "Pakete enhält, abzugeben:"
 
 #, php-format
@@ -487,8 +486,8 @@ msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
-"Durch das markieren des Kontrollkästchen bestätigen Sie, dass Sie das Pakte "
-"abegen und den Besitz an %s%s%s übergeben wollen."
+"Durch das markieren des Kontrollkästchen bestätigtst Du, dass Du das Paket "
+"abegen und den Besitz an %s%s%s übergeben willst."
 
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
@@ -608,6 +607,21 @@ msgstr "Registrieren"
 msgid "Use this form to create an account."
 msgstr "Benutze dieses Formular, um ein Konto zu erstellen."
 
+msgid "Terms of Service"
+msgstr "Nutzungsbedingungen"
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+"Die folgenden Dokumente wurden aktualisiert, bitte aufmerksam überprüfen:"
+
+#, php-format
+msgid "revision %d"
+msgstr "Revision %d"
+
+msgid "I accept the terms and conditions above."
+msgstr "Ich akzeptiere die obigen Nutzungsbedingungen."
+
 msgid "Trusted User"
 msgstr "Vertrauenswürdiger Benutzer (TU)"
 
@@ -651,7 +665,7 @@ msgid "Missing User ID"
 msgstr "Benutzer-ID fehlt"
 
 msgid "The username is invalid."
-msgstr "Der Nutzername ist ungültig."
+msgstr "Der Benutzername ist ungültig."
 
 #, php-format
 msgid "It must be between %s and %s characters long"
@@ -665,6 +679,10 @@ msgstr "Kann nur einen Punkt, Unter- oder Bindestrich enthalten."
 
 msgid "The email address is invalid."
 msgstr "Die E-Mail-Adresse ist ungültig."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
+"Diese Adresse ist ungültig, bitte eine vollständige HTTP(S) URL angeben."
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "Der PGP-Schlüssel-Fingerabdruck ist ungültig."
@@ -683,7 +701,7 @@ msgstr "Diese Zeitzone wird momentan noch nicht unterstützt."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
-msgstr "Der Nutzername %s%s%s ist bereits vergeben."
+msgstr "Der Benutzername %s%s%s ist bereits vergeben."
 
 #, php-format
 msgid "The address, %s%s%s, is already in use."
@@ -738,7 +756,7 @@ msgstr ""
 "%sPasswort zurücksetzen%s Seite an."
 
 msgid "Bad username or password."
-msgstr "Falscher Nutzername oder falsches Passwort."
+msgstr "Falscher Benutzername oder falsches Passwort."
 
 msgid "An error occurred trying to generate a user session."
 msgstr "Es geschah ein Fehler beim Versuch eine Nutzersitzung zu erstellen."
@@ -893,14 +911,14 @@ msgid "The package base keywords have been updated."
 msgstr "Die Schlagwörter der Paketbasis wurden aktualisiert."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr "Du darfst die Mitbetreuer für diese Paketbasis nicht verwalten."
+msgstr "Du darfst die Mit-Betreuer für diese Paketbasis nicht verwalten."
 
 #, php-format
 msgid "Invalid user name: %s"
-msgstr "Ungültiger Nutzername: %s"
+msgstr "Ungültiger Benutzername: %s"
 
 msgid "The package base co-maintainers have been updated."
-msgstr "Die Mitbetreuer der Paketbasis wurden aktualisiert."
+msgstr "Die Mit-Betreuer der Paketbasis wurden aktualisiert."
 
 msgid "View packages details for"
 msgstr "Paket-Informationen aufrufen für"
@@ -947,7 +965,7 @@ msgid "Confirm deletion"
 msgstr "Bestätige das Entfernen"
 
 msgid "Username"
-msgstr "Nutzername"
+msgstr "Benutzername"
 
 msgid "Account Type"
 msgstr "Konto-Typ"
@@ -1004,7 +1022,7 @@ msgid "View this user's packages"
 msgstr "Alle Pakete dieses Benutzers anzeigen"
 
 msgid "Edit this user's account"
-msgstr "Konto dieses Nutzers bearbeiten"
+msgstr "Konto dieses Benutzers bearbeiten"
 
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -1017,6 +1035,13 @@ msgstr "Klicke %shere%s für Benutzerdetails."
 
 msgid "required"
 msgstr "Notwendig"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
+"Der Benutzername ist der Name, der für die Anmeldung benutzt wird. Er ist "
+"öffentlich sichtbar, auch wenn das Konto inaktiv ist."
 
 msgid "Normal user"
 msgstr "Normaler Benutzer"
@@ -1105,7 +1130,7 @@ msgstr "Keine weiteren Ergebnisse."
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
-"Benutze dieses Formular um Mitbetreuer für %s%s%s hinzuzufügen (ein "
+"Benutze dieses Formular um Mit-Betreuer für %s%s%s hinzuzufügen (ein "
 "Benutzername pro Zeile):"
 
 msgid "Users"
@@ -1120,7 +1145,7 @@ msgstr "Markiert als \"veraltet\" Kommentar: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr "%s%s%s markiert %s%s%s als \"veraltet\" am %s%s%s auf Grund von:"
+msgstr "%s%s%s markiert %s%s%s als veraltet am %s%s%s aufgrund von:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
@@ -1174,7 +1199,7 @@ msgid "Enable notifications"
 msgstr "Benachritigungen aktivieren"
 
 msgid "Manage Co-Maintainers"
-msgstr "Verwalte Ko-Maintainer"
+msgstr "Verwalte Mit-Betreuer"
 
 #, php-format
 msgid "%d pending request"
@@ -1382,10 +1407,10 @@ msgid ""
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
 msgstr ""
-"Durch das absenden eines Verwaisanfrage wird ein vertrauenswürdiger Benutzer "
-"gefragt die Paketbasis zu enteignen. Bitte mache das nur, wenn das Paket "
-"Aktionen vom Betreuer braucht, der Betreuer nicht reagiert und du ihn vorher "
-"bereits versucht hast zu kontaktieren."
+"Durch das absenden einer Verwaisanfrage wird ein vertrauenswürdiger Benutzer "
+"gebeten die Paketbasis zu enteignen. Bitte tue das nur, wenn das Paket "
+"Aufmerksamkeit des Betreuers benötigt, der Betreuer nicht reagiert und Du "
+"vorher bereits versucht hast ihn zu kontaktieren."
 
 msgid "No requests matched your search criteria."
 msgstr "Die Suchkriterien erzielten keine Treffer in Anfragen."
@@ -1452,10 +1477,10 @@ msgid "Exact Package Base"
 msgstr "Exakte Paketbasis"
 
 msgid "Co-maintainer"
-msgstr "Ko-Maintainer"
+msgstr "Mit-Betreuer"
 
 msgid "Maintainer, Co-maintainer"
-msgstr "Betreuer, Ko-Maintainer"
+msgstr "Betreuer, Mit-Betreuer"
 
 msgid "All"
 msgstr "Alle"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Croatian (http://www.transifex.com/lfleischer/aur/language/"
 "hr/)\n"
@@ -522,6 +522,20 @@ msgstr ""
 msgid "Use this form to create an account."
 msgstr "Koristite ovaj formular za kreiranje računa."
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
 msgstr "Pouzdan korisnik"
 
@@ -575,6 +589,9 @@ msgstr "Može sadržavati samo jednu točku, donju crticu ili povlaku."
 
 msgid "The email address is invalid."
 msgstr "Email adresa je neispravna."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
 
 msgid "The PGP key fingerprint is invalid."
 msgstr ""
@@ -915,6 +932,11 @@ msgstr ""
 
 msgid "required"
 msgstr "obvezno"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
 
 msgid "Normal user"
 msgstr "Običan korisnik"

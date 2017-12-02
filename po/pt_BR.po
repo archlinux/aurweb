@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 15:12+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 22:00+0000\n"
 "Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/lfleischer/aur/"
 "language/pt_BR/)\n"
@@ -584,6 +584,22 @@ msgstr "Registrar"
 msgid "Use this form to create an account."
 msgstr "Utilize este formulário para criar uma conta."
 
+msgid "Terms of Service"
+msgstr "Termos de Serviço"
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+"Os seguintes documentos foram atualizados. Por favor, revise-os "
+"cuidadosamente:"
+
+#, php-format
+msgid "revision %d"
+msgstr "revisão %d"
+
+msgid "I accept the terms and conditions above."
+msgstr "Eu aceito os termos e condições acima."
+
 msgid "Trusted User"
 msgstr "Usuário confiável"
 
@@ -639,6 +655,10 @@ msgstr "Pode conter somente um ponto, traço inferior ou hífen."
 
 msgid "The email address is invalid."
 msgstr "O endereço de e-mail é inválido."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
+"A página inicial é inválida. Por favor especificar a URL HTTP(s) completa."
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "A impressão digital da chave PGP é inválida."
@@ -992,6 +1012,13 @@ msgstr "Clique %saqui%s para os detalhes do usuário."
 
 msgid "required"
 msgstr "obrigatório"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
+"Seu nome de usuário é o nome que você vai usar para se autenticar. É visível "
+"para o público geral, mesmo se sua contas estiver inativa."
 
 msgid "Normal user"
 msgstr "Usuário normal"

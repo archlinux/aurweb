@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# Adolfo Jayme-Barrientos, 2014
+# Adolfo Jayme Barrientos, 2014
 # Hector Mtz-Seara <hseara@gmail.com>, 2011,2013
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Catalan (http://www.transifex.com/lfleischer/aur/language/"
 "ca/)\n"
@@ -535,6 +535,20 @@ msgstr "Registrar-se"
 msgid "Use this form to create an account."
 msgstr "Utilitzeu aquest formulari per a crear un compte."
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
 msgstr "Usuari de Confiança"
 
@@ -590,6 +604,9 @@ msgstr "Només pot contenir un punt,  guió o guió baix."
 
 msgid "The email address is invalid."
 msgstr "L'adreça del correu-e no és vàlida."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "L'empremta de la clau PGP no és vàlida."
@@ -939,6 +956,11 @@ msgstr ""
 
 msgid "required"
 msgstr "requerit"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
 
 msgid "Normal user"
 msgstr "Usuari normal"

@@ -5,13 +5,13 @@
 # Translators:
 # GenghisKhan <genghiskhan@gmx.ca>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2016
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-02-25 12:41+0000\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-28 07:52+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
 "Language-Team: Hebrew (http://www.transifex.com/lfleischer/aur/language/"
 "he/)\n"
@@ -31,15 +31,15 @@ msgid "Note"
 msgstr "הערה"
 
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "כתובות שיבוט של Git לא אמורות להיפתח בדפדפן."
 
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "כדי לשבט את מאגר ה־Git של %s, יש להפעיל את %s."
 
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "יש ללחוץ %sכאן%s כדי לחזור אל הפרטים על %s."
 
 msgid "Service Unavailable"
 msgstr "השירות אינו זמין"
@@ -113,7 +113,7 @@ msgid "Removal of a TU (undeclared inactivity)"
 msgstr "הסרת משתמש מהימן (חוסר פעילות בלתי מוצהרת)"
 
 msgid "Amendment of Bylaws"
-msgstr ""
+msgstr "תיקון חוקי עזר"
 
 msgid "Proposal"
 msgstr "הצעה"
@@ -128,28 +128,28 @@ msgid "Edit comment"
 msgstr "עריכת תגובה"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "לוח בקרה"
 
 msgid "Home"
 msgstr "בית"
 
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "החבילות המסומנות שלי"
 
 msgid "My Requests"
-msgstr ""
+msgstr "הבקשות שלי"
 
 msgid "My Packages"
 msgstr "החבילות שלי"
 
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "חיפוש אחר חבילות בתחזוקה"
 
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "חבילות בתחזוקת משנה"
 
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "חיפוש אחר חבילה שאני מתחזק המשנה שלה"
 
 #, php-format
 msgid ""
@@ -201,7 +201,7 @@ msgstr ""
 "החבילה:"
 
 msgid "Orphan Request"
-msgstr "בקשה יתומה"
+msgstr "בקשת יתומה"
 
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
@@ -218,6 +218,9 @@ msgid ""
 "use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
+"ניתן לבקש הסרת חבילה ממאגר המשתמשים של ארץ׳. אין להשתמש בזה אם יש תקלה "
+"בחבילה וניתן לתקן אותה בקלות. במקום זאת, יש ליצור קשר עם מתחזק החבילה ולהגיש "
+"בקשת יתומה אם יש צורך."
 
 msgid "Merge Request"
 msgstr "בקשת מיזוג"
@@ -226,12 +229,16 @@ msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
+"הגשת בקשה למיזוג חבילה אחת לתוך חבילה אחרת. ניתן להשתמש כאשר צריך לשנות שם "
+"של חבילה או להחליף אותה בחבילה מפוצלת."
 
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
+"כדי לדון בבקשה, ניתן להשתמש בקבוצת הדיונים %saur-requests%s. עם זאת, נא לא "
+"להשתמש ברשימה הזאת כדי להגיש בקשות."
 
 msgid "Submitting Packages"
 msgstr "שליחת חבילות"
@@ -257,6 +264,9 @@ msgid ""
 "structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
+"הדיון הכללי על מאגר המשתמשים של ארץ׳ (AUR) ומבנה המשתמשים המהימנים מתנהל "
+"ברשימה %saur-general%s. לדיון בנוגע לפיתוח של המנשק של AUR, יש להשתמש ברשימה "
+"%saur-dev%s."
 
 msgid "Bug Reporting"
 msgstr "דיווח על באגים"
@@ -268,6 +278,10 @@ msgid ""
 "%sonly%s. To report packaging bugs contact the package maintainer or leave a "
 "comment on the appropriate package page."
 msgstr ""
+"אם נתקלת בתקלה במנשק הדפדפן של AUR, נא להגיש דיווח על תקלה ב%sמערכת ניהול "
+"התקלות%s שלנו. יש להשתמש במערכת ניהול התקלות כדי לדווח על תקלות במנשק הדפדפן "
+"%sבלבד%s. כדי לדווח על תקלות עם אריזה יש ליצור קשר עם מתחזק החבילה או להשאיר "
+"הערה בעמוד החבילה בהתאם."
 
 msgid "Package Search"
 msgstr "חיפוש חבילות"
@@ -375,7 +389,7 @@ msgid "Enter your e-mail address:"
 msgstr "נא להזין את כתובת הדוא״ל שלך:"
 
 msgid "Package Bases"
-msgstr ""
+msgstr "בסיסי חבילות"
 
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
@@ -403,6 +417,7 @@ msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
 msgstr ""
+"ניתן להשתמש בטופס זה כדי למחוק את בסיס החבילה %s%s%s ואת החבילות הבאות מ־AUR:"
 
 msgid "Deletion of a package is permanent. "
 msgstr "מחיקת חבילה היא לצמיתות."
@@ -427,6 +442,8 @@ msgid ""
 "Use this form to disown the package base %s%s%s which includes the following "
 "packages: "
 msgstr ""
+"ניתן להשתמש בטופס זה כדי לשלול את הבעלות על בסיס החבילה %s%s%s שכוללת את "
+"החבילות הבאות:"
 
 #, php-format
 msgid ""
@@ -460,12 +477,15 @@ msgid ""
 "Use this form to flag the package base %s%s%s and the following packages out-"
 "of-date: "
 msgstr ""
+"יש להשתמש בטופס זה כדי לסמן את בסיס החבילה %s%s%s ואת החבילות הבאות לבלתי "
+"עדכניות:"
 
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
 msgstr ""
+"נא %sלא%s להשתמש בטופס הזה כדי לדווח על תקלות. יש להשתמש בהערות החבילה במקום."
 
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
@@ -491,7 +511,7 @@ msgstr "מיזוג חבילה"
 
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
+msgstr "ניתן להשתמש בטופס זה כדי למזג את בסיס החבילה %s%s%s לתוך חבילה אחרת."
 
 msgid "The following packages will be deleted: "
 msgstr "החבילות הבאות תימחקנה:"
@@ -541,8 +561,22 @@ msgstr "הרשמה"
 msgid "Use this form to create an account."
 msgstr "ניתן להשתמש בטופס זה על מנת ליצור חשבון."
 
+msgid "Terms of Service"
+msgstr ""
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+
+#, php-format
+msgid "revision %d"
+msgstr ""
+
+msgid "I accept the terms and conditions above."
+msgstr ""
+
 msgid "Trusted User"
-msgstr "משתמש אמין"
+msgstr "משתמש מהימן"
 
 msgid "Could not retrieve proposal details."
 msgstr "לא ניתן לקבל נתוני הצעה."
@@ -575,6 +609,8 @@ msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
 msgstr ""
+"הרשמה לחשבון הושבתה לכתובת ה־IP שלך עקב מתקפות זבל מתמשכות. אנו מתנצלים על "
+"אי הנוחות."
 
 msgid "Missing User ID"
 msgstr "מס׳ הזיהוי של המשתמש חסר"
@@ -595,6 +631,9 @@ msgstr "יכול הכיל רק נקודה אחת, קו תחתון או מקף."
 msgid "The email address is invalid."
 msgstr "כתובת הדוא״ל שהוזנה אינה תקינה."
 
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
+
 msgid "The PGP key fingerprint is invalid."
 msgstr "טביעת האצבע מסוג PGP שגויה."
 
@@ -605,10 +644,10 @@ msgid "Cannot increase account permissions."
 msgstr "לא ניתן להגדיל את הרשאות החשבון."
 
 msgid "Language is not currently supported."
-msgstr "שפה כרגע לא נתמכת."
+msgstr "השפה אינה נתמכת כרגע."
 
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "אין תמיכה באזור זמן נכון לעכשיו."
 
 #, php-format
 msgid "The username, %s%s%s, is already in use."
@@ -660,6 +699,9 @@ msgid ""
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
 msgstr ""
+"הססמה שלך עברה איפוס. אם הרגע יצרת חשבון חדש, נא להשתמש בקישור מהודעת האימות "
+"כדי להגדיר ססמה ראשונית. בכל מצב אחר, נא לבקר מפתח איפוס בעמוד %sאיפוס ססמה"
+"%s."
 
 msgid "Bad username or password."
 msgstr "שם המשתמש או הססמה שגויים."
@@ -678,7 +720,7 @@ msgid "View account information for %s"
 msgstr "הצגת פרטי החשבון %s"
 
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "מזהה בסיס החבילה או שם בסיס החבילה חסר."
 
 msgid "You are not allowed to edit this comment."
 msgstr "אין לך הרשאה לערוך את התגובה הזו."
@@ -809,10 +851,10 @@ msgid "Comment has been edited."
 msgstr "התגובה נערכה."
 
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr ""
+msgstr "אין לך הרשאה לערוך את מילות המפתח של בסיס חבילה זו."
 
 msgid "The package base keywords have been updated."
-msgstr ""
+msgstr "מילות המפתח של בסיס החבילה עודכנו."
 
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "אין לך הרשאה לנהל את מתחזקי המשנה לבסיס חבילה זה."
@@ -829,7 +871,7 @@ msgstr "הצגת פרטי החבילה עבור"
 
 #, php-format
 msgid "requires %s"
-msgstr ""
+msgstr "דורשת את %s"
 
 msgid "You must be logged in to file package requests."
 msgstr "עליך להיכנס כדי להגיש בקשות חבילה."
@@ -885,7 +927,7 @@ msgid "Email Address"
 msgstr "כתובת דוא״ל"
 
 msgid "hidden"
-msgstr ""
+msgstr "מוסתר"
 
 msgid "Real Name"
 msgstr "שם אמתי"
@@ -909,7 +951,7 @@ msgid "Active"
 msgstr "פעיל"
 
 msgid "Registration date:"
-msgstr ""
+msgstr "תאריך ההרשמה:"
 
 msgid "unknown"
 msgstr "לא מוכר"
@@ -932,10 +974,15 @@ msgstr "נא ללחוץ %sכאן%s אם רצונך הוא למחוק את החש
 
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "יש ללחוץ %sכאן%s לפרטים על המשתמש."
 
 msgid "required"
 msgstr "נדרש"
+
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
 
 msgid "Normal user"
 msgstr "משתמש רגיל"
@@ -964,7 +1011,7 @@ msgid "Language"
 msgstr "שפה"
 
 msgid "Timezone"
-msgstr ""
+msgstr "אזור זמן"
 
 msgid ""
 "The following information is only required if you want to submit packages to "
@@ -1030,7 +1077,7 @@ msgstr "שמירה"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "הערת סימון כלא עדכנית: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
@@ -1067,10 +1114,10 @@ msgstr "חיפוש בוויקי"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "סימון כלא עדכנית (%s)"
 
 msgid "Flag package out-of-date"
-msgstr ""
+msgstr "סימון החבילה כבלתי עדכנית"
 
 msgid "Unflag package"
 msgstr "ביטול סימון חבילה"
@@ -1112,7 +1159,7 @@ msgid "Keywords"
 msgstr "מילות מפתח"
 
 msgid "Submitter"
-msgstr ""
+msgstr "מגיש"
 
 msgid "Maintainer"
 msgstr "מתחזק"
@@ -1130,7 +1177,7 @@ msgid "First Submitted"
 msgstr "נשלחה לראשונה"
 
 msgid "Last Updated"
-msgstr "עודכנה באחרונה"
+msgstr "עדכון אחרון"
 
 #, php-format
 msgid "Edit comment for: %s"
@@ -1234,6 +1281,7 @@ msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
+"שדה ההערות יכול להישאר ריק. עם זאת, מומלץ מאוד להוסיף הערה כשדוחים בקשה."
 
 msgid "Reason"
 msgstr "סיבה"
@@ -1249,6 +1297,8 @@ msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
+"ניתן להשתמש בטופס זה כדי להגיש את הבקשה לבסיס החבילה %s%s%s שכולל את החבילות "
+"הבאות:"
 
 msgid "Request type"
 msgstr "סוג הבקשה"
@@ -1267,6 +1317,9 @@ msgid ""
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
+"בהגשת בקשה למחיקה, משתמש מהימן ישקול אם למחוק בסיס חבילה. סוג כזה של בקשה "
+"יכול לשמש במקרים של כפילויות, תכנית שנזנחה במקור לצד חבילה בלתי חוקית או "
+"שבורה באופן שלא ניתן לשקם."
 
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
@@ -1274,6 +1327,9 @@ msgid ""
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
 msgstr ""
+"הגשת בקשת מיזוג מופנית למשתמש מהימן לטובת מחיקת בסיס חבילה והעברת ההצבעות "
+"וההערות שלו לבסיס חבילה אחר. מיזוג חבילה לא משפיע על מאגרי ה־Git הקשורים "
+"אליו. יש לוודא שעדכנת את היסטוריית ה־Git של חבילת היעד בעצמך."
 
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
@@ -1281,9 +1337,12 @@ msgid ""
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
 msgstr ""
+"הגשת בקשת יתומה מופנית למשתמש מהימן לטובת ביטול שייכות בסיס חבילה. נא להגיש "
+"בקשה זו רק אם החבילה דורשת פעולת תחזוקה, המתחזק אינו זמין וכבר ניסית ליצור "
+"קשר עם המתחזק בעבר."
 
 msgid "No requests matched your search criteria."
-msgstr ""
+msgstr "אין בקשות שתואמות את תנאי החיפוש שלך."
 
 #, php-format
 msgid "%d package request found."
@@ -1329,7 +1388,7 @@ msgid "Close"
 msgstr "סגירה"
 
 msgid "Pending"
-msgstr ""
+msgstr "בהמתנה"
 
 msgid "Closed"
 msgstr "סגור"
@@ -1347,10 +1406,10 @@ msgid "Exact Package Base"
 msgstr "בסיס החבילה המדויק"
 
 msgid "Co-maintainer"
-msgstr ""
+msgstr "מתחזק משנה"
 
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "מתחזק, מתחזק משנה"
 
 msgid "All"
 msgstr "הכול"
@@ -1420,6 +1479,8 @@ msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
+"הפופולריות מחושבת כסכום של כל ההצבעות כאשר כל הצבעה נשקלת עם מקדם של %.2f "
+"ליום מאז שנוצרה."
 
 msgid "Yes"
 msgstr "כן"
@@ -1519,7 +1580,7 @@ msgid "Last vote"
 msgstr "הצבעה אחרונה"
 
 msgid "No results found."
-msgstr "תוצאות לא נמצאו."
+msgstr "לא נמצאו תוצאות."
 
 msgid "Start"
 msgstr "התחלה"

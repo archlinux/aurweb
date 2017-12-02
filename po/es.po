@@ -3,24 +3,25 @@
 # This file is distributed under the same license as the AUR package.
 #
 # Translators:
-# Adolfo Jayme-Barrientos, 2015
+# Adolfo Jayme Barrientos, 2015
 # Angel Velasquez <angvp@archlinux.org>, 2011
 # juantascon <juantascon@gmail.com>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # neiko <neikokz+tsfx@gmail.com>, 2011
 # Nicolás de la Torre <ndelatorre@gmail.com>, 2012
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2012
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2013-2016
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016-2017
-# Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>, 2016
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2012
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016-2017
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2013-2016
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016-2017
+# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Arch User Repository (AUR)\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-02-25 13:41+0100\n"
-"PO-Revision-Date: 2017-03-01 05:08+0000\n"
-"Last-Translator: Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>\n"
+"POT-Creation-Date: 2017-11-27 16:23+0100\n"
+"PO-Revision-Date: 2017-11-29 14:11+0000\n"
+"Last-Translator: Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail."
+"com>\n"
 "Language-Team: Spanish (http://www.transifex.com/lfleischer/aur/language/"
 "es/)\n"
 "Language: es\n"
@@ -221,7 +222,7 @@ msgid ""
 "the package has been flagged out-of-date for a long time."
 msgstr ""
 "Solicitar la orfandad de un paquete, por ejemplo, cuando el encargado está "
-"inactivo y el paquete se ha marcado como desactualizado por un largo tiempo."
+"inactivo y el paquete se ha marcado como obsoleto por un largo tiempo."
 
 msgid "Deletion Request"
 msgstr "Solicitud de eliminación"
@@ -502,7 +503,7 @@ msgid "Flag Comment"
 msgstr "Marcar comentario"
 
 msgid "Flag Package Out-Of-Date"
-msgstr "Marcado como desactualizado"
+msgstr "Marcado como obsoleto"
 
 #, php-format
 msgid ""
@@ -510,7 +511,7 @@ msgid ""
 "of-date: "
 msgstr ""
 "Usa este formulario para marcar el paquete base %s%s%s y los siguientes "
-"paquetes en el AUR como desactualizados:"
+"paquetes en el AUR como obsoletos:"
 
 #, php-format
 msgid ""
@@ -524,9 +525,8 @@ msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
 msgstr ""
-"Introduce el porqué del marcado del paquete como desactualizado, "
-"peferiblentemente incluye un enlace al anuncio de la nueva versión o al "
-"paquete comprimido."
+"Introduce el porqué del marcado del paquete como obsoleto, preferiblemente "
+"incluye un enlace al anuncio de la nueva versión o al paquete comprimido."
 
 msgid "Comments"
 msgstr "Comentarios"
@@ -535,7 +535,7 @@ msgid "Flag"
 msgstr "Marcar"
 
 msgid "Only registered users can flag packages out-of-date."
-msgstr "Solamente los usuario registrados pueden marcar como desactualizado."
+msgstr "Solamente los usuario registrados pueden marcar como obsoleto."
 
 msgid "Package Merging"
 msgstr "Unión de paquetes"
@@ -596,6 +596,21 @@ msgstr "Registro"
 msgid "Use this form to create an account."
 msgstr "Usa este formulario para crear una cuenta."
 
+msgid "Terms of Service"
+msgstr "Terminos y condiciones"
+
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr ""
+"Los siguientes documentos han sido actualizados. revísalos cuidadosamente:"
+
+#, php-format
+msgid "revision %d"
+msgstr "Revisión %d"
+
+msgid "I accept the terms and conditions above."
+msgstr "Acepto los términos y condiciones anteriores."
+
 msgid "Trusted User"
 msgstr "Usuario de confianza"
 
@@ -652,6 +667,10 @@ msgstr "Solamente puede contener un punto, guion bajo o guion."
 
 msgid "The email address is invalid."
 msgstr "La dirección de correo no es válida."
+
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr ""
+"La página de inicio no es válida. Especifica la dirección HTTP(S) completa."
 
 msgid "The PGP key fingerprint is invalid."
 msgstr "La huella digital PGP no es válida."
@@ -796,7 +815,7 @@ msgstr ""
 "escribe un comentario."
 
 msgid "The selected packages have been flagged out-of-date."
-msgstr "Los paquetes seleccionados han sido marcados como desactualizados."
+msgstr "Los paquetes seleccionados han sido marcados como obsoletos."
 
 msgid "You must be logged in before you can unflag packages."
 msgstr "Debes autentificarte antes de poder desmarcar paquetes."
@@ -1009,6 +1028,13 @@ msgstr "Haz clic %saquí%s para ver los detalles del usuario."
 msgid "required"
 msgstr "obligatorio"
 
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr ""
+"Tu nombre de usuario es el nombre que usarás para iniciar sesión. Es visible "
+"para el público en general, incluso si tu cuenta no está activa."
+
 msgid "Normal user"
 msgstr "Usuario normal"
 
@@ -1025,7 +1051,7 @@ msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
 msgstr ""
-"Asegúrate de escribir tu dirección de correc correctamente o estarás "
+"Asegúrate de escribir tu dirección de correo correctamente o terminarás "
 "bloqueado."
 
 msgid "Hide Email Address"
@@ -1108,17 +1134,16 @@ msgstr "Guardar"
 
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr "Marcar comentario como desactualizado: %s"
+msgstr "Marcar comentario como obsoleto: %s"
 
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr ""
-"%s%s%s se ha marcado %s%s%s como desactualizado %s%s%s por la siguiente "
-"razón:"
+"%s%s%s se ha marcado %s%s%s como obsoleto %s%s%s por la siguiente razón:"
 
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr "%s%s%s no está marcado como desactualizado."
+msgstr "%s%s%s no está marcado como obsoleto."
 
 msgid "Return to Details"
 msgstr "Regresar a detalles"
@@ -1148,10 +1173,10 @@ msgstr "Buscar en la wiki"
 
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr "Marcado como desactualizado (%s)"
+msgstr "Marcado como obsoleto (%s)"
 
 msgid "Flag package out-of-date"
-msgstr "Marcar paquete como desactualizado"
+msgstr "Marcar paquete como obsoleto"
 
 msgid "Unflag package"
 msgstr "Desmarcar paquete"
@@ -1533,7 +1558,7 @@ msgid "Actions"
 msgstr "Acciones"
 
 msgid "Unflag Out-of-date"
-msgstr "Marcar como actualizado"
+msgstr "Desmarcar como obsoleto"
 
 msgid "Adopt Packages"
 msgstr "Adoptar paquetes"
