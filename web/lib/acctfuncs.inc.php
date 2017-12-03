@@ -162,7 +162,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$error = __("The email address is invalid.");
 	}
 
-	if (!$error && !valid_homepage($HP)) {
+	if (!$error && !empty($HP) && !valid_homepage($HP)) {
 		$error = __("The home page is invalid, please specify the full HTTP(s) URL.");
 	}
 
