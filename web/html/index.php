@@ -188,6 +188,7 @@ if (!empty($tokens[1]) && '/' . $tokens[1] == get_pkg_route()) {
 		break;
 	case "/packages.gz":
 	case "/pkgbase.gz":
+	case "/users.gz":
 		header("Content-Type: text/plain");
 		header("Content-Encoding: gzip");
 		readfile("./$path");
