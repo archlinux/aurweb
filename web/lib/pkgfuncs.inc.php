@@ -100,7 +100,7 @@ function can_pin_comment($comment_id=0) {
 	$q.= "LEFT JOIN PackageComments AS pc ON pb.ID = pc.PackageBaseID ";
 	$q.= "WHERE pc.ID = " . intval($comment_id) . " ";
 	$q.= "UNION ";
-	$q = "SELECT pcm.UsersID FROM PackageComaintainers AS pcm ";
+	$q.= "SELECT pcm.UsersID FROM PackageComaintainers AS pcm ";
 	$q.= "LEFT JOIN PackageComments AS pc ";
 	$q.= "ON pcm.PackageBaseID = pc.PackageBaseID ";
 	$q.= "WHERE pc.ID = " . intval($comment_id);
