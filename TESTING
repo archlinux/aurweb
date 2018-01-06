@@ -13,6 +13,8 @@ INSTALL.
 
     # pacman -S php php-sqlite sqlite
 
+   Ensure to enable the pdo_sqlite extension in php.ini.
+
 3) Prepare the testing database:
 
     $ cd /path/to/aurweb/schema

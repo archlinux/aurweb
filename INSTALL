@@ -38,6 +38,8 @@ read the instructions below.
         }
     }
 
+    Ensure to enable the pdo_mysql extension in php.ini.
+
 3) Copy conf/config.proto to /etc/aurweb/config and adjust the configuration
    (pay attention to disable_http_login, enable_maintenance and aur_location).
 
