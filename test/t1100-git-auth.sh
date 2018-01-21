@@ -25,21 +25,4 @@ test_expect_success 'Test authentication with a wrong key.' '
 	test_must_be_empty out
 '
 
-test_expect_success 'Test AUR_OVERWRITE passthrough.' '
-	AUR_OVERWRITE=1 \
-	"$GIT_AUTH" "$AUTH_KEYTYPE_TU" "$AUTH_KEYTEXT_TU" >out &&
-	grep -q AUR_OVERWRITE=1 out
-'
-
-test_expect_success 'Make sure that AUR_OVERWRITE is unset by default.' '
-	"$GIT_AUTH" "$AUTH_KEYTYPE_TU" "$AUTH_KEYTEXT_TU" >out &&
-	grep -q AUR_OVERWRITE=0 out
-'
-
-test_expect_success 'Make sure regular users cannot set AUR_OVERWRITE.' '
-	AUR_OVERWRITE=1 \
-	"$GIT_AUTH" "$AUTH_KEYTYPE_USER" "$AUTH_KEYTEXT_USER" >out &&
-	grep -q AUR_OVERWRITE=0 out
-'
-
 test_done

@@ -238,7 +238,7 @@ def main():
     user = os.environ.get("AUR_USER")
     pkgbase = os.environ.get("AUR_PKGBASE")
     privileged = (os.environ.get("AUR_PRIVILEGED", '0') == '1')
-    allow_overwrite = (os.environ.get("AUR_OVERWRITE", '0') == '1')
+    allow_overwrite = (os.environ.get("AUR_OVERWRITE", '0') == '1') and privileged
     warn_or_die = warn if privileged else die
 
     if len(sys.argv) == 2 and sys.argv[1] == "restore":
