@@ -17,7 +17,11 @@ class AurJSON {
 		'suggest-pkgbase', 'get-comment-form'
 	);
 	private static $exposed_fields = array(
-		'name', 'name-desc', 'maintainer'
+		'name', 'name-desc', 'maintainer',
+		'depends', 'makedepends', 'checkdepends', 'optdepends'
+	);
+	private static $exposed_depfields = array(
+		'depends', 'makedepends', 'checkdepends', 'optdepends'
 	);
 	private static $fields_v1 = array(
 		'Packages.ID', 'Packages.Name',
@@ -329,7 +333,7 @@ class AurJSON {
 
 	/*
 	 * Retrieve package information (used in info, multiinfo, search and
-	 * msearch requests).
+	 * depends requests).
 	 *
 	 * @param $type The request type.
 	 * @param $where_condition An SQL WHERE-condition to filter packages.
@@ -492,6 +496,19 @@ class AurJSON {
 			} else {
 				$keyword_string = $this->dbh->quote($keyword_string);
 				$where_condition = "Users.Username = $keyword_string ";
+			}
+		} else if (in_array($search_by, self::$exposed_depfields)) {
+			if (empty($keyword_string)) {
+				return $this->json_error('Query arg is empty.');
+			} else {
+				$keyword_string = $this->dbh->quote($keyword_string);
+				$search_by = $this->dbh->quote($search_by);
+				$subquery = "SELECT PackageDepends.DepName FROM PackageDepends ";
+				$subquery .= "LEFT JOIN DependencyTypes ";
+				$subquery .= "ON PackageDepends.DepTypeID = DependencyTypes.ID ";
+				$subquery .= "WHERE PackageDepends.PackageID = Packages.ID ";
+				$subquery .= "AND DependencyTypes.Name = $search_by";
+				$where_condition = "$keyword_string IN ($subquery)";
 			}
 		}
 
