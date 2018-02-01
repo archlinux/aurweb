@@ -36,6 +36,10 @@ enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
 render-comment-cmd = /usr/local/bin/aurweb-rendercomment
 
+[ratelimit]
+request_limit = 4000
+window_length = 86400
+
 [notifications]
 notify-cmd = /usr/local/bin/aurweb-notify
 sendmail = /usr/bin/sendmail

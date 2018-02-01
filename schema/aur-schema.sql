@@ -399,3 +399,13 @@ CREATE TABLE AcceptedTerms (
 	FOREIGN KEY (UsersID) REFERENCES Users(ID) ON DELETE CASCADE,
 	FOREIGN KEY (TermsID) REFERENCES Terms(ID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
+
+-- Rate limits for API
+--
+CREATE TABLE `ApiRateLimit` (
+  IP VARCHAR(45) NOT NULL,
+  Requests INT(11) NOT NULL,
+  WindowStart BIGINT(20) NOT NULL,
+  PRIMARY KEY (`ip`)
+) ENGINE = InnoDB;
+CREATE INDEX ApiRateLimitWindowStart ON ApiRateLimit (WindowStart);

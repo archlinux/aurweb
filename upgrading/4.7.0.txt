@@ -1,0 +1,11 @@
+1. Add ApiRateLimit table:
+
+---
+CREATE TABLE `ApiRateLimit` (
+  IP VARCHAR(45) NOT NULL,
+  Requests INT(11) NOT NULL,
+  WindowStart BIGINT(20) NOT NULL,
+  PRIMARY KEY (`ip`)
+) ENGINE = InnoDB;
+CREATE INDEX ApiRateLimitWindowStart ON ApiRateLimit (WindowStart);
+---

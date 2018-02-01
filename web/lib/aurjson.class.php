@@ -96,6 +96,11 @@ class AurJSON {
 
 		$this->dbh = DB::connect();
 
+		if ($this->check_ratelimit($_SERVER['REMOTE_ADDR'])) {
+			header("HTTP/1.1 429 Too Many Requests");
+			return $this->json_error('Rate limit reached');
+		}
+
 		$type = str_replace('-', '_', $http_data['type']);
 		if ($type == 'info' && $this->version >= 5) {
 			$type = 'multiinfo';
@@ -127,6 +132,87 @@ class AurJSON {
 		} else {
 			header('content-type: application/json');
 			return $json;
+		}
+	}
+
+	/*
+	 * Check if an IP needs to be  rate limited.
+	 *
+	 * @param $ip IP of the current request
+	 *
+	 * @return true if IP needs to be rate limited, false otherwise.
+	 */
+	private function check_ratelimit($ip) {
+		$limit = config_get("ratelimit", "request_limit");
+		if ($limit == 0) {
+			return false;
+		}
+
+		$window_length = config_get("ratelimit", "window_length");
+		$this->update_ratelimit($ip);
+		$stmt = $this->dbh->prepare("
+			SELECT Requests FROM ApiRateLimit
+			WHERE IP = :ip");
+		$stmt->bindParam(":ip", $ip);
+		$result = $stmt->execute();
+
+		if (!$result) {
+			return false;
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($row['Requests'] > $limit) {
+			return true;
+		}
+		return false;
+	}
+
+	/*
+	 * Update a rate limit for an IP by increasing it's requests value by one.
+	 *
+	 * @param $ip IP of the current request
+	 *
+	 * @return void
+	 */
+	private function update_ratelimit($ip) {
+		$window_length = config_get("ratelimit", "window_length");
+		$db_backend = config_get("database", "backend");
+		$time = time();
+
+		// Clean up old windows
+		$deletion_time = $time - $window_length;
+		$stmt = $this->dbh->prepare("
+			DELETE FROM ApiRateLimit
+			WHERE WindowStart < :time");
+		$stmt->bindParam(":time", $deletion_time);
+		$stmt->execute();
+
+		if ($db_backend == "mysql") {
+			$stmt = $this->dbh->prepare("
+				INSERT INTO ApiRateLimit
+				(IP, Requests, WindowStart)
+				VALUES (:ip, 1, :window_start)
+				ON DUPLICATE KEY UPDATE Requests=Requests+1");
+			$stmt->bindParam(":ip", $ip);
+			$stmt->bindParam(":window_start", $time);
+			$stmt->execute();
+		} elseif ($db_backend == "sqlite") {
+			$stmt = $this->dbh->prepare("
+				INSERT OR IGNORE INTO ApiRateLimit
+				(IP, Requests, WindowStart)
+				VALUES (:ip, 0, :window_start);");
+			$stmt->bindParam(":ip", $ip);
+			$stmt->bindParam(":window_start", $time);
+			$stmt->execute();
+
+			$stmt = $this->dbh->prepare("
+				UPDATE ApiRateLimit
+				SET Requests = Requests + 1
+				WHERE IP = :ip");
+			$stmt->bindParam(":ip", $ip);
+			$stmt->execute();
+		} else {
+			throw new RuntimeException("Unknown database backend");
 		}
 	}
 
