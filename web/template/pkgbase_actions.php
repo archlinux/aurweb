@@ -41,7 +41,7 @@
 
 			<?php if ($uid && $row["MaintainerUID"] === NULL): ?>
 			<li><?= html_action_form($base_uri . 'adopt/', "do_Adopt", __('Adopt Package')) ?></li>
-			<?php elseif (has_credential(CRED_PKGBASE_DISOWN, array($row["MaintainerUID"]))): ?>
+			<?php elseif (has_credential(CRED_PKGBASE_DISOWN, array_merge(array($row["MaintainerUID"]), pkgbase_get_comaintainer_uids(array($base_id))))): ?>
 			<li><?= html_action_form($base_uri . 'disown/', "do_Disown", __('Disown Package')) ?></li>
 			<?php endif; ?>
 		</ul>

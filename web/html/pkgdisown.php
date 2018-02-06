@@ -7,10 +7,13 @@ include_once("pkgfuncs.inc.php");
 
 html_header(__("Disown Package"));
 
+$action = "do_Disown";
+
 $maintainer_uids = array(pkgbase_maintainer_uid($base_id));
 $comaintainers = pkgbase_get_comaintainers($base_id);
+$comaintainer_uids = pkgbase_get_comaintainer_uids(array($base_id));
 
-if (has_credential(CRED_PKGBASE_DISOWN, $maintainer_uids)): ?>
+if (has_credential(CRED_PKGBASE_DISOWN, array_merge($maintainer_uids, $comaintainer_uids))): ?>
 <div class="box">
 	<h2><?= __('Disown Package') ?>: <?= htmlspecialchars($pkgbase_name) ?></h2>
 	<p>
@@ -23,7 +26,11 @@ if (has_credential(CRED_PKGBASE_DISOWN, $maintainer_uids)): ?>
 		<?php endforeach; ?>
 	</ul>
 	<p>
-		<?php if (count($comaintainers) > 0 && !has_credential(CRED_PKGBASE_DISOWN)): ?>
+
+		<?php if (in_array(uid_from_sid($_COOKIE["AURSID"]), $comaintainer_uids) && !has_credential(CRED_PKGBASE_DISOWN)):
+			$action = "do_DisownComaintainer"; ?>
+			<?= __("By selecting the checkbox, you confirm that you want to no longer be a package co-maintainer.") ?>
+		<?php elseif (count($comaintainers) > 0 && !has_credential(CRED_PKGBASE_DISOWN)): ?>
 		<?= __('By selecting the checkbox, you confirm that you want to disown the package and transfer ownership to %s%s%s.',
 			'<strong>', $comaintainers[0], '</strong>'); ?>
 		<?php else: ?>
@@ -40,7 +47,7 @@ if (has_credential(CRED_PKGBASE_DISOWN, $maintainer_uids)): ?>
 			<?php endif; ?>
 			<p><label class="confirmation"><input type="checkbox" name="confirm" value="1" />
 			<?= __("Confirm to disown the package") ?></label</p>
-			<p><input type="submit" class="button" name="do_Disown" value="<?= __("Disown") ?>" /></p>
+			<p><input type="submit" class="button" name="<?= $action ?>" value="<?= __("Disown") ?>" /></p>
 		</fieldset>
 	</form>
 </div>

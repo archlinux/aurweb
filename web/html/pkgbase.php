@@ -60,6 +60,9 @@ if (check_token()) {
 			$output = __("The selected packages have not been disowned, check the confirmation checkbox.");
 			$ret = false;
 		}
+	} elseif (current_action("do_DisownComaintainer")) {
+		$uid = uid_from_sid($_COOKIE["AURSID"]);
+		list($ret, $output) = pkgbase_remove_comaintainer($base_id, $uid);
 	} elseif (current_action("do_Vote")) {
 		list($ret, $output) = pkgbase_vote($ids, true);
 	} elseif (current_action("do_UnVote")) {

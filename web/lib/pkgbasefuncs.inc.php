@@ -1158,11 +1158,12 @@ function pkgbase_get_comaintainer_uids($base_ids) {
  *
  * @param int $base_id The package base ID to update the co-maintainers of
  * @param array $users Array of co-maintainer user names
+ * @param boolean $override Override credential check if true
  *
  * @return array Tuple of success/failure indicator and error message
  */
-function pkgbase_set_comaintainers($base_id, $users) {
-	if (!has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array(pkgbase_maintainer_uid($base_id)))) {
+function pkgbase_set_comaintainers($base_id, $users, $override=false) {
+	if (!$override && !has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array(pkgbase_maintainer_uid($base_id)))) {
 		return array(false, __("You are not allowed to manage co-maintainers of this package base."));
 	}
 
@@ -1212,4 +1213,11 @@ function pkgbase_set_comaintainers($base_id, $users) {
 	}
 
 	return array(true, __("The package base co-maintainers have been updated."));
+}
+
+function pkgbase_remove_comaintainer($base_id, $uid) {
+	$uname = username_from_id($uid);
+	$names = pkgbase_get_comaintainers($base_id);
+	$names = array_diff($names, array($uname));
+	return pkgbase_set_comaintainers($base_id, $names, true);
 }
