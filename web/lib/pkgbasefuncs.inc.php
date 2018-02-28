@@ -264,8 +264,6 @@ function pkgbase_get_details($base_id) {
  * @return void
  */
 function pkgbase_display_details($base_id, $row, $SID="") {
-	$dbh = DB::connect();
-
 	if (isset($row['error'])) {
 		print "<p>" . $row['error'] . "</p>\n";
 	}
