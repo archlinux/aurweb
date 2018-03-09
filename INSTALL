@@ -95,3 +95,9 @@ read the instructions below.
     }
 
    Sample systemd unit files for fcgiwrap can be found under conf/.
+
+10) If you want memcache to cache MySQL data.
+
+    # pacman -S php-memcached
+
+    And edit the configuration file to enabled memcache caching.

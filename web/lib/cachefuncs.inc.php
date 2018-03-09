@@ -1,22 +1,18 @@
 <?php
 
-if (!defined('CACHE_TYPE')) {
-	define('CACHE_TYPE', 'NONE');
-}
-
 # Check if APC extension is loaded, and set cache prefix if it is.
-if (CACHE_TYPE == 'APC' && !defined('EXTENSION_LOADED_APC')) {
+if (config_get('options', 'cache') == 'apc' && !defined('EXTENSION_LOADED_APC')) {
 	define('EXTENSION_LOADED_APC', extension_loaded('apc'));
 	define('CACHE_PREFIX', 'aur:');
 }
 
 # Check if memcache extension is loaded, and set cache prefix if it is.
-if (CACHE_TYPE == 'MEMCACHE' && !defined('EXTENSION_LOADED_MEMCACHE')) {
+if (config_get('options', 'cache') == 'memcache' && !defined('EXTENSION_LOADED_MEMCACHE')) {
 	define('EXTENSION_LOADED_MEMCACHE', extension_loaded('memcached'));
 	define('CACHE_PREFIX', 'aur:');
 	global $memcache;
 	$memcache = new Memcached();
-	$mcs = defined('MEMCACHE_SERVERS') ? MEMCACHE_SERVERS : '127.0.0.1:11211';
+	$mcs = config_get('options', 'memcache_servers');
 	foreach (explode(',', $mcs) as $elem) {
 		$telem = trim($elem);
 		$mcserver = explode(':', $telem);
