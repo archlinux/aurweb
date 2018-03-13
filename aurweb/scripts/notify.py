@@ -140,7 +140,7 @@ def get_request_recipients(conn, reqid):
 
 def get_tu_vote_reminder_recipients(conn, vote_id):
     cur = conn.execute('SELECT Email FROM Users ' +
-                       'WHERE AccountTypeID = 2 AND ID NOT IN ' +
+                       'WHERE AccountTypeID IN (2, 4) AND ID NOT IN ' +
                        '(SELECT UserID FROM TU_Votes ' +
                        'WHERE TU_Votes.VoteID = ?)', [vote_id])
     return [row[0] for row in cur.fetchall()]
