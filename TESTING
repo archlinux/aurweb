@@ -11,7 +11,7 @@ INSTALL.
 
 2) Install php and necessary modules:
 
-    # pacman -S php php-sqlite sqlite
+    # pacman -S php php-sqlite sqlite words fortune-mod
 
    Ensure to enable the pdo_sqlite extension in php.ini.
 
