@@ -8,7 +8,11 @@ function config_load() {
 		if (!$path) {
 			$path = "/etc/aurweb/config";
 		}
-		$AUR_CONFIG = parse_ini_file($path, true, INI_SCANNER_RAW);
+		if (file_exists($path)) {
+			$AUR_CONFIG = parse_ini_file($path, true, INI_SCANNER_RAW);
+		} else {
+			die("aurweb config file not found");
+		}
 	}
 }
 
