@@ -19,10 +19,12 @@ function updates_table() {
 		$result = $dbh->query($q);
 
 		$newest_packages = new ArrayObject();
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$newest_packages->append($row);
+		if ($result) {
+			while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				$newest_packages->append($row);
+			}
+			set_cache_value($key, $newest_packages);
 		}
-		set_cache_value($key, $newest_packages);
 	}
 	include('stats/updates_table.php');
 }
