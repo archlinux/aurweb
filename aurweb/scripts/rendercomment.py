@@ -119,8 +119,8 @@ def main():
                                                FlysprayLinksExtension(),
                                                GitCommitsExtension(pkgbase),
                                                HeadingExtension()])
-    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + \
-                   ['p', 'pre', 'h4', 'h5', 'h6']
+    allowed_tags = (bleach.sanitizer.ALLOWED_TAGS +
+                    ['p', 'pre', 'h4', 'h5', 'h6', 'br', 'hr'])
     html = bleach.clean(html, tags=allowed_tags)
     save_rendered_comment(conn, commentid, html)
 
