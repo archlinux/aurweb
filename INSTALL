@@ -40,8 +40,10 @@ read the instructions below.
 
     Ensure to enable the pdo_mysql extension in php.ini.
 
-3) Copy conf/config.proto to /etc/aurweb/config and adjust the configuration
-   (pay attention to disable_http_login, enable_maintenance and aur_location).
+3) Optionally copy conf/config.defaults to /etc/aurweb/. Create or copy
+   /etc/aurweb/config (this is expected to contain all configuration settings
+   if the defaults file does not exist) and adjust the configuration (pay
+   attention to disable_http_login, enable_maintenance and aur_location).
 
 4) Create a new MySQL database and a user and import the aurweb SQL schema:
 

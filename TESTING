@@ -23,7 +23,7 @@ INSTALL.
     $ sqlite3 ../aurweb.sqlite3 < aur-schema-sqlite.sql
     $ sqlite3 ../aurweb.sqlite3 < out.sql
 
-4) Copy conf/config.proto to conf/config and adjust the configuration
+4) Copy conf/config.defaults to conf/config and adjust the configuration
    (pay attention to disable_http_login, enable_maintenance and aur_location).
 
    Be sure to change backend to sqlite and name to the file location of your
