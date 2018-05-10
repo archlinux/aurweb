@@ -82,11 +82,7 @@
 			<a href="<?= get_pkgbase_uri($row['Name']) ?>merge/?into=<?= urlencode($row['MergeInto']) ?>&via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
 			<br />
 			<?php elseif ($row['Type'] == 'orphan' && $due): ?>
-			<form action="<?= get_pkgbase_uri($row['Name']) . 'disown/'; ?>" method="post">
-				<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
-				<input type="hidden" name="via" value="<?= intval($row['ID']) ?>" />
-				<input type="submit" class="button text-button" name="do_Disown" value="<?= __('Accept') ?>" />
-			</form>
+			<a href="<?= get_pkgbase_uri($row['Name']) ?>disown/?via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
 			<?php elseif ($row['Type'] == 'orphan' && !$due): ?>
 			<?= __('Locked') ?> (<?= $time_left_fmt ?>)
 			<br />
