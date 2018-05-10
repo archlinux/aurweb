@@ -29,6 +29,7 @@ setup(
             'aurweb-popupdate = aurweb.scripts.popupdate:main',
             'aurweb-rendercomment = aurweb.scripts.rendercomment:main',
             'aurweb-tuvotereminder = aurweb.scripts.tuvotereminder:main',
+            'aurweb-usermaint = aurweb.scripts.usermaint:main',
         ],
     },
 )
