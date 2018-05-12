@@ -77,16 +77,14 @@
 			<?php if ($row['BaseID']): ?>
 			<?php if ($row['Type'] == 'deletion'): ?>
 			<a href="<?= get_pkgbase_uri($row['Name']) ?>delete/?via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
-			<br/ >
 			<?php elseif ($row['Type'] == 'merge'): ?>
 			<a href="<?= get_pkgbase_uri($row['Name']) ?>merge/?into=<?= urlencode($row['MergeInto']) ?>&via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
-			<br />
 			<?php elseif ($row['Type'] == 'orphan' && $due): ?>
 			<a href="<?= get_pkgbase_uri($row['Name']) ?>disown/?via=<?= intval($row['ID']) ?>"><?= __('Accept') ?></a>
 			<?php elseif ($row['Type'] == 'orphan' && !$due): ?>
 			<?= __('Locked') ?> (<?= $time_left_fmt ?>)
-			<br />
 			<?php endif; ?>
+			<br/ >
 			<?php endif; ?>
 			<a href="<?= get_pkgreq_route() . '/' . intval($row['ID']) ?>/close/"><?= __('Close') ?></a>
 		</td>
