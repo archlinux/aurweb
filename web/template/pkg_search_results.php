@@ -66,7 +66,7 @@ if (!$result): ?>
 		</thead>
 		<tbody>
 
-	<?php while (list($indx, $row) = each($searchresults)): ?>
+	<?php foreach ($searchresults as $indx => $row): ?>
 		<tr class="<?= ($indx % 2 == 0) ? 'odd' : 'even' ?>">
 		<?php if ($SID && $show_headers): ?>
 		<td><input type="checkbox" name="IDs[<?= $row["PackageBaseID"] ?>]" value="1" /></td>
@@ -100,7 +100,7 @@ if (!$result): ?>
 		<?php endif; ?>
 		</td>
 	</tr>
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 
 		</tbody>
 		</table>

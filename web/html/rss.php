@@ -40,7 +40,7 @@ $rss->image = $image;
 #Get the latest packages and add items for them
 $packages = latest_pkgs(20);
 
-while (list($indx, $row) = each($packages)) {
+foreach ($packages as $indx => $row) {
 	$item = new FeedItem();
 	$item->title = $row["Name"];
 	$item->link = "{$protocol}://{$host}" . get_pkg_uri($row["Name"]);

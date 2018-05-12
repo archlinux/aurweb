@@ -126,10 +126,10 @@ endif;
 <?php if (count($pkgs) > 0): ?>
 			<ul>
 <?php
-	while (list($k, $pkg) = each($pkgs)):
+	foreach ($pkgs as $k => $pkg):
 ?>
 	<li><a href="<?= htmlspecialchars(get_pkg_uri($pkg), ENT_QUOTES); ?>" title="<?= __('View packages details for').' '. htmlspecialchars($pkg) ?>"><?= htmlspecialchars($pkg) ?></a></li>
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 			</ul>
 <?php endif; ?>
 		</div>

@@ -15,7 +15,7 @@ if (!isset($count)) {
 		<?php endif; ?>
 	</h3>
 
-	<?php while (list($indx, $row) = each($comments)): ?>
+	<?php foreach ($comments as $indx => $row): ?>
 		<?php
 		$date_fmtd = date('Y-m-d H:i', $row['CommentTS']);
 		if ($row['UserName']) {
@@ -113,7 +113,7 @@ if (!isset($count)) {
 				<?php endif; ?>
 			</div>
 		</div>
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 
 <?php if ($count > 10 && !isset($_GET['comments']) && !isset($pinned)): ?>
 	<h3>

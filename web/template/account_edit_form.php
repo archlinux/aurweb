@@ -122,7 +122,7 @@
 			<select name="L" id="id_language">
 <?php
 	reset($SUPPORTED_LANGS);
-	while (list($code, $lang) = each($SUPPORTED_LANGS)) {
+	foreach ($SUPPORTED_LANGS as $code => $lang) {
 		if ($L == $code) {
 			print "<option value=\"".$code."\" selected=\"selected\"> ".$lang."</option>"."\n";
 		} else {
@@ -137,7 +137,7 @@
 			<select name="TZ" id="id_timezone">
 <?php
 	$timezones = generate_timezone_list();
-	while (list($key, $val) = each($timezones)) {
+	foreach ($timezones as $key => $val) {
 		if ($TZ == $key) {
 			print "<option value=\"".$key."\" selected=\"selected\"> ".$val."</option>\n";
 		} else {

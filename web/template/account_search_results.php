@@ -18,7 +18,7 @@ else:
 			</thead>
 			<?php
 			$i = 0;
-			while (list($indx, $row) = each($userinfo)):
+			foreach ($userinfo as $indx => $row):
 				if ($i % 2):
 					$c = "even";
 				else:
@@ -51,7 +51,7 @@ else:
 				</tr>
 			<?php
 				$i++;
-			endwhile;
+			endforeach;
 			?>
 	</table>
 
@@ -64,10 +64,10 @@ else:
 						<input type="hidden" name="O" value="<?= ($OFFSET-$HITS_PER_PAGE) ?>" />
 						<?php
 						reset($search_vars);
-						while (list($k, $ind) = each($search_vars)):
+						foreach ($search_vars as $k => $ind):
 						?>
 						<input type="hidden" name="<?= $ind ?>" value="<?= ${$ind} ?>" />
-						<?php endwhile; ?>
+						<?php endforeach; ?>
 						<input type="submit" class="button" value="&lt;-- <?= __("Less") ?>" />
 					</fieldset>
 				</form>
@@ -79,10 +79,10 @@ else:
 						<input type="hidden" name="O" value="<?= ($OFFSET+$HITS_PER_PAGE) ?>" />
 						<?php
 						reset($search_vars);
-						while (list($k, $ind) = each($search_vars)):
+						foreach ($search_vars as $k => $ind):
 						?>
 						<input type="hidden" name="<?= $ind ?>" value="<?= ${$ind} ?>" />
-						<?php endwhile; ?>
+						<?php endforeach; ?>
 						<input type="submit" class="button" value="<?= __("More") ?> --&gt;" />
 					</fieldset>
 				</form>

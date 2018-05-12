@@ -36,7 +36,7 @@
 </thead>
 <tbody>
 
-	<?php while (list($indx, $row) = each($results)): ?>
+	<?php foreach ($results as $indx => $row): ?>
 	<?php
 	$idle_time = config_get_int('options', 'request_idle_time');
 	$due = ($row['Open'] && time() - intval($row['RequestTS']) > $idle_time);
@@ -100,7 +100,7 @@
 		<td><?= __("unknown") ?></td>
 		<?php endif; ?>
 	</tr>
-	<?php endwhile; ?>
+	<?php endforeach; ?>
 
 </tbody>
 </table>

@@ -26,7 +26,7 @@
 		</thead>
 
 		<tbody>
-			<?php while (list($indx, $row) = each($result)): ?>
+			<?php foreach ($result as $indx => $row): ?>
 			<?php
 			if ($indx % 2) {
 				$c = "even";
@@ -60,7 +60,7 @@
 					<?php endif; ?>
 				</td>
 			</tr>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</tbody>
 	</table>
 

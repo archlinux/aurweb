@@ -276,9 +276,9 @@ endif;
 			<h3><?= __('Dependencies') . " (" . count($deps) . ")"?></h3>
 <?php if (count($deps) > 0): ?>
 			<ul id="pkgdepslist">
-<?php while (list($k, $darr) = each($deps)): ?>
+<?php foreach ($deps as $k => $darr): ?>
 	<li><?= pkg_depend_link($darr[0], $darr[1], $darr[2], $darr[3], $darr[4], $darr[5]); ?></li>
-<?php endwhile; ?>
+<?php endforeach; ?>
 			</ul>
 <?php endif; ?>
 		</div>
@@ -286,9 +286,9 @@ endif;
 			<h3><?= __('Required by') . " (" . count($requiredby) . ")"?></h3>
 <?php if (count($requiredby) > 0): ?>
 			<ul id="pkgreqslist">
-				<?php while (list($k, $darr) = each($requiredby)): ?>
+				<?php foreach ($requiredby as $k => $darr): ?>
 				<li><?= pkg_requiredby_link($darr[0], $darr[1], $darr[2], $darr[3], $row['Name']); ?></li>
-				<?php endwhile; ?>
+				<?php endforeach; ?>
 			</ul>
 <?php endif; ?>
 		</div>
@@ -298,9 +298,9 @@ endif;
 		<?php if (count($sources) > 0): ?>
 		<div>
 			<ul id="pkgsrcslist">
-					<?php while (list($k, $src) = each($sources)): ?>
+					<?php foreach ($sources as $k => $src): ?>
 					<li><?= pkg_source_link($src[0], $src[1], urlencode($row['BaseName'])) ?></li>
-					<?php endwhile; ?>
+					<?php endforeach; ?>
 			</ul>
 		</div>
 		<?php endif; ?>

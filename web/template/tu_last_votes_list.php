@@ -11,7 +11,7 @@
 		<tbody>
 			<?php if (empty($result)): ?>
 			<tr><td align="center" colspan="0"><?= __("No results found.") ?></td></tr>
-			<?php else: while (list($indx, $row) = each($result)):
+			<?php else: foreach ($result as $indx => $row):
 				if ($indx % 2):
 					$c = "even";
 				else:
@@ -28,7 +28,7 @@
 				</td>
 			</tr>
 			<?php
-			endwhile;
+			endforeach;
 			endif;
 			?>
 		</tbody>

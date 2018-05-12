@@ -16,14 +16,14 @@ if (has_credential(CRED_PKGBASE_LIST_VOTERS)):
 	<h2>Votes for <a href="<?= get_pkgbase_uri($pkgbase_name); ?>"><?= $pkgbase_name ?></a></h2>
 	<div class="boxbody">
 		<ul>
-			<?php while (list($indx, $row) = each($votes)): ?>
+			<?php foreach ($votes as $indx => $row): ?>
 			<li>
 				<a href="<?= get_user_uri($row['Username']); ?>"><?= htmlspecialchars($row['Username']) ?></a>
 				<?php if ($row["VoteTS"] > 0): ?>
 				(<?= date("Y-m-d H:i", intval($row["VoteTS"])) ?>)
 				<?php endif; ?>
 			</li>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</ul>
 	</div>
 </div>
