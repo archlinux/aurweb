@@ -22,7 +22,7 @@ function config_load() {
 		} else {
 			die("aurweb config file not found");
 		}
-		$AUR_CONFIG = array_replace_recursive($default_config, $config)
+		$AUR_CONFIG = array_replace_recursive($default_config, $config);
 	}
 }
 
