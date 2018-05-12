@@ -10,7 +10,7 @@ function config_load() {
 		}
 		$defaults_path = getenv('AUR_CONFIG_DEFAULTS');
 		if (!$defaults_path) {
-			$defaults_path = path . ".defaults";
+			$defaults_path = $path . ".defaults";
 		}
 		if (file_exists($defaults_path)) {
 			$default_config = parse_ini_file($defaults_path, true, INI_SCANNER_RAW);
