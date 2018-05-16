@@ -35,7 +35,7 @@ def send_notification(to, subject, body, refs, headers={}):
     if refs:
         body = wrapped + '\n' + refs
     else:
-        body = wrapped
+        body = wrapped.rstrip()
 
     for recipient in to:
         msg = email.mime.text.MIMEText(body, 'plain', 'utf-8')
@@ -304,7 +304,7 @@ def comaintainer_add(conn, pkgbase_id, uid):
 
     subject = 'AUR Co-Maintainer Notification for %s' % (pkgbase)
     body = 'You were added to the co-maintainer list of %s [1].' % (pkgbase)
-    refs = '[1] ' + pkgbase_uri + '\n'
+    refs = '[1] ' + pkgbase_uri
 
     send_notification(to, subject, body, refs)
 
@@ -318,7 +318,7 @@ def comaintainer_remove(conn, pkgbase_id, uid):
     subject = 'AUR Co-Maintainer Notification for %s' % (pkgbase)
     body = ('You were removed from the co-maintainer list of %s [1].' %
             (pkgbase))
-    refs = '[1] ' + pkgbase_uri + '\n'
+    refs = '[1] ' + pkgbase_uri
 
     send_notification(to, subject, body, refs)
 
@@ -378,7 +378,7 @@ def request_open(conn, uid, reqid, reqtype, pkgbase_id, merge_into=None):
                (user, reqtype, pkgbase)
         body += '\n\n' + text
         refs = '[1] ' + user_uri + '\n'
-        refs += '[2] ' + pkgbase_uri + '\n'
+        refs += '[2] ' + pkgbase_uri
     thread_id = '<pkg-request-' + reqid + '@aur.archlinux.org>'
     # Use a deterministic Message-ID for the first email referencing a request.
     headers = headers_msgid(thread_id)
