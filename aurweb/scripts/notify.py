@@ -7,6 +7,7 @@ import textwrap
 
 import aurweb.config
 import aurweb.db
+import aurweb.l10n
 
 aur_location = aurweb.config.get('options', 'aur_location')
 
@@ -40,36 +41,37 @@ def pkgbase_from_pkgreq(conn, reqid):
     return cur.fetchone()[0]
 
 
-def get_user_email(conn, uid):
-    cur = conn.execute('SELECT Email FROM Users WHERE ID = ?', [uid])
-    return cur.fetchone()[0]
-
-
 class Notification:
+    def __init__(self):
+        self._l10n = aurweb.l10n.Translator()
+
     def get_refs(self):
         return ()
 
     def get_headers(self):
         return {}
 
-    def send(self):
+    def get_body_fmt(self, lang):
         body = ''
-        for line in self.get_body().splitlines():
+        for line in self.get_body(lang).splitlines():
             body += textwrap.fill(line, break_long_words=False) + '\n'
         for i, ref in enumerate(self.get_refs()):
             body += '\n' + '[%d] %s' % (i + 1, ref)
-        body = body.rstrip()
+        return body.rstrip()
 
+    def send(self):
         sendmail = aurweb.config.get('notifications', 'sendmail')
         sender = aurweb.config.get('notifications', 'sender')
         reply_to = aurweb.config.get('notifications', 'reply-to')
 
         for recipient in self.get_recipients():
-            msg = email.mime.text.MIMEText(body, 'plain', 'utf-8')
-            msg['Subject'] = self.get_subject()
+            to, lang = recipient
+            msg = email.mime.text.MIMEText(self.get_body_fmt(lang),
+                                           'plain', 'utf-8')
+            msg['Subject'] = self.get_subject(lang)
             msg['From'] = sender
             msg['Reply-to'] = reply_to
-            msg['To'] = recipient
+            msg['To'] = to
 
             for key, value in self.get_headers().items():
                 msg[key] = value
@@ -81,66 +83,76 @@ class Notification:
 
 class ResetKeyNotification(Notification):
     def __init__(self, conn, uid):
-        cur = conn.execute('SELECT UserName, Email, ResetKey FROM Users ' +
-                           'WHERE ID = ?', [uid])
-        self._username, self._to, self._resetkey = cur.fetchone()
+        cur = conn.execute('SELECT UserName, Email, LangPreference, ' +
+                           'ResetKey FROM Users WHERE ID = ?', [uid])
+        self._username, self._to, self._lang, self._resetkey = cur.fetchone()
+        super().__init__()
 
     def get_recipients(self):
-        return [self._to]
+        return [(self._to, self._lang)]
 
-    def get_subject(self):
-        return 'AUR Password Reset'
+    def get_subject(self, lang):
+        return self._l10n.translate('AUR Password Reset', lang)
 
-    def get_body(self):
-        return 'A password reset request was submitted for the account %s ' \
-               'associated with your email address. If you wish to reset ' \
-               'your password follow the link [1] below, otherwise ignore ' \
-               'this message and nothing will happen.' % (self._username)
+    def get_body(self, lang):
+        return self._l10n.translate(
+                'A password reset request was submitted for the account %s '
+                'associated with your email address. If you wish to reset '
+                'your password follow the link [1] below, otherwise ignore '
+                'this message and nothing will happen.', lang) % \
+                (self._username)
 
     def get_refs(self):
         return (aur_location + '/passreset/?resetkey=' + self._resetkey,)
 
 
 class WelcomeNotification(ResetKeyNotification):
-    def get_subject(self):
-        return 'Welcome to the Arch User Repository'
+    def get_subject(self, lang):
+        return self._l10n.translate('Welcome to the Arch User Repository',
+                                    lang)
 
-    def get_body(self):
-        return 'Welcome to the Arch User Repository! In order to set an ' \
-               'initial password for your new account, please click the ' \
-               'link [1] below. If the link does not work, try copying and ' \
-               'pasting it into your browser.'
+    def get_body(self, lang):
+        return self._l10n.translate(
+                'Welcome to the Arch User Repository! In order to set an '
+                'initial password for your new account, please click the '
+                'link [1] below. If the link does not work, try copying and '
+                'pasting it into your browser.', lang)
 
 
 class CommentNotification(Notification):
     def __init__(self, conn, uid, pkgbase_id, comment_id):
         self._user = username_from_id(conn, uid)
         self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
-                           'INNER JOIN PackageNotifications ' +
+        cur = conn.execute('SELECT DISTINCT Users.Email, Users.LangPreference '
+                           'FROM Users INNER JOIN PackageNotifications ' +
                            'ON PackageNotifications.UserID = Users.ID WHERE ' +
                            'Users.CommentNotify = 1 AND ' +
                            'PackageNotifications.UserID != ? AND ' +
                            'PackageNotifications.PackageBaseID = ?',
                            [uid, pkgbase_id])
-        self._to = [row[0] for row in cur.fetchall()]
+        self._recipients = cur.fetchall()
         cur = conn.execute('SELECT Comments FROM PackageComments WHERE ID = ?',
                            [comment_id])
         self._text = cur.fetchone()[0]
+        super().__init__()
 
     def get_recipients(self):
-        return self._to
+        return self._recipients
 
-    def get_subject(self):
-        return 'AUR Comment for %s' % (self._pkgbase)
+    def get_subject(self, lang):
+        return self._l10n.translate('AUR Comment for %s', lang) % \
+                (self._pkgbase)
 
-    def get_body(self):
-        body = '%s [1] added the following comment to %s [2]:' % \
-               (self._user, self._pkgbase)
+    def get_body(self, lang):
+        body = self._l10n.translate(
+                '%s [1] added the following comment to %s [2]:', lang) % \
+                (self._user, self._pkgbase)
         body += '\n\n' + self._text + '\n\n'
-        body += 'If you no longer wish to receive notifications about this ' \
-                'package, please go to the package page [2] and select ' \
-                '"%s".' % ('Disable notifications')
+        dnlabel = self._l10n.translate('Disable notifications', lang)
+        body += self._l10n.translate(
+                'If you no longer wish to receive notifications about this '
+                'package, please go to the package page [2] and select '
+                '"%s".', lang) % dnlabel
         return body
 
     def get_refs(self):
@@ -157,28 +169,33 @@ class UpdateNotification(Notification):
     def __init__(self, conn, uid, pkgbase_id):
         self._user = username_from_id(conn, uid)
         self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+        cur = conn.execute('SELECT DISTINCT Users.Email, ' +
+                           'Users.LangPreference FROM Users ' +
                            'INNER JOIN PackageNotifications ' +
                            'ON PackageNotifications.UserID = Users.ID WHERE ' +
                            'Users.UpdateNotify = 1 AND ' +
                            'PackageNotifications.UserID != ? AND ' +
                            'PackageNotifications.PackageBaseID = ?',
                            [uid, pkgbase_id])
-        self._to = [row[0] for row in cur.fetchall()]
+        self._recipients = cur.fetchall()
+        super().__init__()
 
     def get_recipients(self):
-        return self._to
+        return self._recipients
 
-    def get_subject(self):
-        return 'AUR Package Update: %s' % (self._pkgbase)
+    def get_subject(self, lang):
+        return self._l10n.translate('AUR Package Update: %s', lang) % \
+                (self._pkgbase)
 
-    def get_body(self):
-        body = '%s [1] pushed a new commit to %s [2].' % \
-               (self._user, self._pkgbase)
+    def get_body(self, lang):
+        body = self._l10n.translate('%s [1] pushed a new commit to %s [2].',
+                                    lang) % (self._user, self._pkgbase)
         body += '\n\n'
-        body += 'If you no longer wish to receive notifications about this ' \
-                'package, please go to the package page [2] and select ' \
-                '"%s".' % ('Disable notifications')
+        dnlabel = self._l10n.translate('Disable notifications', lang)
+        body += self._l10n.translate(
+                'If you no longer wish to receive notifications about this '
+                'package, please go to the package page [2] and select '
+                '"%s".', lang) % dnlabel
         return body
 
     def get_refs(self):
@@ -195,27 +212,31 @@ class FlagNotification(Notification):
     def __init__(self, conn, uid, pkgbase_id):
         self._user = username_from_id(conn, uid)
         self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+        cur = conn.execute('SELECT DISTINCT Users.Email, ' +
+                           'Users.LangPreference FROM Users ' +
                            'LEFT JOIN PackageComaintainers ' +
                            'ON PackageComaintainers.UsersID = Users.ID ' +
                            'INNER JOIN PackageBases ' +
                            'ON PackageBases.MaintainerUID = Users.ID OR ' +
                            'PackageBases.ID = PackageComaintainers.PackageBaseID ' +
                            'WHERE PackageBases.ID = ?', [pkgbase_id])
-        self._to = [row[0] for row in cur.fetchall()]
+        self._recipients = cur.fetchall()
         cur = conn.execute('SELECT FlaggerComment FROM PackageBases WHERE ' +
                            'ID = ?', [pkgbase_id])
         self._text = cur.fetchone()[0]
+        super().__init__()
 
     def get_recipients(self):
-        return self._to
+        return self._recipients
 
-    def get_subject(self):
-        return 'AUR Out-of-date Notification for %s' % (self._pkgbase)
+    def get_subject(self, lang):
+        return self._l10n.translate('AUR Out-of-date Notification for %s',
+                                    lang) % (self._pkgbase)
 
-    def get_body(self):
-        body = 'Your package %s [1] has been flagged out-of-date by ' \
-               '%s [2]:' % (self._pkgbase, self._user)
+    def get_body(self, lang):
+        body = self._l10n.translate(
+                'Your package %s [1] has been flagged out-of-date by '
+                '%s [2]:', lang) % (self._pkgbase, self._user)
         body += '\n\n' + self._text
         return body
 
@@ -228,23 +249,26 @@ class OwnershipEventNotification(Notification):
     def __init__(self, conn, uid, pkgbase_id):
         self._user = username_from_id(conn, uid)
         self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+        cur = conn.execute('SELECT DISTINCT Users.Email, ' +
+                           'Users.LangPreference FROM Users ' +
                            'INNER JOIN PackageNotifications ' +
                            'ON PackageNotifications.UserID = Users.ID WHERE ' +
                            'Users.OwnershipNotify = 1 AND ' +
                            'PackageNotifications.UserID != ? AND ' +
                            'PackageNotifications.PackageBaseID = ?',
                            [uid, pkgbase_id])
-        self._to = [row[0] for row in cur.fetchall()]
+        self._recipients = cur.fetchall()
         cur = conn.execute('SELECT FlaggerComment FROM PackageBases WHERE ' +
                            'ID = ?', [pkgbase_id])
         self._text = cur.fetchone()[0]
+        super().__init__()
 
     def get_recipients(self):
-        return self._to
+        return self._recipients
 
-    def get_subject(self):
-        return 'AUR Ownership Notification for %s' % (self._pkgbase)
+    def get_subject(self, lang):
+        return self._l10n.translate('AUR Ownership Notification for %s',
+                                    lang) % (self._pkgbase)
 
     def get_refs(self):
         return (aur_location + '/pkgbase/' + self._pkgbase + '/',
@@ -252,42 +276,50 @@ class OwnershipEventNotification(Notification):
 
 
 class AdoptNotification(OwnershipEventNotification):
-    def get_body(self):
-        return 'The package %s [1] was adopted by %s [2].' % \
-               (self._pkgbase, self._user)
+    def get_body(self, lang):
+        return self._l10n.translate(
+                'The package %s [1] was adopted by %s [2].', lang) % \
+                (self._pkgbase, self._user)
 
 
 class DisownNotification(OwnershipEventNotification):
     def get_body(self):
-        return 'The package %s [1] was disowned by %s [2].' % \
-               (self._pkgbase, self._user)
+        return self._l10n.translate(
+                'The package %s [1] was disowned by %s [2].', lang) % \
+                (self._pkgbase, self._user)
 
 
 class ComaintainershipEventNotification(Notification):
     def __init__(self, conn, uid, pkgbase_id):
         self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        self._to = get_user_email(conn, uid)
+        cur = conn.execute('SELECT Email, LangPreference FROM Users ' +
+                           'WHERE ID = ?', [uid])
+        self._to, self._lang = cur.fetchone()
+        super().__init__()
 
     def get_recipients(self):
-        return [self._to]
+        return [(self._to, self._lang)]
 
-    def get_subject(self):
-        return 'AUR Co-Maintainer Notification for %s' % (self._pkgbase)
+    def get_subject(self, lang):
+        return self._l10n.translate('AUR Co-Maintainer Notification for %s',
+                                    lang) % (self._pkgbase)
 
     def get_refs(self):
         return (aur_location + '/pkgbase/' + self._pkgbase + '/',)
 
 
 class ComaintainerAddNotification(ComaintainershipEventNotification):
-    def get_body(self):
-        return 'You were added to the co-maintainer list of %s [1].' % \
-               (self._pkgbase)
+    def get_body(self, lang):
+        return self._l10n.translate(
+                'You were added to the co-maintainer list of %s [1].',
+                lang) % (self._pkgbase)
 
 
 class ComaintainerRemoveNotification(ComaintainershipEventNotification):
-    def get_body(self):
-        return 'You were removed from the co-maintainer list of %s [1].' % \
-               (self._pkgbase)
+    def get_body(self, lang):
+        return self._l10n.translate(
+                'You were removed from the co-maintainer list of %s [1].',
+                lang) % (self._pkgbase)
 
 
 class DeleteNotification(Notification):
@@ -298,31 +330,36 @@ class DeleteNotification(Notification):
             self._new_pkgbase = pkgbase_from_id(conn, new_pkgbase_id)
         else:
             self._new_pkgbase = None
-        cur = conn.execute('SELECT DISTINCT Users.Email FROM Users ' +
+        cur = conn.execute('SELECT DISTINCT Users.Email, ' +
+                           'Users.LangPreference FROM Users ' +
                            'INNER JOIN PackageNotifications ' +
                            'ON PackageNotifications.UserID = Users.ID WHERE ' +
                            'PackageNotifications.UserID != ? AND ' +
                            'PackageNotifications.PackageBaseID = ?',
                            [uid, old_pkgbase_id])
-        self._to = [row[0] for row in cur.fetchall()]
+        self._recipients = cur.fetchall()
+        super().__init__()
 
     def get_recipients(self):
-        return self._to
+        return self._recipients
 
-    def get_subject(self):
-        return 'AUR Package deleted: %s' % (self._old_pkgbase)
+    def get_subject(self, lang):
+        return self._l10n.translate('AUR Package deleted: %s', lang) % \
+                (self._old_pkgbase)
 
-    def get_body(self):
+    def get_body(self, lang):
         if self._new_pkgbase:
-            return '%s [1] merged %s [2] into %s [3].\n\n' \
-                   'If you no longer wish receive notifications about the ' \
-                   'new package, please go to [3] and click "%s".' % \
-                   (self._user, self._old_pkgbase, self._new_pkgbase,
-                    'Disable notifications')
+            dnlabel = self._l10n.translate('Disable notifications', lang)
+            return self._l10n.translate(
+                    '%s [1] merged %s [2] into %s [3].\n\n'
+                    'If you no longer wish receive notifications about the '
+                    'new package, please go to [3] and click "%s".', lang) % \
+                    (self._user, self._old_pkgbase, self._new_pkgbase, dnlabel)
         else:
-            return '%s [1] deleted %s [2].\n\n' \
-                   'You will no longer receive notifications about this ' \
-                   'package.' % (self._user, self._old_pkgbase)
+            return self._l10n.translate(
+                    '%s [1] deleted %s [2].\n\n'
+                    'You will no longer receive notifications about this '
+                    'package.', lang) % (self._user, self._old_pkgbase)
 
     def get_refs(self):
         refs = (aur_location + '/account/' + self._user + '/',
@@ -353,13 +390,13 @@ class RequestOpenNotification(Notification):
         self._merge_into = merge_into
 
     def get_recipients(self):
-        return [self._to]
+        return [(self._to, 'en')]
 
-    def get_subject(self):
+    def get_subject(self, lang):
         return '[PRQ#%d] %s Request for %s' % \
                (self._reqid, self._reqtype.title(), self._pkgbase)
 
-    def get_body(self):
+    def get_body(self, lang):
         if self._merge_into:
             body = '%s [1] filed a request to merge %s [2] into %s [3]:' % \
                    (self._user, self._pkgbase, self._merge_into)
@@ -405,12 +442,12 @@ class RequestCloseNotification(Notification):
         self._reason = reason
 
     def get_recipients(self):
-        return [self._to]
+        return [(self._to, 'en')]
 
-    def get_subject(self):
+    def get_subject(self, lang):
         return '[PRQ#%d] Request %s' % (self._reqid, self._reason.title())
 
-    def get_body(self):
+    def get_body(self, lang):
         if self._user:
             body = 'Request #%d has been %s by %s [1]' % \
                    (self._reqid, self._reason, self._user)
@@ -440,22 +477,25 @@ class RequestCloseNotification(Notification):
 class TUVoteReminderNotification(Notification):
     def __init__(self, conn, vote_id):
         self._vote_id = int(vote_id)
-        cur = conn.execute('SELECT Email FROM Users ' +
+        cur = conn.execute('SELECT Email, LangPreference FROM Users ' +
                            'WHERE AccountTypeID IN (2, 4) AND ID NOT IN ' +
                            '(SELECT UserID FROM TU_Votes ' +
                            'WHERE TU_Votes.VoteID = ?)', [vote_id])
-        self._to = [row[0] for row in cur.fetchall()]
+        self._recipients = cur.fetchall()
+        super().__init__()
 
     def get_recipients(self):
-        return self._to
+        return self._recipients
 
-    def get_subject(self):
-        return 'TU Vote Reminder: Proposal %d' % (self._vote_id)
+    def get_subject(self, lang):
+        return self._l10n.translate('TU Vote Reminder: Proposal %d', lang) % \
+                (self._vote_id)
 
-    def get_body(self):
-        return 'Please remember to cast your vote on proposal %d [1]. ' \
-               'The voting period ends in less than 48 hours.' % \
-               (self._vote_id)
+    def get_body(self, lang):
+        return self._l10n.translate(
+                'Please remember to cast your vote on proposal %d [1]. '
+                'The voting period ends in less than 48 hours.', lang) % \
+                (self._vote_id)
 
     def get_refs(self):
         return (aur_location + '/tu/?id=' + str(self._vote_id),)
