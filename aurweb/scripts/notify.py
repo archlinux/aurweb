@@ -96,11 +96,11 @@ class ResetKeyNotification(Notification):
 
     def get_body(self, lang):
         return self._l10n.translate(
-                'A password reset request was submitted for the account %s '
-                'associated with your email address. If you wish to reset '
-                'your password follow the link [1] below, otherwise ignore '
-                'this message and nothing will happen.', lang) % \
-                (self._username)
+                'A password reset request was submitted for the account '
+                '{user} associated with your email address. If you wish to '
+                'reset your password follow the link [1] below, otherwise '
+                'ignore this message and nothing will happen.',
+                lang).format(user=self._username)
 
     def get_refs(self):
         return (aur_location + '/passreset/?resetkey=' + self._resetkey,)
@@ -140,19 +140,19 @@ class CommentNotification(Notification):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Comment for %s', lang) % \
-                (self._pkgbase)
+        return self._l10n.translate('AUR Comment for {pkgbase}',
+                                    lang).format(pkgbase=self._pkgbase)
 
     def get_body(self, lang):
         body = self._l10n.translate(
-                '%s [1] added the following comment to %s [2]:', lang) % \
-                (self._user, self._pkgbase)
+                '{user} [1] added the following comment to {pkgbase} [2]:',
+                lang).format(user=self._user, pkgbase=self._pkgbase)
         body += '\n\n' + self._text + '\n\n'
         dnlabel = self._l10n.translate('Disable notifications', lang)
         body += self._l10n.translate(
                 'If you no longer wish to receive notifications about this '
                 'package, please go to the package page [2] and select '
-                '"%s".', lang) % dnlabel
+                '"{label}".', lang).format(label=dnlabel)
         return body
 
     def get_refs(self):
@@ -184,18 +184,20 @@ class UpdateNotification(Notification):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Package Update: %s', lang) % \
-                (self._pkgbase)
+        return self._l10n.translate('AUR Package Update: {pkgbase}',
+                                    lang).format(pkgbase=self._pkgbase)
 
     def get_body(self, lang):
-        body = self._l10n.translate('%s [1] pushed a new commit to %s [2].',
-                                    lang) % (self._user, self._pkgbase)
+        body = self._l10n.translate('{user} [1] pushed a new commit to '
+                                    '{pkgbase} [2].', lang).format(
+                                            user=self._user,
+                                            pkgbase=self._pkgbase)
         body += '\n\n'
         dnlabel = self._l10n.translate('Disable notifications', lang)
         body += self._l10n.translate(
                 'If you no longer wish to receive notifications about this '
                 'package, please go to the package page [2] and select '
-                '"%s".', lang) % dnlabel
+                '"{label}".', lang).format(label=dnlabel)
         return body
 
     def get_refs(self):
@@ -230,13 +232,15 @@ class FlagNotification(Notification):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Out-of-date Notification for %s',
-                                    lang) % (self._pkgbase)
+        return self._l10n.translate('AUR Out-of-date Notification for '
+                                    '{pkgbase}',
+                                    lang).format(pkgbase=self._pkgbase)
 
     def get_body(self, lang):
         body = self._l10n.translate(
-                'Your package %s [1] has been flagged out-of-date by '
-                '%s [2]:', lang) % (self._pkgbase, self._user)
+                'Your package {pkgbase} [1] has been flagged out-of-date by '
+                '{user} [2]:', lang).format(pkgbase=self._pkgbase,
+                                            user=self._user)
         body += '\n\n' + self._text
         return body
 
@@ -267,8 +271,8 @@ class OwnershipEventNotification(Notification):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Ownership Notification for %s',
-                                    lang) % (self._pkgbase)
+        return self._l10n.translate('AUR Ownership Notification for {pkgbase}',
+                                    lang).format(pkgbase=self._pkgbase)
 
     def get_refs(self):
         return (aur_location + '/pkgbase/' + self._pkgbase + '/',
@@ -278,15 +282,16 @@ class OwnershipEventNotification(Notification):
 class AdoptNotification(OwnershipEventNotification):
     def get_body(self, lang):
         return self._l10n.translate(
-                'The package %s [1] was adopted by %s [2].', lang) % \
-                (self._pkgbase, self._user)
+                'The package {pkgbase} [1] was adopted by {user} [2].',
+                lang).format(pkgbase=self._pkgbase, user=self._user)
 
 
 class DisownNotification(OwnershipEventNotification):
-    def get_body(self):
+    def get_body(self, lang):
         return self._l10n.translate(
-                'The package %s [1] was disowned by %s [2].', lang) % \
-                (self._pkgbase, self._user)
+                'The package {pkgbase} [1] was disowned by {user} '
+                '[2].', lang).format(pkgbase=self._pkgbase,
+                                     user=self._user)
 
 
 class ComaintainershipEventNotification(Notification):
@@ -301,8 +306,9 @@ class ComaintainershipEventNotification(Notification):
         return [(self._to, self._lang)]
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Co-Maintainer Notification for %s',
-                                    lang) % (self._pkgbase)
+        return self._l10n.translate('AUR Co-Maintainer Notification for '
+                                    '{pkgbase}',
+                                    lang).format(pkgbase=self._pkgbase)
 
     def get_refs(self):
         return (aur_location + '/pkgbase/' + self._pkgbase + '/',)
@@ -311,15 +317,15 @@ class ComaintainershipEventNotification(Notification):
 class ComaintainerAddNotification(ComaintainershipEventNotification):
     def get_body(self, lang):
         return self._l10n.translate(
-                'You were added to the co-maintainer list of %s [1].',
-                lang) % (self._pkgbase)
+                'You were added to the co-maintainer list of {pkgbase} [1].',
+                lang).format(pkgbase=self._pkgbase)
 
 
 class ComaintainerRemoveNotification(ComaintainershipEventNotification):
     def get_body(self, lang):
         return self._l10n.translate(
-                'You were removed from the co-maintainer list of %s [1].',
-                lang) % (self._pkgbase)
+                'You were removed from the co-maintainer list of {pkgbase} '
+                '[1].', lang).format(pkgbase=self._pkgbase)
 
 
 class DeleteNotification(Notification):
@@ -344,22 +350,24 @@ class DeleteNotification(Notification):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Package deleted: %s', lang) % \
-                (self._old_pkgbase)
+        return self._l10n.translate('AUR Package deleted: {pkgbase}',
+                                    lang).format(pkgbase=self._old_pkgbase)
 
     def get_body(self, lang):
         if self._new_pkgbase:
             dnlabel = self._l10n.translate('Disable notifications', lang)
             return self._l10n.translate(
-                    '%s [1] merged %s [2] into %s [3].\n\n'
+                    '{user} [1] merged {old} [2] into {new} [3].\n\n'
                     'If you no longer wish receive notifications about the '
-                    'new package, please go to [3] and click "%s".', lang) % \
-                    (self._user, self._old_pkgbase, self._new_pkgbase, dnlabel)
+                    'new package, please go to [3] and click "{label}".',
+                    lang).format(user=self._user, old=self._old_pkgbase,
+                                 new=self._new_pkgbase, label=dnlabel)
         else:
             return self._l10n.translate(
-                    '%s [1] deleted %s [2].\n\n'
+                    '{user} [1] deleted {pkgbase} [2].\n\n'
                     'You will no longer receive notifications about this '
-                    'package.', lang) % (self._user, self._old_pkgbase)
+                    'package.', lang).format(user=self._user,
+                                             pkgbase=self._old_pkgbase)
 
     def get_refs(self):
         refs = (aur_location + '/account/' + self._user + '/',
@@ -488,14 +496,14 @@ class TUVoteReminderNotification(Notification):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('TU Vote Reminder: Proposal %d', lang) % \
-                (self._vote_id)
+        return self._l10n.translate('TU Vote Reminder: Proposal {id}',
+                                    lang).format(id=self._vote_id)
 
     def get_body(self, lang):
         return self._l10n.translate(
-                'Please remember to cast your vote on proposal %d [1]. '
-                'The voting period ends in less than 48 hours.', lang) % \
-                (self._vote_id)
+                'Please remember to cast your vote on proposal {id} [1]. '
+                'The voting period ends in less than 48 hours.',
+                lang).format(id=self._vote_id)
 
     def get_refs(self):
         return (aur_location + '/tu/?id=' + str(self._vote_id),)
