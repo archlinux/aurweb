@@ -39,7 +39,7 @@ def extract_arch_fields(pkginfo, field):
         for val in pkginfo[field]:
             values.append({"value": val, "arch": None})
 
-    for arch in ['i686', 'x86_64']:
+    for arch in pkginfo['arch']:
         if field + '_' + arch in pkginfo:
             for val in pkginfo[field + '_' + arch]:
                 values.append({"value": val, "arch": arch})
