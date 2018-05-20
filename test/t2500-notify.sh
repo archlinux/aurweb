@@ -304,7 +304,7 @@ test_expect_success 'Test subject and body of request close notifications.' '
 	"$NOTIFY" request-close 1 1 accepted &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Request Accepted
+	Subject: [PRQ#1] Deletion Request for foobar Accepted
 	EOD
 	test_cmp actual expected &&
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
@@ -322,7 +322,7 @@ test_expect_success 'Test subject and body of request close notifications (auto-
 	"$NOTIFY" request-close 0 1 accepted &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Request Accepted
+	Subject: [PRQ#1] Deletion Request for foobar Accepted
 	EOD
 	test_cmp actual expected &&
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
@@ -342,7 +342,7 @@ test_expect_success 'Test subject and body of request close notifications with c
 	"$NOTIFY" request-close 1 1 accepted &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Request Accepted
+	Subject: [PRQ#1] Deletion Request for foobar Accepted
 	EOD
 	test_cmp actual expected &&
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&

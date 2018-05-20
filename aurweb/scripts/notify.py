@@ -443,9 +443,14 @@ class RequestCloseNotification(Notification):
                            'WHERE PackageRequests.ID = ?', [reqid])
         self._to = aurweb.config.get('options', 'aur_request_ml')
         self._cc = [row[0] for row in cur.fetchall()]
-        cur = conn.execute('SELECT ClosureComment FROM PackageRequests ' +
-                           'WHERE ID = ?', [reqid])
-        self._text = cur.fetchone()[0]
+        cur = conn.execute('SELECT PackageRequests.ClosureComment, ' +
+                           'RequestTypes.Name, ' +
+                           'PackageRequests.PackageBaseName ' +
+                           'FROM PackageRequests ' +
+                           'INNER JOIN RequestTypes ' +
+                           'ON RequestTypes.ID = PackageRequests.ReqTypeID ' +
+                           'WHERE PackageRequests.ID = ?', [reqid])
+        self._text, self._reqtype, self._pkgbase = cur.fetchone()
         self._reqid = int(reqid)
         self._reason = reason
 
@@ -453,7 +458,10 @@ class RequestCloseNotification(Notification):
         return [(self._to, 'en')]
 
     def get_subject(self, lang):
-        return '[PRQ#%d] Request %s' % (self._reqid, self._reason.title())
+        return '[PRQ#%d] %s Request for %s %s' % (self._reqid,
+                                                  self._reqtype.title(),
+                                                  self._pkgbase,
+                                                  self._reason.title())
 
     def get_body(self, lang):
         if self._user:

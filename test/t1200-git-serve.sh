@@ -376,7 +376,7 @@ test_expect_success "Check whether package requests are closed when disowning." 
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
 	"$GIT_SERVE" 2>&1 &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Request Accepted
+	Subject: [PRQ#1] Orphan Request for foobar Accepted
 	EOD
 	grep "^Subject.*PRQ" sendmail.out >sendmail.parts &&
 	test_cmp sendmail.parts expected &&
