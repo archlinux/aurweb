@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AUR package.
-#
+# 
 # Translators:
 # Achilleas Pipinellis, 2014
 # Achilleas Pipinellis, 2013
@@ -12,1298 +12,1671 @@
 # flamelab <panosfilip@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: Arch User Repository (AUR)\n"
+"Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-11-27 16:23+0100\n"
-"PO-Revision-Date: 2017-11-28 07:52+0000\n"
+"POT-Creation-Date: 2018-05-17 22:58+0200\n"
+"PO-Revision-Date: 2018-05-18 04:38+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Greek (http://www.transifex.com/lfleischer/aur/language/el/)\n"
-"Language: el\n"
+"Language-Team: Greek (http://www.transifex.com/lfleischer/aurweb/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: html/404.php
 msgid "Page Not Found"
 msgstr "Η σελίδα δε βρέθηκε"
 
+#: html/404.php
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Μας συγχωρείτε, η σελίδα που ζητήσατε δεν υπάρχει."
 
+#: html/404.php template/pkgreq_close_form.php
 msgid "Note"
 msgstr ""
 
+#: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
 msgstr ""
 
+#: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
 msgstr ""
 
+#: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
 msgstr ""
 
+#: html/503.php
 msgid "Service Unavailable"
 msgstr ""
 
+#: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
 
+#: html/account.php
 msgid "Account"
 msgstr ""
 
+#: html/account.php template/header.php
 msgid "Accounts"
 msgstr "Λογαριασμοί"
 
+#: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
 msgstr "Δεν σας επιτρέπεται η πρόσβαση σε αυτήν την περιοχή."
 
+#: html/account.php
 msgid "Could not retrieve information for the specified user."
 msgstr "Δεν ήταν δυνατή η λήψη πληροφοριών για αυτόν τον χρήστη."
 
+#: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "Δεν έχετε την άδεια να επεξεργαστείτε αυτόν τον λογαριασμό."
 
+#: html/account.php
 msgid "Use this form to search existing accounts."
-msgstr ""
-"Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε υπάρχοντες λογαριασμούς."
+msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να αναζητήσετε υπάρχοντες λογαριασμούς."
 
+#: html/account.php
 msgid "You must log in to view user information."
 msgstr "Πρέπει να συνδεθείτε για να δείτε πληροφορίες χρήστη."
 
+#: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
 msgstr "Προσθέστε Πρόταση"
 
+#: html/addvote.php
 msgid "Invalid token for user action."
 msgstr "Μη έγκυρο διακριτικό για την ενέργεια του χρήστη."
 
+#: html/addvote.php
 msgid "Username does not exist."
 msgstr "Αυτό το όνομα χρήστη δεν υπάρχει."
 
+#: html/addvote.php
 #, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s έχει ήδη πρόταση σε εξέλιξη για αυτό το θέμα."
 
+#: html/addvote.php
 msgid "Invalid type."
 msgstr "Άκυρος τύπος."
 
+#: html/addvote.php
 msgid "Proposal cannot be empty."
 msgstr "Η πρόταση δεν μπορεί να είναι κενή."
 
+#: html/addvote.php
 msgid "New proposal submitted."
 msgstr "Υποβλήθηκε νέα πρόταση."
 
+#: html/addvote.php
 msgid "Submit a proposal to vote on."
 msgstr "Υποβάλετε μία πρόταση προς ψήφιση."
 
+#: html/addvote.php
 msgid "Applicant/TU"
 msgstr "Αιτών / TU"
 
+#: html/addvote.php
 msgid "(empty if not applicable)"
 msgstr "(κενό εάν δεν είναι εφαρμόσιμο)"
 
+#: html/addvote.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Type"
 msgstr "Είδος"
 
+#: html/addvote.php
 msgid "Addition of a TU"
 msgstr "Προσθήκη ενός TU"
 
+#: html/addvote.php
 msgid "Removal of a TU"
 msgstr "Αφαίρεση ενός TU"
 
+#: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
 msgstr "Αφαίρεση ενός TU (αδήλωτη αδράνεια)"
 
+#: html/addvote.php
 msgid "Amendment of Bylaws"
 msgstr "Τροποποίηση των "
 
+#: html/addvote.php template/tu_list.php
 msgid "Proposal"
 msgstr "Πρόταση"
 
+#: html/addvote.php
 msgid "Submit"
 msgstr "Υποβολή"
 
+#: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
 msgstr ""
 
+#: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
 msgstr ""
 
+#: html/home.php template/header.php
 msgid "Dashboard"
 msgstr ""
 
+#: html/home.php template/header.php
 msgid "Home"
 msgstr "Αρχική"
 
+#: html/home.php
 msgid "My Flagged Packages"
 msgstr ""
 
+#: html/home.php
 msgid "My Requests"
 msgstr ""
 
+#: html/home.php
 msgid "My Packages"
 msgstr "Τα πακέτα μου"
 
+#: html/home.php
 msgid "Search for packages I maintain"
 msgstr ""
 
+#: html/home.php
 msgid "Co-Maintained Packages"
 msgstr ""
 
+#: html/home.php
 msgid "Search for packages I co-maintain"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
-"Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %sOδηγό Χρηστών του AUR%s και τον "
-"%sΟδηγό των Trusted Users%s για περισσότερες πληροφορίες. "
+msgstr "Καλωσήρθατε στο AUR! Διαβάστε παρακαλώ τον %sOδηγό Χρηστών του AUR%s και τον %sΟδηγό των Trusted Users%s για περισσότερες πληροφορίες. "
 
+#: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
-"Τα συνεισφέροντα PKGBUILDs %sπρέπει%s να ακολουθούν τα %sΠρότυπα δημιουργίας "
-"πακέτων του Arch%s αλλιώς θα διαγράφονται! "
+msgstr "Τα συνεισφέροντα PKGBUILDs %sπρέπει%s να ακολουθούν τα %sΠρότυπα δημιουργίας πακέτων του Arch%s αλλιώς θα διαγράφονται! "
 
+#: html/home.php
 msgid "Remember to vote for your favourite packages!"
 msgstr "Θυμηθείτε να ψηφίσετε τα αγαπημένα σας πακέτα!"
 
+#: html/home.php
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Ορισμένα πακέτα μπορεί να μεταφερθούν ως binaries στο [community]."
 
+#: html/home.php
 msgid "DISCLAIMER"
 msgstr "ΑΠΟΠΟΙΗΣΗ ΕΥΘΥΝΗΣ"
 
+#: html/home.php template/footer.php
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
 msgstr ""
 
+#: html/home.php
 msgid "Learn more..."
 msgstr ""
 
+#: html/home.php
 msgid "Support"
 msgstr ""
 
+#: html/home.php
 msgid "Package Requests"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage Actions"
-"%s box on the package details page:"
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
 msgstr ""
 
+#: html/home.php
 msgid "Orphan Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
 
+#: html/home.php
 msgid "Deletion Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
-"Request a package to be removed from the Arch User Repository. Please do not "
-"use this if a package is broken and can be fixed easily. Instead, contact "
+"Request a package to be removed from the Arch User Repository. Please do not"
+" use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
 
+#: html/home.php
 msgid "Merge Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
 
+#: html/home.php
 msgid "Submitting Packages"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
-"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
-"packages%s section of the Arch User Repository ArchWiki page for more "
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
+" packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
 msgstr ""
 
+#: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
+#: html/home.php
 msgid "Discussion"
 msgstr "Συζήτηση"
 
+#: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. For discussion relating to the "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
 
+#: html/home.php
 msgid "Bug Reporting"
 msgstr "Αναφορά Σφαλμάτων"
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
-"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface "
-"%sonly%s. To report packaging bugs contact the package maintainer or leave a "
-"comment on the appropriate package page."
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
+" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+"a comment on the appropriate package page."
 msgstr ""
 
+#: html/home.php
 msgid "Package Search"
 msgstr "Αναζήτηση Πακέτου"
 
+#: html/index.php
 msgid "Adopt"
 msgstr "Υιοθέτηση"
 
+#: html/index.php
 msgid "Vote"
 msgstr "Ψηφίστε"
 
+#: html/index.php
 msgid "UnVote"
 msgstr "Αναίρεση ψήφου"
 
+#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
 msgstr "Ειδοποίηση"
 
+#: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
 msgstr "Διακοπή Ειδοποίησης"
 
+#: html/index.php
 msgid "UnFlag"
 msgstr "Αποχαρακτήριση"
 
+#: html/login.php template/header.php
 msgid "Login"
 msgstr "Σύνδεση"
 
+#: html/login.php html/tos.php
 #, php-format
 msgid "Logged-in as: %s"
 msgstr "Έχετε συνδεθεί ως: %s"
 
+#: html/login.php template/header.php
 msgid "Logout"
 msgstr "Αποσύνδεση"
 
+#: html/login.php
 msgid "Enter login credentials"
 msgstr "Εισάγετε πιστοποιητικά εισόδου"
 
+#: html/login.php
 msgid "User name or email address"
 msgstr ""
 
+#: html/login.php template/account_edit_form.php
 msgid "Password"
 msgstr "Κωδικός"
 
+#: html/login.php
 msgid "Remember me"
 msgstr "Θυμήσου με"
 
+#: html/login.php
 msgid "Forgot Password"
 msgstr "Ξεχάσατε τον κωδικό σας"
 
+#: html/login.php
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
-"Το HTTP είναι απενεργοποιημένο. Παρακαλώ %sγυρίστε σε HTTPs%s αν θέλετε να "
-"εισέλθετε."
+msgstr "Το HTTP είναι απενεργοποιημένο. Παρακαλώ %sγυρίστε σε HTTPs%s αν θέλετε να εισέλθετε."
 
+#: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
 msgstr "Κριτήρια Αναζήτησης"
 
+#: html/packages.php template/header.php template/pkgbase_details.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
 msgid "Packages"
 msgstr "Πακέτα"
 
+#: html/packages.php
 msgid "Error trying to retrieve package details."
 msgstr "Σφάλμα στη διαδικασία λήψης των πληροφοριών του πακέτου."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
 msgstr "Λείπει ένα απαραίτητο πεδίο."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
-msgstr ""
-"Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν "
-"είναι ίδιες."
+msgstr "Οι τιμές που εισαγάγατε στα πεδία “κωδικού” και “επιβεβαίωσης κωδικού” δεν είναι ίδιες."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 #, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Ο κωδικός πρέπει να αποτελείται τουλάχιστον %s χαρακτήρες."
 
+#: html/passreset.php
 msgid "Invalid e-mail."
 msgstr "Μη έγκυρο e-mail."
 
+#: html/passreset.php
 msgid "Password Reset"
 msgstr "Επαναφορά Κωδικού"
 
+#: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
 msgstr "Ελέγξτε το e-mail σας για το σύνδεσμο επιβεβαίωσης."
 
+#: html/passreset.php
 msgid "Your password has been reset successfully."
 msgstr "Το συνθηματικό σας έχει επαναφερθεί με επιτυχία."
 
+#: html/passreset.php
 msgid "Confirm your e-mail address:"
 msgstr "Παρακαλώ επιβεβαιώστε την διεύθυνση e-mail σας:"
 
+#: html/passreset.php
 msgid "Enter your new password:"
 msgstr "Εισάγετε νέο κωδικό"
 
+#: html/passreset.php
 msgid "Confirm your new password:"
 msgstr "Επιβεβαιώστε το νέο σας συνθηματικό:"
 
+#: html/passreset.php html/tos.php
 msgid "Continue"
 msgstr "Συνεχίστε"
 
+#: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %saur-general%s mailing list."
-msgstr ""
-"Εάν έχετε ξεχάσει την ηλεκτρονική διεύθυνση που χρησιμοποιήσατε για να "
-"εγγραφείτε, παρακαλώ στείλτε ένα μήνυμα στη λίστα ταχυδρομείου %saur-general"
-"%s."
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "Εάν έχετε ξεχάσει την ηλεκτρονική διεύθυνση που χρησιμοποιήσατε για να εγγραφείτε, παρακαλώ στείλτε ένα μήνυμα στη λίστα ταχυδρομείου %saur-general%s."
 
+#: html/passreset.php
 msgid "Enter your e-mail address:"
 msgstr "Εισάγετε την διεύθυνση e-mail σας:"
 
+#: html/pkgbase.php
 msgid "Package Bases"
 msgstr ""
 
+#: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Δεν μπορεί να βρεθεί το πακέτο για τη συγχώνευση ψήφων και σχόλιων"
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
 msgstr ""
 
+#: html/pkgbase.php
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr ""
-"Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι "
-"επιβεβαίωσης."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Τα επιλεγμένα πακέτα δεν έχουν διαγραφεί, παρακαλώ ελέγξτε το κουτάκι επιβεβαίωσης."
 
+#: html/pkgdel.php
 msgid "Package Deletion"
 msgstr "Διαγραφή Πακέτου"
 
+#: html/pkgdel.php template/pkgbase_actions.php
 msgid "Delete Package"
 msgstr "Διαγράψτε πακέτο"
 
+#: html/pkgdel.php
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
 msgstr ""
 
+#: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
 msgstr "Η διαγραφή ενός πακέτου είναι μόνιμη."
 
+#: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
 msgstr "Επιλέξτε το κουτάκι για να επιβεβαιώσετε."
 
+#: html/pkgdel.php
 msgid "Confirm package deletion"
 msgstr "Επιβεβαιώστε τη διαγραφή του πακέτου"
 
+#: html/pkgdel.php template/account_delete.php
 msgid "Delete"
 msgstr "Διαγράψτε"
 
+#: html/pkgdel.php
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Μόνο οι Trusted Users και οι Developers μπορούν να διαγράψουν πακέτα."
 
+#: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
 msgstr "Aποδεσμεύστε το Πακέτο"
 
+#: html/pkgdisown.php
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following "
-"packages: "
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
 msgstr ""
 
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to no longer be a "
+"package co-maintainer."
+msgstr ""
+
+#: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
 
+#: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
 
+#: html/pkgdisown.php
 msgid "Confirm to disown the package"
 msgstr ""
 
+#: html/pkgdisown.php
 msgid "Disown"
 msgstr "Αποδέσμευση"
 
+#: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
 msgstr ""
 
+#: html/pkgflagcomment.php
 msgid "Flag Comment"
 msgstr ""
 
+#: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr ""
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
-"Use this form to flag the package base %s%s%s and the following packages out-"
-"of-date: "
+"Use this form to flag the package base %s%s%s and the following packages "
+"out-of-date: "
 msgstr ""
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
 msgstr ""
 
+#: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
 msgstr ""
 
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
 msgid "Comments"
 msgstr ""
 
+#: html/pkgflag.php
 msgid "Flag"
 msgstr "Επισήμανση"
 
+#: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
 msgstr ""
 
+#: html/pkgmerge.php
 msgid "Package Merging"
 msgstr "Συγχώνευση Πακέτου"
 
+#: html/pkgmerge.php template/pkgbase_actions.php
 msgid "Merge Package"
 msgstr "Συγχώνευση πακέτου"
 
+#: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
 msgstr ""
 
+#: html/pkgmerge.php
 msgid "The following packages will be deleted: "
 msgstr ""
 
+#: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Μόλις το πακέτο συγχωνευτεί, η διαδικασία δεν μπορεί να αντιστραφεί."
 
+#: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
-"Εισάγετε το όνομα του πακέτου με το οποίο επιθυμείτε να συγχωνεύσετε το "
-"τρέχον πακέτο."
+msgstr "Εισάγετε το όνομα του πακέτου με το οποίο επιθυμείτε να συγχωνεύσετε το τρέχον πακέτο."
 
+#: html/pkgmerge.php
 msgid "Merge into:"
 msgstr "Συγχωνεύστε σε:"
 
+#: html/pkgmerge.php
 msgid "Confirm package merge"
 msgstr "Επιβεβαιώστε τη συγχώνευση του πακέτου"
 
+#: html/pkgmerge.php template/pkgreq_form.php
 msgid "Merge"
 msgstr "Συγχώνευση"
 
+#: html/pkgmerge.php
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
-"Μόνο οι Trusted Users και οι Developers μπορούν να συγχωνεύσουν πακέτα."
+msgstr "Μόνο οι Trusted Users και οι Developers μπορούν να συγχωνεύσουν πακέτα."
 
+#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
 msgstr ""
 
+#: html/pkgreq.php template/pkgreq_close_form.php
 msgid "Close Request"
 msgstr ""
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Πρώτο"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Προηγούμενο"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Επόμενο"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Τελευταίο"
 
+#: html/pkgreq.php template/header.php
 msgid "Requests"
 msgstr ""
 
+#: html/register.php template/header.php
 msgid "Register"
 msgstr "Εγγραφείτε"
 
+#: html/register.php
 msgid "Use this form to create an account."
 msgstr "Χρησιμοποιήστε αυτή τη φόρμα για να δημιουργήσετε λογαριασμό."
 
+#: html/tos.php
 msgid "Terms of Service"
 msgstr ""
 
+#: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
 msgstr ""
 
+#: html/tos.php
 #, php-format
 msgid "revision %d"
 msgstr ""
 
+#: html/tos.php
 msgid "I accept the terms and conditions above."
 msgstr ""
 
+#: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
 msgstr "Trusted User"
 
+#: html/tu.php
 msgid "Could not retrieve proposal details."
 msgstr "Δεν ήταν δυνατή η ανάκτηση των στοιχείων της πρότασης."
 
+#: html/tu.php
 msgid "Voting is closed for this proposal."
 msgstr "Η ψηφοφορία έχει κλείσει για αυτή την πρόταση."
 
+#: html/tu.php
 msgid "Only Trusted Users are allowed to vote."
 msgstr "Μόνο οι Trusted Users έχουν δικαίωμα ψήφου."
 
+#: html/tu.php
 msgid "You cannot vote in an proposal about you."
 msgstr "Δεν μπορείτε να ψηφίσετε σε μία πρόταση που αφορά σε εσάς."
 
+#: html/tu.php
 msgid "You've already voted for this proposal."
 msgstr "Έχετε ήδη ψηφίσει για αυτή τη πρόταση."
 
+#: html/tu.php
 msgid "Vote ID not valid."
 msgstr "Το ID της ψήφου δεν είναι έγκυρο."
 
+#: html/tu.php template/tu_list.php
 msgid "Current Votes"
 msgstr "Τρέχουσες ψήφοι"
 
+#: html/tu.php
 msgid "Past Votes"
 msgstr "Παρελθόντες ψήφοι"
 
+#: html/voters.php template/tu_details.php
 msgid "Voters"
 msgstr "Ψηφίσαντες"
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"Η εγγραφή λογαριασμών έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω "
-"επιθέσεων spam. Μας συγχωρείτε για την ενόχληση."
+msgstr "Η εγγραφή λογαριασμών έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ενόχληση."
 
+#: lib/acctfuncs.inc.php
 msgid "Missing User ID"
 msgstr "Λείπει το ID Χρήστη"
 
+#: lib/acctfuncs.inc.php
 msgid "The username is invalid."
 msgstr "Το όνομα χρήστη δεν είναι έγκυρο."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Πρέπει να αποτελείται από %s έως %s χαρακτήρες"
 
+#: lib/acctfuncs.inc.php
 msgid "Start and end with a letter or number"
 msgstr "Ξεκινήστε και τελειώστε με γράμμα ή αριθμό"
 
+#: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Μπορεί να περιλαμβάνει μόνο μία τελεία, κάτω παύλα ή παύλα."
 
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "Αυτή η διεύθυνση email δεν είναι έγκυρη."
 
+#: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
 msgstr "Το fingerprint του PGP κλειδιού δεν είναι έγκυρο."
 
+#: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
 msgstr "Δε γίνεται να αυξηθούν τα δικαιώματα του λογαριασμού"
 
+#: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
 msgstr "Η γλώσσα αυτή δεν υποστηρίζεται ακόμη."
 
+#: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Το όνομα, %s%s%s, χρησιμοποιείται ήδη."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Η διεύθυνση, %s%s%s, χρησιμοποιείται ήδη."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
 msgstr "Σφάλμα κατά τη δημιουργία του λογαριασμού, %s%s%s."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Ο λογαριασμός, %s%s%s, δημιουργήθηκε επιτυχώς."
 
+#: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
-msgstr ""
-"Ένα κλειδί επαναφοράς του κωδικού έχει σταλεί στην ηλεκτρονική σας διεύθυνση."
+msgstr "Ένα κλειδί επαναφοράς του κωδικού έχει σταλεί στην ηλεκτρονική σας διεύθυνση."
 
+#: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
-msgstr ""
-"Πατήστε στον παραπάνω σύνδεσμο Σύνδεση για να χρησιμοποιήσετε το λογαριασμό "
-"σας."
+msgstr "Πατήστε στον παραπάνω σύνδεσμο Σύνδεση για να χρησιμοποιήσετε το λογαριασμό σας."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
 msgstr "Δεν έγιναν αλλαγές στο λογαριασμό, %s%s%s."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Ο λογαριασμός, %s%s%s, τροποποποιήθηκε επιτυχώς."
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν "
-"λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
+msgstr "Η σύνδεση στο λογαριασμό σας έχει απενεργοποιηθεί για την IP σας, πιθανόν λόγω επιθέσεων spam. Μας συγχωρείτε για την ταλαιπωρία."
 
+#: lib/acctfuncs.inc.php
 msgid "Account suspended"
 msgstr "Ο λογαριασμός έχει ανασταλεί"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
-"Η επαναφορά του κωδικού σας έχει πραγματοποιηθεί. Αν μόλις δημιουργήσατε ένα "
-"νέο λογαρισμό, παρακαλώ χρησιμοποιείστε τον σύνδεσμο από το email "
-"ενεργοποίησης για να ορίσετε έναν αρχικό κωδικό. Διαφορετικά, παρακαλείσθε "
-"να ζητήσετε ένα κλειδί επαναφοράς στη σελίδα %sPassword Reset%s."
+msgstr "Η επαναφορά του κωδικού σας έχει πραγματοποιηθεί. Αν μόλις δημιουργήσατε ένα νέο λογαρισμό, παρακαλώ χρησιμοποιείστε τον σύνδεσμο από το email ενεργοποίησης για να ορίσετε έναν αρχικό κωδικό. Διαφορετικά, παρακαλείσθε να ζητήσετε ένα κλειδί επαναφοράς στη σελίδα %sPassword Reset%s."
 
+#: lib/acctfuncs.inc.php
 msgid "Bad username or password."
 msgstr "Λάθος όνομα χρήστη ή συνθηματικό."
 
+#: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
 msgstr "Ένα σφάλμα προέκυψε προσπαθώντας να δημιουργήσετε μια συνεδρία χρήστη."
 
+#: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
 msgstr "Μη έγκυρο e-mail και συνδυασμός κλειδιού επαναφοράς"
 
+#: lib/aur.inc.php template/pkg_details.php
 msgid "None"
 msgstr "Κανένα"
 
+#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
 msgstr "Δείτε τις πληροφορίες λογαριασμού του %s"
 
+#: lib/aurjson.class.php
 msgid "Package base ID or package base name missing."
 msgstr ""
 
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
 msgstr ""
 
+#: lib/aurjson.class.php
 msgid "Comment does not exist."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment cannot be empty."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been added."
 msgstr "Το σχόλιο έχει προστεθεί."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr ""
-"Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις "
-"πληροφορίες του πακέτου."
+msgstr "Πρέπει να έχετε συνδεθεί για να προσπαθήσετε να επεξεργαστείτε τις πληροφορίες του πακέτου."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
 msgstr "Λείπει το ID του σχολίου."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to pin this comment."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to unpin this comment."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been unpinned."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
 msgstr "Σφάλμα κατά τη διάρκεια φόρτωσης των πληροφοριών του πακέτου."
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
 msgstr "Οι πληροφορίες του πακέτου δεν μπόρεσαν να βρεθούν."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να επισημάνετε τα πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για επισήμανση."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Τα συγκεκριμένα πακέτα έχουν επισημανθεί ως παρωχημένα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να αποχαρακτηρίσετε πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για να αποχαρακτηρίσετε."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
 msgstr "Τα συγκεκριμένα πακέτα έχουν αποεπισημανθεί."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
 msgstr "Δεν έχετε τα απαραίτητα δικαιώματα για να διαγράψετε τα πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για να διαγράψετε."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Tα επιλεγμένα πακέτα έχουν διαγραφεί."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να υιοθετήσετε πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να αποδεσμεύσετε πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
 msgstr "Δεν επιλέξατε κανένα πακέτο για να υιοθετήσετε."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για απόρριψη."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
 msgstr "Τα επιλεγμένα πακέτα έχουν υιοθετηθεί."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
 msgstr "Τα επιλεγμένα πακέτα έχουν αποδεσμευθεί."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
 msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ψηφίσετε για πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
-msgstr ""
-"Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για "
-"πακέτα."
+msgstr "Πρέπει να έχετε συνδεθεί για να μπορέσετε να ακυρώσετε την ψήφο σας για πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
 msgstr "Δεν επιλέξατε κάποιο πακέτο για να το ψηφίσετε."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
 msgstr "Οι ψήφοι σας έχουν αφαιρεθεί από τα επιλεγμένα πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
 msgstr "Οι ψήφοι σας προστέθηκαν στα επιλεγμένα πακέτα."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
 msgstr "Δεν ήταν δυνατή η προσθήκη του στη λίστα ειδοποίησης."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
 msgstr "Έχετε προστεθεί στη λίστα ειδοποίησης σχολίων για το %s."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Έχετε αφαιρεθεί από τη λίστα ειδοποίησης σχολίων για το %s."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been undeleted."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
 msgstr "Δεν σας επιτρέπεται να διαγράψετε αυτό το σχόλιο."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been deleted."
 msgstr "Το σχόλιο έχει διαγραφεί."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been edited."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "Invalid user name: %s"
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
 msgstr ""
 
+#: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
 msgstr "Δείτε τις λεπτομέρειες πακέτου για το"
 
+#: lib/pkgfuncs.inc.php
 #, php-format
 msgid "requires %s"
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Μη έγκυρο όνομα: μόνο πεζοί χαρακτήρες επιτρέπονται."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
 msgstr ""
 
+#: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr ""
 
+#: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
 msgstr ""
 
+#: template/account_delete.php
 msgid "Confirm deletion"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Account Type"
 msgstr "Είδος λογαριασμού"
 
+#: template/account_details.php template/tu_details.php
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "User"
 msgstr "Χρήστης"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Developer"
 msgstr "Developer"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Trusted User & Developer"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Email Address"
 msgstr "Διεύθυνση email"
 
+#: template/account_details.php
 msgid "hidden"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Real Name"
 msgstr "Πραγματικό 'Ονομα"
 
+#: template/account_details.php template/account_edit_form.php
 msgid "Homepage"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr "Ψευδώνυμο IRC"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php
 msgid "PGP Key Fingerprint"
 msgstr "PGP Key Fingerprint"
 
+#: template/account_details.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Status"
 msgstr "Κατάσταση"
 
+#: template/account_details.php
 msgid "Inactive since"
 msgstr "Αδρανής από"
 
+#: template/account_details.php template/account_search_results.php
 msgid "Active"
 msgstr "Ενεργός"
 
+#: template/account_details.php
 msgid "Registration date:"
 msgstr ""
 
+#: template/account_details.php template/pkgbase_details.php
+#: template/pkg_details.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "unknown"
 msgstr "άγνωστο"
 
+#: template/account_details.php
 msgid "Last Login"
 msgstr "Τελευταία σύνδεση"
 
+#: template/account_details.php
 msgid "Never"
 msgstr "Ποτέ"
 
+#: template/account_details.php
 msgid "View this user's packages"
 msgstr "Δείτε τα πακέτα αυτού του χρήστη"
 
+#: template/account_details.php
 msgid "Edit this user's account"
 msgstr "Τροποποιήστε το λογαριασμό αυτού του χρήστη"
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr ""
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "required"
 msgstr "απαιτούμενο"
 
+#: template/account_edit_form.php
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
 msgstr ""
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Απλός χρήστης"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Trusted user"
 msgstr "Αξιόπιστος χρήστης"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
 msgstr "Ο Λογαριασμός έχει Ανασταλεί."
 
+#: template/account_edit_form.php
 msgid "Inactive"
 msgstr "Αδρανής"
 
+#: template/account_edit_form.php
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Hide Email Address"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Re-type password"
 msgstr "Πληκτρολογήστε ξανά τον κωδικό σας."
 
+#: template/account_edit_form.php
 msgid "Language"
 msgstr "Γλώσσα"
 
+#: template/account_edit_form.php
 msgid "Timezone"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid ""
-"The following information is only required if you want to submit packages to "
-"the Arch User Repository."
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Notification settings"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Notify of new comments"
 msgstr "Ειδοποίησε για νέα σχόλια"
 
+#: template/account_edit_form.php
 msgid "Notify of package updates"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr ""
 
+#: template/account_edit_form.php template/pkgbase_details.php
+#: template/pkg_details.php
 msgid "Update"
 msgstr "Eνημέρωση"
 
+#: template/account_edit_form.php
 msgid "Create"
 msgstr "Δημιουργήστε"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Reset"
 msgstr "Επαναφορά"
 
+#: template/account_search_results.php
 msgid "No results matched your search criteria."
 msgstr "Δε βρέθηκε αποτέλεσμα που να ικανοποιεί τα κριτήρια αναζήτησης."
 
+#: template/account_search_results.php
 msgid "Edit Account"
 msgstr "Τροποποίηση Λογαριασμού"
 
+#: template/account_search_results.php
 msgid "Suspended"
 msgstr "Έχει ανασταλεί"
 
+#: template/account_search_results.php
 msgid "Edit"
 msgstr "Επεξεργασία"
 
+#: template/account_search_results.php
 msgid "Less"
 msgstr "Λιγότερο"
 
+#: template/account_search_results.php
 msgid "More"
 msgstr "Περισσότερα"
 
+#: template/account_search_results.php
 msgid "No more results to display."
 msgstr "Δεν υπάρχουν άλλα αποτελέσματα για να δείτε."
 
+#: template/comaintainers_form.php
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
 
+#: template/comaintainers_form.php
 msgid "Users"
 msgstr ""
 
+#: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
 msgstr ""
 
+#: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
 msgstr ""
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr ""
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
 msgstr ""
 
+#: template/flag_comment.php
 msgid "Return to Details"
 msgstr ""
 
+#: template/footer.php
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
+#: template/header.php
 msgid " My Account"
 msgstr "Ο λογαριασμός μου"
 
+#: template/pkgbase_actions.php
 msgid "Package Actions"
 msgstr "Ενέργειες Πακέτου"
 
+#: template/pkgbase_actions.php
 msgid "View PKGBUILD"
 msgstr "Δείτε το PKGBUILD"
 
+#: template/pkgbase_actions.php
 msgid "View Changes"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Download snapshot"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Search wiki"
 msgstr ""
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "Flagged out-of-date (%s)"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
 msgstr "Επισημάνετε ως παρωχημένο"
 
+#: template/pkgbase_actions.php
 msgid "Unflag package"
 msgstr "Αποχαρακτηρίστε ως παρωχημένο"
 
+#: template/pkgbase_actions.php
 msgid "Remove vote"
 msgstr "Αφαιρέστε ψήφο"
 
+#: template/pkgbase_actions.php
 msgid "Vote for this package"
 msgstr "Ψηφίστε για αυτό το πακέτο"
 
+#: template/pkgbase_actions.php scripts/notify.py
 msgid "Disable notifications"
 msgstr "Απενεργοποιήστε τις ειδοποιήσεις"
 
+#: template/pkgbase_actions.php
 msgid "Enable notifications"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
 msgstr ""
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkgbase_actions.php
 msgid "Adopt Package"
 msgstr "Υιοθετήστε το Πακέτο"
 
+#: template/pkgbase_details.php
 msgid "Package Base Details"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Keywords"
 msgstr "Λέξεις κλειδιά"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Submitter"
 msgstr "Υποβάλλων"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Maintainer"
 msgstr "Συντηρητής"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Votes"
 msgstr "Ψήφοι"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Popularity"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
 msgstr "Πρώτη Υποβολή"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
 msgstr "Τελευταία Ενημέρωση"
 
+#: template/pkg_comment_box.php
 #, php-format
 msgid "Edit comment for: %s"
 msgstr ""
 
+#: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
 msgstr "Προσθέστε σχόλιο"
 
+#: template/pkg_comments.php
 msgid "View all comments"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Pinned Comments"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Latest Comments"
 msgstr "Τελευταία σχόλια"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s by %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Undelete comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Delete comment"
 msgstr "Διαγράψτε το σχόλιο"
 
+#: template/pkg_comments.php
 msgid "Pin comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "All comments"
 msgstr "Όλα τα σχόλια"
 
+#: template/pkg_details.php
 msgid "Package Details"
 msgstr "Πληροφορίες Πακέτου"
 
+#: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
 msgstr ""
 
+#: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
 msgstr "Περιγραφή"
 
+#: template/pkg_details.php
 msgid "Upstream URL"
 msgstr "Upstream URL"
 
+#: template/pkg_details.php
 msgid "Visit the website for"
 msgstr "Επισκεφτείτε την ιστοσελίδα για "
 
+#: template/pkg_details.php
 msgid "Licenses"
 msgstr ""
 
+#: template/pkg_details.php
 msgid "Groups"
 msgstr ""
 
+#: template/pkg_details.php
 msgid "Conflicts"
 msgstr ""
 
+#: template/pkg_details.php
 msgid "Provides"
 msgstr ""
 
+#: template/pkg_details.php
 msgid "Replaces"
 msgstr ""
 
+#: template/pkg_details.php
 msgid "Dependencies"
 msgstr "Εξαρτήσεις"
 
+#: template/pkg_details.php
 msgid "Required by"
 msgstr "Απαιτείται από"
 
+#: template/pkg_details.php
 msgid "Sources"
 msgstr "Πηγές"
 
+#: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 
+#: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
 
+#: template/pkgreq_close_form.php
 msgid "Reason"
 msgstr ""
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Accepted"
 msgstr "Δεκτός"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Rejected"
 msgstr "Απορριπτέος"
 
+#: template/pkgreq_form.php
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid "Request type"
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid "Deletion"
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid "Orphan"
 msgstr ""
 
+#: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
 msgstr "Συγχώνευση σε"
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a deletion request, you ask a Trusted User to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
@@ -1311,6 +1684,7 @@ msgid ""
 "update the Git history of the target package yourself."
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
 "package base. Please only do this if the package needs maintainer action, "
@@ -1318,247 +1692,448 @@ msgid ""
 "previously."
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
 msgstr ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Package"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Filed by"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Date"
 msgstr ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkgreq_results.php
 msgid "<1 hour left"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Accept"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Locked"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Close"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Pending"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Closed"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Name, Description"
 msgstr "Όνομα, Περιγραφή"
 
+#: template/pkg_search_form.php
 msgid "Name Only"
 msgstr "Όνομα μόνο"
 
+#: template/pkg_search_form.php
 msgid "Exact Name"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Exact Package Base"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Co-maintainer"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "All"
 msgstr "Όλα"
 
+#: template/pkg_search_form.php
 msgid "Flagged"
 msgstr "Σημειωμένα"
 
+#: template/pkg_search_form.php
 msgid "Not Flagged"
 msgstr "Μη Σημειωμένα"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Name"
 msgstr "Όνομα"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
+#: template/tu_details.php template/tu_list.php
 msgid "Voted"
 msgstr "Ψηφισμένο"
 
+#: template/pkg_search_form.php
 msgid "Last modified"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Ascending"
 msgstr "Αύξουσα"
 
+#: template/pkg_search_form.php
 msgid "Descending"
 msgstr "Φθίνουσα"
 
+#: template/pkg_search_form.php
 msgid "Enter search criteria"
 msgstr "Εισάγετε κριτήρια αναζήτησης"
 
+#: template/pkg_search_form.php
 msgid "Search by"
 msgstr "Αναζήτηση κατά"
 
+#: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
 msgstr "Παρωχημένα"
 
+#: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
 msgstr "Ταξινόμηση κατά"
 
+#: template/pkg_search_form.php
 msgid "Sort order"
 msgstr "Σειρά ταξινόμησης"
 
+#: template/pkg_search_form.php
 msgid "Per page"
 msgstr "Ανά σελίδα"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
 msgstr "Πήγαινε"
 
+#: template/pkg_search_form.php
 msgid "Orphans"
 msgstr "Ορφανά"
 
+#: template/pkg_search_results.php
 msgid "Error retrieving package list."
 msgstr "Σφάλμα κατά τη λήψη της λίστας πακέτων."
 
+#: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
 msgstr "Κανένα πακέτο δεν ικανοποιεί τα κριτήρια αναζήτησης σας."
 
+#: template/pkg_search_results.php
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkg_search_results.php
 msgid "Version"
 msgstr "Έκδοση"
 
+#: template/pkg_search_results.php
 #, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
+#: template/pkg_search_results.php template/tu_details.php
+#: template/tu_list.php
 msgid "Yes"
 msgstr "Ναι"
 
+#: template/pkg_search_results.php
 msgid "orphan"
 msgstr "ορφανό"
 
+#: template/pkg_search_results.php
 msgid "Actions"
 msgstr "Ενέργειες"
 
+#: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
 msgstr "Αποχαρακτηρίστε το πακέτο ως Παρωχημένο"
 
+#: template/pkg_search_results.php
 msgid "Adopt Packages"
 msgstr "Υιοθετήστε Πακέτα"
 
+#: template/pkg_search_results.php
 msgid "Disown Packages"
 msgstr "Aποδεσμεύστε Πακέτα"
 
+#: template/pkg_search_results.php
 msgid "Delete Packages"
 msgstr "Διαγράψτε Πακέτα"
 
+#: template/pkg_search_results.php
 msgid "Confirm"
 msgstr "Επιβεβαιώστε"
 
+#: template/search_accounts_form.php
 msgid "Any type"
 msgstr "Κάθε είδος"
 
+#: template/search_accounts_form.php
 msgid "Search"
 msgstr "Αναζήτηση"
 
+#: template/stats/general_stats_table.php
 msgid "Statistics"
 msgstr "Στατιστικά"
 
+#: template/stats/general_stats_table.php
 msgid "Orphan Packages"
 msgstr "Ορφανά Πακέτα"
 
+#: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
 msgstr "Πακέτα που προστέθηκαν τις τελευταίες 7 ημέρες"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
 msgstr "Πακέτα που ενημερώθηκαν τις τελευταίες 7 ημέρες"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
 msgstr "Πακέτα που ενημερώθηκαν κατά το παρελθόν έτος"
 
+#: template/stats/general_stats_table.php
 msgid "Packages never updated"
 msgstr "Πακέτα που δεν ενημερώθηκαν ποτέ"
 
+#: template/stats/general_stats_table.php
 msgid "Registered Users"
 msgstr "Εγγεγραμμένοι Χρήστες"
 
+#: template/stats/general_stats_table.php
 msgid "Trusted Users"
 msgstr "Trusted Users"
 
+#: template/stats/updates_table.php
 msgid "Recent Updates"
 msgstr "Πρόσφατες Ανανεώσεις"
 
+#: template/stats/updates_table.php
 msgid "more"
 msgstr ""
 
+#: template/stats/user_table.php
 msgid "My Statistics"
 msgstr "Τα στατιστικά μου"
 
+#: template/tu_details.php
 msgid "Proposal Details"
 msgstr "Πληροφορίες Πρότασης"
 
+#: template/tu_details.php
 msgid "This vote is still running."
 msgstr "Η ψηφοφορία αυτή βρίσκεται ακόμη σε εξέλιξη."
 
+#: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
 msgstr "Υποβλήθηκε: %s από %s"
 
+#: template/tu_details.php template/tu_list.php
 msgid "End"
 msgstr "Τέλος"
 
+#: template/tu_details.php
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
+#: template/tu_details.php template/tu_list.php
 msgid "No"
 msgstr "Όχι"
 
+#: template/tu_details.php
 msgid "Abstain"
 msgstr "Απέχουν"
 
+#: template/tu_details.php
 msgid "Total"
 msgstr "Σύνολο"
 
+#: template/tu_details.php
 msgid "Participation"
 msgstr "Συμμετοχή"
 
+#: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
 msgstr ""
 
+#: template/tu_last_votes_list.php
 msgid "Last vote"
 msgstr ""
 
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
 msgstr "Κανένα αποτέλεσμα δεν βρέθηκε."
 
+#: template/tu_list.php
 msgid "Start"
 msgstr "Ξεκινήστε"
 
+#: template/tu_list.php
 msgid "Back"
 msgstr "Πίσω"
+
+#: scripts/notify.py
+msgid "AUR Password Reset"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"A password reset request was submitted for the account {user} associated "
+"with your email address. If you wish to reset your password follow the link "
+"[1] below, otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#: scripts/notify.py
+msgid "Welcome to the Arch User Repository"
+msgstr ""
+
+#: scripts/notify.py
+msgid ""
+"Welcome to the Arch User Repository! In order to set an initial password for"
+" your new account, please click the link [1] below. If the link does not "
+"work, try copying and pasting it into your browser."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Comment for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] added the following comment to {pkgbase} [2]:"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"If you no longer wish to receive notifications about this package, please go"
+" to the package page [2] and select \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package Update: {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Out-of-date Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Ownership Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was adopted by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was disowned by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Co-Maintainer Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were added to the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package deleted: {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] deleted {pkgbase} [2].\n"
+"\n"
+"You will no longer receive notifications about this package."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "TU Vote Reminder: Proposal {id}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"Please remember to cast your vote on proposal {id} [1]. The voting period "
+"ends in less than 48 hours."
+msgstr ""

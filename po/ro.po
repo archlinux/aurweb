@@ -1,1125 +1,1440 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AUR package.
-#
+# 
 # Translators:
 # Arthur Țițeică <arthur.titeica@gmail.com>, 2013-2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Mihai Coman <mihai@m1x.ro>, 2011-2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Arch User Repository (AUR)\n"
+"Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-11-27 16:23+0100\n"
-"PO-Revision-Date: 2017-11-28 07:52+0000\n"
+"POT-Creation-Date: 2018-05-17 22:58+0200\n"
+"PO-Revision-Date: 2018-05-18 04:38+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Romanian (http://www.transifex.com/lfleischer/aur/language/"
-"ro/)\n"
-"Language: ro\n"
+"Language-Team: Romanian (http://www.transifex.com/lfleischer/aurweb/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
-"2:1));\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
+#: html/404.php
 msgid "Page Not Found"
 msgstr "Pagina nu a fost găsită"
 
+#: html/404.php
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Din păcate, pagina solicitată nu există."
 
+#: html/404.php template/pkgreq_close_form.php
 msgid "Note"
 msgstr "Notă"
 
+#: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
 msgstr ""
 
+#: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
 msgstr ""
 
+#: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
 msgstr ""
 
+#: html/503.php
 msgid "Service Unavailable"
 msgstr ""
 
+#: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr ""
 
+#: html/account.php
 msgid "Account"
 msgstr "Cont"
 
+#: html/account.php template/header.php
 msgid "Accounts"
 msgstr "Conturi"
 
+#: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
 msgstr "Nu îți este permis accesul la această secțiune."
 
+#: html/account.php
 msgid "Could not retrieve information for the specified user."
 msgstr "Nu s-au putut prelua informații despre utilizatorul specificat."
 
+#: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "Nu ai permisiune pentru a modifica acest cont."
 
+#: html/account.php
 msgid "Use this form to search existing accounts."
 msgstr "Folosește acest formular pentru a căuta conturi existente."
 
+#: html/account.php
 msgid "You must log in to view user information."
-msgstr ""
-"Trebuie să fi autentificat pentru a putea vedea informații despre "
-"utilizatori."
+msgstr "Trebuie să fi autentificat pentru a putea vedea informații despre utilizatori."
 
+#: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
 msgstr "Adaugă o propunere"
 
+#: html/addvote.php
 msgid "Invalid token for user action."
 msgstr "Jeton nevalid pentru acțiunea utilizatorului."
 
+#: html/addvote.php
 msgid "Username does not exist."
 msgstr "Nume de utilizator inexistent."
 
+#: html/addvote.php
 #, php-format
 msgid "%s already has proposal running for them."
 msgstr "Pentru %s exista o propunere în desfășurare."
 
+#: html/addvote.php
 msgid "Invalid type."
 msgstr "Tip nevalid."
 
+#: html/addvote.php
 msgid "Proposal cannot be empty."
 msgstr "Propunerea nu poate fi goală."
 
+#: html/addvote.php
 msgid "New proposal submitted."
 msgstr "Propunerea nouă a fost trimisă."
 
+#: html/addvote.php
 msgid "Submit a proposal to vote on."
 msgstr "Trimite o propunere pentru a putea fi votată."
 
+#: html/addvote.php
 msgid "Applicant/TU"
 msgstr "Candidat/TU"
 
+#: html/addvote.php
 msgid "(empty if not applicable)"
 msgstr "(gol dacă nu este cazul)"
 
+#: html/addvote.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Type"
 msgstr "Tip"
 
+#: html/addvote.php
 msgid "Addition of a TU"
 msgstr "Adăugarea unui TU"
 
+#: html/addvote.php
 msgid "Removal of a TU"
 msgstr "Înlăturarea unui TU"
 
+#: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
 msgstr "Înlăturarea unui TU (inactivitate nedeclarată)"
 
+#: html/addvote.php
 msgid "Amendment of Bylaws"
 msgstr "Amendamentul Statutului"
 
+#: html/addvote.php template/tu_list.php
 msgid "Proposal"
 msgstr "Propunere"
 
+#: html/addvote.php
 msgid "Submit"
 msgstr "Trimite"
 
+#: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
 msgstr ""
 
+#: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
 msgstr ""
 
+#: html/home.php template/header.php
 msgid "Dashboard"
 msgstr ""
 
+#: html/home.php template/header.php
 msgid "Home"
 msgstr "Acasă"
 
+#: html/home.php
 msgid "My Flagged Packages"
 msgstr ""
 
+#: html/home.php
 msgid "My Requests"
 msgstr ""
 
+#: html/home.php
 msgid "My Packages"
 msgstr "Pachetele mele"
 
+#: html/home.php
 msgid "Search for packages I maintain"
 msgstr ""
 
+#: html/home.php
 msgid "Co-Maintained Packages"
 msgstr ""
 
+#: html/home.php
 msgid "Search for packages I co-maintain"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
-"Bine ai venit la  AUR! Te rog citește %sGhidul utilizatorului AUR%s și "
-"%sGhidul AUR TU%s pentru mai multe informații."
+msgstr "Bine ai venit la  AUR! Te rog citește %sGhidul utilizatorului AUR%s și %sGhidul AUR TU%s pentru mai multe informații."
 
+#: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
-"PKGBUILDurile contribuite %strebuie%s să fie conforme cu %sStandardele de "
-"Împachetare Arch%s, altfel vor fi șterse!"
+msgstr "PKGBUILDurile contribuite %strebuie%s să fie conforme cu %sStandardele de Împachetare Arch%s, altfel vor fi șterse!"
 
+#: html/home.php
 msgid "Remember to vote for your favourite packages!"
 msgstr "Nu uita să votezi pentru pachetele tale favorite!"
 
+#: html/home.php
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Unele pachete pot fi furnizate ca binare în [community]."
 
+#: html/home.php
 msgid "DISCLAIMER"
 msgstr "DECLARAȚIE DE NEASUMARE A RESPONSABILITĂȚII"
 
+#: html/home.php template/footer.php
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
 msgstr ""
 
+#: html/home.php
 msgid "Learn more..."
 msgstr ""
 
+#: html/home.php
 msgid "Support"
 msgstr ""
 
+#: html/home.php
 msgid "Package Requests"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage Actions"
-"%s box on the package details page:"
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
 msgstr ""
 
+#: html/home.php
 msgid "Orphan Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
 msgstr ""
 
+#: html/home.php
 msgid "Deletion Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
-"Request a package to be removed from the Arch User Repository. Please do not "
-"use this if a package is broken and can be fixed easily. Instead, contact "
+"Request a package to be removed from the Arch User Repository. Please do not"
+" use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
 msgstr ""
 
+#: html/home.php
 msgid "Merge Request"
 msgstr ""
 
+#: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
 msgstr ""
 
+#: html/home.php
 msgid "Submitting Packages"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
-"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
-"packages%s section of the Arch User Repository ArchWiki page for more "
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
+" packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
 msgstr ""
 
+#: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
 msgstr ""
 
+#: html/home.php
 msgid "Discussion"
 msgstr "Discuție"
 
+#: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. For discussion relating to the "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
 msgstr ""
 
+#: html/home.php
 msgid "Bug Reporting"
 msgstr "Semnalare buguri"
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
-"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface "
-"%sonly%s. To report packaging bugs contact the package maintainer or leave a "
-"comment on the appropriate package page."
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
+" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+"a comment on the appropriate package page."
 msgstr ""
 
+#: html/home.php
 msgid "Package Search"
 msgstr "Căutare pachete"
 
+#: html/index.php
 msgid "Adopt"
 msgstr "Adoptă"
 
+#: html/index.php
 msgid "Vote"
 msgstr "Vot"
 
+#: html/index.php
 msgid "UnVote"
 msgstr "EliminăVot"
 
+#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
 msgstr "Notificare"
 
+#: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
 msgstr "DeNotificare"
 
+#: html/index.php
 msgid "UnFlag"
 msgstr "Elimină marcaj"
 
+#: html/login.php template/header.php
 msgid "Login"
 msgstr "Autentificare"
 
+#: html/login.php html/tos.php
 #, php-format
 msgid "Logged-in as: %s"
 msgstr "Autentificat ca: %s"
 
+#: html/login.php template/header.php
 msgid "Logout"
 msgstr "De-autentificare"
 
+#: html/login.php
 msgid "Enter login credentials"
 msgstr "Introdu datele de autentificare"
 
+#: html/login.php
 msgid "User name or email address"
 msgstr ""
 
+#: html/login.php template/account_edit_form.php
 msgid "Password"
 msgstr "Parolă"
 
+#: html/login.php
 msgid "Remember me"
 msgstr "Ține-mă minte"
 
+#: html/login.php
 msgid "Forgot Password"
 msgstr "Parolă uitată"
 
+#: html/login.php
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
-"Autentificarea prin HTTP este dezactivată. %sSchimbă pe HTTPS%s dacă vrei să "
-"te autentifici."
+msgstr "Autentificarea prin HTTP este dezactivată. %sSchimbă pe HTTPS%s dacă vrei să te autentifici."
 
+#: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
 msgstr "Criteriul de căutare"
 
+#: html/packages.php template/header.php template/pkgbase_details.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
 msgid "Packages"
 msgstr "Pachete"
 
+#: html/packages.php
 msgid "Error trying to retrieve package details."
 msgstr "Eroare la încercarea de a prelua detaliile pachetului."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
 msgstr "Lipsește un câmp necesar."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
 msgstr "Câmpurile parolei nu sunt potrivesc."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 #, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Parola trebuie să fie de cel puțin %s caractere."
 
+#: html/passreset.php
 msgid "Invalid e-mail."
 msgstr "E-mail nevalid"
 
+#: html/passreset.php
 msgid "Password Reset"
 msgstr "Resetare parolă"
 
+#: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
 msgstr "Verifică e-mailul pentru legătura de confirmare."
 
+#: html/passreset.php
 msgid "Your password has been reset successfully."
 msgstr "Parola ta a fost restabilită cu succes."
 
+#: html/passreset.php
 msgid "Confirm your e-mail address:"
 msgstr "Confirmă adresa de e-mail:"
 
+#: html/passreset.php
 msgid "Enter your new password:"
 msgstr "Introdu noua parolă:"
 
+#: html/passreset.php
 msgid "Confirm your new password:"
 msgstr "Confirmă noua parolă."
 
+#: html/passreset.php html/tos.php
 msgid "Continue"
 msgstr "Continuă"
 
+#: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %saur-general%s mailing list."
-msgstr ""
-"Dacă ai uitat adresa de email folosită la înregistrare, trimite un mesaj la "
-"lista de discuții  %saur-general%s"
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "Dacă ai uitat adresa de email folosită la înregistrare, trimite un mesaj la lista de discuții  %saur-general%s"
 
+#: html/passreset.php
 msgid "Enter your e-mail address:"
 msgstr "Introdu adresa ta de e-mail:"
 
+#: html/pkgbase.php
 msgid "Package Bases"
 msgstr ""
 
+#: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr ""
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Nu s-a putut găsi pachet pentru fuzionare voturi și comentarii."
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
 msgstr "Nu se poate fuziona un pachet cu el însuși."
 
+#: html/pkgbase.php
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
 msgstr "Pachetele selectate nu au fost șterse; verifică căsuța de bifare."
 
+#: html/pkgdel.php
 msgid "Package Deletion"
 msgstr "Ștergere pachet"
 
+#: html/pkgdel.php template/pkgbase_actions.php
 msgid "Delete Package"
 msgstr "Șterge pachet"
 
+#: html/pkgdel.php
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
-"Folosește acest formular pentru a șterge pachetul de bază %s%s%s și "
-"următoarele pachete din AUR: "
+msgstr "Folosește acest formular pentru a șterge pachetul de bază %s%s%s și următoarele pachete din AUR: "
 
+#: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
 msgstr "Ștergerea unui pachet este permanentă."
 
+#: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
 msgstr "Bifează căsuța pentru a confirma acțiunea."
 
+#: html/pkgdel.php
 msgid "Confirm package deletion"
 msgstr "Confirmă ștergerea pachetului"
 
+#: html/pkgdel.php template/account_delete.php
 msgid "Delete"
 msgstr "Șterge"
 
+#: html/pkgdel.php
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Numai Dezvoltatorii și Trusted Users pot șterge pachete."
 
+#: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
 msgstr "Abandonează pachet"
 
+#: html/pkgdisown.php
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following "
-"packages: "
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
 msgstr ""
 
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to no longer be a "
+"package co-maintainer."
+msgstr ""
+
+#: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
 msgstr ""
 
+#: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr ""
 
+#: html/pkgdisown.php
 msgid "Confirm to disown the package"
 msgstr ""
 
+#: html/pkgdisown.php
 msgid "Disown"
 msgstr "Abandonează"
 
+#: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
 msgstr ""
 
+#: html/pkgflagcomment.php
 msgid "Flag Comment"
 msgstr ""
 
+#: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr ""
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
-"Use this form to flag the package base %s%s%s and the following packages out-"
-"of-date: "
+"Use this form to flag the package base %s%s%s and the following packages "
+"out-of-date: "
 msgstr ""
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
 msgstr ""
 
+#: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
 msgstr ""
 
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
 msgid "Comments"
 msgstr "Comentarii"
 
+#: html/pkgflag.php
 msgid "Flag"
 msgstr "Marchează"
 
+#: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
 msgstr ""
 
+#: html/pkgmerge.php
 msgid "Package Merging"
 msgstr "Fuzionare pachet"
 
+#: html/pkgmerge.php template/pkgbase_actions.php
 msgid "Merge Package"
 msgstr "Fuzionează pachet"
 
+#: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
-"Folosește acest formular pentru a îmbina pachetul de bază %s%s%s cu alt "
-"pachet."
+msgstr "Folosește acest formular pentru a îmbina pachetul de bază %s%s%s cu alt pachet."
 
+#: html/pkgmerge.php
 msgid "The following packages will be deleted: "
 msgstr "Următoarele pachete vor fi șterse:"
 
+#: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Odată ce pachetul a fuzionat, acțiunea nu este reversibilă."
 
+#: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
 msgstr "Introdu numele pachetului cu care vrei să fie fuzionat acest pachet."
 
+#: html/pkgmerge.php
 msgid "Merge into:"
 msgstr "Fuzionează cu:"
 
+#: html/pkgmerge.php
 msgid "Confirm package merge"
 msgstr "Confirmă fuzionarea pachetului"
 
+#: html/pkgmerge.php template/pkgreq_form.php
 msgid "Merge"
 msgstr "Fuzionare"
 
+#: html/pkgmerge.php
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Numai Dezvoltatorii și Trusted Users pot fuziona pachete."
 
+#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
 msgstr ""
 
+#: html/pkgreq.php template/pkgreq_close_form.php
 msgid "Close Request"
 msgstr "Închide cererea"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Prim"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Precedent"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Înainte"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Ultim"
 
+#: html/pkgreq.php template/header.php
 msgid "Requests"
 msgstr "Cereri"
 
+#: html/register.php template/header.php
 msgid "Register"
 msgstr "Înregistrare"
 
+#: html/register.php
 msgid "Use this form to create an account."
 msgstr "Folosește acest formular pentru a crea un cont."
 
+#: html/tos.php
 msgid "Terms of Service"
 msgstr ""
 
+#: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
 msgstr ""
 
+#: html/tos.php
 #, php-format
 msgid "revision %d"
 msgstr ""
 
+#: html/tos.php
 msgid "I accept the terms and conditions above."
 msgstr ""
 
+#: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
 msgstr "Trusted User"
 
+#: html/tu.php
 msgid "Could not retrieve proposal details."
 msgstr "Nu am putut prelua detaliile propunerii."
 
+#: html/tu.php
 msgid "Voting is closed for this proposal."
 msgstr "Votarea este închisă pentru această propunere."
 
+#: html/tu.php
 msgid "Only Trusted Users are allowed to vote."
 msgstr "Doar Trusted Users au permisiunea să voteze."
 
+#: html/tu.php
 msgid "You cannot vote in an proposal about you."
 msgstr "Nu poți vota într-o propunere despre tine."
 
+#: html/tu.php
 msgid "You've already voted for this proposal."
 msgstr "Ai votat deja pentru această propunere."
 
+#: html/tu.php
 msgid "Vote ID not valid."
 msgstr "ID-ul votului nu este valid."
 
+#: html/tu.php template/tu_list.php
 msgid "Current Votes"
 msgstr "Voturi curente"
 
+#: html/tu.php
 msgid "Past Votes"
 msgstr "Voturi precedente"
 
+#: html/voters.php template/tu_details.php
 msgid "Voters"
 msgstr "Votanți"
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"Înregistrarea de conturi noi a fost dezactivată pentru adresa ta IP, "
-"probabil datorită unor atacuri spam repetate. Ne cerem scuze pentru "
-"inconveniență."
+msgstr "Înregistrarea de conturi noi a fost dezactivată pentru adresa ta IP, probabil datorită unor atacuri spam repetate. Ne cerem scuze pentru inconveniență."
 
+#: lib/acctfuncs.inc.php
 msgid "Missing User ID"
 msgstr "ID-ul utilizatorului lipsește"
 
+#: lib/acctfuncs.inc.php
 msgid "The username is invalid."
 msgstr "Numele de utilizator nu este valid."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Trebuie să fie între %s și %s caractere lungime"
 
+#: lib/acctfuncs.inc.php
 msgid "Start and end with a letter or number"
 msgstr "Începe și sfârșește cu o literă sau un număr."
 
+#: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Poate conține doar o virgulă, linie joasă sau cratimă."
 
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "Adresa de email nu este validă."
 
+#: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
 msgstr "Amprenta cheii PGP este nevalidă."
 
+#: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
 msgstr "Permisiunile contului nu pot fi ridicate."
 
+#: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
 msgstr "Limba nu este încă suportată."
 
+#: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Numele de utilizator %s%s%s este deja folosit."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Adresa %s%s%s este deja folosită."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
 msgstr "Eroare la încercarea de a crea contul, %s%s%s."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Contul %s%s%s a fost creat cu succes."
 
+#: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "O cheie de resetare a parolei a fost trimisă la adresa ta de e-mail."
 
+#: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
 msgstr "Clic pe legătura către Autentificare pentru a-ți folosi contul."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
 msgstr "Nu a fost efectuată nicio modificare asupra contului, %s%s%s."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Contul %s%s%s a fost modificat cu succes."
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"Formularul de autentificare a fost dezactivat pentru adresa ta IP, probabil "
-"datorită unor atacuri spam repetate. Ne cerem scuze pentru inconveniență."
+msgstr "Formularul de autentificare a fost dezactivat pentru adresa ta IP, probabil datorită unor atacuri spam repetate. Ne cerem scuze pentru inconveniență."
 
+#: lib/acctfuncs.inc.php
 msgid "Account suspended"
 msgstr "Cont suspendat"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
-"Parola ta a fost resetată. Dacă tocmai ai creat un cont nou, folosește "
-"legătura din e-mailul de confirmare pentru a seta o parolă inițială. Altfel, "
-"cere o resetare a parolei din pagina %sResetare parolă%s."
+msgstr "Parola ta a fost resetată. Dacă tocmai ai creat un cont nou, folosește legătura din e-mailul de confirmare pentru a seta o parolă inițială. Altfel, cere o resetare a parolei din pagina %sResetare parolă%s."
 
+#: lib/acctfuncs.inc.php
 msgid "Bad username or password."
 msgstr "Nume de utilizator sau parolă greșite."
 
+#: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
 msgstr "A apărut o eroare în timp ce se genera sesiunea de utilizator."
 
+#: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
 msgstr "Combinație e-mail și cheie pentru resetare nevalidă."
 
+#: lib/aur.inc.php template/pkg_details.php
 msgid "None"
 msgstr "Nimic"
 
+#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
 msgstr "Vezi informații despre contul lui %s"
 
+#: lib/aurjson.class.php
 msgid "Package base ID or package base name missing."
 msgstr ""
 
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
 msgstr ""
 
+#: lib/aurjson.class.php
 msgid "Comment does not exist."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment cannot be empty."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been added."
 msgstr "Comentariul a fost adăugat."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr ""
-"Trebuie să fi autentificat înainte de a putea modifica informațiile "
-"pachetului."
+msgstr "Trebuie să fi autentificat înainte de a putea modifica informațiile pachetului."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
 msgstr "ID-ul comentariului lipsește"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to pin this comment."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to unpin this comment."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been unpinned."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
 msgstr "Eroare la preluarea detaliilor pachetului."
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
 msgstr "Detaliile pachetului nu pot fi găsite."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Trebuie să fi autentificat înainte de a putea marca pachetele."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
 msgstr "Nu ai selectat niciun pachet pentru a fi marcat"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Pachetele selectate au fost marcate ca fiind Neactualizate."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
-msgstr ""
-"Trebuie să fi autentificat înainte de a putea elimina marcajul de "
-"Neactualizat al pachetelor."
+msgstr "Trebuie să fi autentificat înainte de a putea elimina marcajul de Neactualizat al pachetelor."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
 msgstr "Nu ai selectat niciun pachet pentru a-i fi eliminat marcajul."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
 msgstr "La pachetele selectate a fost eliminat marcajul de Neactualizat."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
 msgstr "Nu ai permisiune pentru a șterge pachete."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
 msgstr "Nu ai selectat niciun pachet pentru a fi șters."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Pachetele selectate au fost șterse."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
 msgstr "Trebuie să fi autentificat înainte de a putea adopta pachete."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Trebuie să te autentifici înainte de a abandona pachete."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
 msgstr "Nu ai selectat niciun pachet pentru a-l adopta."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
 msgstr "Nu ai selectat niciun pachet pentru a-l abandona."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
 msgstr "Pachetele selectate au fost adoptate."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
 msgstr "Pachetele selectate au fost abandonate."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
 msgstr "Trebuie să fi autentificat înainte de a putea vota pentru pachete."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
-msgstr ""
-"Trebuie să fi autentificat înainte de a putea șterge voturile pachetelor."
+msgstr "Trebuie să fi autentificat înainte de a putea șterge voturile pachetelor."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
 msgstr "Nu ai selectat niciun pachet pentru a vota."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
 msgstr "Voturile tale au fost șterse de la pachetele selectate."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
 msgstr "Voturile au fost exprimate pentru pachetele selectate."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
 msgstr "Nu am putut adăuga la lista de notificări."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
 msgstr "Ai fost adăugat în lista de notificare a comentariilor pentru %s."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr ""
-"Ai fost șters din lista de notificare pentru comentarii pentru pachetul %s."
+msgstr "Ai fost șters din lista de notificare pentru comentarii pentru pachetul %s."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been undeleted."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
 msgstr "Nu ai voie să ștergi acest comentariu."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been deleted."
 msgstr "Comentariul a fost șters."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been edited."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "Invalid user name: %s"
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
 msgstr ""
 
+#: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
 msgstr "Vezi detaliile pachetelor pentru"
 
+#: lib/pkgfuncs.inc.php
 #, php-format
 msgid "requires %s"
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
 msgstr "Trebuie să fi autentificat pentru a înregistra cereri pentru pachet."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Numele nu este valid: doar litere mici sunt permise."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
 msgstr "Câmpul pentru comentariu nu trebuie lăsat necompletat."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
 msgstr "Tip de cerere nevalidă."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
 msgstr "Cererea a fost adăugată cu succes."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
 msgstr "Motiv nevalid."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
 msgstr "Doar TU și dezvoltatorii pot închide cererile."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
 msgstr "Cerere închisă cu succes."
 
+#: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr "Poți folosi acest formular pentru a șterge permanent contul AUR %s."
 
+#: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
 msgstr "%sWARNING%s: Acestă acțiune nu poate fi anulată."
 
+#: template/account_delete.php
 msgid "Confirm deletion"
 msgstr "Confirmă ștergerea"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Username"
 msgstr "Nume utilizator"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Account Type"
 msgstr "Tip cont"
 
+#: template/account_details.php template/tu_details.php
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "User"
 msgstr "Utilizator"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Developer"
 msgstr "Dezvoltator"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Trusted User & Developer"
 msgstr "Utilizator de încredere (TU) & Dezvoltator"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Email Address"
 msgstr "Adresă email"
 
+#: template/account_details.php
 msgid "hidden"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Real Name"
 msgstr "Nume real"
 
+#: template/account_details.php template/account_edit_form.php
 msgid "Homepage"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr "Pseudonim IRC"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php
 msgid "PGP Key Fingerprint"
 msgstr "Amprentă cheie PGP"
 
+#: template/account_details.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Status"
 msgstr "Stare"
 
+#: template/account_details.php
 msgid "Inactive since"
 msgstr "Inactiv din"
 
+#: template/account_details.php template/account_search_results.php
 msgid "Active"
 msgstr "Activ"
 
+#: template/account_details.php
 msgid "Registration date:"
 msgstr ""
 
+#: template/account_details.php template/pkgbase_details.php
+#: template/pkg_details.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "unknown"
 msgstr "necunoscut"
 
+#: template/account_details.php
 msgid "Last Login"
 msgstr "Ultima autentificare"
 
+#: template/account_details.php
 msgid "Never"
 msgstr "Niciodată"
 
+#: template/account_details.php
 msgid "View this user's packages"
 msgstr "Vezi pachetele acestui utilizator"
 
+#: template/account_details.php
 msgid "Edit this user's account"
 msgstr "Modifică contul acestui utilizator"
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Clic %saici%s dacă dorești să ștergi definitiv acest cont."
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "required"
 msgstr "cerut"
 
+#: template/account_edit_form.php
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
 msgstr ""
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Utilizator obișnuit"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Trusted user"
 msgstr "Trusted user"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
 msgstr "Cont suspendat"
 
+#: template/account_edit_form.php
 msgid "Inactive"
 msgstr "Inactiv"
 
+#: template/account_edit_form.php
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Hide Email Address"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Re-type password"
 msgstr "Rescrie parola"
 
+#: template/account_edit_form.php
 msgid "Language"
 msgstr "Limbă"
 
+#: template/account_edit_form.php
 msgid "Timezone"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid ""
-"The following information is only required if you want to submit packages to "
-"the Arch User Repository."
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Notification settings"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Notify of new comments"
 msgstr "Notifică pentru comentarii noi"
 
+#: template/account_edit_form.php
 msgid "Notify of package updates"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr ""
 
+#: template/account_edit_form.php template/pkgbase_details.php
+#: template/pkg_details.php
 msgid "Update"
 msgstr "Actualizare"
 
+#: template/account_edit_form.php
 msgid "Create"
 msgstr "Creează"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Reset"
 msgstr "Resetează"
 
+#: template/account_search_results.php
 msgid "No results matched your search criteria."
 msgstr "Nici un rezultat nu s-a încadrat în criteriile de căutare."
 
+#: template/account_search_results.php
 msgid "Edit Account"
 msgstr "Modificare cont"
 
+#: template/account_search_results.php
 msgid "Suspended"
 msgstr "Suspendat"
 
+#: template/account_search_results.php
 msgid "Edit"
 msgstr "Modifică"
 
+#: template/account_search_results.php
 msgid "Less"
 msgstr "Mai puțin"
 
+#: template/account_search_results.php
 msgid "More"
 msgstr "Mai mult"
 
+#: template/account_search_results.php
 msgid "No more results to display."
 msgstr "Nu mai sunt rezultate de afișat."
 
+#: template/comaintainers_form.php
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
 
+#: template/comaintainers_form.php
 msgid "Users"
 msgstr ""
 
+#: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
 msgstr ""
 
+#: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
 msgstr ""
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr ""
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
 msgstr ""
 
+#: template/flag_comment.php
 msgid "Return to Details"
 msgstr ""
 
+#: template/footer.php
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr ""
 
+#: template/header.php
 msgid " My Account"
 msgstr "Contul meu"
 
+#: template/pkgbase_actions.php
 msgid "Package Actions"
 msgstr "Operațiuni"
 
+#: template/pkgbase_actions.php
 msgid "View PKGBUILD"
 msgstr "Examinează PKGBUILD"
 
+#: template/pkgbase_actions.php
 msgid "View Changes"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Download snapshot"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Search wiki"
 msgstr "Caută în wiki"
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "Flagged out-of-date (%s)"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
 msgstr "Marchează pachetul ca Neactualizat"
 
+#: template/pkgbase_actions.php
 msgid "Unflag package"
 msgstr "Elimină marcaj pachet"
 
+#: template/pkgbase_actions.php
 msgid "Remove vote"
 msgstr "Elimină vot"
 
+#: template/pkgbase_actions.php
 msgid "Vote for this package"
 msgstr "Votează acest pachet"
 
+#: template/pkgbase_actions.php scripts/notify.py
 msgid "Disable notifications"
 msgstr "Dezactivează notificări"
 
+#: template/pkgbase_actions.php
 msgid "Enable notifications"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
 msgstr ""
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
@@ -1127,184 +1442,238 @@ msgstr[0] "%d cerere în așteptare"
 msgstr[1] "%d cereri în așteptare"
 msgstr[2] "%d de cereri în așteptare"
 
+#: template/pkgbase_actions.php
 msgid "Adopt Package"
 msgstr "Adoptă pachet"
 
+#: template/pkgbase_details.php
 msgid "Package Base Details"
 msgstr "Detalii pachet de bază"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Keywords"
 msgstr "Cuvinte cheie"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Submitter"
 msgstr "Autor"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Maintainer"
 msgstr "Responsabil"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
 msgstr "Ultimul autor de pachet"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Votes"
 msgstr "Voturi"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Popularity"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
 msgstr "Prima trimitere"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
 msgstr "Ultima actualizare"
 
+#: template/pkg_comment_box.php
 #, php-format
 msgid "Edit comment for: %s"
 msgstr ""
 
+#: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
 msgstr "Adaugă comentariu"
 
+#: template/pkg_comments.php
 msgid "View all comments"
 msgstr "Vizualizează toate comentariile"
 
+#: template/pkg_comments.php
 msgid "Pinned Comments"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Latest Comments"
 msgstr "Ultimele comentarii"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s by %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Undelete comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Delete comment"
 msgstr "Șterge comentariu"
 
+#: template/pkg_comments.php
 msgid "Pin comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "All comments"
 msgstr "Toate comentariile"
 
+#: template/pkg_details.php
 msgid "Package Details"
 msgstr "Detalii pachet"
 
+#: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
 msgstr "Pachet de bază"
 
+#: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
 msgstr "Descriere"
 
+#: template/pkg_details.php
 msgid "Upstream URL"
 msgstr "URL upstream"
 
+#: template/pkg_details.php
 msgid "Visit the website for"
 msgstr "Vizitează pagina web pentru"
 
+#: template/pkg_details.php
 msgid "Licenses"
 msgstr "Licențe"
 
+#: template/pkg_details.php
 msgid "Groups"
 msgstr "Grupuri"
 
+#: template/pkg_details.php
 msgid "Conflicts"
 msgstr "Conflicte"
 
+#: template/pkg_details.php
 msgid "Provides"
 msgstr "Furnizează"
 
+#: template/pkg_details.php
 msgid "Replaces"
 msgstr "Înlocuiește"
 
+#: template/pkg_details.php
 msgid "Dependencies"
 msgstr "Dependențe"
 
+#: template/pkg_details.php
 msgid "Required by"
 msgstr "Cerut de"
 
+#: template/pkg_details.php
 msgid "Sources"
 msgstr "Surse"
 
+#: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
-"Folosește acest formular pentru a închide cererea pentru pachetul de bază %s"
-"%s%s."
+msgstr "Folosește acest formular pentru a închide cererea pentru pachetul de bază %s%s%s."
 
+#: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr ""
-"Câmpul pentru comentarii poate fi lăsat necompletat. Este totuși foarte "
-"recomandat să adaugi un comentariu când respingi o cerere."
+msgstr "Câmpul pentru comentarii poate fi lăsat necompletat. Este totuși foarte recomandat să adaugi un comentariu când respingi o cerere."
 
+#: template/pkgreq_close_form.php
 msgid "Reason"
 msgstr "Motiv"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Accepted"
 msgstr "Acceptat"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Rejected"
 msgstr "Respins"
 
+#: template/pkgreq_form.php
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr ""
-"Folosește acest formular pentru a înregistra o cerere pentru pachetul de "
-"bază %s%s%s care cuprinde următoarele pachete:"
+msgstr "Folosește acest formular pentru a înregistra o cerere pentru pachetul de bază %s%s%s care cuprinde următoarele pachete:"
 
+#: template/pkgreq_form.php
 msgid "Request type"
 msgstr "Tipul de cerere"
 
+#: template/pkgreq_form.php
 msgid "Deletion"
 msgstr "Ștergere"
 
+#: template/pkgreq_form.php
 msgid "Orphan"
 msgstr "Orfan"
 
+#: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
 msgstr "Fuzionează"
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a deletion request, you ask a Trusted User to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
@@ -1312,6 +1681,7 @@ msgid ""
 "update the Git history of the target package yourself."
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
 "package base. Please only do this if the package needs maintainer action, "
@@ -1319,9 +1689,11 @@ msgid ""
 "previously."
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
 msgstr ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
@@ -1329,19 +1701,24 @@ msgstr[0] "%d cerere pentru pachet găsită"
 msgstr[1] "%d cereri pentru pachet găsite"
 msgstr[2] "%d de cereri pentru pachet găsite"
 
+#: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
 msgstr "Pagina %d din %d."
 
+#: template/pkgreq_results.php
 msgid "Package"
 msgstr "Pachet"
 
+#: template/pkgreq_results.php
 msgid "Filed by"
 msgstr "Depusă de"
 
+#: template/pkgreq_results.php
 msgid "Date"
 msgstr "Data"
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
@@ -1349,6 +1726,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
@@ -1356,96 +1734,128 @@ msgstr[0] "~%d oră rămasă"
 msgstr[1] "~%d ore rămase"
 msgstr[2] "~%d de ore rămase"
 
+#: template/pkgreq_results.php
 msgid "<1 hour left"
 msgstr "<1 oră a rămas"
 
+#: template/pkgreq_results.php
 msgid "Accept"
 msgstr "Acceptă"
 
+#: template/pkgreq_results.php
 msgid "Locked"
 msgstr "Blocat"
 
+#: template/pkgreq_results.php
 msgid "Close"
 msgstr "Închide"
 
+#: template/pkgreq_results.php
 msgid "Pending"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Closed"
 msgstr "Închis"
 
+#: template/pkg_search_form.php
 msgid "Name, Description"
 msgstr "Nume, Descriere"
 
+#: template/pkg_search_form.php
 msgid "Name Only"
 msgstr "Doar nume"
 
+#: template/pkg_search_form.php
 msgid "Exact Name"
 msgstr "Nume exact"
 
+#: template/pkg_search_form.php
 msgid "Exact Package Base"
 msgstr "Pachet de bază exact"
 
+#: template/pkg_search_form.php
 msgid "Co-maintainer"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "All"
 msgstr "Toate"
 
+#: template/pkg_search_form.php
 msgid "Flagged"
 msgstr "Marcate"
 
+#: template/pkg_search_form.php
 msgid "Not Flagged"
 msgstr "Nemarcate"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Name"
 msgstr "Nume"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
+#: template/tu_details.php template/tu_list.php
 msgid "Voted"
 msgstr "Votat"
 
+#: template/pkg_search_form.php
 msgid "Last modified"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Ascending"
 msgstr "Crescător"
 
+#: template/pkg_search_form.php
 msgid "Descending"
 msgstr "Descrescător"
 
+#: template/pkg_search_form.php
 msgid "Enter search criteria"
 msgstr "Introdu criteriul de căutare"
 
+#: template/pkg_search_form.php
 msgid "Search by"
 msgstr "Caută după"
 
+#: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
 msgstr "Neactualizate"
 
+#: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
 msgstr "Sortează după"
 
+#: template/pkg_search_form.php
 msgid "Sort order"
 msgstr "Ordinea sortării"
 
+#: template/pkg_search_form.php
 msgid "Per page"
 msgstr "Per pagină"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
 msgstr "Înainte"
 
+#: template/pkg_search_form.php
 msgid "Orphans"
 msgstr "Orfane"
 
+#: template/pkg_search_results.php
 msgid "Error retrieving package list."
 msgstr "Eroare la preluarea listei de pachete."
 
+#: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
 msgstr "Niciun pachet nu s-a potrivit criteriului de căutare."
 
+#: template/pkg_search_results.php
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
@@ -1453,117 +1863,278 @@ msgstr[0] "%d pachet găsit"
 msgstr[1] "%d pachete găsite"
 msgstr[2] "%d de pachete găsite"
 
+#: template/pkg_search_results.php
 msgid "Version"
 msgstr "Versiune"
 
+#: template/pkg_search_results.php
 #, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
 msgstr ""
 
+#: template/pkg_search_results.php template/tu_details.php
+#: template/tu_list.php
 msgid "Yes"
 msgstr "Da"
 
+#: template/pkg_search_results.php
 msgid "orphan"
 msgstr "orfan"
 
+#: template/pkg_search_results.php
 msgid "Actions"
 msgstr "Acțiuni"
 
+#: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
 msgstr "Elimină marcajul de Neactualizat"
 
+#: template/pkg_search_results.php
 msgid "Adopt Packages"
 msgstr "Adoptă pachete"
 
+#: template/pkg_search_results.php
 msgid "Disown Packages"
 msgstr "Abandonează pachete"
 
+#: template/pkg_search_results.php
 msgid "Delete Packages"
 msgstr "Șterge pachete"
 
+#: template/pkg_search_results.php
 msgid "Confirm"
 msgstr "Confirmare"
 
+#: template/search_accounts_form.php
 msgid "Any type"
 msgstr "Orice tip"
 
+#: template/search_accounts_form.php
 msgid "Search"
 msgstr "Caută"
 
+#: template/stats/general_stats_table.php
 msgid "Statistics"
 msgstr "Statistici"
 
+#: template/stats/general_stats_table.php
 msgid "Orphan Packages"
 msgstr "Pachete orfane"
 
+#: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
 msgstr "Pachete adăugate în ultimele 7 zile"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
 msgstr "Pachete actualizate în ultimele 7 zile"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
 msgstr "Pachete actualizate în ultimul an"
 
+#: template/stats/general_stats_table.php
 msgid "Packages never updated"
 msgstr "Pachete niciodată actualizate"
 
+#: template/stats/general_stats_table.php
 msgid "Registered Users"
 msgstr "Utilizatori înregistrați"
 
+#: template/stats/general_stats_table.php
 msgid "Trusted Users"
 msgstr "Trusted users"
 
+#: template/stats/updates_table.php
 msgid "Recent Updates"
 msgstr "Actualizări recente"
 
+#: template/stats/updates_table.php
 msgid "more"
 msgstr ""
 
+#: template/stats/user_table.php
 msgid "My Statistics"
 msgstr "Statisticile mele"
 
+#: template/tu_details.php
 msgid "Proposal Details"
 msgstr "Detaliile propunerii."
 
+#: template/tu_details.php
 msgid "This vote is still running."
 msgstr "Această votare este încă în desfășurare."
 
+#: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
 msgstr "Trimis: %s de %s "
 
+#: template/tu_details.php template/tu_list.php
 msgid "End"
 msgstr "Sfârșit"
 
+#: template/tu_details.php
 msgid "Result"
 msgstr "Rezultat"
 
+#: template/tu_details.php template/tu_list.php
 msgid "No"
 msgstr "Nu"
 
+#: template/tu_details.php
 msgid "Abstain"
 msgstr "Abținere"
 
+#: template/tu_details.php
 msgid "Total"
 msgstr "Total"
 
+#: template/tu_details.php
 msgid "Participation"
 msgstr "Participare"
 
+#: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
 msgstr "Ultimele voturi de la un TU"
 
+#: template/tu_last_votes_list.php
 msgid "Last vote"
 msgstr "Ultimul vot"
 
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
 msgstr "Niciun rezultat găsit"
 
+#: template/tu_list.php
 msgid "Start"
 msgstr "Start"
 
+#: template/tu_list.php
 msgid "Back"
 msgstr "Înapoi"
+
+#: scripts/notify.py
+msgid "AUR Password Reset"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"A password reset request was submitted for the account {user} associated "
+"with your email address. If you wish to reset your password follow the link "
+"[1] below, otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#: scripts/notify.py
+msgid "Welcome to the Arch User Repository"
+msgstr ""
+
+#: scripts/notify.py
+msgid ""
+"Welcome to the Arch User Repository! In order to set an initial password for"
+" your new account, please click the link [1] below. If the link does not "
+"work, try copying and pasting it into your browser."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Comment for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] added the following comment to {pkgbase} [2]:"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"If you no longer wish to receive notifications about this package, please go"
+" to the package page [2] and select \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package Update: {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Out-of-date Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Ownership Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was adopted by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was disowned by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Co-Maintainer Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were added to the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package deleted: {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] deleted {pkgbase} [2].\n"
+"\n"
+"You will no longer receive notifications about this package."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "TU Vote Reminder: Proposal {id}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"Please remember to cast your vote on proposal {id} [1]. The voting period "
+"ends in less than 48 hours."
+msgstr ""

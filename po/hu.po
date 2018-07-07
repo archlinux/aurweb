@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AUR package.
-#
+# 
 # Translators:
 # Balló György <ballogyor@gmail.com>, 2013
 # Balló György <ballogyor@gmail.com>, 2011,2013-2016
@@ -9,1621 +9,2128 @@
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: Arch User Repository (AUR)\n"
+"Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-11-27 16:23+0100\n"
-"PO-Revision-Date: 2017-11-28 07:52+0000\n"
+"POT-Creation-Date: 2018-05-17 22:58+0200\n"
+"PO-Revision-Date: 2018-05-18 04:38+0000\n"
 "Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Hungarian (http://www.transifex.com/lfleischer/aur/language/"
-"hu/)\n"
-"Language: hu\n"
+"Language-Team: Hungarian (http://www.transifex.com/lfleischer/aurweb/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: html/404.php
 msgid "Page Not Found"
 msgstr "Az oldal nem található"
 
+#: html/404.php
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Sajnálom, a megtekinteni kívánt oldal nem létezik."
 
+#: html/404.php template/pkgreq_close_form.php
 msgid "Note"
 msgstr "Megjegyzés"
 
+#: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
 msgstr ""
 
+#: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
 msgstr ""
 
+#: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
 msgstr ""
 
+#: html/503.php
 msgid "Service Unavailable"
 msgstr "Szolgáltatás nem elérhető"
 
+#: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr ""
-"Nyugalom! Ez a webhely karbantartás miatt nem üzemel. Hamarosan visszajövünk."
+msgstr "Nyugalom! Ez a webhely karbantartás miatt nem üzemel. Hamarosan visszajövünk."
 
+#: html/account.php
 msgid "Account"
 msgstr "Fiók"
 
+#: html/account.php template/header.php
 msgid "Accounts"
 msgstr "Fiókok"
 
+#: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
 msgstr "Nincs engedélyed hozzáférni ehhez a területhez."
 
+#: html/account.php
 msgid "Could not retrieve information for the specified user."
 msgstr "Nem sikerült letölteni a megadott felhasználó információit."
 
+#: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "Nincs engedélyed ennek a fióknak a szerkesztéséhez."
 
+#: html/account.php
 msgid "Use this form to search existing accounts."
 msgstr "Már meglévő felhasználói fiókok kereséséhez használd ezt az űrlapot."
 
+#: html/account.php
 msgid "You must log in to view user information."
 msgstr "A felhasználói információ megtekintéshez be kell jelentkezned."
 
+#: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
 msgstr "Indítvány hozzáadása"
 
+#: html/addvote.php
 msgid "Invalid token for user action."
 msgstr "A token érvénytelen a felhasználói művelethez."
 
+#: html/addvote.php
 msgid "Username does not exist."
 msgstr "Ez a felhasználói név nem létezik."
 
+#: html/addvote.php
 #, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s már megpályázta őket."
 
+#: html/addvote.php
 msgid "Invalid type."
 msgstr "Érvénytelen típus."
 
+#: html/addvote.php
 msgid "Proposal cannot be empty."
 msgstr "Az indítvány nem lehet üres."
 
+#: html/addvote.php
 msgid "New proposal submitted."
 msgstr "Új indítvány benyújtva."
 
+#: html/addvote.php
 msgid "Submit a proposal to vote on."
 msgstr "Indítvány szavazásra bocsátása."
 
+#: html/addvote.php
 msgid "Applicant/TU"
 msgstr "Jelölt/TU"
 
+#: html/addvote.php
 msgid "(empty if not applicable)"
 msgstr "(üres, ha nem alkalmazható)"
 
+#: html/addvote.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Type"
 msgstr "Típus"
 
+#: html/addvote.php
 msgid "Addition of a TU"
 msgstr "TU hozzáadása"
 
+#: html/addvote.php
 msgid "Removal of a TU"
 msgstr "TU eltávolítása"
 
+#: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
 msgstr "TU eltávolítása (be nem jelentett inaktivitás)"
 
+#: html/addvote.php
 msgid "Amendment of Bylaws"
 msgstr "Szabályzat módosítása"
 
+#: html/addvote.php template/tu_list.php
 msgid "Proposal"
 msgstr "Indítvány"
 
+#: html/addvote.php
 msgid "Submit"
 msgstr "Feltöltés"
 
+#: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
 msgstr "Társkarbantartók kezelése"
 
+#: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
 msgstr "Hozzászólás szerkesztése"
 
+#: html/home.php template/header.php
 msgid "Dashboard"
 msgstr ""
 
+#: html/home.php template/header.php
 msgid "Home"
 msgstr "Honlap"
 
+#: html/home.php
 msgid "My Flagged Packages"
 msgstr ""
 
+#: html/home.php
 msgid "My Requests"
 msgstr ""
 
+#: html/home.php
 msgid "My Packages"
 msgstr "Csomagjaim"
 
+#: html/home.php
 msgid "Search for packages I maintain"
 msgstr ""
 
+#: html/home.php
 msgid "Co-Maintained Packages"
 msgstr ""
 
+#: html/home.php
 msgid "Search for packages I co-maintain"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
-"Üdvözlünk az AUR-ban! További információért olvasd el az %sAUR felhasználói "
-"irányelveket%s és az %sAUR TU irányelveket%s."
+msgstr "Üdvözlünk az AUR-ban! További információért olvasd el az %sAUR felhasználói irányelveket%s és az %sAUR TU irányelveket%s."
 
+#: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
-"A beküldött PKGBUILD-eknek meg %skell%s felelniük az %sArch csomagolási "
-"szabályoknak%s, különben törlésre kerülnek!"
+msgstr "A beküldött PKGBUILD-eknek meg %skell%s felelniük az %sArch csomagolási szabályoknak%s, különben törlésre kerülnek!"
 
+#: html/home.php
 msgid "Remember to vote for your favourite packages!"
 msgstr "Ne felejts el szavazni kedvenc csomagjaidra!"
 
+#: html/home.php
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Néhány csomagot lehet, hogy a [community] binárisként szolgáltat."
 
+#: html/home.php
 msgid "DISCLAIMER"
 msgstr "NYILATKOZAT"
 
+#: html/home.php template/footer.php
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr ""
-"Az AUR csomagok felhasználók által készített tartalmak. A szolgáltatott "
-"fájlok használata csak saját felelősségre."
+msgstr "Az AUR csomagok felhasználók által készített tartalmak. A szolgáltatott fájlok használata csak saját felelősségre."
 
+#: html/home.php
 msgid "Learn more..."
 msgstr "Tudj meg többet..."
 
+#: html/home.php
 msgid "Support"
 msgstr "Támogatás"
 
+#: html/home.php
 msgid "Package Requests"
 msgstr "Csomagkérelmek"
 
+#: html/home.php
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage Actions"
-"%s box on the package details page:"
-msgstr ""
-"Háromfajta kérelem tölthető ki a %sCsomagműveletek%s dobozban a csomag "
-"részletei oldalon:"
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
+msgstr "Háromfajta kérelem tölthető ki a %sCsomagműveletek%s dobozban a csomag részletei oldalon:"
 
+#: html/home.php
 msgid "Orphan Request"
 msgstr "Megtagadási kérelem"
 
+#: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr ""
-"Egy csomag megtagadásának kérése, pl. amikor a karbantartó inaktív, és a "
-"csomag régóta elavultnak lett jelölve."
+msgstr "Egy csomag megtagadásának kérése, pl. amikor a karbantartó inaktív, és a csomag régóta elavultnak lett jelölve."
 
+#: html/home.php
 msgid "Deletion Request"
 msgstr "Törlési kérelem"
 
+#: html/home.php
 msgid ""
-"Request a package to be removed from the Arch User Repository. Please do not "
-"use this if a package is broken and can be fixed easily. Instead, contact "
+"Request a package to be removed from the Arch User Repository. Please do not"
+" use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
-msgstr ""
-"Egy csomag Arch User Repositoriból való törlésének kérése. Kérünk, ne "
-"használd ezt, ha a csomag törött, és könnyen javítható. Ehelyett vedd fel a "
-"kapcsolatot a csomag karbantartójával, és tölts ki megtagadási kérelmet, ha "
-"szükséges."
+msgstr "Egy csomag Arch User Repositoriból való törlésének kérése. Kérünk, ne használd ezt, ha a csomag törött, és könnyen javítható. Ehelyett vedd fel a kapcsolatot a csomag karbantartójával, és tölts ki megtagadási kérelmet, ha szükséges."
 
+#: html/home.php
 msgid "Merge Request"
 msgstr "Beolvasztási kérelem"
 
+#: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr ""
-"Egy csomag másik csomagba történő beolvasztásának kérése. Akkor használható, "
-"amikor egy csomagot át kell nevezni, vagy lecserélésre kerül egy osztott "
-"csomagra."
+msgstr "Egy csomag másik csomagba történő beolvasztásának kérése. Akkor használható, amikor egy csomagot át kell nevezni, vagy lecserélésre kerül egy osztott csomagra."
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr ""
-"Ha meg szeretnél tárgyalni egy kérelmet, használd az %saur-requests%s "
-"levelezőlistát. Azonban ne használd ezt a listát kérvények beadására."
+msgstr "Ha meg szeretnél tárgyalni egy kérelmet, használd az %saur-requests%s levelezőlistát. Azonban ne használd ezt a listát kérvények beadására."
 
+#: html/home.php
 msgid "Submitting Packages"
 msgstr "Csomagok beküldése"
 
+#: html/home.php
 #, php-format
 msgid ""
-"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
-"packages%s section of the Arch User Repository ArchWiki page for more "
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
+" packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr ""
-"Jelenleg SSH-n keresztüli Git használandó a csomagok beküldéséhez az AUR-ba. "
-"További részletekért lásd a %sCsomagok beküldése%s szakaszt az Arch User "
-"Repository ArchWiki oldalon."
+msgstr "Jelenleg SSH-n keresztüli Git használandó a csomagok beküldéséhez az AUR-ba. További részletekért lásd a %sCsomagok beküldése%s szakaszt az Arch User Repository ArchWiki oldalon."
 
+#: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
 msgstr "Az alábbi SSH ujjlenyomatokat használjuk az AUR-hoz:"
 
+#: html/home.php
 msgid "Discussion"
 msgstr "Megbeszélés"
 
+#: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. For discussion relating to the "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr ""
-"Az Arch User Repositoryval (AUR) és a Trusted User struktúrával kapcsolatos "
-"általános tanácskozás helye az %saur-general%s. Az AUR webes felületének "
-"fejlesztésével kapcsolatos tanácskozáshoz az %saur-dev%s levelezőlista "
-"használandó."
+msgstr "Az Arch User Repositoryval (AUR) és a Trusted User struktúrával kapcsolatos általános tanácskozás helye az %saur-general%s. Az AUR webes felületének fejlesztésével kapcsolatos tanácskozáshoz az %saur-dev%s levelezőlista használandó."
 
+#: html/home.php
 msgid "Bug Reporting"
 msgstr "Hibajelentés"
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
-"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface "
-"%sonly%s. To report packaging bugs contact the package maintainer or leave a "
-"comment on the appropriate package page."
-msgstr ""
-"Ha találsz egy hibát az AUR webes felületén, kérünk, tölts ki egy "
-"hibajelentést a %shibakövetőnkben%s. A hibakövetőt %scsak%s az AUR webes "
-"felületén található hibák jelentésére használd. Csomagolási hibák "
-"jelentéséhez lépj kapcsolatba a csomag fenntartójával, vagy hagyj egy "
-"hozzászólást a megfelelő csomag oldalán."
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
+" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+"a comment on the appropriate package page."
+msgstr "Ha találsz egy hibát az AUR webes felületén, kérünk, tölts ki egy hibajelentést a %shibakövetőnkben%s. A hibakövetőt %scsak%s az AUR webes felületén található hibák jelentésére használd. Csomagolási hibák jelentéséhez lépj kapcsolatba a csomag fenntartójával, vagy hagyj egy hozzászólást a megfelelő csomag oldalán."
 
+#: html/home.php
 msgid "Package Search"
 msgstr "Csomag keresése"
 
+#: html/index.php
 msgid "Adopt"
 msgstr "Örökbe fogadás"
 
+#: html/index.php
 msgid "Vote"
 msgstr "Szavazás"
 
+#: html/index.php
 msgid "UnVote"
 msgstr "Szavazat visszavonása"
 
+#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
 msgstr "Értesítés"
 
+#: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
 msgstr "Értesítés kikapcsolása"
 
+#: html/index.php
 msgid "UnFlag"
 msgstr "Megjelölés visszavonása"
 
+#: html/login.php template/header.php
 msgid "Login"
 msgstr "Bejelentkezés"
 
+#: html/login.php html/tos.php
 #, php-format
 msgid "Logged-in as: %s"
 msgstr "Bejelentkezve mint: %s"
 
+#: html/login.php template/header.php
 msgid "Logout"
 msgstr "Kijelentkezés"
 
+#: html/login.php
 msgid "Enter login credentials"
 msgstr "Bejelentkezési adatok megadása"
 
+#: html/login.php
 msgid "User name or email address"
 msgstr "Felhasználónév vagy e-mail cím"
 
+#: html/login.php template/account_edit_form.php
 msgid "Password"
 msgstr "Jelszó"
 
+#: html/login.php
 msgid "Remember me"
 msgstr "Maradjak bejelentkezve"
 
+#: html/login.php
 msgid "Forgot Password"
 msgstr "Elfelejtett jelszó"
 
+#: html/login.php
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
-"A HTTP bejelentkezés letiltásra került. Ha be szeretnél jelentkezni, akkor "
-"kérünk, hogy %sválts át HTTPs-re%s."
+msgstr "A HTTP bejelentkezés letiltásra került. Ha be szeretnél jelentkezni, akkor kérünk, hogy %sválts át HTTPs-re%s."
 
+#: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
 msgstr "Keresési feltételek"
 
+#: html/packages.php template/header.php template/pkgbase_details.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
 msgid "Packages"
 msgstr "Csomagok"
 
+#: html/packages.php
 msgid "Error trying to retrieve package details."
 msgstr "Hiba történt a csomag részletes információinak letöltése közben."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
 msgstr "Egy kötelező mező megadása hiányzik."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
 msgstr "A jelszó mezők nem egyeznek."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 #, php-format
 msgid "Your password must be at least %s characters."
 msgstr "A jelszónak legalább %s karakter hosszúságúnak kell lennie."
 
+#: html/passreset.php
 msgid "Invalid e-mail."
 msgstr "Érvénytelen e-mail."
 
+#: html/passreset.php
 msgid "Password Reset"
 msgstr "Jelszó visszaállítása"
 
+#: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
 msgstr "Ellenőrizd az e-mailjeidet a megerősítő hivatkozáshoz."
 
+#: html/passreset.php
 msgid "Your password has been reset successfully."
 msgstr "Jelszavad sikeresen visszaállításra került."
 
+#: html/passreset.php
 msgid "Confirm your e-mail address:"
 msgstr "Erősíts meg az e-mail címedet:"
 
+#: html/passreset.php
 msgid "Enter your new password:"
 msgstr "Add meg az új jelszavad:"
 
+#: html/passreset.php
 msgid "Confirm your new password:"
 msgstr "Erősítsd meg az új jelszavad:"
 
+#: html/passreset.php html/tos.php
 msgid "Continue"
 msgstr "Folytatás"
 
+#: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %saur-general%s mailing list."
-msgstr ""
-"Ha elfelejtetted az e-mail címet, amit a regisztrációhoz használtál, akkor "
-"küldj egy üzenetet az %saur-general%s levelezőlistára."
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "Ha elfelejtetted az e-mail címet, amit a regisztrációhoz használtál, akkor küldj egy üzenetet az %saur-general%s levelezőlistára."
 
+#: html/passreset.php
 msgid "Enter your e-mail address:"
 msgstr "Add meg az e-mail címedet:"
 
+#: html/pkgbase.php
 msgid "Package Bases"
 msgstr ""
 
+#: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr ""
-"A kiválasztott csomagok nem kerültek megtagadásra, ellenőrizd a megerősítő "
-"jelölőnégyzetet."
+msgstr "A kiválasztott csomagok nem kerültek megtagadásra, ellenőrizd a megerősítő jelölőnégyzetet."
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
-msgstr ""
-"Nem található csomag, amelybe a szavazatok és hozzászólások beolvaszthatók "
-"lennének."
+msgstr "Nem található csomag, amelybe a szavazatok és hozzászólások beolvaszthatók lennének."
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
 msgstr "Egy alapcsomag nem olvasztható önmagába."
 
+#: html/pkgbase.php
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr ""
-"A kiválasztott csomagok nem kerültek törlésre, ellenőrizd a megerősítő "
-"jelölőnégyzetet."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "A kiválasztott csomagok nem kerültek törlésre, ellenőrizd a megerősítő jelölőnégyzetet."
 
+#: html/pkgdel.php
 msgid "Package Deletion"
 msgstr "Csomag törlése"
 
+#: html/pkgdel.php template/pkgbase_actions.php
 msgid "Delete Package"
 msgstr "Csomag törlése"
 
+#: html/pkgdel.php
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
-"Használd ezt az űrlapot a(z) %s%s%s alapcsomag és az alábbi csomagok "
-"törléséhez az AUR-ból:"
+msgstr "Használd ezt az űrlapot a(z) %s%s%s alapcsomag és az alábbi csomagok törléséhez az AUR-ból:"
 
+#: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
 msgstr "Egy csomag törlése végleges. "
 
+#: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
 msgstr "A művelet megerősítéséhez jelöld be a jelölőnégyzetet."
 
+#: html/pkgdel.php
 msgid "Confirm package deletion"
 msgstr "Csomag törlésének megerősítése"
 
+#: html/pkgdel.php template/account_delete.php
 msgid "Delete"
 msgstr "Törlés"
 
+#: html/pkgdel.php
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Csak megbízható felhasználók és fejlesztők tudnak csomagokat törölni."
 
+#: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
 msgstr "Csomag megtagadása"
 
+#: html/pkgdisown.php
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following "
-"packages: "
-msgstr ""
-"Használd ezt az űrlapot a(z) %s%s%s alapcsomag megtagadásához, amely a "
-"következő csomagokat tartalmazza:"
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
+msgstr "Használd ezt az űrlapot a(z) %s%s%s alapcsomag megtagadásához, amely a következő csomagokat tartalmazza:"
 
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to no longer be a "
+"package co-maintainer."
+msgstr ""
+
+#: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr ""
-"A jelölőnégyzet kiválasztásával megerősíted, hogy szeretnéd megtagadni a "
-"csomagot, és átadni a tulajdonjogot neki: %s%s%s."
+msgstr "A jelölőnégyzet kiválasztásával megerősíted, hogy szeretnéd megtagadni a csomagot, és átadni a tulajdonjogot neki: %s%s%s."
 
+#: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr ""
-"A jelölőnégyzet kiválasztásával megerősíted, hogy szeretnéd megtagadni a "
-"csomagot."
+msgstr "A jelölőnégyzet kiválasztásával megerősíted, hogy szeretnéd megtagadni a csomagot."
 
+#: html/pkgdisown.php
 msgid "Confirm to disown the package"
 msgstr "Csomag megtagadásának megerősítése."
 
+#: html/pkgdisown.php
 msgid "Disown"
 msgstr "Megtagadás"
 
+#: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
-"Csak megbízható felhasználók és fejlesztők tudnak megtagadni csomagokat."
+msgstr "Csak megbízható felhasználók és fejlesztők tudnak megtagadni csomagokat."
 
+#: html/pkgflagcomment.php
 msgid "Flag Comment"
 msgstr "Hozzászólás jelölése"
 
+#: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "Csomag elvaultnak jelölése"
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
-"Use this form to flag the package base %s%s%s and the following packages out-"
-"of-date: "
-msgstr ""
-"Használd ezt az űrlapot annak jelzésére, hogy a(z) %s%s%s alapcsomag és a "
-"következő csomagok elavultak:"
+"Use this form to flag the package base %s%s%s and the following packages "
+"out-of-date: "
+msgstr "Használd ezt az űrlapot annak jelzésére, hogy a(z) %s%s%s alapcsomag és a következő csomagok elavultak:"
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr ""
-"Kérünk, %sne%s használd ezt az űrlapot hibák jelentéséhez. Használd a "
-"csomaghozzászólásokat helyette."
+msgstr "Kérünk, %sne%s használd ezt az űrlapot hibák jelentéséhez. Használd a csomaghozzászólásokat helyette."
 
+#: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr ""
-"Add meg alább a részleteit, hogy miért avult el a csomag, lehetőleg "
-"hivatkozásokkal a kiadási közleményre vagy az új kiadás tarballjára."
+msgstr "Add meg alább a részleteit, hogy miért avult el a csomag, lehetőleg hivatkozásokkal a kiadási közleményre vagy az új kiadás tarballjára."
 
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
 msgid "Comments"
 msgstr "Hozzászólások"
 
+#: html/pkgflag.php
 msgid "Flag"
 msgstr "Megjelölés"
 
+#: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
 msgstr "Csak regisztrált felhasználók jelölhetnek csomagokat elavultnak."
 
+#: html/pkgmerge.php
 msgid "Package Merging"
 msgstr "Csomag beolvasztása"
 
+#: html/pkgmerge.php template/pkgbase_actions.php
 msgid "Merge Package"
 msgstr "Csomag beolvasztása"
 
+#: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
-"Használd ezt az űrlapot a(z) %s%s%s alapcsomag másik csomagba történő "
-"beolvasztásához."
+msgstr "Használd ezt az űrlapot a(z) %s%s%s alapcsomag másik csomagba történő beolvasztásához."
 
+#: html/pkgmerge.php
 msgid "The following packages will be deleted: "
 msgstr "A következő csomagok törlésre kerülnek:"
 
+#: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
-"Ha egyszer egy csomag beolvasztásra került, többé nem lehet visszaállítani. "
+msgstr "Ha egyszer egy csomag beolvasztásra került, többé nem lehet visszaállítani. "
 
+#: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
 msgstr "Add meg a csomag nevét, amibe szeretnéd beolvasztani a csomagot."
 
+#: html/pkgmerge.php
 msgid "Merge into:"
 msgstr "Beolvasztás ebbe:"
 
+#: html/pkgmerge.php
 msgid "Confirm package merge"
 msgstr "Csomag beolvasztásának megerősítése"
 
+#: html/pkgmerge.php template/pkgreq_form.php
 msgid "Merge"
 msgstr "Beolvasztás"
 
+#: html/pkgmerge.php
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
-"Csak megbízható felhasználók és fejlesztők tudnak csomagokat beolvasztani."
+msgstr "Csak megbízható felhasználók és fejlesztők tudnak csomagokat beolvasztani."
 
+#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
 msgstr "Kérelem beküldése"
 
+#: html/pkgreq.php template/pkgreq_close_form.php
 msgid "Close Request"
 msgstr "Kérelem lezárása"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Első"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Előző"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Következő"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Utolsó"
 
+#: html/pkgreq.php template/header.php
 msgid "Requests"
 msgstr "Kérelmek"
 
+#: html/register.php template/header.php
 msgid "Register"
 msgstr "Regisztráció"
 
+#: html/register.php
 msgid "Use this form to create an account."
 msgstr "Használd ezt a űrlapot felhasználói fiók létrehozására."
 
+#: html/tos.php
 msgid "Terms of Service"
 msgstr ""
 
+#: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
 msgstr ""
 
+#: html/tos.php
 #, php-format
 msgid "revision %d"
 msgstr ""
 
+#: html/tos.php
 msgid "I accept the terms and conditions above."
 msgstr ""
 
+#: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
 msgstr "Megbízható felhasználó"
 
+#: html/tu.php
 msgid "Could not retrieve proposal details."
 msgstr "Nem sikerült az indítvány részletes információinak letöltése."
 
+#: html/tu.php
 msgid "Voting is closed for this proposal."
 msgstr "A szavazás lezárult erre az indítványra."
 
+#: html/tu.php
 msgid "Only Trusted Users are allowed to vote."
 msgstr "A szavazás csak megbízható felhasználóknak engedélyezett."
 
+#: html/tu.php
 msgid "You cannot vote in an proposal about you."
 msgstr "Nem szavazhatsz egy rólad szóló indítványra."
 
+#: html/tu.php
 msgid "You've already voted for this proposal."
 msgstr "Már szavaztál erre az indítványra."
 
+#: html/tu.php
 msgid "Vote ID not valid."
 msgstr "Érvénytelen szavazatazonosító."
 
+#: html/tu.php template/tu_list.php
 msgid "Current Votes"
 msgstr "Jelenlegi szavazatok"
 
+#: html/tu.php
 msgid "Past Votes"
 msgstr "Korábbi szavazatok"
 
+#: html/voters.php template/tu_details.php
 msgid "Voters"
 msgstr "Szavazók"
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"A felhasználói regisztráció jelenleg letiltásra került az IP címedre, "
-"valószínűleg rendszeres spam támadások miatt. Elnézést a kellemetlenségért."
+msgstr "A felhasználói regisztráció jelenleg letiltásra került az IP címedre, valószínűleg rendszeres spam támadások miatt. Elnézést a kellemetlenségért."
 
+#: lib/acctfuncs.inc.php
 msgid "Missing User ID"
 msgstr "Hiányzó felhasználóazonosító"
 
+#: lib/acctfuncs.inc.php
 msgid "The username is invalid."
 msgstr "A felhasználónév érvénytelen."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "%s és %s közötti karakterhosszúságúnak kell lennie"
 
+#: lib/acctfuncs.inc.php
 msgid "Start and end with a letter or number"
 msgstr "Betűvel vagy számjeggyel kezdődjön és végződjön"
 
+#: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Csak egyetlen pontot, aláhúzást vagy kötőjelet tartalmazhat."
 
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "Érvénytelen e-mail cím."
 
+#: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
 msgstr "A PGP kulcs ujjlenyomata érvénytelen."
 
+#: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
 msgstr "A nyilvános SSH kulcs érvénytelen."
 
+#: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
 msgstr "Nem lehet megnövelni a fiók jogosultságait."
 
+#: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
 msgstr "A nyelv jelenleg nem támogatott."
 
+#: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
 msgstr ""
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "A(z) %s%s%s felhasználónév már használatban van."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "A(z) %s%s%s cím már használatban van."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "A(z) %s%s%s nyilvános SSH kulcs már használatban van."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
 msgstr "Hiba történt a(z) %s%s%s fiók létrehozása során."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "A(z) %s%s%s fiók sikeresen létrejött."
 
+#: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Egy jelszó-visszaállító kulcs kiküldésre került az e-mail címedre."
 
+#: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
 msgstr "A fiókod használatához kattints a Bejelentkezés hivatkozásra feljebb."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
 msgstr "A(z) %s%s%s fiók nem módosult."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "A(z) %s%s%s fiók sikeresen módosítva."
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"A bejelentkező űrlap jelenleg letiltásra került az IP címedre, valószínűleg "
-"rendszeres spam támadások miatt. Elnézést a kellemetlenségért."
+msgstr "A bejelentkező űrlap jelenleg letiltásra került az IP címedre, valószínűleg rendszeres spam támadások miatt. Elnézést a kellemetlenségért."
 
+#: lib/acctfuncs.inc.php
 msgid "Account suspended"
 msgstr "Fiók felfüggesztve"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
-"A jelszavad visszaállításra került. Ha most regisztráltál, akkor a "
-"megerősítő e-mailben található hivatkozással beállíthatsz egy kezdeti "
-"jelszót. Egyéb esetben kérj egy visszaállító kulcsot a %sJelszó "
-"visszaállítása%s oldalon."
+msgstr "A jelszavad visszaállításra került. Ha most regisztráltál, akkor a megerősítő e-mailben található hivatkozással beállíthatsz egy kezdeti jelszót. Egyéb esetben kérj egy visszaállító kulcsot a %sJelszó visszaállítása%s oldalon."
 
+#: lib/acctfuncs.inc.php
 msgid "Bad username or password."
 msgstr "Hibás felhasználónév vagy jelszó."
 
+#: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
 msgstr "Hiba történt a felhasználói munkamenet létrehozásának megkísérlésekor."
 
+#: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
 msgstr "Érvénytelen e-mail és visszaállító kulcs kombináció."
 
+#: lib/aur.inc.php template/pkg_details.php
 msgid "None"
 msgstr "Nincs"
 
+#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
 msgstr "Fiók információinak megtekintése – %s"
 
+#: lib/aurjson.class.php
 msgid "Package base ID or package base name missing."
 msgstr "Alapcsomag-azonosító vagy alapcsomagnév hiányzik."
 
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
 msgstr "Nem szerkesztheted ezt a hozzászólást."
 
+#: lib/aurjson.class.php
 msgid "Comment does not exist."
 msgstr "A hozzászólás nem létezik."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment cannot be empty."
 msgstr "A hozzászólás nem lehet üres."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been added."
 msgstr "A hozzászólás hozzáadva."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
 msgstr "A csomag információinak szerkesztéséhez be kell jelentkezned."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
 msgstr "Hiányzó hozzászólásazonosító."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
 msgstr "5-nél több hozzászólás nem rögzíthető."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to pin this comment."
 msgstr "Nem rögzítheted ezt a hozzászólást."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to unpin this comment."
 msgstr "Nem oldhatod fel ezt a hozzászólást."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
 msgstr "A hozzászólás rögzítésre került."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been unpinned."
 msgstr "A hozzászólás feloldásra került."
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
 msgstr "Hiba történt a csomag részletes információinak letöltése közben."
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
 msgstr "A csomag részletes információi nem találhatók."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Csomagok megjelöléséhez be kell jelentkezned."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
 msgstr "Nem választottál ki egyetlen csomagot sem megjelölésre."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
 msgstr "A kiválasztott csomagok nem lettek jelölve, adj meg egy megjegyzést."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
 msgstr "A kiválasztott csomagok elavultnak lettek jelölve."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
 msgstr "Csomagok megjelölésének visszavonásához be kell jelentkezned."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
 msgstr "Nem választottál ki egyetlen csomagot sem megjelölés visszavonására."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
 msgstr "A kiválasztott csomagok bejelölése visszavonva."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
 msgstr "Csomagok törléséhez nincs jogosultságod."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
 msgstr "Nem választottál ki egyetlen törlendő csomagot sem."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "A kiválasztott csomagok törlése megtörtént."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
 msgstr "Csomagok örökbefogadásához be kell jelentkezned."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Csomagok megtagadásához be kell jelentkezned."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
 msgstr "Nem választottál ki egyetlen örökbe fogadandó csomagot sem."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
 msgstr "Nem választottál ki egyetlen csomagot sem megtagadásra."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
 msgstr "Sikeresen örökbe fogadtad a kiválasztott csomagokat."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
 msgstr "A kiválasztott csomagok megtagadva."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
 msgstr "Csomagokra történő szavazáshoz be kell jelentkezned."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
 msgstr "Csomagokra adott szavazatok visszavonásához be kell jelentkezned."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
 msgstr "Nem választottál ki egyetlen csomagot sem, amire szavaznál."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
 msgstr "Szavazatod eltávolításra került a kiválasztott csomagokról."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
 msgstr "Leadtad a szavazatod a kiválasztott csomagokra."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
 msgstr "Nem sikerült hozzáadni az értesítési listához."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
-msgstr ""
-"Sikeresen fel lettél véve a(z) %s csomag hozzászólásértesítési listájára."
+msgstr "Sikeresen fel lettél véve a(z) %s csomag hozzászólásértesítési listájára."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
 msgstr "El lettél távolítva a(z) %s csomag hozzászólásértesítési listájáról."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
 msgstr "Ennek a hozzászólásnak nem vonhatod vissza a törlését."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been undeleted."
 msgstr "A hozzászólás törlése visszavonásra került."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
 msgstr "Nem törölheted ezt a hozzászólást."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been deleted."
 msgstr "Hozzászólás törölve."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been edited."
 msgstr "A hozzászólás szerkesztve lett."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr "Nem szerkesztheted ennek az alapcsomagnak a kulcsszavait."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
 msgstr "Az alapcsomag kulcsszavai frissítve lettek."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Nem szerkesztheted ennek az alapcsomagnak a társkarbantartóit."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "Invalid user name: %s"
 msgstr "Érvénytelen felhasználónév: %s"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
 msgstr "Az alapcsomag társkarbantartói frissítve lettek."
 
+#: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
 msgstr "Csomag részleteinek megtekintése –"
 
+#: lib/pkgfuncs.inc.php
 #, php-format
 msgid "requires %s"
 msgstr "igényli ezt: %s"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
 msgstr "Csomagkérelmek beküldéséhez be kell jelentkezned."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Érvénytelen név: csak kisbetűk használata engedélyezett."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
 msgstr "A hozászólás mező nem lehet üres."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
 msgstr "Érvénytelen kérelemtípus."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
 msgstr "Kérelem sikeresen hozzáadva."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
 msgstr "Érvénytelen ok."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
 msgstr "Csak megbízható felhasználók és fejlesztők tudnak kérelmeket lezárni."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
 msgstr "Kérelem sikeresen lezárva."
 
+#: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr "Ez az űrlap %s AUR fiókjának végleges törléséhez használható."
 
+#: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
 msgstr "%sFIGYELMEZTETÉS%s: ez a művelet nem visszavonható."
 
+#: template/account_delete.php
 msgid "Confirm deletion"
 msgstr "Törlés megerősítése"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Username"
 msgstr "Felhasználónév"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Account Type"
 msgstr "Fióktípus"
 
+#: template/account_details.php template/tu_details.php
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "User"
 msgstr "Felhasználó"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Developer"
 msgstr "Fejlesztő"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Trusted User & Developer"
 msgstr "Megbízható felhasználó és fejlesztő"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Email Address"
 msgstr "E-mail cím"
 
+#: template/account_details.php
 msgid "hidden"
 msgstr "rejtett"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Real Name"
 msgstr "Valós név"
 
+#: template/account_details.php template/account_edit_form.php
 msgid "Homepage"
 msgstr "Honlap"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr "IRC becenév"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php
 msgid "PGP Key Fingerprint"
 msgstr "PGP kulcs ujjlenyomata"
 
+#: template/account_details.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Status"
 msgstr "Állapot"
 
+#: template/account_details.php
 msgid "Inactive since"
 msgstr "Ezóta inaktív:"
 
+#: template/account_details.php template/account_search_results.php
 msgid "Active"
 msgstr "Aktív"
 
+#: template/account_details.php
 msgid "Registration date:"
 msgstr "Regisztráció dátuma:"
 
+#: template/account_details.php template/pkgbase_details.php
+#: template/pkg_details.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "unknown"
 msgstr "ismeretlen"
 
+#: template/account_details.php
 msgid "Last Login"
 msgstr "Legutóbbi bejelentkezés"
 
+#: template/account_details.php
 msgid "Never"
 msgstr "Soha"
 
+#: template/account_details.php
 msgid "View this user's packages"
 msgstr "A felhasználó csomagjainak megtekintése"
 
+#: template/account_details.php
 msgid "Edit this user's account"
 msgstr "Ezen felhasználó fiókjának szerkesztése"
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Kattints %side%s, ha véglegesen törölni szeretnéd ezt a fiókot."
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr "Kattints %side%s a felhasználó részleteihez."
 
+#: template/account_edit_form.php
 msgid "required"
 msgstr "kötelező"
 
+#: template/account_edit_form.php
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
 msgstr ""
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Normál felhasználó"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Trusted user"
 msgstr "Megbízható felhasználó"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
 msgstr "Felhasználói fiók felfüggesztve"
 
+#: template/account_edit_form.php
 msgid "Inactive"
 msgstr "Inaktív"
 
+#: template/account_edit_form.php
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr ""
-"Kérünk, győződj meg arról, hogy helyesen adtad meg az e-mail címedet, "
-"különben ki leszel zárva."
+msgstr "Kérünk, győződj meg arról, hogy helyesen adtad meg az e-mail címedet, különben ki leszel zárva."
 
+#: template/account_edit_form.php
 msgid "Hide Email Address"
 msgstr "E-mail cím elrejtése"
 
+#: template/account_edit_form.php
 msgid "Re-type password"
 msgstr "Megismételt jelszó"
 
+#: template/account_edit_form.php
 msgid "Language"
 msgstr "Nyelv"
 
+#: template/account_edit_form.php
 msgid "Timezone"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid ""
-"The following information is only required if you want to submit packages to "
-"the Arch User Repository."
-msgstr ""
-"Az alábbi információ csak akkor szükséges, ha csomagokat szeretnél beküldeni "
-"az Arch User Repositoryba."
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
+msgstr "Az alábbi információ csak akkor szükséges, ha csomagokat szeretnél beküldeni az Arch User Repositoryba."
 
+#: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr "Nyilvános SSH kulcs"
 
+#: template/account_edit_form.php
 msgid "Notification settings"
 msgstr "Értesítési beállítások"
 
+#: template/account_edit_form.php
 msgid "Notify of new comments"
 msgstr "Értesítés új hozzászólásról"
 
+#: template/account_edit_form.php
 msgid "Notify of package updates"
 msgstr "Értesítés csomagfrissítésekről."
 
+#: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr "Értesítés tulajdonváltozásokról"
 
+#: template/account_edit_form.php template/pkgbase_details.php
+#: template/pkg_details.php
 msgid "Update"
 msgstr "Frissítés"
 
+#: template/account_edit_form.php
 msgid "Create"
 msgstr "Létrehozás"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Reset"
 msgstr "Visszaállítás"
 
+#: template/account_search_results.php
 msgid "No results matched your search criteria."
 msgstr "Nincs a keresési feltételeknek megfelelő találat."
 
+#: template/account_search_results.php
 msgid "Edit Account"
 msgstr "Felhasználói fiók szerkesztése"
 
+#: template/account_search_results.php
 msgid "Suspended"
 msgstr "Felfüggesztve"
 
+#: template/account_search_results.php
 msgid "Edit"
 msgstr "Szerkesztés"
 
+#: template/account_search_results.php
 msgid "Less"
 msgstr "Kevesebb"
 
+#: template/account_search_results.php
 msgid "More"
 msgstr "Több"
 
+#: template/account_search_results.php
 msgid "No more results to display."
 msgstr "Nincs több kijelezhető eredmény."
 
+#: template/comaintainers_form.php
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr ""
-"Használd ezt az űrlapot társszerkesztők hozzáadásához a(z) %s%s%s csomaghoz "
-"(soronként egy felhasználónév):"
+msgstr "Használd ezt az űrlapot társszerkesztők hozzáadásához a(z) %s%s%s csomaghoz (soronként egy felhasználónév):"
 
+#: template/comaintainers_form.php
 msgid "Users"
 msgstr "Felhasználók"
 
+#: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
 msgstr "Mentés"
 
+#: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
 msgstr "Elavultnak jelölő hozzászólás: %s"
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
-"%s%s%s elavultnak jelölte a(z) %s%s%s csomagot ekkor: %s%s%s a következő "
-"okból:"
+msgstr "%s%s%s elavultnak jelölte a(z) %s%s%s csomagot ekkor: %s%s%s a következő okból:"
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
 msgstr "%s%s%s nincs elavultnak jelölve."
 
+#: template/flag_comment.php
 msgid "Return to Details"
 msgstr "Vissza a részletekhez"
 
+#: template/footer.php
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Copyright %s 2004-%d aurweb fejlesztői csapat."
 
+#: template/header.php
 msgid " My Account"
 msgstr " Fiókom"
 
+#: template/pkgbase_actions.php
 msgid "Package Actions"
 msgstr "Csomagműveletek"
 
+#: template/pkgbase_actions.php
 msgid "View PKGBUILD"
 msgstr "PKGBUILD megtekintése"
 
+#: template/pkgbase_actions.php
 msgid "View Changes"
 msgstr "Módosítások megtekintése"
 
+#: template/pkgbase_actions.php
 msgid "Download snapshot"
 msgstr "Pillanatkép letöltése"
 
+#: template/pkgbase_actions.php
 msgid "Search wiki"
 msgstr "Keresés wikiben"
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "Flagged out-of-date (%s)"
 msgstr "Elavultnak jelölve (%s)"
 
+#: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
 msgstr "Csomag elavultnak jelölése"
 
+#: template/pkgbase_actions.php
 msgid "Unflag package"
 msgstr "Csomag jelölésének visszavonása"
 
+#: template/pkgbase_actions.php
 msgid "Remove vote"
 msgstr "Szavazat eltávolítása"
 
+#: template/pkgbase_actions.php
 msgid "Vote for this package"
 msgstr "Szavazás erre a csomagra"
 
+#: template/pkgbase_actions.php scripts/notify.py
 msgid "Disable notifications"
 msgstr "Értesítések kikapcsolása"
 
+#: template/pkgbase_actions.php
 msgid "Enable notifications"
 msgstr "Értesítések engedélyezése"
 
+#: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
 msgstr "Társszerkesztők kezelése"
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] "%d függő kérelem"
 msgstr[1] "%d függő kérelem"
 
+#: template/pkgbase_actions.php
 msgid "Adopt Package"
 msgstr "Csomag örökbe fogadása"
 
+#: template/pkgbase_details.php
 msgid "Package Base Details"
 msgstr "Alapcsomag részletei"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
 msgstr "Git klónozási URL"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "csak olvasható"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Keywords"
 msgstr "Kulcsszavak"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Submitter"
 msgstr "Beküldő"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Maintainer"
 msgstr "Karbantartó"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
 msgstr "Legutóbbi csomagoló"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Votes"
 msgstr "Szavazatok"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Popularity"
 msgstr "Népszerűség"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
 msgstr "Először beküldve"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
 msgstr "Legutóbb frissítve"
 
+#: template/pkg_comment_box.php
 #, php-format
 msgid "Edit comment for: %s"
 msgstr "Hozzászólás szerkesztése ehhez: %s"
 
+#: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
 msgstr "Hosszászólás"
 
+#: template/pkg_comments.php
 msgid "View all comments"
 msgstr "Összes megjegyzés megjelenítése"
 
+#: template/pkg_comments.php
 msgid "Pinned Comments"
 msgstr "Rögzített hozzászólások"
 
+#: template/pkg_comments.php
 msgid "Latest Comments"
 msgstr "Legújabb hozzászólások"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "%s hozzászólt ekkor: %s"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "Névtelen hozzászólás ekkor: %s"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
 msgstr "törölve ekkor: %s %s által"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
 msgstr "törölve ekkor: %s"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s by %s"
 msgstr "szerkesztve ekkor: %s %s által"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s"
 msgstr "szerkesztve ekkor: %s"
 
+#: template/pkg_comments.php
 msgid "Undelete comment"
 msgstr "Hozzászólás törlésének visszavonása"
 
+#: template/pkg_comments.php
 msgid "Delete comment"
 msgstr "Hozzászólás törlése"
 
+#: template/pkg_comments.php
 msgid "Pin comment"
 msgstr "Hozzászólás rögzítése"
 
+#: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr "Hozzászólás feloldása"
 
+#: template/pkg_comments.php
 msgid "All comments"
 msgstr "Összes hozzászólás"
 
+#: template/pkg_details.php
 msgid "Package Details"
 msgstr "Részletes csomaginformáció"
 
+#: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
 msgstr "Alapcsomag"
 
+#: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
 msgstr "Leírás"
 
+#: template/pkg_details.php
 msgid "Upstream URL"
 msgstr "Upstream URL"
 
+#: template/pkg_details.php
 msgid "Visit the website for"
 msgstr "A webhely meglátogatása –"
 
+#: template/pkg_details.php
 msgid "Licenses"
 msgstr "Licencek"
 
+#: template/pkg_details.php
 msgid "Groups"
 msgstr "Csoportok"
 
+#: template/pkg_details.php
 msgid "Conflicts"
 msgstr "Ütközik"
 
+#: template/pkg_details.php
 msgid "Provides"
 msgstr "Szolgáltatja"
 
+#: template/pkg_details.php
 msgid "Replaces"
 msgstr "Lecseréli"
 
+#: template/pkg_details.php
 msgid "Dependencies"
 msgstr "Függőségek"
 
+#: template/pkg_details.php
 msgid "Required by"
 msgstr "Igényli"
 
+#: template/pkg_details.php
 msgid "Sources"
 msgstr "Források"
 
+#: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
-"Használd ezt az űrlapot a(z) %s%s%s alapcsomaggal kapcsolatos kérelem "
-"lezárásához."
+msgstr "Használd ezt az űrlapot a(z) %s%s%s alapcsomaggal kapcsolatos kérelem lezárásához."
 
+#: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr ""
-"A megjegyzések mező üresen hagyható. Viszont kérelem elutasításakor erősen "
-"javasolt megjegyzés hozzáadása."
+msgstr "A megjegyzések mező üresen hagyható. Viszont kérelem elutasításakor erősen javasolt megjegyzés hozzáadása."
 
+#: template/pkgreq_close_form.php
 msgid "Reason"
 msgstr "Ok"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Accepted"
 msgstr "Elfogadva"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Rejected"
 msgstr "Elutasítva"
 
+#: template/pkgreq_form.php
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr ""
-"Használd ezt az űrlapot a(z) %s%s%s alapcsomaggal kapcsolatos kérelem "
-"benyújtásához, amely a következő csomagokat tartalmazza:"
+msgstr "Használd ezt az űrlapot a(z) %s%s%s alapcsomaggal kapcsolatos kérelem benyújtásához, amely a következő csomagokat tartalmazza:"
 
+#: template/pkgreq_form.php
 msgid "Request type"
 msgstr "Kérelem típusa"
 
+#: template/pkgreq_form.php
 msgid "Deletion"
 msgstr "Törlés"
 
+#: template/pkgreq_form.php
 msgid "Orphan"
 msgstr "Megtagadás"
 
+#: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
 msgstr "Beolvasztás ebbe:"
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a deletion request, you ask a Trusted User to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr ""
-"Törlési kérelem beküldésével megkérsz egy megbízható felhasználót, hogy "
-"törölje az alapcsomagot. Ez a típusú kérelem duplikátumok, főági fejlesztők "
-"által felhagyott szoftverek, valamint illegális és helyrehozhatatlanul "
-"elromlott csomagokhoz használható."
+msgstr "Törlési kérelem beküldésével megkérsz egy megbízható felhasználót, hogy törölje az alapcsomagot. Ez a típusú kérelem duplikátumok, főági fejlesztők által felhagyott szoftverek, valamint illegális és helyrehozhatatlanul elromlott csomagokhoz használható."
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
-msgstr ""
-"Beolvasztási kérelem beküldésével megkérsz egy megbízható felhasználót, hogy "
-"törölje az alapcsomagot, és vigye át a szavazatait és hozzászólásait egy "
-"másik alapcsomaghoz. Egy csomag egyesítése nem érinti a kapcsolódó Git "
-"tárolókat. Győződj meg róla, hogy frissítetted magadnak a célcsomag Git "
-"történetét."
+msgstr "Beolvasztási kérelem beküldésével megkérsz egy megbízható felhasználót, hogy törölje az alapcsomagot, és vigye át a szavazatait és hozzászólásait egy másik alapcsomaghoz. Egy csomag egyesítése nem érinti a kapcsolódó Git tárolókat. Győződj meg róla, hogy frissítetted magadnak a célcsomag Git történetét."
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr ""
-"Megtagadási kérelem beküldésével megkérsz egy megbízható felhasználót, hogy "
-"tegye árvává az alapcsomagot. Kérünk, hogy ezt csak akkor tedd, ha a csomag "
-"igényel fenntartói műveletet, a fenntartó eltűnt, és előzőleg már "
-"megpróbáltad felvenni a kapcsolatot a fenntartóval."
+msgstr "Megtagadási kérelem beküldésével megkérsz egy megbízható felhasználót, hogy tegye árvává az alapcsomagot. Kérünk, hogy ezt csak akkor tedd, ha a csomag igényel fenntartói műveletet, a fenntartó eltűnt, és előzőleg már megpróbáltad felvenni a kapcsolatot a fenntartóval."
 
+#: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
 msgstr ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
 msgstr[0] "%d csomagokkal kapcsolatos kérelem található."
 msgstr[1] "%d csomagokkal kapcsolatos kérelem található."
 
+#: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
 msgstr "%d. oldal, összesen: %d."
 
+#: template/pkgreq_results.php
 msgid "Package"
 msgstr "Csomag"
 
+#: template/pkgreq_results.php
 msgid "Filed by"
 msgstr "Kitöltő"
 
+#: template/pkgreq_results.php
 msgid "Date"
 msgstr "Dátum"
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
 msgstr[0] "~%d nap van hátra"
 msgstr[1] "~%d nap van hátra"
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
 msgstr[0] "~%d óra van hátra"
 msgstr[1] "~%d óra van hátra"
 
+#: template/pkgreq_results.php
 msgid "<1 hour left"
 msgstr "<1 óra van hátra"
 
+#: template/pkgreq_results.php
 msgid "Accept"
 msgstr "Elfogadás"
 
+#: template/pkgreq_results.php
 msgid "Locked"
 msgstr "Zárolva"
 
+#: template/pkgreq_results.php
 msgid "Close"
 msgstr "Lezárás"
 
+#: template/pkgreq_results.php
 msgid "Pending"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Closed"
 msgstr "Lezárva"
 
+#: template/pkg_search_form.php
 msgid "Name, Description"
 msgstr "Név, leírás"
 
+#: template/pkg_search_form.php
 msgid "Name Only"
 msgstr "Csak név"
 
+#: template/pkg_search_form.php
 msgid "Exact Name"
 msgstr "Pontos név"
 
+#: template/pkg_search_form.php
 msgid "Exact Package Base"
 msgstr "Pontos alapcsomag"
 
+#: template/pkg_search_form.php
 msgid "Co-maintainer"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "All"
 msgstr "Összes"
 
+#: template/pkg_search_form.php
 msgid "Flagged"
 msgstr "Jelölt"
 
+#: template/pkg_search_form.php
 msgid "Not Flagged"
 msgstr "Nem jelölt"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Name"
 msgstr "Név"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
+#: template/tu_details.php template/tu_list.php
 msgid "Voted"
 msgstr "Szavazva"
 
+#: template/pkg_search_form.php
 msgid "Last modified"
 msgstr "Legutóbb módosítva"
 
+#: template/pkg_search_form.php
 msgid "Ascending"
 msgstr "Növekvő"
 
+#: template/pkg_search_form.php
 msgid "Descending"
 msgstr "Csökkenő"
 
+#: template/pkg_search_form.php
 msgid "Enter search criteria"
 msgstr "Keresési feltételek megadása"
 
+#: template/pkg_search_form.php
 msgid "Search by"
 msgstr "Keresés eszerint"
 
+#: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
 msgstr "Elavult"
 
+#: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
 msgstr "Rendezés"
 
+#: template/pkg_search_form.php
 msgid "Sort order"
 msgstr "Rendezési sorrend"
 
+#: template/pkg_search_form.php
 msgid "Per page"
 msgstr "Laponként"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
 msgstr "Mehet"
 
+#: template/pkg_search_form.php
 msgid "Orphans"
 msgstr "Árvák"
 
+#: template/pkg_search_results.php
 msgid "Error retrieving package list."
 msgstr "Hiba történt a csomaglista letöltése közben."
 
+#: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
 msgstr "Nincs a keresési feltételeknek megfelelő csomag."
 
+#: template/pkg_search_results.php
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
 msgstr[0] "%d csomag található."
 msgstr[1] "%d csomag található."
 
+#: template/pkg_search_results.php
 msgid "Version"
 msgstr "Verzió"
 
+#: template/pkg_search_results.php
 #, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr ""
-"A népszerűség az összes szavazatból kerül számításra. Minden egyes szavazat "
-"súlyozásra kerül naponta %.2f-as faktorral a létrehozása óta."
+msgstr "A népszerűség az összes szavazatból kerül számításra. Minden egyes szavazat súlyozásra kerül naponta %.2f-as faktorral a létrehozása óta."
 
+#: template/pkg_search_results.php template/tu_details.php
+#: template/tu_list.php
 msgid "Yes"
 msgstr "Igen"
 
+#: template/pkg_search_results.php
 msgid "orphan"
 msgstr "árva"
 
+#: template/pkg_search_results.php
 msgid "Actions"
 msgstr "Tevékenységek"
 
+#: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
 msgstr "Elavultság visszavonása"
 
+#: template/pkg_search_results.php
 msgid "Adopt Packages"
 msgstr "Csomagok örökbefogadása"
 
+#: template/pkg_search_results.php
 msgid "Disown Packages"
 msgstr "Csomagok megtagadása"
 
+#: template/pkg_search_results.php
 msgid "Delete Packages"
 msgstr "Csomagok törlése"
 
+#: template/pkg_search_results.php
 msgid "Confirm"
 msgstr "Megerősítés"
 
+#: template/search_accounts_form.php
 msgid "Any type"
 msgstr "Bármilyen típus"
 
+#: template/search_accounts_form.php
 msgid "Search"
 msgstr "Keresés"
 
+#: template/stats/general_stats_table.php
 msgid "Statistics"
 msgstr "Statisztika"
 
+#: template/stats/general_stats_table.php
 msgid "Orphan Packages"
 msgstr "Árva csomagok"
 
+#: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
 msgstr "A legutóbbi 7 napban hozzáadott csomagok"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
 msgstr "A legutóbbi 7 napban frissített csomagok"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
 msgstr "Az utóbbi évben frissített csomagok"
 
+#: template/stats/general_stats_table.php
 msgid "Packages never updated"
 msgstr "Soha nem frissített csomagok"
 
+#: template/stats/general_stats_table.php
 msgid "Registered Users"
 msgstr "Regisztrált felhasználók"
 
+#: template/stats/general_stats_table.php
 msgid "Trusted Users"
 msgstr "Megbízható felhasználók"
 
+#: template/stats/updates_table.php
 msgid "Recent Updates"
 msgstr "Legutóbbi frissítések"
 
+#: template/stats/updates_table.php
 msgid "more"
 msgstr "több"
 
+#: template/stats/user_table.php
 msgid "My Statistics"
 msgstr "Statisztikám"
 
+#: template/tu_details.php
 msgid "Proposal Details"
 msgstr "Indítvány részletes információi"
 
+#: template/tu_details.php
 msgid "This vote is still running."
 msgstr "A szavazás még zajlik."
 
+#: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
 msgstr "Benyújtva: %s (%s által)"
 
+#: template/tu_details.php template/tu_list.php
 msgid "End"
 msgstr "Vége"
 
+#: template/tu_details.php
 msgid "Result"
 msgstr "Eredmény"
 
+#: template/tu_details.php template/tu_list.php
 msgid "No"
 msgstr "Nem"
 
+#: template/tu_details.php
 msgid "Abstain"
 msgstr "Tartózkodik"
 
+#: template/tu_details.php
 msgid "Total"
 msgstr "Összesen"
 
+#: template/tu_details.php
 msgid "Participation"
 msgstr "Részvétel"
 
+#: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
 msgstr "Legutóbbi szavazatok TU szerint"
 
+#: template/tu_last_votes_list.php
 msgid "Last vote"
 msgstr "Legutóbbi szavazat"
 
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
 msgstr "Nincs találat."
 
+#: template/tu_list.php
 msgid "Start"
 msgstr "Kezdés"
 
+#: template/tu_list.php
 msgid "Back"
 msgstr "Vissza"
+
+#: scripts/notify.py
+msgid "AUR Password Reset"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"A password reset request was submitted for the account {user} associated "
+"with your email address. If you wish to reset your password follow the link "
+"[1] below, otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#: scripts/notify.py
+msgid "Welcome to the Arch User Repository"
+msgstr ""
+
+#: scripts/notify.py
+msgid ""
+"Welcome to the Arch User Repository! In order to set an initial password for"
+" your new account, please click the link [1] below. If the link does not "
+"work, try copying and pasting it into your browser."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Comment for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] added the following comment to {pkgbase} [2]:"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"If you no longer wish to receive notifications about this package, please go"
+" to the package page [2] and select \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package Update: {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Out-of-date Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Ownership Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was adopted by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was disowned by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Co-Maintainer Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were added to the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package deleted: {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] deleted {pkgbase} [2].\n"
+"\n"
+"You will no longer receive notifications about this package."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "TU Vote Reminder: Proposal {id}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"Please remember to cast your vote on proposal {id} [1]. The voting period "
+"ends in less than 48 hours."
+msgstr ""

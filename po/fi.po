@@ -1,1334 +1,1686 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AUR package.
-#
+# 
 # Translators:
 # Elias Autio, 2016
 # Jesse Jaara <jesse.jaara@gmail.com>, 2011-2012,2015
+# Sami Korkalainen, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Arch User Repository (AUR)\n"
+"Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-11-27 16:23+0100\n"
-"PO-Revision-Date: 2017-11-28 07:52+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
-"Language-Team: Finnish (http://www.transifex.com/lfleischer/aur/language/"
-"fi/)\n"
-"Language: fi\n"
+"POT-Creation-Date: 2018-05-17 22:58+0200\n"
+"PO-Revision-Date: 2018-05-18 13:04+0000\n"
+"Last-Translator: Sami Korkalainen\n"
+"Language-Team: Finnish (http://www.transifex.com/lfleischer/aurweb/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: html/404.php
 msgid "Page Not Found"
 msgstr "Sivua ei löydy."
 
+#: html/404.php
 msgid "Sorry, the page you've requested does not exist."
 msgstr "Valitettavasti hakemaasi sivua ei ole olemassa."
 
+#: html/404.php template/pkgreq_close_form.php
 msgid "Note"
 msgstr ""
 
+#: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Git-kloonausosoitteita ei ole tarkoitettu avattavaksi selaimella."
 
+#: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "Kloonataksesi Git-varaston %s, suorita %s."
 
+#: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Klikkaa %stästä%s palataksesi %s tietosivulle."
 
+#: html/503.php
 msgid "Service Unavailable"
 msgstr "Palvelu ei saatavilla."
 
+#: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
 msgstr "Älä panikoi! Sivu on poissa käytöstä huollon vuoksi. Palaamme pian."
 
+#: html/account.php
 msgid "Account"
 msgstr "Käyttäjätili"
 
+#: html/account.php template/header.php
 msgid "Accounts"
 msgstr "Käyttäjätilit"
 
+#: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
 msgstr "Sinulla ei ole oikeuksia tämän osion käyttämiseen."
 
+#: html/account.php
 msgid "Could not retrieve information for the specified user."
 msgstr "Valitun käyttäjän tietoja ei voitu noutaa."
 
+#: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "Sinulla ei ole oikeuksia tämän käyttäjätlin muokkaamiseen."
 
+#: html/account.php
 msgid "Use this form to search existing accounts."
 msgstr "Etsi käyttäjätilejä."
 
+#: html/account.php
 msgid "You must log in to view user information."
 msgstr "Sinun pitää kirjautua sisään tarkastellaksesi käyttäjien tietoja."
 
+#: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
 msgstr "Lisää ehdotus"
 
+#: html/addvote.php
 msgid "Invalid token for user action."
 msgstr ""
 
+#: html/addvote.php
 msgid "Username does not exist."
 msgstr "Käyttäjänimeä ei ole olemassa."
 
+#: html/addvote.php
 #, php-format
 msgid "%s already has proposal running for them."
 msgstr ""
 
+#: html/addvote.php
 msgid "Invalid type."
-msgstr ""
+msgstr "Virheellinen tyyppi."
 
+#: html/addvote.php
 msgid "Proposal cannot be empty."
 msgstr "Ehdotus ei voi olla tyhjä."
 
+#: html/addvote.php
 msgid "New proposal submitted."
 msgstr "Uusi ehdotus lisätty."
 
+#: html/addvote.php
 msgid "Submit a proposal to vote on."
 msgstr "Lisää ehdotus äänestettäväksi."
 
+#: html/addvote.php
 msgid "Applicant/TU"
 msgstr "Ehdokas/TU"
 
+#: html/addvote.php
 msgid "(empty if not applicable)"
 msgstr "(tyhjä jos ei tiettyä henkilöä)"
 
+#: html/addvote.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Type"
 msgstr "Tyyppi"
 
+#: html/addvote.php
 msgid "Addition of a TU"
-msgstr ""
+msgstr "Luotetun käyttäjän (TU) lisääminen"
 
+#: html/addvote.php
 msgid "Removal of a TU"
-msgstr ""
+msgstr "Luotetun käyttäjän (TU) poisto"
 
+#: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
 msgstr ""
 
+#: html/addvote.php
 msgid "Amendment of Bylaws"
 msgstr ""
 
+#: html/addvote.php template/tu_list.php
 msgid "Proposal"
 msgstr "Ehdotus"
 
+#: html/addvote.php
 msgid "Submit"
 msgstr "Lisää"
 
+#: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
 msgstr ""
 
+#: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
 msgstr "Muokkaa kommenttia"
 
+#: html/home.php template/header.php
 msgid "Dashboard"
-msgstr ""
+msgstr "Kojelauta"
 
+#: html/home.php template/header.php
 msgid "Home"
 msgstr "Etusivu"
 
+#: html/home.php
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Pakettini, jotka on merkitty"
 
+#: html/home.php
 msgid "My Requests"
-msgstr ""
+msgstr "Pyyntöni"
 
+#: html/home.php
 msgid "My Packages"
 msgstr "Omat paketit"
 
+#: html/home.php
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Hae ylläpitämiäni paketteja"
 
+#: html/home.php
 msgid "Co-Maintained Packages"
 msgstr ""
 
+#: html/home.php
 msgid "Search for packages I co-maintain"
 msgstr ""
 
+#: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
-"Tervetuloa AURiin! Luethan %sAURin käyttäjä ohjeen%s sekä %sTU-käyttäjän "
-"oppaan%s, kun tarvitset lisätietoa."
+msgstr "Tervetuloa AURiin! Luethan %sAURin käyttäjä ohjeen%s sekä %sTU-käyttäjän oppaan%s, kun tarvitset lisätietoa."
 
+#: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
-"Lisättyjen PKGBUILD tiedostojen %stulee%s olla %sArchin pakettistandardien%s "
-"mukaisia, muuten ne saatetaan poistaa!"
+msgstr "Lisättyjen PKGBUILD tiedostojen %stulee%s olla %sArchin pakettistandardien%s mukaisia, muuten ne saatetaan poistaa!"
 
+#: html/home.php
 msgid "Remember to vote for your favourite packages!"
 msgstr "Muista äänestää suosikki pakettejasi!"
 
+#: html/home.php
 msgid "Some packages may be provided as binaries in [community]."
-msgstr ""
-"Jotkin paketit saattavat olla tarjolla valmiina paketteina [community] "
-"varastossa. :)"
+msgstr "Jotkin paketit saattavat olla tarjolla valmiina paketteina [community] varastossa. :)"
 
+#: html/home.php
 msgid "DISCLAIMER"
 msgstr "Vastuuvapauslauseke"
 
+#: html/home.php template/footer.php
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr ""
-"AUR-paketit ovat käyttäjien luomia eivätkä ole virallisesti tuettuja. Näiden "
-"käyttäminen on omalla vastuullasi."
+msgstr "AUR-paketit ovat käyttäjien luomia eivätkä ole virallisesti tuettuja. Näiden käyttäminen on omalla vastuullasi."
 
+#: html/home.php
 msgid "Learn more..."
 msgstr "Selvitä lisää..."
 
+#: html/home.php
 msgid "Support"
 msgstr "Tuki"
 
+#: html/home.php
 msgid "Package Requests"
 msgstr "Pakettienhallintapyydöt"
 
+#: html/home.php
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage Actions"
-"%s box on the package details page:"
-msgstr ""
-"Pakettien sivuilta löytyvän %spakettitoiminnot%s -laatikon kautta voi "
-"lähettää TU-käyttäjille kolme erilaista pakettienhallintapyyntöä."
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
+msgstr "Pakettien sivuilta löytyvän %spakettitoiminnot%s -laatikon kautta voi lähettää TU-käyttäjille kolme erilaista pakettienhallintapyyntöä."
 
+#: html/home.php
 msgid "Orphan Request"
 msgstr "Hylkäämispyyntö"
 
+#: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr ""
-"Hallintapyyntö paketin poistamiseksi sen nykyiseltä ylläpitäjältä, esimerksi "
-"jos ylläpitäjä ei vastaa kommentteihin eikä sähköpostiin ja paketti on "
-"merkitty vanhentuneeksi jo kauan sitten."
+msgstr "Hallintapyyntö paketin poistamiseksi sen nykyiseltä ylläpitäjältä, esimerksi jos ylläpitäjä ei vastaa kommentteihin eikä sähköpostiin ja paketti on merkitty vanhentuneeksi jo kauan sitten."
 
+#: html/home.php
 msgid "Deletion Request"
 msgstr "Poistopyyntö"
 
+#: html/home.php
 msgid ""
-"Request a package to be removed from the Arch User Repository. Please do not "
-"use this if a package is broken and can be fixed easily. Instead, contact "
+"Request a package to be removed from the Arch User Repository. Please do not"
+" use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
-msgstr ""
-"Hallintapyyntö paketin poistamiseksi AUR:ista. Jos paketti on jollain tapaa "
-"rikki tai huono, mutta helposti korjattavissa, tulisi ensisijaisesti olla "
-"yhteydessä paketin ylläpitäjään ja viimekädessä pistää paketin "
-"hylkäämispyyntö menemään."
+msgstr "Hallintapyyntö paketin poistamiseksi AUR:ista. Jos paketti on jollain tapaa rikki tai huono, mutta helposti korjattavissa, tulisi ensisijaisesti olla yhteydessä paketin ylläpitäjään ja viimekädessä pistää paketin hylkäämispyyntö menemään."
 
+#: html/home.php
 msgid "Merge Request"
 msgstr "Yhdistämispyyntö"
 
+#: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr ""
-"Hallintapyyntö kahden eri paketin yhdistämiseksi. Voidaan käyttää muun "
-"muassa silloin kun jokin paketti on nimettyuudelleen tai korvattu "
-"monipaketilla (split package)."
+msgstr "Hallintapyyntö kahden eri paketin yhdistämiseksi. Voidaan käyttää muun muassa silloin kun jokin paketti on nimettyuudelleen tai korvattu monipaketilla (split package)."
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr ""
-"Pakettienhallintapyynnöistä voi keskustella niin yleisellä- kuin myös "
-"tiettyyn pyyntöön littyvällä tasolla %saur-requests%s -postituslistalla. Älä "
-"kuitenkaan lähetä hallintapyyntöjä postituslistalle."
+msgstr "Pakettienhallintapyynnöistä voi keskustella niin yleisellä- kuin myös tiettyyn pyyntöön littyvällä tasolla %saur-requests%s -postituslistalla. Älä kuitenkaan lähetä hallintapyyntöjä postituslistalle."
 
+#: html/home.php
 msgid "Submitting Packages"
 msgstr "Paketien lisääminen ja päivittäminen"
 
+#: html/home.php
 #, php-format
 msgid ""
-"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
-"packages%s section of the Arch User Repository ArchWiki page for more "
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
+" packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr ""
-"Pakettien lisääminen ja päivittäminen uudessa AUR versiossa tapahtuu SSH-"
-"yhteyden yli Git-versionhallinan avulla. Tarkemman ohjeet löytyvät Arch "
-"Linuxin wiki-oppaan AUR-sivulta kohdasta %sPakettien lisääminen%s."
+msgstr "Pakettien lisääminen ja päivittäminen uudessa AUR versiossa tapahtuu SSH-yhteyden yli Git-versionhallinan avulla. Tarkemman ohjeet löytyvät Arch Linuxin wiki-oppaan AUR-sivulta kohdasta %sPakettien lisääminen%s."
 
+#: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
 msgstr "AUR käyttää seuraavia SSH-tunnisteita:"
 
+#: html/home.php
 msgid "Discussion"
 msgstr "Keskustelu"
 
+#: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. For discussion relating to the "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "Yleinen keskustelu AUR:iin ja Luotettuihin käyttäjiin liittyen käydään postitusluettelossa %saur-general%s. AUR-verkkokäyttöliittymän kehittämiseen liittyvä keskustelu käydään postitusluettelossa %saur-dev%s."
 
+#: html/home.php
 msgid "Bug Reporting"
 msgstr "Virheiden raportointi"
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
-"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface "
-"%sonly%s. To report packaging bugs contact the package maintainer or leave a "
-"comment on the appropriate package page."
-msgstr ""
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
+" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+"a comment on the appropriate package page."
+msgstr "Jos löydät AUR-verkkokäyttöliittymästa virheen, täytä virheenilmoituslomake %svirheenseurannassamme%s. Käytä sivustoa %sainoastaan%s verkkokäyttöliittymän virheiden ilmoittamiseen. Ilmoittaaksesi pakettien virheistä, ota yhteys paketin ylläpitäjään tai jätä kommentti paketin sivulla."
 
+#: html/home.php
 msgid "Package Search"
 msgstr "Pakettihaku"
 
+#: html/index.php
 msgid "Adopt"
 msgstr "Ota haltuun"
 
+#: html/index.php
 msgid "Vote"
 msgstr "Äänestä"
 
+#: html/index.php
 msgid "UnVote"
 msgstr "Peru ääni"
 
+#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
 msgstr "Lähetä ilmoituksia"
 
+#: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
 msgstr "En halua ilmoituksia"
 
+#: html/index.php
 msgid "UnFlag"
 msgstr "Poista merkintä"
 
+#: html/login.php template/header.php
 msgid "Login"
 msgstr "Kirjaudu"
 
+#: html/login.php html/tos.php
 #, php-format
 msgid "Logged-in as: %s"
 msgstr "Nykyinen käyttäjä: %s"
 
+#: html/login.php template/header.php
 msgid "Logout"
 msgstr "Kirjaudu ulos"
 
+#: html/login.php
 msgid "Enter login credentials"
 msgstr "Kirjautumistiedot"
 
+#: html/login.php
 msgid "User name or email address"
 msgstr "Käyttäjänimi tai sähköpostiosoite"
 
+#: html/login.php template/account_edit_form.php
 msgid "Password"
 msgstr "Salasana"
 
+#: html/login.php
 msgid "Remember me"
 msgstr "Muista minut"
 
+#: html/login.php
 msgid "Forgot Password"
 msgstr "Unohditko salasanasi?"
 
+#: html/login.php
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
-"HTTP:n kautta kirjoutuminen ei ole käytössä. Ole hyvä ja %svaihda HTTPS "
-"yhteyteen%s kirjautuaksesi."
+msgstr "HTTP:n kautta kirjoutuminen ei ole käytössä. Ole hyvä ja %svaihda HTTPS yhteyteen%s kirjautuaksesi."
 
+#: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
 msgstr "Haku kriteerit"
 
+#: html/packages.php template/header.php template/pkgbase_details.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
 msgid "Packages"
 msgstr "Paketit"
 
+#: html/packages.php
 msgid "Error trying to retrieve package details."
 msgstr "Valitun paketin tietoja ei löytynyt."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
 msgstr "Jokin vaadituista kentistä on puutteellinen."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
 msgstr "Salasanakentät eivät täsmää."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 #, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Salasanan pitää olla vähintään %s merkkiä pitkä."
 
+#: html/passreset.php
 msgid "Invalid e-mail."
 msgstr "Epäkelvollinen sähköpostiosoite."
 
+#: html/passreset.php
 msgid "Password Reset"
 msgstr "Salasanan palautus"
 
+#: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
-msgstr "Sähköpostiisi on nyt lähetetty varmistus linkki."
+msgstr "Sähköpostiisi on nyt lähetetty varmistuslinkki."
 
+#: html/passreset.php
 msgid "Your password has been reset successfully."
 msgstr "Salasanasi on palautettu onnistuneesti."
 
+#: html/passreset.php
 msgid "Confirm your e-mail address:"
 msgstr "Vahvista sähköpostiositteesi:"
 
+#: html/passreset.php
 msgid "Enter your new password:"
 msgstr "Uuusi salasana:"
 
+#: html/passreset.php
 msgid "Confirm your new password:"
 msgstr "Vahvista uusi salasana:"
 
+#: html/passreset.php html/tos.php
 msgid "Continue"
 msgstr "Jatka"
 
+#: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %saur-general%s mailing list."
-msgstr ""
-"Jos olet unohtanut rekisteröityessäsi käyttämäsi sähköpostiosoitteen lähetä "
-"viesti %saur-general%s postituslistalle."
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "Jos olet unohtanut rekisteröityessäsi käyttämäsi sähköpostiosoitteen lähetä viesti %saur-general%s postituslistalle."
 
+#: html/passreset.php
 msgid "Enter your e-mail address:"
 msgstr "Sähköpostiosoitteesi:"
 
+#: html/pkgbase.php
 msgid "Package Bases"
-msgstr ""
+msgstr "Pakettikannat"
 
+#: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "Seuraavia paketteja ei ole hylätty. Tarkista varmistusruutu."
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Pakettia, johon haluat siirtää äänet ja kommentit, ei löydy."
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
-msgstr ""
+msgstr "Pakettikantaa ei voi yhdistää itseensä."
 
+#: html/pkgbase.php
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr ""
-"Valittuja paketteja ei ole poistettu. Muistitko laittaa raksin varmistus "
-"ruutuun?"
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Valittuja paketteja ei ole poistettu. Muistitko laittaa raksin varmistusruutuun?"
 
+#: html/pkgdel.php
 msgid "Package Deletion"
 msgstr "Paketin poisto"
 
+#: html/pkgdel.php template/pkgbase_actions.php
 msgid "Delete Package"
 msgstr "Poista paketti"
 
+#: html/pkgdel.php
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
+msgstr "Käytä tätä lomaketta poistaaksesi pakettikannan %s%s%s ja seuraavat paketit AUR:sta:"
 
+#: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
 msgstr "Pakettin poistaminen on lopullista, sitä ei voi peruuttaa."
 
+#: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
 msgstr "Vahvista toiminto valitsemalla valintaruutu."
 
+#: html/pkgdel.php
 msgid "Confirm package deletion"
 msgstr "Vahvista paketin poisto"
 
+#: html/pkgdel.php template/account_delete.php
 msgid "Delete"
 msgstr "Poista"
 
+#: html/pkgdel.php
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
-"Vain Trusted- statuksen omaavat käyttäjät, sekä kehittäjät voivat poistaa "
-"paketteja."
+msgstr "Vain Luotetut käyttäjät, sekä kehittäjät voivat poistaa paketteja."
 
+#: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
 msgstr "Hylkää paketti"
 
+#: html/pkgdisown.php
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following "
-"packages: "
-msgstr ""
-"Käytä tätä lomaketta hylätäksesi pohjapaketin %s%s%s joka sisältää seuraavat "
-"paketit:"
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
+msgstr "Käytä tätä lomaketta hylätäksesi pakettikannan %s%s%s joka sisältää seuraavat paketit:"
 
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to no longer be a "
+"package co-maintainer."
+msgstr ""
+
+#: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr ""
-"Valitsemalla valintaruudun, vahvista että haluat hylätä paketin ja siirtää "
-"hallinnan käyttäjälle %s%s%s."
+msgstr "Valitsemalla valintaruudun, vahvista että haluat hylätä paketin ja siirtää hallinnan käyttäjälle %s%s%s."
 
+#: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr "Valitsemalla valintaruudun, vahvistat että haluat hylätä paketin."
 
+#: html/pkgdisown.php
 msgid "Confirm to disown the package"
 msgstr "Vahvista paketin hylkäys"
 
+#: html/pkgdisown.php
 msgid "Disown"
 msgstr "Hylkää"
 
+#: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
-"Vain Trusted-statuksen omaavat käyttäjät, sekä kehittäjät voivat hylätä "
-"paketteja."
+msgstr "Vain Luotetut käyttäjät, sekä kehittäjät voivat hylätä paketteja."
 
+#: html/pkgflagcomment.php
 msgid "Flag Comment"
 msgstr ""
 
+#: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "Merkitse paketti vanhentuneeksi"
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
-"Use this form to flag the package base %s%s%s and the following packages out-"
-"of-date: "
-msgstr ""
-"Käytä tätä lomaketta merkitäksesi pohjapaketin %s%s%s ja seuraavat paketit "
-"vanhentuneiksi:"
+"Use this form to flag the package base %s%s%s and the following packages "
+"out-of-date: "
+msgstr "Käytä tätä lomaketta merkitäksesi pakettikannan %s%s%s ja seuraavat paketit vanhentuneiksi:"
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr ""
-"%sÄlä%s käytä tätä lomaketta ilmoittaaksesi bugeista. Käytä kommentteja "
-"siihen."
+msgstr "%sÄlä%s käytä tätä lomaketta ilmoittaaksesi ohjelmointivirheistä. Käytä kommentteja siihen."
 
+#: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr ""
-"Anna lisätietoja miksi paketti on vanhentunut, mieluiten sisältäen linkin "
-"ilmoitukseen tai uuteen tiedostoon."
+msgstr "Anna lisätietoja miksi paketti on vanhentunut, mieluiten sisältäen linkin ilmoitukseen tai uuteen tiedostoon."
 
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
 msgid "Comments"
 msgstr "Kommentit"
 
+#: html/pkgflag.php
 msgid "Flag"
 msgstr "Merkitse"
 
+#: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
-msgstr ""
-"Vain rekisteröityneet käyttäjät voivat merkitä paketteja vanhentuneiksi."
+msgstr "Vain rekisteröityneet käyttäjät voivat merkitä paketteja vanhentuneiksi."
 
+#: html/pkgmerge.php
 msgid "Package Merging"
 msgstr "Pakettien yhdistäminen"
 
+#: html/pkgmerge.php template/pkgbase_actions.php
 msgid "Merge Package"
 msgstr "Yhdistä toiseen pakettiin"
 
+#: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
-"Käytä tätä lomaketta yhdistääksesi pohjapaketin %s%s%s toiseen pakettiin."
+msgstr "Käytä tätä lomaketta yhdistääksesi pakettikannan %s%s%s toiseen pakettiin."
 
+#: html/pkgmerge.php
 msgid "The following packages will be deleted: "
 msgstr "Seuraavat paketit poistetaan:"
 
+#: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Paketin yhdistämistä ei voi peruuttaa."
 
+#: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
 msgstr "Valitse kohdepaketti."
 
+#: html/pkgmerge.php
 msgid "Merge into:"
 msgstr "Yhdistä tähän pakettiin:"
 
+#: html/pkgmerge.php
 msgid "Confirm package merge"
 msgstr "Vahvista pakettien yhdistäminen"
 
+#: html/pkgmerge.php template/pkgreq_form.php
 msgid "Merge"
 msgstr "Liitä"
 
+#: html/pkgmerge.php
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
-"Vain Trusted-statuksen omaavat käyttäjät, sekä kehittäjät voivat yhdistää "
-"paketteja."
+msgstr "Vain Luotetut käyttäjät, sekä kehittäjät voivat yhdistää paketteja."
 
+#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
 msgstr "Lähetä pyyntö"
 
+#: html/pkgreq.php template/pkgreq_close_form.php
 msgid "Close Request"
 msgstr "Sulje pyyntö"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Ensimmäinen"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Edellinen"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Seuraava"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Viimeinen"
 
+#: html/pkgreq.php template/header.php
 msgid "Requests"
 msgstr "Pyynnöt"
 
+#: html/register.php template/header.php
 msgid "Register"
 msgstr "Rekisteröidy"
 
+#: html/register.php
 msgid "Use this form to create an account."
 msgstr "Käytä tätä lomaketta uuden käyttäjätilin luomiseen."
 
+#: html/tos.php
 msgid "Terms of Service"
-msgstr ""
+msgstr "Palveluehdot"
 
+#: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr ""
+msgstr "Seuraavat dokumentit on päivitetty. Kertaa ne huolellisesti:"
 
+#: html/tos.php
 #, php-format
 msgid "revision %d"
-msgstr ""
+msgstr "versio %d"
 
+#: html/tos.php
 msgid "I accept the terms and conditions above."
-msgstr ""
+msgstr "Hyväksyn ylläolevat ehdot."
 
+#: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
 msgstr "Luotettu käyttäjä (TU)"
 
+#: html/tu.php
 msgid "Could not retrieve proposal details."
 msgstr "Ehdotuksen tietoja ei voitu noutaa."
 
+#: html/tu.php
 msgid "Voting is closed for this proposal."
 msgstr "Tämän ehdoksen äänestys on päättynyt."
 
+#: html/tu.php
 msgid "Only Trusted Users are allowed to vote."
-msgstr "Vain Trusted- statuksen omaavat käyttäjät voivat äänestää."
+msgstr "Vain Luotetut käyttäjät voivat äänestää."
 
+#: html/tu.php
 msgid "You cannot vote in an proposal about you."
 msgstr "Et voi äänestää itseäsi koskevassa äänestyksessä."
 
+#: html/tu.php
 msgid "You've already voted for this proposal."
 msgstr "Olet jo antanut äänesi tälle ehdotukselle."
 
+#: html/tu.php
 msgid "Vote ID not valid."
 msgstr "Äänestys ID ei ole kelvollinen."
 
+#: html/tu.php template/tu_list.php
 msgid "Current Votes"
 msgstr "Avoimet äänestykset."
 
+#: html/tu.php
 msgid "Past Votes"
 msgstr "Sulkeutuneet äänestykset."
 
+#: html/voters.php template/tu_details.php
 msgid "Voters"
 msgstr "Äänestäjät"
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"Tunnuksien rekisteröinti on estetty IP-osoitteestasi, luultavasti toistuvien "
-"roskapostihyökkäysten takia. Pahoittelemme aiheutunutta haittaa."
+msgstr "Tunnuksien rekisteröinti on estetty IP-osoitteestasi, luultavasti toistuvien roskapostihyökkäysten takia. Pahoittelemme aiheutunutta haittaa."
 
+#: lib/acctfuncs.inc.php
 msgid "Missing User ID"
 msgstr "Käyttäjän tunnus puuttuu"
 
+#: lib/acctfuncs.inc.php
 msgid "The username is invalid."
 msgstr "Käyttäjänimi ei ole kelvollinen."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Sen pitää olla %s-%s kirjaintapitkä"
 
+#: lib/acctfuncs.inc.php
 msgid "Start and end with a letter or number"
 msgstr "Alkaa ja loppua kirjaimeen tai numeroon"
 
+#: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Voi sisältää vain yhden väliviivan, alaviivan tai pisteen."
 
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "Sähköpostiosoite ei ole kelvollinen."
 
+#: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
-msgstr ""
+msgstr "Kotisivun osoite on virheellinen, määrittele koko http(s) URL."
 
+#: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
 msgstr "PGP-avaimen sormenjälki ei ole kelvollinen."
 
+#: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
 msgstr "Julkinen SSH-avain ei ole kelvollinen."
 
+#: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
 msgstr "Käyttäjätunnuksen oikeuksia ei voitu korottaa."
 
+#: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
 msgstr "Kieli ei ole vielä tuettuna."
 
+#: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "Aikavyöhykettä ei tällä hetkellä tueta."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Käyttäjänimi %s%s%s on jo käytössä."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Osoite %s%s%s on jo käytössä."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Julkinen SSH-avain %s%s%s on jo käytössä."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
 msgstr "Virhe luotaessa tiliä %s%s%s."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Käyttäjätili %s%s%s on nyt luotu."
 
+#: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Salasanan palautuspyyntö on lähetetty sähköpostiosoitteeseesi."
 
+#: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
 msgstr "Klikkaa Kirjaudu-linkkiä kirjautuaksesi."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
 msgstr "Käyttäjätunnukseen %s%s%s ei tehty muutoksia."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Käyttäjätilin %s%s%s tiedot on nyt tallennettu."
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"Kirjautumislomake on estetty IP-osoitteestasi, luultavasti toistuvien "
-"roskapostihyökkäysten takia. Pahoittelemme aiheutunutta haittaa."
+msgstr "Kirjautumislomake on estetty IP-osoitteestasi, luultavasti toistuvien roskapostihyökkäysten takia. Pahoittelemme aiheutunutta haittaa."
 
+#: lib/acctfuncs.inc.php
 msgid "Account suspended"
-msgstr ""
+msgstr "Tili jäädytetty"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
+msgstr "Salasanasi on palautettu. Jos loit juuri uuden tilin, käytä sähköpostitse saamaasi varmistuslinkkiä asettaaksesi ensimmäisen salasanasi. Muussa tapauksessa pyydä salasanan palauttamista %sSalasanan palautus%s -sivulla."
 
+#: lib/acctfuncs.inc.php
 msgid "Bad username or password."
 msgstr "Virheellinen käyttäjänimi tai salasana."
 
+#: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
-msgstr ""
+msgstr "Virhe tapahtui käyttäjäistuntoa luodessa."
 
+#: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
 msgstr "Epäkelvollinen sähköposti ja palautusavain yhdistelmä."
 
+#: lib/aur.inc.php template/pkg_details.php
 msgid "None"
 msgstr ""
 
+#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
-msgstr ""
+msgstr "Näytä käyttäjän %s tiedot"
 
+#: lib/aurjson.class.php
 msgid "Package base ID or package base name missing."
 msgstr ""
 
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
 msgstr "Sinulla ei ole oikeuksia tämän kommentin muokkaamiseen."
 
+#: lib/aurjson.class.php
 msgid "Comment does not exist."
 msgstr "Kommenttia ei ole olemassa."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment cannot be empty."
 msgstr "Kommentti ei voi olla tyhjä."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been added."
 msgstr "Kommentti lisätty."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
 msgstr "Sinun pitää kirjautua, ennen kuin voit muokata paketin tietoja."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
 msgstr "Kommentin tunnus puuttuu."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
 msgstr "Yli 5 kommenttia ei voi kiinnittää."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to pin this comment."
 msgstr "Sinulla ei ole oikeuksia tämän kommentin kiinnittämiseen."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to unpin this comment."
 msgstr "Sinulla ei ole oikeuksia tämän kommentin kiinnityksen poistamiseen."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
 msgstr "Kommentti on kiinnitetty."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been unpinned."
 msgstr "Kommentin kiinnitys on poistettu."
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
 msgstr "Virhe haettaessa paketin tietoja."
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
 msgstr "Paketin tietoja ei löydetty."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit muuttaa merkintöjä."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
 msgstr "Et valinnut yhtään pakettia."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr ""
+msgstr "Seuraavia paketteja ei merkitty. Syötä kommentti."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Valitut paketit on merkitty vanhentuneiksi."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit muuttaa merkintöjä."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
 msgstr "Et valinnut yhtään pakettia."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
 msgstr "Valittuilta paketeilta on poistettu merkintä."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
-msgstr ""
+msgstr "Sinulla ei ole oikeutta poistaa paketteja."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
 msgstr "Et valinnut yhtään pakettia poistettavaksi."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Valitut paketit on nyt poistettu."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit adoptoida paketteja."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit hylätä paketteja."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
 msgstr "Et valinnut yhtään pakettia adoptoitavaksi."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
 msgstr "Et valinnut yhtään pakettia hylättäväksi."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
 msgstr "Valitut paketit on nyt adoptoitu."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
 msgstr "Valitut paketiti on nyt hylätty."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit äänestää paketteja."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit perua äänesi."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
 msgstr "Et valinnut yhtään pakettia äänestettäväksi."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
 msgstr "Valittuille paketeille antamasi äänet on nyt peruttu."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
 msgstr "Äänesi on nyt annettu valituille paketeille."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
 msgstr "Ei kyetty lisäämään ilmoituslistaan."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
 msgstr "Saat nyt ilmoituksen paketin %s uusista kommenteista."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Et saa enää ilmoituksia paketin %s uusista kommenteista."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "Sinun ei sallita palauttaa tätä kommenttia."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "Kommentti on palautettu."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
 msgstr "Sinulla ei ole oikeuksia tämän kommentin poistamiseen."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been deleted."
 msgstr "Kommentti on poistettu."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been edited."
-msgstr ""
+msgstr "Kommenttia on muokattu."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr ""
+msgstr "Sinun ei sallita muokata tämän pakettikannan avainsanoja."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
-msgstr ""
+msgstr "Tämän pakettikannan avainsanat päivitettiin."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr ""
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "Invalid user name: %s"
-msgstr ""
+msgstr "Virheellinen käyttäjänimi: %s"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
 msgstr ""
 
+#: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
 msgstr ""
 
+#: lib/pkgfuncs.inc.php
 #, php-format
 msgid "requires %s"
 msgstr ""
 
+#: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "Sinun täytyy kirjautua sisään lähettääksesi pyyntöjä paketista."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Virheellinen nimi: vain pienet kirjaimet ovat sallittuja."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
-msgstr ""
+msgstr "Kommenttikenttä ei saa olla tyhjä."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
-msgstr ""
+msgstr "Virheellinen pyyntötyyppi."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
-msgstr ""
+msgstr "Pyyntö lisättiin onnistuneesti."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
-msgstr ""
+msgstr "Virheellinen syy."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "Vain Luotetut käyttäjät (TU) ja kehittäjät voivat sulkea pyyntöjä."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
 msgstr ""
 
+#: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr ""
 
+#: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
 msgstr ""
 
+#: template/account_delete.php
 msgid "Confirm deletion"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Username"
 msgstr "Käyttäjänimi"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Account Type"
 msgstr "TIlin tyyppi"
 
+#: template/account_details.php template/tu_details.php
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "User"
 msgstr "Käyttäjä"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Developer"
 msgstr "Kehittäjä"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Trusted User & Developer"
-msgstr ""
+msgstr "Luotettu käyttäjä & kehittäjä"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Email Address"
 msgstr "Sähköpostiosoite"
 
+#: template/account_details.php
 msgid "hidden"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Real Name"
 msgstr "Oikea nimi"
 
+#: template/account_details.php template/account_edit_form.php
 msgid "Homepage"
 msgstr ""
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr "IRC nikki"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php
 msgid "PGP Key Fingerprint"
 msgstr ""
 
+#: template/account_details.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Status"
 msgstr "Tila"
 
+#: template/account_details.php
 msgid "Inactive since"
 msgstr ""
 
+#: template/account_details.php template/account_search_results.php
 msgid "Active"
 msgstr "Aktiivinen"
 
+#: template/account_details.php
 msgid "Registration date:"
 msgstr ""
 
+#: template/account_details.php template/pkgbase_details.php
+#: template/pkg_details.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "unknown"
 msgstr "tuntematon"
 
+#: template/account_details.php
 msgid "Last Login"
 msgstr ""
 
+#: template/account_details.php
 msgid "Never"
 msgstr "Ei koskaan"
 
+#: template/account_details.php
 msgid "View this user's packages"
 msgstr "Näytä käyttäjän paketit"
 
+#: template/account_details.php
 msgid "Edit this user's account"
 msgstr ""
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr ""
+msgstr "Klikkaa %stästä%s, jos haluat peruuttamattomasti poistaa tämän tilin."
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Klikkaa %stästä%s saadaksesi käyttäjän tiedot."
 
+#: template/account_edit_form.php
 msgid "required"
 msgstr "vaaditaan"
 
+#: template/account_edit_form.php
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
 msgstr ""
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Tavallinen käyttäjä"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Trusted user"
 msgstr "Luotettu käyttäjä (TU)"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
 msgstr "Käyttäjätili hyllytetty"
 
+#: template/account_edit_form.php
 msgid "Inactive"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Hide Email Address"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Re-type password"
 msgstr "Salasana uudelleen:"
 
+#: template/account_edit_form.php
 msgid "Language"
 msgstr "Kieli"
 
+#: template/account_edit_form.php
 msgid "Timezone"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid ""
-"The following information is only required if you want to submit packages to "
-"the Arch User Repository."
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr "Julkinen SSH avain"
 
+#: template/account_edit_form.php
 msgid "Notification settings"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Notify of new comments"
 msgstr "Lähetä ilmoitus uusista kommnteista"
 
+#: template/account_edit_form.php
 msgid "Notify of package updates"
 msgstr ""
 
+#: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr ""
 
+#: template/account_edit_form.php template/pkgbase_details.php
+#: template/pkg_details.php
 msgid "Update"
 msgstr "Päivitä"
 
+#: template/account_edit_form.php
 msgid "Create"
 msgstr "Luo"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Reset"
 msgstr "Tyhjennä"
 
+#: template/account_search_results.php
 msgid "No results matched your search criteria."
 msgstr "Hakuasi vastaavia paketteja ei löydy."
 
+#: template/account_search_results.php
 msgid "Edit Account"
 msgstr "Muokkaa käyttäjätiliä"
 
+#: template/account_search_results.php
 msgid "Suspended"
 msgstr "Hyllytä"
 
+#: template/account_search_results.php
 msgid "Edit"
 msgstr "Muokkaa"
 
+#: template/account_search_results.php
 msgid "Less"
 msgstr "Vähemmän"
 
+#: template/account_search_results.php
 msgid "More"
 msgstr "Enemmän"
 
+#: template/account_search_results.php
 msgid "No more results to display."
 msgstr "Ei enempää tuloksia"
 
+#: template/comaintainers_form.php
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
 msgstr ""
 
+#: template/comaintainers_form.php
 msgid "Users"
 msgstr ""
 
+#: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
 msgstr ""
 
+#: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Vanhentuneeksi merkitsemisen kommentti: %s"
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
+msgstr "%s%s%s merkitsi %s%s%s vanhentuneeksi %s %s%s seuraavasta syystä:"
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s ei ole merkitty vanhentuneeksi."
 
+#: template/flag_comment.php
 msgid "Return to Details"
 msgstr ""
 
+#: template/footer.php
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr ""
+msgstr "Tekijänoikeudet %s 2004-%d aurweb kehittäjätiimi."
 
+#: template/header.php
 msgid " My Account"
 msgstr "Omat tiedot"
 
+#: template/pkgbase_actions.php
 msgid "Package Actions"
 msgstr "Pakettitoiminnot"
 
+#: template/pkgbase_actions.php
 msgid "View PKGBUILD"
 msgstr "Näytö PKGBUILD"
 
+#: template/pkgbase_actions.php
 msgid "View Changes"
 msgstr "Näytä muutoshistoria"
 
+#: template/pkgbase_actions.php
 msgid "Download snapshot"
 msgstr "Lataa tuorein versio"
 
+#: template/pkgbase_actions.php
 msgid "Search wiki"
 msgstr "Etsi wikistä"
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Merkitty vanhentuneeksi (%s)"
 
+#: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
 msgstr "Merkitse paketti vanhentuneeksi"
 
+#: template/pkgbase_actions.php
 msgid "Unflag package"
 msgstr "Poista merkintä"
 
+#: template/pkgbase_actions.php
 msgid "Remove vote"
 msgstr "Poista ääneni"
 
+#: template/pkgbase_actions.php
 msgid "Vote for this package"
-msgstr "Äännestä pakettia"
+msgstr "Äänestä pakettia"
 
+#: template/pkgbase_actions.php scripts/notify.py
 msgid "Disable notifications"
 msgstr "En halua enää ilmoituksia"
 
+#: template/pkgbase_actions.php
 msgid "Enable notifications"
 msgstr ""
 
+#: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
 msgstr "Hallitse ylläpitäjäkumppaneita"
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] "%d käsittelemätön hallintapyyntö"
 msgstr[1] "%d käsittelemätöntä hallintapyyntöä"
 
+#: template/pkgbase_actions.php
 msgid "Adopt Package"
 msgstr "Ryhdy ylläpitäjäksi"
 
+#: template/pkgbase_details.php
 msgid "Package Base Details"
 msgstr ""
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
-msgstr "Git kopionti osoite"
+msgstr "Git-kloonausosoite"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "vain luku"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Keywords"
 msgstr "Avainsanat"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Submitter"
 msgstr "Lisääjä"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Maintainer"
 msgstr "Ylläpitäjä"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
-msgstr "Uusimman versionn luoja"
+msgstr "Viimeisin paketoija"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Votes"
 msgstr "Äänet"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Popularity"
-msgstr ""
+msgstr "Suosio"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
 msgstr "Lisättiin"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
 msgstr "Päivitettiin"
 
+#: template/pkg_comment_box.php
 #, php-format
 msgid "Edit comment for: %s"
 msgstr ""
 
+#: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
 msgstr "Lisää kommentti"
 
+#: template/pkg_comments.php
 msgid "View all comments"
 msgstr "Näytä kaikki kommentit"
 
+#: template/pkg_comments.php
 msgid "Pinned Comments"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Latest Comments"
 msgstr "Uusimmat kommentit"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s by %s"
 msgstr ""
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Undelete comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Delete comment"
 msgstr "Poista kommentti"
 
+#: template/pkg_comments.php
 msgid "Pin comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr ""
 
+#: template/pkg_comments.php
 msgid "All comments"
 msgstr "Kaikki kommentit"
 
+#: template/pkg_details.php
 msgid "Package Details"
 msgstr "Paketin tiedot"
 
+#: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
 msgstr "Ylipaketti"
 
+#: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
 msgstr "Kuvaus"
 
+#: template/pkg_details.php
 msgid "Upstream URL"
 msgstr "Kotisivu"
 
+#: template/pkg_details.php
 msgid "Visit the website for"
-msgstr ""
+msgstr "Vieraile tämän paketin verkkosivulla: "
 
+#: template/pkg_details.php
 msgid "Licenses"
 msgstr "Lisenssit"
 
+#: template/pkg_details.php
 msgid "Groups"
 msgstr ""
 
+#: template/pkg_details.php
 msgid "Conflicts"
 msgstr "Ristiriidat"
 
+#: template/pkg_details.php
 msgid "Provides"
 msgstr "Tarjoaa paketit"
 
+#: template/pkg_details.php
 msgid "Replaces"
 msgstr "Korvaa paketit"
 
+#: template/pkg_details.php
 msgid "Dependencies"
 msgstr "Riippuvuudet"
 
+#: template/pkg_details.php
 msgid "Required by"
 msgstr "Riippuvuutena paketeille"
 
+#: template/pkg_details.php
 msgid "Sources"
 msgstr "Lähdetiedostot"
 
+#: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr ""
 
+#: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
 msgstr ""
 
+#: template/pkgreq_close_form.php
 msgid "Reason"
 msgstr ""
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Accepted"
 msgstr ""
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Rejected"
 msgstr ""
 
+#: template/pkgreq_form.php
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid "Request type"
-msgstr ""
+msgstr "Pyynnön tyyppi"
 
+#: template/pkgreq_form.php
 msgid "Deletion"
 msgstr ""
 
+#: template/pkgreq_form.php
 msgid "Orphan"
 msgstr ""
 
+#: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
 msgstr "Yhdistä pakettiin"
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a deletion request, you ask a Trusted User to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr ""
+msgstr "Lähettämällä poistopyynnön pyydät Luotettua käyttäjää poistamaan pakettikannan. Tämän tyyppisiä pyyntöjä tulisi käyttää ainoastaan kaksoiskappaleisiin, laittomiin tai korjaamattoman rikkonaisiin paketteihin sekä ohjelmistoihin, jotka kehittäjä on hylännyt."
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
-msgstr ""
+msgstr "Ennen yhdistämispyynnön lähettämistä, pyydä Luotettua käyttäjää poistamaan pakettikanta ja siirtämään sen äänet ja kommentit toiseen pakettikantaan. Paketin yhdistäminen ei vaikuta Git-varastoihin. Varmista, että päivität kohdepaketin Git-historian itse."
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
 "package base. Please only do this if the package needs maintainer action, "
@@ -1336,247 +1688,448 @@ msgid ""
 "previously."
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
 msgstr ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Package"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Filed by"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Date"
 msgstr ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkgreq_results.php
 msgid "<1 hour left"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Accept"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Locked"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Close"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Pending"
 msgstr ""
 
+#: template/pkgreq_results.php
 msgid "Closed"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Name, Description"
 msgstr "Nimi, kuvaus"
 
+#: template/pkg_search_form.php
 msgid "Name Only"
 msgstr "Pelkkä nimi"
 
+#: template/pkg_search_form.php
 msgid "Exact Name"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Exact Package Base"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Co-maintainer"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "All"
 msgstr "Kaikki"
 
+#: template/pkg_search_form.php
 msgid "Flagged"
 msgstr "Merkitty"
 
+#: template/pkg_search_form.php
 msgid "Not Flagged"
 msgstr "Ei merkitty"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Name"
 msgstr "Nimi"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
+#: template/tu_details.php template/tu_list.php
 msgid "Voted"
 msgstr "Äänestin"
 
+#: template/pkg_search_form.php
 msgid "Last modified"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Ascending"
 msgstr "Nouseva"
 
+#: template/pkg_search_form.php
 msgid "Descending"
 msgstr "Laskeva"
 
+#: template/pkg_search_form.php
 msgid "Enter search criteria"
 msgstr ""
 
+#: template/pkg_search_form.php
 msgid "Search by"
 msgstr "Etsintäperuste"
 
+#: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
 msgstr "Vanhentunut"
 
+#: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
 msgstr "Järjestelyperuste"
 
+#: template/pkg_search_form.php
 msgid "Sort order"
 msgstr "Järjestelyperuste"
 
+#: template/pkg_search_form.php
 msgid "Per page"
 msgstr "Sivua kohden"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
 msgstr "Etsi"
 
+#: template/pkg_search_form.php
 msgid "Orphans"
 msgstr "Orvot"
 
+#: template/pkg_search_results.php
 msgid "Error retrieving package list."
 msgstr "Virhe pakettilistaa noudettaessa."
 
+#: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
 msgstr "Hakuasi vastaavia paketteja ei löydy."
 
+#: template/pkg_search_results.php
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
 msgstr[0] ""
 msgstr[1] ""
 
+#: template/pkg_search_results.php
 msgid "Version"
 msgstr "Versio"
 
+#: template/pkg_search_results.php
 #, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr ""
+msgstr "Suosio lasketaan ottamalla äänien summa ja painottamalla jokaista ääntä kertoimella %.2f joka päivä sen luomisesta lähtien."
 
+#: template/pkg_search_results.php template/tu_details.php
+#: template/tu_list.php
 msgid "Yes"
 msgstr "Kyllä"
 
+#: template/pkg_search_results.php
 msgid "orphan"
 msgstr "orpo"
 
+#: template/pkg_search_results.php
 msgid "Actions"
 msgstr "Toiminnot"
 
+#: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
 msgstr "Ei vanhentunut"
 
+#: template/pkg_search_results.php
 msgid "Adopt Packages"
 msgstr "Adoptoi paketit"
 
+#: template/pkg_search_results.php
 msgid "Disown Packages"
 msgstr "Hylkää paketit"
 
+#: template/pkg_search_results.php
 msgid "Delete Packages"
 msgstr "Poista paketit"
 
+#: template/pkg_search_results.php
 msgid "Confirm"
 msgstr "Vahvista"
 
+#: template/search_accounts_form.php
 msgid "Any type"
 msgstr "Mikä tahansa"
 
+#: template/search_accounts_form.php
 msgid "Search"
 msgstr "Etsi"
 
+#: template/stats/general_stats_table.php
 msgid "Statistics"
 msgstr "Tilastoja"
 
+#: template/stats/general_stats_table.php
 msgid "Orphan Packages"
 msgstr "Hylättyjä paketteja"
 
+#: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
 msgstr "Uudet paketit 7 päivän sisällä"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
 msgstr "Paketteja päivitetty 7 päivän sisällä"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
 msgstr "Vuoden aikana päivitettyjä paketteja"
 
+#: template/stats/general_stats_table.php
 msgid "Packages never updated"
 msgstr "Paketteja ei ole koskaan päivitetty"
 
+#: template/stats/general_stats_table.php
 msgid "Registered Users"
 msgstr "Rekisteröityjä käyttäjiä"
 
+#: template/stats/general_stats_table.php
 msgid "Trusted Users"
 msgstr "Luotettuja käyttäjiä"
 
+#: template/stats/updates_table.php
 msgid "Recent Updates"
 msgstr "Viimeisimmät päivitykset"
 
+#: template/stats/updates_table.php
 msgid "more"
 msgstr ""
 
+#: template/stats/user_table.php
 msgid "My Statistics"
 msgstr "Tilastoni"
 
+#: template/tu_details.php
 msgid "Proposal Details"
 msgstr "Ehdotuksen tiedot"
 
+#: template/tu_details.php
 msgid "This vote is still running."
 msgstr "Tätä ehdotusta voi vielä äänestää."
 
+#: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
 msgstr "Lisätty: %s Lisääjä: %s"
 
+#: template/tu_details.php template/tu_list.php
 msgid "End"
 msgstr "Loppu"
 
+#: template/tu_details.php
 msgid "Result"
 msgstr ""
 
+#: template/tu_details.php template/tu_list.php
 msgid "No"
 msgstr "Ei"
 
+#: template/tu_details.php
 msgid "Abstain"
 msgstr ""
 
+#: template/tu_details.php
 msgid "Total"
 msgstr "Yhteensä"
 
+#: template/tu_details.php
 msgid "Participation"
 msgstr ""
 
+#: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
 msgstr ""
 
+#: template/tu_last_votes_list.php
 msgid "Last vote"
 msgstr ""
 
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
 msgstr "Ei tuloksia."
 
+#: template/tu_list.php
 msgid "Start"
 msgstr "Alku"
 
+#: template/tu_list.php
 msgid "Back"
 msgstr "Takaisin"
+
+#: scripts/notify.py
+msgid "AUR Password Reset"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"A password reset request was submitted for the account {user} associated "
+"with your email address. If you wish to reset your password follow the link "
+"[1] below, otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#: scripts/notify.py
+msgid "Welcome to the Arch User Repository"
+msgstr ""
+
+#: scripts/notify.py
+msgid ""
+"Welcome to the Arch User Repository! In order to set an initial password for"
+" your new account, please click the link [1] below. If the link does not "
+"work, try copying and pasting it into your browser."
+msgstr "Tervetuloa AUR:iin! Asettaaksesi ensimmäisen salasanan uudelle tilillesi, klikkaa alla olevaa linkkiä [1]. Jos linkki ei toimi, kokeile kopioida ja liittää se selaimeesi."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Comment for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] added the following comment to {pkgbase} [2]:"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"If you no longer wish to receive notifications about this package, please go"
+" to the package page [2] and select \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package Update: {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Out-of-date Notification for {pkgbase}"
+msgstr "AUR: Ilmoitus paketin {pkgbase} vanhentumisesta"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
+msgstr "Pakettisi {pkgbase} [1] on merkitty vanhentuneeksi. Merkinnän teki käyttäjä {user} [2]:"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Ownership Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was adopted by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was disowned by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Co-Maintainer Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were added to the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package deleted: {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr "{user} [1] yhdisti paketin {old} [2] pakettiin {new} [3].\n\nJos et enää halua saada ilmoituksia uudesta paketista, mene osoitteeseen [3] ja klikkaa \"{label}\"."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] deleted {pkgbase} [2].\n"
+"\n"
+"You will no longer receive notifications about this package."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "TU Vote Reminder: Proposal {id}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"Please remember to cast your vote on proposal {id} [1]. The voting period "
+"ends in less than 48 hours."
+msgstr ""

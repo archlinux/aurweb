@@ -1,1629 +1,2147 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the AUR package.
-#
+# 
 # Translators:
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
 # Rax Garfield <admin@dvizho.ks.ua>, 2012
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2017
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2011-2018
 # Данило Коростіль <ted.korostiled@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: Arch User Repository (AUR)\n"
+"Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2017-11-27 16:23+0100\n"
-"PO-Revision-Date: 2017-11-29 13:25+0000\n"
+"POT-Creation-Date: 2018-05-17 22:58+0200\n"
+"PO-Revision-Date: 2018-05-25 20:15+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/lfleischer/aur/language/"
-"uk/)\n"
-"Language: uk\n"
+"Language-Team: Ukrainian (http://www.transifex.com/lfleischer/aurweb/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
+#: html/404.php
 msgid "Page Not Found"
 msgstr "Сторінку не знайдено"
 
+#: html/404.php
 msgid "Sorry, the page you've requested does not exist."
 msgstr "На жаль, запитаної сторінки не існує."
 
+#: html/404.php template/pkgreq_close_form.php
 msgid "Note"
 msgstr "Примітка"
 
+#: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
-"Посилання на клонування сховища Git не вдасться відкрити в переглядарці."
+msgstr "Посилання на клонування сховища Git не вдасться відкрити в переглядарці."
 
+#: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
 msgstr "Щоб клонувати сховище Git з %s, виконайте %s."
 
+#: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
 msgstr "Клацніть %sтут%s для повернення на сторінку інформації %s."
 
+#: html/503.php
 msgid "Service Unavailable"
 msgstr "Сервіс недоступний"
 
+#: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr ""
-"Не панікуйте! Сторінка закрита на технічне обслуговування. Ми швидко "
-"повернемося."
+msgstr "Не панікуйте! Сторінка закрита на технічне обслуговування. Ми швидко повернемося."
 
+#: html/account.php
 msgid "Account"
 msgstr "Обліковий запис"
 
+#: html/account.php template/header.php
 msgid "Accounts"
 msgstr "Облікові записи"
 
+#: html/account.php html/addvote.php
 msgid "You are not allowed to access this area."
 msgstr "У вас недостатньо прав доступу."
 
+#: html/account.php
 msgid "Could not retrieve information for the specified user."
 msgstr "Не вдалося отримати інформацію про вказаного користувача."
 
+#: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "У вас недостатньо прав для редагування цього облікового запису."
 
+#: html/account.php
 msgid "Use this form to search existing accounts."
 msgstr "Шукайте облікові записи за допомогою цієї форми."
 
+#: html/account.php
 msgid "You must log in to view user information."
 msgstr "Ви повинні увійти в систему для перегляду даних користувача."
 
+#: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
 msgstr "Додати пропозицію"
 
+#: html/addvote.php
 msgid "Invalid token for user action."
 msgstr "Невірний маркер для дій користувача."
 
+#: html/addvote.php
 msgid "Username does not exist."
 msgstr "Користувача не існує."
 
+#: html/addvote.php
 #, php-format
 msgid "%s already has proposal running for them."
 msgstr "%s вже мають зареєстровану на себе пропозицію."
 
+#: html/addvote.php
 msgid "Invalid type."
 msgstr "Неправильний тип."
 
+#: html/addvote.php
 msgid "Proposal cannot be empty."
 msgstr "Пропозиція не може бути порожньою."
 
+#: html/addvote.php
 msgid "New proposal submitted."
 msgstr "Нову пропозицію надіслано."
 
+#: html/addvote.php
 msgid "Submit a proposal to vote on."
 msgstr "Надіслати пропозицію для голосування."
 
+#: html/addvote.php
 msgid "Applicant/TU"
 msgstr "Претендент/Довірений користувач"
 
+#: html/addvote.php
 msgid "(empty if not applicable)"
 msgstr "(Порожньо, якщо не застосовується)"
 
+#: html/addvote.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Type"
 msgstr "Тип"
 
+#: html/addvote.php
 msgid "Addition of a TU"
 msgstr "Додавання довіреного користувача"
 
+#: html/addvote.php
 msgid "Removal of a TU"
 msgstr "Вилучення довіреного користувача"
 
+#: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
 msgstr "Вилучення довіреного користувача (неоголошена бездіяльність)"
 
+#: html/addvote.php
 msgid "Amendment of Bylaws"
 msgstr "Поправки до Статуту"
 
+#: html/addvote.php template/tu_list.php
 msgid "Proposal"
 msgstr "Пропозиція"
 
+#: html/addvote.php
 msgid "Submit"
 msgstr "Надіслати пакунок"
 
+#: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
 msgstr "Керування ко-супровідниками"
 
+#: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
 msgstr "Редагувати коментар"
 
+#: html/home.php template/header.php
 msgid "Dashboard"
 msgstr "Панель знарядь"
 
+#: html/home.php template/header.php
 msgid "Home"
 msgstr "Початкова сторінка"
 
+#: html/home.php
 msgid "My Flagged Packages"
 msgstr "Мої відмічені пакунки"
 
+#: html/home.php
 msgid "My Requests"
 msgstr "Мої запити"
 
+#: html/home.php
 msgid "My Packages"
 msgstr "Мої пакунки"
 
+#: html/home.php
 msgid "Search for packages I maintain"
 msgstr "Пошук пакунків які я підтримую"
 
+#: html/home.php
 msgid "Co-Maintained Packages"
 msgstr "Пакунки з сумісним супроводом"
 
+#: html/home.php
 msgid "Search for packages I co-maintain"
 msgstr "Пошук пакунків з сумісним супроводом"
 
+#: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
-"Раді вітати вас в «AUR» — у сховищі користувацьких пакунків. Розширена "
-"довідка надана в %sінструкції користувача AUR%s та %sінструкції довіреного "
-"користувача (TU) AUR%s."
+msgstr "Раді вітати вас в «AUR» — у сховищі користувацьких пакунків. Розширена довідка надана в %sінструкції користувача AUR%s та %sінструкції довіреного користувача (TU) AUR%s."
 
+#: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
-"Надіслані PKGBUILD %sповинні%s задовольняти %sстандарти пакування%s, інакше "
-"вони вилучаються."
+msgstr "Надіслані PKGBUILD %sповинні%s задовольняти %sстандарти пакування%s, інакше вони вилучаються."
 
+#: html/home.php
 msgid "Remember to vote for your favourite packages!"
 msgstr "Не забудьте проголосувати за улюблені пакунки!"
 
+#: html/home.php
 msgid "Some packages may be provided as binaries in [community]."
 msgstr "Деякі пакунки можуть бути в бінарному вигляді у сховищі [community]."
 
+#: html/home.php
 msgid "DISCLAIMER"
 msgstr "ВІДМОВА ВІД ВІДПОВІДАЛЬНОСТІ"
 
+#: html/home.php template/footer.php
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr ""
-"Пакунки у сховищі AUR - це пакунки, створені користувачами. Ви можете "
-"використовувати їх тільки на Ваш власний страх і ризик."
+msgstr "Пакунки у сховищі AUR - це пакунки, створені користувачами. Ви можете використовувати їх тільки на Ваш власний страх і ризик."
 
+#: html/home.php
 msgid "Learn more..."
 msgstr "Дізнатись більше..."
 
+#: html/home.php
 msgid "Support"
 msgstr "Підтримка"
 
+#: html/home.php
 msgid "Package Requests"
 msgstr "Запит щодо пакунку"
 
+#: html/home.php
 #, php-format
 msgid ""
-"There are three types of requests that can be filed in the %sPackage Actions"
-"%s box on the package details page:"
-msgstr ""
-"Існують три типи запитів, які можна створити в полі %sДія над пакунком%s на "
-"сторінці подробиць пакунку:"
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
+msgstr "Існують три типи запитів, які можна створити в полі %sДія над пакунком%s на сторінці подробиць пакунку:"
 
+#: html/home.php
 msgid "Orphan Request"
 msgstr "Запит щодо покинення пакунку"
 
+#: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr ""
-"Запит щодо позбавлення пакунка власника, наприклад, коли супровідник пакунку "
-"неактивний і пакунок позначений як застарілий вже довгий період часу."
+msgstr "Запит щодо позбавлення пакунка власника, наприклад, коли супровідник пакунку неактивний і пакунок позначений як застарілий вже довгий період часу."
 
+#: html/home.php
 msgid "Deletion Request"
 msgstr "Запит щодо вилучення"
 
+#: html/home.php
 msgid ""
-"Request a package to be removed from the Arch User Repository. Please do not "
-"use this if a package is broken and can be fixed easily. Instead, contact "
+"Request a package to be removed from the Arch User Repository. Please do not"
+" use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
-msgstr ""
-"Запит щодо вилучення пакунку зі Сховища Користувацьких Пакунків AUR. Будь "
-"ласка, не використовуйте його, якщо пакунок містить ваду, яку можна легко "
-"виправити. Для цього зв’яжіться з супровідником пакунку і заповніть форму на "
-"покинення пакунку в разі необхідності."
+msgstr "Запит щодо вилучення пакунку зі Сховища Користувацьких Пакунків AUR. Будь ласка, не використовуйте його, якщо пакунок містить ваду, яку можна легко виправити. Для цього зв’яжіться з супровідником пакунку і заповніть форму на покинення пакунку в разі необхідності."
 
+#: html/home.php
 msgid "Merge Request"
 msgstr "Запит щодо злиття"
 
+#: html/home.php
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr ""
-"Запит щодо злиття пакунку з іншим пакунком. Цей запит можна використати, "
-"коли потрібно перейменувати пакунок або замінити на розділений пакунок."
+msgstr "Запит щодо злиття пакунку з іншим пакунком. Цей запит можна використати, коли потрібно перейменувати пакунок або замінити на розділений пакунок."
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr ""
-"Якщо Ви бажаєте обговорити запит, використайте список розсилки %saur-requests"
-"%s. Будь ласка, не використовуйте цю розсилку для подання запитів."
+msgstr "Якщо Ви бажаєте обговорити запит, використайте список розсилки %saur-requests%s. Будь ласка, не використовуйте цю розсилку для подання запитів."
 
+#: html/home.php
 msgid "Submitting Packages"
 msgstr "Надсилання пакунків"
 
+#: html/home.php
 #, php-format
 msgid ""
-"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting "
-"packages%s section of the Arch User Repository ArchWiki page for more "
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
+" packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr ""
-"Git через SSH тепер використовується для надсилання пакунків до AUR. Для "
-"деталей дивіться розділ %sНадсилання пакунків%s на сторінці ArchWiki про "
-"Сховище Користувацьких Пакунків AUR."
+msgstr "Git через SSH тепер використовується для надсилання пакунків до AUR. Для деталей дивіться розділ %sНадсилання пакунків%s на сторінці ArchWiki про Сховище Користувацьких Пакунків AUR."
 
+#: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
 msgstr "Наступні відбитки ключів SSH використовуються в AUR:"
 
+#: html/home.php
 msgid "Discussion"
 msgstr "Обговорення"
 
+#: html/home.php
 #, php-format
 msgid ""
-"General discussion regarding the Arch User Repository (AUR) and Trusted User "
-"structure takes place on %saur-general%s. For discussion relating to the "
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr ""
-"Загальне обговорення сховища користувацьких пакунків (AUR) та структури "
-"довірених користувачів відбувається в %saur-general%s. Для дискусій про "
-"розробку AUR використовуйте список розсилання %saur-dev%s."
+msgstr "Загальне обговорення сховища користувацьких пакунків (AUR) та структури довірених користувачів відбувається в %saur-general%s. Для дискусій про розробку AUR використовуйте список розсилання %saur-dev%s."
 
+#: html/home.php
 msgid "Bug Reporting"
 msgstr "Повідомлення про вади"
 
+#: html/home.php
 #, php-format
 msgid ""
 "If you find a bug in the AUR web interface, please fill out a bug report on "
-"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface "
-"%sonly%s. To report packaging bugs contact the package maintainer or leave a "
-"comment on the appropriate package page."
-msgstr ""
-"Якщо Ви знайдете ваду у веб-інтерфейсі AUR, повідомте про це нас на нашому "
-"%sтрекері вад%s. Таким чином слід сповіщати %sлише%s про проблеми у веб-"
-"інтерфейсі AUR. Про вади пакунка зв’яжіться з його супровідником або залиште "
-"коментар на відповідній сторінці цього пакунка."
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
+" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+"a comment on the appropriate package page."
+msgstr "Якщо Ви знайдете ваду у веб-інтерфейсі AUR, повідомте про це нас на нашому %sтрекері вад%s. Таким чином слід сповіщати %sлише%s про проблеми у веб-інтерфейсі AUR. Про вади пакунка зв’яжіться з його супровідником або залиште коментар на відповідній сторінці цього пакунка."
 
+#: html/home.php
 msgid "Package Search"
 msgstr "Пошук пакунків"
 
+#: html/index.php
 msgid "Adopt"
 msgstr "Прийняти"
 
+#: html/index.php
 msgid "Vote"
 msgstr "Проголосувати"
 
+#: html/index.php
 msgid "UnVote"
 msgstr "Забрати голос"
 
+#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
 msgstr "Сповіщати"
 
+#: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
 msgstr "Не сповіщати"
 
+#: html/index.php
 msgid "UnFlag"
 msgstr "Зняти позначку"
 
+#: html/login.php template/header.php
 msgid "Login"
 msgstr "Увійти"
 
+#: html/login.php html/tos.php
 #, php-format
 msgid "Logged-in as: %s"
 msgstr "Ввійшов як: %s"
 
+#: html/login.php template/header.php
 msgid "Logout"
 msgstr "Вийти"
 
+#: html/login.php
 msgid "Enter login credentials"
 msgstr "Увійдіть, ввівши облікові дані."
 
+#: html/login.php
 msgid "User name or email address"
 msgstr "Назва користувача або адреса електронної пошти"
 
+#: html/login.php template/account_edit_form.php
 msgid "Password"
 msgstr "Пароль"
 
+#: html/login.php
 msgid "Remember me"
 msgstr "Запам'ятати мене"
 
+#: html/login.php
 msgid "Forgot Password"
 msgstr "Забули пароль?"
 
+#: html/login.php
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr ""
-"Реєстрування через HTTP вимкнено. Будь-ласка, %sперейдіть на HTTPs%s для "
-"входу."
+msgstr "Реєстрування через HTTP вимкнено. Будь-ласка, %sперейдіть на HTTPs%s для входу."
 
+#: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
 msgstr "Критерії пошуку"
 
+#: html/packages.php template/header.php template/pkgbase_details.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
 msgid "Packages"
 msgstr "Пакунки"
 
+#: html/packages.php
 msgid "Error trying to retrieve package details."
 msgstr "Стався збій під час пошуку інформації про пакунок."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
 msgstr "Бракує обов’язкового рядка."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
 msgstr "Паролі не збігаються."
 
+#: html/passreset.php lib/acctfuncs.inc.php
 #, php-format
 msgid "Your password must be at least %s characters."
 msgstr "Ваш пароль має містити щонайменше %s символів."
 
+#: html/passreset.php
 msgid "Invalid e-mail."
 msgstr "Неправильна електронна адреса."
 
+#: html/passreset.php
 msgid "Password Reset"
 msgstr "Скидання паролю"
 
+#: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
 msgstr "Перевірте свою електронну пошту для підтвердження."
 
+#: html/passreset.php
 msgid "Your password has been reset successfully."
 msgstr "Ваш пароль успішно скинуто."
 
+#: html/passreset.php
 msgid "Confirm your e-mail address:"
 msgstr "Підтвердьте адресу електронної пошти:"
 
+#: html/passreset.php
 msgid "Enter your new password:"
 msgstr "Введіть новий пароль:"
 
+#: html/passreset.php
 msgid "Confirm your new password:"
 msgstr "Підтвердження нового паролю:"
 
+#: html/passreset.php html/tos.php
 msgid "Continue"
 msgstr "Продовжити"
 
+#: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a "
-"message to the %saur-general%s mailing list."
-msgstr ""
-"Якщо Ви забули електронну адресу, використану при реєстрації, зверніться до "
-"списку розсилання %saur-general%s"
+"If you have forgotten the e-mail address you used to register, please send a"
+" message to the %saur-general%s mailing list."
+msgstr "Якщо Ви забули електронну адресу, використану при реєстрації, зверніться до списку розсилання %saur-general%s"
 
+#: html/passreset.php
 msgid "Enter your e-mail address:"
 msgstr "Введіть адресу електронної пошти:"
 
+#: html/pkgbase.php
 msgid "Package Bases"
 msgstr "Бази пакунків"
 
+#: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr "Вибрані пакунки все ще мають власника, підтвердіть дію."
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Не вдалося знайти пакунок для об’єднання голосів та коментарів."
 
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
 msgstr "Неможливо злити пакунок з самим собою."
 
+#: html/pkgbase.php
 msgid ""
-"The selected packages have not been deleted, check the confirmation checkbox."
-msgstr ""
-"Обрані пакунки не вилучено, перевірте, чи поставлено галочку в полі "
-"підтвердження."
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "Обрані пакунки не вилучено, перевірте, чи поставлено галочку в полі підтвердження."
 
+#: html/pkgdel.php
 msgid "Package Deletion"
 msgstr "Вилучення пакунку"
 
+#: html/pkgdel.php template/pkgbase_actions.php
 msgid "Delete Package"
 msgstr "Вилучити пакунок"
 
+#: html/pkgdel.php
 #, php-format
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
-"Використовуйте цю форму для вилучення бази пакунків %s%s%s і наступних "
-"пакунків з AUR. "
+msgstr "Використовуйте цю форму для вилучення бази пакунків %s%s%s і наступних пакунків з AUR. "
 
+#: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
 msgstr "Вилучення пакунку є безповоротне."
 
+#: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
 msgstr "Встановіть галочку, щоб підтвердити дію."
 
+#: html/pkgdel.php
 msgid "Confirm package deletion"
 msgstr "Підтвердити вилучення пакунку"
 
+#: html/pkgdel.php template/account_delete.php
 msgid "Delete"
 msgstr "Вилучити"
 
+#: html/pkgdel.php
 msgid "Only Trusted Users and Developers can delete packages."
 msgstr "Тільки Довірені Користувачі та Розробники можуть вилучати пакунки."
 
+#: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
 msgstr "Зректися пакунку"
 
+#: html/pkgdisown.php
 #, php-format
 msgid ""
-"Use this form to disown the package base %s%s%s which includes the following "
-"packages: "
-msgstr ""
-"Використайте ці форму для позбавлення бази пакунків %s%s%s власника, яка "
-"містить наступні пакунки:"
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
+msgstr "Використайте ці форму для позбавлення бази пакунків %s%s%s власника, яка містить наступні пакунки:"
 
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to no longer be a "
+"package co-maintainer."
+msgstr "Вибираючи це, Ви підтверджуєте, що не бажаєте бути  співсупровідником."
+
+#: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr ""
-"Вибираючи це, Ви підтверджуєте, що бажаєте позбавити пакунок власника і "
-"перенести права власності до %s%s%s."
+msgstr "Вибираючи це, Ви підтверджуєте, що бажаєте позбавити пакунок власника і перенести права власності до %s%s%s."
 
+#: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
 msgstr "Вибираючи це, Ви підтверджуєте, що бажаєте позбавити пакунок власника."
 
+#: html/pkgdisown.php
 msgid "Confirm to disown the package"
 msgstr "Підтвердіть позбавлення пакунка власника"
 
+#: html/pkgdisown.php
 msgid "Disown"
 msgstr "Відректися"
 
+#: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
-"Тільки Довірені Користувачі та Розробники можуть забирати права власності на "
-"пакунок."
+msgstr "Тільки Довірені Користувачі та Розробники можуть забирати права власності на пакунок."
 
+#: html/pkgflagcomment.php
 msgid "Flag Comment"
 msgstr "Позначити коментар"
 
+#: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "Позначити пакунок як застарілий"
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
-"Use this form to flag the package base %s%s%s and the following packages out-"
-"of-date: "
-msgstr ""
-"Використовуйте цю форму для позначення бази пакунків %s%s%s і наступні "
-"пакунки як застарілі:"
+"Use this form to flag the package base %s%s%s and the following packages "
+"out-of-date: "
+msgstr "Використовуйте цю форму для позначення бази пакунків %s%s%s і наступні пакунки як застарілі:"
 
+#: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr ""
-"Будь ласка, %sне%s використовуйте цю форму для повідомлення про вади. "
-"Використовуйте для цього коментарі до пакунку."
+msgstr "Будь ласка, %sне%s використовуйте цю форму для повідомлення про вади. Використовуйте для цього коментарі до пакунку."
 
+#: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr ""
-"Введіть нижче деталі, чому пакунок є застарілим, по можливості подайте "
-"посилання до оголошення про новий випуск або архів оновленого випуску."
+msgstr "Введіть нижче деталі, чому пакунок є застарілим, по можливості подайте посилання до оголошення про новий випуск або архів оновленого випуску."
 
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
 msgid "Comments"
 msgstr "Коментарі"
 
+#: html/pkgflag.php
 msgid "Flag"
 msgstr "Позначити"
 
+#: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
-msgstr ""
-"Тільки зареєстровані користувачі можуть позначати пакунки як застарілі."
+msgstr "Тільки зареєстровані користувачі можуть позначати пакунки як застарілі."
 
+#: html/pkgmerge.php
 msgid "Package Merging"
 msgstr "Об’єднання пакунків"
 
+#: html/pkgmerge.php template/pkgbase_actions.php
 msgid "Merge Package"
 msgstr "Об’єднати пакунок"
 
+#: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
-"Використовуйте цю форму для злиття бази пакунків %s%s%s з іншим пакунком."
+msgstr "Використовуйте цю форму для злиття бази пакунків %s%s%s з іншим пакунком."
 
+#: html/pkgmerge.php
 msgid "The following packages will be deleted: "
 msgstr "Наступні пакунки будуть вилучені:"
 
+#: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
 msgstr "Як тільки пакунок буде об’єднаний, його вже неможливо повернути."
 
+#: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
 msgstr "Введіть назву пакунка, до якого потрібно приєднати цей."
 
+#: html/pkgmerge.php
 msgid "Merge into:"
 msgstr "Об’єднати з:"
 
+#: html/pkgmerge.php
 msgid "Confirm package merge"
 msgstr "Підтвердити об’єднання пакунків"
 
+#: html/pkgmerge.php template/pkgreq_form.php
 msgid "Merge"
 msgstr "Об’єднати"
 
+#: html/pkgmerge.php
 msgid "Only Trusted Users and Developers can merge packages."
 msgstr "Тільки Довірені Користувачі та Розробники можуть об’єднувати пакунки."
 
+#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
 msgstr "Надіслати запит"
 
+#: html/pkgreq.php template/pkgreq_close_form.php
 msgid "Close Request"
 msgstr "Закриття запиту"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Перший"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Попередній"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Далі"
 
+#: html/pkgreq.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Останній"
 
+#: html/pkgreq.php template/header.php
 msgid "Requests"
 msgstr "Запити"
 
+#: html/register.php template/header.php
 msgid "Register"
 msgstr "Зареєструватись"
 
+#: html/register.php
 msgid "Use this form to create an account."
 msgstr "Створіть обліковий запис за допомогою цієї форми."
 
+#: html/tos.php
 msgid "Terms of Service"
 msgstr "Умови обслуговування"
 
+#: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
 msgstr "Наступні документи оновлено. Перевірте їх уважно: "
 
+#: html/tos.php
 #, php-format
 msgid "revision %d"
 msgstr "перегляд %d"
 
+#: html/tos.php
 msgid "I accept the terms and conditions above."
 msgstr "Я приймаю подані вище терміни і умови.  "
 
+#: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
 msgstr "Довірений користувач"
 
+#: html/tu.php
 msgid "Could not retrieve proposal details."
 msgstr "Не вдалось отримати подробиць пропозиції."
 
+#: html/tu.php
 msgid "Voting is closed for this proposal."
 msgstr "Голосування на цю пропозицію закрито."
 
+#: html/tu.php
 msgid "Only Trusted Users are allowed to vote."
 msgstr "Тільки Довірені Користувачі мають право голосу."
 
+#: html/tu.php
 msgid "You cannot vote in an proposal about you."
 msgstr "Ви не можете голосувати за свою пропозицію."
 
+#: html/tu.php
 msgid "You've already voted for this proposal."
 msgstr "Ви вже проголосували за цю пропозицію."
 
+#: html/tu.php
 msgid "Vote ID not valid."
 msgstr "Ідентифікатор голосу неправильний."
 
+#: html/tu.php template/tu_list.php
 msgid "Current Votes"
 msgstr "Поточні голосування"
 
+#: html/tu.php
 msgid "Past Votes"
 msgstr "Минулі голосування"
 
+#: html/voters.php template/tu_details.php
 msgid "Voters"
 msgstr "Проголосували"
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "Account registration has been disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"Реєстрація рахунку закрита для Вашої адреси IP, можливо із-за інтенсивної "
-"спам-атаки. Вибачте за незручності."
+msgstr "Реєстрація рахунку закрита для Вашої адреси IP, можливо із-за інтенсивної спам-атаки. Вибачте за незручності."
 
+#: lib/acctfuncs.inc.php
 msgid "Missing User ID"
 msgstr "Бракує ідентифікатора користувача"
 
+#: lib/acctfuncs.inc.php
 msgid "The username is invalid."
 msgstr "Користувач неправильний."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "It must be between %s and %s characters long"
 msgstr "Кількість символів повинна бути від %s до %s"
 
+#: lib/acctfuncs.inc.php
 msgid "Start and end with a letter or number"
 msgstr "Початок та кінець з літери або цифри"
 
+#: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
 msgstr "Може містити тільки один період, підкреслення або дефіс."
 
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "Адреса електронної пошти неправильна."
 
+#: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
 msgstr "Неправильна домашня сторінка, вкажіть повну адресу HTTP(s)."
 
+#: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
 msgstr "Відбиток ключа PGP недійсний."
 
+#: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
 msgstr "Неправильний публічний ключ SSH."
 
+#: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
 msgstr "Неможливо збільшити дозволи рахунку."
 
+#: lib/acctfuncs.inc.php
 msgid "Language is not currently supported."
 msgstr "Наразі ця мова не підтримується."
 
+#: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
 msgstr "Наразі часова зона не підтримується."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The username, %s%s%s, is already in use."
 msgstr "Назва користувача %s%s%s вже використовується."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The address, %s%s%s, is already in use."
 msgstr "Адрес %s%s%s вже використовується."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Публічний ключ SSH, %s%s%s, вже використовується."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "Error trying to create account, %s%s%s."
 msgstr "Помилка при спробі створити рахунок %s%s%s."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully created."
 msgstr "Рахунок %s%s%s успішно створено."
 
+#: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
 msgstr "Ключ скидання пароля висланий на Вашу адресу електронної пошти."
 
+#: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
-msgstr ""
-"Використовуйте обліковий запис, увійшовши за допомогою посилання "
-"«Увійти» (згори)."
+msgstr "Використовуйте обліковий запис, увійшовши за допомогою посилання «Увійти» (згори)."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "No changes were made to the account, %s%s%s."
 msgstr "Ніяких змін не внесено до рахунку, %s%s%s."
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid "The account, %s%s%s, has been successfully modified."
 msgstr "Рахунок %s%s%s успішно змінено."
 
+#: lib/acctfuncs.inc.php
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr ""
-"Форма логування зараз заборонена для Вашої адреси IP, можливо із-за "
-"інтенсивної спам-атаки. Вибачте за незручності."
+msgstr "Форма логування зараз заборонена для Вашої адреси IP, можливо із-за інтенсивної спам-атаки. Вибачте за незручності."
 
+#: lib/acctfuncs.inc.php
 msgid "Account suspended"
 msgstr "Рахунок вилучено"
 
+#: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr ""
-"Ваш пароль скинуто. Якщо Ви щойно створили новий рахунок, тоді використайте "
-"посилання електронного листа-підтвердження для встановлення початкового "
-"пароля. В протилежному випадку використайте запит щодо скидання паролю на "
-"сторінці %sPassword Reset%s."
+msgstr "Ваш пароль скинуто. Якщо Ви щойно створили новий рахунок, тоді використайте посилання електронного листа-підтвердження для встановлення початкового пароля. В протилежному випадку використайте запит щодо скидання паролю на сторінці %sPassword Reset%s."
 
+#: lib/acctfuncs.inc.php
 msgid "Bad username or password."
 msgstr "Неправильний користувач або пароль. "
 
+#: lib/acctfuncs.inc.php
 msgid "An error occurred trying to generate a user session."
 msgstr "Сталася помилка під час створення сесії користувача."
 
+#: lib/acctfuncs.inc.php
 msgid "Invalid e-mail and reset key combination."
 msgstr "Неприпустима адреса електронної пошти й комбінація клавіш скидання."
 
+#: lib/aur.inc.php template/pkg_details.php
 msgid "None"
 msgstr "Немає"
 
+#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "View account information for %s"
 msgstr "Показати інформацію про рахунок для %s"
 
+#: lib/aurjson.class.php
 msgid "Package base ID or package base name missing."
 msgstr "ID бази пакунків або ж назва бази пакунків пропущена."
 
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
 msgstr "У вас немає прав, щоб редагувати цей коментар."
 
+#: lib/aurjson.class.php
 msgid "Comment does not exist."
 msgstr "Коментаря не існує."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment cannot be empty."
 msgstr "Коментар не може бути порожнім."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been added."
 msgstr "Коментар додано."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr ""
-"Ви повинні увійти у систему, щоб мати можливість редагувати інформацію про "
-"пакунок."
+msgstr "Ви повинні увійти у систему, щоб мати можливість редагувати інформацію про пакунок."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
 msgstr "Немає ідентифікатора коментаря."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
 msgstr "Можна прикріпити не більше 5 коментарів."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to pin this comment."
 msgstr "Вам заборонено прикріпляти цей коментар."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to unpin this comment."
 msgstr "Вам заборонено відкріпляти цей коментар."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
 msgstr "Коментар прикріплено."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been unpinned."
 msgstr "Коментар відкріплено."
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
 msgstr "Помилка пошуку інформації про пакунок."
 
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
 msgstr "Інформації про пакунок не знайдено."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Для встановлення мітки слід увійти."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
 msgstr "Ви не вибрали жодного пакунку для мітки."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
 msgstr "Вибрані пакунки не мають міток, подайте коментар, будь ласка."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
 msgstr "Для вибраних пакунків призначено мітку «застарілий»."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
 msgstr "Для зняття мітки слід увійти."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
 msgstr "Не вибрано жодного пакунку, щоб зняти мітку."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
 msgstr "З вибраних пакунків було знято мітку."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
 msgstr "У Вас немає прав для вилучення пакунків."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
 msgstr "Не вибрано жодного пакунку для вилучення."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Вибрані пакунки вилучено."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
 msgstr "Для перейняття пакунків слід увійти."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Для зречення пакунків слід увійти."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
 msgstr "Ви не вибрали жодного пакунку для переймання."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
 msgstr "Не вибрано жодного пакунку, щоб зректись."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
 msgstr "Вибрані пакунки перейнято."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
 msgstr "Ви зреклись вибраних пакунків."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
 msgstr "Для голосування слід увійти."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
 msgstr "Для скасування голосу слід увійти."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
 msgstr "Ви не вибрали жодного пакунка для голосування."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
 msgstr "Ваші голоси вилучено з вибраних пакунків."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
 msgstr "Ви проголосували за вибрані пакунки."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
 msgstr "Неможливо долучити до списку соповіщень."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
 msgstr "Вас долучено до списку сповіщень про коментарі для %s."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
 msgstr "Вас вилучено із списку сповіщень про коментарі для %s."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
 msgstr "Вам заборонено відновлювати цей коментар."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been undeleted."
 msgstr "Коментар відновлено."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
 msgstr "У вас немає прав, щоб вилучити цей коментар."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been deleted."
 msgstr "Коментар вилучено."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "Comment has been edited."
 msgstr "Коментар редаговано."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
 msgstr "Ви не маєте прав для редагування ключових слів для цієї бази пакунків."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
 msgstr "Ключові слова бази пакунків оновлено."
 
+#: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
 msgstr "Ви не має прав для керування ко-супровідниками цієї бази пакунків."
 
+#: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "Invalid user name: %s"
 msgstr "Неправильна назва користувача: %s"
 
+#: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
 msgstr "Оновлено ко-супровідників бази пакунків."
 
+#: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
 msgstr "Показати деталі пакунку для "
 
+#: lib/pkgfuncs.inc.php
 #, php-format
 msgid "requires %s"
 msgstr "вимагається %s"
 
+#: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
 msgstr "Ви повинні увійти, щоб створювати запити щодо пакунків."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
 msgstr "Неправильна назва: дозволено тільки малі літери."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
 msgstr "Поле коментаря не повинно пустувати."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
 msgstr "Неправильний тип запиту."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
 msgstr "Запит успішно додано."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
 msgstr "Неправильна причина."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
 msgstr "Тільки TU (довірені користувачі) і розробники можуть закривати запити."
 
+#: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
 msgstr "Запит успішно закритий."
 
+#: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
 msgstr "Ви можете використати цю форму для вилучення рахунку в AUR %s."
 
+#: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
 msgstr "%sУВАГА%s: Цю дію неможливо відмінити."
 
+#: template/account_delete.php
 msgid "Confirm deletion"
 msgstr "Підтвердити вилучення"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Username"
 msgstr "Користувач"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Account Type"
 msgstr "Тип облікового запису"
 
+#: template/account_details.php template/tu_details.php
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "User"
 msgstr "Користувач"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Developer"
 msgstr "Розробник"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Trusted User & Developer"
 msgstr "Довірений користувач & Розробник"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
 msgid "Email Address"
 msgstr "Адреса електронної пошти"
 
+#: template/account_details.php
 msgid "hidden"
 msgstr "приховано"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "Real Name"
 msgstr "Справжнє ім'я"
 
+#: template/account_details.php template/account_edit_form.php
 msgid "Homepage"
 msgstr "Домашня сторінка"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
 msgstr "Псевдонім IRC"
 
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php
 msgid "PGP Key Fingerprint"
 msgstr "Відбиток ключа PGP"
 
+#: template/account_details.php template/account_search_results.php
+#: template/pkgreq_results.php
 msgid "Status"
 msgstr "Статус"
 
+#: template/account_details.php
 msgid "Inactive since"
 msgstr "Неактивний з"
 
+#: template/account_details.php template/account_search_results.php
 msgid "Active"
 msgstr "Активний"
 
+#: template/account_details.php
 msgid "Registration date:"
 msgstr "Дата реєстрації:"
 
+#: template/account_details.php template/pkgbase_details.php
+#: template/pkg_details.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "unknown"
 msgstr "невідомо"
 
+#: template/account_details.php
 msgid "Last Login"
 msgstr "Останній вхід"
 
+#: template/account_details.php
 msgid "Never"
 msgstr "Ніколи"
 
+#: template/account_details.php
 msgid "View this user's packages"
 msgstr "Переглянути пакунки цього користувача"
 
+#: template/account_details.php
 msgid "Edit this user's account"
 msgstr "Редагування рахунку цього користувача"
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
 msgstr "Натисніть %sтут%s, якщо Ви бажаєте безповоротно вилучити цей рахунок."
 
+#: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr "Клацніть %sтут%s, щоб дізнатися більше про користувача."
 
+#: template/account_edit_form.php
 msgid "required"
 msgstr "обов'язково"
 
+#: template/account_edit_form.php
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr ""
-"Ваша назва користувача є назвою, що буде використовуватися для входу. Вона "
-"буде видимою для всіх, навіть якщо Ваш рахунок неактивний."
+msgstr "Ваша назва користувача є назвою, що буде використовуватися для входу. Вона буде видимою для всіх, навіть якщо Ваш рахунок неактивний."
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
 msgstr "Звичайний користувач"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Trusted user"
 msgstr "Довіренний користувач"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Account Suspended"
 msgstr "Обліковий запис призупинено"
 
+#: template/account_edit_form.php
 msgid "Inactive"
 msgstr "Неактивний"
 
+#: template/account_edit_form.php
 msgid ""
 "Please ensure you correctly entered your email address, otherwise you will "
 "be locked out."
-msgstr ""
-"Будь ласка переконайтесь, що Ви правильно ввели Вашу адресу електронної "
-"пошти, інакше Ви будете заблоковані."
+msgstr "Будь ласка переконайтесь, що Ви правильно ввели Вашу адресу електронної пошти, інакше Ви будете заблоковані."
 
+#: template/account_edit_form.php
 msgid "Hide Email Address"
 msgstr "Приховати адресу електронної пошти"
 
+#: template/account_edit_form.php
 msgid "Re-type password"
 msgstr "Введіть пароль ще раз"
 
+#: template/account_edit_form.php
 msgid "Language"
 msgstr "Мова"
 
+#: template/account_edit_form.php
 msgid "Timezone"
 msgstr "Часова зона"
 
+#: template/account_edit_form.php
 msgid ""
-"The following information is only required if you want to submit packages to "
-"the Arch User Repository."
-msgstr ""
-"Наступну інформацію потрібно, якщо Ви бажаєте надіслати пакунки до Сховища "
-"Користувацьких Пакунків AUR."
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
+msgstr "Наступну інформацію потрібно, якщо Ви бажаєте надіслати пакунки до Сховища Користувацьких Пакунків AUR."
 
+#: template/account_edit_form.php
 msgid "SSH Public Key"
 msgstr "Публічний ключ SSH"
 
+#: template/account_edit_form.php
 msgid "Notification settings"
 msgstr "Налаштування повідомлень"
 
+#: template/account_edit_form.php
 msgid "Notify of new comments"
 msgstr "Сповіщати про нові коментарі"
 
+#: template/account_edit_form.php
 msgid "Notify of package updates"
 msgstr "Повідомлення про оновлення пакунків"
 
+#: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr "Сповіщення про зміну власника"
 
+#: template/account_edit_form.php template/pkgbase_details.php
+#: template/pkg_details.php
 msgid "Update"
 msgstr "Оновити"
 
+#: template/account_edit_form.php
 msgid "Create"
 msgstr "Створити"
 
+#: template/account_edit_form.php template/search_accounts_form.php
 msgid "Reset"
 msgstr "Очистити"
 
+#: template/account_search_results.php
 msgid "No results matched your search criteria."
 msgstr "За вашим запитом нічого не знайдено."
 
+#: template/account_search_results.php
 msgid "Edit Account"
 msgstr "Редагувати обліковий запис"
 
+#: template/account_search_results.php
 msgid "Suspended"
 msgstr "Призупинено"
 
+#: template/account_search_results.php
 msgid "Edit"
 msgstr "Редагувати"
 
+#: template/account_search_results.php
 msgid "Less"
 msgstr "Менше"
 
+#: template/account_search_results.php
 msgid "More"
 msgstr "Більше"
 
+#: template/account_search_results.php
 msgid "No more results to display."
 msgstr "Більше немає результатів."
 
+#: template/comaintainers_form.php
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr ""
-"Використайте цю форму для додавання ко-супровідника для %s%s%s (одна назва "
-"користувача в одній стрічці):"
+msgstr "Використайте цю форму для додавання ко-супровідника для %s%s%s (одна назва користувача в одній стрічці):"
 
+#: template/comaintainers_form.php
 msgid "Users"
 msgstr "Користувачі"
 
+#: template/comaintainers_form.php template/pkg_comment_form.php
 msgid "Save"
 msgstr "Зберегти"
 
+#: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
 msgstr "Позначено як застарілий коментар: %s"
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
 msgstr "%s%s%s позначено %s%s%s як застарілий на %s%s%s з наступної причини:"
 
+#: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
 msgstr "%s%s%s не позначений як застарілий."
 
+#: template/flag_comment.php
 msgid "Return to Details"
 msgstr "Повернення до подробиць."
 
+#: template/footer.php
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
 msgstr "Всі права застережено %s 2004-%d Команда Розробників aurweb."
 
+#: template/header.php
 msgid " My Account"
 msgstr "Мій рахунок"
 
+#: template/pkgbase_actions.php
 msgid "Package Actions"
 msgstr "Дії над пакунком"
 
+#: template/pkgbase_actions.php
 msgid "View PKGBUILD"
 msgstr "Переглянути PKGBUILD"
 
+#: template/pkgbase_actions.php
 msgid "View Changes"
 msgstr "Переглянути зміни"
 
+#: template/pkgbase_actions.php
 msgid "Download snapshot"
 msgstr "Звантажити поточну версію"
 
+#: template/pkgbase_actions.php
 msgid "Search wiki"
 msgstr "Шукати у Вікі"
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "Flagged out-of-date (%s)"
 msgstr "Позначено як застарілий (%s)"
 
+#: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
 msgstr "Позначити пакунок як застарілий"
 
+#: template/pkgbase_actions.php
 msgid "Unflag package"
 msgstr "Відмінити позначення"
 
+#: template/pkgbase_actions.php
 msgid "Remove vote"
 msgstr "Вилучити голос"
 
+#: template/pkgbase_actions.php
 msgid "Vote for this package"
 msgstr "Голосувати за цей пакунок"
 
+#: template/pkgbase_actions.php scripts/notify.py
 msgid "Disable notifications"
 msgstr "Відключити сповіщення"
 
+#: template/pkgbase_actions.php
 msgid "Enable notifications"
 msgstr "Включити сповіщення"
 
+#: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
 msgstr "Керування ко-супровідниками"
 
+#: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
 msgstr[0] "%d запит в обробці"
 msgstr[1] "%d запитів в обробці"
 msgstr[2] "%d запитів в обробці"
+msgstr[3] "%d запитів в обробці"
 
+#: template/pkgbase_actions.php
 msgid "Adopt Package"
 msgstr "Прийняти пакунок"
 
+#: template/pkgbase_details.php
 msgid "Package Base Details"
 msgstr "Деталі бази пакунків"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
 msgstr "Адреса URL для клонування Git"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "тільки для читання"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Keywords"
 msgstr "Ключові слова"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
 msgid "Submitter"
 msgstr "Подавач"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Maintainer"
 msgstr "Супровідник"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
 msgstr "Останній збирач пакунку"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Votes"
 msgstr "Голоси"
 
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Popularity"
 msgstr "Популярність"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
 msgstr "Вперше надіслано"
 
+#: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
 msgstr "Останній раз оновлено"
 
+#: template/pkg_comment_box.php
 #, php-format
 msgid "Edit comment for: %s"
 msgstr "Редагувати коментар для: %s"
 
+#: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
 msgstr "Додати коментар"
 
+#: template/pkg_comments.php
 msgid "View all comments"
 msgstr "Переглянути всі коментарі"
 
+#: template/pkg_comments.php
 msgid "Pinned Comments"
 msgstr "Прикріплені коментарі"
 
+#: template/pkg_comments.php
 msgid "Latest Comments"
 msgstr "Останні коментарі"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "%s коментував про %s"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "Анонімний коментар про %s"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
 msgstr "вилучено на %s через %s"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
 msgstr "вилучено %s"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s by %s"
 msgstr "редаговано %s через %s"
 
+#: template/pkg_comments.php
 #, php-format
 msgid "edited on %s"
 msgstr "редаговано %s"
 
+#: template/pkg_comments.php
 msgid "Undelete comment"
 msgstr "Відновити коментар"
 
+#: template/pkg_comments.php
 msgid "Delete comment"
 msgstr "Вилучити коментар"
 
+#: template/pkg_comments.php
 msgid "Pin comment"
 msgstr "Прикріпити коментар"
 
+#: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr "Відкріпити коментар"
 
+#: template/pkg_comments.php
 msgid "All comments"
 msgstr "Всі коментарі"
 
+#: template/pkg_details.php
 msgid "Package Details"
 msgstr "Подробиці пакунку"
 
+#: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
 msgstr "База пакунків"
 
+#: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
 msgstr "Опис"
 
+#: template/pkg_details.php
 msgid "Upstream URL"
 msgstr "Посилання"
 
+#: template/pkg_details.php
 msgid "Visit the website for"
 msgstr "Відвідати веб-сторінку для"
 
+#: template/pkg_details.php
 msgid "Licenses"
 msgstr "Ліцензії"
 
+#: template/pkg_details.php
 msgid "Groups"
 msgstr "Групи"
 
+#: template/pkg_details.php
 msgid "Conflicts"
 msgstr "Конфлікти"
 
+#: template/pkg_details.php
 msgid "Provides"
 msgstr "Забезпечує"
 
+#: template/pkg_details.php
 msgid "Replaces"
 msgstr "Замінює"
 
+#: template/pkg_details.php
 msgid "Dependencies"
 msgstr "Залежності"
 
+#: template/pkg_details.php
 msgid "Required by"
 msgstr "Потрібен для"
 
+#: template/pkg_details.php
 msgid "Sources"
 msgstr "Сирці"
 
+#: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
 msgstr "Використайте цю форму для закриття запиту щодо бази пакунків %s%s%s."
 
+#: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr ""
-"Поле коментарів може залишатися пустим. Тим не менше, рекомендовано залишити "
-"коментар при відкиданні запиту."
+msgstr "Поле коментарів може залишатися пустим. Тим не менше, рекомендовано залишити коментар при відкиданні запиту."
 
+#: template/pkgreq_close_form.php
 msgid "Reason"
 msgstr "Причина"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Accepted"
 msgstr "Прийнято"
 
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
 msgid "Rejected"
 msgstr "Відхилено"
 
+#: template/pkgreq_form.php
 #, php-format
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr ""
-"Використайте цю форму для створення запиту щодо бази пакунків %s%s%s, яка "
-"містить наступні пакунки:"
+msgstr "Використайте цю форму для створення запиту щодо бази пакунків %s%s%s, яка містить наступні пакунки:"
 
+#: template/pkgreq_form.php
 msgid "Request type"
 msgstr "Тип запиту"
 
+#: template/pkgreq_form.php
 msgid "Deletion"
 msgstr "Вилучення"
 
+#: template/pkgreq_form.php
 msgid "Orphan"
 msgstr "Позначити застарілим"
 
+#: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
 msgstr "Об'єднати в"
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a deletion request, you ask a Trusted User to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr ""
-"Надсилаючи запит на вилучення, Ви просите Довіреного Користувача вилучити "
-"пакунок з бази пакунків. Цей тип запиту повинен використовуватися для "
-"дублікатів, неоновлюваних програм, а також нелегальних і невиправно "
-"пошкоджених пакунків."
+msgstr "Надсилаючи запит на вилучення, Ви просите Довіреного Користувача вилучити пакунок з бази пакунків. Цей тип запиту повинен використовуватися для дублікатів, неоновлюваних програм, а також нелегальних і невиправно пошкоджених пакунків."
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting a merge request, you ask a Trusted User to delete the package "
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
-msgstr ""
-"Надсилаючи запит на об'єднання, Ви просите Довіреного Користувача вилучити "
-"базу пакунків і перенести всі його голосування і коментарі до іншої бази "
-"пакунків. Об'єднання пакунку не впливає на відповідні сховища Git. "
-"Впевніться, що Ви самостійно оновили історію Git доцільового пакунку."
+msgstr "Надсилаючи запит на об'єднання, Ви просите Довіреного Користувача вилучити базу пакунків і перенести всі його голосування і коментарі до іншої бази пакунків. Об'єднання пакунку не впливає на відповідні сховища Git. Впевніться, що Ви самостійно оновили історію Git доцільового пакунку."
 
+#: template/pkgreq_form.php
 msgid ""
 "By submitting an orphan request, you ask a Trusted User to disown the "
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr ""
-"Надсилаючи запит на зречення, Ви просите Довіреного Користувача позбавити "
-"базу пакунків власника. Робіть це, якщо пакунок потребує якоїсь дії від "
-"супровідника, супровідник не робить жодних дій і Ви вже попередньо "
-"намагалися зв'язатися з ним."
+msgstr "Надсилаючи запит на зречення, Ви просите Довіреного Користувача позбавити базу пакунків власника. Робіть це, якщо пакунок потребує якоїсь дії від супровідника, супровідник не робить жодних дій і Ви вже попередньо намагалися зв'язатися з ним."
 
+#: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
 msgstr "Жоден запит не відповідає Вашим критеріям пошуку."
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
 msgstr[0] "Знайдено %d запит пакунку."
 msgstr[1] "Знайдено %d запитів пакунку."
 msgstr[2] "Знайдено %d запитів щодо пакунків."
+msgstr[3] "Знайдено %d запитів щодо пакунків."
 
+#: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
 msgid "Page %d of %d."
 msgstr "Сторінка %d з %d."
 
+#: template/pkgreq_results.php
 msgid "Package"
 msgstr "Пакунок"
 
+#: template/pkgreq_results.php
 msgid "Filed by"
 msgstr "Запаковано через"
 
+#: template/pkgreq_results.php
 msgid "Date"
 msgstr "Дата"
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
 msgstr[0] "~%d день залишився"
 msgstr[1] "~%d днів залишилося"
 msgstr[2] "~%d днів залишилося"
+msgstr[3] "~%d днів залишилося"
 
+#: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
 msgstr[0] "~%d година залишилася"
 msgstr[1] "~%d годин залишилося"
 msgstr[2] "~%d годин залишилося"
+msgstr[3] "~%d годин залишилося"
 
+#: template/pkgreq_results.php
 msgid "<1 hour left"
 msgstr "<1 години залишилося"
 
+#: template/pkgreq_results.php
 msgid "Accept"
 msgstr "Прийняти"
 
+#: template/pkgreq_results.php
 msgid "Locked"
 msgstr "Замкнено"
 
+#: template/pkgreq_results.php
 msgid "Close"
 msgstr "Закрити"
 
+#: template/pkgreq_results.php
 msgid "Pending"
 msgstr "В очікуванні"
 
+#: template/pkgreq_results.php
 msgid "Closed"
 msgstr "Замкнено"
 
+#: template/pkg_search_form.php
 msgid "Name, Description"
 msgstr "Назва, опис"
 
+#: template/pkg_search_form.php
 msgid "Name Only"
 msgstr "Назва"
 
+#: template/pkg_search_form.php
 msgid "Exact Name"
 msgstr "Точна назва"
 
+#: template/pkg_search_form.php
 msgid "Exact Package Base"
 msgstr "Точна база пакунків"
 
+#: template/pkg_search_form.php
 msgid "Co-maintainer"
 msgstr "Ко-супровідник"
 
+#: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
 msgstr "Супровідник, ко-супровідник"
 
+#: template/pkg_search_form.php
 msgid "All"
 msgstr "Всі"
 
+#: template/pkg_search_form.php
 msgid "Flagged"
 msgstr "Позначені"
 
+#: template/pkg_search_form.php
 msgid "Not Flagged"
 msgstr "Не позначені"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Name"
 msgstr "Назва"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
+#: template/tu_details.php template/tu_list.php
 msgid "Voted"
 msgstr "Проголосовано"
 
+#: template/pkg_search_form.php
 msgid "Last modified"
 msgstr "Востаннє змінювалося"
 
+#: template/pkg_search_form.php
 msgid "Ascending"
 msgstr "Висхідний"
 
+#: template/pkg_search_form.php
 msgid "Descending"
 msgstr "Спадний"
 
+#: template/pkg_search_form.php
 msgid "Enter search criteria"
 msgstr "Введіть критерії пошуку"
 
+#: template/pkg_search_form.php
 msgid "Search by"
 msgstr "Де шукати"
 
+#: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
 msgstr "Застарілих"
 
+#: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
 msgstr "Упорядкувати за"
 
+#: template/pkg_search_form.php
 msgid "Sort order"
 msgstr "Порядок упорядкування"
 
+#: template/pkg_search_form.php
 msgid "Per page"
 msgstr "Результатів на сторінку"
 
+#: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
 msgstr "Перейти"
 
+#: template/pkg_search_form.php
 msgid "Orphans"
 msgstr "Покинуті"
 
+#: template/pkg_search_results.php
 msgid "Error retrieving package list."
 msgstr "Помилка отримання списку пакунків."
 
+#: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
 msgstr "За вашим запитом не знайдено пакунків."
 
+#: template/pkg_search_results.php
 #, php-format
 msgid "%d package found."
 msgid_plural "%d packages found."
 msgstr[0] "Знайдено %d пакунок."
 msgstr[1] "Знайдено %d пакунків."
 msgstr[2] "Знайдено %d пакунків."
+msgstr[3] "Знайдено %d пакунків."
 
+#: template/pkg_search_results.php
 msgid "Version"
 msgstr "Версія"
 
+#: template/pkg_search_results.php
 #, php-format
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr ""
-"Популярність розраховується як сума всіх голосувань, де кожен голос береться "
-"з ваговим коефіцієнтом %.2f за кожен день з часу створення."
+msgstr "Популярність розраховується як сума всіх голосувань, де кожен голос береться з ваговим коефіцієнтом %.2f за кожен день з часу створення."
 
+#: template/pkg_search_results.php template/tu_details.php
+#: template/tu_list.php
 msgid "Yes"
 msgstr "Так"
 
+#: template/pkg_search_results.php
 msgid "orphan"
 msgstr "покинутий"
 
+#: template/pkg_search_results.php
 msgid "Actions"
 msgstr "Дії"
 
+#: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
 msgstr "Зняти мітку «застарілий»"
 
+#: template/pkg_search_results.php
 msgid "Adopt Packages"
 msgstr "Прийняти пакунки"
 
+#: template/pkg_search_results.php
 msgid "Disown Packages"
 msgstr "Зректися пакунків"
 
+#: template/pkg_search_results.php
 msgid "Delete Packages"
 msgstr "Вилучити пакунки"
 
+#: template/pkg_search_results.php
 msgid "Confirm"
 msgstr "Підтвердити"
 
+#: template/search_accounts_form.php
 msgid "Any type"
 msgstr "Будь-який тип"
 
+#: template/search_accounts_form.php
 msgid "Search"
 msgstr "Пошук"
 
+#: template/stats/general_stats_table.php
 msgid "Statistics"
 msgstr "Статистика"
 
+#: template/stats/general_stats_table.php
 msgid "Orphan Packages"
 msgstr "Покинуті пакунки"
 
+#: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
 msgstr "Пакунки, додані за останні 7 днів"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
 msgstr "Пакунки, оновлені за останні 7 днів"
 
+#: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
 msgstr "Пакунки, оновлені за останній рік"
 
+#: template/stats/general_stats_table.php
 msgid "Packages never updated"
 msgstr "Пакунки, що ніколи не оновлювалися"
 
+#: template/stats/general_stats_table.php
 msgid "Registered Users"
 msgstr "Зареєстровані користувачі"
 
+#: template/stats/general_stats_table.php
 msgid "Trusted Users"
 msgstr "Довірені користувачі"
 
+#: template/stats/updates_table.php
 msgid "Recent Updates"
 msgstr "Останні зміни"
 
+#: template/stats/updates_table.php
 msgid "more"
 msgstr "більше"
 
+#: template/stats/user_table.php
 msgid "My Statistics"
 msgstr "Моя статистика"
 
+#: template/tu_details.php
 msgid "Proposal Details"
 msgstr "Подробиці пропозиції"
 
+#: template/tu_details.php
 msgid "This vote is still running."
 msgstr "Це голосування все ще доречне."
 
+#: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
 msgstr "Подано: %s з %s"
 
+#: template/tu_details.php template/tu_list.php
 msgid "End"
 msgstr "Кінець"
 
+#: template/tu_details.php
 msgid "Result"
 msgstr "Результат"
 
+#: template/tu_details.php template/tu_list.php
 msgid "No"
 msgstr "Ні"
 
+#: template/tu_details.php
 msgid "Abstain"
 msgstr "Утриматися"
 
+#: template/tu_details.php
 msgid "Total"
 msgstr "Всього"
 
+#: template/tu_details.php
 msgid "Participation"
 msgstr "Участь"
 
+#: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
 msgstr "Останні голосування через TU"
 
+#: template/tu_last_votes_list.php
 msgid "Last vote"
 msgstr "Останнє голосування"
 
+#: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
 msgstr "Результатів не знайдено."
 
+#: template/tu_list.php
 msgid "Start"
 msgstr "Початок"
 
+#: template/tu_list.php
 msgid "Back"
 msgstr "Назад"
+
+#: scripts/notify.py
+msgid "AUR Password Reset"
+msgstr "Скидання паролю на AUR"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"A password reset request was submitted for the account {user} associated "
+"with your email address. If you wish to reset your password follow the link "
+"[1] below, otherwise ignore this message and nothing will happen."
+msgstr "Запит на скидання паролю для облікового запису {user} надісланий на пов’язану з ним адресу електронної пошти. Щоб скинути пароль, натисніть на посилання [1] нижче; щоб залишити все як є, проігноруйте це повідомлення."
+
+#: scripts/notify.py
+msgid "Welcome to the Arch User Repository"
+msgstr "Вітаємо Вас в Arch User Repository — сховищі користувацьких пакунків"
+
+#: scripts/notify.py
+msgid ""
+"Welcome to the Arch User Repository! In order to set an initial password for"
+" your new account, please click the link [1] below. If the link does not "
+"work, try copying and pasting it into your browser."
+msgstr "Вітаємо в Сховищі Користувацьких Пакунків! Щоб встановити початковий пароль для Вашого рахунку натисніть на посилання [1] зверху. Якщо посилання не спрацьовує, скопіюйте його і вставте у Ваш переглядач інтернету."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Comment for {pkgbase}"
+msgstr "AUR коментар для {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] added the following comment to {pkgbase} [2]:"
+msgstr "{user} [1] додав наступний коментар до {pkgbase} [2]:"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"If you no longer wish to receive notifications about this package, please go"
+" to the package page [2] and select \"{label}\"."
+msgstr "Якщо Ви не бажаєте більше отримувати повідомлення про цей пакунок, тоді перейдіть на сторінку пакунка [2] і натисніть \"{label}\"."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package Update: {pkgbase}"
+msgstr "Оновлення пакунку AUR: {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
+msgstr "{user} [1] додав наступний коментар до {pkgbase} [2]:"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Out-of-date Notification for {pkgbase}"
+msgstr "Повідомлення AUR про застарілі для {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
+msgstr "Цьому пакунку {pkgbase} [1] призначено мітку застарілий користувачем {user} [2]:"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Ownership Notification for {pkgbase}"
+msgstr "Повідомлення AUR про присвоєння для {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was adopted by {user} [2]."
+msgstr "Цей пакунок {pkgbase} [1] був прийнятий користувачем {user} [2]."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was disowned by {user} [2]."
+msgstr "Пакунок {pkgbase} [1] був покинутий користувачем {user} [2]."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Co-Maintainer Notification for {pkgbase}"
+msgstr "Повідомлення про співсупровід AUR для {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were added to the co-maintainer list of {pkgbase} [1]."
+msgstr "Вас додали до списку співсупровідників {pkgbase} [1]."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
+msgstr "Вас видалили зі списку співсупровідників {pkgbase} [1]."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package deleted: {pkgbase}"
+msgstr "Пакунок з AUR вилучено: {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr "{user} [1] об'єднав {old} [2] в {new} [3].\n\nЯкщо Ви не бажаєте більше отримувати повідомлень про новий пакунок, перейдіть до [3] і клацніть \"{label}\"."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] deleted {pkgbase} [2].\n"
+"\n"
+"You will no longer receive notifications about this package."
+msgstr "{user} [1] вилучив {pkgbase} [2].\n\nВи більше не будете отримувати повідомлень про цей пакунок."
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "TU Vote Reminder: Proposal {id}"
+msgstr "Нагадування про голосування на довіреного користувача: Пропозиція {id}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"Please remember to cast your vote on proposal {id} [1]. The voting period "
+"ends in less than 48 hours."
+msgstr "Будь ласка, не забудьте подати свій голос на пропозицію {id} [1]. Голосування закінчиться за менш ніж 48 годин."
