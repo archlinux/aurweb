@@ -5,7 +5,7 @@ This document describes how to create and maintain aurweb translations.
 
 Creating an aurweb translation requires a Transifex (http://www.transifex.com/)
 account. You will need to register with a translation team on the aurweb
-project page (http://www.transifex.com/projects/p/aur/).
+project page (http://www.transifex.com/projects/p/aurweb/).
 
 
 Creating a New Translation
@@ -26,11 +26,11 @@ $ git clone git://git.archlinux.org/aurweb.git aurweb-git
 2. Go into the "po/" directory in the aurweb source and run msginit(1) to
    create a initial translation file from our translation catalog:
 
-$ cd aur-git
+$ cd aurweb-git
 $ git checkout master
 $ git pull
 $ cd po
-$ msginit -l <locale> -o <locale>.po -i aur.pot
+$ msginit -l <locale> -o <locale>.po -i aurweb.pot
 
 3. Use some editor or a translation helper like poedit to add translations:
 
@@ -58,4 +58,4 @@ $ poedit po/<locale>.po
 3. Push the updated translation file back to Transifex. Using transifex-client,
    this works as follows:
 
-$ tx push -r aur.aurpot -t -l <locale>
+$ tx push -r aurweb.aurwebpot -t -l <locale>
