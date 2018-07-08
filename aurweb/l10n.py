@@ -9,7 +9,7 @@ class Translator:
         if lang == 'en':
             return s
         if lang not in self._translator:
-            self._translator[lang] = gettext.translation("aur",
+            self._translator[lang] = gettext.translation("aurweb",
                                                          "../../web/locale",
                                                          languages=[lang])
         self._translator[lang].install()

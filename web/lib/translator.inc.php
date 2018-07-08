@@ -131,9 +131,8 @@ function set_lang() {
 	}
 
 	$streamer = new FileReader('../locale/' . $LANG .
-		'/LC_MESSAGES/aur.mo');
+		'/LC_MESSAGES/aurweb.mo');
 	$l10n = new gettext_reader($streamer, true);
 
 	return;
 }
-
