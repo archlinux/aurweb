@@ -35,6 +35,7 @@ snapshot_uri = /cgit/aur.git/snapshot/%s.tar.gz
 enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
 render-comment-cmd = /usr/local/bin/aurweb-rendercomment
+localedir = /srv/http/aurweb/aur.git/web/locale/
 # memcache or apc
 cache = none
 memcache_servers = 127.0.0.1:11211

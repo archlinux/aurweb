@@ -130,7 +130,8 @@ function set_lang() {
 		setcookie("AURLANG", $LANG, $cookie_time, "/");
 	}
 
-	$streamer = new FileReader('../locale/' . $LANG .
+	$localedir = config_get('options', 'localedir');
+	$streamer = new FileReader($localedir . '/' . $LANG .
 		'/LC_MESSAGES/aurweb.mo');
 	$l10n = new gettext_reader($streamer, true);
 
