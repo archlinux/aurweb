@@ -630,9 +630,10 @@ function pkg_display_details($id=0, $row, $SID="") {
 		unset($pinned);
 
 
-		$limit = isset($_GET['comments']) ? 0 : 10;
-		$comments = pkgbase_comments($base_id, $limit, $include_deleted);
+		$total_comment_count = pkgbase_comments_count($base_id, $include_deleted);
+		list($pagination_templs, $per_page, $offset) = calculate_pagination($total_comment_count);
 
+		$comments = pkgbase_comments($base_id, $per_page, $include_deleted, false, $offset);
 		if (!empty($comments)) {
 			$comment_section = "package";
 			include('pkg_comments.php');
