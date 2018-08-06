@@ -8,7 +8,7 @@ include_once('acctfuncs.inc.php');   # access Account specific functions
 $action = in_request("Action");
 
 $need_userinfo = array(
-	"DisplayAccount", "DeleteAccount", "AccountInfo", "UpdateAccount"
+	"DisplayAccount", "DeleteAccount", "AccountInfo", "UpdateAccount", "ListComments"
 );
 
 if (in_array($action, $need_userinfo)) {
@@ -164,6 +164,24 @@ if (isset($_COOKIE["AURSID"])) {
 				in_request("ON"),
 				in_request("ID"),
 				$row["Username"]);
+		}
+
+	} elseif ($action == "ListComments") {
+		if (has_credential(CRED_ACCOUNT_LIST_COMMENTS)) {
+			# display the comment list if they're a TU/dev
+
+			$total_comment_count = account_comments_count($row["ID"]);
+			list($pagination_templs, $per_page, $offset) = calculate_pagination($total_comment_count);
+
+			$username = $row["Username"];
+			$uid = $row["ID"];
+			$comments = account_comments($uid, $per_page, $offset);
+
+			$comment_section = "account";
+			include('pkg_comments.php');
+
+		} else {
+			print __("You are not allowed to access this area.");
 		}
 
 	} else {

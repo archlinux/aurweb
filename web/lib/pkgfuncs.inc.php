@@ -624,13 +624,17 @@ function pkg_display_details($id=0, $row, $SID="") {
 		$limit_pinned = isset($_GET['pinned']) ? 0 : 5;
 		$pinned = pkgbase_comments($base_id, $limit_pinned, false, true);
 		if (!empty($pinned)) {
+			$comment_section = "package";
 			include('pkg_comments.php');
 		}
 		unset($pinned);
 
+
 		$limit = isset($_GET['comments']) ? 0 : 10;
 		$comments = pkgbase_comments($base_id, $limit, $include_deleted);
+
 		if (!empty($comments)) {
+			$comment_section = "package";
 			include('pkg_comments.php');
 		}
 	}

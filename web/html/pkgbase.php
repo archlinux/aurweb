@@ -43,6 +43,7 @@ if (isset($_POST['IDs'])) {
 
 /* Perform package base actions. */
 $via = isset($_POST['via']) ? $_POST['via'] : NULL;
+$return_to = isset($_POST['return_to']) ? $_POST['return_to'] : NULL;
 $ret = false;
 $output = "";
 $fragment = "";
@@ -133,7 +134,14 @@ if (check_token()) {
 			/* Redirect back to package request page on success. */
 			header('Location: ' . get_pkgreq_route());
 			exit();
-		} if (isset($base_id)) {
+		} elseif ((current_action("do_DeleteComment") ||
+		           current_action("do_UndeleteComment")) && $return_to) {
+			header('Location: ' . $return_to);
+			exit();
+		} elseif (current_action("do_PinComment") && $return_to) {
+			header('Location: ' . $return_to);
+			exit();
+		} elseif (isset($base_id)) {
 			/* Redirect back to package base page on success. */
 			header('Location: ' . get_pkgbase_uri($pkgbase_name) . $fragment);
 			exit();

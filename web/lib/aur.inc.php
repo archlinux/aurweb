@@ -705,3 +705,56 @@ function aur_location() {
 	}
 	return $location;
 }
+
+/**
+ * Calculate pagination templates
+ *
+ * @return array The array of pagination templates, per page, and offset values
+ */
+function calculate_pagination($total_comment_count) {
+	/* Sanitize paging variables. */
+	if (isset($_GET["O"])) {
+		$_GET["O"] = max(intval($_GET["O"]), 0);
+	} else {
+		$_GET["O"] = 0;
+	}
+	$offset = $_GET["O"];
+
+	if (isset($_GET["PP"])) {
+		$_GET["PP"] = bound(intval($_GET["PP"]), 1, 250);
+	} else {
+		$_GET["PP"] = 10;
+	}
+	$per_page = $_GET["PP"];
+
+	// Page offsets start at zero, so page 2 has offset 1, which means that we
+	// need to add 1 to the offset to get the current page.
+	$current_page = ceil($offset / $per_page) + 1;
+	$num_pages = ceil($total_comment_count / $per_page);
+	$pagination_templs = array();
+
+	if ($current_page > 1) {
+		$previous_page = $current_page - 1;
+		$previous_offset = ($previous_page - 1) * $per_page;
+		$pagination_templs['&laquo; ' . __('First')] = 0;
+		$pagination_templs['&lsaquo; ' . __('Previous')] = $previous_offset;
+	}
+
+	if ($current_page - 5 > 1) {
+		$pagination_templs["..."] = false;
+	}
+
+	for ($i = max($current_page - 5, 1); $i <= min($num_pages, $current_page + 5); $i++) {
+		$pagination_templs[$i] = ($i - 1) * $per_page;
+	}
+
+	if ($current_page + 5 < $num_pages)
+		$pagination_templs["... "] = false;
+
+	if ($current_page < $num_pages) {
+		$pagination_templs[__('Next') . ' &rsaquo;'] = $current_page * $per_page;
+		$pagination_templs[__('Last') . ' &raquo;'] = ($num_pages - 1) * $per_page;
+	}
+
+	return array($pagination_templs, $per_page, $offset);
+}

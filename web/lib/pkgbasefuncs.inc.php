@@ -44,7 +44,7 @@ function pkgbase_comments_count($base_id, $include_deleted, $only_pinned=false) 
  *
  * @return array All package comment information for a specific package base
  */
-function pkgbase_comments($base_id, $limit, $include_deleted, $only_pinned=false) {
+function pkgbase_comments($base_id, $limit, $include_deleted, $only_pinned=false, $offset=0) {
 	$base_id = intval($base_id);
 	$limit = intval($limit);
 	if (!$base_id) {
@@ -70,6 +70,9 @@ function pkgbase_comments($base_id, $limit, $include_deleted, $only_pinned=false
 	$q.= "ORDER BY CommentTS DESC";
 	if ($limit > 0) {
 		$q.=" LIMIT " . $limit;
+	}
+	if ($offset > 0) {
+		$q.=" OFFSET " . $offset;
 	}
 	$result = $dbh->query($q);
 	if (!$result) {
@@ -273,6 +276,7 @@ function pkgbase_display_details($base_id, $row, $SID="") {
 		include('pkgbase_details.php');
 
 		if ($SID) {
+			$comment_section = "package";
 			include('pkg_comment_box.php');
 		}
 
@@ -281,13 +285,17 @@ function pkgbase_display_details($base_id, $row, $SID="") {
 		$limit_pinned = isset($_GET['pinned']) ? 0 : 5;
 		$pinned = pkgbase_comments($base_id, $limit_pinned, false, true);
 		if (!empty($pinned)) {
+			$comment_section = "package";
 			include('pkg_comments.php');
 		}
 		unset($pinned);
 
+
 		$limit = isset($_GET['comments']) ? 0 : 10;
 		$comments = pkgbase_comments($base_id, $limit, $include_deleted);
+
 		if (!empty($comments)) {
+			$comment_section = "package";
 			include('pkg_comments.php');
 		}
 	}

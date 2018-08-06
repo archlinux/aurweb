@@ -5,6 +5,7 @@ define("CRED_ACCOUNT_EDIT", 2);
 define("CRED_ACCOUNT_EDIT_DEV", 3);
 define("CRED_ACCOUNT_LAST_LOGIN", 4);
 define("CRED_ACCOUNT_SEARCH", 5);
+define("CRED_ACCOUNT_LIST_COMMENTS", 28);
 define("CRED_COMMENT_DELETE", 6);
 define("CRED_COMMENT_UNDELETE", 27);
 define("CRED_COMMENT_VIEW_DELETED", 22);
@@ -48,6 +49,7 @@ function has_credential($credential, $approved_users=array()) {
 	$atype = account_from_sid($_COOKIE['AURSID']);
 
 	switch ($credential) {
+	case CRED_ACCOUNT_LIST_COMMENTS:
 	case CRED_PKGBASE_FLAG:
 	case CRED_PKGBASE_NOTIFY:
 	case CRED_PKGBASE_VOTE:

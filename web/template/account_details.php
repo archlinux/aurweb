@@ -82,6 +82,9 @@
 					<?php if (can_edit_account($row)): ?>
 						<li><a href="<?= get_user_uri($row['Username']); ?>edit"><?= __("Edit this user's account") ?></a></li>
 					<?php endif; ?>
+					<?php if (has_credential(CRED_ACCOUNT_LIST_COMMENTS)): ?>
+						<li><a href="<?= get_user_uri($row['Username']); ?>comments"><?= __("List this user's comments") ?></a></li>
+					<?php endif; ?>
 					</ul></td>
 				</tr>
 			</table>

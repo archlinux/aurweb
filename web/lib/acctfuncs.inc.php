@@ -1403,3 +1403,45 @@ function accept_terms($uid, $termrev) {
 		$dbh->exec($q);
 	}
 }
+
+function account_comments($uid, $limit, $offset=0) {
+	$dbh = DB::connect();
+	$q = "SELECT PackageComments.ID, Comments, UsersID, ";
+	$q.= "PackageBaseId, CommentTS, DelTS, EditedTS, B.UserName AS EditUserName, ";
+	$q.= "PinnedTS, ";
+	$q.= "C.UserName as DelUserName, RenderedComment, ";
+	$q.= "PB.ID as PackageBaseID, PB.Name as PackageBaseName ";
+	$q.= "FROM PackageComments ";
+	$q.= "LEFT JOIN PackageBases PB ON PackageComments.PackageBaseID = PB.ID ";
+	$q.= "LEFT JOIN Users A ON PackageComments.UsersID = A.ID ";
+	$q.= "LEFT JOIN Users B ON PackageComments.EditedUsersID = B.ID ";
+	$q.= "LEFT JOIN Users C ON PackageComments.DelUsersID = C.ID ";
+	$q.= "WHERE A.ID = " . $dbh->quote($uid) . " ";
+	$q.= "ORDER BY CommentTS DESC";
+
+	if ($limit > 0) {
+		$q.=" LIMIT " . intval($limit);
+	}
+
+	if ($offset > 0) {
+		$q.=" OFFSET " . intval($offset);
+	}
+
+	$result = $dbh->query($q);
+	if (!$result) {
+		return null;
+	}
+
+	return $result->fetchAll();
+}
+
+function account_comments_count($uid) {
+	$dbh = DB::connect();
+	$q = "SELECT COUNT(*) ";
+	$q.= "FROM PackageComments ";
+	$q.= "LEFT JOIN Users A ON PackageComments.UsersID = A.ID ";
+	$q.= "WHERE A.ID = " . $dbh->quote($uid);
+
+	$result = $dbh->query($q);
+	return $result->fetchColumn();
+}
