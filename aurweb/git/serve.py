@@ -107,7 +107,7 @@ def pkgbase_adopt(pkgbase, user, privileged):
                            [pkgbase_id, userid])
     conn.commit()
 
-    subprocess.Popen((notify_cmd, 'adopt', str(pkgbase_id), str(userid)))
+    subprocess.Popen((notify_cmd, 'adopt', str(userid), str(pkgbase_id)))
 
     conn.close()
 
@@ -165,8 +165,8 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
             cur = conn.execute("INSERT INTO PackageComaintainers " +
                                "(PackageBaseID, UsersID, Priority) " +
                                "VALUES (?, ?, ?)", [pkgbase_id, userid, i])
-            subprocess.Popen((notify_cmd, 'comaintainer-add', str(pkgbase_id),
-                              str(userid)))
+            subprocess.Popen((notify_cmd, 'comaintainer-add', str(userid),
+                              str(pkgbase_id)))
         else:
             cur = conn.execute("UPDATE PackageComaintainers " +
                                "SET Priority = ? " +
@@ -179,7 +179,7 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
                                "WHERE PackageBaseID = ? AND UsersID = ?",
                                [pkgbase_id, userid])
             subprocess.Popen((notify_cmd, 'comaintainer-remove',
-                              str(pkgbase_id), str(userid)))
+                              str(userid), str(pkgbase_id)))
 
     conn.commit()
     conn.close()
@@ -266,7 +266,7 @@ def pkgbase_disown(pkgbase, user, privileged):
     if userid == 0:
             raise aurweb.exceptions.InvalidUserException(user)
 
-    subprocess.Popen((notify_cmd, 'disown', str(pkgbase_id), str(userid)))
+    subprocess.Popen((notify_cmd, 'disown', str(userid), str(pkgbase_id)))
 
     conn.close()
 
