@@ -6,18 +6,19 @@ test_description='notify tests'
 
 test_expect_success 'Test out-of-date notifications.' '
 	cat <<-EOD | sqlite3 aur.db &&
-	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (1, "foobar", 1, 0, 0, "This is a test OOD comment.");
-	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (2, "foobar2", 2, 0, 0, "");
-	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (3, "foobar3", NULL, 0, 0, "");
-	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (4, "foobar4", 1, 0, 0, "");
-	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1, 2, 1);
-	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1, 4, 2);
-	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (2, 3, 1);
-	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (2, 5, 2);
-	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (3, 4, 1);
+	/* Use package base IDs which can be distinguished from user IDs. */
+	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (1001, "foobar", 1, 0, 0, "This is a test OOD comment.");
+	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (1002, "foobar2", 2, 0, 0, "");
+	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (1003, "foobar3", NULL, 0, 0, "");
+	INSERT INTO PackageBases (ID, Name, MaintainerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (1004, "foobar4", 1, 0, 0, "");
+	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1001, 2, 1);
+	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1001, 4, 2);
+	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1002, 3, 1);
+	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1002, 5, 2);
+	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1003, 4, 1);
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" flag 1 1 &&
+	"$NOTIFY" flag 1 1001 &&
 	cat <<-EOD >expected &&
 	Subject: AUR Out-of-date Notification for foobar
 	To: tu@localhost
@@ -81,12 +82,13 @@ test_expect_success 'Test subject and body of welcome notifications.' '
 
 test_expect_success 'Test subject and body of comment notifications.' '
 	cat <<-EOD | sqlite3 aur.db &&
-	INSERT INTO PackageComments (ID, PackageBaseID, UsersID, Comments, RenderedComment) VALUES (1, 1, 1, "This is a test comment.", "This is a test comment.");
-	INSERT INTO PackageNotifications (PackageBaseID, UserID) VALUES (1, 2);
+	/* Use package comments IDs which can be distinguished from other IDs. */
+	INSERT INTO PackageComments (ID, PackageBaseID, UsersID, Comments, RenderedComment) VALUES (2001, 1001, 1, "This is a test comment.", "This is a test comment.");
+	INSERT INTO PackageNotifications (PackageBaseID, UserID) VALUES (1001, 2);
 	UPDATE Users SET CommentNotify = 1 WHERE ID = 2;
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" comment 1 1 1 &&
+	"$NOTIFY" comment 1 1001 2001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Comment for foobar
@@ -113,7 +115,7 @@ test_expect_success 'Test subject and body of update notifications.' '
 	UPDATE Users SET UpdateNotify = 1 WHERE ID = 2;
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" update 1 1 &&
+	"$NOTIFY" update 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Package Update: foobar
@@ -135,7 +137,7 @@ test_expect_success 'Test subject and body of update notifications.' '
 
 test_expect_success 'Test subject and body of out-of-date notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" flag 1 1 &&
+	"$NOTIFY" flag 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Out-of-date Notification for foobar
@@ -156,7 +158,7 @@ test_expect_success 'Test subject and body of out-of-date notifications.' '
 
 test_expect_success 'Test subject and body of adopt notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" adopt 1 1 &&
+	"$NOTIFY" adopt 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Ownership Notification for foobar
@@ -175,7 +177,7 @@ test_expect_success 'Test subject and body of adopt notifications.' '
 
 test_expect_success 'Test subject and body of co-maintainer addition notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" comaintainer-add 1 1 &&
+	"$NOTIFY" comaintainer-add 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Co-Maintainer Notification for foobar
@@ -193,7 +195,7 @@ test_expect_success 'Test subject and body of co-maintainer addition notificatio
 
 test_expect_success 'Test subject and body of co-maintainer removal notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" comaintainer-remove 1 1 &&
+	"$NOTIFY" comaintainer-remove 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Co-Maintainer Notification for foobar
@@ -211,7 +213,7 @@ test_expect_success 'Test subject and body of co-maintainer removal notification
 
 test_expect_success 'Test subject and body of delete notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" delete 1 1 &&
+	"$NOTIFY" delete 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Package deleted: foobar
@@ -232,7 +234,7 @@ test_expect_success 'Test subject and body of delete notifications.' '
 
 test_expect_success 'Test subject and body of merge notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" delete 1 1 2 &&
+	"$NOTIFY" delete 1 1001 1002 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Package deleted: foobar
@@ -255,13 +257,14 @@ test_expect_success 'Test subject and body of merge notifications.' '
 
 test_expect_success 'Test subject and body of request open notifications.' '
 	cat <<-EOD | sqlite3 aur.db &&
-	INSERT INTO PackageRequests (ID, PackageBaseID, PackageBaseName, UsersID, ReqTypeID, Comments, ClosureComment) VALUES (1, 1, "foobar", 1, 1, "This is a request test comment.", "");
+	/* Use package request IDs which can be distinguished from other IDs. */
+	INSERT INTO PackageRequests (ID, PackageBaseID, PackageBaseName, UsersID, ReqTypeID, Comments, ClosureComment) VALUES (3001, 1001, "foobar", 1, 1, "This is a request test comment.", "");
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" request-open 1 1 orphan 1 &&
+	"$NOTIFY" request-open 1 3001 orphan 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Orphan Request for foobar
+	Subject: [PRQ#3001] Orphan Request for foobar
 	EOD
 	test_cmp actual expected &&
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
@@ -279,10 +282,10 @@ test_expect_success 'Test subject and body of request open notifications.' '
 
 test_expect_success 'Test subject and body of request open notifications for merge requests.' '
 	>sendmail.out &&
-	"$NOTIFY" request-open 1 1 merge 1 foobar2 &&
+	"$NOTIFY" request-open 1 3001 merge 1001 foobar2 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Merge Request for foobar
+	Subject: [PRQ#3001] Merge Request for foobar
 	EOD
 	test_cmp actual expected &&
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
@@ -301,16 +304,16 @@ test_expect_success 'Test subject and body of request open notifications for mer
 
 test_expect_success 'Test subject and body of request close notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" request-close 1 1 accepted &&
+	"$NOTIFY" request-close 1 3001 accepted &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Deletion Request for foobar Accepted
+	Subject: [PRQ#3001] Deletion Request for foobar Accepted
 	EOD
 	test_cmp actual expected &&
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
 	echo >>actual &&
 	cat <<-EOD >expected &&
-	Request #1 has been accepted by user [1].
+	Request #3001 has been accepted by user [1].
 
 	[1] https://aur.archlinux.org/account/user/
 	EOD
@@ -319,36 +322,36 @@ test_expect_success 'Test subject and body of request close notifications.' '
 
 test_expect_success 'Test subject and body of request close notifications (auto-accept).' '
 	>sendmail.out &&
-	"$NOTIFY" request-close 0 1 accepted &&
+	"$NOTIFY" request-close 0 3001 accepted &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Deletion Request for foobar Accepted
+	Subject: [PRQ#3001] Deletion Request for foobar Accepted
 	EOD
 	test_cmp actual expected &&
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
 	echo >>actual &&
 	cat <<-EOD >expected &&
-	Request #1 has been accepted automatically by the Arch User Repository
-	package request system.
+	Request #3001 has been accepted automatically by the Arch User
+	Repository package request system.
 	EOD
 	test_cmp actual expected
 '
 
 test_expect_success 'Test subject and body of request close notifications with closure comment.' '
 	cat <<-EOD | sqlite3 aur.db &&
-	UPDATE PackageRequests SET ClosureComment = "This is a test closure comment." WHERE ID = 1;
+	UPDATE PackageRequests SET ClosureComment = "This is a test closure comment." WHERE ID = 3001;
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" request-close 1 1 accepted &&
+	"$NOTIFY" request-close 1 3001 accepted &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
-	Subject: [PRQ#1] Deletion Request for foobar Accepted
+	Subject: [PRQ#3001] Deletion Request for foobar Accepted
 	EOD
 	test_cmp actual expected &&
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
 	echo >>actual &&
 	cat <<-EOD >expected &&
-	Request #1 has been accepted by user [1]:
+	Request #3001 has been accepted by user [1]:
 
 	This is a test closure comment.
 
