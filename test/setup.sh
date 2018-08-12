@@ -31,6 +31,7 @@ aur_request_ml = aur-requests@archlinux.org
 enable-maintenance = 0
 maintenance-exceptions = 127.0.0.1
 commit_uri = https://aur.archlinux.org/cgit/aur.git/log/?h=%s&id=%s
+localedir = $TOPLEVEL/web/locale/
 
 [notifications]
 notify-cmd = $NOTIFY
