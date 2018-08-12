@@ -175,6 +175,25 @@ test_expect_success 'Test subject and body of adopt notifications.' '
 	test_cmp actual expected
 '
 
+test_expect_success 'Test subject and body of disown notifications.' '
+	>sendmail.out &&
+	"$NOTIFY" disown 1 1001 &&
+	grep ^Subject: sendmail.out >actual &&
+	cat <<-EOD >expected &&
+	Subject: AUR Ownership Notification for foobar
+	EOD
+	test_cmp actual expected &&
+	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
+	echo >>actual &&
+	cat <<-EOD >expected &&
+	The package foobar [1] was disowned by user [2].
+
+	[1] https://aur.archlinux.org/pkgbase/foobar/
+	[2] https://aur.archlinux.org/account/user/
+	EOD
+	test_cmp actual expected
+'
+
 test_expect_success 'Test subject and body of co-maintainer addition notifications.' '
 	>sendmail.out &&
 	"$NOTIFY" comaintainer-add 1 1001 &&
