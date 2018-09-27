@@ -63,6 +63,9 @@ class Notification:
         sendmail = aurweb.config.get('notifications', 'sendmail')
         sender = aurweb.config.get('notifications', 'sender')
         reply_to = aurweb.config.get('notifications', 'reply-to')
+        reason = self.__class__.__name__
+        if reason.endswith('Notification'):
+            reason = reason[:-len('Notification')]
 
         for recipient in self.get_recipients():
             to, lang = recipient
@@ -72,6 +75,7 @@ class Notification:
             msg['From'] = sender
             msg['Reply-to'] = reply_to
             msg['To'] = to
+            msg['X-AUR-Reason'] = reason
 
             for key, value in self.get_headers().items():
                 msg[key] = value
