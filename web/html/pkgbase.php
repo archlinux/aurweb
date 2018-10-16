@@ -120,6 +120,9 @@ if (check_token()) {
 	} elseif (current_action("do_AddComment")) {
 		$uid = uid_from_sid($_COOKIE["AURSID"]);
 		list($ret, $output) = pkgbase_add_comment($base_id, $uid, $_REQUEST['comment']);
+		if ($ret && isset($_REQUEST['enable_notifications'])) {
+			list($ret, $output) = pkgbase_notify(array($base_id));
+		}
 		$fragment = '#news';
 	} elseif (current_action("do_EditComment")) {
 		list($ret, $output) = pkgbase_edit_comment($_REQUEST['comment']);

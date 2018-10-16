@@ -13,6 +13,12 @@
 			</p>
 			<p>
 				<input type="submit" value="<?= (isset($comment_id)) ? __("Save") : __("Add Comment") ?>" />
+				<?php if (!isset($comment_id) && !pkgbase_user_notify($uid, $base_id)): ?>
+					<span class="comment-enable-notifications">
+						<input type="checkbox" name="enable_notifications" id="id_enable_notifications" />
+						<label for="id_enable_notifications"><?= __("Enable notifications") ?></label>
+					</span>
+				<?php endif; ?>
 			</p>
 		</fieldset>
 	</form>

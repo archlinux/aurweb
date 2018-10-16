@@ -104,6 +104,11 @@
 	top: 1px;
 }
 
+.comment-enable-notifications {
+	display: inline-block;
+	margin-left: 1em;
+}
+
 .rss-icon, .delete-comment, .undelete-comment, .edit-comment, .pin-comment {
 	-webkit-filter: grayscale(100%);
 	filter: grayscale(100%);
