@@ -53,17 +53,19 @@ if ($comment_section == "package") {
 			$pkgbase_name = $row["PackageBaseName"];
 		}
 
+		$anchor = (isset($pinned) ? "pinned-" : "comment-") . $row['ID'];
 		$date_fmtd = date('Y-m-d H:i', $row['CommentTS']);
+		$date_link = '<a href="#' . $anchor . '" class="date">' . $date_fmtd . '</a>';
 		if ($comment_section == "package") {
 			if ($row['UserName']) {
 				$user_fmtd = html_format_username($row['UserName']);
-				$heading = __('%s commented on %s', $user_fmtd, $date_fmtd);
+				$heading = __('%s commented on %s', $user_fmtd, $date_link);
 			} else {
-				$heading = __('Anonymous comment on %s', $date_fmtd);
+				$heading = __('Anonymous comment on %s', $date_link);
 			}
 		} elseif ($comment_section == "account") {
 			$pkg_uri = '<a href=' . htmlspecialchars(get_pkg_uri($row['PackageBaseName']), ENT_QUOTES) . '>' . htmlspecialchars($row['PackageBaseName']) . '</a></td>';
-			$heading = __('Commented on package %s on %s', $pkg_uri, $date_fmtd);
+			$heading = __('Commented on package %s on %s', $pkg_uri, $date_link);
 		}
 
 		$is_deleted = $row['DelTS'];
@@ -97,7 +99,7 @@ if ($comment_section == "package") {
 			$comment_classes .= " comment-deleted";
 		}
 		?>
-		<h4 id="<?= isset($pinned) ? "pinned-" : "comment-" ?><?= $row['ID'] ?>" class="<?= $comment_classes ?>">
+		<h4 id="<?= $anchor ?>" class="<?= $comment_classes ?>">
 			<?= $heading ?>
 			<?php if ($is_deleted && has_credential(CRED_COMMENT_UNDELETE)): ?>
 				<form class="undelete-comment-form" method="post" action="<?= htmlspecialchars(get_pkgbase_uri($pkgbase_name), ENT_QUOTES); ?>">
@@ -152,7 +154,7 @@ if ($comment_section == "package") {
 				</form>
 			<?php endif; ?>
 		</h4>
-		<div id="<?= isset($pinned) ? "pinned-" : "comment-" ?><?= $row['ID'] ?>-content" class="article-content<?php if ($is_deleted): ?> comment-deleted<?php endif; ?>">
+		<div id="<?= $anchor ?>-content" class="article-content<?php if ($is_deleted): ?> comment-deleted<?php endif; ?>">
 			<div>
 				<?php if (!empty($row['RenderedComment'])): ?>
 				<?= $row['RenderedComment'] ?>
