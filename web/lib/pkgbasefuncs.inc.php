@@ -733,7 +733,7 @@ function pkgbase_adopt ($base_ids, $action=true, $via) {
 	}
 
 	foreach ($base_ids as $base_id) {
-		notify(array($action ? 'adopt' : 'disown', $base_id, $uid));
+		notify(array($action ? 'adopt' : 'disown', $uid, $base_id));
 	}
 
 	if ($action) {
@@ -1204,7 +1204,7 @@ function pkgbase_set_comaintainers($base_id, $users, $override=false) {
 	foreach ($uids_new as $uid) {
 		if (in_array($uid, $uids_add)) {
 			$q = sprintf("INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (%d, %d, %d)", $base_id, $uid, $i);
-			notify(array('comaintainer-add', $base_id, $uid));
+			notify(array('comaintainer-add', $uid, $base_id));
 		} else {
 			$q = sprintf("UPDATE PackageComaintainers SET Priority = %d WHERE PackageBaseID = %d AND UsersID = %d", $i, $base_id, $uid);
 		}
@@ -1216,7 +1216,7 @@ function pkgbase_set_comaintainers($base_id, $users, $override=false) {
 	foreach ($uids_rem as $uid) {
 		$q = sprintf("DELETE FROM PackageComaintainers WHERE PackageBaseID = %d AND UsersID = %d", $base_id, $uid);
 		$dbh->exec($q);
-		notify(array('comaintainer-remove', $base_id, $uid));
+		notify(array('comaintainer-remove', $uid, $base_id));
 	}
 
 	return array(true, __("The package base co-maintainers have been updated."));
