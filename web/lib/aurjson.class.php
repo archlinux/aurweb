@@ -284,10 +284,10 @@ class AurJSON {
 			"LEFT JOIN RelationTypes " .
 			"ON RelationTypes.ID = PackageRelations.RelTypeID " .
 			"WHERE PackageRelations.PackageID = " . $pkgid . " " .
-			"UNION SELECT 'groups' AS Type, Groups.Name, '' AS Cond " .
-			"FROM Groups INNER JOIN PackageGroups " .
+			"UNION SELECT 'groups' AS Type, `Groups`.`Name`, '' AS Cond " .
+			"FROM `Groups` INNER JOIN PackageGroups " .
 			"ON PackageGroups.PackageID = " . $pkgid . " " .
-			"AND PackageGroups.GroupID = Groups.ID " .
+			"AND PackageGroups.GroupID = `Groups`.ID " .
 			"UNION SELECT 'license' AS Type, Licenses.Name, '' AS Cond " .
 			"FROM Licenses INNER JOIN PackageLicenses " .
 			"ON PackageLicenses.PackageID = " . $pkgid . " " .

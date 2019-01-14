@@ -188,7 +188,7 @@ function pkg_groups($pkgid) {
 	$pkgid = intval($pkgid);
 	if ($pkgid > 0) {
 		$dbh = DB::connect();
-		$q = "SELECT g.Name FROM Groups g ";
+		$q = "SELECT g.Name FROM `Groups` g ";
 		$q.= "INNER JOIN PackageGroups pg ON pg.GroupID = g.ID ";
 		$q.= "WHERE pg.PackageID = ". $pkgid;
 		$result = $dbh->query($q);

@@ -180,13 +180,13 @@ def save_metadata(metadata, conn, user):
         # Add package groups.
         if 'groups' in pkginfo:
             for group in pkginfo['groups']:
-                cur = conn.execute("SELECT ID FROM Groups WHERE Name = ?",
+                cur = conn.execute("SELECT ID FROM `Groups` WHERE Name = ?",
                                    [group])
                 row = cur.fetchone()
                 if row:
                     groupid = row[0]
                 else:
-                    cur = conn.execute("INSERT INTO Groups (Name) VALUES (?)",
+                    cur = conn.execute("INSERT INTO `Groups` (Name) VALUES (?)",
                                        [group])
                     conn.commit()
                     groupid = cur.lastrowid
