@@ -39,13 +39,13 @@ def main():
     cur = conn.execute("SELECT Name, Provides FROM OfficialProviders")
     oldproviders = set(cur.fetchall())
 
+    for pkg, provides in oldproviders.difference(providers):
+        conn.execute("DELETE FROM OfficialProviders "
+                     "WHERE Name = ? AND Provides = ?", [pkg, provides])
     for pkg, provides in providers.difference(oldproviders):
         repo = repomap[(pkg, provides)]
         conn.execute("INSERT INTO OfficialProviders (Name, Repo, Provides) "
                      "VALUES (?, ?, ?)", [pkg, repo, provides])
-    for pkg, provides in oldproviders.difference(providers):
-        conn.execute("DELETE FROM OfficialProviders "
-                     "WHERE Name = ? AND Provides = ?", [pkg, provides])
 
     conn.commit()
     conn.close()
