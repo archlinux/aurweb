@@ -141,6 +141,7 @@ export GIT_COMMITTER_EMAIL GIT_COMMITTER_NAME
 	mkdir aur.git
 	cd aur.git
 	git init -q
+	git config --local commit.gpgsign false
 
 	git checkout -q --orphan refs/namespaces/foobar/refs/heads/master
 
