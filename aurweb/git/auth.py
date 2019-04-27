@@ -39,7 +39,8 @@ def main():
 
     cur = conn.execute("SELECT Users.Username, Users.AccountTypeID FROM Users "
                        "INNER JOIN SSHPubKeys ON SSHPubKeys.UserID = Users.ID "
-                       "WHERE SSHPubKeys.PubKey = ? AND Users.Suspended = 0",
+                       "WHERE SSHPubKeys.PubKey = ? AND Users.Suspended = 0 "
+                       "AND NOT Users.Passwd = ''",
                        (keytype + " " + keytext,))
 
     row = cur.fetchone()
