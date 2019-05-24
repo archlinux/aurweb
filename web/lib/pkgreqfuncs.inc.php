@@ -127,6 +127,11 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 		return array(false, __("You must be logged in to file package requests."));
 	}
 
+	/* Ignore merge target for non-merge requests. */
+	if ($type !== 'merge') {
+		$merge_into = '';
+	}
+
 	if (!empty($merge_into) && !preg_match("/^[a-z0-9][a-z0-9\.+_-]*$/D", $merge_into)) {
 		return array(false, __("Invalid name: only lowercase letters are allowed."));
 	}
