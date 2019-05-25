@@ -264,25 +264,6 @@ td {
     }
 
 /* table pretty styles */
-table.pretty1 {
-    width: auto;
-    margin-top: 0.25em;
-    margin-bottom: 0.5em;
-    border-collapse: collapse;
-    border: 1px solid #bcd;
-}
-
-    .pretty1 th {
-        padding: 0.35em;
-        background: #e4eeff;
-        border: 1px solid #bcd;
-    }
-
-    .pretty1 td {
-        padding: 0.35em;
-        border: 1px dotted #bcd;
-    }
-
 table.pretty2 {
     width: auto;
     margin-top: 0.25em;
@@ -433,6 +414,10 @@ table thead th.sorter-false {
     cursor: default;
 }
 
+.tablesorter-header:focus {
+    outline: none;
+}
+
 /**
  *  PAGE SPECIFIC STYLES
  */
@@ -541,7 +526,7 @@ h3 span.arrow {
         padding: 0.15em 0.1em;
         margin: 0;
         min-width: 10em;
-        font-size: 0.812em;
+        font-size: 1em;
         text-align: left;
         list-style: none;
         background-color: #f6f9fc;
@@ -552,6 +537,7 @@ h3 span.arrow {
             color: #000;
         }
 
+        .pkgsearch-typeahead li:hover a,
         .pkgsearch-typeahead li.active a {
             color: #07b;
         }
@@ -651,6 +637,10 @@ div.news-article .article-info {
     #newsform textarea {
         width: 75%;
     }
+
+#news-preview {
+    display: none;
+}
 
 /* todolists: list */
 .todolist-nav {
@@ -814,6 +804,10 @@ table.results {
 #flag-pkg-form textarea,
 #flag-pkg-form input[type=text] {
     width: 45%;
+}
+
+#flag-pkg-form #id_website {
+    display: none;
 }
 
 /* pkgdetails: deps, required by and file lists */
@@ -983,33 +977,7 @@ table td.country {
     background: #ffd;
 }
 
-/* dev dashboard: flagged packages */
-#dash-pkg-notify {
-    text-align: right;
-    padding: 1em 0 0;
-    margin-top: 1em;
-    font-size: 0.85em;
-    border-top: 1px dotted #bbb;
-}
-
-    #dash-pkg-notify label {
-        width: auto;
-        font-weight: normal;
-    }
-
-    #dash-pkg-notify input {
-        vertical-align: middle;
-        margin: 0 0.25em;
-    }
-
-        #dash-pkg-notify input[type=submit] {
-            margin-top: -0.25em;
-        }
-
-    #dash-pkg-notify p {
-        margin: 0;
-    }
-
+/* dev dashboard: */
 table.dash-stats .key {
     width: 50%;
 }
@@ -1120,4 +1088,14 @@ ul.signoff-list {
 #visualize-keys svg {
     width: 100%;
     height: 100%;
+}
+
+/* releases */
+#release-table th:first-of-type {
+    width: 30px;
+}
+
+/* itemprops */
+.itemprop {
+    display: none;
 }
