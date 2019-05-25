@@ -368,6 +368,27 @@ function pkgbase_get_pkgnames($base_id) {
 }
 
 /**
+ * Determine whether a package base is (or contains a) VCS package
+ *
+ * @param int $base_id The ID of the package base
+ *
+ * @return bool True if the package base is/contains a VCS package
+ */
+function pkgbase_is_vcs($base_id) {
+	$suffixes = array("-cvs", "-svn", "-git", "-hg", "-bzr", "-darcs");
+	$haystack = pkgbase_get_pkgnames($base_id);
+	array_push($haystack, pkgbase_name_from_id($base_id));
+	foreach ($haystack as $pkgname) {
+		foreach ($suffixes as $suffix) {
+			if (substr_compare($pkgname, $suffix, -strlen($suffix)) === 0) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+/**
  * Delete all packages belonging to a package base
  *
  * @param int $base_id The ID of the package base

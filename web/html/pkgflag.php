@@ -50,6 +50,15 @@ if (has_credential(CRED_PKGBASE_FLAG)): ?>
 		<li><?= htmlspecialchars($pkgname) ?></li>
 		<?php endforeach; ?>
 	</ul>
+	<?php if (pkgbase_is_vcs($base_id)): ?>
+	<p class="error">
+		This seems to be a VCS package. Please do <strong>not</strong>
+		flag it out-of-date if the package version in the AUR does not
+		match the most recent commit. Flagging this package should only
+		be done if the sources moved or changes in the PKGBUILD are
+		required because of recent upstream changes.
+	</p>
+	<?php endif; ?>
 	<p>
 		<?= __('Please do %snot%s use this form to report bugs. Use the package comments instead.',
 			'<strong>', '</strong>'); ?>
