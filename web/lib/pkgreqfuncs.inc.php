@@ -165,10 +165,10 @@ function pkgreq_file($ids, $type, $merge_into, $comments) {
 
 	$q = "INSERT INTO PackageRequests ";
 	$q.= "(ReqTypeID, PackageBaseID, PackageBaseName, MergeBaseName, ";
-	$q.= "UsersID, Comments, RequestTS) VALUES (" . $type_id . ", ";
+	$q.= "UsersID, Comments, ClosureComment, RequestTS) VALUES (" . $type_id . ", ";
 	$q.= $base_id . ", " .  $dbh->quote($pkgbase_name) . ", ";
 	$q.= $dbh->quote($merge_into) . ", " . $uid . ", ";
-	$q.= $dbh->quote($comments) . ", " . strval(time()) . ")";
+	$q.= $dbh->quote($comments) . ", '', " . strval(time()) . ")";
 	$dbh->exec($q);
 	$request_id = $dbh->lastInsertId();
 
