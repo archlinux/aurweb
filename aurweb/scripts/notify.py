@@ -414,8 +414,9 @@ class RequestOpenNotification(Notification):
                    (self._user, self._pkgbase, self._merge_into)
             body += '\n\n' + self._text
         else:
-            body = '%s [1] filed a %s request for %s [2]:' % \
-                   (self._user, self._reqtype, self._pkgbase)
+            an = 'an' if self._reqtype[0] in 'aeiou' else 'a'
+            body = '%s [1] filed %s %s request for %s [2]:' % \
+                   (self._user, an, self._reqtype, self._pkgbase)
             body += '\n\n' + self._text
         return body
 
