@@ -167,7 +167,7 @@ if (isset($_COOKIE["AURSID"])) {
 		}
 
 	} elseif ($action == "ListComments") {
-		if (has_credential(CRED_ACCOUNT_LIST_COMMENTS)) {
+		if (has_credential(CRED_ACCOUNT_LIST_COMMENTS, array($row["ID"]))) {
 			# display the comment list if they're a TU/dev
 
 			$total_comment_count = account_comments_count($row["ID"]);

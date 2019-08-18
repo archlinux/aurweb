@@ -49,7 +49,6 @@ function has_credential($credential, $approved_users=array()) {
 	$atype = account_from_sid($_COOKIE['AURSID']);
 
 	switch ($credential) {
-	case CRED_ACCOUNT_LIST_COMMENTS:
 	case CRED_PKGBASE_FLAG:
 	case CRED_PKGBASE_NOTIFY:
 	case CRED_PKGBASE_VOTE:
@@ -60,6 +59,7 @@ function has_credential($credential, $approved_users=array()) {
 	case CRED_ACCOUNT_CHANGE_TYPE:
 	case CRED_ACCOUNT_EDIT:
 	case CRED_ACCOUNT_LAST_LOGIN:
+	case CRED_ACCOUNT_LIST_COMMENTS:
 	case CRED_ACCOUNT_SEARCH:
 	case CRED_COMMENT_DELETE:
 	case CRED_COMMENT_UNDELETE:
