@@ -36,7 +36,12 @@ if (in_request("Action") == "NewAccount") {
 		0,
 		in_request("CN"),
 		in_request("UN"),
-		in_request("ON"));
+		in_request("ON"),
+		0,
+		"",
+		in_request("captcha_salt"),
+		in_request("captcha"),
+	);
 
 	print $message;
 
@@ -59,7 +64,12 @@ if (in_request("Action") == "NewAccount") {
 			0,
 			in_request("CN"),
 			in_request("UN"),
-			in_request("ON"));
+			in_request("ON"),
+			0,
+			"",
+			in_request("captcha_salt"),
+			in_request("captcha")
+		);
 	}
 } else {
 	print '<p>' . __("Use this form to create an account.") . '</p>';

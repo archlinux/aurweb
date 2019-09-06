@@ -174,6 +174,17 @@
 		</p>
 	</fieldset>
 
+	<?php if ($A != "UpdateAccount"): ?>
+	<fieldset>
+		<legend><?= __("To protect the AUR against automated account creation, we kindly ask you to provide the output of the following command:") ?> <code><?= htmlspecialchars($captcha_challenge) ?></code></legend>
+		<p>
+			<label for="id_captcha"><?= __("Answer") ?>:</label>
+			<input type="text" size="30" maxlength="6" name="captcha" id="id_captcha" value="<?= htmlspecialchars($captcha, ENT_QUOTES) ?>" /> (<?= __("required") ?>)
+			<input type="hidden" name="captcha_salt" value="<?= htmlspecialchars($captcha_salt) ?>" />
+		</p>
+	</fieldset>
+	<?php endif; ?>
+
 	<fieldset>
 		<p>
 			<label></label>

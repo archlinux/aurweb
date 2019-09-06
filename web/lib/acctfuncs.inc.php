@@ -62,16 +62,24 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $ON Whether to notify of ownership changes
  * @param string $UID The user ID of the displayed user
  * @param string $N The username as present in the database
+ * @param string $captcha_salt The salt used for the CAPTCHA.
+ * @param string $captcha The CAPTCHA answer.
  *
  * @return void
  */
 function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R="",
-		$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
+		$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="",$captcha_salt="",$captcha="") {
 	global $SUPPORTED_LANGS;
 
 	if ($TZ == "") {
 		$TZ = config_get("options", "default_timezone");
 	}
+
+	if ($captcha_salt != get_captcha_salt()) {
+		$captcha_salt = get_captcha_salt();
+		$captcha = "";
+	}
+	$captcha_challenge = get_captcha_challenge($captcha_salt);
 
 	include("account_edit_form.php");
 	return;
@@ -103,11 +111,13 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $ON Whether to notify of ownership changes
  * @param string $UID The user ID of the modified account
  * @param string $N The username as present in the database
+ * @param string $captcha_salt The salt used for the CAPTCHA.
+ * @param string $captcha The CAPTCHA answer.
  *
  * @return array Boolean indicating success and message to be printed
  */
 function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
-		$R="",$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="") {
+		$R="",$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="",$captcha_salt="",$captcha="") {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
@@ -267,6 +277,18 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 			$error = __("The SSH public key, %s%s%s, is already in use.",
 					"<strong>", htmlspecialchars($row[0], ENT_QUOTES), "</strong>");
 		}
+	}
+
+	if (!$error && $TYPE == "new" && empty($captcha)) {
+		$error = __("The CAPTCHA is missing.");
+	}
+
+	if (!$error && $TYPE == "new" && $captcha_salt != get_captcha_salt()) {
+		$error = __("This CAPTCHA has expired. Please try again.");
+	}
+
+	if (!$error && $TYPE == "new" && $captcha != get_captcha_answer($captcha_salt)) {
+		$error = __("The entered CAPTCHA answer is invalid.");
 	}
 
 	if ($error) {
@@ -1444,4 +1466,52 @@ function account_comments_count($uid) {
 
 	$result = $dbh->query($q);
 	return $result->fetchColumn();
+}
+
+/*
+ * Compute the CAPTCHA salt. The salt changes based on the number of registered
+ * users. This ensures that new users always use a different salt.
+ *
+ * @return string The current salt.
+ */
+function get_captcha_salt() {
+	$dbh = DB::connect();
+	$q = "SELECT count(*) FROM Users";
+	$result = $dbh->query($q);
+	$user_count = $result->fetchColumn();
+	return 'aurweb-' . floor($user_count / 3);
+}
+
+/*
+ * Return the CAPTCHA challenge for a given salt.
+ *
+ * @param string $salt The salt to be used for the CAPTCHA computation.
+ *
+ * @return string The challenge as a string.
+ */
+function get_captcha_challenge($salt) {
+	$token = substr(md5($salt), 0, 3);
+	return "LC_ALL=C pacman -V|sed -r 's#[0-9]+#" . $token . "#g'|md5sum|cut -c1-6";
+}
+
+/*
+ * Compute CAPTCHA answer for a given salt.
+ *
+ * @param string $salt The salt to be used for the CAPTCHA computation.
+ *
+ * @return string The correct answer as a string.
+ */
+function get_captcha_answer($salt) {
+	$token = substr(md5($salt), 0, 3);
+	$text = <<<EOD
+
+ .--.                  Pacman v$token.$token.$token - libalpm v$token.$token.$token
+/ _.-' .-.  .-.  .-.   Copyright (C) $token-$token Pacman Development Team
+\  '-. '-'  '-'  '-'   Copyright (C) $token-$token Judd Vinet
+ '--'
+                       This program may be freely redistributed under
+                       the terms of the GNU General Public License.
+
+EOD;
+	return substr(md5($text . "\n"), 0, 6);
 }
