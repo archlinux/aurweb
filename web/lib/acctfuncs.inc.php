@@ -75,8 +75,8 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
 		$TZ = config_get("options", "default_timezone");
 	}
 
-	if ($captcha_salt != get_captcha_salt()) {
-		$captcha_salt = get_captcha_salt();
+	if (!in_array($captcha_salt, get_captcha_salts())) {
+		$captcha_salt = get_captcha_salts()[0];
 		$captcha = "";
 	}
 	$captcha_challenge = get_captcha_challenge($captcha_salt);
@@ -283,7 +283,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$error = __("The CAPTCHA is missing.");
 	}
 
-	if (!$error && $TYPE == "new" && $captcha_salt != get_captcha_salt()) {
+	if (!$error && $TYPE == "new" && !in_array($captcha_salt, get_captcha_salts())) {
 		$error = __("This CAPTCHA has expired. Please try again.");
 	}
 
@@ -1469,17 +1469,31 @@ function account_comments_count($uid) {
 }
 
 /*
- * Compute the CAPTCHA salt. The salt changes based on the number of registered
- * users. This ensures that new users always use a different salt.
+ * Compute the list of active CAPTCHA salts. The salt changes based on the
+ * number of registered users. This ensures that new users always use a
+ * different salt and protects against hardcoding the CAPTCHA response.
  *
- * @return string The current salt.
+ * The first CAPTCHA in the list is the most recent one and should be used for
+ * new CAPTCHA challenges. The other ones are slightly outdated but may still
+ * be valid for recent challenges that were created before the number of users
+ * increased. The current implementation ensures that we can still use our
+ * CAPTCHA salt, even if five new users registered since the CAPTCHA challenge
+ * was created.
+ *
+ * @return string The list of active salts, the first being the most recent
+ * one.
  */
-function get_captcha_salt() {
+function get_captcha_salts() {
 	$dbh = DB::connect();
 	$q = "SELECT count(*) FROM Users";
 	$result = $dbh->query($q);
 	$user_count = $result->fetchColumn();
-	return 'aurweb-' . floor($user_count / 3);
+
+	$ret = array();
+	for ($i = 0; $i <= 5; $i++) {
+		array_push($ret, 'aurweb-' . ($user_count - $i));
+	}
+	return $ret;
 }
 
 /*
