@@ -79,4 +79,21 @@ function db_cache_value($dbq, $key, $ttl=600) {
 	return $value;
 }
 
+# Run a simple db query, retrieving and/or caching the result set if APC is
+# available for use. Accepts an optional TTL value (defaults to 600 seconds).
+function db_cache_result($dbq, $key, $fetch_style=PDO::FETCH_NUM, $ttl=600) {
+	$dbh = DB::connect();
+	$status = false;
+	$value = get_cache_value($key, $status);
+	if (!$status) {
+		$result = $dbh->query($dbq);
+		if (!$result) {
+			return false;
+		}
+		$value = $result->fetchAll($fetch_style);
+		set_cache_value($key, $value, $ttl);
+	}
+	return $value;
+}
+
 ?>

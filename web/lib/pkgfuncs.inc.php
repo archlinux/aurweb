@@ -222,17 +222,7 @@ function pkg_providers($name) {
 	$q.= "UNION ";
 	$q.= "SELECT 0, Name FROM OfficialProviders ";
 	$q.= "WHERE Provides = " . $dbh->quote($name);
-	$result = $dbh->query($q);
-
-	if (!$result) {
-		return array();
-	}
-
-	$providers = array();
-	while ($row = $result->fetch(PDO::FETCH_NUM)) {
-		$providers[] = $row;
-	}
-	return $providers;
+	return db_cache_result($q, 'providers:' . $name);
 }
 
 /**
@@ -244,26 +234,18 @@ function pkg_providers($name) {
  * @return array All package dependencies for the package
  */
 function pkg_dependencies($pkgid, $limit) {
-	$deps = array();
 	$pkgid = intval($pkgid);
-	if ($pkgid > 0) {
-		$dbh = DB::connect();
-		$q = "SELECT pd.DepName, dt.Name, pd.DepDesc, ";
-		$q.= "pd.DepCondition, pd.DepArch, p.ID ";
-		$q.= "FROM PackageDepends pd ";
-		$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
-		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
-		$q.= "WHERE pd.PackageID = ". $pkgid . " ";
-		$q.= "ORDER BY pd.DepName LIMIT " . intval($limit);
-		$result = $dbh->query($q);
-		if (!$result) {
-			return array();
-		}
-		while ($row = $result->fetch(PDO::FETCH_NUM)) {
-			$deps[] = $row;
-		}
+	if (!$pkgid) {
+		return array();
 	}
-	return $deps;
+	$q = "SELECT pd.DepName, dt.Name, pd.DepDesc, ";
+	$q.= "pd.DepCondition, pd.DepArch, p.ID ";
+	$q.= "FROM PackageDepends pd ";
+	$q.= "LEFT JOIN Packages p ON pd.DepName = p.Name ";
+	$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
+	$q.= "WHERE pd.PackageID = ". $pkgid . " ";
+	$q.= "ORDER BY pd.DepName LIMIT " . intval($limit);
+	return db_cache_result($q, 'dependencies:' . $pkgid);
 }
 
 /**
