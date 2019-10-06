@@ -292,11 +292,7 @@ class AurJSON {
 			"FROM Licenses INNER JOIN PackageLicenses " .
 			"ON PackageLicenses.PackageID = " . $pkgid . " " .
 			"AND PackageLicenses.LicenseID = Licenses.ID";
-		$result = $this->dbh->query($query);
-
-		if (!$result) {
-			return null;
-		}
+		$rows = db_cache_result($query, 'extended-fields:' . $pkgid, PDO::FETCH_ASSOC);
 
 		$type_map = array(
 			'depends' => 'Depends',
@@ -310,7 +306,7 @@ class AurJSON {
 			'license' => 'License',
 		);
 		$data = array();
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		foreach ($rows as $row) {
 			$type = $type_map[$row['Type']];
 			$data[$type][] = $row['Name'] . $row['Cond'];
 		}
@@ -319,13 +315,8 @@ class AurJSON {
 			$query = "SELECT Keyword FROM PackageKeywords " .
 				"WHERE PackageBaseID = " . intval($base_id) . " " .
 				"ORDER BY Keyword ASC";
-			$result = $this->dbh->query($query);
-
-			if (!$result) {
-				return null;
-			}
-
-			$data['Keywords'] = $result->fetchAll(PDO::FETCH_COLUMN, 0);
+			$rows = db_cache_result($query, 'keywords:' . intval($base_id));
+			$data['Keywords'] = array_map(function ($x) { return $x[0]; }, $rows);
 		}
 
 		return $data;
