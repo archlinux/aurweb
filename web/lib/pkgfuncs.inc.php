@@ -158,22 +158,15 @@ function pkg_from_name($name="") {
  * @return array All licenses for the package
  */
 function pkg_licenses($pkgid) {
-	$lics = array();
 	$pkgid = intval($pkgid);
-	if ($pkgid > 0) {
-		$dbh = DB::connect();
-		$q = "SELECT l.Name FROM Licenses l ";
-		$q.= "INNER JOIN PackageLicenses pl ON pl.LicenseID = l.ID ";
-		$q.= "WHERE pl.PackageID = ". $pkgid;
-		$result = $dbh->query($q);
-		if (!$result) {
-			return array();
-		}
-		while ($row = $result->fetch(PDO::FETCH_COLUMN, 0)) {
-			$lics[] = $row;
-		}
+	if (!$pkgid) {
+		return array();
 	}
-	return $lics;
+	$q = "SELECT l.Name FROM Licenses l ";
+	$q.= "INNER JOIN PackageLicenses pl ON pl.LicenseID = l.ID ";
+	$q.= "WHERE pl.PackageID = ". $pkgid;
+	$rows = db_cache_result($q, 'licenses:' . $pkgid);
+	return array_map(function ($x) { return $x[0]; }, $rows);
 }
 
 /**
@@ -184,22 +177,15 @@ function pkg_licenses($pkgid) {
  * @return array All package groups for the package
  */
 function pkg_groups($pkgid) {
-	$grps = array();
 	$pkgid = intval($pkgid);
-	if ($pkgid > 0) {
-		$dbh = DB::connect();
-		$q = "SELECT g.Name FROM `Groups` g ";
-		$q.= "INNER JOIN PackageGroups pg ON pg.GroupID = g.ID ";
-		$q.= "WHERE pg.PackageID = ". $pkgid;
-		$result = $dbh->query($q);
-		if (!$result) {
-			return array();
-		}
-		while ($row = $result->fetch(PDO::FETCH_COLUMN, 0)) {
-			$grps[] = $row;
-		}
+	if (!$pkgid) {
+		return array();
 	}
-	return $grps;
+	$q = "SELECT g.Name FROM `Groups` g ";
+	$q.= "INNER JOIN PackageGroups pg ON pg.GroupID = g.ID ";
+	$q.= "WHERE pg.PackageID = ". $pkgid;
+	$rows = db_cache_result($q, 'groups:' . $pkgid);
+	return array_map(function ($x) { return $x[0]; }, $rows);
 }
 
 /**
@@ -256,24 +242,16 @@ function pkg_dependencies($pkgid, $limit) {
  * @return array All package relations for the package
  */
 function pkg_relations($pkgid) {
-	$rels = array();
 	$pkgid = intval($pkgid);
-	if ($pkgid > 0) {
-		$dbh = DB::connect();
-		$q = "SELECT pr.RelName, rt.Name, pr.RelCondition, pr.RelArch, p.ID FROM PackageRelations pr ";
-		$q.= "LEFT JOIN Packages p ON pr.RelName = p.Name ";
-		$q.= "LEFT JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
-		$q.= "WHERE pr.PackageID = ". $pkgid . " ";
-		$q.= "ORDER BY pr.RelName";
-		$result = $dbh->query($q);
-		if (!$result) {
-			return array();
-		}
-		while ($row = $result->fetch(PDO::FETCH_NUM)) {
-			$rels[] = $row;
-		}
+	if (!$pkgid) {
+		return array();
 	}
-	return $rels;
+	$q = "SELECT pr.RelName, rt.Name, pr.RelCondition, pr.RelArch, p.ID FROM PackageRelations pr ";
+	$q.= "LEFT JOIN Packages p ON pr.RelName = p.Name ";
+	$q.= "LEFT JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
+	$q.= "WHERE pr.PackageID = ". $pkgid . " ";
+	$q.= "ORDER BY pr.RelName";
+	return db_cache_result($q, 'relations:' . $pkgid);
 }
 
 /**
