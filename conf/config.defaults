@@ -38,6 +38,7 @@ render-comment-cmd = /usr/local/bin/aurweb-rendercomment
 localedir = /srv/http/aurweb/aur.git/web/locale/
 # memcache or apc
 cache = none
+cache_pkginfo_ttl = 86400
 memcache_servers = 127.0.0.1:11211
 
 [ratelimit]

@@ -165,7 +165,8 @@ function pkg_licenses($pkgid) {
 	$q = "SELECT l.Name FROM Licenses l ";
 	$q.= "INNER JOIN PackageLicenses pl ON pl.LicenseID = l.ID ";
 	$q.= "WHERE pl.PackageID = ". $pkgid;
-	$rows = db_cache_result($q, 'licenses:' . $pkgid);
+	$ttl = config_get_int('options', 'cache_pkginfo_ttl');
+	$rows = db_cache_result($q, 'licenses:' . $pkgid, PDO::FETCH_NUM, $ttl);
 	return array_map(function ($x) { return $x[0]; }, $rows);
 }
 
@@ -184,7 +185,8 @@ function pkg_groups($pkgid) {
 	$q = "SELECT g.Name FROM `Groups` g ";
 	$q.= "INNER JOIN PackageGroups pg ON pg.GroupID = g.ID ";
 	$q.= "WHERE pg.PackageID = ". $pkgid;
-	$rows = db_cache_result($q, 'groups:' . $pkgid);
+	$ttl = config_get_int('options', 'cache_pkginfo_ttl');
+	$rows = db_cache_result($q, 'groups:' . $pkgid, PDO::FETCH_NUM, $ttl);
 	return array_map(function ($x) { return $x[0]; }, $rows);
 }
 
@@ -208,7 +210,8 @@ function pkg_providers($name) {
 	$q.= "UNION ";
 	$q.= "SELECT 0, Name FROM OfficialProviders ";
 	$q.= "WHERE Provides = " . $dbh->quote($name);
-	return db_cache_result($q, 'providers:' . $name);
+	$ttl = config_get_int('options', 'cache_pkginfo_ttl');
+	return db_cache_result($q, 'providers:' . $name, PDO::FETCH_NUM, $ttl);
 }
 
 /**
@@ -231,7 +234,8 @@ function pkg_dependencies($pkgid, $limit) {
 	$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 	$q.= "WHERE pd.PackageID = ". $pkgid . " ";
 	$q.= "ORDER BY pd.DepName LIMIT " . intval($limit);
-	return db_cache_result($q, 'dependencies:' . $pkgid);
+	$ttl = config_get_int('options', 'cache_pkginfo_ttl');
+	return db_cache_result($q, 'dependencies:' . $pkgid, PDO::FETCH_NUM, $ttl);
 }
 
 /**
@@ -251,7 +255,8 @@ function pkg_relations($pkgid) {
 	$q.= "LEFT JOIN RelationTypes rt ON rt.ID = pr.RelTypeID ";
 	$q.= "WHERE pr.PackageID = ". $pkgid . " ";
 	$q.= "ORDER BY pr.RelName";
-	return db_cache_result($q, 'relations:' . $pkgid);
+	$ttl = config_get_int('options', 'cache_pkginfo_ttl');
+	return db_cache_result($q, 'relations:' . $pkgid, PDO::FETCH_NUM, $ttl);
 }
 
 /**
