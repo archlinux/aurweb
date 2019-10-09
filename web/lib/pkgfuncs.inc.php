@@ -485,11 +485,8 @@ function pkg_required($name="", $provides, $limit) {
 		$q.= "LEFT JOIN DependencyTypes dt ON dt.ID = pd.DepTypeID ";
 		$q.= "WHERE pd.DepName IN (" . $name_list . ") ";
 		$q.= "ORDER BY p.Name LIMIT " . intval($limit);
-		$result = $dbh->query($q);
-		if (!$result) {return array();}
-		while ($row = $result->fetch(PDO::FETCH_NUM)) {
-			$deps[] = $row;
-		}
+		/* Not invalidated by package updates. */
+		return db_cache_result($q, 'required:' . $name, PDO::FETCH_NUM);
 	}
 	return $deps;
 }
@@ -502,22 +499,15 @@ function pkg_required($name="", $provides, $limit) {
  * @return array All sources associated with a specific package
  */
 function pkg_sources($pkgid) {
-	$sources = array();
 	$pkgid = intval($pkgid);
-	if ($pkgid > 0) {
-		$dbh = DB::connect();
-		$q = "SELECT Source, SourceArch FROM PackageSources ";
-		$q.= "WHERE PackageID = " . $pkgid;
-		$q.= " ORDER BY Source";
-		$result = $dbh->query($q);
-		if (!$result) {
-			return array();
-		}
-		while ($row = $result->fetch(PDO::FETCH_NUM)) {
-			$sources[] = $row;
-		}
+	if (!$pkgid) {
+		return array();
 	}
-	return $sources;
+	$q = "SELECT Source, SourceArch FROM PackageSources ";
+	$q.= "WHERE PackageID = " . $pkgid;
+	$q.= " ORDER BY Source";
+	$ttl = config_get_int('options', 'cache_pkginfo_ttl');
+	return db_cache_result($q, 'required:' . $pkgid, PDO::FETCH_NUM, $ttl);
 }
 
 /**
