@@ -9,18 +9,19 @@
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # neiko <neikokz+tsfx@gmail.com>, 2011
 # Nicolás de la Torre <ndelatorre@gmail.com>, 2012
-# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2012
-# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016-2017
-# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2013-2016
-# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016-2017
-# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2016
+# prflr88 <prflr88@gmail.com>, 2012
+# prflr88 <prflr88@gmail.com>, 2016-2017
+# prflr88 <prflr88@gmail.com>, 2013-2016
+# prflr88 <prflr88@gmail.com>, 2016-2017
+# prflr88 <prflr88@gmail.com>, 2016
+# prflr88 <prflr88@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-18 04:38+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2019-07-16 01:55+0000\n"
+"Last-Translator: prflr88 <prflr88@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/lfleischer/aurweb/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2021,7 +2022,7 @@ msgstr "Atrás"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr ""
+msgstr "Reiniciarlizar contraseña del AUR"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2033,7 +2034,7 @@ msgstr ""
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr ""
+msgstr "Bienvenido al repositorio de usuarios de Arch"
 
 #: scripts/notify.py
 msgid ""
@@ -2045,12 +2046,12 @@ msgstr ""
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Comment for {pkgbase}"
-msgstr ""
+msgstr "Comentario en el AUR para {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] added the following comment to {pkgbase} [2]:"
-msgstr ""
+msgstr "{user} [1] añadió un comentario al paquete base {pkgbase} [2]"
 
 #: scripts/notify.py
 #, python-brace-format

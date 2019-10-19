@@ -8,17 +8,17 @@
 # Antoine Lubineau <antoine@lubignon.info>, 2012-2016
 # Cedric Girard <girard.cedric@gmail.com>, 2011,2014,2016
 # lordheavy <lordheavym@gmail.com>, 2011
-# lordheavy <lordheavym@gmail.com>, 2013-2014
+# lordheavy <lordheavym@gmail.com>, 2013-2014,2018
 # lordheavy <lordheavym@gmail.com>, 2011-2012
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Xorg, 2015,2017
+# Xorg, 2015,2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-18 04:38+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2019-02-11 18:21+0000\n"
+"Last-Translator: Xorg\n"
 "Language-Team: French (http://www.transifex.com/lfleischer/aurweb/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -539,7 +539,7 @@ msgstr "Utilisez ce formulaire pour destituer le paquet de base %s%s%s qui inclu
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr ""
+msgstr "En cochant la case, vous confirmez que vous ne voulez plus être le co-mainteneur du paquet."
 
 #: html/pkgdisown.php
 #, php-format
@@ -1228,7 +1228,7 @@ msgstr "Cliquez %sici%s si vous voulez effacer ce compte de façon définitive."
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr "Cliquer %sici%s pour obtenir les détails de l'utilisateur."
+msgstr "Cliquez %sici%s pour obtenir les détails de l'utilisateur."
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1653,7 +1653,7 @@ msgstr "Rejeté"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr "Utilisez ce formulaire pour soumettre une requête concernant le paquet de base %s%s%s contenant les paquets suivant:"
+msgstr "Utilisez ce formulaire pour soumettre une requête concernant le paquet de base %s%s%s contenant les paquets suivant :"
 
 #: template/pkgreq_form.php
 msgid "Request type"
@@ -2019,7 +2019,7 @@ msgstr "Retour"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr ""
+msgstr "Réinitialisation de mot de passe AUR"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2027,90 +2027,90 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr ""
+msgstr "Une demande de réinitialisation de mot de passe a été présentée pour le compte {user} associé à votre adresse e-mail. Si vous souhaitez réinitialiser votre mot de passe suivez le lien [1] ci-dessous, sinon ignorez ce message et rien ne se passera."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr ""
+msgstr "Bienvenue sur le dépôt des utilisateurs d'Arch Linux"
 
 #: scripts/notify.py
 msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr ""
+msgstr "Bienvenue sur le dépôt des utilisateurs d'Arch Linux ! Afin de générer un mot de passe pour votre nouveau compte, veuillez suivre le lien [1] ci-dessous. Si le lien ne fonctionne pas, copiez-le et collez-le dans votre navigateur web. "
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Comment for {pkgbase}"
-msgstr ""
+msgstr "Commentaires AUR pour {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] added the following comment to {pkgbase} [2]:"
-msgstr ""
+msgstr "{user} [1] a ajouté le commentaire suivant à {pkgbase} [2] :"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr ""
+msgstr "Si vous ne souhaitez plus recevoir de notifications à propos de ce paquet, rendez-vous sur la page du paquet [2] et sélectionnez \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package Update: {pkgbase}"
-msgstr ""
+msgstr "Paquet AUR mis à jour : {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
-msgstr ""
+msgstr "{user} [1] a poussé un nouveau commit vers {pkgbase} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Out-of-date Notification for {pkgbase}"
-msgstr ""
+msgstr "Notification de paquet AUR périmé pour {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr ""
+msgstr "Votre paquet {pkgbase} [1] a été marqué comme périmé par {user} [2] :"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Ownership Notification for {pkgbase}"
-msgstr ""
+msgstr "Notification de paquet AUR adopté pour {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was adopted by {user} [2]."
-msgstr ""
+msgstr "Le paquet {pkgbase} [1] a été adopté par {user} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was disowned by {user} [2]."
-msgstr ""
+msgstr "Le paquet {pkgbase} [1] a été destitué par {user} [2]. "
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Co-Maintainer Notification for {pkgbase}"
-msgstr ""
+msgstr "Notification de paquet AUR co-maintenu pour {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were added to the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "Vous avez été ajouté à la liste des co-mainteneurs de {pkgbase} [1]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "Vous avez été retiré de la liste des co-mainteneurs de {pkgbase} [1]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package deleted: {pkgbase}"
-msgstr ""
+msgstr "Paquet AUR supprimé : {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2118,7 +2118,7 @@ msgid ""
 "{user} [1] merged {old} [2] into {new} [3].\n"
 "\n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "{user} [1] a fusionné {old} [2] dans {new} [3].\n\nSi vous ne souhaitez plus recevoir de notifications à propos du nouveau paquet, rendez-vous sur la page du paquet [3] et sélectionnez \"{label}\". "
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2126,16 +2126,16 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr ""
+msgstr "{user} [1] a supprimé {pkgbase} [2].\n\nVous ne recevrez plus de notifications à propos de ce paquet."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "TU Vote Reminder: Proposal {id}"
-msgstr ""
+msgstr "Rappel du vote du TU : proposition {id}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
-msgstr ""
+msgstr "N'oubliez pas de voter sur la proposition {id} [1]. La période de vote se termine dans moins de 48 heures."

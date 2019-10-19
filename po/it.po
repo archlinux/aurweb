@@ -6,13 +6,14 @@
 # Giovanni Scafora <giovanni@archlinux.org>, 2011-2015
 # Lorenzo Porta <lorenzoporta@outlook.it>, 2014
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# mattia_b89 <mattia.b89@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-18 04:38+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"PO-Revision-Date: 2019-07-18 16:40+0000\n"
+"Last-Translator: mattia_b89 <mattia.b89@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/lfleischer/aurweb/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,15 +184,15 @@ msgstr "I miei pacchetti"
 
 #: html/home.php
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Cerca i pacchetti da me mantenuti"
 
 #: html/home.php
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Pacchetti Co-mantenuti"
 
 #: html/home.php
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Cerca i pacchetti da me co-mantenuti"
 
 #: html/home.php
 #, php-format
@@ -561,7 +562,7 @@ msgstr "Solo i TU e gli sviluppatori possono abbandonare i pacchetti."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
-msgstr ""
+msgstr "Segnala Commento"
 
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
@@ -679,21 +680,21 @@ msgstr "Usa questo modulo per creare un account."
 
 #: html/tos.php
 msgid "Terms of Service"
-msgstr ""
+msgstr "Termini del Servizio"
 
 #: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr ""
+msgstr "I seguenti documenti sono stati aggiornati. Per favore riesaminali correttamente:"
 
 #: html/tos.php
 #, php-format
 msgid "revision %d"
-msgstr ""
+msgstr "revisione %d"
 
 #: html/tos.php
 msgid "I accept the terms and conditions above."
-msgstr ""
+msgstr "Io accetto i termini e le condizioni di cui sopra."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
@@ -768,7 +769,7 @@ msgstr "L'indirizzo email non risulta valido."
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
-msgstr ""
+msgstr "La homepage non è valida, per favore specificare l'URL HTTP(s) completo."
 
 #: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
@@ -788,7 +789,7 @@ msgstr "Lingua attualmente non supportata."
 
 #: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "Fuso orario non attualmente supportato."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -1028,11 +1029,11 @@ msgstr "Sei stato rimosso dalla lista delle notifiche dei commenti di %s."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
-msgstr ""
+msgstr "Non sei autorizzato a ripristinare questo commento."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been undeleted."
-msgstr ""
+msgstr "Il commento è stato ripristinato."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
@@ -1163,7 +1164,7 @@ msgstr "Nome reale"
 
 #: template/account_details.php template/account_edit_form.php
 msgid "Homepage"
-msgstr ""
+msgstr "Homepage"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php template/search_accounts_form.php
@@ -1190,7 +1191,7 @@ msgstr "Attivo"
 
 #: template/account_details.php
 msgid "Registration date:"
-msgstr ""
+msgstr "Data di registrazione:"
 
 #: template/account_details.php template/pkgbase_details.php
 #: template/pkg_details.php template/pkgreq_results.php
@@ -1222,7 +1223,7 @@ msgstr "Clicca %squi%s se vuoi eliminare definitivamente questo account."
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Click %squì%s per il dettagli dell'utente."
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1232,7 +1233,7 @@ msgstr "obbligatorio"
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr ""
+msgstr "Il tuo nome utente è il nome che userai per l'accesso. È visibile al pubblico, anche se il tuo account non è attivo."
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
@@ -1270,7 +1271,7 @@ msgstr "Lingua"
 
 #: template/account_edit_form.php
 msgid "Timezone"
-msgstr ""
+msgstr "Fuso orario"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1284,7 +1285,7 @@ msgstr "Chiave pubblica SSH"
 
 #: template/account_edit_form.php
 msgid "Notification settings"
-msgstr ""
+msgstr "Impostazioni notifiche"
 
 #: template/account_edit_form.php
 msgid "Notify of new comments"
@@ -1292,7 +1293,7 @@ msgstr "Notifica dei nuovi commenti"
 
 #: template/account_edit_form.php
 msgid "Notify of package updates"
-msgstr ""
+msgstr "Notifica degli aggiornamenti dei pacchetti"
 
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
@@ -1356,21 +1357,21 @@ msgstr "Salva"
 #: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Commento Segnalato come Non Aggiornato: %s"
 
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
+msgstr "%s%s%s segnalato %s%s%s come non aggiornato su %s%s%s per il seguente motivo:"
 
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "%s%s%s non è segnalato come non aggiornato."
 
 #: template/flag_comment.php
 msgid "Return to Details"
-msgstr ""
+msgstr "Ritorna ai Dettagli"
 
 #: template/footer.php
 #, php-format
@@ -1404,7 +1405,7 @@ msgstr "Cerca nel wiki"
 #: template/pkgbase_actions.php
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Segnalato come non aggiornato (%s)"
 
 #: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
@@ -1428,7 +1429,7 @@ msgstr "Disabilita le notifiche"
 
 #: template/pkgbase_actions.php
 msgid "Enable notifications"
-msgstr ""
+msgstr "Abilita le notifiche"
 
 #: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
@@ -1533,21 +1534,21 @@ msgstr "Eliminato su %s da %s"
 #: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "cancellato su %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "edited on %s by %s"
-msgstr ""
+msgstr "modificato su %s da %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "edited on %s"
-msgstr ""
+msgstr "modificato su %s"
 
 #: template/pkg_comments.php
 msgid "Undelete comment"
-msgstr ""
+msgstr "Ripristina commento"
 
 #: template/pkg_comments.php
 msgid "Delete comment"
@@ -1748,7 +1749,7 @@ msgstr "Chiudi"
 
 #: template/pkgreq_results.php
 msgid "Pending"
-msgstr ""
+msgstr "In sospeso"
 
 #: template/pkgreq_results.php
 msgid "Closed"
@@ -1772,11 +1773,11 @@ msgstr "Pacchetto base esatto"
 
 #: template/pkg_search_form.php
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Co-mantenitore"
 
 #: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Mantenitore, Co-mantenitore"
 
 #: template/pkg_search_form.php
 msgid "All"
@@ -1867,7 +1868,7 @@ msgstr "Versione"
 msgid ""
 "Popularity is calculated as the sum of all votes with each vote being "
 "weighted with a factor of %.2f per day since its creation."
-msgstr ""
+msgstr "La popolarità è calcolata come somma di tutti i voti pesati con un fattore di %.2f al giorno, dalla sua creazione."
 
 #: template/pkg_search_results.php template/tu_details.php
 #: template/tu_list.php
@@ -1948,7 +1949,7 @@ msgstr "Aggiornamenti recenti"
 
 #: template/stats/updates_table.php
 msgid "more"
-msgstr ""
+msgstr "di più"
 
 #: template/stats/user_table.php
 msgid "My Statistics"
@@ -2013,7 +2014,7 @@ msgstr "Precedente"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr ""
+msgstr "Ripristino Password di AUR"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2025,14 +2026,14 @@ msgstr ""
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr ""
+msgstr "Benvenuto nel Arch User Repository"
 
 #: scripts/notify.py
 msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr ""
+msgstr "Benvenuto nel Arch User Repository! Per impostare una password iniziale per il tuo nuovo account, per favore segui il collegamento [1] sottostante. Se il collegamento non funziona, prova a copiarlo e incollarlo nel tuo browser."
 
 #: scripts/notify.py
 #, python-brace-format
