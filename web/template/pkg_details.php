@@ -259,7 +259,7 @@ endif;
 		</tr>
 		<tr>
 			<th><?= __('Popularity') . ': ' ?></th>
-			<td><?= number_format($popularity, 6) ?></td>
+			<td><?= number_format($popularity, $popularity >= .2 ? 2 : 6) ?></td>
 		</tr>
 		<tr>
 			<th><?= __('First Submitted') . ': ' ?></th>
