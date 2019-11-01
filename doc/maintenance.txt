@@ -1,0 +1,108 @@
+aurweb Maintenance
+==================
+
+Components
+----------
+
+aurweb has three user-facing components.
+
+The Git/SSH interface can be used to update package repositories and for basic
+package maintenance from the command-line. More details can be found in
+`doc/git-interface.txt`.
+
+The web interface can be used to browse packages, view package details, manage
+aurweb accounts, add comments, vote for packages, flag packages, and submit
+requests. Trusted Users can update package maintainers and delete/merge
+packages. The web interface also includes an area for Trusted Users to post
+AUR-related proposals and vote on them.
+
+The RPC interface can be used to query package information via HTTP.
+
+Installation
+------------
+
+The web backend requires a web server with PHP and an SQL database. The Git/SSH
+interface requires Python, several Python modules and an up-to-date version of
+Git. APCu or memcached can be used to reduce load on the database server.
+
+All dependencies and the full installation process are described in `INSTALL`.
+
+Updates
+-------
+
+The `enable-maintenance` option (in the configuration file, usually located at
+`/etc/aurweb/config`) can be used to switch aurweb into maintenance mode. This
+disables both the Git/SSH interface and the web interface. The
+`maintenance-exceptions` variable can be used to reactivate access for certain
+IP addresses. Since changes to the database schema might temporarily break
+parts of the backend, it is recommended to always enable maintenance mode
+before performing an upgrade.
+
+To simplify the upgrade process, changes in the database schema (and other
+changes that require manual interaction) are documented in `upgrading/`. An
+exception are additions to the configuration file. It is recommended to always
+compare `/etc/aurweb/config` to `conf/config.defaults` when upgrading to a new
+release.
+
+Moreover, the aurweb Python modules and translations need to be reinstalled
+with every upgrade. To this end, run `python3 setup.py install` from the aurweb
+source tree and run `make install` in the `po/` subdirectory.
+
+Don't forget to always test all basic features first, then disable maintenance
+mode after performing an upgrade.
+
+Maintenance Scripts
+-------------------
+
+aurweb includes scheduled maintenance routines to perform expensive
+computations and clean up the database:
+
+* aurweb-aurblup parses binary repositories and updates the `OfficialProviders`
+  table. This table is used to identify AUR packages that depend on packages in
+  the official repositories. It is also used to prevent users from uploading
+  packages that are in the official repositories already.
+
+* aurweb-tuvotereminder sends out reminders to TUs if the voting period for a
+  TU proposal ends soon.
+
+* aurweb-popupdate is used to recompute the popularity score of packages.
+
+* aurweb-pkgmaint automatically removes empty repositories that were created
+  within the last 24 hours but never populated.
+
+* aurweb-mkpkglists generates the package list files.
+
+* aurweb-usermaint removes the last login IP address of all users that did not
+  login within the past seven days.
+
+These scripts can be installed by running `python3 setup.py install` and are
+usually scheduled using Cron. The current setup is:
+
+----
+*/5 * * * * aurweb-mkpkglists
+1 */2 * * * aurweb-popupdate
+2 */2 * * * aurweb-aurblup
+3 */2 * * * aurweb-pkgmaint
+4 */2 * * * aurweb-usermaint
+5 */12 * * * aurweb-tuvotereminder
+----
+
+Advanced Administrative Features
+--------------------------------
+
+Trusted Users can set the AUR_OVERWRITE environment variable to enable
+non-fast-forward pushes to the Git repositories. This feature is documented in
+`doc/git-interface.txt`.
+
+Rate limiting is used to prevent users from hammering the RPC interface. The
+`request_limit` and `window_length` options in the `ratelimit` section of the
+configuration file can be used to configure this feature. Recent accesses are
+stored in the `ApiRateLimit` table in the database. See commit 27654af (Add
+rate limit support to API, 2018-02-01) for details.
+
+The database contains a `PackageBlacklist` table. Package names added to this
+table will be rejected by the SSH/Git interface. This table can only be edited
+by a database administrator.
+
+The `Bans` table can be used to ban certain IP addresses from both the web and
+Git/SSH interface. This table can only be accessed by a database administrator.
