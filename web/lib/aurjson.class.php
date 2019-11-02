@@ -152,23 +152,26 @@ class AurJSON {
 			return false;
 		}
 
-		$window_length = config_get("ratelimit", "window_length");
 		$this->update_ratelimit($ip);
-		$stmt = $this->dbh->prepare("
-			SELECT Requests FROM ApiRateLimit
-			WHERE IP = :ip");
-		$stmt->bindParam(":ip", $ip);
-		$result = $stmt->execute();
 
-		if (!$result) {
-			return false;
+		$status = false;
+		$value = get_cache_value('ratelimit:' . $ip, $status);
+		if (!$status) {
+			$stmt = $this->dbh->prepare("
+				SELECT Requests FROM ApiRateLimit
+				WHERE IP = :ip");
+			$stmt->bindParam(":ip", $ip);
+			$result = $stmt->execute();
+
+			if (!$result) {
+				return false;
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			$value = $row['Requests'];
 		}
 
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		if ($row['Requests'] > $limit) {
-			return true;
-		}
-		return false;
+		return $value > $limit;
 	}
 
 	/*
@@ -182,9 +185,23 @@ class AurJSON {
 		$window_length = config_get("ratelimit", "window_length");
 		$db_backend = config_get("database", "backend");
 		$time = time();
-
-		// Clean up old windows
 		$deletion_time = $time - $window_length;
+
+		/* Try to use the cache. */
+		$status = false;
+		$value = get_cache_value('ratelimit-ws:' . $ip, $status);
+		if (!$status || ($status && $value < $deletion_time)) {
+			if (set_cache_value('ratelimit-ws:' . $ip, $time, $window_length) &&
+			    set_cache_value('ratelimit:' . $ip, 1, $window_length)) {
+				return;
+			}
+		} else {
+			$value = get_cache_value('ratelimit:' . $ip, $status);
+			if ($status && set_cache_value('ratelimit:' . $ip, $value + 1, $window_length))
+				return;
+		}
+
+		/* Clean up old windows. */
 		$stmt = $this->dbh->prepare("
 			DELETE FROM ApiRateLimit
 			WHERE WindowStart < :time");
