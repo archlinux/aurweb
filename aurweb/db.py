@@ -1,5 +1,12 @@
-import mysql.connector
-import sqlite3
+try:
+    import mysql.connector
+except ImportError:
+    pass
+
+try:
+    import sqlite3
+except ImportError:
+    pass
 
 import aurweb.config
 
