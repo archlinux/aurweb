@@ -207,18 +207,22 @@ def pkgreq_close(reqid, user, reason, comments, autoclose=False):
     conn = aurweb.db.Connection()
 
     if autoclose:
-        userid = 0
+        userid = None
     else:
         cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
         userid = cur.fetchone()[0]
         if userid == 0:
             raise aurweb.exceptions.InvalidUserException(user)
 
-    conn.execute("UPDATE PackageRequests SET Status = ?, ClosureComment = ? " +
-                 "WHERE ID = ?", [status, comments, reqid])
+    now = int(time.time())
+    conn.execute("UPDATE PackageRequests SET Status = ?, ClosedTS = ?, " +
+                 "ClosedUID = ?, ClosureComment = ? " +
+                 "WHERE ID = ?", [status, now, userid, comments, reqid])
     conn.commit()
     conn.close()
 
+    if not userid:
+        userid = 0
     subprocess.Popen((notify_cmd, 'request-close', str(userid), str(reqid),
                       reason)).wait()
 

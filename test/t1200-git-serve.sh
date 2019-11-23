@@ -381,9 +381,9 @@ test_expect_success "Check whether package requests are closed when disowning." 
 	grep "^Subject.*PRQ" sendmail.out >sendmail.parts &&
 	test_cmp sendmail.parts expected &&
 	cat <<-EOD >expected &&
-	1|2|3|foobar||4||The user user disowned the package.|0|2
+	1|2||The user user disowned the package.
 	EOD
-	echo "SELECT * FROM PackageRequests WHERE Status = 2;" | sqlite3 aur.db >actual &&
+	echo "SELECT ID, Status, ClosedUID, ClosureComment FROM PackageRequests WHERE ClosedTS > 0;" | sqlite3 aur.db >actual &&
 	test_cmp actual expected
 '
 

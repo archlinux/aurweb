@@ -1,0 +1,6 @@
+1. Add new columns to store the timestamp and UID when closing requests:
+
+----
+ALTER TABLE PackageRequests ADD COLUMN ClosedTS BIGINT UNSIGNED NULL DEFAULT NULL;
+ALTER TABLE PackageRequests ADD COLUMN ClosedUID INTEGER UNSIGNED NULL DEFAULT NULL;
+----

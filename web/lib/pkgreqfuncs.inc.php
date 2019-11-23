@@ -247,6 +247,8 @@ function pkgreq_close($id, $reason, $comments, $auto_close=false) {
 	}
 
 	$q = "UPDATE PackageRequests SET Status = " . intval($status) . ", ";
+	$q.= "ClosedTS = " . strval(time()) . ", ";
+	$q.= "ClosedUID = " . ($uid == 0 ? "NULL" : intval($uid)) . ", ";
 	$q.= "ClosureComment = " . $dbh->quote($comments) . " ";
 	$q.= "WHERE ID = " . intval($id);
 	$dbh->exec($q);
