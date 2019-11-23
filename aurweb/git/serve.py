@@ -496,6 +496,9 @@ def serve(action, cmdargv, user, privileged, remote_addr):
             if not privileged and not pkgbase_has_write_access(pkgbase, user):
                 raise aurweb.exceptions.PermissionDeniedException(user)
 
+        if not os.access(git_update_cmd, os.R_OK | os.X_OK):
+            raise aurweb.exceptions.BrokenUpdateHookException(git_update_cmd)
+
         os.environ["AUR_USER"] = user
         os.environ["AUR_PKGBASE"] = pkgbase
         os.environ["GIT_NAMESPACE"] = pkgbase

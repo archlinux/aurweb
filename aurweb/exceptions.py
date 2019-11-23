@@ -16,6 +16,12 @@ class PermissionDeniedException(AurwebException):
         super(PermissionDeniedException, self).__init__(msg)
 
 
+class BrokenUpdateHookException(AurwebException):
+    def __init__(self, cmd):
+        msg = 'broken update hook: {:s}'.format(cmd)
+        super(BrokenUpdateHookException, self).__init__(msg)
+
+
 class InvalidUserException(AurwebException):
     def __init__(self, user):
         msg = 'unknown user: {:s}'.format(user)
