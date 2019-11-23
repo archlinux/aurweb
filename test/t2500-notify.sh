@@ -289,7 +289,7 @@ test_expect_success 'Test subject and body of request open notifications.' '
 	sed -n "/^\$/,\$p" sendmail.out | base64 -d >actual &&
 	echo >>actual &&
 	cat <<-EOD >expected &&
-	user [1] filed a orphan request for foobar [2]:
+	user [1] filed an orphan request for foobar [2]:
 
 	This is a request test comment.
 
