@@ -7,3 +7,4 @@ aur.git/
 __pycache__/
 *.py[cod]
 test/test-results/
+schema/aur-schema-sqlite.sql
