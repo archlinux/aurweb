@@ -100,9 +100,9 @@ $base_uri = get_pkgbase_uri($row['BaseName']);
 		<tr>
 			<th><?= __('Git Clone URL') . ': ' ?></th>
 			<td>
-				<a href="<?= $git_clone_uri_anon ?>"><?= $git_clone_uri_anon ?></a> (<?= __('read-only') ?>)
+				<a class="copy" href="<?= $git_clone_uri_anon ?>"><?= $git_clone_uri_anon ?></a> (<?= __('read-only') ?>, <?= __('click to copy') ?>)
 				<?php if (in_array($uid, $maintainers)): ?>
-				<br /> <a href="<?= $git_clone_uri_priv ?>"><?= $git_clone_uri_priv ?></a>
+				<br /> <a class="copy" href="<?= $git_clone_uri_priv ?>"><?= $git_clone_uri_priv ?></a> (<?= __('click to copy') ?>)
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -306,3 +306,16 @@ endif;
 		<?php endif; ?>
 	</div>
 </div>
+
+<script>
+$(document).ready(function() {
+	$('.copy').click(function(e) {
+		var tmp = $("<input>");
+		$("body").append(tmp);
+		tmp.val($(this).text()).select();
+		document.execCommand("copy");
+		tmp.remove();
+		e.preventDefault();
+	});
+});
+</script>
