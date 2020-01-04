@@ -151,7 +151,7 @@ class CommentNotification(Notification):
         body = self._l10n.translate(
                 '{user} [1] added the following comment to {pkgbase} [2]:',
                 lang).format(user=self._user, pkgbase=self._pkgbase)
-        body += '\n\n' + self._text + '\n\n'
+        body += '\n\n' + self._text + '\n\n-- \n'
         dnlabel = self._l10n.translate('Disable notifications', lang)
         body += self._l10n.translate(
                 'If you no longer wish to receive notifications about this '
@@ -196,7 +196,7 @@ class UpdateNotification(Notification):
                                     '{pkgbase} [2].', lang).format(
                                             user=self._user,
                                             pkgbase=self._pkgbase)
-        body += '\n\n'
+        body += '\n\n-- \n'
         dnlabel = self._l10n.translate('Disable notifications', lang)
         body += self._l10n.translate(
                 'If you no longer wish to receive notifications about this '
@@ -362,6 +362,7 @@ class DeleteNotification(Notification):
             dnlabel = self._l10n.translate('Disable notifications', lang)
             return self._l10n.translate(
                     '{user} [1] merged {old} [2] into {new} [3].\n\n'
+                    '-- \n'
                     'If you no longer wish receive notifications about the '
                     'new package, please go to [3] and click "{label}".',
                     lang).format(user=self._user, old=self._old_pkgbase,
