@@ -135,7 +135,6 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$PO="",$P="
 
 	if(isset($_COOKIE['AURSID'])) {
 		$editor_user = uid_from_sid($_COOKIE['AURSID']);
-	$row = account_details(in_request("ID"), in_request("U"));
 	}
 	else {
 		$editor_user = null;
