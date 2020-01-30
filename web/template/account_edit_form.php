@@ -140,9 +140,9 @@
 
 	<?php if ($A == "UpdateAccount"): ?>
 	<fieldset>
-		<legend><?= __("If you want to change your password, enter your current passport, your new password and confirm the new password by entering it again.") ?></legend>
+		<legend><?= __("If you want to change the password, enter your current passport, the new password and confirm the new password by entering it again.") ?></legend>
 		<p>
-			<label for="id_passwd_old"><?= __("Old password") ?>:</label>
+			<label for="id_passwd_old"><?= __("Your current password") ?>:</label>
 			<input type="password" size="30" name="PO" id="id_passwd_old" value="<?= $PO ?>" />
 		</p>
 

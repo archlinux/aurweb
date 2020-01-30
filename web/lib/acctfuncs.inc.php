@@ -134,10 +134,9 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$PO="",$P="
 	$dbh = DB::connect();
 
 	if(isset($_COOKIE['AURSID'])) {
-		$editor_user = uid_from_sid($_COOKIE['AURSID']);
-	}
-	else {
-		$editor_user = null;
+		$uid_session = uid_from_sid($_COOKIE['AURSID']);
+	} else {
+		$uid_session = null;
 	}
 
 	if (empty($E) || empty($U)) {
@@ -169,7 +168,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$PO="",$P="
 	if (!$error && $P && $P != $C) {
 		$error = __("Password fields do not match.");
 	}
-	if (!$error && $P && check_passwd($UID, $PO) != 1) {
+	if (!$error && $P && check_passwd($uid_session, $PO) != 1) {
 		$error = __("The old password is invalid.");
 	}
 	if (!$error && $P != '' && !good_passwd($P)) {
