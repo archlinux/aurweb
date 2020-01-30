@@ -46,6 +46,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  * @param string $T The account type of the displayed user
  * @param string $S Whether the displayed user has a suspended account
  * @param string $E The e-mail address of the displayed user
+ * @param string $BE The backup e-mail address of the displayed user
  * @param string $H Whether the e-mail address of the displayed user is hidden
  * @param string $P The password value of the displayed user
  * @param string $C The confirmed password value of the displayed user
@@ -67,7 +68,7 @@ function html_format_pgp_fingerprint($fingerprint) {
  *
  * @return void
  */
-function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R="",
+function display_account_form($A,$U="",$T="",$S="",$E="",$BE="",$H="",$P="",$C="",$R="",
 		$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="",$captcha_salt="",$captcha="") {
 	global $SUPPORTED_LANGS;
 
@@ -95,6 +96,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $T The account type for the user
  * @param string $S Whether or not the account is suspended
  * @param string $E The e-mail address for the user
+ * @param string $BE The backup e-mail address for the user
  * @param string $H Whether or not the e-mail address should be hidden
  * @param string $P The password for the user
  * @param string $C The confirmed password for the user
@@ -117,7 +119,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  *
  * @return array Boolean indicating success and message to be printed
  */
-function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
+function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$BE="",$H="",$P="",$C="",
 		$R="",$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="",$passwd="",$captcha_salt="",$captcha="") {
 	global $SUPPORTED_LANGS;
 
@@ -174,6 +176,9 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 
 	if (!$error && !valid_email($E)) {
 		$error = __("The email address is invalid.");
+	}
+	if (!$error && $BE && !valid_email($BE)) {
+		$error = __("The backup email address is invalid.");
 	}
 
 	if (!$error && !empty($HP) && !valid_homepage($HP)) {
@@ -311,6 +316,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		}
 		$U = $dbh->quote($U);
 		$E = $dbh->quote($E);
+		$BE = $dbh->quote($BE);
 		$P = $dbh->quote($P);
 		$R = $dbh->quote($R);
 		$L = $dbh->quote($L);
@@ -319,9 +325,9 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 		$I = $dbh->quote($I);
 		$K = $dbh->quote(str_replace(" ", "", $K));
 		$q = "INSERT INTO Users (AccountTypeID, Suspended, ";
-		$q.= "InactivityTS, Username, Email, Passwd , ";
+		$q.= "InactivityTS, Username, Email, BackupEmail, Passwd , ";
 		$q.= "RealName, LangPreference, Timezone, Homepage, IRCNick, PGPKey) ";
-		$q.= "VALUES (1, 0, 0, $U, $E, $P, $R, $L, $TZ, ";
+		$q.= "VALUES (1, 0, 0, $U, $E, $BE, $P, $R, $L, $TZ, ";
 		$q.= "$HP, $I, $K)";
 		$result = $dbh->exec($q);
 		if (!$result) {
@@ -374,6 +380,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 			$q.= ", Suspended = 0";
 		}
 		$q.= ", Email = " . $dbh->quote($E);
+		$q.= ", BackupEmail = " . $dbh->quote($BE);
 		if ($H) {
 			$q.= ", HideEmail = 1";
 		} else {

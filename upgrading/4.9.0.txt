@@ -4,3 +4,9 @@
 ALTER TABLE PackageRequests ADD COLUMN ClosedTS BIGINT UNSIGNED NULL DEFAULT NULL;
 ALTER TABLE PackageRequests ADD COLUMN ClosedUID INTEGER UNSIGNED NULL DEFAULT NULL;
 ----
+
+2. Add a new column to store backup email addresses:
+
+----
+ALTER TABLE Users ADD COLUMN BackupEmail VARCHAR(254) NULL DEFAULT NULL;
+----

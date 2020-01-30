@@ -90,13 +90,17 @@ class Notification:
 
 class ResetKeyNotification(Notification):
     def __init__(self, conn, uid):
-        cur = conn.execute('SELECT UserName, Email, LangPreference, ' +
-                           'ResetKey FROM Users WHERE ID = ?', [uid])
-        self._username, self._to, self._lang, self._resetkey = cur.fetchone()
+        cur = conn.execute('SELECT UserName, Email, BackupEmail, ' +
+                           'LangPreference, ResetKey ' +
+                           'FROM Users WHERE ID = ?', [uid])
+        self._username, self._to, self._backup, self._lang, self._resetkey = cur.fetchone()
         super().__init__()
 
     def get_recipients(self):
-        return [(self._to, self._lang)]
+        if self._backup:
+            return [(self._to, self._lang), (self._backup, self._lang)]
+        else:
+            return [(self._to, self._lang)]
 
     def get_subject(self, lang):
         return self._l10n.translate('AUR Password Reset', lang)

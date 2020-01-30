@@ -76,9 +76,19 @@
 			<label for="id_email"><?= __("Email Address") ?>:</label>
 			<input type="text" size="30" maxlength="254" name="E" id="id_email" value="<?= htmlspecialchars($E,ENT_QUOTES) ?>" /> (<?= __("required") ?>)
 		</p>
-
 		<p>
 			<em><?= __("Please ensure you correctly entered your email address, otherwise you will be locked out.") ?></em>
+		</p>
+
+		<p>
+			<label for="id_backup_email"><?= __("Backup Email Address") ?>:</label>
+			<input type="text" size="30" maxlength="254" name="BE" id="id_backup_email" value="<?= htmlspecialchars($BE, ENT_QUOTES) ?>" />
+		</p>
+		<p>
+			<em>
+				<?= __("Optionally provide a secondary email address that can be used to restore your account in case you lose access to your primary email address.") ?>
+				<?= __("Password reset links are always sent to both your primary and your backup email address.") ?>
+			</em>
 		</p>
 
 		<p>

@@ -26,7 +26,7 @@ html_header('AUR ' . __("Login"));
 			<ul class="errorlist"><li><?= $login_error ?></li></ul>
 			<?php endif; ?>
 			<p>
-				<label for="id_username"><?= __('User name or email address') . ':'; ?></label>
+				<label for="id_username"><?= __('User name or primary email address') . ':'; ?></label>
 				<input id="id_username" type="text" name="user" size="30" maxlength="<?= max(config_get_int('options', 'username_max_len'), 254); ?>" value="<?php if (isset($_POST['user'])) { print htmlspecialchars($_POST['user'], ENT_QUOTES); } ?>" autofocus="autofocus" />
 			</p>
 			<p>

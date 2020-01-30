@@ -65,7 +65,7 @@ html_header(__("Password Reset"));
 	<form action="" method="post">
 		<table>
 			<tr>
-				<td><?= __("Confirm your e-mail address:"); ?></td>
+				<td><?= __("Confirm your user name or primary e-mail address:"); ?></td>
 				<td><input type="text" name="user" size="30" maxlength="64" /></td>
 			</tr>
 			<tr>
@@ -81,14 +81,14 @@ html_header(__("Password Reset"));
 		<input type="submit" class="button" value="<?= __('Continue') ?>" />
 	</form>
 	<?php else: ?>
-	<p><?= __('If you have forgotten the e-mail address you used to register, please send a message to the %saur-general%s mailing list.',
+	<p><?= __('If you have forgotten the user name and the primary e-mail address you used to register, please send a message to the %saur-general%s mailing list.',
 	'<a href="https://mailman.archlinux.org/mailman/listinfo/aur-general">',
 	'</a>'); ?></p>
 	<?php if ($error): ?>
 	<ul class="errorlist"><li><?= $error ?></li></ul>
 	<?php endif; ?>
 	<form action="" method="post">
-		<p><?= __("Enter your user name or your e-mail address:"); ?>
+		<p><?= __("Enter your user name or your primary e-mail address:"); ?>
 		<input type="text" name="user" size="30" maxlength="64" /></p>
 		<input type="submit" class="button" value="<?= __('Continue') ?>" />
 	</form>

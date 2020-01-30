@@ -23,6 +23,7 @@ if (in_request("Action") == "NewAccount") {
 		1,
 		0,
 		in_request("E"),
+		in_request("BE"),
 		in_request("H"),
 		'',
 		'',
@@ -52,6 +53,7 @@ if (in_request("Action") == "NewAccount") {
 			1,
 			0,
 			in_request("E"),
+			in_request("BE"),
 			in_request("H"),
 			'',
 			'',
@@ -75,7 +77,7 @@ if (in_request("Action") == "NewAccount") {
 	}
 } else {
 	print '<p>' . __("Use this form to create an account.") . '</p>';
-	display_account_form("NewAccount", "", "", "", "", "", "", "", "", $LANG);
+	display_account_form("NewAccount", "", "", "", "", "", "", "", "", "", $LANG);
 }
 
 echo '</div>';
