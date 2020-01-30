@@ -96,6 +96,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $S Whether or not the account is suspended
  * @param string $E The e-mail address for the user
  * @param string $H Whether or not the e-mail address should be hidden
+ * @param string $PO The old password of the user
  * @param string $P The password for the user
  * @param string $C The confirmed password for the user
  * @param string $R The real name of the user
@@ -116,7 +117,7 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  *
  * @return array Boolean indicating success and message to be printed
  */
-function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
+function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$PO="",$P="",$C="",
 		$R="",$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="",$captcha_salt="",$captcha="") {
 	global $SUPPORTED_LANGS;
 
@@ -134,6 +135,7 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 
 	if(isset($_COOKIE['AURSID'])) {
 		$editor_user = uid_from_sid($_COOKIE['AURSID']);
+	$row = account_details(in_request("ID"), in_request("U"));
 	}
 	else {
 		$editor_user = null;
@@ -159,8 +161,17 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C=""
 			. "</li>\n</ul>";
 	}
 
-	if (!$error && $P && $C && ($P != $C)) {
+	if (!$error && $P && !$C) {
+		$error = __("Please confirm your new password.");
+	}
+	if (!$error && $P && !$PO) {
+		$error = __("Please enter your old password in order to set a new one.");
+	}
+	if (!$error && $P && $P != $C) {
 		$error = __("Password fields do not match.");
+	}
+	if (!$error && $P && check_passwd($UID, $PO) != 1) {
+		$error = __("The old password is invalid.");
 	}
 	if (!$error && $P != '' && !good_passwd($P)) {
 		$length_min = config_get_int('options', 'passwd_min_len');

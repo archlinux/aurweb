@@ -34,6 +34,7 @@ if ($action == "UpdateAccount") {
 			in_request("S"),
 			in_request("E"),
 			in_request("H"),
+			in_request("PO"),
 			in_request("P"),
 			in_request("C"),
 			in_request("R"),

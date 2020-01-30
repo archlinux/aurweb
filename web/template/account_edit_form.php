@@ -86,18 +86,6 @@
 			<input type="checkbox" name="H" id="id_hide" <?= $H ? 'checked="checked"' : '' ?> />
 		</p>
 
-		<?php if ($A == "UpdateAccount"): ?>
-		<p>
-			<label for="id_passwd1"><?= __("Password") ?>:</label>
-			<input type="password" size="30" name="P" id="id_passwd1" value="<?= $P ?>" />
-		</p>
-
-		<p>
-			<label for="id_passwd2"><?= __("Re-type password") ?>:</label>
-			<input type="password" size="30" name="C" id="id_passwd2" value="<?= $C ?>" />
-		</p>
-		<?php endif; ?>
-
 		<p>
 			<label for="id_realname"><?= __("Real Name") ?>:</label>
 			<input type="text" size="30" maxlength="32" name="R" id="id_realname" value="<?= htmlspecialchars($R,ENT_QUOTES) ?>" />
@@ -149,6 +137,26 @@
 			</select>
 		</p>
 	</fieldset>
+
+	<?php if ($A == "UpdateAccount"): ?>
+	<fieldset>
+		<legend><?= __("If you want to change your password, enter your current passport, your new password and confirm the new password by entering it again.") ?></legend>
+		<p>
+			<label for="id_passwd_old"><?= __("Old password") ?>:</label>
+			<input type="password" size="30" name="PO" id="id_passwd_old" value="<?= $PO ?>" />
+		</p>
+
+		<p>
+			<label for="id_passwd1"><?= __("Password") ?>:</label>
+			<input type="password" size="30" name="P" id="id_passwd1" value="<?= $P ?>" />
+		</p>
+
+		<p>
+			<label for="id_passwd2"><?= __("Re-type password") ?>:</label>
+			<input type="password" size="30" name="C" id="id_passwd2" value="<?= $C ?>" />
+		</p>
+	</fieldset>
+	<?php endif; ?>
 
 	<fieldset>
 		<legend><?= __("The following information is only required if you want to submit packages to the Arch User Repository.") ?></legend>
