@@ -54,6 +54,9 @@ class Notification:
     def get_body_fmt(self, lang):
         body = ''
         for line in self.get_body(lang).splitlines():
+            if line == '-- ':
+                body += '-- \n'
+                continue
             body += textwrap.fill(line, break_long_words=False) + '\n'
         for i, ref in enumerate(self.get_refs()):
             body += '\n' + '[%d] %s' % (i + 1, ref)
