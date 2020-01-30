@@ -40,19 +40,26 @@ class FlysprayLinksExtension(markdown.extensions.Extension):
         md.preprocessors.add('flyspray-links', preprocessor, '_end')
 
 
-class GitCommitsPreprocessor(markdown.preprocessors.Preprocessor):
-    _oidre = re.compile(r'(\b)([0-9a-f]{7,40})(\b)')
+class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
+    """
+    Turn Git hashes like f7f5152be5ab into links to AUR's cgit.
+
+    Only commit references that do exist are linkified. Hashes are shortened to
+    shorter non-ambiguous prefixes. Only hashes with at least 7 digits are
+    considered.
+    """
+
     _repo = pygit2.Repository(repo_path)
-    _head = None
 
     def __init__(self, md, head):
         self._head = head
-        super(markdown.preprocessors.Preprocessor, self).__init__(md)
+        super().__init__(r'\b([0-9a-f]{7,40})\b', md)
 
-    def handleMatch(self, m):
-        oid = m.group(2)
+    def handleMatch(self, m, data):
+        oid = m.group(1)
         if oid not in self._repo:
-            return oid
+            # Unkwown OID; preserve the orginal text.
+            return None, None, None
 
         prefixlen = 12
         while prefixlen < 40:
@@ -60,13 +67,10 @@ class GitCommitsPreprocessor(markdown.preprocessors.Preprocessor):
                 break
             prefixlen += 1
 
-        html = '[`' + oid[:prefixlen] + '`]'
-        html += '(' + commit_uri % (self._head, oid[:prefixlen]) + ')'
-
-        return html
-
-    def run(self, lines):
-        return [self._oidre.sub(self.handleMatch, line) for line in lines]
+        el = markdown.util.etree.Element('a')
+        el.set('href', commit_uri % (self._head, oid[:prefixlen]))
+        el.text = markdown.util.AtomicString(oid[:prefixlen])
+        return el, m.start(0), m.end(0)
 
 
 class GitCommitsExtension(markdown.extensions.Extension):
@@ -77,8 +81,8 @@ class GitCommitsExtension(markdown.extensions.Extension):
         super(markdown.extensions.Extension, self).__init__()
 
     def extendMarkdown(self, md, md_globals):
-        preprocessor = GitCommitsPreprocessor(md, self._head)
-        md.preprocessors.add('git-commits', preprocessor, '_end')
+        processor = GitCommitsInlineProcessor(md, self._head)
+        md.inlinePatterns.add('git-commits', processor, '_end')
 
 
 class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
