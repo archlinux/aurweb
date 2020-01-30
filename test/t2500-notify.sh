@@ -101,6 +101,7 @@ test_expect_success 'Test subject and body of comment notifications.' '
 
 	This is a test comment.
 
+	-- 
 	If you no longer wish to receive notifications about this package,
 	please go to the package page [2] and select "Disable notifications".
 	
@@ -126,6 +127,7 @@ test_expect_success 'Test subject and body of update notifications.' '
 	cat <<-EOD >expected &&
 	user [1] pushed a new commit to foobar [2].
 
+	-- 
 	If you no longer wish to receive notifications about this package,
 	please go to the package page [2] and select "Disable notifications".
 
@@ -264,6 +266,7 @@ test_expect_success 'Test subject and body of merge notifications.' '
 	cat <<-EOD >expected &&
 	user [1] merged foobar [2] into foobar2 [3].
 
+	-- 
 	If you no longer wish receive notifications about the new package,
 	please go to [3] and click "Disable notifications".
 
