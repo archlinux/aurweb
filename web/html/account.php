@@ -120,12 +120,21 @@ if (isset($_COOKIE["AURSID"])) {
 	} elseif ($action == "DeleteAccount") {
 		/* Details for account being deleted. */
 		if (can_edit_account($row)) {
-			$UID = $row['ID'];
+			$uid_removal = $row['ID'];
+			$uid_session = uid_from_sid($_COOKIE['AURSID']);
+			$username = $row['Username'];
+
 			if (in_request('confirm') && check_token()) {
-				user_delete($UID);
-				header('Location: /');
+				if (check_passwd($uid_session, $_REQUEST['passwd']) == 1) {
+					user_delete($uid_removal);
+					header('Location: /');
+				} else {
+					echo "<ul class='errorlist'><li>";
+					echo __("Invalid password.");
+					echo "</li></ul>";
+					include("account_delete.php");
+				}
 			} else {
-				$username = $row['Username'];
 				include("account_delete.php");
 			}
 		} else {
