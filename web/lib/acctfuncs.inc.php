@@ -755,13 +755,13 @@ function create_resetkey($resetkey, $uid) {
 /**
  * Send a reset key to a specific e-mail address
  *
- * @param string $email E-mail address of the user resetting their password
+ * @param string $user User name or email address of the user
  * @param bool $welcome Whether to use the welcome message
  *
  * @return void
  */
-function send_resetkey($email, $welcome=false) {
-	$uid = uid_from_email($email);
+function send_resetkey($user, $welcome=false) {
+	$uid = uid_from_loginname($user);
 	if ($uid == null) {
 		return;
 	}
@@ -779,11 +779,11 @@ function send_resetkey($email, $welcome=false) {
  *
  * @param string $password The new password
  * @param string $resetkey Code e-mailed to a user to reset a password
- * @param string $email E-mail address of the user resetting their password
+ * @param string $user User name or email address of the user
  *
  * @return string|void Redirect page if successful, otherwise return error message
  */
-function password_reset($password, $resetkey, $email) {
+function password_reset($password, $resetkey, $user) {
 	$hash = password_hash($password, PASSWORD_DEFAULT);
 
 	$dbh = DB::connect();
@@ -792,7 +792,8 @@ function password_reset($password, $resetkey, $email) {
 	$q.= "ResetKey = '' ";
 	$q.= "WHERE ResetKey != '' ";
 	$q.= "AND ResetKey = " . $dbh->quote($resetkey) . " ";
-	$q.= "AND Email = " . $dbh->quote($email);
+	$q.= "AND (Email = " . $dbh->quote($user) . " OR ";
+	$q.= "UserName = " . $dbh->quote($user) . ")";
 	$result = $dbh->exec($q);
 
 	if (!$result) {

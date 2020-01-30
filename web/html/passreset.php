@@ -11,14 +11,14 @@ if (isset($_COOKIE["AURSID"])) {
 
 $error = '';
 
-if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confirm'])) {
+if (isset($_GET['resetkey'], $_POST['user'], $_POST['password'], $_POST['confirm'])) {
 	$resetkey = $_GET['resetkey'];
-	$email = $_POST['email'];
+	$user = $_POST['user'];
 	$password = $_POST['password'];
 	$confirm = $_POST['confirm'];
-	$uid = uid_from_email($email);
+	$uid = uid_from_loginname($user);
 
-	if (empty($email) || empty($password)) {
+	if (empty($user) || empty($password)) {
 		$error = __('Missing a required field.');
 	} elseif ($password != $confirm) {
 		$error = __('Password fields do not match.');
@@ -31,16 +31,15 @@ if (isset($_GET['resetkey'], $_POST['email'], $_POST['password'], $_POST['confir
 	}
 
 	if (empty($error)) {
-		$error = password_reset($password, $resetkey, $email);
+		$error = password_reset($password, $resetkey, $user);
 	}
-} elseif (isset($_POST['email'])) {
-	$email = $_POST['email'];
-	$username = username_from_id(uid_from_email($email));
+} elseif (isset($_POST['user'])) {
+	$user = $_POST['user'];
 
-	if (empty($email)) {
+	if (empty($user)) {
 		$error = __('Missing a required field.');
 	} else {
-		send_resetkey($email);
+		send_resetkey($user);
 		header('Location: ' . get_uri('/passreset/') . '?step=confirm');
 		exit();
 	}
@@ -67,7 +66,7 @@ html_header(__("Password Reset"));
 		<table>
 			<tr>
 				<td><?= __("Confirm your e-mail address:"); ?></td>
-				<td><input type="text" name="email" size="30" maxlength="64" /></td>
+				<td><input type="text" name="user" size="30" maxlength="64" /></td>
 			</tr>
 			<tr>
 				<td><?= __("Enter your new password:"); ?></td>
@@ -89,8 +88,8 @@ html_header(__("Password Reset"));
 	<ul class="errorlist"><li><?= $error ?></li></ul>
 	<?php endif; ?>
 	<form action="" method="post">
-		<p><?= __("Enter your e-mail address:"); ?>
-		<input type="text" name="email" size="30" maxlength="64" /></p>
+		<p><?= __("Enter your user name or your e-mail address:"); ?>
+		<input type="text" name="user" size="30" maxlength="64" /></p>
 		<input type="submit" class="button" value="<?= __('Continue') ?>" />
 	</form>
 	<?php endif; ?>
