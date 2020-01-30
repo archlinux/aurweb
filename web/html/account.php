@@ -34,7 +34,6 @@ if ($action == "UpdateAccount") {
 			in_request("S"),
 			in_request("E"),
 			in_request("H"),
-			in_request("PO"),
 			in_request("P"),
 			in_request("C"),
 			in_request("R"),
@@ -49,7 +48,9 @@ if ($action == "UpdateAccount") {
 			in_request("UN"),
 			in_request("ON"),
 			in_request("ID"),
-			$row["Username"]);
+			$row["Username"],
+			in_request("passwd")
+		);
 	}
 }
 

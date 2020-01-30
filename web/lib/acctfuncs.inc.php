@@ -96,7 +96,6 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $S Whether or not the account is suspended
  * @param string $E The e-mail address for the user
  * @param string $H Whether or not the e-mail address should be hidden
- * @param string $PO The old password of the user
  * @param string $P The password for the user
  * @param string $C The confirmed password for the user
  * @param string $R The real name of the user
@@ -112,13 +111,14 @@ function display_account_form($A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",$R=""
  * @param string $ON Whether to notify of ownership changes
  * @param string $UID The user ID of the modified account
  * @param string $N The username as present in the database
+ * @param string $passwd The password of the logged in user.
  * @param string $captcha_salt The salt used for the CAPTCHA.
  * @param string $captcha The CAPTCHA answer.
  *
  * @return array Boolean indicating success and message to be printed
  */
-function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$PO="",$P="",$C="",
-		$R="",$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="",$captcha_salt="",$captcha="") {
+function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$P="",$C="",
+		$R="",$L="",$TZ="",$HP="",$I="",$K="",$PK="",$J="",$CN="",$UN="",$ON="",$UID=0,$N="",$passwd="",$captcha_salt="",$captcha="") {
 	global $SUPPORTED_LANGS;
 
 	$error = '';
@@ -133,10 +133,11 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$PO="",$P="
 
 	$dbh = DB::connect();
 
-	if(isset($_COOKIE['AURSID'])) {
+	if (isset($_COOKIE['AURSID'])) {
 		$uid_session = uid_from_sid($_COOKIE['AURSID']);
-	} else {
-		$uid_session = null;
+		if (!$error && check_passwd($uid_session, $passwd) != 1) {
+			$error = __("Invalid password.");
+		}
 	}
 
 	if (empty($E) || empty($U)) {
@@ -162,14 +163,8 @@ function process_account_form($TYPE,$A,$U="",$T="",$S="",$E="",$H="",$PO="",$P="
 	if (!$error && $P && !$C) {
 		$error = __("Please confirm your new password.");
 	}
-	if (!$error && $P && !$PO) {
-		$error = __("Please enter your old password in order to set a new one.");
-	}
 	if (!$error && $P && $P != $C) {
 		$error = __("Password fields do not match.");
-	}
-	if (!$error && $P && check_passwd($uid_session, $PO) != 1) {
-		$error = __("The old password is invalid.");
 	}
 	if (!$error && $P != '' && !good_passwd($P)) {
 		$length_min = config_get_int('options', 'passwd_min_len');

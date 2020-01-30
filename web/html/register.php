@@ -26,7 +26,6 @@ if (in_request("Action") == "NewAccount") {
 		in_request("H"),
 		'',
 		'',
-		'',
 		in_request("R"),
 		in_request("L"),
 		in_request("TZ"),
@@ -40,6 +39,7 @@ if (in_request("Action") == "NewAccount") {
 		in_request("ON"),
 		0,
 		"",
+		'',
 		in_request("captcha_salt"),
 		in_request("captcha"),
 	);
@@ -55,7 +55,6 @@ if (in_request("Action") == "NewAccount") {
 			in_request("H"),
 			'',
 			'',
-			'',
 			in_request("R"),
 			in_request("L"),
 			in_request("TZ"),
@@ -69,6 +68,7 @@ if (in_request("Action") == "NewAccount") {
 			in_request("ON"),
 			0,
 			"",
+			'',
 			in_request("captcha_salt"),
 			in_request("captcha")
 		);

@@ -140,12 +140,7 @@
 
 	<?php if ($A == "UpdateAccount"): ?>
 	<fieldset>
-		<legend><?= __("If you want to change the password, enter your current passport, the new password and confirm the new password by entering it again.") ?></legend>
-		<p>
-			<label for="id_passwd_old"><?= __("Your current password") ?>:</label>
-			<input type="password" size="30" name="PO" id="id_passwd_old" value="<?= $PO ?>" />
-		</p>
-
+		<legend><?= __("If you want to change the password, enter a new password and confirm the new password by entering it again.") ?></legend>
 		<p>
 			<label for="id_passwd1"><?= __("Password") ?>:</label>
 			<input type="password" size="30" name="P" id="id_passwd1" value="<?= $P ?>" />
@@ -182,16 +177,22 @@
 		</p>
 	</fieldset>
 
-	<?php if ($A != "UpdateAccount"): ?>
 	<fieldset>
+	<?php if ($A == "UpdateAccount"): ?>
+		<legend><?= __("To confirm the profile changes, please enter your current password:") ?></legend>
+		<p>
+			<label for="id_passwd_current"><?= __("Your current password") ?>:</label>
+			<input type="password" size="30" name="passwd" id="id_passwd_current" value="" />
+		</p>
+	<?php else: ?>
 		<legend><?= __("To protect the AUR against automated account creation, we kindly ask you to provide the output of the following command:") ?> <code><?= htmlspecialchars($captcha_challenge) ?></code></legend>
 		<p>
 			<label for="id_captcha"><?= __("Answer") ?>:</label>
 			<input type="text" size="30" maxlength="6" name="captcha" id="id_captcha" value="<?= htmlspecialchars($captcha, ENT_QUOTES) ?>" /> (<?= __("required") ?>)
 			<input type="hidden" name="captcha_salt" value="<?= htmlspecialchars($captcha_salt) ?>" />
 		</p>
-	</fieldset>
 	<?php endif; ?>
+	</fieldset>
 
 	<fieldset>
 		<p>
