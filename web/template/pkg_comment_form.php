@@ -9,6 +9,10 @@
 				<input type="hidden" name="token" value="<?= htmlspecialchars($_COOKIE['AURSID']) ?>" />
 			</div>
 			<p>
+				<?= __("Git commit identifiers referencing commits in the AUR package repository and URLs are converted to links automatically.") ?>
+				<?= __("%sMarkdown syntax%s is partially supported.", '<a href="https://daringfireball.net/projects/markdown/syntax">', "</a>") ?>
+			</p>
+			<p>
 				<textarea id="id_comment" name="comment" cols="80" rows="10"><?= (isset($comment_id)) ? htmlspecialchars($comment) : "" ?></textarea>
 			</p>
 			<p>
