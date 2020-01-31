@@ -63,4 +63,33 @@ test_expect_success 'Test link conversion.' '
 	test_cmp actual expected
 '
 
+test_expect_success 'Test Git commit linkification.' '
+	local oid=`git -C aur.git rev-parse --verify HEAD`
+	cat <<-EOD | sqlite3 aur.db &&
+	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (5, 1, "
+		$oid
+		${oid:0:7}
+		x.$oid.x
+		${oid}x
+		0123456789abcdef
+		\`$oid\`
+		http://example.com/$oid
+	", "");
+	EOD
+	"$RENDERCOMMENT" 5 &&
+	cat <<-EOD >expected &&
+		<p><a href="https://aur.archlinux.org/cgit/aur.git/log/?h=foobar&amp;id=${oid:0:12}">${oid:0:12}</a>
+		<a href="https://aur.archlinux.org/cgit/aur.git/log/?h=foobar&amp;id=${oid:0:7}">${oid:0:7}</a>
+		x.<a href="https://aur.archlinux.org/cgit/aur.git/log/?h=foobar&amp;id=${oid:0:12}">${oid:0:12}</a>.x
+		${oid}x
+		0123456789abcdef
+		<code>$oid</code>
+		<a href="http://example.com/$oid">http://example.com/$oid</a></p>
+	EOD
+	cat <<-EOD | sqlite3 aur.db >actual &&
+	SELECT RenderedComment FROM PackageComments WHERE ID = 5;
+	EOD
+	test_cmp actual expected
+'
+
 test_done
