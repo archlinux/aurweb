@@ -81,6 +81,14 @@
 		</p>
 
 		<p>
+			<label for="id_hide"><?= __("Hide Email Address") ?>:</label>
+			<input type="checkbox" name="H" id="id_hide" <?= $H ? 'checked="checked"' : '' ?> />
+		</p>
+		<p>
+			<em><?= __("If you do not hide your email address, it is visible to all registered AUR users. If you hide your email address, it is visible to members of the Arch Linux staff only.") ?></em>
+		</p>
+
+		<p>
 			<label for="id_backup_email"><?= __("Backup Email Address") ?>:</label>
 			<input type="text" size="30" maxlength="254" name="BE" id="id_backup_email" value="<?= htmlspecialchars($BE, ENT_QUOTES) ?>" />
 		</p>
@@ -88,12 +96,8 @@
 			<em>
 				<?= __("Optionally provide a secondary email address that can be used to restore your account in case you lose access to your primary email address.") ?>
 				<?= __("Password reset links are always sent to both your primary and your backup email address.") ?>
+				<?= __("Your backup email address is always only visible to members of the Arch Linux staff, independent of the %s setting.", "<em>" . __("Hide Email Address") . "</em>") ?>
 			</em>
-		</p>
-
-		<p>
-			<label for="id_hide"><?= __("Hide Email Address") ?>:</label>
-			<input type="checkbox" name="H" id="id_hide" <?= $H ? 'checked="checked"' : '' ?> />
 		</p>
 
 		<p>
