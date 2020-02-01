@@ -13,17 +13,20 @@ repo_path = aurweb.config.get('serve', 'repo-path')
 commit_uri = aurweb.config.get('options', 'commit_uri')
 
 
-class LinkifyPreprocessor(markdown.preprocessors.Preprocessor):
-    _urlre = re.compile(r'(\b(?:https?|ftp):\/\/[\w\/\#~:.?+=&%@!\-;,]+?'
-                        r'(?=[.:?\-;,]*(?:[^\w\/\#~:.?+=&%@!\-;,]|$)))')
-
-    def run(self, lines):
-        return [self._urlre.sub(r'<\1>', line) for line in lines]
-
-
 class LinkifyExtension(markdown.extensions.Extension):
+    """
+    Turn URLs into links, even without explicit markdown.
+    Do not linkify URLs in code blocks.
+    """
+
+    # Captures http(s) and ftp URLs until the first non URL-ish character.
+    # Excludes trailing punctuation.
+    _urlre = (r'(\b(?:https?|ftp):\/\/[\w\/\#~:.?+=&%@!\-;,]+?'
+              r'(?=[.:?\-;,]*(?:[^\w\/\#~:.?+=&%@!\-;,]|$)))')
+
     def extendMarkdown(self, md, md_globals):
-        md.preprocessors.add('linkify', LinkifyPreprocessor(md), '_end')
+        processor = markdown.inlinepatterns.AutolinkInlineProcessor(self._urlre, md)
+        md.inlinePatterns.add('linkify', processor, '_end')
 
 
 class FlysprayLinksPreprocessor(markdown.preprocessors.Preprocessor):

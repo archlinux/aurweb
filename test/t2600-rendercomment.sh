@@ -51,11 +51,22 @@ test_expect_success 'Test HTML sanitizing.' '
 
 test_expect_success 'Test link conversion.' '
 	cat <<-EOD | sqlite3 aur.db &&
-	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (4, 1, "Visit https://www.archlinux.org/.", "");
+	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (4, 1, "
+		Visit https://www.archlinux.org/.
+		Visit <https://www.archlinux.org/>.
+		Visit \`https://www.archlinux.org/\`.
+		Visit [Arch Linux](https://www.archlinux.org/).
+		Visit [Arch Linux][arch].
+		[arch]: https://www.archlinux.org/
+	", "");
 	EOD
 	"$RENDERCOMMENT" 4 &&
 	cat <<-EOD >expected &&
-	<p>Visit <a href="https://www.archlinux.org/">https://www.archlinux.org/</a>.</p>
+		<p>Visit <a href="https://www.archlinux.org/">https://www.archlinux.org/</a>.
+		Visit <a href="https://www.archlinux.org/">https://www.archlinux.org/</a>.
+		Visit <code>https://www.archlinux.org/</code>.
+		Visit <a href="https://www.archlinux.org/">Arch Linux</a>.
+		Visit <a href="https://www.archlinux.org/">Arch Linux</a>.</p>
 	EOD
 	cat <<-EOD | sqlite3 aur.db >actual &&
 	SELECT RenderedComment FROM PackageComments WHERE ID = 4;
