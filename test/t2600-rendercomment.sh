@@ -129,4 +129,30 @@ test_expect_success 'Test Flyspray issue linkification.' '
 	test_cmp actual expected
 '
 
+test_expect_success 'Test headings lowering.' '
+	sqlite3 aur.db <<-EOD &&
+	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (7, 1, "
+		# One
+		## Two
+		### Three
+		#### Four
+		##### Five
+		###### Six
+	", "");
+	EOD
+	"$RENDERCOMMENT" 7 &&
+	cat <<-EOD >expected &&
+		<h5>One</h5>
+		<h6>Two</h6>
+		<h6>Three</h6>
+		<h6>Four</h6>
+		<h6>Five</h6>
+		<h6>Six</h6>
+	EOD
+	sqlite3 aur.db <<-EOD >actual &&
+	SELECT RenderedComment FROM PackageComments WHERE ID = 7;
+	EOD
+	test_cmp actual expected
+'
+
 test_done
