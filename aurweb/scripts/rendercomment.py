@@ -29,18 +29,25 @@ class LinkifyExtension(markdown.extensions.Extension):
         md.inlinePatterns.add('linkify', processor, '_end')
 
 
-class FlysprayLinksPreprocessor(markdown.preprocessors.Preprocessor):
-    _fsre = re.compile(r'\b(FS#(\d+))\b')
-    _sub = r'[\1](https://bugs.archlinux.org/task/\2)'
+class FlysprayLinksInlineProcessor(markdown.inlinepatterns.InlineProcessor):
+    """
+    Turn Flyspray task references like FS#1234 into links to bugs.archlinux.org.
 
-    def run(self, lines):
-        return [self._fsre.sub(self._sub, line) for line in lines]
+    The pattern's capture group 0 is the text of the link and group 1 is the
+    Flyspray task ID.
+    """
+
+    def handleMatch(self, m, data):
+        el = markdown.util.etree.Element('a')
+        el.set('href', f'https://bugs.archlinux.org/task/{m.group(1)}')
+        el.text = markdown.util.AtomicString(m.group(0))
+        return el, m.start(0), m.end(0)
 
 
 class FlysprayLinksExtension(markdown.extensions.Extension):
     def extendMarkdown(self, md, md_globals):
-        preprocessor = FlysprayLinksPreprocessor(md)
-        md.preprocessors.add('flyspray-links', preprocessor, '_end')
+        processor = FlysprayLinksInlineProcessor(r'\bFS#(\d+)\b',md)
+        md.inlinePatterns.add('flyspray-links', processor, '_end')
 
 
 class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):

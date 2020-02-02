@@ -103,4 +103,30 @@ test_expect_success 'Test Git commit linkification.' '
 	test_cmp actual expected
 '
 
+test_expect_success 'Test Flyspray issue linkification.' '
+	sqlite3 aur.db <<-EOD &&
+	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (6, 1, "
+		FS#1234567.
+		*FS#1234*
+		FS#
+		XFS#1
+		\`FS#1234\`
+		https://archlinux.org/?test=FS#1234
+	", "");
+	EOD
+	"$RENDERCOMMENT" 6 &&
+	cat <<-EOD >expected &&
+		<p><a href="https://bugs.archlinux.org/task/1234567">FS#1234567</a>.
+		<em><a href="https://bugs.archlinux.org/task/1234">FS#1234</a></em>
+		FS#
+		XFS#1
+		<code>FS#1234</code>
+		<a href="https://archlinux.org/?test=FS#1234">https://archlinux.org/?test=FS#1234</a></p>
+	EOD
+	sqlite3 aur.db <<-EOD >actual &&
+	SELECT RenderedComment FROM PackageComments WHERE ID = 6;
+	EOD
+	test_cmp actual expected
+'
+
 test_done
