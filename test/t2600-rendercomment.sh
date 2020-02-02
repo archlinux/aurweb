@@ -52,7 +52,8 @@ test_expect_success 'Test HTML sanitizing.' '
 test_expect_success 'Test link conversion.' '
 	cat <<-EOD | sqlite3 aur.db &&
 	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (4, 1, "
-		Visit https://www.archlinux.org/.
+		Visit https://www.archlinux.org/#_test_.
+		Visit *https://www.archlinux.org/*.
 		Visit <https://www.archlinux.org/>.
 		Visit \`https://www.archlinux.org/\`.
 		Visit [Arch Linux](https://www.archlinux.org/).
@@ -62,7 +63,8 @@ test_expect_success 'Test link conversion.' '
 	EOD
 	"$RENDERCOMMENT" 4 &&
 	cat <<-EOD >expected &&
-		<p>Visit <a href="https://www.archlinux.org/">https://www.archlinux.org/</a>.
+		<p>Visit <a href="https://www.archlinux.org/#_test_">https://www.archlinux.org/#_test_</a>.
+		Visit <em><a href="https://www.archlinux.org/">https://www.archlinux.org/</a></em>.
 		Visit <a href="https://www.archlinux.org/">https://www.archlinux.org/</a>.
 		Visit <code>https://www.archlinux.org/</code>.
 		Visit <a href="https://www.archlinux.org/">Arch Linux</a>.

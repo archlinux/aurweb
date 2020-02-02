@@ -26,7 +26,8 @@ class LinkifyExtension(markdown.extensions.Extension):
 
     def extendMarkdown(self, md, md_globals):
         processor = markdown.inlinepatterns.AutolinkInlineProcessor(self._urlre, md)
-        md.inlinePatterns.add('linkify', processor, '_end')
+        # Register it right after the default <>-link processor (priority 120).
+        md.inlinePatterns.register(processor, 'linkify', 119)
 
 
 class FlysprayLinksInlineProcessor(markdown.inlinepatterns.InlineProcessor):
@@ -47,7 +48,7 @@ class FlysprayLinksInlineProcessor(markdown.inlinepatterns.InlineProcessor):
 class FlysprayLinksExtension(markdown.extensions.Extension):
     def extendMarkdown(self, md, md_globals):
         processor = FlysprayLinksInlineProcessor(r'\bFS#(\d+)\b',md)
-        md.inlinePatterns.add('flyspray-links', processor, '_end')
+        md.inlinePatterns.register(processor, 'flyspray-links', 118)
 
 
 class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
@@ -92,7 +93,7 @@ class GitCommitsExtension(markdown.extensions.Extension):
 
     def extendMarkdown(self, md, md_globals):
         processor = GitCommitsInlineProcessor(md, self._head)
-        md.inlinePatterns.add('git-commits', processor, '_end')
+        md.inlinePatterns.register(processor, 'git-commits', 117)
 
 
 class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
@@ -106,7 +107,8 @@ class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
 
 class HeadingExtension(markdown.extensions.Extension):
     def extendMarkdown(self, md, md_globals):
-        md.treeprocessors.add('heading', HeadingTreeprocessor(md), '_end')
+        # Priority doesn't matter since we don't conflict with other processors.
+        md.treeprocessors.register(HeadingTreeprocessor(md), 'heading', 30)
 
 
 def get_comment(conn, commentid):
