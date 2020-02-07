@@ -65,6 +65,7 @@ class Notification:
         return body.rstrip()
 
     def send(self):
+        sendmail = aurweb.config.get('notifications', 'sendmail')
         sender = aurweb.config.get('notifications', 'sender')
         reply_to = aurweb.config.get('notifications', 'reply-to')
         reason = self.__class__.__name__
@@ -95,8 +96,25 @@ class Notification:
             else:
                 # send email using smtplib; no local MTA required
                 server_addr = aurweb.config.get('notifications', 'smtp-server')
+                server_port = aurweb.config.getint('notifications', 'smtp-port')
+                use_ssl = aurweb.config.getboolean('notifications', 'smtp-use-ssl')
+                use_starttls = aurweb.config.getboolean('notifications', 'smtp-use-starttls')
+                user = aurweb.config.get('notifications', 'smtp-user')
+                passwd = aurweb.config.get('notifications', 'smtp-password')
 
-                server = smtplib.SMTP(server_addr)
+                if use_ssl:
+                    server = smtplib.SMTP_SSL(server_addr, server_port)
+                else:
+                    server = smtplib.SMTP(server_addr, server_port)
+
+                if use_starttls:
+                    server.ehlo()
+                    server.starttls()
+                    server.ehlo()
+
+                if user and passwd:
+                    server.login(user, passwd)
+
                 server.set_debuglevel(0)
                 server.sendmail(sender, recipient, msg.as_bytes())
                 server.quit()

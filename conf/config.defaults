@@ -49,6 +49,11 @@ window_length = 86400
 notify-cmd = /usr/local/bin/aurweb-notify
 sendmail =
 smtp-server = localhost
+smtp-port = 25
+smtp-use-ssl = 0
+smtp-use-starttls = 0
+smtp-user =
+smtp-password =
 sender = notify@aur.archlinux.org
 reply-to = noreply@aur.archlinux.org
 
