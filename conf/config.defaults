@@ -47,7 +47,8 @@ window_length = 86400
 
 [notifications]
 notify-cmd = /usr/local/bin/aurweb-notify
-sendmail = /usr/bin/sendmail
+sendmail =
+smtp-server = localhost
 sender = notify@aur.archlinux.org
 reply-to = noreply@aur.archlinux.org
 

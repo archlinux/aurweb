@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import email.mime.text
+import email.utils
+import smtplib
 import subprocess
 import sys
 import textwrap
@@ -63,7 +65,6 @@ class Notification:
         return body.rstrip()
 
     def send(self):
-        sendmail = aurweb.config.get('notifications', 'sendmail')
         sender = aurweb.config.get('notifications', 'sender')
         reply_to = aurweb.config.get('notifications', 'reply-to')
         reason = self.__class__.__name__
@@ -79,13 +80,26 @@ class Notification:
             msg['Reply-to'] = reply_to
             msg['To'] = to
             msg['X-AUR-Reason'] = reason
+            msg['Date'] = email.utils.formatdate(localtime=True)
 
             for key, value in self.get_headers().items():
                 msg[key] = value
 
-            p = subprocess.Popen([sendmail, '-t', '-oi'],
-                                 stdin=subprocess.PIPE)
-            p.communicate(msg.as_bytes())
+            sendmail = aurweb.config.get('notifications', 'sendmail')
+            if sendmail:
+                # send email using the sendmail binary specified in the
+                # configuration file
+                p = subprocess.Popen([sendmail, '-t', '-oi'],
+                                     stdin=subprocess.PIPE)
+                p.communicate(msg.as_bytes())
+            else:
+                # send email using smtplib; no local MTA required
+                server_addr = aurweb.config.get('notifications', 'smtp-server')
+
+                server = smtplib.SMTP(server_addr)
+                server.set_debuglevel(0)
+                server.sendmail(sender, recipient, msg.as_bytes())
+                server.quit()
 
 
 class ResetKeyNotification(Notification):
