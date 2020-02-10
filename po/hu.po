@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the AUR package.
+# This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
 # Balló György <ballogyor@gmail.com>, 2013
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-18 04:38+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2020-01-31 08:29+0000\n"
+"Last-Translator: Lukas Fleischer\n"
 "Language-Team: Hungarian (http://www.transifex.com/lfleischer/aurweb/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,10 @@ msgstr "Nem sikerült letölteni a megadott felhasználó információit."
 #: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "Nincs engedélyed ennek a fióknak a szerkesztéséhez."
+
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr ""
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -370,10 +374,10 @@ msgid "Enter login credentials"
 msgstr "Bejelentkezési adatok megadása"
 
 #: html/login.php
-msgid "User name or email address"
-msgstr "Felhasználónév vagy e-mail cím"
+msgid "User name or primary email address"
+msgstr ""
 
-#: html/login.php template/account_edit_form.php
+#: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
 msgstr "Jelszó"
 
@@ -434,8 +438,8 @@ msgid "Your password has been reset successfully."
 msgstr "Jelszavad sikeresen visszaállításra került."
 
 #: html/passreset.php
-msgid "Confirm your e-mail address:"
-msgstr "Erősíts meg az e-mail címedet:"
+msgid "Confirm your user name or primary e-mail address:"
+msgstr ""
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -452,13 +456,13 @@ msgstr "Folytatás"
 #: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Ha elfelejtetted az e-mail címet, amit a regisztrációhoz használtál, akkor küldj egy üzenetet az %saur-general%s levelezőlistára."
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
+msgstr ""
 
 #: html/passreset.php
-msgid "Enter your e-mail address:"
-msgstr "Add meg az e-mail címedet:"
+msgid "Enter your user name or your primary e-mail address:"
+msgstr ""
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -650,19 +654,19 @@ msgstr "Kérelem beküldése"
 msgid "Close Request"
 msgstr "Kérelem lezárása"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Első"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Előző"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Következő"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Utolsó"
 
@@ -764,8 +768,16 @@ msgid "Can contain only one period, underscore or hyphen."
 msgstr "Csak egyetlen pontot, aláhúzást vagy kötőjelet tartalmazhat."
 
 #: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "Érvénytelen e-mail cím."
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -805,6 +817,18 @@ msgstr "A(z) %s%s%s cím már használatban van."
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "A(z) %s%s%s nyilvános SSH kulcs már használatban van."
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -1215,6 +1239,10 @@ msgstr "A felhasználó csomagjainak megtekintése"
 msgid "Edit this user's account"
 msgstr "Ezen felhasználó fiókjának szerkesztése"
 
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr ""
+
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -1224,6 +1252,11 @@ msgstr "Kattints %side%s, ha véglegesen törölni szeretnéd ezt a fiókot."
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr "Kattints %side%s a felhasználó részleteihez."
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1262,8 +1295,34 @@ msgid "Hide Email Address"
 msgstr "E-mail cím elrejtése"
 
 #: template/account_edit_form.php
-msgid "Re-type password"
-msgstr "Megismételt jelszó"
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1272,6 +1331,16 @@ msgstr "Nyelv"
 #: template/account_edit_form.php
 msgid "Timezone"
 msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "Megismételt jelszó"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1298,6 +1367,24 @@ msgstr "Értesítés csomagfrissítésekről."
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr "Értesítés tulajdonváltozásokról"
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Answer"
+msgstr ""
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1427,7 +1514,7 @@ msgstr "Szavazás erre a csomagra"
 msgid "Disable notifications"
 msgstr "Értesítések kikapcsolása"
 
-#: template/pkgbase_actions.php
+#: template/pkgbase_actions.php template/pkg_comment_form.php
 msgid "Enable notifications"
 msgstr "Értesítések engedélyezése"
 
@@ -1457,6 +1544,10 @@ msgstr "Git klónozási URL"
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "csak olvasható"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
+msgstr ""
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1504,9 +1595,16 @@ msgstr "Hozzászólás szerkesztése ehhez: %s"
 msgid "Add Comment"
 msgstr "Hosszászólás"
 
-#: template/pkg_comments.php
-msgid "View all comments"
-msgstr "Összes megjegyzés megjelenítése"
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr ""
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr ""
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1517,6 +1615,10 @@ msgid "Latest Comments"
 msgstr "Legújabb hozzászólások"
 
 #: template/pkg_comments.php
+msgid "Comments for"
+msgstr ""
+
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "%s hozzászólt ekkor: %s"
@@ -1525,6 +1627,11 @@ msgstr "%s hozzászólt ekkor: %s"
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "Névtelen hozzászólás ekkor: %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
+msgstr ""
 
 #: template/pkg_comments.php
 #, php-format
@@ -1561,10 +1668,6 @@ msgstr "Hozzászólás rögzítése"
 #: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr "Hozzászólás feloldása"
-
-#: template/pkg_comments.php
-msgid "All comments"
-msgstr "Összes hozzászólás"
 
 #: template/pkg_details.php
 msgid "Package Details"
@@ -2112,6 +2215,7 @@ msgstr ""
 msgid ""
 "{user} [1] merged {old} [2] into {new} [3].\n"
 "\n"
+"-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""
 

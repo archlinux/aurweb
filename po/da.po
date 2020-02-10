@@ -1,17 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the AUR package.
+# This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
+# Linuxbruger <y.z@live.dk>, 2018
 # Louis Tim Larsen <louis@louis.dk>, 2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-18 04:38+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2020-01-31 08:29+0000\n"
+"Last-Translator: Lukas Fleischer\n"
 "Language-Team: Danish (http://www.transifex.com/lfleischer/aurweb/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,29 +22,29 @@ msgstr ""
 
 #: html/404.php
 msgid "Page Not Found"
-msgstr "Siden blev ikke fundet"
+msgstr "Side ikke fundet"
 
 #: html/404.php
 msgid "Sorry, the page you've requested does not exist."
-msgstr "Beklager, den forspurgte side findes ikke."
+msgstr "Beklager, den forespurgte side eksisterer ikke."
 
 #: html/404.php template/pkgreq_close_form.php
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "Git klone URL'er, er ikke ment til at blive åbnet i en browser."
 
 #: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "For at klone Git lageret af %s, kør %s."
 
 #: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Klik %sher%s for at vende tilbage til %s detalje siden."
 
 #: html/503.php
 msgid "Service Unavailable"
@@ -52,7 +53,7 @@ msgstr "Service utilgængelig"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr ""
+msgstr "Lad vær med at gå i panik! Denne side er nede på grund af vedligeholdelse. Vi vil være tilbage snart."
 
 #: html/account.php
 msgid "Account"
@@ -74,6 +75,10 @@ msgstr "Kunne ikke hente information om den specifikke bruger."
 msgid "You do not have permission to edit this account."
 msgstr "Du har ikke tilladelse til at redigere denne konto."
 
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr ""
+
 #: html/account.php
 msgid "Use this form to search existing accounts."
 msgstr "Brug denne formular til at søge i eksisterende konti."
@@ -84,11 +89,11 @@ msgstr "Du skal være logget ind for at se brugerinformation."
 
 #: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
-msgstr ""
+msgstr "Tilføj Forslag"
 
 #: html/addvote.php
 msgid "Invalid token for user action."
-msgstr ""
+msgstr "Ugyldigt tegn for bruger handling."
 
 #: html/addvote.php
 msgid "Username does not exist."
@@ -101,7 +106,7 @@ msgstr "%s har allerede et forslag kørende for dem."
 
 #: html/addvote.php
 msgid "Invalid type."
-msgstr ""
+msgstr "Ugyldig type."
 
 #: html/addvote.php
 msgid "Proposal cannot be empty."
@@ -117,7 +122,7 @@ msgstr "Fremsæt et forslag til afstemning."
 
 #: html/addvote.php
 msgid "Applicant/TU"
-msgstr ""
+msgstr "Ansøger/TU"
 
 #: html/addvote.php
 msgid "(empty if not applicable)"
@@ -130,15 +135,15 @@ msgstr "Type"
 
 #: html/addvote.php
 msgid "Addition of a TU"
-msgstr ""
+msgstr "Tilføjelse af en TU"
 
 #: html/addvote.php
 msgid "Removal of a TU"
-msgstr ""
+msgstr "Bortskaffelse af en TU"
 
 #: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr ""
+msgstr "Bortskaffelse af en TU (ikke erklæret inaktivitet)"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -154,11 +159,11 @@ msgstr "Tilføj"
 
 #: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
-msgstr ""
+msgstr "Håndter Co-vedligeholdere"
 
 #: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
-msgstr ""
+msgstr "Rediger kommentar"
 
 #: html/home.php template/header.php
 msgid "Dashboard"
@@ -170,78 +175,78 @@ msgstr "Hjem"
 
 #: html/home.php
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Mine Markerede Pakker"
 
 #: html/home.php
 msgid "My Requests"
-msgstr ""
+msgstr "Mine forespørgelser"
 
 #: html/home.php
 msgid "My Packages"
-msgstr "Mine pakker"
+msgstr "Mine Pakker"
 
 #: html/home.php
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Søg efter pakker jeg vedligeholder"
 
 #: html/home.php
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Co-Vedligeholdt Pakker"
 
 #: html/home.php
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Søg efter pakker jeg co-vedligeholder"
 
 #: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
+msgstr "Velkommen til AUR! Venligst læs %sAUR Bruger Retningslinier %s og %sAUR TU Retningslinier%s for mere information."
 
 #: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "Bidragede PKGBUILDs %sskal%s være i overensstemmelse med %sArch Pakke Standarder%s ellers vil de blive slettet!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
-msgstr ""
+msgstr "Husk at stemme for dine favorit pakker!"
 
 #: html/home.php
 msgid "Some packages may be provided as binaries in [community]."
-msgstr ""
+msgstr "Nogle pakker kan være stillet til rådighed som binær i (fællesskab)."
 
 #: html/home.php
 msgid "DISCLAIMER"
-msgstr ""
+msgstr "ANSVARSFRASKRIVELSE"
 
 #: html/home.php template/footer.php
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr ""
+msgstr "AUR pakker er bruger produceret materiale. Hvilken som helst brug af de filer der er stillet til rådighed er på din egen risiko."
 
 #: html/home.php
 msgid "Learn more..."
-msgstr ""
+msgstr "Lær mere..."
 
 #: html/home.php
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: html/home.php
 msgid "Package Requests"
-msgstr ""
+msgstr "Pakke Forespørgelser"
 
 #: html/home.php
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr ""
+msgstr "Der er tre typer af forespørgelser der kan udfyldes i%sPakke Handlinger%s boxen på pakke detaljer siden:"
 
 #: html/home.php
 msgid "Orphan Request"
@@ -251,11 +256,11 @@ msgstr ""
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr ""
+msgstr "Forespørg en pakke til at blive forstødt, f.eks når vedligeholderen er inaktiv og pakkerne er blevet markeret som dato-udløbet i lang tid."
 
 #: html/home.php
 msgid "Deletion Request"
-msgstr ""
+msgstr "Sletning Forespørgsel"
 
 #: html/home.php
 msgid ""
@@ -368,10 +373,10 @@ msgid "Enter login credentials"
 msgstr ""
 
 #: html/login.php
-msgid "User name or email address"
+msgid "User name or primary email address"
 msgstr ""
 
-#: html/login.php template/account_edit_form.php
+#: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
 msgstr "Adgangskode"
 
@@ -432,8 +437,8 @@ msgid "Your password has been reset successfully."
 msgstr "Din adgangskode blev nulstillet."
 
 #: html/passreset.php
-msgid "Confirm your e-mail address:"
-msgstr "Bekræft din nye mail-adresse:"
+msgid "Confirm your user name or primary e-mail address:"
+msgstr ""
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -450,13 +455,13 @@ msgstr "Forsæt"
 #: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
 msgstr ""
 
 #: html/passreset.php
-msgid "Enter your e-mail address:"
-msgstr "Indtast din mail-adresse:"
+msgid "Enter your user name or your primary e-mail address:"
+msgstr ""
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -648,19 +653,19 @@ msgstr ""
 msgid "Close Request"
 msgstr "Luk forspørgsel"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Første"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Tidligere"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Næste"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Sidste"
 
@@ -762,8 +767,16 @@ msgid "Can contain only one period, underscore or hyphen."
 msgstr "Kan kun indeholde ét punktum, én bundstreg eller én bindestreg."
 
 #: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "E-mail adressen er ugyldig."
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -802,6 +815,18 @@ msgstr ""
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
 msgstr ""
 
 #: lib/acctfuncs.inc.php
@@ -1213,6 +1238,10 @@ msgstr "Vis pakker fra denne bruger"
 msgid "Edit this user's account"
 msgstr ""
 
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr ""
+
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -1221,6 +1250,11 @@ msgstr ""
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
 msgstr ""
 
 #: template/account_edit_form.php
@@ -1260,8 +1294,34 @@ msgid "Hide Email Address"
 msgstr ""
 
 #: template/account_edit_form.php
-msgid "Re-type password"
-msgstr "Bekræft adgangskode"
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1270,6 +1330,16 @@ msgstr "Sprog"
 #: template/account_edit_form.php
 msgid "Timezone"
 msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "Bekræft adgangskode"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1295,6 +1365,24 @@ msgstr ""
 
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Answer"
 msgstr ""
 
 #: template/account_edit_form.php template/pkgbase_details.php
@@ -1425,7 +1513,7 @@ msgstr "Stem på denne pakke"
 msgid "Disable notifications"
 msgstr "Deaktiver notifikationer"
 
-#: template/pkgbase_actions.php
+#: template/pkgbase_actions.php template/pkg_comment_form.php
 msgid "Enable notifications"
 msgstr ""
 
@@ -1454,6 +1542,10 @@ msgstr ""
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
+msgstr ""
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
 msgstr ""
 
 #: template/pkgbase_details.php template/pkg_details.php
@@ -1502,9 +1594,16 @@ msgstr ""
 msgid "Add Comment"
 msgstr "Tilføj kommentar"
 
-#: template/pkg_comments.php
-msgid "View all comments"
-msgstr "Vis alle kommentarer"
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr ""
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr ""
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1515,6 +1614,10 @@ msgid "Latest Comments"
 msgstr "Seneste kommentarer"
 
 #: template/pkg_comments.php
+msgid "Comments for"
+msgstr ""
+
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr ""
@@ -1522,6 +1625,11 @@ msgstr ""
 #: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
+msgstr ""
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
 msgstr ""
 
 #: template/pkg_comments.php
@@ -1559,10 +1667,6 @@ msgstr ""
 #: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr ""
-
-#: template/pkg_comments.php
-msgid "All comments"
-msgstr "Alle kommentarer"
 
 #: template/pkg_details.php
 msgid "Package Details"
@@ -2110,6 +2214,7 @@ msgstr ""
 msgid ""
 "{user} [1] merged {old} [2] into {new} [3].\n"
 "\n"
+"-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""
 

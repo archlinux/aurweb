@@ -1,17 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the AUR package.
+# This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
 # archetyp <archetyp@linuxmail.org>, 2013-2016
+# Jose Riha <jose1711@gmail.com>, 2018
 # Matej Ľach <matej.lach@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-18 04:38+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2020-01-31 08:29+0000\n"
+"Last-Translator: Lukas Fleischer\n"
 "Language-Team: Slovak (http://www.transifex.com/lfleischer/aurweb/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,6 +74,10 @@ msgstr "Nemožno získať informácie pre špecifikovaného užívateľa. "
 #: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "Nemáte potrebné oprávnenia, pre úpravu tohoto účtu.  "
+
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr ""
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -368,10 +373,10 @@ msgid "Enter login credentials"
 msgstr "Zadajte prihlasovacie údaje"
 
 #: html/login.php
-msgid "User name or email address"
-msgstr "Užívateľské meno alebo emailová adresa"
+msgid "User name or primary email address"
+msgstr ""
 
-#: html/login.php template/account_edit_form.php
+#: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
 msgstr "Heslo"
 
@@ -432,8 +437,8 @@ msgid "Your password has been reset successfully."
 msgstr "Heslo bolo úspešne obnovené."
 
 #: html/passreset.php
-msgid "Confirm your e-mail address:"
-msgstr "Potvrďte svoju e-mailovú adresu:"
+msgid "Confirm your user name or primary e-mail address:"
+msgstr ""
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -450,13 +455,13 @@ msgstr "Pokračuj"
 #: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Ak ste zabudli e-mailovú adresu, ktorú ste použili pri registrácii, pošlite prosím správu na %saur-general%s mailing list."
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
+msgstr ""
 
 #: html/passreset.php
-msgid "Enter your e-mail address:"
-msgstr "Zadajte svoju e-mailovú adresu:"
+msgid "Enter your user name or your primary e-mail address:"
+msgstr ""
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -648,19 +653,19 @@ msgstr "Odoslať žiadosť"
 msgid "Close Request"
 msgstr "Zatvoriť žiadosť"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Prvý"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Predchádzajúci"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
-msgstr "Ďaľej "
+msgstr "Ďalej "
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Posledný"
 
@@ -746,7 +751,7 @@ msgstr "Chýba ID užívateľa"
 
 #: lib/acctfuncs.inc.php
 msgid "The username is invalid."
-msgstr "Užívateľké meno je neplatné."
+msgstr "Užívateľské meno je neplatné."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -762,8 +767,16 @@ msgid "Can contain only one period, underscore or hyphen."
 msgstr "Môže obsahovať len jednu bodku, podčiarkovník alebo pomlčku."
 
 #: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "E-mailová adresa nie je platná."
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -803,6 +816,18 @@ msgstr "Adresa %s%s%s sa už používa."
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "Verejný SSH kľúč %s%s%s sa už používa."
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -1213,6 +1238,10 @@ msgstr "Pozrieť balíčky tohto užívateľa"
 msgid "Edit this user's account"
 msgstr "Editovať účet tohto užívateľa"
 
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr ""
+
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -1222,6 +1251,11 @@ msgstr "Kliknite %ssem%s ak chcete natrvalo vymazať tento účet."
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr "Kliknite %ssem%s pre informácie o užívateľovi."
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1260,8 +1294,34 @@ msgid "Hide Email Address"
 msgstr "Skryť emailovú adresu"
 
 #: template/account_edit_form.php
-msgid "Re-type password"
-msgstr "Potvrďte heslo"
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1270,6 +1330,16 @@ msgstr "Jazyk"
 #: template/account_edit_form.php
 msgid "Timezone"
 msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "Potvrďte heslo"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1296,6 +1366,24 @@ msgstr "Upozorni na aktualizácie balíčkov"
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr "Upozorni na zmeny vo vlastníctve balíčka"
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Answer"
+msgstr ""
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1342,7 +1430,7 @@ msgstr "Nie sú ďalšie výsledky na zobrazenie."
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "Použite tento formulár pre pridanie spolupracovníkov pre %s%s%s (jedno užívateľké meno na riadok):"
+msgstr "Použite tento formulár pre pridanie spolupracovníkov pre %s%s%s (jedno užívateľské meno na riadok):"
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1425,7 +1513,7 @@ msgstr "Hlasuj za tento balíček"
 msgid "Disable notifications"
 msgstr "Vypni upozornenia"
 
-#: template/pkgbase_actions.php
+#: template/pkgbase_actions.php template/pkg_comment_form.php
 msgid "Enable notifications"
 msgstr "Povoliť upozornenia"
 
@@ -1457,6 +1545,10 @@ msgstr "Git Clone URL"
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "len na čítanie"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
+msgstr ""
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1504,9 +1596,16 @@ msgstr "Editovať komentár k: %s"
 msgid "Add Comment"
 msgstr "Pridať komentár"
 
-#: template/pkg_comments.php
-msgid "View all comments"
-msgstr "Pozrieť všetky komentáre"
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr ""
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr ""
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1517,6 +1616,10 @@ msgid "Latest Comments"
 msgstr "Posledné komentáre"
 
 #: template/pkg_comments.php
+msgid "Comments for"
+msgstr ""
+
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "%s dal komentár k %s"
@@ -1525,6 +1628,11 @@ msgstr "%s dal komentár k %s"
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "Anonymný komentár k %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
+msgstr ""
 
 #: template/pkg_comments.php
 #, php-format
@@ -1561,10 +1669,6 @@ msgstr "Pripnúť komentár"
 #: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr "Odopnúť komentár"
-
-#: template/pkg_comments.php
-msgid "All comments"
-msgstr "Všetky komentáre"
 
 #: template/pkg_details.php
 msgid "Package Details"
@@ -2120,6 +2224,7 @@ msgstr ""
 msgid ""
 "{user} [1] merged {old} [2] into {new} [3].\n"
 "\n"
+"-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""
 

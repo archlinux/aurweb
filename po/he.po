@@ -1,18 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the AUR package.
+# This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
 # GenghisKhan <genghiskhan@gmx.ca>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2018
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2016-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-18 04:38+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2020-02-01 14:37+0000\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew (http://www.transifex.com/lfleischer/aurweb/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,6 +74,10 @@ msgstr "לא ניתן לקבל נתונים עבור המשתמש שנבחר."
 #: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "אין לך הרשאה לערוך חשבון זה."
+
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr "הססמה שגויה."
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -341,11 +345,11 @@ msgstr "ביטול הצבעה"
 
 #: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
-msgstr "התרעה"
+msgstr "התראה"
 
 #: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
-msgstr "ביטול התרעה"
+msgstr "ביטול התראה"
 
 #: html/index.php
 msgid "UnFlag"
@@ -362,17 +366,17 @@ msgstr "נכנסת בשם: %s"
 
 #: html/login.php template/header.php
 msgid "Logout"
-msgstr "ניתוק"
+msgstr "יציאה"
 
 #: html/login.php
 msgid "Enter login credentials"
 msgstr "נא להזין פרטי גישה"
 
 #: html/login.php
-msgid "User name or email address"
-msgstr "שם משתמש או כתובת דוא״ל"
+msgid "User name or primary email address"
+msgstr "שם משתמש או כתובת דוא״ל עיקרית"
 
-#: html/login.php template/account_edit_form.php
+#: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
 msgstr "ססמה"
 
@@ -433,8 +437,8 @@ msgid "Your password has been reset successfully."
 msgstr "הססמה שלך התאפסה בהצלחה."
 
 #: html/passreset.php
-msgid "Confirm your e-mail address:"
-msgstr "אישור כתובת הדוא״ל שלך"
+msgid "Confirm your user name or primary e-mail address:"
+msgstr "אימות של שם המשתמש או כתובת הדוא״ל העיקרית:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -451,13 +455,13 @@ msgstr "המשך"
 #: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "אם שכחת את כתובת הדוא״ל בה השתמש כדי להירשם, נא לשלוח הודעה לקבוצת הדיוור %saur-general%s."
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
+msgstr "אם שכחת את שם המשתמש ואת כתובת הדוא״ל העיקרית בה השתמשת כדי להירשם, נא לשלוח הודעה לקבוצת הדיוור %saur-general%s."
 
 #: html/passreset.php
-msgid "Enter your e-mail address:"
-msgstr "נא להזין את כתובת הדוא״ל שלך:"
+msgid "Enter your user name or your primary e-mail address:"
+msgstr "נא להקליד את שם המשתמש או את כתובת הדוא״ל העיקרית שלך:"
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -533,7 +537,7 @@ msgstr "ניתן להשתמש בטופס זה כדי לשלול את הבעלו�
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr ""
+msgstr "סימון התיבה הזאת מהווה את אישורך להסיר את שותפותך בתחזוקת חבילה זו."
 
 #: html/pkgdisown.php
 #, php-format
@@ -565,14 +569,14 @@ msgstr "סימון התגובה"
 
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
-msgstr "סימון תגובה כבלתי עדכנית"
+msgstr "סימון תגובה כלא עדכנית"
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "יש להשתמש בטופס זה כדי לסמן את בסיס החבילה %s%s%s ואת החבילות הבאות לבלתי עדכניות:"
+msgstr "יש להשתמש בטופס זה כדי לסמן את בסיס החבילה %s%s%s ואת החבילות הבאות כלא עדכניות:"
 
 #: html/pkgflag.php
 #, php-format
@@ -585,7 +589,7 @@ msgstr "נא %sלא%s להשתמש בטופס הזה כדי לדווח על תק
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr "נא להזין את הפרטים על מדוע החבילה אינה בתוקף, מומלץ להוסיף קישורים להכרזות המתאימות או לקובצי הגרסה העדכנית."
+msgstr "נא להזין את הפרטים על מדוע החבילה לא עדכנית, מומלץ להוסיף קישורים להכרזות המתאימות או לקובצי הגרסה העדכנית."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -598,7 +602,7 @@ msgstr "סימון"
 
 #: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
-msgstr "רק משתמשים רשומים יכולים לסמן חבילות כפגות תוקף."
+msgstr "רק משתמשים רשומים יכולים לסמן חבילות כלא עדכניות."
 
 #: html/pkgmerge.php
 msgid "Package Merging"
@@ -649,19 +653,19 @@ msgstr "שליחת בקשה"
 msgid "Close Request"
 msgstr "סגירת בקשה"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "ראשון"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "הקודם"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "הבא"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "אחרון"
 
@@ -763,8 +767,16 @@ msgid "Can contain only one period, underscore or hyphen."
 msgstr "יכול הכיל רק נקודה אחת, קו תחתון או מקף."
 
 #: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr "נא לאשר את הססמה החדשה שלך."
+
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "כתובת הדוא״ל שהוזנה אינה תקינה."
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr "כתובת הדוא״ל לגיבוי שגויה."
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -804,6 +816,18 @@ msgstr "הכתובת, %s%s%s, כבר נמצאת בשימוש."
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "מפתח ה־SSH הציבורי, %s%s%s, כבר נמצא בשימוש."
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr "הקאפצ׳ה חסרה."
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr "תוקף הקאפצ׳ה פג. נא לנסות שוב."
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
+msgstr "התשובה שמילאת בקאפצ׳ה שגויה."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -1014,17 +1038,17 @@ msgstr "ההצבעות שלך נקלטו עבור החבילות המסומנו�
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
-msgstr "לא ניתן לצרף את רשימת ההתרעות."
+msgstr "לא ניתן לצרף את רשימת ההתראות."
 
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
-msgstr "צורפת אל רשימת ההתרעות עבור %s."
+msgstr "צורפת אל רשימת ההתראות עבור %s."
 
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr "הוסרת מרשימה ההתרעות עבור ההערות של %s."
+msgstr "הוסרת מרשימת ההתראות להערות של %s."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
@@ -1214,6 +1238,10 @@ msgstr "צפייה בחבילות המשתמש"
 msgid "Edit this user's account"
 msgstr "עריכת החשבון של משתמש זה"
 
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr "הצגת תגובות המשתמש הזה"
+
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -1223,6 +1251,11 @@ msgstr "נא ללחוץ %sכאן%s אם רצונך הוא למחוק את החש
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr "יש ללחוץ %sכאן%s לפרטים על המשתמש."
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
+msgstr "נא ללחוץ %sכאן%s כדי להציג את התגובות שהוגשו דרך החשבון הזה."
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1261,8 +1294,34 @@ msgid "Hide Email Address"
 msgstr "הסתרת כתובת דוא״ל"
 
 #: template/account_edit_form.php
-msgid "Re-type password"
-msgstr "הקלדת הססמה מחדש"
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr "אם בחירתך תהיה שלא להסתיר את כתובת הדוא״ל שלך, היא תהיה גלויה לכלל המשתמשים ב־AUR. בחירה הפוכה תגרום לכך שהכתובת תהיה גלויה בפני חברי הסגל של Arch לינוקס בלבד."
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr "כתובת דוא״ל לגיבוי"
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr "באפשרותך לציין כתובת דוא״ל משנית בה ניתן להשתמש לשחזור החשבון שלך אם אבדה גישתך לכתובת הדוא״ל העיקרית שלך."
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr "קישורים לאיפוס ססמה תמיד נשלחים לכתובת הדוא״ל העיקרית שלך ואל כתובת הדוא״ל שלך כגיבוי."
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr "כתובת הדוא״ל שלך כגיבוי תמיד זמינה אך ורק לחברי הסגל של Arch לינוקס ללא תלות בהגדרה %s."
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1271,6 +1330,16 @@ msgstr "שפה"
 #: template/account_edit_form.php
 msgid "Timezone"
 msgstr "אזור זמן"
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr "אם ברצונך לשנות את הססמה, נא להקליד ססמה חדשה ולאשר את הססמה על ידי הקלדתה פעם נוספת."
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "הקלדת הססמה מחדש"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1284,7 +1353,7 @@ msgstr "מפתח SSH ציבורי"
 
 #: template/account_edit_form.php
 msgid "Notification settings"
-msgstr "הגדרות התרעה"
+msgstr "הגדרות התראה"
 
 #: template/account_edit_form.php
 msgid "Notify of new comments"
@@ -1297,6 +1366,24 @@ msgstr "להודיע לי ל עדכונים בחבילה"
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr "להודיע לי על שינויים בבעלות"
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr "כדי לאשר את השינויים בפרופיל נא להקליד את הססמה הנוכחית שלך:"
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr "הססמה הנוכחית שלך"
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr "כדי להגן על AUR מפני יצירה אוטומטית של חשבונות, אנו מבקשים ממך לציין מה הפלט של הפקודה הבאה:"
+
+#: template/account_edit_form.php
+msgid "Answer"
+msgstr "תשובה"
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1361,12 +1448,12 @@ msgstr "הערת סימון כלא עדכנית: %s"
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr "%s%s%s סומנה בדגל %s%s%s כבלתי עדכנית %s%s%s מהסיבה הבאה:"
+msgstr "%s%s%s סומנה בדגל %s%s%s כלא עדכנית %s%s%s מהסיבה הבאה:"
 
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr "%s%s%s אינה מסומנת כפגת תוקף."
+msgstr "%s%s%s אינה מסומנת כלא עדכנית."
 
 #: template/flag_comment.php
 msgid "Return to Details"
@@ -1408,7 +1495,7 @@ msgstr "סימון כלא עדכנית (%s)"
 
 #: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
-msgstr "סימון החבילה כבלתי עדכנית"
+msgstr "סימון החבילה כלא עדכנית"
 
 #: template/pkgbase_actions.php
 msgid "Unflag package"
@@ -1424,11 +1511,11 @@ msgstr "להצביע לחבילה זו"
 
 #: template/pkgbase_actions.php scripts/notify.py
 msgid "Disable notifications"
-msgstr "נטרול התרעות"
+msgstr "השבתת התראות"
 
-#: template/pkgbase_actions.php
+#: template/pkgbase_actions.php template/pkg_comment_form.php
 msgid "Enable notifications"
-msgstr "הפעלת התרעות"
+msgstr "הפעלת התראות"
 
 #: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
@@ -1458,6 +1545,10 @@ msgstr "כתובת השכפול מ־Git"
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "לקריאה בלבד"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
+msgstr "ללחוץ להעתקה"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1490,7 +1581,7 @@ msgstr "פופולריות"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
-msgstr "נשלחה לראשונה"
+msgstr "הוגשה לראשונה"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
@@ -1505,9 +1596,16 @@ msgstr "עריכת תגובה עבור: %s"
 msgid "Add Comment"
 msgstr "הוספת תגובה"
 
-#: template/pkg_comments.php
-msgid "View all comments"
-msgstr "הצגת כל התגובות"
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr "מזהי הגשות של Git שמפנים להגשות במאגר החבילות של AUR וכתובות מומרים אוטומטית לקישורים."
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr "יש תמיכה חלקית ב%sתחביר Markdown%s"
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1518,6 +1616,10 @@ msgid "Latest Comments"
 msgstr "התגובות האחרונות"
 
 #: template/pkg_comments.php
+msgid "Comments for"
+msgstr "תגובות על"
+
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "נכתבה תגובה ע״י %s ב־%s"
@@ -1526,6 +1628,11 @@ msgstr "נכתבה תגובה ע״י %s ב־%s"
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "תגובה אלמונית ב־%s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
+msgstr "הוגשה תגובה על החבילה %s ב־%s"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1562,10 +1669,6 @@ msgstr "הצמדת התגובה"
 #: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr "ביטול הצמדת התגובה"
-
-#: template/pkg_comments.php
-msgid "All comments"
-msgstr "כל התגובות"
 
 #: template/pkg_details.php
 msgid "Package Details"
@@ -1733,10 +1836,10 @@ msgstr[3] "נותרו ~%d ימים"
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] "נותרה שעה ~%d"
-msgstr[1] "~%d שעות נותרו"
-msgstr[2] "~%d שעות נותרו"
-msgstr[3] "~%d שעות נותרו"
+msgstr[0] "נותרה בערך שעה (%d)"
+msgstr[1] "בערך שעתיים (%d) נותרו"
+msgstr[2] "בערך %d שעות נותרו"
+msgstr[3] "בערך %d שעות נותרו"
 
 #: template/pkgreq_results.php
 msgid "<1 hour left"
@@ -1894,7 +1997,7 @@ msgstr "פעולות"
 
 #: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
-msgstr "ביטול סימון כלא מעודכן"
+msgstr "ביטול סימון כלא עדכנית"
 
 #: template/pkg_search_results.php
 msgid "Adopt Packages"
@@ -1922,7 +2025,7 @@ msgstr "חיפוש"
 
 #: template/stats/general_stats_table.php
 msgid "Statistics"
-msgstr "סטטיסטיקות"
+msgstr "סטטיסטיקה"
 
 #: template/stats/general_stats_table.php
 msgid "Orphan Packages"
@@ -1970,12 +2073,12 @@ msgstr "פרטי הצעה"
 
 #: template/tu_details.php
 msgid "This vote is still running."
-msgstr "ההצבעה עדיין קיימת."
+msgstr "ההצבעה עדיין מתרחשת."
 
 #: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
-msgstr "נשלח: %s על ידי %s"
+msgstr "הוגש: %s על ידי %s"
 
 #: template/tu_details.php template/tu_list.php
 msgid "End"
@@ -2023,7 +2126,7 @@ msgstr "חזרה"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr ""
+msgstr "איפוס ססמה ב־AUR"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2031,98 +2134,99 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr ""
+msgstr "הוגשה בקשה לאיפוס ססמה לחשבון {user} שמקושר לכתובת הדוא״ל שלך. אם ברצונך לאפס את הססמה שלך עליך להיכנס לקישור [1] שלהלן, אם לא ביקשת מוטב להתעלם מההודעה הזאת ולא יתבצע אף שינוי."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr ""
+msgstr "ברוך בואך למאגר בתחזוקת המשתמשים של Arch"
 
 #: scripts/notify.py
 msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr ""
+msgstr "ברוך הבא למאגר חבילות המשתמשים של Arch! כדי להגדיר ססמה ראשונית לחשבון החדש שלך נא ללחוץ על הקישור [1] שלהלן. אם הקישור לא עובד, נא לנסות להעתיק ולהדביק אותו בדפדפן."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Comment for {pkgbase}"
-msgstr ""
+msgstr "הערה ב־AUR על {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] added the following comment to {pkgbase} [2]:"
-msgstr ""
+msgstr "התגובה הבאה נוספה על ידי {user} [1] לחבילה {pkgbase} [2]:"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr ""
+msgstr "אם לא מעניין אותך לקבל יותר הודעות על החבילה הזאת נא לגשת לעמוד החבילה [2] ולבחור ב„{label}”."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package Update: {pkgbase}"
-msgstr ""
+msgstr "עדכון בחבילת AUR:‏ {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
-msgstr ""
+msgstr "נדחפה הגשה חדשה מאת {user} [1] אל {pkgbase} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Out-of-date Notification for {pkgbase}"
-msgstr ""
+msgstr "התראת חבילה לא עדכנית ב־AUR עבור {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr ""
+msgstr "החבילה שלך {pkgbase} [1] סומנה כלא עדכנית על ידי {user} [2]:"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Ownership Notification for {pkgbase}"
-msgstr ""
+msgstr "הודעת בעלות ב־AUR על {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was adopted by {user} [2]."
-msgstr ""
+msgstr "החבילה {pkgbase} [1] אומצה על ידי {user} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was disowned by {user} [2]."
-msgstr ""
+msgstr "החבילה {pkgbase} [1] נושלה על ידי {user} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Co-Maintainer Notification for {pkgbase}"
-msgstr ""
+msgstr "התראה למתחזקי משנה ב־AUR של {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were added to the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "נוספת לרשימת מתחזקי המשנה של {pkgbase} [1]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "הוסרת מרשימת מתחזקי המשנה עבור {pkgbase} [1]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package deleted: {pkgbase}"
-msgstr ""
+msgstr "חבילה נמחקה ב־AUR‏: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "{user} [1] merged {old} [2] into {new} [3].\n"
 "\n"
+"-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "{old} [2] מוזג לתוך {new} [3] על ידי {user} [1].\n\n-- \nכדי לא לקבל עוד הודעות על החבילה החדשה, עליך לגשת אל [3] וללחוץ על „{label}”."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2130,16 +2234,16 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr ""
+msgstr " {pkgbase} [2] נמחקה על ידי{user} [1].\n\nלא תישלחנה אליך התראות נוספות על חבילה זו."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "TU Vote Reminder: Proposal {id}"
-msgstr ""
+msgstr "תזכורת הצבעה למשתמש מהימן: הצעה {id}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
-msgstr ""
+msgstr "נא לזכור להצביע בהצעה {id} [1]. ההצבעה תסתיים בעוד פחות מ־48 שעות."

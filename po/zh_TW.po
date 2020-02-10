@@ -1,16 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the AUR package.
+# This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
-# Jeff Huang <s8321414@gmail.com>, 2014-2017
+# byStarTW (pan93412) <pan93412@gmail.com>, 2018
+# 黃柏諺 <s8321414@gmail.com>, 2014-2017
+# 黃柏諺 <s8321414@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-18 04:38+0000\n"
-"Last-Translator: Lukas Fleischer <transifex@cryptocrack.de>\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2020-02-01 03:21+0000\n"
+"Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/lfleischer/aurweb/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,6 +74,10 @@ msgstr "無法擷取指定使用者的資訊。"
 #: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "您沒有權限編輯此帳號。"
+
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr "無效的密碼。"
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -367,10 +373,10 @@ msgid "Enter login credentials"
 msgstr "輸入登入資訊"
 
 #: html/login.php
-msgid "User name or email address"
-msgstr "使用者名稱或電子郵件地址"
+msgid "User name or primary email address"
+msgstr "使用者名稱或主要電子郵件地址"
 
-#: html/login.php template/account_edit_form.php
+#: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
 msgstr "密碼"
 
@@ -431,8 +437,8 @@ msgid "Your password has been reset successfully."
 msgstr "您的密碼已成功重置。"
 
 #: html/passreset.php
-msgid "Confirm your e-mail address:"
-msgstr "確認您的電子郵件位置："
+msgid "Confirm your user name or primary e-mail address:"
+msgstr "確認您的使用者名稱或主要電子郵件地址："
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -449,13 +455,13 @@ msgstr "繼續"
 #: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "如果您忘了您用來註冊的電子郵件地址，請寄一封訊息到 %saur-general%s 郵件列表中。"
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
+msgstr "如果您忘記了使用者名稱與您用於註冊的主要電子郵件地址，請傳送訊息到 %saur-general%s 郵件清單。"
 
 #: html/passreset.php
-msgid "Enter your e-mail address:"
-msgstr "輸入您的電子郵件地址："
+msgid "Enter your user name or your primary e-mail address:"
+msgstr "輸入您的使用者名稱或您的主要電子郵件地址："
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -531,7 +537,7 @@ msgstr "使用這個表單以棄置一個包含以下套件的套件基礎 %s%s%
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr ""
+msgstr "一核取此核取框，意味著你不想要再成為軟體包的共同維護者。"
 
 #: html/pkgdisown.php
 #, php-format
@@ -647,19 +653,19 @@ msgstr "遞交請求"
 msgid "Close Request"
 msgstr "關閉請求"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "第一頁"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "上一頁"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "下一頁"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "最後一頁"
 
@@ -761,8 +767,16 @@ msgid "Can contain only one period, underscore or hyphen."
 msgstr "最多包含一個「.」、「_」或「-」。"
 
 #: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr "請確認您的新密碼。"
+
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "電子郵件地址無效。"
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr "備份電子郵件地址無效。"
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -802,6 +816,18 @@ msgstr "該位址 %s%s%s 已被使用。"
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "SSH 公開金鑰，%s%s%s，已在使用中。"
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr "驗證碼遺失。"
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr "驗證碼已過期。請再試一次。"
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
+msgstr "輸入的驗證碼答案無效。"
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -1212,6 +1238,10 @@ msgstr "檢視此使用者的套件"
 msgid "Edit this user's account"
 msgstr "編輯此使用者的帳號"
 
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr "列出此使用者的留言"
+
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -1221,6 +1251,11 @@ msgstr "如果您想要永久刪除此帳號，請點擊 %s這裡%s 。"
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr "點選 %s此處%s 來取得使用者的詳細資訊。"
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
+msgstr "點擊%s此處%s以列出此帳號的留言。"
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1259,8 +1294,34 @@ msgid "Hide Email Address"
 msgstr "隱藏電子郵件地址"
 
 #: template/account_edit_form.php
-msgid "Re-type password"
-msgstr "重新輸入密碼"
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr "如果您不隱藏您的電子郵件地址，它就是對所有已註冊的 AUR 使用者可見。如果您隱藏您的電子郵件地址，它就只對 Arch Linux 工作人員可見。"
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr "備援電子郵件地址"
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr "選擇性提供次要的電子郵件地址，讓您在您失去對主要電子郵件地址的存取權時，仍可復原您的帳號。"
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr "密碼重設連結一直都會同時寄往您的主要與備援電子郵件地址。"
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr "您的備援電子郵件地址只對 Arch Linux 工作人員可見，與 %s 設定無關。"
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1269,6 +1330,16 @@ msgstr "語言"
 #: template/account_edit_form.php
 msgid "Timezone"
 msgstr "時區"
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr "如果您想要變更密碼，輸入新密碼並再輸入一次以確認新密碼。"
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "重新輸入密碼"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1295,6 +1366,24 @@ msgstr "通知套件更新"
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr "擁有者變更通知"
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr "要確認個人檔案變更，請輸入您目前的密碼："
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr "您目前的密碼"
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr "為了保護 AUR 不受自動建立帳號的侵擾，我們請您提供以下指令的輸出："
+
+#: template/account_edit_form.php
+msgid "Answer"
+msgstr "回答"
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1424,7 +1513,7 @@ msgstr "為此套件投票"
 msgid "Disable notifications"
 msgstr "停用通知"
 
-#: template/pkgbase_actions.php
+#: template/pkgbase_actions.php template/pkg_comment_form.php
 msgid "Enable notifications"
 msgstr "啟用通知"
 
@@ -1453,6 +1542,10 @@ msgstr "Git Clone URL"
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "唯讀"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
+msgstr "點擊以複製"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1500,9 +1593,16 @@ msgstr "編輯評論：%s"
 msgid "Add Comment"
 msgstr "新增評論"
 
-#: template/pkg_comments.php
-msgid "View all comments"
-msgstr "檢視所有評論"
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr "引用 AUR 軟體庫的 Git 遞交識別符，URL 會自動轉換為連結。"
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr "部份支援 %sMarkdown 語法%s"
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1513,6 +1613,10 @@ msgid "Latest Comments"
 msgstr "最新的評論"
 
 #: template/pkg_comments.php
+msgid "Comments for"
+msgstr "評論"
+
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "%s 在 %s 上評論"
@@ -1521,6 +1625,11 @@ msgstr "%s 在 %s 上評論"
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "在 %s 上的匿名評論"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
+msgstr "在軟體包 %s 的 %s 評論"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1557,10 +1666,6 @@ msgstr "釘選評論"
 #: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr "解除釘選評論"
-
-#: template/pkg_comments.php
-msgid "All comments"
-msgstr "所有評論"
 
 #: template/pkg_details.php
 msgid "Package Details"
@@ -2006,7 +2111,7 @@ msgstr "返回"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr ""
+msgstr "AUR 密碼重設"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2014,98 +2119,99 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr ""
+msgstr "有一個關於您帳號 {user} 對應到電子信箱的密碼重設請求。若您想要重設您的密碼，請前往以下的網址 [1]，否則忽略這訊息就沒事了。"
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr ""
+msgstr "歡迎來到 Arch 使用者軟體庫"
 
 #: scripts/notify.py
 msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr ""
+msgstr "歡迎來到 Arch 使用者軟體庫！為了要設定您新帳號的初始密碼，請點擊以下的連結 [1]。若連結沒辦法點擊，請嘗試複製並貼上連結到您的瀏覽器中。 "
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Comment for {pkgbase}"
-msgstr ""
+msgstr "{pkgbase} 的 AUR 評論"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] added the following comment to {pkgbase} [2]:"
-msgstr ""
+msgstr "{user} [1] 加入以下留言到  {pkgbase} [2]："
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr ""
+msgstr "若您不再想收到此軟體包的通知，請前往軟體包頁面 [2] 並選擇「{label}」。"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package Update: {pkgbase}"
-msgstr ""
+msgstr "AUR 軟體包更新：{pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
-msgstr ""
+msgstr "{user} [1] 推送了新的提交到 {pkgbase} [2]。"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Out-of-date Notification for {pkgbase}"
-msgstr ""
+msgstr "{pkgbase} 的 AUR 過期通知"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr ""
+msgstr "您的軟體包 {pkgbase} [1] 已經被 {user} [2] 使用者標記為過期："
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Ownership Notification for {pkgbase}"
-msgstr ""
+msgstr "{pkgbase} 的 AUR 所有權通知"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was adopted by {user} [2]."
-msgstr ""
+msgstr "軟體包 {pkgbase} [1] 已經被 {user} [2] 使用者採用。"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was disowned by {user} [2]."
-msgstr ""
+msgstr "軟體包 {pkgbase} [1] 已經被 {user} [2] 使用者拋棄。"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Co-Maintainer Notification for {pkgbase}"
-msgstr ""
+msgstr "{pkgbase} 的 AUR 共同維護者通知"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were added to the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "您已經加入到 {pkgbase} [1] 的共同維護者列表中。"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "您已經從 {pkgbase} [1] 的共同維護者列表中移除了。"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package deleted: {pkgbase}"
-msgstr ""
+msgstr "已刪除 AUR 軟體包：{pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "{user} [1] merged {old} [2] into {new} [3].\n"
 "\n"
+"-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "{user} [1] 已合併 {old} [2] 到 {new} [3].\n\n-- \n如果您不想要再收到關於新軟體包的通知，請到 [3] 然後點擊「{label}」。"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2113,16 +2219,16 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr ""
+msgstr "{user} [1] 已經刪除 {pkgbase} [2]。\n\n您將再也不會收到此軟體包的通知。"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "TU Vote Reminder: Proposal {id}"
-msgstr ""
+msgstr "TU 投票提醒：編號為 {id} 的建議"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
-msgstr ""
+msgstr "請記得在第 {id} [1] 號建議投下你的投票，投票期限即將在 48 個小時內結束。"

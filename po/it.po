@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the AUR package.
+# This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
 # Giovanni Scafora <giovanni@archlinux.org>, 2011-2015
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2019-07-18 16:40+0000\n"
-"Last-Translator: mattia_b89 <mattia.b89@gmail.com>\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2020-01-31 08:29+0000\n"
+"Last-Translator: Lukas Fleischer\n"
 "Language-Team: Italian (http://www.transifex.com/lfleischer/aurweb/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,10 @@ msgstr "Impossibile recuperare le informazioni dell'utente specificato."
 #: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "Non hai i permessi necessari per modificare questo account."
+
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr ""
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -370,10 +374,10 @@ msgid "Enter login credentials"
 msgstr "Inserisci le credenziali di accesso"
 
 #: html/login.php
-msgid "User name or email address"
-msgstr "Il nome utente o l'indirizzo email"
+msgid "User name or primary email address"
+msgstr ""
 
-#: html/login.php template/account_edit_form.php
+#: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
 msgstr "Password"
 
@@ -434,8 +438,8 @@ msgid "Your password has been reset successfully."
 msgstr "La tua password è stata ripristinata con successo."
 
 #: html/passreset.php
-msgid "Confirm your e-mail address:"
-msgstr "Conferma il tuo indirizzo e-mail:"
+msgid "Confirm your user name or primary e-mail address:"
+msgstr ""
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -452,13 +456,13 @@ msgstr "Continua"
 #: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "Se hai dimenticato l'indirizzo e-mail utilizzato per registrarti, invia un messaggio nella mailing list %saur-general%s."
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
+msgstr ""
 
 #: html/passreset.php
-msgid "Enter your e-mail address:"
-msgstr "Inserisci il tuo indirizzo email:"
+msgid "Enter your user name or your primary e-mail address:"
+msgstr ""
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -650,19 +654,19 @@ msgstr "Invia la richiesta"
 msgid "Close Request"
 msgstr "Chiudi la richiesta"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "Primo"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "Precedente"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "Successivo"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "Ultimo"
 
@@ -764,8 +768,16 @@ msgid "Can contain only one period, underscore or hyphen."
 msgstr "Può contenere solo un punto, un trattino basso o un trattino."
 
 #: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "L'indirizzo email non risulta valido."
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -805,6 +817,18 @@ msgstr "L'indirizzo %s%s%s è già in uso."
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "La chiave pubblica SSH %s%s%s, è già in uso."
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -1215,6 +1239,10 @@ msgstr "Mostra i pacchetti di quest'utente"
 msgid "Edit this user's account"
 msgstr "Modifica l'account di quest'utente"
 
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr ""
+
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -1224,6 +1252,11 @@ msgstr "Clicca %squi%s se vuoi eliminare definitivamente questo account."
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr "Click %squì%s per il dettagli dell'utente."
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1262,8 +1295,34 @@ msgid "Hide Email Address"
 msgstr "Nascondi l'indirizzo email"
 
 #: template/account_edit_form.php
-msgid "Re-type password"
-msgstr "Riscrivi la password"
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1272,6 +1331,16 @@ msgstr "Lingua"
 #: template/account_edit_form.php
 msgid "Timezone"
 msgstr "Fuso orario"
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "Riscrivi la password"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1297,6 +1366,24 @@ msgstr "Notifica degli aggiornamenti dei pacchetti"
 
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Answer"
 msgstr ""
 
 #: template/account_edit_form.php template/pkgbase_details.php
@@ -1427,7 +1514,7 @@ msgstr "Vota per questo pacchetto"
 msgid "Disable notifications"
 msgstr "Disabilita le notifiche"
 
-#: template/pkgbase_actions.php
+#: template/pkgbase_actions.php template/pkg_comment_form.php
 msgid "Enable notifications"
 msgstr "Abilita le notifiche"
 
@@ -1457,6 +1544,10 @@ msgstr "Git Clone URL"
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "sola lettura"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
+msgstr ""
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1504,9 +1595,16 @@ msgstr "Modifica il commento di: %s"
 msgid "Add Comment"
 msgstr "Aggiungi un commento"
 
-#: template/pkg_comments.php
-msgid "View all comments"
-msgstr "Mostra tutti i commenti"
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr ""
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr ""
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1517,6 +1615,10 @@ msgid "Latest Comments"
 msgstr "Ultimi commenti"
 
 #: template/pkg_comments.php
+msgid "Comments for"
+msgstr ""
+
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "%s ha commentato su %s"
@@ -1525,6 +1627,11 @@ msgstr "%s ha commentato su %s"
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "Commento anonimo su %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
+msgstr ""
 
 #: template/pkg_comments.php
 #, php-format
@@ -1561,10 +1668,6 @@ msgstr "Inserisci il commento"
 #: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr "Elimina il commento"
-
-#: template/pkg_comments.php
-msgid "All comments"
-msgstr "Tutti i commenti"
 
 #: template/pkg_details.php
 msgid "Package Details"
@@ -2112,6 +2215,7 @@ msgstr ""
 msgid ""
 "{user} [1] merged {old} [2] into {new} [3].\n"
 "\n"
+"-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
 msgstr ""
 

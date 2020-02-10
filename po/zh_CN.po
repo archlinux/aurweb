@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the AUR package.
+# This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
 # leonfeng <chaofeng111@qq.com>, 2015-2016
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
-"POT-Creation-Date: 2018-05-17 22:58+0200\n"
-"PO-Revision-Date: 2018-05-23 12:28+0000\n"
-"Last-Translator: pingplug <pingplug@foxmail.com>\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2020-01-31 08:29+0000\n"
+"Last-Translator: Lukas Fleischer\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aurweb/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,6 +79,10 @@ msgstr "无法获取指定用户的信息。"
 #: html/account.php
 msgid "You do not have permission to edit this account."
 msgstr "您没有权限编辑此帐户。"
+
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr ""
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -374,10 +378,10 @@ msgid "Enter login credentials"
 msgstr "输入账户信息"
 
 #: html/login.php
-msgid "User name or email address"
-msgstr "用户名或 E-mail"
+msgid "User name or primary email address"
+msgstr ""
 
-#: html/login.php template/account_edit_form.php
+#: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
 msgstr "密码"
 
@@ -438,8 +442,8 @@ msgid "Your password has been reset successfully."
 msgstr "密码已经成功重置。"
 
 #: html/passreset.php
-msgid "Confirm your e-mail address:"
-msgstr "确认邮箱地址:"
+msgid "Confirm your user name or primary e-mail address:"
+msgstr ""
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -456,13 +460,13 @@ msgstr "继续"
 #: html/passreset.php
 #, php-format
 msgid ""
-"If you have forgotten the e-mail address you used to register, please send a"
-" message to the %saur-general%s mailing list."
-msgstr "如果您忘记了注册账号时使用的邮件地址，请向 %saur-general%s 邮件列表寻求帮助。"
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
+msgstr ""
 
 #: html/passreset.php
-msgid "Enter your e-mail address:"
-msgstr "输入您的邮箱地址:"
+msgid "Enter your user name or your primary e-mail address:"
+msgstr ""
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -654,19 +658,19 @@ msgstr "提交请求"
 msgid "Close Request"
 msgstr "关闭请求"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "First"
 msgstr "第一页"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Previous"
 msgstr "上一页"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php template/tu_list.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
 msgid "Next"
 msgstr "下一页"
 
-#: html/pkgreq.php lib/pkgfuncs.inc.php
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
 msgid "Last"
 msgstr "末页"
 
@@ -768,8 +772,16 @@ msgid "Can contain only one period, underscore or hyphen."
 msgstr "最多包含一个“.”，“_”，或“-”"
 
 #: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
 msgstr "错误的 Email 地址。"
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -809,6 +821,18 @@ msgstr "该地址 %s%s%s 已被使用。"
 #, php-format
 msgid "The SSH public key, %s%s%s, is already in use."
 msgstr "SSH 公钥 %s%s%s 已被使用。"
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr ""
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -1219,6 +1243,10 @@ msgstr "查看这个用户提交的软件包"
 msgid "Edit this user's account"
 msgstr "编辑此用户的帐号"
 
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr ""
+
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
@@ -1228,6 +1256,11 @@ msgstr "如果你想要彻底删除这个帐号，请点击%s这里%s。"
 #, php-format
 msgid "Click %shere%s for user details."
 msgstr "点击 %s这里%s 访问用户详情页面"
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1266,8 +1299,34 @@ msgid "Hide Email Address"
 msgstr "隐藏 E-mail"
 
 #: template/account_edit_form.php
-msgid "Re-type password"
-msgstr "确认密码"
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr ""
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1276,6 +1335,16 @@ msgstr "语言"
 #: template/account_edit_form.php
 msgid "Timezone"
 msgstr "时区"
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "确认密码"
 
 #: template/account_edit_form.php
 msgid ""
@@ -1302,6 +1371,24 @@ msgstr "软件包更新提醒"
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
 msgstr "所有权更改提醒"
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Answer"
+msgstr ""
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1431,7 +1518,7 @@ msgstr "为这个软件包投票"
 msgid "Disable notifications"
 msgstr "禁用通知"
 
-#: template/pkgbase_actions.php
+#: template/pkgbase_actions.php template/pkg_comment_form.php
 msgid "Enable notifications"
 msgstr "启用通知"
 
@@ -1460,6 +1547,10 @@ msgstr "Git 克隆地址"
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
 msgstr "只读"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
+msgstr ""
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1507,9 +1598,16 @@ msgstr "编辑 %s 的评论"
 msgid "Add Comment"
 msgstr "添加评论"
 
-#: template/pkg_comments.php
-msgid "View all comments"
-msgstr "查看所有评论"
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr ""
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr ""
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1520,6 +1618,10 @@ msgid "Latest Comments"
 msgstr "最新的评论"
 
 #: template/pkg_comments.php
+msgid "Comments for"
+msgstr ""
+
+#: template/pkg_comments.php
 #, php-format
 msgid "%s commented on %s"
 msgstr "%s 在 %s 发表了评论"
@@ -1528,6 +1630,11 @@ msgstr "%s 在 %s 发表了评论"
 #, php-format
 msgid "Anonymous comment on %s"
 msgstr "在 %s 发表的匿名评论"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
+msgstr ""
 
 #: template/pkg_comments.php
 #, php-format
@@ -1564,10 +1671,6 @@ msgstr "锁定评论"
 #: template/pkg_comments.php
 msgid "Unpin comment"
 msgstr "解锁评论"
-
-#: template/pkg_comments.php
-msgid "All comments"
-msgstr "全部评论"
 
 #: template/pkg_details.php
 msgid "Package Details"
@@ -2111,8 +2214,9 @@ msgstr "AUR 软件包删除：{pkgbase}"
 msgid ""
 "{user} [1] merged {old} [2] into {new} [3].\n"
 "\n"
+"-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr "用户 {user} [1] 将原软件包 {old} [2] 并入新软件包 {new} [3]。\n\n若您不愿再收到关于新软件包的通知，请到此软件包页面 [3] 并点击 \"{label}\"。"
+msgstr ""
 
 #: scripts/notify.py
 #, python-brace-format
