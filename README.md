@@ -17,32 +17,14 @@ The aurweb project includes
 Directory Layout
 ----------------
 
-aurweb::
-	aurweb Python modules.
-
-conf::
-	Configuration and configuration templates.
-
-doc::
-	Project documentation.
-
-po::
-	Translation files for strings in the aurweb interface.
-
-schema::
-	Schema for the SQL database. Script for dummy data generation.
-
-scripts::
-	Scripts for AUR maintenance.
-
-test::
-	Test suite and test cases.
-
-upgrading::
-	Instructions for upgrading setups from one release to another.
-
-web::
-	Web interface for the AUR.
+* `aurweb`: aurweb Python modules, Git interface and maintenance scripts
+* `conf`: configuration and configuration templates
+* `doc`: project documentation
+* `po`: translation files for strings in the aurweb interface
+* `schema`: schema for the SQL database
+* `test`: test suite and test cases
+* `upgrading`: instructions for upgrading setups from one release to another
+* `web`: web interface for the AUR
 
 Links
 -----
