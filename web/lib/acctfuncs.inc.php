@@ -659,6 +659,7 @@ function try_login() {
 	}
 	header("Location: " . get_uri($referer));
 	$login_error = "";
+	return array('SID' => $new_sid, 'error' => null);
 }
 
 /**
