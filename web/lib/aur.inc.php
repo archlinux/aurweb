@@ -197,7 +197,9 @@ function username_from_id($id) {
 	}
 
 	$row = $result->fetch(PDO::FETCH_NUM);
-	return $row[0];
+	if ($row) {
+		return $row[0];
+	}
 }
 
 /**
@@ -222,7 +224,9 @@ function username_from_sid($sid="") {
 	}
 	$row = $result->fetch(PDO::FETCH_NUM);
 
-	return $row[0];
+	if ($row) {
+		return $row[0];
+	}
 }
 
 /**
@@ -339,7 +343,9 @@ function email_from_sid($sid="") {
 	}
 	$row = $result->fetch(PDO::FETCH_NUM);
 
-	return $row[0];
+	if ($row) {
+		return $row[0];
+	}
 }
 
 /**
@@ -365,7 +371,9 @@ function account_from_sid($sid="") {
 	}
 	$row = $result->fetch(PDO::FETCH_NUM);
 
-	return $row[0];
+	if ($row) {
+		return $row[0];
+	}
 }
 
 /**
@@ -390,7 +398,9 @@ function uid_from_sid($sid="") {
 	}
 	$row = $result->fetch(PDO::FETCH_NUM);
 
-	return $row[0];
+	if ($row) {
+		return $row[0];
+	}
 }
 
 /**
@@ -512,7 +522,9 @@ function uid_from_username($username) {
 	}
 
 	$row = $result->fetch(PDO::FETCH_NUM);
-	return $row[0];
+	if ($row) {
+		return $row[0];
+	}
 }
 
 /**
@@ -546,7 +558,9 @@ function uid_from_email($email) {
 	}
 
 	$row = $result->fetch(PDO::FETCH_NUM);
-	return $row[0];
+	if ($row) {
+		return $row[0];
+	}
 }
 
 /**

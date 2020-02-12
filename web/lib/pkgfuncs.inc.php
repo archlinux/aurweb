@@ -147,7 +147,9 @@ function pkg_from_name($name="") {
 		return;
 	}
 	$row = $result->fetch(PDO::FETCH_NUM);
-	return $row[0];
+	if ($row) {
+		return $row[0];
+	}
 }
 
 /**
