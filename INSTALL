@@ -45,15 +45,15 @@ read the instructions below.
    if the defaults file does not exist) and adjust the configuration (pay
    attention to disable_http_login, enable_maintenance and aur_location).
 
-4) Create a new MySQL database and a user and import the aurweb SQL schema:
+4) Install Python modules and dependencies:
 
-    $ mysql -uaur -p AUR </srv/http/aurweb/schema/aur-schema.sql
-
-5) Install Python modules and dependencies:
-
-    # pacman -S python-mysql-connector python-pygit2 python-srcinfo
+    # pacman -S python-mysql-connector python-pygit2 python-srcinfo python-sqlalchemy
     # pacman -S python-bleach python-markdown
     # python3 setup.py install
+
+5) Create a new MySQL database and a user and import the aurweb SQL schema:
+
+    $ python -m aurweb.initdb
 
 6) Create a new user:
 

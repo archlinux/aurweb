@@ -9,25 +9,26 @@ INSTALL.
 
     $ git clone git://git.archlinux.org/aurweb.git
 
-2) Install php and necessary modules:
+2) Install the necessary packages:
 
-    # pacman -S php php-sqlite sqlite words fortune-mod
+    # pacman -S --needed php php-sqlite sqlite words fortune-mod python python-sqlalchemy
 
    Ensure to enable the pdo_sqlite extension in php.ini.
 
-3) Prepare the testing database:
-
-    $ cd /path/to/aurweb/schema
-    $ make
-    $ ./gendummydata.py out.sql
-    $ sqlite3 ../aurweb.sqlite3 < aur-schema-sqlite.sql
-    $ sqlite3 ../aurweb.sqlite3 < out.sql
-
-4) Copy conf/config.defaults to conf/config and adjust the configuration
+3) Copy conf/config.defaults to conf/config and adjust the configuration
    (pay attention to disable_http_login, enable_maintenance and aur_location).
 
    Be sure to change backend to sqlite and name to the file location of your
    created test database.
+
+4) Prepare the testing database:
+
+    $ cd /path/to/aurweb/
+    $ python -m aurweb.initdb
+
+    $ cd /path/to/aurweb/schema
+    $ ./gendummydata.py out.sql
+    $ sqlite3 path/to/aurweb.sqlite3 < out.sql
 
 5) Run the PHP built-in web server:
 

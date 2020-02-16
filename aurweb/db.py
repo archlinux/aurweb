@@ -11,6 +11,33 @@ except ImportError:
 import aurweb.config
 
 
+def get_sqlalchemy_url():
+    """
+    Build an SQLAlchemy for use with create_engine based on the aurweb configuration.
+    """
+    import sqlalchemy
+    aur_db_backend = aurweb.config.get('database', 'backend')
+    if aur_db_backend == 'mysql':
+        return sqlalchemy.engine.url.URL(
+            'mysql+mysqlconnector',
+            username=aurweb.config.get('database', 'user'),
+            password=aurweb.config.get('database', 'password'),
+            host=aurweb.config.get('database', 'host'),
+            database=aurweb.config.get('database', 'name'),
+            query={
+                'unix_socket': aurweb.config.get('database', 'socket'),
+                'buffered': True,
+            },
+        )
+    elif aur_db_backend == 'sqlite':
+        return sqlalchemy.engine.url.URL(
+            'sqlite',
+            database=aurweb.config.get('database', 'name'),
+        )
+    else:
+        raise ValueError('unsupported database backend')
+
+
 class Connection:
     _conn = None
     _paramstyle = None
