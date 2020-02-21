@@ -38,3 +38,11 @@ Links
 * Questions, comments, and patches related to aurweb can be sent to the AUR
   development mailing list: aur-dev@archlinux.org -- mailing list archives:
   https://mailman.archlinux.org/mailman/listinfo/aur-dev
+
+Translations
+------------
+
+Translations are welcome via our Transifex project at
+https://www.transifex.com/lfleischer/aurweb; see `doc/i18n.txt` for details.
+
+![Transifex](http://www.transifex.net/projects/p/aurweb/chart/image_png)
