@@ -16,17 +16,9 @@ else:
 					<th><?= __("Edit Account") ?></th>
 				</tr>
 			</thead>
-			<?php
-			$i = 0;
-			foreach ($userinfo as $indx => $row):
-				if ($i % 2):
-					$c = "even";
-				else:
-					$c = "odd";
-				endif;
-			?>
-				<tbody>
-				<tr class ="<?= $c ?>">
+			<tbody>
+				<?php foreach ($userinfo as $idx => $row): ?>
+				<tr class ="<?= ($idx % 2 == 0) ? 'odd' : 'even' ?>">
 					<td><a href="<?= get_uri('/packages/'); ?>?SeB=m&amp;K=<?= $row["Username"] ?>"><?= $row["Username"] ?></a></td>
 					<td><?= $row["AccountType"] ?></td>
 					<td>
@@ -49,10 +41,8 @@ else:
 					<?php endif; ?>
 					</td>
 				</tr>
-			<?php
-				$i++;
-			endforeach;
-			?>
+				<?php endforeach; ?>
+			</tbody>
 	</table>
 
 	<table class="results">
