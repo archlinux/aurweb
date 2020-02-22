@@ -1,0 +1,48 @@
+This directory contains Alembic's environment for managing database migrations.
+
+From Alembic's documentation: Alembic is a lightweight database migration tool
+for usage with the SQLAlchemy Database Toolkit for Python.
+https://alembic.sqlalchemy.org/en/latest/index.html
+
+
+Upgrading to the latest version
+-------------------------------
+
+Simply run `alembic upgrade head` from aurweb's root.
+
+
+Creating new migrations
+-----------------------
+
+When working with Alembic and SQLAlchemy, you should never edit the database
+schema manually. Please proceed like this instead:
+
+1. Edit `aurweb/schema.py` to your liking.
+2. Run `alembic revision --autogenerate -m "your message"`
+3. Proofread the generated migration.
+4. Run `alembic upgrade head` to apply the changes to the database.
+5. Commit the new migration.
+
+To revert a migration, you may run `alembic downgrade -1` and then manually
+delete the migration file. Note that SQLite is limited and that it's sometimes
+easier to recreate the database.
+
+For anything more complicated, please read Alembic's documentation.
+
+
+Troubleshooting
+---------------
+
+- `ModuleNotFoundError: No module named 'aurweb'`
+
+  You may either install the aurweb module with pip, or set PYTHONPATH to your
+  aurweb repository. Since alembic must be run from the aurweb root, you may
+  simply use: `PYTHONPATH=. alembic [...]`.
+
+- `FAILED: No config file 'alembic.ini' found, or file has no '[alembic]' section`
+
+  You need to run Alembic from the project's root, and not from `migrations/`.
+
+- `configparser.NoSectionError: No section: 'database'`
+
+  You need to set AUR_CONFIG, as explained in `TESTING`.
