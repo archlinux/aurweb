@@ -110,7 +110,7 @@ SSH_TTY=/dev/pts/0
 export SSH_CLIENT SSH_CONNECTION SSH_TTY
 
 # Initialize the test database.
-python -m aurweb.initdb
+python -m aurweb.initdb --no-alembic
 
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (1, 'user', '!', 'user@localhost', 'en', 1);" | sqlite3 aur.db
 echo "INSERT INTO Users (ID, UserName, Passwd, Email, LangPreference, AccountTypeID) VALUES (2, 'tu', '!', 'tu@localhost', 'en', 2);" | sqlite3 aur.db

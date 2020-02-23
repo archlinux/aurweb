@@ -36,14 +36,17 @@ def run(args):
     # Ensure Alembic is fine before we do the real work, in order not to fail at
     # the last step and leave the database in an inconsistent state. The
     # configuration is loaded lazily, so we query it to force its loading.
-    alembic_config = alembic.config.Config('alembic.ini')
-    alembic_config.get_main_option('script_location')
+    if args.use_alembic:
+        alembic_config = alembic.config.Config('alembic.ini')
+        alembic_config.get_main_option('script_location')
 
     engine = sqlalchemy.create_engine(aurweb.db.get_sqlalchemy_url(),
                                       echo=(args.verbose >= 1))
     aurweb.schema.metadata.create_all(engine)
     feed_initial_data(engine.connect())
-    alembic.command.stamp(alembic_config, 'head')
+
+    if args.use_alembic:
+        alembic.command.stamp(alembic_config, 'head')
 
 
 if __name__ == '__main__':
@@ -52,5 +55,8 @@ if __name__ == '__main__':
         description='Initialize the aurweb database.')
     parser.add_argument('-v', '--verbose', action='count', default=0,
                         help='increase verbosity')
+    parser.add_argument('--no-alembic',
+                        help='disable Alembic migrations support',
+                        dest='use_alembic', action='store_false')
     args = parser.parse_args()
     run(args)
