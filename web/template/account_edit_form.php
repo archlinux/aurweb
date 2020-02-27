@@ -157,12 +157,12 @@
 		<legend><?= __("If you want to change the password, enter a new password and confirm the new password by entering it again.") ?></legend>
 		<p>
 			<label for="id_passwd1"><?= __("Password") ?>:</label>
-			<input type="password" size="30" name="P" id="id_passwd1" value="<?= $P ?>" />
+			<input type="password" size="30" name="P" id="id_passwd1" value="<?= htmlspecialchars($P, ENT_QUOTES) ?>" />
 		</p>
 
 		<p>
 			<label for="id_passwd2"><?= __("Re-type password") ?>:</label>
-			<input type="password" size="30" name="C" id="id_passwd2" value="<?= $C ?>" />
+			<input type="password" size="30" name="C" id="id_passwd2" value="<?= htmlspecialchars($C, ENT_QUOTES) ?>" />
 		</p>
 	</fieldset>
 	<?php endif; ?>
