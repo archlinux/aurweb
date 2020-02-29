@@ -2,7 +2,7 @@
 
 test_description='notify tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test out-of-date notifications.' '
 	cat <<-EOD | sqlite3 aur.db &&

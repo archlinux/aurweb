@@ -2,7 +2,7 @@
 
 test_description='mkpkglists tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test package list generation with no packages.' '
 	echo "DELETE FROM Packages;" | sqlite3 aur.db &&

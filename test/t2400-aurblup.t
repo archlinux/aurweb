@@ -2,7 +2,7 @@
 
 test_description='aurblup tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test official provider update script.' '
 	mkdir -p remote/test/foobar-1.0-1 &&

@@ -2,7 +2,7 @@
 
 test_description='usermaint tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test removal of login IP addresses.' '
 	now=$(date -d now +%s) &&

@@ -1,7 +1,6 @@
-TEST_DIRECTORY="$(pwd)"
-TOPLEVEL="$(cd .. && pwd)"
+TOPLEVEL="$(cd "$(dirname "$0")/.." && pwd)"
 
-. ./sharness.sh
+. "$TOPLEVEL/test/sharness.sh"
 
 # Configure python search path.
 PYTHONPATH="$TOPLEVEL"

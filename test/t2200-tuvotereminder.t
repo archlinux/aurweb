@@ -2,7 +2,7 @@
 
 test_description='tuvotereminder tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test Trusted User vote reminders.' '
 	now=$(date -d now +%s) &&

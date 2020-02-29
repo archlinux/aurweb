@@ -2,7 +2,7 @@
 
 test_description='git-serve tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test interactive shell.' '
 	"$GIT_SERVE" 2>&1 | grep -q "Interactive shell is disabled."

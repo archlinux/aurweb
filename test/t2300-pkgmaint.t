@@ -2,7 +2,7 @@
 
 test_description='pkgmaint tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test package base cleanup script.' '
 	now=$(date -d now +%s) &&

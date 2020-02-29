@@ -2,7 +2,7 @@
 
 test_description='git-update tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 dump_package_info() {
 	for t in Packages Licenses PackageLicenses Groups PackageGroups \

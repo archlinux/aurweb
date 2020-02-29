@@ -2,7 +2,7 @@
 
 test_description='rendercomment tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test comment rendering.' '
 	cat <<-EOD | sqlite3 aur.db &&

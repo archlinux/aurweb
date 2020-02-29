@@ -2,7 +2,7 @@
 
 test_description='git-auth tests'
 
-. ./setup.sh
+. "$(dirname "$0")/setup.sh"
 
 test_expect_success 'Test basic authentication.' '
 	"$GIT_AUTH" "$AUTH_KEYTYPE_USER" "$AUTH_KEYTEXT_USER" >out &&
