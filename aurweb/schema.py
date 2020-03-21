@@ -17,6 +17,17 @@ def compile_tinyint_sqlite(type_, compiler, **kw):
     return 'INTEGER'
 
 
+@compiles(BIGINT, 'sqlite')
+def compile_bigint_sqlite(type_, compiler, **kw):
+    """
+    For SQLite's AUTOINCREMENT to work on BIGINT columns, we need to map BIGINT
+    to INTEGER. Aside from that, BIGINT is the same as INTEGER for SQLite.
+
+    See https://docs.sqlalchemy.org/en/13/dialects/sqlite.html#allowing-autoincrement-behavior-sqlalchemy-types-other-than-integer-integer
+    """
+    return 'INTEGER'
+
+
 metadata = MetaData()
 
 # Define the Account Types for the AUR.
