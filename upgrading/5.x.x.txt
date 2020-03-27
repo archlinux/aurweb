@@ -1,3 +1,11 @@
+Starting from release 5.0.0, Alembic is used for managing database migrations.
+
+Run `alembic upgrade head` from the aurweb root directory to upgrade your
+database after upgrading the source code to a new release.
+
+When upgrading from 4.8.0, you also need to execute the following manual SQL
+statements before doing so.
+
 1. Add new columns to store the timestamp and UID when closing requests:
 
 ----
