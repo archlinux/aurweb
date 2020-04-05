@@ -50,7 +50,7 @@ function check_sid() {
 		$result = $dbh->query($q);
 		$row = $result->fetch(PDO::FETCH_NUM);
 
-		if (!$row[0]) {
+		if (!$row) {
 			# Invalid SessionID - hacker alert!
 			#
 			$failed = 1;
