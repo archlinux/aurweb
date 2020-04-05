@@ -25,7 +25,7 @@ if ($action == "UpdateAccount") {
 	$update_account_message = '';
 	/* Details for account being updated */
 	/* Verify user permissions and that the request is a valid POST */
-	if (can_edit_account($row) && check_token()) {
+	if ($row && can_edit_account($row) && check_token()) {
 		/* Update the details for the existing account */
 		list($success, $update_account_message) = process_account_form(
 			"edit", "UpdateAccount",
@@ -55,7 +55,7 @@ if ($action == "UpdateAccount") {
 	}
 }
 
-if ($action == "AccountInfo") {
+if ($row && $action == "AccountInfo") {
 	html_header(__('Account') . ' ' . $row['Username']);
 } else {
 	html_header(__('Accounts'));
@@ -122,7 +122,7 @@ if (isset($_COOKIE["AURSID"])) {
 
 	} elseif ($action == "DeleteAccount") {
 		/* Details for account being deleted. */
-		if (can_edit_account($row)) {
+		if ($row && can_edit_account($row)) {
 			$uid_removal = $row['ID'];
 			$uid_session = uid_from_sid($_COOKIE['AURSID']);
 			$username = $row['Username'];
@@ -155,7 +155,7 @@ if (isset($_COOKIE["AURSID"])) {
 	} elseif ($action == "UpdateAccount") {
 		print $update_account_message;
 
-		if (!$success) {
+		if ($row && !$success) {
 			display_account_form("UpdateAccount",
 				in_request("U"),
 				in_request("T"),
@@ -181,7 +181,7 @@ if (isset($_COOKIE["AURSID"])) {
 		}
 
 	} elseif ($action == "ListComments") {
-		if (has_credential(CRED_ACCOUNT_LIST_COMMENTS, array($row["ID"]))) {
+		if ($row && has_credential(CRED_ACCOUNT_LIST_COMMENTS, array($row["ID"]))) {
 			# display the comment list if they're a TU/dev
 
 			$total_comment_count = account_comments_count($row["ID"]);
