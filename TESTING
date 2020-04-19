@@ -17,7 +17,8 @@ INSTALL.
    Ensure to enable the pdo_sqlite extension in php.ini.
 
 3) Copy conf/config.defaults to conf/config and adjust the configuration
-   (pay attention to disable_http_login, enable_maintenance and aur_location).
+   Pay attention to disable_http_login, enable_maintenance, aur_location and
+   htmldir.
 
    Be sure to change backend to sqlite and name to the file location of your
    created test database.
@@ -31,6 +32,6 @@ INSTALL.
     $ ./gendummydata.py out.sql
     $ sqlite3 path/to/aurweb.sqlite3 < out.sql
 
-5) Run the PHP built-in web server:
+5) Run the test server:
 
-   $ AUR_CONFIG='/path/to/aurweb/conf/config' php -S localhost:8080 -t /path/to/aurweb/web/html
+   $ AUR_CONFIG='/path/to/aurweb/conf/config' python -m aurweb.spawn
