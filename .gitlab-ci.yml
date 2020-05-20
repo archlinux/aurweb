@@ -1,0 +1,12 @@
+image: archlinux
+
+before_script:
+  - pacman -Syu --noconfirm --noprogressbar --needed
+           base-devel git gpgme protobuf pyalpm python-mysql-connector
+           python-pygit2 python-srcinfo python-bleach python-markdown
+           python-sqlalchemy python-alembic python-pytest python-werkzeug
+           python-pytest-tap
+
+test:
+  script:
+    - make -C test
