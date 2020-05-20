@@ -1,7 +1,13 @@
 image: archlinux
 
+cache:
+  key: system-v1
+  paths:
+    # For some reason Gitlab CI only supports storing cache/artifacts in a path relative to the build directory
+    - .pkg-cache
+
 before_script:
-  - pacman -Syu --noconfirm --noprogressbar --needed
+  - pacman -Syu --noconfirm --noprogressbar --needed --cachedir .pkg-cache
            base-devel git gpgme protobuf pyalpm python-mysql-connector
            python-pygit2 python-srcinfo python-bleach python-markdown
            python-sqlalchemy python-alembic python-pytest python-werkzeug
