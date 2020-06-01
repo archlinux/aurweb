@@ -1,10 +1,11 @@
-import aurweb.db
-import aurweb.schema
-
-from alembic import context
 import logging.config
+
 import sqlalchemy
 
+from alembic import context
+
+import aurweb.db
+import aurweb.schema
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 import os
-import pygit2
 import re
 import subprocess
 import sys
 import time
 
+import pygit2
 import srcinfo.parse
 import srcinfo.utils
 
@@ -75,7 +75,7 @@ def create_pkgbase(conn, pkgbase, user):
     return pkgbase_id
 
 
-def save_metadata(metadata, conn, user):
+def save_metadata(metadata, conn, user):  # noqa: C901
     # Obtain package base ID and previous maintainer.
     pkgbase = metadata['pkgbase']
     cur = conn.execute("SELECT ID, MaintainerUID FROM PackageBases "
@@ -232,7 +232,7 @@ def die_commit(msg, commit):
     exit(1)
 
 
-def main():
+def main():  # noqa: C901
     repo = pygit2.Repository(repo_path)
 
     user = os.environ.get("AUR_USER")

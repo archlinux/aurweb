@@ -6,7 +6,7 @@ usually be automatically generated. See `migrations/README` for details.
 """
 
 
-from sqlalchemy import CHAR, Column, ForeignKey, Index, MetaData, String, TIMESTAMP, Table, Text, text
+from sqlalchemy import CHAR, TIMESTAMP, Column, ForeignKey, Index, MetaData, String, Table, Text, text
 from sqlalchemy.dialects.mysql import BIGINT, DECIMAL, INTEGER, TINYINT
 from sqlalchemy.ext.compiler import compiles
 
@@ -24,7 +24,7 @@ def compile_bigint_sqlite(type_, compiler, **kw):
     to INTEGER. Aside from that, BIGINT is the same as INTEGER for SQLite.
 
     See https://docs.sqlalchemy.org/en/13/dialects/sqlite.html#allowing-autoincrement-behavior-sqlalchemy-types-other-than-integer-integer
-    """
+    """  # noqa: E501
     return 'INTEGER'
 
 
