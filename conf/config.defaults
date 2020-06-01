@@ -41,8 +41,15 @@ cache = none
 cache_pkginfo_ttl = 86400
 memcache_servers = 127.0.0.1:11211
 
+[php]
+; Address PHP should bind when spawned in development mode by aurweb.spawn.
+bind_address = 127.0.0.1:8081
 ; Directory containing aurweb's PHP code, required by aurweb.spawn.
 ;htmldir = /path/to/web/html
+
+[fastapi]
+; Address uvicorn should bind when spawned in development mode by aurweb.spawn.
+bind_address = 127.0.0.1:8082
 
 [ratelimit]
 request_limit = 4000
