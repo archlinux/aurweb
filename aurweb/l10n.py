@@ -16,4 +16,4 @@ class Translator:
                                                          self._localedir,
                                                          languages=[lang])
         self._translator[lang].install()
-        return _(s)
+        return _(s)  # _ is not defined, what is this?  # noqa: F821

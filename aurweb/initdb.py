@@ -1,10 +1,11 @@
-import aurweb.db
-import aurweb.schema
+import argparse
 
 import alembic.command
 import alembic.config
-import argparse
 import sqlalchemy
+
+import aurweb.db
+import aurweb.schema
 
 
 def feed_initial_data(conn):

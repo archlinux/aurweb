@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import os
-import shlex
 import re
+import shlex
 import sys
 
 import aurweb.config

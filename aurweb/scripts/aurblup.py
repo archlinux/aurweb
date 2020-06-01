@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-import pyalpm
 import re
+
+import pyalpm
 
 import aurweb.config
 import aurweb.db

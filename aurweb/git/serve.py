@@ -175,11 +175,11 @@ def pkgbase_set_comaintainers(pkgbase, userlist, user, privileged):
         i += 1
 
     for userid in uids_rem:
-            cur = conn.execute("DELETE FROM PackageComaintainers " +
-                               "WHERE PackageBaseID = ? AND UsersID = ?",
-                               [pkgbase_id, userid])
-            subprocess.Popen((notify_cmd, 'comaintainer-remove',
-                              str(userid), str(pkgbase_id)))
+        cur = conn.execute("DELETE FROM PackageComaintainers " +
+                           "WHERE PackageBaseID = ? AND UsersID = ?",
+                           [pkgbase_id, userid])
+        subprocess.Popen((notify_cmd, 'comaintainer-remove',
+                         str(userid), str(pkgbase_id)))
 
     conn.commit()
     conn.close()
@@ -268,7 +268,7 @@ def pkgbase_disown(pkgbase, user, privileged):
     cur = conn.execute("SELECT ID FROM Users WHERE Username = ?", [user])
     userid = cur.fetchone()[0]
     if userid == 0:
-            raise aurweb.exceptions.InvalidUserException(user)
+        raise aurweb.exceptions.InvalidUserException(user)
 
     subprocess.Popen((notify_cmd, 'disown', str(userid), str(pkgbase_id)))
 
@@ -472,7 +472,7 @@ def checkarg(cmdargv, *argdesc):
     checkarg_atmost(cmdargv, *argdesc)
 
 
-def serve(action, cmdargv, user, privileged, remote_addr):
+def serve(action, cmdargv, user, privileged, remote_addr):  # noqa: C901
     if enable_maintenance:
         if remote_addr not in maintenance_exc:
             raise aurweb.exceptions.MaintenanceException
