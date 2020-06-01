@@ -10,8 +10,10 @@ configuration anyway.
 
 import atexit
 import argparse
+import os
 import subprocess
 import sys
+import tempfile
 import time
 import urllib
 
@@ -20,6 +22,7 @@ import aurweb.schema
 
 
 children = []
+temporary_dir = None
 verbosity = 0
 
 
@@ -35,10 +38,42 @@ class ProcessExceptions(Exception):
         super().__init__("\n- ".join(messages))
 
 
+def generate_nginx_config():
+    """
+    Generate an nginx configuration based on aurweb's configuration.
+    The file is generated under `temporary_dir`.
+    Returns the path to the created configuration file.
+    """
+    aur_location = aurweb.config.get("options", "aur_location")
+    aur_location_parts = urllib.parse.urlsplit(aur_location)
+    config_path = os.path.join(temporary_dir, "nginx.conf")
+    config = open(config_path, "w")
+    # We double nginx's braces because they conflict with Python's f-strings.
+    config.write(f"""
+        events {{}}
+        daemon off;
+        error_log /dev/stderr info;
+        pid {os.path.join(temporary_dir, "nginx.pid")};
+        http {{
+            access_log /dev/stdout;
+            server {{
+                listen {aur_location_parts.netloc};
+                location / {{
+                    proxy_pass http://{aurweb.config.get("php", "bind_address")};
+                }}
+                location /hello {{
+                    proxy_pass http://{aurweb.config.get("fastapi", "bind_address")};
+                }}
+            }}
+        }}
+    """)
+    return config_path
+
+
 def spawn_child(args):
     """Open a subprocess and add it to the global state."""
     if verbosity >= 1:
-        print(f"Spawning {args}", file=sys.stderr)
+        print(f":: Spawning {args}", file=sys.stderr)
     children.append(subprocess.Popen(args))
 
 
@@ -52,10 +87,29 @@ def start():
     if children:
         return
     atexit.register(stop)
-    aur_location = aurweb.config.get("options", "aur_location")
-    aur_location_parts = urllib.parse.urlsplit(aur_location)
-    htmldir = aurweb.config.get("options", "htmldir")
-    spawn_child(["php", "-S", aur_location_parts.netloc, "-t", htmldir])
+
+    print("{ruler}\n"
+          "Spawing PHP and FastAPI, then nginx as a reverse proxy.\n"
+          "Check out {aur_location}\n"
+          "Hit ^C to terminate everything.\n"
+          "{ruler}"
+          .format(ruler=("-" * os.get_terminal_size().columns),
+                  aur_location=aurweb.config.get('options', 'aur_location')))
+
+    # PHP
+    php_address = aurweb.config.get("php", "bind_address")
+    htmldir = aurweb.config.get("php", "htmldir")
+    spawn_child(["php", "-S", php_address, "-t", htmldir])
+
+    # FastAPI
+    host, port = aurweb.config.get("fastapi", "bind_address").rsplit(":", 1)
+    spawn_child(["python", "-m", "uvicorn",
+                 "--host", host,
+                 "--port", port,
+                 "aurweb.asgi:app"])
+
+    # nginx
+    spawn_child(["nginx", "-p", temporary_dir, "-c", generate_nginx_config()])
 
 
 def stop():
@@ -73,7 +127,7 @@ def stop():
         try:
             p.terminate()
             if verbosity >= 1:
-                print(f"Sent SIGTERM to {p.args}", file=sys.stderr)
+                print(f":: Sent SIGTERM to {p.args}", file=sys.stderr)
         except Exception as e:
             exceptions.append(e)
     for p in children:
@@ -99,9 +153,11 @@ if __name__ == '__main__':
                         help='increase verbosity')
     args = parser.parse_args()
     verbosity = args.verbose
-    start()
-    try:
-        while True:
-            time.sleep(60)
-    except KeyboardInterrupt:
-        stop()
+    with tempfile.TemporaryDirectory(prefix="aurweb-") as tmpdirname:
+        temporary_dir = tmpdirname
+        start()
+        try:
+            while True:
+                time.sleep(60)
+        except KeyboardInterrupt:
+            stop()
