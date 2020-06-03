@@ -1,0 +1,32 @@
+; Configuration file for aurweb development.
+;
+; Options are implicitly inherited from conf/config.defaults, which lists all
+; available options for productions, and their default values. This current file
+; overrides only options useful for development, and introduces
+; development-specific options too.
+
+[database]
+backend = sqlite
+name = YOUR_AUR_ROOT/aurweb.sqlite3
+
+; Alternative MySQL configuration
+;backend = mysql
+;name = aurweb
+;user = aur
+;password = aur
+
+[options]
+aur_location = http://127.0.0.1:8080
+disable_http_login = 0
+enable-maintenance = 0
+
+[php]
+; Address PHP should bind when spawned in development mode by aurweb.spawn.
+bind_address = 127.0.0.1:8081
+
+; Directory containing aurweb's PHP code, required by aurweb.spawn.
+htmldir = YOUR_AUR_ROOT/web/html
+
+[fastapi]
+; Address uvicorn should bind when spawned in development mode by aurweb.spawn.
+bind_address = 127.0.0.1:8082

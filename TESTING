@@ -17,12 +17,13 @@ INSTALL.
 
    Ensure to enable the pdo_sqlite extension in php.ini.
 
-3) Copy conf/config.defaults to conf/config and adjust the configuration
-   Pay attention to disable_http_login, enable_maintenance, aur_location and
-   htmldir.
+3) Copy conf/config.dev to conf/config and replace YOUR_AUR_ROOT by the absolute
+   path to the root of your aurweb clone. sed can do both tasks for you:
 
-   Be sure to change backend to sqlite and name to the file location of your
-   created test database.
+    $ sed -e "s;YOUR_AUR_ROOT;$PWD;g" conf/config.dev > conf/config
+
+   Note that when the upstream config.dev is updated, you should compare it to
+   your conf/config, or regenerate your configuration with the command above.
 
 4) Prepare the testing database:
 
