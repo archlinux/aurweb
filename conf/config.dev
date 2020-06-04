@@ -20,7 +20,7 @@ aur_location = http://127.0.0.1:8080
 disable_http_login = 0
 enable-maintenance = 0
 
-; Single sign-on
+; Single sign-on; see doc/sso.txt.
 [sso]
 openid_configuration = http://127.0.0.1:8083/auth/realms/aurweb/.well-known/openid-configuration
 client_id = aurweb
