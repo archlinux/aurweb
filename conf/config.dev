@@ -20,6 +20,12 @@ aur_location = http://127.0.0.1:8080
 disable_http_login = 0
 enable-maintenance = 0
 
+; Single sign-on
+[sso]
+openid_configuration = http://127.0.0.1:8083/auth/realms/aurweb/.well-known/openid-configuration
+client_id = aurweb
+client_secret =
+
 [php]
 ; Address PHP should bind when spawned in development mode by aurweb.spawn.
 bind_address = 127.0.0.1:8081
@@ -30,3 +36,6 @@ htmldir = YOUR_AUR_ROOT/web/html
 [fastapi]
 ; Address uvicorn should bind when spawned in development mode by aurweb.spawn.
 bind_address = 127.0.0.1:8082
+
+; Passphrase FastAPI uses to sign client-side sessions.
+session_secret = secret

@@ -68,6 +68,14 @@ username-regex = [a-zA-Z0-9]+[.\-_]?[a-zA-Z0-9]+$
 git-serve-cmd = /usr/local/bin/aurweb-git-serve
 ssh-options = restrict
 
+[sso]
+openid_configuration =
+client_id =
+client_secret =
+
+[fastapi]
+session_secret =
+
 [serve]
 repo-path = /srv/http/aurweb/aur.git/
 repo-regex = [a-z0-9][a-z0-9.+_-]*$
