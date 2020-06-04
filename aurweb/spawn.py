@@ -8,8 +8,8 @@ configuration anyway.
 """
 
 
-import atexit
 import argparse
+import atexit
 import os
 import subprocess
 import sys
@@ -19,7 +19,6 @@ import urllib
 
 import aurweb.config
 import aurweb.schema
-
 
 children = []
 temporary_dir = None
