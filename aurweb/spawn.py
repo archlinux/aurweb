@@ -61,9 +61,6 @@ def generate_nginx_config():
                 location / {{
                     proxy_pass http://{aurweb.config.get("php", "bind_address")};
                 }}
-                location /hello {{
-                    proxy_pass http://{aurweb.config.get("fastapi", "bind_address")};
-                }}
             }}
         }}
     """)
