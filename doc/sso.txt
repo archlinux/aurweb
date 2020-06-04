@@ -1,0 +1,38 @@
+Single Sign-On (SSO)
+====================
+
+This guide will walk you through setting up Keycloak for use with aurweb. For
+extensive documentation, see <https://www.keycloak.org/documentation.html>.
+
+Installing Keycloak
+-------------------
+
+Keycloak is in the official Arch repositories:
+
+    # pacman -S keycloak
+
+The default port is 8080, which conflicts with aurweb’s default port. You need
+to edit `/etc/keycloak/standalone.xml`, looking for this line:
+
+    <socket-binding name="http" port="${jboss.http.port:8080}"/>
+
+The default developer configuration assumes it is set to 8083. Alternatively,
+you may customize [options] aur_location and [sso] openid_configuration in
+`conf/config`.
+
+You may then start `keycloak.service` through systemd.
+
+See also ArchWiki <https://wiki.archlinux.org/index.php/Keycloak>.
+
+Configuring a realm
+-------------------
+
+Go to <http://127.0.0.1:8083/auth> and log in as administrator. Then, hover the
+text right below the Keycloak logo at the top left, by default *Master*. Click
+*Add realm* and name it *aurweb*.
+
+Open the *Clients* tab, and create a new *openid-connect* client. Call it
+*aurweb*, and set the root URL to <http://127.0.0.1:8080> (your aur_location).
+
+Create a user from the *Users* tab and try logging in from
+<http://127.0.0.1:8083/auth/realms/aurweb/account/>.
