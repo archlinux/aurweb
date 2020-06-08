@@ -10,6 +10,8 @@ except ImportError:
 
 import aurweb.config
 
+engine = None  # See get_engine
+
 
 def get_sqlalchemy_url():
     """
@@ -36,6 +38,34 @@ def get_sqlalchemy_url():
         )
     else:
         raise ValueError('unsupported database backend')
+
+
+def get_engine():
+    """
+    Return the global SQLAlchemy engine.
+
+    The engine is created on the first call to get_engine and then stored in the
+    `engine` global variable for the next calls.
+    """
+    from sqlalchemy import create_engine
+    global engine
+    if engine is None:
+        engine = create_engine(get_sqlalchemy_url(),
+                               # check_same_thread is for a SQLite technicality
+                               # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
+                               connect_args={"check_same_thread": False})
+    return engine
+
+
+def connect():
+    """
+    Return an SQLAlchemy connection. Connections are usually pooled. See
+    <https://docs.sqlalchemy.org/en/13/core/connections.html>.
+
+    Since SQLAlchemy connections are context managers too, you should use it
+    with Python’s `with` operator, or with FastAPI’s dependency injection.
+    """
+    return get_engine().connect()
 
 
 class Connection:
