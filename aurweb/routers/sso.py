@@ -1,9 +1,18 @@
+import time
+import uuid
+
 import fastapi
 
 from authlib.integrations.starlette_client import OAuth
+from fastapi import Depends, HTTPException
+from fastapi.responses import RedirectResponse
+from sqlalchemy.sql import select
 from starlette.requests import Request
 
 import aurweb.config
+import aurweb.db
+
+from aurweb.schema import Sessions, Users
 
 router = fastapi.APIRouter()
 
@@ -23,8 +32,46 @@ async def login(request: Request):
     return await oauth.sso.authorize_redirect(request, redirect_uri, prompt="login")
 
 
+def open_session(conn, user_id):
+    """
+    Create a new user session into the database. Return its SID.
+    """
+    # TODO check for account suspension
+    # TODO apply [options] max_sessions_per_user
+    sid = uuid.uuid4().hex
+    conn.execute(Sessions.insert().values(
+        UsersID=user_id,
+        SessionID=sid,
+        LastUpdateTS=time.time(),
+    ))
+    # TODO update Users.LastLogin and Users.LastLoginIPAddress
+    return sid
+
+
 @router.get("/sso/authenticate")
-async def authenticate(request: Request):
+async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
+    """
+    Receive an OpenID Connect ID token, validate it, then process it to create
+    an new AUR session.
+    """
+    # TODO check for banned IPs
     token = await oauth.sso.authorize_access_token(request)
     user = await oauth.sso.parse_id_token(request, token)
-    return dict(user)
+    sub = user.get("sub")  # this is the SSO account ID in JWT terminology
+    if not sub:
+        raise HTTPException(status_code=400, detail="JWT is missing its `sub` field.")
+
+    aur_accounts = conn.execute(select([Users.c.ID]).where(Users.c.SSOAccountID == sub)) \
+                       .fetchall()
+    if not aur_accounts:
+        return "Sorry, we don’t seem to know you Sir " + sub
+    elif len(aur_accounts) == 1:
+        sid = open_session(conn, aur_accounts[0][Users.c.ID])
+        response = RedirectResponse("/")
+        # TODO redirect to the referrer
+        response.set_cookie(key="AURSID", value=sid, httponly=True,
+                            secure=request.url.scheme == "https")
+        return response
+    else:
+        # We’ve got a severe integrity violation.
+        raise Exception("Multiple accounts found for SSO account " + sub)
