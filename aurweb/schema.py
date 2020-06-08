@@ -67,6 +67,7 @@ Users = Table(
     Column('CommentNotify', TINYINT(1), nullable=False, server_default=text("1")),
     Column('UpdateNotify', TINYINT(1), nullable=False, server_default=text("0")),
     Column('OwnershipNotify', TINYINT(1), nullable=False, server_default=text("1")),
+    Column('SSOAccountID', String(255), nullable=True, unique=True),
     Index('UsersAccountTypeID', 'AccountTypeID'),
     mysql_engine='InnoDB',
 )
