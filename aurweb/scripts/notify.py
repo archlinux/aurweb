@@ -501,7 +501,8 @@ class RequestCloseNotification(Notification):
                            'FROM PackageRequests ' +
                            'INNER JOIN RequestTypes ' +
                            'ON RequestTypes.ID = PackageRequests.ReqTypeID ' +
-                           'WHERE PackageRequests.ID = ?', [reqid])
+                           'WHERE PackageRequests.ID = ? AND ' +
+                           'Users.Suspended = 0', [reqid])
         self._text, self._reqtype, self._pkgbase = cur.fetchone()
         self._reqid = int(reqid)
         self._reason = reason
