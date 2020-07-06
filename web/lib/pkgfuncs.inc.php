@@ -696,8 +696,10 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
 			$q_where .= "AND (PackageBases.Name LIKE " . $dbh->quote($K) . ") ";
 		}
 		elseif (isset($params["SeB"]) && $params["SeB"] == "k") {
-			/* Search by keywords. */
-			$q_where .= construct_keyword_search($dbh, $params['K'], false);
+			/* Search by name. */
+			$q_where .= "AND (";
+			$q_where .= construct_keyword_search($dbh, $params['K'], false, true);
+			$q_where .= ") ";
 		}
 		elseif (isset($params["SeB"]) && $params["SeB"] == "N") {
 			/* Search by name (exact match). */
@@ -709,7 +711,9 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
 		}
 		else {
 			/* Keyword search (default). */
-			$q_where .= construct_keyword_search($dbh, $params['K'], true);
+			$q_where .= "AND (";
+			$q_where .= construct_keyword_search($dbh, $params['K'], true, true);
+			$q_where .= ") ";
 		}
 	}
 
@@ -833,10 +837,11 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
  * @param handle $dbh Database handle
  * @param string $keywords The search term
  * @param bool $namedesc Search name and description fields
+ * @param bool $keyword Search packages with a matching PackageBases.Keyword
  *
  * @return string WHERE part of the SQL clause
  */
-function construct_keyword_search($dbh, $keywords, $namedesc) {
+function construct_keyword_search($dbh, $keywords, $namedesc, $keyword=false) {
 	$count = 0;
 	$where_part = "";
 	$q_keywords = "";
@@ -861,13 +866,18 @@ function construct_keyword_search($dbh, $keywords, $namedesc) {
 
 		$term = "%" . addcslashes($term, '%_') . "%";
 		$q_keywords .= $op . " (";
+		$q_keywords .= "Packages.Name LIKE " . $dbh->quote($term) . " ";
 		if ($namedesc) {
-			$q_keywords .= "Packages.Name LIKE " . $dbh->quote($term) . " OR ";
-			$q_keywords .= "Description LIKE " . $dbh->quote($term) . " OR ";
+			$q_keywords .= "OR Description LIKE " . $dbh->quote($term) . " ";
 		}
-		$q_keywords .= "EXISTS (SELECT * FROM PackageKeywords WHERE ";
-		$q_keywords .= "PackageKeywords.PackageBaseID = Packages.PackageBaseID AND ";
-		$q_keywords .= "PackageKeywords.Keyword LIKE " . $dbh->quote($term) . ")) ";
+
+		if ($keyword) {
+			$q_keywords .= "OR EXISTS (SELECT * FROM PackageKeywords WHERE ";
+			$q_keywords .= "PackageKeywords.PackageBaseID = Packages.PackageBaseID AND ";
+			$q_keywords .= "PackageKeywords.Keyword LIKE " . $dbh->quote($term) . ")) ";
+		} else {
+			$q_keywords .= ") ";
+		}
 
 		$count++;
 		if ($count >= 20) {
@@ -876,11 +886,7 @@ function construct_keyword_search($dbh, $keywords, $namedesc) {
 		$op = "AND ";
 	}
 
-	if (!empty($q_keywords)) {
-		$where_part = "AND (" . $q_keywords . ") ";
-	}
-
-	return $where_part;
+	return $q_keywords;
 }
 
 /**
