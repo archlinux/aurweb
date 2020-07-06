@@ -1,6 +1,7 @@
 <?php
 
 include_once("aur.inc.php");
+include_once("pkgfuncs.inc.php");
 
 /*
  * This class defines a remote interface for fetching data from the AUR using
@@ -80,7 +81,7 @@ class AurJSON {
 		if (isset($http_data['v'])) {
 			$this->version = intval($http_data['v']);
 		}
-		if ($this->version < 1 || $this->version > 5) {
+		if ($this->version < 1 || $this->version > 6) {
 			return $this->json_error('Invalid version specified.');
 		}
 
@@ -140,7 +141,7 @@ class AurJSON {
 	}
 
 	/*
-	 * Check if an IP needs to be  rate limited.
+	 * Check if an IP needs to be rate limited.
 	 *
 	 * @param $ip IP of the current request
 	 *
@@ -192,7 +193,7 @@ class AurJSON {
 		$value = get_cache_value('ratelimit-ws:' . $ip, $status);
 		if (!$status || ($status && $value < $deletion_time)) {
 			if (set_cache_value('ratelimit-ws:' . $ip, $time, $window_length) &&
-			    set_cache_value('ratelimit:' . $ip, 1, $window_length)) {
+				set_cache_value('ratelimit:' . $ip, 1, $window_length)) {
 				return;
 			}
 		} else {
@@ -370,7 +371,7 @@ class AurJSON {
 		} elseif ($this->version >= 2) {
 			if ($this->version == 2 || $this->version == 3) {
 				$fields = implode(',', self::$fields_v2);
-			} else if ($this->version == 4 || $this->version == 5) {
+			} else if ($this->version >= 4 && $this->version <= 6) {
 				$fields = implode(',', self::$fields_v4);
 			}
 			$query = "SELECT {$fields} " .
@@ -492,13 +493,21 @@ class AurJSON {
 			if (strlen($keyword_string) < 2) {
 				return $this->json_error('Query arg too small.');
 			}
-			$keyword_string = $this->dbh->quote("%" . addcslashes($keyword_string, '%_') . "%");
 
-			if ($search_by === 'name') {
-				$where_condition = "(Packages.Name LIKE $keyword_string)";
-			} else if ($search_by === 'name-desc') {
-				$where_condition = "(Packages.Name LIKE $keyword_string OR ";
-				$where_condition .= "Description LIKE $keyword_string)";
+			if ($this->version >= 6 && $search_by === 'name-desc') {
+				$where_condition = construct_keyword_search($this->dbh,
+					$keyword_string, true, false);
+			} else {
+				$keyword_string = $this->dbh->quote(
+					"%" . addcslashes($keyword_string, '%_') . "%");
+
+				if ($search_by === 'name') {
+					$where_condition = "(Packages.Name LIKE $keyword_string)";
+				} else if ($search_by === 'name-desc') {
+					$where_condition = "(Packages.Name LIKE $keyword_string ";
+					$where_condition .= "OR Description LIKE $keyword_string)";
+				}
+
 			}
 		} else if ($search_by === 'maintainer') {
 			if (empty($keyword_string)) {

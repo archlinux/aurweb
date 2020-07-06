@@ -39,6 +39,10 @@ Examples
   `/rpc/?v=5&type=search&by=makedepends&arg=boost`
 `search` with callback::
   `/rpc/?v=5&type=search&arg=foobar&callback=jsonp1192244621103`
+`search` with API Version 6 for packages containing `cookie` AND `milk`::
+  `/rpc/?v=6&type=search&arg=cookie%20milk`
+`search` with API Version 6 for packages containing `cookie milk`::
+  `/rpc/?v=6&type=search&arg="cookie milk"`
 `info`::
   `/rpc/?v=5&type=info&arg[]=foobar`
 `info` with multiple packages::
