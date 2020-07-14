@@ -80,6 +80,11 @@ async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
         # TODO redirect to the referrer
         response.set_cookie(key="AURSID", value=sid, httponly=True,
                             secure=request.url.scheme == "https")
+        if "id_token" in token:
+            # We save the id_token for the SSO logout. It’s not too important
+            # though, so if we can’t find it, we can live without it.
+            response.set_cookie(key="SSO_ID_TOKEN", value=token["id_token"], path="/sso/",
+                                httponly=True, secure=request.url.scheme == "https")
         return response
     else:
         # We’ve got a severe integrity violation.
@@ -87,7 +92,7 @@ async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
 
 
 @router.get("/sso/logout")
-async def logout():
+async def logout(request: Request):
     """
     Disconnect the user from the SSO provider, potentially affecting every
     other Arch service. AUR logout is performed by `/logout`, before it
@@ -96,7 +101,13 @@ async def logout():
     Based on the OpenID Connect Session Management specification:
     https://openid.net/specs/openid-connect-session-1_0.html#RPLogout
     """
+    id_token = request.cookies.get("SSO_ID_TOKEN")
+    if not id_token:
+        return RedirectResponse("/")
+
     metadata = await oauth.sso.load_server_metadata()
-    # TODO Supply id_token_hint to the end session endpoint.
-    query = urlencode({'post_logout_redirect_uri': aurweb.config.get('options', 'aur_location')})
-    return RedirectResponse(metadata["end_session_endpoint"] + '?' + query)
+    query = urlencode({'post_logout_redirect_uri': aurweb.config.get('options', 'aur_location'),
+                       'id_token_hint': id_token})
+    response = RedirectResponse(metadata["end_session_endpoint"] + '?' + query)
+    response.delete_cookie("SSO_ID_TOKEN", path="/sso/")
+    return response
