@@ -1,6 +1,8 @@
 import time
 import uuid
 
+from urllib.parse import urlencode
+
 import fastapi
 
 from authlib.integrations.starlette_client import OAuth
@@ -82,3 +84,19 @@ async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
     else:
         # We’ve got a severe integrity violation.
         raise Exception("Multiple accounts found for SSO account " + sub)
+
+
+@router.get("/sso/logout")
+async def logout():
+    """
+    Disconnect the user from the SSO provider, potentially affecting every
+    other Arch service. AUR logout is performed by `/logout`, before it
+    redirects to `/sso/logout`.
+
+    Based on the OpenID Connect Session Management specification:
+    https://openid.net/specs/openid-connect-session-1_0.html#RPLogout
+    """
+    metadata = await oauth.sso.load_server_metadata()
+    # TODO Supply id_token_hint to the end session endpoint.
+    query = urlencode({'post_logout_redirect_uri': aurweb.config.get('options', 'aur_location')})
+    return RedirectResponse(metadata["end_session_endpoint"] + '?' + query)
