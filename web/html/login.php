@@ -40,6 +40,9 @@ html_header('AUR ' . __("Login"));
 			<p>
 				<input type="submit" class="button" value="<?php  print __("Login"); ?>" />
 				<a href="<?= get_uri('/passreset/') ?>">[<?= __('Forgot Password') ?>]</a>
+				<?php if (config_get('sso', 'openid_configuration')): ?>
+				<a href="<?= get_uri('/sso/login') ?>">[<?= __('Login through SSO') ?>]</a>
+				<?php endif; ?>
 				<?php if (in_request('referer') !== ""): ?>
 				<input id="id_referer" type="hidden" name="referer" value="<?= htmlspecialchars(in_request('referer'), ENT_QUOTES) ?>" />
 				<?php elseif (isset($_SERVER['HTTP_REFERER'])): ?>
