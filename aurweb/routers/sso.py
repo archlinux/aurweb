@@ -28,6 +28,13 @@ oauth.register(
 
 @router.get("/sso/login")
 async def login(request: Request):
+    """
+    Redirect the user to the SSO provider’s login page.
+
+    We specify prompt=login to force the user to input their credentials even
+    if they’re already logged on the SSO. This is less practical, but given AUR
+    has the potential to impact many users, better safe than sorry.
+    """
     redirect_uri = aurweb.config.get("options", "aur_location") + "/sso/authenticate"
     return await oauth.sso.authorize_redirect(request, redirect_uri, prompt="login")
 
