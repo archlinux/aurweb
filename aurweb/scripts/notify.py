@@ -124,7 +124,7 @@ class ResetKeyNotification(Notification):
     def __init__(self, conn, uid):
         cur = conn.execute('SELECT UserName, Email, BackupEmail, ' +
                            'LangPreference, ResetKey ' +
-                           'FROM Users WHERE ID = ?', [uid])
+                           'FROM Users WHERE ID = ? AND Suspended = 0', [uid])
         self._username, self._to, self._backup, self._lang, self._resetkey = cur.fetchone()
         super().__init__()
 
@@ -171,7 +171,8 @@ class CommentNotification(Notification):
                            'ON PackageNotifications.UserID = Users.ID WHERE ' +
                            'Users.CommentNotify = 1 AND ' +
                            'PackageNotifications.UserID != ? AND ' +
-                           'PackageNotifications.PackageBaseID = ?',
+                           'PackageNotifications.PackageBaseID = ? AND ' +
+                           'Users.Suspended = 0',
                            [uid, pkgbase_id])
         self._recipients = cur.fetchall()
         cur = conn.execute('SELECT Comments FROM PackageComments WHERE ID = ?',
@@ -218,7 +219,8 @@ class UpdateNotification(Notification):
                            'ON PackageNotifications.UserID = Users.ID WHERE ' +
                            'Users.UpdateNotify = 1 AND ' +
                            'PackageNotifications.UserID != ? AND ' +
-                           'PackageNotifications.PackageBaseID = ?',
+                           'PackageNotifications.PackageBaseID = ? AND ' +
+                           'Users.Suspended = 0',
                            [uid, pkgbase_id])
         self._recipients = cur.fetchall()
         super().__init__()
@@ -264,7 +266,8 @@ class FlagNotification(Notification):
                            'INNER JOIN PackageBases ' +
                            'ON PackageBases.MaintainerUID = Users.ID OR ' +
                            'PackageBases.ID = PackageComaintainers.PackageBaseID ' +
-                           'WHERE PackageBases.ID = ?', [pkgbase_id])
+                           'WHERE PackageBases.ID = ? AND ' +
+                           'Users.Suspended = 0', [pkgbase_id])
         self._recipients = cur.fetchall()
         cur = conn.execute('SELECT FlaggerComment FROM PackageBases WHERE ' +
                            'ID = ?', [pkgbase_id])
@@ -302,7 +305,8 @@ class OwnershipEventNotification(Notification):
                            'ON PackageNotifications.UserID = Users.ID WHERE ' +
                            'Users.OwnershipNotify = 1 AND ' +
                            'PackageNotifications.UserID != ? AND ' +
-                           'PackageNotifications.PackageBaseID = ?',
+                           'PackageNotifications.PackageBaseID = ? AND ' +
+                           'Users.Suspended = 0',
                            [uid, pkgbase_id])
         self._recipients = cur.fetchall()
         cur = conn.execute('SELECT FlaggerComment FROM PackageBases WHERE ' +
@@ -341,7 +345,7 @@ class ComaintainershipEventNotification(Notification):
     def __init__(self, conn, uid, pkgbase_id):
         self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
         cur = conn.execute('SELECT Email, LangPreference FROM Users ' +
-                           'WHERE ID = ?', [uid])
+                           'WHERE ID = ? AND Suspended = 0', [uid])
         self._to, self._lang = cur.fetchone()
         super().__init__()
 
@@ -384,7 +388,8 @@ class DeleteNotification(Notification):
                            'INNER JOIN PackageNotifications ' +
                            'ON PackageNotifications.UserID = Users.ID WHERE ' +
                            'PackageNotifications.UserID != ? AND ' +
-                           'PackageNotifications.PackageBaseID = ?',
+                           'PackageNotifications.PackageBaseID = ? AND ' +
+                           'Users.Suspended = 0',
                            [uid, old_pkgbase_id])
         self._recipients = cur.fetchall()
         super().__init__()
@@ -431,7 +436,8 @@ class RequestOpenNotification(Notification):
                            'INNER JOIN Users ' +
                            'ON Users.ID = PackageRequests.UsersID ' +
                            'OR Users.ID = PackageBases.MaintainerUID ' +
-                           'WHERE PackageRequests.ID = ?', [reqid])
+                           'WHERE PackageRequests.ID = ? AND ' +
+                           'Users.Suspended = 0', [reqid])
         self._to = aurweb.config.get('options', 'aur_request_ml')
         self._cc = [row[0] for row in cur.fetchall()]
         cur = conn.execute('SELECT Comments FROM PackageRequests WHERE ID = ?',
@@ -485,7 +491,8 @@ class RequestCloseNotification(Notification):
                            'INNER JOIN Users ' +
                            'ON Users.ID = PackageRequests.UsersID ' +
                            'OR Users.ID = PackageBases.MaintainerUID ' +
-                           'WHERE PackageRequests.ID = ?', [reqid])
+                           'WHERE PackageRequests.ID = ? AND ' +
+                           'Users.Suspended = 0', [reqid])
         self._to = aurweb.config.get('options', 'aur_request_ml')
         self._cc = [row[0] for row in cur.fetchall()]
         cur = conn.execute('SELECT PackageRequests.ClosureComment, ' +
@@ -541,7 +548,8 @@ class TUVoteReminderNotification(Notification):
         cur = conn.execute('SELECT Email, LangPreference FROM Users ' +
                            'WHERE AccountTypeID IN (2, 4) AND ID NOT IN ' +
                            '(SELECT UserID FROM TU_Votes ' +
-                           'WHERE TU_Votes.VoteID = ?)', [vote_id])
+                           'WHERE TU_Votes.VoteID = ?) AND ' +
+                           'Users.Suspended = 0', [vote_id])
         self._recipients = cur.fetchall()
         super().__init__()
 
