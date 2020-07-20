@@ -14,7 +14,7 @@ from starlette.requests import Request
 import aurweb.config
 import aurweb.db
 
-from aurweb.schema import Sessions, Users
+from aurweb.schema import Bans, Sessions, Users
 
 router = fastapi.APIRouter()
 
@@ -57,13 +57,28 @@ def open_session(conn, user_id):
     return sid
 
 
+def is_ip_banned(conn, ip):
+    """
+    Check if an IP is banned. `ip` is a string and may be an IPv4 as well as an
+    IPv6, depending on the server’s configuration.
+    """
+    result = conn.execute(Bans.select().where(Bans.c.IPAddress == ip))
+    return result.fetchone() is not None
+
+
 @router.get("/sso/authenticate")
 async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
     """
     Receive an OpenID Connect ID token, validate it, then process it to create
     an new AUR session.
     """
-    # TODO check for banned IPs
+    # TODO Handle translations
+    if is_ip_banned(conn, request.client.host):
+        raise HTTPException(
+            status_code=403,
+            detail='The login form is currently disabled for your IP address, '
+                   'probably due to sustained spam attacks. Sorry for the '
+                   'inconvenience.')
     token = await oauth.sso.authorize_access_token(request)
     user = await oauth.sso.parse_id_token(request, token)
     sub = user.get("sub")  # this is the SSO account ID in JWT terminology
