@@ -14,6 +14,7 @@ from starlette.requests import Request
 import aurweb.config
 import aurweb.db
 
+from aurweb.l10n import get_translator_for_request
 from aurweb.schema import Bans, Sessions, Users
 
 router = fastapi.APIRouter()
@@ -46,13 +47,13 @@ def is_account_suspended(conn, user_id):
     return row is not None and bool(row[0])
 
 
-def open_session(conn, user_id):
+def open_session(request, conn, user_id):
     """
     Create a new user session into the database. Return its SID.
     """
-    # TODO Handle translations.
     if is_account_suspended(conn, user_id):
-        raise HTTPException(status_code=403, detail='Account suspended')
+        _ = get_translator_for_request(request)
+        raise HTTPException(status_code=403, detail=_('Account suspended'))
         # TODO This is a terrible message because it could imply the attempt at
         #      logging in just caused the suspension.
     # TODO apply [options] max_sessions_per_user
@@ -81,25 +82,26 @@ async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
     Receive an OpenID Connect ID token, validate it, then process it to create
     an new AUR session.
     """
-    # TODO Handle translations
     if is_ip_banned(conn, request.client.host):
+        _ = get_translator_for_request(request)
         raise HTTPException(
             status_code=403,
-            detail='The login form is currently disabled for your IP address, '
-                   'probably due to sustained spam attacks. Sorry for the '
-                   'inconvenience.')
+            detail=_('The login form is currently disabled for your IP address, '
+                     'probably due to sustained spam attacks. Sorry for the '
+                     'inconvenience.'))
     token = await oauth.sso.authorize_access_token(request)
     user = await oauth.sso.parse_id_token(request, token)
     sub = user.get("sub")  # this is the SSO account ID in JWT terminology
     if not sub:
-        raise HTTPException(status_code=400, detail="JWT is missing its `sub` field.")
+        _ = get_translator_for_request(request)
+        raise HTTPException(status_code=400, detail=_("JWT is missing its `sub` field."))
 
     aur_accounts = conn.execute(select([Users.c.ID]).where(Users.c.SSOAccountID == sub)) \
                        .fetchall()
     if not aur_accounts:
         return "Sorry, we don’t seem to know you Sir " + sub
     elif len(aur_accounts) == 1:
-        sid = open_session(conn, aur_accounts[0][Users.c.ID])
+        sid = open_session(request, conn, aur_accounts[0][Users.c.ID])
         response = RedirectResponse("/")
         # TODO redirect to the referrer
         response.set_cookie(key="AURSID", value=sid, httponly=True,
