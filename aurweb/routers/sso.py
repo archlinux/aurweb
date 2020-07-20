@@ -41,11 +41,20 @@ async def login(request: Request):
     return await oauth.sso.authorize_redirect(request, redirect_uri, prompt="login")
 
 
+def is_account_suspended(conn, user_id):
+    row = conn.execute(select([Users.c.Suspended]).where(Users.c.ID == user_id)).fetchone()
+    return row is not None and bool(row[0])
+
+
 def open_session(conn, user_id):
     """
     Create a new user session into the database. Return its SID.
     """
-    # TODO check for account suspension
+    # TODO Handle translations.
+    if is_account_suspended(conn, user_id):
+        raise HTTPException(status_code=403, detail='Account suspended')
+        # TODO This is a terrible message because it could imply the attempt at
+        #      logging in just caused the suspension.
     # TODO apply [options] max_sessions_per_user
     sid = uuid.uuid4().hex
     conn.execute(Sessions.insert().values(
