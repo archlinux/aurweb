@@ -1,5 +1,9 @@
 image: archlinux
 
+stages:
+  - test
+  - deploy
+
 cache:
   key: system-v1
   paths:
@@ -15,5 +19,31 @@ before_script:
            python-itsdangerous python-httpx
 
 test:
+  stage: test
   script:
     - make -C test
+
+deploy_dev:
+  stage: deploy
+  environment:
+    name: dev
+    url: https://aur-dev.archlinux.org
+  script: "ssh deployme@aur-dev.archlinux.org"
+  only:
+    - develop
+  resource_group: dev  # Ensure only a single deployment can run per time
+  tags:
+    - secure-general
+
+deploy_production:
+  stage: deploy
+  environment:
+    name: production
+    url: https://aur.archlinux.org
+  script: "ssh deployme@aur.archlinux.org"
+  when: manual
+  only:
+    - master
+  resource_group: production  # Ensure only a single deployment can run per time
+  tags:
+    - secure-general
