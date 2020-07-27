@@ -1347,7 +1347,6 @@ function notify($params) {
 	$descspec = array(
 		0 => array('pipe', 'r'),
 		1 => array('pipe', 'w'),
-		2 => array('pipe', 'w')
 	);
 
 	$p = proc_open($cmd, $descspec, $pipes);
@@ -1358,7 +1357,6 @@ function notify($params) {
 
 	fclose($pipes[0]);
 	fclose($pipes[1]);
-	fclose($pipes[2]);
 
 	return proc_close($p);
 }
