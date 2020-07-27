@@ -87,12 +87,16 @@ def start():
         return
     atexit.register(stop)
 
+    try:
+        terminal_width = os.get_terminal_size().columns
+    except OSError:
+        terminal_width = 80
     print("{ruler}\n"
           "Spawing PHP and FastAPI, then nginx as a reverse proxy.\n"
           "Check out {aur_location}\n"
           "Hit ^C to terminate everything.\n"
           "{ruler}"
-          .format(ruler=("-" * os.get_terminal_size().columns),
+          .format(ruler=("-" * terminal_width),
                   aur_location=aurweb.config.get('options', 'aur_location')))
 
     # PHP
