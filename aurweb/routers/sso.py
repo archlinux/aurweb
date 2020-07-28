@@ -63,7 +63,13 @@ def open_session(request, conn, user_id):
         SessionID=sid,
         LastUpdateTS=time.time(),
     ))
-    # TODO update Users.LastLogin and Users.LastLoginIPAddress
+
+    # Update user’s last login information.
+    conn.execute(Users.update()
+                      .where(Users.c.ID == user_id)
+                      .values(LastLogin=int(time.time()),
+                              LastLoginIPAddress=request.client.host))
+
     return sid
 
 
