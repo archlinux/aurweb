@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 
 import fastapi
 
-from authlib.integrations.starlette_client import OAuth
+from authlib.integrations.starlette_client import OAuth, OAuthError
 from fastapi import Depends, HTTPException
 from fastapi.responses import RedirectResponse
 from sqlalchemy.sql import select
@@ -95,8 +95,18 @@ async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
             detail=_('The login form is currently disabled for your IP address, '
                      'probably due to sustained spam attacks. Sorry for the '
                      'inconvenience.'))
-    token = await oauth.sso.authorize_access_token(request)
-    user = await oauth.sso.parse_id_token(request, token)
+
+    try:
+        token = await oauth.sso.authorize_access_token(request)
+        user = await oauth.sso.parse_id_token(request, token)
+    except OAuthError:
+        # Here, most OAuth errors should be caused by forged or expired tokens.
+        # Let’s give attackers as little information as possible.
+        _ = get_translator_for_request(request)
+        raise HTTPException(
+            status_code=400,
+            detail=_('Bad OAuth token. Please retry logging in from the start.'))
+
     sub = user.get("sub")  # this is the SSO account ID in JWT terminology
     if not sub:
         _ = get_translator_for_request(request)
