@@ -13,7 +13,6 @@ passwd_min_len = 8
 default_lang = en
 default_timezone = UTC
 sql_debug = 0
-max_sessions_per_user = 8
 login_timeout = 7200
 persistent_cookie_timeout = 2592000
 max_filesize_uncompressed = 8388608

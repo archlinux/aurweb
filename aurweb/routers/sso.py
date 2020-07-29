@@ -56,7 +56,7 @@ def open_session(request, conn, user_id):
         raise HTTPException(status_code=403, detail=_('Account suspended'))
         # TODO This is a terrible message because it could imply the attempt at
         #      logging in just caused the suspension.
-    # TODO apply [options] max_sessions_per_user
+
     sid = uuid.uuid4().hex
     conn.execute(Sessions.insert().values(
         UsersID=user_id,

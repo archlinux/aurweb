@@ -596,21 +596,6 @@ function try_login() {
 
 	/* Generate a session ID and store it. */
 	while (!$logged_in && $num_tries < 5) {
-		$session_limit = config_get_int('options', 'max_sessions_per_user');
-		if ($session_limit) {
-			/*
-			 * Delete all user sessions except the
-			 * last ($session_limit - 1).
-			 */
-			$q = "DELETE FROM Sessions ";
-			$q.= "WHERE UsersId = " . $userID . " ";
-			$q.= "AND SessionID NOT IN (SELECT SessionID FROM Sessions ";
-			$q.= "WHERE UsersID = " . $userID . " ";
-			$q.= "ORDER BY LastUpdateTS DESC ";
-			$q.= "LIMIT " . ($session_limit - 1) . ")";
-			$dbh->query($q);
-		}
-
 		$new_sid = new_sid();
 		$q = "INSERT INTO Sessions (UsersID, SessionID, LastUpdateTS)"
 		  ." VALUES (" . $userID . ", '" . $new_sid . "', " . strval(time()) . ")";
