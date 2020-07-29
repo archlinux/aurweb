@@ -9,6 +9,10 @@ if (!$disable_http_login || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'])) {
 	$login_error = $login['error'];
 }
 
+$referer = in_request('referer');
+if ($referer === '')
+	$referer = $_SERVER['HTTP_REFERER'];
+
 html_header('AUR ' . __("Login"));
 ?>
 <div id="dev-login" class="box">
@@ -40,13 +44,15 @@ html_header('AUR ' . __("Login"));
 			<p>
 				<input type="submit" class="button" value="<?php  print __("Login"); ?>" />
 				<a href="<?= get_uri('/passreset/') ?>">[<?= __('Forgot Password') ?>]</a>
-				<?php if (config_get('sso', 'openid_configuration')): ?>
-				<a href="<?= get_uri('/sso/login') ?>">[<?= __('Login through SSO') ?>]</a>
+				<?php if (config_get('sso', 'openid_configuration')):
+					$sso_login_url = get_uri('/sso/login');
+					if (isset($referer))
+						$sso_login_url .= '?redirect=' . urlencode($referer);
+				?>
+				<a href="<?= htmlspecialchars($sso_login_url, ENT_QUOTES) ?>">[<?= __('Login through SSO') ?>]</a>
 				<?php endif; ?>
-				<?php if (in_request('referer') !== ""): ?>
-				<input id="id_referer" type="hidden" name="referer" value="<?= htmlspecialchars(in_request('referer'), ENT_QUOTES) ?>" />
-				<?php elseif (isset($_SERVER['HTTP_REFERER'])): ?>
-				<input id="id_referer" type="hidden" name="referer" value="<?= htmlspecialchars($_SERVER['HTTP_REFERER'], ENT_QUOTES) ?>" />
+				<?php if (isset($referer)): ?>
+				<input id="id_referer" type="hidden" name="referer" value="<?= htmlspecialchars($referer, ENT_QUOTES) ?>" />
 				<?php endif; ?>
 			</p>
 		</fieldset>

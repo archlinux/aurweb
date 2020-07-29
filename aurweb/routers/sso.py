@@ -30,16 +30,21 @@ oauth.register(
 
 
 @router.get("/sso/login")
-async def login(request: Request):
+async def login(request: Request, redirect: str = None):
     """
     Redirect the user to the SSO provider’s login page.
 
     We specify prompt=login to force the user to input their credentials even
     if they’re already logged on the SSO. This is less practical, but given AUR
     has the potential to impact many users, better safe than sorry.
+
+    The `redirect` argument is a query parameter specifying the post-login
+    redirect URL.
     """
-    redirect_uri = aurweb.config.get("options", "aur_location") + "/sso/authenticate"
-    return await oauth.sso.authorize_redirect(request, redirect_uri, prompt="login")
+    authenticate_url = aurweb.config.get("options", "aur_location") + "/sso/authenticate"
+    if redirect:
+        authenticate_url = authenticate_url + "?" + urlencode([("redirect", redirect)])
+    return await oauth.sso.authorize_redirect(request, authenticate_url, prompt="login")
 
 
 def is_account_suspended(conn, user_id):
@@ -82,8 +87,15 @@ def is_ip_banned(conn, ip):
     return result.fetchone() is not None
 
 
+def is_aur_url(url):
+    aur_location = aurweb.config.get("options", "aur_location")
+    if not aur_location.endswith("/"):
+        aur_location = aur_location + "/"
+    return url.startswith(aur_location)
+
+
 @router.get("/sso/authenticate")
-async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
+async def authenticate(request: Request, redirect: str = None, conn=Depends(aurweb.db.connect)):
     """
     Receive an OpenID Connect ID token, validate it, then process it to create
     an new AUR session.
@@ -118,8 +130,7 @@ async def authenticate(request: Request, conn=Depends(aurweb.db.connect)):
         return "Sorry, we don’t seem to know you Sir " + sub
     elif len(aur_accounts) == 1:
         sid = open_session(request, conn, aur_accounts[0][Users.c.ID])
-        response = RedirectResponse("/")
-        # TODO redirect to the referrer
+        response = RedirectResponse(redirect if redirect and is_aur_url(redirect) else "/")
         response.set_cookie(key="AURSID", value=sid, httponly=True,
                             secure=request.url.scheme == "https")
         if "id_token" in token:
