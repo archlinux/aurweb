@@ -14,7 +14,8 @@ INSTALL.
     # pacman -S --needed php php-sqlite sqlite words fortune-mod \
                          python python-sqlalchemy python-alembic \
                          python-fastapi uvicorn nginx \
-                         python-authlib python-itsdangerous python-httpx
+                         python-authlib python-itsdangerous python-httpx \
+                         words fortune-mod
 
    Ensure to enable the pdo_sqlite extension in php.ini.
 
