@@ -29,7 +29,7 @@ INSTALL.
 4) Prepare the testing database:
 
     $ cd /path/to/aurweb/
-    $ python -m aurweb.initdb
+    $ AUR_CONFIG=conf/config python -m aurweb.initdb
 
     $ cd /path/to/aurweb/schema
     $ ./gendummydata.py out.sql
@@ -37,4 +37,4 @@ INSTALL.
 
 5) Run the test server:
 
-   $ AUR_CONFIG='/path/to/aurweb/conf/config' python -m aurweb.spawn
+   $ AUR_CONFIG=conf/config python -m aurweb.spawn
