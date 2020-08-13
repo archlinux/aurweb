@@ -11,6 +11,7 @@ configuration anyway.
 import argparse
 import atexit
 import os
+import os.path
 import subprocess
 import sys
 import tempfile
@@ -86,6 +87,9 @@ def start():
     if children:
         return
     atexit.register(stop)
+
+    if 'AUR_CONFIG' in os.environ:
+        os.environ['AUR_CONFIG'] = os.path.realpath(os.environ['AUR_CONFIG'])
 
     try:
         terminal_width = os.get_terminal_size().columns
