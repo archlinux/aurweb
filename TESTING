@@ -30,11 +30,11 @@ INSTALL.
 4) Prepare the testing database:
 
     $ cd /path/to/aurweb/
+
     $ AUR_CONFIG=conf/config python -m aurweb.initdb
 
-    $ cd /path/to/aurweb/schema
-    $ ./gendummydata.py out.sql
-    $ sqlite3 path/to/aurweb.sqlite3 < out.sql
+    $ schema/gendummydata.py data.sql
+    $ sqlite3 aurweb.sqlite3 < data.sql
 
 5) Run the test server:
 
