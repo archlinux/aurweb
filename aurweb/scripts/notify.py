@@ -116,7 +116,7 @@ class Notification:
                     server.login(user, passwd)
 
                 server.set_debuglevel(0)
-                server.sendmail(sender, recipient, msg.as_bytes())
+                server.sendmail(sender, to, msg.as_bytes())
                 server.quit()
 
 
