@@ -14,10 +14,6 @@ import aurweb.l10n
 aur_location = aurweb.config.get('options', 'aur_location')
 
 
-def headers_cc(cclist):
-    return {'Cc': str.join(', ', cclist)}
-
-
 def headers_msgid(thread_id):
     return {'Message-ID': thread_id}
 
@@ -53,6 +49,9 @@ class Notification:
     def get_headers(self):
         return {}
 
+    def get_cc(self):
+        return []
+
     def get_body_fmt(self, lang):
         body = ''
         for line in self.get_body(lang).splitlines():
@@ -80,6 +79,8 @@ class Notification:
             msg['From'] = sender
             msg['Reply-to'] = reply_to
             msg['To'] = to
+            if self.get_cc():
+                msg['Cc'] = str.join(', ', self.get_cc())
             msg['X-AUR-Reason'] = reason
             msg['Date'] = email.utils.formatdate(localtime=True)
 
@@ -116,6 +117,7 @@ class Notification:
                     server.login(user, passwd)
 
                 server.set_debuglevel(0)
+                deliver_to = [to] + self.get_cc()
                 server.sendmail(sender, to, msg.as_bytes())
                 server.quit()
 
@@ -444,6 +446,9 @@ class RequestOpenNotification(Notification):
     def get_recipients(self):
         return [(self._to, 'en')]
 
+    def get_cc(self):
+        return self._cc
+
     def get_subject(self, lang):
         return '[PRQ#%d] %s Request for %s' % \
                (self._reqid, self._reqtype.title(), self._pkgbase)
@@ -472,7 +477,6 @@ class RequestOpenNotification(Notification):
         # Use a deterministic Message-ID for the first email referencing a
         # request.
         headers = headers_msgid(thread_id)
-        headers.update(headers_cc(self._cc))
         return headers
 
 
@@ -501,6 +505,9 @@ class RequestCloseNotification(Notification):
 
     def get_recipients(self):
         return [(self._to, 'en')]
+
+    def get_cc(self):
+        return self._cc
 
     def get_subject(self, lang):
         return '[PRQ#%d] %s Request for %s %s' % (self._reqid,
@@ -531,7 +538,6 @@ class RequestCloseNotification(Notification):
     def get_headers(self):
         thread_id = '<pkg-request-' + str(self._reqid) + '@aur.archlinux.org>'
         headers = headers_reply(thread_id)
-        headers.update(headers_cc(self._cc))
         return headers
 
 

@@ -277,13 +277,18 @@ test_expect_success 'Test subject and body of merge notifications.' '
 	test_cmp actual expected
 '
 
-test_expect_success 'Test subject and body of request open notifications.' '
+test_expect_success 'Test Cc, subject and body of request open notifications.' '
 	cat <<-EOD | sqlite3 aur.db &&
 	/* Use package request IDs which can be distinguished from other IDs. */
-	INSERT INTO PackageRequests (ID, PackageBaseID, PackageBaseName, UsersID, ReqTypeID, Comments, ClosureComment) VALUES (3001, 1001, "foobar", 1, 1, "This is a request test comment.", "");
+	INSERT INTO PackageRequests (ID, PackageBaseID, PackageBaseName, UsersID, ReqTypeID, Comments, ClosureComment) VALUES (3001, 1001, "foobar", 2, 1, "This is a request test comment.", "");
 	EOD
 	>sendmail.out &&
 	"$NOTIFY" request-open 1 3001 orphan 1001 &&
+	grep ^Cc: sendmail.out >actual &&
+	cat <<-EOD >expected &&
+	Cc: user@localhost, tu@localhost
+	EOD
+	test_cmp actual expected &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: [PRQ#3001] Orphan Request for foobar
@@ -324,9 +329,14 @@ test_expect_success 'Test subject and body of request open notifications for mer
 	test_cmp actual expected
 '
 
-test_expect_success 'Test subject and body of request close notifications.' '
+test_expect_success 'Test Cc, subject and body of request close notifications.' '
 	>sendmail.out &&
 	"$NOTIFY" request-close 1 3001 accepted &&
+	grep ^Cc: sendmail.out >actual &&
+	cat <<-EOD >expected &&
+	Cc: user@localhost, tu@localhost
+	EOD
+	test_cmp actual expected &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: [PRQ#3001] Deletion Request for foobar Accepted
