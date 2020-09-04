@@ -18,10 +18,6 @@ import time
 
 LOG_LEVEL = logging.DEBUG  # logging level. set to logging.INFO to reduce output
 SEED_FILE = "/usr/share/dict/words"
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_NAME = os.getenv("DB_NAME", "AUR")
-DB_USER = os.getenv("DB_USER", "aur")
-DB_PASS = os.getenv("DB_PASS", "aur")
 USER_ID = 5            # Users.ID of first bogus user
 PKG_ID = 1             # Packages.ID of first package
 MAX_USERS = 300        # how many users to 'register'
