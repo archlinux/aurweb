@@ -44,19 +44,19 @@ log = logging.getLogger()
 
 if len(sys.argv) != 2:
     log.error("Missing output filename argument")
-    raise SystemExit
+    raise SystemExit(1)
 
 # make sure the seed file exists
 #
 if not os.path.exists(SEED_FILE):
     log.error("Please install the 'words' Arch package")
-    raise SystemExit
+    raise SystemExit(1)
 
 # make sure comments can be created
 #
 if not os.path.exists(FORTUNE_FILE):
     log.error("Please install the 'fortune-mod' Arch package")
-    raise SystemExit
+    raise SystemExit(1)
 
 # track what users/package names have been used
 #
