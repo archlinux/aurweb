@@ -619,7 +619,7 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
 
 	/* Sanitize paging variables. */
 	if (isset($params['O'])) {
-		$params['O'] = max(intval($params['O']), 0);
+		$params['O'] = bound(intval($params['O']), 0, 2500);
 	} else {
 		$params['O'] = 0;
 	}
@@ -771,9 +771,8 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
 	$result_t = $dbh->query($q_total);
 	if ($result_t) {
 		$row = $result_t->fetch(PDO::FETCH_NUM);
-		$total = $row[0];
-	}
-	else {
+		$total = min($row[0], 2500);
+	} else {
 		$total = 0;
 	}
 
