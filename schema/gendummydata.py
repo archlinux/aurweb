@@ -259,20 +259,23 @@ for p in list(track_votes.keys()):
 # Create package dependencies and sources
 #
 log.debug("Creating statements for package depends/sources.")
-for p in list(seen_pkgs.keys()):
+# the keys of seen_pkgs are accessed many times by random.choice,
+# so the list has to be created outside the loops to keep it efficient
+seen_pkgs_keys = list(seen_pkgs.keys())
+for p in seen_pkgs_keys:
     num_deps = random.randrange(PKG_DEPS[0], PKG_DEPS[1])
     for i in range(0, num_deps):
-        dep = random.choice([k for k in seen_pkgs])
+        dep = random.choice(seen_pkgs_keys)
         deptype = random.randrange(1, 5)
         if deptype == 4:
-            dep += ": for " + random.choice([k for k in seen_pkgs])
+            dep += ": for " + random.choice(seen_pkgs_keys)
         s = "INSERT INTO PackageDepends(PackageID, DepTypeID, DepName) VALUES (%d, %d, '%s');\n"
         s = s % (seen_pkgs[p], deptype, dep)
         out.write(s)
 
     num_rels = random.randrange(PKG_RELS[0], PKG_RELS[1])
     for i in range(0, num_deps):
-        rel = random.choice([k for k in seen_pkgs])
+        rel = random.choice(seen_pkgs_keys)
         reltype = random.randrange(1, 4)
         s = "INSERT INTO PackageRelations(PackageID, RelTypeID, RelName) VALUES (%d, %d, '%s');\n"
         s = s % (seen_pkgs[p], reltype, rel)
