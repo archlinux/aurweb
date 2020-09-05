@@ -697,9 +697,7 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
 		}
 		elseif (isset($params["SeB"]) && $params["SeB"] == "k") {
 			/* Search by name. */
-			$q_where .= "AND (";
 			$q_where .= construct_keyword_search($dbh, $params['K'], false, true);
-			$q_where .= ") ";
 		}
 		elseif (isset($params["SeB"]) && $params["SeB"] == "N") {
 			/* Search by name (exact match). */
@@ -711,9 +709,7 @@ function pkg_search_page($params, $show_headers=true, $SID="") {
 		}
 		else {
 			/* Keyword search (default). */
-			$q_where .= "AND (";
 			$q_where .= construct_keyword_search($dbh, $params['K'], true, true);
-			$q_where .= ") ";
 		}
 	}
 
@@ -885,7 +881,11 @@ function construct_keyword_search($dbh, $keywords, $namedesc, $keyword=false) {
 		$op = "AND ";
 	}
 
-	return $q_keywords;
+	if (!empty($q_keywords)) {
+		$where_part = "AND (" . $q_keywords . ") ";
+	}
+
+	return $where_part;
 }
 
 /**
