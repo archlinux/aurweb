@@ -118,7 +118,7 @@ class Notification:
 
                 server.set_debuglevel(0)
                 deliver_to = [to] + self.get_cc()
-                server.sendmail(sender, to, msg.as_bytes())
+                server.sendmail(sender, deliver_to, msg.as_bytes())
                 server.quit()
 
 
