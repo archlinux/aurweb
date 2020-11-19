@@ -50,6 +50,7 @@ foreach ($packages as $indx => $row) {
 	$item->date = intval($row["SubmittedTS"]);
 	$item->source = "{$protocol}://{$host}";
 	$item->author = username_from_id($row["MaintainerUID"]);
+	$item->guid = $item->link;
 	$rss->addItem($item);
 }
 
