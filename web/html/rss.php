@@ -11,6 +11,8 @@ $host = $_SERVER['HTTP_HOST'];
 
 $feed_key = 'pkg-feed-' . $protocol;
 
+header("Content-Type: application/rss+xml");
+
 $bool = false;
 $ret = get_cache_value($feed_key, $bool);
 if ($bool) {
