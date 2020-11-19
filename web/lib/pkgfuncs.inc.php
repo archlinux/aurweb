@@ -925,13 +925,13 @@ function sanitize_ids($ids) {
  *
  * @return array $packages Package info for the specified number of recent packages
  */
-function latest_pkgs($numpkgs) {
+function latest_pkgs($numpkgs, $orderBy='SubmittedTS') {
 	$dbh = DB::connect();
 
-	$q = "SELECT Packages.*, MaintainerUID, SubmittedTS ";
+	$q = "SELECT Packages.*, MaintainerUID, SubmittedTS, ModifiedTS ";
 	$q.= "FROM Packages LEFT JOIN PackageBases ON ";
 	$q.= "PackageBases.ID = Packages.PackageBaseID ";
-	$q.= "ORDER BY SubmittedTS DESC ";
+	$q.= "ORDER BY " . $orderBy . " DESC ";
 	$q.= "LIMIT " . intval($numpkgs);
 	$result = $dbh->query($q);
 
@@ -943,4 +943,15 @@ function latest_pkgs($numpkgs) {
 	}
 
 	return $packages;
+}
+
+/**
+ * Determine package information for latest modified packages
+ *
+ * @param int $numpkgs Number of packages to get information on
+ *
+ * @return array $packages Package info for the specified number of recently modified packages
+ */
+function latest_modified_pkgs($numpkgs) {
+	return latest_pkgs($numpkgs, 'ModifiedTS');
 }
