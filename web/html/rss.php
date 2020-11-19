@@ -40,7 +40,7 @@ $image->description = "AUR Newest Packages Feed";
 $rss->image = $image;
 
 #Get the latest packages and add items for them
-$packages = latest_pkgs(20);
+$packages = latest_pkgs(100);
 
 foreach ($packages as $indx => $row) {
 	$item = new FeedItem();
@@ -56,6 +56,6 @@ foreach ($packages as $indx => $row) {
 
 #save it so that useCached() can find it
 $feedContent = $rss->createFeed();
-set_cache_value($feed_key, $feedContent, 1800);
+set_cache_value($feed_key, $feedContent, 600);
 echo $feedContent;
 ?>
