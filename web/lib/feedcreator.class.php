@@ -183,7 +183,7 @@ class FeedItem extends HtmlDescribable {
 	/**
 	 * Optional attributes of an item.
 	 */
-	var $author, $authorEmail, $image, $category, $comments, $guid, $source, $creator;
+	var $author, $authorEmail, $image, $category, $comments, $guid, $guidIsPermaLink, $source, $creator;
 
 	/**
 	 * Publishing date of an item. May be in one of the following formats:
@@ -995,7 +995,11 @@ class RSSCreator091 extends FeedCreator {
 				$feed.= "            <pubDate>".htmlspecialchars($itemDate->rfc822())."</pubDate>\n";
 			}
 			if ($this->items[$i]->guid!="") {
-				$feed.= "            <guid>".htmlspecialchars($this->items[$i]->guid)."</guid>\n";
+				$feed.= "            <guid";
+				if ($this->items[$i]->guidIsPermaLink == false) {
+					$feed.= " isPermaLink=\"false\"";
+				}
+				$feed.= ">".htmlspecialchars($this->items[$i]->guid)."</guid>\n";
 			}
 			$feed.= $this->_createAdditionalElements($this->items[$i]->additionalElements, "        ");
 			$feed.= "        </item>\n";
