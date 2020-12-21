@@ -18,6 +18,11 @@ AURBLUP="$TOPLEVEL/aurweb/scripts/aurblup.py"
 NOTIFY="$TOPLEVEL/aurweb/scripts/notify.py"
 RENDERCOMMENT="$TOPLEVEL/aurweb/scripts/rendercomment.py"
 
+# We reuse some of these scripts when running `env`, so add
+# it to PATH; that way, env can pick up the script when loaded.
+PATH="${PATH}:${TOPLEVEL}/test/scripts"
+export PATH
+
 # Create the configuration file and a dummy notification script.
 cat >config <<-EOF
 [database]

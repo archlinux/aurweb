@@ -18,7 +18,7 @@ test_expect_success 'Test out-of-date notifications.' '
 	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1003, 4, 1);
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" flag 1 1001 &&
+	cover "$NOTIFY" flag 1 1001 &&
 	cat <<-EOD >expected &&
 	Subject: AUR Out-of-date Notification for foobar
 	To: tu@localhost
@@ -39,7 +39,7 @@ test_expect_success 'Test subject and body of reset key notifications.' '
 	UPDATE Users SET ResetKey = "12345678901234567890123456789012" WHERE ID = 1;
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" send-resetkey 1 &&
+	cover "$NOTIFY" send-resetkey 1 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Password Reset
@@ -62,7 +62,7 @@ test_expect_success 'Test subject and body of welcome notifications.' '
 	UPDATE Users SET ResetKey = "12345678901234567890123456789012" WHERE ID = 1;
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" welcome 1 &&
+	cover "$NOTIFY" welcome 1 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: Welcome to the Arch User Repository
@@ -88,7 +88,7 @@ test_expect_success 'Test subject and body of comment notifications.' '
 	UPDATE Users SET CommentNotify = 1 WHERE ID = 2;
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" comment 1 1001 2001 &&
+	cover "$NOTIFY" comment 1 1001 2001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Comment for foobar
@@ -116,7 +116,7 @@ test_expect_success 'Test subject and body of update notifications.' '
 	UPDATE Users SET UpdateNotify = 1 WHERE ID = 2;
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" update 1 1001 &&
+	cover "$NOTIFY" update 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Package Update: foobar
@@ -139,7 +139,7 @@ test_expect_success 'Test subject and body of update notifications.' '
 
 test_expect_success 'Test subject and body of out-of-date notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" flag 1 1001 &&
+	cover "$NOTIFY" flag 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Out-of-date Notification for foobar
@@ -160,7 +160,7 @@ test_expect_success 'Test subject and body of out-of-date notifications.' '
 
 test_expect_success 'Test subject and body of adopt notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" adopt 1 1001 &&
+	cover "$NOTIFY" adopt 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Ownership Notification for foobar
@@ -179,7 +179,7 @@ test_expect_success 'Test subject and body of adopt notifications.' '
 
 test_expect_success 'Test subject and body of disown notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" disown 1 1001 &&
+	cover "$NOTIFY" disown 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Ownership Notification for foobar
@@ -198,7 +198,7 @@ test_expect_success 'Test subject and body of disown notifications.' '
 
 test_expect_success 'Test subject and body of co-maintainer addition notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" comaintainer-add 1 1001 &&
+	cover "$NOTIFY" comaintainer-add 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Co-Maintainer Notification for foobar
@@ -216,7 +216,7 @@ test_expect_success 'Test subject and body of co-maintainer addition notificatio
 
 test_expect_success 'Test subject and body of co-maintainer removal notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" comaintainer-remove 1 1001 &&
+	cover "$NOTIFY" comaintainer-remove 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Co-Maintainer Notification for foobar
@@ -234,7 +234,7 @@ test_expect_success 'Test subject and body of co-maintainer removal notification
 
 test_expect_success 'Test subject and body of delete notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" delete 1 1001 &&
+	cover "$NOTIFY" delete 1 1001 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Package deleted: foobar
@@ -255,7 +255,7 @@ test_expect_success 'Test subject and body of delete notifications.' '
 
 test_expect_success 'Test subject and body of merge notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" delete 1 1001 1002 &&
+	cover "$NOTIFY" delete 1 1001 1002 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: AUR Package deleted: foobar
@@ -283,7 +283,7 @@ test_expect_success 'Test Cc, subject and body of request open notifications.' '
 	INSERT INTO PackageRequests (ID, PackageBaseID, PackageBaseName, UsersID, ReqTypeID, Comments, ClosureComment) VALUES (3001, 1001, "foobar", 2, 1, "This is a request test comment.", "");
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" request-open 1 3001 orphan 1001 &&
+	cover "$NOTIFY" request-open 1 3001 orphan 1001 &&
 	grep ^Cc: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Cc: user@localhost, tu@localhost
@@ -309,7 +309,7 @@ test_expect_success 'Test Cc, subject and body of request open notifications.' '
 
 test_expect_success 'Test subject and body of request open notifications for merge requests.' '
 	>sendmail.out &&
-	"$NOTIFY" request-open 1 3001 merge 1001 foobar2 &&
+	cover "$NOTIFY" request-open 1 3001 merge 1001 foobar2 &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: [PRQ#3001] Merge Request for foobar
@@ -331,7 +331,7 @@ test_expect_success 'Test subject and body of request open notifications for mer
 
 test_expect_success 'Test Cc, subject and body of request close notifications.' '
 	>sendmail.out &&
-	"$NOTIFY" request-close 1 3001 accepted &&
+	cover "$NOTIFY" request-close 1 3001 accepted &&
 	grep ^Cc: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Cc: user@localhost, tu@localhost
@@ -354,7 +354,7 @@ test_expect_success 'Test Cc, subject and body of request close notifications.' 
 
 test_expect_success 'Test subject and body of request close notifications (auto-accept).' '
 	>sendmail.out &&
-	"$NOTIFY" request-close 0 3001 accepted &&
+	cover "$NOTIFY" request-close 0 3001 accepted &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: [PRQ#3001] Deletion Request for foobar Accepted
@@ -374,7 +374,7 @@ test_expect_success 'Test subject and body of request close notifications with c
 	UPDATE PackageRequests SET ClosureComment = "This is a test closure comment." WHERE ID = 3001;
 	EOD
 	>sendmail.out &&
-	"$NOTIFY" request-close 1 3001 accepted &&
+	cover "$NOTIFY" request-close 1 3001 accepted &&
 	grep ^Subject: sendmail.out >actual &&
 	cat <<-EOD >expected &&
 	Subject: [PRQ#3001] Deletion Request for foobar Accepted
@@ -394,7 +394,7 @@ test_expect_success 'Test subject and body of request close notifications with c
 
 test_expect_success 'Test subject and body of TU vote reminders.' '
 	>sendmail.out &&
-	"$NOTIFY" tu-vote-reminder 1 &&
+	cover "$NOTIFY" tu-vote-reminder 1 &&
 	grep ^Subject: sendmail.out | head -1 >actual &&
 	cat <<-EOD >expected &&
 	Subject: TU Vote Reminder: Proposal 1

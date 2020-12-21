@@ -10,7 +10,7 @@ test_expect_success 'Test comment rendering.' '
 	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (1, 1, "Hello world!
 	This is a comment.", "");
 	EOD
-	"$RENDERCOMMENT" 1 &&
+	cover "$RENDERCOMMENT" 1 &&
 	cat <<-EOD >expected &&
 	<p>Hello world!
 	This is a comment.</p>
@@ -25,7 +25,7 @@ test_expect_success 'Test Markdown conversion.' '
 	cat <<-EOD | sqlite3 aur.db &&
 	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (2, 1, "*Hello* [world](https://www.archlinux.org/)!", "");
 	EOD
-	"$RENDERCOMMENT" 2 &&
+	cover "$RENDERCOMMENT" 2 &&
 	cat <<-EOD >expected &&
 	<p><em>Hello</em> <a href="https://www.archlinux.org/">world</a>!</p>
 	EOD
@@ -39,7 +39,7 @@ test_expect_success 'Test HTML sanitizing.' '
 	cat <<-EOD | sqlite3 aur.db &&
 	INSERT INTO PackageComments (ID, PackageBaseID, Comments, RenderedComment) VALUES (3, 1, "<script>alert(""XSS!"");</script>", "");
 	EOD
-	"$RENDERCOMMENT" 3 &&
+	cover "$RENDERCOMMENT" 3 &&
 	cat <<-EOD >expected &&
 	&lt;script&gt;alert("XSS!");&lt;/script&gt;
 	EOD
@@ -61,7 +61,7 @@ test_expect_success 'Test link conversion.' '
 		[arch]: https://www.archlinux.org/
 	", "");
 	EOD
-	"$RENDERCOMMENT" 4 &&
+	cover "$RENDERCOMMENT" 4 &&
 	cat <<-EOD >expected &&
 		<p>Visit <a href="https://www.archlinux.org/#_test_">https://www.archlinux.org/#_test_</a>.
 		Visit <em><a href="https://www.archlinux.org/">https://www.archlinux.org/</a></em>.
@@ -89,7 +89,7 @@ test_expect_success 'Test Git commit linkification.' '
 		http://example.com/$oid
 	", "");
 	EOD
-	"$RENDERCOMMENT" 5 &&
+	cover "$RENDERCOMMENT" 5 &&
 	cat <<-EOD >expected &&
 		<p><a href="https://aur.archlinux.org/cgit/aur.git/log/?h=foobar&amp;id=${oid:0:12}">${oid:0:12}</a>
 		<a href="https://aur.archlinux.org/cgit/aur.git/log/?h=foobar&amp;id=${oid:0:7}">${oid:0:7}</a>
@@ -116,7 +116,7 @@ test_expect_success 'Test Flyspray issue linkification.' '
 		https://archlinux.org/?test=FS#1234
 	", "");
 	EOD
-	"$RENDERCOMMENT" 6 &&
+	cover "$RENDERCOMMENT" 6 &&
 	cat <<-EOD >expected &&
 		<p><a href="https://bugs.archlinux.org/task/1234567">FS#1234567</a>.
 		<em><a href="https://bugs.archlinux.org/task/1234">FS#1234</a></em>
@@ -142,7 +142,7 @@ test_expect_success 'Test headings lowering.' '
 		###### Six
 	", "");
 	EOD
-	"$RENDERCOMMENT" 7 &&
+	cover "$RENDERCOMMENT" 7 &&
 	cat <<-EOD >expected &&
 		<h5>One</h5>
 		<h6>Two</h6>

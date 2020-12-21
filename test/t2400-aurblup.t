@@ -39,7 +39,7 @@ test_expect_success 'Test official provider update script.' '
 	EOD
 	( cd remote/test && bsdtar -czf ../test.db * ) &&
 	mkdir sync &&
-	"$AURBLUP" &&
+	cover "$AURBLUP" &&
 	cat <<-EOD >expected &&
 	foobar|test|foobar
 	foobar2|test|foobar2

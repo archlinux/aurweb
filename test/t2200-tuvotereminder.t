@@ -15,7 +15,7 @@ test_expect_success 'Test Trusted User vote reminders.' '
 	INSERT INTO TU_VoteInfo (ID, Agenda, User, Submitted, End, Quorum, SubmitterID) VALUES (4, "Lorem ipsum.", "user", 0, $threedays, 0.00, 2);
 	EOD
 	>sendmail.out &&
-	"$TUVOTEREMINDER" &&
+	cover "$TUVOTEREMINDER" &&
 	grep -q "Proposal 2" sendmail.out &&
 	grep -q "Proposal 3" sendmail.out &&
 	test_must_fail grep -q "Proposal 1" sendmail.out &&
@@ -35,7 +35,7 @@ test_expect_success 'Check that only TUs who did not vote receive reminders.' '
 	INSERT INTO TU_Votes (VoteID, UserID) VALUES (1, 9);
 	EOD
 	>sendmail.out &&
-	"$TUVOTEREMINDER" &&
+	cover "$TUVOTEREMINDER" &&
 	cat <<-EOD >expected &&
 	Subject: TU Vote Reminder: Proposal 2
 	To: tu2@localhost

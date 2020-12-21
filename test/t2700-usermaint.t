@@ -16,7 +16,7 @@ test_expect_success 'Test removal of login IP addresses.' '
 	UPDATE Users SET LastLogin = 0, LastLoginIPAddress = "5.6.7.8" WHERE ID = 5;
 	UPDATE Users SET LastLogin = $tendaysago, LastLoginIPAddress = "6.7.8.9" WHERE ID = 6;
 	EOD
-	"$USERMAINT" &&
+	cover "$USERMAINT" &&
 	cat <<-EOD >expected &&
 	1.2.3.4
 	3.4.5.6
@@ -37,7 +37,7 @@ test_expect_success 'Test removal of SSH login IP addresses.' '
 	UPDATE Users SET LastSSHLogin = 0, LastSSHLoginIPAddress = "5.6.7.8" WHERE ID = 5;
 	UPDATE Users SET LastSSHLogin = $tendaysago, LastSSHLoginIPAddress = "6.7.8.9" WHERE ID = 6;
 	EOD
-	"$USERMAINT" &&
+	cover "$USERMAINT" &&
 	cat <<-EOD >expected &&
 	1.2.3.4
 	2.3.4.5

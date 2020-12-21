@@ -7,7 +7,7 @@ test_description='mkpkglists tests'
 test_expect_success 'Test package list generation with no packages.' '
 	echo "DELETE FROM Packages;" | sqlite3 aur.db &&
 	echo "DELETE FROM PackageBases;" | sqlite3 aur.db &&
-	"$MKPKGLISTS" &&
+	cover "$MKPKGLISTS" &&
 	test $(zcat packages.gz | wc -l) -eq 1 &&
 	test $(zcat pkgbase.gz | wc -l) -eq 1
 '
@@ -24,7 +24,7 @@ test_expect_success 'Test package list generation.' '
 	INSERT INTO Packages (ID, PackageBaseID, Name) VALUES (4, 2, "pkg4");
 	INSERT INTO Packages (ID, PackageBaseID, Name) VALUES (5, 3, "pkg5");
 	EOD
-	"$MKPKGLISTS" &&
+	cover "$MKPKGLISTS" &&
 	cat <<-EOD >expected &&
 	foobar
 	foobar2
@@ -45,7 +45,7 @@ test_expect_success 'Test package list generation.' '
 '
 
 test_expect_success 'Test user list generation.' '
-	"$MKPKGLISTS" &&
+	cover "$MKPKGLISTS" &&
 	cat <<-EOD >expected &&
 	dev
 	tu

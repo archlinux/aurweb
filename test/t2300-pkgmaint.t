@@ -13,7 +13,7 @@ test_expect_success 'Test package base cleanup script.' '
 	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (3, "foobar3", NULL, $now, 0, "");
 	INSERT INTO PackageBases (ID, Name, PackagerUID, SubmittedTS, ModifiedTS, FlaggerComment) VALUES (4, "foobar4", NULL, $threedaysago, 0, "");
 	EOD
-	"$PKGMAINT" &&
+	cover "$PKGMAINT" &&
 	cat <<-EOD >expected &&
 	foobar
 	foobar2
