@@ -11,7 +11,7 @@ before_script:
            base-devel git gpgme protobuf pyalpm python-mysql-connector
            python-pygit2 python-srcinfo python-bleach python-markdown
            python-sqlalchemy python-alembic python-pytest python-werkzeug
-           python-pytest-tap python-fastapi uvicorn nginx python-authlib
+           python-pytest-tap python-fastapi hypercorn nginx python-authlib
            python-itsdangerous python-httpx
 
 test:

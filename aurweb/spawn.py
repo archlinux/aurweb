@@ -24,6 +24,7 @@ import aurweb.schema
 children = []
 temporary_dir = None
 verbosity = 0
+asgi_backend = ''
 
 
 class ProcessExceptions(Exception):
@@ -31,6 +32,7 @@ class ProcessExceptions(Exception):
     Compound exception used by stop() to list all the errors that happened when
     terminating child processes.
     """
+
     def __init__(self, message, exceptions):
         self.message = message
         self.exceptions = exceptions
@@ -110,10 +112,11 @@ def start():
 
     # FastAPI
     host, port = aurweb.config.get("fastapi", "bind_address").rsplit(":", 1)
-    spawn_child(["python", "-m", "uvicorn",
-                 "--host", host,
-                 "--port", port,
-                 "aurweb.asgi:app"])
+    if asgi_backend == "hypercorn":
+        portargs = ["-b", f"{host}:{port}"]
+    elif asgi_backend == "uvicorn":
+        portargs = ["--host", host, "--port", port]
+    spawn_child(["python", "-m", asgi_backend] + portargs + ["aurweb.asgi:app"])
 
     # nginx
     spawn_child(["nginx", "-p", temporary_dir, "-c", generate_nginx_config()])
@@ -158,8 +161,11 @@ if __name__ == '__main__':
         description='Start aurweb\'s test server.')
     parser.add_argument('-v', '--verbose', action='count', default=0,
                         help='increase verbosity')
+    parser.add_argument('-b', '--backend', choices=['hypercorn', 'uvicorn'], default='hypercorn',
+                        help='asgi backend used to launch the python server')
     args = parser.parse_args()
     verbosity = args.verbose
+    asgi_backend = args.backend
     with tempfile.TemporaryDirectory(prefix="aurweb-") as tmpdirname:
         temporary_dir = tmpdirname
         start()
