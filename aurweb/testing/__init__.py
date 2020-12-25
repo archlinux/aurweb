@@ -1,4 +1,4 @@
-from aurweb.db import get_engine
+import aurweb.db
 
 
 def setup_test_db(*args):
@@ -21,7 +21,7 @@ def setup_test_db(*args):
         test_tables = ["Users", "Sessions"];
         setup_test_db(*test_tables)
     """
-    engine = get_engine()
+    engine = aurweb.db.get_engine()
     conn = engine.connect()
 
     tables = list(args)
