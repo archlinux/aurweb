@@ -1,12 +1,15 @@
 import http
+import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
 import aurweb.config
 
+from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine
 from aurweb.routers import html, sso, errors
 
@@ -32,10 +35,15 @@ async def app_startup():
               StaticFiles(directory="web/html/images"),
               name="static_images")
 
+    # Add application middlewares.
+    app.add_middleware(AuthenticationMiddleware, backend=BasicAuthBackend())
     app.add_middleware(SessionMiddleware, secret_key=session_secret)
+
+    # Add application routes.
     app.include_router(sso.router)
     app.include_router(html.router)
 
+    # Initialize the database engine and ORM.
     get_engine()
 
 # NOTE: Always keep this dictionary updated with all routes
