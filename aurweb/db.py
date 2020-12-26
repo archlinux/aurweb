@@ -1,14 +1,54 @@
 import math
 
 import aurweb.config
+import aurweb.util
 
-engine = None  # See get_engine
+# See get_engine.
+engine = None
 
 # ORM Session class.
 Session = None
 
 # Global ORM Session object.
 session = None
+
+# Global introspected object memo.
+introspected = dict()
+
+
+def make_random_value(table: str, column: str):
+    """ Generate a unique, random value for a string column in a table.
+
+    This can be used to generate for example, session IDs that
+    align with the properties of the database column with regards
+    to size.
+
+    Internally, we use SQLAlchemy introspection to look at column
+    to decide which length to use for random string generation.
+
+    :return: A unique string that is not in the database
+    """
+    global introspected
+
+    # Make sure column is converted to a string for memo interaction.
+    scolumn = str(column)
+
+    # If the target column is not yet introspected, store its introspection
+    # object into our global `introspected` memo.
+    if scolumn not in introspected:
+        from sqlalchemy import inspect
+        target_column = scolumn.split('.')[-1]
+        col = list(filter(lambda c: c.name == target_column,
+                          inspect(table).columns))[0]
+        introspected[scolumn] = col
+
+    col = introspected.get(scolumn)
+    length = col.type.length
+
+    string = aurweb.util.make_random_string(length)
+    while session.query(table).filter(column == string).first():
+        string = aurweb.util.make_random_string(length)
+    return string
 
 
 def query(model, *args, **kwargs):
