@@ -1,0 +1,7 @@
+[run]
+disable_warnings = already-imported
+
+[report]
+include = aurweb/*
+exclude_lines =
+    if __name__ == .__main__.:

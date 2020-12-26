@@ -9,3 +9,11 @@ __pycache__/
 test/test-results/
 test/trash directory*
 schema/aur-schema-sqlite.sql
+data.sql
+aurweb.sqlite3
+conf/config
+htmlcov/
+fastapi_aw/
+.vim/
+.pylintrc
+.coverage
