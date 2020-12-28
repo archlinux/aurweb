@@ -45,4 +45,4 @@ Translations
 Translations are welcome via our Transifex project at
 https://www.transifex.com/lfleischer/aurweb; see `doc/i18n.txt` for details.
 
-![Transifex](http://www.transifex.net/projects/p/aurweb/chart/image_png)
+![Transifex](https://www.transifex.com/projects/p/aurweb/chart/image_png)
