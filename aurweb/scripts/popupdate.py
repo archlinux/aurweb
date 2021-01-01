@@ -7,7 +7,6 @@ import aurweb.db
 
 def main():
     conn = aurweb.db.Connection()
-
     conn.execute("UPDATE PackageBases SET NumVotes = (" +
                  "SELECT COUNT(*) FROM PackageVotes " +
                  "WHERE PackageVotes.PackageBaseID = PackageBases.ID)")

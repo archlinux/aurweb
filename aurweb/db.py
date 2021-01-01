@@ -1,3 +1,5 @@
+import math
+
 try:
     import mysql.connector
 except ImportError:
@@ -95,6 +97,7 @@ class Connection:
         elif aur_db_backend == 'sqlite':
             aur_db_name = aurweb.config.get('database', 'name')
             self._conn = sqlite3.connect(aur_db_name)
+            self._conn.create_function("POWER", 2, math.pow)
             self._paramstyle = sqlite3.paramstyle
         else:
             raise ValueError('unsupported database backend')
