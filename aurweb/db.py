@@ -145,9 +145,45 @@ def connect():
     return get_engine().connect()
 
 
-class Connection:
+class ConnectionExecutor:
     _conn = None
     _paramstyle = None
+
+    def __init__(self, conn, backend=aurweb.config.get("database", "backend")):
+        self._conn = conn
+        if backend == "mysql":
+            import mysql.connector
+            self._paramstyle = mysql.connector.paramstyle
+        elif backend == "sqlite":
+            import sqlite3
+            self._paramstyle = sqlite3.paramstyle
+
+    def paramstyle(self):
+        return self._paramstyle
+
+    def execute(self, query, params=()):
+        if self._paramstyle in ('format', 'pyformat'):
+            query = query.replace('%', '%%').replace('?', '%s')
+        elif self._paramstyle == 'qmark':
+            pass
+        else:
+            raise ValueError('unsupported paramstyle')
+
+        cur = self._conn.cursor()
+        cur.execute(query, params)
+
+        return cur
+
+    def commit(self):
+        self._conn.commit()
+
+    def close(self):
+        self._conn.close()
+
+
+class Connection:
+    _executor = None
+    _conn = None
 
     def __init__(self):
         aur_db_backend = aurweb.config.get('database', 'backend')
@@ -165,28 +201,18 @@ class Connection:
                                                  db=aur_db_name,
                                                  unix_socket=aur_db_socket,
                                                  buffered=True)
-            self._paramstyle = mysql.connector.paramstyle
         elif aur_db_backend == 'sqlite':
             import sqlite3
             aur_db_name = aurweb.config.get('database', 'name')
             self._conn = sqlite3.connect(aur_db_name)
             self._conn.create_function("POWER", 2, math.pow)
-            self._paramstyle = sqlite3.paramstyle
         else:
             raise ValueError('unsupported database backend')
 
+        self._conn = ConnectionExecutor(self._conn)
+
     def execute(self, query, params=()):
-        if self._paramstyle in ('format', 'pyformat'):
-            query = query.replace('%', '%%').replace('?', '%s')
-        elif self._paramstyle == 'qmark':
-            pass
-        else:
-            raise ValueError('unsupported paramstyle')
-
-        cur = self._conn.cursor()
-        cur.execute(query, params)
-
-        return cur
+        return self._conn.execute(query, params)
 
     def commit(self):
         self._conn.commit()

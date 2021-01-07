@@ -1,0 +1,15 @@
+{% if errors %}
+    <ul class="errorlist">
+        {% for error in errors %}
+            {% if error is string %}
+                <li>{{ error | tr | safe }}</li>
+            {% elif error is iterable %}
+                <ul>
+                    {% for e in error %}
+                        <li>{{ e | tr | safe }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

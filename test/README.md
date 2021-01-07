@@ -27,6 +27,7 @@ For all the test to run, the following Arch packages should be installed:
 - python-pytest
 - python-pytest-cov
 - python-pytest-asyncio
+- postfix
 
 Running tests
 -------------
@@ -36,6 +37,10 @@ Recommended method of running tests: `make check`.
 First, setup the test configuration:
 
     $ sed -r 's;YOUR_AUR_ROOT;$(pwd);g' conf/config.dev > conf/config
+
+You'll need to make sure that emails can be sent out by aurweb.scripts.notify.
+If you don't have anything setup, just install postfix and start it before
+running tests.
 
 With those installed, one can run Python tests manually with any AUR config
 specified by `AUR_CONFIG`:

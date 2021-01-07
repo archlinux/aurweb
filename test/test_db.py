@@ -3,7 +3,6 @@ import re
 import sqlite3
 import tempfile
 
-from datetime import datetime
 from unittest import mock
 
 import mysql.connector
@@ -185,3 +184,15 @@ def test_create_delete():
     db.delete(AccountType, AccountType.AccountType == "test")
     record = db.query(AccountType, AccountType.AccountType == "test").first()
     assert record is None
+
+
+@mock.patch("mysql.connector.paramstyle", "qmark")
+def test_connection_executor_mysql_paramstyle():
+    executor = db.ConnectionExecutor(None, backend="mysql")
+    assert executor.paramstyle() == "qmark"
+
+
+@mock.patch("sqlite3.paramstyle", "pyformat")
+def test_connection_executor_sqlite_paramstyle():
+    executor = db.ConnectionExecutor(None, backend="sqlite")
+    assert executor.paramstyle() == "pyformat"

@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 import aurweb.config
 
+from aurweb.auth import auth_required
 from aurweb.models.user import User
 from aurweb.templates import make_context, render_template
 
@@ -21,12 +22,13 @@ def login_template(request: Request, next: str, errors: list = None):
 
 
 @router.get("/login", response_class=HTMLResponse)
+@auth_required(False)
 async def login_get(request: Request, next: str = "/"):
-    """ Homepage route. """
     return login_template(request, next)
 
 
 @router.post("/login", response_class=HTMLResponse)
+@auth_required(False)
 async def login_post(request: Request,
                      next: str = Form(...),
                      user: str = Form(default=str()),
@@ -45,8 +47,8 @@ async def login_post(request: Request,
         cookie_timeout = aurweb.config.getint(
             "options", "persistent_cookie_timeout")
 
-    _, sid = user.login(request, passwd, cookie_timeout)
-    if not _:
+    sid = user.login(request, passwd, cookie_timeout)
+    if not sid:
         return login_template(request, next,
                               errors=["Bad username or password."])
 
@@ -62,6 +64,7 @@ async def login_post(request: Request,
 
 
 @router.get("/logout")
+@auth_required()
 async def logout(request: Request, next: str = "/"):
     """ A GET and POST route for logging out.
 
@@ -81,5 +84,6 @@ async def logout(request: Request, next: str = "/"):
 
 
 @router.post("/logout")
+@auth_required()
 async def logout_post(request: Request, next: str = "/"):
     return await logout(request=request, next=next)

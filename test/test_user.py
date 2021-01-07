@@ -28,8 +28,8 @@ def setup():
 
     setup_test_db("Users", "Sessions", "Bans")
 
-    account_type = session.query(AccountType).filter(
-        AccountType.AccountType == "User").first()
+    account_type = query(AccountType,
+                         AccountType.AccountType == "User").first()
 
     user = make_user(Username="test", Email="test@example.org",
                      RealName="Test User", Passwd="testPassword",
@@ -67,7 +67,7 @@ def test_user_login_logout():
     assert user.session.User == user
 
     # Search for the user via query API.
-    result = session.query(User).filter(User.ID == user.ID).first()
+    result = query(User, User.ID == user.ID).first()
 
     # Compare the result and our original user.
     assert result == user

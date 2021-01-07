@@ -25,6 +25,12 @@ disable_http_login = 0
 enable-maintenance = 0
 localedir = YOUR_AUR_ROOT/web/locale
 
+[notifications]
+; For development/testing, use /usr/bin/sendmail
+sendmail = YOUR_AUR_ROOT/util/sendmail
+sender = notify@localhost
+reply-to = noreply@localhost
+
 ; Single sign-on; see doc/sso.txt.
 [sso]
 openid_configuration = http://127.0.0.1:8083/auth/realms/aurweb/.well-known/openid-configuration
