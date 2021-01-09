@@ -17,7 +17,7 @@ def login_template(request: Request, next: str, errors: list = None):
     context = make_context(request, "Login", next)
     context["errors"] = errors
     context["url_base"] = f"{request.url.scheme}://{request.url.netloc}"
-    return render_template("login.html", context)
+    return render_template(request, "login.html", context)
 
 
 @router.get("/login", response_class=HTMLResponse)

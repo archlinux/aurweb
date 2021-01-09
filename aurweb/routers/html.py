@@ -47,7 +47,7 @@ async def language(request: Request,
 async def index(request: Request):
     """ Homepage route. """
     context = make_context(request, "Home")
-    return render_template("index.html", context)
+    return render_template(request, "index.html", context)
 
 
 # A route that returns a error 503. For testing purposes.
