@@ -10,13 +10,14 @@ from aurweb.asgi import app
 from aurweb.db import query
 from aurweb.models.account_type import AccountType
 from aurweb.testing import setup_test_db
+from aurweb.testing.models import make_user
+from aurweb.testing.requests import Request
 
 client = TestClient(app)
-
 user = None
 
 
-@pytest.fixture
+@pytest.fixture(autouse=True)
 def setup():
     global user
 
@@ -46,7 +47,7 @@ def test_favicon():
 
 
 def test_language():
-    """ Test the language post route at '/language'. """
+    """ Test the language post route as a guest user. """
     post_data = {
         "set_lang": "de",
         "next": "/"
@@ -65,6 +66,23 @@ def test_language_invalid_next():
     with client as req:
         response = req.post("/language", data=post_data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+
+def test_user_language():
+    """ Test the language post route as an authenticated user. """
+    post_data = {
+        "set_lang": "de",
+        "next": "/"
+    }
+
+    sid = user.login(Request(), "testPassword")
+    assert sid is not None
+
+    with client as req:
+        response = req.post("/language", data=post_data,
+                            cookies={"AURSID": sid})
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+    assert user.LangPreference == "de"
 
 
 def test_language_query_params():
@@ -87,4 +105,3 @@ def test_error_messages():
     response2 = client.get("/raisefivethree")
     assert response1.status_code == int(HTTPStatus.NOT_FOUND)
     assert response2.status_code == int(HTTPStatus.SERVICE_UNAVAILABLE)
-

@@ -24,12 +24,14 @@ async def language(request: Request,
                    set_lang: str = Form(...),
                    next: str = Form(...),
                    q: str = Form(default=None)):
-    """ A POST route used to set a session's language.
+    """
+    A POST route used to set a session's language.
 
     Return a 303 See Other redirect to {next}?next={next}. If we are
     setting the language on any page, we want to preserve query
     parameters across the redirect.
     """
+    from aurweb.db import session
     from aurweb.asgi import routes
     if unquote(next) not in routes:
         return HTMLResponse(
@@ -37,6 +39,13 @@ async def language(request: Request,
             status_code=400)
 
     query_string = "?" + q if q else str()
+
+    # If the user is authenticated, update the user's LangPreference.
+    if request.user.is_authenticated():
+        request.user.LangPreference = set_lang
+        session.commit()
+
+    # In any case, set the response's AURLANG cookie that never expires.
     response = RedirectResponse(url=f"{next}{query_string}",
                                 status_code=int(HTTPStatus.SEE_OTHER))
     response.set_cookie("AURLANG", set_lang)

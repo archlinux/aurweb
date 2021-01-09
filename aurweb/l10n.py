@@ -64,8 +64,10 @@ translator = Translator()
 
 
 def get_request_language(request: Request):
-    return request.cookies.get("AURLANG",
-                               aurweb.config.get("options", "default_lang"))
+    if request.user.is_authenticated():
+        return request.user.LangPreference
+    default_lang = aurweb.config.get("options", "default_lang")
+    return request.cookies.get("AURLANG", default_lang)
 
 
 def get_raw_translator_for_request(request: Request):
@@ -77,12 +79,6 @@ def get_translator_for_request(request: Request):
     """
     Determine the preferred language from a FastAPI request object and build a
     translator function for it.
-
-    Example:
-    ```python
-    _ = get_translator_for_request(request)
-    print(_("Hello"))
-    ```
     """
     lang = get_request_language(request)
 
