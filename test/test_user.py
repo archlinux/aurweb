@@ -12,6 +12,7 @@ from aurweb.db import query
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.session import Session
+from aurweb.models.ssh_pub_key import SSHPubKey
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
 from aurweb.testing.models import make_session, make_user
@@ -26,7 +27,7 @@ def setup():
 
     global account_type, user
 
-    setup_test_db("Users", "Sessions", "Bans")
+    setup_test_db("Users", "Sessions", "Bans", "SSHPubKeys")
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
@@ -160,3 +161,20 @@ def test_user_update_password():
 def test_user_minimum_passwd_length():
     passwd_min_len = aurweb.config.getint("options", "passwd_min_len")
     assert User.minimum_passwd_length() == passwd_min_len
+
+
+def test_user_ssh_pub_key():
+    from aurweb.db import session
+
+    assert user.ssh_pub_key is None
+
+    ssh_pub_key = SSHPubKey(UserID=user.ID,
+                            Fingerprint="testFingerprint",
+                            PubKey="testPubKey")
+    session.add(ssh_pub_key)
+    session.commit()
+
+    assert user.ssh_pub_key == ssh_pub_key
+
+    session.delete(ssh_pub_key)
+    session.commit()
