@@ -7,14 +7,26 @@ import pytest
 from fastapi.testclient import TestClient
 
 from aurweb.asgi import app
+from aurweb.db import query
+from aurweb.models.account_type import AccountType
 from aurweb.testing import setup_test_db
 
 client = TestClient(app)
 
+user = None
+
 
 @pytest.fixture
 def setup():
-    setup_test_db("Users", "Session")
+    global user
+
+    setup_test_db("Users", "Sessions")
+
+    account_type = query(AccountType,
+                         AccountType.AccountType == "User").first()
+    user = make_user(Username="test", Email="test@example.org",
+                     RealName="Test User", Passwd="testPassword",
+                     AccountType=account_type)
 
 
 def test_index():
@@ -54,6 +66,7 @@ def test_language_invalid_next():
         response = req.post("/language", data=post_data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
+
 def test_language_query_params():
     """ Test the language post route with query params. """
     next = urllib.parse.quote_plus("/")
@@ -74,3 +87,4 @@ def test_error_messages():
     response2 = client.get("/raisefivethree")
     assert response1.status_code == int(HTTPStatus.NOT_FOUND)
     assert response2.status_code == int(HTTPStatus.SERVICE_UNAVAILABLE)
+

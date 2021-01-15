@@ -1,5 +1,8 @@
 import pytest
 
+import aurweb.config
+
+from aurweb.db import query
 from aurweb.models.account_type import AccountType
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
@@ -26,7 +29,6 @@ def test_user():
         Salt="efgh", ResetKey="blahblah")
     session.add(user)
     session.commit()
-
     assert user in account_type.users
 
     # Make sure the user was created and given an ID.

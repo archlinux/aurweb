@@ -3,6 +3,7 @@ import re
 import sqlite3
 import tempfile
 
+from datetime import datetime
 from unittest import mock
 
 import mysql.connector
@@ -11,6 +12,7 @@ import pytest
 import aurweb.config
 
 from aurweb import db
+from aurweb.models.account_type import AccountType
 from aurweb.testing import setup_test_db
 
 
@@ -39,7 +41,7 @@ class DBConnection:
 
 @pytest.fixture(autouse=True)
 def setup_db():
-    setup_test_db()
+    setup_test_db("Bans")
 
 
 def test_sqlalchemy_sqlite_url():
@@ -174,3 +176,12 @@ def test_connection_execute_paramstyle_unsupported():
             "SELECT * FROM AccountTypes WHERE AccountType = ?",
             ["User"]
         ).fetchall()
+
+
+def test_create_delete():
+    db.create(AccountType, AccountType="test")
+    record = db.query(AccountType, AccountType.AccountType == "test").first()
+    assert record is not None
+    db.delete(AccountType, AccountType.AccountType == "test")
+    record = db.query(AccountType, AccountType.AccountType == "test").first()
+    assert record is None
