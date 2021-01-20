@@ -18,5 +18,8 @@ before_script:
 
 test:
   script:
+    - python setup.py install
+    - sed -r "s;YOUR_AUR_ROOT;$(pwd);g" conf/config.dev > conf/config
+    - AUR_CONFIG=conf/config python -m aurweb.initdb
     - make -C test
     - coverage report --include='aurweb/*'
