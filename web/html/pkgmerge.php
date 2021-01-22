@@ -33,7 +33,7 @@ if (has_credential(CRED_PKGBASE_DELETE)): ?>
 			<?php if (isset($_GET['via'])): ?>
 			<input type="hidden" name="via" value="<?= intval($_GET['via']) ?>" />
 			<?php endif; ?>
-			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
 			<script type="text/javascript" src="/js/bootstrap-typeahead.min.js"></script>
 			<script type="text/javascript">
 			$(document).ready(function() {

@@ -46,7 +46,7 @@ if (isset($pkgname)) {
 html_header($title, $details);
 ?>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 function collapseDependsList(list) {
 	list = $(list);
