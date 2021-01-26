@@ -4,8 +4,8 @@ import pytest
 
 from starlette.authentication import AuthenticationError
 
+from aurweb.auth import BasicAuthBackend, has_credential
 from aurweb.db import query
-from aurweb.auth import BasicAuthBackend
 from aurweb.models.account_type import AccountType
 from aurweb.testing import setup_test_db
 from aurweb.testing.models import make_session, make_user
@@ -78,3 +78,8 @@ async def test_basic_auth_backend():
                  LastUpdateTS=now_ts + 5)
     _, result = await backend.authenticate(request)
     assert result == user
+
+
+def test_has_fake_credential_fails():
+    # Fake credential 666 does not exist.
+    assert not has_credential(user, 666)

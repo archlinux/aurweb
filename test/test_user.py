@@ -163,6 +163,11 @@ def test_user_minimum_passwd_length():
     assert User.minimum_passwd_length() == passwd_min_len
 
 
+def test_user_has_credential():
+    assert user.has_credential("CRED_PKGBASE_FLAG")
+    assert not user.has_credential("CRED_ACCOUNT_CHANGE_TYPE")
+
+
 def test_user_ssh_pub_key():
     from aurweb.db import session
 
@@ -178,3 +183,40 @@ def test_user_ssh_pub_key():
 
     session.delete(ssh_pub_key)
     session.commit()
+
+
+def test_user_credential_types():
+    from aurweb.db import session
+
+    assert aurweb.auth.user_developer_or_trusted_user(user)
+    assert not aurweb.auth.trusted_user(user)
+    assert not aurweb.auth.developer(user)
+    assert not aurweb.auth.trusted_user_or_dev(user)
+
+    trusted_user_type = query(AccountType,
+                              AccountType.AccountType == "Trusted User")\
+        .first()
+    user.AccountType = trusted_user_type
+    session.commit()
+
+    assert aurweb.auth.trusted_user(user)
+    assert aurweb.auth.trusted_user_or_dev(user)
+
+    developer_type = query(AccountType,
+                           AccountType.AccountType == "Developer")\
+        .first()
+    user.AccountType = developer_type
+    session.commit()
+
+    assert aurweb.auth.developer(user)
+    assert aurweb.auth.trusted_user_or_dev(user)
+
+    type_str = "Trusted User & Developer"
+    elevated_type = query(AccountType,
+                          AccountType.AccountType == type_str).first()
+    user.AccountType = elevated_type
+    session.commit()
+
+    assert aurweb.auth.trusted_user(user)
+    assert aurweb.auth.developer(user)
+    assert aurweb.auth.trusted_user_or_dev(user)
