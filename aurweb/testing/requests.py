@@ -5,6 +5,7 @@ class User:
     """ A fake User model. """
     # Fake columns.
     LangPreference = aurweb.config.get("options", "default_lang")
+    Timezone = aurweb.config.get("options", "default_timezone")
 
     # A fake authenticated flag.
     authenticated = False

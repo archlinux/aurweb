@@ -1,5 +1,6 @@
 import copy
 import os
+import zoneinfo
 
 from datetime import datetime
 from http import HTTPStatus
@@ -11,7 +12,7 @@ from fastapi.responses import HTMLResponse
 
 import aurweb.config
 
-from aurweb import l10n
+from aurweb import l10n, time
 
 # Prepare jinja2 objects.
 loader = jinja2.FileSystemLoader(os.path.join(
@@ -26,14 +27,15 @@ env.filters["tr"] = l10n.tr
 def make_context(request: Request, title: str, next: str = None):
     """ Create a context for a jinja2 TemplateResponse. """
 
+    timezone = time.get_request_timezone(request)
     return {
         "request": request,
         "language": l10n.get_request_language(request),
         "languages": l10n.SUPPORTED_LANGUAGES,
+        "timezone": timezone,
+        "timezones": time.SUPPORTED_TIMEZONES,
         "title": title,
-        # The 'now' context variable will not show proper datetimes
-        # until we've implemented timezone support here.
-        "now": datetime.now(),
+        "now": datetime.now(tz=zoneinfo.ZoneInfo(timezone)),
         "config": aurweb.config,
         "next": next if next else request.url.path
     }
@@ -60,4 +62,5 @@ def render_template(request: Request,
 
     response = HTMLResponse(rendered, status_code=status_code)
     response.set_cookie("AURLANG", context.get("language"))
+    response.set_cookie("AURTZ", context.get("timezone"))
     return response
