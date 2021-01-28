@@ -9,7 +9,7 @@ from aurweb.auth import auth_required
 from aurweb.l10n import get_translator_for_request
 from aurweb.models.user import User
 from aurweb.scripts.notify import ResetKeyNotification
-from aurweb.templates import make_context, render_template
+from aurweb.templates import make_variable_context, render_template
 
 router = APIRouter()
 
@@ -17,11 +17,7 @@ router = APIRouter()
 @router.get("/passreset", response_class=HTMLResponse)
 @auth_required(False)
 async def passreset(request: Request):
-    context = make_context(request, "Password Reset")
-
-    for k, v in request.query_params.items():
-        context[k] = v
-
+    context = await make_variable_context(request, "Password Reset")
     return render_template(request, "passreset.html", context)
 
 
@@ -34,10 +30,7 @@ async def passreset_post(request: Request,
                          confirm: str = Form(default=None)):
     from aurweb.db import session
 
-    context = make_context(request, "Password Reset")
-
-    for k, v in dict(await request.form()).items():
-        context[k] = v
+    context = await make_variable_context(request, "Password Reset")
 
     # The user parameter being required, we can match against
     user = db.query(User, or_(User.Username == user,

@@ -41,6 +41,20 @@ def make_context(request: Request, title: str, next: str = None):
     }
 
 
+async def make_variable_context(request: Request, title: str, next: str = None):
+    """ Make a context with variables provided by the user
+    (query params via GET or form data via POST). """
+    context = make_context(request, title, next)
+    to_copy = dict(request.query_params) \
+        if request.method.lower() == "get" \
+        else dict(await request.form())
+
+    for k, v in to_copy.items():
+        context[k] = v
+
+    return context
+
+
 def render_template(request: Request,
                     path: str,
                     context: dict,
