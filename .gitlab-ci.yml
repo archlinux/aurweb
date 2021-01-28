@@ -15,6 +15,7 @@ before_script:
            python-itsdangerous python-httpx python-jinja python-pytest-cov
            python-requests python-aiofiles python-python-multipart
            python-pytest-asyncio python-coverage python-bcrypt
+           python-email-validator
   - bash -c "echo '127.0.0.1' > /etc/hosts"
   - bash -c "echo '::1' >> /etc/hosts"
 
