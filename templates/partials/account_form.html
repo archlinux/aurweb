@@ -1,0 +1,343 @@
+<!--
+    This partial requires a few variables to render properly.
+
+    First off, we can render either a new account form or an
+    update account form.
+
+    (1)
+    To render an update account form, supply `form_type = "UpdateAccount"`.
+    To render a new account form, either omit a `form_type` or set it to
+    anything else (should actually be "NewAccount" based on the PHP impl).
+
+    (2)
+    Furthermore, when rendering an update form, if the request user
+    is authenticated, there **must** be a `user` supplied, pointing
+    to the user being edited.
+-->
+<form id="edit-profile-form" method="post"
+      {% if action %}
+      action="{{ action }}"
+      {% endif %}
+>
+    <fieldset>
+        <input type="hidden" name="Action" value="{{ form_type }}">
+    </fieldset>
+    <fieldset>
+        <!-- Username -->
+        <p>
+            <label for="id_username">
+                {% trans %}Username{% endtrans %}:
+            </label>
+
+            <input id="id_username"
+                   type="text" size="30"
+                   maxlength="16" name="U"
+                   value="{{ username }}"
+            >
+            ({% trans %}required{% endtrans %})
+        </p>
+        <p>
+            <em>{{ "Your user name is the name you will use to login. "
+            "It is visible to the general public, even if your "
+            "account is inactive." | tr }}</em>
+        </p>
+
+        {% if request.user.has_credential("CRED_ACCOUNT_CHANGE_TYPE") %}
+		<p>
+            <label for="id_type">
+                {% trans %}Account Type{% endtrans %}:
+            </label>
+            <select name="T" id="id_type">
+                {% for value, type in account_types %}
+                    <option value="{{ value }}"
+                            {% if account_type == type %}
+                            selected="selected"
+                            {% endif %}
+                    >
+                        {{ type | tr }}
+                    </option>
+                {% endfor %}
+
+			</select>
+		</p>
+
+		<p>
+            <label for="id_suspended">
+                {% trans %}Account Suspended{% endtrans %}:
+            </label>
+
+            <input id="suspended" type="checkbox" name="S"
+                   {% if suspended %}
+                   checked="checked"
+                   {% endif %}
+            >
+		</p>
+        {% endif %}
+
+        <!-- Email -->
+        <p>
+            <label for="id_email">
+                {% trans %}Email Address{% endtrans %}:
+            </label>
+
+            <input id="id_email" type="text"
+                   size="30" maxlength="254" name="E" value="{{ email }}">
+            ({% trans %}required{% endtrans %})
+        </p>
+        <p>
+            <em>{{ "Please ensure you correctly entered your email "
+            "address, otherwise you will be locked out." | tr }}</em>
+        </p>
+
+        <!-- Hide Email -->
+        <p>
+            <label for="id_hide">
+                {% trans %}Hide Email Address{% endtrans %}:
+            </label>
+
+            <input id="id_hide" type="checkbox" name="H" value="{{ H }}">
+        </p>
+        <p>
+            <em>{{ "If you do not hide your email address, it is "
+            "visible to all registered AUR users. If you hide your "
+            "email address, it is visible to members of the Arch "
+            "Linux staff only." | tr }}</em>
+        </p>
+
+        <!-- Backup Email -->
+        <p>
+            <label for="id_backup_email">
+                {% trans %}Backup Email Address{% endtrans %}:
+            </label>
+
+            <input id="id_backup_email" type="text" size="30"
+                   maxlength="254" name="BE" value="{{ backup }}">
+        </p>
+        <p>
+            <em>
+            {{ "Optionally provide a secondary email address that "
+            "can be used to restore your account in case you lose "
+            "access to your primary email address." | tr }}
+            {{ "Password reset links are always sent to both your "
+            "primary and your backup email address." | tr }}
+            {{ "Your backup email address is always only visible to "
+            "members of the Arch Linux staff, independent of the %s "
+            "setting." | tr
+            | format("<em>%s</em>" | format("Hide Email Address" | tr))
+            | safe }}
+            </em>
+        </p>
+
+        <!-- Real Name -->
+        <p>
+            <label for="id_realname">
+                {% trans %}Real Name{% endtrans %}:
+            </label>
+
+            <input id="id_realname" type="text" size="30"
+                   maxlength="32" name="R" value="{{ realname }}">
+        </p>
+
+        <!-- Homepage -->
+        <p>
+            <label for="id_homepage">
+                {% trans %}Homepage{% endtrans %}:
+            </label>
+
+            <input id="id_homepage" type="text" size="30" name="HP"
+                   value="{{ homepage }}">
+        </p>
+
+        <!-- IRC Nick -->
+        <p>
+            <label for="id_irc">
+                {% trans %}IRC Nick{% endtrans %}:
+            </label>
+
+            <input id="id_irc" type="text" size="30"
+                   maxlength="32" name="I" value="{{ ircnick }}">
+        </p>
+
+        <!-- PGP Key Fingerprint -->
+        <p>
+            <label for="id_pgp">
+                {% trans %}PGP Key Fingerprint{% endtrans %}:
+            </label>
+
+            <input id="id_pgp" type="text" size="30"
+                   maxlength="50" name="K" value="{{ pgp }}">
+        </p>
+
+        <!-- Homepage -->
+        <p>
+            <label for="id_language">
+                {% trans %}Language{% endtrans %}:
+            </label>
+
+            <select id="id_language" name="L">
+                {% for domain, display in languages.items() %}
+                    <option
+                        value="{{ domain }}"
+                        {% if lang == domain %}
+                        selected="selected"
+                        {% endif %}
+                    >
+                        {{ display }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <!-- Homepage -->
+        <p>
+            <label for="id_timezone">
+                {% trans %}Timezone{% endtrans %}
+            </label>
+
+            <select id="id_timezone" name="TZ">
+                {% for current, offset in timezones.items() %}
+                    <option value="{{ current }}"
+                        {% if current == tz  %}
+                            selected="selected"
+                        {% endif %}
+                    >{{ offset }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+    </fieldset>
+
+    {% if form_type == "UpdateAccount" %}
+        <fieldset>
+            <legend>
+                {{
+                "If you want to change the password, enter a new password "
+                "and confirm the new password by entering it again." | tr
+                }}
+            </legend>
+            <p>
+                <label for="id_passwd1">
+                    {% trans %}Password{% endtrans %}:
+                </label>
+                <input id="id_passwd1" type="password"
+                       size="30" name="P" value="{{ P or '' }}">
+            </p>
+
+            <p>
+                <label for="id_passwd2">
+                    {% trans %}Re-type password{% endtrans %}:
+                </label>
+
+                <input id="id_passwd2" type="password"
+                       size="30" name="C" value="{{ C or '' }}">
+            </p>
+        </fieldset>
+    {% endif %}
+
+    <fieldset>
+        <legend>
+            {{
+            "The following information is only required if you "
+            "want to submit packages to the Arch User Repository." | tr
+            }}
+        </legend>
+        <p>
+            <label for="id_ssh">
+                {% trans %}SSH Public Key{% endtrans %}:
+            </label>
+
+            <!-- Only set PK auto-fill when we've got a NewAccount form. -->
+            <textarea id="id_ssh" name="PK"
+                      rows="5" cols="30">{{ ssh_pk }}</textarea>
+        </p>
+    </fieldset>
+
+    <fieldset>
+        <legend>{% trans%}Notification settings{% endtrans %}:</legend>
+        <p>
+            <label for="id_commentnotify">
+                {% trans %}Notify of new comments{% endtrans %}:
+            </label>
+
+            <input id="id_commentnotify" type="checkbox" name="CN"
+                 {% if cn %}
+                     checked="checked"
+                 {% endif %}
+            >
+        </p>
+        <p>
+            <label for="id_updatenotify">
+                {% trans %}Notify of package updates{% endtrans %}:
+            </label>
+
+            <input id="id_updatenotify" type="checkbox" name="UN"
+                {% if un %}
+                    checked="checked"
+                {% endif %}
+            >
+        </p>
+        <p>
+            <label for="id_ownershipnotify">
+                {% trans %}Notify of ownership updates{% endtrans %}:
+            </label>
+
+            <input id="id_ownershipnotify" type="checkbox" name="ON"
+                {% if on %}
+                    checked="checked"
+                {% endif %}
+            >
+        </p>
+    </fieldset>
+
+    <fieldset>
+        {% if form_type == "UpdateAccount" %}
+            <legend>
+                {{ "To confirm the profile changes, please enter "
+                "your current password:" | tr }}
+            </legend>
+            <p>
+                <label for="id_passwd_current">
+                    {% trans %}Your current password{% endtrans %}:
+                </label>
+                <input id="id_passwd_current" type="password"
+                       size="30" name="passwd" id="id_passwd_current">
+            </p>
+        {% else %}
+            <!-- Otherwise, form_type is assumed that it's NewAccount. -->
+            <legend>
+                {{ "To protect the AUR against automated account creation, "
+                "we kindly ask you to provide the output of the following "
+                "command:" | tr }}
+                <code>
+                    {{ captcha_salt | captcha_cmdline }}
+                </code>
+            </legend>
+            <p>
+                <label for="id_captcha">
+                    {% trans %}Answer{% endtrans %}:
+                </label>
+                <input id="id_captcha"
+                       type="text" size="30" maxlength="6" name="captcha">
+                ({% trans %}required{% endtrans %})
+
+                <input type="hidden" name="captcha_salt"
+                       value="{{ captcha_salt }}">
+            </p>
+        {% endif %}
+    </fieldset>
+
+    <fieldset>
+        <p>
+        <label></label>
+            {% if form_type == "UpdateAccount" %}
+                <input class="button" type="submit"
+                                      value="{{ 'Update' | tr }}"> &nbsp;
+            {% else %}
+                <input class="button" type="submit"
+                                      value="{{ 'Create' | tr }}"> &nbsp;
+            {% endif %}
+            <input class="button" type="reset"
+                                  value="{{ 'Reset' | tr }}">
+        </p>
+    </fieldset>
+</form>

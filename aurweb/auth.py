@@ -7,12 +7,22 @@ from fastapi.responses import RedirectResponse
 from starlette.authentication import AuthCredentials, AuthenticationBackend, AuthenticationError
 from starlette.requests import HTTPConnection
 
+import aurweb.config
+
 from aurweb.models.session import Session
 from aurweb.models.user import User
 from aurweb.templates import make_context, render_template
 
 
 class AnonymousUser:
+    # Stub attributes used to mimic a real user.
+    ID = 0
+    LangPreference = aurweb.config.get("options", "default_lang")
+    Timezone = aurweb.config.get("options", "default_timezone")
+
+    # A stub ssh_pub_key relationship.
+    ssh_pub_key = None
+
     @staticmethod
     def is_authenticated():
         return False
