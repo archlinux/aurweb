@@ -82,6 +82,12 @@ def valid_ssh_pubkey(pk):
     return base64.b64encode(base64.b64decode(tokens[1])).decode() == tokens[1]
 
 
+def migrate_cookies(request, response):
+    for k, v in request.cookies.items():
+        response.set_cookie(k, v)
+    return response
+
+
 @jinja2.contextfilter
 def account_url(context, user):
     request = context.get("request")

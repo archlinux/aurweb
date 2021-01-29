@@ -5,6 +5,7 @@ from datetime import datetime
 from http import HTTPStatus
 from subprocess import Popen
 
+import lxml.html
 import pytest
 
 from fastapi.testclient import TestClient
@@ -574,3 +575,298 @@ def test_post_register_with_ssh_pubkey():
         response = post_register(request, PK=pk)
 
     assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_get_account_edit():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    with client as request:
+        response = request.get("/account/test/edit", cookies={
+            "AURSID": sid
+        }, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_get_account_edit_unauthorized():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    create(User, Username="test2", Email="test2@example.org",
+           Passwd="testPassword")
+
+    with client as request:
+        # Try to edit `test2` while authenticated as `test`.
+        response = request.get("/account/test2/edit", cookies={
+            "AURSID": sid
+        }, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+
+def test_post_account_edit():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test666@example.org",
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    expected = "The account, <strong>test</strong>, "
+    expected += "has been successfully modified."
+    assert expected in response.content.decode()
+
+
+def test_post_account_edit_dev():
+    from aurweb.db import session
+
+    # Modify our user to be a "Trusted User & Developer"
+    name = "Trusted User & Developer"
+    tu_or_dev = query(AccountType, AccountType.AccountType == name).first()
+    user.AccountType = tu_or_dev
+    session.commit()
+
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test666@example.org",
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    expected = "The account, <strong>test</strong>, "
+    expected += "has been successfully modified."
+    assert expected in response.content.decode()
+
+
+def test_post_account_edit_language():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "L": "de",  # German
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Parse the response content html into an lxml root, then make
+    # sure we see a 'de' option selected on the page.
+    content = response.content.decode()
+    root = lxml.html.fromstring(content)
+    lang_nodes = root.xpath('//option[@value="de"]/@selected')
+    assert lang_nodes and len(lang_nodes) != 0
+    assert lang_nodes[0] == "selected"
+
+
+def test_post_account_edit_timezone():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "TZ": "CET",
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_post_account_edit_error_missing_password():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "TZ": "CET",
+        "passwd": ""
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    assert "Invalid password." in content
+
+
+def test_post_account_edit_error_invalid_password():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "TZ": "CET",
+        "passwd": "invalid"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    content = response.content.decode()
+    assert "Invalid password." in content
+
+
+def test_post_account_edit_error_unauthorized():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    test2 = create(User, Username="test2", Email="test2@example.org",
+                   Passwd="testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "TZ": "CET",
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        # Attempt to edit 'test2' while logged in as 'test'.
+        response = request.post("/account/test2/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+
+def test_post_account_edit_ssh_pub_key():
+    pk = str()
+
+    # Create a public key with ssh-keygen (this adds ssh-keygen as a
+    # dependency to passing this test).
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with open("/dev/null", "w") as null:
+            proc = Popen(["ssh-keygen", "-f", f"{tmpdir}/test.ssh", "-N", ""],
+                         stdout=null, stderr=null)
+            proc.wait()
+        assert proc.returncode == 0
+
+        # Read in the public key, then delete the temp dir we made.
+        pk = open(f"{tmpdir}/test.ssh.pub").read().rstrip()
+
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "PK": pk,
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Now let's update what's already there to gain coverage over that path.
+    pk = str()
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with open("/dev/null", "w") as null:
+            proc = Popen(["ssh-keygen", "-f", f"{tmpdir}/test.ssh", "-N", ""],
+                         stdout=null, stderr=null)
+            proc.wait()
+        assert proc.returncode == 0
+
+        # Read in the public key, then delete the temp dir we made.
+        pk = open(f"{tmpdir}/test.ssh.pub").read().rstrip()
+
+    post_data["PK"] = pk
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_post_account_edit_invalid_ssh_pubkey():
+    pubkey = "ssh-rsa fake key"
+
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "P": "newPassword",
+        "C": "newPassword",
+        "PK": pubkey,
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+
+def test_post_account_edit_password():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "P": "newPassword",
+        "C": "newPassword",
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    assert user.valid_password("newPassword")
+
+
+>>>>>> > dddd1137... add account edit(settings) routes

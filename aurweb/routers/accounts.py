@@ -1,5 +1,6 @@
 import copy
 
+from datetime import datetime
 from http import HTTPStatus
 
 from fastapi import APIRouter, Form, Request
@@ -284,6 +285,7 @@ def make_account_form_context(context: dict,
         context["cn"] = args.get("CN", user.CommentNotify)
         context["un"] = args.get("UN", user.UpdateNotify)
         context["on"] = args.get("ON", user.OwnershipNotify)
+        context["inactive"] = args.get("J", user.InactivityTS != 0)
     else:
         context["username"] = args.get("U", str())
         context["account_type"] = args.get("T", user_account_type_id)
@@ -301,6 +303,7 @@ def make_account_form_context(context: dict,
         context["cn"] = args.get("CN", True)
         context["un"] = args.get("UN", False)
         context["on"] = args.get("ON", True)
+        context["inactive"] = args.get("J", False)
 
     context["password"] = args.get("P", str())
     context["confirm"] = args.get("C", str())
@@ -409,3 +412,145 @@ async def account_register_post(request: Request,
     context["complete"] = True
     context["user"] = user
     return render_template(request, "register.html", context)
+
+
+def cannot_edit(request, user):
+    """ Return a 401 HTMLResponse if the request user doesn't
+    have authorization, otherwise None. """
+    has_dev_cred = request.user.has_credential("CRED_ACCOUNT_EDIT_DEV",
+                                               approved=[user])
+    if not has_dev_cred:
+        return HTMLResponse(status_code=int(HTTPStatus.UNAUTHORIZED))
+    return None
+
+
+@router.get("/account/{username}/edit", response_class=HTMLResponse)
+@auth_required(True)
+async def account_edit(request: Request,
+                       username: str):
+    user = db.query(User, User.Username == username).first()
+    response = cannot_edit(request, user)
+    if response:
+        return response
+
+    context = await make_variable_context(request, "Accounts")
+    context["user"] = user
+
+    context = make_account_form_context(context, request, user, dict())
+    return render_template(request, "account/edit.html", context)
+
+
+@router.post("/account/{username}/edit", response_class=HTMLResponse)
+@auth_required(True)
+async def account_edit_post(request: Request,
+                            username: str,
+                            U: str = Form(default=str()),  # Username
+                            J: bool = Form(default=False),
+                            E: str = Form(default=str()),  # Email
+                            H: str = Form(default=False),    # Hide Email
+                            BE: str = Form(default=None),    # Backup Email
+                            R: str = Form(default=None),     # Real Name
+                            HP: str = Form(default=None),    # Homepage
+                            I: str = Form(default=None),     # IRC Nick
+                            K: str = Form(default=None),     # PGP Key
+                            L: str = Form(aurweb.config.get(
+                                "options", "default_lang")),
+                            TZ: str = Form(aurweb.config.get(
+                                "options", "default_timezone")),
+                            P: str = Form(default=str()),    # New Password
+                            C: str = Form(default=None),     # Password Confirm
+                            PK: str = Form(default=None),    # PubKey
+                            CN: bool = Form(default=False),  # Comment Notify
+                            UN: bool = Form(default=False),  # Update Notify
+                            ON: bool = Form(default=False),  # Owner Notify
+                            passwd: str = Form(default=str())):
+    from aurweb.db import session
+
+    user = session.query(User).filter(User.Username == username).first()
+    response = cannot_edit(request, user)
+    if response:
+        return response
+
+    context = await make_variable_context(request, "Accounts")
+    context["user"] = user
+
+    if not passwd:
+        context["errors"] = ["Invalid password."]
+        return render_template(request, "account/edit.html", context,
+                               status_code=int(HTTPStatus.BAD_REQUEST))
+
+    args = dict(await request.form())
+    context = make_account_form_context(context, request, user, args)
+    ok, errors = process_account_form(request, user, args)
+
+    if not ok:
+        context["errors"] = errors
+        return render_template(request, "account/edit.html", context,
+                               status_code=int(HTTPStatus.BAD_REQUEST))
+
+    # Set all updated fields as needed.
+    user.Username = U or user.Username
+    user.Email = E or user.Email
+    user.HideEmail = bool(H)
+    user.BackupEmail = BE or user.BackupEmail
+    user.RealName = R or user.RealName
+    user.Homepage = HP or user.Homepage
+    user.IRCNick = I or user.IRCNick
+    user.PGPKey = K or user.PGPKey
+    user.InactivityTS = datetime.utcnow().timestamp() if J else 0
+
+    # If we update the language, update the cookie as well.
+    if L and L != user.LangPreference:
+        request.cookies["AURLANG"] = L
+        user.LangPreference = L
+        context["language"] = L
+
+    # If we update the timezone, also update the cookie.
+    if TZ and TZ != user.Timezone:
+        user.Timezone = TZ
+        request.cookies["AURTZ"] = TZ
+        context["timezone"] = TZ
+
+    user.CommentNotify = bool(CN)
+    user.UpdateNotify = bool(UN)
+    user.OwnershipNotify = bool(ON)
+
+    # If a PK is given, compare it against the target user's PK.
+    if PK:
+        # Get the second token in the public key, which is the actual key.
+        pubkey = PK.strip().rstrip()
+        fingerprint = get_fingerprint(pubkey)
+        if not user.ssh_pub_key:
+            # No public key exists, create one.
+            user.ssh_pub_key = SSHPubKey(UserID=user.ID,
+                                         PubKey=PK,
+                                         Fingerprint=fingerprint)
+        elif user.ssh_pub_key.Fingerprint != fingerprint:
+            # A public key already exists, update it.
+            user.ssh_pub_key.PubKey = PK
+            user.ssh_pub_key.Fingerprint = fingerprint
+    elif user.ssh_pub_key:
+        # Else, if the user has a public key already, delete it.
+        session.delete(user.ssh_pub_key)
+
+    # Commit changes, if any.
+    session.commit()
+
+    if P and not user.valid_password(P):
+        # Remove the fields we consumed for passwords.
+        context["P"] = context["C"] = str()
+
+        # If a password was given and it doesn't match the user's, update it.
+        user.update_password(P)
+        if user == request.user:
+            # If the target user is the request user, login with
+            # the updated password and update AURSID.
+            request.cookies["AURSID"] = user.login(request, P)
+
+    if not errors:
+        context["complete"] = True
+
+    # Update cookies with requests, in case they were changed.
+    response = render_template(request, "account/edit.html", context)
+    return util.migrate_cookies(request, response)
+>>>>>> > dddd1137... add account edit(settings) routes

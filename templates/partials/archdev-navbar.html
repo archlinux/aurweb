@@ -6,16 +6,28 @@
             <li><a href="/">AUR {% trans %}Home{% endtrans %}</a></li>
         {% endif %}
         <li><a href="/packages/">{% trans %}Packages{% endtrans %}</a></li>
-        <li><a href="/register/">{% trans %}Register{% endtrans %}</a></li>
-        <li>
-            {% if request.user.is_authenticated() %}
+        {% if request.user.is_authenticated() %}
+            <li>
+                <a href="/account/{{ request.user.Username }}/edit">
+                    {% trans %} My Account{% endtrans %}
+                </a>
+            </li>
+            <li>
                 <a href="/logout/?next={{ next }}">
                     {% trans %}Logout{% endtrans %}
                 </a>
-            {% else %}
+            </li>
+        {% else %}
+            <li>
+                <a href="/register">
+                    {% trans %}Register{% endtrans %}
+                </a>
+            </li>
+            <li>
                 <a href="/login/?next={{ next }}">
                     {% trans %}Login{% endtrans %}
                 </a>
+            </li>
             {% endif %}
         </li>
     </ul>
