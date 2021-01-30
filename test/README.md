@@ -28,6 +28,7 @@ For all the test to run, the following Arch packages should be installed:
 - python-pytest-cov
 - python-pytest-asyncio
 - postfix
+- openssh
 
 Running tests
 -------------
