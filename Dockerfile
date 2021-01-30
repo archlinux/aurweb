@@ -10,7 +10,7 @@ RUN pacman -Syu --noconfirm base-devel git gpgme protobuf pyalpm \
     python-itsdangerous python-httpx python-jinja python-pytest-cov \
     python-requests python-aiofiles python-python-multipart \
     python-pytest-asyncio python-coverage hypercorn python-bcrypt \
-    python-email-validator openssh
+    python-email-validator openssh python-lxml
 
 # Remove aurweb.sqlite3 if it was copied over via COPY.
 RUN rm -fv aurweb.sqlite3
