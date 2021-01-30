@@ -3,7 +3,7 @@ import copy
 from datetime import datetime
 from http import HTTPStatus
 
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy import and_, func, or_
 
@@ -553,4 +553,18 @@ async def account_edit_post(request: Request,
     # Update cookies with requests, in case they were changed.
     response = render_template(request, "account/edit.html", context)
     return util.migrate_cookies(request, response)
->>>>>> > dddd1137... add account edit(settings) routes
+
+
+@router.get("/account/{username}")
+@auth_required(True, template=("account/show.html", "Accounts"))
+async def account(request: Request, username: str):
+    user = db.query(User, User.Username == username).first()
+
+    context = await make_variable_context(request, "Accounts")
+
+    if not user:
+        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+
+    context["user"] = user
+
+    return render_template(request, "account/show.html", context)

@@ -869,4 +869,33 @@ def test_post_account_edit_password():
     assert user.valid_password("newPassword")
 
 
->>>>>> > dddd1137... add account edit(settings) routes
+def test_get_account():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    with client as request:
+        response = request.get("/account/test", cookies={"AURSID": sid},
+                               allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_get_account_not_found():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    with client as request:
+        response = request.get("/account/not_found", cookies={"AURSID": sid},
+                               allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_get_account_unauthenticated():
+    with client as request:
+        response = request.get("/account/test", allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+    content = response.content.decode()
+    assert "You must log in to view user information." in content

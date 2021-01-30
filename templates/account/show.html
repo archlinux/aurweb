@@ -1,0 +1,96 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{% trans %}Accounts{% endtrans %}</h2>
+
+        {% if not request.user.is_authenticated() %}
+            {% trans %}You must log in to view user information.{% endtrans %}
+        {% else %}
+            <table class="arch-bio-entry">
+                <tbody>
+                    <tr>
+                        <td>
+                            <h3>{{ user.Username }}</h3>
+                            <table class="bio">
+                                <tbody>
+                                    <tr>
+                                        <th>{% trans %}Username{% endtrans %}:</th>
+                                        <td>{{ user.Username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}Account Type{% endtrans %}:</th>
+                                        <td>{{ user.AccountType }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}Email Address{% endtrans %}:</th>
+                                        <td>
+                                            <a href="mailto:{{ user.Email }}">{{ user.Email }}</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}Real Name{% endtrans %}:</th>
+                                        <td>{{ user.RealName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}Homepage{% endtrans %}:</th>
+                                        <td>
+                                            {% if user.Homepage %}
+                                                <a href="{{ user.Homepage }}" rel="nofollow">{{ user.Homepage }}</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}IRC Nick{% endtrans %}:</th>
+                                        <td>{{ user.IRCNick }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}PGP Key Fingerprint{% endtrans %}:</th>
+                                        <td>{{ user.PGPKey or '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}Status{% endtrans %}:</th>
+                                        <td>{{ "Active" if not user.Suspended else "Suspended" | tr }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}Registration date{% endtrans %}:</th>
+                                        <td>
+                                            {{ user.RegistrationTS.strftime("%Y-%m-%d") }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans %}Links{% endtrans %}:</th>
+                                        <td>
+                                            <ul>
+                                                <li>
+                                                    {{ "%sView this user's packages%s"
+                                                    | tr
+                                                    | format('<a href="/packages/?K=%s&SeB=m">' | format(user.Username), "</a>")
+                                                    | safe
+                                                    }}
+                                                </li>
+                                                <li>
+                                                    {{ "%sEdit this user's account%s"
+                                                    | tr
+                                                    | format('<a href="%s/edit">' | format(user | account_url), "</a>")
+                                                    | safe
+                                                    }}
+                                                </li>
+                                                <li>
+                                                    {{ "%sList this user's comments%s"
+                                                    | tr
+                                                    | format('<a href="%s/comments">' | format(user | account_url), "</a>")
+                                                    | safe
+                                                    }}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
