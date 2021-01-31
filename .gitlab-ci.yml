@@ -14,7 +14,7 @@ before_script:
            python-pytest-tap python-fastapi hypercorn nginx python-authlib
            python-itsdangerous python-httpx python-jinja python-pytest-cov
            python-requests python-aiofiles python-python-multipart
-           python-pytest-asyncio python-coverage
+           python-pytest-asyncio python-coverage python-bcrypt
 
 test:
   script:
