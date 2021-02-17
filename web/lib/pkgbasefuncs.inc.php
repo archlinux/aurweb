@@ -21,7 +21,7 @@ function pkgbase_comments_count($base_id, $include_deleted, $only_pinned=false) 
 	$q = "SELECT COUNT(*) FROM PackageComments ";
 	$q.= "WHERE PackageBaseID = " . $base_id . " ";
 	if (!$include_deleted) {
-		$q.= "AND DelTS IS NULL";
+		$q.= "AND DelTS IS NULL ";
 	}
 	if ($only_pinned) {
 		$q.= "AND NOT PinnedTS = 0";
