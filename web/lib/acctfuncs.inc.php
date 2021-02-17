@@ -597,7 +597,9 @@ function try_login() {
 	/* Generate a session ID and store it. */
 	while (!$logged_in && $num_tries < 5) {
 		$session_limit = config_get_int('options', 'max_sessions_per_user');
-		if ($session_limit) {
+		# FIXME: this does not work for sqlite (JOIN in a DELETE clause)
+		# hence non-prod instances can have a naughty amount of simultaneous logins
+		if ($backend == "mysql" && $session_limit) {
 			/*
 			 * Delete all user sessions except the
 			 * last ($session_limit - 1).
