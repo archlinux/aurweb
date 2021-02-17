@@ -597,21 +597,17 @@ function try_login() {
 	/* Generate a session ID and store it. */
 	while (!$logged_in && $num_tries < 5) {
 		$session_limit = config_get_int('options', 'max_sessions_per_user');
-		# FIXME: this does not work for sqlite (JOIN in a DELETE clause)
-		# hence non-prod instances can have a naughty amount of simultaneous logins
-		if ($backend == "mysql" && $session_limit) {
+		if ($session_limit) {
 			/*
 			 * Delete all user sessions except the
 			 * last ($session_limit - 1).
 			 */
-			$q = "DELETE s.* FROM Sessions s ";
-			$q.= "LEFT JOIN (SELECT SessionID FROM Sessions ";
+			$q = "DELETE FROM Sessions ";
 			$q.= "WHERE UsersId = " . $userID . " ";
+			$q.= "AND SessionID NOT IN (SELECT SessionID FROM Sessions ";
+			$q.= "WHERE UsersID = " . $userID . " ";
 			$q.= "ORDER BY LastUpdateTS DESC ";
-			$q.= "LIMIT " . ($session_limit - 1) . ") q ";
-			$q.= "ON s.SessionID = q.SessionID ";
-			$q.= "WHERE s.UsersId = " . $userID . " ";
-			$q.= "AND q.SessionID IS NULL;";
+			$q.= "LIMIT " . ($session_limit - 1) . ")";
 			$dbh->query($q);
 		}
 
