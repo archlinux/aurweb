@@ -303,7 +303,11 @@ def main():  # noqa: C901
                                      error['line'], err))
             exit(1)
 
-        metadata_pkgbase = metadata['pkgbase']
+        try:
+            metadata_pkgbase = metadata['pkgbase']
+        except KeyError as e:
+            die_commit('invalid .SRCINFO, does not contain a pkgbase (is the file empty?)',
+                    str(commit.id))
         if not re.match(repo_regex, metadata_pkgbase):
             die_commit('invalid pkgbase: {:s}'.format(metadata_pkgbase),
                        str(commit.id))
