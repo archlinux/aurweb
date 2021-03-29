@@ -1,18 +1,14 @@
 import math
 
-try:
-    import mysql.connector
-except ImportError:
-    pass
-
-try:
-    import sqlite3
-except ImportError:
-    pass
-
 import aurweb.config
 
 engine = None  # See get_engine
+
+# ORM Session class.
+Session = None
+
+# Global ORM Session object.
+session = None
 
 
 def get_sqlalchemy_url():
@@ -49,14 +45,15 @@ def get_engine():
     `engine` global variable for the next calls.
     """
     from sqlalchemy import create_engine
-    global engine
+    from sqlalchemy.orm import sessionmaker
+
+    global engine, session, Session
+
     if engine is None:
-        connect_args = dict()
-        if aurweb.config.get("database", "backend") == "sqlite":
-            # check_same_thread is for a SQLite technicality
-            # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
-            connect_args["check_same_thread"] = False
-        engine = create_engine(get_sqlalchemy_url(), connect_args=connect_args)
+        engine = create_engine(get_sqlalchemy_url(),
+                               # check_same_thread is for a SQLite technicality
+                               # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
+                               connect_args={"check_same_thread": False})
         Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
         session = Session()
 
@@ -82,6 +79,7 @@ class Connection:
         aur_db_backend = aurweb.config.get('database', 'backend')
 
         if aur_db_backend == 'mysql':
+            import mysql.connector
             aur_db_host = aurweb.config.get('database', 'host')
             aur_db_name = aurweb.config.get('database', 'name')
             aur_db_user = aurweb.config.get('database', 'user')
@@ -95,6 +93,7 @@ class Connection:
                                                  buffered=True)
             self._paramstyle = mysql.connector.paramstyle
         elif aur_db_backend == 'sqlite':
+            import sqlite3
             aur_db_name = aurweb.config.get('database', 'name')
             self._conn = sqlite3.connect(aur_db_name)
             self._conn.create_function("POWER", 2, math.pow)

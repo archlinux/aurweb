@@ -25,6 +25,13 @@ def _get_parser():
     return _parser
 
 
+def rehash():
+    """ Globally rehash the configuration parser. """
+    global _parser
+    _parser = None
+    _get_parser()
+
+
 def get(section, option):
     return _get_parser().get(section, option)
 
