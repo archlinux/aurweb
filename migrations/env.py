@@ -11,10 +11,6 @@ import aurweb.schema
 # access to the values within the .ini file in use.
 config = context.config
 
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
-logging.config.fileConfig(config.config_file_name)
-
 # model MetaData for autogenerating migrations
 target_metadata = aurweb.schema.metadata
 
@@ -68,7 +64,12 @@ def run_migrations_online():
             context.run_migrations()
 
 
-if context.is_offline_mode():
-    run_migrations_offline()
-else:
-    run_migrations_online()
+if __name__ == "__main__":
+    # Interpret the config file for Python logging.
+    # This line sets up loggers basically.
+    logging.config.fileConfig(config.config_file_name)
+
+    if context.is_offline_mode():
+        run_migrations_offline()
+    else:
+        run_migrations_online()
