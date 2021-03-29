@@ -940,7 +940,7 @@ function user_delete($id) {
 	$fields_delete = array(
 		array("Sessions", "UsersID"),
 		array("PackageVotes", "UsersID"),
-		array("PackageNotifications", "UsersID")
+		array("PackageNotifications", "UserID")
 	);
 
 	$fields_set_null = array(
