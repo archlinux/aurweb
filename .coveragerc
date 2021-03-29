@@ -3,5 +3,6 @@ disable_warnings = already-imported
 
 [report]
 include = aurweb/*
+fail_under = 85
 exclude_lines =
     if __name__ == .__main__.:

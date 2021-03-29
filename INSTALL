@@ -49,7 +49,9 @@ read the instructions below.
 
     # pacman -S python-mysql-connector python-pygit2 python-srcinfo python-sqlalchemy \
                 python-bleach python-markdown python-alembic hypercorn \
-                python-itsdangerous python-authlib python-httpx
+                python-itsdangerous python-authlib python-httpx \
+                python-jinja python-aiofiles python-python-multipart \
+                python-requests
     # python3 setup.py install
 
 5) Create a new MySQL database and a user and import the aurweb SQL schema:

@@ -16,6 +16,7 @@ name = YOUR_AUR_ROOT/aurweb.sqlite3
 ;password = aur
 
 [options]
+aurwebdir = YOUR_AUR_ROOT
 aur_location = http://127.0.0.1:8080
 disable_http_login = 0
 enable-maintenance = 0

@@ -1,6 +1,11 @@
 import configparser
 import os
 
+# Publicly visible version of aurweb. This is used to display
+# aurweb versioning in the footer and must be maintained.
+# Todo: Make this dynamic/automated.
+AURWEB_VERSION = "v5.0.0"
+
 _parser = None
 
 

@@ -1,0 +1,30 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-typeahead.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#pkgsearch-field').typeahead({
+            source: function(query, callback) {
+                $.getJSON('/rpc', {type: "suggest", arg: query}, function(data) {
+                        callback(data);
+                    });
+                },
+                matcher: function(item) { return true; },
+                sorter: function(items) { return items; },
+                menu: '<ul class="pkgsearch-typeahead"></ul>',
+                items: 20,
+                updater: function(item) {
+                document.location = '/packages/' + item;
+                return item;
+            }
+        }).attr('autocomplete', 'off');
+
+        $('#pkgsearch-field').keydown(function(e) {
+            if (e.keyCode == 13) {
+                var selectedItem = $('ul.pkgsearch-typeahead li.active');
+                if (selectedItem.length == 0) {
+                        $('#pkgsearch-form').submit();
+                }
+            }
+        });
+    });
+</script>
