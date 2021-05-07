@@ -96,7 +96,7 @@ if (!$result): ?>
 		<a href="<?= get_uri('/packages/'); ?>?K=<?= htmlspecialchars($row['Maintainer'], ENT_QUOTES) ?>&amp;SeB=m"><?= htmlspecialchars($row['Maintainer']) ?></a>
 		<?php endif; ?>
 		<?php else: ?>
-		<span><?= __("orphan") ?></span>
+		<span class="error"><?= __("orphan") ?></span>
 		<?php endif; ?>
 		</td>
 	</tr>
