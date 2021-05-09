@@ -22,7 +22,7 @@ you may customize [options] aur_location and [sso] openid_configuration in
 
 You may then start `keycloak.service` through systemd.
 
-See also ArchWiki <https://wiki.archlinux.org/index.php/Keycloak>.
+See also ArchWiki <https://wiki.archlinux.org/title/Keycloak>.
 
 Configuring a realm
 -------------------

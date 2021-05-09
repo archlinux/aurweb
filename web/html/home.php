@@ -74,9 +74,9 @@ if (isset($_COOKIE["AURSID"])) {
 			<?php
 			echo __(
 				'Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU Guidelines%s for more information.',
-				'<a href="https://wiki.archlinux.org/index.php/AUR_User_Guidelines">',
+				'<a href="https://wiki.archlinux.org/title/AUR_User_Guidelines">',
 				'</a>',
-				'<a href="https://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">',
+				'<a href="https://wiki.archlinux.org/title/AUR_Trusted_User_Guidelines">',
 				'</a>'
 				);
 			?>
@@ -84,7 +84,7 @@ if (isset($_COOKIE["AURSID"])) {
 			echo __(
 				'Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!',
 				'<strong>', '</strong>',
-				'<a href="https://wiki.archlinux.org/index.php/Arch_Packaging_Standards">',
+				'<a href="https://wiki.archlinux.org/title/Arch_Packaging_Standards">',
 				'</a>'
 				);
 			?>
@@ -95,7 +95,7 @@ if (isset($_COOKIE["AURSID"])) {
 			<?= __('DISCLAIMER') ?>:
 			<?= __('AUR packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</p>
-			<p class="readmore"><a href="https://wiki.archlinux.org/index.php/AUR"><?= __('Learn more...') ?></a></p>
+			<p class="readmore"><a href="https://wiki.archlinux.org/title/AUR"><?= __('Learn more...') ?></a></p>
 		</div>
 		<div id="news">
 			<h3><a><?= __('Support') ?></a><span class="arrow"></span></h3>
@@ -131,7 +131,7 @@ if (isset($_COOKIE["AURSID"])) {
 			<?php
 			echo __(
 				'Git over SSH is now used to submit packages to the AUR. See the %sSubmitting packages%s section of the Arch User Repository ArchWiki page for more details.',
-				'<a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#Submitting_packages">',
+				'<a href="https://wiki.archlinux.org/title/Arch_User_Repository#Submitting_packages">',
 				'</a>'
 				);
 			?>
