@@ -308,14 +308,10 @@ endif;
 </div>
 
 <script>
-$(document).ready(function() {
-	$('.copy').click(function(e) {
-		var tmp = $("<input>");
-		$("body").append(tmp);
-		tmp.val($(this).text()).select();
-		document.execCommand("copy");
-		tmp.remove();
+document.addEventListener('DOMContentLoaded', function() {
+	document.querySelector('.copy').addEventListener('click', function(e) {
 		e.preventDefault();
+		navigator.clipboard.writeText(event.target.text);
 	});
 });
 </script>
