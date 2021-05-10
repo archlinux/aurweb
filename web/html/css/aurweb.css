@@ -199,3 +199,8 @@ label.confirmation,
 .error {
 	color: red;
 }
+
+.article-content > div {
+	overflow: hidden;
+	transition: height 1s;
+}
