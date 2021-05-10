@@ -24,3 +24,7 @@ test:
     - AUR_CONFIG=conf/config python -m aurweb.initdb
     - make -C test
     - coverage report --include='aurweb/*'
+    - coverage xml --include='aurweb/*'
+  artifacts:
+    reports:
+      cobertura: coverage.xml
