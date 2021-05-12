@@ -8,7 +8,13 @@ async def not_found(request, exc):
     return render_template("errors/404.html", context)
 
 
+async def service_unavailable(request, exc):
+    _ = l10n.get_translator_for_request(request)
+    context = make_context(request, "503 - {_('Service Unavailable')}")
+    return render_template("errors/503.html", context)
+
 # Maps HTTP errors to functions
 exceptions = {
     404: not_found,
+    503: service_unavailable
 }

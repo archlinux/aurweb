@@ -8,12 +8,12 @@ from starlette.middleware.sessions import SessionMiddleware
 import aurweb.config
 
 from aurweb.db import get_engine
-from aurweb.routers import html, sso
+from aurweb.routers import html, sso, errors
 
 routes = set()
 
 # Setup the FastAPI app.
-app = FastAPI()
+app = FastAPI(exception_handlers=errors.exceptions)
 
 
 @app.on_event("startup")
