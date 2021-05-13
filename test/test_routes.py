@@ -67,3 +67,10 @@ def test_language_query_params():
         response = req.post("/language", data=post_data)
         assert response.headers.get("location") == f"/?{q}"
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+
+def test_error_messages():
+    response1 = client.get("/thisroutedoesnotexist")
+    response2 = client.get("/raisefivethree")
+    assert response1.status_code == int(HTTPStatus.NOT_FOUND)
+    assert response2.status_code == int(HTTPStatus.SERVICE_UNAVAILABLE)

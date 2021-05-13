@@ -1,8 +1,8 @@
 {% extends 'partials/layout.html' %}
 
 {% block pageContent %}
-  <div class="box 404">
+  <div id="error-page" class="box 404">
     <h2>404 - {% trans %}Page Not Found{% endtrans %}</h2>
     <p>{% trans %}Sorry, the page you've requested does not exist.{% endtrans %}</p>
   </div>
-  {% endblock %}
+{% endblock %}
