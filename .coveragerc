@@ -6,3 +6,4 @@ include = aurweb/*
 fail_under = 85
 exclude_lines =
     if __name__ == .__main__.:
+    pragma: no cover

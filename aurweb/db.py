@@ -16,9 +16,18 @@ def get_sqlalchemy_url():
     Build an SQLAlchemy for use with create_engine based on the aurweb configuration.
     """
     import sqlalchemy
+
+    constructor = sqlalchemy.engine.url.URL
+
+    parts = sqlalchemy.__version__.split('.')
+    major = int(parts[0])
+    minor = int(parts[1])
+    if major == 1 and minor >= 4:  # pragma: no cover
+        constructor = sqlalchemy.engine.url.URL.create
+
     aur_db_backend = aurweb.config.get('database', 'backend')
     if aur_db_backend == 'mysql':
-        return sqlalchemy.engine.url.URL(
+        return constructor(
             'mysql+mysqlconnector',
             username=aurweb.config.get('database', 'user'),
             password=aurweb.config.get('database', 'password'),
@@ -29,7 +38,7 @@ def get_sqlalchemy_url():
             },
         )
     elif aur_db_backend == 'sqlite':
-        return sqlalchemy.engine.url.URL(
+        return constructor(
             'sqlite',
             database=aurweb.config.get('database', 'name'),
         )
