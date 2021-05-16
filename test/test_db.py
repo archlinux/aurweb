@@ -57,10 +57,8 @@ def test_sqlalchemy_mysql_url():
 
 
 def make_temp_config(backend):
-    if not os.path.isdir("/tmp"):
-        os.mkdir("/tmp")
-    tmpdir = tempfile.mkdtemp()
-    tmp = os.path.join(tmpdir, "config.tmp")
+    tmpdir = tempfile.TemporaryDirectory()
+    tmp = os.path.join(tmpdir.name, "config.tmp")
     with open("conf/config") as f:
         config = re.sub(r'backend = sqlite', f'backend = {backend}', f.read())
         with open(tmp, "w") as o:
@@ -69,16 +67,14 @@ def make_temp_config(backend):
 
 
 def test_sqlalchemy_unknown_backend():
-    tmpdir, tmp = make_temp_config("blah")
+    tmpctx, tmp = make_temp_config("blah")
 
-    with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+    with tmpctx:
+        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+            aurweb.config.rehash()
+            with pytest.raises(ValueError):
+                db.get_sqlalchemy_url()
         aurweb.config.rehash()
-        with pytest.raises(ValueError):
-            db.get_sqlalchemy_url()
-    aurweb.config.rehash()
-
-    os.remove(tmp)
-    os.removedirs(tmpdir)
 
 
 def test_db_connects_without_fail():
@@ -97,32 +93,28 @@ def test_connection_class_without_fail():
 
 
 def test_connection_class_unsupported_backend():
-    tmpdir, tmp = make_temp_config("blah")
+    tmpctx, tmp = make_temp_config("blah")
 
-    with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+    with tmpctx:
+        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+            aurweb.config.rehash()
+            with pytest.raises(ValueError):
+                db.Connection()
         aurweb.config.rehash()
-        with pytest.raises(ValueError):
-            db.Connection()
-    aurweb.config.rehash()
-
-    os.remove(tmp)
-    os.removedirs(tmpdir)
 
 
 @mock.patch("mysql.connector.connect", mock.MagicMock(return_value=True))
 @mock.patch.object(mysql.connector, "paramstyle", "qmark")
 def test_connection_mysql():
-    tmpdir, tmp = make_temp_config("mysql")
-    with mock.patch.dict(os.environ, {
-        "AUR_CONFIG": tmp,
-        "AUR_CONFIG_DEFAULTS": "conf/config.defaults"
-    }):
+    tmpctx, tmp = make_temp_config("mysql")
+    with tmpctx:
+        with mock.patch.dict(os.environ, {
+            "AUR_CONFIG": tmp,
+            "AUR_CONFIG_DEFAULTS": "conf/config.defaults"
+        }):
+            aurweb.config.rehash()
+            db.Connection()
         aurweb.config.rehash()
-        db.Connection()
-    aurweb.config.rehash()
-
-    os.remove(tmp)
-    os.removedirs(tmpdir)
 
 
 @mock.patch("sqlite3.connect", mock.MagicMock(return_value=DBConnection()))
