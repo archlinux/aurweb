@@ -49,10 +49,15 @@ def get_engine():
     from sqlalchemy import create_engine
     global engine
     if engine is None:
-        engine = create_engine(get_sqlalchemy_url(),
-                               # check_same_thread is for a SQLite technicality
-                               # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
-                               connect_args={"check_same_thread": False})
+        connect_args = dict()
+        if aurweb.config.get("database", "backend") == "sqlite":
+            # check_same_thread is for a SQLite technicality
+            # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
+            connect_args["check_same_thread"] = False
+        engine = create_engine(get_sqlalchemy_url(), connect_args=connect_args)
+        Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+        session = Session()
+
     return engine
 
 
