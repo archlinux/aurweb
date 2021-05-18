@@ -56,18 +56,28 @@ def test_sqlalchemy_mysql_url():
     aurweb.config.rehash()
 
 
-def make_temp_config(backend):
+def test_sqlalchemy_mysql_port_url():
+    tmpctx, tmp = make_temp_config("conf/config.defaults", ";port = 3306", "port = 3306")
+
+    with tmpctx:
+        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+            aurweb.config.rehash()
+            assert db.get_sqlalchemy_url()
+        aurweb.config.rehash()
+
+
+def make_temp_config(config_file, src_str, replace_with):
     tmpdir = tempfile.TemporaryDirectory()
     tmp = os.path.join(tmpdir.name, "config.tmp")
-    with open("conf/config") as f:
-        config = re.sub(r'backend = sqlite', f'backend = {backend}', f.read())
+    with open(config_file) as f:
+        config = re.sub(src_str, f'{replace_with}', f.read())
         with open(tmp, "w") as o:
             o.write(config)
-    return (tmpdir, tmp)
+    return tmpdir, tmp
 
 
 def test_sqlalchemy_unknown_backend():
-    tmpctx, tmp = make_temp_config("blah")
+    tmpctx, tmp = make_temp_config("conf/config", "backend = sqlite", "backend = blah")
 
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -93,7 +103,7 @@ def test_connection_class_without_fail():
 
 
 def test_connection_class_unsupported_backend():
-    tmpctx, tmp = make_temp_config("blah")
+    tmpctx, tmp = make_temp_config("conf/config", "backend = sqlite", "backend = blah")
 
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -106,7 +116,7 @@ def test_connection_class_unsupported_backend():
 @mock.patch("mysql.connector.connect", mock.MagicMock(return_value=True))
 @mock.patch.object(mysql.connector, "paramstyle", "qmark")
 def test_connection_mysql():
-    tmpctx, tmp = make_temp_config("mysql")
+    tmpctx, tmp = make_temp_config("conf/config", "backend = sqlite", "backend = mysql")
     with tmpctx:
         with mock.patch.dict(os.environ, {
             "AUR_CONFIG": tmp,

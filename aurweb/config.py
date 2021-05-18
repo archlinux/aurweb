@@ -32,6 +32,10 @@ def rehash():
     _get_parser()
 
 
+def get_with_fallback(section, option, fallback):
+    return _get_parser().get(section, option, fallback=fallback)
+
+
 def get(section, option):
     return _get_parser().get(section, option)
 

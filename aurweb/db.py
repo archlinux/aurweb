@@ -27,15 +27,20 @@ def get_sqlalchemy_url():
 
     aur_db_backend = aurweb.config.get('database', 'backend')
     if aur_db_backend == 'mysql':
+        if aurweb.config.get_with_fallback('database', 'port', fallback=None):
+            port = aurweb.config.get('database', 'port')
+            param_query = None
+        else:
+            port = None
+            param_query = {'unix_socket': aurweb.config.get('database', 'socket')}
         return constructor(
             'mysql+mysqlconnector',
             username=aurweb.config.get('database', 'user'),
             password=aurweb.config.get('database', 'password'),
             host=aurweb.config.get('database', 'host'),
             database=aurweb.config.get('database', 'name'),
-            query={
-                'unix_socket': aurweb.config.get('database', 'socket'),
-            },
+            port=port,
+            query=param_query
         )
     elif aur_db_backend == 'sqlite':
         return constructor(

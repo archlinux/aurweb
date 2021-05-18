@@ -2,6 +2,7 @@
 backend = mysql
 host = localhost
 socket = /var/run/mysqld/mysqld.sock
+;port = 3306
 name = AUR
 user = aur
 password = aur

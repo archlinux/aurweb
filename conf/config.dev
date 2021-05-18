@@ -9,11 +9,14 @@
 backend = sqlite
 name = YOUR_AUR_ROOT/aurweb.sqlite3
 
-; Alternative MySQL configuration
+; Alternative MySQL configuration (Use either port of socket, if both defined port takes priority)
 ;backend = mysql
 ;name = aurweb
 ;user = aur
 ;password = aur
+;host = localhost
+;port = 3306
+;socket = /var/run/mysqld/mysqld.sock
 
 [options]
 aurwebdir = YOUR_AUR_ROOT

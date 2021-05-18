@@ -17,3 +17,4 @@ fastapi_aw/
 .vim/
 .pylintrc
 .coverage
+.idea
