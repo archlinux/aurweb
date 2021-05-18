@@ -40,6 +40,7 @@ def run(args):
     if args.use_alembic:
         alembic_config = alembic.config.Config('alembic.ini')
         alembic_config.get_main_option('script_location')
+        alembic_config.attributes["configure_logger"] = False
 
     engine = sqlalchemy.create_engine(aurweb.db.get_sqlalchemy_url(),
                                       echo=(args.verbose >= 1))

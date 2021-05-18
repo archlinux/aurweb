@@ -20,6 +20,12 @@ target_metadata = aurweb.schema.metadata
 # ... etc.
 
 
+# If configure_logger is either True or not specified,
+# configure the logger via fileConfig.
+if config.attributes.get("configure_logger", True):
+    logging.config.fileConfig(config.config_file_name)
+
+
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
 
@@ -64,12 +70,7 @@ def run_migrations_online():
             context.run_migrations()
 
 
-if __name__ == "__main__":
-    # Interpret the config file for Python logging.
-    # This line sets up loggers basically.
-    logging.config.fileConfig(config.config_file_name)
-
-    if context.is_offline_mode():
-        run_migrations_offline()
-    else:
-        run_migrations_online()
+if context.is_offline_mode():
+    run_migrations_offline()
+else:
+    run_migrations_online()
