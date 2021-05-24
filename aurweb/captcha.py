@@ -1,7 +1,7 @@
 """ This module consists of aurweb's CAPTCHA utility functions and filters. """
 import hashlib
 
-import jinja2
+from jinja2 import pass_context
 
 from aurweb.db import query
 from aurweb.models.user import User
@@ -41,14 +41,14 @@ def get_captcha_answer(token):
     return hashlib.md5((text + "\n").encode()).hexdigest()[:6]
 
 
-@jinja2.contextfilter
+@pass_context
 def captcha_salt_filter(context):
     """ Returns the most recent CAPTCHA salt in the list of salts. """
     salts = get_captcha_salts()
     return salts[0]
 
 
-@jinja2.contextfilter
+@pass_context
 def captcha_cmdline_filter(context, salt):
     """ Returns a CAPTCHA challenge for a given salt. """
     return get_captcha_challenge(salt)

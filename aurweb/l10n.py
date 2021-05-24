@@ -4,7 +4,7 @@ import typing
 from collections import OrderedDict
 
 from fastapi import Request
-from jinja2 import contextfilter
+from jinja2 import pass_context
 
 import aurweb.config
 
@@ -88,7 +88,7 @@ def get_translator_for_request(request: Request):
     return translate
 
 
-@contextfilter
+@pass_context
 def tr(context: typing.Any, value: str):
     """ A translation filter; example: {{ "Hello" | tr("de") }}. """
     _ = get_translator_for_request(context.get("request"))

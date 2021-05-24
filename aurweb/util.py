@@ -5,9 +5,8 @@ import string
 
 from urllib.parse import urlparse
 
-import jinja2
-
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
+from jinja2 import pass_context
 
 import aurweb.config
 
@@ -88,7 +87,7 @@ def migrate_cookies(request, response):
     return response
 
 
-@jinja2.contextfilter
+@pass_context
 def account_url(context, user):
     request = context.get("request")
     base = f"{request.url.scheme}://{request.url.hostname}"
