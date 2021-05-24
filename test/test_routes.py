@@ -61,7 +61,7 @@ def test_language_invalid_next():
     """ Test an invalid next route at '/language'. """
     post_data = {
         "set_lang": "de",
-        "next": "/BLAHBLAHFAKE"
+        "next": "https://evil.net"
     }
     with client as req:
         response = req.post("/language", data=post_data)

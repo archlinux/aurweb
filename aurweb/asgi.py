@@ -12,8 +12,6 @@ from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine
 from aurweb.routers import accounts, auth, errors, html, sso
 
-routes = set()
-
 # Setup the FastAPI app.
 app = FastAPI(exception_handlers=errors.exceptions)
 
@@ -46,13 +44,6 @@ async def app_startup():
 
     # Initialize the database engine and ORM.
     get_engine()
-
-# NOTE: Always keep this dictionary updated with all routes
-# that the application contains. We use this to check for
-# parameter value verification.
-routes = {route.path for route in app.routes}
-routes.update({route.path for route in sso.router.routes})
-routes.update({route.path for route in html.router.routes})
 
 
 @app.exception_handler(HTTPException)

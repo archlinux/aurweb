@@ -32,11 +32,9 @@ async def language(request: Request,
     parameters across the redirect.
     """
     from aurweb.db import session
-    from aurweb.asgi import routes
-    if unquote(next) not in routes:
-        return HTMLResponse(
-            b"Invalid 'next' parameter.",
-            status_code=400)
+
+    if next[0] != '/':
+        return HTMLResponse(b"Invalid 'next' parameter.", status_code=400)
 
     query_string = "?" + q if q else str()
 
