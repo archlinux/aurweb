@@ -1,5 +1,7 @@
 import math
 
+from sqlalchemy.orm import backref, relationship
+
 import aurweb.config
 import aurweb.util
 
@@ -49,6 +51,11 @@ def make_random_value(table: str, column: str):
     while session.query(table).filter(column == string).first():
         string = aurweb.util.make_random_string(length)
     return string
+
+
+def make_relationship(model, foreign_key, backref_):
+    return relationship(model, foreign_keys=[foreign_key],
+                        backref=backref(backref_, lazy="dynamic"))
 
 
 def query(model, *args, **kwargs):
