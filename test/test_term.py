@@ -2,8 +2,13 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, delete
+from aurweb.db import create, delete, get_engine
 from aurweb.models.term import Term
+
+
+@pytest.fixture(autouse=True)
+def setup():
+    get_engine()
 
 
 def test_term_creation():
