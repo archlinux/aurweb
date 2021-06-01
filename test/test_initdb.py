@@ -23,5 +23,6 @@ def test_run():
         use_alembic = True
         verbose = False
     aurweb.initdb.run(Args())
-    assert aurweb.db.session.query(AccountType).filter(
-        AccountType.AccountType == "User").first() is not None
+    record = aurweb.db.query(AccountType,
+                             AccountType.AccountType == "User").first()
+    assert record is not None

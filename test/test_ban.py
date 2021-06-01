@@ -6,27 +6,23 @@ import pytest
 
 from sqlalchemy import exc as sa_exc
 
+from aurweb.db import create
 from aurweb.models.ban import Ban, is_banned
 from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
 
-ban = None
-
-request = Request()
+ban = request = None
 
 
 @pytest.fixture(autouse=True)
 def setup():
-    from aurweb.db import session
-
-    global ban
+    global ban, request
 
     setup_test_db("Bans")
 
-    ban = Ban(IPAddress="127.0.0.1",
-              BanTS=datetime.utcnow() + timedelta(seconds=30))
-    session.add(ban)
-    session.commit()
+    ts = datetime.utcnow() + timedelta(seconds=30)
+    ban = create(Ban, IPAddress="127.0.0.1", BanTS=ts)
+    request = Request()
 
 
 def test_ban():

@@ -4,39 +4,38 @@ from unittest import mock
 
 import pytest
 
+from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
-from aurweb.models.session import generate_unique_sid
+from aurweb.models.session import Session, generate_unique_sid
+from aurweb.models.user import User
 from aurweb.testing import setup_test_db
-from aurweb.testing.models import make_session, make_user
 
-user, _session = None, None
+user = session = None
 
 
 @pytest.fixture(autouse=True)
 def setup():
-    from aurweb.db import session
-
-    global user, _session
+    global user, session
 
     setup_test_db("Users", "Sessions")
 
-    account_type = session.query(AccountType).filter(
-        AccountType.AccountType == "User").first()
-    user = make_user(Username="test", Email="test@example.org",
-                     ResetKey="testReset", Passwd="testPassword",
-                     AccountType=account_type)
-    _session = make_session(UsersID=user.ID, SessionID="testSession",
-                            LastUpdateTS=datetime.utcnow())
+    account_type = query(AccountType,
+                         AccountType.AccountType == "User").first()
+    user = create(User, Username="test", Email="test@example.org",
+                  ResetKey="testReset", Passwd="testPassword",
+                  AccountType=account_type)
+    session = create(Session, UsersID=user.ID, SessionID="testSession",
+                     LastUpdateTS=datetime.utcnow())
 
 
 def test_session():
-    assert _session.SessionID == "testSession"
-    assert _session.UsersID == user.ID
+    assert session.SessionID == "testSession"
+    assert session.UsersID == user.ID
 
 
 def test_session_user_association():
     # Make sure that the Session user attribute is correct.
-    assert _session.User == user
+    assert session.User == user
 
 
 def test_generate_unique_sid():

@@ -8,23 +8,20 @@ import pytest
 import aurweb.auth
 import aurweb.config
 
-from aurweb.db import query
+from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.session import Session
 from aurweb.models.ssh_pub_key import SSHPubKey
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
-from aurweb.testing.models import make_session, make_user
 from aurweb.testing.requests import Request
 
-account_type, user = None, None
+account_type = user = None
 
 
 @pytest.fixture(autouse=True)
 def setup():
-    from aurweb.db import session
-
     global account_type, user
 
     setup_test_db("Users", "Sessions", "Bans", "SSHPubKeys")
@@ -32,15 +29,13 @@ def setup():
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
 
-    user = make_user(Username="test", Email="test@example.org",
-                     RealName="Test User", Passwd="testPassword",
-                     AccountType=account_type)
+    user = create(User, Username="test", Email="test@example.org",
+                  RealName="Test User", Passwd="testPassword",
+                  AccountType=account_type)
 
 
 def test_user_login_logout():
     """ Test creating a user and reading its columns. """
-    from aurweb.db import session
-
     # Assert that make_user created a valid user.
     assert bool(user.ID)
 
@@ -61,8 +56,8 @@ def test_user_login_logout():
     assert "AURSID" in request.cookies
 
     # Expect that User session relationships work right.
-    user_session = session.query(Session).filter(
-        Session.UsersID == user.ID).first()
+    user_session = query(Session,
+                         Session.UsersID == user.ID).first()
     assert user_session == user.session
     assert user.session.SessionID == sid
     assert user.session.User == user
@@ -103,13 +98,9 @@ def test_user_login_twice():
 
 
 def test_user_login_banned():
-    from aurweb.db import session
-
     # Add ban for the next 30 seconds.
     banned_timestamp = datetime.utcnow() + timedelta(seconds=30)
-    ban = Ban(IPAddress="127.0.0.1", BanTS=banned_timestamp)
-    session.add(ban)
-    session.commit()
+    create(Ban, IPAddress="127.0.0.1", BanTS=banned_timestamp)
 
     request = Request()
     request.client.host = "127.0.0.1"
@@ -138,18 +129,13 @@ def test_legacy_user_authentication():
 
 
 def test_user_login_with_outdated_sid():
-    from aurweb.db import session
-
     # Make a session with a LastUpdateTS 5 seconds ago, causing
     # user.login to update it with a new sid.
-    _session = make_session(UsersID=user.ID, SessionID="stub",
-                            LastUpdateTS=datetime.utcnow().timestamp() - 5)
+    create(Session, UsersID=user.ID, SessionID="stub",
+           LastUpdateTS=datetime.utcnow().timestamp() - 5)
     sid = user.login(Request(), "testPassword")
     assert sid and user.is_authenticated()
     assert sid != "stub"
-
-    session.delete(_session)
-    session.commit()
 
 
 def test_user_update_password():
@@ -169,20 +155,13 @@ def test_user_has_credential():
 
 
 def test_user_ssh_pub_key():
-    from aurweb.db import session
-
     assert user.ssh_pub_key is None
 
-    ssh_pub_key = SSHPubKey(UserID=user.ID,
-                            Fingerprint="testFingerprint",
-                            PubKey="testPubKey")
-    session.add(ssh_pub_key)
-    session.commit()
+    ssh_pub_key = create(SSHPubKey, UserID=user.ID,
+                         Fingerprint="testFingerprint",
+                         PubKey="testPubKey")
 
     assert user.ssh_pub_key == ssh_pub_key
-
-    session.delete(ssh_pub_key)
-    session.commit()
 
 
 def test_user_credential_types():
@@ -203,8 +182,7 @@ def test_user_credential_types():
     assert aurweb.auth.trusted_user_or_dev(user)
 
     developer_type = query(AccountType,
-                           AccountType.AccountType == "Developer")\
-        .first()
+                           AccountType.AccountType == "Developer").first()
     user.AccountType = developer_type
     session.commit()
 

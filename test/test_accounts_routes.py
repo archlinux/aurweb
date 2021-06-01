@@ -12,14 +12,13 @@ from fastapi.testclient import TestClient
 
 from aurweb import captcha
 from aurweb.asgi import app
-from aurweb.db import create, delete, query
+from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.session import Session
 from aurweb.models.ssh_pub_key import SSHPubKey, get_fingerprint
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
-from aurweb.testing.models import make_user
 from aurweb.testing.requests import Request
 
 # Some test global constants.
@@ -39,9 +38,9 @@ def setup():
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
-    user = make_user(Username=TEST_USERNAME, Email=TEST_EMAIL,
-                     RealName="Test User", Passwd="testPassword",
-                     AccountType=account_type)
+    user = create(User, Username=TEST_USERNAME, Email=TEST_EMAIL,
+                  RealName="Test User", Passwd="testPassword",
+                  AccountType=account_type)
 
 
 def test_get_passreset_authed_redirects():
@@ -751,8 +750,8 @@ def test_post_account_edit_error_unauthorized():
     request = Request()
     sid = user.login(request, "testPassword")
 
-    test2 = create(User, Username="test2", Email="test2@example.org",
-                   Passwd="testPassword")
+    create(User, Username="test2",
+           Email="test2@example.org", Passwd="testPassword")
 
     post_data = {
         "U": "test",

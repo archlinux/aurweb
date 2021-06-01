@@ -8,33 +8,34 @@ from fastapi.testclient import TestClient
 import aurweb.config
 
 from aurweb.asgi import app
-from aurweb.db import query
+from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.session import Session
+from aurweb.models.user import User
 from aurweb.testing import setup_test_db
-from aurweb.testing.models import make_user
 
 # Some test global constants.
 TEST_USERNAME = "test"
 TEST_EMAIL = "test@example.org"
 
 # Global mutables.
-client = TestClient(app)
-user = None
+user = client = None
 
 
 @pytest.fixture(autouse=True)
 def setup():
-    global user
+    global user, client
 
     setup_test_db("Users", "Sessions", "Bans")
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
 
-    user = make_user(Username=TEST_USERNAME, Email=TEST_EMAIL,
-                     RealName="Test User", Passwd="testPassword",
-                     AccountType=account_type)
+    user = create(User, Username=TEST_USERNAME, Email=TEST_EMAIL,
+                  RealName="Test User", Passwd="testPassword",
+                  AccountType=account_type)
+
+    client = TestClient(app)
 
 
 def test_login_logout():

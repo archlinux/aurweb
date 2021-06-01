@@ -2,16 +2,20 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, delete, get_engine
+from aurweb.db import create
 from aurweb.models.group import Group
+from aurweb.testing import setup_test_db
+
+
+@pytest.fixture(autouse=True)
+def setup():
+    setup_test_db("Groups")
 
 
 def test_group_creation():
-    get_engine()
     group = create(Group, Name="Test Group")
     assert bool(group.ID)
     assert group.Name == "Test Group"
-    delete(Group, Group.ID == group.ID)
 
 
 def test_group_null_name_raises_exception():

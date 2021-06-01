@@ -2,13 +2,14 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, delete, get_engine
+from aurweb.db import create
 from aurweb.models.term import Term
+from aurweb.testing import setup_test_db
 
 
 @pytest.fixture(autouse=True)
 def setup():
-    get_engine()
+    setup_test_db("Terms")
 
 
 def test_term_creation():
@@ -18,7 +19,6 @@ def test_term_creation():
     assert term.Description == "Term description"
     assert term.URL == "https://fake_url.io"
     assert term.Revision == 1
-    delete(Term, Term.ID == term.ID)
 
 
 def test_term_null_description_raises_exception():

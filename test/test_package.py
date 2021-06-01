@@ -34,8 +34,6 @@ def setup():
                      Description="Test description.",
                      URL="https://test.package")
 
-    yield package
-
 
 def test_package():
     from aurweb.db import session
