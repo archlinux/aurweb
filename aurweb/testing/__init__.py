@@ -21,10 +21,12 @@ def setup_test_db(*args):
         test_tables = ["Users", "Sessions"];
         setup_test_db(*test_tables)
     """
-    engine = aurweb.db.get_engine()
-    conn = engine.connect()
+    # Make sure that we've grabbed the engine before using the session.
+    aurweb.db.get_engine()
 
     tables = list(args)
     for table in tables:
-        conn.execute(f"DELETE FROM {table}")
-    conn.close()
+        aurweb.db.session.execute(f"DELETE FROM {table}")
+
+    # Expunge all objects from SQLAlchemy's IdentityMap.
+    aurweb.db.session.expunge_all()
