@@ -135,7 +135,7 @@ def get_engine():
             # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
             connect_args["check_same_thread"] = False
         engine = create_engine(get_sqlalchemy_url(), connect_args=connect_args)
-        Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+        Session = sessionmaker(autocommit=False, autoflush=True, bind=engine)
         session = Session()
 
     return engine
