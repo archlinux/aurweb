@@ -51,11 +51,9 @@ class User:
             self.update_password(passwd)
 
     def update_password(self, password, salt_rounds=12):
-        from aurweb.db import session
         self.Passwd = bcrypt.hashpw(
             password.encode(),
             bcrypt.gensalt(rounds=salt_rounds)).decode()
-        session.commit()
 
     @staticmethod
     def minimum_passwd_length():
