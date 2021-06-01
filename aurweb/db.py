@@ -53,9 +53,10 @@ def make_random_value(table: str, column: str):
     return string
 
 
-def make_relationship(model, foreign_key, backref_):
+def make_relationship(model, foreign_key: str, backref_: str, **kwargs):
     return relationship(model, foreign_keys=[foreign_key],
-                        backref=backref(backref_, lazy="dynamic"))
+                        backref=backref(backref_, lazy="dynamic"),
+                        **kwargs)
 
 
 def query(model, *args, **kwargs):
