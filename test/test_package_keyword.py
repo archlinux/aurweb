@@ -29,20 +29,13 @@ def setup():
 
     yield pkgbase
 
-    from aurweb.db import session
-    session.delete(pkgbase)
-    session.commit()
-
 
 def test_package_keyword():
-    from aurweb.db import session
     pkg_keyword = create(PackageKeyword,
                          PackageBase=pkgbase,
                          Keyword="test")
     assert pkg_keyword in pkgbase.keywords
     assert pkgbase == pkg_keyword.PackageBase
-    session.delete(pkg_keyword)
-    session.commit()
 
 
 def test_package_keyword_null_pkgbase_raises_exception():
