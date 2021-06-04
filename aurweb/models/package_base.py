@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import mapper
 
 from aurweb.db import make_relationship
@@ -12,6 +13,12 @@ class PackageBase:
                  Maintainer: User = None, Submitter: User = None,
                  Packager: User = None, **kwargs):
         self.Name = Name
+        if not self.Name:
+            raise IntegrityError(
+                statement="Column Name cannot be null.",
+                orig="PackageBases.Name",
+                params=("NULL"))
+
         self.Flagger = Flagger
         self.Maintainer = Maintainer
         self.Submitter = Submitter

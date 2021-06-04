@@ -1,6 +1,6 @@
 import pytest
 
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, OperationalError
 
 from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
@@ -36,7 +36,7 @@ def setup():
                      URL="https://test.package")
 
 
-def test_package_dependencies():
+def test_package_relation():
     conflicts = query(RelationType, RelationType.Name == "conflicts").first()
     pkgrel = create(PackageRelation, Package=package,
                     RelationType=conflicts,
@@ -68,10 +68,12 @@ def test_package_dependencies():
     assert pkgrel in package.package_relations
 
 
-def test_package_dependencies_null_package_raises_exception():
+def test_package_relation_null_package_raises_exception():
     from aurweb.db import session
 
     conflicts = query(RelationType, RelationType.Name == "conflicts").first()
+    assert conflicts is not None
+
     with pytest.raises(IntegrityError):
         create(PackageRelation,
                RelationType=conflicts,
@@ -79,7 +81,7 @@ def test_package_dependencies_null_package_raises_exception():
     session.rollback()
 
 
-def test_package_dependencies_null_dependency_type_raises_exception():
+def test_package_relation_null_relation_type_raises_exception():
     from aurweb.db import session
 
     with pytest.raises(IntegrityError):
@@ -89,11 +91,13 @@ def test_package_dependencies_null_dependency_type_raises_exception():
     session.rollback()
 
 
-def test_package_dependencies_null_depname_raises_exception():
+def test_package_relation_null_relname_raises_exception():
     from aurweb.db import session
 
-    depends = query(RelationType, RelationType.Name == "depends").first()
-    with pytest.raises(IntegrityError):
+    depends = query(RelationType, RelationType.Name == "conflicts").first()
+    assert depends is not None
+
+    with pytest.raises((OperationalError, IntegrityError)):
         create(PackageRelation,
                Package=package,
                RelationType=depends)

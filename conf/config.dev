@@ -6,17 +6,19 @@
 ; development-specific options too.
 
 [database]
-backend = sqlite
-name = YOUR_AUR_ROOT/aurweb.sqlite3
+; Options: mysql, sqlite.
+backend = mysql
 
-; Alternative MySQL configuration (Use either port of socket, if both defined port takes priority)
-;backend = mysql
-;name = aurweb
-;user = aur
-;password = aur
-;host = localhost
+; If using sqlite, set name to the database file path.
+name = aurweb
+
+; MySQL database information. User defaults to root for containerized
+; testing with mysqldb. This should be set to a non-root user.
+user = root
+;password = non-root-user-password
+host = localhost
 ;port = 3306
-;socket = /var/run/mysqld/mysqld.sock
+socket = /var/run/mysqld/mysqld.sock
 
 [options]
 aurwebdir = YOUR_AUR_ROOT

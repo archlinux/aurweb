@@ -1,3 +1,4 @@
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import mapper
 
 from aurweb.db import make_relationship
@@ -11,7 +12,19 @@ class AcceptedTerm:
                  User: User = None, Term: Term = None,
                  Revision: int = None):
         self.User = User
+        if not self.User:
+            raise IntegrityError(
+                statement="Foreign key UserID cannot be null.",
+                orig="AcceptedTerms.UserID",
+                params=("NULL"))
+
         self.Term = Term
+        if not self.Term:
+            raise IntegrityError(
+                statement="Foreign key TermID cannot be null.",
+                orig="AcceptedTerms.TermID",
+                params=("NULL"))
+
         self.Revision = Revision
 
 

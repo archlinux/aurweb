@@ -33,8 +33,7 @@ def test_ban():
 def test_invalid_ban():
     from aurweb.db import session
 
-    with pytest.raises(sa_exc.IntegrityError,
-                       match="NOT NULL constraint failed: Bans.IPAddress"):
+    with pytest.raises(sa_exc.IntegrityError):
         bad_ban = Ban(BanTS=datetime.utcnow())
         session.add(bad_ban)
 

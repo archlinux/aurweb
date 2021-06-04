@@ -4,6 +4,8 @@ import pytest
 
 from starlette.authentication import AuthenticationError
 
+import aurweb.config
+
 from aurweb.auth import BasicAuthBackend, has_credential
 from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
@@ -53,13 +55,12 @@ async def test_auth_backend_invalid_sid():
 async def test_auth_backend_invalid_user_id():
     # Create a new session with a fake user id.
     now_ts = datetime.utcnow().timestamp()
-    create(Session, UsersID=666, SessionID="realSession",
-           LastUpdateTS=now_ts + 5)
+    db_backend = aurweb.config.get("database", "backend")
+    with pytest.raises(IntegrityError):
+        create(Session, UsersID=666, SessionID="realSession",
+               LastUpdateTS=now_ts + 5)
 
-    # Here, we specify a real SID; but it's user is not there.
-    request.cookies["AURSID"] = "realSession"
-    with pytest.raises(AuthenticationError, match="Invalid User ID: 666"):
-        await backend.authenticate(request)
+    session.rollback()
 
 
 @pytest.mark.asyncio

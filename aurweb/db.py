@@ -98,9 +98,11 @@ def get_sqlalchemy_url():
             param_query = None
         else:
             port = None
-            param_query = {'unix_socket': aurweb.config.get('database', 'socket')}
+            param_query = {
+                'unix_socket': aurweb.config.get('database', 'socket')
+            }
         return constructor(
-            'mysql+mysqlconnector',
+            'mysql+mysqldb',
             username=aurweb.config.get('database', 'user'),
             password=aurweb.config.get('database', 'password'),
             host=aurweb.config.get('database', 'host'),
@@ -117,7 +119,7 @@ def get_sqlalchemy_url():
         raise ValueError('unsupported database backend')
 
 
-def get_engine():
+def get_engine(echo: bool = False):
     """
     Return the global SQLAlchemy engine.
 
@@ -135,11 +137,22 @@ def get_engine():
             # check_same_thread is for a SQLite technicality
             # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
             connect_args["check_same_thread"] = False
-        engine = create_engine(get_sqlalchemy_url(), connect_args=connect_args)
+
+        engine = create_engine(get_sqlalchemy_url(),
+                               connect_args=connect_args,
+                               echo=echo)
         Session = sessionmaker(autocommit=False, autoflush=True, bind=engine)
         session = Session()
 
     return engine
+
+
+def kill_engine():
+    global engine, Session, session
+    if engine:
+        session.close()
+        engine.dispose()
+    engine = Session = session = None
 
 
 def connect():
@@ -160,8 +173,7 @@ class ConnectionExecutor:
     def __init__(self, conn, backend=aurweb.config.get("database", "backend")):
         self._conn = conn
         if backend == "mysql":
-            import mysql.connector
-            self._paramstyle = mysql.connector.paramstyle
+            self._paramstyle = "format"
         elif backend == "sqlite":
             import sqlite3
             self._paramstyle = sqlite3.paramstyle
@@ -197,18 +209,17 @@ class Connection:
         aur_db_backend = aurweb.config.get('database', 'backend')
 
         if aur_db_backend == 'mysql':
-            import mysql.connector
+            import MySQLdb
             aur_db_host = aurweb.config.get('database', 'host')
             aur_db_name = aurweb.config.get('database', 'name')
             aur_db_user = aurweb.config.get('database', 'user')
             aur_db_pass = aurweb.config.get('database', 'password')
             aur_db_socket = aurweb.config.get('database', 'socket')
-            self._conn = mysql.connector.connect(host=aur_db_host,
-                                                 user=aur_db_user,
-                                                 passwd=aur_db_pass,
-                                                 db=aur_db_name,
-                                                 unix_socket=aur_db_socket,
-                                                 buffered=True)
+            self._conn = MySQLdb.connect(host=aur_db_host,
+                                         user=aur_db_user,
+                                         passwd=aur_db_pass,
+                                         db=aur_db_name,
+                                         unix_socket=aur_db_socket)
         elif aur_db_backend == 'sqlite':
             import sqlite3
             aur_db_name = aurweb.config.get('database', 'name')
@@ -217,7 +228,7 @@ class Connection:
         else:
             raise ValueError('unsupported database backend')
 
-        self._conn = ConnectionExecutor(self._conn)
+        self._conn = ConnectionExecutor(self._conn, aur_db_backend)
 
     def execute(self, query, params=()):
         return self._conn.execute(query, params)

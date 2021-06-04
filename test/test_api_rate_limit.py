@@ -34,5 +34,5 @@ def test_api_rate_key_null_requests_raises_exception():
 def test_api_rate_key_null_window_start_raises_exception():
     from aurweb.db import session
     with pytest.raises(IntegrityError):
-        create(ApiRateLimit, IP="127.0.0.1", WindowStart=1)
+        create(ApiRateLimit, IP="127.0.0.1", Requests=1)
     session.rollback()

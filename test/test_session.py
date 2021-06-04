@@ -25,7 +25,7 @@ def setup():
                   ResetKey="testReset", Passwd="testPassword",
                   AccountType=account_type)
     session = create(Session, UsersID=user.ID, SessionID="testSession",
-                     LastUpdateTS=datetime.utcnow())
+                     LastUpdateTS=datetime.utcnow().timestamp())
 
 
 def test_session():

@@ -1,5 +1,5 @@
-from sqlalchemy.orm import mapper
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import mapper
 
 from aurweb.db import make_relationship
 from aurweb.models.package_base import PackageBase

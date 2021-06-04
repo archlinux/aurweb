@@ -1,3 +1,4 @@
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import mapper
 
 from aurweb.db import make_relationship
@@ -12,8 +13,26 @@ class PackageRelation:
                  RelName: str = None, RelCondition: str = None,
                  RelArch: str = None):
         self.Package = Package
+        if not self.Package:
+            raise IntegrityError(
+                statement="Foreign key PackageID cannot be null.",
+                orig="PackageRelations.PackageID",
+                params=("NULL"))
+
         self.RelationType = RelationType
+        if not self.RelationType:
+            raise IntegrityError(
+                statement="Foreign key RelTypeID cannot be null.",
+                orig="PackageRelations.RelTypeID",
+                params=("NULL"))
+
         self.RelName = RelName  # nullable=False
+        if not self.RelName:
+            raise IntegrityError(
+                statement="Column RelName cannot be null.",
+                orig="PackageRelations.RelName",
+                params=("NULL"))
+
         self.RelCondition = RelCondition
         self.RelArch = RelArch
 

@@ -802,18 +802,40 @@ def test_post_account_edit_ssh_pub_key():
     assert response.status_code == int(HTTPStatus.OK)
 
     # Now let's update what's already there to gain coverage over that path.
-    pk = str()
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with open("/dev/null", "w") as null:
-            proc = Popen(["ssh-keygen", "-f", f"{tmpdir}/test.ssh", "-N", ""],
-                         stdout=null, stderr=null)
-            proc.wait()
-        assert proc.returncode == 0
+    post_data["PK"] = make_ssh_pubkey()
 
-        # Read in the public key, then delete the temp dir we made.
-        pk = open(f"{tmpdir}/test.ssh.pub").read().rstrip()
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
 
-    post_data["PK"] = pk
+    assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_post_account_edit_missing_ssh_pubkey():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    post_data = {
+        "U": user.Username,
+        "E": user.Email,
+        "PK": make_ssh_pubkey(),
+        "passwd": "testPassword"
+    }
+
+    with client as request:
+        response = request.post("/account/test/edit", cookies={
+            "AURSID": sid
+        }, data=post_data, allow_redirects=False)
+
+    assert response.status_code == int(HTTPStatus.OK)
+
+    post_data = {
+        "U": user.Username,
+        "E": user.Email,
+        "PK": str(),  # Pass an empty string now to walk the delete path.
+        "passwd": "testPassword"
+    }
 
     with client as request:
         response = request.post("/account/test/edit", cookies={

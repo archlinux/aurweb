@@ -5,14 +5,20 @@ import tempfile
 
 from unittest import mock
 
-import mysql.connector
 import pytest
 
 import aurweb.config
+import aurweb.initdb
 
 from aurweb import db
 from aurweb.models.account_type import AccountType
 from aurweb.testing import setup_test_db
+
+
+class Args:
+    """ Stub arguments used for running aurweb.initdb. """
+    use_alembic = True
+    verbose = True
 
 
 class DBCursor:
@@ -38,27 +44,73 @@ class DBConnection:
         pass
 
 
+def make_temp_config(config_file, *replacements):
+    """ Generate a temporary config file with a set of replacements.
+
+    :param *replacements: A variable number of tuple regex replacement pairs
+    :return: A tuple containing (temp directory, temp config file)
+    """
+    tmpdir = tempfile.TemporaryDirectory()
+    tmp = os.path.join(tmpdir.name, "config.tmp")
+    with open(config_file) as f:
+        config = f.read()
+        for repl in list(replacements):
+            config = re.sub(repl[0], repl[1], config)
+        with open(tmp, "w") as o:
+            o.write(config)
+        aurwebdir = aurweb.config.get("options", "aurwebdir")
+        defaults = os.path.join(aurwebdir, "conf/config.defaults")
+        with open(defaults) as i:
+            with open(f"{tmp}.defaults", "w") as o:
+                o.write(i.read())
+    return tmpdir, tmp
+
+
+def make_temp_sqlite_config(config_file):
+    return make_temp_config(config_file,
+                            (r"backend = .*", "backend = sqlite"),
+                            (r"name = .*", "name = /tmp/aurweb.sqlite3"))
+
+
+def make_temp_mysql_config(config_file):
+    return make_temp_config(config_file,
+                            (r"backend = .*", "backend = mysql"),
+                            (r"name = .*", "name = aurweb"))
+
+
 @pytest.fixture(autouse=True)
 def setup_db():
-    setup_test_db("Bans")
+    if os.path.exists("/tmp/aurweb.sqlite3"):
+        os.remove("/tmp/aurweb.sqlite3")
+
+    # In various places in this test, we reinitialize the engine.
+    # Make sure we kill the previous engine before initializing
+    # it via setup_test_db().
+    aurweb.db.kill_engine()
+    setup_test_db()
 
 
 def test_sqlalchemy_sqlite_url():
-    with mock.patch.dict(os.environ, {"AUR_CONFIG": "conf/config.dev"}):
-        aurweb.config.rehash()
-        assert db.get_sqlalchemy_url()
+    tmpctx, tmp = make_temp_sqlite_config("conf/config")
+    with tmpctx:
+        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+            aurweb.config.rehash()
+            assert db.get_sqlalchemy_url()
     aurweb.config.rehash()
 
 
 def test_sqlalchemy_mysql_url():
-    with mock.patch.dict(os.environ, {"AUR_CONFIG": "conf/config.defaults"}):
-        aurweb.config.rehash()
-        assert db.get_sqlalchemy_url()
+    tmpctx, tmp = make_temp_mysql_config("conf/config")
+    with tmpctx:
+        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+            aurweb.config.rehash()
+            assert db.get_sqlalchemy_url()
     aurweb.config.rehash()
 
 
 def test_sqlalchemy_mysql_port_url():
-    tmpctx, tmp = make_temp_config("conf/config.defaults", ";port = 3306", "port = 3306")
+    tmpctx, tmp = make_temp_config("conf/config",
+                                   (r";port = 3306", "port = 3306"))
 
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -67,18 +119,9 @@ def test_sqlalchemy_mysql_port_url():
         aurweb.config.rehash()
 
 
-def make_temp_config(config_file, src_str, replace_with):
-    tmpdir = tempfile.TemporaryDirectory()
-    tmp = os.path.join(tmpdir.name, "config.tmp")
-    with open(config_file) as f:
-        config = re.sub(src_str, f'{replace_with}', f.read())
-        with open(tmp, "w") as o:
-            o.write(config)
-    return tmpdir, tmp
-
-
 def test_sqlalchemy_unknown_backend():
-    tmpctx, tmp = make_temp_config("conf/config", "backend = sqlite", "backend = blah")
+    tmpctx, tmp = make_temp_config("conf/config",
+                                   (r"backend = mysql", "backend = blah"))
 
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -89,22 +132,31 @@ def test_sqlalchemy_unknown_backend():
 
 
 def test_db_connects_without_fail():
+    """ This only tests the actual config supplied to pytest. """
     db.connect()
     assert db.engine is not None
 
 
-def test_connection_class_without_fail():
-    conn = db.Connection()
+def test_connection_class_sqlite_without_fail():
+    tmpctx, tmp = make_temp_sqlite_config("conf/config")
+    with tmpctx:
+        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+            aurweb.config.rehash()
 
-    cur = conn.execute(
-        "SELECT AccountType FROM AccountTypes WHERE ID = ?", (1,))
-    account_type = cur.fetchone()[0]
+            aurweb.db.kill_engine()
+            aurweb.initdb.run(Args())
 
-    assert account_type == "User"
+            conn = db.Connection()
+            cur = conn.execute(
+                "SELECT AccountType FROM AccountTypes WHERE ID = ?", (1,))
+            account_type = cur.fetchone()[0]
+            assert account_type == "User"
+        aurweb.config.rehash()
 
 
 def test_connection_class_unsupported_backend():
-    tmpctx, tmp = make_temp_config("conf/config", "backend = sqlite", "backend = blah")
+    tmpctx, tmp = make_temp_config("conf/config",
+                                   (r"backend = mysql", "backend = blah"))
 
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -114,10 +166,9 @@ def test_connection_class_unsupported_backend():
         aurweb.config.rehash()
 
 
-@mock.patch("mysql.connector.connect", mock.MagicMock(return_value=True))
-@mock.patch.object(mysql.connector, "paramstyle", "qmark")
+@mock.patch("MySQLdb.connect", mock.MagicMock(return_value=True))
 def test_connection_mysql():
-    tmpctx, tmp = make_temp_config("conf/config", "backend = sqlite", "backend = mysql")
+    tmpctx, tmp = make_temp_mysql_config("conf/config")
     with tmpctx:
         with mock.patch.dict(os.environ, {
             "AUR_CONFIG": tmp,
@@ -137,44 +188,78 @@ def test_connection_sqlite():
 @mock.patch("sqlite3.connect", mock.MagicMock(return_value=DBConnection()))
 @mock.patch.object(sqlite3, "paramstyle", "format")
 def test_connection_execute_paramstyle_format():
-    conn = db.Connection()
+    tmpctx, tmp = make_temp_sqlite_config("conf/config")
 
-    # First, test ? to %s format replacement.
-    account_types = conn\
-        .execute("SELECT * FROM AccountTypes WHERE AccountType = ?", ["User"])\
-        .fetchall()
-    assert account_types == \
-        ["SELECT * FROM AccountTypes WHERE AccountType = %s", ["User"]]
+    with tmpctx:
+        with mock.patch.dict(os.environ, {
+            "AUR_CONFIG": tmp,
+            "AUR_CONFIG_DEFAULTS": "conf/config.defaults"
+        }):
+            aurweb.config.rehash()
 
-    # Test other format replacement.
-    account_types = conn\
-        .execute("SELECT * FROM AccountTypes WHERE AccountType = %", ["User"])\
-        .fetchall()
-    assert account_types == \
-        ["SELECT * FROM AccountTypes WHERE AccountType = %%", ["User"]]
+            aurweb.db.kill_engine()
+            aurweb.initdb.run(Args())
+
+            conn = db.Connection()
+
+            # First, test ? to %s format replacement.
+            account_types = conn\
+                .execute("SELECT * FROM AccountTypes WHERE AccountType = ?",
+                         ["User"]).fetchall()
+            assert account_types == \
+                ["SELECT * FROM AccountTypes WHERE AccountType = %s", ["User"]]
+
+            # Test other format replacement.
+            account_types = conn\
+                .execute("SELECT * FROM AccountTypes WHERE AccountType = %",
+                         ["User"]).fetchall()
+            assert account_types == \
+                ["SELECT * FROM AccountTypes WHERE AccountType = %%", ["User"]]
+        aurweb.config.rehash()
 
 
 @mock.patch("sqlite3.connect", mock.MagicMock(return_value=DBConnection()))
 @mock.patch.object(sqlite3, "paramstyle", "qmark")
 def test_connection_execute_paramstyle_qmark():
-    conn = db.Connection()
-    # We don't modify anything when using qmark, so test equality.
-    account_types = conn\
-        .execute("SELECT * FROM AccountTypes WHERE AccountType = ?", ["User"])\
-        .fetchall()
-    assert account_types == \
-        ["SELECT * FROM AccountTypes WHERE AccountType = ?", ["User"]]
+    tmpctx, tmp = make_temp_sqlite_config("conf/config")
+
+    with tmpctx:
+        with mock.patch.dict(os.environ, {
+            "AUR_CONFIG": tmp,
+            "AUR_CONFIG_DEFAULTS": "conf/config.defaults"
+        }):
+            aurweb.config.rehash()
+
+            aurweb.db.kill_engine()
+            aurweb.initdb.run(Args())
+
+            conn = db.Connection()
+            # We don't modify anything when using qmark, so test equality.
+            account_types = conn\
+                .execute("SELECT * FROM AccountTypes WHERE AccountType = ?",
+                         ["User"]).fetchall()
+            assert account_types == \
+                ["SELECT * FROM AccountTypes WHERE AccountType = ?", ["User"]]
+        aurweb.config.rehash()
 
 
 @mock.patch("sqlite3.connect", mock.MagicMock(return_value=DBConnection()))
 @mock.patch.object(sqlite3, "paramstyle", "unsupported")
 def test_connection_execute_paramstyle_unsupported():
-    conn = db.Connection()
-    with pytest.raises(ValueError, match="unsupported paramstyle"):
-        conn.execute(
-            "SELECT * FROM AccountTypes WHERE AccountType = ?",
-            ["User"]
-        ).fetchall()
+    tmpctx, tmp = make_temp_sqlite_config("conf/config")
+    with tmpctx:
+        with mock.patch.dict(os.environ, {
+            "AUR_CONFIG": tmp,
+            "AUR_CONFIG_DEFAULTS": "conf/config.defaults"
+        }):
+            aurweb.config.rehash()
+            conn = db.Connection()
+            with pytest.raises(ValueError, match="unsupported paramstyle"):
+                conn.execute(
+                    "SELECT * FROM AccountTypes WHERE AccountType = ?",
+                    ["User"]
+                ).fetchall()
+        aurweb.config.rehash()
 
 
 def test_create_delete():
@@ -186,13 +271,12 @@ def test_create_delete():
     assert record is None
 
 
-@mock.patch("mysql.connector.paramstyle", "qmark")
 def test_connection_executor_mysql_paramstyle():
     executor = db.ConnectionExecutor(None, backend="mysql")
-    assert executor.paramstyle() == "qmark"
+    assert executor.paramstyle() == "format"
 
 
 @mock.patch("sqlite3.paramstyle", "pyformat")
 def test_connection_executor_sqlite_paramstyle():
     executor = db.ConnectionExecutor(None, backend="sqlite")
-    assert executor.paramstyle() == "pyformat"
+    assert executor.paramstyle() == sqlite3.paramstyle

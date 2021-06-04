@@ -1,3 +1,4 @@
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import mapper
 
 from aurweb.db import make_relationship
@@ -12,8 +13,26 @@ class PackageDependency:
                  DepName: str = None, DepDesc: str = None,
                  DepCondition: str = None, DepArch: str = None):
         self.Package = Package
+        if not self.Package:
+            raise IntegrityError(
+                statement="Foreign key PackageID cannot be null.",
+                orig="PackageDependencies.PackageID",
+                params=("NULL"))
+
         self.DependencyType = DependencyType
-        self.DepName = DepName  # nullable=False
+        if not self.DependencyType:
+            raise IntegrityError(
+                statement="Foreign key DepTypeID cannot be null.",
+                orig="PackageDependencies.DepTypeID",
+                params=("NULL"))
+
+        self.DepName = DepName
+        if not self.DepName:
+            raise IntegrityError(
+                statement="Column DepName cannot be null.",
+                orig="PackageDependencies.DepName",
+                params=("NULL"))
+
         self.DepDesc = DepDesc
         self.DepCondition = DepCondition
         self.DepArch = DepArch
