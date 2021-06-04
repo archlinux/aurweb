@@ -107,7 +107,10 @@ PackageBases = Table(
     Column('ID', INTEGER(unsigned=True), primary_key=True),
     Column('Name', String(255), nullable=False, unique=True),
     Column('NumVotes', INTEGER(unsigned=True), nullable=False, server_default=text("0")),
-    Column('Popularity', DECIMAL(10, 6, unsigned=True), nullable=False, server_default=text("0")),
+    Column('Popularity',
+           DECIMAL(10, 6, unsigned=True)
+           if db_backend == "mysql" else String(16),  # Stubbed out to test.
+           nullable=False, server_default=text("0")),
     Column('OutOfDateTS', BIGINT(unsigned=True)),
     Column('FlaggerComment', Text, nullable=False),
     Column('SubmittedTS', BIGINT(unsigned=True), nullable=False),
@@ -383,7 +386,10 @@ TU_VoteInfo = Table(
     Column('User', String(32), nullable=False),
     Column('Submitted', BIGINT(unsigned=True), nullable=False),
     Column('End', BIGINT(unsigned=True), nullable=False),
-    Column('Quorum', DECIMAL(2, 2, unsigned=True), nullable=False),
+    Column('Quorum',
+           DECIMAL(2, 2, unsigned=True)
+           if db_backend == "mysql" else String(4),
+           nullable=False),
     Column('SubmitterID', ForeignKey('Users.ID', ondelete='CASCADE'), nullable=False),
     Column('Yes', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),
     Column('No', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),

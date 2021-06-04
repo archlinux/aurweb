@@ -67,8 +67,11 @@ if (has_credential(CRED_TU_ADD_VOTE)) {
 		}
 	}
 
-	if (!empty($_POST['addVote']) && empty($error)) {
-		add_tu_proposal($_POST['agenda'], $_POST['user'], $len, $quorum, $uid);
+    if (!empty($_POST['addVote']) && empty($error)) {
+        // Convert $quorum to a String of maximum length "12.34" (5).
+        $quorum_str = substr(strval($quorum), min(5, strlen($quorum));
+        add_tu_proposal($_POST['agenda'], $_POST['user'],
+                        $len, $quorum_str, $uid);
 
 		print "<p class=\"pkgoutput\">" . __("New proposal submitted.") . "</p>\n";
 	} else {
