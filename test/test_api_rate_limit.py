@@ -19,11 +19,9 @@ def test_api_rate_key_creation():
     assert rate.WindowStart == 1
 
 
-def test_api_rate_key_null_ip_raises_exception():
-    from aurweb.db import session
-    with pytest.raises(IntegrityError):
-        create(ApiRateLimit, Requests=10, WindowStart=1)
-    session.rollback()
+def test_api_rate_key_ip_default():
+    api_rate_limit = create(ApiRateLimit, Requests=10, WindowStart=1)
+    assert api_rate_limit.IP == str()
 
 
 def test_api_rate_key_null_requests_raises_exception():

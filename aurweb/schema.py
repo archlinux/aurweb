@@ -133,7 +133,7 @@ PackageBases = Table(
 # Keywords of package bases
 PackageKeywords = Table(
     'PackageKeywords', metadata,
-    Column('PackageBaseID', ForeignKey('PackageBases.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
+    Column('PackageBaseID', ForeignKey('PackageBases.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
     Column('Keyword', String(255), primary_key=True, nullable=False, server_default=text("''")),
     mysql_engine='InnoDB',
     mysql_charset='utf8mb4',
@@ -170,8 +170,8 @@ Licenses = Table(
 # Information about package-license-relations
 PackageLicenses = Table(
     'PackageLicenses', metadata,
-    Column('PackageID', ForeignKey('Packages.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
-    Column('LicenseID', ForeignKey('Licenses.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
+    Column('PackageID', ForeignKey('Packages.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
+    Column('LicenseID', ForeignKey('Licenses.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
     mysql_engine='InnoDB',
 )
 
@@ -190,8 +190,8 @@ Groups = Table(
 # Information about package-group-relations
 PackageGroups = Table(
     'PackageGroups', metadata,
-    Column('PackageID', ForeignKey('Packages.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
-    Column('GroupID', ForeignKey('Groups.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
+    Column('PackageID', ForeignKey('Packages.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
+    Column('GroupID', ForeignKey('Groups.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
     mysql_engine='InnoDB',
 )
 
@@ -445,7 +445,7 @@ AcceptedTerms = Table(
 # Rate limits for API
 ApiRateLimit = Table(
     'ApiRateLimit', metadata,
-    Column('IP', String(45), primary_key=True),
+    Column('IP', String(45), primary_key=True, unique=True, default=str()),
     Column('Requests', INTEGER(11), nullable=False),
     Column('WindowStart', BIGINT(20), nullable=False),
     Index('ApiRateLimitWindowStart', 'WindowStart'),

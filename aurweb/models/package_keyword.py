@@ -1,4 +1,5 @@
 from sqlalchemy.orm import mapper
+from sqlalchemy.exc import IntegrityError
 
 from aurweb.db import make_relationship
 from aurweb.models.package_base import PackageBase
@@ -10,6 +11,12 @@ class PackageKeyword:
                  PackageBase: PackageBase = None,
                  Keyword: str = None):
         self.PackageBase = PackageBase
+        if not self.PackageBase:
+            raise IntegrityError(
+                statement="Primary key PackageBaseID cannot be null.",
+                orig="PackageKeywords.PackageBaseID",
+                params=("NULL"))
+
         self.Keyword = Keyword
 
 
