@@ -6,6 +6,9 @@ cache:
     # For some reason Gitlab CI only supports storing cache/artifacts in a path relative to the build directory
     - .pkg-cache
 
+variables:
+  AUR_CONFIG: conf/config
+
 before_script:
   - pacman -Syu --noconfirm --noprogressbar --needed --cachedir .pkg-cache
            base-devel git gpgme protobuf pyalpm python-mysqlclient
@@ -15,17 +18,31 @@ before_script:
            python-itsdangerous python-httpx python-jinja python-pytest-cov
            python-requests python-aiofiles python-python-multipart
            python-pytest-asyncio python-coverage python-bcrypt
-           python-email-validator openssh python-lxml
+           python-email-validator openssh python-lxml mariadb
   - bash -c "echo '127.0.0.1' > /etc/hosts"
   - bash -c "echo '::1' >> /etc/hosts"
+  - mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+  - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &
+  - 'until : > /dev/tcp/127.0.0.1/3306; do sleep 1s; done'
+  - mysql -u root -e "CREATE USER 'aur'@'localhost' IDENTIFIED BY 'aur';"
+  - mysql -u root -e "CREATE DATABASE aurweb;"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON aurweb.* TO 'aur'@'localhost';"
+  - mysql -u root -e "FLUSH PRIVILEGES;"
+  - sed -r "s;YOUR_AUR_ROOT;$(pwd);g" conf/config.dev > conf/config
+  - cp conf/config conf/config.sqlite
+  - cp conf/config.defaults conf/config.sqlite.defaults
+  - sed -i -r 's;backend = .*;backend = sqlite;' conf/config.sqlite
+  - sed -i -r "s;name = .*;name = $(pwd)/aurweb.sqlite3;" conf/config.sqlite
+  - AUR_CONFIG=conf/config.sqlite python -m aurweb.initdb
 
 test:
   script:
     - python setup.py install
-    - sed -r "s;YOUR_AUR_ROOT;$(pwd);g" conf/config.dev > conf/config
-    - AUR_CONFIG=conf/config make -C po all install
-    - AUR_CONFIG=conf/config python -m aurweb.initdb
-    - make -C test
+    - make -C po all install
+    - python -m aurweb.initdb
+    - make -C test sh # sharness tests use sqlite.
+    - make -C test pytest # pytest with mysql.
+    - AUR_CONFIG=conf/config.sqlite make -C test pytest # pytest with sqlite.
     - coverage report --include='aurweb/*'
     - coverage xml --include='aurweb/*'
   artifacts:
