@@ -10,6 +10,10 @@ from sqlalchemy import CHAR, TIMESTAMP, Column, ForeignKey, Index, MetaData, Str
 from sqlalchemy.dialects.mysql import BIGINT, DECIMAL, INTEGER, TINYINT
 from sqlalchemy.ext.compiler import compiles
 
+import aurweb.config
+
+db_backend = aurweb.config.get("database", "backend")
+
 
 @compiles(TINYINT, 'sqlite')
 def compile_tinyint_sqlite(type_, compiler, **kw):
@@ -35,7 +39,9 @@ AccountTypes = Table(
     'AccountTypes', metadata,
     Column('ID', TINYINT(unsigned=True), primary_key=True),
     Column('AccountType', String(32), nullable=False, server_default=text("''")),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin'
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci'
 )
 
 
@@ -69,7 +75,9 @@ Users = Table(
     Column('OwnershipNotify', TINYINT(1), nullable=False, server_default=text("1")),
     Column('SSOAccountID', String(255), nullable=True, unique=True),
     Index('UsersAccountTypeID', 'AccountTypeID'),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -113,7 +121,9 @@ PackageBases = Table(
     Index('BasesNumVotes', 'NumVotes'),
     Index('BasesPackagerUID', 'PackagerUID'),
     Index('BasesSubmitterUID', 'SubmitterUID'),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -122,7 +132,9 @@ PackageKeywords = Table(
     'PackageKeywords', metadata,
     Column('PackageBaseID', ForeignKey('PackageBases.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
     Column('Keyword', String(255), primary_key=True, nullable=False, server_default=text("''")),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -135,7 +147,9 @@ Packages = Table(
     Column('Version', String(255), nullable=False, server_default=text("''")),
     Column('Description', String(255)),
     Column('URL', String(8000)),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -144,7 +158,9 @@ Licenses = Table(
     'Licenses', metadata,
     Column('ID', INTEGER(unsigned=True), primary_key=True),
     Column('Name', String(255), nullable=False, unique=True),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -162,7 +178,9 @@ Groups = Table(
     'Groups', metadata,
     Column('ID', INTEGER(unsigned=True), primary_key=True),
     Column('Name', String(255), nullable=False, unique=True),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -180,7 +198,9 @@ DependencyTypes = Table(
     'DependencyTypes', metadata,
     Column('ID', TINYINT(unsigned=True), primary_key=True),
     Column('Name', String(32), nullable=False, server_default=text("''")),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -195,7 +215,9 @@ PackageDepends = Table(
     Column('DepArch', String(255)),
     Index('DependsDepName', 'DepName'),
     Index('DependsPackageID', 'PackageID'),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -204,7 +226,9 @@ RelationTypes = Table(
     'RelationTypes', metadata,
     Column('ID', TINYINT(unsigned=True), primary_key=True),
     Column('Name', String(32), nullable=False, server_default=text("''")),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -218,7 +242,9 @@ PackageRelations = Table(
     Column('RelArch', String(255)),
     Index('RelationsPackageID', 'PackageID'),
     Index('RelationsRelName', 'RelName'),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -229,7 +255,9 @@ PackageSources = Table(
     Column('Source', String(8000), nullable=False, server_default=text("'/dev/null'")),
     Column('SourceArch', String(255)),
     Index('SourcesPackageID', 'PackageID'),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -262,7 +290,9 @@ PackageComments = Table(
     Column('PinnedTS', BIGINT(unsigned=True), nullable=False, server_default=text("0")),
     Index('CommentsPackageBaseID', 'PackageBaseID'),
     Index('CommentsUsersID', 'UsersID'),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -293,7 +323,9 @@ PackageBlacklist = Table(
     'PackageBlacklist', metadata,
     Column('ID', INTEGER(unsigned=True), primary_key=True),
     Column('Name', String(64), nullable=False, unique=True),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -314,7 +346,9 @@ RequestTypes = Table(
     'RequestTypes', metadata,
     Column('ID', TINYINT(unsigned=True), primary_key=True),
     Column('Name', String(32), nullable=False, server_default=text("''")),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -335,7 +369,9 @@ PackageRequests = Table(
     Column('Status', TINYINT(unsigned=True), nullable=False, server_default=text("0")),
     Index('RequestsPackageBaseID', 'PackageBaseID'),
     Index('RequestsUsersID', 'UsersID'),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -371,7 +407,9 @@ Bans = Table(
     'Bans', metadata,
     Column('IPAddress', String(45), primary_key=True),
     Column('BanTS', TIMESTAMP, nullable=False),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -382,7 +420,9 @@ Terms = Table(
     Column('Description', String(255), nullable=False),
     Column('URL', String(8000), nullable=False),
     Column('Revision', INTEGER(unsigned=True), nullable=False, server_default=text("1")),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
@@ -403,5 +443,7 @@ ApiRateLimit = Table(
     Column('Requests', INTEGER(11), nullable=False),
     Column('WindowStart', BIGINT(20), nullable=False),
     Index('ApiRateLimitWindowStart', 'WindowStart'),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
