@@ -7,6 +7,8 @@ Create Date: 2021-05-17 14:23:00.008479
 """
 from alembic import op
 
+import aurweb.config
+
 # revision identifiers, used by Alembic.
 revision = '56e2ce8e2ffa'
 down_revision = 'ef39fcd6e1cd'
@@ -14,10 +16,31 @@ branch_labels = None
 depends_on = None
 
 # Tables affected by charset/collate change
-tables = ['AccountTypes', 'ApiRateLimit', 'Bans', 'DependencyTypes', 'Groups', 'Licenses', 'OfficialProviders',
-          'PackageBases', 'PackageBlacklist', 'PackageComments', 'PackageDepends', 'PackageKeywords',
-          'PackageRelations', 'PackageRequests', 'PackageSources', 'Packages', 'RelationTypes', 'RequestTypes',
-          'SSHPubKeys', 'Sessions', 'TU_VoteInfo', 'Terms', 'Users']
+tables = [
+    ('AccountTypes', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('ApiRateLimit', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('Bans', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('DependencyTypes', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('Groups', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('Licenses', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('OfficialProviders', 'utf8mb4', 'utf8mb4_bin'),
+    ('PackageBases', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('PackageBlacklist', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('PackageComments', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('PackageDepends', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('PackageKeywords', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('PackageRelations', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('PackageRequests', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('PackageSources', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('Packages', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('RelationTypes', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('RequestTypes', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('SSHPubKeys', 'utf8mb4', 'utf8mb4_bin'),
+    ('Sessions', 'utf8mb4', 'utf8mb4_bin'),
+    ('TU_VoteInfo', 'utf8mb4', 'utf8mb4_bin'),
+    ('Terms', 'utf8mb4', 'utf8mb4_general_ci'),
+    ('Users', 'utf8mb4', 'utf8mb4_general_ci')
+]
 
 # Indexes affected by charset/collate change
 # Map of Unique Indexes key = index_name, value = [table_name, column1, column2]
@@ -27,9 +50,7 @@ indexes = {'ProviderNameProvides': ['OfficialProviders', 'Name', 'Provides']}
 src_charset = "utf8"
 src_collate = "utf8_general_ci"
 
-# Destination charset/collation, after this migration is run.
-dst_charset = "utf8mb4"
-dst_collate = "utf8mb4_bin"
+db_backend = aurweb.config.get("database", "backend")
 
 
 def rebuild_unique_indexes_with_str_cols():
@@ -53,11 +74,12 @@ def do_all(iterable, fn):
 
 
 def upgrade():
-    def op_execute(table):
+    def op_execute(table_meta):
+        table, charset, collate = table_meta
         sql = f"""
 ALTER TABLE {table} 
-CONVERT TO CHARACTER SET {dst_charset} 
-COLLATE {dst_collate}
+CONVERT TO CHARACTER SET {charset} 
+COLLATE {collate}
 """
         op.execute(sql)
 
@@ -66,7 +88,11 @@ COLLATE {dst_collate}
 
 
 def downgrade():
-    def op_execute(table):
+    if db_backend == "sqlite":
+        return None
+
+    def op_execute(table_meta):
+        table, charset, collate = table_meta
         sql = f"""
 ALTER TABLE {table} 
 CONVERT TO CHARACTER SET {src_charset} 
