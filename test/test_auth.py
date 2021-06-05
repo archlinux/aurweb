@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pytest
 
-from starlette.authentication import AuthenticationError
+from sqlalchemy.exc import IntegrityError
 
 import aurweb.config
 
@@ -53,13 +53,13 @@ async def test_auth_backend_invalid_sid():
 
 @pytest.mark.asyncio
 async def test_auth_backend_invalid_user_id():
+    from aurweb.db import session
+
     # Create a new session with a fake user id.
     now_ts = datetime.utcnow().timestamp()
-    db_backend = aurweb.config.get("database", "backend")
     with pytest.raises(IntegrityError):
         create(Session, UsersID=666, SessionID="realSession",
                LastUpdateTS=now_ts + 5)
-
     session.rollback()
 
 
@@ -70,6 +70,7 @@ async def test_basic_auth_backend():
     now_ts = datetime.utcnow().timestamp()
     create(Session, UsersID=user.ID, SessionID="realSession",
            LastUpdateTS=now_ts + 5)
+    request.cookies["AURSID"] = "realSession"
     _, result = await backend.authenticate(request)
     assert result == user
 

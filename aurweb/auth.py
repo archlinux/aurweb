@@ -4,7 +4,8 @@ from datetime import datetime
 from http import HTTPStatus
 
 from fastapi.responses import RedirectResponse
-from starlette.authentication import AuthCredentials, AuthenticationBackend, AuthenticationError
+from sqlalchemy import and_
+from starlette.authentication import AuthCredentials, AuthenticationBackend
 from starlette.requests import HTTPConnection
 
 import aurweb.config
@@ -42,14 +43,17 @@ class BasicAuthBackend(AuthenticationBackend):
 
         now_ts = datetime.utcnow().timestamp()
         record = session.query(Session).filter(
-            Session.SessionID == sid, Session.LastUpdateTS >= now_ts).first()
+            and_(Session.SessionID == sid,
+                 Session.LastUpdateTS >= now_ts)).first()
+
+        # If no session with sid and a LastUpdateTS now or later exists.
         if not record:
             return None, AnonymousUser()
 
+        # At this point, we cannot have an invalid user if the record
+        # exists, due to ForeignKey constraints in the schema upheld
+        # by mysqlclient.
         user = session.query(User).filter(User.ID == record.UsersID).first()
-        if not user:
-            raise AuthenticationError(f"Invalid User ID: {record.UsersID}")
-
         user.authenticated = True
         return AuthCredentials(["authenticated"]), user
 
