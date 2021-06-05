@@ -30,6 +30,20 @@ client = TestClient(app)
 user = None
 
 
+def make_ssh_pubkey():
+    # Create a public key with ssh-keygen (this adds ssh-keygen as a
+    # dependency to passing this test).
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with open("/dev/null", "w") as null:
+            proc = Popen(["ssh-keygen", "-f", f"{tmpdir}/test.ssh", "-N", ""],
+                         stdout=null, stderr=null)
+            proc.wait()
+        assert proc.returncode == 0
+
+        # Read in the public key, then delete the temp dir we made.
+        return open(f"{tmpdir}/test.ssh.pub").read().rstrip()
+
+
 @pytest.fixture(autouse=True)
 def setup():
     global user
@@ -770,27 +784,13 @@ def test_post_account_edit_error_unauthorized():
 
 
 def test_post_account_edit_ssh_pub_key():
-    pk = str()
-
-    # Create a public key with ssh-keygen (this adds ssh-keygen as a
-    # dependency to passing this test).
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with open("/dev/null", "w") as null:
-            proc = Popen(["ssh-keygen", "-f", f"{tmpdir}/test.ssh", "-N", ""],
-                         stdout=null, stderr=null)
-            proc.wait()
-        assert proc.returncode == 0
-
-        # Read in the public key, then delete the temp dir we made.
-        pk = open(f"{tmpdir}/test.ssh.pub").read().rstrip()
-
     request = Request()
     sid = user.login(request, "testPassword")
 
     post_data = {
         "U": "test",
         "E": "test@example.org",
-        "PK": pk,
+        "PK": make_ssh_pubkey(),
         "passwd": "testPassword"
     }
 

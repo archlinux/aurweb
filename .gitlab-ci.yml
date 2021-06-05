@@ -8,7 +8,7 @@ cache:
 
 before_script:
   - pacman -Syu --noconfirm --noprogressbar --needed --cachedir .pkg-cache
-           base-devel git gpgme protobuf pyalpm python-mysql-connector
+           base-devel git gpgme protobuf pyalpm python-mysqlclient
            python-pygit2 python-srcinfo python-bleach python-markdown
            python-sqlalchemy python-alembic python-pytest python-werkzeug
            python-pytest-tap python-fastapi hypercorn nginx python-authlib
