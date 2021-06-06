@@ -33,6 +33,15 @@ def test_session():
     assert session.UsersID == user.ID
 
 
+def test_session_cs():
+    """ Test case sensitivity of the database table. """
+    session_cs = create(Session, UsersID=user.ID,
+                        SessionID="TESTSESSION",
+                        LastUpdateTS=datetime.utcnow().timestamp())
+    assert session_cs.SessionID == "TESTSESSION"
+    assert session.SessionID == "testSession"
+
+
 def test_session_user_association():
     # Make sure that the Session user attribute is correct.
     assert session.User == user

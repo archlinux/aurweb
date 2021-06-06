@@ -41,6 +41,18 @@ def test_ssh_pub_key():
     assert ssh_pub_key.PubKey == "testPubKey"
 
 
+def test_ssh_pub_key_cs():
+    """ Test case sensitivity of the database table. """
+    ssh_pub_key_cs = create(SSHPubKey, UserID=user.ID,
+                            Fingerprint="TESTFINGERPRINT",
+                            PubKey="TESTPUBKEY")
+
+    assert ssh_pub_key_cs.Fingerprint == "TESTFINGERPRINT"
+    assert ssh_pub_key_cs.PubKey == "TESTPUBKEY"
+    assert ssh_pub_key.Fingerprint == "testFingerprint"
+    assert ssh_pub_key.PubKey == "testPubKey"
+
+
 def test_ssh_pub_key_fingerprint():
     assert get_fingerprint(TEST_SSH_PUBKEY) is not None
 

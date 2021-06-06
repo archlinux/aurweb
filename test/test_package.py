@@ -3,6 +3,8 @@ import pytest
 from sqlalchemy import and_
 from sqlalchemy.exc import IntegrityError
 
+import aurweb.config
+
 from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
@@ -53,6 +55,20 @@ def test_package():
                    and_(Package.ID == package.ID,
                         Package.Version == "1.2.3")).first()
     assert record is not None
+
+
+def test_package_ci():
+    """ Test case insensitivity of the database table. """
+    if aurweb.config.get("database", "backend") == "sqlite":
+        return None  # SQLite doesn't seem handle this.
+
+    from aurweb.db import session
+
+    with pytest.raises(IntegrityError):
+        create(Package,
+               PackageBase=pkgbase,
+               Name="Beautiful-Package")
+    session.rollback()
 
 
 def test_package_null_pkgbase_raises_exception():

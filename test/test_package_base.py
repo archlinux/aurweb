@@ -2,6 +2,8 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
+import aurweb.config
+
 from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.package_base import PackageBase
@@ -33,6 +35,25 @@ def test_package_base():
     assert not pkgbase.OutOfDateTS
     assert pkgbase.SubmittedTS > 0
     assert pkgbase.ModifiedTS > 0
+
+
+def test_package_base_ci():
+    """ Test case insensitivity of the database table. """
+    if aurweb.config.get("database", "backend") == "sqlite":
+        return None  # SQLite doesn't seem handle this.
+
+    from aurweb.db import session
+
+    pkgbase = create(PackageBase,
+                     Name="beautiful-package",
+                     Maintainer=user)
+    assert bool(pkgbase.ID)
+
+    with pytest.raises(IntegrityError):
+        create(PackageBase,
+               Name="Beautiful-Package",
+               Maintainer=user)
+    session.rollback()
 
 
 def test_package_base_relationships():
