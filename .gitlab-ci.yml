@@ -19,6 +19,7 @@ before_script:
            python-requests python-aiofiles python-python-multipart
            python-pytest-asyncio python-coverage python-bcrypt
            python-email-validator openssh python-lxml mariadb
+           python-isort flake8
   - bash -c "echo '127.0.0.1' > /etc/hosts"
   - bash -c "echo '::1' >> /etc/hosts"
   - mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
@@ -45,6 +46,12 @@ test:
     - AUR_CONFIG=conf/config.sqlite make -C test pytest # pytest with sqlite.
     - coverage report --include='aurweb/*'
     - coverage xml --include='aurweb/*'
+    - flake8 --count aurweb # Assert no flake8 violations in aurweb.
+    - flake8 --count test # Assert no flake8 violations in test.
+    - flake8 --count migrations # Assert no flake8 violations in migrations.
+    - isort --check-only aurweb # Assert no isort violations in aurweb.
+    - isort --check-only test # Assert no flake8 violations in test.
+    - isort --check-only migrations # Assert no flake8 violations in migrations.
   artifacts:
     reports:
       cobertura: coverage.xml
