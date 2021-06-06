@@ -389,7 +389,9 @@ TU_VoteInfo = Table(
     Column('No', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),
     Column('Abstain', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),
     Column('ActiveTUs', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),
-    mysql_engine='InnoDB', mysql_charset='utf8mb4', mysql_collate='utf8mb4_bin',
+    mysql_engine='InnoDB',
+    mysql_charset='utf8mb4',
+    mysql_collate='utf8mb4_general_ci',
 )
 
 
