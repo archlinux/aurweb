@@ -4,8 +4,6 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-import aurweb.config
-
 from aurweb.auth import BasicAuthBackend, has_credential
 from aurweb.db import create, query
 from aurweb.models.account_type import AccountType

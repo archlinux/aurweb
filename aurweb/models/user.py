@@ -65,8 +65,6 @@ class User:
 
     def valid_password(self, password: str):
         """ Check authentication against a given password. """
-        from aurweb.db import session
-
         if password is None:
             return False
 

@@ -2,9 +2,8 @@
 decorators in some way; more complex routes should be defined in their
 own modules and imported here. """
 from http import HTTPStatus
-from urllib.parse import unquote
 
-from fastapi import APIRouter, Form, Request, HTTPException
+from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from aurweb.templates import make_context, render_template
