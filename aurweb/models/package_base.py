@@ -1,17 +1,47 @@
 from datetime import datetime
 
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
+from sqlalchemy.orm import backref, relationship
 
-from aurweb.db import make_relationship
-from aurweb.models.user import User
-from aurweb.schema import PackageBases
+import aurweb.models.user
+
+from aurweb.models.declarative import Base
 
 
-class PackageBase:
-    def __init__(self, Name: str = None, Flagger: User = None,
-                 Maintainer: User = None, Submitter: User = None,
-                 Packager: User = None, **kwargs):
+class PackageBase(Base):
+    __tablename__ = "PackageBases"
+
+    FlaggerUID = Column(Integer,
+                        ForeignKey("Users.ID", ondelete="SET NULL"))
+    Flagger = relationship(
+        "User", backref=backref("flagged_bases", lazy="dynamic"),
+        foreign_keys=[FlaggerUID])
+
+    SubmitterUID = Column(Integer,
+                          ForeignKey("Users.ID", ondelete="SET NULL"))
+    Submitter = relationship(
+        "User", backref=backref("submitted_bases", lazy="dynamic"),
+        foreign_keys=[SubmitterUID])
+
+    MaintainerUID = Column(Integer,
+                           ForeignKey("Users.ID", ondelete="SET NULL"))
+    Maintainer = relationship(
+        "User", backref=backref("maintained_bases", lazy="dynamic"),
+        foreign_keys=[MaintainerUID])
+
+    PackagerUID = Column(Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
+    Packager = relationship(
+        "User", backref=backref("package_bases", lazy="dynamic"),
+        foreign_keys=[PackagerUID])
+
+    def __init__(self, Name: str = None,
+                 Flagger: aurweb.models.user.User = None,
+                 Maintainer: aurweb.models.user.User = None,
+                 Submitter: aurweb.models.user.User = None,
+                 Packager: aurweb.models.user.User = None,
+                 **kwargs):
+        super().__init__(**kwargs)
         self.Name = Name
         if not self.Name:
             raise IntegrityError(
@@ -32,15 +62,3 @@ class PackageBase:
                                       datetime.utcnow().timestamp())
         self.ModifiedTS = kwargs.get("ModifiedTS",
                                      datetime.utcnow().timestamp())
-
-
-mapper(PackageBase, PackageBases, properties={
-    "Flagger": make_relationship(User, PackageBases.c.FlaggerUID,
-                                 "flagged_bases"),
-    "Submitter": make_relationship(User, PackageBases.c.SubmitterUID,
-                                   "submitted_bases"),
-    "Maintainer": make_relationship(User, PackageBases.c.MaintainerUID,
-                                    "maintained_bases"),
-    "Packager": make_relationship(User, PackageBases.c.PackagerUID,
-                                  "package_bases")
-})

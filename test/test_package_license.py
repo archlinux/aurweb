@@ -25,7 +25,7 @@ def setup():
                          AccountType.AccountType == "User").first()
     user = create(User, Username="test", Email="test@example.org",
                   RealName="Test User", Passwd="testPassword",
-                  account_type=account_type)
+                  AccountType=account_type)
 
     license = create(License, Name="Test License")
     pkgbase = create(PackageBase, Name="test-package", Maintainer=user)

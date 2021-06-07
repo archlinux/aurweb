@@ -5,50 +5,44 @@ from datetime import datetime
 import bcrypt
 
 from fastapi import Request
-from sqlalchemy.orm import backref, mapper, relationship
+from sqlalchemy import Column, ForeignKey, Integer, String, text
+from sqlalchemy.orm import backref, relationship
 
 import aurweb.config
+import aurweb.models.account_type
+import aurweb.schema
 
-from aurweb.models.account_type import AccountType
 from aurweb.models.ban import is_banned
-from aurweb.schema import Users
+from aurweb.models.declarative import Base
 
 
-class User:
+class User(Base):
     """ An ORM model of a single Users record. """
+    __tablename__ = "Users"
+
+    ID = Column(Integer, primary_key=True)
+
+    AccountTypeID = Column(
+        Integer, ForeignKey("AccountTypes.ID", ondelete="NO ACTION"),
+        nullable=False, server_default=text("1"))
+    AccountType = relationship(
+        "AccountType",
+        backref=backref("users", lazy="dynamic"),
+        foreign_keys=[AccountTypeID],
+        uselist=False)
+
+    Passwd = Column(String(255), default=str())
+
+    __mapper_args__ = {"primary_key": [ID]}
+
+    # High-level variables used to track authentication (not in DB).
     authenticated = False
 
-    def __init__(self, **kwargs):
-        # Set AccountTypeID if it was passed.
-        self.AccountTypeID = kwargs.get("AccountTypeID")
+    def __init__(self, Passwd: str = str(), **kwargs):
+        super().__init__(**kwargs)
 
-        account_type = kwargs.get("AccountType")
-        if account_type:
-            self.AccountType = account_type
-
-        self.Username = kwargs.get("Username")
-
-        self.ResetKey = kwargs.get("ResetKey")
-        self.Email = kwargs.get("Email")
-        self.BackupEmail = kwargs.get("BackupEmail")
-        self.RealName = kwargs.get("RealName")
-        self.LangPreference = kwargs.get("LangPreference")
-        self.Timezone = kwargs.get("Timezone")
-        self.Homepage = kwargs.get("Homepage")
-        self.IRCNick = kwargs.get("IRCNick")
-        self.PGPKey = kwargs.get("PGPKey")
-        self.RegistrationTS = datetime.utcnow()
-        self.CommentNotify = kwargs.get("CommentNotify")
-        self.UpdateNotify = kwargs.get("UpdateNotify")
-        self.OwnershipNotify = kwargs.get("OwnershipNotify")
-        self.SSOAccountID = kwargs.get("SSOAccountID")
-
-        self.Salt = None
-        self.Passwd = str()
-
-        passwd = kwargs.get("Passwd")
-        if passwd:
-            self.update_password(passwd)
+        if Passwd:
+            self.update_password(Passwd)
 
     def update_password(self, password, salt_rounds=12):
         self.Passwd = bcrypt.hashpw(
@@ -154,10 +148,3 @@ class User:
     def __repr__(self):
         return "<User(ID='%s', AccountType='%s', Username='%s')>" % (
             self.ID, str(self.AccountType), self.Username)
-
-
-# Map schema.Users to User and give it some relationships.
-mapper(User, Users, properties={
-    "AccountType": relationship(AccountType,
-                                backref=backref("users", lazy="dynamic"))
-})

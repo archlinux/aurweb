@@ -1,10 +1,16 @@
+from sqlalchemy import Column, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
 
-from aurweb.schema import Terms
+from aurweb.models.declarative import Base
 
 
-class Term:
+class Term(Base):
+    __tablename__ = "Terms"
+
+    ID = Column(Integer, primary_key=True)
+
+    __mapper_args__ = {"primary_key": [ID]}
+
     def __init__(self,
                  Description: str = None, URL: str = None,
                  Revision: int = None):
@@ -23,6 +29,3 @@ class Term:
                 params=("NULL"))
 
         self.Revision = Revision
-
-
-mapper(Term, Terms)

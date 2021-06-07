@@ -1,7 +1,7 @@
 import pytest
 
 from sqlalchemy import and_
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, OperationalError
 
 import aurweb.config
 
@@ -19,7 +19,7 @@ user = pkgbase = package = None
 def setup():
     global user, pkgbase, package
 
-    setup_test_db("Users", "PackageBases", "Packages")
+    setup_test_db("Packages", "PackageBases", "Users")
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
@@ -57,17 +57,17 @@ def test_package():
     assert record is not None
 
 
-def test_package_ci():
+def test_package_package_base_cant_change():
     """ Test case insensitivity of the database table. """
     if aurweb.config.get("database", "backend") == "sqlite":
         return None  # SQLite doesn't seem handle this.
 
     from aurweb.db import session
 
-    with pytest.raises(IntegrityError):
+    with pytest.raises(OperationalError):
         create(Package,
                PackageBase=pkgbase,
-               Name="Beautiful-Package")
+               Name="invalidates-old-package-packagebase-relationship")
     session.rollback()
 
 

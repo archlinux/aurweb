@@ -22,7 +22,7 @@ def setup():
                          AccountType.AccountType == "User").first()
     user = create(User, Username="test", Email="test@example.org",
                   RealName="Test User", Passwd="testPassword",
-                  account_type=account_type)
+                  AccountType=account_type)
 
     term = create(Term, Description="Test term", URL="https://test.term")
 
@@ -33,7 +33,7 @@ def test_accepted_term():
     # Make sure our AcceptedTerm relationships got initialized properly.
     assert accepted_term.User == user
     assert accepted_term in user.accepted_terms
-    assert accepted_term in term.accepted
+    assert accepted_term in term.accepted_terms
 
 
 def test_accepted_term_null_user_raises_exception():

@@ -10,12 +10,12 @@ from aurweb.models.session import Session, generate_unique_sid
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
 
-user = session = None
+account_type = user = session = None
 
 
 @pytest.fixture(autouse=True)
 def setup():
-    global user, session
+    global account_type, user, session
 
     setup_test_db("Users", "Sessions")
 
@@ -35,7 +35,10 @@ def test_session():
 
 def test_session_cs():
     """ Test case sensitivity of the database table. """
-    session_cs = create(Session, UsersID=user.ID,
+    user2 = create(User, Username="test2", Email="test2@example.org",
+                   ResetKey="testReset2", Passwd="testPassword",
+                   AccountType=account_type)
+    session_cs = create(Session, UsersID=user2.ID,
                         SessionID="TESTSESSION",
                         LastUpdateTS=datetime.utcnow().timestamp())
     assert session_cs.SessionID == "TESTSESSION"

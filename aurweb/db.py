@@ -1,7 +1,5 @@
 import math
 
-from sqlalchemy.orm import backref, relationship
-
 import aurweb.config
 import aurweb.util
 
@@ -53,12 +51,6 @@ def make_random_value(table: str, column: str):
     return string
 
 
-def make_relationship(model, foreign_key: str, backref_: str, **kwargs):
-    return relationship(model, foreign_keys=[foreign_key],
-                        backref=backref(backref_, lazy="dynamic"),
-                        **kwargs)
-
-
 def query(model, *args, **kwargs):
     return session.query(model).filter(*args, **kwargs)
 
@@ -75,6 +67,10 @@ def delete(model, *args, **kwargs):
     for record in instance:
         session.delete(record)
     session.commit()
+
+
+def rollback():
+    session.rollback()
 
 
 def get_sqlalchemy_url():
@@ -137,7 +133,6 @@ def get_engine(echo: bool = False):
             # check_same_thread is for a SQLite technicality
             # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
             connect_args["check_same_thread"] = False
-
         engine = create_engine(get_sqlalchemy_url(),
                                connect_args=connect_args,
                                echo=echo)

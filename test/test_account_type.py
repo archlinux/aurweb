@@ -43,6 +43,7 @@ def test_user_account_type_relationship():
                   AccountType=account_type)
 
     assert user.AccountType == account_type
-    assert account_type.users.filter(User.ID == user.ID).first()
 
+    # This must be deleted here to avoid foreign key issues when
+    # deleting the temporary AccountType in the fixture.
     delete(User, User.ID == user.ID)

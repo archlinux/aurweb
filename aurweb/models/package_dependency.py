@@ -1,17 +1,40 @@
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
+from sqlalchemy.orm import backref, relationship
 
-from aurweb.db import make_relationship
-from aurweb.models.dependency_type import DependencyType
-from aurweb.models.package import Package
-from aurweb.schema import PackageDepends
+import aurweb.models.package
+
+from aurweb.models import dependency_type
+from aurweb.models.declarative import Base
 
 
-class PackageDependency:
-    def __init__(self, Package: Package = None,
-                 DependencyType: DependencyType = None,
-                 DepName: str = None, DepDesc: str = None,
-                 DepCondition: str = None, DepArch: str = None):
+class PackageDependency(Base):
+    __tablename__ = "PackageDepends"
+
+    PackageID = Column(
+        Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
+        nullable=False)
+    Package = relationship(
+        "Package", backref=backref("package_dependencies", lazy="dynamic"),
+        foreign_keys=[PackageID], lazy="select")
+
+    DepTypeID = Column(
+        Integer, ForeignKey("DependencyTypes.ID", ondelete="NO ACTION"),
+        nullable=False)
+    DependencyType = relationship(
+        "DependencyType",
+        backref=backref("package_dependencies", lazy="dynamic"),
+        foreign_keys=[DepTypeID], lazy="select")
+
+    __mapper_args__ = {"primary_key": [PackageID, DepTypeID]}
+
+    def __init__(self,
+                 Package: aurweb.models.package.Package = None,
+                 DependencyType: dependency_type.DependencyType = None,
+                 DepName: str = None,
+                 DepDesc: str = None,
+                 DepCondition: str = None,
+                 DepArch: str = None):
         self.Package = Package
         if not self.Package:
             raise IntegrityError(
@@ -36,15 +59,3 @@ class PackageDependency:
         self.DepDesc = DepDesc
         self.DepCondition = DepCondition
         self.DepArch = DepArch
-
-
-properties = {
-    "Package": make_relationship(Package, PackageDepends.c.PackageID,
-                                 "package_dependencies"),
-    "DependencyType": make_relationship(DependencyType,
-                                        PackageDepends.c.DepTypeID,
-                                        "package_dependencies")
-}
-
-mapper(PackageDependency, PackageDepends, properties=properties,
-       primary_key=[PackageDepends.c.PackageID, PackageDepends.c.DepTypeID])

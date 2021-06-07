@@ -1,15 +1,33 @@
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
+from sqlalchemy.orm import backref, relationship
 
-from aurweb.db import make_relationship
-from aurweb.models.term import Term
-from aurweb.models.user import User
-from aurweb.schema import AcceptedTerms
+import aurweb.models.term
+import aurweb.models.user
+
+from aurweb.models.declarative import Base
 
 
-class AcceptedTerm:
+class AcceptedTerm(Base):
+    __tablename__ = "AcceptedTerms"
+
+    UsersID = Column(Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
+                     nullable=False)
+    User = relationship(
+        "User", backref=backref("accepted_terms", lazy="dynamic"),
+        foreign_keys=[UsersID])
+
+    TermsID = Column(Integer, ForeignKey("Terms.ID", ondelete="CASCADE"),
+                     nullable=False)
+    Term = relationship(
+        "Term", backref=backref("accepted_terms", lazy="dynamic"),
+        foreign_keys=[TermsID])
+
+    __mapper_args__ = {"primary_key": [TermsID]}
+
     def __init__(self,
-                 User: User = None, Term: Term = None,
+                 User: aurweb.models.user.User = None,
+                 Term: aurweb.models.term.Term = None,
                  Revision: int = None):
         self.User = User
         if not self.User:
@@ -26,12 +44,3 @@ class AcceptedTerm:
                 params=("NULL"))
 
         self.Revision = Revision
-
-
-properties = {
-    "User": make_relationship(User, AcceptedTerms.c.UsersID, "accepted_terms"),
-    "Term": make_relationship(Term, AcceptedTerms.c.TermsID, "accepted")
-}
-
-mapper(AcceptedTerm, AcceptedTerms, properties=properties,
-       primary_key=[AcceptedTerms.c.UsersID, AcceptedTerms.c.TermsID])

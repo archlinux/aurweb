@@ -1,15 +1,36 @@
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
+from sqlalchemy.orm import backref, relationship
 
-from aurweb.db import make_relationship
-from aurweb.models.package import Package
-from aurweb.models.relation_type import RelationType
-from aurweb.schema import PackageRelations
+import aurweb.db
+import aurweb.models.package
+import aurweb.models.relation_type
+
+from aurweb.models.declarative import Base
 
 
-class PackageRelation:
-    def __init__(self, Package: Package = None,
-                 RelationType: RelationType = None,
+class PackageRelation(Base):
+    __tablename__ = "PackageRelations"
+
+    PackageID = Column(
+        Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
+        nullable=False)
+    Package = relationship(
+        "Package", backref=backref("package_relations", lazy="dynamic"),
+        foreign_keys=[PackageID])
+
+    RelTypeID = Column(
+        Integer, ForeignKey("RelationTypes.ID", ondelete="CASCADE"),
+        nullable=False)
+    RelationType = relationship(
+        "RelationType", backref=backref("package_relations", lazy="dynamic"),
+        foreign_keys=[RelTypeID])
+
+    __mapper_args__ = {"primary_key": [PackageID, RelTypeID]}
+
+    def __init__(self,
+                 Package: aurweb.models.package.Package = None,
+                 RelationType: aurweb.models.relation_type.RelationType = None,
                  RelName: str = None, RelCondition: str = None,
                  RelArch: str = None):
         self.Package = Package
@@ -35,18 +56,3 @@ class PackageRelation:
 
         self.RelCondition = RelCondition
         self.RelArch = RelArch
-
-
-properties = {
-    "Package": make_relationship(Package, PackageRelations.c.PackageID,
-                                 "package_relations"),
-    "RelationType": make_relationship(RelationType,
-                                      PackageRelations.c.RelTypeID,
-                                      "package_relations")
-}
-
-mapper(PackageRelation, PackageRelations, properties=properties,
-       primary_key=[
-           PackageRelations.c.PackageID,
-           PackageRelations.c.RelTypeID
-       ])

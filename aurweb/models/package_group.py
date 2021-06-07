@@ -1,14 +1,33 @@
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
+from sqlalchemy.orm import backref, relationship
 
-from aurweb.db import make_relationship
-from aurweb.models.group import Group
-from aurweb.models.package import Package
-from aurweb.schema import PackageGroups
+import aurweb.models.group
+import aurweb.models.package
+
+from aurweb.models.declarative import Base
 
 
-class PackageGroup:
-    def __init__(self, Package: Package = None, Group: Group = None):
+class PackageGroup(Base):
+    __tablename__ = "PackageGroups"
+
+    PackageID = Column(Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
+                       primary_key=True, nullable=True)
+    Package = relationship(
+        "Package", backref=backref("package_groups", lazy="dynamic"),
+        foreign_keys=[PackageID])
+
+    GroupID = Column(Integer, ForeignKey("Groups.ID", ondelete="CASCADE"),
+                     primary_key=True, nullable=True)
+    Group = relationship(
+        "Group", backref=backref("package_groups", lazy="dynamic"),
+        foreign_keys=[GroupID])
+
+    __mapper_args__ = {"primary_key": [PackageID, GroupID]}
+
+    def __init__(self,
+                 Package: aurweb.models.package.Package = None,
+                 Group: aurweb.models.group.Group = None):
         self.Package = Package
         if not self.Package:
             raise IntegrityError(
@@ -22,18 +41,3 @@ class PackageGroup:
                 statement="Primary key GroupID cannot be null.",
                 orig="PackageGroups.GroupID",
                 params=("NULL"))
-
-
-properties = {
-    "Package": make_relationship(Package,
-                                 PackageGroups.c.PackageID,
-                                 "package_group",
-                                 uselist=False),
-    "Group": make_relationship(Group,
-                               PackageGroups.c.GroupID,
-                               "package_group",
-                               uselist=False)
-}
-
-mapper(PackageGroup, PackageGroups, properties=properties,
-       primary_key=[PackageGroups.c.PackageID, PackageGroups.c.GroupID])

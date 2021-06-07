@@ -1,10 +1,16 @@
+from sqlalchemy import Column, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
 
-from aurweb.schema import Groups
+from aurweb.models.declarative import Base
 
 
-class Group:
+class Group(Base):
+    __tablename__ = "Groups"
+
+    ID = Column(Integer, primary_key=True)
+
+    __mapper_args__ = {"primary_key": [ID]}
+
     def __init__(self, Name: str = None):
         self.Name = Name
         if not self.Name:
@@ -12,6 +18,3 @@ class Group:
                 statement="Column Name cannot be null.",
                 orig="Groups.Name",
                 params=("NULL"))
-
-
-mapper(Group, Groups)

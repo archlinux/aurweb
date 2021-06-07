@@ -1,14 +1,27 @@
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
+from sqlalchemy.orm import backref, relationship
 
-from aurweb.db import make_relationship
-from aurweb.models.package_base import PackageBase
-from aurweb.schema import PackageKeywords
+import aurweb.db
+import aurweb.models.package_base
+
+from aurweb.models.declarative import Base
 
 
-class PackageKeyword:
+class PackageKeyword(Base):
+    __tablename__ = "PackageKeywords"
+
+    PackageBaseID = Column(
+        Integer, ForeignKey("PackageBases.ID", ondelete="CASCADE"),
+        primary_key=True, nullable=True)
+    PackageBase = relationship(
+        "PackageBase", backref=backref("keywords", lazy="dynamic"),
+        foreign_keys=[PackageBaseID])
+
+    __mapper_args__ = {"primary_key": [PackageBaseID]}
+
     def __init__(self,
-                 PackageBase: PackageBase = None,
+                 PackageBase: aurweb.models.package_base.PackageBase = None,
                  Keyword: str = None):
         self.PackageBase = PackageBase
         if not self.PackageBase:
@@ -18,10 +31,3 @@ class PackageKeyword:
                 params=("NULL"))
 
         self.Keyword = Keyword
-
-
-mapper(PackageKeyword, PackageKeywords, properties={
-    "PackageBase": make_relationship(PackageBase,
-                                     PackageKeywords.c.PackageBaseID,
-                                     "keywords")
-})

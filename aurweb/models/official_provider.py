@@ -1,10 +1,16 @@
+from sqlalchemy import Column, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
 
-from aurweb.schema import OfficialProviders
+from aurweb.models.declarative import Base
 
 
-class OfficialProvider:
+class OfficialProvider(Base):
+    __tablename__ = "OfficialProviders"
+
+    ID = Column(Integer, primary_key=True)
+
+    __mapper_args__ = {"primary_key": [ID]}
+
     def __init__(self,
                  Name: str = None,
                  Repo: str = None,
@@ -29,6 +35,3 @@ class OfficialProvider:
                 statement="Column Provides cannot be null.",
                 orig="OfficialProviders.Provides",
                 params=("NULL"))
-
-
-mapper(OfficialProvider, OfficialProviders)

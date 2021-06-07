@@ -1,20 +1,37 @@
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
+from sqlalchemy.orm import backref, relationship
 
-from aurweb.db import make_relationship
-from aurweb.models.package_base import PackageBase
-from aurweb.schema import Packages
+import aurweb.db
+import aurweb.models.package_base
+
+from aurweb.models.declarative import Base
 
 
-class Package:
+class Package(Base):
+    __tablename__ = "Packages"
+
+    ID = Column(Integer, primary_key=True)
+
+    PackageBaseID = Column(
+        Integer, ForeignKey("PackageBases.ID", ondelete="CASCADE"),
+        nullable=False)
+    PackageBase = relationship(
+        "PackageBase", backref=backref("package", uselist=False),
+        foreign_keys=[PackageBaseID])
+
+    __mapper_args__ = {"primary_key": [ID]}
+
     def __init__(self,
-                 PackageBase: PackageBase = None,
-                 Name: str = None, Version: str = None,
-                 Description: str = None, URL: str = None):
+                 PackageBase: aurweb.models.package_base.PackageBase = None,
+                 Name: str = None,
+                 Version: str = None,
+                 Description: str = None,
+                 URL: str = None):
         self.PackageBase = PackageBase
         if not self.PackageBase:
             raise IntegrityError(
-                statement="Foreign key UserID cannot be null.",
+                statement="Foreign key PackageBaseID cannot be null.",
                 orig="Packages.PackageBaseID",
                 params=("NULL"))
 
@@ -28,10 +45,3 @@ class Package:
         self.Version = Version
         self.Description = Description
         self.URL = URL
-
-
-mapper(Package, Packages, properties={
-    "PackageBase": make_relationship(PackageBase,
-                                     Packages.c.PackageBaseID,
-                                     "package", uselist=False)
-})

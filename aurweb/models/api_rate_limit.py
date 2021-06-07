@@ -1,11 +1,18 @@
+from sqlalchemy import Column, String
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import mapper
 
-from aurweb.schema import ApiRateLimit as _ApiRateLimit
+from aurweb.models.declarative import Base
 
 
-class ApiRateLimit:
-    def __init__(self, IP: str = None,
+class ApiRateLimit(Base):
+    __tablename__ = "ApiRateLimit"
+
+    IP = Column(String(45), primary_key=True, unique=True, default=str())
+
+    __mapper_args__ = {"primary_key": [IP]}
+
+    def __init__(self,
+                 IP: str = None,
                  Requests: int = None,
                  WindowStart: int = None):
         self.IP = IP
@@ -23,6 +30,3 @@ class ApiRateLimit:
                 statement="Column WindowStart cannot be null.",
                 orig="ApiRateLimit.WindowStart",
                 params=("NULL"))
-
-
-mapper(ApiRateLimit, _ApiRateLimit, primary_key=[_ApiRateLimit.c.IP])
