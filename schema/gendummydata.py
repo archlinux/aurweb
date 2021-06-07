@@ -98,10 +98,18 @@ if MAX_USERS > len(contents):
     MAX_USERS = len(contents)
 if MAX_PKGS > len(contents):
     MAX_PKGS = len(contents)
-if len(contents) - MAX_USERS > MAX_PKGS:
-    need_dupes = 0
-else:
+
+need_dupes = 0
+if not len(contents) - MAX_USERS > MAX_PKGS:
     need_dupes = 1
+
+
+def normalize(unicode_data):
+    """ We only accept ascii for usernames. Also use this to normalize
+    package names; our database utf8mb4 collations compare with Unicode
+    Equivalence. """
+    return unicode_data.encode('ascii', 'ignore').decode('ascii')
+
 
 # select random usernames
 #
@@ -110,11 +118,12 @@ user_id = USER_ID
 while len(seen_users) < MAX_USERS:
     user = random.randrange(0, len(contents))
     word = contents[user].replace("'", "").replace(".", "").replace(" ", "_")
-    word = word.strip().lower()
+    word = normalize(word.strip().lower())
     if word not in seen_users:
         seen_users[word] = user_id
         user_id += 1
 user_keys = list(seen_users.keys())
+
 
 # select random package names
 #
@@ -123,7 +132,7 @@ num_pkgs = PKG_ID
 while len(seen_pkgs) < MAX_PKGS:
     pkg = random.randrange(0, len(contents))
     word = contents[pkg].replace("'", "").replace(".", "").replace(" ", "_")
-    word = word.strip().lower()
+    word = normalize(word.strip().lower())
     if not need_dupes:
         if word not in seen_pkgs and word not in seen_users:
             seen_pkgs[word] = num_pkgs
@@ -285,10 +294,10 @@ for p in seen_pkgs_keys:
     for i in range(num_sources):
         src_file = user_keys[random.randrange(0, len(user_keys))]
         src = "%s%s.%s/%s/%s-%s.tar.gz" % (
-                RANDOM_URL[random.randrange(0, len(RANDOM_URL))],
-                p, RANDOM_TLDS[random.randrange(0, len(RANDOM_TLDS))],
-                RANDOM_LOCS[random.randrange(0, len(RANDOM_LOCS))],
-                src_file, genVersion())
+            RANDOM_URL[random.randrange(0, len(RANDOM_URL))],
+            p, RANDOM_TLDS[random.randrange(0, len(RANDOM_TLDS))],
+            RANDOM_LOCS[random.randrange(0, len(RANDOM_LOCS))],
+            src_file, genVersion())
         s = "INSERT INTO PackageSources(PackageID, Source) VALUES (%d, '%s');\n"
         s = s % (seen_pkgs[p], src)
         out.write(s)
