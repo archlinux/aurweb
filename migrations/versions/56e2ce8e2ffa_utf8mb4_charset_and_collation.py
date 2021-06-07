@@ -37,7 +37,7 @@ tables = [
     ('RequestTypes', 'utf8mb4', 'utf8mb4_general_ci'),
     ('SSHPubKeys', 'utf8mb4', 'utf8mb4_bin'),
     ('Sessions', 'utf8mb4', 'utf8mb4_bin'),
-    ('TU_VoteInfo', 'utf8mb4', 'utf8mb4_bin'),
+    ('TU_VoteInfo', 'utf8mb4', 'utf8mb4_general_ci'),
     ('Terms', 'utf8mb4', 'utf8mb4_general_ci'),
     ('Users', 'utf8mb4', 'utf8mb4_general_ci')
 ]
