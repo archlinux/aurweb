@@ -141,7 +141,7 @@ def get_engine(echo: bool = False):
         engine = create_engine(get_sqlalchemy_url(),
                                connect_args=connect_args,
                                echo=echo)
-        Session = sessionmaker(autocommit=False, autoflush=True, bind=engine)
+        Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
         session = Session()
 
     return engine
