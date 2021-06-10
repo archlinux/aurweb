@@ -1,4 +1,8 @@
+import functools
 import math
+import re
+
+from sqlalchemy import event
 
 import aurweb.config
 import aurweb.util
@@ -129,13 +133,31 @@ def get_engine(echo: bool = False):
 
     if engine is None:
         connect_args = dict()
-        if aurweb.config.get("database", "backend") == "sqlite":
+
+        db_backend = aurweb.config.get("database", "backend")
+        if db_backend == "sqlite":
             # check_same_thread is for a SQLite technicality
             # https://fastapi.tiangolo.com/tutorial/sql-databases/#note
             connect_args["check_same_thread"] = False
+
         engine = create_engine(get_sqlalchemy_url(),
                                connect_args=connect_args,
                                echo=echo)
+
+        if db_backend == "sqlite":
+            # For SQLite, we need to add some custom functions as
+            # they are used in the reference graph method.
+            def regexp(regex, item):
+                return bool(re.search(regex, str(item)))
+
+            @event.listens_for(engine, "begin")
+            def do_begin(conn):
+                create_deterministic_function = functools.partial(
+                    conn.connection.create_function,
+                    deterministic=True
+                )
+                create_deterministic_function("REGEXP", 2, regexp)
+
         Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
         session = Session()
 

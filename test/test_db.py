@@ -200,6 +200,9 @@ def test_connection_execute_paramstyle_format():
             aurweb.db.kill_engine()
             aurweb.initdb.run(Args())
 
+            # Test SQLite route of clearing tables.
+            setup_test_db("Users", "Bans")
+
             conn = db.Connection()
 
             # First, test ? to %s format replacement.
