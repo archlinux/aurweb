@@ -4,8 +4,7 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, query, rollback
-from aurweb.models.account_type import AccountType
+from aurweb.db import create, rollback
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.user import User
@@ -19,11 +18,6 @@ def setup():
     global user, pkgbase
 
     setup_test_db("Users", "PackageBases", "PackageVotes")
-
-    account_type = query(AccountType,
-                         AccountType.AccountType == "User").first()
-    print(account_type.ID)
-    print(account_type.AccountType)
 
     user = create(User, Username="test", Email="test@example.org",
                   RealName="Test User", Passwd="testPassword")
