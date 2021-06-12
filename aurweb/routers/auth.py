@@ -64,6 +64,10 @@ async def login_post(request: Request,
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURSID", sid, expires=expires_at,
                         secure=secure_cookies, httponly=True)
+    response.set_cookie("AURTZ", user.Timezone,
+                        secure=secure_cookies, httponly=True)
+    response.set_cookie("AURLANG", user.LangPreference,
+                        secure=secure_cookies, httponly=True)
     return util.add_samesite_fields(response, "strict")
 
 
