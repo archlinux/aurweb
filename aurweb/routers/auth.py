@@ -59,7 +59,10 @@ async def login_post(request: Request,
 
     response = RedirectResponse(url=next,
                                 status_code=int(HTTPStatus.SEE_OTHER))
-    response.set_cookie("AURSID", sid, expires=expires_at)
+
+    secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
+    response.set_cookie("AURSID", sid, expires=expires_at,
+                        secure=secure_cookies, httponly=True)
     return response
 
 

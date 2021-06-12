@@ -85,8 +85,9 @@ def valid_ssh_pubkey(pk):
 
 
 def migrate_cookies(request, response):
+    secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     for k, v in request.cookies.items():
-        response.set_cookie(k, v)
+        response.set_cookie(k, v, secure=secure_cookies, httponly=True)
     return response
 
 

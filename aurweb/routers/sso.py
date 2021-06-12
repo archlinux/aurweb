@@ -131,13 +131,15 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
     elif len(aur_accounts) == 1:
         sid = open_session(request, conn, aur_accounts[0][Users.c.ID])
         response = RedirectResponse(redirect if redirect and is_aur_url(redirect) else "/")
+        secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
         response.set_cookie(key="AURSID", value=sid, httponly=True,
-                            secure=request.url.scheme == "https")
+                            secure=secure_cookies)
         if "id_token" in token:
             # We save the id_token for the SSO logout. It’s not too important
             # though, so if we can’t find it, we can live without it.
-            response.set_cookie(key="SSO_ID_TOKEN", value=token["id_token"], path="/sso/",
-                                httponly=True, secure=request.url.scheme == "https")
+            response.set_cookie(key="SSO_ID_TOKEN", value=token["id_token"],
+                                path="/sso/", httponly=True,
+                                secure=secure_cookies)
         return response
     else:
         # We’ve got a severe integrity violation.

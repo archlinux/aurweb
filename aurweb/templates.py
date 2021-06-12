@@ -88,7 +88,10 @@ def render_template(request: Request,
     template = templates.get_template(path)
     rendered = template.render(context)
 
-    response = HTMLResponse(rendered, status_code=int(status_code))
-    response.set_cookie("AURLANG", context.get("language"))
-    response.set_cookie("AURTZ", context.get("timezone"))
+    response = HTMLResponse(rendered, status_code=status_code)
+    secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
+    response.set_cookie("AURLANG", context.get("language"),
+                        secure=secure_cookies, httponly=True)
+    response.set_cookie("AURTZ", context.get("timezone"),
+                        secure=secure_cookies, httponly=True)
     return response

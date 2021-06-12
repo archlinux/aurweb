@@ -1,5 +1,6 @@
 from datetime import datetime
 from http import HTTPStatus
+from unittest import mock
 
 import pytest
 
@@ -68,6 +69,55 @@ def test_login_logout():
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
     assert "AURSID" not in response.cookies
+
+
+def mock_getboolean(a, b):
+    if a == "options" and b == "disable_http_login":
+        return True
+    return bool(aurweb.config.get(a, b))
+
+
+@mock.patch("aurweb.config.getboolean", side_effect=mock_getboolean)
+def test_secure_login(mock):
+    """ In this test, we check to verify the course of action taken
+    by starlette when providing secure=True to a response cookie.
+    This is achieved by mocking aurweb.config.getboolean to return
+    True (or 1) when looking for `options.disable_http_login`.
+    When we receive a response with `disable_http_login` enabled,
+    we check the fields in cookies received for the secure and
+    httponly fields, in addition to the rest of the fields given
+    on such a request. """
+
+    # Create a local TestClient here since we mocked configuration.
+    client = TestClient(app)
+
+    # Data used for our upcoming http post request.
+    post_data = {
+        "user": user.Username,
+        "passwd": "testPassword",
+        "next": "/"
+    }
+
+    # Perform a login request with the data matching our user.
+    with client as request:
+        response = request.post("/login", data=post_data,
+                                allow_redirects=False)
+
+    # Make sure we got the expected status out of it.
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Let's check what we got in terms of cookies for AURSID.
+    # Make sure that a secure cookie got passed to us.
+    cookie = next(c for c in response.cookies if c.name == "AURSID")
+    assert cookie.secure is True
+    assert cookie.has_nonstandard_attr("HttpOnly") is True
+    assert cookie.value is not None and len(cookie.value) > 0
+
+    # Let's make sure we actually have a session relationship
+    # with the AURSID we ended up with.
+    record = query(Session, Session.SessionID == cookie.value).first()
+    assert record is not None and record.User == user
+    assert user.session == record
 
 
 def test_authenticated_login_forbidden():
