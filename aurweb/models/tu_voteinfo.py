@@ -1,3 +1,5 @@
+import typing
+
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
@@ -64,7 +66,7 @@ class TUVoteInfo(Base):
                 statement="Column Quorum cannot be null.",
                 orig="TU_VoteInfo.Quorum",
                 params=("NULL"))
-        self.Quorum = str(Quorum)
+        self.Quorum = Quorum
 
         self.Submitter = Submitter
         if not self.Submitter:
@@ -72,3 +74,14 @@ class TUVoteInfo(Base):
                 statement="Foreign key SubmitterID cannot be null.",
                 orig="TU_VoteInfo.SubmitterID",
                 params=("NULL"))
+
+    def __setattr__(self, key: str, value: typing.Any):
+        """ Customize setattr to stringify any Quorum keys given. """
+        if key == "Quorum":
+            value = str(value)
+        return super().__setattr__(key, value)
+
+    def __getattribute__(self, key: str):
+        """ Customize getattr to floatify any fetched Quorum values. """
+        attr = super().__getattribute__(key)
+        return float(attr) if key == "Quorum" else attr

@@ -39,7 +39,7 @@ def test_tu_voteinfo_creation():
     assert tu_voteinfo.User == user.Username
     assert tu_voteinfo.Submitted == ts
     assert tu_voteinfo.End == ts + 5
-    assert float(tu_voteinfo.Quorum) == 0.5
+    assert tu_voteinfo.Quorum == 0.5
     assert tu_voteinfo.Submitter == user
     assert tu_voteinfo.Yes == 0
     assert tu_voteinfo.No == 0
