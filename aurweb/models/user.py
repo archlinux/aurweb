@@ -37,6 +37,7 @@ class User(Base):
 
     # High-level variables used to track authentication (not in DB).
     authenticated = False
+    nonce = None
 
     def __init__(self, Passwd: str = str(), **kwargs):
         super().__init__(**kwargs)

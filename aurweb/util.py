@@ -1,6 +1,8 @@
 import base64
+import math
 import random
 import re
+import secrets
 import string
 
 from collections import OrderedDict
@@ -18,6 +20,15 @@ import aurweb.config
 def make_random_string(length):
     return ''.join(random.choices(string.ascii_lowercase +
                                   string.digits, k=length))
+
+
+def make_nonce(length: int = 8):
+    """ Generate a single random nonce. Here, token_hex generates a hex
+    string of 2 hex characters per byte, where the length give is
+    nbytes. This means that to get our proper string length, we need to
+    cut it in half and truncate off any remaining (in the case that
+    length was uneven). """
+    return secrets.token_hex(math.ceil(length / 2))[:length]
 
 
 def valid_username(username):

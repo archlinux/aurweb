@@ -1,6 +1,8 @@
+import asyncio
 import http
+import typing
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.authentication import AuthenticationMiddleware
@@ -55,3 +57,42 @@ async def http_exception_handler(request, exc):
     phrase = http.HTTPStatus(exc.status_code).phrase
     return HTMLResponse(f"<h1>{exc.status_code} {phrase}</h1><p>{exc.detail}</p>",
                         status_code=exc.status_code)
+
+
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next: typing.Callable):
+    """ This middleware adds the CSP, XCTO, XFO and RP security
+    headers to the HTTP response associated with request.
+
+    CSP: Content-Security-Policy
+    XCTO: X-Content-Type-Options
+    RP: Referrer-Policy
+    XFO: X-Frame-Options
+    """
+    response = asyncio.create_task(call_next(request))
+    await asyncio.wait({response}, return_when=asyncio.FIRST_COMPLETED)
+    response = response.result()
+
+    # Add CSP header.
+    nonce = request.user.nonce
+    csp = "default-src 'self'; "
+    script_hosts = [
+        "ajax.googleapis.com",
+        "cdn.jsdelivr.net"
+    ]
+    csp += f"script-src 'self' 'nonce-{nonce}' " + ' '.join(script_hosts)
+    response.headers["Content-Security-Policy"] = csp
+
+    # Add XTCO header.
+    xcto = "nosniff"
+    response.headers["X-Content-Type-Options"] = xcto
+
+    # Add Referrer Policy header.
+    rp = "same-origin"
+    response.headers["Referrer-Policy"] = rp
+
+    # Add X-Frame-Options header.
+    xfo = "SAMEORIGIN"
+    response.headers["X-Frame-Options"] = xfo
+
+    return response

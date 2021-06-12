@@ -1,7 +1,9 @@
+import re
 import urllib.parse
 
 from http import HTTPStatus
 
+import lxml.etree
 import pytest
 
 from fastapi.testclient import TestClient
@@ -37,6 +39,24 @@ def test_index():
     with client as req:
         response = req.get("/")
     assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_index_security_headers():
+    """ Check for the existence of CSP, XCTO, XFO and RP security headers.
+
+    CSP: Content-Security-Policy
+    XCTO: X-Content-Type-Options
+    RP: Referrer-Policy
+    XFO: X-Frame-Options
+    """
+    # Use `with` to trigger FastAPI app events.
+    with client as req:
+        response = req.get("/")
+    assert response.status_code == int(HTTPStatus.OK)
+    assert response.headers.get("Content-Security-Policy") is not None
+    assert response.headers.get("X-Content-Type-Options") == "nosniff"
+    assert response.headers.get("Referrer-Policy") == "same-origin"
+    assert response.headers.get("X-Frame-Options") == "SAMEORIGIN"
 
 
 def test_favicon():
@@ -106,3 +126,25 @@ def test_error_messages():
     response2 = client.get("/raisefivethree")
     assert response1.status_code == int(HTTPStatus.NOT_FOUND)
     assert response2.status_code == int(HTTPStatus.SERVICE_UNAVAILABLE)
+
+
+def test_nonce_csp():
+    with client as request:
+        response = request.get("/")
+    data = response.headers.get("Content-Security-Policy")
+    nonce = next(field for field in data.split("; ") if "nonce" in field)
+    match = re.match(r"^script-src .*'nonce-([a-fA-F0-9]{8})' .*$", nonce)
+    nonce = match.group(1)
+    assert nonce is not None and len(nonce) == 8
+
+    parser = lxml.etree.HTMLParser(recover=True)
+    root = lxml.etree.fromstring(response.text, parser=parser)
+
+    nonce_verified = False
+    scripts = root.xpath("//script")
+    for script in scripts:
+        if script.text is not None:
+            assert "nonce" in script.keys()
+            if not (nonce_verified := (script.get("nonce") == nonce)):
+                break
+    assert nonce_verified is True

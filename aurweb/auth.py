@@ -10,7 +10,7 @@ from starlette.requests import HTTPConnection
 
 import aurweb.config
 
-from aurweb import l10n
+from aurweb import l10n, util
 from aurweb.models.session import Session
 from aurweb.models.user import User
 from aurweb.templates import make_variable_context, render_template
@@ -24,6 +24,12 @@ class AnonymousUser:
 
     # A stub ssh_pub_key relationship.
     ssh_pub_key = None
+
+    # A nonce attribute, needed for all browser sessions; set in __init__.
+    nonce = None
+
+    def __init__(self):
+        self.nonce = util.make_nonce()
 
     @staticmethod
     def is_authenticated():
@@ -55,7 +61,9 @@ class BasicAuthBackend(AuthenticationBackend):
         # exists, due to ForeignKey constraints in the schema upheld
         # by mysqlclient.
         user = session.query(User).filter(User.ID == record.UsersID).first()
+        user.nonce = util.make_nonce()
         user.authenticated = True
+
         return AuthCredentials(["authenticated"]), user
 
 
