@@ -23,8 +23,8 @@ def setup():
 
 
 def test_package_comaintainer_creation():
-    package_comaintainer = create(PackageComaintainer, User=user, PackageBase=pkgbase,
-                                  Priority=5)
+    package_comaintainer = create(PackageComaintainer, User=user,
+                                  PackageBase=pkgbase, Priority=5)
     assert bool(package_comaintainer)
     assert package_comaintainer.User == user
     assert package_comaintainer.PackageBase == pkgbase
