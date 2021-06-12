@@ -111,6 +111,8 @@ def test_secure_login(mock):
     cookie = next(c for c in response.cookies if c.name == "AURSID")
     assert cookie.secure is True
     assert cookie.has_nonstandard_attr("HttpOnly") is True
+    assert cookie.has_nonstandard_attr("SameSite") is True
+    assert cookie.get_nonstandard_attr("SameSite") == "strict"
     assert cookie.value is not None and len(cookie.value) > 0
 
     # Let's make sure we actually have a session relationship

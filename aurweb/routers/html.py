@@ -8,6 +8,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 import aurweb.config
 
+from aurweb import util
 from aurweb.templates import make_context, render_template
 
 router = APIRouter()
@@ -50,7 +51,7 @@ async def language(request: Request,
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURLANG", set_lang,
                         secure=secure_cookies, httponly=True)
-    return response
+    return util.add_samesite_fields(response, "strict")
 
 
 @router.get("/", response_class=HTMLResponse)

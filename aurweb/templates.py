@@ -94,4 +94,4 @@ def render_template(request: Request,
                         secure=secure_cookies, httponly=True)
     response.set_cookie("AURTZ", context.get("timezone"),
                         secure=secure_cookies, httponly=True)
-    return response
+    return util.add_samesite_fields(response, "strict")

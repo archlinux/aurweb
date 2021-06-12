@@ -14,6 +14,7 @@ from starlette.requests import Request
 import aurweb.config
 import aurweb.db
 
+from aurweb import util
 from aurweb.l10n import get_translator_for_request
 from aurweb.schema import Bans, Sessions, Users
 
@@ -140,7 +141,7 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
             response.set_cookie(key="SSO_ID_TOKEN", value=token["id_token"],
                                 path="/sso/", httponly=True,
                                 secure=secure_cookies)
-        return response
+        return util.add_samesite_fields(response, "strict")
     else:
         # We’ve got a severe integrity violation.
         raise Exception("Multiple accounts found for SSO account " + sub)

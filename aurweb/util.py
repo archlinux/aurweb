@@ -9,6 +9,7 @@ from urllib.parse import quote_plus, urlparse
 from zoneinfo import ZoneInfo
 
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
+from fastapi.responses import Response
 from jinja2 import pass_context
 
 import aurweb.config
@@ -88,7 +89,7 @@ def migrate_cookies(request, response):
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     for k, v in request.cookies.items():
         response.set_cookie(k, v, secure=secure_cookies, httponly=True)
-    return response
+    return add_samesite_fields(response, "strict")
 
 
 @pass_context
@@ -136,3 +137,15 @@ def jsonify(obj):
     if isinstance(obj, datetime):
         obj = int(obj.timestamp())
     return obj
+
+
+def add_samesite_fields(response: Response, value: str):
+    """ Set the SameSite field on all cookie headers found.
+    Taken from https://github.com/tiangolo/fastapi/issues/1099. """
+    for idx, header in enumerate(response.raw_headers):
+        if header[0].decode() == "set-cookie":
+            cookie = header[1].decode()
+            if f"SameSite={value}" not in cookie:
+                cookie += f"; SameSite={value}"
+                response.raw_headers[idx] = (header[0], cookie.encode())
+    return response

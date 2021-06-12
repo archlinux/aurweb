@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 import aurweb.config
 
+from aurweb import util
 from aurweb.auth import auth_required
 from aurweb.models.user import User
 from aurweb.templates import make_context, render_template
@@ -63,7 +64,7 @@ async def login_post(request: Request,
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURSID", sid, expires=expires_at,
                         secure=secure_cookies, httponly=True)
-    return response
+    return util.add_samesite_fields(response, "strict")
 
 
 @router.get("/logout")
