@@ -1,4 +1,5 @@
 import copy
+import typing
 
 from datetime import datetime
 from http import HTTPStatus
@@ -13,9 +14,11 @@ from aurweb import db, l10n, time, util
 from aurweb.auth import auth_required
 from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_token
 from aurweb.l10n import get_translator_for_request
+from aurweb.models.accepted_term import AcceptedTerm
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.ssh_pub_key import SSHPubKey, get_fingerprint
+from aurweb.models.term import Term
 from aurweb.models.user import User
 from aurweb.scripts.notify import ResetKeyNotification
 from aurweb.templates import make_variable_context, render_template
@@ -576,3 +579,77 @@ async def account(request: Request, username: str):
     context["user"] = user
 
     return render_template(request, "account/show.html", context)
+
+
+def render_terms_of_service(request: Request,
+                            context: dict,
+                            terms: typing.Iterable):
+    if not terms:
+        return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))
+    context["unaccepted_terms"] = terms
+    return render_template(request, "tos/index.html", context)
+
+
+@router.get("/tos")
+@auth_required(True, redirect="/")
+async def terms_of_service(request: Request):
+    # Query the database for terms that were previously accepted,
+    # but now have a bumped Revision that needs to be accepted.
+    diffs = db.query(Term).join(AcceptedTerm).filter(
+        AcceptedTerm.Revision < Term.Revision).all()
+
+    # Query the database for any terms that have not yet been accepted.
+    unaccepted = db.query(Term).filter(
+        ~Term.ID.in_(db.query(AcceptedTerm.TermsID))).all()
+
+    # Translate the 'Terms of Service' part of our page title.
+    _ = l10n.get_translator_for_request(request)
+    title = f"AUR {_('Terms of Service')}"
+    context = await make_variable_context(request, title)
+
+    accept_needed = sorted(unaccepted + diffs)
+    return render_terms_of_service(request, context, accept_needed)
+
+
+@router.post("/tos")
+@auth_required(True, redirect="/")
+async def terms_of_service_post(request: Request,
+                                accept: bool = Form(default=False)):
+    # Query the database for terms that were previously accepted,
+    # but now have a bumped Revision that needs to be accepted.
+    diffs = db.query(Term).join(AcceptedTerm).filter(
+        AcceptedTerm.Revision < Term.Revision).all()
+
+    # Query the database for any terms that have not yet been accepted.
+    unaccepted = db.query(Term).filter(
+        ~Term.ID.in_(db.query(AcceptedTerm.TermsID))).all()
+
+    if not accept:
+        # Translate the 'Terms of Service' part of our page title.
+        _ = l10n.get_translator_for_request(request)
+        title = f"AUR {_('Terms of Service')}"
+        context = await make_variable_context(request, title)
+
+        # We already did the database filters here, so let's just use
+        # them instead of reiterating the process in terms_of_service.
+        accept_needed = sorted(unaccepted + diffs)
+        return render_terms_of_service(request, context, accept_needed)
+
+    # For each term we found, query for the matching accepted term
+    # and update its Revision to the term's current Revision.
+    for term in diffs:
+        accepted_term = request.user.accepted_terms.filter(
+            AcceptedTerm.TermsID == term.ID).first()
+        accepted_term.Revision = term.Revision
+
+    # For each term that was never accepted, accept it!
+    for term in unaccepted:
+        db.create(AcceptedTerm, User=request.user,
+                  Term=term, Revision=term.Revision,
+                  autocommit=False)
+
+    if diffs or unaccepted:
+        # If we had any terms to update, commit the changes.
+        db.commit()
+
+    return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))

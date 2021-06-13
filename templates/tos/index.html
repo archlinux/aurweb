@@ -1,0 +1,46 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div id="dev-login" class="box">
+        <h2>AUR {% trans %}Terms of Service{% endtrans %}</h2>
+        <form method="post" action="/tos">
+            <fieldset>
+                <p>
+                    {{
+                        "Logged-in as: %s"
+                        | tr | format(
+                            "<strong>" + request.user.Username + "</strong>")
+                        | safe
+                    }}
+                </p>
+                <p>
+                    {{
+                        "The following documents have been updated. "
+                        "Please review them carefully:" | tr
+                    }}
+                </p>
+                <ul>
+                    {% for term in unaccepted_terms %}
+                        <li>
+                            <a href="{{ term.URL }}">{{ term.Description }}</a>
+                            (revision {{ term.Revision }})
+                        </li>
+                    {% endfor %}
+                </ul>
+                <p>
+                    {% for term in unaccepted_terms %}
+                        <input type="hidden"
+                               name="rev[{{ loop.index }}]"
+                               value="{{ term.Revision }}" />
+                    {% endfor %}
+                    <input type="checkbox" name="accept" />
+                    {{ "I accept the terms and conditions above." | tr }}
+                </p>
+                <p>
+                    <input type="submit" name="submit"
+                           value="{{ 'Continue' | tr }}" />
+                </p>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

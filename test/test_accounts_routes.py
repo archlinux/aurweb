@@ -12,11 +12,13 @@ from fastapi.testclient import TestClient
 
 from aurweb import captcha
 from aurweb.asgi import app
-from aurweb.db import create, query
+from aurweb.db import commit, create, query
+from aurweb.models.accepted_term import AcceptedTerm
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.session import Session
 from aurweb.models.ssh_pub_key import SSHPubKey, get_fingerprint
+from aurweb.models.term import Term
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
@@ -48,7 +50,7 @@ def make_ssh_pubkey():
 def setup():
     global user
 
-    setup_test_db("Users", "Sessions", "Bans")
+    setup_test_db("Users", "Sessions", "Bans", "Terms", "AcceptedTerms")
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
@@ -919,3 +921,110 @@ def test_get_account_unauthenticated():
 
     content = response.content.decode()
     assert "You must log in to view user information." in content
+
+
+def test_get_terms_of_service():
+    term = create(Term, Description="Test term.",
+                  URL="http://localhost", Revision=1)
+
+    with client as request:
+        response = request.get("/tos", allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+    request = Request()
+    sid = user.login(request, "testPassword")
+    cookies = {"AURSID": sid}
+
+    # First of all, let's test that we get redirected to /tos
+    # when attempting to browse authenticated without accepting terms.
+    with client as request:
+        response = request.get("/", cookies=cookies, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+    assert response.headers.get("location") == "/tos"
+
+    with client as request:
+        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    accepted_term = create(AcceptedTerm, User=user,
+                           Term=term, Revision=term.Revision)
+
+    with client as request:
+        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+    # We accepted the term, there's nothing left to accept.
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Bump the term's revision.
+    term.Revision = 2
+    commit()
+
+    with client as request:
+        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+    # This time, we have a modified term Revision that hasn't
+    # yet been agreed to via AcceptedTerm update.
+    assert response.status_code == int(HTTPStatus.OK)
+
+    accepted_term.Revision = term.Revision
+    commit()
+
+    with client as request:
+        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+    # We updated the term revision, there's nothing left to accept.
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+
+def test_post_terms_of_service():
+    request = Request()
+    sid = user.login(request, "testPassword")
+
+    data = {"accept": True}  # POST data.
+    cookies = {"AURSID": sid}  # Auth cookie.
+
+    # Create a fresh Term.
+    term = create(Term, Description="Test term.",
+                  URL="http://localhost", Revision=1)
+
+    # Test that the term we just created is listed.
+    with client as request:
+        response = request.get("/tos", cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Make a POST request to /tos with the agree checkbox disabled (False).
+    with client as request:
+        response = request.post("/tos", data={"accept": False},
+                                cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Make a POST request to /tos with the agree checkbox enabled (True).
+    with client as request:
+        response = request.post("/tos", data=data, cookies=cookies)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Query the db for the record created by the post request.
+    accepted_term = query(AcceptedTerm,
+                          AcceptedTerm.TermsID == term.ID).first()
+    assert accepted_term.User == user
+    assert accepted_term.Term == term
+
+    # Update the term to revision 2.
+    term.Revision = 2
+    commit()
+
+    # A GET request gives us the new revision to accept.
+    with client as request:
+        response = request.get("/tos", cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Let's POST again and agree to the new term revision.
+    with client as request:
+        response = request.post("/tos", data=data, cookies=cookies)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Check that the records ended up matching.
+    assert accepted_term.Revision == term.Revision
+
+    # Now, see that GET redirects us to / with no terms left to accept.
+    with client as request:
+        response = request.get("/tos", cookies=cookies, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+    assert response.headers.get("location") == "/"

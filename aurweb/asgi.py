@@ -3,8 +3,9 @@ import http
 import typing
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import and_, or_
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
@@ -12,7 +13,9 @@ import aurweb.config
 import aurweb.logging
 
 from aurweb.auth import BasicAuthBackend
-from aurweb.db import get_engine
+from aurweb.db import get_engine, query
+from aurweb.models.accepted_term import AcceptedTerm
+from aurweb.models.term import Term
 from aurweb.routers import accounts, auth, errors, html, sso
 
 # Setup the FastAPI app.
@@ -97,3 +100,22 @@ async def add_security_headers(request: Request, call_next: typing.Callable):
     response.headers["X-Frame-Options"] = xfo
 
     return response
+
+
+@app.middleware("http")
+async def check_terms_of_service(request: Request, call_next: typing.Callable):
+    """ This middleware function redirects authenticated users if they
+    have any outstanding Terms to agree to. """
+    if request.user.is_authenticated() and request.url.path != "/tos":
+        unaccepted = query(Term).join(AcceptedTerm).filter(
+            or_(AcceptedTerm.UsersID != request.user.ID,
+                and_(AcceptedTerm.UsersID == request.user.ID,
+                     AcceptedTerm.TermsID == Term.ID,
+                     AcceptedTerm.Revision < Term.Revision)))
+        if query(Term).count() > unaccepted.count():
+            return RedirectResponse(
+                "/tos", status_code=int(http.HTTPStatus.SEE_OTHER))
+
+    task = asyncio.create_task(call_next(request))
+    await asyncio.wait({task}, return_when=asyncio.FIRST_COMPLETED)
+    return task.result()
