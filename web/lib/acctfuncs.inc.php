@@ -875,10 +875,7 @@ function valid_pgp_fingerprint($fingerprint) {
  * @return bool True if the SSH public key is valid, otherwise false
  */
 function valid_ssh_pubkey($pubkey) {
-	$valid_prefixes = array(
-		"ssh-rsa", "ssh-dss", "ecdsa-sha2-nistp256",
-		"ecdsa-sha2-nistp384", "ecdsa-sha2-nistp521", "ssh-ed25519"
-	);
+	$valid_prefixes = explode(' ', config_get('auth', 'valid-keytypes'));
 
 	$has_valid_prefix = false;
 	foreach ($valid_prefixes as $prefix) {
