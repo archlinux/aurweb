@@ -59,22 +59,33 @@ def query(model, *args, **kwargs):
     return session.query(model).filter(*args, **kwargs)
 
 
-def create(model, *args, **kwargs):
+def create(model, autocommit: bool = True, *args, **kwargs):
     instance = model(*args, **kwargs)
-    session.add(instance)
-    session.commit()
+    add(instance)
+    if autocommit is True:
+        commit()
     return instance
 
 
-def delete(model, *args, **kwargs):
+def delete(model, *args, autocommit: bool = True, **kwargs):
     instance = session.query(model).filter(*args, **kwargs)
     for record in instance:
         session.delete(record)
-    session.commit()
+    if autocommit is True:
+        commit()
 
 
 def rollback():
     session.rollback()
+
+
+def add(model):
+    session.add(model)
+    return model
+
+
+def commit():
+    session.commit()
 
 
 def get_sqlalchemy_url():

@@ -273,6 +273,31 @@ def test_create_delete():
     record = db.query(AccountType, AccountType.AccountType == "test").first()
     assert record is None
 
+    # Create and delete a record with autocommit=False.
+    db.create(AccountType, AccountType="test", autocommit=False)
+    db.commit()
+    db.delete(AccountType, AccountType.AccountType == "test", autocommit=False)
+    db.commit()
+    record = db.query(AccountType, AccountType.AccountType == "test").first()
+    assert record is None
+
+
+def test_add_commit():
+    # Use db.add and db.commit to add a temporary record.
+    account_type = AccountType(AccountType="test")
+    db.add(account_type)
+    db.commit()
+
+    # Assert it got created in the DB.
+    assert bool(account_type.ID)
+
+    # Query the DB for it and compare the record with our object.
+    record = db.query(AccountType, AccountType.AccountType == "test").first()
+    assert record == account_type
+
+    # Remove the record.
+    db.delete(AccountType, AccountType.ID == account_type.ID)
+
 
 def test_connection_executor_mysql_paramstyle():
     executor = db.ConnectionExecutor(None, backend="mysql")
