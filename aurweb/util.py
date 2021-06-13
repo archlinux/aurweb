@@ -3,6 +3,7 @@ import random
 import re
 import string
 
+from datetime import datetime
 from urllib.parse import urlparse
 
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
@@ -94,3 +95,10 @@ def account_url(context, user):
     if request.url.scheme == "http" and request.url.port != 80:
         base += f":{request.url.port}"
     return f"{base}/account/{user.Username}"
+
+
+def jsonify(obj):
+    """ Perform a conversion on obj if it's needed. """
+    if isinstance(obj, datetime):
+        obj = int(obj.timestamp())
+    return obj

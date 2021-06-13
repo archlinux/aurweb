@@ -1,4 +1,5 @@
 import hashlib
+import json
 
 from datetime import datetime, timedelta
 
@@ -198,3 +199,21 @@ def test_user_credential_types():
     assert aurweb.auth.trusted_user(user)
     assert aurweb.auth.developer(user)
     assert aurweb.auth.trusted_user_or_dev(user)
+
+
+def test_user_json():
+    data = json.loads(user.json())
+    assert data.get("ID") == user.ID
+    assert data.get("Username") == user.Username
+    assert data.get("Email") == user.Email
+    # .json() converts datetime values to integer timestamps.
+    assert isinstance(data.get("RegistrationTS"), int)
+
+
+def test_user_as_dict():
+    data = user.as_dict()
+    assert data.get("ID") == user.ID
+    assert data.get("Username") == user.Username
+    assert data.get("Email") == user.Email
+    # .as_dict() does not convert values to json-capable types.
+    assert isinstance(data.get("RegistrationTS"), datetime)
