@@ -169,37 +169,71 @@ if ($comment_section == "package") {
 </div>
 
 <script>
-$(document).ready(function() {
-	$('.edit-comment').click(function () {
-		var parent_element = this.parentElement,
-			parent_id = parent_element.id,
-			comment_id = parent_id.substr(parent_id.indexOf('-') + 1),
-			edit_form = $(parent_element).next(),
-			_this = $(this);
-		add_busy_indicator(_this);
-		$.getJSON('<?= get_uri('/rpc') ?>', {
-			type: 'get-comment-form',
-			arg: comment_id,
-			base_id: <?= intval($row["PackageBaseID"]) ?>,
-			pkgbase_name: <?= json_encode($pkgbase_name) ?>
-		}, function (data) {
-			remove_busy_indicator(_this);
-			if (data.success) {
-				edit_form.html(data.form);
-				edit_form.find('textarea').focus();
-			} else {
-				alert(data.error);
-			}
-		});
-		return false;
-	});
+function add_busy_indicator(sibling) {
+	const img = document.createElement('img');
+	img.src = "/images/ajax-loader.gif";
+	img.classList.add('ajax-loader');
+	img.style.height = 11;
+	img.style.width = 16;
+	img.alt = "Busy…";
 
-	function add_busy_indicator(sibling) {
-		sibling.after('<img src="/images/ajax-loader.gif" class="ajax-loader" width="16" height="11" alt="Busy…" />');
+	sibling.insertAdjacentElement('afterend', img);
+}
+
+function remove_busy_indicator(sibling) {
+	const elem = sibling.nextElementSibling;
+	elem.parentNode.removeChild(elem);
+}
+
+function getParentsUntil(elem, className) {
+	// Limit to 10 depth
+	for ( ; elem && elem !== document; elem = elem.parentNode) {
+		if (elem.matches(className)) {
+			break;
+		}
 	}
 
-	function remove_busy_indicator(sibling) {
-		sibling.next().remove();
+	return elem;
+}
+
+function handleEditCommentClick(event) {
+	event.preventDefault();
+	const parent_element = getParentsUntil(event.target, '.comment-header');
+	const parent_id = parent_element.id;
+	const comment_id = parent_id.substr(parent_id.indexOf('-') + 1);
+	// The div class="article-content" which contains the comment
+	const edit_form = parent_element.nextElementSibling;
+
+	const params = new URLSearchParams({
+		type: "get-comment-form",
+		arg: comment_id,
+		base_id: <?= intval($row["PackageBaseID"]) ?>,
+		pkgbase_name: <?= json_encode($pkgbase_name) ?>
+	});
+
+	const url = '<?= get_uri('/rpc') ?>' + '?' + params.toString();
+
+	add_busy_indicator(event.target);
+
+	fetch(url, {
+		method: 'GET'
+	})
+	.then(function(response) { return response.json(); })
+	.then(function(data) {
+		remove_busy_indicator(event.target);
+		if (data.success) {
+			edit_form.innerHTML = data.form;
+			edit_form.querySelector('textarea').focus();
+		} else {
+			alert(data.error);
+		}
+	});
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	const divs = document.querySelectorAll('.edit-comment');;
+	for (let div of divs) {
+		div.addEventListener('click', handleEditCommentClick);
 	}
 });
 </script>
