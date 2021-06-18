@@ -5,6 +5,7 @@ import string
 
 from datetime import datetime
 from urllib.parse import urlparse
+from zoneinfo import ZoneInfo
 
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
 from jinja2 import pass_context
@@ -99,6 +100,10 @@ def account_url(context, user):
 
 def timestamp_to_datetime(timestamp: int):
     return datetime.utcfromtimestamp(int(timestamp))
+
+
+def as_timezone(dt: datetime, timezone: str):
+    return dt.astimezone(tz=ZoneInfo(timezone))
 
 
 def jsonify(obj):

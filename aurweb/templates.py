@@ -25,6 +25,7 @@ env.filters["tr"] = l10n.tr
 
 # Utility filters.
 env.filters["dt"] = util.timestamp_to_datetime
+env.filters["as_timezone"] = util.as_timezone
 
 # Add captcha filters.
 env.filters["captcha_salt"] = captcha.captcha_salt_filter
