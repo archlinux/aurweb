@@ -156,6 +156,18 @@ class User(Base):
             session.delete(self.session)
             session.commit()
 
+    def is_trusted_user(self):
+        return self.AccountType.ID in {
+            aurweb.models.account_type.TRUSTED_USER_ID,
+            aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID
+        }
+
+    def is_developer(self):
+        return self.AccountType.ID in {
+            aurweb.models.account_type.DEVELOPER_ID,
+            aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID
+        }
+
     def __repr__(self):
         return "<User(ID='%s', AccountType='%s', Username='%s')>" % (
             self.ID, str(self.AccountType), self.Username)

@@ -9,7 +9,7 @@ import pytest
 import aurweb.auth
 import aurweb.config
 
-from aurweb.db import create, query
+from aurweb.db import commit, create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.session import Session
@@ -217,3 +217,35 @@ def test_user_as_dict():
     assert data.get("Email") == user.Email
     # .as_dict() does not convert values to json-capable types.
     assert isinstance(data.get("RegistrationTS"), datetime)
+
+
+def test_user_is_trusted_user():
+    tu_type = query(AccountType,
+                    AccountType.AccountType == "Trusted User").first()
+    user.AccountType = tu_type
+    commit()
+    assert user.is_trusted_user() is True
+
+    # Do it again with the combined role.
+    tu_type = query(
+        AccountType,
+        AccountType.AccountType == "Trusted User & Developer").first()
+    user.AccountType = tu_type
+    commit()
+    assert user.is_trusted_user() is True
+
+
+def test_user_is_developer():
+    dev_type = query(AccountType,
+                     AccountType.AccountType == "Developer").first()
+    user.AccountType = dev_type
+    commit()
+    assert user.is_developer() is True
+
+    # Do it again with the combined role.
+    dev_type = query(
+        AccountType,
+        AccountType.AccountType == "Trusted User & Developer").first()
+    user.AccountType = dev_type
+    commit()
+    assert user.is_developer() is True
