@@ -4,7 +4,7 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, query, rollback
+from aurweb.db import commit, create, query, rollback
 from aurweb.models.account_type import AccountType
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
@@ -47,6 +47,21 @@ def test_tu_voteinfo_creation():
     assert tu_voteinfo.ActiveTUs == 0
 
     assert tu_voteinfo in user.tu_voteinfo_set
+
+
+def test_tu_voteinfo_is_running():
+    ts = int(datetime.utcnow().timestamp())
+    tu_voteinfo = create(TUVoteInfo,
+                         Agenda="Blah blah.",
+                         User=user.Username,
+                         Submitted=ts, End=ts + 1000,
+                         Quorum=0.5,
+                         Submitter=user)
+    assert tu_voteinfo.is_running() is True
+
+    tu_voteinfo.End = ts - 5
+    commit()
+    assert tu_voteinfo.is_running() is False
 
 
 def test_tu_voteinfo_null_submitter_raises_exception():

@@ -1,5 +1,7 @@
 import typing
 
+from datetime import datetime
+
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
@@ -85,3 +87,6 @@ class TUVoteInfo(Base):
         """ Customize getattr to floatify any fetched Quorum values. """
         attr = super().__getattribute__(key)
         return float(attr) if key == "Quorum" else attr
+
+    def is_running(self):
+        return self.End > int(datetime.utcnow().timestamp())
