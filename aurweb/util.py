@@ -3,8 +3,9 @@ import random
 import re
 import string
 
+from collections import OrderedDict
 from datetime import datetime
-from urllib.parse import urlparse
+from urllib.parse import quote_plus, urlparse
 from zoneinfo import ZoneInfo
 
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
@@ -104,6 +105,29 @@ def timestamp_to_datetime(timestamp: int):
 
 def as_timezone(dt: datetime, timezone: str):
     return dt.astimezone(tz=ZoneInfo(timezone))
+
+
+def dedupe_qs(query_string: str, *additions):
+    """ Dedupe keys found in a query string by rewriting it without
+    duplicates found while iterating from the end to the beginning,
+    using an ordered memo to track keys found and persist locations.
+
+    That is, query string 'a=1&b=1&a=2' will be deduped and converted
+    to 'b=1&a=2'.
+
+    :param query_string: An HTTP URL query string.
+    :param *additions: Optional additional fields to add to the query string.
+    :return: Deduped query string, including *additions at the tail.
+    """
+    for addition in list(additions):
+        query_string += f"&{addition}"
+
+    qs = OrderedDict()
+    for item in reversed(query_string.split('&')):
+        key, value = item.split('=')
+        if key not in qs:
+            qs[key] = value
+    return '&'.join([f"{k}={quote_plus(v)}" for k, v in reversed(qs.items())])
 
 
 def jsonify(obj):
