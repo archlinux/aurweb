@@ -4,6 +4,7 @@ import zoneinfo
 
 from datetime import datetime
 from http import HTTPStatus
+from urllib.parse import quote_plus
 
 import jinja2
 
@@ -27,6 +28,7 @@ env.filters["tr"] = l10n.tr
 env.filters["dt"] = util.timestamp_to_datetime
 env.filters["as_timezone"] = util.as_timezone
 env.filters["dedupe_qs"] = util.dedupe_qs
+env.filters["urlencode"] = quote_plus
 
 # Add captcha filters.
 env.filters["captcha_salt"] = captcha.captcha_salt_filter
