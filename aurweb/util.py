@@ -97,6 +97,10 @@ def account_url(context, user):
     return f"{base}/account/{user.Username}"
 
 
+def timestamp_to_datetime(timestamp: int):
+    return datetime.utcfromtimestamp(int(timestamp))
+
+
 def jsonify(obj):
     """ Perform a conversion on obj if it's needed. """
     if isinstance(obj, datetime):

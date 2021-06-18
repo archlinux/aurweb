@@ -23,6 +23,9 @@ env = jinja2.Environment(loader=loader, autoescape=True,
 # Add tr translation filter.
 env.filters["tr"] = l10n.tr
 
+# Utility filters.
+env.filters["dt"] = util.timestamp_to_datetime
+
 # Add captcha filters.
 env.filters["captcha_salt"] = captcha.captcha_salt_filter
 env.filters["captcha_cmdline"] = captcha.captcha_cmdline_filter
