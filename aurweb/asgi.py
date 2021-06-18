@@ -16,7 +16,7 @@ from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
 from aurweb.models.accepted_term import AcceptedTerm
 from aurweb.models.term import Term
-from aurweb.routers import accounts, auth, errors, html, sso
+from aurweb.routers import accounts, auth, errors, html, sso, trusted_user
 
 # Setup the FastAPI app.
 app = FastAPI(exception_handlers=errors.exceptions)
@@ -47,6 +47,7 @@ async def app_startup():
     app.include_router(html.router)
     app.include_router(auth.router)
     app.include_router(accounts.router)
+    app.include_router(trusted_user.router)
 
     # Initialize the database engine and ORM.
     get_engine()

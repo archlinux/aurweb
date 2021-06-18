@@ -3,6 +3,8 @@ import functools
 from datetime import datetime
 from http import HTTPStatus
 
+import fastapi
+
 from fastapi.responses import RedirectResponse
 from sqlalchemy import and_
 from starlette.authentication import AuthCredentials, AuthenticationBackend
@@ -11,6 +13,7 @@ from starlette.requests import HTTPConnection
 import aurweb.config
 
 from aurweb import l10n, util
+from aurweb.models.account_type import ACCOUNT_TYPE_ID
 from aurweb.models.session import Session
 from aurweb.models.user import User
 from aurweb.templates import make_variable_context, render_template
@@ -149,6 +152,42 @@ def auth_required(is_required: bool = True,
             return await func(request, *args, **kwargs)
         return wrapper
 
+    return decorator
+
+
+def account_type_required(one_of: set):
+    """ A decorator that can be used on FastAPI routes to dictate
+    that a user belongs to one of the types defined in one_of.
+
+    This decorator should be run after an @auth_required(True) is
+    dictated.
+
+    - Example code:
+
+    @router.get('/some_route')
+    @auth_required(True)
+    @account_type_required({"Trusted User", "Trusted User & Developer"})
+    async def some_route(request: fastapi.Request):
+        return Response()
+
+    :param one_of: A set consisting of strings to match against AccountType.
+    :return: Return the FastAPI function this decorator wraps.
+    """
+    # Convert any account type string constants to their integer IDs.
+    one_of = {
+        ACCOUNT_TYPE_ID[atype]
+        for atype in one_of
+        if isinstance(atype, str)
+    }
+
+    def decorator(func):
+        @functools.wraps(func)
+        async def wrapper(request: fastapi.Request, *args, **kwargs):
+            if request.user.AccountType.ID not in one_of:
+                return RedirectResponse("/",
+                                        status_code=int(HTTPStatus.SEE_OTHER))
+            return await func(request, *args, **kwargs)
+        return wrapper
     return decorator
 
 

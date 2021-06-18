@@ -1,0 +1,35 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    {%
+        with table_class = "current-votes",
+        total_votes = current_votes_count,
+        results = current_votes,
+        off_param = "coff",
+        by_param = "cby",
+        by_next = current_by_next,
+        title = "Current Votes",
+        off = current_off,
+        by = current_by
+    %}
+        {% include "partials/tu/proposals.html" %}
+    {% endwith %}
+
+    {%
+        with table_class = "past-votes",
+        total_votes = past_votes_count,
+        results = past_votes,
+        off_param = "poff",
+        by_param = "pby",
+        by_next = past_by_next,
+        title = "Past Votes",
+        off = past_off,
+        by = past_by
+    %}
+        {% include "partials/tu/proposals.html" %}
+    {% endwith %}
+
+    {% with title = "Last Votes by TU", votes = last_votes_by_tu %}
+        {% include "partials/tu/last_votes.html" %}
+    {% endwith %}
+{% endblock %}

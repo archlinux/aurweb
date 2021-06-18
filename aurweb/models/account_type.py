@@ -3,6 +3,11 @@ from sqlalchemy import Column, Integer
 from aurweb import db
 from aurweb.models.declarative import Base
 
+USER = "User"
+TRUSTED_USER = "Trusted User"
+DEVELOPER = "Developer"
+TRUSTED_USER_AND_DEV = "Trusted User & Developer"
+
 
 class AccountType(Base):
     """ An ORM model of a single AccountTypes record. """
