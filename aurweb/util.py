@@ -10,6 +10,8 @@ from datetime import datetime
 from urllib.parse import quote_plus, urlparse
 from zoneinfo import ZoneInfo
 
+import fastapi
+
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
 from fastapi.responses import Response
 from jinja2 import pass_context
@@ -141,6 +143,11 @@ def dedupe_qs(query_string: str, *additions):
         if key not in qs:
             qs[key] = value
     return '&'.join([f"{k}={quote_plus(v)}" for k, v in reversed(qs.items())])
+
+
+def get_vote(voteinfo, request: fastapi.Request):
+    from aurweb.models.tu_vote import TUVote
+    return voteinfo.tu_votes.filter(TUVote.User == request.user).first()
 
 
 def jsonify(obj):
