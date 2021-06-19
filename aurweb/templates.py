@@ -65,7 +65,7 @@ async def make_variable_context(request: Request, title: str, next: str = None):
 def render_template(request: Request,
                     path: str,
                     context: dict,
-                    status_code=int(HTTPStatus.OK)):
+                    status_code: HTTPStatus = HTTPStatus.OK):
     """ Render a Jinja2 multi-lingual template with some context. """
 
     # Create a deep copy of our jinja2 environment. The environment in
@@ -81,7 +81,7 @@ def render_template(request: Request,
     template = templates.get_template(path)
     rendered = template.render(context)
 
-    response = HTMLResponse(rendered, status_code=status_code)
+    response = HTMLResponse(rendered, status_code=int(status_code))
     response.set_cookie("AURLANG", context.get("language"))
     response.set_cookie("AURTZ", context.get("timezone"))
     return response
