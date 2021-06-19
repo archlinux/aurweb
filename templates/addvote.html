@@ -1,0 +1,68 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    {% if error %}
+        <p class="pkgoutput error">{{ error | e }}</p></p>
+    {% endif %}
+
+    <div class="box">
+        <h2>{{ "Submit a proposal to vote on." | tr }}</h2>
+
+        <form action="/addvote/" method="post">
+
+            <p class="vote-applicant">
+                <label for="id_user">{{ "Applicant/TU" | tr }}</label>
+                <input type="text" name="user" id="id_user"
+                       value="{{ user }}" />
+                {{ "(empty if not applicable)" | tr }}
+            </p>
+            <p class="vote-type">
+                <label for="id_type">{{ "Type" | tr }}</label>
+                <select name="type" id="id_type">
+                    <option value="add_tu"
+                        {% if "add_tu" == type %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ "Addition of a TU" | tr }}
+                    </option>
+                    <option value="remove_tu"
+                        {% if "remove_tu" == type %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ "Removal of a TU" | tr }}
+                    </option>
+                    <option value="remove_inactive_tu"
+                        {% if "remove_inactive_tu" == type %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ "Removal of a TU (undeclared inactivity)" | tr }}
+                    </option>
+                    <option value="bylaws"
+                        {% if "bylaws" == type %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ "Amendment of Bylaws" | tr }}
+                    </option>
+                </select>
+            </p>
+
+            <p class="vote-agenda">
+                <label for="id_agenda">{{ "Proposal" | tr }}</label><br />
+                <textarea name="agenda"
+                          id="id_agenda"
+                          rows="15"
+                          cols="80">{{ agenda | e }}</textarea>
+                <br />
+                <button type="submit" class="button" value="Submit">
+                    {{ "Submit" | tr }}
+                </button>
+            </p>
+
+        </form>
+    </div>
+{% endblock %}
+

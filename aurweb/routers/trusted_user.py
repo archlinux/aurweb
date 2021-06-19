@@ -1,3 +1,6 @@
+import html
+import logging
+import re
 import typing
 
 from datetime import datetime
@@ -5,10 +8,10 @@ from http import HTTPStatus
 from urllib.parse import quote_plus
 
 from fastapi import APIRouter, Form, HTTPException, Request
-from fastapi.responses import Response
+from fastapi.responses import RedirectResponse, Response
 from sqlalchemy import and_, or_
 
-from aurweb import db
+from aurweb import db, l10n
 from aurweb.auth import account_type_required, auth_required
 from aurweb.models.account_type import DEVELOPER, TRUSTED_USER, TRUSTED_USER_AND_DEV
 from aurweb.models.tu_vote import TUVote
@@ -17,6 +20,7 @@ from aurweb.models.user import User
 from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 # Some TU route specific constants.
 ITEMS_PER_PAGE = 10  # Paged table size.
@@ -27,6 +31,17 @@ REQUIRED_TYPES = {
     TRUSTED_USER,
     DEVELOPER,
     TRUSTED_USER_AND_DEV
+}
+
+ADDVOTE_SPECIFICS = {
+    # This dict stores a vote duration and quorum for a proposal.
+    # When a proposal is added, duration is added to the current
+    # timestamp.
+    # "addvote_type": (duration, quorum)
+    "add_tu": (7 * 24 * 60 * 60, 0.66),
+    "remove_tu": (7 * 24 * 60 * 60, 0.75),
+    "remove_inactive_tu": (5 * 24 * 60 * 60, 0.66),
+    "bylaws": (7 * 24 * 60 * 60, 0.75)
 }
 
 
@@ -174,28 +189,17 @@ async def trusted_user_proposal_post(request: Request,
         raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
 
     voters = db.query(User).join(TUVote).filter(TUVote.VoteID == voteinfo.ID)
+    vote = db.query(TUVote, and_(TUVote.UserID == request.user.ID,
+                                 TUVote.VoteID == voteinfo.ID)).first()
 
-    # status_code we'll use for responses later.
     status_code = HTTPStatus.OK
-
     if not request.user.is_trusted_user():
-        # Test: Create a proposal and view it as a "Developer". It
-        # should give us this error.
         context["error"] = "Only Trusted Users are allowed to vote."
         status_code = HTTPStatus.UNAUTHORIZED
     elif voteinfo.User == request.user.Username:
         context["error"] = "You cannot vote in an proposal about you."
         status_code = HTTPStatus.BAD_REQUEST
-
-    vote = db.query(TUVote, and_(TUVote.UserID == request.user.ID,
-                                 TUVote.VoteID == voteinfo.ID)).first()
-
-    if status_code != HTTPStatus.OK:
-        return render_proposal(request, context, proposal,
-                               voteinfo, voters, vote,
-                               status_code=status_code)
-
-    if vote is not None:
+    elif vote is not None:
         context["error"] = "You've already voted for this proposal."
         status_code = HTTPStatus.BAD_REQUEST
 
@@ -218,3 +222,86 @@ async def trusted_user_proposal_post(request: Request,
 
     context["error"] = "You've already voted for this proposal."
     return render_proposal(request, context, proposal, voteinfo, voters, vote)
+
+
+@router.get("/addvote")
+@auth_required(True)
+@account_type_required({"Trusted User", "Trusted User & Developer"})
+async def trusted_user_addvote(request: Request,
+                               user: str = str(),
+                               type: str = "add_tu",
+                               agenda: str = str()):
+    context = await make_variable_context(request, "Add Proposal")
+
+    if type not in ADDVOTE_SPECIFICS:
+        context["error"] = "Invalid type."
+        type = "add_tu"  # Default it.
+
+    context["user"] = user
+    context["type"] = type
+    context["agenda"] = agenda
+
+    return render_template(request, "addvote.html", context)
+
+
+@router.post("/addvote")
+@auth_required(True)
+@account_type_required({TRUSTED_USER, TRUSTED_USER_AND_DEV})
+async def trusted_user_addvote_post(request: Request,
+                                    user: str = Form(default=str()),
+                                    type: str = Form(default=str()),
+                                    agenda: str = Form(default=str())):
+    # Build a context.
+    context = await make_variable_context(request, "Add Proposal")
+
+    context["type"] = type
+    context["user"] = user
+    context["agenda"] = agenda
+
+    def render_addvote(context, status_code):
+        """ Simplify render_template a bit for this test. """
+        return render_template(request, "addvote.html", context, status_code)
+
+    # Alright, get some database records, if we can.
+    if type != "bylaws":
+        user_record = db.query(User, User.Username == user).first()
+        if user_record is None:
+            context["error"] = "Username does not exist."
+            return render_addvote(context, HTTPStatus.NOT_FOUND)
+
+        voteinfo = db.query(TUVoteInfo, TUVoteInfo.User == user).count()
+        if voteinfo:
+            _ = l10n.get_translator_for_request(request)
+            context["error"] = _(
+                "%s already has proposal running for them.") % (
+                html.escape(user),)
+            return render_addvote(context, HTTPStatus.BAD_REQUEST)
+
+    if type not in ADDVOTE_SPECIFICS:
+        context["error"] = "Invalid type."
+        context["type"] = type = "add_tu"  # Default for rendering.
+        return render_addvote(context, HTTPStatus.BAD_REQUEST)
+
+    if not agenda:
+        context["error"] = "Proposal cannot be empty."
+        return render_addvote(context, HTTPStatus.BAD_REQUEST)
+
+    # Gather some mapped constants and the current timestamp.
+    duration, quorum = ADDVOTE_SPECIFICS.get(type)
+    timestamp = int(datetime.utcnow().timestamp())
+
+    # Remove <script> and <style> tags.
+    agenda = re.sub(r'<[/]?script.*>', '', agenda)
+    agenda = re.sub(r'<[/]?style.*>', '', agenda)
+
+    # Create a new TUVoteInfo (proposal)!
+    voteinfo = db.create(TUVoteInfo,
+                         User=user,
+                         Agenda=agenda,
+                         Submitted=timestamp, End=timestamp + duration,
+                         Quorum=quorum,
+                         Submitter=request.user)
+
+    # Redirect to the new proposal.
+    return RedirectResponse(f"/tu/{voteinfo.ID}",
+                            status_code=int(HTTPStatus.SEE_OTHER))

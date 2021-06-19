@@ -729,3 +729,96 @@ def test_tu_proposal_vote_invalid_decision(client, proposal):
                                 data=data)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
     assert response.text == "Invalid 'decision' value."
+
+
+def test_tu_addvote(client: TestClient, tu_user: User):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/addvote", cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_tu_addvote_invalid_type(client: TestClient, tu_user: User):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/addvote", params={"type": "faketype"},
+                               cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    error = root.xpath('//*[contains(@class, "error")]/text()')[0]
+    assert error.strip() == "Invalid type."
+
+
+def test_tu_addvote_post(client: TestClient, tu_user: User, user: User):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+
+    data = {
+        "user": user.Username,
+        "type": "add_tu",
+        "agenda": "Blah"
+    }
+
+    with client as request:
+        response = request.post("/addvote", cookies=cookies, data=data)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+    voteinfo = db.query(TUVoteInfo, TUVoteInfo.Agenda == "Blah").first()
+    assert voteinfo is not None
+
+
+def test_tu_addvote_post_cant_duplicate_username(client: TestClient,
+                                                 tu_user: User, user: User):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+
+    data = {
+        "user": user.Username,
+        "type": "add_tu",
+        "agenda": "Blah"
+    }
+
+    with client as request:
+        response = request.post("/addvote", cookies=cookies, data=data)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+
+    voteinfo = db.query(TUVoteInfo, TUVoteInfo.Agenda == "Blah").first()
+    assert voteinfo is not None
+
+    with client as request:
+        response = request.post("/addvote", cookies=cookies, data=data)
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+
+def test_tu_addvote_post_invalid_username(client: TestClient, tu_user: User):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    data = {"user": "fakeusername"}
+    with client as request:
+        response = request.post("/addvote", cookies=cookies, data=data)
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_tu_addvote_post_invalid_type(client: TestClient, tu_user: User,
+                                      user: User):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    data = {"user": user.Username}
+    with client as request:
+        response = request.post("/addvote", cookies=cookies, data=data)
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+
+def test_tu_addvote_post_invalid_agenda(client: TestClient,
+                                        tu_user: User, user: User):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    data = {"user": user.Username, "type": "add_tu"}
+    with client as request:
+        response = request.post("/addvote", cookies=cookies, data=data)
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+
+def test_tu_addvote_post_bylaws(client: TestClient, tu_user: User):
+    # Bylaws votes do not need a user specified.
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    data = {"type": "bylaws", "agenda": "Blah blah!"}
+    with client as request:
+        response = request.post("/addvote", cookies=cookies, data=data)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
