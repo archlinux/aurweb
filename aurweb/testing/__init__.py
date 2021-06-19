@@ -50,7 +50,7 @@ def setup_test_db(*args):
 
     db_backend = aurweb.config.get("database", "backend")
 
-    if db_backend != "sqlite":
+    if db_backend != "sqlite":  # pragma: no cover
         aurweb.db.session.execute("SET FOREIGN_KEY_CHECKS = 0")
     else:
         # We're using sqlite, setup tables to be deleted without violating
@@ -61,7 +61,7 @@ def setup_test_db(*args):
     for table in tables:
         aurweb.db.session.execute(f"DELETE FROM {table}")
 
-    if db_backend != "sqlite":
+    if db_backend != "sqlite":  # pragma: no cover
         aurweb.db.session.execute("SET FOREIGN_KEY_CHECKS = 1")
 
     # Expunge all objects from SQLAlchemy's IdentityMap.
