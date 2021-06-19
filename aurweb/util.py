@@ -150,6 +150,11 @@ def get_vote(voteinfo, request: fastapi.Request):
     return voteinfo.tu_votes.filter(TUVote.User == request.user).first()
 
 
+def number_format(value: float, places: int):
+    """ A converter function similar to PHP's number_format. """
+    return f"{value:.{places}f}"
+
+
 def jsonify(obj):
     """ Perform a conversion on obj if it's needed. """
     if isinstance(obj, datetime):

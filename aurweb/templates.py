@@ -30,6 +30,7 @@ env.filters["as_timezone"] = util.as_timezone
 env.filters["dedupe_qs"] = util.dedupe_qs
 env.filters["urlencode"] = quote_plus
 env.filters["get_vote"] = util.get_vote
+env.filters["number_format"] = util.number_format
 
 # Add captcha filters.
 env.filters["captcha_salt"] = captcha.captcha_salt_filter

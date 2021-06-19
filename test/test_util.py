@@ -30,3 +30,8 @@ def test_dedupe_qs():
     # Add key1=changed and key2=changed to the query and dedupe it.
     deduped = util.dedupe_qs(query_string, "key1=changed", "key3=changed")
     assert deduped == "key2=blah&key1=changed&key3=changed"
+
+
+def test_number_format():
+    assert util.number_format(0.222, 2) == "0.22"
+    assert util.number_format(0.226, 2) == "0.23"
