@@ -1,0 +1,106 @@
+<h2>{% trans %}Proposal Details{% endtrans %}</h2>
+
+{% if voteinfo.is_running() %}
+    <p class="vote-running" style="font-weight: bold; color: red">
+        {% trans %}This vote is still running.{% endtrans %}
+    </p>
+{% endif %}
+
+<!-- The margin style here mimics the margin on the old <p> element. -->
+<div class="proposal details">
+    <div class="field user">
+        {{ "User" | tr }}:
+        <strong>
+            {% if voteinfo.User %}
+                <a href="{{ '/packages/?K=%s&SeB=m' | format(voteinfo.User)}}">
+                    {{ voteinfo.User }}
+                </a>
+            {% else %}
+                N/A
+            {% endif %}
+        </strong>
+    </div>
+
+    {% set submitted = voteinfo.Submitted | dt | as_timezone(timezone) %}
+    {% set end = voteinfo.End | dt | as_timezone(timezone) %}
+    <div class="field submitted">
+        {{
+            "Submitted: %s by %s" | tr
+            | format(submitted.strftime("%Y-%m-%d %H:%M"),
+                     voteinfo.Submitter.Username | e)
+        }}
+    </div>
+
+    <div class="field end">
+        {{ "End" | tr }}:
+        <strong>
+            {{ end.strftime("%Y-%m-%d %H:%M") }}
+        </strong>
+    </div>
+
+    {% if not voteinfo.is_running() %}
+        <div class="field result">
+            {{ "Result" | tr }}:
+            {% if not voteinfo.ActiveTUs %}
+                <span>{{ "unknown" | tr }}</span>
+            {% elif accepted %}
+                <span style="color: green; font-weight: bold">
+                    {{ "Accepted" | tr }}
+                </span>
+            {% else %}
+                <span style="color: red; font-weight: bold">
+                    {{ "Rejected" | tr }}
+                </span>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+<div class="proposal agenda">
+    <p class="field agenda">
+        <!-- The `e` filter manually escapes content. -->
+        {{ voteinfo.Agenda | replace("\n", "<br />\n") | safe | e }}
+    </p>
+</div>
+
+<table class="vote-status">
+    <tr>
+        {% if not voteinfo.is_running() %}
+            <th>{{ "Yes" | tr }}</th>
+            <th>{{ "No" | tr }}</th>
+            <th>{{ "Abstain" | tr }}</th>
+        {% endif %}
+
+        <th>{{ "Total" | tr }}</th>
+        <th>{{ "Voted" | tr }}</th>
+        <th>{{ "Participation" | tr }}</th>
+    </tr>
+
+    <tr>
+        {% if not voteinfo.is_running() %}
+            <td>{{ voteinfo.Yes }}</td>
+            <td>{{ voteinfo.No }}</td>
+            <td>{{ voteinfo.Abstain }}</td>
+        {% endif %}
+
+        <td>{{ voteinfo.total_votes() }}</td>
+        <td>
+            {% if not has_voted %}
+                <span style="color: red; font-weight: bold">
+                    {{ "No" | tr }}
+                </span>
+            {% else %}
+                <span style="color: green; font-weight: bold">
+                    {{ "Yes" | tr }}
+                </span>
+            {% endif %}
+        </td>
+        <td>
+            {% if voteinfo.ActiveTUs %}
+                {{ (participation * 100) | number_format(2) }}%
+            {% else %}
+                {{ "unknown" | tr }}
+            {% endif %}
+        </td>
+    </tr>
+</table>

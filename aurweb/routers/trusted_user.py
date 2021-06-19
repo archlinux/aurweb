@@ -1,7 +1,11 @@
+import typing
+
 from datetime import datetime
+from http import HTTPStatus
 from urllib.parse import quote_plus
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Form, HTTPException, Request
+from fastapi.responses import Response
 from sqlalchemy import and_, or_
 
 from aurweb import db
@@ -10,7 +14,7 @@ from aurweb.models.account_type import DEVELOPER, TRUSTED_USER, TRUSTED_USER_AND
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
-from aurweb.templates import make_context, render_template
+from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
 
@@ -95,3 +99,122 @@ async def trusted_user(request: Request,
     ])
 
     return render_template(request, "tu/index.html", context)
+
+
+def render_proposal(request: Request,
+                    context: dict,
+                    proposal: int,
+                    voteinfo: TUVoteInfo,
+                    voters: typing.Iterable[User],
+                    vote: TUVote,
+                    status_code: HTTPStatus = HTTPStatus.OK):
+    """ Render a single TU proposal. """
+    context["proposal"] = proposal
+    context["voteinfo"] = voteinfo
+    context["voters"] = voters
+
+    participation = voteinfo.ActiveTUs / voteinfo.total_votes() \
+        if voteinfo.total_votes() else 0
+    context["participation"] = participation
+
+    accepted = (voteinfo.Yes > voteinfo.ActiveTUs / 2) or \
+        (participation > voteinfo.Quorum and voteinfo.Yes > voteinfo.No)
+    context["accepted"] = accepted
+
+    can_vote = voters.filter(TUVote.User == request.user).first() is None
+    context["can_vote"] = can_vote
+
+    if not voteinfo.is_running():
+        context["error"] = "Voting is closed for this proposal."
+
+    context["vote"] = vote
+    context["has_voted"] = vote is not None
+
+    return render_template(request, "tu/show.html", context,
+                           status_code=status_code)
+
+
+@router.get("/tu/{proposal}")
+@auth_required(True, redirect="/")
+@account_type_required(REQUIRED_TYPES)
+async def trusted_user_proposal(request: Request, proposal: int):
+    context = await make_variable_context(request, "Trusted User")
+    proposal = int(proposal)
+
+    voteinfo = db.query(TUVoteInfo, TUVoteInfo.ID == proposal).first()
+    if not voteinfo:
+        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+
+    voters = db.query(User).join(TUVote).filter(TUVote.VoteID == voteinfo.ID)
+    vote = db.query(TUVote, and_(TUVote.UserID == request.user.ID,
+                                 TUVote.VoteID == voteinfo.ID)).first()
+
+    if not request.user.is_trusted_user():
+        context["error"] = "Only Trusted Users are allowed to vote."
+    elif voteinfo.User == request.user.Username:
+        context["error"] = "You cannot vote in an proposal about you."
+    elif vote is not None:
+        context["error"] = "You've already voted for this proposal."
+
+    context["vote"] = vote
+    return render_proposal(request, context, proposal, voteinfo, voters, vote)
+
+
+@router.post("/tu/{proposal}")
+@auth_required(True, redirect="/")
+@account_type_required(REQUIRED_TYPES)
+async def trusted_user_proposal_post(request: Request,
+                                     proposal: int,
+                                     decision: str = Form(...)):
+    context = await make_variable_context(request, "Trusted User")
+    proposal = int(proposal)  # Make sure it's an int.
+
+    voteinfo = db.query(TUVoteInfo, TUVoteInfo.ID == proposal).first()
+    if not voteinfo:
+        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+
+    voters = db.query(User).join(TUVote).filter(TUVote.VoteID == voteinfo.ID)
+
+    # status_code we'll use for responses later.
+    status_code = HTTPStatus.OK
+
+    if not request.user.is_trusted_user():
+        # Test: Create a proposal and view it as a "Developer". It
+        # should give us this error.
+        context["error"] = "Only Trusted Users are allowed to vote."
+        status_code = HTTPStatus.UNAUTHORIZED
+    elif voteinfo.User == request.user.Username:
+        context["error"] = "You cannot vote in an proposal about you."
+        status_code = HTTPStatus.BAD_REQUEST
+
+    vote = db.query(TUVote, and_(TUVote.UserID == request.user.ID,
+                                 TUVote.VoteID == voteinfo.ID)).first()
+
+    if status_code != HTTPStatus.OK:
+        return render_proposal(request, context, proposal,
+                               voteinfo, voters, vote,
+                               status_code=status_code)
+
+    if vote is not None:
+        context["error"] = "You've already voted for this proposal."
+        status_code = HTTPStatus.BAD_REQUEST
+
+    if status_code != HTTPStatus.OK:
+        return render_proposal(request, context, proposal,
+                               voteinfo, voters, vote,
+                               status_code=status_code)
+
+    if decision in {"Yes", "No", "Abstain"}:
+        # Increment whichever decision was given to us.
+        setattr(voteinfo, decision, getattr(voteinfo, decision) + 1)
+    else:
+        return Response("Invalid 'decision' value.",
+                        status_code=int(HTTPStatus.BAD_REQUEST))
+
+    vote = db.create(TUVote, User=request.user, VoteInfo=voteinfo,
+                     autocommit=False)
+    voteinfo.ActiveTUs += 1
+    db.commit()
+
+    context["error"] = "You've already voted for this proposal."
+    return render_proposal(request, context, proposal, voteinfo, voters, vote)

@@ -18,6 +18,7 @@ from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
 
 DATETIME_REGEX = r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+PARTICIPATION_REGEX = r'^1?[0-9]{2}[%]$'  # 0% - 100%
 
 
 def parse_root(html):
@@ -101,6 +102,26 @@ def user():
     yield db.create(User, Username="test", Email="test@example.org",
                     RealName="Test User", Passwd="testPassword",
                     AccountType=user_type)
+
+
+@pytest.fixture
+def proposal(tu_user):
+    ts = int(datetime.utcnow().timestamp())
+    agenda = "Test proposal."
+    start = ts - 5
+    end = ts + 1000
+
+    user_type = db.query(AccountType,
+                         AccountType.AccountType == "User").first()
+    user = db.create(User, Username="test", Email="test@example.org",
+                     RealName="Test User", Passwd="testPassword",
+                     AccountType=user_type)
+
+    voteinfo = db.create(TUVoteInfo,
+                         Agenda=agenda, Quorum=0.0,
+                         User=user.Username, Submitter=tu_user,
+                         Submitted=start, End=end)
+    yield (tu_user, user, voteinfo)
 
 
 def test_tu_index_guest(client):
@@ -441,3 +462,270 @@ def test_tu_index_last_votes(client, tu_user, user):
 
     assert user.text.strip() == tu_user.Username
     assert int(vote_id.text.strip()) == voteinfo.ID
+
+
+def test_tu_proposal_not_found(client, tu_user):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/tu", params={"id": 1}, cookies=cookies)
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_tu_running_proposal(client, proposal):
+    tu_user, user, voteinfo = proposal
+
+    # Initiate an authenticated GET request to /tu/{proposal_id}.
+    proposal_id = voteinfo.ID
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get(f"/tu/{proposal_id}", cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Alright, now let's continue on to verifying some markup.
+    # First, let's verify that the proposal details match.
+    root = parse_root(response.text)
+    details = root.xpath('//div[@class="proposal details"]')[0]
+
+    vote_running = root.xpath('//p[contains(@class, "vote-running")]')[0]
+    assert vote_running.text.strip() == "This vote is still running."
+
+    # Verify User field.
+    username = details.xpath(
+        './div[contains(@class, "user")]/strong/a/text()')[0]
+    assert username.strip() == user.Username
+
+    submitted = details.xpath(
+        './div[contains(@class, "submitted")]/text()')[0]
+    assert re.match(r'^Submitted: \d{4}-\d{2}-\d{2} \d{2}:\d{2} by .+$',
+                    submitted.strip()) is not None
+
+    end = details.xpath('./div[contains(@class, "end")]')[0]
+    end_label = end.xpath("./text()")[0]
+    assert end_label.strip() == "End:"
+
+    end_datetime = end.xpath("./strong/text()")[0]
+    assert re.match(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$',
+                    end_datetime.strip()) is not None
+
+    # We have not voted yet. Assert that our voting form is shown.
+    form = root.xpath('//form[contains(@class, "action-form")]')[0]
+    fields = form.xpath("./fieldset")[0]
+    buttons = fields.xpath('./button[@name="decision"]')
+    assert len(buttons) == 3
+
+    # Check the button names and values.
+    yes, no, abstain = buttons
+
+    # Yes
+    assert yes.attrib["name"] == "decision"
+    assert yes.attrib["value"] == "Yes"
+
+    # No
+    assert no.attrib["name"] == "decision"
+    assert no.attrib["value"] == "No"
+
+    # Abstain
+    assert abstain.attrib["name"] == "decision"
+    assert abstain.attrib["value"] == "Abstain"
+
+    # Create a vote.
+    db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
+    voteinfo.ActiveTUs += 1
+    voteinfo.Yes += 1
+    db.commit()
+
+    # Make another request now that we've voted.
+    with client as request:
+        response = request.get(
+            "/tu", params={"id": voteinfo.ID}, cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Parse our new root.
+    root = parse_root(response.text)
+
+    # Check that we no longer have a voting form.
+    form = root.xpath('//form[contains(@class, "action-form")]')
+    assert not form
+
+    # Check that we're told we've voted.
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "You've already voted for this proposal."
+
+
+def test_tu_ended_proposal(client, proposal):
+    tu_user, user, voteinfo = proposal
+
+    ts = int(datetime.utcnow().timestamp())
+    voteinfo.End = ts - 5  # 5 seconds ago.
+    db.commit()
+
+    # Initiate an authenticated GET request to /tu/{proposal_id}.
+    proposal_id = voteinfo.ID
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get(f"/tu/{proposal_id}", cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Alright, now let's continue on to verifying some markup.
+    # First, let's verify that the proposal details match.
+    root = parse_root(response.text)
+    details = root.xpath('//div[@class="proposal details"]')[0]
+
+    vote_running = root.xpath('//p[contains(@class, "vote-running")]')
+    assert not vote_running
+
+    result_node = details.xpath('./div[contains(@class, "result")]')[0]
+    result_label = result_node.xpath("./text()")[0]
+    assert result_label.strip() == "Result:"
+
+    result = result_node.xpath("./span/text()")[0]
+    assert result.strip() == "unknown"
+
+    # Check that voting has ended.
+    form = root.xpath('//form[contains(@class, "action-form")]')
+    assert not form
+
+    # We should see a status about it.
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "Voting is closed for this proposal."
+
+
+def test_tu_proposal_vote_not_found(client, tu_user):
+    """ Test POST request to a missing vote. """
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        data = {"decision": "Yes"}
+        response = request.post("/tu/1", cookies=cookies,
+                                data=data, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_tu_proposal_vote(client, proposal):
+    tu_user, user, voteinfo = proposal
+
+    # Store the current related values.
+    yes = voteinfo.Yes
+    active_tus = voteinfo.ActiveTUs
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        data = {"decision": "Yes"}
+        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies,
+                                data=data)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Check that the proposal record got updated.
+    assert voteinfo.Yes == yes + 1
+    assert voteinfo.ActiveTUs == active_tus + 1
+
+    # Check that the new TUVote exists.
+    vote = db.query(TUVote, TUVote.VoteInfo == voteinfo,
+                    TUVote.User == tu_user).first()
+    assert vote is not None
+
+    root = parse_root(response.text)
+
+    # Check that we're told we've voted.
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "You've already voted for this proposal."
+
+
+def test_tu_proposal_vote_unauthorized(client, proposal):
+    tu_user, user, voteinfo = proposal
+
+    dev_type = db.query(AccountType,
+                        AccountType.AccountType == "Developer").first()
+    tu_user.AccountType = dev_type
+    db.commit()
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        data = {"decision": "Yes"}
+        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies,
+                                data=data, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+    root = parse_root(response.text)
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "Only Trusted Users are allowed to vote."
+
+    with client as request:
+        data = {"decision": "Yes"}
+        response = request.get(f"/tu/{voteinfo.ID}", cookies=cookies,
+                               data=data, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "Only Trusted Users are allowed to vote."
+
+
+def test_tu_proposal_vote_cant_self_vote(client, proposal):
+    tu_user, user, voteinfo = proposal
+
+    # Update voteinfo.User.
+    voteinfo.User = tu_user.Username
+    db.commit()
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        data = {"decision": "Yes"}
+        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies,
+                                data=data, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    root = parse_root(response.text)
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "You cannot vote in an proposal about you."
+
+    with client as request:
+        data = {"decision": "Yes"}
+        response = request.get(f"/tu/{voteinfo.ID}", cookies=cookies,
+                               data=data, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "You cannot vote in an proposal about you."
+
+
+def test_tu_proposal_vote_already_voted(client, proposal):
+    tu_user, user, voteinfo = proposal
+
+    db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
+    voteinfo.Yes += 1
+    voteinfo.ActiveTUs += 1
+    db.commit()
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        data = {"decision": "Yes"}
+        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies,
+                                data=data, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    root = parse_root(response.text)
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "You've already voted for this proposal."
+
+    with client as request:
+        data = {"decision": "Yes"}
+        response = request.get(f"/tu/{voteinfo.ID}", cookies=cookies,
+                               data=data, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    status = root.xpath('//span[contains(@class, "status")]/text()')[0]
+    assert status == "You've already voted for this proposal."
+
+
+def test_tu_proposal_vote_invalid_decision(client, proposal):
+    tu_user, user, voteinfo = proposal
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        data = {"decision": "EVIL"}
+        response = request.post(f"/tu/{voteinfo.ID}", cookies=cookies,
+                                data=data)
+    assert response.status_code == int(HTTPStatus.BAD_REQUEST)
+    assert response.text == "Invalid 'decision' value."

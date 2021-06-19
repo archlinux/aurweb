@@ -204,3 +204,11 @@ label.confirmation,
 	overflow: hidden;
 	transition: height 1s;
 }
+
+.proposal.details {
+    margin: .33em 0 1em;
+}
+
+button[type="submit"] {
+    padding: 0 0.6em;
+}
