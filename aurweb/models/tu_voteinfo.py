@@ -90,3 +90,6 @@ class TUVoteInfo(Base):
 
     def is_running(self):
         return self.End > int(datetime.utcnow().timestamp())
+
+    def total_votes(self):
+        return self.Yes + self.No + self.Abstain

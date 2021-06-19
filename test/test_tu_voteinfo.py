@@ -64,6 +64,24 @@ def test_tu_voteinfo_is_running():
     assert tu_voteinfo.is_running() is False
 
 
+def test_tu_voteinfo_total_votes():
+    ts = int(datetime.utcnow().timestamp())
+    tu_voteinfo = create(TUVoteInfo,
+                         Agenda="Blah blah.",
+                         User=user.Username,
+                         Submitted=ts, End=ts + 1000,
+                         Quorum=0.5,
+                         Submitter=user)
+
+    tu_voteinfo.Yes = 1
+    tu_voteinfo.No = 3
+    tu_voteinfo.Abstain = 5
+    commit()
+
+    # total_votes() should be the sum of Yes, No and Abstain: 1 + 3 + 5 = 9.
+    assert tu_voteinfo.total_votes() == 9
+
+
 def test_tu_voteinfo_null_submitter_raises_exception():
     with pytest.raises(IntegrityError):
         create(TUVoteInfo,
