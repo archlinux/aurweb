@@ -2,6 +2,8 @@ import asyncio
 import http
 import typing
 
+from urllib.parse import quote_plus
+
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -116,6 +118,26 @@ async def check_terms_of_service(request: Request, call_next: typing.Callable):
         if query(Term).count() > unaccepted.count():
             return RedirectResponse(
                 "/tos", status_code=int(http.HTTPStatus.SEE_OTHER))
+
+    task = asyncio.create_task(call_next(request))
+    await asyncio.wait({task}, return_when=asyncio.FIRST_COMPLETED)
+    return task.result()
+
+
+@app.middleware("http")
+async def id_redirect_middleware(request: Request, call_next: typing.Callable):
+    id = request.query_params.get("id")
+
+    if id is not None:
+        # Preserve query string.
+        qs = []
+        for k, v in request.query_params.items():
+            if k != "id":
+                qs.append(f"{k}={quote_plus(str(v))}")
+        qs = str() if not qs else '?' + '&'.join(qs)
+
+        path = request.url.path.rstrip('/')
+        return RedirectResponse(f"{path}/{id}{qs}")
 
     task = asyncio.create_task(call_next(request))
     await asyncio.wait({task}, return_when=asyncio.FIRST_COMPLETED)

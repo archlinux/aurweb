@@ -148,3 +148,13 @@ def test_nonce_csp():
             if not (nonce_verified := (script.get("nonce") == nonce)):
                 break
     assert nonce_verified is True
+
+
+def test_id_redirect():
+    with client as request:
+        response = request.get("/", params={
+            "id": "test",  # This param will be rewritten into Location.
+            "key": "value",  # Test that this param persists.
+            "key2": "value2"  # And this one.
+        }, allow_redirects=False)
+    assert response.headers.get("location") == "/test?key=value&key2=value2"
