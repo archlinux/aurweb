@@ -18,3 +18,4 @@ fastapi_aw/
 .pylintrc
 .coverage
 .idea
+/cache/*

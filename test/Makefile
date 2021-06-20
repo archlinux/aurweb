@@ -17,10 +17,15 @@ else
 sh: $(T)
 endif
 
+coverage:
+	cd .. && coverage report --include='aurweb/*'
+	cd .. && coverage xml --include='aurweb/*'
+
 clean:
 	$(RM) -r test-results/
+	rm -f ../.coverage
 
 $(T):
 	@echo "*** $@ ***"; $(SHELL) $@
 
-.PHONY: check $(FOREIGN_TARGETS) clean $(T)
+.PHONY: check coverage $(FOREIGN_TARGETS) clean $(T)

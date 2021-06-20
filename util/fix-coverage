@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+""" A simple script which updates paths for .coverage executed
+in another directory. This is particularly useful for fixing
+.coverage files received via ./cache/.coverage after Docker runs.
+
+Copyright (C) 2021 aurweb Development
+All Rights Reserved.
+"""
+import os
+import re
+import sqlite3
+import sys
+import traceback
+
+import aurweb.config
+
+
+def eprint(*args, **kwargs):
+    print(*args, **kwargs, file=sys.stderru)
+
+
+def main():
+    if len(sys.argv) == 1:
+        print(f"usage: {sys.argv[0]} .coverage")
+        return 1
+
+    coverage_db = sys.argv[1]
+    if not os.path.exists(coverage_db):
+        eprint("error: coverage file not found")
+        return 2
+
+    aurwebdir = aurweb.config.get("options", "aurwebdir")
+    new_coverage_db = os.path.join(aurwebdir, ".coverage")
+    with open(coverage_db, "rb") as i:
+        with open(new_coverage_db, "wb") as f:
+            f.write(i.read())
+        print(f"Copied coverage db to {new_coverage_db}.")
+    coverage_db = new_coverage_db
+
+    sqlite3.paramstyle = "format"
+    db = sqlite3.connect(coverage_db)
+
+    cursor = db.cursor()
+    results = cursor.execute("SELECT * FROM file")
+
+    files = dict()
+    for i, path in results:
+        files[i] = path
+
+    for _, i in enumerate(files.keys()):
+        new_path = re.sub(r'^/aurweb', aurwebdir, files[i])
+        cursor.execute("UPDATE file SET path = ? WHERE id = ?", (
+            new_path, i))
+
+    db.commit()
+    db.close()
+
+    return 0
+
+
+if __name__ == "__main__":
+    e = 1
+    try:
+        e = main()
+    except Exception:
+        traceback.print_exc()
+        e = 1
+    sys.exit(e)
