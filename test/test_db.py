@@ -119,9 +119,20 @@ def test_sqlalchemy_mysql_port_url():
         aurweb.config.rehash()
 
 
+def test_sqlalchemy_mysql_socket_url():
+    tmpctx, tmp = make_temp_config("conf/config",
+                                   (r"[;]?port = 3306", ";port = 3306"))
+
+    with tmpctx:
+        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
+            aurweb.config.rehash()
+            assert db.get_sqlalchemy_url()
+        aurweb.config.rehash()
+
+
 def test_sqlalchemy_unknown_backend():
     tmpctx, tmp = make_temp_config("conf/config",
-                                   (r"backend = mysql", "backend = blah"))
+                                   (r"backend = .+", "backend = blah"))
 
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
@@ -156,7 +167,7 @@ def test_connection_class_sqlite_without_fail():
 
 def test_connection_class_unsupported_backend():
     tmpctx, tmp = make_temp_config("conf/config",
-                                   (r"backend = mysql", "backend = blah"))
+                                   (r"backend = .+", "backend = blah"))
 
     with tmpctx:
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):

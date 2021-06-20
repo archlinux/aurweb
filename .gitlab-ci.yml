@@ -20,14 +20,14 @@ before_script:
            python-pytest-asyncio python-coverage python-bcrypt
            python-email-validator openssh python-lxml mariadb
            python-isort flake8
-  - bash -c "echo '127.0.0.1' > /etc/hosts"
-  - bash -c "echo '::1' >> /etc/hosts"
+  - bash -c "echo '127.0.0.1 localhost' > /etc/hosts"
+  - bash -c "echo '::1 localhost' >> /etc/hosts"
   - mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
   - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &
   - 'until : > /dev/tcp/127.0.0.1/3306; do sleep 1s; done'
   - mysql -u root -e "CREATE USER 'aur'@'localhost' IDENTIFIED BY 'aur';"
-  - mysql -u root -e "CREATE DATABASE aurweb;"
-  - mysql -u root -e "GRANT ALL PRIVILEGES ON aurweb.* TO 'aur'@'localhost';"
+  - mysql -u root -e "CREATE DATABASE aurweb_test;"
+  - mysql -u root -e "GRANT ALL ON aurweb_test.* TO 'aur'@'localhost';"
   - mysql -u root -e "FLUSH PRIVILEGES;"
   - sed -r "s;YOUR_AUR_ROOT;$(pwd);g" conf/config.dev > conf/config
   - cp conf/config conf/config.sqlite

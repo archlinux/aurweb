@@ -10,7 +10,7 @@
 backend = mysql
 
 ; If using sqlite, set name to the database file path.
-name = aurweb
+name = aurweb_test
 
 ; MySQL database information. User defaults to root for containerized
 ; testing with mysqldb. This should be set to a non-root user.
