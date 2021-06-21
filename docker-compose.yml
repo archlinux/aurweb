@@ -179,6 +179,8 @@ services:
       - AUR_CONFIG=conf/config.sqlite
     entrypoint: /docker/test-sqlite-entrypoint.sh
     command: /docker/scripts/run-sharness.sh
+    stdin_open: true
+    tty: true
     depends_on:
       git:
         condition: service_healthy
@@ -195,6 +197,8 @@ services:
       - AUR_CONFIG=conf/config
     entrypoint: /docker/test-mysql-entrypoint.sh
     command: /docker/scripts/run-pytests.sh clean
+    stdin_open: true
+    tty: true
     depends_on:
       mariadb:
         condition: service_healthy
@@ -215,6 +219,8 @@ services:
       - AUR_CONFIG=conf/config.sqlite
     entrypoint: /docker/test-sqlite-entrypoint.sh
     command: /docker/scripts/run-pytests.sh clean
+    stdin_open: true
+    tty: true
     volumes:
       - mariadb_run:/var/run/mysqld
       - git_data:/aurweb/aur.git
@@ -230,6 +236,8 @@ services:
       - AUR_CONFIG=conf/config
     entrypoint: /docker/tests-entrypoint.sh
     command: /docker/scripts/run-tests.sh
+    stdin_open: true
+    tty: true
     depends_on:
       mariadb:
         condition: service_healthy
