@@ -19,3 +19,4 @@ fastapi_aw/
 .coverage
 .idea
 /cache/*
+/logs/*

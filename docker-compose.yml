@@ -7,12 +7,28 @@
 #   - `pytest-sqlite` - Run pytest suites with SQLite
 #   - `test` - Run sharness, pytest-mysql and pytest-sqlite
 #   - `mariadb` - `port 13306` - MariaDB server for docker
+#   - `ca` - Certificate Authority generation
+#   - `git` - `port 2222` - Git over SSH server
+#   - `fastapi` - hypercorn service for aurweb's FastAPI app
+#   - `php-fpm` - Execution server for PHP aurweb
+#   - `nginx` - `ports 8444 (FastAPI), 8443 (PHP)` - Everything
+#     - You can reach `nginx` via FastAPI at `https://localhost:8444/`
+#       or via PHP at `https://localhost:8443/`. CGit can be reached
+#       via the `/cgit/` request uri on either server.
 #
 # Copyright (C) 2021 aurweb Development
 # All Rights Reserved.
 version: "3.8"
 
 services:
+  ca:
+    image: aurweb:latest
+    init: true
+    entrypoint: /docker/ca-entrypoint.sh
+    command: exit 0
+    volumes:
+      - ./cache:/cache
+
   mariadb:
     image: aurweb:latest
     init: true
@@ -30,6 +46,132 @@ services:
       interval: 2s
       timeout: 60s
 
+  git:
+    image: aurweb:latest
+    init: true
+    environment:
+      - AUR_CONFIG=conf/config
+    entrypoint: /docker/git-entrypoint.sh
+    command: /docker/scripts/run-sshd.sh
+    ports:
+      - "2222:22"
+    healthcheck:
+      test: "bash /docker/health/sshd.sh"
+      interval: 2s
+      timeout: 30s
+    volumes:
+      - mariadb_run:/var/run/mysqld
+      - mariadb_data:/var/lib/mysql
+      - git_data:/aurweb/aur.git
+      - ./cache:/cache
+
+  cgit:
+    image: aurweb:latest
+    init: true
+    environment:
+      - AUR_CONFIG=/aurweb/conf/config
+    entrypoint: /docker/cgit-entrypoint.sh
+    command: >-
+      uwsgi --socket 0.0.0.0:3000
+            --plugins cgi
+            --cgi /usr/share/webapps/cgit/cgit.cgi
+    healthcheck:
+      test: "bash /docker/health/cgit.sh"
+      interval: 2s
+      timeout: 30s
+    depends_on:
+      git:
+        condition: service_healthy
+    links:
+      - git
+    volumes:
+      - git_data:/aurweb/aur.git
+
+  php-fpm:
+    image: aurweb:latest
+    init: true
+    environment:
+      - AUR_CONFIG=/aurweb/conf/config
+    entrypoint: /docker/php-entrypoint.sh
+    command: /docker/scripts/run-php.sh
+    healthcheck:
+      test: "bash /docker/health/php.sh"
+      interval: 2s
+      timeout: 30s
+    depends_on:
+      ca:
+        condition: service_started
+      git:
+        condition: service_healthy
+      mariadb:
+        condition: service_healthy
+    links:
+      - ca
+      - git
+      - mariadb
+    volumes:
+      - mariadb_run:/var/run/mysqld # Bind socket in this volume.
+      - mariadb_data:/var/lib/mysql
+      - ./cache:/cache
+
+
+  fastapi:
+    image: aurweb:latest
+    init: true
+    environment:
+      - AUR_CONFIG=conf/config
+    entrypoint: /docker/fastapi-entrypoint.sh
+    command: /docker/scripts/run-fastapi.sh
+    healthcheck:
+      test: "bash /docker/health/fastapi.sh"
+      interval: 2s
+      timeout: 30s
+    depends_on:
+      ca:
+        condition: service_started
+      git:
+        condition: service_healthy
+      mariadb:
+        condition: service_healthy
+    links:
+      - ca
+      - git
+      - mariadb
+    volumes:
+      - mariadb_run:/var/run/mysqld # Bind socket in this volume.
+      - mariadb_data:/var/lib/mysql
+      - ./cache:/cache
+
+  nginx:
+    image: aurweb:latest
+    init: true
+    environment:
+      - AUR_CONFIG=conf/config
+    entrypoint: /docker/nginx-entrypoint.sh
+    command: /docker/scripts/run-nginx.sh
+    ports:
+      - "8443:8443" # PHP
+      - "8444:8444" # FastAPI
+    healthcheck:
+      test: "bash /docker/health/nginx.sh"
+      interval: 2s
+      timeout: 30s
+    depends_on:
+      cgit:
+        condition: service_healthy
+      fastapi:
+        condition: service_healthy
+      php-fpm:
+        condition: service_healthy
+    links:
+      - cgit
+      - fastapi
+      - php-fpm
+    volumes:
+      - git_data:/aurweb/aur.git
+      - ./cache:/cache
+      - ./logs:/var/log/nginx
+
   sharness:
     image: aurweb:latest
     init: true
@@ -37,7 +179,13 @@ services:
       - AUR_CONFIG=conf/config.sqlite
     entrypoint: /docker/test-sqlite-entrypoint.sh
     command: /docker/scripts/run-sharness.sh
+    depends_on:
+      git:
+        condition: service_healthy
+    links:
+      - git
     volumes:
+      - git_data:/aurweb/aur.git
       - ./cache:/cache
 
   pytest-mysql:
@@ -50,10 +198,14 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+      git:
+        condition: service_healthy
     links:
       - mariadb
+      - git
     volumes:
       - mariadb_run:/var/run/mysqld
+      - git_data:/aurweb/aur.git
       - ./cache:/cache
 
   pytest-sqlite:
@@ -65,7 +217,11 @@ services:
     command: /docker/scripts/run-pytests.sh clean
     volumes:
       - mariadb_run:/var/run/mysqld
+      - git_data:/aurweb/aur.git
       - ./cache:/cache
+    depends_on:
+      git:
+        condition: service_healthy
 
   test:
     image: aurweb:latest
@@ -81,8 +237,10 @@ services:
       - mariadb
     volumes:
       - mariadb_run:/var/run/mysqld
+      - git_data:/aurweb/aur.git
       - ./cache:/cache
 
 volumes:
   mariadb_run: {} # Share /var/run/mysqld/mysqld.sock
   mariadb_data: {} # Share /var/lib/mysql
+  git_data: {} # Share aurweb/aur.git

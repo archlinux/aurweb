@@ -17,7 +17,7 @@ RUN pacman -Syu --noconfirm --noprogressbar \
     python-requests python-aiofiles python-python-multipart \
     python-pytest-asyncio python-coverage hypercorn python-bcrypt \
     python-email-validator openssh python-lxml mariadb mariadb-libs \
-    python-isort flake8
+    python-isort flake8 cgit uwsgi uwsgi-plugin-cgi php php-fpm
 
 RUN useradd -U -d /aurweb -c 'AUR User' aur
 
