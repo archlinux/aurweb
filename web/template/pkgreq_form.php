@@ -9,7 +9,7 @@
 		<li><?= htmlspecialchars($pkgname) ?></li>
 		<?php endforeach; ?>
 	</ul>
-	<form action="<?= get_uri('/pkgbase/'); ?>" method="post">
+	<form action="<?= get_uri('/pkgbase/'); ?>" id="request-form" method="post">
 		<fieldset>
 			<input type="hidden" name="IDs[<?= $base_id ?>]" value="1" />
 			<input type="hidden" name="ID" value="<?= $base_id ?>" />
@@ -24,44 +24,41 @@
 					<?php endif; ?>
 				</select>
 			</p>
-			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
-			<script type="text/javascript" src="/js/bootstrap-typeahead.min.js"></script>
+			<script type="text/javascript" src="/js/typeahead.js"></script>
 			<script type="text/javascript">
 			function showHideMergeSection() {
-				if ($('#id_type').val() == 'merge') {
-					$('#merge_section').show();
+				const elem = document.getElementById('id_type');
+				const merge_section = document.getElementById('merge_section');
+				if (elem.value == 'merge') {
+					merge_section.style.display = '';
 				} else {
-					$('#merge_section').hide();
+					merge_section.style.display = 'none';
 				}
 			}
 
 			function showHideRequestHints() {
-				$('#deletion_hint').hide();
-				$('#merge_hint').hide();
-				$('#orphan_hint').hide();
-				$('#' + $('#id_type').val() + '_hint').show();
+				document.getElementById('deletion_hint').style.display = 'none';
+				document.getElementById('merge_hint').style.display = 'none';
+				document.getElementById('orphan_hint').style.display = 'none';
+
+				const elem = document.getElementById('id_type');
+				document.getElementById(elem.value + '_hint').style.display = '';
 			}
 
-			$(document).ready(function() {
+			document.addEventListener('DOMContentLoaded', function() {
 				showHideMergeSection();
 				showHideRequestHints();
 
-				$('#id_merge_into').typeahead({
-					source: function(query, callback) {
-						$.getJSON('<?= get_uri('/rpc'); ?>', {type: "suggest-pkgbase", arg: query}, function(data) {
-							callback(data);
-						});
-					},
-					matcher: function(item) { return true; },
-					sorter: function(items) { return items; },
-					menu: '<ul class="pkgsearch-typeahead"></ul>',
-					items: 20
-				}).attr('autocomplete', 'off');
+				const input = document.getElementById('id_merge_into');
+                                const form = document.getElementById('request-form');
+                                const type = "suggest-pkgbase";
+
+				typeahead.init(type, input, form, false);
 			});
 			</script>
 			<p id="merge_section">
 				<label for="id_merge_into"><?= __("Merge into") ?>:</label>
-				<input type="text" name="merge_into" id="id_merge_into" />
+				<input type="text" name="merge_into" id="id_merge_into" autocomplete="off"/>
 			</p>
 			<p>
 				<label for="id_comments"><?= __("Comments") ?>:</label>

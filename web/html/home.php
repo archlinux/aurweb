@@ -185,7 +185,7 @@ if (isset($_COOKIE["AURSID"])) {
 			<fieldset>
 				<label for="pkgsearch-field"><?= __('Package Search') ?>:</label>
 				<input type="hidden" name="O" value="0" />
-				<input id="pkgsearch-field" type="text" name="K" size="30" value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength="35" />
+				<input id="pkgsearch-field" type="text" name="K" size="30" value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength="35" autocomplete="off"/>
 			</fieldset>
 		</form>
 	</div>
@@ -202,34 +202,13 @@ if (isset($_COOKIE["AURSID"])) {
 	<?php endif; ?>
 
 </div>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap-typeahead.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#pkgsearch-field').typeahead({
-        source: function(query, callback) {
-            $.getJSON('<?= get_uri('/rpc'); ?>', {type: "suggest", arg: query}, function(data) {
-                callback(data);
-            });
-        },
-        matcher: function(item) { return true; },
-        sorter: function(items) { return items; },
-        menu: '<ul class="pkgsearch-typeahead"></ul>',
-        items: 20,
-        updater: function(item) {
-            document.location = '/packages/' + item;
-            return item;
-	}
-    }).attr('autocomplete', 'off');
-
-    $('#pkgsearch-field').keydown(function(e) {
-        if (e.keyCode == 13) {
-            var selectedItem = $('ul.pkgsearch-typeahead li.active');
-            if (selectedItem.length == 0) {
-                $('#pkgsearch-form').submit();
-            }
-        }
-    });
+<script type="text/javascript" src="/js/typeahead.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const input = document.getElementById('pkgsearch-field');
+	const form = document.getElementById('pkgsearch-form');
+	const type = "suggest";
+	typeahead.init(type, input, form);
 });
 </script>
 <?php
