@@ -555,13 +555,21 @@ async def account_edit_post(request: Request,
     return util.migrate_cookies(request, response)
 
 
+account_template = (
+    "account/show.html",
+    ["Account", "{}"],
+    ["username"]  # Query parameters to replace in the title string.
+)
+
+
 @router.get("/account/{username}")
-@auth_required(True, template=("account/show.html", "Accounts"))
+@auth_required(True, template=account_template,
+               status_code=HTTPStatus.UNAUTHORIZED)
 async def account(request: Request, username: str):
+    _ = l10n.get_translator_for_request(request)
+    context = await make_variable_context(request, _("Account") + username)
+
     user = db.query(User, User.Username == username).first()
-
-    context = await make_variable_context(request, "Accounts")
-
     if not user:
         raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
 

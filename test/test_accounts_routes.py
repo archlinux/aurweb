@@ -915,7 +915,6 @@ def test_get_account_not_found():
 def test_get_account_unauthenticated():
     with client as request:
         response = request.get("/account/test", allow_redirects=False)
-
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
 
     content = response.content.decode()
