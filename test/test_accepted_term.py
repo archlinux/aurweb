@@ -26,6 +26,11 @@ def setup():
 
     term = create(Term, Description="Test term", URL="https://test.term")
 
+    yield term
+
+    # Eradicate any terms we created.
+    setup_test_db("AcceptedTerms", "Terms")
+
 
 def test_accepted_term():
     accepted_term = create(AcceptedTerm, User=user, Term=term)

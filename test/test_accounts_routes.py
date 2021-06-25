@@ -58,6 +58,12 @@ def setup():
                   RealName="Test User", Passwd="testPassword",
                   AccountType=account_type)
 
+    yield user
+
+    # Remove term records so other tests don't get them
+    # and falsely redirect.
+    setup_test_db("Terms", "AcceptedTerms")
+
 
 def test_get_passreset_authed_redirects():
     sid = user.login(Request(), "testPassword")

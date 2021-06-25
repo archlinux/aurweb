@@ -11,6 +11,11 @@ from aurweb.testing import setup_test_db
 def setup():
     setup_test_db("Terms")
 
+    yield None
+
+    # Wipe em out just in case records are leftover.
+    setup_test_db("Terms")
+
 
 def test_term_creation():
     term = create(Term, Description="Term description",
