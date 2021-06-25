@@ -251,6 +251,8 @@ services:
     depends_on:
       git:
         condition: service_healthy
+    links:
+      - git
 
   test:
     image: aurweb:latest
