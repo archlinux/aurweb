@@ -16,6 +16,8 @@ import random
 import sys
 import time
 
+import bcrypt
+
 LOG_LEVEL = logging.DEBUG  # logging level. set to logging.INFO to reduce output
 SEED_FILE = "/usr/share/dict/words"
 USER_ID = 5            # Users.ID of first bogus user
@@ -182,11 +184,17 @@ for u in user_keys:
             #
             pass
 
+    # For dummy data, we just use 4 salt rounds.
+    salt = bcrypt.gensalt(rounds=4).decode()
+
+    # "{salt}{username}"
+    to_hash = f"{salt}{u}"
+
     h = hashlib.new('md5')
-    h.update(u.encode())
-    s = ("INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd)"
-         " VALUES (%d, %d, '%s', '%s@example.com', '%s');\n")
-    s = s % (seen_users[u], account_type, u, u, h.hexdigest())
+    h.update(to_hash.encode())
+    s = ("INSERT INTO Users (ID, AccountTypeID, Username, Email, Passwd, Salt)"
+         " VALUES (%d, %d, '%s', '%s@example.com', '%s', '%s');\n")
+    s = s % (seen_users[u], account_type, u, u, h.hexdigest(), salt)
     out.write(s)
 
 log.debug("Number of developers: %d" % len(developers))
