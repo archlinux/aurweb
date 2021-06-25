@@ -30,6 +30,7 @@ backend = sqlite
 name = aur.db
 
 [options]
+aurwebdir = $TOPLEVEL
 aur_location = https://aur.archlinux.org
 aur_request_ml = aur-requests@lists.archlinux.org
 enable-maintenance = 0

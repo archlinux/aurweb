@@ -9,6 +9,7 @@ from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
 import aurweb.config
+import aurweb.logging
 
 from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine
