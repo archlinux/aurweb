@@ -117,6 +117,7 @@ services:
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
       - ./web:/aurweb/web
+      - ./templates:/aurweb/templates
 
   fastapi:
     image: aurweb:latest
@@ -148,6 +149,7 @@ services:
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
       - ./web:/aurweb/web
+      - ./templates:/aurweb/templates
 
   nginx:
     image: aurweb:latest
@@ -178,9 +180,6 @@ services:
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - ./logs:/var/log/nginx
-      - ./aurweb:/aurweb/aurweb
-      - ./migrations:/aurweb/migrations
-      - ./test:/aurweb/test
       - ./web:/aurweb/web
 
   sharness:
@@ -204,6 +203,7 @@ services:
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
       - ./web:/aurweb/web
+      - ./templates:/aurweb/templates
 
   pytest-mysql:
     image: aurweb:latest
@@ -230,6 +230,7 @@ services:
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
       - ./web:/aurweb/web
+      - ./templates:/aurweb/templates
 
   pytest-sqlite:
     image: aurweb:latest
@@ -248,6 +249,7 @@ services:
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
       - ./web:/aurweb/web
+      - ./templates:/aurweb/templates
     depends_on:
       git:
         condition: service_healthy
@@ -276,6 +278,7 @@ services:
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
       - ./web:/aurweb/web
+      - ./templates:/aurweb/templates
 
 volumes:
   mariadb_run: {} # Share /var/run/mysqld/mysqld.sock
