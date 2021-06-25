@@ -17,7 +17,8 @@ RUN pacman -Syu --noconfirm --noprogressbar \
     python-requests python-aiofiles python-python-multipart \
     python-pytest-asyncio python-coverage hypercorn python-bcrypt \
     python-email-validator openssh python-lxml mariadb mariadb-libs \
-    python-isort flake8 cgit uwsgi uwsgi-plugin-cgi php php-fpm
+    python-isort flake8 cgit uwsgi uwsgi-plugin-cgi php php-fpm \
+    python-asgiref uvicorn
 
 RUN useradd -U -d /aurweb -c 'AUR User' aur
 
@@ -30,4 +31,3 @@ ENV PYTHONPATH=/aurweb
 ENV AUR_CONFIG=conf/config
 
 RUN make -C po all install
-RUN python setup.py install

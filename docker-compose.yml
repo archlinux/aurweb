@@ -124,9 +124,9 @@ services:
     environment:
       - AUR_CONFIG=conf/config
     entrypoint: /docker/fastapi-entrypoint.sh
-    command: /docker/scripts/run-fastapi.sh
+    command: /docker/scripts/run-fastapi.sh "${FASTAPI_BACKEND}"
     healthcheck:
-      test: "bash /docker/health/fastapi.sh"
+      test: "bash /docker/health/fastapi.sh ${FASTAPI_BACKEND}"
       interval: 2s
       timeout: 30s
     depends_on:
