@@ -12,17 +12,18 @@ from sqlalchemy import and_, func, or_
 import aurweb.config
 
 from aurweb import db, l10n, time, util
-from aurweb.auth import auth_required
+from aurweb.auth import account_type_required, auth_required
 from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_token
 from aurweb.l10n import get_translator_for_request
 from aurweb.models.accepted_term import AcceptedTerm
-from aurweb.models.account_type import AccountType
+from aurweb.models.account_type import (DEVELOPER, DEVELOPER_ID, TRUSTED_USER, TRUSTED_USER_AND_DEV, TRUSTED_USER_AND_DEV_ID,
+                                        TRUSTED_USER_ID, USER_ID, AccountType)
 from aurweb.models.ban import Ban
 from aurweb.models.ssh_pub_key import SSHPubKey, get_fingerprint
 from aurweb.models.term import Term
 from aurweb.models.user import User
 from aurweb.scripts.notify import ResetKeyNotification
-from aurweb.templates import make_variable_context, render_template
+from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -589,6 +590,91 @@ async def account(request: Request, username: str):
     context["user"] = user
 
     return render_template(request, "account/show.html", context)
+
+
+@router.get("/accounts/")
+@auth_required(True)
+@account_type_required({TRUSTED_USER, DEVELOPER, TRUSTED_USER_AND_DEV})
+async def accounts(request: Request):
+    context = make_context(request, "Accounts")
+    return render_template(request, "account/search.html", context)
+
+
+@router.post("/accounts/")
+@auth_required(True)
+@account_type_required({TRUSTED_USER, DEVELOPER, TRUSTED_USER_AND_DEV})
+async def accounts_post(request: Request,
+                        O: int = Form(default=0),  # Offset
+                        SB: str = Form(default=str()),  # Search By
+                        U: str = Form(default=str()),  # Username
+                        T: str = Form(default=str()),  # Account Type
+                        S: bool = Form(default=False),  # Suspended
+                        E: str = Form(default=str()),  # Email
+                        R: str = Form(default=str()),  # Real Name
+                        I: str = Form(default=str()),  # IRC Nick
+                        K: str = Form(default=str())):  # PGP Key
+    context = await make_variable_context(request, "Accounts")
+    context["pp"] = pp = 50  # Hits per page.
+
+    offset = max(O, 0)  # Minimize offset at 0.
+    context["offset"] = offset  # Offset.
+
+    context["params"] = dict(await request.form())
+    if "O" in context["params"]:
+        context["params"].pop("O")
+
+    # Setup order by criteria based on SB.
+    order_by_columns = {
+        "t": (AccountType.ID.asc(), User.Username.asc()),
+        "r": (User.RealName.asc(), AccountType.ID.asc()),
+        "i": (User.IRCNick.asc(), AccountType.ID.asc()),
+    }
+    default_order = (User.Username.asc(), AccountType.ID.asc())
+    order_by = order_by_columns.get(SB, default_order)
+
+    # Convert parameter T to an AccountType ID.
+    account_types = {
+        "u": USER_ID,
+        "t": TRUSTED_USER_ID,
+        "d": DEVELOPER_ID,
+        "td": TRUSTED_USER_AND_DEV_ID
+    }
+    account_type_id = account_types.get(T, None)
+
+    # Get a query handle to users, populate the total user
+    # count into a jinja2 context variable.
+    query = db.query(User).join(AccountType)
+    context["total_users"] = query.count()
+
+    # Populate this list with any additional statements to
+    # be ANDed together.
+    statements = []
+    if account_type_id is not None:
+        statements.append(AccountType.ID == account_type_id)
+    if U:
+        statements.append(User.Username.like(f"%{U}%"))
+    if S:
+        statements.append(User.Suspended == S)
+    if E:
+        statements.append(User.Email.like(f"%{E}%"))
+    if R:
+        statements.append(User.RealName.like(f"%{R}%"))
+    if I:
+        statements.append(User.IRCNick.like(f"%{I}%"))
+    if K:
+        statements.append(User.PGPKey.like(f"%{K}%"))
+
+    # Filter the query by combining all statements added above into
+    # an AND statement, unless there's just one statement, which
+    # we pass on to filter() as args.
+    if statements:
+        query = query.filter(and_(*statements))
+
+    # Finally, order and truncate our users for the current page.
+    users = query.order_by(*order_by).limit(pp).offset(offset)
+    context["users"] = users
+
+    return render_template(request, "account/index.html", context)
 
 
 def render_terms_of_service(request: Request,

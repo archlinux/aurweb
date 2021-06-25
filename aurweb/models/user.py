@@ -168,6 +168,15 @@ class User(Base):
             aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID
         }
 
+    def can_edit_user(self, user):
+        """ Can this account record edit the target user? It must either
+        be the target user or a user with enough permissions to do so.
+
+        :param user: Target user
+        :return: Boolean indicating whether this instance can edit `user`
+        """
+        return self == user or self.is_trusted_user() or self.is_developer()
+
     def __repr__(self):
         return "<User(ID='%s', AccountType='%s', Username='%s')>" % (
             self.ID, str(self.AccountType), self.Username)

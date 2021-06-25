@@ -209,6 +209,16 @@ label.confirmation,
     margin: .33em 0 1em;
 }
 
-button[type="submit"] {
+button[type="submit"],
+button[type="reset"] {
     padding: 0 0.6em;
 }
+
+.results tr td[align="left"] fieldset {
+    text-align: left;
+}
+
+.results tr td[align="right"] fieldset {
+    text-align: right;
+}
+
