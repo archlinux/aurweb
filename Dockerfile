@@ -1,8 +1,6 @@
 FROM archlinux:base-devel
 
 # Setup some default system stuff.
-RUN bash -c 'echo "127.0.0.1 localhost" >> /etc/hosts'
-RUN bash -c 'echo "::1 localhost" >> /etc/hosts'
 RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
 RUN mkdir -p .pkg-cache
@@ -28,6 +26,5 @@ WORKDIR /aurweb
 COPY . .
 
 ENV PYTHONPATH=/aurweb
-ENV AUR_CONFIG=conf/config
 
 RUN make -C po all install

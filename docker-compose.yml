@@ -116,7 +116,9 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web:/aurweb/web
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
 
   fastapi:
@@ -148,7 +150,9 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web:/aurweb/web
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
 
   nginx:
@@ -180,7 +184,9 @@ services:
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - ./logs:/var/log/nginx
-      - ./web:/aurweb/web
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
 
   sharness:
     image: aurweb:latest
@@ -202,7 +208,9 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web:/aurweb/web
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
 
   pytest-mysql:
@@ -229,7 +237,9 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web:/aurweb/web
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
 
   pytest-sqlite:
@@ -248,7 +258,9 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web:/aurweb/web
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
     depends_on:
       git:
@@ -277,7 +289,9 @@ services:
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
-      - ./web:/aurweb/web
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
 
 volumes:
