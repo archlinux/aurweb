@@ -15,6 +15,8 @@ import aurweb.schema
 from aurweb.models.ban import is_banned
 from aurweb.models.declarative import Base
 
+SALT_ROUNDS_DEFAULT = 12
+
 
 class User(Base):
     """ An ORM model of a single Users record. """
@@ -39,16 +41,24 @@ class User(Base):
     authenticated = False
     nonce = None
 
+    # Make this static to the class just in case SQLAlchemy ever
+    # does something to bypass our constructor.
+    salt_rounds = aurweb.config.getint("options", "salt_rounds",
+                                       SALT_ROUNDS_DEFAULT)
+
     def __init__(self, Passwd: str = str(), **kwargs):
         super().__init__(**kwargs)
 
+        # Run this again in the constructor in case we rehashed config.
+        self.salt_rounds = aurweb.config.getint("options", "salt_rounds",
+                                                SALT_ROUNDS_DEFAULT)
         if Passwd:
             self.update_password(Passwd)
 
-    def update_password(self, password, salt_rounds=12):
+    def update_password(self, password):
         self.Passwd = bcrypt.hashpw(
             password.encode(),
-            bcrypt.gensalt(rounds=salt_rounds)).decode()
+            bcrypt.gensalt(rounds=self.salt_rounds)).decode()
 
     @staticmethod
     def minimum_passwd_length():

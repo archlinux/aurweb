@@ -44,5 +44,5 @@ def getboolean(section, option):
     return _get_parser().getboolean(section, option)
 
 
-def getint(section, option):
-    return _get_parser().getint(section, option)
+def getint(section, option, fallback=None):
+    return _get_parser().getint(section, option, fallback=fallback)
