@@ -1,6 +1,6 @@
 # Contributing
 
-Patches should be sent to the [aur-dev@archlinux.org][1] mailing list.
+Patches should be sent to the [aur-dev@lists.archlinux.org][1] mailing list.
 
 Before sending patches, you are recommended to run `flake8` and `isort`.
 
