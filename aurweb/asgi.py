@@ -89,7 +89,7 @@ async def add_security_headers(request: Request, call_next: typing.Callable):
     ]
     csp += f"script-src 'self' 'nonce-{nonce}' " + ' '.join(script_hosts)
     # It's fine if css is inlined.
-    csp += f"; style-src 'self' 'unsafe-inline'"
+    csp += "; style-src 'self' 'unsafe-inline'"
     response.headers["Content-Security-Policy"] = csp
 
     # Add XTCO header.
