@@ -26,6 +26,8 @@ aur_location = http://127.0.0.1:8080
 disable_http_login = 0
 enable-maintenance = 0
 localedir = YOUR_AUR_ROOT/web/locale
+; In production, salt_rounds should be higher; suggested: 12.
+salt_rounds = 4
 
 [notifications]
 ; For development/testing, use /usr/bin/sendmail

@@ -40,6 +40,7 @@ localedir = /srv/http/aurweb/aur.git/web/locale/
 cache = none
 cache_pkginfo_ttl = 86400
 memcache_servers = 127.0.0.1:11211
+salt_rounds = 12
 
 [ratelimit]
 request_limit = 4000
