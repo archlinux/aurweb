@@ -111,7 +111,7 @@ def render_proposal(request: Request,
     """ Render a single TU proposal. """
     context["proposal"] = proposal
     context["voteinfo"] = voteinfo
-    context["voters"] = voters
+    context["voters"] = voters.all()
 
     participation = voteinfo.ActiveTUs / voteinfo.total_votes() \
         if voteinfo.total_votes() else 0

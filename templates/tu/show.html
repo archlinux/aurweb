@@ -4,10 +4,12 @@
     <div class="box">
         {% include "partials/tu/proposal/details.html" %}
     </div>
-
-    <div class="box">
-        {% include "partials/tu/proposal/voters.html" %}
-    </div>
+    
+    {% if voters %}
+        <div class="box">
+            {% include "partials/tu/proposal/voters.html" %}
+        </div>
+    {% endif %}
 
     <div class="box">
         {% if error %}
