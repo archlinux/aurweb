@@ -46,3 +46,9 @@ def getboolean(section, option):
 
 def getint(section, option, fallback=None):
     return _get_parser().getint(section, option, fallback=fallback)
+
+
+def get_section(section_name):
+    for section in _get_parser().sections():
+        if section == section_name:
+            return _get_parser()[section]

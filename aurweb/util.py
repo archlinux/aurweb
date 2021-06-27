@@ -172,3 +172,13 @@ def add_samesite_fields(response: Response, value: str):
                 cookie += f"; SameSite={value}"
                 response.raw_headers[idx] = (header[0], cookie.encode())
     return response
+
+
+def get_ssh_fingerprints():
+    fingerprints = {}
+    fingerprint_section = aurweb.config.get_section("fingerprints")
+
+    if fingerprint_section:
+        fingerprints = {key: fingerprint_section[key] for key in fingerprint_section.keys()}
+
+    return fingerprints

@@ -58,6 +58,8 @@ async def language(request: Request,
 async def index(request: Request):
     """ Homepage route. """
     context = make_context(request, "Home")
+    context['ssh_fingerprints'] = util.get_ssh_fingerprints()
+
     return render_template(request, "index.html", context)
 
 
