@@ -2,7 +2,7 @@
 set -eou pipefail
 
 SSHD_CONFIG=/etc/ssh/sshd_config
-AUTH_SCRIPT=/aurweb/app/git-auth.sh
+AUTH_SCRIPT=/app/git-auth.sh
 
 GIT_REPO=/aurweb/aur.git
 GIT_BRANCH=master # 'Master' branch.
@@ -10,7 +10,7 @@ GIT_BRANCH=master # 'Master' branch.
 if ! grep -q 'PYTHONPATH' /etc/environment; then
     echo "PYTHONPATH='/aurweb:/aurweb/app'" >> /etc/environment
 else
-    sed -ri "s|^(PYTHONPATH)=.*$|\1='/aurweb:/aurweb/app'|" /etc/environment
+    sed -ri "s|^(PYTHONPATH)=.*$|\1='/aurweb'|" /etc/environment
 fi
 
 if ! grep -q 'AUR_CONFIG' /etc/environment; then
@@ -19,9 +19,15 @@ else
     sed -ri "s|^(AUR_CONFIG)=.*$|\1='/aurweb/conf/config'|" /etc/environment
 fi
 
-if ! grep -q '/aurweb/app/bin' /etc/environment; then
-    echo "PATH='/aurweb/app/bin:\${PATH}'" >> /etc/environment
-fi
+mkdir -p /app
+chmod 755 /app
+
+cat >> $AUTH_SCRIPT << EOF
+#!/usr/bin/env bash
+export AUR_CONFIG="$AUR_CONFIG"
+exec /usr/local/bin/aurweb-git-auth "\$@"
+EOF
+chmod 755 $AUTH_SCRIPT
 
 # Add AUR SSH config.
 cat >> $SSHD_CONFIG << EOF
@@ -31,16 +37,6 @@ Match User aur
     AuthorizedKeysCommandUser aur
     AcceptEnv AUR_OVERWRITE
 EOF
-
-cat >> $AUTH_SCRIPT << EOF
-#!/usr/bin/env bash
-export PYTHONPATH="$PYTHONPATH"
-export AUR_CONFIG="$AUR_CONFIG"
-export PATH="/aurweb/app/bin:\${PATH}"
-
-exec /aurweb/app/bin/aurweb-git-auth "\$@"
-EOF
-chmod 755 $AUTH_SCRIPT
 
 DB_NAME="aurweb"
 DB_HOST="mariadb"
@@ -54,7 +50,6 @@ sed -ri "s/^(name) = .+/\1 = ${DB_NAME}/" $AUR_CONFIG
 sed -ri "s/^(host) = .+/\1 = ${DB_HOST}/" $AUR_CONFIG
 sed -ri "s/^(user) = .+/\1 = ${DB_USER}/" $AUR_CONFIG
 sed -ri "s/^;?(password) = .+/\1 = ${DB_PASS}/" $AUR_CONFIG
-sed -i "s|/usr/local/bin|/aurweb/app/bin|g" $AUR_CONFIG
 
 AUR_CONFIG_DEFAULTS="${AUR_CONFIG}.defaults"
 
@@ -63,7 +58,6 @@ if [[ "$AUR_CONFIG_DEFAULTS" != "/aurweb/conf/config.defaults" ]]; then
 fi
 
 # Set some defaults needed for pathing and ssh uris.
-sed -i "s|/usr/local/bin|/aurweb/app/bin|g" $AUR_CONFIG_DEFAULTS
 sed -ri "s|^(repo-path) = .+|\1 = /aurweb/aur.git/|" $AUR_CONFIG_DEFAULTS
 
 ssh_cmdline='ssh ssh://aur@localhost:2222'
