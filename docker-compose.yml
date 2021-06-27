@@ -50,33 +50,77 @@ services:
     image: aurweb:latest
     init: true
     environment:
-      - AUR_CONFIG=conf/config
+      - AUR_CONFIG=/aurweb/conf/config
     entrypoint: /docker/git-entrypoint.sh
     command: /docker/scripts/run-sshd.sh
     ports:
-      - "2222:22"
+      - "2222:2222"
     healthcheck:
       test: "bash /docker/health/sshd.sh"
       interval: 2s
       timeout: 30s
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    links:
+      - mariadb
     volumes:
       - mariadb_run:/var/run/mysqld
       - mariadb_data:/var/lib/mysql
       - git_data:/aurweb/aur.git
       - ./cache:/cache
 
-  cgit:
+  smartgit:
+    image: aurweb:latest
+    init: true
+    environment:
+      - AUR_CONFIG=/aurweb/conf/config
+    entrypoint: /docker/smartgit-entrypoint.sh
+    command: /docker/scripts/run-smartgit.sh
+    healthcheck:
+      test: "bash /docker/health/smartgit.sh"
+      interval: 2s
+      timeout: 30s
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    links:
+      - mariadb
+    volumes:
+      - mariadb_run:/var/run/mysqld
+      - mariadb_data:/var/lib/mysql
+      - git_data:/aurweb/aur.git
+      - ./cache:/cache
+      - smartgit_run:/var/run/smartgit
+
+  cgit-php:
     image: aurweb:latest
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
     entrypoint: /docker/cgit-entrypoint.sh
-    command: >-
-      uwsgi --socket 0.0.0.0:3000
-            --plugins cgi
-            --cgi /usr/share/webapps/cgit/cgit.cgi
+    command: /docker/scripts/run-cgit.sh 3000 "https://localhost:8443/cgit"
     healthcheck:
-      test: "bash /docker/health/cgit.sh"
+      test: "bash /docker/health/cgit.sh 3000"
+      interval: 2s
+      timeout: 30s
+    depends_on:
+      git:
+        condition: service_healthy
+    links:
+      - git
+    volumes:
+      - git_data:/aurweb/aur.git
+
+  cgit-fastapi:
+    image: aurweb:latest
+    init: true
+    environment:
+      - AUR_CONFIG=/aurweb/conf/config
+    entrypoint: /docker/cgit-entrypoint.sh
+    command: /docker/scripts/run-cgit.sh 3000 "https://localhost:8444/cgit"
+    healthcheck:
+      test: "bash /docker/health/cgit.sh 3000"
       interval: 2s
       timeout: 30s
     depends_on:
@@ -170,14 +214,20 @@ services:
       interval: 2s
       timeout: 30s
     depends_on:
-      cgit:
+      cgit-php:
+        condition: service_healthy
+      cgit-fastapi:
+        condition: service_healthy
+      smartgit:
         condition: service_healthy
       fastapi:
         condition: service_healthy
       php-fpm:
         condition: service_healthy
     links:
-      - cgit
+      - cgit-php
+      - cgit-fastapi
+      - smartgit
       - fastapi
       - php-fpm
     volumes:
@@ -187,6 +237,7 @@ services:
       - ./web/html:/aurweb/web/html
       - ./web/template:/aurweb/web/template
       - ./web/lib:/aurweb/web/lib
+      - smartgit_run:/var/run/smartgit
 
   sharness:
     image: aurweb:latest
@@ -298,3 +349,4 @@ volumes:
   mariadb_run: {} # Share /var/run/mysqld/mysqld.sock
   mariadb_data: {} # Share /var/lib/mysql
   git_data: {} # Share aurweb/aur.git
+  smartgit_run: {}

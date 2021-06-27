@@ -1,2 +1,2 @@
 #!/bin/bash
-exec printf "" >>/dev/tcp/127.0.0.1/3000
+exec printf "" >>/dev/tcp/127.0.0.1/${1}

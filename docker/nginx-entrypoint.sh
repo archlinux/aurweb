@@ -45,8 +45,16 @@ http {
         server fastapi:8000;
     }
 
-    upstream cgit {
-        server cgit:3000;
+    upstream cgit-php {
+        server cgit-php:3000;
+    }
+
+    upstream cgit-fastapi {
+        server cgit-fastapi:3000;
+    }
+
+    upstream smartgit {
+        server unix:/var/run/smartgit/smartgit.sock;
     }
 
     server {
@@ -59,12 +67,23 @@ http {
         root /aurweb/web/html;
         index index.php;
 
+        location ~ "^/([a-z0-9][a-z0-9.+_-]*?)(\.git)?/(git-(receive|upload)-pack|HEAD|info/refs|objects/(info/(http-)?alternates|packs)|[0-9a-f]{2}/[0-9a-f]{38}|pack/pack-[0-9a-f]{40}\.(pack|idx))$" {
+            include      uwsgi_params;
+            uwsgi_pass   smartgit;
+            uwsgi_modifier1 9;
+            uwsgi_param  SCRIPT_FILENAME /usr/lib/git-core/git-http-backend;
+            uwsgi_param  PATH_INFO /aur.git/\$3;
+            uwsgi_param  GIT_HTTP_EXPORT_ALL "";
+            uwsgi_param  GIT_NAMESPACE \$1;
+            uwsgi_param  GIT_PROJECT_ROOT /aurweb;
+        }
+
         location ~ ^/cgit {
             include uwsgi_params;
             rewrite ^/cgit/([^?/]+/[^?]*)?(?:\?(.*))?$ /cgit.cgi?url=\$1&\$2 last;
             uwsgi_modifier1 9;
             uwsgi_param CGIT_CONFIG /etc/cgitrc;
-            uwsgi_pass uwsgi://cgit;
+            uwsgi_pass uwsgi://cgit-php;
         }
 
         location ~ ^/[^/]+\.php($|/) {
@@ -95,12 +114,23 @@ http {
             try_files \$uri @proxy_to_app;
         }
 
+        location ~ "^/([a-z0-9][a-z0-9.+_-]*?)(\.git)?/(git-(receive|upload)-pack|HEAD|info/refs|objects/(info/(http-)?alternates|packs)|[0-9a-f]{2}/[0-9a-f]{38}|pack/pack-[0-9a-f]{40}\.(pack|idx))$" {
+            include      uwsgi_params;
+            uwsgi_pass   smartgit;
+            uwsgi_modifier1 9;
+            uwsgi_param  SCRIPT_FILENAME /usr/lib/git-core/git-http-backend;
+            uwsgi_param  PATH_INFO /aur.git/\$3;
+            uwsgi_param  GIT_HTTP_EXPORT_ALL "";
+            uwsgi_param  GIT_NAMESPACE \$1;
+            uwsgi_param  GIT_PROJECT_ROOT /aurweb;
+        }
+
         location ~ ^/cgit {
             include uwsgi_params;
             rewrite ^/cgit/([^?/]+/[^?]*)?(?:\?(.*))?$ /cgit.cgi?url=\$1&\$2 last;
             uwsgi_modifier1 9;
             uwsgi_param CGIT_CONFIG /etc/cgitrc;
-            uwsgi_pass uwsgi://cgit;
+            uwsgi_pass uwsgi://cgit-fastapi;
         }
 
         location @proxy_to_app {
