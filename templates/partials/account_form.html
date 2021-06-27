@@ -89,7 +89,7 @@
                 {% trans %}Email Address{% endtrans %}:
             </label>
 
-            <input id="id_email" type="text"
+            <input id="id_email" type="email"
                    size="30" maxlength="254" name="E" value="{{ email }}">
             ({% trans %}required{% endtrans %})
         </p>
@@ -119,8 +119,8 @@
                 {% trans %}Backup Email Address{% endtrans %}:
             </label>
 
-            <input id="id_backup_email" type="text" size="30"
-                   maxlength="254" name="BE" value="{{ backup }}">
+            <input id="id_backup_email" type="email" size="30"
+                   maxlength="254" name="BE" value="{{ backup_email }}">
         </p>
         <p>
             <em>
