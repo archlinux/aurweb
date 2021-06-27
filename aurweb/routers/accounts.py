@@ -1,4 +1,5 @@
 import copy
+import logging
 import typing
 
 from datetime import datetime
@@ -24,6 +25,7 @@ from aurweb.scripts.notify import ResetKeyNotification
 from aurweb.templates import make_variable_context, render_template
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 @router.get("/passreset", response_class=HTMLResponse)
@@ -402,6 +404,10 @@ async def account_register_post(request: Request,
     if PK:
         # Get the second element in the PK, which is the actual key.
         pubkey = PK.strip().rstrip()
+        parts = pubkey.split(" ")
+        if len(parts) == 3:
+            # Remove the host part.
+            pubkey = parts[0] + " " + parts[1]
         fingerprint = get_fingerprint(pubkey)
         user.ssh_pub_key = SSHPubKey(UserID=user.ID,
                                      PubKey=pubkey,
@@ -522,15 +528,19 @@ async def account_edit_post(request: Request,
     if PK:
         # Get the second token in the public key, which is the actual key.
         pubkey = PK.strip().rstrip()
+        parts = pubkey.split(" ")
+        if len(parts) == 3:
+            # Remove the host part.
+            pubkey = parts[0] + " " + parts[1]
         fingerprint = get_fingerprint(pubkey)
         if not user.ssh_pub_key:
             # No public key exists, create one.
             user.ssh_pub_key = SSHPubKey(UserID=user.ID,
-                                         PubKey=PK,
+                                         PubKey=pubkey,
                                          Fingerprint=fingerprint)
-        elif user.ssh_pub_key.Fingerprint != fingerprint:
+        elif user.ssh_pub_key.PubKey != pubkey:
             # A public key already exists, update it.
-            user.ssh_pub_key.PubKey = PK
+            user.ssh_pub_key.PubKey = pubkey
             user.ssh_pub_key.Fingerprint = fingerprint
     elif user.ssh_pub_key:
         # Else, if the user has a public key already, delete it.
