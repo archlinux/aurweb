@@ -58,6 +58,11 @@ def generate_nginx_config():
         pid {os.path.join(temporary_dir, "nginx.pid")};
         http {{
             access_log /dev/stdout;
+            client_body_temp_path {os.path.join(temporary_dir, "client_body")};
+            proxy_temp_path {os.path.join(temporary_dir, "proxy")};
+            fastcgi_temp_path {os.path.join(temporary_dir, "fastcgi")}1 2;
+            uwsgi_temp_path {os.path.join(temporary_dir, "uwsgi")};
+            scgi_temp_path {os.path.join(temporary_dir, "scgi")};
             server {{
                 listen {aur_location_parts.netloc};
                 location / {{
