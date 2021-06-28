@@ -483,14 +483,14 @@ async def account_edit_post(request: Request,
     context = await make_variable_context(request, "Accounts")
     context["user"] = user
 
+    args = dict(await request.form())
+    context = make_account_form_context(context, request, user, args)
+    ok, errors = process_account_form(request, user, args)
+
     if not passwd:
         context["errors"] = ["Invalid password."]
         return render_template(request, "account/edit.html", context,
                                status_code=int(HTTPStatus.BAD_REQUEST))
-
-    args = dict(await request.form())
-    context = make_account_form_context(context, request, user, args)
-    ok, errors = process_account_form(request, user, args)
 
     if not ok:
         context["errors"] = errors
