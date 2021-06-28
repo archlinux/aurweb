@@ -36,6 +36,16 @@ services:
     healthcheck:
       test: "bash /docker/health/memcached.sh"
 
+  redis:
+    image: aurweb:latest
+    init: true
+    entrypoint: /docker/redis-entrypoint.sh
+    command: /docker/scripts/run-redis.sh
+    healthcheck:
+      test: "bash /docker/health/redis.sh"
+    ports:
+      - "16379:6379"
+
   mariadb:
     image: aurweb:latest
     init: true
@@ -171,6 +181,8 @@ services:
       ca:
         condition: service_started
       git:
+        condition: service_healthy
+      redis:
         condition: service_healthy
       mariadb:
         condition: service_healthy

@@ -55,6 +55,11 @@ read the instructions below.
                 python-lxml python-feedgen
     # python3 setup.py install
 
+(FastAPI-Specific)
+
+    # pacman -S redis python-redis
+    # systemctl enable --now redis
+
 5) Create a new MySQL database and a user and import the aurweb SQL schema:
 
     $ python -m aurweb.initdb
