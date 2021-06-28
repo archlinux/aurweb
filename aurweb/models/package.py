@@ -17,7 +17,7 @@ class Package(Base):
         Integer, ForeignKey("PackageBases.ID", ondelete="CASCADE"),
         nullable=False)
     PackageBase = relationship(
-        "PackageBase", backref=backref("package", uselist=False),
+        "PackageBase", backref=backref("packages", lazy="dynamic"),
         foreign_keys=[PackageBaseID])
 
     __mapper_args__ = {"primary_key": [ID]}
