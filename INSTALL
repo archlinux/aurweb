@@ -57,7 +57,7 @@ read the instructions below.
 
 (FastAPI-Specific)
 
-    # pacman -S redis python-redis
+    # pacman -S redis python-redis python-fakeredis
     # systemctl enable --now redis
 
 5) Create a new MySQL database and a user and import the aurweb SQL schema:

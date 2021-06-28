@@ -36,11 +36,13 @@ enable-maintenance = 1
 maintenance-exceptions = 127.0.0.1
 render-comment-cmd = /usr/local/bin/aurweb-rendercomment
 localedir = /srv/http/aurweb/aur.git/web/locale/
-# memcache or apc
+; memcache, apc, or redis
+; memcache/apc are supported in PHP, redis is supported in Python.
 cache = none
 cache_pkginfo_ttl = 86400
 memcache_servers = 127.0.0.1:11211
 salt_rounds = 12
+redis_address = redis://localhost
 
 [ratelimit]
 request_limit = 4000

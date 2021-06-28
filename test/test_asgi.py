@@ -9,6 +9,24 @@ from fastapi import HTTPException
 
 import aurweb.asgi
 import aurweb.config
+import aurweb.redis
+
+
+@pytest.mark.asyncio
+async def test_asgi_startup_session_secret_exception(monkeypatch):
+    """ Test that we get an IOError on app_startup when we cannot
+    connect to options.redis_address. """
+
+    redis_addr = aurweb.config.get("options", "redis_address")
+
+    def mock_get(section: str, key: str):
+        if section == "fastapi" and key == "session_secret":
+            return None
+        return redis_addr
+
+    with mock.patch("aurweb.config.get", side_effect=mock_get):
+        with pytest.raises(Exception):
+            await aurweb.asgi.app_startup()
 
 
 @pytest.mark.asyncio

@@ -15,6 +15,6 @@ pacman -Syu --noconfirm --noprogressbar \
     python-email-validator openssh python-lxml mariadb mariadb-libs \
     python-isort flake8 cgit uwsgi uwsgi-plugin-cgi php php-fpm \
     python-asgiref uvicorn python-feedgen memcached php-memcached \
-    python-redis redis
+    python-redis redis python-fakeredis
 
 exec "$@"
