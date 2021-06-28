@@ -20,3 +20,6 @@ fastapi_aw/
 .idea
 /cache/*
 /logs/*
+/build/
+/dist/
+/aurweb.egg-info/
