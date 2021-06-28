@@ -1,0 +1,89 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    {% include "partials/packages/search.html" %}
+    <div id="pkgdetails" class="box">
+        <h2>Package Base Details: {{ pkgbase.Name }}</h2>
+
+        {% set result = pkgbase %}
+        {% set pkgname = "result.Name" %}
+        {% include "partials/packages/package_actions.html" %}
+
+        <table id="pkginfo">
+            <tr>
+                <th>Git Clone URL: </th>
+                <td>
+                    <a class="copy" href="{{ git_clone_uri_anon | format(pkgbase.Name) }}">{{ git_clone_uri_anon | format(pkgbase.Name) }}</a> (read-only, click to copy)
+                    {% if request.user.is_authenticated() and pkgbase.Maintainer.Username == request.user.Username %}
+                    <br /> <a class="copy" href="{{ git_clone_uri_priv | format(pkgbase.Name) }}">{{ git_clone_uri_priv | format(pkgbase.Name) }}</a> (click to copy)
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Keywords: </th>
+                {% if request.user.is_authenticated() and pkgbase.Maintainer.Username == request.user.Username %}
+                <td>
+                    <form method="post" action="/pkgbase/{{ pkgbase.Name }}/">
+                        <div>
+                            <input type="hidden" name="action" value="do_SetKeywords" />
+                            <input type="text" name="keywords" value="{{ pkgbase.keywords | join(' ', attribute='Keyword') }}"/>
+                            <input type="submit" value="Update"/>
+                        </div>
+                    </form>
+                </td>
+                {% else %}
+                <td>
+                    {% for item in pkgbase.keywords %}
+                    <a class="keyword" href="/packages/?K={{ item.Keyword }}&amp;SB=p">{{ item.Keyword }}</a>
+                    {% endfor %}
+                </td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Submitter: </th>
+                <td>{{ pkgbase.Submitter.Username | default("None") }}</td>
+            </tr>
+            <tr>
+                <th>Maintainer: </th>
+                <td>{{ pkgbase.Maintainer.Username | default("None") }}</td>
+            </tr>
+            <tr>
+                <th>Last Packager: </th>
+                <td>{{ pkgbase.Packager.Username | default("None") }}</td>
+            </tr>
+            <tr>
+                <th>Votes: </th>
+                <td>{{ pkgbase.NumVotes }}</td>
+            </tr>
+            <tr>
+                <th>Popularity: </th>
+                <td>{{ '%0.2f' % pkgbase.Popularity | float }}</td>
+            </tr>
+            <tr>
+                {% set submitted = pkgbase.SubmittedTS | dt | as_timezone(timezone) %}
+                <th>First Submitted: </th>
+                <td>{{ "%s" | tr | format(submitted.strftime("%Y-%m-%d %H:%M")) }}</td>
+            </tr>
+            <tr>
+                <th>Last Updated: </th>
+                {% set updated = pkgbase.ModifiedTS | dt | as_timezone(timezone) %}
+                <td>{{ "%s" | tr | format(updated.strftime("%Y-%m-%d %H:%M")) }}</td>
+            </tr>
+        </table>
+
+        <div id="metadata">
+            <div id="pkgs" class="listing">
+                <h3>Packages ({{ packages_count }})</h3>
+                <ul>
+                    {% for result in packages %}
+                    <li><a href="/packages/{{ result.Name }}/" title="View packages details for {{ result.Name }}">{{ result.Name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% set pkgname = result.Name %}
+    {% set pkgbase_id = result.ID %}
+    {% set comments = comments %}
+    {% include "partials/packages/comments.html" %}
+{% endblock %}

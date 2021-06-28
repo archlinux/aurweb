@@ -1,0 +1,73 @@
+<!--
+    This partial requires the following  to render properly
+    - pkgname
+    - pkgbase-id
+    - comments (list)
+-->
+
+<div id="generic-form" class="box">
+    <h2>Add Comment</h2>
+    <form action="/pkgbase/{{ pkgname }}/" method="post">
+        <fieldset>
+            <div>
+                <input type="hidden" name="action" value="do_AddComment"/>
+                <input type="hidden" name="ID" value="{{ pkgbase_id }}"/>
+            </div>
+            <p>
+                Git commit identifiers referencing commits in the AUR package
+                repository and URLs are converted to links automatically.
+                <a href="https://daringfireball.net/projects/markdown/syntax">
+                    Markdown syntax
+                </a>
+                is partially supported.
+            </p>
+            <p>
+                <textarea id="id_comment" name="comment" cols="80" rows="10"></textarea>
+            </p>
+            <p>
+                <input type="submit" value="Add Comment"/>
+            </p>
+        </fieldset>
+    </form>
+</div>
+
+<div class="comments package-comments">
+    <div class="comments-header">
+        <h3>
+            <span class="text">Latest Comments</span>
+            <span class="arrow"></span>
+        </h3>
+    </div>
+    {% for comment in comments %}
+    <h4 id="comment-{{ comment.ID }}" class="comment-header">
+        {% set commentTimestamp = comment.CommentTS | dt | as_timezone(timezone) %}
+        <a href="/account/{{ comment.User.Username }}" title="View account information for {{ comment.User.Username }}">{{ comment.User.Username }}</a>
+        commented on <a href="#comment-{{ comment.ID }}" class="date">{{ "%s" | tr | format(commentTimestamp.strftime("%Y-%m-%d %H:%M")) }}</a>
+        {% if request.user.is_authenticated() and pkgbase.Maintainer.Username == request.user.Username %}
+        <form class="delete-comment-form" method="post" action="/pkgbase/{{ pkgname }}/">
+            <fieldset style="display:inline;">
+                <input type="hidden" name="action" value="do_DeleteComment" />
+                <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
+                <input type="hidden" name="return_to" value="/pkgbase/{{ pkgname }}/"/>
+                <input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="Delete comment" title="Delete comment" name="submit" value="1" />
+            </fieldset>
+        </form>
+        <a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
+        {% endif %}
+        <form class="pin-comment-form" method="post" action="/pkgbase/{{ pkgname }}/">
+            <fieldset style="display:inline;">
+                <input type="hidden" name="action" value="do_PinComment"/>
+                <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
+                <input type="hidden" name="package_base" value="{{ pkgbase_id }}"/>
+                <input type="hidden" name="return_to" value="/pkgbase/{{ pkgname }}/"/>
+                <input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="Pin comment" title="Pin comment" name="submit" value="1"/>
+            </fieldset>
+        </form>
+    </h4>
+    <div id="comment-{{ comment.ID }}-content" class="article-content">
+        <div>
+            <p>{{ comment.Comments }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>

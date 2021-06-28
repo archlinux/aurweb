@@ -1,0 +1,69 @@
+<div id="pkglist-search" class="box filter-criteria">
+    <h2>{% trans %}Search Criteria{% endtrans %}</h2>
+    <form action='/packages/' method='get'>
+        <p><input type='hidden' name='O' value='0'/></p>
+
+        <fieldset>
+            <legend>Enter search criteria</legend>
+            <div>
+                <label for="id_method">Search by</label>
+                <select name='SeB'>
+                    <option value="nd">Name, Description</option>
+                    <option value="n">Name Only</option>
+                    <option value="b">Package Base</option>
+                    <option value="N">Exact Name</option>
+                    <option value="B">Exact Package Base</option>
+                    <option value="k">Keywords</option>
+                    <option value="m">Maintainer</option>
+                    <option value="c">Co-maintainer</option>
+                    <option value="M">Maintainer, Co-maintainer</option>
+                    <option value="s">Submitter</option>
+                </select>
+            </div>
+            <div>
+                <label for="id_q">Keywords</label>
+                <input type='text' name='K' size='30' value="" maxlength='35'/>
+            </div>
+            <div>
+                <label for="id_out_of_date">Out of Date</label>
+                <select name='outdated'>
+                    <option value=''>All</option>
+                    <option value='on'>Flagged</option>
+                    <option value='off'>Not Flagged</option>
+                </select>
+            </div>
+            <div>
+                <label for="id_sort_by">Sort by</label>
+                <select name='SB'>
+                    <option value='n'>Name</option>
+                    <option value='v'>Votes</option>
+                    <option value='p'>Popularity</option>
+                    <option value='w'>Voted</option>
+                    <option value='o'>Notify</option>
+                    <option value='m'>Maintainer</option>
+                    <option value='l'>Last modified</option>
+                </select>
+            </div>
+            <div>
+                <label for="id_order_by">Sort order</label>
+                <select name='SO'>
+                    <option value='a'>Ascending</option>
+                    <option value='d'>Descending</option>
+                </select>
+            </div>
+            <div>
+                <label for="id_per_page">Per page</label>
+                <select name='PP'>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="250">250</option>
+                </select>
+            </div>
+            <div>
+                <label>&nbsp;</label>
+                <input type='submit' class='button' name='do_Search' value='Go'/>
+                <input type='submit' class='button' name='do_Orphans' value='Orphans'/>
+            </div>
+        </fieldset>
+    </form>
+</div>
