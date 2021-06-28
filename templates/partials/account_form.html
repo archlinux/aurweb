@@ -90,7 +90,7 @@
             </label>
 
             <input id="id_email" type="email"
-                   size="30" maxlength="254" name="E" value="{{ email }}">
+                   size="30" maxlength="254" name="E" value="{{ email or '' }}">
             ({% trans %}required{% endtrans %})
         </p>
         <p>
@@ -120,7 +120,7 @@
             </label>
 
             <input id="id_backup_email" type="email" size="30"
-                   maxlength="254" name="BE" value="{{ backup_email }}">
+                   maxlength="254" name="BE" value="{{ backup_email or '' }}">
         </p>
         <p>
             <em>
