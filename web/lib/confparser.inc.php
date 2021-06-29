@@ -30,7 +30,9 @@ function config_get($section, $key) {
 	global $AUR_CONFIG;
 	config_load();
 
-	return $AUR_CONFIG[$section][$key];
+	return isset($AUR_CONFIG[$section][$key])
+		? $AUR_CONFIG[$section][$key]
+		: null;
 }
 
 function config_get_int($section, $key) {
