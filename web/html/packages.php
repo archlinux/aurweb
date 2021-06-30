@@ -49,6 +49,11 @@ html_header($title, $details);
 <script type="text/javascript">
 function collapseDependsList(list) {
 	list = document.getElementById(list);
+	// Packages overview page also triggers collapseDependsList, ideally the Javascript
+	// is only included for the package details view.
+	if (!list) {
+		return;
+	}
 
 	// Hide everything past a given limit. Don't do anything if we don't have
 	// enough items, or the link already exists.
