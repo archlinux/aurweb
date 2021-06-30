@@ -304,7 +304,7 @@ services:
     environment:
       - AUR_CONFIG=conf/config.sqlite
     entrypoint: /docker/test-sqlite-entrypoint.sh
-    command: /docker/scripts/run-pytests.sh clean
+    command: setup-sqlite.sh run-pytests.sh clean
     stdin_open: true
     tty: true
     volumes:
@@ -331,7 +331,7 @@ services:
       - AUR_CONFIG=conf/config
       - DB_HOST=mariadb
     entrypoint: /docker/tests-entrypoint.sh
-    command: /docker/scripts/run-tests.sh
+    command: setup-sqlite.sh run-tests.sh
     stdin_open: true
     tty: true
     depends_on:
