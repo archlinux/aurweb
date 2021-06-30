@@ -64,8 +64,6 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
-    links:
-      - mariadb
     volumes:
       - mariadb_run:/var/run/mysqld
       - mariadb_data:/var/lib/mysql
@@ -86,8 +84,6 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
-    links:
-      - mariadb
     volumes:
       - mariadb_run:/var/run/mysqld
       - mariadb_data:/var/lib/mysql
@@ -109,8 +105,6 @@ services:
     depends_on:
       git:
         condition: service_healthy
-    links:
-      - git
     volumes:
       - git_data:/aurweb/aur.git
 
@@ -128,8 +122,6 @@ services:
     depends_on:
       git:
         condition: service_healthy
-    links:
-      - git
     volumes:
       - git_data:/aurweb/aur.git
 
@@ -152,10 +144,6 @@ services:
         condition: service_healthy
       mariadb:
         condition: service_healthy
-    links:
-      - ca
-      - git
-      - mariadb
     volumes:
       - mariadb_run:/var/run/mysqld # Bind socket in this volume.
       - mariadb_data:/var/lib/mysql
@@ -187,10 +175,6 @@ services:
         condition: service_healthy
       mariadb:
         condition: service_healthy
-    links:
-      - ca
-      - git
-      - mariadb
     volumes:
       - mariadb_run:/var/run/mysqld # Bind socket in this volume.
       - mariadb_data:/var/lib/mysql
@@ -228,12 +212,6 @@ services:
         condition: service_healthy
       php-fpm:
         condition: service_healthy
-    links:
-      - cgit-php
-      - cgit-fastapi
-      - smartgit
-      - fastapi
-      - php-fpm
     volumes:
       - git_data:/aurweb/aur.git
       - ./cache:/cache
@@ -255,8 +233,6 @@ services:
     depends_on:
       git:
         condition: service_healthy
-    links:
-      - git
     volumes:
       - git_data:/aurweb/aur.git
       - ./cache:/cache
@@ -281,11 +257,6 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
-      git:
-        condition: service_healthy
-    links:
-      - mariadb
-      - git
     volumes:
       - mariadb_run:/var/run/mysqld
       - git_data:/aurweb/aur.git
@@ -318,11 +289,6 @@ services:
       - ./web/template:/aurweb/web/template
       - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
-    depends_on:
-      git:
-        condition: service_healthy
-    links:
-      - git
 
   test:
     image: aurweb:latest
@@ -337,8 +303,6 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
-    links:
-      - mariadb
     volumes:
       - mariadb_run:/var/run/mysqld
       - git_data:/aurweb/aur.git
