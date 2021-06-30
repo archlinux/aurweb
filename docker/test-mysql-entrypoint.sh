@@ -1,8 +1,9 @@
 #!/bin/bash
 set -eou pipefail
 
+[[ -z "$DB_HOST" ]] && echo 'Error: $DB_HOST required but missing.' && exit 1
+
 DB_NAME="aurweb_test"
-DB_HOST="mariadb"
 DB_USER="aur"
 DB_PASS="aur"
 

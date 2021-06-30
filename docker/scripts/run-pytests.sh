@@ -23,7 +23,8 @@ while [ $# -ne 0 ]; do
 done
 
 # Initialize the new database; ignore errors.
-python -m aurweb.initdb 2>/dev/null || /bin/true
+python -m aurweb.initdb 2>/dev/null || \
+    (echo "Error: aurweb.initdb failed; already initialized?" && /bin/true)
 
 # Run pytest with optional targets in front of it.
 make -C test "${PARAMS[@]}" pytest

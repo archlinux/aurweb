@@ -32,8 +32,10 @@ services:
   mariadb:
     image: aurweb:latest
     init: true
+    environment:
+      - DB_HOST="%"
     entrypoint: /docker/mariadb-entrypoint.sh
-    command: /docker/scripts/run-mariadb.sh mysqld_safe --datadir=/var/lib/mysql
+    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
     ports:
       # This will expose mariadbd on 127.0.0.1:13306 in the host.
       # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
@@ -136,6 +138,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
+      - DB_HOST=mariadb
     entrypoint: /docker/php-entrypoint.sh
     command: /docker/scripts/run-php.sh
     healthcheck:
@@ -170,6 +173,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config
+      - DB_HOST=mariadb
     entrypoint: /docker/fastapi-entrypoint.sh
     command: /docker/scripts/run-fastapi.sh "${FASTAPI_BACKEND}"
     healthcheck:
@@ -269,6 +273,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config
+      - DB_HOST=mariadb
     entrypoint: /docker/test-mysql-entrypoint.sh
     command: /docker/scripts/run-pytests.sh clean
     stdin_open: true
@@ -324,6 +329,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config
+      - DB_HOST=mariadb
     entrypoint: /docker/tests-entrypoint.sh
     command: /docker/scripts/run-tests.sh
     stdin_open: true
