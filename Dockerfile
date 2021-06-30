@@ -1,31 +1,30 @@
 FROM archlinux:base-devel
+
 ENV PYTHONPATH=/aurweb
 ENV AUR_CONFIG=conf/config
+
+# Copy our single bootstrap script.
+COPY docker/scripts/install-deps.sh /install-deps.sh
+RUN /install-deps.sh
+
+# Add our aur user.
+RUN useradd -U -d /aurweb -c 'AUR User' aur
 
 # Setup some default system stuff.
 RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
-RUN mkdir -p .pkg-cache
+# Copy the rest of docker.
+COPY ./docker /docker
+COPY ./docker/scripts/*.sh /usr/local/bin/
 
-# Install dependencies.
-RUN pacman -Syu --noconfirm --noprogressbar \
-    --cachedir .pkg-cache git gpgme protobuf pyalpm \
-    python-mysqlclient python-pygit2 python-srcinfo python-bleach \
-    python-markdown python-sqlalchemy python-alembic python-pytest \
-    python-werkzeug python-pytest-tap python-fastapi nginx python-authlib \
-    python-itsdangerous python-httpx python-jinja python-pytest-cov \
-    python-requests python-aiofiles python-python-multipart \
-    python-pytest-asyncio python-coverage hypercorn python-bcrypt \
-    python-email-validator openssh python-lxml mariadb mariadb-libs \
-    python-isort flake8 cgit uwsgi uwsgi-plugin-cgi php php-fpm \
-    python-asgiref uvicorn
+# Copy from host to container.
+COPY . /aurweb
 
-RUN useradd -U -d /aurweb -c 'AUR User' aur
-
-COPY docker /docker
-
+# Working directory is aurweb root @ /aurweb.
 WORKDIR /aurweb
-COPY . .
 
+# Install translations.
 RUN make -C po all install
-RUN python3 setup.py install --install-scripts=/usr/local/bin
+
+# Install package and scripts.
+RUN python setup.py install --install-scripts=/usr/local/bin

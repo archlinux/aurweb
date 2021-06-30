@@ -1,4 +1,4 @@
-image: archlinux
+image: archlinux:base-devel
 
 cache:
   key: system-v1
@@ -7,45 +7,28 @@ cache:
     - .pkg-cache
 
 variables:
-  AUR_CONFIG: conf/config
+  AUR_CONFIG: conf/config # Default MySQL config setup in before_script.
+  DB_HOST: localhost
 
 before_script:
-  - pacman -Syu --noconfirm --noprogressbar --needed --cachedir .pkg-cache
-           base-devel git gpgme protobuf pyalpm python-mysqlclient
-           python-pygit2 python-srcinfo python-bleach python-markdown
-           python-sqlalchemy python-alembic python-pytest python-werkzeug
-           python-pytest-tap python-fastapi hypercorn nginx python-authlib
-           python-itsdangerous python-httpx python-jinja python-pytest-cov
-           python-requests python-aiofiles python-python-multipart
-           python-pytest-asyncio python-coverage python-bcrypt
-           python-email-validator openssh python-lxml mariadb
-           python-isort flake8
-  - bash -c "echo '127.0.0.1 localhost' > /etc/hosts"
-  - bash -c "echo '::1 localhost' >> /etc/hosts"
-  - mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+  - ./docker/scripts/install-deps.sh
+  - useradd -U -d /aurweb -c 'AUR User' aur
+  - ./docker/mariadb-entrypoint.sh
   - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &
   - 'until : > /dev/tcp/127.0.0.1/3306; do sleep 1s; done'
-  - mysql -u root -e "CREATE USER 'aur'@'localhost' IDENTIFIED BY 'aur';"
-  - mysql -u root -e "CREATE DATABASE aurweb_test;"
-  - mysql -u root -e "GRANT ALL ON aurweb_test.* TO 'aur'@'localhost';"
-  - mysql -u root -e "FLUSH PRIVILEGES;"
-  - sed -r "s;YOUR_AUR_ROOT;$(pwd);g" conf/config.dev > conf/config
-  - cp conf/config conf/config.sqlite
-  - cp conf/config.defaults conf/config.sqlite.defaults
-  - sed -i -r 's;backend = .*;backend = sqlite;' conf/config.sqlite
-  - sed -i -r "s;name = .*;name = $(pwd)/aurweb.sqlite3;" conf/config.sqlite
+  - ./docker/test-mysql-entrypoint.sh # Create mysql AUR_CONFIG.
+  - ./docker/test-sqlite-entrypoint.sh # Create sqlite AUR_CONFIG.
+  - make -C po all install
+  - python setup.py install --install-scripts=/usr/local/bin
+  - python -m aurweb.initdb # Initialize MySQL tables.
   - AUR_CONFIG=conf/config.sqlite python -m aurweb.initdb
+  - make -C test clean
 
 test:
   script:
-    - python setup.py install
-    - make -C po all install
-    - python -m aurweb.initdb
-    - make -C test sh # sharness tests use sqlite.
-    - make -C test pytest # pytest with mysql.
-    - AUR_CONFIG=conf/config.sqlite make -C test pytest # pytest with sqlite.
-    - coverage report --include='aurweb/*'
-    - coverage xml --include='aurweb/*'
+    - make -C test sh pytest # sharness tests use sqlite & pytest w/ mysql.
+    - AUR_CONFIG=conf/config.sqlite make -C test pytest
+    - make -C test coverage # Produce coverage reports.
     - flake8 --count aurweb # Assert no flake8 violations in aurweb.
     - flake8 --count test # Assert no flake8 violations in test.
     - flake8 --count migrations # Assert no flake8 violations in migrations.
