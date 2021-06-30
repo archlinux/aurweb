@@ -83,10 +83,7 @@ async def add_security_headers(request: Request, call_next: typing.Callable):
     # Add CSP header.
     nonce = request.user.nonce
     csp = "default-src 'self'; "
-    script_hosts = [
-        "ajax.googleapis.com",
-        "cdn.jsdelivr.net"
-    ]
+    script_hosts = []
     csp += f"script-src 'self' 'nonce-{nonce}' " + ' '.join(script_hosts)
     # It's fine if css is inlined.
     csp += "; style-src 'self' 'unsafe-inline'"

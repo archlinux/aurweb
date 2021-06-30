@@ -93,4 +93,14 @@
         </p>
     </div>
 </div>
+
+<!-- Bootstrap typeahead for the homepage. -->
+<script type="text/javascript" src="/static/js/typeahead-home.js"></script>
+
+<!-- Stub inline javascript with a nonce. Used for testing purposes. -->
+<script type="text/javascript" nonce={{ request.user.nonce }}>
+function NONEXISTENT() {}
+NONEXISTENT();
+</script>
+
 {% endblock %}
