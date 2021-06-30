@@ -14,6 +14,6 @@ pacman -Syu --noconfirm --noprogressbar \
     python-pytest-asyncio python-coverage hypercorn python-bcrypt \
     python-email-validator openssh python-lxml mariadb mariadb-libs \
     python-isort flake8 cgit uwsgi uwsgi-plugin-cgi php php-fpm \
-    python-asgiref uvicorn
+    python-asgiref uvicorn python-feedgen
 
 exec "$@"

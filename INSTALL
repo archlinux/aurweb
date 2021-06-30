@@ -52,7 +52,7 @@ read the instructions below.
                 python-itsdangerous python-authlib python-httpx \
                 python-jinja python-aiofiles python-python-multipart \
                 python-requests hypercorn python-bcrypt python-email-validator \
-                python-lxml
+                python-lxml python-feedgen
     # python3 setup.py install
 
 5) Create a new MySQL database and a user and import the aurweb SQL schema:
