@@ -2,7 +2,8 @@
 set -eou pipefail
 
 MYSQL_DATA=/var/lib/mysql
-DB_HOST="localhost"
+
+[[ -z "$DB_HOST" ]] && DB_HOST="localhost"
 
 mariadb-install-db --user=mysql --basedir=/usr --datadir=$MYSQL_DATA
 
