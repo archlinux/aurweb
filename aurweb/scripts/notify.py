@@ -445,9 +445,12 @@ class RequestOpenNotification(Notification):
             'SELECT DISTINCT Users.Email FROM PackageRequests ' +
             'INNER JOIN PackageBases ' +
             'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
+            'LEFT JOIN PackageComaintainers ' +
+            'ON PackageComaintainers.PackageBaseID = PackageRequests.PackageBaseID ' +
             'INNER JOIN Users ' +
             'ON Users.ID = PackageRequests.UsersID ' +
             'OR Users.ID = PackageBases.MaintainerUID ' +
+            'OR Users.ID = PackageComaintainers.UsersID ' +
             'WHERE PackageRequests.ID = ? AND ' +
             'Users.Suspended = 0', [reqid])
         self._to = aurweb.config.get('options', 'aur_request_ml')
@@ -499,13 +502,17 @@ class RequestOpenNotification(Notification):
 class RequestCloseNotification(Notification):
     def __init__(self, conn, uid, reqid, reason):
         self._user = username_from_id(conn, uid) if int(uid) else None
+
         cur = conn.execute(
             'SELECT DISTINCT Users.Email FROM PackageRequests ' +
             'INNER JOIN PackageBases ' +
             'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
+            'LEFT JOIN PackageComaintainers ' +
+            'ON PackageComaintainers.PackageBaseID = PackageRequests.PackageBaseID ' +
             'INNER JOIN Users ' +
             'ON Users.ID = PackageRequests.UsersID ' +
             'OR Users.ID = PackageBases.MaintainerUID ' +
+            'OR Users.ID = PackageComaintainers.UsersID ' +
             'WHERE PackageRequests.ID = ? AND ' +
             'Users.Suspended = 0', [reqid])
         self._to = aurweb.config.get('options', 'aur_request_ml')

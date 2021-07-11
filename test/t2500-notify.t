@@ -369,6 +369,23 @@ test_expect_success 'Test subject and body of request close notifications (auto-
 	test_cmp actual expected
 '
 
+test_expect_success 'Test Cc of request close notification with co-maintainer.' '
+	cat <<-EOD | sqlite3 aur.db &&
+	/* Use package base IDs which can be distinguished from user IDs. */
+	INSERT INTO PackageComaintainers (PackageBaseID, UsersID, Priority) VALUES (1001, 3, 1);
+	EOD
+	>sendmail.out &&
+	"$NOTIFY" request-close 0 3001 accepted &&
+	grep ^Cc: sendmail.out >actual &&
+	cat <<-EOD >expected &&
+	Cc: user@localhost, tu@localhost, dev@localhost
+	EOD
+	test_cmp actual expected &&
+	cat <<-EOD | sqlite3 aur.db
+	DELETE FROM PackageComaintainers;
+	EOD
+'
+
 test_expect_success 'Test subject and body of request close notifications with closure comment.' '
 	cat <<-EOD | sqlite3 aur.db &&
 	UPDATE PackageRequests SET ClosureComment = "This is a test closure comment." WHERE ID = 3001;
