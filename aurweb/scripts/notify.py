@@ -430,10 +430,14 @@ class RequestOpenNotification(Notification):
         cur = conn.execute('SELECT DISTINCT Users.Email FROM PackageRequests ' +
                            'INNER JOIN PackageBases ' +
                            'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
+                           'LEFT JOIN PackageComaintainers ' +
+                           'ON PackageComaintainers.PackageBaseID = PackageRequests.PackageBaseID ' +
                            'INNER JOIN Users ' +
                            'ON Users.ID = PackageRequests.UsersID ' +
                            'OR Users.ID = PackageBases.MaintainerUID ' +
-                           'WHERE PackageRequests.ID = ?', [reqid])
+                           'OR Users.ID = PackageComaintainers.UsersID ' +
+                           'WHERE PackageRequests.ID = ? AND ' +
+                           'Users.Suspended = 0', [reqid])
         self._to = aurweb.config.get('options', 'aur_request_ml')
         self._cc = [row[0] for row in cur.fetchall()]
         cur = conn.execute('SELECT Comments FROM PackageRequests WHERE ID = ?',
@@ -486,10 +490,14 @@ class RequestCloseNotification(Notification):
         cur = conn.execute('SELECT DISTINCT Users.Email FROM PackageRequests ' +
                            'INNER JOIN PackageBases ' +
                            'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
+                           'LEFT JOIN PackageComaintainers ' +
+                           'ON PackageComaintainers.PackageBaseID = PackageRequests.PackageBaseID ' +
                            'INNER JOIN Users ' +
                            'ON Users.ID = PackageRequests.UsersID ' +
                            'OR Users.ID = PackageBases.MaintainerUID ' +
-                           'WHERE PackageRequests.ID = ?', [reqid])
+                           'OR Users.ID = PackageComaintainers.UsersID ' +
+                           'WHERE PackageRequests.ID = ? AND ' +
+                           'Users.Suspended = 0', [reqid])
         self._to = aurweb.config.get('options', 'aur_request_ml')
         self._cc = [row[0] for row in cur.fetchall()]
         cur = conn.execute('SELECT PackageRequests.ClosureComment, ' +
