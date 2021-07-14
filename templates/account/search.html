@@ -1,0 +1,69 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{{ "Accounts" | tr }}</h2>
+        {{ "Use this form to search existing accounts." | tr }}
+        <br />
+        <br />
+        <form class="account-search-form" action="/accounts/" method="post">
+            <fieldset>
+                <p>
+                    <label for="id_username">{{ "Username" | tr }}:</label>
+                    <input type="text" size="30" maxlength="64" name="U"
+                           id="id_username" />
+                </p>
+
+
+                <p>
+                    <label for="id_type">{{ "Account Type" | tr }}:</label>
+                    <select name="T" id="id_type">
+                        <option value="">{{ "Any type" | tr }}</option>
+                        <option value="u">{{ "Normal user" | tr }}</option>
+                        <option value="t">{{ "Trusted user" | tr }}</option>
+                        <option value="d">{{ "Developer" | tr }}</option>
+                        <option value="td">{{ "Trusted User & Developer" | tr }}</option>
+                    </select>
+                </p>
+                <p>
+                <label for="id_suspended">{{ "Account Suspended" | tr }}:</label>
+                <input type="checkbox" name="S" id="id_suspended" />
+                </p>
+                <p>
+                    <label for="id_email">{{ "Email Address" | tr }}:</label>
+                    <input type="text" size="30" maxlength="64" name="E"
+                           id="id_email" />
+                </p>
+                <p>
+                    <label for="id_realname">{{ "Real Name" | tr }}:</label>
+                    <input type="text" size="30" maxlength="32" name="R"
+                           id="id_realname" />
+                </p>
+                <p>
+                    <label for="id_irc">{{ "IRC Nick" | tr }}:</label>
+                    <input type="text" size="30" maxlength="32" name="I"
+                           id="id_irc" />
+                </p>
+                <p>
+                    <label for="id_sortby">{{ "Sort by" | tr }}:</label>
+                    <select name="SB" id="id_sortby">
+                        <option value="u">{{ "Username" | tr }}</option>
+                        <option value="t">{{ "Account Type" | tr }}</option>
+                        <option value="r">{{ "Real Name" | tr }}</option>
+                        <option value="i">{{ "IRC Nick" | tr }}</option>
+                    </select>
+                </p>
+                <p>
+                    <label></label>
+                    <button type="submit" class="button">
+                        {{ "Search" | tr }}
+                    </button>
+                    &nbsp;
+                    <button type="reset" class="button">
+                        {{ "Reset" | tr }}
+                    </button>
+                </p>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

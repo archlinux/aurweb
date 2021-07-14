@@ -1,0 +1,82 @@
+<table class="results users">
+    <thead>
+        <tr>
+            <th>{{ "Username" | tr }}</th>
+            <th>{{ "Type" | tr }}</th>
+            <th>{{ "Status" | tr }}</th>
+            <th>{{ "Real Name" | tr }}</th>
+            <th>{{ "IRC Nick" | tr }}</th>
+            <th>{{ "PGP Key Fingerprint" | tr }}</th>
+            <th>{{ "Edit Account" | tr }}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>
+                    <a href="/packages/?K={{ user.Username }}&amp;SeB=m">
+                        {{ user.Username }}
+                    </a>
+                </td>
+                <td>{{ user.AccountType.AccountType }}</td>
+                <td>{{ "Suspended" if user.Suspended else "Active" }}</td>
+                <td>{{ user.RealName | e }}</td>
+                <td>{{ user.IRCNick | e }}</td>
+                <td>{{ user.PGPKey or '' | e }}</td>
+                <td>
+                    {% if request.user.can_edit_user(user) %}
+                        <a href="/account/{{ user.Username }}/edit">
+                            {{ "Edit" | tr }}
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<table class="results">
+    <tr>
+        <td align="left">
+            <form action="/accounts/" method="post">
+                <fieldset>
+                    <input type="hidden" name="O"
+                           value="{{ offset - pp }}" />
+                    {% for k, v in params.items() %}
+                        <input type="hidden" name="{{ k }}"
+                               value="{{ v }}" />
+                    {% endfor %}
+                    <button type="submit" class="button page-prev"
+                        {% if offset <= 0 %}
+                            disabled
+                        {% endif %}
+                    >
+                        &lt;-- {{ "Less" | tr }}
+                    </button>
+                </fieldset>
+            </form>
+        </td>
+        <td align="right">
+            <form action="/accounts/" method="post">
+                <fieldset>
+                    <input type="hidden" name="O"
+                           value="{{ offset + pp }}" />
+                    {% for k, v in params.items() %}
+                        <input type="hidden" name="{{ k }}"
+                               value="{{ v }}" />
+                    {% endfor %}
+                    <button type="submit" class="button page-next"
+                        {% if offset + pp >= total_users %}
+                            disabled
+                        {% endif %}
+                    >
+                        {{ "More" | tr }}--&gt;
+                    </button>
+                </fieldset>
+            </form>
+        </td>
+    </tr>
+</table>
+
