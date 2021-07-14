@@ -3,31 +3,85 @@
 -->
 <div id="detailslinks" class="listing">
     <div id="actionlist">
-        <h4>Package Actions</h4>
+        <h4>{{ "Package Actions" | tr }}</h4>
         <ul class="small">
             <li>
-                <a href="/cgit/aur.git/tree/PKGBUILD?h={{ pkgname }}">View PKGBUILD</a> /
-                <a href="/cgit/aur.git/log/?h={{ pkgname }}">View Changes</a>
+                <a href="/cgit/aur.git/tree/PKGBUILD?h={{ pkgname }}">
+                    {{ "View PKGBUILD" | tr }}
+                </a>
+                /
+                <a href="/cgit/aur.git/log/?h={{ pkgname }}">
+                    {{ "View Changes" | tr }}
+                </a>
             </li>
-            <li><a href="/cgit/aur.git/snapshot/{{ pkgname }}.tar.gz">Download snapshot</a>
-            <li><a href="https://wiki.archlinux.org/title/Special:Search?search={{ pkgname }}">Search wiki</a></li>
+            <li>
+                <a href="/cgit/aur.git/snapshot/{{ pkgname }}.tar.gz">
+                    {{ "Download snapshot" | tr }}
+                </a>
+            <li>
+                <a href="https://wiki.archlinux.org/title/Special:Search?search={{ pkgname }}">
+                    {{ "Search wiki" | tr }}
+                </a>
+            </li>
             <li><span class="flagged"></span></li>
-            <li><a href="/pkgbase/{{ pkgname }}/flag/">Flag package out-of-date</a></li>
             <li>
-                <form action="/pkgbase/{{ pkgname }}/vote/" method="post"><input type="submit" class="button text-button" name="do_Vote" value="Vote for this package"/></form>
+                <a href="/pkgbase/{{ pkgname }}/flag/">
+                    {{ "Flag package out-of-date" | tr }}
+                </a>
             </li>
             <li>
-                <form action="/pkgbase/{{ pkgname }}/unnotify/" method="post"><input type="submit" class="button text-button" name="do_UnNotify" value="Disable notifications"/>
+                <form action="/pkgbase/{{ pkgname }}/vote/" method="post">
+                    <input type="submit"
+                           class="button text-button"
+                           name="do_Vote"
+                           value="{{ 'Vote for this package' | tr }}" />
                 </form>
             </li>
-            <li><a href="/pkgbase/{{ pkgname }}/comaintainers/">Manage Co-Maintainers</a></li>
-            <li><span class="flagged"></span></li>
-            <li><a href="/pkgbase/{{ pkgname }}/request/">Submit Request</a></li>
-            <li><a href="/pkgbase/{{ pkgname }}/delete/">Delete Package</a></li>
-            <li><a href="/pkgbase/{{ pkgname }}/merge/">Merge Package</a></li>
             <li>
-                <form action="/pkgbase/{{ pkgname }}/disown/" method="post"><input type="submit" class="button text-button" name="do_Disown" value="Disown Package"/></form>
+                <form action="/pkgbase/{{ pkgname }}/unnotify/" method="post">
+                    <input type="submit"
+                           class="button text-button"
+                           name="do_UnNotify"
+                           value="{{ 'Disable notifications' | tr }}"
+                    />
+                </form>
             </li>
+            {% if is_maintainer %}
+                <li>
+                    <a href="/pkgbase/{{ pkgname }}/comaintainers/">
+                        {{ "Manage Co-Maintainers" | tr }}
+                    </a>
+                </li>
+            {% endif %}
+            <li><span class="flagged"></span></li>
+            {% if request.user.is_authenticated() %}
+                <li>
+                    <a href="/pkgbase/{{ pkgname }}/request/">
+                        {{ "Submit Request" | tr }}
+                    </a>
+                </li>
+            {% endif %}
+            {% if is_maintainer %}
+                <li>
+                    <a href="/pkgbase/{{ pkgname }}/delete/">
+                        {{ "Delete Package" | tr }}
+                    </a>
+                </li>
+                <li>
+                    <a href="/pkgbase/{{ pkgname }}/merge/">
+                        {{ "Merge Package" | tr }}
+                    </a>
+                </li>
+                <li>
+                    <form action="/pkgbase/{{ pkgname }}/disown/" method="post">
+                        <input type="submit"
+                               class="button text-button"
+                               name="do_Disown"
+                               value="{{ 'Disown Package' | tr }}"
+                        />
+                    </form>
+                </li>
+            {% endif %}
         </ul>
     </div>
 </div>

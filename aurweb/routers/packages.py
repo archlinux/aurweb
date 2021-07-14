@@ -28,6 +28,8 @@ async def package_base(request: Request, package: str):
     context["packages_count"] = package.packages.count()
     context["keywords"] = package.keywords.all()
     context["comments"] = package.comments.all()
+    context["is_maintainer"] = request.user.is_authenticated() \
+        and request.user.Username == package.Maintainer.Username
 
     return render_template(request, "pkgbase.html", context)
 
