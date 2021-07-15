@@ -12,7 +12,7 @@ read the instructions below.
 1) Clone the aurweb project:
 
    $ cd /srv/http/
-   $ git clone git://git.archlinux.org/aurweb.git
+   $ git clone https://gitlab.archlinux.org/archlinux/aurweb.git
 
 2) Setup a web server with PHP and MySQL. Configure the web server to redirect
    all URLs to /index.php/foo/bar/. The following block can be used with nginx:

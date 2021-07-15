@@ -7,7 +7,7 @@ INSTALL.
 
 1) Clone the aurweb project:
 
-    $ git clone git://git.archlinux.org/aurweb.git
+    $ git clone https://gitlab.archlinux.org/archlinux/aurweb.git
 
 2) Install the necessary packages:
 
