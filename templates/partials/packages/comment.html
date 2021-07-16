@@ -1,0 +1,48 @@
+<h4 id="comment-{{ comment.ID }}" class="comment-header">
+    {% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
+    {% set view_account_info = 'View account information for %s' | tr | format(comment.User.Username) %}
+    {{
+    "%s commented on %s" | tr | format(
+        ('<a href="/account/%s" title="%s">%s</a>' | format(
+            comment.User.Username,
+            view_account_info,
+            comment.User.Username
+        )) if request.user.is_authenticated() else
+        (comment.User.Username),
+        '<a href="#comment-%s" class="date">%s</a>' | format(
+            comment.ID,
+            commented_at.strftime("%Y-%m-%d %H:%M")
+        )
+    )
+    | safe
+    }}
+    {% if is_maintainer %}
+    <form class="delete-comment-form" method="post" action="/pkgbase/{{ pkgname }}/">
+        <fieldset style="display:inline;">
+            <input type="hidden" name="action" value="do_DeleteComment" />
+            <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
+            <input type="hidden" name="return_to" value="/pkgbase/{{ pkgname }}/"/>
+            <input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="{{ 'Delete comment' | tr }}" title="{{ 'Delete comment' | tr }}" name="submit" value="1" />
+        </fieldset>
+    </form>
+    <a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
+    {% endif %}
+    <form class="pin-comment-form" method="post" action="/pkgbase/{{ pkgname }}/">
+        <fieldset style="display:inline;">
+            <input type="hidden" name="action" value="do_PinComment"/>
+            <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
+            <input type="hidden" name="package_base" value="{{ pkgbase_id }}"/>
+            <input type="hidden" name="return_to" value="/pkgbase/{{ pkgname }}/"/>
+            <input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="{{ 'Pin comment' | tr }}" title="{{ 'Pin comment' | tr }}" name="submit" value="1"/>
+        </fieldset>
+    </form>
+</h4>
+<div id="comment-{{ comment.ID }}-content" class="article-content">
+    <div>
+        {% if comment.RenderedComment %}
+            {{ comment.RenderedComment | safe }}
+        {% else %}
+            {{ comment.Comments }}
+        {% endif %}
+    </div>
+</div>

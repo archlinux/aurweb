@@ -3,6 +3,8 @@ from sqlalchemy.exc import IntegrityError
 
 from aurweb.models.declarative import Base
 
+OFFICIAL_BASE = "https://aur.archlinux.org"
+
 
 class OfficialProvider(Base):
     __tablename__ = "OfficialProviders"

@@ -1,0 +1,54 @@
+<div id="pkgdeps" class="listing">
+    <h3>Dependencies ({{ dependencies.count() }})</h3>
+    <ul id="pkgdepslist">
+        {% for dep in dependencies.all() %}
+            <li>
+                {% set broken = not dep.is_package() %}
+                {% if broken %}
+                    <span class="broken">
+                {% else %}
+                    <a href="{{ dep.DepName | pkgname_link }}">
+                {% endif %}
+                    {{ dep.DepName }}
+                {% if broken %}
+                    </span>
+                {% else %}
+                    </a>
+                {% endif %}
+                {{ dep.Package | provides_list(dep.DepName) | safe }}
+                {% set extra = dep | dep_extra %}
+                {% if extra %}
+                    <em>{{ dep | dep_extra_desc }}</em>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="pkgreqs" class="listing">
+    <h3>Required by ({{ required_by.count() }})</h3>
+    <ul id="pkgreqslist">
+        {% for depender in required_by.all() %}
+            <li>
+                <a href="{{ depender.Package | package_link }}">
+                    {{ depender.Package.Name }}
+                </a>
+                <em>{{ depender | dep_extra }}</em>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="pkgfiles" class="listing">
+    <h3>Sources ({{ sources.count() }})</h3>
+</div>
+
+<div>
+    <ul id="pkgsrcslist">
+        {% for source in sources.all() %}
+            <li>
+                <a href="{{ source.Source }}">{{ source.Source }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

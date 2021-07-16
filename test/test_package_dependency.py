@@ -77,6 +77,13 @@ def test_package_dependencies():
     assert pkgdep in optdepends.package_dependencies
     assert pkgdep in package.package_dependencies
 
+    assert not pkgdep.is_package()
+
+    base = create(PackageBase, Name=pkgdep.DepName, Maintainer=user)
+    create(Package, PackageBase=base, Name=pkgdep.DepName)
+
+    assert pkgdep.is_package()
+
 
 def test_package_dependencies_null_package_raises_exception():
     from aurweb.db import session

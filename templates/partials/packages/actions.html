@@ -1,0 +1,162 @@
+<!--
+    This partial requires result.Name to render
+-->
+<div id="detailslinks" class="listing">
+    <div id="actionlist">
+        <h4>{{ "Package Actions" | tr }}</h4>
+        <ul class="small">
+            <li>
+                <a href="/cgit/aur.git/tree/PKGBUILD?h={{ result.Name }}">
+                    {{ "View PKGBUILD" | tr }}
+                </a>
+                /
+                <a href="/cgit/aur.git/log/?h={{ result.Name }}">
+                    {{ "View Changes" | tr }}
+                </a>
+            </li>
+            <li>
+                <a href="/cgit/aur.git/snapshot/{{ result.Name }}.tar.gz">
+                    {{ "Download snapshot" | tr }}
+                </a>
+            <li>
+                <a href="https://wiki.archlinux.org/title/Special:Search?search={{ result.Name }}">
+                    {{ "Search wiki" | tr }}
+                </a>
+            </li>
+            {% if not request.user.is_authenticated() %}
+                {% if not out_of_date %}
+                <li>
+                    <a href="/pkgbase/{{ result.Name }}/flag/">
+                        {{ "Flag package out-of-date" | tr }}
+                    </a>
+                </li>
+                {% else %}
+                    <li>
+                        <span class="flagged">
+                            {% set ood_ts = result.OutOfDateTS | dt | as_timezone(timezone) %}
+                            {{
+                            "Flagged out-of-date (%s)"
+                            | tr | format(ood_ts.strftime("%Y-%m-%d"))
+                            }}
+                        </span>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="/login?next={{ request.url.path | urlencode }}">
+                        {{ "Vote for this package" | tr }}
+                    </a>
+                </li>
+                <li>
+                    <a href="/login?next={{ request.url.path | urlencode }}">
+                        {{ "Enable notifications" | tr }}
+                    </a>
+                </li>
+            {% else %}
+                {% if not out_of_date %}
+                    <li>
+                        <a href="/pkgbase/{{ result.Name }}/flag/">
+                            {{ "Flag package out-of-date" | tr }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <span class="flagged">
+                            {% set ood_ts = result.OutOfDateTS | dt | as_timezone(timezone) %}
+                            {{
+                            "Flagged out-of-date (%s)"
+                            | tr | format(ood_ts.strftime("%Y-%m-%d"))
+                            }}
+                        </span>
+                    </li>
+                    <li>
+                        <form action="/pkgbase/{{ result.Name }}/unflag" method="post">
+                            <input class="button text-button"
+                                   type="submit"
+                                   name="do_UnFlag"
+                                   value="{{ 'Unflag package' | tr }}"
+                            />
+                        </form>
+                    </li>
+                {% endif %}
+                    <li>
+                        {% if not voted %}
+                        <form action="/pkgbase/{{ result.Name }}/vote/" method="post">
+                            <input type="submit"
+                                   class="button text-button"
+                                   name="do_Vote"
+                                   value="{{ 'Vote for this package' | tr }}" />
+                        </form>
+                        {% else %}
+                        <form action="/pkgbase/{{ result.Name }}/unvote/" method="post">
+                            <input type="submit"
+                                   class="button text-button"
+                                   name="do_UnVote"
+                                   value="{{ 'Remove vote' | tr }}" />
+                        </form>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if notified %}
+                            <form action="/pkgbase/{{ result.Name }}/unnotify/" method="post">
+                                <input type="submit"
+                                       class="button text-button"
+                                       name="do_UnNotify"
+                                       value="{{ 'Disable notifications' | tr }}"
+                                />
+                            </form>
+                        {% else %}
+                            <form action="/pkgbase/{{ result.Name }}/notify/" method="post">
+                                <input type="submit"
+                                       class="button text-button"
+                                       name="do_Notify"
+                                       value="{{ 'Enable notifications' | tr }}"
+                                />
+                            </form>
+                        {% endif %}
+                    </li>
+
+                {% endif %}
+            </form>
+            {% if is_maintainer %}
+                <li>
+                    <a href="/pkgbase/{{ result.Name }}/comaintainers/">
+                        {{ "Manage Co-Maintainers" | tr }}
+                    </a>
+                </li>
+            {% endif %}
+            <li><span class="flagged"></span></li>
+            <li>
+            {% if not request.user.is_authenticated() %}
+                <a href="/login?next={{ '/pkgbase/%s/request' | format(result.Name) | urlencode }}">
+                    {{ "Submit Request" | tr }}
+                </a>
+            {% else %}
+                <a href="/pkgbase/{{ result.Name }}/request/">
+                    {{ "Submit Request" | tr }}
+                </a>
+            {% endif %}
+            </li>
+            {% if is_maintainer %}
+                <li>
+                    <a href="/pkgbase/{{ result.Name }}/delete/">
+                        {{ "Delete Package" | tr }}
+                    </a>
+                </li>
+                <li>
+                    <a href="/pkgbase/{{ result.Name }}/merge/">
+                        {{ "Merge Package" | tr }}
+                    </a>
+                </li>
+                <li>
+                    <form action="/pkgbase/{{ result.Name }}/disown/" method="post">
+                        <input type="submit"
+                               class="button text-button"
+                               name="do_Disown"
+                               value="{{ 'Disown Package' | tr }}"
+                        />
+                    </form>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

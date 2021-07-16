@@ -61,3 +61,12 @@ class PackageDependency(Base):
         self.DepDesc = DepDesc
         self.DepCondition = DepCondition
         self.DepArch = DepArch
+
+    def is_package(self) -> bool:
+        from aurweb import db
+        from aurweb.models.official_provider import OfficialProvider
+        from aurweb.models.package import Package
+        pkg = db.query(Package, Package.Name == self.DepName)
+        official = db.query(OfficialProvider,
+                            OfficialProvider.Name == self.DepName)
+        return pkg.count() > 0 or official.count() > 0

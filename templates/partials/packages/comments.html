@@ -5,6 +5,7 @@
     - comments (list)
 -->
 
+{% if request.user.is_authenticated() %}
 <div id="generic-form" class="box">
     <h2>Add Comment</h2>
     <form action="/pkgbase/{{ pkgname }}/" method="post">
@@ -31,61 +32,103 @@
             </p>
             <p>
                 <input type="submit" value="{{ 'Add Comment' | tr }}"/>
+                {% if not notifications_enabled %}
+                    <span class="comment-enable-notifications">
+                        <input id="id_enable_notifications"
+                               type="checkbox"
+                               name="enable_notifications"
+                        />
+                        <label for="id_enable_notifications">
+                            {{ "Enable notifications" | tr }}
+                        </label>
+                    </span>
+                {% endif %}
             </p>
         </fieldset>
     </form>
 </div>
+{% endif %}
 
-<div class="comments package-comments">
-    <div class="comments-header">
-        <h3>
-            <span class="text">{{ "Latest Comments" | tr }}</span>
-            <span class="arrow"></span>
-        </h3>
-    </div>
-    {% for comment in comments %}
-    <h4 id="comment-{{ comment.ID }}" class="comment-header">
-        {% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
-        {% set view_account_info = 'View account information for %s' | tr | format(comment.User.Username) %}
-        {{
-        "%s commented on %s" | tr | format(
-            '<a href="/account/%s" title="%s">%s</a>' | format(
-                comment.User.Username,
-                view_account_info,
-                comment.User.Username
-            ),
-            '<a href="#comment-%s" class="date">%s</a>' | format(
-                comment.ID,
-                commented_at.strftime("%Y-%m-%d %H:%M")
-            )
-        )
-        | safe
-        }}
-        {% if is_maintainer %}
-        <form class="delete-comment-form" method="post" action="/pkgbase/{{ pkgname }}/">
-            <fieldset style="display:inline;">
-                <input type="hidden" name="action" value="do_DeleteComment" />
-                <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
-                <input type="hidden" name="return_to" value="/pkgbase/{{ pkgname }}/"/>
-                <input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="{{ 'Delete comment' | tr }}" title="{{ 'Delete comment' | tr }}" name="submit" value="1" />
-            </fieldset>
-        </form>
-        <a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
-        {% endif %}
-        <form class="pin-comment-form" method="post" action="/pkgbase/{{ pkgname }}/">
-            <fieldset style="display:inline;">
-                <input type="hidden" name="action" value="do_PinComment"/>
-                <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
-                <input type="hidden" name="package_base" value="{{ pkgbase_id }}"/>
-                <input type="hidden" name="return_to" value="/pkgbase/{{ pkgname }}/"/>
-                <input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="{{ 'Pin comment' | tr }}" title="{{ 'Pin comment' | tr }}" name="submit" value="1"/>
-            </fieldset>
-        </form>
-    </h4>
-    <div id="comment-{{ comment.ID }}-content" class="article-content">
-        <div>
-            <p>{{ comment.RenderedComment | safe }}</p>
+{% if comments.count() %}
+    <div class="comments package-comments">
+        <div class="comments-header">
+            <h3>
+                <span class="text">{{ "Latest Comments" | tr }}</span>
+                <span class="arrow"></span>
+            </h3>
         </div>
+        {% for comment in comments.all() %}
+            {% include "partials/packages/comment.html" %}
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
+{% endif %}
+
+<script type="text/javascript" nonce="{{ request.user.nonce }}">
+function add_busy_indicator(sibling) {
+    const img = document.createElement('img');
+    img.src = "/images/ajax-loader.gif";
+    img.classList.add('ajax-loader');
+    img.style.height = 11;
+    img.style.width = 16;
+    img.alt = "Busy…";
+
+    sibling.insertAdjacentElement('afterend', img);
+}
+
+function remove_busy_indicator(sibling) {
+    const elem = sibling.nextElementSibling;
+    elem.parentNode.removeChild(elem);
+}
+
+function getParentsUntil(elem, className) {
+    // Limit to 10 depth
+    for ( ; elem && elem !== document; elem = elem.parentNode) {
+        if (elem.matches(className)) {
+            break;
+        }
+    }
+
+    return elem;
+}
+
+function handleEditCommentClick(event) {
+    event.preventDefault();
+    const parent_element = getParentsUntil(event.target, '.comment-header');
+    const parent_id = parent_element.id;
+    const comment_id = parent_id.substr(parent_id.indexOf('-') + 1);
+    // The div class="article-content" which contains the comment
+    const edit_form = parent_element.nextElementSibling;
+
+    const params = new URLSearchParams({
+        type: "get-comment-form",
+        arg: comment_id,
+        base_id: {{ pkgbase.ID }},
+        pkgbase_name: {{ pkgbase.Name }}
+    });
+
+    const url = '/rpc?' + params.toString();
+
+    add_busy_indicator(event.target);
+
+    fetch(url, {
+        method: 'GET'
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        remove_busy_indicator(event.target);
+        if (data.success) {
+            edit_form.innerHTML = data.form;
+            edit_form.querySelector('textarea').focus();
+        } else {
+            alert(data.error);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const divs = document.querySelectorAll('.edit-comment');;
+    for (let div of divs) {
+        div.addEventListener('click', handleEditCommentClick);
+    }
+});
+</script>

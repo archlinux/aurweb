@@ -1,9 +1,11 @@
 import copy
+import functools
 import os
 import zoneinfo
 
 from datetime import datetime
 from http import HTTPStatus
+from typing import Callable
 from urllib.parse import quote_plus
 
 import jinja2
@@ -38,6 +40,31 @@ env.filters["captcha_cmdline"] = captcha.captcha_cmdline_filter
 
 # Add account utility filters.
 env.filters["account_url"] = util.account_url
+
+
+def register_filter(name: str) -> Callable:
+    """ A decorator that can be used to register a filter.
+
+    Example
+        @register_filter("some_filter")
+        def some_filter(some_value: str) -> str:
+            return some_value.replace("-", "_")
+
+    Jinja2
+        {{ 'blah-blah' | some_filter }}
+
+    :param name: Filter name
+    :return: Callable used for filter
+    """
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)
+        if name in env.filters:
+            raise KeyError(f"Jinja already has a filter named '{name}'")
+        env.filters[name] = wrapper
+        return wrapper
+    return decorator
 
 
 def make_context(request: Request, title: str, next: str = None):
