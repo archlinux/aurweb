@@ -281,3 +281,40 @@ def test_package_dependencies(client: TestClient, maintainer: User,
 
     broken_node = root.find('.//ul[@id="pkgdepslist"]/li/span')
     assert broken_node.text.strip() == broken_dep.DepName
+
+
+def test_pkgbase_not_found(client: TestClient):
+    with client as request:
+        resp = request.get("/pkgbase/not_found")
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_redirect(client: TestClient, package: Package):
+    with client as request:
+        resp = request.get(f"/pkgbase/{package.Name}",
+                           allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/packages/{package.Name}"
+
+
+def test_pkgbase(client: TestClient, package: Package):
+    second = db.create(Package, Name="second-pkg",
+                       PackageBase=package.PackageBase)
+
+    expected = [package.Name, second.Name]
+    with client as request:
+        resp = request.get(f"/pkgbase/{package.Name}",
+                           allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+
+    # Check the details box title.
+    title = root.find('.//div[@id="pkgdetails"]/h2')
+    title, pkgname = title.text.split(": ")
+    assert title == "Package Base Details"
+    assert pkgname == package.Name
+
+    pkgs = root.findall('.//div[@id="pkgs"]/ul/li/a')
+    for i, name in enumerate(expected):
+        assert pkgs[i].text.strip() == name

@@ -1,0 +1,21 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    {% include "partials/packages/search.html" %}
+    <div id="pkgdetails" class="box">
+        <h2>{{ 'Package Base Details' | tr }}: {{ pkgbase.Name }}</h2>
+
+        {% set result = pkgbase %}
+        {% include "partials/packages/actions.html" %}
+        {% include "partials/packages/details.html" %}
+
+        <div id="metadata">
+            {% include "partials/packages/pkgbase_metadata.html" %}
+        </div>
+    </div>
+
+    {% set pkgname = result.Name %}
+    {% set pkgbase_id = result.ID %}
+    {% set comments = comments %}
+    {% include "partials/packages/comments.html" %}
+{% endblock %}

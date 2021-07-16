@@ -96,3 +96,20 @@ async def package(request: Request, name: str) -> Response:
     context["conflicts"] = conflicts
 
     return render_template(request, "packages/show.html", context)
+
+
+@router.get("/pkgbase/{name}")
+async def package_base(request: Request, name: str) -> Response:
+    # Get the PackageBase.
+    pkgbase = get_pkgbase(name)
+
+    # If this is not a split package, redirect to /packages/{name}.
+    if pkgbase.packages.count() == 1:
+        return RedirectResponse(f"/packages/{name}",
+                                status_code=int(HTTPStatus.SEE_OTHER))
+
+    # Add our base information.
+    context = await make_single_context(request, pkgbase)
+    context["packages"] = pkgbase.packages.all()  # Doesn't need to be here.
+
+    return render_template(request, "pkgbase.html", context)

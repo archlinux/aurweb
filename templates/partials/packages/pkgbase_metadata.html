@@ -1,0 +1,13 @@
+<div id="pkgs" class="listing">
+    <h3>Packages ({{ packages_count }})</h3>
+    <ul>
+        {% for result in packages %}
+            <li>
+                <a href="/packages/{{ result.Name }}/"
+                   title="{{ 'View packages details for' | tr }} {{ result.Name }}">
+                    {{ result.Name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
