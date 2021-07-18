@@ -35,6 +35,9 @@ class PackageBase(Base):
         "User", backref=backref("package_bases", lazy="dynamic"),
         foreign_keys=[PackagerUID])
 
+    # A set used to check for floatable values.
+    TO_FLOAT = {"Popularity"}
+
     def __init__(self, Name: str = None,
                  Flagger: aurweb.models.user.User = None,
                  Maintainer: aurweb.models.user.User = None,
@@ -62,3 +65,9 @@ class PackageBase(Base):
                                       datetime.utcnow().timestamp())
         self.ModifiedTS = kwargs.get("ModifiedTS",
                                      datetime.utcnow().timestamp())
+
+    def __getattribute__(self, key: str):
+        attr = super().__getattribute__(key)
+        if key in PackageBase.TO_FLOAT and not isinstance(attr, float):
+            return float(attr)
+        return attr
