@@ -2,7 +2,7 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, query
+from aurweb.db import commit, create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.dependency_type import DependencyType
 from aurweb.models.package import Package
@@ -49,9 +49,8 @@ def test_package_dependencies():
 
     makedepends = query(DependencyType,
                         DependencyType.Name == "makedepends").first()
-    pkgdep = create(PackageDependency, Package=package,
-                    DependencyType=makedepends,
-                    DepName="test-dep")
+    pkgdep.DependencyType = makedepends
+    commit()
     assert pkgdep.DepName == "test-dep"
     assert pkgdep.Package == package
     assert pkgdep.DependencyType == makedepends
@@ -60,9 +59,8 @@ def test_package_dependencies():
 
     checkdepends = query(DependencyType,
                          DependencyType.Name == "checkdepends").first()
-    pkgdep = create(PackageDependency, Package=package,
-                    DependencyType=checkdepends,
-                    DepName="test-dep")
+    pkgdep.DependencyType = checkdepends
+    commit()
     assert pkgdep.DepName == "test-dep"
     assert pkgdep.Package == package
     assert pkgdep.DependencyType == checkdepends
@@ -71,9 +69,8 @@ def test_package_dependencies():
 
     optdepends = query(DependencyType,
                        DependencyType.Name == "optdepends").first()
-    pkgdep = create(PackageDependency, Package=package,
-                    DependencyType=optdepends,
-                    DepName="test-dep")
+    pkgdep.DependencyType = optdepends
+    commit()
     assert pkgdep.DepName == "test-dep"
     assert pkgdep.Package == package
     assert pkgdep.DependencyType == optdepends

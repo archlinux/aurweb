@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
@@ -16,7 +16,7 @@ class PackageDependency(Base):
         nullable=False)
     Package = relationship(
         "Package", backref=backref("package_dependencies", lazy="dynamic"),
-        foreign_keys=[PackageID], lazy="select")
+        foreign_keys=[PackageID])
 
     DepTypeID = Column(
         Integer, ForeignKey("DependencyTypes.ID", ondelete="NO ACTION"),
@@ -24,9 +24,11 @@ class PackageDependency(Base):
     DependencyType = relationship(
         "DependencyType",
         backref=backref("package_dependencies", lazy="dynamic"),
-        foreign_keys=[DepTypeID], lazy="select")
+        foreign_keys=[DepTypeID])
 
-    __mapper_args__ = {"primary_key": [PackageID, DepTypeID]}
+    DepName = Column(String(255), nullable=False)
+
+    __mapper_args__ = {"primary_key": [PackageID, DepName]}
 
     def __init__(self,
                  Package: aurweb.models.package.Package = None,
