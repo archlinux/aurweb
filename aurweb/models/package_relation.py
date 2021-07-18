@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
@@ -26,7 +26,9 @@ class PackageRelation(Base):
         "RelationType", backref=backref("package_relations", lazy="dynamic"),
         foreign_keys=[RelTypeID])
 
-    __mapper_args__ = {"primary_key": [PackageID, RelTypeID]}
+    RelName = Column(String(255), unique=True)
+
+    __mapper_args__ = {"primary_key": [PackageID, RelName]}
 
     def __init__(self,
                  Package: aurweb.models.package.Package = None,

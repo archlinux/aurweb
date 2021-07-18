@@ -2,7 +2,7 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError, OperationalError
 
-from aurweb.db import create, query
+from aurweb.db import commit, create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -48,9 +48,8 @@ def test_package_relation():
     assert pkgrel in package.package_relations
 
     provides = query(RelationType, RelationType.Name == "provides").first()
-    pkgrel = create(PackageRelation, Package=package,
-                    RelationType=provides,
-                    RelName="test-relation")
+    pkgrel.RelationType = provides
+    commit()
     assert pkgrel.RelName == "test-relation"
     assert pkgrel.Package == package
     assert pkgrel.RelationType == provides
@@ -58,9 +57,8 @@ def test_package_relation():
     assert pkgrel in package.package_relations
 
     replaces = query(RelationType, RelationType.Name == "replaces").first()
-    pkgrel = create(PackageRelation, Package=package,
-                    RelationType=replaces,
-                    RelName="test-relation")
+    pkgrel.RelationType = replaces
+    commit()
     assert pkgrel.RelName == "test-relation"
     assert pkgrel.Package == package
     assert pkgrel.RelationType == replaces
