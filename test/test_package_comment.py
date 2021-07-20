@@ -56,8 +56,9 @@ def test_package_comment_null_comments_raises_exception():
     rollback()
 
 
-def test_package_comment_null_renderedcomment_raises_exception():
-    with pytest.raises(IntegrityError):
-        create(PackageComment, PackageBase=pkgbase, User=user,
-               Comments="Test comment.")
-    rollback()
+def test_package_comment_null_renderedcomment_defaults():
+    record = create(PackageComment,
+                    PackageBase=pkgbase,
+                    User=user,
+                    Comments="Test comment.")
+    assert record.RenderedComment == str()

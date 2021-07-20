@@ -66,7 +66,4 @@ class PackageComment(Base):
                 params=("NULL"))
 
         if self.RenderedComment is None:
-            raise IntegrityError(
-                statement="Column RenderedComment cannot be null.",
-                orig="PackageComments.RenderedComment",
-                params=("NULL"))
+            self.RenderedComment = str()
