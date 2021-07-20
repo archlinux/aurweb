@@ -36,6 +36,11 @@ def test_package_base():
     assert pkgbase.SubmittedTS > 0
     assert pkgbase.ModifiedTS > 0
 
+    # Set Popularity to a string, then get it by attribute to
+    # exercise the string -> float conversion path.
+    pkgbase.Popularity = "0.0"
+    assert pkgbase.Popularity == 0.0
+
 
 def test_package_base_ci():
     """ Test case insensitivity of the database table. """
