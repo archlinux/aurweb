@@ -60,9 +60,8 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
     considered.
     """
 
-    _repo = pygit2.Repository(repo_path)
-
     def __init__(self, md, head):
+        self._repo = pygit2.Repository(repo_path)
         self._head = head
         super().__init__(r'\b([0-9a-f]{7,40})\b', md)
 
