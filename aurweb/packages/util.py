@@ -46,6 +46,8 @@ def dep_extra(dep: PackageDependency) -> str:
 @register_filter("dep_extra_desc")
 def dep_extra_desc(dep: PackageDependency) -> str:
     extra = dep_extra(dep)
+    if not dep.DepDesc:
+        return extra
     return extra + f" – {dep.DepDesc}"
 
 

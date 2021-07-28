@@ -247,7 +247,15 @@ def test_package_dependencies(client: TestClient, maintainer: User,
                                  dep_type_name="optdepends",
                                  autocommit=False)
 
-    broken_dep = create_package_dep(package, "test-dep-5",
+    # Heh. Another optdepends to test one with a description.
+    opt_desc_dep_pkg = create_package("test-dep-5", maintainer,
+                                      autocommit=False)
+    opt_desc_dep = create_package_dep(package, opt_desc_dep_pkg.Name,
+                                      dep_type_name="optdepends",
+                                      autocommit=False)
+    opt_desc_dep.DepDesc = "Test description."
+
+    broken_dep = create_package_dep(package, "test-dep-6",
                                     dep_type_name="depends",
                                     autocommit=False)
 
@@ -273,6 +281,7 @@ def test_package_dependencies(client: TestClient, maintainer: User,
         make_dep.DepName,
         check_dep.DepName,
         opt_dep.DepName,
+        opt_desc_dep.DepName,
         official_dep.DepName
     ]
     pkgdeps = root.findall('.//ul[@id="pkgdepslist"]/li/a')
