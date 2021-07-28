@@ -1,7 +1,10 @@
 from http import HTTPStatus
+from typing import List
+
+import orjson
 
 from fastapi import HTTPException
-from sqlalchemy import and_
+from sqlalchemy import and_, orm
 
 from aurweb import db
 from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
@@ -10,6 +13,7 @@ from aurweb.models.package_base import PackageBase
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_relation import PackageRelation
 from aurweb.models.relation_type import PROVIDES_ID, RelationType
+from aurweb.redis import redis_connection
 from aurweb.templates import register_filter
 
 
@@ -111,3 +115,52 @@ def get_pkgbase(name: str) -> PackageBase:
         raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
 
     return pkgbase
+
+
+@register_filter("out_of_date")
+def out_of_date(packages: orm.Query) -> orm.Query:
+    return packages.filter(PackageBase.OutOfDateTS.isnot(None))
+
+
+def updated_packages(limit: int = 0, cache_ttl: int = 600) -> List[Package]:
+    """ Return a list of valid Package objects ordered by their
+    ModifiedTS column in descending order from cache, after setting
+    the cache when no key yet exists.
+
+    :param limit: Optional record limit
+    :param cache_ttl: Cache expiration time (in seconds)
+    :return: A list of Packages
+    """
+    redis = redis_connection()
+    packages = redis.get("package_updates")
+    if packages:
+        # If we already have a cache, deserialize it and return.
+        return orjson.loads(packages)
+
+    query = db.query(Package).join(PackageBase).filter(
+        PackageBase.PackagerUID.isnot(None)
+    ).order_by(
+        PackageBase.ModifiedTS.desc()
+    )
+
+    if limit:
+        query = query.limit(limit)
+
+    packages = []
+    for pkg in query:
+        # For each Package returned by the query, append a dict
+        # containing Package columns we're interested in.
+        packages.append({
+            "Name": pkg.Name,
+            "Version": pkg.Version,
+            "PackageBase": {
+                "ModifiedTS": pkg.PackageBase.ModifiedTS
+            }
+        })
+
+    # Store the JSON serialization of the package_updates key into Redis.
+    redis.set("package_updates", orjson.dumps(packages))
+    redis.expire("package_updates", cache_ttl)
+
+    # Return the deserialized list of packages.
+    return packages

@@ -1,0 +1,55 @@
+<div id="pkg-stats" class="widget box">
+    <h3>{{ "Statistics" | tr }}</h3>
+
+    <table>
+        <tr>
+            <td class="stat-desc">{{ "Packages" | tr }}</td>
+            <td>{{ package_count }}</td>
+        </tr>
+        <tr>
+            <td class="stat-desc">{{ "Orphan Packages" | tr }}</td>
+            <td>{{ orphan_count }}</td>
+        </tr>
+        <tr>
+            <td class="stat-desc">
+                {{ "Packages added in the past 7 days" | tr }}
+            </td>
+            <td>{{ seven_days_old_added }}</td>
+        </tr>
+        <tr>
+            <td class="stat-desc">
+                {{ "Packages updated in the past 7 days" | tr }}
+            </td>
+            <td>{{ seven_days_old_updated }}</td>
+        </tr>
+        <tr>
+            <td class="stat-desc">
+                {{ "Packages updated in the past year" | tr }}
+            </td>
+            <td>{{ year_old_updated }}</td>
+        </tr>
+        <tr>
+            <td class="stat-desc">
+                {{ "Packages never updated" | tr }}
+            </td>
+            <td>{{ never_updated }}</td>
+        </tr>
+        <tr>
+            <td class="stat-desc">
+                {{ "Registered Users" | tr }}
+            </td>
+            <td>{{ user_count }}</td>
+        </tr>
+        <tr>
+            <td class="stat-desc">
+                {{ "Trusted Users" | tr }}
+            </td>
+            <td>{{ trusted_user_count }}</td>
+        </tr>
+    </table>
+</div>
+
+{% if request.user.is_authenticated() %}
+    <!-- Include "My Statistics" -->
+    {% include 'partials/widgets/statistics.html' %}
+{% endif %}

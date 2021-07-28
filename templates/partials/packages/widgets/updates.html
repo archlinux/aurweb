@@ -1,0 +1,35 @@
+<div id="pkg-updates" class="widget box">
+    <h3>
+        {{ "Recent Updates" | tr }}
+        <span class="more">
+            (<a href="/packages/?SB=l&SO=d">{{ "more" | tr }}</a>)
+        </span>
+    </h3>
+    <a class="rss-icon latest" href="/rss/"
+       title="AUR Latest Packages RSS Feed">
+        <img src="/static/images/rss.svg" alt="RSS Feed" />
+    </a>
+    <a class="rss-icon" href="/rss/modified"
+       title="AUR Modified Packages RSS Feed">
+        <img src="/static/images/rss.svg" alt="RSS Feed" />
+    </a>
+
+    <table>
+        <tbody>
+            {% for pkg in package_updates %}
+                <tr>
+                    <td class="pkg-name">
+                        <a href="/packages/{{ pkg.Name }}">
+                            {{ pkg.Name }} {{ pkg.Version }}
+                        </a>
+                    </td>
+                    <td class="pkg-date">
+                        {% set modified = pkg.PackageBase.ModifiedTS | dt | as_timezone(timezone) %}
+                        {{ modified.strftime("%Y-%m-%d %H:%M") }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>

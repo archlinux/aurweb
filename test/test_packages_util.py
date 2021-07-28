@@ -9,6 +9,7 @@ from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.user import User
 from aurweb.packages import util
+from aurweb.redis import kill_redis
 from aurweb.testing import setup_test_db
 
 
@@ -33,7 +34,8 @@ def maintainer() -> User:
 
 @pytest.fixture
 def package(maintainer: User) -> Package:
-    pkgbase = db.create(PackageBase, Name="test-pkg", Maintainer=maintainer)
+    pkgbase = db.create(PackageBase, Name="test-pkg",
+                        Packager=maintainer, Maintainer=maintainer)
     yield db.create(Package, Name=pkgbase.Name, PackageBase=pkgbase)
 
 
@@ -49,3 +51,18 @@ def test_package_link(client: TestClient, maintainer: User, package: Package):
               Provides=package.Name)
     expected = f"{OFFICIAL_BASE}/packages/?q={package.Name}"
     assert util.package_link(package) == expected
+
+
+def test_updated_packages(maintainer: User, package: Package):
+    expected = {
+        "Name": package.Name,
+        "Version": package.Version,
+        "PackageBase": {
+            "ModifiedTS": package.PackageBase.ModifiedTS
+        }
+    }
+
+    kill_redis()  # Kill it here to ensure we're on a fake instance.
+    assert util.updated_packages(1, 0) == [expected]
+    assert util.updated_packages(1, 600) == [expected]
+    kill_redis()  # Kill it again, in case other tests use a real instance.

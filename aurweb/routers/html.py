@@ -1,14 +1,21 @@
 """ AURWeb's primary routing module. Define all routes via @app.app.{get,post}
 decorators in some way; more complex routes should be defined in their
 own modules and imported here. """
+from datetime import datetime
 from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
+from sqlalchemy import and_, or_
 
 import aurweb.config
 
-from aurweb import util
+from aurweb import db, util
+from aurweb.cache import db_count_cache
+from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
+from aurweb.models.package_base import PackageBase
+from aurweb.models.user import User
+from aurweb.packages.util import updated_packages
 from aurweb.templates import make_context, render_template
 
 router = APIRouter()
@@ -59,6 +66,71 @@ async def index(request: Request):
     """ Homepage route. """
     context = make_context(request, "Home")
     context['ssh_fingerprints'] = util.get_ssh_fingerprints()
+
+    bases = db.query(PackageBase)
+
+    redis = aurweb.redis.redis_connection()
+    stats_expire = 300  # Five minutes.
+    updates_expire = 600  # Ten minutes.
+
+    # Package statistics.
+    query = bases.filter(PackageBase.PackagerUID.isnot(None))
+    context["package_count"] = await db_count_cache(
+        redis, "package_count", query, expire=stats_expire)
+
+    query = bases.filter(
+        and_(PackageBase.MaintainerUID.is_(None),
+             PackageBase.PackagerUID.isnot(None))
+    )
+    context["orphan_count"] = await db_count_cache(
+        redis, "orphan_count", query, expire=stats_expire)
+
+    query = db.query(User)
+    context["user_count"] = await db_count_cache(
+        redis, "user_count", query, expire=stats_expire)
+
+    query = query.filter(
+        or_(User.AccountTypeID == TRUSTED_USER_ID,
+            User.AccountTypeID == TRUSTED_USER_AND_DEV_ID))
+    context["trusted_user_count"] = await db_count_cache(
+        redis, "trusted_user_count", query, expire=stats_expire)
+
+    # Current timestamp.
+    now = int(datetime.utcnow().timestamp())
+
+    seven_days = 86400 * 7  # Seven days worth of seconds.
+    seven_days_ago = now - seven_days
+
+    one_hour = 3600
+    updated = bases.filter(
+        and_(PackageBase.ModifiedTS - PackageBase.SubmittedTS >= one_hour,
+             PackageBase.PackagerUID.isnot(None))
+    )
+
+    query = bases.filter(
+        and_(PackageBase.SubmittedTS >= seven_days_ago,
+             PackageBase.PackagerUID.isnot(None))
+    )
+    context["seven_days_old_added"] = await db_count_cache(
+        redis, "seven_days_old_added", query, expire=stats_expire)
+
+    query = updated.filter(PackageBase.ModifiedTS >= seven_days_ago)
+    context["seven_days_old_updated"] = await db_count_cache(
+        redis, "seven_days_old_updated", query, expire=stats_expire)
+
+    year = seven_days * 52  # Fifty two weeks worth: one year.
+    year_ago = now - year
+    query = updated.filter(PackageBase.ModifiedTS >= year_ago)
+    context["year_old_updated"] = await db_count_cache(
+        redis, "year_old_updated", query, expire=stats_expire)
+
+    query = bases.filter(
+        PackageBase.ModifiedTS - PackageBase.SubmittedTS < 3600)
+    context["never_updated"] = await db_count_cache(
+        redis, "never_updated", query, expire=stats_expire)
+
+    # Get the 15 most recently updated packages.
+    context["package_updates"] = updated_packages(15, updates_expire)
 
     return render_template(request, "index.html", context)
 
