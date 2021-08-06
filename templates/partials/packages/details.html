@@ -1,3 +1,4 @@
+{% set pkg = pkgbase.packages.first() %}
 <table id="pkginfo">
     <tr>
         <th>{{ "Git Clone URL" | tr }}:</th>
@@ -19,12 +20,11 @@
         </tr>
         <tr>
             <th>{{ "Description" | tr }}:</th>
-            <td class="wrap">{{ pkgbase.packages.first().Description }}</td>
+            <td class="wrap">{{ pkg.Description }}</td>
         </tr>
         <tr>
             <th>{{ "Upstream URL" | tr }}:</th>
             <td class="wrap">
-                {% set pkg = pkgbase.packages.first() %}
                 {% if pkg.URL %}
                     <a href="{{ pkg.URL }}">{{ pkg.URL }}</a>
                 {% else %}
@@ -33,7 +33,7 @@
             </td>
         </tr>
     {% endif %}
-    {% if pkgbase.keywords.count() %}
+    {% if pkgbase.keywords.scalar() %}
         <tr>
             <th>{{ "Keywords" | tr }}:</th>
             {% if is_maintainer %}
@@ -63,13 +63,13 @@
             {% endif %}
         </tr>
     {% endif %}
-    {% if licenses and licenses.count() and show_package_details | default(False) %}
+    {% if licenses and licenses.scalar() and show_package_details %}
         <tr>
             <th>{{ "Licenses" | tr }}:</th>
             <td>{{ licenses | join(', ', attribute='Name') | default('None' | tr) }} </td>
         </tr>
     {% endif %}
-    {% if show_package_details | default(False) %}
+    {% if show_package_details %}
         <tr>
             <th>{{ "Conflicts" | tr }}:</th>
             <td class="wrap">

@@ -19,9 +19,9 @@ from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
 from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
-from aurweb.models.relation_type import CONFLICTS_ID, RelationType
+from aurweb.models.relation_type import CONFLICTS_ID
 from aurweb.packages.util import get_pkgbase
-from aurweb.templates import make_variable_context, render_template
+from aurweb.templates import make_context, render_template
 
 router = APIRouter()
 
@@ -34,7 +34,7 @@ async def make_single_context(request: Request,
     :param pkgbase: PackageBase instance
     :return: A pkgbase context without specific differences
     """
-    context = await make_variable_context(request, pkgbase.Name)
+    context = make_context(request, pkgbase.Name)
     context["git_clone_uri_anon"] = aurweb.config.get("options",
                                                       "git_clone_uri_anon")
     context["git_clone_uri_priv"] = aurweb.config.get("options",
@@ -44,20 +44,15 @@ async def make_single_context(request: Request,
     context["keywords"] = pkgbase.keywords
     context["comments"] = pkgbase.comments
     context["is_maintainer"] = (request.user.is_authenticated()
-                                and request.user == pkgbase.Maintainer)
-    context["notified"] = db.query(
-        PackageNotification).join(PackageBase).filter(
-        and_(PackageBase.ID == pkgbase.ID,
-             PackageNotification.UserID == request.user.ID)).count() > 0
+                                and request.user.ID == pkgbase.MaintainerUID)
+    context["notified"] = request.user.package_notifications.filter(
+        PackageNotification.PackageBaseID == pkgbase.ID
+    ).scalar()
 
     context["out_of_date"] = bool(pkgbase.OutOfDateTS)
 
-    context["voted"] = pkgbase.package_votes.filter(
-        PackageVote.UsersID == request.user.ID).count() > 0
-
-    context["notifications_enabled"] = db.query(
-        PackageNotification).join(PackageBase).filter(
-        PackageBase.ID == pkgbase.ID).count() > 0
+    context["voted"] = request.user.package_votes.filter(
+        PackageVote.PackageBaseID == pkgbase.ID).scalar()
 
     return context
 
@@ -71,13 +66,12 @@ async def package(request: Request, name: str) -> Response:
     context = await make_single_context(request, pkgbase)
 
     # Package sources.
-    sources = db.query(PackageSource).join(Package).filter(
-        Package.PackageBaseID == pkgbase.ID)
-    context["sources"] = sources
+    context["sources"] = db.query(PackageSource).join(Package).join(
+        PackageBase).filter(PackageBase.ID == pkgbase.ID)
 
     # Package dependencies.
-    dependencies = db.query(PackageDependency).join(Package).filter(
-        Package.PackageBaseID == pkgbase.ID)
+    dependencies = db.query(PackageDependency).join(Package).join(
+        PackageBase).filter(PackageBase.ID == pkgbase.ID)
     context["dependencies"] = dependencies
 
     # Package requirements (other packages depend on this one).
@@ -86,13 +80,15 @@ async def package(request: Request, name: str) -> Response:
         Package.Name.asc())
     context["required_by"] = required_by
 
-    licenses = db.query(License).join(PackageLicense).join(Package).filter(
-        PackageLicense.PackageID == pkgbase.packages.first().ID)
+    licenses = db.query(License).join(PackageLicense).join(Package).join(
+        PackageBase).filter(PackageBase.ID == pkgbase.ID)
     context["licenses"] = licenses
 
-    conflicts = db.query(PackageRelation).join(RelationType).join(Package).join(PackageBase).filter(
-        and_(RelationType.ID == CONFLICTS_ID,
-             PackageBase.ID == pkgbase.ID))
+    conflicts = db.query(PackageRelation).join(Package).join(
+        PackageBase).filter(
+        and_(PackageRelation.RelTypeID == CONFLICTS_ID,
+             PackageBase.ID == pkgbase.ID)
+    )
     context["conflicts"] = conflicts
 
     return render_template(request, "packages/show.html", context)

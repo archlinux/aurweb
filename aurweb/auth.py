@@ -19,6 +19,17 @@ from aurweb.models.user import User
 from aurweb.templates import make_variable_context, render_template
 
 
+class StubQuery:
+    """ Acts as a stubbed version of an orm.Query. Typically used
+    to masquerade fake records for an AnonymousUser. """
+
+    def filter(self, *args):
+        return StubQuery()
+
+    def scalar(self):
+        return 0
+
+
 class AnonymousUser:
     # Stub attributes used to mimic a real user.
     ID = 0
@@ -27,6 +38,10 @@ class AnonymousUser:
 
     # A stub ssh_pub_key relationship.
     ssh_pub_key = None
+
+    # Add stubbed relationship backrefs.
+    package_notifications = StubQuery()
+    package_votes = StubQuery()
 
     # A nonce attribute, needed for all browser sessions; set in __init__.
     nonce = None

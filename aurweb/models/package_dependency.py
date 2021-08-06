@@ -69,4 +69,4 @@ class PackageDependency(Base):
         pkg = db.query(Package, Package.Name == self.DepName)
         official = db.query(OfficialProvider,
                             OfficialProvider.Name == self.DepName)
-        return pkg.count() > 0 or official.count() > 0
+        return pkg.scalar() or official.scalar()

@@ -54,10 +54,9 @@ def dep_extra_desc(dep: PackageDependency) -> str:
 @register_filter("pkgname_link")
 def pkgname_link(pkgname: str) -> str:
     base = "/".join([OFFICIAL_BASE, "packages"])
-    pkg = db.query(Package).filter(Package.Name == pkgname)
     official = db.query(OfficialProvider).filter(
         OfficialProvider.Name == pkgname)
-    if not pkg.count() or official.count():
+    if official.scalar():
         return f"{base}/?q={pkgname}"
     return f"/packages/{pkgname}"
 
@@ -67,7 +66,7 @@ def package_link(package: Package) -> str:
     base = "/".join([OFFICIAL_BASE, "packages"])
     official = db.query(OfficialProvider).filter(
         OfficialProvider.Name == package.Name)
-    if official.count():
+    if official.scalar():
         return f"{base}/?q={package.Name}"
     return f"/packages/{package.Name}"
 
@@ -82,19 +81,14 @@ def provides_list(package: Package, depname: str) -> list:
         )
     )
 
-    string = str()
-    has_providers = providers.count() > 0
-
-    if has_providers:
-        string += "<em>("
-
-    string += ", ".join([
+    string = ", ".join([
         f'<a href="{package_link(pkg)}">{pkg.Name}</a>'
         for pkg in providers
     ])
 
-    if has_providers:
-        string += ")</em>"
+    if string:
+        # If we actually constructed a string, wrap it.
+        string = f"<em>({string})</em>"
 
     return string
 
