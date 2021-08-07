@@ -4,9 +4,10 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, query, rollback
+from aurweb.db import commit, create, query, rollback
 from aurweb.models.package_base import PackageBase
-from aurweb.models.package_request import PackageRequest
+from aurweb.models.package_request import (ACCEPTED, ACCEPTED_ID, CLOSED, CLOSED_ID, PENDING, PENDING_ID, REJECTED,
+                                           REJECTED_ID, PackageRequest)
 from aurweb.models.request_type import RequestType
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
@@ -117,3 +118,32 @@ def test_package_request_null_closure_comment_raises_exception():
                User=user, PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
                Comments=str())
     rollback()
+
+
+def test_package_request_status_display():
+    """ Test status_display() based on the Status column value. """
+    request_type = query(RequestType, RequestType.Name == "merge").first()
+
+    pkgreq = create(PackageRequest, RequestType=request_type,
+                    User=user, PackageBase=pkgbase,
+                    PackageBaseName=pkgbase.Name,
+                    Comments=str(), ClosureComment=str(),
+                    Status=PENDING_ID)
+    assert pkgreq.status_display() == PENDING
+
+    pkgreq.Status = CLOSED_ID
+    commit()
+    assert pkgreq.status_display() == CLOSED
+
+    pkgreq.Status = ACCEPTED_ID
+    commit()
+    assert pkgreq.status_display() == ACCEPTED
+
+    pkgreq.Status = REJECTED_ID
+    commit()
+    assert pkgreq.status_display() == REJECTED
+
+    pkgreq.Status = 124
+    commit()
+    with pytest.raises(KeyError):
+        pkgreq.status_display()

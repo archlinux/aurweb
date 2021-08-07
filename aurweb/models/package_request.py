@@ -8,6 +8,17 @@ import aurweb.models.user
 
 from aurweb.models.declarative import Base
 
+PENDING = "Pending"
+CLOSED = "Closed"
+ACCEPTED = "Accepted"
+REJECTED = "Rejected"
+
+# Integer values used for the Status column of PackageRequest.
+PENDING_ID = 0
+CLOSED_ID = 1
+ACCEPTED_ID = 2
+REJECTED_ID = 3
+
 
 class PackageRequest(Base):
     __tablename__ = "PackageRequests"
@@ -39,6 +50,13 @@ class PackageRequest(Base):
         foreign_keys=[ClosedUID])
 
     __mapper_args__ = {"primary_key": [ID]}
+
+    STATUS_DISPLAY = {
+        PENDING_ID: PENDING,
+        CLOSED_ID: CLOSED,
+        ACCEPTED_ID: ACCEPTED,
+        REJECTED_ID: REJECTED
+    }
 
     def __init__(self,
                  RequestType: aurweb.models.request_type.RequestType = None,
@@ -91,3 +109,7 @@ class PackageRequest(Base):
                 statement="Column ClosureComment cannot be null.",
                 orig="PackageRequests.ClosureComment",
                 params=("NULL"))
+
+    def status_display(self) -> str:
+        """ Return a display string for the Status column. """
+        return self.STATUS_DISPLAY[self.Status]
