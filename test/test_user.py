@@ -12,6 +12,10 @@ import aurweb.config
 from aurweb.db import commit, create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
+from aurweb.models.package import Package
+from aurweb.models.package_base import PackageBase
+from aurweb.models.package_notification import PackageNotification
+from aurweb.models.package_vote import PackageVote
 from aurweb.models.session import Session
 from aurweb.models.ssh_pub_key import SSHPubKey
 from aurweb.models.user import User
@@ -25,7 +29,16 @@ account_type = user = None
 def setup():
     global account_type, user
 
-    setup_test_db("Users", "Sessions", "Bans", "SSHPubKeys")
+    setup_test_db(
+        User.__tablename__,
+        Session.__tablename__,
+        Ban.__tablename__,
+        SSHPubKey.__tablename__,
+        Package.__tablename__,
+        PackageBase.__tablename__,
+        PackageVote.__tablename__,
+        PackageNotification.__tablename__
+    )
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
@@ -249,3 +262,24 @@ def test_user_is_developer():
     user.AccountType = dev_type
     commit()
     assert user.is_developer() is True
+
+
+def test_user_voted_for():
+    now = int(datetime.utcnow().timestamp())
+    pkgbase = create(PackageBase, Name="pkg1", Maintainer=user)
+    pkg = create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+    create(PackageVote, PackageBase=pkgbase, User=user, VoteTS=now)
+    assert user.voted_for(pkg)
+
+
+def test_user_notified():
+    pkgbase = create(PackageBase, Name="pkg1", Maintainer=user)
+    pkg = create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+    create(PackageNotification, PackageBase=pkgbase, User=user)
+    assert user.notified(pkg)
+
+
+def test_user_packages():
+    pkgbase = create(PackageBase, Name="pkg1", Maintainer=user)
+    pkg = create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+    assert pkg in user.packages()

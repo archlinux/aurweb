@@ -5,13 +5,14 @@ from datetime import datetime
 import bcrypt
 
 from fastapi import Request
-from sqlalchemy import Column, ForeignKey, Integer, String, text
+from sqlalchemy import Column, ForeignKey, Integer, String, or_, text
 from sqlalchemy.orm import backref, relationship
 
 import aurweb.config
 import aurweb.models.account_type
 import aurweb.schema
 
+from aurweb import db
 from aurweb.models.ban import is_banned
 from aurweb.models.declarative import Base
 
@@ -176,6 +177,39 @@ class User(Base):
         :return: Boolean indicating whether this instance can edit `user`
         """
         return self == user or self.is_trusted_user() or self.is_developer()
+
+    def voted_for(self, package) -> bool:
+        """ Has this User voted for package? """
+        from aurweb.models.package_vote import PackageVote
+        return bool(package.PackageBase.package_votes.filter(
+            PackageVote.UsersID == self.ID
+        ).scalar())
+
+    def notified(self, package) -> bool:
+        """ Is this User being notified about package? """
+        from aurweb.models.package_notification import PackageNotification
+        return bool(package.PackageBase.package_notifications.filter(
+            PackageNotification.UserID == self.ID
+        ).scalar())
+
+    def packages(self):
+        """ Returns an ORM query to Package objects owned by this user.
+
+        This should really be replaced with an internal ORM join
+        configured for the User model. This has not been done yet
+        due to issues I've been encountering in the process, so
+        sticking with this function until we can properly implement it.
+
+        :return: ORM query of User-packaged or maintained Package objects
+        """
+        from aurweb.models.package import Package
+        from aurweb.models.package_base import PackageBase
+        return db.query(Package).join(PackageBase).filter(
+            or_(
+                PackageBase.PackagerUID == self.ID,
+                PackageBase.MaintainerUID == self.ID
+            )
+        )
 
     def __repr__(self):
         return "<User(ID='%s', AccountType='%s', Username='%s')>" % (
