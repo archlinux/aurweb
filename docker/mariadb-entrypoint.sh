@@ -18,15 +18,19 @@ DATABASE="aurweb" # Persistent database for fastapi/php-fpm.
 TEST_DB="aurweb_test" # Test database (ephemereal).
 
 echo "Taking care of primary database '${DATABASE}'..."
-mysql -u root -e "CREATE USER IF NOT EXISTS 'aur'@'$DB_HOST' IDENTIFIED BY 'aur';"
+mysql -u root -e "CREATE USER IF NOT EXISTS 'aur'@'localhost' IDENTIFIED BY 'aur';"
+mysql -u root -e "CREATE USER IF NOT EXISTS 'aur'@'%' IDENTIFIED BY 'aur';"
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS $DATABASE;"
-mysql -u root -e "GRANT ALL ON ${DATABASE}.* TO 'aur'@'$DB_HOST';"
+mysql -u root -e "GRANT ALL ON ${DATABASE}.* TO 'aur'@'localhost';"
+mysql -u root -e "GRANT ALL ON ${DATABASE}.* TO 'aur'@'%';"
 
 # Drop and create our test database.
 echo "Dropping test database '$TEST_DB'..."
 mysql -u root -e "DROP DATABASE IF EXISTS $TEST_DB;"
 mysql -u root -e "CREATE DATABASE $TEST_DB;"
-mysql -u root -e "GRANT ALL ON ${TEST_DB}.* TO 'aur'@'$DB_HOST';"
+mysql -u root -e "GRANT ALL ON ${TEST_DB}.* TO 'aur'@'localhost';"
+mysql -u root -e "GRANT ALL ON ${TEST_DB}.* TO 'aur'@'%';"
+
 echo "Created new '$TEST_DB'!"
 
 mysqladmin -uroot shutdown
