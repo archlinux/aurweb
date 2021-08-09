@@ -7,6 +7,9 @@ bash $dir/test-mysql-entrypoint.sh
 sed -ri "s;^(aur_location) = .+;\1 = https://localhost:8443;" conf/config
 sed -ri 's/^(name) = .+/\1 = aurweb/' conf/config
 
+# Enable memcached.
+sed -ri 's/^(cache) = .+$/\1 = memcache/' conf/config
+
 sed -ri "s|^(git_clone_uri_anon) = .+|\1 = https://localhost:8443/%s.git|" conf/config.defaults
 sed -ri "s|^(git_clone_uri_priv) = .+|\1 = ssh://aur@localhost:2222/%s.git|" conf/config.defaults
 
@@ -20,6 +23,9 @@ sed -ri 's|^;?(access\.log) = .*$|\1 = /proc/self/fd/2|g' \
 
 sed -ri 's/^;?(extension=pdo_mysql)/\1/' /etc/php/php.ini
 sed -ri 's/^;?(open_basedir).*$/\1 = \//' /etc/php/php.ini
+
+# Use the sqlite3 extension line for memcached.
+sed -ri 's/^;(extension)=sqlite3$/\1=memcached/' /etc/php/php.ini
 
 python -m aurweb.initdb 2>/dev/null || /bin/true
 

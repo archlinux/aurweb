@@ -28,6 +28,10 @@ enable-maintenance = 0
 localedir = YOUR_AUR_ROOT/web/locale
 ; In production, salt_rounds should be higher; suggested: 12.
 salt_rounds = 4
+cache = none
+; In docker, the memcached host is available. On a user's system,
+; this should be set to localhost (most likely).
+memcache_servers = memcached:11211
 
 [notifications]
 ; For development/testing, use /usr/bin/sendmail

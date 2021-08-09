@@ -29,6 +29,13 @@ services:
     volumes:
       - ./cache:/cache
 
+  memcached:
+    image: aurweb:latest
+    init: true
+    command: /docker/scripts/run-memcached.sh
+    healthcheck:
+      test: "bash /docker/health/memcached.sh"
+
   mariadb:
     image: aurweb:latest
     init: true
@@ -135,6 +142,8 @@ services:
       git:
         condition: service_healthy
       mariadb:
+        condition: service_healthy
+      memcached:
         condition: service_healthy
     volumes:
       - mariadb_run:/var/run/mysqld # Bind socket in this volume.
