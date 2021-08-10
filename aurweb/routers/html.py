@@ -9,11 +9,15 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy import and_, or_
 
 import aurweb.config
+import aurweb.models.package_request
 
 from aurweb import db, util
 from aurweb.cache import db_count_cache
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
+from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
+from aurweb.models.package_comaintainer import PackageComaintainer
+from aurweb.models.package_request import PackageRequest
 from aurweb.models.user import User
 from aurweb.packages.util import updated_packages
 from aurweb.templates import make_context, render_template
@@ -131,6 +135,41 @@ async def index(request: Request):
 
     # Get the 15 most recently updated packages.
     context["package_updates"] = updated_packages(15, updates_expire)
+
+    if request.user.is_authenticated():
+        # Authenticated users get a few extra pieces of data for
+        # the dashboard display.
+        packages = db.query(Package).join(PackageBase)
+
+        maintained = packages.join(
+            User, PackageBase.MaintainerUID == User.ID
+        ).filter(
+            PackageBase.MaintainerUID == request.user.ID
+        )
+
+        context["flagged_packages"] = maintained.filter(
+            PackageBase.OutOfDateTS.isnot(None)
+        ).order_by(
+            PackageBase.ModifiedTS.desc(), Package.Name.asc()
+        ).limit(50).all()
+
+        archive_time = aurweb.config.getint('options', 'request_archive_time')
+        start = now - archive_time
+        context["package_requests"] = request.user.package_requests.filter(
+            PackageRequest.RequestTS >= start
+        ).limit(50).all()
+
+        # Packages that the request user maintains or comaintains.
+        context["packages"] = maintained.order_by(
+            PackageBase.ModifiedTS.desc(), Package.Name.desc()
+        ).limit(50).all()
+
+        # Any packages that the request user comaintains.
+        context["comaintained"] = packages.join(
+            PackageComaintainer).filter(
+            PackageComaintainer.UsersID == request.user.ID).order_by(
+            PackageBase.ModifiedTS.desc(), Package.Name.desc()
+        ).limit(50).all()
 
     return render_template(request, "index.html", context)
 

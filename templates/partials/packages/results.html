@@ -1,0 +1,55 @@
+
+<table {% if table_id %}id="{{ table_id }}"{% endif %} class="results">
+    <thead>
+        <tr>
+            <th>{{ "Name" | tr }}</th>
+            <th>{{ "Version" | tr }}</th>
+            <th>{{ "Votes" | tr }}</th>
+            <th>{{ "Popularity" | tr }}</th>
+            <th>{{ "Voted" | tr }}</th>
+            <th>{{ "Notify" | tr }}</th>
+            <th>{{ "Description" | tr }}</th>
+            <th>{{ "Maintainer" | tr }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pkg in packages %}
+            {% set flagged = pkg.PackageBase.OutOfDateTS %}
+            <tr>
+                <td>
+                    <a href="/packages/{{ pkg.Name }}">
+                        {{ pkg.Name }}
+                    </a>
+                </td>
+                {% if flagged %}
+                    <td class="flagged">{{ pkg.Version }}</td>
+                {% else %}
+                    <td>{{ pkg.Version }}</td>
+                {% endif %}
+                <td>{{ pkg.PackageBase.NumVotes }}</td>
+                <td>
+                    {{ pkg.PackageBase.Popularity | number_format(2) }}
+                </td>
+                <td>
+                    <!-- If I voted, display "Yes". -->
+                    {% if request.user.voted_for(pkg) %}
+                        {{ "Yes" | tr }}
+                    {% endif %}
+                </td>
+                <td>
+                    <!-- If I'm being notified, display "Yes". -->
+                    {% if request.user.notified(pkg) %}
+                        {{ "Yes" | tr }}
+                    {% endif %}
+                </td>
+                <td class="wrap">{{ pkg.Description or '' }}</td>
+                <td>
+                    {% set maintainer = pkg.PackageBase.Maintainer %}
+                    <a href="/account/{{ maintainer.Username }}">
+                        {{ maintainer.Username }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

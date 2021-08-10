@@ -1,0 +1,38 @@
+<table id="pkgreq-results" class="results">
+    <thead>
+        <tr>
+            <th>{{ "Package" | tr }}</th>
+            <th>{{ "Type" | tr }}</th>
+            <th>{{ "Comments" | tr }}</th>
+            <th>{{ "Filed by" | tr }}</th>
+            <th>{{ "Date" | tr }}</th>
+            <th>{{ "Status" | tr }}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for request in requests %}
+            {% set requested = request.RequestTS | dt | as_timezone(timezone) %}
+            <tr>
+                <td>
+                    <a href="/pkgbase/{{ request.PackageBase.Name }}">
+                        {{ request.PackageBase.Name }}
+                    </a>
+                </td>
+                <td>{{ request.RequestType.name_display() | tr }}</td>
+                <td class="wrap">{{ request.Comments }}</td>
+                <td>
+                    <a href="/account/{{ request.User.Username }}"
+                       title="{{ 'View account information for %s' | tr | format(request.User.Username) }}">
+                        {{ request.User.Username }}
+                    </a>
+                </td>
+                <td>{{ requested.strftime("%Y-%m-%d %H:%M") }}</td>
+                <td>{{ request.status_display() | tr }}</td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>

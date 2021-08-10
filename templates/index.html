@@ -3,7 +3,11 @@
 {% block pageContent %}
     <div id="content-left-wrapper">
         <div id="content-left">
-            {% include 'home.html' %}
+            {% if request.user.is_authenticated() %}
+                {% include 'dashboard.html' %}
+            {% else %}
+                {% include 'home.html' %}
+            {% endif %}
         </div>
     </div>
     <div id="content-right">

@@ -13,10 +13,14 @@ from aurweb.asgi import app
 from aurweb.models.account_type import USER_ID
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
+from aurweb.models.package_comaintainer import PackageComaintainer
+from aurweb.models.package_request import PackageRequest
+from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
 from aurweb.redis import redis_connection
 from aurweb.testing import setup_test_db
 from aurweb.testing.html import parse_root
+from aurweb.testing.requests import Request
 
 client = TestClient(app)
 
@@ -26,7 +30,9 @@ def setup():
     yield setup_test_db(
         User.__tablename__,
         Package.__tablename__,
-        PackageBase.__tablename__
+        PackageBase.__tablename__,
+        PackageComaintainer.__tablename__,
+        PackageRequest.__tablename__
     )
 
 
@@ -149,3 +155,74 @@ def test_homepage_updates(redis, packages):
     for i, expected in enumerate(expectations):
         pkgname = updates[i].xpath('./td/a').pop(0)
         assert pkgname.text.strip() == expected
+
+
+def test_homepage_dashboard(redis, packages, user):
+    # Create Comaintainer records for all of the packages.
+    for pkg in packages:
+        db.create(PackageComaintainer, PackageBase=pkg.PackageBase,
+                  User=user, Priority=1, autocommit=False)
+    db.commit()
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/", cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+
+    # Assert some expectations that we end up getting all fifty
+    # packages in the "My Packages" table.
+    expectations = [f"pkg_{i}" for i in range(50 - 1, 0, -1)]
+    my_packages = root.xpath('//table[@id="my-packages"]/tbody/tr')
+    for i, expected in enumerate(expectations):
+        name, version, votes, pop, voted, notify, desc, maint \
+            = my_packages[i].xpath('./td')
+        assert name.xpath('./a').pop(0).text.strip() == expected
+
+    # Do the same for the Comaintained Packages table.
+    my_packages = root.xpath('//table[@id="comaintained-packages"]/tbody/tr')
+    for i, expected in enumerate(expectations):
+        name, version, votes, pop, voted, notify, desc, maint \
+            = my_packages[i].xpath('./td')
+        assert name.xpath('./a').pop(0).text.strip() == expected
+
+
+def test_homepage_dashboard_requests(redis, packages, user):
+    now = int(datetime.utcnow().timestamp())
+
+    pkg = packages[0]
+    reqtype = db.query(RequestType, RequestType.ID == DELETION_ID).first()
+    pkgreq = db.create(PackageRequest, PackageBase=pkg.PackageBase,
+                       PackageBaseName=pkg.PackageBase.Name,
+                       User=user, Comments=str(),
+                       ClosureComment=str(), RequestTS=now,
+                       RequestType=reqtype)
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/", cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    request = root.xpath('//table[@id="pkgreq-results"]/tbody/tr').pop(0)
+    pkgname = request.xpath('./td/a').pop(0)
+    assert pkgname.text.strip() == pkgreq.PackageBaseName
+
+
+def test_homepage_dashboard_flagged_packages(redis, packages, user):
+    # Set the first Package flagged by setting its OutOfDateTS column.
+    pkg = packages[0]
+    pkg.PackageBase.OutOfDateTS = int(datetime.utcnow().timestamp())
+    db.commit()
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/", cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Check to see that the package showed up in the Flagged Packages table.
+    root = parse_root(response.text)
+    flagged_pkg = root.xpath('//table[@id="flagged-packages"]/tbody/tr').pop(0)
+    flagged_name = flagged_pkg.xpath('./td/a').pop(0)
+    assert flagged_name.text.strip() == pkg.Name
