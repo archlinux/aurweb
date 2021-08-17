@@ -25,7 +25,7 @@ services:
     image: aurweb:latest
     init: true
     entrypoint: /docker/ca-entrypoint.sh
-    command: exit 0
+    command: echo
     volumes:
       - ./cache:/cache
 
@@ -45,8 +45,6 @@ services:
       - mariadb_data:/var/lib/mysql
     healthcheck:
       test: "bash /docker/health/mariadb.sh"
-      interval: 2s
-      timeout: 60s
 
   git:
     image: aurweb:latest
@@ -59,8 +57,6 @@ services:
       - "2222:2222"
     healthcheck:
       test: "bash /docker/health/sshd.sh"
-      interval: 2s
-      timeout: 30s
     depends_on:
       mariadb:
         condition: service_healthy
@@ -79,8 +75,6 @@ services:
     command: /docker/scripts/run-smartgit.sh
     healthcheck:
       test: "bash /docker/health/smartgit.sh"
-      interval: 2s
-      timeout: 30s
     depends_on:
       mariadb:
         condition: service_healthy
@@ -100,10 +94,10 @@ services:
     command: /docker/scripts/run-cgit.sh 3000 "https://localhost:8443/cgit"
     healthcheck:
       test: "bash /docker/health/cgit.sh 3000"
-      interval: 2s
-      timeout: 30s
     depends_on:
       git:
+        condition: service_healthy
+      php-fpm:
         condition: service_healthy
     volumes:
       - git_data:/aurweb/aur.git
@@ -117,10 +111,10 @@ services:
     command: /docker/scripts/run-cgit.sh 3000 "https://localhost:8444/cgit"
     healthcheck:
       test: "bash /docker/health/cgit.sh 3000"
-      interval: 2s
-      timeout: 30s
     depends_on:
       git:
+        condition: service_healthy
+      fastapi:
         condition: service_healthy
     volumes:
       - git_data:/aurweb/aur.git
@@ -135,8 +129,6 @@ services:
     command: /docker/scripts/run-php.sh
     healthcheck:
       test: "bash /docker/health/php.sh"
-      interval: 2s
-      timeout: 30s
     depends_on:
       ca:
         condition: service_started
@@ -166,8 +158,6 @@ services:
     command: /docker/scripts/run-fastapi.sh "${FASTAPI_BACKEND}"
     healthcheck:
       test: "bash /docker/health/fastapi.sh ${FASTAPI_BACKEND}"
-      interval: 2s
-      timeout: 30s
     depends_on:
       ca:
         condition: service_started
@@ -199,8 +189,6 @@ services:
       - "8444:8444" # FastAPI
     healthcheck:
       test: "bash /docker/health/nginx.sh"
-      interval: 2s
-      timeout: 30s
     depends_on:
       cgit-php:
         condition: service_healthy
