@@ -28,12 +28,6 @@ class AccountType(Base):
             self.ID, str(self))
 
 
-# Define some AccountType.AccountType constants.
-USER = "User"
-TRUSTED_USER = "Trusted User"
-DEVELOPER = "Developer"
-TRUSTED_USER_AND_DEV = "Trusted User & Developer"
-
 # Fetch account type IDs from the database for constants.
 _account_types = db.query(AccountType)
 USER_ID = _account_types.filter(
