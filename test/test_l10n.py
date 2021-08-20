@@ -36,3 +36,15 @@ def test_get_translator_for_request():
 
     translate = l10n.get_translator_for_request(request)
     assert translate("Home") == "Startseite"
+
+
+def test_tn_filter():
+    request = Request()
+    request.cookies["AURLANG"] = "en"
+    context = {"language": "en", "request": request}
+
+    translated = l10n.tn(context, 1, "%d package found.", "%d packages found.")
+    assert translated == "%d package found."
+
+    translated = l10n.tn(context, 2, "%d package found.", "%d packages found.")
+    assert translated == "%d packages found."

@@ -23,8 +23,9 @@ loader = jinja2.FileSystemLoader(os.path.join(
 env = jinja2.Environment(loader=loader, autoescape=True,
                          extensions=["jinja2.ext.i18n"])
 
-# Add tr translation filter.
+# Add t{r,n} translation filters.
 env.filters["tr"] = l10n.tr
+env.filters["tn"] = l10n.tn
 
 # Utility filters.
 env.filters["dt"] = util.timestamp_to_datetime
