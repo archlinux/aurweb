@@ -2,7 +2,7 @@
 <ul id="voters">
     {% for voter in voters %}
         <li>
-            <a href="/account/{{ voter.Username | urlencode }}">
+            <a href="/account/{{ voter.Username | quote_plus }}">
                 {{ voter.Username | e }}
             </a>
         </li>

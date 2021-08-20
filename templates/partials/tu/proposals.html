@@ -23,7 +23,7 @@
                     <th>{{ "Proposal" | tr }}</th>
                     <th>
                         {% set off_qs = "%s=%d" | format(off_param, off) %}
-                        {% set by_qs = "%s=%s" | format(by_param, by_next | urlencode) %}
+                        {% set by_qs = "%s=%s" | format(by_param, by_next | quote_plus) %}
                         <a href="?{{ q | dedupe_qs(off_qs, by_qs) }}">
                             {{ "Start" | tr }}
                         </a>
@@ -95,7 +95,7 @@
 
                     {% if off > 0 %}
                         {% set off_qs = "%s=%d" | format(off_param, off - 10) %}
-                        {% set by_qs = "%s=%s" | format(by_param, by | urlencode) %}
+                        {% set by_qs = "%s=%s" | format(by_param, by | quote_plus) %}
                         <a class="page"
                            href="?{{ q | dedupe_qs(off_qs, by_qs) }}">
                             ‹ Back
@@ -104,7 +104,7 @@
 
                     {% if off < total_votes - pp %}
                         {% set off_qs = "%s=%d" | format(off_param, off + 10) %}
-                        {% set by_qs = "%s=%s" | format(by_param, by | urlencode) %}
+                        {% set by_qs = "%s=%s" | format(by_param, by | quote_plus) %}
                         <a class="page"
                            href="?{{ q | dedupe_qs(off_qs, by_qs) }}">
                             Next ›

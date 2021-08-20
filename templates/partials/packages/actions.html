@@ -42,12 +42,12 @@
                     </li>
                 {% endif %}
                 <li>
-                    <a href="/login?next={{ request.url.path | urlencode }}">
+                    <a href="/login?next={{ request.url.path | quote_plus }}">
                         {{ "Vote for this package" | tr }}
                     </a>
                 </li>
                 <li>
-                    <a href="/login?next={{ request.url.path | urlencode }}">
+                    <a href="/login?next={{ request.url.path | quote_plus }}">
                         {{ "Enable notifications" | tr }}
                     </a>
                 </li>
@@ -133,7 +133,7 @@
             {% endif %}
             <li>
             {% if not request.user.is_authenticated() %}
-                <a href="/login?next={{ '/pkgbase/%s/request' | format(result.Name) | urlencode }}">
+                <a href="/login?next={{ '/pkgbase/%s/request' | format(result.Name) | quote_plus }}">
                     {{ "Submit Request" | tr }}
                 </a>
             {% else %}

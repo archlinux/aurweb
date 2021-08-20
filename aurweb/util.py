@@ -1,4 +1,5 @@
 import base64
+import logging
 import math
 import random
 import re
@@ -17,6 +18,8 @@ from fastapi.responses import Response
 from jinja2 import pass_context
 
 import aurweb.config
+
+logger = logging.getLogger(__name__)
 
 
 def make_random_string(length):
