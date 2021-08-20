@@ -20,8 +20,8 @@ import aurweb.config
 
 
 def make_random_string(length):
-    return ''.join(random.choices(string.ascii_lowercase +
-                                  string.digits, k=length))
+    return ''.join(random.choices(string.ascii_lowercase
+                                  + string.digits, k=length))
 
 
 def make_nonce(length: int = 8):
