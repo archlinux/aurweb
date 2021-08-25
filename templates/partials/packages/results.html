@@ -6,8 +6,10 @@
             <th>{{ "Version" | tr }}</th>
             <th>{{ "Votes" | tr }}</th>
             <th>{{ "Popularity" | tr }}</th>
-            <th>{{ "Voted" | tr }}</th>
-            <th>{{ "Notify" | tr }}</th>
+            {% if request.user.is_authenticated() %}
+                <th>{{ "Voted" | tr }}</th>
+                <th>{{ "Notify" | tr }}</th>
+            {% endif %}
             <th>{{ "Description" | tr }}</th>
             <th>{{ "Maintainer" | tr }}</th>
         </tr>
@@ -21,33 +23,33 @@
                         {{ pkg.Name }}
                     </a>
                 </td>
-                {% if flagged %}
-                    <td class="flagged">{{ pkg.Version }}</td>
-                {% else %}
-                    <td>{{ pkg.Version }}</td>
-                {% endif %}
+                <td{% if flagged %} class="flagged"{% endif %}>{{ pkg.Version }}</td>
                 <td>{{ pkg.PackageBase.NumVotes }}</td>
-                <td>
-                    {{ pkg.PackageBase.Popularity | number_format(2) }}
-                </td>
-                <td>
-                    <!-- If I voted, display "Yes". -->
-                    {% if request.user.voted_for(pkg) %}
-                        {{ "Yes" | tr }}
-                    {% endif %}
-                </td>
-                <td>
-                    <!-- If I'm being notified, display "Yes". -->
-                    {% if request.user.notified(pkg) %}
-                        {{ "Yes" | tr }}
-                    {% endif %}
-                </td>
+                <td>{{ pkg.PackageBase.Popularity | number_format(2) }}</td>
+                {% if request.user.is_authenticated() %}
+                    <td>
+                        <!-- If I voted, display "Yes". -->
+                        {% if request.user.voted_for(pkg) %}
+                            {{ "Yes" | tr }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!-- If I'm being notified, display "Yes". -->
+                        {% if request.user.notified(pkg) %}
+                            {{ "Yes" | tr }}
+                        {% endif %}
+                    </td>
+                {% endif %}
                 <td class="wrap">{{ pkg.Description or '' }}</td>
                 <td>
                     {% set maintainer = pkg.PackageBase.Maintainer %}
-                    <a href="/account/{{ maintainer.Username }}">
-                        {{ maintainer.Username }}
-                    </a>
+                    {% if maintainer %}
+                        <a href="/account/{{ maintainer.Username }}">
+                            {{ maintainer.Username }}
+                        </a>
+                    {% else %}
+                        <span class="error">{{ "orphan" | tr }}</span>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
