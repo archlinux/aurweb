@@ -35,3 +35,18 @@ def test_dedupe_qs():
 def test_number_format():
     assert util.number_format(0.222, 2) == "0.22"
     assert util.number_format(0.226, 2) == "0.23"
+
+
+def test_extend_query():
+    """ Test extension of a query via extend_query. """
+    query = {"a": "b"}
+    extended = util.extend_query(query, ("a", "c"), ("b", "d"))
+    assert extended.get("a") == "c"
+    assert extended.get("b") == "d"
+
+
+def test_to_qs():
+    """ Test conversion from a query dictionary to a query string. """
+    query = {"a": "b", "c": [1, 2, 3]}
+    qs = util.to_qs(query)
+    assert qs == "a=b&c=1&c=2&c=3"

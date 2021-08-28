@@ -8,7 +8,8 @@ import string
 
 from collections import OrderedDict
 from datetime import datetime
-from urllib.parse import quote_plus, urlparse
+from typing import Any, Dict
+from urllib.parse import quote_plus, urlencode, urlparse
 from zoneinfo import ZoneInfo
 
 import fastapi
@@ -146,6 +147,17 @@ def dedupe_qs(query_string: str, *additions):
         if key not in qs:
             qs[key] = value
     return '&'.join([f"{k}={quote_plus(v)}" for k, v in reversed(qs.items())])
+
+
+def extend_query(query: Dict[str, Any], *additions) -> Dict[str, Any]:
+    """ Add additionally key value pairs to query. """
+    for k, v in list(additions):
+        query[k] = v
+    return query
+
+
+def to_qs(query: Dict[str, Any]) -> str:
+    return urlencode(query, doseq=True)
 
 
 def get_vote(voteinfo, request: fastapi.Request):
