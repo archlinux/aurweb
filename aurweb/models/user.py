@@ -165,6 +165,15 @@ class User(Base):
             aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID
         }
 
+    def is_elevated(self):
+        """ A User is 'elevated' when they have either a
+        Trusted User or Developer AccountType. """
+        return self.AccountType.ID in {
+            aurweb.models.account_type.TRUSTED_USER_ID,
+            aurweb.models.account_type.DEVELOPER_ID,
+            aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID,
+        }
+
     def can_edit_user(self, user):
         """ Can this account record edit the target user? It must either
         be the target user or a user with enough permissions to do so.
