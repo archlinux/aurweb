@@ -34,3 +34,6 @@ doc/rpc.html
 
 # Ignore any user-configured .envrc files at the root.
 /.envrc
+
+# Ignore .python-version file from Pyenv
+.python-version
