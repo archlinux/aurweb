@@ -12,6 +12,7 @@ variables:
 
 before_script:
   - ./docker/scripts/install-deps.sh
+  - pip install -r requirements.txt
   - useradd -U -d /aurweb -c 'AUR User' aur
   - ./docker/mariadb-entrypoint.sh
   - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &

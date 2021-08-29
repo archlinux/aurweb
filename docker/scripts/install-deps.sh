@@ -11,6 +11,6 @@ pacman -Syu --noconfirm --noprogressbar \
       cgit uwsgi uwsgi-plugin-cgi \
       php php-fpm \
       memcached php-memcached \
-      pyalpm python-srcinfo
+      python-pip pyalpm python-srcinfo
 
 exec "$@"
