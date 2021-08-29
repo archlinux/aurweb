@@ -7,14 +7,16 @@ ENV AUR_CONFIG=conf/config
 COPY ./docker /docker
 COPY ./docker/scripts/*.sh /usr/local/bin/
 
+# Install system-wide dependencies.
+RUN /docker/scripts/install-deps.sh
+
 # Copy over all aurweb files.
 COPY . /aurweb
 
 # Working directory is aurweb root @ /aurweb.
 WORKDIR /aurweb
 
-# Install dependencies
-RUN docker/scripts/install-deps.sh
+# Install pip directories now that we have access to /aurweb.
 RUN pip install -r requirements.txt
 
 # Add our aur user.
