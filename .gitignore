@@ -19,6 +19,7 @@ conf/docker
 conf/docker.defaults
 data.sql
 dummy-data.sql*
+env/
 fastapi_aw/
 htmlcov/
 po/*.mo
