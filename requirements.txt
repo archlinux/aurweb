@@ -1,8 +1,4 @@
-# Arch Linux
-pyalpm==0.10.6
-srcinfo==0.0.8
-
-# Generic
+# General
 authlib==0.15.2
 aiofiles==0.7.0
 asgiref==3.4.1
