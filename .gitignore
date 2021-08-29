@@ -1,23 +1,5 @@
-dummy-data.sql*
-po/*.mo
-po/*.po~
-po/POTFILES
-web/locale/*/
-aur.git/
 __pycache__/
 *.py[cod]
-test/test-results/
-test/trash directory*
-schema/aur-schema-sqlite.sql
-data.sql
-aurweb.sqlite3
-conf/config
-conf/config.sqlite
-conf/config.sqlite.defaults
-conf/docker
-conf/docker.defaults
-htmlcov/
-fastapi_aw/
 .vim/
 .pylintrc
 .coverage
@@ -28,6 +10,24 @@ fastapi_aw/
 /dist/
 /aurweb.egg-info/
 /pyrightconfig.json
+aur.git/
+aurweb.sqlite3
+conf/config
+conf/config.sqlite
+conf/config.sqlite.defaults
+conf/docker
+conf/docker.defaults
+data.sql
+dummy-data.sql*
+fastapi_aw/
+htmlcov/
+po/*.mo
+po/*.po~
+po/POTFILES
+schema/aur-schema-sqlite.sql
+test/test-results/
+test/trash directory*
+web/locale/*/
 
 # Do not stage compiled asciidoc: make -C doc
 doc/rpc.html
