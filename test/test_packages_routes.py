@@ -1,5 +1,8 @@
+import re
+
 from datetime import datetime
 from http import HTTPStatus
+from typing import List
 
 import pytest
 
@@ -11,11 +14,14 @@ from aurweb.models.dependency_type import DependencyType
 from aurweb.models.official_provider import OfficialProvider
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
+from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_keyword import PackageKeyword
+from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
 from aurweb.models.package_request import PackageRequest
+from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import PROVIDES_ID, RelationType
 from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
@@ -64,6 +70,9 @@ def setup():
         PackageDependency.__tablename__,
         PackageRelation.__tablename__,
         PackageKeyword.__tablename__,
+        PackageVote.__tablename__,
+        PackageNotification.__tablename__,
+        PackageComaintainer.__tablename__,
         OfficialProvider.__tablename__
     )
 
@@ -101,14 +110,39 @@ def maintainer() -> User:
 @pytest.fixture
 def package(maintainer: User) -> Package:
     """ Yield a Package created by user. """
+    now = int(datetime.utcnow().timestamp())
     with db.begin():
         pkgbase = db.create(PackageBase,
                             Name="test-package",
-                            Maintainer=maintainer)
+                            Maintainer=maintainer,
+                            Packager=maintainer,
+                            Submitter=maintainer,
+                            ModifiedTS=now)
         package = db.create(Package,
                             PackageBase=pkgbase,
                             Name=pkgbase.Name)
     yield package
+
+
+@pytest.fixture
+def packages(maintainer: User) -> List[Package]:
+    """ Yield 55 packages named pkg_0 .. pkg_54. """
+    packages_ = []
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        for i in range(55):
+            pkgbase = db.create(PackageBase,
+                                Name=f"pkg_{i}",
+                                Maintainer=maintainer,
+                                Packager=maintainer,
+                                Submitter=maintainer,
+                                ModifiedTS=now)
+            package = db.create(Package,
+                                PackageBase=pkgbase,
+                                Name=f"pkg_{i}")
+            packages_.append(package)
+
+    yield packages_
 
 
 def test_package_not_found(client: TestClient):
@@ -133,7 +167,7 @@ def test_package_official_not_found(client: TestClient, package: Package):
 
 
 def test_package(client: TestClient, package: Package):
-    """ Test a single /packages/{name} route. """
+    """ Test a single / packages / {name} route. """
     with client as request:
 
         resp = request.get(package_endpoint(package))
@@ -376,3 +410,505 @@ def test_pkgbase(client: TestClient, package: Package):
     pkgs = root.findall('.//div[@id="pkgs"]/ul/li/a')
     for i, name in enumerate(expected):
         assert pkgs[i].text.strip() == name
+
+
+def test_packages(client: TestClient, packages: List[Package]):
+    """ Test the / packages route with defaults.
+
+    Defaults:
+        50 results per page
+        offset of 0
+    """
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "X"  # "X" isn't valid, defaults to "nd"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    stats = root.xpath('//div[@class="pkglist-stats"]/p')[0]
+    pager_text = re.sub(r'\s+', " ", stats.text.replace("\n", "").strip())
+    assert pager_text == "55 packages found. Page 1 of 2."
+
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 50  # Default per-page
+
+
+def test_packages_search_by_name(client: TestClient, packages: List[Package]):
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "n",
+            "K": "pkg_"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 50  # Default per-page
+
+
+def test_packages_search_by_exact_name(client: TestClient,
+                                       packages: List[Package]):
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "N",
+            "K": "pkg_"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+
+    # There is no package named exactly 'pkg_', we get 0 results.
+    assert len(rows) == 0
+
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "N",
+            "K": "pkg_1"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+
+    # There's just one package named 'pkg_1', we get 1 result.
+    assert len(rows) == 1
+
+
+def test_packages_search_by_pkgbase(client: TestClient,
+                                    packages: List[Package]):
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "b",
+            "K": "pkg_"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 50
+
+
+def test_packages_search_by_exact_pkgbase(client: TestClient,
+                                          packages: List[Package]):
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "B",
+            "K": "pkg_"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 0
+
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "B",
+            "K": "pkg_1"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_search_by_keywords(client: TestClient,
+                                     packages: List[Package]):
+    # None of our packages have keywords, so this query should return nothing.
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "k",
+            "K": "testKeyword"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 0
+
+    # But now, let's create the keyword for the first package.
+    package = packages[0]
+    with db.begin():
+        db.create(PackageKeyword,
+                  PackageBase=package.PackageBase,
+                  Keyword="testKeyword")
+
+    # And request packages with that keyword, we should get 1 result.
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "k",
+            "K": "testKeyword"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_search_by_maintainer(client: TestClient,
+                                       maintainer: User,
+                                       package: Package):
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "m",
+            "K": maintainer.Username
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_search_by_comaintainer(client: TestClient,
+                                         maintainer: User,
+                                         package: Package):
+    # Nobody's a comaintainer yet.
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "c",
+            "K": maintainer.Username
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 0
+
+    # Now, we create a comaintainer.
+    with db.begin():
+        db.create(PackageComaintainer,
+                  PackageBase=package.PackageBase,
+                  User=maintainer,
+                  Priority=1)
+
+    # Then test that it's returned by our search.
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "c",
+            "K": maintainer.Username
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_search_by_co_or_maintainer(client: TestClient,
+                                             maintainer: User,
+                                             package: Package):
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "M",
+            "SB": "BLAH",  # Invalid SB; gets reset to default "n".
+            "K": maintainer.Username
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    with db.begin():
+        user = db.create(User, Username="comaintainer",
+                         Email="comaintainer@example.org",
+                         Passwd="testPassword")
+        db.create(PackageComaintainer,
+                  PackageBase=package.PackageBase,
+                  User=user,
+                  Priority=1)
+
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "M",
+            "K": user.Username
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_search_by_submitter(client: TestClient,
+                                      maintainer: User,
+                                      package: Package):
+    with client as request:
+        response = request.get("/packages", params={
+            "SeB": "s",
+            "K": maintainer.Username
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_sort_by_votes(client: TestClient,
+                                maintainer: User,
+                                packages: List[Package]):
+    # Set the first package's NumVotes to 1.
+    with db.begin():
+        packages[0].PackageBase.NumVotes = 1
+
+    # Test that, by default, the first result is what we just set above.
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "v"  # Votes.
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    votes = rows[0].xpath('./td')[2]  # The third column of the first row.
+    assert votes.text.strip() == "1"
+
+    # Now, test that with an ascending order, the last result is
+    # the one we set, since the default (above) is descending.
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "v",  # Votes.
+            "SO": "a",  # Ascending.
+            "O": "50"  # Second page.
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    votes = rows[-1].xpath('./td')[2]  # The third column of the last row.
+    assert votes.text.strip() == "1"
+
+
+def test_packages_sort_by_popularity(client: TestClient,
+                                     maintainer: User,
+                                     packages: List[Package]):
+    # Set the first package's Popularity to 0.50.
+    with db.begin():
+        packages[0].PackageBase.Popularity = "0.50"
+
+    # Test that, by default, the first result is what we just set above.
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "p"  # Popularity
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    pop = rows[0].xpath('./td')[3]  # The fourth column of the first row.
+    assert pop.text.strip() == "0.50"
+
+
+def test_packages_sort_by_voted(client: TestClient,
+                                maintainer: User,
+                                packages: List[Package]):
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        db.create(PackageVote, PackageBase=packages[0].PackageBase,
+                  User=maintainer, VoteTS=now)
+
+    # Test that, by default, the first result is what we just set above.
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "w",  # Voted
+            "SO": "d"  # Descending, Voted first.
+        }, cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    voted = rows[0].xpath('./td')[5]  # The sixth column of the first row.
+    assert voted.text.strip() == "Yes"
+
+    # Conversely, everything else was not voted on.
+    voted = rows[1].xpath('./td')[5]  # The sixth column of the second row.
+    assert voted.text.strip() == str()  # Empty.
+
+
+def test_packages_sort_by_notify(client: TestClient,
+                                 maintainer: User,
+                                 packages: List[Package]):
+    db.create(PackageNotification,
+              PackageBase=packages[0].PackageBase,
+              User=maintainer)
+
+    # Test that, by default, the first result is what we just set above.
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "o",  # Voted
+            "SO": "d"  # Descending, Voted first.
+        }, cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    notify = rows[0].xpath('./td')[6]  # The sixth column of the first row.
+    assert notify.text.strip() == "Yes"
+
+    # Conversely, everything else was not voted on.
+    notify = rows[1].xpath('./td')[6]  # The sixth column of the second row.
+    assert notify.text.strip() == str()  # Empty.
+
+
+def test_packages_sort_by_maintainer(client: TestClient,
+                                     maintainer: User,
+                                     package: Package):
+    """ Sort a package search by the maintainer column. """
+
+    # Create a second package, so the two can be ordered and checked.
+    with db.begin():
+        maintainer2 = db.create(User, Username="maintainer2",
+                                Email="maintainer2@example.org",
+                                Passwd="testPassword")
+        base2 = db.create(PackageBase, Name="pkg_2", Maintainer=maintainer2,
+                          Submitter=maintainer2, Packager=maintainer2)
+        db.create(Package, Name="pkg_2", PackageBase=base2)
+
+    # Check the descending order route.
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "m",
+            "SO": "d"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    col = rows[0].xpath('./td')[5].xpath('./a')[0]  # Last column.
+
+    assert col.text.strip() == maintainer.Username
+
+    # On the other hand, with ascending, we should get reverse ordering.
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "m",
+            "SO": "a"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    col = rows[0].xpath('./td')[5].xpath('./a')[0]  # Last column.
+
+    assert col.text.strip() == maintainer2.Username
+
+
+def test_packages_sort_by_last_modified(client: TestClient,
+                                        packages: List[Package]):
+    now = int(datetime.utcnow().timestamp())
+    # Set the first package's ModifiedTS to be 1000 seconds before now.
+    package = packages[0]
+    with db.begin():
+        package.PackageBase.ModifiedTS = now - 1000
+
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "l",
+            "SO": "a"  # Ascending; oldest modification first.
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # We should have 50 (default per page) results.
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 50
+
+    # Let's assert that the first item returned was the one we modified above.
+    row = rows[0]
+    col = row.xpath('./td')[0].xpath('./a')[0]
+    assert col.text.strip() == package.Name
+
+
+def test_packages_flagged(client: TestClient, maintainer: User,
+                          packages: List[Package]):
+    package = packages[0]
+
+    now = int(datetime.utcnow().timestamp())
+
+    with db.begin():
+        package.PackageBase.OutOfDateTS = now
+        package.PackageBase.Flagger = maintainer
+
+    with client as request:
+        response = request.get("/packages", params={
+            "outdated": "on"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # We should only get one result from this query; the package we flagged.
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+    with client as request:
+        response = request.get("/packages", params={
+            "outdated": "off"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # In this case, we should get 54 results, which means that the first
+    # page will have 50 results (55 packages - 1 outdated = 54 not outdated).
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 50
+
+
+def test_packages_orphans(client: TestClient, packages: List[Package]):
+    package = packages[0]
+    with db.begin():
+        package.PackageBase.Maintainer = None
+
+    with client as request:
+        response = request.get("/packages", params={"submit": "Orphans"})
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # We only have one orphan. Let's make sure that's what is returned.
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
+
+
+def test_packages_per_page(client: TestClient, maintainer: User):
+    """ Test the ability for /packages to deal with the PP query
+    argument specifications (50, 100, 250; default: 50). """
+    with db.begin():
+        for i in range(255):
+            base = db.create(PackageBase, Name=f"pkg_{i}",
+                             Maintainer=maintainer,
+                             Submitter=maintainer,
+                             Packager=maintainer)
+            db.create(Package, PackageBase=base, Name=base.Name)
+
+    # Test default case, PP of 50.
+    with client as request:
+        response = request.get("/packages", params={"PP": 50})
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 50
+
+    # Alright, test the next case, PP of 100.
+    with client as request:
+        response = request.get("/packages", params={"PP": 100})
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 100
+
+    # And finally, the last case, a PP of 250.
+    with client as request:
+        response = request.get("/packages", params={"PP": 250})
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 250

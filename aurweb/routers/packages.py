@@ -5,6 +5,7 @@ from fastapi import APIRouter, Request, Response
 from fastapi.responses import RedirectResponse
 from sqlalchemy import and_
 
+import aurweb.filters
 import aurweb.models.package_comment
 import aurweb.models.package_keyword
 import aurweb.packages.util
@@ -21,10 +22,90 @@ from aurweb.models.package_request import PackageRequest
 from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID
-from aurweb.packages.util import get_pkgbase
+from aurweb.packages.search import PackageSearch
+from aurweb.packages.util import get_pkgbase, query_notified, query_voted
 from aurweb.templates import make_context, render_template
 
 router = APIRouter()
+
+
+async def packages_get(request: Request, context: Dict[str, Any]):
+    # Query parameters used in this request.
+    context["q"] = dict(request.query_params)
+
+    # Per page and offset.
+    per_page = context["PP"] = int(request.query_params.get("PP", 50))
+    offset = context["O"] = int(request.query_params.get("O", 0))
+
+    # Query search by.
+    search_by = context["SeB"] = request.query_params.get("SeB", "nd")
+
+    # Query sort by.
+    sort_by = context["SB"] = request.query_params.get("SB", "n")
+
+    # Query sort order.
+    sort_order = request.query_params.get("SO", None)
+
+    # Apply ordering, limit and offset.
+    search = PackageSearch(request.user)
+
+    # For each keyword found in K, apply a search_by filter.
+    # This means that for any sentences separated by spaces,
+    # they are used as if they were ANDed.
+    keywords = context["K"] = request.query_params.get("K", str())
+    keywords = keywords.split(" ")
+    for keyword in keywords:
+        search.search_by(search_by, keyword)
+
+    flagged = request.query_params.get("outdated", None)
+    if flagged:
+        # If outdated was given, set it up in the context.
+        context["outdated"] = flagged
+
+        # When outdated is set to "on," we filter records which do have
+        # an OutOfDateTS. When it's set to "off," we filter out any which
+        # do **not** have OutOfDateTS.
+        criteria = None
+        if flagged == "on":
+            criteria = PackageBase.OutOfDateTS.isnot
+        else:
+            criteria = PackageBase.OutOfDateTS.is_
+
+        # Apply the flag criteria to our PackageSearch.query.
+        search.query = search.query.filter(criteria(None))
+
+    submit = request.query_params.get("submit", "Go")
+    if submit == "Orphans":
+        # If the user clicked the "Orphans" button, we only want
+        # orphaned packages.
+        search.query = search.query.filter(PackageBase.MaintainerUID.is_(None))
+
+    # Apply user-specified specified sort column and ordering.
+    search.sort_by(sort_by, sort_order)
+
+    # If no SO was given, default the context SO to 'a' (Ascending).
+    # By default, if no SO is given, the search should sort by 'd'
+    # (Descending), but display "Ascending" for the Sort order select.
+    if sort_order is None:
+        sort_order = "a"
+    context["SO"] = sort_order
+
+    # Insert search results into the context.
+    results = search.results()
+    context["packages"] = results.limit(per_page).offset(offset)
+    context["packages_voted"] = query_voted(
+        context.get("packages"), request.user)
+    context["packages_notified"] = query_notified(
+        context.get("packages"), request.user)
+    context["packages_count"] = search.total_count
+
+    return render_template(request, "packages.html", context)
+
+
+@router.get("/packages")
+async def packages(request: Request) -> Response:
+    context = make_context(request, "Packages")
+    return await packages_get(request, context)
 
 
 async def make_single_context(request: Request,

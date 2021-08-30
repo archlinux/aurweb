@@ -222,3 +222,10 @@ button[type="reset"] {
     text-align: right;
 }
 
+input#search-action-submit {
+    width: 80px;
+}
+
+.success {
+    color: green;
+}

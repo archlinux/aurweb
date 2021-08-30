@@ -1,0 +1,84 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    {% if errors %}
+
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+        {% include "partials/packages/search.html" %}
+
+    {% else %}
+
+        {% set pages = (packages_count / PP) | ceil %}
+        {% set page = O / PP %}
+
+        {% if success %}
+            <ul class="success">
+                {% for message in success %}
+                    <li>{{ message | tr }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {# Search form #}
+        {% include "partials/packages/search.html" %}
+        <div id="pkglist-results" class="box">
+
+            {# /packages does things a bit roundabout-wise:
+
+            If SeB is not given, "nd" is the default.
+            If SB is not given, "n" is the default.
+            If SO is not given, "d" is the default.
+
+            However, we depend on flipping SO for column sorting.
+
+            This section sets those defaults for the context if
+            they are not already setup. #}
+            {% if not SeB %}
+                {% set SeB = "nd" %}
+            {% endif %}
+            {% if not SB %}
+                {% set SB = "n" %}
+            {% endif %}
+            {% if not SO %}
+                {% set SO = "d" %}
+            {% endif %}
+
+            {# Pagination widget #}
+            {% with total = packages_count,
+                    singular = "%d package found.",
+                    plural = "%d packages found.",
+                    prefix = "/packages" %}
+                {% include "partials/widgets/pager.html" %}
+            {% endwith %}
+
+            {# Package action form #}
+            <form id="pkglist-results-form"
+                  action="/packages/?{{ q | urlencode }}"
+                  method="post">
+
+                {# Search results #}
+                {% with voted = packages_voted, notified = packages_notified %}
+                    {% include "partials/packages/search_results.html" %}
+                {% endwith %}
+
+                {# Pagination widget #}
+                {% with total = packages_count,
+                        singular = "%d package found.",
+                        plural = "%d packages found.",
+                        prefix = "/packages" %}
+                    {% include "partials/widgets/pager.html" %}
+                {% endwith %}
+
+                {% if request.user.is_authenticated() %}
+                    {# Package actions #}
+                    {% include "partials/packages/search_actions.html" %}
+                {% endif %}
+            </form>
+        </div>
+
+    {% endif %}
+{% endblock %}

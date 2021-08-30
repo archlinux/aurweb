@@ -1,0 +1,25 @@
+<p>
+    <select name="action">
+        <option value="">{{ "Actions" | tr }}</option>
+            <option value="unflag">{{ "Unflag Out-of-date" | tr }}</option>
+            <option value="adopt">{{ "Adopt Packages" | tr }}</option>
+            <option value="disown">{{ "Disown Packages" | tr }}</option>
+        {% if request.user.is_trusted_user() or request.user.is_developer() %}
+            <option value="delete">{{ "Delete Packages" | tr }}</option>
+        {% endif %}
+        <option value="notify">{{ "Notify" | tr }}</option>
+        <option value="unnotify">{{ "UnNotify" | tr }}</option>
+    </select>
+
+    {% if request.user.is_trusted_user() or request.user.is_developer() %}
+        <label for="merge_into">{{ "Merge into" | tr }}</label>
+        <input id="merge_into" type="text" name="merge_into" />
+    {% endif %}
+
+    <label class="confirmation">
+        <input type="checkbox" name="confirm" />
+        Confirm
+    </label>
+
+    <input id="search-action-submit" class="button" type="submit" value="Go" />
+</p>
