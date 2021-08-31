@@ -111,6 +111,6 @@ async def package_base(request: Request, name: str) -> Response:
 
     # Add our base information.
     context = await make_single_context(request, pkgbase)
-    context["packages"] = pkgbase.packages.all()  # Doesn't need to be here.
+    context["packages"] = pkgbase.packages.all()
 
     return render_template(request, "pkgbase.html", context)
