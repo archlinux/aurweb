@@ -24,7 +24,7 @@
                     <th>
                         {% set off_qs = "%s=%d" | format(off_param, off) %}
                         {% set by_qs = "%s=%s" | format(by_param, by_next | quote_plus) %}
-                        <a href="?{{ q | dedupe_qs(off_qs, by_qs) }}">
+                        <a href="?{{ q | extend_query([off_param, off], [by_param, by_next]) | urlencode }}">
                             {{ "Start" | tr }}
                         </a>
                     </th>
@@ -97,7 +97,7 @@
                         {% set off_qs = "%s=%d" | format(off_param, off - 10) %}
                         {% set by_qs = "%s=%s" | format(by_param, by | quote_plus) %}
                         <a class="page"
-                           href="?{{ q | dedupe_qs(off_qs, by_qs) }}">
+                           href="?{{ q | extend_query([off_param, ([off - 10, 0] | max)], [by_param, by]) | urlencode }}">
                             ‹ Back
                         </a>
                     {% endif %}
@@ -106,7 +106,7 @@
                         {% set off_qs = "%s=%d" | format(off_param, off + 10) %}
                         {% set by_qs = "%s=%s" | format(by_param, by | quote_plus) %}
                         <a class="page"
-                           href="?{{ q | dedupe_qs(off_qs, by_qs) }}">
+                           href="?{{ q | extend_query([off_param, off + pp], [by_param, by]) | urlencode }}">
                             Next ›
                         </a>
                     {% endif %}

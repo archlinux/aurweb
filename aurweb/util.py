@@ -6,10 +6,9 @@ import re
 import secrets
 import string
 
-from collections import OrderedDict
 from datetime import datetime
 from typing import Any, Dict
-from urllib.parse import quote_plus, urlencode, urlparse
+from urllib.parse import urlencode, urlparse
 from zoneinfo import ZoneInfo
 
 import fastapi
@@ -126,31 +125,8 @@ def as_timezone(dt: datetime, timezone: str):
     return dt.astimezone(tz=ZoneInfo(timezone))
 
 
-def dedupe_qs(query_string: str, *additions):
-    """ Dedupe keys found in a query string by rewriting it without
-    duplicates found while iterating from the end to the beginning,
-    using an ordered memo to track keys found and persist locations.
-
-    That is, query string 'a=1&b=1&a=2' will be deduped and converted
-    to 'b=1&a=2'.
-
-    :param query_string: An HTTP URL query string.
-    :param *additions: Optional additional fields to add to the query string.
-    :return: Deduped query string, including *additions at the tail.
-    """
-    for addition in list(additions):
-        query_string += f"&{addition}"
-
-    qs = OrderedDict()
-    for item in reversed(query_string.split('&')):
-        key, value = item.split('=')
-        if key not in qs:
-            qs[key] = value
-    return '&'.join([f"{k}={quote_plus(v)}" for k, v in reversed(qs.items())])
-
-
 def extend_query(query: Dict[str, Any], *additions) -> Dict[str, Any]:
-    """ Add additionally key value pairs to query. """
+    """ Add additional key value pairs to query. """
     for k, v in list(additions):
         query[k] = v
     return query

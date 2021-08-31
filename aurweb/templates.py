@@ -30,7 +30,6 @@ _env.filters["tn"] = l10n.tn
 # Utility filters.
 _env.filters["dt"] = util.timestamp_to_datetime
 _env.filters["as_timezone"] = util.as_timezone
-_env.filters["dedupe_qs"] = util.dedupe_qs
 _env.filters["extend_query"] = util.extend_query
 _env.filters["urlencode"] = util.to_qs
 _env.filters["quote_plus"] = quote_plus

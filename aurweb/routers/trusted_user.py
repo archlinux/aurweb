@@ -5,7 +5,6 @@ import typing
 
 from datetime import datetime
 from http import HTTPStatus
-from urllib.parse import quote_plus
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
@@ -106,12 +105,12 @@ async def trusted_user(request: Request,
     context["current_by_next"] = "asc" if current_by == "desc" else "desc"
     context["past_by_next"] = "asc" if past_by == "desc" else "desc"
 
-    context["q"] = '&'.join([
-        f"coff={current_off}",
-        f"cby={quote_plus(current_by)}",
-        f"poff={past_off}",
-        f"pby={quote_plus(past_by)}"
-    ])
+    context["q"] = {
+        "coff": current_off,
+        "cby": current_by,
+        "poff": past_off,
+        "pby": past_by
+    }
 
     return render_template(request, "tu/index.html", context)
 
