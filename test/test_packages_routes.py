@@ -228,6 +228,7 @@ def test_package_dependencies(client: TestClient, maintainer: User,
     # Create a normal dependency of type depends.
     dep_pkg = create_package("test-dep-1", maintainer, autocommit=False)
     dep = create_package_dep(package, dep_pkg.Name, autocommit=False)
+    dep.DepArch = "x86_64"
 
     # Also, create a makedepends.
     make_dep_pkg = create_package("test-dep-2", maintainer, autocommit=False)
@@ -287,6 +288,11 @@ def test_package_dependencies(client: TestClient, maintainer: User,
     pkgdeps = root.findall('.//ul[@id="pkgdepslist"]/li/a')
     for i, expectation in enumerate(expected):
         assert pkgdeps[i].text.strip() == expectation
+
+    # Let's make sure the DepArch was displayed for our first dep.
+    arch = root.findall('.//ul[@id="pkgdepslist"]/li')[0]
+    arch = arch.xpath('./em')[1]
+    assert arch.text.strip() == "(x86_64)"
 
     broken_node = root.find('.//ul[@id="pkgdepslist"]/li/span')
     assert broken_node.text.strip() == broken_dep.DepName

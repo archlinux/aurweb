@@ -16,6 +16,9 @@
                     </a>
                 {% endif %}
                 {{ dep.Package | provides_list(dep.DepName) | safe }}
+                {% if dep.DepArch %}
+                    <em>({{ dep.DepArch }})</em>
+                {% endif %}
                 <!-- If this dependency type is an optdepends (id: 4). -->
                 {% if dep.DepTypeID == 4 %}
                     <em>{{ dep | dep_extra_desc }}</em>
