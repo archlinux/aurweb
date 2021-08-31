@@ -15,7 +15,9 @@ from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_relation import PackageRelation
+from aurweb.models.package_request import PackageRequest
 from aurweb.models.relation_type import PROVIDES_ID, RelationType
+from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
 from aurweb.testing.html import parse_root
@@ -173,6 +175,43 @@ def test_package_comments(client: TestClient, user: User, package: Package):
         assert comments[i].strip() == row
 
 
+def test_package_requests_display(client: TestClient, user: User,
+                                  package: Package):
+    type_ = db.query(RequestType, RequestType.ID == DELETION_ID).first()
+    db.create(PackageRequest, PackageBase=package.PackageBase,
+              PackageBaseName=package.PackageBase.Name,
+              User=user, RequestType=type_,
+              Comments="Test comment.",
+              ClosureComment=str())
+
+    # Test that a single request displays "1 pending request".
+    with client as request:
+        resp = request.get(package_endpoint(package))
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    selector = '//div[@id="actionlist"]/ul/li/span[@class="flagged"]'
+    target = root.xpath(selector)[0]
+    assert target.text.strip() == "1 pending request"
+
+    type_ = db.query(RequestType, RequestType.ID == DELETION_ID).first()
+    db.create(PackageRequest, PackageBase=package.PackageBase,
+              PackageBaseName=package.PackageBase.Name,
+              User=user, RequestType=type_,
+              Comments="Test comment2.",
+              ClosureComment=str())
+
+    # Test that a two requests display "2 pending requests".
+    with client as request:
+        resp = request.get(package_endpoint(package))
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    selector = '//div[@id="actionlist"]/ul/li/span[@class="flagged"]'
+    target = root.xpath(selector)[0]
+    assert target.text.strip() == "2 pending requests"
+
+
 def test_package_authenticated(client: TestClient, user: User,
                                package: Package):
     """ We get the same here for either authenticated or not
@@ -195,6 +234,12 @@ def test_package_authenticated(client: TestClient, user: User,
     ]
     for expected_text in expected:
         assert expected_text in resp.text
+
+    # When no requests are up, make sure we don't see the display for them.
+    root = parse_root(resp.text)
+    selector = '//div[@id="actionlist"]/ul/li/span[@class="flagged"]'
+    target = root.xpath(selector)
+    assert len(target) == 0
 
 
 def test_package_authenticated_maintainer(client: TestClient,

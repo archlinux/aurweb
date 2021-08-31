@@ -17,6 +17,7 @@ from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
+from aurweb.models.package_request import PackageRequest
 from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID
@@ -53,6 +54,10 @@ async def make_single_context(request: Request,
 
     context["voted"] = request.user.package_votes.filter(
         PackageVote.PackageBaseID == pkgbase.ID).scalar()
+
+    context["requests"] = pkgbase.requests.filter(
+        PackageRequest.ClosedTS.is_(None)
+    ).count()
 
     return context
 

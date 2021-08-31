@@ -124,7 +124,13 @@
                     </a>
                 </li>
             {% endif %}
-            <li><span class="flagged"></span></li>
+            {% if requests %}
+                <li>
+                    <span class="flagged">
+                        {{ requests | tn("%d pending request", "%d pending requests") | format(requests) }}
+                    </span>
+                </li>
+            {% endif %}
             <li>
             {% if not request.user.is_authenticated() %}
                 <a href="/login?next={{ '/pkgbase/%s/request' | format(result.Name) | urlencode }}">
