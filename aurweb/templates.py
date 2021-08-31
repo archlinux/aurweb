@@ -18,29 +18,29 @@ import aurweb.config
 from aurweb import captcha, l10n, time, util
 
 # Prepare jinja2 objects.
-loader = jinja2.FileSystemLoader(os.path.join(
+_loader = jinja2.FileSystemLoader(os.path.join(
     aurweb.config.get("options", "aurwebdir"), "templates"))
-env = jinja2.Environment(loader=loader, autoescape=True,
-                         extensions=["jinja2.ext.i18n"])
+_env = jinja2.Environment(loader=_loader, autoescape=True,
+                          extensions=["jinja2.ext.i18n"])
 
 # Add t{r,n} translation filters.
-env.filters["tr"] = l10n.tr
-env.filters["tn"] = l10n.tn
+_env.filters["tr"] = l10n.tr
+_env.filters["tn"] = l10n.tn
 
 # Utility filters.
-env.filters["dt"] = util.timestamp_to_datetime
-env.filters["as_timezone"] = util.as_timezone
-env.filters["dedupe_qs"] = util.dedupe_qs
-env.filters["urlencode"] = quote_plus
-env.filters["get_vote"] = util.get_vote
-env.filters["number_format"] = util.number_format
+_env.filters["dt"] = util.timestamp_to_datetime
+_env.filters["as_timezone"] = util.as_timezone
+_env.filters["dedupe_qs"] = util.dedupe_qs
+_env.filters["urlencode"] = quote_plus
+_env.filters["get_vote"] = util.get_vote
+_env.filters["number_format"] = util.number_format
 
 # Add captcha filters.
-env.filters["captcha_salt"] = captcha.captcha_salt_filter
-env.filters["captcha_cmdline"] = captcha.captcha_cmdline_filter
+_env.filters["captcha_salt"] = captcha.captcha_salt_filter
+_env.filters["captcha_cmdline"] = captcha.captcha_cmdline_filter
 
 # Add account utility filters.
-env.filters["account_url"] = util.account_url
+_env.filters["account_url"] = util.account_url
 
 
 def register_filter(name: str) -> Callable:
@@ -61,9 +61,9 @@ def register_filter(name: str) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             return func(*args, **kwargs)
-        if name in env.filters:
+        if name in _env.filters:
             raise KeyError(f"Jinja already has a filter named '{name}'")
-        env.filters[name] = wrapper
+        _env.filters[name] = wrapper
         return wrapper
     return decorator
 
@@ -105,12 +105,12 @@ def render_template(request: Request,
                     status_code: HTTPStatus = HTTPStatus.OK):
     """ Render a Jinja2 multi-lingual template with some context. """
 
-    # Create a deep copy of our jinja2 environment. The environment in
+    # Create a deep copy of our jinja2 _environment. The _environment in
     # total by itself is 48 bytes large (according to sys.getsizeof).
     # This is done so we can install gettext translations on the template
-    # environment being rendered without installing them into a global
+    # _environment being rendered without installing them into a global
     # which is reused in this function.
-    templates = copy.copy(env)
+    templates = copy.copy(_env)
 
     translator = l10n.get_raw_translator_for_request(context.get("request"))
     templates.install_gettext_translations(translator)
