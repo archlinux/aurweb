@@ -7,6 +7,11 @@
         {% endif %}
         <li><a href="/packages/">{% trans %}Packages{% endtrans %}</a></li>
         {% if request.user.is_authenticated() %}
+            <li>
+                <a href="/requests/">
+                    {% trans %}Requests{% endtrans %}
+                </a>
+            </li>
             {% if request.user.is_trusted_user() or request.user.is_developer() %}
                 <li>
                     <a href="/accounts/">
