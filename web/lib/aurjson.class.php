@@ -271,6 +271,15 @@ class AurJSON {
 			'results' => $data
 		);
 
+        if ($this->version != 5) {
+            $json_array['warning'] = 'The use of versions lower than 5 is '
+                . 'now deprecated and will soon be unsupported. To ensure '
+                . 'your API client supports the change without issue, it '
+                . 'should use version 5 and adjust for any changes in the '
+                . 'API interface. See https://aur.archlinux.org/rpc for '
+                . 'documentation related to v5.';
+        }
+
 		if ($error) {
 			$json_array['error'] = $error;
 		}
