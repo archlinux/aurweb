@@ -1,6 +1,6 @@
 import pytest
 
-from aurweb.db import create, query
+from aurweb import db
 from aurweb.models.account_type import AccountType
 from aurweb.models.ssh_pub_key import SSHPubKey, get_fingerprint
 from aurweb.models.user import User
@@ -19,19 +19,18 @@ def setup():
 
     setup_test_db("Users", "SSHPubKeys")
 
-    account_type = query(AccountType,
-                         AccountType.AccountType == "User").first()
-    user = create(User, Username="test", Email="test@example.org",
-                  RealName="Test User", Passwd="testPassword",
-                  AccountType=account_type)
+    account_type = db.query(AccountType,
+                            AccountType.AccountType == "User").first()
+    with db.begin():
+        user = db.create(User, Username="test", Email="test@example.org",
+                         RealName="Test User", Passwd="testPassword",
+                         AccountType=account_type)
 
-    assert account_type == user.AccountType
-    assert account_type.ID == user.AccountTypeID
-
-    ssh_pub_key = create(SSHPubKey,
-                         UserID=user.ID,
-                         Fingerprint="testFingerprint",
-                         PubKey="testPubKey")
+    with db.begin():
+        ssh_pub_key = db.create(SSHPubKey,
+                                UserID=user.ID,
+                                Fingerprint="testFingerprint",
+                                PubKey="testPubKey")
 
 
 def test_ssh_pub_key():
@@ -43,9 +42,10 @@ def test_ssh_pub_key():
 
 def test_ssh_pub_key_cs():
     """ Test case sensitivity of the database table. """
-    ssh_pub_key_cs = create(SSHPubKey, UserID=user.ID,
-                            Fingerprint="TESTFINGERPRINT",
-                            PubKey="TESTPUBKEY")
+    with db.begin():
+        ssh_pub_key_cs = db.create(SSHPubKey, UserID=user.ID,
+                                   Fingerprint="TESTFINGERPRINT",
+                                   PubKey="TESTPUBKEY")
 
     assert ssh_pub_key_cs.Fingerprint == "TESTFINGERPRINT"
     assert ssh_pub_key_cs.PubKey == "TESTPUBKEY"

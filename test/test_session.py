@@ -4,7 +4,7 @@ from unittest import mock
 
 import pytest
 
-from aurweb.db import create, query
+from aurweb import db
 from aurweb.models.account_type import AccountType
 from aurweb.models.session import Session, generate_unique_sid
 from aurweb.models.user import User
@@ -19,13 +19,16 @@ def setup():
 
     setup_test_db("Users", "Sessions")
 
-    account_type = query(AccountType,
-                         AccountType.AccountType == "User").first()
-    user = create(User, Username="test", Email="test@example.org",
-                  ResetKey="testReset", Passwd="testPassword",
-                  AccountType=account_type)
-    session = create(Session, UsersID=user.ID, SessionID="testSession",
-                     LastUpdateTS=datetime.utcnow().timestamp())
+    account_type = db.query(AccountType,
+                            AccountType.AccountType == "User").first()
+    with db.begin():
+        user = db.create(User, Username="test", Email="test@example.org",
+                         ResetKey="testReset", Passwd="testPassword",
+                         AccountType=account_type)
+
+    with db.begin():
+        session = db.create(Session, UsersID=user.ID, SessionID="testSession",
+                            LastUpdateTS=datetime.utcnow().timestamp())
 
 
 def test_session():
@@ -35,12 +38,15 @@ def test_session():
 
 def test_session_cs():
     """ Test case sensitivity of the database table. """
-    user2 = create(User, Username="test2", Email="test2@example.org",
-                   ResetKey="testReset2", Passwd="testPassword",
-                   AccountType=account_type)
-    session_cs = create(Session, UsersID=user2.ID,
-                        SessionID="TESTSESSION",
-                        LastUpdateTS=datetime.utcnow().timestamp())
+    with db.begin():
+        user2 = db.create(User, Username="test2", Email="test2@example.org",
+                          ResetKey="testReset2", Passwd="testPassword",
+                          AccountType=account_type)
+
+    with db.begin():
+        session_cs = db.create(Session, UsersID=user2.ID,
+                               SessionID="TESTSESSION",
+                               LastUpdateTS=datetime.utcnow().timestamp())
     assert session_cs.SessionID == "TESTSESSION"
     assert session.SessionID == "testSession"
 

@@ -214,10 +214,9 @@ async def trusted_user_proposal_post(request: Request,
         return Response("Invalid 'decision' value.",
                         status_code=int(HTTPStatus.BAD_REQUEST))
 
-    vote = db.create(TUVote, User=request.user, VoteInfo=voteinfo,
-                     autocommit=False)
-    voteinfo.ActiveTUs += 1
-    db.commit()
+    with db.begin():
+        vote = db.create(TUVote, User=request.user, VoteInfo=voteinfo)
+        voteinfo.ActiveTUs += 1
 
     context["error"] = "You've already voted for this proposal."
     return render_proposal(request, context, proposal, voteinfo, voters, vote)
@@ -294,12 +293,13 @@ async def trusted_user_addvote_post(request: Request,
     agenda = re.sub(r'<[/]?style.*>', '', agenda)
 
     # Create a new TUVoteInfo (proposal)!
-    voteinfo = db.create(TUVoteInfo,
-                         User=user,
-                         Agenda=agenda,
-                         Submitted=timestamp, End=timestamp + duration,
-                         Quorum=quorum,
-                         Submitter=request.user)
+    with db.begin():
+        voteinfo = db.create(TUVoteInfo,
+                             User=user,
+                             Agenda=agenda,
+                             Submitted=timestamp, End=timestamp + duration,
+                             Quorum=quorum,
+                             Submitter=request.user)
 
     # Redirect to the new proposal.
     return RedirectResponse(f"/tu/{voteinfo.ID}",

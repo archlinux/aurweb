@@ -2,7 +2,7 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create
+from aurweb import db
 from aurweb.models.official_provider import OfficialProvider
 from aurweb.testing import setup_test_db
 
@@ -13,10 +13,11 @@ def setup():
 
 
 def test_official_provider_creation():
-    oprovider = create(OfficialProvider,
-                       Name="some-name",
-                       Repo="some-repo",
-                       Provides="some-provides")
+    with db.begin():
+        oprovider = db.create(OfficialProvider,
+                              Name="some-name",
+                              Repo="some-repo",
+                              Provides="some-provides")
     assert bool(oprovider.ID)
     assert oprovider.Name == "some-name"
     assert oprovider.Repo == "some-repo"
@@ -25,16 +26,18 @@ def test_official_provider_creation():
 
 def test_official_provider_cs():
     """ Test case sensitivity of the database table. """
-    oprovider = create(OfficialProvider,
-                       Name="some-name",
-                       Repo="some-repo",
-                       Provides="some-provides")
+    with db.begin():
+        oprovider = db.create(OfficialProvider,
+                              Name="some-name",
+                              Repo="some-repo",
+                              Provides="some-provides")
     assert bool(oprovider.ID)
 
-    oprovider_cs = create(OfficialProvider,
-                          Name="SOME-NAME",
-                          Repo="SOME-REPO",
-                          Provides="SOME-PROVIDES")
+    with db.begin():
+        oprovider_cs = db.create(OfficialProvider,
+                                 Name="SOME-NAME",
+                                 Repo="SOME-REPO",
+                                 Provides="SOME-PROVIDES")
     assert bool(oprovider_cs.ID)
 
     assert oprovider.ID != oprovider_cs.ID
@@ -49,27 +52,27 @@ def test_official_provider_cs():
 
 
 def test_official_provider_null_name_raises_exception():
-    from aurweb.db import session
     with pytest.raises(IntegrityError):
-        create(OfficialProvider,
-               Repo="some-repo",
-               Provides="some-provides")
-    session.rollback()
+        with db.begin():
+            db.create(OfficialProvider,
+                      Repo="some-repo",
+                      Provides="some-provides")
+    db.rollback()
 
 
 def test_official_provider_null_repo_raises_exception():
-    from aurweb.db import session
     with pytest.raises(IntegrityError):
-        create(OfficialProvider,
-               Name="some-name",
-               Provides="some-provides")
-    session.rollback()
+        with db.begin():
+            db.create(OfficialProvider,
+                      Name="some-name",
+                      Provides="some-provides")
+    db.rollback()
 
 
 def test_official_provider_null_provides_raises_exception():
-    from aurweb.db import session
     with pytest.raises(IntegrityError):
-        create(OfficialProvider,
-               Name="some-name",
-               Repo="some-repo")
-    session.rollback()
+        with db.begin():
+            db.create(OfficialProvider,
+                      Name="some-name",
+                      Repo="some-repo")
+    db.rollback()

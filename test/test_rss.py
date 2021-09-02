@@ -49,14 +49,13 @@ def packages(user):
     now = int(datetime.utcnow().timestamp())
 
     # Create 101 packages; we limit 100 on RSS feeds.
-    for i in range(101):
-        pkgbase = db.create(
-            PackageBase, Maintainer=user, Name=f"test-package-{i}",
-            SubmittedTS=(now + i), ModifiedTS=(now + i), autocommit=False)
-        pkg = db.create(Package, Name=pkgbase.Name, PackageBase=pkgbase,
-                        autocommit=False)
-        pkgs.append(pkg)
-    db.commit()
+    with db.begin():
+        for i in range(101):
+            pkgbase = db.create(
+                PackageBase, Maintainer=user, Name=f"test-package-{i}",
+                SubmittedTS=(now + i), ModifiedTS=(now + i))
+            pkg = db.create(Package, Name=pkgbase.Name, PackageBase=pkgbase)
+            pkgs.append(pkg)
     yield pkgs
 
 

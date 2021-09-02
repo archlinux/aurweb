@@ -28,31 +28,25 @@ def package_endpoint(package: Package) -> str:
     return f"/packages/{package.Name}"
 
 
-def create_package(pkgname: str, maintainer: User,
-                   autocommit: bool = True) -> Package:
+def create_package(pkgname: str, maintainer: User) -> Package:
     pkgbase = db.create(PackageBase,
                         Name=pkgname,
-                        Maintainer=maintainer,
-                        autocommit=False)
-    return db.create(Package, Name=pkgbase.Name, PackageBase=pkgbase,
-                     autocommit=autocommit)
+                        Maintainer=maintainer)
+    return db.create(Package, Name=pkgbase.Name, PackageBase=pkgbase)
 
 
 def create_package_dep(package: Package, depname: str,
-                       dep_type_name: str = "depends",
-                       autocommit: bool = True) -> PackageDependency:
+                       dep_type_name: str = "depends") -> PackageDependency:
     dep_type = db.query(DependencyType,
                         DependencyType.Name == dep_type_name).first()
     return db.create(PackageDependency,
                      DependencyType=dep_type,
                      Package=package,
-                     DepName=depname,
-                     autocommit=autocommit)
+                     DepName=depname)
 
 
 def create_package_rel(package: Package,
-                       relname: str,
-                       autocommit: bool = True) -> PackageRelation:
+                       relname: str) -> PackageRelation:
     rel_type = db.query(RelationType,
                         RelationType.ID == PROVIDES_ID).first()
     return db.create(PackageRelation,
@@ -84,31 +78,37 @@ def client() -> TestClient:
 def user() -> User:
     """ Yield a user. """
     account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
-    yield db.create(User, Username="test",
-                    Email="test@example.org",
-                    Passwd="testPassword",
-                    AccountType=account_type)
+    with db.begin():
+        user = db.create(User, Username="test",
+                         Email="test@example.org",
+                         Passwd="testPassword",
+                         AccountType=account_type)
+    yield user
 
 
 @pytest.fixture
 def maintainer() -> User:
     """ Yield a specific User used to maintain packages. """
     account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
-    yield db.create(User, Username="test_maintainer",
-                    Email="test_maintainer@example.org",
-                    Passwd="testPassword",
-                    AccountType=account_type)
+    with db.begin():
+        maintainer = db.create(User, Username="test_maintainer",
+                               Email="test_maintainer@example.org",
+                               Passwd="testPassword",
+                               AccountType=account_type)
+    yield maintainer
 
 
 @pytest.fixture
 def package(maintainer: User) -> Package:
     """ Yield a Package created by user. """
-    pkgbase = db.create(PackageBase,
-                        Name="test-package",
-                        Maintainer=maintainer)
-    yield db.create(Package,
-                    PackageBase=pkgbase,
-                    Name=pkgbase.Name)
+    with db.begin():
+        pkgbase = db.create(PackageBase,
+                            Name="test-package",
+                            Maintainer=maintainer)
+        package = db.create(Package,
+                            PackageBase=pkgbase,
+                            Name=pkgbase.Name)
+    yield package
 
 
 def test_package_not_found(client: TestClient):
@@ -121,10 +121,11 @@ def test_package_official_not_found(client: TestClient, package: Package):
     """ When a Package has a matching OfficialProvider record, it is not
     hosted on AUR, but in the official repositories. Getting a package
     with this kind of record should return a status code 404. """
-    db.create(OfficialProvider,
-              Name=package.Name,
-              Repo="core",
-              Provides=package.Name)
+    with db.begin():
+        db.create(OfficialProvider,
+                  Name=package.Name,
+                  Repo="core",
+                  Provides=package.Name)
 
     with client as request:
         resp = request.get(package_endpoint(package))
@@ -157,8 +158,9 @@ def test_package(client: TestClient, package: Package):
 
 def test_package_comments(client: TestClient, user: User, package: Package):
     now = (datetime.utcnow().timestamp())
-    comment = db.create(PackageComment, PackageBase=package.PackageBase,
-                        User=user, Comments="Test comment", CommentTS=now)
+    with db.begin():
+        comment = db.create(PackageComment, PackageBase=package.PackageBase,
+                            User=user, Comments="Test comment", CommentTS=now)
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -178,11 +180,12 @@ def test_package_comments(client: TestClient, user: User, package: Package):
 def test_package_requests_display(client: TestClient, user: User,
                                   package: Package):
     type_ = db.query(RequestType, RequestType.ID == DELETION_ID).first()
-    db.create(PackageRequest, PackageBase=package.PackageBase,
-              PackageBaseName=package.PackageBase.Name,
-              User=user, RequestType=type_,
-              Comments="Test comment.",
-              ClosureComment=str())
+    with db.begin():
+        db.create(PackageRequest, PackageBase=package.PackageBase,
+                  PackageBaseName=package.PackageBase.Name,
+                  User=user, RequestType=type_,
+                  Comments="Test comment.",
+                  ClosureComment=str())
 
     # Test that a single request displays "1 pending request".
     with client as request:
@@ -195,11 +198,12 @@ def test_package_requests_display(client: TestClient, user: User,
     assert target.text.strip() == "1 pending request"
 
     type_ = db.query(RequestType, RequestType.ID == DELETION_ID).first()
-    db.create(PackageRequest, PackageBase=package.PackageBase,
-              PackageBaseName=package.PackageBase.Name,
-              User=user, RequestType=type_,
-              Comments="Test comment2.",
-              ClosureComment=str())
+    with db.begin():
+        db.create(PackageRequest, PackageBase=package.PackageBase,
+                  PackageBaseName=package.PackageBase.Name,
+                  User=user, RequestType=type_,
+                  Comments="Test comment2.",
+                  ClosureComment=str())
 
     # Test that a two requests display "2 pending requests".
     with client as request:
@@ -271,50 +275,43 @@ def test_package_authenticated_maintainer(client: TestClient,
 def test_package_dependencies(client: TestClient, maintainer: User,
                               package: Package):
     # Create a normal dependency of type depends.
-    dep_pkg = create_package("test-dep-1", maintainer, autocommit=False)
-    dep = create_package_dep(package, dep_pkg.Name, autocommit=False)
-    dep.DepArch = "x86_64"
+    with db.begin():
+        dep_pkg = create_package("test-dep-1", maintainer)
+        dep = create_package_dep(package, dep_pkg.Name)
+        dep.DepArch = "x86_64"
 
-    # Also, create a makedepends.
-    make_dep_pkg = create_package("test-dep-2", maintainer, autocommit=False)
-    make_dep = create_package_dep(package, make_dep_pkg.Name,
-                                  dep_type_name="makedepends",
-                                  autocommit=False)
+        # Also, create a makedepends.
+        make_dep_pkg = create_package("test-dep-2", maintainer)
+        make_dep = create_package_dep(package, make_dep_pkg.Name,
+                                      dep_type_name="makedepends")
 
-    # And... a checkdepends!
-    check_dep_pkg = create_package("test-dep-3", maintainer, autocommit=False)
-    check_dep = create_package_dep(package, check_dep_pkg.Name,
-                                   dep_type_name="checkdepends",
-                                   autocommit=False)
+        # And... a checkdepends!
+        check_dep_pkg = create_package("test-dep-3", maintainer)
+        check_dep = create_package_dep(package, check_dep_pkg.Name,
+                                       dep_type_name="checkdepends")
 
-    # Geez. Just stop. This is optdepends.
-    opt_dep_pkg = create_package("test-dep-4", maintainer, autocommit=False)
-    opt_dep = create_package_dep(package, opt_dep_pkg.Name,
-                                 dep_type_name="optdepends",
-                                 autocommit=False)
+        # Geez. Just stop. This is optdepends.
+        opt_dep_pkg = create_package("test-dep-4", maintainer)
+        opt_dep = create_package_dep(package, opt_dep_pkg.Name,
+                                     dep_type_name="optdepends")
 
-    # Heh. Another optdepends to test one with a description.
-    opt_desc_dep_pkg = create_package("test-dep-5", maintainer,
-                                      autocommit=False)
-    opt_desc_dep = create_package_dep(package, opt_desc_dep_pkg.Name,
-                                      dep_type_name="optdepends",
-                                      autocommit=False)
-    opt_desc_dep.DepDesc = "Test description."
+        # Heh. Another optdepends to test one with a description.
+        opt_desc_dep_pkg = create_package("test-dep-5", maintainer)
+        opt_desc_dep = create_package_dep(package, opt_desc_dep_pkg.Name,
+                                          dep_type_name="optdepends")
+        opt_desc_dep.DepDesc = "Test description."
 
-    broken_dep = create_package_dep(package, "test-dep-6",
-                                    dep_type_name="depends",
-                                    autocommit=False)
+        broken_dep = create_package_dep(package, "test-dep-6",
+                                        dep_type_name="depends")
 
-    # Create an official provider record.
-    db.create(OfficialProvider, Name="test-dep-99",
-              Repo="core", Provides="test-dep-99",
-              autocommit=False)
-    official_dep = create_package_dep(package, "test-dep-99",
-                                      autocommit=False)
+        # Create an official provider record.
+        db.create(OfficialProvider, Name="test-dep-99",
+                  Repo="core", Provides="test-dep-99")
+        official_dep = create_package_dep(package, "test-dep-99")
 
-    # Also, create a provider who provides our test-dep-99.
-    provider = create_package("test-provider", maintainer, autocommit=False)
-    create_package_rel(provider, dep.DepName)
+        # Also, create a provider who provides our test-dep-99.
+        provider = create_package("test-provider", maintainer)
+        create_package_rel(provider, dep.DepName)
 
     with client as request:
         resp = request.get(package_endpoint(package))
@@ -358,8 +355,9 @@ def test_pkgbase_redirect(client: TestClient, package: Package):
 
 
 def test_pkgbase(client: TestClient, package: Package):
-    second = db.create(Package, Name="second-pkg",
-                       PackageBase=package.PackageBase)
+    with db.begin():
+        second = db.create(Package, Name="second-pkg",
+                           PackageBase=package.PackageBase)
 
     expected = [package.Name, second.Name]
     with client as request:

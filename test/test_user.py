@@ -9,7 +9,7 @@ import pytest
 import aurweb.auth
 import aurweb.config
 
-from aurweb.db import commit, create, query
+from aurweb import db
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.package import Package
@@ -40,12 +40,13 @@ def setup():
         PackageNotification.__tablename__
     )
 
-    account_type = query(AccountType,
-                         AccountType.AccountType == "User").first()
+    account_type = db.query(AccountType,
+                            AccountType.AccountType == "User").first()
 
-    user = create(User, Username="test", Email="test@example.org",
-                  RealName="Test User", Passwd="testPassword",
-                  AccountType=account_type)
+    with db.begin():
+        user = db.create(User, Username="test", Email="test@example.org",
+                         RealName="Test User", Passwd="testPassword",
+                         AccountType=account_type)
 
 
 def test_user_login_logout():
@@ -70,14 +71,14 @@ def test_user_login_logout():
     assert "AURSID" in request.cookies
 
     # Expect that User session relationships work right.
-    user_session = query(Session,
-                         Session.UsersID == user.ID).first()
+    user_session = db.query(Session,
+                            Session.UsersID == user.ID).first()
     assert user_session == user.session
     assert user.session.SessionID == sid
     assert user.session.User == user
 
     # Search for the user via query API.
-    result = query(User, User.ID == user.ID).first()
+    result = db.query(User, User.ID == user.ID).first()
 
     # Compare the result and our original user.
     assert result == user
@@ -114,7 +115,8 @@ def test_user_login_twice():
 def test_user_login_banned():
     # Add ban for the next 30 seconds.
     banned_timestamp = datetime.utcnow() + timedelta(seconds=30)
-    create(Ban, IPAddress="127.0.0.1", BanTS=banned_timestamp)
+    with db.begin():
+        db.create(Ban, IPAddress="127.0.0.1", BanTS=banned_timestamp)
 
     request = Request()
     request.client.host = "127.0.0.1"
@@ -122,18 +124,17 @@ def test_user_login_banned():
 
 
 def test_user_login_suspended():
-    from aurweb.db import session
-    user.Suspended = True
-    session.commit()
+    with db.begin():
+        user.Suspended = True
     assert not user.login(Request(), "testPassword")
 
 
 def test_legacy_user_authentication():
-    from aurweb.db import session
-
-    user.Salt = bcrypt.gensalt().decode()
-    user.Passwd = hashlib.md5(f"{user.Salt}testPassword".encode()).hexdigest()
-    session.commit()
+    with db.begin():
+        user.Salt = bcrypt.gensalt().decode()
+        user.Passwd = hashlib.md5(
+            f"{user.Salt}testPassword".encode()
+        ).hexdigest()
 
     assert not user.valid_password("badPassword")
     assert user.valid_password("testPassword")
@@ -145,8 +146,9 @@ def test_legacy_user_authentication():
 def test_user_login_with_outdated_sid():
     # Make a session with a LastUpdateTS 5 seconds ago, causing
     # user.login to update it with a new sid.
-    create(Session, UsersID=user.ID, SessionID="stub",
-           LastUpdateTS=datetime.utcnow().timestamp() - 5)
+    with db.begin():
+        db.create(Session, UsersID=user.ID, SessionID="stub",
+                  LastUpdateTS=datetime.utcnow().timestamp() - 5)
     sid = user.login(Request(), "testPassword")
     assert sid and user.is_authenticated()
     assert sid != "stub"
@@ -171,43 +173,42 @@ def test_user_has_credential():
 def test_user_ssh_pub_key():
     assert user.ssh_pub_key is None
 
-    ssh_pub_key = create(SSHPubKey, UserID=user.ID,
-                         Fingerprint="testFingerprint",
-                         PubKey="testPubKey")
+    with db.begin():
+        ssh_pub_key = db.create(SSHPubKey, UserID=user.ID,
+                                Fingerprint="testFingerprint",
+                                PubKey="testPubKey")
 
     assert user.ssh_pub_key == ssh_pub_key
 
 
 def test_user_credential_types():
-    from aurweb.db import session
-
     assert aurweb.auth.user_developer_or_trusted_user(user)
     assert not aurweb.auth.trusted_user(user)
     assert not aurweb.auth.developer(user)
     assert not aurweb.auth.trusted_user_or_dev(user)
 
-    trusted_user_type = query(AccountType,
-                              AccountType.AccountType == "Trusted User")\
-        .first()
-    user.AccountType = trusted_user_type
-    session.commit()
+    trusted_user_type = db.query(AccountType).filter(
+        AccountType.AccountType == "Trusted User"
+    ).first()
+    with db.begin():
+        user.AccountType = trusted_user_type
 
     assert aurweb.auth.trusted_user(user)
     assert aurweb.auth.trusted_user_or_dev(user)
 
-    developer_type = query(AccountType,
-                           AccountType.AccountType == "Developer").first()
-    user.AccountType = developer_type
-    session.commit()
+    developer_type = db.query(AccountType,
+                              AccountType.AccountType == "Developer").first()
+    with db.begin():
+        user.AccountType = developer_type
 
     assert aurweb.auth.developer(user)
     assert aurweb.auth.trusted_user_or_dev(user)
 
     type_str = "Trusted User & Developer"
-    elevated_type = query(AccountType,
-                          AccountType.AccountType == type_str).first()
-    user.AccountType = elevated_type
-    session.commit()
+    elevated_type = db.query(AccountType,
+                             AccountType.AccountType == type_str).first()
+    with db.begin():
+        user.AccountType = elevated_type
 
     assert aurweb.auth.trusted_user(user)
     assert aurweb.auth.developer(user)
@@ -233,53 +234,56 @@ def test_user_as_dict():
 
 
 def test_user_is_trusted_user():
-    tu_type = query(AccountType,
-                    AccountType.AccountType == "Trusted User").first()
-    user.AccountType = tu_type
-    commit()
+    tu_type = db.query(AccountType,
+                       AccountType.AccountType == "Trusted User").first()
+    with db.begin():
+        user.AccountType = tu_type
     assert user.is_trusted_user() is True
 
     # Do it again with the combined role.
-    tu_type = query(
+    tu_type = db.query(
         AccountType,
         AccountType.AccountType == "Trusted User & Developer").first()
-    user.AccountType = tu_type
-    commit()
+    with db.begin():
+        user.AccountType = tu_type
     assert user.is_trusted_user() is True
 
 
 def test_user_is_developer():
-    dev_type = query(AccountType,
-                     AccountType.AccountType == "Developer").first()
-    user.AccountType = dev_type
-    commit()
+    dev_type = db.query(AccountType,
+                        AccountType.AccountType == "Developer").first()
+    with db.begin():
+        user.AccountType = dev_type
     assert user.is_developer() is True
 
     # Do it again with the combined role.
-    dev_type = query(
+    dev_type = db.query(
         AccountType,
         AccountType.AccountType == "Trusted User & Developer").first()
-    user.AccountType = dev_type
-    commit()
+    with db.begin():
+        user.AccountType = dev_type
     assert user.is_developer() is True
 
 
 def test_user_voted_for():
     now = int(datetime.utcnow().timestamp())
-    pkgbase = create(PackageBase, Name="pkg1", Maintainer=user)
-    pkg = create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
-    create(PackageVote, PackageBase=pkgbase, User=user, VoteTS=now)
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
+        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+        db.create(PackageVote, PackageBase=pkgbase, User=user, VoteTS=now)
     assert user.voted_for(pkg)
 
 
 def test_user_notified():
-    pkgbase = create(PackageBase, Name="pkg1", Maintainer=user)
-    pkg = create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
-    create(PackageNotification, PackageBase=pkgbase, User=user)
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
+        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+        db.create(PackageNotification, PackageBase=pkgbase, User=user)
     assert user.notified(pkg)
 
 
 def test_user_packages():
-    pkgbase = create(PackageBase, Name="pkg1", Maintainer=user)
-    pkg = create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
+        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
     assert pkg in user.packages()

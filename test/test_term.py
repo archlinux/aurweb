@@ -2,7 +2,7 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create
+from aurweb import db
 from aurweb.models.term import Term
 from aurweb.testing import setup_test_db
 
@@ -18,8 +18,9 @@ def setup():
 
 
 def test_term_creation():
-    term = create(Term, Description="Term description",
-                  URL="https://fake_url.io")
+    with db.begin():
+        term = db.create(Term, Description="Term description",
+                         URL="https://fake_url.io")
     assert bool(term.ID)
     assert term.Description == "Term description"
     assert term.URL == "https://fake_url.io"
@@ -27,14 +28,14 @@ def test_term_creation():
 
 
 def test_term_null_description_raises_exception():
-    from aurweb.db import session
     with pytest.raises(IntegrityError):
-        create(Term, URL="https://fake_url.io")
-    session.rollback()
+        with db.begin():
+            db.create(Term, URL="https://fake_url.io")
+    db.rollback()
 
 
 def test_term_null_url_raises_exception():
-    from aurweb.db import session
     with pytest.raises(IntegrityError):
-        create(Term, Description="Term description")
-    session.rollback()
+        with db.begin():
+            db.create(Term, Description="Term description")
+    db.rollback()

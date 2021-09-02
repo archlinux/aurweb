@@ -278,18 +278,15 @@ def test_connection_execute_paramstyle_unsupported():
 
 
 def test_create_delete():
-    db.create(AccountType, AccountType="test")
+    with db.begin():
+        db.create(AccountType, AccountType="test")
+
     record = db.query(AccountType, AccountType.AccountType == "test").first()
     assert record is not None
-    db.delete(AccountType, AccountType.AccountType == "test")
-    record = db.query(AccountType, AccountType.AccountType == "test").first()
-    assert record is None
 
-    # Create and delete a record with autocommit=False.
-    db.create(AccountType, AccountType="test", autocommit=False)
-    db.commit()
-    db.delete(AccountType, AccountType.AccountType == "test", autocommit=False)
-    db.commit()
+    with db.begin():
+        db.delete(AccountType, AccountType.AccountType == "test")
+
     record = db.query(AccountType, AccountType.AccountType == "test").first()
     assert record is None
 
@@ -297,8 +294,8 @@ def test_create_delete():
 def test_add_commit():
     # Use db.add and db.commit to add a temporary record.
     account_type = AccountType(AccountType="test")
-    db.add(account_type)
-    db.commit()
+    with db.begin():
+        db.add(account_type)
 
     # Assert it got created in the DB.
     assert bool(account_type.ID)
@@ -308,7 +305,8 @@ def test_add_commit():
     assert record == account_type
 
     # Remove the record.
-    db.delete(AccountType, AccountType.ID == account_type.ID)
+    with db.begin():
+        db.delete(AccountType, AccountType.ID == account_type.ID)
 
 
 def test_connection_executor_mysql_paramstyle():

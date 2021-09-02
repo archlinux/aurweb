@@ -59,20 +59,15 @@ def query(model, *args, **kwargs):
     return session.query(model).filter(*args, **kwargs)
 
 
-def create(model, autocommit: bool = True, *args, **kwargs):
+def create(model, *args, **kwargs):
     instance = model(*args, **kwargs)
-    add(instance)
-    if autocommit is True:
-        commit()
-    return instance
+    return add(instance)
 
 
-def delete(model, *args, autocommit: bool = True, **kwargs):
+def delete(model, *args, **kwargs):
     instance = session.query(model).filter(*args, **kwargs)
     for record in instance:
         session.delete(record)
-    if autocommit is True:
-        commit()
 
 
 def rollback():
@@ -84,8 +79,25 @@ def add(model):
     return model
 
 
-def commit():
-    session.commit()
+def begin():
+    """ Begin an SQLAlchemy SessionTransaction.
+
+    This context is **required** to perform an modifications to the
+    database.
+
+    Example:
+
+        with db.begin():
+            object = db.create(...)
+        # On __exit__, db.commit() is run.
+
+        with db.begin():
+            object = db.delete(...)
+        # On __exit__, db.commit() is run.
+
+    :return: A new SessionTransaction based on session
+    """
+    return session.begin()
 
 
 def get_sqlalchemy_url():
@@ -155,22 +167,22 @@ def get_engine(echo: bool = False):
                                connect_args=connect_args,
                                echo=echo)
 
+        Session = sessionmaker(autocommit=True, autoflush=False, bind=engine)
+        session = Session()
+
         if db_backend == "sqlite":
             # For SQLite, we need to add some custom functions as
             # they are used in the reference graph method.
             def regexp(regex, item):
                 return bool(re.search(regex, str(item)))
 
-            @event.listens_for(engine, "begin")
-            def do_begin(conn):
+            @event.listens_for(engine, "connect")
+            def do_begin(conn, record):
                 create_deterministic_function = functools.partial(
-                    conn.connection.create_function,
+                    conn.create_function,
                     deterministic=True
                 )
                 create_deterministic_function("REGEXP", 2, regexp)
-
-        Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-        session = Session()
 
     return engine
 

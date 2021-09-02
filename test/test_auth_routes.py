@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 import aurweb.config
 
 from aurweb.asgi import app
-from aurweb.db import create, query
+from aurweb.db import begin, create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.session import Session
 from aurweb.models.user import User
@@ -32,9 +32,10 @@ def setup():
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
 
-    user = create(User, Username=TEST_USERNAME, Email=TEST_EMAIL,
-                  RealName="Test User", Passwd="testPassword",
-                  AccountType=account_type)
+    with begin():
+        user = create(User, Username=TEST_USERNAME, Email=TEST_EMAIL,
+                      RealName="Test User", Passwd="testPassword",
+                      AccountType=account_type)
 
     client = TestClient(app)
 

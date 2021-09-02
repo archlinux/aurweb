@@ -44,8 +44,6 @@ async def language(request: Request,
     setting the language on any page, we want to preserve query
     parameters across the redirect.
     """
-    from aurweb.db import session
-
     if next[0] != '/':
         return HTMLResponse(b"Invalid 'next' parameter.", status_code=400)
 
@@ -53,8 +51,8 @@ async def language(request: Request,
 
     # If the user is authenticated, update the user's LangPreference.
     if request.user.is_authenticated():
-        request.user.LangPreference = set_lang
-        session.commit()
+        with db.begin():
+            request.user.LangPreference = set_lang
 
     # In any case, set the response's AURLANG cookie that never expires.
     response = RedirectResponse(url=f"{next}{query_string}",

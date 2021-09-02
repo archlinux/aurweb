@@ -38,8 +38,10 @@ def setup():
 
 @pytest.fixture
 def user():
-    yield db.create(User, Username="test", Email="test@example.org",
-                    Passwd="testPassword", AccountTypeID=USER_ID)
+    with db.begin():
+        user = db.create(User, Username="test", Email="test@example.org",
+                         Passwd="testPassword", AccountTypeID=USER_ID)
+    yield user
 
 
 @pytest.fixture
@@ -68,17 +70,14 @@ def packages(user):
     # For i..num_packages, create a package named pkg_{i}.
     pkgs = []
     now = int(datetime.utcnow().timestamp())
-    for i in range(num_packages):
-        pkgbase = db.create(PackageBase, Name=f"pkg_{i}",
-                            Maintainer=user, Packager=user,
-                            autocommit=False, SubmittedTS=now,
-                            ModifiedTS=now)
-        pkg = db.create(Package, PackageBase=pkgbase,
-                        Name=pkgbase.Name, autocommit=False)
-        pkgs.append(pkg)
-        now += 1
-
-    db.commit()
+    with db.begin():
+        for i in range(num_packages):
+            pkgbase = db.create(PackageBase, Name=f"pkg_{i}",
+                                Maintainer=user, Packager=user,
+                                SubmittedTS=now, ModifiedTS=now)
+            pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+            pkgs.append(pkg)
+            now += 1
 
     yield pkgs
 
@@ -159,10 +158,11 @@ def test_homepage_updates(redis, packages):
 
 def test_homepage_dashboard(redis, packages, user):
     # Create Comaintainer records for all of the packages.
-    for pkg in packages:
-        db.create(PackageComaintainer, PackageBase=pkg.PackageBase,
-                  User=user, Priority=1, autocommit=False)
-    db.commit()
+    with db.begin():
+        for pkg in packages:
+            db.create(PackageComaintainer,
+                      PackageBase=pkg.PackageBase,
+                      User=user, Priority=1)
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -193,11 +193,12 @@ def test_homepage_dashboard_requests(redis, packages, user):
 
     pkg = packages[0]
     reqtype = db.query(RequestType, RequestType.ID == DELETION_ID).first()
-    pkgreq = db.create(PackageRequest, PackageBase=pkg.PackageBase,
-                       PackageBaseName=pkg.PackageBase.Name,
-                       User=user, Comments=str(),
-                       ClosureComment=str(), RequestTS=now,
-                       RequestType=reqtype)
+    with db.begin():
+        pkgreq = db.create(PackageRequest, PackageBase=pkg.PackageBase,
+                           PackageBaseName=pkg.PackageBase.Name,
+                           User=user, Comments=str(),
+                           ClosureComment=str(), RequestTS=now,
+                           RequestType=reqtype)
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -213,8 +214,8 @@ def test_homepage_dashboard_requests(redis, packages, user):
 def test_homepage_dashboard_flagged_packages(redis, packages, user):
     # Set the first Package flagged by setting its OutOfDateTS column.
     pkg = packages[0]
-    pkg.PackageBase.OutOfDateTS = int(datetime.utcnow().timestamp())
-    db.commit()
+    with db.begin():
+        pkg.PackageBase.OutOfDateTS = int(datetime.utcnow().timestamp())
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:

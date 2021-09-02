@@ -4,7 +4,8 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import commit, create, query, rollback
+from aurweb import db
+from aurweb.db import create, query, rollback
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_request import (ACCEPTED, ACCEPTED_ID, CLOSED, CLOSED_ID, PENDING, PENDING_ID, REJECTED,
                                            REJECTED_ID, PackageRequest)
@@ -21,19 +22,21 @@ def setup():
 
     setup_test_db("PackageRequests", "PackageBases", "Users")
 
-    user = create(User, Username="test", Email="test@example.org",
-                  RealName="Test User", Passwd="testPassword")
-    pkgbase = create(PackageBase, Name="test-package", Maintainer=user)
+    with db.begin():
+        user = create(User, Username="test", Email="test@example.org",
+                      RealName="Test User", Passwd="testPassword")
+        pkgbase = create(PackageBase, Name="test-package", Maintainer=user)
 
 
 def test_package_request_creation():
     request_type = query(RequestType, RequestType.Name == "merge").first()
     assert request_type.Name == "merge"
 
-    package_request = create(PackageRequest, RequestType=request_type,
-                             User=user, PackageBase=pkgbase,
-                             PackageBaseName=pkgbase.Name,
-                             Comments=str(), ClosureComment=str())
+    with db.begin():
+        package_request = create(PackageRequest, RequestType=request_type,
+                                 User=user, PackageBase=pkgbase,
+                                 PackageBaseName=pkgbase.Name,
+                                 Comments=str(), ClosureComment=str())
 
     assert bool(package_request.ID)
     assert package_request.RequestType == request_type
@@ -54,11 +57,12 @@ def test_package_request_closed():
     assert request_type.Name == "merge"
 
     ts = int(datetime.utcnow().timestamp())
-    package_request = create(PackageRequest, RequestType=request_type,
-                             User=user, PackageBase=pkgbase,
-                             PackageBaseName=pkgbase.Name,
-                             Closer=user, ClosedTS=ts,
-                             Comments=str(), ClosureComment=str())
+    with db.begin():
+        package_request = create(PackageRequest, RequestType=request_type,
+                                 User=user, PackageBase=pkgbase,
+                                 PackageBaseName=pkgbase.Name,
+                                 Closer=user, ClosedTS=ts,
+                                 Comments=str(), ClosureComment=str())
 
     assert package_request.Closer == user
     assert package_request.ClosedTS == ts
@@ -69,54 +73,60 @@ def test_package_request_closed():
 
 def test_package_request_null_request_type_raises_exception():
     with pytest.raises(IntegrityError):
-        create(PackageRequest, User=user, PackageBase=pkgbase,
-               PackageBaseName=pkgbase.Name,
-               Comments=str(), ClosureComment=str())
+        with db.begin():
+            create(PackageRequest, User=user, PackageBase=pkgbase,
+                   PackageBaseName=pkgbase.Name,
+                   Comments=str(), ClosureComment=str())
     rollback()
 
 
 def test_package_request_null_user_raises_exception():
     request_type = query(RequestType, RequestType.Name == "merge").first()
     with pytest.raises(IntegrityError):
-        create(PackageRequest, RequestType=request_type, PackageBase=pkgbase,
-               PackageBaseName=pkgbase.Name,
-               Comments=str(), ClosureComment=str())
+        with db.begin():
+            create(PackageRequest, RequestType=request_type,
+                   PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
+                   Comments=str(), ClosureComment=str())
     rollback()
 
 
 def test_package_request_null_package_base_raises_exception():
     request_type = query(RequestType, RequestType.Name == "merge").first()
     with pytest.raises(IntegrityError):
-        create(PackageRequest, RequestType=request_type,
-               User=user, PackageBaseName=pkgbase.Name,
-               Comments=str(), ClosureComment=str())
+        with db.begin():
+            create(PackageRequest, RequestType=request_type,
+                   User=user, PackageBaseName=pkgbase.Name,
+                   Comments=str(), ClosureComment=str())
     rollback()
 
 
 def test_package_request_null_package_base_name_raises_exception():
     request_type = query(RequestType, RequestType.Name == "merge").first()
     with pytest.raises(IntegrityError):
-        create(PackageRequest, RequestType=request_type,
-               User=user, PackageBase=pkgbase,
-               Comments=str(), ClosureComment=str())
+        with db.begin():
+            create(PackageRequest, RequestType=request_type,
+                   User=user, PackageBase=pkgbase,
+                   Comments=str(), ClosureComment=str())
     rollback()
 
 
 def test_package_request_null_comments_raises_exception():
     request_type = query(RequestType, RequestType.Name == "merge").first()
     with pytest.raises(IntegrityError):
-        create(PackageRequest, RequestType=request_type,
-               User=user, PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
-               ClosureComment=str())
+        with db.begin():
+            create(PackageRequest, RequestType=request_type, User=user,
+                   PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
+                   ClosureComment=str())
     rollback()
 
 
 def test_package_request_null_closure_comment_raises_exception():
     request_type = query(RequestType, RequestType.Name == "merge").first()
     with pytest.raises(IntegrityError):
-        create(PackageRequest, RequestType=request_type,
-               User=user, PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
-               Comments=str())
+        with db.begin():
+            create(PackageRequest, RequestType=request_type, User=user,
+                   PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
+                   Comments=str())
     rollback()
 
 
@@ -124,26 +134,27 @@ def test_package_request_status_display():
     """ Test status_display() based on the Status column value. """
     request_type = query(RequestType, RequestType.Name == "merge").first()
 
-    pkgreq = create(PackageRequest, RequestType=request_type,
-                    User=user, PackageBase=pkgbase,
-                    PackageBaseName=pkgbase.Name,
-                    Comments=str(), ClosureComment=str(),
-                    Status=PENDING_ID)
+    with db.begin():
+        pkgreq = create(PackageRequest, RequestType=request_type,
+                        User=user, PackageBase=pkgbase,
+                        PackageBaseName=pkgbase.Name,
+                        Comments=str(), ClosureComment=str(),
+                        Status=PENDING_ID)
     assert pkgreq.status_display() == PENDING
 
-    pkgreq.Status = CLOSED_ID
-    commit()
+    with db.begin():
+        pkgreq.Status = CLOSED_ID
     assert pkgreq.status_display() == CLOSED
 
-    pkgreq.Status = ACCEPTED_ID
-    commit()
+    with db.begin():
+        pkgreq.Status = ACCEPTED_ID
     assert pkgreq.status_display() == ACCEPTED
 
-    pkgreq.Status = REJECTED_ID
-    commit()
+    with db.begin():
+        pkgreq.Status = REJECTED_ID
     assert pkgreq.status_display() == REJECTED
 
-    pkgreq.Status = 124
-    commit()
+    with db.begin():
+        pkgreq.Status = 124
     with pytest.raises(KeyError):
         pkgreq.status_display()

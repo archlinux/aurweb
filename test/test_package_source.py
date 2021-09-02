@@ -2,7 +2,7 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, query, rollback
+from aurweb.db import begin, create, query, rollback
 from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -21,17 +21,19 @@ def setup():
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
-    user = create(User, Username="test", Email="test@example.org",
-                  RealName="Test User", Passwd="testPassword",
-                  AccountType=account_type)
-    pkgbase = create(PackageBase,
-                     Name="test-package",
-                     Maintainer=user)
-    package = create(Package, PackageBase=pkgbase, Name="test-package")
+    with begin():
+        user = create(User, Username="test", Email="test@example.org",
+                      RealName="Test User", Passwd="testPassword",
+                      AccountType=account_type)
+        pkgbase = create(PackageBase,
+                         Name="test-package",
+                         Maintainer=user)
+        package = create(Package, PackageBase=pkgbase, Name="test-package")
 
 
 def test_package_source():
-    pkgsource = create(PackageSource, Package=package)
+    with begin():
+        pkgsource = create(PackageSource, Package=package)
     assert pkgsource.Package == package
     # By default, PackageSources.Source assigns the string '/dev/null'.
     assert pkgsource.Source == "/dev/null"
@@ -40,5 +42,6 @@ def test_package_source():
 
 def test_package_source_null_package_raises_exception():
     with pytest.raises(IntegrityError):
-        create(PackageSource)
+        with begin():
+            create(PackageSource)
     rollback()

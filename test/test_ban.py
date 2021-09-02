@@ -6,6 +6,7 @@ import pytest
 
 from sqlalchemy import exc as sa_exc
 
+from aurweb import db
 from aurweb.db import create
 from aurweb.models.ban import Ban, is_banned
 from aurweb.testing import setup_test_db
@@ -21,7 +22,8 @@ def setup():
     setup_test_db("Bans")
 
     ts = datetime.utcnow() + timedelta(seconds=30)
-    ban = create(Ban, IPAddress="127.0.0.1", BanTS=ts)
+    with db.begin():
+        ban = create(Ban, IPAddress="127.0.0.1", BanTS=ts)
     request = Request()
 
 
@@ -35,17 +37,17 @@ def test_invalid_ban():
 
     with pytest.raises(sa_exc.IntegrityError):
         bad_ban = Ban(BanTS=datetime.utcnow())
-        session.add(bad_ban)
 
         # We're adding a ban with no primary key; this causes an
         # SQLAlchemy warnings when committing to the DB.
         # Ignore them.
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", sa_exc.SAWarning)
-            session.commit()
+            with db.begin():
+                session.add(bad_ban)
 
     # Since we got a transaction failure, we need to rollback.
-    session.rollback()
+    db.rollback()
 
 
 def test_banned():

@@ -102,7 +102,7 @@ class User(Base):
     def login(self, request: Request, password: str, session_time=0):
         """ Login and authenticate a request. """
 
-        from aurweb.db import session
+        from aurweb import db
         from aurweb.models.session import Session, generate_unique_sid
 
         if not self._login_approved(request):
@@ -112,10 +112,7 @@ class User(Base):
         if not self.authenticated:
             return None
 
-        self.LastLogin = now_ts = datetime.utcnow().timestamp()
-        self.LastLoginIPAddress = request.client.host
-        session.commit()
-
+        now_ts = datetime.utcnow().timestamp()
         session_ts = now_ts + (
             session_time if session_time
             else aurweb.config.getint("options", "login_timeout")
@@ -123,22 +120,23 @@ class User(Base):
 
         sid = None
 
-        if not self.session:
-            sid = generate_unique_sid()
-            self.session = Session(UsersID=self.ID, SessionID=sid,
-                                   LastUpdateTS=session_ts)
-            session.add(self.session)
-        else:
-            last_updated = self.session.LastUpdateTS
-            if last_updated and last_updated < now_ts:
-                self.session.SessionID = sid = generate_unique_sid()
+        with db.begin():
+            self.LastLogin = now_ts
+            self.LastLoginIPAddress = request.client.host
+            if not self.session:
+                sid = generate_unique_sid()
+                self.session = Session(UsersID=self.ID, SessionID=sid,
+                                       LastUpdateTS=session_ts)
+                db.add(self.session)
             else:
-                # Session is still valid; retrieve the current SID.
-                sid = self.session.SessionID
+                last_updated = self.session.LastUpdateTS
+                if last_updated and last_updated < now_ts:
+                    self.session.SessionID = sid = generate_unique_sid()
+                else:
+                    # Session is still valid; retrieve the current SID.
+                    sid = self.session.SessionID
 
-            self.session.LastUpdateTS = session_ts
-
-        session.commit()
+                self.session.LastUpdateTS = session_ts
 
         request.cookies["AURSID"] = self.session.SessionID
         return self.session.SessionID
@@ -149,13 +147,11 @@ class User(Base):
         return aurweb.auth.has_credential(self, cred, approved)
 
     def logout(self, request):
-        from aurweb.db import session
-
         del request.cookies["AURSID"]
         self.authenticated = False
         if self.session:
-            session.delete(self.session)
-            session.commit()
+            with db.begin():
+                db.session.delete(self.session)
 
     def is_trusted_user(self):
         return self.AccountType.ID in {

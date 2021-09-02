@@ -2,7 +2,8 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError, OperationalError
 
-from aurweb.db import commit, create, query
+from aurweb import db
+from aurweb.db import create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -22,25 +23,28 @@ def setup():
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
-    user = create(User, Username="test", Email="test@example.org",
-                  RealName="Test User", Passwd="testPassword",
-                  AccountType=account_type)
 
-    pkgbase = create(PackageBase,
-                     Name="test-package",
-                     Maintainer=user)
-    package = create(Package,
-                     PackageBase=pkgbase,
-                     Name=pkgbase.Name,
-                     Description="Test description.",
-                     URL="https://test.package")
+    with db.begin():
+        user = create(User, Username="test", Email="test@example.org",
+                      RealName="Test User", Passwd="testPassword",
+                      AccountType=account_type)
+        pkgbase = create(PackageBase,
+                         Name="test-package",
+                         Maintainer=user)
+        package = create(Package,
+                         PackageBase=pkgbase,
+                         Name=pkgbase.Name,
+                         Description="Test description.",
+                         URL="https://test.package")
 
 
 def test_package_relation():
     conflicts = query(RelationType, RelationType.Name == "conflicts").first()
-    pkgrel = create(PackageRelation, Package=package,
-                    RelationType=conflicts,
-                    RelName="test-relation")
+
+    with db.begin():
+        pkgrel = create(PackageRelation, Package=package,
+                        RelationType=conflicts,
+                        RelName="test-relation")
     assert pkgrel.RelName == "test-relation"
     assert pkgrel.Package == package
     assert pkgrel.RelationType == conflicts
@@ -48,8 +52,8 @@ def test_package_relation():
     assert pkgrel in package.package_relations
 
     provides = query(RelationType, RelationType.Name == "provides").first()
-    pkgrel.RelationType = provides
-    commit()
+    with db.begin():
+        pkgrel.RelationType = provides
     assert pkgrel.RelName == "test-relation"
     assert pkgrel.Package == package
     assert pkgrel.RelationType == provides
@@ -57,8 +61,8 @@ def test_package_relation():
     assert pkgrel in package.package_relations
 
     replaces = query(RelationType, RelationType.Name == "replaces").first()
-    pkgrel.RelationType = replaces
-    commit()
+    with db.begin():
+        pkgrel.RelationType = replaces
     assert pkgrel.RelName == "test-relation"
     assert pkgrel.Package == package
     assert pkgrel.RelationType == replaces
@@ -67,36 +71,33 @@ def test_package_relation():
 
 
 def test_package_relation_null_package_raises_exception():
-    from aurweb.db import session
-
     conflicts = query(RelationType, RelationType.Name == "conflicts").first()
     assert conflicts is not None
 
     with pytest.raises(IntegrityError):
-        create(PackageRelation,
-               RelationType=conflicts,
-               RelName="test-relation")
-    session.rollback()
+        with db.begin():
+            create(PackageRelation,
+                   RelationType=conflicts,
+                   RelName="test-relation")
+    db.rollback()
 
 
 def test_package_relation_null_relation_type_raises_exception():
-    from aurweb.db import session
-
     with pytest.raises(IntegrityError):
-        create(PackageRelation,
-               Package=package,
-               RelName="test-relation")
-    session.rollback()
+        with db.begin():
+            create(PackageRelation,
+                   Package=package,
+                   RelName="test-relation")
+    db.rollback()
 
 
 def test_package_relation_null_relname_raises_exception():
-    from aurweb.db import session
-
     depends = query(RelationType, RelationType.Name == "conflicts").first()
     assert depends is not None
 
     with pytest.raises((OperationalError, IntegrityError)):
-        create(PackageRelation,
-               Package=package,
-               RelationType=depends)
-    session.rollback()
+        with db.begin():
+            create(PackageRelation,
+                   Package=package,
+                   RelationType=depends)
+    db.rollback()

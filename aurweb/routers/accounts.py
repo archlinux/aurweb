@@ -43,8 +43,6 @@ async def passreset_post(request: Request,
                          resetkey: str = Form(default=None),
                          password: str = Form(default=None),
                          confirm: str = Form(default=None)):
-    from aurweb.db import session
-
     context = await make_variable_context(request, "Password Reset")
 
     # The user parameter being required, we can match against
@@ -86,12 +84,11 @@ async def passreset_post(request: Request,
 
         # We got to this point; everything matched up. Update the password
         # and remove the ResetKey.
-        user.ResetKey = str()
-        user.update_password(password)
-
-        if user.session:
-            session.delete(user.session)
-            session.commit()
+        with db.begin():
+            user.ResetKey = str()
+            if user.session:
+                db.session.delete(user.session)
+            user.update_password(password)
 
         # Render ?step=complete.
         return RedirectResponse(url="/passreset?step=complete",
@@ -99,8 +96,8 @@ async def passreset_post(request: Request,
 
     # If we got here, we continue with issuing a resetkey for the user.
     resetkey = db.make_random_value(User, User.ResetKey)
-    user.ResetKey = resetkey
-    session.commit()
+    with db.begin():
+        user.ResetKey = resetkey
 
     executor = db.ConnectionExecutor(db.get_engine().raw_connection())
     ResetKeyNotification(executor, user.ID).send()
@@ -364,8 +361,6 @@ async def account_register_post(request: Request,
                                 ON: bool = Form(default=False),
                                 captcha: str = Form(default=None),
                                 captcha_salt: str = Form(...)):
-    from aurweb.db import session
-
     context = await make_variable_context(request, "Register")
 
     args = dict(await request.form())
@@ -394,11 +389,13 @@ async def account_register_post(request: Request,
                             AccountType.AccountType == "User").first()
 
     # Create a user given all parameters available.
-    user = db.create(User, Username=U, Email=E, HideEmail=H, BackupEmail=BE,
-                     RealName=R, Homepage=HP, IRCNick=I, PGPKey=K,
-                     LangPreference=L, Timezone=TZ, CommentNotify=CN,
-                     UpdateNotify=UN, OwnershipNotify=ON, ResetKey=resetkey,
-                     AccountType=account_type)
+    with db.begin():
+        user = db.create(User, Username=U,
+                         Email=E, HideEmail=H, BackupEmail=BE,
+                         RealName=R, Homepage=HP, IRCNick=I, PGPKey=K,
+                         LangPreference=L, Timezone=TZ, CommentNotify=CN,
+                         UpdateNotify=UN, OwnershipNotify=ON,
+                         ResetKey=resetkey, AccountType=account_type)
 
     # If a PK was given and either one does not exist or the given
     # PK mismatches the existing user's SSHPubKey.PubKey.
@@ -410,10 +407,10 @@ async def account_register_post(request: Request,
             # Remove the host part.
             pubkey = parts[0] + " " + parts[1]
         fingerprint = get_fingerprint(pubkey)
-        user.ssh_pub_key = SSHPubKey(UserID=user.ID,
-                                     PubKey=pubkey,
-                                     Fingerprint=fingerprint)
-        session.commit()
+        with db.begin():
+            user.ssh_pub_key = SSHPubKey(UserID=user.ID,
+                                         PubKey=pubkey,
+                                         Fingerprint=fingerprint)
 
     # Send a reset key notification to the new user.
     executor = db.ConnectionExecutor(db.get_engine().raw_connection())
@@ -499,63 +496,67 @@ async def account_edit_post(request: Request,
                                status_code=int(HTTPStatus.BAD_REQUEST))
 
     # Set all updated fields as needed.
-    user.Username = U or user.Username
-    user.Email = E or user.Email
-    user.HideEmail = bool(H)
-    user.BackupEmail = BE or user.BackupEmail
-    user.RealName = R or user.RealName
-    user.Homepage = HP or user.Homepage
-    user.IRCNick = I or user.IRCNick
-    user.PGPKey = K or user.PGPKey
-    user.InactivityTS = datetime.utcnow().timestamp() if J else 0
+    with db.begin():
+        user.Username = U or user.Username
+        user.Email = E or user.Email
+        user.HideEmail = bool(H)
+        user.BackupEmail = BE or user.BackupEmail
+        user.RealName = R or user.RealName
+        user.Homepage = HP or user.Homepage
+        user.IRCNick = I or user.IRCNick
+        user.PGPKey = K or user.PGPKey
+        user.InactivityTS = datetime.utcnow().timestamp() if J else 0
 
     # If we update the language, update the cookie as well.
     if L and L != user.LangPreference:
         request.cookies["AURLANG"] = L
-        user.LangPreference = L
+        with db.begin():
+            user.LangPreference = L
         context["language"] = L
 
     # If we update the timezone, also update the cookie.
     if TZ and TZ != user.Timezone:
-        user.Timezone = TZ
+        with db.begin():
+            user.Timezone = TZ
         request.cookies["AURTZ"] = TZ
         context["timezone"] = TZ
 
-    user.CommentNotify = bool(CN)
-    user.UpdateNotify = bool(UN)
-    user.OwnershipNotify = bool(ON)
+    with db.begin():
+        user.CommentNotify = bool(CN)
+        user.UpdateNotify = bool(UN)
+        user.OwnershipNotify = bool(ON)
 
     # If a PK is given, compare it against the target user's PK.
-    if PK:
-        # Get the second token in the public key, which is the actual key.
-        pubkey = PK.strip().rstrip()
-        parts = pubkey.split(" ")
-        if len(parts) == 3:
-            # Remove the host part.
-            pubkey = parts[0] + " " + parts[1]
-        fingerprint = get_fingerprint(pubkey)
-        if not user.ssh_pub_key:
-            # No public key exists, create one.
-            user.ssh_pub_key = SSHPubKey(UserID=user.ID,
-                                         PubKey=pubkey,
-                                         Fingerprint=fingerprint)
-        elif user.ssh_pub_key.PubKey != pubkey:
-            # A public key already exists, update it.
-            user.ssh_pub_key.PubKey = pubkey
-            user.ssh_pub_key.Fingerprint = fingerprint
-    elif user.ssh_pub_key:
-        # Else, if the user has a public key already, delete it.
-        session.delete(user.ssh_pub_key)
-
-    # Commit changes, if any.
-    session.commit()
+    with db.begin():
+        if PK:
+            # Get the second token in the public key, which is the actual key.
+            pubkey = PK.strip().rstrip()
+            parts = pubkey.split(" ")
+            if len(parts) == 3:
+                # Remove the host part.
+                pubkey = parts[0] + " " + parts[1]
+            fingerprint = get_fingerprint(pubkey)
+            if not user.ssh_pub_key:
+                # No public key exists, create one.
+                user.ssh_pub_key = SSHPubKey(UserID=user.ID,
+                                             PubKey=pubkey,
+                                             Fingerprint=fingerprint)
+            elif user.ssh_pub_key.PubKey != pubkey:
+                # A public key already exists, update it.
+                user.ssh_pub_key.PubKey = pubkey
+                user.ssh_pub_key.Fingerprint = fingerprint
+        elif user.ssh_pub_key:
+            # Else, if the user has a public key already, delete it.
+            session.delete(user.ssh_pub_key)
 
     if P and not user.valid_password(P):
         # Remove the fields we consumed for passwords.
         context["P"] = context["C"] = str()
 
         # If a password was given and it doesn't match the user's, update it.
-        user.update_password(P)
+        with db.begin():
+            user.update_password(P)
+
         if user == request.user:
             # If the target user is the request user, login with
             # the updated password and update AURSID.
@@ -731,21 +732,17 @@ async def terms_of_service_post(request: Request,
         accept_needed = sorted(unaccepted + diffs)
         return render_terms_of_service(request, context, accept_needed)
 
-    # For each term we found, query for the matching accepted term
-    # and update its Revision to the term's current Revision.
-    for term in diffs:
-        accepted_term = request.user.accepted_terms.filter(
-            AcceptedTerm.TermsID == term.ID).first()
-        accepted_term.Revision = term.Revision
+    with db.begin():
+        # For each term we found, query for the matching accepted term
+        # and update its Revision to the term's current Revision.
+        for term in diffs:
+            accepted_term = request.user.accepted_terms.filter(
+                AcceptedTerm.TermsID == term.ID).first()
+            accepted_term.Revision = term.Revision
 
-    # For each term that was never accepted, accept it!
-    for term in unaccepted:
-        db.create(AcceptedTerm, User=request.user,
-                  Term=term, Revision=term.Revision,
-                  autocommit=False)
-
-    if diffs or unaccepted:
-        # If we had any terms to update, commit the changes.
-        db.commit()
+        # For each term that was never accepted, accept it!
+        for term in unaccepted:
+            db.create(AcceptedTerm, User=request.user,
+                      Term=term, Revision=term.Revision)
 
     return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))

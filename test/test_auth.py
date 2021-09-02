@@ -4,6 +4,7 @@ import pytest
 
 from sqlalchemy.exc import IntegrityError
 
+from aurweb import db
 from aurweb.auth import BasicAuthBackend, account_type_required, has_credential
 from aurweb.db import create, query
 from aurweb.models.account_type import USER, USER_ID, AccountType
@@ -23,9 +24,10 @@ def setup():
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
-    user = create(User, Username="test", Email="test@example.com",
-                  RealName="Test User", Passwd="testPassword",
-                  AccountType=account_type)
+    with db.begin():
+        user = create(User, Username="test", Email="test@example.com",
+                      RealName="Test User", Passwd="testPassword",
+                      AccountType=account_type)
 
     backend = BasicAuthBackend()
     request = Request()
@@ -51,14 +53,13 @@ async def test_auth_backend_invalid_sid():
 
 @pytest.mark.asyncio
 async def test_auth_backend_invalid_user_id():
-    from aurweb.db import session
-
     # Create a new session with a fake user id.
     now_ts = datetime.utcnow().timestamp()
     with pytest.raises(IntegrityError):
-        create(Session, UsersID=666, SessionID="realSession",
-               LastUpdateTS=now_ts + 5)
-    session.rollback()
+        with db.begin():
+            create(Session, UsersID=666, SessionID="realSession",
+                   LastUpdateTS=now_ts + 5)
+    db.rollback()
 
 
 @pytest.mark.asyncio
@@ -66,8 +67,9 @@ async def test_basic_auth_backend():
     # This time, everything matches up. We expect the user to
     # equal the real_user.
     now_ts = datetime.utcnow().timestamp()
-    create(Session, UsersID=user.ID, SessionID="realSession",
-           LastUpdateTS=now_ts + 5)
+    with db.begin():
+        create(Session, UsersID=user.ID, SessionID="realSession",
+               LastUpdateTS=now_ts + 5)
     request.cookies["AURSID"] = "realSession"
     _, result = await backend.authenticate(request)
     assert result == user

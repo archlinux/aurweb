@@ -3,7 +3,7 @@ import pytest
 from sqlalchemy import and_
 from sqlalchemy.exc import IntegrityError
 
-from aurweb.db import create, query
+from aurweb import db
 from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -19,25 +19,25 @@ def setup():
 
     setup_test_db("Packages", "PackageBases", "Users")
 
-    account_type = query(AccountType,
-                         AccountType.AccountType == "User").first()
-    user = create(User, Username="test", Email="test@example.org",
-                  RealName="Test User", Passwd="testPassword",
-                  AccountType=account_type)
+    account_type = db.query(AccountType,
+                            AccountType.AccountType == "User").first()
 
-    pkgbase = create(PackageBase,
-                     Name="beautiful-package",
-                     Maintainer=user)
-    package = create(Package,
-                     PackageBase=pkgbase,
-                     Name=pkgbase.Name,
-                     Description="Test description.",
-                     URL="https://test.package")
+    with db.begin():
+        user = db.create(User, Username="test", Email="test@example.org",
+                         RealName="Test User", Passwd="testPassword",
+                         AccountType=account_type)
+
+        pkgbase = db.create(PackageBase,
+                            Name="beautiful-package",
+                            Maintainer=user)
+        package = db.create(Package,
+                            PackageBase=pkgbase,
+                            Name=pkgbase.Name,
+                            Description="Test description.",
+                            URL="https://test.package")
 
 
 def test_package():
-    from aurweb.db import session
-
     assert pkgbase == package.PackageBase
     assert package.Name == "beautiful-package"
     assert package.Description == "Test description."
@@ -45,33 +45,31 @@ def test_package():
     assert package.URL == "https://test.package"
 
     # Update package Version.
-    package.Version = "1.2.3"
-    session.commit()
+    with db.begin():
+        package.Version = "1.2.3"
 
     # Make sure it got updated in the database.
-    record = query(Package,
-                   and_(Package.ID == package.ID,
-                        Package.Version == "1.2.3")).first()
+    record = db.query(Package,
+                      and_(Package.ID == package.ID,
+                           Package.Version == "1.2.3")).first()
     assert record is not None
 
 
 def test_package_null_pkgbase_raises_exception():
-    from aurweb.db import session
-
     with pytest.raises(IntegrityError):
-        create(Package,
-               Name="some-package",
-               Description="Some description.",
-               URL="https://some.package")
-    session.rollback()
+        with db.begin():
+            db.create(Package,
+                      Name="some-package",
+                      Description="Some description.",
+                      URL="https://some.package")
+    db.rollback()
 
 
 def test_package_null_name_raises_exception():
-    from aurweb.db import session
-
     with pytest.raises(IntegrityError):
-        create(Package,
-               PackageBase=pkgbase,
-               Description="Some description.",
-               URL="https://some.package")
-    session.rollback()
+        with db.begin():
+            db.create(Package,
+                      PackageBase=pkgbase,
+                      Description="Some description.",
+                      URL="https://some.package")
+    db.rollback()

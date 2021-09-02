@@ -1,6 +1,6 @@
 import pytest
 
-from aurweb.db import create, delete, query
+from aurweb.db import begin, create, delete, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
@@ -14,11 +14,13 @@ def setup():
 
     global account_type
 
-    account_type = create(AccountType, AccountType="TestUser")
+    with begin():
+        account_type = create(AccountType, AccountType="TestUser")
 
     yield account_type
 
-    delete(AccountType, AccountType.ID == account_type.ID)
+    with begin():
+        delete(AccountType, AccountType.ID == account_type.ID)
 
 
 def test_account_type():
@@ -38,12 +40,14 @@ def test_account_type():
 
 
 def test_user_account_type_relationship():
-    user = create(User, Username="test", Email="test@example.org",
-                  RealName="Test User", Passwd="testPassword",
-                  AccountType=account_type)
+    with begin():
+        user = create(User, Username="test", Email="test@example.org",
+                      RealName="Test User", Passwd="testPassword",
+                      AccountType=account_type)
 
     assert user.AccountType == account_type
 
     # This must be deleted here to avoid foreign key issues when
     # deleting the temporary AccountType in the fixture.
-    delete(User, User.ID == user.ID)
+    with begin():
+        delete(User, User.ID == user.ID)

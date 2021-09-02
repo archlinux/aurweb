@@ -90,37 +90,37 @@ def client():
 def tu_user():
     tu_type = db.query(AccountType,
                        AccountType.AccountType == "Trusted User").first()
-    yield db.create(User, Username="test_tu", Email="test_tu@example.org",
-                    RealName="Test TU", Passwd="testPassword",
-                    AccountType=tu_type)
+    with db.begin():
+        tu_user = db.create(User, Username="test_tu",
+                            Email="test_tu@example.org",
+                            RealName="Test TU", Passwd="testPassword",
+                            AccountType=tu_type)
+    yield tu_user
 
 
 @pytest.fixture
 def user():
     user_type = db.query(AccountType,
                          AccountType.AccountType == "User").first()
-    yield db.create(User, Username="test", Email="test@example.org",
-                    RealName="Test User", Passwd="testPassword",
-                    AccountType=user_type)
+    with db.begin():
+        user = db.create(User, Username="test", Email="test@example.org",
+                         RealName="Test User", Passwd="testPassword",
+                         AccountType=user_type)
+    yield user
 
 
 @pytest.fixture
-def proposal(tu_user):
+def proposal(user, tu_user):
     ts = int(datetime.utcnow().timestamp())
     agenda = "Test proposal."
     start = ts - 5
     end = ts + 1000
 
-    user_type = db.query(AccountType,
-                         AccountType.AccountType == "User").first()
-    user = db.create(User, Username="test", Email="test@example.org",
-                     RealName="Test User", Passwd="testPassword",
-                     AccountType=user_type)
-
-    voteinfo = db.create(TUVoteInfo,
-                         Agenda=agenda, Quorum=0.0,
-                         User=user.Username, Submitter=tu_user,
-                         Submitted=start, End=end)
+    with db.begin():
+        voteinfo = db.create(TUVoteInfo,
+                             Agenda=agenda, Quorum=0.0,
+                             User=user.Username, Submitter=tu_user,
+                             Submitted=start, End=end)
     yield (tu_user, user, voteinfo)
 
 
@@ -170,20 +170,22 @@ def test_tu_index(client, tu_user):
         ("Test agenda 2", ts - 1000, ts - 5)  # Not running anymore.
     ]
     vote_records = []
-    for vote in votes:
-        agenda, start, end = vote
-        vote_records.append(
-            db.create(TUVoteInfo, Agenda=agenda,
-                      User=tu_user.Username,
-                      Submitted=start, End=end,
-                      Quorum=0.0,
-                      Submitter=tu_user))
+    with db.begin():
+        for vote in votes:
+            agenda, start, end = vote
+            vote_records.append(
+                db.create(TUVoteInfo, Agenda=agenda,
+                          User=tu_user.Username,
+                          Submitted=start, End=end,
+                          Quorum=0.0,
+                          Submitter=tu_user))
 
-    # Vote on an ended proposal.
-    vote_record = vote_records[1]
-    vote_record.Yes += 1
-    vote_record.ActiveTUs += 1
-    db.create(TUVote, VoteInfo=vote_record, User=tu_user)
+    with db.begin():
+        # Vote on an ended proposal.
+        vote_record = vote_records[1]
+        vote_record.Yes += 1
+        vote_record.ActiveTUs += 1
+        db.create(TUVote, VoteInfo=vote_record, User=tu_user)
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
@@ -255,22 +257,22 @@ def test_tu_index(client, tu_user):
 def test_tu_index_table_paging(client, tu_user):
     ts = int(datetime.utcnow().timestamp())
 
-    for i in range(25):
-        # Create 25 current votes.
-        db.create(TUVoteInfo, Agenda=f"Agenda #{i}",
-                  User=tu_user.Username,
-                  Submitted=(ts - 5), End=(ts + 1000),
-                  Quorum=0.0,
-                  Submitter=tu_user, autocommit=False)
+    with db.begin():
+        for i in range(25):
+            # Create 25 current votes.
+            db.create(TUVoteInfo, Agenda=f"Agenda #{i}",
+                      User=tu_user.Username,
+                      Submitted=(ts - 5), End=(ts + 1000),
+                      Quorum=0.0,
+                      Submitter=tu_user)
 
-    for i in range(25):
-        # Create 25 past votes.
-        db.create(TUVoteInfo, Agenda=f"Agenda #{25 + i}",
-                  User=tu_user.Username,
-                  Submitted=(ts - 1000), End=(ts - 5),
-                  Quorum=0.0,
-                  Submitter=tu_user, autocommit=False)
-    db.commit()
+        for i in range(25):
+            # Create 25 past votes.
+            db.create(TUVoteInfo, Agenda=f"Agenda #{25 + i}",
+                      User=tu_user.Username,
+                      Submitted=(ts - 1000), End=(ts - 5),
+                      Quorum=0.0,
+                      Submitter=tu_user)
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
@@ -363,18 +365,19 @@ def test_tu_index_table_paging(client, tu_user):
 def test_tu_index_sorting(client, tu_user):
     ts = int(datetime.utcnow().timestamp())
 
-    for i in range(2):
-        # Create 'Agenda #1' and 'Agenda #2'.
-        db.create(TUVoteInfo, Agenda=f"Agenda #{i + 1}",
-                  User=tu_user.Username,
-                  Submitted=(ts + 5), End=(ts + 1000),
-                  Quorum=0.0,
-                  Submitter=tu_user, autocommit=False)
+    with db.begin():
+        for i in range(2):
+            # Create 'Agenda #1' and 'Agenda #2'.
+            db.create(TUVoteInfo, Agenda=f"Agenda #{i + 1}",
+                      User=tu_user.Username,
+                      Submitted=(ts + 5), End=(ts + 1000),
+                      Quorum=0.0,
+                      Submitter=tu_user)
 
-        # Let's order each vote one day after the other.
-        # This will allow us to test the sorting nature
-        # of the tables.
-        ts += 86405
+            # Let's order each vote one day after the other.
+            # This will allow us to test the sorting nature
+            # of the tables.
+            ts += 86405
 
     # Make a default request to /tu.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
@@ -432,18 +435,19 @@ def test_tu_index_sorting(client, tu_user):
 def test_tu_index_last_votes(client, tu_user, user):
     ts = int(datetime.utcnow().timestamp())
 
-    # Create a proposal which has ended.
-    voteinfo = db.create(TUVoteInfo, Agenda="Test agenda",
-                         User=user.Username,
-                         Submitted=(ts - 1000),
-                         End=(ts - 5),
-                         Yes=1,
-                         ActiveTUs=1,
-                         Quorum=0.0,
-                         Submitter=tu_user)
+    with db.begin():
+        # Create a proposal which has ended.
+        voteinfo = db.create(TUVoteInfo, Agenda="Test agenda",
+                             User=user.Username,
+                             Submitted=(ts - 1000),
+                             End=(ts - 5),
+                             Yes=1,
+                             ActiveTUs=1,
+                             Quorum=0.0,
+                             Submitter=tu_user)
 
-    # Create a vote on it from tu_user.
-    db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
+        # Create a vote on it from tu_user.
+        db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
 
     # Now, check that tu_user got populated in the .last-votes table.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
@@ -529,10 +533,10 @@ def test_tu_running_proposal(client, proposal):
     assert abstain.attrib["value"] == "Abstain"
 
     # Create a vote.
-    db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
-    voteinfo.ActiveTUs += 1
-    voteinfo.Yes += 1
-    db.commit()
+    with db.begin():
+        db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
+        voteinfo.ActiveTUs += 1
+        voteinfo.Yes += 1
 
     # Make another request now that we've voted.
     with client as request:
@@ -556,8 +560,8 @@ def test_tu_ended_proposal(client, proposal):
     tu_user, user, voteinfo = proposal
 
     ts = int(datetime.utcnow().timestamp())
-    voteinfo.End = ts - 5  # 5 seconds ago.
-    db.commit()
+    with db.begin():
+        voteinfo.End = ts - 5  # 5 seconds ago.
 
     # Initiate an authenticated GET request to /tu/{proposal_id}.
     proposal_id = voteinfo.ID
@@ -635,8 +639,8 @@ def test_tu_proposal_vote_unauthorized(client, proposal):
 
     dev_type = db.query(AccountType,
                         AccountType.AccountType == "Developer").first()
-    tu_user.AccountType = dev_type
-    db.commit()
+    with db.begin():
+        tu_user.AccountType = dev_type
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
@@ -664,8 +668,8 @@ def test_tu_proposal_vote_cant_self_vote(client, proposal):
     tu_user, user, voteinfo = proposal
 
     # Update voteinfo.User.
-    voteinfo.User = tu_user.Username
-    db.commit()
+    with db.begin():
+        voteinfo.User = tu_user.Username
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
@@ -692,10 +696,10 @@ def test_tu_proposal_vote_cant_self_vote(client, proposal):
 def test_tu_proposal_vote_already_voted(client, proposal):
     tu_user, user, voteinfo = proposal
 
-    db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
-    voteinfo.Yes += 1
-    voteinfo.ActiveTUs += 1
-    db.commit()
+    with db.begin():
+        db.create(TUVote, VoteInfo=voteinfo, User=tu_user)
+        voteinfo.Yes += 1
+        voteinfo.ActiveTUs += 1
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:

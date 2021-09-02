@@ -26,17 +26,21 @@ def setup():
 @pytest.fixture
 def maintainer() -> User:
     account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
-    yield db.create(User, Username="test_maintainer",
-                    Email="test_maintainer@examepl.org",
-                    Passwd="testPassword",
-                    AccountType=account_type)
+    with db.begin():
+        maintainer = db.create(User, Username="test_maintainer",
+                               Email="test_maintainer@examepl.org",
+                               Passwd="testPassword",
+                               AccountType=account_type)
+    yield maintainer
 
 
 @pytest.fixture
 def package(maintainer: User) -> Package:
-    pkgbase = db.create(PackageBase, Name="test-pkg",
-                        Packager=maintainer, Maintainer=maintainer)
-    yield db.create(Package, Name=pkgbase.Name, PackageBase=pkgbase)
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="test-pkg",
+                            Packager=maintainer, Maintainer=maintainer)
+        package = db.create(Package, Name=pkgbase.Name, PackageBase=pkgbase)
+    yield package
 
 
 @pytest.fixture
@@ -45,10 +49,11 @@ def client() -> TestClient:
 
 
 def test_package_link(client: TestClient, maintainer: User, package: Package):
-    db.create(OfficialProvider,
-              Name=package.Name,
-              Repo="core",
-              Provides=package.Name)
+    with db.begin():
+        db.create(OfficialProvider,
+                  Name=package.Name,
+                  Repo="core",
+                  Provides=package.Name)
     expected = f"{OFFICIAL_BASE}/packages/?q={package.Name}"
     assert util.package_link(package) == expected
 
