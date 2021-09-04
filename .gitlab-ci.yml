@@ -11,8 +11,9 @@ variables:
   DB_HOST: localhost
 
 before_script:
+  - export PATH="$HOME/.poetry/bin:${PATH}"
   - ./docker/scripts/install-deps.sh
-  - pip install -r requirements.txt
+  - ./docker/scripts/install-python-deps.sh
   - useradd -U -d /aurweb -c 'AUR User' aur
   - ./docker/mariadb-entrypoint.sh
   - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &
@@ -20,7 +21,6 @@ before_script:
   - ./docker/test-mysql-entrypoint.sh # Create mysql AUR_CONFIG.
   - ./docker/test-sqlite-entrypoint.sh # Create sqlite AUR_CONFIG.
   - make -C po all install
-  - python setup.py install --install-scripts=/usr/local/bin
   - python -m aurweb.initdb # Initialize MySQL tables.
   - AUR_CONFIG=conf/config.sqlite python -m aurweb.initdb
   - make -C test clean

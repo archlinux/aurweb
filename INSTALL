@@ -45,22 +45,54 @@ read the instructions below.
    if the defaults file does not exist) and adjust the configuration (pay
    attention to disable_http_login, enable_maintenance and aur_location).
 
-4) Install Python modules and dependencies:
+4) Install dependencies.
 
-    # pacman -S python-mysql-connector python-pygit2 python-srcinfo python-sqlalchemy \
-                python-bleach python-markdown python-alembic hypercorn \
-                python-itsdangerous python-authlib python-httpx \
-                python-jinja python-aiofiles python-python-multipart \
-                python-requests hypercorn python-bcrypt python-email-validator \
-                python-lxml python-feedgen
-    # python3 setup.py install
+4a) Install system-wide dependencies:
 
-(FastAPI-Specific)
+    # pacman -S git gpgme cgit pyalpm python-srcinfo curl openssh \
+                uwsgi uwsgi-plugin-cgi php php-fpm
 
-    # pacman -S redis python-redis python-fakeredis python-orjson
+4b) Install Python dependencies via poetry (required):
+
+**NOTE** Users do not need to install pip or poetry dependencies system-wide.
+You may take advantage of Poetry's virtualenv integration to manage
+dependencies. This is merely a demonstration to show users how to without
+a virtualenv. In Docker and CI, we don't yet use a virtualenv.
+
+    ## Install Poetry dependencies system-wide, if not using a virtualenv.
+    # pacman -S python-pip
+
+    ## Ensure pip is upgraded. Poetry depends on it being up to date.
+    # pip install --upgrade pip
+
+    ## Install Poetry.
+    # curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+    # export PATH="$HOME/.poetry/bin:${PATH}"
+
+    ## Use Poetry to install dependencies and the aurweb package.
+    # poetry lock     # Resolve dependencies
+    # poetry update   # Install/update dependencies
+    # poetry build    # Build the aurweb package
+    # poetry install  # Install the aurweb package and scripts
+
+When installing in a virtualenv, config.defaults must contain the correct
+absolute paths to aurweb scripts, which requires modification.
+
+4c) Setup FastAPI Redis cache (optional).
+
+First, install Redis and start its service.
+
+    # pacman -S redis
     # systemctl enable --now redis
 
-5) Create a new MySQL database and a user and import the aurweb SQL schema:
+Now that Redis is running, ensure that you configure aurweb to use
+the Redis cache by setting `cache = redis` in your AUR config.
+
+In `conf/config.defaults`, the `redis_address` configuration is set
+to `redis://localhost`. This can be set to point to any Redis server
+and will be used as long as `cache = redis`.
+
+5) Create a new database and a user and import the aurweb SQL schema:
 
     $ python -m aurweb.initdb
 
