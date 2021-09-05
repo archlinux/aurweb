@@ -41,7 +41,7 @@ CLOSE_PROPOSALS = int(os.environ.get("CLOSE_PROPOSALS", 50))
 RANDOM_TLDS = ("edu", "com", "org", "net", "tw", "ru", "pl", "de", "es")
 RANDOM_URL = ("http://www.", "ftp://ftp.", "http://", "ftp://")
 RANDOM_LOCS = ("pub", "release", "files", "downloads", "src")
-FORTUNE_FILE = "/usr/share/fortune/cookie"
+FORTUNE_FILE = os.environ.get("FORTUNE_FILE", "/usr/share/fortune/cookie")
 
 # setup logging
 logformat = "%(levelname)s: %(message)s"
