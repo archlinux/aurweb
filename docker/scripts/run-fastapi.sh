@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Initialize the new database; ignore errors.
-python -m aurweb.initdb 2>/dev/null || /bin/true
-
 if [ "$1" == "uvicorn" ] || [ "$1" == "" ]; then
     exec uvicorn --reload \
         --ssl-certfile /cache/localhost.cert.pem \

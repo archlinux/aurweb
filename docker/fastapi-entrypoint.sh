@@ -14,4 +14,7 @@ sed -ri 's|^(redis_address) = .+|\1 = redis://redis|' conf/config
 sed -ri "s|^(git_clone_uri_anon) = .+|\1 = https://localhost:8444/%s.git|" conf/config.defaults
 sed -ri "s|^(git_clone_uri_priv) = .+|\1 = ssh://aur@localhost:2222/%s.git|" conf/config.defaults
 
+# Initialize the new database; ignore errors.
+python -m aurweb.initdb 2>/dev/null || /bin/true
+
 exec "$@"
