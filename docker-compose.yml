@@ -166,6 +166,8 @@ services:
       - ./web/template:/aurweb/web/template
       - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
+    ports:
+      - "19000:9000"
 
   fastapi:
     image: aurweb:latest
@@ -197,6 +199,8 @@ services:
       - ./web/template:/aurweb/web/template
       - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
+    ports:
+      - "18000:8000"
 
   nginx:
     image: aurweb:latest
