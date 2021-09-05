@@ -1,6 +1,6 @@
 FROM archlinux:base-devel
 
-ENV PATH="$HOME/.poetry/bin:${PATH}"
+ENV PATH="/root/.poetry/bin:${PATH}"
 ENV PYTHONPATH=/aurweb
 ENV AUR_CONFIG=conf/config
 
