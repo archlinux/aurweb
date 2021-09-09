@@ -49,8 +49,6 @@ services:
   mariadb:
     image: aurweb:latest
     init: true
-    environment:
-      - DB_HOST="%"
     entrypoint: /docker/mariadb-entrypoint.sh
     command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
     ports:
@@ -63,11 +61,23 @@ services:
     healthcheck:
       test: "bash /docker/health/mariadb.sh"
 
+  mariadb_init:
+    image: aurweb:latest
+    init: true
+    environment:
+      - DB_HOST=mariadb
+    entrypoint: /docker/mariadb-init-entrypoint.sh
+    command: echo "MariaDB tables initialized."
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
   git:
     image: aurweb:latest
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
+      - DB_HOST=mariadb
     entrypoint: /docker/git-entrypoint.sh
     command: /docker/scripts/run-sshd.sh
     ports:
@@ -75,11 +85,9 @@ services:
     healthcheck:
       test: "bash /docker/health/sshd.sh"
     depends_on:
-      mariadb:
-        condition: service_healthy
+      mariadb_init:
+        condition: service_started
     volumes:
-      - mariadb_run:/var/run/mysqld
-      - mariadb_data:/var/lib/mysql
       - git_data:/aurweb/aur.git
       - ./cache:/cache
 
@@ -96,8 +104,6 @@ services:
       mariadb:
         condition: service_healthy
     volumes:
-      - mariadb_run:/var/run/mysqld
-      - mariadb_data:/var/lib/mysql
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - smartgit_run:/var/run/smartgit
@@ -114,8 +120,6 @@ services:
     depends_on:
       git:
         condition: service_healthy
-      php-fpm:
-        condition: service_healthy
     volumes:
       - git_data:/aurweb/aur.git
 
@@ -130,8 +134,6 @@ services:
       test: "bash /docker/health/cgit.sh 3000"
     depends_on:
       git:
-        condition: service_healthy
-      fastapi:
         condition: service_healthy
     volumes:
       - git_data:/aurweb/aur.git
@@ -151,13 +153,9 @@ services:
         condition: service_started
       git:
         condition: service_healthy
-      mariadb:
-        condition: service_healthy
       memcached:
         condition: service_healthy
     volumes:
-      - mariadb_run:/var/run/mysqld # Bind socket in this volume.
-      - mariadb_data:/var/lib/mysql
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
@@ -186,11 +184,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-      mariadb:
-        condition: service_healthy
     volumes:
-      - mariadb_run:/var/run/mysqld # Bind socket in this volume.
-      - mariadb_data:/var/lib/mysql
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
@@ -268,10 +262,9 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      mariadb:
-        condition: service_healthy
+      mariadb_init:
+        condition: service_started
     volumes:
-      - mariadb_run:/var/run/mysqld
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb
@@ -292,7 +285,6 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - mariadb_run:/var/run/mysqld
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb
@@ -314,10 +306,9 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      mariadb:
-        condition: service_healthy
+      mariadb_init:
+        condition: service_started
     volumes:
-      - mariadb_run:/var/run/mysqld
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb

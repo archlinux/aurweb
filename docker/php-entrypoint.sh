@@ -1,11 +1,21 @@
 #!/bin/bash
 set -eou pipefail
-dir="$(dirname $0)"
 
-bash $dir/test-mysql-entrypoint.sh
+[[ -z "$DB_HOST" ]] && echo 'Error: $DB_HOST required but missing.' && exit 1
+
+DB_NAME="aurweb"
+DB_USER="aur"
+DB_PASS="aur"
+
+# Setup a config for our mysql db.
+cp -vf conf/config.dev conf/config
+sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
+sed -ri "s/^(name) = .+/\1 = ${DB_NAME}/" conf/config
+sed -ri "s/^(host) = .+/\1 = ${DB_HOST}/" conf/config
+sed -ri "s/^(user) = .+/\1 = ${DB_USER}/" conf/config
+sed -ri "s/^;?(password) = .+/\1 = ${DB_PASS}/" conf/config
 
 sed -ri "s;^(aur_location) = .+;\1 = https://localhost:8443;" conf/config
-sed -ri 's/^(name) = .+/\1 = aurweb/' conf/config
 
 # Enable memcached.
 sed -ri 's/^(cache) = .+$/\1 = memcache/' conf/config
@@ -26,7 +36,5 @@ sed -ri 's/^;?(open_basedir).*$/\1 = \//' /etc/php/php.ini
 
 # Use the sqlite3 extension line for memcached.
 sed -ri 's/^;(extension)=sqlite3$/\1=memcached/' /etc/php/php.ini
-
-python -m aurweb.initdb 2>/dev/null || /bin/true
 
 exec "$@"
