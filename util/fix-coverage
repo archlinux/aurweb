@@ -16,7 +16,7 @@ import aurweb.config
 
 
 def eprint(*args, **kwargs):
-    print(*args, **kwargs, file=sys.stderru)
+    print(*args, **kwargs, file=sys.stderr)
 
 
 def main():
