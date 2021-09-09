@@ -59,7 +59,7 @@
             <select name="T" id="id_type">
                 {% for value, type in account_types %}
                     <option value="{{ value }}"
-                            {% if account_type == type %}
+                            {% if request.user.AccountType.ID == value %}
                             selected="selected"
                             {% endif %}
                     >
