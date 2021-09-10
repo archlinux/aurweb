@@ -4,8 +4,8 @@ import paginate
 
 from jinja2 import pass_context
 
-from aurweb import util
-from aurweb.templates import register_filter
+from aurweb import config, util
+from aurweb.templates import register_filter, register_function
 
 
 @register_filter("pager_nav")
@@ -48,3 +48,13 @@ def pager_nav(context: Dict[str, Any],
         symbol_previous="‹ Previous",
         symbol_next="Next ›",
         symbol_last="Last »")
+
+
+@register_function("config_getint")
+def config_getint(section: str, key: str) -> int:
+    return config.getint(section, key)
+
+
+@register_function("round")
+def do_round(f: float) -> int:
+    return round(f)

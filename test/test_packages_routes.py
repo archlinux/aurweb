@@ -8,7 +8,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import asgi, db
+from aurweb import asgi, db, defaults
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
 from aurweb.models.official_provider import OfficialProvider
@@ -74,6 +74,7 @@ def setup():
         PackageNotification.__tablename__,
         PackageComaintainer.__tablename__,
         PackageComment.__tablename__,
+        PackageRequest.__tablename__,
         OfficialProvider.__tablename__
     )
 
@@ -106,6 +107,18 @@ def maintainer() -> User:
                                Passwd="testPassword",
                                AccountType=account_type)
     yield maintainer
+
+
+@pytest.fixture
+def tu_user():
+    tu_type = db.query(AccountType,
+                       AccountType.AccountType == "Trusted User").first()
+    with db.begin():
+        tu_user = db.create(User, Username="test_tu",
+                            Email="test_tu@example.org",
+                            RealName="Test TU", Passwd="testPassword",
+                            AccountType=tu_type)
+    yield tu_user
 
 
 @pytest.fixture
@@ -158,6 +171,25 @@ def packages(maintainer: User) -> List[Package]:
             packages_.append(package)
 
     yield packages_
+
+
+@pytest.fixture
+def requests(user: User, packages: List[Package]) -> List[PackageRequest]:
+    pkgreqs = []
+    deletion_type = db.query(RequestType).filter(
+        RequestType.ID == DELETION_ID
+    ).first()
+    with db.begin():
+        for i in range(55):
+            pkgreq = db.create(PackageRequest,
+                               RequestType=deletion_type,
+                               User=user,
+                               PackageBase=packages[i].PackageBase,
+                               PackageBaseName=packages[i].Name,
+                               Comments=f"Deletion request for pkg_{i}",
+                               ClosureComment=str())
+            pkgreqs.append(pkgreq)
+    yield pkgreqs
 
 
 def test_package_not_found(client: TestClient):
@@ -1304,3 +1336,53 @@ def test_pkgbase_comaintainers(client: TestClient, user: User,
     root = parse_root(resp.text)
     users = root.xpath('//textarea[@id="id_users"]')[0]
     assert users is not None and users.text is None
+
+
+def test_requests_unauthorized(client: TestClient,
+                               maintainer: User,
+                               tu_user: User,
+                               packages: List[Package],
+                               requests: List[PackageRequest]):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get("/requests", cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+
+def test_requests(client: TestClient,
+                  maintainer: User,
+                  tu_user: User,
+                  packages: List[Package],
+                  requests: List[PackageRequest]):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get("/requests", params={
+            # Pass in url query parameters O, SeB and SB to exercise
+            # their paths inside of the pager_nav used in this request.
+            "O": 0,  # Page 1
+            "SeB": "nd",
+            "SB": "n"
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    assert "Next ›" in resp.text
+    assert "Last »" in resp.text
+
+    root = parse_root(resp.text)
+    # We have 55 requests, our defaults.PP is 50, so expect we have 50 rows.
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == defaults.PP
+
+    # Request page 2 of the requests page.
+    with client as request:
+        resp = request.get("/requests", params={
+            "O": 50  # Page 2
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    assert "‹ Previous" in resp.text
+    assert "« First" in resp.text
+
+    root = parse_root(resp.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 5  # There are five records left on the second page.

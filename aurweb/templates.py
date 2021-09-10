@@ -71,6 +71,20 @@ def register_filter(name: str) -> Callable:
     return decorator
 
 
+def register_function(name: str) -> Callable:
+    """ A decorator that can be used to register a function.
+    """
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)
+        if name in _env.globals:
+            raise KeyError(f"Jinja already has a function named '{name}'")
+        _env.globals[name] = wrapper
+        return wrapper
+    return decorator
+
+
 def make_context(request: Request, title: str, next: str = None):
     """ Create a context for a jinja2 TemplateResponse. """
 
@@ -83,6 +97,7 @@ def make_context(request: Request, title: str, next: str = None):
         "timezones": time.SUPPORTED_TIMEZONES,
         "title": title,
         "now": datetime.now(tz=zoneinfo.ZoneInfo(timezone)),
+        "utcnow": int(datetime.utcnow().timestamp()),
         "config": aurweb.config,
         "next": next if next else request.url.path
     }

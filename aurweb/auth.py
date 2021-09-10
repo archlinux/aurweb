@@ -31,8 +31,23 @@ class StubQuery:
 
 
 class AnonymousUser:
+    """ A stubbed User class used when an unauthenticated User
+    makes a request against FastAPI. """
     # Stub attributes used to mimic a real user.
     ID = 0
+
+    class AccountType:
+        """ A stubbed AccountType static class. In here, we use an ID
+        and AccountType which do not exist in our constant records.
+        All records primary keys (AccountType.ID) should be non-zero,
+        so using a zero here means that we'll never match against a
+        real AccountType. """
+        ID = 0
+        AccountType = "Anonymous"
+
+    # AccountTypeID == AccountType.ID; assign a stubbed column.
+    AccountTypeID = AccountType.ID
+
     LangPreference = aurweb.config.get("options", "default_lang")
     Timezone = aurweb.config.get("options", "default_timezone")
 

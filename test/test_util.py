@@ -1,7 +1,7 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from aurweb import util
+from aurweb import filters, util
 
 
 def test_timestamp_to_datetime():
@@ -34,3 +34,9 @@ def test_to_qs():
     query = {"a": "b", "c": [1, 2, 3]}
     qs = util.to_qs(query)
     assert qs == "a=b&c=1&c=2&c=3"
+
+
+def test_round():
+    assert filters.do_round(1.3) == 1
+    assert filters.do_round(1.5) == 2
+    assert filters.do_round(2.0) == 2

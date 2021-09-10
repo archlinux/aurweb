@@ -2,17 +2,18 @@ from datetime import datetime
 from http import HTTPStatus
 from typing import Any, Dict
 
-from fastapi import APIRouter, Form, HTTPException, Request, Response
+from fastapi import APIRouter, Form, HTTPException, Query, Request, Response
 from fastapi.responses import JSONResponse, RedirectResponse
-from sqlalchemy import and_
+from sqlalchemy import and_, case
 
 import aurweb.filters
 import aurweb.models.package_comment
 import aurweb.models.package_keyword
 import aurweb.packages.util
 
-from aurweb import db, l10n
-from aurweb.auth import auth_required
+from aurweb import db, defaults, l10n
+from aurweb.auth import account_type_required, auth_required
+from aurweb.models.account_type import DEVELOPER, TRUSTED_USER, TRUSTED_USER_AND_DEV
 from aurweb.models.license import License
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -22,10 +23,11 @@ from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
-from aurweb.models.package_request import PackageRequest
+from aurweb.models.package_request import PENDING_ID, PackageRequest
 from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID
+from aurweb.models.request_type import RequestType
 from aurweb.models.user import User
 from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, query_notified, query_voted
@@ -535,3 +537,31 @@ async def package_base_comaintainers_post(
 
     return RedirectResponse(f"/pkgbase/{pkgbase.Name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.get("/requests")
+@account_type_required({TRUSTED_USER, DEVELOPER, TRUSTED_USER_AND_DEV})
+@auth_required(True, redirect="/")
+async def requests(request: Request,
+                   O: int = Query(default=defaults.O),
+                   PP: int = Query(default=defaults.PP)):
+    context = make_context(request, "Requests")
+
+    context["q"] = dict(request.query_params)
+    context["O"] = O
+    context["PP"] = PP
+
+    # A PackageRequest query, with left inner joined User and RequestType.
+    query = db.query(PackageRequest).join(
+        User, PackageRequest.UsersID == User.ID
+    ).join(RequestType)
+
+    context["total"] = query.count()
+    context["results"] = query.order_by(
+        # Order primarily by the Status column being PENDING_ID,
+        # and secondarily by RequestTS; both in descending order.
+        case([(PackageRequest.Status == PENDING_ID, 1)], else_=0).desc(),
+        PackageRequest.RequestTS.desc()
+    ).limit(PP).offset(O).all()
+
+    return render_template(request, "requests.html", context)
