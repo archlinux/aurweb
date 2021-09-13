@@ -12,7 +12,8 @@ sed -ri 's/^;?(password) = .+/\1 = aur/' conf/config
 sed -ri "s|^(aur_location) = .+|\1 = https://localhost:8444|" conf/config
 sed -ri 's/^(disable_http_login) = .+/\1 = 1/' conf/config
 
-cp -vf /cache/localhost.cert.pem /etc/ssl/certs/localhost.cert.pem
+cat /cache/localhost.cert.pem /cache/ca.root.pem \
+    > /etc/ssl/certs/localhost.cert.pem
 cp -vf /cache/localhost.key.pem /etc/ssl/private/localhost.key.pem
 
 cp -vf /docker/config/nginx.conf /etc/nginx/nginx.conf
