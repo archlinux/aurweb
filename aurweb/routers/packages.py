@@ -568,3 +568,17 @@ async def requests(request: Request,
     ).limit(PP).offset(O).all()
 
     return render_template(request, "requests.html", context)
+
+
+@router.get("/pkgbase/{name}/request")
+@auth_required(True)
+async def package_request(request: Request, name: str):
+    context = make_context(request, "Submit Request")
+
+    pkgbase = db.query(PackageBase).filter(PackageBase.Name == name).first()
+
+    if not pkgbase:
+        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+
+    context["pkgbase"] = pkgbase
+    return render_template(request, "pkgbase/request.html", context)

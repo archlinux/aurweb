@@ -1400,3 +1400,23 @@ def test_requests_selfmade(client: TestClient, user: User,
     for row in rows:
         last_row = row.xpath('./td')[-1].xpath('./a')[0]
         assert last_row.text.strip() == "Close"
+
+
+def test_pkgbase_request_not_found(client: TestClient, user: User):
+    pkgbase_name = "fake"
+    endpoint = f"/pkgbase/{pkgbase_name}/request"
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_request(client: TestClient, user: User, package: Package):
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/request"
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
