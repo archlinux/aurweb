@@ -12,8 +12,7 @@ import aurweb.models.package_keyword
 import aurweb.packages.util
 
 from aurweb import db, defaults, l10n
-from aurweb.auth import account_type_required, auth_required
-from aurweb.models.account_type import DEVELOPER, TRUSTED_USER, TRUSTED_USER_AND_DEV
+from aurweb.auth import auth_required
 from aurweb.models.license import License
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -540,7 +539,6 @@ async def package_base_comaintainers_post(
 
 
 @router.get("/requests")
-@account_type_required({TRUSTED_USER, DEVELOPER, TRUSTED_USER_AND_DEV})
 @auth_required(True, redirect="/")
 async def requests(request: Request,
                    O: int = Query(default=defaults.O),
@@ -555,6 +553,11 @@ async def requests(request: Request,
     query = db.query(PackageRequest).join(
         User, PackageRequest.UsersID == User.ID
     ).join(RequestType)
+
+    # If the request user is not elevated (TU or Dev), then
+    # filter PackageRequests which are owned by the request user.
+    if not request.user.is_elevated():
+        query = query.filter(PackageRequest.UsersID == request.user.ID)
 
     context["total"] = query.count()
     context["results"] = query.order_by(

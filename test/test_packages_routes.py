@@ -1338,14 +1338,9 @@ def test_pkgbase_comaintainers(client: TestClient, user: User,
     assert users is not None and users.text is None
 
 
-def test_requests_unauthorized(client: TestClient,
-                               maintainer: User,
-                               tu_user: User,
-                               packages: List[Package],
-                               requests: List[PackageRequest]):
-    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+def test_requests_unauthorized(client: TestClient):
     with client as request:
-        resp = request.get("/requests", cookies=cookies, allow_redirects=False)
+        resp = request.get("/requests", allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
@@ -1386,3 +1381,22 @@ def test_requests(client: TestClient,
     root = parse_root(resp.text)
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 5  # There are five records left on the second page.
+
+
+def test_requests_selfmade(client: TestClient, user: User,
+                           requests: List[PackageRequest]):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get("/requests", cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # As the user who creates all of the requests, we should see all of them.
+    # However, we are not allowed to accept any of them ourselves.
+    root = parse_root(resp.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == defaults.PP
+
+    # Our first and only link in the last row should be "Close".
+    for row in rows:
+        last_row = row.xpath('./td')[-1].xpath('./a')[0]
+        assert last_row.text.strip() == "Close"
