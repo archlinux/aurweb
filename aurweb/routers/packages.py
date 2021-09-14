@@ -582,3 +582,72 @@ async def package_request(request: Request, name: str):
 
     context["pkgbase"] = pkgbase
     return render_template(request, "pkgbase/request.html", context)
+
+
+@router.post("/pkgbase/{name}/request")
+@auth_required(True)
+async def pkgbase_request_post(request: Request, name: str,
+                               type: str = Form(...),
+                               merge_into: str = Form(default=None),
+                               comments: str = Form(default=str())):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    # Create our render context.
+    context = make_context(request, "Submit Request")
+    context["pkgbase"] = pkgbase
+    if type not in {"deletion", "merge", "orphan"}:
+        # In the case that someone crafted a POST request with an invalid
+        # type, just return them to the request form with BAD_REQUEST status.
+        return render_template(request, "pkgbase/request.html", context,
+                               status_code=HTTPStatus.BAD_REQUEST)
+
+    if not comments:
+        context["errors"] = ["The comment field must not be empty."]
+        return render_template(request, "pkgbase/request.html", context)
+
+    if type == "merge":
+        # Perform merge-related checks.
+        if not merge_into:
+            # TODO: This error needs to be translated.
+            context["errors"] = ['The "Merge into" field must not be empty.']
+            return render_template(request, "pkgbase/request.html", context)
+
+        target = db.query(PackageBase).filter(
+            PackageBase.Name == merge_into
+        ).first()
+        if not target:
+            # TODO: This error needs to be translated.
+            context["errors"] = [
+                "The package base you want to merge into does not exist."
+            ]
+            return render_template(request, "pkgbase/request.html", context)
+
+        if target.ID == pkgbase.ID:
+            # TODO: This error needs to be translated.
+            context["errors"] = [
+                "You cannot merge a package base into itself."
+            ]
+            return render_template(request, "pkgbase/request.html", context)
+
+    # All good. Create a new PackageRequest based on the given type.
+    now = int(datetime.utcnow().timestamp())
+    reqtype = db.query(RequestType, RequestType.Name == type).first()
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+    notify_ = None
+    with db.begin():
+        pkgreq = db.create(PackageRequest, RequestType=reqtype, RequestTS=now,
+                           PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
+                           MergeBaseName=merge_into, User=request.user,
+                           Comments=comments, ClosureComment=str())
+
+    # Prepare notification object.
+    notify_ = notify.RequestOpenNotification(
+        conn, request.user.ID, pkgreq.ID, reqtype,
+        pkgreq.PackageBase.ID, merge_into=merge_into or None)
+
+    # Send the notification now that we're out of the DB scope.
+    notify_.send()
+
+    # Redirect the submitting user to /packages.
+    return RedirectResponse("/packages",
+                            status_code=int(HTTPStatus.SEE_OTHER))

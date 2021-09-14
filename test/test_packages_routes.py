@@ -1420,3 +1420,164 @@ def test_pkgbase_request(client: TestClient, user: User, package: Package):
     with client as request:
         resp = request.get(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
+
+
+def test_pkgbase_request_post_deletion(client: TestClient, user: User,
+                                       package: Package):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "deletion",
+            "comments": "We want to delete this."
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    pkgreq = db.query(PackageRequest).filter(
+        PackageRequest.PackageBaseID == package.PackageBase.ID
+    ).first()
+    assert pkgreq is not None
+    assert pkgreq.RequestType.Name == "deletion"
+    assert pkgreq.PackageBaseName == package.PackageBase.Name
+    assert pkgreq.Comments == "We want to delete this."
+
+
+def test_pkgbase_request_post_orphan(client: TestClient, user: User,
+                                     package: Package):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "orphan",
+            "comments": "We want to disown this."
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    pkgreq = db.query(PackageRequest).filter(
+        PackageRequest.PackageBaseID == package.PackageBase.ID
+    ).first()
+    assert pkgreq is not None
+    assert pkgreq.RequestType.Name == "orphan"
+    assert pkgreq.PackageBaseName == package.PackageBase.Name
+    assert pkgreq.Comments == "We want to disown this."
+
+
+def test_pkgbase_request_post_merge(client: TestClient, user: User,
+                                    package: Package):
+    with db.begin():
+        pkgbase2 = db.create(PackageBase, Name="new-pkgbase",
+                             Submitter=user, Maintainer=user, Packager=user)
+        target = db.create(Package, PackageBase=pkgbase2,
+                           Name=pkgbase2.Name, Version="1.0.0")
+
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "merge",
+            "merge_into": target.PackageBase.Name,
+            "comments": "We want to merge this."
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    pkgreq = db.query(PackageRequest).filter(
+        PackageRequest.PackageBaseID == package.PackageBase.ID
+    ).first()
+    assert pkgreq is not None
+    assert pkgreq.RequestType.Name == "merge"
+    assert pkgreq.PackageBaseName == package.PackageBase.Name
+    assert pkgreq.MergeBaseName == target.PackageBase.Name
+    assert pkgreq.Comments == "We want to merge this."
+
+
+def test_pkgbase_request_post_not_found(client: TestClient, user: User):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/pkgbase/fake/request", data={
+            "type": "fake"
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_request_post_invalid_type(client: TestClient,
+                                           user: User,
+                                           package: Package):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={"type": "fake"}, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+
+
+def test_pkgbase_request_post_no_comment_error(client: TestClient,
+                                               user: User,
+                                               package: Package):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "deletion",
+            "comments": ""  # An empty comment field causes an error.
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    error = root.xpath('//ul[@class="errorlist"]/li')[0]
+    expected = "The comment field must not be empty."
+    assert error.text.strip() == expected
+
+
+def test_pkgbase_request_post_merge_not_found_error(client: TestClient,
+                                                    user: User,
+                                                    package: Package):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "merge",
+            "merge_into": "fake",  # There is no PackageBase.Name "fake"
+            "comments": "We want to merge this."
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    error = root.xpath('//ul[@class="errorlist"]/li')[0]
+    expected = "The package base you want to merge into does not exist."
+    assert error.text.strip() == expected
+
+
+def test_pkgbase_request_post_merge_no_merge_into_error(client: TestClient,
+                                                        user: User,
+                                                        package: Package):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "merge",
+            "merge_into": "",  # There is no PackageBase.Name "fake"
+            "comments": "We want to merge this."
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    error = root.xpath('//ul[@class="errorlist"]/li')[0]
+    expected = 'The "Merge into" field must not be empty.'
+    assert error.text.strip() == expected
+
+
+def test_pkgbase_request_post_merge_self_error(client: TestClient, user: User,
+                                               package: Package):
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "merge",
+            "merge_into": package.PackageBase.Name,
+            "comments": "We want to merge this."
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    error = root.xpath('//ul[@class="errorlist"]/li')[0]
+    expected = "You cannot merge a package base into itself."
+    assert error.text.strip() == expected

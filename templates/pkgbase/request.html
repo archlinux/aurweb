@@ -1,8 +1,17 @@
 {% extends "partials/layout.html" %}
 
 {% block pageContent %}
+    {% if errors %}
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <div class="box">
         <h2>{{ "Submit Request" | tr }}: {{ pkgbase.Name }}</h2>
+
         <p>
             {{ "Use this form to file a request against package base "
             "%s%s%s which includes the following packages:"
@@ -15,7 +24,8 @@
         </ul>
 
         {# Request form #}
-        <form id="request-form" action="/pkgbase/{{ pkgbase.Name }}/request">
+        <form id="request-form" action="/pkgbase/{{ pkgbase.Name }}/request"
+              method="post">
             <fieldset>
                 <p>
                     <label for="id_type">{{ "Request type" | tr }}:</label>

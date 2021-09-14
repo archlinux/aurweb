@@ -20,6 +20,12 @@ class RequestType(Base):
         name = self.Name
         return name[0].upper() + name[1:]
 
+    def title(self) -> str:
+        return self.name_display()
+
+    def __getitem__(self, n: int) -> str:
+        return self.Name[n]
+
 
 DELETION_ID = db.query(RequestType, RequestType.Name == DELETION).first().ID
 ORPHAN_ID = db.query(RequestType, RequestType.Name == ORPHAN).first().ID
