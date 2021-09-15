@@ -22,7 +22,7 @@ from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
-from aurweb.models.package_request import PENDING_ID, PackageRequest
+from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID, PackageRequest
 from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID
@@ -651,3 +651,53 @@ async def pkgbase_request_post(request: Request, name: str,
     # Redirect the submitting user to /packages.
     return RedirectResponse("/packages",
                             status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.get("/requests/{id}/close")
+@auth_required(True)
+async def requests_close(request: Request, id: int):
+    pkgreq = db.query(PackageRequest).filter(PackageRequest.ID == id).first()
+    if not request.user.is_elevated() and request.user != pkgreq.User:
+        # Request user doesn't have permission here: redirect to '/'.
+        return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))
+
+    context = make_context(request, "Close Request")
+    context["pkgreq"] = pkgreq
+    return render_template(request, "requests/close.html", context)
+
+
+@router.post("/requests/{id}/close")
+@auth_required(True)
+async def requests_close_post(request: Request, id: int,
+                              reason: int = Form(default=0),
+                              comments: str = Form(default=str())):
+    pkgreq = db.query(PackageRequest).filter(PackageRequest.ID == id).first()
+    if not request.user.is_elevated() and request.user != pkgreq.User:
+        # Request user doesn't have permission here: redirect to '/'.
+        return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))
+
+    context = make_context(request, "Close Request")
+    context["pkgreq"] = pkgreq
+
+    if reason not in {ACCEPTED_ID, REJECTED_ID}:
+        # If the provided reason is not valid, send the user back to
+        # the closure form with a BAD_REQUEST status.
+        return render_template(request, "requests/close.html", context,
+                               status_code=HTTPStatus.BAD_REQUEST)
+
+    if not request.user.is_elevated():
+        # If we're closing the request as the user who created it,
+        # the reason should just be a REJECTION.
+        reason = REJECTED_ID
+
+    with db.begin():
+        pkgreq.Closer = request.user
+        pkgreq.Status = reason
+        pkgreq.ClosureComment = comments
+
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+    notify_ = notify.RequestCloseNotification(
+        conn, request.user.ID, pkgreq.ID, pkgreq.status_display())
+    notify_.send()
+
+    return RedirectResponse("/requests", status_code=int(HTTPStatus.SEE_OTHER))

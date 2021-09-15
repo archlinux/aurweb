@@ -20,7 +20,7 @@ from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
-from aurweb.models.package_request import PackageRequest
+from aurweb.models.package_request import ACCEPTED_ID, REJECTED_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import PROVIDES_ID, RelationType
 from aurweb.models.request_type import DELETION_ID, RequestType
@@ -1581,3 +1581,87 @@ def test_pkgbase_request_post_merge_self_error(client: TestClient, user: User,
     error = root.xpath('//ul[@class="errorlist"]/li')[0]
     expected = "You cannot merge a package base into itself."
     assert error.text.strip() == expected
+
+
+@pytest.fixture
+def pkgreq(user: User, package: Package) -> PackageRequest:
+    reqtype = db.query(RequestType).filter(
+        RequestType.ID == DELETION_ID
+    ).first()
+    with db.begin():
+        pkgreq = db.create(PackageRequest,
+                           RequestType=reqtype,
+                           User=user,
+                           PackageBase=package.PackageBase,
+                           PackageBaseName=package.PackageBase.Name,
+                           Comments=str(),
+                           ClosureComment=str())
+    yield pkgreq
+
+
+def test_requests_close(client: TestClient, user: User,
+                        pkgreq: PackageRequest):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(f"/requests/{pkgreq.ID}/close", cookies=cookies,
+                           allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+
+def test_requests_close_unauthorized(client: TestClient, maintainer: User,
+                                     pkgreq: PackageRequest):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(f"/requests/{pkgreq.ID}/close", cookies=cookies,
+                           allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == "/"
+
+
+def test_requests_close_post_invalid_reason(client: TestClient, user: User,
+                                            pkgreq: PackageRequest):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(f"/requests/{pkgreq.ID}/close", data={
+            "reason": 0
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+
+
+def test_requests_close_post_unauthorized(client: TestClient, maintainer: User,
+                                          pkgreq: PackageRequest):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(f"/requests/{pkgreq.ID}/close", data={
+            "reason": ACCEPTED_ID
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == "/"
+
+
+def test_requests_close_post(client: TestClient, user: User,
+                             pkgreq: PackageRequest):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(f"/requests/{pkgreq.ID}/close", data={
+            "reason": REJECTED_ID
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    assert pkgreq.Status == REJECTED_ID
+    assert pkgreq.Closer == user
+    assert pkgreq.ClosureComment == str()
+
+
+def test_requests_close_post_rejected(client: TestClient, user: User,
+                                      pkgreq: PackageRequest):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(f"/requests/{pkgreq.ID}/close", data={
+            "reason": REJECTED_ID
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    assert pkgreq.Status == REJECTED_ID
+    assert pkgreq.Closer == user
+    assert pkgreq.ClosureComment == str()
