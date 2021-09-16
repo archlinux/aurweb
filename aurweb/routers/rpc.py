@@ -66,16 +66,6 @@ async def rpc(request: Request,
     returned_data["resultcount"] = 0
     returned_data["type"] = type
 
-    # Ensure type is valid.
-    if type is None:
-        returned_data["type"] = "error"
-        returned_data["error"] = "No request type/data specified."
-        return returned_data
-    elif type not in ("info", "multiinfo"):
-        returned_data["type"] = "error"
-        returned_data["error"] = "Incorrect request type specified."
-        return returned_data
-
     # Take arguments from either 'args' or 'args[]' and put them into 'argument_list'.
     argument_list = []
 

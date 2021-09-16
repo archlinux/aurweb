@@ -165,11 +165,6 @@ def RPC(**function_args):
     # Get Snapshot URI
     snapshot_uri = config.get("options", "snapshot_uri")
 
-    # Remove duplicate arguments if type is 'info' or 'multiinfo' so we don't
-    # fetch results for a package multiple times.
-    if type in ("info", "multiinfo"):
-        args = set(args)
-
     # Set request type to run.
     type_actions = {
         "info": run_info,
@@ -180,19 +175,27 @@ def RPC(**function_args):
     # specified type was valid in aurweb/routers/rpc.py.
     if type in type_actions:
         run_request = type_actions.get(type)
-        
+
+        # If type is 'info', overwrite type to 'multiinfo' to match the
+        # behavior of the PHP implementation.
+        if type == "info":
+            returned_data["type"] = "multiinfo"
+
+        # Remove duplicate arguments if type is 'multiinfo' so we don't
+        # fetch results for a package multiple times.
+        if returned_data["type"] == "multiinfo":
+            args = set(args)
+
         for i in args:
             returned_data = run_request(returned_data, i, snapshot_uri)
 
     elif type is None:
         returned_data["type"] = "error"
         returned_data["error"] = "No request type/data specified."
-        return returned_data
 
     else:
         returned_data["type"] = "error"
         returned_data["error"] = "Incorrect request type specified."
-        return returned_data
 
 
     return returned_data
