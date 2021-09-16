@@ -169,35 +169,35 @@ def setup():
 def test_rpc_singular_info():
     # Define expected response.
     expected_data = {
-                        "version": 5,
-                        "results": [{
-                            "Name": "big-chungus",
-                            "Version": "",
-                            "Description": "Bunny bunny around bunny",
-                            "URL": "https://example.com/",
-                            "PackageBase": "big-chungus",
-                            "NumVotes": 3,
-                            "Popularity": 0.0,
-                            "OutOfDate": None,
-                            "Maintainer": "user1",
-                            "URLPath": "/cgit/aur.git/snapshot/big-chungus.tar.gz",
-                            "Depends": ["chungus-depends"],
-                            "OptDepends": ["chungus-optdepends=50"],
-                            "MakeDepends": ["chungus-makedepends"],
-                            "CheckDepends": ["chungus-checkdepends"],
-                            "Conflicts": ["chungus-conflicts"],
-                            "Provides": ["chungus-provides<=200"],
-                            "Replaces": ["chungus-replaces<=200"],
-                            "License": ["GPL"],
-                            "Keywords": [
-                                "big-chungus",
-                                "sizeable-chungus",
-                                "smol-chungus"
-                            ]
-                        }],
-                        "resultcount": 1,
-                        "type": "multiinfo"
-                    }
+        "version": 5,
+        "results": [{
+            "Name": "big-chungus",
+            "Version": "",
+            "Description": "Bunny bunny around bunny",
+            "URL": "https://example.com/",
+            "PackageBase": "big-chungus",
+            "NumVotes": 3,
+            "Popularity": 0.0,
+            "OutOfDate": None,
+            "Maintainer": "user1",
+            "URLPath": "/cgit/aur.git/snapshot/big-chungus.tar.gz",
+            "Depends": ["chungus-depends"],
+            "OptDepends": ["chungus-optdepends=50"],
+            "MakeDepends": ["chungus-makedepends"],
+            "CheckDepends": ["chungus-checkdepends"],
+            "Conflicts": ["chungus-conflicts"],
+            "Provides": ["chungus-provides<=200"],
+            "Replaces": ["chungus-replaces<=200"],
+            "License": ["GPL"],
+            "Keywords": [
+                "big-chungus",
+                "sizeable-chungus",
+                "smol-chungus"
+            ]
+        }],
+        "resultcount": 1,
+        "type": "multiinfo"
+    }
 
     # Make dummy request.
     response_arg = make_request("/rpc/?v=5&type=info&arg=chungy-chungus&arg=big-chungus")
@@ -269,26 +269,26 @@ def test_rpc_no_dependencies():
     when they don't have set values."""
 
     expected_response = {
-                        'version': 5,
-                        'results': [{
-                                    'Name': 'chungy-chungus',
-                                    'Version': '',
-                                    'Description': 'Wubby wubby on wobba wuubu',
-                                    'URL': 'https://example.com/',
-                                    'PackageBase': 'chungy-chungus',
-                                    'NumVotes': 3,
-                                    'Popularity': 0.0,
-                                    'OutOfDate': None,
-                                    'Maintainer': 'user1',
-                                    'URLPath': '/cgit/aur.git/snapshot/chungy-chungus.tar.gz',
-                                    'Depends': ['chungy-depends'],
-                                    'Conflicts': ['chungy-conflicts'],
-                                    'License': [],
-                                    'Keywords': []
-                                    }],
-                        'resultcount': 1,
-                        'type': 'multiinfo'
-                        }
+        'version': 5,
+        'results': [{
+            'Name': 'chungy-chungus',
+            'Version': '',
+            'Description': 'Wubby wubby on wobba wuubu',
+            'URL': 'https://example.com/',
+            'PackageBase': 'chungy-chungus',
+            'NumVotes': 3,
+            'Popularity': 0.0,
+            'OutOfDate': None,
+            'Maintainer': 'user1',
+            'URLPath': '/cgit/aur.git/snapshot/chungy-chungus.tar.gz',
+            'Depends': ['chungy-depends'],
+            'Conflicts': ['chungy-conflicts'],
+            'License': [],
+            'Keywords': []
+        }],
+        'resultcount': 1,
+        'type': 'multiinfo'
+    }
 
     # Make dummy request.
     response = make_request("/rpc/?v=5&type=info&arg=chungy-chungus")
@@ -304,12 +304,12 @@ def test_rpc_no_dependencies():
 def test_rpc_bad_type():
     # Define expected response.
     expected_data = {
-                        'version': 5,
-                        'results': [],
-                        'resultcount': 0,
-                        'type': 'error',
-                        'error': 'Incorrect request type specified.'
-                    }
+        'version': 5,
+        'results': [],
+        'resultcount': 0,
+        'type': 'error',
+        'error': 'Incorrect request type specified.'
+    }
 
     # Make dummy request.
     response = make_request("/rpc/?v=5&type=invalid-type&arg=big-chungus")
@@ -352,12 +352,12 @@ def test_rpc_no_version():
 def test_rpc_no_type():
     # Define expected response.
     expected_data = {
-                    'version': 5,
-                    'results': [],
-                    'resultcount': 0,
-                    'type': 'error',
-                    'error': 'No request type/data specified.'
-                    }
+        'version': 5,
+        'results': [],
+        'resultcount': 0,
+        'type': 'error',
+        'error': 'No request type/data specified.'
+    }
 
     # Make dummy request.
     response = make_request("/rpc/?v=5&arg=big-chungus")
@@ -372,12 +372,12 @@ def test_rpc_no_type():
 def test_rpc_no_args():
     # Define expected response.
     expected_data = {
-                    'version': 5,
-                    'results': [],
-                    'resultcount': 0,
-                    'type': 'error',
-                    'error': 'No request type/data specified.'
-                    }
+        'version': 5,
+        'results': [],
+        'resultcount': 0,
+        'type': 'error',
+        'error': 'No request type/data specified.'
+    }
 
     # Make dummy request.
     response = make_request("/rpc/?v=5&type=info")
