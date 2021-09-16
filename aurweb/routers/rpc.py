@@ -58,10 +58,6 @@ async def rpc(request: Request,
     elif v != 5:
         return {"error": "Invalid version specified."}
 
-    # The PHP implementation sets the type to 'multiinfo' when the type is set to 'info'.
-    if type == "info":
-        type = "multiinfo"
-
     # Defaults for returned data
     returned_data = {}
 
