@@ -323,7 +323,13 @@ def test_rpc_bad_type():
 
 def test_rpc_bad_version():
     # Define expected response.
-    expected_data = {'error': 'Invalid version specified.'}
+    expected_data = {
+        'version': 0,
+        'resultcount': 0,
+        'results': [],
+        'type': 'error',
+        'error': 'Invalid version specified.'
+    }
 
     # Make dummy request.
     response = make_request("/rpc/?v=0&type=info&arg=big-chungus")
@@ -337,7 +343,13 @@ def test_rpc_bad_version():
 
 def test_rpc_no_version():
     # Define expected response.
-    expected_data = {'error': 'Please specify an API version.'}
+    expected_data = {
+        'version': None,
+        'resultcount': 0,
+        'results': [],
+        'type': 'error',
+        'error': 'Please specify an API version.'
+    }
 
     # Make dummy request.
     response = make_request("/rpc/?type=info&arg=big-chungus")

@@ -51,20 +51,28 @@ async def rpc(request: Request,
               type: Optional[str] = Query(None),
               arg: Optional[str] = Query(None),
               args: Optional[List[str]] = Query(None, alias="arg[]")):
-
-    # Ensure valid version was passed
-    if v is None:
-        return {"error": "Please specify an API version."}
-    elif v != 5:
-        return {"error": "Invalid version specified."}
-
     # Defaults for returned data
     returned_data = {}
 
     returned_data["version"] = v
     returned_data["results"] = []
     returned_data["resultcount"] = 0
-    returned_data["type"] = type
+
+    # Default the type field to "error", until we determine that
+    # we're not erroneous (below).
+    returned_data["type"] = "error"
+
+    # Ensure valid version was passed
+    if v is None:
+        returned_data["error"] = "Please specify an API version."
+        return returned_data
+    elif v != 5:
+        returned_data["error"] = "Invalid version specified."
+        return returned_data
+    else:
+        # We got past initial error cases; set the type to what
+        # the user gave us.
+        returned_data["type"] = type
 
     # Take arguments from either 'args' or 'args[]' and put them into 'argument_list'.
     argument_list = []
