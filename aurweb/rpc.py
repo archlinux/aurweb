@@ -197,5 +197,4 @@ def RPC(**function_args):
         returned_data["type"] = "error"
         returned_data["error"] = "Incorrect request type specified."
 
-
     return returned_data
