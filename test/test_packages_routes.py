@@ -1196,3 +1196,111 @@ def test_pkgbase_comment_unpin_unauthorized(client: TestClient,
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+
+def test_pkgbase_comaintainers_not_found(client: TestClient, maintainer: User):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    endpoint = "/pkgbase/fake/comaintainers"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_comaintainers_post_not_found(client: TestClient,
+                                              maintainer: User):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    endpoint = "/pkgbase/fake/comaintainers"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_comaintainers_unauthorized(client: TestClient, user: User,
+                                            package: Package):
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
+
+def test_pkgbase_comaintainers_post_unauthorized(client: TestClient,
+                                                 user: User,
+                                                 package: Package):
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
+
+def test_pkgbase_comaintainers_post_invalid_user(client: TestClient,
+                                                 maintainer: User,
+                                                 package: Package):
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "users": "\nfake\n"
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    error = root.xpath('//ul[@class="errorlist"]/li')[0]
+    assert error.text.strip() == "Invalid user name: fake"
+
+
+def test_pkgbase_comaintainers(client: TestClient, user: User,
+                               maintainer: User, package: Package):
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/comaintainers"
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+
+    # Start off by adding user as a comaintainer to package.
+    # The maintainer username given should be ignored.
+    with client as request:
+        resp = request.post(endpoint, data={
+            "users": f"\n{user.Username}\n{maintainer.Username}\n"
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
+    # Do it again to exercise the last_priority bump path.
+    with client as request:
+        resp = request.post(endpoint, data={
+            "users": f"\n{user.Username}\n{maintainer.Username}\n"
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
+    # Now that we've added a comaintainer to the pkgbase,
+    # let's perform a GET request to make sure that the backend produces
+    # the user we added in the users textarea.
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    users = root.xpath('//textarea[@id="id_users"]')[0]
+    assert users.text.strip() == user.Username
+
+    # Finish off by removing all the comaintainers.
+    with client as request:
+        resp = request.post(endpoint, data={
+            "users": str()
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    users = root.xpath('//textarea[@id="id_users"]')[0]
+    assert users is not None and users.text is None

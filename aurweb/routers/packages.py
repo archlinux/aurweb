@@ -16,6 +16,7 @@ from aurweb.auth import auth_required
 from aurweb.models.license import License
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
+from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_license import PackageLicense
@@ -25,8 +26,10 @@ from aurweb.models.package_request import PackageRequest
 from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID
+from aurweb.models.user import User
 from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, query_notified, query_voted
+from aurweb.scripts import notify
 from aurweb.scripts.rendercomment import update_comment_render
 from aurweb.templates import make_context, render_raw_template, render_template
 
@@ -389,4 +392,146 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int):
         comment.PinnedTS = 0
 
     return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.get("/pkgbase/{name}/comaintainers")
+@auth_required(True)
+async def package_base_comaintainers(request: Request, name: str) -> Response:
+    # Get the PackageBase.
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    # Unauthorized users (Non-TU/Dev and not the pkgbase maintainer)
+    # get redirected to the package base's page.
+    has_creds = request.user.has_credential("CRED_PKGBASE_EDIT_COMAINTAINERS",
+                                            approved=[pkgbase.Maintainer])
+    if not has_creds:
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=int(HTTPStatus.SEE_OTHER))
+
+    # Add our base information.
+    context = make_context(request, "Manage Co-maintainers")
+    context["pkgbase"] = pkgbase
+
+    context["comaintainers"] = [
+        c.User.Username for c in pkgbase.comaintainers
+    ]
+
+    return render_template(request, "pkgbase/comaintainers.html", context)
+
+
+def remove_users(pkgbase, usernames):
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+    notifications = []
+    with db.begin():
+        for username in usernames:
+            # We know that the users we passed here are in the DB.
+            # No need to check for their existence.
+            comaintainer = pkgbase.comaintainers.join(User).filter(
+                User.Username == username
+            ).first()
+            notifications.append(
+                notify.ComaintainerRemoveNotification(
+                    conn, comaintainer.User.ID, pkgbase.ID
+                )
+            )
+            db.session.delete(comaintainer)
+
+    # Send out notifications if need be.
+    for notify_ in notifications:
+        notify_.send()
+
+
+@router.post("/pkgbase/{name}/comaintainers")
+@auth_required(True)
+async def package_base_comaintainers_post(
+        request: Request, name: str,
+        users: str = Form(default=str())) -> Response:
+    # Get the PackageBase.
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    # Unauthorized users (Non-TU/Dev and not the pkgbase maintainer)
+    # get redirected to the package base's page.
+    has_creds = request.user.has_credential("CRED_PKGBASE_EDIT_COMAINTAINERS",
+                                            approved=[pkgbase.Maintainer])
+    if not has_creds:
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=int(HTTPStatus.SEE_OTHER))
+
+    users = set(users.split("\n"))
+    users.remove(str())  # Remove any empty strings from the set.
+    records = {c.User.Username for c in pkgbase.comaintainers}
+
+    remove_users(pkgbase, records.difference(users))
+
+    # Default priority (lowest value; most preferred).
+    priority = 1
+
+    # Get the highest priority in the comaintainer set.
+    last_priority = pkgbase.comaintainers.order_by(
+        PackageComaintainer.Priority.desc()
+    ).limit(1).first()
+
+    # If that record exists, we use a priority which is 1 higher.
+    # TODO: This needs to ensure that it wraps around and preserves
+    # ordering in the case where we hit the max number allowed by
+    # the Priority column type.
+    if last_priority:
+        priority = last_priority.Priority + 1
+
+    def add_users(usernames):
+        """ Add users as comaintainers to pkgbase.
+
+        :param usernames: An iterable of username strings
+        :return: None on success, an error string on failure. """
+        nonlocal request, pkgbase, priority
+
+        # First, perform a check against all usernames given; for each
+        # username, add its related User object to memo.
+        _ = l10n.get_translator_for_request(request)
+        memo = {}
+        for username in usernames:
+            user = db.query(User).filter(User.Username == username).first()
+            if not user:
+                return _("Invalid user name: %s") % username
+            memo[username] = user
+
+        # Alright, now that we got past the check, add them all to the DB.
+        conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+        notifications = []
+        with db.begin():
+            for username in usernames:
+                user = memo.get(username)
+                if pkgbase.Maintainer == user:
+                    # Already a maintainer. Move along.
+                    continue
+
+                # If we get here, our user model object is in the memo.
+                comaintainer = db.create(
+                    PackageComaintainer,
+                    PackageBase=pkgbase,
+                    User=user,
+                    Priority=priority)
+                priority += 1
+
+                notifications.append(
+                    notify.ComaintainerAddNotification(
+                        conn, comaintainer.User.ID, pkgbase.ID)
+                )
+
+        # Send out notifications.
+        for notify_ in notifications:
+            notify_.send()
+
+    error = add_users(users.difference(records))
+    if error:
+        context = make_context(request, "Manage Co-maintainers")
+        context["pkgbase"] = pkgbase
+        context["comaintainers"] = [
+            c.User.Username for c in pkgbase.comaintainers
+        ]
+        context["errors"] = [error]
+        return render_template(request, "pkgbase/comaintainers.html", context)
+
+    return RedirectResponse(f"/pkgbase/{pkgbase.Name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
