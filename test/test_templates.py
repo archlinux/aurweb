@@ -4,7 +4,8 @@ from aurweb.templates import register_filter
 
 
 @register_filter("func")
-def func(): pass
+def func():
+    pass
 
 
 def test_register_filter_exists_key_error():
@@ -12,4 +13,5 @@ def test_register_filter_exists_key_error():
     imports or template renders, so we only test failures here. """
     with pytest.raises(KeyError):
         @register_filter("func")
-        def some_func(): pass
+        def some_func():
+            pass
