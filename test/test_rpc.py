@@ -1,4 +1,5 @@
 import orjson
+import pytest
 
 from fastapi.testclient import TestClient
 
@@ -24,6 +25,7 @@ def make_request(path):
         return request.get(path)
 
 
+@pytest.fixture(autouse=True)
 def setup():
     # Set up tables.
     setup_test_db("Users", "PackageBases", "Packages", "Licenses",
