@@ -22,7 +22,7 @@ from aurweb.models.ban import Ban
 from aurweb.models.ssh_pub_key import SSHPubKey, get_fingerprint
 from aurweb.models.term import Term
 from aurweb.models.user import User
-from aurweb.scripts.notify import ResetKeyNotification
+from aurweb.scripts.notify import ResetKeyNotification, WelcomeNotification
 from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
@@ -414,7 +414,7 @@ async def account_register_post(request: Request,
 
     # Send a reset key notification to the new user.
     executor = db.ConnectionExecutor(db.get_engine().raw_connection())
-    ResetKeyNotification(executor, user.ID).send()
+    WelcomeNotification(executor, user.ID).send()
 
     context["complete"] = True
     context["user"] = user
