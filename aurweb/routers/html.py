@@ -19,7 +19,7 @@ from aurweb.models.package_base import PackageBase
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_request import PackageRequest
 from aurweb.models.user import User
-from aurweb.packages.util import updated_packages
+from aurweb.packages.util import query_notified, query_voted, updated_packages
 from aurweb.templates import make_context, render_template
 
 router = APIRouter()
@@ -145,14 +145,25 @@ async def index(request: Request):
             PackageBase.MaintainerUID == request.user.ID
         )
 
+        # Packages maintained by the user that have been flagged.
         context["flagged_packages"] = maintained.filter(
             PackageBase.OutOfDateTS.isnot(None)
         ).order_by(
             PackageBase.ModifiedTS.desc(), Package.Name.asc()
         ).limit(50).all()
 
+        # Flagged packages that request.user has voted for.
+        context["flagged_packages_voted"] = query_voted(
+            context.get("flagged_packages"), request.user)
+
+        # Flagged packages that request.user is being notified about.
+        context["flagged_packages_notified"] = query_notified(
+            context.get("flagged_packages"), request.user)
+
         archive_time = aurweb.config.getint('options', 'request_archive_time')
         start = now - archive_time
+
+        # Package requests created by request.user.
         context["package_requests"] = request.user.package_requests.filter(
             PackageRequest.RequestTS >= start
         ).limit(50).all()
@@ -162,12 +173,30 @@ async def index(request: Request):
             PackageBase.ModifiedTS.desc(), Package.Name.desc()
         ).limit(50).all()
 
+        # Packages that request.user has voted for.
+        context["packages_voted"] = query_voted(
+            context.get("packages"), request.user)
+
+        # Packages that request.user is being notified about.
+        context["packages_notified"] = query_notified(
+            context.get("packages"), request.user)
+
         # Any packages that the request user comaintains.
         context["comaintained"] = packages.join(
-            PackageComaintainer).filter(
-            PackageComaintainer.UsersID == request.user.ID).order_by(
+            PackageComaintainer
+        ).filter(
+            PackageComaintainer.UsersID == request.user.ID
+        ).order_by(
             PackageBase.ModifiedTS.desc(), Package.Name.desc()
         ).limit(50).all()
+
+        # Comaintained packages that request.user has voted for.
+        context["comaintained_voted"] = query_voted(
+            context.get("comaintained"), request.user)
+
+        # Comaintained packages that request.user is being notified about.
+        context["comaintained_notified"] = query_notified(
+            context.get("comaintained"), request.user)
 
     return render_template(request, "index.html", context)
 

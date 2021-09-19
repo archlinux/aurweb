@@ -28,14 +28,14 @@
                 <td>{{ pkg.PackageBase.Popularity | number_format(2) }}</td>
                 {% if request.user.is_authenticated() %}
                     <td>
-                        <!-- If I voted, display "Yes". -->
-                        {% if request.user.voted_for(pkg) %}
+                        {# If I voted, display "Yes". #}
+                        {% if pkg.PackageBase.ID in votes %}
                             {{ "Yes" | tr }}
                         {% endif %}
                     </td>
                     <td>
-                        <!-- If I'm being notified, display "Yes". -->
-                        {% if request.user.notified(pkg) %}
+                        {# If I'm being notified, display "Yes". #}
+                        {% if pkg.PackageBase.ID in notified %}
                             {{ "Yes" | tr }}
                         {% endif %}
                     </td>

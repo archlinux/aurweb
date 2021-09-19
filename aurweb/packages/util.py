@@ -1,5 +1,6 @@
+from collections import defaultdict
 from http import HTTPStatus
-from typing import List
+from typing import Dict, List
 
 import orjson
 
@@ -11,8 +12,11 @@ from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_dependency import PackageDependency
+from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
+from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import PROVIDES_ID, RelationType
+from aurweb.models.user import User
 from aurweb.redis import redis_connection
 from aurweb.templates import register_filter
 
@@ -164,3 +168,47 @@ def updated_packages(limit: int = 0, cache_ttl: int = 600) -> List[Package]:
 
     # Return the deserialized list of packages.
     return packages
+
+
+def query_voted(query: List[Package], user: User) -> Dict[int, bool]:
+    """ Produce a dictionary of package base ID keys to boolean values,
+    which indicate whether or not the package base has a vote record
+    related to user.
+
+    :param query: A collection of Package models
+    :param user: The user that is being notified or not
+    :return: Vote state dict (PackageBase.ID: int -> bool)
+    """
+    output = defaultdict(bool)
+    query_set = {pkg.PackageBase.ID for pkg in query}
+    voted = db.query(PackageVote).join(
+        PackageBase,
+        PackageBase.ID.in_(query_set)
+    ).filter(
+        PackageVote.UsersID == user.ID
+    )
+    for vote in voted:
+        output[vote.PackageBase.ID] = True
+    return output
+
+
+def query_notified(query: List[Package], user: User) -> Dict[int, bool]:
+    """ Produce a dictionary of package base ID keys to boolean values,
+    which indicate whether or not the package base has a notification
+    record related to user.
+
+    :param query: A collection of Package models
+    :param user: The user that is being notified or not
+    :return: Notification state dict (PackageBase.ID: int -> bool)
+    """
+    output = defaultdict(bool)
+    query_set = {pkg.PackageBase.ID for pkg in query}
+    notified = db.query(PackageNotification).join(
+        PackageBase,
+        PackageBase.ID.in_(query_set)
+    ).filter(
+        PackageNotification.UserID == user.ID
+    )
+    for notify in notified:
+        output[notify.PackageBase.ID] = True
+    return output
