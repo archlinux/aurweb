@@ -2,6 +2,8 @@ import functools
 import math
 import re
 
+from typing import Iterable
+
 from sqlalchemy import event
 from sqlalchemy.orm import scoped_session
 
@@ -69,6 +71,12 @@ def delete(model, *args, **kwargs):
     instance = session.query(model).filter(*args, **kwargs)
     for record in instance:
         session.delete(record)
+
+
+def delete_all(iterable: Iterable):
+    with begin():
+        for obj in iterable:
+            session.delete(obj)
 
 
 def rollback():
