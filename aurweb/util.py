@@ -7,7 +7,7 @@ import secrets
 import string
 
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any, Callable, Dict, Iterable
 from urllib.parse import urlencode, urlparse
 from zoneinfo import ZoneInfo
 
@@ -167,3 +167,8 @@ def add_samesite_fields(response: Response, value: str):
 
 def get_ssh_fingerprints():
     return aurweb.config.get_section("fingerprints") or {}
+
+
+def apply_all(iterable: Iterable, fn: Callable):
+    for item in iterable:
+        fn(item)
