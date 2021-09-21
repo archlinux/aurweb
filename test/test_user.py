@@ -214,6 +214,11 @@ def test_user_credential_types():
     assert aurweb.auth.developer(user)
     assert aurweb.auth.trusted_user_or_dev(user)
 
+    # Some model authorization checks.
+    assert user.is_elevated()
+    assert user.is_trusted_user()
+    assert user.is_developer()
+
 
 def test_user_json():
     data = json.loads(user.json())

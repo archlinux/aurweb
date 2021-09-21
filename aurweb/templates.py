@@ -1,5 +1,6 @@
 import copy
 import functools
+import math
 import os
 import zoneinfo
 
@@ -35,6 +36,7 @@ _env.filters["urlencode"] = util.to_qs
 _env.filters["quote_plus"] = quote_plus
 _env.filters["get_vote"] = util.get_vote
 _env.filters["number_format"] = util.number_format
+_env.filters["ceil"] = math.ceil
 
 # Add captcha filters.
 _env.filters["captcha_salt"] = captcha.captcha_salt_filter

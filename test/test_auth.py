@@ -5,7 +5,7 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
-from aurweb.auth import BasicAuthBackend, account_type_required, has_credential
+from aurweb.auth import AnonymousUser, BasicAuthBackend, account_type_required, has_credential
 from aurweb.db import create, query
 from aurweb.models.account_type import USER, USER_ID, AccountType
 from aurweb.models.session import Session
@@ -92,3 +92,28 @@ def test_account_type_required():
     # But this one should! We have no "FAKE" key.
     with pytest.raises(KeyError):
         account_type_required({'FAKE'})
+
+
+def test_is_trusted_user():
+    user_ = AnonymousUser()
+    assert not user_.is_trusted_user()
+
+
+def test_is_developer():
+    user_ = AnonymousUser()
+    assert not user_.is_developer()
+
+
+def test_is_elevated():
+    user_ = AnonymousUser()
+    assert not user_.is_elevated()
+
+
+def test_voted_for():
+    user_ = AnonymousUser()
+    assert not user_.voted_for(None)
+
+
+def test_notified():
+    user_ = AnonymousUser()
+    assert not user_.notified(None)

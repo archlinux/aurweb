@@ -54,7 +54,27 @@ class AnonymousUser:
         return False
 
     @staticmethod
+    def is_trusted_user():
+        return False
+
+    @staticmethod
+    def is_developer():
+        return False
+
+    @staticmethod
+    def is_elevated():
+        return False
+
+    @staticmethod
     def has_credential(credential):
+        return False
+
+    @staticmethod
+    def voted_for(package):
+        return False
+
+    @staticmethod
+    def notified(package):
         return False
 
 

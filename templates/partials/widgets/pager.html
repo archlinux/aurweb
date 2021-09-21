@@ -1,0 +1,26 @@
+{# A pager widget that can be used for navigation of a number of results.
+
+Inputs required:
+
+    prefix: Request URI prefix used to produce navigation offsets
+    singular: Singular sentence to be translated via tn
+    plural: Plural sentence to be translated via tn
+    PP: The number of results per page
+    O: The current offset value
+    total: The total number of results
+#}
+
+{% set page = ((O / PP) | int) %}
+{% set pages = ((total / PP) | ceil) %}
+
+<div class="pkglist-stats">
+    <p>
+        {{ total | tn(singular, plural) | format(total) }}
+        {{ "Page %d of %d." | tr | format(page + 1, pages) }}
+    </p>
+    {% if pages > 1 %}
+        <p class="pkglist-nav">
+            {{ page | pager_nav(total, prefix) | safe }}
+        <p>
+    {% endif %}
+</div>
