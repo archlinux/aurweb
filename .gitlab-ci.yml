@@ -36,6 +36,7 @@ test:
     - isort --check-only aurweb # Assert no isort violations in aurweb.
     - isort --check-only test # Assert no flake8 violations in test.
     - isort --check-only migrations # Assert no flake8 violations in migrations.
+  coverage: '/TOTAL.*\s+(\d+\%)/'
   artifacts:
     reports:
       cobertura: coverage.xml
