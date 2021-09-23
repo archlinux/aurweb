@@ -195,3 +195,12 @@ async def package_base(request: Request, name: str) -> Response:
     context["packages"] = pkgbase.packages.all()
 
     return render_template(request, "pkgbase.html", context)
+
+
+@router.get("/pkgbase/{name}/voters")
+async def package_base_voters(request: Request, name: str) -> Response:
+    # Get the PackageBase.
+    pkgbase = get_pkgbase(name)
+    context = make_context(request, "Voters")
+    context["pkgbase"] = pkgbase
+    return render_template(request, "pkgbase/voters.html", context)

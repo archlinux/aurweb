@@ -912,3 +912,21 @@ def test_packages_per_page(client: TestClient, maintainer: User):
     root = parse_root(response.text)
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 250
+
+
+def test_pkgbase_voters(client: TestClient, maintainer: User, package: Package):
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/voters"
+
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        db.create(PackageVote, User=maintainer, PackageBase=pkgbase,
+                  VoteTS=now)
+
+    with client as request:
+        resp = request.get(endpoint)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    rows = root.xpath('//div[@class="box"]//ul/li')
+    assert len(rows) == 1
