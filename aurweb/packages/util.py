@@ -1,6 +1,6 @@
 from collections import defaultdict
 from http import HTTPStatus
-from typing import Dict, List
+from typing import Dict, List, Union
 
 import orjson
 
@@ -101,24 +101,24 @@ def provides_list(package: Package, depname: str) -> list:
     return string
 
 
-def get_pkgbase(name: str) -> PackageBase:
+def get_pkg_or_base(name: str, cls: Union[Package, PackageBase] = PackageBase):
     """ Get a PackageBase instance by its name or raise a 404 if
-    it can't be foudn in the database.
+    it can't be found in the database.
 
-    :param name: PackageBase.Name
-    :raises HTTPException: With status code 404 if PackageBase doesn't exist
-    :return: PackageBase instance
+    :param name: {Package,PackageBase}.Name
+    :raises HTTPException: With status code 404 if record doesn't exist
+    :return: {Package,PackageBase} instance
     """
-    pkgbase = db.query(PackageBase).filter(PackageBase.Name == name).first()
-    if not pkgbase:
-        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
-
     provider = db.query(OfficialProvider).filter(
         OfficialProvider.Name == name).first()
     if provider:
         raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
 
-    return pkgbase
+    instance = db.query(cls).filter(cls.Name == name).first()
+    if cls == PackageBase and not instance:
+        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+
+    return instance
 
 
 @register_filter("out_of_date")

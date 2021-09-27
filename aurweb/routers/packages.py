@@ -23,7 +23,7 @@ from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID
 from aurweb.packages.search import PackageSearch
-from aurweb.packages.util import get_pkgbase, query_notified, query_voted
+from aurweb.packages.util import get_pkg_or_base, query_notified, query_voted
 from aurweb.templates import make_context, render_template
 
 router = APIRouter()
@@ -143,11 +143,14 @@ async def make_single_context(request: Request,
 
 @router.get("/packages/{name}")
 async def package(request: Request, name: str) -> Response:
-    # Get the PackageBase.
-    pkgbase = get_pkgbase(name)
+    # Get the Package.
+    pkg = get_pkg_or_base(name, Package)
+    pkgbase = (get_pkg_or_base(name, PackageBase)
+               if not pkg else pkg.PackageBase)
 
     # Add our base information.
     context = await make_single_context(request, pkgbase)
+    context["package"] = pkg
 
     # Package sources.
     context["sources"] = db.query(PackageSource).join(Package).join(
@@ -181,7 +184,7 @@ async def package(request: Request, name: str) -> Response:
 @router.get("/pkgbase/{name}")
 async def package_base(request: Request, name: str) -> Response:
     # Get the PackageBase.
-    pkgbase = get_pkgbase(name)
+    pkgbase = get_pkg_or_base(name, PackageBase)
 
     # If this is not a split package, redirect to /packages/{name}.
     if pkgbase.packages.count() == 1:
