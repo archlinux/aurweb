@@ -102,12 +102,8 @@ async def make_variable_context(request: Request, title: str, next: str = None):
     return context
 
 
-def render_template(request: Request,
-                    path: str,
-                    context: dict,
-                    status_code: HTTPStatus = HTTPStatus.OK):
+def render_raw_template(request: Request, path: str, context: dict):
     """ Render a Jinja2 multi-lingual template with some context. """
-
     # Create a deep copy of our jinja2 _environment. The _environment in
     # total by itself is 48 bytes large (according to sys.getsizeof).
     # This is done so we can install gettext translations on the template
@@ -119,8 +115,15 @@ def render_template(request: Request,
     templates.install_gettext_translations(translator)
 
     template = templates.get_template(path)
-    rendered = template.render(context)
+    return template.render(context)
 
+
+def render_template(request: Request,
+                    path: str,
+                    context: dict,
+                    status_code: HTTPStatus = HTTPStatus.OK):
+    """ Render a template as an HTMLResponse. """
+    rendered = render_raw_template(request, path, context)
     response = HTMLResponse(rendered, status_code=status_code)
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURLANG", context.get("language"),
