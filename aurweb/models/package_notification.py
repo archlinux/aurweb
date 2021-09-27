@@ -15,7 +15,7 @@ class PackageNotification(Base):
         Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
         nullable=False)
     User = relationship(
-        "User", backref=backref("package_notifications", lazy="dynamic"),
+        "User", backref=backref("notifications", lazy="dynamic"),
         foreign_keys=[UserID])
 
     PackageBaseID = Column(
@@ -23,7 +23,7 @@ class PackageNotification(Base):
         nullable=False)
     PackageBase = relationship(
         "PackageBase",
-        backref=backref("package_notifications", lazy="dynamic"),
+        backref=backref("notifications", lazy="dynamic"),
         foreign_keys=[PackageBaseID])
 
     __mapper_args__ = {"primary_key": [UserID, PackageBaseID]}

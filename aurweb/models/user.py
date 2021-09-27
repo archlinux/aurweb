@@ -191,10 +191,26 @@ class User(Base):
         ).scalar())
 
     def notified(self, package) -> bool:
-        """ Is this User being notified about package? """
+        """ Is this User being notified about package (or package base)?
+
+        :param package: Package or PackageBase instance
+        :return: Boolean indicating state of package notification
+                 in relation to this User
+        """
+        from aurweb.models.package import Package
+        from aurweb.models.package_base import PackageBase
         from aurweb.models.package_notification import PackageNotification
-        return bool(package.PackageBase.package_notifications.filter(
-            PackageNotification.UserID == self.ID
+
+        query = None
+        if isinstance(package, Package):
+            query = package.PackageBase.notifications
+        elif isinstance(package, PackageBase):
+            query = package.notifications
+
+        # Run an exists() query where a pkgbase-related
+        # PackageNotification exists for self (a user).
+        return bool(db.query(
+            query.filter(PackageNotification.UserID == self.ID).exists()
         ).scalar())
 
     def packages(self):

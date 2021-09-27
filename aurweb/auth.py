@@ -40,7 +40,7 @@ class AnonymousUser:
     ssh_pub_key = None
 
     # Add stubbed relationship backrefs.
-    package_notifications = StubQuery()
+    notifications = StubQuery()
     package_votes = StubQuery()
 
     # A nonce attribute, needed for all browser sessions; set in __init__.

@@ -127,9 +127,7 @@ async def make_single_context(request: Request,
     context["comments"] = pkgbase.comments
     context["is_maintainer"] = (request.user.is_authenticated()
                                 and request.user.ID == pkgbase.MaintainerUID)
-    context["notified"] = request.user.package_notifications.filter(
-        PackageNotification.PackageBaseID == pkgbase.ID
-    ).scalar()
+    context["notified"] = request.user.notified(pkgbase)
 
     context["out_of_date"] = bool(pkgbase.OutOfDateTS)
 
