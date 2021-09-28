@@ -16,26 +16,38 @@
     )
     | safe
     }}
-    {% if is_maintainer %}
-    <form class="delete-comment-form" method="post" action="/pkgbase/{{ pkgname }}/">
-        <fieldset style="display:inline;">
-            <input type="hidden" name="action" value="do_DeleteComment" />
-            <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
-            <input type="hidden" name="return_to" value="/pkgbase/{{ pkgname }}/"/>
-            <input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="{{ 'Delete comment' | tr }}" title="{{ 'Delete comment' | tr }}" name="submit" value="1" />
-        </fieldset>
-    </form>
-    <a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
+    {% if comment.Editor %}
+        {% set edited_on = comment.EditedTS | dt | as_timezone(timezone) %}
+        <span class="edited">
+            ({{ "edited on %s by %s" | tr
+            | format(edited_on.strftime('%Y-%m-%d %H:%M'),
+            '<a href="/account/%s">%s</a>' | format(
+            comment.Editor.Username, comment.Editor.Username))
+            | safe
+            }})
+        </span>
     {% endif %}
-    <form class="pin-comment-form" method="post" action="/pkgbase/{{ pkgname }}/">
-        <fieldset style="display:inline;">
-            <input type="hidden" name="action" value="do_PinComment"/>
-            <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
-            <input type="hidden" name="package_base" value="{{ pkgbase_id }}"/>
-            <input type="hidden" name="return_to" value="/pkgbase/{{ pkgname }}/"/>
-            <input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="{{ 'Pin comment' | tr }}" title="{{ 'Pin comment' | tr }}" name="submit" value="1"/>
-        </fieldset>
-    </form>
+    {% if request.user.is_elevated() or pkgbase.Maintainer == request.user %}
+        <form class="delete-comment-form" method="post" action="/pkgbase/{{ name }}/">
+            <fieldset style="display:inline;">
+                <input type="hidden" name="action" value="do_DeleteComment" />
+                <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
+                <input type="hidden" name="return_to" value="/pkgbase/{{ name }}/"/>
+                <input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="{{ 'Delete comment' | tr }}" title="{{ 'Delete comment' | tr }}" name="submit" value="1" />
+            </fieldset>
+        </form>
+        <a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
+
+        <form class="pin-comment-form" method="post" action="/pkgbase/{{ name }}/">
+            <fieldset style="display:inline;">
+                <input type="hidden" name="action" value="do_PinComment"/>
+                <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
+                <input type="hidden" name="package_base" value="{{ pkgbase.ID }}"/>
+                <input type="hidden" name="return_to" value="/pkgbase/{{ name }}/"/>
+                <input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="{{ 'Pin comment' | tr }}" title="{{ 'Pin comment' | tr }}" name="submit" value="1"/>
+            </fieldset>
+        </form>
+    {% endif %}
 </h4>
 <div id="comment-{{ comment.ID }}-content" class="article-content">
     <div>

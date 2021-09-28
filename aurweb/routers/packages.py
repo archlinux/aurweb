@@ -1,8 +1,9 @@
+from datetime import datetime
 from http import HTTPStatus
 from typing import Any, Dict
 
-from fastapi import APIRouter, Request, Response
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Form, HTTPException, Request, Response
+from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import and_
 
 import aurweb.filters
@@ -11,9 +12,11 @@ import aurweb.models.package_keyword
 import aurweb.packages.util
 
 from aurweb import db
+from aurweb.auth import auth_required
 from aurweb.models.license import License
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
+from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_license import PackageLicense
 from aurweb.models.package_notification import PackageNotification
@@ -23,8 +26,9 @@ from aurweb.models.package_source import PackageSource
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID
 from aurweb.packages.search import PackageSearch
-from aurweb.packages.util import get_pkg_or_base, query_notified, query_voted
-from aurweb.templates import make_context, render_template
+from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, query_notified, query_voted
+from aurweb.scripts.rendercomment import update_comment_render
+from aurweb.templates import make_context, render_raw_template, render_template
 
 router = APIRouter()
 
@@ -124,7 +128,9 @@ async def make_single_context(request: Request,
     context["pkgbase"] = pkgbase
     context["packages_count"] = pkgbase.packages.count()
     context["keywords"] = pkgbase.keywords
-    context["comments"] = pkgbase.comments
+    context["comments"] = pkgbase.comments.order_by(
+        PackageComment.CommentTS.desc()
+    )
     context["is_maintainer"] = (request.user.is_authenticated()
                                 and request.user.ID == pkgbase.MaintainerUID)
     context["notified"] = request.user.notified(pkgbase)
@@ -201,7 +207,94 @@ async def package_base(request: Request, name: str) -> Response:
 @router.get("/pkgbase/{name}/voters")
 async def package_base_voters(request: Request, name: str) -> Response:
     # Get the PackageBase.
-    pkgbase = get_pkgbase(name)
+    pkgbase = get_pkg_or_base(name, PackageBase)
     context = make_context(request, "Voters")
     context["pkgbase"] = pkgbase
     return render_template(request, "pkgbase/voters.html", context)
+
+
+@router.post("/pkgbase/{name}/comments")
+@auth_required(True)
+async def pkgbase_comments_post(
+        request: Request, name: str,
+        comment: str = Form(default=str()),
+        enable_notifications: bool = Form(default=False)):
+    """ Add a new comment. """
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    if not comment:
+        raise HTTPException(status_code=int(HTTPStatus.EXPECTATION_FAILED))
+
+    # If the provided comment is different than the record's version,
+    # update the db record.
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        comment = db.create(PackageComment, User=request.user,
+                            PackageBase=pkgbase,
+                            Comments=comment, RenderedComment=str(),
+                            CommentTS=now)
+
+        if enable_notifications and not request.user.notified(pkgbase):
+            db.create(PackageNotification,
+                      User=request.user,
+                      PackageBase=pkgbase)
+    update_comment_render(comment.ID)
+
+    # Redirect to the pkgbase page.
+    return RedirectResponse(f"/pkgbase/{pkgbase.Name}#comment-{comment.ID}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.get("/pkgbase/{name}/comments/{id}/form")
+@auth_required(True)
+async def pkgbase_comment_form(request: Request, name: str, id: int):
+    """ Produce a comment form for comment {id}. """
+    pkgbase = get_pkg_or_base(name, PackageBase)
+    comment = pkgbase.comments.filter(PackageComment.ID == id).first()
+    if not comment:
+        return JSONResponse({}, status_code=int(HTTPStatus.NOT_FOUND))
+
+    if not request.user.is_elevated() and request.user != comment.User:
+        return JSONResponse({}, status_code=int(HTTPStatus.UNAUTHORIZED))
+
+    context = await make_single_context(request, pkgbase)
+    context["comment"] = comment
+
+    form = render_raw_template(
+        request, "partials/packages/comment_form.html", context)
+    return JSONResponse({"form": form})
+
+
+@router.post("/pkgbase/{name}/comments/{id}")
+@auth_required(True)
+async def pkgbase_comment_post(
+        request: Request, name: str, id: int,
+        comment: str = Form(default=str()),
+        enable_notifications: bool = Form(default=False)):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+    db_comment = get_pkgbase_comment(pkgbase, id)
+
+    if not comment:
+        raise HTTPException(status_code=int(HTTPStatus.EXPECTATION_FAILED))
+
+    # If the provided comment is different than the record's version,
+    # update the db record.
+    now = int(datetime.utcnow().timestamp())
+    if db_comment.Comments != comment:
+        with db.begin():
+            db_comment.Comments = comment
+            db_comment.Editor = request.user
+            db_comment.EditedTS = now
+
+            db_notif = request.user.notifications.filter(
+                PackageNotification.PackageBaseID == pkgbase.ID
+            ).first()
+            if enable_notifications and not db_notif:
+                db.create(PackageNotification,
+                          User=request.user,
+                          PackageBase=pkgbase)
+    update_comment_render(db_comment.ID)
+
+    # Redirect to the pkgbase page anchored to the updated comment.
+    return RedirectResponse(f"/pkgbase/{pkgbase.Name}#comment-{db_comment.ID}",
+                            status_code=int(HTTPStatus.SEE_OTHER))

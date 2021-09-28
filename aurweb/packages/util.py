@@ -11,6 +11,7 @@ from aurweb import db
 from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
+from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
@@ -119,6 +120,13 @@ def get_pkg_or_base(name: str, cls: Union[Package, PackageBase] = PackageBase):
         raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
 
     return instance
+
+
+def get_pkgbase_comment(pkgbase: PackageBase, id: int) -> PackageComment:
+    comment = pkgbase.comments.filter(PackageComment.ID == id).first()
+    if not comment:
+        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+    return comment
 
 
 @register_filter("out_of_date")

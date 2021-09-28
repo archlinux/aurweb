@@ -8,44 +8,7 @@
 {% if request.user.is_authenticated() %}
 <div id="generic-form" class="box">
     <h2>Add Comment</h2>
-    <form action="/pkgbase/{{ pkgname }}/" method="post">
-        <fieldset>
-            <div>
-                <input type="hidden" name="action" value="do_AddComment"/>
-                <input type="hidden" name="ID" value="{{ pkgbase_id }}"/>
-            </div>
-            <p>
-                {{
-                "Git commit identifiers referencing commits in the AUR package"
-                " repository and URLs are converted to links automatically."
-                | tr
-                }}
-                {{
-                "%sMarkdown Syntax%s is partially supported."
-                | tr
-                | format('<a href="https://daringfireball.net/projects/markdown/syntax">', '</a>')
-                | safe
-                }}
-            </p>
-            <p>
-                <textarea id="id_comment" name="comment" cols="80" rows="10"></textarea>
-            </p>
-            <p>
-                <input type="submit" value="{{ 'Add Comment' | tr }}"/>
-                {% if not notifications_enabled %}
-                    <span class="comment-enable-notifications">
-                        <input id="id_enable_notifications"
-                               type="checkbox"
-                               name="enable_notifications"
-                        />
-                        <label for="id_enable_notifications">
-                            {{ "Enable notifications" | tr }}
-                        </label>
-                    </span>
-                {% endif %}
-            </p>
-        </fieldset>
-    </form>
+    {% include "partials/packages/comment_form.html" %}
 </div>
 {% endif %}
 
@@ -99,29 +62,28 @@ function handleEditCommentClick(event) {
     // The div class="article-content" which contains the comment
     const edit_form = parent_element.nextElementSibling;
 
-    const params = new URLSearchParams({
-        type: "get-comment-form",
-        arg: comment_id,
-        base_id: {{ pkgbase.ID }},
-        pkgbase_name: {{ pkgbase.Name }}
-    });
-
-    const url = '/rpc?' + params.toString();
+    const url = "/pkgbase/{{ pkgbase.Name }}/comments/" + comment_id + "/form";
 
     add_busy_indicator(event.target);
 
     fetch(url, {
-        method: 'GET'
+        method: 'GET',
+        credentials: 'same-origin'
     })
-    .then(function(response) { return response.json(); })
+    .then(function(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response.json();
+    })
     .then(function(data) {
         remove_busy_indicator(event.target);
-        if (data.success) {
-            edit_form.innerHTML = data.form;
-            edit_form.querySelector('textarea').focus();
-        } else {
-            alert(data.error);
-        }
+        edit_form.innerHTML = data.form;
+        edit_form.querySelector('textarea').focus();
+    })
+    .catch(function(error) {
+        remove_busy_indicator(event.target);
+        console.error(error);
     });
 }
 

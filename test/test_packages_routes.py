@@ -73,6 +73,7 @@ def setup():
         PackageVote.__tablename__,
         PackageNotification.__tablename__,
         PackageComaintainer.__tablename__,
+        PackageComment.__tablename__,
         OfficialProvider.__tablename__
     )
 
@@ -930,3 +931,135 @@ def test_pkgbase_voters(client: TestClient, maintainer: User, package: Package):
     root = parse_root(resp.text)
     rows = root.xpath('//div[@class="box"]//ul/li')
     assert len(rows) == 1
+
+
+def test_pkgbase_comment_not_found(client: TestClient, maintainer: User,
+                                   package: Package):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    comment_id = 12345  # A non-existing comment.
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/comments/{comment_id}"
+    with client as request:
+        resp = request.post(endpoint, data={
+            "comment": "Failure"
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_comment_form_unauthorized(client: TestClient, user: User,
+                                           maintainer: User, package: Package):
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        comment = db.create(PackageComment, PackageBase=package.PackageBase,
+                            User=maintainer, Comments="Test",
+                            RenderedComment=str(), CommentTS=now)
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/form"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+
+def test_pkgbase_comment_form_not_found(client: TestClient, maintainer: User,
+                                        package: Package):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    comment_id = 12345  # A non-existing comment.
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/form"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_comments_missing_comment(client: TestClient, maintainer: User,
+                                          package: Package):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/comments"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
+
+
+def test_pkgbase_comments(client: TestClient, maintainer: User,
+                          package: Package):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments"
+    with client as request:
+        resp = request.post(endpoint, data={
+            "comment": "Test comment.",
+            "enable_notifications": True
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    expected_prefix = f"/pkgbase/{pkgbasename}"
+    prefix_len = len(expected_prefix)
+    assert resp.headers.get("location")[:prefix_len] == expected_prefix
+
+    with client as request:
+        resp = request.get(resp.headers.get("location"))
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    headers = root.xpath('//h4[@class="comment-header"]')
+    bodies = root.xpath('//div[@class="article-content"]/div/p')
+
+    assert len(headers) == 1
+    assert len(bodies) == 1
+
+    assert bodies[0].text.strip() == "Test comment."
+
+    # Clear up the PackageNotification. This doubles as testing
+    # that the notification was created and clears it up so we can
+    # test enabling it during edit.
+    pkgbase = package.PackageBase
+    db_notif = pkgbase.notifications.filter(
+        PackageNotification.UserID == maintainer.ID
+    ).first()
+    with db.begin():
+        db.session.delete(db_notif)
+
+    # Now, let's edit the comment we just created.
+    comment_id = int(headers[0].attrib["id"].split("-")[-1])
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}"
+    with client as request:
+        resp = request.post(endpoint, data={
+            "comment": "Edited comment.",
+            "enable_notifications": True
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    with client as request:
+        resp = request.get(resp.headers.get("location"))
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    headers = root.xpath('//h4[@class="comment-header"]')
+    bodies = root.xpath('//div[@class="article-content"]/div/p')
+
+    assert len(headers) == 1
+    assert len(bodies) == 1
+
+    assert bodies[0].text.strip() == "Edited comment."
+
+    # Ensure that a notification was created.
+    db_notif = pkgbase.notifications.filter(
+        PackageNotification.UserID == maintainer.ID
+    ).first()
+    assert db_notif is not None
+
+    # Don't supply a comment; should return EXPECTATION_FAILED.
+    with client as request:
+        fail_resp = request.post(endpoint, cookies=cookies)
+    assert fail_resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
+
+    # Now, test the form route, which should return form markup
+    # via JSON.
+    endpoint = f"{endpoint}/form"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    data = resp.json()
+    assert "form" in data
