@@ -1,60 +1,90 @@
-<h4 id="comment-{{ comment.ID }}" class="comment-header">
-    {% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
-    {% set view_account_info = 'View account information for %s' | tr | format(comment.User.Username) %}
-    {{
-    "%s commented on %s" | tr | format(
-        ('<a href="/account/%s" title="%s">%s</a>' | format(
-            comment.User.Username,
-            view_account_info,
-            comment.User.Username
-        )) if request.user.is_authenticated() else
-        (comment.User.Username),
-        '<a href="#comment-%s" class="date">%s</a>' | format(
-            comment.ID,
-            commented_at.strftime("%Y-%m-%d %H:%M")
-        )
-    )
-    | safe
-    }}
-    {% if comment.Editor %}
-        {% set edited_on = comment.EditedTS | dt | as_timezone(timezone) %}
-        <span class="edited">
-            ({{ "edited on %s by %s" | tr
-            | format(edited_on.strftime('%Y-%m-%d %H:%M'),
-            '<a href="/account/%s">%s</a>' | format(
-            comment.Editor.Username, comment.Editor.Username))
-            | safe
-            }})
-        </span>
-    {% endif %}
-    {% if request.user.is_elevated() or pkgbase.Maintainer == request.user %}
-        <form class="delete-comment-form" method="post" action="/pkgbase/{{ name }}/">
-            <fieldset style="display:inline;">
-                <input type="hidden" name="action" value="do_DeleteComment" />
-                <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
-                <input type="hidden" name="return_to" value="/pkgbase/{{ name }}/"/>
-                <input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="{{ 'Delete comment' | tr }}" title="{{ 'Delete comment' | tr }}" name="submit" value="1" />
-            </fieldset>
-        </form>
-        <a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
+{% set header_cls = "comment-header" %}
+{% set article_cls = "article-content" %}
+{% if comment.Deleter %}
+	{% set header_cls = "%s %s" | format(header_cls, "comment-deleted") %}
+	{% set article_cls = "%s %s" | format(article_cls, "comment-deleted") %}
+{% endif %}
 
-        <form class="pin-comment-form" method="post" action="/pkgbase/{{ name }}/">
-            <fieldset style="display:inline;">
-                <input type="hidden" name="action" value="do_PinComment"/>
-                <input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
-                <input type="hidden" name="package_base" value="{{ pkgbase.ID }}"/>
-                <input type="hidden" name="return_to" value="/pkgbase/{{ name }}/"/>
-                <input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="{{ 'Pin comment' | tr }}" title="{{ 'Pin comment' | tr }}" name="submit" value="1"/>
-            </fieldset>
-        </form>
-    {% endif %}
-</h4>
-<div id="comment-{{ comment.ID }}-content" class="article-content">
-    <div>
-        {% if comment.RenderedComment %}
-            {{ comment.RenderedComment | safe }}
-        {% else %}
-            {{ comment.Comments }}
-        {% endif %}
-    </div>
-</div>
+{% if not comment.Deleter or request.user.has_credential("CRED_COMMENT_VIEW_DELETED", approved=[comment.Deleter]) %}
+	<h4 id="comment-{{ comment.ID }}" class="{{ header_cls }}">
+		{% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
+		{% set view_account_info = 'View account information for %s' | tr | format(comment.User.Username) %}
+		{{
+		"%s commented on %s" | tr | format(
+			('<a href="/account/%s" title="%s">%s</a>' | format(
+				comment.User.Username,
+				view_account_info,
+				comment.User.Username
+			)) if request.user.is_authenticated() else
+			(comment.User.Username),
+			'<a href="#comment-%s" class="date">%s</a>' | format(
+				comment.ID,
+				commented_at.strftime("%Y-%m-%d %H:%M")
+			)
+		)
+		| safe
+		}}
+		{% if comment.Editor %}
+			{% set edited_on = comment.EditedTS | dt | as_timezone(timezone) %}
+			<span class="edited">
+				({{ "edited on %s by %s" | tr
+				| format(edited_on.strftime('%Y-%m-%d %H:%M'),
+				'<a href="/account/%s">%s</a>' | format(
+				comment.Editor.Username, comment.Editor.Username))
+				| safe
+				}})
+			</span>
+		{% endif %}
+		{% if not comment.Deleter %}
+			{% if request.user.has_credential('CRED_COMMENT_DELETE', approved=[comment.User]) %}
+				<form class="delete-comment-form" method="post"
+					  action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/delete">
+					<fieldset style="display:inline;">
+						<input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="{{ 'Delete comment' | tr }}" title="{{ 'Delete comment' | tr }}" name="submit" value="1" />
+					</fieldset>
+				</form>
+			{% endif %}
+
+			{% if request.user.has_credential('CRED_COMMENT_EDIT', approved=[comment.User]) %}
+				<a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
+			{% endif %}
+
+			{% if request.user.has_credential("CRED_COMMENT_PIN", approved=[pkgbase.Maintainer]) %}
+				<form class="pin-comment-form" method="post" action="/pkgbase/{{ name }}/">
+					<fieldset style="display:inline;">
+						<input type="hidden" name="action" value="do_PinComment"/>
+						<input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
+						<input type="hidden" name="package_base" value="{{ pkgbase.ID }}"/>
+						<input type="hidden" name="return_to" value="/pkgbase/{{ name }}/"/>
+						<input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="{{ 'Pin comment' | tr }}" title="{{ 'Pin comment' | tr }}" name="submit" value="1"/>
+					</fieldset>
+				</form>
+			{% endif %}
+		{% else %}
+			{% if request.user.has_credential("CRED_COMMENT_UNDELETE", approved=[comment.User]) %}
+				<form class="undelete-comment-form"
+					  method="post"
+					  action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/undelete"
+				>
+					<fieldset style="display:inline;">
+						<input type="image"
+							   class="undelete-comment"
+							   src="/images/action-undo.min.svg"
+							   alt="{{ 'Undelete comment' | tr }}"
+							   title="{{ 'Undelete comment' | tr }}"
+							   name="submit" value="1" width="11" height="11" />
+					</fieldset>
+				</form>
+			{% endif %}
+		{% endif %}
+	</h4>
+	<div id="comment-{{ comment.ID }}-content" class="{{ article_cls }}">
+		<div>
+			{% if comment.RenderedComment %}
+				{{ comment.RenderedComment | safe }}
+			{% else %}
+				{{ comment.Comments }}
+			{% endif %}
+		</div>
+	</div>
+{% endif %}
