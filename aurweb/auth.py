@@ -66,7 +66,7 @@ class AnonymousUser:
         return False
 
     @staticmethod
-    def has_credential(credential):
+    def has_credential(credential, **kwargs):
         return False
 
     @staticmethod

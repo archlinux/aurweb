@@ -117,3 +117,8 @@ def test_voted_for():
 def test_notified():
     user_ = AnonymousUser()
     assert not user_.notified(None)
+
+
+def test_has_credential():
+    user_ = AnonymousUser()
+    assert not user_.has_credential("FAKE_CREDENTIAL")
