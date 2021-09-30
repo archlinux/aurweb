@@ -11,7 +11,7 @@ import aurweb.models.package_comment
 import aurweb.models.package_keyword
 import aurweb.packages.util
 
-from aurweb import db
+from aurweb import db, l10n
 from aurweb.auth import auth_required
 from aurweb.models.license import License
 from aurweb.models.package import Package
@@ -297,4 +297,27 @@ async def pkgbase_comment_post(
 
     # Redirect to the pkgbase page anchored to the updated comment.
     return RedirectResponse(f"/pkgbase/{pkgbase.Name}#comment-{db_comment.ID}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/comments/{id}/delete")
+@auth_required(True)
+async def pkgbase_comment_delete(request: Request, name: str, id: int):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+    comment = get_pkgbase_comment(pkgbase, id)
+
+    authorized = request.user.has_credential("CRED_COMMENT_DELETE",
+                                             [comment.User])
+    if not authorized:
+        _ = l10n.get_translator_for_request(request)
+        raise HTTPException(
+            status_code=int(HTTPStatus.UNAUTHORIZED),
+            detail=_("You are not allowed to delete this comment."))
+
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        comment.Deleter = request.user
+        comment.DelTS = now
+
+    return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))

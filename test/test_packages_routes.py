@@ -995,7 +995,7 @@ def test_pkgbase_comments_missing_comment(client: TestClient, maintainer: User,
     assert resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
 
 
-def test_pkgbase_comments(client: TestClient, maintainer: User,
+def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
                           package: Package):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     pkgbasename = package.PackageBase.Name
@@ -1077,3 +1077,44 @@ def test_pkgbase_comments(client: TestClient, maintainer: User,
 
     data = resp.json()
     assert "form" in data
+
+
+def test_pkgbase_comment_delete(client: TestClient,
+                                user: User,
+                                package: Package,
+                                comment: PackageComment):
+    # Test the unauthorized case of comment deletion.
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/delete"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    expected = f"/pkgbase/{pkgbasename}"
+    assert resp.headers.get("location") == expected
+
+
+def test_pkgbase_comment_delete_unauthorized(client: TestClient,
+                                             maintainer: User,
+                                             package: Package,
+                                             comment: PackageComment):
+    # Test the unauthorized case of comment deletion.
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/delete"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+
+def test_pkgbase_comment_delete_not_found(client: TestClient,
+                                          maintainer: User,
+                                          package: Package):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    comment_id = 12345  # Non-existing comment.
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/delete"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
