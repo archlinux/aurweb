@@ -1080,6 +1080,7 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
 
 
 def test_pkgbase_comment_delete(client: TestClient,
+                                maintainer: User,
                                 user: User,
                                 package: Package,
                                 comment: PackageComment):
@@ -1093,6 +1094,18 @@ def test_pkgbase_comment_delete(client: TestClient,
 
     expected = f"/pkgbase/{pkgbasename}"
     assert resp.headers.get("location") == expected
+
+    # Test the unauthorized case of comment undeletion.
+    maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment.ID}/undelete"
+    with client as request:
+        resp = request.post(endpoint, cookies=maint_cookies)
+    assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+    # And move on to undeleting it.
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
 def test_pkgbase_comment_delete_unauthorized(client: TestClient,
@@ -1115,6 +1128,18 @@ def test_pkgbase_comment_delete_not_found(client: TestClient,
     comment_id = 12345  # Non-existing comment.
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/delete"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_comment_undelete_not_found(client: TestClient,
+                                            maintainer: User,
+                                            package: Package):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    comment_id = 12345  # Non-existing comment.
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/undelete"
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)

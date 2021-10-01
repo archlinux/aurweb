@@ -321,3 +321,25 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int):
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/comments/{id}/undelete")
+@auth_required(True)
+async def pkgbase_comment_undelete(request: Request, name: str, id: int):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+    comment = get_pkgbase_comment(pkgbase, id)
+
+    has_cred = request.user.has_credential("CRED_COMMENT_UNDELETE",
+                                           approved=[comment.User])
+    if not has_cred:
+        _ = l10n.get_translator_for_request(request)
+        raise HTTPException(
+            status_code=int(HTTPStatus.UNAUTHORIZED),
+            detail=_("You are not allowed to undelete this comment."))
+
+    with db.begin():
+        comment.Deleter = None
+        comment.DelTS = None
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
