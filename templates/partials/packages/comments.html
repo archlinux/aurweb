@@ -12,7 +12,21 @@
 </div>
 {% endif %}
 
-{% if comments %}
+{% if pinned_comments.count() %}
+    <div class="comments package-comments">
+        <div class="comments-header">
+            <h3>
+                <span class="text">{{ "Pinned Comments" | tr }}</span>
+                <span class="arrow"></span>
+            </h3>
+        </div>
+        {% for comment in pinned_comments.all() %}
+            {% include "partials/packages/comment.html" %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if comments.count() %}
     <div class="comments package-comments">
         <div class="comments-header">
             <h3>

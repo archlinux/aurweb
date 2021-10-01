@@ -1143,3 +1143,29 @@ def test_pkgbase_comment_undelete_not_found(client: TestClient,
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_pkgbase_comment_pin(client: TestClient,
+                             maintainer: User,
+                             package: Package,
+                             comment: PackageComment):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    comment_id = comment.ID
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/pin"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+
+def test_pkgbase_comment_pin_unauthorized(client: TestClient,
+                                          user: User,
+                                          package: Package,
+                                          comment: PackageComment):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    comment_id = comment.ID
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/pin"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)

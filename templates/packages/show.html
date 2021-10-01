@@ -18,7 +18,5 @@
 
     {% set pkgname = result.Name %}
     {% set pkgbase_id = result.ID %}
-    {% if comments.count() %}
-        {% include "partials/packages/comments.html" %}
-    {% endif %}
+    {% include "partials/packages/comments.html" %}
 {% endblock %}

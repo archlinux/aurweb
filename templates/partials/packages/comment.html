@@ -49,16 +49,38 @@
 				<a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
 			{% endif %}
 
-			{% if request.user.has_credential("CRED_COMMENT_PIN", approved=[pkgbase.Maintainer]) %}
-				<form class="pin-comment-form" method="post" action="/pkgbase/{{ name }}/">
-					<fieldset style="display:inline;">
-						<input type="hidden" name="action" value="do_PinComment"/>
-						<input type="hidden" name="comment_id" value="{{ comment.ID }}"/>
-						<input type="hidden" name="package_base" value="{{ pkgbase.ID }}"/>
-						<input type="hidden" name="return_to" value="/pkgbase/{{ name }}/"/>
-						<input type="image" class="pin-comment" src="/images/pin.min.svg" width="11" height="11" alt="{{ 'Pin comment' | tr }}" title="{{ 'Pin comment' | tr }}" name="submit" value="1"/>
-					</fieldset>
-				</form>
+            {% if request.user.has_credential("CRED_COMMENT_PIN", approved=[pkgbase.Maintainer]) %}
+                {% if comment.PinnedTS %}
+                    <form class="pin-comment-form"
+                          method="post"
+                          action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/unpin"
+                    >
+                        <fieldset style="display:inline;">
+                            <input type="image"
+                                   class="pin-comment"
+                                   src="/images/unpin.min.svg"
+                                   alt="{{ 'Unpin comment' | tr }}"
+                                   title="{{ 'Unpin comment' | tr }}"
+                                   name="submit"
+                                   value="1" width="11" height="11" />
+                        </fieldset>
+                    </form>
+                {% else %}
+                    <form class="pin-comment-form"
+                          method="post"
+                          action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/pin"
+                    >
+                        <fieldset style="display:inline;">
+                            <input type="image"
+                                   class="pin-comment"
+                                   src="/images/pin.min.svg"
+                                   alt="{{ 'Pin comment' | tr }}"
+                                   title="{{ 'Pin comment' | tr }}"
+                                   name="submit"
+                                   value="1" width="11" height="11" />
+                        </fieldset>
+                    </form>
+                {% endif %}
 			{% endif %}
 		{% else %}
 			{% if request.user.has_credential("CRED_COMMENT_UNDELETE", approved=[comment.User]) %}

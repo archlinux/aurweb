@@ -131,6 +131,10 @@ async def make_single_context(request: Request,
     context["comments"] = pkgbase.comments.order_by(
         PackageComment.CommentTS.desc()
     )
+    context["pinned_comments"] = pkgbase.comments.filter(
+        PackageComment.PinnedTS != 0
+    ).order_by(PackageComment.CommentTS.desc())
+
     context["is_maintainer"] = (request.user.is_authenticated()
                                 and request.user.ID == pkgbase.MaintainerUID)
     context["notified"] = request.user.notified(pkgbase)
@@ -340,6 +344,28 @@ async def pkgbase_comment_undelete(request: Request, name: str, id: int):
     with db.begin():
         comment.Deleter = None
         comment.DelTS = None
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/comments/{id}/pin")
+@auth_required(True)
+async def pkgbase_comment_pin(request: Request, name: str, id: int):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+    comment = get_pkgbase_comment(pkgbase, id)
+
+    has_cred = request.user.has_credential("CRED_COMMENT_PIN",
+                                           approved=[pkgbase.Maintainer])
+    if not has_cred:
+        _ = l10n.get_translator_for_request(request)
+        raise HTTPException(
+            status_code=int(HTTPStatus.UNAUTHORIZED),
+            detail=_("You are not allowed to pin this comment."))
+
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        comment.PinnedTS = now
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
