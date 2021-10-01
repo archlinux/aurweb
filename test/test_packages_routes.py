@@ -126,6 +126,20 @@ def package(maintainer: User) -> Package:
 
 
 @pytest.fixture
+def comment(user: User, package: Package) -> PackageComment:
+    pkgbase = package.PackageBase
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        comment = db.create(PackageComment,
+                            User=user,
+                            PackageBase=pkgbase,
+                            Comments="Test comment.",
+                            RenderedComment=str(),
+                            CommentTS=now)
+    yield comment
+
+
+@pytest.fixture
 def packages(maintainer: User) -> List[Package]:
     """ Yield 55 packages named pkg_0 .. pkg_54. """
     packages_ = []
