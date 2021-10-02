@@ -5,32 +5,47 @@ services:
     volumes:
       - cache:/cache
 
+  memcached:
+    restart: always
+
+  redis:
+    restart: always
+
+  mariadb:
+    restart: always
+
   git:
+    restart: always
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
       - cache:/cache
       - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   smartgit:
+    restart: always
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
       - cache:/cache
       - smartgit_run:/var/run/smartgit
 
   cgit-php:
+    restart: always
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
 
   cgit-fastapi:
+    restart: always
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
 
   php-fpm:
+    restart: always
     volumes:
       - cache:/cache
       - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   fastapi:
+    restart: always
     environment:
       - FASTAPI_BACKEND="gunicorn"
     volumes:
@@ -42,6 +57,7 @@ services:
       - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   nginx:
+    restart: always
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
       - cache:/cache

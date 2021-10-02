@@ -11,22 +11,22 @@ variables:
   DB_HOST: localhost
   TEST_RECURSION_LIMIT: 10000
 
-before_script:
-  - export PATH="$HOME/.poetry/bin:${PATH}"
-  - ./docker/scripts/install-deps.sh
-  - ./docker/scripts/install-python-deps.sh
-  - useradd -U -d /aurweb -c 'AUR User' aur
-  - ./docker/mariadb-entrypoint.sh
-  - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &
-  - 'until : > /dev/tcp/127.0.0.1/3306; do sleep 1s; done'
-  - ./docker/test-mysql-entrypoint.sh # Create mysql AUR_CONFIG.
-  - ./docker/test-sqlite-entrypoint.sh # Create sqlite AUR_CONFIG.
-  - make -C po all install
-  - python -m aurweb.initdb # Initialize MySQL tables.
-  - AUR_CONFIG=conf/config.sqlite python -m aurweb.initdb
-  - make -C test clean
-
 test:
+  stage: test
+  before_script:
+    - export PATH="$HOME/.poetry/bin:${PATH}"
+    - ./docker/scripts/install-deps.sh
+    - ./docker/scripts/install-python-deps.sh
+    - useradd -U -d /aurweb -c 'AUR User' aur
+    - ./docker/mariadb-entrypoint.sh
+    - (cd '/usr' && /usr/bin/mysqld_safe --datadir='/var/lib/mysql') &
+    - 'until : > /dev/tcp/127.0.0.1/3306; do sleep 1s; done'
+    - ./docker/test-mysql-entrypoint.sh # Create mysql AUR_CONFIG.
+    - ./docker/test-sqlite-entrypoint.sh # Create sqlite AUR_CONFIG.
+    - make -C po all install
+    - python -m aurweb.initdb # Initialize MySQL tables.
+    - AUR_CONFIG=conf/config.sqlite python -m aurweb.initdb
+    - make -C test clean
   script:
     - make -C test sh pytest # sharness tests use sqlite & pytest w/ mysql.
     - AUR_CONFIG=conf/config.sqlite make -C test pytest
@@ -41,3 +41,21 @@ test:
   artifacts:
     reports:
       cobertura: coverage.xml
+
+deploy:
+  stage: deploy
+  tags:
+    - secure
+  rules:
+    - if: $CI_COMMIT_BRANCH == "pu"
+      when: manual
+  script:
+    - pacman -Syu --noconfirm docker-compose socat openssh
+    - chmod 600 ${SSH_KEY}
+    - socat "UNIX-LISTEN:/tmp/docker.sock,reuseaddr,fork" EXEC:"ssh -o UserKnownHostsFile=${SSH_KNOWN_HOSTS} -Ti ${SSH_KEY} ${SSH_USER}@${SSH_HOST}" &
+    - export DOCKER_HOST="unix:///tmp/docker.sock"
+    - docker-compose build
+    - docker-compose -f docker-compose.yml -f docker-compose.aur-dev.yml up -d
+  environment:
+    name: development
+    url: https://aur-dev.archlinux.org
