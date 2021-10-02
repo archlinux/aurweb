@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import sys
 
 import bleach
@@ -9,6 +10,7 @@ import pygit2
 import aurweb.config
 import aurweb.db
 
+logger = logging.getLogger(__name__)
 repo_path = aurweb.config.get('serve', 'repo-path')
 commit_uri = aurweb.config.get('options', 'commit_uri')
 
@@ -24,7 +26,7 @@ class LinkifyExtension(markdown.extensions.Extension):
     _urlre = (r'(\b(?:https?|ftp):\/\/[\w\/\#~:.?+=&%@!\-;,]+?'
               r'(?=[.:?\-;,]*(?:[^\w\/\#~:.?+=&%@!\-;,]|$)))')
 
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md):
         processor = markdown.inlinepatterns.AutolinkInlineProcessor(self._urlre, md)
         # Register it right after the default <>-link processor (priority 120).
         md.inlinePatterns.register(processor, 'linkify', 119)
@@ -46,7 +48,7 @@ class FlysprayLinksInlineProcessor(markdown.inlinepatterns.InlineProcessor):
 
 
 class FlysprayLinksExtension(markdown.extensions.Extension):
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md):
         processor = FlysprayLinksInlineProcessor(r'\bFS#(\d+)\b', md)
         md.inlinePatterns.register(processor, 'flyspray-links', 118)
 
@@ -90,9 +92,12 @@ class GitCommitsExtension(markdown.extensions.Extension):
         self._head = head
         super(markdown.extensions.Extension, self).__init__()
 
-    def extendMarkdown(self, md, md_globals):
-        processor = GitCommitsInlineProcessor(md, self._head)
-        md.inlinePatterns.register(processor, 'git-commits', 117)
+    def extendMarkdown(self, md):
+        try:
+            processor = GitCommitsInlineProcessor(md, self._head)
+            md.inlinePatterns.register(processor, 'git-commits', 117)
+        except pygit2.GitError:
+            logger.error(f"No git repository found for '{self._head}'.")
 
 
 class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
@@ -105,7 +110,7 @@ class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
 
 
 class HeadingExtension(markdown.extensions.Extension):
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md):
         # Priority doesn't matter since we don't conflict with other processors.
         md.treeprocessors.register(HeadingTreeprocessor(md), 'heading', 30)
 
@@ -123,24 +128,30 @@ def save_rendered_comment(conn, commentid, html):
                  [html, commentid])
 
 
-def main():
-    commentid = int(sys.argv[1])
-
+def update_comment_render(commentid):
     conn = aurweb.db.Connection()
 
     text, pkgbase = get_comment(conn, commentid)
-    html = markdown.markdown(text, extensions=['fenced_code',
-                                               LinkifyExtension(),
-                                               FlysprayLinksExtension(),
-                                               GitCommitsExtension(pkgbase),
-                                               HeadingExtension()])
-    allowed_tags = (bleach.sanitizer.ALLOWED_TAGS +
-                    ['p', 'pre', 'h4', 'h5', 'h6', 'br', 'hr'])
+    html = markdown.markdown(text, extensions=[
+        'fenced_code',
+        LinkifyExtension(),
+        FlysprayLinksExtension(),
+        GitCommitsExtension(pkgbase),
+        HeadingExtension()
+    ])
+
+    allowed_tags = (bleach.sanitizer.ALLOWED_TAGS
+                    + ['p', 'pre', 'h4', 'h5', 'h6', 'br', 'hr'])
     html = bleach.clean(html, tags=allowed_tags)
     save_rendered_comment(conn, commentid, html)
 
     conn.commit()
     conn.close()
+
+
+def main():
+    commentid = int(sys.argv[1])
+    update_comment_render(commentid)
 
 
 if __name__ == '__main__':
