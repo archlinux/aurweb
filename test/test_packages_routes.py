@@ -1152,10 +1152,24 @@ def test_pkgbase_comment_pin(client: TestClient,
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     comment_id = comment.ID
     pkgbasename = package.PackageBase.Name
+
+    # Pin the comment.
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/pin"
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Assert that PinnedTS got set.
+    assert comment.PinnedTS > 0
+
+    # Unpin the comment we just pinned.
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/unpin"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Let's assert that PinnedTS was unset.
+    assert comment.PinnedTS == 0
 
 
 def test_pkgbase_comment_pin_unauthorized(client: TestClient,
@@ -1166,6 +1180,19 @@ def test_pkgbase_comment_pin_unauthorized(client: TestClient,
     comment_id = comment.ID
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/pin"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+
+def test_pkgbase_comment_unpin_unauthorized(client: TestClient,
+                                            user: User,
+                                            package: Package,
+                                            comment: PackageComment):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    comment_id = comment.ID
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{pkgbasename}/comments/{comment_id}/unpin"
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
