@@ -1,0 +1,47 @@
+services:
+  ca:
+    volumes:
+      - ./cache:/cache
+
+  git:
+    volumes:
+      - git_data:/aurweb/aur.git
+      - ./cache:/cache
+
+  smartgit:
+    volumes:
+      - git_data:/aurweb/aur.git
+      - ./cache:/cache
+      - smartgit_run:/var/run/smartgit
+
+  php-fpm:
+    volumes:
+      - ./cache:/cache
+      - ./aurweb:/aurweb/aurweb
+      - ./migrations:/aurweb/migrations
+      - ./test:/aurweb/test
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
+      - ./templates:/aurweb/templates
+
+  fastapi:
+    volumes:
+      - ./cache:/cache
+      - ./aurweb:/aurweb/aurweb
+      - ./migrations:/aurweb/migrations
+      - ./test:/aurweb/test
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
+      - ./templates:/aurweb/templates
+
+  nginx:
+    volumes:
+      - git_data:/aurweb/aur.git
+      - ./cache:/cache
+      - ./logs:/var/log/nginx
+      - ./web/html:/aurweb/web/html
+      - ./web/template:/aurweb/web/template
+      - ./web/lib:/aurweb/web/lib
+      - smartgit_run:/var/run/smartgit

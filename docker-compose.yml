@@ -27,8 +27,6 @@ services:
     init: true
     entrypoint: /docker/ca-entrypoint.sh
     command: echo
-    volumes:
-      - ./cache:/cache
 
   memcached:
     build: .
@@ -93,9 +91,6 @@ services:
     depends_on:
       mariadb_init:
         condition: service_started
-    volumes:
-      - git_data:/aurweb/aur.git
-      - ./cache:/cache
 
   smartgit:
     build: .
@@ -110,10 +105,6 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
-    volumes:
-      - git_data:/aurweb/aur.git
-      - ./cache:/cache
-      - smartgit_run:/var/run/smartgit
 
   cgit-php:
     build: .
@@ -165,15 +156,6 @@ services:
         condition: service_healthy
       memcached:
         condition: service_healthy
-    volumes:
-      - ./cache:/cache
-      - ./aurweb:/aurweb/aurweb
-      - ./migrations:/aurweb/migrations
-      - ./test:/aurweb/test
-      - ./web/html:/aurweb/web/html
-      - ./web/template:/aurweb/web/template
-      - ./web/lib:/aurweb/web/lib
-      - ./templates:/aurweb/templates
     ports:
       - "19000:9000"
 
@@ -195,15 +177,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    volumes:
-      - ./cache:/cache
-      - ./aurweb:/aurweb/aurweb
-      - ./migrations:/aurweb/migrations
-      - ./test:/aurweb/test
-      - ./web/html:/aurweb/web/html
-      - ./web/template:/aurweb/web/template
-      - ./web/lib:/aurweb/web/lib
-      - ./templates:/aurweb/templates
     ports:
       - "18000:8000"
 
@@ -231,18 +204,11 @@ services:
         condition: service_healthy
       php-fpm:
         condition: service_healthy
-    volumes:
-      - git_data:/aurweb/aur.git
-      - ./cache:/cache
-      - ./logs:/var/log/nginx
-      - ./web/html:/aurweb/web/html
-      - ./web/template:/aurweb/web/template
-      - ./web/lib:/aurweb/web/lib
-      - smartgit_run:/var/run/smartgit
 
   sharness:
     build: .
     image: aurweb:latest
+    profiles: ["dev"]
     init: true
     environment:
       - AUR_CONFIG=conf/config.sqlite
@@ -267,6 +233,7 @@ services:
   pytest-mysql:
     build: .
     image: aurweb:latest
+    profiles: ["dev"]
     init: true
     environment:
       - AUR_CONFIG=conf/config
@@ -292,6 +259,7 @@ services:
   pytest-sqlite:
     build: .
     image: aurweb:latest
+    profiles: ["dev"]
     init: true
     environment:
       - AUR_CONFIG=conf/config.sqlite
@@ -313,6 +281,7 @@ services:
   test:
     build: .
     image: aurweb:latest
+    profiles: ["dev"]
     init: true
     environment:
       - AUR_CONFIG=conf/config
