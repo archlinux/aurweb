@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  ca:
+    volumes:
+      - cache:/cache
+
+  git:
+    volumes:
+      - git_data:/aurweb/aur.git
+      - cache:/cache
+
+  smartgit:
+    volumes:
+      - git_data:/aurweb/aur.git
+      - cache:/cache
+      - smartgit_run:/var/run/smartgit
+
+  php-fpm:
+    volumes:
+      - cache:/cache
+
+  fastapi:
+    volumes:
+      - cache:/cache
+
+  nginx:
+    volumes:
+      - git_data:/aurweb/aur.git
+      - cache:/cache
+      - logs:/var/log/nginx
+      - smartgit_run:/var/run/smartgit
+
+volumes:
+  mariadb_run: {} # Share /var/run/mysqld/mysqld.sock
+  mariadb_data: {} # Share /var/lib/mysql
+  git_data: {} # Share aurweb/aur.git
+  smartgit_run: {}
+  cache: {}
+  logs: {}
