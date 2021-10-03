@@ -3,6 +3,7 @@ import math
 import re
 
 from sqlalchemy import event
+from sqlalchemy.orm import scoped_session
 
 import aurweb.config
 import aurweb.util
@@ -167,7 +168,8 @@ def get_engine(echo: bool = False):
                                connect_args=connect_args,
                                echo=echo)
 
-        Session = sessionmaker(autocommit=True, autoflush=False, bind=engine)
+        Session = scoped_session(
+            sessionmaker(autocommit=True, autoflush=False, bind=engine))
         session = Session()
 
         if db_backend == "sqlite":
