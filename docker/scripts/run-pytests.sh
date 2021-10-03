@@ -27,7 +27,7 @@ python -m aurweb.initdb 2>/dev/null || \
     (echo "Error: aurweb.initdb failed; already initialized?" && /bin/true)
 
 # Run pytest with optional targets in front of it.
-make -C test "${PARAMS[@]}" pytest
+eatmydata -- make -C test "${PARAMS[@]}" pytest
 
 # By default, report coverage and move it into cache.
 if [ $COVERAGE -eq 1 ]; then

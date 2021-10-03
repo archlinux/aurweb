@@ -31,6 +31,10 @@ For all the test to run, the following Arch packages should be installed:
 - postfix
 - openssh
 
+Optional (faster testing)
+
+- libeatmydata
+
 Test Configuration
 ------------------
 
@@ -114,6 +118,12 @@ To run `sharness` shell test suites (requires Arch Linux):
 To run `pytest` Python test suites:
 
     $ make -C test pytest
+
+**Note:** For SQLite tests, users may want to use `eatmydata`
+to improve speed:
+
+    $ eatmydata -- make -C test sh
+    $ eatmydata -- make -C test pytest
 
 To produce coverage reports related to Python when running tests manually,
 use the following method:
