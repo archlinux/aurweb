@@ -20,7 +20,13 @@
                         {{ request.PackageBase.Name }}
                     </a>
                 </td>
-                <td>{{ request.RequestType.name_display() | tr }}</td>
+                <td>
+                    {{ request.RequestType.name_display() | tr }}
+                    {# If the RequestType is a merge and request.MergeBaseName is valid... #}
+                    {% if request.RequestType.ID == 3 and request.MergeBaseName %}
+                        ({{ request.MergeBaseName }})
+                    {% endif %}
+                </td>
                 <td class="wrap">{{ request.Comments }}</td>
                 <td>
                     <a href="/account/{{ request.User.Username }}"
