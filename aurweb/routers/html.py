@@ -6,7 +6,7 @@ from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, case, or_
 
 import aurweb.config
 import aurweb.models.package_request
@@ -17,7 +17,7 @@ from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_comaintainer import PackageComaintainer
-from aurweb.models.package_request import PackageRequest
+from aurweb.models.package_request import PENDING_ID, PackageRequest
 from aurweb.models.user import User
 from aurweb.packages.util import query_notified, query_voted, updated_packages
 from aurweb.templates import make_context, render_template
@@ -166,6 +166,11 @@ async def index(request: Request):
         # Package requests created by request.user.
         context["package_requests"] = request.user.package_requests.filter(
             PackageRequest.RequestTS >= start
+        ).order_by(
+            # Order primarily by the Status column being PENDING_ID,
+            # and secondarily by RequestTS; both in descending order.
+            case([(PackageRequest.Status == PENDING_ID, 1)], else_=0).desc(),
+            PackageRequest.RequestTS.desc()
         ).limit(50).all()
 
         # Packages that the request user maintains or comaintains.
