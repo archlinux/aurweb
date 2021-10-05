@@ -17,6 +17,7 @@ def _get_parser():
         defaults = os.environ.get('AUR_CONFIG_DEFAULTS', path + '.defaults')
 
         _parser = configparser.RawConfigParser()
+        _parser.optionxform = lambda option: option
         if os.path.isfile(defaults):
             with open(defaults) as f:
                 _parser.read_file(f)
@@ -48,7 +49,6 @@ def getint(section, option, fallback=None):
     return _get_parser().getint(section, option, fallback=fallback)
 
 
-def get_section(section_name):
-    for section in _get_parser().sections():
-        if section == section_name:
-            return _get_parser()[section]
+def get_section(section):
+    if section in _get_parser().sections():
+        return _get_parser()[section]

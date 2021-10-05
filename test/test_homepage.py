@@ -96,7 +96,9 @@ def test_homepage_ssh_fingerprints(get_ssh_fingerprints_mock):
     with client as request:
         response = request.get("/")
 
-    assert list(fingerprints.values())[0] in response.content.decode()
+    for key, value in fingerprints.items():
+        assert key in response.content.decode()
+        assert value in response.content.decode()
     assert 'The following SSH fingerprints are used for the AUR' in response.content.decode()
 
 

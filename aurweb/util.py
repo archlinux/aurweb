@@ -166,10 +166,4 @@ def add_samesite_fields(response: Response, value: str):
 
 
 def get_ssh_fingerprints():
-    fingerprints = {}
-    fingerprint_section = aurweb.config.get_section("fingerprints")
-
-    if fingerprint_section:
-        fingerprints = {key: fingerprint_section[key] for key in fingerprint_section.keys()}
-
-    return fingerprints
+    return aurweb.config.get_section("fingerprints") or {}
