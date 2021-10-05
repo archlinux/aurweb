@@ -45,7 +45,8 @@
                     </label>
 
                     <input id="id_username" type="text" name="user" size="30"
-                           maxlength="254" autofocus="autofocus">
+                           maxlength="254" autofocus="autofocus"
+                           value="{{ user or '' }}">
                 </p>
 
                 <p>
@@ -57,7 +58,11 @@
                 </p>
 
                 <p>
-                    <input id="id_remember_me" type="checkbox" name="remember_me">
+                    <input id="id_remember_me" type="checkbox" name="remember_me"
+                        {% if remember_me %}
+                            checked="checked"
+                        {% endif %}
+                    >
                     <label for="id_remember_me">
                         {% trans %}Remember me{% endtrans %}
                     </label>

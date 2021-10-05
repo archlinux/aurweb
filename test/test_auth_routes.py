@@ -160,6 +160,11 @@ def test_login_missing_username():
         response = request.post("/login", data=post_data)
     assert "AURSID" not in response.cookies
 
+    # Make sure password isn't prefilled and remember_me isn't checked.
+    content = response.content.decode()
+    assert post_data["passwd"] not in content
+    assert "checked" not in content
+
 
 def test_login_remember_me():
     post_data = {
@@ -188,6 +193,26 @@ def test_login_remember_me():
     assert _session.LastUpdateTS < expected_ts + 5
 
 
+def test_login_incorrect_password_remember_me():
+    post_data = {
+        "user": "test",
+        "passwd": "badPassword",
+        "next": "/",
+        "remember_me": "on"
+    }
+
+    with client as request:
+        response = request.post("/login", data=post_data)
+    assert "AURSID" not in response.cookies
+
+    # Make sure username is prefilled, password isn't prefilled, and remember_me
+    # is checked.
+    content = response.content.decode()
+    assert post_data["user"] in content
+    assert post_data["passwd"] not in content
+    assert "checked" in content
+
+
 def test_login_missing_password():
     post_data = {
         "user": "test",
@@ -197,6 +222,11 @@ def test_login_missing_password():
     with client as request:
         response = request.post("/login", data=post_data)
     assert "AURSID" not in response.cookies
+
+    # Make sure username is prefilled and remember_me isn't checked.
+    content = response.content.decode()
+    assert post_data["user"] in content
+    assert "checked" not in content
 
 
 def test_login_incorrect_password():
@@ -209,3 +239,10 @@ def test_login_incorrect_password():
     with client as request:
         response = request.post("/login", data=post_data)
     assert "AURSID" not in response.cookies
+
+    # Make sure username is prefilled, password isn't prefilled and remember_me
+    # isn't checked.
+    content = response.content.decode()
+    assert post_data["user"] in content
+    assert post_data["passwd"] not in content
+    assert "checked" not in content

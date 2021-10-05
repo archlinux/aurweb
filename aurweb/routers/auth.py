@@ -9,14 +9,14 @@ import aurweb.config
 from aurweb import util
 from aurweb.auth import auth_required
 from aurweb.models.user import User
-from aurweb.templates import make_context, render_template
+from aurweb.templates import make_variable_context, render_template
 
 router = APIRouter()
 
 
-def login_template(request: Request, next: str, errors: list = None):
+async def login_template(request: Request, next: str, errors: list = None):
     """ Provide login-specific template context to render_template. """
-    context = make_context(request, "Login", next)
+    context = await make_variable_context(request, "Login", next)
     context["errors"] = errors
     context["url_base"] = f"{request.url.scheme}://{request.url.netloc}"
     return render_template(request, "login.html", context)
@@ -25,7 +25,7 @@ def login_template(request: Request, next: str, errors: list = None):
 @router.get("/login", response_class=HTMLResponse)
 @auth_required(False)
 async def login_get(request: Request, next: str = "/"):
-    return login_template(request, next)
+    return await login_template(request, next)
 
 
 @router.post("/login", response_class=HTMLResponse)
@@ -39,8 +39,8 @@ async def login_post(request: Request,
 
     user = session.query(User).filter(User.Username == user).first()
     if not user:
-        return login_template(request, next,
-                              errors=["Bad username or password."])
+        return await login_template(request, next,
+                                    errors=["Bad username or password."])
 
     cookie_timeout = 0
 
@@ -50,8 +50,8 @@ async def login_post(request: Request,
 
     sid = user.login(request, passwd, cookie_timeout)
     if not sid:
-        return login_template(request, next,
-                              errors=["Bad username or password."])
+        return await login_template(request, next,
+                                    errors=["Bad username or password."])
 
     login_timeout = aurweb.config.getint("options", "login_timeout")
 
