@@ -166,7 +166,6 @@ def test_user_minimum_passwd_length():
 
 
 def test_user_has_credential():
-    assert user.has_credential("CRED_PKGBASE_FLAG")
     assert not user.has_credential("CRED_ACCOUNT_CHANGE_TYPE")
 
 

@@ -1689,3 +1689,34 @@ def test_requests_close_post_rejected(client: TestClient, user: User,
     assert pkgreq.Status == REJECTED_ID
     assert pkgreq.Closer == user
     assert pkgreq.ClosureComment == str()
+
+
+def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
+                      package: Package):
+    pkgbase = package.PackageBase
+
+    # We shouldn't have flagged the package yet; assert so.
+    assert pkgbase.Flagger is None
+
+    # Flag it.
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbase.Name}/flag"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert pkgbase.Flagger == user
+
+    # Now, test that the 'maintainer' user can't unflag it, because they
+    # didn't flag it to begin with.
+    maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbase.Name}/unflag"
+    with client as request:
+        resp = request.post(endpoint, cookies=maint_cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert pkgbase.Flagger == user
+
+    # Now, unflag it for real.
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert pkgbase.Flagger is None

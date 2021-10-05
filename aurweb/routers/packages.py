@@ -701,3 +701,35 @@ async def requests_close_post(request: Request, id: int,
     notify_.send()
 
     return RedirectResponse("/requests", status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/flag")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_flag(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    has_cred = request.user.has_credential("CRED_PKGBASE_FLAG")
+    if has_cred and not pkgbase.Flagger:
+        now = int(datetime.utcnow().timestamp())
+        with db.begin():
+            pkgbase.OutOfDateTS = now
+            pkgbase.Flagger = request.user
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/unflag")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_unflag(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    has_cred = request.user.has_credential(
+        "CRED_PKGBASE_UNFLAG", approved=[pkgbase.Flagger])
+    if has_cred:
+        with db.begin():
+            pkgbase.OutOfDateTS = None
+            pkgbase.Flagger = None
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
