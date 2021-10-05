@@ -31,7 +31,7 @@
                             </td>
                             {# Type #}
                             <td>
-                                {{ result.RequestType.name_display() }}
+                                {{ result.RequestType.name_display() | tr }}
                                 {# If the RequestType is a merge and request.MergeBaseName is valid... #}
                                 {% if result.RequestType.ID == 3 and result.MergeBaseName %}
                                     ({{ result.MergeBaseName }})
