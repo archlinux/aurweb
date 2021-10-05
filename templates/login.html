@@ -46,7 +46,7 @@
 
                     <input id="id_username" type="text" name="user" size="30"
                            maxlength="254" autofocus="autofocus"
-                           value="{{ user or '' }}">
+                           required="required" value="{{ user or '' }}">
                 </p>
 
                 <p>
@@ -54,7 +54,7 @@
                         {% trans %}Password{% endtrans %}:
                     </label>
                     <input id="id_password" type="password" name="passwd"
-                           size="30">
+                           size="30" required="required">
                 </p>
 
                 <p>
