@@ -1720,3 +1720,36 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
         resp = request.post(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert pkgbase.Flagger is None
+
+
+def test_pkgbase_notify(client: TestClient, user: User, package: Package):
+    pkgbase = package.PackageBase
+
+    # We have no notif record yet; assert that.
+    notif = pkgbase.notifications.filter(
+        PackageNotification.UserID == user.ID
+    ).first()
+    assert notif is None
+
+    # Enable notifications.
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbase.Name}/notify"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    notif = pkgbase.notifications.filter(
+        PackageNotification.UserID == user.ID
+    ).first()
+    assert notif is not None
+
+    # Disable notifications.
+    endpoint = f"/pkgbase/{pkgbase.Name}/unnotify"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    notif = pkgbase.notifications.filter(
+        PackageNotification.UserID == user.ID
+    ).first()
+    assert notif is None

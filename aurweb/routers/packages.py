@@ -733,3 +733,39 @@ async def pkgbase_unflag(request: Request, name: str):
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/notify")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_notify(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    notif = db.query(pkgbase.notifications.filter(
+        PackageNotification.UserID == request.user.ID
+    ).exists()).scalar()
+    has_cred = request.user.has_credential("CRED_PKGBASE_NOTIFY")
+    if has_cred and not notif:
+        with db.begin():
+            db.create(PackageNotification,
+                      PackageBase=pkgbase,
+                      User=request.user)
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/unnotify")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_unnotify(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    notif = pkgbase.notifications.filter(
+        PackageNotification.UserID == request.user.ID
+    ).first()
+    has_cred = request.user.has_credential("CRED_PKGBASE_NOTIFY")
+    if has_cred and notif:
+        with db.begin():
+            db.session.delete(notif)
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
