@@ -1845,3 +1845,49 @@ def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
     with client as request:
         resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+
+def test_pkgbase_delete_unauthorized(client: TestClient, user: User,
+                                     package: Package):
+    pkgbase = package.PackageBase
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbase.Name}/delete"
+
+    # Test GET.
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
+    # Test POST.
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
+
+def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
+    pkgbase = package.PackageBase
+
+    # Test that the GET request works.
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbase.Name}/delete"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # Test that POST works and denies us because we haven't confirmed.
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
+
+    # Test that we can actually delete the pkgbase.
+    with client as request:
+        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Let's assert that the package base record got removed.
+    record = db.query(PackageBase).filter(
+        PackageBase.Name == pkgbase.Name
+    ).first()
+    assert record is None

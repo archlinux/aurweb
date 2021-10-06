@@ -940,3 +940,40 @@ async def pkgbase_disown_post(request: Request, name: str,
     disown_pkgbase(pkgbase, request.user)
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.get("/pkgbase/{name}/delete")
+@auth_required(True)
+async def pkgbase_delete_get(request: Request, name: str):
+    if not request.user.has_credential("CRED_PKGBASE_DELETE"):
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=int(HTTPStatus.SEE_OTHER))
+
+    context = make_context(request, "Package Deletion")
+    context["pkgbase"] = get_pkg_or_base(name, PackageBase)
+    return render_template(request, "packages/delete.html", context)
+
+
+@router.post("/pkgbase/{name}/delete")
+@auth_required(True)
+async def pkgbase_delete_post(request: Request, name: str,
+                              confirm: bool = Form(default=False)):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    if not request.user.has_credential("CRED_PKGBASE_DELETE"):
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=int(HTTPStatus.SEE_OTHER))
+
+    if not confirm:
+        context = make_context(request, "Package Deletion")
+        context["pkgbase"] = pkgbase
+        context["errors"] = [("The selected packages have not been deleted, "
+                              "check the confirmation checkbox.")]
+        return render_template(request, "packages/delete.html", context,
+                               status_code=int(HTTPStatus.EXPECTATION_FAILED))
+
+    packages = pkgbase.packages.all()
+    for package in packages:
+        delete_package(request.user, package)
+
+    return RedirectResponse("/packages", status_code=int(HTTPStatus.SEE_OTHER))

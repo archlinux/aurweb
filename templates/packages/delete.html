@@ -1,0 +1,56 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+
+    {% if errors %}
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="box">
+        <h2>{{ "Delete Package" | tr }}: {{ pkgbase.Name }}</h2>
+
+        <p>
+            {{
+                "Use this form to delete the package base %s%s%s and "
+                "the following packages from the AUR: "
+                | tr | format("<strong>", pkgbase.Name, "</strong>") | safe
+            }}
+        </p>
+
+        <ul>
+            {% for package in pkgbase.packages.all() %}
+                <li>{{ package.Name }}</li>
+            {% endfor %}
+        </ul>
+
+        <p>
+            {{
+                "Deletion of a package is permanent. "
+                "Select the checkbox to confirm action." | tr
+            }}
+        </p>
+
+        <form action="/pkgbase/{{ pkgbase.Name }}/delete" method="post">
+            <fieldset>
+                <p>
+                    <label class="confirmation">
+                        <input type="checkbox" name="confirm" value="1" />
+                        {{ "Confirm package deletion" | tr }}
+                    </label>
+                </p>
+
+                <p>
+                    <input class="button"
+                           type="submit"
+                           value="{{ 'Delete' | tr }}"
+                    />
+                </p>
+            </fieldset>
+        </form>
+
+    </div>
+{% endblock %}
