@@ -769,3 +769,41 @@ async def pkgbase_unnotify(request: Request, name: str):
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/vote")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_vote(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    vote = pkgbase.package_votes.filter(
+        PackageVote.UsersID == request.user.ID
+    ).first()
+    has_cred = request.user.has_credential("CRED_PKGBASE_VOTE")
+    if has_cred and not vote:
+        now = int(datetime.utcnow().timestamp())
+        with db.begin():
+            db.create(PackageVote,
+                      User=request.user,
+                      PackageBase=pkgbase,
+                      VoteTS=now)
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
+
+
+@router.post("/pkgbase/{name}/unvote")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_unvote(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    vote = pkgbase.package_votes.filter(
+        PackageVote.UsersID == request.user.ID
+    ).first()
+    has_cred = request.user.has_credential("CRED_PKGBASE_VOTE")
+    if has_cred and vote:
+        with db.begin():
+            db.session.delete(vote)
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))

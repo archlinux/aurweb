@@ -1753,3 +1753,30 @@ def test_pkgbase_notify(client: TestClient, user: User, package: Package):
         PackageNotification.UserID == user.ID
     ).first()
     assert notif is None
+
+
+def test_pkgbase_vote(client: TestClient, user: User, package: Package):
+    pkgbase = package.PackageBase
+
+    # We haven't voted yet.
+    vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
+    assert vote is None
+
+    # Vote for the package.
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbase.Name}/vote"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
+    assert vote is not None
+
+    # Remove vote.
+    endpoint = f"/pkgbase/{pkgbase.Name}/unvote"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
+    assert vote is None
