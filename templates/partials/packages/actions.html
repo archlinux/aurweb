@@ -132,15 +132,9 @@
                 </li>
             {% endif %}
             <li>
-            {% if not request.user.is_authenticated() %}
-                <a href="/login?next={{ '/pkgbase/%s/request' | format(result.Name) | quote_plus }}">
-                    {{ "Submit Request" | tr }}
-                </a>
-            {% else %}
                 <a href="/pkgbase/{{ result.Name }}/request/">
                     {{ "Submit Request" | tr }}
                 </a>
-            {% endif %}
             </li>
             {% if request.user.has_credential("CRED_PKGBASE_DELETE") %}
                 <li>
