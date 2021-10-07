@@ -13,7 +13,8 @@ class PackageSource(Base):
     PackageID = Column(Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
                        nullable=False)
     Package = relationship(
-        "Package", backref=backref("package_sources", lazy="dynamic"),
+        "Package", backref=backref("package_sources", lazy="dynamic",
+                                   cascade="all,delete"),
         foreign_keys=[PackageID])
 
     __mapper_args__ = {"primary_key": [PackageID]}

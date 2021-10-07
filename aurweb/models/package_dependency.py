@@ -15,7 +15,8 @@ class PackageDependency(Base):
         Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
         nullable=False)
     Package = relationship(
-        "Package", backref=backref("package_dependencies", lazy="dynamic"),
+        "Package", backref=backref("package_dependencies", lazy="dynamic",
+                                   cascade="all,delete"),
         foreign_keys=[PackageID])
 
     DepTypeID = Column(

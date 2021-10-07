@@ -17,7 +17,8 @@ class PackageComment(Base):
         Integer, ForeignKey("PackageBases.ID", ondelete="CASCADE"),
         nullable=False)
     PackageBase = relationship(
-        "PackageBase", backref=backref("comments", lazy="dynamic"),
+        "PackageBase", backref=backref("comments", lazy="dynamic",
+                                       cascade="all,delete"),
         foreign_keys=[PackageBaseID])
 
     UsersID = Column(Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
