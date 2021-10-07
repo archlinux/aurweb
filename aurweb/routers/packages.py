@@ -222,7 +222,7 @@ async def package_base_voters(request: Request, name: str) -> Response:
 
 
 @router.post("/pkgbase/{name}/comments")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/comments")
 async def pkgbase_comments_post(
         request: Request, name: str,
         comment: str = Form(default=str()),
@@ -254,7 +254,7 @@ async def pkgbase_comments_post(
 
 
 @router.get("/pkgbase/{name}/comments/{id}/form")
-@auth_required(True)
+@auth_required(True, login=False)
 async def pkgbase_comment_form(request: Request, name: str, id: int):
     """ Produce a comment form for comment {id}. """
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -274,7 +274,7 @@ async def pkgbase_comment_form(request: Request, name: str, id: int):
 
 
 @router.post("/pkgbase/{name}/comments/{id}")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/comments/{id}")
 async def pkgbase_comment_post(
         request: Request, name: str, id: int,
         comment: str = Form(default=str()),
@@ -309,7 +309,7 @@ async def pkgbase_comment_post(
 
 
 @router.post("/pkgbase/{name}/comments/{id}/delete")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/comments/{id}/delete")
 async def pkgbase_comment_delete(request: Request, name: str, id: int):
     pkgbase = get_pkg_or_base(name, PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
@@ -332,7 +332,7 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int):
 
 
 @router.post("/pkgbase/{name}/comments/{id}/undelete")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/comments/{id}/undelete")
 async def pkgbase_comment_undelete(request: Request, name: str, id: int):
     pkgbase = get_pkg_or_base(name, PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
@@ -354,7 +354,7 @@ async def pkgbase_comment_undelete(request: Request, name: str, id: int):
 
 
 @router.post("/pkgbase/{name}/comments/{id}/pin")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/comments/{id}/pin")
 async def pkgbase_comment_pin(request: Request, name: str, id: int):
     pkgbase = get_pkg_or_base(name, PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
@@ -376,7 +376,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int):
 
 
 @router.post("/pkgbase/{name}/comments/{id}/unpin")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/comments/{id}/unpin")
 async def pkgbase_comment_unpin(request: Request, name: str, id: int):
     pkgbase = get_pkg_or_base(name, PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
@@ -397,7 +397,7 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int):
 
 
 @router.get("/pkgbase/{name}/comaintainers")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/comaintainers")
 async def package_base_comaintainers(request: Request, name: str) -> Response:
     # Get the PackageBase.
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -444,7 +444,7 @@ def remove_users(pkgbase, usernames):
 
 
 @router.post("/pkgbase/{name}/comaintainers")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/comaintainers")
 async def package_base_comaintainers_post(
         request: Request, name: str,
         users: str = Form(default=str())) -> Response:
@@ -539,7 +539,7 @@ async def package_base_comaintainers_post(
 
 
 @router.get("/requests")
-@auth_required(True, redirect="/")
+@auth_required(True, redirect="/requests")
 async def requests(request: Request,
                    O: int = Query(default=defaults.O),
                    PP: int = Query(default=defaults.PP)):
@@ -571,7 +571,7 @@ async def requests(request: Request,
 
 
 @router.get("/pkgbase/{name}/request")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}")
 async def package_request(request: Request, name: str):
     context = make_context(request, "Submit Request")
 
@@ -585,7 +585,7 @@ async def package_request(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/request")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/request")
 async def pkgbase_request_post(request: Request, name: str,
                                type: str = Form(...),
                                merge_into: str = Form(default=None),
@@ -654,7 +654,7 @@ async def pkgbase_request_post(request: Request, name: str,
 
 
 @router.get("/requests/{id}/close")
-@auth_required(True)
+@auth_required(True, redirect="/requests/{id}/close")
 async def requests_close(request: Request, id: int):
     pkgreq = db.query(PackageRequest).filter(PackageRequest.ID == id).first()
     if not request.user.is_elevated() and request.user != pkgreq.User:
@@ -667,7 +667,7 @@ async def requests_close(request: Request, id: int):
 
 
 @router.post("/requests/{id}/close")
-@auth_required(True)
+@auth_required(True, redirect="/requests/{id}/close")
 async def requests_close_post(request: Request, id: int,
                               reason: int = Form(default=0),
                               comments: str = Form(default=str())):
