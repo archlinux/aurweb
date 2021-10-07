@@ -345,6 +345,30 @@ def test_package_authenticated_maintainer(client: TestClient,
         "Enable notifications",
         "Manage Co-Maintainers",
         "Submit Request",
+        "Disown Package"
+    ]
+    for expected_text in expected:
+        assert expected_text in resp.text
+
+
+def test_package_authenticated_tu(client: TestClient,
+                                  tu_user: User,
+                                  package: Package):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(package_endpoint(package), cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    expected = [
+        "View PKGBUILD",
+        "View Changes",
+        "Download snapshot",
+        "Search wiki",
+        "Flag package out-of-date",
+        "Vote for this package",
+        "Enable notifications",
+        "Manage Co-Maintainers",
+        "Submit Request",
         "Delete Package",
         "Merge Package",
         "Disown Package"
