@@ -1,4 +1,5 @@
 import functools
+import re
 
 from datetime import datetime
 from http import HTTPStatus
@@ -121,6 +122,7 @@ class BasicAuthBackend(AuthenticationBackend):
 
 
 def auth_required(is_required: bool = True,
+                  login: bool = False,
                   redirect: str = "/",
                   template: tuple = None,
                   status_code: HTTPStatus = HTTPStatus.UNAUTHORIZED):
@@ -162,8 +164,16 @@ def auth_required(is_required: bool = True,
         async def wrapper(request, *args, **kwargs):
             if request.user.is_authenticated() != is_required:
                 url = "/"
+
                 if redirect:
-                    url = redirect
+                    path_params_expr = re.compile(r'\{(\w+)\}')
+                    match = re.findall(path_params_expr, redirect)
+                    args = {k: request.path_params.get(k) for k in match}
+                    url = redirect.format(**args)
+
+                    if login:
+                        url = "/login?" + util.urlencode({"next": url})
+
                 if template:
                     # template=("template.html",
                     #           ["Some Title", "someFormatted {}"],
