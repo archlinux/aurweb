@@ -268,6 +268,7 @@ CRED_PKGREQ_LIST = 18
 CRED_TU_ADD_VOTE = 19
 CRED_TU_LIST_VOTES = 20
 CRED_TU_VOTE = 21
+CRED_PKGBASE_MERGE = 29
 
 
 def has_any(user, *account_types):
@@ -321,6 +322,7 @@ cred_filters = {
     CRED_TU_LIST_VOTES: trusted_user,
     CRED_TU_VOTE: trusted_user,
     CRED_ACCOUNT_EDIT_DEV: developer,
+    CRED_PKGBASE_MERGE: trusted_user_or_dev,
 }
 
 
