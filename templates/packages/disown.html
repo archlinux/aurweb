@@ -1,0 +1,55 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+
+    {% if errors %}
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="box">
+        <h2>{{ "Disown Package" | tr }}: {{ pkgbase.Name }}</h2>
+
+        <p>
+            {{
+                "Use this form to disown the package base %s%s%s which "
+                "includes the following packages: "
+                | tr | format("<strong>", pkgbase.Name, "</strong>") | safe
+            }}
+        </p>
+
+        <ul>
+            {% for package in pkgbase.packages.all() %}
+                <li>{{ package.Name }}</li>
+            {% endfor %}
+        </ul>
+
+        <p>
+            {{
+                "By selecting the checkbox, you confirm that you want to "
+                "disown the package." | tr
+            }}
+        </p>
+
+        <form action="/pkgbase/{{ pkgbase.Name }}/disown" method="post">
+            <fieldset>
+                <p>
+                    <label class="confirmation">
+                        <input type="checkbox" name="confirm" value="1" />
+                        {{ "Confirm to disown the package" | tr }}
+                    </label>
+                </p>
+                <p>
+                    <input class="button"
+                           type="submit"
+                           value="{{ 'Disown' | tr }}"
+                    />
+                </p>
+            </fieldset>
+        </form>
+
+    </div>
+{% endblock %}

@@ -1780,3 +1780,68 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
 
     vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
     assert vote is None
+
+
+def test_pkgbase_disown_as_tu(client: TestClient, tu_user: User,
+                              package: Package):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/disown"
+
+    # But we do here.
+    with client as request:
+        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+
+def test_pkgbase_disown_as_sole_maintainer(client: TestClient,
+                                           maintainer: User,
+                                           package: Package):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/disown"
+
+    # But we do here.
+    with client as request:
+        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+
+def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
+                        package: Package):
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    user_cookies = {"AURSID": user.login(Request(), "testPassword")}
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/disown"
+
+    with db.begin():
+        db.create(PackageComaintainer,
+                  User=user,
+                  PackageBase=pkgbase,
+                  Priority=1)
+
+    # GET as a normal user, which is rejected for lack of credentials.
+    with client as request:
+        resp = request.get(endpoint, cookies=user_cookies,
+                           allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # GET as the maintainer.
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # POST as a normal user, which is rejected for lack of credentials.
+    with client as request:
+        resp = request.post(endpoint, cookies=user_cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # POST as the maintainer without "confirm".
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
+
+    # POST as the maintainer with "confirm".
+    with client as request:
+        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)

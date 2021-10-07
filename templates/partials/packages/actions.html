@@ -121,13 +121,9 @@
             {% endif %}
             {% if request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
                 <li>
-                    <form action="/pkgbase/{{ result.Name }}/disown/" method="post">
-                        <input type="submit"
-                               class="button text-button"
-                               name="do_Disown"
-                               value="{{ 'Disown Package' | tr }}"
-                        />
-                    </form>
+                    <a href="/pkgbase/{{ result.Name }}/disown/">
+                        {{ "Disown Package" | tr }}
+                    </a>
                 </li>
             {% endif %}
         </ul>

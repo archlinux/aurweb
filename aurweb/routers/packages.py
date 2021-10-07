@@ -807,3 +807,66 @@ async def pkgbase_unvote(request: Request, name: str):
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
+
+
+def disown_pkgbase(pkgbase: PackageBase, disowner: User):
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+    notif = notify.DisownNotification(conn, disowner.ID, pkgbase.ID)
+
+    if disowner != pkgbase.Maintainer:
+        with db.begin():
+            pkgbase.Maintainer = None
+    else:
+        co = pkgbase.comaintainers.order_by(
+            PackageComaintainer.Priority.asc()
+        ).limit(1).first()
+
+        if co:
+            with db.begin():
+                pkgbase.Maintainer = co.User
+                db.session.delete(co)
+        else:
+            pkgbase.Maintainer = None
+
+    notif.send()
+
+
+@router.get("/pkgbase/{name}/disown")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_disown_get(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    has_cred = request.user.has_credential("CRED_PKGBASE_DISOWN",
+                                           approved=[pkgbase.Maintainer])
+    if not has_cred:
+        return RedirectResponse(f"/pkgbase/{name}",
+                                int(HTTPStatus.SEE_OTHER))
+
+    context = make_context(request, "Disown Package")
+    context["pkgbase"] = pkgbase
+    return render_template(request, "packages/disown.html", context)
+
+
+@router.post("/pkgbase/{name}/disown")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_disown_post(request: Request, name: str,
+                              confirm: bool = Form(default=False)):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    has_cred = request.user.has_credential("CRED_PKGBASE_DISOWN",
+                                           approved=[pkgbase.Maintainer])
+    if not has_cred:
+        return RedirectResponse(f"/pkgbase/{name}",
+                                int(HTTPStatus.SEE_OTHER))
+
+    if not confirm:
+        context = make_context(request, "Disown Package")
+        context["pkgbase"] = pkgbase
+        context["errors"] = [("The selected packages have not been disowned, "
+                              "check the confirmation checkbox.")]
+        return render_template(request, "packages/disown.html", context,
+                               status_code=int(HTTPStatus.EXPECTATION_FAILED))
+
+    disown_pkgbase(pkgbase, request.user)
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
