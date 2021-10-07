@@ -122,7 +122,7 @@ class BasicAuthBackend(AuthenticationBackend):
 
 
 def auth_required(is_required: bool = True,
-                  login: bool = False,
+                  login: bool = True,
                   redirect: str = "/",
                   template: tuple = None,
                   status_code: HTTPStatus = HTTPStatus.UNAUTHORIZED):
@@ -152,6 +152,7 @@ def auth_required(is_required: bool = True,
     applying any format operations.
 
     :param is_required: A boolean indicating whether the function requires auth
+    :param login: Redirect to `/login`, passing `next=<redirect>`
     :param redirect: Path to redirect to if is_required isn't True
     :param template: A three-element template tuple:
                      (path, title_iterable, variable_iterable)

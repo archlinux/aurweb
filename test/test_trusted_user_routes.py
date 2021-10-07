@@ -9,7 +9,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import db
+from aurweb import db, util
 from aurweb.models.account_type import AccountType
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
@@ -128,7 +128,9 @@ def test_tu_index_guest(client):
     with client as request:
         response = request.get("/tu", allow_redirects=False)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
-    assert response.headers.get("location") == "/"
+
+    params = util.urlencode({"next": "/tu"})
+    assert response.headers.get("location") == f"/login?{params}"
 
 
 def test_tu_index_unauthorized(client, user):
