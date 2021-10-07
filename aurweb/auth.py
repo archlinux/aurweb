@@ -276,8 +276,7 @@ def has_any(user, *account_types):
 
 
 def user_developer_or_trusted_user(user):
-    return has_any(user, "User", "Trusted User", "Developer",
-                   "Trusted User & Developer")
+    return True
 
 
 def trusted_user(user):
