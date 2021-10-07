@@ -142,17 +142,21 @@
                 </a>
             {% endif %}
             </li>
-            {% if is_maintainer %}
+            {% if request.user.has_credential("CRED_PKGBASE_DELETE") %}
                 <li>
                     <a href="/pkgbase/{{ result.Name }}/delete/">
                         {{ "Delete Package" | tr }}
                     </a>
                 </li>
+            {% endif %}
+            {% if request.user.has_credential("CRED_PKGBASE_MERGE") %}
                 <li>
                     <a href="/pkgbase/{{ result.Name }}/merge/">
                         {{ "Merge Package" | tr }}
                     </a>
                 </li>
+            {% endif %}
+            {% if request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
                 <li>
                     <form action="/pkgbase/{{ result.Name }}/disown/" method="post">
                         <input type="submit"
