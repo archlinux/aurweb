@@ -329,6 +329,7 @@ label {
 
 input[type=text],
 input[type=password],
+input[type=email],
 textarea {
     padding: 0.10em;
 }
