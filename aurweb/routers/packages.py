@@ -950,6 +950,23 @@ async def pkgbase_disown_post(request: Request, name: str,
                             status_code=int(HTTPStatus.SEE_OTHER))
 
 
+@router.post("/pkgbase/{name}/adopt")
+@auth_required(True)
+async def pkgbase_adopt_post(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    has_cred = request.user.has_credential("CRED_PKGBASE_ADOPT")
+    if has_cred or not pkgbase.Maintainer:
+        # If the user has credentials, they'll adopt the package regardless
+        # of maintainership. Otherwise, we'll promote the user to maintainer
+        # if no maintainer currently exists.
+        with db.begin():
+            pkgbase.Maintainer = request.user
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=int(HTTPStatus.SEE_OTHER))
+
+
 @router.get("/pkgbase/{name}/delete")
 @auth_required(True)
 async def pkgbase_delete_get(request: Request, name: str):

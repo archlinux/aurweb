@@ -119,12 +119,23 @@
                     </a>
                 </li>
             {% endif %}
-            {% if request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
+            {% if not result.Maintainer %}
                 <li>
-                    <a href="/pkgbase/{{ result.Name }}/disown/">
-                        {{ "Disown Package" | tr }}
-                    </a>
+                    <form action="/pkgbase/{{ result.Name }}/adopt" method="post">
+                        <input type="submit"
+                               class="button text-button"
+                               value="{{ 'Adopt Package' | tr }}"
+                        />
+                    </form>
                 </li>
+            {% else %}
+                {% if request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
+                    <li>
+                        <a href="/pkgbase/{{ result.Name }}/disown/">
+                            {{ "Disown Package" | tr }}
+                        </a>
+                    </li>
+                {% endif %}
             {% endif %}
         </ul>
     </div>

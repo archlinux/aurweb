@@ -1849,6 +1849,39 @@ def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
 
+def test_pkgbase_adopt(client: TestClient, user: User, tu_user: User,
+                       maintainer: User, package: Package):
+    # Unset the maintainer as if package is orphaned.
+    with db.begin():
+        package.PackageBase.Maintainer = None
+
+    pkgbasename = package.PackageBase.Name
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbasename}/adopt"
+
+    # Adopt the package base.
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert package.PackageBase.Maintainer == maintainer
+
+    # Try to adopt it when it already has a maintainer; nothing changes.
+    user_cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, cookies=user_cookies,
+                            allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert package.PackageBase.Maintainer == maintainer
+
+    # Steal the package as a TU.
+    tu_cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, cookies=tu_cookies,
+                            allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert package.PackageBase.Maintainer == tu_user
+
+
 def test_pkgbase_delete_unauthorized(client: TestClient, user: User,
                                      package: Package):
     pkgbase = package.PackageBase
