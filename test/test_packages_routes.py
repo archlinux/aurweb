@@ -1771,6 +1771,7 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
 
     vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
     assert vote is not None
+    assert pkgbase.NumVotes == 1
 
     # Remove vote.
     endpoint = f"/pkgbase/{pkgbase.Name}/unvote"
@@ -1780,6 +1781,7 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
 
     vote = pkgbase.package_votes.filter(PackageVote.UsersID == user.ID).first()
     assert vote is None
+    assert pkgbase.NumVotes == 0
 
 
 def test_pkgbase_disown_as_tu(client: TestClient, tu_user: User,

@@ -30,7 +30,7 @@ from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
 from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, query_notified, query_voted
-from aurweb.scripts import notify
+from aurweb.scripts import notify, popupdate
 from aurweb.scripts.rendercomment import update_comment_render
 from aurweb.templates import make_context, render_raw_template, render_template
 
@@ -858,6 +858,10 @@ async def pkgbase_vote(request: Request, name: str):
                       PackageBase=pkgbase,
                       VoteTS=now)
 
+        # Update NumVotes/Popularity.
+        conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+        popupdate.run_single(conn, pkgbase)
+
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
 
@@ -874,6 +878,10 @@ async def pkgbase_unvote(request: Request, name: str):
     if has_cred and vote:
         with db.begin():
             db.session.delete(vote)
+
+        # Update NumVotes/Popularity.
+        conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+        popupdate.run_single(conn, pkgbase)
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
