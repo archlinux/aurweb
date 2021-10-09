@@ -3,6 +3,7 @@ import re
 from datetime import datetime
 from http import HTTPStatus
 from typing import List
+from unittest import mock
 
 import pytest
 
@@ -26,7 +27,7 @@ from aurweb.models.relation_type import PROVIDES_ID, RelationType
 from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
-from aurweb.testing.html import parse_root
+from aurweb.testing.html import get_errors, get_successes, parse_root
 from aurweb.testing.requests import Request
 
 
@@ -1987,3 +1988,49 @@ def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
         PackageBase.Name == pkgbase.Name
     ).first()
     assert record is None
+
+
+def test_packages_post_unknown_action(client: TestClient, user: User,
+                                      package: Package):
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={"action": "unknown"},
+                            cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+
+
+def test_packages_post_error(client: TestClient, user: User, package: Package):
+
+    async def stub_action(request: Request, **kwargs):
+        return (False, ["Some error."])
+
+    actions = {"stub": stub_action}
+    with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
+        cookies = {"AURSID": user.login(Request(), "testPassword")}
+        with client as request:
+            resp = request.post("/packages", data={"action": "stub"},
+                                cookies=cookies, allow_redirects=False)
+        assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+
+        errors = get_errors(resp.text)
+        expected = "Some error."
+        assert errors[0].text.strip() == expected
+
+
+def test_packages_post(client: TestClient, user: User, package: Package):
+
+    async def stub_action(request: Request, **kwargs):
+        return (True, ["Some success."])
+
+    actions = {"stub": stub_action}
+    with mock.patch.dict("aurweb.routers.packages.PACKAGE_ACTIONS", actions):
+        cookies = {"AURSID": user.login(Request(), "testPassword")}
+        with client as request:
+            resp = request.post("/packages", data={"action": "stub"},
+                                cookies=cookies, allow_redirects=False)
+        assert resp.status_code == int(HTTPStatus.OK)
+
+        errors = get_successes(resp.text)
+        expected = "Some success."
+        assert errors[0].text.strip() == expected
