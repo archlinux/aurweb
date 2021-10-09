@@ -827,11 +827,7 @@ async def pkgbase_flag_comment(request: Request, name: str):
     return render_template(request, "packages/flag-comment.html", context)
 
 
-@router.post("/pkgbase/{name}/unflag")
-@auth_required(True, redirect="/pkgbase/{name}")
-async def pkgbase_unflag(request: Request, name: str):
-    pkgbase = get_pkg_or_base(name, models.PackageBase)
-
+def pkgbase_unflag_instance(request: Request, pkgbase: models.PackageBase):
     has_cred = request.user.has_credential(
         "CRED_PKGBASE_UNFLAG", approved=[pkgbase.Flagger, pkgbase.Maintainer])
     if has_cred:
@@ -840,6 +836,12 @@ async def pkgbase_unflag(request: Request, name: str):
             pkgbase.Flagger = None
             pkgbase.FlaggerComment = str()
 
+
+@router.post("/pkgbase/{name}/unflag")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_unflag(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, models.PackageBase)
+    pkgbase_unflag_instance(request, pkgbase)
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=HTTPStatus.SEE_OTHER)
 
@@ -1042,10 +1044,38 @@ async def pkgbase_delete_post(request: Request, name: str,
 
     return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)
 
+
+async def packages_unflag(request: Request, package_ids: List[int] = [],
+                          **kwargs):
+    if not package_ids:
+        return (False, ["You did not select any packages to unflag."])
+
+    # Holds the set of package bases we're looking to unflag.
+    # Constructed below via looping through the packages query.
+    bases = set()
+
+    package_ids = set(package_ids)  # Convert this to a set for O(1).
+    packages = db.query(models.Package).filter(
+        models.Package.ID.in_(package_ids)).all()
+    for pkg in packages:
+        has_cred = request.user.has_credential(
+            "CRED_PKGBASE_UNFLAG", approved=[pkg.PackageBase.Flagger])
+        if not has_cred:
+            return (False, ["You did not select any packages to unflag."])
+
+        if pkg.PackageBase not in bases:
+            bases.update({pkg.PackageBase})
+
+    for pkgbase in bases:
+        pkgbase_unflag_instance(request, pkgbase)
+    return (True, ["The selected packages have been unflagged."])
+
 # A mapping of action string -> callback functions used within the
 # `packages_post` route below. We expect any action callback to
 # return a tuple in the format: (succeeded: bool, message: List[str]).
-PACKAGE_ACTIONS = {}
+PACKAGE_ACTIONS = {
+    "unflag": packages_unflag,
+}
 
 
 @router.post("/packages")

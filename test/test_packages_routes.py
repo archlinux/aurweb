@@ -2067,3 +2067,49 @@ def test_pkgbase_merge(client: TestClient, tu_user: User, package: Package):
         resp = request.get(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
     assert not get_errors(resp.text)
+
+
+def test_packages_post_unflag(client: TestClient, user: User,
+                              maintainer: User, package: Package):
+    # Flag `package` as `user`.
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        package.PackageBase.Flagger = user
+        package.PackageBase.OutOfDateTS = now
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+
+    # Don't supply any packages.
+    post_data = {"action": "unflag", "IDs": []}
+    with client as request:
+        resp = request.post("/packages", data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You did not select any packages to unflag."
+    assert errors[0].text.strip() == expected
+
+    # Unflag the package as `user`.
+    post_data = {"action": "unflag", "IDs": [package.ID]}
+    with client as request:
+        resp = request.post("/packages", data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert package.PackageBase.Flagger is None
+    successes = get_successes(resp.text)
+    expected = "The selected packages have been unflagged."
+    assert successes[0].text.strip() == expected
+
+    # Re-flag `package` as `user`.
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        package.PackageBase.Flagger = user
+        package.PackageBase.OutOfDateTS = now
+
+    # Try to unflag the package as `maintainer`, which is not allowed.
+    maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    post_data = {"action": "unflag", "IDs": [package.ID]}
+    with client as request:
+        resp = request.post("/packages", data=post_data, cookies=maint_cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You did not select any packages to unflag."
+    assert errors[0].text.strip() == expected
