@@ -2203,3 +2203,59 @@ def test_packages_post_unnotify(client: TestClient, user: User,
     errors = get_errors(resp.text)
     expected = "A package you selected does not have notifications enabled."
     assert errors[0].text.strip() == expected
+
+
+def test_packages_post_adopt(client: TestClient, user: User,
+                             package: Package):
+
+    # Try to adopt an empty list of packages.
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "adopt"
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You did not select any packages to adopt."
+    assert errors[0].text.strip() == expected
+
+    # Now, let's try to adopt a package that's already maintained.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "adopt",
+            "IDs": [package.ID],
+            "confirm": True
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You are not allowed to adopt one of the packages you selected."
+    assert errors[0].text.strip() == expected
+
+    # Remove the maintainer from the DB.
+    with db.begin():
+        package.PackageBase.Maintainer = None
+    assert package.PackageBase.Maintainer is None
+
+    # Now, let's try to adopt without confirming.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "adopt",
+            "IDs": [package.ID]
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = ("The selected packages have not been adopted, "
+                "check the confirmation checkbox.")
+    assert errors[0].text.strip() == expected
+
+    # Let's do it again now that there is no maintainer.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "adopt",
+            "IDs": [package.ID],
+            "confirm": True
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    successes = get_successes(resp.text)
+    expected = "The selected packages have been adopted."
+    assert successes[0].text.strip() == expected

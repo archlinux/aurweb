@@ -471,6 +471,12 @@ msgid ""
 "checkbox."
 msgstr ""
 
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr ""
+
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr ""
@@ -1020,6 +1026,10 @@ msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
+msgstr ""
+
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
 msgstr ""
 
 #: lib/pkgbasefuncs.inc.php

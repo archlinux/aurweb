@@ -995,6 +995,15 @@ async def pkgbase_disown_post(request: Request, name: str,
                             status_code=HTTPStatus.SEE_OTHER)
 
 
+def pkgbase_adopt_instance(request: Request, pkgbase: models.PackageBase):
+    with db.begin():
+        pkgbase.Maintainer = request.user
+
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+    notif = notify.AdoptNotification(conn, request.user.ID, pkgbase.ID)
+    notif.send()
+
+
 @router.post("/pkgbase/{name}/adopt")
 @auth_required(True, redirect="/pkgbase/{name}")
 async def pkgbase_adopt_post(request: Request, name: str):
@@ -1005,8 +1014,7 @@ async def pkgbase_adopt_post(request: Request, name: str):
         # If the user has credentials, they'll adopt the package regardless
         # of maintainership. Otherwise, we'll promote the user to maintainer
         # if no maintainer currently exists.
-        with db.begin():
-            pkgbase.Maintainer = request.user
+        pkgbase_adopt_instance(request, pkgbase)
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=HTTPStatus.SEE_OTHER)
@@ -1151,6 +1159,38 @@ async def packages_unnotify(request: Request, package_ids: List[int] = [],
     return (True, ["The selected packages' notifications have been removed."])
 
 
+async def packages_adopt(request: Request, package_ids: List[int] = [],
+                         confirm: bool = False, **kwargs):
+    if not package_ids:
+        return (False, ["You did not select any packages to adopt."])
+
+    if not confirm:
+        return (False, ["The selected packages have not been adopted, "
+                        "check the confirmation checkbox."])
+
+    bases = set()
+    package_ids = set(package_ids)
+    packages = db.query(models.Package).filter(
+        models.Package.ID.in_(package_ids)).all()
+
+    for pkg in packages:
+        if pkg.PackageBase not in bases:
+            bases.update({pkg.PackageBase})
+
+    # Check that the user has credentials for every package they selected.
+    for pkgbase in bases:
+        has_cred = request.user.has_credential("CRED_PKGBASE_ADOPT")
+        if not (has_cred or not pkgbase.Maintainer):
+            # TODO: This error needs to be translated.
+            return (False, ["You are not allowed to adopt one of the "
+                            "packages you selected."])
+
+    # Now, really adopt the bases.
+    for pkgbase in bases:
+        pkgbase_adopt_instance(request, pkgbase)
+
+    return (True, ["The selected packages have been adopted."])
+
 # A mapping of action string -> callback functions used within the
 # `packages_post` route below. We expect any action callback to
 # return a tuple in the format: (succeeded: bool, message: List[str]).
@@ -1158,6 +1198,7 @@ PACKAGE_ACTIONS = {
     "unflag": packages_unflag,
     "notify": packages_notify,
     "unnotify": packages_unnotify,
+    "adopt": packages_adopt,
 }
 
 
