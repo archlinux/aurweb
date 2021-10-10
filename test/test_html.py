@@ -9,7 +9,7 @@ from aurweb import asgi, db
 from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID, AccountType
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
-from aurweb.testing.html import parse_root
+from aurweb.testing.html import get_errors, get_successes, parse_root
 from aurweb.testing.requests import Request
 
 
@@ -97,3 +97,23 @@ def test_archdev_navbar_authenticated_tu(client: TestClient,
     items = root.xpath('//div[@id="archdev-navbar"]/ul/li/a')
     for i, item in enumerate(items):
         assert item.text.strip() == expected[i]
+
+
+def test_get_errors():
+    html = """
+    <ul class="errorlist">
+        <li>Test</li>
+    </ul>
+"""
+    errors = get_errors(html)
+    assert errors[0].text.strip() == "Test"
+
+
+def test_get_successes():
+    html = """
+    <ul class="success">
+        <li>Test</li>
+    </ul>
+"""
+    successes = get_successes(html)
+    assert successes[0].text.strip() == "Test"
