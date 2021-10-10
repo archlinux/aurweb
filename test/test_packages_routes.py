@@ -2154,3 +2154,52 @@ def test_packages_post_notify(client: TestClient, user: User, package: Package):
     errors = get_errors(resp.text)
     expected = "You did not select any packages to be notified about."
     assert errors[0].text.strip() == expected
+
+
+def test_packages_post_unnotify(client: TestClient, user: User,
+                                package: Package):
+    # Create a notification record.
+    with db.begin():
+        notif = db.create(PackageNotification,
+                          PackageBase=package.PackageBase,
+                          User=user)
+    assert notif is not None
+
+    # Request removal of the notification without any IDs.
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "unnotify"
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You did not select any packages for notification removal."
+    assert errors[0].text.strip() == expected
+
+    # Request removal of the notification; really.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "unnotify",
+            "IDs": [package.ID]
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    successes = get_successes(resp.text)
+    expected = "The selected packages' notifications have been removed."
+    assert successes[0].text.strip() == expected
+
+    # Let's ensure the record got removed.
+    notif = package.PackageBase.notifications.filter(
+        PackageNotification.UserID == user.ID
+    ).first()
+    assert notif is None
+
+    # Try it again. The notif no longer exists.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "unnotify",
+            "IDs": [package.ID]
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "A package you selected does not have notifications enabled."
+    assert errors[0].text.strip() == expected

@@ -867,11 +867,7 @@ async def pkgbase_notify(request: Request, name: str):
                             status_code=HTTPStatus.SEE_OTHER)
 
 
-@router.post("/pkgbase/{name}/unnotify")
-@auth_required(True, redirect="/pkgbase/{name}")
-async def pkgbase_unnotify(request: Request, name: str):
-    pkgbase = get_pkg_or_base(name, models.PackageBase)
-
+def pkgbase_unnotify_instance(request: Request, pkgbase: models.PackageBase):
     notif = pkgbase.notifications.filter(
         models.PackageNotification.UserID == request.user.ID
     ).first()
@@ -880,6 +876,12 @@ async def pkgbase_unnotify(request: Request, name: str):
         with db.begin():
             db.session.delete(notif)
 
+
+@router.post("/pkgbase/{name}/unnotify")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_unnotify(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, models.PackageBase)
+    pkgbase_unnotify_instance(request, pkgbase)
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=HTTPStatus.SEE_OTHER)
 
@@ -1111,12 +1113,51 @@ async def packages_notify(request: Request, package_ids: List[int] = [],
     # TODO: This message does not yet have a translation.
     return (True, ["The selected packages' notifications have been enabled."])
 
+
+async def packages_unnotify(request: Request, package_ids: List[int] = [],
+                            **kwargs):
+    if not package_ids:
+        # TODO: This error does not yet have a translation.
+        return (False,
+                ["You did not select any packages for notification removal."])
+
+    # TODO: This error does not yet have a translation.
+    error_tuple = (
+        False,
+        ["A package you selected does not have notifications enabled."]
+    )
+
+    bases = set()
+    package_ids = set(package_ids)
+    packages = db.query(models.Package).filter(
+        models.Package.ID.in_(package_ids)).all()
+
+    for pkg in packages:
+        if pkg.PackageBase not in bases:
+            bases.update({pkg.PackageBase})
+
+    # Perform some checks on what the user selected for notify.
+    for pkgbase in bases:
+        notif = db.query(pkgbase.notifications.filter(
+            models.PackageNotification.UserID == request.user.ID
+        ).exists()).scalar()
+        if not notif:
+            return error_tuple
+
+    for pkgbase in bases:
+        pkgbase_unnotify_instance(request, pkgbase)
+
+    # TODO: This message does not yet have a translation.
+    return (True, ["The selected packages' notifications have been removed."])
+
+
 # A mapping of action string -> callback functions used within the
 # `packages_post` route below. We expect any action callback to
 # return a tuple in the format: (succeeded: bool, message: List[str]).
 PACKAGE_ACTIONS = {
     "unflag": packages_unflag,
     "notify": packages_notify,
+    "unnotify": packages_unnotify,
 }
 
 
