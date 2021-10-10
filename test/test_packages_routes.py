@@ -2259,3 +2259,62 @@ def test_packages_post_adopt(client: TestClient, user: User,
     successes = get_successes(resp.text)
     expected = "The selected packages have been adopted."
     assert successes[0].text.strip() == expected
+
+
+def test_packages_post_disown(client: TestClient, user: User,
+                              maintainer: User, package: Package):
+    # Initially prove that we have a maintainer: `maintainer`.
+    assert package.PackageBase.Maintainer is not None
+    assert package.PackageBase.Maintainer == maintainer
+
+    # Try to run the disown action with no IDs; get an error.
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "disown"
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You did not select any packages to disown."
+    assert errors[0].text.strip() == expected
+    assert package.PackageBase.Maintainer is not None
+
+    # Try to disown `package` without giving the confirm argument.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "disown",
+            "IDs": [package.ID]
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    assert package.PackageBase.Maintainer is not None
+    errors = get_errors(resp.text)
+    expected = ("The selected packages have not been disowned, "
+                "check the confirmation checkbox.")
+    assert errors[0].text.strip() == expected
+
+    # Now, try to disown `package` without credentials (as `user`).
+    user_cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "disown",
+            "IDs": [package.ID],
+            "confirm": True
+        }, cookies=user_cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    assert package.PackageBase.Maintainer is not None
+    errors = get_errors(resp.text)
+    expected = "You are not allowed to disown one of the packages you selected."
+    assert errors[0].text.strip() == expected
+
+    # Now, let's really disown `package` as `maintainer`.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "disown",
+            "IDs": [package.ID],
+            "confirm": True
+        }, cookies=cookies)
+
+    assert package.PackageBase.Maintainer is None
+    successes = get_successes(resp.text)
+    expected = "The selected packages have been disowned."
+    assert successes[0].text.strip() == expected

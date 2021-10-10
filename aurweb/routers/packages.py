@@ -932,7 +932,9 @@ async def pkgbase_unvote(request: Request, name: str):
                             status_code=HTTPStatus.SEE_OTHER)
 
 
-def disown_pkgbase(pkgbase: models.PackageBase, disowner: models.User):
+def pkgbase_disown_instance(request: Request, pkgbase: models.PackageBase):
+    disowner = request.user
+
     conn = db.ConnectionExecutor(db.get_engine().raw_connection())
     notif = notify.DisownNotification(conn, disowner.ID, pkgbase.ID)
 
@@ -990,7 +992,7 @@ async def pkgbase_disown_post(request: Request, name: str,
         return render_template(request, "packages/disown.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
-    disown_pkgbase(pkgbase, request.user)
+    pkgbase_disown_instance(request, pkgbase)
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=HTTPStatus.SEE_OTHER)
 
@@ -1191,6 +1193,40 @@ async def packages_adopt(request: Request, package_ids: List[int] = [],
 
     return (True, ["The selected packages have been adopted."])
 
+
+async def packages_disown(request: Request, package_ids: List[int] = [],
+                          confirm: bool = False, **kwargs):
+    if not package_ids:
+        return (False, ["You did not select any packages to disown."])
+
+    if not confirm:
+        return (False, ["The selected packages have not been disowned, "
+                        "check the confirmation checkbox."])
+
+    bases = set()
+    package_ids = set(package_ids)
+    packages = db.query(models.Package).filter(
+        models.Package.ID.in_(package_ids)).all()
+
+    for pkg in packages:
+        if pkg.PackageBase not in bases:
+            bases.update({pkg.PackageBase})
+
+    # Check that the user has credentials for every package they selected.
+    for pkgbase in bases:
+        has_cred = request.user.has_credential("CRED_PKGBASE_DISOWN",
+                                               approved=[pkgbase.Maintainer])
+        if not has_cred:
+            # TODO: This error needs to be translated.
+            return (False, ["You are not allowed to disown one "
+                            "of the packages you selected."])
+
+    # Now, really disown the bases.
+    for pkgbase in bases:
+        pkgbase_disown_instance(request, pkgbase)
+
+    return (True, ["The selected packages have been disowned."])
+
 # A mapping of action string -> callback functions used within the
 # `packages_post` route below. We expect any action callback to
 # return a tuple in the format: (succeeded: bool, message: List[str]).
@@ -1199,6 +1235,7 @@ PACKAGE_ACTIONS = {
     "notify": packages_notify,
     "unnotify": packages_unnotify,
     "adopt": packages_adopt,
+    "disown": packages_disown,
 }
 
 

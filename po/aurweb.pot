@@ -1036,6 +1036,10 @@ msgstr ""
 msgid "You must be logged in before you can disown packages."
 msgstr ""
 
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
 msgstr ""
