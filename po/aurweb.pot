@@ -958,6 +958,14 @@ msgstr ""
 msgid "Package details could not be found."
 msgstr ""
 
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr ""

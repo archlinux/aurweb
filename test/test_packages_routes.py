@@ -2113,3 +2113,44 @@ def test_packages_post_unflag(client: TestClient, user: User,
     errors = get_errors(resp.text)
     expected = "You did not select any packages to unflag."
     assert errors[0].text.strip() == expected
+
+
+def test_packages_post_notify(client: TestClient, user: User, package: Package):
+    notif = package.PackageBase.notifications.filter(
+        PackageNotification.UserID == user.ID
+    ).first()
+    assert notif is None
+
+    # Try to enable notifications but supply no packages, causing
+    # an error to be rendered.
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={"action": "notify"},
+                            cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You did not select any packages to be notified about."
+    assert errors[0].text.strip() == expected
+
+    # Now let's actually enable notifications on `package`.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "notify",
+            "IDs": [package.ID]
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    expected = "The selected packages' notifications have been enabled."
+    successes = get_successes(resp.text)
+    assert successes[0].text.strip() == expected
+
+    # Try to enable notifications when they're already enabled,
+    # causing an error to be rendered.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "notify",
+            "IDs": [package.ID]
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You did not select any packages to be notified about."
+    assert errors[0].text.strip() == expected
