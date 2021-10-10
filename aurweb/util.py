@@ -1,4 +1,5 @@
 import base64
+import copy
 import logging
 import math
 import random
@@ -127,9 +128,10 @@ def as_timezone(dt: datetime, timezone: str):
 
 def extend_query(query: Dict[str, Any], *additions) -> Dict[str, Any]:
     """ Add additional key value pairs to query. """
+    q = copy.copy(query)
     for k, v in list(additions):
-        query[k] = v
-    return query
+        q[k] = v
+    return q
 
 
 def to_qs(query: Dict[str, Any]) -> str:
