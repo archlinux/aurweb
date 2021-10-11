@@ -2318,3 +2318,76 @@ def test_packages_post_disown(client: TestClient, user: User,
     successes = get_successes(resp.text)
     expected = "The selected packages have been disowned."
     assert successes[0].text.strip() == expected
+
+
+def test_packages_post_delete(caplog: pytest.fixture, client: TestClient,
+                              user: User, tu_user: User, package: Package):
+
+    # First, let's try to use the delete action with no packages IDs.
+    user_cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "delete"
+        }, cookies=user_cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You did not select any packages to delete."
+    assert errors[0].text.strip() == expected
+
+    # Now, let's try to delete real packages without supplying "confirm".
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "delete",
+            "IDs": [package.ID]
+        }, cookies=user_cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = ("The selected packages have not been deleted, "
+                "check the confirmation checkbox.")
+    assert errors[0].text.strip() == expected
+
+    # And again, with everything, but `user` doesn't have permissions.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "delete",
+            "IDs": [package.ID],
+            "confirm": True
+        }, cookies=user_cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You do not have permission to delete packages."
+    assert errors[0].text.strip() == expected
+
+    # Now, let's switch over to making the requests as a TU.
+    # However, this next request will be rejected due to supplying
+    # an invalid package ID.
+    tu_cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "delete",
+            "IDs": [0],
+            "confirm": True
+        }, cookies=tu_cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "One of the packages you selected does not exist."
+    assert errors[0].text.strip() == expected
+
+    # Whoo. Now, let's finally make a valid request as `tu_user`
+    # to delete `package`.
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "delete",
+            "IDs": [package.ID],
+            "confirm": True
+        }, cookies=tu_cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    successes = get_successes(resp.text)
+    expected = "The selected packages have been deleted."
+    assert successes[0].text.strip() == expected
+
+    # Expect that the package deletion was logged.
+    packages = [package.Name]
+    expected = (f"Privileged user '{tu_user.Username}' deleted the "
+                f"following packages: {str(packages)}.")
+    assert expected in caplog.text
