@@ -1080,3 +1080,34 @@ async def packages_post(request: Request,
             context["success"] = messages
 
     return await packages_get(request, context)
+
+
+@router.get("/pkgbase/{name}/merge")
+@auth_required(redirect="/pkgbase/{name}/merge")
+async def pkgbase_merge_get(request: Request, name: str,
+                            into: str = Query(default=str()),
+                            next: str = Query(default=str())):
+    pkgbase = get_pkg_or_base(name, models.PackageBase)
+
+    if not next:
+        next = f"/pkgbase/{pkgbase.Name}"
+
+    context = make_context(request, "Package Merging")
+    context.update({
+        "pkgbase": pkgbase,
+        "into": into,
+        "next": next
+    })
+
+    status_code = HTTPStatus.OK
+    # TODO: Lookup errors from credential instead of hardcoding them.
+    # Idea: Something like credential_errors("CRED_PKGBASE_MERGE").
+    # Perhaps additionally: bad_credential_status_code("CRED_PKGBASE_MERGE").
+    # Don't take these examples verbatim. We should find good naming.
+    if not request.user.has_credential("CRED_PKGBASE_MERGE"):
+        context["errors"] = [
+            "Only Trusted Users and Developers can merge packages."]
+        status_code = HTTPStatus.UNAUTHORIZED
+
+    return render_template(request, "pkgbase/merge.html", context,
+                           status_code=status_code)

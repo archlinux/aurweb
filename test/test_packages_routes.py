@@ -2049,3 +2049,21 @@ def test_packages_post(client: TestClient, user: User, package: Package):
         errors = get_successes(resp.text)
         expected = "Some success."
         assert errors[0].text.strip() == expected
+
+
+def test_pkgbase_merge_unauthorized(client: TestClient, user: User,
+                                    package: Package):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+
+def test_pkgbase_merge(client: TestClient, tu_user: User, package: Package):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert not get_errors(resp.text)
