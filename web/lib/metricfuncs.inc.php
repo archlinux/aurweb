@@ -13,6 +13,44 @@ use \Prometheus\RenderTextFormat;
 // and will start again at 0 if it's restarted.
 $registry = new CollectorRegistry(new InMemory());
 
+function update_metrics() {
+	// With no code given to http_response_code, it gets the current
+	// response code set (via http_response_code or header).
+	if(http_response_code() == 404)
+		return;
+
+	$path = $_SERVER['PATH_INFO'];
+	$method = $_SERVER['REQUEST_METHOD'];
+	$query_string = $_SERVER['QUERY_STRING'];
+
+	// If $path is at least 1 character, strip / off the end.
+	// This turns $paths like '/packages/' into '/packages'.
+	if (strlen($path) > 1)
+		$path = rtrim($path, "/");
+
+	// We'll always add +1 to our total request count to this $path,
+	// unless this path == /metrics.
+	if ($path !== "/metrics")
+		add_metric("http_requests_count", $method, $path);
+
+	// Extract $type out of $query_string, if we can.
+	$type = null;
+	$query = array();
+	if ($query_string)
+		parse_str($query_string, $query);
+
+	if (array_key_exists("type", $query))
+		$type = $query["type"];
+
+	// Only store RPC metrics for valid types.
+	$good_types = [
+		"info", "multiinfo", "search", "msearch",
+		"suggest", "suggest-pkgbase", "get-comment-form"
+	];
+	if ($path === "/rpc" && in_array($type, $good_types))
+		add_metric("api_requests_count", $method, $path, $type);
+}
+
 function add_metric($anchor, $method, $path, $type = null) {
 
 	global $registry;
