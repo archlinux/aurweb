@@ -19,8 +19,7 @@ $ROUTES = array(
 	'/rss' => 'rss.php',
 	'/tos' => 'tos.php',
 	'/tu' => 'tu.php',
-    '/addvote' => 'addvote.php',
-    '/metrics' => 'metrics.php' // Prometheus Metrics
+	'/addvote' => 'addvote.php',
 );
 
 $PKG_PATH = '/packages';
