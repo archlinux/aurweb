@@ -13,8 +13,28 @@ $query_string = $_SERVER['QUERY_STRING'];
 
 // If no options.cache is configured, we no-op metric storage operations.
 $is_cached = defined('EXTENSION_LOADED_APC') || defined('EXTENSION_LOADED_MEMCACHE');
-if ($is_cached)
-	register_shutdown_function('update_metrics');
+if ($is_cached) {
+	$method = $_SERVER['REQUEST_METHOD'];
+	// We'll always add +1 to our total request count to this $path,
+	// unless this path == /metrics.
+	if ($path !== "/metrics")
+		add_metric("http_requests_count", $method, $path);
+
+	// Extract $type out of $query_string, if we can.
+	$type = null;
+	$query = array();
+	if ($query_string)
+		parse_str($query_string, $query);
+	$type = $query['type'];
+
+	// Only store RPC metrics for valid types.
+	$good_types = [
+		"info", "multiinfo", "search", "msearch",
+		"suggest", "suggest-pkgbase", "get-comment-form"
+	];
+	if ($path === "/rpc" && in_array($type, $good_types))
+		add_metric("api_requests_count", $method, $path, $type);
+}
 
 if (config_get_bool('options', 'enable-maintenance') && (empty($tokens[1]) || ($tokens[1] != "css" && $tokens[1] != "images"))) {
 	if (!in_array($_SERVER['REMOTE_ADDR'], explode(" ", config_get('options', 'maintenance-exceptions')))) {
