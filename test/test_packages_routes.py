@@ -1713,7 +1713,9 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
 
     # Flag it with a valid comment.
     with client as request:
-        resp = request.post(endpoint, {"comments": "Test"}, cookies=cookies)
+        resp = request.post(endpoint, data={
+            "comments": "Test"
+        }, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert pkgbase.Flagger == user
     assert pkgbase.FlaggerComment == "Test"
@@ -1724,14 +1726,34 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
         resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
-    # Now, test that the 'maintainer' user can't unflag it, because they
+    with db.begin():
+        user2 = db.create(User, Username="test2",
+                          Email="test2@example.org",
+                          Passwd="testPassword",
+                          AccountType=user.AccountType)
+
+    # Now, test that the 'user2' user can't unflag it, because they
     # didn't flag it to begin with.
-    maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    user2_cookies = {"AURSID": user2.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/unflag"
+    with client as request:
+        resp = request.post(endpoint, cookies=user2_cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert pkgbase.Flagger == user
+
+    # Now, test that the 'maintainer' user can.
+    maint_cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     with client as request:
         resp = request.post(endpoint, cookies=maint_cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert pkgbase.Flagger == user
+    assert pkgbase.Flagger is None
+
+    # Flag it again.
+    with client as request:
+        resp = request.post(f"/pkgbase/{pkgbase.Name}/flag", data={
+            "comments": "Test"
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Now, unflag it for real.
     with client as request:

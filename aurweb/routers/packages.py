@@ -820,7 +820,7 @@ async def pkgbase_unflag(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     has_cred = request.user.has_credential(
-        "CRED_PKGBASE_UNFLAG", approved=[pkgbase.Flagger])
+        "CRED_PKGBASE_UNFLAG", approved=[pkgbase.Flagger, pkgbase.Maintainer])
     if has_cred:
         with db.begin():
             pkgbase.OutOfDateTS = None
