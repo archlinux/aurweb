@@ -1698,13 +1698,31 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
     # We shouldn't have flagged the package yet; assert so.
     assert pkgbase.Flagger is None
 
-    # Flag it.
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     endpoint = f"/pkgbase/{pkgbase.Name}/flag"
+
+    # Get the flag page.
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # Try to flag it without a comment.
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    # Flag it with a valid comment.
+    with client as request:
+        resp = request.post(endpoint, {"comments": "Test"}, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert pkgbase.Flagger == user
+    assert pkgbase.FlaggerComment == "Test"
+
+    # Now try to perform a get; we should be redirected because
+    # it's already flagged.
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     # Now, test that the 'maintainer' user can't unflag it, because they
     # didn't flag it to begin with.

@@ -773,10 +773,34 @@ async def requests_close_post(request: Request, id: int,
     return RedirectResponse("/requests", status_code=int(HTTPStatus.SEE_OTHER))
 
 
+@router.get("/pkgbase/{name}/flag")
+@auth_required(True, redirect="/pkgbase/{name}")
+async def pkgbase_flag_get(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    has_cred = request.user.has_credential("CRED_PKGBASE_FLAG")
+    if not has_cred or pkgbase.Flagger is not None:
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=int(HTTPStatus.SEE_OTHER))
+
+    context = make_context(request, "Flag Package Out-Of-Date")
+    context["pkgbase"] = pkgbase
+    return render_template(request, "packages/flag.html", context)
+
+
 @router.post("/pkgbase/{name}/flag")
 @auth_required(True, redirect="/pkgbase/{name}")
-async def pkgbase_flag(request: Request, name: str):
+async def pkgbase_flag_post(request: Request, name: str,
+                            comments: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
+
+    if not comments:
+        context = make_context(request, "Flag Package Out-Of-Date")
+        context["pkgbase"] = pkgbase
+        context["errors"] = ["The selected packages have not been flagged, "
+                             "please enter a comment."]
+        return render_template(request, "packages/flag.html", context,
+                               status_code=int(HTTPStatus.BAD_REQUEST))
 
     has_cred = request.user.has_credential("CRED_PKGBASE_FLAG")
     if has_cred and not pkgbase.Flagger:
@@ -784,6 +808,7 @@ async def pkgbase_flag(request: Request, name: str):
         with db.begin():
             pkgbase.OutOfDateTS = now
             pkgbase.Flagger = request.user
+            pkgbase.FlaggerComment = comments
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
@@ -800,6 +825,7 @@ async def pkgbase_unflag(request: Request, name: str):
         with db.begin():
             pkgbase.OutOfDateTS = None
             pkgbase.Flagger = None
+            pkgbase.FlaggerComment = str()
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=int(HTTPStatus.SEE_OTHER))
