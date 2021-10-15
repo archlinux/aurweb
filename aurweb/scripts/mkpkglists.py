@@ -2,11 +2,13 @@
 
 import datetime
 import gzip
+import json
 
 import aurweb.config
 import aurweb.db
 
 packagesfile = aurweb.config.get('mkpkglists', 'packagesfile')
+packagesmetafile = aurweb.config.get('mkpkglists', 'packagesmetafile')
 pkgbasefile = aurweb.config.get('mkpkglists', 'pkgbasefile')
 userfile = aurweb.config.get('mkpkglists', 'userfile')
 
@@ -26,6 +28,14 @@ def main():
                            "ON PackageBases.ID = Packages.PackageBaseID " +
                            "WHERE PackageBases.PackagerUID IS NOT NULL")
         f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
+
+    with gzip.open(packagesmetafile, "wt") as f:
+        cur = conn.execute("SELECT * FROM Packages")
+        json.dump({
+            "warning": "This is a experimental! It can be removed or modified without warning!",
+            "columns": [d[0] for d in cur.description],
+            "data": cur.fetchall()
+        }, f)
 
     with gzip.open(pkgbasefile, "w") as f:
         f.write(bytes(pkgbaselist_header + "\n", "UTF-8"))
