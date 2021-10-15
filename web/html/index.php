@@ -13,7 +13,7 @@ $query_string = $_SERVER['QUERY_STRING'];
 
 // If no options.cache is configured, we no-op metric storage operations.
 $is_cached = defined('EXTENSION_LOADED_APC') || defined('EXTENSION_LOADED_MEMCACHE');
-if ($is_cached)
+if (false && $is_cached)
 	register_shutdown_function('update_metrics');
 
 if (config_get_bool('options', 'enable-maintenance') && (empty($tokens[1]) || ($tokens[1] != "css" && $tokens[1] != "images"))) {
