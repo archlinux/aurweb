@@ -61,6 +61,7 @@ server = file://$(pwd)/remote/
 
 [mkpkglists]
 packagesfile = packages.gz
+packagesmetafile = packages-meta-v1.json.gz
 pkgbasefile = pkgbase.gz
 userfile = users.gz
 EOF
