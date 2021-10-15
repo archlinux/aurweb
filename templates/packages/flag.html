@@ -18,6 +18,20 @@
             {% endfor %}
         </ul>
 
+        {% if pkgbase.Name.endswith(('-cvs', '-svn', '-git', '-hg', '-bzr', '-darcs')) %}
+            <p class="error">
+                {# TODO: This error is not yet translated. #}
+                {{
+                    "This seems to be a VCS package. Please do %snot%s flag "
+                    "it out-of-date if the package version in the AUR does "
+                    "not match the most recent commit. Flagging this package "
+                    "should only be done if the sources moved or changes in "
+                    "the PKGBUILD are required because of recent upstream "
+                    "changes." | tr | format("<strong>", "</strong>") | safe
+                }}
+            </p>
+        {% endif %}
+
         <p>
             {{
                 "Please do %snot%s use this form to report bugs. "

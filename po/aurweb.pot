@@ -568,6 +568,15 @@ msgstr ""
 msgid "Flag Package Out-Of-Date"
 msgstr ""
 
+#: templates/packages/flag.html
+msgid "This seems to be a VCS package. Please do %snot%s flag "
+"it out-of-date if the package version in the AUR does "
+"not match the most recent commit. Flagging this package "
+"should only be done if the sources moved or changes in "
+"the PKGBUILD are required because of recent upstream "
+"changes."
+msgstr ""
+
 #: html/pkgflag.php
 #, php-format
 msgid ""

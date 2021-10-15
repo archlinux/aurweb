@@ -1762,6 +1762,27 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
     assert pkgbase.Flagger is None
 
 
+def test_pkgbase_flag_vcs(client: TestClient, user: User, package: Package):
+    # Morph our package fixture into a VCS package (-git).
+    with db.begin():
+        package.PackageBase.Name += "-git"
+        package.Name += "-git"
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get(f"/pkgbase/{package.PackageBase.Name}/flag",
+                           cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    expected = ("This seems to be a VCS package. Please do "
+                "<strong>not</strong> flag it out-of-date if the package "
+                "version in the AUR does not match the most recent commit. "
+                "Flagging this package should only be done if the sources "
+                "moved or changes in the PKGBUILD are required because of "
+                "recent upstream changes.")
+    assert expected in resp.text
+
+
 def test_pkgbase_notify(client: TestClient, user: User, package: Package):
     pkgbase = package.PackageBase
 
