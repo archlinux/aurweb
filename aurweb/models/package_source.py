@@ -13,7 +13,7 @@ class PackageSource(Base):
                        nullable=False)
     Package = relationship(
         _Package, backref=backref("package_sources", lazy="dynamic",
-                                  cascade="all,delete"),
+                                  cascade="all, delete"),
         foreign_keys=[PackageID])
 
     __mapper_args__ = {"primary_key": [PackageID]}
