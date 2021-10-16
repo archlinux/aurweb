@@ -5,7 +5,6 @@
     <div id="pkgdetails" class="box">
         <h2>{{ 'Package Details' | tr }}: {{ package.Name }} {{ package.Version }}</h2>
 
-        {% set result = pkgbase %}
         {% include "partials/packages/actions.html" %}
 
         {% set show_package_details = True %}
@@ -16,7 +15,7 @@
         </div>
     </div>
 
-    {% set pkgname = result.Name %}
-    {% set pkgbase_id = result.ID %}
+    {% set pkgname = package.Name %}
+    {% set pkgbase_id = pkgbase.ID %}
     {% include "partials/packages/comments.html" %}
 {% endblock %}

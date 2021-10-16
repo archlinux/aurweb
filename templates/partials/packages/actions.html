@@ -1,38 +1,38 @@
 <!--
-    This partial requires result.Name to render
+    This partial requires pkgbase.Name to render
 -->
 <div id="detailslinks" class="listing">
     <div id="actionlist">
         <h4>{{ "Package Actions" | tr }}</h4>
         <ul class="small">
             <li>
-                <a href="/cgit/aur.git/tree/PKGBUILD?h={{ result.Name }}">
+                <a href="/cgit/aur.git/tree/PKGBUILD?h={{ pkgbase.Name }}">
                     {{ "View PKGBUILD" | tr }}
                 </a>
                 /
-                <a href="/cgit/aur.git/log/?h={{ result.Name }}">
+                <a href="/cgit/aur.git/log/?h={{ pkgbase.Name }}">
                     {{ "View Changes" | tr }}
                 </a>
             </li>
             <li>
-                <a href="/cgit/aur.git/snapshot/{{ result.Name }}.tar.gz">
+                <a href="/cgit/aur.git/snapshot/{{ pkgbase.Name }}.tar.gz">
                     {{ "Download snapshot" | tr }}
                 </a>
             <li>
-                <a href="https://wiki.archlinux.org/title/Special:Search?search={{ result.Name }}">
+                <a href="https://wiki.archlinux.org/title/Special:Search?search={{ pkgbase.Name }}">
                     {{ "Search wiki" | tr }}
                 </a>
             </li>
             {% if not out_of_date %}
                 <li>
-                    <a href="/pkgbase/{{ result.Name }}/flag/">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/flag/">
                         {{ "Flag package out-of-date" | tr }}
                     </a>
                 </li>
             {% else %}
                 <li>
                     <span class="flagged">
-                        {% set ood_ts = result.OutOfDateTS | dt | as_timezone(timezone) %}
+                        {% set ood_ts = pkgbase.OutOfDateTS | dt | as_timezone(timezone) %}
                         {{
                         "Flagged out-of-date (%s)"
                         | tr | format(ood_ts.strftime("%Y-%m-%d"))
@@ -40,7 +40,7 @@
                     </span>
                 </li>
                 <li>
-                    <form action="/pkgbase/{{ result.Name }}/unflag" method="post">
+                    <form action="/pkgbase/{{ pkgbase.Name }}/unflag" method="post">
                         <input class="button text-button"
                                type="submit"
                                name="do_UnFlag"
@@ -51,14 +51,14 @@
             {% endif %}
                 <li>
                     {% if not voted %}
-                    <form action="/pkgbase/{{ result.Name }}/vote/" method="post">
+                    <form action="/pkgbase/{{ pkgbase.Name }}/vote/" method="post">
                         <input type="submit"
                                class="button text-button"
                                name="do_Vote"
                                value="{{ 'Vote for this package' | tr }}" />
                     </form>
                     {% else %}
-                    <form action="/pkgbase/{{ result.Name }}/unvote/" method="post">
+                    <form action="/pkgbase/{{ pkgbase.Name }}/unvote/" method="post">
                         <input type="submit"
                                class="button text-button"
                                name="do_UnVote"
@@ -68,7 +68,7 @@
                 </li>
                 <li>
                     {% if notified %}
-                        <form action="/pkgbase/{{ result.Name }}/unnotify/" method="post">
+                        <form action="/pkgbase/{{ pkgbase.Name }}/unnotify/" method="post">
                             <input type="submit"
                                    class="button text-button"
                                    name="do_UnNotify"
@@ -76,7 +76,7 @@
                             />
                         </form>
                     {% else %}
-                        <form action="/pkgbase/{{ result.Name }}/notify/" method="post">
+                        <form action="/pkgbase/{{ pkgbase.Name }}/notify/" method="post">
                             <input type="submit"
                                    class="button text-button"
                                    name="do_Notify"
@@ -101,27 +101,27 @@
                 </li>
             {% endif %}
             <li>
-                <a href="/pkgbase/{{ result.Name }}/request/">
+                <a href="/pkgbase/{{ pkgbase.Name }}/request/">
                     {{ "Submit Request" | tr }}
                 </a>
             </li>
             {% if request.user.has_credential("CRED_PKGBASE_DELETE") %}
                 <li>
-                    <a href="/pkgbase/{{ result.Name }}/delete/">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/delete/">
                         {{ "Delete Package" | tr }}
                     </a>
                 </li>
             {% endif %}
             {% if request.user.has_credential("CRED_PKGBASE_MERGE") %}
                 <li>
-                    <a href="/pkgbase/{{ result.Name }}/merge/">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/merge/">
                         {{ "Merge Package" | tr }}
                     </a>
                 </li>
             {% endif %}
-            {% if not result.Maintainer %}
+            {% if not pkgbase.Maintainer %}
                 <li>
-                    <form action="/pkgbase/{{ result.Name }}/adopt" method="post">
+                    <form action="/pkgbase/{{ pkgbase.Name }}/adopt" method="post">
                         <input type="submit"
                                class="button text-button"
                                value="{{ 'Adopt Package' | tr }}"
@@ -131,7 +131,7 @@
             {% else %}
                 {% if request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
                     <li>
-                        <a href="/pkgbase/{{ result.Name }}/disown/">
+                        <a href="/pkgbase/{{ pkgbase.Name }}/disown/">
                             {{ "Disown Package" | tr }}
                         </a>
                     </li>
