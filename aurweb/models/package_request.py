@@ -37,8 +37,7 @@ class PackageRequest(Base):
         foreign_keys=[UsersID])
 
     PackageBaseID = Column(
-        Integer, ForeignKey("PackageBases.ID", ondelete="SET NULL"),
-        nullable=False)
+        Integer, ForeignKey("PackageBases.ID", ondelete="SET NULL"))
     PackageBase = relationship(
         _PackageBase, backref=backref("requests", lazy="dynamic"),
         foreign_keys=[PackageBaseID])
