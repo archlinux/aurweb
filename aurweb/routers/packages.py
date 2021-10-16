@@ -812,6 +812,19 @@ async def pkgbase_flag_post(request: Request, name: str,
                             status_code=HTTPStatus.SEE_OTHER)
 
 
+@router.get("/pkgbase/{name}/flag-comment")
+async def pkgbase_flag_comment(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, models.PackageBase)
+
+    if pkgbase.Flagger is None:
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=HTTPStatus.SEE_OTHER)
+
+    context = make_context(request, "Flag Comment")
+    context["pkgbase"] = pkgbase
+    return render_template(request, "packages/flag-comment.html", context)
+
+
 @router.post("/pkgbase/{name}/unflag")
 @auth_required(True, redirect="/pkgbase/{name}")
 async def pkgbase_unflag(request: Request, name: str):

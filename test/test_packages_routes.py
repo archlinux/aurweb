@@ -1707,6 +1707,14 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
         resp = request.get(endpoint, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
 
+    # Now, let's check the /pkgbase/{name}/flag-comment route.
+    flag_comment_endpoint = f"/pkgbase/{pkgbase.Name}/flag-comment"
+    with client as request:
+        resp = request.get(flag_comment_endpoint, cookies=cookies,
+                           allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
+
     # Try to flag it without a comment.
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
@@ -1720,6 +1728,13 @@ def test_pkgbase_flag(client: TestClient, user: User, maintainer: User,
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     assert pkgbase.Flagger == user
     assert pkgbase.FlaggerComment == "Test"
+
+    # Now, let's check the /pkgbase/{name}/flag-comment route.
+    flag_comment_endpoint = f"/pkgbase/{pkgbase.Name}/flag-comment"
+    with client as request:
+        resp = request.get(flag_comment_endpoint, cookies=cookies,
+                           allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.OK)
 
     # Now try to perform a get; we should be redirected because
     # it's already flagged.
