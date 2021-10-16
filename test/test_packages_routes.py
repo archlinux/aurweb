@@ -8,6 +8,7 @@ from unittest import mock
 import pytest
 
 from fastapi.testclient import TestClient
+from sqlalchemy import and_
 
 from aurweb import asgi, db, defaults
 from aurweb.models.account_type import USER_ID, AccountType
@@ -24,7 +25,7 @@ from aurweb.models.package_relation import PackageRelation
 from aurweb.models.package_request import ACCEPTED_ID, REJECTED_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import PROVIDES_ID, RelationType
-from aurweb.models.request_type import DELETION_ID, RequestType
+from aurweb.models.request_type import DELETION_ID, MERGE_ID, RequestType
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
 from aurweb.testing.html import get_errors, get_successes, parse_root
@@ -2391,3 +2392,134 @@ def test_packages_post_delete(caplog: pytest.fixture, client: TestClient,
     expected = (f"Privileged user '{tu_user.Username}' deleted the "
                 f"following packages: {str(packages)}.")
     assert expected in caplog.text
+
+
+def test_pkgbase_merge_post_unauthorized(client: TestClient, user: User,
+                                         package: Package):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.UNAUTHORIZED)
+
+
+def test_pkgbase_merge_post_unconfirmed(client: TestClient, tu_user: User,
+                                        package: Package):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = ("The selected packages have not been deleted, "
+                "check the confirmation checkbox.")
+    assert errors[0].text.strip() == expected
+
+
+def test_pkgbase_merge_post_invalid_into(client: TestClient, tu_user: User,
+                                         package: Package):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
+    with client as request:
+        resp = request.post(endpoint, data={
+            "into": "not_real",
+            "confirm": True
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "Cannot find package to merge votes and comments into."
+    assert errors[0].text.strip() == expected
+
+
+def test_pkgbase_merge_post_self_invalid(client: TestClient, tu_user: User,
+                                         package: Package):
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
+    with client as request:
+        resp = request.post(endpoint, data={
+            "into": package.PackageBase.Name,
+            "confirm": True
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "Cannot merge a package base with itself."
+    assert errors[0].text.strip() == expected
+
+
+def test_pkgbase_merge_post(client: TestClient, tu_user: User,
+                            packages: List[Package]):
+    package, target = packages[:2]
+    pkgname = package.Name
+    pkgbasename = package.PackageBase.Name
+
+    # Create a merge request destined for another target.
+    # This will allow our test code to exercise closing
+    # such a request after merging the pkgbase in question.
+    with db.begin():
+        pkgreq = db.create(PackageRequest,
+                           User=tu_user,
+                           ReqTypeID=MERGE_ID,
+                           PackageBase=package.PackageBase,
+                           PackageBaseName=pkgbasename,
+                           MergeBaseName="test",
+                           Comments="Test comment.",
+                           ClosureComment="Test closure.")
+
+    # Vote for the package.
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/vote"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Enable notifications.
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/notify"
+    with client as request:
+        resp = request.post(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Comment on the package.
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/comments"
+    with client as request:
+        resp = request.post(endpoint, data={
+            "comment": "Test comment."
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    # Save these relationships for later comparison.
+    comments = package.PackageBase.comments.all()
+    notifs = package.PackageBase.notifications.all()
+    votes = package.PackageBase.package_votes.all()
+
+    # Merge the package into target.
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
+    with client as request:
+        resp = request.post(endpoint, data={
+            "into": target.PackageBase.Name,
+            "confirm": True
+        }, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    loc = resp.headers.get("location")
+    assert loc == f"/pkgbase/{target.PackageBase.Name}"
+
+    # Assert that the original comments, notifs and votes we setup
+    # got migrated to target as intended.
+    assert comments == target.PackageBase.comments.all()
+    assert notifs == target.PackageBase.notifications.all()
+    assert votes == target.PackageBase.package_votes.all()
+
+    # ...and that the package got deleted.
+    package = db.query(Package).filter(Package.Name == pkgname).first()
+    assert package is None
+
+    # Our fake target request should have gotten rejected.
+    assert pkgreq.Status == REJECTED_ID
+    assert pkgreq.Closer is not None
+
+    # A PackageRequest is always created when merging this way.
+    pkgreq = db.query(PackageRequest).filter(
+        and_(PackageRequest.ReqTypeID == MERGE_ID,
+             PackageRequest.PackageBaseName == pkgbasename,
+             PackageRequest.MergeBaseName == target.PackageBase.Name)
+    ).first()
+    assert pkgreq is not None

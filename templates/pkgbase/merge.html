@@ -1,6 +1,15 @@
 {% extends "partials/layout.html" %}
 
 {% block pageContent %}
+
+    {% if errors %}
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <div class="box">
         <h2>{{ "Merge Package" | tr }}: {{ pkgbase.Name }}</h2>
 
