@@ -33,36 +33,34 @@
             </td>
         </tr>
     {% endif %}
-    {% if pkgbase.keywords.scalar() %}
-        <tr>
-            <th>{{ "Keywords" | tr }}:</th>
-            {% if is_maintainer %}
-            <td>
-                <form method="update"
-                      action="/pkgbase/{{ pkgbase.Name }}/keywords/"
+    <tr>
+        <th>{{ "Keywords" | tr }}:</th>
+        {% if request.user.has_credential("CRED_PKGBASE_SET_KEYWORDS", approved=[pkgbase.Maintainer]) %}
+        <td>
+            <form method="update"
+                  action="/pkgbase/{{ pkgbase.Name }}/keywords/"
+            >
+                <div>
+                    <input type="text"
+                           name="keywords"
+                           value="{{ pkgbase.keywords | join(' ', attribute='Keyword') }}"
+                    />
+                    <input type="submit" value="{{ 'Update' | tr }}"/>
+                </div>
+            </form>
+        </td>
+        {% else %}
+        <td>
+            {% for keyword in pkgbase.keywords %}
+                <a class="keyword"
+                   href="/packages/?K={{ keyword.Keyword }}&amp;SB=p"
                 >
-                    <div>
-                        <input type="text"
-                               name="keywords"
-                               value="{{ pkgbase.keywords | join(' ', attribute='Keyword') }}"
-                        />
-                        <input type="submit" value="{{ 'Update' | tr }}"/>
-                    </div>
-                </form>
-            </td>
-            {% else %}
-            <td>
-                {% for keyword in pkgbase.keywords %}
-                    <a class="keyword"
-                       href="/packages/?K={{ keyword.Keyword }}&amp;SB=p"
-                    >
-                        {{ keyword.Keyword }}
-                    </a>
-                {% endfor %}
-            </td>
-            {% endif %}
-        </tr>
-    {% endif %}
+                    {{ keyword.Keyword }}
+                </a>
+            {% endfor %}
+        </td>
+        {% endif %}
+    </tr>
     {% if licenses and licenses.scalar() and show_package_details %}
         <tr>
             <th>{{ "Licenses" | tr }}:</th>
