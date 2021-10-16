@@ -9,7 +9,11 @@ __pycache__/
 /build/
 /dist/
 /aurweb.egg-info/
+/personal/
+/notes/
+/vendor/
 /pyrightconfig.json
+/taskell.md
 aur.git/
 aurweb.sqlite3
 conf/config
