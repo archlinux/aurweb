@@ -11,8 +11,9 @@ class PackageBlacklist(Base):
 
     __mapper_args__ = {"primary_key": [ID]}
 
-    def __init__(self, Name: str = None):
-        self.Name = Name
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
         if not self.Name:
             raise IntegrityError(
                 statement="Column Name cannot be null.",

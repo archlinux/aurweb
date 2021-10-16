@@ -11,9 +11,9 @@ class Group(Base):
 
     __mapper_args__ = {"primary_key": [ID]}
 
-    def __init__(self, Name: str = None):
-        self.Name = Name
-        if not self.Name:
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if self.Name is None:
             raise IntegrityError(
                 statement="Column Name cannot be null.",
                 orig="Groups.Name",

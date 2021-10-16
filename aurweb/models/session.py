@@ -4,7 +4,7 @@ from sqlalchemy.orm import backref, relationship
 
 from aurweb.db import make_random_value, query
 from aurweb.models.declarative import Base
-from aurweb.models.user import User
+from aurweb.models.user import User as _User
 
 
 class Session(Base):
@@ -14,21 +14,23 @@ class Session(Base):
         Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
         nullable=False)
     User = relationship(
-        "User", backref=backref("session", uselist=False),
+        _User, backref=backref("session", uselist=False),
         foreign_keys=[UsersID])
 
     __mapper_args__ = {"primary_key": [UsersID]}
 
     def __init__(self, **kwargs):
-        self.UsersID = kwargs.get("UsersID")
-        if not query(User, User.ID == self.UsersID).first():
+        super().__init__(**kwargs)
+
+        user_exists = query(
+            query(_User).filter(_User.ID == self.UsersID).exists()
+        ).scalar()
+        if not user_exists:
             raise IntegrityError(
-                statement="Foreign key UsersID cannot be null.",
+                statement=("Foreign key UsersID cannot be null and "
+                           "must be a valid user's ID."),
                 orig="Sessions.UsersID",
                 params=("NULL"))
-
-        self.SessionID = kwargs.get("SessionID")
-        self.LastUpdateTS = kwargs.get("LastUpdateTS")
 
 
 def generate_unique_sid():

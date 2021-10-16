@@ -11,20 +11,15 @@ class ApiRateLimit(Base):
 
     __mapper_args__ = {"primary_key": [IP]}
 
-    def __init__(self,
-                 IP: str = None,
-                 Requests: int = None,
-                 WindowStart: int = None):
-        self.IP = IP
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
-        self.Requests = Requests
         if self.Requests is None:
             raise IntegrityError(
                 statement="Column Requests cannot be null.",
                 orig="ApiRateLimit.Requests",
                 params=("NULL"))
 
-        self.WindowStart = WindowStart
         if self.WindowStart is None:
             raise IntegrityError(
                 statement="Column WindowStart cannot be null.",

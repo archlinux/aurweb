@@ -2,10 +2,9 @@ from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-import aurweb.models.tu_voteinfo
-import aurweb.models.user
-
 from aurweb.models.declarative import Base
+from aurweb.models.tu_voteinfo import TUVoteInfo as _TUVoteInfo
+from aurweb.models.user import User as _User
 
 
 class TUVote(Base):
@@ -14,29 +13,27 @@ class TUVote(Base):
     VoteID = Column(Integer, ForeignKey("TU_VoteInfo.ID", ondelete="CASCADE"),
                     nullable=False)
     VoteInfo = relationship(
-        "TUVoteInfo", backref=backref("tu_votes", lazy="dynamic"),
+        _TUVoteInfo, backref=backref("tu_votes", lazy="dynamic"),
         foreign_keys=[VoteID])
 
     UserID = Column(Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
                     nullable=False)
     User = relationship(
-        "User", backref=backref("tu_votes", lazy="dynamic"),
+        _User, backref=backref("tu_votes", lazy="dynamic"),
         foreign_keys=[UserID])
 
     __mapper_args__ = {"primary_key": [VoteID, UserID]}
 
-    def __init__(self,
-                 VoteInfo: aurweb.models.tu_voteinfo.TUVoteInfo = None,
-                 User: aurweb.models.user.User = None):
-        self.VoteInfo = VoteInfo
-        if self.VoteInfo is None:
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        if not self.VoteInfo and not self.VoteID:
             raise IntegrityError(
                 statement="Foreign key VoteID cannot be null.",
                 orig="TU_Votes.VoteID",
                 params=("NULL"))
 
-        self.User = User
-        if self.User is None:
+        if not self.User and not self.UserID:
             raise IntegrityError(
                 statement="Foreign key UserID cannot be null.",
                 orig="TU_Votes.UserID",

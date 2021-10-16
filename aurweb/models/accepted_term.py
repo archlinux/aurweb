@@ -2,10 +2,9 @@ from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-import aurweb.models.term
-import aurweb.models.user
-
 from aurweb.models.declarative import Base
+from aurweb.models.term import Term as _Term
+from aurweb.models.user import User as _User
 
 
 class AcceptedTerm(Base):
@@ -14,33 +13,28 @@ class AcceptedTerm(Base):
     UsersID = Column(Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
                      nullable=False)
     User = relationship(
-        "User", backref=backref("accepted_terms", lazy="dynamic"),
+        _User, backref=backref("accepted_terms", lazy="dynamic"),
         foreign_keys=[UsersID])
 
     TermsID = Column(Integer, ForeignKey("Terms.ID", ondelete="CASCADE"),
                      nullable=False)
     Term = relationship(
-        "Term", backref=backref("accepted_terms", lazy="dynamic"),
+        _Term, backref=backref("accepted_terms", lazy="dynamic"),
         foreign_keys=[TermsID])
 
     __mapper_args__ = {"primary_key": [TermsID]}
 
-    def __init__(self,
-                 User: aurweb.models.user.User = None,
-                 Term: aurweb.models.term.Term = None,
-                 Revision: int = None):
-        self.User = User
-        if not self.User:
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        if not self.User and not self.UsersID:
             raise IntegrityError(
-                statement="Foreign key UserID cannot be null.",
+                statement="Foreign key UsersID cannot be null.",
                 orig="AcceptedTerms.UserID",
                 params=("NULL"))
 
-        self.Term = Term
-        if not self.Term:
+        if not self.Term and not self.TermsID:
             raise IntegrityError(
                 statement="Foreign key TermID cannot be null.",
                 orig="AcceptedTerms.TermID",
                 params=("NULL"))
-
-        self.Revision = Revision

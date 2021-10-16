@@ -2,10 +2,9 @@ from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-import aurweb.models.package_base
-import aurweb.models.user
-
 from aurweb.models.declarative import Base
+from aurweb.models.package_base import PackageBase as _PackageBase
+from aurweb.models.user import User as _User
 
 
 class PackageComment(Base):
@@ -17,44 +16,39 @@ class PackageComment(Base):
         Integer, ForeignKey("PackageBases.ID", ondelete="CASCADE"),
         nullable=False)
     PackageBase = relationship(
-        "PackageBase", backref=backref("comments", lazy="dynamic",
-                                       cascade="all,delete"),
+        _PackageBase, backref=backref("comments", lazy="dynamic",
+                                      cascade="all,delete"),
         foreign_keys=[PackageBaseID])
 
     UsersID = Column(Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
     User = relationship(
-        "User", backref=backref("package_comments", lazy="dynamic"),
+        _User, backref=backref("package_comments", lazy="dynamic"),
         foreign_keys=[UsersID])
 
     EditedUsersID = Column(
         Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
     Editor = relationship(
-        "User", backref=backref("edited_comments", lazy="dynamic"),
+        _User, backref=backref("edited_comments", lazy="dynamic"),
         foreign_keys=[EditedUsersID])
 
     DelUsersID = Column(
         Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
     Deleter = relationship(
-        "User", backref=backref("deleted_comments", lazy="dynamic"),
+        _User, backref=backref("deleted_comments", lazy="dynamic"),
         foreign_keys=[DelUsersID])
 
     __mapper_args__ = {"primary_key": [ID]}
 
-    def __init__(self,
-                 PackageBase: aurweb.models.package_base.PackageBase = None,
-                 User: aurweb.models.user.User = None,
-                 **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.PackageBase = PackageBase
-        if not self.PackageBase:
+        if not self.PackageBase and not self.PackageBaseID:
             raise IntegrityError(
                 statement="Foreign key PackageBaseID cannot be null.",
                 orig="PackageComments.PackageBaseID",
                 params=("NULL"))
 
-        self.User = User
-        if not self.User:
+        if not self.User and not self.UsersID:
             raise IntegrityError(
                 statement="Foreign key UsersID cannot be null.",
                 orig="PackageComments.UsersID",

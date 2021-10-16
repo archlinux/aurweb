@@ -13,6 +13,7 @@ import aurweb.models.account_type
 import aurweb.schema
 
 from aurweb import db
+from aurweb.models.account_type import AccountType as _AccountType
 from aurweb.models.ban import is_banned
 from aurweb.models.declarative import Base
 
@@ -29,7 +30,7 @@ class User(Base):
         Integer, ForeignKey("AccountTypes.ID", ondelete="NO ACTION"),
         nullable=False, server_default=text("1"))
     AccountType = relationship(
-        "AccountType",
+        _AccountType,
         backref=backref("users", lazy="dynamic"),
         foreign_keys=[AccountTypeID],
         uselist=False)

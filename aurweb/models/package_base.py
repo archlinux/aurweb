@@ -4,9 +4,8 @@ from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-import aurweb.models.user
-
 from aurweb.models.declarative import Base
+from aurweb.models.user import User as _User
 
 
 class PackageBase(Base):
@@ -15,56 +14,48 @@ class PackageBase(Base):
     FlaggerUID = Column(Integer,
                         ForeignKey("Users.ID", ondelete="SET NULL"))
     Flagger = relationship(
-        "User", backref=backref("flagged_bases", lazy="dynamic"),
+        _User, backref=backref("flagged_bases", lazy="dynamic"),
         foreign_keys=[FlaggerUID])
 
     SubmitterUID = Column(Integer,
                           ForeignKey("Users.ID", ondelete="SET NULL"))
     Submitter = relationship(
-        "User", backref=backref("submitted_bases", lazy="dynamic"),
+        _User, backref=backref("submitted_bases", lazy="dynamic"),
         foreign_keys=[SubmitterUID])
 
     MaintainerUID = Column(Integer,
                            ForeignKey("Users.ID", ondelete="SET NULL"))
     Maintainer = relationship(
-        "User", backref=backref("maintained_bases", lazy="dynamic"),
+        _User, backref=backref("maintained_bases", lazy="dynamic"),
         foreign_keys=[MaintainerUID])
 
     PackagerUID = Column(Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
     Packager = relationship(
-        "User", backref=backref("package_bases", lazy="dynamic"),
+        _User, backref=backref("package_bases", lazy="dynamic"),
         foreign_keys=[PackagerUID])
 
     # A set used to check for floatable values.
     TO_FLOAT = {"Popularity"}
 
-    def __init__(self, Name: str = None,
-                 Flagger: aurweb.models.user.User = None,
-                 Maintainer: aurweb.models.user.User = None,
-                 Submitter: aurweb.models.user.User = None,
-                 Packager: aurweb.models.user.User = None,
-                 **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.Name = Name
-        if not self.Name:
+
+        if self.Name is None:
             raise IntegrityError(
                 statement="Column Name cannot be null.",
                 orig="PackageBases.Name",
                 params=("NULL"))
 
-        self.Flagger = Flagger
-        self.Maintainer = Maintainer
-        self.Submitter = Submitter
-        self.Packager = Packager
+        # If no SubmittedTS/ModifiedTS is provided on creation, set them
+        # here to the current utc timestamp.
+        now = datetime.utcnow().timestamp()
+        if not self.SubmittedTS:
+            self.SubmittedTS = now
+        if not self.ModifiedTS:
+            self.ModifiedTS = now
 
-        self.NumVotes = kwargs.get("NumVotes")
-        self.Popularity = kwargs.get("Popularity")
-        self.OutOfDateTS = kwargs.get("OutOfDateTS")
-        self.FlaggerComment = kwargs.get("FlaggerComment", str())
-        self.SubmittedTS = kwargs.get("SubmittedTS",
-                                      datetime.utcnow().timestamp())
-        self.ModifiedTS = kwargs.get("ModifiedTS",
-                                     datetime.utcnow().timestamp())
+        if not self.FlaggerComment:
+            self.FlaggerComment = str()
 
     def __getattribute__(self, key: str):
         attr = super().__getattribute__(key)
