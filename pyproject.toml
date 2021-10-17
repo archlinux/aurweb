@@ -86,6 +86,7 @@ pytest-asyncio = { version = "0.15.1", python = "^3.9" }
 pytest-cov = { version = "2.12.1", python = "^3.9" }
 pytest-tap = { version = "3.2", python = "^3.9" }
 uvicorn = { version = "0.15.0", python = "^3.9" }
+gunicorn = { version = "20.1.0", python = "^3.9" }
 
 [tool.poetry.scripts]
 aurweb-git-auth = "aurweb.git.auth:main"

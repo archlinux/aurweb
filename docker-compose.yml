@@ -166,6 +166,7 @@ services:
     environment:
       - AUR_CONFIG=conf/config
       - DB_HOST=mariadb
+      - FASTAPI_WORKERS=${FASTAPI_WORKERS}
     entrypoint: /docker/fastapi-entrypoint.sh
     command: /docker/scripts/run-fastapi.sh "${FASTAPI_BACKEND}"
     healthcheck:

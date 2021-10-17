@@ -12,6 +12,15 @@ if [ -f /cache/production.key.pem ]; then
     KEY=/cache/production.key.pem
 fi
 
+# By default, set FASTAPI_WORKERS to 2. In production, this should
+# be configured by the deployer.
+if [ -z "$FASTAPI_WORKERS" ]; then
+    FASTAPI_WORKERS=2
+fi
+
+echo "FASTAPI_BACKEND: $FASTAPI_BACKEND"
+echo "FASTAPI_WORKERS: $FASTAPI_WORKERS"
+
 if [ "$1" == "uvicorn" ] || [ "$1" == "" ]; then
     exec uvicorn --reload \
         --ssl-certfile "$CERT" \
@@ -20,11 +29,24 @@ if [ "$1" == "uvicorn" ] || [ "$1" == "" ]; then
         --host "0.0.0.0" \
         --port 8000 \
         aurweb.asgi:app
-else
+elif [ "$1" == "gunicorn" ]; then
+    exec gunicorn \
+        --keyfile="$KEY" \
+        --certfile="$CERT" \
+        --log-config /docker/logging.conf \
+        --bind "0.0.0.0:8000" \
+        -w $FASTAPI_WORKERS \
+        -k uvicorn.workers.UvicornWorker \
+        aurweb.asgi:app
+elif [ "$1" == "hypercorn" ]; then
     exec hypercorn --reload \
         --certfile "$CERT" \
         --keyfile "$KEY" \
         --log-config /docker/logging.conf \
         -b "0.0.0.0:8000" \
         aurweb.asgi:app
+else
+    echo "Error: Invalid \$FASTAPI_BACKEND supplied."
+    echo "Valid backends: 'uvicorn', 'gunicorn', 'hypercorn'."
+    exit 1
 fi

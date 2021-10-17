@@ -21,6 +21,8 @@ services:
       - cache:/cache
 
   fastapi:
+    environment:
+      - FASTAPI_BACKEND="gunicorn"
     volumes:
       - cache:/cache
 
