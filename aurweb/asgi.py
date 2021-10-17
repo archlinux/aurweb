@@ -16,8 +16,7 @@ import aurweb.logging
 
 from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
-from aurweb.models.accepted_term import AcceptedTerm
-from aurweb.models.term import Term
+from aurweb.models import AcceptedTerm, Term
 from aurweb.routers import accounts, auth, errors, html, packages, rpc, rss, sso, trusted_user
 
 # Setup the FastAPI app.

@@ -4,7 +4,7 @@ import hashlib
 from jinja2 import pass_context
 
 from aurweb.db import query
-from aurweb.models.user import User
+from aurweb.models import User
 
 
 def get_captcha_salts():

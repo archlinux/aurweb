@@ -14,9 +14,8 @@ from starlette.requests import HTTPConnection
 import aurweb.config
 
 from aurweb import l10n, util
+from aurweb.models import Session, User
 from aurweb.models.account_type import ACCOUNT_TYPE_ID
-from aurweb.models.session import Session
-from aurweb.models.user import User
 from aurweb.templates import make_variable_context, render_template
 
 

@@ -139,7 +139,7 @@ def to_qs(query: Dict[str, Any]) -> str:
 
 
 def get_vote(voteinfo, request: fastapi.Request):
-    from aurweb.models.tu_vote import TUVote
+    from aurweb.models import TUVote
     return voteinfo.tu_votes.filter(TUVote.User == request.user).first()
 
 

@@ -10,12 +10,9 @@ from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from sqlalchemy import and_, or_
 
-from aurweb import db, l10n
+from aurweb import db, l10n, models
 from aurweb.auth import account_type_required, auth_required
 from aurweb.models.account_type import DEVELOPER, TRUSTED_USER, TRUSTED_USER_AND_DEV
-from aurweb.models.tu_vote import TUVote
-from aurweb.models.tu_voteinfo import TUVoteInfo
-from aurweb.models.user import User
 from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
@@ -72,16 +69,18 @@ async def trusted_user(request: Request,
         past_by = "desc"
     context["past_by"] = past_by
 
-    current_votes = db.query(TUVoteInfo, TUVoteInfo.End > ts).order_by(
-        TUVoteInfo.Submitted.desc())
+    current_votes = db.query(models.TUVoteInfo).filter(
+        models.TUVoteInfo.End > ts).order_by(
+        models.TUVoteInfo.Submitted.desc())
     context["current_votes_count"] = current_votes.count()
     current_votes = current_votes.limit(pp).offset(current_off)
     context["current_votes"] = reversed(current_votes.all()) \
         if current_by == "asc" else current_votes.all()
     context["current_off"] = current_off
 
-    past_votes = db.query(TUVoteInfo, TUVoteInfo.End <= ts).order_by(
-        TUVoteInfo.Submitted.desc())
+    past_votes = db.query(models.TUVoteInfo).filter(
+        models.TUVoteInfo.End <= ts).order_by(
+        models.TUVoteInfo.Submitted.desc())
     context["past_votes_count"] = past_votes.count()
     past_votes = past_votes.limit(pp).offset(past_off)
     context["past_votes"] = reversed(past_votes.all()) \
@@ -92,14 +91,14 @@ async def trusted_user(request: Request,
     # We order last votes by TUVote.VoteID and User.Username.
     # This is really bad. We should add a Created column to
     # TUVote of type Timestamp and order by that instead.
-    last_votes_by_tu = db.query(TUVote).filter(
-        and_(TUVote.VoteID == TUVoteInfo.ID,
-             TUVoteInfo.End <= ts,
-             TUVote.UserID == User.ID,
-             or_(User.AccountTypeID == 2,
-                 User.AccountTypeID == 4))
-    ).group_by(User.ID).order_by(
-        TUVote.VoteID.desc(), User.Username.asc())
+    last_votes_by_tu = db.query(models.TUVote).filter(
+        and_(models.TUVote.VoteID == models.TUVoteInfo.ID,
+             models.TUVoteInfo.End <= ts,
+             models.TUVote.UserID == models.User.ID,
+             or_(models.User.AccountTypeID == 2,
+                 models.User.AccountTypeID == 4))
+    ).group_by(models.User.ID).order_by(
+        models.TUVote.VoteID.desc(), models.User.Username.asc())
     context["last_votes_by_tu"] = last_votes_by_tu.all()
 
     context["current_by_next"] = "asc" if current_by == "desc" else "desc"
@@ -118,9 +117,9 @@ async def trusted_user(request: Request,
 def render_proposal(request: Request,
                     context: dict,
                     proposal: int,
-                    voteinfo: TUVoteInfo,
-                    voters: typing.Iterable[User],
-                    vote: TUVote,
+                    voteinfo: models.TUVoteInfo,
+                    voters: typing.Iterable[models.User],
+                    vote: models.TUVote,
                     status_code: HTTPStatus = HTTPStatus.OK):
     """ Render a single TU proposal. """
     context["proposal"] = proposal
@@ -135,7 +134,7 @@ def render_proposal(request: Request,
         (participation > voteinfo.Quorum and voteinfo.Yes > voteinfo.No)
     context["accepted"] = accepted
 
-    can_vote = voters.filter(TUVote.User == request.user).first() is None
+    can_vote = voters.filter(models.TUVote.User == request.user).first() is None
     context["can_vote"] = can_vote
 
     if not voteinfo.is_running():
@@ -155,13 +154,16 @@ async def trusted_user_proposal(request: Request, proposal: int):
     context = await make_variable_context(request, "Trusted User")
     proposal = int(proposal)
 
-    voteinfo = db.query(TUVoteInfo, TUVoteInfo.ID == proposal).first()
+    voteinfo = db.query(models.TUVoteInfo).filter(
+        models.TUVoteInfo.ID == proposal).first()
     if not voteinfo:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
-    voters = db.query(User).join(TUVote).filter(TUVote.VoteID == voteinfo.ID)
-    vote = db.query(TUVote, and_(TUVote.UserID == request.user.ID,
-                                 TUVote.VoteID == voteinfo.ID)).first()
+    voters = db.query(models.User).join(models.TUVote).filter(
+        models.TUVote.VoteID == voteinfo.ID)
+    vote = db.query(models.TUVote).filter(
+        and_(models.TUVote.UserID == request.user.ID,
+             models.TUVote.VoteID == voteinfo.ID)).first()
 
     if not request.user.is_trusted_user():
         context["error"] = "Only Trusted Users are allowed to vote."
@@ -183,13 +185,16 @@ async def trusted_user_proposal_post(request: Request,
     context = await make_variable_context(request, "Trusted User")
     proposal = int(proposal)  # Make sure it's an int.
 
-    voteinfo = db.query(TUVoteInfo, TUVoteInfo.ID == proposal).first()
+    voteinfo = db.query(models.TUVoteInfo).filter(
+        models.TUVoteInfo.ID == proposal).first()
     if not voteinfo:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
-    voters = db.query(User).join(TUVote).filter(TUVote.VoteID == voteinfo.ID)
-    vote = db.query(TUVote, and_(TUVote.UserID == request.user.ID,
-                                 TUVote.VoteID == voteinfo.ID)).first()
+    voters = db.query(models.User).join(models.TUVote).filter(
+        models.TUVote.VoteID == voteinfo.ID)
+    vote = db.query(models.TUVote).filter(
+        and_(models.TUVote.UserID == request.user.ID,
+             models.TUVote.VoteID == voteinfo.ID)).first()
 
     status_code = HTTPStatus.OK
     if not request.user.is_trusted_user():
@@ -215,7 +220,7 @@ async def trusted_user_proposal_post(request: Request,
                         status_code=HTTPStatus.BAD_REQUEST)
 
     with db.begin():
-        vote = db.create(TUVote, User=request.user, VoteInfo=voteinfo)
+        vote = db.create(models.TUVote, User=request.user, VoteInfo=voteinfo)
         voteinfo.ActiveTUs += 1
 
     context["error"] = "You've already voted for this proposal."
@@ -262,12 +267,14 @@ async def trusted_user_addvote_post(request: Request,
 
     # Alright, get some database records, if we can.
     if type != "bylaws":
-        user_record = db.query(User, User.Username == user).first()
+        user_record = db.query(models.User).filter(
+            models.User.Username == user).first()
         if user_record is None:
             context["error"] = "Username does not exist."
             return render_addvote(context, HTTPStatus.NOT_FOUND)
 
-        voteinfo = db.query(TUVoteInfo, TUVoteInfo.User == user).count()
+        voteinfo = db.query(models.TUVoteInfo).filter(
+            models.TUVoteInfo.User == user).count()
         if voteinfo:
             _ = l10n.get_translator_for_request(request)
             context["error"] = _(
@@ -288,13 +295,14 @@ async def trusted_user_addvote_post(request: Request,
     duration, quorum = ADDVOTE_SPECIFICS.get(type)
     timestamp = int(datetime.utcnow().timestamp())
 
+    # TODO: Review this. Is this even necessary?
     # Remove <script> and <style> tags.
     agenda = re.sub(r'<[/]?script.*>', '', agenda)
     agenda = re.sub(r'<[/]?style.*>', '', agenda)
 
     # Create a new TUVoteInfo (proposal)!
     with db.begin():
-        voteinfo = db.create(TUVoteInfo,
+        voteinfo = db.create(models.TUVoteInfo,
                              User=user,
                              Agenda=agenda,
                              Submitted=timestamp, End=timestamp + duration,

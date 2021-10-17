@@ -11,14 +11,10 @@ from sqlalchemy import and_, case, or_
 import aurweb.config
 import aurweb.models.package_request
 
-from aurweb import db, util
+from aurweb import db, models, util
 from aurweb.cache import db_count_cache
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
-from aurweb.models.package import Package
-from aurweb.models.package_base import PackageBase
-from aurweb.models.package_comaintainer import PackageComaintainer
-from aurweb.models.package_request import PENDING_ID, PackageRequest
-from aurweb.models.user import User
+from aurweb.models.package_request import PENDING_ID
 from aurweb.packages.util import query_notified, query_voted, updated_packages
 from aurweb.templates import make_context, render_template
 
@@ -69,31 +65,31 @@ async def index(request: Request):
     context = make_context(request, "Home")
     context['ssh_fingerprints'] = util.get_ssh_fingerprints()
 
-    bases = db.query(PackageBase)
+    bases = db.query(models.PackageBase)
 
     redis = aurweb.redis.redis_connection()
     stats_expire = 300  # Five minutes.
     updates_expire = 600  # Ten minutes.
 
     # Package statistics.
-    query = bases.filter(PackageBase.PackagerUID.isnot(None))
+    query = bases.filter(models.PackageBase.PackagerUID.isnot(None))
     context["package_count"] = await db_count_cache(
         redis, "package_count", query, expire=stats_expire)
 
     query = bases.filter(
-        and_(PackageBase.MaintainerUID.is_(None),
-             PackageBase.PackagerUID.isnot(None))
+        and_(models.PackageBase.MaintainerUID.is_(None),
+             models.PackageBase.PackagerUID.isnot(None))
     )
     context["orphan_count"] = await db_count_cache(
         redis, "orphan_count", query, expire=stats_expire)
 
-    query = db.query(User)
+    query = db.query(models.User)
     context["user_count"] = await db_count_cache(
         redis, "user_count", query, expire=stats_expire)
 
     query = query.filter(
-        or_(User.AccountTypeID == TRUSTED_USER_ID,
-            User.AccountTypeID == TRUSTED_USER_AND_DEV_ID))
+        or_(models.User.AccountTypeID == TRUSTED_USER_ID,
+            models.User.AccountTypeID == TRUSTED_USER_AND_DEV_ID))
     context["trusted_user_count"] = await db_count_cache(
         redis, "trusted_user_count", query, expire=stats_expire)
 
@@ -105,29 +101,29 @@ async def index(request: Request):
 
     one_hour = 3600
     updated = bases.filter(
-        and_(PackageBase.ModifiedTS - PackageBase.SubmittedTS >= one_hour,
-             PackageBase.PackagerUID.isnot(None))
+        and_(models.PackageBase.ModifiedTS - models.PackageBase.SubmittedTS >= one_hour,
+             models.PackageBase.PackagerUID.isnot(None))
     )
 
     query = bases.filter(
-        and_(PackageBase.SubmittedTS >= seven_days_ago,
-             PackageBase.PackagerUID.isnot(None))
+        and_(models.PackageBase.SubmittedTS >= seven_days_ago,
+             models.PackageBase.PackagerUID.isnot(None))
     )
     context["seven_days_old_added"] = await db_count_cache(
         redis, "seven_days_old_added", query, expire=stats_expire)
 
-    query = updated.filter(PackageBase.ModifiedTS >= seven_days_ago)
+    query = updated.filter(models.PackageBase.ModifiedTS >= seven_days_ago)
     context["seven_days_old_updated"] = await db_count_cache(
         redis, "seven_days_old_updated", query, expire=stats_expire)
 
     year = seven_days * 52  # Fifty two weeks worth: one year.
     year_ago = now - year
-    query = updated.filter(PackageBase.ModifiedTS >= year_ago)
+    query = updated.filter(models.PackageBase.ModifiedTS >= year_ago)
     context["year_old_updated"] = await db_count_cache(
         redis, "year_old_updated", query, expire=stats_expire)
 
     query = bases.filter(
-        PackageBase.ModifiedTS - PackageBase.SubmittedTS < 3600)
+        models.PackageBase.ModifiedTS - models.PackageBase.SubmittedTS < 3600)
     context["never_updated"] = await db_count_cache(
         redis, "never_updated", query, expire=stats_expire)
 
@@ -137,19 +133,19 @@ async def index(request: Request):
     if request.user.is_authenticated():
         # Authenticated users get a few extra pieces of data for
         # the dashboard display.
-        packages = db.query(Package).join(PackageBase)
+        packages = db.query(models.Package).join(models.PackageBase)
 
         maintained = packages.join(
-            User, PackageBase.MaintainerUID == User.ID
+            models.User, models.PackageBase.MaintainerUID == models.User.ID
         ).filter(
-            PackageBase.MaintainerUID == request.user.ID
+            models.PackageBase.MaintainerUID == request.user.ID
         )
 
         # Packages maintained by the user that have been flagged.
         context["flagged_packages"] = maintained.filter(
-            PackageBase.OutOfDateTS.isnot(None)
+            models.PackageBase.OutOfDateTS.isnot(None)
         ).order_by(
-            PackageBase.ModifiedTS.desc(), Package.Name.asc()
+            models.PackageBase.ModifiedTS.desc(), models.Package.Name.asc()
         ).limit(50).all()
 
         # Flagged packages that request.user has voted for.
@@ -165,17 +161,18 @@ async def index(request: Request):
 
         # Package requests created by request.user.
         context["package_requests"] = request.user.package_requests.filter(
-            PackageRequest.RequestTS >= start
+            models.PackageRequest.RequestTS >= start
         ).order_by(
             # Order primarily by the Status column being PENDING_ID,
             # and secondarily by RequestTS; both in descending order.
-            case([(PackageRequest.Status == PENDING_ID, 1)], else_=0).desc(),
-            PackageRequest.RequestTS.desc()
+            case([(models.PackageRequest.Status == PENDING_ID, 1)],
+                 else_=0).desc(),
+            models.PackageRequest.RequestTS.desc()
         ).limit(50).all()
 
         # Packages that the request user maintains or comaintains.
         context["packages"] = maintained.order_by(
-            PackageBase.ModifiedTS.desc(), Package.Name.desc()
+            models.PackageBase.ModifiedTS.desc(), models.Package.Name.desc()
         ).limit(50).all()
 
         # Packages that request.user has voted for.
@@ -188,11 +185,11 @@ async def index(request: Request):
 
         # Any packages that the request user comaintains.
         context["comaintained"] = packages.join(
-            PackageComaintainer
+            models.PackageComaintainer
         ).filter(
-            PackageComaintainer.UsersID == request.user.ID
+            models.PackageComaintainer.UsersID == request.user.ID
         ).order_by(
-            PackageBase.ModifiedTS.desc(), Package.Name.desc()
+            models.PackageBase.ModifiedTS.desc(), models.Package.Name.desc()
         ).limit(50).all()
 
         # Comaintained packages that request.user has voted for.

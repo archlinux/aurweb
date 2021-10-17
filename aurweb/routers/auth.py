@@ -8,7 +8,7 @@ import aurweb.config
 
 from aurweb import util
 from aurweb.auth import auth_required
-from aurweb.models.user import User
+from aurweb.models import User
 from aurweb.templates import make_variable_context, render_template
 
 router = APIRouter()

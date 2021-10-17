@@ -1,13 +1,6 @@
 from sqlalchemy import and_, case, or_, orm
 
-from aurweb import config, db
-from aurweb.models.package import Package
-from aurweb.models.package_base import PackageBase
-from aurweb.models.package_comaintainer import PackageComaintainer
-from aurweb.models.package_keyword import PackageKeyword
-from aurweb.models.package_notification import PackageNotification
-from aurweb.models.package_vote import PackageVote
-from aurweb.models.user import User
+from aurweb import config, db, models
 
 DEFAULT_MAX_RESULTS = 2500
 
@@ -18,22 +11,22 @@ class PackageSearch:
     # A constant mapping of short to full name sort orderings.
     FULL_SORT_ORDER = {"d": "desc", "a": "asc"}
 
-    def __init__(self, user: User):
+    def __init__(self, user: models.User):
         """ Construct an instance of PackageSearch.
 
         This constructors performs several steps during initialization:
             1. Setup self.query: an ORM query of Package joined by PackageBase.
         """
         self.user = user
-        self.query = db.query(Package).join(PackageBase).join(
-            PackageVote,
-            and_(PackageVote.PackageBaseID == PackageBase.ID,
-                 PackageVote.UsersID == self.user.ID),
+        self.query = db.query(models.Package).join(models.PackageBase).join(
+            models.PackageVote,
+            and_(models.PackageVote.PackageBaseID == models.PackageBase.ID,
+                 models.PackageVote.UsersID == self.user.ID),
             isouter=True
         ).join(
-            PackageNotification,
-            and_(PackageNotification.PackageBaseID == PackageBase.ID,
-                 PackageNotification.UserID == self.user.ID),
+            models.PackageNotification,
+            and_(models.PackageNotification.PackageBaseID == models.PackageBase.ID,
+                 models.PackageNotification.UserID == self.user.ID),
             isouter=True
         )
         self.ordering = "d"
@@ -65,59 +58,64 @@ class PackageSearch:
 
     def _search_by_namedesc(self, keywords: str) -> orm.Query:
         self.query = self.query.filter(
-            or_(Package.Name.like(f"%{keywords}%"),
-                Package.Description.like(f"%{keywords}%"))
+            or_(models.Package.Name.like(f"%{keywords}%"),
+                models.Package.Description.like(f"%{keywords}%"))
         )
         return self
 
     def _search_by_name(self, keywords: str) -> orm.Query:
-        self.query = self.query.filter(Package.Name.like(f"%{keywords}%"))
+        self.query = self.query.filter(
+            models.Package.Name.like(f"%{keywords}%"))
         return self
 
     def _search_by_exact_name(self, keywords: str) -> orm.Query:
-        self.query = self.query.filter(Package.Name == keywords)
+        self.query = self.query.filter(
+            models.Package.Name == keywords)
         return self
 
     def _search_by_pkgbase(self, keywords: str) -> orm.Query:
-        self.query = self.query.filter(PackageBase.Name.like(f"%{keywords}%"))
+        self.query = self.query.filter(
+            models.PackageBase.Name.like(f"%{keywords}%"))
         return self
 
     def _search_by_exact_pkgbase(self, keywords: str) -> orm.Query:
-        self.query = self.query.filter(PackageBase.Name == keywords)
+        self.query = self.query.filter(
+            models.PackageBase.Name == keywords)
         return self
 
     def _search_by_keywords(self, keywords: str) -> orm.Query:
-        self.query = self.query.join(PackageKeyword).filter(
-            PackageKeyword.Keyword == keywords
+        self.query = self.query.join(models.PackageKeyword).filter(
+            models.PackageKeyword.Keyword == keywords
         )
         return self
 
     def _search_by_maintainer(self, keywords: str) -> orm.Query:
         self.query = self.query.join(
-            User, User.ID == PackageBase.MaintainerUID
-        ).filter(User.Username == keywords)
+            models.User, models.User.ID == models.PackageBase.MaintainerUID
+        ).filter(models.User.Username == keywords)
         return self
 
     def _search_by_comaintainer(self, keywords: str) -> orm.Query:
-        self.query = self.query.join(PackageComaintainer).join(
-            User, User.ID == PackageComaintainer.UsersID
-        ).filter(User.Username == keywords)
+        self.query = self.query.join(models.PackageComaintainer).join(
+            models.User, models.User.ID == models.PackageComaintainer.UsersID
+        ).filter(models.User.Username == keywords)
         return self
 
     def _search_by_co_or_maintainer(self, keywords: str) -> orm.Query:
         self.query = self.query.join(
-            PackageComaintainer,
+            models.PackageComaintainer,
             isouter=True
         ).join(
-            User, or_(User.ID == PackageBase.MaintainerUID,
-                      User.ID == PackageComaintainer.UsersID)
-        ).filter(User.Username == keywords)
+            models.User,
+            or_(models.User.ID == models.PackageBase.MaintainerUID,
+                models.User.ID == models.PackageComaintainer.UsersID)
+        ).filter(models.User.Username == keywords)
         return self
 
     def _search_by_submitter(self, keywords: str) -> orm.Query:
         self.query = self.query.join(
-            User, User.ID == PackageBase.SubmitterUID
-        ).filter(User.Username == keywords)
+            models.User, models.User.ID == models.PackageBase.SubmitterUID
+        ).filter(models.User.Username == keywords)
         return self
 
     def search_by(self, search_by: str, keywords: str) -> orm.Query:
@@ -128,17 +126,17 @@ class PackageSearch:
         return result
 
     def _sort_by_name(self, order: str):
-        column = getattr(Package.Name, order)
+        column = getattr(models.Package.Name, order)
         self.query = self.query.order_by(column())
         return self
 
     def _sort_by_votes(self, order: str):
-        column = getattr(PackageBase.NumVotes, order)
+        column = getattr(models.PackageBase.NumVotes, order)
         self.query = self.query.order_by(column())
         return self
 
     def _sort_by_popularity(self, order: str):
-        column = getattr(PackageBase.Popularity, order)
+        column = getattr(models.PackageBase.Popularity, order)
         self.query = self.query.order_by(column())
         return self
 
@@ -147,10 +145,10 @@ class PackageSearch:
         # in terms of performance. We should improve this; there's no
         # reason it should take _longer_.
         column = getattr(
-            case([(PackageVote.UsersID == self.user.ID, 1)], else_=0),
+            case([(models.PackageVote.UsersID == self.user.ID, 1)], else_=0),
             order
         )
-        self.query = self.query.order_by(column(), Package.Name.desc())
+        self.query = self.query.order_by(column(), models.Package.Name.desc())
         return self
 
     def _sort_by_notify(self, order: str):
@@ -158,21 +156,24 @@ class PackageSearch:
         # in terms of performance. We should improve this; there's no
         # reason it should take _longer_.
         column = getattr(
-            case([(PackageNotification.UserID == self.user.ID, 1)], else_=0),
+            case([(models.PackageNotification.UserID == self.user.ID, 1)],
+                 else_=0),
             order
         )
-        self.query = self.query.order_by(column(), Package.Name.desc())
+        self.query = self.query.order_by(column(), models.Package.Name.desc())
         return self
 
     def _sort_by_maintainer(self, order: str):
-        column = getattr(User.Username, order)
+        column = getattr(models.User.Username, order)
         self.query = self.query.join(
-            User, User.ID == PackageBase.MaintainerUID, isouter=True
+            models.User,
+            models.User.ID == models.PackageBase.MaintainerUID,
+            isouter=True
         ).order_by(column())
         return self
 
     def _sort_by_last_modified(self, order: str):
-        column = getattr(PackageBase.ModifiedTS, order)
+        column = getattr(models.PackageBase.ModifiedTS, order)
         self.query = self.query.order_by(column())
         return self
 

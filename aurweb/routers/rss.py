@@ -5,8 +5,7 @@ from fastapi.responses import Response
 from feedgen.feed import FeedGenerator
 
 from aurweb import db, util
-from aurweb.models.package import Package
-from aurweb.models.package_base import PackageBase
+from aurweb.models import Package, PackageBase
 
 router = APIRouter()
 
