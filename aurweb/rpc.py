@@ -1,31 +1,21 @@
 import aurweb.config as config
 
-from aurweb import db
-from aurweb.models.dependency_type import CHECKDEPENDS_ID, DEPENDS_ID, MAKEDEPENDS_ID, OPTDEPENDS_ID
-from aurweb.models.license import License
-from aurweb.models.package import Package
-from aurweb.models.package_base import PackageBase
-from aurweb.models.package_dependency import PackageDependency
-from aurweb.models.package_keyword import PackageKeyword
-from aurweb.models.package_license import PackageLicense
-from aurweb.models.package_relation import PackageRelation
-from aurweb.models.package_vote import PackageVote
-from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
-from aurweb.models.user import User
+from aurweb import db, models
+from aurweb.models import dependency_type, relation_type
 
 # Define dependency types.
 DEP_TYPES = {
-    DEPENDS_ID: "Depends",
-    MAKEDEPENDS_ID: "MakeDepends",
-    CHECKDEPENDS_ID: "CheckDepends",
-    OPTDEPENDS_ID: "OptDepends"
+    dependency_type.DEPENDS_ID: "Depends",
+    dependency_type.MAKEDEPENDS_ID: "MakeDepends",
+    dependency_type.CHECKDEPENDS_ID: "CheckDepends",
+    dependency_type.OPTDEPENDS_ID: "OptDepends"
 }
 
 # Define relationship types.
 REL_TYPES = {
-    CONFLICTS_ID: "Conflicts",
-    PROVIDES_ID: "Provides",
-    REPLACES_ID: "Replaces"
+    relation_type.CONFLICTS_ID: "Conflicts",
+    relation_type.PROVIDES_ID: "Provides",
+    relation_type.REPLACES_ID: "Replaces"
 }
 
 
@@ -84,7 +74,9 @@ def add_rels(current_array, db_rel):
 
 def run_info(returned_data, package_name, snapshot_uri):
     # Get package name.
-    db_package = db.query(Package).filter(Package.Name == package_name)
+    db_package = db.query(models.Package).filter(
+        models.Package.Name == package_name
+    )
 
     if db_package.count() == 0:
         return returned_data
@@ -92,10 +84,14 @@ def run_info(returned_data, package_name, snapshot_uri):
     db_package = db_package.first()
 
     # Get name of package under PackageBaseID.
-    db_package_baseid = db.query(PackageBase).filter(PackageBase.ID == db_package.PackageBaseID).first()
+    db_package_baseid = db.query(models.PackageBase).filter(
+        models.PackageBase.ID == db_package.PackageBaseID
+    ).first()
 
     # Get maintainer info.
-    db_package_maintainer = db.query(User).filter(User.ID == db_package_baseid.MaintainerUID).first()
+    db_package_maintainer = db.query(models.User).filter(
+        models.User.ID == db_package_baseid.MaintainerUID
+    ).first()
 
     current_array = {}
     returned_data["resultcount"] = returned_data["resultcount"] + 1
@@ -126,26 +122,32 @@ def run_info(returned_data, package_name, snapshot_uri):
     current_array["URLPath"] = snapshot_uri.replace("%s", package_name)
 
     # Add package votes.
-    current_array["NumVotes"] = db.query(PackageVote).count()
+    current_array["NumVotes"] = db.query(models.PackageVote).count()
 
     # Generate dependency listing.
-    db_dep = db.query(PackageDependency).filter(PackageDependency.PackageID == db_package.ID)
+    db_dep = db.query(models.PackageDependency).filter(
+        models.PackageDependency.PackageID == db_package.ID)
     current_array = add_deps(current_array, db_dep)
 
     # Generate relationship listing.
-    db_rel = db.query(PackageRelation).filter(PackageRelation.PackageID == db_package.ID)
+    db_rel = db.query(models.PackageRelation).filter(
+        models.PackageRelation.PackageID == db_package.ID)
     current_array = add_rels(current_array, db_rel)
 
     # License table.
     current_array["License"] = []
 
-    for i in db.query(PackageLicense).filter(PackageLicense.PackageID == db_package.ID):
-        current_array["License"] += [db.query(License).first().Name]
+    licenses = db.query(models.PackageLicense).filter(
+        models.PackageLicense.PackageID == db_package.ID)
+    for i in licenses:
+        current_array["License"] += [i.License.Name]
 
     # Keywords table.
     current_array["Keywords"] = []
 
-    for i in db.query(PackageKeyword).filter(PackageKeyword.PackageBaseID == db_package_baseid.ID):
+    keywords = db.query(models.PackageKeyword).filter(
+        models.PackageKeyword.PackageBaseID == db_package_baseid.ID)
+    for i in keywords:
         current_array["Keywords"] += [i.Keyword]
 
     # Add current array to returned results.
