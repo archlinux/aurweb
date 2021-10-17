@@ -51,7 +51,7 @@ async def passreset_post(request: Request,
     if not user:
         context["errors"] = ["Invalid e-mail."]
         return render_template(request, "passreset.html", context,
-                               status_code=int(HTTPStatus.NOT_FOUND))
+                               status_code=HTTPStatus.NOT_FOUND)
 
     if resetkey:
         context["resetkey"] = resetkey
@@ -59,18 +59,18 @@ async def passreset_post(request: Request,
         if not user.ResetKey or resetkey != user.ResetKey:
             context["errors"] = ["Invalid e-mail."]
             return render_template(request, "passreset.html", context,
-                                   status_code=int(HTTPStatus.NOT_FOUND))
+                                   status_code=HTTPStatus.NOT_FOUND)
 
         if not user or not password:
             context["errors"] = ["Missing a required field."]
             return render_template(request, "passreset.html", context,
-                                   status_code=int(HTTPStatus.BAD_REQUEST))
+                                   status_code=HTTPStatus.BAD_REQUEST)
 
         if password != confirm:
             # If the provided password does not match the provided confirm.
             context["errors"] = ["Password fields do not match."]
             return render_template(request, "passreset.html", context,
-                                   status_code=int(HTTPStatus.BAD_REQUEST))
+                                   status_code=HTTPStatus.BAD_REQUEST)
 
         if len(password) < User.minimum_passwd_length():
             # Translate the error here, which simplifies error output
@@ -80,7 +80,7 @@ async def passreset_post(request: Request,
                 "Your password must be at least %s characters.") % (
                 str(User.minimum_passwd_length()))]
             return render_template(request, "passreset.html", context,
-                                   status_code=int(HTTPStatus.BAD_REQUEST))
+                                   status_code=HTTPStatus.BAD_REQUEST)
 
         # We got to this point; everything matched up. Update the password
         # and remove the ResetKey.
@@ -92,7 +92,7 @@ async def passreset_post(request: Request,
 
         # Render ?step=complete.
         return RedirectResponse(url="/passreset?step=complete",
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
 
     # If we got here, we continue with issuing a resetkey for the user.
     resetkey = db.make_random_value(User, User.ResetKey)
@@ -104,7 +104,7 @@ async def passreset_post(request: Request,
 
     # Render ?step=confirm.
     return RedirectResponse(url="/passreset?step=confirm",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 def process_account_form(request: Request, user: User, args: dict):
@@ -373,12 +373,12 @@ async def account_register_post(request: Request,
         # return HTTP 400 with an error.
         context["errors"] = errors
         return render_template(request, "register.html", context,
-                               status_code=int(HTTPStatus.BAD_REQUEST))
+                               status_code=HTTPStatus.BAD_REQUEST)
 
     if not captcha:
         context["errors"] = ["The CAPTCHA is missing."]
         return render_template(request, "register.html", context,
-                               status_code=int(HTTPStatus.BAD_REQUEST))
+                               status_code=HTTPStatus.BAD_REQUEST)
 
     # Create a user with no password with a resetkey, then send
     # an email off about it.
@@ -427,7 +427,7 @@ def cannot_edit(request, user):
     has_dev_cred = request.user.has_credential("CRED_ACCOUNT_EDIT_DEV",
                                                approved=[user])
     if not has_dev_cred:
-        return HTMLResponse(status_code=int(HTTPStatus.UNAUTHORIZED))
+        return HTMLResponse(status_code=HTTPStatus.UNAUTHORIZED)
     return None
 
 
@@ -488,12 +488,12 @@ async def account_edit_post(request: Request,
     if not passwd:
         context["errors"] = ["Invalid password."]
         return render_template(request, "account/edit.html", context,
-                               status_code=int(HTTPStatus.BAD_REQUEST))
+                               status_code=HTTPStatus.BAD_REQUEST)
 
     if not ok:
         context["errors"] = errors
         return render_template(request, "account/edit.html", context,
-                               status_code=int(HTTPStatus.BAD_REQUEST))
+                               status_code=HTTPStatus.BAD_REQUEST)
 
     # Set all updated fields as needed.
     with db.begin():
@@ -586,7 +586,7 @@ async def account(request: Request, username: str):
 
     user = db.query(User, User.Username == username).first()
     if not user:
-        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     context["user"] = user
 
@@ -682,7 +682,7 @@ def render_terms_of_service(request: Request,
                             context: dict,
                             terms: typing.Iterable):
     if not terms:
-        return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))
+        return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
     context["unaccepted_terms"] = terms
     return render_template(request, "tos/index.html", context)
 
@@ -745,4 +745,4 @@ async def terms_of_service_post(request: Request,
             db.create(AcceptedTerm, User=request.user,
                       Term=term, Revision=term.Revision)
 
-    return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))
+    return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)

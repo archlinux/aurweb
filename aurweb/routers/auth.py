@@ -59,7 +59,7 @@ async def login_post(request: Request,
                      + max(cookie_timeout, login_timeout))
 
     response = RedirectResponse(url=next,
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
 
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURSID", sid, expires=expires_at,
@@ -85,7 +85,7 @@ async def logout(request: Request, next: str = "/"):
     # Use 303 since we may be handling a post request, that'll get it
     # to redirect to a get request.
     response = RedirectResponse(url=next,
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
     response.delete_cookie("AURSID")
     response.delete_cookie("AURTZ")
     return response

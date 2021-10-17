@@ -56,7 +56,7 @@ async def language(request: Request,
 
     # In any case, set the response's AURLANG cookie that never expires.
     response = RedirectResponse(url=f"{next}{query_string}",
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURLANG", set_lang,
                         secure=secure_cookies, httponly=True)

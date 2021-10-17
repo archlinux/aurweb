@@ -113,11 +113,11 @@ def get_pkg_or_base(name: str, cls: Union[Package, PackageBase] = PackageBase):
     provider = db.query(OfficialProvider).filter(
         OfficialProvider.Name == name).first()
     if provider:
-        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     instance = db.query(cls).filter(cls.Name == name).first()
     if cls == PackageBase and not instance:
-        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     return instance
 
@@ -125,7 +125,7 @@ def get_pkg_or_base(name: str, cls: Union[Package, PackageBase] = PackageBase):
 def get_pkgbase_comment(pkgbase: PackageBase, id: int) -> PackageComment:
     comment = pkgbase.comments.filter(PackageComment.ID == id).first()
     if not comment:
-        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
     return comment
 
 

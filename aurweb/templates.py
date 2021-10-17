@@ -139,7 +139,7 @@ def render_template(request: Request,
                     status_code: HTTPStatus = HTTPStatus.OK):
     """ Render a template as an HTMLResponse. """
     rendered = render_raw_template(request, path, context)
-    response = HTMLResponse(rendered, status_code=status_code)
+    response = HTMLResponse(rendered, status_code=int(status_code))
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURLANG", context.get("language"),
                         secure=secure_cookies, httponly=True)

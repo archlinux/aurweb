@@ -157,7 +157,7 @@ async def trusted_user_proposal(request: Request, proposal: int):
 
     voteinfo = db.query(TUVoteInfo, TUVoteInfo.ID == proposal).first()
     if not voteinfo:
-        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     voters = db.query(User).join(TUVote).filter(TUVote.VoteID == voteinfo.ID)
     vote = db.query(TUVote, and_(TUVote.UserID == request.user.ID,
@@ -185,7 +185,7 @@ async def trusted_user_proposal_post(request: Request,
 
     voteinfo = db.query(TUVoteInfo, TUVoteInfo.ID == proposal).first()
     if not voteinfo:
-        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     voters = db.query(User).join(TUVote).filter(TUVote.VoteID == voteinfo.ID)
     vote = db.query(TUVote, and_(TUVote.UserID == request.user.ID,
@@ -212,7 +212,7 @@ async def trusted_user_proposal_post(request: Request,
         setattr(voteinfo, decision, getattr(voteinfo, decision) + 1)
     else:
         return Response("Invalid 'decision' value.",
-                        status_code=int(HTTPStatus.BAD_REQUEST))
+                        status_code=HTTPStatus.BAD_REQUEST)
 
     with db.begin():
         vote = db.create(TUVote, User=request.user, VoteInfo=voteinfo)
@@ -303,4 +303,4 @@ async def trusted_user_addvote_post(request: Request,
 
     # Redirect to the new proposal.
     return RedirectResponse(f"/tu/{voteinfo.ID}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)

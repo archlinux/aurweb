@@ -273,7 +273,7 @@ async def package_base(request: Request, name: str) -> Response:
     # If this is not a split package, redirect to /packages/{name}.
     if pkgbase.packages.count() == 1:
         return RedirectResponse(f"/packages/{name}",
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
 
     # Add our base information.
     context = await make_single_context(request, pkgbase)
@@ -301,7 +301,7 @@ async def pkgbase_comments_post(
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     if not comment:
-        raise HTTPException(status_code=int(HTTPStatus.EXPECTATION_FAILED))
+        raise HTTPException(status_code=HTTPStatus.EXPECTATION_FAILED)
 
     # If the provided comment is different than the record's version,
     # update the db record.
@@ -320,7 +320,7 @@ async def pkgbase_comments_post(
 
     # Redirect to the pkgbase page.
     return RedirectResponse(f"/pkgbase/{pkgbase.Name}#comment-{comment.ID}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/pkgbase/{name}/comments/{id}/form")
@@ -330,10 +330,10 @@ async def pkgbase_comment_form(request: Request, name: str, id: int):
     pkgbase = get_pkg_or_base(name, PackageBase)
     comment = pkgbase.comments.filter(PackageComment.ID == id).first()
     if not comment:
-        return JSONResponse({}, status_code=int(HTTPStatus.NOT_FOUND))
+        return JSONResponse({}, status_code=HTTPStatus.NOT_FOUND)
 
     if not request.user.is_elevated() and request.user != comment.User:
-        return JSONResponse({}, status_code=int(HTTPStatus.UNAUTHORIZED))
+        return JSONResponse({}, status_code=HTTPStatus.UNAUTHORIZED)
 
     context = await make_single_context(request, pkgbase)
     context["comment"] = comment
@@ -353,7 +353,7 @@ async def pkgbase_comment_post(
     db_comment = get_pkgbase_comment(pkgbase, id)
 
     if not comment:
-        raise HTTPException(status_code=int(HTTPStatus.EXPECTATION_FAILED))
+        raise HTTPException(status_code=HTTPStatus.EXPECTATION_FAILED)
 
     # If the provided comment is different than the record's version,
     # update the db record.
@@ -375,7 +375,7 @@ async def pkgbase_comment_post(
 
     # Redirect to the pkgbase page anchored to the updated comment.
     return RedirectResponse(f"/pkgbase/{pkgbase.Name}#comment-{db_comment.ID}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/comments/{id}/delete")
@@ -389,7 +389,7 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int):
     if not authorized:
         _ = l10n.get_translator_for_request(request)
         raise HTTPException(
-            status_code=int(HTTPStatus.UNAUTHORIZED),
+            status_code=HTTPStatus.UNAUTHORIZED,
             detail=_("You are not allowed to delete this comment."))
 
     now = int(datetime.utcnow().timestamp())
@@ -398,7 +398,7 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int):
         comment.DelTS = now
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/comments/{id}/undelete")
@@ -412,7 +412,7 @@ async def pkgbase_comment_undelete(request: Request, name: str, id: int):
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
         raise HTTPException(
-            status_code=int(HTTPStatus.UNAUTHORIZED),
+            status_code=HTTPStatus.UNAUTHORIZED,
             detail=_("You are not allowed to undelete this comment."))
 
     with db.begin():
@@ -420,7 +420,7 @@ async def pkgbase_comment_undelete(request: Request, name: str, id: int):
         comment.DelTS = None
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/comments/{id}/pin")
@@ -434,7 +434,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int):
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
         raise HTTPException(
-            status_code=int(HTTPStatus.UNAUTHORIZED),
+            status_code=HTTPStatus.UNAUTHORIZED,
             detail=_("You are not allowed to pin this comment."))
 
     now = int(datetime.utcnow().timestamp())
@@ -442,7 +442,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int):
         comment.PinnedTS = now
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/comments/{id}/unpin")
@@ -456,14 +456,14 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int):
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
         raise HTTPException(
-            status_code=int(HTTPStatus.UNAUTHORIZED),
+            status_code=HTTPStatus.UNAUTHORIZED,
             detail=_("You are not allowed to unpin this comment."))
 
     with db.begin():
         comment.PinnedTS = 0
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/pkgbase/{name}/comaintainers")
@@ -478,7 +478,7 @@ async def package_base_comaintainers(request: Request, name: str) -> Response:
                                             approved=[pkgbase.Maintainer])
     if not has_creds:
         return RedirectResponse(f"/pkgbase/{name}",
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
 
     # Add our base information.
     context = make_context(request, "Manage Co-maintainers")
@@ -527,7 +527,7 @@ async def package_base_comaintainers_post(
                                             approved=[pkgbase.Maintainer])
     if not has_creds:
         return RedirectResponse(f"/pkgbase/{name}",
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
 
     users = set(users.split("\n"))
     users.remove(str())  # Remove any empty strings from the set.
@@ -605,7 +605,7 @@ async def package_base_comaintainers_post(
         return render_template(request, "pkgbase/comaintainers.html", context)
 
     return RedirectResponse(f"/pkgbase/{pkgbase.Name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/requests")
@@ -648,7 +648,7 @@ async def package_request(request: Request, name: str):
     pkgbase = db.query(PackageBase).filter(PackageBase.Name == name).first()
 
     if not pkgbase:
-        raise HTTPException(status_code=int(HTTPStatus.NOT_FOUND))
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     context["pkgbase"] = pkgbase
     return render_template(request, "pkgbase/request.html", context)
@@ -720,7 +720,7 @@ async def pkgbase_request_post(request: Request, name: str,
 
     # Redirect the submitting user to /packages.
     return RedirectResponse("/packages",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/requests/{id}/close")
@@ -729,7 +729,7 @@ async def requests_close(request: Request, id: int):
     pkgreq = db.query(PackageRequest).filter(PackageRequest.ID == id).first()
     if not request.user.is_elevated() and request.user != pkgreq.User:
         # Request user doesn't have permission here: redirect to '/'.
-        return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))
+        return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
 
     context = make_context(request, "Close Request")
     context["pkgreq"] = pkgreq
@@ -744,7 +744,7 @@ async def requests_close_post(request: Request, id: int,
     pkgreq = db.query(PackageRequest).filter(PackageRequest.ID == id).first()
     if not request.user.is_elevated() and request.user != pkgreq.User:
         # Request user doesn't have permission here: redirect to '/'.
-        return RedirectResponse("/", status_code=int(HTTPStatus.SEE_OTHER))
+        return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
 
     context = make_context(request, "Close Request")
     context["pkgreq"] = pkgreq
@@ -770,7 +770,7 @@ async def requests_close_post(request: Request, id: int,
         conn, request.user.ID, pkgreq.ID, pkgreq.status_display())
     notify_.send()
 
-    return RedirectResponse("/requests", status_code=int(HTTPStatus.SEE_OTHER))
+    return RedirectResponse("/requests", status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/pkgbase/{name}/flag")
@@ -781,7 +781,7 @@ async def pkgbase_flag_get(request: Request, name: str):
     has_cred = request.user.has_credential("CRED_PKGBASE_FLAG")
     if not has_cred or pkgbase.Flagger is not None:
         return RedirectResponse(f"/pkgbase/{name}",
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
 
     context = make_context(request, "Flag Package Out-Of-Date")
     context["pkgbase"] = pkgbase
@@ -800,7 +800,7 @@ async def pkgbase_flag_post(request: Request, name: str,
         context["errors"] = ["The selected packages have not been flagged, "
                              "please enter a comment."]
         return render_template(request, "packages/flag.html", context,
-                               status_code=int(HTTPStatus.BAD_REQUEST))
+                               status_code=HTTPStatus.BAD_REQUEST)
 
     has_cred = request.user.has_credential("CRED_PKGBASE_FLAG")
     if has_cred and not pkgbase.Flagger:
@@ -811,7 +811,7 @@ async def pkgbase_flag_post(request: Request, name: str,
             pkgbase.FlaggerComment = comments
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/unflag")
@@ -828,7 +828,7 @@ async def pkgbase_unflag(request: Request, name: str):
             pkgbase.FlaggerComment = str()
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/notify")
@@ -847,7 +847,7 @@ async def pkgbase_notify(request: Request, name: str):
                       User=request.user)
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/unnotify")
@@ -864,7 +864,7 @@ async def pkgbase_unnotify(request: Request, name: str):
             db.session.delete(notif)
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/vote")
@@ -889,7 +889,7 @@ async def pkgbase_vote(request: Request, name: str):
         popupdate.run_single(conn, pkgbase)
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/unvote")
@@ -910,7 +910,7 @@ async def pkgbase_unvote(request: Request, name: str):
         popupdate.run_single(conn, pkgbase)
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 def disown_pkgbase(pkgbase: PackageBase, disowner: User):
@@ -944,7 +944,7 @@ async def pkgbase_disown_get(request: Request, name: str):
                                            approved=[pkgbase.Maintainer])
     if not has_cred:
         return RedirectResponse(f"/pkgbase/{name}",
-                                int(HTTPStatus.SEE_OTHER))
+                                HTTPStatus.SEE_OTHER)
 
     context = make_context(request, "Disown Package")
     context["pkgbase"] = pkgbase
@@ -961,7 +961,7 @@ async def pkgbase_disown_post(request: Request, name: str,
                                            approved=[pkgbase.Maintainer])
     if not has_cred:
         return RedirectResponse(f"/pkgbase/{name}",
-                                int(HTTPStatus.SEE_OTHER))
+                                HTTPStatus.SEE_OTHER)
 
     if not confirm:
         context = make_context(request, "Disown Package")
@@ -969,11 +969,11 @@ async def pkgbase_disown_post(request: Request, name: str,
         context["errors"] = [("The selected packages have not been disowned, "
                               "check the confirmation checkbox.")]
         return render_template(request, "packages/disown.html", context,
-                               status_code=int(HTTPStatus.EXPECTATION_FAILED))
+                               status_code=HTTPStatus.EXPECTATION_FAILED)
 
     disown_pkgbase(pkgbase, request.user)
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/adopt")
@@ -990,7 +990,7 @@ async def pkgbase_adopt_post(request: Request, name: str):
             pkgbase.Maintainer = request.user
 
     return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=int(HTTPStatus.SEE_OTHER))
+                            status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/pkgbase/{name}/delete")
@@ -998,7 +998,7 @@ async def pkgbase_adopt_post(request: Request, name: str):
 async def pkgbase_delete_get(request: Request, name: str):
     if not request.user.has_credential("CRED_PKGBASE_DELETE"):
         return RedirectResponse(f"/pkgbase/{name}",
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
 
     context = make_context(request, "Package Deletion")
     context["pkgbase"] = get_pkg_or_base(name, PackageBase)
@@ -1013,7 +1013,7 @@ async def pkgbase_delete_post(request: Request, name: str,
 
     if not request.user.has_credential("CRED_PKGBASE_DELETE"):
         return RedirectResponse(f"/pkgbase/{name}",
-                                status_code=int(HTTPStatus.SEE_OTHER))
+                                status_code=HTTPStatus.SEE_OTHER)
 
     if not confirm:
         context = make_context(request, "Package Deletion")
@@ -1021,10 +1021,10 @@ async def pkgbase_delete_post(request: Request, name: str,
         context["errors"] = [("The selected packages have not been deleted, "
                               "check the confirmation checkbox.")]
         return render_template(request, "packages/delete.html", context,
-                               status_code=int(HTTPStatus.EXPECTATION_FAILED))
+                               status_code=HTTPStatus.EXPECTATION_FAILED)
 
     packages = pkgbase.packages.all()
     for package in packages:
         delete_package(request.user, package)
 
-    return RedirectResponse("/packages", status_code=int(HTTPStatus.SEE_OTHER))
+    return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)
