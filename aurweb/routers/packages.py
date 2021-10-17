@@ -301,7 +301,7 @@ async def pkgbase_comments_post(
     pkgbase = get_pkg_or_base(name, PackageBase)
 
     if not comment:
-        raise HTTPException(status_code=HTTPStatus.EXPECTATION_FAILED)
+        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST)
 
     # If the provided comment is different than the record's version,
     # update the db record.
@@ -353,7 +353,7 @@ async def pkgbase_comment_post(
     db_comment = get_pkgbase_comment(pkgbase, id)
 
     if not comment:
-        raise HTTPException(status_code=HTTPStatus.EXPECTATION_FAILED)
+        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST)
 
     # If the provided comment is different than the record's version,
     # update the db record.
@@ -969,7 +969,7 @@ async def pkgbase_disown_post(request: Request, name: str,
         context["errors"] = [("The selected packages have not been disowned, "
                               "check the confirmation checkbox.")]
         return render_template(request, "packages/disown.html", context,
-                               status_code=HTTPStatus.EXPECTATION_FAILED)
+                               status_code=HTTPStatus.BAD_REQUEST)
 
     disown_pkgbase(pkgbase, request.user)
     return RedirectResponse(f"/pkgbase/{name}",
@@ -1021,7 +1021,7 @@ async def pkgbase_delete_post(request: Request, name: str,
         context["errors"] = [("The selected packages have not been deleted, "
                               "check the confirmation checkbox.")]
         return render_template(request, "packages/delete.html", context,
-                               status_code=HTTPStatus.EXPECTATION_FAILED)
+                               status_code=HTTPStatus.BAD_REQUEST)
 
     packages = pkgbase.packages.all()
     for package in packages:

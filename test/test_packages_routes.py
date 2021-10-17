@@ -1048,7 +1048,7 @@ def test_pkgbase_comments_missing_comment(client: TestClient, maintainer: User,
     endpoint = f"/pkgbase/{package.PackageBase.Name}/comments"
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
 def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
@@ -1119,10 +1119,10 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
     ).first()
     assert db_notif is not None
 
-    # Don't supply a comment; should return EXPECTATION_FAILED.
+    # Don't supply a comment; should return BAD_REQUEST.
     with client as request:
         fail_resp = request.post(endpoint, cookies=cookies)
-    assert fail_resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
+    assert fail_resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     # Now, test the form route, which should return form markup
     # via JSON.
@@ -1902,7 +1902,7 @@ def test_pkgbase_disown(client: TestClient, user: User, maintainer: User,
     # POST as the maintainer without "confirm".
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     # POST as the maintainer with "confirm".
     with client as request:
@@ -1975,7 +1975,7 @@ def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
     # Test that POST works and denies us because we haven't confirmed.
     with client as request:
         resp = request.post(endpoint, cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.EXPECTATION_FAILED)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
 
     # Test that we can actually delete the pkgbase.
     with client as request:
