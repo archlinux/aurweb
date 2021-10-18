@@ -18,6 +18,7 @@
                 <a href="/cgit/aur.git/snapshot/{{ pkgbase.Name }}.tar.gz">
                     {{ "Download snapshot" | tr }}
                 </a>
+            </li>
             <li>
                 <a href="https://wiki.archlinux.org/title/Special:Search?search={{ pkgbase.Name }}">
                     {{ "Search wiki" | tr }}
@@ -49,43 +50,42 @@
                     </form>
                 </li>
             {% endif %}
-                <li>
-                    {% if not voted %}
-                    <form action="/pkgbase/{{ pkgbase.Name }}/vote/" method="post">
+            <li>
+                {% if not voted %}
+                <form action="/pkgbase/{{ pkgbase.Name }}/vote/" method="post">
+                    <input type="submit"
+                           class="button text-button"
+                           name="do_Vote"
+                           value="{{ 'Vote for this package' | tr }}" />
+                </form>
+                {% else %}
+                <form action="/pkgbase/{{ pkgbase.Name }}/unvote/" method="post">
+                    <input type="submit"
+                           class="button text-button"
+                           name="do_UnVote"
+                           value="{{ 'Remove vote' | tr }}" />
+                </form>
+                {% endif %}
+            </li>
+            <li>
+                {% if notified %}
+                    <form action="/pkgbase/{{ pkgbase.Name }}/unnotify/" method="post">
                         <input type="submit"
                                class="button text-button"
-                               name="do_Vote"
-                               value="{{ 'Vote for this package' | tr }}" />
+                               name="do_UnNotify"
+                               value="{{ 'Disable notifications' | tr }}"
+                        />
                     </form>
-                    {% else %}
-                    <form action="/pkgbase/{{ pkgbase.Name }}/unvote/" method="post">
+                {% else %}
+                    <form action="/pkgbase/{{ pkgbase.Name }}/notify/" method="post">
                         <input type="submit"
                                class="button text-button"
-                               name="do_UnVote"
-                               value="{{ 'Remove vote' | tr }}" />
+                               name="do_Notify"
+                               value="{{ 'Enable notifications' | tr }}"
+                        />
                     </form>
-                    {% endif %}
-                </li>
-                <li>
-                    {% if notified %}
-                        <form action="/pkgbase/{{ pkgbase.Name }}/unnotify/" method="post">
-                            <input type="submit"
-                                   class="button text-button"
-                                   name="do_UnNotify"
-                                   value="{{ 'Disable notifications' | tr }}"
-                            />
-                        </form>
-                    {% else %}
-                        <form action="/pkgbase/{{ pkgbase.Name }}/notify/" method="post">
-                            <input type="submit"
-                                   class="button text-button"
-                                   name="do_Notify"
-                                   value="{{ 'Enable notifications' | tr }}"
-                            />
-                        </form>
-                    {% endif %}
-                </li>
-            </form>
+                {% endif %}
+            </li>
             {% if request.user.has_credential('CRED_PKGBASE_EDIT_COMAINTAINERS', approved=[pkgbase.Maintainer]) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/comaintainers/">
