@@ -82,8 +82,7 @@
                     </form>
                 {% endif %}
 			{% endif %}
-		{% else %}
-			{% if request.user.has_credential("CRED_COMMENT_UNDELETE", approved=[comment.User]) %}
+		{% elif request.user.has_credential("CRED_COMMENT_UNDELETE", approved=[comment.User]) %}
 				<form class="undelete-comment-form"
 					  method="post"
 					  action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/undelete"
@@ -97,7 +96,6 @@
 							   name="submit" value="1" width="11" height="11" />
 					</fieldset>
 				</form>
-			{% endif %}
 		{% endif %}
 	</h4>
 	<div id="comment-{{ comment.ID }}-content" class="{{ article_cls }}">

@@ -16,17 +16,16 @@
         | safe
         }}
         </p>
+    {% elif request.user.is_authenticated() %}
+        <p>
+        {{ "Logged-in as: %s"
+        | tr
+        | format("<b>%s</b>" | format(request.user.Username))
+        | safe
+        }}
+        <a href="/logout/?next={{ next }}">[{% trans %}Logout{% endtrans %}]</a>
+        </p>
     {% else %}
-        {% if request.user.is_authenticated() %}
-            <p>
-            {{ "Logged-in as: %s"
-            | tr
-            | format("<b>%s</b>" | format(request.user.Username))
-            | safe
-            }}
-            <a href="/logout/?next={{ next }}">[{% trans %}Logout{% endtrans %}]</a>
-            </p>
-        {% else %}
         <form method="post" action="/login?next={{ next }}">
             <fieldset>
                 <legend>{% trans %}Enter login credentials{% endtrans %}</legend>
@@ -81,9 +80,7 @@
 
             </fieldset>
         </form>
-        {% endif %}
     {% endif %}
-
 </div>
 
 {% endblock %}

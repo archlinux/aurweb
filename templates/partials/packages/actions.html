@@ -128,14 +128,12 @@
                         />
                     </form>
                 </li>
-            {% else %}
-                {% if request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
-                    <li>
-                        <a href="/pkgbase/{{ pkgbase.Name }}/disown/">
-                            {{ "Disown Package" | tr }}
-                        </a>
-                    </li>
-                {% endif %}
+            {% elif request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
+                <li>
+                    <a href="/pkgbase/{{ pkgbase.Name }}/disown/">
+                        {{ "Disown Package" | tr }}
+                    </a>
+                </li>
             {% endif %}
         </ul>
     </div>
