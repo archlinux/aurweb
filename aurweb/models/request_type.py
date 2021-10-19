@@ -17,14 +17,7 @@ class RequestType(Base):
 
     def name_display(self) -> str:
         """ Return the Name column with its first char capitalized. """
-        name = self.Name
-        return name[0].upper() + name[1:]
-
-    def title(self) -> str:
-        return self.name_display()
-
-    def __getitem__(self, n: int) -> str:
-        return self.Name[n]
+        return self.Name.title()
 
 
 DELETION_ID = db.query(RequestType, RequestType.Name == DELETION).first().ID

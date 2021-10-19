@@ -697,18 +697,20 @@ async def pkgbase_request_post(request: Request, name: str,
     now = int(datetime.utcnow().timestamp())
     reqtype = db.query(models.RequestType).filter(
         models.RequestType.Name == type).first()
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-    notify_ = None
     with db.begin():
-        pkgreq = db.create(models.PackageRequest, RequestType=reqtype,
-                           RequestTS=now, PackageBase=pkgbase,
+        pkgreq = db.create(models.PackageRequest,
+                           RequestType=reqtype,
+                           User=request.user,
+                           RequestTS=now,
+                           PackageBase=pkgbase,
                            PackageBaseName=pkgbase.Name,
-                           MergeBaseName=merge_into, User=request.user,
+                           MergeBaseName=merge_into,
                            Comments=comments, ClosureComment=str())
 
     # Prepare notification object.
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
     notify_ = notify.RequestOpenNotification(
-        conn, request.user.ID, pkgreq.ID, reqtype,
+        conn, request.user.ID, pkgreq.ID, reqtype.Name,
         pkgreq.PackageBase.ID, merge_into=merge_into or None)
 
     # Send the notification now that we're out of the DB scope.
