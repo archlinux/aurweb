@@ -18,7 +18,7 @@ from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, query_notified, query_voted
 from aurweb.scripts import notify, popupdate
 from aurweb.scripts.rendercomment import update_comment_render
-from aurweb.templates import make_context, render_raw_template, render_template
+from aurweb.templates import make_context, make_variable_context, render_raw_template, render_template
 
 router = APIRouter()
 
@@ -636,7 +636,7 @@ async def requests(request: Request,
 @router.get("/pkgbase/{name}/request")
 @auth_required(True, redirect="/pkgbase/{name}")
 async def package_request(request: Request, name: str):
-    context = make_context(request, "Submit Request")
+    context = await make_variable_context(request, "Submit Request")
 
     pkgbase = db.query(models.PackageBase).filter(
         models.PackageBase.Name == name).first()
@@ -657,7 +657,7 @@ async def pkgbase_request_post(request: Request, name: str,
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
     # Create our render context.
-    context = make_context(request, "Submit Request")
+    context = await make_variable_context(request, "Submit Request")
     context["pkgbase"] = pkgbase
     if type not in {"deletion", "merge", "orphan"}:
         # In the case that someone crafted a POST request with an invalid

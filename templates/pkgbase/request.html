@@ -30,9 +30,21 @@
                 <p>
                     <label for="id_type">{{ "Request type" | tr }}:</label>
                     <select id="id_type" name="type">
-                        <option value="deletion">{{ "Deletion" | tr }}</option>
-                        <option value="merge">{{ "Merge" | tr }}</option>
-                        <option value="orphan">{{ "Orphan" | tr }}</option>
+                        <option value="deletion"
+                            {% if type == "deletion" %}
+                                selected
+                            {% endif %}
+                        >{{ "Deletion" | tr }}</option>
+                        <option value="merge"
+                            {% if type == "merge" %}
+                                selected
+                            {% endif %}
+                        >{{ "Merge" | tr }}</option>
+                        <option value="orphan"
+                            {% if type == "orphan" %}
+                                selected
+                            {% endif %}
+                        >{{ "Orphan" | tr }}</option>
                     </select>
                 </p>
 
@@ -44,13 +56,13 @@
                 <p id="merge_section" style="display: none">
                     <label for="id_merge_into">{{ "Merge into" | tr }}:</label>
                     <input id="id_merge_into" type="text" name="merge_into"
-                           autocomplete="off" />
+                           autocomplete="off" value="{{ merge_into or '' }}" />
                 </p>
 
                 <p>
                     <label for="id_comments">{{ "Comments" | tr }}:</label>
                     <textarea id="id_comments" name="comments"
-                              rows="5" cols="50"></textarea>
+                              rows="5" cols="50">{{ comments or '' }}</textarea>
                 </p>
 
                 <p id="deletion_hint">
