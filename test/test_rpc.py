@@ -68,7 +68,9 @@ def setup():
                        Passwd="testPassword",
                        AccountType=account_type)
 
-        pkgbase1 = create(PackageBase, Name="big-chungus", Maintainer=user1)
+        pkgbase1 = create(PackageBase, Name="big-chungus",
+                          Maintainer=user1,
+                          Packager=user1)
 
         pkgname1 = create(Package,
                           PackageBase=pkgbase1,
@@ -76,7 +78,9 @@ def setup():
                           Description="Bunny bunny around bunny",
                           URL="https://example.com/")
 
-        pkgbase2 = create(PackageBase, Name="chungy-chungus", Maintainer=user1)
+        pkgbase2 = create(PackageBase, Name="chungy-chungus",
+                          Maintainer=user1,
+                          Packager=user1)
 
         pkgname2 = create(Package,
                           PackageBase=pkgbase2,
@@ -84,7 +88,9 @@ def setup():
                           Description="Wubby wubby on wobba wuubu",
                           URL="https://example.com/")
 
-        pkgbase3 = create(PackageBase, Name="gluggly-chungus", Maintainer=user1)
+        pkgbase3 = create(PackageBase, Name="gluggly-chungus",
+                          Maintainer=user1,
+                          Packager=user1)
 
         create(Package,
                PackageBase=pkgbase3,
@@ -92,7 +98,7 @@ def setup():
                Description="glurrba glurrba gur globba",
                URL="https://example.com/")
 
-        pkgbase4 = create(PackageBase, Name="woogly-chungus", Maintainer=None)
+        pkgbase4 = create(PackageBase, Name="woogly-chungus")
 
         create(Package,
                PackageBase=pkgbase4,
@@ -412,3 +418,13 @@ def test_rpc_no_maintainer():
 
     # Validate data.
     assert response_data["results"][0]["Maintainer"] is None
+
+
+def test_rpc_suggest_pkgbase():
+    response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+    data = response.json()
+    assert data == ["big-chungus"]
+
+    response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=chungy")
+    data = response.json()
+    assert data == ["chungy-chungus"]

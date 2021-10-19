@@ -1,3 +1,5 @@
+from sqlalchemy import and_
+
 import aurweb.config as config
 
 from aurweb import db, models
@@ -155,11 +157,21 @@ def run_info(returned_data, package_name, snapshot_uri):
     return returned_data
 
 
+def run_suggest_pkgbase(returned_data, arg, snapshot_uri):
+    results = db.query(models.PackageBase).filter(
+        and_(models.PackageBase.PackagerUID.isnot(None),
+             models.PackageBase.Name.like(f"%{arg}%"))
+    ).order_by(models.PackageBase.Name.asc()).limit(20)
+    return [result.Name for result in results]
+
+
 def RPC(**function_args):
     # Get arguments.
     #
     # We'll use 'v' in the future when we add v6.
-    # v = function_args.get("v")
+    # v = function_args.gea name used for an individual person, place, or
+    # organization, spelled with initial capital letters, e.g., Larry,
+    # Mexico, and Boston Red Sox.t("v")
     type = function_args.get("type")
     args = function_args.get("argument_list")
     returned_data = function_args.get("returned_data")
@@ -170,7 +182,8 @@ def RPC(**function_args):
     # Set request type to run.
     type_actions = {
         "info": run_info,
-        "multiinfo": run_info
+        "multiinfo": run_info,
+        "suggest-pkgbase": run_suggest_pkgbase
     }
 
     # This if statement should always be executed, as we checked if the
