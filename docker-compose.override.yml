@@ -1,4 +1,24 @@
 services:
+  mariadb:
+    image: aurweb:latest
+    init: true
+    entrypoint: /docker/mariadb-entrypoint.sh
+    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
+    ports:
+      # This will expose mariadbd on 127.0.0.1:13306 in the host.
+      # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
+      - "13306:3306"
+    volumes:
+      - mariadb_run:/var/run/mysqld # Bind socket in this volume.
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: "bash /docker/health/mariadb.sh"
+
+  mariadb_init:
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
   ca:
     volumes:
       - ./cache:/cache
@@ -13,6 +33,9 @@ services:
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - smartgit_run:/var/run/smartgit
+    depends_on:
+      mariadb:
+        condition: service_healthy
 
   php-fpm:
     volumes:

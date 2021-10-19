@@ -9,6 +9,7 @@ services:
     volumes:
       - git_data:/aurweb/aur.git
       - cache:/cache
+      - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   smartgit:
     volumes:
@@ -19,12 +20,18 @@ services:
   php-fpm:
     volumes:
       - cache:/cache
+      - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   fastapi:
     environment:
       - FASTAPI_BACKEND="gunicorn"
     volumes:
       - cache:/cache
+      - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
+
+  mariadb_init:
+    volumes:
+      - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   nginx:
     volumes:
@@ -34,7 +41,7 @@ services:
       - smartgit_run:/var/run/smartgit
 
 volumes:
-  mariadb_run: {} # Share /var/run/mysqld/mysqld.sock
+  mariadb_run: {} # Share /var/run/mysqld
   mariadb_data: {} # Share /var/lib/mysql
   git_data: {} # Share aurweb/aur.git
   smartgit_run: {}

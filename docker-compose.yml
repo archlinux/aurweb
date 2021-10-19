@@ -48,29 +48,11 @@ services:
     ports:
       - "16379:6379"
 
-  mariadb:
-    image: aurweb:latest
-    init: true
-    entrypoint: /docker/mariadb-entrypoint.sh
-    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
-    ports:
-      # This will expose mariadbd on 127.0.0.1:13306 in the host.
-      # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
-      - "13306:3306"
-    volumes:
-      - mariadb_run:/var/run/mysqld # Bind socket in this volume.
-      - mariadb_data:/var/lib/mysql
-    healthcheck:
-      test: "bash /docker/health/mariadb.sh"
-
   mariadb_init:
     image: aurweb:latest
     init: true
     entrypoint: /docker/mariadb-init-entrypoint.sh
     command: echo "MariaDB tables initialized."
-    depends_on:
-      mariadb:
-        condition: service_healthy
     volumes:
       - mariadb_run:/var/run/mysqld
 
@@ -100,9 +82,6 @@ services:
     command: /docker/scripts/run-smartgit.sh
     healthcheck:
       test: "bash /docker/health/smartgit.sh"
-    depends_on:
-      mariadb:
-        condition: service_healthy
 
   cgit-php:
     image: aurweb:latest
