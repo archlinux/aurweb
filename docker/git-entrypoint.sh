@@ -38,18 +38,9 @@ Match User aur
     AcceptEnv AUR_OVERWRITE
 EOF
 
-DB_NAME="aurweb"
-DB_HOST="mariadb"
-DB_USER="aur"
-DB_PASS="aur"
-
 # Setup a config for our mysql db.
 cp -vf conf/config.dev $AUR_CONFIG
 sed -i "s;YOUR_AUR_ROOT;$(pwd);g" $AUR_CONFIG
-sed -ri "s/^(name) = .+/\1 = ${DB_NAME}/" $AUR_CONFIG
-sed -ri "s/^(host) = .+/\1 = ${DB_HOST}/" $AUR_CONFIG
-sed -ri "s/^(user) = .+/\1 = ${DB_USER}/" $AUR_CONFIG
-sed -ri "s/^;?(password) = .+/\1 = ${DB_PASS}/" $AUR_CONFIG
 
 AUR_CONFIG_DEFAULTS="${AUR_CONFIG}.defaults"
 
