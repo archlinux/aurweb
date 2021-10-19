@@ -38,7 +38,7 @@
         {% if request.user.has_credential("CRED_PKGBASE_SET_KEYWORDS", approved=[pkgbase.Maintainer]) %}
         <td>
             <form method="update"
-                  action="/pkgbase/{{ pkgbase.Name }}/keywords/"
+                  action="/pkgbase/{{ pkgbase.Name }}/keywords"
             >
                 <div>
                     <input type="text"

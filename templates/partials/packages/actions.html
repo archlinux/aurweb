@@ -26,7 +26,7 @@
             </li>
             {% if not out_of_date %}
                 <li>
-                    <a href="/pkgbase/{{ pkgbase.Name }}/flag/">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/flag">
                         {{ "Flag package out-of-date" | tr }}
                     </a>
                 </li>
@@ -52,14 +52,14 @@
             {% endif %}
             <li>
                 {% if not voted %}
-                <form action="/pkgbase/{{ pkgbase.Name }}/vote/" method="post">
+                <form action="/pkgbase/{{ pkgbase.Name }}/vote" method="post">
                     <input type="submit"
                            class="button text-button"
                            name="do_Vote"
                            value="{{ 'Vote for this package' | tr }}" />
                 </form>
                 {% else %}
-                <form action="/pkgbase/{{ pkgbase.Name }}/unvote/" method="post">
+                <form action="/pkgbase/{{ pkgbase.Name }}/unvote" method="post">
                     <input type="submit"
                            class="button text-button"
                            name="do_UnVote"
@@ -69,7 +69,7 @@
             </li>
             <li>
                 {% if notified %}
-                    <form action="/pkgbase/{{ pkgbase.Name }}/unnotify/" method="post">
+                    <form action="/pkgbase/{{ pkgbase.Name }}/unnotify" method="post">
                         <input type="submit"
                                class="button text-button"
                                name="do_UnNotify"
@@ -77,7 +77,7 @@
                         />
                     </form>
                 {% else %}
-                    <form action="/pkgbase/{{ pkgbase.Name }}/notify/" method="post">
+                    <form action="/pkgbase/{{ pkgbase.Name }}/notify" method="post">
                         <input type="submit"
                                class="button text-button"
                                name="do_Notify"
@@ -88,7 +88,7 @@
             </li>
             {% if request.user.has_credential('CRED_PKGBASE_EDIT_COMAINTAINERS', approved=[pkgbase.Maintainer]) %}
                 <li>
-                    <a href="/pkgbase/{{ pkgbase.Name }}/comaintainers/">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/comaintainers">
                         {{ "Manage Co-Maintainers" | tr }}
                     </a>
                 </li>
@@ -101,20 +101,20 @@
                 </li>
             {% endif %}
             <li>
-                <a href="/pkgbase/{{ pkgbase.Name }}/request/">
+                <a href="/pkgbase/{{ pkgbase.Name }}/request">
                     {{ "Submit Request" | tr }}
                 </a>
             </li>
             {% if request.user.has_credential("CRED_PKGBASE_DELETE") %}
                 <li>
-                    <a href="/pkgbase/{{ pkgbase.Name }}/delete/">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/delete">
                         {{ "Delete Package" | tr }}
                     </a>
                 </li>
             {% endif %}
             {% if request.user.has_credential("CRED_PKGBASE_MERGE") %}
                 <li>
-                    <a href="/pkgbase/{{ pkgbase.Name }}/merge/">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/merge">
                         {{ "Merge Package" | tr }}
                     </a>
                 </li>
@@ -130,7 +130,7 @@
                 </li>
             {% elif request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
                 <li>
-                    <a href="/pkgbase/{{ pkgbase.Name }}/disown/">
+                    <a href="/pkgbase/{{ pkgbase.Name }}/disown">
                         {{ "Disown Package" | tr }}
                     </a>
                 </li>

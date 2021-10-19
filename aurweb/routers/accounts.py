@@ -590,8 +590,8 @@ async def account(request: Request, username: str):
     return render_template(request, "account/show.html", context)
 
 
-@router.get("/accounts/")
-@auth_required(True, redirect="/accounts/")
+@router.get("/accounts")
+@auth_required(True, redirect="/accounts")
 @account_type_required({account_type.TRUSTED_USER,
                         account_type.DEVELOPER,
                         account_type.TRUSTED_USER_AND_DEV})
@@ -600,8 +600,8 @@ async def accounts(request: Request):
     return render_template(request, "account/search.html", context)
 
 
-@router.post("/accounts/")
-@auth_required(True, redirect="/accounts/")
+@router.post("/accounts")
+@auth_required(True, redirect="/accounts")
 @account_type_required({account_type.TRUSTED_USER,
                         account_type.DEVELOPER,
                         account_type.TRUSTED_USER_AND_DEV})
