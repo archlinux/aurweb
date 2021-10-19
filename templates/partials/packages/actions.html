@@ -33,11 +33,13 @@
             {% else %}
                 <li>
                     <span class="flagged">
-                        {% set ood_ts = pkgbase.OutOfDateTS | dt | as_timezone(timezone) %}
-                        {{
-                        "Flagged out-of-date (%s)"
-                        | tr | format(ood_ts.strftime("%Y-%m-%d"))
-                        }}
+                        <a href="/pkgbase/{{ pkgbase.Name }}/flag-comment">
+                            {% set ood_ts = pkgbase.OutOfDateTS | dt | as_timezone(timezone) %}
+                            {{
+                            "Flagged out-of-date (%s)"
+                            | tr | format(ood_ts.strftime("%Y-%m-%d"))
+                            }}
+                        </a>
                     </span>
                 </li>
                 <li>
