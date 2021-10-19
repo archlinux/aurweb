@@ -44,7 +44,7 @@ class FlysprayLinksInlineProcessor(markdown.inlinepatterns.InlineProcessor):
         el = markdown.util.etree.Element('a')
         el.set('href', f'https://bugs.archlinux.org/task/{m.group(1)}')
         el.text = markdown.util.AtomicString(m.group(0))
-        return el, m.start(0), m.end(0)
+        return (el, m.start(0), m.end(0))
 
 
 class FlysprayLinksExtension(markdown.extensions.Extension):
@@ -71,7 +71,7 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
         oid = m.group(1)
         if oid not in self._repo:
             # Unkwown OID; preserve the orginal text.
-            return None, None, None
+            return (None, None, None)
 
         prefixlen = 12
         while prefixlen < 40:
@@ -82,7 +82,7 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
         el = markdown.util.etree.Element('a')
         el.set('href', commit_uri % (self._head, oid[:prefixlen]))
         el.text = markdown.util.AtomicString(oid[:prefixlen])
-        return el, m.start(0), m.end(0)
+        return (el, m.start(0), m.end(0))
 
 
 class GitCommitsExtension(markdown.extensions.Extension):

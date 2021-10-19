@@ -126,26 +126,26 @@ def process_account_form(request: Request, user: models.User, args: dict):
     host = request.client.host
     ban = db.query(models.Ban, models.Ban.IPAddress == host).first()
     if ban:
-        return False, [
+        return (False, [
             "Account registration has been disabled for your "
             "IP address, probably due to sustained spam attacks. "
             "Sorry for the inconvenience."
-        ]
+        ])
 
     if request.user.is_authenticated():
         if not request.user.valid_password(args.get("passwd", None)):
-            return False, ["Invalid password."]
+            return (False, ["Invalid password."])
 
     email = args.get("E", None)
     username = args.get("U", None)
 
     if not email or not username:
-        return False, ["Missing a required field."]
+        return (False, ["Missing a required field."])
 
     username_min_len = aurweb.config.getint("options", "username_min_len")
     username_max_len = aurweb.config.getint("options", "username_max_len")
     if not util.valid_username(args.get("U")):
-        return False, [
+        return (False, [
             "The username is invalid.",
             [
                 _("It must be between %s and %s characters long") % (
@@ -153,20 +153,20 @@ def process_account_form(request: Request, user: models.User, args: dict):
                 "Start and end with a letter or number",
                 "Can contain only one period, underscore or hyphen.",
             ]
-        ]
+        ])
 
     password = args.get("P", None)
     if password:
         confirmation = args.get("C", None)
         if not util.valid_password(password):
-            return False, [
+            return (False, [
                 _("Your password must be at least %s characters.") % (
                     username_min_len)
-            ]
+            ])
         elif not confirmation:
-            return False, ["Please confirm your new password."]
+            return (False, ["Please confirm your new password."])
         elif password != confirmation:
-            return False, ["Password fields do not match."]
+            return (False, ["Password fields do not match."])
 
     backup_email = args.get("BE", None)
     homepage = args.get("HP", None)
@@ -184,32 +184,32 @@ def process_account_form(request: Request, user: models.User, args: dict):
                     func.lower(models.User.Email) == email.lower())
 
     if not util.valid_email(email):
-        return False, ["The email address is invalid."]
+        return (False, ["The email address is invalid."])
     elif backup_email and not util.valid_email(backup_email):
-        return False, ["The backup email address is invalid."]
+        return (False, ["The backup email address is invalid."])
     elif homepage and not util.valid_homepage(homepage):
-        return False, [
-            "The home page is invalid, please specify the full HTTP(s) URL."]
+        return (False, [
+            "The home page is invalid, please specify the full HTTP(s) URL."])
     elif pgp_key and not util.valid_pgp_fingerprint(pgp_key):
-        return False, ["The PGP key fingerprint is invalid."]
+        return (False, ["The PGP key fingerprint is invalid."])
     elif ssh_pubkey and not util.valid_ssh_pubkey(ssh_pubkey):
-        return False, ["The SSH public key is invalid."]
+        return (False, ["The SSH public key is invalid."])
     elif language and language not in l10n.SUPPORTED_LANGUAGES:
-        return False, ["Language is not currently supported."]
+        return (False, ["Language is not currently supported."])
     elif timezone and timezone not in time.SUPPORTED_TIMEZONES:
-        return False, ["Timezone is not currently supported."]
+        return (False, ["Timezone is not currently supported."])
     elif db.query(models.User, username_exists(username)).first():
         # If the username already exists...
-        return False, [
+        return (False, [
             _("The username, %s%s%s, is already in use.") % (
                 "<strong>", username, "</strong>")
-        ]
+        ])
     elif db.query(models.User, email_exists(email)).first():
         # If the email already exists...
-        return False, [
+        return (False, [
             _("The address, %s%s%s, is already in use.") % (
                 "<strong>", email, "</strong>")
-        ]
+        ])
 
     def ssh_fingerprint_exists(fingerprint):
         return and_(models.SSHPubKey.UserID != user.ID,
@@ -218,26 +218,26 @@ def process_account_form(request: Request, user: models.User, args: dict):
     if ssh_pubkey:
         fingerprint = get_fingerprint(ssh_pubkey.strip().rstrip())
         if fingerprint is None:
-            return False, ["The SSH public key is invalid."]
+            return (False, ["The SSH public key is invalid."])
 
         if db.query(models.SSHPubKey,
                     ssh_fingerprint_exists(fingerprint)).first():
-            return False, [
+            return (False, [
                 _("The SSH public key, %s%s%s, is already in use.") % (
                     "<strong>", fingerprint, "</strong>")
-            ]
+            ])
 
     captcha_salt = args.get("captcha_salt", None)
     if captcha_salt and captcha_salt not in get_captcha_salts():
-        return False, ["This CAPTCHA has expired. Please try again."]
+        return (False, ["This CAPTCHA has expired. Please try again."])
 
     captcha = args.get("captcha", None)
     if captcha:
         answer = get_captcha_answer(get_captcha_token(captcha_salt))
         if captcha != answer:
-            return False, ["The entered CAPTCHA answer is invalid."]
+            return (False, ["The entered CAPTCHA answer is invalid."])
 
-    return True, []
+    return (True, [])
 
 
 def make_account_form_context(context: dict,
