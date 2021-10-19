@@ -23,7 +23,8 @@ from aurweb.templates import make_context, render_raw_template, render_template
 router = APIRouter()
 
 
-async def packages_get(request: Request, context: Dict[str, Any]):
+async def packages_get(request: Request, context: Dict[str, Any],
+                       status_code: HTTPStatus = HTTPStatus.OK):
     # Query parameters used in this request.
     context["q"] = dict(request.query_params)
 
@@ -94,7 +95,8 @@ async def packages_get(request: Request, context: Dict[str, Any]):
         context.get("packages"), request.user)
     context["packages_count"] = search.total_count
 
-    return render_template(request, "packages.html", context)
+    return render_template(request, "packages.html", context,
+                           status_code=status_code)
 
 
 @router.get("/packages")
@@ -1024,3 +1026,42 @@ async def pkgbase_delete_post(request: Request, name: str,
         delete_package(request.user, package)
 
     return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)
+
+# A mapping of action string -> callback functions used within the
+# `packages_post` route below. We expect any action callback to
+# return a tuple in the format: (succeeded: bool, message: List[str]).
+PACKAGE_ACTIONS = {}
+
+
+@router.post("/packages")
+@auth_required(redirect="/packages")
+async def packages_post(request: Request,
+                        IDs: List[int] = Form(default=[]),
+                        action: str = Form(default=str()),
+                        merge_into: str = Form(default=str()),
+                        confirm: bool = Form(default=False)):
+
+    # If an invalid action is specified, just render GET /packages
+    # with an BAD_REQUEST status_code.
+    if action not in PACKAGE_ACTIONS:
+        context = make_context(request, "Packages")
+        return await packages_get(request, context, HTTPStatus.BAD_REQUEST)
+
+    context = make_context(request, "Packages")
+
+    # We deal with `IDs`, `merge_into` and `confirm` arguments
+    # within action callbacks.
+    callback = PACKAGE_ACTIONS.get(action)
+    retval = await callback(request, package_ids=IDs, merge_into=merge_into,
+                            confirm=confirm)
+    if retval:  # If *anything* was returned:
+        success, messages = retval
+        if not success:
+            # If the first element was False:
+            context["errors"] = messages
+            return await packages_get(request, context, HTTPStatus.BAD_REQUEST)
+        else:
+            # Otherwise:
+            context["success"] = messages
+
+    return await packages_get(request, context)

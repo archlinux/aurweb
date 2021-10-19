@@ -55,11 +55,10 @@
                 {% include "partials/widgets/pager.html" %}
             {% endwith %}
 
-            {# Package action form #}
+            {# Package action form: persists query parameters. #}
             <form id="pkglist-results-form"
-                  action="/packages/?{{ q | urlencode }}"
-                  method="post">
-
+                  action="/packages?{{ q | urlencode }}" method="post"
+            >
                 {# Search results #}
                 {% with voted = packages_voted, notified = packages_notified %}
                     {% include "partials/packages/search_results.html" %}
