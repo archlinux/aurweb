@@ -21,15 +21,17 @@
 version: "3.8"
 
 services:
-  ca:
+  aurweb-image:
     build: .
+    image: aurweb:latest
+
+  ca:
     image: aurweb:latest
     init: true
     entrypoint: /docker/ca-entrypoint.sh
     command: echo
 
   memcached:
-    build: .
     image: aurweb:latest
     init: true
     command: /docker/scripts/run-memcached.sh
@@ -37,7 +39,6 @@ services:
       test: "bash /docker/health/memcached.sh"
 
   redis:
-    build: .
     image: aurweb:latest
     init: true
     entrypoint: /docker/redis-entrypoint.sh
@@ -48,7 +49,6 @@ services:
       - "16379:6379"
 
   mariadb:
-    build: .
     image: aurweb:latest
     init: true
     entrypoint: /docker/mariadb-entrypoint.sh
@@ -64,7 +64,6 @@ services:
       test: "bash /docker/health/mariadb.sh"
 
   mariadb_init:
-    build: .
     image: aurweb:latest
     init: true
     environment:
@@ -76,7 +75,6 @@ services:
         condition: service_healthy
 
   git:
-    build: .
     image: aurweb:latest
     init: true
     environment:
@@ -93,7 +91,6 @@ services:
         condition: service_started
 
   smartgit:
-    build: .
     image: aurweb:latest
     init: true
     environment:
@@ -107,7 +104,6 @@ services:
         condition: service_healthy
 
   cgit-php:
-    build: .
     image: aurweb:latest
     init: true
     environment:
@@ -123,7 +119,6 @@ services:
       - git_data:/aurweb/aur.git
 
   cgit-fastapi:
-    build: .
     image: aurweb:latest
     init: true
     environment:
@@ -139,7 +134,6 @@ services:
       - git_data:/aurweb/aur.git
 
   php-fpm:
-    build: .
     image: aurweb:latest
     init: true
     environment:
@@ -160,7 +154,6 @@ services:
       - "19000:9000"
 
   fastapi:
-    build: .
     image: aurweb:latest
     init: true
     environment:
@@ -182,7 +175,6 @@ services:
       - "18000:8000"
 
   nginx:
-    build: .
     image: aurweb:latest
     init: true
     environment:
@@ -207,7 +199,6 @@ services:
         condition: service_healthy
 
   sharness:
-    build: .
     image: aurweb:latest
     profiles: ["dev"]
     init: true
@@ -232,7 +223,6 @@ services:
       - ./templates:/aurweb/templates
 
   pytest-mysql:
-    build: .
     image: aurweb:latest
     profiles: ["dev"]
     init: true
@@ -258,7 +248,6 @@ services:
       - ./templates:/aurweb/templates
 
   pytest-sqlite:
-    build: .
     image: aurweb:latest
     profiles: ["dev"]
     init: true
@@ -280,7 +269,6 @@ services:
       - ./templates:/aurweb/templates
 
   test:
-    build: .
     image: aurweb:latest
     profiles: ["dev"]
     init: true
