@@ -634,7 +634,7 @@ async def requests(request: Request,
 
 
 @router.get("/pkgbase/{name}/request")
-@auth_required(True, redirect="/pkgbase/{name}")
+@auth_required(True, redirect="/pkgbase/{name}/request")
 async def package_request(request: Request, name: str):
     context = await make_variable_context(request, "Submit Request")
 
