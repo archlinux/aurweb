@@ -48,38 +48,19 @@ services:
     ports:
       - "16379:6379"
 
-  mariadb:
-    image: aurweb:latest
-    init: true
-    entrypoint: /docker/mariadb-entrypoint.sh
-    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
-    ports:
-      # This will expose mariadbd on 127.0.0.1:13306 in the host.
-      # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
-      - "13306:3306"
-    volumes:
-      - mariadb_run:/var/run/mysqld # Bind socket in this volume.
-      - mariadb_data:/var/lib/mysql
-    healthcheck:
-      test: "bash /docker/health/mariadb.sh"
-
   mariadb_init:
     image: aurweb:latest
     init: true
-    environment:
-      - DB_HOST=mariadb
     entrypoint: /docker/mariadb-init-entrypoint.sh
     command: echo "MariaDB tables initialized."
-    depends_on:
-      mariadb:
-        condition: service_healthy
+    volumes:
+      - mariadb_run:/var/run/mysqld
 
   git:
     image: aurweb:latest
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
-      - DB_HOST=mariadb
     entrypoint: /docker/git-entrypoint.sh
     command: /docker/scripts/run-sshd.sh
     ports:
@@ -89,6 +70,8 @@ services:
     depends_on:
       mariadb_init:
         condition: service_started
+    volumes:
+      - mariadb_run:/var/run/mysqld
 
   smartgit:
     image: aurweb:latest
@@ -99,9 +82,6 @@ services:
     command: /docker/scripts/run-smartgit.sh
     healthcheck:
       test: "bash /docker/health/smartgit.sh"
-    depends_on:
-      mariadb:
-        condition: service_healthy
 
   cgit-php:
     image: aurweb:latest
@@ -138,7 +118,6 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
-      - DB_HOST=mariadb
     entrypoint: /docker/php-entrypoint.sh
     command: /docker/scripts/run-php.sh
     healthcheck:
@@ -150,6 +129,8 @@ services:
         condition: service_healthy
       memcached:
         condition: service_healthy
+    volumes:
+      - mariadb_run:/var/run/mysqld
     ports:
       - "19000:9000"
 
@@ -158,7 +139,6 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config
-      - DB_HOST=mariadb
       - FASTAPI_WORKERS=${FASTAPI_WORKERS}
     entrypoint: /docker/fastapi-entrypoint.sh
     command: /docker/scripts/run-fastapi.sh "${FASTAPI_BACKEND}"
@@ -171,6 +151,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    volumes:
+      - mariadb_run:/var/run/mysqld
     ports:
       - "18000:8000"
 
@@ -228,7 +210,6 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config
-      - DB_HOST=mariadb
     entrypoint: /docker/test-mysql-entrypoint.sh
     command: /docker/scripts/run-pytests.sh clean
     stdin_open: true
@@ -237,6 +218,7 @@ services:
       mariadb_init:
         condition: service_started
     volumes:
+      - mariadb_run:/var/run/mysqld
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb
@@ -274,7 +256,6 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config
-      - DB_HOST=mariadb
     entrypoint: /docker/tests-entrypoint.sh
     command: setup-sqlite.sh run-tests.sh
     stdin_open: true
@@ -283,6 +264,7 @@ services:
       mariadb_init:
         condition: service_started
     volumes:
+      - mariadb_run:/var/run/mysqld
       - git_data:/aurweb/aur.git
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb

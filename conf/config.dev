@@ -10,12 +10,12 @@
 backend = mysql
 
 ; If using sqlite, set name to the database file path.
-name = aurweb_test
+name = aurweb
 
 ; MySQL database information. User defaults to root for containerized
 ; testing with mysqldb. This should be set to a non-root user.
-user = root
-;password = non-root-user-password
+user = aur
+password = aur
 host = localhost
 ;port = 3306
 socket = /var/run/mysqld/mysqld.sock
