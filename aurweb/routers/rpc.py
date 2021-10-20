@@ -1,48 +1,57 @@
 from typing import List, Optional
+from urllib.parse import unquote
 
 from fastapi import APIRouter, Query, Request
+from fastapi.responses import JSONResponse
 
 from aurweb.rpc import RPC
 
 router = APIRouter()
 
 
-def arg_legacy_gen(request):
-    # '[]' characters in the path randomly kept getting transformed to (what
-    # appears to be) their HTML-formatted variants, so we keep that behavior
-    # just in case.
-    arguments = request.url.query.replace("%5B%5D", "[]").split("&")
-    arguments.reverse()
+def parse_args(request: Request):
+    """ Handle legacy logic of 'arg' and 'arg[]' query parameter handling.
 
-    temp_args = []
+    When 'arg' appears as the last argument given to the query string,
+    that argument is used by itself as one single argument, regardless
+    of any more 'arg' or 'arg[]' parameters supplied before it.
 
-    for i in arguments:
-        # We only want to deal with 'arg' and 'arg[]' strings, so only take those.
-        if i.split("=")[0] in ("arg", "arg[]"):
-            temp_args += [i]
+    When 'arg[]' appears as the last argument given to the query string,
+    we iterate from last to first and build a list of arguments until
+    we hit an 'arg'.
 
-    returned_arguments = []
-    argument_bracketed = False
+    TODO: This handling should be addressed in v6 of the RPC API. This
+    was most likely a bi-product of legacy handling of versions 1-4
+    which we no longer support.
 
-    for i in temp_args:
-        # Split argument on first occurance of '='.
-        current_argument = i.split("=")
+    :param request: FastAPI request
+    :returns: List of deduced arguments
+    """
+    # Create a list of (key, value) pairs of the given 'arg' and 'arg[]'
+    # query parameters from last to first.
+    query = list(reversed(unquote(request.url.query).split("&")))
+    parts = [
+        e.split("=", 1) for e in query if e.startswith(("arg=", "arg[]="))
+    ]
 
-        argument_name = current_argument[0]
-        argument_value = "".join(current_argument[1:])
+    args = []
+    if parts:
+        # If we found 'arg' and/or 'arg[]' arguments, we begin processing
+        # the set of arguments depending on the last key found.
+        last = parts[0][0]
 
-        # Process argument.
-        if argument_name == "arg[]":
-            returned_arguments += [argument_value]
-            argument_bracketed = True
+        if last == "arg":
+            # If the last key was 'arg', then it is our sole argument.
+            args.append(parts[0][1])
+        else:
+            # Otherwise, it must be 'arg[]', so traverse backward
+            # until we reach a non-'arg[]' key.
+            for key, value in parts:
+                if key != last:
+                    break
+                args.append(value)
 
-        elif argument_name == "arg":
-            # Only set this argument if 'arg[]' hasen't previously been found.
-            if not argument_bracketed:
-                returned_arguments = [argument_value]
-            break
-
-    return returned_arguments
+    return args
 
 
 @router.get("/rpc")
@@ -51,51 +60,7 @@ async def rpc(request: Request,
               type: Optional[str] = Query(None),
               arg: Optional[str] = Query(None),
               args: Optional[List[str]] = Query(None, alias="arg[]")):
-    # Defaults for returned data
-    returned_data = {}
 
-    returned_data["version"] = v
-    returned_data["results"] = []
-    returned_data["resultcount"] = 0
-
-    # Default the type field to "error", until we determine that
-    # we're not erroneous (below).
-    returned_data["type"] = "error"
-
-    # Ensure valid version was passed
-    if v is None:
-        returned_data["error"] = "Please specify an API version."
-        return returned_data
-    elif v != 5:
-        returned_data["error"] = "Invalid version specified."
-        return returned_data
-    else:
-        # We got past initial error cases; set the type to what
-        # the user gave us.
-        returned_data["type"] = type
-
-    # Take arguments from either 'args' or 'args[]' and put them into 'argument_list'.
-    argument_list = []
-
-    # In the PHP implementation, aurweb uses the last 'arg' value or all the
-    # last 'arg[]' values when both 'arg' and 'arg[]' are part of the query
-    # request. We thus preserve that behavior here for legacy purposes.
-    if arg is not None and args is not None:
-        argument_list = arg_legacy_gen(request)
-    elif arg is not None:
-        argument_list = [arg]
-    elif args is not None:
-        argument_list = args
-    else:
-        # Abort because no package arguments were passed.
-        returned_data["type"] = "error"
-        returned_data["error"] = "No request type/data specified."
-        return returned_data
-
-    # Process and return data
-    returned_data = RPC(v=v,
-                        type=type,
-                        argument_list=argument_list,
-                        returned_data=returned_data)
-
-    return returned_data
+    # Prepare output list of arguments.
+    arguments = parse_args(request)
+    return JSONResponse(RPC().handle(v=v, type=type, args=arguments))

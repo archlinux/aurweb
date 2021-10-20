@@ -3,6 +3,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
+from aurweb import db, scripts
 from aurweb.asgi import app
 from aurweb.db import begin, create, query
 from aurweb.models.account_type import AccountType
@@ -173,6 +174,9 @@ def setup():
                    PackageBase=pkgbase1,
                    VoteTS=5000)
 
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+    scripts.popupdate.run_single(conn, pkgbase1)
+
 
 def test_rpc_singular_info():
     # Define expected response.
@@ -284,7 +288,7 @@ def test_rpc_no_dependencies():
             'Description': 'Wubby wubby on wobba wuubu',
             'URL': 'https://example.com/',
             'PackageBase': 'chungy-chungus',
-            'NumVotes': 3,
+            'NumVotes': 0,
             'Popularity': 0.0,
             'OutOfDate': None,
             'Maintainer': 'user1',
@@ -428,3 +432,12 @@ def test_rpc_suggest_pkgbase():
     response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=chungy")
     data = response.json()
     assert data == ["chungy-chungus"]
+
+
+def test_rpc_unimplemented_types():
+    unimplemented = ["search", "msearch", "suggest"]
+    for type in unimplemented:
+        response = make_request(f"/rpc?v=5&type={type}&arg=big")
+        data = response.json()
+        expected = f"Request type '{type}' is not yet implemented."
+        assert data.get("error") == expected
