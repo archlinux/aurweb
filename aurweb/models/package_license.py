@@ -14,14 +14,16 @@ class PackageLicense(Base):
         Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
         primary_key=True, nullable=True)
     Package = relationship(
-        _Package, backref=backref("package_license", uselist=False),
+        _Package, backref=backref("package_licenses", lazy="dynamic",
+                                  cascade="all, delete"),
         foreign_keys=[PackageID])
 
     LicenseID = Column(
         Integer, ForeignKey("Licenses.ID", ondelete="CASCADE"),
         primary_key=True, nullable=True)
     License = relationship(
-        _License, backref=backref("package_license", uselist=False),
+        _License, backref=backref("package_licenses", lazy="dynamic",
+                                  cascade="all, delete"),
         foreign_keys=[LicenseID])
 
     __mapper_args__ = {"primary_key": [PackageID, LicenseID]}

@@ -13,7 +13,8 @@ class PackageKeyword(Base):
         Integer, ForeignKey("PackageBases.ID", ondelete="CASCADE"),
         primary_key=True, nullable=True)
     PackageBase = relationship(
-        _PackageBase, backref=backref("keywords", lazy="dynamic"),
+        _PackageBase, backref=backref("keywords", lazy="dynamic",
+                                      cascade="all, delete"),
         foreign_keys=[PackageBaseID])
 
     Keyword = Column(
