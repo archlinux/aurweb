@@ -96,6 +96,8 @@ services:
     depends_on:
       git:
         condition: service_healthy
+    ports:
+      - "13000:3000"
     volumes:
       - git_data:/aurweb/aur.git
 
@@ -112,6 +114,8 @@ services:
     depends_on:
       git:
         condition: service_healthy
+    ports:
+      - "13001:3000"
     volumes:
       - git_data:/aurweb/aur.git
 
