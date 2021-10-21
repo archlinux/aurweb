@@ -5,16 +5,16 @@
         {% else %}
             <li><a href="/">AUR {% trans %}Home{% endtrans %}</a></li>
         {% endif %}
-        <li><a href="/packages/">{% trans %}Packages{% endtrans %}</a></li>
+        <li><a href="/packages">{% trans %}Packages{% endtrans %}</a></li>
         {% if request.user.is_authenticated() %}
             <li>
-                <a href="/requests/">
+                <a href="/requests">
                     {% trans %}Requests{% endtrans %}
                 </a>
             </li>
             {% if request.user.is_trusted_user() or request.user.is_developer() %}
                 <li>
-                    <a href="/accounts/">
+                    <a href="/accounts">
                         {% trans %}Accounts{% endtrans %}
                     </a>
                 </li>
@@ -32,7 +32,7 @@
             {% endif %}
 
             <li>
-                <a href="/logout/?next={{ next }}">
+                <a href="/logout?next={{ next }}">
                     {% trans %}Logout{% endtrans %}
                 </a>
             </li>
@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li>
-                <a href="/login/?next={{ next }}">
+                <a href="/login?next={{ next }}">
                     {% trans %}Login{% endtrans %}
                 </a>
             </li>

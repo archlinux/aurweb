@@ -6,7 +6,7 @@
     <h2>AUR {% trans %}Login{% endtrans %}</h2>
 
     {% if request.url.scheme == "http" and config.getboolean("options", "disable_http_login") %}
-        {% set https_login = url_base.replace("http://", "https://") + "/login/" %}
+        {% set https_login = url_base.replace("http://", "https://") + "/login" %}
         <p>
         {{ "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
         | tr
@@ -23,7 +23,7 @@
         | format("<b>%s</b>" | format(request.user.Username))
         | safe
         }}
-        <a href="/logout/?next={{ next }}">[{% trans %}Logout{% endtrans %}]</a>
+        <a href="/logout?next={{ next }}">[{% trans %}Logout{% endtrans %}]</a>
         </p>
     {% else %}
         <form method="post" action="/login?next={{ next }}">
@@ -70,7 +70,7 @@
                 <p>
                     <input class="button" type="submit"
                            value="{% trans %}Login{% endtrans %}">
-                    <a href="/passreset/">
+                    <a href="/passreset">
                         [{% trans %}Forgot Password{% endtrans %}]
                     </a>
                     <input id="id_referer" type="hidden" name="referer"

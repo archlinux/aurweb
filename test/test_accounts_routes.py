@@ -942,13 +942,13 @@ def test_get_account_unauthenticated():
 
 
 def test_get_accounts(tu_user):
-    """ Test that we can GET request /accounts/ and receive
-    a form which can be used to POST /accounts/. """
+    """ Test that we can GET request /accounts and receive
+    a form which can be used to POST /accounts. """
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.get("/accounts/", cookies=cookies)
+        response = request.get("/accounts", cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
 
     parser = lxml.etree.HTMLParser()
@@ -961,7 +961,7 @@ def test_get_accounts(tu_user):
     assert len(form) == 1
     form = next(iter(form))
     assert form.attrib.get("method") == "post"
-    assert form.attrib.get("action") == "/accounts/"
+    assert form.attrib.get("action") == "/accounts"
 
     def field(element):
         """ Return the given element string as a valid
@@ -1020,7 +1020,7 @@ def test_post_accounts(tu_user):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies)
+        response = request.post("/accounts", cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1061,7 +1061,7 @@ def test_post_accounts_username(tu_user):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"U": user.Username})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1093,14 +1093,14 @@ def test_post_accounts_account_type(tu_user):
 
     # Expect no entries; we marked our only user as a User type.
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"T": "t"})
     assert response.status_code == int(HTTPStatus.OK)
     assert len(get_rows(response.text)) == 0
 
     # So, let's also ensure that specifying "u" returns our user.
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"T": "u"})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1119,7 +1119,7 @@ def test_post_accounts_account_type(tu_user):
         ).first()
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"T": "t"})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1137,7 +1137,7 @@ def test_post_accounts_account_type(tu_user):
         ).first()
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"T": "d"})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1155,7 +1155,7 @@ def test_post_accounts_account_type(tu_user):
         ).first()
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"T": "td"})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1174,7 +1174,7 @@ def test_post_accounts_status(tu_user):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies)
+        response = request.post("/accounts", cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1188,7 +1188,7 @@ def test_post_accounts_status(tu_user):
         user.Suspended = True
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"S": True})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1206,7 +1206,7 @@ def test_post_accounts_email(tu_user):
 
     # Search via email.
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"E": user.Email})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1220,7 +1220,7 @@ def test_post_accounts_realname(tu_user):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"R": user.RealName})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1234,7 +1234,7 @@ def test_post_accounts_irc(tu_user):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"I": user.IRCNick})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1259,14 +1259,14 @@ def test_post_accounts_sortby(tu_user):
 
     # Show that "u" is the default search order, by username.
     with client as request:
-        response = request.post("/accounts/", cookies=cookies)
+        response = request.post("/accounts", cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
     assert len(rows) == 2
     first_rows = rows
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"SB": "u"})
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
@@ -1280,7 +1280,7 @@ def test_post_accounts_sortby(tu_user):
     assert compare_text_values(0, first_rows, rows) is True
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"SB": "i"})
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
@@ -1291,7 +1291,7 @@ def test_post_accounts_sortby(tu_user):
 
     # Sort by "i" -> RealName.
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"SB": "r"})
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
@@ -1307,7 +1307,7 @@ def test_post_accounts_sortby(tu_user):
 
     # Fetch first_rows again with our new AccountType ordering.
     with client as request:
-        response = request.post("/accounts/", cookies=cookies)
+        response = request.post("/accounts", cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
     assert len(rows) == 2
@@ -1315,7 +1315,7 @@ def test_post_accounts_sortby(tu_user):
 
     # Sort by "t" -> AccountType.
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"SB": "t"})
     assert response.status_code == int(HTTPStatus.OK)
     rows = get_rows(response.text)
@@ -1334,7 +1334,7 @@ def test_post_accounts_pgp_key(tu_user):
 
     # Search via PGPKey.
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"K": user.PGPKey})
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1360,7 +1360,7 @@ def test_post_accounts_paged(tu_user):
     cookies = {"AURSID": sid}
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies)
+        response = request.post("/accounts", cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
 
     rows = get_rows(response.text)
@@ -1386,7 +1386,7 @@ def test_post_accounts_paged(tu_user):
     assert "disabled" not in page_next.attrib
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"O": 50})  # +50 offset.
     assert response.status_code == int(HTTPStatus.OK)
 
@@ -1401,7 +1401,7 @@ def test_post_accounts_paged(tu_user):
         assert username.text.strip() == _user.Username
 
     with client as request:
-        response = request.post("/accounts/", cookies=cookies,
+        response = request.post("/accounts", cookies=cookies,
                                 data={"O": 101})  # Last page.
     assert response.status_code == int(HTTPStatus.OK)
 
