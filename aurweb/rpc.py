@@ -63,23 +63,37 @@ class RPC:
     # A mapping of aliases.
     ALIASES = {"info": "multiinfo"}
 
-    def _verify_inputs(self, v: int, type: str, args: List[str] = []):
-        if v is None:
+    def __init__(self, version: int = 0, type: str = None):
+        self.version = version
+        self.type = type
+
+    def error(self, message: str) -> dict:
+        return {
+            "version": self.version,
+            "results": [],
+            "resultcount": 0,
+            "type": "error",
+            "error": message
+        }
+
+    def _verify_inputs(self, args: List[str] = []):
+        if self.version is None:
             raise RPCError("Please specify an API version.")
 
-        if v not in RPC.EXPOSED_VERSIONS:
+        if self.version not in RPC.EXPOSED_VERSIONS:
             raise RPCError("Invalid version specified.")
 
-        if type is None or not len(args):
+        if self.type is None or not len(args):
             raise RPCError("No request type/data specified.")
 
-        if type not in RPC.EXPOSED_TYPES:
+        if self.type not in RPC.EXPOSED_TYPES:
             raise RPCError("Incorrect request type specified.")
 
         try:
-            getattr(self, f"_handle_{type.replace('-', '_')}_type")
+            getattr(self, f"_handle_{self.type.replace('-', '_')}_type")
         except AttributeError:
-            raise RPCError(f"Request type '{type}' is not yet implemented.")
+            raise RPCError(
+                f"Request type '{self.type}' is not yet implemented.")
 
     def _get_json_data(self, package: models.Package):
         """ Produce dictionary data of one Package that can be JSON-serialized.
@@ -164,7 +178,7 @@ class RPC:
         ).order_by(models.PackageBase.Name.asc()).limit(20)
         return [record.Name for record in records]
 
-    def handle(self, v: int = 0, type: str = None, args: List[str] = []):
+    def handle(self, args: List[str] = []):
         """ Request entrypoint. A router should pass v, type and args
         to this function and expect an output dictionary to be returned.
 
@@ -173,32 +187,26 @@ class RPC:
         :param args: Deciphered list of arguments based on arg/arg[] inputs
         """
         # Convert type aliased types.
-        if type in RPC.ALIASES:
-            type = RPC.ALIASES.get(type)
+        if self.type in RPC.ALIASES:
+            self.type = RPC.ALIASES.get(self.type)
 
         # Prepare our output data dictionary with some basic keys.
-        data = {"version": v, "type": type}
+        data = {"version": self.version, "type": self.type}
 
         # Run some verification on our given arguments.
         try:
-            self._verify_inputs(v, type, args)
+            self._verify_inputs(args)
         except RPCError as exc:
-            data.update({
-                "results": [],
-                "resultcount": 0,
-                "type": "error",
-                "error": str(exc)
-            })
-            return data
+            return self.error(str(exc))
 
         # Get a handle to our callback and trap an RPCError with
         # an empty list of results based on callback's execution.
-        callback = getattr(self, f"_handle_{type.replace('-', '_')}_type")
+        callback = getattr(self, f"_handle_{self.type.replace('-', '_')}_type")
         results = callback(args)
 
         # These types are special: we produce a different kind of
         # successful JSON output: a list of results.
-        if type in ("suggest", "suggest-pkgbase"):
+        if self.type in ("suggest", "suggest-pkgbase"):
             return results
 
         # Return JSON output.

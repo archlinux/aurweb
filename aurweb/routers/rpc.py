@@ -61,6 +61,10 @@ async def rpc(request: Request,
               arg: Optional[str] = Query(None),
               args: Optional[List[str]] = Query(None, alias="arg[]")):
 
-    # Prepare output list of arguments.
+    # Create a handle to our RPC class.
+    rpc = RPC(version=v, type=type)
+
+    # Prepare list of arguments for input. If 'arg' was given, it'll
+    # be a list with one element.
     arguments = parse_args(request)
-    return JSONResponse(RPC().handle(v=v, type=type, args=arguments))
+    return JSONResponse(rpc.handle(arguments))
