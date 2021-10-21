@@ -6,7 +6,7 @@ set -eou pipefail
 
 pacman -Syu --noconfirm --noprogressbar \
     --cachedir .pkg-cache git gpgme nginx redis openssh \
-      mariadb mariadb-libs cgit uwsgi uwsgi-plugin-cgi \
+      mariadb mariadb-libs cgit-aurweb uwsgi uwsgi-plugin-cgi \
       php php-fpm memcached php-memcached python-pip pyalpm \
       python-srcinfo curl libeatmydata
 
