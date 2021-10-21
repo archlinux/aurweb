@@ -48,6 +48,11 @@ redis_address = redis://localhost
 [ratelimit]
 request_limit = 4000
 window_length = 86400
+; Force-utilize cache for ratelimiting. In FastAPI, forced cache (1)
+; will cause the ratelimit path to use a real or fake Redis instance
+; depending on the configured options.cache setting. Otherwise,
+; cache will be ignored and the database will be used.
+cache = 1
 
 [notifications]
 notify-cmd = /usr/bin/aurweb-notify

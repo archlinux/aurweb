@@ -1,9 +1,11 @@
+from http import HTTPStatus
 from typing import List, Optional
 from urllib.parse import unquote
 
 from fastapi import APIRouter, Query, Request
 from fastapi.responses import JSONResponse
 
+from aurweb.ratelimit import check_ratelimit
 from aurweb.rpc import RPC
 
 router = APIRouter()
@@ -63,6 +65,11 @@ async def rpc(request: Request,
 
     # Create a handle to our RPC class.
     rpc = RPC(version=v, type=type)
+
+    # If ratelimit was exceeded, return a 429 Too Many Requests.
+    if check_ratelimit(request):
+        return JSONResponse(rpc.error("Rate limit reached"),
+                            status_code=int(HTTPStatus.TOO_MANY_REQUESTS))
 
     # Prepare list of arguments for input. If 'arg' was given, it'll
     # be a list with one element.

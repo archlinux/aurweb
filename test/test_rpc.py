@@ -1,9 +1,13 @@
+from http import HTTPStatus
+from unittest import mock
+
 import orjson
 import pytest
 
 from fastapi.testclient import TestClient
+from redis.client import Pipeline
 
-from aurweb import db, scripts
+from aurweb import config, db, scripts
 from aurweb.asgi import app
 from aurweb.db import begin, create, query
 from aurweb.models.account_type import AccountType
@@ -18,6 +22,7 @@ from aurweb.models.package_relation import PackageRelation
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import RelationType
 from aurweb.models.user import User
+from aurweb.redis import redis_connection
 from aurweb.testing import setup_test_db
 
 
@@ -31,7 +36,7 @@ def setup():
     # Set up tables.
     setup_test_db("Users", "PackageBases", "Packages", "Licenses",
                   "PackageDepends", "PackageRelations", "PackageLicenses",
-                  "PackageKeywords", "PackageVotes")
+                  "PackageKeywords", "PackageVotes", "ApiRateLimit")
 
     # Create test package details.
     with begin():
@@ -176,6 +181,18 @@ def setup():
 
     conn = db.ConnectionExecutor(db.get_engine().raw_connection())
     scripts.popupdate.run_single(conn, pkgbase1)
+
+
+@pytest.fixture
+def pipeline():
+    redis = redis_connection()
+    pipeline = redis.pipeline()
+
+    pipeline.delete("ratelimit-ws:testclient")
+    pipeline.delete("ratelimit:testclient")
+    one, two = pipeline.execute()
+
+    yield pipeline
 
 
 def test_rpc_singular_info():
@@ -441,3 +458,33 @@ def test_rpc_unimplemented_types():
         data = response.json()
         expected = f"Request type '{type}' is not yet implemented."
         assert data.get("error") == expected
+
+
+def mock_config_getint(section: str, key: str):
+    if key == "request_limit":
+        return 4
+    elif key == "window_length":
+        return 100
+    return config.getint(section, key)
+
+
+@mock.patch("aurweb.config.getint", side_effect=mock_config_getint)
+def test_rpc_ratelimit(getint: mock.MagicMock, pipeline: Pipeline):
+    for i in range(4):
+        # The first 4 requests should be good.
+        response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+        assert response.status_code == int(HTTPStatus.OK)
+
+    # The fifth request should be banned.
+    response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+    assert response.status_code == int(HTTPStatus.TOO_MANY_REQUESTS)
+
+    # Delete the cached records.
+    pipeline.delete("ratelimit-ws:testclient")
+    pipeline.delete("ratelimit:testclient")
+    one, two = pipeline.execute()
+    assert one and two
+
+    # The new first request should be good.
+    response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+    assert response.status_code == int(HTTPStatus.OK)
