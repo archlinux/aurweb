@@ -774,7 +774,7 @@ async def requests_close_post(request: Request, id: int,
 
 
 @router.get("/pkgbase/{name}/flag")
-@auth_required(True, redirect="/pkgbase/{name}")
+@auth_required(True, redirect="/pkgbase/{name}/flag")
 async def pkgbase_flag_get(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
@@ -789,7 +789,7 @@ async def pkgbase_flag_get(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/flag")
-@auth_required(True, redirect="/pkgbase/{name}")
+@auth_required(True, redirect="/pkgbase/{name}/flag")
 async def pkgbase_flag_post(request: Request, name: str,
                             comments: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
@@ -949,7 +949,7 @@ def disown_pkgbase(pkgbase: models.PackageBase, disowner: models.User):
 
 
 @router.get("/pkgbase/{name}/disown")
-@auth_required(True, redirect="/pkgbase/{name}")
+@auth_required(True, redirect="/pkgbase/{name}/disown")
 async def pkgbase_disown_get(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
@@ -965,7 +965,7 @@ async def pkgbase_disown_get(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/disown")
-@auth_required(True, redirect="/pkgbase/{name}")
+@auth_required(True, redirect="/pkgbase/{name}/disown")
 async def pkgbase_disown_post(request: Request, name: str,
                               confirm: bool = Form(default=False)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
@@ -990,7 +990,7 @@ async def pkgbase_disown_post(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/adopt")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}")
 async def pkgbase_adopt_post(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
@@ -1007,7 +1007,7 @@ async def pkgbase_adopt_post(request: Request, name: str):
 
 
 @router.get("/pkgbase/{name}/delete")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/delete")
 async def pkgbase_delete_get(request: Request, name: str):
     if not request.user.has_credential("CRED_PKGBASE_DELETE"):
         return RedirectResponse(f"/pkgbase/{name}",
@@ -1019,7 +1019,7 @@ async def pkgbase_delete_get(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/delete")
-@auth_required(True)
+@auth_required(True, redirect="/pkgbase/{name}/delete")
 async def pkgbase_delete_post(request: Request, name: str,
                               confirm: bool = Form(default=False)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
