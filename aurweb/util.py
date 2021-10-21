@@ -1,6 +1,5 @@
 import base64
 import copy
-import logging
 import math
 import random
 import re
@@ -20,7 +19,9 @@ from jinja2 import pass_context
 
 import aurweb.config
 
-logger = logging.getLogger(__name__)
+from aurweb import logging
+
+logger = logging.get_logger(__name__)
 
 
 def make_random_string(length):

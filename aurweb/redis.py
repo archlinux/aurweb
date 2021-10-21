@@ -1,12 +1,12 @@
-import logging
-
 import fakeredis
 
 from redis import ConnectionPool, Redis
 
 import aurweb.config
 
-logger = logging.getLogger(__name__)
+from aurweb import logging
+
+logger = logging.get_logger(__name__)
 pool = None
 
 

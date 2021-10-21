@@ -1,5 +1,4 @@
 import html
-import logging
 import re
 import typing
 
@@ -10,13 +9,13 @@ from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from sqlalchemy import and_, or_
 
-from aurweb import db, l10n, models
+from aurweb import db, l10n, logging, models
 from aurweb.auth import account_type_required, auth_required
 from aurweb.models.account_type import DEVELOPER, TRUSTED_USER, TRUSTED_USER_AND_DEV
 from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
-logger = logging.getLogger(__name__)
+logger = logging.get_logger(__name__)
 
 # Some TU route specific constants.
 ITEMS_PER_PAGE = 10  # Paged table size.

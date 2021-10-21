@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import logging
 import sys
 
 import bleach
@@ -10,7 +9,9 @@ import pygit2
 import aurweb.config
 import aurweb.db
 
-logger = logging.getLogger(__name__)
+from aurweb import logging
+
+logger = logging.get_logger(__name__)
 repo_path = aurweb.config.get('serve', 'repo-path')
 commit_uri = aurweb.config.get('options', 'commit_uri')
 

@@ -1,4 +1,3 @@
-import logging
 import re
 import tempfile
 
@@ -11,7 +10,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import captcha, db
+from aurweb import captcha, db, logging
 from aurweb.asgi import app
 from aurweb.db import create, query
 from aurweb.models.accepted_term import AcceptedTerm
@@ -32,7 +31,7 @@ TEST_EMAIL = "test@example.org"
 client = TestClient(app)
 user = None
 
-logger = logging.getLogger(__name__)
+logger = logging.get_logger(__name__)
 
 
 def make_ssh_pubkey():

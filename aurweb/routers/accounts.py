@@ -1,5 +1,4 @@
 import copy
-import logging
 import typing
 
 from datetime import datetime
@@ -11,7 +10,7 @@ from sqlalchemy import and_, func, or_
 
 import aurweb.config
 
-from aurweb import db, l10n, models, time, util
+from aurweb import db, l10n, logging, models, time, util
 from aurweb.auth import account_type_required, auth_required
 from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_token
 from aurweb.l10n import get_translator_for_request
@@ -21,7 +20,7 @@ from aurweb.scripts.notify import ResetKeyNotification, WelcomeNotification
 from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
-logger = logging.getLogger(__name__)
+logger = logging.get_logger(__name__)
 
 
 @router.get("/passreset", response_class=HTMLResponse)

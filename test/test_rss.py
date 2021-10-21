@@ -1,5 +1,3 @@
-import logging
-
 from datetime import datetime
 from http import HTTPStatus
 
@@ -8,7 +6,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import db
+from aurweb import db, logging
 from aurweb.asgi import app
 from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
@@ -16,7 +14,7 @@ from aurweb.models.package_base import PackageBase
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
 
-logger = logging.getLogger(__name__)
+logger = logging.get_logger(__name__)
 
 
 @pytest.fixture(autouse=True)
