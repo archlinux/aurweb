@@ -99,7 +99,7 @@ class BasicAuthBackend(AuthenticationBackend):
 
         sid = conn.cookies.get("AURSID")
         if not sid:
-            return None, AnonymousUser()
+            return (None, AnonymousUser())
 
         now_ts = datetime.utcnow().timestamp()
         record = session.query(Session).filter(
@@ -108,7 +108,7 @@ class BasicAuthBackend(AuthenticationBackend):
 
         # If no session with sid and a LastUpdateTS now or later exists.
         if not record:
-            return None, AnonymousUser()
+            return (None, AnonymousUser())
 
         # At this point, we cannot have an invalid user if the record
         # exists, due to ForeignKey constraints in the schema upheld
@@ -117,7 +117,7 @@ class BasicAuthBackend(AuthenticationBackend):
         user.nonce = util.make_nonce()
         user.authenticated = True
 
-        return AuthCredentials(["authenticated"]), user
+        return (AuthCredentials(["authenticated"]), user)
 
 
 def auth_required(is_required: bool = True,
