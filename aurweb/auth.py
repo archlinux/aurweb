@@ -244,7 +244,7 @@ def account_type_required(one_of: set):
     def decorator(func):
         @functools.wraps(func)
         async def wrapper(request: fastapi.Request, *args, **kwargs):
-            if request.user.AccountType.ID not in one_of:
+            if request.user.AccountTypeID not in one_of:
                 return RedirectResponse("/",
                                         status_code=int(HTTPStatus.SEE_OTHER))
             return await func(request, *args, **kwargs)
