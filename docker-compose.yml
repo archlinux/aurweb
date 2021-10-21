@@ -88,8 +88,9 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
+      - CGIT_CLONE_PREFIX=$CGIT_CLONE_PREFIX_PHP
     entrypoint: /docker/cgit-entrypoint.sh
-    command: /docker/scripts/run-cgit.sh 3000 "https://localhost:8443/cgit"
+    command: /docker/scripts/run-cgit.sh 3000
     healthcheck:
       test: "bash /docker/health/cgit.sh 3000"
     depends_on:
@@ -103,8 +104,9 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
+      - CGIT_CLONE_PREFIX=$CGIT_CLONE_PREFIX_FASTAPI
     entrypoint: /docker/cgit-entrypoint.sh
-    command: /docker/scripts/run-cgit.sh 3000 "https://localhost:8444/cgit"
+    command: /docker/scripts/run-cgit.sh 3000
     healthcheck:
       test: "bash /docker/health/cgit.sh 3000"
     depends_on:
