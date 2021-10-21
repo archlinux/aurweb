@@ -228,7 +228,7 @@ async def trusted_user_proposal_post(request: Request,
 
 @router.get("/addvote")
 @auth_required(True, redirect="/addvote")
-@account_type_required({"Trusted User", "Trusted User & Developer"})
+@account_type_required({TRUSTED_USER, TRUSTED_USER_AND_DEV})
 async def trusted_user_addvote(request: Request,
                                user: str = str(),
                                type: str = "add_tu",
