@@ -1053,7 +1053,6 @@ PACKAGE_ACTIONS = {}
 async def packages_post(request: Request,
                         IDs: List[int] = Form(default=[]),
                         action: str = Form(default=str()),
-                        merge_into: str = Form(default=str()),
                         confirm: bool = Form(default=False)):
 
     # If an invalid action is specified, just render GET /packages
@@ -1067,8 +1066,7 @@ async def packages_post(request: Request,
     # We deal with `IDs`, `merge_into` and `confirm` arguments
     # within action callbacks.
     callback = PACKAGE_ACTIONS.get(action)
-    retval = await callback(request, package_ids=IDs, merge_into=merge_into,
-                            confirm=confirm)
+    retval = await callback(request, package_ids=IDs, confirm=confirm)
     if retval:  # If *anything* was returned:
         success, messages = retval
         if not success:

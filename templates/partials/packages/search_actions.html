@@ -11,11 +11,6 @@
         <option value="unnotify">{{ "UnNotify" | tr }}</option>
     </select>
 
-    {% if request.user.is_trusted_user() or request.user.is_developer() %}
-        <label for="merge_into">{{ "Merge into" | tr }}</label>
-        <input id="merge_into" type="text" name="merge_into" />
-    {% endif %}
-
     <label class="confirmation">
         <input type="checkbox" name="confirm" />
         {{ "Confirm" | tr }}
