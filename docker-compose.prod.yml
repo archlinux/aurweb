@@ -7,15 +7,23 @@ services:
 
   git:
     volumes:
-      - git_data:/aurweb/aur.git
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
       - cache:/cache
       - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   smartgit:
     volumes:
-      - git_data:/aurweb/aur.git
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
       - cache:/cache
       - smartgit_run:/var/run/smartgit
+
+  cgit-php:
+    volumes:
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
+
+  cgit-fastapi:
+    volumes:
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
 
   php-fpm:
     volumes:
@@ -35,7 +43,7 @@ services:
 
   nginx:
     volumes:
-      - git_data:/aurweb/aur.git
+      - ${GIT_DATA_DIR}:/aurweb/aur.git
       - cache:/cache
       - logs:/var/log/nginx
       - smartgit_run:/var/run/smartgit
