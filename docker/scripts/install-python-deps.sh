@@ -6,7 +6,6 @@ pip install --upgrade pip
 
 # Install the aurweb package and deps system-wide via poetry.
 poetry config virtualenvs.create false
-poetry lock
 poetry update
 poetry build
 poetry install --no-interaction --no-ansi
