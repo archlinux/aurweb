@@ -9,7 +9,7 @@ from sqlalchemy import and_, case
 import aurweb.filters
 import aurweb.packages.util
 
-from aurweb import db, defaults, l10n, models, util
+from aurweb import db, defaults, l10n, logging, models, util
 from aurweb.auth import auth_required
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
 from aurweb.models.relation_type import CONFLICTS_ID
@@ -20,6 +20,7 @@ from aurweb.scripts import notify, popupdate
 from aurweb.scripts.rendercomment import update_comment_render
 from aurweb.templates import make_context, make_variable_context, render_raw_template, render_template
 
+logger = logging.get_logger(__name__)
 router = APIRouter()
 
 
@@ -1227,6 +1228,47 @@ async def packages_disown(request: Request, package_ids: List[int] = [],
 
     return (True, ["The selected packages have been disowned."])
 
+
+async def packages_delete(request: Request, package_ids: List[int] = [],
+                          confirm: bool = False, merge_into: str = str(),
+                          **kwargs):
+    if not package_ids:
+        return (False, ["You did not select any packages to delete."])
+
+    if not confirm:
+        return (False, ["The selected packages have not been deleted, "
+                        "check the confirmation checkbox."])
+
+    if not request.user.has_credential("CRED_PKGBASE_DELETE"):
+        return (False, ["You do not have permission to delete packages."])
+
+    # A "memo" used to store names of packages that we delete.
+    # We'll use this to log out a message about the deletions that occurred.
+    deleted_pkgs = []
+
+    # set-ify package_ids and query the database for related records.
+    package_ids = set(package_ids)
+    packages = db.query(models.Package).filter(
+        models.Package.ID.in_(package_ids)).all()
+
+    if len(packages) != len(package_ids):
+        # Let the user know there was an issue with their input: they have
+        # provided at least one package_id which does not exist in the DB.
+        # TODO: This error has not yet been translated.
+        return (False, ["One of the packages you selected does not exist."])
+
+    # Now let's actually walk through and delete all of the packages,
+    # using the same method we use in our /pkgbase/{name}/delete route.
+    for pkg in packages:
+        deleted_pkgs.append(pkg.Name)
+        delete_package(request.user, pkg)
+
+    # Log out the fact that this happened for accountability.
+    logger.info(f"Privileged user '{request.user.Username}' deleted the "
+                f"following packages: {str(deleted_pkgs)}.")
+
+    return (True, ["The selected packages have been deleted."])
+
 # A mapping of action string -> callback functions used within the
 # `packages_post` route below. We expect any action callback to
 # return a tuple in the format: (succeeded: bool, message: List[str]).
@@ -1236,6 +1278,7 @@ PACKAGE_ACTIONS = {
     "unnotify": packages_unnotify,
     "adopt": packages_adopt,
     "disown": packages_disown,
+    "delete": packages_delete,
 }
 
 

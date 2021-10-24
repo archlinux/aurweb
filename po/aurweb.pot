@@ -1020,6 +1020,10 @@ msgstr ""
 msgid "You did not select any packages to delete."
 msgstr ""
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr ""
