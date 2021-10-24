@@ -9,6 +9,7 @@ cache:
 variables:
   AUR_CONFIG: conf/config # Default MySQL config setup in before_script.
   DB_HOST: localhost
+  TEST_RECURSION_LIMIT: 10000
 
 before_script:
   - export PATH="$HOME/.poetry/bin:${PATH}"

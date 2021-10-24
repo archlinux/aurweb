@@ -1,5 +1,7 @@
 import asyncio
 import http
+import os
+import sys
 import typing
 
 from urllib.parse import quote_plus
@@ -25,6 +27,19 @@ app = FastAPI(exception_handlers=errors.exceptions)
 
 @app.on_event("startup")
 async def app_startup():
+    # https://stackoverflow.com/questions/67054759/about-the-maximum-recursion-error-in-fastapi
+    # Test failures have been observed by internal starlette code when
+    # using starlette.testclient.TestClient. Looking around in regards
+    # to the recursion error has really not recommended a course of action
+    # other than increasing the recursion limit. For now, that is how
+    # we handle the issue: an optional TEST_RECURSION_LIMIT env var
+    # provided by the user. Docker uses .env's TEST_RECURSION_LIMIT
+    # when running test suites.
+    # TODO: Find a proper fix to this issue.
+    recursion_limit = int(os.environ.get(
+        "TEST_RECURSION_LIMIT", sys.getrecursionlimit()))
+    sys.setrecursionlimit(recursion_limit)
+
     session_secret = aurweb.config.get("fastapi", "session_secret")
     if not session_secret:
         raise Exception("[fastapi] session_secret must not be empty")
