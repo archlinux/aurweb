@@ -106,7 +106,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
-      - CGIT_CLONE_PREFIX=$CGIT_CLONE_PREFIX_PHP
+      - CGIT_CLONE_PREFIX=${AURWEB_PHP_PREFIX}
     entrypoint: /docker/cgit-entrypoint.sh
     command: /docker/scripts/run-cgit.sh 3000
     healthcheck:
@@ -124,7 +124,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
-      - CGIT_CLONE_PREFIX=$CGIT_CLONE_PREFIX_FASTAPI
+      - CGIT_CLONE_PREFIX=${AURWEB_FASTAPI_PREFIX}
     entrypoint: /docker/cgit-entrypoint.sh
     command: /docker/scripts/run-cgit.sh 3000
     healthcheck:
@@ -142,6 +142,8 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
+      - AURWEB_PHP_PREFIX=${AURWEB_PHP_PREFIX}
+      - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
     entrypoint: /docker/php-entrypoint.sh
     command: /docker/scripts/run-php.sh
     healthcheck:
@@ -164,6 +166,8 @@ services:
     environment:
       - AUR_CONFIG=conf/config
       - FASTAPI_WORKERS=${FASTAPI_WORKERS}
+      - AURWEB_FASTAPI_PREFIX=${AURWEB_FASTAPI_PREFIX}
+      - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
     entrypoint: /docker/fastapi-entrypoint.sh
     command: /docker/scripts/run-fastapi.sh "${FASTAPI_BACKEND}"
     healthcheck:

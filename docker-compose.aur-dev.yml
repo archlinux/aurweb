@@ -39,6 +39,9 @@ services:
 
   php-fpm:
     restart: always
+    environment:
+      - AURWEB_PHP_PREFIX=${AURWEB_PHP_PREFIX}
+      - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
     volumes:
       - cache:/cache
 
@@ -46,6 +49,9 @@ services:
     restart: always
     environment:
       - FASTAPI_BACKEND="gunicorn"
+      - FASTAPI_WORKERS=${FASTAPI_WORKERS}
+      - AURWEB_FASTAPI_PREFIX=${AURWEB_FASTAPI_PREFIX}
+      - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
     volumes:
       - cache:/cache
 
