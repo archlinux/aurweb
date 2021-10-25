@@ -68,30 +68,29 @@ async def index(request: Request):
     bases = db.query(models.PackageBase)
 
     redis = aurweb.redis.redis_connection()
-    stats_expire = 300  # Five minutes.
-    updates_expire = 600  # Ten minutes.
+    cache_expire = 300  # Five minutes.
 
     # Package statistics.
     query = bases.filter(models.PackageBase.PackagerUID.isnot(None))
     context["package_count"] = await db_count_cache(
-        redis, "package_count", query, expire=stats_expire)
+        redis, "package_count", query, expire=cache_expire)
 
     query = bases.filter(
         and_(models.PackageBase.MaintainerUID.is_(None),
              models.PackageBase.PackagerUID.isnot(None))
     )
     context["orphan_count"] = await db_count_cache(
-        redis, "orphan_count", query, expire=stats_expire)
+        redis, "orphan_count", query, expire=cache_expire)
 
     query = db.query(models.User)
     context["user_count"] = await db_count_cache(
-        redis, "user_count", query, expire=stats_expire)
+        redis, "user_count", query, expire=cache_expire)
 
     query = query.filter(
         or_(models.User.AccountTypeID == TRUSTED_USER_ID,
             models.User.AccountTypeID == TRUSTED_USER_AND_DEV_ID))
     context["trusted_user_count"] = await db_count_cache(
-        redis, "trusted_user_count", query, expire=stats_expire)
+        redis, "trusted_user_count", query, expire=cache_expire)
 
     # Current timestamp.
     now = int(datetime.utcnow().timestamp())
@@ -110,25 +109,25 @@ async def index(request: Request):
              models.PackageBase.PackagerUID.isnot(None))
     )
     context["seven_days_old_added"] = await db_count_cache(
-        redis, "seven_days_old_added", query, expire=stats_expire)
+        redis, "seven_days_old_added", query, expire=cache_expire)
 
     query = updated.filter(models.PackageBase.ModifiedTS >= seven_days_ago)
     context["seven_days_old_updated"] = await db_count_cache(
-        redis, "seven_days_old_updated", query, expire=stats_expire)
+        redis, "seven_days_old_updated", query, expire=cache_expire)
 
     year = seven_days * 52  # Fifty two weeks worth: one year.
     year_ago = now - year
     query = updated.filter(models.PackageBase.ModifiedTS >= year_ago)
     context["year_old_updated"] = await db_count_cache(
-        redis, "year_old_updated", query, expire=stats_expire)
+        redis, "year_old_updated", query, expire=cache_expire)
 
     query = bases.filter(
         models.PackageBase.ModifiedTS - models.PackageBase.SubmittedTS < 3600)
     context["never_updated"] = await db_count_cache(
-        redis, "never_updated", query, expire=stats_expire)
+        redis, "never_updated", query, expire=cache_expire)
 
     # Get the 15 most recently updated packages.
-    context["package_updates"] = updated_packages(15, updates_expire)
+    context["package_updates"] = updated_packages(15, cache_expire)
 
     if request.user.is_authenticated():
         # Authenticated users get a few extra pieces of data for
