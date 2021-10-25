@@ -48,6 +48,7 @@ services:
   fastapi:
     restart: always
     environment:
+      - COMMIT_HASH=$COMMIT_HASH
       - FASTAPI_BACKEND="gunicorn"
       - FASTAPI_WORKERS=${FASTAPI_WORKERS}
       - AURWEB_FASTAPI_PREFIX=${AURWEB_FASTAPI_PREFIX}

@@ -11,6 +11,10 @@ sed -ri "s;^(aur_location) = .+;\1 = ${AURWEB_FASTAPI_PREFIX};" conf/config
 sed -ri 's/^(cache) = .+/\1 = redis/' conf/config
 sed -ri 's|^(redis_address) = .+|\1 = redis://redis|' conf/config
 
+if [ "$COMMIT_HASH" ]; then
+    sed -ri "s/^;?(commit_hash) =.*$/\1 = $COMMIT_HASH/" conf/config
+fi
+
 sed -ri "s|^(git_clone_uri_anon) = .+|\1 = ${AURWEB_FASTAPI_PREFIX}/%s.git|" conf/config.defaults
 sed -ri "s|^(git_clone_uri_priv) = .+|\1 = ${AURWEB_SSHD_PREFIX}/%s.git|" conf/config.defaults
 
