@@ -20,9 +20,14 @@ class Client:
     host = "127.0.0.1"
 
 
+class URL:
+    path = "/"
+
+
 class Request:
     """ A fake Request object which mimics a FastAPI Request for tests. """
     client = Client()
     cookies = dict()
     headers = dict()
     user = User()
+    url = URL()

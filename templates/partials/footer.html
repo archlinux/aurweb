@@ -1,5 +1,17 @@
 <div id="footer">
-    <p>aurweb <a href="https://git.archlinux.org/aurweb.git/log/?h={{ config.AURWEB_VERSION }}">{{ config.AURWEB_VERSION }}</a></p>
+    <p>
+        aurweb <a href="https://git.archlinux.org/aurweb.git/log/?h={{ config.AURWEB_VERSION }}">{{ config.AURWEB_VERSION }}</a>
+        {% if commit_hash %}
+            -
+            {% if commit_url %}
+                <a href="{{ commit_url | format(commit_hash) }}">
+                    HEAD@{{ commit_hash }}
+                </a>
+            {% else %}
+                HEAD@{{ commit_hash }}
+            {% endif %}
+        {% endif %}
+    </p>
     <p>Copyright &copy; 2004-{{ now.strftime("%Y") }} aurweb Development Team.</p>
     <p>{% trans %}AUR packages are user produced content. Any use of the provided files is at your own risk.{% endtrans %}</p>
 </div>

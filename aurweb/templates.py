@@ -88,9 +88,17 @@ def register_function(name: str) -> Callable:
 def make_context(request: Request, title: str, next: str = None):
     """ Create a context for a jinja2 TemplateResponse. """
 
+    commit_url = aurweb.config.get_with_fallback("devel", "commit_url", None)
+    commit_hash = aurweb.config.get_with_fallback("devel", "commit_hash", None)
+    if commit_hash:
+        # Shorten commit_hash to a short Git hash.
+        commit_hash = commit_hash[:7]
+
     timezone = time.get_request_timezone(request)
     return {
         "request": request,
+        "commit_url": commit_url,
+        "commit_hash": commit_hash,
         "language": l10n.get_request_language(request),
         "languages": l10n.SUPPORTED_LANGUAGES,
         "timezone": timezone,

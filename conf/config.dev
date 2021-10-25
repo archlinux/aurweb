@@ -62,3 +62,6 @@ bind_address = 127.0.0.1:8082
 
 ; Passphrase FastAPI uses to sign client-side sessions.
 session_secret = secret
+
+[devel]
+;commit_hash = 1234567

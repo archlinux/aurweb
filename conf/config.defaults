@@ -104,3 +104,15 @@ server = ftp://mirrors.kernel.org/archlinux/%s/os/x86_64
 packagesfile = /srv/http/aurweb/web/html/packages.gz
 pkgbasefile = /srv/http/aurweb/web/html/pkgbase.gz
 userfile = /srv/http/aurweb/web/html/users.gz
+
+[devel]
+; commit_url is a format string used to produce a link to a commit hash.
+commit_url = https://gitlab.archlinux.org/archlinux/aurweb/-/commits/%s
+
+; If commit_hash is configured, a link to the commit based on commit_url
+; will be displayed in aurweb's footer with the release version.
+; This allows us to diagnose which commit a particular instance is on
+; during testing of development branches.
+; Example deployment configuration step:
+; sed -r "s/^;?(commit_hash) =.*$/\1 = $(git rev-parse HEAD)/" config
+;commit_hash = 1234567
