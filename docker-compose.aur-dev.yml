@@ -19,7 +19,6 @@ services:
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
       - cache:/cache
-      - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   smartgit:
     restart: always
@@ -42,7 +41,6 @@ services:
     restart: always
     volumes:
       - cache:/cache
-      - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   fastapi:
     restart: always
@@ -50,11 +48,6 @@ services:
       - FASTAPI_BACKEND="gunicorn"
     volumes:
       - cache:/cache
-      - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
-
-  mariadb_init:
-    volumes:
-      - ${MARIADB_SOCKET_DIR}:/var/run/mysqld
 
   nginx:
     restart: always
