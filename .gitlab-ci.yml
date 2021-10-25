@@ -50,6 +50,8 @@ deploy:
     - if: $CI_COMMIT_BRANCH == "pu"
       when: manual
   variables:
+    FASTAPI_BACKEND: gunicorn
+    FASTAPI_WORKERS: 5
     AURWEB_PHP_PREFIX: https://aur-dev.archlinux.org
     AURWEB_FASTAPI_PREFIX: https://aur-dev.archlinux.org
     AURWEB_SSHD_PREFIX: ssh://aur@aur-dev.archlinux.org:2222
