@@ -2280,3 +2280,15 @@ msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
 msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr ""

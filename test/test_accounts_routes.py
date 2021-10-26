@@ -14,13 +14,14 @@ from aurweb import captcha, db, logging
 from aurweb.asgi import app
 from aurweb.db import create, query
 from aurweb.models.accepted_term import AcceptedTerm
-from aurweb.models.account_type import DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID, AccountType
+from aurweb.models.account_type import DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID, USER_ID, AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.session import Session
 from aurweb.models.ssh_pub_key import SSHPubKey, get_fingerprint
 from aurweb.models.term import Term
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
+from aurweb.testing.html import get_errors
 from aurweb.testing.requests import Request
 
 # Some test global constants.
@@ -907,6 +908,107 @@ def test_post_account_edit_password():
     assert response.status_code == int(HTTPStatus.OK)
 
     assert user.valid_password("newPassword")
+
+
+def test_post_account_edit_account_types():
+    request = Request()
+    sid = user.login(request, "testPassword")
+    cookies = {"AURSID": sid}
+    endpoint = f"/account/{user.Username}/edit"
+
+    # As a normal user, we cannot see the "Account Type:" input.
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert "id_type" not in resp.text
+
+    # Invalid account types return an error.
+    post_data = {
+        "U": user.Username,
+        "E": user.Email,
+        "T": 0,  # Invalid type ID
+        "passwd": "testPassword"
+    }
+    with client as request:
+        resp = request.post(endpoint, data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "Invalid account type provided."
+    assert errors[0].text.strip() == expected
+
+    # Nor can we change any account types.
+    post_data = {
+        "U": user.Username,
+        "E": user.Email,
+        "T": TRUSTED_USER_ID,
+        "passwd": "testPassword"
+    }
+    with client as request:
+        resp = request.post(endpoint, data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = "You do not have permission to change account types."
+    assert errors[0].text.strip() == expected
+
+    # Change user from USER_ID to TRUSTED_USER_ID.
+    with db.begin():
+        user.AccountTypeID = TRUSTED_USER_ID
+
+    # As a trusted user, we can see the "Account Type:" input.
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert "id_type" in resp.text
+
+    # As a trusted user, we cannot change account type to DEVELOPER_ID.
+    post_data = {
+        "U": user.Username,
+        "E": user.Email,
+        "T": DEVELOPER_ID,
+        "passwd": "testPassword"
+    }
+    with client as request:
+        resp = request.post(endpoint, data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    errors = get_errors(resp.text)
+    expected = ("You do not have permission to change "
+                "this user's account type to Developer.")
+    assert errors[0].text.strip() == expected
+
+    # However, we can modify our account type to USER_ID.
+    post_data = {
+        "U": user.Username,
+        "E": user.Email,
+        "T": USER_ID,
+        "passwd": "testPassword"
+    }
+    with client as request:
+        resp = request.post(endpoint, data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # No errors should be displayed.
+    errors = get_errors(resp.text)
+    assert not errors
+
+    # Make sure it got changed to USER_ID as we intended.
+    assert user.AccountTypeID == USER_ID
+
+    # Change user to a Developer.
+    with db.begin():
+        user.AccountTypeID = DEVELOPER_ID
+
+    # As a developer, we can absolutely change all account types.
+    # For example, from DEVELOPER_ID to TRUSTED_USER_AND_DEV_ID:
+    post_data = {
+        "U": user.Username,
+        "E": user.Email,
+        "T": TRUSTED_USER_AND_DEV_ID,
+        "passwd": "testPassword"
+    }
+    with client as request:
+        resp = request.post(endpoint, data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert user.AccountTypeID == TRUSTED_USER_AND_DEV_ID
 
 
 def test_get_account():

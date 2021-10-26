@@ -15,6 +15,8 @@ from aurweb.auth import account_type_required, auth_required
 from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_token
 from aurweb.l10n import get_translator_for_request
 from aurweb.models import account_type
+from aurweb.models.account_type import (DEVELOPER, DEVELOPER_ID, TRUSTED_USER, TRUSTED_USER_AND_DEV, TRUSTED_USER_AND_DEV_ID,
+                                        TRUSTED_USER_ID, USER_ID)
 from aurweb.models.ssh_pub_key import get_fingerprint
 from aurweb.scripts.notify import ResetKeyNotification, WelcomeNotification
 from aurweb.templates import make_context, make_variable_context, render_template
@@ -226,6 +228,29 @@ def process_account_form(request: Request, user: models.User, args: dict):
                     "<strong>", fingerprint, "</strong>")
             ])
 
+    T = int(args.get("T", user.AccountTypeID))
+    if T != user.AccountTypeID:
+        if T not in account_type.ACCOUNT_TYPE_NAME:
+            return (False,
+                    ["Invalid account type provided."])
+        elif not request.user.is_elevated():
+            return (False,
+                    ["You do not have permission to change account types."])
+
+        credential_checks = {
+            DEVELOPER_ID: request.user.is_developer,
+            TRUSTED_USER_AND_DEV_ID: request.user.is_developer,
+            TRUSTED_USER_ID: request.user.is_elevated,
+            USER_ID: request.user.is_elevated
+        }
+        credential_check = credential_checks.get(T)
+
+        if not credential_check():
+            name = account_type.ACCOUNT_TYPE_NAME.get(T)
+            error = _("You do not have permission to change "
+                      "this user's account type to %s.") % name
+            return (False, [error])
+
     captcha_salt = args.get("captcha_salt", None)
     if captcha_salt and captcha_salt not in get_captcha_salts():
         return (False, ["This CAPTCHA has expired. Please try again."])
@@ -255,15 +280,16 @@ def make_account_form_context(context: dict,
     context = copy.copy(context)
 
     context["account_types"] = [
-        (1, "Normal User"),
-        (2, "Trusted User")
+        (USER_ID, "Normal User"),
+        (TRUSTED_USER_ID, TRUSTED_USER)
     ]
 
     user_account_type_id = context.get("account_types")[0][0]
 
     if request.user.has_credential("CRED_ACCOUNT_EDIT_DEV"):
-        context["account_types"].append((3, "Developer"))
-        context["account_types"].append((4, "Trusted User & Developer"))
+        context["account_types"].append((DEVELOPER_ID, DEVELOPER))
+        context["account_types"].append((TRUSTED_USER_AND_DEV_ID,
+                                         TRUSTED_USER_AND_DEV))
 
     if request.user.is_authenticated():
         context["username"] = args.get("U", user.Username)
@@ -465,6 +491,7 @@ async def account_edit_post(request: Request,
                             CN: bool = Form(default=False),  # Comment Notify
                             UN: bool = Form(default=False),  # Update Notify
                             ON: bool = Form(default=False),  # Owner Notify
+                            T: int = Form(default=None),
                             passwd: str = Form(default=str())):
     from aurweb.db import session
 
@@ -544,6 +571,10 @@ async def account_edit_post(request: Request,
         elif user.ssh_pub_key:
             # Else, if the user has a public key already, delete it.
             session.delete(user.ssh_pub_key)
+
+    if T and T != user.AccountTypeID:
+        with db.begin():
+            user.AccountTypeID = T
 
     if P and not user.valid_password(P):
         # Remove the fields we consumed for passwords.
