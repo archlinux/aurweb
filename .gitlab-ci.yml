@@ -56,6 +56,7 @@ deploy:
     AURWEB_FASTAPI_PREFIX: https://aur-dev.archlinux.org
     AURWEB_SSHD_PREFIX: ssh://aur@aur-dev.archlinux.org:2222
     COMMIT_HASH: $CI_COMMIT_SHA
+    GIT_DATA_DIR: git_data
   script:
     - pacman -Syu --noconfirm docker-compose socat openssh
     - chmod 600 ${SSH_KEY}
