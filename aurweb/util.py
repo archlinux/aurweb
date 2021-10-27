@@ -104,9 +104,12 @@ def valid_ssh_pubkey(pk):
 
 
 def migrate_cookies(request, response):
+    whitelist = {"AURSID", "AURTZ", "AURLANG"}
+
     secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
     for k, v in request.cookies.items():
-        response.set_cookie(k, v, secure=secure_cookies, httponly=True)
+        if k in whitelist:
+            response.set_cookie(k, v, secure=secure_cookies, httponly=True)
     return add_samesite_fields(response, "strict")
 
 
