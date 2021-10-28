@@ -624,6 +624,22 @@ async def account(request: Request, username: str):
     return render_template(request, "account/show.html", context)
 
 
+@router.get("/account/{username}/comments")
+@auth_required(redirect="/account/{username}/comments")
+async def account_comments(request: Request, username: str):
+    user = db.query(models.User).filter(
+        models.User.Username == username
+    ).first()
+    if not user:
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
+
+    context = make_context(request, "Accounts")
+    context["username"] = username
+    context["comments"] = user.package_comments.order_by(
+        models.PackageComment.CommentTS.desc())
+    return render_template(request, "account/comments.html", context)
+
+
 @router.get("/accounts")
 @auth_required(True, redirect="/accounts")
 @account_type_required({account_type.TRUSTED_USER,

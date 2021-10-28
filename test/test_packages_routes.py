@@ -2523,3 +2523,51 @@ def test_pkgbase_merge_post(client: TestClient, tu_user: User,
              PackageRequest.MergeBaseName == target.PackageBase.Name)
     ).first()
     assert pkgreq is not None
+
+
+def test_account_comments_unauthorized(client: TestClient, user: User):
+    """ This test may seem out of place, but it requires packages,
+    so its being included in the packages routes test suite to
+    leverage existing fixtures. """
+    endpoint = f"/account/{user.Username}/comments"
+    with client as request:
+        resp = request.get(endpoint, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location").startswith("/login")
+
+
+def test_account_comments(client: TestClient, user: User, package: Package):
+    """ This test may seem out of place, but it requires packages,
+    so its being included in the packages routes test suite to
+    leverage existing fixtures. """
+    now = (datetime.utcnow().timestamp())
+    with db.begin():
+        # This comment's CommentTS is `now + 1`, so it is found in rendered
+        # HTML before the rendered_comment, which has a CommentTS of `now`.
+        comment = db.create(PackageComment,
+                            PackageBase=package.PackageBase,
+                            User=user, Comments="Test comment",
+                            CommentTS=now + 1)
+        rendered_comment = db.create(PackageComment,
+                                     PackageBase=package.PackageBase,
+                                     User=user, Comments="Test comment",
+                                     RenderedComment="<p>Test comment</p>",
+                                     CommentTS=now)
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/account/{user.Username}/comments"
+    with client as request:
+        resp = request.get(endpoint, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(resp.text)
+    comments = root.xpath('//div[@class="article-content"]/div')
+
+    # Assert that we got Comments rendered from the first comment.
+    assert comments[0].text.strip() == comment.Comments
+
+    # And from the second, we have rendered content.
+    rendered = comments[1].xpath('./p')
+    expected = rendered_comment.RenderedComment.replace(
+        "<p>", "").replace("</p>", "")
+    assert rendered[0].text.strip() == expected

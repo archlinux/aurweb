@@ -1,0 +1,52 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{{ "Accounts" | tr }}</h2>
+
+        <div class="comments">
+            <div class="comments-header">
+                <h3>
+                    {{
+                        "Comments for %s%s%s" | tr
+                        | format('<a href="/account/%s">' | format(username),
+                                 username,
+                                 "</a>")
+                        | safe
+                    }}
+                </h3>
+            </div>
+
+            {% for comment in comments %}
+                {% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
+                <h4 id="comment-{{ comment.ID }}" class="comment-header">
+                    {{
+                        "Commented on package %s%s%s on %s%s%s" | tr
+                        | format(
+                            '<a href="/pkgbase/{{ comment.PackageBase.Name }}">',
+                            comment.PackageBase.Name,
+                            "</a>",
+                            '<a href="/account/%s/comments#comment-%s">' | format(
+                                username,
+                                comment.ID
+                            ),
+                            commented_at.strftime("%Y-%m-%d %H:%M"),
+                            "</a>"
+                        ) | safe
+                    }}
+                </h4>
+                <div id="comment-{{ comment.ID }}-content" class="article-content">
+                    <div>
+                        {% if comment.RenderedComment %}
+                            {{ comment.RenderedComment | safe }}
+                        {% else %}
+                            {{ comment.Comments }}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+{% endblock %}
