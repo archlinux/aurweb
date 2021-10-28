@@ -11,7 +11,7 @@ from sqlalchemy import and_, case, or_
 import aurweb.config
 import aurweb.models.package_request
 
-from aurweb import db, models, util
+from aurweb import cookies, db, models, util
 from aurweb.cache import db_count_cache
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
 from aurweb.models.package_request import PENDING_ID
@@ -53,10 +53,11 @@ async def language(request: Request,
     # In any case, set the response's AURLANG cookie that never expires.
     response = RedirectResponse(url=f"{next}{query_string}",
                                 status_code=HTTPStatus.SEE_OTHER)
-    secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
+    secure = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURLANG", set_lang,
-                        secure=secure_cookies, httponly=True)
-    return util.add_samesite_fields(response, "strict")
+                        secure=secure, httponly=secure,
+                        samesite=cookies.samesite())
+    return response
 
 
 @router.get("/", response_class=HTMLResponse)

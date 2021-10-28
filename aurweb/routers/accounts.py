@@ -10,7 +10,7 @@ from sqlalchemy import and_, func, or_
 
 import aurweb.config
 
-from aurweb import db, l10n, logging, models, time, util
+from aurweb import cookies, db, l10n, logging, models, time, util
 from aurweb.auth import account_type_required, auth_required
 from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_token
 from aurweb.l10n import get_translator_for_request
@@ -585,16 +585,19 @@ async def account_edit_post(request: Request,
             user.update_password(P)
 
         if user == request.user:
+            remember_me = request.cookies.get("AURREMEMBER", False)
+
             # If the target user is the request user, login with
-            # the updated password and update AURSID.
-            request.cookies["AURSID"] = user.login(request, P)
+            # the updated password to update the Session record.
+            user.login(request, P, cookies.timeout(remember_me))
 
     if not errors:
         context["complete"] = True
 
     # Update cookies with requests, in case they were changed.
     response = render_template(request, "account/edit.html", context)
-    return util.migrate_cookies(request, response)
+    return cookies.update_response_cookies(request, response,
+                                           aurtz=TZ, aurlang=L)
 
 
 account_template = (

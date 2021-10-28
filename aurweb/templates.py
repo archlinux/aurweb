@@ -16,7 +16,7 @@ from fastapi.responses import HTMLResponse
 
 import aurweb.config
 
-from aurweb import captcha, l10n, time, util
+from aurweb import captcha, cookies, l10n, time, util
 
 # Prepare jinja2 objects.
 _loader = jinja2.FileSystemLoader(os.path.join(
@@ -148,9 +148,12 @@ def render_template(request: Request,
     """ Render a template as an HTMLResponse. """
     rendered = render_raw_template(request, path, context)
     response = HTMLResponse(rendered, status_code=int(status_code))
-    secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
-    response.set_cookie("AURLANG", context.get("language"),
-                        secure=secure_cookies, httponly=True)
-    response.set_cookie("AURTZ", context.get("timezone"),
-                        secure=secure_cookies, httponly=True)
-    return util.add_samesite_fields(response, "strict")
+
+    sid = None
+    if request.user.is_authenticated():
+        sid = request.cookies.get("AURSID")
+
+    # Re-emit SID via update_response_cookies with an updated expiration.
+    # This extends the life of a user session based on the AURREMEMBER
+    # cookie, which is always set to the "Remember Me" state on login.
+    return cookies.update_response_cookies(request, response, aursid=sid)

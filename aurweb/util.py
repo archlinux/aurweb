@@ -14,7 +14,6 @@ from zoneinfo import ZoneInfo
 import fastapi
 
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
-from fastapi.responses import Response
 from jinja2 import pass_context
 
 import aurweb.config
@@ -103,16 +102,6 @@ def valid_ssh_pubkey(pk):
     return base64.b64encode(base64.b64decode(tokens[1])).decode() == tokens[1]
 
 
-def migrate_cookies(request, response):
-    whitelist = {"AURSID", "AURTZ", "AURLANG"}
-
-    secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
-    for k, v in request.cookies.items():
-        if k in whitelist:
-            response.set_cookie(k, v, secure=secure_cookies, httponly=True)
-    return add_samesite_fields(response, "strict")
-
-
 @pass_context
 def account_url(context, user):
     request = context.get("request")
@@ -157,18 +146,6 @@ def jsonify(obj):
     if isinstance(obj, datetime):
         obj = int(obj.timestamp())
     return obj
-
-
-def add_samesite_fields(response: Response, value: str):
-    """ Set the SameSite field on all cookie headers found.
-    Taken from https://github.com/tiangolo/fastapi/issues/1099. """
-    for idx, header in enumerate(response.raw_headers):
-        if header[0].decode() == "set-cookie":
-            cookie = header[1].decode()
-            if f"SameSite={value}" not in cookie:
-                cookie += f"; SameSite={value}"
-                response.raw_headers[idx] = (header[0], cookie.encode())
-    return response
 
 
 def get_ssh_fingerprints():

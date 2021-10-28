@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 import aurweb.config
 
-from aurweb import util
+from aurweb import cookies
 from aurweb.auth import auth_required
 from aurweb.models import User
 from aurweb.templates import make_variable_context, render_template
@@ -42,12 +42,7 @@ async def login_post(request: Request,
         return await login_template(request, next,
                                     errors=["Bad username or password."])
 
-    cookie_timeout = 0
-
-    if remember_me:
-        cookie_timeout = aurweb.config.getint(
-            "options", "persistent_cookie_timeout")
-
+    cookie_timeout = cookies.timeout(remember_me)
     sid = user.login(request, passwd, cookie_timeout)
     if not sid:
         return await login_template(request, next,
@@ -61,14 +56,17 @@ async def login_post(request: Request,
     response = RedirectResponse(url=next,
                                 status_code=HTTPStatus.SEE_OTHER)
 
-    secure_cookies = aurweb.config.getboolean("options", "disable_http_login")
+    secure = aurweb.config.getboolean("options", "disable_http_login")
     response.set_cookie("AURSID", sid, expires=expires_at,
-                        secure=secure_cookies, httponly=True)
+                        secure=secure, httponly=secure,
+                        samesite=cookies.samesite())
     response.set_cookie("AURTZ", user.Timezone,
-                        secure=secure_cookies, httponly=True)
+                        secure=secure, httponly=secure,
+                        samesite=cookies.samesite())
     response.set_cookie("AURLANG", user.LangPreference,
-                        secure=secure_cookies, httponly=True)
-    return util.add_samesite_fields(response, "strict")
+                        secure=secure, httponly=secure,
+                        samesite=cookies.samesite())
+    return response
 
 
 @router.get("/logout")
