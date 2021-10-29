@@ -1055,6 +1055,13 @@ def test_pkgbase_comments_missing_comment(client: TestClient, maintainer: User,
 
 def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
                           package: Package):
+    """ This test includes tests against the following routes:
+    - POST /pkgbase/{name}/comments
+    - GET /pkgbase/{name} (to check comments)
+        - Tested against a comment created with the POST route
+    - GET /pkgbase/{name}/comments/{id}/form
+        - Tested against a comment created with the POST route
+    """
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
     pkgbasename = package.PackageBase.Name
     endpoint = f"/pkgbase/{pkgbasename}/comments"

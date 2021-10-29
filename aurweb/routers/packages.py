@@ -318,7 +318,8 @@ async def pkgbase_comments_post(
 
 @router.get("/pkgbase/{name}/comments/{id}/form")
 @auth_required(True, login=False)
-async def pkgbase_comment_form(request: Request, name: str, id: int):
+async def pkgbase_comment_form(request: Request, name: str, id: int,
+                               next: str = Query(default=None)):
     """ Produce a comment form for comment {id}. """
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = pkgbase.comments.filter(models.PackageComment.ID == id).first()
@@ -331,6 +332,11 @@ async def pkgbase_comment_form(request: Request, name: str, id: int):
     context = await make_single_context(request, pkgbase)
     context["comment"] = comment
 
+    if not next:
+        next = f"/pkgbase/{name}"
+
+    context["next"] = next
+
     form = render_raw_template(
         request, "partials/packages/comment_form.html", context)
     return JSONResponse({"form": form})
@@ -341,7 +347,8 @@ async def pkgbase_comment_form(request: Request, name: str, id: int):
 async def pkgbase_comment_post(
         request: Request, name: str, id: int,
         comment: str = Form(default=str()),
-        enable_notifications: bool = Form(default=False)):
+        enable_notifications: bool = Form(default=False),
+        next: str = Form(default=None)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     db_comment = get_pkgbase_comment(pkgbase, id)
 
@@ -366,14 +373,18 @@ async def pkgbase_comment_post(
                           PackageBase=pkgbase)
     update_comment_render(db_comment.ID)
 
+    if not next:
+        next = f"/pkgbase/{pkgbase.Name}"
+
     # Redirect to the pkgbase page anchored to the updated comment.
-    return RedirectResponse(f"/pkgbase/{pkgbase.Name}#comment-{db_comment.ID}",
+    return RedirectResponse(f"{next}#comment-{db_comment.ID}",
                             status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/comments/{id}/delete")
 @auth_required(True, redirect="/pkgbase/{name}/comments/{id}/delete")
-async def pkgbase_comment_delete(request: Request, name: str, id: int):
+async def pkgbase_comment_delete(request: Request, name: str, id: int,
+                                 next: str = Form(default=None)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
 
@@ -390,13 +401,16 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int):
         comment.Deleter = request.user
         comment.DelTS = now
 
-    return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=HTTPStatus.SEE_OTHER)
+    if not next:
+        next = f"/pkgbase/{name}"
+
+    return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/comments/{id}/undelete")
 @auth_required(True, redirect="/pkgbase/{name}/comments/{id}/undelete")
-async def pkgbase_comment_undelete(request: Request, name: str, id: int):
+async def pkgbase_comment_undelete(request: Request, name: str, id: int,
+                                   next: str = Form(default=None)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
 
@@ -412,13 +426,16 @@ async def pkgbase_comment_undelete(request: Request, name: str, id: int):
         comment.Deleter = None
         comment.DelTS = None
 
-    return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=HTTPStatus.SEE_OTHER)
+    if not next:
+        next = f"/pkgbase/{name}"
+
+    return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/comments/{id}/pin")
 @auth_required(True, redirect="/pkgbase/{name}/comments/{id}/pin")
-async def pkgbase_comment_pin(request: Request, name: str, id: int):
+async def pkgbase_comment_pin(request: Request, name: str, id: int,
+                              next: str = Form(default=None)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
 
@@ -434,13 +451,16 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int):
     with db.begin():
         comment.PinnedTS = now
 
-    return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=HTTPStatus.SEE_OTHER)
+    if not next:
+        next = f"/pkgbase/{name}"
+
+    return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.post("/pkgbase/{name}/comments/{id}/unpin")
 @auth_required(True, redirect="/pkgbase/{name}/comments/{id}/unpin")
-async def pkgbase_comment_unpin(request: Request, name: str, id: int):
+async def pkgbase_comment_unpin(request: Request, name: str, id: int,
+                                next: str = Form(default=None)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
 
@@ -455,8 +475,10 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int):
     with db.begin():
         comment.PinnedTS = 0
 
-    return RedirectResponse(f"/pkgbase/{name}",
-                            status_code=HTTPStatus.SEE_OTHER)
+    if not next:
+        next = f"/pkgbase/{name}"
+
+    return RedirectResponse(next, status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/pkgbase/{name}/comaintainers")

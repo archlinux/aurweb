@@ -612,8 +612,7 @@ account_template = (
                status_code=HTTPStatus.UNAUTHORIZED)
 async def account(request: Request, username: str):
     _ = l10n.get_translator_for_request(request)
-    context = await make_variable_context(request,
-                                          _("Account") + " " + username)
+    context = await make_variable_context(request, _("Account") + username)
 
     user = db.query(models.User, models.User.Username == username).first()
     if not user:

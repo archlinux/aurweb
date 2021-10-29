@@ -1625,3 +1625,10 @@ def test_post_terms_of_service():
         response = request.get("/tos", cookies=cookies, allow_redirects=False)
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
     assert response.headers.get("location") == "/"
+
+
+def test_account_comments_not_found():
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get("/account/non-existent/comments", cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.NOT_FOUND)

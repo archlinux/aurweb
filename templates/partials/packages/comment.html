@@ -34,77 +34,10 @@
 				| safe
 				}})
 			</span>
-		{% endif %}
-		{% if not comment.Deleter %}
-			{% if request.user.has_credential('CRED_COMMENT_DELETE', approved=[comment.User]) %}
-				<form class="delete-comment-form" method="post"
-					  action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/delete">
-					<fieldset style="display:inline;">
-						<input type="image" class="delete-comment" src="/images/x.min.svg" width="11" height="11" alt="{{ 'Delete comment' | tr }}" title="{{ 'Delete comment' | tr }}" name="submit" value="1" />
-					</fieldset>
-				</form>
-			{% endif %}
+        {% endif %}
 
-			{% if request.user.has_credential('CRED_COMMENT_EDIT', approved=[comment.User]) %}
-				<a href="/pkgbase/{{ pkgname }}/edit-comment/?comment_id={{ comment.ID }}" class="edit-comment" title="Edit comment"><img src="/images/pencil.min.svg" alt="Edit comment" width="11" height="11"></a>
-			{% endif %}
+        {% include "partials/comment_actions.html" %}
+    </h4>
 
-            {% if request.user.has_credential("CRED_COMMENT_PIN", approved=[pkgbase.Maintainer]) %}
-                {% if comment.PinnedTS %}
-                    <form class="pin-comment-form"
-                          method="post"
-                          action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/unpin"
-                    >
-                        <fieldset style="display:inline;">
-                            <input type="image"
-                                   class="pin-comment"
-                                   src="/images/unpin.min.svg"
-                                   alt="{{ 'Unpin comment' | tr }}"
-                                   title="{{ 'Unpin comment' | tr }}"
-                                   name="submit"
-                                   value="1" width="11" height="11" />
-                        </fieldset>
-                    </form>
-                {% else %}
-                    <form class="pin-comment-form"
-                          method="post"
-                          action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/pin"
-                    >
-                        <fieldset style="display:inline;">
-                            <input type="image"
-                                   class="pin-comment"
-                                   src="/images/pin.min.svg"
-                                   alt="{{ 'Pin comment' | tr }}"
-                                   title="{{ 'Pin comment' | tr }}"
-                                   name="submit"
-                                   value="1" width="11" height="11" />
-                        </fieldset>
-                    </form>
-                {% endif %}
-			{% endif %}
-		{% elif request.user.has_credential("CRED_COMMENT_UNDELETE", approved=[comment.User]) %}
-				<form class="undelete-comment-form"
-					  method="post"
-					  action="/pkgbase/{{ pkgbase.Name }}/comments/{{ comment.ID }}/undelete"
-				>
-					<fieldset style="display:inline;">
-						<input type="image"
-							   class="undelete-comment"
-							   src="/images/action-undo.min.svg"
-							   alt="{{ 'Undelete comment' | tr }}"
-							   title="{{ 'Undelete comment' | tr }}"
-							   name="submit" value="1" width="11" height="11" />
-					</fieldset>
-				</form>
-		{% endif %}
-	</h4>
-	<div id="comment-{{ comment.ID }}-content" class="{{ article_cls }}">
-		<div>
-			{% if comment.RenderedComment %}
-				{{ comment.RenderedComment | safe }}
-			{% else %}
-				{{ comment.Comments }}
-			{% endif %}
-		</div>
-	</div>
+    {% include "partials/comment_content.html" %}
 {% endif %}
