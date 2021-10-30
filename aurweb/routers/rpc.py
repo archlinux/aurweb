@@ -9,6 +9,7 @@ import orjson
 from fastapi import APIRouter, Query, Request, Response
 from fastapi.responses import JSONResponse
 
+from aurweb import defaults
 from aurweb.ratelimit import check_ratelimit
 from aurweb.rpc import RPC
 
@@ -62,10 +63,11 @@ def parse_args(request: Request):
 
 @router.get("/rpc")
 async def rpc(request: Request,
-              v: Optional[int] = Query(None),
-              type: Optional[str] = Query(None),
-              arg: Optional[str] = Query(None),
-              args: Optional[List[str]] = Query(None, alias="arg[]")):
+              v: Optional[int] = Query(default=None),
+              type: Optional[str] = Query(default=None),
+              by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
+              arg: Optional[str] = Query(default=None),
+              args: Optional[List[str]] = Query(default=[], alias="arg[]")):
 
     # Create a handle to our RPC class.
     rpc = RPC(version=v, type=type)
@@ -78,7 +80,7 @@ async def rpc(request: Request,
     # Prepare list of arguments for input. If 'arg' was given, it'll
     # be a list with one element.
     arguments = parse_args(request)
-    data = rpc.handle(arguments)
+    data = rpc.handle(by=by, args=arguments)
 
     # Serialize `data` into JSON in a sorted fashion. This way, our
     # ETag header produced below will never end up changed.

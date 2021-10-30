@@ -5,8 +5,9 @@ from sqlalchemy import and_
 
 import aurweb.config as config
 
-from aurweb import db, models, util
+from aurweb import db, defaults, models, util
 from aurweb.models import dependency_type, relation_type
+from aurweb.packages.search import RPCSearch
 
 # Define dependency type mappings from ID to RPC-compatible keys.
 DEP_TYPES = {
@@ -60,8 +61,16 @@ class RPC:
         "suggest", "suggest-pkgbase"
     }
 
-    # A mapping of aliases.
-    ALIASES = {"info": "multiinfo"}
+    # A mapping of type aliases.
+    TYPE_ALIASES = {"info": "multiinfo"}
+
+    EXPOSED_BYS = {
+        "name-desc", "name", "maintainer",
+        "depends", "makedepends", "optdepends", "checkdepends"
+    }
+
+    # A mapping of by aliases.
+    BY_ALIASES = {"name-desc": "nd", "name": "n", "maintainer": "m"}
 
     def __init__(self, version: int = 0, type: str = None):
         self.version = version
@@ -76,14 +85,17 @@ class RPC:
             "error": message
         }
 
-    def _verify_inputs(self, args: List[str] = []):
+    def _verify_inputs(self, by: str = [], args: List[str] = []):
         if self.version is None:
             raise RPCError("Please specify an API version.")
 
         if self.version not in RPC.EXPOSED_VERSIONS:
             raise RPCError("Invalid version specified.")
 
-        if self.type is None or not len(args):
+        if by not in RPC.EXPOSED_BYS:
+            raise RPCError("Incorrect by field specified.")
+
+        if self.type is None:
             raise RPCError("No request type/data specified.")
 
         if self.type not in RPC.EXPOSED_TYPES:
@@ -94,6 +106,10 @@ class RPC:
         except AttributeError:
             raise RPCError(
                 f"Request type '{self.type}' is not yet implemented.")
+
+    def _enforce_args(self, args: List[str]):
+        if not args:
+            raise RPCError("No request type/data specified.")
 
     def _update_json_depends(self, package: models.Package,
                              data: Dict[str, Any]):
@@ -169,13 +185,36 @@ class RPC:
         self._update_json_relations(package, data)
         return data
 
-    def _handle_multiinfo_type(self, args: List[str] = []):
+    def _handle_multiinfo_type(self, args: List[str] = [], **kwargs):
+        self._enforce_args(args)
         args = set(args)
         packages = db.query(models.Package).filter(
             models.Package.Name.in_(args))
         return [self._get_json_data(pkg) for pkg in packages]
 
-    def _handle_suggest_type(self, args: List[str] = []):
+    def _handle_search_type(self, by: str = defaults.RPC_SEARCH_BY,
+                            args: List[str] = []):
+        # If `by` isn't maintainer and we don't have any args, raise an error.
+        # In maintainer's case, return all orphans if there are no args,
+        # so we need args to pass through to the handler without errors.
+        if by != "m" and not len(args):
+            raise RPCError("No request type/data specified.")
+
+        arg = args[0]
+        if len(arg) < 2:
+            raise RPCError("Query arg too small.")
+
+        search = RPCSearch()
+        search.search_by(by, arg)
+
+        max_results = config.getint("options", "max_rpc_results")
+        results = search.results().limit(max_results)
+        return [self._get_json_data(pkg) for pkg in results]
+
+    def _handle_suggest_type(self, args: List[str] = [], **kwargs):
+        if not args:
+            return []
+
         arg = args[0]
         packages = db.query(models.Package).join(models.PackageBase).filter(
             and_(models.PackageBase.PackagerUID.isnot(None),
@@ -183,14 +222,17 @@ class RPC:
         ).order_by(models.Package.Name.asc()).limit(20)
         return [pkg.Name for pkg in packages]
 
-    def _handle_suggest_pkgbase_type(self, args: List[str] = []):
+    def _handle_suggest_pkgbase_type(self, args: List[str] = [], **kwargs):
+        if not args:
+            return []
+
         records = db.query(models.PackageBase).filter(
             and_(models.PackageBase.PackagerUID.isnot(None),
                  models.PackageBase.Name.like(f"%{args[0]}%"))
         ).order_by(models.PackageBase.Name.asc()).limit(20)
         return [record.Name for record in records]
 
-    def handle(self, args: List[str] = []):
+    def handle(self, by: str = defaults.RPC_SEARCH_BY, args: List[str] = []):
         """ Request entrypoint. A router should pass v, type and args
         to this function and expect an output dictionary to be returned.
 
@@ -199,22 +241,29 @@ class RPC:
         :param args: Deciphered list of arguments based on arg/arg[] inputs
         """
         # Convert type aliased types.
-        if self.type in RPC.ALIASES:
-            self.type = RPC.ALIASES.get(self.type)
+        if self.type in RPC.TYPE_ALIASES:
+            self.type = RPC.TYPE_ALIASES.get(self.type)
 
         # Prepare our output data dictionary with some basic keys.
         data = {"version": self.version, "type": self.type}
 
         # Run some verification on our given arguments.
         try:
-            self._verify_inputs(args)
+            self._verify_inputs(by=by, args=args)
         except RPCError as exc:
             return self.error(str(exc))
+
+        # Convert by to its aliased value if it has one.
+        if by in RPC.BY_ALIASES:
+            by = RPC.BY_ALIASES.get(by)
 
         # Get a handle to our callback and trap an RPCError with
         # an empty list of results based on callback's execution.
         callback = getattr(self, f"_handle_{self.type.replace('-', '_')}_type")
-        results = callback(args)
+        try:
+            results = callback(by=by, args=args)
+        except RPCError as exc:
+            return self.error(str(exc))
 
         # These types are special: we produce a different kind of
         # successful JSON output: a list of results.

@@ -9,6 +9,9 @@ PP = 50
 # A whitelist of valid PP values
 PP_WHITELIST = {50, 100, 250}
 
+# Default `by` parameter for RPC search.
+RPC_SEARCH_BY = "name-desc"
+
 
 def fallback_pp(per_page: int) -> int:
     """ If `per_page` is a valid value in PP_WHITELIST, return it.

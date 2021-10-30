@@ -461,6 +461,11 @@ def test_rpc_suggest_pkgbase():
     data = response.json()
     assert data == ["chungy-chungus"]
 
+    # Test no arg supplied.
+    response = make_request("/rpc?v=5&type=suggest-pkgbase")
+    data = response.json()
+    assert data == []
+
 
 def test_rpc_suggest():
     response = make_request("/rpc?v=5&type=suggest&arg=other")
@@ -472,9 +477,14 @@ def test_rpc_suggest():
     data = response.json()
     assert data == []
 
+    # Test no arg supplied.
+    response = make_request("/rpc?v=5&type=suggest")
+    data = response.json()
+    assert data == []
+
 
 def test_rpc_unimplemented_types():
-    unimplemented = ["search", "msearch"]
+    unimplemented = ["msearch"]
     for type in unimplemented:
         response = make_request(f"/rpc?v=5&type={type}&arg=big")
         data = response.json()
@@ -518,3 +528,65 @@ def test_rpc_etag():
     assert response1.headers.get("ETag") is not None
     assert response1.headers.get("ETag") != str()
     assert response1.headers.get("ETag") == response2.headers.get("ETag")
+
+
+def test_rpc_search_arg_too_small():
+    response = make_request("/rpc?v=5&type=search&arg=b")
+    assert response.status_code == int(HTTPStatus.OK)
+    assert response.json().get("error") == "Query arg too small."
+
+
+def test_rpc_search():
+    response = make_request("/rpc?v=5&type=search&arg=big")
+    assert response.status_code == int(HTTPStatus.OK)
+
+    data = response.json()
+    assert data.get("resultcount") == 1
+
+    result = data.get("results")[0]
+    assert result.get("Name") == "big-chungus"
+
+    # No args on non-m by types return an error.
+    response = make_request("/rpc?v=5&type=search")
+    assert response.json().get("error") == "No request type/data specified."
+
+
+def test_rpc_search_depends():
+    response = make_request(
+        "/rpc?v=5&type=search&by=depends&arg=chungus-depends")
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == "big-chungus"
+
+
+def test_rpc_search_makedepends():
+    response = make_request(
+        "/rpc?v=5&type=search&by=makedepends&arg=chungus-makedepends")
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == "big-chungus"
+
+
+def test_rpc_search_optdepends():
+    response = make_request(
+        "/rpc?v=5&type=search&by=optdepends&arg=chungus-optdepends")
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == "big-chungus"
+
+
+def test_rpc_search_checkdepends():
+    response = make_request(
+        "/rpc?v=5&type=search&by=checkdepends&arg=chungus-checkdepends")
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == "big-chungus"
+
+
+def test_rpc_incorrect_by():
+    response = make_request("/rpc?v=5&type=search&by=fake&arg=big")
+    assert response.json().get("error") == "Incorrect by field specified."
