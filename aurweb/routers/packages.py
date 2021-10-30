@@ -30,8 +30,11 @@ async def packages_get(request: Request, context: Dict[str, Any],
     context["q"] = dict(request.query_params)
 
     # Per page and offset.
-    per_page = context["PP"] = int(request.query_params.get("PP", 50))
-    offset = context["O"] = int(request.query_params.get("O", 0))
+    offset, per_page = util.sanitize_params(
+        request.query_params.get("O", defaults.O),
+        request.query_params.get("PP", defaults.PP))
+    context["O"] = offset
+    context["PP"] = per_page
 
     # Query search by.
     search_by = context["SeB"] = request.query_params.get("SeB", "nd")

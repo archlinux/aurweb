@@ -7,7 +7,7 @@ import secrets
 import string
 
 from datetime import datetime
-from typing import Any, Callable, Dict, Iterable
+from typing import Any, Callable, Dict, Iterable, Tuple
 from urllib.parse import urlencode, urlparse
 from zoneinfo import ZoneInfo
 
@@ -18,7 +18,7 @@ from jinja2 import pass_context
 
 import aurweb.config
 
-from aurweb import logging
+from aurweb import defaults, logging
 
 logger = logging.get_logger(__name__)
 
@@ -155,3 +155,17 @@ def get_ssh_fingerprints():
 def apply_all(iterable: Iterable, fn: Callable):
     for item in iterable:
         fn(item)
+
+
+def sanitize_params(offset: str, per_page: str) -> Tuple[int, int]:
+    try:
+        offset = int(offset)
+    except ValueError:
+        offset = defaults.O
+
+    try:
+        per_page = int(per_page)
+    except ValueError:
+        per_page = defaults.PP
+
+    return (offset, per_page)

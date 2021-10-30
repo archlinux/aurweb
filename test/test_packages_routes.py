@@ -486,15 +486,11 @@ def test_pkgbase(client: TestClient, package: Package):
 
 
 def test_packages(client: TestClient, packages: List[Package]):
-    """ Test the / packages route with defaults.
-
-    Defaults:
-        50 results per page
-        offset of 0
-    """
     with client as request:
         response = request.get("/packages", params={
-            "SeB": "X"  # "X" isn't valid, defaults to "nd"
+            "SeB": "X",  # "X" isn't valid, defaults to "nd"
+            "PP": "1 or 1",
+            "O": "0 or 0"
         })
     assert response.status_code == int(HTTPStatus.OK)
 
