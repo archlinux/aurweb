@@ -623,13 +623,36 @@ def test_packages_search_by_keywords(client: TestClient,
 def test_packages_search_by_maintainer(client: TestClient,
                                        maintainer: User,
                                        package: Package):
+    # We should expect that searching by `package`'s maintainer
+    # returns `package` in the results.
     with client as request:
         response = request.get("/packages", params={
             "SeB": "m",
             "K": maintainer.Username
         })
     assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 1
 
+    # Search again by maintainer with no keywords given.
+    # This kind of search returns all orphans instead.
+    # In this first case, there are no orphan packages; assert that.
+    with client as request:
+        response = request.get("/packages", params={"SeB": "m"})
+    assert response.status_code == int(HTTPStatus.OK)
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    assert len(rows) == 0
+
+    # Orphan `package`.
+    with db.begin():
+        package.PackageBase.Maintainer = None
+
+    # This time, we should get `package` returned, since it's now an orphan.
+    with client as request:
+        response = request.get("/packages", params={"SeB": "m"})
+    assert response.status_code == int(HTTPStatus.OK)
     root = parse_root(response.text)
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 1

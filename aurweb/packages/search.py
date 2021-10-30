@@ -90,9 +90,13 @@ class PackageSearch:
         return self
 
     def _search_by_maintainer(self, keywords: str) -> orm.Query:
-        self.query = self.query.join(
-            models.User, models.User.ID == models.PackageBase.MaintainerUID
-        ).filter(models.User.Username == keywords)
+        if keywords:
+            self.query = self.query.join(
+                models.User, models.User.ID == models.PackageBase.MaintainerUID
+            ).filter(models.User.Username == keywords)
+        else:
+            self.query = self.query.filter(
+                models.PackageBase.MaintainerUID.is_(None))
         return self
 
     def _search_by_comaintainer(self, keywords: str) -> orm.Query:
