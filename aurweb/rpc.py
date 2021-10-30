@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import List
+from typing import Any, Dict, List
 
 from sqlalchemy import and_
 
@@ -95,6 +95,36 @@ class RPC:
             raise RPCError(
                 f"Request type '{self.type}' is not yet implemented.")
 
+    def _update_json_depends(self, package: models.Package,
+                             data: Dict[str, Any]):
+        # Walk through all related PackageDependencies and produce
+        # the appropriate dict entries.
+        depends = package.package_dependencies
+        for dep in depends:
+            if dep.DepTypeID in DEP_TYPES:
+                key = DEP_TYPES.get(dep.DepTypeID)
+
+                display = dep.DepName
+                if dep.DepCondition:
+                    display += dep.DepCondition
+
+                data[key].append(display)
+
+    def _update_json_relations(self, package: models.Package,
+                               data: Dict[str, Any]):
+        # Walk through all related PackageRelations and produce
+        # the appropriate dict entries.
+        relations = package.package_relations
+        for rel in relations:
+            if rel.RelTypeID in REL_TYPES:
+                key = REL_TYPES.get(rel.RelTypeID)
+
+                display = rel.RelName
+                if rel.RelCondition:
+                    display += rel.RelCondition
+
+                data[key].append(display)
+
     def _get_json_data(self, package: models.Package):
         """ Produce dictionary data of one Package that can be JSON-serialized.
 
@@ -137,32 +167,8 @@ class RPC:
             # We do have a maintainer: set the Maintainer key.
             data["Maintainer"] = package.PackageBase.Maintainer.Username
 
-        # Walk through all related PackageDependencies and produce
-        # the appropriate dict entries.
-        if depends := package.package_dependencies:
-            for dep in depends:
-                if dep.DepTypeID in DEP_TYPES:
-                    key = DEP_TYPES.get(dep.DepTypeID)
-
-                    display = dep.DepName
-                    if dep.DepCondition:
-                        display += dep.DepCondition
-
-                    data[key].append(display)
-
-        # Walk through all related PackageRelations and produce
-        # the appropriate dict entries.
-        if relations := package.package_relations:
-            for rel in relations:
-                if rel.RelTypeID in REL_TYPES:
-                    key = REL_TYPES.get(rel.RelTypeID)
-
-                    display = rel.RelName
-                    if rel.RelCondition:
-                        display += rel.RelCondition
-
-                    data[key].append(display)
-
+        self._update_json_depends(package, data)
+        self._update_json_relations(package, data)
         return data
 
     def _handle_multiinfo_type(self, args: List[str] = []):
