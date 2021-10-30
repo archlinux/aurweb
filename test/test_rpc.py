@@ -98,6 +98,17 @@ def setup():
                           Maintainer=user1,
                           Packager=user1)
 
+        pkgbase4 = create(PackageBase, Name="fugly-chungus",
+                          Maintainer=user1,
+                          Packager=user1)
+
+        desc = "A Package belonging to a PackageBase with another name."
+        create(Package,
+               PackageBase=pkgbase4,
+               Name="other-pkg",
+               Description=desc,
+               URL="https://example.com")
+
         create(Package,
                PackageBase=pkgbase3,
                Name=pkgbase3.Name,
@@ -451,8 +462,19 @@ def test_rpc_suggest_pkgbase():
     assert data == ["chungy-chungus"]
 
 
+def test_rpc_suggest():
+    response = make_request("/rpc?v=5&type=suggest&arg=other")
+    data = response.json()
+    assert data == ["other-pkg"]
+
+    # Test non-existent Package.
+    response = make_request("/rpc?v=5&type=suggest&arg=nonexistent")
+    data = response.json()
+    assert data == []
+
+
 def test_rpc_unimplemented_types():
-    unimplemented = ["search", "msearch", "suggest"]
+    unimplemented = ["search", "msearch"]
     for type in unimplemented:
         response = make_request(f"/rpc?v=5&type={type}&arg=big")
         data = response.json()

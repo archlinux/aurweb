@@ -175,6 +175,14 @@ class RPC:
             models.Package.Name.in_(args))
         return [self._get_json_data(pkg) for pkg in packages]
 
+    def _handle_suggest_type(self, args: List[str] = []):
+        arg = args[0]
+        packages = db.query(models.Package).join(models.PackageBase).filter(
+            and_(models.PackageBase.PackagerUID.isnot(None),
+                 models.Package.Name.like(f"%{arg}%"))
+        ).order_by(models.Package.Name.asc()).limit(20)
+        return [pkg.Name for pkg in packages]
+
     def _handle_suggest_pkgbase_type(self, args: List[str] = []):
         records = db.query(models.PackageBase).filter(
             and_(models.PackageBase.PackagerUID.isnot(None),
