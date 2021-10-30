@@ -635,6 +635,8 @@ async def requests(request: Request,
     context = make_context(request, "Requests")
 
     context["q"] = dict(request.query_params)
+
+    O, PP = util.sanitize_params(O, PP)
     context["O"] = O
     context["PP"] = PP
 
