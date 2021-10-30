@@ -11,7 +11,7 @@ sed -ri "s;^(aur_location) = .+;\1 = ${AURWEB_FASTAPI_PREFIX};" conf/config
 sed -ri 's/^(cache) = .+/\1 = redis/' conf/config
 sed -ri 's|^(redis_address) = .+|\1 = redis://redis|' conf/config
 
-if [ "$COMMIT_HASH" ]; then
+if [ ! -z ${COMMIT_HASH+x} ]; then
     sed -ri "s/^;?(commit_hash) =.*$/\1 = $COMMIT_HASH/" conf/config
 fi
 
