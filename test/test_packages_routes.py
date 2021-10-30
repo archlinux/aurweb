@@ -1084,6 +1084,13 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
     assert len(bodies) == 1
 
     assert bodies[0].text.strip() == "Test comment."
+    comment_id = headers[0].attrib["id"].split("-")[-1]
+
+    # Test the non-javascript version of comment editing by
+    # visiting the /pkgbase/{name}/comments/{id}/edit route.
+    with client as request:
+        resp = request.get(f"{endpoint}/{comment_id}/edit", cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
 
     # Clear up the PackageNotification. This doubles as testing
     # that the notification was created and clears it up so we can

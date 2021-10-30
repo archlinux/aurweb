@@ -384,6 +384,21 @@ async def pkgbase_comment_post(
                             status_code=HTTPStatus.SEE_OTHER)
 
 
+@router.get("/pkgbase/{name}/comments/{id}/edit")
+@auth_required(True, redirect="/pkgbase/{name}/comments/{id}/edit")
+async def pkgbase_comment_edit(request: Request, name: str, id: int,
+                               next: str = Form(default=None)):
+    pkgbase = get_pkg_or_base(name, models.PackageBase)
+    comment = get_pkgbase_comment(pkgbase, id)
+
+    if not next:
+        next = f"/pkgbase/{name}"
+
+    context = await make_variable_context(request, "Edit comment", next=next)
+    context["comment"] = comment
+    return render_template(request, "packages/comments/edit.html", context)
+
+
 @router.post("/pkgbase/{name}/comments/{id}/delete")
 @auth_required(True, redirect="/pkgbase/{name}/comments/{id}/delete")
 async def pkgbase_comment_delete(request: Request, name: str, id: int,
