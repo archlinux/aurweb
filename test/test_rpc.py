@@ -488,3 +488,11 @@ def test_rpc_ratelimit(getint: mock.MagicMock, pipeline: Pipeline):
     # The new first request should be good.
     response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
     assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_rpc_etag():
+    response1 = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+    response2 = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+    assert response1.headers.get("ETag") is not None
+    assert response1.headers.get("ETag") != str()
+    assert response1.headers.get("ETag") == response2.headers.get("ETag")

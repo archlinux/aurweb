@@ -99,8 +99,7 @@ class RPC:
                              data: Dict[str, Any]):
         # Walk through all related PackageDependencies and produce
         # the appropriate dict entries.
-        depends = package.package_dependencies
-        for dep in depends:
+        for dep in package.package_dependencies:
             if dep.DepTypeID in DEP_TYPES:
                 key = DEP_TYPES.get(dep.DepTypeID)
 
@@ -114,8 +113,7 @@ class RPC:
                                data: Dict[str, Any]):
         # Walk through all related PackageRelations and produce
         # the appropriate dict entries.
-        relations = package.package_relations
-        for rel in relations:
+        for rel in package.package_relations:
             if rel.RelTypeID in REL_TYPES:
                 key = REL_TYPES.get(rel.RelTypeID)
 

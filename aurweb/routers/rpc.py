@@ -1,8 +1,12 @@
+import hashlib
+
 from http import HTTPStatus
 from typing import List, Optional
 from urllib.parse import unquote
 
-from fastapi import APIRouter, Query, Request
+import orjson
+
+from fastapi import APIRouter, Query, Request, Response
 from fastapi.responses import JSONResponse
 
 from aurweb.ratelimit import check_ratelimit
@@ -74,4 +78,21 @@ async def rpc(request: Request,
     # Prepare list of arguments for input. If 'arg' was given, it'll
     # be a list with one element.
     arguments = parse_args(request)
-    return JSONResponse(rpc.handle(arguments))
+    data = rpc.handle(arguments)
+
+    # Serialize `data` into JSON in a sorted fashion. This way, our
+    # ETag header produced below will never end up changed.
+    output = orjson.dumps(data, option=orjson.OPT_SORT_KEYS)
+
+    # Produce an md5 hash based on `output`.
+    md5 = hashlib.md5()
+    md5.update(output)
+    etag = md5.hexdigest()
+
+    # Finally, return our JSONResponse with the ETag header.
+    # The ETag header expects quotes to surround any identifier.
+    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
+    return Response(output.decode(), headers={
+        "Content-Type": "application/json",
+        "ETag": f'"{etag}"'
+    })
