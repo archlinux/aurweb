@@ -72,14 +72,14 @@
                                                 <li>
                                                     {{ "%sEdit this user's account%s"
                                                     | tr
-                                                    | format('<a href="%s/edit">' | format(user | account_url), "</a>")
+                                                    | format('<a href="/account/%s/edit">' | format(user.Username), "</a>")
                                                     | safe
                                                     }}
                                                 </li>
                                                 <li>
                                                     {{ "%sList this user's comments%s"
                                                     | tr
-                                                    | format('<a href="%s/comments">' | format(user | account_url), "</a>")
+                                                    | format('<a href="/account/%s/comments">' | format(user.Username), "</a>")
                                                     | safe
                                                     }}
                                                 </li>
