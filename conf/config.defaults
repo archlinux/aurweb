@@ -103,6 +103,7 @@ server = https://mirrors.kernel.org/archlinux/%s/os/x86_64
 [mkpkglists]
 packagesfile = /srv/http/aurweb/web/html/packages.gz
 packagesmetafile = /srv/http/aurweb/web/html/packages-meta-v1.json.gz
+packagesmetaextfile = /srv/http/aurweb/web/html/packages-meta-ext-v1.json.gz
 pkgbasefile = /srv/http/aurweb/web/html/pkgbase.gz
 userfile = /srv/http/aurweb/web/html/users.gz
 
