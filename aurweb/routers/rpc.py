@@ -1,4 +1,5 @@
 import hashlib
+import re
 
 from http import HTTPStatus
 from typing import List, Optional
@@ -61,6 +62,9 @@ def parse_args(request: Request):
     return args
 
 
+JSONP_EXPR = re.compile(r'^[a-zA-Z0-9()_.]{1,128}$')
+
+
 @router.get("/rpc")
 async def rpc(request: Request,
               v: Optional[int] = Query(default=None),
@@ -78,6 +82,16 @@ async def rpc(request: Request,
         return JSONResponse(rpc.error("Rate limit reached"),
                             status_code=int(HTTPStatus.TOO_MANY_REQUESTS))
 
+    # If `callback` was provided, produce a text/javascript response
+    # valid for the jsonp callback. Otherwise, by default, return
+    # application/json containing `output`.
+    content_type = "application/json"
+    if callback:
+        if not re.match(JSONP_EXPR, callback):
+            return rpc.error("Invalid callback name.")
+
+        content_type = "text/javascript"
+
     # Prepare list of arguments for input. If 'arg' was given, it'll
     # be a list with one element.
     arguments = parse_args(request)
@@ -92,21 +106,14 @@ async def rpc(request: Request,
     md5.update(content)
     etag = md5.hexdigest()
 
-    # If `callback` was provided, produce a text/javascript response
-    # valid for the jsonp callback. Otherwise, by default, return
-    # application/json containing `output`.
-    # Note: Being the API hot path, `content` is not defaulted to
-    # avoid copying the JSON string in the case callback is provided.
-    content_type = "application/json"
-    if callback:
-        print("callback called")
-        content_type = "text/javascript"
-        content = f"/**/{callback}({content.decode()})"
-
     # The ETag header expects quotes to surround any identifier.
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
     headers = {
         "Content-Type": content_type,
         "ETag": f'"{etag}"'
     }
+
+    if callback:
+        content = f"/**/{callback}({content.decode()})"
+
     return Response(content, headers=headers)

@@ -624,3 +624,9 @@ def test_rpc_jsonp_callback():
         "/rpc?v=5&type=search&arg=big&callback=jsonCallback")
     assert response.headers.get("content-type") == "text/javascript"
     assert re.search(r'^/\*\*/jsonCallback\(.*\)$', response.text) is not None
+
+    # Test an invalid callback name; we get an application/json error.
+    response = make_request(
+        "/rpc?v=5&type=search&arg=big&callback=jsonCallback!")
+    assert response.headers.get("content-type") == "application/json"
+    assert response.json().get("error") == "Invalid callback name."
