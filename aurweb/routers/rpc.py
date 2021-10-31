@@ -113,6 +113,11 @@ async def rpc(request: Request,
         "ETag": f'"{etag}"'
     }
 
+    if_none_match = request.headers.get("If-None-Match", str())
+    if if_none_match and if_none_match.strip("\t\n\r\" ") == etag:
+        return Response(headers=headers,
+                        status_code=int(HTTPStatus.NOT_MODIFIED))
+
     if callback:
         content = f"/**/{callback}({content.decode()})"
 

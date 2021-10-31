@@ -1,6 +1,7 @@
 import re
 
 from http import HTTPStatus
+from typing import Dict
 from unittest import mock
 
 import orjson
@@ -28,9 +29,9 @@ from aurweb.redis import redis_connection
 from aurweb.testing import setup_test_db
 
 
-def make_request(path):
+def make_request(path, headers: Dict[str, str] = {}):
     with TestClient(app) as request:
-        return request.get(path)
+        return request.get(path, headers=headers)
 
 
 @pytest.fixture(autouse=True)
@@ -538,6 +539,13 @@ def test_rpc_search():
 
     result = data.get("results")[0]
     assert result.get("Name") == "big-chungus"
+
+    # Test the If-None-Match headers.
+    etag = response.headers.get("ETag").strip('"')
+    headers = {"If-None-Match": etag}
+    response = make_request("/rpc?v=5&type=search&arg=big", headers=headers)
+    assert response.status_code == int(HTTPStatus.NOT_MODIFIED)
+    assert response.content == b''
 
     # No args on non-m by types return an error.
     response = make_request("/rpc?v=5&type=search")
