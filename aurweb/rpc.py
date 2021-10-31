@@ -213,7 +213,9 @@ class RPC:
             return []
 
         arg = args[0]
-        packages = db.query(models.Package).join(models.PackageBase).filter(
+        packages = db.query(models.Package.Name).join(
+            models.PackageBase
+        ).filter(
             and_(models.PackageBase.PackagerUID.isnot(None),
                  models.Package.Name.like(f"%{arg}%"))
         ).order_by(models.Package.Name.asc()).limit(20)
@@ -223,11 +225,11 @@ class RPC:
         if not args:
             return []
 
-        records = db.query(models.PackageBase).filter(
+        packages = db.query(models.PackageBase.Name).filter(
             and_(models.PackageBase.PackagerUID.isnot(None),
                  models.PackageBase.Name.like(f"%{args[0]}%"))
         ).order_by(models.PackageBase.Name.asc()).limit(20)
-        return [record.Name for record in records]
+        return [pkg.Name for pkg in packages]
 
     def handle(self, by: str = defaults.RPC_SEARCH_BY, args: List[str] = []):
         """ Request entrypoint. A router should pass v, type and args
