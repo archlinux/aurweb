@@ -19,10 +19,17 @@ import aurweb.logging
 from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
 from aurweb.models import AcceptedTerm, Term
+from aurweb.prometheus import http_api_requests_total, http_requests_total, instrumentator
 from aurweb.routers import accounts, auth, errors, html, packages, rpc, rss, sso, trusted_user
 
 # Setup the FastAPI app.
 app = FastAPI(exception_handlers=errors.exceptions)
+
+# Instrument routes with the prometheus-fastapi-instrumentator
+# library with custom collectors and expose /metrics.
+instrumentator().add(http_api_requests_total())
+instrumentator().add(http_requests_total())
+instrumentator().instrument(app).expose(app)
 
 
 @app.on_event("startup")
@@ -67,6 +74,7 @@ async def app_startup():
     app.include_router(rss.router)
     app.include_router(packages.router)
     app.include_router(rpc.router)
+
     # Initialize the database engine and ORM.
     get_engine()
 
