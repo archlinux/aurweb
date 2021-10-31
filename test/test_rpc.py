@@ -1,3 +1,5 @@
+import re
+
 from http import HTTPStatus
 from unittest import mock
 
@@ -610,3 +612,15 @@ def test_rpc_search_checkdepends():
 def test_rpc_incorrect_by():
     response = make_request("/rpc?v=5&type=search&by=fake&arg=big")
     assert response.json().get("error") == "Incorrect by field specified."
+
+
+def test_rpc_jsonp_callback():
+    """ Test the callback parameter.
+
+    For end-to-end verification, the `examples/jsonp.html` file can be
+    used to submit jsonp callback requests to the RPC.
+    """
+    response = make_request(
+        "/rpc?v=5&type=search&arg=big&callback=jsonCallback")
+    assert response.headers.get("content-type") == "text/javascript"
+    assert re.search(r'^/\*\*/jsonCallback\(.*\)$', response.text) is not None

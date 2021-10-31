@@ -67,7 +67,8 @@ async def rpc(request: Request,
               type: Optional[str] = Query(default=None),
               by: Optional[str] = Query(default=defaults.RPC_SEARCH_BY),
               arg: Optional[str] = Query(default=None),
-              args: Optional[List[str]] = Query(default=[], alias="arg[]")):
+              args: Optional[List[str]] = Query(default=[], alias="arg[]"),
+              callback: Optional[str] = Query(default=None)):
 
     # Create a handle to our RPC class.
     rpc = RPC(version=v, type=type)
@@ -84,17 +85,28 @@ async def rpc(request: Request,
 
     # Serialize `data` into JSON in a sorted fashion. This way, our
     # ETag header produced below will never end up changed.
-    output = orjson.dumps(data, option=orjson.OPT_SORT_KEYS)
+    content = orjson.dumps(data, option=orjson.OPT_SORT_KEYS)
 
     # Produce an md5 hash based on `output`.
     md5 = hashlib.md5()
-    md5.update(output)
+    md5.update(content)
     etag = md5.hexdigest()
 
-    # Finally, return our JSONResponse with the ETag header.
+    # If `callback` was provided, produce a text/javascript response
+    # valid for the jsonp callback. Otherwise, by default, return
+    # application/json containing `output`.
+    # Note: Being the API hot path, `content` is not defaulted to
+    # avoid copying the JSON string in the case callback is provided.
+    content_type = "application/json"
+    if callback:
+        print("callback called")
+        content_type = "text/javascript"
+        content = f"/**/{callback}({content.decode()})"
+
     # The ETag header expects quotes to surround any identifier.
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag
-    return Response(output.decode(), headers={
-        "Content-Type": "application/json",
+    headers = {
+        "Content-Type": content_type,
         "ETag": f'"{etag}"'
-    })
+    }
+    return Response(content, headers=headers)
