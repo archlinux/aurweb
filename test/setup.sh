@@ -31,6 +31,7 @@ enable-maintenance = 0
 maintenance-exceptions = 127.0.0.1
 commit_uri = https://aur.archlinux.org/cgit/aur.git/log/?h=%s&id=%s
 localedir = $TOPLEVEL/web/locale/
+snapshot_uri = /cgit/aur.git/snapshot/%s.tar.gz
 
 [notifications]
 notify-cmd = $NOTIFY
@@ -62,6 +63,7 @@ server = file://$(pwd)/remote/
 [mkpkglists]
 packagesfile = packages.gz
 packagesmetafile = packages-meta-v1.json.gz
+packagesmetaextfile = packages-meta-ext-v1.json.gz
 pkgbasefile = pkgbase.gz
 userfile = users.gz
 EOF
