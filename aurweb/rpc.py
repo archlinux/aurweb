@@ -101,12 +101,6 @@ class RPC:
         if self.type not in RPC.EXPOSED_TYPES:
             raise RPCError("Incorrect request type specified.")
 
-        try:
-            getattr(self, f"_handle_{self.type.replace('-', '_')}_type")
-        except AttributeError:
-            raise RPCError(
-                f"Request type '{self.type}' is not yet implemented.")
-
     def _enforce_args(self, args: List[str]):
         if not args:
             raise RPCError("No request type/data specified.")
@@ -210,6 +204,9 @@ class RPC:
         max_results = config.getint("options", "max_rpc_results")
         results = search.results().limit(max_results)
         return [self._get_json_data(pkg) for pkg in results]
+
+    def _handle_msearch_type(self, args: List[str] = [], **kwargs):
+        return self._handle_search_type(by="m", args=args)
 
     def _handle_suggest_type(self, args: List[str] = [], **kwargs):
         if not args:

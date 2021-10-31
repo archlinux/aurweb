@@ -483,15 +483,6 @@ def test_rpc_suggest():
     assert data == []
 
 
-def test_rpc_unimplemented_types():
-    unimplemented = ["msearch"]
-    for type in unimplemented:
-        response = make_request(f"/rpc?v=5&type={type}&arg=big")
-        data = response.json()
-        expected = f"Request type '{type}' is not yet implemented."
-        assert data.get("error") == expected
-
-
 def mock_config_getint(section: str, key: str):
     if key == "request_limit":
         return 4
@@ -549,6 +540,35 @@ def test_rpc_search():
     # No args on non-m by types return an error.
     response = make_request("/rpc?v=5&type=search")
     assert response.json().get("error") == "No request type/data specified."
+
+
+def test_rpc_msearch():
+    response = make_request("/rpc?v=5&type=msearch&arg=user1")
+    data = response.json()
+
+    # user1 maintains 4 packages; assert that we got them all.
+    assert data.get("resultcount") == 4
+    names = list(sorted(r.get("Name") for r in data.get("results")))
+    expected_results = list(sorted([
+        "big-chungus",
+        "chungy-chungus",
+        "gluggly-chungus",
+        "other-pkg"
+    ]))
+    assert names == expected_results
+
+    # Search for a non-existent maintainer, giving us zero packages.
+    response = make_request("/rpc?v=5&type=msearch&arg=blah-blah")
+    data = response.json()
+    assert data.get("resultcount") == 0
+
+    # A missing arg still succeeds, but it returns all orphans.
+    # Just verify that we receive no error and the orphaned result.
+    response = make_request("/rpc?v=5&type=msearch")
+    data = response.json()
+    assert data.get("resultcount") == 1
+    result = data.get("results")[0]
+    assert result.get("Name") == "woogly-chungus"
 
 
 def test_rpc_search_depends():
