@@ -200,8 +200,8 @@ class RPC:
         if by != "m" and not len(args):
             raise RPCError("No request type/data specified.")
 
-        arg = args[0]
-        if len(arg) < 2:
+        arg = args[0] if args else str()
+        if by != "m" and len(arg) < 2:
             raise RPCError("Query arg too small.")
 
         search = RPCSearch()
