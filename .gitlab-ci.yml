@@ -12,7 +12,7 @@ before_script:
            python-pygit2 python-srcinfo python-bleach python-markdown
            python-sqlalchemy python-alembic python-pytest python-werkzeug
            python-pytest-tap python-fastapi hypercorn nginx python-authlib
-           python-itsdangerous python-httpx
+           python-itsdangerous python-httpx python-orjson
 
 test:
   script:
