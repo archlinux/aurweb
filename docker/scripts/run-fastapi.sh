@@ -14,9 +14,11 @@ fi
 
 # By default, set FASTAPI_WORKERS to 2. In production, this should
 # be configured by the deployer.
-if [ -z "$FASTAPI_WORKERS" ]; then
+if [ -z ${FASTAPI_WORKERS+x} ]; then
     FASTAPI_WORKERS=2
 fi
+
+export FASTAPI_BACKEND="$1"
 
 echo "FASTAPI_BACKEND: $FASTAPI_BACKEND"
 echo "FASTAPI_WORKERS: $FASTAPI_WORKERS"

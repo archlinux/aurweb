@@ -165,6 +165,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config
+      - FASTAPI_BACKEND=${FASTAPI_BACKEND}
       - FASTAPI_WORKERS=${FASTAPI_WORKERS}
       - AURWEB_FASTAPI_PREFIX=${AURWEB_FASTAPI_PREFIX}
       - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
