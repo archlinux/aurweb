@@ -162,7 +162,20 @@ class RPC:
             "Popularity": pop,
             "OutOfDate": package.PackageBase.OutOfDateTS,
             "FirstSubmitted": package.PackageBase.SubmittedTS,
-            "LastModified": package.PackageBase.ModifiedTS,
+            "LastModified": package.PackageBase.ModifiedTS
+        })
+
+        if package.PackageBase.Maintainer is not None:
+            # We do have a maintainer: set the Maintainer key.
+            data["Maintainer"] = package.PackageBase.Maintainer.Username
+
+        return data
+
+    def _get_info_json_data(self, package: models.Package):
+        data = self._get_json_data(package)
+
+        # Add licenses and keywords to info output.
+        data.update({
             "License": [
                 lic.License.Name for lic in package.package_licenses
             ],
@@ -170,10 +183,6 @@ class RPC:
                 keyword.Keyword for keyword in package.PackageBase.keywords
             ]
         })
-
-        if package.PackageBase.Maintainer is not None:
-            # We do have a maintainer: set the Maintainer key.
-            data["Maintainer"] = package.PackageBase.Maintainer.Username
 
         self._update_json_depends(package, data)
         self._update_json_relations(package, data)
@@ -184,7 +193,7 @@ class RPC:
         args = set(args)
         packages = db.query(models.Package).filter(
             models.Package.Name.in_(args))
-        return [self._get_json_data(pkg) for pkg in packages]
+        return [self._get_info_json_data(pkg) for pkg in packages]
 
     def _handle_search_type(self, by: str = defaults.RPC_SEARCH_BY,
                             args: List[str] = []):
