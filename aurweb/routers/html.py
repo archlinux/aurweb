@@ -209,9 +209,7 @@ async def index(request: Request):
 @router.get("/metrics")
 async def metrics(request: Request):
     registry = CollectorRegistry()
-    if os.environ.get("FASTAPI_BACKEND", "") == "gunicorn":  # pragma: no cover
-        # This case only ever happens in production, when we are running
-        # gunicorn. We don't test with gunicorn, so we don't cover this path.
+    if os.environ.get("PROMETHEUS_MULTIPROC_DIR", None):  # pragma: no cover
         multiprocess.MultiProcessCollector(registry)
     data = generate_latest(registry)
     headers = {

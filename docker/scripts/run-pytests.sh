@@ -22,6 +22,9 @@ while [ $# -ne 0 ]; do
     esac
 done
 
+rm -rf $PROMETHEUS_MULTIPROC_DIR
+mkdir -p $PROMETHEUS_MULTIPROC_DIR
+
 # Initialize the new database; ignore errors.
 python -m aurweb.initdb 2>/dev/null || \
     (echo "Error: aurweb.initdb failed; already initialized?" && /bin/true)

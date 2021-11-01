@@ -241,6 +241,7 @@ services:
     environment:
       - AUR_CONFIG=conf/config
       - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
+      - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
     entrypoint: /docker/test-mysql-entrypoint.sh
     command: /docker/scripts/run-pytests.sh clean
     stdin_open: true
@@ -267,6 +268,7 @@ services:
     environment:
       - AUR_CONFIG=conf/config.sqlite
       - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
+      - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
     entrypoint: /docker/test-sqlite-entrypoint.sh
     command: setup-sqlite.sh run-pytests.sh clean
     stdin_open: true
@@ -289,6 +291,7 @@ services:
     environment:
       - AUR_CONFIG=conf/config
       - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
+      - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
     entrypoint: /docker/tests-entrypoint.sh
     command: setup-sqlite.sh run-tests.sh
     stdin_open: true
