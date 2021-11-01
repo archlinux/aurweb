@@ -1,13 +1,14 @@
 from datetime import datetime
 from http import HTTPStatus
 
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 import aurweb.config
 
 from aurweb import cookies
 from aurweb.auth import auth_required
+from aurweb.l10n import get_translator_for_request
 from aurweb.models import User
 from aurweb.templates import make_variable_context, render_template
 
@@ -35,6 +36,15 @@ async def login_post(request: Request,
                      user: str = Form(default=str()),
                      passwd: str = Form(default=str()),
                      remember_me: bool = Form(default=False)):
+    # TODO: Once the Origin header gets broader adoption, this code can be
+    # slightly simplified to use it.
+    login_path = aurweb.config.get("options", "aur_location") + "/login"
+    referer = request.headers.get("Referer")
+    if not referer or not referer.startswith(login_path):
+        _ = get_translator_for_request(request)
+        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
+                            detail=_("Bad Referer header."))
+
     from aurweb.db import session
 
     user = session.query(User).filter(User.Username == user).first()
