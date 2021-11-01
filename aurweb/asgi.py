@@ -9,6 +9,7 @@ from urllib.parse import quote_plus
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from prometheus_client import multiprocess
 from sqlalchemy import and_, or_
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -29,7 +30,7 @@ app = FastAPI(exception_handlers=errors.exceptions)
 # library with custom collectors and expose /metrics.
 instrumentator().add(http_api_requests_total())
 instrumentator().add(http_requests_total())
-instrumentator().instrument(app).expose(app)
+instrumentator().instrument(app)
 
 
 @app.on_event("startup")
@@ -77,6 +78,12 @@ async def app_startup():
 
     # Initialize the database engine and ORM.
     get_engine()
+
+
+def child_exit(server, worker):  # pragma: no cover
+    """ This function is required for gunicorn customization
+    of prometheus multiprocessing. """
+    multiprocess.mark_process_dead(worker.pid)
 
 
 @app.exception_handler(HTTPException)

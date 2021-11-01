@@ -1,11 +1,14 @@
 """ AURWeb's primary routing module. Define all routes via @app.app.{get,post}
 decorators in some way; more complex routes should be defined in their
 own modules and imported here. """
+import os
+
 from datetime import datetime
 from http import HTTPStatus
 
-from fastapi import APIRouter, Form, HTTPException, Request
+from fastapi import APIRouter, Form, HTTPException, Request, Response
 from fastapi.responses import HTMLResponse, RedirectResponse
+from prometheus_client import CONTENT_TYPE_LATEST, CollectorRegistry, generate_latest, multiprocess
 from sqlalchemy import and_, case, or_
 
 import aurweb.config
@@ -203,7 +206,21 @@ async def index(request: Request):
     return render_template(request, "index.html", context)
 
 
-# A route that returns a error 503. For testing purposes.
+@router.get("/metrics")
+async def metrics(request: Request):
+    registry = CollectorRegistry()
+    if os.environ.get("FASTAPI_BACKEND", "") == "gunicorn":  # pragma: no cover
+        # This case only ever happens in production, when we are running
+        # gunicorn. We don't test with gunicorn, so we don't cover this path.
+        multiprocess.MultiProcessCollector(registry)
+    data = generate_latest(registry)
+    headers = {
+        "Content-Type": CONTENT_TYPE_LATEST,
+        "Content-Length": str(len(data))
+    }
+    return Response(data, headers=headers)
+
+
 @router.get("/raisefivethree", response_class=HTMLResponse)
 async def raise_service_unavailable(request: Request):
     raise HTTPException(status_code=503)

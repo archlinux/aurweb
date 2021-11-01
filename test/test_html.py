@@ -117,3 +117,10 @@ def test_get_successes():
 """
     successes = get_successes(html)
     assert successes[0].text.strip() == "Test"
+
+
+def test_metrics(client: TestClient):
+    with client as request:
+        resp = request.get("/metrics")
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert resp.headers.get("Content-Type").startswith("text/plain")
