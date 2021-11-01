@@ -18,4 +18,7 @@ fi
 sed -ri "s|^(git_clone_uri_anon) = .+|\1 = ${AURWEB_FASTAPI_PREFIX}/%s.git|" conf/config.defaults
 sed -ri "s|^(git_clone_uri_priv) = .+|\1 = ${AURWEB_SSHD_PREFIX}/%s.git|" conf/config.defaults
 
+rm -rf $PROMETHEUS_MULTIPROC_DIR
+mkdir -p $PROMETHEUS_MULTIPROC_DIR
+
 exec "$@"

@@ -53,6 +53,7 @@ services:
       - FASTAPI_WORKERS=${FASTAPI_WORKERS}
       - AURWEB_FASTAPI_PREFIX=${AURWEB_FASTAPI_PREFIX}
       - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
+      - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
     volumes:
       - cache:/cache
 
