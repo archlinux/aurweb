@@ -269,7 +269,7 @@ async def package_base(request: Request, name: str) -> Response:
     # If this is not a split package, redirect to /packages/{name}.
     if pkgbase.packages.count() == 1:
         return RedirectResponse(f"/packages/{name}",
-                                status_code=HTTPStatus.SEE_OTHER)
+                                status_code=int(HTTPStatus.SEE_OTHER))
 
     # Add our base information.
     context = await make_single_context(request, pkgbase)

@@ -79,7 +79,7 @@ def http_requests_total() -> Callable[[Info], None]:
 
         method = scope.get("method")
         path = get_matching_route_path(base_scope, scope.get("router").routes)
-        status = str(info.response.status_code)[:1] + "xx"
+        status = str(int(info.response.status_code))[:1] + "xx"
 
         metric.labels(method=method, path=path, status=status).inc()
 
