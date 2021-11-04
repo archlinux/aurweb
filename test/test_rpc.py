@@ -1,7 +1,6 @@
 import re
 
 from http import HTTPStatus
-from typing import Dict
 from unittest import mock
 
 import orjson
@@ -10,8 +9,7 @@ import pytest
 from fastapi.testclient import TestClient
 from redis.client import Pipeline
 
-from aurweb import config, db, scripts
-from aurweb.asgi import app
+from aurweb import asgi, config, db, scripts
 from aurweb.db import begin, create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.dependency_type import DependencyType
@@ -28,9 +26,9 @@ from aurweb.models.user import User
 from aurweb.redis import redis_connection
 
 
-def make_request(path, headers: Dict[str, str] = {}):
-    with TestClient(app) as request:
-        return request.get(path, headers=headers)
+@pytest.fixture
+def client() -> TestClient:
+    yield TestClient(app=asgi.app)
 
 
 @pytest.fixture(autouse=True)
@@ -205,7 +203,7 @@ def pipeline():
     yield pipeline
 
 
-def test_rpc_singular_info():
+def test_rpc_singular_info(client: TestClient):
     # Define expected response.
     expected_data = {
         "version": 5,
@@ -239,7 +237,9 @@ def test_rpc_singular_info():
     }
 
     # Make dummy request.
-    response_arg = make_request("/rpc/?v=5&type=info&arg=chungy-chungus&arg=big-chungus")
+    with client as request:
+        response_arg = request.get(
+            "/rpc/?v=5&type=info&arg=chungy-chungus&arg=big-chungus")
 
     # Load  request response into Python dictionary.
     response_info_arg = orjson.loads(response_arg.content.decode())
@@ -254,9 +254,10 @@ def test_rpc_singular_info():
     assert response_info_arg == expected_data
 
 
-def test_rpc_nonexistent_package():
+def test_rpc_nonexistent_package(client: TestClient):
     # Make dummy request.
-    response = make_request("/rpc/?v=5&type=info&arg=nonexistent-package")
+    with client as request:
+        response = request.get("/rpc/?v=5&type=info&arg=nonexistent-package")
 
     # Load request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -265,10 +266,12 @@ def test_rpc_nonexistent_package():
     assert response_data["resultcount"] == 0
 
 
-def test_rpc_multiinfo():
+def test_rpc_multiinfo(client: TestClient):
     # Make dummy request.
     request_packages = ["big-chungus", "chungy-chungus"]
-    response = make_request("/rpc/?v=5&type=info&arg[]=big-chungus&arg[]=chungy-chungus")
+    with client as request:
+        response = request.get(
+            "/rpc/?v=5&type=info&arg[]=big-chungus&arg[]=chungy-chungus")
 
     # Load request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -280,13 +283,20 @@ def test_rpc_multiinfo():
     assert request_packages == []
 
 
-def test_rpc_mixedargs():
+def test_rpc_mixedargs(client: TestClient):
     # Make dummy request.
     response1_packages = ["gluggly-chungus"]
     response2_packages = ["gluggly-chungus", "chungy-chungus"]
 
-    response1 = make_request("/rpc/?v=5&arg[]=big-chungus&arg=gluggly-chungus&type=info")
-    response2 = make_request("/rpc/?v=5&arg=big-chungus&arg[]=gluggly-chungus&type=info&arg[]=chungy-chungus")
+    with client as request:
+        response1 = request.get(
+            "/rpc?v=5&arg[]=big-chungus&arg=gluggly-chungus&type=info")
+    assert response1.status_code == int(HTTPStatus.OK)
+
+    with client as request:
+        response2 = request.get(
+            "/rpc?v=5&arg=big-chungus&arg[]=gluggly-chungus&type=info&arg[]=chungy-chungus")
+    assert response1.status_code == int(HTTPStatus.OK)
 
     # Load request response into Python dictionary.
     response1_data = orjson.loads(response1.content.decode())
@@ -303,7 +313,7 @@ def test_rpc_mixedargs():
         assert i == []
 
 
-def test_rpc_no_dependencies():
+def test_rpc_no_dependencies(client: TestClient):
     """This makes sure things like 'MakeDepends' get removed from JSON strings
     when they don't have set values."""
 
@@ -330,7 +340,8 @@ def test_rpc_no_dependencies():
     }
 
     # Make dummy request.
-    response = make_request("/rpc/?v=5&type=info&arg=chungy-chungus")
+    with client as request:
+        response = request.get("/rpc/?v=5&type=info&arg=chungy-chungus")
     response_data = orjson.loads(response.content.decode())
 
     # Remove inconsistent keys.
@@ -340,7 +351,7 @@ def test_rpc_no_dependencies():
     assert response_data == expected_response
 
 
-def test_rpc_bad_type():
+def test_rpc_bad_type(client: TestClient):
     # Define expected response.
     expected_data = {
         'version': 5,
@@ -351,7 +362,8 @@ def test_rpc_bad_type():
     }
 
     # Make dummy request.
-    response = make_request("/rpc/?v=5&type=invalid-type&arg=big-chungus")
+    with client as request:
+        response = request.get("/rpc/?v=5&type=invalid-type&arg=big-chungus")
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -360,7 +372,7 @@ def test_rpc_bad_type():
     assert expected_data == response_data
 
 
-def test_rpc_bad_version():
+def test_rpc_bad_version(client: TestClient):
     # Define expected response.
     expected_data = {
         'version': 0,
@@ -371,7 +383,8 @@ def test_rpc_bad_version():
     }
 
     # Make dummy request.
-    response = make_request("/rpc/?v=0&type=info&arg=big-chungus")
+    with client as request:
+        response = request.get("/rpc/?v=0&type=info&arg=big-chungus")
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -380,7 +393,7 @@ def test_rpc_bad_version():
     assert expected_data == response_data
 
 
-def test_rpc_no_version():
+def test_rpc_no_version(client: TestClient):
     # Define expected response.
     expected_data = {
         'version': None,
@@ -391,7 +404,8 @@ def test_rpc_no_version():
     }
 
     # Make dummy request.
-    response = make_request("/rpc/?type=info&arg=big-chungus")
+    with client as request:
+        response = request.get("/rpc/?type=info&arg=big-chungus")
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -400,7 +414,7 @@ def test_rpc_no_version():
     assert expected_data == response_data
 
 
-def test_rpc_no_type():
+def test_rpc_no_type(client: TestClient):
     # Define expected response.
     expected_data = {
         'version': 5,
@@ -411,7 +425,8 @@ def test_rpc_no_type():
     }
 
     # Make dummy request.
-    response = make_request("/rpc/?v=5&arg=big-chungus")
+    with client as request:
+        response = request.get("/rpc/?v=5&arg=big-chungus")
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -420,7 +435,7 @@ def test_rpc_no_type():
     assert expected_data == response_data
 
 
-def test_rpc_no_args():
+def test_rpc_no_args(client: TestClient):
     # Define expected response.
     expected_data = {
         'version': 5,
@@ -431,7 +446,8 @@ def test_rpc_no_args():
     }
 
     # Make dummy request.
-    response = make_request("/rpc/?v=5&type=info")
+    with client as request:
+        response = request.get("/rpc/?v=5&type=info")
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -440,9 +456,10 @@ def test_rpc_no_args():
     assert expected_data == response_data
 
 
-def test_rpc_no_maintainer():
+def test_rpc_no_maintainer(client: TestClient):
     # Make dummy request.
-    response = make_request("/rpc/?v=5&type=info&arg=woogly-chungus")
+    with client as request:
+        response = request.get("/rpc/?v=5&type=info&arg=woogly-chungus")
 
     # Load  request response into Python dictionary.
     response_data = orjson.loads(response.content.decode())
@@ -451,33 +468,39 @@ def test_rpc_no_maintainer():
     assert response_data["results"][0]["Maintainer"] is None
 
 
-def test_rpc_suggest_pkgbase():
-    response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+def test_rpc_suggest_pkgbase(client: TestClient):
+    with client as request:
+        response = request.get("/rpc?v=5&type=suggest-pkgbase&arg=big")
     data = response.json()
     assert data == ["big-chungus"]
 
-    response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=chungy")
+    with client as request:
+        response = request.get("/rpc?v=5&type=suggest-pkgbase&arg=chungy")
     data = response.json()
     assert data == ["chungy-chungus"]
 
     # Test no arg supplied.
-    response = make_request("/rpc?v=5&type=suggest-pkgbase")
+    with client as request:
+        response = request.get("/rpc?v=5&type=suggest-pkgbase")
     data = response.json()
     assert data == []
 
 
-def test_rpc_suggest():
-    response = make_request("/rpc?v=5&type=suggest&arg=other")
+def test_rpc_suggest(client: TestClient):
+    with client as request:
+        response = request.get("/rpc?v=5&type=suggest&arg=other")
     data = response.json()
     assert data == ["other-pkg"]
 
     # Test non-existent Package.
-    response = make_request("/rpc?v=5&type=suggest&arg=nonexistent")
+    with client as request:
+        response = request.get("/rpc?v=5&type=suggest&arg=nonexistent")
     data = response.json()
     assert data == []
 
     # Test no arg supplied.
-    response = make_request("/rpc?v=5&type=suggest")
+    with client as request:
+        response = request.get("/rpc?v=5&type=suggest")
     data = response.json()
     assert data == []
 
@@ -491,14 +514,17 @@ def mock_config_getint(section: str, key: str):
 
 
 @mock.patch("aurweb.config.getint", side_effect=mock_config_getint)
-def test_rpc_ratelimit(getint: mock.MagicMock, pipeline: Pipeline):
+def test_rpc_ratelimit(getint: mock.MagicMock, client: TestClient,
+                       pipeline: Pipeline):
     for i in range(4):
         # The first 4 requests should be good.
-        response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+        with client as request:
+            response = request.get("/rpc?v=5&type=suggest-pkgbase&arg=big")
         assert response.status_code == int(HTTPStatus.OK)
 
     # The fifth request should be banned.
-    response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+    with client as request:
+        response = request.get("/rpc?v=5&type=suggest-pkgbase&arg=big")
     assert response.status_code == int(HTTPStatus.TOO_MANY_REQUESTS)
 
     # Delete the cached records.
@@ -508,26 +534,32 @@ def test_rpc_ratelimit(getint: mock.MagicMock, pipeline: Pipeline):
     assert one and two
 
     # The new first request should be good.
-    response = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+    with client as request:
+        response = request.get("/rpc?v=5&type=suggest-pkgbase&arg=big")
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_rpc_etag():
-    response1 = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
-    response2 = make_request("/rpc?v=5&type=suggest-pkgbase&arg=big")
+def test_rpc_etag(client: TestClient):
+    with client as request:
+        response1 = request.get("/rpc?v=5&type=suggest-pkgbase&arg=big")
+
+    with client as request:
+        response2 = request.get("/rpc?v=5&type=suggest-pkgbase&arg=big")
     assert response1.headers.get("ETag") is not None
     assert response1.headers.get("ETag") != str()
     assert response1.headers.get("ETag") == response2.headers.get("ETag")
 
 
-def test_rpc_search_arg_too_small():
-    response = make_request("/rpc?v=5&type=search&arg=b")
+def test_rpc_search_arg_too_small(client: TestClient):
+    with client as request:
+        response = request.get("/rpc?v=5&type=search&arg=b")
     assert response.status_code == int(HTTPStatus.OK)
     assert response.json().get("error") == "Query arg too small."
 
 
-def test_rpc_search():
-    response = make_request("/rpc?v=5&type=search&arg=big")
+def test_rpc_search(client: TestClient):
+    with client as request:
+        response = request.get("/rpc?v=5&type=search&arg=big")
     assert response.status_code == int(HTTPStatus.OK)
 
     data = response.json()
@@ -539,17 +571,18 @@ def test_rpc_search():
     # Test the If-None-Match headers.
     etag = response.headers.get("ETag").strip('"')
     headers = {"If-None-Match": etag}
-    response = make_request("/rpc?v=5&type=search&arg=big", headers=headers)
+    response = request.get("/rpc?v=5&type=search&arg=big", headers=headers)
     assert response.status_code == int(HTTPStatus.NOT_MODIFIED)
     assert response.content == b''
 
     # No args on non-m by types return an error.
-    response = make_request("/rpc?v=5&type=search")
+    response = request.get("/rpc?v=5&type=search")
     assert response.json().get("error") == "No request type/data specified."
 
 
-def test_rpc_msearch():
-    response = make_request("/rpc?v=5&type=msearch&arg=user1")
+def test_rpc_msearch(client: TestClient):
+    with client as request:
+        response = request.get("/rpc?v=5&type=msearch&arg=user1")
     data = response.json()
 
     # user1 maintains 4 packages; assert that we got them all.
@@ -564,73 +597,80 @@ def test_rpc_msearch():
     assert names == expected_results
 
     # Search for a non-existent maintainer, giving us zero packages.
-    response = make_request("/rpc?v=5&type=msearch&arg=blah-blah")
+    response = request.get("/rpc?v=5&type=msearch&arg=blah-blah")
     data = response.json()
     assert data.get("resultcount") == 0
 
     # A missing arg still succeeds, but it returns all orphans.
     # Just verify that we receive no error and the orphaned result.
-    response = make_request("/rpc?v=5&type=msearch")
+    response = request.get("/rpc?v=5&type=msearch")
     data = response.json()
     assert data.get("resultcount") == 1
     result = data.get("results")[0]
     assert result.get("Name") == "woogly-chungus"
 
 
-def test_rpc_search_depends():
-    response = make_request(
-        "/rpc?v=5&type=search&by=depends&arg=chungus-depends")
+def test_rpc_search_depends(client: TestClient):
+    with client as request:
+        response = request.get(
+            "/rpc?v=5&type=search&by=depends&arg=chungus-depends")
     data = response.json()
     assert data.get("resultcount") == 1
     result = data.get("results")[0]
     assert result.get("Name") == "big-chungus"
 
 
-def test_rpc_search_makedepends():
-    response = make_request(
-        "/rpc?v=5&type=search&by=makedepends&arg=chungus-makedepends")
+def test_rpc_search_makedepends(client: TestClient):
+    with client as request:
+        response = request.get(
+            "/rpc?v=5&type=search&by=makedepends&arg=chungus-makedepends")
     data = response.json()
     assert data.get("resultcount") == 1
     result = data.get("results")[0]
     assert result.get("Name") == "big-chungus"
 
 
-def test_rpc_search_optdepends():
-    response = make_request(
-        "/rpc?v=5&type=search&by=optdepends&arg=chungus-optdepends")
+def test_rpc_search_optdepends(client: TestClient):
+    with client as request:
+        response = request.get(
+            "/rpc?v=5&type=search&by=optdepends&arg=chungus-optdepends")
     data = response.json()
     assert data.get("resultcount") == 1
     result = data.get("results")[0]
     assert result.get("Name") == "big-chungus"
 
 
-def test_rpc_search_checkdepends():
-    response = make_request(
-        "/rpc?v=5&type=search&by=checkdepends&arg=chungus-checkdepends")
+def test_rpc_search_checkdepends(client: TestClient):
+    with client as request:
+        response = request.get(
+            "/rpc?v=5&type=search&by=checkdepends&arg=chungus-checkdepends")
     data = response.json()
     assert data.get("resultcount") == 1
     result = data.get("results")[0]
     assert result.get("Name") == "big-chungus"
 
 
-def test_rpc_incorrect_by():
-    response = make_request("/rpc?v=5&type=search&by=fake&arg=big")
+def test_rpc_incorrect_by(client: TestClient):
+    with client as request:
+        response = request.get("/rpc?v=5&type=search&by=fake&arg=big")
     assert response.json().get("error") == "Incorrect by field specified."
 
 
-def test_rpc_jsonp_callback():
+def test_rpc_jsonp_callback(client: TestClient):
     """ Test the callback parameter.
 
     For end-to-end verification, the `examples/jsonp.html` file can be
     used to submit jsonp callback requests to the RPC.
     """
-    response = make_request(
-        "/rpc?v=5&type=search&arg=big&callback=jsonCallback")
+    with client as request:
+        response = request.get(
+            "/rpc?v=5&type=search&arg=big&callback=jsonCallback")
     assert response.headers.get("content-type") == "text/javascript"
     assert re.search(r'^/\*\*/jsonCallback\(.*\)$', response.text) is not None
 
     # Test an invalid callback name; we get an application/json error.
-    response = make_request(
-        "/rpc?v=5&type=search&arg=big&callback=jsonCallback!")
+    with client as request:
+        response = request.get(
+            "/rpc?v=5&type=search&arg=big&callback=jsonCallback!")
     assert response.headers.get("content-type") == "application/json"
     assert response.json().get("error") == "Invalid callback name."
