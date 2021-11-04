@@ -73,3 +73,7 @@ class NotVotedException(AurwebException):
 class InvalidArgumentsException(AurwebException):
     def __init__(self, msg):
         super(InvalidArgumentsException, self).__init__(msg)
+
+
+class RPCError(AurwebException):
+    pass

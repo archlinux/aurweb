@@ -1,36 +1,26 @@
 from collections import defaultdict
-from typing import Any, Callable, Dict, List, NewType
+from typing import Any, Callable, Dict, List, NewType, Union
 
-from sqlalchemy import and_
+from sqlalchemy import and_, literal
 
 import aurweb.config as config
 
 from aurweb import db, defaults, models, util
-from aurweb.models import dependency_type, relation_type
+from aurweb.exceptions import RPCError
 from aurweb.packages.search import RPCSearch
 
-# Define dependency type mappings from ID to RPC-compatible keys.
-DEP_TYPES = {
-    dependency_type.DEPENDS_ID: "Depends",
-    dependency_type.MAKEDEPENDS_ID: "MakeDepends",
-    dependency_type.CHECKDEPENDS_ID: "CheckDepends",
-    dependency_type.OPTDEPENDS_ID: "OptDepends"
+TYPE_MAPPING = {
+    "depends": "Depends",
+    "makedepends": "MakeDepends",
+    "checkdepends": "CheckDepends",
+    "optdepends": "OptDepends",
+    "conflicts": "Conflicts",
+    "provides": "Provides",
+    "replaces": "Replaces",
 }
-
-# Define relationship type mappings from ID to RPC-compatible keys.
-REL_TYPES = {
-    relation_type.CONFLICTS_ID: "Conflicts",
-    relation_type.PROVIDES_ID: "Provides",
-    relation_type.REPLACES_ID: "Replaces"
-}
-
 
 DataGenerator = NewType("DataGenerator",
                         Callable[[models.Package], Dict[str, Any]])
-
-
-class RPCError(Exception):
-    pass
 
 
 class RPC:
@@ -76,11 +66,11 @@ class RPC:
     # A mapping of by aliases.
     BY_ALIASES = {"name-desc": "nd", "name": "n", "maintainer": "m"}
 
-    def __init__(self, version: int = 0, type: str = None):
+    def __init__(self, version: int = 0, type: str = None) -> "RPC":
         self.version = version
-        self.type = type
+        self.type = RPC.TYPE_ALIASES.get(type, type)
 
-    def error(self, message: str) -> dict:
+    def error(self, message: str) -> Dict[str, Any]:
         return {
             "version": self.version,
             "results": [],
@@ -89,7 +79,7 @@ class RPC:
             "error": message
         }
 
-    def _verify_inputs(self, by: str = [], args: List[str] = []):
+    def _verify_inputs(self, by: str = [], args: List[str] = []) -> None:
         if self.version is None:
             raise RPCError("Please specify an API version.")
 
@@ -105,39 +95,11 @@ class RPC:
         if self.type not in RPC.EXPOSED_TYPES:
             raise RPCError("Incorrect request type specified.")
 
-    def _enforce_args(self, args: List[str]):
+    def _enforce_args(self, args: List[str]) -> None:
         if not args:
             raise RPCError("No request type/data specified.")
 
-    def _update_json_depends(self, package: models.Package,
-                             data: Dict[str, Any]):
-        # Walk through all related PackageDependencies and produce
-        # the appropriate dict entries.
-        for dep in package.package_dependencies:
-            if dep.DepTypeID in DEP_TYPES:
-                key = DEP_TYPES.get(dep.DepTypeID)
-
-                display = dep.DepName
-                if dep.DepCondition:
-                    display += dep.DepCondition
-
-                data[key].append(display)
-
-    def _update_json_relations(self, package: models.Package,
-                               data: Dict[str, Any]):
-        # Walk through all related PackageRelations and produce
-        # the appropriate dict entries.
-        for rel in package.package_relations:
-            if rel.RelTypeID in REL_TYPES:
-                key = REL_TYPES.get(rel.RelTypeID)
-
-                display = rel.RelName
-                if rel.RelCondition:
-                    display += rel.RelCondition
-
-                data[key].append(display)
-
-    def _get_json_data(self, package: models.Package):
+    def _get_json_data(self, package: models.Package) -> Dict[str, Any]:
         """ Produce dictionary data of one Package that can be JSON-serialized.
 
         :param package: Package instance
@@ -175,21 +137,21 @@ class RPC:
 
         return data
 
-    def _get_info_json_data(self, package: models.Package):
+    def _get_info_json_data(self, package: models.Package) -> Dict[str, Any]:
         data = self._get_json_data(package)
 
-        # Add licenses and keywords to info output.
+        # All info results have _at least_ an empty list of
+        # License and Keywords.
         data.update({
-            "License": [
-                lic.License.Name for lic in package.package_licenses
-            ],
-            "Keywords": [
-                keyword.Keyword for keyword in package.PackageBase.keywords
-            ]
+            "License": [],
+            "Keywords": []
         })
 
-        self._update_json_depends(package, data)
-        self._update_json_relations(package, data)
+        # If we actually got extra_info records, update data with
+        # them for this particular package.
+        if self.extra_info:
+            data.update(self.extra_info.get(package.ID, {}))
+
         return data
 
     def _assemble_json_data(self, packages: List[models.Package],
@@ -211,13 +173,97 @@ class RPC:
             -> List[Dict[str, Any]]:
         self._enforce_args(args)
         args = set(args)
-        packages = db.query(models.Package).filter(
+
+        packages = db.query(models.Package).join(models.PackageBase).filter(
             models.Package.Name.in_(args))
+        ids = {pkg.ID for pkg in packages}
+
+        # Aliases for 80-width.
+        Package = models.Package
+        PackageKeyword = models.PackageKeyword
+
+        subqueries = [
+            # PackageDependency
+            db.query(
+                models.PackageDependency
+            ).join(models.DependencyType).filter(
+                models.PackageDependency.PackageID.in_(ids)
+            ).with_entities(
+                models.PackageDependency.PackageID.label("ID"),
+                models.DependencyType.Name.label("Type"),
+                models.PackageDependency.DepName.label("Name"),
+                models.PackageDependency.DepCondition.label("Cond")
+            ).distinct().order_by("ID"),
+
+            # PackageRelation
+            db.query(
+                models.PackageRelation
+            ).join(models.RelationType).filter(
+                models.PackageRelation.PackageID.in_(ids)
+            ).with_entities(
+                models.PackageRelation.PackageID.label("ID"),
+                models.RelationType.Name.label("Type"),
+                models.PackageRelation.RelName.label("Name"),
+                models.PackageRelation.RelCondition.label("Cond")
+            ).distinct().order_by("ID"),
+
+            # Groups
+            db.query(models.PackageGroup).join(
+                models.Group,
+                and_(models.PackageGroup.GroupID == models.Group.ID,
+                     models.PackageGroup.PackageID.in_(ids))
+            ).with_entities(
+                models.PackageGroup.PackageID.label("ID"),
+                literal("Groups").label("Type"),
+                models.Group.Name.label("Name"),
+                literal(str()).label("Cond")
+            ).distinct().order_by("ID"),
+
+            # Licenses
+            db.query(models.PackageLicense).join(
+                models.License,
+                models.PackageLicense.LicenseID == models.License.ID
+            ).filter(
+                models.PackageLicense.PackageID.in_(ids)
+            ).with_entities(
+                models.PackageLicense.PackageID.label("ID"),
+                literal("License").label("Type"),
+                models.License.Name.label("Name"),
+                literal(str()).label("Cond")
+            ).distinct().order_by("ID"),
+
+            # Keywords
+            db.query(models.PackageKeyword).join(
+                models.Package,
+                and_(Package.PackageBaseID == PackageKeyword.PackageBaseID,
+                     Package.ID.in_(ids))
+            ).with_entities(
+                models.Package.ID.label("ID"),
+                literal("Keywords").label("Type"),
+                models.PackageKeyword.Keyword.label("Name"),
+                literal(str()).label("Cond")
+            ).distinct().order_by("ID")
+        ]
+
+        # Union all subqueries together.
+        query = subqueries[0].union_all(*subqueries[1:])
+
+        # Store our extra information in a class-wise dictionary,
+        # which contains package id -> extra info dict mappings.
+        self.extra_info = defaultdict(lambda: defaultdict(list))
+        for record in query:
+            type_ = TYPE_MAPPING.get(record.Type, record.Type)
+
+            name = record.Name
+            if record.Cond:
+                name += record.Cond
+
+            self.extra_info[record.ID][type_].append(name)
+
         return self._assemble_json_data(packages, self._get_info_json_data)
 
     def _handle_search_type(self, by: str = defaults.RPC_SEARCH_BY,
-                            args: List[str] = []) \
-            -> List[Dict[str, Any]]:
+                            args: List[str] = []) -> List[Dict[str, Any]]:
         # If `by` isn't maintainer and we don't have any args, raise an error.
         # In maintainer's case, return all orphans if there are no args,
         # so we need args to pass through to the handler without errors.
@@ -235,10 +281,12 @@ class RPC:
         results = search.results().limit(max_results)
         return self._assemble_json_data(results, self._get_json_data)
 
-    def _handle_msearch_type(self, args: List[str] = [], **kwargs):
+    def _handle_msearch_type(self, args: List[str] = [], **kwargs)\
+            -> List[Dict[str, Any]]:
         return self._handle_search_type(by="m", args=args)
 
-    def _handle_suggest_type(self, args: List[str] = [], **kwargs):
+    def _handle_suggest_type(self, args: List[str] = [], **kwargs)\
+            -> List[str]:
         if not args:
             return []
 
@@ -251,7 +299,8 @@ class RPC:
         ).order_by(models.Package.Name.asc()).limit(20)
         return [pkg.Name for pkg in packages]
 
-    def _handle_suggest_pkgbase_type(self, args: List[str] = [], **kwargs):
+    def _handle_suggest_pkgbase_type(self, args: List[str] = [], **kwargs)\
+            -> List[str]:
         if not args:
             return []
 
@@ -261,7 +310,19 @@ class RPC:
         ).order_by(models.PackageBase.Name.asc()).limit(20)
         return [pkg.Name for pkg in packages]
 
-    def handle(self, by: str = defaults.RPC_SEARCH_BY, args: List[str] = []):
+    def _is_suggestion(self) -> bool:
+        return self.type.startswith("suggest")
+
+    def _handle_callback(self, by: str, args: List[str])\
+            -> Union[List[Dict[str, Any]], List[str]]:
+        # Get a handle to our callback and trap an RPCError with
+        # an empty list of results based on callback's execution.
+        callback = getattr(self, f"_handle_{self.type.replace('-', '_')}_type")
+        results = callback(by=by, args=args)
+        return results
+
+    def handle(self, by: str = defaults.RPC_SEARCH_BY, args: List[str] = [])\
+            -> Union[List[Dict[str, Any]], Dict[str, Any]]:
         """ Request entrypoint. A router should pass v, type and args
         to this function and expect an output dictionary to be returned.
 
@@ -269,10 +330,6 @@ class RPC:
         :param type: RPC type argument
         :param args: Deciphered list of arguments based on arg/arg[] inputs
         """
-        # Convert type aliased types.
-        if self.type in RPC.TYPE_ALIASES:
-            self.type = RPC.TYPE_ALIASES.get(self.type)
-
         # Prepare our output data dictionary with some basic keys.
         data = {"version": self.version, "type": self.type}
 
@@ -283,20 +340,17 @@ class RPC:
             return self.error(str(exc))
 
         # Convert by to its aliased value if it has one.
-        if by in RPC.BY_ALIASES:
-            by = RPC.BY_ALIASES.get(by)
+        by = RPC.BY_ALIASES.get(by, by)
 
-        # Get a handle to our callback and trap an RPCError with
-        # an empty list of results based on callback's execution.
-        callback = getattr(self, f"_handle_{self.type.replace('-', '_')}_type")
+        # Process the requested handler.
         try:
-            results = callback(by=by, args=args)
+            results = self._handle_callback(by, args)
         except RPCError as exc:
             return self.error(str(exc))
 
         # These types are special: we produce a different kind of
         # successful JSON output: a list of results.
-        if self.type in ("suggest", "suggest-pkgbase"):
+        if self._is_suggestion():
             return results
 
         # Return JSON output.
