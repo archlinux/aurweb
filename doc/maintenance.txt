@@ -70,7 +70,8 @@ computations and clean up the database:
 * aurweb-pkgmaint automatically removes empty repositories that were created
   within the last 24 hours but never populated.
 
-* aurweb-mkpkglists generates the package list files.
+* aurweb-mkpkglists generates the package list files; it takes an optional
+  --extended flag, which additionally produces multiinfo metadata.
 
 * aurweb-usermaint removes the last login IP address of all users that did not
   login within the past seven days.
@@ -79,7 +80,7 @@ These scripts can be installed by running `python3 setup.py install` and are
 usually scheduled using Cron. The current setup is:
 
 ----
-*/5 * * * * aurweb-mkpkglists
+*/5 * * * * aurweb-mkpkglists [--extended]
 1 */2 * * * aurweb-popupdate
 2 */2 * * * aurweb-aurblup
 3 */2 * * * aurweb-pkgmaint
