@@ -20,60 +20,23 @@ on the following, right-hand side fields are added to each item.
 
 import datetime
 import gzip
-import os
 import sys
 
 from collections import defaultdict
 from decimal import Decimal
-from typing import Tuple
 
 import orjson
 
 import aurweb.config
 import aurweb.db
 
-
-def state_path(archive: str) -> str:
-    # A hard-coded /tmp state directory.
-    # TODO: Use Redis cache to store this state after we merge
-    # FastAPI into master and removed PHP from the tree.
-    return os.path.join("/tmp", os.path.basename(archive) + ".state")
-
-
 packagesfile = aurweb.config.get('mkpkglists', 'packagesfile')
 packagesmetafile = aurweb.config.get('mkpkglists', 'packagesmetafile')
 packagesmetaextfile = aurweb.config.get('mkpkglists', 'packagesmetaextfile')
-packages_state = state_path(packagesfile)
 
 pkgbasefile = aurweb.config.get('mkpkglists', 'pkgbasefile')
-pkgbases_state = state_path(pkgbasefile)
 
 userfile = aurweb.config.get('mkpkglists', 'userfile')
-users_state = state_path(userfile)
-
-
-def should_update(state: str, tablename: str) -> Tuple[bool, int]:
-    if aurweb.config.get("database", "backend") != "mysql":
-        return (False, 0)
-
-    db_name = aurweb.config.get("database", "name")
-    conn = aurweb.db.Connection()
-    cur = conn.execute("SELECT auto_increment FROM information_schema.tables "
-                       "WHERE table_schema = ? AND table_name = ?",
-                       (db_name, tablename,))
-    update_time = cur.fetchone()[0]
-
-    saved_update_time = 0
-    if os.path.exists(state):
-        with open(state) as f:
-            saved_update_time = int(f.read().strip())
-
-    return (saved_update_time == update_time, update_time)
-
-
-def update_state(state: str, update_time: int) -> None:
-    with open(state, "w") as f:
-        f.write(str(update_time))
 
 
 TYPE_MAP = {
@@ -197,83 +160,69 @@ def main():
     pkgbaselist_header = "# AUR package base list, generated on " + datestr
     userlist_header = "# AUR user name list, generated on " + datestr
 
-    updated, update_time = should_update(packages_state, "Packages")
-    if not updated:
-        print("Updating Packages...")
+    # Query columns; copied from RPC.
+    columns = ("Packages.ID, Packages.Name, "
+               "PackageBases.ID AS PackageBaseID, "
+               "PackageBases.Name AS PackageBase, "
+               "Version, Description, URL, NumVotes, "
+               "Popularity, OutOfDateTS AS OutOfDate, "
+               "Users.UserName AS Maintainer, "
+               "SubmittedTS AS FirstSubmitted, "
+               "ModifiedTS AS LastModified")
 
-        # Query columns; copied from RPC.
-        columns = ("Packages.ID, Packages.Name, "
-                   "PackageBases.ID AS PackageBaseID, "
-                   "PackageBases.Name AS PackageBase, "
-                   "Version, Description, URL, NumVotes, "
-                   "Popularity, OutOfDateTS AS OutOfDate, "
-                   "Users.UserName AS Maintainer, "
-                   "SubmittedTS AS FirstSubmitted, "
-                   "ModifiedTS AS LastModified")
+    # Perform query.
+    cur = conn.execute(f"SELECT {columns} FROM Packages "
+                       "LEFT JOIN PackageBases "
+                       "ON PackageBases.ID = Packages.PackageBaseID "
+                       "LEFT JOIN Users "
+                       "ON PackageBases.MaintainerUID = Users.ID "
+                       "WHERE PackageBases.PackagerUID IS NOT NULL")
 
-        # Perform query.
-        cur = conn.execute(f"SELECT {columns} FROM Packages "
-                           "LEFT JOIN PackageBases "
-                           "ON PackageBases.ID = Packages.PackageBaseID "
-                           "LEFT JOIN Users "
-                           "ON PackageBases.MaintainerUID = Users.ID "
-                           "WHERE PackageBases.PackagerUID IS NOT NULL")
+    # Produce packages-meta-v1.json.gz
+    output = list()
+    snapshot_uri = aurweb.config.get("options", "snapshot_uri")
+    for result in cur.fetchall():
+        item = {
+            column[0]: is_decimal(result[i])
+            for i, column in enumerate(cur.description)
+        }
+        item["URLPath"] = snapshot_uri % item.get("Name")
+        output.append(item)
 
-        # Produce packages-meta-v1.json.gz
-        output = list()
-        snapshot_uri = aurweb.config.get("options", "snapshot_uri")
-        for result in cur.fetchall():
-            item = {
-                column[0]: is_decimal(result[i])
-                for i, column in enumerate(cur.description)
-            }
-            item["URLPath"] = snapshot_uri % item.get("Name")
-            output.append(item)
+    write_archive(packagesmetafile, output)
 
-        write_archive(packagesmetafile, output)
+    # Produce packages-meta-ext-v1.json.gz
+    if len(sys.argv) > 1 and sys.argv[1] in EXTENDED_FIELD_HANDLERS:
+        f = EXTENDED_FIELD_HANDLERS.get(sys.argv[1])
+        data = f()
 
-        # Produce packages-meta-ext-v1.json.gz
-        if len(sys.argv) > 1 and sys.argv[1] in EXTENDED_FIELD_HANDLERS:
-            f = EXTENDED_FIELD_HANDLERS.get(sys.argv[1])
-            data = f()
+        default_ = {"Groups": [], "License": [], "Keywords": []}
+        for i in range(len(output)):
+            data_ = data.get(output[i].get("ID"), default_)
+            output[i].update(data_)
 
-            default_ = {"Groups": [], "License": [], "Keywords": []}
-            for i in range(len(output)):
-                data_ = data.get(output[i].get("ID"), default_)
-                output[i].update(data_)
+        write_archive(packagesmetaextfile, output)
 
-            write_archive(packagesmetaextfile, output)
+    # Produce packages.gz
+    with gzip.open(packagesfile, "wb") as f:
+        f.write(bytes(pkglist_header + "\n", "UTF-8"))
+        f.writelines([
+            bytes(x.get("Name") + "\n", "UTF-8")
+            for x in output
+        ])
 
-        # Produce packages.gz
-        with gzip.open(packagesfile, "wb") as f:
-            f.write(bytes(pkglist_header + "\n", "UTF-8"))
-            f.writelines([
-                bytes(x.get("Name") + "\n", "UTF-8")
-                for x in output
-            ])
+    # Produce pkgbase.gz
+    with gzip.open(pkgbasefile, "w") as f:
+        f.write(bytes(pkgbaselist_header + "\n", "UTF-8"))
+        cur = conn.execute("SELECT Name FROM PackageBases " +
+                           "WHERE PackagerUID IS NOT NULL")
+        f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
 
-        update_state(packages_state, update_time)
-
-    updated, update_time = should_update(pkgbases_state, "PackageBases")
-    if not updated:
-        print("Updating PackageBases...")
-        # Produce pkgbase.gz
-        with gzip.open(pkgbasefile, "w") as f:
-            f.write(bytes(pkgbaselist_header + "\n", "UTF-8"))
-            cur = conn.execute("SELECT Name FROM PackageBases " +
-                               "WHERE PackagerUID IS NOT NULL")
-            f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
-        update_state(pkgbases_state, update_time)
-
-    updated, update_time = should_update(users_state, "Users")
-    if not updated:
-        print("Updating Users...")
-        # Produce users.gz
-        with gzip.open(userfile, "w") as f:
-            f.write(bytes(userlist_header + "\n", "UTF-8"))
-            cur = conn.execute("SELECT UserName FROM Users")
-            f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
-        update_state(users_state, update_time)
+    # Produce users.gz
+    with gzip.open(userfile, "w") as f:
+        f.write(bytes(userlist_header + "\n", "UTF-8"))
+        cur = conn.execute("SELECT UserName FROM Users")
+        f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
 
     conn.close()
 
