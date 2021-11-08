@@ -1,30 +1,26 @@
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.package_base import PackageBase as _PackageBase
 from aurweb.models.user import User as _User
 
 
 class PackageComaintainer(Base):
-    __tablename__ = "PackageComaintainers"
+    __table__ = schema.PackageComaintainers
+    __tablename__ = __table__.name
+    __mapper_args__ = {
+        "primary_key": [__table__.c.UsersID, __table__.c.PackageBaseID]
+    }
 
-    UsersID = Column(
-        Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
-        nullable=False)
     User = relationship(
         _User, backref=backref("comaintained", lazy="dynamic"),
-        foreign_keys=[UsersID])
+        foreign_keys=[__table__.c.UsersID])
 
-    PackageBaseID = Column(
-        Integer, ForeignKey("PackageBases.ID", ondelete="CASCADE"),
-        nullable=False)
     PackageBase = relationship(
         _PackageBase, backref=backref("comaintainers", lazy="dynamic"),
-        foreign_keys=[PackageBaseID])
-
-    __mapper_args__ = {"primary_key": [UsersID, PackageBaseID]}
+        foreign_keys=[__table__.c.PackageBaseID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

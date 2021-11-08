@@ -1,23 +1,20 @@
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.db import make_random_value, query
 from aurweb.models.declarative import Base
 from aurweb.models.user import User as _User
 
 
 class Session(Base):
-    __tablename__ = "Sessions"
+    __table__ = schema.Sessions
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.UsersID]}
 
-    UsersID = Column(
-        Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
-        nullable=False)
     User = relationship(
         _User, backref=backref("session", uselist=False),
-        foreign_keys=[UsersID])
-
-    __mapper_args__ = {"primary_key": [UsersID]}
+        foreign_keys=[__table__.c.UsersID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

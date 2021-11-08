@@ -1,32 +1,28 @@
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.license import License as _License
 from aurweb.models.package import Package as _Package
 
 
 class PackageLicense(Base):
-    __tablename__ = "PackageLicenses"
+    __table__ = schema.PackageLicenses
+    __tablename__ = __table__.name
+    __mapper_args__ = {
+        "primary_key": [__table__.c.PackageID, __table__.c.LicenseID]
+    }
 
-    PackageID = Column(
-        Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
-        primary_key=True, nullable=True)
     Package = relationship(
         _Package, backref=backref("package_licenses", lazy="dynamic",
                                   cascade="all, delete"),
-        foreign_keys=[PackageID])
+        foreign_keys=[__table__.c.PackageID])
 
-    LicenseID = Column(
-        Integer, ForeignKey("Licenses.ID", ondelete="CASCADE"),
-        primary_key=True, nullable=True)
     License = relationship(
         _License, backref=backref("package_licenses", lazy="dynamic",
                                   cascade="all, delete"),
-        foreign_keys=[LicenseID])
-
-    __mapper_args__ = {"primary_key": [PackageID, LicenseID]}
+        foreign_keys=[__table__.c.LicenseID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

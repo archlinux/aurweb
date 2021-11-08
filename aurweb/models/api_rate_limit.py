@@ -1,15 +1,13 @@
-from sqlalchemy import Column, String
 from sqlalchemy.exc import IntegrityError
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 
 
 class ApiRateLimit(Base):
-    __tablename__ = "ApiRateLimit"
-
-    IP = Column(String(45), primary_key=True, unique=True, default=str())
-
-    __mapper_args__ = {"primary_key": [IP]}
+    __table__ = schema.ApiRateLimit
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.IP]}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

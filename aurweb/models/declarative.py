@@ -2,8 +2,6 @@ import json
 
 from sqlalchemy.ext.declarative import declarative_base
 
-import aurweb.db
-
 from aurweb import util
 
 
@@ -25,11 +23,9 @@ Base = declarative_base()
 
 # Setup __table_args__ applicable to every table.
 Base.__table_args__ = {
-    "autoload": True,
-    "autoload_with": aurweb.db.get_engine(),
+    "autoload": False,
     "extend_existing": True
 }
-
 
 # Setup Base.as_dict and Base.json.
 #

@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer
 from sqlalchemy.exc import IntegrityError
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 
 # TODO: Fix this! Official packages aren't from aur.archlinux.org...
@@ -8,11 +8,9 @@ OFFICIAL_BASE = "https://aur.archlinux.org"
 
 
 class OfficialProvider(Base):
-    __tablename__ = "OfficialProviders"
-
-    ID = Column(Integer, primary_key=True)
-
-    __mapper_args__ = {"primary_key": [ID]}
+    __table__ = schema.OfficialProviders
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

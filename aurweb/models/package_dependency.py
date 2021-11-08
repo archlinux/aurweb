@@ -1,34 +1,28 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.dependency_type import DependencyType as _DependencyType
 from aurweb.models.package import Package as _Package
 
 
 class PackageDependency(Base):
-    __tablename__ = "PackageDepends"
+    __table__ = schema.PackageDepends
+    __tablename__ = __table__.name
+    __mapper_args__ = {
+        "primary_key": [__table__.c.PackageID, __table__.c.DepName]
+    }
 
-    PackageID = Column(
-        Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
-        nullable=False)
     Package = relationship(
         _Package, backref=backref("package_dependencies", lazy="dynamic",
                                   cascade="all, delete"),
-        foreign_keys=[PackageID])
+        foreign_keys=[__table__.c.PackageID])
 
-    DepTypeID = Column(
-        Integer, ForeignKey("DependencyTypes.ID", ondelete="NO ACTION"),
-        nullable=False)
     DependencyType = relationship(
         _DependencyType,
         backref=backref("package_dependencies", lazy="dynamic"),
-        foreign_keys=[DepTypeID])
-
-    DepName = Column(String(255), nullable=False)
-
-    __mapper_args__ = {"primary_key": [PackageID, DepName]}
+        foreign_keys=[__table__.c.DepTypeID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

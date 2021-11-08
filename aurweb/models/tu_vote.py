@@ -1,28 +1,26 @@
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.tu_voteinfo import TUVoteInfo as _TUVoteInfo
 from aurweb.models.user import User as _User
 
 
 class TUVote(Base):
-    __tablename__ = "TU_Votes"
+    __table__ = schema.TU_Votes
+    __tablename__ = __table__.name
+    __mapper_args__ = {
+        "primary_key": [__table__.c.VoteID, __table__.c.UserID]
+    }
 
-    VoteID = Column(Integer, ForeignKey("TU_VoteInfo.ID", ondelete="CASCADE"),
-                    nullable=False)
     VoteInfo = relationship(
         _TUVoteInfo, backref=backref("tu_votes", lazy="dynamic"),
-        foreign_keys=[VoteID])
+        foreign_keys=[__table__.c.VoteID])
 
-    UserID = Column(Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
-                    nullable=False)
     User = relationship(
         _User, backref=backref("tu_votes", lazy="dynamic"),
-        foreign_keys=[UserID])
-
-    __mapper_args__ = {"primary_key": [VoteID, UserID]}
+        foreign_keys=[__table__.c.UserID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

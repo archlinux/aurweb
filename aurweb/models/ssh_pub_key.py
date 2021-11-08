@@ -3,30 +3,23 @@ import tempfile
 
 from subprocess import PIPE, Popen
 
-from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 
 
 class SSHPubKey(Base):
-    __tablename__ = "SSHPubKeys"
+    __table__ = schema.SSHPubKeys
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.Fingerprint]}
 
-    UserID = Column(
-        Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
-        nullable=False)
     User = relationship(
         "User", backref=backref("ssh_pub_key", uselist=False),
-        foreign_keys=[UserID])
-
-    Fingerprint = Column(String(44), primary_key=True)
-
-    __mapper_args__ = {"primary_key": Fingerprint}
+        foreign_keys=[__table__.c.UserID])
 
     def __init__(self, **kwargs):
-        self.UserID = kwargs.get("UserID")
-        self.Fingerprint = kwargs.get("Fingerprint")
-        self.PubKey = kwargs.get("PubKey")
+        super().__init__(**kwargs)
 
 
 def get_fingerprint(pubkey):

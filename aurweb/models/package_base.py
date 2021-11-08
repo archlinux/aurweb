@@ -1,38 +1,33 @@
 from datetime import datetime
 
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.user import User as _User
 
 
 class PackageBase(Base):
-    __tablename__ = "PackageBases"
+    __table__ = schema.PackageBases
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
-    FlaggerUID = Column(Integer,
-                        ForeignKey("Users.ID", ondelete="SET NULL"))
     Flagger = relationship(
         _User, backref=backref("flagged_bases", lazy="dynamic"),
-        foreign_keys=[FlaggerUID])
+        foreign_keys=[__table__.c.FlaggerUID])
 
-    SubmitterUID = Column(Integer,
-                          ForeignKey("Users.ID", ondelete="SET NULL"))
     Submitter = relationship(
         _User, backref=backref("submitted_bases", lazy="dynamic"),
-        foreign_keys=[SubmitterUID])
+        foreign_keys=[__table__.c.SubmitterUID])
 
-    MaintainerUID = Column(Integer,
-                           ForeignKey("Users.ID", ondelete="SET NULL"))
     Maintainer = relationship(
         _User, backref=backref("maintained_bases", lazy="dynamic"),
-        foreign_keys=[MaintainerUID])
+        foreign_keys=[__table__.c.MaintainerUID])
 
-    PackagerUID = Column(Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
     Packager = relationship(
         _User, backref=backref("package_bases", lazy="dynamic"),
-        foreign_keys=[PackagerUID])
+        foreign_keys=[__table__.c.PackagerUID])
 
     # A set used to check for floatable values.
     TO_FLOAT = {"Popularity"}

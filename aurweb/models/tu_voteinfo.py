@@ -2,27 +2,22 @@ import typing
 
 from datetime import datetime
 
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.user import User as _User
 
 
 class TUVoteInfo(Base):
-    __tablename__ = "TU_VoteInfo"
+    __table__ = schema.TU_VoteInfo
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
-    ID = Column(Integer, primary_key=True)
-
-    SubmitterID = Column(
-        Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
-        nullable=False)
     Submitter = relationship(
         _User, backref=backref("tu_voteinfo_set", lazy="dynamic"),
-        foreign_keys=[SubmitterID])
-
-    __mapper_args__ = {"primary_key": [ID]}
+        foreign_keys=[__table__.c.SubmitterID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

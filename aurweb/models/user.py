@@ -5,14 +5,14 @@ from datetime import datetime
 import bcrypt
 
 from fastapi import Request
-from sqlalchemy import Column, ForeignKey, Integer, String, or_, text
+from sqlalchemy import or_
 from sqlalchemy.orm import backref, relationship
 
 import aurweb.config
 import aurweb.models.account_type
 import aurweb.schema
 
-from aurweb import db
+from aurweb import db, schema
 from aurweb.models.account_type import AccountType as _AccountType
 from aurweb.models.ban import is_banned
 from aurweb.models.declarative import Base
@@ -22,22 +22,15 @@ SALT_ROUNDS_DEFAULT = 12
 
 class User(Base):
     """ An ORM model of a single Users record. """
-    __tablename__ = "Users"
+    __table__ = schema.Users
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
-    ID = Column(Integer, primary_key=True)
-
-    AccountTypeID = Column(
-        Integer, ForeignKey("AccountTypes.ID", ondelete="NO ACTION"),
-        nullable=False, server_default=text("1"))
     AccountType = relationship(
         _AccountType,
         backref=backref("users", lazy="dynamic"),
-        foreign_keys=[AccountTypeID],
+        foreign_keys=[__table__.c.AccountTypeID],
         uselist=False)
-
-    Passwd = Column(String(255), default=str())
-
-    __mapper_args__ = {"primary_key": [ID]}
 
     # High-level variables used to track authentication (not in DB).
     authenticated = False
@@ -49,7 +42,7 @@ class User(Base):
                                        SALT_ROUNDS_DEFAULT)
 
     def __init__(self, Passwd: str = str(), **kwargs):
-        super().__init__(**kwargs)
+        super().__init__(**kwargs, Passwd=str())
 
         # Run this again in the constructor in case we rehashed config.
         self.salt_rounds = aurweb.config.getint("options", "salt_rounds",

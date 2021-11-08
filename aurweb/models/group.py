@@ -1,15 +1,13 @@
-from sqlalchemy import Column, Integer
 from sqlalchemy.exc import IntegrityError
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 
 
 class Group(Base):
-    __tablename__ = "Groups"
-
-    ID = Column(Integer, primary_key=True)
-
-    __mapper_args__ = {"primary_key": [ID]}
+    __table__ = schema.Groups
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

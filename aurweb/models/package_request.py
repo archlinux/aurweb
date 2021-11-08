@@ -1,7 +1,7 @@
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.package_base import PackageBase as _PackageBase
 from aurweb.models.request_type import RequestType as _RequestType
@@ -20,34 +20,25 @@ REJECTED_ID = 3
 
 
 class PackageRequest(Base):
-    __tablename__ = "PackageRequests"
+    __table__ = schema.PackageRequests
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
-    ID = Column(Integer, primary_key=True)
-
-    ReqTypeID = Column(
-        Integer, ForeignKey("RequestTypes.ID", ondelete="NO ACTION"),
-        nullable=False)
     RequestType = relationship(
         _RequestType, backref=backref("package_requests", lazy="dynamic"),
-        foreign_keys=[ReqTypeID])
+        foreign_keys=[__table__.c.ReqTypeID])
 
-    UsersID = Column(Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
     User = relationship(
         _User, backref=backref("package_requests", lazy="dynamic"),
-        foreign_keys=[UsersID])
+        foreign_keys=[__table__.c.UsersID])
 
-    PackageBaseID = Column(
-        Integer, ForeignKey("PackageBases.ID", ondelete="SET NULL"))
     PackageBase = relationship(
         _PackageBase, backref=backref("requests", lazy="dynamic"),
-        foreign_keys=[PackageBaseID])
+        foreign_keys=[__table__.c.PackageBaseID])
 
-    ClosedUID = Column(Integer, ForeignKey("Users.ID", ondelete="SET NULL"))
     Closer = relationship(
         _User, backref=backref("closed_requests", lazy="dynamic"),
-        foreign_keys=[ClosedUID])
-
-    __mapper_args__ = {"primary_key": [ID]}
+        foreign_keys=[__table__.c.ClosedUID])
 
     STATUS_DISPLAY = {
         PENDING_ID: PENDING,

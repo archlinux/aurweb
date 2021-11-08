@@ -1,28 +1,24 @@
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.term import Term as _Term
 from aurweb.models.user import User as _User
 
 
 class AcceptedTerm(Base):
-    __tablename__ = "AcceptedTerms"
+    __table__ = schema.AcceptedTerms
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.TermsID]}
 
-    UsersID = Column(Integer, ForeignKey("Users.ID", ondelete="CASCADE"),
-                     nullable=False)
     User = relationship(
         _User, backref=backref("accepted_terms", lazy="dynamic"),
-        foreign_keys=[UsersID])
+        foreign_keys=[__table__.c.UsersID])
 
-    TermsID = Column(Integer, ForeignKey("Terms.ID", ondelete="CASCADE"),
-                     nullable=False)
     Term = relationship(
         _Term, backref=backref("accepted_terms", lazy="dynamic"),
-        foreign_keys=[TermsID])
-
-    __mapper_args__ = {"primary_key": [TermsID]}
+        foreign_keys=[__table__.c.TermsID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

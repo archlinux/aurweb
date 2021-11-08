@@ -1,28 +1,26 @@
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.group import Group as _Group
 from aurweb.models.package import Package as _Package
 
 
 class PackageGroup(Base):
-    __tablename__ = "PackageGroups"
+    __table__ = schema.PackageGroups
+    __tablename__ = __table__.name
+    __mapper_args__ = {
+        "primary_key": [__table__.c.PackageID, __table__.c.GroupID]
+    }
 
-    PackageID = Column(Integer, ForeignKey("Packages.ID", ondelete="CASCADE"),
-                       primary_key=True, nullable=True)
     Package = relationship(
         _Package, backref=backref("package_groups", lazy="dynamic"),
-        foreign_keys=[PackageID])
+        foreign_keys=[__table__.c.PackageID])
 
-    GroupID = Column(Integer, ForeignKey("Groups.ID", ondelete="CASCADE"),
-                     primary_key=True, nullable=True)
     Group = relationship(
         _Group, backref=backref("package_groups", lazy="dynamic"),
-        foreign_keys=[GroupID])
-
-    __mapper_args__ = {"primary_key": [PackageID, GroupID]}
+        foreign_keys=[__table__.c.GroupID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

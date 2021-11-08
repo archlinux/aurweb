@@ -1,24 +1,19 @@
-from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
+from aurweb import schema
 from aurweb.models.declarative import Base
 from aurweb.models.package_base import PackageBase as _PackageBase
 
 
 class Package(Base):
-    __tablename__ = "Packages"
+    __table__ = schema.Packages
+    __tablename__ = __table__.name
+    __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
-    ID = Column(Integer, primary_key=True)
-
-    PackageBaseID = Column(
-        Integer, ForeignKey("PackageBases.ID", ondelete="CASCADE"),
-        nullable=False)
     PackageBase = relationship(
         _PackageBase, backref=backref("packages", lazy="dynamic"),
-        foreign_keys=[PackageBaseID])
-
-    __mapper_args__ = {"primary_key": [ID]}
+        foreign_keys=[__table__.c.PackageBaseID])
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
