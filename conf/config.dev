@@ -70,3 +70,6 @@ session_secret = secret
 packagesfile = /packages.gz
 pkgbasefile = /pkgbase.gz
 userfile = /users.gz
+
+[aurblup]
+db-path = YOUR_AUR_ROOT/aurblup/
