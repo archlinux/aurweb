@@ -68,6 +68,8 @@ session_secret = secret
 
 [mkpkglists]
 packagesfile = /packages.gz
+packagesmetafile = /packages-meta-v1.json.gz
+packagesmetaextfile = /packages-meta-ext-v1.json.gz
 pkgbasefile = /pkgbase.gz
 userfile = /users.gz
 
