@@ -144,6 +144,19 @@ services:
     volumes:
       - git_data:/aurweb/aur.git
 
+  cron:
+    image: aurweb:latest
+    init: true
+    environment:
+      - AUR_CONFIG=/aurweb/conf/config
+    entrypoint: /docker/cron-entrypoint.sh
+    command: /docker/scripts/run-cron.sh
+    depends_on:
+      mariadb_init:
+        condition: service_started
+    volumes:
+      - mariadb_run:/var/run/mysqld
+
   php-fpm:
     image: aurweb:latest
     init: true
@@ -163,6 +176,8 @@ services:
         condition: service_healthy
       memcached:
         condition: service_healthy
+      cron:
+        condition: service_started
     volumes:
       - mariadb_run:/var/run/mysqld
     ports:
@@ -190,6 +205,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      cron:
+        condition: service_started
     volumes:
       - mariadb_run:/var/run/mysqld
     ports:
