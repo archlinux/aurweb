@@ -3,8 +3,7 @@ from sqlalchemy.exc import IntegrityError
 from aurweb import schema
 from aurweb.models.declarative import Base
 
-# TODO: Fix this! Official packages aren't from aur.archlinux.org...
-OFFICIAL_BASE = "https://aur.archlinux.org"
+OFFICIAL_BASE = "https://archlinux.org"
 
 
 class OfficialProvider(Base):
