@@ -879,6 +879,10 @@ msgstr ""
 msgid "Account suspended"
 msgstr ""
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr ""
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""

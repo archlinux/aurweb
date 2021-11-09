@@ -780,6 +780,55 @@ def test_post_account_edit_error_invalid_password():
     assert "Invalid password." in content
 
 
+def test_post_account_edit_inactivity_unauthorized():
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "J": True,
+        "passwd": "testPassword"
+    }
+    with client as request:
+        resp = request.post(f"/account/{user.Username}/edit", data=post_data,
+                            cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+
+    errors = get_errors(resp.text)
+    expected = "You do not have permission to suspend accounts."
+    assert errors[0].text.strip() == expected
+
+
+def test_post_account_edit_inactivity():
+    with db.begin():
+        user.AccountTypeID = TRUSTED_USER_ID
+    assert not user.Suspended
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "J": True,
+        "passwd": "testPassword"
+    }
+    with client as request:
+        resp = request.post(f"/account/{user.Username}/edit", data=post_data,
+                            cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # Make sure the user record got updated correctly.
+    assert user.Suspended
+    assert user.InactivityTS > 0
+
+    post_data.update({"J": False})
+    with client as request:
+        resp = request.post(f"/account/{user.Username}/edit", data=post_data,
+                            cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    assert not user.Suspended
+    assert user.InactivityTS == 0
+
+
 def test_post_account_edit_error_unauthorized():
     request = Request()
     sid = user.login(request, "testPassword")

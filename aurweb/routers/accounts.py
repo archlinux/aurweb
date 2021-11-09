@@ -143,6 +143,10 @@ def process_account_form(request: Request, user: models.User, args: dict):
     if not email or not username:
         return (False, ["Missing a required field."])
 
+    inactive = args.get("J", False)
+    if not request.user.is_elevated() and inactive != bool(user.InactivityTS):
+        return (False, ["You do not have permission to suspend accounts."])
+
     username_min_len = aurweb.config.getint("options", "username_min_len")
     username_max_len = aurweb.config.getint("options", "username_max_len")
     if not util.valid_username(args.get("U")):
@@ -528,7 +532,8 @@ async def account_edit_post(request: Request,
         user.Homepage = HP or user.Homepage
         user.IRCNick = I or user.IRCNick
         user.PGPKey = K or user.PGPKey
-        user.InactivityTS = datetime.utcnow().timestamp() if J else 0
+        user.Suspended = J
+        user.InactivityTS = int(datetime.utcnow().timestamp()) * int(J)
 
     # If we update the language, update the cookie as well.
     if L and L != user.LangPreference:
