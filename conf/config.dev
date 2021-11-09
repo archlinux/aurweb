@@ -65,3 +65,8 @@ session_secret = secret
 
 [devel]
 ;commit_hash = 1234567
+
+[mkpkglists]
+packagesfile = /packages.gz
+pkgbasefile = /pkgbase.gz
+userfile = /users.gz
