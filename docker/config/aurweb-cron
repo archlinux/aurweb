@@ -1,2 +1,2 @@
 */5 * * * * bash -c 'aurweb-aurblup && echo "[$(date -u)] executed aurblup" >> /var/log/mkpkglists.log'
-*/5 * * * * bash -c 'aurweb-mkpkglists && echo "[$(date -u)] executed mkpkglists" >> /var/log/mkpkglists.log'
+*/5 * * * * bash -c 'aurweb-mkpkglists --extended && echo "[$(date -u)] executed mkpkglists" >> /var/log/mkpkglists.log'
