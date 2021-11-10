@@ -1,5 +1,8 @@
 FROM archlinux:base-devel
 
+VOLUME /root/.cache/pypoetry/cache
+VOLUME /root/.cache/pypoetry/artifacts
+
 ENV PATH="/root/.poetry/bin:${PATH}"
 ENV PYTHONPATH=/aurweb
 ENV AUR_CONFIG=conf/config
