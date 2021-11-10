@@ -21,6 +21,7 @@ on the following, right-hand side fields are added to each item.
 import gzip
 import os
 import sys
+
 from collections import defaultdict
 from decimal import Decimal
 
