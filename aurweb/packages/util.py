@@ -56,8 +56,8 @@ def dep_extra_desc(dep: models.PackageDependency) -> str:
 def pkgname_link(pkgname: str) -> str:
     base = "/".join([OFFICIAL_BASE, "packages"])
     official = db.query(models.OfficialProvider).filter(
-        models.OfficialProvider.Name == pkgname)
-    if official.scalar():
+        models.OfficialProvider.Name == pkgname).exists()
+    if db.query(official).scalar():
         return f"{base}/?q={pkgname}"
     return f"/packages/{pkgname}"
 
