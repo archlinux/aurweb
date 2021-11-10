@@ -1,6 +1,10 @@
 #!/bin/bash
 set -eou pipefail
 
+for archive in packages pkgbase users packages-meta-v1.json packages-meta-ext-v1.json; do
+    ln -vsf /var/lib/aurweb/archives/${archive}.gz /aurweb/web/html/${archive}.gz
+done
+
 # Setup a config for our mysql db.
 cp -vf conf/config.dev conf/config
 sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config

@@ -19,6 +19,7 @@ on the following, right-hand side fields are added to each item.
 """
 
 import gzip
+import os
 import sys
 
 from collections import defaultdict
@@ -28,6 +29,9 @@ import orjson
 
 import aurweb.config
 import aurweb.db
+
+archivedir = aurweb.config.get("mkpkglists", "archivedir")
+os.makedirs(archivedir, exist_ok=True)
 
 packagesfile = aurweb.config.get('mkpkglists', 'packagesfile')
 packagesmetafile = aurweb.config.get('mkpkglists', 'packagesmetafile')

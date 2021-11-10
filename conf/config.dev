@@ -67,11 +67,12 @@ session_secret = secret
 ;commit_hash = 1234567
 
 [mkpkglists]
-packagesfile = /packages.gz
-packagesmetafile = /packages-meta-v1.json.gz
-packagesmetaextfile = /packages-meta-ext-v1.json.gz
-pkgbasefile = /pkgbase.gz
-userfile = /users.gz
+archivedir = /var/lib/aurweb/archives
+packagesfile = /var/lib/aurweb/archives/packages.gz
+packagesmetafile = /var/lib/aurweb/archives/packages-meta-v1.json.gz
+packagesmetaextfile = /var/lib/aurweb/archives/packages-meta-ext-v1.json.gz
+pkgbasefile = /var/lib/aurweb/archives/pkgbase.gz
+userfile = /var/lib/aurweb/archives/users.gz
 
 [aurblup]
 db-path = YOUR_AUR_ROOT/aurblup/

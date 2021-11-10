@@ -101,6 +101,7 @@ sync-dbs = core extra community multilib testing community-testing
 server = https://mirrors.kernel.org/archlinux/%s/os/x86_64
 
 [mkpkglists]
+archivedir = /srv/http/aurweb/web/html
 packagesfile = /srv/http/aurweb/web/html/packages.gz
 packagesmetafile = /srv/http/aurweb/web/html/packages-meta-v1.json.gz
 packagesmetaextfile = /srv/http/aurweb/web/html/packages-meta-ext-v1.json.gz

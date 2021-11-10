@@ -156,6 +156,7 @@ services:
         condition: service_started
     volumes:
       - mariadb_run:/var/run/mysqld
+      - archives:/var/lib/aurweb/archives
 
   php-fpm:
     image: aurweb:latest
@@ -180,6 +181,7 @@ services:
         condition: service_started
     volumes:
       - mariadb_run:/var/run/mysqld
+      - archives:/var/lib/aurweb/archives
     ports:
       - "19000:9000"
 
@@ -236,6 +238,8 @@ services:
         condition: service_healthy
       php-fpm:
         condition: service_healthy
+    volumes:
+      - archives:/var/lib/aurweb/archives
 
   sharness:
     image: aurweb:latest
@@ -343,3 +347,4 @@ volumes:
   mariadb_data: {} # Share /var/lib/mysql
   git_data: {} # Share aurweb/aur.git
   smartgit_run: {}
+  archives: {}
