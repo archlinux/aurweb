@@ -18,7 +18,6 @@ on the following, right-hand side fields are added to each item.
 
 """
 
-import datetime
 import gzip
 import sys
 
@@ -155,11 +154,6 @@ def write_archive(archive: str, output: list):
 def main():
     conn = aurweb.db.Connection()
 
-    datestr = datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
-    pkglist_header = "# AUR package list, generated on " + datestr
-    pkgbaselist_header = "# AUR package base list, generated on " + datestr
-    userlist_header = "# AUR user name list, generated on " + datestr
-
     # Query columns; copied from RPC.
     columns = ("Packages.ID, Packages.Name, "
                "PackageBases.ID AS PackageBaseID, "
@@ -205,7 +199,6 @@ def main():
 
     # Produce packages.gz
     with gzip.open(packagesfile, "wb") as f:
-        f.write(bytes(pkglist_header + "\n", "UTF-8"))
         f.writelines([
             bytes(x.get("Name") + "\n", "UTF-8")
             for x in output
@@ -213,14 +206,12 @@ def main():
 
     # Produce pkgbase.gz
     with gzip.open(pkgbasefile, "w") as f:
-        f.write(bytes(pkgbaselist_header + "\n", "UTF-8"))
         cur = conn.execute("SELECT Name FROM PackageBases " +
                            "WHERE PackagerUID IS NOT NULL")
         f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
 
     # Produce users.gz
     with gzip.open(userfile, "w") as f:
-        f.write(bytes(userlist_header + "\n", "UTF-8"))
         cur = conn.execute("SELECT UserName FROM Users")
         f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
 
