@@ -21,7 +21,6 @@ on the following, right-hand side fields are added to each item.
 import gzip
 import os
 import sys
-
 from collections import defaultdict
 from decimal import Decimal
 
@@ -83,7 +82,7 @@ def get_extended_dict(query: str):
     for result in cursor.fetchall():
 
         pkgid = result[0]
-        key = TYPE_MAP.get(result[1])
+        key = TYPE_MAP.get(result[1], result[1])
         output = result[2]
         if result[3]:
             output += result[3]
