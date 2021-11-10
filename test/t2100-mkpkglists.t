@@ -8,8 +8,8 @@ test_expect_success 'Test package list generation with no packages.' '
 	echo "DELETE FROM Packages;" | sqlite3 aur.db &&
 	echo "DELETE FROM PackageBases;" | sqlite3 aur.db &&
 	cover "$MKPKGLISTS" &&
-	test $(zcat packages.gz | wc -l) -eq 1 &&
-	test $(zcat pkgbase.gz | wc -l) -eq 1
+	test $(zcat packages.gz | wc -l) -eq 0 &&
+	test $(zcat pkgbase.gz | wc -l) -eq 0
 '
 
 test_expect_success 'Test package list generation.' '

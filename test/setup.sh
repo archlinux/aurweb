@@ -67,6 +67,7 @@ sync-dbs = test
 server = file://$(pwd)/remote/
 
 [mkpkglists]
+archivedir = $(pwd)/archive
 packagesfile = packages.gz
 packagesmetafile = packages-meta-v1.json.gz
 packagesmetaextfile = packages-meta-ext-v1.json.gz
