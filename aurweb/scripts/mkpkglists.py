@@ -21,12 +21,14 @@ on the following, right-hand side fields are added to each item.
 import datetime
 import gzip
 import sys
+
 from collections import defaultdict
 from decimal import Decimal
 
+import orjson
+
 import aurweb.config
 import aurweb.db
-import orjson
 
 packagesfile = aurweb.config.get('mkpkglists', 'packagesfile')
 packagesmetafile = aurweb.config.get('mkpkglists', 'packagesmetafile')
