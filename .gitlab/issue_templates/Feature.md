@@ -28,3 +28,5 @@ Example:
 
 - [Feature] Do not allow users to be Tyrants
     - \<(issue|merge_request)_link\>
+
+/label feature unconsidered
