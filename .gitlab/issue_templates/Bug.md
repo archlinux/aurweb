@@ -32,3 +32,5 @@ aurweb's HTML render output. If you're testing locally, use the
 commit on which you are experiencing the bug. If you have found
 a bug which exists on live aur.archlinux.org, include the version
 located at the bottom of the webpage.
+
+/label bug unconfirmed

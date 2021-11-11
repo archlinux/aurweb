@@ -10,3 +10,5 @@
 - Username: the_username_you_want
 - Email: valid@email.org
 - Account Type: (User|Trusted User)
+
+/label account-request
