@@ -85,6 +85,14 @@
             </td>
         </tr>
     {% endif %}
+    {% if show_package_details and replaces and replaces.count() %}
+        <tr id="replaces">
+            <th>{{ "Replaces" | tr }}:</th>
+            <td class="wrap">
+                {{ replaces.all() | join(', ', attribute='RelName') }}
+            </td>
+        </tr>
+    {% endif %}
     <tr>
         <th>{{ "Submitter" | tr }}:</th>
         <td>
