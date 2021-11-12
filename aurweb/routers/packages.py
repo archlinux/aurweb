@@ -229,9 +229,7 @@ async def package(request: Request, name: str) -> Response:
     context["package"] = pkg
 
     # Package sources.
-    context["sources"] = db.query(models.PackageSource).join(
-        models.Package).join(models.PackageBase).filter(
-        models.PackageBase.ID == pkgbase.ID)
+    context["sources"] = pkg.package_sources
 
     # Package dependencies.
     dependencies = db.query(models.PackageDependency).join(
@@ -246,16 +244,10 @@ async def package(request: Request, name: str) -> Response:
         models.Package.Name.asc())
     context["required_by"] = required_by
 
-    licenses = db.query(models.License).join(models.PackageLicense).join(
-        models.Package).join(models.PackageBase).filter(
-        models.PackageBase.ID == pkgbase.ID)
-    context["licenses"] = licenses
+    context["licenses"] = pkg.package_licenses
 
-    conflicts = db.query(models.PackageRelation).join(models.Package).join(
-        models.PackageBase).filter(
-        and_(models.PackageRelation.RelTypeID == CONFLICTS_ID,
-             models.PackageBase.ID == pkgbase.ID)
-    )
+    conflicts = pkg.package_relations.filter(
+        models.PackageRelation.RelTypeID == CONFLICTS_ID)
     context["conflicts"] = conflicts
 
     provides = pkg.package_relations.filter(

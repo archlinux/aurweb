@@ -66,7 +66,7 @@
     {% if show_package_details and licenses and licenses.count() %}
         <tr>
             <th>{{ "Licenses" | tr }}:</th>
-            <td>{{ licenses.all() | join(', ', attribute='Name') | default('None' | tr) }} </td>
+            <td>{{ licenses.all() | join(', ', attribute='License.Name') }} </td>
         </tr>
     {% endif %}
     {% if show_package_details and conflicts and conflicts.count() %}
