@@ -79,9 +79,10 @@ def http_requests_total() -> Callable[[Info], None]:
 
         method = scope.get("method")
         path = get_matching_route_path(base_scope, scope.get("router").routes)
-        status = str(int(info.response.status_code))[:1] + "xx"
 
-        metric.labels(method=method, path=path, status=status).inc()
+        if info.response:
+            status = str(int(info.response.status_code))[:1] + "xx"
+            metric.labels(method=method, path=path, status=status).inc()
 
     return instrumentation
 
@@ -95,7 +96,8 @@ def http_api_requests_total() -> Callable[[Info], None]:
     def instrumentation(info: Info) -> None:
         if info.request.url.path.rstrip("/") == "/rpc":
             type = info.request.query_params.get("type", "None")
-            status = str(info.response.status_code)[:1] + "xx"
-            metric.labels(type=type, status=status).inc()
+            if info.response:
+                status = str(info.response.status_code)[:1] + "xx"
+                metric.labels(type=type, status=status).inc()
 
     return instrumentation
