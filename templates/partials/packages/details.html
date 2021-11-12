@@ -61,7 +61,7 @@
         </td>
         {% endif %}
     </tr>
-    {% if licenses and licenses.scalar() and show_package_details %}
+    {% if licenses and licenses.count() and show_package_details %}
         <tr>
             <th>{{ "Licenses" | tr }}:</th>
             <td>{{ licenses | join(', ', attribute='Name') | default('None' | tr) }} </td>
