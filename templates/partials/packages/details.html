@@ -63,10 +63,10 @@
             {% endif %}
         </tr>
     {% endif %}
-    {% if licenses and licenses.count() and show_package_details %}
+    {% if show_package_details and licenses and licenses.count() %}
         <tr>
             <th>{{ "Licenses" | tr }}:</th>
-            <td>{{ licenses | join(', ', attribute='Name') | default('None' | tr) }} </td>
+            <td>{{ licenses.all() | join(', ', attribute='Name') | default('None' | tr) }} </td>
         </tr>
     {% endif %}
     {% if show_package_details %}
