@@ -33,34 +33,36 @@
             </td>
         </tr>
     {% endif %}
-    <tr>
-        <th>{{ "Keywords" | tr }}:</th>
-        {% if request.user.has_credential("CRED_PKGBASE_SET_KEYWORDS", approved=[pkgbase.Maintainer]) %}
-        <td>
-            <form method="post"
-                  action="/pkgbase/{{ pkgbase.Name }}/keywords"
-            >
-                <div>
-                    <input type="text"
-                           name="keywords"
-                           value="{{ pkgbase.keywords | join(' ', attribute='Keyword') }}"
-                    />
-                    <input type="submit" value="{{ 'Update' | tr }}"/>
-                </div>
-            </form>
-        </td>
-        {% else %}
-        <td>
-            {% for keyword in pkgbase.keywords.all() %}
-                <a class="keyword"
-                   href="/packages/?K={{ keyword.Keyword }}&amp;SB=p"
+    {% if pkgbase.keywords.count() or request.user.has_credential("CRED_PKGBASE_SET_KEYWORDS", approved=[pkgbase.Maintainer]) %}
+        <tr>
+            <th>{{ "Keywords" | tr }}:</th>
+            {% if request.user.has_credential("CRED_PKGBASE_SET_KEYWORDS", approved=[pkgbase.Maintainer]) %}
+            <td>
+                <form method="post"
+                      action="/pkgbase/{{ pkgbase.Name }}/keywords"
                 >
-                    {{ keyword.Keyword }}
-                </a>
-            {% endfor %}
-        </td>
-        {% endif %}
-    </tr>
+                    <div>
+                        <input type="text"
+                               name="keywords"
+                               value="{{ pkgbase.keywords | join(' ', attribute='Keyword') }}"
+                        />
+                        <input type="submit" value="{{ 'Update' | tr }}"/>
+                    </div>
+                </form>
+            </td>
+            {% else %}
+            <td>
+                {% for keyword in pkgbase.keywords.all() %}
+                    <a class="keyword"
+                       href="/packages/?K={{ keyword.Keyword }}&amp;SB=p"
+                    >
+                        {{ keyword.Keyword }}
+                    </a>
+                {% endfor %}
+            </td>
+            {% endif %}
+        </tr>
+    {% endif %}
     {% if licenses and licenses.count() and show_package_details %}
         <tr>
             <th>{{ "Licenses" | tr }}:</th>
