@@ -816,6 +816,29 @@ async def requests_close_post(request: Request, id: int,
     return RedirectResponse("/requests", status_code=HTTPStatus.SEE_OTHER)
 
 
+@router.post("/pkgbase/{name}/keywords")
+async def pkgbase_keywords(request: Request, name: str,
+                           keywords: str = Form(default=str())):
+    pkgbase = get_pkg_or_base(name, models.PackageBase)
+    keywords = set(keywords.split(" "))
+
+    # Delete all keywords which are not supplied by the user.
+    with db.begin():
+        db.delete(models.PackageKeyword,
+                  and_(models.PackageKeyword.PackageBaseID == pkgbase.ID,
+                       ~models.PackageKeyword.Keyword.in_(keywords)))
+
+    existing_keywords = set(kwd.Keyword for kwd in pkgbase.keywords.all())
+    with db.begin():
+        for keyword in keywords.difference(existing_keywords):
+            db.create(models.PackageKeyword,
+                      PackageBase=pkgbase,
+                      Keyword=keyword)
+
+    return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=HTTPStatus.SEE_OTHER)
+
+
 @router.get("/pkgbase/{name}/flag")
 @auth_required(True, redirect="/pkgbase/{name}/flag")
 async def pkgbase_flag_get(request: Request, name: str):

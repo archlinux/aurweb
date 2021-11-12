@@ -37,7 +37,7 @@
         <th>{{ "Keywords" | tr }}:</th>
         {% if request.user.has_credential("CRED_PKGBASE_SET_KEYWORDS", approved=[pkgbase.Maintainer]) %}
         <td>
-            <form method="update"
+            <form method="post"
                   action="/pkgbase/{{ pkgbase.Name }}/keywords"
             >
                 <div>
@@ -51,7 +51,7 @@
         </td>
         {% else %}
         <td>
-            {% for keyword in pkgbase.keywords %}
+            {% for keyword in pkgbase.keywords.all() %}
                 <a class="keyword"
                    href="/packages/?K={{ keyword.Keyword }}&amp;SB=p"
                 >
