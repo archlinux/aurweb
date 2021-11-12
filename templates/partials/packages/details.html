@@ -70,7 +70,7 @@
         </tr>
     {% endif %}
     {% if show_package_details and conflicts and conflicts.count() %}
-        <tr>
+        <tr id="conflicts">
             <th>{{ "Conflicts" | tr }}:</th>
             <td class="wrap">
                 {{ conflicts.all() | join(', ', attribute='RelName') }}

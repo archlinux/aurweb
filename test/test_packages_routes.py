@@ -24,7 +24,7 @@ from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
 from aurweb.models.package_request import ACCEPTED_ID, REJECTED_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
-from aurweb.models.relation_type import PROVIDES_ID, REPLACES_ID, RelationType
+from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID, RelationType
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, RequestType
 from aurweb.models.user import User
 from aurweb.testing import setup_test_db
@@ -233,6 +233,13 @@ def test_package(client: TestClient, package: Package):
                   RelTypeID=REPLACES_ID,
                   RelName="test_replacer2")
 
+        db.create(PackageRelation, PackageID=package.ID,
+                  RelTypeID=CONFLICTS_ID,
+                  RelName="test_conflict1")
+        db.create(PackageRelation, PackageID=package.ID,
+                  RelTypeID=CONFLICTS_ID,
+                  RelName="test_conflict2")
+
     with client as request:
         resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
@@ -260,6 +267,10 @@ def test_package(client: TestClient, package: Package):
     replaces = root.xpath('//tr[@id="replaces"]/td')
     expected = ["test_replacer1", "test_replacer2"]
     assert replaces[0].text.strip() == ", ".join(expected)
+
+    conflicts = root.xpath('//tr[@id="conflicts"]/td')
+    expected = ["test_conflict1", "test_conflict2"]
+    assert conflicts[0].text.strip() == ", ".join(expected)
 
 
 def test_package_comments(client: TestClient, user: User, package: Package):
