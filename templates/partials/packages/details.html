@@ -69,11 +69,11 @@
             <td>{{ licenses.all() | join(', ', attribute='Name') | default('None' | tr) }} </td>
         </tr>
     {% endif %}
-    {% if show_package_details %}
+    {% if show_package_details and conflicts and conflicts.count() %}
         <tr>
             <th>{{ "Conflicts" | tr }}:</th>
             <td class="wrap">
-                {{ conflicts | join(', ', attribute='RelName') }}
+                {{ conflicts.all() | join(', ', attribute='RelName') }}
             </td>
         </tr>
     {% endif %}
