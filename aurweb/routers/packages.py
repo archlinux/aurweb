@@ -12,7 +12,7 @@ import aurweb.packages.util
 from aurweb import db, defaults, l10n, logging, models, util
 from aurweb.auth import auth_required
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
-from aurweb.models.relation_type import CONFLICTS_ID
+from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID
 from aurweb.models.request_type import DELETION_ID, MERGE, MERGE_ID
 from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, query_notified, query_voted
@@ -257,6 +257,10 @@ async def package(request: Request, name: str) -> Response:
              models.PackageBase.ID == pkgbase.ID)
     )
     context["conflicts"] = conflicts
+
+    provides = pkg.package_relations.filter(
+        models.PackageRelation.RelTypeID == PROVIDES_ID)
+    context["provides"] = provides
 
     return render_template(request, "packages/show.html", context)
 

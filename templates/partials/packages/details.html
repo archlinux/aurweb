@@ -77,6 +77,14 @@
             </td>
         </tr>
     {% endif %}
+    {% if show_package_details and provides and provides.count() %}
+        <tr id="provides">
+            <th>{{ "Provides" | tr }}:</th>
+            <td class="wrap">
+                {{ provides.all() | join(', ', attribute='RelName') }}
+            </td>
+        </tr>
+    {% endif %}
     <tr>
         <th>{{ "Submitter" | tr }}:</th>
         <td>

@@ -217,8 +217,16 @@ def test_package_official_not_found(client: TestClient, package: Package):
 
 def test_package(client: TestClient, package: Package):
     """ Test a single / packages / {name} route. """
-    with client as request:
 
+    with db.begin():
+        db.create(PackageRelation, PackageID=package.ID,
+                  RelTypeID=PROVIDES_ID,
+                  RelName="test_provider1")
+        db.create(PackageRelation, PackageID=package.ID,
+                  RelTypeID=PROVIDES_ID,
+                  RelName="test_provider2")
+
+    with client as request:
         resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
 
@@ -237,6 +245,10 @@ def test_package(client: TestClient, package: Package):
 
     pkgbase = row.find("./td/a")
     assert pkgbase.text.strip() == package.PackageBase.Name
+
+    provides = root.xpath('//tr[@id="provides"]/td')
+    expected = ["test_provider1", "test_provider2"]
+    assert provides[0].text.strip() == ", ".join(expected)
 
 
 def test_package_comments(client: TestClient, user: User, package: Package):
