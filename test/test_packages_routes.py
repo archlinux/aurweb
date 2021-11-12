@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import and_
 
 from aurweb import asgi, db, defaults
+from aurweb.models import License, PackageLicense
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
 from aurweb.models.official_provider import OfficialProvider
@@ -240,6 +241,17 @@ def test_package(client: TestClient, package: Package):
                   RelTypeID=CONFLICTS_ID,
                   RelName="test_conflict2")
 
+        # Create some licenses.
+        licenses = [
+            db.create(License, Name="test_license1"),
+            db.create(License, Name="test_license2")
+        ]
+
+        db.create(PackageLicense, PackageID=package.ID,
+                  License=licenses[0])
+        db.create(PackageLicense, PackageID=package.ID,
+                  License=licenses[1])
+
     with client as request:
         resp = request.get(package_endpoint(package))
     assert resp.status_code == int(HTTPStatus.OK)
@@ -259,6 +271,10 @@ def test_package(client: TestClient, package: Package):
 
     pkgbase = row.find("./td/a")
     assert pkgbase.text.strip() == package.PackageBase.Name
+
+    licenses = root.xpath('//tr[@id="licenses"]/td')
+    expected = ["test_license1", "test_license2"]
+    assert licenses[0].text.strip() == ", ".join(expected)
 
     provides = root.xpath('//tr[@id="provides"]/td')
     expected = ["test_provider1", "test_provider2"]

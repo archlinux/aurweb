@@ -64,7 +64,7 @@
         </tr>
     {% endif %}
     {% if show_package_details and licenses and licenses.count() %}
-        <tr>
+        <tr id="licenses">
             <th>{{ "Licenses" | tr }}:</th>
             <td>{{ licenses.all() | join(', ', attribute='License.Name') }} </td>
         </tr>
