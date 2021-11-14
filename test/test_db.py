@@ -279,13 +279,13 @@ def test_connection_execute_paramstyle_unsupported():
 
 def test_create_delete():
     with db.begin():
-        db.create(AccountType, AccountType="test")
+        account_type = db.create(AccountType, AccountType="test")
 
     record = db.query(AccountType, AccountType.AccountType == "test").first()
     assert record is not None
 
     with db.begin():
-        db.delete(AccountType, AccountType.AccountType == "test")
+        db.delete(account_type)
 
     record = db.query(AccountType, AccountType.AccountType == "test").first()
     assert record is None
@@ -306,7 +306,7 @@ def test_add_commit():
 
     # Remove the record.
     with db.begin():
-        db.delete(AccountType, AccountType.ID == account_type.ID)
+        db.delete(account_type)
 
 
 def test_connection_executor_mysql_paramstyle():

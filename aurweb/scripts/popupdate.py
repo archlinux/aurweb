@@ -29,7 +29,7 @@ def run_single(conn, pkgbase):
 
     conn.commit()
     conn.close()
-    aurweb.db.session.refresh(pkgbase)
+    aurweb.db.refresh(pkgbase)
 
 
 def main():

@@ -129,9 +129,14 @@ def save_rendered_comment(conn, commentid, html):
                  [html, commentid])
 
 
-def update_comment_render(commentid):
-    conn = aurweb.db.Connection()
+def update_comment_render_fastapi(comment):
+    conn = aurweb.db.ConnectionExecutor(
+        aurweb.db.get_engine().raw_connection())
+    update_comment_render(conn, comment.ID)
+    aurweb.db.refresh(comment)
 
+
+def update_comment_render(conn, commentid):
     text, pkgbase = get_comment(conn, commentid)
     html = markdown.markdown(text, extensions=[
         'fenced_code',
@@ -152,7 +157,8 @@ def update_comment_render(commentid):
 
 def main():
     commentid = int(sys.argv[1])
-    update_comment_render(commentid)
+    conn = aurweb.db.Connection()
+    update_comment_render(conn, commentid)
 
 
 if __name__ == '__main__':

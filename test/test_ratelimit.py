@@ -103,7 +103,7 @@ def test_ratelimit_db(get: mock.MagicMock, getboolean: mock.MagicMock,
 
     # Delete the ApiRateLimit record.
     with db.begin():
-        db.delete(ApiRateLimit)
+        db.delete(db.query(ApiRateLimit).first())
 
     # Should be good to go again!
     assert not check_ratelimit(request)

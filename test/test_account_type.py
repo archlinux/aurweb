@@ -20,7 +20,7 @@ def setup():
     yield account_type
 
     with begin():
-        delete(AccountType, AccountType.ID == account_type.ID)
+        delete(account_type)
 
 
 def test_account_type():
@@ -50,4 +50,4 @@ def test_user_account_type_relationship():
     # This must be deleted here to avoid foreign key issues when
     # deleting the temporary AccountType in the fixture.
     with begin():
-        delete(User, User.ID == user.ID)
+        delete(user)

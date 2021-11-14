@@ -13,7 +13,7 @@ from starlette.requests import HTTPConnection
 
 import aurweb.config
 
-from aurweb import l10n, util
+from aurweb import db, l10n, util
 from aurweb.models import Session, User
 from aurweb.models.account_type import ACCOUNT_TYPE_ID
 from aurweb.templates import make_variable_context, render_template
@@ -98,14 +98,12 @@ class AnonymousUser:
 
 class BasicAuthBackend(AuthenticationBackend):
     async def authenticate(self, conn: HTTPConnection):
-        from aurweb.db import session
-
         sid = conn.cookies.get("AURSID")
         if not sid:
             return (None, AnonymousUser())
 
         now_ts = datetime.utcnow().timestamp()
-        record = session.query(Session).filter(
+        record = db.query(Session).filter(
             and_(Session.SessionID == sid,
                  Session.LastUpdateTS >= now_ts)).first()
 
@@ -116,7 +114,7 @@ class BasicAuthBackend(AuthenticationBackend):
         # At this point, we cannot have an invalid user if the record
         # exists, due to ForeignKey constraints in the schema upheld
         # by mysqlclient.
-        user = session.query(User).filter(User.ID == record.UsersID).first()
+        user = db.query(User).filter(User.ID == record.UsersID).first()
         user.nonce = util.make_nonce()
         user.authenticated = True
 

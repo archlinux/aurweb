@@ -24,7 +24,7 @@ def test_dependency_type_creation():
     assert bool(dependency_type.ID)
     assert dependency_type.Name == "Test Type"
     with begin():
-        delete(DependencyType, DependencyType.ID == dependency_type.ID)
+        delete(dependency_type)
 
 
 def test_dependency_type_null_name_uses_default():
@@ -32,4 +32,4 @@ def test_dependency_type_null_name_uses_default():
         dependency_type = create(DependencyType)
     assert dependency_type.Name == str()
     with begin():
-        delete(DependencyType, DependencyType.ID == dependency_type.ID)
+        delete(dependency_type)

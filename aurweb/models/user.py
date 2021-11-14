@@ -146,7 +146,7 @@ class User(Base):
         self.authenticated = False
         if self.session:
             with db.begin():
-                db.session.delete(self.session)
+                db.delete(self.session)
 
     def is_trusted_user(self):
         return self.AccountType.ID in {

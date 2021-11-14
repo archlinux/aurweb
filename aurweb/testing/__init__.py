@@ -19,7 +19,7 @@ def references_graph(table):
         "regexp_1": r'(?i)\s+references\s+("|\')?',
         "regexp_2": r'("|\')?\s*\(',
     }
-    cursor = aurweb.db.session.execute(query, params=params)
+    cursor = aurweb.db.get_session().execute(query, params=params)
     return [row[0] for row in cursor.fetchall()]
 
 
@@ -51,7 +51,7 @@ def setup_test_db(*args):
     db_backend = aurweb.config.get("database", "backend")
 
     if db_backend != "sqlite":  # pragma: no cover
-        aurweb.db.session.execute("SET FOREIGN_KEY_CHECKS = 0")
+        aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 0")
     else:
         # We're using sqlite, setup tables to be deleted without violating
         # foreign key constraints by graphing references.
@@ -59,10 +59,10 @@ def setup_test_db(*args):
             references_graph(table) for table in tables))
 
     for table in tables:
-        aurweb.db.session.execute(f"DELETE FROM {table}")
+        aurweb.db.get_session().execute(f"DELETE FROM {table}")
 
     if db_backend != "sqlite":  # pragma: no cover
-        aurweb.db.session.execute("SET FOREIGN_KEY_CHECKS = 1")
+        aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 1")
 
     # Expunge all objects from SQLAlchemy's IdentityMap.
-    aurweb.db.session.expunge_all()
+    aurweb.db.get_session().expunge_all()

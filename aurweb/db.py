@@ -2,10 +2,10 @@ import functools
 import math
 import re
 
-from typing import Iterable
+from typing import Iterable, NewType
 
 from sqlalchemy import event
-from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import Query, scoped_session
 
 import aurweb.config
 import aurweb.util
@@ -21,6 +21,9 @@ session = None
 
 # Global introspected object memo.
 introspected = dict()
+
+# A mocked up type.
+Base = NewType("aurweb.models.declarative_base.Base", "Base")
 
 
 def make_random_value(table: str, column: str):
@@ -58,55 +61,69 @@ def make_random_value(table: str, column: str):
     return string
 
 
-def query(model, *args, **kwargs):
-    return session.query(model).filter(*args, **kwargs)
+def get_session():
+    """ Return aurweb.db's global session. """
+    return session
 
 
-def create(model, *args, **kwargs):
-    instance = model(*args, **kwargs)
+def refresh(model: Base) -> Base:
+    """ Refresh the session's knowledge of `model`. """
+    get_session().refresh(model)
+    return model
+
+
+def query(Model: Base, *args, **kwargs) -> Query:
+    """
+    Perform an ORM query against the database session.
+
+    This method also runs Query.filter on the resulting model
+    query with *args and **kwargs.
+
+    :param Model: Declarative ORM class
+    """
+    return get_session().query(Model).filter(*args, **kwargs)
+
+
+def create(Model: Base, *args, **kwargs) -> Base:
+    """
+    Create a record and add() it to the database session.
+
+    :param Model: Declarative ORM class
+    :return: Model instance
+    """
+    instance = Model(*args, **kwargs)
     return add(instance)
 
 
-def delete(model, *args, **kwargs):
-    instance = session.query(model).filter(*args, **kwargs)
-    for record in instance:
-        session.delete(record)
+def delete(model: Base) -> None:
+    """
+    Delete a set of records found by Query.filter(*args, **kwargs).
+
+    :param Model: Declarative ORM class
+    """
+    get_session().delete(model)
 
 
-def delete_all(iterable: Iterable):
-    with begin():
-        for obj in iterable:
-            session.delete(obj)
+def delete_all(iterable: Iterable) -> None:
+    """ Delete each instance found in `iterable`. """
+    session_ = get_session()
+    aurweb.util.apply_all(iterable, session_.delete)
 
 
-def rollback():
-    session.rollback()
+def rollback() -> None:
+    """ Rollback the database session. """
+    get_session().rollback()
 
 
-def add(model):
-    session.add(model)
+def add(model: Base) -> Base:
+    """ Add `model` to the database session. """
+    get_session().add(model)
     return model
 
 
 def begin():
-    """ Begin an SQLAlchemy SessionTransaction.
-
-    This context is **required** to perform an modifications to the
-    database.
-
-    Example:
-
-        with db.begin():
-            object = db.create(...)
-        # On __exit__, db.commit() is run.
-
-        with db.begin():
-            object = db.delete(...)
-        # On __exit__, db.commit() is run.
-
-    :return: A new SessionTransaction based on session
-    """
-    return session.begin()
+    """ Begin an SQLAlchemy SessionTransaction. """
+    return get_session().begin()
 
 
 def get_sqlalchemy_url():
