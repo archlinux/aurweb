@@ -662,7 +662,7 @@ async def accounts(request: Request):
                         account_type.TRUSTED_USER_AND_DEV})
 async def accounts_post(request: Request,
                         O: int = Form(default=0),  # Offset
-                        SB: str = Form(default=str()),  # Search By
+                        SB: str = Form(default=str()),  # Sort By
                         U: str = Form(default=str()),  # Username
                         T: str = Form(default=str()),  # Account Type
                         S: bool = Form(default=False),  # Suspended
@@ -705,23 +705,19 @@ async def accounts_post(request: Request,
 
     # Populate this list with any additional statements to
     # be ANDed together.
-    statements = []
-    if account_type_id is not None:
-        statements.append(models.AccountType.ID == account_type_id)
-    if U:
-        statements.append(models.User.Username.like(f"%{U}%"))
-    if S:
-        statements.append(models.User.Suspended == S)
-    if E:
-        statements.append(models.User.Email.like(f"%{E}%"))
-    if R:
-        statements.append(models.User.RealName.like(f"%{R}%"))
-    if I:
-        statements.append(models.User.IRCNick.like(f"%{I}%"))
-    if K:
-        statements.append(models.User.PGPKey.like(f"%{K}%"))
+    statements = [
+        v for k, v in [
+            (account_type_id is not None, models.AccountType.ID == account_type_id),
+            (bool(U), models.User.Username.like(f"%{U}%")),
+            (bool(S), models.User.Suspended == S),
+            (bool(E), models.User.Email.like(f"%{E}%")),
+            (bool(R), models.User.RealName.like(f"%{R}%")),
+            (bool(I), models.User.IRCNick.like(f"%{I}%")),
+            (bool(K), models.User.PGPKey.like(f"%{K}%")),
+        ] if k
+    ]
 
-    # Filter the query by combining all statements added above into
+    # Filter the query by coe-mbining all statements added above into
     # an AND statement, unless there's just one statement, which
     # we pass on to filter() as args.
     if statements:
