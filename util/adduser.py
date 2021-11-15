@@ -33,6 +33,7 @@ def parse_args():
 def main():
     args = parse_args()
 
+    db.get_engine()
     type = db.query(AccountType,
                     AccountType.AccountType == args.type).first()
     with db.begin():
