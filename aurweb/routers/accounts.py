@@ -4,7 +4,7 @@ import typing
 from datetime import datetime
 from http import HTTPStatus
 
-from fastapi import APIRouter, Form, HTTPException, Request
+from fastapi import APIRouter, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy import and_, func, or_
 
@@ -20,6 +20,7 @@ from aurweb.models.account_type import (DEVELOPER, DEVELOPER_ID, TRUSTED_USER, T
 from aurweb.models.ssh_pub_key import get_fingerprint
 from aurweb.scripts.notify import ResetKeyNotification, WelcomeNotification
 from aurweb.templates import make_context, make_variable_context, render_template
+from aurweb.users.util import get_user_by_name
 
 router = APIRouter()
 logger = logging.get_logger(__name__)
@@ -49,6 +50,7 @@ async def passreset_post(request: Request,
         return render_template(request, "passreset.html", context,
                                status_code=HTTPStatus.NOT_FOUND)
 
+    db.refresh(user)
     if resetkey:
         context["resetkey"] = resetkey
 
@@ -83,7 +85,7 @@ async def passreset_post(request: Request,
         with db.begin():
             user.ResetKey = str()
             if user.session:
-                db.session.delete(user.session)
+                db.delete(user.session)
             user.update_password(password)
 
         # Render ?step=complete.
@@ -458,15 +460,15 @@ def cannot_edit(request, user):
 
 @router.get("/account/{username}/edit", response_class=HTMLResponse)
 @auth_required(True, redirect="/account/{username}")
-async def account_edit(request: Request,
-                       username: str):
+async def account_edit(request: Request, username: str):
     user = db.query(models.User, models.User.Username == username).first()
+
     response = cannot_edit(request, user)
     if response:
         return response
 
     context = await make_variable_context(request, "Accounts")
-    context["user"] = user
+    context["user"] = db.refresh(user)
 
     context = make_account_form_context(context, request, user, dict())
     return render_template(request, "account/edit.html", context)
@@ -497,16 +499,14 @@ async def account_edit_post(request: Request,
                             ON: bool = Form(default=False),  # Owner Notify
                             T: int = Form(default=None),
                             passwd: str = Form(default=str())):
-    from aurweb.db import session
-
-    user = session.query(models.User).filter(
+    user = db.query(models.User).filter(
         models.User.Username == username).first()
     response = cannot_edit(request, user)
     if response:
         return response
 
     context = await make_variable_context(request, "Accounts")
-    context["user"] = user
+    context["user"] = db.refresh(user)
 
     args = dict(await request.form())
     context = make_account_form_context(context, request, user, args)
@@ -575,7 +575,7 @@ async def account_edit_post(request: Request,
                 user.ssh_pub_key.Fingerprint = fingerprint
         elif user.ssh_pub_key:
             # Else, if the user has a public key already, delete it.
-            session.delete(user.ssh_pub_key)
+            db.delete(user.ssh_pub_key)
 
     if T and T != user.AccountTypeID:
         with db.begin():
@@ -617,27 +617,16 @@ account_template = (
                status_code=HTTPStatus.UNAUTHORIZED)
 async def account(request: Request, username: str):
     _ = l10n.get_translator_for_request(request)
-    context = await make_variable_context(request,
-                                          _("Account") + " " + username)
-
-    user = db.query(models.User, models.User.Username == username).first()
-    if not user:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
-
-    context["user"] = user
-
+    context = await make_variable_context(
+        request, _("Account") + " " + username)
+    context["user"] = get_user_by_name(username)
     return render_template(request, "account/show.html", context)
 
 
 @router.get("/account/{username}/comments")
 @auth_required(redirect="/account/{username}/comments")
 async def account_comments(request: Request, username: str):
-    user = db.query(models.User).filter(
-        models.User.Username == username
-    ).first()
-    if not user:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
-
+    user = get_user_by_name(username)
     context = make_context(request, "Accounts")
     context["username"] = username
     context["comments"] = user.package_comments.order_by(
@@ -662,7 +651,7 @@ async def accounts(request: Request):
                         account_type.TRUSTED_USER_AND_DEV})
 async def accounts_post(request: Request,
                         O: int = Form(default=0),  # Offset
-                        SB: str = Form(default=str()),  # Search By
+                        SB: str = Form(default=str()),  # Sort By
                         U: str = Form(default=str()),  # Username
                         T: str = Form(default=str()),  # Account Type
                         S: bool = Form(default=False),  # Suspended
@@ -705,23 +694,19 @@ async def accounts_post(request: Request,
 
     # Populate this list with any additional statements to
     # be ANDed together.
-    statements = []
-    if account_type_id is not None:
-        statements.append(models.AccountType.ID == account_type_id)
-    if U:
-        statements.append(models.User.Username.like(f"%{U}%"))
-    if S:
-        statements.append(models.User.Suspended == S)
-    if E:
-        statements.append(models.User.Email.like(f"%{E}%"))
-    if R:
-        statements.append(models.User.RealName.like(f"%{R}%"))
-    if I:
-        statements.append(models.User.IRCNick.like(f"%{I}%"))
-    if K:
-        statements.append(models.User.PGPKey.like(f"%{K}%"))
+    statements = [
+        v for k, v in [
+            (account_type_id is not None, models.AccountType.ID == account_type_id),
+            (bool(U), models.User.Username.like(f"%{U}%")),
+            (bool(S), models.User.Suspended == S),
+            (bool(E), models.User.Email.like(f"%{E}%")),
+            (bool(R), models.User.RealName.like(f"%{R}%")),
+            (bool(I), models.User.IRCNick.like(f"%{I}%")),
+            (bool(K), models.User.PGPKey.like(f"%{K}%")),
+        ] if k
+    ]
 
-    # Filter the query by combining all statements added above into
+    # Filter the query by coe-mbining all statements added above into
     # an AND statement, unless there's just one statement, which
     # we pass on to filter() as args.
     if statements:
@@ -729,7 +714,7 @@ async def accounts_post(request: Request,
 
     # Finally, order and truncate our users for the current page.
     users = query.order_by(*order_by).limit(pp).offset(offset)
-    context["users"] = users
+    context["users"] = util.apply_all(users, db.refresh)
 
     return render_template(request, "account/index.html", context)
 
@@ -754,6 +739,9 @@ async def terms_of_service(request: Request):
     # Query the database for any terms that have not yet been accepted.
     unaccepted = db.query(models.Term).filter(
         ~models.Term.ID.in_(db.query(models.AcceptedTerm.TermsID))).all()
+
+    for record in (diffs + unaccepted):
+        db.refresh(record)
 
     # Translate the 'Terms of Service' part of our page title.
     _ = l10n.get_translator_for_request(request)
@@ -786,18 +774,21 @@ async def terms_of_service_post(request: Request,
         # We already did the database filters here, so let's just use
         # them instead of reiterating the process in terms_of_service.
         accept_needed = sorted(unaccepted + diffs)
-        return render_terms_of_service(request, context, accept_needed)
+        return render_terms_of_service(
+            request, context, util.apply_all(accept_needed, db.refresh))
 
     with db.begin():
         # For each term we found, query for the matching accepted term
         # and update its Revision to the term's current Revision.
         for term in diffs:
+            db.refresh(term)
             accepted_term = request.user.accepted_terms.filter(
                 models.AcceptedTerm.TermsID == term.ID).first()
             accepted_term.Revision = term.Revision
 
         # For each term that was never accepted, accept it!
         for term in unaccepted:
+            db.refresh(term)
             db.create(models.AcceptedTerm, User=request.user,
                       Term=term, Revision=term.Revision)
 

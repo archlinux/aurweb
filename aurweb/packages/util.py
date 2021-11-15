@@ -110,18 +110,26 @@ def get_pkg_or_base(
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
     instance = db.query(cls).filter(cls.Name == name).first()
-    if cls == models.PackageBase and not instance:
+    if not instance:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
-    return instance
+    return db.refresh(instance)
 
 
-def get_pkgbase_comment(
-        pkgbase: models.PackageBase, id: int) -> models.PackageComment:
+def get_pkgbase_comment(pkgbase: models.PackageBase, id: int) \
+        -> models.PackageComment:
     comment = pkgbase.comments.filter(models.PackageComment.ID == id).first()
     if not comment:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
-    return comment
+    return db.refresh(comment)
+
+
+def get_pkgreq_by_id(id: int):
+    pkgreq = db.query(models.PackageRequest).filter(
+        models.PackageRequest.ID == id).first()
+    if not pkgreq:
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
+    return db.refresh(pkgreq)
 
 
 @register_filter("out_of_date")

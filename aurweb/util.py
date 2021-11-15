@@ -155,6 +155,7 @@ def get_ssh_fingerprints():
 def apply_all(iterable: Iterable, fn: Callable):
     for item in iterable:
         fn(item)
+    return iterable
 
 
 def sanitize_params(offset: str, per_page: str) -> Tuple[int, int]:

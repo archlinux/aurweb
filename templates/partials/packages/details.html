@@ -132,11 +132,11 @@
     <tr>
         <th>{{ "Votes" | tr }}:</th>
         {% if not is_maintainer %}
-            <td>{{ pkgbase.package_votes.count() }}</td>
+            <td>{{ pkgbase.NumVotes }}</td>
         {% else %}
             <td>
                 <a href="/pkgbase/{{ pkgbase.Name }}/voters">
-                    {{ pkgbase.package_votes.count() }}
+                    {{ pkgbase.NumVotes }}
                 </a>
             </td>
         {% endif %}

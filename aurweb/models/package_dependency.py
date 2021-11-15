@@ -1,9 +1,10 @@
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-from aurweb import schema
+from aurweb import db, schema
 from aurweb.models.declarative import Base
 from aurweb.models.dependency_type import DependencyType as _DependencyType
+from aurweb.models.official_provider import OfficialProvider as _OfficialProvider
 from aurweb.models.package import Package as _Package
 
 
@@ -46,11 +47,7 @@ class PackageDependency(Base):
                 params=("NULL"))
 
     def is_package(self) -> bool:
-        # TODO: Improve the speed of this query if possible.
-        from aurweb import db
-        from aurweb.models.official_provider import OfficialProvider
-        from aurweb.models.package import Package
-        pkg = db.query(Package, Package.Name == self.DepName)
-        official = db.query(OfficialProvider,
-                            OfficialProvider.Name == self.DepName)
-        return pkg.scalar() or official.scalar()
+        pkg = db.query(_Package).filter(_Package.Name == self.DepName).exists()
+        official = db.query(_OfficialProvider).filter(
+            _OfficialProvider.Name == self.DepName).exists()
+        return db.query(pkg).scalar() or db.query(official).scalar()

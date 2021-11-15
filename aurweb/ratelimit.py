@@ -40,8 +40,10 @@ def _update_ratelimit_db(request: Request):
     now = int(datetime.utcnow().timestamp())
     time_to_delete = now - window_length
 
+    records = db.query(ApiRateLimit).filter(
+        ApiRateLimit.WindowStart < time_to_delete)
     with db.begin():
-        db.delete(ApiRateLimit, ApiRateLimit.WindowStart < time_to_delete)
+        db.delete_all(records)
 
     host = request.client.host
     record = db.query(ApiRateLimit, ApiRateLimit.IP == host).first()

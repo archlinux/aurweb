@@ -18,7 +18,7 @@ def test_relation_type_creation():
     assert relation_type.Name == "test-relation"
 
     with db.begin():
-        db.delete(RelationType, RelationType.ID == relation_type.ID)
+        db.delete(relation_type)
 
 
 def test_relation_types():

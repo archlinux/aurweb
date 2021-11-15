@@ -18,7 +18,7 @@ def test_request_type_creation():
     assert request_type.Name == "Test Request"
 
     with db.begin():
-        db.delete(RequestType, RequestType.ID == request_type.ID)
+        db.delete(request_type)
 
 
 def test_request_type_null_name_returns_empty_string():
@@ -29,7 +29,7 @@ def test_request_type_null_name_returns_empty_string():
     assert request_type.Name == str()
 
     with db.begin():
-        db.delete(RequestType, RequestType.ID == request_type.ID)
+        db.delete(request_type)
 
 
 def test_request_type_name_display():

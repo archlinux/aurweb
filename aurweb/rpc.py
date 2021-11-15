@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Any, Dict, List
+from typing import Any, Callable, Dict, List, NewType
 
 from sqlalchemy import and_
 
@@ -23,6 +23,10 @@ REL_TYPES = {
     relation_type.PROVIDES_ID: "Provides",
     relation_type.REPLACES_ID: "Replaces"
 }
+
+
+DataGenerator = NewType("DataGenerator",
+                        Callable[[models.Package], Dict[str, Any]])
 
 
 class RPCError(Exception):
@@ -188,15 +192,32 @@ class RPC:
         self._update_json_relations(package, data)
         return data
 
-    def _handle_multiinfo_type(self, args: List[str] = [], **kwargs):
+    def _assemble_json_data(self, packages: List[models.Package],
+                            data_generator: DataGenerator) \
+            -> List[Dict[str, Any]]:
+        """
+        Assemble JSON data out of a list of packages.
+
+        :param packages: A list of Package instances or a Package ORM query
+        :param data_generator: Generator callable of single-Package JSON data
+        """
+        output = []
+        for pkg in packages:
+            db.refresh(pkg)
+            output.append(data_generator(pkg))
+        return output
+
+    def _handle_multiinfo_type(self, args: List[str] = [], **kwargs) \
+            -> List[Dict[str, Any]]:
         self._enforce_args(args)
         args = set(args)
         packages = db.query(models.Package).filter(
             models.Package.Name.in_(args))
-        return [self._get_info_json_data(pkg) for pkg in packages]
+        return self._assemble_json_data(packages, self._get_info_json_data)
 
     def _handle_search_type(self, by: str = defaults.RPC_SEARCH_BY,
-                            args: List[str] = []):
+                            args: List[str] = []) \
+            -> List[Dict[str, Any]]:
         # If `by` isn't maintainer and we don't have any args, raise an error.
         # In maintainer's case, return all orphans if there are no args,
         # so we need args to pass through to the handler without errors.
@@ -212,7 +233,7 @@ class RPC:
 
         max_results = config.getint("options", "max_rpc_results")
         results = search.results().limit(max_results)
-        return [self._get_json_data(pkg) for pkg in results]
+        return self._assemble_json_data(results, self._get_json_data)
 
     def _handle_msearch_type(self, args: List[str] = [], **kwargs):
         return self._handle_search_type(by="m", args=args)
