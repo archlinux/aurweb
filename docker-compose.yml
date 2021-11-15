@@ -112,6 +112,7 @@ services:
     environment:
       - AUR_CONFIG=/aurweb/conf/config
       - CGIT_CLONE_PREFIX=${AURWEB_PHP_PREFIX}
+      - CGIT_CSS=/css/cgit.css
     entrypoint: /docker/cgit-entrypoint.sh
     command: /docker/scripts/run-cgit.sh 3000
     healthcheck:
@@ -131,6 +132,7 @@ services:
     environment:
       - AUR_CONFIG=/aurweb/conf/config
       - CGIT_CLONE_PREFIX=${AURWEB_FASTAPI_PREFIX}
+      - CGIT_CSS=/static/css/cgit.css
     entrypoint: /docker/cgit-entrypoint.sh
     command: /docker/scripts/run-cgit.sh 3000
     healthcheck:
