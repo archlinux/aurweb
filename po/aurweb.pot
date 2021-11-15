@@ -968,6 +968,10 @@ msgstr ""
 msgid "Package details could not be found."
 msgstr ""
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
 #: aurweb/routers/packages.py
 msgid "You did not select any packages to be notified about."
 msgstr ""
