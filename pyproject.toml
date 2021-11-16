@@ -84,6 +84,7 @@ gunicorn = "^20.1.0"
 Hypercorn = "^0.11.2"
 mysql-connector = "^2.2.9"
 prometheus-fastapi-instrumentator = "^5.7.1"
+pytest-xdist = "^2.4.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
