@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class AurwebException(Exception):
     pass
 
@@ -77,3 +80,9 @@ class InvalidArgumentsException(AurwebException):
 
 class RPCError(AurwebException):
     pass
+
+
+class ValidationError(AurwebException):
+    def __init__(self, data: Any, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.data = data

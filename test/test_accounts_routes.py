@@ -1035,12 +1035,25 @@ def test_post_account_edit_account_types():
     # Make sure it got changed to USER_ID as we intended.
     assert user.AccountTypeID == USER_ID
 
-    # Change user to a Developer.
+    # Change user to a TU & Dev, which can change themselves to a Developer.
     with db.begin():
-        user.AccountTypeID = DEVELOPER_ID
+        user.AccountTypeID = TRUSTED_USER_AND_DEV_ID
 
-    # As a developer, we can absolutely change all account types.
-    # For example, from DEVELOPER_ID to TRUSTED_USER_AND_DEV_ID:
+    # As a TU & Dev, we can absolutely change all account types.
+    # For example, from TRUSTED_USER_AND_DEV_ID to DEVELOPER_ID:
+    post_data = {
+        "U": user.Username,
+        "E": user.Email,
+        "T": DEVELOPER_ID,
+        "passwd": "testPassword"
+    }
+    with client as request:
+        resp = request.post(endpoint, data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert user.AccountTypeID == DEVELOPER_ID
+
+    # But we can't change a user to a Trusted User & Developer when
+    # we're just a Developer.
     post_data = {
         "U": user.Username,
         "E": user.Email,
@@ -1049,8 +1062,8 @@ def test_post_account_edit_account_types():
     }
     with client as request:
         resp = request.post(endpoint, data=post_data, cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.OK)
-    assert user.AccountTypeID == TRUSTED_USER_AND_DEV_ID
+    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
+    assert user.AccountTypeID == DEVELOPER_ID
 
 
 def test_get_account():
