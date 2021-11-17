@@ -42,6 +42,9 @@ EOF
 cp -vf conf/config.dev $AUR_CONFIG
 sed -i "s;YOUR_AUR_ROOT;$(pwd);g" $AUR_CONFIG
 
+sed -ri "s/^;?(user) = .*$/\1 = aur/" $AUR_CONFIG
+sed -ri "s/^;?(password) = .*$/\1 = aur/" $AUR_CONFIG
+
 AUR_CONFIG_DEFAULTS="${AUR_CONFIG}.defaults"
 
 if [[ "$AUR_CONFIG_DEFAULTS" != "/aurweb/conf/config.defaults" ]]; then
