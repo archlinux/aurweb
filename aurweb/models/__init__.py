@@ -1,31 +1,31 @@
 """ Collection of all aurweb SQLAlchemy declarative models. """
-from .accepted_term import AcceptedTerm
-from .account_type import AccountType
-from .api_rate_limit import ApiRateLimit
-from .ban import Ban
-from .dependency_type import DependencyType
-from .group import Group
-from .license import License
-from .official_provider import OfficialProvider
-from .package import Package
-from .package_base import PackageBase
-from .package_blacklist import PackageBlacklist
-from .package_comaintainer import PackageComaintainer
-from .package_comment import PackageComment
-from .package_dependency import PackageDependency
-from .package_group import PackageGroup
-from .package_keyword import PackageKeyword
-from .package_license import PackageLicense
-from .package_notification import PackageNotification
-from .package_relation import PackageRelation
-from .package_request import PackageRequest
-from .package_source import PackageSource
-from .package_vote import PackageVote
-from .relation_type import RelationType
-from .request_type import RequestType
-from .session import Session
-from .ssh_pub_key import SSHPubKey
-from .term import Term
-from .tu_vote import TUVote
-from .tu_voteinfo import TUVoteInfo
-from .user import User
+from .accepted_term import AcceptedTerm  # noqa: F401
+from .account_type import AccountType  # noqa: F401
+from .api_rate_limit import ApiRateLimit  # noqa: F401
+from .ban import Ban  # noqa: F401
+from .dependency_type import DependencyType  # noqa: F401
+from .group import Group  # noqa: F401
+from .license import License  # noqa: F401
+from .official_provider import OfficialProvider  # noqa: F401
+from .package import Package  # noqa: F401
+from .package_base import PackageBase  # noqa: F401
+from .package_blacklist import PackageBlacklist  # noqa: F401
+from .package_comaintainer import PackageComaintainer  # noqa: F401
+from .package_comment import PackageComment  # noqa: F401
+from .package_dependency import PackageDependency  # noqa: F401
+from .package_group import PackageGroup  # noqa: F401
+from .package_keyword import PackageKeyword  # noqa: F401
+from .package_license import PackageLicense  # noqa: F401
+from .package_notification import PackageNotification  # noqa: F401
+from .package_relation import PackageRelation  # noqa: F401
+from .package_request import PackageRequest  # noqa: F401
+from .package_source import PackageSource  # noqa: F401
+from .package_vote import PackageVote  # noqa: F401
+from .relation_type import RelationType  # noqa: F401
+from .request_type import RequestType  # noqa: F401
+from .session import Session  # noqa: F401
+from .ssh_pub_key import SSHPubKey  # noqa: F401
+from .term import Term  # noqa: F401
+from .tu_vote import TUVote  # noqa: F401
+from .tu_voteinfo import TUVoteInfo  # noqa: F401
+from .user import User  # noqa: F401
