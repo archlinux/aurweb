@@ -4,12 +4,11 @@ from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
 from aurweb.models.official_provider import OfficialProvider
-from aurweb.testing import setup_test_db
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db("OfficialProviders")
+def setup(db_test):
+    return
 
 
 def test_official_provider_creation():
@@ -53,26 +52,14 @@ def test_official_provider_cs():
 
 def test_official_provider_null_name_raises_exception():
     with pytest.raises(IntegrityError):
-        with db.begin():
-            db.create(OfficialProvider,
-                      Repo="some-repo",
-                      Provides="some-provides")
-    db.rollback()
+        OfficialProvider(Repo="some-repo", Provides="some-provides")
 
 
 def test_official_provider_null_repo_raises_exception():
     with pytest.raises(IntegrityError):
-        with db.begin():
-            db.create(OfficialProvider,
-                      Name="some-name",
-                      Provides="some-provides")
-    db.rollback()
+        OfficialProvider(Name="some-name", Provides="some-provides")
 
 
 def test_official_provider_null_provides_raises_exception():
     with pytest.raises(IntegrityError):
-        with db.begin():
-            db.create(OfficialProvider,
-                      Name="some-name",
-                      Repo="some-repo")
-    db.rollback()
+        OfficialProvider(Name="some-name", Repo="some-repo")

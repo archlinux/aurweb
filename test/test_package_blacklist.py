@@ -6,20 +6,18 @@ from aurweb import db
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_blacklist import PackageBlacklist
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 
 user = pkgbase = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global user, pkgbase
 
-    setup_test_db("PackageBlacklist", "PackageBases", "Users")
-
-    user = db.create(User, Username="test", Email="test@example.org",
-                     RealName="Test User", Passwd="testPassword")
-    pkgbase = db.create(PackageBase, Name="test-package", Maintainer=user)
+    with db.begin():
+        user = db.create(User, Username="test", Email="test@example.org",
+                         RealName="Test User", Passwd="testPassword")
+        pkgbase = db.create(PackageBase, Name="test-package", Maintainer=user)
 
 
 def test_package_blacklist_creation():
@@ -31,6 +29,4 @@ def test_package_blacklist_creation():
 
 def test_package_blacklist_null_name_raises_exception():
     with pytest.raises(IntegrityError):
-        with db.begin():
-            db.create(PackageBlacklist)
-    db.rollback()
+        PackageBlacklist()

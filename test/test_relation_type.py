@@ -2,12 +2,11 @@ import pytest
 
 from aurweb import db
 from aurweb.models.relation_type import RelationType
-from aurweb.testing import setup_test_db
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db()
+def setup(db_test):
+    return
 
 
 def test_relation_type_creation():

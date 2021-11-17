@@ -20,7 +20,6 @@ from aurweb.models.session import Session
 from aurweb.models.ssh_pub_key import SSHPubKey, get_fingerprint
 from aurweb.models.term import Term
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 from aurweb.testing.html import get_errors
 from aurweb.testing.requests import Request
 
@@ -50,10 +49,8 @@ def make_ssh_pubkey():
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global user
-
-    setup_test_db("Users", "Sessions", "Bans", "Terms", "AcceptedTerms")
 
     account_type = query(AccountType,
                          AccountType.AccountType == "User").first()
@@ -64,10 +61,6 @@ def setup():
                       IRCNick="testZ", AccountType=account_type)
 
     yield user
-
-    # Remove term records so other tests don't get them
-    # and falsely redirect.
-    setup_test_db("Terms", "AcceptedTerms")
 
 
 @pytest.fixture

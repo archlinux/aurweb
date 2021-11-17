@@ -16,13 +16,13 @@ db_backend = aurweb.config.get("database", "backend")
 
 
 @compiles(TINYINT, 'sqlite')
-def compile_tinyint_sqlite(type_, compiler, **kw):
+def compile_tinyint_sqlite(type_, compiler, **kw):  # pragma: no cover
     """TINYINT is not supported on SQLite. Substitute it with INTEGER."""
     return 'INTEGER'
 
 
 @compiles(BIGINT, 'sqlite')
-def compile_bigint_sqlite(type_, compiler, **kw):
+def compile_bigint_sqlite(type_, compiler, **kw):  # pragma: no cover
     """
     For SQLite's AUTOINCREMENT to work on BIGINT columns, we need to map BIGINT
     to INTEGER. Aside from that, BIGINT is the same as INTEGER for SQLite.

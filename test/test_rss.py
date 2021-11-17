@@ -12,17 +12,13 @@ from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 
 logger = logging.get_logger(__name__)
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db(
-        Package.__tablename__,
-        PackageBase.__tablename__,
-        User.__tablename__)
+def setup(db_test):
+    return
 
 
 @pytest.fixture

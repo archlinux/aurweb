@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 import aurweb.config
 
-from aurweb import cookies
+from aurweb import cookies, db
 from aurweb.auth import auth_required
 from aurweb.l10n import get_translator_for_request
 from aurweb.models import User
@@ -45,9 +45,7 @@ async def login_post(request: Request,
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                             detail=_("Bad Referer header."))
 
-    from aurweb.db import session
-
-    user = session.query(User).filter(User.Username == user).first()
+    user = db.query(User).filter(User.Username == user).first()
     if not user:
         return await login_template(request, next,
                                     errors=["Bad username or password."])

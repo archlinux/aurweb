@@ -8,16 +8,13 @@ from aurweb import db
 from aurweb.models.account_type import AccountType
 from aurweb.models.package_base import PackageBase
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 
 user = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global user
-
-    setup_test_db("Users", "PackageBases")
 
     account_type = db.query(AccountType,
                             AccountType.AccountType == "User").first()

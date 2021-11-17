@@ -8,14 +8,13 @@ from fastapi.testclient import TestClient
 from aurweb import asgi, db
 from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID, AccountType
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 from aurweb.testing.html import get_errors, get_successes, parse_root
 from aurweb.testing.requests import Request
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db(User.__tablename__)
+def setup(db_test):
+    return
 
 
 @pytest.fixture

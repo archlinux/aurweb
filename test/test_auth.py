@@ -6,28 +6,22 @@ from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
 from aurweb.auth import AnonymousUser, BasicAuthBackend, account_type_required, has_credential
-from aurweb.db import create, query
-from aurweb.models.account_type import USER, USER_ID, AccountType
+from aurweb.models.account_type import USER, USER_ID
 from aurweb.models.session import Session
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
 
 user = backend = request = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global user, backend, request
 
-    setup_test_db("Users", "Sessions")
-
-    account_type = query(AccountType,
-                         AccountType.AccountType == "User").first()
     with db.begin():
-        user = create(User, Username="test", Email="test@example.com",
-                      RealName="Test User", Passwd="testPassword",
-                      AccountType=account_type)
+        user = db.create(User, Username="test", Email="test@example.com",
+                         RealName="Test User", Passwd="testPassword",
+                         AccountTypeID=USER_ID)
 
     backend = BasicAuthBackend()
     request = Request()
@@ -56,10 +50,8 @@ async def test_auth_backend_invalid_user_id():
     # Create a new session with a fake user id.
     now_ts = datetime.utcnow().timestamp()
     with pytest.raises(IntegrityError):
-        with db.begin():
-            create(Session, UsersID=666, SessionID="realSession",
-                   LastUpdateTS=now_ts + 5)
-    db.rollback()
+        Session(UsersID=666, SessionID="realSession",
+                LastUpdateTS=now_ts + 5)
 
 
 @pytest.mark.asyncio
@@ -68,8 +60,8 @@ async def test_basic_auth_backend():
     # equal the real_user.
     now_ts = datetime.utcnow().timestamp()
     with db.begin():
-        create(Session, UsersID=user.ID, SessionID="realSession",
-               LastUpdateTS=now_ts + 5)
+        db.create(Session, UsersID=user.ID, SessionID="realSession",
+                  LastUpdateTS=now_ts + 5)
     request.cookies["AURSID"] = "realSession"
     _, result = await backend.authenticate(request)
     assert result == user

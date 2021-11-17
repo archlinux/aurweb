@@ -4,12 +4,11 @@ from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
 from aurweb.models.group import Group
-from aurweb.testing import setup_test_db
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db("Groups")
+def setup(db_test):
+    return
 
 
 def test_group_creation():
@@ -21,6 +20,4 @@ def test_group_creation():
 
 def test_group_null_name_raises_exception():
     with pytest.raises(IntegrityError):
-        with db.begin():
-            db.create(Group)
-    db.rollback()
+        Group()

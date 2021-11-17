@@ -1,26 +1,6 @@
-from itertools import chain
-
 import aurweb.db
 
-
-def references_graph(table):
-    """ Taken from Django's sqlite3/operations.py. """
-    query = """
-    WITH tables AS (
-    SELECT :table name
-    UNION
-    SELECT sqlite_master.name
-    FROM sqlite_master
-    JOIN tables ON (sql REGEXP :regexp_1 || tables.name || :regexp_2)
-    ) SELECT name FROM tables;
-    """
-    params = {
-        "table": table,
-        "regexp_1": r'(?i)\s+references\s+("|\')?',
-        "regexp_2": r'("|\')?\s*\(',
-    }
-    cursor = aurweb.db.get_session().execute(query, params=params)
-    return [row[0] for row in cursor.fetchall()]
+from aurweb import models
 
 
 def setup_test_db(*args):
@@ -47,22 +27,38 @@ def setup_test_db(*args):
     aurweb.db.get_engine()
 
     tables = list(args)
+    if not tables:
+        tables = [
+            models.AcceptedTerm.__tablename__,
+            models.ApiRateLimit.__tablename__,
+            models.Ban.__tablename__,
+            models.Group.__tablename__,
+            models.License.__tablename__,
+            models.OfficialProvider.__tablename__,
+            models.Package.__tablename__,
+            models.PackageBase.__tablename__,
+            models.PackageBlacklist.__tablename__,
+            models.PackageComaintainer.__tablename__,
+            models.PackageComment.__tablename__,
+            models.PackageDependency.__tablename__,
+            models.PackageGroup.__tablename__,
+            models.PackageKeyword.__tablename__,
+            models.PackageLicense.__tablename__,
+            models.PackageNotification.__tablename__,
+            models.PackageRelation.__tablename__,
+            models.PackageRequest.__tablename__,
+            models.PackageSource.__tablename__,
+            models.PackageVote.__tablename__,
+            models.Session.__tablename__,
+            models.SSHPubKey.__tablename__,
+            models.Term.__tablename__,
+            models.TUVote.__tablename__,
+            models.TUVoteInfo.__tablename__,
+            models.User.__tablename__,
+        ]
 
-    db_backend = aurweb.config.get("database", "backend")
-
-    if db_backend != "sqlite":  # pragma: no cover
-        aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 0")
-    else:
-        # We're using sqlite, setup tables to be deleted without violating
-        # foreign key constraints by graphing references.
-        tables = set(chain.from_iterable(
-            references_graph(table) for table in tables))
-
+    aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 0")
     for table in tables:
         aurweb.db.get_session().execute(f"DELETE FROM {table}")
-
-    if db_backend != "sqlite":  # pragma: no cover
-        aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 1")
-
-    # Expunge all objects from SQLAlchemy's IdentityMap.
+    aurweb.db.get_session().execute("SET FOREIGN_KEY_CHECKS = 1")
     aurweb.db.get_session().expunge_all()

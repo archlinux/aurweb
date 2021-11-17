@@ -2,12 +2,11 @@ import pytest
 
 from aurweb import db
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID, RequestType
-from aurweb.testing import setup_test_db
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db()
+def setup(db_test):
+    return
 
 
 def test_request_type_creation():

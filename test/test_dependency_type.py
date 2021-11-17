@@ -2,12 +2,11 @@ import pytest
 
 from aurweb.db import begin, create, delete, query
 from aurweb.models.dependency_type import DependencyType
-from aurweb.testing import setup_test_db
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db()
+def setup(db_test):
+    return
 
 
 def test_dependency_types():

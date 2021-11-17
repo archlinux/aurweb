@@ -18,7 +18,6 @@ from aurweb.models.package_request import PackageRequest
 from aurweb.models.request_type import DELETION_ID, RequestType
 from aurweb.models.user import User
 from aurweb.redis import redis_connection
-from aurweb.testing import setup_test_db
 from aurweb.testing.html import parse_root
 from aurweb.testing.requests import Request
 
@@ -26,14 +25,8 @@ client = TestClient(app)
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    yield setup_test_db(
-        User.__tablename__,
-        Package.__tablename__,
-        PackageBase.__tablename__,
-        PackageComaintainer.__tablename__,
-        PackageRequest.__tablename__
-    )
+def setup(db_test):
+    return
 
 
 @pytest.fixture

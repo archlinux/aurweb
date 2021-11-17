@@ -14,7 +14,6 @@ from aurweb.models.account_type import AccountType
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
 
 DATETIME_REGEX = r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
@@ -76,8 +75,8 @@ def assert_past_vote_html(row, expected):
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db("TU_Votes", "TU_VoteInfo", "Users")
+def setup(db_test):
+    return
 
 
 @pytest.fixture

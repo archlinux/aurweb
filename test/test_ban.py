@@ -9,17 +9,14 @@ from sqlalchemy import exc as sa_exc
 from aurweb import db
 from aurweb.db import create
 from aurweb.models.ban import Ban, is_banned
-from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
 
 ban = request = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global ban, request
-
-    setup_test_db("Bans")
 
     ts = datetime.utcnow() + timedelta(seconds=30)
     with db.begin():
@@ -33,8 +30,6 @@ def test_ban():
 
 
 def test_invalid_ban():
-    from aurweb.db import session
-
     with pytest.raises(sa_exc.IntegrityError):
         bad_ban = Ban(BanTS=datetime.utcnow())
 
@@ -44,7 +39,7 @@ def test_invalid_ban():
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", sa_exc.SAWarning)
             with db.begin():
-                session.add(bad_ban)
+                db.add(bad_ban)
 
     # Since we got a transaction failure, we need to rollback.
     db.rollback()

@@ -28,7 +28,6 @@ from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID, RelationType
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, RequestType
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 from aurweb.testing.html import get_errors, get_successes, parse_root
 from aurweb.testing.requests import Request
 
@@ -65,21 +64,8 @@ def create_package_rel(package: Package,
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db(
-        User.__tablename__,
-        Package.__tablename__,
-        PackageBase.__tablename__,
-        PackageDependency.__tablename__,
-        PackageRelation.__tablename__,
-        PackageKeyword.__tablename__,
-        PackageVote.__tablename__,
-        PackageNotification.__tablename__,
-        PackageComaintainer.__tablename__,
-        PackageComment.__tablename__,
-        PackageRequest.__tablename__,
-        OfficialProvider.__tablename__
-    )
+def setup(db_test):
+    return
 
 
 @pytest.fixture
@@ -91,12 +77,11 @@ def client() -> TestClient:
 @pytest.fixture
 def user() -> User:
     """ Yield a user. """
-    account_type = db.query(AccountType, AccountType.ID == USER_ID).first()
     with db.begin():
         user = db.create(User, Username="test",
                          Email="test@example.org",
                          Passwd="testPassword",
-                         AccountType=account_type)
+                         AccountTypeID=USER_ID)
     yield user
 
 
@@ -1173,7 +1158,7 @@ def test_pkgbase_comments(client: TestClient, maintainer: User, user: User,
         PackageNotification.UserID == maintainer.ID
     ).first()
     with db.begin():
-        db.session.delete(db_notif)
+        db.delete(db_notif)
 
     # Now, let's edit the comment we just created.
     comment_id = int(headers[0].attrib["id"].split("-")[-1])

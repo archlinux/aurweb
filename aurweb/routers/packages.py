@@ -1014,12 +1014,12 @@ def pkgbase_disown_instance(request: Request, pkgbase: models.PackageBase):
             models.PackageComaintainer.Priority.asc()
         ).limit(1).first()
 
-        if co:
-            with db.begin():
+        with db.begin():
+            if co:
                 pkgbase.Maintainer = co.User
                 db.delete(co)
-        else:
-            pkgbase.Maintainer = None
+            else:
+                pkgbase.Maintainer = None
 
     notif.send()
 

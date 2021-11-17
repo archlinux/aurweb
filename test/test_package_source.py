@@ -14,7 +14,7 @@ user = pkgbase = package = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global user, pkgbase, package
 
     setup_test_db("PackageSources", "Packages", "PackageBases", "Users")

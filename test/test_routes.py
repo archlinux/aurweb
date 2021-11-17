@@ -10,27 +10,21 @@ from fastapi.testclient import TestClient
 
 from aurweb import db
 from aurweb.asgi import app
-from aurweb.models.account_type import AccountType
+from aurweb.models.account_type import USER_ID
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
 
 user = client = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global user, client
-
-    setup_test_db("Users", "Sessions")
-
-    account_type = db.query(AccountType,
-                            AccountType.AccountType == "User").first()
 
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          RealName="Test User", Passwd="testPassword",
-                         AccountType=account_type)
+                         AccountTypeID=USER_ID)
 
     client = TestClient(app)
 

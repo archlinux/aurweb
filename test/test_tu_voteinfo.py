@@ -9,16 +9,13 @@ from aurweb.db import create, query, rollback
 from aurweb.models.account_type import AccountType
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 
 user = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global user
-
-    setup_test_db("Users", "PackageBases", "TU_VoteInfo")
 
     tu_type = query(AccountType,
                     AccountType.AccountType == "Trusted User").first()

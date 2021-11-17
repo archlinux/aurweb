@@ -12,7 +12,6 @@ import aurweb.initdb
 
 from aurweb import db
 from aurweb.models.account_type import AccountType
-from aurweb.testing import setup_test_db
 
 
 class Args:
@@ -96,15 +95,9 @@ def make_temp_mysql_config():
 
 
 @pytest.fixture(autouse=True)
-def setup_db():
+def setup(db_test):
     if os.path.exists("/tmp/aurweb.sqlite3"):
         os.remove("/tmp/aurweb.sqlite3")
-
-    # In various places in this test, we reinitialize the engine.
-    # Make sure we kill the previous engine before initializing
-    # it via setup_test_db().
-    aurweb.db.kill_engine()
-    setup_test_db()
 
 
 def test_sqlalchemy_sqlite_url():
@@ -159,24 +152,6 @@ def test_sqlalchemy_unknown_backend():
 def test_db_connects_without_fail():
     """ This only tests the actual config supplied to pytest. """
     db.connect()
-    assert db.engine is not None
-
-
-def test_connection_class_sqlite_without_fail():
-    tmpctx, tmp = make_temp_sqlite_config()
-    with tmpctx:
-        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
-            aurweb.config.rehash()
-
-            aurweb.db.kill_engine()
-            aurweb.initdb.run(Args())
-
-            conn = db.Connection()
-            cur = conn.execute(
-                "SELECT AccountType FROM AccountTypes WHERE ID = ?", (1,))
-            account_type = cur.fetchone()[0]
-            assert account_type == "User"
-        aurweb.config.rehash()
 
 
 def test_connection_class_unsupported_backend():
@@ -197,83 +172,6 @@ def test_connection_mysql():
         with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
             aurweb.config.rehash()
             db.Connection()
-        aurweb.config.rehash()
-
-
-@mock.patch("sqlite3.connect", mock.MagicMock(return_value=DBConnection()))
-@mock.patch.object(sqlite3, "paramstyle", "qmark")
-def test_connection_sqlite():
-    db.Connection()
-
-
-@mock.patch("sqlite3.connect", mock.MagicMock(return_value=DBConnection()))
-@mock.patch.object(sqlite3, "paramstyle", "format")
-def test_connection_execute_paramstyle_format():
-    tmpctx, tmp = make_temp_sqlite_config()
-
-    with tmpctx:
-        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
-            aurweb.config.rehash()
-
-            aurweb.db.kill_engine()
-            aurweb.initdb.run(Args())
-
-            # Test SQLite route of clearing tables.
-            setup_test_db("Users", "Bans")
-
-            conn = db.Connection()
-
-            # First, test ? to %s format replacement.
-            account_types = conn\
-                .execute("SELECT * FROM AccountTypes WHERE AccountType = ?",
-                         ["User"]).fetchall()
-            assert account_types == \
-                ["SELECT * FROM AccountTypes WHERE AccountType = %s", ["User"]]
-
-            # Test other format replacement.
-            account_types = conn\
-                .execute("SELECT * FROM AccountTypes WHERE AccountType = %",
-                         ["User"]).fetchall()
-            assert account_types == \
-                ["SELECT * FROM AccountTypes WHERE AccountType = %%", ["User"]]
-        aurweb.config.rehash()
-
-
-@mock.patch("sqlite3.connect", mock.MagicMock(return_value=DBConnection()))
-@mock.patch.object(sqlite3, "paramstyle", "qmark")
-def test_connection_execute_paramstyle_qmark():
-    tmpctx, tmp = make_temp_sqlite_config()
-
-    with tmpctx:
-        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
-            aurweb.config.rehash()
-
-            aurweb.db.kill_engine()
-            aurweb.initdb.run(Args())
-
-            conn = db.Connection()
-            # We don't modify anything when using qmark, so test equality.
-            account_types = conn\
-                .execute("SELECT * FROM AccountTypes WHERE AccountType = ?",
-                         ["User"]).fetchall()
-            assert account_types == \
-                ["SELECT * FROM AccountTypes WHERE AccountType = ?", ["User"]]
-        aurweb.config.rehash()
-
-
-@mock.patch("sqlite3.connect", mock.MagicMock(return_value=DBConnection()))
-@mock.patch.object(sqlite3, "paramstyle", "unsupported")
-def test_connection_execute_paramstyle_unsupported():
-    tmpctx, tmp = make_temp_sqlite_config()
-    with tmpctx:
-        with mock.patch.dict(os.environ, {"AUR_CONFIG": tmp}):
-            aurweb.config.rehash()
-            conn = db.Connection()
-            with pytest.raises(ValueError, match="unsupported paramstyle"):
-                conn.execute(
-                    "SELECT * FROM AccountTypes WHERE AccountType = ?",
-                    ["User"]
-                ).fetchall()
         aurweb.config.rehash()
 
 
@@ -318,3 +216,9 @@ def test_connection_executor_mysql_paramstyle():
 def test_connection_executor_sqlite_paramstyle():
     executor = db.ConnectionExecutor(None, backend="sqlite")
     assert executor.paramstyle() == sqlite3.paramstyle
+
+
+def test_name_without_pytest_current_test():
+    with mock.patch.dict("os.environ", {}, clear=True):
+        dbname = aurweb.db.name()
+    assert dbname == aurweb.config.get("database", "name")

@@ -1,6 +1,13 @@
 import hashlib
 
+import pytest
+
 from aurweb import captcha
+
+
+@pytest.fixture(autouse=True)
+def setup(db_test):
+    return
 
 
 def test_captcha_salts():

@@ -19,26 +19,14 @@ from aurweb.models.package_vote import PackageVote
 from aurweb.models.session import Session
 from aurweb.models.ssh_pub_key import SSHPubKey
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
 
 account_type = user = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global account_type, user
-
-    setup_test_db(
-        User.__tablename__,
-        Session.__tablename__,
-        Ban.__tablename__,
-        SSHPubKey.__tablename__,
-        Package.__tablename__,
-        PackageBase.__tablename__,
-        PackageVote.__tablename__,
-        PackageNotification.__tablename__
-    )
 
     account_type = db.query(AccountType,
                             AccountType.AccountType == "User").first()

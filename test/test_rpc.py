@@ -26,7 +26,6 @@ from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import RelationType
 from aurweb.models.user import User
 from aurweb.redis import redis_connection
-from aurweb.testing import setup_test_db
 
 
 def make_request(path, headers: Dict[str, str] = {}):
@@ -35,11 +34,8 @@ def make_request(path, headers: Dict[str, str] = {}):
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    # Set up tables.
-    setup_test_db("Users", "PackageBases", "Packages", "Licenses",
-                  "PackageDepends", "PackageRelations", "PackageLicenses",
-                  "PackageKeywords", "PackageVotes", "ApiRateLimit")
+def setup(db_test):
+    # TODO: Rework this into organized fixtures.
 
     # Create test package details.
     with begin():

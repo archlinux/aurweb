@@ -8,15 +8,14 @@ from aurweb import config, db, logging
 from aurweb.models import ApiRateLimit
 from aurweb.ratelimit import check_ratelimit
 from aurweb.redis import redis_connection
-from aurweb.testing import setup_test_db
 from aurweb.testing.requests import Request
 
 logger = logging.get_logger(__name__)
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db(ApiRateLimit.__tablename__)
+def setup(db_test):
+    return
 
 
 @pytest.fixture
@@ -31,27 +30,36 @@ def pipeline():
     yield pipeline
 
 
+config_getint = config.getint
+
+
 def mock_config_getint(section: str, key: str):
     if key == "request_limit":
         return 4
     elif key == "window_length":
         return 100
-    return config.getint(section, key)
+    return config_getint(section, key)
+
+
+config_getboolean = config.getboolean
 
 
 def mock_config_getboolean(return_value: int = 0):
     def fn(section: str, key: str):
         if section == "ratelimit" and key == "cache":
             return return_value
-        return config.getboolean(section, key)
+        return config_getboolean(section, key)
     return fn
+
+
+config_get = config.get
 
 
 def mock_config_get(return_value: str = "none"):
     def fn(section: str, key: str):
         if section == "options" and key == "cache":
             return return_value
-        return config.get(section, key)
+        return config_get(section, key)
     return fn
 
 

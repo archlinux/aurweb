@@ -3,14 +3,11 @@ import pytest
 from aurweb import cache, db
 from aurweb.models.account_type import USER_ID
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 
 
 @pytest.fixture(autouse=True)
-def setup():
-    setup_test_db(
-        User.__tablename__
-    )
+def setup(db_test):
+    return
 
 
 class StubRedis:

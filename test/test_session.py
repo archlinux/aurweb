@@ -8,16 +8,13 @@ from aurweb import db
 from aurweb.models.account_type import AccountType
 from aurweb.models.session import Session, generate_unique_sid
 from aurweb.models.user import User
-from aurweb.testing import setup_test_db
 
 account_type = user = session = None
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def setup(db_test):
     global account_type, user, session
-
-    setup_test_db("Users", "Sessions")
 
     account_type = db.query(AccountType,
                             AccountType.AccountType == "User").first()
