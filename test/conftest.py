@@ -58,6 +58,7 @@ import aurweb.db
 from aurweb import initdb, logging, testing
 from aurweb.testing.email import Email
 from aurweb.testing.filelock import FileLock
+from aurweb.testing.git import GitRepository
 
 logger = logging.get_logger(__name__)
 
@@ -211,3 +212,8 @@ def db_test(db_session: scoped_session) -> None:
     session via aurweb.db.get_session().
     """
     testing.setup_test_db()
+
+
+@pytest.fixture
+def git(tmpdir: py.path.local) -> GitRepository:
+    yield GitRepository(tmpdir)

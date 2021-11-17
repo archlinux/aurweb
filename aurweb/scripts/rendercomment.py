@@ -7,13 +7,11 @@ import markdown
 import pygit2
 
 import aurweb.config
-import aurweb.db
 
-from aurweb import logging
+from aurweb import db, logging, util
+from aurweb.models import PackageComment
 
 logger = logging.get_logger(__name__)
-repo_path = aurweb.config.get('serve', 'repo-path')
-commit_uri = aurweb.config.get('options', 'commit_uri')
 
 
 class LinkifyExtension(markdown.extensions.Extension):
@@ -64,6 +62,7 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
     """
 
     def __init__(self, md, head):
+        repo_path = aurweb.config.get('serve', 'repo-path')
         self._repo = pygit2.Repository(repo_path)
         self._head = head
         super().__init__(r'\b([0-9a-f]{7,40})\b', md)
@@ -74,13 +73,9 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
             # Unkwown OID; preserve the orginal text.
             return (None, None, None)
 
-        prefixlen = 12
-        while prefixlen < 40:
-            if oid[:prefixlen] in self._repo:
-                break
-            prefixlen += 1
-
         el = markdown.util.etree.Element('a')
+        commit_uri = aurweb.config.get("options", "commit_uri")
+        prefixlen = util.git_search(self._repo, oid)
         el.set('href', commit_uri % (self._head, oid[:prefixlen]))
         el.text = markdown.util.AtomicString(oid[:prefixlen])
         return (el, m.start(0), m.end(0))
@@ -116,49 +111,41 @@ class HeadingExtension(markdown.extensions.Extension):
         md.treeprocessors.register(HeadingTreeprocessor(md), 'heading', 30)
 
 
-def get_comment(conn, commentid):
-    cur = conn.execute('SELECT PackageComments.Comments, PackageBases.Name '
-                       'FROM PackageComments INNER JOIN PackageBases '
-                       'ON PackageBases.ID = PackageComments.PackageBaseID '
-                       'WHERE PackageComments.ID = ?', [commentid])
-    return cur.fetchone()
+def save_rendered_comment(comment: PackageComment, html: str):
+    with db.begin():
+        comment.RenderedComment = html
 
 
-def save_rendered_comment(conn, commentid, html):
-    conn.execute('UPDATE PackageComments SET RenderedComment = ? WHERE ID = ?',
-                 [html, commentid])
+def update_comment_render_fastapi(comment: PackageComment) -> None:
+    update_comment_render(comment)
 
 
-def update_comment_render_fastapi(comment):
-    conn = aurweb.db.ConnectionExecutor(
-        aurweb.db.get_engine().raw_connection())
-    update_comment_render(conn, comment.ID)
-    aurweb.db.refresh(comment)
+def update_comment_render(comment: PackageComment) -> None:
+    text = comment.Comments
+    pkgbasename = comment.PackageBase.Name
 
-
-def update_comment_render(conn, commentid):
-    text, pkgbase = get_comment(conn, commentid)
     html = markdown.markdown(text, extensions=[
         'fenced_code',
         LinkifyExtension(),
         FlysprayLinksExtension(),
-        GitCommitsExtension(pkgbase),
+        GitCommitsExtension(pkgbasename),
         HeadingExtension()
     ])
 
     allowed_tags = (bleach.sanitizer.ALLOWED_TAGS
                     + ['p', 'pre', 'h4', 'h5', 'h6', 'br', 'hr'])
     html = bleach.clean(html, tags=allowed_tags)
-    save_rendered_comment(conn, commentid, html)
-
-    conn.commit()
-    conn.close()
+    save_rendered_comment(comment, html)
+    db.refresh(comment)
 
 
 def main():
-    commentid = int(sys.argv[1])
-    conn = aurweb.db.Connection()
-    update_comment_render(conn, commentid)
+    db.get_engine()
+    comment_id = int(sys.argv[1])
+    comment = db.query(PackageComment).filter(
+        PackageComment.ID == comment_id
+    ).first()
+    update_comment_render(comment)
 
 
 if __name__ == '__main__':

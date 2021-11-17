@@ -13,6 +13,7 @@ from urllib.parse import urlencode, urlparse
 from zoneinfo import ZoneInfo
 
 import fastapi
+import pygit2
 
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
 from jinja2 import pass_context
@@ -193,3 +194,19 @@ def file_hash(filepath: str, hash_function: Callable) -> str:
     with open(filepath, "rb") as f:
         hash_ = hash_function(f.read())
     return hash_.hexdigest()
+
+
+def git_search(repo: pygit2.Repository, commit_hash: str) -> int:
+    """
+    Return the shortest prefix length matching `commit_hash` found.
+
+    :param repo: pygit2.Repository instance
+    :param commit_hash: Full length commit hash
+    :return: Shortest unique prefix length found
+    """
+    prefixlen = 12
+    while prefixlen < len(commit_hash):
+        if commit_hash[:prefixlen] in repo:
+            break
+        prefixlen += 1
+    return prefixlen
