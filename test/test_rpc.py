@@ -9,7 +9,7 @@ import pytest
 from fastapi.testclient import TestClient
 from redis.client import Pipeline
 
-from aurweb import asgi, config, db, scripts
+from aurweb import asgi, config, scripts
 from aurweb.db import begin, create, query
 from aurweb.models.account_type import AccountType
 from aurweb.models.dependency_type import DependencyType
@@ -187,8 +187,7 @@ def setup(db_test):
                    PackageBase=pkgbase1,
                    VoteTS=5000)
 
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-    scripts.popupdate.run_single(conn, pkgbase1)
+    scripts.popupdate.run_single(pkgbase1)
 
 
 @pytest.fixture

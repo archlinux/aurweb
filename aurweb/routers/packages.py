@@ -908,8 +908,7 @@ async def pkgbase_vote(request: Request, name: str):
                       VoteTS=now)
 
         # Update NumVotes/Popularity.
-        conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-        popupdate.run_single(conn, pkgbase)
+        popupdate.run_single(pkgbase)
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=HTTPStatus.SEE_OTHER)
@@ -929,8 +928,7 @@ async def pkgbase_unvote(request: Request, name: str):
             db.delete(vote)
 
         # Update NumVotes/Popularity.
-        conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-        popupdate.run_single(conn, pkgbase)
+        popupdate.run_single(pkgbase)
 
     return RedirectResponse(f"/pkgbase/{name}",
                             status_code=HTTPStatus.SEE_OTHER)
@@ -1473,8 +1471,7 @@ async def pkgbase_merge_post(request: Request, name: str,
     pkgbase_merge_instance(request, pkgbase, target)
 
     # Run popupdate on the target.
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-    popupdate.run_single(conn, target)
+    popupdate.run_single(target)
 
     if not next:
         next = f"/pkgbase/{target.Name}"
