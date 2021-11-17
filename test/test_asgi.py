@@ -45,3 +45,20 @@ async def test_asgi_http_exception_handler():
     response = await aurweb.asgi.http_exception_handler(None, exc)
     assert response.body.decode() == \
         f"<h1>{exc.status_code} {phrase}</h1><p>{exc.detail}</p>"
+
+
+@pytest.mark.asyncio
+async def test_asgi_app_unsupported_backends():
+    config_get = aurweb.config.get
+
+    # Test that the previously supported "sqlite" backend is now
+    # unsupported by FastAPI.
+    def mock_sqlite_backend(section: str, key: str):
+        if section == "database" and key == "backend":
+            return "sqlite"
+        return config_get(section, key)
+
+    with mock.patch("aurweb.config.get", side_effect=mock_sqlite_backend):
+        expr = r"^.*\(sqlite\) is unsupported.*$"
+        with pytest.raises(ValueError, match=expr):
+            await aurweb.asgi.app_startup()

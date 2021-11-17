@@ -48,6 +48,12 @@ async def app_startup():
         "TEST_RECURSION_LIMIT", sys.getrecursionlimit()))
     sys.setrecursionlimit(recursion_limit)
 
+    backend = aurweb.config.get("database", "backend")
+    if backend not in aurweb.db.DRIVERS:
+        raise ValueError(
+            f"The configured database backend ({backend}) is unsupported. "
+            f"Supported backends: {str(aurweb.db.DRIVERS.keys())}")
+
     session_secret = aurweb.config.get("fastapi", "session_secret")
     if not session_secret:
         raise Exception("[fastapi] session_secret must not be empty")
