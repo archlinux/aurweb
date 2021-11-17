@@ -45,7 +45,7 @@ async def app_startup():
     # when running test suites.
     # TODO: Find a proper fix to this issue.
     recursion_limit = int(os.environ.get(
-        "TEST_RECURSION_LIMIT", sys.getrecursionlimit()))
+        "TEST_RECURSION_LIMIT", sys.getrecursionlimit() + 1000))
     sys.setrecursionlimit(recursion_limit)
 
     backend = aurweb.config.get("database", "backend")
