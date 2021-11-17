@@ -46,7 +46,9 @@ def run(args):
 
     engine = aurweb.db.get_engine(echo=(args.verbose >= 1))
     aurweb.schema.metadata.create_all(engine)
-    feed_initial_data(engine.connect())
+    conn = engine.connect()
+    feed_initial_data(conn)
+    conn.close()
 
     if args.use_alembic:
         alembic.command.stamp(alembic_config, 'head')
