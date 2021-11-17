@@ -33,6 +33,7 @@ schema/aur-schema-sqlite.sql
 test/test-results/
 test/trash directory*
 web/locale/*/
+web/html/*.gz
 
 # Do not stage compiled asciidoc: make -C doc
 doc/rpc.html
