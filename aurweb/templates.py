@@ -125,6 +125,11 @@ async def make_variable_context(request: Request, title: str, next: str = None):
     return context
 
 
+def base_template(path: str):
+    templates = copy.copy(_env)
+    return templates.get_template(path)
+
+
 def render_raw_template(request: Request, path: str, context: dict):
     """ Render a Jinja2 multi-lingual template with some context. """
     # Create a deep copy of our jinja2 _environment. The _environment in

@@ -4,30 +4,34 @@ import re
 
 import pyalpm
 
+from sqlalchemy import and_
+
 import aurweb.config
-import aurweb.db
 
-db_path = aurweb.config.get('aurblup', 'db-path')
-sync_dbs = aurweb.config.get('aurblup', 'sync-dbs').split(' ')
-server = aurweb.config.get('aurblup', 'server')
+from aurweb import db, util
+from aurweb.models import OfficialProvider
 
 
-def main():
+def _main(force: bool = False):
     blacklist = set()
     providers = set()
     repomap = dict()
+
+    db_path = aurweb.config.get("aurblup", "db-path")
+    sync_dbs = aurweb.config.get('aurblup', 'sync-dbs').split(' ')
+    server = aurweb.config.get('aurblup', 'server')
 
     h = pyalpm.Handle("/", db_path)
     for sync_db in sync_dbs:
         repo = h.register_syncdb(sync_db, pyalpm.SIG_DATABASE_OPTIONAL)
         repo.servers = [server.replace("%s", sync_db)]
         t = h.init_transaction()
-        repo.update(False)
+        repo.update(force)
         t.release()
 
         for pkg in repo.pkgcache:
             blacklist.add(pkg.name)
-            [blacklist.add(x) for x in pkg.replaces]
+            util.apply_all(pkg.replaces, blacklist.add)
             providers.add((pkg.name, pkg.name))
             repomap[(pkg.name, pkg.name)] = repo.name
             for provision in pkg.provides:
@@ -35,21 +39,29 @@ def main():
                 providers.add((pkg.name, provisionname))
                 repomap[(pkg.name, provisionname)] = repo.name
 
-    conn = aurweb.db.Connection()
+    with db.begin():
+        old_providers = set(
+            db.query(OfficialProvider).with_entities(
+                OfficialProvider.Name.label("Name"),
+                OfficialProvider.Provides.label("Provides")
+            ).distinct().order_by("Name").all()
+        )
 
-    cur = conn.execute("SELECT Name, Provides FROM OfficialProviders")
-    oldproviders = set(cur.fetchall())
+        for name, provides in old_providers.difference(providers):
+            db.delete_all(db.query(OfficialProvider).filter(
+                and_(OfficialProvider.Name == name,
+                     OfficialProvider.Provides == provides)
+            ))
 
-    for pkg, provides in oldproviders.difference(providers):
-        conn.execute("DELETE FROM OfficialProviders "
-                     "WHERE Name = ? AND Provides = ?", [pkg, provides])
-    for pkg, provides in providers.difference(oldproviders):
-        repo = repomap[(pkg, provides)]
-        conn.execute("INSERT INTO OfficialProviders (Name, Repo, Provides) "
-                     "VALUES (?, ?, ?)", [pkg, repo, provides])
+        for name, provides in providers.difference(old_providers):
+            repo = repomap.get((name, provides))
+            db.create(OfficialProvider, Name=name,
+                      Repo=repo, Provides=provides)
 
-    conn.commit()
-    conn.close()
+
+def main(force: bool = False):
+    db.get_engine()
+    _main(force)
 
 
 if __name__ == '__main__':

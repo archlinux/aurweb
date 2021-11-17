@@ -176,3 +176,20 @@ def strtobool(value: str) -> bool:
     if isinstance(value, str):
         return _strtobool(value)
     return value
+
+
+def file_hash(filepath: str, hash_function: Callable) -> str:
+    """
+    Return a hash of filepath contents using `hash_function`.
+
+    `hash_function` can be any one of the hashlib module's hash
+    functions which implement the `hexdigest()` method -- e.g.
+    hashlib.sha1, hashlib.md5, etc.
+
+    :param filepath: Path to file you want to hash
+    :param hash_function: hashlib hash function
+    :return: hash_function(filepath_content).hexdigest()
+    """
+    with open(filepath, "rb") as f:
+        hash_ = hash_function(f.read())
+    return hash_.hexdigest()
