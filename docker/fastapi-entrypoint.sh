@@ -5,6 +5,10 @@ set -eou pipefail
 cp -vf conf/config.dev conf/config
 sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
 
+# Change database user/password.
+sed -ri "s/^;?(user) = .*$/\1 = aur/" conf/config
+sed -ri "s/^;?(password) = .*$/\1 = aur/" conf/config
+
 sed -ri "s;^(aur_location) = .+;\1 = ${AURWEB_FASTAPI_PREFIX};" conf/config
 
 # Setup Redis for FastAPI.

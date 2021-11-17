@@ -12,12 +12,6 @@ bash $dir/run-sharness.sh
 # Pass --silence to avoid reporting coverage. We will do that below.
 bash $dir/run-pytests.sh --no-coverage
 
-# Export SQLite aurweb configuration.
-export AUR_CONFIG=conf/config.sqlite
-
-# Run Python tests.
-bash $dir/run-pytests.sh --no-coverage
-
 make -C test coverage
 
 # /cache is mounted as a volume. Copy coverage into it.

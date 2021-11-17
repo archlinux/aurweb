@@ -9,14 +9,19 @@ done
 cp -vf conf/config.dev conf/config
 sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
 
-sed -ri "s;^(aur_location) = .+;\1 = ${AURWEB_PHP_PREFIX};" conf/config
+# Change database user/password.
+sed -ri "s/^;?(user) = .*$/\1 = aur/" conf/config
+sed -ri "s/^;?(password) = .*$/\1 = aur/" conf/config
 
 # Enable memcached.
 sed -ri 's/^(cache) = .+$/\1 = memcache/' conf/config
 
+# Setup various location configurations.
+sed -ri "s;^(aur_location) = .+;\1 = ${AURWEB_PHP_PREFIX};" conf/config
 sed -ri "s|^(git_clone_uri_anon) = .+|\1 = ${AURWEB_PHP_PREFIX}/%s.git|" conf/config.defaults
 sed -ri "s|^(git_clone_uri_priv) = .+|\1 = ${AURWEB_SSHD_PREFIX}/%s.git|" conf/config.defaults
 
+# Listen on :9000.
 sed -ri 's/^(listen).*/\1 = 0.0.0.0:9000/' /etc/php/php-fpm.d/www.conf
 sed -ri 's/^;?(clear_env).*/\1 = no/' /etc/php/php-fpm.d/www.conf
 

@@ -77,6 +77,24 @@ services:
       mariadb:
         condition: service_healthy
 
+  mariadb_test:
+    # Test database.
+    image: aurweb:latest
+    init: true
+    environment:
+      - MARIADB_PRIVILEGED=1
+    entrypoint: /docker/mariadb-entrypoint.sh
+    command: /usr/bin/mysqld_safe --datadir=/var/lib/mysql
+    ports:
+      # This will expose mariadbd on 127.0.0.1:13307 in the host.
+      # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
+      - "13307:3306"
+    volumes:
+      - mariadb_test_run:/var/run/mysqld # Bind socket in this volume.
+    healthcheck:
+      test: "bash /docker/health/mariadb.sh"
+      interval: 3s
+
   git:
     image: aurweb:latest
     init: true
@@ -254,10 +272,9 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      git:
+      mariadb_test:
         condition: service_healthy
     volumes:
-      - git_data:/aurweb/aur.git
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
@@ -280,34 +297,12 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      mariadb_init:
-        condition: service_started
+      mariadb_test:
+        condition: service_healthy
+    tmpfs:
+      - /tmp
     volumes:
-      - mariadb_run:/var/run/mysqld
-      - git_data:/aurweb/aur.git
-      - ./cache:/cache
-      - ./aurweb:/aurweb/aurweb
-      - ./migrations:/aurweb/migrations
-      - ./test:/aurweb/test
-      - ./web/html:/aurweb/web/html
-      - ./web/template:/aurweb/web/template
-      - ./web/lib:/aurweb/web/lib
-      - ./templates:/aurweb/templates
-
-  pytest-sqlite:
-    image: aurweb:latest
-    profiles: ["dev"]
-    init: true
-    environment:
-      - AUR_CONFIG=conf/config.sqlite
-      - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
-      - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
-    entrypoint: /docker/test-sqlite-entrypoint.sh
-    command: setup-sqlite.sh run-pytests.sh clean
-    stdin_open: true
-    tty: true
-    volumes:
-      - git_data:/aurweb/aur.git
+      - mariadb_test_run:/var/run/mysqld
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
@@ -325,16 +320,15 @@ services:
       - AUR_CONFIG=conf/config
       - TEST_RECURSION_LIMIT=${TEST_RECURSION_LIMIT}
       - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
-    entrypoint: /docker/tests-entrypoint.sh
-    command: setup-sqlite.sh run-tests.sh
+    entrypoint: /docker/test-mysql-entrypoint.sh
+    command: /docker/scripts/run-tests.sh
     stdin_open: true
     tty: true
     depends_on:
-      mariadb_init:
-        condition: service_started
+      mariadb_test:
+        condition: service_healthy
     volumes:
-      - mariadb_run:/var/run/mysqld
-      - git_data:/aurweb/aur.git
+      - mariadb_test_run:/var/run/mysqld
       - ./cache:/cache
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
@@ -345,6 +339,7 @@ services:
       - ./templates:/aurweb/templates
 
 volumes:
+  mariadb_test_run: {}
   mariadb_run: {} # Share /var/run/mysqld/mysqld.sock
   mariadb_data: {} # Share /var/lib/mysql
   git_data: {} # Share aurweb/aur.git
