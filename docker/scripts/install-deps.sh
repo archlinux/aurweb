@@ -8,9 +8,7 @@ pacman -Syu --noconfirm --noprogressbar \
     --cachedir .pkg-cache git gpgme nginx redis openssh \
       mariadb mariadb-libs cgit-aurweb uwsgi uwsgi-plugin-cgi \
       php php-fpm memcached php-memcached python-pip pyalpm \
-      python-srcinfo curl libeatmydata cronie
-
-# https://python-poetry.org/docs/ Installation section.
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+      python-srcinfo curl libeatmydata cronie python-poetry \
+      python-poetry-core
 
 exec "$@"
