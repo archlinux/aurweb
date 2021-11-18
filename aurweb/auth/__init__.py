@@ -1,5 +1,4 @@
 import functools
-import re
 
 from datetime import datetime
 from http import HTTPStatus
@@ -122,17 +121,12 @@ class BasicAuthBackend(AuthenticationBackend):
 
 
 def auth_required(is_required: bool = True,
-                  login: bool = True,
-                  redirect: str = "/",
                   template: tuple = None,
                   status_code: HTTPStatus = HTTPStatus.UNAUTHORIZED):
     """ Authentication route decorator.
 
-    If redirect is given, the user will be redirected if the auth state
-    does not match is_required.
-
     If template is given, it will be rendered with Unauthorized if
-    is_required does not match and take priority over redirect.
+    is_required does not match.
 
     A precondition of this function is that, if template is provided,
     it **must** match the following format:
@@ -152,8 +146,6 @@ def auth_required(is_required: bool = True,
     applying any format operations.
 
     :param is_required: A boolean indicating whether the function requires auth
-    :param login: Redirect to `/login`, passing `next=<redirect>`
-    :param redirect: Path to redirect to if is_required isn't True
     :param template: A three-element template tuple:
                      (path, title_iterable, variable_iterable)
     :param status_code: An optional status_code for template render.
@@ -166,14 +158,17 @@ def auth_required(is_required: bool = True,
             if request.user.is_authenticated() != is_required:
                 url = "/"
 
-                if redirect:
-                    path_params_expr = re.compile(r'\{(\w+)\}')
-                    match = re.findall(path_params_expr, redirect)
-                    args = {k: request.path_params.get(k) for k in match}
-                    url = redirect.format(**args)
+                if is_required:
+                    if request.method == "GET":
+                        url = request.url.path
+                    elif request.method == "POST" and (referer := request.headers.get("Referer")):
+                        aur = aurweb.config.get("options", "aur_location") + "/"
+                        if not referer.startswith(aur):
+                            raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
+                                                detail=_("Bad Referer header."))
+                        url = referer[len(aur) - 1:]
 
-                    if login:
-                        url = "/login?" + util.urlencode({"next": url})
+                    url = "/login?" + util.urlencode({"next": url})
 
                 if template:
                     # template=("template.html",

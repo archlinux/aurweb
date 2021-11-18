@@ -29,7 +29,7 @@ async def login_get(request: Request, next: str = "/"):
 
 
 @router.post("/login", response_class=HTMLResponse)
-@auth_required(False, login=False)
+@auth_required(False)
 async def login_post(request: Request,
                      next: str = Form(...),
                      user: str = Form(default=str()),
