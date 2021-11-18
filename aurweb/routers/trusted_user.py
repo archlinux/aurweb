@@ -41,7 +41,7 @@ ADDVOTE_SPECIFICS = {
 
 
 @router.get("/tu")
-@auth_required(True)
+@auth_required()
 @account_type_required(REQUIRED_TYPES)
 async def trusted_user(request: Request,
                        coff: int = 0,  # current offset
@@ -147,7 +147,7 @@ def render_proposal(request: Request,
 
 
 @router.get("/tu/{proposal}")
-@auth_required(True)
+@auth_required()
 @account_type_required(REQUIRED_TYPES)
 async def trusted_user_proposal(request: Request, proposal: int):
     context = await make_variable_context(request, "Trusted User")
@@ -176,7 +176,7 @@ async def trusted_user_proposal(request: Request, proposal: int):
 
 
 @router.post("/tu/{proposal}")
-@auth_required(True)
+@auth_required()
 @account_type_required(REQUIRED_TYPES)
 async def trusted_user_proposal_post(request: Request,
                                      proposal: int,
@@ -227,7 +227,7 @@ async def trusted_user_proposal_post(request: Request,
 
 
 @router.get("/addvote")
-@auth_required(True)
+@auth_required()
 @account_type_required({TRUSTED_USER, TRUSTED_USER_AND_DEV})
 async def trusted_user_addvote(request: Request,
                                user: str = str(),
@@ -247,7 +247,7 @@ async def trusted_user_addvote(request: Request,
 
 
 @router.post("/addvote")
-@auth_required(True)
+@auth_required()
 @account_type_required({TRUSTED_USER, TRUSTED_USER_AND_DEV})
 async def trusted_user_addvote_post(request: Request,
                                     user: str = Form(default=str()),

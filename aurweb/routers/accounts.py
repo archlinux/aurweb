@@ -340,7 +340,7 @@ def cannot_edit(request, user):
 
 
 @router.get("/account/{username}/edit", response_class=HTMLResponse)
-@auth_required(True)
+@auth_required()
 async def account_edit(request: Request, username: str):
     user = db.query(models.User, models.User.Username == username).first()
 
@@ -356,7 +356,7 @@ async def account_edit(request: Request, username: str):
 
 
 @router.post("/account/{username}/edit", response_class=HTMLResponse)
-@auth_required(True)
+@auth_required()
 async def account_edit_post(request: Request,
                             username: str,
                             U: str = Form(default=str()),  # Username
@@ -424,20 +424,14 @@ async def account_edit_post(request: Request,
                                            aurtz=TZ, aurlang=L)
 
 
-account_template = (
-    "account/show.html",
-    ["Account", "{}"],
-    ["username"]  # Query parameters to replace in the title string.
-)
-
-
 @router.get("/account/{username}")
-@auth_required(True, template=account_template,
-               status_code=HTTPStatus.UNAUTHORIZED)
 async def account(request: Request, username: str):
     _ = l10n.get_translator_for_request(request)
     context = await make_variable_context(
         request, _("Account") + " " + username)
+    if not request.user.is_authenticated():
+        return render_template(request, "account/show.html", context,
+                               status_code=HTTPStatus.UNAUTHORIZED)
     context["user"] = get_user_by_name(username)
     return render_template(request, "account/show.html", context)
 
@@ -454,7 +448,7 @@ async def account_comments(request: Request, username: str):
 
 
 @router.get("/accounts")
-@auth_required(True)
+@auth_required()
 @account_type_required({at.TRUSTED_USER,
                         at.DEVELOPER,
                         at.TRUSTED_USER_AND_DEV})
@@ -464,7 +458,7 @@ async def accounts(request: Request):
 
 
 @router.post("/accounts")
-@auth_required(True)
+@auth_required()
 @account_type_required({at.TRUSTED_USER,
                         at.DEVELOPER,
                         at.TRUSTED_USER_AND_DEV})
@@ -548,7 +542,7 @@ def render_terms_of_service(request: Request,
 
 
 @router.get("/tos")
-@auth_required(True)
+@auth_required()
 async def terms_of_service(request: Request):
     # Query the database for terms that were previously accepted,
     # but now have a bumped Revision that needs to be accepted.
@@ -572,7 +566,7 @@ async def terms_of_service(request: Request):
 
 
 @router.post("/tos")
-@auth_required(True)
+@auth_required()
 async def terms_of_service_post(request: Request,
                                 accept: bool = Form(default=False)):
     # Query the database for terms that were previously accepted,

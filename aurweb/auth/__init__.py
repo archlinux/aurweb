@@ -5,6 +5,7 @@ from http import HTTPStatus
 
 import fastapi
 
+from fastapi import HTTPException
 from fastapi.responses import RedirectResponse
 from sqlalchemy import and_
 from starlette.authentication import AuthCredentials, AuthenticationBackend
@@ -15,7 +16,6 @@ import aurweb.config
 from aurweb import db, l10n, util
 from aurweb.models import Session, User
 from aurweb.models.account_type import ACCOUNT_TYPE_ID
-from aurweb.templates import make_variable_context, render_template
 
 
 class StubQuery:
@@ -125,29 +125,7 @@ def auth_required(is_required: bool = True,
                   status_code: HTTPStatus = HTTPStatus.UNAUTHORIZED):
     """ Authentication route decorator.
 
-    If template is given, it will be rendered with Unauthorized if
-    is_required does not match.
-
-    A precondition of this function is that, if template is provided,
-    it **must** match the following format:
-
-        template=("template.html", ["Some Template For", "{}"], ["username"])
-
-    Where `username` is a FastAPI request path parameter, fitting
-    a route like: `/some_route/{username}`.
-
-    If you wish to supply a non-formatted template, just omit any Python
-    format strings (with the '{}' substring). The third tuple element
-    will not be used, and so anything can be supplied.
-
-        template=("template.html", ["Some Page"], None)
-
-    All title shards and format parameters will be translated before
-    applying any format operations.
-
     :param is_required: A boolean indicating whether the function requires auth
-    :param template: A three-element template tuple:
-                     (path, title_iterable, variable_iterable)
     :param status_code: An optional status_code for template render.
                         Redirects are always SEE_OTHER.
     """
@@ -164,45 +142,12 @@ def auth_required(is_required: bool = True,
                     elif request.method == "POST" and (referer := request.headers.get("Referer")):
                         aur = aurweb.config.get("options", "aur_location") + "/"
                         if not referer.startswith(aur):
+                            _ = l10n.get_translator_for_request(request)
                             raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                                                 detail=_("Bad Referer header."))
                         url = referer[len(aur) - 1:]
 
                     url = "/login?" + util.urlencode({"next": url})
-
-                if template:
-                    # template=("template.html",
-                    #           ["Some Title", "someFormatted {}"],
-                    #           ["variable"])
-                    # => render template.html with title:
-                    #    "Some Title someFormatted variables"
-                    path, title_parts, variables = template
-                    _ = l10n.get_translator_for_request(request)
-
-                    # Step through title_parts; for each part which contains
-                    # a '{}' in it, apply .format(var) where var = the current
-                    # iteration of variables.
-                    #
-                    # This implies that len(variables) is equal to
-                    # len([part for part in title_parts if '{}' in part])
-                    # and this must always be true.
-                    #
-                    sanitized = []
-                    _variables = iter(variables)
-                    for part in title_parts:
-                        if "{}" in part:  # If this part is formattable.
-                            key = next(_variables)
-                            var = request.path_params.get(key)
-                            sanitized.append(_(part.format(var)))
-                        else:  # Otherwise, just add the translated part.
-                            sanitized.append(_(part))
-
-                    # Glue all title parts together, separated by spaces.
-                    title = " ".join(sanitized)
-
-                    context = await make_variable_context(request, title)
-                    return render_template(request, path, context,
-                                           status_code=status_code)
                 return RedirectResponse(url,
                                         status_code=int(HTTPStatus.SEE_OTHER))
             return await func(request, *args, **kwargs)
