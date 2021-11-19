@@ -43,6 +43,7 @@ from filelock import FileLock
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.engine.base import Engine
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import scoped_session
 
 import aurweb.config
@@ -98,7 +99,10 @@ def _create_database(engine: Engine, dbname: str) -> None:
     :param dbname: Database name to create
     """
     conn = engine.connect()
-    conn.execute(f"CREATE DATABASE {dbname}")
+    try:
+        conn.execute(f"CREATE DATABASE {dbname}")
+    except OperationalError:  # pragma: no cover
+        pass
     conn.close()
     initdb.run(AlembicArgs)
 
