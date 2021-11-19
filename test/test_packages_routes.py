@@ -10,7 +10,7 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import and_
 
-from aurweb import asgi, db, defaults
+from aurweb import asgi, config, db, defaults
 from aurweb.models import License, PackageLicense
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
@@ -1536,6 +1536,24 @@ def test_pkgbase_request_post_deletion(client: TestClient, user: User,
     assert pkgreq.Comments == "We want to delete this."
 
 
+def test_pkgbase_request_post_maintainer_deletion(
+        client: TestClient, maintainer: User, package: Package):
+    pkgbasename = package.PackageBase.Name
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "deletion",
+            "comments": "We want to delete this."
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    pkgreq = db.query(PackageRequest).filter(
+        PackageRequest.PackageBaseName == pkgbasename
+    ).first()
+    assert pkgreq.Status == ACCEPTED_ID
+
+
 def test_pkgbase_request_post_orphan(client: TestClient, user: User,
                                      package: Package):
     endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
@@ -1554,6 +1572,29 @@ def test_pkgbase_request_post_orphan(client: TestClient, user: User,
     assert pkgreq.RequestType.Name == "orphan"
     assert pkgreq.PackageBaseName == package.PackageBase.Name
     assert pkgreq.Comments == "We want to disown this."
+
+
+def test_pkgbase_request_post_auto_orphan(client: TestClient, user: User,
+                                          package: Package):
+    now = int(datetime.utcnow().timestamp())
+    auto_orphan_age = config.getint("options", "auto_orphan_age")
+    with db.begin():
+        package.PackageBase.OutOfDateTS = now - auto_orphan_age - 1
+
+    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post(endpoint, data={
+            "type": "orphan",
+            "comments": "We want to disown this."
+        }, cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+
+    pkgreq = db.query(PackageRequest).filter(
+        PackageRequest.PackageBaseID == package.PackageBase.ID
+    ).first()
+    assert pkgreq is not None
+    assert pkgreq.Status == ACCEPTED_ID
 
 
 def test_pkgbase_request_post_merge(client: TestClient, user: User,

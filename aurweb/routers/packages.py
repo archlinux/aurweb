@@ -11,9 +11,11 @@ import aurweb.packages.util
 
 from aurweb import db, defaults, l10n, logging, models, util
 from aurweb.auth import auth_required
+from aurweb.exceptions import ValidationError
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 from aurweb.models.request_type import DELETION_ID, MERGE, MERGE_ID
+from aurweb.packages import validate
 from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, get_pkgreq_by_id, query_notified, query_voted
 from aurweb.scripts import notify, popupdate
@@ -153,7 +155,7 @@ def delete_package(deleter: models.User, package: models.Package):
         with db.begin():
             pkgreq = create_request_if_missing(
                 requests, reqtype, deleter, package)
-        db.refresh(pkgreq)
+            pkgreq.Status = ACCEPTED_ID
 
         bases_to_delete.append(package.PackageBase)
 
@@ -707,34 +709,12 @@ async def pkgbase_request_post(request: Request, name: str,
         return render_template(request, "pkgbase/request.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
-    if not comments:
-        context["errors"] = ["The comment field must not be empty."]
+    try:
+        validate.request(pkgbase, type, comments, merge_into, context)
+    except ValidationError as exc:
+        logger.error(f"Request Validation Error: {str(exc.data)}")
+        context["errors"] = exc.data
         return render_template(request, "pkgbase/request.html", context)
-
-    if type == "merge":
-        # Perform merge-related checks.
-        if not merge_into:
-            # TODO: This error needs to be translated.
-            context["errors"] = ['The "Merge into" field must not be empty.']
-            return render_template(request, "pkgbase/request.html", context)
-
-        target = db.query(models.PackageBase).filter(
-            models.PackageBase.Name == merge_into
-        ).first()
-        if not target:
-            # TODO: This error needs to be translated.
-            context["errors"] = [
-                "The package base you want to merge into does not exist."
-            ]
-            return render_template(request, "pkgbase/request.html", context)
-
-        db.refresh(target)
-        if target.ID == pkgbase.ID:
-            # TODO: This error needs to be translated.
-            context["errors"] = [
-                "You cannot merge a package base into itself."
-            ]
-            return render_template(request, "pkgbase/request.html", context)
 
     # All good. Create a new PackageRequest based on the given type.
     now = int(datetime.utcnow().timestamp())
@@ -748,16 +728,37 @@ async def pkgbase_request_post(request: Request, name: str,
                            PackageBase=pkgbase,
                            PackageBaseName=pkgbase.Name,
                            MergeBaseName=merge_into,
-                           Comments=comments, ClosureComment=str())
+                           Comments=comments,
+                           ClosureComment=str())
 
-    # Prepare notification object.
     conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-    notify_ = notify.RequestOpenNotification(
+    # Prepare notification object.
+    notif = notify.RequestOpenNotification(
         conn, request.user.ID, pkgreq.ID, reqtype.Name,
         pkgreq.PackageBase.ID, merge_into=merge_into or None)
 
     # Send the notification now that we're out of the DB scope.
-    notify_.send()
+    notif.send()
+
+    auto_orphan_age = aurweb.config.getint("options", "auto_orphan_age")
+    auto_delete_age = aurweb.config.getint("options", "auto_delete_age")
+
+    flagged = pkgbase.OutOfDateTS and pkgbase.OutOfDateTS >= auto_orphan_age
+    is_maintainer = pkgbase.Maintainer == request.user
+    outdated = now - pkgbase.SubmittedTS <= auto_delete_age
+
+    if type == "orphan" and flagged:
+        with db.begin():
+            pkgbase.Maintainer = None
+            pkgreq.Status = ACCEPTED_ID
+        db.refresh(pkgreq)
+        notif = notify.RequestCloseNotification(
+            conn, request.user.ID, pkgreq.ID, pkgreq.status_display())
+        notif.send()
+    elif type == "deletion" and is_maintainer and outdated:
+        packages = pkgbase.packages.all()
+        for package in packages:
+            delete_package(request.user, package)
 
     # Redirect the submitting user to /packages.
     return RedirectResponse("/packages",
