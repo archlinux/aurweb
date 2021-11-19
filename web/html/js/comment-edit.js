@@ -1,6 +1,6 @@
 function add_busy_indicator(sibling) {
     const img = document.createElement('img');
-    img.src = "/images/ajax-loader.gif";
+    img.src = "/static/images/ajax-loader.gif";
     img.classList.add('ajax-loader');
     img.style.height = 11;
     img.style.width = 16;
