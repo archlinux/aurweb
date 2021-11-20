@@ -16,7 +16,6 @@ import subprocess
 import sys
 import tempfile
 import time
-import urllib
 
 from typing import Iterable, List
 
@@ -33,6 +32,8 @@ workers = 1
 
 PHP_BINARY = os.environ.get("PHP_BINARY", "php")
 PHP_MODULES = ["pdo_mysql", "pdo_sqlite"]
+PHP_NGINX_PORT = int(os.environ.get("PHP_NGINX_PORT", 8001))
+FASTAPI_NGINX_PORT = int(os.environ.get("FASTAPI_NGINX_PORT", 8002))
 
 
 class ProcessExceptions(Exception):
@@ -83,8 +84,10 @@ def generate_nginx_config():
     The file is generated under `temporary_dir`.
     Returns the path to the created configuration file.
     """
-    aur_location = aurweb.config.get("options", "aur_location")
-    aur_location_parts = urllib.parse.urlsplit(aur_location)
+    php_bind = aurweb.config.get("php", "bind_address")
+    php_host = php_bind.split(":")[0]
+    fastapi_bind = aurweb.config.get("fastapi", "bind_address")
+    fastapi_host = fastapi_bind.split(":")[0]
     config_path = os.path.join(temporary_dir, "nginx.conf")
     config = open(config_path, "w")
     # We double nginx's braces because they conflict with Python's f-strings.
@@ -101,12 +104,23 @@ def generate_nginx_config():
             uwsgi_temp_path {os.path.join(temporary_dir, "uwsgi")};
             scgi_temp_path {os.path.join(temporary_dir, "scgi")};
             server {{
-                listen {aur_location_parts.netloc};
+                listen {php_host}:{PHP_NGINX_PORT};
                 location / {{
-                    proxy_pass http://{aurweb.config.get("php", "bind_address")};
+                    proxy_pass http://{php_bind};
                 }}
-                location /sso {{
-                    proxy_pass http://{aurweb.config.get("fastapi", "bind_address")};
+            }}
+            server {{
+                listen {fastapi_host}:{FASTAPI_NGINX_PORT};
+                location / {{
+                    try_files $uri @proxy_to_app;
+                }}
+                location @proxy_to_app {{
+                    proxy_set_header Host $http_host;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+                    proxy_redirect off;
+                    proxy_buffering off;
+                    proxy_pass http://{fastapi_bind};
                 }}
             }}
         }}
@@ -149,6 +163,7 @@ def start():
 
     # PHP
     php_address = aurweb.config.get("php", "bind_address")
+    php_host = php_address.split(":")[0]
     htmldir = aurweb.config.get("php", "htmldir")
     spawn_child(["php", "-S", php_address, "-t", htmldir])
 
@@ -175,6 +190,18 @@ def start():
 
     # nginx
     spawn_child(["nginx", "-p", temporary_dir, "-c", generate_nginx_config()])
+
+    print(f"""
+ > Started nginx.
+ >
+ >      PHP backend: http://{php_address}
+ >  FastAPI backend: http://{fastapi_host}:{fastapi_port}
+ >
+ >     PHP frontend: http://{php_host}:{PHP_NGINX_PORT}
+ > FastAPI frontend: http://{fastapi_host}:{FASTAPI_NGINX_PORT}
+ >
+ > Frontends are hosted via nginx and should be preferred.
+""")
 
 
 def _kill_children(children: Iterable, exceptions: List[Exception] = []) \
