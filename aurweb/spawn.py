@@ -29,6 +29,7 @@ children = []
 temporary_dir = None
 verbosity = 0
 asgi_backend = ''
+workers = 1
 
 PHP_BINARY = os.environ.get("PHP_BINARY", "php")
 PHP_MODULES = ["pdo_mysql", "pdo_sqlite"]
@@ -152,12 +153,25 @@ def start():
     spawn_child(["php", "-S", php_address, "-t", htmldir])
 
     # FastAPI
-    host, port = aurweb.config.get("fastapi", "bind_address").rsplit(":", 1)
-    if asgi_backend == "hypercorn":
-        portargs = ["-b", f"{host}:{port}"]
-    elif asgi_backend == "uvicorn":
-        portargs = ["--host", host, "--port", port]
-    spawn_child(["python", "-m", asgi_backend] + portargs + ["aurweb.asgi:app"])
+    fastapi_host, fastapi_port = aurweb.config.get(
+        "fastapi", "bind_address").rsplit(":", 1)
+
+    # Logging config.
+    aurwebdir = aurweb.config.get("options", "aurwebdir")
+    fastapi_log_config = os.path.join(aurwebdir, "logging.conf")
+
+    backend_args = {
+        "hypercorn": ["-b", f"{fastapi_host}:{fastapi_port}"],
+        "uvicorn": ["--host", fastapi_host, "--port", fastapi_port],
+        "gunicorn": ["--bind", f"{fastapi_host}:{fastapi_port}",
+                     "-k", "uvicorn.workers.UvicornWorker",
+                     "-w", str(workers)]
+    }
+    backend_args = backend_args.get(asgi_backend)
+    spawn_child([
+        "python", "-m", asgi_backend,
+        "--log-config", fastapi_log_config,
+    ] + backend_args + ["aurweb.asgi:app"])
 
     # nginx
     spawn_child(["nginx", "-p", temporary_dir, "-c", generate_nginx_config()])
@@ -230,8 +244,11 @@ if __name__ == '__main__':
         description='Start aurweb\'s test server.')
     parser.add_argument('-v', '--verbose', action='count', default=0,
                         help='increase verbosity')
-    parser.add_argument('-b', '--backend', choices=['hypercorn', 'uvicorn'], default='hypercorn',
+    choices = ['hypercorn', 'gunicorn', 'uvicorn']
+    parser.add_argument('-b', '--backend', choices=choices, default='uvicorn',
                         help='asgi backend used to launch the python server')
+    parser.add_argument("-w", "--workers", default=1, type=int,
+                        help="number of workers to use in gunicorn")
     args = parser.parse_args()
 
     try:
@@ -242,6 +259,7 @@ if __name__ == '__main__':
 
     verbosity = args.verbose
     asgi_backend = args.backend
+    workers = args.workers
     with tempfile.TemporaryDirectory(prefix="aurweb-") as tmpdirname:
         temporary_dir = tmpdirname
         start()
