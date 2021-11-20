@@ -4,13 +4,14 @@ from typing import Dict, List, Union
 
 import orjson
 
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
 from sqlalchemy import and_, orm
 
-from aurweb import db, models
+from aurweb import db, l10n, models, util
 from aurweb.models.official_provider import OFFICIAL_BASE
 from aurweb.models.relation_type import PROVIDES_ID
 from aurweb.redis import redis_connection
+from aurweb.scripts import notify
 from aurweb.templates import register_filter
 
 
@@ -223,6 +224,85 @@ def query_notified(query: List[models.Package],
     ).filter(
         models.PackageNotification.UserID == user.ID
     )
-    for notify in notified:
-        output[notify.PackageBase.ID] = True
+    for notif in notified:
+        output[notif.PackageBase.ID] = True
     return output
+
+
+def remove_comaintainers(pkgbase: models.PackageBase,
+                         usernames: List[str]) -> None:
+    """
+    Remove comaintainers from `pkgbase`.
+
+    :param pkgbase: PackageBase instance
+    :param usernames: Iterable of username strings
+    :return: None
+    """
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+    notifications = []
+    with db.begin():
+        for username in usernames:
+            # We know that the users we passed here are in the DB.
+            # No need to check for their existence.
+            comaintainer = pkgbase.comaintainers.join(models.User).filter(
+                models.User.Username == username
+            ).first()
+            notifications.append(
+                notify.ComaintainerRemoveNotification(
+                    conn, comaintainer.User.ID, pkgbase.ID
+                )
+            )
+            db.delete(comaintainer)
+
+    # Send out notifications if need be.
+    util.apply_all(notifications, lambda n: n.send())
+
+
+def add_comaintainers(request: Request, pkgbase: models.PackageBase,
+                      priority: int, usernames: List[str]) -> None:
+    """
+    Add comaintainers to `pkgbase`.
+
+    :param request: FastAPI request
+    :param pkgbase: PackageBase instance
+    :param priority: Initial priority value
+    :param usernames: Iterable of username strings
+    :return: None on success, an error string on failure
+    """
+
+    # First, perform a check against all usernames given; for each
+    # username, add its related User object to memo.
+    _ = l10n.get_translator_for_request(request)
+    memo = {}
+    for username in usernames:
+        user = db.query(models.User).filter(
+            models.User.Username == username).first()
+        if not user:
+            return _("Invalid user name: %s") % username
+        memo[username] = user
+
+    # Alright, now that we got past the check, add them all to the DB.
+    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+    notifications = []
+    with db.begin():
+        for username in usernames:
+            user = memo.get(username)
+            if pkgbase.Maintainer == user:
+                # Already a maintainer. Move along.
+                continue
+
+            # If we get here, our user model object is in the memo.
+            comaintainer = db.create(
+                models.PackageComaintainer,
+                PackageBase=pkgbase,
+                User=user,
+                Priority=priority)
+            priority += 1
+
+            notifications.append(
+                notify.ComaintainerAddNotification(
+                    conn, comaintainer.User.ID, pkgbase.ID)
+            )
+
+    # Send out notifications.
+    util.apply_all(notifications, lambda n: n.send())

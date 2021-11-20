@@ -15,6 +15,7 @@ from aurweb.exceptions import ValidationError
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 from aurweb.models.request_type import DELETION_ID, MERGE, MERGE_ID
+from aurweb.packages import util as pkgutil
 from aurweb.packages import validate
 from aurweb.packages.search import PackageSearch
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, get_pkgreq_by_id, query_notified, query_voted
@@ -531,28 +532,6 @@ async def package_base_comaintainers(request: Request, name: str) -> Response:
     return render_template(request, "pkgbase/comaintainers.html", context)
 
 
-def remove_users(pkgbase, usernames):
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-    notifications = []
-    with db.begin():
-        for username in usernames:
-            # We know that the users we passed here are in the DB.
-            # No need to check for their existence.
-            comaintainer = pkgbase.comaintainers.join(models.User).filter(
-                models.User.Username == username
-            ).first()
-            notifications.append(
-                notify.ComaintainerRemoveNotification(
-                    conn, comaintainer.User.ID, pkgbase.ID
-                )
-            )
-            db.delete(comaintainer)
-
-    # Send out notifications if need be.
-    for notify_ in notifications:
-        notify_.send()
-
-
 @router.post("/pkgbase/{name}/comaintainers")
 @auth_required(True, redirect="/pkgbase/{name}/comaintainers")
 async def package_base_comaintainers_post(
@@ -573,7 +552,7 @@ async def package_base_comaintainers_post(
     users.remove(str())  # Remove any empty strings from the set.
     records = {c.User.Username for c in pkgbase.comaintainers}
 
-    remove_users(pkgbase, records.difference(users))
+    pkgutil.remove_comaintainers(pkgbase, records.difference(users))
 
     # Default priority (lowest value; most preferred).
     priority = 1
@@ -590,52 +569,8 @@ async def package_base_comaintainers_post(
     if last_priority:
         priority = last_priority.Priority + 1
 
-    def add_users(usernames):
-        """ Add users as comaintainers to pkgbase.
-
-        :param usernames: An iterable of username strings
-        :return: None on success, an error string on failure. """
-        nonlocal request, pkgbase, priority
-
-        # First, perform a check against all usernames given; for each
-        # username, add its related User object to memo.
-        _ = l10n.get_translator_for_request(request)
-        memo = {}
-        for username in usernames:
-            user = db.query(models.User).filter(
-                models.User.Username == username).first()
-            if not user:
-                return _("Invalid user name: %s") % username
-            memo[username] = user
-
-        # Alright, now that we got past the check, add them all to the DB.
-        conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-        notifications = []
-        with db.begin():
-            for username in usernames:
-                user = memo.get(username)
-                if pkgbase.Maintainer == user:
-                    # Already a maintainer. Move along.
-                    continue
-
-                # If we get here, our user model object is in the memo.
-                comaintainer = db.create(
-                    models.PackageComaintainer,
-                    PackageBase=pkgbase,
-                    User=user,
-                    Priority=priority)
-                priority += 1
-
-                notifications.append(
-                    notify.ComaintainerAddNotification(
-                        conn, comaintainer.User.ID, pkgbase.ID)
-                )
-
-        # Send out notifications.
-        for notify_ in notifications:
-            notify_.send()
-
-    error = add_users(users.difference(records))
+    error = pkgutil.add_comaintainers(request, pkgbase, priority,
+                                      users.difference(records))
     if error:
         context = make_context(request, "Manage Co-maintainers")
         context["pkgbase"] = pkgbase
