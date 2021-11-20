@@ -18,6 +18,8 @@ import tempfile
 import time
 import urllib
 
+from typing import Iterable, List
+
 import aurweb.config
 import aurweb.schema
 
@@ -127,17 +129,15 @@ def start():
     spawn_child(["nginx", "-p", temporary_dir, "-c", generate_nginx_config()])
 
 
-def stop():
+def _kill_children(children: Iterable, exceptions: List[Exception] = []) \
+        -> List[Exception]:
     """
-    Stop all the child processes.
+    Kill each process found in `children`.
 
-    If an exception occurs during the process, the process continues anyway
-    because we don’t want to leave runaway processes around, and all the
-    exceptions are finally raised as a single ProcessExceptions.
+    :param children: Iterable of child processes
+    :param exceptions: Exception memo
+    :return: `exceptions`
     """
-    global children
-    atexit.unregister(stop)
-    exceptions = []
     for p in children:
         try:
             p.terminate()
@@ -145,6 +145,18 @@ def stop():
                 print(f":: Sent SIGTERM to {p.args}", file=sys.stderr)
         except Exception as e:
             exceptions.append(e)
+    return exceptions
+
+
+def _wait_for_children(children: Iterable, exceptions: List[Exception] = []) \
+        -> List[Exception]:
+    """
+    Wait for each process to end found in `children`.
+
+    :param children: Iterable of child processes
+    :param exceptions: Exception memo
+    :return: `exceptions`
+    """
     for p in children:
         try:
             rc = p.wait()
@@ -154,6 +166,24 @@ def stop():
                 raise Exception(f"Process {p.args} exited with {rc}")
         except Exception as e:
             exceptions.append(e)
+    return exceptions
+
+
+def stop() -> None:
+    """
+    Stop all the child processes.
+
+    If an exception occurs during the process, the process continues anyway
+    because we don’t want to leave runaway processes around, and all the
+    exceptions are finally raised as a single ProcessExceptions.
+
+    :raises: ProcessException
+    :return: None
+    """
+    global children
+    atexit.unregister(stop)
+    exceptions = _kill_children(children)
+    exceptions = _wait_for_children(children, exceptions)
     children = []
     if exceptions:
         raise ProcessExceptions("Errors terminating the child processes:",
