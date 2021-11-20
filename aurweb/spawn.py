@@ -23,10 +23,15 @@ from typing import Iterable, List
 import aurweb.config
 import aurweb.schema
 
+from aurweb.exceptions import AurwebException
+
 children = []
 temporary_dir = None
 verbosity = 0
 asgi_backend = ''
+
+PHP_BINARY = os.environ.get("PHP_BINARY", "php")
+PHP_MODULES = ["pdo_mysql", "pdo_sqlite"]
 
 
 class ProcessExceptions(Exception):
@@ -40,6 +45,35 @@ class ProcessExceptions(Exception):
         self.exceptions = exceptions
         messages = [message] + [str(e) for e in exceptions]
         super().__init__("\n- ".join(messages))
+
+
+def validate_php_config() -> None:
+    """
+    Perform a validation check against PHP_BINARY's configuration.
+
+    AurwebException is raised here if checks fail to pass. We require
+    the 'pdo_mysql' and 'pdo_sqlite' modules to be enabled.
+
+    :raises: AurwebException
+    :return: None
+    """
+    try:
+        proc = subprocess.Popen([PHP_BINARY, "-m"],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        out, _ = proc.communicate()
+    except FileNotFoundError:
+        raise AurwebException(f"Unable to locate the '{PHP_BINARY}' "
+                              "executable.")
+
+    assert proc.returncode == 0, ("Received non-zero error code "
+                                  f"{proc.returncode} from '{PHP_BINARY}'.")
+
+    modules = out.decode().splitlines()
+    for module in PHP_MODULES:
+        if module not in modules:
+            raise AurwebException(
+                f"PHP does not have the '{module}' module enabled.")
 
 
 def generate_nginx_config():
@@ -199,6 +233,13 @@ if __name__ == '__main__':
     parser.add_argument('-b', '--backend', choices=['hypercorn', 'uvicorn'], default='hypercorn',
                         help='asgi backend used to launch the python server')
     args = parser.parse_args()
+
+    try:
+        validate_php_config()
+    except AurwebException as exc:
+        print(f"error: {str(exc)}")
+        sys.exit(1)
+
     verbosity = args.verbose
     asgi_backend = args.backend
     with tempfile.TemporaryDirectory(prefix="aurweb-") as tmpdirname:
