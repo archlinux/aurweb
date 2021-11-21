@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eou pipefail
 
-mkdir -p /var/cache/cgit
+mkdir -p /var/data/cgit
 
 cp -vf conf/cgitrc.proto /etc/cgitrc
 sed -ri "s|clone-prefix=.*|clone-prefix=${CGIT_CLONE_PREFIX}|" /etc/cgitrc

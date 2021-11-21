@@ -276,7 +276,7 @@ services:
       mariadb_test:
         condition: service_healthy
     volumes:
-      - ./cache:/cache
+      - ./data:/data
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
@@ -304,7 +304,7 @@ services:
       - /tmp
     volumes:
       - mariadb_test_run:/var/run/mysqld
-      - ./cache:/cache
+      - ./data:/data
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
@@ -330,7 +330,7 @@ services:
         condition: service_healthy
     volumes:
       - mariadb_test_run:/var/run/mysqld
-      - ./cache:/cache
+      - ./data:/data
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test

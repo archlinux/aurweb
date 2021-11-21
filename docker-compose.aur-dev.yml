@@ -3,7 +3,7 @@ version: "3.8"
 services:
   ca:
     volumes:
-      - cache:/cache
+      - data:/data
 
   memcached:
     restart: always
@@ -23,13 +23,12 @@ services:
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
       - ./data:/aurweb/data
-      - cache:/cache
 
   smartgit:
     restart: always
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
-      - cache:/cache
+      - data:/data
       - smartgit_run:/var/run/smartgit
 
   cgit-php:
@@ -48,7 +47,7 @@ services:
       - AURWEB_PHP_PREFIX=${AURWEB_PHP_PREFIX}
       - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
     volumes:
-      - cache:/cache
+      - data:/data
 
   fastapi:
     restart: always
@@ -60,13 +59,13 @@ services:
       - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
       - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
     volumes:
-      - cache:/cache
+      - data:/data
 
   nginx:
     restart: always
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
-      - cache:/cache
+      - data:/data
       - logs:/var/log/nginx
       - smartgit_run:/var/run/smartgit
 
@@ -75,5 +74,5 @@ volumes:
   mariadb_data: {} # Share /var/lib/mysql
   git_data: {} # Share aurweb/aur.git
   smartgit_run: {}
-  cache: {}
+  data: {}
   logs: {}

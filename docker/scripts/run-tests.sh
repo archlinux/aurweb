@@ -14,12 +14,12 @@ bash $dir/run-pytests.sh --no-coverage
 
 make -C test coverage
 
-# /cache is mounted as a volume. Copy coverage into it.
+# /data is mounted as a volume. Copy coverage into it.
 # Users can then sanitize the coverage locally in their
-# aurweb root directory: ./util/fix-coverage ./cache/.coverage
-rm -f /cache/.coverage
-cp -v .coverage /cache/.coverage
-chmod 666 /cache/.coverage
+# aurweb root directory: ./util/fix-coverage ./data/.coverage
+rm -f /data/.coverage
+cp -v .coverage /data/.coverage
+chmod 666 /data/.coverage
 
 # Run flake8 and isort checks.
 for dir in aurweb test migrations; do

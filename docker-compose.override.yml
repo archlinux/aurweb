@@ -8,17 +8,17 @@ services:
 
   ca:
     volumes:
-      - ./cache:/cache
+      - ./data:/data
 
   git:
     volumes:
       - git_data:/aurweb/aur.git
-      - ./cache:/cache
+      - ./data:/aurweb/data
 
   smartgit:
     volumes:
       - git_data:/aurweb/aur.git
-      - ./cache:/cache
+      - ./data:/data
       - smartgit_run:/var/run/smartgit
     depends_on:
       mariadb:
@@ -26,7 +26,7 @@ services:
 
   php-fpm:
     volumes:
-      - ./cache:/cache
+      - ./data:/data
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
@@ -37,7 +37,7 @@ services:
 
   fastapi:
     volumes:
-      - ./cache:/cache
+      - ./data:/data
       - ./aurweb:/aurweb/aurweb
       - ./migrations:/aurweb/migrations
       - ./test:/aurweb/test
@@ -49,7 +49,7 @@ services:
   nginx:
     volumes:
       - git_data:/aurweb/aur.git
-      - ./cache:/cache
+      - ./data:/data
       - ./logs:/var/log/nginx
       - ./web/html:/aurweb/web/html
       - ./web/template:/aurweb/web/template
