@@ -18,6 +18,7 @@ services:
     restart: always
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
+      - ./data:/aurweb/data
       - cache:/cache
 
   smartgit:
