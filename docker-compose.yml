@@ -176,6 +176,7 @@ services:
       mariadb_init:
         condition: service_started
     volumes:
+      - ./aurweb:/aurweb/aurweb
       - mariadb_run:/var/run/mysqld
       - archives:/var/lib/aurweb/archives
 

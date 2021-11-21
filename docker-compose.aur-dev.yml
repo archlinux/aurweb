@@ -41,6 +41,12 @@ services:
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
 
+  cron:
+    volumes:
+      # Exclude ./aurweb:/aurweb in production.
+      - mariadb_run:/var/run/mysqld
+      - archives:/var/lib/aurweb/archives
+
   php-fpm:
     restart: always
     environment:
