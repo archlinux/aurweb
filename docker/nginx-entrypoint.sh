@@ -11,17 +11,6 @@ KEY=/cache/production.key.pem
 DEST_CERT=/etc/ssl/certs/web.cert.pem
 DEST_KEY=/etc/ssl/private/web.key.pem
 
-# Setup a config for our mysql db.
-cp -vf conf/config.dev conf/config
-sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
-sed -ri 's/^(host) = .+/\1 = mariadb/' conf/config
-sed -ri 's/^(user) = .+/\1 = aur/' conf/config
-sed -ri 's/^;?(password) = .+/\1 = aur/' conf/config
-
-# Setup http(s) stuff.
-sed -ri "s|^(aur_location) = .+|\1 = https://localhost:8444|" conf/config
-sed -ri 's/^(disable_http_login) = .+/\1 = 1/' conf/config
-
 if [ -f "$CERT" ]; then
     cp -vf "$CERT" "$DEST_CERT"
     cp -vf "$KEY" "$DEST_KEY"
