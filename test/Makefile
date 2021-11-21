@@ -26,6 +26,6 @@ clean:
 	rm -f ../.coverage
 
 $(T):
-	@echo "*** $@ ***"; $(SHELL) $@
+	@echo "*** $@ ***"; $(SHELL) $@ -v
 
 .PHONY: check coverage $(FOREIGN_TARGETS) clean $(T)
