@@ -54,8 +54,8 @@ fi
 # Set some defaults needed for pathing and ssh uris.
 sed -ri "s|^(repo-path) = .+|\1 = /aurweb/aur.git/|" $AUR_CONFIG_DEFAULTS
 
-ssh_cmdline='ssh ssh://aur@localhost:2222'
-sed -ri "s|^(ssh-cmdline) = .+|\1 = $ssh_cmdline|" $AUR_CONFIG_DEFAULTS
+# SSH_CMDLINE can be provided via override in docker-compose.aur-dev.yml.
+sed -ri "s|^(ssh-cmdline) = .+$|\1 = ${SSH_CMDLINE}|" $AUR_CONFIG_DEFAULTS
 
 # Setup SSH Keys.
 ssh-keygen -A

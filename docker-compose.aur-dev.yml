@@ -16,6 +16,10 @@ services:
 
   git:
     restart: always
+    environment:
+      - AUR_CONFIG=/aurweb/conf/config
+      # SSH_CMDLINE should be updated to production's ssh cmdline.
+      - SSH_CMDLINE=${SSH_CMDLINE:-ssh ssh://aur@localhost:2222}
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
       - ./data:/aurweb/data

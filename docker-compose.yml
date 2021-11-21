@@ -100,6 +100,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=/aurweb/conf/config
+      - SSH_CMDLINE=${SSH_CMDLINE:-ssh ssh://aur@localhost:2222}
     entrypoint: /docker/git-entrypoint.sh
     command: /docker/scripts/run-sshd.sh
     ports:
