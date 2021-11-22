@@ -97,8 +97,7 @@ async def passreset_post(request: Request,
     with db.begin():
         user.ResetKey = resetkey
 
-    executor = db.ConnectionExecutor(db.get_engine().raw_connection())
-    ResetKeyNotification(executor, user.ID).send()
+    ResetKeyNotification(user.ID).send()
 
     # Render ?step=confirm.
     return RedirectResponse(url="/passreset?step=confirm",
@@ -323,8 +322,7 @@ async def account_register_post(request: Request,
                                                 Fingerprint=fingerprint)
 
     # Send a reset key notification to the new user.
-    executor = db.ConnectionExecutor(db.get_engine().raw_connection())
-    WelcomeNotification(executor, user.ID).send()
+    WelcomeNotification(user.ID).send()
 
     context["complete"] = True
     context["user"] = user

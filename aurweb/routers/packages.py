@@ -146,7 +146,6 @@ def delete_package(deleter: models.User, package: models.Package):
     requests = []
     bases_to_delete = []
 
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
     # In all cases, though, just delete the Package in question.
     if package.PackageBase.packages.count() == 1:
         reqtype = db.query(models.RequestType).filter(
@@ -162,7 +161,7 @@ def delete_package(deleter: models.User, package: models.Package):
 
         # Prepare DeleteNotification.
         notifications.append(
-            notify.DeleteNotification(conn, deleter.ID, package.PackageBase.ID)
+            notify.DeleteNotification(deleter.ID, package.PackageBase.ID)
         )
 
     # For each PackageRequest created, mock up an open and close notification.
@@ -170,12 +169,12 @@ def delete_package(deleter: models.User, package: models.Package):
     for pkgreq in requests:
         notifications.append(
             notify.RequestOpenNotification(
-                conn, deleter.ID, pkgreq.ID, reqtype.Name,
+                deleter.ID, pkgreq.ID, reqtype.Name,
                 pkgreq.PackageBase.ID, merge_into=basename or None)
         )
         notifications.append(
             notify.RequestCloseNotification(
-                conn, deleter.ID, pkgreq.ID, pkgreq.status_display())
+                deleter.ID, pkgreq.ID, pkgreq.status_display())
         )
 
     # Perform all the deletions.
@@ -666,10 +665,9 @@ async def pkgbase_request_post(request: Request, name: str,
                            Comments=comments,
                            ClosureComment=str())
 
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
     # Prepare notification object.
     notif = notify.RequestOpenNotification(
-        conn, request.user.ID, pkgreq.ID, reqtype.Name,
+        request.user.ID, pkgreq.ID, reqtype.Name,
         pkgreq.PackageBase.ID, merge_into=merge_into or None)
 
     # Send the notification now that we're out of the DB scope.
@@ -688,7 +686,7 @@ async def pkgbase_request_post(request: Request, name: str,
             pkgreq.Status = ACCEPTED_ID
         db.refresh(pkgreq)
         notif = notify.RequestCloseNotification(
-            conn, request.user.ID, pkgreq.ID, pkgreq.status_display())
+            request.user.ID, pkgreq.ID, pkgreq.status_display())
         notif.send()
     elif type == "deletion" and is_maintainer and outdated:
         packages = pkgbase.packages.all()
@@ -742,9 +740,8 @@ async def requests_close_post(request: Request, id: int,
         pkgreq.Status = reason
         pkgreq.ClosureComment = comments
 
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
     notify_ = notify.RequestCloseNotification(
-        conn, request.user.ID, pkgreq.ID, pkgreq.status_display())
+        request.user.ID, pkgreq.ID, pkgreq.status_display())
     notify_.send()
 
     return RedirectResponse("/requests", status_code=HTTPStatus.SEE_OTHER)
@@ -936,9 +933,7 @@ async def pkgbase_unvote(request: Request, name: str):
 
 def pkgbase_disown_instance(request: Request, pkgbase: models.PackageBase):
     disowner = request.user
-
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-    notif = notify.DisownNotification(conn, disowner.ID, pkgbase.ID)
+    notif = notify.DisownNotification(disowner.ID, pkgbase.ID)
 
     if disowner != pkgbase.Maintainer:
         with db.begin():
@@ -1003,8 +998,7 @@ def pkgbase_adopt_instance(request: Request, pkgbase: models.PackageBase):
     with db.begin():
         pkgbase.Maintainer = request.user
 
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
-    notif = notify.AdoptNotification(conn, request.user.ID, pkgbase.ID)
+    notif = notify.AdoptNotification(request.user.ID, pkgbase.ID)
     notif.send()
 
 
@@ -1366,7 +1360,7 @@ def pkgbase_merge_instance(request: Request, pkgbase: models.PackageBase,
                        f"{request.user.Username}.")
     rejected_closure_comment = ("Rejected because another merge request "
                                 "for the same package base was accepted.")
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
+
     if not requests:
         # If there are no requests, create one owned by request.user.
         with db.begin():
@@ -1383,7 +1377,7 @@ def pkgbase_merge_instance(request: Request, pkgbase: models.PackageBase,
 
         # Add a notification about the opening to our notifs array.
         notif = notify.RequestOpenNotification(
-            conn, request.user.ID, pkgreq.ID, MERGE,
+            request.user.ID, pkgreq.ID, MERGE,
             pkgbase.ID, merge_into=target.Name)
         notifs.append(notif)
 
@@ -1417,10 +1411,8 @@ def pkgbase_merge_instance(request: Request, pkgbase: models.PackageBase,
     for pkgreq in all_requests:
         # Create notifications for request closure.
         notif = notify.RequestCloseNotification(
-            conn, request.user.ID, pkgreq.ID, pkgreq.status_display())
+            request.user.ID, pkgreq.ID, pkgreq.status_display())
         notifs.append(notif)
-
-    conn.close()
 
     # Log this out for accountability purposes.
     logger.info(f"Trusted User '{request.user.Username}' merged "

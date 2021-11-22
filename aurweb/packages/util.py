@@ -239,7 +239,6 @@ def remove_comaintainers(pkgbase: models.PackageBase,
     :param usernames: Iterable of username strings
     :return: None
     """
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
     notifications = []
     with db.begin():
         for username in usernames:
@@ -250,8 +249,7 @@ def remove_comaintainers(pkgbase: models.PackageBase,
             ).first()
             notifications.append(
                 notify.ComaintainerRemoveNotification(
-                    conn, comaintainer.User.ID, pkgbase.ID
-                )
+                    comaintainer.User.ID, pkgbase.ID)
             )
             db.delete(comaintainer)
 
@@ -283,7 +281,6 @@ def add_comaintainers(request: Request, pkgbase: models.PackageBase,
         memo[username] = user
 
     # Alright, now that we got past the check, add them all to the DB.
-    conn = db.ConnectionExecutor(db.get_engine().raw_connection())
     notifications = []
     with db.begin():
         for username in usernames:
@@ -302,7 +299,7 @@ def add_comaintainers(request: Request, pkgbase: models.PackageBase,
 
             notifications.append(
                 notify.ComaintainerAddNotification(
-                    conn, comaintainer.User.ID, pkgbase.ID)
+                    comaintainer.User.ID, pkgbase.ID)
             )
 
     # Send out notifications.
