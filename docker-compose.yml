@@ -104,7 +104,7 @@ services:
     entrypoint: /docker/git-entrypoint.sh
     command: /docker/scripts/run-sshd.sh
     ports:
-      - "127.0.0.1:2222:2222"
+      - "2222:2222"
     healthcheck:
       test: "bash /docker/health/sshd.sh"
       interval: 3s
