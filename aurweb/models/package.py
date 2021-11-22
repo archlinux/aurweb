@@ -12,7 +12,8 @@ class Package(Base):
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
     PackageBase = relationship(
-        _PackageBase, backref=backref("packages", lazy="dynamic"),
+        _PackageBase, backref=backref("packages", lazy="dynamic",
+                                      cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID])
 
     def __init__(self, **kwargs):
