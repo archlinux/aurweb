@@ -37,6 +37,8 @@ then clears the database for each test function run in that module.
 It is done this way because migration has a large cost; migrating
 ahead of each function takes too long when compared to this method.
 """
+import os
+
 import pytest
 
 from filelock import FileLock
@@ -50,6 +52,7 @@ import aurweb.config
 import aurweb.db
 
 from aurweb import initdb, logging, testing
+from aurweb.testing.email import Email
 
 logger = logging.get_logger(__name__)
 
@@ -120,6 +123,18 @@ def _drop_database(engine: Engine, dbname: str) -> None:
     conn.close()
 
 
+def setup_email():
+    if not os.path.exists(Email.TEST_DIR):
+        os.makedirs(Email.TEST_DIR)
+
+    # Cleanup all email files for this test suite.
+    prefix = Email.email_prefix(suite=True)
+    files = os.listdir(Email.TEST_DIR)
+    for file in files:
+        if file.startswith(prefix):
+            os.remove(os.path.join(Email.TEST_DIR, file))
+
+
 @pytest.fixture(scope="module")
 def setup_database(tmp_path_factory: pytest.fixture,
                    worker_id: pytest.fixture) -> None:
@@ -129,6 +144,7 @@ def setup_database(tmp_path_factory: pytest.fixture,
 
     if worker_id == "master":  # pragma: no cover
         # If we're not running tests through multiproc pytest-xdist.
+        setup_email()
         yield _create_database(engine, dbname)
         _drop_database(engine, dbname)
         return
@@ -143,12 +159,13 @@ def setup_database(tmp_path_factory: pytest.fixture,
         else:
             # Otherwise, create the data file and create the database.
             fn.write_text("1")
+            setup_email()
             yield _create_database(engine, dbname)
             _drop_database(engine, dbname)
 
 
 @pytest.fixture(scope="module")
-def db_session(setup_database: pytest.fixture) -> scoped_session:
+def db_session(setup_database: None) -> scoped_session:
     """
     Yield a database session based on aurweb.db.name().
 
@@ -158,6 +175,7 @@ def db_session(setup_database: pytest.fixture) -> scoped_session:
     # configured database, because PYTEST_CURRENT_TEST is removed.
     dbname = aurweb.db.name()
     session = aurweb.db.get_session()
+
     yield session
 
     # Close the session and pop it.

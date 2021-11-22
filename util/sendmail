@@ -1,2 +1,25 @@
 #!/bin/bash
+# Send email to temporary filesystem for tests.
+dir='test-emails'
+filename='email.txt'
+if [ ! -z ${PYTEST_CURRENT_TEST+x} ]; then
+    filename="$(echo $PYTEST_CURRENT_TEST | cut -d ' ' -f 1 | sed -r 's/(\/|\.|,|:)/_/g')"
+fi
+mkdir -p "$dir"
+
+path="${dir}/${filename}"
+serial_file="${path}.serial"
+if [ ! -f $serial_file ]; then
+    echo 0 > $serial_file
+fi
+
+# Increment and update $serial_file.
+serial=$(($(cat $serial_file) + 1))
+echo $serial > $serial_file
+
+# Use the serial we're on to mark the email file.
+# Emails have the format: PYTEST_CURRENT_TEST.s.txt
+# where s is the current serial for PYTEST_CURRENT_TEST.
+cat > "${path}.${serial}.txt"
+
 exit 0
