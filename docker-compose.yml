@@ -48,7 +48,7 @@ services:
       test: "bash /docker/health/redis.sh"
       interval: 3s
     ports:
-      - "16379:6379"
+      - "127.0.0.1:16379:6379"
 
   mariadb:
     image: aurweb:latest
@@ -58,7 +58,7 @@ services:
     ports:
       # This will expose mariadbd on 127.0.0.1:13306 in the host.
       # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
-      - "13306:3306"
+      - "127.0.0.1:13306:3306"
     volumes:
       - mariadb_run:/var/run/mysqld # Bind socket in this volume.
       - mariadb_data:/var/lib/mysql
@@ -88,7 +88,7 @@ services:
     ports:
       # This will expose mariadbd on 127.0.0.1:13307 in the host.
       # Ex: `mysql -uaur -paur -h 127.0.0.1 -P 13306 aurweb`
-      - "13307:3306"
+      - "127.0.0.1:13307:3306"
     volumes:
       - mariadb_test_run:/var/run/mysqld # Bind socket in this volume.
     healthcheck:
@@ -104,7 +104,7 @@ services:
     entrypoint: /docker/git-entrypoint.sh
     command: /docker/scripts/run-sshd.sh
     ports:
-      - "2222:2222"
+      - "127.0.0.1:2222:2222"
     healthcheck:
       test: "bash /docker/health/sshd.sh"
       interval: 3s
@@ -141,7 +141,7 @@ services:
       git:
         condition: service_healthy
     ports:
-      - "13000:3000"
+      - "127.0.0.1:13000:3000"
     volumes:
       - git_data:/aurweb/aur.git
 
@@ -161,7 +161,7 @@ services:
       git:
         condition: service_healthy
     ports:
-      - "13001:3000"
+      - "127.0.0.1:13001:3000"
     volumes:
       - git_data:/aurweb/aur.git
 
@@ -205,7 +205,7 @@ services:
       - mariadb_run:/var/run/mysqld
       - archives:/var/lib/aurweb/archives
     ports:
-      - "19000:9000"
+      - "127.0.0.1:19000:9000"
 
   fastapi:
     image: aurweb:latest
@@ -234,7 +234,7 @@ services:
     volumes:
       - mariadb_run:/var/run/mysqld
     ports:
-      - "18000:8000"
+      - "127.0.0.1:18000:8000"
 
   nginx:
     image: aurweb:latest
@@ -244,8 +244,8 @@ services:
     entrypoint: /docker/nginx-entrypoint.sh
     command: /docker/scripts/run-nginx.sh
     ports:
-      - "8443:8443" # PHP
-      - "8444:8444" # FastAPI
+      - "127.0.0.1:8443:8443" # PHP
+      - "127.0.0.1:8444:8444" # FastAPI
     healthcheck:
       test: "bash /docker/health/nginx.sh"
       interval: 3s
