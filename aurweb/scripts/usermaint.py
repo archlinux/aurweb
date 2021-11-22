@@ -1,21 +1,31 @@
 #!/usr/bin/env python3
 
-import time
+from datetime import datetime
 
-import aurweb.db
+from sqlalchemy import update
+
+from aurweb import db
+from aurweb.models import User
+
+
+def _main():
+    limit_to = int(datetime.utcnow().timestamp()) - 86400 * 7
+
+    update_ = update(User).where(
+        User.LastLogin < limit_to
+    ).values(LastLoginIPAddress=None)
+    db.get_session().execute(update_)
+
+    update_ = update(User).where(
+        User.LastSSHLogin < limit_to
+    ).values(LastSSHLoginIPAddress=None)
+    db.get_session().execute(update_)
 
 
 def main():
-    conn = aurweb.db.Connection()
-
-    limit_to = int(time.time()) - 86400 * 7
-    conn.execute("UPDATE Users SET LastLoginIPAddress = NULL " +
-                 "WHERE LastLogin < ?", [limit_to])
-    conn.execute("UPDATE Users SET LastSSHLoginIPAddress = NULL " +
-                 "WHERE LastSSHLogin < ?", [limit_to])
-
-    conn.commit()
-    conn.close()
+    db.get_engine()
+    with db.begin():
+        _main()
 
 
 if __name__ == '__main__':
