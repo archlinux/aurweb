@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
 
-import time
+from datetime import datetime
 
-import aurweb.db
+from sqlalchemy import and_
+
+from aurweb import db
+from aurweb.models import PackageBase
+
+
+def _main():
+    # One day behind.
+    limit_to = int(datetime.utcnow().timestamp()) - 86400
+
+    query = db.query(PackageBase).filter(
+        and_(PackageBase.SubmittedTS < limit_to,
+             PackageBase.PackagerUID.is_(None)))
+    db.delete_all(query)
 
 
 def main():
-    conn = aurweb.db.Connection()
-
-    limit_to = int(time.time()) - 86400
-    conn.execute("DELETE FROM PackageBases WHERE " +
-                 "SubmittedTS < ? AND PackagerUID IS NULL", [limit_to])
-
-    conn.commit()
-    conn.close()
+    db.get_engine()
+    with db.begin():
+        _main()
 
 
 if __name__ == '__main__':
