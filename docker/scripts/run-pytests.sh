@@ -1,5 +1,4 @@
 #!/bin/bash
-set -eou pipefail
 
 COVERAGE=1
 PARAMS=()
@@ -11,13 +10,13 @@ while [ $# -ne 0 ]; do
             COVERAGE=0
             shift
             ;;
-        -*)
-            echo "usage: $0 [--no-coverage] targets ..."
-            exit 1
+        clean)
+            rm -f .coverage
+            shift
             ;;
         *)
-            PARAMS+=("$key")
-            shift
+            echo "usage: $0 [--no-coverage] targets ..."
+            exit 1
             ;;
     esac
 done
@@ -30,7 +29,7 @@ pytest
 
 # By default, report coverage and move it into cache.
 if [ $COVERAGE -eq 1 ]; then
-    make -C test coverage
+    make -C test coverage || /bin/true
 
     # /data is mounted as a volume. Copy coverage into it.
     # Users can then sanitize the coverage locally in their
