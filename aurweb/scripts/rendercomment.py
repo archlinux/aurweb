@@ -2,6 +2,8 @@
 
 import sys
 
+from xml.etree.ElementTree import Element
+
 import bleach
 import markdown
 import pygit2
@@ -40,7 +42,7 @@ class FlysprayLinksInlineProcessor(markdown.inlinepatterns.InlineProcessor):
     """
 
     def handleMatch(self, m, data):
-        el = markdown.util.etree.Element('a')
+        el = Element('a')
         el.set('href', f'https://bugs.archlinux.org/task/{m.group(1)}')
         el.text = markdown.util.AtomicString(m.group(0))
         return (el, m.start(0), m.end(0))
@@ -73,7 +75,7 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
             # Unkwown OID; preserve the orginal text.
             return (None, None, None)
 
-        el = markdown.util.etree.Element('a')
+        el = Element('a')
         commit_uri = aurweb.config.get("options", "commit_uri")
         prefixlen = util.git_search(self._repo, oid)
         el.set('href', commit_uri % (self._head, oid[:prefixlen]))
