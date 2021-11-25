@@ -86,6 +86,7 @@ mysql-connector = "^2.2.9"
 prometheus-fastapi-instrumentator = "^5.7.1"
 pytest-xdist = "^2.4.0"
 filelock = "^3.3.2"
+posix-ipc = "^1.0.5"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"

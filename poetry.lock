@@ -620,6 +620,14 @@ jinja2 = {version = ">=2.11.1,<4", markers = "python_version >= \"3.6\" and pyth
 tomlkit = ">=0.4"
 
 [[package]]
+name = "posix-ipc"
+version = "1.0.5"
+description = "POSIX IPC primitives (semaphores, shared memory and message queues) for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "priority"
 version = "2.0.0"
 description = "A pure-Python implementation of the HTTP/2 priority tree"
@@ -1056,7 +1064,7 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.10"
-content-hash = "ca42bd35717062d6784025ed3956423502ac66adba059ccc080bcaaa666651cd"
+content-hash = "43b3dd494890ef9d419260a06ccd0190638573fdf0b92a226016f1dd5ee87579"
 
 [metadata.files]
 aiofiles = [
@@ -1554,6 +1562,14 @@ pluggy = [
 poetry-dynamic-versioning = [
     {file = "poetry-dynamic-versioning-0.13.1.tar.gz", hash = "sha256:5c0e7b22560db76812057ef95dadad662ecc63eb270145787eabe73da7c222f9"},
     {file = "poetry_dynamic_versioning-0.13.1-py3-none-any.whl", hash = "sha256:6d79f76436c624653fc06eb9bb54fb4f39b1d54362bc366ad2496855711d3a78"},
+]
+posix-ipc = [
+    {file = "posix_ipc-1.0.5-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:ccb36ba90efec56a1796f1566eee9561f355a4f45babbc4d18ac46fb2d0b246b"},
+    {file = "posix_ipc-1.0.5-cp36-cp36m-macosx_10_6_intel.whl", hash = "sha256:613bf1afe90e84c06255ec1a6f52c9b24062492de66e5f0dbe068adf67fc3454"},
+    {file = "posix_ipc-1.0.5-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:6095bb4faa2bba8b8d0e833b804e0aedc352d5ed921edeb715010cbcd361e038"},
+    {file = "posix_ipc-1.0.5-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:621918abe7ec68591c5839b0771d163a9809bc232bf413b9a681bf986ab68d4d"},
+    {file = "posix_ipc-1.0.5-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:f71587ad3a50e82583987f62bfd4ac2343ab6a206d1032e3fc560e8d55fe0346"},
+    {file = "posix_ipc-1.0.5.tar.gz", hash = "sha256:6cddb1ce2cf4aae383f2a0079c26c69bee257fe2720f372201ef047f8ceb8b97"},
 ]
 priority = [
     {file = "priority-2.0.0-py3-none-any.whl", hash = "sha256:6f8eefce5f3ad59baf2c080a664037bb4725cd0a790d53d59ab4059288faf6aa"},
