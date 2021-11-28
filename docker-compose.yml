@@ -33,12 +33,6 @@ services:
     healthcheck:
       test: "bash /docker/health/run-ca.sh"
       interval: 3s
-    tmpfs:
-      - /tmp
-    volumes:
-      - ./docker:/docker
-      - ./data:/data
-      - step:/root/.step
 
   memcached:
     image: aurweb:latest
@@ -269,10 +263,6 @@ services:
         condition: service_healthy
       php-fpm:
         condition: service_healthy
-    volumes:
-      - ./data:/data
-      - archives:/var/lib/aurweb/archives
-      - smartgit_run:/var/run/smartgit
 
   sharness:
     image: aurweb:latest

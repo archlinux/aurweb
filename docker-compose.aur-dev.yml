@@ -4,6 +4,7 @@ services:
   ca:
     volumes:
       - data:/data
+      - step:/root/.step
 
   memcached:
     restart: always
@@ -22,7 +23,7 @@ services:
       - SSH_CMDLINE=${SSH_CMDLINE:-ssh ssh://aur@localhost:2222}
     volumes:
       - ${GIT_DATA_DIR}:/aurweb/aur.git
-      - ./data:/aurweb/data
+      - data:/aurweb/data
 
   smartgit:
     restart: always

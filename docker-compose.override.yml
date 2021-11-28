@@ -1,6 +1,11 @@
 version: "3.8"
 
 services:
+  ca:
+    volumes:
+      - ./data:/data
+      - step:/root/.step
+
   mariadb_init:
     depends_on:
       mariadb:
@@ -41,3 +46,9 @@ services:
       - ./web/template:/aurweb/web/template
       - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
+
+  nginx:
+    volumes:
+      - ./data:/data
+      - archives:/var/lib/aurweb/archives
+      - smartgit_run:/var/run/smartgit
