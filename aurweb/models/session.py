@@ -1,8 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-from aurweb import schema
-from aurweb.db import make_random_value, query
+from aurweb import db, schema
 from aurweb.models.declarative import Base
 from aurweb.models.user import User as _User
 
@@ -19,8 +18,8 @@ class Session(Base):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        user_exists = query(
-            query(_User).filter(_User.ID == self.UsersID).exists()
+        user_exists = db.query(
+            db.query(_User).filter(_User.ID == self.UsersID).exists()
         ).scalar()
         if not user_exists:
             raise IntegrityError(
@@ -31,4 +30,4 @@ class Session(Base):
 
 
 def generate_unique_sid():
-    return make_random_value(Session, Session.SessionID)
+    return db.make_random_value(Session, Session.SessionID, 32)
