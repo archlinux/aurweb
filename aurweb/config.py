@@ -56,8 +56,13 @@ def get_section(section):
         return _get_parser()[section]
 
 
-def replace_key(section: str, option: str, value: Any) -> Any:
+def unset_option(section: str, option: str) -> None:
+    _get_parser().remove_option(section, option)
+
+
+def set_option(section: str, option: str, value: Any) -> None:
     _get_parser().set(section, option, value)
+    return value
 
 
 def save() -> None:

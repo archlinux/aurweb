@@ -5,6 +5,8 @@ import re
 
 from unittest import mock
 
+import py
+
 from aurweb import config
 from aurweb.scripts.config import main
 
@@ -77,32 +79,69 @@ def test_config_main_get_unknown_option(get: str):
 def test_config_main_set(save: None):
     data = None
 
-    def mock_replace_key(section: str, option: str, value: str) -> None:
+    def set_option(section: str, option: str, value: str) -> None:
         nonlocal data
         data = value
 
     args = ["aurweb-config", "set", "options", "salt_rounds", "666"]
     with mock.patch("sys.argv", args):
-        with mock.patch("aurweb.config.replace_key",
-                        side_effect=mock_replace_key):
+        with mock.patch("aurweb.config.set_option", side_effect=set_option):
             main()
 
     expected = "666"
     assert data == expected
 
 
+def test_config_main_set_real(tmpdir: py.path.local):
+    """
+    Test a real set_option path.
+    """
+
+    # Copy AUR_CONFIG to {tmpdir}/aur.config.
+    aur_config = os.environ.get("AUR_CONFIG")
+    tmp_aur_config = os.path.join(str(tmpdir), "aur.config")
+    with open(aur_config) as f:
+        with open(tmp_aur_config, "w") as o:
+            o.write(f.read())
+
+    # Force reset the parser. This should NOT be done publicly.
+    config._parser = None
+
+    value = 666
+    args = ["aurweb-config", "set", "options", "fake-key", str(value)]
+    with mock.patch.dict("os.environ", {"AUR_CONFIG": tmp_aur_config}):
+        with mock.patch("sys.argv", args):
+            # Run aurweb.config.main().
+            main()
+
+        # Update the config; fake-key should be set.
+        config.rehash()
+        assert config.getint("options", "fake-key") == 666
+
+        # Restore config back to normal.
+        args = ["aurweb-config", "unset", "options", "fake-key"]
+        with mock.patch("sys.argv", args):
+            main()
+
+    # Return the config back to normal.
+    config.rehash()
+
+    # fake-key should no longer exist.
+    assert config.getint("options", "fake-key") is None
+
+
 def test_config_main_set_immutable():
     data = None
 
-    def mock_replace_key(section: str, option: str, value: str) -> None:
+    def mock_set_option(section: str, option: str, value: str) -> None:
         nonlocal data
         data = value
 
     args = ["aurweb-config", "set", "options", "salt_rounds", "666"]
     with mock.patch.dict(os.environ, {"AUR_CONFIG_IMMUTABLE": "1"}):
         with mock.patch("sys.argv", args):
-            with mock.patch("aurweb.config.replace_key",
-                            side_effect=mock_replace_key):
+            with mock.patch("aurweb.config.set_option",
+                            side_effect=mock_set_option):
                 main()
 
     expected = None
@@ -121,18 +160,18 @@ def test_config_main_set_invalid_value():
     assert stderr.getvalue().strip() == expected
 
 
-@mock.patch("aurweb.config.save", side_effect=noop)
+@ mock.patch("aurweb.config.save", side_effect=noop)
 def test_config_main_set_unknown_section(save: None):
     stderr = io.StringIO()
 
-    def mock_replace_key(section: str, option: str, value: str) -> None:
+    def mock_set_option(section: str, option: str, value: str) -> None:
         raise configparser.NoSectionError(section=section)
 
     args = ["aurweb-config", "set", "options", "salt_rounds", "666"]
     with mock.patch("sys.argv", args):
         with mock.patch("sys.stderr", stderr):
-            with mock.patch("aurweb.config.replace_key",
-                            side_effect=mock_replace_key):
+            with mock.patch("aurweb.config.set_option",
+                            side_effect=mock_set_option):
                 main()
 
     assert stderr.getvalue().strip() == "error: no section found"
