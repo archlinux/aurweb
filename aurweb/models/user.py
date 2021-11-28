@@ -230,3 +230,7 @@ class User(Base):
     def __repr__(self):
         return "<User(ID='%s', AccountType='%s', Username='%s')>" % (
             self.ID, str(self.AccountType), self.Username)
+
+
+def generate_unique_resetkey():
+    return db.make_random_value(User, User.ResetKey, 32)

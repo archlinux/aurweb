@@ -16,6 +16,7 @@ from aurweb.exceptions import ValidationError
 from aurweb.l10n import get_translator_for_request
 from aurweb.models import account_type as at
 from aurweb.models.ssh_pub_key import get_fingerprint
+from aurweb.models.user import generate_unique_resetkey
 from aurweb.scripts.notify import ResetKeyNotification, WelcomeNotification
 from aurweb.templates import make_context, make_variable_context, render_template
 from aurweb.users import update, validate
@@ -92,7 +93,7 @@ async def passreset_post(request: Request,
                                 status_code=HTTPStatus.SEE_OTHER)
 
     # If we got here, we continue with issuing a resetkey for the user.
-    resetkey = db.make_random_value(models.User, models.User.ResetKey)
+    resetkey = generate_unique_resetkey()
     with db.begin():
         user.ResetKey = resetkey
 
@@ -291,7 +292,7 @@ async def account_register_post(request: Request,
 
     # Create a user with no password with a resetkey, then send
     # an email off about it.
-    resetkey = db.make_random_value(models.User, models.User.ResetKey)
+    resetkey = generate_unique_resetkey()
 
     # By default, we grab the User account type to associate with.
     atype = db.query(models.AccountType,
