@@ -22,6 +22,10 @@ COPY . /aurweb
 # Working directory is aurweb root @ /aurweb.
 WORKDIR /aurweb
 
+# Copy initial config to conf/config.
+RUN cp -vf conf/config.dev conf/config
+RUN sed -i "s;YOUR_AUR_ROOT;/aurweb;g" conf/config
+
 # Install Python dependencies.
 RUN /docker/scripts/install-python-deps.sh
 
