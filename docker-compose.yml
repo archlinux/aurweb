@@ -72,6 +72,8 @@ services:
   mariadb_init:
     image: aurweb:latest
     init: true
+    environment:
+      - AUR_CONFIG_IMMUTABLE=${AUR_CONFIG_IMMUTABLE:-0}
     entrypoint: /docker/mariadb-init-entrypoint.sh
     command: echo "MariaDB tables initialized."
     volumes:
@@ -104,6 +106,7 @@ services:
     environment:
       - AUR_CONFIG=/aurweb/conf/config
       - SSH_CMDLINE=${SSH_CMDLINE:-ssh ssh://aur@localhost:2222}
+      - AUR_CONFIG_IMMUTABLE=${AUR_CONFIG_IMMUTABLE:-0}
     entrypoint: /docker/git-entrypoint.sh
     command: /docker/scripts/run-sshd.sh
     ports:
@@ -190,6 +193,7 @@ services:
       - AUR_CONFIG=/aurweb/conf/config
       - AURWEB_PHP_PREFIX=${AURWEB_PHP_PREFIX}
       - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
+      - AUR_CONFIG_IMMUTABLE=${AUR_CONFIG_IMMUTABLE:-0}
     entrypoint: /docker/php-entrypoint.sh
     command: /docker/scripts/run-php.sh
     healthcheck:
@@ -220,6 +224,7 @@ services:
       - AURWEB_FASTAPI_PREFIX=${AURWEB_FASTAPI_PREFIX}
       - AURWEB_SSHD_PREFIX=${AURWEB_SSHD_PREFIX}
       - PROMETHEUS_MULTIPROC_DIR=/tmp_prometheus
+      - AUR_CONFIG_IMMUTABLE=${AUR_CONFIG_IMMUTABLE:-0}
     entrypoint: /docker/fastapi-entrypoint.sh
     command: /docker/scripts/run-fastapi.sh "${FASTAPI_BACKEND}"
     healthcheck:
