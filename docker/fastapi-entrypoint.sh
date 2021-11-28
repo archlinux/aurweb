@@ -1,16 +1,8 @@
 #!/bin/bash
 set -eou pipefail
 
-# Setup a config for our mysql db.
-cp -vf conf/config.dev conf/config
-sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
-
 # Setup database.
-aurweb-config set database user 'aur'
-aurweb-config set database password 'aur'
-aurweb-config set database host 'localhost'
-aurweb-config set database socket '/var/lib/mysqld/mysqld.sock'
-aurweb-config unset database port
+NO_INITDB=1 /docker/mariadb-init-entrypoint.sh
 
 # Setup some other options.
 aurweb-config set options cache 'redis'
