@@ -13,7 +13,8 @@ RUN /install-deps.sh
 
 # Copy Docker scripts
 COPY ./docker /docker
-COPY ./docker/scripts/*.sh /usr/local/bin/
+COPY ./docker/scripts/* /usr/local/bin/
+
 
 # Copy over all aurweb files.
 COPY . /aurweb

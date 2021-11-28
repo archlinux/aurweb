@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import json
+import sys
+
+CA_CONFIG = sys.argv[1]
+
+with open(CA_CONFIG) as f:
+    data = json.load(f)
+
+if "authority" not in data:
+    data["authority"] = dict()
+if "claims" not in data["authority"]:
+    data["authority"]["claims"] = dict()
+
+# One year of certificate duration.
+data["authority"]["claims"] = {"maxTLSCertDuration": "8800h"}
+
+with open(CA_CONFIG, "w") as f:
+    json.dump(data, f)

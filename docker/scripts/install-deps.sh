@@ -9,6 +9,6 @@ pacman -Syu --noconfirm --noprogressbar \
       mariadb mariadb-libs cgit-aurweb uwsgi uwsgi-plugin-cgi \
       php php-fpm memcached php-memcached python-pip pyalpm \
       python-srcinfo curl libeatmydata cronie python-poetry \
-      python-poetry-core
+      python-poetry-core step-cli step-ca
 
 exec "$@"

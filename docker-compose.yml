@@ -29,7 +29,16 @@ services:
     image: aurweb:latest
     init: true
     entrypoint: /docker/ca-entrypoint.sh
-    command: echo
+    command: /docker/scripts/run-ca.sh
+    healthcheck:
+      test: "bash /docker/health/run-ca.sh"
+      interval: 3s
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./docker:/docker
+      - ./data:/data
+      - step:/root/.step
 
   memcached:
     image: aurweb:latest
@@ -261,7 +270,9 @@ services:
       php-fpm:
         condition: service_healthy
     volumes:
+      - ./data:/data
       - archives:/var/lib/aurweb/archives
+      - smartgit_run:/var/run/smartgit
 
   sharness:
     image: aurweb:latest
@@ -347,3 +358,4 @@ volumes:
   git_data: {} # Share aurweb/aur.git
   smartgit_run: {}
   archives: {}
+  step: {}

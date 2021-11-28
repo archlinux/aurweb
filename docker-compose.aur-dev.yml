@@ -70,9 +70,8 @@ services:
   nginx:
     restart: always
     volumes:
-      - ${GIT_DATA_DIR}:/aurweb/aur.git
       - data:/data
-      - logs:/var/log/nginx
+      - archives:/var/lib/aurweb/archives
       - smartgit_run:/var/run/smartgit
 
 volumes:

@@ -6,10 +6,6 @@ services:
       mariadb:
         condition: service_healthy
 
-  ca:
-    volumes:
-      - ./data:/data
-
   git:
     volumes:
       - git_data:/aurweb/aur.git
@@ -45,13 +41,3 @@ services:
       - ./web/template:/aurweb/web/template
       - ./web/lib:/aurweb/web/lib
       - ./templates:/aurweb/templates
-
-  nginx:
-    volumes:
-      - git_data:/aurweb/aur.git
-      - ./data:/data
-      - ./logs:/var/log/nginx
-      - ./web/html:/aurweb/web/html
-      - ./web/template:/aurweb/web/template
-      - ./web/lib:/aurweb/web/lib
-      - smartgit_run:/var/run/smartgit
