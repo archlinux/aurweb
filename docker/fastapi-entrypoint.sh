@@ -5,23 +5,25 @@ set -eou pipefail
 cp -vf conf/config.dev conf/config
 sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
 
-# Change database user/password.
-sed -ri "s/^;?(user) = .*$/\1 = aur/" conf/config
-sed -ri "s/^;?(password) = .*$/\1 = aur/" conf/config
+# Setup database.
+aurweb-config set database user 'aur'
+aurweb-config set database password 'aur'
+aurweb-config set database host 'localhost'
+aurweb-config set database socket '/var/lib/mysqld/mysqld.sock'
+aurweb-config unset database port
 
-sed -ri "s;^(aur_location) = .+;\1 = ${AURWEB_FASTAPI_PREFIX};" conf/config
-
-# Setup Redis for FastAPI.
-sed -ri 's/^(cache) = .+/\1 = redis/' conf/config
-sed -ri 's|^(redis_address) = .+|\1 = redis://redis|' conf/config
+# Setup some other options.
+aurweb-config set options cache 'redis'
+aurweb-config set options redis_address 'redis://redis'
+aurweb-config set options aur_location "$AURWEB_FASTAPI_PREFIX"
+aurweb-config set options git_clone_uri_anon "${AURWEB_FASTAPI_PREFIX}/%s.git"
+aurweb-config set options git_clone_uri_priv "${AURWEB_SSHD_PREFIX}/%s.git"
 
 if [ ! -z ${COMMIT_HASH+x} ]; then
-    sed -ri "s/^;?(commit_hash) =.*$/\1 = $COMMIT_HASH/" conf/config
+    aurweb-config set devel commit_hash "$COMMIT_HASH"
 fi
 
-sed -ri "s|^(git_clone_uri_anon) = .+|\1 = ${AURWEB_FASTAPI_PREFIX}/%s.git|" conf/config.defaults
-sed -ri "s|^(git_clone_uri_priv) = .+|\1 = ${AURWEB_SSHD_PREFIX}/%s.git|" conf/config.defaults
-
+# Setup prometheus directory.
 rm -rf $PROMETHEUS_MULTIPROC_DIR
 mkdir -p $PROMETHEUS_MULTIPROC_DIR
 

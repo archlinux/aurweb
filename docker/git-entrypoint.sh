@@ -42,20 +42,16 @@ EOF
 cp -vf conf/config.dev $AUR_CONFIG
 sed -i "s;YOUR_AUR_ROOT;$(pwd);g" $AUR_CONFIG
 
-sed -ri "s/^;?(user) = .*$/\1 = aur/" $AUR_CONFIG
-sed -ri "s/^;?(password) = .*$/\1 = aur/" $AUR_CONFIG
+# Setup database.
+aurweb-config set database user 'aur'
+aurweb-config set database password 'aur'
+aurweb-config set database host 'localhost'
+aurweb-config set database socket '/var/lib/mysqld/mysqld.sock'
+aurweb-config unset database port
 
-AUR_CONFIG_DEFAULTS="${AUR_CONFIG}.defaults"
-
-if [[ "$AUR_CONFIG_DEFAULTS" != "/aurweb/conf/config.defaults" ]]; then
-    cp -vf conf/config.defaults $AUR_CONFIG_DEFAULTS
-fi
-
-# Set some defaults needed for pathing and ssh uris.
-sed -ri "s|^(repo-path) = .+|\1 = /aurweb/aur.git/|" $AUR_CONFIG_DEFAULTS
-
-# SSH_CMDLINE can be provided via override in docker-compose.aur-dev.yml.
-sed -ri "s|^(ssh-cmdline) = .+$|\1 = ${SSH_CMDLINE}|" $AUR_CONFIG_DEFAULTS
+# Setup some other options.
+aurweb-config set serve repo-path '/aurweb/aur.git/'
+aurweb-config set serve ssh-cmdline "$SSH_CMDLINE"
 
 # Setup SSH Keys.
 ssh-keygen -A
