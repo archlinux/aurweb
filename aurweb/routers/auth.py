@@ -24,13 +24,13 @@ async def login_template(request: Request, next: str, errors: list = None):
 
 
 @router.get("/login", response_class=HTMLResponse)
-@auth_required(False)
+@auth_required(False, login=False)
 async def login_get(request: Request, next: str = "/"):
     return await login_template(request, next)
 
 
 @router.post("/login", response_class=HTMLResponse)
-@auth_required(False)
+@auth_required(False, login=False)
 async def login_post(request: Request,
                      next: str = Form(...),
                      user: str = Form(default=str()),
