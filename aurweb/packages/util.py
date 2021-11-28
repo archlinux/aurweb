@@ -167,6 +167,7 @@ def updated_packages(limit: int = 0,
     for pkg in query:
         # For each Package returned by the query, append a dict
         # containing Package columns we're interested in.
+        db.refresh(pkg)
         packages.append({
             "Name": pkg.Name,
             "Version": pkg.Version,
