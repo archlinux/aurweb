@@ -36,8 +36,8 @@
                 </a>
             </li>
 
-            {# Only CRED_TU_VOTE privileged users see Trusted User #}
-            {% if request.user.has_credential("CRED_TU_VOTE") %}
+            {# Only CRED_TU_LIST_VOTES privileged users see Trusted User #}
+            {% if request.user.has_credential("CRED_TU_LIST_VOTES") %}
                 <li>
                     <a href="/tu">{% trans %}Trusted User{% endtrans %}</a>
                 </li>

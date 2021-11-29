@@ -329,7 +329,7 @@ cred_filters = {
     CRED_PKGREQ_CLOSE: trusted_user_or_dev,
     CRED_PKGREQ_LIST: trusted_user_or_dev,
     CRED_TU_ADD_VOTE: trusted_user,
-    CRED_TU_LIST_VOTES: trusted_user,
+    CRED_TU_LIST_VOTES: trusted_user_or_dev,
     CRED_TU_VOTE: trusted_user,
     CRED_ACCOUNT_EDIT_DEV: developer,
     CRED_PKGBASE_MERGE: trusted_user_or_dev,
