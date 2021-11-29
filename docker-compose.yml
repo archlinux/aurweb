@@ -200,8 +200,6 @@ services:
       test: "bash /docker/health/php.sh"
       interval: 2s
     depends_on:
-      ca:
-        condition: service_started
       git:
         condition: service_healthy
       memcached:
@@ -231,8 +229,6 @@ services:
       test: "bash /docker/health/fastapi.sh ${FASTAPI_BACKEND}"
       interval: 2s
     depends_on:
-      ca:
-        condition: service_started
       git:
         condition: service_healthy
       redis:
@@ -258,6 +254,8 @@ services:
       test: "bash /docker/health/nginx.sh"
       interval: 2s
     depends_on:
+      ca:
+        condition: service_started
       cgit-php:
         condition: service_healthy
       cgit-fastapi:
