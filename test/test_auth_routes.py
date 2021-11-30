@@ -131,7 +131,7 @@ def test_secure_login(mock):
     assert user.session == record
 
 
-def test_authenticated_login_forbidden():
+def test_authenticated_login():
     post_data = {
         "user": "test",
         "passwd": "testPassword",
@@ -139,15 +139,19 @@ def test_authenticated_login_forbidden():
     }
 
     with client as request:
-        # Login.
+        # Try to login.
         response = request.post("/login", data=post_data,
                                 allow_redirects=False)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
+        assert response.headers.get("location") == "/"
 
+        # Now, let's verify that we get the logged in rendering
+        # when requesting GET /login as an authenticated user.
         # Now, let's verify that we receive 403 Forbidden when we
         # try to get /login as an authenticated user.
         response = request.get("/login", allow_redirects=False)
-        assert response.status_code == int(HTTPStatus.SEE_OTHER)
+        assert response.status_code == int(HTTPStatus.OK)
+        assert "Logged-in as: <strong>test</strong>" in response.text
 
 
 def test_unauthenticated_logout_unauthorized():

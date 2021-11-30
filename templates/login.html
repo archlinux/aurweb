@@ -5,81 +5,95 @@
 <div id="dev-login" class="box">
     <h2>AUR {% trans %}Login{% endtrans %}</h2>
 
-    {% if request.url.scheme == "http" and config.getboolean("options", "disable_http_login") %}
-        {% set https_login = url_base.replace("http://", "https://") + "/login" %}
-        <p>
-        {{ "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-        | tr
-        | format(
-            '<a href="%s">' | format(https_login),
-            "</a>")
-        | safe
-        }}
-        </p>
-    {% elif request.user.is_authenticated() %}
-        <p>
-        {{ "Logged-in as: %s"
-        | tr
-        | format("<b>%s</b>" | format(request.user.Username))
-        | safe
-        }}
-        <a href="/logout?next={{ next }}">[{% trans %}Logout{% endtrans %}]</a>
-        </p>
-    {% else %}
-        <form method="post" action="/login?next={{ next }}">
-            <fieldset>
-                <legend>{% trans %}Enter login credentials{% endtrans %}</legend>
-
-                {% if errors %}
-                    <ul class="errorlist">
-                        {% for error in errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-
-                <p>
-                    <label for="id_username">
-                        {% trans %}User name or primary email address{% endtrans %}:
-                    </label>
-
-                    <input id="id_username" type="text" name="user" size="30"
-                           maxlength="254" autofocus="autofocus"
-                           required="required" value="{{ user or '' }}">
-                </p>
-
-                <p>
-                    <label for="id_password">
-                        {% trans %}Password{% endtrans %}:
-                    </label>
-                    <input id="id_password" type="password" name="passwd"
-                           size="30" required="required">
-                </p>
-
-                <p>
-                    <input id="id_remember_me" type="checkbox" name="remember_me"
-                        {% if remember_me %}
-                            checked="checked"
-                        {% endif %}
-                    >
-                    <label for="id_remember_me">
-                        {% trans %}Remember me{% endtrans %}
-                    </label>
-                </p>
-
-                <p>
-                    <input class="button" type="submit"
-                           value="{% trans %}Login{% endtrans %}">
-                    <a href="/passreset">
-                        [{% trans %}Forgot Password{% endtrans %}]
-                    </a>
-                    <input id="id_referer" type="hidden" name="referer"
-                           value="{{ url_base }}">
-                    <input type="hidden" name="next" value="{{ next }}">
-                </p>
-
-            </fieldset>
+    {% if request.user.is_authenticated() %}
+        <form action="/logout" method="post" class="link">
+            <p>
+                {{
+                    "Logged-in as: %s" | tr
+                    | format("<strong>%s</strong>" | format(request.user.Username))
+                    | safe
+                }}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <button type="submit">[{{ "Logout" | tr }}]</button>
+            </p>
         </form>
+    {% else %}
+        {% if request.url.scheme == "http" and config.getboolean("options", "disable_http_login") %}
+            {% set https_login = url_base.replace("http://", "https://") + "/login" %}
+            <p>
+            {{ "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+            | tr
+            | format(
+                '<a href="%s">' | format(https_login),
+                "</a>")
+            | safe
+            }}
+            </p>
+        {% elif request.user.is_authenticated() %}
+            <p>
+            {{ "Logged-in as: %s"
+            | tr
+            | format("<b>%s</b>" | format(request.user.Username))
+            | safe
+            }}
+            <a href="/logout?next={{ next }}">[{% trans %}Logout{% endtrans %}]</a>
+            </p>
+        {% else %}
+            <form method="post" action="/login?next={{ next }}">
+                <fieldset>
+                    <legend>{% trans %}Enter login credentials{% endtrans %}</legend>
+
+                    {% if errors %}
+                        <ul class="errorlist">
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    <p>
+                        <label for="id_username">
+                            {% trans %}User name or primary email address{% endtrans %}:
+                        </label>
+
+                        <input id="id_username" type="text" name="user" size="30"
+                               maxlength="254" autofocus="autofocus"
+                               required="required" value="{{ user or '' }}">
+                    </p>
+
+                    <p>
+                        <label for="id_password">
+                            {% trans %}Password{% endtrans %}:
+                        </label>
+                        <input id="id_password" type="password" name="passwd"
+                               size="30" required="required">
+                    </p>
+
+                    <p>
+                        <input id="id_remember_me" type="checkbox" name="remember_me"
+                            {% if remember_me %}
+                                checked="checked"
+                            {% endif %}
+                        >
+                        <label for="id_remember_me">
+                            {% trans %}Remember me{% endtrans %}
+                        </label>
+                    </p>
+
+                    <p>
+                        <input class="button" type="submit"
+                               value="{% trans %}Login{% endtrans %}">
+                        <a href="/passreset">
+                            [{% trans %}Forgot Password{% endtrans %}]
+                        </a>
+                        <input id="id_referer" type="hidden" name="referer"
+                               value="{{ url_base }}">
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </p>
+
+                </fieldset>
+            </form>
+        {% endif %}
     {% endif %}
 </div>
 

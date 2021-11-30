@@ -232,7 +232,7 @@ input#search-action-submit {
 
 /* Styling used to clone <a> styles for a form.link button. */
 form.link, form.link button {
-    display: inline-block;
+    display: inline;
     font-family: sans-serif;
 }
 form.link button {
@@ -246,4 +246,12 @@ form.link button {
 form.link button:hover {
     cursor: pointer;
     text-decoration: underline;
+}
+
+/* Customize form.link when used inside of a page. */
+div.box form.link p {
+    margin: .33em 0 1em;
+}
+div.box form.link button {
+    padding: 0;
 }
