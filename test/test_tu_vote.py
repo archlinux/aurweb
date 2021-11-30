@@ -10,28 +10,33 @@ from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
 
-user = tu_voteinfo = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user, tu_voteinfo
+    return
 
-    ts = int(datetime.utcnow().timestamp())
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          RealName="Test User", Passwd="testPassword",
                          AccountTypeID=TRUSTED_USER_ID)
+    yield user
 
-        tu_voteinfo = db.create(TUVoteInfo,
-                                Agenda="Blah blah.",
+
+@pytest.fixture
+def tu_voteinfo(user: User) -> TUVoteInfo:
+    ts = int(datetime.utcnow().timestamp())
+    with db.begin():
+        tu_voteinfo = db.create(TUVoteInfo, Agenda="Blah blah.",
                                 User=user.Username,
                                 Submitted=ts, End=ts + 5,
-                                Quorum=0.5,
-                                Submitter=user)
+                                Quorum=0.5, Submitter=user)
+    yield tu_voteinfo
 
 
-def test_tu_vote_creation():
+def test_tu_vote_creation(user: User, tu_voteinfo: TUVoteInfo):
     with db.begin():
         tu_vote = db.create(TUVote, User=user, VoteInfo=tu_voteinfo)
 
@@ -41,11 +46,11 @@ def test_tu_vote_creation():
     assert tu_vote in tu_voteinfo.tu_votes
 
 
-def test_tu_vote_null_user_raises_exception():
+def test_tu_vote_null_user_raises_exception(tu_voteinfo: TUVoteInfo):
     with pytest.raises(IntegrityError):
         TUVote(VoteInfo=tu_voteinfo)
 
 
-def test_tu_vote_null_voteinfo_raises_exception():
+def test_tu_vote_null_voteinfo_raises_exception(user: User):
     with pytest.raises(IntegrityError):
         TUVote(User=user)
