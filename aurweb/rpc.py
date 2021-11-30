@@ -193,7 +193,7 @@ class RPC:
                 models.DependencyType.Name.label("Type"),
                 models.PackageDependency.DepName.label("Name"),
                 models.PackageDependency.DepCondition.label("Cond")
-            ).distinct().order_by("ID"),
+            ).distinct().order_by("Name"),
 
             # PackageRelation
             db.query(
@@ -205,7 +205,7 @@ class RPC:
                 models.RelationType.Name.label("Type"),
                 models.PackageRelation.RelName.label("Name"),
                 models.PackageRelation.RelCondition.label("Cond")
-            ).distinct().order_by("ID"),
+            ).distinct().order_by("Name"),
 
             # Groups
             db.query(models.PackageGroup).join(
@@ -217,7 +217,7 @@ class RPC:
                 literal("Groups").label("Type"),
                 models.Group.Name.label("Name"),
                 literal(str()).label("Cond")
-            ).distinct().order_by("ID"),
+            ).distinct().order_by("Name"),
 
             # Licenses
             db.query(models.PackageLicense).join(
@@ -230,7 +230,7 @@ class RPC:
                 literal("License").label("Type"),
                 models.License.Name.label("Name"),
                 literal(str()).label("Cond")
-            ).distinct().order_by("ID"),
+            ).distinct().order_by("Name"),
 
             # Keywords
             db.query(models.PackageKeyword).join(
@@ -242,7 +242,7 @@ class RPC:
                 literal("Keywords").label("Type"),
                 models.PackageKeyword.Keyword.label("Name"),
                 literal(str()).label("Cond")
-            ).distinct().order_by("ID")
+            ).distinct().order_by("Name")
         ]
 
         # Union all subqueries together.
