@@ -262,7 +262,6 @@ The package {pkgbase.Name} [1] was disowned by {user2.Username} [2].
 
 
 def test_comaintainer_addition(user: User, pkgbases: List[PackageBase]):
-    # TODO: Add this in fastapi code!
     pkgbase = pkgbases[0]
     notif = notify.ComaintainerAddNotification(user.ID, pkgbase.ID)
     notif.send()
@@ -282,7 +281,6 @@ You were added to the co-maintainer list of {pkgbase.Name} [1].
 
 
 def test_comaintainer_removal(user: User, pkgbases: List[PackageBase]):
-    # TODO: Add this in fastapi code!
     pkgbase = pkgbases[0]
     notif = notify.ComaintainerRemoveNotification(user.ID, pkgbase.ID)
     notif.send()
@@ -417,14 +415,9 @@ Request #{pkgreq.ID} has been rejected by {user2.Username} [1].
     assert email.body == expected
 
 
-def test_close_request_auto_accept():
-    pass
-
-
 def test_close_request_comaintainer_cc(user: User, user2: User,
                                        pkgreq: PackageRequest,
                                        pkgbases: List[PackageBase]):
-    # TODO: Check this in fastapi code!
     pkgbase = pkgbases[0]
     with db.begin():
         db.create(models.PackageComaintainer, PackageBase=pkgbase,
