@@ -12,21 +12,29 @@ from aurweb.models.package_request import (ACCEPTED, ACCEPTED_ID, CLOSED, CLOSED
 from aurweb.models.request_type import MERGE_ID
 from aurweb.models.user import User
 
-user = pkgbase = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user, pkgbase
+    return
 
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          RealName="Test User", Passwd="testPassword",
                          AccountTypeID=USER_ID)
+    yield user
+
+
+@pytest.fixture
+def pkgbase(user: User) -> PackageBase:
+    with db.begin():
         pkgbase = db.create(PackageBase, Name="test-package", Maintainer=user)
+    yield pkgbase
 
 
-def test_package_request_creation():
+def test_package_request_creation(user: User, pkgbase: PackageBase):
     with db.begin():
         package_request = db.create(PackageRequest, ReqTypeID=MERGE_ID,
                                     User=user, PackageBase=pkgbase,
@@ -45,7 +53,7 @@ def test_package_request_creation():
     assert package_request in pkgbase.requests
 
 
-def test_package_request_closed():
+def test_package_request_closed(user: User, pkgbase: PackageBase):
     ts = int(datetime.utcnow().timestamp())
     with db.begin():
         package_request = db.create(PackageRequest, ReqTypeID=MERGE_ID,
@@ -61,49 +69,54 @@ def test_package_request_closed():
     assert package_request in user.closed_requests
 
 
-def test_package_request_null_request_type_raises_exception():
+def test_package_request_null_request_type_raises(user: User,
+                                                  pkgbase: PackageBase):
     with pytest.raises(IntegrityError):
         PackageRequest(User=user, PackageBase=pkgbase,
                        PackageBaseName=pkgbase.Name,
                        Comments=str(), ClosureComment=str())
 
 
-def test_package_request_null_user_raises_exception():
+def test_package_request_null_user_raises(pkgbase: PackageBase):
     with pytest.raises(IntegrityError):
         PackageRequest(ReqTypeID=MERGE_ID,
                        PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
                        Comments=str(), ClosureComment=str())
 
 
-def test_package_request_null_package_base_raises_exception():
+def test_package_request_null_package_base_raises(user: User,
+                                                  pkgbase: PackageBase):
     with pytest.raises(IntegrityError):
         PackageRequest(ReqTypeID=MERGE_ID,
                        User=user, PackageBaseName=pkgbase.Name,
                        Comments=str(), ClosureComment=str())
 
 
-def test_package_request_null_package_base_name_raises_exception():
+def test_package_request_null_package_base_name_raises(user: User,
+                                                       pkgbase: PackageBase):
     with pytest.raises(IntegrityError):
         PackageRequest(ReqTypeID=MERGE_ID,
                        User=user, PackageBase=pkgbase,
                        Comments=str(), ClosureComment=str())
 
 
-def test_package_request_null_comments_raises_exception():
+def test_package_request_null_comments_raises(user: User,
+                                              pkgbase: PackageBase):
     with pytest.raises(IntegrityError):
         PackageRequest(ReqTypeID=MERGE_ID, User=user,
                        PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
                        ClosureComment=str())
 
 
-def test_package_request_null_closure_comment_raises_exception():
+def test_package_request_null_closure_comment_raises(user: User,
+                                                     pkgbase: PackageBase):
     with pytest.raises(IntegrityError):
         PackageRequest(ReqTypeID=MERGE_ID, User=user,
                        PackageBase=pkgbase, PackageBaseName=pkgbase.Name,
                        Comments=str())
 
 
-def test_package_request_status_display():
+def test_package_request_status_display(user: User, pkgbase: PackageBase):
     """ Test status_display() based on the Status column value. """
     with db.begin():
         pkgreq = db.create(PackageRequest, ReqTypeID=MERGE_ID,
