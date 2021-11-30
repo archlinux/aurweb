@@ -10,7 +10,7 @@ import aurweb.filters
 import aurweb.packages.util
 
 from aurweb import db, defaults, l10n, logging, models, util
-from aurweb.auth import auth_required
+from aurweb.auth import auth_required, creds
 from aurweb.exceptions import ValidationError
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
@@ -413,7 +413,7 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int,
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
 
-    authorized = request.user.has_credential("CRED_COMMENT_DELETE",
+    authorized = request.user.has_credential(creds.COMMENT_DELETE,
                                              [comment.User])
     if not authorized:
         _ = l10n.get_translator_for_request(request)
@@ -439,7 +439,7 @@ async def pkgbase_comment_undelete(request: Request, name: str, id: int,
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
 
-    has_cred = request.user.has_credential("CRED_COMMENT_UNDELETE",
+    has_cred = request.user.has_credential(creds.COMMENT_UNDELETE,
                                            approved=[comment.User])
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
@@ -464,7 +464,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int,
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
 
-    has_cred = request.user.has_credential("CRED_COMMENT_PIN",
+    has_cred = request.user.has_credential(creds.COMMENT_PIN,
                                            approved=[pkgbase.Maintainer])
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
@@ -489,7 +489,7 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int,
     pkgbase = get_pkg_or_base(name, models.PackageBase)
     comment = get_pkgbase_comment(pkgbase, id)
 
-    has_cred = request.user.has_credential("CRED_COMMENT_PIN",
+    has_cred = request.user.has_credential(creds.COMMENT_PIN,
                                            approved=[pkgbase.Maintainer])
     if not has_cred:
         _ = l10n.get_translator_for_request(request)
@@ -514,7 +514,7 @@ async def package_base_comaintainers(request: Request, name: str) -> Response:
 
     # Unauthorized users (Non-TU/Dev and not the pkgbase maintainer)
     # get redirected to the package base's page.
-    has_creds = request.user.has_credential("CRED_PKGBASE_EDIT_COMAINTAINERS",
+    has_creds = request.user.has_credential(creds.PKGBASE_EDIT_COMAINTAINERS,
                                             approved=[pkgbase.Maintainer])
     if not has_creds:
         return RedirectResponse(f"/pkgbase/{name}",
@@ -541,7 +541,7 @@ async def package_base_comaintainers_post(
 
     # Unauthorized users (Non-TU/Dev and not the pkgbase maintainer)
     # get redirected to the package base's page.
-    has_creds = request.user.has_credential("CRED_PKGBASE_EDIT_COMAINTAINERS",
+    has_creds = request.user.has_credential(creds.PKGBASE_EDIT_COMAINTAINERS,
                                             approved=[pkgbase.Maintainer])
     if not has_creds:
         return RedirectResponse(f"/pkgbase/{name}",
@@ -779,7 +779,7 @@ async def pkgbase_keywords(request: Request, name: str,
 async def pkgbase_flag_get(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
-    has_cred = request.user.has_credential("CRED_PKGBASE_FLAG")
+    has_cred = request.user.has_credential(creds.PKGBASE_FLAG)
     if not has_cred or pkgbase.Flagger is not None:
         return RedirectResponse(f"/pkgbase/{name}",
                                 status_code=HTTPStatus.SEE_OTHER)
@@ -803,7 +803,7 @@ async def pkgbase_flag_post(request: Request, name: str,
         return render_template(request, "packages/flag.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
-    has_cred = request.user.has_credential("CRED_PKGBASE_FLAG")
+    has_cred = request.user.has_credential(creds.PKGBASE_FLAG)
     if has_cred and not pkgbase.Flagger:
         now = int(datetime.utcnow().timestamp())
         with db.begin():
@@ -830,7 +830,7 @@ async def pkgbase_flag_comment(request: Request, name: str):
 
 def pkgbase_unflag_instance(request: Request, pkgbase: models.PackageBase):
     has_cred = request.user.has_credential(
-        "CRED_PKGBASE_UNFLAG", approved=[pkgbase.Flagger, pkgbase.Maintainer])
+        creds.PKGBASE_UNFLAG, approved=[pkgbase.Flagger, pkgbase.Maintainer])
     if has_cred:
         with db.begin():
             pkgbase.OutOfDateTS = None
@@ -851,7 +851,7 @@ def pkgbase_notify_instance(request: Request, pkgbase: models.PackageBase):
     notif = db.query(pkgbase.notifications.filter(
         models.PackageNotification.UserID == request.user.ID
     ).exists()).scalar()
-    has_cred = request.user.has_credential("CRED_PKGBASE_NOTIFY")
+    has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
     if has_cred and not notif:
         with db.begin():
             db.create(models.PackageNotification,
@@ -872,7 +872,7 @@ def pkgbase_unnotify_instance(request: Request, pkgbase: models.PackageBase):
     notif = pkgbase.notifications.filter(
         models.PackageNotification.UserID == request.user.ID
     ).first()
-    has_cred = request.user.has_credential("CRED_PKGBASE_NOTIFY")
+    has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
     if has_cred and notif:
         with db.begin():
             db.delete(notif)
@@ -895,7 +895,7 @@ async def pkgbase_vote(request: Request, name: str):
     vote = pkgbase.package_votes.filter(
         models.PackageVote.UsersID == request.user.ID
     ).first()
-    has_cred = request.user.has_credential("CRED_PKGBASE_VOTE")
+    has_cred = request.user.has_credential(creds.PKGBASE_VOTE)
     if has_cred and not vote:
         now = int(datetime.utcnow().timestamp())
         with db.begin():
@@ -919,7 +919,7 @@ async def pkgbase_unvote(request: Request, name: str):
     vote = pkgbase.package_votes.filter(
         models.PackageVote.UsersID == request.user.ID
     ).first()
-    has_cred = request.user.has_credential("CRED_PKGBASE_VOTE")
+    has_cred = request.user.has_credential(creds.PKGBASE_VOTE)
     if has_cred and vote:
         with db.begin():
             db.delete(vote)
@@ -958,7 +958,7 @@ def pkgbase_disown_instance(request: Request, pkgbase: models.PackageBase):
 async def pkgbase_disown_get(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
-    has_cred = request.user.has_credential("CRED_PKGBASE_DISOWN",
+    has_cred = request.user.has_credential(creds.PKGBASE_DISOWN,
                                            approved=[pkgbase.Maintainer])
     if not has_cred:
         return RedirectResponse(f"/pkgbase/{name}",
@@ -975,7 +975,7 @@ async def pkgbase_disown_post(request: Request, name: str,
                               confirm: bool = Form(default=False)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
-    has_cred = request.user.has_credential("CRED_PKGBASE_DISOWN",
+    has_cred = request.user.has_credential(creds.PKGBASE_DISOWN,
                                            approved=[pkgbase.Maintainer])
     if not has_cred:
         return RedirectResponse(f"/pkgbase/{name}",
@@ -1007,7 +1007,7 @@ def pkgbase_adopt_instance(request: Request, pkgbase: models.PackageBase):
 async def pkgbase_adopt_post(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
-    has_cred = request.user.has_credential("CRED_PKGBASE_ADOPT")
+    has_cred = request.user.has_credential(creds.PKGBASE_ADOPT)
     if has_cred or not pkgbase.Maintainer:
         # If the user has credentials, they'll adopt the package regardless
         # of maintainership. Otherwise, we'll promote the user to maintainer
@@ -1021,7 +1021,7 @@ async def pkgbase_adopt_post(request: Request, name: str):
 @router.get("/pkgbase/{name}/delete")
 @auth_required(True, redirect="/pkgbase/{name}/delete")
 async def pkgbase_delete_get(request: Request, name: str):
-    if not request.user.has_credential("CRED_PKGBASE_DELETE"):
+    if not request.user.has_credential(creds.PKGBASE_DELETE):
         return RedirectResponse(f"/pkgbase/{name}",
                                 status_code=HTTPStatus.SEE_OTHER)
 
@@ -1036,7 +1036,7 @@ async def pkgbase_delete_post(request: Request, name: str,
                               confirm: bool = Form(default=False)):
     pkgbase = get_pkg_or_base(name, models.PackageBase)
 
-    if not request.user.has_credential("CRED_PKGBASE_DELETE"):
+    if not request.user.has_credential(creds.PKGBASE_DELETE):
         return RedirectResponse(f"/pkgbase/{name}",
                                 status_code=HTTPStatus.SEE_OTHER)
 
@@ -1070,7 +1070,7 @@ async def packages_unflag(request: Request, package_ids: List[int] = [],
         models.Package.ID.in_(package_ids)).all()
     for pkg in packages:
         has_cred = request.user.has_credential(
-            "CRED_PKGBASE_UNFLAG", approved=[pkg.PackageBase.Flagger])
+            creds.PKGBASE_UNFLAG, approved=[pkg.PackageBase.Flagger])
         if not has_cred:
             return (False, ["You did not select any packages to unflag."])
 
@@ -1106,7 +1106,7 @@ async def packages_notify(request: Request, package_ids: List[int] = [],
         notif = db.query(pkgbase.notifications.filter(
             models.PackageNotification.UserID == request.user.ID
         ).exists()).scalar()
-        has_cred = request.user.has_credential("CRED_PKGBASE_NOTIFY")
+        has_cred = request.user.has_credential(creds.PKGBASE_NOTIFY)
 
         # If the request user either does not have credentials
         # or the notification already exists:
@@ -1178,7 +1178,7 @@ async def packages_adopt(request: Request, package_ids: List[int] = [],
 
     # Check that the user has credentials for every package they selected.
     for pkgbase in bases:
-        has_cred = request.user.has_credential("CRED_PKGBASE_ADOPT")
+        has_cred = request.user.has_credential(creds.PKGBASE_ADOPT)
         if not (has_cred or not pkgbase.Maintainer):
             # TODO: This error needs to be translated.
             return (False, ["You are not allowed to adopt one of the "
@@ -1211,7 +1211,7 @@ async def packages_disown(request: Request, package_ids: List[int] = [],
 
     # Check that the user has credentials for every package they selected.
     for pkgbase in bases:
-        has_cred = request.user.has_credential("CRED_PKGBASE_DISOWN",
+        has_cred = request.user.has_credential(creds.PKGBASE_DISOWN,
                                                approved=[pkgbase.Maintainer])
         if not has_cred:
             # TODO: This error needs to be translated.
@@ -1235,7 +1235,7 @@ async def packages_delete(request: Request, package_ids: List[int] = [],
         return (False, ["The selected packages have not been deleted, "
                         "check the confirmation checkbox."])
 
-    if not request.user.has_credential("CRED_PKGBASE_DELETE"):
+    if not request.user.has_credential(creds.PKGBASE_DELETE):
         return (False, ["You do not have permission to delete packages."])
 
     # A "memo" used to store names of packages that we delete.
@@ -1329,10 +1329,10 @@ async def pkgbase_merge_get(request: Request, name: str,
 
     status_code = HTTPStatus.OK
     # TODO: Lookup errors from credential instead of hardcoding them.
-    # Idea: Something like credential_errors("CRED_PKGBASE_MERGE").
-    # Perhaps additionally: bad_credential_status_code("CRED_PKGBASE_MERGE").
+    # Idea: Something like credential_errors(creds.PKGBASE_MERGE).
+    # Perhaps additionally: bad_credential_status_code(creds.PKGBASE_MERGE).
     # Don't take these examples verbatim. We should find good naming.
-    if not request.user.has_credential("CRED_PKGBASE_MERGE"):
+    if not request.user.has_credential(creds.PKGBASE_MERGE):
         context["errors"] = [
             "Only Trusted Users and Developers can merge packages."]
         status_code = HTTPStatus.UNAUTHORIZED
@@ -1434,7 +1434,7 @@ async def pkgbase_merge_post(request: Request, name: str,
     context["pkgbase"] = pkgbase
 
     # TODO: Lookup errors from credential instead of hardcoding them.
-    if not request.user.has_credential("CRED_PKGBASE_MERGE"):
+    if not request.user.has_credential(creds.PKGBASE_MERGE):
         context["errors"] = [
             "Only Trusted Users and Developers can merge packages."]
         return render_template(request, "pkgbase/merge.html", context,

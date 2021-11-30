@@ -10,6 +10,7 @@ import aurweb.auth
 import aurweb.config
 
 from aurweb import db
+from aurweb.auth import creds
 from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.package import Package
@@ -154,7 +155,7 @@ def test_user_minimum_passwd_length():
 
 
 def test_user_has_credential():
-    assert not user.has_credential("CRED_ACCOUNT_CHANGE_TYPE")
+    assert not user.has_credential(aurweb.auth.creds.ACCOUNT_CHANGE_TYPE)
 
 
 def test_user_ssh_pub_key():
@@ -169,10 +170,10 @@ def test_user_ssh_pub_key():
 
 
 def test_user_credential_types():
-    assert aurweb.auth.user_developer_or_trusted_user(user)
-    assert not aurweb.auth.trusted_user(user)
-    assert not aurweb.auth.developer(user)
-    assert not aurweb.auth.trusted_user_or_dev(user)
+    assert user.AccountTypeID in creds.user_developer_or_trusted_user
+    assert user.AccountTypeID not in creds.trusted_user
+    assert user.AccountTypeID not in creds.developer
+    assert user.AccountTypeID not in creds.trusted_user_or_dev
 
     trusted_user_type = db.query(AccountType).filter(
         AccountType.AccountType == "Trusted User"
@@ -180,16 +181,16 @@ def test_user_credential_types():
     with db.begin():
         user.AccountType = trusted_user_type
 
-    assert aurweb.auth.trusted_user(user)
-    assert aurweb.auth.trusted_user_or_dev(user)
+    assert user.AccountTypeID in creds.trusted_user
+    assert user.AccountTypeID in creds.trusted_user_or_dev
 
     developer_type = db.query(AccountType,
                               AccountType.AccountType == "Developer").first()
     with db.begin():
         user.AccountType = developer_type
 
-    assert aurweb.auth.developer(user)
-    assert aurweb.auth.trusted_user_or_dev(user)
+    assert user.AccountTypeID in creds.developer
+    assert user.AccountTypeID in creds.trusted_user_or_dev
 
     type_str = "Trusted User & Developer"
     elevated_type = db.query(AccountType,
@@ -197,9 +198,9 @@ def test_user_credential_types():
     with db.begin():
         user.AccountType = elevated_type
 
-    assert aurweb.auth.trusted_user(user)
-    assert aurweb.auth.developer(user)
-    assert aurweb.auth.trusted_user_or_dev(user)
+    assert user.AccountTypeID in creds.trusted_user
+    assert user.AccountTypeID in creds.developer
+    assert user.AccountTypeID in creds.trusted_user_or_dev
 
     # Some model authorization checks.
     assert user.is_elevated()

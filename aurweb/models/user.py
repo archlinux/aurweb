@@ -1,6 +1,7 @@
 import hashlib
 
 from datetime import datetime
+from typing import List, Set
 
 import bcrypt
 
@@ -136,10 +137,10 @@ class User(Base):
         request.cookies["AURSID"] = self.session.SessionID
         return self.session.SessionID
 
-    def has_credential(self, credential: str, approved: list = tuple()):
-        import aurweb.auth
-        cred = getattr(aurweb.auth, credential)
-        return aurweb.auth.has_credential(self, cred, approved)
+    def has_credential(self, credential: Set[int],
+                       approved: List["User"] = list()):
+        from aurweb.auth.creds import has_credential
+        return has_credential(self, credential, approved)
 
     def logout(self, request):
         del request.cookies["AURSID"]

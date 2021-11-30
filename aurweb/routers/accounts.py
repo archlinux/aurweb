@@ -10,7 +10,7 @@ from sqlalchemy import and_, or_
 import aurweb.config
 
 from aurweb import cookies, db, l10n, logging, models, util
-from aurweb.auth import account_type_required, auth_required
+from aurweb.auth import account_type_required, auth_required, creds
 from aurweb.captcha import get_captcha_salts
 from aurweb.exceptions import ValidationError
 from aurweb.l10n import get_translator_for_request
@@ -176,7 +176,7 @@ def make_account_form_context(context: dict,
 
     user_account_type_id = context.get("account_types")[0][0]
 
-    if request.user.has_credential("CRED_ACCOUNT_EDIT_DEV"):
+    if request.user.has_credential(creds.ACCOUNT_EDIT_DEV):
         context["account_types"].append((at.DEVELOPER_ID, at.DEVELOPER))
         context["account_types"].append((at.TRUSTED_USER_AND_DEV_ID,
                                          at.TRUSTED_USER_AND_DEV))
@@ -332,7 +332,7 @@ async def account_register_post(request: Request,
 def cannot_edit(request, user):
     """ Return a 401 HTMLResponse if the request user doesn't
     have authorization, otherwise None. """
-    has_dev_cred = request.user.has_credential("CRED_ACCOUNT_EDIT_DEV",
+    has_dev_cred = request.user.has_credential(creds.ACCOUNT_EDIT_DEV,
                                                approved=[user])
     if not has_dev_cred:
         return HTMLResponse(status_code=HTTPStatus.UNAUTHORIZED)
