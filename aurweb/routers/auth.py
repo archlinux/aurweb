@@ -77,14 +77,9 @@ async def login_post(request: Request,
     return response
 
 
-@router.get("/logout")
+@router.post("/logout")
 @auth_required()
-async def logout(request: Request, next: str = "/"):
-    """ A GET and POST route for logging out.
-
-    @param request FastAPI request
-    @param next Route to redirect to
-    """
+async def logout(request: Request, next: str = Form(default="/")):
     if request.user.is_authenticated():
         request.user.logout(request)
 
@@ -95,9 +90,3 @@ async def logout(request: Request, next: str = "/"):
     response.delete_cookie("AURSID")
     response.delete_cookie("AURTZ")
     return response
-
-
-@router.post("/logout")
-@auth_required()
-async def logout_post(request: Request, next: str = "/"):
-    return await logout(request=request, next=next)

@@ -45,9 +45,12 @@
 
             {# All logged in users see Logout #}
             <li>
-                <a href="/logout?next={{ next }}">
-                    {% trans %}Logout{% endtrans %}
-                </a>
+                <form action="/logout" method="post" class="link">
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    <button type="submit">
+                        {% trans %}Logout{% endtrans %}
+                    </button>
+                </form>
             </li>
         {% else %}
             {# All guest users see Register #}

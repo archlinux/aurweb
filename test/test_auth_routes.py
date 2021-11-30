@@ -154,8 +154,9 @@ def test_unauthenticated_logout_unauthorized():
     with client as request:
         # Alright, let's verify that attempting to /logout when not
         # authenticated returns 401 Unauthorized.
-        response = request.get("/logout", allow_redirects=False)
+        response = request.post("/logout", allow_redirects=False)
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
+        assert response.headers.get("location").startswith("/login")
 
 
 def test_login_missing_username():

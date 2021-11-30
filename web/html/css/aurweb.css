@@ -229,3 +229,18 @@ input#search-action-submit {
 .success {
     color: green;
 }
+
+/* Styling used to clone <a> styles for a form.link button. */
+form.link, form.link > button {
+    display: inline-block;
+}
+form.link > button {
+    padding: 0 0.5em;
+    color: #07b;
+    background: none;
+    border: none;
+}
+form.link > button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
