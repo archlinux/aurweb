@@ -231,16 +231,19 @@ input#search-action-submit {
 }
 
 /* Styling used to clone <a> styles for a form.link button. */
-form.link, form.link > button {
+form.link, form.link button {
     display: inline-block;
+    font-family: sans-serif;
 }
-form.link > button {
+form.link button {
     padding: 0 0.5em;
     color: #07b;
     background: none;
     border: none;
+    font-family: inherit;
+    font-size: inherit;
 }
-form.link > button:hover {
+form.link button:hover {
     cursor: pointer;
     text-decoration: underline;
 }
