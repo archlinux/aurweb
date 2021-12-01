@@ -120,9 +120,7 @@ class BasicAuthBackend(AuthenticationBackend):
         return (AuthCredentials(["authenticated"]), user)
 
 
-def auth_required(is_required: bool = True,
-                  template: tuple = None,
-                  status_code: HTTPStatus = HTTPStatus.UNAUTHORIZED):
+def auth_required(is_required: bool = True):
     """ Authentication route decorator.
 
     :param is_required: A boolean indicating whether the function requires auth
