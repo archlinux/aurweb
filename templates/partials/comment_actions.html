@@ -1,7 +1,7 @@
 {% set pkgbasename = comment.PackageBase.Name %}
 
 {% if not comment.Deleter %}
-    {% if request.user.has_credential('CRED_COMMENT_DELETE', approved=[comment.User]) %}
+    {% if request.user.has_credential(creds.COMMENT_DELETE, approved=[comment.User]) %}
         <form class="delete-comment-form"
               method="post"
               action="/pkgbase/{{ pkgbasename }}/comments/{{ comment.ID }}/delete"
@@ -22,7 +22,7 @@
         </form>
     {% endif %}
 
-    {% if request.user.has_credential('CRED_COMMENT_EDIT', approved=[comment.User]) %}
+    {% if request.user.has_credential(creds.COMMENT_EDIT, approved=[comment.User]) %}
         <a id="comment-edit-link-{{ comment.ID }}"
            {# /pkgbase/{name}/comments/{id}/edit #}
            href="/pkgbase/{{ pkgbasename }}/comments/{{ comment.ID }}/edit?{{ {'next': request.url.path} | urlencode }}"
@@ -47,7 +47,7 @@
 
     {% endif %}
 
-    {% if request.user.has_credential("CRED_COMMENT_PIN", approved=[comment.PackageBase.Maintainer]) %}
+    {% if request.user.has_credential(creds.COMMENT_PIN, approved=[comment.PackageBase.Maintainer]) %}
         {% if comment.PinnedTS %}
             <form class="pin-comment-form"
                   method="post"
@@ -82,7 +82,7 @@
             </form>
         {% endif %}
     {% endif %}
-{% elif request.user.has_credential("CRED_COMMENT_UNDELETE", approved=[comment.User]) %}
+{% elif request.user.has_credential(creds.COMMENT_UNDELETE, approved=[comment.User]) %}
         <form class="undelete-comment-form"
               method="post"
               action="/pkgbase/{{ comment.PackageBase.Name }}/comments/{{ comment.ID }}/undelete"

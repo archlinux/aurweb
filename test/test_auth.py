@@ -5,7 +5,7 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
-from aurweb.auth import AnonymousUser, BasicAuthBackend, account_type_required, has_credential
+from aurweb.auth import AnonymousUser, BasicAuthBackend, account_type_required
 from aurweb.models.account_type import USER, USER_ID
 from aurweb.models.session import Session
 from aurweb.models.user import User
@@ -67,11 +67,6 @@ async def test_basic_auth_backend():
     assert result == user
 
 
-def test_has_fake_credential_fails():
-    # Fake credential 666 does not exist.
-    assert not has_credential(user, 666)
-
-
 def test_account_type_required():
     """ This test merely asserts that a few different paths
     do not raise exceptions. """
@@ -109,8 +104,3 @@ def test_voted_for():
 def test_notified():
     user_ = AnonymousUser()
     assert not user_.notified(None)
-
-
-def test_has_credential():
-    user_ = AnonymousUser()
-    assert not user_.has_credential("FAKE_CREDENTIAL")

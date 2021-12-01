@@ -3,7 +3,7 @@
     {% set header_cls = "%s %s" | format(header_cls, "comment-deleted") %}
 {% endif %}
 
-{% if not comment.Deleter or request.user.has_credential("CRED_COMMENT_VIEW_DELETED", approved=[comment.Deleter]) %}
+{% if not comment.Deleter or request.user.has_credential(creds.COMMENT_VIEW_DELETED, approved=[comment.Deleter]) %}
 
     {% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
     <h4 id="comment-{{ comment.ID }}" class="{{ header_cls }}">

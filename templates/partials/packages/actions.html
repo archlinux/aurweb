@@ -88,7 +88,7 @@
                     </form>
                 {% endif %}
             </li>
-            {% if request.user.has_credential('CRED_PKGBASE_EDIT_COMAINTAINERS', approved=[pkgbase.Maintainer]) %}
+            {% if request.user.has_credential(creds.PKGBASE_EDIT_COMAINTAINERS, approved=[pkgbase.Maintainer]) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/comaintainers">
                         {{ "Manage Co-Maintainers" | tr }}
@@ -107,14 +107,14 @@
                     {{ "Submit Request" | tr }}
                 </a>
             </li>
-            {% if request.user.has_credential("CRED_PKGBASE_DELETE") %}
+            {% if request.user.has_credential(creds.PKGBASE_DELETE) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/delete">
                         {{ "Delete Package" | tr }}
                     </a>
                 </li>
             {% endif %}
-            {% if request.user.has_credential("CRED_PKGBASE_MERGE") %}
+            {% if request.user.has_credential(creds.PKGBASE_MERGE) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/merge">
                         {{ "Merge Package" | tr }}
@@ -130,7 +130,7 @@
                         />
                     </form>
                 </li>
-            {% elif request.user.has_credential("CRED_PKGBASE_DISOWN", approved=[pkgbase.Maintainer]) %}
+            {% elif request.user.has_credential(creds.PKGBASE_DISOWN, approved=[pkgbase.Maintainer]) %}
                 <li>
                     <a href="/pkgbase/{{ pkgbase.Name }}/disown">
                         {{ "Disown Package" | tr }}
