@@ -11,20 +11,21 @@ from aurweb.db import create
 from aurweb.models.ban import Ban, is_banned
 from aurweb.testing.requests import Request
 
-ban = request = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global ban, request
+    return
 
+
+@pytest.fixture
+def ban() -> Ban:
     ts = datetime.utcnow() + timedelta(seconds=30)
     with db.begin():
         ban = create(Ban, IPAddress="127.0.0.1", BanTS=ts)
-    request = Request()
+    yield ban
 
 
-def test_ban():
+def test_ban(ban: Ban):
     assert ban.IPAddress == "127.0.0.1"
     assert bool(ban.BanTS)
 
@@ -45,11 +46,13 @@ def test_invalid_ban():
     db.rollback()
 
 
-def test_banned():
+def test_banned(ban: Ban):
+    request = Request()
     request.client.host = "127.0.0.1"
     assert is_banned(request)
 
 
-def test_not_banned():
+def test_not_banned(ban: Ban):
+    request = Request()
     request.client.host = "192.168.0.1"
     assert not is_banned(request)
