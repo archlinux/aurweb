@@ -8,10 +8,10 @@ import pytest
 
 import aurweb.auth
 import aurweb.config
+import aurweb.models.account_type as at
 
 from aurweb import db
 from aurweb.auth import creds
-from aurweb.models.account_type import AccountType
 from aurweb.models.ban import Ban
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -22,23 +22,30 @@ from aurweb.models.ssh_pub_key import SSHPubKey
 from aurweb.models.user import User
 from aurweb.testing.requests import Request
 
-account_type = user = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global account_type, user
+    return
 
-    account_type = db.query(AccountType,
-                            AccountType.AccountType == "User").first()
 
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          RealName="Test User", Passwd="testPassword",
-                         AccountType=account_type)
+                         AccountTypeID=at.USER_ID)
+    yield user
 
 
-def test_user_login_logout():
+@pytest.fixture
+def package(user: User) -> Package:
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
+        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+    yield pkg
+
+
+def test_user_login_logout(user: User):
     """ Test creating a user and reading its columns. """
     # Assert that make_user created a valid user.
     assert bool(user.ID)
@@ -46,8 +53,6 @@ def test_user_login_logout():
     # Test authentication.
     assert user.valid_password("testPassword")
     assert not user.valid_password("badPassword")
-
-    assert user in account_type.users
 
     # Make a raw request.
     request = Request()
@@ -81,10 +86,6 @@ def test_user_login_logout():
     assert result.valid_password("testPassword")
     assert result.is_authenticated()
 
-    # Ensure we've got the correct account type.
-    assert user.AccountType.ID == account_type.ID
-    assert user.AccountType.AccountType == account_type.AccountType
-
     # Test out user string functions.
     assert repr(user) == f"<User(ID='{user.ID}', " + \
         "AccountType='User', Username='test')>"
@@ -95,13 +96,13 @@ def test_user_login_logout():
     assert not user.is_authenticated()
 
 
-def test_user_login_twice():
+def test_user_login_twice(user: User):
     request = Request()
     assert user.login(request, "testPassword")
     assert user.login(request, "testPassword")
 
 
-def test_user_login_banned():
+def test_user_login_banned(user: User):
     # Add ban for the next 30 seconds.
     banned_timestamp = datetime.utcnow() + timedelta(seconds=30)
     with db.begin():
@@ -112,13 +113,13 @@ def test_user_login_banned():
     assert not user.login(request, "testPassword")
 
 
-def test_user_login_suspended():
+def test_user_login_suspended(user: User):
     with db.begin():
         user.Suspended = True
     assert not user.login(Request(), "testPassword")
 
 
-def test_legacy_user_authentication():
+def test_legacy_user_authentication(user: User):
     with db.begin():
         user.Salt = bcrypt.gensalt().decode()
         user.Passwd = hashlib.md5(
@@ -132,7 +133,7 @@ def test_legacy_user_authentication():
     assert not user.valid_password(None)
 
 
-def test_user_login_with_outdated_sid():
+def test_user_login_with_outdated_sid(user: User):
     # Make a session with a LastUpdateTS 5 seconds ago, causing
     # user.login to update it with a new sid.
     with db.begin():
@@ -143,7 +144,7 @@ def test_user_login_with_outdated_sid():
     assert sid != "stub"
 
 
-def test_user_update_password():
+def test_user_update_password(user: User):
     user.update_password("secondPassword")
     assert not user.valid_password("testPassword")
     assert user.valid_password("secondPassword")
@@ -154,11 +155,11 @@ def test_user_minimum_passwd_length():
     assert User.minimum_passwd_length() == passwd_min_len
 
 
-def test_user_has_credential():
-    assert not user.has_credential(aurweb.auth.creds.ACCOUNT_CHANGE_TYPE)
+def test_user_has_credential(user: User):
+    assert not user.has_credential(creds.ACCOUNT_CHANGE_TYPE)
 
 
-def test_user_ssh_pub_key():
+def test_user_ssh_pub_key(user: User):
     assert user.ssh_pub_key is None
 
     with db.begin():
@@ -169,34 +170,26 @@ def test_user_ssh_pub_key():
     assert user.ssh_pub_key == ssh_pub_key
 
 
-def test_user_credential_types():
+def test_user_credential_types(user: User):
     assert user.AccountTypeID in creds.user_developer_or_trusted_user
     assert user.AccountTypeID not in creds.trusted_user
     assert user.AccountTypeID not in creds.developer
     assert user.AccountTypeID not in creds.trusted_user_or_dev
 
-    trusted_user_type = db.query(AccountType).filter(
-        AccountType.AccountType == "Trusted User"
-    ).first()
     with db.begin():
-        user.AccountType = trusted_user_type
+        user.AccountTypeID = at.TRUSTED_USER_ID
 
     assert user.AccountTypeID in creds.trusted_user
     assert user.AccountTypeID in creds.trusted_user_or_dev
 
-    developer_type = db.query(AccountType,
-                              AccountType.AccountType == "Developer").first()
     with db.begin():
-        user.AccountType = developer_type
+        user.AccountTypeID = at.DEVELOPER_ID
 
     assert user.AccountTypeID in creds.developer
     assert user.AccountTypeID in creds.trusted_user_or_dev
 
-    type_str = "Trusted User & Developer"
-    elevated_type = db.query(AccountType,
-                             AccountType.AccountType == type_str).first()
     with db.begin():
-        user.AccountType = elevated_type
+        user.AccountTypeID = at.TRUSTED_USER_AND_DEV_ID
 
     assert user.AccountTypeID in creds.trusted_user
     assert user.AccountTypeID in creds.developer
@@ -208,7 +201,7 @@ def test_user_credential_types():
     assert user.is_developer()
 
 
-def test_user_json():
+def test_user_json(user: User):
     data = json.loads(user.json())
     assert data.get("ID") == user.ID
     assert data.get("Username") == user.Username
@@ -217,7 +210,7 @@ def test_user_json():
     assert isinstance(data.get("RegistrationTS"), int)
 
 
-def test_user_as_dict():
+def test_user_as_dict(user: User):
     data = user.as_dict()
     assert data.get("ID") == user.ID
     assert data.get("Username") == user.Username
@@ -226,57 +219,42 @@ def test_user_as_dict():
     assert isinstance(data.get("RegistrationTS"), datetime)
 
 
-def test_user_is_trusted_user():
-    tu_type = db.query(AccountType,
-                       AccountType.AccountType == "Trusted User").first()
+def test_user_is_trusted_user(user: User):
     with db.begin():
-        user.AccountType = tu_type
+        user.AccountTypeID = at.TRUSTED_USER_ID
     assert user.is_trusted_user() is True
 
     # Do it again with the combined role.
-    tu_type = db.query(
-        AccountType,
-        AccountType.AccountType == "Trusted User & Developer").first()
     with db.begin():
-        user.AccountType = tu_type
+        user.AccountTypeID = at.TRUSTED_USER_AND_DEV_ID
     assert user.is_trusted_user() is True
 
 
-def test_user_is_developer():
-    dev_type = db.query(AccountType,
-                        AccountType.AccountType == "Developer").first()
+def test_user_is_developer(user: User):
     with db.begin():
-        user.AccountType = dev_type
+        user.AccountTypeID = at.DEVELOPER_ID
     assert user.is_developer() is True
 
     # Do it again with the combined role.
-    dev_type = db.query(
-        AccountType,
-        AccountType.AccountType == "Trusted User & Developer").first()
     with db.begin():
-        user.AccountType = dev_type
+        user.AccountTypeID = at.TRUSTED_USER_AND_DEV_ID
     assert user.is_developer() is True
 
 
-def test_user_voted_for():
+def test_user_voted_for(user: User, package: Package):
+    pkgbase = package.PackageBase
     now = int(datetime.utcnow().timestamp())
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
-        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
         db.create(PackageVote, PackageBase=pkgbase, User=user, VoteTS=now)
-    assert user.voted_for(pkg)
+    assert user.voted_for(package)
 
 
-def test_user_notified():
+def test_user_notified(user: User, package: Package):
+    pkgbase = package.PackageBase
     with db.begin():
-        pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
-        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
         db.create(PackageNotification, PackageBase=pkgbase, User=user)
-    assert user.notified(pkg)
+    assert user.notified(package)
 
 
-def test_user_packages():
-    with db.begin():
-        pkgbase = db.create(PackageBase, Name="pkg1", Maintainer=user)
-        pkg = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
-    assert pkg in user.packages()
+def test_user_packages(user: User, package: Package):
+    assert package in user.packages()
