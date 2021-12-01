@@ -1,6 +1,7 @@
 import time
 import uuid
 
+from http import HTTPStatus
 from urllib.parse import urlencode
 
 import fastapi
@@ -59,7 +60,8 @@ def open_session(request, conn, user_id):
     """
     if is_account_suspended(conn, user_id):
         _ = get_translator_for_request(request)
-        raise HTTPException(status_code=403, detail=_('Account suspended'))
+        raise HTTPException(status_code=HTTPStatus.FORBIDDEN,
+                            detail=_('Account suspended'))
         # TODO This is a terrible message because it could imply the attempt at
         #      logging in just caused the suspension.
 
@@ -104,7 +106,7 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
     if is_ip_banned(conn, request.client.host):
         _ = get_translator_for_request(request)
         raise HTTPException(
-            status_code=403,
+            status_code=HTTPStatus.FORBIDDEN,
             detail=_('The login form is currently disabled for your IP address, '
                      'probably due to sustained spam attacks. Sorry for the '
                      'inconvenience.'))
@@ -117,13 +119,14 @@ async def authenticate(request: Request, redirect: str = None, conn=Depends(aurw
         # Let’s give attackers as little information as possible.
         _ = get_translator_for_request(request)
         raise HTTPException(
-            status_code=400,
+            status_code=HTTPStatus.BAD_REQUEST,
             detail=_('Bad OAuth token. Please retry logging in from the start.'))
 
     sub = user.get("sub")  # this is the SSO account ID in JWT terminology
     if not sub:
         _ = get_translator_for_request(request)
-        raise HTTPException(status_code=400, detail=_("JWT is missing its `sub` field."))
+        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
+                            detail=_("JWT is missing its `sub` field."))
 
     aur_accounts = conn.execute(select([Users.c.ID]).where(Users.c.SSOAccountID == sub)) \
                        .fetchall()

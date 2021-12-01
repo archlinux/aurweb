@@ -221,4 +221,4 @@ async def metrics(request: Request):
 
 @router.get("/raisefivethree", response_class=HTMLResponse)
 async def raise_service_unavailable(request: Request):
-    raise HTTPException(status_code=503)
+    raise HTTPException(status_code=HTTPStatus.SERVICE_UNAVAILABLE)
