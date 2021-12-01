@@ -5,27 +5,27 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
-from aurweb.db import create, query, rollback
-from aurweb.models.account_type import AccountType
+from aurweb.db import create, rollback
+from aurweb.models.account_type import TRUSTED_USER_ID
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
-
-user = None
 
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user
+    return
 
-    tu_type = query(AccountType,
-                    AccountType.AccountType == "Trusted User").first()
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = create(User, Username="test", Email="test@example.org",
                       RealName="Test User", Passwd="testPassword",
-                      AccountType=tu_type)
+                      AccountTypeID=TRUSTED_USER_ID)
+    yield user
 
 
-def test_tu_voteinfo_creation():
+def test_tu_voteinfo_creation(user: User):
     ts = int(datetime.utcnow().timestamp())
     with db.begin():
         tu_voteinfo = create(TUVoteInfo,
@@ -49,7 +49,7 @@ def test_tu_voteinfo_creation():
     assert tu_voteinfo in user.tu_voteinfo_set
 
 
-def test_tu_voteinfo_is_running():
+def test_tu_voteinfo_is_running(user: User):
     ts = int(datetime.utcnow().timestamp())
     with db.begin():
         tu_voteinfo = create(TUVoteInfo,
@@ -65,7 +65,7 @@ def test_tu_voteinfo_is_running():
     assert tu_voteinfo.is_running() is False
 
 
-def test_tu_voteinfo_total_votes():
+def test_tu_voteinfo_total_votes(user: User):
     ts = int(datetime.utcnow().timestamp())
     with db.begin():
         tu_voteinfo = create(TUVoteInfo,
@@ -83,7 +83,7 @@ def test_tu_voteinfo_total_votes():
     assert tu_voteinfo.total_votes() == 9
 
 
-def test_tu_voteinfo_null_submitter_raises_exception():
+def test_tu_voteinfo_null_submitter_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(TUVoteInfo,
@@ -94,7 +94,7 @@ def test_tu_voteinfo_null_submitter_raises_exception():
     rollback()
 
 
-def test_tu_voteinfo_null_agenda_raises_exception():
+def test_tu_voteinfo_null_agenda_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(TUVoteInfo,
@@ -105,7 +105,7 @@ def test_tu_voteinfo_null_agenda_raises_exception():
     rollback()
 
 
-def test_tu_voteinfo_null_user_raises_exception():
+def test_tu_voteinfo_null_user_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(TUVoteInfo,
@@ -116,7 +116,7 @@ def test_tu_voteinfo_null_user_raises_exception():
     rollback()
 
 
-def test_tu_voteinfo_null_submitted_raises_exception():
+def test_tu_voteinfo_null_submitted_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(TUVoteInfo,
@@ -128,7 +128,7 @@ def test_tu_voteinfo_null_submitted_raises_exception():
     rollback()
 
 
-def test_tu_voteinfo_null_end_raises_exception():
+def test_tu_voteinfo_null_end_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(TUVoteInfo,
@@ -140,7 +140,7 @@ def test_tu_voteinfo_null_end_raises_exception():
     rollback()
 
 
-def test_tu_voteinfo_null_quorum_raises_exception():
+def test_tu_voteinfo_null_quorum_raises(user: User):
     with pytest.raises(IntegrityError):
         with db.begin():
             create(TUVoteInfo,
