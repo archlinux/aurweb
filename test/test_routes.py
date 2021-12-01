@@ -14,30 +14,34 @@ from aurweb.models.account_type import USER_ID
 from aurweb.models.user import User
 from aurweb.testing.requests import Request
 
-user = client = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user, client
+    return
 
+
+@pytest.fixture
+def client() -> TestClient:
+    yield TestClient(app=app)
+
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          RealName="Test User", Passwd="testPassword",
                          AccountTypeID=USER_ID)
+    yield user
 
-    client = TestClient(app)
 
-
-def test_index():
+def test_index(client: TestClient):
     """ Test the index route at '/'. """
-    # Use `with` to trigger FastAPI app events.
     with client as req:
         response = req.get("/")
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_index_security_headers():
+def test_index_security_headers(client: TestClient):
     """ Check for the existence of CSP, XCTO, XFO and RP security headers.
 
     CSP: Content-Security-Policy
@@ -55,15 +59,16 @@ def test_index_security_headers():
     assert response.headers.get("X-Frame-Options") == "SAMEORIGIN"
 
 
-def test_favicon():
+def test_favicon(client: TestClient):
     """ Test the favicon route at '/favicon.ico'. """
-    response1 = client.get("/static/images/favicon.ico")
-    response2 = client.get("/favicon.ico")
+    with client as request:
+        response1 = request.get("/static/images/favicon.ico")
+        response2 = request.get("/favicon.ico")
     assert response1.status_code == int(HTTPStatus.OK)
     assert response1.content == response2.content
 
 
-def test_language():
+def test_language(client: TestClient):
     """ Test the language post route as a guest user. """
     post_data = {
         "set_lang": "de",
@@ -74,7 +79,7 @@ def test_language():
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
 
-def test_language_invalid_next():
+def test_language_invalid_next(client: TestClient):
     """ Test an invalid next route at '/language'. """
     post_data = {
         "set_lang": "de",
@@ -85,7 +90,7 @@ def test_language_invalid_next():
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
-def test_user_language():
+def test_user_language(client: TestClient, user: User):
     """ Test the language post route as an authenticated user. """
     post_data = {
         "set_lang": "de",
@@ -102,7 +107,7 @@ def test_user_language():
     assert user.LangPreference == "de"
 
 
-def test_language_query_params():
+def test_language_query_params(client: TestClient):
     """ Test the language post route with query params. """
     next = urllib.parse.quote_plus("/")
     post_data = {
@@ -117,14 +122,15 @@ def test_language_query_params():
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
 
-def test_error_messages():
-    response1 = client.get("/thisroutedoesnotexist")
-    response2 = client.get("/raisefivethree")
+def test_error_messages(client: TestClient):
+    with client as request:
+        response1 = request.get("/thisroutedoesnotexist")
+        response2 = request.get("/raisefivethree")
     assert response1.status_code == int(HTTPStatus.NOT_FOUND)
     assert response2.status_code == int(HTTPStatus.SERVICE_UNAVAILABLE)
 
 
-def test_nonce_csp():
+def test_nonce_csp(client: TestClient):
     with client as request:
         response = request.get("/")
     data = response.headers.get("Content-Security-Policy")
@@ -146,7 +152,7 @@ def test_nonce_csp():
     assert nonce_verified is True
 
 
-def test_id_redirect():
+def test_id_redirect(client: TestClient):
     with client as request:
         response = request.get("/", params={
             "id": "test",  # This param will be rewritten into Location.
