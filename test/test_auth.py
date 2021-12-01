@@ -11,35 +11,40 @@ from aurweb.models.session import Session
 from aurweb.models.user import User
 from aurweb.testing.requests import Request
 
-user = backend = request = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user, backend, request
+    return
 
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.com",
                          RealName="Test User", Passwd="testPassword",
                          AccountTypeID=USER_ID)
+    yield user
 
-    backend = BasicAuthBackend()
-    request = Request()
+
+@pytest.fixture
+def backend() -> BasicAuthBackend:
+    yield BasicAuthBackend()
 
 
 @pytest.mark.asyncio
-async def test_auth_backend_missing_sid():
+async def test_auth_backend_missing_sid(backend: BasicAuthBackend):
     # The request has no AURSID cookie, so authentication fails, and
     # AnonymousUser is returned.
-    _, result = await backend.authenticate(request)
+    _, result = await backend.authenticate(Request())
     assert not result.is_authenticated()
 
 
 @pytest.mark.asyncio
-async def test_auth_backend_invalid_sid():
+async def test_auth_backend_invalid_sid(backend: BasicAuthBackend):
     # Provide a fake AURSID that won't be found in the database.
     # This results in our path going down the invalid sid route,
     # which gives us an AnonymousUser.
+    request = Request()
     request.cookies["AURSID"] = "fake"
     _, result = await backend.authenticate(request)
     assert not result.is_authenticated()
@@ -55,13 +60,15 @@ async def test_auth_backend_invalid_user_id():
 
 
 @pytest.mark.asyncio
-async def test_basic_auth_backend():
+async def test_basic_auth_backend(user: User, backend: BasicAuthBackend):
     # This time, everything matches up. We expect the user to
     # equal the real_user.
     now_ts = datetime.utcnow().timestamp()
     with db.begin():
         db.create(Session, UsersID=user.ID, SessionID="realSession",
                   LastUpdateTS=now_ts + 5)
+
+    request = Request()
     request.cookies["AURSID"] = "realSession"
     _, result = await backend.authenticate(request)
     assert result == user
