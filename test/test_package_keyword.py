@@ -8,26 +8,32 @@ from aurweb.models.package_base import PackageBase
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.user import User
 
-user = pkgbase = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user, pkgbase
+    return
 
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          RealName="Test User", Passwd="testPassword",
                          AccountTypeID=USER_ID)
-        pkgbase = db.create(PackageBase,
-                            Name="beautiful-package",
-                            Maintainer=user)
+    yield user
 
 
-def test_package_keyword():
+@pytest.fixture
+def pkgbase(user: User) -> PackageBase:
     with db.begin():
-        pkg_keyword = db.create(PackageKeyword,
-                                PackageBase=pkgbase,
+        pkgbase = db.create(PackageBase, Name="beautiful-package",
+                            Maintainer=user)
+    yield pkgbase
+
+
+def test_package_keyword(pkgbase: PackageBase):
+    with db.begin():
+        pkg_keyword = db.create(PackageKeyword, PackageBase=pkgbase,
                                 Keyword="test")
     assert pkg_keyword in pkgbase.keywords
     assert pkgbase == pkg_keyword.PackageBase
