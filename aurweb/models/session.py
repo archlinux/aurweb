@@ -18,10 +18,16 @@ class Session(Base):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        user_exists = db.query(
-            db.query(_User).filter(_User.ID == self.UsersID).exists()
-        ).scalar()
-        if not user_exists:
+        # We'll try to either use UsersID or User.ID if we can.
+        # If neither exist, an AttributeError is raised, in which case
+        # we set the uid to 0, which triggers IntegrityError below.
+        try:
+            uid = self.UsersID or self.User.ID
+        except AttributeError:
+            uid = 0
+
+        user_exists = db.query(_User).filter(_User.ID == uid).exists()
+        if not db.query(user_exists).scalar():
             raise IntegrityError(
                 statement=("Foreign key UsersID cannot be null and "
                            "must be a valid user's ID."),
