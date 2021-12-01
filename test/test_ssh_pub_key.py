@@ -16,47 +16,53 @@ lfv98Kr0NUp51zpf55Arxn9j0Rz9xTA7FiODQgCn6iQ0SDtzUNL0IKTCw26xJY5gzMxbfpvzPQGeul\
 x/ioM= kevr@volcano
 """
 
-user = ssh_pub_key = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user, ssh_pub_key
+    return
 
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          RealName="Test User", Passwd="testPassword",
                          AccountTypeID=USER_ID)
+    yield user
 
+
+@pytest.fixture
+def pubkey(user: User) -> SSHPubKey:
     with db.begin():
-        ssh_pub_key = db.create(SSHPubKey, UserID=user.ID,
-                                Fingerprint="testFingerprint",
-                                PubKey="testPubKey")
+        pubkey = db.create(SSHPubKey, User=user,
+                           Fingerprint="testFingerprint",
+                           PubKey="testPubKey")
+    yield pubkey
 
 
-def test_ssh_pub_key():
-    assert ssh_pub_key.UserID == user.ID
-    assert ssh_pub_key.User == user
-    assert ssh_pub_key.Fingerprint == "testFingerprint"
-    assert ssh_pub_key.PubKey == "testPubKey"
+def test_pubkey(user: User, pubkey: SSHPubKey):
+    assert pubkey.UserID == user.ID
+    assert pubkey.User == user
+    assert pubkey.Fingerprint == "testFingerprint"
+    assert pubkey.PubKey == "testPubKey"
 
 
-def test_ssh_pub_key_cs():
+def test_pubkey_cs(user: User):
     """ Test case sensitivity of the database table. """
     with db.begin():
-        ssh_pub_key_cs = db.create(SSHPubKey, UserID=user.ID,
-                                   Fingerprint="TESTFINGERPRINT",
-                                   PubKey="TESTPUBKEY")
+        pubkey_cs = db.create(SSHPubKey, User=user,
+                              Fingerprint="TESTFINGERPRINT",
+                              PubKey="TESTPUBKEY")
 
-    assert ssh_pub_key_cs.Fingerprint == "TESTFINGERPRINT"
-    assert ssh_pub_key_cs.PubKey == "TESTPUBKEY"
-    assert ssh_pub_key.Fingerprint == "testFingerprint"
-    assert ssh_pub_key.PubKey == "testPubKey"
+    assert pubkey_cs.Fingerprint == "TESTFINGERPRINT"
+    assert pubkey_cs.Fingerprint != "testFingerprint"
+    assert pubkey_cs.PubKey == "TESTPUBKEY"
+    assert pubkey_cs.PubKey != "testPubKey"
 
 
-def test_ssh_pub_key_fingerprint():
+def test_pubkey_fingerprint():
     assert get_fingerprint(TEST_SSH_PUBKEY) is not None
 
 
-def test_ssh_pub_key_invalid_fingerprint():
+def test_pubkey_invalid_fingerprint():
     assert get_fingerprint("ssh-rsa fake and invalid") is None
