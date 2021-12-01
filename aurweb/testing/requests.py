@@ -1,3 +1,5 @@
+from typing import Dict
+
 import aurweb.config
 
 
@@ -27,7 +29,13 @@ class URL:
 class Request:
     """ A fake Request object which mimics a FastAPI Request for tests. """
     client = Client()
-    cookies = dict()
-    headers = dict()
     user = User()
     url = URL()
+
+    def __init__(self,
+                 method: str = "GET",
+                 headers: Dict[str, str] = dict(),
+                 cookies: Dict[str, str] = dict()) -> "Request":
+        self.method = method.upper()
+        self.headers = headers
+        self.cookies = cookies
