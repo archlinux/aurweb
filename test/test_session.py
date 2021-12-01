@@ -4,31 +4,37 @@ from unittest import mock
 
 import pytest
 
+from sqlalchemy.exc import IntegrityError
+
 from aurweb import db
-from aurweb.models.account_type import AccountType
+from aurweb.models.account_type import USER_ID
 from aurweb.models.session import Session, generate_unique_sid
 from aurweb.models.user import User
-
-account_type = user = session = None
 
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global account_type, user, session
+    return
 
-    account_type = db.query(AccountType,
-                            AccountType.AccountType == "User").first()
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          ResetKey="testReset", Passwd="testPassword",
-                         AccountType=account_type)
+                         AccountTypeID=USER_ID)
+    yield user
 
+
+@pytest.fixture
+def session(user: User) -> Session:
     with db.begin():
-        session = db.create(Session, UsersID=user.ID, SessionID="testSession",
+        session = db.create(Session, User=user, SessionID="testSession",
                             LastUpdateTS=datetime.utcnow().timestamp())
+    yield session
 
 
-def test_session():
+def test_session(user: User, session: Session):
     assert session.SessionID == "testSession"
     assert session.UsersID == user.ID
 
@@ -38,22 +44,27 @@ def test_session_cs():
     with db.begin():
         user2 = db.create(User, Username="test2", Email="test2@example.org",
                           ResetKey="testReset2", Passwd="testPassword",
-                          AccountType=account_type)
+                          AccountTypeID=USER_ID)
 
     with db.begin():
-        session_cs = db.create(Session, UsersID=user2.ID,
-                               SessionID="TESTSESSION",
+        session_cs = db.create(Session, User=user2, SessionID="TESTSESSION",
                                LastUpdateTS=datetime.utcnow().timestamp())
+
     assert session_cs.SessionID == "TESTSESSION"
-    assert session.SessionID == "testSession"
+    assert session_cs.SessionID != "testSession"
 
 
-def test_session_user_association():
+def test_session_user_association(user: User, session: Session):
     # Make sure that the Session user attribute is correct.
     assert session.User == user
 
 
-def test_generate_unique_sid():
+def test_session_null_user_raises():
+    with pytest.raises(IntegrityError):
+        Session()
+
+
+def test_generate_unique_sid(session: Session):
     # Mock up aurweb.models.session.generate_sid by returning
     # sids[i % 2] from 0 .. n. This will swap between each sid
     # between each call.
