@@ -23,15 +23,11 @@ from aurweb.models.user import User
 from aurweb.testing.html import get_errors
 from aurweb.testing.requests import Request
 
+logger = logging.get_logger(__name__)
+
 # Some test global constants.
 TEST_USERNAME = "test"
 TEST_EMAIL = "test@example.org"
-
-# Global mutables.
-client = TestClient(app)
-user = None
-
-logger = logging.get_logger(__name__)
 
 
 def make_ssh_pubkey():
@@ -50,29 +46,32 @@ def make_ssh_pubkey():
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user
+    return
 
-    account_type = query(AccountType,
-                         AccountType.AccountType == "User").first()
 
+@pytest.fixture
+def client() -> TestClient:
+    yield TestClient(app=app)
+
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = create(User, Username=TEST_USERNAME, Email=TEST_EMAIL,
                       RealName="Test UserZ", Passwd="testPassword",
-                      IRCNick="testZ", AccountType=account_type)
+                      IRCNick="testZ", AccountTypeID=USER_ID)
 
     yield user
 
 
 @pytest.fixture
-def tu_user():
+def tu_user(user: User):
     with db.begin():
-        user.AccountType = query(AccountType).filter(
-            AccountType.ID == TRUSTED_USER_AND_DEV_ID
-        ).first()
+        user.AccountTypeID = TRUSTED_USER_AND_DEV_ID
     yield user
 
 
-def test_get_passreset_authed_redirects():
+def test_get_passreset_authed_redirects(client: TestClient, user: User):
     sid = user.login(Request(), "testPassword")
     assert sid is not None
 
@@ -84,39 +83,39 @@ def test_get_passreset_authed_redirects():
     assert response.headers.get("location") == "/"
 
 
-def test_get_passreset():
+def test_get_passreset(client: TestClient):
     with client as request:
         response = request.get("/passreset")
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_get_passreset_translation():
+def test_get_passreset_translation(client: TestClient):
     # Test that translation works; set it to de.
     with client as request:
         response = request.get("/passreset", cookies={"AURLANG": "de"})
 
     # The header title should be translated.
-    assert "Passwort zurücksetzen".encode("utf-8") in response.content
+    assert "Passwort zurücksetzen" in response.text
 
     # The form input label should be translated.
-    assert "Benutzername oder primäre E-Mail-Adresse eingeben:".encode(
-        "utf-8") in response.content
+    expected = "Benutzername oder primäre E-Mail-Adresse eingeben:"
+    assert expected in response.text
 
     # And the button.
-    assert "Weiter".encode("utf-8") in response.content
+    assert "Weiter" in response.text
 
     # Restore english.
     with client as request:
         response = request.get("/passreset", cookies={"AURLANG": "en"})
 
 
-def test_get_passreset_with_resetkey():
+def test_get_passreset_with_resetkey(client: TestClient):
     with client as request:
         response = request.get("/passreset", data={"resetkey": "abcd"})
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_post_passreset_authed_redirects():
+def test_post_passreset_authed_redirects(client: TestClient, user: User):
     sid = user.login(Request(), "testPassword")
     assert sid is not None
 
@@ -130,7 +129,7 @@ def test_post_passreset_authed_redirects():
     assert response.headers.get("location") == "/"
 
 
-def test_post_passreset_user():
+def test_post_passreset_user(client: TestClient, user: User):
     # With username.
     with client as request:
         response = request.post("/passreset", data={"user": TEST_USERNAME})
@@ -144,7 +143,7 @@ def test_post_passreset_user():
     assert response.headers.get("location") == "/passreset?step=confirm"
 
 
-def test_post_passreset_resetkey():
+def test_post_passreset_resetkey(client: TestClient, user: User):
     with db.begin():
         user.session = Session(UsersID=user.ID, SessionID="blah",
                                LastUpdateTS=datetime.utcnow().timestamp())
@@ -171,28 +170,7 @@ def test_post_passreset_resetkey():
     assert response.headers.get("location") == "/passreset?step=complete"
 
 
-def test_post_passreset_error_invalid_email():
-    # First, test with a user that doesn't even exist.
-    with client as request:
-        response = request.post("/passreset", data={"user": "invalid"})
-    assert response.status_code == int(HTTPStatus.NOT_FOUND)
-
-    error = "Invalid e-mail."
-    assert error in response.content.decode("utf-8")
-
-    # Then, test with an invalid resetkey for a real user.
-    _ = make_resetkey()
-    post_data = make_passreset_data("fake")
-    post_data["password"] = "abcd1234"
-    post_data["confirm"] = "abcd1234"
-
-    with client as request:
-        response = request.post("/passreset", data=post_data)
-    assert response.status_code == int(HTTPStatus.NOT_FOUND)
-    assert error in response.content.decode("utf-8")
-
-
-def make_resetkey():
+def make_resetkey(client: TestClient, user: User):
     with client as request:
         response = request.post("/passreset", data={"user": TEST_USERNAME})
         assert response.status_code == int(HTTPStatus.SEE_OTHER)
@@ -200,18 +178,37 @@ def make_resetkey():
     return user.ResetKey
 
 
-def make_passreset_data(resetkey):
+def make_passreset_data(user: User, resetkey: str):
     return {
         "user": user.Username,
         "resetkey": resetkey
     }
 
 
-def test_post_passreset_error_missing_field():
+def test_post_passreset_error_invalid_email(client: TestClient, user: User):
+    # First, test with a user that doesn't even exist.
+    with client as request:
+        response = request.post("/passreset", data={"user": "invalid"})
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+    assert "Invalid e-mail." in response.text
+
+    # Then, test with an invalid resetkey for a real user.
+    _ = make_resetkey(client, user)
+    post_data = make_passreset_data(user, "fake")
+    post_data["password"] = "abcd1234"
+    post_data["confirm"] = "abcd1234"
+
+    with client as request:
+        response = request.post("/passreset", data=post_data)
+    assert response.status_code == int(HTTPStatus.NOT_FOUND)
+    assert "Invalid e-mail." in response.text
+
+
+def test_post_passreset_error_missing_field(client: TestClient, user: User):
     # Now that we've prepared the password reset, prepare a POST
     # request with the user's ResetKey.
-    resetkey = make_resetkey()
-    post_data = make_passreset_data(resetkey)
+    resetkey = make_resetkey(client, user)
+    post_data = make_passreset_data(user, resetkey)
 
     with client as request:
         response = request.post("/passreset", data=post_data)
@@ -222,9 +219,10 @@ def test_post_passreset_error_missing_field():
     assert error in response.content.decode("utf-8")
 
 
-def test_post_passreset_error_password_mismatch():
-    resetkey = make_resetkey()
-    post_data = make_passreset_data(resetkey)
+def test_post_passreset_error_password_mismatch(client: TestClient,
+                                                user: User):
+    resetkey = make_resetkey(client, user)
+    post_data = make_passreset_data(user, resetkey)
 
     post_data["password"] = "abcd1234"
     post_data["confirm"] = "mismatched"
@@ -238,9 +236,10 @@ def test_post_passreset_error_password_mismatch():
     assert error in response.content.decode("utf-8")
 
 
-def test_post_passreset_error_password_requirements():
-    resetkey = make_resetkey()
-    post_data = make_passreset_data(resetkey)
+def test_post_passreset_error_password_requirements(client: TestClient,
+                                                    user: User):
+    resetkey = make_resetkey(client, user)
+    post_data = make_passreset_data(user, resetkey)
 
     passwd_min_len = User.minimum_passwd_length()
     assert passwd_min_len >= 4
@@ -257,7 +256,7 @@ def test_post_passreset_error_password_requirements():
     assert error in response.content.decode("utf-8")
 
 
-def test_get_register():
+def test_get_register(client: TestClient):
     with client as request:
         response = request.get("/register")
     assert response.status_code == int(HTTPStatus.OK)
@@ -288,7 +287,7 @@ def post_register(request, **kwargs):
     return request.post("/register", data=data, allow_redirects=False)
 
 
-def test_post_register():
+def test_post_register(client: TestClient):
     with client as request:
         response = post_register(request)
     assert response.status_code == int(HTTPStatus.OK)
@@ -298,7 +297,7 @@ def test_post_register():
     assert expected in response.content.decode()
 
 
-def test_post_register_rejects_case_insensitive_spoof():
+def test_post_register_rejects_case_insensitive_spoof(client: TestClient):
     with client as request:
         response = post_register(request, U="newUser", E="newUser@example.org")
     assert response.status_code == int(HTTPStatus.OK)
@@ -319,7 +318,7 @@ def test_post_register_rejects_case_insensitive_spoof():
     assert expected in response.content.decode()
 
 
-def test_post_register_error_expired_captcha():
+def test_post_register_error_expired_captcha(client: TestClient):
     with client as request:
         response = post_register(request, captcha_salt="invalid-salt")
 
@@ -329,7 +328,7 @@ def test_post_register_error_expired_captcha():
     assert "This CAPTCHA has expired. Please try again." in content
 
 
-def test_post_register_error_missing_captcha():
+def test_post_register_error_missing_captcha(client: TestClient):
     with client as request:
         response = post_register(request, captcha=None)
 
@@ -339,7 +338,7 @@ def test_post_register_error_missing_captcha():
     assert "The CAPTCHA is missing." in content
 
 
-def test_post_register_error_invalid_captcha():
+def test_post_register_error_invalid_captcha(client: TestClient):
     with client as request:
         response = post_register(request, captcha="invalid blah blah")
 
@@ -349,7 +348,7 @@ def test_post_register_error_invalid_captcha():
     assert "The entered CAPTCHA answer is invalid." in content
 
 
-def test_post_register_error_ip_banned():
+def test_post_register_error_ip_banned(client: TestClient):
     # 'testclient' is used as request.client.host via FastAPI TestClient.
     with db.begin():
         create(Ban, IPAddress="testclient", BanTS=datetime.utcnow())
@@ -365,7 +364,7 @@ def test_post_register_error_ip_banned():
             "inconvenience.") in content
 
 
-def test_post_register_error_missing_username():
+def test_post_register_error_missing_username(client: TestClient):
     with client as request:
         response = post_register(request, U="")
 
@@ -375,7 +374,7 @@ def test_post_register_error_missing_username():
     assert "Missing a required field." in content
 
 
-def test_post_register_error_missing_email():
+def test_post_register_error_missing_email(client: TestClient):
     with client as request:
         response = post_register(request, E="")
 
@@ -385,7 +384,7 @@ def test_post_register_error_missing_email():
     assert "Missing a required field." in content
 
 
-def test_post_register_error_invalid_username():
+def test_post_register_error_invalid_username(client: TestClient):
     with client as request:
         # Our test config requires at least three characters for a
         # valid username, so test against two characters: 'ba'.
@@ -397,7 +396,7 @@ def test_post_register_error_invalid_username():
     assert "The username is invalid." in content
 
 
-def test_post_register_invalid_password():
+def test_post_register_invalid_password(client: TestClient):
     with client as request:
         response = post_register(request, P="abc", C="abc")
 
@@ -408,7 +407,7 @@ def test_post_register_invalid_password():
     assert re.search(expected, content)
 
 
-def test_post_register_error_missing_confirm():
+def test_post_register_error_missing_confirm(client: TestClient):
     with client as request:
         response = post_register(request, C=None)
 
@@ -418,7 +417,7 @@ def test_post_register_error_missing_confirm():
     assert "Please confirm your new password." in content
 
 
-def test_post_register_error_mismatched_confirm():
+def test_post_register_error_mismatched_confirm(client: TestClient):
     with client as request:
         response = post_register(request, C="mismatched")
 
@@ -428,7 +427,7 @@ def test_post_register_error_mismatched_confirm():
     assert "Password fields do not match." in content
 
 
-def test_post_register_error_invalid_email():
+def test_post_register_error_invalid_email(client: TestClient):
     with client as request:
         response = post_register(request, E="bad@email")
 
@@ -438,7 +437,7 @@ def test_post_register_error_invalid_email():
     assert "The email address is invalid." in content
 
 
-def test_post_register_error_undeliverable_email():
+def test_post_register_error_undeliverable_email(client: TestClient):
     with client as request:
         # At the time of writing, webchat.freenode.net does not contain
         # mx records; if it ever does, it'll break this test.
@@ -450,7 +449,7 @@ def test_post_register_error_undeliverable_email():
     assert "The email address is invalid." in content
 
 
-def test_post_register_invalid_backup_email():
+def test_post_register_invalid_backup_email(client: TestClient):
     with client as request:
         response = post_register(request, BE="bad@email")
 
@@ -460,7 +459,7 @@ def test_post_register_invalid_backup_email():
     assert "The backup email address is invalid." in content
 
 
-def test_post_register_error_invalid_homepage():
+def test_post_register_error_invalid_homepage(client: TestClient):
     with client as request:
         response = post_register(request, HP="bad")
 
@@ -471,7 +470,7 @@ def test_post_register_error_invalid_homepage():
     assert expected in content
 
 
-def test_post_register_error_invalid_pgp_fingerprints():
+def test_post_register_error_invalid_pgp_fingerprints(client: TestClient):
     with client as request:
         response = post_register(request, K="bad")
 
@@ -492,7 +491,7 @@ def test_post_register_error_invalid_pgp_fingerprints():
     assert expected in content
 
 
-def test_post_register_error_invalid_ssh_pubkeys():
+def test_post_register_error_invalid_ssh_pubkeys(client: TestClient):
     with client as request:
         response = post_register(request, PK="bad")
 
@@ -510,7 +509,7 @@ def test_post_register_error_invalid_ssh_pubkeys():
     assert "The SSH public key is invalid." in content
 
 
-def test_post_register_error_unsupported_language():
+def test_post_register_error_unsupported_language(client: TestClient):
     with client as request:
         response = post_register(request, L="bad")
 
@@ -521,7 +520,7 @@ def test_post_register_error_unsupported_language():
     assert expected in content
 
 
-def test_post_register_error_unsupported_timezone():
+def test_post_register_error_unsupported_timezone(client: TestClient):
     with client as request:
         response = post_register(request, TZ="ABCDEFGH")
 
@@ -532,7 +531,7 @@ def test_post_register_error_unsupported_timezone():
     assert expected in content
 
 
-def test_post_register_error_username_taken():
+def test_post_register_error_username_taken(client: TestClient, user: User):
     with client as request:
         response = post_register(request, U="test")
 
@@ -543,7 +542,7 @@ def test_post_register_error_username_taken():
     assert re.search(expected, content)
 
 
-def test_post_register_error_email_taken():
+def test_post_register_error_email_taken(client: TestClient, user: User):
     with client as request:
         response = post_register(request, E="test@example.org")
 
@@ -554,7 +553,7 @@ def test_post_register_error_email_taken():
     assert re.search(expected, content)
 
 
-def test_post_register_error_ssh_pubkey_taken():
+def test_post_register_error_ssh_pubkey_taken(client: TestClient, user: User):
     pk = str()
 
     # Create a public key with ssh-keygen (this adds ssh-keygen as a
@@ -584,7 +583,7 @@ def test_post_register_error_ssh_pubkey_taken():
     assert re.search(expected, content)
 
 
-def test_post_register_with_ssh_pubkey():
+def test_post_register_with_ssh_pubkey(client: TestClient):
     pk = str()
 
     # Create a public key with ssh-keygen (this adds ssh-keygen as a
@@ -605,7 +604,7 @@ def test_post_register_with_ssh_pubkey():
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_get_account_edit():
+def test_get_account_edit(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -617,7 +616,7 @@ def test_get_account_edit():
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_get_account_edit_unauthorized():
+def test_get_account_edit_unauthorized(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -633,7 +632,7 @@ def test_get_account_edit_unauthorized():
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
-def test_post_account_edit():
+def test_post_account_edit(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -655,7 +654,7 @@ def test_post_account_edit():
     assert expected in response.content.decode()
 
 
-def test_post_account_edit_dev():
+def test_post_account_edit_dev(client: TestClient, user: User):
     # Modify our user to be a "Trusted User & Developer"
     name = "Trusted User & Developer"
     tu_or_dev = query(AccountType, AccountType.AccountType == name).first()
@@ -683,7 +682,7 @@ def test_post_account_edit_dev():
     assert expected in response.content.decode()
 
 
-def test_post_account_edit_language():
+def test_post_account_edit_language(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -710,7 +709,7 @@ def test_post_account_edit_language():
     assert lang_nodes[0] == "selected"
 
 
-def test_post_account_edit_timezone():
+def test_post_account_edit_timezone(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -729,7 +728,8 @@ def test_post_account_edit_timezone():
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_post_account_edit_error_missing_password():
+def test_post_account_edit_error_missing_password(client: TestClient,
+                                                  user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -751,7 +751,8 @@ def test_post_account_edit_error_missing_password():
     assert "Invalid password." in content
 
 
-def test_post_account_edit_error_invalid_password():
+def test_post_account_edit_error_invalid_password(client: TestClient,
+                                                  user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -773,7 +774,8 @@ def test_post_account_edit_error_invalid_password():
     assert "Invalid password." in content
 
 
-def test_post_account_edit_inactivity_unauthorized():
+def test_post_account_edit_inactivity_unauthorized(client: TestClient,
+                                                   user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     post_data = {
         "U": "test",
@@ -791,7 +793,7 @@ def test_post_account_edit_inactivity_unauthorized():
     assert errors[0].text.strip() == expected
 
 
-def test_post_account_edit_inactivity():
+def test_post_account_edit_inactivity(client: TestClient, user: User):
     with db.begin():
         user.AccountTypeID = TRUSTED_USER_ID
     assert not user.Suspended
@@ -822,7 +824,7 @@ def test_post_account_edit_inactivity():
     assert user.InactivityTS == 0
 
 
-def test_post_account_edit_error_unauthorized():
+def test_post_account_edit_error_unauthorized(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -845,7 +847,7 @@ def test_post_account_edit_error_unauthorized():
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
 
 
-def test_post_account_edit_ssh_pub_key():
+def test_post_account_edit_ssh_pub_key(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -874,7 +876,7 @@ def test_post_account_edit_ssh_pub_key():
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_post_account_edit_missing_ssh_pubkey():
+def test_post_account_edit_missing_ssh_pubkey(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -907,7 +909,7 @@ def test_post_account_edit_missing_ssh_pubkey():
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_post_account_edit_invalid_ssh_pubkey():
+def test_post_account_edit_invalid_ssh_pubkey(client: TestClient, user: User):
     pubkey = "ssh-rsa fake key"
 
     request = Request()
@@ -930,7 +932,7 @@ def test_post_account_edit_invalid_ssh_pubkey():
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
 
 
-def test_post_account_edit_password():
+def test_post_account_edit_password(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -952,7 +954,7 @@ def test_post_account_edit_password():
     assert user.valid_password("newPassword")
 
 
-def test_post_account_edit_account_types():
+def test_post_account_edit_account_types(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
     cookies = {"AURSID": sid}
@@ -1066,7 +1068,7 @@ def test_post_account_edit_account_types():
     assert user.AccountTypeID == DEVELOPER_ID
 
 
-def test_get_account():
+def test_get_account(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -1077,7 +1079,7 @@ def test_get_account():
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_get_account_not_found():
+def test_get_account_not_found(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -1088,7 +1090,7 @@ def test_get_account_not_found():
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_get_account_unauthenticated():
+def test_get_account_unauthenticated(client: TestClient, user: User):
     with client as request:
         response = request.get("/account/test", allow_redirects=False)
     assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
@@ -1097,7 +1099,7 @@ def test_get_account_unauthenticated():
     assert "You must log in to view user information." in content
 
 
-def test_get_accounts(tu_user):
+def test_get_accounts(client: TestClient, user: User, tu_user: User):
     """ Test that we can GET request /accounts and receive
     a form which can be used to POST /accounts. """
     sid = user.login(Request(), "testPassword")
@@ -1156,7 +1158,7 @@ def get_rows(html):
     return root.xpath('//table[contains(@class, "users")]/tbody/tr')
 
 
-def test_post_accounts(tu_user):
+def test_post_accounts(client: TestClient, user: User, tu_user: User):
     # Set a PGPKey.
     with db.begin():
         user.PGPKey = "5F18B20346188419750745D7335F2CB41F253D30"
@@ -1211,7 +1213,7 @@ def test_post_accounts(tu_user):
                      % (_user.ID, _user.Username))
 
 
-def test_post_accounts_username(tu_user):
+def test_post_accounts_username(client: TestClient, user: User, tu_user: User):
     # Test the U parameter path.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1231,7 +1233,8 @@ def test_post_accounts_username(tu_user):
     assert username.text.strip() == user.Username
 
 
-def test_post_accounts_account_type(tu_user):
+def test_post_accounts_account_type(client: TestClient, user: User,
+                                    tu_user: User):
     # Check the different account type options.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1324,7 +1327,7 @@ def test_post_accounts_account_type(tu_user):
     assert type.text.strip() == "Trusted User & Developer"
 
 
-def test_post_accounts_status(tu_user):
+def test_post_accounts_status(client: TestClient, user: User, tu_user: User):
     # Test the functionality of Suspended.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1356,7 +1359,7 @@ def test_post_accounts_status(tu_user):
     assert status.text.strip() == "Suspended"
 
 
-def test_post_accounts_email(tu_user):
+def test_post_accounts_email(client: TestClient, user: User, tu_user: User):
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
 
@@ -1370,7 +1373,7 @@ def test_post_accounts_email(tu_user):
     assert len(rows) == 1
 
 
-def test_post_accounts_realname(tu_user):
+def test_post_accounts_realname(client: TestClient, user: User, tu_user: User):
     # Test the R parameter path.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1384,7 +1387,7 @@ def test_post_accounts_realname(tu_user):
     assert len(rows) == 1
 
 
-def test_post_accounts_irc(tu_user):
+def test_post_accounts_irc(client: TestClient, user: User, tu_user: User):
     # Test the I parameter path.
     sid = user.login(Request(), "testPassword")
     cookies = {"AURSID": sid}
@@ -1398,7 +1401,7 @@ def test_post_accounts_irc(tu_user):
     assert len(rows) == 1
 
 
-def test_post_accounts_sortby(tu_user):
+def test_post_accounts_sortby(client: TestClient, user: User, tu_user: User):
     # Create a second user so we can compare sorts.
     account_type = query(AccountType,
                          AccountType.ID == DEVELOPER_ID).first()
@@ -1481,7 +1484,7 @@ def test_post_accounts_sortby(tu_user):
     assert compare_text_values(1, first_rows, reversed(rows))
 
 
-def test_post_accounts_pgp_key(tu_user):
+def test_post_accounts_pgp_key(client: TestClient, user: User, tu_user: User):
     with db.begin():
         user.PGPKey = "5F18B20346188419750745D7335F2CB41F253D30"
 
@@ -1498,7 +1501,7 @@ def test_post_accounts_pgp_key(tu_user):
     assert len(rows) == 1
 
 
-def test_post_accounts_paged(tu_user):
+def test_post_accounts_paged(client: TestClient, user: User, tu_user: User):
     # Create 150 users.
     users = [user]
     account_type = query(AccountType,
@@ -1572,7 +1575,7 @@ def test_post_accounts_paged(tu_user):
     assert page_next.attrib["disabled"] == "disabled"
 
 
-def test_get_terms_of_service():
+def test_get_terms_of_service(client: TestClient, user: User):
     with db.begin():
         term = create(Term, Description="Test term.",
                       URL="http://localhost", Revision=1)
@@ -1624,7 +1627,7 @@ def test_get_terms_of_service():
     assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
 
-def test_post_terms_of_service():
+def test_post_terms_of_service(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
@@ -1682,7 +1685,7 @@ def test_post_terms_of_service():
     assert response.headers.get("location") == "/"
 
 
-def test_account_comments_not_found():
+def test_account_comments_not_found(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         resp = request.get("/account/non-existent/comments", cookies=cookies)
