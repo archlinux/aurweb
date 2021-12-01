@@ -10,28 +10,32 @@ from aurweb.models.package_relation import PackageRelation
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 from aurweb.models.user import User
 
-user = pkgbase = package = None
-
 
 @pytest.fixture(autouse=True)
 def setup(db_test):
-    global user, pkgbase, package
+    return
 
+
+@pytest.fixture
+def user() -> User:
     with db.begin():
         user = db.create(User, Username="test", Email="test@example.org",
                          RealName="Test User", Passwd="testPassword",
                          AccountTypeID=USER_ID)
-        pkgbase = db.create(PackageBase,
-                            Name="test-package",
-                            Maintainer=user)
-        package = db.create(Package,
-                            PackageBase=pkgbase,
-                            Name=pkgbase.Name,
+    yield user
+
+
+@pytest.fixture
+def package(user: User) -> Package:
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="test-package", Maintainer=user)
+        package = db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name,
                             Description="Test description.",
                             URL="https://test.package")
+    yield package
 
 
-def test_package_relation():
+def test_package_relation(package: Package):
     with db.begin():
         pkgrel = db.create(PackageRelation, Package=package,
                            RelTypeID=CONFLICTS_ID,
@@ -48,16 +52,16 @@ def test_package_relation():
         pkgrel.RelTypeID = REPLACES_ID
 
 
-def test_package_relation_null_package_raises_exception():
+def test_package_relation_null_package_raises():
     with pytest.raises(IntegrityError):
         PackageRelation(RelTypeID=CONFLICTS_ID, RelName="test-relation")
 
 
-def test_package_relation_null_relation_type_raises_exception():
+def test_package_relation_null_relation_type_raises(package: Package):
     with pytest.raises(IntegrityError):
         PackageRelation(Package=package, RelName="test-relation")
 
 
-def test_package_relation_null_relname_raises_exception():
+def test_package_relation_null_relname_raises(package: Package):
     with pytest.raises(IntegrityError):
         PackageRelation(Package=package, RelTypeID=CONFLICTS_ID)
