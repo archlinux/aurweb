@@ -117,13 +117,12 @@ To run `sharness` shell test suites (requires Arch Linux):
 
 To run `pytest` Python test suites:
 
-    $ make -C test pytest
+    $ pytest
 
 **Note:** For SQLite tests, users may want to use `eatmydata`
 to improve speed:
 
     $ eatmydata -- make -C test sh
-    $ eatmydata -- make -C test pytest
 
 To produce coverage reports related to Python when running tests manually,
 use the following method:
@@ -147,11 +146,9 @@ Almost all of our `pytest` suites use the database in some way. There
 are a few particular testing utilities in `aurweb` that one should
 keep aware of to aid testing code:
 
-- `aurweb.testing.setup_init_db(*tables)`
-    - Prepares test database tables to be cleared before a test
-      is run. Be careful not to specify any tables we depend on
-      for constant records, like `AccountTypes`, `DependencyTypes`,
-      `RelationTypes` and `RequestTypes`.
+- `db_test` pytest fixture
+    - Prepares test databases for the module and cleans out database
+      tables for each test function requiring this fixture.
 - `aurweb.testing.requests.Request`
     - A fake stripped down version of `fastapi.Request` that can
       be passed to any functions in our codebase which use
@@ -168,14 +165,16 @@ Example code:
 
 
     @pytest.fixture(autouse=True)
-    def setup():
-        setup_test_db(User.__tablename__)
+    def setup(db_test):
+        return
 
     @pytest.fixture
     def user():
-        yield db.create(User, Passwd="testPassword", ...)
+        with db.begin():
+            user = db.create(User, Passwd="testPassword", ...)
+        yield user
 
-    def test_user_login(user):
+    def test_user_login(user: User):
         assert isinstance(user, User) is True
 
         fake_request = Request()
