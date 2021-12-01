@@ -2,6 +2,7 @@ import tempfile
 
 from unittest import mock
 
+import py
 import pytest
 
 from aurweb import config, db
@@ -17,12 +18,12 @@ def tempdir() -> str:
 
 
 @pytest.fixture
-def alpm_db(tempdir: str) -> AlpmDatabase:
+def alpm_db(tempdir: py.path.local) -> AlpmDatabase:
     yield AlpmDatabase(tempdir)
 
 
 @pytest.fixture(autouse=True)
-def setup(db_test, alpm_db: AlpmDatabase, tempdir: str) -> None:
+def setup(db_test, alpm_db: AlpmDatabase, tempdir: py.path.local) -> None:
     config_get = config.get
 
     def mock_config_get(section: str, key: str) -> str:
