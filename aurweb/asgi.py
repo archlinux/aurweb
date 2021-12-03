@@ -6,8 +6,8 @@ import typing
 
 from urllib.parse import quote_plus
 
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from prometheus_client import multiprocess
 from sqlalchemy import and_, or_
@@ -21,10 +21,11 @@ from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
 from aurweb.models import AcceptedTerm, Term
 from aurweb.prometheus import http_api_requests_total, http_requests_total, instrumentator
-from aurweb.routers import accounts, auth, errors, html, packages, rpc, rss, sso, trusted_user
+from aurweb.routers import accounts, auth, html, packages, rpc, rss, sso, trusted_user
+from aurweb.templates import make_context, render_template
 
 # Setup the FastAPI app.
-app = FastAPI(exception_handlers=errors.exceptions)
+app = FastAPI()
 
 # Instrument routes with the prometheus-fastapi-instrumentator
 # library with custom collectors and expose /metrics.
@@ -93,14 +94,15 @@ def child_exit(server, worker):  # pragma: no cover
 
 
 @app.exception_handler(HTTPException)
-async def http_exception_handler(request, exc):
-    """
-    Dirty HTML error page to replace the default JSON error responses.
-    In the future this should use a proper Arch-themed HTML template.
-    """
+async def http_exception_handler(request: Request, exc: HTTPException) \
+        -> Response:
+    """ Handle an HTTPException thrown in a route. """
     phrase = http.HTTPStatus(exc.status_code).phrase
-    return HTMLResponse(f"<h1>{exc.status_code} {phrase}</h1><p>{exc.detail}</p>",
-                        status_code=exc.status_code)
+    context = make_context(request, phrase)
+    context["exc"] = exc
+    context["phrase"] = phrase
+    return render_template(request, "errors/detail.html", context,
+                           exc.status_code)
 
 
 @app.middleware("http")
