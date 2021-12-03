@@ -283,3 +283,48 @@ def test_login_bad_referer(client: TestClient):
         response = request.post("/login", data=post_data, headers=BAD_REFERER)
     assert response.status_code == int(HTTPStatus.BAD_REQUEST)
     assert "AURSID" not in response.cookies
+
+
+def test_generate_unique_sid_exhausted(client: TestClient, user: User):
+    """
+    In this test, we mock up generate_unique_sid() to infinitely return
+    the same SessionID given to `user`. Within that mocking, we try
+    to login as `user2` and expect the internal server error rendering
+    by our error handler.
+
+    This exercises the bad path of /login, where we can't find a unique
+    SID to assign the user.
+    """
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        # Create a second user; we'll login with this one.
+        user2 = db.create(User, Username="test2", Email="test2@example.org",
+                          ResetKey="testReset", Passwd="testPassword",
+                          AccountTypeID=USER_ID)
+
+        # Create a session with ID == "testSession" for `user`.
+        db.create(Session, User=user, SessionID="testSession",
+                  LastUpdateTS=now)
+
+    # Mock out generate_unique_sid; always return "testSession" which
+    # causes us to eventually error out and raise an internal error.
+    def mock_generate_sid():
+        return "testSession"
+
+    # Login as `user2`; we expect an internal server error response
+    # with a relevent detail.
+    post_data = {
+        "user": user2.Username,
+        "passwd": "testPassword",
+        "next": "/",
+    }
+    generate_unique_sid_ = "aurweb.models.session.generate_unique_sid"
+    with mock.patch(generate_unique_sid_, mock_generate_sid):
+        with client as request:
+            # Set cookies = {} to remove any previous login kept by TestClient.
+            response = request.post("/login", data=post_data, cookies={})
+    assert response.status_code == int(HTTPStatus.INTERNAL_SERVER_ERROR)
+
+    expected = "Unable to generate a unique session ID"
+    assert expected in response.text
+    assert "500 - Internal Server Error" in response.text

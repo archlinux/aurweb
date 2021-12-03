@@ -62,7 +62,6 @@ def test_user_login_logout(user: User):
     sid = user.login(request, "testPassword")
     assert sid is not None
     assert user.is_authenticated()
-    assert "AURSID" in request.cookies
 
     # Expect that User session relationships work right.
     user_session = db.query(Session,
@@ -92,7 +91,6 @@ def test_user_login_logout(user: User):
 
     # Test logout.
     user.logout(request)
-    assert "AURSID" not in request.cookies
     assert not user.is_authenticated()
 
 
