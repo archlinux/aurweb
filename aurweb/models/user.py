@@ -15,10 +15,12 @@ import aurweb.config
 import aurweb.models.account_type
 import aurweb.schema
 
-from aurweb import db, schema
+from aurweb import db, logging, schema
 from aurweb.models.account_type import AccountType as _AccountType
 from aurweb.models.ban import is_banned
 from aurweb.models.declarative import Base
+
+logger = logging.get_logger(__name__)
 
 SALT_ROUNDS_DEFAULT = 12
 
@@ -146,6 +148,7 @@ class User(Base):
         if exc:
             detail = ("Unable to generate a unique session ID in "
                       f"{tries} iterations.")
+            logger.error(str(exc))
             raise HTTPException(status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                                 detail=detail)
 

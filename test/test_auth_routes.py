@@ -285,7 +285,8 @@ def test_login_bad_referer(client: TestClient):
     assert "AURSID" not in response.cookies
 
 
-def test_generate_unique_sid_exhausted(client: TestClient, user: User):
+def test_generate_unique_sid_exhausted(client: TestClient, user: User,
+                                       caplog: pytest.LogCaptureFixture):
     """
     In this test, we mock up generate_unique_sid() to infinitely return
     the same SessionID given to `user`. Within that mocking, we try
@@ -328,3 +329,6 @@ def test_generate_unique_sid_exhausted(client: TestClient, user: User):
     expected = "Unable to generate a unique session ID"
     assert expected in response.text
     assert "500 - Internal Server Error" in response.text
+
+    # Make sure an IntegrityError from the DB got logged out.
+    assert "IntegrityError" in caplog.text
