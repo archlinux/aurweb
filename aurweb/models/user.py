@@ -15,7 +15,7 @@ import aurweb.config
 import aurweb.models.account_type
 import aurweb.schema
 
-from aurweb import db, logging, schema
+from aurweb import db, logging, schema, util
 from aurweb.models.account_type import AccountType as _AccountType
 from aurweb.models.ban import is_banned
 from aurweb.models.declarative import Base
@@ -249,5 +249,5 @@ class User(Base):
             self.ID, str(self.AccountType), self.Username)
 
 
-def generate_unique_resetkey():
-    return db.make_random_value(User, User.ResetKey, 32)
+def generate_resetkey():
+    return util.make_random_string(32)
