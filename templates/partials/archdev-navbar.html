@@ -54,17 +54,10 @@
             </li>
         {% else %}
             {# All guest users see Register #}
-            <li>
-                <a href="/register">
-                    {% trans %}Register{% endtrans %}
-                </a>
-            </li>
+            <li><a href="/register">{% trans %}Register{% endtrans %}</a></li>
+
             {# All guest users see Login #}
-            <li>
-                <a href="/login?next={{ next }}">
-                    {% trans %}Login{% endtrans %}
-                </a>
-            </li>
+            <li><a href="/login?next={{ next }}">{% trans %}Login{% endtrans %}</a></li>
         {% endif %}
     </ul>
 </div>
