@@ -1,7 +1,6 @@
 import base64
 import copy
 import math
-import random
 import re
 import secrets
 import string
@@ -25,9 +24,9 @@ from aurweb import defaults, logging
 logger = logging.get_logger(__name__)
 
 
-def make_random_string(length):
-    return ''.join(random.choices(string.ascii_lowercase
-                                  + string.digits, k=length))
+def make_random_string(length: int) -> str:
+    alphanumerics = string.ascii_lowercase + string.digits
+    return ''.join([secrets.choice(alphanumerics) for i in range(length)])
 
 
 def make_nonce(length: int = 8):
