@@ -50,6 +50,17 @@
                                     </tr>
                                     <tr>
                                         <th>{% trans %}Status{% endtrans %}:</th>
+                                        {% if not user.InactivityTS %}
+                                            <td>{{ "Active" | tr }}</td>
+                                        {% else %}
+                                            {% set inactive_ds = user.InactivityTS | dt | as_timezone(timezone) %}
+                                            <td>
+                                                {{
+                                                    "Inactive since %s" | tr
+                                                    | format(inactive_ds.strftime("%Y-%m-%d %H:%M"))
+                                                }}
+                                            </td>
+                                        {% endif %}
                                         <td>{{ "Active" if not user.Suspended else "Suspended" | tr }}</td>
                                     </tr>
                                     <tr>
