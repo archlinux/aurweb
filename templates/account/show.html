@@ -61,7 +61,6 @@
                                                 }}
                                             </td>
                                         {% endif %}
-                                        <td>{{ "Active" if not user.Suspended else "Suspended" | tr }}</td>
                                     </tr>
                                     <tr>
                                         <th>{% trans %}Registration date{% endtrans %}:</th>
@@ -69,6 +68,13 @@
                                             {{ user.RegistrationTS.strftime("%Y-%m-%d") }}
                                         </td>
                                     </tr>
+                                    {% if login_ts %}
+                                        <tr>
+                                            <th>{% trans %}Last Login{% endtrans %}:</th>
+                                            {% set login_ds = login_ts | dt | as_timezone(timezone) %}
+                                            <td>{{ login_ds.strftime("%Y-%m-%d") }}</td>
+                                        </tr>
+                                    {% endif %}
                                     <tr>
                                         <th>{% trans %}Links{% endtrans %}:</th>
                                         <td>

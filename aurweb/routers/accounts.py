@@ -451,6 +451,13 @@ async def account(request: Request, username: str):
     k = user.PGPKey or str()
     context["pgp_key"] = " ".join([k[i:i + 4] for i in range(0, len(k), 4)])
 
+    login_ts = None
+    session = db.query(models.Session).filter(
+        models.Session.UsersID == user.ID).first()
+    if session:
+        login_ts = user.session.LastUpdateTS
+    context["login_ts"] = login_ts
+
     # Render the template.
     return render_template(request, "account/show.html", context)
 
