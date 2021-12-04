@@ -69,20 +69,24 @@
                                                     | safe
                                                     }}
                                                 </li>
-                                                <li>
-                                                    {{ "%sEdit this user's account%s"
-                                                    | tr
-                                                    | format('<a href="/account/%s/edit">' | format(user.Username), "</a>")
-                                                    | safe
-                                                    }}
-                                                </li>
-                                                <li>
-                                                    {{ "%sList this user's comments%s"
-                                                    | tr
-                                                    | format('<a href="/account/%s/comments">' | format(user.Username), "</a>")
-                                                    | safe
-                                                    }}
-                                                </li>
+                                                {% if request.user.has_credential(creds.ACCOUNT_EDIT, approved=[user]) %}
+                                                    <li>
+                                                        {{ "%sEdit this user's account%s"
+                                                        | tr
+                                                        | format('<a href="/account/%s/edit">' | format(user.Username), "</a>")
+                                                        | safe
+                                                        }}
+                                                    </li>
+                                                {% endif %}
+                                                {% if request.user.has_credential(creds.ACCOUNT_LIST_COMMENTS, approved=[user]) %}
+                                                    <li>
+                                                        {{ "%sList this user's comments%s"
+                                                        | tr
+                                                        | format('<a href="/account/%s/comments">' | format(user.Username), "</a>")
+                                                        | safe
+                                                        }}
+                                                    </li>
+                                                {% endif %}
                                             </ul>
                                         </td>
                                     </tr>

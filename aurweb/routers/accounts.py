@@ -329,13 +329,23 @@ async def account_register_post(request: Request,
     return render_template(request, "register.html", context)
 
 
-def cannot_edit(request, user):
-    """ Return a 401 HTMLResponse if the request user doesn't
-    have authorization, otherwise None. """
-    has_dev_cred = request.user.has_credential(creds.ACCOUNT_EDIT_DEV,
-                                               approved=[user])
-    if not has_dev_cred:
-        return HTMLResponse(status_code=HTTPStatus.UNAUTHORIZED)
+def cannot_edit(request: Request, user: models.User) \
+        -> typing.Optional[RedirectResponse]:
+    """
+    Decide if `request.user` cannot edit `user`.
+
+    If the request user can edit the target user, None is returned.
+    Otherwise, a redirect is returned to /account/{user.Username}.
+
+    :param request: FastAPI request
+    :param user: Target user to be edited
+    :return: RedirectResponse if approval != granted else None
+    """
+    approved = request.user.has_credential(creds.ACCOUNT_EDIT, approved=[user])
+    if not approved and (to := "/"):
+        if user:
+            to = f"/account/{user.Username}"
+        return RedirectResponse(to, status_code=HTTPStatus.SEE_OTHER)
     return None
 
 

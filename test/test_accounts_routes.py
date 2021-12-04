@@ -620,16 +620,19 @@ def test_get_account_edit_unauthorized(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
-    create(User, Username="test2", Email="test2@example.org",
-           Passwd="testPassword")
+    with db.begin():
+        user2 = create(User, Username="test2", Email="test2@example.org",
+                       Passwd="testPassword", AccountTypeID=USER_ID)
 
+    endpoint = f"/account/{user2.Username}/edit"
     with client as request:
         # Try to edit `test2` while authenticated as `test`.
-        response = request.get("/account/test2/edit", cookies={
-            "AURSID": sid
-        }, allow_redirects=False)
+        response = request.get(endpoint, cookies={"AURSID": sid},
+                               allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
+    expected = f"/account/{user2.Username}"
+    assert response.headers.get("location") == expected
 
 
 def test_post_account_edit(client: TestClient, user: User):
@@ -828,8 +831,9 @@ def test_post_account_edit_error_unauthorized(client: TestClient, user: User):
     request = Request()
     sid = user.login(request, "testPassword")
 
-    create(User, Username="test2",
-           Email="test2@example.org", Passwd="testPassword")
+    with db.begin():
+        user2 = create(User, Username="test2", Email="test2@example.org",
+                       Passwd="testPassword", AccountTypeID=USER_ID)
 
     post_data = {
         "U": "test",
@@ -838,13 +842,15 @@ def test_post_account_edit_error_unauthorized(client: TestClient, user: User):
         "passwd": "testPassword"
     }
 
+    endpoint = f"/account/{user2.Username}/edit"
     with client as request:
         # Attempt to edit 'test2' while logged in as 'test'.
-        response = request.post("/account/test2/edit", cookies={
-            "AURSID": sid
-        }, data=post_data, allow_redirects=False)
+        response = request.post(endpoint, cookies={"AURSID": sid},
+                                data=post_data, allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
 
-    assert response.status_code == int(HTTPStatus.UNAUTHORIZED)
+    expected = f"/account/{user2.Username}"
+    assert response.headers.get("location") == expected
 
 
 def test_post_account_edit_ssh_pub_key(client: TestClient, user: User):
