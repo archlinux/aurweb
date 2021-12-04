@@ -12,7 +12,7 @@ def simple(U: str = str(), E: str = str(), H: bool = False,
            BE: str = str(), R: str = str(), HP: str = str(),
            I: str = str(), K: str = str(), J: bool = False,
            CN: bool = False, UN: bool = False, ON: bool = False,
-           user: models.User = None,
+           S: bool = False, user: models.User = None,
            **kwargs) -> None:
     now = int(datetime.utcnow().timestamp())
     with db.begin():
@@ -24,7 +24,7 @@ def simple(U: str = str(), E: str = str(), H: bool = False,
         user.Homepage = HP or user.Homepage
         user.IRCNick = I or user.IRCNick
         user.PGPKey = K or user.PGPKey
-        user.Suspended = strtobool(J)
+        user.Suspended = strtobool(S)
         user.InactivityTS = now * int(strtobool(J))
         user.CommentNotify = strtobool(CN)
         user.UpdateNotify = strtobool(UN)

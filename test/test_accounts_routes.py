@@ -814,7 +814,6 @@ def test_post_account_edit_inactivity(client: TestClient, user: User):
     assert resp.status_code == int(HTTPStatus.OK)
 
     # Make sure the user record got updated correctly.
-    assert user.Suspended
     assert user.InactivityTS > 0
 
     post_data.update({"J": False})
@@ -823,8 +822,35 @@ def test_post_account_edit_inactivity(client: TestClient, user: User):
                             cookies=cookies)
     assert resp.status_code == int(HTTPStatus.OK)
 
-    assert not user.Suspended
     assert user.InactivityTS == 0
+
+
+def test_post_account_edit_suspended(client: TestClient, user: User):
+    with db.begin():
+        user.AccountTypeID = TRUSTED_USER_ID
+    assert not user.Suspended
+
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    post_data = {
+        "U": "test",
+        "E": "test@example.org",
+        "S": True,
+        "passwd": "testPassword"
+    }
+    endpoint = f"/account/{user.Username}/edit"
+    with client as request:
+        resp = request.post(endpoint, data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    # Make sure the user record got updated correctly.
+    assert user.Suspended
+
+    post_data.update({"S": False})
+    with client as request:
+        resp = request.post(endpoint, data=post_data, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.OK)
+
+    assert not user.Suspended
 
 
 def test_post_account_edit_error_unauthorized(client: TestClient, user: User):
