@@ -432,7 +432,16 @@ async def account(request: Request, username: str):
     if not request.user.is_authenticated():
         return render_template(request, "account/show.html", context,
                                status_code=HTTPStatus.UNAUTHORIZED)
-    context["user"] = get_user_by_name(username)
+
+    # Get related User record, if possible.
+    user = get_user_by_name(username)
+    context["user"] = user
+
+    # Format PGPKey for display with a space between each 4 characters.
+    k = user.PGPKey or str()
+    context["pgp_key"] = " ".join([k[i:i + 4] for i in range(0, len(k), 4)])
+
+    # Render the template.
     return render_template(request, "account/show.html", context)
 
 
