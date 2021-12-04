@@ -73,6 +73,10 @@ async def login_post(request: Request,
     response.set_cookie("AURLANG", user.LangPreference,
                         secure=secure, httponly=secure,
                         samesite=cookies.samesite())
+    response.set_cookie("AURREMEMBER", remember_me,
+                        expires=expires_at,
+                        secure=secure, httponly=secure,
+                        samesite=cookies.samesite())
     return response
 
 

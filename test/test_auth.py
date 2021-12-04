@@ -6,7 +6,7 @@ import pytest
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
 
-from aurweb import db
+from aurweb import config, db
 from aurweb.auth import AnonymousUser, BasicAuthBackend, account_type_required, auth_required
 from aurweb.models.account_type import USER, USER_ID
 from aurweb.models.session import Session
@@ -74,6 +74,28 @@ async def test_basic_auth_backend(user: User, backend: BasicAuthBackend):
     request.cookies["AURSID"] = "realSession"
     _, result = await backend.authenticate(request)
     assert result == user
+
+
+@pytest.mark.asyncio
+async def test_expired_session(backend: BasicAuthBackend, user: User):
+    """ Login, expire the session manually, then authenticate. """
+    # First, build a Request with a logged  in user.
+    request = Request()
+    request.user = user
+    sid = request.user.login(Request(), "testPassword")
+    request.cookies["AURSID"] = sid
+
+    # Set Session.LastUpdateTS to 20 seconds expired.
+    timeout = config.getint("options", "login_timeout")
+    now_ts = int(datetime.utcnow().timestamp())
+    with db.begin():
+        request.user.session.LastUpdateTS = now_ts - timeout - 20
+
+    # Run through authentication backend and get the session
+    # deleted due to its expiration.
+    await backend.authenticate(request)
+    session = db.query(Session).filter(Session.SessionID == sid).first()
+    assert session is None
 
 
 @pytest.mark.asyncio

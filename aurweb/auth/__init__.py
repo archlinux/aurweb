@@ -7,7 +7,6 @@ import fastapi
 
 from fastapi import HTTPException
 from fastapi.responses import RedirectResponse
-from sqlalchemy import and_
 from starlette.authentication import AuthCredentials, AuthenticationBackend
 from starlette.requests import HTTPConnection
 
@@ -97,18 +96,27 @@ class AnonymousUser:
 
 class BasicAuthBackend(AuthenticationBackend):
     async def authenticate(self, conn: HTTPConnection):
+        unauthenticated = (None, AnonymousUser())
         sid = conn.cookies.get("AURSID")
         if not sid:
-            return (None, AnonymousUser())
+            return unauthenticated
 
-        now_ts = datetime.utcnow().timestamp()
-        record = db.query(Session).filter(
-            and_(Session.SessionID == sid,
-                 Session.LastUpdateTS >= now_ts)).first()
+        timeout = aurweb.config.getint("options", "login_timeout")
+        remembered = ("AURREMEMBER" in conn.cookies
+                      and bool(conn.cookies.get("AURREMEMBER")))
+        if remembered:
+            timeout = aurweb.config.getint("options",
+                                           "persistent_cookie_timeout")
 
         # If no session with sid and a LastUpdateTS now or later exists.
+        now_ts = int(datetime.utcnow().timestamp())
+        record = db.query(Session).filter(Session.SessionID == sid).first()
         if not record:
-            return (None, AnonymousUser())
+            return unauthenticated
+        elif record.LastUpdateTS < (now_ts - timeout):
+            with db.begin():
+                db.delete_all([record])
+            return unauthenticated
 
         # At this point, we cannot have an invalid user if the record
         # exists, due to ForeignKey constraints in the schema upheld

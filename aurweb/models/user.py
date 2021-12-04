@@ -123,10 +123,6 @@ class User(Base):
         for i in range(tries):
             exc = None
             now_ts = datetime.utcnow().timestamp()
-            session_ts = now_ts + (
-                session_time if session_time
-                else aurweb.config.getint("options", "login_timeout")
-            )
             try:
                 with db.begin():
                     self.LastLogin = now_ts
@@ -135,12 +131,12 @@ class User(Base):
                         sid = generate_unique_sid()
                         self.session = db.create(Session, User=self,
                                                  SessionID=sid,
-                                                 LastUpdateTS=session_ts)
+                                                 LastUpdateTS=now_ts)
                     else:
                         last_updated = self.session.LastUpdateTS
                         if last_updated and last_updated < now_ts:
                             self.session.SessionID = generate_unique_sid()
-                        self.session.LastUpdateTS = session_ts
+                        self.session.LastUpdateTS = now_ts
                     break
             except IntegrityError as exc_:
                 exc = exc_

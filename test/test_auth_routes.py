@@ -13,7 +13,6 @@ from aurweb.asgi import app
 from aurweb.models.account_type import USER_ID
 from aurweb.models.session import Session
 from aurweb.models.user import User
-from aurweb.testing.requests import Request
 
 # Some test global constants.
 TEST_USERNAME = "test"
@@ -136,12 +135,11 @@ def test_secure_login(getboolean: bool, client: TestClient, user: User):
 
 def test_authenticated_login(client: TestClient, user: User):
     post_data = {
-        "user": "test",
+        "user": user.Username,
         "passwd": "testPassword",
         "next": "/"
     }
 
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         # Try to login.
         response = request.post("/login", data=post_data,
@@ -153,7 +151,7 @@ def test_authenticated_login(client: TestClient, user: User):
         # when requesting GET /login as an authenticated user.
         # Now, let's verify that we receive 403 Forbidden when we
         # try to get /login as an authenticated user.
-        response = request.get("/login", cookies=cookies,
+        response = request.get("/login", cookies=response.cookies,
                                allow_redirects=False)
         assert response.status_code == int(HTTPStatus.OK)
         assert "Logged-in as: <strong>test</strong>" in response.text
@@ -200,14 +198,12 @@ def test_login_remember_me(client: TestClient, user: User):
 
     cookie_timeout = aurweb.config.getint(
         "options", "persistent_cookie_timeout")
-    expected_ts = datetime.utcnow().timestamp() + cookie_timeout
-
+    now_ts = int(datetime.utcnow().timestamp())
     session = db.query(Session).filter(Session.UsersID == user.ID).first()
 
-    # Expect that LastUpdateTS was within 5 seconds of the expected_ts,
-    # which is equal to the current timestamp + persistent_cookie_timeout.
-    assert session.LastUpdateTS > expected_ts - 5
-    assert session.LastUpdateTS < expected_ts + 5
+    # Expect that LastUpdateTS is not past the cookie timeout
+    # for a remembered session.
+    assert session.LastUpdateTS > (now_ts - cookie_timeout)
 
 
 def test_login_incorrect_password_remember_me(client: TestClient, user: User):
