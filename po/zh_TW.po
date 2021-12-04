@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
-# byStarTW (pan93412) <pan93412@gmail.com>, 2018
+# pan93412 <pan93412@gmail.com>, 2018
 # 黃柏諺 <s8321414@gmail.com>, 2014-2017
-# 黃柏諺 <s8321414@gmail.com>, 2020
+# 黃柏諺 <s8321414@gmail.com>, 2020-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-02-01 03:21+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/lfleischer/aurweb/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -473,6 +473,12 @@ msgid ""
 "checkbox."
 msgstr "選取的套件未被棄置，請檢查確認的核取方塊。"
 
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr "選定的軟體包尚未被認領，請勾選確認核取方塊。"
+
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "找不到合併投票與評論的目標套件。"
@@ -570,6 +576,14 @@ msgstr "標記評論"
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "將套件標記為過期"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr "這似乎是 VCS 軟體包。請%s不要%s因為 AUR 中的軟體包版本與最新的 commit 不相符就將其標記為過期。僅當來源移動或是因為最新的上游變更而需要變更 PKGBUILD 時才標記此軟體包。"
 
 #: html/pkgflag.php
 #, php-format
@@ -867,6 +881,10 @@ msgstr "登入表單在您目前所使用的 IP 位址被停用，可能是因�
 msgid "Account suspended"
 msgstr "帳號被暫停"
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr "您無權暫停帳號。"
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
@@ -952,6 +970,30 @@ msgstr "擷取套件細節時發生錯誤。"
 msgid "Package details could not be found."
 msgstr "找不到套件的詳細資訊。"
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr "錯誤的 Referer 標頭。"
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr "您沒有選取任何要被通知的軟體包。"
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr "選定的軟體包通知已啟用。"
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr "您沒有選取任何要刪除通知的軟體包。"
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr "您選取的軟體包並未啟用通知。"
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr "選定的軟體包通知已移除。"
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "您必須先登入才能標記套件。"
@@ -988,6 +1030,10 @@ msgstr "您沒有權限刪除套件。"
 msgid "You did not select any packages to delete."
 msgstr "您沒有選取任何要刪除的套件。"
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr "您選定的其中一個軟體包不存在。"
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "選取的套件已刪除。"
@@ -996,9 +1042,17 @@ msgstr "選取的套件已刪除。"
 msgid "You must be logged in before you can adopt packages."
 msgstr "您必須先登入才能接管套件。"
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr "您不得認領您選取的其中一個軟體包。"
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "您必須先登入才能棄置套件。"
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr "您不能取消擁有您選定的其中一個軟體包。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -2232,3 +2286,48 @@ msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
 msgstr "請記得在第 {id} [1] 號建議投下你的投票，投票期限即將在 48 個小時內結束。"
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr "提供了無效的帳號類型。"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr "您無權變更帳號類型。"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr "您無權變更此使用者的帳號類型至 %s。"
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr "沒有要接受的 %s 到期既有孤立請求。"
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr "內部伺服器錯誤"
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr "發生了嚴重錯誤。"
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr "已記錄詳細資訊，並將會由 postmaster posthaste 審閱。我們對造成如此不便深感抱歉。"
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr "AUR 伺服器錯誤"
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""

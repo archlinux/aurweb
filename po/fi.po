@@ -5,15 +5,15 @@
 # Translators:
 # Elias Autio, 2016
 # Jesse Jaara <jesse.jaara@gmail.com>, 2011-2012,2015
-# Nikolay Korotkiy <sikmir@gmail.com>, 2018-2019
+# Nikolay Korotkiy <sikmir@disroot.org>, 2018-2019
 # Sami Korkalainen, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-01-31 08:29+0000\n"
-"Last-Translator: Lukas Fleischer\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Finnish (http://www.transifex.com/lfleischer/aurweb/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -474,6 +474,12 @@ msgid ""
 "checkbox."
 msgstr "Seuraavia paketteja ei ole hylätty. Tarkista varmistusruutu."
 
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr ""
+
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
 msgstr "Pakettia, johon haluat siirtää äänet ja kommentit, ei löydy."
@@ -571,6 +577,14 @@ msgstr ""
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "Merkitse paketti vanhentuneeksi"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr ""
 
 #: html/pkgflag.php
 #, php-format
@@ -868,6 +882,10 @@ msgstr "Kirjautumislomake on estetty IP-osoitteestasi, luultavasti toistuvien ro
 msgid "Account suspended"
 msgstr "Tili jäädytetty"
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr ""
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
@@ -953,6 +971,30 @@ msgstr "Virhe haettaessa paketin tietoja."
 msgid "Package details could not be found."
 msgstr "Paketin tietoja ei löydetty."
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit muuttaa merkintöjä."
@@ -989,6 +1031,10 @@ msgstr "Sinulla ei ole oikeutta poistaa paketteja."
 msgid "You did not select any packages to delete."
 msgstr "Et valinnut yhtään pakettia poistettavaksi."
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Valitut paketit on nyt poistettu."
@@ -997,9 +1043,17 @@ msgstr "Valitut paketit on nyt poistettu."
 msgid "You must be logged in before you can adopt packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit adoptoida paketteja."
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Sinun pitää kirjautua, ennen kuin voit hylätä paketteja."
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -2237,4 +2291,49 @@ msgstr ""
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr ""
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr ""

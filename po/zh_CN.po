@@ -3,21 +3,24 @@
 # This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
-# leonfeng <chaofeng111@qq.com>, 2015-2016
+# Feng Chao <chaofeng111@qq.com>, 2015-2016
 # dongfengweixiao <dongfengweixiao@gmail.com>, 2015
-# Felix Yan <felixonmars@gmail.com>, 2014
+# dongfengweixiao <dongfengweixiao@gmail.com>, 2015
+# Felix Yan <felixonmars@gmail.com>, 2014,2021
+# Feng Chao <chaofeng111@qq.com>, 2012,2021
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # pingplug <pingplug@foxmail.com>, 2017-2018
-# leonfeng <chaofeng111@qq.com>, 2012
+# Feng Chao <chaofeng111@qq.com>, 2012
 # Weiwen Zhao <panda.hust@gmail.com>, 2013
 # Xiaodong Qi <xiaodong.que+github@gmail.com>, 2016
+# 林凌儿 <308627244@qq.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-01-31 08:29+0000\n"
-"Last-Translator: Lukas Fleischer\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/lfleischer/aurweb/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +42,7 @@ msgstr "提示"
 
 #: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr "Git 克隆地址并不意味着能被浏览器打开"
+msgstr "Git clone URLs 并不意味着能被浏览器打开。"
 
 #: html/404.php
 #, php-format
@@ -49,7 +52,7 @@ msgstr "要克隆 Git 项目 %s，运行 %s。"
 #: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr "点击 %s这里%s 以回到 %s 的软件包详情页面"
+msgstr "点击 %s这里%s 以回到 %s 的软件包详情页面。"
 
 #: html/503.php
 msgid "Service Unavailable"
@@ -58,7 +61,7 @@ msgstr "服务不可用"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "别怕！本站正在维护中，我们会回来的。"
+msgstr "别慌！本站正在维护中，不久后将恢复。"
 
 #: html/account.php
 msgid "Account"
@@ -82,7 +85,7 @@ msgstr "您没有权限编辑此帐户。"
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
-msgstr ""
+msgstr "密码无效。"
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -207,14 +210,14 @@ msgstr "搜索共同维护的软件包"
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr "欢迎来到 AUR！想了解更多信息，请阅读 %sAUR 用户指南%s和 %sAUR 受信用户指南%s。"
+msgstr "欢迎来到 AUR！想了解更多信息，请阅读 %sAUR 用户指南%s 和 %sAUR 受信用户指南%s。"
 
 #: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr "提交的 PKGBUILD %s必须%s遵守 %sArch 软件包规范%s，否则它们将被删除！"
+msgstr "提交的 PKGBUILD %s必须%s 遵守 %sArch 软件包规范%s，否则它们将被删除！"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -232,7 +235,7 @@ msgstr "免责声明"
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "AUR 包为用户产生的内容。使用它们造成的后果自负。"
+msgstr "AUR 包是用户创作的内容。使用它们造成的后果自负。"
 
 #: html/home.php
 msgid "Learn more..."
@@ -240,7 +243,7 @@ msgstr "了解更多..."
 
 #: html/home.php
 msgid "Support"
-msgstr "支持"
+msgstr "帮助"
 
 #: html/home.php
 msgid "Package Requests"
@@ -261,7 +264,7 @@ msgstr "弃置请求"
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr "请求标记这个软件包为无主的，比如维护者不活跃而且这个软件包已经被标记为过时很久了。"
+msgstr "请求弃置一个软件包，比如当维护者不活跃且软件包已过期很久时。"
 
 #: html/home.php
 msgid "Deletion Request"
@@ -289,7 +292,7 @@ msgstr "请求一个软件包被合并到另一个中。在一个包需要被重
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr "如果你想讨论一个请求，你可以在 %saur-requests%s 邮件列表上发送消息。然而，不要在那里发送请求。"
+msgstr "如果您想讨论请求，可以使用 %saur-requests%s 邮件列表。但请不要用它发送请求。"
 
 #: html/home.php
 msgid "Submitting Packages"
@@ -330,7 +333,7 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
 " %sonly%s. To report packaging bugs contact the package maintainer or leave "
 "a comment on the appropriate package page."
-msgstr "如果你在 AUR web 页面中发现了一个 Bug，请提交到我们的 %sBug 追踪系统%s。请%s仅仅%s使用追踪系统报告 AUR 自身的 Bug。如果想要报告打包方面的 Bug，请联系相应的包维护者，或者在相应的软件包页面中留下一条评论。"
+msgstr "如果您在 AUR web 页面发现 Bug，请提交到我们的 %sBug 追踪系统%s。追踪系统 %s只能%s 用来报告 AUR web 页面的 Bug。如果想报告打包方面的 Bug，请联系相应的包维护者，或者在相应的软件包页面留下评论。"
 
 #: html/home.php
 msgid "Package Search"
@@ -379,7 +382,7 @@ msgstr "输入账户信息"
 
 #: html/login.php
 msgid "User name or primary email address"
-msgstr ""
+msgstr "用户名或主邮件地址"
 
 #: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
@@ -397,7 +400,7 @@ msgstr "找回密码"
 #, php-format
 msgid ""
 "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
-msgstr "HTTP 登录已被禁用，请使用%s切换到HTTPS%s。"
+msgstr "HTTP 登录已被禁用，想登录请 %s切换到HTTPS%s。"
 
 #: html/packages.php template/pkg_search_form.php
 msgid "Search Criteria"
@@ -427,7 +430,7 @@ msgstr "密码至少要 %s 个字符。"
 
 #: html/passreset.php
 msgid "Invalid e-mail."
-msgstr "电子邮箱不正确。"
+msgstr "邮箱无效。"
 
 #: html/passreset.php
 msgid "Password Reset"
@@ -435,15 +438,15 @@ msgstr "密码重置"
 
 #: html/passreset.php
 msgid "Check your e-mail for the confirmation link."
-msgstr "请进入您的邮箱查看确认邮件。"
+msgstr "请进入您的邮箱查看确认链接。"
 
 #: html/passreset.php
 msgid "Your password has been reset successfully."
-msgstr "密码已经成功重置。"
+msgstr "您的密码已经成功重置。"
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr ""
+msgstr "确认用户名或主邮件地址："
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -462,11 +465,11 @@ msgstr "继续"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "如果您忘记了注册账号时使用的用户名和邮件地址，请向 %saur-general%s 邮件列表寻求帮助。"
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
-msgstr ""
+msgstr "请输入用户名或主邮箱："
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -477,6 +480,12 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr "选中的软件包未被弃置，请检查确认复选框。"
+
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr ""
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
@@ -505,11 +514,11 @@ msgstr "删除软件包"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr "使用这个表单将包基础 %s%s%s 和以下包从 AUR 中移除："
+msgstr "使用这个表单将包基础 %s%s%s 和以下包从 AUR 中移除： "
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
-msgstr "删除软件包是一个永久性的操作"
+msgstr "删除软件包是永久性的操作。 "
 
 #: html/pkgdel.php html/pkgmerge.php
 msgid "Select the checkbox to confirm action."
@@ -536,29 +545,29 @@ msgstr "弃置软件包"
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr "使用这个表格来弃置包基础 %s%s%s，其中包括下列软件包："
+msgstr "使用这个表格来弃置包基础 %s%s%s，其中包括下列软件包： "
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr "通过选中复选框，您将确认您不愿成为这个包的共同维护者。"
+msgstr "选中复选框以确认您不再是这个包的共同维护者。"
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr "通过选中复选框，您将确认您将弃置这个包并将其所有权转移给 %s%s%s。"
+msgstr "选中复选框以确认您想弃置这个包并将其所有权转移给 %s%s%s。"
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr "通过选中复选框，您将确认您将弃置这个包。"
+msgstr "选中复选框以确认您想弃置这个包。"
 
 #: html/pkgdisown.php
 msgid "Confirm to disown the package"
-msgstr "继续以弃置包"
+msgstr "确认弃置这个包"
 
 #: html/pkgdisown.php
 msgid "Disown"
@@ -576,12 +585,20 @@ msgstr "标记评论"
 msgid "Flag Package Out-Of-Date"
 msgstr "将软件包标记为过期"
 
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr ""
+
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr "使用这个表单将包基础 %s%s%s 和以下包标记为已过期 ："
+msgstr "使用这个表单将包基础 %s%s%s 和以下包标记为已过期 ： "
 
 #: html/pkgflag.php
 #, php-format
@@ -620,19 +637,19 @@ msgstr "合并软件包"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr "使用这个表单将包基础 %s%s%s 合并到另一个包。"
+msgstr "使用这个表单将包基础 %s%s%s 合并到另一个包。 "
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
-msgstr "下面这些软件包将被删除："
+msgstr "下面这些软件包将被删除： "
 
 #: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr "一旦包被合并，这个操作将是不可逆的。"
+msgstr "一旦包被合并，这个操作将是不可逆的。 "
 
 #: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
-msgstr "请输入合并的目标包名。"
+msgstr "请输入合并的目标包名。 "
 
 #: html/pkgmerge.php
 msgid "Merge into:"
@@ -730,7 +747,7 @@ msgstr "您已经在这个提议上投票了。"
 
 #: html/tu.php
 msgid "Vote ID not valid."
-msgstr "非法的投票标识"
+msgstr "非法的投票标识。"
 
 #: html/tu.php template/tu_list.php
 msgid "Current Votes"
@@ -756,7 +773,7 @@ msgstr "缺少用户标识"
 
 #: lib/acctfuncs.inc.php
 msgid "The username is invalid."
-msgstr "用户名需要符合以下条件："
+msgstr "用户名无效。"
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -769,23 +786,23 @@ msgstr "开头和结尾是数字/英文字母"
 
 #: lib/acctfuncs.inc.php
 msgid "Can contain only one period, underscore or hyphen."
-msgstr "最多包含一个“.”，“_”，或“-”"
+msgstr "最多包含一个“.”，“_”或“-”。"
 
 #: lib/acctfuncs.inc.php
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "请确认新密码。"
 
 #: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
-msgstr "错误的 Email 地址。"
+msgstr "邮件地址无效"
 
 #: lib/acctfuncs.inc.php
 msgid "The backup email address is invalid."
-msgstr ""
+msgstr "备用邮件地址无效。"
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
-msgstr "首页无效，请指定完整的 HTTP(s) URL。"
+msgstr "主页无效，请指定完整的 HTTP(s) URL。"
 
 #: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
@@ -793,7 +810,7 @@ msgstr "PGP 密钥指纹无效。"
 
 #: lib/acctfuncs.inc.php
 msgid "The SSH public key is invalid."
-msgstr "此 SSH 公钥无效。"
+msgstr "SSH 公钥无效。"
 
 #: lib/acctfuncs.inc.php
 msgid "Cannot increase account permissions."
@@ -824,15 +841,15 @@ msgstr "SSH 公钥 %s%s%s 已被使用。"
 
 #: lib/acctfuncs.inc.php
 msgid "The CAPTCHA is missing."
-msgstr ""
+msgstr "验证码未输入。"
 
 #: lib/acctfuncs.inc.php
 msgid "This CAPTCHA has expired. Please try again."
-msgstr ""
+msgstr "验证码已过期，请重试。"
 
 #: lib/acctfuncs.inc.php
 msgid "The entered CAPTCHA answer is invalid."
-msgstr ""
+msgstr "输入的验证码无效。"
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -846,11 +863,11 @@ msgstr "帐户 %s%s%s 创建成功。"
 
 #: lib/acctfuncs.inc.php
 msgid "A password reset key has been sent to your e-mail address."
-msgstr "一个密码重置密钥已经发送到你的电子邮箱。"
+msgstr "密码重置密钥已经发送到您的邮箱。"
 
 #: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
-msgstr "点击上方的登录链接以使用你的帐号。"
+msgstr "点击上方的登录链接以使用您的帐号。"
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -872,13 +889,17 @@ msgstr "登录表单目前对您所使用的 IP 地址禁用，原因可能是�
 msgid "Account suspended"
 msgstr "帐号被停用"
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr ""
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
 "Your password has been reset. If you just created a new account, please use "
 "the link from the confirmation email to set an initial password. Otherwise, "
 "please request a reset key on the %sPassword Reset%s page."
-msgstr "你的密码已经成功被重置。如果你刚刚创建了一个新账户，请使用确认邮件中的链接来设置一个初始密码。否则，请在 %s重置密码%s 页面申请一个重置密码密钥。"
+msgstr "您的密码已经成功重置。如果您刚刚创建了新账户，请使用确认邮件中的链接来设置初始密码。否则，请在 %s重置密码%s 页面申请重置密钥。"
 
 #: lib/acctfuncs.inc.php
 msgid "Bad username or password."
@@ -907,7 +928,7 @@ msgstr "缺少软件包基础 ID 或软件包名。"
 
 #: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
-msgstr "你没有权限编辑评论。"
+msgstr "您没有权限编辑这条评论。"
 
 #: lib/aurjson.class.php
 msgid "Comment does not exist."
@@ -935,11 +956,11 @@ msgstr "不能同时锁定 5 条以上的评论。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to pin this comment."
-msgstr "你没有权限锁定这条评论。"
+msgstr "您没有权限锁定这条评论。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to unpin this comment."
-msgstr "你没有权限解锁这条评论。"
+msgstr "您没有权限解锁这条评论。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
@@ -956,6 +977,30 @@ msgstr "获取软件包详情时发生错误。"
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
 msgstr "无法找到软件包的详细信息。"
+
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
@@ -993,17 +1038,29 @@ msgstr "您没有删除软件包的权限。"
 msgid "You did not select any packages to delete."
 msgstr "您没有选择要删除的软件包。"
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
-msgstr "选中的软件包已经被删除。"
+msgstr "选中的软件包已被删除。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
-msgstr "登录后才能接管软件包"
+msgstr "您需要登录后才能接管软件包。"
+
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "您需要登录后才能弃置软件包。"
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -1057,7 +1114,7 @@ msgstr "您将不再收到 %s 的评论通知。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
-msgstr "你没有权限恢复这条评论。"
+msgstr "您没有权限恢复这条评论。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been undeleted."
@@ -1077,7 +1134,7 @@ msgstr "评论已编辑。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit the keywords of this package base."
-msgstr "你没有权限编辑这个软件包基础的关键词。"
+msgstr "您没有权限编辑这个软件包基础的关键词。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
@@ -1085,12 +1142,12 @@ msgstr "软件包基础的关键词已被更新。"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr "你没有权限管理这个软件包基础的共同管理者。"
+msgstr "您没有权限管理这个软件包基础的共同维护者。"
 
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "Invalid user name: %s"
-msgstr "非法用户名：%s"
+msgstr "用户名无效：%s"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
@@ -1111,7 +1168,7 @@ msgstr "登录之后才能提交软件包需求。"
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
-msgstr "无效的名称: 只允许小写字母。"
+msgstr "名称无效: 只允许小写字母。"
 
 #: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
@@ -1119,7 +1176,7 @@ msgstr "评论内容不能为空。"
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Invalid request type."
-msgstr "无效的请求类型。"
+msgstr "请求类型无效。"
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Added request successfully."
@@ -1127,7 +1184,7 @@ msgstr "请求提交成功。"
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Invalid reason."
-msgstr "无效的理由。"
+msgstr "理由无效。"
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
@@ -1140,12 +1197,12 @@ msgstr "请求关闭成功。"
 #: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr "你可以使用这个表单来彻底删除 AUR 帐号 %s。"
+msgstr "您可以使用这个表单永久删除 AUR 帐号 %s。"
 
 #: template/account_delete.php
 #, php-format
 msgid "%sWARNING%s: This action cannot be undone."
-msgstr "%s警告%s：这个操作无法被撤销"
+msgstr "%s警告%s：这个操作无法撤销。"
 
 #: template/account_delete.php
 msgid "Confirm deletion"
@@ -1245,22 +1302,22 @@ msgstr "编辑此用户的帐号"
 
 #: template/account_details.php
 msgid "List this user's comments"
-msgstr ""
+msgstr "显示此用户的评论"
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr "如果你想要彻底删除这个帐号，请点击%s这里%s。"
+msgstr "如果你想永久删除这个帐号，请点击 %s这里%s。"
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr "点击 %s这里%s 访问用户详情页面"
+msgstr "点击 %s这里%s 查看用户详情。"
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s to list the comments made by this account."
-msgstr ""
+msgstr "点击 %s这里%s 列出当前用户的所有评论。"
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1303,30 +1360,30 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr ""
+msgstr "如果你不隐藏你的邮件地址，该地址将会对所有已注册的AUR用户可见。如果你隐藏你的邮件地址，该地址仅有Arch Linux工作人员可见。"
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
-msgstr ""
+msgstr "备用邮件地址"
 
 #: template/account_edit_form.php
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr ""
+msgstr "选择性的提供的备用的邮件地址。该邮件地址将在你的主要邮件地址不可用时用于恢复你的帐号。"
 
 #: template/account_edit_form.php
 msgid ""
 "Password reset links are always sent to both your primary and your backup "
 "email address."
-msgstr ""
+msgstr "密码重置链接会同时发送给你的主要邮件地址和备用邮件地址。"
 
 #: template/account_edit_form.php
 #, php-format
 msgid ""
 "Your backup email address is always only visible to members of the Arch "
 "Linux staff, independent of the %s setting."
-msgstr ""
+msgstr "你的备用邮件地址将只对Arch Linux的工作人员可见。与%s设置无关。"
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1340,7 +1397,7 @@ msgstr "时区"
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr ""
+msgstr "如果您想修改密码，请输入新密码并再次输入以确认。"
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1350,7 +1407,7 @@ msgstr "确认密码"
 msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
-msgstr "仅仅当你想要向 AUR 提交软件包时才需要填写以下信息。"
+msgstr "仅当你想向 AUR 提交软件包时才需要填写以下信息。"
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1374,21 +1431,21 @@ msgstr "所有权更改提醒"
 
 #: template/account_edit_form.php
 msgid "To confirm the profile changes, please enter your current password:"
-msgstr ""
+msgstr "请输入您当前的密码以确认更改："
 
 #: template/account_edit_form.php
 msgid "Your current password"
-msgstr ""
+msgstr "当前密码"
 
 #: template/account_edit_form.php
 msgid ""
 "To protect the AUR against automated account creation, we kindly ask you to "
 "provide the output of the following command:"
-msgstr ""
+msgstr "为了防止AUR遭受自动注册手段的侵扰。请您提供以下命令的输出："
 
 #: template/account_edit_form.php
 msgid "Answer"
-msgstr ""
+msgstr "回答"
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1435,7 +1492,7 @@ msgstr "没有更多的结果供显示。"
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr "使用这个表单来添加 %s%s%s 的共同维护者（一个用户名一行）："
+msgstr "使用这个表单以添加 %s%s%s 的共同维护者（一个用户名一行）："
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1467,11 +1524,11 @@ msgstr "返回详情"
 #: template/footer.php
 #, php-format
 msgid "Copyright %s 2004-%d aurweb Development Team."
-msgstr "版权所有 %s 2004-%d aurweb 开发组"
+msgstr "版权所有 %s 2004-%d aurweb 开发组。"
 
 #: template/header.php
 msgid " My Account"
-msgstr "我的帐户"
+msgstr " 我的帐户"
 
 #: template/pkgbase_actions.php
 msgid "Package Actions"
@@ -1542,7 +1599,7 @@ msgstr "包基础详情"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
-msgstr "Git 克隆地址"
+msgstr "Git Clone URL"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
@@ -1550,7 +1607,7 @@ msgstr "只读"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "click to copy"
-msgstr ""
+msgstr "点击复制"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1560,7 +1617,7 @@ msgstr "关键字"
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
 msgid "Submitter"
-msgstr "提交人"
+msgstr "提交者"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php template/pkg_search_results.php
@@ -1569,7 +1626,7 @@ msgstr "维护者"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
-msgstr "最近一次打包者"
+msgstr "最后打包者"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php template/pkg_search_results.php
@@ -1602,12 +1659,12 @@ msgstr "添加评论"
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr ""
+msgstr "在AUR软件包仓库内，Git提交和识别符将会被自动转换为URL。"
 
 #: template/pkg_comment_form.php
 #, php-format
 msgid "%sMarkdown syntax%s is partially supported."
-msgstr ""
+msgstr "部分支持%sMarkdown语法%s"
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1615,11 +1672,11 @@ msgstr "已锁定评论"
 
 #: template/pkg_comments.php
 msgid "Latest Comments"
-msgstr "最新的评论"
+msgstr "最新评论"
 
 #: template/pkg_comments.php
 msgid "Comments for"
-msgstr ""
+msgstr "评论"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1634,7 +1691,7 @@ msgstr "在 %s 发表的匿名评论"
 #: template/pkg_comments.php
 #, php-format
 msgid "Commented on package %s on %s"
-msgstr ""
+msgstr "在软件包%s的%s评论"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1714,15 +1771,15 @@ msgstr "取代"
 
 #: template/pkg_details.php
 msgid "Dependencies"
-msgstr "依赖于:"
+msgstr "依赖"
 
 #: template/pkg_details.php
 msgid "Required by"
-msgstr "被需要:"
+msgstr "被需要"
 
 #: template/pkg_details.php
 msgid "Sources"
-msgstr "源代码:"
+msgstr "源代码"
 
 #: template/pkgreq_close_form.php
 #, php-format
@@ -2162,7 +2219,7 @@ msgstr "AUR 软件包更新：{pkgbase}"
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
-msgstr "用户 {user} [1] 在软件包 {pkgbase} [2] 上传了新的提交："
+msgstr "用户 {user} [1] 在软件包 {pkgbase} [2] 上传了新的提交。"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2216,7 +2273,7 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "用户 {user} [1] 将原软件包 {old} [2] 并入新软件包 {new} [3]。\n\n--\n若您不愿再收到关于新软件包的通知，请到此软件包页面 [3] 并点击 \"{label}\"。"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2237,3 +2294,48 @@ msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
 msgstr "请记得为提案 {id} [1] 投票，投票时段将于48小时内结束。"
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr ""
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""

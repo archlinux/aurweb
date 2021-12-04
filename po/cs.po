@@ -4,18 +4,21 @@
 # 
 # Translators:
 # Daniel Milde <daniel@milde.cz>, 2017
+# Daniel Peukert <daniel@peukert.cc>, 2021
+# Daniel Peukert <daniel@peukert.cc>, 2021
 # Jaroslav Lichtblau <jlichtblau@seznam.cz>, 2015-2016
 # Jaroslav Lichtblau <jlichtblau@seznam.cz>, 2014
 # Jiří Vírava <appukonrad@gmail.com>, 2017-2018
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# Lukáš Kucharczyk <lukas@kucharczyk.xyz>, 2020
 # Pavel Ševeček <pavel.sevecek@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-01-31 08:29+0000\n"
-"Last-Translator: Lukas Fleischer\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Czech (http://www.transifex.com/lfleischer/aurweb/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +32,7 @@ msgstr "Stránka nenalezena"
 
 #: html/404.php
 msgid "Sorry, the page you've requested does not exist."
-msgstr "Omlouváme se, požadovaná stránka neexistuje."
+msgstr "Omlouváme se, ale požadovaná stránka neexistuje."
 
 #: html/404.php template/pkgreq_close_form.php
 msgid "Note"
@@ -42,12 +45,12 @@ msgstr "URL adresy pro klonování Git repozitáře nejsou určeny k otevření 
 #: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr "Pro naklonování Git repozitáře %s, spusťte %s."
+msgstr "Pro naklonování Git repozitáře %s použijte příkaz %s."
 
 #: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr "Klikněte %s zde %s pro návrat na %s stránku detailu."
+msgstr "Klikněte %s zde %s pro návrat na stránku o balíčku %s. "
 
 #: html/503.php
 msgid "Service Unavailable"
@@ -56,7 +59,7 @@ msgstr "Služba nedostupná"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "Nepanikařte! Na tomto webu dochází k údržbě. Brzy budeme zpět."
+msgstr "Nepanikařte! Na tomto webu probíhá údržba. Brzy budeme zpět."
 
 #: html/account.php
 msgid "Account"
@@ -72,23 +75,23 @@ msgstr "Zde nemáte povolený přístup."
 
 #: html/account.php
 msgid "Could not retrieve information for the specified user."
-msgstr "Nelze obdržet informace pro vybraného uživatele."
+msgstr "Načtení informací o daném uživateli se nezdařilo."
 
 #: html/account.php
 msgid "You do not have permission to edit this account."
-msgstr "Nemáte oprávnění pro úpravu tohoto účtu."
+msgstr "Pro úpravu tohoto účtu nemáte oprávnění. "
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
-msgstr ""
+msgstr "Neplatné heslo."
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
-msgstr "Pro vyhledání existujících účtů použíte tento formulář."
+msgstr "Tento formulář použijte pro vyhledání existujících účtů."
 
 #: html/account.php
 msgid "You must log in to view user information."
-msgstr "Musíte se přihlásit, pro zobrazení informací o uživateli."
+msgstr "Pro zobrazení informací o uživateli se musíte přihlásit."
 
 #: html/addvote.php template/tu_list.php
 msgid "Add Proposal"
@@ -105,7 +108,7 @@ msgstr "Uživatelské jméno neexistuje."
 #: html/addvote.php
 #, php-format
 msgid "%s already has proposal running for them."
-msgstr "Pro %s se již hlasuje."
+msgstr "Pro %s již existuje návrh."
 
 #: html/addvote.php
 msgid "Invalid type."
@@ -113,23 +116,23 @@ msgstr "Chybný typ."
 
 #: html/addvote.php
 msgid "Proposal cannot be empty."
-msgstr "Návrh nemůže být prázdný."
+msgstr "Návrh nesmí být prázdný."
 
 #: html/addvote.php
 msgid "New proposal submitted."
-msgstr "Nový návrh podán."
+msgstr "Nový návrh předložen."
 
 #: html/addvote.php
 msgid "Submit a proposal to vote on."
-msgstr "Předložit návrh na hlasování."
+msgstr "Předložit návrh k hlasování."
 
 #: html/addvote.php
 msgid "Applicant/TU"
-msgstr "Uchazeč/TU"
+msgstr "Uchazeč/důvěryhodný uživatel"
 
 #: html/addvote.php
 msgid "(empty if not applicable)"
-msgstr "(vynechat pokud neni vhodný)"
+msgstr "(nevyhovující přeskočte)"
 
 #: html/addvote.php template/account_search_results.php
 #: template/pkgreq_results.php
@@ -138,15 +141,15 @@ msgstr "Typ"
 
 #: html/addvote.php
 msgid "Addition of a TU"
-msgstr "Přidání TU"
+msgstr "Přidání důvěryhodného uživatele"
 
 #: html/addvote.php
 msgid "Removal of a TU"
-msgstr "Odebrání TU"
+msgstr "Odebrání důvěryhodného uživatele"
 
 #: html/addvote.php
 msgid "Removal of a TU (undeclared inactivity)"
-msgstr "Odebrání TU (nehlášená neaktivita)"
+msgstr "Odebrání důvěryhodného uživatele (neohlášená neaktivita)"
 
 #: html/addvote.php
 msgid "Amendment of Bylaws"
@@ -162,7 +165,7 @@ msgstr "Odeslat"
 
 #: html/comaintainers.php template/comaintainers_form.php
 msgid "Manage Co-maintainers"
-msgstr "Správa spolu-správců"
+msgstr "Správa spolusprávců"
 
 #: html/commentedit.php template/pkg_comments.php
 msgid "Edit comment"
@@ -170,11 +173,11 @@ msgstr "Upravit komentář"
 
 #: html/home.php template/header.php
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Nástěnka"
 
 #: html/home.php template/header.php
 msgid "Home"
-msgstr "Domů"
+msgstr "hlavní stránka"
 
 #: html/home.php
 msgid "My Flagged Packages"
@@ -194,25 +197,25 @@ msgstr "Hledat balíčky, které spravuji"
 
 #: html/home.php
 msgid "Co-Maintained Packages"
-msgstr "Spolu-spravované balíčky"
+msgstr "Spoluspravované balíčky"
 
 #: html/home.php
 msgid "Search for packages I co-maintain"
-msgstr "Hledat balíčky, které spolu-spravuji"
+msgstr "Hledat balíčky, které spoluspravuji"
 
 #: html/home.php
 #, php-format
 msgid ""
 "Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
 "Guidelines%s for more information."
-msgstr ""
+msgstr "Vítejte na webu repozitáře AUR! Další informace naleznete na wiki v článcích o %srepozitáři AUR%s a %sdůvěryhodných uživatelích AUR%s."
 
 #: html/home.php
 #, php-format
 msgid ""
 "Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
 "otherwise they will be deleted!"
-msgstr ""
+msgstr "Nahrané soubory PKGBUILD %smusí%s dodržovat %sstandardy balíčků systému Arch%s, jinak budou smazány!"
 
 #: html/home.php
 msgid "Remember to vote for your favourite packages!"
@@ -224,13 +227,13 @@ msgstr "Některé balíčky mohou být poskytnuty v binární podobě v repozit�
 
 #: html/home.php
 msgid "DISCLAIMER"
-msgstr ""
+msgstr "UPOZORNĚNÍ"
 
 #: html/home.php template/footer.php
 msgid ""
 "AUR packages are user produced content. Any use of the provided files is at "
 "your own risk."
-msgstr "Obsah balíčků AUR je vytvořen uživateli. Jakékoli použití poskytnutých souborů je na vlastní nebezpečí."
+msgstr "Obsah balíčků v repozitáři AUR je tvořen uživateli. Použití zde nalezených souborů je na vlastní nebezpečí."
 
 #: html/home.php
 msgid "Learn more..."
@@ -242,24 +245,24 @@ msgstr "Podpora"
 
 #: html/home.php
 msgid "Package Requests"
-msgstr "Žádosti o balíčky"
+msgstr "Žádosti související s balíčky"
 
 #: html/home.php
 #, php-format
 msgid ""
 "There are three types of requests that can be filed in the %sPackage "
 "Actions%s box on the package details page:"
-msgstr ""
+msgstr "Existují tři typy žádostí, které je možné vybrat v nabídce %sAkce balíčku%s na stránce balíčku:"
 
 #: html/home.php
 msgid "Orphan Request"
-msgstr "Žádost o osiření"
+msgstr "Žádost o odebrání vlastnictví"
 
 #: html/home.php
 msgid ""
 "Request a package to be disowned, e.g. when the maintainer is inactive and "
 "the package has been flagged out-of-date for a long time."
-msgstr ""
+msgstr "Požádá o zrušení vlastnictví, např. pokud je správce neaktivní a balíček je již dlouho označen za neaktuální."
 
 #: html/home.php
 msgid "Deletion Request"
@@ -270,7 +273,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
-msgstr ""
+msgstr "Požádá o smazání z repozitáře AUR. Nepoužívejte, pokud balíček nefunguje a je možné ho snadno opravit. Místo toho kontaktuje správce balíčku nebo v případě potřeby požádejte o odebrání vlastnictví."
 
 #: html/home.php
 msgid "Merge Request"
@@ -280,18 +283,18 @@ msgstr "Žádost o sloučení"
 msgid ""
 "Request a package to be merged into another one. Can be used when a package "
 "needs to be renamed or replaced by a split package."
-msgstr ""
+msgstr "Požádá o sloučení balíčku s jiným balíčkem. Může být použito, pokud je nutné balíček přejmenovat nebo nahradit rozděleným balíčkem."
 
 #: html/home.php
 #, php-format
 msgid ""
 "If you want to discuss a request, you can use the %saur-requests%s mailing "
 "list. However, please do not use that list to file requests."
-msgstr ""
+msgstr "Pokud chcete nějakou žádost prodiskutovat, použijte poštovní konferenci %saur-requests%s. Žádosti samotné tam však nepatří."
 
 #: html/home.php
 msgid "Submitting Packages"
-msgstr "Odeslání balíčků"
+msgstr "Tvorba balíčků"
 
 #: html/home.php
 #, php-format
@@ -299,11 +302,11 @@ msgid ""
 "Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
 " packages%s section of the Arch User Repository ArchWiki page for more "
 "details."
-msgstr ""
+msgstr "Pro odesílání balíčků do repozitáře AUR se nyní používá git přes SSH. Další informace naleznete na wiki v sekci %so přidávání balíčků%s na stránce o uživatelském repozitáři systému Arch Linux."
 
 #: html/home.php
 msgid "The following SSH fingerprints are used for the AUR:"
-msgstr "Pro AUR se používají následující otisky SSH"
+msgstr "Pro repozitář AUR se používají následující otisky SSH:"
 
 #: html/home.php
 msgid "Discussion"
@@ -315,7 +318,7 @@ msgid ""
 "General discussion regarding the Arch User Repository (AUR) and Trusted User"
 " structure takes place on %saur-general%s. For discussion relating to the "
 "development of the AUR web interface, use the %saur-dev%s mailing list."
-msgstr ""
+msgstr "Obecná diskuze o struktuře repozitáře AUR a důvěryhodných uživatelích se odehrává v poštovní konferenci %saur-general%s. Diskuzi o vývoji webového rozhraní AUR pak naleznete v poštovní konferenci %saur-dev%s."
 
 #: html/home.php
 msgid "Bug Reporting"
@@ -328,7 +331,7 @@ msgid ""
 "our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
 " %sonly%s. To report packaging bugs contact the package maintainer or leave "
 "a comment on the appropriate package page."
-msgstr ""
+msgstr "Pokud ve webovém rozhraní repozitáře AUR najdete chybu, nahlaste to na %swebu pro sledování chyb%s. Zmíněný web se používá %sjen%s pro chyby webového rozhraní AUR. Pokud chcete nahlásit chyby v balíčcích, kontaktujte správce daného balíčku nebo k balíčku napište komentář."
 
 #: html/home.php
 msgid "Package Search"
@@ -336,11 +339,11 @@ msgstr "Vyhledávání balíčků"
 
 #: html/index.php
 msgid "Adopt"
-msgstr "Adoptovat"
+msgstr "Převzít balíček"
 
 #: html/index.php
 msgid "Vote"
-msgstr "Hlasovat"
+msgstr "Dát hlas balíčku"
 
 #: html/index.php
 msgid "UnVote"
@@ -348,11 +351,11 @@ msgstr "Odebrat hlas"
 
 #: html/index.php template/pkg_search_form.php template/pkg_search_results.php
 msgid "Notify"
-msgstr "Oznamovat"
+msgstr "Sledovat"
 
 #: html/index.php template/pkg_search_results.php
 msgid "UnNotify"
-msgstr "Neoznamovat"
+msgstr "Nesledovat"
 
 #: html/index.php
 msgid "UnFlag"
@@ -360,7 +363,7 @@ msgstr "Odznačit"
 
 #: html/login.php template/header.php
 msgid "Login"
-msgstr "Přihlásit"
+msgstr "Přihlášení"
 
 #: html/login.php html/tos.php
 #, php-format
@@ -373,11 +376,11 @@ msgstr "Odhlásit"
 
 #: html/login.php
 msgid "Enter login credentials"
-msgstr "Vložit přihlašovací údaje"
+msgstr "Zadejte přihlašovací údaje:"
 
 #: html/login.php
 msgid "User name or primary email address"
-msgstr ""
+msgstr "Uživatelské jméno nebo hlavní emailová adresa"
 
 #: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
@@ -385,7 +388,7 @@ msgstr "Heslo"
 
 #: html/login.php
 msgid "Remember me"
-msgstr "Pamatuj si mě"
+msgstr "Zapamatovat přihlášení"
 
 #: html/login.php
 msgid "Forgot Password"
@@ -408,7 +411,7 @@ msgstr "Balíčky"
 
 #: html/packages.php
 msgid "Error trying to retrieve package details."
-msgstr "Došlo k chybě při získávání detailů balíčku."
+msgstr "Při získávání informací o balíčku došlo k chybě."
 
 #: html/passreset.php lib/acctfuncs.inc.php
 msgid "Missing a required field."
@@ -416,7 +419,7 @@ msgstr "Chybí povinný údaj."
 
 #: html/passreset.php lib/acctfuncs.inc.php
 msgid "Password fields do not match."
-msgstr "Hesla se neshodují"
+msgstr "Hesla se neshodují."
 
 #: html/passreset.php lib/acctfuncs.inc.php
 #, php-format
@@ -441,7 +444,7 @@ msgstr "Heslo bylo úspěšně resetováno."
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr ""
+msgstr "Potvrďte uživatelské jméno nebo hlavní emailovou adresu:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -460,21 +463,27 @@ msgstr "Pokračovat"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Pokud jste zapomněli, jaké uživatelské jméno nebo hlavní emailovou adresu jste při registraci použili, pošlete nám zprávu do poštovní konference %saur-general%s."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
-msgstr ""
+msgstr "Zadejte uživatelské jméno nebo hlavní emailovou adresu:"
 
 #: html/pkgbase.php
 msgid "Package Bases"
-msgstr ""
+msgstr "Základní balíčky"
 
 #: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "Zřeknutí se daných balíčků nebylo provedeno. Zřeknutí se je nutné potvrdit zaškrtnutím políčka."
+
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr "Dané balíčky nebyly převzaty. Převzetí je nutné potvrdit zaškrtnutím políčka."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
@@ -482,13 +491,13 @@ msgstr "Nelze najít balíček pro sloučení hlasů a komentářů."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot merge a package base with itself."
-msgstr ""
+msgstr "Základní balíček není možné sloučit do sebe."
 
 #: html/pkgbase.php
 msgid ""
 "The selected packages have not been deleted, check the confirmation "
 "checkbox."
-msgstr ""
+msgstr "Dané balíčky nebyly smazány. Smazání je nutné potvrdit zaškrtnutím políčka."
 
 #: html/pkgdel.php
 msgid "Package Deletion"
@@ -503,7 +512,7 @@ msgstr "Smazat balíček"
 msgid ""
 "Use this form to delete the package base %s%s%s and the following packages "
 "from the AUR: "
-msgstr ""
+msgstr "Pomocí tohoto formuláře je možné z repozitáře AUR odstranit základní balíček  %s%s%s a tyto související balíčky:"
 
 #: html/pkgdel.php
 msgid "Deletion of a package is permanent. "
@@ -523,76 +532,84 @@ msgstr "Smazat"
 
 #: html/pkgdel.php
 msgid "Only Trusted Users and Developers can delete packages."
-msgstr ""
+msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou mazat balíčky."
 
 #: html/pkgdisown.php template/pkgbase_actions.php
 msgid "Disown Package"
-msgstr ""
+msgstr "Zřeknout se balíčku"
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "Use this form to disown the package base %s%s%s which includes the following"
 " packages: "
-msgstr ""
+msgstr "Pomocí tohoto formuláře je možné zřeknout se základního balíčku %s%s%s, který obsahuje tyto další balíčky:"
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr ""
+msgstr "Zaškrtnutím potvrzujete, že již nadále nechte být spolusprávcem balíčku."
 
 #: html/pkgdisown.php
 #, php-format
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package "
 "and transfer ownership to %s%s%s."
-msgstr ""
+msgstr "Zaškrtnutím potvrzujete, že se chcete zřeknout balíčku a předat ho uživateli %s%s%s."
 
 #: html/pkgdisown.php
 msgid ""
 "By selecting the checkbox, you confirm that you want to disown the package."
-msgstr ""
+msgstr "Zaškrtnutím potvrzujete, že se chcete zřeknout balíčku."
 
 #: html/pkgdisown.php
 msgid "Confirm to disown the package"
-msgstr ""
+msgstr "Potvrzuji, že se zříkám balíčku"
 
 #: html/pkgdisown.php
 msgid "Disown"
-msgstr ""
+msgstr "Odebrat vlastnictví"
 
 #: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr ""
+msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou odebrat vlastnictví balíčku."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
-msgstr ""
+msgstr "Označit komentář za nevhodný"
 
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
-msgstr ""
+msgstr "Označit balíček za neaktuální"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr "Tento balíček je pravděpodobně typu VCS. Prosíme, %sneoznačujte ho%s za neaktuální jen kvůli tomu, že verze balíčku v repozitáři AUR neodpovídá nejnovějšímu commitu. Balíček by měl být označen za neaktuální pouze pokud došlo ke změně umístění zdroje nebo pokud je následkem změn v upstreamu nutná úprava souboru PKGBUILD."
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Use this form to flag the package base %s%s%s and the following packages "
 "out-of-date: "
-msgstr ""
+msgstr "Pomocí tohoto formuláře je možné označit základní balíček %s%s%s a další tyto balíčky za neaktuální:"
 
 #: html/pkgflag.php
 #, php-format
 msgid ""
 "Please do %snot%s use this form to report bugs. Use the package comments "
 "instead."
-msgstr ""
+msgstr "Tento formulář %sneslouží%s k hlášení chyb. O těch napište komentář k balíčku."
 
 #: html/pkgflag.php
 msgid ""
 "Enter details on why the package is out-of-date below, preferably including "
 "links to the release announcement or the new release tarball."
-msgstr ""
+msgstr "Uveďte, proč si myslíte, že je balíček neaktuální. Nejlépe přijdete i odkaz na oznámení o nové verzi nebo odkaz na zdrojový tarball."
 
 #: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
 #: template/pkgreq_results.php
@@ -605,11 +622,11 @@ msgstr "Označit"
 
 #: html/pkgflag.php
 msgid "Only registered users can flag packages out-of-date."
-msgstr ""
+msgstr "Pouze registrovaní uživatelé mohou označovat balíčky za neaktuální."
 
 #: html/pkgmerge.php
 msgid "Package Merging"
-msgstr "Spojení balíčku"
+msgstr "Sloučení balíčku"
 
 #: html/pkgmerge.php template/pkgbase_actions.php
 msgid "Merge Package"
@@ -618,19 +635,19 @@ msgstr "Sloučit balíček"
 #: html/pkgmerge.php
 #, php-format
 msgid "Use this form to merge the package base %s%s%s into another package. "
-msgstr ""
+msgstr "Pomocí tohoto formuláře je možné sloučit základní balíček %s%s%s do jiného balíčku."
 
 #: html/pkgmerge.php
 msgid "The following packages will be deleted: "
-msgstr "Následující balíkčy budou smazány:"
+msgstr "Následující balíčky budou smazány:"
 
 #: html/pkgmerge.php
 msgid "Once the package has been merged it cannot be reversed. "
-msgstr ""
+msgstr "Po sloučení již není možné tento úkon vrátit zpět."
 
 #: html/pkgmerge.php
 msgid "Enter the package name you wish to merge the package into. "
-msgstr ""
+msgstr "Zadejte název balíčku, do kterého chcete tento balíček sloučit."
 
 #: html/pkgmerge.php
 msgid "Merge into:"
@@ -646,7 +663,7 @@ msgstr "Spojit"
 
 #: html/pkgmerge.php
 msgid "Only Trusted Users and Developers can merge packages."
-msgstr ""
+msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou slučovat balíčky."
 
 #: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
 msgid "Submit Request"
@@ -678,29 +695,29 @@ msgstr "Žádosti"
 
 #: html/register.php template/header.php
 msgid "Register"
-msgstr "Registrovat"
+msgstr "Registrace"
 
 #: html/register.php
 msgid "Use this form to create an account."
-msgstr "Použíte tento formulář k založení účtu."
+msgstr "Tento formulář použijte k vytvoření účtu."
 
 #: html/tos.php
 msgid "Terms of Service"
-msgstr ""
+msgstr "Podmínky užívání"
 
 #: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr ""
+msgstr "Následující dokumenty byly aktualizovány. Pozorně si je prosím přečtěte:"
 
 #: html/tos.php
 #, php-format
 msgid "revision %d"
-msgstr ""
+msgstr "revize %d"
 
 #: html/tos.php
 msgid "I accept the terms and conditions above."
-msgstr ""
+msgstr "Souhlasím s výše uvedenými podmínkami."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
@@ -708,7 +725,7 @@ msgstr "Důvěryhodný uživatel"
 
 #: html/tu.php
 msgid "Could not retrieve proposal details."
-msgstr "Nelze obdržet navrhované detaily."
+msgstr "Načtení informací o návrhu se nezdařilo."
 
 #: html/tu.php
 msgid "Voting is closed for this proposal."
@@ -716,19 +733,19 @@ msgstr "Toto hlasování již skončilo."
 
 #: html/tu.php
 msgid "Only Trusted Users are allowed to vote."
-msgstr ""
+msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou hlasovat."
 
 #: html/tu.php
 msgid "You cannot vote in an proposal about you."
-msgstr "Nemůžete volit sami pro sebe."
+msgstr "Hlasovat pro sebe se nesmí."
 
 #: html/tu.php
 msgid "You've already voted for this proposal."
-msgstr "Již jste hlasoval."
+msgstr "Pro tento návrh jsi již hlasoval/a."
 
 #: html/tu.php
 msgid "Vote ID not valid."
-msgstr "Nesprávné ID hlasování."
+msgstr "ID hlasování není platné."
 
 #: html/tu.php template/tu_list.php
 msgid "Current Votes"
@@ -750,11 +767,11 @@ msgstr "Registrace účtu byla pro vaši IP adresu zakázána, pravděpodobně k
 
 #: lib/acctfuncs.inc.php
 msgid "Missing User ID"
-msgstr "Chybějící Uživateské ID"
+msgstr "Chybí ID uživatele"
 
 #: lib/acctfuncs.inc.php
 msgid "The username is invalid."
-msgstr "Chybně zadané uživatelské jméno"
+msgstr "Uživatelské jméno není platné."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -771,15 +788,15 @@ msgstr "Může obsahovat pouze jednu tečku, podtržítko nebo spojovník."
 
 #: lib/acctfuncs.inc.php
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "Potvrďte své nové heslo:"
 
 #: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
-msgstr "Vadná emailová adresa."
+msgstr "Emailová adresa není platná."
 
 #: lib/acctfuncs.inc.php
 msgid "The backup email address is invalid."
-msgstr ""
+msgstr "Záložní emailová adresa není platná."
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
@@ -822,15 +839,15 @@ msgstr "Veřejný SSH klíč, %s%s%s, je již použit."
 
 #: lib/acctfuncs.inc.php
 msgid "The CAPTCHA is missing."
-msgstr ""
+msgstr "Chybí vyplněná CAPTCHA."
 
 #: lib/acctfuncs.inc.php
 msgid "This CAPTCHA has expired. Please try again."
-msgstr ""
+msgstr "Platnost CAPTCHA vypršela. Zkuste to znovu."
 
 #: lib/acctfuncs.inc.php
 msgid "The entered CAPTCHA answer is invalid."
-msgstr ""
+msgstr "Zadaná CAPTCHA není platná."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -848,7 +865,7 @@ msgstr "Na vaši e-mailovou adresu byl odeslán klíč pro obnovení hesla."
 
 #: lib/acctfuncs.inc.php
 msgid "Click on the Login link above to use your account."
-msgstr "Kliknutím na odkaz Přihlásit se výše použijte svůj účet."
+msgstr "Pro použití svého účtu klikněte na výše uvedený odkaz Přihlášení."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -864,11 +881,15 @@ msgstr "Účet, %s%s%s, byl úspěšně změněn."
 msgid ""
 "The login form is currently disabled for your IP address, probably due to "
 "sustained spam attacks. Sorry for the inconvenience."
-msgstr "Přihlašovací formulář je momentálně pro vaši IP adresu zakázán, pravděpodobně kvůli trvalým spamovým útokům. Omluvám se za nepříjemnost."
+msgstr "Přihlášení je momentálně pro vaši IP adresu zakázáno. Důvodem je nejspíše opakované zasílání spamu z této adresy. Za nepříjemnosti se omlouváme."
 
 #: lib/acctfuncs.inc.php
 msgid "Account suspended"
 msgstr "Účet pozastaven"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr "Nemáte oprávnění k pozastavení účtů."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -892,7 +913,7 @@ msgstr "Neplatná kombinace resetovacího klíče a e-mailu."
 
 #: lib/aur.inc.php template/pkg_details.php
 msgid "None"
-msgstr ""
+msgstr "Žádný"
 
 #: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
@@ -901,7 +922,7 @@ msgstr "Zobrazení informací o účtu pro %s"
 
 #: lib/aurjson.class.php
 msgid "Package base ID or package base name missing."
-msgstr ""
+msgstr "Chybí ID nebo název základního balíčku."
 
 #: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to edit this comment."
@@ -921,11 +942,11 @@ msgstr "Komentář byl přidán"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can edit package information."
-msgstr "Musíte být přihlášeni, než budete moci upravovat informace o balíčcích."
+msgstr "Pro úpravu informací o balíčcích je nutné se přihlásit."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Missing comment ID."
-msgstr "Chybějící ID komentáře."
+msgstr "Chybí ID komentáře."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "No more than 5 comments can be pinned."
@@ -937,7 +958,7 @@ msgstr "Nemáte oprávnění připnout tento komentář."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to unpin this comment."
-msgstr "Nemáte oprávnění k odepnout tento komentář."
+msgstr "Nemáte oprávnění odepnout tento komentář."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been pinned."
@@ -949,39 +970,63 @@ msgstr "Zrušeno připnutí komentáře."
 
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Error retrieving package details."
-msgstr "Došlo k chybě při získávání detailů o balíčku."
+msgstr "Načtení informací o balíčku se nezdařilo."
 
 #: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
 msgid "Package details could not be found."
-msgstr "Detailní informace o balíčku nejsou dostupné."
+msgstr "Informace o balíčku nebyly nalezeny."
+
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr "Nevybrali jste žádné balíčky pro zapnutí oznámení."
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr "Oznámení pro vybrané balíčky byla zapnuta."
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr "Nevybrali jste žádné balíčky pro vypnutí oznámení."
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr "Vybraný balíček nemá zapnutá oznámení."
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr "Oznámení pro vybrané balíčky byla vypnuta."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
-msgstr "Před nastavením příznaku balíčků se musíte přihlásit."
+msgstr "Před označením balíčku se musíte přihlásit."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
-msgstr "Nezvolili jste žádný balíček k označení."
+msgstr "Nebyly vybrány žádné balíčky k označení."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have not been flagged, please enter a comment."
-msgstr ""
+msgstr "Vybrané balíčky nebyly označeny. Zadejte komentář."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been flagged out-of-date."
-msgstr "Zvoleným balíčkům byl nastaven příznak zastaralé."
+msgstr "Vybrané balíčky byly označeny za neaktuální."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can unflag packages."
-msgstr "Musíte být příhlášeni, abyste mohli odznačit balíčky."
+msgstr "Před zrušením označení se musíte přihlásit."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to unflag."
-msgstr "Nevybrali jste žádne balíčky k odebrání příznaku."
+msgstr "Nevybrali jste žádné balíčky, jejichž označení chcete zrušit."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been unflagged."
-msgstr "Zvoleným bálíčkům bylo odebráno označení."
+msgstr "Označení vybraných balíčků bylo zrušeno."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You do not have permission to delete packages."
@@ -989,69 +1034,81 @@ msgstr "Nemáte oprávnění k odstranění balíčků."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to delete."
-msgstr "Nevybrali jste žádné balíčky ke smazání."
+msgstr "Nebyly vybrány žádné balíčky ke smazání."
+
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr "Některý z vybraných balíčků neexistuje."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
-msgstr "Zvolené balíčky byly smazány."
+msgstr "Vybrané balíčky byly smazány."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can adopt packages."
-msgstr "Musíte být přihlášeni, než si budete moci osvojit balíčky."
+msgstr "Pro převzetí balíčku je nutné se přihlásit."
+
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr "Nemáte oprávnění převzít některý z vybraných balíčků."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
-msgstr "Musíte být přihlášeni, pro odebrání vlastnictví u svých balíčků."
+msgstr "Pro odebrání vlastnictví balíčku je nutné se přihlásit."
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr "Nemáte oprávnění zřeknout se některého z vybraných balíčků."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
-msgstr "Nevybrali jste žádný balíček k osvojení."
+msgstr "Nevybrali jste žádný balíček k převzetí."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to disown."
-msgstr "Nevybrali jste žádný balíček pro odebrání vlastnictví."
+msgstr "Nebyl vybrán žádný balíček k odebrání vlastnictví."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been adopted."
-msgstr "Zvolené balíčky byly osvojeny."
+msgstr "Vybrané balíčky byly převzaty."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been disowned."
-msgstr "Vybraným balíčkům bylo odebráno vlastnictví."
+msgstr "Vlastnictví vybraných balíčků bylo odebráno."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can vote for packages."
-msgstr "Před hlasováním se musíte přihlásit."
+msgstr "Pro hlasování pro balíček je nutné se přihlásit."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can un-vote for packages."
-msgstr "Musíte být přihlášeni, než budete moci odebrat hlasování pro balíčky."
+msgstr "Pro odebrání hlasu balíčku je nutné se přihlásit."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to vote for."
-msgstr "Nezvolili jste žádné balíčky k hlasování."
+msgstr "Nebyly vybrány žádné balíčky pro hlasování."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been removed from the selected packages."
-msgstr "Vaše hlasování bylo odebráno vybraným balíčkům."
+msgstr "Vybraným balíčkům byl odebrán hlas."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Your votes have been cast for the selected packages."
-msgstr "Vaše hlasování bylo započteno pro vybrané balíčky."
+msgstr "Vybraným balíčkům byl přidán hlas."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Couldn't add to notification list."
-msgstr "Nelze přidat do seznamu upozornění."
+msgstr "Nelze přidat do seznamu uživatelů k obeznámení."
 
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been added to the comment notification list for %s."
-msgstr "Byly jste přidáni do seznamu oznámení ohledně %s."
+msgstr "Byly jste přidáni do seznamu uživatelů k obeznámení o balíčku %s."
 
 #: lib/pkgbasefuncs.inc.php
 #, php-format
 msgid "You have been removed from the comment notification list for %s."
-msgstr "Byli jste odebrání ze seznamu upozornění ohledně %s."
+msgstr "Byli jste odebráni ze seznamu uživatelů k obeznámení o balíčku %s."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to undelete this comment."
@@ -1063,7 +1120,7 @@ msgstr "Komentář byl obnoven."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to delete this comment."
-msgstr "Nemáte oprávnění pro smazání tohoto komentáře."
+msgstr "Pro smazání tohoto komentáře nemáte oprávnění."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "Comment has been deleted."
@@ -1079,11 +1136,11 @@ msgstr "Nemáte oprávnění upravit klíčová slova tohoto balíčku."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base keywords have been updated."
-msgstr ""
+msgstr "Klíčová slova základního balíčku byla aktualizována."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You are not allowed to manage co-maintainers of this package base."
-msgstr ""
+msgstr "Nemáte oprávnění spravovat spolusprávce tohoto balíčku."
 
 #: lib/pkgbasefuncs.inc.php
 #, php-format
@@ -1092,7 +1149,7 @@ msgstr "Neplatné uživatelské jméno: %s"
 
 #: lib/pkgbasefuncs.inc.php
 msgid "The package base co-maintainers have been updated."
-msgstr ""
+msgstr "Spolusprávci základního balíčku byli aktualizováni."
 
 #: lib/pkgfuncs.inc.php template/pkgbase_details.php
 msgid "View packages details for"
@@ -1105,11 +1162,11 @@ msgstr "vyžaduje %s"
 
 #: lib/pkgreqfuncs.inc.php
 msgid "You must be logged in to file package requests."
-msgstr ""
+msgstr "Před podáním žádosti se musíte přihlásit."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Invalid name: only lowercase letters are allowed."
-msgstr "Chybný název: jsou povolena pouze malá písmena."
+msgstr "Neplatný název: jsou povolena pouze malá písmena."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "The comment field must not be empty."
@@ -1129,7 +1186,7 @@ msgstr "Neplatný důvod."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Only TUs and developers can close requests."
-msgstr ""
+msgstr "Pouze důvěryhodní uživatelé a vývojáři mohou zavírat žádosti."
 
 #: lib/pkgreqfuncs.inc.php
 msgid "Request closed successfully."
@@ -1138,7 +1195,7 @@ msgstr "Žádost byla úspěšně uzavřena."
 #: template/account_delete.php
 #, php-format
 msgid "You can use this form to permanently delete the AUR account %s."
-msgstr "Tento formulář můžete použít k trvalému odstranění účtu AUR %s."
+msgstr "Tento formulář můžete použít k trvalému odstranění účtu repozitáře AUR %s."
 
 #: template/account_delete.php
 #, php-format
@@ -1195,7 +1252,7 @@ msgstr "Domovská stránka"
 #: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php template/search_accounts_form.php
 msgid "IRC Nick"
-msgstr "IRC přezdívka"
+msgstr "Přezdívka na IRC"
 
 #: template/account_details.php template/account_edit_form.php
 #: template/account_search_results.php
@@ -1205,7 +1262,7 @@ msgstr "Otisk klíče PGP"
 #: template/account_details.php template/account_search_results.php
 #: template/pkgreq_results.php
 msgid "Status"
-msgstr "Status"
+msgstr "Stav"
 
 #: template/account_details.php
 msgid "Inactive since"
@@ -1243,36 +1300,36 @@ msgstr "Upravit tento uživatelský účet"
 
 #: template/account_details.php
 msgid "List this user's comments"
-msgstr ""
+msgstr "Zobrazit komentáře tohoto uživatele"
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s if you want to permanently delete this account."
-msgstr ""
+msgstr "Pokud chcete trvale smazat tento účet, klikněte %szde%s."
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s for user details."
-msgstr ""
+msgstr "Podrobnosti o uživateli naleznete %szde%s."
 
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s to list the comments made by this account."
-msgstr ""
+msgstr "Komentáře tohoto účtu naleznete %szde%s."
 
 #: template/account_edit_form.php
 msgid "required"
-msgstr "vyžadováno"
+msgstr "povinný údaj"
 
 #: template/account_edit_form.php
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr ""
+msgstr "Vaše uživatelské jméno je vaše přihlašovací jméno. Je veřejně viditelné i v případě neaktivního účtu."
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
-msgstr "Obyčejný uživatel"
+msgstr "Běžný uživatel"
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Trusted user"
@@ -1301,30 +1358,30 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr ""
+msgstr "Pokud svou emailovou adresu neskryjete, bude viditelná všem registrovaným uživatelům repozitáře AUR. Skrytá emailová adresa je viditelná pouze správcům systému Arch Linux."
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
-msgstr ""
+msgstr "Záložní emailová adresa"
 
 #: template/account_edit_form.php
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr ""
+msgstr "Volitelná záložní adresa, pomocí které je možné obnovit přístup k účtu do repozitáře AUR i bez přístupu k hlavní emailové adrese."
 
 #: template/account_edit_form.php
 msgid ""
 "Password reset links are always sent to both your primary and your backup "
 "email address."
-msgstr ""
+msgstr "Odkazy na obnovení hesla jsou vždy zasílány na hlavní i záložní emailovou adresu."
 
 #: template/account_edit_form.php
 #, php-format
 msgid ""
 "Your backup email address is always only visible to members of the Arch "
 "Linux staff, independent of the %s setting."
-msgstr ""
+msgstr "Záložní emailová adresa je vždy viditelná jen správcům systému Arch Linux, bez ohledu na nastavení %s."
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1338,7 +1395,7 @@ msgstr "Časové pásmo"
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr ""
+msgstr "Pokud chcete své heslo změnit, zadejte nové heslo a pak nové heslo ještě jednou pro potvrzení."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1348,7 +1405,7 @@ msgstr "Heslo znovu"
 msgid ""
 "The following information is only required if you want to submit packages to"
 " the Arch User Repository."
-msgstr "Následující informace jsou požadovány pouze v případě, že chcete odeslat balíčky do Arch User Repository."
+msgstr "Následující informace jsou požadovány pouze v případě, že máte v plánu do uživatelského repozitáře systému Arch Linux přidávat balíčky."
 
 #: template/account_edit_form.php
 msgid "SSH Public Key"
@@ -1356,7 +1413,7 @@ msgstr "Veřejný SSH klíč"
 
 #: template/account_edit_form.php
 msgid "Notification settings"
-msgstr "Nastavení upozornění"
+msgstr "Nastavení oznámení"
 
 #: template/account_edit_form.php
 msgid "Notify of new comments"
@@ -1364,29 +1421,29 @@ msgstr "Oznamovat nové komentáře"
 
 #: template/account_edit_form.php
 msgid "Notify of package updates"
-msgstr "Oznámení o aktualizacích balíčku"
+msgstr "Oznamovat aktualizace balíčků"
 
 #: template/account_edit_form.php
 msgid "Notify of ownership changes"
-msgstr "Oznámit změnu vlastnictví"
+msgstr "Oznamovat změny vlastnictví"
 
 #: template/account_edit_form.php
 msgid "To confirm the profile changes, please enter your current password:"
-msgstr ""
+msgstr "Pro potvrzení změn profilu zadejte své aktuální heslo:"
 
 #: template/account_edit_form.php
 msgid "Your current password"
-msgstr ""
+msgstr "Vaše aktuální heslo:"
 
 #: template/account_edit_form.php
 msgid ""
 "To protect the AUR against automated account creation, we kindly ask you to "
 "provide the output of the following command:"
-msgstr ""
+msgstr "Abychom zamezili automatizované tvorbě účtů v repozitáři AUR, laskavě žádáme uživatele, aby zadali výstup z následujícího příkazu:"
 
 #: template/account_edit_form.php
 msgid "Answer"
-msgstr ""
+msgstr "Odpovědět"
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1403,7 +1460,7 @@ msgstr "Reset"
 
 #: template/account_search_results.php
 msgid "No results matched your search criteria."
-msgstr "Pro Váš dotaz nebyl nalezen žádný odpovídající výsledek."
+msgstr "Zadaným kritériím neodpovídají žádné výsledky."
 
 #: template/account_search_results.php
 msgid "Edit Account"
@@ -1433,7 +1490,7 @@ msgstr "Žádné další výsledky."
 #, php-format
 msgid ""
 "Use this form to add co-maintainers for %s%s%s (one user name per line):"
-msgstr ""
+msgstr "Pomocí tohoto formuláře je možné přidat spolusprávce pro %s%s%s (jedno uživatelské jméno na řádek):"
 
 #: template/comaintainers_form.php
 msgid "Users"
@@ -1446,21 +1503,21 @@ msgstr "Uložit"
 #: template/flag_comment.php
 #, php-format
 msgid "Flagged Out-of-Date Comment: %s"
-msgstr ""
+msgstr "Komentář k označení za neaktuální: %s"
 
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
-msgstr ""
+msgstr "Uživatel %s%s%s označil balíček %s%s%s za neaktuální dne %s%s%s z následujícího důvodu:"
 
 #: template/flag_comment.php
 #, php-format
 msgid "%s%s%s is not flagged out-of-date."
-msgstr ""
+msgstr "Balíček %s%s%s nebyl označen za neaktuální."
 
 #: template/flag_comment.php
 msgid "Return to Details"
-msgstr ""
+msgstr "Zpět na podrobnosti balíčku"
 
 #: template/footer.php
 #, php-format
@@ -1473,7 +1530,7 @@ msgstr "Můj účet"
 
 #: template/pkgbase_actions.php
 msgid "Package Actions"
-msgstr "Dostupné akce pro balíček"
+msgstr "Akce balíčku"
 
 #: template/pkgbase_actions.php
 msgid "View PKGBUILD"
@@ -1494,11 +1551,11 @@ msgstr "Prohledat wiki"
 #: template/pkgbase_actions.php
 #, php-format
 msgid "Flagged out-of-date (%s)"
-msgstr ""
+msgstr "Označeno za neaktuální (%s)"
 
 #: template/pkgbase_actions.php
 msgid "Flag package out-of-date"
-msgstr "Označit balíček jako zastaralý"
+msgstr "Označit balíček za neaktuální"
 
 #: template/pkgbase_actions.php
 msgid "Unflag package"
@@ -1522,28 +1579,28 @@ msgstr "Zapnout oznámení"
 
 #: template/pkgbase_actions.php
 msgid "Manage Co-Maintainers"
-msgstr ""
+msgstr "Spravovat spolusprávce"
 
 #: template/pkgbase_actions.php
 #, php-format
 msgid "%d pending request"
 msgid_plural "%d pending requests"
-msgstr[0] "%d čekající požadavek"
+msgstr[0] "%d žádost na vyřízení"
 msgstr[1] "%d čekající požadavky"
-msgstr[2] "%d čekajících žádostí"
-msgstr[3] "%d čekajících žádostí"
+msgstr[2] "%d žádostí na vyřízení"
+msgstr[3] "%d žádostí na vyřízení"
 
 #: template/pkgbase_actions.php
 msgid "Adopt Package"
-msgstr "Adoptovat balíček"
+msgstr "Převzít balíček"
 
 #: template/pkgbase_details.php
 msgid "Package Base Details"
-msgstr ""
+msgstr "Informace o základním balíčku"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Git Clone URL"
-msgstr ""
+msgstr "URL pro příkaz git clone"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "read-only"
@@ -1551,7 +1608,7 @@ msgstr "jen pro čtení"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "click to copy"
-msgstr ""
+msgstr "kliknutím zkopírujete"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1561,7 +1618,7 @@ msgstr "Klíčová slova"
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
 msgid "Submitter"
-msgstr ""
+msgstr "Vytvořil"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php template/pkg_search_results.php
@@ -1570,7 +1627,7 @@ msgstr "Správce"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Packager"
-msgstr ""
+msgstr "Naposledy zabalil"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php template/pkg_search_results.php
@@ -1584,7 +1641,7 @@ msgstr "Popularita"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "First Submitted"
-msgstr "Poprvé vložen"
+msgstr "Poprvé vytvořil"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "Last Updated"
@@ -1593,7 +1650,7 @@ msgstr "Naposledy aktualizováno"
 #: template/pkg_comment_box.php
 #, php-format
 msgid "Edit comment for: %s"
-msgstr ""
+msgstr "Upravit komentář pro: %s"
 
 #: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
@@ -1603,12 +1660,12 @@ msgstr "Přidat komentář"
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr ""
+msgstr "Identifikátory git commitů v repozitáři AUR a URL jsou automaticky převáděny na klikatelné odkazy."
 
 #: template/pkg_comment_form.php
 #, php-format
 msgid "%sMarkdown syntax%s is partially supported."
-msgstr ""
+msgstr "Značkovací %ssyntaxe Markdown%s je částěčně podporována."
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1620,7 +1677,7 @@ msgstr "Nejnovější komentáře"
 
 #: template/pkg_comments.php
 msgid "Comments for"
-msgstr ""
+msgstr "Komentáře uživatele"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1630,22 +1687,22 @@ msgstr "%s přidal komentář %s"
 #: template/pkg_comments.php
 #, php-format
 msgid "Anonymous comment on %s"
-msgstr ""
+msgstr "Anonymní komentář dne %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "Commented on package %s on %s"
-msgstr ""
+msgstr "Okomentoval balíček %s dne %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s by %s"
-msgstr ""
+msgstr "smazáno dne %s uživatelem %s"
 
 #: template/pkg_comments.php
 #, php-format
 msgid "deleted on %s"
-msgstr ""
+msgstr "smazáno dne %s"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1659,7 +1716,7 @@ msgstr "upraveno %s"
 
 #: template/pkg_comments.php
 msgid "Undelete comment"
-msgstr ""
+msgstr "Zrušit smazání komentáře"
 
 #: template/pkg_comments.php
 msgid "Delete comment"
@@ -1675,11 +1732,11 @@ msgstr "Odepnout komentář"
 
 #: template/pkg_details.php
 msgid "Package Details"
-msgstr "Detaily balíčku"
+msgstr "Informace o balíčku"
 
 #: template/pkg_details.php template/pkg_search_form.php
 msgid "Package Base"
-msgstr ""
+msgstr "Základní balíček"
 
 #: template/pkg_details.php template/pkg_search_results.php
 msgid "Description"
@@ -1687,11 +1744,11 @@ msgstr "Popis"
 
 #: template/pkg_details.php
 msgid "Upstream URL"
-msgstr ""
+msgstr "URL pro upstream"
 
 #: template/pkg_details.php
 msgid "Visit the website for"
-msgstr ""
+msgstr "Navštívit web pro"
 
 #: template/pkg_details.php
 msgid "Licenses"
@@ -1715,11 +1772,11 @@ msgstr "Nahrazuje"
 
 #: template/pkg_details.php
 msgid "Dependencies"
-msgstr "Závislosti"
+msgstr "Vyžadované balíčky"
 
 #: template/pkg_details.php
 msgid "Required by"
-msgstr "Vyžadováno"
+msgstr "Vyžadováno balíčky"
 
 #: template/pkg_details.php
 msgid "Sources"
@@ -1728,13 +1785,13 @@ msgstr "Zdroje"
 #: template/pkgreq_close_form.php
 #, php-format
 msgid "Use this form to close the request for package base %s%s%s."
-msgstr ""
+msgstr "Pomocí tohoto formuláře je možné zavřít požadavek pro základní balíček %s%s%s."
 
 #: template/pkgreq_close_form.php
 msgid ""
 "The comments field can be left empty. However, it is highly recommended to "
 "add a comment when rejecting a request."
-msgstr ""
+msgstr "Pole pro komentáře může být prázdné. Silně se však doporučuje nějaký komentář přidat, pokud požadavek odmítáte."
 
 #: template/pkgreq_close_form.php
 msgid "Reason"
@@ -1755,7 +1812,7 @@ msgstr "Zamítnuto"
 msgid ""
 "Use this form to file a request against package base %s%s%s which includes "
 "the following packages:"
-msgstr ""
+msgstr "Pomocí tohoto formuláře je možné vytvořit požadavek pro základní balíček %s%s%s, který obsahuje tyto další balíčky:"
 
 #: template/pkgreq_form.php
 msgid "Request type"
@@ -1767,18 +1824,18 @@ msgstr "Smazání"
 
 #: template/pkgreq_form.php
 msgid "Orphan"
-msgstr "Sirotek"
+msgstr "Odebrání vlastnictví"
 
 #: template/pkgreq_form.php template/pkg_search_results.php
 msgid "Merge into"
-msgstr "Sloučit do"
+msgstr "Sloučení"
 
 #: template/pkgreq_form.php
 msgid ""
 "By submitting a deletion request, you ask a Trusted User to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr ""
+msgstr "Vytvořením žádosti o smazání žádáte důvěryhodného uživatele, aby smazal základní balíček. Tento typ požadavku by se měl používat pro duplicitní balíčky, software, který již v upstreamu neexistuje, nebo v případě nelegálních či nezvratně rozbitých balíčků."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1786,7 +1843,7 @@ msgid ""
 "base and transfer its votes and comments to another package base. Merging a "
 "package does not affect the corresponding Git repositories. Make sure you "
 "update the Git history of the target package yourself."
-msgstr ""
+msgstr "Vytvořením žádosti o sloučení žádáte důvěryhodného uživatele, aby smazal základní balíček a přesunul s ním spojené hlasy a komentáře do jiného balíčku. Sloučení balíčku nemá vliv na související repozitáře Git. Aktualizace Git historie cílového balíčku je na vás."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1794,7 +1851,7 @@ msgid ""
 "package base. Please only do this if the package needs maintainer action, "
 "the maintainer is MIA and you already tried to contact the maintainer "
 "previously."
-msgstr ""
+msgstr "Vytvořením žádosti o odebrání vlastnictví žádáte důvěryhodného uživatele, aby odebral vlastnictví aktuálnímu správci základního balíčku. Tento požadavek používejte jen v případě, že balíček potřebuje zásah správce, správce není k zastižení a již jste se správce pokusili v minulosti kontaktovat."
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
@@ -1804,10 +1861,10 @@ msgstr "Žádné žádosti neodpovídaly vašim kritériím vyhledávání."
 #, php-format
 msgid "%d package request found."
 msgid_plural "%d package requests found."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Byl nalezen %d požadavek na balíček."
+msgstr[1] "Byly nalezeny %d požadavky na balíček."
+msgstr[2] "Bylo nalezeno %d požadavků na balíček."
+msgstr[3] "Bylo nalezeno %d požadavků na balíček."
 
 #: template/pkgreq_results.php template/pkg_search_results.php
 #, php-format
@@ -1820,7 +1877,7 @@ msgstr "Balíček"
 
 #: template/pkgreq_results.php
 msgid "Filed by"
-msgstr ""
+msgstr "Zadal"
 
 #: template/pkgreq_results.php
 msgid "Date"
@@ -1830,23 +1887,23 @@ msgstr "Datum"
 #, php-format
 msgid "~%d day left"
 msgid_plural "~%d days left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Zbývá asi %dden"
+msgstr[1] "Zbývají asi %d dny"
+msgstr[2] "Zbývá asi %d dní"
+msgstr[3] "Zbývá asi %d dní"
 
 #: template/pkgreq_results.php
 #, php-format
 msgid "~%d hour left"
 msgid_plural "~%d hours left"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Zbývá asi %d hodina"
+msgstr[1] "Zbývají asi %d hodiny"
+msgstr[2] "Zbývá asi %d hodin"
+msgstr[3] "Zbývá asi %d hodin"
 
 #: template/pkgreq_results.php
 msgid "<1 hour left"
-msgstr ""
+msgstr "Zbývá méně než 1 hodina"
 
 #: template/pkgreq_results.php
 msgid "Accept"
@@ -1862,7 +1919,7 @@ msgstr "Uzavřít"
 
 #: template/pkgreq_results.php
 msgid "Pending"
-msgstr ""
+msgstr "Čeká na vyřízení"
 
 #: template/pkgreq_results.php
 msgid "Closed"
@@ -1882,15 +1939,15 @@ msgstr "Přesné jméno"
 
 #: template/pkg_search_form.php
 msgid "Exact Package Base"
-msgstr ""
+msgstr "Přesný název základního balíčku"
 
 #: template/pkg_search_form.php
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Spolusprávce"
 
 #: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Správce, spolusprávce"
 
 #: template/pkg_search_form.php
 msgid "All"
@@ -1911,7 +1968,7 @@ msgstr "Název"
 #: template/pkg_search_form.php template/pkg_search_results.php
 #: template/tu_details.php template/tu_list.php
 msgid "Voted"
-msgstr "Hlasováno"
+msgstr "Hlasoval/a jsem"
 
 #: template/pkg_search_form.php
 msgid "Last modified"
@@ -1935,11 +1992,11 @@ msgstr "Vyhledat dle"
 
 #: template/pkg_search_form.php template/stats/user_table.php
 msgid "Out of Date"
-msgstr "Zastaralé"
+msgstr "Neaktuální"
 
 #: template/pkg_search_form.php template/search_accounts_form.php
 msgid "Sort by"
-msgstr "Seřadit dle"
+msgstr "Řadit dle"
 
 #: template/pkg_search_form.php
 msgid "Sort order"
@@ -1947,23 +2004,23 @@ msgstr "Řadit"
 
 #: template/pkg_search_form.php
 msgid "Per page"
-msgstr "Na jedné stránce"
+msgstr "Výsledků na stránku"
 
 #: template/pkg_search_form.php template/pkg_search_results.php
 msgid "Go"
-msgstr "Jdi"
+msgstr "Hledat"
 
 #: template/pkg_search_form.php
 msgid "Orphans"
-msgstr "Sirotci"
+msgstr "Bez vlastníka"
 
 #: template/pkg_search_results.php
 msgid "Error retrieving package list."
-msgstr "Chyba při získávání seznamu balíčků."
+msgstr "Načtení seznamu balíčků se nezdařilo."
 
 #: template/pkg_search_results.php
 msgid "No packages matched your search criteria."
-msgstr "Žádný balíček neodpovídá zadaným kritériím."
+msgstr "Zadaným kritériím neodpovídá žádný balíček."
 
 #: template/pkg_search_results.php
 #, php-format
@@ -1992,7 +2049,7 @@ msgstr "Ano"
 
 #: template/pkg_search_results.php
 msgid "orphan"
-msgstr "sirotek"
+msgstr "bez vlastníka"
 
 #: template/pkg_search_results.php
 msgid "Actions"
@@ -2000,15 +2057,15 @@ msgstr "Akce"
 
 #: template/pkg_search_results.php
 msgid "Unflag Out-of-date"
-msgstr "Odebrat příznak zastaralý"
+msgstr "Zrušit označení za neaktuální"
 
 #: template/pkg_search_results.php
 msgid "Adopt Packages"
-msgstr "Osvojit balíček"
+msgstr "Převzít balíčky"
 
 #: template/pkg_search_results.php
 msgid "Disown Packages"
-msgstr "Odebrat vlastnictví"
+msgstr "Zřeknout se balíčků"
 
 #: template/pkg_search_results.php
 msgid "Delete Packages"
@@ -2032,31 +2089,31 @@ msgstr "Statistiky"
 
 #: template/stats/general_stats_table.php
 msgid "Orphan Packages"
-msgstr "Balíčků bez správce"
+msgstr "Bez vlastníka"
 
 #: template/stats/general_stats_table.php
 msgid "Packages added in the past 7 days"
-msgstr "Přidaných balíčků za posledních 7 dní"
+msgstr "Přidáno (poslední týden)"
 
 #: template/stats/general_stats_table.php
 msgid "Packages updated in the past 7 days"
-msgstr "Aktualizovaných balíčků za posledních 7 dní"
+msgstr "Aktualizováno (poslední týden)"
 
 #: template/stats/general_stats_table.php
 msgid "Packages updated in the past year"
-msgstr "Aktualizovaných balíčků v posledním roce"
+msgstr "Aktualizováno (poslední rok)"
 
 #: template/stats/general_stats_table.php
 msgid "Packages never updated"
-msgstr "Balíčků, které nebyly nikdy aktualizovány"
+msgstr "Nikdy neaktualizováno"
 
 #: template/stats/general_stats_table.php
 msgid "Registered Users"
-msgstr "Registrovaných uživatelů"
+msgstr "Registrovaní uživatelé"
 
 #: template/stats/general_stats_table.php
 msgid "Trusted Users"
-msgstr "Důvěryhodných uživatelů"
+msgstr "Důvěryhodní uživatelé"
 
 #: template/stats/updates_table.php
 msgid "Recent Updates"
@@ -2072,7 +2129,7 @@ msgstr "Moje statistiky"
 
 #: template/tu_details.php
 msgid "Proposal Details"
-msgstr "Detaily návrhu"
+msgstr "Informace o návrhu"
 
 #: template/tu_details.php
 msgid "This vote is still running."
@@ -2081,7 +2138,7 @@ msgstr "Hlasování stále probíhá."
 #: template/tu_details.php
 #, php-format
 msgid "Submitted: %s by %s"
-msgstr "Vloženo: %s od %s"
+msgstr "Vytvořeno: %s od %s"
 
 #: template/tu_details.php template/tu_list.php
 msgid "End"
@@ -2109,7 +2166,7 @@ msgstr "Účast"
 
 #: template/tu_last_votes_list.php
 msgid "Last Votes by TU"
-msgstr ""
+msgstr "Poslední hlasy důvěryhodného uživatele"
 
 #: template/tu_last_votes_list.php
 msgid "Last vote"
@@ -2117,7 +2174,7 @@ msgstr "Naposledy hlasováno"
 
 #: template/tu_last_votes_list.php template/tu_list.php
 msgid "No results found."
-msgstr "Žádné výsledky."
+msgstr "Nebyly nalezeny žádné výsledky."
 
 #: template/tu_list.php
 msgid "Start"
@@ -2129,7 +2186,7 @@ msgstr "Zpět"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr ""
+msgstr "Obnovení hesla k účtu repozitáře AUR"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2137,90 +2194,90 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr ""
+msgstr "Obdrželi jsme žádost o obnovení hesla k účtu {user}, který je spojen s touto emailovou adresou. Pokud chcete heslo obnovit, použijte níže uvedený odkaz [1]. V opačném případě tuto zprávu ignorujte a ke žádné změně nedojde."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr ""
+msgstr "Vítejte v repozitáři AUR, uživatelském repozitáři systému Arch Linux"
 
 #: scripts/notify.py
 msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr ""
+msgstr "Vítejte v uživatelském repozitáři systému Arch Linux! Pro nastavení počátečního heslo nového účtu použijte níže uvedený odkaz [1]. Pokud odkaz nefunguje, zkuste ho zkopírovat a vložit prohlížeče."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Comment for {pkgbase}"
-msgstr ""
+msgstr "Komentář na webu AUR u balíčku {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] added the following comment to {pkgbase} [2]:"
-msgstr ""
+msgstr "Uživatel {user} [1] přidal k balíčku {pkgbase} [2] následující komentář:"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr ""
+msgstr "Pokud již nechcete dostávat oznámení související s tímto balíčkem, na stránce balíčku [2] vyberte možnost \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package Update: {pkgbase}"
-msgstr ""
+msgstr "Aktualizace balíčku na webu AUR: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
-msgstr ""
+msgstr "Uživatel {user} [1] provedl aktualizaci balíčku {pkgbase} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Out-of-date Notification for {pkgbase}"
-msgstr ""
+msgstr "Oznámení o neaktuálním stavu balíčku {pkgbase} na webu AUR"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr ""
+msgstr "Váš balíček {pkgbase} [1] byl uživatel {user} [2] označen za neaktuální:"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Ownership Notification for {pkgbase}"
-msgstr ""
+msgstr "Oznámení o změně vlastnictví balíčku {pkgbase} na webu AUR"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was adopted by {user} [2]."
-msgstr ""
+msgstr "Balíček {pkgbase} [1] byl převzat uživatelem {user} [2]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was disowned by {user} [2]."
-msgstr ""
+msgstr "Uživatel {user} [2] se zřekl balíčku {pkgbase} [1] a tento balíček je tak nyní bez vlastníka."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Co-Maintainer Notification for {pkgbase}"
-msgstr ""
+msgstr "Oznámení o spolusprávě balíčku {pkgbase} na webu AUR"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were added to the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "Byli jste přidáni jako spolusprávce balíčku {pkgbase} [1]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "Byli jste odebráni ze seznamu spolusprávců balíčku {pkgbase} [1]."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package deleted: {pkgbase}"
-msgstr ""
+msgstr "Smazání balíčku {pkgbase} na webu AUR"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2229,7 +2286,7 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "Uživatel {user} [1] sloučil balíček {old} [2] do balíčku {new} [3].\n\n-- \nPokud již nechcete dostávat oznámení související s tímto balíčkem, na stránce balíčku [3] vyberte možnost \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2237,16 +2294,61 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr ""
+msgstr "Uživatel {user} [1] smazal balíček {pkgbase} [2].\n\nNadále již nebude dostávat oznámení související s tímto balíčkem."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "TU Vote Reminder: Proposal {id}"
-msgstr ""
+msgstr "Připomínka k hlasování důvěryhodných uživatelů: návrh {id}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
+msgstr "Nezapomeňte prosím hlasovat o návrhu {id} [1]. Hlasování končí za méně než 48 hodin."
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr "Poskytnutý typ účtu je neplatný."
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr "Nemáte oprávnění ke změnám typů účtů."
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr "Pro změnu typu tohoto účtu na %s nemáte oprávnění."
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr ""
