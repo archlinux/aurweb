@@ -50,7 +50,17 @@
                                     </tr>
                                     <tr>
                                         <th>{% trans %}Status{% endtrans %}:</th>
-                                        <td>{{ "Active" if not user.Suspended else "Suspended" | tr }}</td>
+                                        {% if not user.InactivityTS %}
+                                            <td>{{ "Active" | tr }}</td>
+                                        {% else %}
+                                            {% set inactive_ds = user.InactivityTS | dt | as_timezone(timezone) %}
+                                            <td>
+                                                {{
+                                                    "Inactive since %s" | tr
+                                                    | format(inactive_ds.strftime("%Y-%m-%d %H:%M"))
+                                                }}
+                                            </td>
+                                        {% endif %}
                                     </tr>
                                     <tr>
                                         <th>{% trans %}Registration date{% endtrans %}:</th>
@@ -58,6 +68,13 @@
                                             {{ user.RegistrationTS.strftime("%Y-%m-%d") }}
                                         </td>
                                     </tr>
+                                    {% if login_ts %}
+                                        <tr>
+                                            <th>{% trans %}Last Login{% endtrans %}:</th>
+                                            {% set login_ds = login_ts | dt | as_timezone(timezone) %}
+                                            <td>{{ login_ds.strftime("%Y-%m-%d") }}</td>
+                                        </tr>
+                                    {% endif %}
                                     <tr>
                                         <th>{% trans %}Links{% endtrans %}:</th>
                                         <td>
