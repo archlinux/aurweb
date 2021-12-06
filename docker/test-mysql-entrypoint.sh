@@ -13,4 +13,7 @@ aurweb-config set database socket '/var/run/mysqld/mysqld.sock'
 aurweb-config unset database password
 aurweb-config unset database port
 
+# Setup notifications for testing.
+aurweb-config set notifications sendmail "$(pwd)/util/sendmail"
+
 exec "$@"
