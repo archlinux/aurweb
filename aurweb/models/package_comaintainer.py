@@ -15,11 +15,13 @@ class PackageComaintainer(Base):
     }
 
     User = relationship(
-        _User, backref=backref("comaintained", lazy="dynamic"),
+        _User, backref=backref("comaintained", lazy="dynamic",
+                               cascade="all, delete"),
         foreign_keys=[__table__.c.UsersID])
 
     PackageBase = relationship(
-        _PackageBase, backref=backref("comaintainers", lazy="dynamic"),
+        _PackageBase, backref=backref("comaintainers", lazy="dynamic",
+                                      cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID])
 
     def __init__(self, **kwargs):
