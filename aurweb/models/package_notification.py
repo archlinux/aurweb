@@ -15,12 +15,14 @@ class PackageNotification(Base):
     }
 
     User = relationship(
-        _User, backref=backref("notifications", lazy="dynamic"),
+        _User, backref=backref("notifications", lazy="dynamic",
+                               cascade="all, delete"),
         foreign_keys=[__table__.c.UserID])
 
     PackageBase = relationship(
         _PackageBase,
-        backref=backref("notifications", lazy="dynamic"),
+        backref=backref("notifications", lazy="dynamic",
+                        cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID])
 
     def __init__(self, **kwargs):
