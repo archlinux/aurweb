@@ -694,8 +694,7 @@ async def pkgbase_request_post(request: Request, name: str,
             delete_package(request.user, package)
 
     # Redirect the submitting user to /packages.
-    return RedirectResponse("/packages",
-                            status_code=HTTPStatus.SEE_OTHER)
+    return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/requests/{id}/close")
