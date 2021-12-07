@@ -76,7 +76,7 @@
                                         ) %}
                                     {% endif %}
 
-                                    {% if request.user.is_elevated() %}
+                                    {% if request.user.is_elevated() and not result.ClosedTS %}
                                         {% if result.RequestType.ID == 2 and not due %}
                                             {% set time_left = idle_time - time_delta %}
                                             {% if time_left > 48 * 3600 %}
@@ -98,9 +98,11 @@
                                         {% endif %}
                                         <br />
                                     {% endif %}
-                                    <a href="/requests/{{ result.ID }}/close">
-                                        {{ "Close" | tr }}
-                                    </a>
+                                    {% if not result.ClosedTS %}
+                                        <a href="/requests/{{ result.ID }}/close">
+                                            {{ "Close" | tr }}
+                                        </a>
+                                    {% endif %}
                                 {% else %}
                                     {{ result.status_display() }}
                                 {% endif %}
