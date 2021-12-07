@@ -19,7 +19,8 @@ class PackageVote(Base):
         foreign_keys=[__table__.c.UsersID])
 
     PackageBase = relationship(
-        _PackageBase, backref=backref("package_votes", lazy="dynamic"),
+        _PackageBase, backref=backref("package_votes", lazy="dynamic",
+                                      cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID])
 
     def __init__(self, **kwargs):
