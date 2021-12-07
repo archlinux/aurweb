@@ -275,7 +275,7 @@ services:
     init: true
     environment:
       - AUR_CONFIG=conf/config.sqlite
-    entrypoint: /docker/test-sqlite-entrypoint.sh
+    entrypoint: /docker/sharness-entrypoint.sh
     command: /docker/scripts/run-sharness.sh
     stdin_open: true
     tty: true
