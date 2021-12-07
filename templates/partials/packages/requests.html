@@ -15,11 +15,17 @@
         {% for request in requests %}
             {% set requested = request.RequestTS | dt | as_timezone(timezone) %}
             <tr>
-                <td>
-                    <a href="/pkgbase/{{ request.PackageBase.Name }}">
-                        {{ request.PackageBase.Name }}
-                    </a>
-                </td>
+                {% if request.PackageBase %}
+                    {# If the PackageBase still exists, link to it. #}
+                    <td>
+                        <a href="/pkgbase/{{ request.PackageBaseName }}">
+                            {{ request.PackageBaseName }}
+                        </a>
+                    </td>
+                {% else %}
+                    {# Otherwise, just display PackageBaseName unlinked. #}
+                    <td>{{ request.PackageBaseName }}</td>
+                {% endif %}
                 <td>
                     {{ request.RequestType.name_display() | tr }}
                     {# If the RequestType is a merge and request.MergeBaseName is valid... #}

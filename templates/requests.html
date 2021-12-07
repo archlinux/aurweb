@@ -23,12 +23,17 @@
                 <tbody>
                     {% for result in results %}
                         <tr>
-                            <td>
-                                {# Package #}
-                                <a href="/pkgbase/{{ result.PackageBaseName }}">
-                                    {{ result.PackageBaseName }}
-                                </a>
-                            </td>
+                            {% if result.PackageBase %}
+                                {# If the PackageBase still exists, link to it. #}
+                                <td>
+                                    <a href="/pkgbase/{{ result.PackageBaseName }}">
+                                        {{ result.PackageBaseName }}
+                                    </a>
+                                </td>
+                            {% else %}
+                                {# Otherwise, just display PackageBaseName unlinked. #}
+                                <td>{{ result.PackageBaseName }}</td>
+                            {% endif %}
                             {# Type #}
                             <td>
                                 {{ result.RequestType.name_display() | tr }}
