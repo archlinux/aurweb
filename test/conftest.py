@@ -217,3 +217,15 @@ def db_test(db_session: scoped_session) -> None:
 @pytest.fixture
 def git(tmpdir: py.path.local) -> GitRepository:
     yield GitRepository(tmpdir)
+
+
+@pytest.fixture
+def email_test() -> None:
+    """
+    A decoupled test email setup fixture.
+
+    When using the `db_test` fixture, this fixture is redundant. Otherwise,
+    email tests need to run through our `setup_email` function to ensure
+    that we set them up to be used via aurweb.testing.email.Email.
+    """
+    setup_email()

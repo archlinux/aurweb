@@ -1,8 +1,12 @@
 import base64
+import binascii
 import copy
 import email
 import os
 import re
+import sys
+
+from typing import TextIO
 
 
 class Email:
@@ -26,9 +30,12 @@ class Email:
     """
     TEST_DIR = "test-emails"
 
-    def __init__(self, serial: int = 1):
+    def __init__(self, serial: int = 1, autoparse: bool = True):
         self.serial = serial
         self.content = self._get()
+
+        if autoparse:
+            self._parse()
 
     @staticmethod
     def email_prefix(suite: bool = False) -> str:
@@ -77,7 +84,7 @@ class Email:
         with open(path) as f:
             return f.read()
 
-    def parse(self) -> "Email":
+    def _parse(self) -> "Email":
         """
         Parse this email and base64-decode the body.
 
@@ -94,12 +101,18 @@ class Email:
 
         # aurweb email notifications always have base64 encoded content.
         # Decode it here so self.body is human readable.
-        self.body = base64.b64decode(self.message.get_payload()).decode()
+        try:
+            self.body = base64.b64decode(self.message.get_payload()).decode()
+        except (binascii.Error, UnicodeDecodeError):
+            self.body = self.message.get_payload()
 
         path = self._email_path()
         with open(path, "w") as f:
             f.write(self.glue())
 
+        return self
+
+    def parse(self) -> "Email":
         return self
 
     def glue(self) -> str:
@@ -110,7 +123,9 @@ class Email:
         :return: Email document as a string
         """
         headers = copy.copy(self.headers)
-        del headers["Content-Transfer-Encoding"]
+
+        if "Content-Transfer-Encoding" in headers:
+            headers.pop("Content-Transfer-Encoding")
 
         output = []
         for k, v in headers.items():
@@ -118,3 +133,23 @@ class Email:
         output.append("")
         output.append(self.body)
         return "\n".join(output)
+
+    @staticmethod
+    def dump(file: TextIO = sys.stdout) -> None:
+        """
+        Dump emails content to `file`.
+
+        This function is intended to be used to debug email issues
+        while testing something relevent to email.
+
+        :param file: Writable file object
+        """
+        lines = []
+        for i in range(Email.count()):
+            email = Email(i + 1)
+            lines += [
+                f"== Email #{i + 1} ==",
+                email.glue(),
+                f"== End of Email #{i + 1}"
+            ]
+        print("\n".join(lines), file=file)
