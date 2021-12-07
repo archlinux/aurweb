@@ -67,8 +67,8 @@ def pkgname_link(pkgname: str) -> str:
 def package_link(package: models.Package) -> str:
     base = "/".join([OFFICIAL_BASE, "packages"])
     official = db.query(models.OfficialProvider).filter(
-        models.OfficialProvider.Name == package.Name)
-    if official.scalar():
+        models.OfficialProvider.Name == package.Name).exists()
+    if db.query(official).scalar():
         return f"{base}/?q={package.Name}"
     return f"/packages/{package.Name}"
 
