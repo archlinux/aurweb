@@ -29,7 +29,12 @@ test:
     - make -C po all install
     - make -C test clean
   script:
+    # Run sharness.
+    - cp logging.conf logging.conf.bak # Copy devel logging.conf to backup
+    - cp logging.prod.conf logging.conf # Copy in logging.prod.conf
     - make -C test sh # sharness tests use sqlite.
+    - cp logging.conf.bak logging.conf # Restore devel logging.conf
+    # Run pytest.
     - pytest # Run pytest suites.
     - make -C test coverage # Produce coverage reports.
     - flake8 --count aurweb # Assert no flake8 violations in aurweb.
@@ -59,6 +64,7 @@ deploy:
     COMMIT_HASH: $CI_COMMIT_SHA
     GIT_DATA_DIR: git_data
   script:
+    - cp -vf logging.prod.conf logging.conf # Use production logging.conf
     - pacman -Syu --noconfirm docker docker-compose socat openssh
     - chmod 600 ${SSH_KEY}
     - socat "UNIX-LISTEN:/tmp/docker.sock,reuseaddr,fork" EXEC:"ssh -o UserKnownHostsFile=${SSH_KNOWN_HOSTS} -Ti ${SSH_KEY} ${SSH_USER}@${SSH_HOST}" &
