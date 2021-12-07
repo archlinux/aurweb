@@ -8,6 +8,7 @@ aurwebdir = aurweb.config.get("options", "aurwebdir")
 config_path = os.path.join(aurwebdir, "logging.conf")
 
 logging.config.fileConfig(config_path, disable_existing_loggers=False)
+logging.getLogger("root").addHandler(logging.NullHandler())
 
 
 def get_logger(name: str) -> logging.Logger:
