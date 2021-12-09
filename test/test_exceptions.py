@@ -97,3 +97,10 @@ def test_repository_name_exception():
         raise exceptions.InvalidRepositoryNameException("test")
     except exceptions.InvalidRepositoryNameException as exc:
         assert str(exc) == "invalid repository name: test"
+
+
+def test_invariant_error():
+    try:
+        raise exceptions.InvariantError("test")
+    except exceptions.InvariantError as exc:
+        assert str(exc) == "test"
