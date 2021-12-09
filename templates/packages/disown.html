@@ -37,6 +37,12 @@
         <form action="/pkgbase/{{ pkgbase.Name }}/disown" method="post">
             <fieldset>
                 <p>
+                    <label for="id_comments">{{ "Comments" | tr }}:</label>
+                    <textarea id="id_comments" name="comments"
+                              rows="5" cols="50"></textarea>
+                </p>
+
+                <p>
                     <label class="confirmation">
                         <input type="checkbox" name="confirm" value="1" />
                         {{ "Confirm to disown the package" | tr }}

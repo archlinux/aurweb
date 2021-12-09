@@ -24,24 +24,6 @@
         <form action="/requests/{{ pkgreq.ID }}/close" method="post">
             <fieldset>
                 <p>
-                    <label for="id_reason">{{ "Reason" | tr }}:</label>
-                    <select id="id_reason" name="reason">
-                        {# Value 2 == "Accepted" status.
-                        See aurweb.models.package_request. #}
-                        {% if request.user.is_elevated() %}
-                            <option value="2">
-                                {{ "Accepted" | tr }}
-                            </option>
-                        {% endif %}
-                        {# Value 3 == "Rejected" status.
-                        See aurweb.models.package_request. #}
-                        <option value="3">
-                            {{ "Rejected" | tr }}
-                        </option>
-                    </select>
-                </p>
-
-                <p>
                     <label for="id_comments">{{ "Comments" | tr }}:</label>
                     <textarea id="id_comments" name="comments"
                               rows="5" cols="50"></textarea>

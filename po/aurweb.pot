@@ -2300,3 +2300,7 @@ msgstr ""
 #: aurweb/routers/accounts.py
 msgid "You do not have permission to change this user's account type to %s."
 msgstr ""
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""

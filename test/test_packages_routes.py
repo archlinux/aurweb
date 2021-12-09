@@ -10,7 +10,7 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import and_
 
-from aurweb import asgi, config, db, defaults
+from aurweb import asgi, db, defaults
 from aurweb.models import License, PackageLicense
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
@@ -28,6 +28,7 @@ from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID, RelationType
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, RequestType
 from aurweb.models.user import User
+from aurweb.testing.email import Email
 from aurweb.testing.html import get_errors, get_successes, parse_root
 from aurweb.testing.requests import Request
 
@@ -124,6 +125,39 @@ def package(maintainer: User) -> Package:
                             PackageBase=pkgbase,
                             Name=pkgbase.Name)
     yield package
+
+
+@pytest.fixture
+def pkgbase(package: Package) -> PackageBase:
+    yield package.PackageBase
+
+
+@pytest.fixture
+def target(maintainer: User) -> PackageBase:
+    """ Merge target. """
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        pkgbase = db.create(PackageBase, Name="target-package",
+                            Maintainer=maintainer,
+                            Packager=maintainer,
+                            Submitter=maintainer,
+                            ModifiedTS=now)
+        db.create(Package, PackageBase=pkgbase, Name=pkgbase.Name)
+    yield pkgbase
+
+
+@pytest.fixture
+def pkgreq(user: User, pkgbase: PackageBase) -> PackageRequest:
+    """ Yield a PackageRequest related to `pkgbase`. """
+    with db.begin():
+        pkgreq = db.create(PackageRequest,
+                           ReqTypeID=DELETION_ID,
+                           User=user,
+                           PackageBase=pkgbase,
+                           PackageBaseName=pkgbase.Name,
+                           Comments=f"Deletion request for {pkgbase.Name}",
+                           ClosureComment=str())
+    yield pkgreq
 
 
 @pytest.fixture
@@ -296,15 +330,7 @@ def test_package_comments(client: TestClient, user: User, package: Package):
 
 
 def test_package_requests_display(client: TestClient, user: User,
-                                  package: Package):
-    type_ = db.query(RequestType, RequestType.ID == DELETION_ID).first()
-    with db.begin():
-        db.create(PackageRequest, PackageBase=package.PackageBase,
-                  PackageBaseName=package.PackageBase.Name,
-                  User=user, RequestType=type_,
-                  Comments="Test comment.",
-                  ClosureComment=str())
-
+                                  package: Package, pkgreq: PackageRequest):
     # Test that a single request displays "1 pending request".
     with client as request:
         resp = request.get(package_endpoint(package))
@@ -1516,115 +1542,6 @@ def test_pkgbase_request(client: TestClient, user: User, package: Package):
     assert resp.status_code == int(HTTPStatus.OK)
 
 
-def test_pkgbase_request_post_deletion(client: TestClient, user: User,
-                                       package: Package):
-    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(endpoint, data={
-            "type": "deletion",
-            "comments": "We want to delete this."
-        }, cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-    pkgreq = db.query(PackageRequest).filter(
-        PackageRequest.PackageBaseID == package.PackageBase.ID
-    ).first()
-    assert pkgreq is not None
-    assert pkgreq.RequestType.Name == "deletion"
-    assert pkgreq.PackageBaseName == package.PackageBase.Name
-    assert pkgreq.Comments == "We want to delete this."
-
-
-def test_pkgbase_request_post_maintainer_deletion(
-        client: TestClient, maintainer: User, package: Package):
-    pkgbasename = package.PackageBase.Name
-    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
-    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(endpoint, data={
-            "type": "deletion",
-            "comments": "We want to delete this."
-        }, cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-    pkgreq = db.query(PackageRequest).filter(
-        PackageRequest.PackageBaseName == pkgbasename
-    ).first()
-    assert pkgreq.Status == ACCEPTED_ID
-
-
-def test_pkgbase_request_post_orphan(client: TestClient, user: User,
-                                     package: Package):
-    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(endpoint, data={
-            "type": "orphan",
-            "comments": "We want to disown this."
-        }, cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-    pkgreq = db.query(PackageRequest).filter(
-        PackageRequest.PackageBaseID == package.PackageBase.ID
-    ).first()
-    assert pkgreq is not None
-    assert pkgreq.RequestType.Name == "orphan"
-    assert pkgreq.PackageBaseName == package.PackageBase.Name
-    assert pkgreq.Comments == "We want to disown this."
-
-
-def test_pkgbase_request_post_auto_orphan(client: TestClient, user: User,
-                                          package: Package):
-    now = int(datetime.utcnow().timestamp())
-    auto_orphan_age = config.getint("options", "auto_orphan_age")
-    with db.begin():
-        package.PackageBase.OutOfDateTS = now - auto_orphan_age - 1
-
-    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(endpoint, data={
-            "type": "orphan",
-            "comments": "We want to disown this."
-        }, cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-    pkgreq = db.query(PackageRequest).filter(
-        PackageRequest.PackageBaseID == package.PackageBase.ID
-    ).first()
-    assert pkgreq is not None
-    assert pkgreq.Status == ACCEPTED_ID
-
-
-def test_pkgbase_request_post_merge(client: TestClient, user: User,
-                                    package: Package):
-    with db.begin():
-        pkgbase2 = db.create(PackageBase, Name="new-pkgbase",
-                             Submitter=user, Maintainer=user, Packager=user)
-        target = db.create(Package, PackageBase=pkgbase2,
-                           Name=pkgbase2.Name, Version="1.0.0")
-
-    endpoint = f"/pkgbase/{package.PackageBase.Name}/request"
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(endpoint, data={
-            "type": "merge",
-            "merge_into": target.PackageBase.Name,
-            "comments": "We want to merge this."
-        }, cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-    pkgreq = db.query(PackageRequest).filter(
-        PackageRequest.PackageBaseID == package.PackageBase.ID
-    ).first()
-    assert pkgreq is not None
-    assert pkgreq.RequestType.Name == "merge"
-    assert pkgreq.PackageBaseName == package.PackageBase.Name
-    assert pkgreq.MergeBaseName == target.PackageBase.Name
-    assert pkgreq.Comments == "We want to merge this."
-
-
 def test_pkgbase_request_post_not_found(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -1718,22 +1635,6 @@ def test_pkgbase_request_post_merge_self_error(client: TestClient, user: User,
     assert error.text.strip() == expected
 
 
-@pytest.fixture
-def pkgreq(user: User, package: Package) -> PackageRequest:
-    reqtype = db.query(RequestType).filter(
-        RequestType.ID == DELETION_ID
-    ).first()
-    with db.begin():
-        pkgreq = db.create(PackageRequest,
-                           RequestType=reqtype,
-                           User=user,
-                           PackageBase=package.PackageBase,
-                           PackageBaseName=package.PackageBase.Name,
-                           Comments=str(),
-                           ClosureComment=str())
-    yield pkgreq
-
-
 def test_requests_close(client: TestClient, user: User,
                         pkgreq: PackageRequest):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
@@ -1753,16 +1654,6 @@ def test_requests_close_unauthorized(client: TestClient, maintainer: User,
     assert resp.headers.get("location") == "/"
 
 
-def test_requests_close_post_invalid_reason(client: TestClient, user: User,
-                                            pkgreq: PackageRequest):
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(f"/requests/{pkgreq.ID}/close", data={
-            "reason": 0
-        }, cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.BAD_REQUEST)
-
-
 def test_requests_close_post_unauthorized(client: TestClient, maintainer: User,
                                           pkgreq: PackageRequest):
     cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
@@ -1778,9 +1669,8 @@ def test_requests_close_post(client: TestClient, user: User,
                              pkgreq: PackageRequest):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(f"/requests/{pkgreq.ID}/close", data={
-            "reason": REJECTED_ID
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(f"/requests/{pkgreq.ID}/close",
+                            cookies=cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     assert pkgreq.Status == REJECTED_ID
@@ -1792,9 +1682,8 @@ def test_requests_close_post_rejected(client: TestClient, user: User,
                                       pkgreq: PackageRequest):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.post(f"/requests/{pkgreq.ID}/close", data={
-            "reason": REJECTED_ID
-        }, cookies=cookies, allow_redirects=False)
+        resp = request.post(f"/requests/{pkgreq.ID}/close",
+                            cookies=cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
 
     assert pkgreq.Status == REJECTED_ID
@@ -1971,18 +1860,6 @@ def test_pkgbase_vote(client: TestClient, user: User, package: Package):
     assert pkgbase.NumVotes == 0
 
 
-def test_pkgbase_disown_as_tu(client: TestClient, tu_user: User,
-                              package: Package):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
-    pkgbase = package.PackageBase
-    endpoint = f"/pkgbase/{pkgbase.Name}/disown"
-
-    # But we do here.
-    with client as request:
-        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-
 def test_pkgbase_disown_as_sole_maintainer(client: TestClient,
                                            maintainer: User,
                                            package: Package):
@@ -2113,6 +1990,38 @@ def test_pkgbase_delete(client: TestClient, tu_user: User, package: Package):
         PackageBase.Name == pkgbase.Name
     ).first()
     assert record is None
+
+    # Two emails should've been sent out; an autogenerated
+    # request's accepted notification and a deletion notification.
+    assert Email.count() == 1
+
+    req_close = Email(1).parse()
+    expr = r"^\[PRQ#\d+\] Deletion Request for [^ ]+ Accepted$"
+    subject = req_close.headers.get("Subject")
+    assert re.match(expr, subject)
+
+
+def test_pkgbase_delete_with_request(client: TestClient, tu_user: User,
+                                     pkgbase: PackageBase,
+                                     pkgreq: PackageRequest):
+    # TODO: Test that a previously existing request gets Accepted when
+    # a TU deleted the package.
+
+    # Delete the package as `tu_user` via POST request.
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/pkgbase/{pkgbase.Name}/delete"
+    with client as request:
+        resp = request.post(endpoint, data={"confirm": True}, cookies=cookies)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == "/packages"
+
+    # We should've just sent one closure email since `pkgreq` exists.
+    assert Email.count() == 1
+
+    # Make sure it was a closure for the deletion request.
+    email = Email(1).parse()
+    expr = r"^\[PRQ#\d+\] Deletion Request for [^ ]+ Accepted$"
+    assert re.match(expr, email.headers.get("Subject"))
 
 
 def test_packages_post_unknown_action(client: TestClient, user: User,
@@ -2371,9 +2280,11 @@ def test_packages_post_adopt(client: TestClient, user: User,
     assert successes[0].text.strip() == expected
 
 
-def test_packages_post_disown(client: TestClient, user: User,
-                              maintainer: User, package: Package):
-    # Initially prove that we have a maintainer: `maintainer`.
+def test_packages_post_disown_as_maintainer(client: TestClient, user: User,
+                                            maintainer: User,
+                                            package: Package):
+    """ Disown packages as a maintainer. """
+    # Initially prove that we have a maintainer.
     assert package.PackageBase.Maintainer is not None
     assert package.PackageBase.Maintainer == maintainer
 
@@ -2430,9 +2341,24 @@ def test_packages_post_disown(client: TestClient, user: User,
     assert successes[0].text.strip() == expected
 
 
+def test_packages_post_disown(client: TestClient, tu_user: User,
+                              maintainer: User, package: Package):
+    """ Disown packages as a Trusted User, which cannot bypass idle time. """
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.post("/packages", data={
+            "action": "disown",
+            "IDs": [package.ID],
+            "confirm": True
+        }, cookies=cookies)
+
+    errors = get_errors(resp.text)
+    expected = r"^No due existing orphan requests to accept for .+\.$"
+    assert re.match(expected, errors[0].text.strip())
+
+
 def test_packages_post_delete(caplog: pytest.fixture, client: TestClient,
                               user: User, tu_user: User, package: Package):
-
     # First, let's try to use the delete action with no packages IDs.
     user_cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
@@ -2556,23 +2482,19 @@ def test_pkgbase_merge_post_self_invalid(client: TestClient, tu_user: User,
 
 
 def test_pkgbase_merge_post(client: TestClient, tu_user: User,
-                            packages: List[Package]):
-    package, target = packages[:2]
+                            package: Package,
+                            pkgbase: PackageBase,
+                            target: PackageBase,
+                            pkgreq: PackageRequest):
     pkgname = package.Name
-    pkgbasename = package.PackageBase.Name
+    pkgbasename = pkgbase.Name
 
     # Create a merge request destined for another target.
     # This will allow our test code to exercise closing
     # such a request after merging the pkgbase in question.
     with db.begin():
-        pkgreq = db.create(PackageRequest,
-                           User=tu_user,
-                           ReqTypeID=MERGE_ID,
-                           PackageBase=package.PackageBase,
-                           PackageBaseName=pkgbasename,
-                           MergeBaseName="test",
-                           Comments="Test comment.",
-                           ClosureComment="Test closure.")
+        pkgreq.ReqTypeID = MERGE_ID
+        pkgreq.MergeBaseName = target.Name
 
     # Vote for the package.
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
@@ -2604,32 +2526,37 @@ def test_pkgbase_merge_post(client: TestClient, tu_user: User,
     endpoint = f"/pkgbase/{package.PackageBase.Name}/merge"
     with client as request:
         resp = request.post(endpoint, data={
-            "into": target.PackageBase.Name,
+            "into": target.Name,
             "confirm": True
         }, cookies=cookies)
     assert resp.status_code == int(HTTPStatus.SEE_OTHER)
     loc = resp.headers.get("location")
-    assert loc == f"/pkgbase/{target.PackageBase.Name}"
+    assert loc == f"/pkgbase/{target.Name}"
+
+    # Two emails should've been sent out.
+    assert Email.count() == 1
+    email_body = Email(1).parse().glue()
+    assert f"Merge Request for {pkgbasename} Accepted" in email_body
 
     # Assert that the original comments, notifs and votes we setup
     # got migrated to target as intended.
-    assert comments == target.PackageBase.comments.all()
-    assert notifs == target.PackageBase.notifications.all()
-    assert votes == target.PackageBase.package_votes.all()
+    assert comments == target.comments.all()
+    assert notifs == target.notifications.all()
+    assert votes == target.package_votes.all()
 
     # ...and that the package got deleted.
     package = db.query(Package).filter(Package.Name == pkgname).first()
     assert package is None
 
-    # Our fake target request should have gotten rejected.
-    assert pkgreq.Status == REJECTED_ID
+    # Our previously-made request should have gotten accepted.
+    assert pkgreq.Status == ACCEPTED_ID
     assert pkgreq.Closer is not None
 
     # A PackageRequest is always created when merging this way.
     pkgreq = db.query(PackageRequest).filter(
         and_(PackageRequest.ReqTypeID == MERGE_ID,
              PackageRequest.PackageBaseName == pkgbasename,
-             PackageRequest.MergeBaseName == target.PackageBase.Name)
+             PackageRequest.MergeBaseName == target.Name)
     ).first()
     assert pkgreq is not None
 

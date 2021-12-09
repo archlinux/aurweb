@@ -50,6 +50,12 @@
                 </p>
 
                 <p>
+                    <label for="id_comments">{{ "Comments" | tr }}:</label>
+                    <textarea id="id_comments" name="comments"
+                              rows="5" cols="50"></textarea>
+                </p>
+
+                <p>
                     <label class="confirmation">
                         <input type="checkbox" name="confirm" />
                         {{ "Confirm package merge" | tr }}

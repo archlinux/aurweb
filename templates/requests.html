@@ -76,7 +76,6 @@
                                         {% set action = "merge" %}
                                         {# Add the 'via' url query parameter. #}
                                         {% set temp_q = temp_q | extend_query(
-                                            ["via", result.ID],
                                             ["into", result.MergeBaseName]
                                         ) %}
                                     {% endif %}
