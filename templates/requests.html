@@ -82,6 +82,12 @@
                                     {% endif %}
 
                                     {% if request.user.is_elevated() and not result.ClosedTS %}
+                                        {#
+                                        If RequestType is an orphan and it's not yet due, it's locked
+                                        to allow the maintainer time to react to such a request.
+
+                                        On request, orphans are locked for two weeks.
+                                        #}
                                         {% if result.RequestType.ID == 2 and not due %}
                                             {% set time_left = idle_time - time_delta %}
                                             {% if time_left > 48 * 3600 %}
