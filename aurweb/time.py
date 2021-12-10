@@ -57,7 +57,7 @@ def get_request_timezone(request: Request):
 
     @param request FastAPI request
     """
-    if request.user.is_authenticated():
-        return request.user.Timezone
     default_tz = aurweb.config.get("options", "default_timezone")
+    if request.user.is_authenticated():
+        default_tz = request.user.Timezone
     return request.cookies.get("AURTZ", default_tz)
