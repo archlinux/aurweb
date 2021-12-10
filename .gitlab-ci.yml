@@ -73,7 +73,6 @@ deploy:
     - sed -ri "s/^(disable_http_login).*$/\1 = 1/" conf/config.dev
     - docker-compose build
     - docker-compose -f docker-compose.yml -f docker-compose.aur-dev.yml up -d
-      cron fastapi cgit-fastapi php-fpm cgit-php smartgit
     - docker image prune -f
     - docker container prune -f
     - docker volume prune -f
