@@ -32,7 +32,7 @@ services:
     command: /docker/scripts/run-ca.sh
     healthcheck:
       test: "bash /docker/health/run-ca.sh"
-      interval: 3s
+      interval: 2s
 
   memcached:
     image: aurweb:latest
@@ -40,7 +40,7 @@ services:
     command: /docker/scripts/run-memcached.sh
     healthcheck:
       test: "bash /docker/health/memcached.sh"
-      interval: 3s
+      interval: 2s
  
   redis:
     image: aurweb:latest
@@ -49,7 +49,7 @@ services:
     command: /docker/scripts/run-redis.sh
     healthcheck:
       test: "bash /docker/health/redis.sh"
-      interval: 3s
+      interval: 2s
     ports:
       - "127.0.0.1:16379:6379"
 
@@ -67,7 +67,7 @@ services:
       - mariadb_data:/var/lib/mysql
     healthcheck:
       test: "bash /docker/health/mariadb.sh"
-      interval: 3s
+      interval: 2s
 
   mariadb_init:
     image: aurweb:latest
@@ -98,7 +98,7 @@ services:
       - mariadb_test_run:/var/run/mysqld # Bind socket in this volume.
     healthcheck:
       test: "bash /docker/health/mariadb.sh"
-      interval: 3s
+      interval: 2s
 
   git:
     image: aurweb:latest
@@ -113,7 +113,7 @@ services:
       - "2222:2222"
     healthcheck:
       test: "bash /docker/health/sshd.sh"
-      interval: 3s
+      interval: 2s
     depends_on:
       mariadb_init:
         condition: service_started
@@ -129,7 +129,7 @@ services:
     command: /docker/scripts/run-smartgit.sh
     healthcheck:
       test: "bash /docker/health/smartgit.sh"
-      interval: 3s
+      interval: 2s
 
   cgit-php:
     image: aurweb:latest
@@ -142,7 +142,7 @@ services:
     command: /docker/scripts/run-cgit.sh 3000
     healthcheck:
       test: "bash /docker/health/cgit.sh 3000"
-      interval: 3s
+      interval: 2s
     depends_on:
       git:
         condition: service_healthy
@@ -162,7 +162,7 @@ services:
     command: /docker/scripts/run-cgit.sh 3000
     healthcheck:
       test: "bash /docker/health/cgit.sh 3000"
-      interval: 3s
+      interval: 2s
     depends_on:
       git:
         condition: service_healthy
@@ -198,7 +198,7 @@ services:
     command: /docker/scripts/run-php.sh
     healthcheck:
       test: "bash /docker/health/php.sh"
-      interval: 3s
+      interval: 2s
     depends_on:
       ca:
         condition: service_started
@@ -229,7 +229,7 @@ services:
     command: /docker/scripts/run-fastapi.sh "${FASTAPI_BACKEND}"
     healthcheck:
       test: "bash /docker/health/fastapi.sh ${FASTAPI_BACKEND}"
-      interval: 3s
+      interval: 2s
     depends_on:
       ca:
         condition: service_started
@@ -256,7 +256,7 @@ services:
       - "127.0.0.1:8444:8444" # FastAPI
     healthcheck:
       test: "bash /docker/health/nginx.sh"
-      interval: 3s
+      interval: 2s
     depends_on:
       cgit-php:
         condition: service_healthy
