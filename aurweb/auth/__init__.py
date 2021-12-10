@@ -122,6 +122,7 @@ class BasicAuthBackend(AuthenticationBackend):
         # exists, due to ForeignKey constraints in the schema upheld
         # by mysqlclient.
         user = db.query(User).filter(User.ID == record.UsersID).first()
+        db.refresh(user)
         user.nonce = util.make_nonce()
         user.authenticated = True
 
