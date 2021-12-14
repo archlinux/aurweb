@@ -512,10 +512,10 @@ async def package_base_comaintainers_post(
         return RedirectResponse(f"/pkgbase/{name}",
                                 status_code=HTTPStatus.SEE_OTHER)
 
-    users = set(users.split("\n"))
-    users.remove(str())  # Remove any empty strings from the set.
+    users = {e.strip() for e in users.split("\n") if bool(e.strip())}
     records = {c.User.Username for c in pkgbase.comaintainers}
 
+    logger.debug(f"RemoveComaintainers: {records.difference(users)}")
     pkgutil.remove_comaintainers(pkgbase, records.difference(users))
 
     # Default priority (lowest value; most preferred).
@@ -533,6 +533,7 @@ async def package_base_comaintainers_post(
     if last_priority:
         priority = last_priority.Priority + 1
 
+    logger.debug(f"AddComaintainers: {users.difference(records)}")
     error = pkgutil.add_comaintainers(request, pkgbase, priority,
                                       users.difference(records))
     if error:
