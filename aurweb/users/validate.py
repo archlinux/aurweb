@@ -11,12 +11,15 @@ from typing import List, Optional, Tuple
 from fastapi import Request
 from sqlalchemy import and_
 
-from aurweb import config, db, l10n, models, time, util
+from aurweb import config, db, l10n, logging, models, time, util
+from aurweb.auth import creds
 from aurweb.captcha import get_captcha_answer, get_captcha_salts, get_captcha_token
 from aurweb.exceptions import ValidationError
 from aurweb.models import account_type as at
 from aurweb.models.account_type import ACCOUNT_TYPE_NAME
 from aurweb.models.ssh_pub_key import get_fingerprint
+
+logger = logging.get_logger(__name__)
 
 
 def invalid_fields(E: str = str(), U: str = str(), **kwargs) \
@@ -171,26 +174,31 @@ def invalid_account_type(T: int = None, request: Request = None,
                          _: l10n.Translator = None,
                          **kwargs) -> None:
     if T is not None and (T := int(T)) != user.AccountTypeID:
+        has_cred = request.user.has_credential(creds.ACCOUNT_CHANGE_TYPE)
         if T not in ACCOUNT_TYPE_NAME:
             raise ValidationError(["Invalid account type provided."])
-        elif not request.user.is_elevated():
+        elif not has_cred:
             raise ValidationError([
                 "You do not have permission to change account types."])
 
         credential_checks = {
             at.USER_ID: request.user.is_trusted_user,
             at.TRUSTED_USER_ID: request.user.is_trusted_user,
-            at.DEVELOPER_ID: lambda: request.user.is_developer(),
+            at.DEVELOPER_ID: request.user.is_developer,
             at.TRUSTED_USER_AND_DEV_ID: (lambda: request.user.is_trusted_user()
                                          and request.user.is_developer())
         }
         credential_check = credential_checks.get(T)
 
-        if not credential_check():
-            name = ACCOUNT_TYPE_NAME.get(T)
+        name = ACCOUNT_TYPE_NAME.get(T)
+        if not credential_check() or request.user == user:
             error = _("You do not have permission to change "
                       "this user's account type to %s.") % name
             raise ValidationError([error])
+        else:
+            logger.debug(f"Trusted User '{request.user.Username}' has "
+                         f"modified '{user.Username}' account's type to"
+                         f" {name}.")
 
 
 def invalid_captcha(captcha_salt: str = None, captcha: str = None, **kwargs) \
