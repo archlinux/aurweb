@@ -75,7 +75,7 @@
             </p>
         {% endif %}
 
-        {% if request.user.is_elevated() %}
+        {% if request.user.has_credential(creds.ACCOUNT_EDIT, approved=[user]) %}
             <p>
                 <label for="id_inactive">{% trans %}Inactive{% endtrans %}:</label>
                 <input id="id_inactive" type="checkbox" name="J"
