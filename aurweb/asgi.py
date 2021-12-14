@@ -1,6 +1,7 @@
 import asyncio
 import http
 import os
+import re
 import sys
 import typing
 
@@ -9,18 +10,22 @@ from urllib.parse import quote_plus
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from jinja2 import TemplateNotFound
 from prometheus_client import multiprocess
 from sqlalchemy import and_, or_
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.authentication import AuthenticationMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 
 import aurweb.config
 import aurweb.logging
+import aurweb.pkgbase.util as pkgbaseutil
 
 from aurweb import prometheus, util
 from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
 from aurweb.models import AcceptedTerm, Term
+from aurweb.packages.util import get_pkg_or_base
 from aurweb.prometheus import instrumentator
 from aurweb.routers import APP_ROUTES
 from aurweb.templates import make_context, render_template
@@ -89,7 +94,7 @@ def child_exit(server, worker):  # pragma: no cover
     multiprocess.mark_process_dead(worker.pid)
 
 
-@app.exception_handler(HTTPException)
+@app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException) \
         -> Response:
     """ Handle an HTTPException thrown in a route. """
@@ -97,8 +102,24 @@ async def http_exception_handler(request: Request, exc: HTTPException) \
     context = make_context(request, phrase)
     context["exc"] = exc
     context["phrase"] = phrase
-    return render_template(request, "errors/detail.html", context,
-                           exc.status_code)
+
+    # Additional context for some exceptions.
+    if exc.status_code == http.HTTPStatus.NOT_FOUND:
+        tokens = request.url.path.split("/")
+        matches = re.match("^([a-z0-9][a-z0-9.+_-]*?)(\\.git)?$", tokens[1])
+        if matches:
+            try:
+                pkgbase = get_pkg_or_base(matches.group(1))
+                context = pkgbaseutil.make_context(request, pkgbase)
+            except HTTPException:
+                pass
+
+    try:
+        return render_template(request, f"errors/{exc.status_code}.html",
+                               context, exc.status_code)
+    except TemplateNotFound:
+        return render_template(request, "errors/detail.html",
+                               context, exc.status_code)
 
 
 @app.middleware("http")

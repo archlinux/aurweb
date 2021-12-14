@@ -1,0 +1,34 @@
+{% extends 'partials/layout.html' %}
+
+{% block pageContent %}
+    <div id="error-page" class="box">
+        <h2>404 - {% trans %}Page Not Found{% endtrans %}</h2>
+        <p>{% trans %}Sorry, the page you've requested does not exist.{% endtrans %}</p>
+        {% if pkgbase %}
+            <ul>
+                {% set pkgname_strong="<strong>%s</strong>" | format(pkgbase.Name) %}
+                <li>
+                    <strong>{% trans %}Note{% endtrans %}:</strong>
+                    {% trans %}Git clone URLs are not meant to be opened in a browser.{% endtrans %}
+                </li>
+                <li>
+                    {% set gitcmd="<code>git clone %s</code>" | format(git_clone_uri_anon | format(pkgbase.Name)) %}
+                    {% if is_maintainer %}
+                      {% set gitcmd="<code>git clone %s</code>" | format(git_clone_uri_priv | format(pkgbase.Name)) %}
+                    {% endif %}
+                    {{
+                        "To clone the Git repository of %s, run %s."
+                        | tr | format(pkgname_strong, gitcmd) | safe
+                    }}
+                </li>
+                <li>
+                    {% set pkglink='<a href="/pkgbase/%s">' | format(pkgbase.Name) %}
+                    {{
+                        "Click %shere%s to return to the %s details page."
+                        | tr | format(pkglink, "</a>", pkgname_strong) | safe
+                    }}
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

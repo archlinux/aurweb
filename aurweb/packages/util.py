@@ -87,11 +87,14 @@ def provides_markup(provides: Providers) -> str:
 
 def get_pkg_or_base(
         name: str,
-        cls: Union[models.Package, models.PackageBase] = models.PackageBase):
+        cls: Union[models.Package, models.PackageBase] = models.PackageBase) \
+        -> Union[models.Package, models.PackageBase]:
     """ Get a PackageBase instance by its name or raise a 404 if
     it can't be found in the database.
 
     :param name: {Package,PackageBase}.Name
+    :param exception: Whether to raise an HTTPException or simply return None if
+                      the package can't be found.
     :raises HTTPException: With status code 404 if record doesn't exist
     :return: {Package,PackageBase} instance
     """
