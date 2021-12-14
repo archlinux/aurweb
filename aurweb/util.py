@@ -103,11 +103,9 @@ def valid_ssh_pubkey(pk):
 
 
 @pass_context
-def account_url(context, user):
-    request = context.get("request")
-    base = f"{request.url.scheme}://{request.url.hostname}"
-    if request.url.scheme == "http" and request.url.port != 80:
-        base += f":{request.url.port}"
+def account_url(context: Dict[str, Any],
+                user: "aurweb.models.user.User") -> str:
+    base = aurweb.config.get("options", "aur_location")
     return f"{base}/account/{user.Username}"
 
 
