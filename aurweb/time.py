@@ -2,6 +2,7 @@ import zoneinfo
 
 from collections import OrderedDict
 from datetime import datetime
+from urllib.parse import unquote
 
 from fastapi import Request
 
@@ -60,4 +61,4 @@ def get_request_timezone(request: Request):
     default_tz = aurweb.config.get("options", "default_timezone")
     if request.user.is_authenticated():
         default_tz = request.user.Timezone
-    return request.cookies.get("AURTZ", default_tz)
+    return unquote(request.cookies.get("AURTZ", default_tz))
