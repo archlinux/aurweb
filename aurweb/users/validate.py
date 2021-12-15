@@ -6,8 +6,6 @@ out of form data from /account/register or /account/{username}/edit.
 All functions in this module raise aurweb.exceptions.ValidationError
 when encountering invalid criteria and return silently otherwise.
 """
-from typing import List, Optional, Tuple
-
 from fastapi import Request
 from sqlalchemy import and_
 
@@ -22,8 +20,7 @@ from aurweb.models.ssh_pub_key import get_fingerprint
 logger = logging.get_logger(__name__)
 
 
-def invalid_fields(E: str = str(), U: str = str(), **kwargs) \
-        -> Optional[Tuple[bool, List[str]]]:
+def invalid_fields(E: str = str(), U: str = str(), **kwargs) -> None:
     if not E or not U:
         raise ValidationError(["Missing a required field."])
 
@@ -31,15 +28,15 @@ def invalid_fields(E: str = str(), U: str = str(), **kwargs) \
 def invalid_suspend_permission(request: Request = None,
                                user: models.User = None,
                                J: bool = False,
-                               **kwargs) \
-        -> Optional[Tuple[bool, List[str]]]:
+                               **kwargs) -> None:
     if not request.user.is_elevated() and J != bool(user.InactivityTS):
         raise ValidationError([
             "You do not have permission to suspend accounts."])
 
 
-def invalid_username(request: Request = None, U: str = str(), _=None,
-                     **kwargs):
+def invalid_username(request: Request = None, U: str = str(),
+                     _: l10n.Translator = None,
+                     **kwargs) -> None:
     if not util.valid_username(U):
         username_min_len = config.getint("options", "username_min_len")
         username_max_len = config.getint("options", "username_max_len")
@@ -201,8 +198,8 @@ def invalid_account_type(T: int = None, request: Request = None,
                          f" {name}.")
 
 
-def invalid_captcha(captcha_salt: str = None, captcha: str = None, **kwargs) \
-        -> None:
+def invalid_captcha(captcha_salt: str = None, captcha: str = None,
+                    **kwargs) -> None:
     if captcha_salt and captcha_salt not in get_captcha_salts():
         raise ValidationError(["This CAPTCHA has expired. Please try again."])
 
