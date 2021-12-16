@@ -16,7 +16,9 @@ Inputs required:
 <div class="pkglist-stats">
     <p>
         {{ total | tn(singular, plural) | format(total) }}
-        {{ "Page %d of %d." | tr | format(page + 1, pages) }}
+        {% if pages %}
+            {{ "Page %d of %d." | tr | format(page + 1, pages) }}
+        {% endif %}
     </p>
     {% if pages > 1 %}
         <p class="pkglist-nav">
