@@ -1,7 +1,14 @@
+import re
+
+from typing import Any, Dict
+
 import pytest
 
+import aurweb.filters  # noqa: F401
+
 from aurweb import config, templates
-from aurweb.templates import register_filter, register_function
+from aurweb.templates import base_template, register_filter, register_function
+from aurweb.testing.html import parse_root
 from aurweb.testing.requests import Request
 
 
@@ -70,3 +77,40 @@ def test_commit_hash():
     context = templates.make_context(request, "Test Context")
     render = templates.render_raw_template(request, "index.html", context)
     assert commit_hash not in render
+
+
+def pager_context(num_packages: int) -> Dict[str, Any]:
+    return {
+        "request": Request(),
+        "singular": "%d package found.",
+        "plural": "%d packages found.",
+        "prefix": "/packages",
+        "total": num_packages,
+        "O": 0,
+        "PP": 50
+    }
+
+
+def test_pager_no_results():
+    """ Test the pager partial with no results. """
+    num_packages = 0
+    context = pager_context(num_packages)
+    body = base_template("partials/widgets/pager.html").render(context)
+
+    root = parse_root(body)
+    stats = root.xpath('//div[@class="pkglist-stats"]/p')
+    expected = "0 packages found."
+    assert stats[0].text.strip() == expected
+
+
+def test_pager():
+    """ Test the pager partial with two pages of results. """
+    num_packages = 100
+    context = pager_context(num_packages)
+    body = base_template("partials/widgets/pager.html").render(context)
+
+    root = parse_root(body)
+    stats = root.xpath('//div[@class="pkglist-stats"]/p')
+    stats = re.sub(r"\s{2,}", " ", stats[0].text.strip())
+    expected = f"{num_packages} packages found. Page 1 of 2."
+    assert stats == expected
