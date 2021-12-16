@@ -14,9 +14,10 @@ import jinja2
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 
+import aurweb.auth.creds
 import aurweb.config
 
-from aurweb import auth, captcha, cookies, l10n, time, util
+from aurweb import captcha, cookies, l10n, time, util
 
 # Prepare jinja2 objects.
 _loader = jinja2.FileSystemLoader(os.path.join(
@@ -107,7 +108,7 @@ def make_context(request: Request, title: str, next: str = None):
         "now": datetime.now(tz=zoneinfo.ZoneInfo(timezone)),
         "utcnow": int(datetime.utcnow().timestamp()),
         "config": aurweb.config,
-        "creds": auth.creds,
+        "creds": aurweb.auth.creds,
         "next": next if next else request.url.path
     }
 
