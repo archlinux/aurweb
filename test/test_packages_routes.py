@@ -564,6 +564,17 @@ def test_packages(client: TestClient, packages: List[Package]):
     assert len(rows) == 50  # Default per-page
 
 
+def test_packages_empty(client: TestClient):
+    with client as request:
+        response = request.get("/packages")
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    results = root.xpath('//div[@id="pkglist-results"]/p')
+    expected = "No packages matched your search criteria."
+    assert results[0].text.strip() == expected
+
+
 def test_packages_search_by_name(client: TestClient, packages: List[Package]):
     with client as request:
         response = request.get("/packages", params={

@@ -10,6 +10,21 @@
         </ul>
         {% include "partials/packages/search.html" %}
 
+    {% elif not packages_count %}
+
+        {% include "partials/packages/search.html" %}        
+        <div id="pkglist-results" class="box">
+            <p>{{ "No packages matched your search criteria." | tr }}</p>
+        </div>
+
+        {% if success %}
+            <ul class="success">
+                {% for message in success %}
+                    <li>{{ message | tr }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
     {% else %}
 
         {% set pages = (packages_count / PP) | ceil %}
