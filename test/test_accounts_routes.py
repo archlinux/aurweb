@@ -11,6 +11,8 @@ import pytest
 
 from fastapi.testclient import TestClient
 
+import aurweb.models.account_type as at
+
 from aurweb import captcha, db, logging
 from aurweb.asgi import app
 from aurweb.db import create, query
@@ -611,16 +613,77 @@ def test_post_register_with_ssh_pubkey(client: TestClient):
     assert response.status_code == int(HTTPStatus.OK)
 
 
-def test_get_account_edit(client: TestClient, user: User):
-    request = Request()
-    sid = user.login(request, "testPassword")
+def test_get_account_edit_self_as_tu(client: TestClient, tu_user: User):
+    """ Test edit get route of ourselves as a TU. """
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/account/{tu_user.Username}/edit"
 
     with client as request:
-        response = request.get("/account/test/edit", cookies={
-            "AURSID": sid
-        }, allow_redirects=False)
-
+        response = request.get(endpoint, cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
+
+    # Account type can't be modified when editing ourselves.
+    root = parse_root(response.text)
+    atype = root.xpath('//select[@id="id_type"]/option[@selected="selected"]')
+    assert not atype
+
+    # But other fields should be available and match up.
+    username = root.xpath('//input[@id="id_username"]')[0]
+    assert username.attrib["value"] == tu_user.Username
+    email = root.xpath('//input[@id="id_email"]')[0]
+    assert email.attrib["value"] == tu_user.Email
+
+
+def test_get_account_edit_tu_as_tu(client: TestClient, tu_user: User):
+    """ Test edit get route of another TU as a TU. """
+    with db.begin():
+        user2 = create_user("test2")
+        user2.AccountTypeID = at.TRUSTED_USER_ID
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/account/{user2.Username}/edit"
+
+    with client as request:
+        response = request.get(endpoint, cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Verify that we have an account type selection and that the
+    # "{at.TRUSTED_USER}" option is selected.
+    root = parse_root(response.text)
+    atype = root.xpath('//select[@id="id_type"]/option[@selected="selected"]')
+    expected = at.TRUSTED_USER
+    assert atype[0].text.strip() == expected
+
+    username = root.xpath('//input[@id="id_username"]')[0]
+    assert username.attrib["value"] == user2.Username
+    email = root.xpath('//input[@id="id_email"]')[0]
+    assert email.attrib["value"] == user2.Email
+
+
+def test_get_account_edit_as_tu(client: TestClient, tu_user: User):
+    """ Test edit get route of another user as a TU. """
+    with db.begin():
+        user2 = create_user("test2")
+
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
+    endpoint = f"/account/{user2.Username}/edit"
+
+    with client as request:
+        response = request.get(endpoint, cookies=cookies)
+    assert response.status_code == int(HTTPStatus.OK)
+
+    # Verify that we have an account type selection and that the
+    # "Normal {at.USER}" option is selected.
+    root = parse_root(response.text)
+    atype = root.xpath('//select[@id="id_type"]/option[@selected="selected"]')
+    expected = f"Normal {at.USER}"
+    assert atype[0].text.strip() == expected
+
+    # Other fields should be available and match up.
+    username = root.xpath('//input[@id="id_username"]')[0]
+    assert username.attrib["value"] == user2.Username
+    email = root.xpath('//input[@id="id_email"]')[0]
+    assert email.attrib["value"] == user2.Email
 
 
 def test_get_account_edit_unauthorized(client: TestClient, user: User):

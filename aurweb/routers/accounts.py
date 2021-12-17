@@ -170,7 +170,7 @@ def make_account_form_context(context: dict,
     context = copy.copy(context)
 
     context["account_types"] = [
-        (at.USER_ID, "Normal User"),
+        (at.USER_ID, f"Normal {at.USER}"),
         (at.TRUSTED_USER_ID, at.TRUSTED_USER)
     ]
 
