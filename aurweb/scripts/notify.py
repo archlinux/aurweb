@@ -13,9 +13,11 @@ import aurweb.config
 import aurweb.db
 import aurweb.l10n
 
-from aurweb import db
+from aurweb import db, logging
 from aurweb.models import (PackageBase, PackageComaintainer, PackageComment, PackageNotification, PackageRequest, RequestType,
                            TUVote, User)
+
+logger = logging.get_logger(__name__)
 
 aur_location = aurweb.config.get('options', 'aur_location')
 
@@ -49,7 +51,7 @@ class Notification:
             body += '\n' + '[%d] %s' % (i + 1, ref)
         return body.rstrip()
 
-    def send(self):
+    def _send(self) -> None:
         sendmail = aurweb.config.get('notifications', 'sendmail')
         sender = aurweb.config.get('notifications', 'sender')
         reply_to = aurweb.config.get('notifications', 'reply-to')
@@ -110,6 +112,14 @@ class Notification:
                 deliver_to = [to] + self.get_cc()
                 server.sendmail(sender, deliver_to, msg.as_bytes())
                 server.quit()
+
+    def send(self) -> None:
+        try:
+            self._send()
+        except OSError as exc:
+            logger.error("Unable to emit notification due to an "
+                         "OSError (precise exception following).")
+            logger.error(str(exc))
 
 
 class ResetKeyNotification(Notification):

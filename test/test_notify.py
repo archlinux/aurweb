@@ -1,4 +1,5 @@
 from datetime import datetime
+from logging import ERROR
 from typing import List
 from unittest import mock
 
@@ -634,3 +635,32 @@ def test_notification_defaults():
     assert notif.get_refs() == tuple()
     assert notif.get_headers() == dict()
     assert notif.get_cc() == list()
+
+
+def test_notification_oserror(user: User, caplog: pytest.LogCaptureFixture):
+    """ Try sending a notification with a bad SMTP configuration. """
+    caplog.set_level(ERROR)
+    config_get = config.get
+
+    mocked_options = {
+        "sendmail": str(),
+        "smtp-server": "mail.server.xyz",
+        "smtp-port": "587",
+        "smtp-user": "notify@server.xyz",
+        "smtp-password": "notify_server_xyz",
+        "sender": "notify@server.xyz",
+        "reply-to": "no-reply@server.xyz"
+    }
+
+    def mock_config_get(section: str, key: str) -> str:
+        if section == "notifications":
+            if key in mocked_options:
+                return mocked_options.get(key)
+        return config_get(section, key)
+
+    notif = notify.WelcomeNotification(user.ID)
+    with mock.patch("aurweb.config.get", side_effect=mock_config_get):
+        notif.send()
+
+    expected = "Unable to emit notification due to an OSError"
+    assert expected in caplog.text
