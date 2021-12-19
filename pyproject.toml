@@ -74,7 +74,7 @@ alembic = "^1.7.4"
 mysqlclient = "^2.0.3"
 Authlib = "^0.15.5"
 Jinja2 = "^3.0.2"
-Markdown = "3.3.4"
+Markdown = "^3.3.6"
 Werkzeug = "^2.0.2"
 SQLAlchemy = "^1.4.26"
 
