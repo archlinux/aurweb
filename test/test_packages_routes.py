@@ -1078,22 +1078,39 @@ def test_packages_per_page(client: TestClient, maintainer: User):
     assert len(rows) == 250
 
 
-def test_pkgbase_voters(client: TestClient, maintainer: User, package: Package):
+def test_pkgbase_voters(client: TestClient, tu_user: User, package: Package):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/voters"
 
     now = int(datetime.utcnow().timestamp())
     with db.begin():
-        db.create(PackageVote, User=maintainer, PackageBase=pkgbase,
-                  VoteTS=now)
+        db.create(PackageVote, User=tu_user, PackageBase=pkgbase, VoteTS=now)
 
+    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
-        resp = request.get(endpoint)
+        resp = request.get(endpoint, cookies=cookies, allow_redirects=False)
     assert resp.status_code == int(HTTPStatus.OK)
 
+    # We should've gotten one link to the voter, tu_user.
     root = parse_root(resp.text)
-    rows = root.xpath('//div[@class="box"]//ul/li')
+    rows = root.xpath('//div[@class="box"]//ul/li/a')
     assert len(rows) == 1
+    assert rows[0].text.strip() == tu_user.Username
+
+
+def test_pkgbase_voters_unauthorized(client: TestClient, user: User,
+                                     package: Package):
+    pkgbase = package.PackageBase
+    endpoint = f"/pkgbase/{pkgbase.Name}/voters"
+
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        db.create(PackageVote, User=user, PackageBase=pkgbase, VoteTS=now)
+
+    with client as request:
+        resp = request.get(endpoint, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == f"/pkgbase/{pkgbase.Name}"
 
 
 def test_pkgbase_comment_not_found(client: TestClient, maintainer: User,

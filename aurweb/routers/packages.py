@@ -254,6 +254,11 @@ async def package_base(request: Request, name: str) -> Response:
 async def package_base_voters(request: Request, name: str) -> Response:
     # Get the PackageBase.
     pkgbase = get_pkg_or_base(name, models.PackageBase)
+
+    if not request.user.has_credential(creds.PKGBASE_LIST_VOTERS):
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=HTTPStatus.SEE_OTHER)
+
     context = make_context(request, "Voters")
     context["pkgbase"] = pkgbase
     return render_template(request, "pkgbase/voters.html", context)

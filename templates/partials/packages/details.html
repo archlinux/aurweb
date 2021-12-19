@@ -131,14 +131,14 @@
     </tr>
     <tr>
         <th>{{ "Votes" | tr }}:</th>
-        {% if not is_maintainer %}
-            <td>{{ pkgbase.NumVotes }}</td>
-        {% else %}
+        {% if request.user.has_credential(creds.PKGBASE_LIST_VOTERS) %}
             <td>
                 <a href="/pkgbase/{{ pkgbase.Name }}/voters">
                     {{ pkgbase.NumVotes }}
                 </a>
             </td>
+        {% else %}
+            <td>{{ pkgbase.NumVotes }}</td>
         {% endif %}
     </tr>
     <tr>
