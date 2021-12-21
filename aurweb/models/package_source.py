@@ -10,7 +10,10 @@ class PackageSource(Base):
     __table__ = schema.PackageSources
     __tablename__ = __table__.name
     __mapper_args__ = {
-        "primary_key": [__table__.c.PackageID]
+        "primary_key": [
+            __table__.c.PackageID,
+            __table__.c.Source
+        ]
     }
 
     Package = relationship(
@@ -26,3 +29,6 @@ class PackageSource(Base):
                 statement="Foreign key PackageID cannot be null.",
                 orig="PackageSources.PackageID",
                 params=("NULL"))
+
+        if not self.Source:
+            self.Source = "/dev/null"

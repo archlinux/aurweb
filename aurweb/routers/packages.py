@@ -201,7 +201,8 @@ async def package(request: Request, name: str) -> Response:
     context["package"] = pkg
 
     # Package sources.
-    context["sources"] = pkg.package_sources
+    context["sources"] = pkg.package_sources.order_by(
+        models.PackageSource.Source.asc()).all()
 
     # Package dependencies.
     dependencies = db.query(models.PackageDependency).join(

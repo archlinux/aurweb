@@ -45,14 +45,14 @@
 </div>
 
 <div id="pkgfiles" class="listing">
-    <h3>Sources ({{ sources.count() }})</h3>
+    <h3>Sources ({{ sources | length }})</h3>
 </div>
 
 <div>
     <ul id="pkgsrcslist">
-        {% for source in sources.all() %}
+        {% for src in sources %}
             <li>
-                <a href="{{ source.Source }}">{{ source.Source }}</a>
+                <a href="{{ src.Source }}">{{ src.Source }}</a>
             </li>
         {% endfor %}
     </ul>
