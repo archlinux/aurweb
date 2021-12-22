@@ -1,3 +1,4 @@
+from collections import defaultdict
 from datetime import datetime
 from http import HTTPStatus
 from typing import Any, Dict, List
@@ -9,7 +10,7 @@ from sqlalchemy import and_, case
 import aurweb.filters
 import aurweb.packages.util
 
-from aurweb import db, defaults, l10n, logging, models, util
+from aurweb import config, db, defaults, l10n, logging, models, util
 from aurweb.auth import auth_required, creds
 from aurweb.exceptions import InvariantError, ValidationError
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
@@ -196,6 +197,16 @@ async def package(request: Request, name: str) -> Response:
     pkg = get_pkg_or_base(name, models.Package)
     pkgbase = pkg.PackageBase
 
+    rels = pkg.package_relations.order_by(models.PackageRelation.RelName.asc())
+    rels_data = defaultdict(list)
+    for rel in rels:
+        if rel.RelTypeID == CONFLICTS_ID:
+            rels_data["c"].append(rel)
+        elif rel.RelTypeID == PROVIDES_ID:
+            rels_data["p"].append(rel)
+        elif rel.RelTypeID == REPLACES_ID:
+            rels_data["r"].append(rel)
+
     # Add our base information.
     context = await make_single_context(request, pkgbase)
     context["package"] = pkg
@@ -205,17 +216,14 @@ async def package(request: Request, name: str) -> Response:
         models.PackageSource.Source.asc()).all()
 
     # Package dependencies.
-    dependencies = db.query(models.PackageDependency).join(
-        models.Package).join(models.PackageBase).filter(
-        models.PackageBase.ID == pkgbase.ID)
-    context["dependencies"] = dependencies
+    max_depends = config.getint("options", "max_depends")
+    context["dependencies"] = pkg.package_dependencies.order_by(
+        models.PackageDependency.DepName.desc()
+    ).limit(max_depends).all()
 
     # Package requirements (other packages depend on this one).
-    required_by = db.query(models.PackageDependency).join(
-        models.Package).filter(
-        models.PackageDependency.DepName == pkgbase.Name).order_by(
-        models.Package.Name.asc())
-    context["required_by"] = required_by
+    context["required_by"] = pkgutil.pkg_required(
+        pkg.Name, [p.RelName for p in rels_data.get("p", [])], max_depends)
 
     context["licenses"] = pkg.package_licenses
 

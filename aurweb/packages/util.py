@@ -9,30 +9,35 @@ from sqlalchemy import and_, orm
 
 from aurweb import db, l10n, models, util
 from aurweb.models.official_provider import OFFICIAL_BASE
+from aurweb.models.package import Package
+from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.relation_type import PROVIDES_ID
 from aurweb.redis import redis_connection
 from aurweb.scripts import notify
 from aurweb.templates import register_filter
 
 
+def dep_extra_with_arch(dep: models.PackageDependency, annotation: str) -> str:
+    output = [annotation]
+    if dep.DepArch:
+        output.append(dep.DepArch)
+    return f"({', '.join(output)})"
+
+
 def dep_depends_extra(dep: models.PackageDependency) -> str:
-    """ A function used to produce extra text for dependency display. """
     return str()
 
 
 def dep_makedepends_extra(dep: models.PackageDependency) -> str:
-    """ A function used to produce extra text for dependency display. """
-    return "(make)"
+    return dep_extra_with_arch(dep, "make")
 
 
 def dep_checkdepends_extra(dep: models.PackageDependency) -> str:
-    """ A function used to produce extra text for dependency display. """
-    return "(check)"
+    return dep_extra_with_arch(dep, "check")
 
 
 def dep_optdepends_extra(dep: models.PackageDependency) -> str:
-    """ A function used to produce extra text for dependency display. """
-    return "(optional)"
+    return dep_extra_with_arch(dep, "optional")
 
 
 @register_filter("dep_extra")
@@ -304,3 +309,11 @@ def add_comaintainers(request: Request, pkgbase: models.PackageBase,
 
     # Send out notifications.
     util.apply_all(notifications, lambda n: n.send())
+
+
+def pkg_required(pkgname: str, provides: List[str], limit: int):
+    targets = set(provides + [pkgname])
+    query = db.query(PackageDependency).join(Package).filter(
+        PackageDependency.DepName.in_(targets)
+    ).order_by(Package.Name.asc()).limit(limit)
+    return query.all()

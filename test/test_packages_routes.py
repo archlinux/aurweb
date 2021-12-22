@@ -446,12 +446,12 @@ def test_package_dependencies(client: TestClient, maintainer: User,
     with db.begin():
         dep_pkg = create_package("test-dep-1", maintainer)
         dep = create_package_dep(package, dep_pkg.Name)
-        dep.DepArch = "x86_64"
 
         # Also, create a makedepends.
         make_dep_pkg = create_package("test-dep-2", maintainer)
         make_dep = create_package_dep(package, make_dep_pkg.Name,
                                       dep_type_name="makedepends")
+        make_dep.DepArch = "x86_64"
 
         # And... a checkdepends!
         check_dep_pkg = create_package("test-dep-3", maintainer)
@@ -496,13 +496,13 @@ def test_package_dependencies(client: TestClient, maintainer: User,
         official_dep.DepName
     ]
     pkgdeps = root.findall('.//ul[@id="pkgdepslist"]/li/a')
-    for i, expectation in enumerate(expected):
+    for i, expectation in enumerate(reversed(expected)):
         assert pkgdeps[i].text.strip() == expectation
 
-    # Let's make sure the DepArch was displayed for our first dep.
-    arch = root.findall('.//ul[@id="pkgdepslist"]/li')[0]
-    arch = arch.xpath('./em')[1]
-    assert arch.text.strip() == "(x86_64)"
+    # Let's make sure the DepArch was displayed for our target make dep.
+    arch = root.findall('.//ul[@id="pkgdepslist"]/li')[-2]
+    arch = arch.xpath('./em')[0]
+    assert arch.text.strip() == "(make, x86_64)"
 
     broken_node = root.find('.//ul[@id="pkgdepslist"]/li/span')
     assert broken_node.text.strip() == broken_dep.DepName
