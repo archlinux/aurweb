@@ -45,7 +45,7 @@
             {# /packages does things a bit roundabout-wise:
 
             If SeB is not given, "nd" is the default.
-            If SB is not given, "n" is the default.
+            If SB is not given, "p" is the default.
             If SO is not given, "d" is the default.
 
             However, we depend on flipping SO for column sorting.
@@ -56,7 +56,7 @@
                 {% set SeB = "nd" %}
             {% endif %}
             {% if not SB %}
-                {% set SB = "n" %}
+                {% set SB = "p" %}
             {% endif %}
             {% if not SO %}
                 {% set SO = "d" %}

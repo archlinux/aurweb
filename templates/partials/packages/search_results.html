@@ -64,7 +64,7 @@
     </thead>
     <tbody>
         {% for pkg in packages %}
-            {% set flagged = pkg.PackageBase.OutOfDateTS %}
+            {% set flagged = pkg.OutOfDateTS %}
             <tr>
                 {% if request.user.is_authenticated() %}
                     <td>
@@ -81,28 +81,27 @@
                 {% else %}
                     <td>{{ pkg.Version }}</td>
                 {% endif %}
-                <td>{{ pkg.PackageBase.NumVotes }}</td>
+                <td>{{ pkg.NumVotes }}</td>
                 <td>
-                    {{ pkg.PackageBase.Popularity | number_format(2) }}
+                    {{ pkg.Popularity | number_format(2) }}
                 </td>
                 {% if request.user.is_authenticated() %}
                     <td>
-                        {% if pkg.PackageBase.ID in voted %}
+                        {% if pkg.Voted %}
                             {{ "Yes" | tr }}
                         {% endif %}
                     </td>
                     <td>
-                        {% if pkg.PackageBase.ID in notified %}
+                        {% if pkg.Notify %}
                             {{ "Yes" | tr }}
                         {% endif %}
                     </td>
                 {% endif %}
                 <td class="wrap">{{ pkg.Description or '' }}</td>
                 <td>
-                    {% set maintainer = pkg.PackageBase.Maintainer %}
-                    {% if maintainer %}
-                        <a href="/account/{{ maintainer.Username }}">
-                            {{ maintainer.Username }}
+                    {% if pkg.Maintainer %}
+                        <a href="/account/{{ pkg.Maintainer }}">
+                            {{ pkg.Maintainer }}
                         </a>
                     {% else %}
                         <span class="error">{{ "orphan" | tr }}</span>

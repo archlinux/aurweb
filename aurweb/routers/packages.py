@@ -20,7 +20,7 @@ from aurweb.packages import util as pkgutil
 from aurweb.packages import validate
 from aurweb.packages.requests import handle_request, update_closure_comment
 from aurweb.packages.search import PackageSearch
-from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, get_pkgreq_by_id, query_notified, query_voted
+from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment, get_pkgreq_by_id
 from aurweb.scripts import notify, popupdate
 from aurweb.scripts.rendercomment import update_comment_render_fastapi
 from aurweb.templates import make_context, make_variable_context, render_raw_template, render_template
@@ -45,7 +45,7 @@ async def packages_get(request: Request, context: Dict[str, Any],
     search_by = context["SeB"] = request.query_params.get("SeB", "nd")
 
     # Query sort by.
-    sort_by = context["SB"] = request.query_params.get("SB", "n")
+    sort_by = context["SB"] = request.query_params.get("SB", "p")
 
     # Query sort order.
     sort_order = request.query_params.get("SO", None)
@@ -60,6 +60,12 @@ async def packages_get(request: Request, context: Dict[str, Any],
     keywords = keywords.split(" ")
     for keyword in keywords:
         search.search_by(search_by, keyword)
+
+    # Collect search result count here; we've applied our keywords.
+    # Including more query operations below, like ordering, will
+    # increase the amount of time required to collect a count.
+    limit = config.getint("options", "max_search_results")
+    num_packages = search.count(limit)
 
     flagged = request.query_params.get("outdated", None)
     if flagged:
@@ -96,16 +102,23 @@ async def packages_get(request: Request, context: Dict[str, Any],
     context["SO"] = sort_order
 
     # Insert search results into the context.
-    results = search.results()
+    results = search.results().with_entities(
+        models.Package.ID,
+        models.Package.Name,
+        models.Package.PackageBaseID,
+        models.Package.Version,
+        models.Package.Description,
+        models.PackageBase.Popularity,
+        models.PackageBase.NumVotes,
+        models.PackageBase.OutOfDateTS,
+        models.User.Username.label("Maintainer"),
+        models.PackageVote.PackageBaseID.label("Voted"),
+        models.PackageNotification.PackageBaseID.label("Notify")
+    )
 
     packages = results.limit(per_page).offset(offset)
-    util.apply_all(packages, db.refresh)
     context["packages"] = packages
-    context["packages_voted"] = query_voted(
-        context.get("packages"), request.user)
-    context["packages_notified"] = query_notified(
-        context.get("packages"), request.user)
-    context["packages_count"] = search.total_count
+    context["packages_count"] = num_packages
 
     return render_template(request, "packages.html", context,
                            status_code=status_code)

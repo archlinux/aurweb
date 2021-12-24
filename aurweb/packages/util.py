@@ -200,7 +200,7 @@ def query_voted(query: List[models.Package],
     :return: Vote state dict (PackageBase.ID: int -> bool)
     """
     output = defaultdict(bool)
-    query_set = {pkg.PackageBase.ID for pkg in query}
+    query_set = {pkg.PackageBaseID for pkg in query}
     voted = db.query(models.PackageVote).join(
         models.PackageBase,
         models.PackageBase.ID.in_(query_set)
@@ -223,7 +223,7 @@ def query_notified(query: List[models.Package],
     :return: Notification state dict (PackageBase.ID: int -> bool)
     """
     output = defaultdict(bool)
-    query_set = {pkg.PackageBase.ID for pkg in query}
+    query_set = {pkg.PackageBaseID for pkg in query}
     notified = db.query(models.PackageNotification).join(
         models.PackageBase,
         models.PackageBase.ID.in_(query_set)

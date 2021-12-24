@@ -816,6 +816,33 @@ def test_packages_search_by_submitter(client: TestClient,
     assert len(rows) == 1
 
 
+def test_packages_sort_by_name(client: TestClient, packages: List[Package]):
+    with client as request:
+        response = request.get("/packages", params={
+            "SB": "n",  # Name
+            "SO": "a",  # Ascending
+            "PP": "150"
+        })
+    assert response.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response.text)
+    rows = root.xpath('//table[@class="results"]/tbody/tr')
+    rows = [row.xpath('./td/a')[0].text.strip() for row in rows]
+
+    with client as request:
+        response2 = request.get("/packages", params={
+            "SB": "n",  # Name
+            "SO": "d",  # Ascending
+            "PP": "150"
+        })
+    assert response2.status_code == int(HTTPStatus.OK)
+
+    root = parse_root(response2.text)
+    rows2 = root.xpath('//table[@class="results"]/tbody/tr')
+    rows2 = [row.xpath('./td/a')[0].text.strip() for row in rows2]
+    assert rows == list(reversed(rows2))
+
+
 def test_packages_sort_by_votes(client: TestClient,
                                 maintainer: User,
                                 packages: List[Package]):

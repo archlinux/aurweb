@@ -656,6 +656,9 @@ def test_rpc_msearch(client: TestClient, user: User, packages: List[Package]):
     data = response.json()
     assert data.get("resultcount") == 0
 
+    with db.begin():
+        packages[0].PackageBase.Maintainer = None
+
     # A missing arg still succeeds, but it returns all orphans.
     # Just verify that we receive no error and the orphaned result.
     params.pop("arg")
@@ -663,7 +666,7 @@ def test_rpc_msearch(client: TestClient, user: User, packages: List[Package]):
     data = response.json()
     assert data.get("resultcount") == 1
     result = data.get("results")[0]
-    assert result.get("Name") == "woogly-chungus"
+    assert result.get("Name") == "big-chungus"
 
 
 def test_rpc_search_depends(client: TestClient, packages: List[Package],
