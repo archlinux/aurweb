@@ -231,7 +231,8 @@ async def package(request: Request, name: str) -> Response:
     # Package dependencies.
     max_depends = config.getint("options", "max_depends")
     context["dependencies"] = pkg.package_dependencies.order_by(
-        models.PackageDependency.DepName.desc()
+        models.PackageDependency.DepTypeID.asc(),
+        models.PackageDependency.DepName.asc()
     ).limit(max_depends).all()
 
     # Package requirements (other packages depend on this one).
