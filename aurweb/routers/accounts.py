@@ -341,7 +341,7 @@ def cannot_edit(request: Request, user: models.User) \
     :param user: Target user to be edited
     :return: RedirectResponse if approval != granted else None
     """
-    approved = request.user.has_credential(creds.ACCOUNT_EDIT, approved=[user])
+    approved = request.user.can_edit_user(user)
     if not approved and (to := "/"):
         if user:
             to = f"/account/{user.Username}"

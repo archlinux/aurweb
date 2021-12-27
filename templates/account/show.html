@@ -86,7 +86,7 @@
                                                     | safe
                                                     }}
                                                 </li>
-                                                {% if request.user.has_credential(creds.ACCOUNT_EDIT, approved=[user]) %}
+                                                {% if request.user.can_edit_user(user) %}
                                                     <li>
                                                         {{ "%sEdit this user's account%s"
                                                         | tr
