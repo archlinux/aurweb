@@ -529,7 +529,6 @@ async def accounts_post(request: Request,
     # Get a query handle to users, populate the total user
     # count into a jinja2 context variable.
     query = db.query(models.User).join(models.AccountType)
-    context["total_users"] = query.count()
 
     # Populate this list with any additional statements to
     # be ANDed together.
@@ -551,8 +550,10 @@ async def accounts_post(request: Request,
     if statements:
         query = query.filter(and_(*statements))
 
+    context["total_users"] = query.count()
+
     # Finally, order and truncate our users for the current page.
-    users = query.order_by(*order_by).limit(pp).offset(offset)
+    users = query.order_by(*order_by).limit(pp).offset(offset).all()
     context["users"] = util.apply_all(users, db.refresh)
 
     return render_template(request, "account/index.html", context)

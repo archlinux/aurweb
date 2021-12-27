@@ -64,11 +64,11 @@
                     <input type="hidden" name="O"
                            value="{{ offset + pp }}" />
                     {% for k, v in params.items() %}
-                        <input type="hidden" name="{{ k }}"
-                               value="{{ v }}" />
+                        <input type="hidden" name="{{ k }}" value="{{ v }}" />
                     {% endfor %}
+
                     <button type="submit" class="button page-next"
-                        {% if offset + pp >= total_users %}
+                        {% if (offset + pp) >= total_users %}
                             disabled
                         {% endif %}
                     >
