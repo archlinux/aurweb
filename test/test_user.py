@@ -12,6 +12,7 @@ import aurweb.models.account_type as at
 
 from aurweb import db
 from aurweb.auth import creds
+from aurweb.models.account_type import DEVELOPER_ID, TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID, USER_ID
 from aurweb.models.ban import Ban
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
@@ -28,12 +29,36 @@ def setup(db_test):
     return
 
 
+def create_user(username: str, account_type_id: int):
+    with db.begin():
+        user = db.create(User, Username=username,
+                         Email=f"{username}@example.org",
+                         RealName=username.title(), Passwd="testPassword",
+                         AccountTypeID=account_type_id)
+    return user
+
+
 @pytest.fixture
 def user() -> User:
-    with db.begin():
-        user = db.create(User, Username="test", Email="test@example.org",
-                         RealName="Test User", Passwd="testPassword",
-                         AccountTypeID=at.USER_ID)
+    user = create_user("test", USER_ID)
+    yield user
+
+
+@pytest.fixture
+def tu_user() -> User:
+    user = create_user("test_tu", TRUSTED_USER_ID)
+    yield user
+
+
+@pytest.fixture
+def dev_user() -> User:
+    user = create_user("test_dev", DEVELOPER_ID)
+    yield user
+
+
+@pytest.fixture
+def tu_and_dev_user() -> User:
+    user = create_user("test_tu_and_dev", TRUSTED_USER_AND_DEV_ID)
     yield user
 
 
@@ -256,3 +281,36 @@ def test_user_notified(user: User, package: Package):
 
 def test_user_packages(user: User, package: Package):
     assert package in user.packages()
+
+
+def test_can_edit_user(user: User, tu_user: User, dev_user: User,
+                       tu_and_dev_user: User):
+    # User can edit.
+    assert user.can_edit_user(user)
+
+    # User cannot edit.
+    assert not user.can_edit_user(tu_user)
+    assert not user.can_edit_user(dev_user)
+    assert not user.can_edit_user(tu_and_dev_user)
+
+    # Trusted User can edit.
+    assert tu_user.can_edit_user(user)
+    assert tu_user.can_edit_user(tu_user)
+
+    # Trusted User cannot edit.
+    assert not tu_user.can_edit_user(dev_user)
+    assert not tu_user.can_edit_user(tu_and_dev_user)
+
+    # Developer can edit.
+    assert dev_user.can_edit_user(user)
+    assert dev_user.can_edit_user(tu_user)
+    assert dev_user.can_edit_user(dev_user)
+
+    # Developer cannot edit.
+    assert not dev_user.can_edit_user(tu_and_dev_user)
+
+    # Trusted User & Developer can edit.
+    assert tu_and_dev_user.can_edit_user(user)
+    assert tu_and_dev_user.can_edit_user(tu_user)
+    assert tu_and_dev_user.can_edit_user(dev_user)
+    assert tu_and_dev_user.can_edit_user(tu_and_dev_user)

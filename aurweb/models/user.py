@@ -182,14 +182,24 @@ class User(Base):
             aurweb.models.account_type.TRUSTED_USER_AND_DEV_ID,
         }
 
-    def can_edit_user(self, user):
-        """ Can this account record edit the target user? It must either
-        be the target user or a user with enough permissions to do so.
-
-        :param user: Target user
-        :return: Boolean indicating whether this instance can edit `user`
+    def can_edit_user(self, target: "User") -> bool:
         """
-        return self == user or self.is_trusted_user() or self.is_developer()
+        Whether this User instance can edit `target`.
+
+        This User can edit user `target` if we both: have credentials and
+        self.AccountTypeID is greater or equal to `target`.AccountTypeID.
+
+        In short, a user must at least have credentials and be at least
+        the same account type as the target.
+
+        User < Trusted User < Developer < Trusted User & Developer
+
+        :param target: Target User to be edited
+        :return: Boolean indicating whether `self` can edit `target`
+        """
+        from aurweb.auth import creds
+        has_cred = self.has_credential(creds.ACCOUNT_EDIT, approved=[target])
+        return has_cred and self.AccountTypeID >= target.AccountTypeID
 
     def voted_for(self, package) -> bool:
         """ Has this User voted for package? """
