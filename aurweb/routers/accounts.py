@@ -10,7 +10,7 @@ from sqlalchemy import and_, or_
 import aurweb.config
 
 from aurweb import cookies, db, l10n, logging, models, util
-from aurweb.auth import account_type_required, auth_required, creds
+from aurweb.auth import account_type_required, auth_required
 from aurweb.captcha import get_captcha_salts
 from aurweb.exceptions import ValidationError
 from aurweb.l10n import get_translator_for_request
@@ -169,17 +169,15 @@ def make_account_form_context(context: dict,
     # Do not modify the original context.
     context = copy.copy(context)
 
-    context["account_types"] = [
-        (at.USER_ID, f"Normal {at.USER}"),
-        (at.TRUSTED_USER_ID, at.TRUSTED_USER)
-    ]
-
-    user_account_type_id = context.get("account_types")[0][0]
-
-    if request.user.has_credential(creds.ACCOUNT_EDIT_DEV):
-        context["account_types"].append((at.DEVELOPER_ID, at.DEVELOPER))
-        context["account_types"].append((at.TRUSTED_USER_AND_DEV_ID,
-                                         at.TRUSTED_USER_AND_DEV))
+    context["account_types"] = list(filter(
+        lambda e: request.user.AccountTypeID >= e[0],
+        [
+            (at.USER_ID, f"Normal {at.USER}"),
+            (at.TRUSTED_USER_ID, at.TRUSTED_USER),
+            (at.DEVELOPER_ID, at.DEVELOPER),
+            (at.TRUSTED_USER_AND_DEV_ID, at.TRUSTED_USER_AND_DEV)
+        ]
+    ))
 
     if request.user.is_authenticated():
         context["username"] = args.get("U", user.Username)
@@ -202,7 +200,7 @@ def make_account_form_context(context: dict,
         context["inactive"] = args.get("J", user.InactivityTS != 0)
     else:
         context["username"] = args.get("U", str())
-        context["account_type"] = args.get("T", user_account_type_id)
+        context["account_type"] = args.get("T", at.USER_ID)
         context["suspended"] = args.get("S", False)
         context["email"] = args.get("E", str())
         context["hide_email"] = args.get("H", False)
