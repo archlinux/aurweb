@@ -8,8 +8,9 @@ from fastapi import HTTPException, Request
 from sqlalchemy import and_, orm
 
 from aurweb import db, l10n, models, util
+from aurweb.models import Package, PackageBase, User
 from aurweb.models.official_provider import OFFICIAL_BASE
-from aurweb.models.package import Package
+from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.relation_type import PROVIDES_ID
 from aurweb.redis import redis_connection
@@ -235,80 +236,149 @@ def query_notified(query: List[models.Package],
     return output
 
 
-def remove_comaintainers(pkgbase: models.PackageBase,
-                         usernames: List[str]) -> None:
+def remove_comaintainer(comaint: PackageComaintainer) \
+        -> notify.ComaintainerRemoveNotification:
+    """
+    Remove a PackageComaintainer.
+
+    This function does *not* begin any database transaction and
+    must be used **within** a database transaction, e.g.:
+
+    with db.begin():
+       remove_comaintainer(comaint)
+
+    :param comaint: Target PackageComaintainer to be deleted
+    :return: ComaintainerRemoveNotification
+    """
+    pkgbase = comaint.PackageBase
+    notif = notify.ComaintainerRemoveNotification(comaint.User.ID, pkgbase.ID)
+    db.delete(comaint)
+    rotate_comaintainers(pkgbase)
+    return notif
+
+
+def remove_comaintainers(pkgbase: PackageBase, usernames: List[str]) -> None:
     """
     Remove comaintainers from `pkgbase`.
 
     :param pkgbase: PackageBase instance
     :param usernames: Iterable of username strings
-    :return: None
     """
     notifications = []
     with db.begin():
-        for username in usernames:
-            # We know that the users we passed here are in the DB.
-            # No need to check for their existence.
-            comaintainer = pkgbase.comaintainers.join(models.User).filter(
-                models.User.Username == username
-            ).first()
-            notifications.append(
-                notify.ComaintainerRemoveNotification(
-                    comaintainer.User.ID, pkgbase.ID)
-            )
-            db.delete(comaintainer)
+        comaintainers = pkgbase.comaintainers.join(User).filter(
+            User.Username.in_(usernames)
+        ).all()
+        notifications = [
+            notify.ComaintainerRemoveNotification(co.User.ID, pkgbase.ID)
+            for co in comaintainers
+        ]
+        db.delete_all(comaintainers)
 
-    # Send out notifications if need be.
+    # Rotate comaintainer priority values.
+    with db.begin():
+        rotate_comaintainers(pkgbase)
+
+    # Send out notifications.
     util.apply_all(notifications, lambda n: n.send())
 
 
+def latest_priority(pkgbase: PackageBase) -> int:
+    """
+    Return the highest Priority column related to `pkgbase`.
+
+    :param pkgbase: PackageBase instance
+    :return: Highest Priority found or 0 if no records exist
+    """
+
+    # Order comaintainers related to pkgbase by Priority DESC.
+    record = pkgbase.comaintainers.order_by(
+        PackageComaintainer.Priority.desc()).first()
+
+    # Use Priority column if record exists, otherwise 0.
+    return record.Priority if record else 0
+
+
+class NoopComaintainerNotification:
+    """ A noop notification stub used as an error-state return value. """
+
+    def send(self) -> None:
+        """ noop """
+        return
+
+
+def add_comaintainer(pkgbase: PackageBase, comaintainer: User) \
+        -> notify.ComaintainerAddNotification:
+    """
+    Add a new comaintainer to `pkgbase`.
+
+    :param pkgbase: PackageBase instance
+    :param comaintainer: User instance used for new comaintainer record
+    :return: ComaintainerAddNotification
+    """
+    # Skip given `comaintainers` who are already maintainer.
+    if pkgbase.Maintainer == comaintainer:
+        return NoopComaintainerNotification()
+
+    # Priority for the new comaintainer is +1 more than the highest.
+    new_prio = latest_priority(pkgbase) + 1
+
+    with db.begin():
+        db.create(PackageComaintainer, PackageBase=pkgbase,
+                  User=comaintainer, Priority=new_prio)
+
+    return notify.ComaintainerAddNotification(comaintainer.ID, pkgbase.ID)
+
+
 def add_comaintainers(request: Request, pkgbase: models.PackageBase,
-                      priority: int, usernames: List[str]) -> None:
+                      usernames: List[str]) -> None:
     """
     Add comaintainers to `pkgbase`.
 
     :param request: FastAPI request
     :param pkgbase: PackageBase instance
-    :param priority: Initial priority value
     :param usernames: Iterable of username strings
-    :return: None on success, an error string on failure
+    :return: Error string on failure else None
     """
-
-    # First, perform a check against all usernames given; for each
-    # username, add its related User object to memo.
-    _ = l10n.get_translator_for_request(request)
-    memo = {}
+    # For each username in usernames, perform validation of the username
+    # and append the User record to `users` if no errors occur.
+    users = []
     for username in usernames:
-        user = db.query(models.User).filter(
-            models.User.Username == username).first()
+        user = db.query(User).filter(User.Username == username).first()
         if not user:
+            _ = l10n.get_translator_for_request(request)
             return _("Invalid user name: %s") % username
-        memo[username] = user
+        users.append(user)
 
-    # Alright, now that we got past the check, add them all to the DB.
     notifications = []
-    with db.begin():
-        for username in usernames:
-            user = memo.get(username)
-            if pkgbase.Maintainer == user:
-                # Already a maintainer. Move along.
-                continue
 
-            # If we get here, our user model object is in the memo.
-            comaintainer = db.create(
-                models.PackageComaintainer,
-                PackageBase=pkgbase,
-                User=user,
-                Priority=priority)
-            priority += 1
+    def add_comaint(user: User):
+        nonlocal notifications
+        # Populate `notifications` with add_comaintainer's return value,
+        # which is a ComaintainerAddNotification.
+        notifications.append(add_comaintainer(pkgbase, user))
 
-            notifications.append(
-                notify.ComaintainerAddNotification(
-                    comaintainer.User.ID, pkgbase.ID)
-            )
+    # Move along: add all `users` as new `pkgbase` comaintainers.
+    util.apply_all(users, add_comaint)
 
     # Send out notifications.
     util.apply_all(notifications, lambda n: n.send())
+
+
+def rotate_comaintainers(pkgbase: PackageBase) -> None:
+    """
+    Rotate `pkgbase` comaintainers.
+
+    This function resets the Priority column of all PackageComaintainer
+    instances related to `pkgbase` to seqential 1 .. n values with
+    persisted order.
+
+    :param pkgbase: PackageBase instance
+    """
+    comaintainers = pkgbase.comaintainers.order_by(
+        models.PackageComaintainer.Priority.asc())
+    for i, comaint in enumerate(comaintainers):
+        comaint.Priority = i + 1
 
 
 def pkg_required(pkgname: str, provides: List[str], limit: int) \

@@ -543,27 +543,13 @@ async def package_base_comaintainers_post(
     users = {e.strip() for e in users.split("\n") if bool(e.strip())}
     records = {c.User.Username for c in pkgbase.comaintainers}
 
-    logger.debug(f"RemoveComaintainers: {records.difference(users)}")
-    pkgutil.remove_comaintainers(pkgbase, records.difference(users))
+    users_to_rm = records.difference(users)
+    pkgutil.remove_comaintainers(pkgbase, users_to_rm)
+    logger.debug(f"{request.user} removed comaintainers from "
+                 f"{pkgbase.Name}: {users_to_rm}")
 
-    # Default priority (lowest value; most preferred).
-    priority = 1
-
-    # Get the highest priority in the comaintainer set.
-    last_priority = pkgbase.comaintainers.order_by(
-        models.PackageComaintainer.Priority.desc()
-    ).limit(1).first()
-
-    # If that record exists, we use a priority which is 1 higher.
-    # TODO: This needs to ensure that it wraps around and preserves
-    # ordering in the case where we hit the max number allowed by
-    # the Priority column type.
-    if last_priority:
-        priority = last_priority.Priority + 1
-
-    logger.debug(f"AddComaintainers: {users.difference(records)}")
-    error = pkgutil.add_comaintainers(request, pkgbase, priority,
-                                      users.difference(records))
+    users_to_add = users.difference(records)
+    error = pkgutil.add_comaintainers(request, pkgbase, users_to_add)
     if error:
         context = make_context(request, "Manage Co-maintainers")
         context["pkgbase"] = pkgbase
@@ -572,6 +558,9 @@ async def package_base_comaintainers_post(
         ]
         context["errors"] = [error]
         return render_template(request, "pkgbase/comaintainers.html", context)
+
+    logger.debug(f"{request.user} added comaintainers to "
+                 f"{pkgbase.Name}: {users_to_add}")
 
     return RedirectResponse(f"/pkgbase/{pkgbase.Name}",
                             status_code=HTTPStatus.SEE_OTHER)
@@ -925,21 +914,26 @@ def pkgbase_disown_instance(request: Request, pkgbase: models.PackageBase):
     disowner = request.user
     notifs = [notify.DisownNotification(disowner.ID, pkgbase.ID)]
 
-    if disowner != pkgbase.Maintainer:
+    is_maint = disowner == pkgbase.Maintainer
+    if is_maint:
+        with db.begin():
+            # Comaintainer with the lowest Priority value; next-in-line.
+            prio_comaint = pkgbase.comaintainers.order_by(
+                models.PackageComaintainer.Priority.asc()
+            ).first()
+            if prio_comaint:
+                # If there is such a comaintainer, promote them to maint.
+                pkgbase.Maintainer = prio_comaint.User
+                notifs.append(pkgutil.remove_comaintainer(prio_comaint))
+            else:
+                # Otherwise, just orphan the package completely.
+                pkgbase.Maintainer = None
+    elif request.user.has_credential(creds.PKGBASE_DISOWN):
+        # Otherwise, the request user performing this disownage is a
+        # Trusted User and we treat it like a standard orphan request.
         notifs += handle_request(request, ORPHAN_ID, pkgbase)
         with db.begin():
             pkgbase.Maintainer = None
-    else:
-        co = pkgbase.comaintainers.order_by(
-            models.PackageComaintainer.Priority.asc()
-        ).limit(1).first()
-
-        with db.begin():
-            if co:
-                pkgbase.Maintainer = co.User
-                db.delete(co)
-            else:
-                pkgbase.Maintainer = None
 
     util.apply_all(notifs, lambda n: n.send())
 

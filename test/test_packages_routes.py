@@ -75,14 +75,19 @@ def client() -> TestClient:
     yield TestClient(app=asgi.app)
 
 
+def create_user(username: str) -> User:
+    with db.begin():
+        user = db.create(User, Username=username,
+                         Email=f"{username}@example.org",
+                         Passwd="testPassword",
+                         AccountTypeID=USER_ID)
+    return user
+
+
 @pytest.fixture
 def user() -> User:
     """ Yield a user. """
-    with db.begin():
-        user = db.create(User, Username="test",
-                         Email="test@example.org",
-                         Passwd="testPassword",
-                         AccountTypeID=USER_ID)
+    user = create_user("test")
     yield user
 
 
