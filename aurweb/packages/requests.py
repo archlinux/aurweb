@@ -102,10 +102,6 @@ def update_closure_comment(pkgbase: PackageBase, reqtype_id: int,
 
 def verify_orphan_request(user: User, pkgbase: PackageBase):
     """ Verify that an undue orphan request exists in `requests`. """
-    is_maint = user == pkgbase.Maintainer
-    if is_maint:
-        return True
-
     requests = pkgbase.requests.filter(
         PackageRequest.ReqTypeID == ORPHAN_ID)
     for pkgreq in requests:

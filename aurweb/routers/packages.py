@@ -924,9 +924,9 @@ async def pkgbase_unvote(request: Request, name: str):
 def pkgbase_disown_instance(request: Request, pkgbase: models.PackageBase):
     disowner = request.user
     notifs = [notify.DisownNotification(disowner.ID, pkgbase.ID)]
-    notifs += handle_request(request, ORPHAN_ID, pkgbase)
 
     if disowner != pkgbase.Maintainer:
+        notifs += handle_request(request, ORPHAN_ID, pkgbase)
         with db.begin():
             pkgbase.Maintainer = None
     else:
