@@ -311,8 +311,17 @@ def add_comaintainers(request: Request, pkgbase: models.PackageBase,
     util.apply_all(notifications, lambda n: n.send())
 
 
-def pkg_required(pkgname: str, provides: List[str], limit: int):
-    targets = set(provides + [pkgname])
+def pkg_required(pkgname: str, provides: List[str], limit: int) \
+        -> List[PackageDependency]:
+    """
+    Get dependencies that match a string in `[pkgname] + provides`.
+
+    :param pkgname: Package.Name
+    :param provides: List of PackageRelation.Name
+    :param limit: Maximum number of dependencies to query
+    :return: List of PackageDependency instances
+    """
+    targets = set([pkgname] + provides)
     query = db.query(PackageDependency).join(Package).filter(
         PackageDependency.DepName.in_(targets)
     ).order_by(Package.Name.asc()).limit(limit)
