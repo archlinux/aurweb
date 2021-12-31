@@ -5,17 +5,19 @@ from typing import Dict, List, Union
 import orjson
 
 from fastapi import HTTPException, Request
-from sqlalchemy import and_, orm
+from sqlalchemy import orm
 
 from aurweb import db, l10n, models, util
 from aurweb.models import Package, PackageBase, User
 from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_dependency import PackageDependency
-from aurweb.models.relation_type import PROVIDES_ID
+from aurweb.models.package_relation import PackageRelation
 from aurweb.redis import redis_connection
 from aurweb.scripts import notify
 from aurweb.templates import register_filter
+
+Providers = List[Union[PackageRelation, OfficialProvider]]
 
 
 def dep_extra_with_arch(dep: models.PackageDependency, annotation: str) -> str:
@@ -77,26 +79,12 @@ def package_link(package: Union[Package, OfficialProvider]) -> str:
     return f"/packages/{package.Name}"
 
 
-@register_filter("provides_list")
-def provides_list(package: models.Package, depname: str) -> list:
-    providers = db.query(models.Package).join(
-        models.PackageRelation).join(models.RelationType).filter(
-        and_(
-            models.PackageRelation.RelName == depname,
-            models.RelationType.ID == PROVIDES_ID
-        )
-    )
-
-    string = ", ".join([
+@register_filter("provides_markup")
+def provides_markup(provides: Providers) -> str:
+    return ", ".join([
         f'<a href="{package_link(pkg)}">{pkg.Name}</a>'
-        for pkg in providers
+        for pkg in provides
     ])
-
-    if string:
-        # If we actually constructed a string, wrap it.
-        string = f"<em>({string})</em>"
-
-    return string
 
 
 def get_pkg_or_base(

@@ -1,3 +1,6 @@
+from typing import List
+
+from sqlalchemy import and_, literal
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
@@ -6,6 +9,7 @@ from aurweb.models.declarative import Base
 from aurweb.models.dependency_type import DependencyType as _DependencyType
 from aurweb.models.official_provider import OfficialProvider as _OfficialProvider
 from aurweb.models.package import Package as _Package
+from aurweb.models.package_relation import PackageRelation
 
 
 class PackageDependency(Base):
@@ -51,3 +55,24 @@ class PackageDependency(Base):
         official = db.query(_OfficialProvider).filter(
             _OfficialProvider.Name == self.DepName).exists()
         return db.query(pkg).scalar() or db.query(official).scalar()
+
+    def provides(self) -> List[PackageRelation]:
+        from aurweb.models.relation_type import PROVIDES_ID
+
+        rels = db.query(PackageRelation).join(_Package).filter(
+            and_(PackageRelation.RelTypeID == PROVIDES_ID,
+                 PackageRelation.RelName == self.DepName)
+        ).with_entities(
+            _Package.Name,
+            literal(False).label("is_official")
+        ).order_by(_Package.Name.asc())
+
+        official_rels = db.query(_OfficialProvider).filter(
+            and_(_OfficialProvider.Provides == self.DepName,
+                 _OfficialProvider.Name != self.DepName)
+        ).with_entities(
+            _OfficialProvider.Name,
+            literal(True).label("is_official")
+        ).order_by(_OfficialProvider.Name.asc())
+
+        return rels.union(official_rels).all()

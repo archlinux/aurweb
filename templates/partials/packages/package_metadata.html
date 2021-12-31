@@ -1,23 +1,33 @@
 <div id="pkgdeps" class="listing">
-    <h3>Dependencies ({{ dependencies | length }})</h3>
+    <h3>{{ "Dependencies" | tr }} ({{ dependencies | length }})</h3>
     <ul id="pkgdepslist">
         {% for dep in dependencies %}
+            {# Collect provides for `dep`. #}
+            {% set provides = dep.provides() %}
             <li>
                 {% set broken = not dep.is_package() %}
                 {% if broken %}
-                    <span class="broken">
+                    {% if not provides %}
+                        <span class="broken">
+                    {% endif %}
                 {% else %}
                     <a href="{{ dep.DepName | pkgname_link }}">
                 {% endif %}
                     {{ dep.DepName }}
                 {% if broken %}
-                    </span>
+                    {% if not provides %}
+                        </span>
+                    {% endif %}
                 {% else %}
                     </a>
                 {% endif %}
-                {{ dep.Package | provides_list(dep.DepName) | safe }}
-                {# If this dependency type is an optdepends (id: 4). #}
+
+                {% if provides %}
+                    <em>({{ provides | provides_markup | safe }})</em>
+                {% endif %}
+
                 {% if dep.DepTypeID == 4 %}
+                    {# If this dependency type is an optdepends (id: 4). #}
                     <em>{{ dep | dep_extra_desc }}</em>
                 {% else %}
                     <em>{{ dep | dep_extra }}</em>
@@ -28,7 +38,7 @@
 </div>
 
 <div id="pkgreqs" class="listing">
-    <h3>Required by ({{ required_by | length }})</h3>
+    <h3>{{ "Required by" | tr }} ({{ required_by | length }})</h3>
     <ul id="pkgreqslist">
         {% for dep in required_by %}
             <li>
@@ -49,7 +59,7 @@
 </div>
 
 <div id="pkgfiles" class="listing">
-    <h3>Sources ({{ sources | length }})</h3>
+    <h3>{{ "Sources" | tr }} ({{ sources | length }})</h3>
 </div>
 
 <div>
