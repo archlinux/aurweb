@@ -46,14 +46,19 @@ def client() -> TestClient:
     yield TestClient(app=asgi.app)
 
 
-def test_package_link(client: TestClient, maintainer: User, package: Package):
-    with db.begin():
-        db.create(OfficialProvider,
-                  Name=package.Name,
-                  Repo="core",
-                  Provides=package.Name)
-    expected = f"{OFFICIAL_BASE}/packages/?q={package.Name}"
+def test_package_link(client: TestClient, package: Package):
+    expected = f"/packages/{package.Name}"
     assert util.package_link(package) == expected
+
+
+def test_official_package_link(client: TestClient, package: Package):
+    with db.begin():
+        provider = db.create(OfficialProvider,
+                             Name=package.Name,
+                             Repo="core",
+                             Provides=package.Name)
+    expected = f"{OFFICIAL_BASE}/packages/?q={package.Name}"
+    assert util.package_link(provider) == expected
 
 
 def test_updated_packages(maintainer: User, package: Package):

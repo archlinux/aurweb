@@ -16,6 +16,9 @@ class Package(Base):
                                       cascade="all, delete"),
         foreign_keys=[__table__.c.PackageBaseID])
 
+    # No Package instances are official packages.
+    is_official = False
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 

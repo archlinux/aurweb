@@ -9,7 +9,7 @@ from sqlalchemy import and_, orm
 
 from aurweb import db, l10n, models, util
 from aurweb.models import Package, PackageBase, User
-from aurweb.models.official_provider import OFFICIAL_BASE
+from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.relation_type import PROVIDES_ID
@@ -61,20 +61,18 @@ def dep_extra_desc(dep: models.PackageDependency) -> str:
 
 @register_filter("pkgname_link")
 def pkgname_link(pkgname: str) -> str:
-    base = "/".join([OFFICIAL_BASE, "packages"])
-    official = db.query(models.OfficialProvider).filter(
-        models.OfficialProvider.Name == pkgname).exists()
+    official = db.query(OfficialProvider).filter(
+        OfficialProvider.Name == pkgname).exists()
     if db.query(official).scalar():
+        base = "/".join([OFFICIAL_BASE, "packages"])
         return f"{base}/?q={pkgname}"
     return f"/packages/{pkgname}"
 
 
 @register_filter("package_link")
-def package_link(package: models.Package) -> str:
-    base = "/".join([OFFICIAL_BASE, "packages"])
-    official = db.query(models.OfficialProvider).filter(
-        models.OfficialProvider.Name == package.Name).exists()
-    if db.query(official).scalar():
+def package_link(package: Union[Package, OfficialProvider]) -> str:
+    if package.is_official:
+        base = "/".join([OFFICIAL_BASE, "packages"])
         return f"{base}/?q={package.Name}"
     return f"/packages/{package.Name}"
 

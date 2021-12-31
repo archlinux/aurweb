@@ -11,6 +11,9 @@ class OfficialProvider(Base):
     __tablename__ = __table__.name
     __mapper_args__ = {"primary_key": [__table__.c.ID]}
 
+    # OfficialProvider instances are official packages.
+    is_official = True
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
