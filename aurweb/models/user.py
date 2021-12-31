@@ -254,6 +254,9 @@ class User(Base):
         return "<User(ID='%s', AccountType='%s', Username='%s')>" % (
             self.ID, str(self.AccountType), self.Username)
 
+    def __str__(self) -> str:
+        return self.Username
+
 
 def generate_resetkey():
     return util.make_random_string(32)
