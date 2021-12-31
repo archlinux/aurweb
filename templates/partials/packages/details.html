@@ -96,9 +96,9 @@
     <tr>
         <th>{{ "Submitter" | tr }}:</th>
         <td>
-            {% if request.user.is_authenticated() %}
+            {% if request.user.is_authenticated() and pkgbase.Submitter %}
                 <a href="/account/{{ pkgbase.Submitter.Username }}">
-                    {{ pkgbase.Submitter.Username | default("None" | tr) }}
+                    {{ pkgbase.Submitter.Username }}
                 </a>
             {% else %}
                 {{ pkgbase.Submitter.Username | default("None" | tr) }}
@@ -108,9 +108,9 @@
     <tr>
         <th>{{ "Maintainer" | tr }}:</th>
         <td>
-            {% if request.user.is_authenticated() %}
+            {% if request.user.is_authenticated() and pkgbase.Maintainer %}
                 <a href="/account/{{ pkgbase.Maintainer.Username }}">
-                    {{ pkgbase.Maintainer.Username | default("None" | tr) }}
+                    {{ pkgbase.Maintainer.Username }}
                 </a>
             {% else %}
                 {{ pkgbase.Maintainer.Username | default("None" | tr) }}
@@ -120,9 +120,9 @@
     <tr>
         <th>{{ "Last Packager" | tr }}:</th>
         <td>
-            {% if request.user.is_authenticated() %}
+            {% if request.user.is_authenticated() and pkgbase.Packager %}
                 <a href="/account/{{ pkgbase.Packager.Username }}">
-                    {{ pkgbase.Packager.Username | default("None" | tr) }}
+                    {{ pkgbase.Packager.Username }}
                 </a>
             {% else %}
                 {{ pkgbase.Packager.Username | default("None" | tr) }}
