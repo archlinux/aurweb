@@ -29,13 +29,17 @@ class URL:
 class Request:
     """ A fake Request object which mimics a FastAPI Request for tests. """
     client = Client()
-    user = User()
     url = URL()
 
     def __init__(self,
+                 user: User = User(),
+                 authenticated: bool = False,
                  method: str = "GET",
                  headers: Dict[str, str] = dict(),
                  cookies: Dict[str, str] = dict()) -> "Request":
+        self.user = user
+        self.user.authenticated = authenticated
+
         self.method = method.upper()
         self.headers = headers
         self.cookies = cookies
