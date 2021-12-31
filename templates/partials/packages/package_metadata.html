@@ -65,8 +65,9 @@
 <div>
     <ul id="pkgsrcslist">
         {% for src in sources %}
+            {% set file, uri = (src | source_uri) %}
             <li>
-                <a href="{{ src.Source }}">{{ src.Source }}</a>
+                <a href="{{ uri }}">{{ file }}</a>
             </li>
         {% endfor %}
     </ul>
