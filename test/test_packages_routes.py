@@ -2483,9 +2483,9 @@ def test_packages_post_delete(caplog: pytest.fixture, client: TestClient,
     assert successes[0].text.strip() == expected
 
     # Expect that the package deletion was logged.
-    packages = [package.Name]
+    pkgbases = [package.PackageBase.Name]
     expected = (f"Privileged user '{tu_user.Username}' deleted the "
-                f"following packages: {str(packages)}.")
+                f"following package bases: {str(pkgbases)}.")
     assert expected in caplog.text
 
 

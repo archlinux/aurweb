@@ -130,39 +130,18 @@ async def packages(request: Request) -> Response:
     return await packages_get(request, context)
 
 
-def delete_package(request: Request, package: models.Package,
-                   merge_into: models.PackageBase = None,
-                   comments: str = str()):
-    bases_to_delete = []
+def pkgbase_delete_instance(request: Request, pkgbase: models.PackageBase,
+                            comments: str = str()) \
+        -> List[notify.Notification]:
+    notifs = handle_request(request, DELETION_ID, pkgbase) + [
+        notify.DeleteNotification(request.user.ID, pkgbase.ID)
+    ]
 
-    target = db.query(models.PackageBase).filter(
-        models.PackageBase.Name == merge_into
-    ).first()
-
-    notifs = []
-    # In all cases, though, just delete the Package in question.
-    if package.PackageBase.packages.count() == 1:
-        notifs = handle_request(request, DELETION_ID, package.PackageBase,
-                                target=target)
-
-        bases_to_delete.append(package.PackageBase)
-
-        with db.begin():
-            update_closure_comment(package.PackageBase, DELETION_ID, comments,
-                                   target=target)
-
-        # Prepare DeleteNotification.
-        notifs.append(
-            notify.DeleteNotification(request.user.ID, package.PackageBase.ID)
-        )
-
-    # Perform all the deletions.
     with db.begin():
-        db.delete(package)
-        db.delete_all(bases_to_delete)
+        update_closure_comment(pkgbase, DELETION_ID, comments)
+        db.delete(pkgbase)
 
-    # Send out all the notifications.
-    util.apply_all(notifs, lambda n: n.send())
+    return notifs
 
 
 async def make_single_context(request: Request,
@@ -675,9 +654,8 @@ async def pkgbase_request_post(request: Request, name: str,
         logger.debug(f"New request #{pkgreq.ID} is marked for auto-orphan.")
     elif type == "deletion" and is_maintainer and outdated:
         # This request should be auto-accepted.
-        packages = pkgbase.packages.all()
-        for package in packages:
-            delete_package(request, package)
+        notifs = pkgbase_delete_instance(request, pkgbase, comments=comments)
+        util.apply_all(notifs, lambda n: n.send())
         logger.debug(f"New request #{pkgreq.ID} is marked for auto-deletion.")
 
     # Redirect the submitting user to /packages.
@@ -1054,11 +1032,8 @@ async def pkgbase_delete_post(request: Request, name: str,
             for pkgreq in requests:
                 pkgreq.ClosureComment = comments
 
-    # Obtain deletion locks and delete the packages.
-    packages = pkgbase.packages.all()
-    for package in packages:
-        delete_package(request, package, comments=comments)
-
+    notifs = pkgbase_delete_instance(request, pkgbase, comments=comments)
+    util.apply_all(notifs, lambda n: n.send())
     return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)
 
 
@@ -1255,10 +1230,6 @@ async def packages_delete(request: Request, package_ids: List[int] = [],
     if not request.user.has_credential(creds.PKGBASE_DELETE):
         return (False, ["You do not have permission to delete packages."])
 
-    # A "memo" used to store names of packages that we delete.
-    # We'll use this to log out a message about the deletions that occurred.
-    deleted_pkgs = []
-
     # set-ify package_ids and query the database for related records.
     package_ids = set(package_ids)
     packages = db.query(models.Package).filter(
@@ -1270,16 +1241,18 @@ async def packages_delete(request: Request, package_ids: List[int] = [],
         # TODO: This error has not yet been translated.
         return (False, ["One of the packages you selected does not exist."])
 
-    # Now let's actually walk through and delete all of the packages,
-    # using the same method we use in our /pkgbase/{name}/delete route.
-    for pkg in packages:
-        deleted_pkgs.append(pkg.Name)
-        delete_package(request, pkg)
+    # Make a set out of all package bases related to `packages`.
+    bases = {pkg.PackageBase for pkg in packages}
+    deleted_bases, notifs = [], []
+    for pkgbase in bases:
+        deleted_bases.append(pkgbase.Name)
+        notifs += pkgbase_delete_instance(request, pkgbase)
 
     # Log out the fact that this happened for accountability.
     logger.info(f"Privileged user '{request.user.Username}' deleted the "
-                f"following packages: {str(deleted_pkgs)}.")
+                f"following package bases: {str(deleted_bases)}.")
 
+    util.apply_all(notifs, lambda n: n.send())
     return (True, ["The selected packages have been deleted."])
 
 # A mapping of action string -> callback functions used within the
