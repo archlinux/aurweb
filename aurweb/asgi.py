@@ -21,7 +21,7 @@ from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
 from aurweb.models import AcceptedTerm, Term
 from aurweb.prometheus import http_api_requests_total, http_requests_total, instrumentator
-from aurweb.routers import accounts, auth, html, packages, rpc, rss, sso, trusted_user
+from aurweb.routers import accounts, auth, html, packages, pkgbase, rpc, rss, sso, trusted_user
 from aurweb.templates import make_context, render_template
 
 # Setup the FastAPI app.
@@ -81,6 +81,7 @@ async def app_startup():
     app.include_router(trusted_user.router)
     app.include_router(rss.router)
     app.include_router(packages.router)
+    app.include_router(pkgbase.router)
     app.include_router(rpc.router)
 
     # Initialize the database engine and ORM.
