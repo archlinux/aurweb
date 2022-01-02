@@ -17,11 +17,12 @@ from starlette.middleware.sessions import SessionMiddleware
 import aurweb.config
 import aurweb.logging
 
+from aurweb import prometheus, util
 from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
 from aurweb.models import AcceptedTerm, Term
-from aurweb.prometheus import http_api_requests_total, http_requests_total, instrumentator
-from aurweb.routers import accounts, auth, html, packages, pkgbase, requests, rpc, rss, sso, trusted_user
+from aurweb.prometheus import instrumentator
+from aurweb.routers import APP_ROUTES
 from aurweb.templates import make_context, render_template
 
 # Setup the FastAPI app.
@@ -29,8 +30,8 @@ app = FastAPI()
 
 # Instrument routes with the prometheus-fastapi-instrumentator
 # library with custom collectors and expose /metrics.
-instrumentator().add(http_api_requests_total())
-instrumentator().add(http_requests_total())
+instrumentator().add(prometheus.http_api_requests_total())
+instrumentator().add(prometheus.http_requests_total())
 instrumentator().instrument(app)
 
 
@@ -74,16 +75,9 @@ async def app_startup():
     app.add_middleware(SessionMiddleware, secret_key=session_secret)
 
     # Add application routes.
-    app.include_router(sso.router)
-    app.include_router(html.router)
-    app.include_router(auth.router)
-    app.include_router(accounts.router)
-    app.include_router(trusted_user.router)
-    app.include_router(rss.router)
-    app.include_router(packages.router)
-    app.include_router(pkgbase.router)
-    app.include_router(requests.router)
-    app.include_router(rpc.router)
+    def add_router(module):
+        app.include_router(module.router)
+    util.apply_all(APP_ROUTES, add_router)
 
     # Initialize the database engine and ORM.
     get_engine()
