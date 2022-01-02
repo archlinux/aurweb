@@ -9,6 +9,7 @@ from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
 from aurweb.packages.requests import handle_request, update_closure_comment
+from aurweb.pkgbase import util as pkgbaseutil
 from aurweb.scripts import notify, popupdate
 
 logger = logging.get_logger(__name__)
@@ -47,8 +48,6 @@ def pkgbase_unflag_instance(request: Request, pkgbase: PackageBase) -> None:
 
 
 def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
-    import aurweb.packages.util as pkgutil
-
     disowner = request.user
     notifs = [notify.DisownNotification(disowner.ID, pkgbase.ID)]
 
@@ -62,7 +61,7 @@ def pkgbase_disown_instance(request: Request, pkgbase: PackageBase) -> None:
             if prio_comaint:
                 # If there is such a comaintainer, promote them to maint.
                 pkgbase.Maintainer = prio_comaint.User
-                notifs.append(pkgutil.remove_comaintainer(prio_comaint))
+                notifs.append(pkgbaseutil.remove_comaintainer(prio_comaint))
             else:
                 # Otherwise, just orphan the package completely.
                 pkgbase.Maintainer = None

@@ -5,7 +5,7 @@ from fastapi import APIRouter, Form, HTTPException, Query, Request, Response
 from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import and_
 
-from aurweb import db, l10n, templates, util
+from aurweb import db, l10n, logging, templates, util
 from aurweb.auth import auth_required, creds
 from aurweb.exceptions import InvariantError
 from aurweb.models import PackageBase
@@ -23,6 +23,7 @@ from aurweb.scripts import popupdate
 from aurweb.scripts.rendercomment import update_comment_render_fastapi
 from aurweb.templates import make_variable_context, render_template
 
+logger = logging.get_logger(__name__)
 router = APIRouter()
 
 
@@ -569,6 +570,74 @@ async def pkgbase_adopt_post(request: Request, name: str):
         actions.pkgbase_adopt_instance(request, pkgbase)
 
     return RedirectResponse(f"/pkgbase/{name}",
+                            status_code=HTTPStatus.SEE_OTHER)
+
+
+@router.get("/pkgbase/{name}/comaintainers")
+@auth_required()
+async def pkgbase_comaintainers(request: Request, name: str) -> Response:
+    # Get the PackageBase.
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    # Unauthorized users (Non-TU/Dev and not the pkgbase maintainer)
+    # get redirected to the package base's page.
+    has_creds = request.user.has_credential(creds.PKGBASE_EDIT_COMAINTAINERS,
+                                            approved=[pkgbase.Maintainer])
+    if not has_creds:
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=HTTPStatus.SEE_OTHER)
+
+    # Add our base information.
+    context = templates.make_context(request, "Manage Co-maintainers")
+    context.update({
+        "pkgbase": pkgbase,
+        "comaintainers": [
+            c.User.Username for c in pkgbase.comaintainers
+        ]
+    })
+
+    return render_template(request, "pkgbase/comaintainers.html", context)
+
+
+@router.post("/pkgbase/{name}/comaintainers")
+@auth_required()
+async def pkgbase_comaintainers_post(request: Request, name: str,
+                                     users: str = Form(default=str())) \
+        -> Response:
+    # Get the PackageBase.
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    # Unauthorized users (Non-TU/Dev and not the pkgbase maintainer)
+    # get redirected to the package base's page.
+    has_creds = request.user.has_credential(creds.PKGBASE_EDIT_COMAINTAINERS,
+                                            approved=[pkgbase.Maintainer])
+    if not has_creds:
+        return RedirectResponse(f"/pkgbase/{name}",
+                                status_code=HTTPStatus.SEE_OTHER)
+
+    users = {e.strip() for e in users.split("\n") if bool(e.strip())}
+    records = {c.User.Username for c in pkgbase.comaintainers}
+
+    users_to_rm = records.difference(users)
+    pkgbaseutil.remove_comaintainers(pkgbase, users_to_rm)
+    logger.debug(f"{request.user} removed comaintainers from "
+                 f"{pkgbase.Name}: {users_to_rm}")
+
+    users_to_add = users.difference(records)
+    error = pkgbaseutil.add_comaintainers(request, pkgbase, users_to_add)
+    if error:
+        context = templates.make_context(request, "Manage Co-maintainers")
+        context["pkgbase"] = pkgbase
+        context["comaintainers"] = [
+            c.User.Username for c in pkgbase.comaintainers
+        ]
+        context["errors"] = [error]
+        return render_template(request, "pkgbase/comaintainers.html", context)
+
+    logger.debug(f"{request.user} added comaintainers to "
+                 f"{pkgbase.Name}: {users_to_add}")
+
+    return RedirectResponse(f"/pkgbase/{pkgbase.Name}",
                             status_code=HTTPStatus.SEE_OTHER)
 
 
