@@ -6,6 +6,7 @@ from logging import DEBUG
 
 import pytest
 
+from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
 from aurweb import asgi, config, db
@@ -15,6 +16,7 @@ from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
 from aurweb.packages.requests import ClosureFactory
+from aurweb.requests.util import get_pkgreq_by_id
 from aurweb.testing.email import Email
 from aurweb.testing.html import get_errors
 from aurweb.testing.requests import Request
@@ -583,3 +585,8 @@ def test_closure_factory_invalid_reqtype_id():
         automated.get_closure(666, None, None, None, ACCEPTED_ID)
     with pytest.raises(NotImplementedError, match=match):
         automated.get_closure(666, None, None, None, REJECTED_ID)
+
+
+def test_pkgreq_by_id_not_found():
+    with pytest.raises(HTTPException):
+        get_pkgreq_by_id(0)

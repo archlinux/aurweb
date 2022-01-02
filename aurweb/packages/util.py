@@ -115,14 +115,6 @@ def get_pkgbase_comment(pkgbase: models.PackageBase, id: int) \
     return db.refresh(comment)
 
 
-def get_pkgreq_by_id(id: int):
-    pkgreq = db.query(models.PackageRequest).filter(
-        models.PackageRequest.ID == id).first()
-    if not pkgreq:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
-    return db.refresh(pkgreq)
-
-
 @register_filter("out_of_date")
 def out_of_date(packages: orm.Query) -> orm.Query:
     return packages.filter(models.PackageBase.OutOfDateTS.isnot(None))

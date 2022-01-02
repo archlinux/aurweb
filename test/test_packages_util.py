@@ -2,7 +2,6 @@ from datetime import datetime
 
 import pytest
 
-from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
 from aurweb import asgi, config, db
@@ -96,11 +95,6 @@ def test_query_notified(maintainer: User, package: Package):
     query = db.query(Package).filter(Package.ID == package.ID).all()
     query_notified = util.query_notified(query, maintainer)
     assert query_notified[package.PackageBase.ID]
-
-
-def test_pkgreq_by_id_not_found():
-    with pytest.raises(HTTPException):
-        util.get_pkgreq_by_id(0)
 
 
 def test_source_uri_file(package: Package):

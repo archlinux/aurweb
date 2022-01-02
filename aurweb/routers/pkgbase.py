@@ -5,21 +5,22 @@ from fastapi import APIRouter, Form, HTTPException, Query, Request, Response
 from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import and_
 
-from aurweb import db, l10n, logging, templates, util
+from aurweb import config, db, l10n, logging, templates, util
 from aurweb.auth import auth_required, creds
-from aurweb.exceptions import InvariantError
+from aurweb.exceptions import InvariantError, ValidationError
 from aurweb.models import PackageBase
 from aurweb.models.package_comment import PackageComment
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification
-from aurweb.models.package_request import PENDING_ID, PackageRequest
+from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.request_type import DELETION_ID, MERGE_ID, ORPHAN_ID
 from aurweb.packages.requests import update_closure_comment
 from aurweb.packages.util import get_pkg_or_base, get_pkgbase_comment
 from aurweb.pkgbase import actions
 from aurweb.pkgbase import util as pkgbaseutil
-from aurweb.scripts import popupdate
+from aurweb.pkgbase import validate
+from aurweb.scripts import notify, popupdate
 from aurweb.scripts.rendercomment import update_comment_render_fastapi
 from aurweb.templates import make_variable_context, render_template
 
@@ -639,6 +640,95 @@ async def pkgbase_comaintainers_post(request: Request, name: str,
 
     return RedirectResponse(f"/pkgbase/{pkgbase.Name}",
                             status_code=HTTPStatus.SEE_OTHER)
+
+
+@router.get("/pkgbase/{name}/request")
+@auth_required()
+async def pkgbase_request(request: Request, name: str):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+    context = await make_variable_context(request, "Submit Request")
+    context["pkgbase"] = pkgbase
+    return render_template(request, "pkgbase/request.html", context)
+
+
+@router.post("/pkgbase/{name}/request")
+@auth_required()
+async def pkgbase_request_post(request: Request, name: str,
+                               type: str = Form(...),
+                               merge_into: str = Form(default=None),
+                               comments: str = Form(default=str())):
+    pkgbase = get_pkg_or_base(name, PackageBase)
+
+    # Create our render context.
+    context = await make_variable_context(request, "Submit Request")
+    context["pkgbase"] = pkgbase
+
+    types = {
+        "deletion": DELETION_ID,
+        "merge": MERGE_ID,
+        "orphan": ORPHAN_ID
+    }
+
+    if type not in types:
+        # In the case that someone crafted a POST request with an invalid
+        # type, just return them to the request form with BAD_REQUEST status.
+        return render_template(request, "pkgbase/request.html", context,
+                               status_code=HTTPStatus.BAD_REQUEST)
+
+    try:
+        validate.request(pkgbase, type, comments, merge_into, context)
+    except ValidationError as exc:
+        logger.error(f"Request Validation Error: {str(exc.data)}")
+        context["errors"] = exc.data
+        return render_template(request, "pkgbase/request.html", context)
+
+    # All good. Create a new PackageRequest based on the given type.
+    now = int(datetime.utcnow().timestamp())
+    with db.begin():
+        pkgreq = db.create(PackageRequest,
+                           ReqTypeID=types.get(type),
+                           User=request.user,
+                           RequestTS=now,
+                           PackageBase=pkgbase,
+                           PackageBaseName=pkgbase.Name,
+                           MergeBaseName=merge_into,
+                           Comments=comments,
+                           ClosureComment=str())
+
+    # Prepare notification object.
+    notif = notify.RequestOpenNotification(
+        request.user.ID, pkgreq.ID, type,
+        pkgreq.PackageBase.ID, merge_into=merge_into or None)
+
+    # Send the notification now that we're out of the DB scope.
+    notif.send()
+
+    auto_orphan_age = config.getint("options", "auto_orphan_age")
+    auto_delete_age = config.getint("options", "auto_delete_age")
+
+    ood_ts = pkgbase.OutOfDateTS or 0
+    flagged = ood_ts and (now - ood_ts) >= auto_orphan_age
+    is_maintainer = pkgbase.Maintainer == request.user
+    outdated = (now - pkgbase.SubmittedTS) <= auto_delete_age
+
+    if type == "orphan" and flagged:
+        # This request should be auto-accepted.
+        with db.begin():
+            pkgbase.Maintainer = None
+            pkgreq.Status = ACCEPTED_ID
+        notif = notify.RequestCloseNotification(
+            request.user.ID, pkgreq.ID, pkgreq.status_display())
+        notif.send()
+        logger.debug(f"New request #{pkgreq.ID} is marked for auto-orphan.")
+    elif type == "deletion" and is_maintainer and outdated:
+        # This request should be auto-accepted.
+        notifs = actions.pkgbase_delete_instance(
+            request, pkgbase, comments=comments)
+        util.apply_all(notifs, lambda n: n.send())
+        logger.debug(f"New request #{pkgreq.ID} is marked for auto-deletion.")
+
+    # Redirect the submitting user to /packages.
+    return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)
 
 
 @router.get("/pkgbase/{name}/delete")

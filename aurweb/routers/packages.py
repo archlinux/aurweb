@@ -1,28 +1,21 @@
 from collections import defaultdict
-from datetime import datetime
 from http import HTTPStatus
 from typing import Any, Dict, List
 
-from fastapi import APIRouter, Form, Query, Request, Response
-from fastapi.responses import RedirectResponse
-from sqlalchemy import case
+from fastapi import APIRouter, Form, Request, Response
 
-import aurweb.filters
-import aurweb.packages.util
+import aurweb.filters  # noqa: F401
 
 from aurweb import config, db, defaults, logging, models, util
 from aurweb.auth import auth_required, creds
-from aurweb.exceptions import InvariantError, ValidationError
-from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
+from aurweb.exceptions import InvariantError
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 from aurweb.packages import util as pkgutil
-from aurweb.packages import validate
 from aurweb.packages.search import PackageSearch
-from aurweb.packages.util import get_pkg_or_base, get_pkgreq_by_id
+from aurweb.packages.util import get_pkg_or_base
 from aurweb.pkgbase import actions as pkgbase_actions
 from aurweb.pkgbase import util as pkgbaseutil
-from aurweb.scripts import notify
-from aurweb.templates import make_context, make_variable_context, render_template
+from aurweb.templates import make_context, render_template
 
 logger = logging.get_logger(__name__)
 router = APIRouter()
@@ -179,166 +172,6 @@ async def package(request: Request, name: str) -> Response:
     context["replaces"] = replaces
 
     return render_template(request, "packages/show.html", context)
-
-
-@router.get("/requests")
-@auth_required()
-async def requests(request: Request,
-                   O: int = Query(default=defaults.O),
-                   PP: int = Query(default=defaults.PP)):
-    context = make_context(request, "Requests")
-
-    context["q"] = dict(request.query_params)
-
-    O, PP = util.sanitize_params(O, PP)
-    context["O"] = O
-    context["PP"] = PP
-
-    # A PackageRequest query, with left inner joined User and RequestType.
-    query = db.query(models.PackageRequest).join(
-        models.User, models.PackageRequest.UsersID == models.User.ID
-    ).join(models.RequestType)
-
-    # If the request user is not elevated (TU or Dev), then
-    # filter PackageRequests which are owned by the request user.
-    if not request.user.is_elevated():
-        query = query.filter(models.PackageRequest.UsersID == request.user.ID)
-
-    context["total"] = query.count()
-    context["results"] = query.order_by(
-        # Order primarily by the Status column being PENDING_ID,
-        # and secondarily by RequestTS; both in descending order.
-        case([(models.PackageRequest.Status == PENDING_ID, 1)], else_=0).desc(),
-        models.PackageRequest.RequestTS.desc()
-    ).limit(PP).offset(O).all()
-
-    return render_template(request, "requests.html", context)
-
-
-@router.get("/pkgbase/{name}/request")
-@auth_required()
-async def package_request(request: Request, name: str):
-    pkgbase = get_pkg_or_base(name, models.PackageBase)
-    context = await make_variable_context(request, "Submit Request")
-    context["pkgbase"] = pkgbase
-    return render_template(request, "pkgbase/request.html", context)
-
-
-@router.post("/pkgbase/{name}/request")
-@auth_required()
-async def pkgbase_request_post(request: Request, name: str,
-                               type: str = Form(...),
-                               merge_into: str = Form(default=None),
-                               comments: str = Form(default=str())):
-    pkgbase = get_pkg_or_base(name, models.PackageBase)
-
-    # Create our render context.
-    context = await make_variable_context(request, "Submit Request")
-    context["pkgbase"] = pkgbase
-    if type not in {"deletion", "merge", "orphan"}:
-        # In the case that someone crafted a POST request with an invalid
-        # type, just return them to the request form with BAD_REQUEST status.
-        return render_template(request, "pkgbase/request.html", context,
-                               status_code=HTTPStatus.BAD_REQUEST)
-
-    try:
-        validate.request(pkgbase, type, comments, merge_into, context)
-    except ValidationError as exc:
-        logger.error(f"Request Validation Error: {str(exc.data)}")
-        context["errors"] = exc.data
-        return render_template(request, "pkgbase/request.html", context)
-
-    # All good. Create a new PackageRequest based on the given type.
-    now = int(datetime.utcnow().timestamp())
-    reqtype = db.query(models.RequestType).filter(
-        models.RequestType.Name == type).first()
-    with db.begin():
-        pkgreq = db.create(models.PackageRequest,
-                           RequestType=reqtype,
-                           User=request.user,
-                           RequestTS=now,
-                           PackageBase=pkgbase,
-                           PackageBaseName=pkgbase.Name,
-                           MergeBaseName=merge_into,
-                           Comments=comments,
-                           ClosureComment=str())
-
-    # Prepare notification object.
-    notif = notify.RequestOpenNotification(
-        request.user.ID, pkgreq.ID, reqtype.Name,
-        pkgreq.PackageBase.ID, merge_into=merge_into or None)
-
-    # Send the notification now that we're out of the DB scope.
-    notif.send()
-
-    auto_orphan_age = aurweb.config.getint("options", "auto_orphan_age")
-    auto_delete_age = aurweb.config.getint("options", "auto_delete_age")
-
-    ood_ts = pkgbase.OutOfDateTS or 0
-    flagged = ood_ts and (now - ood_ts) >= auto_orphan_age
-    is_maintainer = pkgbase.Maintainer == request.user
-    outdated = (now - pkgbase.SubmittedTS) <= auto_delete_age
-
-    if type == "orphan" and flagged:
-        # This request should be auto-accepted.
-        with db.begin():
-            pkgbase.Maintainer = None
-            pkgreq.Status = ACCEPTED_ID
-        notif = notify.RequestCloseNotification(
-            request.user.ID, pkgreq.ID, pkgreq.status_display())
-        notif.send()
-        logger.debug(f"New request #{pkgreq.ID} is marked for auto-orphan.")
-    elif type == "deletion" and is_maintainer and outdated:
-        # This request should be auto-accepted.
-        notifs = pkgbase_actions.pkgbase_delete_instance(
-            request, pkgbase, comments=comments)
-        util.apply_all(notifs, lambda n: n.send())
-        logger.debug(f"New request #{pkgreq.ID} is marked for auto-deletion.")
-
-    # Redirect the submitting user to /packages.
-    return RedirectResponse("/packages", status_code=HTTPStatus.SEE_OTHER)
-
-
-@router.get("/requests/{id}/close")
-@auth_required()
-async def requests_close(request: Request, id: int):
-    pkgreq = get_pkgreq_by_id(id)
-    if not request.user.is_elevated() and request.user != pkgreq.User:
-        # Request user doesn't have permission here: redirect to '/'.
-        return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
-
-    context = make_context(request, "Close Request")
-    context["pkgreq"] = pkgreq
-    return render_template(request, "requests/close.html", context)
-
-
-@router.post("/requests/{id}/close")
-@auth_required()
-async def requests_close_post(request: Request, id: int,
-                              comments: str = Form(default=str())):
-    pkgreq = get_pkgreq_by_id(id)
-
-    # `pkgreq`.User can close their own request.
-    approved = [pkgreq.User]
-    if not request.user.has_credential(creds.PKGREQ_CLOSE, approved=approved):
-        # Request user doesn't have permission here: redirect to '/'.
-        return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
-
-    context = make_context(request, "Close Request")
-    context["pkgreq"] = pkgreq
-
-    now = int(datetime.utcnow().timestamp())
-    with db.begin():
-        pkgreq.Closer = request.user
-        pkgreq.ClosureComment = comments
-        pkgreq.ClosedTS = now
-        pkgreq.Status = REJECTED_ID
-
-    notify_ = notify.RequestCloseNotification(
-        request.user.ID, pkgreq.ID, pkgreq.status_display())
-    notify_.send()
-
-    return RedirectResponse("/requests", status_code=HTTPStatus.SEE_OTHER)
 
 
 async def packages_unflag(request: Request, package_ids: List[int] = [],

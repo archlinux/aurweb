@@ -1,10 +1,11 @@
 from typing import Any, Dict
 
-from aurweb import db, models
+from aurweb import db
 from aurweb.exceptions import ValidationError
+from aurweb.models import PackageBase
 
 
-def request(pkgbase: models.PackageBase,
+def request(pkgbase: PackageBase,
             type: str, comments: str, merge_into: str,
             context: Dict[str, Any]) -> None:
     if not comments:
@@ -17,8 +18,8 @@ def request(pkgbase: models.PackageBase,
             raise ValidationError(
                 ['The "Merge into" field must not be empty.'])
 
-        target = db.query(models.PackageBase).filter(
-            models.PackageBase.Name == merge_into
+        target = db.query(PackageBase).filter(
+            PackageBase.Name == merge_into
         ).first()
         if not target:
             # TODO: This error needs to be translated.
