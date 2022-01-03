@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import and_
 
 from aurweb import config, db, l10n, logging, templates, util
-from aurweb.auth import auth_required, creds
+from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import InvariantError, ValidationError
 from aurweb.models import PackageBase
 from aurweb.models.package_comment import PackageComment
@@ -116,7 +116,7 @@ async def pkgbase_keywords(request: Request, name: str,
 
 
 @router.get("/pkgbase/{name}/flag")
-@auth_required()
+@requires_auth
 async def pkgbase_flag_get(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
@@ -131,7 +131,7 @@ async def pkgbase_flag_get(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/flag")
-@auth_required()
+@requires_auth
 async def pkgbase_flag_post(request: Request, name: str,
                             comments: str = Form(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -157,7 +157,7 @@ async def pkgbase_flag_post(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/comments")
-@auth_required()
+@requires_auth
 async def pkgbase_comments_post(
         request: Request, name: str,
         comment: str = Form(default=str()),
@@ -189,7 +189,7 @@ async def pkgbase_comments_post(
 
 
 @router.get("/pkgbase/{name}/comments/{id}/form")
-@auth_required()
+@requires_auth
 async def pkgbase_comment_form(request: Request, name: str, id: int,
                                next: str = Query(default=None)):
     """
@@ -229,7 +229,7 @@ async def pkgbase_comment_form(request: Request, name: str, id: int,
 
 
 @router.get("/pkgbase/{name}/comments/{id}/edit")
-@auth_required()
+@requires_auth
 async def pkgbase_comment_edit(request: Request, name: str, id: int,
                                next: str = Form(default=None)):
     """
@@ -253,7 +253,7 @@ async def pkgbase_comment_edit(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/comments/{id}")
-@auth_required()
+@requires_auth
 async def pkgbase_comment_post(
         request: Request, name: str, id: int,
         comment: str = Form(default=str()),
@@ -293,7 +293,7 @@ async def pkgbase_comment_post(
 
 
 @router.post("/pkgbase/{name}/comments/{id}/pin")
-@auth_required()
+@requires_auth
 async def pkgbase_comment_pin(request: Request, name: str, id: int,
                               next: str = Form(default=None)):
     """
@@ -327,7 +327,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/comments/{id}/unpin")
-@auth_required()
+@requires_auth
 async def pkgbase_comment_unpin(request: Request, name: str, id: int,
                                 next: str = Form(default=None)):
     """
@@ -360,7 +360,7 @@ async def pkgbase_comment_unpin(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/comments/{id}/delete")
-@auth_required()
+@requires_auth
 async def pkgbase_comment_delete(request: Request, name: str, id: int,
                                  next: str = Form(default=None)):
     """
@@ -399,7 +399,7 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/comments/{id}/undelete")
-@auth_required()
+@requires_auth
 async def pkgbase_comment_undelete(request: Request, name: str, id: int,
                                    next: str = Form(default=None)):
     """
@@ -437,7 +437,7 @@ async def pkgbase_comment_undelete(request: Request, name: str, id: int,
 
 
 @router.post("/pkgbase/{name}/vote")
-@auth_required()
+@requires_auth
 async def pkgbase_vote(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
@@ -461,7 +461,7 @@ async def pkgbase_vote(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/unvote")
-@auth_required()
+@requires_auth
 async def pkgbase_unvote(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
@@ -481,7 +481,7 @@ async def pkgbase_unvote(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/notify")
-@auth_required()
+@requires_auth
 async def pkgbase_notify(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
     actions.pkgbase_notify_instance(request, pkgbase)
@@ -490,7 +490,7 @@ async def pkgbase_notify(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/unnotify")
-@auth_required()
+@requires_auth
 async def pkgbase_unnotify(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
     actions.pkgbase_unnotify_instance(request, pkgbase)
@@ -499,7 +499,7 @@ async def pkgbase_unnotify(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/unflag")
-@auth_required()
+@requires_auth
 async def pkgbase_unflag(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
     actions.pkgbase_unflag_instance(request, pkgbase)
@@ -508,7 +508,7 @@ async def pkgbase_unflag(request: Request, name: str):
 
 
 @router.get("/pkgbase/{name}/disown")
-@auth_required()
+@requires_auth
 async def pkgbase_disown_get(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
@@ -524,7 +524,7 @@ async def pkgbase_disown_get(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/disown")
-@auth_required()
+@requires_auth
 async def pkgbase_disown_post(request: Request, name: str,
                               comments: str = Form(default=str()),
                               confirm: bool = Form(default=False)):
@@ -559,7 +559,7 @@ async def pkgbase_disown_post(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/adopt")
-@auth_required()
+@requires_auth
 async def pkgbase_adopt_post(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
@@ -575,7 +575,7 @@ async def pkgbase_adopt_post(request: Request, name: str):
 
 
 @router.get("/pkgbase/{name}/comaintainers")
-@auth_required()
+@requires_auth
 async def pkgbase_comaintainers(request: Request, name: str) -> Response:
     # Get the PackageBase.
     pkgbase = get_pkg_or_base(name, PackageBase)
@@ -601,7 +601,7 @@ async def pkgbase_comaintainers(request: Request, name: str) -> Response:
 
 
 @router.post("/pkgbase/{name}/comaintainers")
-@auth_required()
+@requires_auth
 async def pkgbase_comaintainers_post(request: Request, name: str,
                                      users: str = Form(default=str())) \
         -> Response:
@@ -643,7 +643,7 @@ async def pkgbase_comaintainers_post(request: Request, name: str,
 
 
 @router.get("/pkgbase/{name}/request")
-@auth_required()
+@requires_auth
 async def pkgbase_request(request: Request, name: str):
     pkgbase = get_pkg_or_base(name, PackageBase)
     context = await make_variable_context(request, "Submit Request")
@@ -652,7 +652,7 @@ async def pkgbase_request(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/request")
-@auth_required()
+@requires_auth
 async def pkgbase_request_post(request: Request, name: str,
                                type: str = Form(...),
                                merge_into: str = Form(default=None),
@@ -732,7 +732,7 @@ async def pkgbase_request_post(request: Request, name: str,
 
 
 @router.get("/pkgbase/{name}/delete")
-@auth_required()
+@requires_auth
 async def pkgbase_delete_get(request: Request, name: str):
     if not request.user.has_credential(creds.PKGBASE_DELETE):
         return RedirectResponse(f"/pkgbase/{name}",
@@ -744,7 +744,7 @@ async def pkgbase_delete_get(request: Request, name: str):
 
 
 @router.post("/pkgbase/{name}/delete")
-@auth_required()
+@requires_auth
 async def pkgbase_delete_post(request: Request, name: str,
                               confirm: bool = Form(default=False),
                               comments: str = Form(default=str())):
@@ -779,7 +779,7 @@ async def pkgbase_delete_post(request: Request, name: str,
 
 
 @router.get("/pkgbase/{name}/merge")
-@auth_required()
+@requires_auth
 async def pkgbase_merge_get(request: Request, name: str,
                             into: str = Query(default=str()),
                             next: str = Query(default=str())):
@@ -810,7 +810,7 @@ async def pkgbase_merge_get(request: Request, name: str,
 
 
 @router.post("/pkgbase/{name}/merge")
-@auth_required()
+@requires_auth
 async def pkgbase_merge_post(request: Request, name: str,
                              into: str = Form(default=str()),
                              comments: str = Form(default=str()),

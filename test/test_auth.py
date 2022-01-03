@@ -7,7 +7,7 @@ from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
 
 from aurweb import config, db
-from aurweb.auth import AnonymousUser, BasicAuthBackend, account_type_required, auth_required
+from aurweb.auth import AnonymousUser, BasicAuthBackend, _auth_required, account_type_required
 from aurweb.models.account_type import USER, USER_ID
 from aurweb.models.session import Session
 from aurweb.models.user import User
@@ -105,7 +105,7 @@ async def test_auth_required_redirection_bad_referrer():
         pass
 
     # Get down to the nitty gritty internal wrapper.
-    bad_referrer_route = auth_required()(bad_referrer_route)
+    bad_referrer_route = _auth_required()(bad_referrer_route)
 
     # Execute the route with a "./blahblahblah" Referer, which does not
     # match aur_location; `./` has been used as a prefix to attempt to

@@ -7,7 +7,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 import aurweb.config
 
 from aurweb import cookies, db
-from aurweb.auth import auth_required
+from aurweb.auth import requires_auth, requires_guest
 from aurweb.l10n import get_translator_for_request
 from aurweb.models import User
 from aurweb.templates import make_variable_context, render_template
@@ -29,7 +29,7 @@ async def login_get(request: Request, next: str = "/"):
 
 
 @router.post("/login", response_class=HTMLResponse)
-@auth_required(False)
+@requires_guest
 async def login_post(request: Request,
                      next: str = Form(...),
                      user: str = Form(default=str()),
@@ -81,7 +81,7 @@ async def login_post(request: Request,
 
 
 @router.post("/logout")
-@auth_required()
+@requires_auth
 async def logout(request: Request, next: str = Form(default="/")):
     if request.user.is_authenticated():
         request.user.logout(request)

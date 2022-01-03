@@ -10,7 +10,7 @@ from fastapi.responses import RedirectResponse, Response
 from sqlalchemy import and_, or_
 
 from aurweb import db, l10n, logging, models
-from aurweb.auth import account_type_required, auth_required
+from aurweb.auth import account_type_required, requires_auth
 from aurweb.models.account_type import DEVELOPER, TRUSTED_USER, TRUSTED_USER_AND_DEV
 from aurweb.templates import make_context, make_variable_context, render_template
 
@@ -41,7 +41,7 @@ ADDVOTE_SPECIFICS = {
 
 
 @router.get("/tu")
-@auth_required()
+@requires_auth
 @account_type_required(REQUIRED_TYPES)
 async def trusted_user(request: Request,
                        coff: int = 0,  # current offset
@@ -147,7 +147,7 @@ def render_proposal(request: Request,
 
 
 @router.get("/tu/{proposal}")
-@auth_required()
+@requires_auth
 @account_type_required(REQUIRED_TYPES)
 async def trusted_user_proposal(request: Request, proposal: int):
     context = await make_variable_context(request, "Trusted User")
@@ -176,7 +176,7 @@ async def trusted_user_proposal(request: Request, proposal: int):
 
 
 @router.post("/tu/{proposal}")
-@auth_required()
+@requires_auth
 @account_type_required(REQUIRED_TYPES)
 async def trusted_user_proposal_post(request: Request,
                                      proposal: int,
@@ -227,7 +227,7 @@ async def trusted_user_proposal_post(request: Request,
 
 
 @router.get("/addvote")
-@auth_required()
+@requires_auth
 @account_type_required({TRUSTED_USER, TRUSTED_USER_AND_DEV})
 async def trusted_user_addvote(request: Request,
                                user: str = str(),
@@ -247,7 +247,7 @@ async def trusted_user_addvote(request: Request,
 
 
 @router.post("/addvote")
-@auth_required()
+@requires_auth
 @account_type_required({TRUSTED_USER, TRUSTED_USER_AND_DEV})
 async def trusted_user_addvote_post(request: Request,
                                     user: str = Form(default=str()),

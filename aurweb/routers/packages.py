@@ -7,7 +7,7 @@ from fastapi import APIRouter, Form, Request, Response
 import aurweb.filters  # noqa: F401
 
 from aurweb import config, db, defaults, logging, models, util
-from aurweb.auth import auth_required, creds
+from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import InvariantError
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID
 from aurweb.packages import util as pkgutil
@@ -406,7 +406,7 @@ PACKAGE_ACTIONS = {
 
 
 @router.post("/packages")
-@auth_required()
+@requires_auth
 async def packages_post(request: Request,
                         IDs: List[int] = Form(default=[]),
                         action: str = Form(default=str()),

@@ -6,7 +6,7 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy import case
 
 from aurweb import db, defaults, util
-from aurweb.auth import auth_required, creds
+from aurweb.auth import creds, requires_auth
 from aurweb.models import PackageRequest, User
 from aurweb.models.package_request import PENDING_ID, REJECTED_ID
 from aurweb.requests.util import get_pkgreq_by_id
@@ -17,7 +17,7 @@ router = APIRouter()
 
 
 @router.get("/requests")
-@auth_required()
+@requires_auth
 async def requests(request: Request,
                    O: int = Query(default=defaults.O),
                    PP: int = Query(default=defaults.PP)):
@@ -50,7 +50,7 @@ async def requests(request: Request,
 
 
 @router.get("/requests/{id}/close")
-@auth_required()
+@requires_auth
 async def request_close(request: Request, id: int):
 
     pkgreq = get_pkgreq_by_id(id)
@@ -64,7 +64,7 @@ async def request_close(request: Request, id: int):
 
 
 @router.post("/requests/{id}/close")
-@auth_required()
+@requires_auth
 async def request_close_post(request: Request, id: int,
                              comments: str = Form(default=str())):
     pkgreq = get_pkgreq_by_id(id)

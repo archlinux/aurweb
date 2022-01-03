@@ -2,6 +2,7 @@ import functools
 
 from datetime import datetime
 from http import HTTPStatus
+from typing import Callable
 
 import fastapi
 
@@ -129,9 +130,14 @@ class BasicAuthBackend(AuthenticationBackend):
         return (AuthCredentials(["authenticated"]), user)
 
 
-def auth_required(auth_goal: bool = True):
-    """ Enforce a user's authentication status, bringing them to the login page
+def _auth_required(auth_goal: bool = True):
+    """
+    Enforce a user's authentication status, bringing them to the login page
     or homepage if their authentication status does not match the goal.
+
+    NOTE: This function should not need to be used in downstream code.
+    See `requires_auth` and `requires_guest` for decorators meant to be
+    used on routes (they're a bit more implicitly understandable).
 
     :param auth_goal: Whether authentication is required or entirely disallowed
                       for a user to perform this request.
@@ -165,6 +171,24 @@ def auth_required(auth_goal: bool = True):
         return wrapper
 
     return decorator
+
+
+def requires_auth(func: Callable) -> Callable:
+    """ Require an authenticated session for a particular route. """
+
+    @functools.wraps(func)
+    async def wrapper(*args, **kwargs):
+        return await _auth_required(True)(func)(*args, **kwargs)
+    return wrapper
+
+
+def requires_guest(func: Callable) -> Callable:
+    """ Require a guest (unauthenticated) session for a particular route. """
+
+    @functools.wraps(func)
+    async def wrapper(*args, **kwargs):
+        return await _auth_required(False)(func)(*args, **kwargs)
+    return wrapper
 
 
 def account_type_required(one_of: set):
