@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 
 from aurweb import db
 from aurweb.models.account_type import USER_ID
-from aurweb.models.dependency_type import CHECKDEPENDS_ID, DEPENDS_ID, MAKEDEPENDS_ID, OPTDEPENDS_ID
+from aurweb.models.dependency_type import DEPENDS_ID
 from aurweb.models.package import Package
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_dependency import PackageDependency
@@ -42,16 +42,6 @@ def test_package_dependencies(user: User, package: Package):
     assert pkgdep.DepName == "test-dep"
     assert pkgdep.Package == package
     assert pkgdep in package.package_dependencies
-
-    with db.begin():
-        pkgdep.DepTypeID = MAKEDEPENDS_ID
-
-    with db.begin():
-        pkgdep.DepTypeID = CHECKDEPENDS_ID
-
-    with db.begin():
-        pkgdep.DepTypeID = OPTDEPENDS_ID
-
     assert not pkgdep.is_package()
 
     with db.begin():
