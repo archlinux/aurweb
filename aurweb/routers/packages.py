@@ -160,15 +160,18 @@ async def package(request: Request, name: str) -> Response:
     context["licenses"] = pkg.package_licenses
 
     conflicts = pkg.package_relations.filter(
-        models.PackageRelation.RelTypeID == CONFLICTS_ID)
+        models.PackageRelation.RelTypeID == CONFLICTS_ID
+    ).order_by(models.PackageRelation.RelName.asc())
     context["conflicts"] = conflicts
 
     provides = pkg.package_relations.filter(
-        models.PackageRelation.RelTypeID == PROVIDES_ID)
+        models.PackageRelation.RelTypeID == PROVIDES_ID
+    ).order_by(models.PackageRelation.RelName.asc())
     context["provides"] = provides
 
     replaces = pkg.package_relations.filter(
-        models.PackageRelation.RelTypeID == REPLACES_ID)
+        models.PackageRelation.RelTypeID == REPLACES_ID
+    ).order_by(models.PackageRelation.RelName.asc())
     context["replaces"] = replaces
 
     return render_template(request, "packages/show.html", context)
