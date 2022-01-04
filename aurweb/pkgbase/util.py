@@ -1,12 +1,13 @@
 from typing import Any, Dict, List
 
 from fastapi import Request
+from sqlalchemy import and_
 
 from aurweb import config, db, l10n, util
 from aurweb.models import PackageBase, User
 from aurweb.models.package_comaintainer import PackageComaintainer
 from aurweb.models.package_comment import PackageComment
-from aurweb.models.package_request import PackageRequest
+from aurweb.models.package_request import PENDING_ID, PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.scripts import notify
 from aurweb.templates import make_context as _make_context
@@ -43,7 +44,8 @@ def make_context(request: Request, pkgbase: PackageBase) -> Dict[str, Any]:
     ).scalar()
 
     context["requests"] = pkgbase.requests.filter(
-        PackageRequest.ClosedTS.is_(None)
+        and_(PackageRequest.Status == PENDING_ID,
+             PackageRequest.ClosedTS.is_(None))
     ).count()
 
     return context
