@@ -785,9 +785,6 @@ async def pkgbase_merge_get(request: Request, name: str,
                             next: str = Query(default=str())):
     pkgbase = get_pkg_or_base(name, PackageBase)
 
-    if not next:
-        next = f"/pkgbase/{pkgbase.Name}"
-
     context = templates.make_context(request, "Package Merging")
     context.update({
         "pkgbase": pkgbase,
