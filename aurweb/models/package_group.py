@@ -15,11 +15,13 @@ class PackageGroup(Base):
     }
 
     Package = relationship(
-        _Package, backref=backref("package_groups", lazy="dynamic"),
+        _Package, backref=backref("package_groups", lazy="dynamic",
+                                  cascade="all, delete"),
         foreign_keys=[__table__.c.PackageID])
 
     Group = relationship(
-        _Group, backref=backref("package_groups", lazy="dynamic"),
+        _Group, backref=backref("package_groups", lazy="dynamic",
+                                cascade="all, delete"),
         foreign_keys=[__table__.c.GroupID])
 
     def __init__(self, **kwargs):
