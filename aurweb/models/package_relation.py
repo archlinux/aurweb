@@ -11,7 +11,11 @@ class PackageRelation(Base):
     __table__ = schema.PackageRelations
     __tablename__ = __table__.name
     __mapper_args__ = {
-        "primary_key": [__table__.c.PackageID, __table__.c.RelName]
+        "primary_key": [
+            __table__.c.PackageID,
+            __table__.c.RelTypeID,
+            __table__.c.RelName,
+        ]
     }
 
     Package = relationship(
