@@ -3,6 +3,7 @@ import re
 from datetime import datetime
 from http import HTTPStatus
 from io import StringIO
+from typing import Tuple
 
 import lxml.etree
 import pytest
@@ -477,7 +478,8 @@ def test_tu_proposal_not_found(client, tu_user):
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
-def test_tu_running_proposal(client, proposal):
+def test_tu_running_proposal(client: TestClient,
+                             proposal: Tuple[User, User, TUVoteInfo]):
     tu_user, user, voteinfo = proposal
 
     # Initiate an authenticated GET request to /tu/{proposal_id}.
@@ -502,8 +504,11 @@ def test_tu_running_proposal(client, proposal):
 
     submitted = details.xpath(
         './div[contains(@class, "submitted")]/text()')[0]
-    assert re.match(r'^Submitted: \d{4}-\d{2}-\d{2} \d{2}:\d{2} by .+$',
+    assert re.match(r'^Submitted: \d{4}-\d{2}-\d{2} \d{2}:\d{2} by$',
                     submitted.strip()) is not None
+    submitter = details.xpath('./div[contains(@class, "submitted")]/a')[0]
+    assert submitter.text.strip() == tu_user.Username
+    assert submitter.attrib["href"] == f"/account/{tu_user.Username}"
 
     end = details.xpath('./div[contains(@class, "end")]')[0]
     end_label = end.xpath("./text()")[0]

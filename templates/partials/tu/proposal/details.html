@@ -22,12 +22,15 @@
     </div>
 
     {% set submitted = voteinfo.Submitted | dt | as_timezone(timezone) %}
+    {% set submitter = voteinfo.Submitter.Username %}
+    {% set submitter_uri = "/account/%s" | format(submitter) %}
+    {% set submitter = '<a href="%s">%s</a>' | format(submitter_uri, submitter) %}
     {% set end = voteinfo.End | dt | as_timezone(timezone) %}
     <div class="field submitted">
         {{
             "Submitted: %s by %s" | tr
-            | format(submitted.strftime("%Y-%m-%d %H:%M"),
-                     voteinfo.Submitter.Username | e)
+            | format(submitted.strftime("%Y-%m-%d %H:%M"), submitter)
+            | safe
         }}
     </div>
 
