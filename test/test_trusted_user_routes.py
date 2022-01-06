@@ -11,7 +11,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from aurweb import config, db, util
-from aurweb.models.account_type import AccountType
+from aurweb.models.account_type import DEVELOPER_ID, AccountType
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
 from aurweb.models.user import User
@@ -134,7 +134,7 @@ def test_tu_index_guest(client):
     assert response.headers.get("location") == f"/login?{params}"
 
 
-def test_tu_index_unauthorized(client, user):
+def test_tu_index_unauthorized(client: TestClient, user: User):
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:
         # Login as a normal user, not a TU.
@@ -478,6 +478,24 @@ def test_tu_proposal_not_found(client, tu_user):
     assert response.status_code == int(HTTPStatus.NOT_FOUND)
 
 
+def test_tu_proposal_unauthorized(client: TestClient, user: User,
+                                  proposal: Tuple[User, User, TUVoteInfo]):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    endpoint = f"/tu/{proposal[2].ID}"
+    with client as request:
+        response = request.get(endpoint, cookies=cookies,
+                               allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+    assert response.headers.get("location") == "/tu"
+
+    with client as request:
+        response = request.post(endpoint, cookies=cookies,
+                                data={"decision": False},
+                                allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+    assert response.headers.get("location") == "/tu"
+
+
 def test_tu_running_proposal(client: TestClient,
                              proposal: Tuple[User, User, TUVoteInfo]):
     tu_user, user, voteinfo = proposal
@@ -641,13 +659,12 @@ def test_tu_proposal_vote(client, proposal):
     assert status == "You've already voted for this proposal."
 
 
-def test_tu_proposal_vote_unauthorized(client, proposal):
+def test_tu_proposal_vote_unauthorized(
+        client: TestClient, proposal: Tuple[User, User, TUVoteInfo]):
     tu_user, user, voteinfo = proposal
 
-    dev_type = db.query(AccountType,
-                        AccountType.AccountType == "Developer").first()
     with db.begin():
-        tu_user.AccountType = dev_type
+        tu_user.AccountTypeID = DEVELOPER_ID
 
     cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
     with client as request:
@@ -747,6 +764,22 @@ def test_tu_addvote(client: TestClient, tu_user: User):
     with client as request:
         response = request.get("/addvote", cookies=cookies)
     assert response.status_code == int(HTTPStatus.OK)
+
+
+def test_tu_addvote_unauthorized(client: TestClient, user: User,
+                                 proposal: Tuple[User, User, TUVoteInfo]):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        response = request.get("/addvote", cookies=cookies,
+                               allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+    assert response.headers.get("location") == "/tu"
+
+    with client as request:
+        response = request.post("/addvote", cookies=cookies,
+                                allow_redirects=False)
+    assert response.status_code == int(HTTPStatus.SEE_OTHER)
+    assert response.headers.get("location") == "/tu"
 
 
 def test_tu_addvote_invalid_type(client: TestClient, tu_user: User):

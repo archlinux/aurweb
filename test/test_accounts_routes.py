@@ -1857,3 +1857,11 @@ def test_account_comments_not_found(client: TestClient, user: User):
     with client as request:
         resp = request.get("/account/non-existent/comments", cookies=cookies)
     assert resp.status_code == int(HTTPStatus.NOT_FOUND)
+
+
+def test_accounts_unauthorized(client: TestClient, user: User):
+    cookies = {"AURSID": user.login(Request(), "testPassword")}
+    with client as request:
+        resp = request.get("/accounts", cookies=cookies, allow_redirects=False)
+    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
+    assert resp.headers.get("location") == "/"

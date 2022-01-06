@@ -1,7 +1,7 @@
 <div class="box">
     <h2>{% trans %}{{ title }}{% endtrans %}</h2>
 
-    {% if title == "Current Votes" %}
+    {% if title == "Current Votes" and request.user.has_credential(creds.TU_ADD_VOTE) %}
         <ul class="admin-actions">
             <li>
                 <a href="/addvote">

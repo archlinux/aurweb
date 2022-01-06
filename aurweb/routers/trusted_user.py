@@ -10,8 +10,7 @@ from fastapi.responses import RedirectResponse, Response
 from sqlalchemy import and_, or_
 
 from aurweb import db, l10n, logging, models
-from aurweb.auth import account_type_required, requires_auth
-from aurweb.models.account_type import DEVELOPER, TRUSTED_USER, TRUSTED_USER_AND_DEV
+from aurweb.auth import creds, requires_auth
 from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
@@ -20,13 +19,6 @@ logger = logging.get_logger(__name__)
 # Some TU route specific constants.
 ITEMS_PER_PAGE = 10  # Paged table size.
 MAX_AGENDA_LENGTH = 75  # Agenda table column length.
-
-# A set of account types that will approve a user for TU actions.
-REQUIRED_TYPES = {
-    TRUSTED_USER,
-    DEVELOPER,
-    TRUSTED_USER_AND_DEV
-}
 
 ADDVOTE_SPECIFICS = {
     # This dict stores a vote duration and quorum for a proposal.
@@ -42,12 +34,14 @@ ADDVOTE_SPECIFICS = {
 
 @router.get("/tu")
 @requires_auth
-@account_type_required(REQUIRED_TYPES)
 async def trusted_user(request: Request,
                        coff: int = 0,  # current offset
                        cby: str = "desc",  # current by
                        poff: int = 0,  # past offset
                        pby: str = "desc"):  # past by
+    if not request.user.has_credential(creds.TU_LIST_VOTES):
+        return RedirectResponse("/", status_code=HTTPStatus.SEE_OTHER)
+
     context = make_context(request, "Trusted User")
 
     current_by, past_by = cby, pby
@@ -113,9 +107,7 @@ async def trusted_user(request: Request,
     return render_template(request, "tu/index.html", context)
 
 
-def render_proposal(request: Request,
-                    context: dict,
-                    proposal: int,
+def render_proposal(request: Request, context: dict, proposal: int,
                     voteinfo: models.TUVoteInfo,
                     voters: typing.Iterable[models.User],
                     vote: models.TUVote,
@@ -148,8 +140,10 @@ def render_proposal(request: Request,
 
 @router.get("/tu/{proposal}")
 @requires_auth
-@account_type_required(REQUIRED_TYPES)
 async def trusted_user_proposal(request: Request, proposal: int):
+    if not request.user.has_credential(creds.TU_LIST_VOTES):
+        return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
+
     context = await make_variable_context(request, "Trusted User")
     proposal = int(proposal)
 
@@ -163,10 +157,9 @@ async def trusted_user_proposal(request: Request, proposal: int):
     vote = db.query(models.TUVote).filter(
         and_(models.TUVote.UserID == request.user.ID,
              models.TUVote.VoteID == voteinfo.ID)).first()
-
-    if not request.user.is_trusted_user():
+    if not request.user.has_credential(creds.TU_VOTE):
         context["error"] = "Only Trusted Users are allowed to vote."
-    elif voteinfo.User == request.user.Username:
+    if voteinfo.User == request.user.Username:
         context["error"] = "You cannot vote in an proposal about you."
     elif vote is not None:
         context["error"] = "You've already voted for this proposal."
@@ -177,10 +170,11 @@ async def trusted_user_proposal(request: Request, proposal: int):
 
 @router.post("/tu/{proposal}")
 @requires_auth
-@account_type_required(REQUIRED_TYPES)
-async def trusted_user_proposal_post(request: Request,
-                                     proposal: int,
+async def trusted_user_proposal_post(request: Request, proposal: int,
                                      decision: str = Form(...)):
+    if not request.user.has_credential(creds.TU_LIST_VOTES):
+        return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
+
     context = await make_variable_context(request, "Trusted User")
     proposal = int(proposal)  # Make sure it's an int.
 
@@ -196,7 +190,7 @@ async def trusted_user_proposal_post(request: Request,
              models.TUVote.VoteID == voteinfo.ID)).first()
 
     status_code = HTTPStatus.OK
-    if not request.user.is_trusted_user():
+    if not request.user.has_credential(creds.TU_VOTE):
         context["error"] = "Only Trusted Users are allowed to vote."
         status_code = HTTPStatus.UNAUTHORIZED
     elif voteinfo.User == request.user.Username:
@@ -228,11 +222,11 @@ async def trusted_user_proposal_post(request: Request,
 
 @router.get("/addvote")
 @requires_auth
-@account_type_required({TRUSTED_USER, TRUSTED_USER_AND_DEV})
-async def trusted_user_addvote(request: Request,
-                               user: str = str(),
-                               type: str = "add_tu",
-                               agenda: str = str()):
+async def trusted_user_addvote(request: Request, user: str = str(),
+                               type: str = "add_tu", agenda: str = str()):
+    if not request.user.has_credential(creds.TU_ADD_VOTE):
+        return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
+
     context = await make_variable_context(request, "Add Proposal")
 
     if type not in ADDVOTE_SPECIFICS:
@@ -248,11 +242,13 @@ async def trusted_user_addvote(request: Request,
 
 @router.post("/addvote")
 @requires_auth
-@account_type_required({TRUSTED_USER, TRUSTED_USER_AND_DEV})
 async def trusted_user_addvote_post(request: Request,
                                     user: str = Form(default=str()),
                                     type: str = Form(default=str()),
                                     agenda: str = Form(default=str())):
+    if not request.user.has_credential(creds.TU_ADD_VOTE):
+        return RedirectResponse("/tu", status_code=HTTPStatus.SEE_OTHER)
+
     # Build a context.
     context = await make_variable_context(request, "Add Proposal")
 
