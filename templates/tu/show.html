@@ -5,7 +5,7 @@
         {% include "partials/tu/proposal/details.html" %}
     </div>
     
-    {% if voters %}
+    {% if utcnow >= voteinfo.End %}
         <div class="box">
             {% include "partials/tu/proposal/voters.html" %}
         </div>
@@ -18,5 +18,4 @@
             {% include "partials/tu/proposal/form.html" %}
         {% endif %}
     </div>
-
 {% endblock %}
