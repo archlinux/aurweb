@@ -11,6 +11,8 @@ from sqlalchemy import and_, or_
 
 from aurweb import db, l10n, logging, models
 from aurweb.auth import creds, requires_auth
+from aurweb.models import User
+from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
 from aurweb.templates import make_context, make_variable_context, render_template
 
 router = APIRouter()
@@ -295,15 +297,20 @@ async def trusted_user_addvote_post(request: Request,
     agenda = re.sub(r'<[/]?script.*>', '', agenda)
     agenda = re.sub(r'<[/]?style.*>', '', agenda)
 
+    types = {TRUSTED_USER_ID, TRUSTED_USER_AND_DEV_ID}
+    active_tus = db.query(User).filter(
+        and_(User.Suspended == 0,
+             User.InactivityTS.isnot(None),
+             User.AccountTypeID.in_(types))
+    ).count()
+
     # Create a new TUVoteInfo (proposal)!
     with db.begin():
-        voteinfo = db.create(models.TUVoteInfo,
-                             User=user,
-                             Agenda=agenda,
-                             Submitted=timestamp, End=timestamp + duration,
-                             Quorum=quorum,
+        voteinfo = db.create(models.TUVoteInfo, User=user, Agenda=agenda,
+                             Submitted=timestamp, End=(timestamp + duration),
+                             Quorum=quorum, ActiveTUs=active_tus,
                              Submitter=request.user)
 
     # Redirect to the new proposal.
-    return RedirectResponse(f"/tu/{voteinfo.ID}",
-                            status_code=HTTPStatus.SEE_OTHER)
+    endpoint = f"/tu/{voteinfo.ID}"
+    return RedirectResponse(endpoint, status_code=HTTPStatus.SEE_OTHER)
