@@ -20,6 +20,11 @@ class TUVoteInfo(Base):
         foreign_keys=[__table__.c.SubmitterID])
 
     def __init__(self, **kwargs):
+        # Default Quorum, Yes, No and Abstain columns to 0.
+        for col in ("Quorum", "Yes", "No", "Abstain"):
+            if col not in kwargs:
+                kwargs.update({col: 0})
+
         super().__init__(**kwargs)
 
         if self.Agenda is None:
@@ -46,12 +51,6 @@ class TUVoteInfo(Base):
                 orig="TU_VoteInfo.End",
                 params=("NULL"))
 
-        if self.Quorum is None:
-            raise IntegrityError(
-                statement="Column Quorum cannot be null.",
-                orig="TU_VoteInfo.Quorum",
-                params=("NULL"))
-
         if not self.Submitter:
             raise IntegrityError(
                 statement="Foreign key SubmitterID cannot be null.",
@@ -67,9 +66,7 @@ class TUVoteInfo(Base):
     def __getattribute__(self, key: str):
         """ Customize getattr to floatify any fetched Quorum values. """
         attr = super().__getattribute__(key)
-        if attr is None:
-            return attr
-        elif key == "Quorum":
+        if key == "Quorum":
             return float(attr)
         return attr
 

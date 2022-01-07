@@ -140,12 +140,11 @@ def test_tu_voteinfo_null_end_raises(user: User):
     rollback()
 
 
-def test_tu_voteinfo_null_quorum_raises(user: User):
-    with pytest.raises(IntegrityError):
-        with db.begin():
-            create(TUVoteInfo,
-                   Agenda="Blah blah.",
-                   User=user.Username,
-                   Submitted=0, End=0,
-                   Submitter=user)
-    rollback()
+def test_tu_voteinfo_null_quorum_default(user: User):
+    with db.begin():
+        vi = create(TUVoteInfo,
+                    Agenda="Blah blah.",
+                    User=user.Username,
+                    Submitted=0, End=0,
+                    Submitter=user)
+    assert vi.Quorum == 0
