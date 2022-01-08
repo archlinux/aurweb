@@ -1,7 +1,16 @@
+import json
+
 from datetime import datetime
+from http import HTTPStatus
 from zoneinfo import ZoneInfo
 
+import fastapi
+import pytest
+
+from fastapi.responses import JSONResponse
+
 from aurweb import filters, util
+from aurweb.testing.requests import Request
 
 
 def test_timestamp_to_datetime():
@@ -57,3 +66,22 @@ def test_git_search_double_commit():
     # Locate the shortest prefix length that matches commit_hash.
     prefixlen = util.git_search(repo, commit_hash)
     assert prefixlen == 13
+
+
+@pytest.mark.asyncio
+async def test_error_or_result():
+
+    async def route(request: fastapi.Request):
+        raise RuntimeError("No response returned.")
+
+    response = await util.error_or_result(route, Request())
+    assert response.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
+
+    data = json.loads(response.body)
+    assert data.get("error") == "No response returned."
+
+    async def good_route(request: fastapi.Request):
+        return JSONResponse()
+
+    response = await util.error_or_result(good_route, Request())
+    assert response.status_code == HTTPStatus.OK

@@ -1,4 +1,3 @@
-import asyncio
 import http
 import os
 import re
@@ -21,7 +20,7 @@ import aurweb.config
 import aurweb.logging
 import aurweb.pkgbase.util as pkgbaseutil
 
-from aurweb import prometheus, util
+from aurweb import logging, prometheus, util
 from aurweb.auth import BasicAuthBackend
 from aurweb.db import get_engine, query
 from aurweb.models import AcceptedTerm, Term
@@ -29,6 +28,8 @@ from aurweb.packages.util import get_pkg_or_base
 from aurweb.prometheus import instrumentator
 from aurweb.routers import APP_ROUTES
 from aurweb.templates import make_context, render_template
+
+logger = logging.get_logger(__name__)
 
 # Setup the FastAPI app.
 app = FastAPI()
@@ -132,9 +133,7 @@ async def add_security_headers(request: Request, call_next: typing.Callable):
     RP: Referrer-Policy
     XFO: X-Frame-Options
     """
-    response = asyncio.create_task(call_next(request))
-    await asyncio.wait({response}, return_when=asyncio.FIRST_COMPLETED)
-    response = response.result()
+    response = await util.error_or_result(call_next, request)
 
     # Add CSP header.
     nonce = request.user.nonce
@@ -174,9 +173,7 @@ async def check_terms_of_service(request: Request, call_next: typing.Callable):
             return RedirectResponse(
                 "/tos", status_code=int(http.HTTPStatus.SEE_OTHER))
 
-    task = asyncio.create_task(call_next(request))
-    await asyncio.wait({task}, return_when=asyncio.FIRST_COMPLETED)
-    return task.result()
+    return await util.error_or_result(call_next, request)
 
 
 @app.middleware("http")
@@ -194,6 +191,4 @@ async def id_redirect_middleware(request: Request, call_next: typing.Callable):
         path = request.url.path.rstrip('/')
         return RedirectResponse(f"{path}/{id}{qs}")
 
-    task = asyncio.create_task(call_next(request))
-    await asyncio.wait({task}, return_when=asyncio.FIRST_COMPLETED)
-    return task.result()
+    return await util.error_or_result(call_next, request)

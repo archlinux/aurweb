@@ -7,6 +7,7 @@ import string
 
 from datetime import datetime
 from distutils.util import strtobool as _strtobool
+from http import HTTPStatus
 from typing import Any, Callable, Dict, Iterable, Tuple
 from urllib.parse import urlencode, urlparse
 from zoneinfo import ZoneInfo
@@ -15,6 +16,7 @@ import fastapi
 import pygit2
 
 from email_validator import EmailNotValidError, EmailUndeliverableError, validate_email
+from fastapi.responses import JSONResponse
 from jinja2 import pass_context
 
 import aurweb.config
@@ -207,3 +209,25 @@ def git_search(repo: pygit2.Repository, commit_hash: str) -> int:
             break
         prefixlen += 1
     return prefixlen
+
+
+async def error_or_result(next: Callable, *args, **kwargs) \
+        -> fastapi.Response:
+    """
+    Try to return a response from `next`.
+
+    If RuntimeError is raised during next(...) execution, return a
+    500 with the exception's error as a JSONResponse.
+
+    :param next: Callable of the next fastapi route callback
+    :param *args: Variable number of arguments passed to the endpoint
+    :param **kwargs: Optional kwargs to pass to the endpoint
+    :return: next(...) retval; if an exc is raised: a 500 response
+    """
+    try:
+        response = await next(*args, **kwargs)
+    except RuntimeError as exc:
+        logger.error(f"RuntimeError: {exc}")
+        status_code = HTTPStatus.INTERNAL_SERVER_ERROR
+        return JSONResponse({"error": str(exc)}, status_code=status_code)
+    return response
