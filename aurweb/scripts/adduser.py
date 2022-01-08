@@ -1,6 +1,16 @@
+"""
+Add a user to the configured aurweb database.
+
+See `aurweb-adduser --help` for documentation.
+
+Copyright (C) 2022 aurweb Development Team
+All Rights Reserved
+"""
 import argparse
 import sys
 import traceback
+
+import aurweb.models.account_type as at
 
 from aurweb import db
 from aurweb.models.account_type import AccountType
@@ -19,13 +29,9 @@ def parse_args():
     parser.add_argument("--pgp-key", help="PGP Key Fingerprint")
     parser.add_argument("--ssh-pubkey", help="SSH PubKey")
 
+    choices = at.ACCOUNT_TYPE_NAME.values()
     parser.add_argument("-t", "--type", help="Account Type",
-                        choices=[
-                            "User",
-                            "Trusted User",
-                            "Developer",
-                            "Trusted User & Developer"
-                        ], default="User")
+                        choices=choices, default=at.USER)
 
     return parser.parse_args()
 
