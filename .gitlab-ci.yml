@@ -72,6 +72,7 @@ deploy:
     # Set secure login config for aurweb.
     - sed -ri "s/^(disable_http_login).*$/\1 = 1/" conf/config.dev
     - docker-compose build
+    - docker-compose -f docker-compose.yml -f docker-compose.aur-dev.yml down --remove-orphans
     - docker-compose -f docker-compose.yml -f docker-compose.aur-dev.yml up -d
     - docker image prune -f
     - docker container prune -f
