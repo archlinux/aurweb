@@ -109,7 +109,8 @@ def make_context(request: Request, title: str, next: str = None):
         "utcnow": int(datetime.utcnow().timestamp()),
         "config": aurweb.config,
         "creds": aurweb.auth.creds,
-        "next": next if next else request.url.path
+        "next": next if next else request.url.path,
+        "version": os.environ.get("COMMIT_HASH", aurweb.config.AURWEB_VERSION)
     }
 
 
