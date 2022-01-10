@@ -7,15 +7,22 @@ import subprocess
 import sys
 import textwrap
 
+from typing import List, Tuple
+
 from sqlalchemy import and_, or_
 
 import aurweb.config
 import aurweb.db
 import aurweb.l10n
 
-from aurweb import db, logging
-from aurweb.models import (PackageBase, PackageComaintainer, PackageComment, PackageNotification, PackageRequest, RequestType,
-                           TUVote, User)
+from aurweb import db, l10n, logging
+from aurweb.models import PackageBase, User
+from aurweb.models.package_comaintainer import PackageComaintainer
+from aurweb.models.package_comment import PackageComment
+from aurweb.models.package_notification import PackageNotification
+from aurweb.models.package_request import PackageRequest
+from aurweb.models.request_type import RequestType
+from aurweb.models.tu_vote import TUVote
 
 logger = logging.get_logger(__name__)
 
@@ -120,6 +127,48 @@ class Notification:
             logger.error("Unable to emit notification due to an "
                          "OSError (precise exception following).")
             logger.error(str(exc))
+
+
+class ServerErrorNotification(Notification):
+    """ A notification used to represent an internal server error. """
+
+    def __init__(self, traceback_id: int, version: str, utc: int):
+        """
+        Construct a ServerErrorNotification.
+
+        :param traceback_id: Traceback ID
+        :param version: aurweb version
+        :param utc: UTC timestamp
+        """
+        self._tb_id = traceback_id
+        self._version = version
+        self._utc = utc
+
+        postmaster = aurweb.config.get("notifications", "postmaster")
+        self._to = postmaster
+
+        super().__init__()
+
+    def get_recipients(self) -> List[Tuple[str, str]]:
+        from aurweb.auth import AnonymousUser
+        user = (db.query(User).filter(User.Email == self._to).first()
+                or AnonymousUser())
+        return [(self._to, user.LangPreference)]
+
+    def get_subject(self, lang: str) -> str:
+        return l10n.translator.translate("AUR Server Error", lang)
+
+    def get_body(self, lang: str) -> str:
+        """ A forcibly English email body. """
+        dt = aurweb.util.timestamp_to_datetime(self._utc)
+        dts = dt.strftime("%Y-%m-%d %H:%M")
+        return (f"Traceback ID: {self._tb_id}\n"
+                f"Location: {aur_location}\n"
+                f"Version: {self._version}\n"
+                f"Datetime: {dts} UTC\n")
+
+    def get_refs(self):
+        return (aur_location,)
 
 
 class ResetKeyNotification(Notification):

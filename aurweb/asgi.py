@@ -1,7 +1,10 @@
+import hashlib
 import http
+import io
 import os
 import re
 import sys
+import traceback
 import typing
 
 from urllib.parse import quote_plus
@@ -26,7 +29,9 @@ from aurweb.db import get_engine, query
 from aurweb.models import AcceptedTerm, Term
 from aurweb.packages.util import get_pkg_or_base
 from aurweb.prometheus import instrumentator
+from aurweb.redis import redis_connection
 from aurweb.routers import APP_ROUTES
+from aurweb.scripts import notify
 from aurweb.templates import make_context, render_template
 
 logger = logging.get_logger(__name__)
@@ -95,6 +100,61 @@ def child_exit(server, worker):  # pragma: no cover
     multiprocess.mark_process_dead(worker.pid)
 
 
+async def internal_server_error(request: Request, exc: Exception) -> Response:
+    """
+    Catch all uncaught Exceptions thrown in a route.
+
+    :param request: FastAPI Request
+    :return: Rendered 500.html template with status_code 500
+    """
+    context = make_context(request, "Internal Server Error")
+
+    # Print out the exception via `traceback` and store the value
+    # into the `traceback` context variable.
+    tb_io = io.StringIO()
+    traceback.print_exc(file=tb_io)
+    tb = tb_io.getvalue()
+    context["traceback"] = tb
+
+    # Produce a SHA1 hash of the traceback string.
+    tb_hash = hashlib.sha1(tb.encode()).hexdigest()
+
+    # Use the first 7 characters of the sha1 for the traceback id.
+    # We will use this to log and include in the notification.
+    tb_id = tb_hash[:7]
+
+    redis = redis_connection()
+    pipe = redis.pipeline()
+    key = f"tb:{tb_hash}"
+    pipe.get(key)
+    retval, = pipe.execute()
+    if not retval:
+        # Expire in one hour; this is just done to make sure we
+        # don't infinitely store these values, but reduce the number
+        # of automated reports (notification below). At this time of
+        # writing, unexpected exceptions are not common, thus this
+        # will not produce a large memory footprint in redis.
+        pipe.set(key, tb)
+        pipe.expire(key, 3600)
+        pipe.execute()
+
+        # Send out notification about it.
+        notif = notify.ServerErrorNotification(
+            tb_id, context.get("version"), context.get("utcnow"))
+        notif.send()
+
+        retval = tb
+    else:
+        retval = retval.decode()
+
+    # Log details about the exception traceback.
+    logger.error(f"FATAL[{tb_id}]: An unexpected exception has occurred.")
+    logger.error(retval)
+
+    return render_template(request, "errors/500.html", context,
+                           status_code=http.HTTPStatus.INTERNAL_SERVER_ERROR)
+
+
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException) \
         -> Response:
@@ -133,7 +193,10 @@ async def add_security_headers(request: Request, call_next: typing.Callable):
     RP: Referrer-Policy
     XFO: X-Frame-Options
     """
-    response = await util.error_or_result(call_next, request)
+    try:
+        response = await util.error_or_result(call_next, request)
+    except Exception as exc:
+        return await internal_server_error(request, exc)
 
     # Add CSP header.
     nonce = request.user.nonce

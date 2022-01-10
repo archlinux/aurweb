@@ -37,6 +37,7 @@ memcache_servers = memcached:11211
 ; If cache = 'redis' this address is used to connect to Redis.
 redis_address = redis://127.0.0.1
 aur_request_ml = aur-requests@localhost
+traceback = 1
 
 [notifications]
 ; For development/testing, use /usr/bin/sendmail

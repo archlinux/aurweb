@@ -1,3 +1,5 @@
+import re
+
 from datetime import datetime
 from http import HTTPStatus
 from unittest import mock
@@ -322,9 +324,13 @@ def test_generate_unique_sid_exhausted(client: TestClient, user: User,
             response = request.post("/login", data=post_data, cookies={})
     assert response.status_code == int(HTTPStatus.INTERNAL_SERVER_ERROR)
 
-    expected = "Unable to generate a unique session ID"
-    assert expected in response.text
     assert "500 - Internal Server Error" in response.text
 
-    # Make sure an IntegrityError from the DB got logged out.
+    # Make sure an IntegrityError from the DB got logged out
+    # with a FATAL traceback ID.
+    expr = r"FATAL\[.{7}\]"
+    assert re.search(expr, caplog.text)
     assert "IntegrityError" in caplog.text
+
+    expr = r"Duplicate entry .+ for key .+SessionID.+"
+    assert re.search(expr, response.text)

@@ -1,12 +1,11 @@
 import hashlib
 
 from datetime import datetime
-from http import HTTPStatus
 from typing import List, Set
 
 import bcrypt
 
-from fastapi import HTTPException, Request
+from fastapi import Request
 from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
@@ -142,11 +141,7 @@ class User(Base):
                 exc = exc_
 
         if exc:
-            detail = ("Unable to generate a unique session ID in "
-                      f"{tries} iterations.")
-            logger.error(str(exc))
-            raise HTTPException(status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
-                                detail=detail)
+            raise exc
 
         return self.session.SessionID
 

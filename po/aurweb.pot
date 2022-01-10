@@ -2304,3 +2304,20 @@ msgstr ""
 #: aurweb/packages/requests.py
 msgid "No due existing orphan requests to accept for %s."
 msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid "Details have been logged and will be reviewed by the postmaster "
+"posthaste. We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
