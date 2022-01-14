@@ -4,7 +4,7 @@ from collections import defaultdict
 from typing import Any, Callable, Dict, List, NewType, Union
 
 from fastapi.responses import HTMLResponse
-from sqlalchemy import and_, literal
+from sqlalchemy import and_, literal, orm
 
 import aurweb.config as config
 
@@ -123,34 +123,27 @@ class RPC:
 
         # Produce RPC API compatible Popularity: If zero, it's an integer
         # 0, otherwise, it's formatted to the 6th decimal place.
-        pop = package.PackageBase.Popularity
+        pop = package.Popularity
         pop = 0 if not pop else float(util.number_format(pop, 6))
 
         snapshot_uri = config.get("options", "snapshot_uri")
-        data = defaultdict(list)
-        data.update({
+        return {
             "ID": package.ID,
             "Name": package.Name,
             "PackageBaseID": package.PackageBaseID,
-            "PackageBase": package.PackageBase.Name,
+            "PackageBase": package.PackageBaseName,
             # Maintainer should be set following this update if one exists.
-            "Maintainer": None,
+            "Maintainer": package.Maintainer,
             "Version": package.Version,
             "Description": package.Description,
             "URL": package.URL,
             "URLPath": snapshot_uri % package.Name,
-            "NumVotes": package.PackageBase.NumVotes,
+            "NumVotes": package.NumVotes,
             "Popularity": pop,
-            "OutOfDate": package.PackageBase.OutOfDateTS,
-            "FirstSubmitted": package.PackageBase.SubmittedTS,
-            "LastModified": package.PackageBase.ModifiedTS
-        })
-
-        if package.PackageBase.Maintainer is not None:
-            # We do have a maintainer: set the Maintainer key.
-            data["Maintainer"] = package.PackageBase.Maintainer.Username
-
-        return data
+            "OutOfDate": package.OutOfDateTS,
+            "FirstSubmitted": package.SubmittedTS,
+            "LastModified": package.ModifiedTS
+        }
 
     def _get_info_json_data(self, package: models.Package) -> Dict[str, Any]:
         data = self._get_json_data(package)
@@ -178,19 +171,38 @@ class RPC:
         :param packages: A list of Package instances or a Package ORM query
         :param data_generator: Generator callable of single-Package JSON data
         """
-        output = []
-        for pkg in packages:
-            db.refresh(pkg)
-            output.append(data_generator(pkg))
-        return output
+        return [data_generator(pkg) for pkg in packages]
+
+    def _entities(self, query: orm.Query) -> orm.Query:
+        """ Select specific RPC columns on `query`. """
+        return query.with_entities(
+            models.Package.ID,
+            models.Package.Name,
+            models.Package.Version,
+            models.Package.Description,
+            models.Package.URL,
+            models.Package.PackageBaseID,
+            models.PackageBase.Name.label("PackageBaseName"),
+            models.PackageBase.NumVotes,
+            models.PackageBase.Popularity,
+            models.PackageBase.OutOfDateTS,
+            models.PackageBase.SubmittedTS,
+            models.PackageBase.ModifiedTS,
+            models.User.Username.label("Maintainer"),
+        ).group_by(models.Package.ID)
 
     def _handle_multiinfo_type(self, args: List[str] = [], **kwargs) \
             -> List[Dict[str, Any]]:
         self._enforce_args(args)
         args = set(args)
 
-        packages = db.query(models.Package).join(models.PackageBase).filter(
-            models.Package.Name.in_(args))
+        packages = db.query(models.Package).join(models.PackageBase).join(
+            models.User,
+            models.User.ID == models.PackageBase.MaintainerUID,
+            isouter=True
+        ).filter(models.Package.Name.in_(args))
+        packages = self._entities(packages)
+
         ids = {pkg.ID for pkg in packages}
 
         # Aliases for 80-width.
@@ -293,7 +305,7 @@ class RPC:
         search.search_by(by, arg)
 
         max_results = config.getint("options", "max_rpc_results")
-        results = search.results().limit(max_results)
+        results = self._entities(search.results()).limit(max_results)
         return self._assemble_json_data(results, self._get_json_data)
 
     def _handle_msearch_type(self, args: List[str] = [], **kwargs)\

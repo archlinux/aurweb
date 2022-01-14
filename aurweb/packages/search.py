@@ -1,6 +1,6 @@
 from sqlalchemy import and_, case, or_, orm
 
-from aurweb import db, models, util
+from aurweb import db, models
 from aurweb.models import Package, PackageBase, User
 from aurweb.models.dependency_type import CHECKDEPENDS_ID, DEPENDS_ID, MAKEDEPENDS_ID, OPTDEPENDS_ID
 from aurweb.models.package_comaintainer import PackageComaintainer
@@ -257,14 +257,19 @@ class RPCSearch(PackageSearch):
         # Fix-up inherited search_by_cb to reflect RPC-specific by params.
         # We keep: "nd", "n" and "m". We also overlay four new by params
         # on top: "depends", "makedepends", "optdepends" and "checkdepends".
-        util.apply_all(RPCSearch.keys_removed,
-                       lambda k: self.search_by_cb.pop(k))
+        self.search_by_cb = {
+            k: v for k, v in self.search_by_cb.items()
+            if k not in RPCSearch.keys_removed
+        }
         self.search_by_cb.update({
             "depends": self._search_by_depends,
             "makedepends": self._search_by_makedepends,
             "optdepends": self._search_by_optdepends,
             "checkdepends": self._search_by_checkdepends
         })
+
+        # We always want an optional Maintainer in the RPC.
+        self._join_user()
 
     def _join_depends(self, dep_type_id: int) -> orm.Query:
         """ Join Package with PackageDependency and filter results
