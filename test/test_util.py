@@ -85,3 +85,12 @@ async def test_error_or_result():
 
     response = await util.error_or_result(good_route, Request())
     assert response.status_code == HTTPStatus.OK
+
+
+def test_valid_homepage():
+    assert util.valid_homepage("http://google.com")
+    assert util.valid_homepage("https://google.com")
+    assert not util.valid_homepage("http://[google.com/broken-ipv6")
+    assert not util.valid_homepage("https://[google.com/broken-ipv6")
+
+    assert not util.valid_homepage("gopher://gopher.hprc.utoronto.ca/")

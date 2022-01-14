@@ -63,7 +63,10 @@ def valid_email(email):
 
 
 def valid_homepage(homepage):
-    parts = urlparse(homepage)
+    try:
+        parts = urlparse(homepage)
+    except ValueError:
+        return False
     return parts.scheme in ("http", "https") and bool(parts.netloc)
 
 
