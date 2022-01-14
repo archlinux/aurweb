@@ -1,3 +1,7 @@
 AUR_CONFIG='/aurweb/conf/config'
 */5 * * * * bash -c 'aurweb-aurblup'
 */5 * * * * bash -c 'aurweb-mkpkglists --extended'
+*/5 * * * * bash -c 'aurweb-pkgmaint'
+*/5 * * * * bash -c 'aurweb-usermaint'
+*/5 * * * * bash -c 'aurweb-tuvotereminder'
+*/5 * * * * bash -c 'aurweb-popupdate'
