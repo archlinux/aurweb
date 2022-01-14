@@ -1,6 +1,9 @@
+import os
+
 from collections import defaultdict
 from typing import Any, Callable, Dict, List, NewType, Union
 
+from fastapi.responses import HTMLResponse
 from sqlalchemy import and_, literal
 
 import aurweb.config as config
@@ -21,6 +24,18 @@ TYPE_MAPPING = {
 
 DataGenerator = NewType("DataGenerator",
                         Callable[[models.Package], Dict[str, Any]])
+
+
+def documentation():
+    aurwebdir = config.get("options", "aurwebdir")
+    rpc_doc = os.path.join(aurwebdir, "doc", "rpc.html")
+
+    if not os.path.exists(rpc_doc):
+        raise OSError("doc/rpc.html could not be read")
+
+    with open(rpc_doc) as f:
+        data = f.read()
+    return HTMLResponse(data)
 
 
 class RPC:

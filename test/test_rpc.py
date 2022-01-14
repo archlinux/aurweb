@@ -14,7 +14,7 @@ from redis.client import Pipeline
 import aurweb.models.dependency_type as dt
 import aurweb.models.relation_type as rt
 
-from aurweb import asgi, config, db, scripts
+from aurweb import asgi, config, db, rpc, scripts
 from aurweb.models.account_type import USER_ID
 from aurweb.models.license import License
 from aurweb.models.package import Package
@@ -213,6 +213,29 @@ def pipeline():
     pipeline.execute()
 
     yield pipeline
+
+
+def test_rpc_documentation(client: TestClient):
+    with client as request:
+        resp = request.get("/rpc")
+    assert resp.status_code == int(HTTPStatus.OK)
+    assert "aurweb RPC Interface" in resp.text
+
+
+def test_rpc_documentation_missing():
+    config_get = config.get
+
+    def mock_get(section: str, key: str) -> str:
+        if section == "options" and key == "aurwebdir":
+            return "/missing"
+        return config_get(section, key)
+
+    with mock.patch("aurweb.config.get", side_effect=mock_get):
+        config.rehash()
+        expr = r"^doc/rpc\.html could not be read$"
+        with pytest.raises(OSError, match=expr):
+            rpc.documentation()
+    config.rehash()
 
 
 def test_rpc_singular_info(client: TestClient,

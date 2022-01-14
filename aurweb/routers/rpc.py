@@ -12,7 +12,7 @@ from fastapi.responses import JSONResponse
 
 from aurweb import defaults
 from aurweb.ratelimit import check_ratelimit
-from aurweb.rpc import RPC
+from aurweb.rpc import RPC, documentation
 
 router = APIRouter()
 
@@ -73,6 +73,9 @@ async def rpc(request: Request,
               arg: Optional[str] = Query(default=None),
               args: Optional[List[str]] = Query(default=[], alias="arg[]"),
               callback: Optional[str] = Query(default=None)):
+
+    if not request.url.query:
+        return documentation()
 
     # Create a handle to our RPC class.
     rpc = RPC(version=v, type=type)
