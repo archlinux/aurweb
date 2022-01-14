@@ -29,6 +29,9 @@ RUN sed -i "s;YOUR_AUR_ROOT;/aurweb;g" conf/config
 # Install Python dependencies.
 RUN /docker/scripts/install-python-deps.sh
 
+# Compile asciidocs.
+RUN make -C doc
+
 # Add our aur user.
 RUN useradd -U -d /aurweb -c 'AUR User' aur
 
