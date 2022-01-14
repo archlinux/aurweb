@@ -54,7 +54,7 @@ deploy:
   tags:
     - secure
   rules:
-    - if: $CI_COMMIT_BRANCH == "pu"
+    - if: $CI_COMMIT_BRANCH == "pu-staging"
       when: manual
   variables:
     FASTAPI_BACKEND: gunicorn
