@@ -4,6 +4,10 @@
 # robust development ecosystem.
 set -eou pipefail
 
+pacman-key --init
+pacman-key -u
+pacman-key --populate
+
 # Install/update archlinux-keyring without cache.
 pacman -Sy --noconfirm --noprogressbar archlinux-keyring
 
