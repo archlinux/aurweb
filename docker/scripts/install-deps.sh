@@ -5,7 +5,7 @@
 set -eou pipefail
 
 # Install/update archlinux-keyring without cache.
-pacman -Syu --noconfirm --noprogressbar archlinux-keyring
+pacman -Sy --noconfirm --noprogressbar archlinux-keyring
 
 # Install/update Arch Linux dependencies.
 pacman -Syu --noconfirm --noprogressbar \
