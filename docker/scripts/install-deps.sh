@@ -4,6 +4,10 @@
 # robust development ecosystem.
 set -eou pipefail
 
+# Install/update archlinux-keyring without cache.
+pacman -Syu --noconfirm --noprogressbar archlinux-keyring
+
+# Install/update Arch Linux dependencies.
 pacman -Syu --noconfirm --noprogressbar \
     --cachedir .pkg-cache git gpgme nginx redis openssh \
       mariadb mariadb-libs cgit-aurweb uwsgi uwsgi-plugin-cgi \
