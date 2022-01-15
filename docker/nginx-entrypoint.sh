@@ -21,4 +21,8 @@ fi
 
 cp -vf /docker/config/nginx.conf /etc/nginx/nginx.conf
 
+# NGINX_PROXY_PORT must be defined for the `nginx` service
+# within `docker-compose.yml`.
+sed -i "s|HTTP_HOST|\$host:${NGINX_PROXY_PORT}|g" /etc/nginx/nginx.conf
+
 exec "$@"

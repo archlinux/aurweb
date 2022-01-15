@@ -69,6 +69,8 @@ services:
       - data:/data
 
   nginx:
+    environment:
+      - NGINX_PROXY_PORT=443
     restart: always
     volumes:
       - data:/data
