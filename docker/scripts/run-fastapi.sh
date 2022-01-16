@@ -23,6 +23,8 @@ elif [ "$1" == "gunicorn" ]; then
     exec gunicorn \
         --log-config /docker/logging.conf \
         --bind "0.0.0.0:8000" \
+        --proxy-protocol \
+        --forwarded-allow-ips "*" \
         -w $FASTAPI_WORKERS \
         -k uvicorn.workers.UvicornWorker \
         aurweb.asgi:app
