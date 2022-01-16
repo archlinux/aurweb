@@ -18,6 +18,7 @@ if [ "$1" == "uvicorn" ] || [ "$1" == "" ]; then
         --log-config /docker/logging.conf \
         --host "0.0.0.0" \
         --port 8000 \
+        --forwarded-allow-ips "*" \
         aurweb.asgi:app
 elif [ "$1" == "gunicorn" ]; then
     exec gunicorn \
@@ -32,6 +33,7 @@ elif [ "$1" == "hypercorn" ]; then
     exec hypercorn --reload \
         --log-config /docker/logging.conf \
         -b "0.0.0.0:8000" \
+        --forwarded-allow-ips "*" \
         aurweb.asgi:app
 else
     echo "Error: Invalid \$FASTAPI_BACKEND supplied."
