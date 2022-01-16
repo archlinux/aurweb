@@ -122,8 +122,8 @@ class BasicAuthBackend(AuthenticationBackend):
         # At this point, we cannot have an invalid user if the record
         # exists, due to ForeignKey constraints in the schema upheld
         # by mysqlclient.
-        user = db.query(User).filter(User.ID == record.UsersID).first()
-        db.refresh(user)
+        with db.begin():
+            user = db.query(User).filter(User.ID == record.UsersID).first()
         user.nonce = util.make_nonce()
         user.authenticated = True
 
