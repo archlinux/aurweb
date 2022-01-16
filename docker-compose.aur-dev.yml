@@ -69,8 +69,6 @@ services:
       - data:/data
 
   nginx:
-    environment:
-      - AURWEB_FASTAPI_PREFIX=${AURWEB_FASTAPI_PREFIX}
     restart: always
     volumes:
       - data:/data
