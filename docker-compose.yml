@@ -244,8 +244,7 @@ services:
     image: aurweb:latest
     init: true
     environment:
-      # Proxy toward FastAPI.
-      - NGINX_PROXY_PORT=8444
+      - AUR_CONFIG=conf/config
     entrypoint: /docker/nginx-entrypoint.sh
     command: /docker/scripts/run-nginx.sh
     ports:
