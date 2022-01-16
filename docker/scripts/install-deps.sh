@@ -9,6 +9,8 @@ pacman-key --init
 pacman-key --updatedb
 pacman-key --populate
 
+pacman -Sy --noconfirm --noprogressbar archlinux-keyring
+
 # Install other OS dependencies.
 pacman -Syu --noconfirm --noprogressbar \
     --cachedir .pkg-cache git gpgme nginx redis openssh \
