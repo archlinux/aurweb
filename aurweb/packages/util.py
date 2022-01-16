@@ -103,11 +103,13 @@ def get_pkg_or_base(
     if provider:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
-    instance = db.query(cls).filter(cls.Name == name).first()
+    with db.begin():
+        instance = db.query(cls).filter(cls.Name == name).first()
+
     if not instance:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND)
 
-    return db.refresh(instance)
+    return instance
 
 
 def get_pkgbase_comment(pkgbase: models.PackageBase, id: int) \
