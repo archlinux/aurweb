@@ -20,5 +20,6 @@ else
 fi
 
 cp -vf /docker/config/nginx.conf /etc/nginx/nginx.conf
+sed -i "s|AURWEB_FASTAPI_PREFIX|${AURWEB_FASTAPI_PREFIX}|g" /etc/nginx/nginx.conf
 
 exec "$@"
