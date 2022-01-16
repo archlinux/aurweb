@@ -6,18 +6,20 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 import aurweb.config
 
-from aurweb import cookies, db
+from aurweb import cookies, db, logging
 from aurweb.auth import requires_auth, requires_guest
 from aurweb.l10n import get_translator_for_request
 from aurweb.models import User
 from aurweb.templates import make_variable_context, render_template
 
+logger = logging.get_logger(__name__)
 router = APIRouter()
 
 
 async def login_template(request: Request, next: str, errors: list = None):
     """ Provide login-specific template context to render_template. """
     context = await make_variable_context(request, "Login", next)
+    logger.info(f"Request scheme: '{request.url.scheme}'.")
     context["errors"] = errors
     context["url_base"] = f"{request.url.scheme}://{request.url.netloc}"
     return render_template(request, "login.html", context)

@@ -18,7 +18,7 @@
             </p>
         </form>
     {% else %}
-        {% if request.url.scheme == "http" and config.getboolean("options", "disable_http_login") %}
+        {% if request.headers.get("X-Forwarded-Proto", "http") and config.getboolean("options", "disable_http_login") %}
             {% set https_login = url_base.replace("http://", "https://") + "/login" %}
             <p>
             {{ "HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
