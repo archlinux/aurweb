@@ -9,7 +9,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import asgi, db, defaults
+from aurweb import asgi, db
 from aurweb.models import License, PackageLicense
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
@@ -22,7 +22,7 @@ from aurweb.models.package_dependency import PackageDependency
 from aurweb.models.package_keyword import PackageKeyword
 from aurweb.models.package_notification import PackageNotification
 from aurweb.models.package_relation import PackageRelation
-from aurweb.models.package_request import ACCEPTED_ID, REJECTED_ID, PackageRequest
+from aurweb.models.package_request import PackageRequest
 from aurweb.models.package_vote import PackageVote
 from aurweb.models.relation_type import CONFLICTS_ID, PROVIDES_ID, REPLACES_ID, RelationType
 from aurweb.models.request_type import DELETION_ID, RequestType
@@ -196,25 +196,6 @@ def packages(maintainer: User) -> List[Package]:
             packages_.append(package)
 
     yield packages_
-
-
-@pytest.fixture
-def requests(user: User, packages: List[Package]) -> List[PackageRequest]:
-    pkgreqs = []
-    deletion_type = db.query(RequestType).filter(
-        RequestType.ID == DELETION_ID
-    ).first()
-    with db.begin():
-        for i in range(55):
-            pkgreq = db.create(PackageRequest,
-                               RequestType=deletion_type,
-                               User=user,
-                               PackageBase=packages[i].PackageBase,
-                               PackageBaseName=packages[i].Name,
-                               Comments=f"Deletion request for pkg_{i}",
-                               ClosureComment=str())
-            pkgreqs.append(pkgreq)
-    yield pkgreqs
 
 
 def test_package_not_found(client: TestClient):
@@ -1068,126 +1049,6 @@ def test_packages_per_page(client: TestClient, maintainer: User):
     root = parse_root(response.text)
     rows = root.xpath('//table[@class="results"]/tbody/tr')
     assert len(rows) == 250
-
-
-def test_requests_unauthorized(client: TestClient):
-    with client as request:
-        resp = request.get("/requests", allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-
-def test_requests(client: TestClient,
-                  maintainer: User,
-                  tu_user: User,
-                  packages: List[Package],
-                  requests: List[PackageRequest]):
-    cookies = {"AURSID": tu_user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.get("/requests", params={
-            # Pass in url query parameters O, SeB and SB to exercise
-            # their paths inside of the pager_nav used in this request.
-            "O": 0,  # Page 1
-            "SeB": "nd",
-            "SB": "n"
-        }, cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.OK)
-
-    assert "Next ›" in resp.text
-    assert "Last »" in resp.text
-
-    root = parse_root(resp.text)
-    # We have 55 requests, our defaults.PP is 50, so expect we have 50 rows.
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == defaults.PP
-
-    # Request page 2 of the requests page.
-    with client as request:
-        resp = request.get("/requests", params={
-            "O": 50  # Page 2
-        }, cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.OK)
-
-    assert "‹ Previous" in resp.text
-    assert "« First" in resp.text
-
-    root = parse_root(resp.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == 5  # There are five records left on the second page.
-
-
-def test_requests_selfmade(client: TestClient, user: User,
-                           requests: List[PackageRequest]):
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.get("/requests", cookies=cookies)
-    assert resp.status_code == int(HTTPStatus.OK)
-
-    # As the user who creates all of the requests, we should see all of them.
-    # However, we are not allowed to accept any of them ourselves.
-    root = parse_root(resp.text)
-    rows = root.xpath('//table[@class="results"]/tbody/tr')
-    assert len(rows) == defaults.PP
-
-    # Our first and only link in the last row should be "Close".
-    for row in rows:
-        last_row = row.xpath('./td')[-1].xpath('./a')[0]
-        assert last_row.text.strip() == "Close"
-
-
-def test_requests_close(client: TestClient, user: User,
-                        pkgreq: PackageRequest):
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.get(f"/requests/{pkgreq.ID}/close", cookies=cookies,
-                           allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.OK)
-
-
-def test_requests_close_unauthorized(client: TestClient, maintainer: User,
-                                     pkgreq: PackageRequest):
-    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.get(f"/requests/{pkgreq.ID}/close", cookies=cookies,
-                           allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert resp.headers.get("location") == "/"
-
-
-def test_requests_close_post_unauthorized(client: TestClient, maintainer: User,
-                                          pkgreq: PackageRequest):
-    cookies = {"AURSID": maintainer.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(f"/requests/{pkgreq.ID}/close", data={
-            "reason": ACCEPTED_ID
-        }, cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-    assert resp.headers.get("location") == "/"
-
-
-def test_requests_close_post(client: TestClient, user: User,
-                             pkgreq: PackageRequest):
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(f"/requests/{pkgreq.ID}/close",
-                            cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-    assert pkgreq.Status == REJECTED_ID
-    assert pkgreq.Closer == user
-    assert pkgreq.ClosureComment == str()
-
-
-def test_requests_close_post_rejected(client: TestClient, user: User,
-                                      pkgreq: PackageRequest):
-    cookies = {"AURSID": user.login(Request(), "testPassword")}
-    with client as request:
-        resp = request.post(f"/requests/{pkgreq.ID}/close",
-                            cookies=cookies, allow_redirects=False)
-    assert resp.status_code == int(HTTPStatus.SEE_OTHER)
-
-    assert pkgreq.Status == REJECTED_ID
-    assert pkgreq.Closer == user
-    assert pkgreq.ClosureComment == str()
 
 
 def test_packages_post_unknown_action(client: TestClient, user: User,
