@@ -22,7 +22,6 @@ if [ "$1" == "uvicorn" ] || [ "$1" == "" ]; then
 elif [ "$1" == "gunicorn" ]; then
     exec gunicorn \
         --log-config /docker/logging.conf \
-        --proxy-protocol \
         --bind "0.0.0.0:8000" \
         -w $FASTAPI_WORKERS \
         -k uvicorn.workers.UvicornWorker \
