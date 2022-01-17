@@ -16,10 +16,6 @@ from sqlalchemy.orm import Query, Session, SessionTransaction, scoped_session, s
 import aurweb.config
 import aurweb.util
 
-from aurweb import logging
-
-logger = logging.get_logger(__name__)
-
 DRIVERS = {
     "mysql": "mysql+mysqldb"
 }
@@ -95,11 +91,6 @@ def get_session(engine: Engine = None) -> Session:
         Session = scoped_session(
             sessionmaker(autocommit=True, autoflush=False, bind=engine))
         _sessions[dbname] = Session()
-
-        # If this is the first grab of this session, log out the
-        # database name used.
-        raw_dbname = test_name()
-        logger.debug(f"DBName({raw_dbname}): {dbname}")
 
     return _sessions.get(dbname)
 
