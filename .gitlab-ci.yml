@@ -26,15 +26,13 @@ test:
     - cp -v conf/config.dev conf/config
     - sed -i "s;YOUR_AUR_ROOT;$(pwd);g" conf/config
     - ./docker/test-mysql-entrypoint.sh # Create mysql AUR_CONFIG.
-    - make -C po all install
-    - make -C doc
-    - make -C test clean
+    - cp -vf logging.test.conf logging.conf # Put test logging config in place.
+    - make -C po all install # Compile translations.
+    - make -C doc # Compile asciidoc.
+    - make -C test clean # Cleanup coverage.
   script:
     # Run sharness.
-    - cp logging.conf logging.conf.bak # Copy devel logging.conf to backup
-    - cp logging.prod.conf logging.conf # Copy in logging.prod.conf
     - make -C test sh # sharness tests use sqlite.
-    - cp logging.conf.bak logging.conf # Restore devel logging.conf
     # Run pytest.
     - pytest # Run pytest suites.
     - make -C test coverage # Produce coverage reports.

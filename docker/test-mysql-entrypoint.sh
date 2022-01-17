@@ -1,6 +1,9 @@
 #!/bin/bash
 set -eou pipefail
 
+# Set test logging.
+cp -vf "logging.test.conf" "logging.conf"
+
 # We use the root user for testing in Docker.
 # The test user must be able to create databases and drop them.
 aurweb-config set database user 'root'
