@@ -1,0 +1,16 @@
+[Unit]
+Description=aurweb asgi server
+
+[Description]
+User=aur
+WorkingDirectory=/srv/http/aurweb
+ExecStart=/usr/bin/poetry run gunicorn \
+    --log-config /srv/http/aurweb/logging.conf \
+    --bind '0.0.0.0:8000' \
+    --forwarded-allow-ips '*' \
+    --workers 4 \
+    -k uvicorn.workers.UvicornWorker \
+    aurweb.asgi:app
+
+[Install]
+WantedBy=multi-user.target
