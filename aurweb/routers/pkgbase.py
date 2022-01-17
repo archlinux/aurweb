@@ -48,7 +48,7 @@ async def pkgbase(request: Request, name: str) -> Response:
     context = pkgbaseutil.make_context(request, pkgbase)
     context["packages"] = pkgbase.packages.all()
 
-    return render_template(request, "pkgbase.html", context)
+    return render_template(request, "pkgbase/index.html", context)
 
 
 @router.get("/pkgbase/{name}/voters")
@@ -84,7 +84,7 @@ async def pkgbase_flag_comment(request: Request, name: str):
 
     context = templates.make_context(request, "Flag Comment")
     context["pkgbase"] = pkgbase
-    return render_template(request, "packages/flag-comment.html", context)
+    return render_template(request, "pkgbase/flag-comment.html", context)
 
 
 @router.post("/pkgbase/{name}/keywords")
@@ -126,7 +126,7 @@ async def pkgbase_flag_get(request: Request, name: str):
 
     context = templates.make_context(request, "Flag Package Out-Of-Date")
     context["pkgbase"] = pkgbase
-    return render_template(request, "packages/flag.html", context)
+    return render_template(request, "pkgbase/flag.html", context)
 
 
 @router.post("/pkgbase/{name}/flag")
@@ -140,7 +140,7 @@ async def pkgbase_flag_post(request: Request, name: str,
         context["pkgbase"] = pkgbase
         context["errors"] = ["The selected packages have not been flagged, "
                              "please enter a comment."]
-        return render_template(request, "packages/flag.html", context,
+        return render_template(request, "pkgbase/flag.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
     has_cred = request.user.has_credential(creds.PKGBASE_FLAG)
@@ -248,7 +248,7 @@ async def pkgbase_comment_edit(request: Request, name: str, id: int,
 
     context = await make_variable_context(request, "Edit comment", next=next)
     context["comment"] = comment
-    return render_template(request, "packages/comments/edit.html", context)
+    return render_template(request, "pkgbase/comments/edit.html", context)
 
 
 @router.post("/pkgbase/{name}/comments/{id}")
@@ -519,7 +519,7 @@ async def pkgbase_disown_get(request: Request, name: str):
 
     context = templates.make_context(request, "Disown Package")
     context["pkgbase"] = pkgbase
-    return render_template(request, "packages/disown.html", context)
+    return render_template(request, "pkgbase/disown.html", context)
 
 
 @router.post("/pkgbase/{name}/disown")
@@ -540,7 +540,7 @@ async def pkgbase_disown_post(request: Request, name: str,
     if not confirm:
         context["errors"] = [("The selected packages have not been disowned, "
                               "check the confirmation checkbox.")]
-        return render_template(request, "packages/disown.html", context,
+        return render_template(request, "pkgbase/disown.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
     with db.begin():
@@ -550,7 +550,7 @@ async def pkgbase_disown_post(request: Request, name: str,
         actions.pkgbase_disown_instance(request, pkgbase)
     except InvariantError as exc:
         context["errors"] = [str(exc)]
-        return render_template(request, "packages/disown.html", context,
+        return render_template(request, "pkgbase/disown.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
     return RedirectResponse(f"/pkgbase/{name}",
@@ -739,7 +739,7 @@ async def pkgbase_delete_get(request: Request, name: str):
 
     context = templates.make_context(request, "Package Deletion")
     context["pkgbase"] = get_pkg_or_base(name, PackageBase)
-    return render_template(request, "packages/delete.html", context)
+    return render_template(request, "pkgbase/delete.html", context)
 
 
 @router.post("/pkgbase/{name}/delete")
@@ -758,7 +758,7 @@ async def pkgbase_delete_post(request: Request, name: str,
         context["pkgbase"] = pkgbase
         context["errors"] = [("The selected packages have not been deleted, "
                               "check the confirmation checkbox.")]
-        return render_template(request, "packages/delete.html", context,
+        return render_template(request, "pkgbase/delete.html", context,
                                status_code=HTTPStatus.BAD_REQUEST)
 
     if comments:

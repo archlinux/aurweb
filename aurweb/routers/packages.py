@@ -112,7 +112,7 @@ async def packages_get(request: Request, context: Dict[str, Any],
     context["packages"] = packages
     context["packages_count"] = num_packages
 
-    return render_template(request, "packages.html", context,
+    return render_template(request, "packages/index.html", context,
                            status_code=status_code)
 
 
