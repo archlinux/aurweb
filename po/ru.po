@@ -3,9 +3,11 @@
 # This file is distributed under the same license as the AURWEB package.
 # 
 # Translators:
+# Alex <kekcuha@gmail.com>, 2021
 # Evgeniy Alekseev <esalexeev@gmail.com>, 2014-2015
 # Evgeniy Alekseev <esalexeev@gmail.com>, 2014-2015, 2016
 # Igor <f2404@yandex.ru>, 2017
+# Kevin Morris <kevr@0cost.org>, 2021
 # Kyrylo Silin <curacaothe@gmail.com>, 2011
 # Kyrylo Silin <curacaothe@gmail.com>, 2011
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
@@ -18,8 +20,8 @@ msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-01-31 08:29+0000\n"
-"Last-Translator: Lukas Fleischer\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Russian (http://www.transifex.com/lfleischer/aurweb/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,11 +82,11 @@ msgstr "Не удалось получить информацию об указ�
 
 #: html/account.php
 msgid "You do not have permission to edit this account."
-msgstr "Вы не имеете права редактировать эту учетную запись."
+msgstr "У вас недостаточно прав для изменения этой учётной записи."
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
-msgstr ""
+msgstr "Неверный пароль."
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -381,7 +383,7 @@ msgstr "Введите учётные данные"
 
 #: html/login.php
 msgid "User name or primary email address"
-msgstr ""
+msgstr "Имя пользователя или основной адрес эл. почты"
 
 #: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
@@ -445,7 +447,7 @@ msgstr "Ваш пароль успешно сброшен."
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr ""
+msgstr "Подтвердите своё имя пользователя или основной адрес эл. почты:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -464,11 +466,11 @@ msgstr "Продолжить"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Если вы забыли имя пользователя или основной  адрес эл. почты, который  использовали для регистрации, напишите сообщение в список рассылки %saur-general%s."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
-msgstr ""
+msgstr "Введите своё имя пользователя или основной адрес эл. почты:"
 
 #: html/pkgbase.php
 msgid "Package Bases"
@@ -479,6 +481,12 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr "Выбранные пакеты будут брошены."
+
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr ""
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
@@ -577,6 +585,14 @@ msgstr "Отметить комментарий"
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "Отметить пакет устаревшим"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr ""
 
 #: html/pkgflag.php
 #, php-format
@@ -874,6 +890,10 @@ msgstr "Доступ к форме входа с вашего IP адреса з
 msgid "Account suspended"
 msgstr "Действие аккаунта приостановлено."
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr ""
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
@@ -959,9 +979,33 @@ msgstr "Ошибка получения информации о пакете."
 msgid "Package details could not be found."
 msgstr "Не найдена информация о пакете."
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
-msgstr "Вы должны войти чтобы ставить флажки на пакеты."
+msgstr "Вы должны войти чтобы отмечать пакеты."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to flag."
@@ -995,6 +1039,10 @@ msgstr "У вас нет права на удаление пакетов."
 msgid "You did not select any packages to delete."
 msgstr "Вы не выбрали ни одного пакета для удаления."
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Выбранные пакеты удалены."
@@ -1003,9 +1051,17 @@ msgstr "Выбранные пакеты удалены."
 msgid "You must be logged in before you can adopt packages."
 msgstr "Вы должны войти чтобы усыновлять пакеты."
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Вы должны войти чтобы бросать пакеты."
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -2253,4 +2309,49 @@ msgstr ""
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr ""
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr ""

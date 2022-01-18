@@ -96,7 +96,6 @@ function render_comment($id) {
 	$descspec = array(
 		0 => array('pipe', 'r'),
 		1 => array('pipe', 'w'),
-		2 => array('pipe', 'w')
 	);
 
 	$p = proc_open($cmd, $descspec, $pipes);
@@ -107,7 +106,6 @@ function render_comment($id) {
 
 	fclose($pipes[0]);
 	fclose($pipes[1]);
-	fclose($pipes[2]);
 
 	return proc_close($p);
 }
@@ -1191,7 +1189,8 @@ function pkgbase_get_comaintainer_uids($base_ids) {
  * @return array Tuple of success/failure indicator and error message
  */
 function pkgbase_set_comaintainers($base_id, $users, $override=false) {
-	if (!$override && !has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array(pkgbase_maintainer_uid($base_id)))) {
+	$maintainer_uid = pkgbase_maintainer_uid($base_id);
+	if (!$override && !has_credential(CRED_PKGBASE_EDIT_COMAINTAINERS, array($maintainer_uid))) {
 		return array(false, __("You are not allowed to manage co-maintainers of this package base."));
 	}
 
@@ -1209,9 +1208,12 @@ function pkgbase_set_comaintainers($base_id, $users, $override=false) {
 
 		if (!$uid) {
 			return array(false, __("Invalid user name: %s", $user));
+		} elseif ($uid == $maintainer_uid) {
+			// silently ignore when maintainer == co-maintainer
+			continue;
+		} else {
+			$uids_new[] = $uid;
 		}
-
-		$uids_new[] = $uid;
 	}
 
 	$q = sprintf("SELECT UsersID FROM PackageComaintainers WHERE PackageBaseID = %d", $base_id);

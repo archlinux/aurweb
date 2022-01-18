@@ -1,0 +1,8 @@
+{% extends 'partials/layout.html' %}
+
+{% block pageContent %}
+    <div id="error-page" class="box">
+        <h2>{{ "%d" | format(exc.status_code) }} - {{ phrase }}</h2>
+        <p>{{ exc.detail }}</p>
+    </div>
+{% endblock %}

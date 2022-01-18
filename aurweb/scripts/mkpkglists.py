@@ -18,24 +18,33 @@ on the following, right-hand side fields are added to each item.
 
 """
 
-import datetime
 import gzip
+import os
 import sys
+
 from collections import defaultdict
-from decimal import Decimal
+from typing import Any, Dict
 
 import orjson
 
+from sqlalchemy import literal, orm
+
 import aurweb.config
-import aurweb.db
 
-packagesfile = aurweb.config.get('mkpkglists', 'packagesfile')
-packagesmetafile = aurweb.config.get('mkpkglists', 'packagesmetafile')
-packagesmetaextfile = aurweb.config.get('mkpkglists', 'packagesmetaextfile')
+from aurweb import db, filters, logging, models, util
+from aurweb.benchmark import Benchmark
+from aurweb.models import Package, PackageBase, User
 
-pkgbasefile = aurweb.config.get('mkpkglists', 'pkgbasefile')
+logger = logging.get_logger("aurweb.scripts.mkpkglists")
 
-userfile = aurweb.config.get('mkpkglists', 'userfile')
+archivedir = aurweb.config.get("mkpkglists", "archivedir")
+os.makedirs(archivedir, exist_ok=True)
+
+PACKAGES = aurweb.config.get('mkpkglists', 'packagesfile')
+META = aurweb.config.get('mkpkglists', 'packagesmetafile')
+META_EXT = aurweb.config.get('mkpkglists', 'packagesmetaextfile')
+PKGBASE = aurweb.config.get('mkpkglists', 'pkgbasefile')
+USERS = aurweb.config.get('mkpkglists', 'userfile')
 
 
 TYPE_MAP = {
@@ -49,7 +58,7 @@ TYPE_MAP = {
 }
 
 
-def get_extended_dict(query: str):
+def get_extended_dict(query: orm.Query):
     """
     Produce data in the form in a single bulk SQL query:
 
@@ -70,61 +79,75 @@ def get_extended_dict(query: str):
         output[i].update(data.get(package_id))
     """
 
-    conn = aurweb.db.Connection()
-
-    cursor = conn.execute(query)
-
     data = defaultdict(lambda: defaultdict(list))
 
-    for result in cursor.fetchall():
-
+    for result in query:
         pkgid = result[0]
         key = TYPE_MAP.get(result[1], result[1])
         output = result[2]
         if result[3]:
             output += result[3]
-
-        # In all cases, we have at least an empty License list.
-        if "License" not in data[pkgid]:
-            data[pkgid]["License"] = []
-
-        # In all cases, we have at least an empty Keywords list.
-        if "Keywords" not in data[pkgid]:
-            data[pkgid]["Keywords"] = []
-
         data[pkgid][key].append(output)
 
-    conn.close()
     return data
 
 
 def get_extended_fields():
-    # Returns: [ID, Type, Name, Cond]
-    query = """
-    SELECT PackageDepends.PackageID AS ID, DependencyTypes.Name AS Type,
-           PackageDepends.DepName AS Name, PackageDepends.DepCondition AS Cond
-    FROM PackageDepends
-    LEFT JOIN DependencyTypes
-    ON DependencyTypes.ID = PackageDepends.DepTypeID
-    UNION SELECT PackageRelations.PackageID AS ID, RelationTypes.Name AS Type,
-          PackageRelations.RelName AS Name,
-          PackageRelations.RelCondition AS Cond
-    FROM PackageRelations
-    LEFT JOIN RelationTypes
-    ON RelationTypes.ID = PackageRelations.RelTypeID
-    UNION SELECT PackageGroups.PackageID AS ID, 'Groups' AS Type,
-          Groups.Name, '' AS Cond
-    FROM Groups
-    INNER JOIN PackageGroups ON PackageGroups.GroupID = Groups.ID
-    UNION SELECT PackageLicenses.PackageID AS ID, 'License' AS Type,
-          Licenses.Name, '' as Cond
-    FROM Licenses
-    INNER JOIN PackageLicenses ON PackageLicenses.LicenseID = Licenses.ID
-    UNION SELECT Packages.ID AS ID, 'Keywords' AS Type,
-          PackageKeywords.Keyword AS Name, '' as Cond
-    FROM PackageKeywords
-    INNER JOIN Packages ON Packages.PackageBaseID = PackageKeywords.PackageBaseID
-    """
+    subqueries = [
+        # PackageDependency
+        db.query(
+            models.PackageDependency
+        ).join(models.DependencyType).with_entities(
+            models.PackageDependency.PackageID.label("ID"),
+            models.DependencyType.Name.label("Type"),
+            models.PackageDependency.DepName.label("Name"),
+            models.PackageDependency.DepCondition.label("Cond")
+        ).distinct().order_by("Name"),
+
+        # PackageRelation
+        db.query(
+            models.PackageRelation
+        ).join(models.RelationType).with_entities(
+            models.PackageRelation.PackageID.label("ID"),
+            models.RelationType.Name.label("Type"),
+            models.PackageRelation.RelName.label("Name"),
+            models.PackageRelation.RelCondition.label("Cond")
+        ).distinct().order_by("Name"),
+
+        # Groups
+        db.query(models.PackageGroup).join(
+            models.Group,
+            models.PackageGroup.GroupID == models.Group.ID
+        ).with_entities(
+            models.PackageGroup.PackageID.label("ID"),
+            literal("Groups").label("Type"),
+            models.Group.Name.label("Name"),
+            literal(str()).label("Cond")
+        ).distinct().order_by("Name"),
+
+        # Licenses
+        db.query(models.PackageLicense).join(
+            models.License,
+            models.PackageLicense.LicenseID == models.License.ID
+        ).with_entities(
+            models.PackageLicense.PackageID.label("ID"),
+            literal("License").label("Type"),
+            models.License.Name.label("Name"),
+            literal(str()).label("Cond")
+        ).distinct().order_by("Name"),
+
+        # Keywords
+        db.query(models.PackageKeyword).join(
+            models.Package,
+            Package.PackageBaseID == models.PackageKeyword.PackageBaseID
+        ).with_entities(
+            models.Package.ID.label("ID"),
+            literal("Keywords").label("Type"),
+            models.PackageKeyword.Keyword.label("Name"),
+            literal(str()).label("Cond")
+        ).distinct().order_by("Name")
+    ]
+    query = subqueries[0].union_all(*subqueries[1:])
     return get_extended_dict(query)
 
 
@@ -133,97 +156,122 @@ EXTENDED_FIELD_HANDLERS = {
 }
 
 
-def is_decimal(column):
-    """ Check if an SQL column is of decimal.Decimal type. """
-    if isinstance(column, Decimal):
-        return float(column)
-    return column
+def as_dict(package: Package) -> Dict[str, Any]:
+    return {
+        "ID": package.ID,
+        "Name": package.Name,
+        "PackageBaseID": package.PackageBaseID,
+        "PackageBase": package.PackageBase,
+        "Version": package.Version,
+        "Description": package.Description,
+        "NumVotes": package.NumVotes,
+        "Popularity": float(package.Popularity),
+        "OutOfDate": package.OutOfDate,
+        "Maintainer": package.Maintainer,
+        "FirstSubmitted": package.FirstSubmitted,
+        "LastModified": package.LastModified,
+    }
 
 
-def write_archive(archive: str, output: list):
-    with gzip.open(archive, "wb") as f:
-        f.write(b"[\n")
-        for i, item in enumerate(output):
-            f.write(orjson.dumps(item))
-            if i < len(output) - 1:
-                f.write(b",")
-            f.write(b"\n")
-        f.write(b"]")
+def _main():
+    bench = Benchmark()
+    logger.info("Started re-creating archives, wait a while...")
 
-
-def main():
-    conn = aurweb.db.Connection()
-
-    datestr = datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
-    pkglist_header = "# AUR package list, generated on " + datestr
-    pkgbaselist_header = "# AUR package base list, generated on " + datestr
-    userlist_header = "# AUR user name list, generated on " + datestr
-
-    # Query columns; copied from RPC.
-    columns = ("Packages.ID, Packages.Name, "
-               "PackageBases.ID AS PackageBaseID, "
-               "PackageBases.Name AS PackageBase, "
-               "Version, Description, URL, NumVotes, "
-               "Popularity, OutOfDateTS AS OutOfDate, "
-               "Users.UserName AS Maintainer, "
-               "SubmittedTS AS FirstSubmitted, "
-               "ModifiedTS AS LastModified")
-
-    # Perform query.
-    cur = conn.execute(f"SELECT {columns} FROM Packages "
-                       "LEFT JOIN PackageBases "
-                       "ON PackageBases.ID = Packages.PackageBaseID "
-                       "LEFT JOIN Users "
-                       "ON PackageBases.MaintainerUID = Users.ID "
-                       "WHERE PackageBases.PackagerUID IS NOT NULL")
+    query = db.query(Package).join(
+        PackageBase,
+        PackageBase.ID == Package.PackageBaseID
+    ).join(
+        User,
+        PackageBase.MaintainerUID == User.ID,
+        isouter=True
+    ).filter(PackageBase.PackagerUID.isnot(None)).with_entities(
+        Package.ID,
+        Package.Name,
+        PackageBase.ID.label("PackageBaseID"),
+        PackageBase.Name.label("PackageBase"),
+        Package.Version,
+        Package.Description,
+        PackageBase.NumVotes,
+        PackageBase.Popularity,
+        PackageBase.OutOfDateTS.label("OutOfDate"),
+        User.Username.label("Maintainer"),
+        PackageBase.SubmittedTS.label("FirstSubmitted"),
+        PackageBase.ModifiedTS.label("LastModified")
+    ).distinct().order_by("Name")
 
     # Produce packages-meta-v1.json.gz
     output = list()
     snapshot_uri = aurweb.config.get("options", "snapshot_uri")
-    for result in cur.fetchall():
-        item = {
-            column[0]: is_decimal(result[i])
-            for i, column in enumerate(cur.description)
-        }
-        item["URLPath"] = snapshot_uri % item.get("Name")
-        output.append(item)
+    gzips = {
+        "packages": gzip.open(PACKAGES, "wt"),
+        "meta": gzip.open(META, "wb"),
+    }
 
-    write_archive(packagesmetafile, output)
+    # Append list opening to the metafile.
+    gzips["meta"].write(b"[\n")
 
-    # Produce packages-meta-ext-v1.json.gz
+    # Produce packages.gz + packages-meta-ext-v1.json.gz
+    extended = False
     if len(sys.argv) > 1 and sys.argv[1] in EXTENDED_FIELD_HANDLERS:
+        gzips["meta_ext"] = gzip.open(META_EXT, "wb")
+        # Append list opening to the meta_ext file.
+        gzips.get("meta_ext").write(b"[\n")
         f = EXTENDED_FIELD_HANDLERS.get(sys.argv[1])
         data = f()
+        extended = True
 
-        default_ = {"Groups": [], "License": [], "Keywords": []}
-        for i in range(len(output)):
-            data_ = data.get(output[i].get("ID"), default_)
-            output[i].update(data_)
+    results = query.all()
+    n = len(results) - 1
+    for i, result in enumerate(results):
+        # Append to packages.gz.
+        gzips.get("packages").write(f"{result.Name}\n")
 
-        write_archive(packagesmetaextfile, output)
+        # Construct our result JSON dictionary.
+        item = as_dict(result)
+        item["URLPath"] = snapshot_uri % result.Name
 
-    # Produce packages.gz
-    with gzip.open(packagesfile, "wb") as f:
-        f.write(bytes(pkglist_header + "\n", "UTF-8"))
-        f.writelines([
-            bytes(x.get("Name") + "\n", "UTF-8")
-            for x in output
-        ])
+        # We stream out package json objects line per line, so
+        # we also need to include the ',' character at the end
+        # of package lines (excluding the last package).
+        suffix = b",\n" if i < n else b'\n'
+
+        # Write out to packagesmetafile
+        output.append(item)
+        gzips.get("meta").write(orjson.dumps(output[-1]) + suffix)
+
+        if extended:
+            # Write out to packagesmetaextfile.
+            data_ = data.get(result.ID, {})
+            output[-1].update(data_)
+            gzips.get("meta_ext").write(orjson.dumps(output[-1]) + suffix)
+
+    # Append the list closing to meta/meta_ext.
+    gzips.get("meta").write(b"]")
+    if extended:
+        gzips.get("meta_ext").write(b"]")
+
+    # Close gzip files.
+    util.apply_all(gzips.values(), lambda gz: gz.close())
 
     # Produce pkgbase.gz
-    with gzip.open(pkgbasefile, "w") as f:
-        f.write(bytes(pkgbaselist_header + "\n", "UTF-8"))
-        cur = conn.execute("SELECT Name FROM PackageBases " +
-                           "WHERE PackagerUID IS NOT NULL")
-        f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
+    query = db.query(PackageBase.Name).filter(
+        PackageBase.PackagerUID.isnot(None)).all()
+    with gzip.open(PKGBASE, "wt") as f:
+        f.writelines([f"{base.Name}\n" for i, base in enumerate(query)])
 
     # Produce users.gz
-    with gzip.open(userfile, "w") as f:
-        f.write(bytes(userlist_header + "\n", "UTF-8"))
-        cur = conn.execute("SELECT UserName FROM Users")
-        f.writelines([bytes(x[0] + "\n", "UTF-8") for x in cur.fetchall()])
+    query = db.query(User.Username).all()
+    with gzip.open(USERS, "wt") as f:
+        f.writelines([f"{user.Username}\n" for i, user in enumerate(query)])
 
-    conn.close()
+    seconds = filters.number_format(bench.end(), 4)
+    logger.info(f"Completed in {seconds} seconds.")
+
+
+def main():
+    db.get_engine()
+    with db.begin():
+        _main()
 
 
 if __name__ == '__main__':

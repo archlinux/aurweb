@@ -7,13 +7,14 @@
 # Balló György <ballogyor@gmail.com>, 2011,2013-2016
 # Balló György <ballogyor@gmail.com>, 2016
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
+# PB, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-01-31 08:29+0000\n"
-"Last-Translator: Lukas Fleischer\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: Hungarian (http://www.transifex.com/lfleischer/aurweb/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,17 +36,17 @@ msgstr "Megjegyzés"
 
 #: html/404.php
 msgid "Git clone URLs are not meant to be opened in a browser."
-msgstr ""
+msgstr "A Git tároló klónozásához használatos hivatkozásokat nem böngészővel kell megnyitni."
 
 #: html/404.php
 #, php-format
 msgid "To clone the Git repository of %s, run %s."
-msgstr ""
+msgstr "A(z) %s Git tárolójának klónozásához futtasd a következőt: %s."
 
 #: html/404.php
 #, php-format
 msgid "Click %shere%s to return to the %s details page."
-msgstr ""
+msgstr "Kattints %side%s a(z) %s adatlapjának megnyitásához."
 
 #: html/503.php
 msgid "Service Unavailable"
@@ -78,7 +79,7 @@ msgstr "Nincs engedélyed ennek a fióknak a szerkesztéséhez."
 
 #: html/account.php lib/acctfuncs.inc.php
 msgid "Invalid password."
-msgstr ""
+msgstr "Érvénytelen jelszó."
 
 #: html/account.php
 msgid "Use this form to search existing accounts."
@@ -168,7 +169,7 @@ msgstr "Hozzászólás szerkesztése"
 
 #: html/home.php template/header.php
 msgid "Dashboard"
-msgstr ""
+msgstr "Vezérlőpult"
 
 #: html/home.php template/header.php
 msgid "Home"
@@ -176,11 +177,11 @@ msgstr "Honlap"
 
 #: html/home.php
 msgid "My Flagged Packages"
-msgstr ""
+msgstr "Elavultnak jelölt csomagjaim"
 
 #: html/home.php
 msgid "My Requests"
-msgstr ""
+msgstr "Kérelmeim"
 
 #: html/home.php
 msgid "My Packages"
@@ -188,15 +189,15 @@ msgstr "Csomagjaim"
 
 #: html/home.php
 msgid "Search for packages I maintain"
-msgstr ""
+msgstr "Csomagok keresése, amelyeknek karbantartója vagyok"
 
 #: html/home.php
 msgid "Co-Maintained Packages"
-msgstr ""
+msgstr "Csomagok, amelyeknek társkarbantartója vagyok"
 
 #: html/home.php
 msgid "Search for packages I co-maintain"
-msgstr ""
+msgstr "Csomagok keresése, amelyeknek társkarbantartója vagyok"
 
 #: html/home.php
 #, php-format
@@ -375,7 +376,7 @@ msgstr "Bejelentkezési adatok megadása"
 
 #: html/login.php
 msgid "User name or primary email address"
-msgstr ""
+msgstr "Felhasználónév vagy elsődleges email cím"
 
 #: html/login.php template/account_delete.php template/account_edit_form.php
 msgid "Password"
@@ -439,7 +440,7 @@ msgstr "Jelszavad sikeresen visszaállításra került."
 
 #: html/passreset.php
 msgid "Confirm your user name or primary e-mail address:"
-msgstr ""
+msgstr "Erősítsd meg a felhasználóneved vagy elsődleges email címed:"
 
 #: html/passreset.php
 msgid "Enter your new password:"
@@ -458,21 +459,27 @@ msgstr "Folytatás"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Ha elfelejtetted a felhasználóneved és az elsődleges email címed, akkor kérlek küldj üzenetet az %saur-general%s levelezőlistára."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
-msgstr ""
+msgstr "Add meg a felhasználóneved vagy elsődleges email címed:"
 
 #: html/pkgbase.php
 msgid "Package Bases"
-msgstr ""
+msgstr "Alapcsomagok"
 
 #: html/pkgbase.php
 msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr "A kiválasztott csomagok nem kerültek megtagadásra, ellenőrizd a megerősítő jelölőnégyzetet."
+
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr ""
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
@@ -538,7 +545,7 @@ msgstr "Használd ezt az űrlapot a(z) %s%s%s alapcsomag megtagadásához, amely
 msgid ""
 "By selecting the checkbox, you confirm that you want to no longer be a "
 "package co-maintainer."
-msgstr ""
+msgstr "A jelölőnégyzet megjelölésével megerősíted, hogy nem akarsz társkarbantartó lenni."
 
 #: html/pkgdisown.php
 #, php-format
@@ -571,6 +578,14 @@ msgstr "Hozzászólás jelölése"
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "Csomag elvaultnak jelölése"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr ""
 
 #: html/pkgflag.php
 #, php-format
@@ -684,21 +699,21 @@ msgstr "Használd ezt a űrlapot felhasználói fiók létrehozására."
 
 #: html/tos.php
 msgid "Terms of Service"
-msgstr ""
+msgstr "A szolgáltatás feltételei"
 
 #: html/tos.php
 msgid ""
 "The following documents have been updated. Please review them carefully:"
-msgstr ""
+msgstr "A következő dokumentumok frissítésre kerültek. Kérlek nézd át őket alaposan:"
 
 #: html/tos.php
 #, php-format
 msgid "revision %d"
-msgstr ""
+msgstr "revízió %d"
 
 #: html/tos.php
 msgid "I accept the terms and conditions above."
-msgstr ""
+msgstr "Elfogadom a feljebb megadott feltételeket."
 
 #: html/tu.php template/account_details.php template/header.php
 msgid "Trusted User"
@@ -769,7 +784,7 @@ msgstr "Csak egyetlen pontot, aláhúzást vagy kötőjelet tartalmazhat."
 
 #: lib/acctfuncs.inc.php
 msgid "Please confirm your new password."
-msgstr ""
+msgstr "Kérlek erősítsd meg az új jelszavad."
 
 #: lib/acctfuncs.inc.php
 msgid "The email address is invalid."
@@ -777,11 +792,11 @@ msgstr "Érvénytelen e-mail cím."
 
 #: lib/acctfuncs.inc.php
 msgid "The backup email address is invalid."
-msgstr ""
+msgstr "A másodlagos email cím érvénytelen."
 
 #: lib/acctfuncs.inc.php
 msgid "The home page is invalid, please specify the full HTTP(s) URL."
-msgstr ""
+msgstr "A főoldal érvénytelen, kérlek add meg a teljes HTTP(s) URL-t."
 
 #: lib/acctfuncs.inc.php
 msgid "The PGP key fingerprint is invalid."
@@ -801,7 +816,7 @@ msgstr "A nyelv jelenleg nem támogatott."
 
 #: lib/acctfuncs.inc.php
 msgid "Timezone is not currently supported."
-msgstr ""
+msgstr "Az időzóna jelenleg nem támogatott."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -820,15 +835,15 @@ msgstr "A(z) %s%s%s nyilvános SSH kulcs már használatban van."
 
 #: lib/acctfuncs.inc.php
 msgid "The CAPTCHA is missing."
-msgstr ""
+msgstr "Hiányzó CAPTCHA."
 
 #: lib/acctfuncs.inc.php
 msgid "This CAPTCHA has expired. Please try again."
-msgstr ""
+msgstr "A CAPTCHA lejárt. Kérlek próbáld újra."
 
 #: lib/acctfuncs.inc.php
 msgid "The entered CAPTCHA answer is invalid."
-msgstr ""
+msgstr "A megadott CAPTCHA érvénytelen."
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -867,6 +882,10 @@ msgstr "A bejelentkező űrlap jelenleg letiltásra került az IP címedre, val�
 #: lib/acctfuncs.inc.php
 msgid "Account suspended"
 msgstr "Fiók felfüggesztve"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr ""
 
 #: lib/acctfuncs.inc.php
 #, php-format
@@ -953,6 +972,30 @@ msgstr "Hiba történt a csomag részletes információinak letöltése közben.
 msgid "Package details could not be found."
 msgstr "A csomag részletes információi nem találhatók."
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Csomagok megjelöléséhez be kell jelentkezned."
@@ -989,6 +1032,10 @@ msgstr "Csomagok törléséhez nincs jogosultságod."
 msgid "You did not select any packages to delete."
 msgstr "Nem választottál ki egyetlen törlendő csomagot sem."
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "A kiválasztott csomagok törlése megtörtént."
@@ -997,9 +1044,17 @@ msgstr "A kiválasztott csomagok törlése megtörtént."
 msgid "You must be logged in before you can adopt packages."
 msgstr "Csomagok örökbefogadásához be kell jelentkezned."
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr ""
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Csomagok megtagadásához be kell jelentkezned."
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr ""
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -1233,7 +1288,7 @@ msgstr "Soha"
 
 #: template/account_details.php
 msgid "View this user's packages"
-msgstr "A felhasználó csomagjainak megtekintése"
+msgstr "Ezen felhasználó csomagjainak megtekintése"
 
 #: template/account_details.php
 msgid "Edit this user's account"
@@ -1241,7 +1296,7 @@ msgstr "Ezen felhasználó fiókjának szerkesztése"
 
 #: template/account_details.php
 msgid "List this user's comments"
-msgstr ""
+msgstr "Ezen felhasználó hozzászólásainak megtekintése"
 
 #: template/account_edit_form.php
 #, php-format
@@ -1256,7 +1311,7 @@ msgstr "Kattints %side%s a felhasználó részleteihez."
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s to list the comments made by this account."
-msgstr ""
+msgstr "Kattints %side%s a felhasználó hozzászólásainak megtekintéséhez."
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1266,7 +1321,7 @@ msgstr "kötelező"
 msgid ""
 "Your user name is the name you will use to login. It is visible to the "
 "general public, even if your account is inactive."
-msgstr ""
+msgstr "A felhasználóneved a bejelentkezéshez használt név lesz. Látható a mindenki számára még akkor is, ha a fiókod inaktív."
 
 #: template/account_edit_form.php template/search_accounts_form.php
 msgid "Normal user"
@@ -1299,30 +1354,30 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr ""
+msgstr "A nem rejted el az email címed, akkor minden regisztrált AUR felhasználó láthatja. Ha elrejted az email címed, akkor csak az Arch Linux személyzet láthatja."
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
-msgstr ""
+msgstr "Másodlagos email cím"
 
 #: template/account_edit_form.php
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr ""
+msgstr "Megadhatsz egy másodlagos email címet, amellyel visszaszerezheted a hozzáférést a fiókodhoz, ha elveszted a hozzáférést az elsődleges email címedhez."
 
 #: template/account_edit_form.php
 msgid ""
 "Password reset links are always sent to both your primary and your backup "
 "email address."
-msgstr ""
+msgstr "A jelszó visszaállító linkek az első- és másodlagos email címedre is kiküldésre kerülnek."
 
 #: template/account_edit_form.php
 #, php-format
 msgid ""
 "Your backup email address is always only visible to members of the Arch "
 "Linux staff, independent of the %s setting."
-msgstr ""
+msgstr "A másodlagos email címed csak az Arch Linux személyzet számára látható, a(z) %s beállítástól függetlenül."
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1330,13 +1385,13 @@ msgstr "Nyelv"
 
 #: template/account_edit_form.php
 msgid "Timezone"
-msgstr ""
+msgstr "Időzóna"
 
 #: template/account_edit_form.php
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr ""
+msgstr "Ha meg akarod változtatni a jelszavad, akkor add meg az új jelszót kétszer a megerősítéshez."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1370,21 +1425,21 @@ msgstr "Értesítés tulajdonváltozásokról"
 
 #: template/account_edit_form.php
 msgid "To confirm the profile changes, please enter your current password:"
-msgstr ""
+msgstr "A fiók módosításának megerősítéséhez kérlek add meg a jelenlegi jelszavad:"
 
 #: template/account_edit_form.php
 msgid "Your current password"
-msgstr ""
+msgstr "Jelenlegi jelszavad"
 
 #: template/account_edit_form.php
 msgid ""
 "To protect the AUR against automated account creation, we kindly ask you to "
 "provide the output of the following command:"
-msgstr ""
+msgstr "Az automatizált regisztrációk kiszűrése érdekében, kérlek add meg a következő parancs kimenetét:"
 
 #: template/account_edit_form.php
 msgid "Answer"
-msgstr ""
+msgstr "Válasz"
 
 #: template/account_edit_form.php template/pkgbase_details.php
 #: template/pkg_details.php
@@ -1547,7 +1602,7 @@ msgstr "csak olvasható"
 
 #: template/pkgbase_details.php template/pkg_details.php
 msgid "click to copy"
-msgstr ""
+msgstr "kattints a másoláshoz"
 
 #: template/pkgbase_details.php template/pkg_details.php
 #: template/pkg_search_form.php
@@ -1593,18 +1648,18 @@ msgstr "Hozzászólás szerkesztése ehhez: %s"
 
 #: template/pkg_comment_box.php template/pkg_comment_form.php
 msgid "Add Comment"
-msgstr "Hosszászólás"
+msgstr "Hozzászólás"
 
 #: template/pkg_comment_form.php
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr ""
+msgstr "A csomag tárolójában lévő Git kommitok azonosítói automatikusan hivatkozássá lesznek alakítva."
 
 #: template/pkg_comment_form.php
 #, php-format
 msgid "%sMarkdown syntax%s is partially supported."
-msgstr ""
+msgstr "A %sMarkdown leíró nyelv%s részlegesen támogatott."
 
 #: template/pkg_comments.php
 msgid "Pinned Comments"
@@ -1616,7 +1671,7 @@ msgstr "Legújabb hozzászólások"
 
 #: template/pkg_comments.php
 msgid "Comments for"
-msgstr ""
+msgstr "Felhasználó hozzászólásai:"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1631,7 +1686,7 @@ msgstr "Névtelen hozzászólás ekkor: %s"
 #: template/pkg_comments.php
 #, php-format
 msgid "Commented on package %s on %s"
-msgstr ""
+msgstr "Hozzászólás a(z) %s csomaghoz %s időpontban"
 
 #: template/pkg_comments.php
 #, php-format
@@ -1774,7 +1829,7 @@ msgid ""
 "By submitting a deletion request, you ask a Trusted User to delete the "
 "package base. This type of request should be used for duplicates, software "
 "abandoned by upstream, as well as illegal and irreparably broken packages."
-msgstr "Törlési kérelem beküldésével megkérsz egy megbízható felhasználót, hogy törölje az alapcsomagot. Ez a típusú kérelem duplikátumok, főági fejlesztők által felhagyott szoftverek, valamint illegális és helyrehozhatatlanul elromlott csomagokhoz használható."
+msgstr "Törlési kérelem beküldésével megkérsz egy megbízható felhasználót, hogy törölje az alapcsomagot. Ez a típusú kérelem duplikátumok, főági fejlesztők által felhagyott szoftverek, valamint illegális és helyrehozhatatlanul elromlott csomagok esetén használható."
 
 #: template/pkgreq_form.php
 msgid ""
@@ -1794,7 +1849,7 @@ msgstr "Megtagadási kérelem beküldésével megkérsz egy megbízható felhasz
 
 #: template/pkgreq_results.php
 msgid "No requests matched your search criteria."
-msgstr ""
+msgstr "Nincs a keresési feltételeknek megfelelő kérelem."
 
 #: template/pkgreq_results.php
 #, php-format
@@ -1852,7 +1907,7 @@ msgstr "Lezárás"
 
 #: template/pkgreq_results.php
 msgid "Pending"
-msgstr ""
+msgstr "Függőben lévő"
 
 #: template/pkgreq_results.php
 msgid "Closed"
@@ -1876,11 +1931,11 @@ msgstr "Pontos alapcsomag"
 
 #: template/pkg_search_form.php
 msgid "Co-maintainer"
-msgstr ""
+msgstr "Társkarbantartó"
 
 #: template/pkg_search_form.php
 msgid "Maintainer, Co-maintainer"
-msgstr ""
+msgstr "Karbantartó, társkarbantartó"
 
 #: template/pkg_search_form.php
 msgid "All"
@@ -2117,7 +2172,7 @@ msgstr "Vissza"
 
 #: scripts/notify.py
 msgid "AUR Password Reset"
-msgstr ""
+msgstr "AUR jelszó visszaállítása"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2125,90 +2180,90 @@ msgid ""
 "A password reset request was submitted for the account {user} associated "
 "with your email address. If you wish to reset your password follow the link "
 "[1] below, otherwise ignore this message and nothing will happen."
-msgstr ""
+msgstr "Jelszó visszaállítást kezdeményeztek a te email címeddel rendelkező {user} felhasználó számára. Ha szeretnéd visszaállítani a jelszavad, akkor nyisd meg a lenti linket [1], egyébként hagyd figyelmen kívül ezt az üzenetet, és semmi sem fog történni."
 
 #: scripts/notify.py
 msgid "Welcome to the Arch User Repository"
-msgstr ""
+msgstr "Üdvözlünk az Arch User Repositoryban"
 
 #: scripts/notify.py
 msgid ""
 "Welcome to the Arch User Repository! In order to set an initial password for"
 " your new account, please click the link [1] below. If the link does not "
 "work, try copying and pasting it into your browser."
-msgstr ""
+msgstr "Üdvözlünk az Arch User Repositoryban! A jelszó beállításához, kérlek nyisd meg a lenti linket [1]. Ha nem működik, akkor próbáld meg kimásolni, és beilleszteni a böngésződ címsorába."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Comment for {pkgbase}"
-msgstr ""
+msgstr "AUR hozzászólás: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] added the following comment to {pkgbase} [2]:"
-msgstr ""
+msgstr "{user} [1] hozzászólt a(z) {pkgbase} [2] csomaghoz:"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "If you no longer wish to receive notifications about this package, please go"
 " to the package page [2] and select \"{label}\"."
-msgstr ""
+msgstr "Ha többé nem szeretnél értesítést kapni ezen csomaggal kapcsolatban, akkor kérlek nyisd meg a csomag adatlapját [2] és kattints a(z) \"{label}\" feliratra."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package Update: {pkgbase}"
-msgstr ""
+msgstr "AUR csomag frissítve: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
-msgstr ""
+msgstr "{user} [1] kommitolt a {pkgbase} [2] csomagba."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Out-of-date Notification for {pkgbase}"
-msgstr ""
+msgstr "AUR elavult csomag értesítés: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
-msgstr ""
+msgstr "Az általad karbantartott {pkgbase} [1] csomagot elavultnak jelölte meg {user} [2]:"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Ownership Notification for {pkgbase}"
-msgstr ""
+msgstr "AUR tulajdonlási értesítés: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was adopted by {user} [2]."
-msgstr ""
+msgstr "A(z) {pkgbase} [1] csomagot {user} [2] örökbefogadta."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was disowned by {user} [2]."
-msgstr ""
+msgstr "A(z) {pkgbase} [1] csomagról {user} [2] lemondott."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Co-Maintainer Notification for {pkgbase}"
-msgstr ""
+msgstr "AUR társkarbantartói értesítés: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were added to the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "Hozzáadtak a(z) {pkgbase} [1] csomag társkarbantartóinak listájához."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
-msgstr ""
+msgstr "Eltávolítottak a(z) {pkgbase} [1] csomag társkarbantartóinak listájáról."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "AUR Package deleted: {pkgbase}"
-msgstr ""
+msgstr "AUR csomag törölve: {pkgbase}"
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2217,7 +2272,7 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "{user} [1] egyesítette a(z) {old} [2] csomagot a(z) {new} [3] csomagba.\n\n--\nHa többé nem szeretnél értesítéseket kapni az új csomaggal kapcsolatban, akkor nyisd meg a [3] hivatkozást és kattints a(z) \"{label}\" feliratra."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2225,16 +2280,61 @@ msgid ""
 "{user} [1] deleted {pkgbase} [2].\n"
 "\n"
 "You will no longer receive notifications about this package."
-msgstr ""
+msgstr "{user} [1] törölte a(z) {pkgbase} [2] csomagt.\n\nTöbbé nem fogsz értesítéseket kapni ezen csomaggal kapcsolatban."
 
 #: scripts/notify.py
 #, python-brace-format
 msgid "TU Vote Reminder: Proposal {id}"
-msgstr ""
+msgstr "Szavazás megbízható felhasználóról: javaslat {id}"
 
 #: scripts/notify.py
 #, python-brace-format
 msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
+msgstr "Kérlek ne felejts el szavazni a(z) {id} azonosítójú javaslatról. A szavazási kevesebb, mint 48 óra múlva véget ér."
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr ""
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
 msgstr ""

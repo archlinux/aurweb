@@ -1,0 +1,50 @@
+<table id="pkgreq-results" class="results">
+    <thead>
+        <tr>
+            <th>{{ "Package" | tr }}</th>
+            <th>{{ "Type" | tr }}</th>
+            <th>{{ "Comments" | tr }}</th>
+            <th>{{ "Filed by" | tr }}</th>
+            <th>{{ "Date" | tr }}</th>
+            <th>{{ "Status" | tr }}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for request in requests %}
+            {% set requested = request.RequestTS | dt | as_timezone(timezone) %}
+            <tr>
+                {% if request.PackageBase %}
+                    {# If the PackageBase still exists, link to it. #}
+                    <td>
+                        <a href="/pkgbase/{{ request.PackageBaseName }}">
+                            {{ request.PackageBaseName }}
+                        </a>
+                    </td>
+                {% else %}
+                    {# Otherwise, just display PackageBaseName unlinked. #}
+                    <td>{{ request.PackageBaseName }}</td>
+                {% endif %}
+                <td>
+                    {{ request.RequestType.name_display() | tr }}
+                    {# If the RequestType is a merge and request.MergeBaseName is valid... #}
+                    {% if request.RequestType.ID == 3 and request.MergeBaseName %}
+                        ({{ request.MergeBaseName }})
+                    {% endif %}
+                </td>
+                <td class="wrap">{{ request.Comments }}</td>
+                <td>
+                    <a href="/account/{{ request.User.Username }}"
+                       title="{{ 'View account information for %s' | tr | format(request.User.Username) }}">
+                        {{ request.User.Username }}
+                    </a>
+                </td>
+                <td>{{ requested.strftime("%Y-%m-%d %H:%M") }}</td>
+                <td>{{ request.status_display() | tr }}</td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>

@@ -1,0 +1,113 @@
+<table {% if table_id %}id="{{ table_id }}"{% endif %} class="results">
+    <thead>
+        <tr>
+            {% if request.user.is_authenticated() %}
+                <th></th>
+            {% endif %}
+            <th>
+                {% set order = SO %}
+                {% if SB == "n" %}
+                    {% set order = "d" if order == "a" else "a" %}
+                {% endif %}
+                <a href="/packages/?SB=n&SO={{ order }}">
+                    {{ "Name" | tr }}
+                </a>
+            </th>
+            <th>{{ "Version" | tr }}</th>
+            <th>
+                {% set order = SO %}
+                {% if SB == "v" %}
+                    {% set order = "d" if order == "a" else "a" %}
+                {% endif %}
+                <a href="/packages/?SB=v&SO={{ order }}">
+                    {{ "Votes" | tr }}
+                </a>
+            </th>
+            <th>
+                {% set order = SO %}
+                {% if SB == "p" %}
+                    {% set order = "d" if order == "a" else "a" %}
+                {% endif %}
+                <a href="/packages/?SB=p&SO={{ order }}">{{ "Popularity" | tr }}</a><span title="{{ 'Popularity is calculated as the sum of all votes with each vote being weighted with a factor of %.2f per day since its creation.' | format(0.98) }}" class="hover-help"><sup>?</sup></span>
+            </th>
+            {% if request.user.is_authenticated() %}
+                <th>
+                    {% set order = SO %}
+                    {% if SB == "w" %}
+                        {% set order = "d" if order == "a" else "a" %}
+                    {% endif %}
+                    <a href="/packages/?SB=w&SO={{ order }}">
+                        {{ "Voted" | tr }}
+                    </a>
+                </th>
+                <th>
+                    {% set order = SO %}
+                    {% if SB == "o" %}
+                        {% set order = "d" if order == "a" else "a" %}
+                    {% endif %}
+                    <a href="/packages/?SB=o&SO={{ order }}">
+                        {{ "Notify" | tr }}
+                    </a>
+                </th>
+            {% endif %}
+            <th>{{ "Description" | tr }}</th>
+            <th>
+                    {% set order = SO %}
+                    {% if SB == "m" %}
+                        {% set order = "d" if order == "a" else "a" %}
+                    {% endif %}
+                    <a href="/packages/?SB=m&SO={{ order }}">
+                        {{ "Maintainer" | tr }}
+                    </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pkg in packages %}
+            {% set flagged = pkg.OutOfDateTS %}
+            <tr>
+                {% if request.user.is_authenticated() %}
+                    <td>
+                        <input type="checkbox" name="IDs" value="{{ pkg.ID }}" />
+                    </td>
+                {% endif %}
+                <td>
+                    <a href="/packages/{{ pkg.Name }}">
+                        {{ pkg.Name }}
+                    </a>
+                </td>
+                {% if flagged %}
+                    <td class="flagged">{{ pkg.Version }}</td>
+                {% else %}
+                    <td>{{ pkg.Version }}</td>
+                {% endif %}
+                <td>{{ pkg.NumVotes }}</td>
+                <td>
+                    {{ pkg.Popularity | number_format(2) }}
+                </td>
+                {% if request.user.is_authenticated() %}
+                    <td>
+                        {% if pkg.Voted %}
+                            {{ "Yes" | tr }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if pkg.Notify %}
+                            {{ "Yes" | tr }}
+                        {% endif %}
+                    </td>
+                {% endif %}
+                <td class="wrap">{{ pkg.Description or '' }}</td>
+                <td>
+                    {% if pkg.Maintainer %}
+                        <a href="/account/{{ pkg.Maintainer }}">
+                            {{ pkg.Maintainer }}
+                        </a>
+                    {% else %}
+                        <span class="error">{{ "orphan" | tr }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

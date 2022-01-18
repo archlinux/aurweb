@@ -1,10 +1,11 @@
-import aurweb.db
-import aurweb.schema
+import argparse
 
 import alembic.command
 import alembic.config
-import argparse
-import sqlalchemy
+
+import aurweb.db
+import aurweb.logging
+import aurweb.schema
 
 
 def feed_initial_data(conn):
@@ -33,17 +34,21 @@ def feed_initial_data(conn):
 
 
 def run(args):
+    aurweb.config.rehash()
+
     # Ensure Alembic is fine before we do the real work, in order not to fail at
     # the last step and leave the database in an inconsistent state. The
     # configuration is loaded lazily, so we query it to force its loading.
     if args.use_alembic:
         alembic_config = alembic.config.Config('alembic.ini')
         alembic_config.get_main_option('script_location')
+        alembic_config.attributes["configure_logger"] = False
 
-    engine = sqlalchemy.create_engine(aurweb.db.get_sqlalchemy_url(),
-                                      echo=(args.verbose >= 1))
+    engine = aurweb.db.get_engine(echo=(args.verbose >= 1))
     aurweb.schema.metadata.create_all(engine)
-    feed_initial_data(engine.connect())
+    conn = engine.connect()
+    feed_initial_data(conn)
+    conn.close()
 
     if args.use_alembic:
         alembic.command.stamp(alembic_config, 'head')

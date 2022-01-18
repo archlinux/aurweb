@@ -1,0 +1,40 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    {% if errors %}
+        <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error | tr }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="box">
+        <h2>{{ "Manage Co-maintainers" | tr }}:</h2>
+        <p>
+            {{
+                "Use this form to add co-maintainers for %s%s%s "
+                "(one user name per line):"
+                | tr | format("<strong>", pkgbase.Name, "</strong>")
+                | safe
+            }}
+        </p>
+
+        <form action="/pkgbase/{{ pkgbase.Name }}/comaintainers" method="post">
+            <fieldset>
+                <p>
+                    <label for="id_users">{{ "Users" | tr }}:</label>
+                    <textarea id="id_users" name="users"
+                              rows="5" cols="50">{{ "\n".join(comaintainers) }}</textarea>
+                </p>
+
+                <p>
+                    <button class="button" type="submit">
+                        {{ "Save" | tr }}
+                    </button>
+                </p>
+            </fieldset>
+        </form>
+
+    </div>
+{% endblock %}

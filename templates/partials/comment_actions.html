@@ -1,0 +1,100 @@
+{% set pkgbasename = comment.PackageBase.Name %}
+
+{% if not comment.Deleter %}
+    {% if request.user.has_credential(creds.COMMENT_DELETE, approved=[comment.User]) %}
+        <form class="delete-comment-form"
+              method="post"
+              action="/pkgbase/{{ pkgbasename }}/comments/{{ comment.ID }}/delete"
+        >
+            <fieldset style="display:inline;">
+                <input type="hidden"
+                       name="next"
+                       value="{{ request.url.path }}" />
+                <input type="image"
+                       class="delete-comment"
+                       src="/static/images/x.min.svg"
+                       width="11"
+                       height="11"
+                       alt="{{ 'Delete comment' | tr }}"
+                       title="{{ 'Delete comment' | tr }}"
+                       name="submit" value="1" />
+            </fieldset>
+        </form>
+    {% endif %}
+
+    {% if request.user.has_credential(creds.COMMENT_EDIT, approved=[comment.User]) %}
+        <a id="comment-edit-link-{{ comment.ID }}"
+           {# /pkgbase/{name}/comments/{id}/edit #}
+           href="/pkgbase/{{ pkgbasename }}/comments/{{ comment.ID }}/edit?{{ {'next': request.url.path} | urlencode }}"
+           class="edit-comment"
+           title="{{ 'Edit comment' | tr }}"
+        >
+            <img src="/static/images/pencil.min.svg" alt="{{ 'Edit comment' | tr }}"
+                 width="11" height="11">
+        </a>
+
+        {# Set the edit event listener for this link. We must do this here
+        so that we can utilize Jinja2's values. #}
+        <script type="text/javascript" nonce="{{ request.user.nonce }}">
+            document.addEventListener("DOMContentLoaded", function() {
+                let link = document.getElementById("comment-edit-link-{{ comment.ID }}");
+                let fn = function(event) {
+                    return handleEditCommentClick(event, "{{ comment.PackageBase.Name }}");
+                };
+                link.addEventListener("click", fn);
+            });
+        </script>
+
+    {% endif %}
+
+    {% if request.user.has_credential(creds.COMMENT_PIN, approved=[comment.PackageBase.Maintainer]) %}
+        {% if comment.PinnedTS %}
+            <form class="pin-comment-form"
+                  method="post"
+                  action="/pkgbase/{{ comment.PackageBase.Name }}/comments/{{ comment.ID }}/unpin"
+            >
+                <fieldset style="display:inline;">
+                    <input type="hidden" name="next" value="{{ request.url.path }}" />
+                    <input type="image"
+                           class="pin-comment"
+                           src="/static/images/unpin.min.svg"
+                           alt="{{ 'Unpin comment' | tr }}"
+                           title="{{ 'Unpin comment' | tr }}"
+                           name="submit"
+                           value="1" width="11" height="11" />
+                </fieldset>
+            </form>
+        {% else %}
+            <form class="pin-comment-form"
+                  method="post"
+                  action="/pkgbase/{{ comment.PackageBase.Name }}/comments/{{ comment.ID }}/pin"
+            >
+                <fieldset style="display:inline;">
+                    <input type="hidden" name="next" value="{{ request.url.path }}" />
+                    <input type="image"
+                           class="pin-comment"
+                           src="/static/images/pin.min.svg"
+                           alt="{{ 'Pin comment' | tr }}"
+                           title="{{ 'Pin comment' | tr }}"
+                           name="submit"
+                           value="1" width="11" height="11" />
+                </fieldset>
+            </form>
+        {% endif %}
+    {% endif %}
+{% elif request.user.has_credential(creds.COMMENT_UNDELETE, approved=[comment.User]) %}
+        <form class="undelete-comment-form"
+              method="post"
+              action="/pkgbase/{{ comment.PackageBase.Name }}/comments/{{ comment.ID }}/undelete"
+        >
+            <fieldset style="display:inline;">
+                <input type="hidden" name="next" value="{{ request.url.path }}" />
+                <input type="image"
+                       class="undelete-comment"
+                       src="/static/images/action-undo.min.svg"
+                       alt="{{ 'Undelete comment' | tr }}"
+                       title="{{ 'Undelete comment' | tr }}"
+                       name="submit" value="1" width="11" height="11" />
+            </fieldset>
+        </form>
+{% endif %}

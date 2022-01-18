@@ -1,0 +1,28 @@
+<div id="lang_sub">
+    <form method="post" action="/language">
+        <fieldset>
+            <div>
+                <select id="id_setlang" name="set_lang">
+                    {% for domain, display in languages.items() %}
+                    <option
+                        value="{{ domain }}"
+                        {% if language == domain %}
+                        selected="selected"
+                        {% endif %}
+                    >
+                        {{ display }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                <!-- Pass our current url path as next. -->
+                <input type="hidden" name="next" value="{{ request.url.path }}">
+
+                <!-- Pass query_params over to /language via POST. -->
+                <input type="hidden" name="q" value="{{ request.query_params }}">
+
+                <input type="submit" value="Go">
+            </div>
+        </fieldset>
+    </form>
+</div>

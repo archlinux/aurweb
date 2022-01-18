@@ -1,10 +1,45 @@
+__pycache__/
+*.py[cod]
+.vim/
+.pylintrc
+.coverage
+.idea
+/cache/*
+/logs/*
+/build/
+/dist/
+/aurweb.egg-info/
+/personal/
+/notes/
+/vendor/
+/pyrightconfig.json
+/taskell.md
+aur.git/
+aurweb.sqlite3
+conf/config
+conf/config.sqlite
+conf/config.sqlite.defaults
+conf/docker
+conf/docker.defaults
+data.sql
 dummy-data.sql*
+env/
+fastapi_aw/
+htmlcov/
 po/*.mo
 po/*.po~
 po/POTFILES
-web/locale/*/
-aur.git/
-__pycache__/
-*.py[cod]
-test/test-results/
 schema/aur-schema-sqlite.sql
+test/test-results/
+test/trash directory*
+web/locale/*/
+web/html/*.gz
+
+# Do not stage compiled asciidoc: make -C doc
+doc/rpc.html
+
+# Ignore any user-configured .envrc files at the root.
+/.envrc
+
+# Ignore .python-version file from Pyenv
+.python-version

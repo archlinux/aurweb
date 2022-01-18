@@ -1,0 +1,46 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>{{ "Flagged Out-of-Date Comment: %s" | tr | format(pkgbase.Name) }}</h2>
+
+        {# Prepare wrapping for the username. #}
+        {% set wrap = ["", ""] %}
+        {% if request.user.is_authenticated() %}
+            {# When logged in, we wrap it with a link to the account. #}
+            {% set wrap = ['<a href="/account/%s">' | format(pkgbase.Flagger.Username), "</a>"] %}
+        {% endif %}
+
+        {# Prepare OutOfDateTS as a datetime object in the request user's timezone. #}
+        {% set flagged_at = pkgbase.OutOfDateTS | dt | as_timezone(timezone) %}
+        {% set username = "%s%s%s" | format(wrap[0], pkgbase.Flagger.Username, wrap[1]) %}
+
+        <p>
+            {{
+                "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the "
+                "following reason:"
+                | tr | format("<strong>", username, "</strong>",
+                              "<strong>", pkgbase.Name, "</strong>",
+                              "<strong>", flagged_at.strftime("%Y-%m-%d"), "</strong>")
+                | safe
+            }}
+        </p>
+
+        {# Padding #}
+        <p></p>
+
+        <div class="article-content">
+            <blockquote>
+                <p>{{ pkgbase.FlaggerComment }}</p>
+            </blockquote>
+        </div>
+
+        <form action="/pkgbase/{{ pkgbase.Name }}">
+            <input type="submit" value="{{ 'Return to Details' | tr }}" />
+        </form>
+
+        {# Padding #}
+        <p></p>
+
+    </div>
+{% endblock %}

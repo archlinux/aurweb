@@ -1,0 +1,14 @@
+pkgname={{ pkg.PackageBase.Name }}
+pkgver={{ pkg.Version }}
+pkgrel=1
+pkgdesc='{{ pkg.Description }}'
+url='{{ pkg.URL }}'
+arch='any'
+license=({{ licenses | join(" ") }})
+depends=({{ depends | join(" ") }})
+source=()
+md5sums=()
+
+package() {
+    {{ body }}
+}

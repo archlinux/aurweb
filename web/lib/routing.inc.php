@@ -15,6 +15,7 @@ $ROUTES = array(
 	'/logout' => 'logout.php',
 	'/passreset' => 'passreset.php',
 	'/rpc' => 'rpc.php',
+	'/rss/modified' => 'modified-rss.php',
 	'/rss' => 'rss.php',
 	'/tos' => 'tos.php',
 	'/tu' => 'tu.php',

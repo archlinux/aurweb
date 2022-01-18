@@ -1,0 +1,74 @@
+<div id="pkgdeps" class="listing">
+    <h3>{{ "Dependencies" | tr }} ({{ dependencies | length }})</h3>
+    <ul id="pkgdepslist">
+        {% for dep in dependencies %}
+            {# Collect provides for `dep`. #}
+            {% set provides = dep.provides() %}
+            <li>
+                {% set broken = not dep.is_package() %}
+                {% if broken %}
+                    {% if not provides %}
+                        <span class="broken">
+                    {% endif %}
+                {% else %}
+                    <a href="{{ dep.DepName | pkgname_link }}">
+                {% endif %}
+                    {{ dep.DepName }}
+                {% if broken %}
+                    {% if not provides %}
+                        </span>
+                    {% endif %}
+                {% else %}
+                    </a>
+                {% endif %}
+
+                {% if provides %}
+                    <em>({{ provides | provides_markup | safe }})</em>
+                {% endif %}
+
+                {% if dep.DepTypeID == 4 %}
+                    {# If this dependency type is an optdepends (id: 4). #}
+                    <em>{{ dep | dep_extra_desc }}</em>
+                {% else %}
+                    <em>{{ dep | dep_extra }}</em>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="pkgreqs" class="listing">
+    <h3>{{ "Required by" | tr }} ({{ required_by | length }})</h3>
+    <ul id="pkgreqslist">
+        {% for dep in required_by %}
+            <li>
+                <a href="{{ dep.Package | package_link }}">
+                    {{ dep.Package.Name }}
+                </a>
+
+                {% if dep.DepName != package.Name %}
+                    <span class="virtual-dep">
+                        ({{ "requires %s" | tr | format(dep.DepName) }})
+                    </span>
+                {% endif %}
+
+                <em>{{ dep | dep_extra }}</em>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="pkgfiles" class="listing">
+    <h3>{{ "Sources" | tr }} ({{ sources | length }})</h3>
+</div>
+
+<div>
+    <ul id="pkgsrcslist">
+        {% for src in sources %}
+            {% set file, uri = (src | source_uri) %}
+            <li>
+                <a href="{{ uri }}">{{ file }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

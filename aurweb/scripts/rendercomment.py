@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 
-import re
-import pygit2
 import sys
+
+from xml.etree.ElementTree import Element
+
 import bleach
 import markdown
+import pygit2
 
 import aurweb.config
-import aurweb.db
 
-repo_path = aurweb.config.get('serve', 'repo-path')
-commit_uri = aurweb.config.get('options', 'commit_uri')
+from aurweb import db, logging, util
+from aurweb.models import PackageComment
+
+logger = logging.get_logger(__name__)
 
 
 class LinkifyExtension(markdown.extensions.Extension):
@@ -24,7 +27,7 @@ class LinkifyExtension(markdown.extensions.Extension):
     _urlre = (r'(\b(?:https?|ftp):\/\/[\w\/\#~:.?+=&%@!\-;,]+?'
               r'(?=[.:?\-;,]*(?:[^\w\/\#~:.?+=&%@!\-;,]|$)))')
 
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md):
         processor = markdown.inlinepatterns.AutolinkInlineProcessor(self._urlre, md)
         # Register it right after the default <>-link processor (priority 120).
         md.inlinePatterns.register(processor, 'linkify', 119)
@@ -39,15 +42,15 @@ class FlysprayLinksInlineProcessor(markdown.inlinepatterns.InlineProcessor):
     """
 
     def handleMatch(self, m, data):
-        el = markdown.util.etree.Element('a')
+        el = Element('a')
         el.set('href', f'https://bugs.archlinux.org/task/{m.group(1)}')
         el.text = markdown.util.AtomicString(m.group(0))
-        return el, m.start(0), m.end(0)
+        return (el, m.start(0), m.end(0))
 
 
 class FlysprayLinksExtension(markdown.extensions.Extension):
-    def extendMarkdown(self, md, md_globals):
-        processor = FlysprayLinksInlineProcessor(r'\bFS#(\d+)\b',md)
+    def extendMarkdown(self, md):
+        processor = FlysprayLinksInlineProcessor(r'\bFS#(\d+)\b', md)
         md.inlinePatterns.register(processor, 'flyspray-links', 118)
 
 
@@ -60,9 +63,9 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
     considered.
     """
 
-    _repo = pygit2.Repository(repo_path)
-
     def __init__(self, md, head):
+        repo_path = aurweb.config.get('serve', 'repo-path')
+        self._repo = pygit2.Repository(repo_path)
         self._head = head
         super().__init__(r'\b([0-9a-f]{7,40})\b', md)
 
@@ -70,18 +73,14 @@ class GitCommitsInlineProcessor(markdown.inlinepatterns.InlineProcessor):
         oid = m.group(1)
         if oid not in self._repo:
             # Unkwown OID; preserve the orginal text.
-            return None, None, None
+            return (None, None, None)
 
-        prefixlen = 12
-        while prefixlen < 40:
-            if oid[:prefixlen] in self._repo:
-                break
-            prefixlen += 1
-
-        el = markdown.util.etree.Element('a')
+        el = Element('a')
+        commit_uri = aurweb.config.get("options", "commit_uri")
+        prefixlen = util.git_search(self._repo, oid)
         el.set('href', commit_uri % (self._head, oid[:prefixlen]))
         el.text = markdown.util.AtomicString(oid[:prefixlen])
-        return el, m.start(0), m.end(0)
+        return (el, m.start(0), m.end(0))
 
 
 class GitCommitsExtension(markdown.extensions.Extension):
@@ -91,9 +90,12 @@ class GitCommitsExtension(markdown.extensions.Extension):
         self._head = head
         super(markdown.extensions.Extension, self).__init__()
 
-    def extendMarkdown(self, md, md_globals):
-        processor = GitCommitsInlineProcessor(md, self._head)
-        md.inlinePatterns.register(processor, 'git-commits', 117)
+    def extendMarkdown(self, md):
+        try:
+            processor = GitCommitsInlineProcessor(md, self._head)
+            md.inlinePatterns.register(processor, 'git-commits', 117)
+        except pygit2.GitError:
+            logger.error(f"No git repository found for '{self._head}'.")
 
 
 class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
@@ -106,42 +108,46 @@ class HeadingTreeprocessor(markdown.treeprocessors.Treeprocessor):
 
 
 class HeadingExtension(markdown.extensions.Extension):
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md):
         # Priority doesn't matter since we don't conflict with other processors.
         md.treeprocessors.register(HeadingTreeprocessor(md), 'heading', 30)
 
 
-def get_comment(conn, commentid):
-    cur = conn.execute('SELECT PackageComments.Comments, PackageBases.Name '
-                       'FROM PackageComments INNER JOIN PackageBases '
-                       'ON PackageBases.ID = PackageComments.PackageBaseID '
-                       'WHERE PackageComments.ID = ?', [commentid])
-    return cur.fetchone()
+def save_rendered_comment(comment: PackageComment, html: str):
+    with db.begin():
+        comment.RenderedComment = html
 
 
-def save_rendered_comment(conn, commentid, html):
-    conn.execute('UPDATE PackageComments SET RenderedComment = ? WHERE ID = ?',
-                 [html, commentid])
+def update_comment_render_fastapi(comment: PackageComment) -> None:
+    update_comment_render(comment)
+
+
+def update_comment_render(comment: PackageComment) -> None:
+    text = comment.Comments
+    pkgbasename = comment.PackageBase.Name
+
+    html = markdown.markdown(text, extensions=[
+        'fenced_code',
+        LinkifyExtension(),
+        FlysprayLinksExtension(),
+        GitCommitsExtension(pkgbasename),
+        HeadingExtension()
+    ])
+
+    allowed_tags = (bleach.sanitizer.ALLOWED_TAGS
+                    + ['p', 'pre', 'h4', 'h5', 'h6', 'br', 'hr'])
+    html = bleach.clean(html, tags=allowed_tags)
+    save_rendered_comment(comment, html)
+    db.refresh(comment)
 
 
 def main():
-    commentid = int(sys.argv[1])
-
-    conn = aurweb.db.Connection()
-
-    text, pkgbase = get_comment(conn, commentid)
-    html = markdown.markdown(text, extensions=['fenced_code',
-                                               LinkifyExtension(),
-                                               FlysprayLinksExtension(),
-                                               GitCommitsExtension(pkgbase),
-                                               HeadingExtension()])
-    allowed_tags = (bleach.sanitizer.ALLOWED_TAGS +
-                    ['p', 'pre', 'h4', 'h5', 'h6', 'br', 'hr'])
-    html = bleach.clean(html, tags=allowed_tags)
-    save_rendered_comment(conn, commentid, html)
-
-    conn.commit()
-    conn.close()
+    db.get_engine()
+    comment_id = int(sys.argv[1])
+    comment = db.query(PackageComment).filter(
+        PackageComment.ID == comment_id
+    ).first()
+    update_comment_render(comment)
 
 
 if __name__ == '__main__':

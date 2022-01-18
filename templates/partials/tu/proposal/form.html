@@ -1,0 +1,14 @@
+<form class="action-form" action="/tu/{{ proposal }}" method="POST">
+    <!-- Translate each button's text but leave the value alone. -->
+    <fieldset>
+        <button type="submit" class="button" name="decision" value="Yes">
+            {{ "Yes" | tr }}
+        </button>
+        <button type="submit" class="button" name="decision" value="No">
+            {{ "No" | tr }}
+        </button>
+        <button type="submit" class="button" name="decision" value="Abstain">
+            {{ "Abstain" | tr }}
+        </button>
+    </fieldset>
+</form>

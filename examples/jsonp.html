@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- This file can be navigated to in a browser and used to
+test JSONP callback functionality in aurweb's RPC. -->
+<html lang="en">
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+
+        <title>JSONP Callback Test</title>
+            <style>
+            .container {
+                width: 460px;
+                margin: 0 auto;
+            }
+            .intro {
+                font-size: 14px;
+            }
+            .prefix-label, .search-label {
+                display: inline-block;
+                width: 200px;
+                text-align: right;
+            }
+            .button-wrapper {
+                text-align: center;
+                width: 460px;
+                margin-top: 10px;
+            }
+        </style>
+        <script type="text/javascript">
+            function rpcCallback(data) {
+                console.log(data);
+            }
+            function createJSONP(event) {
+                event.preventDefault();
+
+                let input = document.getElementById("arg").value;
+                let rpc = document.getElementById("prefix").value;
+                let s = document.createElement("script");
+                s.src = rpc + "?v=5&type=search&arg="+ input + "&callback=rpcCallback";
+                document.body.appendChild(s);
+
+                return false;
+            }
+        </script>
+    </head>
+
+    <body>
+        <form>
+            <div class="container">
+                <p class="intro">
+                    Searching with the following form uses a JSONP callback
+                    to log data out to the javascript console.
+                </p>
+
+                <div>
+                    <label class="prefix-label" for="prefix">RPC URL Prefix:</label>
+                    <input id="prefix" type="text" name="prefix"
+                           value="https://localhost:8444/rpc" />
+                </div>
+
+                <div>
+                    <label class="search-label" for="arg">Search:</label>
+                    <input id="arg" type="text" name="arg" />
+                </div>
+
+                <div class="button-wrapper">
+                    <button type="submit" onclick="return createJSONP(event)">
+                        Search via JSONP
+                    </button>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

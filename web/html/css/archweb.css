@@ -329,6 +329,7 @@ label {
 
 input[type=text],
 input[type=password],
+input[type=email],
 textarea {
     padding: 0.10em;
 }
@@ -554,6 +555,10 @@ h3 span.arrow {
     #pkg-updates .rss-icon {
         float: right;
         margin: -2em 0 0 0;
+    }
+
+    #pkg-updates .rss-icon.latest {
+        margin-right: 1em;
     }
 
     #pkg-updates table {

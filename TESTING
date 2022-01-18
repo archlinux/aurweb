@@ -5,32 +5,73 @@ Note that this setup is only to test the web interface. If you need to have a
 full aurweb instance with cgit, ssh interface, etc, follow the directions in
 INSTALL.
 
+docker-compose
+--------------
+
+1) Clone the aurweb project:
+
+    $ git clone https://gitlab.archlinux.org/archlinux/aurweb.git
+
+2) Install the necessary packages:
+
+    # pacman -S docker-compose
+
+2) Build the aurweb:latest image:
+
+    $ cd /path/to/aurweb/
+    $ docker-compose build
+
+3) Run local Docker development instance:
+
+    $ cd /path/to/aurweb/
+    $ docker-compose up -d nginx
+
+4) Browse to local aurweb development server.
+
+   Python: https://localhost:8444/
+   PHP: https://localhost:8443/
+
+Bare Metal
+----------
+
 1) Clone the aurweb project:
 
     $ git clone git://git.archlinux.org/aurweb.git
 
 2) Install the necessary packages:
 
-    # pacman -S --needed php php-sqlite sqlite words fortune-mod \
-                         python python-sqlalchemy python-alembic
+    # pacman -S python-poetry
 
-   Ensure to enable the pdo_sqlite extension in php.ini.
-
-3) Copy conf/config.defaults to conf/config and adjust the configuration
-   (pay attention to disable_http_login, enable_maintenance and aur_location).
-
-   Be sure to change backend to sqlite and name to the file location of your
-   created test database.
-
-4) Prepare the testing database:
+4) Install the package/dependencies via `poetry`:
 
     $ cd /path/to/aurweb/
-    $ python -m aurweb.initdb
+    $ poetry install
 
-    $ cd /path/to/aurweb/schema
-    $ ./gendummydata.py out.sql
-    $ sqlite3 path/to/aurweb.sqlite3 < out.sql
+3) Copy conf/config.dev to conf/config and replace YOUR_AUR_ROOT by the absolute
+   path to the root of your aurweb clone. sed can do both tasks for you:
 
-5) Run the PHP built-in web server:
+    $ sed -e "s;YOUR_AUR_ROOT;$PWD;g" conf/config.dev > conf/config
 
-   $ AUR_CONFIG='/path/to/aurweb/conf/config' php -S localhost:8080 -t /path/to/aurweb/web/html
+   Note that when the upstream config.dev is updated, you should compare it to
+   your conf/config, or regenerate your configuration with the command above.
+
+4) Prepare a database:
+
+    $ cd /path/to/aurweb/
+
+    $ AUR_CONFIG=conf/config poetry run python -m aurweb.initdb
+
+    $ poetry run schema/gendummydata.py dummy_data.sql
+    $ mysql -uaur -paur aurweb < dummy_data.sql
+
+5) Run the test server:
+
+   ## set AUR_CONFIG to our locally created config
+   $ export AUR_CONFIG=conf/config
+
+   ## with aurweb.spawn
+   $ poetry run python -m aurweb.spawn
+
+   ## with systemd service
+   $ sudo install -m644 examples/aurweb.service /etc/systemd/system/
+   $ systemctl enable --now aurweb.service

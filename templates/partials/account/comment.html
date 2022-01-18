@@ -1,0 +1,40 @@
+{% set header_cls = "comment-header" %}
+{% if comment.Deleter %}
+    {% set header_cls = "%s %s" | format(header_cls, "comment-deleted") %}
+{% endif %}
+
+{% if not comment.Deleter or request.user.has_credential(creds.COMMENT_VIEW_DELETED, approved=[comment.Deleter]) %}
+
+    {% set commented_at = comment.CommentTS | dt | as_timezone(timezone) %}
+    <h4 id="comment-{{ comment.ID }}" class="{{ header_cls }}">
+        {{
+            "Commented on package %s%s%s on %s%s%s" | tr
+            | format(
+                '<a href="/pkgbase/%s">' | format(comment.PackageBase.Name),
+                comment.PackageBase.Name,
+                "</a>",
+                '<a href="/account/%s/comments#comment-%s">' | format(
+                    username,
+                    comment.ID
+                ),
+                commented_at.strftime("%Y-%m-%d %H:%M"),
+                "</a>"
+            ) | safe
+        }}
+        {% if comment.Editor %}
+            {% set edited_on = comment.EditedTS | dt | as_timezone(timezone) %}
+            <span class="edited">
+                ({{ "edited on %s by %s" | tr
+                | format(edited_on.strftime('%Y-%m-%d %H:%M'),
+                '<a href="/account/%s">%s</a>' | format(
+                comment.Editor.Username, comment.Editor.Username))
+                | safe
+                }})
+            </span>
+        {% endif %}
+
+        {% include "partials/comment_actions.html" %}
+    </h4>
+
+    {% include "partials/comment_content.html" %}
+{% endif %}

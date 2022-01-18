@@ -13,22 +13,24 @@
 # go2sh <c.seitz@tu-bs.de>, 2015
 # Lukas Fleischer <transifex@cryptocrack.de>, 2011
 # Mark Gerlach, 2015
-# Mark Gerlach, 2015
+# a980e5e9ed6813c0751cebb84f7948a8_ff57647, 2015
 # Matthias Gorissen <matthias@archlinux.de>, 2012
 # Nuc1eoN <nucrap@hotmail.com>, 2014
 # Nuc1eoN <nucrap@hotmail.com>, 2014
 # Simon Legner <simon.legner@gmail.com>, 2018
 # Simon Schneider <SPAM.schneida@gmail.com>, 2011
-# Stefan Auditor <stefan.auditor@erdfisch.de>, 2017-2018,2020
+# Stefan Auditor <stefan@auditor.email>, 2021
+# Stefan Auditor <stefan@auditor.email>, 2017-2018,2020
 # Thomas_Do <thomasdodo@buche17.de>, 2013-2014
 # Thomas_Do <thomasdodo@buche17.de>, 2012-2013
+# Yunus Kahveci, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: aurweb\n"
 "Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
 "POT-Creation-Date: 2020-01-31 09:29+0100\n"
-"PO-Revision-Date: 2020-01-31 11:12+0000\n"
-"Last-Translator: Stefan Auditor <stefan.auditor@erdfisch.de>\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
 "Language-Team: German (http://www.transifex.com/lfleischer/aurweb/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +71,7 @@ msgstr "Dienst nicht verfügbar"
 #: html/503.php
 msgid ""
 "Don't panic! This site is down due to maintenance. We will be back soon."
-msgstr "Keine Panik! Diese Seite ist wegen Verwaltungs-Aufgaben geschlossen. Wir werden gleich zurück sein."
+msgstr "Keine Panik! Diese Seite ist wegen Wartungsarbeiten geschlossen. Wir werden gleich zurück sein."
 
 #: html/account.php
 msgid "Account"
@@ -283,7 +285,7 @@ msgid ""
 "Request a package to be removed from the Arch User Repository. Please do not"
 " use this if a package is broken and can be fixed easily. Instead, contact "
 "the package maintainer and file orphan request if necessary."
-msgstr "Anfrage zum Entfernen eines Pakets aus dem Arch User Repository. Bitte benutze diese nicht, wenn das Paket kaputt ist und leich repariert werden kann. Sondern kontaktiere den Maintainer und reiche eine Verwaisungsanfrage ein, wenn nötig."
+msgstr "Anfrage zum Entfernen eines Pakets aus dem Arch User Repository. Bitte benutze diese nicht, wenn das Paket kaputt ist und leicht repariert werden kann. Kontaktiere stattdessen den Maintainer und reiche eine Verwaisungsanfrage ein, wenn nötig."
 
 #: html/home.php
 msgid "Merge Request"
@@ -473,7 +475,7 @@ msgstr "Weiter"
 msgid ""
 "If you have forgotten the user name and the primary e-mail address you used "
 "to register, please send a message to the %saur-general%s mailing list."
-msgstr ""
+msgstr "Wenn Du den bei der Registrierung vernwendeten Benutzernamen und primäre E-Mail-Adresse vergessen hast, sende bitte eine Nachricht an die %saur-general%s Mailingliste."
 
 #: html/passreset.php
 msgid "Enter your user name or your primary e-mail address:"
@@ -488,6 +490,12 @@ msgid ""
 "The selected packages have not been disowned, check the confirmation "
 "checkbox."
 msgstr "Die Betreuung der ausgewählten Pakete wurde nicht abgegeben, überprüfe die Bestätigungs-Checkbox."
+
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr "Die ausgewählten Pakete wurden nicht übernommen, überprüfe die Bestätigungs-Checkbox."
 
 #: html/pkgbase.php lib/pkgreqfuncs.inc.php
 msgid "Cannot find package to merge votes and comments into."
@@ -577,7 +585,7 @@ msgstr "Gebe Paket ab"
 
 #: html/pkgdisown.php
 msgid "Only Trusted Users and Developers can disown packages."
-msgstr "Nur Tus und Developer können die Paket-Betreuung abgeben."
+msgstr "Nur TUs und Developer können die Paket-Betreuung abgeben."
 
 #: html/pkgflagcomment.php
 msgid "Flag Comment"
@@ -586,6 +594,14 @@ msgstr "Kommentar markieren"
 #: html/pkgflag.php
 msgid "Flag Package Out-Of-Date"
 msgstr "Paket als \"veraltet\" markieren"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr "Dies ist scheinbar ein VCS Paket. Bitte markiere es %snicht%s als veraltet, wenn die Paket-Version im AUR nicht dem letzten Commit entspricht. Dieses Paket sollte nur dann markiert werden, wenn die Quellen verschoben wurden oder Änderungen aufgrund kürzlicher Änderungen Upstream im PKGBUILD notwendig sind."
 
 #: html/pkgflag.php
 #, php-format
@@ -883,6 +899,10 @@ msgstr "Das Loginformular ist aktuell für deine IP-Adresse deaktiviert. Ein mö
 msgid "Account suspended"
 msgstr "Konto aufgehoben"
 
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr "Du hast keine Berechtigung Kontos zu sperren."
+
 #: lib/acctfuncs.inc.php
 #, php-format
 msgid ""
@@ -968,6 +988,30 @@ msgstr "Fehler beim Aufrufen der Paket-Details."
 msgid "Package details could not be found."
 msgstr "Paket-Details konnten nicht gefunden werden."
 
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr "Du hast keine Pakete ausgewählt über die Du benachrichtigt werden möchtest."
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr "Die Benachrichtigungen wurden für das ausgewählte Paket aktiviert."
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr "Du hast keine Pakete ausgewählt über die Du nicht mehr benachrichtigt werden möchtest."
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr "Ein Paket das Du ausgewählt hast hat keine Benachrichtigungen aktiviert."
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr "Die Benachrichtigungen wurden für das ausgewählte Paket entfernt."
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can flag packages."
 msgstr "Du musst Dich anmelden, um Pakete markieren zu können."
@@ -1004,6 +1048,10 @@ msgstr "Du hast keine Berechtigung zum Löschen von Paketen."
 msgid "You did not select any packages to delete."
 msgstr "Du hast keine Pakete zum Löschen ausgewählt."
 
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr "Eines der ausgewählten Pakete existiert nicht."
+
 #: lib/pkgbasefuncs.inc.php
 msgid "The selected packages have been deleted."
 msgstr "Die gewählten Pakete wurden gelöscht."
@@ -1012,9 +1060,17 @@ msgstr "Die gewählten Pakete wurden gelöscht."
 msgid "You must be logged in before you can adopt packages."
 msgstr "Du musst angemeldet sein, um Pakete übernehmen zu können."
 
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr "Du hast keine Berechtigung eines der ausgewählten Pakete zu übernehmen."
+
 #: lib/pkgbasefuncs.inc.php
 msgid "You must be logged in before you can disown packages."
 msgstr "Du musst anmeldet sein, um die Betreuung eines Pakets abzugeben."
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr "Du hast keine Berechtigung eines der ausgewählten Pakete abzugeben."
 
 #: lib/pkgbasefuncs.inc.php
 msgid "You did not select any packages to adopt."
@@ -1271,7 +1327,7 @@ msgstr "Klicke %shere%s für Benutzerdetails."
 #: template/account_edit_form.php
 #, php-format
 msgid "Click %shere%s to list the comments made by this account."
-msgstr ""
+msgstr "Klicke %shier%s um die Kommentare aufzulisten, die dieser Benutzer gemacht hat."
 
 #: template/account_edit_form.php
 msgid "required"
@@ -1314,7 +1370,7 @@ msgid ""
 "If you do not hide your email address, it is visible to all registered AUR "
 "users. If you hide your email address, it is visible to members of the Arch "
 "Linux staff only."
-msgstr ""
+msgstr "Wenn Du Deine E-Mail-Adresse nicht versteckst, ist sie für alle registrierten AUR Benutzer sichtbar. Wenn Du sie versteckst, ist sie nur für Arch Linux Mitarbeiter sichtbar."
 
 #: template/account_edit_form.php
 msgid "Backup Email Address"
@@ -1324,20 +1380,20 @@ msgstr "Sicherungs E-Mail-Adresse"
 msgid ""
 "Optionally provide a secondary email address that can be used to restore "
 "your account in case you lose access to your primary email address."
-msgstr ""
+msgstr "Gib optional eine sekundäre E-Mail-Adresse an, mit der Du Dein Konto wiederherstellen kannst, falls der Zugriff auf die primäre E-Mail-Adresse verloren geht."
 
 #: template/account_edit_form.php
 msgid ""
 "Password reset links are always sent to both your primary and your backup "
 "email address."
-msgstr ""
+msgstr "Links zum Zurücksetzen des Passworts werden immer sowohl an die primäre als auch an die Backup-E-Mail-Adresse gesendet."
 
 #: template/account_edit_form.php
 #, php-format
 msgid ""
 "Your backup email address is always only visible to members of the Arch "
 "Linux staff, independent of the %s setting."
-msgstr ""
+msgstr "Die Backup-E-Mail-Adresse nur für die Arch Linux Mitarbeiter sichtbar, unabhängig von der %s-Einstellung."
 
 #: template/account_edit_form.php
 msgid "Language"
@@ -1351,7 +1407,7 @@ msgstr "Zeitzone"
 msgid ""
 "If you want to change the password, enter a new password and confirm the new"
 " password by entering it again."
-msgstr ""
+msgstr "Willst Du das Passwort ändern, gib ein neues Passwort ein und bestätige das neue Passwort durch erneute Eingabe."
 
 #: template/account_edit_form.php
 msgid "Re-type password"
@@ -1395,7 +1451,7 @@ msgstr "Dein aktuelles Passwort"
 msgid ""
 "To protect the AUR against automated account creation, we kindly ask you to "
 "provide the output of the following command:"
-msgstr ""
+msgstr "Um das AUR gegen automatische Benutzer-Erstellung zu schützen, gib bitte die Ausgabe folgenden Befehls an:"
 
 #: template/account_edit_form.php
 msgid "Answer"
@@ -1614,7 +1670,7 @@ msgstr "Kommentar hinzufügen"
 msgid ""
 "Git commit identifiers referencing commits in the AUR package repository and"
 " URLs are converted to links automatically."
-msgstr ""
+msgstr "Git Commit-Kennungen, die einen Commit in einem AUR Paket referenzieren und URLs werden automatisch in Links umgewandelt."
 
 #: template/pkg_comment_form.php
 #, php-format
@@ -1646,7 +1702,7 @@ msgstr "Anonym kommentierte %s"
 #: template/pkg_comments.php
 #, php-format
 msgid "Commented on package %s on %s"
-msgstr ""
+msgstr "Kommentiert auf Paket %s am %s"
 
 #: template/pkg_comments.php
 #, php-format
@@ -2198,7 +2254,7 @@ msgstr "AUR Besitzer Benachrichtigung für {pkgbase}"
 #: scripts/notify.py
 #, python-brace-format
 msgid "The package {pkgbase} [1] was adopted by {user} [2]."
-msgstr "Das Paket {pkgbase} [1] wurde von {user} [2] adoptiert."
+msgstr "Das Paket {pkgbase} [1] wurde von {user} [2] übernommen."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2232,7 +2288,7 @@ msgid ""
 "\n"
 "-- \n"
 "If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
-msgstr ""
+msgstr "{user} [1] führte {old} [2] in {new} [3] zusammen.\n\n-- \nWenn Du Benachrichtigungen über das neue Paket nicht mehr erhalten möchtest, gehe bitte auf [3] und klicke \"{label}\"."
 
 #: scripts/notify.py
 #, python-brace-format
@@ -2253,3 +2309,48 @@ msgid ""
 "Please remember to cast your vote on proposal {id} [1]. The voting period "
 "ends in less than 48 hours."
 msgstr "Bitte denke daran für Vorschlag {id} [1] deine Stimme anzugeben. Die Abstimmungspriode endet in weniger als 48 Stunden."
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr "Ungültiger Account-Typ bereitgestellt."
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr "Du hast keine Berechtigung Konto-Typen zu ändern."
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr "Du hast keine Berechtigung, den Konto-Typ dieses Benutzers zu %s zu ändern."
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""

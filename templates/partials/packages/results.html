@@ -1,0 +1,57 @@
+
+<table {% if table_id %}id="{{ table_id }}"{% endif %} class="results">
+    <thead>
+        <tr>
+            <th>{{ "Name" | tr }}</th>
+            <th>{{ "Version" | tr }}</th>
+            <th>{{ "Votes" | tr }}</th>
+            <th>{{ "Popularity" | tr }}</th>
+            {% if request.user.is_authenticated() %}
+                <th>{{ "Voted" | tr }}</th>
+                <th>{{ "Notify" | tr }}</th>
+            {% endif %}
+            <th>{{ "Description" | tr }}</th>
+            <th>{{ "Maintainer" | tr }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pkg in packages %}
+            {% set flagged = pkg.PackageBase.OutOfDateTS %}
+            <tr>
+                <td>
+                    <a href="/packages/{{ pkg.Name }}">
+                        {{ pkg.Name }}
+                    </a>
+                </td>
+                <td{% if flagged %} class="flagged"{% endif %}>{{ pkg.Version }}</td>
+                <td>{{ pkg.PackageBase.NumVotes }}</td>
+                <td>{{ pkg.PackageBase.Popularity | number_format(2) }}</td>
+                {% if request.user.is_authenticated() %}
+                    <td>
+                        {# If I voted, display "Yes". #}
+                        {% if pkg.PackageBase.ID in votes %}
+                            {{ "Yes" | tr }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {# If I'm being notified, display "Yes". #}
+                        {% if pkg.PackageBase.ID in notified %}
+                            {{ "Yes" | tr }}
+                        {% endif %}
+                    </td>
+                {% endif %}
+                <td class="wrap">{{ pkg.Description or '' }}</td>
+                <td>
+                    {% set maintainer = pkg.PackageBase.Maintainer %}
+                    {% if maintainer %}
+                        <a href="/account/{{ maintainer.Username }}">
+                            {{ maintainer.Username }}
+                        </a>
+                    {% else %}
+                        <span class="error">{{ "orphan" | tr }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

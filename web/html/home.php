@@ -74,9 +74,9 @@ if (isset($_COOKIE["AURSID"])) {
 			<?php
 			echo __(
 				'Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU Guidelines%s for more information.',
-				'<a href="https://wiki.archlinux.org/index.php/AUR_User_Guidelines">',
+				'<a href="https://wiki.archlinux.org/title/AUR_User_Guidelines">',
 				'</a>',
-				'<a href="https://wiki.archlinux.org/index.php/AUR_Trusted_User_Guidelines">',
+				'<a href="https://wiki.archlinux.org/title/AUR_Trusted_User_Guidelines">',
 				'</a>'
 				);
 			?>
@@ -84,7 +84,7 @@ if (isset($_COOKIE["AURSID"])) {
 			echo __(
 				'Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s otherwise they will be deleted!',
 				'<strong>', '</strong>',
-				'<a href="https://wiki.archlinux.org/index.php/Arch_Packaging_Standards">',
+				'<a href="https://wiki.archlinux.org/title/Arch_Packaging_Standards">',
 				'</a>'
 				);
 			?>
@@ -95,7 +95,7 @@ if (isset($_COOKIE["AURSID"])) {
 			<?= __('DISCLAIMER') ?>:
 			<?= __('AUR packages are user produced content. Any use of the provided files is at your own risk.'); ?>
 			</p>
-			<p class="readmore"><a href="https://wiki.archlinux.org/index.php/AUR"><?= __('Learn more...') ?></a></p>
+			<p class="readmore"><a href="https://wiki.archlinux.org/title/AUR"><?= __('Learn more...') ?></a></p>
 		</div>
 		<div id="news">
 			<h3><a><?= __('Support') ?></a><span class="arrow"></span></h3>
@@ -131,7 +131,7 @@ if (isset($_COOKIE["AURSID"])) {
 			<?php
 			echo __(
 				'Git over SSH is now used to submit packages to the AUR. See the %sSubmitting packages%s section of the Arch User Repository ArchWiki page for more details.',
-				'<a href="https://wiki.archlinux.org/index.php/Arch_User_Repository#Submitting_packages">',
+				'<a href="https://wiki.archlinux.org/title/Arch_User_Repository#Submitting_packages">',
 				'</a>'
 				);
 			?>
@@ -185,7 +185,7 @@ if (isset($_COOKIE["AURSID"])) {
 			<fieldset>
 				<label for="pkgsearch-field"><?= __('Package Search') ?>:</label>
 				<input type="hidden" name="O" value="0" />
-				<input id="pkgsearch-field" type="text" name="K" size="30" value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength="35" />
+				<input id="pkgsearch-field" type="text" name="K" size="30" value="<?php if (isset($_REQUEST["K"])) { print stripslashes(trim(htmlspecialchars($_REQUEST["K"], ENT_QUOTES))); } ?>" maxlength="35" autocomplete="off"/>
 			</fieldset>
 		</form>
 	</div>
@@ -202,34 +202,13 @@ if (isset($_COOKIE["AURSID"])) {
 	<?php endif; ?>
 
 </div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap-typeahead.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#pkgsearch-field').typeahead({
-        source: function(query, callback) {
-            $.getJSON('<?= get_uri('/rpc'); ?>', {type: "suggest", arg: query}, function(data) {
-                callback(data);
-            });
-        },
-        matcher: function(item) { return true; },
-        sorter: function(items) { return items; },
-        menu: '<ul class="pkgsearch-typeahead"></ul>',
-        items: 20,
-        updater: function(item) {
-            document.location = '/packages/' + item;
-            return item;
-	}
-    }).attr('autocomplete', 'off');
-
-    $('#pkgsearch-field').keydown(function(e) {
-        if (e.keyCode == 13) {
-            var selectedItem = $('ul.pkgsearch-typeahead li.active');
-            if (selectedItem.length == 0) {
-                $('#pkgsearch-form').submit();
-            }
-        }
-    });
+<script type="text/javascript" src="/js/typeahead.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const input = document.getElementById('pkgsearch-field');
+	const form = document.getElementById('pkgsearch-form');
+	const type = "suggest";
+	typeahead.init(type, input, form);
 });
 </script>
 <?php

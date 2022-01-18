@@ -1,0 +1,15 @@
+
+{% set article_cls = "article-content" %}
+{% if comment.Deleter %}
+    {% set article_cls = "%s %s" | format(article_cls, "comment-deleted") %}
+{% endif %}
+
+<div id="comment-{{ comment.ID }}-content" class="{{ article_cls }}">
+    <div>
+        {% if comment.RenderedComment %}
+            {{ comment.RenderedComment | safe }}
+        {% else %}
+            {{ comment.Comments }}
+        {% endif %}
+    </div>
+</div>

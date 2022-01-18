@@ -1,0 +1,63 @@
+<div id="archdev-navbar">
+    <ul>
+        {% if request.user.is_authenticated() %}
+            {# Only authenticated users get Dashboard #}
+            <li><a href="/">{% trans %}Dashboard{% endtrans %}</a></li>
+        {% else %}
+            {# Only guest users get Home #}
+            <li><a href="/">AUR {% trans %}Home{% endtrans %}</a></li>
+        {% endif %}
+
+        {# All users see Packages #}
+        <li><a href="/packages">{% trans %}Packages{% endtrans %}</a></li>
+
+        {% if request.user.is_authenticated() %}
+
+            {# All users can see Requests #}
+            <li>
+                <a href="/requests">
+                    {% trans %}Requests{% endtrans %}
+                </a>
+            </li>
+
+            {# Only CRED_ACCOUNT_SEARCH privileged users see Accounts #}
+            {% if request.user.has_credential(creds.ACCOUNT_SEARCH) %}
+                <li>
+                    <a href="/accounts">
+                        {% trans %}Accounts{% endtrans %}
+                    </a>
+                </li>
+            {% endif %}
+
+            {# All users see My Account #}
+            <li>
+                <a href="/account/{{ request.user.Username }}/edit">
+                    {% trans %}My Account{% endtrans %}
+                </a>
+            </li>
+
+            {# Only CRED_TU_LIST_VOTES privileged users see Trusted User #}
+            {% if request.user.has_credential(creds.TU_LIST_VOTES) %}
+                <li>
+                    <a href="/tu">{% trans %}Trusted User{% endtrans %}</a>
+                </li>
+            {% endif %}
+
+            {# All logged in users see Logout #}
+            <li>
+                <form action="/logout" method="post" class="link">
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    <button type="submit">
+                        {% trans %}Logout{% endtrans %}
+                    </button>
+                </form>
+            </li>
+        {% else %}
+            {# All guest users see Register #}
+            <li><a href="/register">{% trans %}Register{% endtrans %}</a></li>
+
+            {# All guest users see Login #}
+            <li><a href="/login?next={{ next }}">{% trans %}Login{% endtrans %}</a></li>
+        {% endif %}
+    </ul>
+</div>

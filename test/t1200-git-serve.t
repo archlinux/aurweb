@@ -2,14 +2,14 @@
 
 test_description='git-serve tests'
 
-. "$(dirname "$0")/setup.sh"
+. "$(dirname $0)/setup.sh"
 
 test_expect_success 'Test interactive shell.' '
-	"$GIT_SERVE" 2>&1 | grep -q "Interactive shell is disabled."
+	cover "$GIT_SERVE" 2>&1 | grep -q "Interactive shell is disabled."
 '
 
 test_expect_success 'Test help.' '
-	SSH_ORIGINAL_COMMAND=help "$GIT_SERVE" 2>actual &&
+	SSH_ORIGINAL_COMMAND=help cover "$GIT_SERVE" 2>actual &&
 	save_IFS=$IFS
 	IFS=
 	while read -r line; do
@@ -25,7 +25,7 @@ test_expect_success 'Test maintenance mode.' '
 	sed "s/^\(enable-maintenance = \)0$/\\11/" config.old >config &&
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND=help \
-	"$GIT_SERVE" 2>actual &&
+	cover "$GIT_SERVE" 2>actual &&
 	cat >expected <<-EOF &&
 	The AUR is down due to maintenance. We will be back soon.
 	EOF
@@ -34,7 +34,7 @@ test_expect_success 'Test maintenance mode.' '
 '
 
 test_expect_success 'Test IP address logging.' '
-	SSH_ORIGINAL_COMMAND=help AUR_USER=user "$GIT_SERVE" 2>actual &&
+	SSH_ORIGINAL_COMMAND=help AUR_USER=user cover "$GIT_SERVE" 2>actual &&
 	cat >expected <<-EOF &&
 	1.2.3.4
 	EOF
@@ -48,7 +48,7 @@ test_expect_success 'Test IP address bans.' '
 	SSH_CLIENT="1.3.3.7 1337 22" &&
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND=help \
-	"$GIT_SERVE" 2>actual &&
+	cover "$GIT_SERVE" 2>actual &&
 	cat >expected <<-EOF &&
 	The SSH interface is disabled for your IP address.
 	EOF
@@ -58,14 +58,14 @@ test_expect_success 'Test IP address bans.' '
 
 test_expect_success 'Test setup-repo and list-repos.' '
 	SSH_ORIGINAL_COMMAND="setup-repo foobar" AUR_USER=user \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="setup-repo foobar2" AUR_USER=tu \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	*foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
@@ -77,7 +77,7 @@ test_expect_success 'Test git-receive-pack.' '
 	EOF
 	SSH_ORIGINAL_COMMAND="git-receive-pack /foobar.git/" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
@@ -85,7 +85,7 @@ test_expect_success 'Test git-receive-pack with an invalid repository name.' '
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="git-receive-pack /!.git/" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual
+	cover "$GIT_SERVE" 2>&1 >actual
 '
 
 test_expect_success "Test git-upload-pack." '
@@ -96,7 +96,7 @@ test_expect_success "Test git-upload-pack." '
 	EOF
 	SSH_ORIGINAL_COMMAND="git-upload-pack /foobar.git/" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
@@ -108,7 +108,7 @@ test_expect_success "Try to pull from someone else's repository." '
 	EOF
 	SSH_ORIGINAL_COMMAND="git-upload-pack /foobar2.git/" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
@@ -116,7 +116,7 @@ test_expect_success "Try to push to someone else's repository." '
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="git-receive-pack /foobar2.git/" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1
+	cover "$GIT_SERVE" 2>&1
 '
 
 test_expect_success "Try to push to someone else's repository as Trusted User." '
@@ -127,7 +127,7 @@ test_expect_success "Try to push to someone else's repository as Trusted User." 
 	EOF
 	SSH_ORIGINAL_COMMAND="git-receive-pack /foobar.git/" \
 	AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
@@ -139,40 +139,40 @@ test_expect_success "Test restore." '
 	foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="restore foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual
+	cover "$GIT_SERVE" 2>&1 >actual
 	test_cmp expected actual
 '
 
 test_expect_success "Try to restore an existing package base." '
 	test_must_fail \
-	env SSH_ORIGINAL_COMMAND="restore foobar2" \
+	env SSH_ORIGINAL_COMMAND="restore foobar2"\
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1
+	cover "$GIT_SERVE" 2>&1
 '
 
 test_expect_success "Disown all package bases." '
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="disown foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
 test_expect_success "Adopt a package base as a regular user." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	*foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
@@ -180,119 +180,119 @@ test_expect_success "Adopt an already adopted package base." '
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="adopt foobar" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1
+	cover "$GIT_SERVE" 2>&1
 '
 
 test_expect_success "Adopt a package base as a Trusted User." '
 	SSH_ORIGINAL_COMMAND="adopt foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	*foobar2
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
 test_expect_success "Disown one's own package base as a regular user." '
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
 test_expect_success "Disown one's own package base as a Trusted User." '
 	SSH_ORIGINAL_COMMAND="disown foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual
 '
 
 test_expect_success "Try to steal another user's package as a regular user." '
 	SSH_ORIGINAL_COMMAND="adopt foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="adopt foobar2" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	cat >expected <<-EOF &&
 	*foobar2
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	SSH_ORIGINAL_COMMAND="disown foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1
+	cover "$GIT_SERVE" 2>&1
 '
 
 test_expect_success "Try to steal another user's package as a Trusted User." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	cat >expected <<-EOF &&
 	*foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1
+	cover "$GIT_SERVE" 2>&1
 '
 
 test_expect_success "Try to disown another user's package as a regular user." '
 	SSH_ORIGINAL_COMMAND="adopt foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="disown foobar2" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	*foobar2
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	SSH_ORIGINAL_COMMAND="disown foobar2" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1
+	cover "$GIT_SERVE" 2>&1
 '
 
 test_expect_success "Try to disown another user's package as a Trusted User." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1
+	cover "$GIT_SERVE" 2>&1
 '
 
 test_expect_success "Adopt a package base and add co-maintainers." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="set-comaintainers foobar user3 user4" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	5|3|1
 	6|3|2
@@ -305,7 +305,7 @@ test_expect_success "Adopt a package base and add co-maintainers." '
 test_expect_success "Update package base co-maintainers." '
 	SSH_ORIGINAL_COMMAND="set-comaintainers foobar user2 user3 user4" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	4|3|1
 	5|3|2
@@ -320,7 +320,7 @@ test_expect_success "Try to add co-maintainers to an orphan package base." '
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="set-comaintainers foobar2 user2 user3 user4" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	4|3|1
 	5|3|2
@@ -333,12 +333,12 @@ test_expect_success "Try to add co-maintainers to an orphan package base." '
 
 test_expect_success "Disown a package base and check (co-)maintainer list." '
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	*foobar
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user2 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	cat >expected <<-EOF &&
 	5|3|1
@@ -351,11 +351,11 @@ test_expect_success "Disown a package base and check (co-)maintainer list." '
 
 test_expect_success "Force-disown a package base and check (co-)maintainer list." '
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=tu AUR_PRIVILEGED=1 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	SSH_ORIGINAL_COMMAND="list-repos" AUR_USER=user3 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 >actual &&
+	cover "$GIT_SERVE" 2>&1 >actual &&
 	test_cmp expected actual &&
 	cat >expected <<-EOF &&
 	EOF
@@ -366,7 +366,7 @@ test_expect_success "Force-disown a package base and check (co-)maintainer list.
 
 test_expect_success "Check whether package requests are closed when disowning." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat <<-EOD | sqlite3 aur.db &&
 	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (1, 2, 3, "foobar", 4, "", "");
 	INSERT INTO PackageRequests (ID, ReqTypeID, PackageBaseID, PackageBaseName, UsersID, Comments, ClosureComment) VALUES (2, 3, 3, "foobar", 5, "", "");
@@ -374,7 +374,7 @@ test_expect_success "Check whether package requests are closed when disowning." 
 	EOD
 	>sendmail.out &&
 	SSH_ORIGINAL_COMMAND="disown foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat <<-EOD >expected &&
 	Subject: [PRQ#1] Orphan Request for foobar Accepted
 	EOD
@@ -389,7 +389,7 @@ test_expect_success "Check whether package requests are closed when disowning." 
 
 test_expect_success "Flag a package base out-of-date." '
 	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	1|Because.
 	EOF
@@ -400,7 +400,7 @@ test_expect_success "Flag a package base out-of-date." '
 
 test_expect_success "Unflag a package base as flagger." '
 	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user2 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	0|Because.
 	EOF
@@ -411,11 +411,11 @@ test_expect_success "Unflag a package base as flagger." '
 
 test_expect_success "Unflag a package base as maintainer." '
 	SSH_ORIGINAL_COMMAND="adopt foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	0|Because.
 	EOF
@@ -426,9 +426,9 @@ test_expect_success "Unflag a package base as maintainer." '
 
 test_expect_success "Unflag a package base as random user." '
 	SSH_ORIGINAL_COMMAND="flag foobar Because." AUR_USER=user2 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user3 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	1|Because.
 	EOF
@@ -439,11 +439,11 @@ test_expect_success "Unflag a package base as random user." '
 
 test_expect_success "Flag using a comment which is too short." '
 	SSH_ORIGINAL_COMMAND="unflag foobar" AUR_USER=user2 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="flag foobar xx" \
 	AUR_USER=user2 AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	0|Because.
 	EOF
@@ -454,7 +454,7 @@ test_expect_success "Flag using a comment which is too short." '
 
 test_expect_success "Vote for a package base." '
 	SSH_ORIGINAL_COMMAND="vote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	3|1
 	EOF
@@ -472,7 +472,7 @@ test_expect_success "Vote for a package base." '
 test_expect_success "Vote for a package base twice." '
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="vote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	3|1
 	EOF
@@ -489,7 +489,7 @@ test_expect_success "Vote for a package base twice." '
 
 test_expect_success "Remove vote from a package base." '
 	SSH_ORIGINAL_COMMAND="unvote foobar" AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \
@@ -507,7 +507,7 @@ test_expect_success "Try to remove the vote again." '
 	test_must_fail \
 	env SSH_ORIGINAL_COMMAND="unvote foobar" \
 	AUR_USER=user AUR_PRIVILEGED=0 \
-	"$GIT_SERVE" 2>&1 &&
+	cover "$GIT_SERVE" 2>&1 &&
 	cat >expected <<-EOF &&
 	EOF
 	echo "SELECT PackageBaseID, UsersID FROM PackageVotes;" | \

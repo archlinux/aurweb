@@ -6,7 +6,7 @@ usually be automatically generated. See `migrations/README` for details.
 """
 
 
-from sqlalchemy import CHAR, Column, ForeignKey, Index, MetaData, String, TIMESTAMP, Table, Text, text
+from sqlalchemy import CHAR, TIMESTAMP, Column, ForeignKey, Index, MetaData, String, Table, Text, text
 from sqlalchemy.dialects.mysql import BIGINT, DECIMAL, INTEGER, TINYINT
 from sqlalchemy.ext.compiler import compiles
 
@@ -16,19 +16,19 @@ db_backend = aurweb.config.get("database", "backend")
 
 
 @compiles(TINYINT, 'sqlite')
-def compile_tinyint_sqlite(type_, compiler, **kw):
+def compile_tinyint_sqlite(type_, compiler, **kw):  # pragma: no cover
     """TINYINT is not supported on SQLite. Substitute it with INTEGER."""
     return 'INTEGER'
 
 
 @compiles(BIGINT, 'sqlite')
-def compile_bigint_sqlite(type_, compiler, **kw):
+def compile_bigint_sqlite(type_, compiler, **kw):  # pragma: no cover
     """
     For SQLite's AUTOINCREMENT to work on BIGINT columns, we need to map BIGINT
     to INTEGER. Aside from that, BIGINT is the same as INTEGER for SQLite.
 
     See https://docs.sqlalchemy.org/en/13/dialects/sqlite.html#allowing-autoincrement-behavior-sqlalchemy-types-other-than-integer-integer
-    """
+    """  # noqa: E501
     return 'INTEGER'
 
 
@@ -107,7 +107,10 @@ PackageBases = Table(
     Column('ID', INTEGER(unsigned=True), primary_key=True),
     Column('Name', String(255), nullable=False, unique=True),
     Column('NumVotes', INTEGER(unsigned=True), nullable=False, server_default=text("0")),
-    Column('Popularity', DECIMAL(10, 6, unsigned=True), nullable=False, server_default=text("0")),
+    Column('Popularity',
+           DECIMAL(10, 6, unsigned=True)
+           if db_backend == "mysql" else String(17),
+           nullable=False, server_default=text("0")),
     Column('OutOfDateTS', BIGINT(unsigned=True)),
     Column('FlaggerComment', Text, nullable=False),
     Column('SubmittedTS', BIGINT(unsigned=True), nullable=False),
@@ -130,7 +133,7 @@ PackageBases = Table(
 # Keywords of package bases
 PackageKeywords = Table(
     'PackageKeywords', metadata,
-    Column('PackageBaseID', ForeignKey('PackageBases.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
+    Column('PackageBaseID', ForeignKey('PackageBases.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
     Column('Keyword', String(255), primary_key=True, nullable=False, server_default=text("''")),
     mysql_engine='InnoDB',
     mysql_charset='utf8mb4',
@@ -167,8 +170,8 @@ Licenses = Table(
 # Information about package-license-relations
 PackageLicenses = Table(
     'PackageLicenses', metadata,
-    Column('PackageID', ForeignKey('Packages.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
-    Column('LicenseID', ForeignKey('Licenses.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
+    Column('PackageID', ForeignKey('Packages.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
+    Column('LicenseID', ForeignKey('Licenses.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
     mysql_engine='InnoDB',
 )
 
@@ -187,8 +190,8 @@ Groups = Table(
 # Information about package-group-relations
 PackageGroups = Table(
     'PackageGroups', metadata,
-    Column('PackageID', ForeignKey('Packages.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
-    Column('GroupID', ForeignKey('Groups.ID', ondelete='CASCADE'), primary_key=True, nullable=False),
+    Column('PackageID', ForeignKey('Packages.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
+    Column('GroupID', ForeignKey('Groups.ID', ondelete='CASCADE'), primary_key=True, nullable=True),
     mysql_engine='InnoDB',
 )
 
@@ -383,12 +386,15 @@ TU_VoteInfo = Table(
     Column('User', String(32), nullable=False),
     Column('Submitted', BIGINT(unsigned=True), nullable=False),
     Column('End', BIGINT(unsigned=True), nullable=False),
-    Column('Quorum', DECIMAL(2, 2, unsigned=True), nullable=False),
+    Column('Quorum',
+           DECIMAL(2, 2, unsigned=True)
+           if db_backend == "mysql" else String(5),
+           nullable=False),
     Column('SubmitterID', ForeignKey('Users.ID', ondelete='CASCADE'), nullable=False),
-    Column('Yes', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),
-    Column('No', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),
-    Column('Abstain', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),
-    Column('ActiveTUs', TINYINT(3, unsigned=True), nullable=False, server_default=text("'0'")),
+    Column('Yes', INTEGER(unsigned=True), nullable=False, server_default=text("'0'")),
+    Column('No', INTEGER(unsigned=True), nullable=False, server_default=text("'0'")),
+    Column('Abstain', INTEGER(unsigned=True), nullable=False, server_default=text("'0'")),
+    Column('ActiveTUs', INTEGER(unsigned=True), nullable=False, server_default=text("'0'")),
     mysql_engine='InnoDB',
     mysql_charset='utf8mb4',
     mysql_collate='utf8mb4_general_ci',
@@ -441,7 +447,7 @@ AcceptedTerms = Table(
 # Rate limits for API
 ApiRateLimit = Table(
     'ApiRateLimit', metadata,
-    Column('IP', String(45), primary_key=True),
+    Column('IP', String(45), primary_key=True, unique=True, default=str()),
     Column('Requests', INTEGER(11), nullable=False),
     Column('WindowStart', BIGINT(20), nullable=False),
     Index('ApiRateLimitWindowStart', 'WindowStart'),

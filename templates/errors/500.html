@@ -1,0 +1,20 @@
+{% extends "partials/layout.html" %}
+
+{% block pageContent %}
+    <div class="box">
+        <h2>500 - {{ "Internal Server Error" | tr }}</h2>
+
+        <p>
+            {{ "A fatal error has occurred." | tr }}
+            {{
+                "Details have been logged and will be reviewed by the "
+                "postmaster posthaste. We apologize for any inconvenience "
+                "this may have caused." | tr
+            }}
+        </p>
+
+        {% if config.getboolean("options", "traceback") %}
+            <pre class="traceback">{{ traceback }}</pre>
+        {% endif %}
+    </div>
+{% endblock %}

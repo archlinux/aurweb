@@ -46,70 +46,99 @@ if (isset($pkgname)) {
 html_header($title, $details);
 ?>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script type="text/javascript">
 function collapseDependsList(list) {
-	list = $(list);
-	// Hide everything past a given limit. Don't do anything if we don't have
-	// enough items, or the link already exists.
-	var limit = 20,
-		linkid = list.attr('id') + 'link',
-		items = list.find('li').slice(limit);
-	if (items.length <= 1 || $('#' + linkid).length > 0) {
+	list = document.getElementById(list);
+	// Packages overview page also triggers collapseDependsList, ideally the Javascript
+	// is only included for the package details view.
+	if (!list) {
 		return;
 	}
-	items.hide();
-	list.after('<p><a id="' + linkid + '" href="#">Show More…</a></p>');
+
+	// Hide everything past a given limit. Don't do anything if we don't have
+	// enough items, or the link already exists.
+	const limit = 20;
+	const linkid = list.getAttribute('id') + 'link';
+	const items = Array.from(list.querySelectorAll('li')).slice(limit);
+	if (items.length <= 1 || document.getElementById(linkid)) {
+		return;
+	}
+
+	items.forEach(function(item) {
+		item.style.display = 'none';
+	});
+
+	const link = document.createElement('a');
+	link.id = linkid;
+	link.href = '#';
+	link.textContent = 'Show More…';
+
+	const showMore = document.createElement('p');
+	showMore.appendChild(link);
+
+	list.insertAdjacentElement('afterend', showMore);
 
 	// add link and wire it up to show the hidden items
-	$('#' + linkid).click(function(event) {
+	link.addEventListener('click', function(event) {
 		event.preventDefault();
-		list.find('li').show();
+
+		items.forEach(function(item) {
+			item.style.display = '';
+		});
+
 		// remove the full <p/> node from the DOM
-		$(this).parent().remove();
+		event.target.parentNode.removeChild(event.target);
 	});
 }
 
 function collapseComment(div) {
-	var linkid = div.attr('id') + 'link',
-		inner = div.find('div'),
-		height = inner.height(),
-		maxheight = 200;
+	const linkid = div.getAttribute('id') + 'link';
+	const inner = div.querySelector('div');
+	// max height of a collapsed comment.
+	const maxheight = 200;
+	const height = inner.offsetHeight;
 
 	if (height <= maxheight)
 		return;
 
-	inner.css({ 'overflow': 'hidden', 'height': maxheight + 'px' });
-	inner.addClass('collapsed');
-	inner.after('<p><a id="' + linkid + '" href="#">Show More…</a></p>');
+	inner.style.height = maxheight + 'px';
+	inner.classList.add('collapsed');
 
-	$('#' + linkid).click(function(event) {
-		var inner = $(this).parent().parent().find('div');
+	const link = document.createElement('a');
+	link.id = linkid;
+	link.href = '#';
+	link.textContent = 'Show More…';
+
+	const showMore = document.createElement('p');
+	showMore.appendChild(link);
+
+	inner.insertAdjacentElement('afterend', showMore);
+
+	link.addEventListener('click', function(event) {
+		const showMoreLink = event.target;
+		const inner = showMoreLink.parentNode.parentNode.querySelector('div');
 		var newheight;
 
-		if (inner.hasClass('collapsed')) {
-			inner.css({ 'height': 'auto' });
-			newheight = inner.height();
-			inner.css({ 'height': maxheight });
-			$(this).text('Collapse');
+		if (inner.classList.contains('collapsed')) {
+			inner.style.height = height + 'px';
+			showMoreLink.textContent = 'Collapse';
 		} else {
-			newheight = maxheight;
-			$(this).text('Show More…');
+			newheight = maxheight + 'px';
+			inner.style.height = newheight;
+			showMoreLink.textContent = 'Show More…';
 		}
 
-		inner.animate({ 'height': newheight });
-		inner.toggleClass('collapsed');
+		inner.classList.toggle('collapsed');
 		event.preventDefault();
 	});
 }
 
-$(document).ready(function() {
-	collapseDependsList("#pkgdepslist");
-	collapseDependsList("#pkgreqslist");
-	collapseDependsList("#pkgsrcslist");
-	$(".article-content").each(function() {
-		collapseComment($(this));
-	});
+document.addEventListener('DOMContentLoaded', function() {
+	collapseDependsList("pkgdepslist");
+	collapseDependsList("pkgreqslist");
+	collapseDependsList("pkgsrcslist");
+
+	Array.from(document.querySelectorAll('.article-content')).forEach(collapseComment);
 });
 </script>
 

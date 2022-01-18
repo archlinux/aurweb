@@ -1,0 +1,10 @@
+pkgbase = {{ pkg.PackageBase.name }}
+    pkgver = {{ pkg.Version }}
+    pkgrel = 1
+    pkgdesc = {{ pkg.Description }}
+    url = {{ pkg.URL }}
+    arch='any'
+    license = {{ pkg.package_licenses | join(", ", attribute="License.Name") }}
+    depends = {{ pkg.package_dependencies | join(", ", attribute="DepName") }}
+
+pkgname = {{ pkg.Name }}

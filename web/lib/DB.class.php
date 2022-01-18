@@ -20,15 +20,23 @@ class DB {
 				$backend = config_get('database', 'backend');
 				$host = config_get('database', 'host');
 				$socket = config_get('database', 'socket');
+				$port = config_get('database', 'port');
 				$name = config_get('database', 'name');
 				$user = config_get('database', 'user');
 				$password = config_get('database', 'password');
 
 				if ($backend == "mysql") {
-					$dsn = $backend .
-						':host=' . $host .
-						';unix_socket=' . $socket .
-						';dbname=' . $name;
+					if ($port != '') {
+						$dsn = $backend .
+							':host=' . $host .
+							';port=' . $port .
+							';dbname=' . $name;
+					} else {
+						$dsn = $backend .
+							':host=' . $host .
+							';unix_socket=' . $socket .
+							';dbname=' . $name;
+					}
 
 					self::$dbh = new PDO($dsn, $user, $password);
 					self::$dbh->exec("SET NAMES 'utf8' COLLATE 'utf8_general_ci';");

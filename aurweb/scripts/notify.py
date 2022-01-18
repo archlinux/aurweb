@@ -7,9 +7,25 @@ import subprocess
 import sys
 import textwrap
 
+from typing import List, Tuple
+
+from sqlalchemy import and_, or_
+
 import aurweb.config
 import aurweb.db
+import aurweb.filters
 import aurweb.l10n
+
+from aurweb import db, l10n, logging
+from aurweb.models import PackageBase, User
+from aurweb.models.package_comaintainer import PackageComaintainer
+from aurweb.models.package_comment import PackageComment
+from aurweb.models.package_notification import PackageNotification
+from aurweb.models.package_request import PackageRequest
+from aurweb.models.request_type import RequestType
+from aurweb.models.tu_vote import TUVote
+
+logger = logging.get_logger(__name__)
 
 aur_location = aurweb.config.get('options', 'aur_location')
 
@@ -22,27 +38,7 @@ def headers_reply(thread_id):
     return {'In-Reply-To': thread_id, 'References': thread_id}
 
 
-def username_from_id(conn, uid):
-    cur = conn.execute('SELECT UserName FROM Users WHERE ID = ?', [uid])
-    return cur.fetchone()[0]
-
-
-def pkgbase_from_id(conn, pkgbase_id):
-    cur = conn.execute('SELECT Name FROM PackageBases WHERE ID = ?',
-                       [pkgbase_id])
-    return cur.fetchone()[0]
-
-
-def pkgbase_from_pkgreq(conn, reqid):
-    cur = conn.execute('SELECT PackageBaseID FROM PackageRequests ' +
-                       'WHERE ID = ?', [reqid])
-    return cur.fetchone()[0]
-
-
 class Notification:
-    def __init__(self):
-        self._l10n = aurweb.l10n.Translator()
-
     def get_refs(self):
         return ()
 
@@ -55,15 +51,15 @@ class Notification:
     def get_body_fmt(self, lang):
         body = ''
         for line in self.get_body(lang).splitlines():
-            if line == '-- ':
-                body += '-- \n'
+            if line == '--':
+                body += '--\n'
                 continue
             body += textwrap.fill(line, break_long_words=False) + '\n'
         for i, ref in enumerate(self.get_refs()):
             body += '\n' + '[%d] %s' % (i + 1, ref)
         return body.rstrip()
 
-    def send(self):
+    def _send(self) -> None:
         sendmail = aurweb.config.get('notifications', 'sendmail')
         sender = aurweb.config.get('notifications', 'sender')
         reply_to = aurweb.config.get('notifications', 'reply-to')
@@ -97,16 +93,20 @@ class Notification:
             else:
                 # send email using smtplib; no local MTA required
                 server_addr = aurweb.config.get('notifications', 'smtp-server')
-                server_port = aurweb.config.getint('notifications', 'smtp-port')
-                use_ssl = aurweb.config.getboolean('notifications', 'smtp-use-ssl')
-                use_starttls = aurweb.config.getboolean('notifications', 'smtp-use-starttls')
+                server_port = aurweb.config.getint('notifications',
+                                                   'smtp-port')
+                use_ssl = aurweb.config.getboolean('notifications',
+                                                   'smtp-use-ssl')
+                use_starttls = aurweb.config.getboolean('notifications',
+                                                        'smtp-use-starttls')
                 user = aurweb.config.get('notifications', 'smtp-user')
                 passwd = aurweb.config.get('notifications', 'smtp-password')
 
-                if use_ssl:
-                    server = smtplib.SMTP_SSL(server_addr, server_port)
-                else:
-                    server = smtplib.SMTP(server_addr, server_port)
+                classes = {
+                    False: smtplib.SMTP,
+                    True: smtplib.SMTP_SSL,
+                }
+                server = classes[use_ssl](server_addr, server_port)
 
                 if use_starttls:
                     server.ehlo()
@@ -121,13 +121,76 @@ class Notification:
                 server.sendmail(sender, deliver_to, msg.as_bytes())
                 server.quit()
 
+    def send(self) -> None:
+        try:
+            self._send()
+        except OSError as exc:
+            logger.error("Unable to emit notification due to an "
+                         "OSError (precise exception following).")
+            logger.error(str(exc))
+
+
+class ServerErrorNotification(Notification):
+    """ A notification used to represent an internal server error. """
+
+    def __init__(self, traceback_id: int, version: str, utc: int):
+        """
+        Construct a ServerErrorNotification.
+
+        :param traceback_id: Traceback ID
+        :param version: aurweb version
+        :param utc: UTC timestamp
+        """
+        self._tb_id = traceback_id
+        self._version = version
+        self._utc = utc
+
+        postmaster = aurweb.config.get("notifications", "postmaster")
+        self._to = postmaster
+
+        super().__init__()
+
+    def get_recipients(self) -> List[Tuple[str, str]]:
+        from aurweb.auth import AnonymousUser
+        user = (db.query(User).filter(User.Email == self._to).first()
+                or AnonymousUser())
+        return [(self._to, user.LangPreference)]
+
+    def get_subject(self, lang: str) -> str:
+        return l10n.translator.translate("AUR Server Error", lang)
+
+    def get_body(self, lang: str) -> str:
+        """ A forcibly English email body. """
+        dt = aurweb.filters.timestamp_to_datetime(self._utc)
+        dts = dt.strftime("%Y-%m-%d %H:%M")
+        return (f"Traceback ID: {self._tb_id}\n"
+                f"Location: {aur_location}\n"
+                f"Version: {self._version}\n"
+                f"Datetime: {dts} UTC\n")
+
+    def get_refs(self):
+        return (aur_location,)
+
 
 class ResetKeyNotification(Notification):
-    def __init__(self, conn, uid):
-        cur = conn.execute('SELECT UserName, Email, BackupEmail, ' +
-                           'LangPreference, ResetKey ' +
-                           'FROM Users WHERE ID = ?', [uid])
-        self._username, self._to, self._backup, self._lang, self._resetkey = cur.fetchone()
+    def __init__(self, uid):
+
+        user = db.query(User).filter(
+            and_(User.ID == uid, User.Suspended == 0)
+        ).with_entities(
+            User.Username,
+            User.Email,
+            User.BackupEmail,
+            User.LangPreference,
+            User.ResetKey
+        ).order_by(User.Username.asc()).first()
+
+        self._username = user.Username
+        self._to = user.Email
+        self._backup = user.BackupEmail
+        self._lang = user.LangPreference
+        self._resetkey = user.ResetKey
+
         super().__init__()
 
     def get_recipients(self):
@@ -137,15 +200,15 @@ class ResetKeyNotification(Notification):
             return [(self._to, self._lang)]
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Password Reset', lang)
+        return aurweb.l10n.translator.translate('AUR Password Reset', lang)
 
     def get_body(self, lang):
-        return self._l10n.translate(
-                'A password reset request was submitted for the account '
-                '{user} associated with your email address. If you wish to '
-                'reset your password follow the link [1] below, otherwise '
-                'ignore this message and nothing will happen.',
-                lang).format(user=self._username)
+        return aurweb.l10n.translator.translate(
+            'A password reset request was submitted for the account '
+            '{user} associated with your email address. If you wish to '
+            'reset your password follow the link [1] below, otherwise '
+            'ignore this message and nothing will happen.',
+            lang).format(user=self._username)
 
     def get_refs(self):
         return (aur_location + '/passreset/?resetkey=' + self._resetkey,)
@@ -153,51 +216,62 @@ class ResetKeyNotification(Notification):
 
 class WelcomeNotification(ResetKeyNotification):
     def get_subject(self, lang):
-        return self._l10n.translate('Welcome to the Arch User Repository',
-                                    lang)
+        return aurweb.l10n.translator.translate(
+            'Welcome to the Arch User Repository',
+            lang)
 
     def get_body(self, lang):
-        return self._l10n.translate(
-                'Welcome to the Arch User Repository! In order to set an '
-                'initial password for your new account, please click the '
-                'link [1] below. If the link does not work, try copying and '
-                'pasting it into your browser.', lang)
+        return aurweb.l10n.translator.translate(
+            'Welcome to the Arch User Repository! In order to set an '
+            'initial password for your new account, please click the '
+            'link [1] below. If the link does not work, try copying and '
+            'pasting it into your browser.', lang)
 
 
 class CommentNotification(Notification):
-    def __init__(self, conn, uid, pkgbase_id, comment_id):
-        self._user = username_from_id(conn, uid)
-        self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email, Users.LangPreference '
-                           'FROM Users INNER JOIN PackageNotifications ' +
-                           'ON PackageNotifications.UserID = Users.ID WHERE ' +
-                           'Users.CommentNotify = 1 AND ' +
-                           'PackageNotifications.UserID != ? AND ' +
-                           'PackageNotifications.PackageBaseID = ?',
-                           [uid, pkgbase_id])
-        self._recipients = cur.fetchall()
-        cur = conn.execute('SELECT Comments FROM PackageComments WHERE ID = ?',
-                           [comment_id])
-        self._text = cur.fetchone()[0]
+    def __init__(self, uid, pkgbase_id, comment_id):
+
+        self._user = db.query(User.Username).filter(
+            User.ID == uid).first().Username
+        self._pkgbase = db.query(PackageBase.Name).filter(
+            PackageBase.ID == pkgbase_id).first().Name
+
+        query = db.query(User).join(PackageNotification).filter(
+            and_(User.CommentNotify == 1,
+                 PackageNotification.UserID != uid,
+                 PackageNotification.PackageBaseID == pkgbase_id,
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email,
+            User.LangPreference
+        ).distinct()
+        self._recipients = [(u.Email, u.LangPreference) for u in query]
+
+        pkgcomment = db.query(PackageComment.Comments).filter(
+            PackageComment.ID == comment_id).first()
+        self._text = pkgcomment.Comments
+
         super().__init__()
 
     def get_recipients(self):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Comment for {pkgbase}',
-                                    lang).format(pkgbase=self._pkgbase)
+        return aurweb.l10n.translator.translate(
+            'AUR Comment for {pkgbase}',
+            lang).format(pkgbase=self._pkgbase)
 
     def get_body(self, lang):
-        body = self._l10n.translate(
-                '{user} [1] added the following comment to {pkgbase} [2]:',
-                lang).format(user=self._user, pkgbase=self._pkgbase)
-        body += '\n\n' + self._text + '\n\n-- \n'
-        dnlabel = self._l10n.translate('Disable notifications', lang)
-        body += self._l10n.translate(
-                'If you no longer wish to receive notifications about this '
-                'package, please go to the package page [2] and select '
-                '"{label}".', lang).format(label=dnlabel)
+        body = aurweb.l10n.translator.translate(
+            '{user} [1] added the following comment to {pkgbase} [2]:',
+            lang).format(user=self._user, pkgbase=self._pkgbase)
+        body += '\n\n' + self._text + '\n\n--\n'
+        dnlabel = aurweb.l10n.translator.translate(
+            'Disable notifications', lang)
+        body += aurweb.l10n.translator.translate(
+            'If you no longer wish to receive notifications about this '
+            'package, please go to the package page [2] and select '
+            '"{label}".', lang).format(label=dnlabel)
         return body
 
     def get_refs(self):
@@ -211,38 +285,45 @@ class CommentNotification(Notification):
 
 
 class UpdateNotification(Notification):
-    def __init__(self, conn, uid, pkgbase_id):
-        self._user = username_from_id(conn, uid)
-        self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email, ' +
-                           'Users.LangPreference FROM Users ' +
-                           'INNER JOIN PackageNotifications ' +
-                           'ON PackageNotifications.UserID = Users.ID WHERE ' +
-                           'Users.UpdateNotify = 1 AND ' +
-                           'PackageNotifications.UserID != ? AND ' +
-                           'PackageNotifications.PackageBaseID = ?',
-                           [uid, pkgbase_id])
-        self._recipients = cur.fetchall()
+    def __init__(self, uid, pkgbase_id):
+
+        self._user = db.query(User.Username).filter(
+            User.ID == uid).first().Username
+        self._pkgbase = db.query(PackageBase.Name).filter(
+            PackageBase.ID == pkgbase_id).first().Name
+
+        query = db.query(User).join(PackageNotification).filter(
+            and_(User.UpdateNotify == 1,
+                 PackageNotification.UserID != uid,
+                 PackageNotification.PackageBaseID == pkgbase_id,
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email,
+            User.LangPreference
+        ).distinct()
+        self._recipients = [(u.Email, u.LangPreference) for u in query]
+
         super().__init__()
 
     def get_recipients(self):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Package Update: {pkgbase}',
-                                    lang).format(pkgbase=self._pkgbase)
+        return aurweb.l10n.translator.translate(
+            'AUR Package Update: {pkgbase}',
+            lang).format(pkgbase=self._pkgbase)
 
     def get_body(self, lang):
-        body = self._l10n.translate('{user} [1] pushed a new commit to '
-                                    '{pkgbase} [2].', lang).format(
-                                            user=self._user,
-                                            pkgbase=self._pkgbase)
-        body += '\n\n-- \n'
-        dnlabel = self._l10n.translate('Disable notifications', lang)
-        body += self._l10n.translate(
-                'If you no longer wish to receive notifications about this '
-                'package, please go to the package page [2] and select '
-                '"{label}".', lang).format(label=dnlabel)
+        body = aurweb.l10n.translator.translate(
+            '{user} [1] pushed a new commit to {pkgbase} [2].',
+            lang).format(user=self._user, pkgbase=self._pkgbase)
+        body += '\n\n--\n'
+        dnlabel = aurweb.l10n.translator.translate(
+            'Disable notifications', lang)
+        body += aurweb.l10n.translator.translate(
+            'If you no longer wish to receive notifications about this '
+            'package, please go to the package page [2] and select '
+            '"{label}".', lang).format(label=dnlabel)
         return body
 
     def get_refs(self):
@@ -256,36 +337,45 @@ class UpdateNotification(Notification):
 
 
 class FlagNotification(Notification):
-    def __init__(self, conn, uid, pkgbase_id):
-        self._user = username_from_id(conn, uid)
-        self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email, ' +
-                           'Users.LangPreference FROM Users ' +
-                           'LEFT JOIN PackageComaintainers ' +
-                           'ON PackageComaintainers.UsersID = Users.ID ' +
-                           'INNER JOIN PackageBases ' +
-                           'ON PackageBases.MaintainerUID = Users.ID OR ' +
-                           'PackageBases.ID = PackageComaintainers.PackageBaseID ' +
-                           'WHERE PackageBases.ID = ?', [pkgbase_id])
-        self._recipients = cur.fetchall()
-        cur = conn.execute('SELECT FlaggerComment FROM PackageBases WHERE ' +
-                           'ID = ?', [pkgbase_id])
-        self._text = cur.fetchone()[0]
+    def __init__(self, uid, pkgbase_id):
+
+        self._user = db.query(User.Username).filter(
+            User.ID == uid).first().Username
+        self._pkgbase = db.query(PackageBase.Name).filter(
+            PackageBase.ID == pkgbase_id).first().Name
+
+        query = db.query(User).join(PackageComaintainer, isouter=True).join(
+            PackageBase,
+            or_(PackageBase.MaintainerUID == User.ID,
+                PackageBase.ID == PackageComaintainer.PackageBaseID)
+        ).filter(
+            and_(PackageBase.ID == pkgbase_id,
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email,
+            User.LangPreference
+        ).distinct()
+        self._recipients = [(u.Email, u.LangPreference) for u in query]
+
+        pkgbase = db.query(PackageBase.FlaggerComment).filter(
+            PackageBase.ID == pkgbase_id).first()
+        self._text = pkgbase.FlaggerComment
+
         super().__init__()
 
     def get_recipients(self):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Out-of-date Notification for '
-                                    '{pkgbase}',
-                                    lang).format(pkgbase=self._pkgbase)
+        return aurweb.l10n.translator.translate(
+            'AUR Out-of-date Notification for {pkgbase}',
+            lang).format(pkgbase=self._pkgbase)
 
     def get_body(self, lang):
-        body = self._l10n.translate(
-                'Your package {pkgbase} [1] has been flagged out-of-date by '
-                '{user} [2]:', lang).format(pkgbase=self._pkgbase,
-                                            user=self._user)
+        body = aurweb.l10n.translator.translate(
+            'Your package {pkgbase} [1] has been flagged out-of-date by '
+            '{user} [2]:', lang).format(pkgbase=self._pkgbase,
+                                        user=self._user)
         body += '\n\n' + self._text
         return body
 
@@ -295,29 +385,37 @@ class FlagNotification(Notification):
 
 
 class OwnershipEventNotification(Notification):
-    def __init__(self, conn, uid, pkgbase_id):
-        self._user = username_from_id(conn, uid)
-        self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email, ' +
-                           'Users.LangPreference FROM Users ' +
-                           'INNER JOIN PackageNotifications ' +
-                           'ON PackageNotifications.UserID = Users.ID WHERE ' +
-                           'Users.OwnershipNotify = 1 AND ' +
-                           'PackageNotifications.UserID != ? AND ' +
-                           'PackageNotifications.PackageBaseID = ?',
-                           [uid, pkgbase_id])
-        self._recipients = cur.fetchall()
-        cur = conn.execute('SELECT FlaggerComment FROM PackageBases WHERE ' +
-                           'ID = ?', [pkgbase_id])
-        self._text = cur.fetchone()[0]
+    def __init__(self, uid, pkgbase_id):
+
+        self._user = db.query(User.Username).filter(
+            User.ID == uid).first().Username
+        self._pkgbase = db.query(PackageBase.Name).filter(
+            PackageBase.ID == pkgbase_id).first().Name
+
+        query = db.query(User).join(PackageNotification).filter(
+            and_(User.OwnershipNotify == 1,
+                 PackageNotification.UserID != uid,
+                 PackageNotification.PackageBaseID == pkgbase_id,
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email,
+            User.LangPreference
+        ).distinct()
+        self._recipients = [(u.Email, u.LangPreference) for u in query]
+
+        pkgbase = db.query(PackageBase.FlaggerComment).filter(
+            PackageBase.ID == pkgbase_id).first()
+        self._text = pkgbase.FlaggerComment
+
         super().__init__()
 
     def get_recipients(self):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Ownership Notification for {pkgbase}',
-                                    lang).format(pkgbase=self._pkgbase)
+        return aurweb.l10n.translator.translate(
+            'AUR Ownership Notification for {pkgbase}',
+            lang).format(pkgbase=self._pkgbase)
 
     def get_refs(self):
         return (aur_location + '/pkgbase/' + self._pkgbase + '/',
@@ -326,34 +424,45 @@ class OwnershipEventNotification(Notification):
 
 class AdoptNotification(OwnershipEventNotification):
     def get_body(self, lang):
-        return self._l10n.translate(
-                'The package {pkgbase} [1] was adopted by {user} [2].',
-                lang).format(pkgbase=self._pkgbase, user=self._user)
+        return aurweb.l10n.translator.translate(
+            'The package {pkgbase} [1] was adopted by {user} [2].',
+            lang).format(pkgbase=self._pkgbase, user=self._user)
 
 
 class DisownNotification(OwnershipEventNotification):
     def get_body(self, lang):
-        return self._l10n.translate(
-                'The package {pkgbase} [1] was disowned by {user} '
-                '[2].', lang).format(pkgbase=self._pkgbase,
-                                     user=self._user)
+        return aurweb.l10n.translator.translate(
+            'The package {pkgbase} [1] was disowned by {user} '
+            '[2].', lang).format(pkgbase=self._pkgbase,
+                                 user=self._user)
 
 
 class ComaintainershipEventNotification(Notification):
-    def __init__(self, conn, uid, pkgbase_id):
-        self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT Email, LangPreference FROM Users ' +
-                           'WHERE ID = ?', [uid])
-        self._to, self._lang = cur.fetchone()
+    def __init__(self, uid, pkgbase_id):
+
+        self._pkgbase = db.query(PackageBase.Name).filter(
+            PackageBase.ID == pkgbase_id).first().Name
+
+        user = db.query(User).filter(
+            and_(User.ID == uid,
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email,
+            User.LangPreference
+        ).first()
+
+        self._to = user.Email
+        self._lang = user.LangPreference
+
         super().__init__()
 
     def get_recipients(self):
         return [(self._to, self._lang)]
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Co-Maintainer Notification for '
-                                    '{pkgbase}',
-                                    lang).format(pkgbase=self._pkgbase)
+        return aurweb.l10n.translator.translate(
+            'AUR Co-Maintainer Notification for {pkgbase}',
+            lang).format(pkgbase=self._pkgbase)
 
     def get_refs(self):
         return (aur_location + '/pkgbase/' + self._pkgbase + '/',)
@@ -361,59 +470,68 @@ class ComaintainershipEventNotification(Notification):
 
 class ComaintainerAddNotification(ComaintainershipEventNotification):
     def get_body(self, lang):
-        return self._l10n.translate(
-                'You were added to the co-maintainer list of {pkgbase} [1].',
-                lang).format(pkgbase=self._pkgbase)
+        return aurweb.l10n.translator.translate(
+            'You were added to the co-maintainer list of {pkgbase} [1].',
+            lang).format(pkgbase=self._pkgbase)
 
 
 class ComaintainerRemoveNotification(ComaintainershipEventNotification):
     def get_body(self, lang):
-        return self._l10n.translate(
-                'You were removed from the co-maintainer list of {pkgbase} '
-                '[1].', lang).format(pkgbase=self._pkgbase)
+        return aurweb.l10n.translator.translate(
+            'You were removed from the co-maintainer list of {pkgbase} '
+            '[1].', lang).format(pkgbase=self._pkgbase)
 
 
 class DeleteNotification(Notification):
-    def __init__(self, conn, uid, old_pkgbase_id, new_pkgbase_id=None):
-        self._user = username_from_id(conn, uid)
-        self._old_pkgbase = pkgbase_from_id(conn, old_pkgbase_id)
+    def __init__(self, uid, old_pkgbase_id, new_pkgbase_id=None):
+
+        self._user = db.query(User.Username).filter(
+            User.ID == uid).first().Username
+        self._old_pkgbase = db.query(PackageBase.Name).filter(
+            PackageBase.ID == old_pkgbase_id).first().Name
+
+        self._new_pkgbase = None
         if new_pkgbase_id:
-            self._new_pkgbase = pkgbase_from_id(conn, new_pkgbase_id)
-        else:
-            self._new_pkgbase = None
-        cur = conn.execute('SELECT DISTINCT Users.Email, ' +
-                           'Users.LangPreference FROM Users ' +
-                           'INNER JOIN PackageNotifications ' +
-                           'ON PackageNotifications.UserID = Users.ID WHERE ' +
-                           'PackageNotifications.UserID != ? AND ' +
-                           'PackageNotifications.PackageBaseID = ?',
-                           [uid, old_pkgbase_id])
-        self._recipients = cur.fetchall()
+            self._new_pkgbase = db.query(PackageBase.Name).filter(
+                PackageBase.ID == new_pkgbase_id).first().Name
+
+        query = db.query(User).join(PackageNotification).filter(
+            and_(PackageNotification.UserID != uid,
+                 PackageNotification.PackageBaseID == old_pkgbase_id,
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email,
+            User.LangPreference
+        ).distinct()
+        self._recipients = [(u.Email, u.LangPreference) for u in query]
+
         super().__init__()
 
     def get_recipients(self):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('AUR Package deleted: {pkgbase}',
-                                    lang).format(pkgbase=self._old_pkgbase)
+        return aurweb.l10n.translator.translate(
+            'AUR Package deleted: {pkgbase}',
+            lang).format(pkgbase=self._old_pkgbase)
 
     def get_body(self, lang):
         if self._new_pkgbase:
-            dnlabel = self._l10n.translate('Disable notifications', lang)
-            return self._l10n.translate(
-                    '{user} [1] merged {old} [2] into {new} [3].\n\n'
-                    '-- \n'
-                    'If you no longer wish receive notifications about the '
-                    'new package, please go to [3] and click "{label}".',
-                    lang).format(user=self._user, old=self._old_pkgbase,
-                                 new=self._new_pkgbase, label=dnlabel)
+            dnlabel = aurweb.l10n.translator.translate(
+                'Disable notifications', lang)
+            return aurweb.l10n.translator.translate(
+                '{user} [1] merged {old} [2] into {new} [3].\n\n'
+                '--\n'
+                'If you no longer wish receive notifications about the '
+                'new package, please go to [3] and click "{label}".',
+                lang).format(user=self._user, old=self._old_pkgbase,
+                             new=self._new_pkgbase, label=dnlabel)
         else:
-            return self._l10n.translate(
-                    '{user} [1] deleted {pkgbase} [2].\n\n'
-                    'You will no longer receive notifications about this '
-                    'package.', lang).format(user=self._user,
-                                             pkgbase=self._old_pkgbase)
+            return aurweb.l10n.translator.translate(
+                '{user} [1] deleted {pkgbase} [2].\n\n'
+                'You will no longer receive notifications about this '
+                'package.', lang).format(user=self._user,
+                                         pkgbase=self._old_pkgbase)
 
     def get_refs(self):
         refs = (aur_location + '/account/' + self._user + '/',
@@ -424,25 +542,36 @@ class DeleteNotification(Notification):
 
 
 class RequestOpenNotification(Notification):
-    def __init__(self, conn, uid, reqid, reqtype, pkgbase_id, merge_into=None):
-        self._user = username_from_id(conn, uid)
-        self._pkgbase = pkgbase_from_id(conn, pkgbase_id)
-        cur = conn.execute('SELECT DISTINCT Users.Email FROM PackageRequests ' +
-                           'INNER JOIN PackageBases ' +
-                           'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
-                           'LEFT JOIN PackageComaintainers ' +
-                           'ON PackageComaintainers.PackageBaseID = PackageRequests.PackageBaseID ' +
-                           'INNER JOIN Users ' +
-                           'ON Users.ID = PackageRequests.UsersID ' +
-                           'OR Users.ID = PackageBases.MaintainerUID ' +
-                           'OR Users.ID = PackageComaintainers.UsersID ' +
-                           'WHERE PackageRequests.ID = ? AND ' +
-                           'Users.Suspended = 0', [reqid])
+    def __init__(self, uid, reqid, reqtype, pkgbase_id, merge_into=None):
+
+        self._user = db.query(User.Username).filter(
+            User.ID == uid).first().Username
+        self._pkgbase = db.query(PackageBase.Name).filter(
+            PackageBase.ID == pkgbase_id).first().Name
+
         self._to = aurweb.config.get('options', 'aur_request_ml')
-        self._cc = [row[0] for row in cur.fetchall()]
-        cur = conn.execute('SELECT Comments FROM PackageRequests WHERE ID = ?',
-                           [reqid])
-        self._text = cur.fetchone()[0]
+
+        query = db.query(PackageRequest).join(PackageBase).join(
+            PackageComaintainer,
+            PackageComaintainer.PackageBaseID == PackageRequest.PackageBaseID,
+            isouter=True
+        ).join(
+            User,
+            or_(User.ID == PackageRequest.UsersID,
+                User.ID == PackageBase.MaintainerUID,
+                User.ID == PackageComaintainer.UsersID)
+        ).filter(
+            and_(PackageRequest.ID == reqid,
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email
+        ).distinct()
+        self._cc = [u.Email for u in query]
+
+        pkgreq = db.query(PackageRequest.Comments).filter(
+            PackageRequest.ID == reqid).first()
+
+        self._text = pkgreq.Comments
         self._reqid = int(reqid)
         self._reqtype = reqtype
         self._merge_into = merge_into
@@ -485,29 +614,42 @@ class RequestOpenNotification(Notification):
 
 
 class RequestCloseNotification(Notification):
-    def __init__(self, conn, uid, reqid, reason):
-        self._user = username_from_id(conn, uid) if int(uid) else None
-        cur = conn.execute('SELECT DISTINCT Users.Email FROM PackageRequests ' +
-                           'INNER JOIN PackageBases ' +
-                           'ON PackageBases.ID = PackageRequests.PackageBaseID ' +
-                           'LEFT JOIN PackageComaintainers ' +
-                           'ON PackageComaintainers.PackageBaseID = PackageRequests.PackageBaseID ' +
-                           'INNER JOIN Users ' +
-                           'ON Users.ID = PackageRequests.UsersID ' +
-                           'OR Users.ID = PackageBases.MaintainerUID ' +
-                           'OR Users.ID = PackageComaintainers.UsersID ' +
-                           'WHERE PackageRequests.ID = ? AND ' +
-                           'Users.Suspended = 0', [reqid])
+
+    def __init__(self, uid, reqid, reason):
+        user = db.query(User.Username).filter(User.ID == uid).first()
+        self._user = user.Username if user else None
+
         self._to = aurweb.config.get('options', 'aur_request_ml')
-        self._cc = [row[0] for row in cur.fetchall()]
-        cur = conn.execute('SELECT PackageRequests.ClosureComment, ' +
-                           'RequestTypes.Name, ' +
-                           'PackageRequests.PackageBaseName ' +
-                           'FROM PackageRequests ' +
-                           'INNER JOIN RequestTypes ' +
-                           'ON RequestTypes.ID = PackageRequests.ReqTypeID ' +
-                           'WHERE PackageRequests.ID = ?', [reqid])
-        self._text, self._reqtype, self._pkgbase = cur.fetchone()
+
+        query = db.query(PackageRequest).join(PackageBase).join(
+            PackageComaintainer,
+            PackageComaintainer.PackageBaseID == PackageRequest.PackageBaseID,
+            isouter=True
+        ).join(
+            User,
+            or_(User.ID == PackageRequest.UsersID,
+                User.ID == PackageBase.MaintainerUID,
+                User.ID == PackageComaintainer.UsersID)
+        ).filter(
+            and_(PackageRequest.ID == reqid,
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email
+        ).distinct()
+        self._cc = [u.Email for u in query]
+
+        pkgreq = db.query(PackageRequest).join(RequestType).filter(
+            PackageRequest.ID == reqid
+        ).with_entities(
+            PackageRequest.ClosureComment,
+            RequestType.Name,
+            PackageRequest.PackageBaseName
+        ).first()
+
+        self._text = pkgreq.ClosureComment
+        self._reqtype = pkgreq.Name
+        self._pkgbase = pkgreq.PackageBaseName
+
         self._reqid = int(reqid)
         self._reason = reason
 
@@ -550,33 +692,41 @@ class RequestCloseNotification(Notification):
 
 
 class TUVoteReminderNotification(Notification):
-    def __init__(self, conn, vote_id):
+    def __init__(self, vote_id):
         self._vote_id = int(vote_id)
-        cur = conn.execute('SELECT Email, LangPreference FROM Users ' +
-                           'WHERE AccountTypeID IN (2, 4) AND ID NOT IN ' +
-                           '(SELECT UserID FROM TU_Votes ' +
-                           'WHERE TU_Votes.VoteID = ?)', [vote_id])
-        self._recipients = cur.fetchall()
+
+        subquery = db.query(TUVote.UserID).filter(TUVote.VoteID == vote_id)
+        query = db.query(User).filter(
+            and_(User.AccountTypeID.in_((2, 4)),
+                 ~User.ID.in_(subquery),
+                 User.Suspended == 0)
+        ).with_entities(
+            User.Email, User.LangPreference
+        )
+        self._recipients = [(u.Email, u.LangPreference) for u in query]
+
         super().__init__()
 
     def get_recipients(self):
         return self._recipients
 
     def get_subject(self, lang):
-        return self._l10n.translate('TU Vote Reminder: Proposal {id}',
-                                    lang).format(id=self._vote_id)
+        return aurweb.l10n.translator.translate(
+            'TU Vote Reminder: Proposal {id}',
+            lang).format(id=self._vote_id)
 
     def get_body(self, lang):
-        return self._l10n.translate(
-                'Please remember to cast your vote on proposal {id} [1]. '
-                'The voting period ends in less than 48 hours.',
-                lang).format(id=self._vote_id)
+        return aurweb.l10n.translator.translate(
+            'Please remember to cast your vote on proposal {id} [1]. '
+            'The voting period ends in less than 48 hours.',
+            lang).format(id=self._vote_id)
 
     def get_refs(self):
         return (aur_location + '/tu/?id=' + str(self._vote_id),)
 
 
 def main():
+    db.get_engine()
     action = sys.argv[1]
     action_map = {
         'send-resetkey': ResetKeyNotification,
@@ -594,13 +744,9 @@ def main():
         'tu-vote-reminder': TUVoteReminderNotification,
     }
 
-    conn = aurweb.db.Connection()
-
-    notification = action_map[action](conn, *sys.argv[2:])
+    with db.begin():
+        notification = action_map[action](*sys.argv[2:])
     notification.send()
-
-    conn.commit()
-    conn.close()
 
 
 if __name__ == '__main__':

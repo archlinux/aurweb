@@ -1,0 +1,16 @@
+%FILENAME%
+{{ pkgname }}-{{ pkgver }}-{{ arch }}.pkg.tar.xz
+
+%NAME%
+{{ pkgname }}
+
+%VERSION%
+{{ pkgver }}-1
+
+%ARCH%
+{{ arch }}
+
+{% if provides %}
+%PROVIDES%
+{{ provides | join("\n") }}
+{% endif %}

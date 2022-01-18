@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 import os
-import pygit2
 import re
 import subprocess
 import sys
 import time
 
+import pygit2
 import srcinfo.parse
 import srcinfo.utils
 
@@ -75,7 +75,7 @@ def create_pkgbase(conn, pkgbase, user):
     return pkgbase_id
 
 
-def save_metadata(metadata, conn, user):
+def save_metadata(metadata, conn, user):  # noqa: C901
     # Obtain package base ID and previous maintainer.
     pkgbase = metadata['pkgbase']
     cur = conn.execute("SELECT ID, MaintainerUID FROM PackageBases "
@@ -232,7 +232,7 @@ def die_commit(msg, commit):
     exit(1)
 
 
-def main():
+def main():  # noqa: C901
     repo = pygit2.Repository(repo_path)
 
     user = os.environ.get("AUR_USER")
@@ -303,7 +303,11 @@ def main():
                                      error['line'], err))
             exit(1)
 
-        metadata_pkgbase = metadata['pkgbase']
+        try:
+            metadata_pkgbase = metadata['pkgbase']
+        except KeyError:
+            die_commit('invalid .SRCINFO, does not contain a pkgbase (is the file empty?)',
+                       str(commit.id))
         if not re.match(repo_regex, metadata_pkgbase):
             die_commit('invalid pkgbase: {:s}'.format(metadata_pkgbase),
                        str(commit.id))

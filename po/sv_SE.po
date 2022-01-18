@@ -1,0 +1,2340 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the AURWEB package.
+# 
+# Translators:
+# Johannes Löthberg <johannes@kyriasis.com>, 2015-2016
+# Kim Svensson <ks6g10@soton.ac.uk>, 2011
+# Kim Svensson <ks@linux.com>, 2012
+# Luna Jernberg <bittin@cafe8bitar.se>, 2021
+# Robin Björnsvik <robin@bjornsvik.se>, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: aurweb\n"
+"Report-Msgid-Bugs-To: https://bugs.archlinux.org/index.php?project=2\n"
+"POT-Creation-Date: 2020-01-31 09:29+0100\n"
+"PO-Revision-Date: 2022-01-18 17:18+0000\n"
+"Last-Translator: Kevin Morris <kevr@0cost.org>\n"
+"Language-Team: Swedish (Sweden) (http://www.transifex.com/lfleischer/aurweb/language/sv_SE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv_SE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: html/404.php
+msgid "Page Not Found"
+msgstr "Sidan kunde inte hittas"
+
+#: html/404.php
+msgid "Sorry, the page you've requested does not exist."
+msgstr "Tyvärr, sidan du försöker nå existerar inte."
+
+#: html/404.php template/pkgreq_close_form.php
+msgid "Note"
+msgstr "Notera"
+
+#: html/404.php
+msgid "Git clone URLs are not meant to be opened in a browser."
+msgstr ""
+
+#: html/404.php
+#, php-format
+msgid "To clone the Git repository of %s, run %s."
+msgstr ""
+
+#: html/404.php
+#, php-format
+msgid "Click %shere%s to return to the %s details page."
+msgstr ""
+
+#: html/503.php
+msgid "Service Unavailable"
+msgstr "Tjänsten är otillgänglig"
+
+#: html/503.php
+msgid ""
+"Don't panic! This site is down due to maintenance. We will be back soon."
+msgstr "Få inte panik! Den här sidan är nere för underhåll. Vi kommer tillbaka snart."
+
+#: html/account.php
+msgid "Account"
+msgstr "Konto"
+
+#: html/account.php template/header.php
+msgid "Accounts"
+msgstr "Konton"
+
+#: html/account.php html/addvote.php
+msgid "You are not allowed to access this area."
+msgstr "Du har inte åtkomst till den här sidan."
+
+#: html/account.php
+msgid "Could not retrieve information for the specified user."
+msgstr "Kunde inte nå information för den önskade användaren."
+
+#: html/account.php
+msgid "You do not have permission to edit this account."
+msgstr "Du har inte tillåtelse att ändra det här kontot."
+
+#: html/account.php lib/acctfuncs.inc.php
+msgid "Invalid password."
+msgstr "Ogiltigt lösenord."
+
+#: html/account.php
+msgid "Use this form to search existing accounts."
+msgstr "Använd det här fältet för söka efter existerande konton."
+
+#: html/account.php
+msgid "You must log in to view user information."
+msgstr "Du måste var inloggad för att se användarinformation."
+
+#: html/addvote.php template/tu_list.php
+msgid "Add Proposal"
+msgstr "Lägg till förslag"
+
+#: html/addvote.php
+msgid "Invalid token for user action."
+msgstr "Ogiltigt värde för användareåtgärd."
+
+#: html/addvote.php
+msgid "Username does not exist."
+msgstr "Användarnamnet finns inte."
+
+#: html/addvote.php
+#, php-format
+msgid "%s already has proposal running for them."
+msgstr "%s har redan förslag som är aktivt."
+
+#: html/addvote.php
+msgid "Invalid type."
+msgstr "Ogiltig typ."
+
+#: html/addvote.php
+msgid "Proposal cannot be empty."
+msgstr "Förslag kan inte vara tomt."
+
+#: html/addvote.php
+msgid "New proposal submitted."
+msgstr "Nytt förslag har skickats."
+
+#: html/addvote.php
+msgid "Submit a proposal to vote on."
+msgstr "Skicka ett förslag att rösta på."
+
+#: html/addvote.php
+msgid "Applicant/TU"
+msgstr "Sökande/TU"
+
+#: html/addvote.php
+msgid "(empty if not applicable)"
+msgstr "(tom ifall irrelevant)"
+
+#: html/addvote.php template/account_search_results.php
+#: template/pkgreq_results.php
+msgid "Type"
+msgstr "Typ"
+
+#: html/addvote.php
+msgid "Addition of a TU"
+msgstr "Tillägg av en TU"
+
+#: html/addvote.php
+msgid "Removal of a TU"
+msgstr "Borttagning av en TU"
+
+#: html/addvote.php
+msgid "Removal of a TU (undeclared inactivity)"
+msgstr "Borttagning av en TU (odeklarerad inaktivitet)"
+
+#: html/addvote.php
+msgid "Amendment of Bylaws"
+msgstr "Andringar av stadgar"
+
+#: html/addvote.php template/tu_list.php
+msgid "Proposal"
+msgstr "Förslag"
+
+#: html/addvote.php
+msgid "Submit"
+msgstr "Skicka"
+
+#: html/comaintainers.php template/comaintainers_form.php
+msgid "Manage Co-maintainers"
+msgstr "Hantera sam-ansvariga"
+
+#: html/commentedit.php template/pkg_comments.php
+msgid "Edit comment"
+msgstr "Redigera kommentar"
+
+#: html/home.php template/header.php
+msgid "Dashboard"
+msgstr ""
+
+#: html/home.php template/header.php
+msgid "Home"
+msgstr "Hem"
+
+#: html/home.php
+msgid "My Flagged Packages"
+msgstr "Mina flaggade paket"
+
+#: html/home.php
+msgid "My Requests"
+msgstr "Mina Förfrågningar"
+
+#: html/home.php
+msgid "My Packages"
+msgstr "Mina paket"
+
+#: html/home.php
+msgid "Search for packages I maintain"
+msgstr "Sök efter paket jag underhåller"
+
+#: html/home.php
+msgid "Co-Maintained Packages"
+msgstr "Sam-ansvariga paket"
+
+#: html/home.php
+msgid "Search for packages I co-maintain"
+msgstr ""
+
+#: html/home.php
+#, php-format
+msgid ""
+"Welcome to the AUR! Please read the %sAUR User Guidelines%s and %sAUR TU "
+"Guidelines%s for more information."
+msgstr "Välkommen till AUR! Var god och läs %sAUR User Guidelines%s  och %sAUR TU Guidelines%s för mer information"
+
+#: html/home.php
+#, php-format
+msgid ""
+"Contributed PKGBUILDs %smust%s conform to the %sArch Packaging Standards%s "
+"otherwise they will be deleted!"
+msgstr "Bidragna PKGBUILDer %småste%s följa %sArch Packaging Standards%s, annars kommer de bli borttagna!"
+
+#: html/home.php
+msgid "Remember to vote for your favourite packages!"
+msgstr "Kom ihåg att rösta på dina favorit paket!"
+
+#: html/home.php
+msgid "Some packages may be provided as binaries in [community]."
+msgstr "Några paket kan vara tillhandahållna som binära filer i [community]."
+
+#: html/home.php
+msgid "DISCLAIMER"
+msgstr "ANSVARSFRISKRIVNING"
+
+#: html/home.php template/footer.php
+msgid ""
+"AUR packages are user produced content. Any use of the provided files is at "
+"your own risk."
+msgstr "AUR paket är användarproducerat innehåll. All användning av de tillhandahållna filerna görs på egen risk."
+
+#: html/home.php
+msgid "Learn more..."
+msgstr "Lär dig mer..."
+
+#: html/home.php
+msgid "Support"
+msgstr "Hjälp"
+
+#: html/home.php
+msgid "Package Requests"
+msgstr "Paket förfrågningar"
+
+#: html/home.php
+#, php-format
+msgid ""
+"There are three types of requests that can be filed in the %sPackage "
+"Actions%s box on the package details page:"
+msgstr "Det finns tre typer av förfrågningar som kan öppnas i boxen %sPaket hanteringar%s på paket detaljer sidan:"
+
+#: html/home.php
+msgid "Orphan Request"
+msgstr "Härrelösnings förfrågning"
+
+#: html/home.php
+msgid ""
+"Request a package to be disowned, e.g. when the maintainer is inactive and "
+"the package has been flagged out-of-date for a long time."
+msgstr "Öppna en förfrågan om att göra ett paket herrelöst, till exempel när den ansvarige är inaktiv och paketet har varit flaggat utdaterat en lång tid."
+
+#: html/home.php
+msgid "Deletion Request"
+msgstr "Raderings förfrågan"
+
+#: html/home.php
+msgid ""
+"Request a package to be removed from the Arch User Repository. Please do not"
+" use this if a package is broken and can be fixed easily. Instead, contact "
+"the package maintainer and file orphan request if necessary."
+msgstr "Begär att ett paket ska bli borttaget från Arch User Repository. Snälla använd inte detta om packetet bara är trasigt och kan enkelt bli fixat. Kontakta paket ansvarige istället, och begär att paketet ska bli herrelöst"
+
+#: html/home.php
+msgid "Merge Request"
+msgstr "Ihopslags förfrågning"
+
+#: html/home.php
+msgid ""
+"Request a package to be merged into another one. Can be used when a package "
+"needs to be renamed or replaced by a split package."
+msgstr "Begär att ett paket ska bli ihopslaget med ett annat. Kan användas när ett paket behöver bli omdöpt, eller ersatt av ett delat paket."
+
+#: html/home.php
+#, php-format
+msgid ""
+"If you want to discuss a request, you can use the %saur-requests%s mailing "
+"list. However, please do not use that list to file requests."
+msgstr "Om du vill diskutera en förfrågning kan du använda %saur-requests%s maillistan. Men snälla använd inte den listan för att öppna nya förfrågningar."
+
+#: html/home.php
+msgid "Submitting Packages"
+msgstr "Ladda up paket"
+
+#: html/home.php
+#, php-format
+msgid ""
+"Git over SSH is now used to submit packages to the AUR. See the %sSubmitting"
+" packages%s section of the Arch User Repository ArchWiki page for more "
+"details."
+msgstr "Git över SSH används nu för att ladda up paket till AUR. Se %sSubmitting packages%s sectionen av Arch User Repository artikeln på ArchWiki för mer information."
+
+#: html/home.php
+msgid "The following SSH fingerprints are used for the AUR:"
+msgstr "De följande SSH fingeravtryck används för AUR:"
+
+#: html/home.php
+msgid "Discussion"
+msgstr "Diskussion"
+
+#: html/home.php
+#, php-format
+msgid ""
+"General discussion regarding the Arch User Repository (AUR) and Trusted User"
+" structure takes place on %saur-general%s. For discussion relating to the "
+"development of the AUR web interface, use the %saur-dev%s mailing list."
+msgstr "Generella diskussioner om Arch User Repository (AUR) och Trusted User strukturen tar plats på %saur-general%s. För diskussioner om utvecklingen av AUR web interfacet, använd %saur-dev%s maillistan."
+
+#: html/home.php
+msgid "Bug Reporting"
+msgstr "Bugg Rapportering"
+
+#: html/home.php
+#, php-format
+msgid ""
+"If you find a bug in the AUR web interface, please fill out a bug report on "
+"our %sbug tracker%s. Use the tracker to report bugs in the AUR web interface"
+" %sonly%s. To report packaging bugs contact the package maintainer or leave "
+"a comment on the appropriate package page."
+msgstr "Om du hittar en bug i AUR webbgränssnittet, var snäll och fyll i en rapport i vårt %särendehanteringssystem%s. Använd systemet %sbara%s för buggar i webbgränssnittet. För att raportera paketbuggar kontakta den som är ansvarig för paketet istället, eller lämna en kommentar på paketets sida."
+
+#: html/home.php
+msgid "Package Search"
+msgstr "Sök Paket"
+
+#: html/index.php
+msgid "Adopt"
+msgstr "Adoptera"
+
+#: html/index.php
+msgid "Vote"
+msgstr "Rösta"
+
+#: html/index.php
+msgid "UnVote"
+msgstr "Ångra Röst"
+
+#: html/index.php template/pkg_search_form.php template/pkg_search_results.php
+msgid "Notify"
+msgstr "Meddela"
+
+#: html/index.php template/pkg_search_results.php
+msgid "UnNotify"
+msgstr "Meddela inte"
+
+#: html/index.php
+msgid "UnFlag"
+msgstr "Flagga inte"
+
+#: html/login.php template/header.php
+msgid "Login"
+msgstr "Logga in"
+
+#: html/login.php html/tos.php
+#, php-format
+msgid "Logged-in as: %s"
+msgstr "Inloggad som: %s"
+
+#: html/login.php template/header.php
+msgid "Logout"
+msgstr "Logga ut"
+
+#: html/login.php
+msgid "Enter login credentials"
+msgstr "Ange inloggningsuppgifter"
+
+#: html/login.php
+msgid "User name or primary email address"
+msgstr "Användarnamn eller primär epostadress"
+
+#: html/login.php template/account_delete.php template/account_edit_form.php
+msgid "Password"
+msgstr "Lösenord"
+
+#: html/login.php
+msgid "Remember me"
+msgstr "Kom ihåg mig"
+
+#: html/login.php
+msgid "Forgot Password"
+msgstr "Glömt lösenordet"
+
+#: html/login.php
+#, php-format
+msgid ""
+"HTTP login is disabled. Please %sswitch to HTTPs%s if you want to login."
+msgstr "HTTP inloggning ej tillgänglig. Byt %sswtich till HTTPS%s om du vill logga in."
+
+#: html/packages.php template/pkg_search_form.php
+msgid "Search Criteria"
+msgstr "Sökkriterier"
+
+#: html/packages.php template/header.php template/pkgbase_details.php
+#: template/stats/general_stats_table.php template/stats/user_table.php
+msgid "Packages"
+msgstr "Paket"
+
+#: html/packages.php
+msgid "Error trying to retrieve package details."
+msgstr "Fel vid hämtning av paketdetaljer."
+
+#: html/passreset.php lib/acctfuncs.inc.php
+msgid "Missing a required field."
+msgstr "Ett nödvändigt fält saknas."
+
+#: html/passreset.php lib/acctfuncs.inc.php
+msgid "Password fields do not match."
+msgstr "Lösenorden stämmer inte överens."
+
+#: html/passreset.php lib/acctfuncs.inc.php
+#, php-format
+msgid "Your password must be at least %s characters."
+msgstr "Ditt lösenord måste vara åtminstone %s karaktärer."
+
+#: html/passreset.php
+msgid "Invalid e-mail."
+msgstr "Ogiltig e-postadress."
+
+#: html/passreset.php
+msgid "Password Reset"
+msgstr "Återställ Lösenord"
+
+#: html/passreset.php
+msgid "Check your e-mail for the confirmation link."
+msgstr "Kolla din e-mailadress efter en bekräftelselänk."
+
+#: html/passreset.php
+msgid "Your password has been reset successfully."
+msgstr "Återställningen av ditt lösenord lyckades."
+
+#: html/passreset.php
+msgid "Confirm your user name or primary e-mail address:"
+msgstr "Bekräfta ditt användarnamn eller primär e-postadress:"
+
+#: html/passreset.php
+msgid "Enter your new password:"
+msgstr "Ange ett nytt lösenord:"
+
+#: html/passreset.php
+msgid "Confirm your new password:"
+msgstr "Bekfräfta ditt nya lösenord:"
+
+#: html/passreset.php html/tos.php
+msgid "Continue"
+msgstr "Fortsätt"
+
+#: html/passreset.php
+#, php-format
+msgid ""
+"If you have forgotten the user name and the primary e-mail address you used "
+"to register, please send a message to the %saur-general%s mailing list."
+msgstr ""
+
+#: html/passreset.php
+msgid "Enter your user name or your primary e-mail address:"
+msgstr "Ange ditt användarnamn eller primär e-postadress:"
+
+#: html/pkgbase.php
+msgid "Package Bases"
+msgstr "Paket baser"
+
+#: html/pkgbase.php
+msgid ""
+"The selected packages have not been disowned, check the confirmation "
+"checkbox."
+msgstr "De valda paketen har inte gjorts herrelösa, kryssa i konfirmationsrutan."
+
+#: aurweb/routers/packages.py
+msgid ""
+"The selected packages have not been adopted, check the confirmation "
+"checkbox."
+msgstr ""
+
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
+msgid "Cannot find package to merge votes and comments into."
+msgstr "Kan inte hitta paket att slå ihop röster och kommentarer i."
+
+#: html/pkgbase.php lib/pkgreqfuncs.inc.php
+msgid "Cannot merge a package base with itself."
+msgstr "Kan inte slå ihop en paket bas med sig självt."
+
+#: html/pkgbase.php
+msgid ""
+"The selected packages have not been deleted, check the confirmation "
+"checkbox."
+msgstr "De valda paketen har inte blivit raderade, kryssa i konfirmationsrutan."
+
+#: html/pkgdel.php
+msgid "Package Deletion"
+msgstr "Paket radering"
+
+#: html/pkgdel.php template/pkgbase_actions.php
+msgid "Delete Package"
+msgstr "Radera paket"
+
+#: html/pkgdel.php
+#, php-format
+msgid ""
+"Use this form to delete the package base %s%s%s and the following packages "
+"from the AUR: "
+msgstr "Använd det här formuläret för att radera paket basen %s%s%s och de följande paketen från AUR:"
+
+#: html/pkgdel.php
+msgid "Deletion of a package is permanent. "
+msgstr "Radering av ett paket är permanent."
+
+#: html/pkgdel.php html/pkgmerge.php
+msgid "Select the checkbox to confirm action."
+msgstr "Kryssa i kryssrutan för att konfirmera handlingen."
+
+#: html/pkgdel.php
+msgid "Confirm package deletion"
+msgstr "Konfirmera paket radering"
+
+#: html/pkgdel.php template/account_delete.php
+msgid "Delete"
+msgstr "Radera"
+
+#: html/pkgdel.php
+msgid "Only Trusted Users and Developers can delete packages."
+msgstr "Bara Trusted Users och Developers kan radera paket."
+
+#: html/pkgdisown.php template/pkgbase_actions.php
+msgid "Disown Package"
+msgstr "Gör paket herrelös"
+
+#: html/pkgdisown.php
+#, php-format
+msgid ""
+"Use this form to disown the package base %s%s%s which includes the following"
+" packages: "
+msgstr "Använd det här formuläret för att göra paket basen %s%s%s  och de följande paketen härrelösa i AUR:"
+
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to no longer be a "
+"package co-maintainer."
+msgstr ""
+
+#: html/pkgdisown.php
+#, php-format
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package "
+"and transfer ownership to %s%s%s."
+msgstr "Genom att kryssa i kryssrutan konfirmerar du att du vill överföra ansvaret för detta paket till %s%s%s."
+
+#: html/pkgdisown.php
+msgid ""
+"By selecting the checkbox, you confirm that you want to disown the package."
+msgstr "Genom att kryssa i kryssrutan konfirmerar du att du vill göra paketet herrelöst."
+
+#: html/pkgdisown.php
+msgid "Confirm to disown the package"
+msgstr "Konfirmera för att göra paketet herrelöst"
+
+#: html/pkgdisown.php
+msgid "Disown"
+msgstr "Gör herrelös"
+
+#: html/pkgdisown.php
+msgid "Only Trusted Users and Developers can disown packages."
+msgstr "Bara Trusted Users och Developers kan göra paket herrelösa."
+
+#: html/pkgflagcomment.php
+msgid "Flag Comment"
+msgstr "Flagga Kommentar"
+
+#: html/pkgflag.php
+msgid "Flag Package Out-Of-Date"
+msgstr "Flagga Paketet Gammalt"
+
+#: templates/packages/flag.html
+msgid ""
+"This seems to be a VCS package. Please do %snot%s flag it out-of-date if the"
+" package version in the AUR does not match the most recent commit. Flagging "
+"this package should only be done if the sources moved or changes in the "
+"PKGBUILD are required because of recent upstream changes."
+msgstr ""
+
+#: html/pkgflag.php
+#, php-format
+msgid ""
+"Use this form to flag the package base %s%s%s and the following packages "
+"out-of-date: "
+msgstr "Använd det här formuläret för att flagga paketbasen %s%s%s och de följande paketen som gammla: "
+
+#: html/pkgflag.php
+#, php-format
+msgid ""
+"Please do %snot%s use this form to report bugs. Use the package comments "
+"instead."
+msgstr "Var snäll och använd %sinte%s detta formulär för att raportera buggar. Andvänd paketkommentarerna istället."
+
+#: html/pkgflag.php
+msgid ""
+"Enter details on why the package is out-of-date below, preferably including "
+"links to the release announcement or the new release tarball."
+msgstr "Skriv in detaljer om varför paketet är gammalt nedan, helst med länkar till den nya releasen."
+
+#: html/pkgflag.php template/pkgreq_close_form.php template/pkgreq_form.php
+#: template/pkgreq_results.php
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: html/pkgflag.php
+msgid "Flag"
+msgstr "Flagga"
+
+#: html/pkgflag.php
+msgid "Only registered users can flag packages out-of-date."
+msgstr "Bara registrerade användare kan flagga paket som gammla."
+
+#: html/pkgmerge.php
+msgid "Package Merging"
+msgstr "Paket ihopsammanslagning"
+
+#: html/pkgmerge.php template/pkgbase_actions.php
+msgid "Merge Package"
+msgstr "Slå samman paket"
+
+#: html/pkgmerge.php
+#, php-format
+msgid "Use this form to merge the package base %s%s%s into another package. "
+msgstr "Använd det här formuläret för att slå ihop paket basen %s%s%s med ett annat paket."
+
+#: html/pkgmerge.php
+msgid "The following packages will be deleted: "
+msgstr "De följande paketen kommer att bli raderade:"
+
+#: html/pkgmerge.php
+msgid "Once the package has been merged it cannot be reversed. "
+msgstr "När paketet har blivit ihopsammanslaget kan det inte ogöras."
+
+#: html/pkgmerge.php
+msgid "Enter the package name you wish to merge the package into. "
+msgstr "Skriv in paket namnet du viss slå ihop detta paket med."
+
+#: html/pkgmerge.php
+msgid "Merge into:"
+msgstr "Slå ihop in i:"
+
+#: html/pkgmerge.php
+msgid "Confirm package merge"
+msgstr "Konfirmera ihopslagning"
+
+#: html/pkgmerge.php template/pkgreq_form.php
+msgid "Merge"
+msgstr "Slå ihop"
+
+#: html/pkgmerge.php
+msgid "Only Trusted Users and Developers can merge packages."
+msgstr "Bara Trusted Users och Developers kan slå ihop paket."
+
+#: html/pkgreq.php template/pkgbase_actions.php template/pkgreq_form.php
+msgid "Submit Request"
+msgstr "Skicka In Förfrågning"
+
+#: html/pkgreq.php template/pkgreq_close_form.php
+msgid "Close Request"
+msgstr "Stäng förfrågning"
+
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
+msgid "First"
+msgstr "Första"
+
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
+msgid "Previous"
+msgstr "Förra"
+
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php template/tu_list.php
+msgid "Next"
+msgstr "Nästa"
+
+#: html/pkgreq.php lib/aur.inc.php lib/pkgfuncs.inc.php
+msgid "Last"
+msgstr "Sista"
+
+#: html/pkgreq.php template/header.php
+msgid "Requests"
+msgstr "Förfrågningar"
+
+#: html/register.php template/header.php
+msgid "Register"
+msgstr "Registrera"
+
+#: html/register.php
+msgid "Use this form to create an account."
+msgstr "Använd det här fältet för att skapa ett konto."
+
+#: html/tos.php
+msgid "Terms of Service"
+msgstr "Användarvillkor"
+
+#: html/tos.php
+msgid ""
+"The following documents have been updated. Please review them carefully:"
+msgstr "Följande dokument har uppdaterats. Vänligen granska dem noggrant:"
+
+#: html/tos.php
+#, php-format
+msgid "revision %d"
+msgstr "revision %d"
+
+#: html/tos.php
+msgid "I accept the terms and conditions above."
+msgstr "Jag accepterar villkoren ovan."
+
+#: html/tu.php template/account_details.php template/header.php
+msgid "Trusted User"
+msgstr "Trusted User"
+
+#: html/tu.php
+msgid "Could not retrieve proposal details."
+msgstr "Kunde inte hämta förslagsdetaljer."
+
+#: html/tu.php
+msgid "Voting is closed for this proposal."
+msgstr "Röstning för detta förslag är stängt."
+
+#: html/tu.php
+msgid "Only Trusted Users are allowed to vote."
+msgstr "Bara Trusted Users är tillåtna att rösta."
+
+#: html/tu.php
+msgid "You cannot vote in an proposal about you."
+msgstr "Du kan inte rösta för ett förslag om dig."
+
+#: html/tu.php
+msgid "You've already voted for this proposal."
+msgstr "Du har redan röstat för detta förslag."
+
+#: html/tu.php
+msgid "Vote ID not valid."
+msgstr "Omröstnings IDt är inte giltigt"
+
+#: html/tu.php template/tu_list.php
+msgid "Current Votes"
+msgstr "Nuvaranda omröstningar"
+
+#: html/tu.php
+msgid "Past Votes"
+msgstr "Tidigare omröstningar"
+
+#: html/voters.php template/tu_details.php
+msgid "Voters"
+msgstr "Röstare"
+
+#: lib/acctfuncs.inc.php
+msgid ""
+"Account registration has been disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Konto registrering har blivit avstängt för din IP, troligen på grund av spam attacker. Vi ber om ursäkt för besväret."
+
+#: lib/acctfuncs.inc.php
+msgid "Missing User ID"
+msgstr "Användar ID fattas"
+
+#: lib/acctfuncs.inc.php
+msgid "The username is invalid."
+msgstr "Användarnamnet är ogiltigt."
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "It must be between %s and %s characters long"
+msgstr "Det måste vara mellan %s och %s karaktärer långt"
+
+#: lib/acctfuncs.inc.php
+msgid "Start and end with a letter or number"
+msgstr "Starta och sluta med en bokstav eller nummer"
+
+#: lib/acctfuncs.inc.php
+msgid "Can contain only one period, underscore or hyphen."
+msgstr "Kan bara innehålla en punkt, understreck, eller bindestreck."
+
+#: lib/acctfuncs.inc.php
+msgid "Please confirm your new password."
+msgstr "Vänligen bekräfta ditt nya lösenord."
+
+#: lib/acctfuncs.inc.php
+msgid "The email address is invalid."
+msgstr "Email adressen är ogiltigt."
+
+#: lib/acctfuncs.inc.php
+msgid "The backup email address is invalid."
+msgstr "Backup-e-postadressen är ogiltig."
+
+#: lib/acctfuncs.inc.php
+msgid "The home page is invalid, please specify the full HTTP(s) URL."
+msgstr "Hemsidan är ogiltig, ange den fullständiga HTTP(s) URL."
+
+#: lib/acctfuncs.inc.php
+msgid "The PGP key fingerprint is invalid."
+msgstr "Fingeravtrycket för PGP nyckeln är ogiltigt."
+
+#: lib/acctfuncs.inc.php
+msgid "The SSH public key is invalid."
+msgstr "Den publika SSH nyckeln är ogiltig."
+
+#: lib/acctfuncs.inc.php
+msgid "Cannot increase account permissions."
+msgstr "Kan inte öka kontots tillgång."
+
+#: lib/acctfuncs.inc.php
+msgid "Language is not currently supported."
+msgstr "Språket stöds för nuvarande inte."
+
+#: lib/acctfuncs.inc.php
+msgid "Timezone is not currently supported."
+msgstr "Tidszon stöds för nuvarande inte."
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The username, %s%s%s, is already in use."
+msgstr "Användarnamnet %s%s%s används redan."
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The address, %s%s%s, is already in use."
+msgstr "Addressen %s%s%s används redan."
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The SSH public key, %s%s%s, is already in use."
+msgstr "Den publika SSH nyckeln %s%s%s används redan."
+
+#: lib/acctfuncs.inc.php
+msgid "The CAPTCHA is missing."
+msgstr "CAPTCHA saknas."
+
+#: lib/acctfuncs.inc.php
+msgid "This CAPTCHA has expired. Please try again."
+msgstr "Denna CAPTCHA har löpt ut. Var god försök igen."
+
+#: lib/acctfuncs.inc.php
+msgid "The entered CAPTCHA answer is invalid."
+msgstr "Det angivna CAPTCHA-svaret är ogiltigt."
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "Error trying to create account, %s%s%s."
+msgstr "Fel vid skapande av kontot %s%s%s"
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The account, %s%s%s, has been successfully created."
+msgstr "Kontot %s%s%s har skapats framgångsrikt."
+
+#: lib/acctfuncs.inc.php
+msgid "A password reset key has been sent to your e-mail address."
+msgstr "En lösenordsåterställnings nyckel har skickats till din e-mail adress."
+
+#: lib/acctfuncs.inc.php
+msgid "Click on the Login link above to use your account."
+msgstr "Klicka på Inloggning länken ovan för att använda ditt konto."
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "No changes were made to the account, %s%s%s."
+msgstr "Inga ändringar gjordes till kontot, %s%s%s."
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid "The account, %s%s%s, has been successfully modified."
+msgstr "Kontot %s%s%s har blivit modifierat framgångsrikt."
+
+#: lib/acctfuncs.inc.php
+msgid ""
+"The login form is currently disabled for your IP address, probably due to "
+"sustained spam attacks. Sorry for the inconvenience."
+msgstr "Inloggnings formuläret är för närvarande avstängt för din IP adress, troligen på grund av spam attacker. Vi ber om ursäkt för besväret."
+
+#: lib/acctfuncs.inc.php
+msgid "Account suspended"
+msgstr "Konto avstängt"
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to suspend accounts."
+msgstr "Du har inte behörighet att stänga av konton."
+
+#: lib/acctfuncs.inc.php
+#, php-format
+msgid ""
+"Your password has been reset. If you just created a new account, please use "
+"the link from the confirmation email to set an initial password. Otherwise, "
+"please request a reset key on the %sPassword Reset%s page."
+msgstr "Ditt lösenord har blivit återställt. Om du precis skapade ett nytt konto, var god och följ länken i konfirmations mailet för att sätta ett första lösenord. Annars, var god och skicka in en förfrågan om en återställningsnyckel på %sLösenords Återställning%s sidan"
+
+#: lib/acctfuncs.inc.php
+msgid "Bad username or password."
+msgstr "Fel användarnamn eller lösenord."
+
+#: lib/acctfuncs.inc.php
+msgid "An error occurred trying to generate a user session."
+msgstr "Ett fel inträffade vid genererandet av en användar session."
+
+#: lib/acctfuncs.inc.php
+msgid "Invalid e-mail and reset key combination."
+msgstr "Ogiltig e-mail och återställningsnyckel kombination."
+
+#: lib/aur.inc.php template/pkg_details.php
+msgid "None"
+msgstr "Ingen"
+
+#: lib/aur.inc.php template/pkgreq_results.php template/pkg_search_results.php
+#, php-format
+msgid "View account information for %s"
+msgstr "Visa konto information för %s"
+
+#: lib/aurjson.class.php
+msgid "Package base ID or package base name missing."
+msgstr "Paketbas ID eller paketbasnamn saknas."
+
+#: lib/aurjson.class.php lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to edit this comment."
+msgstr "Du har inte rättigheter till att redigera denna kommentar."
+
+#: lib/aurjson.class.php
+msgid "Comment does not exist."
+msgstr "Kommentaren existerar inte."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment cannot be empty."
+msgstr "Kommentaren kan inte vara tom."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been added."
+msgstr "Kommentaren har blivit tillagd."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can edit package information."
+msgstr "Du måste vara inloggad innan du kan redigera paket information."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Missing comment ID."
+msgstr "Kommentars ID fattas."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "No more than 5 comments can be pinned."
+msgstr "Inte mer än 5 kommentarer kan bli fästa."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to pin this comment."
+msgstr "Du har inte rättigheter till att fästa denna kommentar."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to unpin this comment."
+msgstr "Du har inte rättigheter till att lossa denna kommentar."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been pinned."
+msgstr "Kommentaren har blivit fäst."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been unpinned."
+msgstr "Kommentaren har blivit lossad."
+
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
+msgid "Error retrieving package details."
+msgstr "Fel vid hämtning av paket detaljer."
+
+#: lib/pkgbasefuncs.inc.php lib/pkgfuncs.inc.php
+msgid "Package details could not be found."
+msgstr "Paket detaljer kunde inte hittas."
+
+#: aurweb/routers/auth.py
+msgid "Bad Referer header."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages to be notified about."
+msgstr "Du har inte valt några paket att notifieras om."
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "You did not select any packages for notification removal."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "A package you selected does not have notifications enabled."
+msgstr ""
+
+#: aurweb/routers/packages.py
+msgid "The selected packages' notifications have been removed."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can flag packages."
+msgstr "Du måste vara inloggad före du kan flagga paket."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to flag."
+msgstr "Du valde inte några paket att flagga."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have not been flagged, please enter a comment."
+msgstr "De valda paketen har inte blivit flaggade, var snäll och skriv in en kommentar."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been flagged out-of-date."
+msgstr "De valda paketen har blivit flaggade utdaterade."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can unflag packages."
+msgstr "Du måste vara inloggad före du kan avflagga paket."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to unflag."
+msgstr "Du valde inte några paket att avflagga."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been unflagged."
+msgstr "De valda paketen har blivit avflaggade."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You do not have permission to delete packages."
+msgstr "Du har inte tillgång till att radera paket."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to delete."
+msgstr "Du valde inte några paket att radera."
+
+#: aurweb/routers/packages.py
+msgid "One of the packages you selected does not exist."
+msgstr "Ett av paketen du valde finns inte."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been deleted."
+msgstr "De valda paketen har blivit raderade."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can adopt packages."
+msgstr "Du måste vara inloggad före du kan adoptera paket."
+
+#: aurweb/routers/package.py
+msgid "You are not allowed to adopt one of the packages you selected."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can disown packages."
+msgstr "Du måste vara inloggad före du kan göra paket härrelösa."
+
+#: aurweb/routers/packages.py
+msgid "You are not allowed to disown one of the packages you selected."
+msgstr ""
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to adopt."
+msgstr "Du valde into några paket att adoptera."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to disown."
+msgstr "Du valde inte några paket att göra härrelösa."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been adopted."
+msgstr "De valda paketen har blivit adopterade."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The selected packages have been disowned."
+msgstr "De valda paketen har blivit härrelösa."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can vote for packages."
+msgstr "Du måste vara inloggad före du kan rösta för paket"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You must be logged in before you can un-vote for packages."
+msgstr "Du måste vara inloggad före du kan ta bort din röst från paket."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You did not select any packages to vote for."
+msgstr "Du valde inte något paket att rösta för."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Your votes have been removed from the selected packages."
+msgstr "Dina röster har blivit borttagna från de valda paketen."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Your votes have been cast for the selected packages."
+msgstr "Dina röster har blivit sparade för de valda paketen."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Couldn't add to notification list."
+msgstr "Kunde inte lägga till i notifierings listan."
+
+#: lib/pkgbasefuncs.inc.php
+#, php-format
+msgid "You have been added to the comment notification list for %s."
+msgstr "Du har blivit tillagd i kommentarnotifierings listan för %s"
+
+#: lib/pkgbasefuncs.inc.php
+#, php-format
+msgid "You have been removed from the comment notification list for %s."
+msgstr "Du har blivit borttagen från kommentarsnotifierings listan för %s"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to undelete this comment."
+msgstr "Du har inte rättigheter att återta denna kommentar."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been undeleted."
+msgstr "Kommentaren har blivit återtagen."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to delete this comment."
+msgstr "Du kan inte ta bort den här kommentaren"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been deleted."
+msgstr "Kommentaren har blivit borttagen."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "Comment has been edited."
+msgstr "Kommentaren har bilvit redigerad."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to edit the keywords of this package base."
+msgstr "Du kan inte redigera nyckelorden för den här paket basen."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The package base keywords have been updated."
+msgstr "Paket basens nyckelord har blivit updaterade."
+
+#: lib/pkgbasefuncs.inc.php
+msgid "You are not allowed to manage co-maintainers of this package base."
+msgstr "Du har inte tillåtelse att ändra sam-ansvariga för denna paket bas."
+
+#: lib/pkgbasefuncs.inc.php
+#, php-format
+msgid "Invalid user name: %s"
+msgstr "Felaktigt användar namn: %s"
+
+#: lib/pkgbasefuncs.inc.php
+msgid "The package base co-maintainers have been updated."
+msgstr "Paket basens sam-ansvariga har blivit updaterade"
+
+#: lib/pkgfuncs.inc.php template/pkgbase_details.php
+msgid "View packages details for"
+msgstr "Visa paket detaljer för"
+
+#: lib/pkgfuncs.inc.php
+#, php-format
+msgid "requires %s"
+msgstr "behöver %s"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "You must be logged in to file package requests."
+msgstr "Du måste vara inloggad för att öppna paket förfrågningar."
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Invalid name: only lowercase letters are allowed."
+msgstr "Felaktigt namn: bara gemener är tillåtna"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "The comment field must not be empty."
+msgstr "Kommentarsfältet får inte vara tomt."
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Invalid request type."
+msgstr "Felaktig förfrågningstyp"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Added request successfully."
+msgstr "Lade till förfrågningen framgångsrikt."
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Invalid reason."
+msgstr "Felaktig anledning"
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Only TUs and developers can close requests."
+msgstr "Bara TUs och Developers kan stänga förfrågningar."
+
+#: lib/pkgreqfuncs.inc.php
+msgid "Request closed successfully."
+msgstr "Förfrågning stängt framgångsrikt"
+
+#: template/account_delete.php
+#, php-format
+msgid "You can use this form to permanently delete the AUR account %s."
+msgstr "Du kan använda det här formuläret för att permanent radera AUR kontot %s."
+
+#: template/account_delete.php
+#, php-format
+msgid "%sWARNING%s: This action cannot be undone."
+msgstr "%sVARNING%s: Den här handlingen kan inte ogöras."
+
+#: template/account_delete.php
+msgid "Confirm deletion"
+msgstr "Konfirmera radering"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
+msgid "Username"
+msgstr "Användarnamn"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
+msgid "Account Type"
+msgstr "Konto typ"
+
+#: template/account_details.php template/tu_details.php
+#: template/tu_last_votes_list.php template/tu_list.php
+msgid "User"
+msgstr "Användare"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
+msgid "Developer"
+msgstr "Developer"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
+msgid "Trusted User & Developer"
+msgstr "Trusted User & Developer"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/search_accounts_form.php
+msgid "Email Address"
+msgstr "Email Adress"
+
+#: template/account_details.php
+msgid "hidden"
+msgstr "gömd"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
+msgid "Real Name"
+msgstr "Riktigt namn"
+
+#: template/account_details.php template/account_edit_form.php
+msgid "Homepage"
+msgstr "Hemsida"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php template/search_accounts_form.php
+msgid "IRC Nick"
+msgstr "IRC nick"
+
+#: template/account_details.php template/account_edit_form.php
+#: template/account_search_results.php
+msgid "PGP Key Fingerprint"
+msgstr "PGP nyckel fingerprint"
+
+#: template/account_details.php template/account_search_results.php
+#: template/pkgreq_results.php
+msgid "Status"
+msgstr "Status"
+
+#: template/account_details.php
+msgid "Inactive since"
+msgstr "Inaktiv sen"
+
+#: template/account_details.php template/account_search_results.php
+msgid "Active"
+msgstr "Aktiv"
+
+#: template/account_details.php
+msgid "Registration date:"
+msgstr "Registrerings datum:"
+
+#: template/account_details.php template/pkgbase_details.php
+#: template/pkg_details.php template/pkgreq_results.php
+#: template/tu_details.php
+msgid "unknown"
+msgstr "okänd"
+
+#: template/account_details.php
+msgid "Last Login"
+msgstr "Sista inloggning"
+
+#: template/account_details.php
+msgid "Never"
+msgstr "Aldrig"
+
+#: template/account_details.php
+msgid "View this user's packages"
+msgstr "Visa den här användarens paket"
+
+#: template/account_details.php
+msgid "Edit this user's account"
+msgstr "Redigera den här användarens konto"
+
+#: template/account_details.php
+msgid "List this user's comments"
+msgstr "Lista denna användarens kommentarer"
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s if you want to permanently delete this account."
+msgstr "Klicka %shär%s om du vill permanent radera detta konto."
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s for user details."
+msgstr "Klicka %shär%s för användarinformation."
+
+#: template/account_edit_form.php
+#, php-format
+msgid "Click %shere%s to list the comments made by this account."
+msgstr "Klicka %shär%s för att lista kommentarerna från detta konto."
+
+#: template/account_edit_form.php
+msgid "required"
+msgstr "krävs"
+
+#: template/account_edit_form.php
+msgid ""
+"Your user name is the name you will use to login. It is visible to the "
+"general public, even if your account is inactive."
+msgstr "Ditt användarnamn är det namn du kommer att använda för att logga in. Det är synligt för allmänheten, även om ditt konto är inaktivt."
+
+#: template/account_edit_form.php template/search_accounts_form.php
+msgid "Normal user"
+msgstr "Normal användare"
+
+#: template/account_edit_form.php template/search_accounts_form.php
+msgid "Trusted user"
+msgstr "Trusted user"
+
+#: template/account_edit_form.php template/search_accounts_form.php
+msgid "Account Suspended"
+msgstr "Konto avstängt"
+
+#: template/account_edit_form.php
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: template/account_edit_form.php
+msgid ""
+"Please ensure you correctly entered your email address, otherwise you will "
+"be locked out."
+msgstr "Var god och se till att du har skrivit in din epostadress korrect, annars kommer du bli utelåst."
+
+#: template/account_edit_form.php
+msgid "Hide Email Address"
+msgstr "Göm epostadress"
+
+#: template/account_edit_form.php
+msgid ""
+"If you do not hide your email address, it is visible to all registered AUR "
+"users. If you hide your email address, it is visible to members of the Arch "
+"Linux staff only."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Backup Email Address"
+msgstr "Backup e-postadress"
+
+#: template/account_edit_form.php
+msgid ""
+"Optionally provide a secondary email address that can be used to restore "
+"your account in case you lose access to your primary email address."
+msgstr "Ange eventuellt en sekundär e-postadress som kan användas för att återställa ditt konto om du förlorar åtkomsten till din primära e-postadress."
+
+#: template/account_edit_form.php
+msgid ""
+"Password reset links are always sent to both your primary and your backup "
+"email address."
+msgstr ""
+
+#: template/account_edit_form.php
+#, php-format
+msgid ""
+"Your backup email address is always only visible to members of the Arch "
+"Linux staff, independent of the %s setting."
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Language"
+msgstr "Språk"
+
+#: template/account_edit_form.php
+msgid "Timezone"
+msgstr "Tidszon"
+
+#: template/account_edit_form.php
+msgid ""
+"If you want to change the password, enter a new password and confirm the new"
+" password by entering it again."
+msgstr "Om du vill ändra lösenordet, ange ett nytt lösenord och bekräfta det nya lösenordet genom att ange det igen."
+
+#: template/account_edit_form.php
+msgid "Re-type password"
+msgstr "Skriv lösenord igen"
+
+#: template/account_edit_form.php
+msgid ""
+"The following information is only required if you want to submit packages to"
+" the Arch User Repository."
+msgstr "Den följande informationen är bara nödvändig om du vill ladda upp paket till Arch User Repository."
+
+#: template/account_edit_form.php
+msgid "SSH Public Key"
+msgstr "SSH publik nyckel"
+
+#: template/account_edit_form.php
+msgid "Notification settings"
+msgstr "Notifieringsinställningar"
+
+#: template/account_edit_form.php
+msgid "Notify of new comments"
+msgstr "Notifiera om nya kommentarer"
+
+#: template/account_edit_form.php
+msgid "Notify of package updates"
+msgstr "Notifiera om paketupdateringar"
+
+#: template/account_edit_form.php
+msgid "Notify of ownership changes"
+msgstr "Notifiera om ägarskaps ändringar."
+
+#: template/account_edit_form.php
+msgid "To confirm the profile changes, please enter your current password:"
+msgstr "För att bekräfta profiländringarna, vänligen ange ditt nuvarande lösenord:"
+
+#: template/account_edit_form.php
+msgid "Your current password"
+msgstr "Ditt nuvarande lösenord"
+
+#: template/account_edit_form.php
+msgid ""
+"To protect the AUR against automated account creation, we kindly ask you to "
+"provide the output of the following command:"
+msgstr ""
+
+#: template/account_edit_form.php
+msgid "Answer"
+msgstr "Svar"
+
+#: template/account_edit_form.php template/pkgbase_details.php
+#: template/pkg_details.php
+msgid "Update"
+msgstr "Updatera"
+
+#: template/account_edit_form.php
+msgid "Create"
+msgstr "Skapa"
+
+#: template/account_edit_form.php template/search_accounts_form.php
+msgid "Reset"
+msgstr "Återställ"
+
+#: template/account_search_results.php
+msgid "No results matched your search criteria."
+msgstr "Inga resultat matchade dina sök kriterier."
+
+#: template/account_search_results.php
+msgid "Edit Account"
+msgstr "Redigera konto"
+
+#: template/account_search_results.php
+msgid "Suspended"
+msgstr "Stäng av"
+
+#: template/account_search_results.php
+msgid "Edit"
+msgstr "Redigera"
+
+#: template/account_search_results.php
+msgid "Less"
+msgstr "Mindre"
+
+#: template/account_search_results.php
+msgid "More"
+msgstr "Mer"
+
+#: template/account_search_results.php
+msgid "No more results to display."
+msgstr "Inga mer resultat att visa."
+
+#: template/comaintainers_form.php
+#, php-format
+msgid ""
+"Use this form to add co-maintainers for %s%s%s (one user name per line):"
+msgstr "Använd den här formen för att lägga till sam-ansvariga för %s%s%s (ett användarnamn per linje):"
+
+#: template/comaintainers_form.php
+msgid "Users"
+msgstr "Användare"
+
+#: template/comaintainers_form.php template/pkg_comment_form.php
+msgid "Save"
+msgstr "Spara"
+
+#: template/flag_comment.php
+#, php-format
+msgid "Flagged Out-of-Date Comment: %s"
+msgstr "Anledning till flaggning som gammal: %s"
+
+#: template/flag_comment.php
+#, php-format
+msgid "%s%s%s flagged %s%s%s out-of-date on %s%s%s for the following reason:"
+msgstr "%s%s%s flaggades %s%s%s som gammalt på %s%s%s av följande anledning:"
+
+#: template/flag_comment.php
+#, php-format
+msgid "%s%s%s is not flagged out-of-date."
+msgstr "%s%s%s är inte flaggad som gammal."
+
+#: template/flag_comment.php
+msgid "Return to Details"
+msgstr "Återvänd till Detaljer"
+
+#: template/footer.php
+#, php-format
+msgid "Copyright %s 2004-%d aurweb Development Team."
+msgstr "Upphovsrätt %s 2004-%d aurweb utvecklingsteamet"
+
+#: template/header.php
+msgid " My Account"
+msgstr " Mitt konto"
+
+#: template/pkgbase_actions.php
+msgid "Package Actions"
+msgstr "Paket handlingar"
+
+#: template/pkgbase_actions.php
+msgid "View PKGBUILD"
+msgstr "Visa PKGBUILD"
+
+#: template/pkgbase_actions.php
+msgid "View Changes"
+msgstr "Visa ändringar"
+
+#: template/pkgbase_actions.php
+msgid "Download snapshot"
+msgstr "Ladda ned ögonblicksbild"
+
+#: template/pkgbase_actions.php
+msgid "Search wiki"
+msgstr "Sök wiki"
+
+#: template/pkgbase_actions.php
+#, php-format
+msgid "Flagged out-of-date (%s)"
+msgstr "Flagga som gammalt (%s)"
+
+#: template/pkgbase_actions.php
+msgid "Flag package out-of-date"
+msgstr "Flagga paketet utdaterat"
+
+#: template/pkgbase_actions.php
+msgid "Unflag package"
+msgstr "Avflagga paket"
+
+#: template/pkgbase_actions.php
+msgid "Remove vote"
+msgstr "Ta bort röst"
+
+#: template/pkgbase_actions.php
+msgid "Vote for this package"
+msgstr "Rösta för detta paket"
+
+#: template/pkgbase_actions.php scripts/notify.py
+msgid "Disable notifications"
+msgstr "Stäng av notifieringar"
+
+#: template/pkgbase_actions.php template/pkg_comment_form.php
+msgid "Enable notifications"
+msgstr "Email notifieringar"
+
+#: template/pkgbase_actions.php
+msgid "Manage Co-Maintainers"
+msgstr "Hantera sam-ansvariga"
+
+#: template/pkgbase_actions.php
+#, php-format
+msgid "%d pending request"
+msgid_plural "%d pending requests"
+msgstr[0] "%d väntande förfrågning"
+msgstr[1] "%d väntande förfrågningar"
+
+#: template/pkgbase_actions.php
+msgid "Adopt Package"
+msgstr "Adoptera paket"
+
+#: template/pkgbase_details.php
+msgid "Package Base Details"
+msgstr "Paket bas detaljer"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "Git Clone URL"
+msgstr "Git klonings URL"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "read-only"
+msgstr "skrivskyddad"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "click to copy"
+msgstr "klicka för att kopiera"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
+msgid "Keywords"
+msgstr "Nyckelord"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php
+msgid "Submitter"
+msgstr "Första uppladdare"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Maintainer"
+msgstr "Underhållare"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "Last Packager"
+msgstr "Sista paketerare"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Votes"
+msgstr "Röster"
+
+#: template/pkgbase_details.php template/pkg_details.php
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Popularity"
+msgstr "Populäritet"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "First Submitted"
+msgstr "Först uppladdat"
+
+#: template/pkgbase_details.php template/pkg_details.php
+msgid "Last Updated"
+msgstr "Sist updaterat"
+
+#: template/pkg_comment_box.php
+#, php-format
+msgid "Edit comment for: %s"
+msgstr "Redigera kommentar för: %s"
+
+#: template/pkg_comment_box.php template/pkg_comment_form.php
+msgid "Add Comment"
+msgstr "Lägg till kommentar"
+
+#: template/pkg_comment_form.php
+msgid ""
+"Git commit identifiers referencing commits in the AUR package repository and"
+" URLs are converted to links automatically."
+msgstr ""
+
+#: template/pkg_comment_form.php
+#, php-format
+msgid "%sMarkdown syntax%s is partially supported."
+msgstr "%sMarkdown syntax%s stöds delvis."
+
+#: template/pkg_comments.php
+msgid "Pinned Comments"
+msgstr "Fästa Kommentarer"
+
+#: template/pkg_comments.php
+msgid "Latest Comments"
+msgstr "Senaste kommentarer"
+
+#: template/pkg_comments.php
+msgid "Comments for"
+msgstr "Kommentarer för"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "%s commented on %s"
+msgstr "%s kommenterade %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Anonymous comment on %s"
+msgstr "Anonym kommentar från %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "Commented on package %s on %s"
+msgstr "Kommenterade på paket %s på %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "deleted on %s by %s"
+msgstr "raderad %s av %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "deleted on %s"
+msgstr "raderad %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "edited on %s by %s"
+msgstr "redigerad %s av %s"
+
+#: template/pkg_comments.php
+#, php-format
+msgid "edited on %s"
+msgstr "redigerad %s"
+
+#: template/pkg_comments.php
+msgid "Undelete comment"
+msgstr "Återta kommentaren"
+
+#: template/pkg_comments.php
+msgid "Delete comment"
+msgstr "Radera kommentar"
+
+#: template/pkg_comments.php
+msgid "Pin comment"
+msgstr "Fäst kommentar"
+
+#: template/pkg_comments.php
+msgid "Unpin comment"
+msgstr "Lossa kommentar"
+
+#: template/pkg_details.php
+msgid "Package Details"
+msgstr "Paket detaljer"
+
+#: template/pkg_details.php template/pkg_search_form.php
+msgid "Package Base"
+msgstr "Paket bas"
+
+#: template/pkg_details.php template/pkg_search_results.php
+msgid "Description"
+msgstr "Beskrivning"
+
+#: template/pkg_details.php
+msgid "Upstream URL"
+msgstr "Uppströms URL"
+
+#: template/pkg_details.php
+msgid "Visit the website for"
+msgstr "Besök hemsidan för"
+
+#: template/pkg_details.php
+msgid "Licenses"
+msgstr "Licenser"
+
+#: template/pkg_details.php
+msgid "Groups"
+msgstr "Grupper"
+
+#: template/pkg_details.php
+msgid "Conflicts"
+msgstr "Konflikter"
+
+#: template/pkg_details.php
+msgid "Provides"
+msgstr "Erbjuder"
+
+#: template/pkg_details.php
+msgid "Replaces"
+msgstr "Ersätter"
+
+#: template/pkg_details.php
+msgid "Dependencies"
+msgstr "Beroenden"
+
+#: template/pkg_details.php
+msgid "Required by"
+msgstr "Krävs av"
+
+#: template/pkg_details.php
+msgid "Sources"
+msgstr "Källor"
+
+#: template/pkgreq_close_form.php
+#, php-format
+msgid "Use this form to close the request for package base %s%s%s."
+msgstr "Använd det här formuläret för att stänga förfrågningen för paket basen %s%s%s."
+
+#: template/pkgreq_close_form.php
+msgid ""
+"The comments field can be left empty. However, it is highly recommended to "
+"add a comment when rejecting a request."
+msgstr "Kommentarsfältet kan lämnas tomt, men det är rekommenderat att lämna en kommentar när man avböjer en förfrågning."
+
+#: template/pkgreq_close_form.php
+msgid "Reason"
+msgstr "Anledning"
+
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
+msgid "Accepted"
+msgstr "Accepterad"
+
+#: template/pkgreq_close_form.php template/pkgreq_results.php
+#: template/tu_details.php
+msgid "Rejected"
+msgstr "Avböjd"
+
+#: template/pkgreq_form.php
+#, php-format
+msgid ""
+"Use this form to file a request against package base %s%s%s which includes "
+"the following packages:"
+msgstr "Använd det här formuläret för att öppna en förfrågning mot paket bas %s%s%s, villket inkluderar de följande paketen:"
+
+#: template/pkgreq_form.php
+msgid "Request type"
+msgstr "Förfrågningstyp"
+
+#: template/pkgreq_form.php
+msgid "Deletion"
+msgstr "Radering"
+
+#: template/pkgreq_form.php
+msgid "Orphan"
+msgstr "Herrelös"
+
+#: template/pkgreq_form.php template/pkg_search_results.php
+msgid "Merge into"
+msgstr "Slå ihop i"
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting a deletion request, you ask a Trusted User to delete the "
+"package base. This type of request should be used for duplicates, software "
+"abandoned by upstream, as well as illegal and irreparably broken packages."
+msgstr ""
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting a merge request, you ask a Trusted User to delete the package "
+"base and transfer its votes and comments to another package base. Merging a "
+"package does not affect the corresponding Git repositories. Make sure you "
+"update the Git history of the target package yourself."
+msgstr ""
+
+#: template/pkgreq_form.php
+msgid ""
+"By submitting an orphan request, you ask a Trusted User to disown the "
+"package base. Please only do this if the package needs maintainer action, "
+"the maintainer is MIA and you already tried to contact the maintainer "
+"previously."
+msgstr ""
+
+#: template/pkgreq_results.php
+msgid "No requests matched your search criteria."
+msgstr "Inga förfrågningar matchade dina sökkriterier."
+
+#: template/pkgreq_results.php
+#, php-format
+msgid "%d package request found."
+msgid_plural "%d package requests found."
+msgstr[0] "%d paket förfrågning hittad."
+msgstr[1] "%d paket förfrågningar hittade."
+
+#: template/pkgreq_results.php template/pkg_search_results.php
+#, php-format
+msgid "Page %d of %d."
+msgstr "Sida %d av %d"
+
+#: template/pkgreq_results.php
+msgid "Package"
+msgstr "Paket"
+
+#: template/pkgreq_results.php
+msgid "Filed by"
+msgstr "Öppnad av"
+
+#: template/pkgreq_results.php
+msgid "Date"
+msgstr "Datum"
+
+#: template/pkgreq_results.php
+#, php-format
+msgid "~%d day left"
+msgid_plural "~%d days left"
+msgstr[0] "~%d dag kvar"
+msgstr[1] "~%d dagar kvar"
+
+#: template/pkgreq_results.php
+#, php-format
+msgid "~%d hour left"
+msgid_plural "~%d hours left"
+msgstr[0] "~%d timme kvar"
+msgstr[1] "~%d timmar kvar"
+
+#: template/pkgreq_results.php
+msgid "<1 hour left"
+msgstr "<1 timme kvar"
+
+#: template/pkgreq_results.php
+msgid "Accept"
+msgstr "Acceptera"
+
+#: template/pkgreq_results.php
+msgid "Locked"
+msgstr "Låst"
+
+#: template/pkgreq_results.php
+msgid "Close"
+msgstr "Stäng"
+
+#: template/pkgreq_results.php
+msgid "Pending"
+msgstr ""
+
+#: template/pkgreq_results.php
+msgid "Closed"
+msgstr "Stängd"
+
+#: template/pkg_search_form.php
+msgid "Name, Description"
+msgstr "Namn, Beskrivning"
+
+#: template/pkg_search_form.php
+msgid "Name Only"
+msgstr "Bara namn"
+
+#: template/pkg_search_form.php
+msgid "Exact Name"
+msgstr "Exakt namn"
+
+#: template/pkg_search_form.php
+msgid "Exact Package Base"
+msgstr "Exakt paket bas"
+
+#: template/pkg_search_form.php
+msgid "Co-maintainer"
+msgstr "Sam-ansvarig"
+
+#: template/pkg_search_form.php
+msgid "Maintainer, Co-maintainer"
+msgstr "Ansvarig, Sam-ansvariga"
+
+#: template/pkg_search_form.php
+msgid "All"
+msgstr "Alla"
+
+#: template/pkg_search_form.php
+msgid "Flagged"
+msgstr "Flaggade"
+
+#: template/pkg_search_form.php
+msgid "Not Flagged"
+msgstr "Inte flaggade"
+
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Name"
+msgstr "Namn"
+
+#: template/pkg_search_form.php template/pkg_search_results.php
+#: template/tu_details.php template/tu_list.php
+msgid "Voted"
+msgstr "Röstade"
+
+#: template/pkg_search_form.php
+msgid "Last modified"
+msgstr "Senast modifierad"
+
+#: template/pkg_search_form.php
+msgid "Ascending"
+msgstr "Stigande"
+
+#: template/pkg_search_form.php
+msgid "Descending"
+msgstr "Fallande"
+
+#: template/pkg_search_form.php
+msgid "Enter search criteria"
+msgstr "Skriv in sök kriterier"
+
+#: template/pkg_search_form.php
+msgid "Search by"
+msgstr "Sök efter"
+
+#: template/pkg_search_form.php template/stats/user_table.php
+msgid "Out of Date"
+msgstr "Utdaterat"
+
+#: template/pkg_search_form.php template/search_accounts_form.php
+msgid "Sort by"
+msgstr "Sortera efter"
+
+#: template/pkg_search_form.php
+msgid "Sort order"
+msgstr "Sorterings ordning"
+
+#: template/pkg_search_form.php
+msgid "Per page"
+msgstr "Per sida"
+
+#: template/pkg_search_form.php template/pkg_search_results.php
+msgid "Go"
+msgstr "Gå"
+
+#: template/pkg_search_form.php
+msgid "Orphans"
+msgstr "Herrelösa"
+
+#: template/pkg_search_results.php
+msgid "Error retrieving package list."
+msgstr "Fel inträffade vid hämt av paket listan."
+
+#: template/pkg_search_results.php
+msgid "No packages matched your search criteria."
+msgstr "Inga paket matchade dina sök kriterier."
+
+#: template/pkg_search_results.php
+#, php-format
+msgid "%d package found."
+msgid_plural "%d packages found."
+msgstr[0] "%d paket hittat"
+msgstr[1] "%d paket hittade"
+
+#: template/pkg_search_results.php
+msgid "Version"
+msgstr "Version"
+
+#: template/pkg_search_results.php
+#, php-format
+msgid ""
+"Popularity is calculated as the sum of all votes with each vote being "
+"weighted with a factor of %.2f per day since its creation."
+msgstr ""
+
+#: template/pkg_search_results.php template/tu_details.php
+#: template/tu_list.php
+msgid "Yes"
+msgstr "Ja"
+
+#: template/pkg_search_results.php
+msgid "orphan"
+msgstr "herrelös"
+
+#: template/pkg_search_results.php
+msgid "Actions"
+msgstr "Handlingar"
+
+#: template/pkg_search_results.php
+msgid "Unflag Out-of-date"
+msgstr "Avflagga utdaterat"
+
+#: template/pkg_search_results.php
+msgid "Adopt Packages"
+msgstr "Adoptera paketen"
+
+#: template/pkg_search_results.php
+msgid "Disown Packages"
+msgstr "Gör paket herrelösa"
+
+#: template/pkg_search_results.php
+msgid "Delete Packages"
+msgstr "Radera paketen"
+
+#: template/pkg_search_results.php
+msgid "Confirm"
+msgstr "Konfirmera"
+
+#: template/search_accounts_form.php
+msgid "Any type"
+msgstr "Alla typer"
+
+#: template/search_accounts_form.php
+msgid "Search"
+msgstr "Sök"
+
+#: template/stats/general_stats_table.php
+msgid "Statistics"
+msgstr "Statistik"
+
+#: template/stats/general_stats_table.php
+msgid "Orphan Packages"
+msgstr "Härrelösa paket"
+
+#: template/stats/general_stats_table.php
+msgid "Packages added in the past 7 days"
+msgstr "Paket tillagda de senaste 7 dagarna"
+
+#: template/stats/general_stats_table.php
+msgid "Packages updated in the past 7 days"
+msgstr "Paket uppdaterade de senaste 7 dagarna"
+
+#: template/stats/general_stats_table.php
+msgid "Packages updated in the past year"
+msgstr "Paket uppdaterade the senaste året"
+
+#: template/stats/general_stats_table.php
+msgid "Packages never updated"
+msgstr "Paket aldrig updaterade"
+
+#: template/stats/general_stats_table.php
+msgid "Registered Users"
+msgstr "Registrerade användare"
+
+#: template/stats/general_stats_table.php
+msgid "Trusted Users"
+msgstr "Trusted Users"
+
+#: template/stats/updates_table.php
+msgid "Recent Updates"
+msgstr "Nyliga uppdateringar"
+
+#: template/stats/updates_table.php
+msgid "more"
+msgstr "mer"
+
+#: template/stats/user_table.php
+msgid "My Statistics"
+msgstr "Mina statistiker"
+
+#: template/tu_details.php
+msgid "Proposal Details"
+msgstr "Förslagsdetaljer"
+
+#: template/tu_details.php
+msgid "This vote is still running."
+msgstr "Den här omröstningen är fortfarande öppen"
+
+#: template/tu_details.php
+#, php-format
+msgid "Submitted: %s by %s"
+msgstr "Uppladdad: %s av %s"
+
+#: template/tu_details.php template/tu_list.php
+msgid "End"
+msgstr "Slut"
+
+#: template/tu_details.php
+msgid "Result"
+msgstr "Resultat"
+
+#: template/tu_details.php template/tu_list.php
+msgid "No"
+msgstr "Nej"
+
+#: template/tu_details.php
+msgid "Abstain"
+msgstr "Avstå"
+
+#: template/tu_details.php
+msgid "Total"
+msgstr "Totalt"
+
+#: template/tu_details.php
+msgid "Participation"
+msgstr "Deltagande"
+
+#: template/tu_last_votes_list.php
+msgid "Last Votes by TU"
+msgstr "Sista röstning per TU"
+
+#: template/tu_last_votes_list.php
+msgid "Last vote"
+msgstr "Sista röstning"
+
+#: template/tu_last_votes_list.php template/tu_list.php
+msgid "No results found."
+msgstr "Inga resultat hittades."
+
+#: template/tu_list.php
+msgid "Start"
+msgstr "Start"
+
+#: template/tu_list.php
+msgid "Back"
+msgstr "Backåt"
+
+#: scripts/notify.py
+msgid "AUR Password Reset"
+msgstr "AUR Återställ Lösenord"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"A password reset request was submitted for the account {user} associated "
+"with your email address. If you wish to reset your password follow the link "
+"[1] below, otherwise ignore this message and nothing will happen."
+msgstr ""
+
+#: scripts/notify.py
+msgid "Welcome to the Arch User Repository"
+msgstr ""
+
+#: scripts/notify.py
+msgid ""
+"Welcome to the Arch User Repository! In order to set an initial password for"
+" your new account, please click the link [1] below. If the link does not "
+"work, try copying and pasting it into your browser."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Comment for {pkgbase}"
+msgstr "AUR Kommentar för {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] added the following comment to {pkgbase} [2]:"
+msgstr "{user} [1] lade till följande kommentar till {pkgbase} [2]:"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"If you no longer wish to receive notifications about this package, please go"
+" to the package page [2] and select \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package Update: {pkgbase}"
+msgstr "AUR paket uppdatering: {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "{user} [1] pushed a new commit to {pkgbase} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Out-of-date Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "Your package {pkgbase} [1] has been flagged out-of-date by {user} [2]:"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Ownership Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was adopted by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "The package {pkgbase} [1] was disowned by {user} [2]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Co-Maintainer Notification for {pkgbase}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were added to the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "You were removed from the co-maintainer list of {pkgbase} [1]."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "AUR Package deleted: {pkgbase}"
+msgstr "AUR paket borttaget: {pkgbase}"
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] merged {old} [2] into {new} [3].\n"
+"\n"
+"-- \n"
+"If you no longer wish receive notifications about the new package, please go to [3] and click \"{label}\"."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"{user} [1] deleted {pkgbase} [2].\n"
+"\n"
+"You will no longer receive notifications about this package."
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid "TU Vote Reminder: Proposal {id}"
+msgstr ""
+
+#: scripts/notify.py
+#, python-brace-format
+msgid ""
+"Please remember to cast your vote on proposal {id} [1]. The voting period "
+"ends in less than 48 hours."
+msgstr ""
+
+#: aurweb/routers/accounts.py
+msgid "Invalid account type provided."
+msgstr "Ogiltig kontotyp har angetts."
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change account types."
+msgstr "Du har inte behörighet att ändra kontotyper."
+
+#: aurweb/routers/accounts.py
+msgid "You do not have permission to change this user's account type to %s."
+msgstr "Du har inte behörighet att ändra den här användarens kontotyp till %s."
+
+#: aurweb/packages/requests.py
+msgid "No due existing orphan requests to accept for %s."
+msgstr ""
+
+#: aurweb/asgi.py
+msgid "Internal Server Error"
+msgstr ""
+
+#: templates/errors/500.html
+msgid "A fatal error has occurred."
+msgstr ""
+
+#: templates/errors/500.html
+msgid ""
+"Details have been logged and will be reviewed by the postmaster posthaste. "
+"We apologize for any inconvenience this may have caused."
+msgstr ""
+
+#: aurweb/scripts/notify.py
+msgid "AUR Server Error"
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+#: templates/packages/disown.html
+msgid "Related package request closure comments..."
+msgstr ""
+
+#: templates/pkgbase/merge.html templates/packages/delete.html
+msgid ""
+"This action will close any pending package requests related to it. If "
+"%sComments%s are omitted, a closure comment will be autogenerated."
+msgstr ""
