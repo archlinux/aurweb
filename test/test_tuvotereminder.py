@@ -1,9 +1,8 @@
-from datetime import datetime
 from typing import Tuple
 
 import pytest
 
-from aurweb import config, db
+from aurweb import config, db, time
 from aurweb.models import TUVote, TUVoteInfo, User
 from aurweb.models.account_type import TRUSTED_USER_ID
 from aurweb.scripts import tuvotereminder as reminder
@@ -56,7 +55,7 @@ def user3() -> User:
 
 @pytest.fixture
 def voteinfo(user: User) -> TUVoteInfo:
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     start = config.getint("tuvotereminder", "range_start")
     with db.begin():
         voteinfo = db.create(TUVoteInfo, Agenda="Lorem ipsum.",

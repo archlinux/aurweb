@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 
-from datetime import datetime
-
 from sqlalchemy import update
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models import User
 
 
 def _main():
-    limit_to = int(datetime.utcnow().timestamp()) - 86400 * 7
+    limit_to = time.utcnow() - 86400 * 7
 
     update_ = update(User).where(
         User.LastLogin < limit_to

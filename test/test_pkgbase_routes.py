@@ -1,6 +1,5 @@
 import re
 
-from datetime import datetime
 from http import HTTPStatus
 from typing import List
 from unittest import mock
@@ -10,7 +9,7 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import and_
 
-from aurweb import asgi, db
+from aurweb import asgi, db, time
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
 from aurweb.models.package import Package
@@ -115,7 +114,7 @@ def tu_user():
 @pytest.fixture
 def package(maintainer: User) -> Package:
     """ Yield a Package created by user. """
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         pkgbase = db.create(PackageBase,
                             Name="test-package",
@@ -137,7 +136,7 @@ def pkgbase(package: Package) -> PackageBase:
 @pytest.fixture
 def target(maintainer: User) -> PackageBase:
     """ Merge target. """
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         pkgbase = db.create(PackageBase, Name="target-package",
                             Maintainer=maintainer,
@@ -165,7 +164,7 @@ def pkgreq(user: User, pkgbase: PackageBase) -> PackageRequest:
 @pytest.fixture
 def comment(user: User, package: Package) -> PackageComment:
     pkgbase = package.PackageBase
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         comment = db.create(PackageComment,
                             User=user,
@@ -180,7 +179,7 @@ def comment(user: User, package: Package) -> PackageComment:
 def packages(maintainer: User) -> List[Package]:
     """ Yield 55 packages named pkg_0 .. pkg_54. """
     packages_ = []
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         for i in range(55):
             pkgbase = db.create(PackageBase,
@@ -258,7 +257,7 @@ def test_pkgbase_voters(client: TestClient, tu_user: User, package: Package):
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/voters"
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         db.create(PackageVote, User=tu_user, PackageBase=pkgbase, VoteTS=now)
 
@@ -279,7 +278,7 @@ def test_pkgbase_voters_unauthorized(client: TestClient, user: User,
     pkgbase = package.PackageBase
     endpoint = f"/pkgbase/{pkgbase.Name}/voters"
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         db.create(PackageVote, User=user, PackageBase=pkgbase, VoteTS=now)
 
@@ -303,7 +302,7 @@ def test_pkgbase_comment_not_found(client: TestClient, maintainer: User,
 
 def test_pkgbase_comment_form_unauthorized(client: TestClient, user: User,
                                            maintainer: User, package: Package):
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         comment = db.create(PackageComment, PackageBase=package.PackageBase,
                             User=maintainer, Comments="Test",

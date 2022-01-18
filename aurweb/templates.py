@@ -1,9 +1,7 @@
 import copy
 import functools
 import os
-import zoneinfo
 
-from datetime import datetime
 from http import HTTPStatus
 from typing import Callable
 
@@ -80,8 +78,8 @@ def make_context(request: Request, title: str, next: str = None):
         "timezone": timezone,
         "timezones": time.SUPPORTED_TIMEZONES,
         "title": title,
-        "now": datetime.now(tz=zoneinfo.ZoneInfo(timezone)),
-        "utcnow": int(datetime.utcnow().timestamp()),
+        "now": time.now(timezone),
+        "utcnow": time.utcnow(),
         "config": aurweb.config,
         "creds": aurweb.auth.creds,
         "next": next if next else request.url.path,

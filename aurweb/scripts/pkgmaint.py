@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 
-from datetime import datetime
-
 from sqlalchemy import and_
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models import PackageBase
 
 
 def _main():
     # One day behind.
-    limit_to = int(datetime.utcnow().timestamp()) - 86400
+    limit_to = time.utcnow() - 86400
 
     query = db.query(PackageBase).filter(
         and_(PackageBase.SubmittedTS < limit_to,

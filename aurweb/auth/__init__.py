@@ -1,6 +1,5 @@
 import functools
 
-from datetime import datetime
 from http import HTTPStatus
 from typing import Callable
 
@@ -13,7 +12,7 @@ from starlette.requests import HTTPConnection
 
 import aurweb.config
 
-from aurweb import db, filters, l10n, util
+from aurweb import db, filters, l10n, time, util
 from aurweb.models import Session, User
 from aurweb.models.account_type import ACCOUNT_TYPE_ID
 
@@ -110,7 +109,7 @@ class BasicAuthBackend(AuthenticationBackend):
                                            "persistent_cookie_timeout")
 
         # If no session with sid and a LastUpdateTS now or later exists.
-        now_ts = int(datetime.utcnow().timestamp())
+        now_ts = time.utcnow()
         record = db.query(Session).filter(Session.SessionID == sid).first()
         if not record:
             return unauthenticated

@@ -1,10 +1,8 @@
-from datetime import datetime
-
 import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import asgi, config, db
+from aurweb import asgi, config, db, time
 from aurweb.models.account_type import USER_ID
 from aurweb.models.official_provider import OFFICIAL_BASE, OfficialProvider
 from aurweb.models.package import Package
@@ -77,7 +75,7 @@ def test_updated_packages(maintainer: User, package: Package):
 
 
 def test_query_voted(maintainer: User, package: Package):
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         db.create(PackageVote, User=maintainer, VoteTS=now,
                   PackageBase=package.PackageBase)

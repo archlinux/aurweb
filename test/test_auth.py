@@ -1,12 +1,10 @@
-from datetime import datetime
-
 import fastapi
 import pytest
 
 from fastapi import HTTPException
 from sqlalchemy.exc import IntegrityError
 
-from aurweb import config, db
+from aurweb import config, db, time
 from aurweb.auth import AnonymousUser, BasicAuthBackend, _auth_required, account_type_required
 from aurweb.models.account_type import USER, USER_ID
 from aurweb.models.session import Session
@@ -55,7 +53,7 @@ async def test_auth_backend_invalid_sid(backend: BasicAuthBackend):
 @pytest.mark.asyncio
 async def test_auth_backend_invalid_user_id():
     # Create a new session with a fake user id.
-    now_ts = datetime.utcnow().timestamp()
+    now_ts = time.utcnow()
     with pytest.raises(IntegrityError):
         Session(UsersID=666, SessionID="realSession",
                 LastUpdateTS=now_ts + 5)
@@ -65,7 +63,7 @@ async def test_auth_backend_invalid_user_id():
 async def test_basic_auth_backend(user: User, backend: BasicAuthBackend):
     # This time, everything matches up. We expect the user to
     # equal the real_user.
-    now_ts = datetime.utcnow().timestamp()
+    now_ts = time.utcnow()
     with db.begin():
         db.create(Session, UsersID=user.ID, SessionID="realSession",
                   LastUpdateTS=now_ts + 5)
@@ -87,7 +85,7 @@ async def test_expired_session(backend: BasicAuthBackend, user: User):
 
     # Set Session.LastUpdateTS to 20 seconds expired.
     timeout = config.getint("options", "login_timeout")
-    now_ts = int(datetime.utcnow().timestamp())
+    now_ts = time.utcnow()
     with db.begin():
         request.user.session.LastUpdateTS = now_ts - timeout - 20
 

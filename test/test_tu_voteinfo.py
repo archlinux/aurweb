@@ -1,10 +1,8 @@
-from datetime import datetime
-
 import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.db import create, rollback
 from aurweb.models.account_type import TRUSTED_USER_ID
 from aurweb.models.tu_voteinfo import TUVoteInfo
@@ -26,7 +24,7 @@ def user() -> User:
 
 
 def test_tu_voteinfo_creation(user: User):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
     with db.begin():
         tu_voteinfo = create(TUVoteInfo,
                              Agenda="Blah blah.",
@@ -50,7 +48,7 @@ def test_tu_voteinfo_creation(user: User):
 
 
 def test_tu_voteinfo_is_running(user: User):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
     with db.begin():
         tu_voteinfo = create(TUVoteInfo,
                              Agenda="Blah blah.",
@@ -66,7 +64,7 @@ def test_tu_voteinfo_is_running(user: User):
 
 
 def test_tu_voteinfo_total_votes(user: User):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
     with db.begin():
         tu_voteinfo = create(TUVoteInfo,
                              Agenda="Blah blah.",

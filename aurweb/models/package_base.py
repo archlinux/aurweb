@@ -1,9 +1,7 @@
-from datetime import datetime
-
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-from aurweb import schema
+from aurweb import schema, time
 from aurweb.models.declarative import Base
 from aurweb.models.user import User as _User
 
@@ -43,7 +41,7 @@ class PackageBase(Base):
 
         # If no SubmittedTS/ModifiedTS is provided on creation, set them
         # here to the current utc timestamp.
-        now = datetime.utcnow().timestamp()
+        now = time.utcnow()
         if not self.SubmittedTS:
             self.SubmittedTS = now
         if not self.ModifiedTS:

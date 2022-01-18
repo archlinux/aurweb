@@ -1,9 +1,8 @@
-from datetime import datetime
 from unittest import mock
 
 import pytest
 
-from aurweb import config, db, logging
+from aurweb import config, db, logging, time
 from aurweb.models import Package, PackageBase, PackageComment, User
 from aurweb.models.account_type import USER_ID
 from aurweb.scripts import rendercomment
@@ -39,7 +38,7 @@ def user() -> User:
 
 @pytest.fixture
 def pkgbase(user: User) -> PackageBase:
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         pkgbase = db.create(PackageBase, Packager=user, Name="pkgbase_0",
                             SubmittedTS=now, ModifiedTS=now)

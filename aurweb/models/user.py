@@ -1,6 +1,5 @@
 import hashlib
 
-from datetime import datetime
 from typing import List, Set
 
 import bcrypt
@@ -14,7 +13,7 @@ import aurweb.config
 import aurweb.models.account_type
 import aurweb.schema
 
-from aurweb import db, logging, schema, util
+from aurweb import db, logging, schema, time, util
 from aurweb.models.account_type import AccountType as _AccountType
 from aurweb.models.ban import is_banned
 from aurweb.models.declarative import Base
@@ -121,7 +120,7 @@ class User(Base):
         exc = None
         for i in range(tries):
             exc = None
-            now_ts = datetime.utcnow().timestamp()
+            now_ts = time.utcnow()
             try:
                 with db.begin():
                     self.LastLogin = now_ts

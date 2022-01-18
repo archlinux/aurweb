@@ -13,7 +13,7 @@ from fastapi.testclient import TestClient
 
 import aurweb.models.account_type as at
 
-from aurweb import captcha, db, logging
+from aurweb import captcha, db, logging, time
 from aurweb.asgi import app
 from aurweb.db import create, query
 from aurweb.models.accepted_term import AcceptedTerm
@@ -155,7 +155,7 @@ def test_post_passreset_user(client: TestClient, user: User):
 def test_post_passreset_resetkey(client: TestClient, user: User):
     with db.begin():
         user.session = Session(UsersID=user.ID, SessionID="blah",
-                               LastUpdateTS=datetime.utcnow().timestamp())
+                               LastUpdateTS=time.utcnow())
 
     # Prepare a password reset.
     with client as request:

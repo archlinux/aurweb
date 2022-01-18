@@ -1,9 +1,7 @@
-from datetime import datetime
-
 from fastapi import Request
 from redis.client import Pipeline
 
-from aurweb import config, db, logging
+from aurweb import config, db, logging, time
 from aurweb.models import ApiRateLimit
 from aurweb.redis import redis_connection
 
@@ -12,7 +10,7 @@ logger = logging.get_logger(__name__)
 
 def _update_ratelimit_redis(request: Request, pipeline: Pipeline):
     window_length = config.getint("ratelimit", "window_length")
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     time_to_delete = now - window_length
 
     host = request.client.host
@@ -37,7 +35,7 @@ def _update_ratelimit_redis(request: Request, pipeline: Pipeline):
 
 def _update_ratelimit_db(request: Request):
     window_length = config.getint("ratelimit", "window_length")
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     time_to_delete = now - window_length
 
     records = db.query(ApiRateLimit).filter(

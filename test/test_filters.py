@@ -1,17 +1,17 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from aurweb import filters
+from aurweb import filters, time
 
 
 def test_timestamp_to_datetime():
-    ts = datetime.utcnow().timestamp()
+    ts = time.utcnow()
     dt = datetime.utcfromtimestamp(int(ts))
     assert filters.timestamp_to_datetime(ts) == dt
 
 
 def test_as_timezone():
-    ts = datetime.utcnow().timestamp()
+    ts = time.utcnow()
     dt = filters.timestamp_to_datetime(ts)
     assert filters.as_timezone(dt, "UTC") == dt.astimezone(tz=ZoneInfo("UTC"))
 

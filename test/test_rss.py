@@ -1,4 +1,3 @@
-from datetime import datetime
 from http import HTTPStatus
 
 import lxml.etree
@@ -6,7 +5,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import db, logging
+from aurweb import db, logging, time
 from aurweb.asgi import app
 from aurweb.models.account_type import AccountType
 from aurweb.models.package import Package
@@ -40,7 +39,7 @@ def user():
 @pytest.fixture
 def packages(user):
     pkgs = []
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
 
     # Create 101 packages; we limit 100 on RSS feeds.
     with db.begin():

@@ -1,11 +1,10 @@
-from datetime import datetime
 from logging import ERROR
 from typing import List
 from unittest import mock
 
 import pytest
 
-from aurweb import config, db, models
+from aurweb import config, db, models, time
 from aurweb.models import Package, PackageBase, PackageRequest, User
 from aurweb.models.account_type import TRUSTED_USER_ID, USER_ID
 from aurweb.models.request_type import ORPHAN_ID
@@ -48,7 +47,7 @@ def user2() -> User:
 
 @pytest.fixture
 def pkgbases(user: User) -> List[PackageBase]:
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
 
     output = []
     with db.begin():

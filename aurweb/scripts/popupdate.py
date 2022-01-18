@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 
-from datetime import datetime
 from typing import List
 
 from sqlalchemy import and_, func
 from sqlalchemy.sql.functions import coalesce
 from sqlalchemy.sql.functions import sum as _sum
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models import PackageBase, PackageVote
 
 
@@ -20,7 +19,7 @@ def run_variable(pkgbases: List[PackageBase] = []) -> None:
 
     :param pkgbases: List of PackageBase instances
     """
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
 
     # NumVotes subquery.
     votes_subq = db.get_session().query(

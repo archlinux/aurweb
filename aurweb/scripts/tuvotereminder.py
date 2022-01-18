@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 
-from datetime import datetime
-
 from sqlalchemy import and_
 
 import aurweb.config
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models import TUVoteInfo
 from aurweb.scripts import notify
 
@@ -16,7 +14,7 @@ notify_cmd = aurweb.config.get('notifications', 'notify-cmd')
 def main():
     db.get_engine()
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
 
     start = aurweb.config.getint("tuvotereminder", "range_start")
     filter_from = now + start

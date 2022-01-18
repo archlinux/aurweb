@@ -1,6 +1,5 @@
 import re
 
-from datetime import datetime
 from http import HTTPStatus
 from typing import List
 from unittest import mock
@@ -9,7 +8,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import asgi, db
+from aurweb import asgi, db, time
 from aurweb.models import License, PackageLicense
 from aurweb.models.account_type import USER_ID, AccountType
 from aurweb.models.dependency_type import DependencyType
@@ -116,7 +115,7 @@ def tu_user():
 @pytest.fixture
 def package(maintainer: User) -> Package:
     """ Yield a Package created by user. """
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         pkgbase = db.create(PackageBase,
                             Name="test-package",
@@ -138,7 +137,7 @@ def pkgbase(package: Package) -> PackageBase:
 @pytest.fixture
 def target(maintainer: User) -> PackageBase:
     """ Merge target. """
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         pkgbase = db.create(PackageBase, Name="target-package",
                             Maintainer=maintainer,
@@ -166,7 +165,7 @@ def pkgreq(user: User, pkgbase: PackageBase) -> PackageRequest:
 @pytest.fixture
 def comment(user: User, package: Package) -> PackageComment:
     pkgbase = package.PackageBase
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         comment = db.create(PackageComment,
                             User=user,
@@ -181,7 +180,7 @@ def comment(user: User, package: Package) -> PackageComment:
 def packages(maintainer: User) -> List[Package]:
     """ Yield 55 packages named pkg_0 .. pkg_54. """
     packages_ = []
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         for i in range(55):
             pkgbase = db.create(PackageBase,
@@ -293,7 +292,7 @@ def test_package(client: TestClient, package: Package):
 
 
 def test_package_comments(client: TestClient, user: User, package: Package):
-    now = (datetime.utcnow().timestamp())
+    now = (time.utcnow())
     with db.begin():
         comment = db.create(PackageComment, PackageBase=package.PackageBase,
                             User=user, Comments="Test comment", CommentTS=now)
@@ -847,7 +846,7 @@ def test_packages_sort_by_popularity(client: TestClient,
 def test_packages_sort_by_voted(client: TestClient,
                                 maintainer: User,
                                 packages: List[Package]):
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         db.create(PackageVote, PackageBase=packages[0].PackageBase,
                   User=maintainer, VoteTS=now)
@@ -942,7 +941,7 @@ def test_packages_sort_by_maintainer(client: TestClient,
 
 def test_packages_sort_by_last_modified(client: TestClient,
                                         packages: List[Package]):
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     # Set the first package's ModifiedTS to be 1000 seconds before now.
     package = packages[0]
     with db.begin():
@@ -970,7 +969,7 @@ def test_packages_flagged(client: TestClient, maintainer: User,
                           packages: List[Package]):
     package = packages[0]
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
 
     with db.begin():
         package.PackageBase.OutOfDateTS = now
@@ -1100,7 +1099,7 @@ def test_packages_post(client: TestClient, user: User, package: Package):
 def test_packages_post_unflag(client: TestClient, user: User,
                               maintainer: User, package: Package):
     # Flag `package` as `user`.
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         package.PackageBase.Flagger = user
         package.PackageBase.OutOfDateTS = now
@@ -1127,7 +1126,7 @@ def test_packages_post_unflag(client: TestClient, user: User,
     assert successes[0].text.strip() == expected
 
     # Re-flag `package` as `user`.
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         package.PackageBase.Flagger = user
         package.PackageBase.OutOfDateTS = now
@@ -1453,7 +1452,7 @@ def test_account_comments(client: TestClient, user: User, package: Package):
     """ This test may seem out of place, but it requires packages,
     so its being included in the packages routes test suite to
     leverage existing fixtures. """
-    now = (datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         # This comment's CommentTS is `now + 1`, so it is found in rendered
         # HTML before the rendered_comment, which has a CommentTS of `now`.

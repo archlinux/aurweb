@@ -1,6 +1,5 @@
 import re
 
-from datetime import datetime
 from http import HTTPStatus
 from unittest.mock import patch
 
@@ -8,7 +7,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.asgi import app
 from aurweb.models.account_type import USER_ID
 from aurweb.models.package import Package
@@ -62,7 +61,7 @@ def packages(user):
 
     # For i..num_packages, create a package named pkg_{i}.
     pkgs = []
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         for i in range(num_packages):
             pkgbase = db.create(PackageBase, Name=f"pkg_{i}",
@@ -184,7 +183,7 @@ def test_homepage_dashboard(redis, packages, user):
 
 
 def test_homepage_dashboard_requests(redis, packages, user):
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
 
     pkg = packages[0]
     reqtype = db.query(RequestType, RequestType.ID == DELETION_ID).first()
@@ -210,7 +209,7 @@ def test_homepage_dashboard_flagged_packages(redis, packages, user):
     # Set the first Package flagged by setting its OutOfDateTS column.
     pkg = packages[0]
     with db.begin():
-        pkg.PackageBase.OutOfDateTS = int(datetime.utcnow().timestamp())
+        pkg.PackageBase.OutOfDateTS = time.utcnow()
 
     cookies = {"AURSID": user.login(Request(), "testPassword")}
     with client as request:

@@ -1,9 +1,8 @@
-from datetime import datetime
 from typing import List
 
 import pytest
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models import Package, PackageBase, User
 from aurweb.models.account_type import USER_ID
 from aurweb.scripts import pkgmaint
@@ -26,7 +25,7 @@ def user() -> User:
 def packages(user: User) -> List[Package]:
     output = []
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         for i in range(5):
             pkgbase = db.create(PackageBase, Name=f"pkg_{i}",

@@ -1,10 +1,8 @@
-from datetime import datetime
-
 import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models.account_type import USER_ID
 from aurweb.models.package_base import PackageBase
 from aurweb.models.package_vote import PackageVote
@@ -33,7 +31,7 @@ def pkgbase(user: User) -> PackageBase:
 
 
 def test_package_vote_creation(user: User, pkgbase: PackageBase):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
 
     with db.begin():
         package_vote = db.create(PackageVote, User=user,

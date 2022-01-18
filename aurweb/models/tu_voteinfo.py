@@ -1,11 +1,9 @@
 import typing
 
-from datetime import datetime
-
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import backref, relationship
 
-from aurweb import schema
+from aurweb import schema, time
 from aurweb.models.declarative import Base
 from aurweb.models.user import User as _User
 
@@ -71,7 +69,7 @@ class TUVoteInfo(Base):
         return attr
 
     def is_running(self):
-        return self.End > int(datetime.utcnow().timestamp())
+        return self.End > time.utcnow()
 
     def total_votes(self):
         return self.Yes + self.No + self.Abstain

@@ -1,9 +1,8 @@
-from datetime import datetime
 from typing import Any, Dict
 
 from fastapi import Request
 
-from aurweb import cookies, db, models
+from aurweb import cookies, db, models, time
 from aurweb.models.ssh_pub_key import get_fingerprint
 from aurweb.util import strtobool
 
@@ -14,7 +13,7 @@ def simple(U: str = str(), E: str = str(), H: bool = False,
            CN: bool = False, UN: bool = False, ON: bool = False,
            S: bool = False, user: models.User = None,
            **kwargs) -> None:
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         user.Username = U or user.Username
         user.Email = E or user.Email

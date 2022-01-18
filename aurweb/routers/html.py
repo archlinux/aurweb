@@ -3,7 +3,6 @@ decorators in some way; more complex routes should be defined in their
 own modules and imported here. """
 import os
 
-from datetime import datetime
 from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Request, Response
@@ -14,7 +13,7 @@ from sqlalchemy import and_, case, or_
 import aurweb.config
 import aurweb.models.package_request
 
-from aurweb import cookies, db, models, util
+from aurweb import cookies, db, models, time, util
 from aurweb.cache import db_count_cache
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
 from aurweb.models.package_request import PENDING_ID
@@ -97,7 +96,7 @@ async def index(request: Request):
         redis, "trusted_user_count", query, expire=cache_expire)
 
     # Current timestamp.
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
 
     seven_days = 86400 * 7  # Seven days worth of seconds.
     seven_days_ago = now - seven_days

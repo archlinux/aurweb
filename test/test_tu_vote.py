@@ -1,10 +1,8 @@
-from datetime import datetime
-
 import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models.account_type import TRUSTED_USER_ID
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
@@ -27,7 +25,7 @@ def user() -> User:
 
 @pytest.fixture
 def tu_voteinfo(user: User) -> TUVoteInfo:
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
     with db.begin():
         tu_voteinfo = db.create(TUVoteInfo, Agenda="Blah blah.",
                                 User=user.Username,

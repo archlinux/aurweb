@@ -1,4 +1,3 @@
-from datetime import datetime
 from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Request
@@ -6,7 +5,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 import aurweb.config
 
-from aurweb import cookies, db
+from aurweb import cookies, db, time
 from aurweb.auth import requires_auth, requires_guest
 from aurweb.l10n import get_translator_for_request
 from aurweb.models import User
@@ -57,8 +56,7 @@ async def login_post(request: Request,
 
     login_timeout = aurweb.config.getint("options", "login_timeout")
 
-    expires_at = int(datetime.utcnow().timestamp()
-                     + max(cookie_timeout, login_timeout))
+    expires_at = int(time.utcnow() + max(cookie_timeout, login_timeout))
 
     response = RedirectResponse(url=next,
                                 status_code=HTTPStatus.SEE_OTHER)

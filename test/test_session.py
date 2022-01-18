@@ -1,12 +1,11 @@
 """ Test our Session model. """
-from datetime import datetime
 from unittest import mock
 
 import pytest
 
 from sqlalchemy.exc import IntegrityError
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models.account_type import USER_ID
 from aurweb.models.session import Session, generate_unique_sid
 from aurweb.models.user import User
@@ -30,7 +29,7 @@ def user() -> User:
 def session(user: User) -> Session:
     with db.begin():
         session = db.create(Session, User=user, SessionID="testSession",
-                            LastUpdateTS=datetime.utcnow().timestamp())
+                            LastUpdateTS=time.utcnow())
     yield session
 
 
@@ -48,7 +47,7 @@ def test_session_cs():
 
     with db.begin():
         session_cs = db.create(Session, User=user2, SessionID="TESTSESSION",
-                               LastUpdateTS=datetime.utcnow().timestamp())
+                               LastUpdateTS=time.utcnow())
 
     assert session_cs.SessionID == "TESTSESSION"
     assert session_cs.SessionID != "testSession"

@@ -1,13 +1,12 @@
 import re
 
-from datetime import datetime
 from typing import Any, Dict
 
 import pytest
 
 import aurweb.filters  # noqa: F401
 
-from aurweb import config, db, templates
+from aurweb import config, db, templates, time
 from aurweb.filters import as_timezone, number_format
 from aurweb.filters import timestamp_to_datetime as to_dt
 from aurweb.models import Package, PackageBase, User
@@ -59,7 +58,7 @@ def user(db_test) -> User:
 
 @pytest.fixture
 def pkgbase(user: User) -> PackageBase:
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         pkgbase = db.create(PackageBase, Name="test-pkg", Maintainer=user,
                             SubmittedTS=now, ModifiedTS=now)

@@ -2,14 +2,13 @@ import html
 import re
 import typing
 
-from datetime import datetime
 from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from sqlalchemy import and_, or_
 
-from aurweb import db, l10n, logging, models
+from aurweb import db, l10n, logging, models, time
 from aurweb.auth import creds, requires_auth
 from aurweb.models import User
 from aurweb.models.account_type import TRUSTED_USER_AND_DEV_ID, TRUSTED_USER_ID
@@ -52,7 +51,7 @@ async def trusted_user(request: Request,
     context["pp"] = pp = ITEMS_PER_PAGE
     context["prev_len"] = MAX_AGENDA_LENGTH
 
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
 
     if current_by not in {"asc", "desc"}:
         # If a malicious by was given, default to desc.
@@ -290,7 +289,7 @@ async def trusted_user_addvote_post(request: Request,
 
     # Gather some mapped constants and the current timestamp.
     duration, quorum = ADDVOTE_SPECIFICS.get(type)
-    timestamp = int(datetime.utcnow().timestamp())
+    timestamp = time.utcnow()
 
     # TODO: Review this. Is this even necessary?
     # Remove <script> and <style> tags.

@@ -1,6 +1,5 @@
 import re
 
-from datetime import datetime
 from http import HTTPStatus
 from unittest import mock
 
@@ -10,7 +9,7 @@ from fastapi.testclient import TestClient
 
 import aurweb.config
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.asgi import app
 from aurweb.models.account_type import USER_ID
 from aurweb.models.session import Session
@@ -200,7 +199,7 @@ def test_login_remember_me(client: TestClient, user: User):
 
     cookie_timeout = aurweb.config.getint(
         "options", "persistent_cookie_timeout")
-    now_ts = int(datetime.utcnow().timestamp())
+    now_ts = time.utcnow()
     session = db.query(Session).filter(Session.UsersID == user.ID).first()
 
     # Expect that LastUpdateTS is not past the cookie timeout
@@ -294,7 +293,7 @@ def test_generate_unique_sid_exhausted(client: TestClient, user: User,
     This exercises the bad path of /login, where we can't find a unique
     SID to assign the user.
     """
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         # Create a second user; we'll login with this one.
         user2 = db.create(User, Username="test2", Email="test2@example.org",

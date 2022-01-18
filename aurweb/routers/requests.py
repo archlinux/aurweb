@@ -1,11 +1,10 @@
-from datetime import datetime
 from http import HTTPStatus
 
 from fastapi import APIRouter, Form, Query, Request
 from fastapi.responses import RedirectResponse
 from sqlalchemy import case
 
-from aurweb import db, defaults, util
+from aurweb import db, defaults, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.models import PackageRequest, User
 from aurweb.models.package_request import PENDING_ID, REJECTED_ID
@@ -78,7 +77,7 @@ async def request_close_post(request: Request, id: int,
     context = make_context(request, "Close Request")
     context["pkgreq"] = pkgreq
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         pkgreq.Closer = request.user
         pkgreq.ClosureComment = comments

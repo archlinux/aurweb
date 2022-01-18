@@ -1,10 +1,9 @@
-from datetime import datetime
 from typing import List, Optional, Set
 
 from fastapi import Request
 from sqlalchemy import and_, orm
 
-from aurweb import config, db, l10n, util
+from aurweb import config, db, l10n, time, util
 from aurweb.exceptions import InvariantError
 from aurweb.models import PackageBase, PackageRequest, User
 from aurweb.models.package_request import ACCEPTED_ID, PENDING_ID, REJECTED_ID
@@ -106,7 +105,7 @@ def verify_orphan_request(user: User, pkgbase: PackageBase):
         PackageRequest.ReqTypeID == ORPHAN_ID)
     for pkgreq in requests:
         idle_time = config.getint("options", "request_idle_time")
-        time_delta = int(datetime.utcnow().timestamp()) - pkgreq.RequestTS
+        time_delta = time.utcnow() - pkgreq.RequestTS
         is_due = pkgreq.Status == PENDING_ID and time_delta > idle_time
         if is_due:
             # If the requester is the pkgbase maintainer or the
@@ -128,7 +127,7 @@ def close_pkgreq(pkgreq: PackageRequest, closer: User,
     :param target: Optional PackageBase instance to merge into
     :param status: `pkgreq`.Status value to update to
     """
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     pkgreq.Status = status
     pkgreq.Closer = closer
     pkgreq.ClosureComment = (

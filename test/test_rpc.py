@@ -1,6 +1,5 @@
 import re
 
-from datetime import datetime
 from http import HTTPStatus
 from typing import List
 from unittest import mock
@@ -14,7 +13,7 @@ from redis.client import Pipeline
 import aurweb.models.dependency_type as dt
 import aurweb.models.relation_type as rt
 
-from aurweb import asgi, config, db, rpc, scripts
+from aurweb import asgi, config, db, rpc, scripts, time
 from aurweb.models.account_type import USER_ID
 from aurweb.models.license import License
 from aurweb.models.package import Package
@@ -112,7 +111,7 @@ def packages(user: User, user2: User, user3: User) -> List[Package]:
                       PackageBase=output[0].PackageBase,
                       Keyword=keyword)
 
-        now = int(datetime.utcnow().timestamp())
+        now = time.utcnow()
         for user_ in [user, user2, user3]:
             db.create(PackageVote, User=user_,
                       PackageBase=output[0].PackageBase, VoteTS=now)

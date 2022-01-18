@@ -1,8 +1,6 @@
-from datetime import datetime
-
 import pytest
 
-from aurweb import db
+from aurweb import db, time
 from aurweb.models import User
 from aurweb.models.account_type import USER_ID
 from aurweb.scripts import usermaint
@@ -24,7 +22,7 @@ def user() -> User:
 def test_usermaint_noop(user: User):
     """ Last[SSH]Login isn't expired in this test: usermaint is noop. """
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         user.LastLoginIPAddress = "127.0.0.1"
         user.LastLogin = now - 10
@@ -45,7 +43,7 @@ def test_usermaint(user: User):
     its code path.
     """
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     limit_to = now - 86400 * 7
     with db.begin():
         user.LastLoginIPAddress = "127.0.0.1"

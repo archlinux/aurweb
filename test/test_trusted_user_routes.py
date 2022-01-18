@@ -1,6 +1,5 @@
 import re
 
-from datetime import datetime
 from http import HTTPStatus
 from io import StringIO
 from typing import Tuple
@@ -10,7 +9,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from aurweb import config, db, filters
+from aurweb import config, db, filters, time
 from aurweb.models.account_type import DEVELOPER_ID, AccountType
 from aurweb.models.tu_vote import TUVote
 from aurweb.models.tu_voteinfo import TUVoteInfo
@@ -111,7 +110,7 @@ def user():
 
 @pytest.fixture
 def proposal(user, tu_user):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
     agenda = "Test proposal."
     start = ts - 5
     end = ts + 1000
@@ -165,7 +164,7 @@ def test_tu_empty_index(client, tu_user):
 
 
 def test_tu_index(client, tu_user):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
 
     # Create some test votes: (Agenda, Start, End).
     votes = [
@@ -258,7 +257,7 @@ def test_tu_index(client, tu_user):
 
 
 def test_tu_index_table_paging(client, tu_user):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
 
     with db.begin():
         for i in range(25):
@@ -366,7 +365,7 @@ def test_tu_index_table_paging(client, tu_user):
 
 
 def test_tu_index_sorting(client, tu_user):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
 
     with db.begin():
         for i in range(2):
@@ -436,7 +435,7 @@ def test_tu_index_sorting(client, tu_user):
 
 
 def test_tu_index_last_votes(client, tu_user, user):
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
 
     with db.begin():
         # Create a proposal which has ended.
@@ -584,7 +583,7 @@ def test_tu_running_proposal(client: TestClient,
 def test_tu_ended_proposal(client, proposal):
     tu_user, user, voteinfo = proposal
 
-    ts = int(datetime.utcnow().timestamp())
+    ts = time.utcnow()
     with db.begin():
         voteinfo.End = ts - 5  # 5 seconds ago.
 

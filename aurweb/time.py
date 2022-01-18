@@ -3,6 +3,7 @@ import zoneinfo
 from collections import OrderedDict
 from datetime import datetime
 from urllib.parse import unquote
+from zoneinfo import ZoneInfo
 
 from fastapi import Request
 
@@ -62,3 +63,22 @@ def get_request_timezone(request: Request):
     if request.user.is_authenticated():
         default_tz = request.user.Timezone
     return unquote(request.cookies.get("AURTZ", default_tz))
+
+
+def now(timezone: str) -> datetime:
+    """
+    Get the current timezone-localized timestamp.
+
+    :param timezone: Valid timezone supported by ZoneInfo
+    :return: Current localized datetime
+    """
+    return datetime.now(tz=ZoneInfo(timezone))
+
+
+def utcnow() -> int:
+    """
+    Get the current UTC timestamp.
+
+    :return: Current UTC timestamp
+    """
+    return int(datetime.utcnow().timestamp())

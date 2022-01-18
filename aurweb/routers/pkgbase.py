@@ -1,11 +1,10 @@
-from datetime import datetime
 from http import HTTPStatus
 
 from fastapi import APIRouter, Form, HTTPException, Query, Request, Response
 from fastapi.responses import JSONResponse, RedirectResponse
 from sqlalchemy import and_
 
-from aurweb import config, db, l10n, logging, templates, util
+from aurweb import config, db, l10n, logging, templates, time, util
 from aurweb.auth import creds, requires_auth
 from aurweb.exceptions import InvariantError, ValidationError
 from aurweb.models import PackageBase
@@ -146,7 +145,7 @@ async def pkgbase_flag_post(request: Request, name: str,
 
     has_cred = request.user.has_credential(creds.PKGBASE_FLAG)
     if has_cred and not pkgbase.Flagger:
-        now = int(datetime.utcnow().timestamp())
+        now = time.utcnow()
         with db.begin():
             pkgbase.OutOfDateTS = now
             pkgbase.Flagger = request.user
@@ -170,7 +169,7 @@ async def pkgbase_comments_post(
 
     # If the provided comment is different than the record's version,
     # update the db record.
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         comment = db.create(PackageComment, User=request.user,
                             PackageBase=pkgbase,
@@ -268,7 +267,7 @@ async def pkgbase_comment_post(
 
     # If the provided comment is different than the record's version,
     # update the db record.
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     if db_comment.Comments != comment:
         with db.begin():
             db_comment.Comments = comment
@@ -316,7 +315,7 @@ async def pkgbase_comment_pin(request: Request, name: str, id: int,
             status_code=HTTPStatus.UNAUTHORIZED,
             detail=_("You are not allowed to pin this comment."))
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         comment.PinnedTS = now
 
@@ -387,7 +386,7 @@ async def pkgbase_comment_delete(request: Request, name: str, id: int,
             status_code=HTTPStatus.UNAUTHORIZED,
             detail=_("You are not allowed to delete this comment."))
 
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         comment.Deleter = request.user
         comment.DelTS = now
@@ -446,7 +445,7 @@ async def pkgbase_vote(request: Request, name: str):
     ).first()
     has_cred = request.user.has_credential(creds.PKGBASE_VOTE)
     if has_cred and not vote:
-        now = int(datetime.utcnow().timestamp())
+        now = time.utcnow()
         with db.begin():
             db.create(PackageVote,
                       User=request.user,
@@ -683,7 +682,7 @@ async def pkgbase_request_post(request: Request, name: str,
         return render_template(request, "pkgbase/request.html", context)
 
     # All good. Create a new PackageRequest based on the given type.
-    now = int(datetime.utcnow().timestamp())
+    now = time.utcnow()
     with db.begin():
         pkgreq = db.create(PackageRequest,
                            ReqTypeID=types.get(type),
