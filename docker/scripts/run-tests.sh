@@ -6,10 +6,7 @@ dir=$(dirname $0)
 make -C test clean
 
 # Run sharness tests.
-cp -vf logging.conf logging.conf.bak
-cp -vf logging.prod.conf logging.conf
 bash $dir/run-sharness.sh
-cp -vf logging.conf.bak logging.conf
 
 # Run Python tests with MariaDB database.
 # Pass --silence to avoid reporting coverage. We will do that below.
