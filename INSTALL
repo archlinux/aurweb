@@ -4,9 +4,7 @@ Setup on Arch Linux
 For testing aurweb patches before submission, you can use the instructions in
 TESTING for testing the web interface only.
 
-Note that you can only do limited testing using the PHP built-in web server.
-In particular, the cgit interface will be unusable as well as the ssh+git
-interface. For a detailed description on how to setup a full aurweb server,
+For a detailed description on how to setup a full aurweb server,
 read the instructions below.
 
 1) Clone the aurweb project and install it (via `python-poetry`):
