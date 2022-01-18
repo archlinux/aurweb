@@ -120,12 +120,12 @@ The following crontab file uses every script meant to be run on an
 interval:
 
     AUR_CONFIG='/etc/aurweb/config'
-    */5 * * * * bash -c 'poetry run aurweb-aurblup'
     */5 * * * * bash -c 'poetry run aurweb-mkpkglists --extended'
-    */5 * * * * bash -c 'poetry run aurweb-pkgmaint'
-    */5 * * * * bash -c 'poetry run aurweb-usermaint'
-    */5 * * * * bash -c 'poetry run aurweb-tuvotereminder'
-    */5 * * * * bash -c 'poetry run aurweb-popupdate'
+    */2 * * * * bash -c 'poetry run aurweb-aurblup'
+    */2 * * * * bash -c 'poetry run aurweb-pkgmaint'
+    */2 * * * * bash -c 'poetry run aurweb-usermaint'
+    */2 * * * * bash -c 'poetry run aurweb-popupdate'
+    */12 * * * * bash -c 'poetry run aurweb-tuvotereminder'
 
 7) Create a new database and a user and import the aurweb SQL schema:
 
